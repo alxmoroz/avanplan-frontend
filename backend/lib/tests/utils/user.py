@@ -2,12 +2,13 @@ from typing import Dict
 
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
-from utils import random_email, random_lower_string
 
 from lib.extra.config import settings
 from lib.L3_data import crud
 from lib.L3_data.models.user import User
 from lib.L3_data.schemas.user import UserCreate, UserUpdate
+
+from .utils import random_email, random_lower_string
 
 
 def user_authentication_headers(

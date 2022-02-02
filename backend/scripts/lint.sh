@@ -3,5 +3,5 @@
 set -x
 
 black lib --check
-isort --recursive --check-only lib
+isort --check-only lib
 flake8

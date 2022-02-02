@@ -1,7 +1,7 @@
 import logging
 
-from .db.init_db import init_db
-from .db.session import SessionLocal
+from lib.L3_data.db.init_db import init_db
+from lib.L3_data.db.session import SessionLocal
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)

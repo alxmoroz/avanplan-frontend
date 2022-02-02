@@ -1,11 +1,11 @@
-from typing import TYPE_CHECKING
+# from typing import TYPE_CHECKING
 
 from sqlalchemy import Boolean, Column, Integer, String
 
 from ..db.base_class import Base
 
-if TYPE_CHECKING:
-    from .item import Item  # noqa: F401
+# if TYPE_CHECKING:
+#     from .item import Item  # noqa: F401
 
 
 class User(Base):

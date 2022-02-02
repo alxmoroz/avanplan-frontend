@@ -1,10 +1,12 @@
-#! /usr/bin/env bash
+#!/usr/bin/env bash
+
+export PYTHONPATH="."
 
 # Let the DB start
-python /lib/L3_data/backend_pre_start.py
+python3 ./scripts/backend_pre_start.py
 
 # Run migrations
-alembic upgrade head
+alembic -c ./lib/L3_data/alembic/alembic.ini upgrade head
 
 # Create initial data in DB
-python /lib/L3_data/initial_data.py
+python3 ./lib/L3_data/initial_data.py

@@ -1,8 +1,8 @@
-from app_1.db import base  # noqa: F401
 from sqlalchemy.orm import Session
 
 from lib.extra.config import settings
 from lib.L3_data import crud, schemas
+from lib.L3_data.db import base  # noqa: F401
 
 # make sure all SQL Alchemy models are imported (app.db.base) before initializing DB
 # otherwise, SQL Alchemy might fail to initialize relationships properly

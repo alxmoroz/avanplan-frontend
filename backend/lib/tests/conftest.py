@@ -3,12 +3,13 @@ from typing import Generator
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
-from utils.user import authentication_token_from_email
-from utils.utils import get_superuser_token_headers
 
 from lib.extra.config import settings
 from lib.L3_data.db.session import SessionLocal
 from lib.main import app
+
+from .utils.user import authentication_token_from_email
+from .utils.utils import get_superuser_token_headers
 
 
 @pytest.fixture(scope="session")

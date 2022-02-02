@@ -1,8 +1,6 @@
 import logging
-
 from tenacity import (after_log, before_log, retry, stop_after_attempt,
                       wait_fixed)
-
 from lib.L3_data.db.session import SessionLocal
 
 logging.basicConfig(level=logging.INFO)

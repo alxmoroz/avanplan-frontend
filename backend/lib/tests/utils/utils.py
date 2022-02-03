@@ -8,7 +8,7 @@ from lib.extra.config import settings
 
 
 def random_lower_string() -> str:
-    return "".join(random.choices(string.ascii_lowercase, k=32))
+    return "".join(random.choices(string.ascii_lowercase, k=8))
 
 
 def random_email() -> str:
@@ -17,7 +17,7 @@ def random_email() -> str:
 
 def get_superuser_token_headers(client: TestClient) -> Dict[str, str]:
     login_data = {
-        "username": settings.FIRST_SUPERUSER,
+        "username": settings.FIRST_SUPERUSER_EMAIL,
         "password": settings.FIRST_SUPERUSER_PASSWORD,
     }
     r = client.post(f"{settings.API_V_STR}/login/access-token", data=login_data)

@@ -2,6 +2,8 @@
 
 set -x
 
-black lib --check
-isort --check-only lib
+autoflake --remove-all-unused-imports --recursive --remove-unused-variables --in-place lib --exclude=__init__.py
+black lib
+isort lib
+
 flake8

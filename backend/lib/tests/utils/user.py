@@ -1,19 +1,16 @@
-from typing import Dict
-
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
 
-from lib.extra.config import settings
 from lib.L3_data import crud
 from lib.L3_data.models.user import User
 from lib.L3_data.schemas.user import UserCreate, UserUpdate
-
+from lib.extra.config import settings
 from .utils import random_email, random_lower_string
 
 
 def user_authentication_headers(
-    *, client: TestClient, email: str, password: str
-) -> Dict[str, str]:
+        *, client: TestClient, email: str, password: str
+) -> dict[str, str]:
     data = {"username": email, "password": password}
 
     r = client.post(f"{settings.API_V_STR}/login/access-token", data=data)
@@ -32,8 +29,8 @@ def create_random_user(db: Session) -> User:
 
 
 def authentication_token_from_email(
-    *, client: TestClient, email: str, db: Session
-) -> Dict[str, str]:
+        *, client: TestClient, email: str, db: Session
+) -> dict[str, str]:
     """
     Return a valid token for the user with given email.
 
@@ -43,9 +40,9 @@ def authentication_token_from_email(
     user = crud.user.get_by_email(db, email=email)
     if not user:
         user_in_create = UserCreate(username=email, email=email, password=password)
-        user = crud.user.create(db, obj_in=user_in_create)
+        crud.user.create(db, obj_in=user_in_create)
     else:
         user_in_update = UserUpdate(password=password)
-        user = crud.user.update(db, db_obj=user, obj_in=user_in_update)
+        crud.user.update(db, db_obj=user, obj_in=user_in_update)
 
     return user_authentication_headers(client=client, email=email, password=password)

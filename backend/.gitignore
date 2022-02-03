@@ -2,3 +2,4 @@
 htmlcov
 /backend.iml
 /.idea/
+/.pytest_cache/

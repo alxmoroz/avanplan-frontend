@@ -1,10 +1,11 @@
 from sqlalchemy.orm import Session
 
-from lib.extra.config import settings
 from lib.L3_data import crud, schemas
 from lib.L3_data.db import base  # noqa: F401
+from lib.extra.config import settings
 
-# make sure all SQL Alchemy models are imported (app.db.base) before initializing DB
+
+# make sure all SQL Alchemy models are imported (db.base) before initializing DB
 # otherwise, SQL Alchemy might fail to initialize relationships properly
 # for more details: https://github.com/tiangolo/full-stack-fastapi-postgresql/issues/28
 
@@ -15,11 +16,11 @@ def init_db(db: Session) -> None:
     # the tables un-commenting the next line
     # Base.metadata.create_all(bind=engine)
 
-    user = crud.user.get_by_email(db, email=settings.FIRST_SUPERUSER)
+    user = crud.user.get_by_email(db, email=settings.FIRST_SUPERUSER_EMAIL)
     if not user:
         user_in = schemas.UserCreate(
-            email=settings.FIRST_SUPERUSER,
+            email=settings.FIRST_SUPERUSER_EMAIL,
             password=settings.FIRST_SUPERUSER_PASSWORD,
             is_superuser=True,
         )
-        user = crud.user.create(db, obj_in=user_in)  # noqa: F841
+        crud.user.create(db, obj_in=user_in)

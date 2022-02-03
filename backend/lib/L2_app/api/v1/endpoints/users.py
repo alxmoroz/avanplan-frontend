@@ -3,7 +3,6 @@ from fastapi.encoders import jsonable_encoder
 from pydantic.networks import EmailStr
 from sqlalchemy.orm import Session
 
-from lib.extra.config import settings
 from lib.L3_data import crud, deps, models, schemas
 
 router = APIRouter()
@@ -23,7 +22,7 @@ def read_users(
     return users
 
 
-@router.post("/", response_model=schemas.User)
+@router.post("/", response_model=schemas.User, status_code=201)
 def create_user(
     *,
     db: Session = Depends(deps.get_db),
@@ -69,8 +68,8 @@ def update_user_me(
 
 @router.get("/me", response_model=schemas.User)
 def read_user_me(
-    db: Session = Depends(deps.get_db),
-    current_user: models.User = Depends(deps.get_current_active_user),
+        db: Session = Depends(deps.get_db),
+        current_user: models.User = Depends(deps.get_current_active_user),
 ) -> any:
     """
     Get current user.
@@ -78,46 +77,46 @@ def read_user_me(
     return current_user
 
 
-@router.post("/open", response_model=schemas.User)
-def create_user_open(
-    *,
-    db: Session = Depends(deps.get_db),
-    password: str = Body(...),
-    email: EmailStr = Body(...),
-    full_name: str = Body(None),
-) -> any:
-    """
-    Create new user without the need to be logged in.
-    """
-    if not settings.USERS_OPEN_REGISTRATION:
-        raise HTTPException(
-            status_code=403,
-            detail="Open user registration is forbidden on this server",
-        )
-    user = crud.user.get_by_email(db, email=email)
-    if user:
-        raise HTTPException(
-            status_code=400,
-            detail="The user with this username already exists in the system",
-        )
-    user_in = schemas.UserCreate(password=password, email=email, full_name=full_name)
-    user = crud.user.create(db, obj_in=user_in)
-    return user
+# @router.post("/open", response_model=schemas.User)
+# def create_user_open(
+#     *,
+#     db: Session = Depends(deps.get_db),
+#     password: str = Body(...),
+#     email: EmailStr = Body(...),
+#     full_name: str = Body(None),
+# ) -> any:
+#     """
+#     Create new user without the need to be logged in.
+#     """
+#     if not settings.USERS_OPEN_REGISTRATION:
+#         raise HTTPException(
+#             status_code=403,
+#             detail="Open user registration is forbidden on this server",
+#         )
+#     user = crud.user.get_by_email(db, email=email)
+#     if user:
+#         raise HTTPException(
+#             status_code=400,
+#             detail="The user with this username already exists in the system",
+#         )
+#     user_in = schemas.UserCreate(password=password, email=email, full_name=full_name)
+#     user = crud.user.create(db, obj_in=user_in)
+#     return user
 
 
 @router.get("/{user_id}", response_model=schemas.User)
 def read_user_by_id(
-    user_id: int,
-    current_user: models.User = Depends(deps.get_current_active_user),
-    db: Session = Depends(deps.get_db),
+        user_id: int,
+        current_user: models.User = Depends(deps.get_current_active_user),
+        db: Session = Depends(deps.get_db),
 ) -> any:
     """
     Get a specific user by id.
     """
-    user = crud.user.get(db, id=user_id)
+    user = crud.user.get(db, p_id=user_id)
     if user == current_user:
         return user
-    if not crud.user.is_superuser(current_user):
+    if not current_user.is_superuser:
         raise HTTPException(
             status_code=400, detail="The user doesn't have enough privileges"
         )
@@ -135,7 +134,7 @@ def update_user(
     """
     Update a user.
     """
-    user = crud.user.get(db, id=user_id)
+    user = crud.user.get(db, p_id=user_id)
     if not user:
         raise HTTPException(
             status_code=404,

@@ -1,0 +1,27 @@
+// Copyright (c) 2021. Alexandr Moroz
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+import 'text/text_widgets.dart';
+
+MediaQuery mQuery(Widget child, BuildContext ctx) => MediaQuery(
+      data: MediaQuery.of(ctx),
+      child: child,
+    );
+
+CupertinoNavigationBar navBar(BuildContext context, {Widget? leading, Widget? middle, String? title, Widget? trailing, Color? bgColor}) {
+  Widget backButton() => CupertinoNavigationBarBackButton(onPressed: () => Navigator.of(context).canPop() ? Navigator.of(context).pop() : null);
+
+  return CupertinoNavigationBar(
+    leading: leading != null || Navigator.of(context).canPop() ? mQuery(leading ?? backButton(), context) : null,
+    middle: middle != null
+        ? mQuery(middle, context)
+        : title != null
+            ? mQuery(MediumText(title), context)
+            : null,
+    trailing: trailing != null ? mQuery(trailing, context) : null,
+    padding: const EdgeInsetsDirectional.only(start: 0),
+    backgroundColor: bgColor,
+  );
+}

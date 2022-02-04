@@ -7,7 +7,7 @@ fi
 
 echo "DEPLOYING..."
 
-appName="Choice"
+appName="Hercules"
 
 version="v$(grep 'version: ' ./pubspec.yaml | sed 's/version: //')"
 
@@ -26,6 +26,6 @@ mv "./build/app/outputs/bundle/release/app-release.aab" "${deployPathAndroid}/${
 #  mkdir -p "$deployPath_iOS"
 #fi
 
-#mv "./build/ios/OwnNative.xcarchive" "${deployPath_iOS}/${appName}_${version}.xcarchive"
+#mv "./build/ios/${appName}.xcarchive" "${deployPath_iOS}/${appName}_${version}.xcarchive"
 
 echo "DEPLOYING COMPLETE"

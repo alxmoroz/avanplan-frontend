@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Copyright (c) 2021. Alexandr Moroz
+# Copyright (c) 2022. Alexandr Moroz
 
 flutter clean
 

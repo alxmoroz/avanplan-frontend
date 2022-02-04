@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="team.moroz.frontend">
+    package="team.moroz.hercules">
    <application
-        android:label="frontend"
+        android:label="hercules"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

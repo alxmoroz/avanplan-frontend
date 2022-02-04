@@ -19,7 +19,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
-      title: 'Choice',
+      title: 'Hercules',
       home: FutureBuilder(
         future: getIt.allReady(),
         builder: (_, snapshot) => snapshot.hasData ? MainView() : const SplashScreen(),

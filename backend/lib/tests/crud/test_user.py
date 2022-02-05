@@ -1,10 +1,10 @@
 from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session
 
+from lib.L2_app.api.v1.security import verify_password
 from lib.L3_data import crud
 from lib.L3_data.schemas.user import UserCreate, UserUpdate
-from lib.extra.security import verify_password
-from lib.tests.utils.utils import random_email, random_lower_string
+from lib.tests.utils.user import random_email, random_lower_string
 
 
 def test_create_user(db: Session) -> None:
@@ -35,7 +35,7 @@ def test_not_authenticate_user(db: Session) -> None:
     assert user is None
 
 
-def test_check_if_user_is_active(db: Session) -> None:
+def test_check_user_active(db: Session) -> None:
     email = random_email()
     password = random_lower_string()
     user_in = UserCreate(email=email, password=password)
@@ -44,7 +44,7 @@ def test_check_if_user_is_active(db: Session) -> None:
     crud.user.delete(db, p_id=user.id)
 
 
-def test_check_if_user_is_active_inactive(db: Session) -> None:
+def test_check_user_inactive(db: Session) -> None:
     email = random_email()
     password = random_lower_string()
     user_in = UserCreate(email=email, password=password, is_active=False)

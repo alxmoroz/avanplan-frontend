@@ -5,10 +5,6 @@ from sqlalchemy import Boolean, Column, String
 from lib.L3_data.models.base_class import Base
 
 
-# if TYPE_CHECKING:
-#     from .item import Item  # noqa: F401
-
-
 class User(Base):
     full_name = Column(String, index=True)
     email = Column(String, unique=True, index=True, nullable=False)

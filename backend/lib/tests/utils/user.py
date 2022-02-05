@@ -1,3 +1,6 @@
+import random
+import string
+
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
 
@@ -5,18 +8,36 @@ from lib.L3_data import crud
 from lib.L3_data.models.user import User
 from lib.L3_data.schemas.user import UserCreate, UserUpdate
 from lib.extra.config import settings
-from .utils import random_email, random_lower_string
 
 
-def user_authentication_headers(
+def random_lower_string() -> str:
+    return "".join(random.choices(string.ascii_lowercase, k=8))
+
+
+def random_email() -> str:
+    return f"{random_lower_string()}@{random_lower_string()}.com"
+
+
+def get_superuser_token_headers(client: TestClient) -> dict[str, str]:
+    login_data = {
+        "username": settings.FIRST_SUPERUSER_EMAIL,
+        "password": settings.FIRST_SUPERUSER_PASSWORD,
+    }
+    r = client.post(f"{settings.API_PATH}/auth/token", data=login_data)
+    token = r.json()["access_token"]
+    headers = {"Authorization": f"Bearer {token}"}
+    return headers
+
+
+def user_auth_headers(
         *, client: TestClient, email: str, password: str
 ) -> dict[str, str]:
     data = {"username": email, "password": password}
 
-    r = client.post(f"{settings.API_V_STR}/login/access-token", data=data)
+    r = client.post(f"{settings.API_PATH}/auth/token", data=data)
     response = r.json()
-    auth_token = response["access_token"]
-    headers = {"Authorization": f"Bearer {auth_token}"}
+    token = response["access_token"]
+    headers = {"Authorization": f"Bearer {token}"}
     return headers
 
 
@@ -28,7 +49,7 @@ def create_random_user(db: Session) -> User:
     return user
 
 
-def authentication_token_from_email(
+def auth_headers_from_email(
         *, client: TestClient, email: str, db: Session
 ) -> dict[str, str]:
     """
@@ -45,4 +66,4 @@ def authentication_token_from_email(
         user_in_update = UserUpdate(password=password)
         crud.user.update(db, db_obj=user, obj_in=user_in_update)
 
-    return user_authentication_headers(client=client, email=email, password=password)
+    return user_auth_headers(client=client, email=email, password=password)

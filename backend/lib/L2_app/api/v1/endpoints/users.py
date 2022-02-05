@@ -3,57 +3,52 @@ from fastapi.encoders import jsonable_encoder
 from pydantic.networks import EmailStr
 from sqlalchemy.orm import Session
 
-from lib.L3_data import crud, deps, models, schemas
+from lib.L2_app.api.v1 import deps
+from lib.L3_data import crud, models, schemas
 
 router = APIRouter()
 
 
 @router.get("/", response_model=list[schemas.User])
 def read_users(
-    db: Session = Depends(deps.get_db),
-    skip: int = 0,
-    limit: int = 100,
-    current_user: models.User = Depends(deps.get_current_active_superuser),
+        skip: int = 0,
+        limit: int | None = None,
+        db: Session = Depends(deps.get_db),
+        granted: bool = Depends(deps.is_active_superuser),  # noqa
 ) -> any:
-    """
-    Retrieve users.
-    """
-    users = crud.user.get_multi(db, skip=skip, limit=limit)
-    return users
+    return crud.user.get_multi(db, skip=skip, limit=limit)
 
 
 @router.post("/", response_model=schemas.User, status_code=201)
 def create_user(
-    *,
-    db: Session = Depends(deps.get_db),
-    user_in: schemas.UserCreate,
-    current_user: models.User = Depends(deps.get_current_active_superuser),
-) -> any:
-    """
-    Create new user.
-    """
+        user_in: schemas.UserCreate,
+        granted: bool = Depends(deps.is_active_superuser),  # noqa
+        db: Session = Depends(deps.get_db),
+) -> schemas.User:
     user = crud.user.get_by_email(db, email=user_in.email)
     if user:
         raise HTTPException(
             status_code=400,
             detail="The user with this username already exists in the system.",
         )
-    user = crud.user.create(db, obj_in=user_in)
+    return crud.user.create(db, obj_in=user_in)
+
+
+@router.get("/my/account", response_model=schemas.User)
+def get_my_account(
+        user: models.User = Depends(deps.get_current_active_user),
+) -> any:
     return user
 
 
-@router.put("/me", response_model=schemas.User)
-def update_user_me(
-    *,
-    db: Session = Depends(deps.get_db),
-    password: str = Body(None),
-    full_name: str = Body(None),
-    email: EmailStr = Body(None),
-    current_user: models.User = Depends(deps.get_current_active_user),
+@router.put("/my/account", response_model=schemas.User)
+def update_my_account(
+        password: str = Body(None),
+        full_name: str = Body(None),
+        email: EmailStr = Body(None),
+        current_user: models.User = Depends(deps.get_current_active_user),
+        db: Session = Depends(deps.get_db),
 ) -> any:
-    """
-    Update own user.
-    """
     current_user_data = jsonable_encoder(current_user)
     user_in = schemas.UserUpdate(**current_user_data)
     if password is not None:
@@ -62,83 +57,24 @@ def update_user_me(
         user_in.full_name = full_name
     if email is not None:
         user_in.email = email
-    user = crud.user.update(db, db_obj=current_user, obj_in=user_in)
-    return user
 
+    return crud.user.update(db, db_obj=current_user, obj_in=user_in)
 
-@router.get("/me", response_model=schemas.User)
-def read_user_me(
-        db: Session = Depends(deps.get_db),
-        current_user: models.User = Depends(deps.get_current_active_user),
-) -> any:
-    """
-    Get current user.
-    """
-    return current_user
-
-
-# @router.post("/open", response_model=schemas.User)
-# def create_user_open(
-#     *,
+# TODO: другие пользователи могут видеть некоторую инфу по пользователям. Возможно, в другом методе или вьюхе это должно быть.
+# @router.get("/{user_id}", response_model=schemas.User)
+# def get_user_by_id(
+#     user_id: int,
 #     db: Session = Depends(deps.get_db),
-#     password: str = Body(...),
-#     email: EmailStr = Body(...),
-#     full_name: str = Body(None),
+#     current_user: models.User = Depends(deps.get_current_active_user),
 # ) -> any:
 #     """
-#     Create new user without the need to be logged in.
+#     Get a specific user by id.
 #     """
-#     if not settings.USERS_OPEN_REGISTRATION:
+#     user = crud.user.get(db, p_id=user_id)
+#     if current_user == user:
+#         return user
+#     if not user.is_superuser:
 #         raise HTTPException(
-#             status_code=403,
-#             detail="Open user registration is forbidden on this server",
+#             status_code=403, detail="The user doesn't have enough privileges"
 #         )
-#     user = crud.user.get_by_email(db, email=email)
-#     if user:
-#         raise HTTPException(
-#             status_code=400,
-#             detail="The user with this username already exists in the system",
-#         )
-#     user_in = schemas.UserCreate(password=password, email=email, full_name=full_name)
-#     user = crud.user.create(db, obj_in=user_in)
 #     return user
-
-
-@router.get("/{user_id}", response_model=schemas.User)
-def read_user_by_id(
-        user_id: int,
-        current_user: models.User = Depends(deps.get_current_active_user),
-        db: Session = Depends(deps.get_db),
-) -> any:
-    """
-    Get a specific user by id.
-    """
-    user = crud.user.get(db, p_id=user_id)
-    if user == current_user:
-        return user
-    if not current_user.is_superuser:
-        raise HTTPException(
-            status_code=400, detail="The user doesn't have enough privileges"
-        )
-    return user
-
-
-@router.put("/{user_id}", response_model=schemas.User)
-def update_user(
-    *,
-    db: Session = Depends(deps.get_db),
-    user_id: int,
-    user_in: schemas.UserUpdate,
-    current_user: models.User = Depends(deps.get_current_active_superuser),
-) -> any:
-    """
-    Update a user.
-    """
-    user = crud.user.get(db, p_id=user_id)
-    if not user:
-        raise HTTPException(
-            status_code=404,
-            detail="The user with this username does not exist in the system",
-        )
-    user = crud.user.update(db, db_obj=user, obj_in=user_in)
-    return user

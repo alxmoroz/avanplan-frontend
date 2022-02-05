@@ -12,15 +12,13 @@ abstract class EntityMapper<E extends BaseEntity> {
 }
 
 abstract class BaseModel extends HiveObject implements EntityMapper, DBModel {
-  @HiveField(100, defaultValue: '')
+  @HiveField(0, defaultValue: '')
   String id = '';
-}
-
-abstract class TitledModel extends BaseModel {
-  @HiveField(0)
-  String title = '';
 
   @HiveField(1)
+  String title = '';
+
+  @HiveField(2)
   String description = '';
 
   @override

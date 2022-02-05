@@ -11,16 +11,17 @@ part 'app_settings.g.dart';
 
 @HiveType(typeId: HType.AppSettings)
 class AppSettingsHO extends BaseModel {
-  @HiveField(0)
+  @HiveField(3, defaultValue: '')
   String version = '';
 
-  @HiveField(1, defaultValue: AppSettings.defaultPriorityScale)
-  List<double> priorityScale = AppSettings.defaultPriorityScale;
+  @HiveField(4, defaultValue: '')
+  String authToken = '';
 
   @override
   AppSettings toEntity([dynamic _]) => AppSettings(
         version: version,
         firstLaunch: false,
+        authToken: authToken,
         model: this,
       );
 
@@ -29,6 +30,7 @@ class AppSettingsHO extends BaseModel {
     final settings = entity as AppSettings;
     id = settings.id;
     version = settings.version;
+    authToken = settings.authToken;
 
     await save();
 

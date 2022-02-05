@@ -1,5 +1,5 @@
 .coverage
 htmlcov
-/backend.iml
-/.idea/
-/.pytest_cache/
+backend.iml
+.idea/
+.pytest_cache/

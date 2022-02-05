@@ -6,6 +6,8 @@ version: 1.0.1+1
 environment:
   sdk: ">=2.12.0 <3.0.0"
 
+publish_to: none
+
 dependencies:
   cupertino_icons: any
   device_info_plus: any
@@ -18,6 +20,8 @@ dependencies:
   get_it: any
   hive: any
   mobx: any
+  openapi:
+    path: ./openapi
   package_info: any
   path_provider: any
 

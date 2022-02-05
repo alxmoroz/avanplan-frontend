@@ -48,4 +48,7 @@ app.*.map.json
 #files generated to view code coverage
 coverage/
 
-/lib/L2_app/l10n/generated/
+generated/
+
+#openapi
+openapi/

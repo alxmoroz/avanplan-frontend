@@ -42,13 +42,13 @@ class _MainViewState extends State<MainView> {
             title: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                H3("Title"),
+                H3('Title'),
                 // if (item.description.isNotEmpty) SmallText(item.description),
                 const SizedBox(height: 8),
               ],
             ),
             trailing: chevronIcon,
-            onTap: () => null,
+            onTap: () => 0,
             dense: true,
           ),
         ),

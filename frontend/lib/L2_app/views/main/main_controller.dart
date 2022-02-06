@@ -1,4 +1,4 @@
-// Copyright (c) 2021. Alexandr Moroz
+// Copyright (c) 2022. Alexandr Moroz
 
 import 'package:mobx/mobx.dart';
 
@@ -22,6 +22,7 @@ class MainController extends _MainControllerBase with _$MainController {
     setSettings(_settings);
     //TODO: не уверен, что это здесь должно быть. Может, вообще в другом контроллере?
     repo.setApiCredentials(_settings.accessToken);
+    setAuthorized(_settings.accessToken.isNotEmpty);
     return this;
   }
 }

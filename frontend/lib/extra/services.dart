@@ -1,4 +1,4 @@
-// Copyright (c) 2021. Alexandr Moroz
+// Copyright (c) 2022. Alexandr Moroz
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:get_it/get_it.dart';

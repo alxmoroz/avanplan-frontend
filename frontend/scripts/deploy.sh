@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Copyright (c) 2022. Alexandr Moroz
+
 if ! [ "$APP_SYNC_PATH" ]; then
   echo "Путь APP_SYNC_PATH до папки деплоя не определен в env"
   exit 1

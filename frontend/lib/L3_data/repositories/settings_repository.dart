@@ -1,4 +1,4 @@
-// Copyright (c) 2021. Alexandr Moroz
+// Copyright (c) 2022. Alexandr Moroz
 
 import '../../L1_domain/entities/app_settings.dart';
 import '../../L1_domain/entities/base.dart';

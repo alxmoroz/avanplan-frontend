@@ -1,4 +1,6 @@
 
+# Copyright (c) 2022. Alexandr Moroz
+
 perl -pi -e 's/^(.*openapi:?)$/#$1/g' "pubspec.yaml"
 flutter pub get
 

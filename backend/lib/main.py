@@ -1,3 +1,5 @@
+#  Copyright (c) 2022. Alexandr Moroz
+
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 

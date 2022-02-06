@@ -1,3 +1,5 @@
+#  Copyright (c) 2022. Alexandr Moroz
+
 # from typing import TYPE_CHECKING
 
 from sqlalchemy import Boolean, Column, String

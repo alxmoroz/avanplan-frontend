@@ -1,3 +1,5 @@
+#  Copyright (c) 2022. Alexandr Moroz
+
 from sqlalchemy.orm import Session
 
 from lib.L3_data import crud, schemas

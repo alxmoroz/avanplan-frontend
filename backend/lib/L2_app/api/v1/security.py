@@ -1,3 +1,5 @@
+#  Copyright (c) 2022. Alexandr Moroz
+
 from datetime import datetime, timedelta
 from typing import Union
 

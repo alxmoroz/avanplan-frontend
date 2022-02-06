@@ -1,3 +1,5 @@
+#  Copyright (c) 2022. Alexandr Moroz
+
 from sqlalchemy import Column, Integer
 from sqlalchemy.ext.declarative import as_declarative, declared_attr
 

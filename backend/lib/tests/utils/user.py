@@ -1,3 +1,5 @@
+#  Copyright (c) 2022. Alexandr Moroz
+
 import random
 import string
 

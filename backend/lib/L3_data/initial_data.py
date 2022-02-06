@@ -1,3 +1,5 @@
+#  Copyright (c) 2022. Alexandr Moroz
+
 import logging
 
 from lib.L3_data.db.init_db import init_db

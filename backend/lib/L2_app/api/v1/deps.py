@@ -1,3 +1,5 @@
+#  Copyright (c) 2022. Alexandr Moroz
+
 from typing import Generator
 
 from fastapi import Depends, HTTPException

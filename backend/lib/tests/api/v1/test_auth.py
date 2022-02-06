@@ -1,3 +1,5 @@
+#  Copyright (c) 2022. Alexandr Moroz
+
 from fastapi.testclient import TestClient
 
 from lib.extra.config import settings

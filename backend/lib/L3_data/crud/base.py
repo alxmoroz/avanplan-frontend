@@ -1,3 +1,5 @@
+#  Copyright (c) 2022. Alexandr Moroz
+
 from typing import Generic, Type, TypeVar, Union
 
 from fastapi.encoders import jsonable_encoder

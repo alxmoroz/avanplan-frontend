@@ -1,3 +1,5 @@
+#  Copyright (c) 2022. Alexandr Moroz
+
 from fastapi import APIRouter
 
 from .endpoints import auth, users

@@ -1,3 +1,5 @@
+#  Copyright (c) 2022. Alexandr Moroz
+
 import logging
 from tenacity import (after_log, before_log, retry, stop_after_attempt,
                       wait_fixed)

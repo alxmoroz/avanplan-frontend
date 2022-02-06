@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+#
+# Copyright (c) 2022. Alexandr Moroz
+#
+
 export PYTHONPATH="."
 
 # Let the DB start

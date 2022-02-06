@@ -5,6 +5,8 @@ Revises:
 Create Date: 2022-02-05 08:16:53.725944
 
 """
+#  Copyright (c) 2022. Alexandr Moroz
+
 import sqlalchemy as sa
 from alembic import op
 

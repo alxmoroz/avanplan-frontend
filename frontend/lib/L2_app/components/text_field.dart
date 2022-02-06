@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'colors.dart';
 import 'material_wrapper.dart';
-import 'text/text_widgets.dart';
+import 'text_widgets.dart';
 
 OutlineInputBorder get _warningBorder => OutlineInputBorder(borderSide: BorderSide(color: warningColor));
 
@@ -36,6 +36,8 @@ class CTextField extends StatelessWidget {
     this.maxLines,
     this.autofocus = true,
     this.margin,
+    this.obscureText = false,
+    this.capitalization,
   });
 
   final TextEditingController? controller;
@@ -46,20 +48,22 @@ class CTextField extends StatelessWidget {
   final int? maxLines;
   final bool autofocus;
   final EdgeInsetsGeometry? margin;
+  final bool obscureText;
+  final TextCapitalization? capitalization;
 
   @override
   Widget build(BuildContext context) {
     return material(Padding(
       padding: margin ?? const EdgeInsets.fromLTRB(14, 26, 14, 0),
       child: TextField(
-        style: const H3('').style(context),
-        decoration: _tfDecoration(label, description, error, context),
-        autofocus: autofocus,
-        maxLines: maxLines,
-        controller: controller,
-        keyboardType: keyboardType,
-        textCapitalization: TextCapitalization.sentences,
-      ),
+          style: const H3('').style(context),
+          decoration: _tfDecoration(label, description, error, context),
+          autofocus: autofocus,
+          maxLines: maxLines,
+          controller: controller,
+          keyboardType: keyboardType,
+          textCapitalization: capitalization ?? TextCapitalization.sentences,
+          obscureText: obscureText),
     ));
   }
 }

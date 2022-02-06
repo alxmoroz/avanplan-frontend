@@ -1,15 +1,18 @@
 // Copyright (c) 2021. Alexandr Moroz
 
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../extra/services.dart';
-import '../../components/divider.dart';
+import '../../components/buttons.dart';
+import '../../components/colors.dart';
 import '../../components/icons.dart';
-import '../../components/material_wrapper.dart';
-import '../../components/navbar.dart';
-import '../../components/text/text_widgets.dart';
+import '../../components/text_widgets.dart';
+import '../../views/auth/login_view.dart';
+import 'drawer.dart';
 
 class MainView extends StatefulWidget {
   static String get routeName => 'main';
@@ -31,68 +34,33 @@ class _MainViewState extends State<MainView> {
     super.dispose();
   }
 
-  Widget _buildItem(int index) {
-    // final comparison = mainController.comparisons[index];
-    // final item = BaseEntity();
-    return Column(
-      children: [
-        if (index > 0) const CDivider(),
-        material(
-          ListTile(
-            title: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                H3('Title'),
-                // if (item.description.isNotEmpty) SmallText(item.description),
-                const SizedBox(height: 8),
-              ],
-            ),
-            trailing: chevronIcon,
-            onTap: () => 0,
-            dense: true,
-          ),
-        ),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    Future refreshCallback() async {}
-
-    return CupertinoPageScaffold(
-      child: CustomScrollView(
-        slivers: [
-          CupertinoSliverNavigationBar(
-            largeTitle: mQuery(Text(loc.appTitle), context),
-            // leading: Button.icon(plusIcon, mainController.goToComparisonView, padding: const EdgeInsets.only(left: 20, right: 12, bottom: 8)),
-            // trailing: Button.icon(cloudIcon, mainController.goToCloudView, padding: const EdgeInsets.only(left: 20, right: 12, bottom: 8)),
-            padding: EdgeInsetsDirectional.zero,
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: appBarBgColor.resolve(context),
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        leading: Builder(
+          builder: (BuildContext innerCtx) => Button.icon(menuIcon(context), () => Scaffold.of(innerCtx).openDrawer()),
+        ),
+      ),
+      drawer: ALDrawer(),
+      body: Container(
+        color: CupertinoDynamicColor.resolve(backgroundColor, context),
+        child: Observer(
+          builder: (_) => Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const H2('Главный экран', align: TextAlign.center),
+              if (!mainController.authorized) Button('Авторизация', () => Navigator.of(context).pushNamed(LoginView.routeName)),
+              if (mainController.authorized) Button('Выйти', mainController.logout),
+            ],
           ),
-          CupertinoSliverRefreshControl(
-            builder: (_, mode, dy1, dy2, dy3) {
-              Widget res = const SizedBox();
-              res = material(
-                Container(
-                  height: dy1,
-                  alignment: Alignment.center,
-                  child: SmallText(packageInfo.version, align: TextAlign.center),
-                ),
-              );
-              return res;
-            },
-            onRefresh: () async => refreshCallback,
-          ),
-          const SliverPadding(padding: EdgeInsets.only(top: 12)),
-          Observer(
-            builder: (_) => SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (_, index) => _buildItem(index),
-                childCount: 1,
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

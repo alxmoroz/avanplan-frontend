@@ -12,9 +12,10 @@ from .. import deps, security
 router = APIRouter()
 
 
-@router.post("/token", response_model=schemas.Token)
+@router.post("/token", response_model=schemas.Token, operation_id="get_auth_token")
 def token(
-        db: Session = Depends(deps.get_db), form_data: OAuth2PasswordRequestForm = Depends()
+        db: Session = Depends(deps.get_db), form_data: OAuth2PasswordRequestForm = Depends(),
+
 ) -> any:
     """
     OAuth2 compatible token login, get an access token for future requests

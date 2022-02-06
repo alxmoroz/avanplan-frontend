@@ -3,8 +3,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../extra/services.dart';
-import '../colors.dart';
+import 'colors.dart';
+import 'constants.dart';
 
 class NormalText extends StatelessWidget {
   const NormalText(
@@ -46,7 +46,7 @@ class NormalText extends StatelessWidget {
     return cupertinoTS.copyWith(
       color: CupertinoDynamicColor.maybeResolve(color ?? darkColor, context),
       fontWeight: weight ?? cupertinoTS.fontWeight,
-      fontSize: (size ?? cupertinoTS.fontSize ?? (mainController.isTablet ? 20 : 16)) * (sizeScale ?? 1),
+      fontSize: (size ?? cupertinoTS.fontSize ?? (isTablet ? 20 : 16)) * (sizeScale ?? 1),
       height: height ?? cupertinoTS.height,
       inherit: true,
     );

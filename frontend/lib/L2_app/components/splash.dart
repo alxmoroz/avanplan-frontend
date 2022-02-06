@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'colors.dart';
 import 'material_wrapper.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -13,7 +14,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: CupertinoDynamicColor.resolve(color ?? CupertinoColors.systemBackground, context),
+      color: (color ?? CupertinoColors.systemBackground).resolve(context),
       child: material(
         const Center(
           child: CircularProgressIndicator(),

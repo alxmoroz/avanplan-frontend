@@ -29,7 +29,7 @@ class HStorage {
     _repos = {
       for (var r in [
         // HiveRepo<Comparison, ComparisonHO>(ECode.Comparison, () => ComparisonHO()),
-        SettingsRepository(),
+        SettingsRepo(),
       ])
         r.boxName: r
     };

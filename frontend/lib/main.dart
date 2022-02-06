@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'L2_app/components/splash.dart';
 import 'L2_app/l10n/generated/l10n.dart';
+import 'L2_app/views/auth/login_view.dart';
 import 'L2_app/views/main/main_view.dart';
 import 'extra/services.dart';
 
@@ -22,11 +23,20 @@ class App extends StatelessWidget {
       title: 'Hercules',
       home: FutureBuilder(
         future: getIt.allReady(),
-        builder: (_, snapshot) =>
-            snapshot.hasData ? MainView() : const SplashScreen(),
+        builder: (_, snapshot) => snapshot.hasData ? MainView() : const SplashScreen(),
       ),
-      routes: {
-        MainView.routeName: (_) => MainView(),
+      // routes: {
+      //   LoginView.routeName: (_) => LoginView(),
+      //   MainView.routeName: (_) => MainView(),
+      // },
+      onGenerateRoute: (RouteSettings rSettings) {
+        final mainBuilder = (BuildContext _) => MainView();
+        final builders = {
+          LoginView.routeName: (BuildContext _) => LoginView(),
+          MainView.routeName: mainBuilder,
+        };
+
+        return CupertinoPageRoute<Widget>(builder: builders[rSettings.name] ?? mainBuilder);
       },
       localizationsDelegates: const [
         S.delegate,

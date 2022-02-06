@@ -7,13 +7,13 @@ class AppSettings extends BaseEntity {
   AppSettings({
     required this.firstLaunch,
     this.version = '',
-    this.authToken = '',
+    this.accessToken = '',
     required DBModel? model,
   }) : super('settings', model: model);
 
   final bool firstLaunch;
   String version;
-  String authToken;
+  String accessToken;
 
   @override
   String get classCode => ECode.AppSettings;

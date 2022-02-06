@@ -1,16 +1,12 @@
 // Copyright (c) 2021. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/material.dart';
 
-Icon get chevronIcon => const Icon(CupertinoIcons.chevron_right, color: CupertinoColors.systemGrey);
+import 'colors.dart';
 
-Widget get crownPicture => SvgPicture.asset('assets/icons/crown.svg', height: 16, color: CupertinoColors.systemYellow);
-
-Icon get dropdownIcon => const Icon(CupertinoIcons.chevron_up_chevron_down, color: CupertinoColors.systemBlue);
-
-Icon get pencilIcon => const Icon(CupertinoIcons.pencil, color: CupertinoColors.systemBlue);
-
-Icon get plusIcon => const Icon(CupertinoIcons.plus_circle, size: 28);
-
-Icon get cloudIcon => const Icon(CupertinoIcons.cloud, size: 28);
+Widget menuIcon(BuildContext context, {Color? color, double? size}) => Icon(
+      Icons.view_headline,
+      size: size ?? 32,
+      color: (color ?? mainColor).resolve(context),
+    );

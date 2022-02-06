@@ -21,7 +21,7 @@ class AppSettingsHO extends BaseModel {
   AppSettings toEntity([dynamic _]) => AppSettings(
         version: version,
         firstLaunch: false,
-        authToken: authToken,
+        accessToken: authToken,
         model: this,
       );
 
@@ -30,7 +30,7 @@ class AppSettingsHO extends BaseModel {
     final settings = entity as AppSettings;
     id = settings.id;
     version = settings.version;
-    authToken = settings.authToken;
+    authToken = settings.accessToken;
 
     await save();
 

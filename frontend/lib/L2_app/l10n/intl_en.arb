@@ -1,8 +1,16 @@
 {
   "@@locale": "en",
+
   "appTitle": "Hercules",
+
+  "auth_user_placeholder": "User",
+  "auth_password_placeholder": "Password",
+  "auth_log_in_button_title": "Log in",
+
   "common_title": "Title",
   "common_description": "Description",
   "common_yes": "Yes",
-  "common_no": "No"
+  "common_no": "No",
+
+  "validation_empty_text": "Should not be empty"
 }

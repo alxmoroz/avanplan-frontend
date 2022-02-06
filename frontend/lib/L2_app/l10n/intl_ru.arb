@@ -1,8 +1,16 @@
 {
   "@@locale": "ru",
+
   "appTitle": "Геркулес",
+
+  "auth_user": "Пользователь",
+  "auth_password": "Пароль",
+  "auth_log_in_button_title": "Войти",
+
   "common_title": "Название",
   "common_description": "Описание",
   "common_yes": "Да",
-  "common_no": "Нет"
+  "common_no": "Нет",
+
+  "validation_empty_text": "Нужно заполнить"
 }

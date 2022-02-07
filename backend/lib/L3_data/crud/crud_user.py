@@ -5,6 +5,7 @@ from typing import Union
 from sqlalchemy.orm import Session
 
 from lib.L2_app.api.v1.security import get_password_hash, verify_password
+
 from ..crud.base import CRUDBase
 from ..models import User
 from ..schemas import UserCreate, UserUpdate

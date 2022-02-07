@@ -8,9 +8,9 @@ from jose import jwt
 from pydantic import ValidationError
 from sqlalchemy.orm import Session
 
+from lib.extra.config import settings
 from lib.L3_data import crud, models, schemas
 from lib.L3_data.db.session import SessionLocal
-from lib.extra.config import settings
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f"{settings.API_PATH}/auth/token")
 
@@ -25,7 +25,8 @@ def get_db() -> Generator:
 
 
 def get_user_by_token(
-        db: Session = Depends(get_db), token: str = Depends(oauth2_scheme)
+    db: Session = Depends(get_db),
+    token: str = Depends(oauth2_scheme),
 ) -> models.user.User:
     try:
         payload = jwt.decode(
@@ -41,14 +42,24 @@ def get_user_by_token(
 
 
 def get_current_active_user(
-        current_user: models.User = Depends(get_user_by_token),
+    current_user: models.User = Depends(get_user_by_token),
 ) -> models.User:
     if not current_user.is_active:
-        raise HTTPException(status_code=400, detail="Inactive user")
+        raise HTTPException(status_code=403, detail="Inactive user")
     return current_user
 
 
-def is_active_superuser(user: models.User = Depends(get_current_active_user)) -> bool:
+def is_active_user(
+    user: models.User = Depends(get_user_by_token),
+) -> bool:
+    if not user.is_active:
+        raise HTTPException(status_code=403, detail="Inactive user")
+    return True
+
+
+def is_active_superuser(
+    user: models.User = Depends(get_current_active_user),
+) -> bool:
     if not user.is_superuser:
         raise HTTPException(
             status_code=403, detail="The user doesn't have enough privileges"

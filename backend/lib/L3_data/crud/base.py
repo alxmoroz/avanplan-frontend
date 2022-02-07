@@ -29,7 +29,7 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         return db.query(self.model).filter(self.model.id == p_id).first()
 
     def get_multi(
-            self, db: Session, *, skip: int = 0, limit: int | None
+        self, db: Session, *, skip: int = 0, limit: int | None
     ) -> list[ModelType]:
         clause = db.query(self.model).offset(skip)
         if limit is not None:
@@ -49,7 +49,7 @@ class CRUDBase(Generic[ModelType, CreateSchemaType, UpdateSchemaType]):
         db: Session,
         *,
         db_obj: ModelType,
-            obj_in: Union[UpdateSchemaType, dict[str, any]]
+        obj_in: Union[UpdateSchemaType, dict[str, any]]
     ) -> ModelType:
         obj_data = jsonable_encoder(db_obj)
         if isinstance(obj_in, dict):

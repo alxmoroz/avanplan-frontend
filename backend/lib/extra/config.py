@@ -1,6 +1,5 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-import secrets
 from typing import Union
 
 from pydantic import AnyHttpUrl, BaseSettings, EmailStr, PostgresDsn, validator
@@ -8,7 +7,7 @@ from pydantic import AnyHttpUrl, BaseSettings, EmailStr, PostgresDsn, validator
 
 class Settings(BaseSettings):
     API_PATH: str = "/api/v1"
-    SECRET_KEY: str = secrets.token_urlsafe(32)
+    SECRET_KEY: str = "b202faeae347ac1f2ea1511a7bc9c49ad07c8e8c97fc8972cb45bda6beb11370"
     # SERVER_NAME: str
     # SERVER_HOST: AnyHttpUrl
     # BACKEND_CORS_ORIGINS is a JSON-formatted list of origins

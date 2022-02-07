@@ -7,6 +7,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
 from lib.L3_data import crud, schemas
+
 from .. import deps, security
 
 # from lib.extra.utils import verify_password_reset_token
@@ -16,8 +17,8 @@ router = APIRouter()
 
 @router.post("/token", response_model=schemas.Token, operation_id="get_auth_token")
 def token(
-        db: Session = Depends(deps.get_db), form_data: OAuth2PasswordRequestForm = Depends(),
-
+    db: Session = Depends(deps.get_db),
+    form_data: OAuth2PasswordRequestForm = Depends(),
 ) -> any:
     """
     OAuth2 compatible token login, get an access token for future requests
@@ -34,6 +35,7 @@ def token(
         "access_token": security.create_token(user.id, expires_delta=token_expires),
         "token_type": "bearer",
     }
+
 
 # @router.post("/reset-password/", response_model=schemas.Msg)
 # def reset_password(

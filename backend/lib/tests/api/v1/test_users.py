@@ -3,9 +3,9 @@
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
 
+from lib.extra.config import settings
 from lib.L3_data import crud
 from lib.L3_data.schemas.user import UserCreate
-from lib.extra.config import settings
 from lib.tests.utils.user import random_email, random_lower_string
 
 
@@ -31,7 +31,7 @@ def test_get_my_account(client: TestClient, token_headers_user) -> None:
 
 
 def test_create_user_new_email(
-        client: TestClient, token_headers_admin, db: Session
+    client: TestClient, token_headers_admin, db: Session
 ) -> None:
     username = random_email()
     password = random_lower_string()
@@ -66,7 +66,7 @@ def test_create_user_new_email(
 
 
 def test_create_user_existing_username(
-        client: TestClient, token_headers_admin, db: Session
+    client: TestClient, token_headers_admin, db: Session
 ) -> None:
     username = random_email()
     # username = email

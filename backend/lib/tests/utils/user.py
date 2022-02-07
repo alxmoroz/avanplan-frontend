@@ -6,10 +6,10 @@ import string
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
 
+from lib.extra.config import settings
 from lib.L3_data import crud
 from lib.L3_data.models.user import User
 from lib.L3_data.schemas.user import UserCreate, UserUpdate
-from lib.extra.config import settings
 
 
 def random_lower_string() -> str:
@@ -32,7 +32,7 @@ def get_superuser_token_headers(client: TestClient) -> dict[str, str]:
 
 
 def user_auth_headers(
-        *, client: TestClient, email: str, password: str
+    *, client: TestClient, email: str, password: str
 ) -> dict[str, str]:
     data = {"username": email, "password": password}
 
@@ -52,7 +52,7 @@ def create_random_user(db: Session) -> User:
 
 
 def auth_headers_from_email(
-        *, client: TestClient, email: str, db: Session
+    *, client: TestClient, email: str, db: Session
 ) -> dict[str, str]:
     """
     Return a valid token for the user with given email.

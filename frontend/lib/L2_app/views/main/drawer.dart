@@ -17,7 +17,7 @@ class ALDrawer extends StatelessWidget {
         child: SafeArea(
             child: Column(
           children: [
-            SizedBox(height: sidePadding),
+            SizedBox(height: padding),
             // ListTile(
             //   leading: chartIcon(context),
             //   title: MediumText(loc.statistics),
@@ -25,7 +25,7 @@ class ALDrawer extends StatelessWidget {
             //   onTap: () => Navigator.of(context).popAndPushNamed(StatisticsView.routeName),
             // ),
             const Spacer(),
-            SizedBox(height: sidePadding),
+            SizedBox(height: padding),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               LightText(packageInfo.appName),
               NormalText(mainController.settings.version, padding: const EdgeInsets.only(left: 6)),

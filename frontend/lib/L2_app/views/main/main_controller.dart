@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:mobx/mobx.dart';
+import 'package:openapi/openapi.dart';
 
 import '../../../L1_domain/entities/app_settings.dart';
 import '../../../L1_domain/entities/base.dart';
@@ -58,10 +59,16 @@ abstract class _MainControllerBase extends BaseController with Store {
     authorized = auth;
   }
 
-// Future _getUserInfo() async {
-//   final resp = await openAPI.getUsersApi().getMyAccountApiV1UsersMyAccountGet();
-//   print(resp);
-// }
+  //TODO: для тестирования
+  Future redmine() async {
+    final builder = BodyImportIssuesApiV1ImportRedmineIssuesPostBuilder()
+      ..apiKey = '101b62ea94b4132625a3d079451ea13fed3f4b87'
+      ..host = 'https://redmine.moroz.team';
+
+    await openAPI.getImportRedmineApi().importIssuesApiV1ImportRedmineIssuesPost(
+          bodyImportIssuesApiV1ImportRedmineIssuesPost: builder.build(),
+        );
+  }
 
   /// роутер
 

@@ -59,7 +59,7 @@ class _LoginViewState extends State<LoginView> {
             children: [
               textFieldForCode('login'),
               textFieldForCode('password'),
-              SizedBox(height: sidePadding),
+              SizedBox(height: padding),
               Button(loc.auth_log_in_button_title, _controller.validated ? _controller.authorize : null),
             ],
           ),

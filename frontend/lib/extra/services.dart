@@ -30,7 +30,11 @@ void setup() {
 
   // repo / adapters
   getIt.registerSingletonAsync<HStorage>(() async => await HStorage().init());
-  getIt.registerSingletonAsync<Openapi>(() async => Openapi(basePathOverride: 'http://localhost:8000/'));
+  getIt.registerSingletonAsync<Openapi>(() async {
+    final api = Openapi(basePathOverride: 'http://localhost:8000/');
+    api.dio.options.connectTimeout = 10000;
+    return api;
+  });
 
   // stores / states / controllers
   getIt.registerSingletonAsync<MainController>(

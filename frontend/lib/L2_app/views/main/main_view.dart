@@ -9,6 +9,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../extra/services.dart';
 import '../../components/buttons.dart';
 import '../../components/colors.dart';
+import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/text_widgets.dart';
 import '../../views/auth/login_view.dart';
@@ -58,6 +59,8 @@ class _MainViewState extends State<MainView> {
               const H2('Главный экран', align: TextAlign.center),
               if (!mainController.authorized) Button('Авторизация', () => Navigator.of(context).pushNamed(LoginView.routeName)),
               if (mainController.authorized) Button('Выйти', mainController.logout),
+              SizedBox(height: padding),
+              if (mainController.authorized) Button('Redmine', mainController.redmine),
             ],
           ),
         ),

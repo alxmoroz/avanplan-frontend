@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 
 import '../../../L1_domain/entities/base.dart';
 import '../../../L1_domain/repositories/database_repository.dart';
-import '../../../L3_data/models/base.dart';
+import '../models/base.dart';
 
 typedef ModelCreator<T> = T Function();
 

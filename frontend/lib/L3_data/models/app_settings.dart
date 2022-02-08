@@ -4,8 +4,8 @@ import 'package:hive/hive.dart';
 
 import '../../L1_domain/entities/app_settings.dart';
 import '../../L1_domain/entities/base.dart';
-import '../../L3_data/models/base.dart';
 import '../repositories/hive_storage.dart';
+import 'base.dart';
 
 part 'app_settings.g.dart';
 

@@ -3,9 +3,9 @@
 import '../../L1_domain/entities/app_settings.dart';
 import '../../L1_domain/entities/base.dart';
 import '../../L1_domain/repositories/settings_repository.dart';
-import '../../L3_data/models/app_settings.dart';
-import '../../L3_data/repositories/hive_repository.dart';
 import '../../extra/services.dart';
+import '../models/app_settings.dart';
+import 'hive_repository.dart';
 
 class SettingsRepo extends HiveRepo<AppSettings, AppSettingsHO> implements SettingsRepository {
   SettingsRepo() : super(ECode.AppSettings, () => AppSettingsHO());

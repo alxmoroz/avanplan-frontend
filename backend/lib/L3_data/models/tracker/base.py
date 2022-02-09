@@ -1,7 +1,5 @@
 #  Copyright (c) 2022. Alexandr Moroz
-from sqlalchemy import Column, DateTime, String, Integer
-
-from ..base_model import BaseModel
+from sqlalchemy import Column, DateTime, String
 
 
 class BaseTrackerFields:

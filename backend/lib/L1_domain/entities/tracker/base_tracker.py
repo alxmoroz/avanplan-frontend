@@ -14,6 +14,6 @@ class BaseTrackerEntity(BaseEntity):
         return self.title
 
 
-class Importable:
+class ImportableEntity(BaseTrackerEntity):
     remote_code: str | None
     imported_on: datetime | None

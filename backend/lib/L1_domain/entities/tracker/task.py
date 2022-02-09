@@ -2,7 +2,7 @@
 
 from datetime import datetime
 
-from .base_tracker import BaseTrackerEntity, Importable
+from .base_tracker import BaseTrackerEntity, ImportableEntity
 from .person import Person
 from .version import Version
 
@@ -15,7 +15,7 @@ class TaskPriority(BaseTrackerEntity):
     pass
 
 
-class Task(BaseTrackerEntity, Importable):
+class Task(ImportableEntity):
 
     status: TaskStatus
     priority: TaskPriority

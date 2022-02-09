@@ -1,9 +1,9 @@
 #  Copyright (c) 2022. Alexandr Moroz
-from ..base_entity import BaseEntity
-from .base_tracker import Importable
+
+from .base_tracker import ImportableEntity
 
 
-class Person(BaseEntity, Importable):
+class Person(ImportableEntity):
     firstname: str = ""
     lastname: str = ""
 

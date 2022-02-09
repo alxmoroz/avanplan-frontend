@@ -1,13 +1,16 @@
 #  Copyright (c) 2022. Alexandr Moroz
+from datetime import datetime
 
 from fastapi import APIRouter, Body, Depends
-from L2_app.api import deps
 from redminelib import Redmine, resources
 from sqlalchemy.orm import Session
 
 from lib.L1_domain.entities import api
 from lib.L1_domain.entities.tracker.project import Project
 from lib.L1_domain.entities.tracker.task import Task, TaskPriority, TaskStatus
+from lib.L2_app.api import deps
+from lib.L3_data.models.tracker.project import Project as ProjectModel
+from lib.L3_data.repositories import project_repo
 
 router = APIRouter()
 
@@ -28,10 +31,17 @@ def tasks(
     for rp in r_opened_projects:
         p = Project(
             code=rp.identifier,
-            remote_code=f"R{rp.id}",
             title=rp.name,
             description=rp.description,
+            remote_code=f"R{rp.id}",
+            imported_on=datetime.now()
         )
+
+        p_in_db = db.query(ProjectModel).filter(ProjectModel.code == p.code).first()
+        if p_in_db:
+            project_repo.update(db, db_obj=p_in_db, obj_in=p)
+        else:
+            project_repo.create(db, obj_in=p)
 
     for issue in r_opened_issues:
         t = Task(

@@ -3,8 +3,8 @@
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
-from lib.extra.config import settings
-from lib.L2_app.api.v1.routers import api_router
+from lib.L2_app.api.routers import api_router
+from lib.L2_app.extra.config import settings
 
 app = FastAPI(
     title=settings.PROJECT_NAME, openapi_url=f"{settings.API_PATH}/openapi.json"

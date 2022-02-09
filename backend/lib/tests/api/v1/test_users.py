@@ -3,9 +3,9 @@
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
 
-from lib.extra.config import settings
-from lib.L3_data import crud
-from lib.L3_data.schemas.user import UserCreate
+from lib.L1_domain.entities.auth.user import CreateUser
+from lib.L2_app.extra.config import settings
+from lib.L3_data.repositories import user_repo
 from lib.tests.utils.user import random_email, random_lower_string
 
 
@@ -41,7 +41,7 @@ def test_create_user_new_email(
     )
     assert r.status_code == 201
     created_user = r.json()
-    user = crud.user.get_by_email(db, email=username)
+    user = user_repo.get_by_email(db, email=username)
     assert user
     assert user.email == created_user["email"]
 
@@ -51,8 +51,8 @@ def test_create_user_new_email(
 # ) -> None:
 #     username = random_email()
 #     password = random_lower_string()
-#     user_in = UserCreate(email=username, password=password)
-#     user = crud.user.create(db, obj_in=user_in)
+#     user_in = CreateUser(email=username, password=password)
+#     user = user.create(db, obj_in=user_in)
 #     user_id = user.id
 #     r = client.get(
 #         f"{settings.API_V_STR}/users/{user_id}",
@@ -60,7 +60,7 @@ def test_create_user_new_email(
 #     )
 #     assert r.status_code == 200
 #     api_user = r.json()
-#     existing_user = crud.user.get_by_email(db, email=username)
+#     existing_user = user.get_by_email(db, email=username)
 #     assert existing_user
 #     assert existing_user.email == api_user["email"]
 
@@ -71,8 +71,8 @@ def test_create_user_existing_username(
     username = random_email()
     # username = email
     password = random_lower_string()
-    user_in = UserCreate(email=username, password=password)
-    crud.user.create(db, obj_in=user_in)
+    user_in = CreateUser(email=username, password=password)
+    user_repo.create(db, obj_in=user_in)
     data = {"email": username, "password": password}
     r = client.post(
         f"{settings.API_PATH}/users/",
@@ -87,13 +87,13 @@ def test_create_user_existing_username(
 def test_retrieve_users(client: TestClient, token_headers_admin, db: Session) -> None:
     username = random_email()
     password = random_lower_string()
-    user_in = UserCreate(email=username, password=password)
-    crud.user.create(db, obj_in=user_in)
+    user_in = CreateUser(email=username, password=password)
+    user_repo.create(db, obj_in=user_in)
 
     username2 = random_email()
     password2 = random_lower_string()
-    user_in2 = UserCreate(email=username2, password=password2)
-    crud.user.create(db, obj_in=user_in2)
+    user_in2 = CreateUser(email=username2, password=password2)
+    user_repo.create(db, obj_in=user_in2)
 
     r = client.get(f"{settings.API_PATH}/users/", headers=token_headers_admin)
     all_users = r.json()

@@ -1,7 +1,0 @@
-#  Copyright (c) 2022. Alexandr Moroz
-
-from pydantic import BaseModel
-
-
-class Msg(BaseModel):
-    msg: str

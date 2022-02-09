@@ -22,9 +22,11 @@ fileConfig(config.config_file_name)
 # target_metadata = mymodel.Base.metadata
 # target_metadata = None
 
-from lib.L3_data.db.base import Base  # noqa
+from lib.L3_data.models import *  # noqa
+from lib.L3_data.models.base_model import BaseModel  # noqa
 
-target_metadata = Base.metadata
+target_metadata = BaseModel.metadata
+
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
@@ -33,11 +35,11 @@ target_metadata = Base.metadata
 
 
 def get_url():
-    user = os.getenv("POSTGRES_USER", "hercules")
-    password = os.getenv("POSTGRES_PASSWORD", "")
+    db_user = os.getenv("POSTGRES_USER", "hercules")
+    password = os.getenv("POSTGRES_PASSWORD", "hercules")
     server = os.getenv("POSTGRES_SERVER", "localhost")
     db = os.getenv("POSTGRES_DB", "hercules")
-    return f"postgresql://{user}:{password}@{server}/{db}"
+    return f"postgresql://{db_user}:{password}@{server}/{db}"
 
 
 def run_migrations_offline():
@@ -76,9 +78,18 @@ def run_migrations_online():
         poolclass=pool.NullPool,
     )
 
+    def process_revision_directives(context, revision, directives):
+        if config.cmd_opts.autogenerate:
+            script = directives[0]
+            if script.upgrade_ops.is_empty():
+                directives[:] = []
+
     with connectable.connect() as connection:
         context.configure(
-            connection=connection, target_metadata=target_metadata, compare_type=True
+            connection=connection,
+            target_metadata=target_metadata,
+            compare_type=True,
+            process_revision_directives=process_revision_directives,
         )
 
         with context.begin_transaction():

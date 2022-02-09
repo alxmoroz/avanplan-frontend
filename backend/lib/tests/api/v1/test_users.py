@@ -3,7 +3,7 @@
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
 
-from lib.L1_domain.entities.auth.user import CreateUser
+from lib.L1_domain.entities.users.user import CreateUser
 from lib.L2_app.extra.config import settings
 from lib.L3_data.repositories import user_repo
 from lib.tests.utils.user import random_email, random_lower_string

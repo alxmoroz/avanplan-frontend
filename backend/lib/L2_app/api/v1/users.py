@@ -5,15 +5,15 @@ from fastapi.encoders import jsonable_encoder
 from pydantic.networks import EmailStr
 from sqlalchemy.orm import Session
 
-from lib.L1_domain.entities import auth
+from lib.L1_domain.entities import users
 from lib.L2_app.api import deps
-from lib.L3_data.models.auth import User
+from lib.L3_data.models.users import User
 from lib.L3_data.repositories import user_repo
 
 router = APIRouter()
 
 
-@router.get("/", response_model=list[auth.User])
+@router.get("/", response_model=list[users.User])
 def read_users(
     skip: int = 0,
     limit: int | None = None,
@@ -23,12 +23,12 @@ def read_users(
     return user_repo.get_multi(db, skip=skip, limit=limit)
 
 
-@router.post("/", response_model=auth.User, status_code=201)
+@router.post("/", response_model=users.User, status_code=201)
 def create_user(
-    user_in: auth.CreateUser,
+    user_in: users.CreateUser,
     granted: bool = Depends(deps.is_active_superuser),  # noqa
     db: Session = Depends(deps.get_db),
-) -> auth.User:
+) -> users.User:
     user = user_repo.get_by_email(db, email=user_in.email)
     if user:
         raise HTTPException(
@@ -38,14 +38,14 @@ def create_user(
     return user_repo.create(db, obj_in=user_in)
 
 
-@router.get("/my/account", response_model=auth.User)
+@router.get("/my/account", response_model=users.User)
 def get_my_account(
     user: User = Depends(deps.get_current_active_user),
 ) -> any:
     return user
 
 
-@router.put("/my/account", response_model=auth.User)
+@router.put("/my/account", response_model=users.User)
 def update_my_account(
     password: str = Body(None),
     full_name: str = Body(None),
@@ -54,7 +54,7 @@ def update_my_account(
     db: Session = Depends(deps.get_db),
 ) -> any:
     user_data = jsonable_encoder(user)
-    user_in = auth.UpdateUser(**user_data)
+    user_in = users.UpdateUser(**user_data)
     if password is not None:
         user_in.password = password
     if full_name is not None:

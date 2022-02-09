@@ -2,7 +2,7 @@
 
 from pydantic import EmailStr
 
-from ..base_entity import BaseEntity
+from lib.L1_domain.entities.base_entity import BaseEntity
 
 
 class BaseUserEntity(BaseEntity):

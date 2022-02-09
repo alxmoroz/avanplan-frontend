@@ -1,4 +1,4 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from .auth import *
+from .users import *
 from .tracker import *

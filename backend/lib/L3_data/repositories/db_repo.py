@@ -3,11 +3,16 @@
 from typing import Generic, Type, TypeVar, Union
 
 from fastapi.encoders import jsonable_encoder
-from sqlalchemy.orm import Session
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session, sessionmaker
 
 from lib.L1_domain.entities.base_entity import BaseEntity
+from lib.L2_app.extra.config import settings
 
 from ..models.base_model import BaseModel
+
+engine = create_engine(settings.SQLALCHEMY_DATABASE_URI, pool_pre_ping=True)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 GetModelType = TypeVar("GetModelType", bound=BaseModel)
 CreateEntityType = TypeVar("CreateEntityType", bound=BaseEntity)
@@ -15,7 +20,7 @@ UpdateEntityType = TypeVar("UpdateEntityType", bound=BaseEntity)
 
 
 # TODO: нужен соотв. по интерфейсу репозиторий в Л1
-class BaseDBRepo(Generic[GetModelType, CreateEntityType, UpdateEntityType]):
+class DBRepo(Generic[GetModelType, CreateEntityType, UpdateEntityType]):
     def __init__(self, model: Type[GetModelType]):
         """
         CRUD object with default methods to Create, Read, Update, Delete (CRUD).

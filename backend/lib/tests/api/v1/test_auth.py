@@ -2,7 +2,7 @@
 
 from fastapi.testclient import TestClient
 
-from lib.extra.config import settings
+from lib.L2_app.extra.config import settings
 
 
 def test_get_token(client: TestClient) -> None:

@@ -3,7 +3,7 @@
 from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session
 
-from lib.L1_domain.entities.auth.user import CreateUser, UpdateUser
+from lib.L1_domain.entities.users.user import CreateUser, UpdateUser
 from lib.L2_app.extra.security import verify_password
 from lib.L3_data.repositories import user_repo
 from lib.tests.utils.user import random_email, random_lower_string
@@ -13,23 +13,23 @@ def test_create_user(db: Session) -> None:
     email = random_email()
     password = random_lower_string()
     user_in = CreateUser(email=email, password=password)
-    user = user_repo.user_repo.create(db, obj_in=user_in)
+    user = user_repo.create(db, obj_in=user_in)
     assert user.email == email
     assert hasattr(user, "hashed_password")
-    user_repo.user_repo.delete(db, p_id=user.id)
+    user_repo.delete(db, p_id=user.id)
 
 
 def test_authenticate_user(db: Session) -> None:
     email = random_email()
     password = random_lower_string()
     user_in = CreateUser(email=email, password=password)
-    user = user_repo.user_repo.create(db, obj_in=user_in)
-    authenticated_user = user_repo.user_repo.authenticate(
+    user = user_repo.create(db, obj_in=user_in)
+    authenticated_user = user_repo.authenticate(
         db, email=email, password=password
     )
     assert authenticated_user
     assert user.email == authenticated_user.email
-    user_repo.user_repo.delete(db, p_id=user.id)
+    user_repo.delete(db, p_id=user.id)
 
 
 def test_not_authenticate_user(db: Session) -> None:

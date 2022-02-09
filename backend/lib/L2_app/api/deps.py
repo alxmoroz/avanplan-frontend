@@ -8,10 +8,10 @@ from jose import jwt
 from pydantic import ValidationError
 from sqlalchemy.orm import Session
 
-from lib.L1_domain.entities import auth
+from lib.L1_domain.entities import users, auth
 from lib.L2_app.extra.config import settings
-from lib.L3_data.db.session import SessionLocal
 from lib.L3_data.repositories import user_repo
+from lib.L3_data.repositories.db_repo import SessionLocal
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f"{settings.API_PATH}/auth/token")
 
@@ -30,7 +30,7 @@ def get_db() -> Generator:
 def get_user_by_token(
     db: Session = Depends(get_db),
     token: str = Depends(oauth2_scheme),
-) -> auth.User:
+) -> users.User:
     try:
         payload = jwt.decode(
             token, settings.SECRET_KEY, algorithms=[jwt.ALGORITHMS.HS256]
@@ -45,15 +45,15 @@ def get_user_by_token(
 
 
 def get_current_active_user(
-    current_user: auth.User = Depends(get_user_by_token),
-) -> auth.User:
+    current_user: users.User = Depends(get_user_by_token),
+) -> users.User:
     if not current_user.is_active:
         raise HTTPException(status_code=403, detail="Inactive user")
     return current_user
 
 
 def is_active_user(
-    user: auth.User = Depends(get_user_by_token),
+    user: users.User = Depends(get_user_by_token),
 ) -> bool:
     if not user.is_active:
         raise HTTPException(status_code=403, detail="Inactive user")
@@ -61,7 +61,7 @@ def is_active_user(
 
 
 def is_active_superuser(
-    user: auth.User = Depends(get_current_active_user),
+    user: users.User = Depends(get_current_active_user),
 ) -> bool:
     if not user.is_superuser:
         raise HTTPException(

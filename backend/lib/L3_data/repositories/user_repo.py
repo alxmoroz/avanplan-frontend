@@ -4,16 +4,16 @@ from typing import Union
 
 from sqlalchemy.orm import Session
 
-from lib.L1_domain.entities.auth import CreateUser, UpdateUser
+from lib.L1_domain.entities.users import CreateUser, UpdateUser
 from lib.L2_app.extra.security import get_password_hash, verify_password
 
-from ..models.auth import User
-from .base_db_repo import BaseDBRepo
+from ..models.users import User
+from .db_repo import DBRepo
 
 # TODO: нужен соотв. репозиторий в Л1
 
 
-class UserDBRepo(BaseDBRepo[User, CreateUser, UpdateUser]):
+class UserDBRepo(DBRepo[User, CreateUser, UpdateUser]):
     @staticmethod
     def get_by_email(db: Session, *, email: str) -> User | None:
         return db.query(User).filter(User.email == email).first()

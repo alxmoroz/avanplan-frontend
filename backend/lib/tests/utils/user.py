@@ -6,9 +6,9 @@ import string
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
 
-from lib.L1_domain.entities.auth import CreateUser, UpdateUser
+from lib.L1_domain.entities.users import CreateUser, UpdateUser
 from lib.L2_app.extra.config import settings
-from lib.L3_data.models.auth.user import User
+from lib.L3_data.models.users.user import User
 from lib.L3_data.repositories import user_repo
 
 

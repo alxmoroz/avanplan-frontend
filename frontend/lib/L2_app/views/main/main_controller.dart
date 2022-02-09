@@ -59,14 +59,14 @@ abstract class _MainControllerBase extends BaseController with Store {
     authorized = auth;
   }
 
-  //TODO: для тестирования
+  //TODO: для тестирования метод пока что тут
   Future redmine() async {
-    final builder = BodyImportIssuesApiV1ImportRedmineIssuesPostBuilder()
+    final builder = BodyTasksApiV1ImportRedmineTasksPostBuilder()
       ..apiKey = '101b62ea94b4132625a3d079451ea13fed3f4b87'
       ..host = 'https://redmine.moroz.team';
 
-    await openAPI.getImportRedmineApi().importIssuesApiV1ImportRedmineIssuesPost(
-          bodyImportIssuesApiV1ImportRedmineIssuesPost: builder.build(),
+    await openAPI.getImportRedmineApi().tasksApiV1ImportRedmineTasksPost(
+          bodyTasksApiV1ImportRedmineTasksPost: builder.build(),
         );
   }
 

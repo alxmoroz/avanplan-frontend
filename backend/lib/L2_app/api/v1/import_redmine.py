@@ -34,7 +34,7 @@ def tasks(
             title=rp.name,
             description=rp.description,
             remote_code=f"R{rp.id}",
-            imported_on=datetime.now()
+            imported_on=datetime.now(),
         )
 
         p_in_db = db.query(ProjectModel).filter(ProjectModel.code == p.code).first()

@@ -3,13 +3,11 @@ from datetime import datetime
 
 from fastapi import APIRouter, Body, Depends
 from redminelib import Redmine, resources
-from sqlalchemy.orm import Session
 
 from lib.L1_domain.entities import api
 from lib.L1_domain.entities.tracker.project import Project
 from lib.L1_domain.entities.tracker.task import Task, TaskPriority, TaskStatus
 from lib.L2_app.api import deps
-from lib.L3_data.models.tracker.project import Project as ProjectModel
 from lib.L3_data.repositories import project_repo
 
 router = APIRouter()
@@ -21,7 +19,6 @@ def tasks(
     api_key: str = Body(None),  # API key
     version: str | None = Body(None),
     granted: bool = Depends(deps.is_active_user),  # noqa
-    db: Session = Depends(deps.get_db),
 ) -> any:
     r = Redmine(host, key=api_key, version=version)
     r_opened_projects: list[resources.Project] = r.project.all()
@@ -37,11 +34,11 @@ def tasks(
             imported_on=datetime.now(),
         )
 
-        p_in_db = db.query(ProjectModel).filter(ProjectModel.code == p.code).first()
+        p_in_db = project_repo.get(dict(code=p.code))
         if p_in_db:
-            project_repo.update(db, db_obj=p_in_db, obj_in=p)
+            project_repo.update(p)
         else:
-            project_repo.create(db, obj_in=p)
+            project_repo.create(p)
 
     for issue in r_opened_issues:
         t = Task(

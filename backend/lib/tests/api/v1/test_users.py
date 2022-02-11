@@ -1,15 +1,14 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
 from fastapi.testclient import TestClient
-from sqlalchemy.orm import Session
 
-from lib.L1_domain.entities.users.user import CreateUser
+from lib.L1_domain.entities.users.user import User
 from lib.L2_app.extra.config import settings
 from lib.L3_data.repositories import user_repo
 from lib.tests.utils.user import random_email, random_lower_string
 
 
-def test_get_my_account_admin(client: TestClient, token_headers_admin) -> None:
+def test_get_my_account_admin(client: TestClient, token_headers_admin):
     r = client.get(f"{settings.API_PATH}/users/my/account", headers=token_headers_admin)
     print(token_headers_admin)
     assert r.status_code == 200
@@ -30,18 +29,16 @@ def test_get_my_account(client: TestClient, token_headers_user) -> None:
     assert current_user["email"] == settings.TEST_USER_EMAIL
 
 
-def test_create_user_new_email(
-    client: TestClient, token_headers_admin, db: Session
-) -> None:
-    username = random_email()
+def test_create_user_new_email(client: TestClient, token_headers_admin):
+    email = random_email()
     password = random_lower_string()
-    data = {"email": username, "password": password}
+    data = {"email": email, "password": password}
     r = client.post(
         f"{settings.API_PATH}/users/", headers=token_headers_admin, json=data
     )
     assert r.status_code == 201
     created_user = r.json()
-    user = user_repo.get_by_email(db, email=username)
+    user = user_repo.get_by_email(email)
     assert user
     assert user.email == created_user["email"]
 
@@ -60,20 +57,16 @@ def test_create_user_new_email(
 #     )
 #     assert r.status_code == 200
 #     api_user = r.json()
-#     existing_user = user.get_by_email(db, email=username)
+#     existing_user = user.get_by_email(email=username)
 #     assert existing_user
 #     assert existing_user.email == api_user["email"]
 
 
-def test_create_user_existing_username(
-    client: TestClient, token_headers_admin, db: Session
-) -> None:
-    username = random_email()
-    # username = email
+def test_create_user_existing_username(client: TestClient, token_headers_admin):
+    email = random_email()
     password = random_lower_string()
-    user_in = CreateUser(email=username, password=password)
-    user_repo.create(db, obj_in=user_in)
-    data = {"email": username, "password": password}
+    user_repo.create(User(email=email, password=password))
+    data = {"email": email, "password": password}
     r = client.post(
         f"{settings.API_PATH}/users/",
         headers=token_headers_admin,
@@ -84,16 +77,14 @@ def test_create_user_existing_username(
     assert "_id" not in created_user
 
 
-def test_retrieve_users(client: TestClient, token_headers_admin, db: Session) -> None:
-    username = random_email()
+def test_retrieve_users(client: TestClient, token_headers_admin):
+    email = random_email()
     password = random_lower_string()
-    user_in = CreateUser(email=username, password=password)
-    user_repo.create(db, obj_in=user_in)
+    user_repo.create(User(email=email, password=password))
 
     username2 = random_email()
     password2 = random_lower_string()
-    user_in2 = CreateUser(email=username2, password=password2)
-    user_repo.create(db, obj_in=user_in2)
+    user_repo.create(User(email=username2, password=password2))
 
     r = client.get(f"{settings.API_PATH}/users/", headers=token_headers_admin)
     all_users = r.json()

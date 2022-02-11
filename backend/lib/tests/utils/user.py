@@ -4,11 +4,9 @@ import random
 import string
 
 from fastapi.testclient import TestClient
-from sqlalchemy.orm import Session
 
-from lib.L1_domain.entities.users import CreateUser, UpdateUser
+from lib.L1_domain.entities.users import User
 from lib.L2_app.extra.config import settings
-from lib.L3_data.models.users.user import User
 from lib.L3_data.repositories import user_repo
 
 
@@ -31,9 +29,7 @@ def get_superuser_token_headers(client: TestClient) -> dict[str, str]:
     return headers
 
 
-def user_auth_headers(
-    *, client: TestClient, email: str, password: str
-) -> dict[str, str]:
+def user_auth_headers(client: TestClient, email: str, password: str) -> dict[str, str]:
     data = {"username": email, "password": password}
 
     r = client.post(f"{settings.API_PATH}/auth/token", data=data)
@@ -43,29 +39,25 @@ def user_auth_headers(
     return headers
 
 
-def create_random_user(db: Session) -> User:
+def create_random_user() -> User:
     email = random_email()
     password = random_lower_string()
-    user_in = CreateUser(username=email, email=email, password=password)
-    user = user_repo.create(db=db, obj_in=user_in)
+    user = user_repo.create(User(email=email, password=password))
     return user
 
 
-def auth_headers_from_email(
-    *, client: TestClient, email: str, db: Session
-) -> dict[str, str]:
+def auth_headers_from_email(client: TestClient, email: str) -> dict[str, str]:
     """
     Return a valid token for the user with given email.
 
     If the user doesn't exist it is created first.
     """
     password = random_lower_string()
-    user = user_repo.get_by_email(db, email=email)
+    user = user_repo.get_by_email(email)
     if not user:
-        user_in_create = CreateUser(username=email, email=email, password=password)
-        user_repo.create(db, obj_in=user_in_create)
+        user_repo.create(User(email=email, password=password))
     else:
-        user_in_update = UpdateUser(password=password)
-        user_repo.update(db, db_obj=user, obj_in=user_in_update)
+        user.password = password
+        user_repo.update(user)
 
     return user_auth_headers(client=client, email=email, password=password)

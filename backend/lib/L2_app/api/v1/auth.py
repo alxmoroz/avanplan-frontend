@@ -1,41 +1,30 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from datetime import timedelta
 
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
-from sqlalchemy.orm import Session
 
-from lib.L1_domain.entities import auth
-from lib.L2_app.api import deps
-from lib.L2_app.extra import security
-from lib.L3_data.repositories import user_repo
-
-# from lib.extra.utils import verify_password_reset_token
+from lib.L1_domain.entities.auth import Token
+from lib.L1_domain.usecases.auth import AuthException, AuthUseCase
+from lib.L3_data.repositories import security_repo, user_repo
 
 router = APIRouter()
 
 
-@router.post("/token", response_model=auth.Token, operation_id="get_auth_token")
-def token(
-    db: Session = Depends(deps.get_db),
-    form_data: OAuth2PasswordRequestForm = Depends(),
-) -> any:
+@router.post("/token", response_model=Token, operation_id="get_auth_token")
+def token(form_data: OAuth2PasswordRequestForm = Depends()) -> Token:
     """
-    OAuth2 compatible token login, get an access token for future requests
+    OAuth2 token login, access token for future requests
     """
-    user = user_repo.authenticate(
-        db, email=form_data.username, password=form_data.password
-    )
-    if not user:
-        raise HTTPException(status_code=400, detail="Incorrect email or password")
-    elif not user.is_active:
-        raise HTTPException(status_code=403, detail="Inactive user")
-    token_expires = timedelta(minutes=security.AUTH_TOKEN_EXPIRATION_MINUTES)
-    return {
-        "access_token": security.create_token(user.id, expires_delta=token_expires),
-        "token_type": "bearer",
-    }
+    try:
+        t = AuthUseCase(user_repo, security_repo).authenticate(
+            username=form_data.username,
+            password=form_data.password,
+        )
+    except AuthException as a:
+        raise HTTPException(status_code=a.code, detail=a.detail)
+
+    return t
 
 
 # @router.post("/reset-password/", response_model=schemas.Msg)

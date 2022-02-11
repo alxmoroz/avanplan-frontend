@@ -7,8 +7,6 @@ abstract class DBModel {}
 abstract class DBRepository<E extends BaseEntity, M extends DBModel> {
   Future<Iterable<E>> getAll(dynamic params);
 
-  // Future<E> get(String id);
-
   Future<dynamic> save(E entity, M? model);
 
   Future delete(E entity, M? model);

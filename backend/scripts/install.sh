@@ -7,4 +7,4 @@
 export PYTHONPATH="."
 
 bash ./scripts/migrate.sh
-python3 ./lib/L3_data/initial_data.py
+python3 ./scripts/initial_data.py

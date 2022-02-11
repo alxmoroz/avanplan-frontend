@@ -5,6 +5,8 @@ import '../entities/app_settings.dart';
 import '../repositories/settings_repository.dart';
 import 'base_uc.dart';
 
+// TODO: нарушение направления зависимостей. Хоть и через гетИт, но есть зависимость от 3 уровня
+
 extension AuthUC on AppSettings {
   SettingsRepository? get repo => hStorage.repoForName(classCode) as SettingsRepository;
 

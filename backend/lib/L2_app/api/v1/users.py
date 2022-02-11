@@ -3,58 +3,54 @@
 from fastapi import APIRouter, Body, Depends, HTTPException
 from fastapi.encoders import jsonable_encoder
 from pydantic.networks import EmailStr
-from sqlalchemy.orm import Session
 
-from lib.L1_domain.entities import users
+from lib.L1_domain.entities.users import User
 from lib.L2_app.api import deps
-from lib.L3_data.models.users import User
+from lib.L3_data.models.users import User as UserModel
 from lib.L3_data.repositories import user_repo
 
 router = APIRouter()
 
 
-@router.get("/", response_model=list[users.User])
+@router.get("/", response_model=list[User])
 def read_users(
     skip: int = 0,
     limit: int | None = None,
-    db: Session = Depends(deps.get_db),
     granted: bool = Depends(deps.is_active_superuser),  # noqa
 ) -> any:
-    return user_repo.get_multi(db, skip=skip, limit=limit)
+    return user_repo.get(filter_by=dict(), skip=skip, limit=limit)
 
 
-@router.post("/", response_model=users.User, status_code=201)
+@router.post("/", response_model=User, status_code=201)
 def create_user(
-    user_in: users.CreateUser,
+    user_in: User,
     granted: bool = Depends(deps.is_active_superuser),  # noqa
-    db: Session = Depends(deps.get_db),
-) -> users.User:
-    user = user_repo.get_by_email(db, email=user_in.email)
+) -> User:
+    user = user_repo.get_by_email(user_in.email)
     if user:
         raise HTTPException(
             status_code=400,
             detail="The user with this username already exists in the system.",
         )
-    return user_repo.create(db, obj_in=user_in)
+    return user_repo.create(user_in)
 
 
-@router.get("/my/account", response_model=users.User)
+@router.get("/my/account", response_model=User)
 def get_my_account(
-    user: User = Depends(deps.get_current_active_user),
-) -> any:
+    user: UserModel = Depends(deps.get_current_active_user),
+) -> User:
     return user
 
 
-@router.put("/my/account", response_model=users.User)
+@router.put("/my/account", response_model=User)
 def update_my_account(
     password: str = Body(None),
     full_name: str = Body(None),
     email: EmailStr = Body(None),
-    user: User = Depends(deps.get_current_active_user),
-    db: Session = Depends(deps.get_db),
+    user: UserModel = Depends(deps.get_current_active_user),
 ) -> any:
     user_data = jsonable_encoder(user)
-    user_in = users.UpdateUser(**user_data)
+    user_in = User(**user_data)
     if password is not None:
         user_in.password = password
     if full_name is not None:
@@ -62,7 +58,7 @@ def update_my_account(
     if email is not None:
         user_in.email = email
 
-    return user_repo.update(db, db_obj=user, obj_in=user_in)
+    return user_repo.update(user_in)
 
 
 # TODO: другие пользователи могут видеть некоторую инфу по пользователям. Возможно, в другом методе или вьюхе это должно быть.
@@ -70,8 +66,8 @@ def update_my_account(
 # def get_user_by_id(
 #     user_id: int,
 #     db: Session = Depends(deps.get_db),
-#     current_user: models.User = Depends(deps.get_current_active_user),
-# ) -> any:
+#     current_user: UserModel = Depends(deps.get_current_active_user),
+# ) -> UserModel:
 #     """
 #     Get a specific user by id.
 #     """

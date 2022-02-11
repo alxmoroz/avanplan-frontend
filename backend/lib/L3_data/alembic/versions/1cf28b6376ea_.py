@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 3dd333fb689e
+Revision ID: 1cf28b6376ea
 Revises: 
-Create Date: 2022-02-09 07:03:08.872275
+Create Date: 2022-02-11 00:48:25.852544
 
 """
 #  Copyright (c) 2022. Alexandr Moroz
@@ -11,7 +11,7 @@ import sqlalchemy as sa
 from alembic import op
 
 # revision identifiers, used by Alembic.
-revision = "3dd333fb689e"
+revision = "1cf28b6376ea"
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -40,7 +40,7 @@ def upgrade():
         sa.Column("id", sa.Integer(), nullable=False),
         sa.Column("full_name", sa.String(), nullable=True),
         sa.Column("email", sa.String(), nullable=False),
-        sa.Column("hashed_password", sa.String(), nullable=False),
+        sa.Column("password", sa.String(), nullable=False),
         sa.Column("is_active", sa.Boolean(), nullable=True),
         sa.Column("is_superuser", sa.Boolean(), nullable=True),
         sa.PrimaryKeyConstraint("id"),

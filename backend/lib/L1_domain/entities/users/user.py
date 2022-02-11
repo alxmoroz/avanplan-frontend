@@ -5,24 +5,13 @@ from pydantic import EmailStr
 from lib.L1_domain.entities.base_entity import BaseEntity
 
 
-class BaseUserEntity(BaseEntity):
-    email: EmailStr | None
-    is_active: bool = True
-    is_superuser: bool = False
-    full_name: str | None
-
-
-class CreateUser(BaseUserEntity):
+class User(BaseEntity):
+    id: int | None
     email: EmailStr
     password: str
-
-
-class UpdateUser(BaseUserEntity):
-    password: str | None
-
-
-class User(BaseUserEntity):
-    id: int | None
+    full_name: str | None
+    is_active: bool = True
+    is_superuser: bool = False
 
     class Config:
         orm_mode = True

@@ -1,34 +1,19 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from typing import Generator
 
 from fastapi import Depends, HTTPException
-from fastapi.security import OAuth2PasswordBearer
 from jose import jwt
 from pydantic import ValidationError
-from sqlalchemy.orm import Session
 
-from lib.L1_domain.entities import users, auth
+from lib.L1_domain.entities import auth, users
 from lib.L2_app.extra.config import settings
 from lib.L3_data.repositories import user_repo
-from lib.L3_data.repositories.db_repo import SessionLocal
-
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f"{settings.API_PATH}/auth/token")
+from lib.L3_data.repositories.security_repo import oauth2_scheme
 
 # TODO: разделить по слоям
 
 
-def get_db() -> Generator:
-    db = None
-    try:
-        db = SessionLocal()
-        yield db
-    finally:
-        db.close()
-
-
 def get_user_by_token(
-    db: Session = Depends(get_db),
     token: str = Depends(oauth2_scheme),
 ) -> users.User:
     try:
@@ -38,7 +23,9 @@ def get_user_by_token(
         token_data = auth.TokenPayload(**payload)
     except (jwt.JWTError, ValidationError):
         raise HTTPException(status_code=403, detail="Could not validate credentials")
-    user = user_repo.get(db, p_id=token_data.sub)
+    user_list = user_repo.get(dict(id=token_data.sub))
+    user = user_list[0] if len(user_list) > 0 else None
+
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     return user

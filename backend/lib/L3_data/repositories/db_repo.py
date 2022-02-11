@@ -1,78 +1,77 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from typing import Generic, Type, TypeVar, Union
+from contextlib import contextmanager
+from typing import Generator, Generic, Type, TypeVar
 
 from fastapi.encoders import jsonable_encoder
-from sqlalchemy import create_engine
-from sqlalchemy.orm import Session, sessionmaker
+from sqlalchemy import create_engine, delete, select, update
+from sqlalchemy.orm import sessionmaker
 
 from lib.L1_domain.entities.base_entity import BaseEntity
 from lib.L2_app.extra.config import settings
 
 from ..models.base_model import BaseModel
 
-engine = create_engine(settings.SQLALCHEMY_DATABASE_URI, pool_pre_ping=True)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+DBModelType = TypeVar("DBModelType", bound=BaseModel)
+EntityType = TypeVar("EntityType", bound=BaseEntity)
 
-GetModelType = TypeVar("GetModelType", bound=BaseModel)
-CreateEntityType = TypeVar("CreateEntityType", bound=BaseEntity)
-UpdateEntityType = TypeVar("UpdateEntityType", bound=BaseEntity)
+engine = create_engine(
+    settings.SQLALCHEMY_DATABASE_URI, pool_pre_ping=True, future=True
+)
+Session = sessionmaker(bind=engine, future=True)
+
+
+@contextmanager
+def db_session() -> Generator:
+    session = None
+    try:
+        session = Session()
+        yield session
+    finally:
+        session.close()
 
 
 # TODO: нужен соотв. по интерфейсу репозиторий в Л1
-class DBRepo(Generic[GetModelType, CreateEntityType, UpdateEntityType]):
-    def __init__(self, model: Type[GetModelType]):
-        """
-        CRUD object with default methods to Create, Read, Update, Delete (CRUD).
-
-        **Parameters**
-
-        * `model`: A SQLAlchemy model class
-        * `schema`: A Pydantic model (schema) class
-        """
+class DBRepo(Generic[DBModelType, EntityType]):
+    def __init__(self, model: Type[DBModelType], entity: Type[EntityType]):
         self.model = model
+        self.entity = entity
 
-    def get(self, db: Session, p_id: any) -> GetModelType | None:
-        return db.query(self.model).filter(self.model.id == p_id).first()
-
-    def get_multi(
-        self, db: Session, *, skip: int = 0, limit: int | None
-    ) -> list[GetModelType]:
-        clause = db.query(self.model).offset(skip)
-        if limit is not None:
-            clause = clause.limit(limit)
-        return clause.all()
-
-    def create(self, db: Session, *, obj_in: CreateEntityType) -> GetModelType:
-        obj_in_data = jsonable_encoder(obj_in)
-        db_obj = self.model(**obj_in_data)  # type: ignore
-        db.add(db_obj)
-        db.commit()
-        db.refresh(db_obj)
-        return db_obj
-
-    def update(
+    def get(
         self,
-        db: Session,
-        *,
-        db_obj: GetModelType,
-        obj_in: Union[UpdateEntityType, dict[str, any]]
-    ) -> GetModelType:
-        obj_data = jsonable_encoder(db_obj)
-        if isinstance(obj_in, dict):
-            update_data = obj_in
-        else:
-            update_data = obj_in.dict(exclude_unset=True)
-        for field in obj_data:
-            if field in update_data:
-                setattr(db_obj, field, update_data[field])
-        db.add(db_obj)
-        db.commit()
-        db.refresh(db_obj)
-        return db_obj
+        filter_by: dict,
+        limit: int | None = None,
+        skip: int = 0,
+    ) -> list[EntityType]:
+        with db_session() as session:
+            stmt = select(self.model).filter_by(**filter_by).offset(skip)
+            if limit is not None:
+                stmt = stmt.limit(limit)
+            objects = session.execute(stmt).scalars().all()
 
-    def delete(self, db: Session, *, p_id: int) -> GetModelType:
-        db_obj = db.query(self.model).get(p_id)
-        db.delete(db_obj)
-        db.commit()
-        return db_obj
+        return [self.entity(**jsonable_encoder(obj)) for obj in objects]
+
+    def create(self, e: EntityType) -> EntityType:
+        e_data = jsonable_encoder(e)
+        model = self.model(**e_data)
+        with db_session() as session:
+            session.add(model)
+            session.commit()
+            # TODO:
+            # session.refresh(model)
+            e.id = model.id
+        return e
+
+    def update(self, e: EntityType) -> int:
+        with db_session() as session:
+            stmt = update(self.model).where(self.model.id == e.id).values(**e.dict())
+            affected_rows = session.execute(stmt).rowcount
+            session.commit()
+        return affected_rows
+
+    def delete(self, e: EntityType) -> int:
+        with db_session() as session:
+            stmt = delete(self.model).where(self.model.id == e.id)
+            affected_rows = session.execute(stmt).rowcount
+            session.commit()
+        return affected_rows

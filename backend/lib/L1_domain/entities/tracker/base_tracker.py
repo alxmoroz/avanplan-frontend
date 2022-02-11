@@ -6,6 +6,7 @@ from ..base_entity import BaseEntity
 
 
 class BaseTrackerEntity(BaseEntity):
+    id: str | None
     code: str
     title: str = ""
     description: str = ""

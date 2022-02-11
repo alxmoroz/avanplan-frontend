@@ -48,7 +48,7 @@ def update_my_account(
     full_name: str = Body(None),
     email: EmailStr = Body(None),
     user: UserModel = Depends(deps.get_current_active_user),
-) -> any:
+) -> User:
     user_data = jsonable_encoder(user)
     user_in = User(**user_data)
     if password is not None:
@@ -57,8 +57,8 @@ def update_my_account(
         user_in.full_name = full_name
     if email is not None:
         user_in.email = email
-
-    return user_repo.update(user_in)
+    user_repo.update(user_in)
+    return user_in
 
 
 # TODO: другие пользователи могут видеть некоторую инфу по пользователям. Возможно, в другом методе или вьюхе это должно быть.

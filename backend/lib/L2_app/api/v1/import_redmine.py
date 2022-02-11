@@ -19,7 +19,7 @@ def tasks(
     api_key: str = Body(None),  # API key
     version: str | None = Body(None),
     granted: bool = Depends(deps.is_active_user),  # noqa
-) -> any:
+) -> api.Msg:
     r = Redmine(host, key=api_key, version=version)
     r_opened_projects: list[resources.Project] = r.project.all()
     r_opened_issues: list[resources.Issue] = r.issue.filter(status_id="open")
@@ -54,7 +54,4 @@ def tasks(
 
     # TODO: запись в БД
 
-    # print("\n".join([str(list(p)) for p in projects]))
-    # print(list(tasks))
-
-    return {"msg": f"Issues from Redmine {host} imported successful\n"}
+    return api.Msg(msg=f"Issues from Redmine {host} imported successful\n")

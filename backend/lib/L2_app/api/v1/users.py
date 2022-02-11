@@ -17,7 +17,7 @@ def read_users(
     skip: int = 0,
     limit: int | None = None,
     granted: bool = Depends(deps.is_active_superuser),  # noqa
-) -> any:
+) -> list[User]:
     return user_repo.get(filter_by=dict(), skip=skip, limit=limit)
 
 

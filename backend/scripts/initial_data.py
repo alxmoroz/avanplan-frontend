@@ -1,6 +1,6 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from lib.L1_domain.entities.users import CreateUser
+from lib.L1_domain.entities.users import User
 from lib.L2_app.extra.config import settings
 from lib.L3_data.repositories import user_repo
 
@@ -9,16 +9,16 @@ from lib.L3_data.repositories import user_repo
 
 def main() -> None:
 
-    user_db = user_repo.get_by_email(email=settings.FIRST_SUPERUSER_EMAIL)
-    if not user_db:
+    admin_user = user_repo.get_one(email=settings.TEST_ADMIN_EMAIL)
+    if not admin_user:
         user_repo.create(
-            obj_in=CreateUser(
-                email=settings.FIRST_SUPERUSER_EMAIL,
-                password=settings.FIRST_SUPERUSER_PASSWORD,
+            User(
+                email=settings.TEST_ADMIN_EMAIL,
+                password=settings.TEST_ADMIN_PASSWORD,
                 is_superuser=True,
             ),
         )
-    print("Initial data created")
+    print("Admin_user created")
 
 
 if __name__ == "__main__":

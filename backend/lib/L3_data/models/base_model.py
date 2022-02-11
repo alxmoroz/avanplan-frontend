@@ -3,9 +3,11 @@
 from sqlalchemy import Column, Integer
 from sqlalchemy.ext.declarative import as_declarative, declared_attr
 
+from lib.L1_domain.repositories import AbstractModel
+
 
 @as_declarative()
-class BaseModel:
+class BaseModel(AbstractModel):
 
     id = Column(Integer, primary_key=True, index=True)
 

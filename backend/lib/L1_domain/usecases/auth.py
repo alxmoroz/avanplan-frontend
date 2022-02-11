@@ -1,7 +1,7 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
 from lib.L1_domain.entities import auth
-from lib.L1_domain.repositories import BaseSecurityRepo, BaseUserRepo
+from lib.L1_domain.repositories import AbstractDBRepo, BaseSecurityRepo
 
 
 class AuthException(Exception):
@@ -11,16 +11,13 @@ class AuthException(Exception):
 
 
 class AuthUseCase:
-
-    # ERR_WRONG_CREDS =
-
-    def __init__(self, user_repo: BaseUserRepo, security_repo: BaseSecurityRepo):
+    def __init__(self, user_repo: AbstractDBRepo, security_repo: BaseSecurityRepo):
         self.user_repo = user_repo
         self.sec_repo = security_repo
 
     def authenticate(self, username: str, password: str) -> auth.Token:
-        user_list = self.user_repo.get(filter_by=dict(email=username))
-        user = user_list[0] if len(user_list) > 0 else None
+
+        user = self.user_repo.get_one(email=username)
 
         if not user or not self.sec_repo.verify_password(password, user.password):
             raise AuthException(code=403, detail="Incorrect username or password")
@@ -40,7 +37,7 @@ class AuthUseCase:
         #     email = verify_password_reset_token(token)
         #     if not email:
         #         raise HTTPException(status_code=400, detail="Invalid token")
-        #     user = user_repo.get_by_email(db, email=email)
+        #     user = user_repo.get_one(email=email)
         #     if not user:
         #         raise HTTPException(
         #             status_code=404,

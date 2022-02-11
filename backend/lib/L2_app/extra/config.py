@@ -2,7 +2,7 @@
 
 from typing import Union
 
-from pydantic import AnyHttpUrl, BaseSettings, EmailStr, PostgresDsn, validator
+from pydantic import AnyHttpUrl, BaseSettings, PostgresDsn, validator
 
 
 class Settings(BaseSettings):
@@ -45,10 +45,10 @@ class Settings(BaseSettings):
             path=f"/{values.get('POSTGRES_DB') or ''}",
         )
 
-    FIRST_SUPERUSER_EMAIL: EmailStr = "admin@test.com"
-    FIRST_SUPERUSER_PASSWORD: str = "admin"
-    USERS_OPEN_REGISTRATION: bool = False
+    TEST_ADMIN_EMAIL = "admin@test.com"
+    TEST_ADMIN_PASSWORD = "admin"
     TEST_USER_EMAIL = "test@test.com"
+    TEST_USER_PASSWORD = "test"
 
     class Config:
         case_sensitive = True

@@ -34,7 +34,7 @@ def tasks(
             imported_on=datetime.now(),
         )
 
-        p_in_db = project_repo.get(dict(code=p.code))
+        p_in_db = project_repo.get_one(code=p.code)
         if p_in_db:
             project_repo.update(p)
         else:

@@ -5,10 +5,10 @@ from typing import Generator
 import pytest
 from fastapi.testclient import TestClient
 
+from lib.L1_domain.entities.users import User
 from lib.L2_app.extra.config import settings
+from lib.L3_data.repositories import user_repo
 from lib.main import app
-
-from .utils.user import auth_headers_from_email, get_superuser_token_headers
 
 
 @pytest.fixture(scope="module")
@@ -17,11 +17,37 @@ def client() -> Generator:
         yield c
 
 
-@pytest.fixture(scope="module")
-def token_headers_admin(client: TestClient) -> dict[str, str]:
-    return get_superuser_token_headers(client)
+def _auth_headers_for_user(
+    client: TestClient, email: str, password: str, is_superuser: bool = False
+):
+    user = user_repo.get_one(email=email)
+    if not user:
+        user_repo.create(
+            User(email=email, password=password, is_superuser=is_superuser)
+        )
+
+    r = client.post(
+        f"{settings.API_PATH}/auth/token",
+        data={"username": email, "password": password},
+    )
+    token = r.json()["access_token"]
+    return {"Authorization": f"Bearer {token}"}
 
 
 @pytest.fixture(scope="module")
-def token_headers_user(client: TestClient) -> dict[str, str]:
-    return auth_headers_from_email(client=client, email=settings.TEST_USER_EMAIL)
+def auth_headers_test_admin(client: TestClient) -> dict[str, str]:
+    return _auth_headers_for_user(
+        client,
+        settings.TEST_ADMIN_EMAIL,
+        settings.TEST_ADMIN_PASSWORD,
+        is_superuser=True,
+    )
+
+
+@pytest.fixture(scope="module")
+def auth_headers_test_user(client: TestClient) -> dict[str, str]:
+    return _auth_headers_for_user(
+        client,
+        settings.TEST_USER_EMAIL,
+        settings.TEST_USER_PASSWORD,
+    )

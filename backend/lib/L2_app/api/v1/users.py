@@ -18,7 +18,7 @@ def read_users(
     limit: int | None = None,
     granted: bool = Depends(deps.is_active_superuser),  # noqa
 ) -> list[User]:
-    return user_repo.get(filter_by=dict(), skip=skip, limit=limit)
+    return user_repo.get(skip=skip, limit=limit)
 
 
 @router.post("/", response_model=User, status_code=201)
@@ -26,7 +26,7 @@ def create_user(
     user_in: User,
     granted: bool = Depends(deps.is_active_superuser),  # noqa
 ) -> User:
-    user = user_repo.get_by_email(user_in.email)
+    user = user_repo.get_one(email=user_in.email)
     if user:
         raise HTTPException(
             status_code=400,
@@ -71,7 +71,7 @@ def update_my_account(
 #     """
 #     Get a specific user by id.
 #     """
-#     user = user.get(db, p_id=user_id)
+#     user = user.get_one(p_id=user_id)
 #     if current_user == user:
 #         return user
 #     if not user.is_superuser:

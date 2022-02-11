@@ -2,4 +2,3 @@
 
 from .base_db_repo import *
 from .base_security_repo import *
-from .base_user_repo import *

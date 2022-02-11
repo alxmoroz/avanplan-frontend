@@ -17,13 +17,12 @@ def get_user_by_token(
     token: str = Depends(oauth2_scheme),
 ) -> users.User:
     try:
-        payload = jwt.decode(
+        user_id = jwt.decode(
             token, settings.SECRET_KEY, algorithms=[jwt.ALGORITHMS.HS256]
-        )
-        token_data = auth.TokenPayload(**payload)
+        )['sub']
     except (jwt.JWTError, ValidationError):
         raise HTTPException(status_code=403, detail="Could not validate credentials")
-    user_list = user_repo.get(dict(id=token_data.sub))
+    user_list = user_repo.get(dict(id=user_id))
     user = user_list[0] if len(user_list) > 0 else None
 
     if not user:

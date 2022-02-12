@@ -6,7 +6,7 @@ from contextlib import contextmanager
 from typing import Generator
 
 from lib.L1_domain.entities.users import User
-from lib.L3_data.repositories import user_repo
+from lib.L3_data.repositories import security_repo, user_repo
 
 
 def _random_lower_string() -> str:
@@ -18,11 +18,18 @@ def random_email() -> str:
 
 
 @contextmanager
-def random_user(password: str | None = None) -> Generator:
-    user = None
+def tmp_user(*, password: str | None = None, is_active: bool = True) -> Generator:
+    user: User | None = None
     try:
-        password = password or _random_lower_string()
-        user = user_repo.create(User(email=random_email(), password=password))
+        user = user_repo.create(
+            User(
+                email=random_email(),
+                password=security_repo.secure_password(
+                    password or _random_lower_string()
+                ),
+                is_active=is_active,
+            )
+        )
         yield user
     finally:
         user_repo.delete(user)

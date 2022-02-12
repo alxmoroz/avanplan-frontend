@@ -1,8 +1,7 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from typing import Union
 
-from pydantic import AnyHttpUrl, BaseSettings, PostgresDsn, validator
+from pydantic import BaseSettings, PostgresDsn, validator
 
 
 class Settings(BaseSettings):
@@ -10,21 +9,6 @@ class Settings(BaseSettings):
     SECRET_KEY: str = "b202faeae347ac1f2ea1511a7bc9c49ad07c8e8c97fc8972cb45bda6beb11370"
     # 60 minutes * 24 hours * 7 days = 7 days
     AUTH_TOKEN_EXPIRATION_MINUTES: int = 60 * 24 * 7
-
-    # SERVER_NAME: str
-    # SERVER_HOST: AnyHttpUrl
-    # BACKEND_CORS_ORIGINS is a JSON-formatted list of origins
-    # e.g: '["http://localhost", "http://localhost:4200", "http://localhost:3000", \
-    # "http://localhost:8080", "http://local.dockertoolbox.tiangolo.com"]'
-    BACKEND_CORS_ORIGINS: list[AnyHttpUrl] = []
-
-    @validator("BACKEND_CORS_ORIGINS", pre=True)
-    def assemble_cors_origins(cls, v: Union[str, list[str]]) -> Union[list[str], str]:
-        if isinstance(v, str) and not v.startswith("["):
-            return [i.strip() for i in v.split(",")]
-        elif isinstance(v, (list, str)):
-            return v
-        raise ValueError(v)
 
     PROJECT_NAME: str = "Hercules"
     POSTGRES_SERVER: str = "localhost"
@@ -34,9 +18,7 @@ class Settings(BaseSettings):
     SQLALCHEMY_DATABASE_URI: PostgresDsn | None
 
     @validator("SQLALCHEMY_DATABASE_URI", pre=True)
-    def assemble_db_connection(cls, v: str | None, values: dict[str, any]) -> any:
-        if isinstance(v, str):
-            return v
+    def assemble_db_connection(cls, v: str | None, values: dict[str, any]):  # noqa
         return PostgresDsn.build(
             scheme="postgresql",
             user=values.get("POSTGRES_USER"),

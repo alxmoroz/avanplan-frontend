@@ -1,13 +1,11 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
 from fastapi import APIRouter, Body, Depends, HTTPException
-from fastapi.encoders import jsonable_encoder
-from pydantic.networks import EmailStr
 
 from lib.L1_domain.entities.users import User
 from lib.L2_app.api import deps
 from lib.L3_data.models.users import User as UserModel
-from lib.L3_data.repositories import user_repo
+from lib.L3_data.repositories import security_repo, user_repo
 
 router = APIRouter()
 
@@ -18,7 +16,7 @@ def read_users(
     limit: int | None = None,
     granted: bool = Depends(deps.is_active_superuser),  # noqa
 ) -> list[User]:
-    return user_repo.get(skip=skip, limit=limit)
+    return user_repo.get(limit=limit, skip=skip)
 
 
 @router.post("/", response_model=User, status_code=201)
@@ -26,12 +24,12 @@ def create_user(
     user_in: User,
     granted: bool = Depends(deps.is_active_superuser),  # noqa
 ) -> User:
-    user = user_repo.get_one(email=user_in.email)
-    if user:
+    if user_repo.get_one(email=user_in.email):
         raise HTTPException(
             status_code=400,
             detail="The user with this username already exists in the system.",
         )
+    user_in.password = security_repo.secure_password(user_in.password)
     return user_repo.create(user_in)
 
 
@@ -46,19 +44,14 @@ def get_my_account(
 def update_my_account(
     password: str = Body(None),
     full_name: str = Body(None),
-    email: EmailStr = Body(None),
     user: UserModel = Depends(deps.get_current_active_user),
 ) -> User:
-    user_data = jsonable_encoder(user)
-    user_in = User(**user_data)
     if password is not None:
-        user_in.password = password
+        user.password = security_repo.secure_password(password)
     if full_name is not None:
-        user_in.full_name = full_name
-    if email is not None:
-        user_in.email = email
-    user_repo.update(user_in)
-    return user_in
+        user.full_name = full_name
+    user_repo.update(user)
+    return user
 
 
 # TODO: другие пользователи могут видеть некоторую инфу по пользователям. Возможно, в другом методе или вьюхе это должно быть.

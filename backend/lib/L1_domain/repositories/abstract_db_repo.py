@@ -14,6 +14,8 @@ M = TypeVar("M", bound=AbstractModel)
 
 
 class AbstractDBRepo(Generic[M, E]):
+    __abstract__ = True
+
     def __init__(self, model: Type[M], entity: Type[E]):
         self.model = model
         self.entity = entity
@@ -21,11 +23,12 @@ class AbstractDBRepo(Generic[M, E]):
     def get(
         self,
         *,
+        where: any = None,
         limit: int | None = None,
         skip: int = 0,
         **filter_by,
     ) -> list[E]:
-        pass
+        raise NotImplementedError
 
     # TODO: возможно, стоит использовать промежуточный результат rows из SA
     def get_one(
@@ -36,10 +39,10 @@ class AbstractDBRepo(Generic[M, E]):
         return objs[0] if len(objs) > 0 else None
 
     def create(self, e: E) -> E:
-        pass
+        raise NotImplementedError
 
     def update(self, e: E) -> int:
-        pass
+        raise NotImplementedError
 
     def delete(self, e: E):
-        pass
+        raise NotImplementedError

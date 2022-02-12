@@ -7,7 +7,7 @@ from fastapi.testclient import TestClient
 
 from lib.L1_domain.entities.users import User
 from lib.L2_app.extra.config import settings
-from lib.L3_data.repositories import user_repo
+from lib.L3_data.repositories import security_repo, user_repo
 from lib.main import app
 
 
@@ -23,7 +23,11 @@ def _auth_headers_for_user(
     user = user_repo.get_one(email=email)
     if not user:
         user_repo.create(
-            User(email=email, password=password, is_superuser=is_superuser)
+            User(
+                email=email,
+                password=security_repo.secure_password(password),
+                is_superuser=is_superuser,
+            ),
         )
 
     r = client.post(

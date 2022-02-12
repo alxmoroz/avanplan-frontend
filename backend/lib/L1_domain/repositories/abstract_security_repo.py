@@ -4,7 +4,9 @@
 from lib.L1_domain.entities.auth import Token
 
 
-class BaseSecurityRepo:
+class AbstractSecurityRepo:
+    __abstract__ = True
+
     @staticmethod
     def create_token(identifier: str) -> Token:
         pass
@@ -14,5 +16,5 @@ class BaseSecurityRepo:
         pass
 
     @staticmethod
-    def get_hashed_password(password: str) -> str:
+    def secure_password(password: str) -> str:
         pass

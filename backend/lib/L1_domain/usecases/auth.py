@@ -1,7 +1,7 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
 from lib.L1_domain.entities import auth
-from lib.L1_domain.repositories import AbstractDBRepo, BaseSecurityRepo
+from lib.L1_domain.repositories import AbstractDBRepo, AbstractSecurityRepo
 
 
 class AuthException(Exception):
@@ -11,7 +11,7 @@ class AuthException(Exception):
 
 
 class AuthUseCase:
-    def __init__(self, user_repo: AbstractDBRepo, security_repo: BaseSecurityRepo):
+    def __init__(self, user_repo: AbstractDBRepo, security_repo: AbstractSecurityRepo):
         self.user_repo = user_repo
         self.sec_repo = security_repo
 

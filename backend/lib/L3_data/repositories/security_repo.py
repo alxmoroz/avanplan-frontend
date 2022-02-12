@@ -1,4 +1,5 @@
 #  Copyright (c) 2022. Alexandr Moroz
+
 from datetime import datetime, timedelta
 
 from fastapi.security import OAuth2PasswordBearer
@@ -6,7 +7,7 @@ from jose import jwt
 from passlib.context import CryptContext
 
 from lib.L1_domain.entities.auth import Token
-from lib.L1_domain.repositories.base_security_repo import BaseSecurityRepo
+from lib.L1_domain.repositories.abstract_security_repo import AbstractSecurityRepo
 from lib.L2_app.extra.config import settings
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -14,7 +15,7 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f"{settings.API_PATH}/auth/token")
 
 
-class SecurityRepo(BaseSecurityRepo):
+class SecurityRepo(AbstractSecurityRepo):
     @staticmethod
     def create_token(identifier: str) -> Token:
         expire = datetime.utcnow() + timedelta(
@@ -34,7 +35,7 @@ class SecurityRepo(BaseSecurityRepo):
         return pwd_context.verify(password, hashed_password)
 
     @staticmethod
-    def get_hashed_password(password: str) -> str:
+    def secure_password(password: str) -> str:
         return pwd_context.hash(password)
 
     # def generate_password_reset_token(email: str) -> str:

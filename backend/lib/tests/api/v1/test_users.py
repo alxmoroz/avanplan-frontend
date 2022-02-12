@@ -4,15 +4,23 @@ from fastapi.testclient import TestClient
 
 from lib.L1_domain.entities.users.user import User
 from lib.L2_app.extra.config import settings
-from lib.L3_data.repositories import user_repo
-from lib.tests.utils.user import random_email, random_user
+from lib.L3_data.repositories import security_repo, user_repo
+from lib.tests.utils.user import random_email, tmp_user
+
+
+def test_get_users(client: TestClient, auth_headers_test_admin):
+    with tmp_user() as user_out:
+        r = client.get(f"{settings.API_PATH}/users/", headers=auth_headers_test_admin)
+        assert r.status_code == 200
+        json_users = r.json()
+        users_out = [User(**json_user) for json_user in json_users]
+        assert user_out in users_out
 
 
 def test_get_my_account_admin(client: TestClient, auth_headers_test_admin):
     r = client.get(
         f"{settings.API_PATH}/users/my/account", headers=auth_headers_test_admin
     )
-    print(auth_headers_test_admin)
     assert r.status_code == 200
     user_out = User(**r.json())
     admin_user = user_repo.get_one(email=settings.TEST_ADMIN_EMAIL)
@@ -21,13 +29,34 @@ def test_get_my_account_admin(client: TestClient, auth_headers_test_admin):
 
 def test_get_my_account(client: TestClient, auth_headers_test_user):
     r = client.get(
-        f"{settings.API_PATH}/users/my/account", headers=auth_headers_test_user
+        f"{settings.API_PATH}/users/my/account",
+        headers=auth_headers_test_user,
     )
     assert r.status_code == 200
     user_out = User(**r.json())
     test_user = user_repo.get_one(email=settings.TEST_USER_EMAIL)
     assert user_out
     assert user_out and user_out == test_user
+
+
+def test_update_my_account(client: TestClient, auth_headers_test_user):
+
+    full_name: str = "Тестовый пользователь"
+    new_password: str = "p1"
+
+    r = client.put(
+        f"{settings.API_PATH}/users/my/account",
+        headers=auth_headers_test_user,
+        json={"full_name": full_name, "password": new_password},
+    )
+    assert r.status_code == 200
+    user_out = User(**r.json())
+    test_user = user_repo.get_one(email=settings.TEST_USER_EMAIL)
+    assert user_out and test_user and user_out == test_user
+    assert test_user.full_name == full_name
+    assert security_repo.verify_password(new_password, test_user.password)
+
+    user_repo.delete(test_user)
 
 
 def test_create_user(client: TestClient, auth_headers_test_admin):
@@ -68,7 +97,7 @@ def test_create_user(client: TestClient, auth_headers_test_admin):
 def test_create_user_existing_email(client: TestClient, auth_headers_test_admin):
 
     password = "password"
-    with random_user(password) as user_out:
+    with tmp_user(password=password) as user_out:
 
         data = {"email": user_out.email, "password": password}
         r = client.post(
@@ -79,12 +108,3 @@ def test_create_user_existing_email(client: TestClient, auth_headers_test_admin)
         user_out = r.json()
         assert r.status_code == 400
         assert "email" not in user_out
-
-
-def test_retrieve_users(client: TestClient, auth_headers_test_admin):
-    with random_user() as user_out:
-        r = client.get(f"{settings.API_PATH}/users/", headers=auth_headers_test_admin)
-        assert r.status_code == 200
-        json_users = r.json()
-        users_out = [User(**json_user) for json_user in json_users]
-        assert user_out in users_out

@@ -13,5 +13,5 @@ class BaseModel(AbstractModel):
 
     # Generate __tablename__ automatically
     @declared_attr
-    def __tablename__(cls) -> str:
+    def __tablename__(cls) -> str:  # noqa
         return cls.__name__.lower() + "s"

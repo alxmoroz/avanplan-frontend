@@ -4,8 +4,9 @@ from contextlib import contextmanager
 from typing import Generator
 
 from fastapi.encoders import jsonable_encoder
-from sqlalchemy import create_engine, delete, select, update
+from sqlalchemy import create_engine, delete, lambda_stmt, select, update
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.sql.elements import BinaryExpression
 
 from lib.L1_domain.repositories import AbstractDBRepo, E, M
 from lib.L2_app.extra.config import settings
@@ -30,14 +31,23 @@ class DBRepo(AbstractDBRepo[M, E]):
     def get(
         self,
         *,
+        where: BinaryExpression | None = None,
         limit: int | None = None,
         skip: int = 0,
         **filter_by,
     ) -> list[E]:
+
         with db_session() as session:
-            stmt = select(self.model).filter_by(**filter_by).offset(skip)
+            model = self.model
+            stmt = lambda_stmt(lambda: select(model))
+
+            if where is not None:
+                stmt += lambda s: s.where(where)
+
+            stmt = stmt.filter_by(**filter_by).offset(skip)
             if limit is not None:
                 stmt = stmt.limit(limit)
+
             objects = session.execute(stmt).scalars().all()
 
         return [self.entity(**jsonable_encoder(obj)) for obj in objects]

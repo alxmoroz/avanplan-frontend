@@ -11,9 +11,6 @@ class BaseTrackerEntity(BaseEntity):
     title: str = ""
     description: str = ""
 
-    def __str__(self):
-        return self.title
-
 
 class ImportableEntity(BaseTrackerEntity):
     remote_code: str | None

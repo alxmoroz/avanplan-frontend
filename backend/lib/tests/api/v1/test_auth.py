@@ -3,17 +3,40 @@
 from fastapi.testclient import TestClient
 
 from lib.L2_app.extra.config import settings
+from lib.tests.utils.user import tmp_user
 
 
 def test_get_token(client: TestClient):
+    password = "pass"
+    with tmp_user(password=password) as user:
+        r = client.post(
+            f"{settings.API_PATH}/auth/token",
+            data={"username": user.email, "password": password},
+        )
+        tokens = r.json()
+        assert r.status_code == 200
+        assert "access_token" in tokens and tokens["access_token"]
 
-    r = client.post(
-        f"{settings.API_PATH}/auth/token",
-        data={
-            "username": settings.TEST_ADMIN_EMAIL,
-            "password": settings.TEST_ADMIN_PASSWORD,
-        },
-    )
-    tokens = r.json()
-    assert r.status_code == 200
-    assert "access_token" in tokens and tokens["access_token"]
+
+def test_get_token_403(client: TestClient):
+    password = "pass"
+    with tmp_user(password=password, is_active=False) as user:
+        r1 = client.post(
+            f"{settings.API_PATH}/auth/token",
+            data={"username": user.email, "password": "wrong_password"},
+        )
+        assert r1.json()["detail"] == "Incorrect username or password"
+
+        r2 = client.post(
+            f"{settings.API_PATH}/auth/token",
+            data={"username": "user@email.com", "password": "wrong_password"},
+        )
+        assert r2.json()["detail"] == "Incorrect username or password"
+
+        r3 = client.post(
+            f"{settings.API_PATH}/auth/token",
+            data={"username": user.email, "password": password},
+        )
+        assert r3.json()["detail"] == "Inactive user"
+
+        assert r1.status_code == r2.status_code == r3.status_code == 403

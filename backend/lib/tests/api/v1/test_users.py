@@ -18,9 +18,7 @@ def test_get_users(client: TestClient, auth_headers_test_admin):
 
 
 def test_get_my_account_admin(client: TestClient, auth_headers_test_admin):
-    r = client.get(
-        f"{settings.API_PATH}/users/my/account", headers=auth_headers_test_admin
-    )
+    r = client.get(f"{settings.API_PATH}/users/my/account", headers=auth_headers_test_admin)
     assert r.status_code == 200
     user_out = User(**r.json())
     admin_user = user_repo.get_one(email=settings.TEST_ADMIN_EMAIL)

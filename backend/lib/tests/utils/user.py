@@ -24,9 +24,7 @@ def tmp_user(*, password: str | None = None, is_active: bool = True) -> Generato
         user = user_repo.create(
             User(
                 email=random_email(),
-                password=security_repo.secure_password(
-                    password or _random_lower_string()
-                ),
+                password=security_repo.secure_password(password or _random_lower_string()),
                 is_active=is_active,
             )
         )

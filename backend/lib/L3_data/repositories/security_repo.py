@@ -18,9 +18,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl=f"{settings.API_PATH}/auth/token")
 class SecurityRepo(AbstractSecurityRepo):
     @staticmethod
     def create_token(identifier: str) -> Token:
-        expire = datetime.utcnow() + timedelta(
-            minutes=settings.AUTH_TOKEN_EXPIRATION_MINUTES
-        )
+        expire = datetime.utcnow() + timedelta(minutes=settings.AUTH_TOKEN_EXPIRATION_MINUTES)
         return Token(
             access_token=jwt.encode(
                 {"exp": expire, "sub": identifier},

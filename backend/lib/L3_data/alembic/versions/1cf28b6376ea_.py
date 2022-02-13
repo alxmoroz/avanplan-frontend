@@ -30,9 +30,7 @@ def upgrade():
         sa.PrimaryKeyConstraint("id"),
     )
     op.create_index(op.f("ix_projects_code"), "projects", ["code"], unique=True)
-    op.create_index(
-        op.f("ix_projects_description"), "projects", ["description"], unique=False
-    )
+    op.create_index(op.f("ix_projects_description"), "projects", ["description"], unique=False)
     op.create_index(op.f("ix_projects_id"), "projects", ["id"], unique=False)
     op.create_index(op.f("ix_projects_title"), "projects", ["title"], unique=False)
     op.create_table(

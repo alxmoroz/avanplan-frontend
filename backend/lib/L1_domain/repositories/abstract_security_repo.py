@@ -9,12 +9,12 @@ class AbstractSecurityRepo:
 
     @staticmethod
     def create_token(identifier: str) -> Token:
-        pass
+        raise NotImplementedError
 
     @staticmethod
     def verify_password(password: str, hashed_password: str) -> bool:
-        pass
+        raise NotImplementedError
 
     @staticmethod
     def secure_password(password: str) -> str:
-        pass
+        raise NotImplementedError

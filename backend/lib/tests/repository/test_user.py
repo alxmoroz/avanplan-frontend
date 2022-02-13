@@ -6,33 +6,31 @@ from lib.tests.utils.user import tmp_user
 
 
 def test_get_user():
-    with tmp_user() as user_out:
-        user_out2 = user_repo.get_one(id=user_out.id)
-
-        assert user_out == user_out2
+    with tmp_user() as user:
+        user_out = user_repo.get_one(id=user.id)
+        assert user == user_out
 
 
 def test_get_users():
-    with tmp_user() as u1:
-        with tmp_user() as u2:
-            users = user_repo.get(
-                limit=2,
-                where=column("id").in_([u1.id, u2.id]),
-            )
-            assert u1 in users
-            assert u2 in users
-            assert len(users) == 2
+    with tmp_user() as u1, tmp_user() as u2:
+        users = user_repo.get(
+            limit=2,
+            where=column("id").in_([u1.id, u2.id]),
+        )
+        assert u1 in users
+        assert u2 in users
+        assert len(users) == 2
 
 
 def test_create_user():
 
     password = "password"
-    with tmp_user(password=password) as user_out:
-        user_out2 = user_repo.get_one(id=user_out.id)
+    with tmp_user(password=password) as user:
+        user_out = user_repo.get_one(id=user.id)
 
-        assert user_out == user_out2
-        assert user_out.password != password
-        assert security_repo.verify_password(password, user_out.password)
+        assert user == user_out
+        assert user.password != password
+        assert security_repo.verify_password(password, user.password)
 
 
 def test_update_user():
@@ -41,13 +39,13 @@ def test_update_user():
         user_in.full_name = new_full_name
 
         updated_rows = user_repo.update(user_in)
-        user_out2 = user_repo.get_one(id=user_in.id)
+        user_out = user_repo.get_one(id=user_in.id)
 
         assert updated_rows == 1
-        assert user_in == user_out2
-        assert user_out2.full_name == new_full_name
+        assert user_in == user_out
+        assert user_out.full_name == new_full_name
 
 
 def test_delete_user():
-    with tmp_user() as user_out:
-        assert user_repo.delete(user_out) == 1
+    with tmp_user() as user:
+        assert user_repo.delete(user) == 1

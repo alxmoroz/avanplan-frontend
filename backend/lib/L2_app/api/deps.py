@@ -17,9 +17,7 @@ def get_user_by_token(
     token: str = Depends(oauth2_scheme),
 ) -> users.User:
     try:
-        user_id = jwt.decode(
-            token, settings.SECRET_KEY, algorithms=[jwt.ALGORITHMS.HS256]
-        )["sub"]
+        user_id = jwt.decode(token, settings.SECRET_KEY, algorithms=[jwt.ALGORITHMS.HS256])["sub"]
     except (jwt.JWTError, ValidationError):
         raise HTTPException(status_code=403, detail="Could not validate credentials")
 
@@ -49,7 +47,5 @@ def is_active_superuser(
     user: users.User = Depends(get_current_active_user),
 ) -> bool:
     if not user.is_superuser:
-        raise HTTPException(
-            status_code=403, detail="The user doesn't have enough privileges"
-        )
+        raise HTTPException(status_code=403, detail="The user doesn't have enough privileges")
     return True

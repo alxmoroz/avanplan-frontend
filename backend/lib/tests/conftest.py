@@ -17,9 +17,7 @@ def client() -> Generator:
         yield c
 
 
-def _auth_headers_for_user(
-    client: TestClient, email: str, password: str, is_superuser: bool = False
-):
+def _auth_headers_for_user(client: TestClient, email: str, password: str, is_superuser: bool = False):
     user = user_repo.get_one(email=email)
     if not user:
         user_repo.create(

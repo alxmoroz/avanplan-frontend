@@ -1,0 +1,14 @@
+[run]
+omit =
+    */alembic/*
+
+[report]
+omit =
+    */alembic/*
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    raise NotImplementedError
+skip_covered = True
+skip_empty = True
+sort = Cover

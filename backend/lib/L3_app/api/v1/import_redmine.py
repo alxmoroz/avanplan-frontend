@@ -6,7 +6,7 @@ from pydantic import HttpUrl
 from lib.L1_domain.entities.api import Msg
 from lib.L1_domain.entities.tracker import Project, Task
 from lib.L1_domain.usecases.import_uc import ImportUseCase
-from lib.L2_app.api import deps
+from lib.L3_app.api import deps
 from lib.L3_data.models import Project as ProjectModel
 from lib.L3_data.models import Task as TaskModel
 from lib.L3_data.repositories import DBRepo, RedmineImportRepo

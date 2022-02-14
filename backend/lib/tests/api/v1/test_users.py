@@ -3,8 +3,8 @@
 from fastapi.testclient import TestClient
 
 from lib.L1_domain.entities.users.user import User
-from lib.L2_app.api.v1.users import router
-from lib.L2_app.settings import settings
+from lib.L3_app.api.v1.users import router
+from lib.L3_app.settings import settings
 from lib.L3_data.repositories import security_repo, user_repo
 from lib.tests.models.utils_user import random_email, tmp_user
 

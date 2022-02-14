@@ -9,7 +9,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql.elements import BinaryExpression
 
 from lib.L1_domain.repositories import AbstractDBRepo, E, M
-from lib.L2_app.settings import settings
+from lib.L3_app.settings import settings
 
 engine = create_engine(settings.SQLALCHEMY_DATABASE_URI, pool_pre_ping=True, future=True)
 Session = sessionmaker(bind=engine, future=True)

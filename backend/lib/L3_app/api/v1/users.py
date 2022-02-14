@@ -3,7 +3,7 @@
 from fastapi import APIRouter, Body, Depends, HTTPException
 
 from lib.L1_domain.entities.users import User
-from lib.L2_app.api import deps
+from lib.L3_app.api import deps
 from lib.L3_data.repositories import security_repo, user_repo
 
 router = APIRouter(prefix="/users")

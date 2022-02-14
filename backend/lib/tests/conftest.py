@@ -6,8 +6,8 @@ import pytest
 from fastapi.testclient import TestClient
 
 from lib.L1_domain.entities.users import User
+from lib.L2_data.repositories import security_repo, user_repo
 from lib.L3_app.settings import settings
-from lib.L3_data.repositories import security_repo, user_repo
 from lib.main import app
 
 

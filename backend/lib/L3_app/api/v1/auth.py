@@ -6,7 +6,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 
 from lib.L1_domain.entities.auth import Token
 from lib.L1_domain.usecases.auth import AuthException, AuthUseCase
-from lib.L3_data.repositories import security_repo, user_repo
+from lib.L2_data.repositories import security_repo, user_repo
 
 router = APIRouter(prefix="/auth")
 

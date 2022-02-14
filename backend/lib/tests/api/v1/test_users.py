@@ -3,9 +3,9 @@
 from fastapi.testclient import TestClient
 
 from lib.L1_domain.entities.users.user import User
+from lib.L2_data.repositories import security_repo, user_repo
 from lib.L3_app.api.v1.users import router
 from lib.L3_app.settings import settings
-from lib.L3_data.repositories import security_repo, user_repo
 from lib.tests.models.utils_user import random_email, tmp_user
 
 _users_api_path = f"{settings.API_PATH}{router.prefix}"
@@ -79,10 +79,7 @@ def test_create_user(client: TestClient, auth_headers_test_admin):
 #     user_in = User(email=username, password=password)
 #     user = user.create(db, obj_in=user_in)
 #     user_id = user.id
-#     r = client.get(
-#         f"{settings.API_V_STR}/users/{user_id}",
-#         headers=token_headers_admin
-#     )
+#     r = client.get(f"{settings.API_V_STR}/users/{user_id}", headers=token_headers_admin)
 #     assert r.status_code == 200
 #     api_user = r.json()
 #     existing_user = user.get_one(email=username)

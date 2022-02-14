@@ -9,12 +9,13 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.sql.elements import BinaryExpression
 
 from lib.L1_domain.repositories import AbstractDBRepo, E, M
-from lib.L2_app.extra.config import settings
+from lib.L2_app.settings import settings
 
 engine = create_engine(settings.SQLALCHEMY_DATABASE_URI, pool_pre_ping=True, future=True)
 Session = sessionmaker(bind=engine, future=True)
 
 
+# TODO: на каждый запрос к БД новое соединение — это слишком...
 @contextmanager
 def db_session() -> Generator:
     session = None

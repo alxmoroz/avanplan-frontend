@@ -17,7 +17,7 @@ def token(form_data: OAuth2PasswordRequestForm = Depends()) -> Token:
     OAuth2 token login, access token for future requests
     """
     try:
-        t = AuthUseCase(user_repo, security_repo).authenticate(
+        t = AuthUseCase(user_repo, security_repo).get_token(
             username=form_data.username,
             password=form_data.password,
         )

@@ -8,7 +8,7 @@ from passlib.context import CryptContext
 
 from lib.L1_domain.entities.auth import Token
 from lib.L1_domain.repositories.abstract_security_repo import AbstractSecurityRepo
-from lib.L2_app.extra.config import settings
+from lib.L2_app.settings import settings
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 

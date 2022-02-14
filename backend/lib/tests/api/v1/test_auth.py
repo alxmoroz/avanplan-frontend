@@ -3,7 +3,7 @@
 from fastapi.testclient import TestClient
 
 from lib.L2_app.api.v1.auth import router
-from lib.L2_app.extra.config import settings
+from lib.L2_app.settings import settings
 from lib.tests.models.utils_user import tmp_user
 
 _auth_api_path = f"{settings.API_PATH}{router.prefix}"

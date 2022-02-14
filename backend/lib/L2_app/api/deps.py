@@ -6,7 +6,7 @@ from jose import jwt
 from pydantic import ValidationError
 
 from lib.L1_domain.entities.users import User
-from lib.L2_app.extra.config import settings
+from lib.L2_app.settings import settings
 from lib.L3_data.repositories import user_repo
 from lib.L3_data.repositories.security_repo import oauth2_scheme
 

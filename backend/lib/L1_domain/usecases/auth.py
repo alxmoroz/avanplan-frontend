@@ -1,6 +1,6 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from lib.L1_domain.entities import auth
+from lib.L1_domain.entities.auth import Token
 from lib.L1_domain.repositories import AbstractDBRepo, AbstractSecurityRepo
 
 
@@ -15,7 +15,7 @@ class AuthUseCase:
         self.user_repo = user_repo
         self.sec_repo = security_repo
 
-    def authenticate(self, username: str, password: str) -> auth.Token:
+    def get_token(self, username: str, password: str) -> Token:
 
         user = self.user_repo.get_one(email=username)
 

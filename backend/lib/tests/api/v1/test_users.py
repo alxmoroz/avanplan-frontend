@@ -3,14 +3,17 @@
 from fastapi.testclient import TestClient
 
 from lib.L1_domain.entities.users.user import User
+from lib.L2_app.api.v1.users import router
 from lib.L2_app.extra.config import settings
 from lib.L3_data.repositories import security_repo, user_repo
-from lib.tests.utils.user import random_email, tmp_user
+from lib.tests.models.utils_user import random_email, tmp_user
+
+_users_api_path = f"{settings.API_PATH}{router.prefix}"
 
 
 def test_get_users(client: TestClient, auth_headers_test_admin):
     with tmp_user() as user_out:
-        r = client.get(f"{settings.API_PATH}/users/", headers=auth_headers_test_admin)
+        r = client.get(f"{_users_api_path}/", headers=auth_headers_test_admin)
         assert r.status_code == 200
         json_users = r.json()
         users_out = [User(**json_user) for json_user in json_users]
@@ -18,7 +21,7 @@ def test_get_users(client: TestClient, auth_headers_test_admin):
 
 
 def test_get_my_account_admin(client: TestClient, auth_headers_test_admin):
-    r = client.get(f"{settings.API_PATH}/users/my/account", headers=auth_headers_test_admin)
+    r = client.get(f"{_users_api_path}/my/account", headers=auth_headers_test_admin)
     assert r.status_code == 200
     user_out = User(**r.json())
     admin_user = user_repo.get_one(email=settings.TEST_ADMIN_EMAIL)
@@ -26,10 +29,7 @@ def test_get_my_account_admin(client: TestClient, auth_headers_test_admin):
 
 
 def test_get_my_account(client: TestClient, auth_headers_test_user):
-    r = client.get(
-        f"{settings.API_PATH}/users/my/account",
-        headers=auth_headers_test_user,
-    )
+    r = client.get(f"{_users_api_path}/my/account", headers=auth_headers_test_user)
     assert r.status_code == 200
     user_out = User(**r.json())
     test_user = user_repo.get_one(email=settings.TEST_USER_EMAIL)
@@ -43,7 +43,7 @@ def test_update_my_account(client: TestClient, auth_headers_test_user):
     new_password: str = "p1"
 
     r = client.put(
-        f"{settings.API_PATH}/users/my/account",
+        f"{_users_api_path}/my/account",
         headers=auth_headers_test_user,
         json={"full_name": full_name, "password": new_password},
     )
@@ -59,12 +59,10 @@ def test_update_my_account(client: TestClient, auth_headers_test_user):
 
 def test_create_user(client: TestClient, auth_headers_test_admin):
     email = random_email()
-
-    data = {"email": email, "password": "password"}
     r = client.post(
-        f"{settings.API_PATH}/users/",
+        f"{_users_api_path}/",
         headers=auth_headers_test_admin,
-        json=data,
+        json={"email": email, "password": "password"},
     )
     assert r.status_code == 201
     user_out = User(**r.json())
@@ -99,7 +97,7 @@ def test_create_user_existing_email(client: TestClient, auth_headers_test_admin)
 
         data = {"email": user_out.email, "password": password}
         r = client.post(
-            f"{settings.API_PATH}/users/",
+            f"{_users_api_path}/",
             headers=auth_headers_test_admin,
             json=data,
         )

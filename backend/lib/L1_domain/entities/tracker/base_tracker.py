@@ -12,6 +12,11 @@ class BaseTrackerEntity(BaseEntity):
     description: str = ""
 
 
-class ImportableEntity(BaseTrackerEntity):
+class Importable(BaseEntity):
     remote_code: str | None
     imported_on: datetime | None
+
+
+class TimeBound(BaseEntity):
+    start_date: datetime | None
+    due_date: datetime | None

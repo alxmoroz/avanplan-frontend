@@ -1,57 +1,35 @@
 #  Copyright (c) 2022. Alexandr Moroz
-from datetime import datetime
 
-from fastapi import APIRouter, Body, Depends
-from redminelib import Redmine, resources
+from fastapi import APIRouter, Body, Depends, HTTPException
+from pydantic import HttpUrl
 
-from lib.L1_domain.entities import api
-from lib.L1_domain.entities.tracker.project import Project
-from lib.L1_domain.entities.tracker.task import Task, TaskPriority, TaskStatus
+from lib.L1_domain.entities.api import Msg
+from lib.L1_domain.entities.tracker import Project, Task
+from lib.L1_domain.usecases.import_uc import ImportUseCase
 from lib.L2_app.api import deps
-from lib.L3_data.repositories import project_repo
+from lib.L3_data.models import Project as ProjectModel
+from lib.L3_data.models import Task as TaskModel
+from lib.L3_data.repositories import DBRepo, RedmineImportRepo
 
-router = APIRouter()
+router = APIRouter(prefix="/import/redmine")
 
 
-@router.post("/tasks", response_model=api.Msg)
+# TODO: можно хранить настройки соединений отдельно и не брать каждый раз с фронта
+
+
+@router.post("/tasks", response_model=Msg)
 def tasks(
-    host: str = Body(None),  # Redmine host
+    host: HttpUrl = Body(None),  # Redmine host
     api_key: str = Body(None),  # API key
     version: str | None = Body(None),
     granted: bool = Depends(deps.is_active_user),  # noqa
-) -> api.Msg:
-    r = Redmine(host, key=api_key, version=version)
-    r_opened_projects: list[resources.Project] = r.project.all()
-    r_opened_issues: list[resources.Issue] = r.issue.filter(status_id="open")
+) -> Msg:
 
-    # TODO: попахивает мапперами)
-    for rp in r_opened_projects:
-        p = Project(
-            code=rp.identifier,
-            title=rp.name,
-            description=rp.description,
-            remote_code=f"R{rp.id}",
-            imported_on=datetime.now(),
-        )
+    if not host or not api_key:
+        raise HTTPException(status_code=400, detail="Host and API-key must be filled")
 
-        p_in_db = project_repo.get_one(code=p.code)
-        if p_in_db:
-            project_repo.update(p)
-        else:
-            project_repo.create(p)
-
-    for issue in r_opened_issues:
-        t = Task(
-            code=issue.id,
-            remote_code=f"R{issue.id}",
-            title=issue.subject,
-            priority=TaskPriority(code=issue.priority.name),
-            status=TaskStatus(code=issue.status.name),
-            description=issue.description,
-        )
-
-    # TODO: проставить связи
-
-    # TODO: запись в БД
-
-    return api.Msg(msg=f"Issues from Redmine {host} imported successful\n")
+    return ImportUseCase(
+        import_repo=RedmineImportRepo(host=host, api_key=api_key, version=version),
+        project_repo=DBRepo(ProjectModel, Project),
+        task_repo=DBRepo(TaskModel, Task),
+    ).import_redmine()

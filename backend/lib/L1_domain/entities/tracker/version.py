@@ -1,17 +1,14 @@
 #  Copyright (c) 2022. Alexandr Moroz
-from datetime import datetime
 
-from .base_tracker import BaseTrackerEntity, ImportableEntity
+from .base_tracker import BaseTrackerEntity, Importable, TimeBound
 
 
-class Status(BaseTrackerEntity):
+class VersionStatus(BaseTrackerEntity):
     pass
 
 
-class Version(ImportableEntity):
-    status: Status
-    start_date: datetime | None
-    due_date: datetime | None
+class Version(BaseTrackerEntity, Importable, TimeBound):
+    status: VersionStatus
 
     class Config:
         orm_mode = True

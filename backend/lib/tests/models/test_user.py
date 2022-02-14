@@ -2,7 +2,7 @@
 from sqlalchemy import column
 
 from lib.L3_data.repositories import security_repo, user_repo
-from lib.tests.utils.user import tmp_user
+from lib.tests.models.utils_user import tmp_user
 
 
 def test_get_user():

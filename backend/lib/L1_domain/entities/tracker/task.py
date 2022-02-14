@@ -1,10 +1,7 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from datetime import datetime
 
-from .base_tracker import BaseTrackerEntity, ImportableEntity
-from .person import Person
-from .version import Version
+from .base_tracker import BaseTrackerEntity, Importable, TimeBound
 
 
 class TaskStatus(BaseTrackerEntity):
@@ -15,16 +12,14 @@ class TaskPriority(BaseTrackerEntity):
     pass
 
 
-class Task(ImportableEntity):
+class Task(BaseTrackerEntity, Importable, TimeBound):
 
-    status: TaskStatus
-    priority: TaskPriority
-    version: Version | None
+    # status: TaskStatus
+    # priority: TaskPriority
+    # version: Version | None
     # tasks: list[Task] | None
-    assigned_to: Person | None
-    author: Person | None
-    start_date: datetime | None
-    due_date: datetime | None
+    # assigned_to: Person | None
+    # author: Person | None
 
     class Config:
         orm_mode = True

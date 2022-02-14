@@ -1,12 +1,9 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from .base_tracker import ImportableEntity
-
-# from .task import Task
-# from .version import Version
+from .base_tracker import BaseTrackerEntity, Importable
 
 
-class Project(ImportableEntity):
+class Project(BaseTrackerEntity, Importable):
 
     # projects: list[Project] | None
     # tasks: list[Task] | None

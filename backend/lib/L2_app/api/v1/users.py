@@ -4,10 +4,9 @@ from fastapi import APIRouter, Body, Depends, HTTPException
 
 from lib.L1_domain.entities.users import User
 from lib.L2_app.api import deps
-from lib.L3_data.models.users import User as UserModel
 from lib.L3_data.repositories import security_repo, user_repo
 
-router = APIRouter()
+router = APIRouter(prefix="/users")
 
 
 @router.get("/", response_model=list[User])
@@ -35,7 +34,7 @@ def create_user(
 
 @router.get("/my/account", response_model=User)
 def get_my_account(
-    user: UserModel = Depends(deps.get_current_active_user),
+    user: User = Depends(deps.get_current_active_user),
 ) -> User:
     return user
 
@@ -44,7 +43,7 @@ def get_my_account(
 def update_my_account(
     password: str = Body(None),
     full_name: str = Body(None),
-    user: UserModel = Depends(deps.get_current_active_user),
+    user: User = Depends(deps.get_current_active_user),
 ) -> User:
     if password is not None:
         user.password = security_repo.secure_password(password)

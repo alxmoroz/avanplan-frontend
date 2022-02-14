@@ -8,7 +8,7 @@ from lib.L1_domain.entities.auth import Token
 from lib.L1_domain.usecases.auth import AuthException, AuthUseCase
 from lib.L3_data.repositories import security_repo, user_repo
 
-router = APIRouter()
+router = APIRouter(prefix="/auth")
 
 
 @router.post("/token", response_model=Token, operation_id="get_auth_token")

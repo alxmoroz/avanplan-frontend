@@ -2,6 +2,7 @@
 
 from fastapi import APIRouter, Body, Depends, HTTPException
 from pydantic import HttpUrl
+from sqlalchemy.orm import Session
 
 from lib.L1_domain.entities.api import Msg
 from lib.L1_domain.entities.tracker import Project, Task
@@ -10,6 +11,7 @@ from lib.L2_data.models import Project as ProjectModel
 from lib.L2_data.models import Task as TaskModel
 from lib.L2_data.repositories import DBRepo, RedmineImportRepo
 from lib.L3_app.api import deps
+from lib.L3_app.db import db_session
 
 router = APIRouter(prefix="/import/redmine")
 
@@ -22,6 +24,7 @@ def tasks(
     host: HttpUrl = Body(None),  # Redmine host
     api_key: str = Body(None),  # API key
     version: str | None = Body(None),
+    db: Session = Depends(db_session),
     granted: bool = Depends(deps.is_active_user),  # noqa
 ) -> Msg:
 
@@ -30,6 +33,6 @@ def tasks(
 
     return ImportUseCase(
         import_repo=RedmineImportRepo(host=host, api_key=api_key, version=version),
-        project_repo=DBRepo(ProjectModel, Project),
-        task_repo=DBRepo(TaskModel, Task),
+        project_repo=DBRepo(ProjectModel, Project, db),
+        task_repo=DBRepo(TaskModel, Task, db),
     ).import_redmine()

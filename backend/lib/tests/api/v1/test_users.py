@@ -3,7 +3,7 @@
 from fastapi.testclient import TestClient
 
 from lib.L1_domain.entities.users.user import User
-from lib.L3_app.api.v1.auth import security_repo, user_repo
+from lib.L2_data.repositories import SecurityRepo, UserRepo
 from lib.L3_app.api.v1.users import router
 from lib.L3_app.settings import settings
 from lib.tests.models.utils_user import random_email, tmp_user
@@ -11,8 +11,8 @@ from lib.tests.models.utils_user import random_email, tmp_user
 _users_api_path = f"{settings.API_PATH}{router.prefix}"
 
 
-def test_get_users(client: TestClient, auth_headers_test_admin):
-    with tmp_user() as user_out:
+def test_get_users(client: TestClient, auth_headers_test_admin, user_repo: UserRepo):
+    with tmp_user(user_repo) as user_out:
         r = client.get(f"{_users_api_path}/", headers=auth_headers_test_admin)
         assert r.status_code == 200
         json_users = r.json()
@@ -20,7 +20,7 @@ def test_get_users(client: TestClient, auth_headers_test_admin):
         assert user_out in users_out
 
 
-def test_get_my_account_admin(client: TestClient, auth_headers_test_admin):
+def test_get_my_account_admin(client: TestClient, auth_headers_test_admin, user_repo: UserRepo):
     r = client.get(f"{_users_api_path}/my/account", headers=auth_headers_test_admin)
     assert r.status_code == 200
     user_out = User(**r.json())
@@ -28,7 +28,7 @@ def test_get_my_account_admin(client: TestClient, auth_headers_test_admin):
     assert user_out and user_out == admin_user
 
 
-def test_get_my_account(client: TestClient, auth_headers_test_user):
+def test_get_my_account(client: TestClient, auth_headers_test_user, user_repo: UserRepo):
     r = client.get(f"{_users_api_path}/my/account", headers=auth_headers_test_user)
     assert r.status_code == 200
     user_out = User(**r.json())
@@ -37,7 +37,7 @@ def test_get_my_account(client: TestClient, auth_headers_test_user):
     assert user_out and user_out == test_user
 
 
-def test_update_my_account(client: TestClient, auth_headers_test_user):
+def test_update_my_account(client: TestClient, auth_headers_test_user, user_repo: UserRepo):
 
     full_name: str = "Тестовый пользователь"
     new_password: str = "p1"
@@ -52,12 +52,12 @@ def test_update_my_account(client: TestClient, auth_headers_test_user):
     test_user = user_repo.get_one(email=settings.TEST_USER_EMAIL)
     assert user_out and test_user and user_out == test_user
     assert test_user.full_name == full_name
-    assert security_repo.verify_password(new_password, test_user.password)
+    assert SecurityRepo.verify_password(new_password, test_user.password)
 
     user_repo.delete(test_user)
 
 
-def test_create_user(client: TestClient, auth_headers_test_admin):
+def test_create_user(client: TestClient, auth_headers_test_admin, user_repo: UserRepo):
     email = random_email()
     r = client.post(
         f"{_users_api_path}/",
@@ -87,10 +87,10 @@ def test_create_user(client: TestClient, auth_headers_test_admin):
 #     assert existing_user.email == api_user["email"]
 
 
-def test_create_user_existing_email(client: TestClient, auth_headers_test_admin):
+def test_create_user_existing_email(client: TestClient, auth_headers_test_admin, user_repo: UserRepo):
 
     password = "password"
-    with tmp_user(password=password) as user_out:
+    with tmp_user(user_repo, password=password) as user_out:
 
         data = {"email": user_out.email, "password": password}
         r = client.post(

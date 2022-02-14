@@ -4,18 +4,25 @@
 from fastapi import Depends, HTTPException
 from jose import jwt
 from pydantic import ValidationError
+from sqlalchemy.orm import Session
 
 from lib.L1_domain.entities.users import User
 from lib.L2_data.repositories.security_repo import oauth2_scheme
+from lib.L2_data.repositories.user_repo import UserRepo
 
+from ..db import db_session
 from ..settings import settings
-from .v1.auth import user_repo
+
+
+def get_user_repo(db: Session = Depends(db_session)) -> UserRepo:
+    yield UserRepo(db)
 
 
 # TODO: разделить по слоям
 # TODO: часть вытащить в юзкейс
 def get_user_by_token(
     token: str = Depends(oauth2_scheme),
+    user_repo: UserRepo = Depends(get_user_repo),
 ) -> User:
     try:
         user_id = jwt.decode(token, settings.SECRET_KEY, algorithms=[jwt.ALGORITHMS.HS256])["sub"]

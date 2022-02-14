@@ -6,7 +6,7 @@ from contextlib import contextmanager
 from typing import Generator
 
 from lib.L1_domain.entities.users import User
-from lib.L3_app.api.v1.auth import security_repo, user_repo
+from lib.L2_data.repositories import SecurityRepo, UserRepo
 
 
 def _random_lower_string() -> str:
@@ -17,14 +17,20 @@ def random_email() -> str:
     return f"{_random_lower_string()}@{_random_lower_string()}.com"
 
 
+# TODO: не нравится почему-то, что сюда параметром юзеррепо идет
 @contextmanager
-def tmp_user(*, password: str | None = None, is_active: bool = True) -> Generator:
+def tmp_user(
+    user_repo: UserRepo,
+    *,
+    password: str | None = None,
+    is_active: bool = True,
+) -> Generator:
     user: User | None = None
     try:
         user = user_repo.create(
             User(
                 email=random_email(),
-                password=security_repo.secure_password(password or _random_lower_string()),
+                password=SecurityRepo.secure_password(password or _random_lower_string()),
                 is_active=is_active,
             )
         )

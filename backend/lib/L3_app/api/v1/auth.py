@@ -5,18 +5,22 @@ from fastapi.security import OAuth2PasswordRequestForm
 
 from lib.L1_domain.entities.auth import Token
 from lib.L1_domain.usecases.auth import AuthException, AuthUseCase
-from lib.L3_app.repositories import security_repo, user_repo
+from lib.L2_data.repositories import SecurityRepo, UserRepo
+from lib.L3_app.api.deps import get_user_repo
 
 router = APIRouter(prefix="/auth")
 
 
 @router.post("/token", response_model=Token, operation_id="get_auth_token")
-def token(form_data: OAuth2PasswordRequestForm = Depends()) -> Token:
+def token(
+    form_data: OAuth2PasswordRequestForm = Depends(),
+    user_repo: UserRepo = Depends(get_user_repo),
+) -> Token:
     """
     OAuth2 token login, access token for future requests
     """
     try:
-        t = AuthUseCase(user_repo, security_repo).get_token(
+        t = AuthUseCase(user_repo, SecurityRepo()).get_token(
             username=form_data.username,
             password=form_data.password,
         )

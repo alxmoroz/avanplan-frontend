@@ -1,29 +1,12 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from contextlib import contextmanager
-from typing import Generator
 
 from fastapi.encoders import jsonable_encoder
-from sqlalchemy import create_engine, delete, lambda_stmt, select, update
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy import delete, lambda_stmt, select, update
 from sqlalchemy.sql.elements import BinaryExpression
 
 from lib.L1_domain.repositories import AbstractDBRepo, E, M
-from lib.L3_app.settings import settings
-
-engine = create_engine(settings.SQLALCHEMY_DATABASE_URI, pool_pre_ping=True, future=True)
-Session = sessionmaker(bind=engine, future=True)
-
-
-# TODO: на каждый запрос к БД новое соединение — это слишком...
-@contextmanager
-def db_session() -> Generator:
-    session = None
-    try:
-        session = Session()
-        yield session
-    finally:
-        session.close()
+from lib.L3_app.db import db_session
 
 
 class DBRepo(AbstractDBRepo[M, E]):

@@ -6,10 +6,9 @@ from ..base_entity import BaseEntity
 
 
 class BaseTrackerEntity(BaseEntity):
-    id: str | None
     code: str
-    title: str = ""
-    description: str = ""
+    title: str | None
+    description: str | None
 
 
 class Importable(BaseEntity):

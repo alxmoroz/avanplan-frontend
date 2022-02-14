@@ -4,4 +4,4 @@ from pydantic import BaseModel
 
 
 class BaseEntity(BaseModel):
-    pass
+    id: int | None

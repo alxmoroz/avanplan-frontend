@@ -21,6 +21,6 @@ def test_import(client: TestClient, auth_headers_test_user):
     )
 
     assert r.status_code == 200
-    assert r.json() == {"msg": f"Projects and tasks from Redmine {host} imported successful"}
+    assert r.json()["msg"] == f"Projects and tasks from Redmine {host} imported successful"
 
     # TODO: проверить, что в базу запись прошла тут или в тестах моделей?

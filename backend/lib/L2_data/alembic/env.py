@@ -22,8 +22,8 @@ fileConfig(config.config_file_name)
 # target_metadata = mymodel.Base.metadata
 # target_metadata = None
 
-from lib.L3_data.models import *  # noqa
-from lib.L3_data.models.base_model import BaseModel  # noqa
+from lib.L2_data.models import *  # noqa
+from lib.L2_data.models.base_model import BaseModel  # noqa
 
 target_metadata = BaseModel.metadata
 

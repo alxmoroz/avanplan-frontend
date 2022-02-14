@@ -1,14 +1,11 @@
 #  Copyright (c) 2022. Alexandr Moroz
-
+from lib.L3_app.api.v1.auth import user_repo
+from lib.L3_app.settings import settings
 from lib.L1_domain.entities.users import User
-from lib.L2_app.extra.config import settings
-from lib.L3_data.repositories import user_repo
+
 
 # TODO: должен быть такой ВИ (сброс настроек) и соотв. репо для этого
-
-
-def main() -> None:
-
+def main():
     admin_user = user_repo.get_one(email=settings.TEST_ADMIN_EMAIL)
     if not admin_user:
         user_repo.create(

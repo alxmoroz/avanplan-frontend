@@ -7,8 +7,8 @@ from fastapi.testclient import TestClient
 
 from lib.L1_domain.entities.users import User
 from lib.L3_app.api.v1.auth import security_repo, user_repo
+from lib.L3_app.main import app
 from lib.L3_app.settings import settings
-from lib.main import app
 
 
 @pytest.fixture(scope="module")

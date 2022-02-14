@@ -2,8 +2,8 @@
 from sqlalchemy.orm import Session
 
 from lib.L2_data.repositories import UserRepo
-from lib.L3_app.db import DBSession
-from lib.L3_app.settings import settings
+from lib.L2_data.db import DBSession
+from lib.L2_data.settings import settings
 from lib.L1_domain.entities.users import User
 
 

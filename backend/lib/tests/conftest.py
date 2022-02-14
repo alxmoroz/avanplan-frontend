@@ -7,10 +7,10 @@ from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
 
 from lib.L1_domain.entities.users import User
+from lib.L2_data.db import DBSession
 from lib.L2_data.repositories import SecurityRepo, UserRepo
-from lib.L3_app.db import DBSession
+from lib.L2_data.settings import settings
 from lib.L3_app.main import app
-from lib.L3_app.settings import settings
 
 
 @pytest.fixture(scope="module")

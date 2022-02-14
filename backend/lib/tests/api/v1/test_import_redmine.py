@@ -2,8 +2,8 @@
 
 from fastapi.testclient import TestClient
 
+from lib.L2_data.settings import settings
 from lib.L3_app.api.v1.import_redmine import router
-from lib.L3_app.settings import settings
 
 _import_redmine_api_path = f"{settings.API_PATH}{router.prefix}"
 

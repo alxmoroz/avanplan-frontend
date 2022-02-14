@@ -7,11 +7,10 @@ from pydantic import ValidationError
 from sqlalchemy.orm import Session
 
 from lib.L1_domain.entities.users import User
+from lib.L2_data.db import db_session
 from lib.L2_data.repositories.security_repo import oauth2_scheme
 from lib.L2_data.repositories.user_repo import UserRepo
-
-from ..db import db_session
-from ..settings import settings
+from lib.L2_data.settings import settings
 
 
 def get_user_repo(db: Session = Depends(db_session)) -> UserRepo:

@@ -4,8 +4,8 @@ from fastapi.testclient import TestClient
 
 from lib.L1_domain.entities.users.user import User
 from lib.L2_data.repositories import SecurityRepo, UserRepo
+from lib.L2_data.settings import settings
 from lib.L3_app.api.v1.users import router
-from lib.L3_app.settings import settings
 from lib.tests.models.utils_user import random_email, tmp_user
 
 _users_api_path = f"{settings.API_PATH}{router.prefix}"

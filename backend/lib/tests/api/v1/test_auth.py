@@ -3,8 +3,8 @@
 from fastapi.testclient import TestClient
 
 from lib.L2_data.repositories.user_repo import UserRepo
+from lib.L2_data.settings import settings
 from lib.L3_app.api.v1.auth import router
-from lib.L3_app.settings import settings
 from lib.tests.models.utils_user import tmp_user
 
 _auth_api_path = f"{settings.API_PATH}{router.prefix}"

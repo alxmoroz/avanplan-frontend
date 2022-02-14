@@ -7,11 +7,11 @@ from sqlalchemy.orm import Session
 from lib.L1_domain.entities.api import Msg
 from lib.L1_domain.entities.tracker import Project, Task
 from lib.L1_domain.usecases.import_uc import ImportUseCase
+from lib.L2_data.db import db_session
 from lib.L2_data.models import Project as ProjectModel
 from lib.L2_data.models import Task as TaskModel
 from lib.L2_data.repositories import DBRepo, RedmineImportRepo
 from lib.L3_app.api import deps
-from lib.L3_app.db import db_session
 
 router = APIRouter(prefix="/import/redmine")
 

@@ -5,10 +5,15 @@ from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 
 from lib.L1_domain.entities.auth import Token
+from lib.L1_domain.entities.users import User
 from lib.L1_domain.usecases.auth import AuthException, AuthUseCase
-from lib.L2_data.repositories import security_repo, user_repo
+from lib.L2_data.models.users import User as UserModel
+from lib.L2_data.repositories import DBRepo, SecurityRepo
 
 router = APIRouter(prefix="/auth")
+
+security_repo = SecurityRepo()
+user_repo = DBRepo(UserModel, User)
 
 
 @router.post("/token", response_model=Token, operation_id="get_auth_token")

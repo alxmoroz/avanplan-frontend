@@ -6,13 +6,14 @@ from jose import jwt
 from pydantic import ValidationError
 
 from lib.L1_domain.entities.users import User
-from lib.L2_data.repositories import user_repo
 from lib.L2_data.repositories.security_repo import oauth2_scheme
-from lib.L3_app.settings import settings
+
+from ..settings import settings
+from .v1.auth import user_repo
+
 
 # TODO: разделить по слоям
-
-
+# TODO: часть вытащить в юзкейс
 def get_user_by_token(
     token: str = Depends(oauth2_scheme),
 ) -> User:

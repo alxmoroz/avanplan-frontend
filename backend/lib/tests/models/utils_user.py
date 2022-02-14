@@ -6,7 +6,7 @@ from contextlib import contextmanager
 from typing import Generator
 
 from lib.L1_domain.entities.users import User
-from lib.L2_data.repositories import security_repo, user_repo
+from lib.L3_app.api.v1.auth import security_repo, user_repo
 
 
 def _random_lower_string() -> str:

@@ -24,7 +24,7 @@ def tasks(
     host: HttpUrl = Body(None),  # Redmine host
     api_key: str = Body(None),  # API key
     version: str | None = Body(None),
-    granted: bool = Depends(deps.is_active_user),  # noqa
+    user=Depends(deps.get_current_active_user),  # noqa
     db: Session = Depends(db_session),
 ) -> Msg:
 

@@ -1,5 +1,6 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
+from lib.tests.conftest import auth_headers_for_user
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
 
@@ -74,22 +75,6 @@ def test_create_user(client: TestClient, auth_headers_test_admin, db: Session):
     UserRepo(db).delete(user_out)
 
 
-# def test_get_user_by_id(
-#     client: TestClient, token_headers_admin, db: Session
-# ) -> None:
-#     username = random_email()
-#     password = random_lower_string()
-#     user_in = User(email=username, password=password)
-#     user = user.create(db, obj_in=user_in)
-#     user_id = user.id
-#     r = client.get(f"{settings.API_V_STR}/users/{user_id}", headers=token_headers_admin)
-#     assert r.status_code == 200
-#     api_user = r.json()
-#     existing_user = user.get_one(email=username)
-#     assert existing_user
-#     assert existing_user.email == api_user["email"]
-
-
 def test_create_user_existing_email(client: TestClient, auth_headers_test_admin, db: Session):
 
     password = "password"
@@ -104,3 +89,32 @@ def test_create_user_existing_email(client: TestClient, auth_headers_test_admin,
         user_out = r.json()
         assert r.status_code == 400
         assert "email" not in user_out
+
+
+def test_resource_403(client: TestClient, auth_headers_test_user, db: Session):
+
+    # not admin
+    r1 = client.get(_users_api_path, headers=auth_headers_test_user)
+    assert r1.json()["detail"] == "The user doesn't have enough privileges"
+    assert r1.status_code == 403
+
+    with tmp_user(db, is_active=False) as not_active_user:
+        a_headers_inactive_user = auth_headers_for_user(db, not_active_user.email)
+
+        # not active
+        r2 = client.get(_users_api_path, headers=a_headers_inactive_user)
+        assert r2.json()["detail"] == "Inactive user"
+        assert r2.status_code == 403
+
+    # not exists
+    r3 = client.get(_users_api_path, headers=a_headers_inactive_user)
+    assert r3.json()["detail"] == "User not found"
+    assert r3.status_code == 404
+
+    # hackers
+    r4 = client.get(
+        _users_api_path,
+        headers={"Authorization": "Bearer HACKERciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NDU0ODY5MTEsInzLDh_Xo5qgQ1WvAnB44nlr2Xlano"},
+    )
+    assert r4.json()["detail"] == "Could not validate credentials"
+    assert r4.status_code == 403

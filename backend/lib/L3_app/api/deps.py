@@ -42,14 +42,6 @@ def get_current_active_user(
     return user
 
 
-def is_active_user(
-    user: User = Depends(get_user_by_token),
-) -> bool:
-    if not user.is_active:
-        raise HTTPException(status_code=403, detail="Inactive user")
-    return True
-
-
 def is_active_superuser(
     user: User = Depends(get_current_active_user),
 ) -> bool:

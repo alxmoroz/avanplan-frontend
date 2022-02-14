@@ -19,10 +19,7 @@ def client() -> Generator:
         yield c
 
 
-# TODO: поменять юзеррепо на дб
-
-
-def _auth_headers_for_user(db: Session, email: str, is_superuser: bool = False):
+def auth_headers_for_user(db: Session, email: str, is_superuser: bool = False):
     repo = UserRepo(db)
     user = repo.get_one(email=email)
     if not user:
@@ -40,12 +37,12 @@ def _auth_headers_for_user(db: Session, email: str, is_superuser: bool = False):
 
 @pytest.fixture(scope="session")
 def auth_headers_test_admin(db: Session) -> dict[str, str]:
-    return _auth_headers_for_user(db, settings.TEST_ADMIN_EMAIL, is_superuser=True)
+    return auth_headers_for_user(db, settings.TEST_ADMIN_EMAIL, is_superuser=True)
 
 
 @pytest.fixture(scope="session")
 def auth_headers_test_user(db: Session) -> dict[str, str]:
-    return _auth_headers_for_user(db, settings.TEST_USER_EMAIL)
+    return auth_headers_for_user(db, settings.TEST_USER_EMAIL)
 
 
 @pytest.fixture(scope="session")

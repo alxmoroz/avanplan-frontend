@@ -24,8 +24,8 @@ def tasks(
     host: HttpUrl = Body(None),  # Redmine host
     api_key: str = Body(None),  # API key
     version: str | None = Body(None),
-    db: Session = Depends(db_session),
     granted: bool = Depends(deps.is_active_user),  # noqa
+    db: Session = Depends(db_session),
 ) -> Msg:
 
     if not host or not api_key:

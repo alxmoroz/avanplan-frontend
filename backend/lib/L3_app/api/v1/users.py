@@ -33,7 +33,7 @@ def create_user(
     if user_repo.get_one(email=user_in.email):
         raise HTTPException(
             status_code=400,
-            detail="The user with this username already exists in the system.",
+            detail="The user with this email already exists.",
         )
     user_in.password = SecurityRepo.secure_password(user_in.password)
     return user_repo.create(user_in)
@@ -50,8 +50,8 @@ def get_my_account(
 def update_my_account(
     password: str = Body(None),
     full_name: str = Body(None),
-    user_repo: UserRepo = Depends(get_user_repo),
     user: User = Depends(deps.get_current_active_user),
+    user_repo: UserRepo = Depends(get_user_repo),
 ) -> User:
     if password is not None:
         user.password = SecurityRepo.secure_password(password)

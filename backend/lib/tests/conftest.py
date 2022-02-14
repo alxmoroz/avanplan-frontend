@@ -22,51 +22,34 @@ def client() -> Generator:
 # TODO: поменять юзеррепо на дб
 
 
-def _auth_headers_for_user(client: TestClient, user_repo: UserRepo, email: str, password: str, is_superuser: bool = False):
-    user = user_repo.get_one(email=email)
+def _auth_headers_for_user(db: Session, email: str, is_superuser: bool = False):
+    repo = UserRepo(db)
+    user = repo.get_one(email=email)
     if not user:
-        user_repo.create(
+        user = repo.create(
             User(
                 email=email,
-                password=SecurityRepo.secure_password(password),
+                password=SecurityRepo.secure_password(settings.TEST_ADMIN_PASSWORD if is_superuser else settings.TEST_USER_PASSWORD),
                 is_superuser=is_superuser,
             ),
         )
 
-    r = client.post(
-        f"{settings.API_PATH}/auth/token",
-        data={"username": email, "password": password},
-    )
-    token = r.json()["access_token"]
+    token = SecurityRepo.create_token(str(user.id)).access_token
     return {"Authorization": f"Bearer {token}"}
 
 
-@pytest.fixture(scope="module")
-def auth_headers_test_admin(client: TestClient, user_repo: UserRepo) -> dict[str, str]:
-    return _auth_headers_for_user(
-        client,
-        user_repo,
-        settings.TEST_ADMIN_EMAIL,
-        settings.TEST_ADMIN_PASSWORD,
-        is_superuser=True,
-    )
-
-
-@pytest.fixture(scope="module")
-def auth_headers_test_user(client: TestClient, user_repo: UserRepo) -> dict[str, str]:
-    return _auth_headers_for_user(
-        client,
-        user_repo,
-        settings.TEST_USER_EMAIL,
-        settings.TEST_USER_PASSWORD,
-    )
+@pytest.fixture(scope="session")
+def auth_headers_test_admin(db: Session) -> dict[str, str]:
+    return _auth_headers_for_user(db, settings.TEST_ADMIN_EMAIL, is_superuser=True)
 
 
 @pytest.fixture(scope="session")
-def _db() -> Session:
-    yield DBSession()
+def auth_headers_test_user(db: Session) -> dict[str, str]:
+    return _auth_headers_for_user(db, settings.TEST_USER_EMAIL)
 
 
 @pytest.fixture(scope="session")
-def user_repo(_db: Session) -> UserRepo:
-    return UserRepo(_db)
+def db() -> Session:
+    session = DBSession()
+    yield session
+    session.close()

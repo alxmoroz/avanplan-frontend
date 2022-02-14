@@ -35,11 +35,11 @@ def get_user_by_token(
 
 
 def get_current_active_user(
-    current_user: User = Depends(get_user_by_token),
+    user: User = Depends(get_user_by_token),
 ) -> User:
-    if not current_user.is_active:
+    if not user.is_active:
         raise HTTPException(status_code=403, detail="Inactive user")
-    return current_user
+    return user
 
 
 def is_active_user(

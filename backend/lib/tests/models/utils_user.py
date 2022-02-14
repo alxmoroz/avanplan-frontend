@@ -5,6 +5,8 @@ import string
 from contextlib import contextmanager
 from typing import Generator
 
+from sqlalchemy.orm import Session
+
 from lib.L1_domain.entities.users import User
 from lib.L2_data.repositories import SecurityRepo, UserRepo
 
@@ -17,15 +19,15 @@ def random_email() -> str:
     return f"{_random_lower_string()}@{_random_lower_string()}.com"
 
 
-# TODO: не нравится почему-то, что сюда параметром юзеррепо идет
 @contextmanager
 def tmp_user(
-    user_repo: UserRepo,
+    db: Session,
     *,
     password: str | None = None,
     is_active: bool = True,
 ) -> Generator:
     user: User | None = None
+    user_repo = UserRepo(db)
     try:
         user = user_repo.create(
             User(

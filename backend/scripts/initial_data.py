@@ -20,10 +20,9 @@ def main():
                 is_superuser=True,
             ),
         )
+        print("Admin_user created")
 
     db.close()
-
-    print("Admin_user created")
 
 
 if __name__ == "__main__":

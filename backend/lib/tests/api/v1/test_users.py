@@ -1,6 +1,7 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
 from fastapi.testclient import TestClient
+from sqlalchemy.orm import Session
 
 from lib.L1_domain.entities.users.user import User
 from lib.L2_data.repositories import SecurityRepo, UserRepo
@@ -11,8 +12,8 @@ from lib.tests.models.utils_user import random_email, tmp_user
 _users_api_path = f"{settings.API_PATH}{router.prefix}"
 
 
-def test_get_users(client: TestClient, auth_headers_test_admin, user_repo: UserRepo):
-    with tmp_user(user_repo) as user_out:
+def test_get_users(client: TestClient, auth_headers_test_admin, db: Session):
+    with tmp_user(db) as user_out:
         r = client.get(f"{_users_api_path}/", headers=auth_headers_test_admin)
         assert r.status_code == 200
         json_users = r.json()
@@ -20,24 +21,24 @@ def test_get_users(client: TestClient, auth_headers_test_admin, user_repo: UserR
         assert user_out in users_out
 
 
-def test_get_my_account_admin(client: TestClient, auth_headers_test_admin, user_repo: UserRepo):
+def test_get_my_account_admin(client: TestClient, auth_headers_test_admin, db: Session):
     r = client.get(f"{_users_api_path}/my/account", headers=auth_headers_test_admin)
     assert r.status_code == 200
     user_out = User(**r.json())
-    admin_user = user_repo.get_one(email=settings.TEST_ADMIN_EMAIL)
+    admin_user = UserRepo(db).get_one(email=settings.TEST_ADMIN_EMAIL)
     assert user_out and user_out == admin_user
 
 
-def test_get_my_account(client: TestClient, auth_headers_test_user, user_repo: UserRepo):
+def test_get_my_account(client: TestClient, auth_headers_test_user, db: Session):
     r = client.get(f"{_users_api_path}/my/account", headers=auth_headers_test_user)
     assert r.status_code == 200
     user_out = User(**r.json())
-    test_user = user_repo.get_one(email=settings.TEST_USER_EMAIL)
+    test_user = UserRepo(db).get_one(email=settings.TEST_USER_EMAIL)
     assert user_out
     assert user_out and user_out == test_user
 
 
-def test_update_my_account(client: TestClient, auth_headers_test_user, user_repo: UserRepo):
+def test_update_my_account(client: TestClient, auth_headers_test_user, db: Session):
 
     full_name: str = "Тестовый пользователь"
     new_password: str = "p1"
@@ -49,15 +50,17 @@ def test_update_my_account(client: TestClient, auth_headers_test_user, user_repo
     )
     assert r.status_code == 200
     user_out = User(**r.json())
-    test_user = user_repo.get_one(email=settings.TEST_USER_EMAIL)
+
+    test_user = UserRepo(db).get_one(email=settings.TEST_USER_EMAIL)
+
+    assert SecurityRepo.verify_password(new_password, test_user.password)
+    assert SecurityRepo.verify_password(new_password, user_out.password)
+
     assert user_out and test_user and user_out == test_user
     assert test_user.full_name == full_name
-    assert SecurityRepo.verify_password(new_password, test_user.password)
-
-    user_repo.delete(test_user)
 
 
-def test_create_user(client: TestClient, auth_headers_test_admin, user_repo: UserRepo):
+def test_create_user(client: TestClient, auth_headers_test_admin, db: Session):
     email = random_email()
     r = client.post(
         f"{_users_api_path}/",
@@ -66,9 +69,9 @@ def test_create_user(client: TestClient, auth_headers_test_admin, user_repo: Use
     )
     assert r.status_code == 201
     user_out = User(**r.json())
-    user_out2 = user_repo.get_one(email=email)
+    user_out2 = UserRepo(db).get_one(email=email)
     assert user_out and user_out2 and user_out == user_out2
-    user_repo.delete(user_out)
+    UserRepo(db).delete(user_out)
 
 
 # def test_get_user_by_id(
@@ -87,10 +90,10 @@ def test_create_user(client: TestClient, auth_headers_test_admin, user_repo: Use
 #     assert existing_user.email == api_user["email"]
 
 
-def test_create_user_existing_email(client: TestClient, auth_headers_test_admin, user_repo: UserRepo):
+def test_create_user_existing_email(client: TestClient, auth_headers_test_admin, db: Session):
 
     password = "password"
-    with tmp_user(user_repo, password=password) as user_out:
+    with tmp_user(db, password=password) as user_out:
 
         data = {"email": user_out.email, "password": password}
         r = client.post(

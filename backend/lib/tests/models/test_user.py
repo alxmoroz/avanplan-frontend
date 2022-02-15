@@ -28,7 +28,6 @@ def test_create_user(db: Session):
     password = "password"
     with tmp_user(db, password=password) as user:
         user_out = UserRepo(db).get_one(id=user.id)
-
         assert user == user_out
         assert user.password != password
         assert SecurityRepo.verify_password(password, user.password)

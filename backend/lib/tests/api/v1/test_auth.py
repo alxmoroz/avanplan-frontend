@@ -25,20 +25,21 @@ def test_get_token(client: TestClient, db: Session):
 def test_get_token_403(client: TestClient, db: Session):
     password = "pass"
     with tmp_user(db, password=password, is_active=False) as user:
+        api_path = f"{_auth_api_path}/token"
         r1 = client.post(
-            f"{_auth_api_path}/token",
+            api_path,
             data={"username": user.email, "password": "wrong_password"},
         )
         assert r1.json()["detail"] == "Incorrect username or password"
 
         r2 = client.post(
-            f"{_auth_api_path}/token",
+            api_path,
             data={"username": "user@email.com", "password": "wrong_password"},
         )
         assert r2.json()["detail"] == "Incorrect username or password"
 
         r3 = client.post(
-            f"{_auth_api_path}/token",
+            api_path,
             data={"username": user.email, "password": password},
         )
         assert r3.json()["detail"] == "Inactive user"

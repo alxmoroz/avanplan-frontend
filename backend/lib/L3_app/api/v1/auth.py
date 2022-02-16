@@ -1,12 +1,13 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from fastapi.security import OAuth2PasswordRequestForm
+from sqlalchemy.orm import Session
 
 from lib.L1_domain.entities.auth import Token
-from lib.L1_domain.usecases.auth import AuthException, AuthUseCase
+from lib.L1_domain.usecases.auth_uc import AuthUC
+from lib.L2_data.db import db_session
 from lib.L2_data.repositories import SecurityRepo, UserRepo
-from lib.L3_app.api.deps import get_user_repo
 
 router = APIRouter(prefix="/auth")
 
@@ -14,20 +15,15 @@ router = APIRouter(prefix="/auth")
 @router.post("/token", response_model=Token, operation_id="get_auth_token")
 def token(
     form_data: OAuth2PasswordRequestForm = Depends(),
-    user_repo: UserRepo = Depends(get_user_repo),
+    db: Session = Depends(db_session),
 ) -> Token:
     """
     OAuth2 token login, access token for future requests
     """
-    try:
-        t = AuthUseCase(user_repo, SecurityRepo()).get_token(
-            username=form_data.username,
-            password=form_data.password,
-        )
-    except AuthException as a:
-        raise HTTPException(status_code=a.code, detail=a.detail)
-
-    return t
+    return AuthUC(UserRepo(db), SecurityRepo()).create_token_for_creds(
+        username=form_data.username,
+        password=form_data.password,
+    )
 
 
 # @router.post("/reset-password/", response_model=schemas.Msg)

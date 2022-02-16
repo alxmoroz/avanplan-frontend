@@ -3,8 +3,8 @@
 from sqlalchemy.orm import Session
 
 from lib.L1_domain.entities.users import User
-from lib.L2_data.models.users import User as UserModel
-from lib.L2_data.repositories import DBRepo
+from ..models.users import User as UserModel
+from ..repositories import DBRepo
 
 
 class UserRepo(DBRepo[UserModel, User]):

@@ -2,7 +2,7 @@
 
 from typing import Generic, Type, TypeVar
 
-from lib.L1_domain.entities.base_entity import BaseEntity
+from ..entities.base_entity import BaseEntity
 
 
 class AbstractModel:
@@ -24,8 +24,8 @@ class AbstractDBRepo(Generic[M, E]):
         self,
         *,
         where: any = None,
-        limit: int | None = None,
         skip: int = 0,
+        limit: int | None = None,
         **filter_by,
     ) -> list[E]:
         raise NotImplementedError

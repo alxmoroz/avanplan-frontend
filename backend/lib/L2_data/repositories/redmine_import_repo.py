@@ -4,12 +4,17 @@ from datetime import datetime
 
 from redminelib import Redmine, resources
 
+from lib.L1_domain.entities.api.exceptions import ApiException
 from lib.L1_domain.entities.tracker import Project, Task
 from lib.L1_domain.repositories import AbstractImportRepo
 
 
 class RedmineImportRepo(AbstractImportRepo):
     def __init__(self, host: str, api_key: str, version: str | None):
+
+        if not host or not api_key:
+            raise ApiException(400, "Host and API-key must be filled")
+
         self.source = f"Redmine {host}"
         self.redmine = Redmine(host, key=api_key, version=version)
 

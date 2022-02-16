@@ -23,7 +23,7 @@ def auth_headers_for_user(db: Session, email: str, is_superuser: bool = False):
     repo = UserRepo(db)
     user = repo.get_one(email=email)
     if not user:
-        user = repo.create(
+        repo.create(
             User(
                 email=email,
                 password=SecurityRepo.secure_password(settings.TEST_ADMIN_PASSWORD if is_superuser else settings.TEST_USER_PASSWORD),
@@ -31,7 +31,7 @@ def auth_headers_for_user(db: Session, email: str, is_superuser: bool = False):
             ),
         )
 
-    token = SecurityRepo.create_token(str(user.id)).access_token
+    token = SecurityRepo.create_token(email).access_token
     return {"Authorization": f"Bearer {token}"}
 
 

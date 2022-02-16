@@ -1,30 +1,25 @@
 #  Copyright (c) 2022. Alexandr Moroz
-
-from lib.L1_domain.entities.auth import Token
-from lib.L1_domain.repositories import AbstractDBRepo, AbstractSecurityRepo
-
-
-class AuthException(Exception):
-    def __init__(self, code: int, detail: str | None):
-        self.code = code
-        self.detail = detail
+from ..entities.api.exceptions import ApiException
+from ..entities.auth import Token
+from ..entities.users import User
+from ..repositories import AbstractDBRepo, AbstractSecurityRepo
 
 
-class AuthUseCase:
+class AuthUC:
     def __init__(self, user_repo: AbstractDBRepo, security_repo: AbstractSecurityRepo):
         self.user_repo = user_repo
         self.sec_repo = security_repo
 
-    def get_token(self, username: str, password: str) -> Token:
+    def create_token_for_creds(self, username: str, password: str) -> Token:
 
-        user = self.user_repo.get_one(email=username)
+        user: User = self.user_repo.get_one(email=username)
 
         if not user or not self.sec_repo.verify_password(password, user.password):
-            raise AuthException(code=403, detail="Incorrect username or password")
+            raise ApiException(403, "Incorrect username or password")
         elif not user.is_active:
-            raise AuthException(code=403, detail="Inactive user")
+            raise ApiException(403, "Inactive user")
 
-        return self.sec_repo.create_token(str(user.id))
+        return self.sec_repo.create_token(user.email)
 
         # def reset_password(
         #         token: str = Body(...),

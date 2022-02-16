@@ -1,11 +1,17 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
 
-from lib.L1_domain.entities.auth import Token
+from ..entities.auth import Token, TokenPayload
 
 
 class AbstractSecurityRepo:
     __abstract__ = True
+
+    def __init__(self, encoded_token: str | None = None):
+        self.encoded_token = encoded_token
+
+    def get_decoded_token_payload(self) -> TokenPayload:
+        raise NotImplementedError
 
     @staticmethod
     def create_token(identifier: str) -> Token:

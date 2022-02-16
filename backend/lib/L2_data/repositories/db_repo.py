@@ -18,8 +18,8 @@ class DBRepo(AbstractDBRepo[M, E]):
         self,
         *,
         where: BinaryExpression | None = None,
-        limit: int | None = None,
         skip: int = 0,
+        limit: int | None = None,
         **filter_by,
     ) -> list[E]:
 

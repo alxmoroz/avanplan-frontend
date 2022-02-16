@@ -1,10 +1,10 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from lib.L1_domain.entities.api import Msg
-from lib.L1_domain.repositories import AbstractDBRepo, AbstractImportRepo
+from ..entities.api import Msg
+from ..repositories import AbstractDBRepo, AbstractImportRepo
 
 
-class ImportUseCase:
+class ImportUC:
     def __init__(
         self,
         import_repo: AbstractImportRepo,

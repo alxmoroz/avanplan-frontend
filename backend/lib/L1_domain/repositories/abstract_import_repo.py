@@ -1,6 +1,6 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from lib.L1_domain.entities.tracker import Project, Task
+from ..entities.tracker import Project, Task
 
 
 class AbstractImportRepo:

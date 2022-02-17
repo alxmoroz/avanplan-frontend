@@ -1,6 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../../extra/services.dart';
+import '../../L3_app/extra/services.dart';
 import '../entities/app_settings.dart';
 import '../repositories/settings_repository.dart';
 import 'base_uc.dart';

@@ -5,10 +5,10 @@ import 'package:get_it/get_it.dart';
 import 'package:openapi/openapi.dart';
 import 'package:package_info/package_info.dart';
 
-import '../L2_data/repositories/hive_storage.dart';
-import '../L3_app/l10n/generated/l10n.dart';
-import '../L3_app/views/auth/login_controller.dart';
-import '../L3_app/views/main/main_controller.dart';
+import '../../L2_data/repositories/hive_storage.dart';
+import '../l10n/generated/l10n.dart';
+import '../views/auth/login_controller.dart';
+import '../views/main/main_controller.dart';
 
 S get loc => S.current;
 

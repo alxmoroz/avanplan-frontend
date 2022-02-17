@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/usecases/auth_uc.dart';
-import '../../../extra/services.dart';
+import '../../extra/services.dart';
 import '../base/base_controller.dart';
 
 part 'login_controller.g.dart';

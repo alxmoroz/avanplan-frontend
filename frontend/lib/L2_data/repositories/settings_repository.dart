@@ -3,7 +3,7 @@
 import '../../L1_domain/entities/app_settings.dart';
 import '../../L1_domain/entities/base.dart';
 import '../../L1_domain/repositories/settings_repository.dart';
-import '../../extra/services.dart';
+import '../../L3_app/extra/services.dart';
 import '../models/app_settings.dart';
 import 'hive_repository.dart';
 

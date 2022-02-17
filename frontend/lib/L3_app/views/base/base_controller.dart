@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../extra/services.dart';
+import '../../extra/services.dart';
 
 part 'base_controller.g.dart';
 

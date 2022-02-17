@@ -9,6 +9,10 @@ from lib.tests.conf_user import tmp_object
 _auth_api_path = f"{settings.API_PATH}{router.prefix}"
 
 
+# TODO: на фронте генерятся заглушки для всех нужных тестов. Возможно, стоит апи тестить там сразу. По сути е2е тест получится и это лучше
+#       данные тестовые записывать тоже по апи оттуда. На бэке достаточно держать только админа.
+
+
 def test_get_token(client: TestClient, user_repo):
     password = "pass"
     with tmp_object(user_repo, password=password) as user:

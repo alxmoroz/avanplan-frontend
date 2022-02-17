@@ -6,7 +6,7 @@ import 'package:openapi/openapi.dart';
 import '../../../L1_domain/entities/app_settings.dart';
 import '../../../L1_domain/entities/base.dart';
 import '../../../L1_domain/usecases/auth_uc.dart';
-import '../../../L3_data/repositories/settings_repository.dart';
+import '../../../L2_data/repositories/settings_repository.dart';
 import '../../../extra/services.dart';
 import '../base/base_controller.dart';
 

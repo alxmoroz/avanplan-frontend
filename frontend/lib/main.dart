@@ -4,10 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'L2_app/components/splash.dart';
-import 'L2_app/l10n/generated/l10n.dart';
-import 'L2_app/views/auth/login_view.dart';
-import 'L2_app/views/main/main_view.dart';
+import 'L3_app/components/splash.dart';
+import 'L3_app/l10n/generated/l10n.dart';
+import 'L3_app/views/auth/login_view.dart';
+import 'L3_app/views/main/main_view.dart';
 import 'extra/services.dart';
 
 void main() {

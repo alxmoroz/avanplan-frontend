@@ -1,6 +1,7 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
 from ..entities.api import Msg
+from ..entities.tracker import Project
 from ..repositories import AbstractDBRepo, AbstractImportRepo
 
 
@@ -18,8 +19,9 @@ class ImportUC:
     def import_redmine(self):
 
         for p in self.import_repo.get_projects():
-            p_in_db = self.project_repo.get_one(code=p.code)
+            p_in_db: Project = self.project_repo.get_one(code=p.code)
             if p_in_db:
+                p.id = p_in_db.id
                 self.project_repo.update(p)
             else:
                 self.project_repo.create(p)
@@ -27,6 +29,7 @@ class ImportUC:
         for t in self.import_repo.get_tasks():
             t_in_db = self.task_repo.get_one(code=t.code)
             if t_in_db:
+                t.id = t_in_db.id
                 self.task_repo.update(t)
             else:
                 self.task_repo.create(t)

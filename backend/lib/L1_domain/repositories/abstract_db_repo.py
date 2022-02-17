@@ -2,14 +2,14 @@
 
 from typing import Generic, Type, TypeVar
 
-from ..entities.base_entity import BaseEntity
+from ..entities.base_entity import IdentifiableEntity
 
 
 class AbstractModel:
-    pass
+    __abstract__ = True
 
 
-E = TypeVar("E", bound=BaseEntity)
+E = TypeVar("E", bound=IdentifiableEntity)
 M = TypeVar("M", bound=AbstractModel)
 
 

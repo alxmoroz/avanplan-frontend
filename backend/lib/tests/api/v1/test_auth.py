@@ -1,18 +1,17 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
 from fastapi.testclient import TestClient
-from sqlalchemy.orm import Session
 
 from lib.L2_data.settings import settings
 from lib.L3_app.api.v1.auth import router
-from lib.tests.models.utils_user import tmp_user
+from lib.tests.conf_user import tmp_object
 
 _auth_api_path = f"{settings.API_PATH}{router.prefix}"
 
 
-def test_get_token(client: TestClient, db: Session):
+def test_get_token(client: TestClient, user_repo):
     password = "pass"
-    with tmp_user(db, password=password) as user:
+    with tmp_object(user_repo, password=password) as user:
         r = client.post(
             f"{_auth_api_path}/token",
             data={"username": user.email, "password": password},
@@ -22,9 +21,9 @@ def test_get_token(client: TestClient, db: Session):
         assert "access_token" in tokens and tokens["access_token"]
 
 
-def test_get_token_403(client: TestClient, db: Session):
+def test_get_token_403(client: TestClient, user_repo):
     password = "pass"
-    with tmp_user(db, password=password, is_active=False) as user:
+    with tmp_object(user_repo, password=password, is_active=False) as user:
         api_path = f"{_auth_api_path}/token"
         r1 = client.post(
             api_path,

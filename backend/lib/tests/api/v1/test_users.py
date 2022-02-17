@@ -1,20 +1,20 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
 from fastapi.testclient import TestClient
-from sqlalchemy.orm import Session
 
 from lib.L1_domain.entities.users.user import User
-from lib.L2_data.repositories import SecurityRepo, UserRepo
+from lib.L2_data.repositories import SecurityRepo
 from lib.L2_data.settings import settings
 from lib.L3_app.api.v1.users import router
-from lib.tests.conftest import auth_headers_for_user
-from lib.tests.models.utils_user import random_email, tmp_user
+from lib.tests.conf_user import auth_headers_for_user
+from lib.tests.models.test_user import tmp_object
+from lib.tests.utils import random_email
 
 _users_api_path = f"{settings.API_PATH}{router.prefix}"
 
 
-def test_get_users(client: TestClient, auth_headers_test_admin, db: Session):
-    with tmp_user(db) as user_out:
+def test_get_users(client: TestClient, auth_headers_test_admin, user_repo):
+    with tmp_object(user_repo) as user_out:
         r = client.get(f"{_users_api_path}/", headers=auth_headers_test_admin)
         assert r.status_code == 200
         json_users = r.json()
@@ -22,24 +22,24 @@ def test_get_users(client: TestClient, auth_headers_test_admin, db: Session):
         assert user_out in users_out
 
 
-def test_get_my_account_admin(client: TestClient, auth_headers_test_admin, db: Session):
+def test_get_my_account_admin(client: TestClient, auth_headers_test_admin, user_repo):
     r = client.get(f"{_users_api_path}/my/account", headers=auth_headers_test_admin)
     assert r.status_code == 200
     user_out = User(**r.json())
-    admin_user = UserRepo(db).get_one(email=settings.TEST_ADMIN_EMAIL)
+    admin_user = user_repo.get_one(email=settings.TEST_ADMIN_EMAIL)
     assert user_out and user_out == admin_user
 
 
-def test_get_my_account(client: TestClient, auth_headers_test_user, db: Session):
+def test_get_my_account(client: TestClient, auth_headers_test_user, user_repo):
     r = client.get(f"{_users_api_path}/my/account", headers=auth_headers_test_user)
     assert r.status_code == 200
     user_out = User(**r.json())
-    test_user = UserRepo(db).get_one(email=settings.TEST_USER_EMAIL)
+    test_user = user_repo.get_one(email=settings.TEST_USER_EMAIL)
     assert user_out
     assert user_out and user_out == test_user
 
 
-def test_update_my_account(client: TestClient, auth_headers_test_user, db: Session):
+def test_update_my_account(client: TestClient, auth_headers_test_user, user_repo):
 
     full_name: str = "Тестовый пользователь"
     new_password: str = "p1"
@@ -52,7 +52,7 @@ def test_update_my_account(client: TestClient, auth_headers_test_user, db: Sessi
     assert r.status_code == 200
     user_out = User(**r.json())
 
-    test_user = UserRepo(db).get_one(email=settings.TEST_USER_EMAIL)
+    test_user = user_repo.get_one(email=settings.TEST_USER_EMAIL)
 
     assert SecurityRepo.verify_password(new_password, test_user.password)
     assert SecurityRepo.verify_password(new_password, user_out.password)
@@ -61,7 +61,7 @@ def test_update_my_account(client: TestClient, auth_headers_test_user, db: Sessi
     assert test_user.full_name == full_name
 
 
-def test_create_user(client: TestClient, auth_headers_test_admin, db: Session):
+def test_create_user(client: TestClient, auth_headers_test_admin, user_repo):
     email = random_email()
     r = client.post(
         f"{_users_api_path}/",
@@ -70,15 +70,15 @@ def test_create_user(client: TestClient, auth_headers_test_admin, db: Session):
     )
     assert r.status_code == 201
     user_out = User(**r.json())
-    user_out2 = UserRepo(db).get_one(email=email)
+    user_out2 = user_repo.get_one(email=email)
     assert user_out and user_out2 and user_out == user_out2
-    UserRepo(db).delete(user_out)
+    user_repo.delete(user_out)
 
 
-def test_create_user_existing_email(client: TestClient, auth_headers_test_admin, db: Session):
+def test_create_user_existing_email(client: TestClient, auth_headers_test_admin, user_repo):
 
     password = "password"
-    with tmp_user(db, password=password) as user_out:
+    with tmp_object(user_repo, password=password) as user_out:
 
         data = {"email": user_out.email, "password": password}
         r = client.post(
@@ -91,15 +91,15 @@ def test_create_user_existing_email(client: TestClient, auth_headers_test_admin,
         assert "email" not in user_out
 
 
-def test_resource_403(client: TestClient, auth_headers_test_user, db: Session):
+def test_resource_403(client: TestClient, auth_headers_test_user, user_repo):
 
     # not admin
     r1 = client.get(_users_api_path, headers=auth_headers_test_user)
     assert r1.json()["detail"] == "The user doesn't have enough privileges"
     assert r1.status_code == 403
 
-    with tmp_user(db, is_active=False) as not_active_user:
-        a_headers_inactive_user = auth_headers_for_user(db, not_active_user.email)
+    with tmp_object(user_repo, is_active=False) as not_active_user:
+        a_headers_inactive_user = auth_headers_for_user(user_repo, not_active_user.email)
 
         # not active
         r2 = client.get(_users_api_path, headers=a_headers_inactive_user)

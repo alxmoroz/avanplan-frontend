@@ -11,6 +11,7 @@ from pydantic import ValidationError
 from lib.L1_domain.entities.api.exceptions import ApiException
 from lib.L1_domain.entities.auth import Token, TokenPayload
 from lib.L1_domain.repositories.abstract_security_repo import AbstractSecurityRepo
+
 from ..settings import settings
 
 _pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")

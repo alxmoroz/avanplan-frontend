@@ -1,24 +1,39 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../../L3_app/extra/services.dart';
-import '../entities/app_settings.dart';
-import '../repositories/settings_repository.dart';
-import 'base_uc.dart';
+import '../../L1_domain/entities/app_settings.dart';
+import '../../L1_domain/repositories/abstract_auth_repo.dart';
+import '../../L1_domain/repositories/abstract_db_repo.dart';
 
-// TODO: нарушение направления зависимостей. Хоть и через гетИт, но есть зависимость от 3 уровня
+class AuthUC {
+  AuthUC({required this.settingsRepo, required this.authRepo});
 
-extension AuthUC on AppSettings {
-  SettingsRepository? get repo => hStorage.repoForName(classCode) as SettingsRepository;
+  final AbstractDBRepo<AbstractDBModel, AppSettings> settingsRepo;
+  final AbstractAuthRepo authRepo;
 
-  Future authorize({required String username, required String password}) async {
-    accessToken = await repo?.getApiAuthToken(username, password) ?? '';
-    await saveOnDisk();
-    repo?.setApiCredentials(accessToken);
+  Future _setAccessToken(String accessToken) async {
+    final settings = await settingsRepo.getOne();
+
+    if (settings != null) {
+      settings.accessToken = accessToken;
+      await settingsRepo.update(settings);
+      authRepo.setApiCredentials(settings.accessToken);
+    }
+  }
+
+  Future<String> authorize({required String username, required String password}) async {
+    final token = await authRepo.getApiAuthToken(username, password);
+    _setAccessToken(token);
+    return token;
+  }
+
+  Future updateApiCredentialsFromSettings() async {
+    final settings = await settingsRepo.getOne();
+    if (settings != null) {
+      authRepo.setApiCredentials(settings.accessToken);
+    }
   }
 
   Future logout() async {
-    accessToken = '';
-    await saveOnDisk();
-    repo?.setApiCredentials(accessToken);
+    _setAccessToken('');
   }
 }

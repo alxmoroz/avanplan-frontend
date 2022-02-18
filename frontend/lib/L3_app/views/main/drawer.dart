@@ -28,7 +28,7 @@ class ALDrawer extends StatelessWidget {
             SizedBox(height: padding),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               LightText(packageInfo.appName),
-              NormalText(mainController.settings.version, padding: const EdgeInsets.only(left: 6)),
+              NormalText(mainController.settings?.version ?? '', padding: const EdgeInsets.only(left: 6)),
             ]),
           ],
         )),

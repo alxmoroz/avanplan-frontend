@@ -12,7 +12,6 @@ import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../views/auth/login_view.dart';
 import 'drawer.dart';
 
 class MainView extends StatefulWidget {
@@ -57,7 +56,7 @@ class _MainViewState extends State<MainView> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const H2('Главный экран', align: TextAlign.center),
-              if (!mainController.authorized) Button('Авторизация', () => Navigator.of(context).pushNamed(LoginView.routeName)),
+              if (!mainController.authorized) Button('Авторизация', mainController.login),
               if (mainController.authorized) Button('Выйти', mainController.logout),
               SizedBox(height: padding),
               if (mainController.authorized) Button('Redmine', mainController.redmine),

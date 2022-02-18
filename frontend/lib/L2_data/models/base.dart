@@ -3,15 +3,9 @@
 import 'package:hive/hive.dart';
 
 import '../../../L1_domain/entities/base.dart';
-import '../../../L1_domain/repositories/database_repository.dart';
+import '../../../L1_domain/repositories/abstract_db_repo.dart';
 
-abstract class EntityMapper<E extends BaseEntity> {
-  Future fromEntity(E entity);
-
-  dynamic toEntity(dynamic params);
-}
-
-abstract class BaseModel extends HiveObject implements EntityMapper, DBModel {
+abstract class BaseModel<E extends BaseEntity> extends HiveObject implements AbstractDBModel<E> {
   @HiveField(0, defaultValue: '')
   String id = '';
 
@@ -20,7 +14,4 @@ abstract class BaseModel extends HiveObject implements EntityMapper, DBModel {
 
   @HiveField(2)
   String description = '';
-
-  @override
-  String toString() => title;
 }

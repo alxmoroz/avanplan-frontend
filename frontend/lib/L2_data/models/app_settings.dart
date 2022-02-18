@@ -3,14 +3,13 @@
 import 'package:hive/hive.dart';
 
 import '../../L1_domain/entities/app_settings.dart';
-import '../../L1_domain/entities/base.dart';
 import '../repositories/hive_storage.dart';
 import 'base.dart';
 
 part 'app_settings.g.dart';
 
 @HiveType(typeId: HType.AppSettings)
-class AppSettingsHO extends BaseModel {
+class AppSettingsHO extends BaseModel<AppSettings> {
   @HiveField(3, defaultValue: '')
   String version = '';
 
@@ -18,22 +17,18 @@ class AppSettingsHO extends BaseModel {
   String authToken = '';
 
   @override
-  AppSettings toEntity([dynamic _]) => AppSettings(
+  AppSettings toEntity() => AppSettings(
         version: version,
         firstLaunch: false,
         accessToken: authToken,
-        model: this,
       );
 
   @override
-  Future<AppSettingsHO> fromEntity(BaseEntity entity) async {
-    final settings = entity as AppSettings;
-    id = settings.id;
-    version = settings.version;
-    authToken = settings.accessToken;
+  Future update(AppSettings entity) async {
+    id = entity.id;
+    version = entity.version;
+    authToken = entity.accessToken;
 
     await save();
-
-    return this;
   }
 }

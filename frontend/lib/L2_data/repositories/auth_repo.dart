@@ -1,27 +1,9 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../../L1_domain/entities/app_settings.dart';
-import '../../L1_domain/entities/base.dart';
-import '../../L1_domain/repositories/settings_repository.dart';
+import '../../L1_domain/repositories/abstract_auth_repo.dart';
 import '../../L3_app/extra/services.dart';
-import '../models/app_settings.dart';
-import 'hive_repository.dart';
 
-class SettingsRepo extends HiveRepo<AppSettings, AppSettingsHO> implements SettingsRepository {
-  SettingsRepo() : super(ECode.AppSettings, () => AppSettingsHO());
-
-  @override
-  Future<AppSettings> getOrCreate() async {
-    final settingsList = await getAll();
-    final settings = settingsList.isEmpty ? AppSettings(firstLaunch: true, model: null) : settingsList.first;
-
-    // final oldVersion = settings.version;
-    settings.version = packageInfo.version;
-    await save(settings, null);
-
-    return settings;
-  }
-
+class AuthRepo extends AbstractAuthRepo {
   @override
   Future<String> getApiAuthToken(String username, String password) async {
     String accessToken = '';

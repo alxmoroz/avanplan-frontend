@@ -5,9 +5,8 @@ import 'package:mobx/mobx.dart';
 import 'package:openapi/openapi.dart';
 
 import '../../../L1_domain/entities/app_settings.dart';
-import '../../../L2_data/repositories/settings_repo.dart';
-import '../../../L3_app/views/auth/login_view.dart';
 import '../../extra/services.dart';
+import '../auth/login_view.dart';
 import '../base/base_controller.dart';
 
 part 'main_controller.g.dart';
@@ -15,17 +14,18 @@ part 'main_controller.g.dart';
 class MainController extends _MainControllerBase with _$MainController {
   @override
   Future<MainController> init() async {
-    // TODO: тут должен быть соотв. юзкейс! спрятать все репы от контроллеров. Юзкейсы инициализировать в сервисах
-    settings = await SettingsRepo().setup();
-
-    // TODO: не уверен, что это здесь должно быть. Может, вообще в другом контроллере или в инициализации в сервисах?
-    await authUC.updateApiCredentialsFromSettings();
+    await settingsUC.updateVersion(packageInfo.version);
+    await authUC.setApiCredentialsFromSettings();
+    settings = await settingsUC.getSettings();
 
     return this;
   }
 }
 
 abstract class _MainControllerBase extends BaseController with Store {
+  // этот параметр не меняется после запуска
+  String get appName => packageInfo.appName;
+
   /// настройки
   @observable
   AppSettings? settings;
@@ -34,21 +34,24 @@ abstract class _MainControllerBase extends BaseController with Store {
   void setSettings(AppSettings _settings) => settings = _settings;
 
   @computed
+  bool get authorized => settings?.accessToken.isNotEmpty ?? false;
+
+  @computed
   bool get isFirstLaunch => settings?.firstLaunch ?? true;
 
   @computed
-  bool get authorized => settings?.accessToken.isNotEmpty ?? false;
+  String get appVersion => settings?.version ?? '';
 
   @action
   Future login() async {
     await Navigator.of(context!).pushNamed(LoginView.routeName);
-    settings = await SettingsRepo().getOne();
+    settings = await settingsUC.getSettings();
   }
 
   @action
   Future logout() async {
     await authUC.logout();
-    settings = await SettingsRepo().getOne();
+    settings = await settingsUC.getSettings();
   }
 
   //TODO: для тестирования метод пока что тут. Нужен отдельный юзкейс и репы

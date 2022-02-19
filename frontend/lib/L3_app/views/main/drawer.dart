@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../components/buttons.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/text_widgets.dart';
@@ -11,6 +12,11 @@ import '../../extra/services.dart';
 class ALDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    void logout() {
+      Navigator.of(context).pop();
+      mainController.logout();
+    }
+
     return Drawer(
       child: Container(
         color: backgroundColor.resolve(context),
@@ -25,10 +31,11 @@ class ALDrawer extends StatelessWidget {
             //   onTap: () => Navigator.of(context).popAndPushNamed(StatisticsView.routeName),
             // ),
             const Spacer(),
+            if (mainController.authorized) Button('Выйти', logout),
             SizedBox(height: padding),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              LightText(packageInfo.appName),
-              NormalText(mainController.settings?.version ?? '', padding: const EdgeInsets.only(left: 6)),
+              LightText(mainController.appName),
+              NormalText(mainController.appVersion, padding: const EdgeInsets.only(left: 6)),
             ]),
           ],
         )),

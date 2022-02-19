@@ -25,8 +25,6 @@ class AuthRepo extends AbstractAuthRepo {
 
   @override
   void setApiCredentials(String token) {
-    // TODO: тоже самое нужно сделать при загрузке данных из локальной БД
-    // TODO: вынести в отдельный метод для репозитория, где будет токен обрабатываться
     openAPI.setOAuthToken('OAuth2PasswordBearer', token);
   }
 }

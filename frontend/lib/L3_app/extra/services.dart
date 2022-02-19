@@ -6,9 +6,10 @@ import 'package:openapi/openapi.dart';
 import 'package:package_info/package_info.dart';
 
 import '../../L1_domain/usecases/auth_uc.dart';
+import '../../L1_domain/usecases/settings_uc.dart';
+import '../../L2_data/db.dart';
 import '../../L2_data/repositories/auth_repo.dart';
-import '../../L2_data/repositories/hive_storage.dart';
-import '../../L2_data/repositories/settings_repo.dart';
+import '../../L2_data/repositories/db_repo.dart';
 import '../l10n/generated/l10n.dart';
 import '../views/auth/login_controller.dart';
 import '../views/main/main_controller.dart';
@@ -25,6 +26,7 @@ LoginController get loginController => GetIt.I<LoginController>();
 Openapi get openAPI => GetIt.I<Openapi>();
 
 AuthUC get authUC => GetIt.I<AuthUC>();
+SettingsUC get settingsUC => GetIt.I<SettingsUC>();
 
 void setup() {
   // device
@@ -32,7 +34,7 @@ void setup() {
   getIt.registerSingletonAsync<PackageInfo>(() async => await PackageInfo.fromPlatform());
 
   // repo / adapters
-  getIt.registerSingletonAsync<HStorage>(() async => await HStorage().init());
+  getIt.registerSingletonAsync<HiveStorage>(() async => await HiveStorage().init());
   getIt.registerSingletonAsync<Openapi>(() async {
     final api = Openapi(basePathOverride: 'http://localhost:8000/');
     api.dio.options.connectTimeout = 10000;
@@ -40,12 +42,13 @@ void setup() {
   });
 
   // use cases
-  getIt.registerSingletonAsync<AuthUC>(() async => AuthUC(settingsRepo: SettingsRepo(), authRepo: AuthRepo()));
+  getIt.registerSingletonAsync<SettingsUC>(() async => SettingsUC(settingsRepo: SettingsRepo()));
+  getIt.registerSingletonAsync<AuthUC>(() async => AuthUC(settingsUC: settingsUC, authRepo: AuthRepo()), dependsOn: [SettingsUC]);
 
   // stores / states / controllers
   getIt.registerSingletonAsync<MainController>(
     () async => await MainController().init(),
-    dependsOn: [HStorage, PackageInfo, IosDeviceInfo, Openapi],
+    dependsOn: [HiveStorage, PackageInfo, IosDeviceInfo, Openapi, SettingsUC, AuthUC],
   );
   getIt.registerSingletonAsync<LoginController>(() async => await LoginController().init(), dependsOn: [MainController]);
 }

@@ -13,12 +13,11 @@ class LoginController extends _LoginControllerBase with _$LoginController {}
 abstract class _LoginControllerBase extends BaseController with Store {
   Future authorize() async {
     //TODO: не учитываются возможные ошибки! Нет обработки 403 и т.п.
-    final token = await authUC.authorize(
+
+    if (await authUC.authorize(
       username: tfAnnoForCode('login').text,
       password: tfAnnoForCode('password').text,
-    );
-
-    if (token.isNotEmpty) {
+    )) {
       /// навигация
       Navigator.of(context!).pop();
     }

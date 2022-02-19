@@ -3,14 +3,14 @@
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../models/app_settings.dart';
+import 'models/app_settings.dart';
 
 class HType {
   static const AppSettings = 1;
 }
 
-class HStorage {
-  Future<HStorage> init() async {
+class HiveStorage {
+  Future<HiveStorage> init() async {
     const bool kIsWeb = identical(0, 0.0);
     if (!kIsWeb) {
       final _dir = await getApplicationDocumentsDirectory();

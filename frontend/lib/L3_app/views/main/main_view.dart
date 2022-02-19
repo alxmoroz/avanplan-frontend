@@ -56,10 +56,9 @@ class _MainViewState extends State<MainView> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const H2('Главный экран', align: TextAlign.center),
-              if (!mainController.authorized) Button('Авторизация', mainController.login),
-              if (mainController.authorized) Button('Выйти', mainController.logout),
+              if (!mainController.authorized) Button('Войти', mainController.login),
               SizedBox(height: padding),
-              if (mainController.authorized) Button('Redmine', mainController.redmine),
+              if (mainController.authorized) Button('Импорт задач из Redmine', mainController.redmine),
             ],
           ),
         ),

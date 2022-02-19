@@ -2,9 +2,11 @@
 
 import 'package:hive/hive.dart';
 
+import '../../../L1_domain/entities/app_settings.dart';
 import '../../../L1_domain/entities/base.dart';
 import '../../../L1_domain/repositories/abstract_db_repo.dart';
-import '../../../L2_data/models/base.dart';
+import '../models/app_settings.dart';
+import '../models/base.dart';
 
 typedef ModelCreator<T> = T Function();
 
@@ -20,8 +22,6 @@ abstract class DBRepo<M extends BaseModel, E extends BaseEntity> extends Abstrac
     _box ??= await Hive.openBox<M>(boxName);
     return _box!;
   }
-
-  Future close() async => (await box).close();
 
   Future<M> _getOrCreateModel(String? id) async {
     M model;
@@ -68,7 +68,8 @@ abstract class DBRepo<M extends BaseModel, E extends BaseEntity> extends Abstrac
       print('delete error ${entity.id} $e');
     }
   }
+}
 
-// @override
-// Future<E> get(String id, [dynamic params]) async => (await _getOrCreateModel(id)).toEntity(params);
+class SettingsRepo extends DBRepo<AppSettingsHO, AppSettings> {
+  SettingsRepo() : super('AppSettings', () => AppSettingsHO());
 }

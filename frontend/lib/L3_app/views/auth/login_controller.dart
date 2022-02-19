@@ -5,12 +5,16 @@ import 'package:mobx/mobx.dart';
 
 import '../../extra/services.dart';
 import '../base/base_controller.dart';
+import '../main/main_view.dart';
 
 part 'login_controller.g.dart';
 
 class LoginController extends _LoginControllerBase with _$LoginController {}
 
 abstract class _LoginControllerBase extends BaseController with Store {
+  @override
+  bool get validated => !tfAnnotations.values.any((ta) => ta.errorText != null || !ta.edited);
+
   Future authorize() async {
     //TODO: не учитываются возможные ошибки! Нет обработки 403 и т.п.
 
@@ -19,7 +23,7 @@ abstract class _LoginControllerBase extends BaseController with Store {
       password: tfAnnoForCode('password').text,
     )) {
       /// навигация
-      Navigator.of(context!).pop();
+      Navigator.of(context!).pushReplacementNamed(MainView.routeName);
     }
   }
 }

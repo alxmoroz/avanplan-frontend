@@ -47,8 +47,8 @@ abstract class _BaseControllerBase with Store {
   Future initState(BuildContext _context, {List<TFAnnotation>? tfaList}) async {
     context = _context;
 
-    _tfAnnotations = ObservableMap.of({for (var tfa in tfaList ?? <TFAnnotation>[]) tfa.code: tfa});
-    controllers = {for (var tfa in _tfAnnotations.values) tfa.code: makeController(tfa.code)};
+    tfAnnotations = ObservableMap.of({for (var tfa in tfaList ?? <TFAnnotation>[]) tfa.code: tfa});
+    controllers = {for (var tfa in tfAnnotations.values) tfa.code: makeController(tfa.code)};
   }
 
   @mustCallSuper
@@ -59,21 +59,21 @@ abstract class _BaseControllerBase with Store {
   }
 
   @observable
-  ObservableMap<String, TFAnnotation> _tfAnnotations = ObservableMap();
+  ObservableMap<String, TFAnnotation> tfAnnotations = ObservableMap();
 
   TextEditingController makeController(String code) {
     final controller = TextEditingController(text: '${tfAnnoForCode(code)}');
     controller.addListener(() {
       final ta = tfAnnoForCode(code);
       if (ta.text != controller.text) {
-        _tfAnnotations[ta.code] = ta.copyWith(text: controller.text);
+        tfAnnotations[ta.code] = ta.copyWith(text: controller.text);
       }
     });
     return controller;
   }
 
   @computed
-  bool get validated => !_tfAnnotations.values.any((ta) => ta.errorText != null);
+  bool get validated => !tfAnnotations.values.any((ta) => ta.errorText != null);
 
-  TFAnnotation tfAnnoForCode(String code) => _tfAnnotations[code]!;
+  TFAnnotation tfAnnoForCode(String code) => tfAnnotations[code]!;
 }

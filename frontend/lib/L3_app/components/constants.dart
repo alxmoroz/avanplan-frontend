@@ -3,4 +3,4 @@
 import '../../L3_app/extra/services.dart';
 
 bool get isTablet => iosInfo.model == 'iPad';
-double get padding => isTablet ? 24 : 12;
+double get onePadding => isTablet ? 24 : 12;

@@ -14,9 +14,9 @@ part 'main_controller.g.dart';
 class MainController extends _MainControllerBase with _$MainController {
   @override
   Future<MainController> init() async {
+    settings = await settingsUC.getSettings();
     await settingsUC.updateVersion(packageInfo.version);
     await authUC.setApiCredentialsFromSettings();
-    settings = await settingsUC.getSettings();
 
     return this;
   }
@@ -43,15 +43,15 @@ abstract class _MainControllerBase extends BaseController with Store {
   String get appVersion => settings?.version ?? '';
 
   @action
-  Future login() async {
-    await Navigator.of(context!).pushNamed(LoginView.routeName);
-    settings = await settingsUC.getSettings();
-  }
-
-  @action
   Future logout() async {
     await authUC.logout();
+    Navigator.of(context!).pushReplacementNamed(LoginView.routeName);
+  }
+
+  @override
+  Future initState(BuildContext _context, {List<TFAnnotation>? tfaList}) async {
     settings = await settingsUC.getSettings();
+    super.initState(_context, tfaList: tfaList);
   }
 
   //TODO: для тестирования метод пока что тут. Нужен отдельный юзкейс и репы

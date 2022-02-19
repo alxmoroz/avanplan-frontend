@@ -19,7 +19,7 @@ Color get borderColor => const CupertinoDynamicColor.withBrightness(
       darkColor: Color.fromARGB(255, 58, 58, 60),
     );
 
-Color get backgroundColor => CupertinoColors.systemGrey5;
+Color get backgroundColor => CupertinoColors.systemGrey6;
 
 const Color _tealColor = Color.fromARGB(255, 90, 200, 250);
 const Color _darkTealColor = Color.fromARGB(255, 0, 113, 164);

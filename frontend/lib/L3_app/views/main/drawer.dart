@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../components/buttons.dart';
 import '../../components/colors.dart';
@@ -12,33 +13,25 @@ import '../../extra/services.dart';
 class ALDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    void logout() {
-      Navigator.of(context).pop();
-      mainController.logout();
-    }
-
     return Drawer(
       child: Container(
         color: backgroundColor.resolve(context),
         child: SafeArea(
-            child: Column(
-          children: [
-            SizedBox(height: padding),
-            // ListTile(
-            //   leading: chartIcon(context),
-            //   title: MediumText(loc.statistics),
-            //   trailing: chevronForwardIcon(context, color: darkColor),
-            //   onTap: () => Navigator.of(context).popAndPushNamed(StatisticsView.routeName),
-            // ),
-            const Spacer(),
-            if (mainController.authorized) Button('Выйти', logout),
-            SizedBox(height: padding),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              LightText(mainController.appName),
-              NormalText(mainController.appVersion, padding: const EdgeInsets.only(left: 6)),
-            ]),
-          ],
-        )),
+          child: Observer(
+            builder: (_) => Column(
+              children: [
+                SizedBox(height: onePadding),
+                const Spacer(),
+                if (mainController.authorized) Button('Выйти', mainController.logout),
+                SizedBox(height: onePadding),
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  LightText(mainController.appName),
+                  NormalText(mainController.appVersion, padding: const EdgeInsets.only(left: 6)),
+                ]),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

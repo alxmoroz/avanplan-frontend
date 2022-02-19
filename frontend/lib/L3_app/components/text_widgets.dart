@@ -129,3 +129,16 @@ class H2 extends MediumText {
           maxLines: maxLines ?? 2,
         );
 }
+
+class H1 extends MediumText {
+  H1(String text, {Color? color, FontWeight? weight, TextAlign? align, EdgeInsets? padding, int? maxLines})
+      : super(
+          text,
+          color: color,
+          weight: weight,
+          sizeScale: 2.5,
+          align: align,
+          padding: padding ?? EdgeInsets.fromLTRB(0, onePadding, 0, onePadding * 3),
+          maxLines: maxLines ?? 2,
+        );
+}

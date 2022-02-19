@@ -7,8 +7,8 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../components/buttons.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/material_wrapper.dart';
 import '../../components/text_field.dart';
+import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../base/base_controller.dart';
 import 'login_controller.dart';
@@ -50,17 +50,27 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: CupertinoColors.systemBackground.resolve(context),
-      child: material(
-        Observer(
+    return Scaffold(
+      resizeToAvoidBottomInset: true,
+      body: Container(
+        color: backgroundColor.resolve(context),
+        child: Observer(
           builder: (_) => Column(
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              H1('Hercules', align: TextAlign.center, color: darkGreyColor),
               textFieldForCode('login'),
               textFieldForCode('password'),
-              SizedBox(height: padding),
-              Button(loc.auth_log_in_button_title, _controller.validated ? _controller.authorize : null),
+              SizedBox(height: onePadding),
+              Padding(
+                padding: EdgeInsets.all(onePadding),
+                child: Button(
+                  loc.auth_log_in_button_title,
+                  _controller.validated ? _controller.authorize : null,
+                  titleColor: _controller.validated ? mainColor : borderColor,
+                ),
+              ),
             ],
           ),
         ),

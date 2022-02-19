@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
+import 'constants.dart';
 import 'material_wrapper.dart';
 import 'text_widgets.dart';
 
@@ -38,6 +39,8 @@ class CTextField extends StatelessWidget {
     this.margin,
     this.obscureText = false,
     this.capitalization,
+    this.autocorrect = false,
+    this.suggestions = false,
   });
 
   final TextEditingController? controller;
@@ -50,20 +53,25 @@ class CTextField extends StatelessWidget {
   final EdgeInsetsGeometry? margin;
   final bool obscureText;
   final TextCapitalization? capitalization;
+  final bool autocorrect;
+  final bool suggestions;
 
   @override
   Widget build(BuildContext context) {
     return material(Padding(
-      padding: margin ?? const EdgeInsets.fromLTRB(14, 26, 14, 0),
+      padding: margin ?? EdgeInsets.fromLTRB(onePadding, onePadding * 2, onePadding, 0),
       child: TextField(
-          style: const H3('').style(context),
-          decoration: _tfDecoration(label, description, error, context),
-          autofocus: autofocus,
-          maxLines: maxLines,
-          controller: controller,
-          keyboardType: keyboardType,
-          textCapitalization: capitalization ?? TextCapitalization.sentences,
-          obscureText: obscureText),
+        style: const H3('').style(context),
+        decoration: _tfDecoration(label, description, error, context),
+        autofocus: autofocus,
+        maxLines: maxLines,
+        controller: controller,
+        keyboardType: keyboardType,
+        textCapitalization: capitalization ?? TextCapitalization.sentences,
+        obscureText: obscureText,
+        autocorrect: autocorrect,
+        enableSuggestions: suggestions,
+      ),
     ));
   }
 }

@@ -4,7 +4,6 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../components/buttons.dart';
 import '../../components/colors.dart';
@@ -49,18 +48,15 @@ class _MainViewState extends State<MainView> {
       ),
       drawer: ALDrawer(),
       body: Container(
-        color: CupertinoDynamicColor.resolve(backgroundColor, context),
-        child: Observer(
-          builder: (_) => Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const H2('Главный экран', align: TextAlign.center),
-              if (!mainController.authorized) Button('Войти', mainController.login),
-              SizedBox(height: padding),
-              if (mainController.authorized) Button('Импорт задач из Redmine', mainController.redmine),
-            ],
-          ),
+        color: backgroundColor.resolve(context),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const H2('Главный экран', align: TextAlign.center),
+            SizedBox(height: onePadding),
+            Button('Импорт задач из Redmine', mainController.redmine),
+          ],
         ),
       ),
     );

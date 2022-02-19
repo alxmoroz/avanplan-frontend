@@ -23,7 +23,7 @@ class App extends StatelessWidget {
       title: 'Hercules',
       home: FutureBuilder(
         future: getIt.allReady(),
-        builder: (_, snapshot) => snapshot.hasData ? MainView() : const SplashScreen(),
+        builder: (_, snapshot) => snapshot.hasData ? (mainController.authorized ? MainView() : LoginView()) : const SplashScreen(),
       ),
       // routes: {
       //   LoginView.routeName: (_) => LoginView(),

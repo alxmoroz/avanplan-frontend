@@ -69,7 +69,7 @@ def task_repo(db) -> TaskRepo:
 def tmp_object(task_repo) -> Generator:
     task: Task | None = None
     try:
-        task = task_repo.create(Task(code=random_lower_string()))
+        task = task_repo.create(Task(title=random_lower_string()))
         yield task
     finally:
         task_repo.delete(task)

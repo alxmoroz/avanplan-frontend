@@ -9,17 +9,17 @@ class TaskStatus(BaseTrackerEntity):
 
 
 class TaskPriority(BaseTrackerEntity):
-    pass
+    order: int
 
 
 class Task(BaseTrackerEntity, Importable, TimeBound):
 
-    # status: TaskStatus
+    status_id: int | None
+    status: TaskStatus | None
+
     # priority: TaskPriority
     # version: Version | None
     # tasks: list[Task] | None
     # assigned_to: Person | None
     # author: Person | None
-
-    class Config:
-        orm_mode = True
+    project_id: int | None

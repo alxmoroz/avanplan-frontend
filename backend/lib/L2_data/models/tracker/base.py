@@ -3,9 +3,8 @@ from sqlalchemy import Column, DateTime, String
 
 
 class BaseTrackerFields:
-    code = Column(String, unique=True, index=True, nullable=False)
-    title = Column(String, index=True)
-    description = Column(String, index=True)
+    title = Column(String)
+    description = Column(String)
 
 
 class ImportableFields:

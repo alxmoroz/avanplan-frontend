@@ -8,6 +8,7 @@ from lib.L1_domain.repositories import AbstractModel
 
 @as_declarative()
 class BaseModel(AbstractModel):
+    __abstract__ = True
 
     id = Column(Integer, primary_key=True, index=True)
 

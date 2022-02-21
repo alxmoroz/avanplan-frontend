@@ -67,7 +67,7 @@ def project_repo(db: Session) -> ProjectRepo:
 def tmp_object(project_repo) -> Generator:
     project: Project | None = None
     try:
-        project = project_repo.create(Project(code=random_lower_string()))
+        project = project_repo.create(Project(title=random_lower_string()))
         yield project
     finally:
         project_repo.delete(project)

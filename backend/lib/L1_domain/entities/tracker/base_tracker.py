@@ -2,14 +2,13 @@
 
 from datetime import datetime
 
-from ..base_entity import BaseEntity, IdentifiableEntity
+from ..base_entity import BaseEntity, DBPersistEntity
 
 
-class BaseTrackerEntity(IdentifiableEntity):
+class BaseTrackerEntity(DBPersistEntity):
     __abstract__ = True
 
-    code: str
-    title: str | None
+    title: str
     description: str | None
 
 

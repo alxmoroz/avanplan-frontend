@@ -9,6 +9,3 @@ class VersionStatus(BaseTrackerEntity):
 
 class Version(BaseTrackerEntity, Importable, TimeBound):
     status: VersionStatus
-
-    class Config:
-        orm_mode = True

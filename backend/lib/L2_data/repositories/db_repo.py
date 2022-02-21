@@ -6,12 +6,13 @@ from sqlalchemy import delete, lambda_stmt, select, update
 from sqlalchemy.orm import Session
 from sqlalchemy.sql.elements import BinaryExpression
 
-from lib.L1_domain.entities.tracker import Project, Task
+from lib.L1_domain.entities.tracker import Project, Task, TaskStatus
 from lib.L1_domain.entities.users import User
 from lib.L1_domain.repositories import AbstractDBRepo, E, M
 
 from ..models.tracker import Project as ProjectModel
 from ..models.tracker import Task as TaskModel
+from ..models.tracker import TaskStatus as TaskStatusModel
 from ..models.users import User as UserModel
 
 
@@ -40,11 +41,10 @@ class DBRepo(AbstractDBRepo[M, E]):
             stmt = stmt.limit(limit)
 
         objects = self.db.execute(stmt).scalars().all()
-
-        return [self.entity(**jsonable_encoder(obj)) for obj in objects]
+        return [self.entity.from_orm(obj) for obj in objects]
 
     def create(self, e: E) -> E:
-        e_data = jsonable_encoder(e)
+        e_data = jsonable_encoder(e, exclude_unset=True)
         model = self.model(**e_data)
 
         self.db.add(model)
@@ -53,7 +53,8 @@ class DBRepo(AbstractDBRepo[M, E]):
         return e
 
     def update(self, e: E) -> int:
-        stmt = update(self.model).where(self.model.id == e.id).values(**e.dict())
+        e_data = jsonable_encoder(e, exclude_unset=True)
+        stmt = update(self.model).where(self.model.id == e.id).values(**e_data)
         affected_rows = self.db.execute(stmt).rowcount
         self.db.commit()
         return affected_rows
@@ -75,6 +76,11 @@ class ProjectRepo(DBRepo[ProjectModel, Project]):
         super().__init__(ProjectModel, Project, db)
 
 
-class TaskRepo(DBRepo[TaskModel, Task]):
+class TaskRepo(DBRepo):
     def __init__(self, db: Session):
         super().__init__(TaskModel, Task, db)
+
+
+class TaskStatusRepo(DBRepo):
+    def __init__(self, db: Session):
+        super().__init__(TaskStatusModel, TaskStatus, db)

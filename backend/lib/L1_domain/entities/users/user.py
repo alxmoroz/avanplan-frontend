@@ -2,15 +2,12 @@
 
 from pydantic import EmailStr
 
-from ..base_entity import IdentifiableEntity
+from ..base_entity import DBPersistEntity
 
 
-class User(IdentifiableEntity):
+class User(DBPersistEntity):
     email: EmailStr
     password: str
     full_name: str | None
     is_active: bool = True
     is_superuser: bool = False
-
-    class Config:
-        orm_mode = True

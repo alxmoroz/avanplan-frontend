@@ -2,10 +2,11 @@
 
 from datetime import datetime
 
-from redminelib import Redmine, resources
+from redminelib import Redmine
+from redminelib.exceptions import BaseRedmineError
 
 from lib.L1_domain.entities.api.exceptions import ApiException
-from lib.L1_domain.entities.tracker import Project, Task
+from lib.L1_domain.entities.tracker import Project, Task, TaskStatus
 from lib.L1_domain.repositories import AbstractImportRepo
 
 
@@ -18,32 +19,32 @@ class RedmineImportRepo(AbstractImportRepo):
         self.source = f"Redmine {host}"
         self.redmine = Redmine(host, key=api_key, version=version)
 
-    def get_projects(self) -> list[Project]:
-        r_opened_projects: list[resources.Project] = self.redmine.project.all()
+    def get_projects_with_tasks(self) -> list[Project]:
+        projects_with_tasks: list[Project] = []
 
-        # TODO: попахивает мапперами)
-        return [
-            Project(
-                code=rp.identifier,
+        for rp in self.redmine.project.all():
+            p: Project = Project(
                 title=rp.name,
                 description=rp.description,
-                remote_code=f"R{rp.id}",
+                remote_code=f"{rp.id}",
                 imported_on=datetime.now(),
             )
-            for rp in r_opened_projects
-        ]
+            try:
+                p.tasks = [
+                    Task(
+                        title=issue.subject,
+                        description=issue.description,
+                        remote_code=f"{issue.id}",
+                        imported_on=datetime.now(),
+                        status=TaskStatus(title=f"{issue.status.name}")
+                        # priority=TaskPriority(code=issue.priority.name),
+                        # status=TaskStatus(code=issue.status.name),
+                    )
+                    for issue in rp.issues
+                ]
+            except BaseRedmineError:
+                pass
 
-    def get_tasks(self) -> list[Task]:
-        r_opened_issues: list[resources.Issue] = self.redmine.issue.filter(status_id="open")
-        return [
-            Task(
-                code=issue.id,
-                title=issue.subject,
-                description=issue.description,
-                remote_code=f"R{issue.id}",
-                imported_on=datetime.now(),
-                # priority=TaskPriority(code=issue.priority.name),
-                # status=TaskStatus(code=issue.status.name),
-            )
-            for issue in r_opened_issues
-        ]
+            projects_with_tasks.append(p)
+
+        return projects_with_tasks

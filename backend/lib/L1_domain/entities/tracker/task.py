@@ -1,11 +1,20 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-
 from .base_tracker import BaseTrackerEntity, Importable, TimeBound
 
 
 class TaskStatus(BaseTrackerEntity):
-    pass
+    closed: bool | None
+
+    def __init__(self, closed=False, *args, **kwargs):
+        super().__init__(closed=closed, *args, **kwargs)
+
+    # @validator("closed")
+    # def set_closed(cls, closed):
+    #     return closed or False
+    #
+    # class Config:
+    #     validate_assignment = True
 
 
 class TaskPriority(BaseTrackerEntity):

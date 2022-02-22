@@ -21,4 +21,5 @@ def projects(
     # TODO: не очень DRY получилось тут
     UsersUC(UserRepo(db), SecurityRepo(token)).get_active_user()
 
+    # TODO: юзкейс? В данном случае пока что не требуется — Пригодится, если вручную собирать из разных реп что-то нужно будет...
     return ProjectRepo(db).get()

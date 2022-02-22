@@ -22,6 +22,7 @@ class RedmineImportRepo(AbstractImportRepo):
     def get_projects_with_tasks(self) -> list[Project]:
         projects_with_tasks: list[Project] = []
 
+        # по пустым запросам —> только открытые проекты и открытые задачи
         for rp in self.redmine.project.all():
             p: Project = Project(
                 title=rp.name,
@@ -38,7 +39,6 @@ class RedmineImportRepo(AbstractImportRepo):
                         imported_on=datetime.now(),
                         status=TaskStatus(title=f"{issue.status.name}")
                         # priority=TaskPriority(code=issue.priority.name),
-                        # status=TaskStatus(code=issue.status.name),
                     )
                     for issue in rp.issues
                 ]

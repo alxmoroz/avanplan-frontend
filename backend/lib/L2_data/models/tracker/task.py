@@ -1,5 +1,5 @@
 #  Copyright (c) 2022. Alexandr Moroz
-from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
 from ..base_model import BaseModel
@@ -8,6 +8,7 @@ from .base import BaseTrackerFields, ImportableFields, TimeBoundFields
 
 class TaskStatus(BaseTrackerFields, BaseModel):
     title = Column(String, unique=True)
+    closed = Column(Boolean)
 
 
 class Task(BaseTrackerFields, ImportableFields, TimeBoundFields, BaseModel):

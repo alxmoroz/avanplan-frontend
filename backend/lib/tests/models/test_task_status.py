@@ -38,12 +38,14 @@ def test_update_object(task_status_repo):
     with tmp_object(task_status_repo) as obj_in:
         title = obj_in.title = "title"
         description = obj_in.description = "description"
+        closed = obj_in.closed = True
         assert task_status_repo.update(obj_in) == 1
 
         obj_out = task_status_repo.get_one(id=obj_in.id)
         assert obj_in == obj_out
         assert obj_out.title == title
         assert obj_out.description == description
+        assert obj_out.closed == closed
 
 
 def test_delete_project(task_status_repo):
@@ -60,7 +62,8 @@ def task_status_repo(db) -> TaskStatusRepo:
 def tmp_object(task_status_repo) -> Generator:
     task_status: TaskStatus | None = None
     try:
-        task_status = task_status_repo.create(TaskStatus(title=random_lower_string()))
+        ts = TaskStatus(title=random_lower_string())
+        task_status = task_status_repo.create(ts)
         yield task_status
     finally:
         task_status_repo.delete(task_status)

@@ -43,11 +43,11 @@ class RedmineImportRepo(AbstractImportRepo):
                     )
 
                     issue_status = issue_statuses[issue.status.id]
-                    t.status = TaskStatus(title=f"{issue_status.name}", closed=issue_status.is_closed)
-                    t.priority = TaskPriority(title=f"{issue.priority.name}", order=issue.priority.id)
+                    t._status = TaskStatus(title=f"{issue_status.name}", closed=issue_status.is_closed)
+                    t._priority = TaskPriority(title=f"{issue.priority.name}", order=issue.priority.id)
                     tasks.append(t)
 
-                p.tasks = tasks
+                p._tasks = tasks
 
             except BaseRedmineError as e:
                 ApiException(400, str(e))

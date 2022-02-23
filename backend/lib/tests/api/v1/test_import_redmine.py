@@ -11,7 +11,7 @@ _import_redmine_api_path = f"{settings.API_PATH}{router.prefix}"
 def test_import(client: TestClient, auth_headers_test_user):
 
     # TODO: 1951 нельзя привязываться к конкретному редмайну и оставлять тут креды для доступа к нему
-    # TODO: апи тестим на фронте...
+    #  апи тестим на фронте...
 
     host = "https://redmine.moroz.team"
     api_key = "101b62ea94b4132625a3d079451ea13fed3f4b87"

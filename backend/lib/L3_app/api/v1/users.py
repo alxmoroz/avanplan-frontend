@@ -12,7 +12,7 @@ from lib.L2_data.repositories.security_repo import oauth2_scheme
 router = APIRouter(prefix="/users")
 
 
-def get_user_uc(
+def user_uc(
     token: str = Depends(oauth2_scheme),
     db: Session = Depends(db_session),
 ) -> UsersUC:
@@ -23,7 +23,7 @@ def get_user_uc(
 def get_users(
     skip: int = 0,
     limit: int | None = None,
-    uc: UsersUC = Depends(get_user_uc),
+    uc: UsersUC = Depends(user_uc),
 ) -> list[User]:
     return uc.get_users(skip, limit)
 
@@ -31,14 +31,14 @@ def get_users(
 @router.post("/", response_model=User, status_code=201)
 def create_user(
     user_in: User,
-    uc: UsersUC = Depends(get_user_uc),
+    uc: UsersUC = Depends(user_uc),
 ) -> User:
     return uc.create_user(user_in)
 
 
 @router.get("/my/account", response_model=User)
 def get_my_account(
-    uc: UsersUC = Depends(get_user_uc),
+    uc: UsersUC = Depends(user_uc),
 ) -> User:
     return uc.get_active_user()
 
@@ -47,7 +47,7 @@ def get_my_account(
 def update_my_account(
     password: str = Body(None),
     full_name: str = Body(None),
-    uc: UsersUC = Depends(get_user_uc),
+    uc: UsersUC = Depends(user_uc),
 ) -> User:
     return uc.update_my_account(full_name=full_name, password=password)
 

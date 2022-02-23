@@ -4,7 +4,11 @@ from .task import Task
 
 
 class Project(BaseTrackerEntity, Importable):
-
     # projects: list[Project] = []
-    tasks: list[Task] = []
+    _tasks: list[Task] = []
+
+    @property
+    def tasks(self) -> list[Task]:
+        return self._tasks
+
     # versions: list[Version] = []

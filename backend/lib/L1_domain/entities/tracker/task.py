@@ -20,10 +20,18 @@ class TaskPriority(BaseTrackerEntity):
 class Task(BaseTrackerEntity, Importable, TimeBound):
 
     status_id: int | None
-    status: TaskStatus | None
+    _status: TaskStatus | None
 
     priority_id: int | None
-    priority: TaskPriority | None
+    _priority: TaskPriority | None
+
+    @property
+    def status(self) -> TaskStatus:
+        return self._status
+
+    @property
+    def priority(self) -> TaskPriority:
+        return self._priority
 
     # version: Version | None
     # tasks: list[Task] | None

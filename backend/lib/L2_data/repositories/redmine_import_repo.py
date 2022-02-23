@@ -4,9 +4,10 @@ from datetime import datetime
 
 from redminelib import Redmine
 from redminelib.exceptions import BaseRedmineError
+from redminelib.resources import BaseResource
 
 from lib.L1_domain.entities.api.exceptions import ApiException
-from lib.L1_domain.entities.tracker import Project, Task, TaskPriority, TaskStatus
+from lib.L1_domain.entities.tracker import Person, Project, Task, TaskPriority, TaskStatus
 from lib.L1_domain.repositories import AbstractImportRepo
 
 
@@ -19,10 +20,43 @@ class RedmineImportRepo(AbstractImportRepo):
         self.source = f"Redmine {host}"
         self.redmine = Redmine(host, key=api_key, version=version)
 
+    @staticmethod
+    def _try_load_resource(host_resource, resource: str) -> BaseResource | None:
+        try:
+            r = getattr(host_resource, resource, None)
+            return r
+        except BaseRedmineError as e:
+            print(e)
+            return None
+
+    @staticmethod
+    def _try_load_resource_set(host_resource, resource) -> list[BaseResource]:
+        try:
+            r = getattr(host_resource, resource, [])
+            return list(r)
+        except BaseRedmineError as e:
+            print(e)
+            return []
+
+    @classmethod
+    def _setup_person_from_resource(cls, users: dict, resource, attr: str) -> Person | None:
+        person = None
+        r_user = cls._try_load_resource(resource, attr)
+        if r_user:
+            r_user = users[r_user.id]
+            person = Person(
+                firstname=r_user.firstname,
+                lastname=r_user.lastname,
+                remote_code=r_user.id,
+                imported_on=datetime.now(),
+            )
+        return person
+
     def get_projects_with_tasks(self) -> list[Project]:
         projects_with_tasks: list[Project] = []
 
-        issue_statuses = {st.id: st for st in self.redmine.issue_status.all()}
+        r_issue_statuses = {st.id: st for st in self.redmine.issue_status.all()}
+        r_users = {user.id: user for user in self.redmine.user.all()}
 
         # по пустым запросам —> только открытые проекты и открытые задачи
         for rp in self.redmine.project.all():
@@ -32,25 +66,26 @@ class RedmineImportRepo(AbstractImportRepo):
                 remote_code=f"{rp.id}",
                 imported_on=datetime.now(),
             )
-            try:
-                tasks: list[Task] = []
-                for issue in rp.issues:
-                    t = Task(
-                        title=issue.subject,
-                        description=issue.description,
-                        remote_code=f"{issue.id}",
-                        imported_on=datetime.now(),
-                    )
+            r_issues = self._try_load_resource_set(rp, "issues")
 
-                    issue_status = issue_statuses[issue.status.id]
-                    t._status = TaskStatus(title=f"{issue_status.name}", closed=issue_status.is_closed)
-                    t._priority = TaskPriority(title=f"{issue.priority.name}", order=issue.priority.id)
-                    tasks.append(t)
+            tasks: list[Task] = []
+            for issue in r_issues:
+                task = Task(
+                    title=issue.subject,
+                    description=issue.description,
+                    remote_code=f"{issue.id}",
+                    imported_on=datetime.now(),
+                )
 
-                p._tasks = tasks
+                r_issue_status = r_issue_statuses[issue.status.id]
+                task._status = TaskStatus(title=f"{r_issue_status.name}", closed=r_issue_status.is_closed)
+                task._priority = TaskPriority(title=f"{issue.priority.name}", order=issue.priority.id)
+                task._author = self._setup_person_from_resource(r_users, issue, "author")
+                task._assigned_person = self._setup_person_from_resource(r_users, issue, "assigned_to")
 
-            except BaseRedmineError as e:
-                ApiException(400, str(e))
+                tasks.append(task)
+
+            p._tasks = tasks
 
             projects_with_tasks.append(p)
 

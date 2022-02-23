@@ -23,7 +23,7 @@ def test_import(client: TestClient, auth_headers_test_user):
         headers=auth_headers_test_user,
     )
     # TODO: проверить, что в базу запись прошла в тестах моделей!
-    assert r.status_code == 200
+    assert r.status_code == 200, r.json()["detail"]
     assert r.json()["msg"] == f"Projects and tasks from Redmine {host} imported successful"
 
     # для покрытия строк update

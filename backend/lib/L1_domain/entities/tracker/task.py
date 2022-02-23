@@ -1,6 +1,7 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
 from .base_tracker import BaseTrackerEntity, Importable, TimeBound
+from .person import Person
 
 
 class TaskStatus(BaseTrackerEntity):
@@ -25,6 +26,12 @@ class Task(BaseTrackerEntity, Importable, TimeBound):
     priority_id: int | None
     _priority: TaskPriority | None
 
+    assigned_person_id: int | None
+    _assigned_person: Person | None
+
+    author_id: int | None
+    _author: Person | None
+
     @property
     def status(self) -> TaskStatus:
         return self._status
@@ -33,8 +40,15 @@ class Task(BaseTrackerEntity, Importable, TimeBound):
     def priority(self) -> TaskPriority:
         return self._priority
 
+    @property
+    def assigned_person(self) -> Person:
+        return self._assigned_person
+
+    @property
+    def author(self) -> Person:
+        return self._author
+
     # version: Version | None
     # tasks: list[Task] | None
-    # assigned_to: Person | None
-    # author: Person | None
+
     project_id: int | None

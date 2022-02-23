@@ -22,10 +22,14 @@ class Task(BaseTrackerFields, ImportableFields, TimeBoundFields, BaseModel):
     priority_id = Column(Integer, ForeignKey("taskprioritys.id"))
     # priority = relationship("TaskPriority")
 
+    assigned_person_id = Column(Integer, ForeignKey("persons.id"))
+    # assigned_person = relationship("Person")
+
+    author_id = Column(Integer, ForeignKey("persons.id"))
+    # author = relationship("Person")
+
     project_id = Column(Integer, ForeignKey("projects.id", ondelete="CASCADE"))
     # project = relationship("Project", back_populates="tasks")
 
     # TODO: определить модели и связи
     # version: Version | None
-    # assigned_to: Person | None
-    # author: Person | None

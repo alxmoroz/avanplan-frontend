@@ -8,7 +8,7 @@ from lib.L1_domain.entities.api import Msg
 from lib.L1_domain.usecases.import_uc import ImportUC
 from lib.L1_domain.usecases.users_uc import UsersUC
 from lib.L2_data.db import db_session
-from lib.L2_data.repositories import ProjectRepo, RedmineImportRepo, TaskPriorityRepo, TaskRepo, TaskStatusRepo
+from lib.L2_data.repositories import PersonRepo, ProjectRepo, RedmineImportRepo, TaskPriorityRepo, TaskRepo, TaskStatusRepo
 from lib.L3_app.api.v1.users import user_uc
 
 router = APIRouter(prefix="/import/redmine")
@@ -33,4 +33,5 @@ def tasks(
         task_repo=TaskRepo(db),
         task_status_repo=TaskStatusRepo(db),
         task_priority_repo=TaskPriorityRepo(db),
+        person_repo=PersonRepo(db),
     ).import_tasks()

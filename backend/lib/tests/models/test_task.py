@@ -55,7 +55,7 @@ def test_update_object(task_repo):
         assert obj_out.due_date == due_date
 
 
-def test_delete_project(task_repo):
+def test_delete_object(task_repo):
     with tmp_object(task_repo) as obj:
         assert task_repo.delete(obj) == 1
 

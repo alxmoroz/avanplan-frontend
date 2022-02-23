@@ -1,15 +1,15 @@
 """empty message
 
-Revision ID: 13bf51d31953
+Revision ID: 3a3a347b23ab
 Revises: 
-Create Date: 2022-02-23 01:07:51.497773
+Create Date: 2022-02-23 03:25:31.951284
 
 """
 import sqlalchemy as sa
 from alembic import op
 
 # revision identifiers, used by Alembic.
-revision = "13bf51d31953"
+revision = "3a3a347b23ab"
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -27,6 +27,16 @@ def upgrade():
         sa.PrimaryKeyConstraint("id"),
     )
     op.create_index(op.f("ix_projects_id"), "projects", ["id"], unique=False)
+    op.create_table(
+        "taskprioritys",
+        sa.Column("id", sa.Integer(), nullable=False),
+        sa.Column("description", sa.String(), nullable=True),
+        sa.Column("title", sa.String(), nullable=True),
+        sa.Column("order", sa.Integer(), nullable=True),
+        sa.PrimaryKeyConstraint("id"),
+        sa.UniqueConstraint("title"),
+    )
+    op.create_index(op.f("ix_taskprioritys_id"), "taskprioritys", ["id"], unique=False)
     op.create_table(
         "taskstatuss",
         sa.Column("id", sa.Integer(), nullable=False),
@@ -60,7 +70,12 @@ def upgrade():
         sa.Column("start_date", sa.DateTime(), nullable=True),
         sa.Column("due_date", sa.DateTime(), nullable=True),
         sa.Column("status_id", sa.Integer(), nullable=True),
+        sa.Column("priority_id", sa.Integer(), nullable=True),
         sa.Column("project_id", sa.Integer(), nullable=True),
+        sa.ForeignKeyConstraint(
+            ["priority_id"],
+            ["taskprioritys.id"],
+        ),
         sa.ForeignKeyConstraint(["project_id"], ["projects.id"], ondelete="CASCADE"),
         sa.ForeignKeyConstraint(
             ["status_id"],
@@ -82,6 +97,8 @@ def downgrade():
     op.drop_table("users")
     op.drop_index(op.f("ix_taskstatuss_id"), table_name="taskstatuss")
     op.drop_table("taskstatuss")
+    op.drop_index(op.f("ix_taskprioritys_id"), table_name="taskprioritys")
+    op.drop_table("taskprioritys")
     op.drop_index(op.f("ix_projects_id"), table_name="projects")
     op.drop_table("projects")
     # ### end Alembic commands ###

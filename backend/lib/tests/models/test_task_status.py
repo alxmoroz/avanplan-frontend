@@ -48,7 +48,7 @@ def test_update_object(task_status_repo):
         assert obj_out.closed == closed
 
 
-def test_delete_project(task_status_repo):
+def test_delete_object(task_status_repo):
     with tmp_object(task_status_repo) as obj:
         assert task_status_repo.delete(obj) == 1
 

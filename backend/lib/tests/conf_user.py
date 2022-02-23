@@ -42,7 +42,7 @@ def user_repo(db: Session) -> UserRepo:
     yield UserRepo(db)
 
 
-# TODO: возможно, получится переделать в фикстуру с yeld: https://docs.pytest.org/en/6.2.x/fixture.html
+# TODO: возможно, получится переделать в фикстуру с yield: https://docs.pytest.org/en/6.2.x/fixture.html
 
 
 @contextmanager

@@ -4,11 +4,9 @@ from contextlib import contextmanager
 from datetime import datetime
 from typing import Generator
 
-import pytest
 from sqlalchemy import column
 
 from lib.L1_domain.entities.tracker import Task
-from lib.L2_data.repositories import TaskRepo
 from lib.tests.utils import random_lower_string
 
 
@@ -58,11 +56,6 @@ def test_update_object(task_repo):
 def test_delete_object(task_repo):
     with tmp_object(task_repo) as obj:
         assert task_repo.delete(obj) == 1
-
-
-@pytest.fixture(scope="module")
-def task_repo(db) -> TaskRepo:
-    yield TaskRepo(db)
 
 
 @contextmanager

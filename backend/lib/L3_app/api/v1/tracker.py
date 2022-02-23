@@ -13,12 +13,12 @@ router = APIRouter(prefix="/tracker")
 
 
 # TODO: возможно, будет полезно сделать подобие сервисез как на фронте и инициализировать все нужные юзкейсы там и зависимости между ними
-#  Также это поможет решить с настройками авторизации, где объект автризации будет юзкейс
-#  Тогда ниже не нужно будет импортить базу и юзкейсы отдельно. Будет к примеру, один юзкейс, геттер которого будет зависеть от базы
+#  Также это поможет решить с настройками авторизации, где объект авторизации будет юзкейс
+#  Тогда ниже не нужно будет импортировать базу и юзкейсы отдельно. Будет к примеру, один юзкейс, геттер которого будет зависеть от базы
 #  ... и других юзкейсов при необходимости...
 
 
-@router.post("/projects", response_model=list[Project])
+@router.get("/projects", response_model=list[Project])
 def projects(
     uc: UsersUC = Depends(user_uc),
     db: Session = Depends(db_session),
@@ -29,7 +29,7 @@ def projects(
     return ProjectRepo(db).get()
 
 
-@router.post("/tasks", response_model=list[Task])
+@router.get("/tasks", response_model=list[Task])
 def tasks(
     uc: UsersUC = Depends(user_uc),
     db: Session = Depends(db_session),
@@ -40,7 +40,7 @@ def tasks(
     return TaskRepo(db).get()
 
 
-@router.post("/persons", response_model=list[Person])
+@router.get("/persons", response_model=list[Person])
 def persons(
     uc: UsersUC = Depends(user_uc),
     db: Session = Depends(db_session),

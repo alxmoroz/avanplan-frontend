@@ -26,13 +26,6 @@ def test_import(client: TestClient, auth_headers_test_user):
     assert r.status_code == 200, r.json()["detail"]
     assert r.json()["msg"] == f"Projects and tasks from Redmine {host} imported successful"
 
-    # для покрытия строк update
-    client.post(
-        api_path,
-        json={"host": host, "api_key": api_key},
-        headers=auth_headers_test_user,
-    )
-
     # 400
     r2 = client.post(
         api_path,

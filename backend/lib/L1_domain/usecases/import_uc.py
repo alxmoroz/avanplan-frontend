@@ -25,6 +25,11 @@ class ImportUC:
         self.task_priority_repo = task_priority_repo
         self.person_repo = person_repo
 
+    def _reset_processed(self):
+        self.processed_statuses = {}
+        self.processed_persons = {}
+        self.processed_priorities = {}
+
     def _import_project(self, p: Project):
         p_in_db: Project = self.project_repo.get_one(remote_code=p.remote_code)
 
@@ -52,35 +57,45 @@ class ImportUC:
             self.task_repo.create(task)
 
     def _import_status(self, st: TaskStatus) -> int:
-        st_in_db = self.task_status_repo.get_one(title=st.title)
-        if st_in_db:
-            # нет полей для обновления
-            st.id = st_in_db.id
-        else:
-            self.task_status_repo.create(st)
+        if st.title not in self.processed_statuses:
+            st_in_db = self.task_status_repo.get_one(title=st.title)
+            if st_in_db:
+                # нет полей для обновления
+                st.id = st_in_db.id
+            else:
+                st = self.task_status_repo.create(st)
+            self.processed_statuses[st.title] = 1
+
         return st.id
 
     def _import_priority(self, tp: TaskPriority) -> int:
-        tp_in_db: TaskPriority = self.task_priority_repo.get_one(title=tp.title)
-        if tp_in_db:
-            # нет полей для обновления
-            tp.id = tp_in_db.id
-        else:
-            self.task_priority_repo.create(tp)
+        if tp.title not in self.processed_priorities:
+            tp_in_db: TaskPriority = self.task_priority_repo.get_one(title=tp.title)
+            if tp_in_db:
+                # нет полей для обновления
+                tp.id = tp_in_db.id
+            else:
+                tp = self.task_priority_repo.create(tp)
+            self.processed_priorities[tp.title] = 1
+
         return tp.id
 
     def _import_person(self, person: Person) -> int | None:
+
         if person:
-            person_in_db: Person = self.person_repo.get_one(remote_code=person.remote_code)
-            if person_in_db:
-                person.id = person_in_db.id
-                self.person_repo.update(person)
-            else:
-                self.person_repo.create(person)
+            if person.remote_code not in self.processed_persons:
+                person_in_db: Person = self.person_repo.get_one(remote_code=person.remote_code)
+                if person_in_db:
+                    person.id = person_in_db.id
+                    self.person_repo.update(person)
+                else:
+                    person = self.person_repo.create(person)
+                self.processed_persons[person.remote_code] = 1
             return person.id
 
-    # TODO: флаги для рекурсивности, подзадач и т.п.
     def import_tasks(self):
+
+        self._reset_processed()
 
         for project in self.import_repo.get_projects_with_tasks():
             self._import_project(project)

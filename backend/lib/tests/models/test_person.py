@@ -4,11 +4,9 @@ from contextlib import contextmanager
 from datetime import datetime
 from typing import Generator
 
-import pytest
 from sqlalchemy import column
 
 from lib.L1_domain.entities.tracker import Person
-from lib.L2_data.repositories import PersonRepo
 
 
 def test_get_obj(person_repo):
@@ -53,11 +51,6 @@ def test_update_object(person_repo):
 def test_delete_object(person_repo):
     with tmp_object(person_repo) as obj:
         assert person_repo.delete(obj) == 1
-
-
-@pytest.fixture(scope="module")
-def person_repo(db) -> PersonRepo:
-    yield PersonRepo(db)
 
 
 @contextmanager

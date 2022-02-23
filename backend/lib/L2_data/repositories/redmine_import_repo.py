@@ -21,19 +21,9 @@ class RedmineImportRepo(AbstractImportRepo):
         self.redmine = Redmine(host, key=api_key, version=version)
 
     @staticmethod
-    def _try_load_resource(host_resource, resource: str) -> BaseResource | None:
-        try:
-            r = getattr(host_resource, resource, None)
-            return r
-        except BaseRedmineError as e:
-            print(e)
-            return None
-
-    @staticmethod
     def _try_load_resource_set(host_resource, resource) -> list[BaseResource]:
         try:
-            r = getattr(host_resource, resource, [])
-            return list(r)
+            return list(getattr(host_resource, resource, []))
         except BaseRedmineError as e:
             print(e)
             return []
@@ -41,7 +31,7 @@ class RedmineImportRepo(AbstractImportRepo):
     @classmethod
     def _setup_person_from_resource(cls, users: dict, resource, attr: str) -> Person | None:
         person = None
-        r_user = cls._try_load_resource(resource, attr)
+        r_user = getattr(resource, attr, None)
         if r_user:
             r_user = users[r_user.id]
             person = Person(

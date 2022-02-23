@@ -21,36 +21,34 @@ class ImportUC:
         self.task_status_repo = task_status_repo
         self.task_priority_repo = task_priority_repo
 
-    # TODO: вытащить exclude в репы?
     def _import_project(self, p: Project):
         p_in_db: Project = self.project_repo.get_one(remote_code=p.remote_code)
-        p_in = Project(**p.dict(exclude={"tasks"}))
 
         if p_in_db:
-            p_in.id = p_in_db.id
-            self.project_repo.update(p_in)
+            p.id = p_in_db.id
+            self.project_repo.update(p)
         else:
-            p_in = self.project_repo.create(p_in)
+            p = self.project_repo.create(p)
 
         for t in p.tasks:
-            t.project_id = p_in.id
+            t.project_id = p.id
             self._import_task(t)
 
     def _import_task(self, t: Task):
-        t_in = Task(**t.dict(exclude={"status", "priority"}))
-        t_in.status_id = self._import_status(t.status).id
-        t_in.priority_id = self._import_priority(t.priority).id
+        t.status_id = self._import_status(t.status).id
+        t.priority_id = self._import_priority(t.priority).id
 
         t_in_db = self.task_repo.get_one(remote_code=t.remote_code)
         if t_in_db:
-            t_in.id = t_in_db.id
-            self.task_repo.update(t_in)
+            t.id = t_in_db.id
+            self.task_repo.update(t)
         else:
-            self.task_repo.create(t_in)
+            self.task_repo.create(t)
 
     def _import_status(self, s: TaskStatus):
         s_in_db = self.task_status_repo.get_one(title=s.title)
         if s_in_db:
+            # нет полей для обновления
             s.id = s_in_db.id
         else:
             self.task_status_repo.create(s)
@@ -59,6 +57,7 @@ class ImportUC:
     def _import_priority(self, tp: TaskPriority):
         tp_in_db: TaskPriority = self.task_priority_repo.get_one(title=tp.title)
         if tp_in_db:
+            # нет полей для обновления
             tp.id = tp_in_db.id
         else:
             self.task_priority_repo.create(tp)

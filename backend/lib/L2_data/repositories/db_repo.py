@@ -45,7 +45,7 @@ class DBRepo(AbstractDBRepo[M, E]):
         return [self.entity.from_orm(obj) for obj in objects]
 
     def create(self, e: E) -> E:
-        e_data = jsonable_encoder(e, exclude_unset=True)
+        e_data = jsonable_encoder(e)
         model = self.model(**e_data)
 
         self.db.add(model)
@@ -54,7 +54,7 @@ class DBRepo(AbstractDBRepo[M, E]):
         return e
 
     def update(self, e: E) -> int:
-        e_data = jsonable_encoder(e, exclude_unset=True)
+        e_data = jsonable_encoder(e)
         stmt = update(self.model).where(self.model.id == e.id).values(**e_data)
         affected_rows = self.db.execute(stmt).rowcount
         self.db.commit()

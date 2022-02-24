@@ -18,7 +18,13 @@ class TaskPriority(BaseTrackerEntity):
     order: int
 
 
+# TODO: вместо приватных полей и геттеров можно использовать отдельный класс для создания при импорте из внешки.
+#  Потому что эти поля только для этого случая и нужны
+
+
 class Task(BaseTrackerEntity, Importable, TimeBound):
+
+    project_id: int | None
 
     status_id: int | None
     _status: TaskStatus | None
@@ -31,6 +37,9 @@ class Task(BaseTrackerEntity, Importable, TimeBound):
 
     author_id: int | None
     _author: Person | None
+
+    parent_id: int | None
+    _parent: any
 
     @property
     def status(self) -> TaskStatus:
@@ -48,7 +57,6 @@ class Task(BaseTrackerEntity, Importable, TimeBound):
     def author(self) -> Person:
         return self._author
 
-    # version: Version | None
-    # tasks: list[Task] | None
-
-    project_id: int | None
+    @property
+    def parent(self) -> any:
+        return self._parent

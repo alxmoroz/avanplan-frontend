@@ -28,6 +28,8 @@ class Task(BaseTrackerFields, ImportableFields, TimeBoundFields, BaseModel):
     author_id = Column(Integer, ForeignKey("persons.id"))
     # author = relationship("Person")
 
+    parent_id = Column(Integer, ForeignKey("tasks.id", ondelete="CASCADE"))
+
     project_id = Column(Integer, ForeignKey("projects.id", ondelete="CASCADE"))
     # project = relationship("Project", back_populates="tasks")
 

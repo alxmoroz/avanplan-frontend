@@ -29,6 +29,7 @@ class ImportUC:
         self.processed_statuses = {}
         self.processed_persons = {}
         self.processed_priorities = {}
+        self.processed_tasks = {}
 
     @classmethod
     def _import_reference_resource(
@@ -50,13 +51,21 @@ class ImportUC:
             task.project_id = project.id
             self._import_task(task)
 
-    def _import_task(self, task: Task):
-        task.status_id = self._import_status(task.status)
-        task.priority_id = self._import_priority(task.priority)
-        task.assigned_person_id = self._import_person(task.assigned_person)
-        task.author_id = self._import_person(task.author)
+    def _import_task(self, task: Task) -> int | None:
+        if task:
+            task.status_id = self._import_status(task.status)
+            task.priority_id = self._import_priority(task.priority)
+            task.assigned_person_id = self._import_person(task.assigned_person)
+            task.author_id = self._import_person(task.author)
+            task.parent_id = self._import_task(task.parent)
 
-        self.task_repo.upsert(task, remote_code=task.remote_code)
+            return self._import_reference_resource(
+                task,
+                task.remote_code,
+                self.processed_tasks,
+                self.task_repo,
+                remote_code=task.remote_code,
+            )
 
     def _import_status(self, status: TaskStatus) -> int | None:
         if status:

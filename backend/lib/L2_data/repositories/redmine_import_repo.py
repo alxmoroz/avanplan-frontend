@@ -65,7 +65,16 @@ class RedmineImportRepo(AbstractImportRepo):
                 task.start_date = getattr(issue, "start_date", None)
                 task.due_date = getattr(issue, "due_date", None)
 
+                parent_issue = getattr(issue, "parent", None)
+                task._parent = parent_issue.id if parent_issue else None
+
                 tasks.append(task)
+
+            remote_coded_tasks = {int(t.remote_code): t for t in tasks}
+            for task in tasks:
+                if task.parent:
+                    # TODO: здесь только задачи текущего проекта
+                    task._parent = remote_coded_tasks.get(task.parent, None)
 
             p._tasks = tasks
 

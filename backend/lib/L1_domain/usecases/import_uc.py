@@ -1,13 +1,14 @@
 #  Copyright (c) 2022. Alexandr Moroz
+from typing import TypeVar
+
 from ..entities.api import Msg
+from ..entities.base_entity import DBPersistEntity
 from ..entities.tracker import Person, Project, Task, TaskPriority, TaskStatus
 from ..repositories import AbstractDBRepo, AbstractImportRepo
 
-# TODO: сложновато выглядит. Может, разнести, декомпозировать?
-
+# TODO: обработка ошибок
 
 # Универсальный юзкейс для импорта из любых источников
-# TODO: обработка ошибок
 class ImportUC:
     def __init__(
         self,
@@ -30,17 +31,37 @@ class ImportUC:
         self.processed_persons = {}
         self.processed_priorities = {}
 
-    def _import_project(self, p: Project):
-        p_in_db: Project = self.project_repo.get_one(remote_code=p.remote_code)
+    # TODO: в репу
+    E = TypeVar("E", bound=DBPersistEntity)
 
-        if p_in_db:
-            p.id = p_in_db.id
-            self.project_repo.update(p)
+    @classmethod
+    def _insert_or_update(cls, e: E, repo: AbstractDBRepo, **filter_by) -> E:
+        obj_in_db = repo.get_one(**filter_by)
+        if obj_in_db:
+            e.id = obj_in_db.id
+            repo.update(e)
         else:
-            p = self.project_repo.create(p)
+            e = repo.create(e)
+        return e
 
-        for task in p.tasks:
-            task.project_id = p.id
+    @classmethod
+    def _import_reference_resource(
+        cls,
+        e: E,
+        key: str,
+        processed_dict: dict,
+        repo: AbstractDBRepo,
+        **filter_by,
+    ) -> int | None:
+        if key not in processed_dict:
+            processed_dict[key] = cls._insert_or_update(e, repo, **filter_by)
+        return processed_dict[key].id
+
+    def _import_project(self, project: Project):
+        project = self._insert_or_update(project, self.project_repo, remote_code=project.remote_code)
+
+        for task in project.tasks:
+            task.project_id = project.id
             self._import_task(task)
 
     def _import_task(self, task: Task):
@@ -49,49 +70,37 @@ class ImportUC:
         task.assigned_person_id = self._import_person(task.assigned_person)
         task.author_id = self._import_person(task.author)
 
-        t_in_db = self.task_repo.get_one(remote_code=task.remote_code)
-        if t_in_db:
-            task.id = t_in_db.id
-            self.task_repo.update(task)
-        else:
-            self.task_repo.create(task)
+        self._insert_or_update(task, self.task_repo, remote_code=task.remote_code)
 
-    def _import_status(self, st: TaskStatus) -> int:
-        if st.title not in self.processed_statuses:
-            st_in_db = self.task_status_repo.get_one(title=st.title)
-            if st_in_db:
-                # нет полей для обновления
-                st.id = st_in_db.id
-            else:
-                st = self.task_status_repo.create(st)
-            self.processed_statuses[st.title] = 1
+    def _import_status(self, status: TaskStatus) -> int | None:
+        if status:
+            return self._import_reference_resource(
+                status,
+                status.title,
+                self.processed_statuses,
+                self.task_status_repo,
+                title=status.title,
+            )
 
-        return st.id
-
-    def _import_priority(self, tp: TaskPriority) -> int:
-        if tp.title not in self.processed_priorities:
-            tp_in_db: TaskPriority = self.task_priority_repo.get_one(title=tp.title)
-            if tp_in_db:
-                # нет полей для обновления
-                tp.id = tp_in_db.id
-            else:
-                tp = self.task_priority_repo.create(tp)
-            self.processed_priorities[tp.title] = 1
-
-        return tp.id
+    def _import_priority(self, priority: TaskPriority) -> int | None:
+        if priority:
+            return self._import_reference_resource(
+                priority,
+                priority.title,
+                self.processed_priorities,
+                self.task_priority_repo,
+                title=priority.title,
+            )
 
     def _import_person(self, person: Person) -> int | None:
-
         if person:
-            if person.remote_code not in self.processed_persons:
-                person_in_db: Person = self.person_repo.get_one(remote_code=person.remote_code)
-                if person_in_db:
-                    person.id = person_in_db.id
-                    self.person_repo.update(person)
-                else:
-                    person = self.person_repo.create(person)
-                self.processed_persons[person.remote_code] = 1
-            return person.id
+            return self._import_reference_resource(
+                person,
+                person.remote_code,
+                self.processed_persons,
+                self.person_repo,
+                remote_code=person.remote_code,
+            )
 
     def import_tasks(self):
 

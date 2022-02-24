@@ -3,8 +3,6 @@
 from datetime import datetime
 
 from redminelib import Redmine
-from redminelib.exceptions import BaseRedmineError
-from redminelib.resources import BaseResource
 
 from lib.L1_domain.entities.api.exceptions import ApiException
 from lib.L1_domain.entities.tracker import Person, Project, Task, TaskPriority, TaskStatus
@@ -20,16 +18,8 @@ class RedmineImportRepo(AbstractImportRepo):
         self.source = f"Redmine {host}"
         self.redmine = Redmine(host, key=api_key, version=version)
 
-    @staticmethod
-    def _try_load_resource_set(host_resource, resource) -> list[BaseResource]:
-        try:
-            return list(getattr(host_resource, resource, []))
-        except BaseRedmineError as e:
-            print(e)
-            return []
-
     @classmethod
-    def _setup_person_from_resource(cls, users: dict, resource, attr: str) -> Person | None:
+    def _setup_person(cls, users: dict, resource, attr: str) -> Person | None:
         person = None
         r_user = getattr(resource, attr, None)
         if r_user:
@@ -56,10 +46,9 @@ class RedmineImportRepo(AbstractImportRepo):
                 remote_code=f"{rp.id}",
                 imported_on=datetime.now(),
             )
-            r_issues = self._try_load_resource_set(rp, "issues")
 
             tasks: list[Task] = []
-            for issue in r_issues:
+            for issue in rp.issues if "issue_tracking" in rp.enabled_modules else []:
                 task = Task(
                     title=issue.subject,
                     description=issue.description,
@@ -70,8 +59,11 @@ class RedmineImportRepo(AbstractImportRepo):
                 r_issue_status = r_issue_statuses[issue.status.id]
                 task._status = TaskStatus(title=f"{r_issue_status.name}", closed=r_issue_status.is_closed)
                 task._priority = TaskPriority(title=f"{issue.priority.name}", order=issue.priority.id)
-                task._author = self._setup_person_from_resource(r_users, issue, "author")
-                task._assigned_person = self._setup_person_from_resource(r_users, issue, "assigned_to")
+                task._author = self._setup_person(r_users, issue, "author")
+                task._assigned_person = self._setup_person(r_users, issue, "assigned_to")
+
+                task.start_date = getattr(issue, "start_date", None)
+                task.due_date = getattr(issue, "due_date", None)
 
                 tasks.append(task)
 

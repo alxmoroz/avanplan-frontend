@@ -2,17 +2,19 @@
 
 from sqlalchemy import column
 
+from lib.L1_domain.entities.users import User
 from lib.L2_data.repositories import SecurityRepo
 from lib.tests.conf_user import tmp_object
+from lib.tests.utils import random_email
 
 
-def test_get_obj(user_repo):
+def test_get_one(user_repo):
     with tmp_object(user_repo) as obj:
         obj_out = user_repo.get_one(id=obj.id)
         assert obj == obj_out
 
 
-def test_get_objects(user_repo):
+def test_get(user_repo):
     with tmp_object(user_repo) as o1, tmp_object(user_repo) as o2:
         objects = user_repo.get(
             limit=2,
@@ -23,8 +25,7 @@ def test_get_objects(user_repo):
         assert len(objects) == 2
 
 
-def test_create_object(user_repo):
-
+def test_create(user_repo):
     password = "password"
     with tmp_object(user_repo, password=password) as obj:
         obj_out = user_repo.get_one(id=obj.id)
@@ -33,7 +34,7 @@ def test_create_object(user_repo):
         assert SecurityRepo.verify_password(password, obj.password)
 
 
-def test_update_object(user_repo):
+def test_update(user_repo):
     with tmp_object(user_repo) as obj_in:
         new_full_name = "full_name"
         obj_in.full_name = new_full_name
@@ -44,6 +45,14 @@ def test_update_object(user_repo):
         assert obj_out.full_name == new_full_name
 
 
-def test_delete_object(user_repo):
-    with tmp_object(user_repo) as obj:
-        assert user_repo.delete(obj) == 1
+def test_upsert_delete(user_repo):
+    # create
+    u = User(email=random_email(), password="111")
+    assert user_repo.upsert(u) == u
+
+    # update
+    u.full_name = "full_name"
+    assert user_repo.upsert(u) == u
+
+    # delete
+    assert user_repo.delete(u) == 1

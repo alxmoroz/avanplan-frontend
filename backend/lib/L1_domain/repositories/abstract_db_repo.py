@@ -31,10 +31,7 @@ class AbstractDBRepo(Generic[M, E]):
         raise NotImplementedError
 
     # TODO: возможно, стоит использовать промежуточный результат rows из SA
-    def get_one(
-        self,
-        **filter_by,
-    ) -> E | None:
+    def get_one(self, **filter_by) -> E | None:
         objs = self.get(**filter_by)
         return objs[0] if len(objs) > 0 else None
 
@@ -43,6 +40,18 @@ class AbstractDBRepo(Generic[M, E]):
 
     def update(self, e: E) -> int:
         raise NotImplementedError
+
+    def upsert(self, e: E, **filter_by) -> E:
+        if not filter_by:
+            filter_by = dict(id=e.id)
+
+        obj_in_db = self.get_one(**filter_by)
+        if obj_in_db:
+            e.id = obj_in_db.id
+            self.update(e)
+        else:
+            e = self.create(e)
+        return e
 
     def delete(self, e: E):
         raise NotImplementedError

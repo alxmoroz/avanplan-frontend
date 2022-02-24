@@ -1,13 +1,12 @@
 #  Copyright (c) 2022. Alexandr Moroz
-from typing import TypeVar
 
 from ..entities.api import Msg
 from ..entities.base_entity import DBPersistEntity
 from ..entities.tracker import Person, Project, Task, TaskPriority, TaskStatus
 from ..repositories import AbstractDBRepo, AbstractImportRepo
 
-# TODO: обработка ошибок
 
+# TODO: обработка ошибок
 # Универсальный юзкейс для импорта из любых источников
 class ImportUC:
     def __init__(
@@ -31,34 +30,21 @@ class ImportUC:
         self.processed_persons = {}
         self.processed_priorities = {}
 
-    # TODO: в репу
-    E = TypeVar("E", bound=DBPersistEntity)
-
-    @classmethod
-    def _insert_or_update(cls, e: E, repo: AbstractDBRepo, **filter_by) -> E:
-        obj_in_db = repo.get_one(**filter_by)
-        if obj_in_db:
-            e.id = obj_in_db.id
-            repo.update(e)
-        else:
-            e = repo.create(e)
-        return e
-
     @classmethod
     def _import_reference_resource(
         cls,
-        e: E,
+        e: DBPersistEntity,
         key: str,
         processed_dict: dict,
         repo: AbstractDBRepo,
         **filter_by,
     ) -> int | None:
         if key not in processed_dict:
-            processed_dict[key] = cls._insert_or_update(e, repo, **filter_by)
+            processed_dict[key] = repo.upsert(e, **filter_by)
         return processed_dict[key].id
 
     def _import_project(self, project: Project):
-        project = self._insert_or_update(project, self.project_repo, remote_code=project.remote_code)
+        project = self.project_repo.upsert(project, remote_code=project.remote_code)
 
         for task in project.tasks:
             task.project_id = project.id
@@ -70,7 +56,7 @@ class ImportUC:
         task.assigned_person_id = self._import_person(task.assigned_person)
         task.author_id = self._import_person(task.author)
 
-        self._insert_or_update(task, self.task_repo, remote_code=task.remote_code)
+        self.task_repo.upsert(task, remote_code=task.remote_code)
 
     def _import_status(self, status: TaskStatus) -> int | None:
         if status:

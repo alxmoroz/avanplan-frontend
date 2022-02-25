@@ -1,5 +1,5 @@
 #  Copyright (c) 2022. Alexandr Moroz
-
+from . import Project
 from .base_tracker import BaseTrackerEntity, Importable, TimeBound
 from .person import Person
 
@@ -25,6 +25,7 @@ class TaskPriority(BaseTrackerEntity):
 class Task(BaseTrackerEntity, Importable, TimeBound):
 
     project_id: int | None
+    _project: Project | None
 
     status_id: int | None
     _status: TaskStatus | None
@@ -40,6 +41,10 @@ class Task(BaseTrackerEntity, Importable, TimeBound):
 
     parent_id: int | None
     _parent: any
+
+    @property
+    def project(self) -> Project:
+        return self._project
 
     @property
     def status(self) -> TaskStatus:

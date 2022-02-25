@@ -7,34 +7,46 @@ from lib.L3_app.api.v1.import_redmine import router
 
 _import_redmine_api_path = f"{settings.API_PATH}{router.prefix}"
 
+# TODO: проверить, что в базу запись прошла в тестах моделей!
 
-def test_import(client: TestClient, auth_headers_test_user):
+# TODO: 1951 нельзя привязываться к конкретному редмайну и оставлять тут креды для доступа к нему
+#  апи тестируем на фронте...
 
-    # TODO: 1951 нельзя привязываться к конкретному редмайну и оставлять тут креды для доступа к нему
-    #  апи тестим на фронте...
+_host = "https://redmine.moroz.team"
+_api_key = "101b62ea94b4132625a3d079451ea13fed3f4b87"
+_api_path = _import_redmine_api_path
 
-    host = "https://redmine.moroz.team"
-    api_key = "101b62ea94b4132625a3d079451ea13fed3f4b87"
-    api_path = f"{_import_redmine_api_path}/tasks"
 
-    r = client.post(
-        api_path,
-        json={"host": host, "api_key": api_key},
+def _request(client: TestClient, auth_headers_test_user, path):
+    return client.post(
+        f"{_api_path}/{path}",
+        json={"host": _host, "api_key": _api_key},
         headers=auth_headers_test_user,
     )
-    # TODO: проверить, что в базу запись прошла в тестах моделей!
+
+
+def test_import_projects(client: TestClient, auth_headers_test_user):
+    r = _request(client, auth_headers_test_user, "projects")
     assert r.status_code == 200, r.json()["detail"]
-    assert r.json()["msg"] == f"Projects and tasks from Redmine {host} imported successful"
+    assert r.json()["msg"] == f"Projects from Redmine {_host} imported successful"
 
-    # 400
+
+def test_import_tasks(client: TestClient, auth_headers_test_user):
+    r = _request(client, auth_headers_test_user, "tasks")
+    assert r.status_code == 200, r.json()["detail"]
+    assert r.json()["msg"] == f"Tasks with projects from Redmine {_host} imported successful"
+
+    # 400 (no api_key)
     r2 = client.post(
-        api_path,
-        json={"host": host},
+        r.request.path_url,
+        json={"host": _host},
         headers=auth_headers_test_user,
     )
+
+    # 400 (no host)
     r3 = client.post(
-        api_path,
-        json={"api_key": api_key},
+        r.request.path_url,
+        json={"api_key": _api_key},
         headers=auth_headers_test_user,
     )
     assert r2.status_code == r3.status_code == 400

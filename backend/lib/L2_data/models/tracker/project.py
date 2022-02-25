@@ -1,4 +1,5 @@
 #  Copyright (c) 2022. Alexandr Moroz
+from sqlalchemy import Column, ForeignKey, Integer
 
 from ..base_model import BaseModel
 from .base import BaseTrackerFields, ImportableFields
@@ -10,4 +11,5 @@ class Project(BaseTrackerFields, ImportableFields, BaseModel):
     #     # back_populates="project",
     #     cascade="all, delete",
     # )
-    pass
+
+    parent_id = Column(Integer, ForeignKey("projects.id", ondelete="CASCADE"))

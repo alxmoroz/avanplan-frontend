@@ -16,22 +16,30 @@ router = APIRouter(prefix="/import/redmine")
 # TODO: можно хранить настройки соединений отдельно и не брать каждый раз с фронта
 
 
-@router.post("/tasks", response_model=Msg)
-def tasks(
+def _import_uc(
     host: HttpUrl = Body(None),  # Redmine host
     api_key: str = Body(None),  # API key
-    version: str | None = Body(None),
-    db: Session = Depends(db_session),
     uc: UsersUC = Depends(user_uc),
-) -> Msg:
+    db: Session = Depends(db_session),
+) -> ImportUC:
 
     uc.get_active_user()
 
     return ImportUC(
-        import_repo=RedmineImportRepo(host=host, api_key=api_key, version=version),
+        import_repo=RedmineImportRepo(host=host, api_key=api_key),
         project_repo=ProjectRepo(db),
         task_repo=TaskRepo(db),
         task_status_repo=TaskStatusRepo(db),
         task_priority_repo=TaskPriorityRepo(db),
         person_repo=PersonRepo(db),
-    ).import_tasks()
+    )
+
+
+@router.post("/projects", response_model=Msg)
+def projects(uc: ImportUC = Depends(_import_uc)) -> Msg:
+    return uc.import_projects()
+
+
+@router.post("/tasks", response_model=Msg)
+def tasks(uc: ImportUC = Depends(_import_uc)) -> Msg:
+    return uc.import_tasks()

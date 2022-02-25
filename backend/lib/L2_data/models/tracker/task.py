@@ -16,6 +16,9 @@ class TaskPriority(BaseTrackerFields, BaseModel):
 
 
 class Task(BaseTrackerFields, ImportableFields, TimeBoundFields, BaseModel):
+    project_id = Column(Integer, ForeignKey("projects.id", ondelete="CASCADE"), nullable=False)
+    # project = relationship("Project", back_populates="tasks")
+
     status_id = Column(Integer, ForeignKey("taskstatuss.id"))
     # status = relationship("TaskStatus")
 
@@ -29,9 +32,3 @@ class Task(BaseTrackerFields, ImportableFields, TimeBoundFields, BaseModel):
     # author = relationship("Person")
 
     parent_id = Column(Integer, ForeignKey("tasks.id", ondelete="CASCADE"))
-
-    project_id = Column(Integer, ForeignKey("projects.id", ondelete="CASCADE"))
-    # project = relationship("Project", back_populates="tasks")
-
-    # TODO: определить модели и связи
-    # version: Version | None

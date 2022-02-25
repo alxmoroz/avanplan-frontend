@@ -3,6 +3,7 @@
 from datetime import datetime
 
 from redminelib import Redmine
+from redminelib import resources as R
 
 from lib.L1_domain.entities.api.exceptions import ApiException
 from lib.L1_domain.entities.tracker import Person, Project, Task, TaskPriority, TaskStatus
@@ -10,13 +11,16 @@ from lib.L1_domain.repositories import AbstractImportRepo
 
 
 class RedmineImportRepo(AbstractImportRepo):
-    def __init__(self, host: str, api_key: str, version: str | None):
+    def __init__(self, host: str, api_key: str):
 
         if not host or not api_key:
             raise ApiException(400, "Host and API-key must be filled")
 
         self.source = f"Redmine {host}"
-        self.redmine = Redmine(host, key=api_key, version=version)
+        self.redmine = Redmine(host, key=api_key)
+
+        self.cached_r_projects: list[R.Project] | None = None
+        self.remote_coded_projects_map: dict[int, Project] = {}
 
     @classmethod
     def _setup_person(cls, users: dict, resource, attr: str) -> Person | None:
@@ -32,52 +36,68 @@ class RedmineImportRepo(AbstractImportRepo):
             )
         return person
 
-    def get_projects_with_tasks(self) -> list[Project]:
-        projects_with_tasks: list[Project] = []
+    @staticmethod
+    def _set_parents(objects_map: dict):
+        for obj in objects_map.values():
+            obj._parent = objects_map.get(obj.parent_id, None)
+
+    # по пустым запросам —> только открытые проекты и открытые задачи
+    def _get_cached_r_projects(self) -> list[R.Project]:
+        if not self.cached_r_projects:
+            self.cached_r_projects = self.redmine.project.all()
+        return self.cached_r_projects
+
+    def get_projects(self) -> list[Project]:
+        self.remote_coded_projects_map = {}
+        self.cached_r_projects = None
+
+        for r_project in self._get_cached_r_projects():
+            parent_project = getattr(r_project, "parent", None)
+
+            self.remote_coded_projects_map[r_project.id] = Project(
+                title=r_project.name,
+                description=r_project.description,
+                remote_code=f"{r_project.id}",
+                imported_on=datetime.now(),
+                parent_id=parent_project.id if parent_project else None,
+            )
+
+        self._set_parents(self.remote_coded_projects_map)
+
+        return list(self.remote_coded_projects_map.values())
+
+    def get_tasks_tree(self) -> list[Task]:
+
+        tasks: dict[int, Task] = {}
 
         r_issue_statuses = {st.id: st for st in self.redmine.issue_status.all()}
         r_users = {user.id: user for user in self.redmine.user.all()}
 
-        # по пустым запросам —> только открытые проекты и открытые задачи
-        for rp in self.redmine.project.all():
-            p: Project = Project(
-                title=rp.name,
-                description=rp.description,
-                remote_code=f"{rp.id}",
-                imported_on=datetime.now(),
-            )
+        if not self.cached_r_projects:
+            self.get_projects()
 
-            tasks: list[Task] = []
-            for issue in rp.issues if "issue_tracking" in rp.enabled_modules else []:
+        for r_project in self._get_cached_r_projects():
+
+            for issue in r_project.issues if "issue_tracking" in r_project.enabled_modules else []:
+                parent_issue = getattr(issue, "parent", None)
                 task = Task(
                     title=issue.subject,
                     description=issue.description,
                     remote_code=f"{issue.id}",
                     imported_on=datetime.now(),
+                    start_date=getattr(issue, "start_date", None),
+                    due_date=getattr(issue, "due_date", None),
+                    parent_id=parent_issue.id if parent_issue else None,
                 )
-
+                task._project = self.remote_coded_projects_map[r_project.id]
                 r_issue_status = r_issue_statuses[issue.status.id]
                 task._status = TaskStatus(title=f"{r_issue_status.name}", closed=r_issue_status.is_closed)
                 task._priority = TaskPriority(title=f"{issue.priority.name}", order=issue.priority.id)
                 task._author = self._setup_person(r_users, issue, "author")
                 task._assigned_person = self._setup_person(r_users, issue, "assigned_to")
 
-                task.start_date = getattr(issue, "start_date", None)
-                task.due_date = getattr(issue, "due_date", None)
+                tasks[issue.id] = task
 
-                parent_issue = getattr(issue, "parent", None)
-                task._parent = parent_issue.id if parent_issue else None
+        self._set_parents(tasks)
 
-                tasks.append(task)
-
-            remote_coded_tasks = {int(t.remote_code): t for t in tasks}
-            for task in tasks:
-                if task.parent:
-                    # TODO: здесь только задачи текущего проекта
-                    task._parent = remote_coded_tasks.get(task.parent, None)
-
-            p._tasks = tasks
-
-            projects_with_tasks.append(p)
-
-        return projects_with_tasks
+        return list(tasks.values())

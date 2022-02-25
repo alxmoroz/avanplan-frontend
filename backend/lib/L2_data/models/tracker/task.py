@@ -1,23 +1,26 @@
 #  Copyright (c) 2022. Alexandr Moroz
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy import Column, ForeignKey, Integer, String
 
 from ..base_model import BaseModel
-from .base import BaseTrackerFields, ImportableFields, TimeBoundFields
+from .base import ImportableFields, StatusFields, TimeBoundFields, TrackerFields
 
 
-class TaskStatus(BaseTrackerFields, BaseModel):
-    title = Column(String, unique=True)
-    closed = Column(Boolean)
+class TaskStatus(TrackerFields, StatusFields, BaseModel):
+    pass
 
 
-class TaskPriority(BaseTrackerFields, BaseModel):
+class TaskPriority(TrackerFields, BaseModel):
     title = Column(String, unique=True)
     order = Column(Integer)
 
 
-class Task(BaseTrackerFields, ImportableFields, TimeBoundFields, BaseModel):
+class Task(TrackerFields, ImportableFields, TimeBoundFields, BaseModel):
+    parent_id = Column(Integer, ForeignKey("tasks.id", ondelete="CASCADE"))
+
     project_id = Column(Integer, ForeignKey("projects.id", ondelete="CASCADE"), nullable=False)
     # project = relationship("Project", back_populates="tasks")
+
+    milestone_id = Column(Integer, ForeignKey("milestones.id"))
 
     status_id = Column(Integer, ForeignKey("taskstatuss.id"))
     # status = relationship("TaskStatus")
@@ -30,5 +33,3 @@ class Task(BaseTrackerFields, ImportableFields, TimeBoundFields, BaseModel):
 
     author_id = Column(Integer, ForeignKey("persons.id"))
     # author = relationship("Person")
-
-    parent_id = Column(Integer, ForeignKey("tasks.id", ondelete="CASCADE"))

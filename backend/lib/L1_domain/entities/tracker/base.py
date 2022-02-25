@@ -2,10 +2,12 @@
 
 from datetime import datetime
 
+from pydantic import validator
+
 from ..base_entity import BaseEntity, DBPersistEntity
 
 
-class BaseTrackerEntity(DBPersistEntity):
+class TrackerEntity(DBPersistEntity):
     __abstract__ = True
 
     title: str
@@ -24,3 +26,14 @@ class TimeBound(BaseEntity):
 
     start_date: datetime | None
     due_date: datetime | None
+
+
+class Statusable(BaseEntity):
+    __abstract__ = True
+
+    closed: bool | None
+
+    @classmethod
+    @validator("closed")
+    def closed_must_filled(cls, v):
+        return v or False

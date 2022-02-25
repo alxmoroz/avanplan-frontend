@@ -6,16 +6,7 @@ from sqlalchemy import delete, lambda_stmt, select, update
 from sqlalchemy.orm import Session
 from sqlalchemy.sql.elements import BinaryExpression
 
-from lib.L1_domain.entities.tracker import Person, Project, Task, TaskPriority, TaskStatus
-from lib.L1_domain.entities.users import User
 from lib.L1_domain.repositories import AbstractDBRepo, E, M
-
-from ..models.tracker import Person as PersonModel
-from ..models.tracker import Project as ProjectModel
-from ..models.tracker import Task as TaskModel
-from ..models.tracker import TaskPriority as TaskPriorityModel
-from ..models.tracker import TaskStatus as TaskStatusModel
-from ..models.users import User as UserModel
 
 
 class DBRepo(AbstractDBRepo[M, E]):
@@ -66,33 +57,3 @@ class DBRepo(AbstractDBRepo[M, E]):
         affected_rows = self.db.execute(stmt).rowcount
         self.db.commit()
         return affected_rows
-
-
-class UserRepo(DBRepo[UserModel, User]):
-    def __init__(self, db: Session):
-        super().__init__(UserModel, User, db)
-
-
-class ProjectRepo(DBRepo[ProjectModel, Project]):
-    def __init__(self, db: Session):
-        super().__init__(ProjectModel, Project, db)
-
-
-class TaskRepo(DBRepo):
-    def __init__(self, db: Session):
-        super().__init__(TaskModel, Task, db)
-
-
-class TaskStatusRepo(DBRepo):
-    def __init__(self, db: Session):
-        super().__init__(TaskStatusModel, TaskStatus, db)
-
-
-class TaskPriorityRepo(DBRepo):
-    def __init__(self, db: Session):
-        super().__init__(TaskPriorityModel, TaskPriority, db)
-
-
-class PersonRepo(DBRepo):
-    def __init__(self, db: Session):
-        super().__init__(PersonModel, Person, db)

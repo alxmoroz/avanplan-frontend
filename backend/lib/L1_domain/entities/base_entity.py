@@ -1,10 +1,13 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from pydantic import BaseModel
+from pydantic import BaseModel as PydanticModel
 
 
-class BaseEntity(BaseModel):
+class BaseEntity(PydanticModel):
     __abstract__ = True
+
+    class Config:
+        validate_assignment = True
 
 
 class DBPersistEntity(BaseEntity):

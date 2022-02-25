@@ -14,7 +14,7 @@ def test_get_one(task_repo, tmp_task):
 
 def test_get(task_repo, tmp_task, tmp_project):
 
-    t2 = task_repo.create(Task(title="test_get_objects", project_id=tmp_project.id))
+    t2 = task_repo.create(Task(title="test_get", project_id=tmp_project.id))
 
     objects = task_repo.get(
         limit=2,

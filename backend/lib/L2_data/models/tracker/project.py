@@ -2,10 +2,14 @@
 from sqlalchemy import Column, ForeignKey, Integer
 
 from ..base_model import BaseModel
-from .base import BaseTrackerFields, ImportableFields
+from .base import ImportableFields, StatusFields, TrackerFields
 
 
-class Project(BaseTrackerFields, ImportableFields, BaseModel):
+class ProjectStatus(TrackerFields, StatusFields, BaseModel):
+    pass
+
+
+class Project(TrackerFields, ImportableFields, BaseModel):
     # tasks = relationship(
     #     "Task",
     #     # back_populates="project",
@@ -13,3 +17,5 @@ class Project(BaseTrackerFields, ImportableFields, BaseModel):
     # )
 
     parent_id = Column(Integer, ForeignKey("projects.id", ondelete="CASCADE"))
+
+    status_id = Column(Integer, ForeignKey("projectstatuss.id"))

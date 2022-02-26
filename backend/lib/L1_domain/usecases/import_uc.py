@@ -2,7 +2,7 @@
 
 from ..entities.api import Msg
 from ..entities.base_entity import DBPersistEntity
-from ..entities.tracker import Person, Project, Task, TaskPriority, TaskStatus
+from ..entities.tracker import Milestone, Person, Project, Task, TaskPriority, TaskStatus
 from ..repositories import AbstractDBRepo, AbstractImportRepo
 
 
@@ -17,6 +17,7 @@ class ImportUC:
         task_status_repo: AbstractDBRepo,
         task_priority_repo: AbstractDBRepo,
         person_repo: AbstractDBRepo,
+        milestone_repo: AbstractDBRepo,
     ):
         self.import_repo = import_repo
         self.project_repo = project_repo
@@ -24,13 +25,15 @@ class ImportUC:
         self.task_status_repo = task_status_repo
         self.task_priority_repo = task_priority_repo
         self.person_repo = person_repo
+        self.milestone_repo = milestone_repo
 
     def _reset_processed(self):
-        self.processed_statuses = {}
+        self.processed_projects = {}
+        self.processed_tasks = {}
+        self.processed_task_statuses = {}
         self.processed_persons = {}
         self.processed_priorities = {}
-        self.processed_tasks = {}
-        self.processed_projects = {}
+        self.processed_milestones = {}
 
     @classmethod
     def _upsert_once(
@@ -57,12 +60,24 @@ class ImportUC:
                 remote_code=project.remote_code,
             )
 
+    def _upsert_milestone(self, milestone: Milestone) -> int | None:
+        if milestone:
+            milestone.project_id = self._upsert_project(milestone.project)
+            return self._upsert_once(
+                milestone,
+                milestone.remote_code,
+                self.processed_milestones,
+                self.milestone_repo,
+                remote_code=milestone.remote_code,
+            )
+
     def _upsert_task(self, task: Task) -> int | None:
         if task:
             task.project_id = self._upsert_project(task.project)
+            task.milestone_id = self._upsert_milestone(task.milestone)
             task.status_id = self._upsert_status(task.status)
             task.priority_id = self._upsert_priority(task.priority)
-            task.assigned_person_id = self._upsert_person(task.assigned_person)
+            task.assignee_id = self._upsert_person(task.assigned_person)
             task.author_id = self._upsert_person(task.author)
             task.parent_id = self._upsert_task(task.parent)
 
@@ -79,7 +94,7 @@ class ImportUC:
             return self._upsert_once(
                 status,
                 status.title,
-                self.processed_statuses,
+                self.processed_task_statuses,
                 self.task_status_repo,
                 title=status.title,
             )

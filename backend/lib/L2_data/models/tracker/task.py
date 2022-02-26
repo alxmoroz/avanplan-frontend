@@ -28,7 +28,7 @@ class Task(TrackerFields, ImportableFields, TimeBoundFields, BaseModel):
     priority_id = Column(Integer, ForeignKey("taskprioritys.id"))
     # priority = relationship("TaskPriority")
 
-    assigned_person_id = Column(Integer, ForeignKey("persons.id"))
+    assignee_id = Column(Integer, ForeignKey("persons.id"))
     # assigned_person = relationship("Person")
 
     author_id = Column(Integer, ForeignKey("persons.id"))

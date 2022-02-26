@@ -1,6 +1,6 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from datetime import datetime
+from datetime import date, datetime
 
 from pydantic import validator
 
@@ -24,8 +24,8 @@ class Importable(BaseEntity):
 class TimeBound(BaseEntity):
     __abstract__ = True
 
-    start_date: datetime | None
-    due_date: datetime | None
+    start_date: datetime | date | None
+    due_date: datetime | date | None
 
 
 class Statusable(BaseEntity):

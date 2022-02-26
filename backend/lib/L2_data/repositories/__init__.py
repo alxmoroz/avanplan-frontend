@@ -3,5 +3,5 @@
 from .db.db_repo import DBRepo
 from .db.tracker import *
 from .db.user_repo import UserRepo
-from .redmine_import_repo import RedmineImportRepo
+from .import_remine_repo import ImportRedmineRepo
 from .security_repo import SecurityRepo

@@ -24,6 +24,9 @@ class Task(TrackerEntity, Importable, TimeBound):
     project_id: int | None
     _project: Project | None
 
+    parent_id: int | None
+    _parent: any
+
     milestone_id: int | None
     _milestone: Milestone | None
 
@@ -33,18 +36,19 @@ class Task(TrackerEntity, Importable, TimeBound):
     priority_id: int | None
     _priority: TaskPriority | None
 
-    assigned_person_id: int | None
-    _assigned_person: Person | None
+    assignee_id: int | None
+    _assignee: Person | None
 
     author_id: int | None
     _author: Person | None
 
-    parent_id: int | None
-    _parent: any
-
     @property
     def project(self) -> Project:
         return self._project
+
+    @property
+    def parent(self) -> any:
+        return self._parent
 
     @property
     def milestone(self) -> Milestone:
@@ -60,12 +64,8 @@ class Task(TrackerEntity, Importable, TimeBound):
 
     @property
     def assigned_person(self) -> Person:
-        return self._assigned_person
+        return self._assignee
 
     @property
     def author(self) -> Person:
         return self._author
-
-    @property
-    def parent(self) -> any:
-        return self._parent

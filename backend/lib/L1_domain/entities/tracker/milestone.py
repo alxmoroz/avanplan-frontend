@@ -14,3 +14,11 @@ class Milestone(TrackerEntity, Importable, TimeBound):
 
     status_id: int | None
     _status: MilestoneStatus | None
+
+    @property
+    def project(self) -> Project:
+        return self._project
+
+    @property
+    def status(self) -> MilestoneStatus:
+        return self._status

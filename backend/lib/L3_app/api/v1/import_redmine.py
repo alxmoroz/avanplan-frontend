@@ -8,12 +8,10 @@ from lib.L1_domain.entities.api import Msg
 from lib.L1_domain.usecases.import_uc import ImportUC
 from lib.L1_domain.usecases.users_uc import UsersUC
 from lib.L2_data.db import db_session
-from lib.L2_data.repositories import PersonRepo, ProjectRepo, RedmineImportRepo, TaskPriorityRepo, TaskRepo, TaskStatusRepo
+from lib.L2_data.repositories import ImportRedmineRepo, MilestoneRepo, PersonRepo, ProjectRepo, TaskPriorityRepo, TaskRepo, TaskStatusRepo
 from lib.L3_app.api.v1.users import user_uc
 
 router = APIRouter(prefix="/import/redmine")
-
-# TODO: можно хранить настройки соединений отдельно и не брать каждый раз с фронта
 
 
 def _import_uc(
@@ -26,12 +24,13 @@ def _import_uc(
     uc.get_active_user()
 
     return ImportUC(
-        import_repo=RedmineImportRepo(host=host, api_key=api_key),
+        import_repo=ImportRedmineRepo(host=host, api_key=api_key),
         project_repo=ProjectRepo(db),
         task_repo=TaskRepo(db),
         task_status_repo=TaskStatusRepo(db),
         task_priority_repo=TaskPriorityRepo(db),
         person_repo=PersonRepo(db),
+        milestone_repo=MilestoneRepo(db),
     )
 
 

@@ -14,9 +14,9 @@ def test_get_one(milestone_repo, tmp_milestone):
     assert tmp_milestone == obj_out
 
 
-def test_get(milestone_repo, tmp_milestone, tmp_project):
+def test_get(milestone_repo, tmp_milestone, tmp_goal):
 
-    t2 = milestone_repo.create(Milestone(title="test_get", project_id=tmp_project.id))
+    t2 = milestone_repo.create(Milestone(title="test_get", goal_id=tmp_goal.id))
 
     objects = milestone_repo.get(
         limit=2,
@@ -52,9 +52,9 @@ def test_update(milestone_repo, tmp_milestone):
     assert obj_out.due_date == due_date
 
 
-def test_upsert_delete(milestone_repo, tmp_project):
+def test_upsert_delete(milestone_repo, tmp_goal):
     # create
-    m = Milestone(title="test_upsert_delete", project_id=tmp_project.id)
+    m = Milestone(title="test_upsert_delete", goal_id=tmp_goal.id)
     assert milestone_repo.upsert(m) == m
 
     # update
@@ -71,7 +71,7 @@ def milestone_repo(db) -> MilestoneRepo:
 
 
 @pytest.fixture(scope="module")
-def tmp_milestone(milestone_repo, tmp_project) -> Milestone:
-    milestone = milestone_repo.upsert(Milestone(title="tmp_task_status", project_id=tmp_project.id))
+def tmp_milestone(milestone_repo, tmp_goal) -> Milestone:
+    milestone = milestone_repo.upsert(Milestone(title="tmp_task_status", goal_id=tmp_goal.id))
     yield milestone
     milestone_repo.delete(milestone)

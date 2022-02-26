@@ -6,7 +6,7 @@ from redminelib import Redmine
 from redminelib import resources as R
 
 from lib.L1_domain.entities.api.exceptions import ApiException
-from lib.L1_domain.entities.tracker import Milestone, Person, Project, Task, TaskPriority, TaskStatus
+from lib.L1_domain.entities.tracker import Goal, Milestone, Person, Task, TaskPriority, TaskStatus
 from lib.L1_domain.repositories import AbstractImportRepo
 
 
@@ -20,7 +20,7 @@ class ImportRedmineRepo(AbstractImportRepo):
         self.redmine = Redmine(host, key=api_key)
 
         self.cached_r_projects: list[R.Project] | None = None
-        self.projects_map: dict[int, Project] = {}
+        self.goals_map: dict[int, Goal] = {}
 
     @staticmethod
     def _set_parents(objects_map: dict):
@@ -58,7 +58,7 @@ class ImportRedmineRepo(AbstractImportRepo):
                 imported_on=datetime.now(),
                 due_date=getattr(version, "due_date", None),
             )
-            milestone._project = self.projects_map[r_project.id]
+            milestone._goal = self.goals_map[r_project.id]
             milestones[version.id] = milestone
 
         return milestones
@@ -69,14 +69,14 @@ class ImportRedmineRepo(AbstractImportRepo):
             self.cached_r_projects = self.redmine.project.all()
         return self.cached_r_projects
 
-    def get_projects(self) -> list[Project]:
-        self.projects_map = {}
+    def get_goals(self) -> list[Goal]:
+        self.goals_map = {}
         self.cached_r_projects = None
 
         for r_project in self._get_cached_r_projects():
             parent_project = getattr(r_project, "parent", None)
 
-            self.projects_map[r_project.id] = Project(
+            self.goals_map[r_project.id] = Goal(
                 title=r_project.name,
                 description=r_project.description,
                 remote_code=f"{r_project.id}",
@@ -84,9 +84,9 @@ class ImportRedmineRepo(AbstractImportRepo):
                 parent_id=parent_project.id if parent_project else None,
             )
 
-        self._set_parents(self.projects_map)
+        self._set_parents(self.goals_map)
 
-        return list(self.projects_map.values())
+        return list(self.goals_map.values())
 
     def get_tasks_tree(self) -> list[Task]:
 
@@ -96,10 +96,10 @@ class ImportRedmineRepo(AbstractImportRepo):
         statuses = self._get_task_statuses()
 
         if not self.cached_r_projects:
-            self.get_projects()
+            self.get_goals()
 
         for r_project in self._get_cached_r_projects():
-            project = self.projects_map[r_project.id]
+            goal = self.goals_map[r_project.id]
 
             if "issue_tracking" in r_project.enabled_modules:
                 milestones = self._get_milestones_for_project(r_project)
@@ -118,7 +118,7 @@ class ImportRedmineRepo(AbstractImportRepo):
                         start_date=getattr(issue, "start_date", None),
                         due_date=getattr(issue, "due_date", None),
                     )
-                    task._project = project
+                    task._goal = goal
                     task._milestone = milestones[version.id] if version else None
                     task._status = statuses[issue.status.id]
                     task._priority = TaskPriority(title=f"{issue.priority.name}", order=issue.priority.id)

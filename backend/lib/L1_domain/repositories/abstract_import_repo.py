@@ -1,6 +1,6 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from ..entities.tracker import Project, Task
+from ..entities.tracker import Goal, Task
 
 
 class AbstractImportRepo:
@@ -9,7 +9,7 @@ class AbstractImportRepo:
     source: str
 
     @staticmethod
-    def get_projects() -> list[Project]:
+    def get_goals() -> list[Goal]:
         raise NotImplementedError
 
     @staticmethod

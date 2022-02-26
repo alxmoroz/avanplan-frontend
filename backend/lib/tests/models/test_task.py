@@ -12,9 +12,9 @@ def test_get_one(task_repo, tmp_task):
     assert tmp_task == obj_out
 
 
-def test_get(task_repo, tmp_task, tmp_project):
+def test_get(task_repo, tmp_task, tmp_goal):
 
-    t2 = task_repo.create(Task(title="test_get", project_id=tmp_project.id))
+    t2 = task_repo.create(Task(title="test_get", goal_id=tmp_goal.id))
 
     objects = task_repo.get(
         limit=2,
@@ -50,9 +50,9 @@ def test_update(task_repo, tmp_task):
     assert obj_out.due_date == due_date
 
 
-def test_upsert_delete(task_repo, tmp_project):
+def test_upsert_delete(task_repo, tmp_goal):
     # create
-    task = Task(title="test_upsert_delete", project_id=tmp_project.id)
+    task = Task(title="test_upsert_delete", goal_id=tmp_goal.id)
     assert task_repo.upsert(task) == task
 
     # update

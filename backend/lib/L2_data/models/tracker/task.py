@@ -17,8 +17,8 @@ class TaskPriority(TrackerFields, BaseModel):
 class Task(TrackerFields, ImportableFields, TimeBoundFields, BaseModel):
     parent_id = Column(Integer, ForeignKey("tasks.id", ondelete="CASCADE"))
 
-    project_id = Column(Integer, ForeignKey("projects.id", ondelete="CASCADE"), nullable=False)
-    # project = relationship("Project", back_populates="tasks")
+    goal_id = Column(Integer, ForeignKey("goals.id", ondelete="CASCADE"), nullable=False)
+    # goal = relationship("Goal", back_populates="tasks")
 
     milestone_id = Column(Integer, ForeignKey("milestones.id"))
 

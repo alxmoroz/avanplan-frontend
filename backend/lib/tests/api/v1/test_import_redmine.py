@@ -25,16 +25,16 @@ def _request(client: TestClient, auth_headers_test_user, path):
     )
 
 
-def test_import_projects(client: TestClient, auth_headers_test_user):
-    r = _request(client, auth_headers_test_user, "projects")
+def test_import_goals(client: TestClient, auth_headers_test_user):
+    r = _request(client, auth_headers_test_user, "goals")
     assert r.status_code == 200, r.json()["detail"]
-    assert r.json()["msg"] == f"Projects from Redmine {_host} imported successful"
+    assert r.json()["msg"] == f"Goals from Redmine {_host} imported successful"
 
 
 def test_import_tasks(client: TestClient, auth_headers_test_user):
     r = _request(client, auth_headers_test_user, "tasks")
     assert r.status_code == 200, r.json()["detail"]
-    assert r.json()["msg"] == f"Tasks with projects from Redmine {_host} imported successful"
+    assert r.json()["msg"] == f"Tasks with goals from Redmine {_host} imported successful"
 
     # 400 (no api_key)
     r2 = client.post(

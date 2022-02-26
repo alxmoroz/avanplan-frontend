@@ -3,20 +3,20 @@
 import pytest
 from sqlalchemy.orm import Session
 
-from lib.L1_domain.entities.tracker import Project, Task
-from lib.L2_data.repositories import PersonRepo, ProjectRepo, TaskRepo
+from lib.L1_domain.entities.tracker import Goal, Task
+from lib.L2_data.repositories import GoalRepo, PersonRepo, TaskRepo
 
 
 @pytest.fixture(scope="module")
-def project_repo(db: Session) -> ProjectRepo:
-    yield ProjectRepo(db)
+def goal_repo(db: Session) -> GoalRepo:
+    yield GoalRepo(db)
 
 
 @pytest.fixture(scope="module")
-def tmp_project(project_repo) -> Project:
-    project = project_repo.upsert(Project(title="tmp_project"))
-    yield project
-    project_repo.delete(project)
+def tmp_goal(goal_repo) -> Goal:
+    goal = goal_repo.upsert(Goal(title="tmp_goal"))
+    yield goal
+    goal_repo.delete(goal)
 
 
 @pytest.fixture(scope="module")
@@ -25,8 +25,8 @@ def task_repo(db) -> TaskRepo:
 
 
 @pytest.fixture(scope="module")
-def tmp_task(task_repo, tmp_project) -> Task:
-    task = task_repo.upsert(Task(title="tmp_task", project_id=tmp_project.id))
+def tmp_task(task_repo, tmp_goal) -> Task:
+    task = task_repo.upsert(Task(title="tmp_task", goal_id=tmp_goal.id))
     yield task
     task_repo.delete(task)
 

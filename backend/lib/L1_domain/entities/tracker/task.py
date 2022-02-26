@@ -1,5 +1,5 @@
 #  Copyright (c) 2022. Alexandr Moroz
-from . import Milestone, Project
+from . import Goal, Milestone
 from .base import Importable, Statusable, TimeBound, TrackerEntity
 from .person import Person
 
@@ -21,8 +21,8 @@ class TaskPriority(TrackerEntity):
 
 class Task(TrackerEntity, Importable, TimeBound):
 
-    project_id: int | None
-    _project: Project | None
+    goal_id: int | None
+    _goal: Goal | None
 
     parent_id: int | None
     _parent: any
@@ -43,8 +43,8 @@ class Task(TrackerEntity, Importable, TimeBound):
     _author: Person | None
 
     @property
-    def project(self) -> Project:
-        return self._project
+    def goal(self) -> Goal:
+        return self._goal
 
     @property
     def parent(self) -> any:

@@ -8,7 +8,7 @@ from lib.L1_domain.entities.api import Msg
 from lib.L1_domain.usecases.import_uc import ImportUC
 from lib.L1_domain.usecases.users_uc import UsersUC
 from lib.L2_data.db import db_session
-from lib.L2_data.repositories import ImportRedmineRepo, MilestoneRepo, PersonRepo, ProjectRepo, TaskPriorityRepo, TaskRepo, TaskStatusRepo
+from lib.L2_data.repositories import GoalRepo, ImportRedmineRepo, MilestoneRepo, PersonRepo, TaskPriorityRepo, TaskRepo, TaskStatusRepo
 from lib.L3_app.api.v1.users import user_uc
 
 router = APIRouter(prefix="/import/redmine")
@@ -25,7 +25,7 @@ def _import_uc(
 
     return ImportUC(
         import_repo=ImportRedmineRepo(host=host, api_key=api_key),
-        project_repo=ProjectRepo(db),
+        goal_repo=GoalRepo(db),
         task_repo=TaskRepo(db),
         task_status_repo=TaskStatusRepo(db),
         task_priority_repo=TaskPriorityRepo(db),
@@ -34,9 +34,9 @@ def _import_uc(
     )
 
 
-@router.post("/projects", response_model=Msg)
-def projects(uc: ImportUC = Depends(_import_uc)) -> Msg:
-    return uc.import_projects()
+@router.post("/goals", response_model=Msg)
+def goals(uc: ImportUC = Depends(_import_uc)) -> Msg:
+    return uc.import_goals()
 
 
 @router.post("/tasks", response_model=Msg)

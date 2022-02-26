@@ -1,6 +1,6 @@
 #  Copyright (c) 2022. Alexandr Moroz
 from .base import Importable, Statusable, TimeBound, TrackerEntity
-from .project import Project
+from .goal import Goal
 
 
 class MilestoneStatus(TrackerEntity, Statusable):
@@ -9,15 +9,15 @@ class MilestoneStatus(TrackerEntity, Statusable):
 
 class Milestone(TrackerEntity, Importable, TimeBound):
 
-    project_id: int | None
-    _project: Project | None
+    goal_id: int | None
+    _goal: Goal | None
 
     status_id: int | None
     _status: MilestoneStatus | None
 
     @property
-    def project(self) -> Project:
-        return self._project
+    def goal(self) -> Goal:
+        return self._goal
 
     @property
     def status(self) -> MilestoneStatus:

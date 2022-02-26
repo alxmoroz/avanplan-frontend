@@ -11,6 +11,6 @@ class MilestoneStatus(TrackerFields, StatusFields, BaseModel):
 
 class Milestone(TrackerFields, ImportableFields, TimeBoundFields, BaseModel):
 
-    project_id = Column(Integer, ForeignKey("projects.id", ondelete="CASCADE"), nullable=False)
+    goal_id = Column(Integer, ForeignKey("goals.id", ondelete="CASCADE"), nullable=False)
 
     status_id = Column(Integer, ForeignKey("milestonestatuss.id"))

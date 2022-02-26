@@ -3,10 +3,10 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from lib.L1_domain.entities.tracker import Person, Project, Task
+from lib.L1_domain.entities.tracker import Goal, Person, Task
 from lib.L1_domain.usecases.users_uc import UsersUC
 from lib.L2_data.db import db_session
-from lib.L2_data.repositories import PersonRepo, ProjectRepo, TaskRepo
+from lib.L2_data.repositories import GoalRepo, PersonRepo, TaskRepo
 from lib.L3_app.api.v1.users import user_uc
 
 router = APIRouter(prefix="/tracker")
@@ -18,22 +18,22 @@ router = APIRouter(prefix="/tracker")
 #  ... и других юзкейсов при необходимости...
 
 
-@router.get("/projects", response_model=list[Project])
-def projects(
+@router.get("/goals", response_model=list[Goal])
+def goals(
     uc: UsersUC = Depends(user_uc),
     db: Session = Depends(db_session),
-) -> list[Project]:
+) -> list[Goal]:
 
     uc.get_active_user()
 
-    return ProjectRepo(db).get()
+    return GoalRepo(db).get()
 
 
 @router.get("/tasks", response_model=list[Task])
 def tasks(
     uc: UsersUC = Depends(user_uc),
     db: Session = Depends(db_session),
-) -> list[Project]:
+) -> list[Goal]:
 
     uc.get_active_user()
 

@@ -6,7 +6,7 @@ from redminelib import Redmine
 from redminelib import resources as R
 
 from lib.L1_domain.entities.api.exceptions import ApiException
-from lib.L1_domain.entities.tracker import Goal, Milestone, Person, Task, TaskPriority, TaskStatus
+from lib.L1_domain.entities.goals import Goal, Importable, Milestone, Person, Task, TaskPriority, TaskStatus
 from lib.L1_domain.repositories import AbstractImportRepo
 
 
@@ -23,9 +23,9 @@ class ImportRedmineRepo(AbstractImportRepo):
         self.goals_map: dict[int, Goal] = {}
 
     @staticmethod
-    def _set_parents(objects_map: dict):
+    def _set_parents(objects_map: dict[int, Importable]):
         for obj in objects_map.values():
-            obj._parent = objects_map.get(obj.parent_id, None)
+            obj.parent = objects_map.get(obj.remote_parent_id, None)
 
     def _get_persons(self) -> dict[int, Person]:
         return {
@@ -50,15 +50,14 @@ class ImportRedmineRepo(AbstractImportRepo):
     def _get_milestones_for_project(self, r_project: R.Project) -> dict[int, Milestone]:
         milestones = {}
         for version in r_project.versions:
-            print(list(version))
             milestone = Milestone(
                 title=version.name,
                 description=version.description,
                 remote_code=f"{version.id}",
                 imported_on=datetime.now(),
                 due_date=getattr(version, "due_date", None),
+                goal=self.goals_map[r_project.id],
             )
-            milestone._goal = self.goals_map[r_project.id]
             milestones[version.id] = milestone
 
         return milestones
@@ -74,15 +73,15 @@ class ImportRedmineRepo(AbstractImportRepo):
         self.cached_r_projects = None
 
         for r_project in self._get_cached_r_projects():
-            parent_project = getattr(r_project, "parent", None)
-
-            self.goals_map[r_project.id] = Goal(
+            goal = Goal(
                 title=r_project.name,
                 description=r_project.description,
-                remote_code=f"{r_project.id}",
                 imported_on=datetime.now(),
-                parent_id=parent_project.id if parent_project else None,
+                remote_code=f"{r_project.id}",
             )
+            parent_project = getattr(r_project, "parent", None)
+            goal.remote_parent_id = parent_project.id if parent_project else None
+            self.goals_map[r_project.id] = goal
 
         self._set_parents(self.goals_map)
 
@@ -104,26 +103,30 @@ class ImportRedmineRepo(AbstractImportRepo):
             if "issue_tracking" in r_project.enabled_modules:
                 milestones = self._get_milestones_for_project(r_project)
                 for issue in r_project.issues:
-                    parent_issue = getattr(issue, "parent", None)
+
                     author = getattr(issue, "author", None)
                     assignee = getattr(issue, "assigned_to", None)
                     version = getattr(issue, "fixed_version", None)
 
                     task = Task(
-                        parent_id=parent_issue.id if parent_issue else None,
                         title=issue.subject,
                         description=issue.description,
-                        remote_code=f"{issue.id}",
-                        imported_on=datetime.now(),
                         start_date=getattr(issue, "start_date", None),
                         due_date=getattr(issue, "due_date", None),
+                        imported_on=datetime.now(),
+                        remote_code=f"{issue.id}",
+                        goal=goal,
+                        milestone=milestones[version.id] if version else None,
+                        status=statuses[issue.status.id],
+                        priority=TaskPriority(title=f"{issue.priority.name}", order=issue.priority.id),
+                        assignee=persons[assignee.id] if assignee else None,
+                        author=persons[author.id] if author else None,
                     )
-                    task._goal = goal
-                    task._milestone = milestones[version.id] if version else None
-                    task._status = statuses[issue.status.id]
-                    task._priority = TaskPriority(title=f"{issue.priority.name}", order=issue.priority.id)
-                    task._assignee = persons[assignee.id] if assignee else None
-                    task._author = persons[author.id] if author else None
+
+                    parent_issue = getattr(issue, "parent", None)
+                    task.remote_parent_id = parent_issue.id if parent_issue else None
+
+                    # print(task.remote_parent_id)
 
                     tasks[issue.id] = task
 

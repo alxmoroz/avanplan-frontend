@@ -2,7 +2,7 @@
 
 from ..entities.api import Msg
 from ..entities.base_entity import DBPersistEntity
-from ..entities.tracker import Goal, Milestone, Person, Task, TaskPriority, TaskStatus
+from ..entities.goals import Goal, Milestone, Person, Task, TaskPriority, TaskStatus
 from ..repositories import AbstractDBRepo, AbstractImportRepo
 
 
@@ -43,15 +43,14 @@ class ImportUC:
         processed_dict: dict,
         repo: AbstractDBRepo,
         **filter_by,
-    ) -> int:
+    ) -> DBPersistEntity:
         if key not in processed_dict:
             processed_dict[key] = repo.upsert(e, **filter_by)
-        return processed_dict[key].id
+        return processed_dict[key]
 
-    def _upsert_goal(self, goal: Goal) -> int | None:
+    def _upsert_goal(self, goal: Goal) -> DBPersistEntity:
         if goal:
-            goal.parent_id = self._upsert_goal(goal.parent)
-
+            goal.parent = self._upsert_goal(goal.parent)
             return self._upsert_once(
                 goal,
                 goal.remote_code,
@@ -60,9 +59,9 @@ class ImportUC:
                 remote_code=goal.remote_code,
             )
 
-    def _upsert_milestone(self, milestone: Milestone) -> int | None:
+    def _upsert_milestone(self, milestone: Milestone) -> DBPersistEntity:
         if milestone:
-            milestone.goal_id = self._upsert_goal(milestone.goal)
+            milestone.goal = self._upsert_goal(milestone.goal)
             return self._upsert_once(
                 milestone,
                 milestone.remote_code,
@@ -71,15 +70,15 @@ class ImportUC:
                 remote_code=milestone.remote_code,
             )
 
-    def _upsert_task(self, task: Task) -> int | None:
+    def _upsert_task(self, task: Task) -> DBPersistEntity:
         if task:
-            task.goal_id = self._upsert_goal(task.goal)
-            task.milestone_id = self._upsert_milestone(task.milestone)
-            task.status_id = self._upsert_status(task.status)
-            task.priority_id = self._upsert_priority(task.priority)
-            task.assignee_id = self._upsert_person(task.assigned_person)
-            task.author_id = self._upsert_person(task.author)
-            task.parent_id = self._upsert_task(task.parent)
+            task.goal = self._upsert_goal(task.goal)
+            task.milestone = self._upsert_milestone(task.milestone)
+            task.status = self._upsert_status(task.status)
+            task.priority = self._upsert_priority(task.priority)
+            task.assignee = self._upsert_person(task.assignee)
+            task.author = self._upsert_person(task.author)
+            task.parent = self._upsert_task(task.parent)
 
             return self._upsert_once(
                 task,
@@ -89,7 +88,7 @@ class ImportUC:
                 remote_code=task.remote_code,
             )
 
-    def _upsert_status(self, status: TaskStatus) -> int | None:
+    def _upsert_status(self, status: TaskStatus) -> DBPersistEntity:
         if status:
             return self._upsert_once(
                 status,
@@ -99,7 +98,7 @@ class ImportUC:
                 title=status.title,
             )
 
-    def _upsert_priority(self, priority: TaskPriority) -> int | None:
+    def _upsert_priority(self, priority: TaskPriority) -> DBPersistEntity:
         if priority:
             return self._upsert_once(
                 priority,
@@ -109,7 +108,7 @@ class ImportUC:
                 title=priority.title,
             )
 
-    def _upsert_person(self, person: Person) -> int | None:
+    def _upsert_person(self, person: Person) -> DBPersistEntity:
         if person:
             return self._upsert_once(
                 person,
@@ -121,14 +120,13 @@ class ImportUC:
 
     def import_goals(self) -> Msg:
         self._reset_processed()
+
+        # структура всех задач с проектами и подпроектами
+        for task in self.import_repo.get_tasks_tree():
+            self._upsert_task(task)
+
+        # отдельно проекты ради пустых проектов
         for goal in self.import_repo.get_goals():
             self._upsert_goal(goal)
 
         return Msg(msg=f"Goals from {self.import_repo.source} imported successful")
-
-    def import_tasks(self) -> Msg:
-        self._reset_processed()
-        for task in self.import_repo.get_tasks_tree():
-            self._upsert_task(task)
-
-        return Msg(msg=f"Tasks with goals from {self.import_repo.source} imported successful")

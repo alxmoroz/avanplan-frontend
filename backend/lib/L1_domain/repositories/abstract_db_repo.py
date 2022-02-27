@@ -20,6 +20,9 @@ class AbstractDBRepo(Generic[M, E]):
         self.model = model
         self.entity = entity
 
+    def _prepare_upsert_data(self, e: E) -> any:
+        raise NotImplementedError
+
     def get(
         self,
         *,

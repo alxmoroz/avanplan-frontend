@@ -4,7 +4,7 @@
 import pytest
 from sqlalchemy import column
 
-from lib.L1_domain.entities.tracker import MilestoneStatus
+from lib.L1_domain.entities.goals import MilestoneStatus
 from lib.L2_data.repositories import MilestoneStatusRepo
 
 
@@ -13,24 +13,19 @@ def test_get_one(milestone_status_repo, tmp_milestone_status):
     assert tmp_milestone_status == obj_out
 
 
-def test_get(milestone_status_repo, tmp_milestone_status):
+def test_get_create(milestone_status_repo, tmp_milestone_status):
 
-    t2 = milestone_status_repo.create(MilestoneStatus(title="test_get"))
+    obj2 = milestone_status_repo.create(MilestoneStatus(title="test_get"))
 
     objects = milestone_status_repo.get(
         limit=2,
-        where=column("id").in_([tmp_milestone_status.id, t2.id]),
+        where=column("id").in_([tmp_milestone_status.id, obj2.id]),
     )
     assert tmp_milestone_status in objects
-    assert t2 in objects
+    assert obj2 in objects
     assert len(objects) == 2
 
-    assert milestone_status_repo.delete(t2) == 1
-
-
-def test_create(milestone_status_repo, tmp_milestone_status):
-    obj_out = milestone_status_repo.get_one(id=tmp_milestone_status.id)
-    assert tmp_milestone_status == obj_out
+    assert milestone_status_repo.delete(obj2) == 1
 
 
 def test_update(milestone_status_repo, tmp_milestone_status):
@@ -48,15 +43,18 @@ def test_update(milestone_status_repo, tmp_milestone_status):
 
 def test_upsert_delete(milestone_status_repo):
     # create
-    milestone_status = MilestoneStatus(title="test_upsert_delete")
-    assert milestone_status_repo.upsert(milestone_status) == milestone_status
+    ms = MilestoneStatus(title="test_upsert_delete")
+    obj_out = milestone_status_repo.upsert(ms)
+    # TODO: Если убрать айдишники под капот (в Л2, в схемы в репах), то тут их не будет
+    ms.id = obj_out.id
+    assert milestone_status_repo.upsert(ms) == ms
 
     # update
-    milestone_status.description = "description"
-    assert milestone_status_repo.upsert(milestone_status) == milestone_status
+    ms.description = "description"
+    assert milestone_status_repo.upsert(ms) == ms
 
     # delete
-    assert milestone_status_repo.delete(milestone_status) == 1
+    assert milestone_status_repo.delete(ms) == 1
 
 
 @pytest.fixture(scope="module")

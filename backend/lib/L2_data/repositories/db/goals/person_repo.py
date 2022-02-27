@@ -2,9 +2,10 @@
 
 from sqlalchemy.orm import Session
 
-from lib.L1_domain.entities.tracker import Person
+from lib.L1_domain.entities.goals import Person
 from lib.L2_data.models import Person as PersonModel
-from lib.L2_data.repositories import DBRepo
+
+from ..db_repo import DBRepo
 
 
 class PersonRepo(DBRepo):

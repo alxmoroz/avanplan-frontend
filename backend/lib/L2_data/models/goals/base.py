@@ -1,8 +1,8 @@
 #  Copyright (c) 2022. Alexandr Moroz
-from sqlalchemy import Boolean, Column, DateTime, String
+from sqlalchemy import Boolean, Column, DateTime, Integer, String
 
 
-class TrackerFields:
+class TitledFields:
     title = Column(String)
     description = Column(String)
 
@@ -10,6 +10,7 @@ class TrackerFields:
 class ImportableFields:
     remote_code = Column(String)
     imported_on = Column(DateTime)
+    remote_parent_id = Column(Integer)
 
 
 class TimeBoundFields:

@@ -2,10 +2,10 @@
 
 from fastapi import APIRouter
 
-from .v1 import auth, import_redmine, tracker, users
+from .v1 import auth, goals, import_redmine, users
 
 api_router = APIRouter()
 api_router.include_router(auth.router, tags=["auth"])
 api_router.include_router(users.router, tags=["users"])
-api_router.include_router(tracker.router, tags=["tracker"])
+api_router.include_router(goals.router, tags=["goals"])
 api_router.include_router(import_redmine.router, tags=["import - redmine"])

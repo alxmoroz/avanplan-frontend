@@ -5,7 +5,7 @@ from datetime import datetime
 import pytest
 from sqlalchemy import column
 
-from lib.L1_domain.entities.tracker import Milestone
+from lib.L1_domain.entities.goals import Milestone
 from lib.L2_data.repositories import MilestoneRepo
 
 
@@ -14,22 +14,17 @@ def test_get_one(milestone_repo, tmp_milestone):
     assert tmp_milestone == obj_out
 
 
-def test_get(milestone_repo, tmp_milestone, tmp_goal):
+def test_get_create(milestone_repo, tmp_milestone, tmp_goal):
 
-    t2 = milestone_repo.create(Milestone(title="test_get", goal_id=tmp_goal.id))
+    obj2 = milestone_repo.create(Milestone(title="test_get", goal=tmp_goal))
 
     objects = milestone_repo.get(
         limit=2,
-        where=column("id").in_([tmp_milestone.id, t2.id]),
+        where=column("id").in_([tmp_milestone.id, obj2.id]),
     )
     assert tmp_milestone in objects
-    assert t2 in objects
+    assert obj2 in objects
     assert len(objects) == 2
-
-
-def test_create(milestone_repo, tmp_milestone):
-    obj_out = milestone_repo.get_one(id=tmp_milestone.id)
-    assert tmp_milestone == obj_out
 
 
 # TODO: ещё нужно добавить проверку изменения для всех связанных объектов (айдишников)
@@ -54,7 +49,10 @@ def test_update(milestone_repo, tmp_milestone):
 
 def test_upsert_delete(milestone_repo, tmp_goal):
     # create
-    m = Milestone(title="test_upsert_delete", goal_id=tmp_goal.id)
+    m = Milestone(title="test_upsert_delete", goal=tmp_goal)
+    obj_out = milestone_repo.upsert(m)
+    # TODO: Если убрать айдишники под капот (в Л2, в схемы в репах), то тут их не будет
+    m.id = obj_out.id
     assert milestone_repo.upsert(m) == m
 
     # update
@@ -72,6 +70,6 @@ def milestone_repo(db) -> MilestoneRepo:
 
 @pytest.fixture(scope="module")
 def tmp_milestone(milestone_repo, tmp_goal) -> Milestone:
-    milestone = milestone_repo.upsert(Milestone(title="tmp_task_status", goal_id=tmp_goal.id))
+    milestone = milestone_repo.upsert(Milestone(title="tmp_task_status", goal=tmp_goal))
     yield milestone
     milestone_repo.delete(milestone)

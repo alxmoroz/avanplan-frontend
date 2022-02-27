@@ -4,7 +4,7 @@ from datetime import datetime
 
 from sqlalchemy import column
 
-from lib.L1_domain.entities.tracker import Task
+from lib.L1_domain.entities.goals import Task
 
 
 def test_get_one(task_repo, tmp_task):
@@ -12,22 +12,17 @@ def test_get_one(task_repo, tmp_task):
     assert tmp_task == obj_out
 
 
-def test_get(task_repo, tmp_task, tmp_goal):
+def test_get_create(task_repo, tmp_task, tmp_goal):
 
-    t2 = task_repo.create(Task(title="test_get", goal_id=tmp_goal.id))
+    obj2 = task_repo.create(Task(title="test_get", goal=tmp_goal))
 
     objects = task_repo.get(
         limit=2,
-        where=column("id").in_([tmp_task.id, t2.id]),
+        where=column("id").in_([tmp_task.id, obj2.id]),
     )
     assert tmp_task in objects
-    assert t2 in objects
+    assert obj2 in objects
     assert len(objects) == 2
-
-
-def test_create(task_repo, tmp_task):
-    obj_out = task_repo.get_one(id=tmp_task.id)
-    assert tmp_task == obj_out
 
 
 # TODO: ещё нужно добавить проверку изменения для всех связанных объектов (айдишников)
@@ -52,7 +47,10 @@ def test_update(task_repo, tmp_task):
 
 def test_upsert_delete(task_repo, tmp_goal):
     # create
-    task = Task(title="test_upsert_delete", goal_id=tmp_goal.id)
+    task = Task(title="test_upsert_delete", goal=tmp_goal)
+    obj_out = task_repo.upsert(task)
+    # TODO: Если убрать айдишники под капот (в Л2, в схемы в репах), то тут их не будет
+    task.id = obj_out.id
     assert task_repo.upsert(task) == task
 
     # update

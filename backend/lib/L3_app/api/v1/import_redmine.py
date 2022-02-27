@@ -39,6 +39,6 @@ def goals(uc: ImportUC = Depends(_import_uc)) -> Msg:
     return uc.import_goals()
 
 
-@router.post("/tasks", response_model=Msg)
-def tasks(uc: ImportUC = Depends(_import_uc)) -> Msg:
-    return uc.import_tasks()
+# @router.post("/tasks", response_model=Msg)
+# def tasks(uc: ImportUC = Depends(_import_uc)) -> Msg:
+#     return uc.import_tasks()

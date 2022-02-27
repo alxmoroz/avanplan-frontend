@@ -1,6 +1,6 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from ..entities.tracker import Goal, Task
+from ..entities.goals import Goal, Task
 
 
 class AbstractImportRepo:

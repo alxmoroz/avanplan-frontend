@@ -4,8 +4,8 @@
 import pytest
 from sqlalchemy import column
 
-from lib.L1_domain.entities.tracker import GoalStatus
-from lib.L2_data.repositories import GoalStatusRepo
+from lib.L1_domain.entities.goals import GoalStatus
+from lib.L2_data.repositories.db.goals.goal_status_repo import GoalStatusRepo
 
 
 def test_get_one(goal_status_repo, tmp_goal_status):
@@ -13,24 +13,19 @@ def test_get_one(goal_status_repo, tmp_goal_status):
     assert tmp_goal_status == obj_out
 
 
-def test_get(goal_status_repo, tmp_goal_status):
+def test_get_create(goal_status_repo, tmp_goal_status):
 
-    t2 = goal_status_repo.create(GoalStatus(title="test_get"))
+    obj2 = goal_status_repo.create(GoalStatus(title="test_get"))
 
     objects = goal_status_repo.get(
         limit=2,
-        where=column("id").in_([tmp_goal_status.id, t2.id]),
+        where=column("id").in_([tmp_goal_status.id, obj2.id]),
     )
     assert tmp_goal_status in objects
-    assert t2 in objects
+    assert obj2 in objects
     assert len(objects) == 2
 
-    assert goal_status_repo.delete(t2) == 1
-
-
-def test_create(goal_status_repo, tmp_goal_status):
-    obj_out = goal_status_repo.get_one(id=tmp_goal_status.id)
-    assert tmp_goal_status == obj_out
+    assert goal_status_repo.delete(obj2) == 1
 
 
 def test_update(goal_status_repo, tmp_goal_status):
@@ -49,6 +44,9 @@ def test_update(goal_status_repo, tmp_goal_status):
 def test_upsert_delete(goal_status_repo):
     # create
     goal_status = GoalStatus(title="test_upsert_delete")
+    obj_out = goal_status_repo.upsert(goal_status)
+    # TODO: Если убрать айдишники под капот (в Л2, в схемы в репах), то тут их не будет
+    goal_status.id = obj_out.id
     assert goal_status_repo.upsert(goal_status) == goal_status
 
     # update

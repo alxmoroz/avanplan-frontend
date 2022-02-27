@@ -1,15 +1,15 @@
 """empty message
 
-Revision ID: e9228947cee5
+Revision ID: afa54314d09a
 Revises: 
-Create Date: 2022-02-26 22:45:18.872298
+Create Date: 2022-02-27 08:05:43.703548
 
 """
 import sqlalchemy as sa
 from alembic import op
 
 # revision identifiers, used by Alembic.
-revision = "e9228947cee5"
+revision = "afa54314d09a"
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -20,19 +20,21 @@ def upgrade():
     op.create_table(
         "goalstatuss",
         sa.Column("id", sa.Integer(), nullable=False),
-        sa.Column("title", sa.String(), nullable=True),
         sa.Column("description", sa.String(), nullable=True),
+        sa.Column("title", sa.String(), nullable=True),
         sa.Column("closed", sa.Boolean(), nullable=True),
         sa.PrimaryKeyConstraint("id"),
+        sa.UniqueConstraint("title"),
     )
     op.create_index(op.f("ix_goalstatuss_id"), "goalstatuss", ["id"], unique=False)
     op.create_table(
         "milestonestatuss",
         sa.Column("id", sa.Integer(), nullable=False),
-        sa.Column("title", sa.String(), nullable=True),
         sa.Column("description", sa.String(), nullable=True),
+        sa.Column("title", sa.String(), nullable=True),
         sa.Column("closed", sa.Boolean(), nullable=True),
         sa.PrimaryKeyConstraint("id"),
+        sa.UniqueConstraint("title"),
     )
     op.create_index(op.f("ix_milestonestatuss_id"), "milestonestatuss", ["id"], unique=False)
     op.create_table(
@@ -58,10 +60,11 @@ def upgrade():
     op.create_table(
         "taskstatuss",
         sa.Column("id", sa.Integer(), nullable=False),
-        sa.Column("title", sa.String(), nullable=True),
         sa.Column("description", sa.String(), nullable=True),
+        sa.Column("title", sa.String(), nullable=True),
         sa.Column("closed", sa.Boolean(), nullable=True),
         sa.PrimaryKeyConstraint("id"),
+        sa.UniqueConstraint("title"),
     )
     op.create_index(op.f("ix_taskstatuss_id"), "taskstatuss", ["id"], unique=False)
     op.create_table(

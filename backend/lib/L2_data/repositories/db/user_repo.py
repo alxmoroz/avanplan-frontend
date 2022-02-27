@@ -4,7 +4,8 @@ from sqlalchemy.orm import Session
 
 from lib.L1_domain.entities.users import User
 from lib.L2_data.models import User as UserModel
-from lib.L2_data.repositories import DBRepo
+
+from .db_repo import DBRepo
 
 
 class UserRepo(DBRepo[UserModel, User]):

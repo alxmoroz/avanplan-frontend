@@ -6,7 +6,7 @@ from typing import Generator
 import pytest
 from sqlalchemy import column
 
-from lib.L1_domain.entities.tracker import TaskPriority
+from lib.L1_domain.entities.goals import TaskPriority
 from lib.L2_data.repositories import TaskPriorityRepo
 from lib.tests.utils import random_lower_string
 

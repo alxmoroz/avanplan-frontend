@@ -48,6 +48,9 @@ def test_update(user_repo):
 def test_upsert_delete(user_repo):
     # create
     u = User(email=random_email(), password="111")
+    obj_out = user_repo.upsert(u)
+    # TODO: Если убрать айдишники под капот (в Л2, в схемы в репах), то тут их не будет
+    u.id = obj_out.id
     assert user_repo.upsert(u) == u
 
     # update

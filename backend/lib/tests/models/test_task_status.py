@@ -4,7 +4,7 @@
 import pytest
 from sqlalchemy import column
 
-from lib.L1_domain.entities.tracker import TaskStatus
+from lib.L1_domain.entities.goals import TaskStatus
 from lib.L2_data.repositories import TaskStatusRepo
 
 
@@ -49,6 +49,9 @@ def test_update(task_status_repo, tmp_task_status):
 def test_upsert_delete(task_status_repo):
     # create
     task_status = TaskStatus(title="test_upsert_delete")
+    obj_out = task_status_repo.upsert(task_status)
+    # TODO: Если убрать айдишники под капот (в Л2, в схемы в репах), то тут их не будет
+    task_status.id = obj_out.id
     assert task_status_repo.upsert(task_status) == task_status
 
     # update

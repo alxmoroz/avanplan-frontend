@@ -26,7 +26,6 @@ class UsersUC:
 
         return self.user_repo.get(skip=skip, limit=limit)
 
-    # TODO: возможны проблемы с id, заполненным по ошибке
     def create_user(self, user: User) -> User:
         self.get_active_superuser()
 

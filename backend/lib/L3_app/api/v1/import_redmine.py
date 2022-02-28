@@ -8,10 +8,11 @@ from lib.L1_domain.entities.api import Msg
 from lib.L1_domain.usecases.import_uc import ImportUC
 from lib.L1_domain.usecases.users_uc import UsersUC
 from lib.L2_data.db import db_session
-from lib.L2_data.repositories import GoalRepo, ImportRedmineRepo, MilestoneRepo, PersonRepo, TaskPriorityRepo, TaskRepo, TaskStatusRepo
+from lib.L2_data.repositories.db import GoalRepo, MilestoneRepo, PersonRepo, TaskPriorityRepo, TaskRepo, TaskStatusRepo
+from lib.L2_data.repositories.integrations import ImportRedmineRepo
 from lib.L3_app.api.v1.users import user_uc
 
-router = APIRouter(prefix="/import/redmine")
+router = APIRouter(prefix="/integrations/redmine")
 
 
 def _import_uc(

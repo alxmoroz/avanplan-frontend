@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
+from .base import BaseTask, Statusable, Titled
 from .goal import Goal
-from .base import BaseTask, OtherGoal, Statusable, Titled
 from .milestone import Milestone
 from .person import Person
 

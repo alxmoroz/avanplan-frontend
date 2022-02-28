@@ -2,8 +2,8 @@
 
 from sqlalchemy.orm import Session
 
-from lib.L1_domain.entities.base_entity import DBPersistEntity
-from lib.L1_domain.entities.goals import BaseTask, Task
+from lib.L1_domain.entities.base_entity import DBPersistent
+from lib.L1_domain.entities.goals import BaseSmartPersistent, Task
 from lib.L2_data.models import Task as TaskModel
 
 from ..db_repo import DBRepo
@@ -14,7 +14,7 @@ from .task_priority_repo import TaskPriorityRepo
 from .task_status_repo import TaskStatusRepo
 
 
-class TaskUpsertSchema(BaseTask):
+class TaskUpsertSchema(BaseSmartPersistent):
     goal_id: int | None
     parent_id: int | None
     milestone_id: int | None
@@ -24,7 +24,7 @@ class TaskUpsertSchema(BaseTask):
     author_id: int | None
 
 
-def _get_rel_id(repo: DBRepo, rel: DBPersistEntity) -> int | None:
+def _get_rel_id(repo: DBRepo, rel: DBPersistent) -> int | None:
     return (rel.id or repo.upsert(rel).id) if rel else None
 
 

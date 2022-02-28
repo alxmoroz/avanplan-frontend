@@ -2,13 +2,13 @@
 
 from sqlalchemy.orm import Session
 
-from lib.L1_domain.entities.goals import BaseGoal, Goal
+from lib.L1_domain.entities.goals import BaseSmartPersistent, Goal
 from lib.L2_data.models import Goal as GoalModel
 
 from ..db_repo import DBRepo
 
 
-class GoalUpsertSchema(BaseGoal):
+class GoalUpsertSchema(BaseSmartPersistent):
     parent_id: int | None
     status_id: int | None
 

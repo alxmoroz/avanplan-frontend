@@ -1,5 +1,5 @@
 #  Copyright (c) 2022. Alexandr Moroz
-from sqlalchemy import Boolean, Column, DateTime, Integer, String
+from sqlalchemy import Boolean, Column, DateTime, String
 
 
 class TitledFields:
@@ -10,7 +10,6 @@ class TitledFields:
 class ImportableFields:
     remote_code = Column(String)
     imported_on = Column(DateTime)
-    remote_parent_id = Column(Integer)
 
 
 class TimeBoundFields:

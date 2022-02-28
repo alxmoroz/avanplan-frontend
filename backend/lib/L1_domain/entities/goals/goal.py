@@ -1,14 +1,15 @@
 #  Copyright (c) 2022. Alexandr Moroz
 from __future__ import annotations
 
-from .base import BaseGoal, Statusable, Titled
+from ..base_entity import DBPersistent
+from .base import BaseSmartPersistent, Statusable, Titled
 
 
-class GoalStatus(Titled, Statusable):
+class GoalStatus(Titled, Statusable, DBPersistent):
     pass
 
 
-class Goal(BaseGoal):
+class Goal(BaseSmartPersistent):
 
     parent: Goal | None
     # goals: list[Goal] | None

@@ -2,11 +2,11 @@
 
 from pydantic import validator
 
-from ..base_entity import DBPersistEntity
+from ..base_entity import DBPersistent
 from .base import Importable
 
 
-class Person(DBPersistEntity, Importable):
+class Person(DBPersistent, Importable):
     firstname: str | None
     lastname: str | None
 

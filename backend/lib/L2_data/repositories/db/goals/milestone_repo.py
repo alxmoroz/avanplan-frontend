@@ -2,14 +2,14 @@
 
 from sqlalchemy.orm import Session
 
-from lib.L1_domain.entities.goals import BaseMilestone, Milestone
+from lib.L1_domain.entities.goals import BaseSmartPersistent, Milestone
 from lib.L2_data.models import Milestone as MilestoneModel
 
 from ..db_repo import DBRepo
 from .goal_repo import GoalRepo
 
 
-class MilestoneUpsertSchema(BaseMilestone):
+class MilestoneUpsertSchema(BaseSmartPersistent):
     goal_id: int | None
     status_id: int | None
 

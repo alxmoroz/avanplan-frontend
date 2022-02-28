@@ -1,14 +1,14 @@
 #  Copyright (c) 2022. Alexandr Moroz
-from .base import BaseMilestone, OtherGoal, Statusable, Titled
+from ..base_entity import DBPersistent
+from .base import BaseSmartPersistent, Statusable, Titled
+from .goal import Goal
 
-# TODO: кандидат на утилизацию или перенос в репу импорта из трекеров
 
-
-class MilestoneStatus(Titled, Statusable):
+class MilestoneStatus(Titled, Statusable, DBPersistent):
     pass
 
 
-class Milestone(BaseMilestone):
+class Milestone(BaseSmartPersistent):
 
-    goal: OtherGoal | None
+    goal: Goal | None
     status: MilestoneStatus | None

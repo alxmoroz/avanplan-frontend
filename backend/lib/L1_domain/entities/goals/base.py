@@ -1,14 +1,13 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
 from datetime import date, datetime
-from typing import TypeVar
 
 from pydantic import validator
 
-from ..base_entity import BaseEntity, DBPersistEntity
+from ..base_entity import BaseEntity, DBPersistent
 
 
-class Titled(DBPersistEntity):
+class Titled(BaseEntity):
     __abstract__ = True
 
     title: str
@@ -20,8 +19,6 @@ class Importable(BaseEntity):
 
     imported_on: datetime | None
     remote_code: str | None
-    # TODO: можно сделать приватным, если делать проверку getattr потом при обращении.
-    remote_parent_id: int | None
 
 
 class TimeBound(BaseEntity):
@@ -42,17 +39,6 @@ class Statusable(BaseEntity):
         return v or False
 
 
-class BaseGoal(Titled, Importable):
+class BaseSmartPersistent(Titled, Importable, TimeBound, DBPersistent):
     __abstract__ = True
-
-
-class BaseMilestone(Titled, Importable, TimeBound):
-    __abstract__ = True
-
-
-class BaseTask(Titled, Importable, TimeBound):
-    __abstract__ = True
-
-
-OtherTask = TypeVar("OtherTask", bound=BaseTask)
-OtherGoal = TypeVar("OtherGoal", bound=BaseGoal)
+    _remote_parent_id: int | None

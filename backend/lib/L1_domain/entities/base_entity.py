@@ -12,10 +12,10 @@ class BaseEntity(PydanticModel):
 # TODO: перенести на Л2 - это общий класс для схем записи в БД
 
 
-class DBPersistEntity(BaseEntity):
-    __abstract__ = True
+class DBPersistent(BaseEntity):
 
     id: int | None
 
     class Config:
         orm_mode = True
+        underscore_attrs_are_private = True

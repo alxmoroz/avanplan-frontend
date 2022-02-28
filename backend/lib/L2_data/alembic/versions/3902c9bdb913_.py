@@ -1,15 +1,15 @@
 """empty message
 
-Revision ID: afa54314d09a
+Revision ID: 3902c9bdb913
 Revises: 
-Create Date: 2022-02-27 08:05:43.703548
+Create Date: 2022-02-28 07:00:50.643734
 
 """
 import sqlalchemy as sa
 from alembic import op
 
 # revision identifiers, used by Alembic.
-revision = "afa54314d09a"
+revision = "3902c9bdb913"
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -87,6 +87,8 @@ def upgrade():
         sa.Column("description", sa.String(), nullable=True),
         sa.Column("remote_code", sa.String(), nullable=True),
         sa.Column("imported_on", sa.DateTime(), nullable=True),
+        sa.Column("start_date", sa.DateTime(), nullable=True),
+        sa.Column("due_date", sa.DateTime(), nullable=True),
         sa.Column("parent_id", sa.Integer(), nullable=True),
         sa.Column("status_id", sa.Integer(), nullable=True),
         sa.ForeignKeyConstraint(["parent_id"], ["goals.id"], ondelete="CASCADE"),

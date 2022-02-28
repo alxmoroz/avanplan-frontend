@@ -3,14 +3,14 @@ from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.orm import relationship
 
 from ..base_model import BaseModel
-from .base import ImportableFields, StatusFields, TitledFields
+from .base import ImportableFields, StatusFields, TimeBoundFields, TitledFields
 
 
 class GoalStatus(StatusFields, TitledFields, BaseModel):
     pass
 
 
-class Goal(TitledFields, ImportableFields, BaseModel):
+class Goal(TitledFields, ImportableFields, TimeBoundFields, BaseModel):
     parent_id = Column(Integer, ForeignKey("goals.id", ondelete="CASCADE"))
 
     status_id = Column(Integer, ForeignKey("goalstatuss.id"))

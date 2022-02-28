@@ -1,7 +1,7 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
 from ..entities.api import Msg
-from ..entities.base_entity import DBPersistEntity
+from ..entities.base_entity import DBPersistent
 from ..entities.goals import Goal, Milestone, Person, Task, TaskPriority, TaskStatus
 from ..repositories import AbstractDBRepo, AbstractImportRepo
 
@@ -38,17 +38,17 @@ class ImportUC:
     @classmethod
     def _upsert_once(
         cls,
-        e: DBPersistEntity,
+        e: DBPersistent,
         key: str,
         processed_dict: dict,
         repo: AbstractDBRepo,
         **filter_by,
-    ) -> DBPersistEntity:
+    ) -> DBPersistent:
         if key not in processed_dict:
             processed_dict[key] = repo.upsert(e, **filter_by)
         return processed_dict[key]
 
-    def _upsert_goal(self, goal: Goal) -> DBPersistEntity:
+    def _upsert_goal(self, goal: Goal) -> DBPersistent:
         if goal:
             goal.parent = self._upsert_goal(goal.parent)
             return self._upsert_once(
@@ -59,7 +59,7 @@ class ImportUC:
                 remote_code=goal.remote_code,
             )
 
-    def _upsert_milestone(self, milestone: Milestone) -> DBPersistEntity:
+    def _upsert_milestone(self, milestone: Milestone) -> DBPersistent:
         if milestone:
             milestone.goal = self._upsert_goal(milestone.goal)
             return self._upsert_once(
@@ -70,7 +70,7 @@ class ImportUC:
                 remote_code=milestone.remote_code,
             )
 
-    def _upsert_task(self, task: Task) -> DBPersistEntity:
+    def _upsert_task(self, task: Task) -> DBPersistent:
         if task:
             task.goal = self._upsert_goal(task.goal)
             task.milestone = self._upsert_milestone(task.milestone)
@@ -88,7 +88,7 @@ class ImportUC:
                 remote_code=task.remote_code,
             )
 
-    def _upsert_status(self, status: TaskStatus) -> DBPersistEntity:
+    def _upsert_status(self, status: TaskStatus) -> DBPersistent:
         if status:
             return self._upsert_once(
                 status,
@@ -98,7 +98,7 @@ class ImportUC:
                 title=status.title,
             )
 
-    def _upsert_priority(self, priority: TaskPriority) -> DBPersistEntity:
+    def _upsert_priority(self, priority: TaskPriority) -> DBPersistent:
         if priority:
             return self._upsert_once(
                 priority,
@@ -108,7 +108,7 @@ class ImportUC:
                 title=priority.title,
             )
 
-    def _upsert_person(self, person: Person) -> DBPersistEntity:
+    def _upsert_person(self, person: Person) -> DBPersistent:
         if person:
             return self._upsert_once(
                 person,

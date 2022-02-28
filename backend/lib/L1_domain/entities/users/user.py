@@ -2,10 +2,10 @@
 
 from pydantic import EmailStr
 
-from ..base_entity import DBPersistEntity
+from ..base_entity import DBPersistent
 
 
-class User(DBPersistEntity):
+class User(DBPersistent):
     email: EmailStr
     password: str
     full_name: str | None

@@ -25,7 +25,7 @@ class ImportRedmineRepo(AbstractImportRepo):
     @staticmethod
     def _set_parents(objects_map: dict[int, Importable]):
         for obj in objects_map.values():
-            obj.parent = objects_map.get(obj.remote_parent_id, None)
+            obj.parent = objects_map.get(getattr(obj, "_remote_parent_id", None), None)
 
     def _get_persons(self) -> dict[int, Person]:
         return {
@@ -80,7 +80,7 @@ class ImportRedmineRepo(AbstractImportRepo):
                 remote_code=f"{r_project.id}",
             )
             parent_project = getattr(r_project, "parent", None)
-            goal.remote_parent_id = parent_project.id if parent_project else None
+            goal._remote_parent_id = parent_project.id if parent_project else None
             self.goals_map[r_project.id] = goal
 
         self._set_parents(self.goals_map)
@@ -124,9 +124,9 @@ class ImportRedmineRepo(AbstractImportRepo):
                     )
 
                     parent_issue = getattr(issue, "parent", None)
-                    task.remote_parent_id = parent_issue.id if parent_issue else None
+                    task._remote_parent_id = parent_issue.id if parent_issue else None
 
-                    # print(task.remote_parent_id)
+                    # print(task._remote_parent_id)
 
                     tasks[issue.id] = task
 

@@ -1,7 +1,7 @@
 #  Copyright (c) 2022. Alexandr Moroz
+from __future__ import annotations
 
-from .base import BaseGoal, OtherGoal, OtherTask, Statusable, Titled
-from .milestone import Milestone
+from .base import BaseGoal, Statusable, Titled
 
 
 class GoalStatus(Titled, Statusable):
@@ -10,10 +10,8 @@ class GoalStatus(Titled, Statusable):
 
 class Goal(BaseGoal):
 
-    parent: OtherGoal | None
-    goals: list[OtherGoal] | None
-
-    tasks: list[OtherTask] | None
-
+    parent: Goal | None
+    # goals: list[Goal] | None
+    # tasks: list[Task] | None
     status: GoalStatus | None
-    milestones: list[Milestone] | None
+    # milestones: list[Milestone] | None

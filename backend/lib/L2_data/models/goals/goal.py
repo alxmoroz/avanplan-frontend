@@ -12,9 +12,10 @@ class GoalStatus(StatusFields, TitledFields, BaseModel):
 
 class Goal(TitledFields, ImportableFields, BaseModel):
     parent_id = Column(Integer, ForeignKey("goals.id", ondelete="CASCADE"))
-    goals = relationship("Goal", cascade="all, delete")
 
     status_id = Column(Integer, ForeignKey("goalstatuss.id"))
+    status = relationship("GoalStatus")
 
-    tasks = relationship("Task", back_populates="goal", cascade="all, delete")
-    milestones = relationship("Milestone", back_populates="goal", cascade="all, delete")
+    # goals = relationship("Goal", cascade="all, delete", remote_side="Goal.parent_id")
+    # tasks = relationship("Task", cascade="all, delete")
+    # milestones = relationship("Milestone", cascade="all, delete")

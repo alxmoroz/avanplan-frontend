@@ -13,9 +13,7 @@ class MilestoneStatus(StatusFields, TitledFields, BaseModel):
 class Milestone(TitledFields, ImportableFields, TimeBoundFields, BaseModel):
 
     goal_id = Column(Integer, ForeignKey("goals.id", ondelete="CASCADE"), nullable=False)
-    goal = relationship("Goal", back_populates="milestones")
+    goal = relationship("Goal")
 
     status_id = Column(Integer, ForeignKey("milestonestatuss.id"))
     status = relationship("MilestoneStatus")
-
-    tasks = relationship("Task", back_populates="milestone")

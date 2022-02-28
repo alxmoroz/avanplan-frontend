@@ -8,10 +8,8 @@ class GoalsUC:
     def __init__(
         self,
         goal_repo: AbstractDBRepo,
-        task_repo: AbstractDBRepo,
     ):
         self.goal_repo = goal_repo
-        self.task_repo = task_repo
 
     def get_goals(self) -> list[Goal]:
         return self.goal_repo.get()

@@ -20,6 +20,7 @@ class Importable(BaseEntity):
 
     imported_on: datetime | None
     remote_code: str | None
+    # TODO: можно сделать приватным, если делать проверку getattr потом при обращении.
     remote_parent_id: int | None
 
 
@@ -42,6 +43,10 @@ class Statusable(BaseEntity):
 
 
 class BaseGoal(Titled, Importable):
+    __abstract__ = True
+
+
+class BaseMilestone(Titled, Importable, TimeBound):
     __abstract__ = True
 
 

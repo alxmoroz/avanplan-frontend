@@ -8,10 +8,6 @@ from pydantic import BaseModel as PydanticModel
 class BaseEntity(PydanticModel):
     __abstract__ = True
 
-    class Config:
-        validate_assignment = True
-        # underscore_attrs_are_private = True
-
 
 # TODO: перенести на Л2 - это общий класс для схем записи в БД
 
@@ -23,4 +19,3 @@ class DBPersistEntity(BaseEntity):
 
     class Config:
         orm_mode = True
-        underscore_attrs_are_private = True

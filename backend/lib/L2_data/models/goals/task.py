@@ -17,23 +17,24 @@ class TaskPriority(TitledFields, BaseModel):
 
 class Task(TitledFields, ImportableFields, TimeBoundFields, BaseModel):
     parent_id = Column(Integer, ForeignKey("tasks.id", ondelete="CASCADE"))
-    parent = relationship("Task", back_populates="tasks", remote_side="Task.id", foreign_keys=[parent_id])
-    tasks = relationship("Task", back_populates="parent", remote_side="Task.parent_id", cascade="all, delete")
+
+    # parent = relationship("Task", remote_side="Task.id")
+    # tasks = relationship("Task", remote_side="Task.parent_id")
 
     goal_id = Column(Integer, ForeignKey("goals.id", ondelete="CASCADE"), nullable=False)
-    goal = relationship("Goal", back_populates="tasks")
+    goal = relationship("Goal")
 
     milestone_id = Column(Integer, ForeignKey("milestones.id"))
-    milestone = relationship("Milestone", back_populates="tasks")
+    # milestone = relationship("Milestone", back_populates="tasks")
 
     status_id = Column(Integer, ForeignKey("taskstatuss.id"))
-    status = relationship("TaskStatus")
+    # status = relationship("TaskStatus")
 
     priority_id = Column(Integer, ForeignKey("taskprioritys.id"))
-    priority = relationship("TaskPriority")
+    # priority = relationship("TaskPriority")
 
     assignee_id = Column(Integer, ForeignKey("persons.id"))
-    assignee = relationship("Person", foreign_keys=[assignee_id])
+    # assignee = relationship("Person", foreign_keys=[assignee_id])
 
     author_id = Column(Integer, ForeignKey("persons.id"))
-    author = relationship("Person", foreign_keys=[author_id])
+    # author = relationship("Person", foreign_keys=[author_id])

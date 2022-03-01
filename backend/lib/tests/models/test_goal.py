@@ -32,7 +32,7 @@ def test_update(goal_repo, tmp_goal):
     title = tmp_goal.title = "title"
     description = tmp_goal.description = "description"
     remote_code = tmp_goal.remote_code = "remote_code"
-    imported_on = tmp_goal.imported_on = datetime.now()
+    updated_on = tmp_goal.updated_on = datetime.now()
 
     assert goal_repo.update(tmp_goal) == 1
 
@@ -41,7 +41,7 @@ def test_update(goal_repo, tmp_goal):
     assert obj_out.title == title
     assert obj_out.description == description
     assert obj_out.remote_code == remote_code
-    assert obj_out.imported_on == imported_on
+    assert obj_out.updated_on == updated_on
 
 
 def test_upsert_delete(goal_repo):

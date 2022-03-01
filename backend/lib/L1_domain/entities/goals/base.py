@@ -1,6 +1,6 @@
 #  Copyright (c) 2022. Alexandr Moroz
-
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
+from typing import Optional
 
 from pydantic import validator
 
@@ -8,37 +8,36 @@ from ..base_entity import BaseEntity, DBPersistent
 
 
 class Titled(BaseEntity):
-    __abstract__ = True
-
     title: str
-    description: str | None
 
 
 class Importable(BaseEntity):
-    __abstract__ = True
-
-    imported_on: datetime | None
-    remote_code: str | None
+    remote_code: Optional[str]
 
 
-class TimeBound(BaseEntity):
-    __abstract__ = True
+class StatusablePersistent(Titled, DBPersistent):
+    closed: Optional[bool]
 
-    start_date: datetime | date | None
-    due_date: datetime | date | None
-
-
-class Statusable(BaseEntity):
-    __abstract__ = True
-
-    closed: bool | None
-
-    @classmethod
-    @validator("closed")
-    def closed_must_filled(cls, v):
+    @validator("closed", always=True)
+    def check_closed(cls, v):
         return v or False
 
 
-class BaseSmartPersistent(Titled, Importable, TimeBound, DBPersistent):
-    __abstract__ = True
+class SmartPersistent(Titled, Importable, DBPersistent):
     _remote_parent_id: int | None
+    description: Optional[str]
+    due_date: Optional[datetime | date]
+
+    @property
+    def planned_period(self) -> timedelta | None:
+        if self.due_date:
+            return self.due_date - self.created_on
+
+    @property
+    def past_period(self) -> timedelta:
+        return datetime.now() - self.created_on
+
+    @property
+    def left_period(self) -> timedelta | None:
+        if self.due_date:
+            return self.due_date - datetime.now()

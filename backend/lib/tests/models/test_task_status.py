@@ -13,7 +13,7 @@ def test_get_one(task_status_repo, tmp_task_status):
     assert tmp_task_status == obj_out
 
 
-def test_get(task_status_repo, tmp_task_status):
+def test_get_create(task_status_repo, tmp_task_status):
 
     t2 = task_status_repo.create(TaskStatus(title="test_get"))
 
@@ -28,21 +28,14 @@ def test_get(task_status_repo, tmp_task_status):
     assert task_status_repo.delete(t2) == 1
 
 
-def test_create(task_status_repo, tmp_task_status):
-    obj_out = task_status_repo.get_one(id=tmp_task_status.id)
-    assert tmp_task_status == obj_out
-
-
 def test_update(task_status_repo, tmp_task_status):
     title = tmp_task_status.title = "title"
-    description = tmp_task_status.description = "description"
     closed = tmp_task_status.closed = True
     assert task_status_repo.update(tmp_task_status) == 1
 
     obj_out = task_status_repo.get_one(id=tmp_task_status.id)
     assert tmp_task_status == obj_out
     assert obj_out.title == title
-    assert obj_out.description == description
     assert obj_out.closed == closed
 
 
@@ -55,7 +48,7 @@ def test_upsert_delete(task_status_repo):
     assert task_status_repo.upsert(task_status) == task_status
 
     # update
-    task_status.description = "description"
+    task_status.title = "test_upsert_delete_edit"
     assert task_status_repo.upsert(task_status) == task_status
 
     # delete
@@ -69,6 +62,6 @@ def task_status_repo(db) -> TaskStatusRepo:
 
 @pytest.fixture(scope="module")
 def tmp_task_status(task_status_repo) -> TaskStatus:
-    task_status = task_status_repo.upsert(TaskStatus(title="tmp_task_status"))
-    yield task_status
-    task_status_repo.delete(task_status)
+    ts = task_status_repo.upsert(TaskStatus(title="tmp_task_status"))
+    yield ts
+    task_status_repo.delete(ts)

@@ -1,6 +1,5 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-
 import pytest
 from sqlalchemy import column
 
@@ -15,8 +14,7 @@ def test_get_one(goal_status_repo, tmp_goal_status):
 
 def test_get_create(goal_status_repo, tmp_goal_status):
 
-    obj2 = goal_status_repo.create(GoalStatus(title="test_get"))
-
+    obj2: GoalStatus = goal_status_repo.create(GoalStatus(title="test_get", created_on=tmp_goal_status.created_on))
     objects = goal_status_repo.get(
         limit=2,
         where=column("id").in_([tmp_goal_status.id, obj2.id]),
@@ -30,14 +28,12 @@ def test_get_create(goal_status_repo, tmp_goal_status):
 
 def test_update(goal_status_repo, tmp_goal_status):
     title = tmp_goal_status.title = "title"
-    description = tmp_goal_status.description = "description"
     closed = tmp_goal_status.closed = True
     assert goal_status_repo.update(tmp_goal_status) == 1
 
     obj_out = goal_status_repo.get_one(id=tmp_goal_status.id)
     assert tmp_goal_status == obj_out
     assert obj_out.title == title
-    assert obj_out.description == description
     assert obj_out.closed == closed
 
 
@@ -50,7 +46,7 @@ def test_upsert_delete(goal_status_repo):
     assert goal_status_repo.upsert(goal_status) == goal_status
 
     # update
-    goal_status.description = "description"
+    goal_status.title = "test_upsert_delete_edit"
     assert goal_status_repo.upsert(goal_status) == goal_status
 
     # delete

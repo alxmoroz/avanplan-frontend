@@ -1,14 +1,12 @@
 #  Copyright (c) 2022. Alexandr Moroz
-from ..base_entity import DBPersistent
-from .base import BaseSmartPersistent, Statusable, Titled
+from typing import Optional
+
+from .base import SmartPersistent
 from .goal import Goal
+from .milestone_status import MilestoneStatus
 
 
-class MilestoneStatus(Titled, Statusable, DBPersistent):
-    pass
-
-
-class Milestone(BaseSmartPersistent):
+class Milestone(SmartPersistent):
 
     goal: Goal | None
-    status: MilestoneStatus | None
+    status: Optional[MilestoneStatus]

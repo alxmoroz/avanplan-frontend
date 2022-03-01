@@ -1,18 +1,18 @@
 #  Copyright (c) 2022. Alexandr Moroz
 from __future__ import annotations
 
-from ..base_entity import DBPersistent
-from .base import BaseSmartPersistent, Statusable, Titled
+from typing import Optional
+
+from .base import SmartPersistent
+from .goal_status import GoalStatus
 
 
-class GoalStatus(Titled, Statusable, DBPersistent):
-    pass
+class Goal(SmartPersistent):
 
-
-class Goal(BaseSmartPersistent):
-
-    parent: Goal | None
-    # goals: list[Goal] | None
-    # tasks: list[Task] | None
-    status: GoalStatus | None
-    # milestones: list[Milestone] | None
+    parent: Optional[Goal]
+    # goals: Optional[list[Goal]]
+    # tasks: Optional[list[Task]]
+    status: Optional[GoalStatus]
+    # milestones: Optional[list[Milestone]]
+    plan_speed: Optional[float]
+    fact_speed: Optional[float]

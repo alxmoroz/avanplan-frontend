@@ -1,56 +1,60 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from contextlib import contextmanager
-from typing import Generator
 
 import pytest
 from sqlalchemy import column
 
 from lib.L1_domain.entities.goals import TaskPriority
 from lib.L2_data.repositories import TaskPriorityRepo
-from lib.tests.utils import random_lower_string
 
 
-def test_get_obj(task_priority_repo):
-    with tmp_object(task_priority_repo) as obj:
-        obj_out = task_priority_repo.get_one(id=obj.id)
-        assert obj == obj_out
+def test_get_one(task_priority_repo, tmp_task_priority):
+    obj_out = task_priority_repo.get_one(id=tmp_task_priority.id)
+    assert tmp_task_priority == obj_out
 
 
-def test_get_objects(task_priority_repo):
-    with tmp_object(task_priority_repo) as o1, tmp_object(task_priority_repo) as o2:
-        objects = task_priority_repo.get(
-            limit=2,
-            where=column("id").in_([o1.id, o2.id]),
-        )
-        assert o1 in objects
-        assert o2 in objects
-        assert len(objects) == 2
+def test_get_create(task_priority_repo, tmp_task_priority):
+
+    obj2 = task_priority_repo.create(TaskPriority(title="test_get"))
+    assert obj2
+
+    objects = task_priority_repo.get(
+        limit=2,
+        where=column("id").in_([tmp_task_priority.id, obj2.id]),
+    )
+    assert tmp_task_priority in objects
+    assert obj2 in objects
+    assert len(objects) == 2
+
+    assert task_priority_repo.delete(obj2) == 1
 
 
-def test_create_object(task_priority_repo):
-    with tmp_object(task_priority_repo) as obj:
-        obj_out = task_priority_repo.get_one(id=obj.id)
-        assert obj == obj_out
+def test_update(task_priority_repo, tmp_task_priority):
+
+    title = tmp_task_priority.title = "title"
+    order = tmp_task_priority.order = 2
+    assert task_priority_repo.update(tmp_task_priority) == 1
+
+    obj_out = task_priority_repo.get_one(id=tmp_task_priority.id)
+    assert tmp_task_priority == obj_out
+    assert obj_out.title == title
+    assert obj_out.order == order
 
 
-def test_update_object(task_priority_repo):
-    with tmp_object(task_priority_repo) as obj_in:
-        title = obj_in.title = "title"
-        description = obj_in.description = "description"
-        order = obj_in.order = 2
-        assert task_priority_repo.update(obj_in) == 1
+def test_upsert_delete(task_priority_repo):
+    # create
+    tp = TaskPriority(title="test_upsert_delete")
+    obj_out = task_priority_repo.upsert(tp)
+    # TODO: Если убрать айдишники под капот (в Л2, в схемы в репах), то тут их не будет
+    tp.id = obj_out.id
+    assert task_priority_repo.upsert(tp) == tp
 
-        obj_out = task_priority_repo.get_one(id=obj_in.id)
-        assert obj_in == obj_out
-        assert obj_out.title == title
-        assert obj_out.description == description
-        assert obj_out.order == order
+    # update
+    tp.title = "test_upsert_delete_edit"
+    assert task_priority_repo.upsert(tp) == tp
 
-
-def test_delete_object(task_priority_repo):
-    with tmp_object(task_priority_repo) as obj:
-        assert task_priority_repo.delete(obj) == 1
+    # delete
+    assert task_priority_repo.delete(tp) == 1
 
 
 @pytest.fixture(scope="module")
@@ -58,12 +62,8 @@ def task_priority_repo(db) -> TaskPriorityRepo:
     yield TaskPriorityRepo(db)
 
 
-@contextmanager
-def tmp_object(task_priority_repo) -> Generator:
-    task_status: TaskPriority | None = None
-    try:
-        ts = TaskPriority(title=random_lower_string())
-        task_status = task_priority_repo.create(ts)
-        yield task_status
-    finally:
-        task_priority_repo.delete(task_status)
+@pytest.fixture(scope="module")
+def tmp_task_priority(task_priority_repo) -> TaskPriority:
+    tp = task_priority_repo.upsert(TaskPriority(title="tmp_task_priority"))
+    yield tp
+    task_priority_repo.delete(tp)

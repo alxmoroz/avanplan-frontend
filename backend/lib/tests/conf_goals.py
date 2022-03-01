@@ -38,6 +38,6 @@ def person_repo(db) -> PersonRepo:
 
 @pytest.fixture(scope="module")
 def tmp_person(person_repo) -> Person:
-    person = person_repo.upsert(Person())
+    person = person_repo.upsert(Person(firstname="tmp_person"))
     yield person
     person_repo.delete(person)

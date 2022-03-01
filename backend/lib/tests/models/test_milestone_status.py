@@ -30,14 +30,12 @@ def test_get_create(milestone_status_repo, tmp_milestone_status):
 
 def test_update(milestone_status_repo, tmp_milestone_status):
     title = tmp_milestone_status.title = "title"
-    description = tmp_milestone_status.description = "description"
     closed = tmp_milestone_status.closed = True
     assert milestone_status_repo.update(tmp_milestone_status) == 1
 
     obj_out = milestone_status_repo.get_one(id=tmp_milestone_status.id)
     assert tmp_milestone_status == obj_out
     assert obj_out.title == title
-    assert obj_out.description == description
     assert obj_out.closed == closed
 
 
@@ -50,7 +48,7 @@ def test_upsert_delete(milestone_status_repo):
     assert milestone_status_repo.upsert(ms) == ms
 
     # update
-    ms.description = "description"
+    ms.title = "test_upsert_delete_edit"
     assert milestone_status_repo.upsert(ms) == ms
 
     # delete

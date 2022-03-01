@@ -2,33 +2,29 @@
 
 from __future__ import annotations
 
-from ..base_entity import DBPersistent
-from .base import BaseSmartPersistent, Statusable, Titled
+from typing import Optional
+
+from .base import SmartPersistent
 from .goal import Goal
 from .milestone import Milestone
 from .person import Person
-
-
-class TaskStatus(Titled, Statusable, DBPersistent):
-    pass
-
-
-class TaskPriority(Titled, DBPersistent):
-    def __init__(self, order=0, **kwargs):
-        super().__init__(order=order, **kwargs)
-
-    order: int
-
+from .task_priority import TaskPriority
+from .task_status import TaskStatus
 
 # TODO: в таком виде больше подходит для внутреннего использования. Отдавать в апи — много дублирования будет.
 
 
-class Task(BaseSmartPersistent):
+class Task(SmartPersistent):
     # tasks: list[Task] | None
-    parent: Task | None
-    goal: Goal | None
-    milestone: Milestone | None
-    status: TaskStatus | None
-    priority: TaskPriority | None
-    assignee: Person | None
-    author: Person | None
+    goal_id: Optional[int]
+    parent: Optional[Task]
+    goal: Optional[Goal]
+    milestone: Optional[Milestone]
+    status: Optional[TaskStatus]
+    priority: Optional[TaskPriority]
+    assignee: Optional[Person]
+    author: Optional[Person]
+
+    @property
+    def closed(self):
+        return self.status.closed

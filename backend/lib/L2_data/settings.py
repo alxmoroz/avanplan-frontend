@@ -18,7 +18,7 @@ class Settings(BaseSettings):
     SQLALCHEMY_DATABASE_URI: PostgresDsn | None
 
     @validator("SQLALCHEMY_DATABASE_URI", pre=True)
-    def assemble_db_connection(cls, v: str | None, values: dict[str, any]):  # noqa
+    def assemble_db_connection(cls, v, values: dict[str, any]):
         return PostgresDsn.build(
             scheme="postgresql",
             user=values.get("POSTGRES_USER"),

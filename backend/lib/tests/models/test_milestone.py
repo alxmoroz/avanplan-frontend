@@ -32,8 +32,7 @@ def test_update(milestone_repo, tmp_milestone):
     title = tmp_milestone.title = "title"
     description = tmp_milestone.description = "description"
     remote_code = tmp_milestone.remote_code = "remote_code"
-    imported_on = tmp_milestone.imported_on = datetime.now()
-    start_date = tmp_milestone.start_date = datetime.now()
+    updated_on = tmp_milestone.updated_on = datetime.now()
     due_date = tmp_milestone.due_date = datetime.now()
     assert milestone_repo.update(tmp_milestone) == 1
 
@@ -42,8 +41,7 @@ def test_update(milestone_repo, tmp_milestone):
     assert obj_out.title == title
     assert obj_out.description == description
     assert obj_out.remote_code == remote_code
-    assert obj_out.imported_on == imported_on
-    assert obj_out.start_date == start_date
+    assert obj_out.updated_on == updated_on
     assert obj_out.due_date == due_date
 
 

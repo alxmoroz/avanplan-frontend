@@ -15,6 +15,7 @@ def test_get_goals(client: TestClient, auth_headers_test_user, tmp_goal):
     assert r.status_code == 200, r
     json_goals = r.json()
     goals_out = [Goal(**json_goal) for json_goal in json_goals]
+    tmp_goal.fact_speed = 0
     assert tmp_goal in goals_out
 
 

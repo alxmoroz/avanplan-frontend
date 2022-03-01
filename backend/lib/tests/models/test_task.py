@@ -30,8 +30,7 @@ def test_update(task_repo, tmp_task):
     title = tmp_task.title = "title"
     description = tmp_task.description = "description"
     remote_code = tmp_task.remote_code = "remote_code"
-    imported_on = tmp_task.imported_on = datetime.now()
-    start_date = tmp_task.start_date = datetime.now()
+    updated_on = tmp_task.updated_on = datetime.now()
     due_date = tmp_task.due_date = datetime.now()
     assert task_repo.update(tmp_task) == 1
 
@@ -40,8 +39,7 @@ def test_update(task_repo, tmp_task):
     assert obj_out.title == title
     assert obj_out.description == description
     assert obj_out.remote_code == remote_code
-    assert obj_out.imported_on == imported_on
-    assert obj_out.start_date == start_date
+    assert obj_out.updated_on == updated_on
     assert obj_out.due_date == due_date
 
 

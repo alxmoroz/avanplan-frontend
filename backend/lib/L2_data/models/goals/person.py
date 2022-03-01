@@ -2,9 +2,9 @@
 from sqlalchemy import Column, String
 
 from ..base_model import BaseModel
-from .base import ImportableFields
+from .base import Importable
 
 
-class Person(ImportableFields, BaseModel):
+class Person(Importable, BaseModel):
     firstname = Column(String)
     lastname = Column(String)

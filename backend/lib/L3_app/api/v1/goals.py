@@ -7,7 +7,7 @@ from lib.L1_domain.entities.goals import Goal
 from lib.L1_domain.usecases.goals_uc import GoalsUC
 from lib.L1_domain.usecases.users_uc import UsersUC
 from lib.L2_data.db import db_session
-from lib.L2_data.repositories.db.goals import GoalRepo
+from lib.L2_data.repositories.db.goals import GoalRepo, TaskRepo
 from lib.L3_app.api.v1.users import user_uc
 
 router = APIRouter(prefix="/goals")
@@ -18,7 +18,10 @@ def _goals_uc(
     db: Session = Depends(db_session),
 ) -> GoalsUC:
     uc.get_active_user()
-    return GoalsUC(goal_repo=GoalRepo(db))
+    return GoalsUC(
+        goal_repo=GoalRepo(db),
+        task_repo=TaskRepo(db),
+    )
 
 
 @router.get("/", response_model=list[Goal])

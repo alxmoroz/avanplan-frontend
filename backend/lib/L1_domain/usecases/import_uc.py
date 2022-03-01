@@ -2,7 +2,8 @@
 
 from ..entities.api import Msg
 from ..entities.base_entity import DBPersistent
-from ..entities.goals import Goal, Milestone, Person, Task, TaskPriority, TaskStatus
+from ..entities.goals import Goal, Milestone, Person, Task, TaskStatus
+from ..entities.goals.task_priority import TaskPriority
 from ..repositories import AbstractDBRepo, AbstractImportRepo
 
 

@@ -1,6 +1,6 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from sqlalchemy import Column, Integer
+from sqlalchemy import Column, DateTime, Integer
 from sqlalchemy.ext.declarative import as_declarative, declared_attr
 
 from lib.L1_domain.repositories import AbstractModel
@@ -11,6 +11,8 @@ class BaseModel(AbstractModel):
     __abstract__ = True
 
     id = Column(Integer, primary_key=True, index=True)
+    created_on = Column(DateTime, nullable=False)
+    updated_on = Column(DateTime)
 
     # Generate __tablename__ automatically
     @declared_attr

@@ -1,21 +1,11 @@
 #  Copyright (c) 2022. Alexandr Moroz
-from sqlalchemy import Column, ForeignKey, Integer, String
+from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.orm import relationship
 
-from ..base_model import BaseModel
-from .base import ImportableFields, StatusFields, TimeBoundFields, TitledFields
+from .base import SmartModel
 
 
-class TaskStatus(StatusFields, TitledFields, BaseModel):
-    pass
-
-
-class TaskPriority(TitledFields, BaseModel):
-    title = Column(String, unique=True)
-    order = Column(Integer)
-
-
-class Task(TitledFields, ImportableFields, TimeBoundFields, BaseModel):
+class Task(SmartModel):
     parent_id = Column(Integer, ForeignKey("tasks.id", ondelete="CASCADE"))
 
     # parent = relationship("Task", remote_side="Task.id")
@@ -28,10 +18,10 @@ class Task(TitledFields, ImportableFields, TimeBoundFields, BaseModel):
     # milestone = relationship("Milestone", back_populates="tasks")
 
     status_id = Column(Integer, ForeignKey("taskstatuss.id"))
-    # status = relationship("TaskStatus")
+    status = relationship("TaskStatus")
 
     priority_id = Column(Integer, ForeignKey("taskprioritys.id"))
-    # priority = relationship("TaskPriority")
+    priority = relationship("TaskPriority")
 
     assignee_id = Column(Integer, ForeignKey("persons.id"))
     # assignee = relationship("Person", foreign_keys=[assignee_id])

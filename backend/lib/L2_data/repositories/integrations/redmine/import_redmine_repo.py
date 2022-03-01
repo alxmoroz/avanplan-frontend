@@ -33,7 +33,7 @@ class ImportRedmineRepo(AbstractImportRepo):
                 firstname=user.firstname,
                 lastname=user.lastname,
                 remote_code=user.id,
-                imported_on=datetime.now(),
+                updated_on=datetime.now(),
             )
             for user in self.redmine.user.all()
         }
@@ -54,7 +54,7 @@ class ImportRedmineRepo(AbstractImportRepo):
                 title=version.name,
                 description=version.description,
                 remote_code=f"{version.id}",
-                imported_on=datetime.now(),
+                updated_on=datetime.now(),
                 due_date=getattr(version, "due_date", None),
                 goal=self.goals_map[r_project.id],
             )
@@ -76,7 +76,7 @@ class ImportRedmineRepo(AbstractImportRepo):
             goal = Goal(
                 title=r_project.name,
                 description=r_project.description,
-                imported_on=datetime.now(),
+                updated_on=datetime.now(),
                 remote_code=f"{r_project.id}",
             )
             parent_project = getattr(r_project, "parent", None)
@@ -111,9 +111,9 @@ class ImportRedmineRepo(AbstractImportRepo):
                     task = Task(
                         title=issue.subject,
                         description=issue.description,
-                        start_date=getattr(issue, "start_date", None),
+                        # start_date=getattr(issue, "start_date", None),
                         due_date=getattr(issue, "due_date", None),
-                        imported_on=datetime.now(),
+                        updated_on=datetime.now(),
                         remote_code=f"{issue.id}",
                         goal=goal,
                         milestone=milestones[version.id] if version else None,

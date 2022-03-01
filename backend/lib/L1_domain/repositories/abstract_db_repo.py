@@ -6,7 +6,7 @@ from ..entities.base_entity import DBPersistent
 
 
 class AbstractModel:
-    __abstract__ = True
+    pass
 
 
 E = TypeVar("E", bound=DBPersistent)

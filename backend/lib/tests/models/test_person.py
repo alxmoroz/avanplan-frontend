@@ -14,7 +14,7 @@ def test_get_one(person_repo, tmp_person):
 
 def test_get_create(person_repo, tmp_person):
 
-    obj2 = person_repo.create(Person())
+    obj2 = person_repo.create(Person(firstname="2"))
 
     objects = person_repo.get(
         limit=2,
@@ -32,7 +32,7 @@ def test_update(person_repo, tmp_person):
     firstname = tmp_person.firstname = "firstname"
     lastname = tmp_person.lastname = "lastname"
     remote_code = tmp_person.remote_code = "remote_code"
-    imported_on = tmp_person.imported_on = datetime.now()
+    updated_on = tmp_person.updated_on = datetime.now()
     assert person_repo.update(tmp_person) == 1
 
     obj_out = person_repo.get_one(id=tmp_person.id)
@@ -40,12 +40,12 @@ def test_update(person_repo, tmp_person):
     assert obj_out.firstname == firstname
     assert obj_out.lastname == lastname
     assert obj_out.remote_code == remote_code
-    assert obj_out.imported_on == imported_on
+    assert obj_out.updated_on == updated_on
 
 
 def test_upsert_delete(person_repo):
     # create
-    person = Person()
+    person = Person(firstname="person")
     obj_out = person_repo.upsert(person)
     # TODO: Если убрать айдишники под капот (в Л2, в схемы в репах), то тут их не будет
     person.id = obj_out.id

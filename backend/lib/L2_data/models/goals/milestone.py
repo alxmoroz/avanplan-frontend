@@ -2,15 +2,10 @@
 from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.orm import relationship
 
-from ..base_model import BaseModel
-from .base import ImportableFields, StatusFields, TimeBoundFields, TitledFields
+from .base import SmartModel
 
 
-class MilestoneStatus(StatusFields, TitledFields, BaseModel):
-    pass
-
-
-class Milestone(TitledFields, ImportableFields, TimeBoundFields, BaseModel):
+class Milestone(SmartModel):
 
     goal_id = Column(Integer, ForeignKey("goals.id", ondelete="CASCADE"), nullable=False)
     goal = relationship("Goal")

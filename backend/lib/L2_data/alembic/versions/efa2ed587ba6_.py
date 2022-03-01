@@ -1,15 +1,15 @@
 """empty message
 
-Revision ID: 3902c9bdb913
+Revision ID: efa2ed587ba6
 Revises: 
-Create Date: 2022-02-28 07:00:50.643734
+Create Date: 2022-03-01 05:26:45.222439
 
 """
 import sqlalchemy as sa
 from alembic import op
 
 # revision identifiers, used by Alembic.
-revision = "3902c9bdb913"
+revision = "efa2ed587ba6"
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -20,7 +20,8 @@ def upgrade():
     op.create_table(
         "goalstatuss",
         sa.Column("id", sa.Integer(), nullable=False),
-        sa.Column("description", sa.String(), nullable=True),
+        sa.Column("created_on", sa.DateTime(), nullable=False),
+        sa.Column("updated_on", sa.DateTime(), nullable=True),
         sa.Column("title", sa.String(), nullable=True),
         sa.Column("closed", sa.Boolean(), nullable=True),
         sa.PrimaryKeyConstraint("id"),
@@ -30,7 +31,8 @@ def upgrade():
     op.create_table(
         "milestonestatuss",
         sa.Column("id", sa.Integer(), nullable=False),
-        sa.Column("description", sa.String(), nullable=True),
+        sa.Column("created_on", sa.DateTime(), nullable=False),
+        sa.Column("updated_on", sa.DateTime(), nullable=True),
         sa.Column("title", sa.String(), nullable=True),
         sa.Column("closed", sa.Boolean(), nullable=True),
         sa.PrimaryKeyConstraint("id"),
@@ -40,8 +42,9 @@ def upgrade():
     op.create_table(
         "persons",
         sa.Column("id", sa.Integer(), nullable=False),
+        sa.Column("created_on", sa.DateTime(), nullable=False),
+        sa.Column("updated_on", sa.DateTime(), nullable=True),
         sa.Column("remote_code", sa.String(), nullable=True),
-        sa.Column("imported_on", sa.DateTime(), nullable=True),
         sa.Column("firstname", sa.String(), nullable=True),
         sa.Column("lastname", sa.String(), nullable=True),
         sa.PrimaryKeyConstraint("id"),
@@ -50,7 +53,8 @@ def upgrade():
     op.create_table(
         "taskprioritys",
         sa.Column("id", sa.Integer(), nullable=False),
-        sa.Column("description", sa.String(), nullable=True),
+        sa.Column("created_on", sa.DateTime(), nullable=False),
+        sa.Column("updated_on", sa.DateTime(), nullable=True),
         sa.Column("title", sa.String(), nullable=True),
         sa.Column("order", sa.Integer(), nullable=True),
         sa.PrimaryKeyConstraint("id"),
@@ -60,7 +64,8 @@ def upgrade():
     op.create_table(
         "taskstatuss",
         sa.Column("id", sa.Integer(), nullable=False),
-        sa.Column("description", sa.String(), nullable=True),
+        sa.Column("created_on", sa.DateTime(), nullable=False),
+        sa.Column("updated_on", sa.DateTime(), nullable=True),
         sa.Column("title", sa.String(), nullable=True),
         sa.Column("closed", sa.Boolean(), nullable=True),
         sa.PrimaryKeyConstraint("id"),
@@ -70,6 +75,8 @@ def upgrade():
     op.create_table(
         "users",
         sa.Column("id", sa.Integer(), nullable=False),
+        sa.Column("created_on", sa.DateTime(), nullable=False),
+        sa.Column("updated_on", sa.DateTime(), nullable=True),
         sa.Column("full_name", sa.String(), nullable=True),
         sa.Column("email", sa.String(), nullable=False),
         sa.Column("password", sa.String(), nullable=False),
@@ -83,11 +90,11 @@ def upgrade():
     op.create_table(
         "goals",
         sa.Column("id", sa.Integer(), nullable=False),
-        sa.Column("title", sa.String(), nullable=True),
-        sa.Column("description", sa.String(), nullable=True),
+        sa.Column("created_on", sa.DateTime(), nullable=False),
+        sa.Column("updated_on", sa.DateTime(), nullable=True),
         sa.Column("remote_code", sa.String(), nullable=True),
-        sa.Column("imported_on", sa.DateTime(), nullable=True),
-        sa.Column("start_date", sa.DateTime(), nullable=True),
+        sa.Column("title", sa.String(), nullable=False),
+        sa.Column("description", sa.String(), nullable=True),
         sa.Column("due_date", sa.DateTime(), nullable=True),
         sa.Column("parent_id", sa.Integer(), nullable=True),
         sa.Column("status_id", sa.Integer(), nullable=True),
@@ -102,11 +109,11 @@ def upgrade():
     op.create_table(
         "milestones",
         sa.Column("id", sa.Integer(), nullable=False),
-        sa.Column("title", sa.String(), nullable=True),
-        sa.Column("description", sa.String(), nullable=True),
+        sa.Column("created_on", sa.DateTime(), nullable=False),
+        sa.Column("updated_on", sa.DateTime(), nullable=True),
         sa.Column("remote_code", sa.String(), nullable=True),
-        sa.Column("imported_on", sa.DateTime(), nullable=True),
-        sa.Column("start_date", sa.DateTime(), nullable=True),
+        sa.Column("title", sa.String(), nullable=False),
+        sa.Column("description", sa.String(), nullable=True),
         sa.Column("due_date", sa.DateTime(), nullable=True),
         sa.Column("goal_id", sa.Integer(), nullable=False),
         sa.Column("status_id", sa.Integer(), nullable=True),
@@ -121,11 +128,11 @@ def upgrade():
     op.create_table(
         "tasks",
         sa.Column("id", sa.Integer(), nullable=False),
-        sa.Column("title", sa.String(), nullable=True),
-        sa.Column("description", sa.String(), nullable=True),
+        sa.Column("created_on", sa.DateTime(), nullable=False),
+        sa.Column("updated_on", sa.DateTime(), nullable=True),
         sa.Column("remote_code", sa.String(), nullable=True),
-        sa.Column("imported_on", sa.DateTime(), nullable=True),
-        sa.Column("start_date", sa.DateTime(), nullable=True),
+        sa.Column("title", sa.String(), nullable=False),
+        sa.Column("description", sa.String(), nullable=True),
         sa.Column("due_date", sa.DateTime(), nullable=True),
         sa.Column("parent_id", sa.Integer(), nullable=True),
         sa.Column("goal_id", sa.Integer(), nullable=False),

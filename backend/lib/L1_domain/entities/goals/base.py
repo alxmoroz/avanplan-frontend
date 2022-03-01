@@ -36,8 +36,3 @@ class SmartPersistent(Titled, Importable, DBPersistent):
     @property
     def past_period(self) -> timedelta:
         return datetime.now() - self.created_on
-
-    @property
-    def left_period(self) -> timedelta | None:
-        if self.due_date:
-            return self.due_date - datetime.now()

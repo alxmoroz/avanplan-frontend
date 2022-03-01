@@ -23,7 +23,7 @@ def test_get_create(goal_status_repo, tmp_goal_status):
     assert obj2 in objects
     assert len(objects) == 2
 
-    assert goal_status_repo.delete(obj2) == 1
+    assert goal_status_repo.delete(obj2.id) == 1
 
 
 def test_update(goal_status_repo, tmp_goal_status):
@@ -50,7 +50,7 @@ def test_upsert_delete(goal_status_repo):
     assert goal_status_repo.upsert(goal_status) == goal_status
 
     # delete
-    assert goal_status_repo.delete(goal_status) == 1
+    assert goal_status_repo.delete(goal_status.id) == 1
 
 
 @pytest.fixture(scope="module")
@@ -62,4 +62,4 @@ def goal_status_repo(db) -> GoalStatusRepo:
 def tmp_goal_status(goal_status_repo) -> GoalStatus:
     goal_status = goal_status_repo.upsert(GoalStatus(title="tmp_goal_status"))
     yield goal_status
-    goal_status_repo.delete(goal_status)
+    goal_status_repo.delete(goal_status.id)

@@ -25,7 +25,7 @@ def test_get_create(task_status_repo, tmp_task_status):
     assert t2 in objects
     assert len(objects) == 2
 
-    assert task_status_repo.delete(t2) == 1
+    assert task_status_repo.delete(t2.id) == 1
 
 
 def test_update(task_status_repo, tmp_task_status):
@@ -52,7 +52,7 @@ def test_upsert_delete(task_status_repo):
     assert task_status_repo.upsert(task_status) == task_status
 
     # delete
-    assert task_status_repo.delete(task_status) == 1
+    assert task_status_repo.delete(task_status.id) == 1
 
 
 @pytest.fixture(scope="module")
@@ -64,4 +64,4 @@ def task_status_repo(db) -> TaskStatusRepo:
 def tmp_task_status(task_status_repo) -> TaskStatus:
     ts = task_status_repo.upsert(TaskStatus(title="tmp_task_status"))
     yield ts
-    task_status_repo.delete(ts)
+    task_status_repo.delete(ts.id)

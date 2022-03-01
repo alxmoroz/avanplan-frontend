@@ -26,7 +26,7 @@ def test_get_create(task_priority_repo, tmp_task_priority):
     assert obj2 in objects
     assert len(objects) == 2
 
-    assert task_priority_repo.delete(obj2) == 1
+    assert task_priority_repo.delete(obj2.id) == 1
 
 
 def test_update(task_priority_repo, tmp_task_priority):
@@ -54,7 +54,7 @@ def test_upsert_delete(task_priority_repo):
     assert task_priority_repo.upsert(tp) == tp
 
     # delete
-    assert task_priority_repo.delete(tp) == 1
+    assert task_priority_repo.delete(tp.id) == 1
 
 
 @pytest.fixture(scope="module")
@@ -66,4 +66,4 @@ def task_priority_repo(db) -> TaskPriorityRepo:
 def tmp_task_priority(task_priority_repo) -> TaskPriority:
     tp = task_priority_repo.upsert(TaskPriority(title="tmp_task_priority"))
     yield tp
-    task_priority_repo.delete(tp)
+    task_priority_repo.delete(tp.id)

@@ -56,4 +56,4 @@ def test_upsert_delete(task_repo, tmp_goal):
     assert task_repo.upsert(task) == task
 
     # delete
-    assert task_repo.delete(task) == 1
+    assert task_repo.delete(task.id) == 1

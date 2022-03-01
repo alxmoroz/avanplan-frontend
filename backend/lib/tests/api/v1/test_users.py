@@ -72,7 +72,7 @@ def test_create_user(client: TestClient, auth_headers_test_admin, user_repo):
     user_out = User(**r.json())
     user_out2 = user_repo.get_one(email=email)
     assert user_out and user_out2 and user_out == user_out2
-    user_repo.delete(user_out)
+    user_repo.delete(user_out.id)
 
 
 def test_create_user_existing_email(client: TestClient, auth_headers_test_admin, user_repo):

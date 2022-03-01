@@ -58,7 +58,7 @@ def test_upsert_delete(milestone_repo, tmp_goal):
     assert milestone_repo.upsert(m) == m
 
     # delete
-    assert milestone_repo.delete(m) == 1
+    assert milestone_repo.delete(m.id) == 1
 
 
 @pytest.fixture(scope="module")
@@ -70,4 +70,4 @@ def milestone_repo(db) -> MilestoneRepo:
 def tmp_milestone(milestone_repo, tmp_goal) -> Milestone:
     milestone = milestone_repo.upsert(Milestone(title="tmp_task_status", goal=tmp_goal))
     yield milestone
-    milestone_repo.delete(milestone)
+    milestone_repo.delete(milestone.id)

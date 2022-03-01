@@ -62,4 +62,4 @@ def tmp_object(
         )
         yield user
     finally:
-        repo.delete(user)
+        repo.delete(user.id)

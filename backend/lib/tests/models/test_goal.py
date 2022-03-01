@@ -24,7 +24,7 @@ def test_get_create(goal_repo, tmp_goal):
     assert obj2 in objects
     assert len(objects) == 2
 
-    assert goal_repo.delete(obj2) == 1
+    assert goal_repo.delete(obj2.id) == 1
 
 
 def test_update(goal_repo, tmp_goal):
@@ -57,4 +57,4 @@ def test_upsert_delete(goal_repo):
     assert goal_repo.upsert(goal) == goal
 
     # delete
-    assert goal_repo.delete(goal) == 1
+    assert goal_repo.delete(goal.id) == 1

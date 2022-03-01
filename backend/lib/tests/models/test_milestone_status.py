@@ -25,7 +25,7 @@ def test_get_create(milestone_status_repo, tmp_milestone_status):
     assert obj2 in objects
     assert len(objects) == 2
 
-    assert milestone_status_repo.delete(obj2) == 1
+    assert milestone_status_repo.delete(obj2.id) == 1
 
 
 def test_update(milestone_status_repo, tmp_milestone_status):
@@ -52,7 +52,7 @@ def test_upsert_delete(milestone_status_repo):
     assert milestone_status_repo.upsert(ms) == ms
 
     # delete
-    assert milestone_status_repo.delete(ms) == 1
+    assert milestone_status_repo.delete(ms.id) == 1
 
 
 @pytest.fixture(scope="module")
@@ -64,4 +64,4 @@ def milestone_status_repo(db) -> MilestoneStatusRepo:
 def tmp_milestone_status(milestone_status_repo) -> MilestoneStatus:
     milestone_status = milestone_status_repo.upsert(MilestoneStatus(title="tmp_milestone_status"))
     yield milestone_status
-    milestone_status_repo.delete(milestone_status)
+    milestone_status_repo.delete(milestone_status.id)

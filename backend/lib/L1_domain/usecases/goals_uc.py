@@ -2,7 +2,7 @@
 from datetime import datetime, timedelta
 
 from ..entities.api.exceptions import ApiException
-from ..entities.goals import Goal, Task, SmartPersistent
+from ..entities.goals import Goal, SmartPersistent, Task
 from ..repositories import AbstractDBRepo
 
 

@@ -58,4 +58,4 @@ def test_upsert_delete(user_repo):
     assert user_repo.upsert(u) == u
 
     # delete
-    assert user_repo.delete(u) == 1
+    assert user_repo.delete(u.id) == 1

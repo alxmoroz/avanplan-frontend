@@ -3,12 +3,12 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from lib.L2_data.repositories.db.goals.goal_repo import GoalUpsertSchema
 from lib.L1_domain.entities.goals import Goal
 from lib.L1_domain.usecases.goals_uc import GoalsUC
 from lib.L1_domain.usecases.users_uc import UsersUC
 from lib.L2_data.db import db_session
 from lib.L2_data.repositories.db.goals import GoalRepo, TaskRepo
+from lib.L2_data.repositories.db.goals.goal_repo import GoalUpsertSchema
 from lib.L3_app.api.v1.users import user_uc
 
 router = APIRouter(prefix="/goals")

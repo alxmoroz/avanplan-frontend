@@ -3,6 +3,7 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
+from lib.L2_data.repositories.db.goals.goal_repo import GoalUpsertSchema
 from lib.L1_domain.entities.goals import Goal
 from lib.L1_domain.usecases.goals_uc import GoalsUC
 from lib.L1_domain.usecases.users_uc import UsersUC
@@ -25,12 +26,23 @@ def _goals_uc(
 
 
 @router.get("/", response_model=list[Goal])
-def goals(uc: GoalsUC = Depends(_goals_uc)) -> list[Goal]:
-
+def get_goals(uc: GoalsUC = Depends(_goals_uc)) -> list[Goal]:
     return uc.get_goals()
 
 
-# @router.get("/{goal_id}", response_model=Goal)
-# def goal(goal_id: int, uc: GoalsUC = Depends(_goals_uc)) -> Goal:
-#
-#     return uc.get_goal(goal_id=goal_id)
+@router.post("/", response_model=Goal, status_code=201)
+def upsert_goal(
+    goal: GoalUpsertSchema,
+    uc: GoalsUC = Depends(_goals_uc),
+) -> Goal:
+
+    return uc.upsert_goal(goal)
+
+
+@router.delete("/{id}")
+def delete_goal(
+    goal_id: int,
+    uc: GoalsUC = Depends(_goals_uc),
+) -> int:
+
+    return uc.delete_goal(goal_id)

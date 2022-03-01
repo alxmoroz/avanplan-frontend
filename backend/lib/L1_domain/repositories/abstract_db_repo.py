@@ -56,5 +56,5 @@ class AbstractDBRepo(Generic[M, E]):
             e = self.create(e)
         return e
 
-    def delete(self, e: E):
+    def delete(self, pid: int):
         raise NotImplementedError

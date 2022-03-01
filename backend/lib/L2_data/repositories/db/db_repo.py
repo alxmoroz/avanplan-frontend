@@ -57,8 +57,8 @@ class DBRepo(AbstractDBRepo[M, E]):
         self.db.commit()
         return affected_rows
 
-    def delete(self, e: E) -> int:
-        stmt = delete(self.model).where(self.model.id == e.id)
+    def delete(self, pid: int) -> int:
+        stmt = delete(self.model).where(self.model.id == pid)
         affected_rows = self.db.execute(stmt).rowcount
         self.db.commit()
         return affected_rows

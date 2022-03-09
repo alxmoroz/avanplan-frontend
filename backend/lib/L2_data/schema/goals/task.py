@@ -11,3 +11,5 @@ class TaskSchema(Smartable):
     priority_id: Optional[int]
     assignee_id: Optional[int]
     author_id: Optional[int]
+    # TODO: не получается из базы наполнить...
+    # status: Optional[TaskStatusSchema]

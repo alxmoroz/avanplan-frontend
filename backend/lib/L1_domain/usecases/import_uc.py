@@ -1,7 +1,9 @@
 #  Copyright (c) 2022. Alexandr Moroz
+
 from ..entities.api import Msg
-from ..entities.goals import Goal, Person, Task, TaskStatus
-from ..entities.goals.task_priority import TaskPriority
+from ..entities.goals import Person, Task, TaskPriority, TaskStatus
+from ..entities.goals.goal_import import GoalImport
+from ..entities.goals.task_import import TaskImport
 from ..repositories import AbstractDBRepo, AbstractImportRepo
 from ..repositories.abstract_db_repo import E
 
@@ -42,10 +44,13 @@ class ImportUC:
         **filter_by,
     ) -> E:
         if key not in processed_dict:
-            processed_dict[key] = repo.update(e)
+            e_in_db = repo.get_one(**filter_by)
+            s = repo.schema_from_entity(e)
+            s.id = e_in_db.id if e_in_db else None
+            processed_dict[key] = repo.update(s)
         return processed_dict[key]
 
-    def _upsert_goal(self, goal: Goal) -> Goal:
+    def _upsert_goal(self, goal: GoalImport) -> GoalImport:
         if goal:
             goal.parent = self._upsert_goal(goal.parent)
             return self._upsert_once(
@@ -67,7 +72,7 @@ class ImportUC:
     #             remote_code=milestone.remote_code,
     #         )
 
-    def _upsert_task(self, task: Task) -> Task:
+    def _upsert_task(self, task: TaskImport) -> Task:
         if task:
             task.goal = self._upsert_goal(task.goal)
             task.status = self._upsert_status(task.status)

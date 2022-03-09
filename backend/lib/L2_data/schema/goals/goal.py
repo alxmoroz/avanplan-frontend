@@ -6,4 +6,4 @@ from .smartable import Smartable
 
 class GoalSchema(Smartable):
     parent_id: Optional[int]
-    # status_id: int | None
+    status_id: Optional[int]

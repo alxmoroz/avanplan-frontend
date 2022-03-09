@@ -5,8 +5,10 @@ from datetime import datetime
 from redminelib import Redmine
 from redminelib import resources as R
 
-from lib.L1_domain.entities import Goal, Importable, Person, Task, TaskPriority, TaskStatus
+from lib.L1_domain.entities import Person, TaskPriority, TaskStatus
 from lib.L1_domain.entities.api.exceptions import ApiException
+from lib.L1_domain.entities.goals.goal_import import GoalImport
+from lib.L1_domain.entities.goals.task_import import TaskImport
 from lib.L1_domain.repositories import AbstractImportRepo
 
 
@@ -20,10 +22,10 @@ class ImportRedmineRepo(AbstractImportRepo):
         self.redmine = Redmine(host, key=api_key)
 
         self.cached_r_projects: list[R.Project] | None = None
-        self.goals_map: dict[int, Goal] = {}
+        self.goals_map: dict[int, GoalImport] = {}
 
     @staticmethod
-    def _set_parents(objects_map: dict[int, Importable]):
+    def _set_parents(objects_map: dict[int, [TaskImport | GoalImport]]):
         for obj in objects_map.values():
             obj.parent = objects_map.get(getattr(obj, "_remote_parent_id", None), None)
 
@@ -32,7 +34,7 @@ class ImportRedmineRepo(AbstractImportRepo):
             user.id: Person(
                 firstname=user.firstname,
                 lastname=user.lastname,
-                remote_code=user.id,
+                remote_code=f"{user.id}",
                 updated_on=datetime.now(),
             )
             for user in self.redmine.user.all()
@@ -68,12 +70,12 @@ class ImportRedmineRepo(AbstractImportRepo):
             self.cached_r_projects = self.redmine.project.all()
         return self.cached_r_projects
 
-    def get_goals(self) -> list[Goal]:
+    def get_goals(self) -> list[GoalImport]:
         self.goals_map = {}
         self.cached_r_projects = None
 
         for r_project in self._get_cached_r_projects():
-            goal = Goal(
+            goal = GoalImport(
                 title=r_project.name,
                 description=r_project.description,
                 updated_on=datetime.now(),
@@ -87,9 +89,9 @@ class ImportRedmineRepo(AbstractImportRepo):
 
         return list(self.goals_map.values())
 
-    def get_tasks_tree(self) -> list[Task]:
+    def get_tasks_tree(self) -> list[TaskImport]:
 
-        tasks: dict[int, Task] = {}
+        tasks: dict[int, TaskImport] = {}
 
         persons = self._get_persons()
         statuses = self._get_task_statuses()
@@ -108,14 +110,14 @@ class ImportRedmineRepo(AbstractImportRepo):
                     assignee = getattr(issue, "assigned_to", None)
                     # version = getattr(issue, "fixed_version", None)
 
-                    task = Task(
+                    task = TaskImport(
+                        goal=goal,
                         title=issue.subject,
                         description=issue.description,
                         # start_date=getattr(issue, "start_date", None),
                         due_date=getattr(issue, "due_date", None),
                         updated_on=datetime.now(),
                         remote_code=f"{issue.id}",
-                        goal=goal,
                         status=statuses[issue.status.id],
                         priority=TaskPriority(title=f"{issue.priority.name}", order=issue.priority.id),
                         assignee=persons[assignee.id] if assignee else None,

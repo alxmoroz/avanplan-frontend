@@ -26,15 +26,19 @@ class DBRepo(AbstractDBRepo[M, S, E]):
         super().__init__(model_class, schema_class, entity_class)
 
     @staticmethod
-    def encode_data(s: S) -> any:
+    def _encode_data(s: S) -> any:
         return jsonable_encoder(s)
 
-    def entity_from_schema(self, s: S) -> E:
-        return self.entity_class(**s.dict())
-
     def _entity_from_orm(self, db_obj: M) -> E:
-        schema_obj = self.schema_class.from_orm(db_obj)
+        schema_obj = self._schema_class.from_orm(db_obj)
         return self.entity_from_schema(schema_obj)
+
+    def schema_from_entity(self, e: E) -> S:
+        return self._schema_class(**jsonable_encoder(e))
+
+    # TODO: ?
+    def entity_from_schema(self, s: S) -> E:
+        return self._entity_class(**s.dict())
 
     def get(
         self,
@@ -45,7 +49,7 @@ class DBRepo(AbstractDBRepo[M, S, E]):
         **filter_by,
     ) -> list[E]:
 
-        model_class = self.model_class
+        model_class = self._model_class
         stmt = lambda_stmt(lambda: select(model_class))
 
         if where is not None:
@@ -59,8 +63,8 @@ class DBRepo(AbstractDBRepo[M, S, E]):
         return [self._entity_from_orm(db_obj) for db_obj in objects]
 
     def create(self, s: S) -> E:
-        data = self.encode_data(s)
-        db_obj = self.model_class(**data)
+        data = self._encode_data(s)
+        db_obj = self._model_class(**data)
 
         self.db.add(db_obj)
         self.db.commit()
@@ -69,14 +73,14 @@ class DBRepo(AbstractDBRepo[M, S, E]):
         return self._entity_from_orm(db_obj)
 
     def update(self, s: S) -> E:
-        data = self.encode_data(s)
-        obj = self.db.merge(self.model_class(**data))
+        data = self._encode_data(s)
+        obj = self.db.merge(self._model_class(**data))
         self.db.commit()
 
         return self._entity_from_orm(obj)
 
     def delete(self, pk_id: int) -> int:
-        stmt = delete(self.model_class).where(self.model_class.id == pk_id)
+        stmt = delete(self._model_class).where(self._model_class.id == pk_id)
         affected_rows = self.db.execute(stmt).rowcount
         if affected_rows:
             self.db.commit()

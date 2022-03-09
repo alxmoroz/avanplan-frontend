@@ -80,7 +80,7 @@ def test_create_user(client: TestClient, auth_headers_test_admin, user_repo: Use
     user_repo.delete(user_out.id)
 
 
-def test_create_user_existing_email(client: TestClient, auth_headers_test_admin, tmp_user: User, user_repo: UserRepo):
+def test_create_user_existing_email(client: TestClient, auth_headers_test_admin, tmp_user: User):
 
     data = {"email": tmp_user.email, "password": tmp_user.password}
     r = client.post(

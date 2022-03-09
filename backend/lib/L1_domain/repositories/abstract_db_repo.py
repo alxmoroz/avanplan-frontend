@@ -16,9 +16,9 @@ class AbstractDBRepo(Generic[M, S, E]):
         schema_class: Type[S],
         entity_class: Type[E],
     ):
-        self.model_class = model_class
-        self.schema_class = schema_class
-        self.entity_class = entity_class
+        self._model_class = model_class
+        self._schema_class = schema_class
+        self._entity_class = entity_class
 
     def get(
         self,
@@ -42,4 +42,7 @@ class AbstractDBRepo(Generic[M, S, E]):
         raise NotImplementedError
 
     def delete(self, pk_id: int) -> int:
+        raise NotImplementedError
+
+    def schema_from_entity(self, e: E) -> S:
         raise NotImplementedError

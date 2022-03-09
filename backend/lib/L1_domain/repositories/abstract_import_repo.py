@@ -1,6 +1,7 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from ..entities.goals import Goal, Task
+from ..entities.goals.goal_import import GoalImport
+from ..entities.goals.task_import import TaskImport
 
 
 class AbstractImportRepo:
@@ -8,9 +9,9 @@ class AbstractImportRepo:
     source: str
 
     @staticmethod
-    def get_goals() -> list[Goal]:
+    def get_goals() -> list[GoalImport]:
         raise NotImplementedError
 
     @staticmethod
-    def get_tasks_tree() -> list[Task]:
+    def get_tasks_tree() -> list[TaskImport]:
         raise NotImplementedError

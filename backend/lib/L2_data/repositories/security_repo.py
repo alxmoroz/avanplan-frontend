@@ -1,8 +1,6 @@
 #  Copyright (c) 2022. Alexandr Moroz
-
 from datetime import datetime, timedelta
 
-from fastapi.encoders import jsonable_encoder
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt
 from passlib.context import CryptContext
@@ -28,11 +26,11 @@ class SecurityRepo(AbstractSecurityRepo):
 
     @staticmethod
     def create_token(identifier: str) -> Token:
-        expire = datetime.utcnow() + timedelta(minutes=settings.AUTH_TOKEN_EXPIRATION_MINUTES)
-        tp: TokenPayload = TokenPayload(expire=expire, identifier=identifier)
+        expire = datetime.now() + timedelta(minutes=settings.AUTH_TOKEN_EXPIRATION_MINUTES)
+
         return Token(
             access_token=jwt.encode(
-                jsonable_encoder(tp),
+                dict(expire=expire.isoformat(), identifier=identifier),
                 settings.SECRET_KEY,
                 algorithm=jwt.ALGORITHMS.HS256,
             ),

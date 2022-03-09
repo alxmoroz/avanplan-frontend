@@ -1,10 +1,13 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
 from fastapi.testclient import TestClient
+from pydantic import EmailStr
 
+from lib.L1_domain.entities import User
+from lib.L2_data.repositories import UserRepo
+from lib.L2_data.schema import UserSchema
 from lib.L2_data.settings import settings
 from lib.L3_app.api.v1.auth import router
-from lib.tests.conf_user import tmp_object
 
 _auth_api_path = f"{settings.API_PATH}{router.prefix}"
 
@@ -14,38 +17,36 @@ _auth_api_path = f"{settings.API_PATH}{router.prefix}"
 #  данные тестовые записывать тоже по апи оттуда. На бэке достаточно держать только админа.
 
 
-def test_get_token(client: TestClient, user_repo):
-    password = "pass"
-    with tmp_object(user_repo, password=password) as user:
-        r = client.post(
-            f"{_auth_api_path}/token",
-            data={"username": user.email, "password": password},
-        )
-        tokens = r.json()
-        assert r.status_code == 200
-        assert "access_token" in tokens and tokens["access_token"]
+def test_get_token(client: TestClient, tmp_user):
+
+    r = client.post(
+        f"{_auth_api_path}/token",
+        data={"username": tmp_user.email, "password": "password"},
+    )
+    tokens = r.json()
+    assert r.status_code == 200
+    assert "access_token" in tokens and tokens["access_token"]
 
 
-def test_get_token_403(client: TestClient, user_repo):
-    password = "pass"
-    with tmp_object(user_repo, password=password, is_active=False) as user:
-        api_path = f"{_auth_api_path}/token"
-        r1 = client.post(
-            api_path,
-            data={"username": user.email, "password": "wrong_password"},
-        )
-        assert r1.json()["detail"] == "Incorrect username or password"
+def test_get_token_403(client: TestClient, tmp_user: User, user_repo: UserRepo):
+    api_path = f"{_auth_api_path}/token"
+    r1 = client.post(
+        api_path,
+        data={"username": tmp_user.email, "password": "wrong_password"},
+    )
+    assert r1.json()["detail"] == "Incorrect username or password"
 
-        r2 = client.post(
-            api_path,
-            data={"username": "user@email.com", "password": "wrong_password"},
-        )
-        assert r2.json()["detail"] == "Incorrect username or password"
+    r2 = client.post(
+        api_path,
+        data={"username": "user@email.com", "password": "wrong_password"},
+    )
+    assert r2.json()["detail"] == "Incorrect username or password"
 
-        r3 = client.post(
-            api_path,
-            data={"username": user.email, "password": password},
-        )
-        assert r3.json()["detail"] == "Inactive user"
+    user_repo.update(UserSchema(id=tmp_user.id, email=EmailStr(tmp_user.email), password=tmp_user.password, is_active=False))
+    r3 = client.post(
+        api_path,
+        data={"username": tmp_user.email, "password": "password"},
+    )
+    assert r3.json()["detail"] == "Inactive user"
 
-        assert r1.status_code == r2.status_code == r3.status_code == 403
+    assert r1.status_code == r2.status_code == r3.status_code == 403

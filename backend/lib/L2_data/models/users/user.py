@@ -2,13 +2,13 @@
 
 from sqlalchemy import Boolean, Column, String
 
-from ..base_model import BaseModel
+from ..base_model import BaseModel, Timestampable
 
 
-class User(BaseModel):
+class User(Timestampable, BaseModel):
 
-    full_name = Column(String, index=True)
     email = Column(String, unique=True, index=True, nullable=False)
     password = Column(String, nullable=False)
-    is_active = Column(Boolean(), default=True)
-    is_superuser = Column(Boolean(), default=False)
+    full_name = Column(String, index=True)
+    is_active = Column(Boolean())
+    is_superuser = Column(Boolean())

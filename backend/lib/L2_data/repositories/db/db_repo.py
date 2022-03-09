@@ -1,23 +1,40 @@
 #  Copyright (c) 2022. Alexandr Moroz
-from typing import Type
+from typing import Type, TypeVar
 
 from fastapi.encoders import jsonable_encoder
-from sqlalchemy import delete, lambda_stmt, select, update
+from pydantic import BaseModel as BaseSchemaModel
+from sqlalchemy import delete, lambda_stmt, select
 from sqlalchemy.orm import Session
 from sqlalchemy.sql.elements import BinaryExpression
 
-from lib.L1_domain.repositories import AbstractDBRepo, E, M
+from lib.L1_domain.repositories.abstract_db_repo import AbstractDBRepo, E
+from lib.L2_data.models import BaseModel as BaseDBModel
+
+M = TypeVar("M", bound=BaseDBModel)
+S = TypeVar("S", bound=BaseSchemaModel)
 
 
-class DBRepo(AbstractDBRepo[M, E]):
-    __abstract__ = True
-
-    def __init__(self, model: Type[M], entity: Type[E], db: Session):
+class DBRepo(AbstractDBRepo[M, S, E]):
+    def __init__(
+        self,
+        model_class: Type[M],
+        schema_class: Type[S],
+        entity_class: Type[E],
+        db: Session,
+    ):
         self.db = db
-        super().__init__(model, entity)
+        super().__init__(model_class, schema_class, entity_class)
 
-    def _prepare_upsert_data(self, e: E) -> any:
-        return jsonable_encoder(e)
+    @staticmethod
+    def encode_data(s: S) -> any:
+        return jsonable_encoder(s)
+
+    def entity_from_schema(self, s: S) -> E:
+        return self.entity_class(**s.dict())
+
+    def _entity_from_orm(self, db_obj: M) -> E:
+        schema_obj = self.schema_class.from_orm(db_obj)
+        return self.entity_from_schema(schema_obj)
 
     def get(
         self,
@@ -28,8 +45,8 @@ class DBRepo(AbstractDBRepo[M, E]):
         **filter_by,
     ) -> list[E]:
 
-        model = self.model
-        stmt = lambda_stmt(lambda: select(model))
+        model_class = self.model_class
+        stmt = lambda_stmt(lambda: select(model_class))
 
         if where is not None:
             stmt += lambda s: s.where(where)
@@ -39,26 +56,28 @@ class DBRepo(AbstractDBRepo[M, E]):
             stmt = stmt.limit(limit)
 
         objects = self.db.execute(stmt).scalars().all()
-        return [self.entity.from_orm(obj) for obj in objects]
+        return [self._entity_from_orm(db_obj) for db_obj in objects]
 
-    def create(self, e: E) -> E:
-        data = self._prepare_upsert_data(e)
-        model = self.model(**data)
+    def create(self, s: S) -> E:
+        data = self.encode_data(s)
+        db_obj = self.model_class(**data)
 
-        self.db.add(model)
+        self.db.add(db_obj)
         self.db.commit()
-        self.db.refresh(model)
-        return self.entity.from_orm(model)
+        self.db.refresh(db_obj)
 
-    def update(self, e: E) -> int:
-        data = self._prepare_upsert_data(e)
-        stmt = update(self.model).where(self.model.id == e.id).values(**data)
+        return self._entity_from_orm(db_obj)
+
+    def update(self, s: S) -> E:
+        data = self.encode_data(s)
+        obj = self.db.merge(self.model_class(**data))
+        self.db.commit()
+
+        return self._entity_from_orm(obj)
+
+    def delete(self, pk_id: int) -> int:
+        stmt = delete(self.model_class).where(self.model_class.id == pk_id)
         affected_rows = self.db.execute(stmt).rowcount
-        self.db.commit()
-        return affected_rows
-
-    def delete(self, pid: int) -> int:
-        stmt = delete(self.model).where(self.model.id == pid)
-        affected_rows = self.db.execute(stmt).rowcount
-        self.db.commit()
-        return affected_rows
+        if affected_rows:
+            self.db.commit()
+            return affected_rows

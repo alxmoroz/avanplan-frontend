@@ -1,7 +1,9 @@
 #  Copyright (c) 2022. Alexandr Moroz
+from dataclasses import dataclass
 
-from ..base_entity import BaseEntity
+# TODO: датаклассы может и не нужны?
 
 
-class Msg(BaseEntity):
+@dataclass
+class Msg:
     msg: str

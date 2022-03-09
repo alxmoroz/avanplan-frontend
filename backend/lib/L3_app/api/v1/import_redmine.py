@@ -8,7 +8,7 @@ from lib.L1_domain.entities.api import Msg
 from lib.L1_domain.usecases.import_uc import ImportUC
 from lib.L1_domain.usecases.users_uc import UsersUC
 from lib.L2_data.db import db_session
-from lib.L2_data.repositories.db import GoalRepo, MilestoneRepo, PersonRepo, TaskPriorityRepo, TaskRepo, TaskStatusRepo
+from lib.L2_data.repositories.db import GoalRepo, PersonRepo, TaskPriorityRepo, TaskRepo, TaskStatusRepo
 from lib.L2_data.repositories.integrations import ImportRedmineRepo
 from lib.L3_app.api.v1.users import user_uc
 
@@ -31,7 +31,6 @@ def _import_uc(
         task_status_repo=TaskStatusRepo(db),
         task_priority_repo=TaskPriorityRepo(db),
         person_repo=PersonRepo(db),
-        milestone_repo=MilestoneRepo(db),
     )
 
 

@@ -3,18 +3,19 @@
 import pytest
 from sqlalchemy import column
 
-from lib.L1_domain.entities.goals import GoalStatus
-from lib.L2_data.repositories.db.goals.goal_status_repo import GoalStatusRepo
+from lib.L1_domain.entities import GoalStatus
+from lib.L2_data.repositories import GoalStatusRepo
+from lib.L2_data.schema import GoalStatusSchema
 
 
-def test_get_one(goal_status_repo, tmp_goal_status):
+def test_get_one(goal_status_repo: GoalStatusRepo, tmp_goal_status):
     obj_out = goal_status_repo.get_one(id=tmp_goal_status.id)
     assert tmp_goal_status == obj_out
 
 
-def test_get_create(goal_status_repo, tmp_goal_status):
+def test_get_create(goal_status_repo: GoalStatusRepo, tmp_goal_status):
 
-    obj2: GoalStatus = goal_status_repo.create(GoalStatus(title="test_get", created_on=tmp_goal_status.created_on))
+    obj2: GoalStatus = goal_status_repo.create(GoalStatusSchema(title="test_get"))
     objects = goal_status_repo.get(
         limit=2,
         where=column("id").in_([tmp_goal_status.id, obj2.id]),
@@ -26,31 +27,33 @@ def test_get_create(goal_status_repo, tmp_goal_status):
     assert goal_status_repo.delete(obj2.id) == 1
 
 
-def test_update(goal_status_repo, tmp_goal_status):
-    title = tmp_goal_status.title = "title"
-    closed = tmp_goal_status.closed = True
-    assert goal_status_repo.update(tmp_goal_status) == 1
+def test_update(goal_status_repo: GoalStatusRepo, tmp_goal_status):
 
-    obj_out = goal_status_repo.get_one(id=tmp_goal_status.id)
-    assert tmp_goal_status == obj_out
-    assert obj_out.title == title
-    assert obj_out.closed == closed
+    s = GoalStatusSchema(
+        id=tmp_goal_status.id,
+        title="title",
+        closed=True,
+    )
+
+    obj_out = goal_status_repo.update(s)
+    test_obj_out = goal_status_repo.get_one(id=tmp_goal_status.id)
+
+    assert obj_out == test_obj_out
+    assert obj_out.title == s.title
+    assert obj_out.closed == s.closed
 
 
-def test_upsert_delete(goal_status_repo):
-    # create
+def test_upsert_delete(goal_status_repo: GoalStatusRepo):
+    # upsert
     goal_status = GoalStatus(title="test_upsert_delete")
-    obj_out = goal_status_repo.upsert(goal_status)
-    # TODO: Если убрать айдишники под капот (в Л2, в схемы в репах), то тут их не будет
-    goal_status.id = obj_out.id
-    assert goal_status_repo.upsert(goal_status) == goal_status
+    obj_out = goal_status_repo.update(GoalStatusSchema(title=goal_status.title))
+    test_obj_out = goal_status_repo.get_one(id=obj_out.id)
 
-    # update
-    goal_status.title = "test_upsert_delete_edit"
-    assert goal_status_repo.upsert(goal_status) == goal_status
+    assert obj_out == test_obj_out
+    assert goal_status.title == obj_out.title
 
     # delete
-    assert goal_status_repo.delete(goal_status.id) == 1
+    assert goal_status_repo.delete(obj_out.id) == 1
 
 
 @pytest.fixture(scope="module")
@@ -59,7 +62,7 @@ def goal_status_repo(db) -> GoalStatusRepo:
 
 
 @pytest.fixture(scope="module")
-def tmp_goal_status(goal_status_repo) -> GoalStatus:
-    goal_status = goal_status_repo.upsert(GoalStatus(title="tmp_goal_status"))
+def tmp_goal_status(goal_status_repo: GoalStatusRepo) -> GoalStatus:
+    goal_status = goal_status_repo.update(GoalStatusSchema(title="tmp_goal_status"))
     yield goal_status
     goal_status_repo.delete(goal_status.id)

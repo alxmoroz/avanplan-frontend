@@ -1,7 +1,7 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from .base import StatusableModel
+from ..base_model import BaseModel, Statusable, TitleableUnique
 
 
-class TaskStatus(StatusableModel):
+class TaskStatus(TitleableUnique, Statusable, BaseModel):
     pass

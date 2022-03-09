@@ -1,3 +1,3 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from .token import *
+from .token import Token, TokenPayload

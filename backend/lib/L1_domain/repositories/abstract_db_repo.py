@@ -2,26 +2,23 @@
 
 from typing import Generic, Type, TypeVar
 
-from ..entities.base_entity import DBPersistent
+from ..entities.base_entity import Identifiable
+
+M = TypeVar("M")
+S = TypeVar("S")
+E = TypeVar("E", bound=Identifiable)
 
 
-class AbstractModel:
-    pass
-
-
-E = TypeVar("E", bound=DBPersistent)
-M = TypeVar("M", bound=AbstractModel)
-
-
-class AbstractDBRepo(Generic[M, E]):
-    __abstract__ = True
-
-    def __init__(self, model: Type[M], entity: Type[E]):
-        self.model = model
-        self.entity = entity
-
-    def _prepare_upsert_data(self, e: E) -> any:
-        raise NotImplementedError
+class AbstractDBRepo(Generic[M, S, E]):
+    def __init__(
+        self,
+        model_class: Type[M],
+        schema_class: Type[S],
+        entity_class: Type[E],
+    ):
+        self.model_class = model_class
+        self.schema_class = schema_class
+        self.entity_class = entity_class
 
     def get(
         self,
@@ -38,23 +35,11 @@ class AbstractDBRepo(Generic[M, E]):
         objs = self.get(**filter_by)
         return objs[0] if len(objs) > 0 else None
 
-    def create(self, e: E) -> E:
+    def create(self, data: S) -> E:
         raise NotImplementedError
 
-    def update(self, e: E) -> int:
+    def update(self, data: S) -> E:
         raise NotImplementedError
 
-    def upsert(self, e: E, **filter_by) -> E:
-        if not filter_by:
-            filter_by = dict(id=e.id)
-
-        obj_in_db = self.get_one(**filter_by)
-        if obj_in_db:
-            e.id = obj_in_db.id
-            self.update(e)
-        else:
-            e = self.create(e)
-        return e
-
-    def delete(self, pid: int):
+    def delete(self, pk_id: int) -> int:
         raise NotImplementedError

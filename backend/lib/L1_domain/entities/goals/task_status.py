@@ -1,7 +1,10 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from .base import StatusablePersistent
+from dataclasses import dataclass
+
+from ..base_entity import Identifiable, Statusable, Titleable
 
 
-class TaskStatus(StatusablePersistent):
+@dataclass
+class TaskStatus(Identifiable, Titleable, Statusable):
     pass

@@ -1,18 +1,9 @@
 #  Copyright (c) 2022. Alexandr Moroz
+from dataclasses import dataclass
 
-from __future__ import annotations
-
-from typing import Optional
-
-from pydantic import validator
-
-from .base import DBPersistent, Titled
+from ..base_entity import Identifiable, Orderable, Titleable
 
 
-class TaskPriority(Titled, DBPersistent):
-
-    order: Optional[int]
-
-    @validator("order", always=True)
-    def check_order(cls, v):
-        return v or 0
+@dataclass
+class TaskPriority(Identifiable, Titleable, Orderable):
+    pass

@@ -2,4 +2,4 @@
 
 from .db_repo import DBRepo
 from .goals import *
-from .user_repo import *
+from .users import *

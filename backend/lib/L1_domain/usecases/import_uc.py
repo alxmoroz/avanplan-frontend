@@ -1,10 +1,9 @@
 #  Copyright (c) 2022. Alexandr Moroz
-
 from ..entities.api import Msg
-from ..entities.base_entity import DBPersistent
-from ..entities.goals import Goal, Milestone, Person, Task, TaskStatus
+from ..entities.goals import Goal, Person, Task, TaskStatus
 from ..entities.goals.task_priority import TaskPriority
 from ..repositories import AbstractDBRepo, AbstractImportRepo
+from ..repositories.abstract_db_repo import E
 
 
 # TODO: обработка ошибок
@@ -18,7 +17,6 @@ class ImportUC:
         task_status_repo: AbstractDBRepo,
         task_priority_repo: AbstractDBRepo,
         person_repo: AbstractDBRepo,
-        milestone_repo: AbstractDBRepo,
     ):
         self.import_repo = import_repo
         self.goal_repo = goal_repo
@@ -26,7 +24,6 @@ class ImportUC:
         self.task_status_repo = task_status_repo
         self.task_priority_repo = task_priority_repo
         self.person_repo = person_repo
-        self.milestone_repo = milestone_repo
 
     def _reset_processed(self):
         self.processed_goals = {}
@@ -34,22 +31,21 @@ class ImportUC:
         self.processed_task_statuses = {}
         self.processed_persons = {}
         self.processed_priorities = {}
-        self.processed_milestones = {}
 
     @classmethod
     def _upsert_once(
         cls,
-        e: DBPersistent,
+        e: E,
         key: str,
         processed_dict: dict,
         repo: AbstractDBRepo,
         **filter_by,
-    ) -> DBPersistent:
+    ) -> E:
         if key not in processed_dict:
-            processed_dict[key] = repo.upsert(e, **filter_by)
+            processed_dict[key] = repo.update(e)
         return processed_dict[key]
 
-    def _upsert_goal(self, goal: Goal) -> DBPersistent:
+    def _upsert_goal(self, goal: Goal) -> Goal:
         if goal:
             goal.parent = self._upsert_goal(goal.parent)
             return self._upsert_once(
@@ -60,21 +56,20 @@ class ImportUC:
                 remote_code=goal.remote_code,
             )
 
-    def _upsert_milestone(self, milestone: Milestone) -> DBPersistent:
-        if milestone:
-            milestone.goal = self._upsert_goal(milestone.goal)
-            return self._upsert_once(
-                milestone,
-                milestone.remote_code,
-                self.processed_milestones,
-                self.milestone_repo,
-                remote_code=milestone.remote_code,
-            )
+    # def _upsert_milestone(self, milestone: Milestone) -> Milestone:
+    #     if milestone:
+    #         milestone.goal = self._upsert_goal(milestone.goal)
+    #         return self._upsert_once(
+    #             milestone,
+    #             milestone.remote_code,
+    #             self.processed_milestones,
+    #             self.milestone_repo,
+    #             remote_code=milestone.remote_code,
+    #         )
 
-    def _upsert_task(self, task: Task) -> DBPersistent:
+    def _upsert_task(self, task: Task) -> Task:
         if task:
             task.goal = self._upsert_goal(task.goal)
-            task.milestone = self._upsert_milestone(task.milestone)
             task.status = self._upsert_status(task.status)
             task.priority = self._upsert_priority(task.priority)
             task.assignee = self._upsert_person(task.assignee)
@@ -89,7 +84,7 @@ class ImportUC:
                 remote_code=task.remote_code,
             )
 
-    def _upsert_status(self, status: TaskStatus) -> DBPersistent:
+    def _upsert_status(self, status: TaskStatus) -> TaskStatus:
         if status:
             return self._upsert_once(
                 status,
@@ -99,7 +94,7 @@ class ImportUC:
                 title=status.title,
             )
 
-    def _upsert_priority(self, priority: TaskPriority) -> DBPersistent:
+    def _upsert_priority(self, priority: TaskPriority) -> TaskPriority:
         if priority:
             return self._upsert_once(
                 priority,
@@ -109,7 +104,7 @@ class ImportUC:
                 title=priority.title,
             )
 
-    def _upsert_person(self, person: Person) -> DBPersistent:
+    def _upsert_person(self, person: Person) -> Person:
         if person:
             return self._upsert_once(
                 person,

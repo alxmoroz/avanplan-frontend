@@ -4,7 +4,6 @@ from ..entities.goals import Goal, Task
 
 
 class AbstractImportRepo:
-    __abstract__ = True
 
     source: str
 

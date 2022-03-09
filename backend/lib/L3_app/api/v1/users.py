@@ -8,6 +8,7 @@ from lib.L1_domain.usecases.users_uc import UsersUC
 from lib.L2_data.db import db_session
 from lib.L2_data.repositories import SecurityRepo, UserRepo
 from lib.L2_data.repositories.security_repo import oauth2_scheme
+from lib.L2_data.schema.users import UserSchema
 
 router = APIRouter(prefix="/users")
 
@@ -19,7 +20,7 @@ def user_uc(
     return UsersUC(UserRepo(db), SecurityRepo(token))
 
 
-@router.get("/", response_model=list[User])
+@router.get("/", response_model=list[UserSchema])
 def get_users(
     skip: int = 0,
     limit: int | None = None,
@@ -28,22 +29,22 @@ def get_users(
     return uc.get_users(skip, limit)
 
 
-@router.post("/", response_model=User, status_code=201)
+@router.post("/", response_model=UserSchema, status_code=201)
 def create_user(
-    user_in: User,
+    user_in: UserSchema,
     uc: UsersUC = Depends(user_uc),
 ) -> User:
     return uc.create_user(user_in)
 
 
-@router.get("/my/account", response_model=User)
+@router.get("/my/account", response_model=UserSchema)
 def get_my_account(
     uc: UsersUC = Depends(user_uc),
 ) -> User:
     return uc.get_active_user()
 
 
-@router.put("/my/account", response_model=User)
+@router.put("/my/account", response_model=UserSchema)
 def update_my_account(
     password: str = Body(None),
     full_name: str = Body(None),

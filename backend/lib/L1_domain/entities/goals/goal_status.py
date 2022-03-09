@@ -1,9 +1,9 @@
 #  Copyright (c) 2022. Alexandr Moroz
+from dataclasses import dataclass
 
-from __future__ import annotations
-
-from .base import StatusablePersistent
+from ..base_entity import Identifiable, Statusable, Titleable
 
 
-class GoalStatus(StatusablePersistent):
+@dataclass
+class GoalStatus(Identifiable, Titleable, Statusable):
     pass

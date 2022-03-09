@@ -5,16 +5,18 @@ from datetime import datetime
 from sqlalchemy import column
 
 from lib.L1_domain.entities.goals import Task
+from lib.L2_data.repositories import TaskRepo
+from lib.L2_data.schema import TaskSchema
 
 
-def test_get_one(task_repo, tmp_task):
+def test_get_one(task_repo: TaskRepo, tmp_task):
     obj_out = task_repo.get_one(id=tmp_task.id)
     assert tmp_task == obj_out
 
 
-def test_get_create(task_repo, tmp_task, tmp_goal):
+def test_get_create(task_repo: TaskRepo, tmp_task, tmp_goal):
 
-    obj2 = task_repo.create(Task(title="test_get", goal=tmp_goal))
+    obj2 = task_repo.create(TaskSchema(title="test_get", goal_id=tmp_goal.id))
 
     objects = task_repo.get(
         limit=2,
@@ -24,36 +26,39 @@ def test_get_create(task_repo, tmp_task, tmp_goal):
     assert obj2 in objects
     assert len(objects) == 2
 
+    assert task_repo.delete(obj2.id) == 1
+
 
 # TODO: ещё нужно добавить проверку изменения для всех связанных объектов (айдишников)
-def test_update(task_repo, tmp_task):
-    title = tmp_task.title = "title"
-    description = tmp_task.description = "description"
-    remote_code = tmp_task.remote_code = "remote_code"
-    updated_on = tmp_task.updated_on = datetime.now()
-    due_date = tmp_task.due_date = datetime.now()
-    assert task_repo.update(tmp_task) == 1
+def test_update(task_repo: TaskRepo, tmp_task, tmp_goal):
 
-    obj_out = task_repo.get_one(id=tmp_task.id)
-    assert tmp_task == obj_out
-    assert obj_out.title == title
-    assert obj_out.description == description
-    assert obj_out.remote_code == remote_code
-    assert obj_out.updated_on == updated_on
-    assert obj_out.due_date == due_date
+    s = TaskSchema(
+        id=tmp_task.id,
+        goal_id=tmp_goal.id,
+        title="title",
+        description="description",
+        remote_code="remote_code",
+        updated_on=datetime.now(),
+        due_date=datetime.now(),
+    )
+    obj_out = task_repo.update(s)
+    test_obj_out = task_repo.get_one(id=tmp_task.id)
+    assert obj_out == test_obj_out
+    assert obj_out.title == s.title
+    assert obj_out.description == s.description
+    assert obj_out.remote_code == s.remote_code
+    assert obj_out.updated_on == s.updated_on
+    assert obj_out.due_date == s.due_date
 
 
-def test_upsert_delete(task_repo, tmp_goal):
-    # create
-    task = Task(title="test_upsert_delete", goal=tmp_goal)
-    obj_out = task_repo.upsert(task)
-    # TODO: Если убрать айдишники под капот (в Л2, в схемы в репах), то тут их не будет
-    task.id = obj_out.id
-    assert task_repo.upsert(task) == task
+def test_upsert_delete(task_repo: TaskRepo, tmp_goal):
+    # upsert
+    task = Task(title="test_upsert_delete")
+    obj_out = task_repo.update(TaskSchema(title=task.title, goal_id=tmp_goal.id))
+    test_obj_out = task_repo.get_one(id=obj_out.id)
 
-    # update
-    task.description = "description"
-    assert task_repo.upsert(task) == task
+    assert obj_out == test_obj_out
+    assert task.title == obj_out.title
 
     # delete
-    assert task_repo.delete(task.id) == 1
+    assert task_repo.delete(obj_out.id) == 1

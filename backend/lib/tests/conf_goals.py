@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 
 from lib.L1_domain.entities.goals import Goal, Person, Task
 from lib.L2_data.repositories import GoalRepo, PersonRepo, TaskRepo
+from lib.L2_data.schema import GoalSchema, PersonSchema, TaskSchema
 
 
 @pytest.fixture(scope="module")
@@ -14,7 +15,7 @@ def goal_repo(db: Session) -> GoalRepo:
 
 @pytest.fixture(scope="module")
 def tmp_goal(goal_repo) -> Goal:
-    goal = goal_repo.upsert(Goal(title="tmp_goal"))
+    goal = goal_repo.update(GoalSchema(title="tmp_goal"))
     yield goal
     goal_repo.delete(goal.id)
 
@@ -26,7 +27,7 @@ def task_repo(db) -> TaskRepo:
 
 @pytest.fixture(scope="module")
 def tmp_task(task_repo, tmp_goal) -> Task:
-    task = task_repo.upsert(Task(title="tmp_task", goal=tmp_goal))
+    task = task_repo.update(TaskSchema(title="tmp_task", goal_id=tmp_goal.id))
     yield task
     task_repo.delete(task.id)
 
@@ -38,6 +39,6 @@ def person_repo(db) -> PersonRepo:
 
 @pytest.fixture(scope="module")
 def tmp_person(person_repo) -> Person:
-    person = person_repo.upsert(Person(firstname="tmp_person"))
+    person = person_repo.update(PersonSchema(firstname="tmp_person"))
     yield person
     person_repo.delete(person.id)

@@ -1,15 +1,15 @@
 """empty message
 
-Revision ID: efa2ed587ba6
+Revision ID: a5371a97e2fd
 Revises: 
-Create Date: 2022-03-01 05:26:45.222439
+Create Date: 2022-03-09 07:53:07.848943
 
 """
 import sqlalchemy as sa
 from alembic import op
 
 # revision identifiers, used by Alembic.
-revision = "efa2ed587ba6"
+revision = "a5371a97e2fd"
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -20,25 +20,12 @@ def upgrade():
     op.create_table(
         "goalstatuss",
         sa.Column("id", sa.Integer(), nullable=False),
-        sa.Column("created_on", sa.DateTime(), nullable=False),
-        sa.Column("updated_on", sa.DateTime(), nullable=True),
-        sa.Column("title", sa.String(), nullable=True),
-        sa.Column("closed", sa.Boolean(), nullable=True),
+        sa.Column("title", sa.String(), nullable=False),
+        sa.Column("closed", sa.Boolean(), nullable=False),
         sa.PrimaryKeyConstraint("id"),
         sa.UniqueConstraint("title"),
     )
     op.create_index(op.f("ix_goalstatuss_id"), "goalstatuss", ["id"], unique=False)
-    op.create_table(
-        "milestonestatuss",
-        sa.Column("id", sa.Integer(), nullable=False),
-        sa.Column("created_on", sa.DateTime(), nullable=False),
-        sa.Column("updated_on", sa.DateTime(), nullable=True),
-        sa.Column("title", sa.String(), nullable=True),
-        sa.Column("closed", sa.Boolean(), nullable=True),
-        sa.PrimaryKeyConstraint("id"),
-        sa.UniqueConstraint("title"),
-    )
-    op.create_index(op.f("ix_milestonestatuss_id"), "milestonestatuss", ["id"], unique=False)
     op.create_table(
         "persons",
         sa.Column("id", sa.Integer(), nullable=False),
@@ -53,10 +40,8 @@ def upgrade():
     op.create_table(
         "taskprioritys",
         sa.Column("id", sa.Integer(), nullable=False),
-        sa.Column("created_on", sa.DateTime(), nullable=False),
-        sa.Column("updated_on", sa.DateTime(), nullable=True),
-        sa.Column("title", sa.String(), nullable=True),
-        sa.Column("order", sa.Integer(), nullable=True),
+        sa.Column("title", sa.String(), nullable=False),
+        sa.Column("order", sa.Integer(), nullable=False),
         sa.PrimaryKeyConstraint("id"),
         sa.UniqueConstraint("title"),
     )
@@ -64,10 +49,8 @@ def upgrade():
     op.create_table(
         "taskstatuss",
         sa.Column("id", sa.Integer(), nullable=False),
-        sa.Column("created_on", sa.DateTime(), nullable=False),
-        sa.Column("updated_on", sa.DateTime(), nullable=True),
-        sa.Column("title", sa.String(), nullable=True),
-        sa.Column("closed", sa.Boolean(), nullable=True),
+        sa.Column("title", sa.String(), nullable=False),
+        sa.Column("closed", sa.Boolean(), nullable=False),
         sa.PrimaryKeyConstraint("id"),
         sa.UniqueConstraint("title"),
     )
@@ -77,9 +60,9 @@ def upgrade():
         sa.Column("id", sa.Integer(), nullable=False),
         sa.Column("created_on", sa.DateTime(), nullable=False),
         sa.Column("updated_on", sa.DateTime(), nullable=True),
-        sa.Column("full_name", sa.String(), nullable=True),
         sa.Column("email", sa.String(), nullable=False),
         sa.Column("password", sa.String(), nullable=False),
+        sa.Column("full_name", sa.String(), nullable=True),
         sa.Column("is_active", sa.Boolean(), nullable=True),
         sa.Column("is_superuser", sa.Boolean(), nullable=True),
         sa.PrimaryKeyConstraint("id"),
@@ -107,25 +90,6 @@ def upgrade():
     )
     op.create_index(op.f("ix_goals_id"), "goals", ["id"], unique=False)
     op.create_table(
-        "milestones",
-        sa.Column("id", sa.Integer(), nullable=False),
-        sa.Column("created_on", sa.DateTime(), nullable=False),
-        sa.Column("updated_on", sa.DateTime(), nullable=True),
-        sa.Column("remote_code", sa.String(), nullable=True),
-        sa.Column("title", sa.String(), nullable=False),
-        sa.Column("description", sa.String(), nullable=True),
-        sa.Column("due_date", sa.DateTime(), nullable=True),
-        sa.Column("goal_id", sa.Integer(), nullable=False),
-        sa.Column("status_id", sa.Integer(), nullable=True),
-        sa.ForeignKeyConstraint(["goal_id"], ["goals.id"], ondelete="CASCADE"),
-        sa.ForeignKeyConstraint(
-            ["status_id"],
-            ["milestonestatuss.id"],
-        ),
-        sa.PrimaryKeyConstraint("id"),
-    )
-    op.create_index(op.f("ix_milestones_id"), "milestones", ["id"], unique=False)
-    op.create_table(
         "tasks",
         sa.Column("id", sa.Integer(), nullable=False),
         sa.Column("created_on", sa.DateTime(), nullable=False),
@@ -136,7 +100,6 @@ def upgrade():
         sa.Column("due_date", sa.DateTime(), nullable=True),
         sa.Column("parent_id", sa.Integer(), nullable=True),
         sa.Column("goal_id", sa.Integer(), nullable=False),
-        sa.Column("milestone_id", sa.Integer(), nullable=True),
         sa.Column("status_id", sa.Integer(), nullable=True),
         sa.Column("priority_id", sa.Integer(), nullable=True),
         sa.Column("assignee_id", sa.Integer(), nullable=True),
@@ -150,10 +113,6 @@ def upgrade():
             ["persons.id"],
         ),
         sa.ForeignKeyConstraint(["goal_id"], ["goals.id"], ondelete="CASCADE"),
-        sa.ForeignKeyConstraint(
-            ["milestone_id"],
-            ["milestones.id"],
-        ),
         sa.ForeignKeyConstraint(["parent_id"], ["tasks.id"], ondelete="CASCADE"),
         sa.ForeignKeyConstraint(
             ["priority_id"],
@@ -173,8 +132,6 @@ def downgrade():
     # ### commands auto generated by Alembic - please adjust! ###
     op.drop_index(op.f("ix_tasks_id"), table_name="tasks")
     op.drop_table("tasks")
-    op.drop_index(op.f("ix_milestones_id"), table_name="milestones")
-    op.drop_table("milestones")
     op.drop_index(op.f("ix_goals_id"), table_name="goals")
     op.drop_table("goals")
     op.drop_index(op.f("ix_users_id"), table_name="users")
@@ -187,8 +144,6 @@ def downgrade():
     op.drop_table("taskprioritys")
     op.drop_index(op.f("ix_persons_id"), table_name="persons")
     op.drop_table("persons")
-    op.drop_index(op.f("ix_milestonestatuss_id"), table_name="milestonestatuss")
-    op.drop_table("milestonestatuss")
     op.drop_index(op.f("ix_goalstatuss_id"), table_name="goalstatuss")
     op.drop_table("goalstatuss")
     # ### end Alembic commands ###

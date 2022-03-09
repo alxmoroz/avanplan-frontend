@@ -1,9 +1,8 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from sqlalchemy import Column, Integer
 
-from .base import BaseModel, TitledUnique
+from ..base_model import BaseModel, Orderable, TitleableUnique
 
 
-class TaskPriority(TitledUnique, BaseModel):
-    order = Column(Integer)
+class TaskPriority(TitleableUnique, Orderable, BaseModel):
+    pass

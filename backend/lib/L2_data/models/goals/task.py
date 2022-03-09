@@ -2,10 +2,11 @@
 from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.orm import relationship
 
-from .base import SmartModel
+from ..base_model import BaseModel
+from .smartable import Smartable
 
 
-class Task(SmartModel):
+class Task(Smartable, BaseModel):
     parent_id = Column(Integer, ForeignKey("tasks.id", ondelete="CASCADE"))
 
     # parent = relationship("Task", remote_side="Task.id")
@@ -13,9 +14,6 @@ class Task(SmartModel):
 
     goal_id = Column(Integer, ForeignKey("goals.id", ondelete="CASCADE"), nullable=False)
     goal = relationship("Goal")
-
-    milestone_id = Column(Integer, ForeignKey("milestones.id"))
-    # milestone = relationship("Milestone", back_populates="tasks")
 
     status_id = Column(Integer, ForeignKey("taskstatuss.id"))
     status = relationship("TaskStatus")

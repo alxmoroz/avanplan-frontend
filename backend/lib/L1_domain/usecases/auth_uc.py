@@ -1,4 +1,5 @@
 #  Copyright (c) 2022. Alexandr Moroz
+
 from ..entities.api.exceptions import ApiException
 from ..entities.auth import Token
 from ..entities.users import User

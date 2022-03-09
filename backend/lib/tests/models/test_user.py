@@ -1,61 +1,65 @@
 #  Copyright (c) 2022. Alexandr Moroz
+from datetime import datetime
 
+from pydantic import EmailStr
 from sqlalchemy import column
 
-from lib.L1_domain.entities.users import User
-from lib.L2_data.repositories import SecurityRepo
-from lib.tests.conf_user import tmp_object
-from lib.tests.utils import random_email
+from lib.L1_domain.entities import User
+from lib.L2_data.repositories import UserRepo
+from lib.L2_data.schema import UserSchema
 
 
-def test_get_one(user_repo):
-    with tmp_object(user_repo) as obj:
-        obj_out = user_repo.get_one(id=obj.id)
-        assert obj == obj_out
+def test_get_one(user_repo: UserRepo, tmp_user: User):
+    obj_out = user_repo.get_one(id=tmp_user.id)
+    assert tmp_user == obj_out
 
 
-def test_get(user_repo):
-    with tmp_object(user_repo) as o1, tmp_object(user_repo) as o2:
-        objects = user_repo.get(
-            limit=2,
-            where=column("id").in_([o1.id, o2.id]),
-        )
-        assert o1 in objects
-        assert o2 in objects
-        assert len(objects) == 2
+def test_get_create(user_repo: UserRepo, tmp_user: User):
+
+    obj2 = user_repo.create(UserSchema(email=EmailStr("test@mail.com"), password="pass"))
+
+    objects = user_repo.get(
+        limit=2,
+        where=column("id").in_([tmp_user.id, obj2.id]),
+    )
+    assert tmp_user in objects
+    assert obj2 in objects
+    assert len(objects) == 2
+
+    assert user_repo.delete(obj2.id) == 1
 
 
-def test_create(user_repo):
-    password = "password"
-    with tmp_object(user_repo, password=password) as obj:
-        obj_out = user_repo.get_one(id=obj.id)
-        assert obj == obj_out
-        assert obj.password != password
-        assert SecurityRepo.verify_password(password, obj.password)
+def test_update(user_repo: UserRepo, tmp_user: User):
+    s = UserSchema(
+        id=tmp_user.id,
+        email=EmailStr("test2@mail.com"),
+        full_name="full_name",
+        password="pass2",
+        is_active=False,
+        is_superuser=True,
+        updated_on=datetime.now(),
+    )
+
+    obj_out = user_repo.update(s)
+    test_obj_out = user_repo.get_one(id=tmp_user.id)
+
+    assert obj_out == test_obj_out
+    assert obj_out.email == s.email
+    assert obj_out.full_name == s.full_name
+    assert obj_out.password == s.password
+    assert obj_out.is_active == s.is_active
+    assert obj_out.is_superuser == s.is_superuser
+    assert obj_out.updated_on == s.updated_on
 
 
-def test_update(user_repo):
-    with tmp_object(user_repo) as obj_in:
-        new_full_name = "full_name"
-        obj_in.full_name = new_full_name
-        assert user_repo.update(obj_in) == 1
+def test_upsert_delete(user_repo: UserRepo):
+    # upsert
+    user = User(email=EmailStr("test3@mail.com"), password="pass")
+    obj_out = user_repo.update(UserSchema(email=EmailStr(user.email), password=user.password))
+    test_obj_out = user_repo.get_one(id=obj_out.id)
 
-        obj_out = user_repo.get_one(id=obj_in.id)
-        assert obj_in == obj_out
-        assert obj_out.full_name == new_full_name
-
-
-def test_upsert_delete(user_repo):
-    # create
-    u = User(email=random_email(), password="111")
-    obj_out = user_repo.upsert(u)
-    # TODO: Если убрать айдишники под капот (в Л2, в схемы в репах), то тут их не будет
-    u.id = obj_out.id
-    assert user_repo.upsert(u) == u
-
-    # update
-    u.full_name = "full_name"
-    assert user_repo.upsert(u) == u
+    assert obj_out == test_obj_out
+    assert user.email == obj_out.email
 
     # delete
-    assert user_repo.delete(u.id) == 1
+    assert user_repo.delete(obj_out.id) == 1

@@ -5,8 +5,6 @@ from ..entities.auth import Token, TokenPayload
 
 
 class AbstractSecurityRepo:
-    __abstract__ = True
-
     def __init__(self, encoded_token: str | None = None):
         self.encoded_token = encoded_token
 

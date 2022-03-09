@@ -1,15 +1,15 @@
 #  Copyright (c) 2022. Alexandr Moroz
-
+from dataclasses import dataclass
 from datetime import datetime
 
-from ..base_entity import BaseEntity
 
-
-class TokenPayload(BaseEntity):
+@dataclass
+class TokenPayload:
     expire: datetime
     identifier: str
 
 
-class Token(BaseEntity):
+@dataclass
+class Token:
     access_token: str
     token_type: str

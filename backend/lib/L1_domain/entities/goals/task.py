@@ -2,28 +2,24 @@
 
 from __future__ import annotations
 
-from typing import Optional
+from dataclasses import dataclass
 
-from .base import SmartPersistent
-from .goal import Goal
-from .milestone import Milestone
 from .person import Person
+from .smartable import Smartable
 from .task_priority import TaskPriority
 from .task_status import TaskStatus
 
 # TODO: в таком виде больше подходит для внутреннего использования. Отдавать в апи — много дублирования будет.
 
 
-class Task(SmartPersistent):
-    # tasks: list[Task] | None
-    goal_id: Optional[int]
-    parent: Optional[Task]
-    goal: Optional[Goal]
-    milestone: Optional[Milestone]
-    status: Optional[TaskStatus]
-    priority: Optional[TaskPriority]
-    assignee: Optional[Person]
-    author: Optional[Person]
+@dataclass
+class Task(Smartable):
+
+    status: TaskStatus | None = None
+    priority: TaskPriority | None = None
+    assignee: Person | None = None
+    author: Person | None = None
+    tasks: list[Task] | None = None
 
     @property
     def closed(self):

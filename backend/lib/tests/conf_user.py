@@ -1,23 +1,23 @@
 #  Copyright (c) 2022. Alexandr Moroz
-from contextlib import contextmanager
-from typing import Generator
 
 import pytest
+from pydantic import EmailStr
 from sqlalchemy.orm import Session
 
 from lib.L1_domain.entities.users import User
 from lib.L2_data.repositories import SecurityRepo, UserRepo
+from lib.L2_data.schema import UserSchema
 from lib.L2_data.settings import settings
-from lib.tests.utils import random_email, random_lower_string
+from lib.tests.utils import random_email
 
 
-def auth_headers_for_user(user_repo, email: str, is_superuser: bool = False):
+def auth_headers_for_user(user_repo: UserRepo, email: str, is_superuser: bool = False):
 
     user = user_repo.get_one(email=email)
     if not user:
         user_repo.create(
-            User(
-                email=email,
+            UserSchema(
+                email=EmailStr(email),
                 password=SecurityRepo.secure_password(settings.TEST_ADMIN_PASSWORD if is_superuser else settings.TEST_USER_PASSWORD),
                 is_superuser=is_superuser,
             ),
@@ -28,12 +28,12 @@ def auth_headers_for_user(user_repo, email: str, is_superuser: bool = False):
 
 
 @pytest.fixture(scope="session")
-def auth_headers_test_admin(user_repo) -> dict[str, str]:
+def auth_headers_test_admin(user_repo: UserRepo) -> dict[str, str]:
     return auth_headers_for_user(user_repo, settings.TEST_ADMIN_EMAIL, is_superuser=True)
 
 
 @pytest.fixture(scope="session")
-def auth_headers_test_user(user_repo) -> dict[str, str]:
+def auth_headers_test_user(user_repo: UserRepo) -> dict[str, str]:
     return auth_headers_for_user(user_repo, settings.TEST_USER_EMAIL)
 
 
@@ -42,24 +42,14 @@ def user_repo(db: Session) -> UserRepo:
     yield UserRepo(db)
 
 
-# TODO: переделать в фикстуру с yield (см. как в задачах и проектах сделано)
+@pytest.fixture(scope="module")
+def tmp_user(user_repo: UserRepo) -> User:
 
-
-@contextmanager
-def tmp_object(
-    repo,
-    password: str | None = None,
-    is_active: bool = True,
-) -> Generator:
-    user: User | None = None
-    try:
-        user = repo.create(
-            User(
-                email=random_email(),
-                password=SecurityRepo.secure_password(password or random_lower_string()),
-                is_active=is_active,
-            )
+    user = user_repo.update(
+        UserSchema(
+            email=EmailStr(random_email()),
+            password=SecurityRepo.secure_password("password"),
         )
-        yield user
-    finally:
-        repo.delete(user.id)
+    )
+    yield user
+    user_repo.delete(user.id)

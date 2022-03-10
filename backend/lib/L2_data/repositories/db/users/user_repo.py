@@ -11,4 +11,4 @@ from ..db_repo import DBRepo
 
 class UserRepo(DBRepo):
     def __init__(self, db: Session):
-        super().__init__(UserModel, UserSchema, User, db)
+        super().__init__(UserModel, UserSchema, UserSchema, User, db)

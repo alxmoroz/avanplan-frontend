@@ -8,7 +8,7 @@ from lib.L1_domain.usecases.goals_uc import GoalsUC
 from lib.L1_domain.usecases.users_uc import UsersUC
 from lib.L2_data.db import db_session
 from lib.L2_data.repositories.db.goals import GoalRepo, TaskRepo
-from lib.L2_data.schema import GoalSchema
+from lib.L2_data.schema import GoalSchemaCreate, GoalSchemaGet
 from lib.L3_app.api.v1.users import user_uc
 
 router = APIRouter(prefix="/goals")
@@ -25,14 +25,14 @@ def _goals_uc(
     )
 
 
-@router.get("/", response_model=list[GoalSchema])
+@router.get("/", response_model=list[GoalSchemaGet])
 def get_goals(uc: GoalsUC = Depends(_goals_uc)) -> list[Goal]:
     return uc.get_goals()
 
 
-@router.post("/", response_model=GoalSchema, status_code=201)
+@router.post("/", response_model=GoalSchemaGet, status_code=201)
 def upsert_goal(
-    goal: GoalSchema,
+    goal: GoalSchemaCreate,
     uc: GoalsUC = Depends(_goals_uc),
 ) -> Goal:
 

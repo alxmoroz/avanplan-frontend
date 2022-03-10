@@ -13,11 +13,13 @@ class AbstractDBRepo(Generic[M, S, E]):
     def __init__(
         self,
         model_class: Type[M],
-        schema_class: Type[S],
+        schema_get_class: Type[S],
+        schema_create_class: Type[S],
         entity_class: Type[E],
     ):
         self._model_class = model_class
-        self._schema_class = schema_class
+        self._schema_get_class = schema_get_class
+        self._schema_create_class = schema_create_class
         self._entity_class = entity_class
 
     def get(

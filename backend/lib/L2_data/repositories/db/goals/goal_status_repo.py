@@ -11,4 +11,4 @@ from ..db_repo import DBRepo
 
 class GoalStatusRepo(DBRepo):
     def __init__(self, db: Session):
-        super().__init__(GoalStatusModel, GoalStatusSchema, GoalStatus, db)
+        super().__init__(GoalStatusModel, GoalStatusSchema, GoalStatusSchema, GoalStatus, db)

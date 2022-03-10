@@ -13,9 +13,9 @@ from ..db_repo import DBRepo
 
 class TaskRepo(DBRepo):
     def __init__(self, db: Session):
-        super().__init__(TaskModel, TaskSchema, Task, db)
+        super().__init__(TaskModel, TaskSchema, TaskSchema, Task, db)
 
-    # TODO: ?
+    # TODO: после добавления отдельных схем на чтение и запись, этот метод уже не нужен
     def entity_from_schema(self, s: TaskSchema) -> Task:
         s = Smartable(**s.dict())
         return super().entity_from_schema(s)
@@ -23,9 +23,9 @@ class TaskRepo(DBRepo):
 
 class TaskImportRepo(DBRepo):
     def __init__(self, db: Session):
-        super().__init__(TaskModel, TaskSchema, TaskImport, db)
+        super().__init__(TaskModel, TaskSchema, TaskSchema, TaskImport, db)
 
-    # TODO: ?
+    # TODO: после добавления отдельных схем на чтение и запись, этот метод уже не нужен
     def entity_from_schema(self, s: TaskSchema) -> Task:
         s = Smartable(**s.dict())
         return super().entity_from_schema(s)

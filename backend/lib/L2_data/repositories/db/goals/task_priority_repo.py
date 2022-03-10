@@ -11,4 +11,4 @@ from ..db_repo import DBRepo
 
 class TaskPriorityRepo(DBRepo):
     def __init__(self, db: Session):
-        super().__init__(TaskPriorityModel, TaskPrioritySchema, TaskPriority, db)
+        super().__init__(TaskPriorityModel, TaskPrioritySchema, TaskPrioritySchema, TaskPriority, db)

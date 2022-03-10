@@ -11,4 +11,4 @@ from ..db_repo import DBRepo
 
 class TaskStatusRepo(DBRepo):
     def __init__(self, db: Session):
-        super().__init__(TaskStatusModel, TaskStatusSchema, TaskStatus, db)
+        super().__init__(TaskStatusModel, TaskStatusSchema, TaskStatusSchema, TaskStatus, db)

@@ -2,9 +2,8 @@
 from datetime import datetime, timedelta
 
 from ..entities.api.exceptions import ApiException
-from ..entities.goals import Goal, Task
-from ..entities.goals.goal_report import GoalReport
-from ..repositories import AbstractDBRepo
+from ..entities.goals import Goal, GoalReport, Task
+from ..repositories.abstract_db_repo import AbstractDBRepo, S
 
 
 class GoalsUC:
@@ -17,6 +16,7 @@ class GoalsUC:
         self.task_repo = task_repo
 
     def _calculate_goal(self, goal: Goal):
+        # TODO: для гет-схемы цели можно получить сразу задачи эти
         tasks: list[Task] = self.task_repo.get(goal_id=goal.id)
 
         tasks_count = len(tasks)
@@ -40,13 +40,15 @@ class GoalsUC:
             # left_period = goal.planned_period - goal.past_period
             # print(f" target_speed {left_tasks_count / left_period.total_seconds() * 3600 * 24 :.2f}")
 
-        goal.goal_report = GoalReport(
+        goal.report = GoalReport(
             tasks_count=tasks_count,
             closed_tasks_count=closed_tasks_count,
             eta_date=eta_date,
             plan_speed=plan_speed,
             fact_speed=fact_speed,
         )
+
+        print(goal.report)
 
         return goal
 
@@ -57,9 +59,8 @@ class GoalsUC:
 
         return goals
 
-    def upsert_goal(self, goal: Goal) -> Goal:
-        goal = self.goal_repo.update(goal)
-        return goal
+    def upsert_goal(self, s: S) -> Goal:
+        return self.goal_repo.update(s)
 
     def delete_goal(self, goal_id: int) -> int:
         deleted_count = self.goal_repo.delete(goal_id)

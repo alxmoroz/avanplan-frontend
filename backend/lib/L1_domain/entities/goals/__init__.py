@@ -2,6 +2,7 @@
 
 from .goal import Goal
 from .goal_import import GoalImport
+from .goal_report import GoalReport
 from .goal_status import GoalStatus
 from .person import Person
 from .smartable import Smartable

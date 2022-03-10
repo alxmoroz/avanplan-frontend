@@ -6,7 +6,7 @@ from sqlalchemy import column
 
 from lib.L1_domain.entities import Goal
 from lib.L2_data.repositories import GoalRepo
-from lib.L2_data.schema import GoalSchema
+from lib.L2_data.schema import GoalSchemaCreate
 
 
 def test_get_one(goal_repo: GoalRepo, tmp_goal):
@@ -16,7 +16,7 @@ def test_get_one(goal_repo: GoalRepo, tmp_goal):
 
 def test_get_create(goal_repo: GoalRepo, tmp_goal):
 
-    obj2 = goal_repo.create(GoalSchema(title="test_get"))
+    obj2 = goal_repo.create(GoalSchemaCreate(title="test_get"))
 
     objects = goal_repo.get(
         limit=2,
@@ -31,7 +31,7 @@ def test_get_create(goal_repo: GoalRepo, tmp_goal):
 
 def test_update(goal_repo: GoalRepo, tmp_goal):
 
-    s = GoalSchema(
+    s = GoalSchemaCreate(
         id=tmp_goal.id,
         title="title",
         description="description",
@@ -52,7 +52,7 @@ def test_update(goal_repo: GoalRepo, tmp_goal):
 def test_upsert_delete(goal_repo: GoalRepo):
     # upsert
     goal = Goal(title="test_upsert_delete")
-    obj_out = goal_repo.update(GoalSchema(title=goal.title))
+    obj_out = goal_repo.update(GoalSchemaCreate(title=goal.title))
     test_obj_out = goal_repo.get_one(id=obj_out.id)
 
     assert obj_out == test_obj_out

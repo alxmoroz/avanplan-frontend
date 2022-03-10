@@ -11,33 +11,31 @@ from lib.L1_domain.repositories.abstract_db_repo import AbstractDBRepo, E
 from lib.L2_data.models import BaseModel as BaseDBModel
 
 M = TypeVar("M", bound=BaseDBModel)
-S = TypeVar("S", bound=BaseSchemaModel)
+SGet = TypeVar("SGet", bound=BaseSchemaModel)
+SCreate = TypeVar("SCreate", bound=BaseSchemaModel)
 
 
-class DBRepo(AbstractDBRepo[M, S, E]):
+class DBRepo(AbstractDBRepo):
     def __init__(
         self,
         model_class: Type[M],
-        schema_class: Type[S],
+        schema_get_class: Type[SGet],
+        schema_create_class: Type[SCreate],
         entity_class: Type[E],
         db: Session,
     ):
         self.db = db
-        super().__init__(model_class, schema_class, entity_class)
-
-    @staticmethod
-    def _encode_data(s: S) -> any:
-        return jsonable_encoder(s)
+        super().__init__(model_class, schema_get_class, schema_create_class, entity_class)
 
     def _entity_from_orm(self, db_obj: M) -> E:
-        schema_obj = self._schema_class.from_orm(db_obj)
+        schema_obj = self._schema_get_class.from_orm(db_obj)
         return self.entity_from_schema(schema_obj)
 
-    def schema_from_entity(self, e: E) -> S:
-        return self._schema_class(**jsonable_encoder(e))
+    def schema_from_entity(self, e: E) -> SGet:
+        return self._schema_create_class(**jsonable_encoder(e))
 
     # TODO: ?
-    def entity_from_schema(self, s: S) -> E:
+    def entity_from_schema(self, s: SGet) -> E:
         return self._entity_class(**s.dict())
 
     def get(
@@ -62,8 +60,8 @@ class DBRepo(AbstractDBRepo[M, S, E]):
         objects = self.db.execute(stmt).scalars().all()
         return [self._entity_from_orm(db_obj) for db_obj in objects]
 
-    def create(self, s: S) -> E:
-        data = self._encode_data(s)
+    def create(self, s: SCreate) -> E:
+        data = jsonable_encoder(s)
         db_obj = self._model_class(**data)
 
         self.db.add(db_obj)
@@ -72,8 +70,8 @@ class DBRepo(AbstractDBRepo[M, S, E]):
 
         return self._entity_from_orm(db_obj)
 
-    def update(self, s: S) -> E:
-        data = self._encode_data(s)
+    def update(self, s: SCreate) -> E:
+        data = jsonable_encoder(s)
         obj = self.db.merge(self._model_class(**data))
         self.db.commit()
 

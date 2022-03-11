@@ -5,34 +5,23 @@ from sqlalchemy.orm import Session
 from lib.L1_domain.entities.goals import Task
 from lib.L1_domain.entities.goals.task_import import TaskImport
 from lib.L2_data.models import Task as TaskModel
-from lib.L2_data.schema import TaskSchema
-from lib.L2_data.schema.goals.smartable import Smartable
+from lib.L2_data.schema import TaskImportSchemaGet, TaskSchemaCreate, TaskSchemaGet
 
 from ..db_repo import DBRepo
 
 
 class TaskRepo(DBRepo):
     def __init__(self, db: Session):
-        super().__init__(TaskModel, TaskSchema, TaskSchema, Task, db)
-
-    # TODO: после добавления отдельных схем на чтение и запись, этот метод уже не нужен
-    def entity_from_schema(self, s: TaskSchema) -> Task:
-        s = Smartable(**s.dict())
-        return super().entity_from_schema(s)
+        super().__init__(TaskModel, TaskSchemaGet, TaskSchemaCreate, Task, db)
 
 
 class TaskImportRepo(DBRepo):
     def __init__(self, db: Session):
-        super().__init__(TaskModel, TaskSchema, TaskSchema, TaskImport, db)
+        super().__init__(TaskModel, TaskImportSchemaGet, TaskSchemaCreate, TaskImport, db)
 
-    # TODO: после добавления отдельных схем на чтение и запись, этот метод уже не нужен
-    def entity_from_schema(self, s: TaskSchema) -> Task:
-        s = Smartable(**s.dict())
-        return super().entity_from_schema(s)
+    def schema_from_entity(self, e: TaskImport) -> TaskSchemaCreate:
 
-    def schema_from_entity(self, e: TaskImport) -> TaskSchema:
-
-        s: TaskSchema = TaskSchema(
+        s = TaskSchemaCreate(
             goal_id=e.goal.id,
             parent_id=e.parent.id if e.parent else None,
             status_id=e.status.id if e.status else None,

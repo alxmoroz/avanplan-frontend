@@ -29,14 +29,10 @@ class DBRepo(AbstractDBRepo):
 
     def _entity_from_orm(self, db_obj: M) -> E:
         schema_obj = self._schema_get_class.from_orm(db_obj)
-        return self.entity_from_schema(schema_obj)
+        return schema_obj.entity()
 
     def schema_from_entity(self, e: E) -> SGet:
         return self._schema_create_class(**jsonable_encoder(e))
-
-    # TODO: ?
-    def entity_from_schema(self, s: SGet) -> E:
-        return self._entity_class(**s.dict())
 
     def get(
         self,

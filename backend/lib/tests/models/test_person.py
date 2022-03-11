@@ -6,7 +6,7 @@ from sqlalchemy import column
 
 from lib.L1_domain.entities.goals import Person
 from lib.L2_data.repositories import PersonRepo
-from lib.L2_data.schema import PersonSchema
+from lib.L2_data.schema import PersonSchemaCreate
 
 
 def test_get_one(person_repo: PersonRepo, tmp_person):
@@ -16,7 +16,7 @@ def test_get_one(person_repo: PersonRepo, tmp_person):
 
 def test_get_create(person_repo: PersonRepo, tmp_person):
 
-    obj2 = person_repo.create(PersonSchema(firstname="2"))
+    obj2 = person_repo.create(PersonSchemaCreate(firstname="2"))
 
     objects = person_repo.get(
         limit=2,
@@ -31,7 +31,7 @@ def test_get_create(person_repo: PersonRepo, tmp_person):
 
 def test_update(person_repo: PersonRepo, tmp_person):
 
-    s = PersonSchema(
+    s = PersonSchemaCreate(
         id=tmp_person.id,
         firstname="firstname",
         lastname="lastname",
@@ -52,7 +52,7 @@ def test_update(person_repo: PersonRepo, tmp_person):
 def test_upsert_delete(person_repo: PersonRepo):
     # upsert
     person = Person(firstname="person")
-    obj_out = person_repo.update(PersonSchema(firstname=person.firstname))
+    obj_out = person_repo.update(PersonSchemaCreate(firstname=person.firstname))
     test_obj_out = person_repo.get_one(id=obj_out.id)
 
     assert obj_out == test_obj_out

@@ -48,8 +48,6 @@ class GoalsUC:
             fact_speed=fact_speed,
         )
 
-        print(goal.report)
-
         return goal
 
     def get_goals(self) -> list[Goal]:

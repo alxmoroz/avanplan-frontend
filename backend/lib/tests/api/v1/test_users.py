@@ -14,8 +14,9 @@ from lib.tests.utils import random_email
 _users_api_path = f"{settings.API_PATH}{router.prefix}"
 
 
-def _user_from_json(repo: UserRepo, json: dict) -> User:
-    return repo.entity_from_schema(UserSchema(**json))
+def _user_from_json(json: dict) -> User:
+    # return repo.entity_from_schema(GoalSchemaGet(**json))
+    return UserSchema(**json).entity()
 
 
 def test_get_users(client: TestClient, auth_headers_test_admin, tmp_user: User, user_repo: UserRepo):
@@ -23,14 +24,14 @@ def test_get_users(client: TestClient, auth_headers_test_admin, tmp_user: User, 
     assert r.status_code == 200
     json_users = r.json()
 
-    users_out = [_user_from_json(user_repo, json_user) for json_user in json_users]
+    users_out = [_user_from_json(json_user) for json_user in json_users]
     assert tmp_user in users_out
 
 
 def test_get_my_account_admin(client: TestClient, auth_headers_test_admin, user_repo):
     r = client.get(f"{_users_api_path}/my/account", headers=auth_headers_test_admin)
     assert r.status_code == 200
-    user_out = _user_from_json(user_repo, r.json())
+    user_out = _user_from_json(r.json())
     admin_user = user_repo.get_one(email=settings.TEST_ADMIN_EMAIL)
     assert user_out and user_out == admin_user
 
@@ -38,7 +39,7 @@ def test_get_my_account_admin(client: TestClient, auth_headers_test_admin, user_
 def test_get_my_account(client: TestClient, auth_headers_test_user, user_repo):
     r = client.get(f"{_users_api_path}/my/account", headers=auth_headers_test_user)
     assert r.status_code == 200
-    user_out = _user_from_json(user_repo, r.json())
+    user_out = _user_from_json(r.json())
     test_user = user_repo.get_one(email=settings.TEST_USER_EMAIL)
     assert user_out
     assert user_out and user_out == test_user
@@ -56,7 +57,7 @@ def test_update_my_account(client: TestClient, auth_headers_test_user, user_repo
     )
     assert r.status_code == 200
 
-    user_out = _user_from_json(user_repo, r.json())
+    user_out = _user_from_json(r.json())
     test_user = user_repo.get_one(email=settings.TEST_USER_EMAIL)
 
     assert SecurityRepo.verify_password(new_password, test_user.password)
@@ -74,7 +75,7 @@ def test_create_user(client: TestClient, auth_headers_test_admin, user_repo: Use
         json={"email": email, "password": "password"},
     )
     assert r.status_code == 201
-    user_out = _user_from_json(user_repo, r.json())
+    user_out = _user_from_json(r.json())
     user_out2 = user_repo.get_one(email=email)
     assert user_out and user_out2 and user_out == user_out2
     user_repo.delete(user_out.id)

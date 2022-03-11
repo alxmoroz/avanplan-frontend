@@ -1,5 +1,4 @@
 #  Copyright (c) 2022. Alexandr Moroz
-from fastapi.encoders import jsonable_encoder
 from fastapi.testclient import TestClient
 
 from lib.L1_domain.entities import Goal, GoalReport
@@ -11,8 +10,9 @@ from lib.L3_app.api.v1.goals import router
 _goals_api_path = f"{settings.API_PATH}{router.prefix}"
 
 
-def _goal_from_json(repo: GoalRepo, json: dict) -> Goal:
-    return repo.entity_from_schema(GoalSchemaGet(**json))
+def _goal_from_json(json: dict) -> Goal:
+    # return repo.entity_from_schema(GoalSchemaGet(**json))
+    return GoalSchemaGet(**json).entity()
 
 
 def test_get_goals(client: TestClient, auth_headers_test_user, tmp_goal, goal_repo: GoalRepo):
@@ -20,10 +20,11 @@ def test_get_goals(client: TestClient, auth_headers_test_user, tmp_goal, goal_re
     r = client.get(_goals_api_path, headers=auth_headers_test_user)
     assert r.status_code == 200, r
     json_goals = r.json()
-    goals_out = [_goal_from_json(goal_repo, json_goal) for json_goal in json_goals]
-    tmp_goal.report = jsonable_encoder(GoalReport())
+    goals_out = [_goal_from_json(json_goal) for json_goal in json_goals]
 
+    tmp_goal.report = GoalReport()
     assert tmp_goal in goals_out
+    tmp_goal.report = None
 
 
 def test_resource_401(client: TestClient):

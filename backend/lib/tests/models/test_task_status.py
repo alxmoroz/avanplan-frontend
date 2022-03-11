@@ -1,6 +1,5 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-import pytest
 from sqlalchemy import column
 
 from lib.L1_domain.entities import TaskStatus
@@ -55,15 +54,3 @@ def test_upsert_delete(task_status_repo: TaskStatusRepo):
 
     # delete
     assert task_status_repo.delete(obj_out.id) == 1
-
-
-@pytest.fixture(scope="module")
-def task_status_repo(db) -> TaskStatusRepo:
-    yield TaskStatusRepo(db)
-
-
-@pytest.fixture(scope="module")
-def tmp_task_status(task_status_repo: TaskStatusRepo) -> TaskStatus:
-    ts = task_status_repo.update(TaskStatusSchema(title="tmp_task_status"))
-    yield ts
-    task_status_repo.delete(ts.id)

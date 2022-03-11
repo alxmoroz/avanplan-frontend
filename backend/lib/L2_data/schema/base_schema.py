@@ -1,4 +1,6 @@
 #  Copyright (c) 2022. Alexandr Moroz
+
+from abc import ABC, abstractmethod
 from datetime import datetime
 from typing import Optional
 
@@ -47,3 +49,17 @@ class Statusable(BaseSchema):
     @validator("closed", always=True)
     def check_closed(cls, v):
         return v or False
+
+
+# TODO: всё же лучше этому преобразованию быть в репах. Вложенность за счёт вызова реп соседних. Вроде должно быть ок.
+#  Кода будет чуть меньше за счёт общего репо
+
+
+class BaseGetSchema(BaseSchema, ABC):
+    @abstractmethod
+    def entity(self):
+        raise NotImplementedError
+
+
+def e_from_schema(s: BaseGetSchema):
+    return s.entity() if s else None

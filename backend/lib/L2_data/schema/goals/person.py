@@ -1,14 +1,23 @@
 #  Copyright (c) 2022. Alexandr Moroz
+
 from pydantic import validator
 
-from ..base_schema import Identifiable, Importable, Timestampable
+from lib.L1_domain.entities import Person
+
+from ..base_schema import BaseGetSchema, Identifiable, Importable, Timestampable
 
 
-class PersonSchema(Identifiable, Importable, Timestampable):
+# TODO: проверить
+class PTest:
+    test: int
 
+
+class _PersonSchema(Identifiable, Importable, Timestampable, PTest):
     firstname: str | None = None
     lastname: str | None = None
 
+
+class PersonSchemaCreate(_PersonSchema):
     @validator("firstname", "lastname", always=True)
     def name_must_filled(cls, v, values):
 
@@ -20,3 +29,8 @@ class PersonSchema(Identifiable, Importable, Timestampable):
             raise ValueError("firstname or lastname must be filled")
 
         return v
+
+
+class PersonSchemaGet(_PersonSchema, BaseGetSchema):
+    def entity(self):
+        return Person(**self.dict())

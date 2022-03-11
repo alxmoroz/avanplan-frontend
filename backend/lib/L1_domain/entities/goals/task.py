@@ -18,7 +18,6 @@ class Task(Smartable):
     author: Person | None = None
     tasks: list[Task] | None = None
 
-    # TODO: или при импорте или при вытаскивании из БД полной связки можно получить эту инфу. Поэтому лучше вытащить в схему...
     @property
     def closed(self):
         return self.status.closed if self.status else False

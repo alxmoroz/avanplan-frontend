@@ -7,12 +7,7 @@ from lib.L1_domain.entities import Person
 from ..base_schema import BaseGetSchema, Identifiable, Importable, Timestampable
 
 
-# TODO: проверить
-class PTest:
-    test: int
-
-
-class _PersonSchema(Identifiable, Importable, Timestampable, PTest):
+class _PersonSchema(Identifiable, Importable, Timestampable):
     firstname: str | None = None
     lastname: str | None = None
 

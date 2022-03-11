@@ -3,8 +3,7 @@
 from ..entities.api.exceptions import ApiException
 from ..entities.auth import TokenPayload
 from ..entities.users import User
-from ..repositories import AbstractDBRepo, AbstractSecurityRepo
-from ..repositories.abstract_db_repo import S
+from ..repositories import AbstractDBRepo, AbstractSecurityRepo, SCreate
 
 
 class UsersUC:
@@ -27,7 +26,7 @@ class UsersUC:
 
         return self.user_repo.get(skip=skip, limit=limit)
 
-    def create_user(self, user: S) -> User:
+    def create_user(self, user: SCreate) -> User:
         self.get_active_superuser()
 
         if self.user_repo.get_one(email=user.email):

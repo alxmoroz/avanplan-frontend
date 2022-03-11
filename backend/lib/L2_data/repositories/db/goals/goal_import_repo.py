@@ -2,16 +2,16 @@
 
 from sqlalchemy.orm import Session
 
-from lib.L2_data.models import TaskPriority as TaskPriorityModel
+from lib.L2_data.models import Goal as GoalModel
 from lib.L2_data.repositories import entities as er
 
 from ..db_repo import DBRepo
 
 
-class TaskPriorityRepo(DBRepo):
+class GoalImportRepo(DBRepo):
     def __init__(self, db: Session):
         super().__init__(
-            model_cls=TaskPriorityModel,
-            entity_repo=er.TaskPriorityRepo(),
+            model_cls=GoalModel,
+            entity_repo=er.GoalImportRepo(),
             db=db,
         )

@@ -5,7 +5,7 @@ from datetime import datetime
 from sqlalchemy import column
 
 from lib.L1_domain.entities import Goal
-from lib.L2_data.repositories import GoalRepo
+from lib.L2_data.repositories.db import GoalRepo
 from lib.L2_data.schema import GoalSchemaCreate
 
 

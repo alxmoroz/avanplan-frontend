@@ -5,7 +5,7 @@ from datetime import datetime
 from sqlalchemy import column
 
 from lib.L1_domain.entities.goals import Task
-from lib.L2_data.repositories import TaskRepo
+from lib.L2_data.repositories.db import TaskRepo
 from lib.L2_data.schema import TaskSchemaCreate
 
 

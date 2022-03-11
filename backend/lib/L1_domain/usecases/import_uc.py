@@ -40,14 +40,14 @@ class ImportUC:
         e: E,
         key: str,
         processed_dict: dict,
-        repo: AbstractDBRepo,
+        db_repo: AbstractDBRepo,
         **filter_by,
     ) -> E:
         if key not in processed_dict:
-            e_in_db = repo.get_one(**filter_by)
-            s = repo.schema_from_entity(e)
+            e_in_db = db_repo.get_one(**filter_by)
+            s = db_repo.entity_repo.schema_from_entity(e)
             s.id = e_in_db.id if e_in_db else None
-            processed_dict[key] = repo.update(s)
+            processed_dict[key] = db_repo.update(s)
         return processed_dict[key]
 
     def _upsert_goal(self, goal: GoalImport) -> GoalImport:

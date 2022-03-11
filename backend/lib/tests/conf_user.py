@@ -5,7 +5,8 @@ from pydantic import EmailStr
 from sqlalchemy.orm import Session
 
 from lib.L1_domain.entities.users import User
-from lib.L2_data.repositories import SecurityRepo, UserRepo
+from lib.L2_data.repositories.db import UserRepo
+from lib.L2_data.repositories.security_repo import SecurityRepo
 from lib.L2_data.schema import UserSchema
 from lib.L2_data.settings import settings
 from lib.tests.utils import random_email

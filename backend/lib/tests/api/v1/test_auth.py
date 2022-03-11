@@ -4,7 +4,7 @@ from fastapi.testclient import TestClient
 from pydantic import EmailStr
 
 from lib.L1_domain.entities import User
-from lib.L2_data.repositories import UserRepo
+from lib.L2_data.repositories.db import UserRepo
 from lib.L2_data.schema import UserSchema
 from lib.L2_data.settings import settings
 from lib.L3_app.api.v1.auth import router

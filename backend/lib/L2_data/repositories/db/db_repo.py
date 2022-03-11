@@ -2,37 +2,36 @@
 from typing import Type, TypeVar
 
 from fastapi.encoders import jsonable_encoder
-from pydantic import BaseModel as BaseSchemaModel
 from sqlalchemy import delete, lambda_stmt, select
 from sqlalchemy.orm import Session
 from sqlalchemy.sql.elements import BinaryExpression
 
-from lib.L1_domain.repositories.abstract_db_repo import AbstractDBRepo, E
+from lib.L1_domain.repositories import AbstractDBRepo, E, ERepo
 from lib.L2_data.models import BaseModel as BaseDBModel
+from lib.L2_data.repositories.entities import SCreate
 
 M = TypeVar("M", bound=BaseDBModel)
-SGet = TypeVar("SGet", bound=BaseSchemaModel)
-SCreate = TypeVar("SCreate", bound=BaseSchemaModel)
 
 
-class DBRepo(AbstractDBRepo):
+# TODO: подумать над снятием зависимости от Е Для преобразования Е - S есть репа ERepo и можно докрутить туда преобразование из объектов БД.
+#  Здесь останется непоср. работа с БД. Тогда не нужно будет инициализировать эту репу репой сущностей. А работать как планировалось, в юзкейсе.
+
+
+class DBRepo(AbstractDBRepo[M, SCreate, E]):
     def __init__(
         self,
-        model_class: Type[M],
-        schema_get_class: Type[SGet],
-        schema_create_class: Type[SCreate],
-        entity_class: Type[E],
+        *,
+        model_cls: Type[M],
+        entity_repo: ERepo,
         db: Session,
     ):
-        self.db = db
-        super().__init__(model_class, schema_get_class, schema_create_class, entity_class)
+        self._db = db
+        super().__init__(model_cls=model_cls, entity_repo=entity_repo)
 
+    # TODO: перенести в ERepo?
     def _entity_from_orm(self, db_obj: M) -> E:
-        schema_obj = self._schema_get_class.from_orm(db_obj)
-        return schema_obj.entity()
-
-    def schema_from_entity(self, e: E) -> SGet:
-        return self._schema_create_class(**jsonable_encoder(e))
+        schema_obj = self.entity_repo._schema_get_cls.from_orm(db_obj)
+        return self.entity_repo.entity_from_schema(schema_obj)
 
     def get(
         self,
@@ -53,29 +52,29 @@ class DBRepo(AbstractDBRepo):
         if limit is not None:
             stmt = stmt.limit(limit)
 
-        objects = self.db.execute(stmt).scalars().all()
+        objects = self._db.execute(stmt).scalars().all()
         return [self._entity_from_orm(db_obj) for db_obj in objects]
 
     def create(self, s: SCreate) -> E:
         data = jsonable_encoder(s)
         db_obj = self._model_class(**data)
 
-        self.db.add(db_obj)
-        self.db.commit()
-        self.db.refresh(db_obj)
+        self._db.add(db_obj)
+        self._db.commit()
+        self._db.refresh(db_obj)
 
         return self._entity_from_orm(db_obj)
 
     def update(self, s: SCreate) -> E:
         data = jsonable_encoder(s)
-        obj = self.db.merge(self._model_class(**data))
-        self.db.commit()
+        db_obj = self._db.merge(self._model_class(**data))
+        self._db.commit()
 
-        return self._entity_from_orm(obj)
+        return self._entity_from_orm(db_obj)
 
     def delete(self, pk_id: int) -> int:
         stmt = delete(self._model_class).where(self._model_class.id == pk_id)
-        affected_rows = self.db.execute(stmt).rowcount
+        affected_rows = self._db.execute(stmt).rowcount
         if affected_rows:
-            self.db.commit()
+            self._db.commit()
             return affected_rows

@@ -5,7 +5,7 @@ from pydantic import EmailStr
 from sqlalchemy import column
 
 from lib.L1_domain.entities import User
-from lib.L2_data.repositories import UserRepo
+from lib.L2_data.repositories.db import UserRepo
 from lib.L2_data.schema import UserSchema
 
 

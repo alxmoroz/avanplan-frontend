@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 
 from ..entities.api.exceptions import ApiException
 from ..entities.goals import Goal, GoalReport, Task
-from ..repositories.abstract_db_repo import AbstractDBRepo, S
+from ..repositories.abstract_db_repo import AbstractDBRepo, SCreate
 
 
 class GoalsUC:
@@ -57,7 +57,7 @@ class GoalsUC:
 
         return goals
 
-    def upsert_goal(self, s: S) -> Goal:
+    def upsert_goal(self, s: SCreate) -> Goal:
         return self.goal_repo.update(s)
 
     def delete_goal(self, goal_id: int) -> int:

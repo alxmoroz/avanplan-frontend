@@ -4,7 +4,7 @@ import pytest
 from sqlalchemy import column
 
 from lib.L1_domain.entities.goals import TaskPriority
-from lib.L2_data.repositories import TaskPriorityRepo
+from lib.L2_data.repositories.db import TaskPriorityRepo
 from lib.L2_data.schema import TaskPrioritySchema
 
 

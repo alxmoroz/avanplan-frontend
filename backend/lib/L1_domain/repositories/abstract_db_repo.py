@@ -1,26 +1,25 @@
 #  Copyright (c) 2022. Alexandr Moroz
-
+from abc import ABC
 from typing import Generic, Type, TypeVar
 
 from ..entities.base_entity import Identifiable
+from .abstract_entity_repo import AbstractEntityRepo
 
 M = TypeVar("M")
-S = TypeVar("S")
+SCreate = TypeVar("SCreate")
 E = TypeVar("E", bound=Identifiable)
+ERepo = TypeVar("ERepo", bound=AbstractEntityRepo)
 
 
-class AbstractDBRepo(Generic[M, S, E]):
+class AbstractDBRepo(Generic[M, SCreate, E], ABC):
     def __init__(
         self,
-        model_class: Type[M],
-        schema_get_class: Type[S],
-        schema_create_class: Type[S],
-        entity_class: Type[E],
+        *,
+        model_cls: Type[M],
+        entity_repo: ERepo,
     ):
-        self._model_class = model_class
-        self._schema_get_class = schema_get_class
-        self._schema_create_class = schema_create_class
-        self._entity_class = entity_class
+        self._model_class = model_cls
+        self.entity_repo = entity_repo
 
     def get(
         self,
@@ -37,14 +36,11 @@ class AbstractDBRepo(Generic[M, S, E]):
         objs = self.get(**filter_by)
         return objs[0] if len(objs) > 0 else None
 
-    def create(self, data: S) -> E:
+    def create(self, data: SCreate) -> E:
         raise NotImplementedError
 
-    def update(self, data: S) -> E:
+    def update(self, data: SCreate) -> E:
         raise NotImplementedError
 
     def delete(self, pk_id: int) -> int:
-        raise NotImplementedError
-
-    def schema_from_entity(self, e: E) -> S:
         raise NotImplementedError

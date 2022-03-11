@@ -4,7 +4,7 @@ import pytest
 from sqlalchemy.orm import Session
 
 from lib.L1_domain.entities.goals import Goal, Person, Task, TaskStatus
-from lib.L2_data.repositories import GoalRepo, PersonRepo, TaskRepo, TaskStatusRepo
+from lib.L2_data.repositories.db import GoalRepo, PersonRepo, TaskRepo, TaskStatusRepo
 from lib.L2_data.schema import GoalSchemaCreate, PersonSchemaCreate, TaskSchemaCreate, TaskStatusSchema
 
 

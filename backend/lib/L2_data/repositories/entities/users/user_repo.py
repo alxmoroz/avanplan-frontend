@@ -1,0 +1,15 @@
+#  Copyright (c) 2022. Alexandr Moroz
+
+
+from lib.L1_domain.entities import User
+from lib.L2_data.schema import UserSchema
+
+from ..entity_repo import EntityRepo
+
+
+class UserRepo(EntityRepo):
+    def __init__(self):
+        super().__init__(
+            schema_get_cls=UserSchema,
+            entity_cls=User,
+        )

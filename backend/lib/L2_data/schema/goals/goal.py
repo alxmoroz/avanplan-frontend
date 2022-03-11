@@ -2,17 +2,16 @@
 
 from __future__ import annotations
 
+from abc import ABC
 from typing import Optional
 
-from lib.L1_domain.entities import Goal, GoalImport
-
-from ..base_schema import BaseGetSchema, e_from_schema
+from ..base_schema import BaseSchema
 from .goal_report import GoalReportSchema
 from .goal_status import GoalStatusSchema
 from .smartable import Smartable
 
 
-class _GoalSchema(Smartable):
+class _GoalSchema(Smartable, BaseSchema, ABC):
     pass
 
 
@@ -21,21 +20,10 @@ class GoalSchemaCreate(_GoalSchema):
     status_id: Optional[int]
 
 
-class GoalSchemaGet(_GoalSchema, BaseGetSchema):
+class GoalSchemaGet(_GoalSchema):
     status: Optional[GoalStatusSchema]
     report: Optional[GoalReportSchema]
 
-    def entity(self):
-        g = Goal(**self.dict())
-        g.status = e_from_schema(self.status)
-        g.report = e_from_schema(self.report)
-        return g
 
-
-class GoalImportSchemaGet(_GoalSchema, BaseGetSchema):
+class GoalImportSchemaGet(_GoalSchema):
     parent: Optional[GoalImportSchemaGet]
-
-    def entity(self):
-        g = GoalImport(**self.dict())
-        g.parent = e_from_schema(self.parent)
-        return g

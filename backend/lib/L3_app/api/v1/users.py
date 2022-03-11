@@ -6,8 +6,8 @@ from sqlalchemy.orm import Session
 from lib.L1_domain.entities.users import User
 from lib.L1_domain.usecases.users_uc import UsersUC
 from lib.L2_data.db import db_session
-from lib.L2_data.repositories import SecurityRepo, UserRepo
-from lib.L2_data.repositories.security_repo import oauth2_scheme
+from lib.L2_data.repositories.db import UserRepo
+from lib.L2_data.repositories.security_repo import SecurityRepo, oauth2_scheme
 from lib.L2_data.schema.users import UserSchema
 
 router = APIRouter(prefix="/users")
@@ -57,7 +57,7 @@ def update_my_account(
 # @router.get("/{user_id}", response_model=schemas.User)
 # def get_user_by_id(
 #     user_id: int,
-#     db: Session = Depends(deps.get_db),
+#     _db: Session = Depends(deps.get_db),
 #     current_user: UserModel = Depends(deps.get_current_active_user),
 # ) -> UserModel:
 #     """

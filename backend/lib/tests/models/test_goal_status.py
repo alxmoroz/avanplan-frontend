@@ -4,7 +4,7 @@ import pytest
 from sqlalchemy import column
 
 from lib.L1_domain.entities import GoalStatus
-from lib.L2_data.repositories import GoalStatusRepo
+from lib.L2_data.repositories.db import GoalStatusRepo
 from lib.L2_data.schema import GoalStatusSchema
 
 

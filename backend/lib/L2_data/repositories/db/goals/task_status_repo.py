@@ -2,13 +2,16 @@
 
 from sqlalchemy.orm import Session
 
-from lib.L1_domain.entities.goals import TaskStatus
 from lib.L2_data.models import TaskStatus as TaskStatusModel
-from lib.L2_data.schema import TaskStatusSchema
+from lib.L2_data.repositories import entities as er
 
 from ..db_repo import DBRepo
 
 
 class TaskStatusRepo(DBRepo):
     def __init__(self, db: Session):
-        super().__init__(TaskStatusModel, TaskStatusSchema, TaskStatusSchema, TaskStatus, db)
+        super().__init__(
+            model_cls=TaskStatusModel,
+            entity_repo=er.TaskStatusRepo(),
+            db=db,
+        )

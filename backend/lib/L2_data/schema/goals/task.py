@@ -2,11 +2,10 @@
 
 from __future__ import annotations
 
+from abc import ABC
 from typing import Optional
 
-from lib.L1_domain.entities import Task, TaskImport
-
-from ..base_schema import BaseGetSchema, e_from_schema
+from ..base_schema import BaseSchema
 from .goal import GoalImportSchemaGet
 from .person import PersonSchemaGet
 from .smartable import Smartable
@@ -14,7 +13,7 @@ from .task_priority import TaskPrioritySchema
 from .task_status import TaskStatusSchema
 
 
-class _TaskSchema(Smartable):
+class _TaskSchema(Smartable, BaseSchema, ABC):
     pass
 
 
@@ -27,29 +26,14 @@ class TaskSchemaCreate(_TaskSchema):
     author_id: Optional[int]
 
 
-class TaskSchemaGet(_TaskSchema, BaseGetSchema):
+class TaskSchemaGet(_TaskSchema):
     status: Optional[TaskStatusSchema]
     author: Optional[PersonSchemaGet]
     assignee: Optional[PersonSchemaGet]
     priority: Optional[TaskPrioritySchema]
 
-    def entity(self) -> Task:
-        t = Task(**self.dict())
-        t.status = e_from_schema(self.status)
-        t.author = e_from_schema(self.author)
-        t.assignee = e_from_schema(self.assignee)
-        t.priority = e_from_schema(self.priority)
-        return t
 
-
-class TaskImportSchemaGet(_TaskSchema, BaseGetSchema):
+class TaskImportSchemaGet(_TaskSchema):
 
     goal: Optional[GoalImportSchemaGet]
     parent: Optional[TaskImportSchemaGet]
-
-    def entity(self) -> TaskImport:
-        t = TaskImport(**self.dict())
-        t.goal = e_from_schema(self.goal)
-        t.parent = e_from_schema(self.parent)
-
-        return t

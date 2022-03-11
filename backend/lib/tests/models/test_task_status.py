@@ -3,7 +3,7 @@
 from sqlalchemy import column
 
 from lib.L1_domain.entities import TaskStatus
-from lib.L2_data.repositories import TaskStatusRepo
+from lib.L2_data.repositories.db import TaskStatusRepo
 from lib.L2_data.schema import TaskStatusSchema
 
 

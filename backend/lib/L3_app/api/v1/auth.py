@@ -7,7 +7,8 @@ from sqlalchemy.orm import Session
 from lib.L1_domain.entities.auth import Token
 from lib.L1_domain.usecases.auth_uc import AuthUC
 from lib.L2_data.db import db_session
-from lib.L2_data.repositories import SecurityRepo, UserRepo
+from lib.L2_data.repositories.db import UserRepo
+from lib.L2_data.repositories.security_repo import SecurityRepo
 
 router = APIRouter(prefix="/auth")
 
@@ -30,7 +31,7 @@ def token(
 # def reset_password(
 #         token: str = Body(...),
 #         new_password: str = Body(...),
-#         db: Session = Depends(deps.get_db),
+#         _db: Session = Depends(deps.get_db),
 # ) -> any:
 #     """
 #     Reset password
@@ -48,6 +49,6 @@ def token(
 #         raise HTTPException(status_code=400, detail="Inactive user")
 #     hashed_password = get_password_hash(new_password)
 #     user.hashed_password = hashed_password
-#     db.add(user)
-#     db.commit()
+#     _db.add(user)
+#     _db.commit()
 #     return {"msg": "Password updated successfully"}

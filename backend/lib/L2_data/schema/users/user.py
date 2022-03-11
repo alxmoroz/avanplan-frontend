@@ -2,16 +2,12 @@
 
 from pydantic import EmailStr
 
-from lib.L1_domain.entities import User
-from lib.L2_data.schema.base_schema import BaseGetSchema, Identifiable, Timestampable
+from lib.L2_data.schema.base_schema import BaseSchema, Identifiable, Timestampable
 
 
-class UserSchema(Identifiable, Timestampable, BaseGetSchema):
+class UserSchema(Identifiable, Timestampable, BaseSchema):
     email: EmailStr
     password: str
     full_name: str | None = None
     is_active: bool = True
     is_superuser: bool = False
-
-    def entity(self):
-        return User(**self.dict())

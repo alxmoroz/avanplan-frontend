@@ -8,7 +8,7 @@ from pydantic import validator
 from ..base_schema import BaseSchema, Identifiable, Importable, Timestampable
 
 
-class _BasePersonSchema(Identifiable, Importable, Timestampable, BaseSchema, ABC):
+class _BasePersonSchema(Identifiable, BaseSchema, ABC):
     firstname: Optional[str]
     lastname: Optional[str]
 
@@ -27,5 +27,5 @@ class PersonSchemaCreate(_BasePersonSchema):
         return v
 
 
-class PersonSchemaGet(_BasePersonSchema):
+class PersonSchemaGet(_BasePersonSchema, Importable, Timestampable):
     pass

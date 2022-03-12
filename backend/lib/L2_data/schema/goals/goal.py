@@ -5,7 +5,7 @@ from __future__ import annotations
 from abc import ABC
 from typing import Optional
 
-from ..base_schema import BaseSchema
+from ..base_schema import BaseSchema, Importable, Timestampable
 from .goal_report import GoalReportSchema
 from .goal_status import GoalStatusSchema
 from .smartable import Smartable
@@ -20,10 +20,10 @@ class GoalSchemaCreate(_GoalSchema):
     status_id: Optional[int]
 
 
-class GoalSchemaGet(_GoalSchema):
+class GoalSchemaGet(_GoalSchema, Importable, Timestampable):
     status: Optional[GoalStatusSchema]
     report: Optional[GoalReportSchema]
 
 
-class GoalImportSchemaGet(_GoalSchema):
+class GoalImportSchemaGet(_GoalSchema, Importable):
     parent: Optional[GoalImportSchemaGet]

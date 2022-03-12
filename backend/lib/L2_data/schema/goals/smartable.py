@@ -1,12 +1,12 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
 from abc import ABC
-from datetime import date, datetime
+from datetime import datetime
 from typing import Optional
 
-from ..base_schema import Identifiable, Importable, Timestampable, Titleable
+from ..base_schema import Identifiable, Titleable
 
 
-class Smartable(Timestampable, Titleable, Importable, Identifiable, ABC):
+class Smartable(Titleable, Identifiable, ABC):
     description: Optional[str]
-    due_date: Optional[datetime | date]
+    due_date: Optional[datetime]

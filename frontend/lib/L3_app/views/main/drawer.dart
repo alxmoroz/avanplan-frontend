@@ -22,6 +22,7 @@ class ALDrawer extends StatelessWidget {
               children: [
                 SizedBox(height: onePadding),
                 const Spacer(),
+                Button('Импорт задач из Redmine', mainController.redmine),
                 if (mainController.authorized) Button('Выйти', mainController.logout),
                 SizedBox(height: onePadding),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [

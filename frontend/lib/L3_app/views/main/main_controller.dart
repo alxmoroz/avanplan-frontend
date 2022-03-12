@@ -5,6 +5,7 @@ import 'package:mobx/mobx.dart';
 import 'package:openapi/openapi.dart';
 
 import '../../../L1_domain/entities/app_settings.dart';
+import '../../../L1_domain/entities/goal.dart';
 import '../../extra/services.dart';
 import '../auth/login_view.dart';
 import '../base/base_controller.dart';
@@ -17,6 +18,8 @@ class MainController extends _MainControllerBase with _$MainController {
     settings = await settingsUC.getSettings();
     await settingsUC.updateVersion(packageInfo.version);
     await authUC.setApiCredentialsFromSettings();
+
+    goals = ObservableList.of(await goalsUC.getGoals());
 
     return this;
   }
@@ -32,6 +35,12 @@ abstract class _MainControllerBase extends BaseController with Store {
 
   @action
   void setSettings(AppSettings _settings) => settings = _settings;
+
+  @observable
+  ObservableList<Goal> goals = ObservableList();
+
+  @action
+  void setGoals(Iterable<Goal> _goals) => goals = ObservableList.of(_goals);
 
   @computed
   bool get authorized => settings?.accessToken.isNotEmpty ?? false;
@@ -56,12 +65,12 @@ abstract class _MainControllerBase extends BaseController with Store {
 
   //TODO: для тестирования метод пока что тут. Нужен отдельный юзкейс и репы
   Future redmine() async {
-    final builder = BodyTasksApiV1ImportRedmineTasksPostBuilder()
+    final builder = BodyGoalsApiV1IntegrationsRedmineGoalsPostBuilder()
       ..apiKey = '101b62ea94b4132625a3d079451ea13fed3f4b87'
       ..host = 'https://redmine.moroz.team';
 
-    await openAPI.getImportRedmineApi().tasksApiV1ImportRedmineTasksPost(
-          bodyTasksApiV1ImportRedmineTasksPost: builder.build(),
+    await openAPI.getIntegrationsRedmineApi().goalsApiV1IntegrationsRedmineGoalsPost(
+          bodyGoalsApiV1IntegrationsRedmineGoalsPost: builder.build(),
         );
   }
 

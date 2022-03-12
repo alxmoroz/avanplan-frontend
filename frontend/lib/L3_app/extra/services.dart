@@ -6,10 +6,12 @@ import 'package:openapi/openapi.dart';
 import 'package:package_info/package_info.dart';
 
 import '../../L1_domain/usecases/auth_uc.dart';
+import '../../L1_domain/usecases/goals_uc.dart';
 import '../../L1_domain/usecases/settings_uc.dart';
 import '../../L2_data/db.dart';
 import '../../L2_data/repositories/auth_repo.dart';
 import '../../L2_data/repositories/db_repo.dart';
+import '../../L2_data/repositories/goals_repo.dart';
 import '../l10n/generated/l10n.dart';
 import '../views/auth/login_controller.dart';
 import '../views/main/main_controller.dart';
@@ -26,6 +28,7 @@ LoginController get loginController => GetIt.I<LoginController>();
 Openapi get openAPI => GetIt.I<Openapi>();
 
 AuthUC get authUC => GetIt.I<AuthUC>();
+GoalsUC get goalsUC => GetIt.I<GoalsUC>();
 SettingsUC get settingsUC => GetIt.I<SettingsUC>();
 
 void setup() {
@@ -44,11 +47,12 @@ void setup() {
   // use cases
   getIt.registerSingletonAsync<SettingsUC>(() async => SettingsUC(settingsRepo: SettingsRepo()));
   getIt.registerSingletonAsync<AuthUC>(() async => AuthUC(settingsUC: settingsUC, authRepo: AuthRepo()), dependsOn: [SettingsUC]);
+  getIt.registerSingletonAsync<GoalsUC>(() async => GoalsUC(goalsRepo: GoalsRepo()), dependsOn: [AuthUC]);
 
   // stores / states / controllers
   getIt.registerSingletonAsync<MainController>(
     () async => await MainController().init(),
-    dependsOn: [HiveStorage, PackageInfo, IosDeviceInfo, Openapi, SettingsUC, AuthUC],
+    dependsOn: [HiveStorage, PackageInfo, IosDeviceInfo, Openapi, SettingsUC, AuthUC, GoalsUC],
   );
   getIt.registerSingletonAsync<LoginController>(() async => await LoginController().init(), dependsOn: [MainController]);
 }

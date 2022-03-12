@@ -1,15 +1,14 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../components/card.dart';
+import '../../components/text_widgets.dart';
 
 import '../../components/buttons.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
-import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import 'drawer.dart';
 
@@ -33,6 +32,28 @@ class _MainViewState extends State<MainView> {
     super.dispose();
   }
 
+  Widget goalCardBuilder(BuildContext context, int index) {
+    final goal = mainController.goals[index];
+    return AMCard(
+        title: ListTile(
+          title: H3(goal.title, color: darkGreyColor.resolve(context)),
+          subtitle: SmallText(goal.description ?? '', maxLines: 1),
+        ),
+        body: Padding(
+          padding: EdgeInsets.all(onePadding),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              LightText(goal.report?.closedTasksCount?.toString() ?? ''),
+              LightText(goal.report?.tasksCount?.toString() ?? ''),
+              LightText(goal.report?.etaDate?.toString() ?? ''),
+              LightText(goal.report?.planSpeed?.toString() ?? ''),
+              LightText(goal.report?.factSpeed?.toString() ?? ''),
+            ],
+          ),
+        ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,12 +71,15 @@ class _MainViewState extends State<MainView> {
       body: Container(
         color: backgroundColor.resolve(context),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const H2('Главный экран', align: TextAlign.center),
             SizedBox(height: onePadding),
-            Button('Импорт задач из Redmine', mainController.redmine),
+            Expanded(
+              child: ListView.builder(
+                itemBuilder: goalCardBuilder,
+                itemCount: mainController.goals.length,
+              ),
+            ),
+            SizedBox(height: onePadding),
           ],
         ),
       ),

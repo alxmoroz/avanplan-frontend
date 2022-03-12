@@ -21,6 +21,8 @@ Color get borderColor => const CupertinoDynamicColor.withBrightness(
 
 Color get backgroundColor => CupertinoColors.systemGrey6;
 
+Color get cardBackgroundColor => CupertinoColors.systemGrey5;
+
 const Color _tealColor = Color.fromARGB(255, 90, 200, 250);
 const Color _darkTealColor = Color.fromARGB(255, 0, 113, 164);
 
@@ -50,5 +52,5 @@ Color get appBarBgColor => const CupertinoDynamicColor.withBrightness(
     );
 
 extension ResolvedColor on Color {
-  Color resolve(BuildContext ctx) => CupertinoDynamicColor.resolve(this, ctx);
+  Color resolve(BuildContext context) => CupertinoDynamicColor.resolve(this, context);
 }

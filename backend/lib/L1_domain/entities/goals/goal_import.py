@@ -11,3 +11,4 @@ from .goal import Goal
 @dataclass
 class GoalImport(Goal):
     parent: GoalImport | None = None
+    remote_parent_id: int | None = None

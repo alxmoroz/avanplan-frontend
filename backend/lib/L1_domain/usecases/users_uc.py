@@ -1,14 +1,23 @@
 #  Copyright (c) 2022. Alexandr Moroz
+from typing import Generic
 
 from ..entities.api.exceptions import ApiException
 from ..entities.auth import TokenPayload
 from ..entities.users import User
-from ..repositories import AbstractDBRepo, AbstractSecurityRepo, SCreate
+from ..repositories import AbstractDBRepo, AbstractSecurityRepo
+from ..repositories.abstract_entity_repo import AbstractEntityRepo, SCreate
 
 
-class UsersUC:
-    def __init__(self, user_repo: AbstractDBRepo, security_repo: AbstractSecurityRepo):
+class UsersUC(Generic[SCreate]):
+    def __init__(
+        self,
+        *,
+        user_repo: AbstractDBRepo,
+        user_e_repo: AbstractEntityRepo,
+        security_repo: AbstractSecurityRepo,
+    ):
         self.user_repo = user_repo
+        self.user_e_repo = user_e_repo
         self.sec_repo = security_repo
 
     # TODO: очень связаны логически юзкейсы авторизации и этот
@@ -32,7 +41,11 @@ class UsersUC:
         if self.user_repo.get_one(email=user.email):
             raise ApiException(400, "The user with this email already exists.")
         user.password = self.sec_repo.secure_password(user.password)
-        return self.user_repo.create(user)
+
+        s = self.user_e_repo.schema_create_from_entity(user)
+        data = self.user_e_repo.dict_from_schema_create(s)
+        user = self.user_e_repo.entity_from_orm(self.user_repo.create(data))
+        return user
 
     def get_active_user(self) -> User:
         user = self._get_auth_user()
@@ -49,7 +62,9 @@ class UsersUC:
         if full_name is not None:
             user.full_name = full_name
 
-        self.user_repo.update(user)
+        s = self.user_e_repo.schema_create_from_entity(user)
+        data = self.user_e_repo.dict_from_schema_create(s)
+        user = self.user_e_repo.entity_from_orm(self.user_repo.update(data))
         return user
 
     def get_active_superuser(self) -> User:

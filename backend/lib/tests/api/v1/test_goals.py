@@ -2,7 +2,7 @@
 from fastapi.testclient import TestClient
 
 from lib.L1_domain.entities import Goal, GoalReport
-from lib.L2_data.repositories.db import GoalRepo
+from lib.L2_data.repositories import entities as er
 from lib.L2_data.schema import GoalSchemaGet
 from lib.L2_data.settings import settings
 from lib.L3_app.api.v1.goals import router
@@ -10,19 +10,22 @@ from lib.L3_app.api.v1.goals import router
 _goals_api_path = f"{settings.API_PATH}{router.prefix}"
 
 
-def _goal_from_json(json: dict, repo: GoalRepo) -> Goal:
-    return repo.entity_repo.entity_from_schema(GoalSchemaGet(**json))
+def _goal_from_json(json: dict) -> Goal:
+    return er.GoalRepo().entity_from_schema_get(GoalSchemaGet(**json))
 
 
-def test_get_goals(client: TestClient, auth_headers_test_user, tmp_goal, goal_repo: GoalRepo):
+def _user_from_orm(obj: any) -> Goal:
+    return er.GoalRepo().entity_from_orm(obj)
 
+
+def test_get_goals(client: TestClient, auth_headers_test_user, tmp_goal):
     r = client.get(_goals_api_path, headers=auth_headers_test_user)
     assert r.status_code == 200, r
     json_goals = r.json()
-    goals_out = [_goal_from_json(json_goal, goal_repo) for json_goal in json_goals]
+    goals_out = [_goal_from_json(json_goal) for json_goal in json_goals]
 
     tmp_goal.report = GoalReport()
-    assert tmp_goal in goals_out
+    assert _user_from_orm(tmp_goal) in goals_out
     tmp_goal.report = None
 
 

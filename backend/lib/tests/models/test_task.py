@@ -2,9 +2,9 @@
 
 from datetime import datetime
 
+from fastapi.encoders import jsonable_encoder
 from sqlalchemy import column
 
-from lib.L1_domain.entities.goals import Task
 from lib.L2_data.repositories.db import TaskRepo
 from lib.L2_data.schema import TaskSchemaCreate
 
@@ -15,8 +15,8 @@ def test_get_one(task_repo: TaskRepo, tmp_task):
 
 
 def test_get_create(task_repo: TaskRepo, tmp_task, tmp_goal):
-
-    obj2 = task_repo.create(TaskSchemaCreate(title="test_get", goal_id=tmp_goal.id))
+    s = TaskSchemaCreate(title="test_get", goal_id=tmp_goal.id)
+    obj2 = task_repo.create(jsonable_encoder(s))
 
     objects = task_repo.get(
         limit=2,
@@ -41,7 +41,7 @@ def test_update(task_repo: TaskRepo, tmp_task, tmp_goal):
         updated_on=datetime.now(),
         due_date=datetime.now(),
     )
-    obj_out = task_repo.update(s)
+    obj_out = task_repo.update(jsonable_encoder(s))
     test_obj_out = task_repo.get_one(id=tmp_task.id)
     assert obj_out == test_obj_out
     assert obj_out.title == s.title
@@ -53,12 +53,12 @@ def test_update(task_repo: TaskRepo, tmp_task, tmp_goal):
 
 def test_upsert_delete(task_repo: TaskRepo, tmp_goal):
     # upsert
-    task = Task(title="test_upsert_delete")
-    obj_out = task_repo.update(TaskSchemaCreate(title=task.title, goal_id=tmp_goal.id))
+    s = TaskSchemaCreate(title="test_upsert_delete", goal_id=tmp_goal.id)
+    obj_out = task_repo.update(jsonable_encoder(s))
     test_obj_out = task_repo.get_one(id=obj_out.id)
 
     assert obj_out == test_obj_out
-    assert task.title == obj_out.title
+    assert s.title == obj_out.title
 
     # delete
     assert task_repo.delete(obj_out.id) == 1

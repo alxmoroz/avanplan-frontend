@@ -3,15 +3,10 @@
 from sqlalchemy.orm import Session
 
 from lib.L2_data.models import User as UserModel
-from lib.L2_data.repositories import entities as er
 
 from ..db_repo import DBRepo
 
 
-class UserRepo(DBRepo):
+class UserRepo(DBRepo[UserModel]):
     def __init__(self, db: Session):
-        super().__init__(
-            model_cls=UserModel,
-            entity_repo=er.UserRepo(),
-            db=db,
-        )
+        super().__init__(model_cls=UserModel, db=db)

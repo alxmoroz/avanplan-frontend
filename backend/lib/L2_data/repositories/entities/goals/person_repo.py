@@ -2,15 +2,12 @@
 
 
 from lib.L1_domain.entities.goals import Person
+from lib.L2_data.models import Person as PersonModel
 from lib.L2_data.schema import PersonSchemaCreate, PersonSchemaGet
 
 from ..entity_repo import EntityRepo
 
 
-class PersonRepo(EntityRepo):
+class PersonRepo(EntityRepo[PersonSchemaGet, PersonSchemaCreate, Person, PersonModel]):
     def __init__(self):
-        super().__init__(
-            schema_get_cls=PersonSchemaGet,
-            schema_create_cls=PersonSchemaCreate,
-            entity_cls=Person,
-        )
+        super().__init__(schema_get_cls=PersonSchemaGet, schema_create_cls=PersonSchemaCreate, entity_cls=Person)

@@ -14,3 +14,4 @@ from .task import Task
 class TaskImport(Task):
     goal: GoalImport | None = None
     parent: TaskImport | None = None
+    remote_parent_id: int | None = None

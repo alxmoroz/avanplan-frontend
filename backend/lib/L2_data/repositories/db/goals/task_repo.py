@@ -2,15 +2,10 @@
 from sqlalchemy.orm import Session
 
 from lib.L2_data.models import Task as TaskModel
-from lib.L2_data.repositories import entities as er
 
 from ..db_repo import DBRepo
 
 
-class TaskRepo(DBRepo):
+class TaskRepo(DBRepo[TaskModel]):
     def __init__(self, db: Session):
-        super().__init__(
-            model_cls=TaskModel,
-            entity_repo=er.TaskRepo(),
-            db=db,
-        )
+        super().__init__(model_cls=TaskModel, db=db)

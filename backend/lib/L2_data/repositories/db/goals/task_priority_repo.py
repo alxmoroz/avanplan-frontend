@@ -3,15 +3,10 @@
 from sqlalchemy.orm import Session
 
 from lib.L2_data.models import TaskPriority as TaskPriorityModel
-from lib.L2_data.repositories import entities as er
 
 from ..db_repo import DBRepo
 
 
-class TaskPriorityRepo(DBRepo):
+class TaskPriorityRepo(DBRepo[TaskPriorityModel]):
     def __init__(self, db: Session):
-        super().__init__(
-            model_cls=TaskPriorityModel,
-            entity_repo=er.TaskPriorityRepo(),
-            db=db,
-        )
+        super().__init__(model_cls=TaskPriorityModel, db=db)

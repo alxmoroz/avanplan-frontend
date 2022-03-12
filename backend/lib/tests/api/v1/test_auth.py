@@ -1,5 +1,6 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
+from fastapi.encoders import jsonable_encoder
 from fastapi.testclient import TestClient
 from pydantic import EmailStr
 
@@ -41,8 +42,8 @@ def test_get_token_403(client: TestClient, tmp_user: User, user_repo: UserRepo):
         data={"username": "user@email.com", "password": "wrong_password"},
     )
     assert r2.json()["detail"] == "Incorrect username or password"
-
-    user_repo.update(UserSchema(id=tmp_user.id, email=EmailStr(tmp_user.email), password=tmp_user.password, is_active=False))
+    s = UserSchema(id=tmp_user.id, email=EmailStr(tmp_user.email), password=tmp_user.password, is_active=False)
+    user_repo.update(jsonable_encoder(s))
     r3 = client.post(
         api_path,
         data={"username": tmp_user.email, "password": "password"},

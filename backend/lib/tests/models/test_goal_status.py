@@ -1,9 +1,10 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
 import pytest
+from fastapi.encoders import jsonable_encoder
 from sqlalchemy import column
 
-from lib.L1_domain.entities import GoalStatus
+from lib.L2_data.models import GoalStatus
 from lib.L2_data.repositories.db import GoalStatusRepo
 from lib.L2_data.schema import GoalStatusSchema
 
@@ -14,8 +15,8 @@ def test_get_one(goal_status_repo: GoalStatusRepo, tmp_goal_status):
 
 
 def test_get_create(goal_status_repo: GoalStatusRepo, tmp_goal_status):
-
-    obj2: GoalStatus = goal_status_repo.create(GoalStatusSchema(title="test_get"))
+    s = GoalStatusSchema(title="test_get")
+    obj2: GoalStatus = goal_status_repo.create(jsonable_encoder(s))
     objects = goal_status_repo.get(
         limit=2,
         where=column("id").in_([tmp_goal_status.id, obj2.id]),
@@ -35,7 +36,7 @@ def test_update(goal_status_repo: GoalStatusRepo, tmp_goal_status):
         closed=True,
     )
 
-    obj_out = goal_status_repo.update(s)
+    obj_out = goal_status_repo.update(jsonable_encoder(s))
     test_obj_out = goal_status_repo.get_one(id=tmp_goal_status.id)
 
     assert obj_out == test_obj_out
@@ -45,12 +46,12 @@ def test_update(goal_status_repo: GoalStatusRepo, tmp_goal_status):
 
 def test_upsert_delete(goal_status_repo: GoalStatusRepo):
     # upsert
-    goal_status = GoalStatus(title="test_upsert_delete")
-    obj_out = goal_status_repo.update(GoalStatusSchema(title=goal_status.title))
+    s = GoalStatusSchema(title="test_upsert_delete")
+    obj_out = goal_status_repo.update(jsonable_encoder(s))
     test_obj_out = goal_status_repo.get_one(id=obj_out.id)
 
     assert obj_out == test_obj_out
-    assert goal_status.title == obj_out.title
+    assert s.title == obj_out.title
 
     # delete
     assert goal_status_repo.delete(obj_out.id) == 1
@@ -63,6 +64,7 @@ def goal_status_repo(db) -> GoalStatusRepo:
 
 @pytest.fixture(scope="module")
 def tmp_goal_status(goal_status_repo: GoalStatusRepo) -> GoalStatus:
-    goal_status = goal_status_repo.update(GoalStatusSchema(title="tmp_goal_status"))
+    s = GoalStatusSchema(title="tmp_goal_status")
+    goal_status = goal_status_repo.update(jsonable_encoder(s))
     yield goal_status
     goal_status_repo.delete(goal_status.id)

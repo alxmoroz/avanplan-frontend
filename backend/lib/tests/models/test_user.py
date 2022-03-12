@@ -1,10 +1,12 @@
 #  Copyright (c) 2022. Alexandr Moroz
+
 from datetime import datetime
 
+from fastapi.encoders import jsonable_encoder
 from pydantic import EmailStr
 from sqlalchemy import column
 
-from lib.L1_domain.entities import User
+from lib.L2_data.models import User
 from lib.L2_data.repositories.db import UserRepo
 from lib.L2_data.schema import UserSchema
 
@@ -15,8 +17,8 @@ def test_get_one(user_repo: UserRepo, tmp_user: User):
 
 
 def test_get_create(user_repo: UserRepo, tmp_user: User):
-
-    obj2 = user_repo.create(UserSchema(email=EmailStr("test@mail.com"), password="pass"))
+    s = UserSchema(email=EmailStr("test@mail.com"), password="pass")
+    obj2 = user_repo.create(jsonable_encoder(s))
 
     objects = user_repo.get(
         limit=2,
@@ -40,7 +42,7 @@ def test_update(user_repo: UserRepo, tmp_user: User):
         updated_on=datetime.now(),
     )
 
-    obj_out = user_repo.update(s)
+    obj_out = user_repo.update(jsonable_encoder(s))
     test_obj_out = user_repo.get_one(id=tmp_user.id)
 
     assert obj_out == test_obj_out
@@ -54,12 +56,12 @@ def test_update(user_repo: UserRepo, tmp_user: User):
 
 def test_upsert_delete(user_repo: UserRepo):
     # upsert
-    user = User(email=EmailStr("test3@mail.com"), password="pass")
-    obj_out = user_repo.update(UserSchema(email=EmailStr(user.email), password=user.password))
+    s = UserSchema(email=EmailStr("test3@mail.com"), password="pass")
+    obj_out = user_repo.update(jsonable_encoder(s))
     test_obj_out = user_repo.get_one(id=obj_out.id)
 
     assert obj_out == test_obj_out
-    assert user.email == obj_out.email
+    assert s.email == obj_out.email
 
     # delete
     assert user_repo.delete(obj_out.id) == 1

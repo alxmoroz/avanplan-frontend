@@ -1,9 +1,10 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
 import pytest
+from fastapi.encoders import jsonable_encoder
 from sqlalchemy import column
 
-from lib.L1_domain.entities.goals import TaskPriority
+from lib.L2_data.models import TaskPriority
 from lib.L2_data.repositories.db import TaskPriorityRepo
 from lib.L2_data.schema import TaskPrioritySchema
 
@@ -14,8 +15,8 @@ def test_get_one(task_priority_repo: TaskPriorityRepo, tmp_task_priority):
 
 
 def test_get_create(task_priority_repo: TaskPriorityRepo, tmp_task_priority):
-
-    obj2 = task_priority_repo.create(TaskPrioritySchema(title="test_get", order=2))
+    s = TaskPrioritySchema(title="test_get", order=2)
+    obj2 = task_priority_repo.create(jsonable_encoder(s))
     assert obj2
 
     objects = task_priority_repo.get(
@@ -37,7 +38,7 @@ def test_update(task_priority_repo: TaskPriorityRepo, tmp_task_priority):
         order=2,
     )
 
-    obj_out = task_priority_repo.update(s)
+    obj_out = task_priority_repo.update(jsonable_encoder(s))
     test_obj_out = task_priority_repo.get_one(id=tmp_task_priority.id)
 
     assert obj_out == test_obj_out
@@ -47,12 +48,12 @@ def test_update(task_priority_repo: TaskPriorityRepo, tmp_task_priority):
 
 def test_upsert_delete(task_priority_repo: TaskPriorityRepo):
     # upsert
-    tp = TaskPriority(title="test_upsert_delete")
-    obj_out = task_priority_repo.update(TaskPrioritySchema(title=tp.title, order=1))
+    s = TaskPrioritySchema(title="test_upsert_delete", order=1)
+    obj_out = task_priority_repo.update(jsonable_encoder(s))
     test_obj_out = task_priority_repo.get_one(id=obj_out.id)
 
     assert obj_out == test_obj_out
-    assert tp.title == obj_out.title
+    assert s.title == obj_out.title
 
     # delete
     assert task_priority_repo.delete(obj_out.id) == 1
@@ -65,6 +66,7 @@ def task_priority_repo(db) -> TaskPriorityRepo:
 
 @pytest.fixture(scope="module")
 def tmp_task_priority(task_priority_repo) -> TaskPriority:
-    tp = task_priority_repo.update(TaskPrioritySchema(title="tmp_task_priority", order=1))
+    s = TaskPrioritySchema(title="tmp_task_priority", order=1)
+    tp = task_priority_repo.update(jsonable_encoder(s))
     yield tp
     task_priority_repo.delete(tp.id)

@@ -5,7 +5,7 @@ from ..entities.goals import Person, Task, TaskPriority, TaskStatus
 from ..entities.goals.goal_import import GoalImport
 from ..entities.goals.task_import import TaskImport
 from ..repositories import AbstractDBRepo, AbstractImportRepo
-from ..repositories.abstract_db_repo import E
+from ..repositories.abstract_entity_repo import AbstractEntityRepo, E
 
 
 # TODO: обработка ошибок
@@ -15,17 +15,27 @@ class ImportUC:
         self,
         import_repo: AbstractImportRepo,
         goal_repo: AbstractDBRepo,
+        goal_e_repo: AbstractEntityRepo,
         task_repo: AbstractDBRepo,
+        task_e_repo: AbstractEntityRepo,
         task_status_repo: AbstractDBRepo,
+        task_status_e_repo: AbstractEntityRepo,
         task_priority_repo: AbstractDBRepo,
+        task_priority_e_repo: AbstractEntityRepo,
         person_repo: AbstractDBRepo,
+        person_e_repo: AbstractEntityRepo,
     ):
         self.import_repo = import_repo
         self.goal_repo = goal_repo
+        self.goal_e_repo = goal_e_repo
         self.task_repo = task_repo
+        self.task_e_repo = task_e_repo
         self.task_status_repo = task_status_repo
+        self.task_status_e_repo = task_status_e_repo
         self.task_priority_repo = task_priority_repo
+        self.task_priority_e_repo = task_priority_e_repo
         self.person_repo = person_repo
+        self.person_e_repo = person_e_repo
 
     def _reset_processed(self):
         self.processed_goals = {}
@@ -41,13 +51,16 @@ class ImportUC:
         key: str,
         processed_dict: dict,
         db_repo: AbstractDBRepo,
+        e_repo: AbstractEntityRepo,
         **filter_by,
     ) -> E:
         if key not in processed_dict:
-            e_in_db = db_repo.get_one(**filter_by)
-            s = db_repo.entity_repo.schema_from_entity(e)
-            s.id = e_in_db.id if e_in_db else None
-            processed_dict[key] = db_repo.update(s)
+            db_obj = db_repo.get_one(**filter_by)
+            schema_create = e_repo.schema_create_from_entity(e)
+            schema_create.id = db_obj.id if db_obj else None
+            data = e_repo.dict_from_schema_create(schema_create)
+            e = e_repo.entity_from_orm(db_repo.update(data))
+            processed_dict[key] = e
         return processed_dict[key]
 
     def _upsert_goal(self, goal: GoalImport) -> GoalImport:
@@ -58,6 +71,7 @@ class ImportUC:
                 goal.remote_code,
                 self.processed_goals,
                 self.goal_repo,
+                self.goal_e_repo,
                 remote_code=goal.remote_code,
             )
 
@@ -86,6 +100,7 @@ class ImportUC:
                 task.remote_code,
                 self.processed_tasks,
                 self.task_repo,
+                self.task_e_repo,
                 remote_code=task.remote_code,
             )
 
@@ -96,6 +111,7 @@ class ImportUC:
                 status.title,
                 self.processed_task_statuses,
                 self.task_status_repo,
+                self.task_status_e_repo,
                 title=status.title,
             )
 
@@ -106,6 +122,7 @@ class ImportUC:
                 priority.title,
                 self.processed_priorities,
                 self.task_priority_repo,
+                self.task_priority_e_repo,
                 title=priority.title,
             )
 
@@ -116,6 +133,7 @@ class ImportUC:
                 person.remote_code,
                 self.processed_persons,
                 self.person_repo,
+                self.person_e_repo,
                 remote_code=person.remote_code,
             )
 

@@ -1,9 +1,11 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
+from fastapi.encoders import jsonable_encoder
 from fastapi.testclient import TestClient
 from pydantic import EmailStr
 
 from lib.L1_domain.entities import User
+from lib.L2_data.repositories import entities as er
 from lib.L2_data.repositories.db import UserRepo
 from lib.L2_data.repositories.security_repo import SecurityRepo
 from lib.L2_data.schema import UserSchema
@@ -15,32 +17,38 @@ from lib.tests.utils import random_email
 _users_api_path = f"{settings.API_PATH}{router.prefix}"
 
 
-def _user_from_json(json: dict, db_repo: UserRepo) -> User:
-    return db_repo.entity_repo.entity_from_schema(UserSchema(**json))
+def _user_from_json(json: dict) -> User:
+    return er.UserRepo().entity_from_schema_get(UserSchema(**json))
 
 
-def test_get_users(client: TestClient, auth_headers_test_admin, tmp_user: User, user_repo: UserRepo):
+def _user_from_orm(obj: any) -> User:
+    return er.UserRepo().entity_from_orm(obj)
+
+
+def test_get_users(client: TestClient, auth_headers_test_admin, tmp_user: User):
     r = client.get(f"{_users_api_path}/", headers=auth_headers_test_admin)
     assert r.status_code == 200
     json_users = r.json()
 
-    users_out = [_user_from_json(json_user, user_repo) for json_user in json_users]
-    assert tmp_user in users_out
+    users_out = [_user_from_json(json_user) for json_user in json_users]
+    assert _user_from_orm(tmp_user) in users_out
 
 
 def test_get_my_account_admin(client: TestClient, auth_headers_test_admin, user_repo):
     r = client.get(f"{_users_api_path}/my/account", headers=auth_headers_test_admin)
     assert r.status_code == 200
-    user_out = _user_from_json(r.json(), user_repo)
-    admin_user = user_repo.get_one(email=settings.TEST_ADMIN_EMAIL)
+    user_out = _user_from_json(r.json())
+
+    admin_user = _user_from_orm(user_repo.get_one(email=settings.TEST_ADMIN_EMAIL))
+
     assert user_out and user_out == admin_user
 
 
 def test_get_my_account(client: TestClient, auth_headers_test_user, user_repo):
     r = client.get(f"{_users_api_path}/my/account", headers=auth_headers_test_user)
     assert r.status_code == 200
-    user_out = _user_from_json(r.json(), user_repo)
-    test_user = user_repo.get_one(email=settings.TEST_USER_EMAIL)
+    user_out = _user_from_json(r.json())
+    test_user = _user_from_orm(user_repo.get_one(email=settings.TEST_USER_EMAIL))
     assert user_out
     assert user_out and user_out == test_user
 
@@ -57,8 +65,8 @@ def test_update_my_account(client: TestClient, auth_headers_test_user, user_repo
     )
     assert r.status_code == 200
 
-    user_out = _user_from_json(r.json(), user_repo)
-    test_user = user_repo.get_one(email=settings.TEST_USER_EMAIL)
+    user_out = _user_from_json(r.json())
+    test_user = _user_from_orm(user_repo.get_one(email=settings.TEST_USER_EMAIL))
 
     assert SecurityRepo.verify_password(new_password, test_user.password)
     assert SecurityRepo.verify_password(new_password, user_out.password)
@@ -75,8 +83,8 @@ def test_create_user(client: TestClient, auth_headers_test_admin, user_repo: Use
         json={"email": email, "password": "password"},
     )
     assert r.status_code == 201
-    user_out = _user_from_json(r.json(), user_repo)
-    user_out2 = user_repo.get_one(email=email)
+    user_out = _user_from_json(r.json())
+    user_out2 = _user_from_orm(user_repo.get_one(email=email))
     assert user_out and user_out2 and user_out == user_out2
     user_repo.delete(user_out.id)
 
@@ -100,8 +108,8 @@ def test_resource_403(client: TestClient, auth_headers_test_user, user_repo: Use
     r1 = client.get(_users_api_path, headers=auth_headers_test_user)
     assert r1.json()["detail"] == "The user doesn't have enough privileges"
     assert r1.status_code == 403
-
-    inactive_user = user_repo.create(UserSchema(email=EmailStr("inactive_user@test.com"), password="pass", is_active=False))
+    s = UserSchema(email=EmailStr("inactive_user@test.com"), password="pass", is_active=False)
+    inactive_user = user_repo.create(jsonable_encoder(s))
     a_headers_inactive_user = auth_headers_for_user(user_repo, inactive_user.email)
     # not active
     r2 = client.get(_users_api_path, headers=a_headers_inactive_user)

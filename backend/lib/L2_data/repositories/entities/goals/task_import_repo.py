@@ -3,13 +3,14 @@
 from fastapi.encoders import jsonable_encoder
 
 from lib.L1_domain.entities import TaskImport
+from lib.L2_data.models import Task as TaskModel
 from lib.L2_data.schema import TaskImportSchemaGet, TaskSchemaCreate
 
 from ..entity_repo import EntityRepo
 from ..goals import GoalImportRepo
 
 
-class TaskImportRepo(EntityRepo):
+class TaskImportRepo(EntityRepo[TaskImportSchemaGet, TaskSchemaCreate, TaskImport, TaskModel]):
     def __init__(self):
         super().__init__(
             schema_get_cls=TaskImportSchemaGet,
@@ -17,14 +18,14 @@ class TaskImportRepo(EntityRepo):
             entity_cls=TaskImport,
         )
 
-    def entity_from_schema(self, s: TaskImportSchemaGet) -> TaskImport | None:
+    def entity_from_schema_get(self, s: TaskImportSchemaGet) -> TaskImport | None:
         if s:
-            t: TaskImport = super().entity_from_schema(s)
-            t.goal = GoalImportRepo().entity_from_schema(s.goal)
-            t.parent = self.entity_from_schema(s.parent)
+            t: TaskImport = super().entity_from_schema_get(s)
+            t.goal = GoalImportRepo().entity_from_schema_get(s.goal)
+            t.parent = self.entity_from_schema_get(s.parent)
             return t
 
-    def schema_from_entity(self, e: TaskImport) -> TaskSchemaCreate:
+    def schema_create_from_entity(self, e: TaskImport) -> TaskSchemaCreate:
 
         s = TaskSchemaCreate(
             goal_id=e.goal.id,

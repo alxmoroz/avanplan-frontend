@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 from lib.L1_domain.entities.users import User
 from lib.L1_domain.usecases.users_uc import UsersUC
 from lib.L2_data.db import db_session
+from lib.L2_data.repositories import entities as er
 from lib.L2_data.repositories.db import UserRepo
 from lib.L2_data.repositories.security_repo import SecurityRepo, oauth2_scheme
 from lib.L2_data.schema.users import UserSchema
@@ -17,7 +18,11 @@ def user_uc(
     token: str = Depends(oauth2_scheme),
     db: Session = Depends(db_session),
 ) -> UsersUC:
-    return UsersUC(UserRepo(db), SecurityRepo(token))
+    return UsersUC(
+        user_repo=UserRepo(db),
+        user_e_repo=er.UserRepo(),
+        security_repo=SecurityRepo(token),
+    )
 
 
 @router.get("/", response_model=list[UserSchema])

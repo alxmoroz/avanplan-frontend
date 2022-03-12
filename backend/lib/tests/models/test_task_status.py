@@ -1,8 +1,7 @@
 #  Copyright (c) 2022. Alexandr Moroz
-
+from fastapi.encoders import jsonable_encoder
 from sqlalchemy import column
 
-from lib.L1_domain.entities import TaskStatus
 from lib.L2_data.repositories.db import TaskStatusRepo
 from lib.L2_data.schema import TaskStatusSchema
 
@@ -13,8 +12,8 @@ def test_get_one(task_status_repo: TaskStatusRepo, tmp_task_status):
 
 
 def test_get_create(task_status_repo: TaskStatusRepo, tmp_task_status):
-
-    t2 = task_status_repo.create(TaskStatusSchema(title="test_get"))
+    s = TaskStatusSchema(title="test_get")
+    t2 = task_status_repo.create(jsonable_encoder(s))
 
     objects = task_status_repo.get(
         limit=2,
@@ -35,7 +34,7 @@ def test_update(task_status_repo: TaskStatusRepo, tmp_task_status):
         closed=True,
     )
 
-    obj_out = task_status_repo.update(s)
+    obj_out = task_status_repo.update(jsonable_encoder(s))
     test_obj_out = task_status_repo.get_one(id=tmp_task_status.id)
 
     assert obj_out == test_obj_out
@@ -45,12 +44,12 @@ def test_update(task_status_repo: TaskStatusRepo, tmp_task_status):
 
 def test_upsert_delete(task_status_repo: TaskStatusRepo):
     # upsert
-    status = TaskStatus(title="test_upsert_delete")
-    obj_out = task_status_repo.update(TaskStatusSchema(title=status.title))
+    s = TaskStatusSchema(title="test_upsert_delete")
+    obj_out = task_status_repo.update(jsonable_encoder(s))
     test_obj_out = task_status_repo.get_one(id=obj_out.id)
 
     assert obj_out == test_obj_out
-    assert status.title == obj_out.title
+    assert s.title == obj_out.title
 
     # delete
     assert task_status_repo.delete(obj_out.id) == 1

@@ -7,8 +7,7 @@ from redminelib import resources as R
 
 from lib.L1_domain.entities import Person, TaskPriority, TaskStatus
 from lib.L1_domain.entities.api.exceptions import ApiException
-from lib.L1_domain.entities.goals.goal_import import GoalImport
-from lib.L1_domain.entities.goals.task_import import TaskImport
+from lib.L1_domain.entities.goals import GoalImport, TaskImport
 from lib.L1_domain.repositories import AbstractImportRepo
 
 
@@ -27,7 +26,7 @@ class ImportRedmineRepo(AbstractImportRepo):
     @staticmethod
     def _set_parents(objects_map: dict[int, [TaskImport | GoalImport]]):
         for obj in objects_map.values():
-            obj.parent = objects_map.get(getattr(obj, "_remote_parent_id", None), None)
+            obj.parent = objects_map.get(getattr(obj, "remote_parent_id", None), None)
 
     def _get_persons(self) -> dict[int, Person]:
         return {
@@ -82,7 +81,7 @@ class ImportRedmineRepo(AbstractImportRepo):
                 remote_code=f"{r_project.id}",
             )
             parent_project = getattr(r_project, "parent", None)
-            goal._remote_parent_id = parent_project.id if parent_project else None
+            goal.remote_parent_id = parent_project.id if parent_project else None
             self.goals_map[r_project.id] = goal
 
         self._set_parents(self.goals_map)
@@ -125,9 +124,7 @@ class ImportRedmineRepo(AbstractImportRepo):
                     )
 
                     parent_issue = getattr(issue, "parent", None)
-                    task._remote_parent_id = parent_issue.id if parent_issue else None
-
-                    # print(task._remote_parent_id)
+                    task.remote_parent_id = parent_issue.id if parent_issue else None
 
                     tasks[issue.id] = task
 

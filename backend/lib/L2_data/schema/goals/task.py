@@ -34,6 +34,5 @@ class TaskSchemaGet(_TaskSchema):
 
 
 class TaskImportSchemaGet(_TaskSchema):
-
     goal: Optional[GoalImportSchemaGet]
     parent: Optional[TaskImportSchemaGet]

@@ -2,9 +2,9 @@
 
 from datetime import datetime
 
+from fastapi.encoders import jsonable_encoder
 from sqlalchemy import column
 
-from lib.L1_domain.entities import Goal
 from lib.L2_data.repositories.db import GoalRepo
 from lib.L2_data.schema import GoalSchemaCreate
 
@@ -15,8 +15,8 @@ def test_get_one(goal_repo: GoalRepo, tmp_goal):
 
 
 def test_get_create(goal_repo: GoalRepo, tmp_goal):
-
-    obj2 = goal_repo.create(GoalSchemaCreate(title="test_get"))
+    s = GoalSchemaCreate(title="test_get")
+    obj2 = goal_repo.create(jsonable_encoder(s))
 
     objects = goal_repo.get(
         limit=2,
@@ -39,7 +39,7 @@ def test_update(goal_repo: GoalRepo, tmp_goal):
         updated_on=datetime.now(),
     )
 
-    obj_out = goal_repo.update(s)
+    obj_out = goal_repo.update(jsonable_encoder(s))
     test_obj_out = goal_repo.get_one(id=tmp_goal.id)
 
     assert obj_out == test_obj_out
@@ -51,12 +51,12 @@ def test_update(goal_repo: GoalRepo, tmp_goal):
 
 def test_upsert_delete(goal_repo: GoalRepo):
     # upsert
-    goal = Goal(title="test_upsert_delete")
-    obj_out = goal_repo.update(GoalSchemaCreate(title=goal.title))
+    s = GoalSchemaCreate(title="test_upsert_delete")
+    obj_out = goal_repo.update(jsonable_encoder(s))
     test_obj_out = goal_repo.get_one(id=obj_out.id)
 
     assert obj_out == test_obj_out
-    assert goal.title == obj_out.title
+    assert s.title == obj_out.title
 
     # delete
     assert goal_repo.delete(obj_out.id) == 1

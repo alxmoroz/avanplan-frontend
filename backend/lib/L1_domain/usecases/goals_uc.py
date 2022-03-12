@@ -1,23 +1,30 @@
 #  Copyright (c) 2022. Alexandr Moroz
 from datetime import datetime, timedelta
+from typing import Generic
 
 from ..entities.api.exceptions import ApiException
 from ..entities.goals import Goal, GoalReport, Task
-from ..repositories.abstract_db_repo import AbstractDBRepo, SCreate
+from ..repositories.abstract_db_repo import AbstractDBRepo, M
+from ..repositories.abstract_entity_repo import AbstractEntityRepo, SCreate, SGet
 
 
-class GoalsUC:
+class GoalsUC(Generic[M, SGet]):
     def __init__(
         self,
-        goal_repo: AbstractDBRepo,
-        task_repo: AbstractDBRepo,
+        goal_db_repo: AbstractDBRepo,
+        goal_e_repo: AbstractEntityRepo,
+        task_db_repo: AbstractDBRepo,
+        task_e_repo: AbstractEntityRepo,
     ):
-        self.goal_repo = goal_repo
-        self.task_repo = task_repo
+        self.goal_db_repo = goal_db_repo
+        self.goal_e_repo = goal_e_repo
 
-    def _calculate_goal(self, goal: Goal):
+        self.task_db_repo = task_db_repo
+        self.task_e_repo = task_e_repo
+
+    def _calculate_goal(self, goal: Goal) -> SGet:
         # TODO: для гет-схемы цели можно получить сразу задачи эти
-        tasks: list[Task] = self.task_repo.get(goal_id=goal.id)
+        tasks: list[Task] = [self.task_e_repo.entity_from_orm(db_obj) for db_obj in self.task_db_repo.get(goal_id=goal.id)]
 
         tasks_count = len(tasks)
         closed_tasks_count = sum(map(lambda t: t.closed, tasks))
@@ -51,17 +58,18 @@ class GoalsUC:
         return goal
 
     def get_goals(self) -> list[Goal]:
-        goals: list[Goal] = self.goal_repo.get()
+        goals: list[Goal] = [self.goal_e_repo.entity_from_orm(db_obj) for db_obj in self.goal_db_repo.get()]
+
         for goal in goals:
             self._calculate_goal(goal)
 
         return goals
 
     def upsert_goal(self, s: SCreate) -> Goal:
-        return self.goal_repo.update(s)
+        return self.goal_e_repo.entity_from_orm(self.goal_db_repo.update(s))
 
     def delete_goal(self, goal_id: int) -> int:
-        deleted_count = self.goal_repo.delete(goal_id)
+        deleted_count = self.goal_db_repo.delete(goal_id)
         if deleted_count < 1:
             raise ApiException(400, f"Error deleting goal id = {goal_id}")
         return deleted_count

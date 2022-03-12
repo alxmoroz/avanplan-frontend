@@ -1,14 +1,16 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
 from abc import ABC
+from typing import Optional
+
 from pydantic import validator
 
 from ..base_schema import BaseSchema, Identifiable, Importable, Timestampable
 
 
 class _BasePersonSchema(Identifiable, Importable, Timestampable, BaseSchema, ABC):
-    firstname: str | None
-    lastname: str | None
+    firstname: Optional[str]
+    lastname: Optional[str]
 
 
 class PersonSchemaCreate(_BasePersonSchema):

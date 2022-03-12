@@ -44,7 +44,7 @@ def upsert_goal(
     return uc.upsert_goal(goal)
 
 
-@router.delete("/{id}")
+@router.delete("/{goal_id}")
 def delete_goal(
     goal_id: int,
     uc: GoalsUC = Depends(_goals_uc),

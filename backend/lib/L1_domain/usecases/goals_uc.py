@@ -5,7 +5,7 @@ from typing import Generic
 from ..entities.api.exceptions import ApiException
 from ..entities.goals import Goal, GoalReport, Task
 from ..repositories.abstract_db_repo import AbstractDBRepo, M
-from ..repositories.abstract_entity_repo import AbstractEntityRepo, SCreate, SGet
+from ..repositories.abstract_entity_repo import AbstractEntityRepo, SGet, SUpd
 
 
 class GoalsUC(Generic[M, SGet]):
@@ -65,8 +65,8 @@ class GoalsUC(Generic[M, SGet]):
 
         return goals
 
-    def upsert_goal(self, s: SCreate) -> Goal:
-        return self.goal_e_repo.entity_from_orm(self.goal_db_repo.update(s))
+    def upsert_goal(self, s: SUpd) -> Goal:
+        return self.goal_e_repo.entity_from_orm(self.goal_db_repo.upsert(s))
 
     def delete_goal(self, goal_id: int) -> int:
         deleted_count = self.goal_db_repo.delete(goal_id)

@@ -2,7 +2,7 @@
 
 from lib.L1_domain.entities.goals import Task
 from lib.L2_data.models import Task as TaskModel
-from lib.L2_data.schema import TaskSchemaCreate, TaskSchemaGet
+from lib.L2_data.schema import TaskSchemaGet, TaskSchemaUpsert
 
 from ..entity_repo import EntityRepo
 from .person_repo import PersonRepo
@@ -10,11 +10,11 @@ from .task_priority_repo import TaskPriorityRepo
 from .task_status_repo import TaskStatusRepo
 
 
-class TaskRepo(EntityRepo[TaskSchemaGet, TaskSchemaCreate, Task, TaskModel]):
+class TaskRepo(EntityRepo[TaskSchemaGet, TaskSchemaUpsert, Task, TaskModel]):
     def __init__(self):
         super().__init__(
             schema_get_cls=TaskSchemaGet,
-            schema_create_cls=TaskSchemaCreate,
+            schema_upd_cls=TaskSchemaUpsert,
             entity_cls=Task,
         )
 

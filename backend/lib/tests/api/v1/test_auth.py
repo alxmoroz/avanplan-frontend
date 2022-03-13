@@ -6,7 +6,7 @@ from pydantic import EmailStr
 
 from lib.L1_domain.entities import User
 from lib.L2_data.repositories.db import UserRepo
-from lib.L2_data.schema import UserSchema
+from lib.L2_data.schema import UserSchemaUpsert
 from lib.L2_data.settings import settings
 from lib.L3_app.api.v1.auth import router
 
@@ -42,8 +42,8 @@ def test_get_token_403(client: TestClient, tmp_user: User, user_repo: UserRepo):
         data={"username": "user@email.com", "password": "wrong_password"},
     )
     assert r2.json()["detail"] == "Incorrect username or password"
-    s = UserSchema(id=tmp_user.id, email=EmailStr(tmp_user.email), password=tmp_user.password, is_active=False)
-    user_repo.update(jsonable_encoder(s))
+    s = UserSchemaUpsert(id=tmp_user.id, email=EmailStr(tmp_user.email), password=tmp_user.password, is_active=False)
+    user_repo.upsert(jsonable_encoder(s))
     r3 = client.post(
         api_path,
         data={"username": tmp_user.email, "password": "password"},

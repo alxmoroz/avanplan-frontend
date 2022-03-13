@@ -25,10 +25,7 @@ class AbstractDBRepo(Generic[M], ABC):
         objs = self.get(**filter_by)
         return objs[0] if len(objs) > 0 else None
 
-    def create(self, data: dict) -> M:
-        raise NotImplementedError
-
-    def update(self, data: dict) -> M:
+    def upsert(self, data: dict) -> M:
         raise NotImplementedError
 
     def delete(self, pk_id: int) -> int:

@@ -56,10 +56,11 @@ class ImportUC:
     ) -> E:
         if key not in processed_dict:
             db_obj = db_repo.get_one(**filter_by)
-            schema_create = e_repo.schema_create_from_entity(e)
-            schema_create.id = db_obj.id if db_obj else None
-            data = e_repo.dict_from_schema_create(schema_create)
-            e = e_repo.entity_from_orm(db_repo.update(data))
+            e.id = db_obj.id if db_obj else None
+            schema_update = e_repo.schema_upd_from_entity(e)
+            data = e_repo.dict_from_schema_upd(schema_update)
+            obj = db_repo.upsert(data)
+            e = e_repo.entity_from_orm(obj)
             processed_dict[key] = e
         return processed_dict[key]
 

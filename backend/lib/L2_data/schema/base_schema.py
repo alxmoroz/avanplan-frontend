@@ -13,18 +13,17 @@ class BaseSchema(BaseModel, ABC):
         validate_assignment = True
 
 
-class Identifiable(BaseSchema, ABC):
+class PKGetable(BaseSchema, ABC):
+    id: int
+
+
+class PKUpsertable(PKGetable, ABC):
     id: Optional[int]
 
 
-# TODO: для гет-схемы обязателен первый параметр, для создания не нужно это
 class Timestampable(BaseSchema, ABC):
-    created_on: Optional[datetime]
-    updated_on: Optional[datetime]
-
-    @validator("created_on", always=True)
-    def created_date(cls, v):
-        return v or datetime.now()
+    created_on: datetime
+    updated_on: datetime
 
 
 class Titleable(BaseSchema, ABC):
@@ -44,7 +43,7 @@ class Importable(BaseSchema, ABC):
 
 
 class Statusable(BaseSchema, ABC):
-    closed: Optional[bool]
+    closed: bool
 
     @validator("closed", always=True)
     def check_closed(cls, v):

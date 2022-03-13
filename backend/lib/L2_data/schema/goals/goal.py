@@ -5,25 +5,21 @@ from __future__ import annotations
 from abc import ABC
 from typing import Optional
 
-from ..base_schema import BaseSchema, Importable, Timestampable
+from ..base_schema import BaseSchema, Importable, PKGetable, PKUpsertable, Timestampable
 from .goal_report import GoalReportSchema
-from .goal_status import GoalStatusSchema
+from .goal_status import GoalStatusSchemaGet
 from .smartable import Smartable
 
 
-class _GoalSchema(Smartable, BaseSchema, ABC):
+class GoalSchema(Smartable, Importable, BaseSchema, ABC):
     pass
 
 
-class GoalSchemaCreate(_GoalSchema):
-    parent_id: Optional[int]
-    status_id: Optional[int]
-
-
-class GoalSchemaGet(_GoalSchema, Importable, Timestampable):
-    status: Optional[GoalStatusSchema]
+class GoalSchemaGet(GoalSchema, PKGetable, Timestampable):
+    status: Optional[GoalStatusSchemaGet]
     report: Optional[GoalReportSchema]
 
 
-class GoalImportSchemaGet(_GoalSchema, Importable):
-    parent: Optional[GoalImportSchemaGet]
+class GoalSchemaUpsert(GoalSchema, PKUpsertable):
+    parent_id: Optional[int]
+    status_id: Optional[int]

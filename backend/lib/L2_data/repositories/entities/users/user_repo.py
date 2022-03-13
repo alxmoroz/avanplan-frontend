@@ -3,11 +3,11 @@
 
 from lib.L1_domain.entities import User
 from lib.L2_data.models import User as UserModel
-from lib.L2_data.schema import UserSchemaGet, UserSchemaCreate
+from lib.L2_data.schema import UserSchemaGet, UserSchemaUpsert
 
 from ..entity_repo import EntityRepo
 
 
-class UserRepo(EntityRepo[UserSchemaGet, UserSchemaCreate, User, UserModel]):
+class UserRepo(EntityRepo[UserSchemaGet, UserSchemaUpsert, User, UserModel]):
     def __init__(self):
-        super().__init__(schema_get_cls=UserSchemaGet, entity_cls=User)
+        super().__init__(schema_get_cls=UserSchemaGet, schema_upd_cls=UserSchemaUpsert, entity_cls=User)

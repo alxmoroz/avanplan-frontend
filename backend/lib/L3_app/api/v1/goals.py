@@ -9,7 +9,7 @@ from lib.L1_domain.usecases.users_uc import UsersUC
 from lib.L2_data.db import db_session
 from lib.L2_data.repositories import db as dbr
 from lib.L2_data.repositories import entities as er
-from lib.L2_data.schema import GoalSchemaCreate, GoalSchemaGet
+from lib.L2_data.schema import GoalSchemaGet, GoalSchemaUpsert
 from lib.L3_app.api.v1.users import user_uc
 
 router = APIRouter(prefix="/goals")
@@ -37,7 +37,7 @@ def get_goals(
 
 @router.post("/", response_model=GoalSchemaGet, status_code=201)
 def upsert_goal(
-    goal: GoalSchemaCreate,
+    goal: GoalSchemaUpsert,
     uc: GoalsUC = Depends(_goals_uc),
 ) -> Goal:
 

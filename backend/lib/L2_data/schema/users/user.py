@@ -2,7 +2,7 @@
 
 from pydantic import EmailStr
 
-from lib.L2_data.schema.base_schema import BaseSchema, Identifiable, Timestampable
+from lib.L2_data.schema.base_schema import BaseSchema, PKGetable, PKUpsertable, Timestampable
 
 
 class _UserSchema(BaseSchema):
@@ -13,9 +13,9 @@ class _UserSchema(BaseSchema):
     is_superuser: bool = False
 
 
-class UserSchemaCreate(_UserSchema, BaseSchema):
+class UserSchemaGet(_UserSchema, PKGetable, Timestampable):
     pass
 
 
-class UserSchemaGet(_UserSchema, Identifiable, Timestampable, BaseSchema):
+class UserSchemaUpsert(_UserSchema, PKUpsertable):
     pass

@@ -1,4 +1,5 @@
 #  Copyright (c) 2022. Alexandr Moroz
+from datetime import datetime
 from typing import Type, TypeVar
 
 from sqlalchemy import delete, lambda_stmt, select
@@ -15,6 +16,13 @@ class DBRepo(AbstractDBRepo[M]):
     def __init__(self, *, model_cls: Type[M], db: Session):
         self._db = db
         super().__init__(model_cls=model_cls)
+
+    def _update_timestamp(self, db_obj: M):
+        updated = datetime.now()
+        if getattr(self._model_class, "created_on", None):
+            db_obj.created_on = db_obj.created_on or updated
+        if getattr(self._model_class, "updated_on", None):
+            db_obj.updated_on = updated
 
     def get(
         self,
@@ -37,17 +45,19 @@ class DBRepo(AbstractDBRepo[M]):
 
         return self._db.execute(stmt).scalars().all()
 
-    def create(self, data: dict) -> M:
-        db_obj = self._model_class(**data)
+    # def create(self, data: dict) -> M:
+    #     db_obj = self._model_class(**data)
+    #     self._update_timestamp(db_obj)
+    #
+    #     self._db.add(db_obj)
+    #     self._db.commit()
+    #     self._db.refresh(db_obj)
+    #
+    #     return db_obj
 
-        self._db.add(db_obj)
-        self._db.commit()
-        self._db.refresh(db_obj)
-
-        return db_obj
-
-    def update(self, data: dict) -> M:
+    def upsert(self, data: dict) -> M:
         db_obj = self._db.merge(self._model_class(**data))
+        self._update_timestamp(db_obj)
         self._db.commit()
 
         return db_obj

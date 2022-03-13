@@ -5,18 +5,21 @@ from typing import Optional
 
 from pydantic import validator
 
-from ..base_schema import BaseSchema, Identifiable, Importable, Timestampable
+from ..base_schema import BaseSchema, Importable, PKGetable, PKUpsertable, Timestampable
 
 
-class _BasePersonSchema(Identifiable, BaseSchema, ABC):
+class _BasePersonSchema(BaseSchema, ABC):
     firstname: Optional[str]
     lastname: Optional[str]
 
 
-class PersonSchemaCreate(_BasePersonSchema):
+class PersonSchemaGet(_BasePersonSchema, PKGetable, Importable, Timestampable):
+    pass
+
+
+class PersonSchemaUpsert(_BasePersonSchema, PKUpsertable):
     @validator("firstname", "lastname", always=True)
     def name_must_filled(cls, v, values):
-
         vals = [values.get(attr, None) for attr in ["firstname", "lastname"]]
         vals.append(v)
         filled = [bool(val and not val.isspace()) for val in vals]
@@ -25,7 +28,3 @@ class PersonSchemaCreate(_BasePersonSchema):
             raise ValueError("firstname or lastname must be filled")
 
         return v
-
-
-class PersonSchemaGet(_BasePersonSchema, Importable, Timestampable):
-    pass

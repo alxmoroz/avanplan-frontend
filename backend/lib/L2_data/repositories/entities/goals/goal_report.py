@@ -8,4 +8,4 @@ from ..entity_repo import EntityRepo
 
 class GoalReportRepo(EntityRepo[GoalReportSchema, GoalReportSchema, GoalReport, None]):
     def __init__(self):
-        super().__init__(schema_get_cls=GoalReportSchema, entity_cls=GoalReport)
+        super().__init__(schema_get_cls=GoalReportSchema, schema_upd_cls=GoalReportSchema, entity_cls=GoalReport)

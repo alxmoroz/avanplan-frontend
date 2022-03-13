@@ -1,7 +1,15 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from ..base_schema import BaseSchema, Identifiable, Orderable, Titleable
+from ..base_schema import BaseSchema, Orderable, PKGetable, PKUpsertable, Titleable
 
 
-class TaskPrioritySchema(Identifiable, Titleable, Orderable, BaseSchema):
+class _TaskPrioritySchema(Titleable, Orderable, BaseSchema):
+    pass
+
+
+class TaskPrioritySchemaGet(_TaskPrioritySchema, PKGetable):
+    pass
+
+
+class TaskPrioritySchemaUpsert(_TaskPrioritySchema, PKUpsertable):
     pass

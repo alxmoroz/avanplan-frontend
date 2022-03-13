@@ -4,9 +4,9 @@ from abc import ABC
 from datetime import datetime
 from typing import Optional
 
-from ..base_schema import Identifiable, Titleable
+from ..base_schema import Titleable
 
 
-class Smartable(Titleable, Identifiable, ABC):
+class Smartable(Titleable, ABC):
     description: Optional[str]
     due_date: Optional[datetime]

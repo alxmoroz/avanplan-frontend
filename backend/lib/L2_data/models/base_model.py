@@ -17,7 +17,7 @@ class BaseModel:
 
 class Timestampable:
     created_on = Column(DateTime, nullable=False)
-    updated_on = Column(DateTime)
+    updated_on = Column(DateTime, nullable=False)
 
 
 class TitleableUnique:

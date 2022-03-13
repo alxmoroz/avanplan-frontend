@@ -1,15 +1,15 @@
 """empty message
 
-Revision ID: a5371a97e2fd
+Revision ID: 0a72f6cf5f62
 Revises: 
-Create Date: 2022-03-09 07:53:07.848943
+Create Date: 2022-03-13 20:44:33.123780
 
 """
 import sqlalchemy as sa
 from alembic import op
 
 # revision identifiers, used by Alembic.
-revision = "a5371a97e2fd"
+revision = "0a72f6cf5f62"
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -30,7 +30,7 @@ def upgrade():
         "persons",
         sa.Column("id", sa.Integer(), nullable=False),
         sa.Column("created_on", sa.DateTime(), nullable=False),
-        sa.Column("updated_on", sa.DateTime(), nullable=True),
+        sa.Column("updated_on", sa.DateTime(), nullable=False),
         sa.Column("remote_code", sa.String(), nullable=True),
         sa.Column("firstname", sa.String(), nullable=True),
         sa.Column("lastname", sa.String(), nullable=True),
@@ -59,7 +59,7 @@ def upgrade():
         "users",
         sa.Column("id", sa.Integer(), nullable=False),
         sa.Column("created_on", sa.DateTime(), nullable=False),
-        sa.Column("updated_on", sa.DateTime(), nullable=True),
+        sa.Column("updated_on", sa.DateTime(), nullable=False),
         sa.Column("email", sa.String(), nullable=False),
         sa.Column("password", sa.String(), nullable=False),
         sa.Column("full_name", sa.String(), nullable=True),
@@ -74,7 +74,7 @@ def upgrade():
         "goals",
         sa.Column("id", sa.Integer(), nullable=False),
         sa.Column("created_on", sa.DateTime(), nullable=False),
-        sa.Column("updated_on", sa.DateTime(), nullable=True),
+        sa.Column("updated_on", sa.DateTime(), nullable=False),
         sa.Column("remote_code", sa.String(), nullable=True),
         sa.Column("title", sa.String(), nullable=False),
         sa.Column("description", sa.String(), nullable=True),
@@ -93,7 +93,7 @@ def upgrade():
         "tasks",
         sa.Column("id", sa.Integer(), nullable=False),
         sa.Column("created_on", sa.DateTime(), nullable=False),
-        sa.Column("updated_on", sa.DateTime(), nullable=True),
+        sa.Column("updated_on", sa.DateTime(), nullable=False),
         sa.Column("remote_code", sa.String(), nullable=True),
         sa.Column("title", sa.String(), nullable=False),
         sa.Column("description", sa.String(), nullable=True),

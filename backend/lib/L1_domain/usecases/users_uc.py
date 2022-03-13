@@ -5,10 +5,10 @@ from ..entities.api.exceptions import ApiException
 from ..entities.auth import TokenPayload
 from ..entities.users import User
 from ..repositories import AbstractDBRepo, AbstractSecurityRepo
-from ..repositories.abstract_entity_repo import AbstractEntityRepo, SCreate
+from ..repositories.abstract_entity_repo import AbstractEntityRepo, SUpd
 
 
-class UsersUC(Generic[SCreate]):
+class UsersUC(Generic[SUpd]):
     def __init__(
         self,
         *,
@@ -35,16 +35,16 @@ class UsersUC(Generic[SCreate]):
 
         return self.user_repo.get(skip=skip, limit=limit)
 
-    def create_user(self, user: SCreate) -> User:
+    def upsert_user(self, user: SUpd) -> User:
         self.get_active_superuser()
 
         if self.user_repo.get_one(email=user.email):
             raise ApiException(400, "The user with this email already exists.")
         user.password = self.sec_repo.secure_password(user.password)
 
-        s = self.user_e_repo.schema_create_from_entity(user)
-        data = self.user_e_repo.dict_from_schema_create(s)
-        user = self.user_e_repo.entity_from_orm(self.user_repo.create(data))
+        s = self.user_e_repo.schema_upd_from_entity(user)
+        data = self.user_e_repo.dict_from_schema_upd(s)
+        user = self.user_e_repo.entity_from_orm(self.user_repo.upsert(data))
         return user
 
     def get_active_user(self) -> User:
@@ -62,9 +62,9 @@ class UsersUC(Generic[SCreate]):
         if full_name is not None:
             user.full_name = full_name
 
-        s = self.user_e_repo.schema_create_from_entity(user)
-        data = self.user_e_repo.dict_from_schema_create(s)
-        user = self.user_e_repo.entity_from_orm(self.user_repo.update(data))
+        s = self.user_e_repo.schema_upd_from_entity(user)
+        data = self.user_e_repo.dict_from_schema_upd(s)
+        user = self.user_e_repo.entity_from_orm(self.user_repo.upsert(data))
         return user
 
     def get_active_superuser(self) -> User:

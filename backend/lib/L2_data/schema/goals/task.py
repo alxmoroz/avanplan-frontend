@@ -5,34 +5,28 @@ from __future__ import annotations
 from abc import ABC
 from typing import Optional
 
-from ..base_schema import BaseSchema, Importable, Timestampable
-from .goal import GoalImportSchemaGet
+from ..base_schema import BaseSchema, Importable, PKGetable, PKUpsertable, Timestampable
 from .person import PersonSchemaGet
 from .smartable import Smartable
-from .task_priority import TaskPrioritySchema
-from .task_status import TaskStatusSchema
+from .task_priority import TaskPrioritySchemaGet
+from .task_status import TaskStatusSchemaGet
 
 
-class _TaskSchema(Smartable, BaseSchema, ABC):
+class TaskSchema(Smartable, Importable, BaseSchema, ABC):
     pass
 
 
-class TaskSchemaCreate(_TaskSchema):
+class TaskSchemaGet(TaskSchema, PKGetable, Timestampable):
+    status: Optional[TaskStatusSchemaGet]
+    author: Optional[PersonSchemaGet]
+    assignee: Optional[PersonSchemaGet]
+    priority: Optional[TaskPrioritySchemaGet]
+
+
+class TaskSchemaUpsert(TaskSchema, PKUpsertable):
     goal_id: int
     parent_id: Optional[int]
     status_id: Optional[int]
     priority_id: Optional[int]
     assignee_id: Optional[int]
     author_id: Optional[int]
-
-
-class TaskSchemaGet(_TaskSchema, Importable, Timestampable):
-    status: Optional[TaskStatusSchema]
-    author: Optional[PersonSchemaGet]
-    assignee: Optional[PersonSchemaGet]
-    priority: Optional[TaskPrioritySchema]
-
-
-class TaskImportSchemaGet(_TaskSchema, Importable):
-    goal: Optional[GoalImportSchemaGet]
-    parent: Optional[TaskImportSchemaGet]

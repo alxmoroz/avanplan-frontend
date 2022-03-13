@@ -1,12 +1,10 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from datetime import datetime
-
 from fastapi.encoders import jsonable_encoder
 from sqlalchemy import column
 
 from lib.L2_data.repositories.db import GoalRepo
-from lib.L2_data.schema import GoalSchemaCreate
+from lib.L2_data.schema import GoalSchemaUpsert
 
 
 def test_get_one(goal_repo: GoalRepo, tmp_goal):
@@ -15,8 +13,8 @@ def test_get_one(goal_repo: GoalRepo, tmp_goal):
 
 
 def test_get_create(goal_repo: GoalRepo, tmp_goal):
-    s = GoalSchemaCreate(title="test_get")
-    obj2 = goal_repo.create(jsonable_encoder(s))
+    s = GoalSchemaUpsert(title="test_get_create")
+    obj2 = goal_repo.upsert(jsonable_encoder(s))
 
     objects = goal_repo.get(
         limit=2,
@@ -31,28 +29,24 @@ def test_get_create(goal_repo: GoalRepo, tmp_goal):
 
 def test_update(goal_repo: GoalRepo, tmp_goal):
 
-    s = GoalSchemaCreate(
+    s = GoalSchemaUpsert(
         id=tmp_goal.id,
-        title="title",
+        title="test_update",
         description="description",
-        remote_code="remote_code",
-        updated_on=datetime.now(),
     )
 
-    obj_out = goal_repo.update(jsonable_encoder(s))
+    obj_out = goal_repo.upsert(jsonable_encoder(s))
     test_obj_out = goal_repo.get_one(id=tmp_goal.id)
 
     assert obj_out == test_obj_out
     assert obj_out.title == s.title
     assert obj_out.description == s.description
-    assert obj_out.remote_code == s.remote_code
-    assert obj_out.updated_on == s.updated_on
 
 
 def test_upsert_delete(goal_repo: GoalRepo):
     # upsert
-    s = GoalSchemaCreate(title="test_upsert_delete")
-    obj_out = goal_repo.update(jsonable_encoder(s))
+    s = GoalSchemaUpsert(title="test_upsert_delete")
+    obj_out = goal_repo.upsert(jsonable_encoder(s))
     test_obj_out = goal_repo.get_one(id=obj_out.id)
 
     assert obj_out == test_obj_out

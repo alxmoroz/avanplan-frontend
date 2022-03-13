@@ -2,18 +2,18 @@
 
 from lib.L1_domain.entities import Goal
 from lib.L2_data.models import Goal as GoalModel
-from lib.L2_data.schema import GoalSchemaCreate, GoalSchemaGet
+from lib.L2_data.schema import GoalSchemaGet, GoalSchemaUpsert
 
 from ..entity_repo import EntityRepo
 from .goal_report import GoalReportRepo
 from .goal_status_repo import GoalStatusRepo
 
 
-class GoalRepo(EntityRepo[GoalSchemaGet, GoalSchemaCreate, Goal, GoalModel]):
+class GoalRepo(EntityRepo[GoalSchemaGet, GoalSchemaUpsert, Goal, GoalModel]):
     def __init__(self):
         super().__init__(
             schema_get_cls=GoalSchemaGet,
-            schema_create_cls=GoalSchemaCreate,
+            schema_upd_cls=GoalSchemaUpsert,
             entity_cls=Goal,
         )
 

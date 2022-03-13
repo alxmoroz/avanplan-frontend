@@ -6,7 +6,7 @@ from sqlalchemy import column
 
 from lib.L2_data.models import GoalStatus
 from lib.L2_data.repositories.db import GoalStatusRepo
-from lib.L2_data.schema import GoalStatusSchema
+from lib.L2_data.schema import GoalStatusSchemaUpsert
 
 
 def test_get_one(goal_status_repo: GoalStatusRepo, tmp_goal_status):
@@ -15,8 +15,8 @@ def test_get_one(goal_status_repo: GoalStatusRepo, tmp_goal_status):
 
 
 def test_get_create(goal_status_repo: GoalStatusRepo, tmp_goal_status):
-    s = GoalStatusSchema(title="test_get")
-    obj2: GoalStatus = goal_status_repo.create(jsonable_encoder(s))
+    s = GoalStatusSchemaUpsert(title="test_get_create", closed=False)
+    obj2: GoalStatus = goal_status_repo.upsert(jsonable_encoder(s))
     objects = goal_status_repo.get(
         limit=2,
         where=column("id").in_([tmp_goal_status.id, obj2.id]),
@@ -30,13 +30,13 @@ def test_get_create(goal_status_repo: GoalStatusRepo, tmp_goal_status):
 
 def test_update(goal_status_repo: GoalStatusRepo, tmp_goal_status):
 
-    s = GoalStatusSchema(
+    s = GoalStatusSchemaUpsert(
         id=tmp_goal_status.id,
-        title="title",
+        title="test_update",
         closed=True,
     )
 
-    obj_out = goal_status_repo.update(jsonable_encoder(s))
+    obj_out = goal_status_repo.upsert(jsonable_encoder(s))
     test_obj_out = goal_status_repo.get_one(id=tmp_goal_status.id)
 
     assert obj_out == test_obj_out
@@ -46,8 +46,8 @@ def test_update(goal_status_repo: GoalStatusRepo, tmp_goal_status):
 
 def test_upsert_delete(goal_status_repo: GoalStatusRepo):
     # upsert
-    s = GoalStatusSchema(title="test_upsert_delete")
-    obj_out = goal_status_repo.update(jsonable_encoder(s))
+    s = GoalStatusSchemaUpsert(title="test_upsert_delete", closed=False)
+    obj_out = goal_status_repo.upsert(jsonable_encoder(s))
     test_obj_out = goal_status_repo.get_one(id=obj_out.id)
 
     assert obj_out == test_obj_out
@@ -64,7 +64,7 @@ def goal_status_repo(db) -> GoalStatusRepo:
 
 @pytest.fixture(scope="module")
 def tmp_goal_status(goal_status_repo: GoalStatusRepo) -> GoalStatus:
-    s = GoalStatusSchema(title="tmp_goal_status")
-    goal_status = goal_status_repo.update(jsonable_encoder(s))
+    s = GoalStatusSchemaUpsert(title="tmp_goal_status", closed=False)
+    goal_status = goal_status_repo.upsert(jsonable_encoder(s))
     yield goal_status
     goal_status_repo.delete(goal_status.id)

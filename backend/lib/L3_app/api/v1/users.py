@@ -9,7 +9,7 @@ from lib.L2_data.db import db_session
 from lib.L2_data.repositories import entities as er
 from lib.L2_data.repositories.db import UserRepo
 from lib.L2_data.repositories.security_repo import SecurityRepo, oauth2_scheme
-from lib.L2_data.schema.users import UserSchemaGet, UserSchemaCreate
+from lib.L2_data.schema.users import UserSchemaGet, UserSchemaUpsert
 
 router = APIRouter(prefix="/users")
 
@@ -35,11 +35,11 @@ def get_users(
 
 
 @router.post("/", response_model=UserSchemaGet, status_code=201)
-def create_user(
-    user_in: UserSchemaCreate,
+def upsert_user(
+    user_in: UserSchemaUpsert,
     uc: UsersUC = Depends(user_uc),
 ) -> User:
-    return uc.create_user(user_in)
+    return uc.upsert_user(user_in)
 
 
 @router.get("/my/account", response_model=UserSchemaGet)

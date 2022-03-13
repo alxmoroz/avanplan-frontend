@@ -3,11 +3,11 @@
 
 from lib.L1_domain.entities import TaskPriority
 from lib.L2_data.models import TaskPriority as TPModel
-from lib.L2_data.schema import TaskPrioritySchema
+from lib.L2_data.schema import TaskPrioritySchemaGet, TaskPrioritySchemaUpsert
 
 from ..entity_repo import EntityRepo
 
 
-class TaskPriorityRepo(EntityRepo[TaskPrioritySchema, TaskPrioritySchema, TaskPriority, TPModel]):
+class TaskPriorityRepo(EntityRepo[TaskPrioritySchemaGet, TaskPrioritySchemaUpsert, TaskPriority, TPModel]):
     def __init__(self):
-        super().__init__(schema_get_cls=TaskPrioritySchema, entity_cls=TaskPriority)
+        super().__init__(schema_get_cls=TaskPrioritySchemaGet, schema_upd_cls=TaskPrioritySchemaUpsert, entity_cls=TaskPriority)

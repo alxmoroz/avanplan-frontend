@@ -1,8 +1,10 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from .goal import GoalImportSchemaGet, GoalSchemaCreate, GoalSchemaGet
-from .goal_status import GoalStatusSchema
-from .person import PersonSchemaCreate, PersonSchemaGet
-from .task import TaskImportSchemaGet, TaskSchemaCreate, TaskSchemaGet
-from .task_priority import TaskPrioritySchema
-from .task_status import TaskStatusSchema
+from .goal import GoalSchemaGet, GoalSchemaUpsert
+from .goal_import import GoalImportSchemaGet
+from .goal_status import GoalStatusSchemaGet, GoalStatusSchemaUpsert
+from .person import PersonSchemaGet, PersonSchemaUpsert
+from .task import TaskSchemaGet, TaskSchemaUpsert
+from .task_import import TaskImportSchemaGet
+from .task_priority import TaskPrioritySchemaGet, TaskPrioritySchemaUpsert
+from .task_status import TaskStatusSchemaGet, TaskStatusSchemaUpsert

@@ -8,7 +8,7 @@ from lib.L1_domain.entities import User
 from lib.L2_data.repositories import entities as er
 from lib.L2_data.repositories.db import UserRepo
 from lib.L2_data.repositories.security_repo import SecurityRepo
-from lib.L2_data.schema import UserSchema
+from lib.L2_data.schema import UserSchemaGet, UserSchemaUpsert
 from lib.L2_data.settings import settings
 from lib.L3_app.api.v1.users import router
 from lib.tests.conf_user import auth_headers_for_user
@@ -18,7 +18,7 @@ _users_api_path = f"{settings.API_PATH}{router.prefix}"
 
 
 def _user_from_json(json: dict) -> User:
-    return er.UserRepo().entity_from_schema_get(UserSchema(**json))
+    return er.UserRepo().entity_from_schema_get(UserSchemaGet(**json))
 
 
 def _user_from_orm(obj: any) -> User:
@@ -108,8 +108,8 @@ def test_resource_403(client: TestClient, auth_headers_test_user, user_repo: Use
     r1 = client.get(_users_api_path, headers=auth_headers_test_user)
     assert r1.json()["detail"] == "The user doesn't have enough privileges"
     assert r1.status_code == 403
-    s = UserSchema(email=EmailStr("inactive_user@test.com"), password="pass", is_active=False)
-    inactive_user = user_repo.create(jsonable_encoder(s))
+    s = UserSchemaUpsert(email=EmailStr("inactive_user@test.com"), password="pass", is_active=False)
+    inactive_user = user_repo.upsert(jsonable_encoder(s))
     a_headers_inactive_user = auth_headers_for_user(user_repo, inactive_user.email)
     # not active
     r2 = client.get(_users_api_path, headers=a_headers_inactive_user)

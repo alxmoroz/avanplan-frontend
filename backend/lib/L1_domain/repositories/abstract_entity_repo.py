@@ -7,27 +7,27 @@ from .abstract_db_repo import M
 
 E = TypeVar("E")
 SGet = TypeVar("SGet")
-SCreate = TypeVar("SCreate")
+SUpd = TypeVar("SUpd")
 
 
-class AbstractEntityRepo(Generic[SGet, SCreate, E, M], ABC):
+class AbstractEntityRepo(Generic[SGet, SUpd, E, M], ABC):
     def __init__(
         self,
         *,
         schema_get_cls: Type[SGet],
-        schema_create_cls: Type[SCreate],
+        schema_upd_cls: Type[SUpd],
         entity_cls: Type[E],
     ):
         self._schema_get_cls = schema_get_cls
-        self._schema_create_cls = schema_create_cls
+        self._schema_upd_cls = schema_upd_cls
         self._entity_cls = entity_cls
 
     @abstractmethod
-    def dict_from_schema_create(self, s: SCreate) -> dict:
+    def dict_from_schema_upd(self, s: SUpd) -> dict:
         raise NotImplementedError
 
     @abstractmethod
-    def schema_create_from_entity(self, e: E) -> SCreate:
+    def schema_upd_from_entity(self, e: E) -> SUpd:
         raise NotImplementedError
 
     @abstractmethod

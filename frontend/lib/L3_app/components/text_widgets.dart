@@ -68,7 +68,7 @@ class SmallText extends NormalText {
           weight: weight,
           sizeScale: 0.85,
           align: align,
-          padding: padding ?? const EdgeInsets.only(top: 4),
+          padding: padding,
           maxLines: maxLines ?? 5,
         );
 }

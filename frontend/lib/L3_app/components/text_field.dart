@@ -26,8 +26,8 @@ InputDecoration _tfDecoration(String? label, String? helper, String? error, Buil
       focusedErrorBorder: _warningBorder,
     );
 
-class CTextField extends StatelessWidget {
-  const CTextField({
+class MTTextField extends StatelessWidget {
+  const MTTextField({
     this.controller,
     this.label,
     this.description,

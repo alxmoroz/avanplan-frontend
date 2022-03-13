@@ -1,13 +1,13 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'components/splash.dart';
 import 'extra/services.dart';
 import 'l10n/generated/l10n.dart';
 import 'views/auth/login_view.dart';
+import 'views/goal/goal_view.dart';
 import 'views/main/main_view.dart';
 
 void main() {
@@ -25,18 +25,10 @@ class App extends StatelessWidget {
         future: getIt.allReady(),
         builder: (_, snapshot) => snapshot.hasData ? (mainController.authorized ? MainView() : LoginView()) : const SplashScreen(),
       ),
-      // routes: {
-      //   LoginView.routeName: (_) => LoginView(),
-      //   MainView.routeName: (_) => MainView(),
-      // },
-      onGenerateRoute: (RouteSettings rSettings) {
-        final mainBuilder = (BuildContext _) => MainView();
-        final builders = {
-          LoginView.routeName: (BuildContext _) => LoginView(),
-          MainView.routeName: mainBuilder,
-        };
-
-        return CupertinoPageRoute<Widget>(builder: builders[rSettings.name] ?? mainBuilder);
+      routes: {
+        LoginView.routeName: (_) => LoginView(),
+        MainView.routeName: (_) => MainView(),
+        GoalView.routeName: (_) => GoalView(),
       },
       localizationsDelegates: const [
         S.delegate,

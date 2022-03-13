@@ -1,16 +1,14 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../components/buttons.dart';
-import '../../components/card.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
-import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import 'drawer.dart';
+import 'goal_card.dart';
 
 class MainView extends StatefulWidget {
   static String get routeName => 'main';
@@ -33,41 +31,30 @@ class _MainViewState extends State<MainView> {
   }
 
   Widget goalCardBuilder(BuildContext context, int index) {
-    final goal = mainController.goals[index];
-    return AMCard(
-        title: ListTile(
-          title: H3(goal.title, color: darkGreyColor.resolve(context)),
-          subtitle: SmallText(goal.description ?? '', maxLines: 1),
-        ),
-        body: Padding(
-          padding: EdgeInsets.all(onePadding),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              LightText(goal.report?.closedTasksCount?.toString() ?? ''),
-              LightText(goal.report?.tasksCount?.toString() ?? ''),
-              LightText(goal.report?.etaDate?.toString() ?? ''),
-              LightText(goal.report?.planSpeed?.toString() ?? ''),
-              LightText(goal.report?.factSpeed?.toString() ?? ''),
-            ],
-          ),
-        ));
+    return GoalCard(mainController.goals[index]);
   }
 
   @override
   Widget build(BuildContext context) {
+    //TODO: возможно, будет лучше Cupertino для навигации и вообще, более однородно будет смотреться
     return Scaffold(
       resizeToAvoidBottomInset: false,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: appBarBgColor.resolve(context),
-        elevation: 0,
+        backgroundColor: cardBackgroundColor.resolve(context),
+        elevation: 7,
         automaticallyImplyLeading: false,
         leading: Builder(
           builder: (BuildContext innerCtx) => Button.icon(menuIcon(context), () => Scaffold.of(innerCtx).openDrawer()),
         ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Button.icon(plusIcon(context), mainController.goToGoalView),
+          ],
+        ),
       ),
-      drawer: ALDrawer(),
+      drawer: MTDrawer(),
       body: Container(
         color: backgroundColor.resolve(context),
         child: Column(

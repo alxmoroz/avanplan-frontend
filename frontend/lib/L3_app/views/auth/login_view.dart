@@ -1,6 +1,5 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -39,7 +38,7 @@ class _LoginViewState extends State<LoginView> {
     super.dispose();
   }
 
-  Widget textFieldForCode(String code) => CTextField(
+  Widget textFieldForCode(String code) => MTTextField(
         controller: _controller.controllers[code],
         label: _controller.tfAnnoForCode(code).label,
         error: _controller.tfAnnoForCode(code).errorText,

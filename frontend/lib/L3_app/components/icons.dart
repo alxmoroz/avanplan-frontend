@@ -10,3 +10,9 @@ Widget menuIcon(BuildContext context, {Color? color, double? size}) => Icon(
       size: size ?? 32,
       color: (color ?? mainColor).resolve(context),
     );
+
+Widget plusIcon(BuildContext context, {Color? color, double? size}) => Icon(
+      CupertinoIcons.plus_circle,
+      size: size ?? 32,
+      color: (color ?? mainColor).resolve(context),
+    );

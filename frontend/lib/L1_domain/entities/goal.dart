@@ -6,16 +6,16 @@ import 'goal_report.dart';
 
 class Goal {
   Goal({
-    this.id,
+    required this.id,
     this.title = '',
-    this.description,
+    this.description = '',
     this.dueDate,
-    this.report,
+    required this.report,
   });
 
-  final int? id;
+  final int id;
   final String title;
-  final String? description;
+  final String description;
   final DateTime? dueDate;
-  final GoalReport? report;
+  final GoalReport report;
 }

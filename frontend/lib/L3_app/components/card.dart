@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'colors.dart';
 import 'constants.dart';
 
-class AMCard extends StatelessWidget {
-  const AMCard({this.body, this.title, this.margin});
+class MTCard extends StatelessWidget {
+  const MTCard({this.body, this.title, this.margin});
 
   @protected
   final Widget? title;
@@ -28,6 +28,7 @@ class AMCard extends StatelessWidget {
       color: mainBgColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)),
       child: Container(
+        clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(radius),
           gradient: LinearGradient(

@@ -9,6 +9,7 @@ import '../../../L1_domain/entities/goal.dart';
 import '../../extra/services.dart';
 import '../auth/login_view.dart';
 import '../base/base_controller.dart';
+import '../goal/goal_view.dart';
 
 part 'main_controller.g.dart';
 
@@ -19,7 +20,7 @@ class MainController extends _MainControllerBase with _$MainController {
     await settingsUC.updateVersion(packageInfo.version);
     await authUC.setApiCredentialsFromSettings();
 
-    goals = ObservableList.of(await goalsUC.getGoals());
+    await fetchGoals();
 
     return this;
   }
@@ -40,7 +41,7 @@ abstract class _MainControllerBase extends BaseController with Store {
   ObservableList<Goal> goals = ObservableList();
 
   @action
-  void setGoals(Iterable<Goal> _goals) => goals = ObservableList.of(_goals);
+  Future fetchGoals() async => goals = ObservableList.of(await goalsUC.getGoals());
 
   @computed
   bool get authorized => settings?.accessToken.isNotEmpty ?? false;
@@ -76,9 +77,10 @@ abstract class _MainControllerBase extends BaseController with Store {
 
   /// роутер
 
-  //
-  // Future goToCloudView() async {
-  //   await Navigator.of(context!).pushNamed(CloudView.routeName);
-  //   setMain(_main);
-  // }
+  Future goToGoalView([Goal? goal]) async {
+    goalController.setGoal(goal);
+    await Navigator.of(context!).pushNamed(GoalView.routeName);
+    // обновление списка целей
+    fetchGoals();
+  }
 }

@@ -20,7 +20,6 @@ Color get borderColor => const CupertinoDynamicColor.withBrightness(
     );
 
 Color get backgroundColor => CupertinoColors.systemGrey6;
-
 Color get cardBackgroundColor => CupertinoColors.systemGrey5;
 
 const Color _tealColor = Color.fromARGB(255, 90, 200, 250);
@@ -31,25 +30,21 @@ Color get mainColor => const CupertinoDynamicColor.withBrightness(
       darkColor: _tealColor,
     );
 
-Color get secondaryColor => const CupertinoDynamicColor.withBrightness(
-      color: _tealColor,
-      darkColor: _darkTealColor,
-    );
-
-Color get mainFillColor => const CupertinoDynamicColor.withBrightness(
-      color: Color.fromARGB(180, 215, 215, 220),
-      darkColor: Color.fromARGB(150, 45, 55, 65),
-    );
-
 Color get secondaryFillColor => const CupertinoDynamicColor.withBrightness(
       color: Color.fromARGB(150, 245, 245, 250),
       darkColor: Color.fromARGB(150, 10, 15, 20),
     );
 
-Color get appBarBgColor => const CupertinoDynamicColor.withBrightness(
-      color: Color.fromARGB(0, 255, 255, 255),
-      darkColor: Color.fromARGB(0, 0, 0, 0),
+Color get greenPaceColor => const CupertinoDynamicColor.withBrightness(
+      color: Color.fromARGB(255, 120, 190, 142),
+      darkColor: Color.fromARGB(255, 5, 80, 5),
     );
+
+// цвет для "прозрачного" апп-бара
+// Color get appBarBgColor => const CupertinoDynamicColor.withBrightness(
+//       color: Color.fromARGB(0, 255, 255, 255),
+//       darkColor: Color.fromARGB(0, 0, 0, 0),
+//     );
 
 extension ResolvedColor on Color {
   Color resolve(BuildContext context) => CupertinoDynamicColor.resolve(this, context);

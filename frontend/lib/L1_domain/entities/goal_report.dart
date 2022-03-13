@@ -2,16 +2,16 @@
 
 class GoalReport {
   GoalReport({
-    this.tasksCount,
-    this.closedTasksCount,
+    this.tasksCount = 0,
+    this.closedTasksCount = 0,
+    this.factSpeed = 0,
+    this.planSpeed = 0,
     this.etaDate,
-    this.factSpeed,
-    this.planSpeed,
   });
 
-  final int? tasksCount;
-  final int? closedTasksCount;
+  final int tasksCount;
+  final int closedTasksCount;
+  final num factSpeed;
+  final num planSpeed;
   final DateTime? etaDate;
-  final num? factSpeed;
-  final num? planSpeed;
 }

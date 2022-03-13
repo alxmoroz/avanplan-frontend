@@ -1,6 +1,5 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -10,7 +9,7 @@ import '../../components/constants.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 
-class ALDrawer extends StatelessWidget {
+class MTDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(

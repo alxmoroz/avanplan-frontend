@@ -1,5 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:openapi/openapi.dart';
+
 import '../../L1_domain/entities/goal.dart';
 import '../../L1_domain/entities/goal_report.dart';
 import '../../L1_domain/repositories/abstract_goals_repo.dart';
@@ -13,19 +15,18 @@ class GoalsRepo extends AbstractGoalsRepo {
     final List<Goal> goals = [];
 
     if (response.statusCode == 200) {
-      final goalsData = response.data?.toList() ?? [];
-      for (var g in goalsData) {
+      for (GoalSchemaGet g in response.data?.toList() ?? []) {
         final report = GoalReport(
-          tasksCount: g.report?.tasksCount,
-          closedTasksCount: g.report?.closedTasksCount,
+          tasksCount: g.report?.tasksCount ?? 0,
+          closedTasksCount: g.report?.closedTasksCount ?? 0,
           etaDate: g.report?.etaDate,
-          factSpeed: g.report?.factSpeed,
-          planSpeed: g.report?.planSpeed,
+          factSpeed: g.report?.factSpeed ?? 0,
+          planSpeed: g.report?.planSpeed ?? 0,
         );
         final goal = Goal(
           id: g.id,
           title: g.title,
-          description: g.description,
+          description: g.description ?? '',
           dueDate: g.dueDate,
           report: report,
         );

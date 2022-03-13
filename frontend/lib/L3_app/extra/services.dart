@@ -14,6 +14,7 @@ import '../../L2_data/repositories/db_repo.dart';
 import '../../L2_data/repositories/goals_repo.dart';
 import '../l10n/generated/l10n.dart';
 import '../views/auth/login_controller.dart';
+import '../views/goal/goal_controller.dart';
 import '../views/main/main_controller.dart';
 
 S get loc => S.current;
@@ -25,6 +26,8 @@ PackageInfo get packageInfo => GetIt.I<PackageInfo>();
 
 MainController get mainController => GetIt.I<MainController>();
 LoginController get loginController => GetIt.I<LoginController>();
+GoalController get goalController => GetIt.I<GoalController>();
+
 Openapi get openAPI => GetIt.I<Openapi>();
 
 AuthUC get authUC => GetIt.I<AuthUC>();
@@ -55,4 +58,5 @@ void setup() {
     dependsOn: [HiveStorage, PackageInfo, IosDeviceInfo, Openapi, SettingsUC, AuthUC, GoalsUC],
   );
   getIt.registerSingletonAsync<LoginController>(() async => await LoginController().init(), dependsOn: [MainController]);
+  getIt.registerSingletonAsync<GoalController>(() async => await GoalController().init(), dependsOn: [MainController]);
 }

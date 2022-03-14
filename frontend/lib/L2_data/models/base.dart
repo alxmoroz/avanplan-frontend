@@ -2,10 +2,10 @@
 
 import 'package:hive/hive.dart';
 
-import '../../../L1_domain/entities/base.dart';
+import '../../../L1_domain/entities/base_entity.dart';
 import '../../../L1_domain/repositories/abstract_db_repo.dart';
 
-abstract class BaseModel<E extends BaseEntity> extends HiveObject implements AbstractDBModel<E> {
+abstract class BaseModel<E extends LocalPersistable> extends HiveObject implements AbstractDBModel<E> {
   @HiveField(0, defaultValue: '')
   String id = '';
 

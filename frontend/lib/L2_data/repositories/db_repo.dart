@@ -3,14 +3,14 @@
 import 'package:hive/hive.dart';
 
 import '../../../L1_domain/entities/app_settings.dart';
-import '../../../L1_domain/entities/base.dart';
+import '../../../L1_domain/entities/base_entity.dart';
 import '../../../L1_domain/repositories/abstract_db_repo.dart';
 import '../models/app_settings.dart';
 import '../models/base.dart';
 
 typedef ModelCreator<T> = T Function();
 
-abstract class DBRepo<M extends BaseModel, E extends BaseEntity> extends AbstractDBRepo<M, E> {
+abstract class DBRepo<M extends BaseModel, E extends LocalPersistable> extends AbstractDBRepo<M, E> {
   DBRepo(this.boxName, this.modelCreator);
 
   final String boxName;

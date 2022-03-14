@@ -5,7 +5,7 @@ import 'package:mobx/mobx.dart';
 import 'package:openapi/openapi.dart';
 
 import '../../../L1_domain/entities/app_settings.dart';
-import '../../../L1_domain/entities/goal.dart';
+import '../../../L1_domain/entities/goals/goal.dart';
 import '../../extra/services.dart';
 import '../auth/login_view.dart';
 import '../base/base_controller.dart';

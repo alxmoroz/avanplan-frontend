@@ -2,7 +2,7 @@
 
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/entities/goal.dart';
+import '../../../L1_domain/entities/goals/goal.dart';
 import '../base/base_controller.dart';
 
 part 'goal_controller.g.dart';

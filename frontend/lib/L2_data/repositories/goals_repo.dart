@@ -2,8 +2,10 @@
 
 import 'package:openapi/openapi.dart';
 
-import '../../L1_domain/entities/goal.dart';
-import '../../L1_domain/entities/goal_report.dart';
+import '../../L1_domain/entities/goals/goal.dart';
+import '../../L1_domain/entities/goals/goal_report.dart';
+import '../../L1_domain/entities/goals/task.dart';
+import '../../L1_domain/entities/goals/task_status.dart';
 import '../../L1_domain/repositories/abstract_goals_repo.dart';
 import '../../L3_app/extra/services.dart';
 
@@ -17,20 +19,38 @@ class GoalsRepo extends AbstractGoalsRepo {
     if (response.statusCode == 200) {
       for (GoalSchemaGet g in response.data?.toList() ?? []) {
         final report = GoalReport(
-          tasksCount: g.report?.tasksCount ?? 0,
-          closedTasksCount: g.report?.closedTasksCount ?? 0,
           etaDate: g.report?.etaDate,
           factSpeed: g.report?.factSpeed ?? 0,
           planSpeed: g.report?.planSpeed ?? 0,
         );
-        final goal = Goal(
+
+        goals.add(Goal(
           id: g.id,
+          createdOn: g.createdOn,
+          updatedOn: g.updatedOn,
           title: g.title,
           description: g.description ?? '',
           dueDate: g.dueDate,
           report: report,
-        );
-        goals.add(goal);
+          tasks: g.tasks?.map(
+                (t) => Task(
+                  id: t.id,
+                  createdOn: t.createdOn,
+                  updatedOn: t.updatedOn,
+                  title: t.title,
+                  description: t.description ?? '',
+                  dueDate: t.dueDate,
+                  status: t.status != null
+                      ? TaskStatus(
+                          id: t.status!.id,
+                          title: t.status!.title,
+                          closed: t.status!.closed,
+                        )
+                      : null,
+                ),
+              ) ??
+              [],
+        ));
       }
     }
     return goals;

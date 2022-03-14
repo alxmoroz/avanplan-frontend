@@ -1,6 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../entities/goal.dart';
+import '../entities/goals/goal.dart';
 
 abstract class AbstractGoalsRepo {
   Future<List<Goal>> getGoals();

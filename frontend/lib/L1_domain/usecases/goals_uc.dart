@@ -1,6 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../entities/goal.dart';
+import '../entities/goals/goal.dart';
 import '../repositories/abstract_goals_repo.dart';
 
 class GoalsUC {

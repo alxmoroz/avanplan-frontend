@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../L1_domain/entities/goal.dart';
+import '../../../L1_domain/entities/goals/goal.dart';
 import '../../components/card.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';

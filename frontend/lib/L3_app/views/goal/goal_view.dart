@@ -28,24 +28,40 @@ class _GoalViewState extends State<GoalView> {
     super.dispose();
   }
 
+  Widget taskBuilder(BuildContext context, int index) {
+    final task = goalController.goal!.tasks.elementAt(index);
+    return ListTile(
+      title: NormalText(task.title),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     //TODO: возможно, будет лучше Cupertino
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: cardBackgroundColor.resolve(context),
-        elevation: 0,
+        elevation: 7,
+        title: H3(goalController.goal?.title ?? 'Новая цель'),
       ),
       body: Container(
-        padding: EdgeInsets.all(onePadding),
         color: backgroundColor.resolve(context),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(height: onePadding),
-            H1(goalController.goal?.title ?? 'Новая цель'),
-            MediumText(goalController.goal?.description ?? ''),
-            H3('${goalController.goal?.etaDateStr ?? ''}'),
+            // SizedBox(height: onePadding),
+            if (goalController.goal != null) ...[
+              // SmallText(goalController.goal?.description ?? ''),
+              H3('${goalController.goal?.etaDateStr ?? ''}'),
+              Expanded(
+                child: ListView.builder(
+                  itemBuilder: taskBuilder,
+                  itemCount: goalController.goal!.tasks.length,
+                ),
+              )
+            ],
             SizedBox(height: onePadding),
           ],
         ),

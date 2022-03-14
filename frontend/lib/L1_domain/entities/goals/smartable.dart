@@ -9,9 +9,9 @@ abstract class Smartable extends Titleable {
     required int id,
     required String title,
     required this.description,
-    required this.dueDate,
     required this.createdOn,
     required this.updatedOn,
+    required this.dueDate,
   }) : super(id: id, title: title);
 
   final String description;

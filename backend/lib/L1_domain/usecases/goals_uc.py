@@ -2,8 +2,8 @@
 from datetime import datetime, timedelta
 from typing import Generic
 
+from ..entities import Goal, GoalReport
 from ..entities.api.exceptions import ApiException
-from ..entities.goals import Goal, GoalReport, Task
 from ..repositories.abstract_db_repo import AbstractDBRepo, M
 from ..repositories.abstract_entity_repo import AbstractEntityRepo, SGet, SUpd
 
@@ -22,9 +22,10 @@ class GoalsUC(Generic[M, SGet]):
         self.task_db_repo = task_db_repo
         self.task_e_repo = task_e_repo
 
+    # TODO: размазанная между фронтом и бэком логика
     def _calculate_goal(self, goal: Goal) -> SGet:
-        # TODO: для гет-схемы цели можно получить сразу задачи эти
-        tasks: list[Task] = [self.task_e_repo.entity_from_orm(db_obj) for db_obj in self.task_db_repo.get(goal_id=goal.id)]
+
+        tasks = goal.tasks
 
         tasks_count = len(tasks)
         closed_tasks_count = sum(map(lambda t: t.closed, tasks))
@@ -48,8 +49,6 @@ class GoalsUC(Generic[M, SGet]):
             # print(f" target_speed {left_tasks_count / left_period.total_seconds() * 3600 * 24 :.2f}")
 
         goal.report = GoalReport(
-            tasks_count=tasks_count,
-            closed_tasks_count=closed_tasks_count,
             eta_date=eta_date,
             plan_speed=plan_speed,
             fact_speed=fact_speed,

@@ -131,11 +131,11 @@ class ImportUC:
         if person:
             return self._upsert_once(
                 person,
-                person.remote_code,
+                person.email,
                 self.processed_persons,
                 self.person_repo,
                 self.person_e_repo,
-                remote_code=person.remote_code,
+                email=person.email,
             )
 
     def import_goals(self) -> Msg:

@@ -2,12 +2,11 @@
 
 from sqlalchemy import Boolean, Column, String
 
-from ..base_model import BaseModel, Timestampable
+from ..base_model import BaseModel, Emailable
 
 
-class User(Timestampable, BaseModel):
+class User(Emailable, BaseModel):
 
-    email = Column(String, unique=True, index=True, nullable=False)
     password = Column(String, nullable=False)
     full_name = Column(String, index=True)
     is_active = Column(Boolean())

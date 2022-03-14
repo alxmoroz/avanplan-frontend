@@ -2,6 +2,7 @@
 
 import pytest
 from fastapi.encoders import jsonable_encoder
+from pydantic import EmailStr
 from sqlalchemy.orm import Session
 
 from lib.L2_data.models import Goal, Person, Task, TaskStatus
@@ -55,7 +56,7 @@ def person_repo(db) -> PersonRepo:
 
 @pytest.fixture(scope="session")
 def tmp_person(person_repo) -> Person:
-    s = PersonSchemaUpsert(firstname="tmp_person")
+    s = PersonSchemaUpsert(firstname="tmp_person", email=EmailStr("tmp_person@mail.com"))
     person = person_repo.upsert(jsonable_encoder(s))
     yield person
     person_repo.delete(person.id)

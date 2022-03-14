@@ -4,7 +4,7 @@ from abc import ABC
 from datetime import datetime
 from typing import Optional
 
-from pydantic import BaseModel, validator
+from pydantic import BaseModel
 
 
 class BaseSchema(BaseModel, ABC):
@@ -33,10 +33,6 @@ class Titleable(BaseSchema, ABC):
 class Orderable(BaseSchema, ABC):
     order: int
 
-    @validator("order", always=True)
-    def check_order(cls, v):
-        return v or 0
-
 
 class Importable(BaseSchema, ABC):
     remote_code: Optional[str]
@@ -44,7 +40,3 @@ class Importable(BaseSchema, ABC):
 
 class Statusable(BaseSchema, ABC):
     closed: bool
-
-    @validator("closed", always=True)
-    def check_closed(cls, v):
-        return v or False

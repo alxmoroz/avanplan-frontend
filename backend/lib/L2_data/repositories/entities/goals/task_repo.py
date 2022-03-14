@@ -23,7 +23,8 @@ class TaskRepo(EntityRepo[TaskSchemaGet, TaskSchemaUpsert, Task, TaskModel]):
         if s:
             t: Task = super().entity_from_schema_get(s)
             t.status = TaskStatusRepo().entity_from_schema_get(s.status)
-            t.author = PersonRepo().entity_from_schema_get(s.author)
-            t.assignee = PersonRepo().entity_from_schema_get(s.assignee)
             t.priority = TaskPriorityRepo().entity_from_schema_get(s.priority)
+            t.assignee = PersonRepo().entity_from_schema_get(s.assignee)
+            t.author = PersonRepo().entity_from_schema_get(s.author)
+            t.tasks = [self.entity_from_schema_get(ts) for ts in s.tasks]
             return t

@@ -6,9 +6,13 @@ from typing import Optional
 
 from ..base_schema import Importable, PKGetable
 from .goal_import import GoalImportSchemaGet
-from .task import TaskSchema
+from .task import TaskSchema, TaskSchemaUpsert
 
 
 class TaskImportSchemaGet(TaskSchema, PKGetable, Importable):
     goal: Optional[GoalImportSchemaGet]
     parent: Optional[TaskImportSchemaGet]
+
+
+class TaskImportSchemaUpsert(TaskSchemaUpsert, Importable):
+    pass

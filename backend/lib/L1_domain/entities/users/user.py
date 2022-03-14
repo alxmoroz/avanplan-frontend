@@ -1,12 +1,12 @@
 #  Copyright (c) 2022. Alexandr Moroz
 from dataclasses import dataclass
 
-from ..base_entity import Identifiable, Timestampable
+from ..base_entity import Emailable, Persistable
 
 
 @dataclass
-class User(Identifiable, Timestampable):
-    email: str | None = None
+class User(Persistable, Emailable):
+
     password: str | None = None
     full_name: str = ""
     is_active: bool = False

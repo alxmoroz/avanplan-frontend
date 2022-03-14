@@ -7,6 +7,7 @@ from lib.L2_data.schema import GoalSchemaGet, GoalSchemaUpsert
 from ..entity_repo import EntityRepo
 from .goal_report import GoalReportRepo
 from .goal_status_repo import GoalStatusRepo
+from .task_repo import TaskRepo
 
 
 class GoalRepo(EntityRepo[GoalSchemaGet, GoalSchemaUpsert, Goal, GoalModel]):
@@ -22,4 +23,5 @@ class GoalRepo(EntityRepo[GoalSchemaGet, GoalSchemaUpsert, Goal, GoalModel]):
             g: Goal = super().entity_from_schema_get(s)
             g.status = GoalStatusRepo().entity_from_schema_get(s.status)
             g.report = GoalReportRepo().entity_from_schema_get(s.report)
+            g.tasks = [TaskRepo().entity_from_schema_get(t) for t in s.tasks]
             return g

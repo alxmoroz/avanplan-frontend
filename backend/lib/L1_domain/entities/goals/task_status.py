@@ -2,9 +2,9 @@
 
 from dataclasses import dataclass
 
-from ..base_entity import Identifiable, Statusable, Titleable
+from ..base_entity import Statusable
 
 
 @dataclass
-class TaskStatus(Identifiable, Titleable, Statusable):
+class TaskStatus(Statusable):
     pass

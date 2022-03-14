@@ -2,13 +2,16 @@
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta
 
-from ..base_entity import Identifiable, Importable, Timestampable, Titleable
+from ..base_entity import Titleable
 
 
 @dataclass
-class Smartable(Timestampable, Titleable, Importable, Identifiable):
+class Smartable(Titleable):
     description: str | None = None
+    created_on: datetime | None = None
+    updated_on: datetime | None = None
     due_date: datetime | date | None = None
+    remote_code: str | None = None
 
     @property
     def planned_period(self) -> timedelta | None:

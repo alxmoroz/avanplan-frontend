@@ -13,4 +13,4 @@ class Goal(Smartable, BaseModel):
     status = relationship("GoalStatus")
 
     # goals = relationship("Goal", cascade="all, delete", remote_side="Goal.parent_id")
-    # tasks = relationship("Task", cascade="all, delete")
+    tasks = relationship("Task", cascade="all, delete")

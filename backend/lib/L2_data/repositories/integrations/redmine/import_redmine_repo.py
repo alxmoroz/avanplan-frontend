@@ -33,8 +33,7 @@ class ImportRedmineRepo(AbstractImportRepo):
             user.id: Person(
                 firstname=user.firstname,
                 lastname=user.lastname,
-                remote_code=f"{user.id}",
-                updated_on=datetime.now(),
+                email=user.mail,
             )
             for user in self.redmine.user.all()
         }
@@ -113,7 +112,6 @@ class ImportRedmineRepo(AbstractImportRepo):
                         goal=goal,
                         title=issue.subject,
                         description=issue.description,
-                        # start_date=getattr(issue, "start_date", None),
                         due_date=getattr(issue, "due_date", None),
                         updated_on=datetime.now(),
                         remote_code=f"{issue.id}",

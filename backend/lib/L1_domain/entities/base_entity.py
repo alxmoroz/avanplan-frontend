@@ -1,35 +1,28 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
 from dataclasses import dataclass
-from datetime import datetime
 
 
 @dataclass
-class Identifiable:
+class Persistable:
     id: int | None = None
 
 
 @dataclass
-class Timestampable:
-    created_on: datetime | None = None
-    updated_on: datetime | None = None
-
-
-@dataclass
-class Titleable:
+class Titleable(Persistable):
     title: str | None = None
 
 
 @dataclass
-class Orderable:
+class Orderable(Titleable):
     order: int | None = None
 
 
 @dataclass
-class Importable:
-    remote_code: str | None = None
+class Statusable(Titleable):
+    closed: bool | None = None
 
 
 @dataclass
-class Statusable:
-    closed: bool | None = None
+class Emailable:
+    email: str | None = None

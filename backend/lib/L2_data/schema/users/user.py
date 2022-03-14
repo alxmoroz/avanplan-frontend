@@ -2,7 +2,7 @@
 
 from pydantic import EmailStr
 
-from lib.L2_data.schema.base_schema import BaseSchema, PKGetable, PKUpsertable, Timestampable
+from lib.L2_data.schema.base_schema import BaseSchema, PKGetable, PKUpsertable
 
 
 class _UserSchema(BaseSchema):
@@ -13,7 +13,7 @@ class _UserSchema(BaseSchema):
     is_superuser: bool = False
 
 
-class UserSchemaGet(_UserSchema, PKGetable, Timestampable):
+class UserSchemaGet(_UserSchema, PKGetable):
     pass
 
 

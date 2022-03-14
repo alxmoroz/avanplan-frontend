@@ -3,17 +3,18 @@
 from abc import ABC
 from typing import Optional
 
-from pydantic import validator
+from pydantic import EmailStr, validator
 
-from ..base_schema import BaseSchema, Importable, PKGetable, PKUpsertable, Timestampable
+from ..base_schema import BaseSchema, PKGetable, PKUpsertable
 
 
 class _BasePersonSchema(BaseSchema, ABC):
+    email: EmailStr
     firstname: Optional[str]
     lastname: Optional[str]
 
 
-class PersonSchemaGet(_BasePersonSchema, PKGetable, Importable, Timestampable):
+class PersonSchemaGet(_BasePersonSchema, PKGetable):
     pass
 
 

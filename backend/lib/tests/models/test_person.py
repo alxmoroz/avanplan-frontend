@@ -1,6 +1,7 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
 from fastapi.encoders import jsonable_encoder
+from pydantic import EmailStr
 from sqlalchemy import column
 
 from lib.L2_data.repositories.db import PersonRepo
@@ -13,7 +14,7 @@ def test_get_one(person_repo: PersonRepo, tmp_person):
 
 
 def test_get_create(person_repo: PersonRepo, tmp_person):
-    s = PersonSchemaUpsert(firstname="test_get_create")
+    s = PersonSchemaUpsert(firstname="test_get_create", email=EmailStr("test_get_create@mail.com"))
     obj2 = person_repo.upsert(jsonable_encoder(s))
 
     objects = person_repo.get(
@@ -33,6 +34,7 @@ def test_update(person_repo: PersonRepo, tmp_person):
         id=tmp_person.id,
         firstname="test_update",
         lastname="lastname",
+        email=EmailStr("test_update@mail.com"),
     )
 
     obj_out = person_repo.upsert(jsonable_encoder(s))
@@ -45,7 +47,7 @@ def test_update(person_repo: PersonRepo, tmp_person):
 
 def test_upsert_delete(person_repo: PersonRepo):
     # upsert
-    s = PersonSchemaUpsert(firstname="test_upsert_delete")
+    s = PersonSchemaUpsert(firstname="test_upsert_delete", email=EmailStr("test_upsert_delete@mail.com"))
     obj_out = person_repo.upsert(jsonable_encoder(s))
     test_obj_out = person_repo.get_one(id=obj_out.id)
 

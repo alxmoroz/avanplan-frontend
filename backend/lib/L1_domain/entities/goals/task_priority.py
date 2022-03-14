@@ -1,9 +1,9 @@
 #  Copyright (c) 2022. Alexandr Moroz
 from dataclasses import dataclass
 
-from ..base_entity import Identifiable, Orderable, Titleable
+from ..base_entity import Orderable
 
 
 @dataclass
-class TaskPriority(Identifiable, Titleable, Orderable):
+class TaskPriority(Orderable):
     pass

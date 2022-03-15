@@ -18,10 +18,10 @@ class Goal extends Smartable {
     _tasksCount = tasks.length;
     _closedTasksCount = tasks.where((Task t) => t.closed).length;
     _closedRatio = tasksCount > 0 ? closedTasksCount / tasksCount : null;
-    _pace = report.factSpeed - report.planSpeed;
+    _pace = (report?.factSpeed ?? 0) - (report?.planSpeed ?? 0);
   }
 
-  final GoalReport report;
+  final GoalReport? report;
   final Iterable<Task> tasks;
 
   int _tasksCount = 0;

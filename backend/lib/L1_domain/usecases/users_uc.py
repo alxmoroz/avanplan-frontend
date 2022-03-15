@@ -35,15 +35,14 @@ class UsersUC(Generic[SUpd]):
 
         return self.user_repo.get(skip=skip, limit=limit)
 
-    def upsert_user(self, user: SUpd) -> User:
+    def upsert_user(self, s_user: SUpd) -> User:
         self.get_active_superuser()
 
-        if self.user_repo.get_one(email=user.email):
+        if self.user_repo.get_one(email=s_user.email):
             raise ApiException(400, "The user with this email already exists.")
-        user.password = self.sec_repo.secure_password(user.password)
+        s_user.password = self.sec_repo.secure_password(s_user.password)
 
-        s = self.user_e_repo.schema_upd_from_entity(user)
-        data = self.user_e_repo.dict_from_schema_upd(s)
+        data = self.user_e_repo.dict_from_schema_upd(s_user)
         user = self.user_e_repo.entity_from_orm(self.user_repo.upsert(data))
         return user
 

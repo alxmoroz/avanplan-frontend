@@ -65,7 +65,10 @@ class GoalsUC(Generic[M, SGet]):
         return goals
 
     def upsert_goal(self, s: SUpd) -> Goal:
-        return self.goal_e_repo.entity_from_orm(self.goal_db_repo.upsert(s))
+
+        data = self.goal_e_repo.dict_from_schema_upd(s)
+        goal = self.goal_e_repo.entity_from_orm(self.goal_db_repo.upsert(data))
+        return goal
 
     def delete_goal(self, goal_id: int) -> int:
         deleted_count = self.goal_db_repo.delete(goal_id)

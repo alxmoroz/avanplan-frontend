@@ -1,7 +1,5 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-// TODO: повторить структуру Л1 с бэка
-
 import '../base_entity.dart';
 
 abstract class Smartable extends Titleable {

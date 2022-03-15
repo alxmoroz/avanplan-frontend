@@ -16,11 +16,11 @@ part 'main_controller.g.dart';
 class MainController extends _MainControllerBase with _$MainController {
   @override
   Future<MainController> init() async {
+    // эти инициализации здесь для авторизации
+    // TODO: подыскать место получше
     settings = await settingsUC.getSettings();
     await settingsUC.updateVersion(packageInfo.version);
     await authUC.setApiCredentialsFromSettings();
-
-    await fetchGoals();
 
     return this;
   }
@@ -41,7 +41,12 @@ abstract class _MainControllerBase extends BaseController with Store {
   ObservableList<Goal> goals = ObservableList();
 
   @action
-  Future fetchGoals() async => goals = ObservableList.of(await goalsUC.getGoals());
+  Future fetchGoals() async {
+    if (authorized) {
+      //TODO: добавить LOADING
+      goals = ObservableList.of(await goalsUC.getGoals());
+    }
+  }
 
   @computed
   bool get authorized => settings?.accessToken.isNotEmpty ?? false;
@@ -56,12 +61,6 @@ abstract class _MainControllerBase extends BaseController with Store {
   Future logout() async {
     await authUC.logout();
     Navigator.of(context!).pushReplacementNamed(LoginView.routeName);
-  }
-
-  @override
-  Future initState(BuildContext _context, {List<TFAnnotation>? tfaList}) async {
-    settings = await settingsUC.getSettings();
-    super.initState(_context, tfaList: tfaList);
   }
 
   //TODO: для тестирования метод пока что тут. Нужен отдельный юзкейс и репы
@@ -81,6 +80,6 @@ abstract class _MainControllerBase extends BaseController with Store {
     goalController.setGoal(goal);
     await Navigator.of(context!).pushNamed(GoalView.routeName);
     // обновление списка целей
-    fetchGoals();
+    await fetchGoals();
   }
 }

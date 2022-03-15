@@ -7,10 +7,13 @@
   "auth_password": "Пароль",
   "auth_log_in_button_title": "Войти",
 
-  "common_title": "Название",
+  "btn_save_title": "Сохранить",
+
   "common_description": "Описание",
-  "common_yes": "Да",
-  "common_no": "Нет",
+  "common_due_date": "Срок завершения",
+  "common_title": "Название",
+
+  "goal_new_title": "Новая цель",
 
   "validation_empty_text": "Нужно заполнить"
 }

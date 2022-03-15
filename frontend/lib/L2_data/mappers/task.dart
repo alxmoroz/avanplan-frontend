@@ -1,0 +1,18 @@
+// Copyright (c) 2022. Alexandr Moroz
+
+import 'package:openapi/openapi.dart';
+
+import '../../L1_domain/entities/goals/task.dart';
+import 'task_status.dart';
+
+extension TaskMapper on TaskSchemaGet {
+  Task get task => Task(
+        id: id,
+        createdOn: createdOn,
+        updatedOn: updatedOn,
+        title: title,
+        description: description ?? '',
+        dueDate: dueDate,
+        status: status != null ? status!.status : null,
+      );
+}

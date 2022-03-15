@@ -12,9 +12,6 @@ part 'login_controller.g.dart';
 class LoginController extends _LoginControllerBase with _$LoginController {}
 
 abstract class _LoginControllerBase extends BaseController with Store {
-  @override
-  bool get validated => !tfAnnotations.values.any((ta) => ta.errorText != null || !ta.edited);
-
   Future authorize() async {
     //TODO: не учитываются возможные ошибки! Нет обработки 403 и т.п.
 

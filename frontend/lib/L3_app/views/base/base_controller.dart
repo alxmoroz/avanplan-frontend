@@ -3,36 +3,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../extra/services.dart';
+import 'tf_annotation.dart';
 
 part 'base_controller.g.dart';
-
-class TFAnnotation {
-  TFAnnotation(this.code, {this.text = '', this.label = ''});
-
-  final String code;
-  final String label;
-
-  String text;
-  bool edited = false;
-
-  TFAnnotation copyWith({required String text}) => TFAnnotation(code, text: text, label: label)..edited = true;
-
-  @override
-  String toString() => text;
-
-  String? get errorText {
-    String? errText;
-    if (!edited) {
-      return null;
-    }
-
-    if (text.trim().isEmpty) {
-      errText = loc.validation_empty_text;
-    }
-    return errText;
-  }
-}
 
 class BaseController = _BaseControllerBase with _$BaseController;
 
@@ -43,9 +16,8 @@ abstract class _BaseControllerBase with Store {
   Future init() async => this;
 
   @mustCallSuper
-  Future initState(BuildContext _context, {List<TFAnnotation>? tfaList}) async {
+  void initState(BuildContext _context, {List<TFAnnotation>? tfaList}) {
     context = _context;
-
     tfAnnotations = ObservableMap.of({for (var tfa in tfaList ?? <TFAnnotation>[]) tfa.code: tfa});
     controllers = {for (var tfa in tfAnnotations.values) tfa.code: makeController(tfa.code)};
   }
@@ -72,7 +44,13 @@ abstract class _BaseControllerBase with Store {
   }
 
   @computed
-  bool get validated => !tfAnnotations.values.any((ta) => ta.errorText != null);
+  bool get validated => !tfAnnotations.values.any((ta) => ta.errorText != null || !ta.edited);
 
   TFAnnotation tfAnnoForCode(String code) => tfAnnotations[code]!;
+
+  @observable
+  bool editMode = false;
+
+  @action
+  void setEditMode(bool mode) => editMode = mode;
 }

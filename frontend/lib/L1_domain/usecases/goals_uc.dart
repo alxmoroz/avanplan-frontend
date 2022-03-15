@@ -12,4 +12,13 @@ class GoalsUC {
     final goals = await goalsRepo.getGoals();
     return goals;
   }
+
+  Future<Goal?> saveGoal({
+    required String title,
+    required String description,
+    required DateTime dueDate,
+  }) async {
+    final goal = await goalsRepo.saveGoal(title: title, description: description, dueDate: dueDate);
+    return goal;
+  }
 }

@@ -22,7 +22,7 @@ abstract class _GoalControllerBase extends BaseController with Store {
   }
 
   @override
-  bool get validated => super.validated || (goal != null && anyFieldHasTouched);
+  bool get validated => super.validated || (goal != null && selectedDueDate != null && anyFieldHasTouched);
 
   @observable
   Goal? goal;

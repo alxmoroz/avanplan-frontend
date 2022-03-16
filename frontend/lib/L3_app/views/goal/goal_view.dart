@@ -76,9 +76,17 @@ class _GoalViewState extends State<GoalView> {
 
   List<Widget> editModeElements() {
     return [
-      textFieldForCode('title'),
-      textFieldForCode('description'),
-      textFieldForCode('dueDate', onTap: inputDateTime),
+      Expanded(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              textFieldForCode('title'),
+              textFieldForCode('dueDate', onTap: inputDateTime),
+              textFieldForCode('description'),
+            ],
+          ),
+        ),
+      ),
       SizedBox(height: onePadding * 2),
       Button(
         loc.btn_save_title,

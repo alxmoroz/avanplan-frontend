@@ -8,7 +8,7 @@ import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/goal_presenter.dart';
+import '../../presenters/date_presenter.dart';
 
 class GoalCard extends StatelessWidget {
   const GoalCard(this.goal);
@@ -46,7 +46,10 @@ class GoalCard extends StatelessWidget {
                   if (goal.tasksCount > 0)
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [LightText(goal.tasksCountStr), SmallText(goal.etaDateStr)],
+                      children: [
+                        LightText('${goal.closedTasksCount} / ${goal.tasksCount}'),
+                        SmallText(dateToString(goal.etaDate)),
+                      ],
                     ),
                 ],
               ),

@@ -1,8 +1,10 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'components/colors.dart';
 import 'components/splash.dart';
 import 'extra/services.dart';
 import 'l10n/generated/l10n.dart';
@@ -19,24 +21,33 @@ void main() {
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp(
-      title: 'Hercules',
-      home: FutureBuilder(
-        future: getIt.allReady(),
-        builder: (_, snapshot) => snapshot.hasData ? (mainController.authorized ? MainView() : LoginView()) : const SplashScreen(),
+    final Brightness platformBrightness = WidgetsBinding.instance!.window.platformBrightness;
+
+    return Theme(
+      data: ThemeData(
+        brightness: platformBrightness,
+        primarySwatch: platformBrightness == Brightness.light ? darkTealColorMaterial : tealColorMaterial,
       ),
-      routes: {
-        LoginView.routeName: (_) => LoginView(),
-        MainView.routeName: (_) => MainView(),
-        GoalView.routeName: (_) => GoalView(),
-      },
-      localizationsDelegates: const [
-        S.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate
-      ],
-      supportedLocales: S.delegate.supportedLocales,
+      child: CupertinoApp(
+        title: 'Hercules',
+        home: FutureBuilder(
+          future: getIt.allReady(),
+          builder: (_, snapshot) => snapshot.hasData ? (mainController.authorized ? MainView() : LoginView()) : const SplashScreen(),
+        ),
+        routes: {
+          LoginView.routeName: (_) => LoginView(),
+          MainView.routeName: (_) => MainView(),
+          GoalView.routeName: (_) => GoalView(),
+        },
+        localizationsDelegates: const [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate
+        ],
+        supportedLocales: S.delegate.supportedLocales,
+        theme: CupertinoThemeData(primaryColor: mainColor),
+      ),
     );
   }
 }

@@ -35,4 +35,6 @@ class Goal extends Smartable {
 
   num _pace = 0;
   num get pace => _pace;
+
+  DateTime? get etaDate => report?.etaDate;
 }

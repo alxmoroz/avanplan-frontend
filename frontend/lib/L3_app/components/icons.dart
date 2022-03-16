@@ -16,3 +16,16 @@ Widget plusIcon(BuildContext context, {Color? color, double? size}) => Icon(
       size: size ?? 32,
       color: (color ?? mainColor).resolve(context),
     );
+
+Widget editIcon(BuildContext context, {Color? color, double? size}) => Icon(
+      Icons.edit,
+      size: size ?? 24,
+      color: (color ?? mainColor).resolve(context),
+    );
+
+Widget calendarIcon(BuildContext context, {Color? color, double? size}) => Icon(
+      // CupertinoIcons.calendar,
+      Icons.calendar_month,
+      size: size ?? 32,
+      color: (color ?? mainColor).resolve(context),
+    );

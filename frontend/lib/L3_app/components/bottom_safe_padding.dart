@@ -2,6 +2,8 @@
 
 import 'package:flutter/cupertino.dart';
 
+import 'constants.dart';
+
 class BottomSafePadding extends StatelessWidget {
   const BottomSafePadding(this.parentContext);
 
@@ -11,6 +13,6 @@ class BottomSafePadding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bottomInset = MediaQuery.of(parentContext).padding.bottom;
-    return SizedBox(height: bottomInset > 0 ? 0 : 12);
+    return SizedBox(height: bottomInset > 0 ? 0 : onePadding);
   }
 }

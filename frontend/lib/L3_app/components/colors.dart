@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 Color get darkColor => const CupertinoDynamicColor.withBrightness(
       color: Color(0xFF333333),
@@ -30,10 +31,37 @@ Color get mainColor => const CupertinoDynamicColor.withBrightness(
       darkColor: _tealColor,
     );
 
-Color get secondaryFillColor => const CupertinoDynamicColor.withBrightness(
-      color: Color.fromARGB(150, 245, 245, 250),
-      darkColor: Color.fromARGB(150, 10, 15, 20),
-    );
+MaterialColor darkTealColorMaterial = MaterialColor(
+  _darkTealColor.value,
+  const <int, Color>{
+    50: Color.fromARGB(255, 0, 174, 255),
+    100: Color.fromARGB(255, 0, 166, 242),
+    200: Color.fromARGB(255, 0, 157, 230),
+    300: Color.fromARGB(255, 0, 139, 204),
+    400: Color.fromARGB(255, 0, 122, 179),
+    500: _darkTealColor,
+    600: Color.fromARGB(255, 0, 105, 153),
+    700: Color.fromARGB(255, 0, 87, 128),
+    800: Color.fromARGB(255, 0, 70, 102),
+    900: Color.fromARGB(255, 0, 52, 77),
+  },
+);
+
+MaterialColor tealColorMaterial = MaterialColor(
+  _tealColor.value,
+  const <int, Color>{
+    50: _tealColor,
+    100: _tealColor,
+    200: _tealColor,
+    300: _tealColor,
+    400: _tealColor,
+    500: _tealColor,
+    600: _tealColor,
+    700: _tealColor,
+    800: _tealColor,
+    900: _tealColor,
+  },
+);
 
 Color get greenPaceColor => const CupertinoDynamicColor.withBrightness(
       color: Color.fromARGB(255, 120, 190, 142),

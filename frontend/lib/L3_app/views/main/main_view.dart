@@ -46,7 +46,7 @@ class _MainViewState extends State<MainView> {
     return FutureBuilder(
       future: _fetchGoals,
       builder: (_, snapshot) => snapshot.connectionState == ConnectionState.done
-          //TODO: возможно, будет лучше Cupertino для навигации и вообще, более однородно будет смотреться
+          //TODO: переделать на  MTCupertinoPage
           ? Observer(
               builder: (_) => Scaffold(
                 resizeToAvoidBottomInset: false,

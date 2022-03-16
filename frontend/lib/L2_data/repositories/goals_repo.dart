@@ -8,9 +8,11 @@ import '../../L3_app/extra/services.dart';
 import '../mappers/goal.dart';
 
 class GoalsRepo extends AbstractGoalsRepo {
+  GoalsApi get api => openAPI.getGoalsApi();
+
   @override
   Future<List<Goal>> getGoals() async {
-    final response = await openAPI.getGoalsApi().getGoalsApiV1GoalsGet();
+    final response = await api.getGoalsApiV1GoalsGet();
 
     final List<Goal> goals = [];
     if (response.statusCode == 200) {
@@ -22,19 +24,31 @@ class GoalsRepo extends AbstractGoalsRepo {
   }
 
   @override
-  Future<Goal?> saveGoal({required String title, required String description, required DateTime dueDate}) async {
+  Future<Goal?> saveGoal({
+    required int? id,
+    required String title,
+    required String description,
+    required DateTime dueDate,
+  }) async {
     //TODO: не учитываются возможные ошибки! Нет обработки 403 и т.п.
 
     final builder = GoalSchemaUpsertBuilder()
+      ..id = id
       ..title = title
       ..description = description
-      ..dueDate = dueDate;
+      ..dueDate = dueDate.toUtc();
 
-    final response = await openAPI.getGoalsApi().upsertGoalApiV1GoalsPost(goalSchemaUpsert: builder.build());
+    final response = await api.upsertGoalApiV1GoalsPost(goalSchemaUpsert: builder.build());
     Goal? goal;
     if (response.statusCode == 201) {
       goal = response.data?.goal;
     }
     return goal;
+  }
+
+  @override
+  Future<bool> deleteGoal(int id) async {
+    final response = await api.deleteGoalApiV1GoalsGoalIdDelete(goalId: id);
+    return response.statusCode == 200 && response.data?.asNum == 1;
   }
 }

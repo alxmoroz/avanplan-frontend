@@ -14,7 +14,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: (color ?? CupertinoColors.systemBackground).resolve(context),
+      color: (color ?? backgroundColor).resolve(context),
       child: material(
         const Center(
           child: CircularProgressIndicator(),

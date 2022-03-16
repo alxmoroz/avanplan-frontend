@@ -7,8 +7,8 @@ import 'package:openapi/openapi.dart';
 import '../../../L1_domain/entities/app_settings.dart';
 import '../../../L1_domain/entities/goals/goal.dart';
 import '../../extra/services.dart';
+import '../_base/base_controller.dart';
 import '../auth/login_view.dart';
-import '../base/base_controller.dart';
 import '../goal/goal_view.dart';
 
 part 'main_controller.g.dart';
@@ -80,6 +80,8 @@ abstract class _MainControllerBase extends BaseController with Store {
     goalController.setGoal(goal);
     await Navigator.of(context!).pushNamed(GoalView.routeName);
     // обновление списка целей
+    // TODO: редактирование, добавление — получаем с сервера объект... Возможно, нужно работать со списком объектов в памяти или в локальной БД
+    //  См как это сделано в Choice
     await fetchGoals();
   }
 }

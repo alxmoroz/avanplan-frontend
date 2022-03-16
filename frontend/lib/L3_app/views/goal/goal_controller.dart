@@ -5,8 +5,9 @@ import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/goals/goal.dart';
 import '../../../L3_app/extra/services.dart';
-import '../base/base_controller.dart';
-import '../base/tf_annotation.dart';
+import '../../components/text_field_annotation.dart';
+import '../../presenters/date_presenter.dart';
+import '../_base/base_controller.dart';
 
 part 'goal_controller.g.dart';
 
@@ -16,16 +17,12 @@ abstract class _GoalControllerBase extends BaseController with Store {
   @override
   void initState(BuildContext _context, {List<TFAnnotation>? tfaList}) {
     super.initState(_context, tfaList: tfaList);
-
+    setDueDate(goal?.dueDate);
     setEditMode(goal == null);
   }
 
   @override
-  bool get validated => !tfAnnotations.values
-      .where(
-        (ta) => ['title', 'due_date'].contains(ta.code),
-      )
-      .any((ta) => ta.errorText != null || !ta.edited);
+  bool get validated => super.validated || (goal != null && anyFieldHasTouched);
 
   @observable
   Goal? goal;
@@ -33,16 +30,42 @@ abstract class _GoalControllerBase extends BaseController with Store {
   @action
   void setGoal(Goal? _goal) => goal = _goal;
 
+  @observable
+  DateTime? selectedDueDate;
+
+  @action
+  void setDueDate(DateTime? _date) {
+    selectedDueDate = _date;
+    controllers['dueDate']?.text = dateToString(_date);
+  }
+
+  @computed
+  bool get canDelete => goal != null;
+
   Future saveGoal() async {
-    final goal = await goalsUC.saveGoal(
+    final editedGoal = await goalsUC.saveGoal(
+      id: goal?.id,
       title: tfAnnoForCode('title').text,
       description: tfAnnoForCode('description').text,
-      dueDate: DateTime.parse(tfAnnoForCode('dueDate').text),
+      dueDate: selectedDueDate,
     );
 
-    if (goal != null) {
-      setGoal(goal);
+    if (editedGoal != null) {
+      setGoal(editedGoal);
       setEditMode(false);
+    } else {
+      //TODO: может быть внутреняя или серверная. Например, нет ответа от сервера...
+      print('Ошибка saveGoal');
+    }
+  }
+
+  Future deleteGoal() async {
+    if (await goalsUC.deleteGoal(goal)) {
+      Navigator.of(context!).pop();
+      // TODO: уже удалилось, но в списке целей ещё отображается. Может, не надо перезагружать все цели каждый раз в списке на главной?
+      //  Ну и то же самое про добавление... Тут, может, как раз поможет локальное хранилище?
+    } else {
+      print('Ошибка deleteGoal');
     }
   }
 }

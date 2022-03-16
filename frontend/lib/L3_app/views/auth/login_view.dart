@@ -1,15 +1,16 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../components/buttons.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
+import '../../components/cupertino_page.dart';
 import '../../components/text_field.dart';
+import '../../components/text_field_annotation.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../base/tf_annotation.dart';
 import 'login_controller.dart';
 
 class LoginView extends StatefulWidget {
@@ -49,30 +50,23 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: true,
-      body: Container(
-        color: backgroundColor.resolve(context),
-        child: Observer(
-          builder: (_) => Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              H1('Hercules', align: TextAlign.center, color: darkGreyColor),
-              textFieldForCode('login'),
-              textFieldForCode('password'),
-              SizedBox(height: onePadding),
-              Padding(
-                padding: EdgeInsets.all(onePadding),
-                child: Button(
-                  loc.auth_log_in_button_title,
-                  _controller.validated ? _controller.authorize : null,
-                  titleColor: _controller.validated ? mainColor : borderColor,
-                ),
-              ),
-            ],
+    return Observer(
+      builder: (_) => MTCupertinoPage(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          H1('Hercules', align: TextAlign.center, color: darkGreyColor),
+          textFieldForCode('login'),
+          textFieldForCode('password'),
+          SizedBox(height: onePadding),
+          Padding(
+            padding: EdgeInsets.all(onePadding),
+            child: Button(
+              loc.auth_log_in_button_title,
+              _controller.validated ? _controller.authorize : null,
+              titleColor: _controller.validated ? mainColor : borderColor,
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

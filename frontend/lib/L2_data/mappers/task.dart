@@ -8,11 +8,11 @@ import 'task_status.dart';
 extension TaskMapper on TaskSchemaGet {
   Task get task => Task(
         id: id,
-        createdOn: createdOn,
-        updatedOn: updatedOn,
+        createdOn: createdOn.toLocal(),
+        updatedOn: updatedOn.toLocal(),
         title: title,
         description: description ?? '',
-        dueDate: dueDate,
+        dueDate: dueDate?.toLocal(),
         status: status != null ? status!.status : null,
       );
 }

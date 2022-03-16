@@ -9,11 +9,11 @@ import 'task.dart';
 extension GoalMapper on GoalSchemaGet {
   Goal get goal => Goal(
         id: id,
-        createdOn: createdOn,
-        updatedOn: updatedOn,
+        createdOn: createdOn.toLocal(),
+        updatedOn: updatedOn.toLocal(),
         title: title,
         description: description ?? '',
-        dueDate: dueDate,
+        dueDate: dueDate?.toLocal(),
         report: report != null ? report!.report : null,
         tasks: tasks?.map((t) => t.task) ?? [],
       );

@@ -7,24 +7,41 @@ import 'constants.dart';
 import 'material_wrapper.dart';
 import 'text_widgets.dart';
 
-OutlineInputBorder get _warningBorder => OutlineInputBorder(borderSide: BorderSide(color: warningColor));
+InputDecoration _tfDecoration(
+  BuildContext context,
+  String? label,
+  String? helper,
+  String? error,
+  Widget? suffixIcon,
+  bool enabled,
+) {
+  final _rWarningColor = warningColor.resolve(context);
+  final _rBorderColor = borderColor.resolve(context);
+  final _rMainColor = mainColor.resolve(context);
 
-OutlineInputBorder get _border => OutlineInputBorder(borderSide: BorderSide(color: borderColor));
+  final OutlineInputBorder _warningBorder = OutlineInputBorder(borderSide: BorderSide(color: _rWarningColor));
+  final OutlineInputBorder _border = OutlineInputBorder(borderSide: BorderSide(color: _rBorderColor));
+  final OutlineInputBorder _focusedBorder = OutlineInputBorder(borderSide: BorderSide(color: _rMainColor, width: 2));
 
-InputDecoration _tfDecoration(String? label, String? helper, String? error, BuildContext context) => InputDecoration(
-      labelText: label,
-      labelStyle: NormalText('', weight: FontWeight.normal, color: darkGreyColor).style(context),
-      helperText: helper,
-      helperStyle: const SmallText('').style(context),
-      errorText: error,
-      errorStyle: SmallText('', color: warningColor).style(context),
-      floatingLabelBehavior: FloatingLabelBehavior.auto,
-      isDense: true,
-      border: _border,
-      enabledBorder: _border,
-      errorBorder: _warningBorder,
-      focusedErrorBorder: _warningBorder,
-    );
+  return InputDecoration(
+    labelText: label,
+    labelStyle: NormalText('', weight: FontWeight.normal, color: darkGreyColor).style(context),
+    helperText: helper,
+    helperStyle: const SmallText('').style(context),
+    errorText: error,
+    errorStyle: SmallText('', color: _rWarningColor).style(context),
+    floatingLabelBehavior: FloatingLabelBehavior.auto,
+    isDense: true,
+    border: _border,
+    focusedBorder: _focusedBorder,
+    enabledBorder: _border,
+    disabledBorder: _border,
+    errorBorder: _warningBorder,
+    focusedErrorBorder: _warningBorder,
+    suffixIcon: suffixIcon,
+    enabled: enabled,
+  );
+}
 
 class MTTextField extends StatelessWidget {
   const MTTextField({
@@ -40,7 +57,29 @@ class MTTextField extends StatelessWidget {
     this.capitalization,
     this.autocorrect = false,
     this.suggestions = false,
+    this.readOnly = false,
+    this.suffixIcon,
+    this.onTap,
+    this.enabled = true,
   });
+
+  const MTTextField.date({
+    this.controller,
+    this.label,
+    this.description,
+    this.error,
+    this.margin,
+    this.suffixIcon,
+    this.onTap,
+    this.enabled = true,
+  })  : autofocus = false,
+        maxLines = 1,
+        obscureText = false,
+        capitalization = null,
+        autocorrect = false,
+        suggestions = false,
+        keyboardType = null,
+        readOnly = true;
 
   final TextEditingController? controller;
   final String? label;
@@ -54,6 +93,10 @@ class MTTextField extends StatelessWidget {
   final TextCapitalization? capitalization;
   final bool autocorrect;
   final bool suggestions;
+  final bool readOnly;
+  final bool enabled;
+  final Widget? suffixIcon;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +104,8 @@ class MTTextField extends StatelessWidget {
       padding: margin ?? EdgeInsets.fromLTRB(onePadding, onePadding * 2, onePadding, 0),
       child: TextField(
         style: const H3('').style(context),
-        decoration: _tfDecoration(label, description, error, context),
+        decoration: _tfDecoration(context, label, description, error, suffixIcon, enabled),
+        cursorColor: mainColor.resolve(context),
         autofocus: autofocus,
         maxLines: maxLines,
         controller: controller,
@@ -70,6 +114,8 @@ class MTTextField extends StatelessWidget {
         obscureText: obscureText,
         autocorrect: autocorrect,
         enableSuggestions: suggestions,
+        readOnly: readOnly,
+        onTap: onTap,
       ),
     ));
   }

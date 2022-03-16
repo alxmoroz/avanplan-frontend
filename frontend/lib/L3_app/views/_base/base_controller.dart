@@ -3,7 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
-import 'tf_annotation.dart';
+import '../../components/text_field_annotation.dart';
 
 part 'base_controller.g.dart';
 
@@ -44,7 +44,16 @@ abstract class _BaseControllerBase with Store {
   }
 
   @computed
-  bool get validated => !tfAnnotations.values.any((ta) => ta.errorText != null || !ta.edited);
+  Iterable<TFAnnotation> get validatableTA => tfAnnotations.values.where((ta) => ta.needValidate);
+
+  @computed
+  bool get anyFieldHasTouched => validatableTA.any((ta) => ta.edited);
+
+  @computed
+  bool get allFieldsHasTouched => !validatableTA.any((ta) => !ta.edited);
+
+  @computed
+  bool get validated => !validatableTA.any((ta) => ta.errorText != null) && allFieldsHasTouched;
 
   TFAnnotation tfAnnoForCode(String code) => tfAnnotations[code]!;
 

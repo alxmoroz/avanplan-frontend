@@ -14,11 +14,20 @@ class GoalsUC {
   }
 
   Future<Goal?> saveGoal({
+    required int? id,
     required String title,
     required String description,
-    required DateTime dueDate,
+    required DateTime? dueDate,
   }) async {
-    final goal = await goalsRepo.saveGoal(title: title, description: description, dueDate: dueDate);
+    Goal? goal;
+    // TODO: внутр. exception?
+    if (title.trim().isNotEmpty && dueDate != null) {
+      goal = await goalsRepo.saveGoal(id: id, title: title, description: description, dueDate: dueDate);
+    }
     return goal;
+  }
+
+  Future<bool> deleteGoal(Goal? goal) async {
+    return goal != null ? await goalsRepo.deleteGoal(goal.id) : false;
   }
 }

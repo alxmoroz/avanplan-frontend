@@ -5,10 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import 'colors.dart';
+import 'constants.dart';
 import 'notch.dart';
 
-class AMBottomSheet extends StatelessWidget {
-  const AMBottomSheet(this.bodyWidget);
+class MTBottomSheet extends StatelessWidget {
+  const MTBottomSheet(this.bodyWidget);
 
   final Widget bodyWidget;
 
@@ -18,7 +19,7 @@ class AMBottomSheet extends StatelessWidget {
       onTap: FocusScope.of(context).unfocus,
       child: Container(
         decoration: BoxDecoration(
-          color: secondaryFillColor,
+          color: cardBackgroundColor.resolve(context),
           borderRadius: const BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
         ),
         child: Column(
@@ -27,7 +28,7 @@ class AMBottomSheet extends StatelessWidget {
           children: [
             const Notch(),
             bodyWidget,
-            const SizedBox(height: 12),
+            SizedBox(height: onePadding),
           ],
         ),
       ),

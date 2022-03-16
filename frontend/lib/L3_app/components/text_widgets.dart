@@ -19,25 +19,15 @@ class NormalText extends StatelessWidget {
     this.maxLines,
   });
 
-  @protected
   final String text;
-  @protected
   final Color? color;
-  @protected
   final FontWeight? weight;
-  @protected
   final TextAlign? align;
-  @protected
   final double? size;
-  @protected
   final double? sizeScale;
-  @protected
   final EdgeInsets? padding;
-  @protected
   final double? height;
-  @protected
   final TextOverflow? overflow;
-  @protected
   final int? maxLines;
 
   TextStyle style(BuildContext context) {

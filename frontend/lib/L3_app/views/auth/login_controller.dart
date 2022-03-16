@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../extra/services.dart';
-import '../base/base_controller.dart';
+import '../_base/base_controller.dart';
 import '../main/main_view.dart';
 
 part 'login_controller.g.dart';
@@ -20,7 +20,7 @@ abstract class _LoginControllerBase extends BaseController with Store {
       password: tfAnnoForCode('password').text,
     )) {
       /// навигация
-      Navigator.of(context!).pushReplacementNamed(MainView.routeName);
+      await Navigator.of(context!).pushReplacementNamed(MainView.routeName);
     }
   }
 }

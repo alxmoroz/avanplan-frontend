@@ -24,8 +24,8 @@ class GoalCard extends StatelessWidget {
         body: GoalProgressWidget(
           goal: goal,
           height: cardHeight,
-          header: H3(goal.title, color: darkGreyColor.resolve(context), maxLines: 2),
-          footer: LightText('${goal.closedTasksCount} / ${goal.tasksCount}'),
+          header: H3(goal.title, color: darkGreyColor, maxLines: 2),
+          footer: goal.tasksCount > 0 ? H3('${goal.closedTasksCount} / ${goal.tasksCount}', color: darkGreyColor, padding: EdgeInsets.zero) : null,
         ),
       ),
     );

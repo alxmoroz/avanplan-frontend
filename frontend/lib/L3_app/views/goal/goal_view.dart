@@ -118,13 +118,21 @@ class _GoalViewState extends State<GoalView> {
             H2(_goal!.title),
             if (_goal!.description.isNotEmpty) LightText(_goal!.description),
             SizedBox(height: onePadding),
-            H3(loc.tasks_title),
             GoalProgressWidget(
               goal: _goal!,
-              height: 110,
-              header: H2('${_goal?.closedTasksCount} / ${_goal?.tasksCount}', padding: EdgeInsets.only(bottom: onePadding), color: darkGreyColor),
-              leading: DateStringWidget(_goal!.dueDate, titleString: loc.common_due_date_label),
-              trailing: DateStringWidget(_goal!.etaDate, titleString: loc.common_eta_date_label),
+              height: 116,
+              leading: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SmallText(loc.tasks_title),
+                  if (_goal!.tasksCount > 0) H1('${_goal?.closedTasksCount} / ${_goal?.tasksCount}', padding: EdgeInsets.zero, color: darkGreyColor)
+                ],
+              ),
+              trailing: Column(children: [
+                DateStringWidget(_goal!.dueDate, titleString: loc.common_due_date_label),
+                SizedBox(height: onePadding),
+                DateStringWidget(_goal!.etaDate, titleString: loc.common_eta_date_label),
+              ]),
             ),
           ],
         ),

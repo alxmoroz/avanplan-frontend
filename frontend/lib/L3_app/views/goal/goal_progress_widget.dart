@@ -8,6 +8,8 @@ import '../../../L1_domain/entities/goals/goal.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 
+//TODO: сейчас не все слоты используются. Может, сделать верстку как в ListTile? Будет универсальный вариант тогда на будущее
+
 class GoalProgressWidget extends StatelessWidget {
   const GoalProgressWidget({required this.goal, this.height, this.leading, this.trailing, this.header, this.footer});
 
@@ -39,13 +41,16 @@ class GoalProgressWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 if (header != null) header!,
+                const Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    if (leading != null) Expanded(child: leading!),
+                    if (leading != null) leading!,
+                    const Spacer(),
                     if (trailing != null) trailing!,
                   ],
                 ),
+                const Spacer(),
                 if (footer != null) footer!,
               ],
             ),

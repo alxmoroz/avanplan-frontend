@@ -8,42 +8,43 @@ import 'colors.dart';
 import 'constants.dart';
 
 class MTCard extends StatelessWidget {
-  const MTCard({this.body, this.title, this.margin});
+  const MTCard({this.body, this.title, this.margin, this.onTap});
 
-  @protected
   final Widget? title;
-  @protected
   final Widget? body;
-  @protected
   final EdgeInsets? margin;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     const double radius = 8;
     final mainBgColor = cardBackgroundColor.resolve(context);
     final secondBgColor = cardBackgroundColor.resolve(context);
-    return Card(
-      margin: margin ?? EdgeInsets.symmetric(horizontal: isTablet ? 50 : 12, vertical: isTablet ? 10 : 8),
-      elevation: 3,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)),
-      child: Container(
-        clipBehavior: Clip.hardEdge,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(radius),
-          gradient: LinearGradient(
-            transform: const GradientRotation(pi / 2),
-            colors: [
-              secondBgColor,
-              mainBgColor,
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
+        margin: margin ?? EdgeInsets.symmetric(horizontal: isTablet ? 50 : 12, vertical: isTablet ? 10 : 8),
+        elevation: 3,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)),
+        child: Container(
+          clipBehavior: Clip.hardEdge,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(radius),
+            gradient: LinearGradient(
+              transform: const GradientRotation(pi / 2),
+              colors: [
+                secondBgColor,
+                mainBgColor,
+              ],
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              if (title != null) title!,
+              if (body != null) body!,
             ],
           ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            if (title != null) title!,
-            if (body != null) body!,
-          ],
         ),
       ),
     );

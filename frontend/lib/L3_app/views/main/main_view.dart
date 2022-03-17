@@ -9,8 +9,8 @@ import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/splash.dart';
 import '../../extra/services.dart';
+import '../goal/goal_card.dart';
 import 'drawer.dart';
-import 'goal_card.dart';
 
 class MainView extends StatefulWidget {
   static String get routeName => 'main';
@@ -36,7 +36,8 @@ class _MainViewState extends State<MainView> {
   }
 
   Widget goalCardBuilder(BuildContext context, int index) {
-    return GoalCard(mainController.goals[index]);
+    final goal = mainController.goals[index];
+    return GoalCard(goal: goal, alone: true, onTap: () => mainController.goToGoalView(goal));
   }
 
   @override

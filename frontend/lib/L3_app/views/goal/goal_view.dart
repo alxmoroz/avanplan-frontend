@@ -8,15 +8,14 @@ import '../../components/buttons.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/cupertino_page.dart';
-import '../../components/date_string_widget.dart';
 import '../../components/icons.dart';
 import '../../components/navbar.dart';
 import '../../components/text_field.dart';
 import '../../components/text_field_annotation.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
+import 'goal_card.dart';
 import 'goal_controller.dart';
-import 'goal_progress_widget.dart';
 
 class GoalView extends StatefulWidget {
   static String get routeName => 'goal';
@@ -110,33 +109,15 @@ class _GoalViewState extends State<GoalView> {
 
   List<Widget> viewModeElements() {
     return [
-      Padding(
-        padding: EdgeInsets.all(onePadding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            H2(_goal!.title),
-            if (_goal!.description.isNotEmpty) LightText(_goal!.description),
-            SizedBox(height: onePadding),
-            GoalProgressWidget(
-              goal: _goal!,
-              height: 116,
-              leading: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SmallText(loc.tasks_title),
-                  if (_goal!.tasksCount > 0) H1('${_goal?.closedTasksCount} / ${_goal?.tasksCount}', padding: EdgeInsets.zero, color: darkGreyColor)
-                ],
-              ),
-              trailing: Column(children: [
-                DateStringWidget(_goal!.dueDate, titleString: loc.common_due_date_label),
-                SizedBox(height: onePadding),
-                DateStringWidget(_goal!.etaDate, titleString: loc.common_eta_date_label),
-              ]),
-            ),
-          ],
-        ),
+      ListTile(
+        title: H2(_goal!.title),
+        subtitle: _goal!.description.isNotEmpty ? LightText(_goal!.description) : null,
+        trailing: editIcon(context),
+        onTap: () => _controller.setEditMode(true),
+        dense: true,
+        visualDensity: VisualDensity.compact,
       ),
+      GoalCard(goal: _goal!),
     ];
   }
 
@@ -144,12 +125,7 @@ class _GoalViewState extends State<GoalView> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTCupertinoPage(
-        navBar: navBar(
-          context,
-          title: _goal != null ? loc.goal_title : loc.goal_title_new,
-          bgColor: cardBackgroundColor,
-          trailing: Button.icon(editIcon(context), () => _controller.setEditMode(true)),
-        ),
+        navBar: navBar(context, title: _goal != null ? loc.goal_title : loc.goal_title_new, bgColor: cardBackgroundColor),
         children: [
           if (_controller.editMode) ...editModeElements(),
           if (!_controller.editMode) ...viewModeElements(),

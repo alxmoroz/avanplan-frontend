@@ -1,15 +1,15 @@
 """empty message
 
-Revision ID: 9354aba2b8cd
+Revision ID: 8b3b006333d9
 Revises: 
-Create Date: 2022-03-14 17:26:48.540646
+Create Date: 2022-03-17 06:19:12.717808
 
 """
 import sqlalchemy as sa
 from alembic import op
 
 # revision identifiers, used by Alembic.
-revision = "9354aba2b8cd"
+revision = "8b3b006333d9"
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -72,9 +72,9 @@ def upgrade():
         sa.Column("id", sa.Integer(), nullable=False),
         sa.Column("title", sa.String(), nullable=False),
         sa.Column("description", sa.String(), nullable=True),
-        sa.Column("created_on", sa.DateTime(), nullable=False),
-        sa.Column("updated_on", sa.DateTime(), nullable=False),
-        sa.Column("due_date", sa.DateTime(), nullable=True),
+        sa.Column("created_on", sa.DateTime(timezone=True), nullable=False),
+        sa.Column("updated_on", sa.DateTime(timezone=True), nullable=False),
+        sa.Column("due_date", sa.DateTime(timezone=True), nullable=True),
         sa.Column("remote_code", sa.String(), nullable=True),
         sa.Column("parent_id", sa.Integer(), nullable=True),
         sa.Column("status_id", sa.Integer(), nullable=True),
@@ -91,9 +91,9 @@ def upgrade():
         sa.Column("id", sa.Integer(), nullable=False),
         sa.Column("title", sa.String(), nullable=False),
         sa.Column("description", sa.String(), nullable=True),
-        sa.Column("created_on", sa.DateTime(), nullable=False),
-        sa.Column("updated_on", sa.DateTime(), nullable=False),
-        sa.Column("due_date", sa.DateTime(), nullable=True),
+        sa.Column("created_on", sa.DateTime(timezone=True), nullable=False),
+        sa.Column("updated_on", sa.DateTime(timezone=True), nullable=False),
+        sa.Column("due_date", sa.DateTime(timezone=True), nullable=True),
         sa.Column("remote_code", sa.String(), nullable=True),
         sa.Column("parent_id", sa.Integer(), nullable=True),
         sa.Column("goal_id", sa.Integer(), nullable=False),

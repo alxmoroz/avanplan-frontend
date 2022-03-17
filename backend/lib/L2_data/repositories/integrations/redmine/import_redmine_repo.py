@@ -2,6 +2,7 @@
 
 from datetime import datetime
 
+from pytz import utc
 from redminelib import Redmine
 from redminelib import resources as R
 
@@ -54,7 +55,7 @@ class ImportRedmineRepo(AbstractImportRepo):
     #             title=version.name,
     #             description=version.description,
     #             remote_code=f"{version.id}",
-    #             updated_on=datetime.now(),
+    #             updated_on=datetime.now(tz=utc),
     #             due_date=getattr(version, "due_date", None),
     #             goal=self.goals_map[r_project.id],
     #         )
@@ -76,7 +77,7 @@ class ImportRedmineRepo(AbstractImportRepo):
             goal = GoalImport(
                 title=r_project.name,
                 description=r_project.description,
-                updated_on=datetime.now(),
+                updated_on=datetime.now(tz=utc),
                 remote_code=f"{r_project.id}",
             )
             parent_project = getattr(r_project, "parent", None)
@@ -113,7 +114,7 @@ class ImportRedmineRepo(AbstractImportRepo):
                         title=issue.subject,
                         description=issue.description,
                         due_date=getattr(issue, "due_date", None),
-                        updated_on=datetime.now(),
+                        updated_on=datetime.now(tz=utc),
                         remote_code=f"{issue.id}",
                         status=statuses[issue.status.id],
                         priority=TaskPriority(title=f"{issue.priority.name}", order=issue.priority.id),

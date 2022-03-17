@@ -1,6 +1,9 @@
 #  Copyright (c) 2022. Alexandr Moroz
+
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta
+
+from pytz import utc
 
 from ..base_entity import Titleable
 
@@ -20,4 +23,4 @@ class Smartable(Titleable):
 
     @property
     def past_period(self) -> timedelta:
-        return datetime.now() - self.created_on
+        return datetime.now(tz=utc) - self.created_on

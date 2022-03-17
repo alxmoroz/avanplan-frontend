@@ -1,10 +1,12 @@
 #  Copyright (c) 2022. Alexandr Moroz
+
 from datetime import datetime, timedelta
 
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt
 from passlib.context import CryptContext
 from pydantic import ValidationError
+from pytz import utc
 
 from lib.L1_domain.entities.api.exceptions import ApiException
 from lib.L1_domain.entities.auth import Token, TokenPayload
@@ -26,7 +28,7 @@ class SecurityRepo(AbstractSecurityRepo):
 
     @staticmethod
     def create_token(identifier: str) -> Token:
-        expire = datetime.now() + timedelta(minutes=settings.AUTH_TOKEN_EXPIRATION_MINUTES)
+        expire = datetime.now(tz=utc) + timedelta(minutes=settings.AUTH_TOKEN_EXPIRATION_MINUTES)
 
         return Token(
             access_token=jwt.encode(
@@ -47,7 +49,7 @@ class SecurityRepo(AbstractSecurityRepo):
 
     # def generate_password_reset_token(email: str) -> str:
     #     delta = timedelta(hours=settings.EMAIL_RESET_TOKEN_EXPIRE_HOURS)
-    #     now = datetime.utcnow()
+    #     now = datetime.now(tz=utc)
     #     expires = now + delta
     #     expire = expires.timestamp()
     #     encoded_jwt = jwt.encode(

@@ -1,6 +1,9 @@
 #  Copyright (c) 2022. Alexandr Moroz
+
 from datetime import datetime, timedelta
 from typing import Generic
+
+from pytz import utc
 
 from ..entities import Goal, GoalReport
 from ..entities.api.exceptions import ApiException
@@ -23,7 +26,8 @@ class GoalsUC(Generic[M, SGet]):
         self.task_e_repo = task_e_repo
 
     # TODO: размазанная между фронтом и бэком логика
-    def _calculate_goal(self, goal: Goal) -> SGet:
+    @staticmethod
+    def _calculate_goal(goal: Goal):
 
         tasks = goal.tasks
 
@@ -39,7 +43,7 @@ class GoalsUC(Generic[M, SGet]):
 
         if fact_speed:
             eta_seconds = left_tasks_count / fact_speed
-            eta_date = datetime.now() + timedelta(seconds=eta_seconds)
+            eta_date = datetime.now(tz=utc) + timedelta(seconds=eta_seconds)
 
         if goal.planned_period:
             planned_seconds = goal.planned_period.total_seconds() + 1
@@ -54,8 +58,6 @@ class GoalsUC(Generic[M, SGet]):
             fact_speed=fact_speed,
         )
 
-        return goal
-
     def get_goals(self) -> list[Goal]:
         goals: list[Goal] = [self.goal_e_repo.entity_from_orm(db_obj) for db_obj in self.goal_db_repo.get()]
 
@@ -68,6 +70,8 @@ class GoalsUC(Generic[M, SGet]):
 
         data = self.goal_e_repo.dict_from_schema_upd(s)
         goal = self.goal_e_repo.entity_from_orm(self.goal_db_repo.upsert(data))
+        self._calculate_goal(goal)
+
         return goal
 
     def delete_goal(self, goal_id: int) -> int:

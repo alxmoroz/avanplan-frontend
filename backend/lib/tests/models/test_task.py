@@ -3,6 +3,7 @@
 from datetime import datetime
 
 from fastapi.encoders import jsonable_encoder
+from pytz import utc
 from sqlalchemy import column
 
 from lib.L2_data.repositories.db import TaskRepo
@@ -37,7 +38,7 @@ def test_update(task_repo: TaskRepo, tmp_task, tmp_goal):
         goal_id=tmp_goal.id,
         title="test_update",
         description="description",
-        due_date=datetime.now(),
+        due_date=datetime.now(tz=utc),
     )
     obj_out = task_repo.upsert(jsonable_encoder(s))
     test_obj_out = task_repo.get_one(id=tmp_task.id)

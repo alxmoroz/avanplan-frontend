@@ -1,7 +1,9 @@
 #  Copyright (c) 2022. Alexandr Moroz
+
 from datetime import datetime
 from typing import Type, TypeVar
 
+from pytz import utc
 from sqlalchemy import delete, lambda_stmt, select
 from sqlalchemy.orm import Session
 from sqlalchemy.sql.elements import BinaryExpression
@@ -18,7 +20,7 @@ class DBRepo(AbstractDBRepo[M]):
         super().__init__(model_cls=model_cls)
 
     def _update_timestamp(self, db_obj: M):
-        updated = datetime.now()
+        updated = datetime.now(tz=utc)
         if getattr(self._model_class, "created_on", None):
             db_obj.created_on = db_obj.created_on or updated
         if getattr(self._model_class, "updated_on", None):

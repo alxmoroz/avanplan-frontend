@@ -28,6 +28,19 @@ class GoalCard extends StatelessWidget {
     return H1(tasksString, padding: EdgeInsets.zero, color: darkGreyColor);
   }
 
+  Widget? buildDates() {
+    return alone
+        ? null
+        : Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              DateStringWidget(goal.dueDate, titleString: loc.common_due_date_label),
+              SizedBox(height: onePadding),
+              DateStringWidget(goal.etaDate, titleString: loc.common_eta_date_label),
+            ],
+          );
+  }
+
   @override
   Widget build(BuildContext context) {
     return GoalProgressWidget(
@@ -42,14 +55,7 @@ class GoalCard extends StatelessWidget {
           if (goal.tasksCount > 0) buildTasksCount(),
         ],
       ),
-      trailing: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          DateStringWidget(goal.dueDate, titleString: loc.common_due_date_label),
-          SizedBox(height: onePadding),
-          DateStringWidget(goal.etaDate, titleString: loc.common_eta_date_label),
-        ],
-      ),
+      trailing: buildDates(),
     );
   }
 }

@@ -29,7 +29,6 @@ class App extends StatelessWidget {
         primarySwatch: platformBrightness == Brightness.light ? darkTealColorMaterial : tealColorMaterial,
       ),
       child: CupertinoApp(
-        title: 'Hercules',
         home: FutureBuilder(
           future: getIt.allReady(),
           builder: (_, snapshot) => snapshot.hasData ? (mainController.authorized ? MainView() : LoginView()) : const SplashScreen(),
@@ -46,7 +45,7 @@ class App extends StatelessWidget {
           GlobalCupertinoLocalizations.delegate
         ],
         supportedLocales: S.delegate.supportedLocales,
-        theme: CupertinoThemeData(primaryColor: mainColor),
+        theme: const CupertinoThemeData(primaryColor: mainColor),
       ),
     );
   }

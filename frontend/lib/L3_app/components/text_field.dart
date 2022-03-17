@@ -8,24 +8,23 @@ import 'material_wrapper.dart';
 import 'text_widgets.dart';
 
 InputDecoration _tfDecoration(
-  BuildContext context,
+  BuildContext context, {
   String? label,
   String? helper,
   String? error,
   Widget? suffixIcon,
-  bool enabled,
-) {
+  bool enabled = true,
+  bool readOnly = false,
+}) {
   final _rWarningColor = warningColor.resolve(context);
   final _rBorderColor = borderColor.resolve(context);
-  final _rMainColor = mainColor.resolve(context);
 
   final OutlineInputBorder _warningBorder = OutlineInputBorder(borderSide: BorderSide(color: _rWarningColor));
   final OutlineInputBorder _border = OutlineInputBorder(borderSide: BorderSide(color: _rBorderColor));
-  final OutlineInputBorder _focusedBorder = OutlineInputBorder(borderSide: BorderSide(color: _rMainColor, width: 2));
 
   return InputDecoration(
     labelText: label,
-    labelStyle: NormalText('', weight: FontWeight.normal, color: darkGreyColor).style(context),
+    labelStyle: const NormalText('', weight: FontWeight.normal, color: darkGreyColor).style(context),
     helperText: helper,
     helperStyle: const SmallText('').style(context),
     errorText: error,
@@ -33,7 +32,7 @@ InputDecoration _tfDecoration(
     floatingLabelBehavior: FloatingLabelBehavior.auto,
     isDense: true,
     border: _border,
-    focusedBorder: _focusedBorder,
+    focusedBorder: readOnly ? _border : null,
     enabledBorder: _border,
     disabledBorder: _border,
     errorBorder: _warningBorder,
@@ -103,8 +102,16 @@ class MTTextField extends StatelessWidget {
     return material(Padding(
       padding: margin ?? EdgeInsets.fromLTRB(onePadding, onePadding * 2, onePadding, 0),
       child: TextField(
-        style: const H3('').style(context),
-        decoration: _tfDecoration(context, label, description, error, suffixIcon, enabled),
+        style: const MediumText('').style(context),
+        decoration: _tfDecoration(
+          context,
+          label: label,
+          helper: description,
+          error: error,
+          suffixIcon: suffixIcon,
+          enabled: enabled,
+          readOnly: readOnly,
+        ),
         cursorColor: mainColor.resolve(context),
         autofocus: autofocus,
         maxLines: maxLines,

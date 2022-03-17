@@ -36,7 +36,7 @@ abstract class _GoalControllerBase extends BaseController with Store {
   @action
   void setDueDate(DateTime? _date) {
     selectedDueDate = _date;
-    controllers['dueDate']?.text = dateToString(_date);
+    controllers['dueDate']?.text = _date != null ? _date.strLong : '';
   }
 
   @computed

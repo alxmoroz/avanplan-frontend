@@ -3,33 +3,33 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-Color get darkColor => const CupertinoDynamicColor.withBrightness(
-      color: Color(0xFF333333),
-      darkColor: Color(0xFFCCCCCC),
-    );
+const Color darkColor = CupertinoDynamicColor.withBrightness(
+  color: Color(0xFF333333),
+  darkColor: Color(0xFFCCCCCC),
+);
 
-Color get darkGreyColor => const CupertinoDynamicColor.withBrightness(
-      color: Color(0xFF666666),
-      darkColor: Color(0xFF888888),
-    );
+const Color darkGreyColor = CupertinoDynamicColor.withBrightness(
+  color: Color(0xFF666666),
+  darkColor: Color(0xFF888888),
+);
 
-Color get warningColor => CupertinoColors.activeOrange;
+const Color warningColor = CupertinoColors.activeOrange;
 
-Color get borderColor => const CupertinoDynamicColor.withBrightness(
-      color: Color.fromARGB(255, 209, 209, 214),
-      darkColor: Color.fromARGB(255, 58, 58, 60),
-    );
+const Color borderColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, 209, 209, 214),
+  darkColor: Color.fromARGB(255, 58, 58, 60),
+);
 
-Color get backgroundColor => CupertinoColors.systemGrey6;
-Color get cardBackgroundColor => CupertinoColors.systemGrey5;
+const Color backgroundColor = CupertinoColors.systemGrey6;
+const Color cardBackgroundColor = CupertinoColors.systemGrey5;
 
 const Color _tealColor = Color.fromARGB(255, 90, 200, 250);
 const Color _darkTealColor = Color.fromARGB(255, 0, 113, 164);
 
-Color get mainColor => const CupertinoDynamicColor.withBrightness(
-      color: _darkTealColor,
-      darkColor: _tealColor,
-    );
+const Color mainColor = CupertinoDynamicColor.withBrightness(
+  color: _darkTealColor,
+  darkColor: _tealColor,
+);
 
 MaterialColor darkTealColorMaterial = MaterialColor(
   _darkTealColor.value,
@@ -63,10 +63,15 @@ MaterialColor tealColorMaterial = MaterialColor(
   },
 );
 
-Color get greenPaceColor => const CupertinoDynamicColor.withBrightness(
-      color: Color.fromARGB(255, 120, 190, 142),
-      darkColor: Color.fromARGB(255, 5, 80, 5),
-    );
+const Color goodPaceColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, 120, 190, 142),
+  darkColor: Color.fromARGB(255, 5, 80, 5),
+);
+
+const Color warningPaceColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, 255, 195, 65),
+  darkColor: Color.fromARGB(255, 115, 70, 0),
+);
 
 // цвет для "прозрачного" апп-бара
 // Color get appBarBgColor => const CupertinoDynamicColor.withBrightness(

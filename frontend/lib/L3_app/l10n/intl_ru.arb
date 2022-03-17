@@ -3,18 +3,25 @@
 
   "appTitle": "Геркулес",
 
-  "auth_user": "Пользователь",
-  "auth_password": "Пароль",
+  "auth_user_placeholder": "Пользователь",
+  "auth_password_placeholder": "Пароль",
   "auth_log_in_button_title": "Войти",
 
   "btn_save_title": "Сохранить",
   "btn_delete_title": "Удалить",
 
   "common_description": "Описание",
-  "common_due_date": "Срок завершения",
+
+  "common_due_date_placeholder": "Срок завершения",
+  "common_due_date_label": "План",
+  "common_eta_date_label": "Прогноз",
+
   "common_title": "Название",
 
-  "goal_new_title": "Новая цель",
+  "goal_title": "Цель",
+  "goal_title_new": "Новая цель",
+
+  "tasks_title": "Задачи",
 
   "validation_empty_text": "Нужно заполнить"
 }

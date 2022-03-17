@@ -45,7 +45,13 @@ class NormalText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: padding ?? EdgeInsets.zero,
-      child: Text(text, style: style(context), textAlign: align, overflow: overflow),
+      child: Text(
+        text,
+        style: style(context),
+        textAlign: align,
+        maxLines: maxLines ?? 100,
+        overflow: overflow ?? TextOverflow.ellipsis,
+      ),
     );
   }
 }
@@ -54,7 +60,7 @@ class SmallText extends NormalText {
   const SmallText(String text, {Color? color, FontWeight? weight, TextAlign? align, EdgeInsets? padding, int? maxLines})
       : super(
           text,
-          color: color ?? CupertinoColors.systemGrey,
+          color: color ?? darkGreyColor,
           weight: weight,
           sizeScale: 0.85,
           align: align,
@@ -89,33 +95,33 @@ class MediumText extends NormalText {
           sizeScale: sizeScale,
           align: align,
           padding: padding,
-          maxLines: maxLines ?? 3,
+          maxLines: maxLines ?? 4,
         );
 }
 
 class H3 extends MediumText {
-  const H3(String text, {Color? color, FontWeight? weight, TextAlign? align, EdgeInsets? padding, int? maxLines})
+  H3(String text, {Color? color, FontWeight? weight, TextAlign? align, EdgeInsets? padding, int? maxLines})
       : super(
           text,
           color: color,
           weight: weight,
           sizeScale: 1.2,
           align: align,
-          padding: padding,
-          maxLines: maxLines ?? 2,
+          padding: padding ?? EdgeInsets.only(bottom: onePadding / 2),
+          maxLines: maxLines ?? 3,
         );
 }
 
 class H2 extends MediumText {
-  const H2(String text, {Color? color, FontWeight? weight, TextAlign? align, EdgeInsets? padding, int? maxLines})
+  H2(String text, {Color? color, FontWeight? weight, TextAlign? align, EdgeInsets? padding, int? maxLines})
       : super(
           text,
           color: color,
           weight: weight,
           sizeScale: 1.5,
           align: align,
-          padding: padding,
-          maxLines: maxLines ?? 2,
+          padding: padding ?? EdgeInsets.fromLTRB(0, onePadding / 2, 0, onePadding),
+          maxLines: maxLines ?? 3,
         );
 }
 
@@ -127,7 +133,7 @@ class H1 extends MediumText {
           weight: weight,
           sizeScale: 2.5,
           align: align,
-          padding: padding ?? EdgeInsets.fromLTRB(0, onePadding, 0, onePadding * 3),
+          padding: padding ?? EdgeInsets.fromLTRB(0, onePadding, 0, onePadding * 2),
           maxLines: maxLines ?? 2,
         );
 }

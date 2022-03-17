@@ -24,8 +24,7 @@ class MTCard extends StatelessWidget {
     final secondBgColor = cardBackgroundColor.resolve(context);
     return Card(
       margin: margin ?? EdgeInsets.symmetric(horizontal: isTablet ? 50 : 12, vertical: isTablet ? 10 : 8),
-      elevation: 6,
-      color: mainBgColor,
+      elevation: 3,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)),
       child: Container(
         clipBehavior: Clip.hardEdge,

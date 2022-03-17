@@ -54,7 +54,7 @@ class _LoginViewState extends State<LoginView> {
       builder: (_) => MTCupertinoPage(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          H1('Hercules', align: TextAlign.center, color: darkGreyColor),
+          H1(loc.appTitle, align: TextAlign.center, color: darkGreyColor),
           textFieldForCode('login'),
           textFieldForCode('password'),
           SizedBox(height: onePadding),

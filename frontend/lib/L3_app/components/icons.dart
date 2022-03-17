@@ -24,8 +24,8 @@ Widget editIcon(BuildContext context, {Color? color, double? size}) => Icon(
     );
 
 Widget calendarIcon(BuildContext context, {Color? color, double? size}) => Icon(
-      // CupertinoIcons.calendar,
-      Icons.calendar_month,
+      CupertinoIcons.calendar,
+      // Icons.calendar_month,
       size: size ?? 32,
       color: (color ?? mainColor).resolve(context),
     );

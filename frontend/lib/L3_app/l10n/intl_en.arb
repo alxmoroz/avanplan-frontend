@@ -11,10 +11,16 @@
   "btn_delete_title": "Delete",
 
   "common_description": "Description",
-  "common_due_date": "Due date",
+  "common_due_date_placeholder": "Due date",
+  "common_due_date_label": "Planned",
+  "common_eta_date_label": "Predicted",
+
   "common_title": "Title",
 
-  "goal_new_title": "New goal",
+  "goal_title": "Goal",
+  "goal_title_new": "New goal",
+
+  "tasks_title": "Tasks",
 
   "validation_empty_text": "Should not be empty"
 }

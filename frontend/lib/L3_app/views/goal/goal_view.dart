@@ -3,18 +3,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../L1_domain/entities/goals/goal.dart';
 import '../../components/buttons.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/cupertino_page.dart';
+import '../../components/date_string_widget.dart';
 import '../../components/icons.dart';
 import '../../components/navbar.dart';
 import '../../components/text_field.dart';
 import '../../components/text_field_annotation.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/date_presenter.dart';
 import 'goal_controller.dart';
+import 'goal_progress_widget.dart';
 
 class GoalView extends StatefulWidget {
   static String get routeName => 'goal';
@@ -25,13 +27,14 @@ class GoalView extends StatefulWidget {
 
 class _GoalViewState extends State<GoalView> {
   GoalController get _controller => goalController;
+  Goal? get _goal => _controller.goal;
 
   @override
   void initState() {
     _controller.initState(context, tfaList: [
-      TFAnnotation('title', label: loc.common_title, text: _controller.goal?.title ?? ''),
-      TFAnnotation('description', label: loc.common_description, text: _controller.goal?.description ?? '', needValidate: false),
-      TFAnnotation('dueDate', label: loc.common_due_date, isDate: true),
+      TFAnnotation('title', label: loc.common_title, text: _goal?.title ?? ''),
+      TFAnnotation('description', label: loc.common_description, text: _goal?.description ?? '', needValidate: false),
+      TFAnnotation('dueDate', label: loc.common_due_date_placeholder, isDate: true),
     ]);
 
     super.initState();
@@ -62,11 +65,13 @@ class _GoalViewState extends State<GoalView> {
   }
 
   Future inputDateTime() async {
+    final firstDate =
+        _controller.selectedDueDate != null && DateTime.now().isAfter(_controller.selectedDueDate!) ? _controller.selectedDueDate! : DateTime.now();
     final date = await showDatePicker(
       context: context,
       initialEntryMode: DatePickerEntryMode.calendarOnly,
       initialDate: _controller.selectedDueDate ?? DateTime.now(),
-      firstDate: DateTime.now(),
+      firstDate: firstDate,
       lastDate: DateTime.now().add(const Duration(days: 36500)),
     );
     if (date != null) {
@@ -105,23 +110,26 @@ class _GoalViewState extends State<GoalView> {
 
   List<Widget> viewModeElements() {
     return [
-      // SmallText(goalController.goal?.description ?? ''),
-      if (_controller.goal?.etaDate != null) H3(dateToString(_controller.goal?.etaDate)),
-      Expanded(
-        child: ListView.builder(
-          itemBuilder: taskBuilder,
-          itemCount: _controller.goal!.tasks.length,
+      Padding(
+        padding: EdgeInsets.all(onePadding),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            H2(_goal!.title),
+            if (_goal!.description.isNotEmpty) LightText(_goal!.description),
+            SizedBox(height: onePadding),
+            H3(loc.tasks_title),
+            GoalProgressWidget(
+              goal: _goal!,
+              height: 110,
+              header: H2('${_goal?.closedTasksCount} / ${_goal?.tasksCount}', padding: EdgeInsets.only(bottom: onePadding), color: darkGreyColor),
+              leading: DateStringWidget(_goal!.dueDate, titleString: loc.common_due_date_label),
+              trailing: DateStringWidget(_goal!.etaDate, titleString: loc.common_eta_date_label),
+            ),
+          ],
         ),
       ),
-      SizedBox(height: onePadding),
     ];
-  }
-
-  Widget taskBuilder(BuildContext context, int index) {
-    final task = goalController.goal!.tasks.elementAt(index);
-    return ListTile(
-      title: NormalText(task.title),
-    );
   }
 
   @override
@@ -130,12 +138,11 @@ class _GoalViewState extends State<GoalView> {
       builder: (_) => MTCupertinoPage(
         navBar: navBar(
           context,
-          title: _controller.goal?.title ?? loc.goal_new_title,
+          title: _goal != null ? loc.goal_title : loc.goal_title_new,
           bgColor: cardBackgroundColor,
           trailing: Button.icon(editIcon(context), () => _controller.setEditMode(true)),
         ),
         children: [
-          // SizedBox(height: onePadding),
           if (_controller.editMode) ...editModeElements(),
           if (!_controller.editMode) ...viewModeElements(),
         ],

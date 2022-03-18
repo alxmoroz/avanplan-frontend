@@ -8,11 +8,6 @@ class SettingsUC {
 
   final AbstractDBRepo<AbstractDBModel, AppSettings> settingsRepo;
 
-  // Future getVersion() async {
-  //   final settings = await getSettings();
-  //   return settings.version;
-  // }
-
   Future updateVersion(String version) async {
     final settings = await getSettings();
     settings.version = version;

@@ -13,7 +13,7 @@ abstract class Smartable extends Titleable {
   }) : super(id: id, title: title);
 
   final String description;
-  DateTime createdOn;
-  DateTime updatedOn;
+  final DateTime createdOn;
+  final DateTime updatedOn;
   final DateTime? dueDate;
 }

@@ -27,7 +27,12 @@ class GoalsUC {
     return goal;
   }
 
-  Future<bool> deleteGoal(Goal? goal) async {
-    return goal != null ? await goalsRepo.deleteGoal(goal.id) : false;
+  Future<Goal?> deleteGoal(Goal goal) async {
+    final deletedRows = await goalsRepo.deleteGoal(goal.id);
+    // TODO: внутр. exception?
+    if (deletedRows) {
+      goal.deleted = true;
+    }
+    return goal;
   }
 }

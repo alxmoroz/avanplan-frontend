@@ -14,6 +14,7 @@ const Color darkGreyColor = CupertinoDynamicColor.withBrightness(
 );
 
 const Color warningColor = CupertinoColors.activeOrange;
+const Color dangerColor = CupertinoColors.destructiveRed;
 
 const Color borderColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(255, 209, 209, 214),
@@ -21,7 +22,7 @@ const Color borderColor = CupertinoDynamicColor.withBrightness(
 );
 
 const Color backgroundColor = CupertinoColors.systemGrey6;
-const Color cardBackgroundColor = CupertinoColors.systemGrey5;
+const Color darkBackgroundColor = CupertinoColors.systemGrey5;
 
 const Color _tealColor = Color.fromARGB(255, 90, 200, 250);
 const Color _darkTealColor = Color.fromARGB(255, 0, 113, 164);

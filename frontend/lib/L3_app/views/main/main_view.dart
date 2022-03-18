@@ -37,7 +37,7 @@ class _MainViewState extends State<MainView> {
 
   Widget goalCardBuilder(BuildContext context, int index) {
     final goal = mainController.goals[index];
-    return GoalCard(goal: goal, alone: true, onTap: () => mainController.goToGoalView(goal));
+    return GoalCard(goal: goal, alone: true, onTap: () => mainController.showGoal(goal));
   }
 
   @override
@@ -50,10 +50,9 @@ class _MainViewState extends State<MainView> {
           //TODO: переделать на  MTCupertinoPage
           ? Observer(
               builder: (_) => Scaffold(
-                resizeToAvoidBottomInset: false,
                 extendBodyBehindAppBar: true,
                 appBar: AppBar(
-                  backgroundColor: cardBackgroundColor.resolve(context),
+                  backgroundColor: darkBackgroundColor.resolve(context),
                   elevation: 7,
                   automaticallyImplyLeading: false,
                   leading: Builder(
@@ -62,7 +61,7 @@ class _MainViewState extends State<MainView> {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Button.icon(plusIcon(context), mainController.goToGoalView),
+                      Button.icon(plusIcon(context), mainController.addGoal),
                     ],
                   ),
                 ),

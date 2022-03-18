@@ -18,8 +18,8 @@ class MTCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const double radius = 8;
-    final mainBgColor = cardBackgroundColor.resolve(context);
-    final secondBgColor = cardBackgroundColor.resolve(context);
+    final mainBgColor = darkBackgroundColor.resolve(context);
+    final secondBgColor = darkBackgroundColor.resolve(context);
     return GestureDetector(
       onTap: onTap,
       child: Card(

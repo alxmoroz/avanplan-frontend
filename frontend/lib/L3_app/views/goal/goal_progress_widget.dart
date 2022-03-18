@@ -34,7 +34,7 @@ class GoalProgressWidget extends StatelessWidget {
     return MTCard(
       onTap: onTap,
       body: Container(
-        color: cardBackgroundColor.resolve(context),
+        color: darkBackgroundColor.resolve(context),
         height: _height,
         child: Stack(
           children: [

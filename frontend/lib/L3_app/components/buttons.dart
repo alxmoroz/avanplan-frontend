@@ -27,7 +27,7 @@ class Button extends StatelessWidget {
       padding: padding ?? EdgeInsets.zero,
       onPressed: onPressed,
       color: color,
-      disabledColor: CupertinoColors.systemGrey5,
+      disabledColor: darkBackgroundColor,
       child: child ?? MediumText(title ?? '', color: titleColor ?? mainColor),
     );
   }

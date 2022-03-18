@@ -23,6 +23,12 @@ Widget editIcon(BuildContext context, {Color? color, double? size}) => Icon(
       color: (color ?? mainColor).resolve(context),
     );
 
+Widget deleteIcon(BuildContext context, {Color? color, double? size}) => Icon(
+      CupertinoIcons.delete,
+      size: size ?? 24,
+      color: (color ?? dangerColor).resolve(context),
+    );
+
 Widget calendarIcon(BuildContext context, {Color? color, double? size}) => Icon(
       CupertinoIcons.calendar,
       // Icons.calendar_month,

@@ -10,7 +10,8 @@ abstract class RPersistable {
     required this.id,
   });
 
-  int id;
+  final int id;
+  bool deleted = false;
 }
 
 abstract class Titleable extends RPersistable {
@@ -19,7 +20,7 @@ abstract class Titleable extends RPersistable {
     required this.title,
   }) : super(id: id);
 
-  String title;
+  final String title;
 }
 
 abstract class Orderable extends Titleable {
@@ -29,15 +30,15 @@ abstract class Orderable extends Titleable {
     required this.order,
   }) : super(id: id, title: title);
 
-  int order;
+  final int order;
 }
 
 abstract class Statusable extends Titleable {
   Statusable({
     required int id,
     required String title,
-    required this.closed,
+    this.closed = false,
   }) : super(id: id, title: title);
 
-  bool closed = false;
+  final bool closed;
 }

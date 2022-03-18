@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:openapi/openapi.dart';
 
@@ -9,6 +10,7 @@ import '../../../L1_domain/entities/goals/goal.dart';
 import '../../extra/services.dart';
 import '../_base/base_controller.dart';
 import '../auth/login_view.dart';
+import '../goal/goal_edit_view.dart';
 import '../goal/goal_view.dart';
 
 part 'main_controller.g.dart';
@@ -40,11 +42,18 @@ abstract class _MainControllerBase extends BaseController with Store {
   @observable
   ObservableList<Goal> goals = ObservableList();
 
+  @observable
+  Goal? selectedGoal;
+
+  @action
+  void selectGoal(Goal? _goal) => selectedGoal = _goal;
+
   @action
   Future fetchGoals() async {
     if (authorized) {
       //TODO: добавить LOADING
       goals = ObservableList.of(await goalsUC.getGoals());
+      _sortGoals();
     }
   }
 
@@ -63,6 +72,22 @@ abstract class _MainControllerBase extends BaseController with Store {
     Navigator.of(context!).pushReplacementNamed(LoginView.routeName);
   }
 
+  @action
+  void _addGoalToList(Goal goal) {
+    goals.add(goal);
+    _sortGoals();
+  }
+
+  @action
+  void _deleteGoalFromList(Goal goal) {
+    goals.remove(goal);
+    _sortGoals();
+  }
+
+  void _sortGoals() {
+    goals.sort((g1, g2) => g1.title.compareTo(g2.title));
+  }
+
   //TODO: для тестирования метод пока что тут. Нужен отдельный юзкейс и репы
   Future redmine() async {
     final builder = BodyGoalsApiV1IntegrationsRedmineGoalsPostBuilder()
@@ -76,12 +101,20 @@ abstract class _MainControllerBase extends BaseController with Store {
 
   /// роутер
 
-  Future goToGoalView([Goal? goal]) async {
-    goalController.setGoal(goal);
-    await Navigator.of(context!).pushNamed(GoalView.routeName);
-    // обновление списка целей
-    // TODO: редактирование, добавление — получаем с сервера объект... Возможно, нужно работать со списком объектов в памяти или в локальной БД
-    //  См как это сделано в Choice
-    await fetchGoals();
+  Future showGoal(Goal goal) async {
+    selectGoal(goal);
+    final result = await Navigator.of(context!).pushNamed(GoalView.routeName);
+    if (result == 'deleted') {
+      _deleteGoalFromList(goal);
+    }
+  }
+
+  Future addGoal() async {
+    selectGoal(null);
+    final newGoal = await showEditGoalDialog(context!);
+    if (newGoal != null) {
+      _addGoalToList(newGoal);
+      await showGoal(newGoal);
+    }
   }
 }

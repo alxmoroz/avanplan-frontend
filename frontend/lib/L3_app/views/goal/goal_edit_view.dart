@@ -97,9 +97,9 @@ class _GoalViewState extends State<GoalEditView> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Stack(
-              alignment: Alignment.topCenter,
+              alignment: Alignment.center,
               children: [
-                H3(_goal == null ? loc.goal_title_new : '', align: TextAlign.center),
+                H3(_goal == null ? loc.goal_title_new : '', align: TextAlign.center, padding: EdgeInsets.zero),
                 Row(
                   children: [
                     if (_controller.canEdit) Button.icon(deleteIcon(context), _controller.deleteGoal, padding: EdgeInsets.only(left: onePadding)),

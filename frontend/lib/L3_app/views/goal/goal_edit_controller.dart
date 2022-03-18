@@ -4,8 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/goals/goal.dart';
-import '../../../L3_app/extra/services.dart';
+import '../../components/dialog.dart';
 import '../../components/text_field_annotation.dart';
+import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';
 import '../_base/base_controller.dart';
 
@@ -52,7 +53,18 @@ abstract class _GoalEditControllerBase extends BaseController with Store {
 
   Future deleteGoal() async {
     if (canEdit) {
-      Navigator.of(context!).pop(await goalsUC.deleteGoal(goal!));
+      final confirm = await showMTDialog<bool?>(
+        context!,
+        title: loc.goal_delete_dialog_title,
+        description: '${loc.goal_delete_dialog_description}\n${loc.common_delete_dialog_description}',
+        actions: [
+          MTDialogAction(title: loc.common_yes, isDestructive: true, result: true),
+          MTDialogAction(title: loc.common_no, isDefault: true, result: false),
+        ],
+      );
+      if (confirm != null && confirm) {
+        Navigator.of(context!).pop(await goalsUC.deleteGoal(goal!));
+      }
     }
   }
 }

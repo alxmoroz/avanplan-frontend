@@ -102,7 +102,6 @@ class _GoalViewState extends State<GoalEditView> {
                 H3(_goal == null ? loc.goal_title_new : '', align: TextAlign.center),
                 Row(
                   children: [
-                    // TODO: подтверждение удаления
                     if (_controller.canEdit) Button.icon(deleteIcon(context), _controller.deleteGoal, padding: EdgeInsets.only(left: onePadding)),
                     const Spacer(),
                     Button(

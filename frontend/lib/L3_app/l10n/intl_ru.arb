@@ -11,15 +11,21 @@
   "btn_delete_title": "Удалить",
 
   "common_description": "Описание",
+  "common_delete_dialog_description": "Это действие нельзя будет отменить!",
+
 
   "common_due_date_placeholder": "Срок завершения",
   "common_due_date_label": "План",
   "common_eta_date_label": "Прогноз",
 
+  "common_no": "Нет",
   "common_title": "Название",
+  "common_yes": "Да",
 
   "goal_title": "Цель",
   "goal_title_new": "Новая цель",
+  "goal_delete_dialog_title": "Удалить цель?",
+  "goal_delete_dialog_description": "Все задачи цели также будут удалены.",
 
   "tasks_title": "Задачи",
 

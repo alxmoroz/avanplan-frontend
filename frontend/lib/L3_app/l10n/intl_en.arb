@@ -11,14 +11,20 @@
   "btn_delete_title": "Delete",
 
   "common_description": "Description",
+  "common_delete_dialog_description": "This action cannot be undone!",
+
   "common_due_date_placeholder": "Due date",
   "common_due_date_label": "Planned",
   "common_eta_date_label": "Predicted",
 
+  "common_no": "No",
   "common_title": "Title",
+  "common_yes": "Yes",
 
   "goal_title": "Goal",
   "goal_title_new": "New goal",
+  "goal_delete_dialog_title": "Delete goal?",
+  "goal_delete_dialog_description": "All tasks of this goal will be deleted.",
 
   "tasks_title": "Tasks",
 

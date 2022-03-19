@@ -73,14 +73,17 @@ abstract class _MainControllerBase extends BaseController with Store {
   }
 
   @action
-  void _addGoalToList(Goal goal) {
-    goals.add(goal);
-    _sortGoals();
-  }
-
-  @action
-  void _deleteGoalFromList(Goal goal) {
-    goals.remove(goal);
+  void updateGoal(Goal goal) {
+    final index = goals.indexWhere((g) => g.id == goal.id);
+    if (index >= 0) {
+      if (goal.deleted) {
+        goals.removeAt(index);
+      } else {
+        goals.setAll(index, [goal]);
+      }
+    } else {
+      goals.add(goal);
+    }
     _sortGoals();
   }
 
@@ -103,17 +106,14 @@ abstract class _MainControllerBase extends BaseController with Store {
 
   Future showGoal(Goal goal) async {
     selectGoal(goal);
-    final result = await Navigator.of(context!).pushNamed(GoalView.routeName);
-    if (result == 'deleted') {
-      _deleteGoalFromList(goal);
-    }
+    await Navigator.of(context!).pushNamed(GoalView.routeName);
   }
 
   Future addGoal() async {
     selectGoal(null);
     final newGoal = await showEditGoalDialog(context!);
     if (newGoal != null) {
-      _addGoalToList(newGoal);
+      updateGoal(newGoal);
       await showGoal(newGoal);
     }
   }

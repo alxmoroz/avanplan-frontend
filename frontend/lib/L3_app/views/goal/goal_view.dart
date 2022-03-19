@@ -26,10 +26,10 @@ class _GoalViewState extends State<GoalView> {
   Future editGoal() async {
     final goal = await showEditGoalDialog(context);
     if (goal != null) {
+      mainController.updateGoal(goal);
       if (goal.deleted) {
-        Navigator.of(context).pop('deleted');
+        Navigator.of(context).pop();
       } else {
-        // TODO: возможно, нужен свой контроллер всё-таки
         mainController.selectGoal(goal);
       }
     }

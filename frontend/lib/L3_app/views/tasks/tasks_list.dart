@@ -2,20 +2,43 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../L1_domain/entities/goals/goal.dart';
+import '../../../L1_domain/entities/goals/task.dart';
+import '../../components/divider.dart';
+import '../../components/icons.dart';
 import '../../components/text_widgets.dart';
-
-// TODO: заготовка для виджета для вьюхи управления задачами
+import 'task_view.dart';
 
 class TasksList extends StatelessWidget {
-  const TasksList({required this.goal});
+  const TasksList({
+    required this.tasks,
+    this.parents,
+  });
 
-  final Goal goal;
+  final List<Task> tasks;
+  final List<Task>? parents;
+
+  Future goToTaskView(BuildContext context, Task task) async {
+    final List<Task> _parents = parents ?? [];
+    _parents.add(task);
+
+    await Navigator.of(context).pushNamed(TaskView.routeName, arguments: {'task': task, 'parents': _parents});
+    // TODO: нужен контроллер и стейт, сбрасываемый при поднимании на уровень выше
+    _parents.remove(task);
+  }
 
   Widget taskBuilder(BuildContext context, int index) {
-    final task = goal.tasks.elementAt(index);
-    return ListTile(
-      title: NormalText(task.title),
+    final task = tasks.elementAt(index);
+    return Column(
+      children: [
+        if (index > 0) const MTDivider(),
+        ListTile(
+          title: NormalText(task.title),
+          trailing: chevronIcon(context),
+          dense: true,
+          visualDensity: VisualDensity.compact,
+          onTap: () => goToTaskView(context, task),
+        )
+      ],
     );
   }
 
@@ -23,7 +46,7 @@ class TasksList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemBuilder: taskBuilder,
-      itemCount: goal.tasks.length,
+      itemCount: tasks.length,
     );
   }
 }

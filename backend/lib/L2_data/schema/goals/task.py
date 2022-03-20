@@ -26,7 +26,6 @@ class TaskSchemaGet(TaskSchema, PKGetable, Timestampable):
 
 class TaskSchemaUpsert(TaskSchema, PKUpsertable):
     goal_id: int
-    parent_id: Optional[int]
     status_id: Optional[int]
     priority_id: Optional[int]
     assignee_id: Optional[int]

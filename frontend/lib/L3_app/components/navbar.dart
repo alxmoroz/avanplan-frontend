@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 
+import 'colors.dart';
 import 'text_widgets.dart';
 
 MediaQuery mQuery(Widget child, BuildContext ctx) => MediaQuery(
@@ -21,6 +22,6 @@ CupertinoNavigationBar navBar(BuildContext context, {Widget? leading, Widget? mi
             : null,
     trailing: trailing != null ? mQuery(trailing, context) : null,
     padding: const EdgeInsetsDirectional.only(start: 0),
-    backgroundColor: bgColor,
+    backgroundColor: bgColor ?? darkBackgroundColor,
   );
 }

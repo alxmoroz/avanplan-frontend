@@ -12,9 +12,10 @@ class Goal extends Smartable {
     required String title,
     required String description,
     required DateTime? dueDate,
+    required int? parentId,
     required this.report,
     required this.tasks,
-  }) : super(id: id, createdOn: createdOn, updatedOn: updatedOn, title: title, description: description, dueDate: dueDate) {
+  }) : super(id: id, createdOn: createdOn, updatedOn: updatedOn, title: title, description: description, dueDate: dueDate, parentId: parentId) {
     _tasksCount = tasks.length;
     _closedTasksCount = tasks.where((Task t) => t.closed).length;
     _closedRatio = tasksCount > 0 ? closedTasksCount / tasksCount : null;

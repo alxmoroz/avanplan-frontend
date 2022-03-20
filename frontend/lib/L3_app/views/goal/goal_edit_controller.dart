@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/goals/goal.dart';
-import '../../components/dialog.dart';
+import '../../components/confirmation_dialog.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';

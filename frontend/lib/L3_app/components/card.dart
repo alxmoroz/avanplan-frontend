@@ -39,6 +39,7 @@ class MTCard extends StatelessWidget {
             ),
           ),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               if (title != null) title!,

@@ -26,6 +26,7 @@
   "goal_delete_dialog_title": "Delete goal?",
   "goal_delete_dialog_description": "All tasks of this goal will be deleted.",
 
+  "task_title": "Task",
   "tasks_title": "Tasks",
 
   "validation_empty_text": "Should not be empty"

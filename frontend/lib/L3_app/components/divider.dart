@@ -1,13 +1,14 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class CDivider extends StatelessWidget {
-  const CDivider();
+import 'colors.dart';
+
+class MTDivider extends StatelessWidget {
+  const MTDivider();
 
   @override
   Widget build(BuildContext context) {
-    return const Divider(color: CupertinoColors.systemGrey);
+    return Divider(color: borderColor.resolve(context));
   }
 }

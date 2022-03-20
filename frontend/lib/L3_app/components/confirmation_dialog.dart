@@ -1,8 +1,9 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
-import 'package:hercules/L3_app/components/colors.dart';
-import 'package:hercules/L3_app/components/text_widgets.dart';
+
+import 'colors.dart';
+import 'text_widgets.dart';
 
 class MTDialogAction<T> {
   MTDialogAction({
@@ -29,12 +30,12 @@ Future<T?> showMTDialog<T>(
   return await showCupertinoDialog<T?>(
     context: context,
     barrierDismissible: true,
-    builder: (_) => MTDialog(title: title, description: description, actions: actions),
+    builder: (_) => MTConfirmDialog(title: title, description: description, actions: actions),
   );
 }
 
-class MTDialog extends StatelessWidget {
-  const MTDialog({
+class MTConfirmDialog extends StatelessWidget {
+  const MTConfirmDialog({
     required this.title,
     required this.actions,
     this.description = '',

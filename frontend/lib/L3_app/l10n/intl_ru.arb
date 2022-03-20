@@ -13,7 +13,6 @@
   "common_description": "Описание",
   "common_delete_dialog_description": "Это действие нельзя будет отменить!",
 
-
   "common_due_date_placeholder": "Срок завершения",
   "common_due_date_label": "План",
   "common_eta_date_label": "Прогноз",
@@ -27,6 +26,7 @@
   "goal_delete_dialog_title": "Удалить цель?",
   "goal_delete_dialog_description": "Все задачи цели также будут удалены.",
 
+  "task_title": "Задача",
   "tasks_title": "Задачи",
 
   "validation_empty_text": "Нужно заполнить"

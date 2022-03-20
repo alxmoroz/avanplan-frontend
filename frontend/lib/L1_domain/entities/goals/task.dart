@@ -11,10 +11,13 @@ class Task extends Smartable {
     required String title,
     required String description,
     required DateTime? dueDate,
+    required int? parentId,
     required this.status,
-  }) : super(id: id, createdOn: createdOn, updatedOn: updatedOn, title: title, description: description, dueDate: dueDate);
+    required this.tasks,
+  }) : super(id: id, createdOn: createdOn, updatedOn: updatedOn, title: title, description: description, dueDate: dueDate, parentId: parentId);
 
   final TaskStatus? status;
+  final Iterable<Task> tasks;
 
   bool get closed => status?.closed ?? false;
 }

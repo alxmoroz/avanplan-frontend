@@ -23,5 +23,4 @@ class GoalSchemaGet(GoalSchema, PKGetable, Timestampable):
 
 
 class GoalSchemaUpsert(GoalSchema, PKUpsertable):
-    parent_id: Optional[int]
     status_id: Optional[int]

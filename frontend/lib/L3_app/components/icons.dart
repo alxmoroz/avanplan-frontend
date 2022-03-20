@@ -35,3 +35,15 @@ Widget calendarIcon(BuildContext context, {Color? color, double? size}) => Icon(
       size: size ?? 32,
       color: (color ?? mainColor).resolve(context),
     );
+
+Widget chevronIcon(BuildContext context, {Color? color, double? size}) => Icon(
+      CupertinoIcons.chevron_right,
+      size: size ?? 20,
+      color: (color ?? mainColor).resolve(context),
+    );
+
+Widget closeIcon(BuildContext context, {Color? color, double? size}) => Icon(
+      CupertinoIcons.clear_circled,
+      size: size ?? 32,
+      color: (color ?? mainColor).resolve(context),
+    );

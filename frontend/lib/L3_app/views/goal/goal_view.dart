@@ -9,7 +9,7 @@ import '../../components/icons.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../tasks/goal_root_tasks_view.dart';
+import '../tasks/task_view.dart';
 import 'goal_card.dart';
 import 'goal_edit_view.dart';
 
@@ -51,7 +51,7 @@ class _GoalViewState extends State<GoalView> {
           ),
           GoalCard(
             goal: _goal!,
-            onTap: () => Navigator.of(context).pushNamed(GoalRootTasksView.routeName),
+            onTap: () => Navigator.of(context).pushNamed(TaskView.routeName),
           ),
         ],
       ),

@@ -2,7 +2,6 @@
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:get_it/get_it.dart';
-import 'package:hercules/L2_data/repositories/tasks_repo.dart';
 import 'package:openapi/openapi.dart';
 import 'package:package_info/package_info.dart';
 
@@ -14,10 +13,13 @@ import '../../L2_data/db.dart';
 import '../../L2_data/repositories/auth_repo.dart';
 import '../../L2_data/repositories/db_repo.dart';
 import '../../L2_data/repositories/goals_repo.dart';
+import '../../L2_data/repositories/tasks_repo.dart';
 import '../l10n/generated/l10n.dart';
 import '../views/auth/login_controller.dart';
 import '../views/goal/goal_edit_controller.dart';
 import '../views/main/main_controller.dart';
+import '../views/tasks/task_edit_controller.dart';
+import '../views/tasks/task_view_controller.dart';
 
 S get loc => S.current;
 
@@ -26,9 +28,11 @@ GetIt getIt = GetIt.instance;
 IosDeviceInfo get iosInfo => GetIt.I<IosDeviceInfo>();
 PackageInfo get packageInfo => GetIt.I<PackageInfo>();
 
-MainController get mainController => GetIt.I<MainController>();
 LoginController get loginController => GetIt.I<LoginController>();
+MainController get mainController => GetIt.I<MainController>();
 GoalEditController get goalEditController => GetIt.I<GoalEditController>();
+TaskViewController get taskViewController => GetIt.I<TaskViewController>();
+TaskEditController get taskEditController => GetIt.I<TaskEditController>();
 
 Openapi get openAPI => GetIt.I<Openapi>();
 
@@ -56,11 +60,13 @@ void setup() {
   getIt.registerSingletonAsync<GoalsUC>(() async => GoalsUC(repo: GoalsRepo()), dependsOn: [AuthUC]);
   getIt.registerSingletonAsync<TasksUC>(() async => TasksUC(repo: TasksRepo()), dependsOn: [GoalsUC]);
 
-  // stores / states / controllers
+  // controllers
   getIt.registerSingletonAsync<MainController>(
     () async => await MainController().init(),
     dependsOn: [HiveStorage, PackageInfo, IosDeviceInfo, Openapi, SettingsUC, AuthUC, GoalsUC],
   );
   getIt.registerSingletonAsync<LoginController>(() async => await LoginController().init(), dependsOn: [MainController]);
   getIt.registerSingletonAsync<GoalEditController>(() async => await GoalEditController().init(), dependsOn: [MainController]);
+  getIt.registerSingletonAsync<TaskViewController>(() async => await TaskViewController().init(), dependsOn: [MainController]);
+  getIt.registerSingletonAsync<TaskEditController>(() async => await TaskEditController().init(), dependsOn: [TaskViewController]);
 }

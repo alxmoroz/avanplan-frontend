@@ -9,7 +9,7 @@ abstract class AbstractTasksRepo {
     required int? parentId,
     required String title,
     required String description,
-    required DateTime dueDate,
+    required DateTime? dueDate,
   });
   Future<bool> deleteTask(int id);
 }

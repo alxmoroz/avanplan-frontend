@@ -17,15 +17,17 @@ class TasksRepo extends AbstractTasksRepo {
     required int? parentId,
     required String title,
     required String description,
-    required DateTime dueDate,
+    required DateTime? dueDate,
   }) async {
     //TODO: не учитываются возможные ошибки! Нет обработки 403 и т.п.
 
     final builder = TaskSchemaUpsertBuilder()
       ..id = id
+      ..goalId = goalId
+      ..parentId = parentId
       ..title = title
       ..description = description
-      ..dueDate = dueDate.toUtc();
+      ..dueDate = dueDate?.toUtc();
 
     final response = await api.upsertTaskApiV1TasksPost(taskSchemaUpsert: builder.build());
     Task? task;

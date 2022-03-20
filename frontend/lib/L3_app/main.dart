@@ -11,7 +11,7 @@ import 'l10n/generated/l10n.dart';
 import 'views/auth/login_view.dart';
 import 'views/goal/goal_view.dart';
 import 'views/main/main_view.dart';
-import 'views/tasks/goal_root_tasks_view.dart';
+import 'views/tasks/task_edit_view.dart';
 import 'views/tasks/task_view.dart';
 
 void main() {
@@ -39,8 +39,8 @@ class App extends StatelessWidget {
           LoginView.routeName: (_) => LoginView(),
           MainView.routeName: (_) => MainView(),
           GoalView.routeName: (_) => GoalView(),
-          GoalRootTasksView.routeName: (_) => GoalRootTasksView(),
           TaskView.routeName: (_) => TaskView(),
+          TaskEditView.routeName: (_) => TaskEditView(),
         },
         localizationsDelegates: const [
           S.delegate,

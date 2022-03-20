@@ -21,12 +21,15 @@
   "common_title": "Title",
   "common_yes": "Yes",
 
-  "goal_title": "Goal",
-  "goal_title_new": "New goal",
   "goal_delete_dialog_title": "Delete goal?",
   "goal_delete_dialog_description": "All tasks of this goal will be deleted.",
+  "goal_title": "Goal",
+  "goal_title_new": "New goal",
 
+  "task_delete_dialog_title": "Delete task?",
+  "task_delete_dialog_description": "All subtasks of this task will be deleted.",
   "task_title": "Task",
+  "task_title_new": "New task",
   "tasks_title": "Tasks",
 
   "validation_empty_text": "Should not be empty"

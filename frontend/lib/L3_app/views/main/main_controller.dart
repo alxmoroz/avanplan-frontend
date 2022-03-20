@@ -67,9 +67,9 @@ abstract class _MainControllerBase extends BaseController with Store {
   String get appVersion => settings?.version ?? '';
 
   @action
-  Future logout() async {
+  Future logout(BuildContext context) async {
     await authUC.logout();
-    Navigator.of(context!).pushReplacementNamed(LoginView.routeName);
+    Navigator.of(context).pushReplacementNamed(LoginView.routeName);
   }
 
   @action
@@ -104,17 +104,17 @@ abstract class _MainControllerBase extends BaseController with Store {
 
   /// роутер
 
-  Future showGoal(Goal goal) async {
+  Future showGoal(BuildContext context, Goal goal) async {
     selectGoal(goal);
-    await Navigator.of(context!).pushNamed(GoalView.routeName);
+    await Navigator.of(context).pushNamed(GoalView.routeName);
   }
 
-  Future addGoal() async {
+  Future addGoal(BuildContext context) async {
     selectGoal(null);
-    final newGoal = await showEditGoalDialog(context!);
+    final newGoal = await showEditGoalDialog(context);
     if (newGoal != null) {
       updateGoal(newGoal);
-      await showGoal(newGoal);
+      await showGoal(context, newGoal);
     }
   }
 }

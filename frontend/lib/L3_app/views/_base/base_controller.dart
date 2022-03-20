@@ -10,14 +10,12 @@ part 'base_controller.g.dart';
 class BaseController = _BaseControllerBase with _$BaseController;
 
 abstract class _BaseControllerBase with Store {
-  BuildContext? context;
   Map<String, TextEditingController> controllers = {};
 
   Future init() async => this;
 
   @mustCallSuper
-  void initState(BuildContext _context, {List<TFAnnotation>? tfaList}) {
-    context = _context;
+  void initState({List<TFAnnotation>? tfaList}) {
     tfAnnotations = ObservableMap.of({for (var tfa in tfaList ?? <TFAnnotation>[]) tfa.code: tfa});
     controllers = {for (var tfa in tfAnnotations.values) tfa.code: makeController(tfa.code)};
   }

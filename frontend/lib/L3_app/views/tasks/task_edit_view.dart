@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../L1_domain/entities/goals/goal.dart';
+import '../../../L1_domain/entities/goals/task.dart';
 import '../../components/bottom_sheet.dart';
 import '../../components/buttons.dart';
 import '../../components/colors.dart';
@@ -13,35 +13,37 @@ import '../../components/text_field.dart';
 import '../../components/text_field_annotation.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import 'goal_edit_controller.dart';
+import 'task_edit_controller.dart';
 
-Future<Goal?> showEditGoalDialog(BuildContext context) async {
-  return await showModalBottomSheet<Goal?>(
+//TODO: дубль по коду редактора цели!
+
+Future<Task?> showEditTaskDialog(BuildContext context) async {
+  return await showModalBottomSheet<Task?>(
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
     useRootNavigator: true,
-    builder: (context) => MTBottomSheet(GoalEditView()),
+    builder: (context) => MTBottomSheet(TaskEditView()),
   );
 }
 
-class GoalEditView extends StatefulWidget {
-  static String get routeName => 'goal_edit';
+class TaskEditView extends StatefulWidget {
+  static String get routeName => 'task_edit';
 
   @override
-  _GoalViewState createState() => _GoalViewState();
+  _TaskEditViewState createState() => _TaskEditViewState();
 }
 
-class _GoalViewState extends State<GoalEditView> {
-  GoalEditController get _controller => goalEditController;
-  Goal? get _goal => _controller.goal;
+class _TaskEditViewState extends State<TaskEditView> {
+  TaskEditController get _controller => taskEditController;
+  Task? get _task => _controller.selectedTask;
 
   @override
   void initState() {
     _controller.initState(tfaList: [
-      TFAnnotation('title', label: loc.common_title, text: _goal?.title ?? ''),
-      TFAnnotation('description', label: loc.common_description, text: _goal?.description ?? '', needValidate: false),
-      TFAnnotation('dueDate', label: loc.common_due_date_placeholder, isDate: true),
+      TFAnnotation('title', label: loc.common_title, text: _task?.title ?? ''),
+      TFAnnotation('description', label: loc.common_description, text: _task?.description ?? '', needValidate: false),
+      TFAnnotation('dueDate', label: loc.common_due_date_placeholder, isDate: true, needValidate: false),
     ]);
 
     super.initState();
@@ -99,19 +101,19 @@ class _GoalViewState extends State<GoalEditView> {
             Stack(
               alignment: Alignment.center,
               children: [
-                H3(_goal == null ? loc.goal_title_new : '', align: TextAlign.center, padding: EdgeInsets.zero),
+                H3(_task == null ? loc.task_title_new : '', align: TextAlign.center, padding: EdgeInsets.zero),
                 Row(
                   children: [
                     if (_controller.canEdit)
                       Button.icon(
                         deleteIcon(context),
-                        () => _controller.deleteGoal(context),
+                        () => _controller.deleteTask(context),
                         padding: EdgeInsets.only(left: onePadding),
                       ),
                     const Spacer(),
                     Button(
                       loc.btn_save_title,
-                      _controller.validated ? () => _controller.saveGoal(context) : null,
+                      _controller.validated ? () => _controller.saveTask(context) : null,
                       titleColor: _controller.validated ? mainColor : borderColor,
                       padding: EdgeInsets.only(right: onePadding),
                     ),

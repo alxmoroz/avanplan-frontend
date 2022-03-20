@@ -22,7 +22,7 @@ class MTDrawer extends StatelessWidget {
                 SizedBox(height: onePadding),
                 const Spacer(),
                 Button('Импорт задач из Redmine', mainController.redmine),
-                if (mainController.authorized) Button('Выйти', mainController.logout),
+                if (mainController.authorized) Button('Выйти', () => mainController.logout(context)),
                 SizedBox(height: onePadding),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   LightText(mainController.appName),

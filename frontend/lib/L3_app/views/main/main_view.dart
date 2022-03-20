@@ -24,20 +24,13 @@ class _MainViewState extends State<MainView> {
 
   @override
   void initState() {
-    mainController.initState(context);
     _fetchGoals = mainController.fetchGoals();
     super.initState();
   }
 
-  @override
-  void dispose() {
-    mainController.dispose();
-    super.dispose();
-  }
-
   Widget goalCardBuilder(BuildContext context, int index) {
     final goal = mainController.goals[index];
-    return GoalCard(goal: goal, alone: true, onTap: () => mainController.showGoal(goal));
+    return GoalCard(goal: goal, alone: true, onTap: () => mainController.showGoal(context, goal));
   }
 
   @override
@@ -61,7 +54,7 @@ class _MainViewState extends State<MainView> {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Button.icon(plusIcon(context), mainController.addGoal),
+                      Button.icon(plusIcon(context), () => mainController.addGoal(context)),
                     ],
                   ),
                 ),

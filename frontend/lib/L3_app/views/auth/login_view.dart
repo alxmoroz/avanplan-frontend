@@ -25,7 +25,7 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   void initState() {
-    _controller.initState(context, tfaList: [
+    _controller.initState(tfaList: [
       TFAnnotation('login', label: loc.auth_user_placeholder),
       TFAnnotation('password', label: loc.auth_password_placeholder),
     ]);
@@ -62,7 +62,7 @@ class _LoginViewState extends State<LoginView> {
             padding: EdgeInsets.all(onePadding),
             child: Button(
               loc.auth_log_in_button_title,
-              _controller.validated ? _controller.authorize : null,
+              _controller.validated ? () => _controller.authorize(context) : null,
               titleColor: _controller.validated ? mainColor : borderColor,
             ),
           ),

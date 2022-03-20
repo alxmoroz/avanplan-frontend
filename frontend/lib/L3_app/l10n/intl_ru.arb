@@ -21,12 +21,15 @@
   "common_title": "Название",
   "common_yes": "Да",
 
-  "goal_title": "Цель",
-  "goal_title_new": "Новая цель",
   "goal_delete_dialog_title": "Удалить цель?",
   "goal_delete_dialog_description": "Все задачи цели также будут удалены.",
+  "goal_title": "Цель",
+  "goal_title_new": "Новая цель",
 
+  "task_delete_dialog_title": "Удалить задачу?",
+  "task_delete_dialog_description": "Все подзадачи также будут удалены.",
   "task_title": "Задача",
+  "task_title_new": "Новая задача",
   "tasks_title": "Задачи",
 
   "validation_empty_text": "Нужно заполнить"

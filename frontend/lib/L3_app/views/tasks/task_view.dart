@@ -4,15 +4,18 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import '../../../L1_domain/entities/goals/goal.dart';
 import '../../../L1_domain/entities/goals/task.dart';
+import '../../components/buttons.dart';
 import '../../components/colors.dart';
 import '../../components/cupertino_page.dart';
 import '../../components/details_dialog.dart';
 import '../../components/divider.dart';
+import '../../components/icons.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import 'tasks_list.dart';
+import 'task_view_controller.dart';
 
 class TaskView extends StatefulWidget {
   static String get routeName => 'task';
@@ -22,48 +25,83 @@ class TaskView extends StatefulWidget {
 }
 
 class _TaskViewState extends State<TaskView> {
-  Widget breadcrumbs(List<Task> parents) {
-    String parentsPath = '';
-    for (Task pt in parents.take(parents.length - 1)) {
-      parentsPath += ' > ' + pt.title;
-    }
+  TaskViewController get _controller => taskViewController;
+  Task? get _task => _controller.selectedTask;
+  Goal? get _goal => mainController.selectedGoal;
 
-    return LightText('${mainController.selectedGoal!.title} $parentsPath');
+  @override
+  void initState() {
+    _controller.initState();
+    super.initState();
+  }
+
+  Widget buildBreadcrumbs() {
+    String parentsPath = '';
+    if (_controller.navStackTasks.isNotEmpty) {
+      for (Task pt in _controller.navStackTasks.take(_controller.navStackTasks.length - 1)) {
+        parentsPath += ' > ' + pt.title;
+      }
+    }
+    return ListTile(
+      title: LightText('${_goal!.title} $parentsPath'),
+      subtitle: _task != null ? H2(_task!.title) : null,
+      dense: true,
+      visualDensity: VisualDensity.compact,
+    );
+  }
+
+  Widget buildDescription() {
+    final description = _task?.description ?? '';
+    if (description.isNotEmpty) {
+      const truncateLength = 100;
+      final needTruncate = description.length > truncateLength;
+      return ListTile(
+        title: LightText(description.substring(0, min(description.length, truncateLength))),
+        subtitle: needTruncate ? const MediumText('...', color: mainColor) : null,
+        dense: true,
+        visualDensity: VisualDensity.compact,
+        onTap: needTruncate ? () => showDetailsDialog(context, description) : null,
+      );
+    } else {
+      return Container();
+    }
+  }
+
+  Widget taskBuilder(BuildContext context, int index) {
+    final task = _controller.subtasks.elementAt(index);
+    return Column(
+      children: [
+        if (index > 0) const MTDivider(),
+        ListTile(
+          title: NormalText(task.title),
+          trailing: chevronIcon(context),
+          dense: true,
+          visualDensity: VisualDensity.compact,
+          onTap: () => _controller.showTask(context, task),
+        )
+      ],
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as Map;
-    final Task _task = args['task'];
-    final List<Task> _parents = args['parents'];
-
-    final _subTasks = _task.tasks.toList();
-    _subTasks.sort((t1, t2) => t1.title.compareTo(t2.title));
-
-    const truncateLength = 100;
-    final needTruncate = _task.description.length > truncateLength;
-
     return MTCupertinoPage(
-      navBar: navBar(context, title: '${loc.task_title} #${_task.id}'),
+      navBar: navBar(
+        context,
+        title: _task != null ? '${loc.task_title} #${_task!.id}' : loc.tasks_title,
+        trailing: Button.icon(plusIcon(context), () => _controller.addTask(context)),
+      ),
       children: [
-        ListTile(
-          title: breadcrumbs(_parents),
-          subtitle: H2(_task.title),
-          dense: true,
-          visualDensity: VisualDensity.compact,
-        ),
-        if (_task.description.isNotEmpty)
-          ListTile(
-            title: LightText(_task.description.substring(0, min(_task.description.length, truncateLength))),
-            subtitle: needTruncate ? const MediumText('...', color: mainColor) : null,
-            dense: true,
-            visualDensity: VisualDensity.compact,
-            onTap: needTruncate ? () => showDetailsDialog(context, _task.description) : null,
-          ),
+        buildBreadcrumbs(),
+        buildDescription(),
         const MTDivider(),
-        if (_task.tasks.isNotEmpty) ...[
-          Expanded(child: TasksList(tasks: _subTasks, parents: _parents)),
-        ]
+        if (_controller.subtasks.isNotEmpty)
+          Expanded(
+            child: ListView.builder(
+              itemBuilder: taskBuilder,
+              itemCount: _controller.subtasks.length,
+            ),
+          ),
       ],
     );
   }

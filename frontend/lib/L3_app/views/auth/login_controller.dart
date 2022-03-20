@@ -12,7 +12,7 @@ part 'login_controller.g.dart';
 class LoginController extends _LoginControllerBase with _$LoginController {}
 
 abstract class _LoginControllerBase extends BaseController with Store {
-  Future authorize() async {
+  Future authorize(BuildContext context) async {
     //TODO: не учитываются возможные ошибки! Нет обработки 403 и т.п.
 
     if (await authUC.authorize(
@@ -20,7 +20,7 @@ abstract class _LoginControllerBase extends BaseController with Store {
       password: tfAnnoForCode('password').text,
     )) {
       /// навигация
-      await Navigator.of(context!).pushReplacementNamed(MainView.routeName);
+      await Navigator.of(context).pushReplacementNamed(MainView.routeName);
     }
   }
 }

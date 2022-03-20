@@ -18,7 +18,7 @@ class TasksUC {
   }) async {
     Task? task;
     // TODO: внутр. exception?
-    if (title.trim().isNotEmpty && dueDate != null) {
+    if (title.trim().isNotEmpty) {
       task = await repo.saveTask(goalId: goalId, id: id, parentId: parentId, title: title, description: description, dueDate: dueDate);
     }
     return task;

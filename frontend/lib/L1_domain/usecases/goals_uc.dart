@@ -4,12 +4,12 @@ import '../entities/goals/goal.dart';
 import '../repositories/abstract_goals_repo.dart';
 
 class GoalsUC {
-  GoalsUC({required this.goalsRepo});
+  GoalsUC({required this.repo});
 
-  final AbstractGoalsRepo goalsRepo;
+  final AbstractGoalsRepo repo;
 
   Future<List<Goal>> getGoals() async {
-    final goals = await goalsRepo.getGoals();
+    final goals = await repo.getGoals();
     return goals;
   }
 
@@ -22,13 +22,13 @@ class GoalsUC {
     Goal? goal;
     // TODO: внутр. exception?
     if (title.trim().isNotEmpty && dueDate != null) {
-      goal = await goalsRepo.saveGoal(id: id, title: title, description: description, dueDate: dueDate);
+      goal = await repo.saveGoal(id: id, title: title, description: description, dueDate: dueDate);
     }
     return goal;
   }
 
   Future<Goal?> deleteGoal(Goal goal) async {
-    final deletedRows = await goalsRepo.deleteGoal(goal.id);
+    final deletedRows = await repo.deleteGoal(goal.id);
     // TODO: внутр. exception?
     if (deletedRows) {
       goal.deleted = true;

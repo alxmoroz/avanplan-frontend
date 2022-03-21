@@ -42,22 +42,19 @@ abstract class _BaseControllerBase with Store {
   }
 
   @computed
-  Iterable<TFAnnotation> get validatableTA => tfAnnotations.values.where((ta) => ta.needValidate);
+  Iterable<TFAnnotation> get _allTA => tfAnnotations.values;
 
   @computed
-  bool get anyFieldHasTouched => validatableTA.any((ta) => ta.edited);
+  Iterable<TFAnnotation> get _validatableTA => _allTA.where((ta) => ta.needValidate);
 
   @computed
-  bool get allFieldsHasTouched => !validatableTA.any((ta) => !ta.edited);
+  bool get allNeedFieldsTouched => !_validatableTA.any((ta) => !ta.edited);
 
   @computed
-  bool get validated => !validatableTA.any((ta) => ta.errorText != null) && allFieldsHasTouched;
+  bool get anyFieldTouched => _allTA.any((ta) => ta.edited);
+
+  @computed
+  bool get validated => !_validatableTA.any((ta) => ta.errorText != null) && allNeedFieldsTouched;
 
   TFAnnotation tfAnnoForCode(String code) => tfAnnotations[code]!;
-
-  @observable
-  bool editMode = false;
-
-  @action
-  void setEditMode(bool mode) => editMode = mode;
 }

@@ -99,7 +99,7 @@ class _GoalViewState extends State<GoalEditView> {
             Stack(
               alignment: Alignment.center,
               children: [
-                H3(_goal == null ? loc.goal_title_new : '', align: TextAlign.center, padding: EdgeInsets.zero),
+                H3(_goal == null ? loc.goal_title_new : '', align: TextAlign.center),
                 Row(
                   children: [
                     if (_controller.canEdit)

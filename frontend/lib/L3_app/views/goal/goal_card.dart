@@ -25,7 +25,7 @@ class GoalCard extends StatelessWidget {
 
   Widget buildTasksCount() {
     final tasksString = '${goal.closedTasksCount} / ${goal.tasksCount}';
-    return H1(tasksString, padding: EdgeInsets.zero, color: darkGreyColor);
+    return H1(tasksString);
   }
 
   Widget? buildDates() {

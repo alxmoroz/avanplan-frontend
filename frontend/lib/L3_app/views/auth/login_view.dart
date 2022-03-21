@@ -55,7 +55,7 @@ class _LoginViewState extends State<LoginView> {
       body: Observer(
         builder: (_) => Column(
           children: [
-            H1(loc.appTitle, align: TextAlign.center, color: darkGreyColor),
+            H1(loc.appTitle, align: TextAlign.center),
             textFieldForCode('login'),
             textFieldForCode('password'),
             SizedBox(height: onePadding),

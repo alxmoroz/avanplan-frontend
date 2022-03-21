@@ -103,7 +103,7 @@ class _TaskEditViewState extends State<TaskEditView> {
             Stack(
               alignment: Alignment.center,
               children: [
-                H3(_task == null ? loc.task_title_new : '', align: TextAlign.center, padding: EdgeInsets.zero),
+                H3(_task == null ? loc.task_title_new : '', align: TextAlign.center),
                 Row(
                   children: [
                     if (_controller.canEdit)

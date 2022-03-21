@@ -107,7 +107,7 @@ class H3 extends MediumText {
           weight: weight,
           sizeScale: 1.2,
           align: align,
-          padding: padding ?? EdgeInsets.only(bottom: onePadding / 2),
+          padding: padding,
           maxLines: maxLines ?? 3,
         );
 }
@@ -120,7 +120,7 @@ class H2 extends MediumText {
           weight: weight,
           sizeScale: 1.5,
           align: align,
-          padding: padding ?? EdgeInsets.fromLTRB(0, onePadding / 2, 0, onePadding),
+          padding: padding,
           maxLines: maxLines ?? 3,
         );
 }
@@ -129,11 +129,11 @@ class H1 extends MediumText {
   H1(String text, {Color? color, FontWeight? weight, TextAlign? align, EdgeInsets? padding, int? maxLines})
       : super(
           text,
-          color: color,
+          color: color ?? darkGreyColor,
           weight: weight,
           sizeScale: 2.5,
           align: align,
-          padding: padding ?? EdgeInsets.fromLTRB(0, onePadding, 0, onePadding * 2),
+          padding: padding,
           maxLines: maxLines ?? 2,
         );
 }

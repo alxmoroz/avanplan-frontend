@@ -54,11 +54,12 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
       if (_task.deleted) {
         siblings.removeAt(index);
       } else {
-        siblings.setAll(index, [_task]);
+        siblings[index] = _task;
       }
     }
     //TODO: костылик
-    navStackTasks = ObservableList.of(navStackTasks);
+    popTask();
+    pushTask(_task);
   }
 
   /// роутер

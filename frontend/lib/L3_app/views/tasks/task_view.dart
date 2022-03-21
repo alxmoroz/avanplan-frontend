@@ -9,6 +9,7 @@ import '../../../L1_domain/entities/goals/goal.dart';
 import '../../../L1_domain/entities/goals/task.dart';
 import '../../components/buttons.dart';
 import '../../components/colors.dart';
+import '../../components/constants.dart';
 import '../../components/cupertino_page.dart';
 import '../../components/date_string_widget.dart';
 import '../../components/details_dialog.dart';
@@ -38,14 +39,15 @@ class _TaskViewState extends State<TaskView> {
   }
 
   Widget buildBreadcrumbs() {
+    const sepStr = '>';
     String parentsPath = '';
     if (_controller.navStackTasks.isNotEmpty) {
       final titles = _controller.navStackTasks.take(_controller.navStackTasks.length - 1).map((pt) => pt.title);
-      parentsPath = titles.join(' > ');
+      parentsPath = titles.join(' $sepStr ');
     }
     return ListTile(
-      title: MediumText(_goal!.title),
-      subtitle: parentsPath.isNotEmpty ? LightText(parentsPath) : null,
+      title: _controller.isRootTask ? MediumText(_goal!.title) : LightText('${_goal!.title} $sepStr', maxLines: 1),
+      subtitle: parentsPath.isNotEmpty ? LightText(parentsPath, padding: EdgeInsets.only(top: onePadding / 2)) : null,
       dense: true,
       visualDensity: VisualDensity.compact,
     );
@@ -82,13 +84,15 @@ class _TaskViewState extends State<TaskView> {
   }
 
   Widget buildDates() {
-    return ListTile(
-      title: Row(
-        children: [
-          DateStringWidget(_task?.dueDate, titleString: loc.common_due_date_label),
-        ],
-      ),
-    );
+    return _task?.dueDate != null
+        ? ListTile(
+            title: Row(
+              children: [
+                DateStringWidget(_task?.dueDate, titleString: loc.common_due_date_label),
+              ],
+            ),
+          )
+        : Container();
   }
 
   Widget taskBuilder(BuildContext context, int index) {
@@ -119,6 +123,7 @@ class _TaskViewState extends State<TaskView> {
         builder: (_) => Expanded(
           child: Column(
             children: [
+              SizedBox(height: onePadding),
               buildBreadcrumbs(),
               buildTitle(),
               buildDescription(),

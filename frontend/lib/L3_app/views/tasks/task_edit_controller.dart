@@ -31,7 +31,7 @@ abstract class _TaskEditControllerBase extends BaseController with Store {
   int? get _parentId => canEdit ? taskViewController.selectedTask?.parentId : taskViewController.selectedTask?.id;
 
   @override
-  bool get validated => super.validated || (canEdit && anyFieldHasTouched);
+  bool get allNeedFieldsTouched => super.allNeedFieldsTouched || (canEdit && anyFieldTouched);
 
   @observable
   DateTime? selectedDueDate;

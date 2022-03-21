@@ -24,7 +24,7 @@ abstract class _GoalEditControllerBase extends BaseController with Store {
   }
 
   @override
-  bool get validated => super.validated || (canEdit && selectedDueDate != null && anyFieldHasTouched);
+  bool get allNeedFieldsTouched => super.allNeedFieldsTouched || (canEdit && selectedDueDate != null && anyFieldTouched);
 
   @observable
   DateTime? selectedDueDate;

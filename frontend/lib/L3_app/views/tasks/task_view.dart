@@ -3,6 +3,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/goals/goal.dart';
 import '../../../L1_domain/entities/goals/task.dart';
@@ -68,7 +69,7 @@ class _TaskViewState extends State<TaskView> {
   }
 
   Widget taskBuilder(BuildContext context, int index) {
-    final task = _controller.subtasks.elementAt(index);
+    final task = _controller.tasks[index];
     return Column(
       children: [
         if (index > 0) const MTDivider(),
@@ -91,18 +92,24 @@ class _TaskViewState extends State<TaskView> {
         title: _task != null ? '${loc.task_title} #${_task!.id}' : loc.tasks_title,
         trailing: Button.icon(plusIcon(context), () => _controller.addTask(context)),
       ),
-      children: [
-        buildBreadcrumbs(),
-        buildDescription(),
-        const MTDivider(),
-        if (_controller.subtasks.isNotEmpty)
-          Expanded(
-            child: ListView.builder(
-              itemBuilder: taskBuilder,
-              itemCount: _controller.subtasks.length,
-            ),
+      body: Observer(
+        builder: (_) => Expanded(
+          child: Column(
+            children: [
+              buildBreadcrumbs(),
+              buildDescription(),
+              const MTDivider(),
+              if (_controller.tasks.isNotEmpty)
+                Expanded(
+                  child: ListView.builder(
+                    itemBuilder: taskBuilder,
+                    itemCount: _controller.tasks.length,
+                  ),
+                ),
+            ],
           ),
-      ],
+        ),
+      ),
     );
   }
 }

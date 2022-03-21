@@ -9,15 +9,13 @@ import 'material_wrapper.dart';
 class MTCupertinoPage extends StatelessWidget {
   const MTCupertinoPage({
     this.navBar,
-    required this.children,
+    required this.body,
     this.mainAxisAlignment = MainAxisAlignment.start,
-    this.crossAxisAlignment = CrossAxisAlignment.stretch,
   });
 
   final CupertinoNavigationBar? navBar;
-  final List<Widget> children;
+  final Widget body;
   final MainAxisAlignment mainAxisAlignment;
-  final CrossAxisAlignment crossAxisAlignment;
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +26,10 @@ class MTCupertinoPage extends StatelessWidget {
       child: SafeArea(
         child: material(
           Column(
-            crossAxisAlignment: crossAxisAlignment,
             mainAxisAlignment: mainAxisAlignment,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              ...children,
+              body,
               BottomSafePadding(context),
             ],
           ),

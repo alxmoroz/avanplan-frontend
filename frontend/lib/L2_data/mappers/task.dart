@@ -15,6 +15,6 @@ extension TaskMapper on TaskSchemaGet {
         description: description ?? '',
         dueDate: dueDate?.toLocal(),
         status: status != null ? status!.status : null,
-        tasks: tasks?.map((t) => t.task) ?? [],
+        tasks: tasks?.map((t) => t.task).toList() ?? [],
       );
 }

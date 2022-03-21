@@ -50,23 +50,25 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) => MTCupertinoPage(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          H1(loc.appTitle, align: TextAlign.center, color: darkGreyColor),
-          textFieldForCode('login'),
-          textFieldForCode('password'),
-          SizedBox(height: onePadding),
-          Padding(
-            padding: EdgeInsets.all(onePadding),
-            child: Button(
-              loc.auth_log_in_button_title,
-              _controller.validated ? () => _controller.authorize(context) : null,
-              titleColor: _controller.validated ? mainColor : borderColor,
+    return MTCupertinoPage(
+      mainAxisAlignment: MainAxisAlignment.center,
+      body: Observer(
+        builder: (_) => Column(
+          children: [
+            H1(loc.appTitle, align: TextAlign.center, color: darkGreyColor),
+            textFieldForCode('login'),
+            textFieldForCode('password'),
+            SizedBox(height: onePadding),
+            Padding(
+              padding: EdgeInsets.all(onePadding),
+              child: Button(
+                loc.auth_log_in_button_title,
+                _controller.validated ? () => _controller.authorize(context) : null,
+                titleColor: _controller.validated ? mainColor : borderColor,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

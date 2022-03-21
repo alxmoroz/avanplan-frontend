@@ -17,7 +17,7 @@ class Task extends Smartable {
   }) : super(id: id, createdOn: createdOn, updatedOn: updatedOn, title: title, description: description, dueDate: dueDate, parentId: parentId);
 
   final TaskStatus? status;
-  final Iterable<Task> tasks;
+  List<Task> tasks;
 
   bool get closed => status?.closed ?? false;
 }

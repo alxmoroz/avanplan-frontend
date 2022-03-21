@@ -23,7 +23,7 @@ class Goal extends Smartable {
   }
 
   final GoalReport? report;
-  final Iterable<Task> tasks;
+  List<Task> tasks;
 
   int _tasksCount = 0;
   int get tasksCount => _tasksCount;

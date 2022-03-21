@@ -40,20 +40,22 @@ class _GoalViewState extends State<GoalView> {
     return Observer(
       builder: (_) => MTCupertinoPage(
         navBar: navBar(context, title: _goal != null ? loc.goal_title : loc.goal_title_new),
-        children: [
-          ListTile(
-            title: H2(_goal!.title),
-            subtitle: _goal!.description.isNotEmpty ? LightText(_goal!.description) : null,
-            trailing: editIcon(context),
-            onTap: editGoal,
-            dense: true,
-            visualDensity: VisualDensity.compact,
-          ),
-          GoalCard(
-            goal: _goal!,
-            onTap: () => Navigator.of(context).pushNamed(TaskView.routeName),
-          ),
-        ],
+        body: Column(
+          children: [
+            ListTile(
+              title: H2(_goal!.title),
+              subtitle: _goal!.description.isNotEmpty ? LightText(_goal!.description) : null,
+              trailing: editIcon(context),
+              onTap: editGoal,
+              dense: true,
+              visualDensity: VisualDensity.compact,
+            ),
+            GoalCard(
+              goal: _goal!,
+              onTap: () => Navigator.of(context).pushNamed(TaskView.routeName),
+            ),
+          ],
+        ),
       ),
     );
   }

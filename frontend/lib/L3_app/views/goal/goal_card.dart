@@ -20,7 +20,7 @@ class GoalCard extends StatelessWidget {
   final VoidCallback? onTap;
 
   Widget buildCardTitle() {
-    return H3(alone ? goal.title : loc.tasks_title, color: darkGreyColor, maxLines: 2);
+    return H3(alone ? goal.title : loc.tasks_title, color: darkGreyColor, maxLines: 1);
   }
 
   Widget buildTasksCount() {

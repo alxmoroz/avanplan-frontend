@@ -17,7 +17,9 @@ import 'task_edit_controller.dart';
 
 //TODO: дубль по коду редактора цели!
 
-Future<Task?> showEditTaskDialog(BuildContext context) async {
+Future<Task?> showEditTaskDialog(BuildContext context, [Task? selectedTask]) async {
+  taskEditController.selectTask(selectedTask);
+
   return await showModalBottomSheet<Task?>(
     context: context,
     backgroundColor: Colors.transparent,

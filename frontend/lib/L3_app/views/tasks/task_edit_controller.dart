@@ -27,6 +27,9 @@ abstract class _TaskEditControllerBase extends BaseController with Store {
   @action
   void selectTask(Task? _task) => selectedTask = _task;
 
+  @computed
+  int? get _parentId => canEdit ? taskViewController.selectedTask?.parentId : taskViewController.selectedTask?.id;
+
   @override
   bool get validated => super.validated || (canEdit && anyFieldHasTouched);
 
@@ -46,7 +49,7 @@ abstract class _TaskEditControllerBase extends BaseController with Store {
     final editedTask = await tasksUC.saveTask(
       id: selectedTask?.id,
       goalId: mainController.selectedGoal!.id,
-      parentId: taskViewController.selectedTask?.id,
+      parentId: _parentId,
       title: tfAnnoForCode('title').text,
       description: tfAnnoForCode('description').text,
       dueDate: selectedDueDate,

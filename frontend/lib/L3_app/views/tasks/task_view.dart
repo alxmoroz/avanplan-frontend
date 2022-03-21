@@ -10,6 +10,7 @@ import '../../../L1_domain/entities/goals/task.dart';
 import '../../components/buttons.dart';
 import '../../components/colors.dart';
 import '../../components/cupertino_page.dart';
+import '../../components/date_string_widget.dart';
 import '../../components/details_dialog.dart';
 import '../../components/divider.dart';
 import '../../components/icons.dart';
@@ -39,16 +40,27 @@ class _TaskViewState extends State<TaskView> {
   Widget buildBreadcrumbs() {
     String parentsPath = '';
     if (_controller.navStackTasks.isNotEmpty) {
-      for (Task pt in _controller.navStackTasks.take(_controller.navStackTasks.length - 1)) {
-        parentsPath += ' > ' + pt.title;
-      }
+      final titles = _controller.navStackTasks.take(_controller.navStackTasks.length - 1).map((pt) => pt.title);
+      parentsPath = titles.join(' > ');
     }
     return ListTile(
-      title: LightText('${_goal!.title} $parentsPath'),
-      subtitle: _task != null ? H2(_task!.title) : null,
+      title: MediumText(_goal!.title),
+      subtitle: parentsPath.isNotEmpty ? LightText(parentsPath) : null,
       dense: true,
       visualDensity: VisualDensity.compact,
     );
+  }
+
+  Widget buildTitle() {
+    return !_controller.isRootTask
+        ? ListTile(
+            title: H2(_task!.title),
+            trailing: editIcon(context),
+            onTap: () => _controller.editTask(context),
+            dense: true,
+            visualDensity: VisualDensity.compact,
+          )
+        : Container();
   }
 
   Widget buildDescription() {
@@ -56,6 +68,7 @@ class _TaskViewState extends State<TaskView> {
     if (description.isNotEmpty) {
       const truncateLength = 100;
       final needTruncate = description.length > truncateLength;
+
       return ListTile(
         title: LightText(description.substring(0, min(description.length, truncateLength))),
         subtitle: needTruncate ? const MediumText('...', color: mainColor) : null,
@@ -68,8 +81,18 @@ class _TaskViewState extends State<TaskView> {
     }
   }
 
+  Widget buildDates() {
+    return ListTile(
+      title: Row(
+        children: [
+          DateStringWidget(_task?.dueDate, titleString: loc.common_due_date_label),
+        ],
+      ),
+    );
+  }
+
   Widget taskBuilder(BuildContext context, int index) {
-    final task = _controller.tasks[index];
+    final task = _controller.subtasks[index];
     return Column(
       children: [
         if (index > 0) const MTDivider(),
@@ -97,13 +120,15 @@ class _TaskViewState extends State<TaskView> {
           child: Column(
             children: [
               buildBreadcrumbs(),
+              buildTitle(),
               buildDescription(),
+              buildDates(),
               const MTDivider(),
-              if (_controller.tasks.isNotEmpty)
+              if (_controller.subtasks.isNotEmpty)
                 Expanded(
                   child: ListView.builder(
                     itemBuilder: taskBuilder,
-                    itemCount: _controller.tasks.length,
+                    itemCount: _controller.subtasks.length,
                   ),
                 ),
             ],

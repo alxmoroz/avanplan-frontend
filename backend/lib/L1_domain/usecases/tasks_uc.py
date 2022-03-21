@@ -30,6 +30,6 @@ class TasksUC(Generic[M, SGet]):
 
     def delete_task(self, goal_id: int) -> int:
         deleted_count = self.task_db_repo.delete(goal_id)
-        if deleted_count < 1:
+        if deleted_count != 1:
             raise ApiException(400, f"Error deleting task id = {goal_id}")
         return deleted_count

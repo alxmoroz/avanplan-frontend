@@ -22,14 +22,14 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   Task? get selectedTask => navStackTasks.isNotEmpty ? navStackTasks.last : null;
 
   @computed
-  bool get isRoot => selectedTask == null;
+  bool get isRootTask => selectedTask == null;
 
   @computed
-  List<Task> get _srcTasks => isRoot ? mainController.selectedGoal!.tasks : selectedTask!.tasks;
+  List<Task> get _srcSubtasks => isRootTask ? mainController.selectedGoal!.tasks : selectedTask!.tasks;
 
   @computed
-  List<Task> get tasks {
-    final tasks = isRoot ? _srcTasks.where((t) => t.parentId == null).toList() : _srcTasks;
+  List<Task> get subtasks {
+    final tasks = isRootTask ? _srcSubtasks.where((t) => t.parentId == null).toList() : _srcSubtasks;
     tasks.sort((t1, t2) => t1.title.compareTo(t2.title));
     return tasks;
   }
@@ -47,17 +47,18 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   }
 
   @action
-  void updateParentWith(Task _task) {
-    final index = _srcTasks.indexWhere((t) => t.id == _task.id);
+  void updateTasklistWith(Task _task) {
+    final siblings = navStackTasks.length > 1 ? navStackTasks[navStackTasks.length - 2].tasks : mainController.selectedGoal!.tasks;
+    final index = siblings.indexWhere((t) => t.id == _task.id);
     if (index >= 0) {
       if (_task.deleted) {
-        _srcTasks.removeAt(index);
+        siblings.removeAt(index);
       } else {
-        _srcTasks.setAll(index, [_task]);
+        siblings.setAll(index, [_task]);
       }
-    } else {
-      _srcTasks.add(_task);
     }
+    //TODO: костылик
+    navStackTasks = ObservableList.of(navStackTasks);
   }
 
   /// роутер
@@ -69,11 +70,23 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   }
 
   Future addTask(BuildContext context) async {
-    taskEditController.selectTask(null);
     final newTask = await showEditTaskDialog(context);
     if (newTask != null) {
-      updateParentWith(newTask);
+      _srcSubtasks.add(newTask);
       await showTask(context, newTask);
+    }
+  }
+
+  Future editTask(BuildContext context) async {
+    final editedTask = await showEditTaskDialog(context, selectedTask);
+    if (editedTask != null) {
+      updateTasklistWith(editedTask);
+
+      if (editedTask.deleted) {
+        Navigator.of(context).pop();
+      } else {
+        //
+      }
     }
   }
 }

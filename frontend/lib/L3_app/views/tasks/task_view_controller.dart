@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -18,16 +19,55 @@ class TaskViewController extends _TaskViewControllerBase with _$TaskViewControll
 abstract class _TaskViewControllerBase extends BaseController with Store {
   Goal get goal => mainController.selectedGoal!;
 
+  /// Список подзадач
+  @observable
+  ObservableList<Task> goalTasks = ObservableList();
+
+  @action
+  void fetchTasks() {
+    goalTasks = ObservableList.of(goal.tasks);
+    _sortTasks();
+  }
+
+  @computed
+  List<Task> get subtasks => goalTasks.where((t) => t.parentId == task?.id).toList();
+
+  @action
+  void _sortTasks() {
+    goalTasks.sort((t1, t2) => t1.title.compareTo(t2.title));
+  }
+
+  @action
+  void updateTaskInList(Task? task) {
+    if (task != null) {
+      final index = goalTasks.indexWhere((t) => t.id == task.id);
+      if (index >= 0) {
+        if (task.deleted) {
+          goalTasks.remove(task);
+        } else {
+          goalTasks[index] = task;
+        }
+      } else {
+        goalTasks.add(task);
+      }
+      _sortTasks();
+      goal.tasks = List.of(goalTasks);
+    }
+  }
+
   /// история переходов и текущая выбранная задача
 
   @observable
   ObservableList<Task> navStackTasks = ObservableList();
 
   @computed
-  Task? get selectedTask => navStackTasks.isNotEmpty ? navStackTasks.last : null;
+  int? get selectedTaskId => navStackTasks.isNotEmpty ? navStackTasks.last.id : null;
 
   @computed
-  bool get isRootTask => selectedTask == null;
+  Task? get task => goalTasks.firstWhereOrNull((t) => t.id == selectedTaskId);
+
+  @computed
+  bool get isGoal => task == null;
 
   @action
   void pushTask(Task? _task) {
@@ -43,16 +83,6 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
     }
   }
 
-  /// Список подзадач
-
-  @computed
-  List<Task> get subtasks => goal.tasks.where((t) => t.parentId == selectedTask?.id).toList();
-
-  @action
-  void _sortTasks() {
-    goal.tasks.sort((t1, t2) => t1.title.compareTo(t2.title));
-  }
-
   /// роутер
 
   Future showTask(BuildContext context, Task? _task) async {
@@ -64,15 +94,15 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   Future addTask(BuildContext context) async {
     final newTask = await showEditTaskDialog(context);
     if (newTask != null) {
-      _sortTasks();
+      updateTaskInList(newTask);
       await showTask(context, newTask);
     }
   }
 
   Future editTask(BuildContext context) async {
-    final editedTask = await showEditTaskDialog(context, selectedTask);
+    final editedTask = await showEditTaskDialog(context, task);
     if (editedTask != null) {
-      _sortTasks();
+      updateTaskInList(editedTask);
       if (editedTask.deleted) {
         Navigator.of(context).pop();
       }

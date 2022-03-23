@@ -28,25 +28,25 @@ class TaskView extends StatefulWidget {
 }
 
 class _TaskViewState extends State<TaskView> {
-  TaskViewController get _controller => taskViewController;
-  Task? get _task => _controller.selectedTask;
-  Goal? get _goal => mainController.selectedGoal;
+  TaskViewController get controller => taskViewController;
+  Task? get task => controller.task;
+  Goal? get goal => controller.goal;
 
   @override
   void initState() {
-    _controller.initState();
+    controller.fetchTasks();
     super.initState();
   }
 
   Widget buildBreadcrumbs() {
     const sepStr = '>';
     String parentsPath = '';
-    if (_controller.navStackTasks.isNotEmpty) {
-      final titles = _controller.navStackTasks.take(_controller.navStackTasks.length - 1).map((pt) => pt.title);
+    if (controller.navStackTasks.isNotEmpty) {
+      final titles = controller.navStackTasks.take(controller.navStackTasks.length - 1).map((pt) => pt.title);
       parentsPath = titles.join(' $sepStr ');
     }
     return ListTile(
-      title: _controller.isRootTask ? MediumText(_goal!.title) : LightText('${_goal!.title}', maxLines: 1),
+      title: controller.isGoal ? MediumText(goal!.title) : LightText('${goal!.title}', maxLines: 1),
       subtitle: parentsPath.isNotEmpty ? LightText(parentsPath, padding: EdgeInsets.only(top: onePadding / 2)) : null,
       dense: true,
       visualDensity: VisualDensity.compact,
@@ -54,11 +54,11 @@ class _TaskViewState extends State<TaskView> {
   }
 
   Widget buildTitle() {
-    return !_controller.isRootTask
+    return !controller.isGoal
         ? ListTile(
-            title: H2(_task!.title),
+            title: H2(task!.title),
             trailing: editIcon(context),
-            onTap: () => _controller.editTask(context),
+            onTap: () => controller.editTask(context),
             dense: true,
             visualDensity: VisualDensity.compact,
           )
@@ -66,7 +66,7 @@ class _TaskViewState extends State<TaskView> {
   }
 
   Widget buildDescription() {
-    final description = _task?.description ?? '';
+    final description = task?.description ?? '';
     if (description.isNotEmpty) {
       const truncateLength = 100;
       final needTruncate = description.length > truncateLength;
@@ -84,11 +84,11 @@ class _TaskViewState extends State<TaskView> {
   }
 
   Widget buildDates() {
-    return _task?.dueDate != null
+    return task?.dueDate != null
         ? ListTile(
             title: Row(
               children: [
-                DateStringWidget(_task?.dueDate, titleString: loc.common_due_date_label),
+                DateStringWidget(task?.dueDate, titleString: loc.common_due_date_label),
               ],
             ),
           )
@@ -96,7 +96,7 @@ class _TaskViewState extends State<TaskView> {
   }
 
   Widget taskBuilder(BuildContext context, int index) {
-    final task = _controller.subtasks[index];
+    final task = controller.subtasks[index];
     return Column(
       children: [
         if (index > 0) const MTDivider(),
@@ -105,7 +105,7 @@ class _TaskViewState extends State<TaskView> {
           trailing: chevronIcon(context),
           dense: true,
           visualDensity: VisualDensity.compact,
-          onTap: () => _controller.showTask(context, task),
+          onTap: () => controller.showTask(context, task),
         )
       ],
     );
@@ -116,8 +116,8 @@ class _TaskViewState extends State<TaskView> {
     return MTCupertinoPage(
       navBar: navBar(
         context,
-        title: _task != null ? '${loc.task_title} #${_task!.id}' : loc.tasks_title,
-        trailing: Button.icon(plusIcon(context), () => _controller.addTask(context)),
+        title: task != null ? '${loc.task_title} #${task!.id}' : loc.tasks_title,
+        trailing: Button.icon(plusIcon(context), () => controller.addTask(context)),
       ),
       body: Observer(
         builder: (_) => Expanded(
@@ -129,11 +129,11 @@ class _TaskViewState extends State<TaskView> {
               buildDescription(),
               buildDates(),
               const MTDivider(),
-              if (_controller.subtasks.isNotEmpty)
+              if (controller.subtasks.isNotEmpty)
                 Expanded(
                   child: ListView.builder(
                     itemBuilder: taskBuilder,
-                    itemCount: _controller.subtasks.length,
+                    itemCount: controller.subtasks.length,
                   ),
                 ),
             ],

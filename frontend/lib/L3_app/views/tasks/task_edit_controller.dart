@@ -34,7 +34,7 @@ abstract class _TaskEditControllerBase extends BaseController with Store {
   void selectTask(Task? _task) => selectedTask = _task;
 
   @computed
-  int? get _parentId => canEdit ? taskViewController.selectedTask?.parentId : taskViewController.selectedTask?.id;
+  int? get _parentId => canEdit ? taskViewController.task?.parentId : taskViewController.task?.id;
 
   @override
   bool get allNeedFieldsTouched => super.allNeedFieldsTouched || (canEdit && anyFieldTouched);
@@ -53,7 +53,7 @@ abstract class _TaskEditControllerBase extends BaseController with Store {
 
   Future saveTask(BuildContext context) async {
     final editedTask = await tasksUC.saveTask(
-      goal: goal,
+      goalId: goal.id,
       id: selectedTask?.id,
       parentId: _parentId,
       title: tfAnnoForCode('title').text,
@@ -78,7 +78,7 @@ abstract class _TaskEditControllerBase extends BaseController with Store {
         ],
       );
       if (confirm != null && confirm) {
-        Navigator.of(context).pop(await tasksUC.deleteTask(task: selectedTask!, goal: goal));
+        Navigator.of(context).pop(await tasksUC.deleteTask(task: selectedTask!));
       }
     }
   }

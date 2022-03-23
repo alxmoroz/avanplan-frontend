@@ -36,6 +36,7 @@ abstract class _MainControllerBase extends BaseController with Store {
   String get appName => packageInfo.appName;
 
   /// настройки и авторизация
+
   @observable
   AppSettings? settings;
 

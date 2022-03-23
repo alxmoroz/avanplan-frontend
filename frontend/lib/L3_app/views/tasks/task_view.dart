@@ -46,7 +46,7 @@ class _TaskViewState extends State<TaskView> {
       parentsPath = titles.join(' $sepStr ');
     }
     return ListTile(
-      title: _controller.isRootTask ? MediumText(_goal!.title) : LightText('${_goal!.title} $sepStr', maxLines: 1),
+      title: _controller.isRootTask ? MediumText(_goal!.title) : LightText('${_goal!.title}', maxLines: 1),
       subtitle: parentsPath.isNotEmpty ? LightText(parentsPath, padding: EdgeInsets.only(top: onePadding / 2)) : null,
       dense: true,
       visualDensity: VisualDensity.compact,

@@ -25,18 +25,17 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   bool get isRootTask => selectedTask == null;
 
   @computed
-  List<Task> get _srcSubtasks => isRootTask ? mainController.selectedGoal!.tasks : selectedTask!.tasks;
-
-  @computed
   List<Task> get subtasks {
-    final tasks = isRootTask ? _srcSubtasks.where((t) => t.parentId == null).toList() : _srcSubtasks;
+    final tasks = mainController.selectedGoal!.tasks.where((t) => t.parentId == selectedTask?.id).toList();
     tasks.sort((t1, t2) => t1.title.compareTo(t2.title));
     return tasks;
   }
 
   @action
-  void pushTask(Task _task) {
-    navStackTasks.add(_task);
+  void pushTask(Task? _task) {
+    if (_task != null) {
+      navStackTasks.add(_task);
+    }
   }
 
   @action
@@ -46,25 +45,9 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
     }
   }
 
-  @action
-  void updateTasklistWith(Task _task) {
-    final siblings = navStackTasks.length > 1 ? navStackTasks[navStackTasks.length - 2].tasks : mainController.selectedGoal!.tasks;
-    final index = siblings.indexWhere((t) => t.id == _task.id);
-    if (index >= 0) {
-      if (_task.deleted) {
-        siblings.removeAt(index);
-      } else {
-        siblings[index] = _task;
-      }
-    }
-    //TODO: костылик
-    popTask();
-    pushTask(_task);
-  }
-
   /// роутер
 
-  Future showTask(BuildContext context, Task _task) async {
+  Future showTask(BuildContext context, Task? _task) async {
     pushTask(_task);
     await Navigator.of(context).pushNamed(TaskView.routeName);
     popTask();
@@ -73,21 +56,14 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   Future addTask(BuildContext context) async {
     final newTask = await showEditTaskDialog(context);
     if (newTask != null) {
-      _srcSubtasks.add(newTask);
       await showTask(context, newTask);
     }
   }
 
   Future editTask(BuildContext context) async {
     final editedTask = await showEditTaskDialog(context, selectedTask);
-    if (editedTask != null) {
-      updateTasklistWith(editedTask);
-
-      if (editedTask.deleted) {
-        Navigator.of(context).pop();
-      } else {
-        //
-      }
+    if (editedTask != null && editedTask.deleted) {
+      Navigator.of(context).pop();
     }
   }
 }

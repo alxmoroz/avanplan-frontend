@@ -38,12 +38,14 @@ abstract class _GoalEditControllerBase extends BaseController with Store {
   @computed
   bool get canEdit => goal != null;
 
+  //TODO: как вариант вызовы юзкейсов этих должны быть из главного контроллера
   Future saveGoal(BuildContext context) async {
     final editedGoal = await goalsUC.saveGoal(
       id: goal?.id,
       title: tfAnnoForCode('title').text,
       description: tfAnnoForCode('description').text,
       dueDate: selectedDueDate,
+      goals: mainController.goals,
     );
 
     if (editedGoal != null) {
@@ -63,7 +65,7 @@ abstract class _GoalEditControllerBase extends BaseController with Store {
         ],
       );
       if (confirm != null && confirm) {
-        Navigator.of(context).pop(await goalsUC.deleteGoal(goal!));
+        Navigator.of(context).pop(await goalsUC.deleteGoal(goal: goal!, goals: mainController.goals));
       }
     }
   }

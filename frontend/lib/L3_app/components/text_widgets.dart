@@ -100,7 +100,7 @@ class MediumText extends NormalText {
 }
 
 class H3 extends MediumText {
-  H3(String text, {Color? color, FontWeight? weight, TextAlign? align, EdgeInsets? padding, int? maxLines})
+  const H3(String text, {Color? color, FontWeight? weight, TextAlign? align, EdgeInsets? padding, int? maxLines})
       : super(
           text,
           color: color,
@@ -126,7 +126,7 @@ class H2 extends MediumText {
 }
 
 class H1 extends MediumText {
-  H1(String text, {Color? color, FontWeight? weight, TextAlign? align, EdgeInsets? padding, int? maxLines})
+  const H1(String text, {Color? color, FontWeight? weight, TextAlign? align, EdgeInsets? padding, int? maxLines})
       : super(
           text,
           color: color ?? darkGreyColor,

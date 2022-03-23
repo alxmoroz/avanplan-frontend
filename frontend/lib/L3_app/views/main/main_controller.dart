@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -14,6 +15,8 @@ import '../goal/goal_edit_view.dart';
 import '../goal/goal_view.dart';
 
 part 'main_controller.g.dart';
+
+//TODO: Это контроллер списка целей. Но не главное окно. Переименовать
 
 class MainController extends _MainControllerBase with _$MainController {
   @override
@@ -32,30 +35,12 @@ abstract class _MainControllerBase extends BaseController with Store {
   // этот параметр не меняется после запуска
   String get appName => packageInfo.appName;
 
-  /// настройки
+  /// настройки и авторизация
   @observable
   AppSettings? settings;
 
   @action
   void setSettings(AppSettings _settings) => settings = _settings;
-
-  @observable
-  ObservableList<Goal> goals = ObservableList();
-
-  @observable
-  Goal? selectedGoal;
-
-  @action
-  void selectGoal(Goal? _goal) => selectedGoal = _goal;
-
-  @action
-  Future fetchGoals() async {
-    if (authorized) {
-      //TODO: добавить LOADING
-      goals = ObservableList.of(await goalsUC.getGoals());
-      _sortGoals();
-    }
-  }
 
   @computed
   bool get authorized => settings?.accessToken.isNotEmpty ?? false;
@@ -72,23 +57,25 @@ abstract class _MainControllerBase extends BaseController with Store {
     Navigator.of(context).pushReplacementNamed(LoginView.routeName);
   }
 
-  @action
-  void updateGoal(Goal goal) {
-    final index = goals.indexWhere((g) => g.id == goal.id);
-    if (index >= 0) {
-      if (goal.deleted) {
-        goals.removeAt(index);
-      } else {
-        goals.setAll(index, [goal]);
-      }
-    } else {
-      goals.add(goal);
-    }
-    _sortGoals();
-  }
+  /// цели - рутовый объект
+  @observable
+  ObservableList<Goal> goals = ObservableList();
 
-  void _sortGoals() {
-    goals.sort((g1, g2) => g1.title.compareTo(g2.title));
+  @observable
+  int? selectedGoalId;
+
+  @action
+  void selectGoal(Goal? _goal) => selectedGoalId = _goal?.id;
+
+  @computed
+  Goal? get selectedGoal => goals.firstWhereOrNull((g) => g.id == selectedGoalId);
+
+  @action
+  Future fetchGoals() async {
+    if (authorized) {
+      //TODO: добавить LOADING
+      goals = ObservableList.of(await goalsUC.getGoals());
+    }
   }
 
   //TODO: для тестирования метод пока что тут. Нужен отдельный юзкейс и репы
@@ -113,8 +100,18 @@ abstract class _MainControllerBase extends BaseController with Store {
     selectGoal(null);
     final newGoal = await showEditGoalDialog(context);
     if (newGoal != null) {
-      updateGoal(newGoal);
       await showGoal(context, newGoal);
+    }
+  }
+
+  Future editGoal(BuildContext context) async {
+    final goal = await showEditGoalDialog(context);
+    if (goal != null) {
+      // только если редактирование было вызвано из вьюхи просмотра цели. Т.е. метод должен вызываться из вьюхи цели!
+      // поэтому в контроллере цели должен находиться этот метод.
+      if (goal.deleted) {
+        Navigator.of(context).pop();
+      }
     }
   }
 }

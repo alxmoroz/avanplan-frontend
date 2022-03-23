@@ -8,7 +8,6 @@ import 'package:package_info/package_info.dart';
 import '../../L1_domain/usecases/auth_uc.dart';
 import '../../L1_domain/usecases/goals_uc.dart';
 import '../../L1_domain/usecases/settings_uc.dart';
-import '../../L1_domain/usecases/tasks_uc.dart';
 import '../../L2_data/db.dart';
 import '../../L2_data/repositories/auth_repo.dart';
 import '../../L2_data/repositories/db_repo.dart';
@@ -38,7 +37,6 @@ Openapi get openAPI => GetIt.I<Openapi>();
 
 AuthUC get authUC => GetIt.I<AuthUC>();
 GoalsUC get goalsUC => GetIt.I<GoalsUC>();
-TasksUC get tasksUC => GetIt.I<TasksUC>();
 SettingsUC get settingsUC => GetIt.I<SettingsUC>();
 
 void setup() {
@@ -57,8 +55,7 @@ void setup() {
   // use cases
   getIt.registerSingletonAsync<SettingsUC>(() async => SettingsUC(settingsRepo: SettingsRepo()));
   getIt.registerSingletonAsync<AuthUC>(() async => AuthUC(settingsUC: settingsUC, authRepo: AuthRepo()), dependsOn: [SettingsUC]);
-  getIt.registerSingletonAsync<GoalsUC>(() async => GoalsUC(repo: GoalsRepo()), dependsOn: [AuthUC]);
-  getIt.registerSingletonAsync<TasksUC>(() async => TasksUC(repo: TasksRepo()), dependsOn: [GoalsUC]);
+  getIt.registerSingletonAsync<GoalsUC>(() async => GoalsUC(gRepo: GoalsRepo(), tRepo: TasksRepo()), dependsOn: [AuthUC]);
 
   // controllers
   getIt.registerSingletonAsync<MainController>(
@@ -68,5 +65,5 @@ void setup() {
   getIt.registerSingletonAsync<LoginController>(() async => await LoginController().init(), dependsOn: [MainController]);
   getIt.registerSingletonAsync<GoalEditController>(() async => await GoalEditController().init(), dependsOn: [MainController]);
   getIt.registerSingletonAsync<TaskViewController>(() async => await TaskViewController().init(), dependsOn: [MainController]);
-  getIt.registerSingletonAsync<TaskEditController>(() async => await TaskEditController().init(), dependsOn: [TaskViewController]);
+  getIt.registerSingletonAsync<TaskEditController>(() async => await TaskEditController().init(), dependsOn: [MainController]);
 }

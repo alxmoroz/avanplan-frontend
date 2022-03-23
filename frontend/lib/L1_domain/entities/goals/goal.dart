@@ -15,27 +15,15 @@ class Goal extends Smartable {
     required int? parentId,
     required this.report,
     required this.tasks,
-  }) : super(id: id, createdOn: createdOn, updatedOn: updatedOn, title: title, description: description, dueDate: dueDate, parentId: parentId) {
-    _tasksCount = tasks.length;
-    _closedTasksCount = tasks.where((Task t) => t.closed).length;
-    _closedRatio = tasksCount > 0 ? closedTasksCount / tasksCount : null;
-    _pace = (report?.factSpeed ?? 0) - (report?.planSpeed ?? 0);
-  }
+  }) : super(id: id, createdOn: createdOn, updatedOn: updatedOn, title: title, description: description, dueDate: dueDate, parentId: parentId);
 
   final GoalReport? report;
   List<Task> tasks;
 
-  int _tasksCount = 0;
-  int get tasksCount => _tasksCount;
-
-  int _closedTasksCount = 0;
-  int get closedTasksCount => _closedTasksCount;
-
-  double? _closedRatio;
-  double? get closedRatio => _closedRatio;
-
-  num _pace = 0;
-  num get pace => _pace;
+  int get tasksCount => tasks.length;
+  int get closedTasksCount => tasks.where((t) => t.closed).length;
+  double? get closedRatio => tasksCount > 0 ? closedTasksCount / tasksCount : null;
+  num get pace => (report?.factSpeed ?? 0) - (report?.planSpeed ?? 0);
 
   DateTime? get etaDate => report?.etaDate;
 }

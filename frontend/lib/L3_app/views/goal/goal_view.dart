@@ -14,9 +14,8 @@ import '../../components/icons.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../tasks/task_view.dart';
+import '../main/main_controller.dart';
 import 'goal_card.dart';
-import 'goal_edit_view.dart';
 
 class GoalView extends StatefulWidget {
   static String get routeName => 'goal';
@@ -26,19 +25,8 @@ class GoalView extends StatefulWidget {
 }
 
 class _GoalViewState extends State<GoalView> {
-  Goal? get _goal => mainController.selectedGoal;
-
-  Future editGoal() async {
-    final goal = await showEditGoalDialog(context);
-    if (goal != null) {
-      mainController.updateGoal(goal);
-      if (goal.deleted) {
-        Navigator.of(context).pop();
-      } else {
-        mainController.selectGoal(goal);
-      }
-    }
-  }
+  MainController get _controller => mainController;
+  Goal? get _goal => _controller.selectedGoal;
 
   //TODO: дубль кода. Возможно, сам ListTile можно добавить в один файл с showDetailsDialog
   Widget buildDescription() {
@@ -68,17 +56,18 @@ class _GoalViewState extends State<GoalView> {
           children: [
             SizedBox(height: onePadding),
             ListTile(
-              title: H2(_goal!.title),
+              title: H2(_goal?.title ?? ''),
               trailing: editIcon(context),
-              onTap: editGoal,
+              onTap: () => _controller.editGoal(context),
               dense: true,
               visualDensity: VisualDensity.compact,
             ),
             buildDescription(),
-            GoalCard(
-              goal: _goal!,
-              onTap: () => Navigator.of(context).pushNamed(TaskView.routeName),
-            ),
+            if (_goal != null)
+              GoalCard(
+                goal: _goal!,
+                onTap: () => taskViewController.showTask(context, null),
+              ),
           ],
         ),
       ),

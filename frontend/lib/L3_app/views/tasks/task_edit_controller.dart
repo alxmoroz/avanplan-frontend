@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../L1_domain/entities/goals/goal.dart';
 import '../../../L1_domain/entities/goals/task.dart';
 import '../../components/confirmation_dialog.dart';
 import '../../components/text_field_annotation.dart';
@@ -14,7 +15,12 @@ part 'task_edit_controller.g.dart';
 
 class TaskEditController extends _TaskEditControllerBase with _$TaskEditController {}
 
+// TODO: подумать над объединением с контроллером просмотра. Проблему может доставить initState, который вызывает вьюха редактирования
+//  можно ли вообще несколько вьюх на один контроллер?
+
 abstract class _TaskEditControllerBase extends BaseController with Store {
+  Goal get goal => mainController.selectedGoal!;
+
   @override
   void initState({List<TFAnnotation>? tfaList}) {
     super.initState(tfaList: tfaList);
@@ -46,9 +52,9 @@ abstract class _TaskEditControllerBase extends BaseController with Store {
   bool get canEdit => selectedTask != null;
 
   Future saveTask(BuildContext context) async {
-    final editedTask = await tasksUC.saveTask(
+    final editedTask = await goalsUC.saveTask(
+      goal: goal,
       id: selectedTask?.id,
-      goalId: mainController.selectedGoal!.id,
       parentId: _parentId,
       title: tfAnnoForCode('title').text,
       description: tfAnnoForCode('description').text,
@@ -72,7 +78,7 @@ abstract class _TaskEditControllerBase extends BaseController with Store {
         ],
       );
       if (confirm != null && confirm) {
-        Navigator.of(context).pop(await tasksUC.deleteTask(selectedTask!));
+        Navigator.of(context).pop(await goalsUC.deleteTask(task: selectedTask!, goal: goal));
       }
     }
   }

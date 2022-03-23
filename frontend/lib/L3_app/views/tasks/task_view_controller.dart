@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../L1_domain/entities/goals/goal.dart';
 import '../../../L1_domain/entities/goals/task.dart';
 import '../../extra/services.dart';
 import '../_base/base_controller.dart';
@@ -15,6 +16,9 @@ part 'task_view_controller.g.dart';
 class TaskViewController extends _TaskViewControllerBase with _$TaskViewController {}
 
 abstract class _TaskViewControllerBase extends BaseController with Store {
+  Goal get _goal => mainController.selectedGoal!;
+
+  /// история переходов и текущая выбранная задача
   @observable
   ObservableList<Task> navStackTasks = ObservableList();
 
@@ -23,13 +27,6 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
 
   @computed
   bool get isRootTask => selectedTask == null;
-
-  @computed
-  List<Task> get subtasks {
-    final tasks = mainController.selectedGoal!.tasks.where((t) => t.parentId == selectedTask?.id).toList();
-    tasks.sort((t1, t2) => t1.title.compareTo(t2.title));
-    return tasks;
-  }
 
   @action
   void pushTask(Task? _task) {
@@ -45,6 +42,15 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
     }
   }
 
+  /// Список подзадач
+  @computed
+  List<Task> get subtasks => _goal.tasks.where((t) => t.parentId == selectedTask?.id).toList();
+
+  @action
+  void _sortTasks() {
+    _goal.tasks.sort((t1, t2) => t1.title.compareTo(t2.title));
+  }
+
   /// роутер
 
   Future showTask(BuildContext context, Task? _task) async {
@@ -56,14 +62,18 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   Future addTask(BuildContext context) async {
     final newTask = await showEditTaskDialog(context);
     if (newTask != null) {
+      _sortTasks();
       await showTask(context, newTask);
     }
   }
 
   Future editTask(BuildContext context) async {
     final editedTask = await showEditTaskDialog(context, selectedTask);
-    if (editedTask != null && editedTask.deleted) {
-      Navigator.of(context).pop();
+    if (editedTask != null) {
+      _sortTasks();
+      if (editedTask.deleted) {
+        Navigator.of(context).pop();
+      }
     }
   }
 }

@@ -52,7 +52,7 @@ abstract class _TaskEditControllerBase extends BaseController with Store {
   bool get canEdit => selectedTask != null;
 
   Future saveTask(BuildContext context) async {
-    final editedTask = await goalsUC.saveTask(
+    final editedTask = await tasksUC.saveTask(
       goal: goal,
       id: selectedTask?.id,
       parentId: _parentId,
@@ -78,7 +78,7 @@ abstract class _TaskEditControllerBase extends BaseController with Store {
         ],
       );
       if (confirm != null && confirm) {
-        Navigator.of(context).pop(await goalsUC.deleteTask(task: selectedTask!, goal: goal));
+        Navigator.of(context).pop(await tasksUC.deleteTask(task: selectedTask!, goal: goal));
       }
     }
   }

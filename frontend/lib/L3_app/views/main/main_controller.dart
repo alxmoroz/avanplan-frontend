@@ -61,6 +61,21 @@ abstract class _MainControllerBase extends BaseController with Store {
   @observable
   ObservableList<Goal> goals = ObservableList();
 
+  @action
+  void _sortGoals() {
+    goals.sort((g1, g2) => g1.title.compareTo(g2.title));
+  }
+
+  @action
+  Future fetchGoals() async {
+    if (authorized) {
+      //TODO: добавить LOADING
+      goals = ObservableList.of(await goalsUC.getGoals());
+      _sortGoals();
+    }
+  }
+
+  /// выбранная цель
   @observable
   int? selectedGoalId;
 
@@ -69,14 +84,6 @@ abstract class _MainControllerBase extends BaseController with Store {
 
   @computed
   Goal? get selectedGoal => goals.firstWhereOrNull((g) => g.id == selectedGoalId);
-
-  @action
-  Future fetchGoals() async {
-    if (authorized) {
-      //TODO: добавить LOADING
-      goals = ObservableList.of(await goalsUC.getGoals());
-    }
-  }
 
   //TODO: для тестирования метод пока что тут. Нужен отдельный юзкейс и репы
   Future redmine() async {
@@ -100,6 +107,7 @@ abstract class _MainControllerBase extends BaseController with Store {
     selectGoal(null);
     final newGoal = await showEditGoalDialog(context);
     if (newGoal != null) {
+      _sortGoals();
       await showGoal(context, newGoal);
     }
   }
@@ -109,6 +117,7 @@ abstract class _MainControllerBase extends BaseController with Store {
     if (goal != null) {
       // только если редактирование было вызвано из вьюхи просмотра цели. Т.е. метод должен вызываться из вьюхи цели!
       // поэтому в контроллере цели должен находиться этот метод.
+      _sortGoals();
       if (goal.deleted) {
         Navigator.of(context).pop();
       }

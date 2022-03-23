@@ -45,7 +45,6 @@ abstract class _GoalEditControllerBase extends BaseController with Store {
       title: tfAnnoForCode('title').text,
       description: tfAnnoForCode('description').text,
       dueDate: selectedDueDate,
-      goals: mainController.goals,
     );
 
     if (editedGoal != null) {
@@ -65,7 +64,7 @@ abstract class _GoalEditControllerBase extends BaseController with Store {
         ],
       );
       if (confirm != null && confirm) {
-        Navigator.of(context).pop(await goalsUC.deleteGoal(goal: goal!, goals: mainController.goals));
+        Navigator.of(context).pop(await goalsUC.deleteGoal(goal: goal!));
       }
     }
   }

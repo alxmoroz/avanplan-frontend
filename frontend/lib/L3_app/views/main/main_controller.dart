@@ -58,6 +58,7 @@ abstract class _MainControllerBase extends BaseController with Store {
   }
 
   /// цели - рутовый объект
+
   @observable
   ObservableList<Goal> goals = ObservableList();
 
@@ -75,7 +76,25 @@ abstract class _MainControllerBase extends BaseController with Store {
     }
   }
 
+  @action
+  void updateGoalInList(Goal? goal) {
+    if (goal != null) {
+      final index = goals.indexWhere((g) => g.id == goal.id);
+      if (index >= 0) {
+        if (goal.deleted) {
+          goals.remove(goal);
+        } else {
+          goals[index] = goal;
+        }
+      } else {
+        goals.add(goal);
+      }
+      _sortGoals();
+    }
+  }
+
   /// выбранная цель
+
   @observable
   int? selectedGoalId;
 
@@ -107,7 +126,7 @@ abstract class _MainControllerBase extends BaseController with Store {
     selectGoal(null);
     final newGoal = await showEditGoalDialog(context);
     if (newGoal != null) {
-      _sortGoals();
+      updateGoalInList(newGoal);
       await showGoal(context, newGoal);
     }
   }
@@ -117,7 +136,7 @@ abstract class _MainControllerBase extends BaseController with Store {
     if (goal != null) {
       // только если редактирование было вызвано из вьюхи просмотра цели. Т.е. метод должен вызываться из вьюхи цели!
       // поэтому в контроллере цели должен находиться этот метод.
-      _sortGoals();
+      updateGoalInList(goal);
       if (goal.deleted) {
         Navigator.of(context).pop();
       }

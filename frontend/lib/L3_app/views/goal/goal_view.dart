@@ -25,12 +25,12 @@ class GoalView extends StatefulWidget {
 }
 
 class _GoalViewState extends State<GoalView> {
-  MainController get _controller => mainController;
-  Goal? get _goal => _controller.selectedGoal;
+  MainController get controller => mainController;
+  Goal? get goal => controller.selectedGoal;
 
   //TODO: дубль кода. Возможно, сам ListTile можно добавить в один файл с showDetailsDialog
   Widget buildDescription() {
-    final description = _goal?.description ?? '';
+    final description = goal?.description ?? '';
     if (description.isNotEmpty) {
       const truncateLength = 100;
       final needTruncate = description.length > truncateLength;
@@ -51,21 +51,21 @@ class _GoalViewState extends State<GoalView> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTCupertinoPage(
-        navBar: navBar(context, title: _goal != null ? loc.goal_title : loc.goal_title_new),
+        navBar: navBar(context, title: goal != null ? loc.goal_title : loc.goal_title_new),
         body: Column(
           children: [
             SizedBox(height: onePadding),
             ListTile(
-              title: H2(_goal?.title ?? ''),
+              title: H2(goal?.title ?? ''),
               trailing: editIcon(context),
-              onTap: () => _controller.editGoal(context),
+              onTap: () => controller.editGoal(context),
               dense: true,
               visualDensity: VisualDensity.compact,
             ),
             buildDescription(),
-            if (_goal != null)
+            if (goal != null)
               GoalCard(
-                goal: _goal!,
+                goal: goal!,
                 onTap: () => taskViewController.showTask(context, null),
               ),
           ],

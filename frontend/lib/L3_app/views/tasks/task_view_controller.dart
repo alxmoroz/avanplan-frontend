@@ -16,9 +16,10 @@ part 'task_view_controller.g.dart';
 class TaskViewController extends _TaskViewControllerBase with _$TaskViewController {}
 
 abstract class _TaskViewControllerBase extends BaseController with Store {
-  Goal get _goal => mainController.selectedGoal!;
+  Goal get goal => mainController.selectedGoal!;
 
   /// история переходов и текущая выбранная задача
+
   @observable
   ObservableList<Task> navStackTasks = ObservableList();
 
@@ -43,12 +44,13 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   }
 
   /// Список подзадач
+
   @computed
-  List<Task> get subtasks => _goal.tasks.where((t) => t.parentId == selectedTask?.id).toList();
+  List<Task> get subtasks => goal.tasks.where((t) => t.parentId == selectedTask?.id).toList();
 
   @action
   void _sortTasks() {
-    _goal.tasks.sort((t1, t2) => t1.title.compareTo(t2.title));
+    goal.tasks.sort((t1, t2) => t1.title.compareTo(t2.title));
   }
 
   /// роутер

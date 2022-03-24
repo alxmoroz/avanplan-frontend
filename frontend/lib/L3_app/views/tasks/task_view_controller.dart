@@ -21,37 +21,30 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
 
   /// Список подзадач
 
-  //TODO: если не получится найти способ обновить дерево задач без перезагрузки с сервера,
-  // то желательно добавить эндпойнты по загрузке задач для конкр. цели
-  Future fetchTasks() async {
-    await mainController.fetchGoals();
-    sortTasks();
-  }
-
   @computed
   List<Task> get subtasks => goal.tasks.where((t) => t.parentId == task?.id).toList();
 
-  @action
   void sortTasks() {
     goal.tasks.sort((t1, t2) => t1.title.compareTo(t2.title));
   }
 
-  // @action
-  // Future updateTaskInList(Task? task) async {
-  // if (task != null) {
-  //   final index = goal.tasks.indexWhere((t) => t.id == task.id);
-  //   if (index >= 0) {
-  //     if (task.deleted) {
-  //       goal.tasks.remove(task);
-  //     } else {
-  //       goal.tasks[index] = task;
-  //     }
-  //   } else {
-  //     goal.tasks.add(task);
-  //   }
-  //   sortTasks();
-  // }
-  // }
+  @action
+  void updateTaskInList(Task? task) {
+    if (task != null) {
+      final index = goal.tasks.indexWhere((t) => t.id == task.id);
+      if (index >= 0) {
+        if (task.deleted) {
+          goal.tasks.remove(task);
+        } else {
+          goal.tasks[index] = task;
+        }
+      } else {
+        goal.tasks.add(task);
+      }
+      sortTasks();
+      mainController.updateGoalInList(goal.copy());
+    }
+  }
 
   /// история переходов и текущая выбранная задача
 
@@ -92,7 +85,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   Future addTask(BuildContext context) async {
     final newTask = await showEditTaskDialog(context);
     if (newTask != null) {
-      await fetchTasks();
+      updateTaskInList(newTask);
       await showTask(context, newTask);
     }
   }
@@ -100,7 +93,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   Future editTask(BuildContext context) async {
     final editedTask = await showEditTaskDialog(context, task);
     if (editedTask != null) {
-      await fetchTasks();
+      updateTaskInList(editedTask);
       if (editedTask.deleted) {
         Navigator.of(context).pop();
       }

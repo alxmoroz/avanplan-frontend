@@ -26,4 +26,16 @@ class Goal extends Smartable {
   num get pace => (report?.factSpeed ?? 0) - (report?.planSpeed ?? 0);
 
   DateTime? get etaDate => report?.etaDate;
+
+  Goal copy() => Goal(
+        id: id,
+        parentId: parentId,
+        createdOn: createdOn,
+        updatedOn: updatedOn,
+        title: title,
+        description: description,
+        dueDate: dueDate,
+        report: report,
+        tasks: tasks,
+      );
 }

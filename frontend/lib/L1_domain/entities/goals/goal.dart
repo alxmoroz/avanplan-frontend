@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'goal_report.dart';
+import 'goal_status.dart';
 import 'smartable.dart';
 import 'task.dart';
 
@@ -13,10 +14,12 @@ class Goal extends Smartable {
     required String description,
     required DateTime? dueDate,
     required int? parentId,
+    required this.status,
     required this.report,
     required this.tasks,
   }) : super(id: id, createdOn: createdOn, updatedOn: updatedOn, title: title, description: description, dueDate: dueDate, parentId: parentId);
 
+  final GoalStatus? status;
   final GoalReport? report;
   List<Task> tasks;
 
@@ -35,6 +38,7 @@ class Goal extends Smartable {
         title: title,
         description: description,
         dueDate: dueDate,
+        status: status,
         report: report,
         tasks: tasks,
       );

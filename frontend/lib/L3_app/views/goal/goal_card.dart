@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../../L1_domain/entities/goals/goal.dart';
+import '../../components/card.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/date_string_widget.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import 'goal_progress_widget.dart';
 
 class GoalCard extends StatelessWidget {
   const GoalCard({required this.goal, this.alone = false, this.onTap});
@@ -28,9 +28,9 @@ class GoalCard extends StatelessWidget {
     return H1(tasksString);
   }
 
-  Widget? buildDates() {
+  Widget buildDates() {
     return alone
-        ? null
+        ? Container()
         : Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -43,19 +43,40 @@ class GoalCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GoalProgressWidget(
+    final _width = MediaQuery.of(context).size.width;
+
+    return MTCard(
       onTap: onTap,
-      goal: goal,
-      height: 112,
-      middle: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          buildCardTitle(),
-          if (goal.tasksCount > 0) buildTasksCount(),
-        ],
+      body: Container(
+        color: darkBackgroundColor.resolve(context),
+        height: 112,
+        child: Stack(
+          children: [
+            Container(
+              color: (goal.pace >= 0 ? goodPaceColor : warningPaceColor).resolve(context),
+              width: (goal.closedRatio ?? 0) * _width,
+            ),
+            Padding(
+              padding: EdgeInsets.all(onePadding),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        buildCardTitle(),
+                        if (goal.tasksCount > 0) buildTasksCount(),
+                      ],
+                    ),
+                  ),
+                  buildDates(),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
-      trailing: buildDates(),
     );
   }
 }

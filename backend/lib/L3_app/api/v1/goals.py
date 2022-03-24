@@ -12,7 +12,10 @@ from lib.L2_data.repositories import entities as er
 from lib.L2_data.schema import GoalSchemaGet, GoalSchemaUpsert
 from lib.L3_app.api.v1.users import user_uc
 
+from .goal_statuses import router as statuses_router
+
 router = APIRouter(prefix="/goals")
+router.include_router(statuses_router)
 
 
 def _goals_uc(

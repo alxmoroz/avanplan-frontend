@@ -20,40 +20,38 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   Goal get goal => mainController.selectedGoal!;
 
   /// Список подзадач
-  @observable
-  ObservableList<Task> goalTasks = ObservableList();
 
-  @action
-  void fetchTasks() {
-    goalTasks = ObservableList.of(goal.tasks);
-    _sortTasks();
+  //TODO: если не получится найти способ обновить дерево задач без перезагрузки с сервера,
+  // то желательно добавить эндпойнты по загрузке задач для конкр. цели
+  Future fetchTasks() async {
+    await mainController.fetchGoals();
+    sortTasks();
   }
 
   @computed
-  List<Task> get subtasks => goalTasks.where((t) => t.parentId == task?.id).toList();
+  List<Task> get subtasks => goal.tasks.where((t) => t.parentId == task?.id).toList();
 
   @action
-  void _sortTasks() {
-    goalTasks.sort((t1, t2) => t1.title.compareTo(t2.title));
+  void sortTasks() {
+    goal.tasks.sort((t1, t2) => t1.title.compareTo(t2.title));
   }
 
-  @action
-  void updateTaskInList(Task? task) {
-    if (task != null) {
-      final index = goalTasks.indexWhere((t) => t.id == task.id);
-      if (index >= 0) {
-        if (task.deleted) {
-          goalTasks.remove(task);
-        } else {
-          goalTasks[index] = task;
-        }
-      } else {
-        goalTasks.add(task);
-      }
-      _sortTasks();
-      goal.tasks = List.of(goalTasks);
-    }
-  }
+  // @action
+  // Future updateTaskInList(Task? task) async {
+  // if (task != null) {
+  //   final index = goal.tasks.indexWhere((t) => t.id == task.id);
+  //   if (index >= 0) {
+  //     if (task.deleted) {
+  //       goal.tasks.remove(task);
+  //     } else {
+  //       goal.tasks[index] = task;
+  //     }
+  //   } else {
+  //     goal.tasks.add(task);
+  //   }
+  //   sortTasks();
+  // }
+  // }
 
   /// история переходов и текущая выбранная задача
 
@@ -64,7 +62,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   int? get selectedTaskId => navStackTasks.isNotEmpty ? navStackTasks.last.id : null;
 
   @computed
-  Task? get task => goalTasks.firstWhereOrNull((t) => t.id == selectedTaskId);
+  Task? get task => goal.tasks.firstWhereOrNull((t) => t.id == selectedTaskId);
 
   @computed
   bool get isGoal => task == null;
@@ -94,7 +92,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   Future addTask(BuildContext context) async {
     final newTask = await showEditTaskDialog(context);
     if (newTask != null) {
-      updateTaskInList(newTask);
+      await fetchTasks();
       await showTask(context, newTask);
     }
   }
@@ -102,7 +100,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   Future editTask(BuildContext context) async {
     final editedTask = await showEditTaskDialog(context, task);
     if (editedTask != null) {
-      updateTaskInList(editedTask);
+      await fetchTasks();
       if (editedTask.deleted) {
         Navigator.of(context).pop();
       }

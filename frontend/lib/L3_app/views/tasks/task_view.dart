@@ -34,7 +34,7 @@ class _TaskViewState extends State<TaskView> {
 
   @override
   void initState() {
-    controller.fetchTasks();
+    controller.sortTasks();
     super.initState();
   }
 

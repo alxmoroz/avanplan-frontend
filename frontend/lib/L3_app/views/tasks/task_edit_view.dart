@@ -45,7 +45,7 @@ class _TaskEditViewState extends State<TaskEditView> {
     _controller.initState(tfaList: [
       TFAnnotation('title', label: loc.common_title, text: _task?.title ?? ''),
       TFAnnotation('description', label: loc.common_description, text: _task?.description ?? '', needValidate: false),
-      TFAnnotation('dueDate', label: loc.common_due_date_placeholder, isDate: true, needValidate: false),
+      TFAnnotation('dueDate', label: loc.common_due_date_placeholder, noText: true, needValidate: false),
     ]);
 
     super.initState();
@@ -59,8 +59,8 @@ class _TaskEditViewState extends State<TaskEditView> {
 
   Widget textFieldForCode(String code, {VoidCallback? onTap}) {
     final ta = _controller.tfAnnoForCode(code);
-    return ta.isDate
-        ? MTTextField.date(
+    return ta.noText
+        ? MTTextField.noText(
             controller: _controller.controllers[code],
             label: ta.label,
             error: ta.errorText,

@@ -16,6 +16,7 @@
   "common_due_date_placeholder": "Due date",
   "common_due_date_label": "Planned",
   "common_eta_date_label": "Predicted",
+  "common_status_placeholder": "Status",
 
   "common_no": "No",
   "common_title": "Title",

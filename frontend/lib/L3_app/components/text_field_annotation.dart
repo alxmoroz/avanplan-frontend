@@ -11,14 +11,14 @@ class TFAnnotation {
     this.label = '',
     this.validator,
     this.needValidate = true,
-    this.isDate = false,
+    this.noText = false,
   });
 
   final String code;
   final String label;
   final String? Function(String)? validator;
   final bool needValidate;
-  final bool isDate;
+  final bool noText;
 
   String text;
   bool edited = false;
@@ -29,7 +29,7 @@ class TFAnnotation {
         label: label,
         validator: validator,
         needValidate: needValidate,
-        isDate: isDate,
+        noText: noText,
       )..edited = true;
 
   @override

@@ -50,9 +50,9 @@ class _GoalViewState extends State<GoalView> {
       return ListTile(
         title: LightText(description.substring(0, min(description.length, truncateLength))),
         subtitle: needTruncate ? const MediumText('...', color: mainColor) : null,
+        onTap: needTruncate ? () => showDetailsDialog(context, description) : null,
         dense: true,
         visualDensity: VisualDensity.compact,
-        onTap: needTruncate ? () => showDetailsDialog(context, description) : null,
       );
     } else {
       return Container();

@@ -41,7 +41,8 @@ class _GoalViewState extends State<GoalEditView> {
     _controller.initState(tfaList: [
       TFAnnotation('title', label: loc.common_title, text: _goal?.title ?? ''),
       TFAnnotation('description', label: loc.common_description, text: _goal?.description ?? '', needValidate: false),
-      TFAnnotation('dueDate', label: loc.common_due_date_placeholder, isDate: true),
+      TFAnnotation('dueDate', label: loc.common_due_date_placeholder, noText: true),
+      TFAnnotation('status', label: loc.common_status_placeholder, noText: true, text: _goal?.status?.title ?? ''),
     ]);
 
     super.initState();
@@ -53,15 +54,15 @@ class _GoalViewState extends State<GoalEditView> {
     super.dispose();
   }
 
-  Widget textFieldForCode(String code, {VoidCallback? onTap}) {
+  Widget textFieldForCode(String code, {Widget? suffixIcon, VoidCallback? onTap}) {
     final ta = _controller.tfAnnoForCode(code);
-    return ta.isDate
-        ? MTTextField.date(
+    return ta.noText
+        ? MTTextField.noText(
             controller: _controller.controllers[code],
             label: ta.label,
             error: ta.errorText,
             onTap: onTap,
-            suffixIcon: calendarIcon(context),
+            suffixIcon: suffixIcon,
           )
         : MTTextField(
             controller: _controller.controllers[code],
@@ -127,8 +128,9 @@ class _GoalViewState extends State<GoalEditView> {
                   child: Column(
                     children: [
                       textFieldForCode('title'),
-                      textFieldForCode('dueDate', onTap: inputDateTime),
+                      textFieldForCode('dueDate', suffixIcon: calendarIcon(context), onTap: inputDateTime),
                       textFieldForCode('description'),
+                      textFieldForCode('status', suffixIcon: downCaretIcon(context)),
                     ],
                   ),
                 ),

@@ -16,6 +16,7 @@
   "common_due_date_placeholder": "Срок завершения",
   "common_due_date_label": "План",
   "common_eta_date_label": "Прогноз",
+  "common_status_placeholder": "Статус",
 
   "common_no": "Нет",
   "common_title": "Название",

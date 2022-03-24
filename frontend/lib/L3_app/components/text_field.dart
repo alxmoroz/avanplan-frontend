@@ -62,7 +62,7 @@ class MTTextField extends StatelessWidget {
     this.enabled = true,
   });
 
-  const MTTextField.date({
+  const MTTextField.noText({
     this.controller,
     this.label,
     this.description,

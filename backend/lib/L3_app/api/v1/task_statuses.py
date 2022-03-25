@@ -9,7 +9,7 @@ from lib.L1_domain.usecases.users_uc import UsersUC
 from lib.L2_data.db import db_session
 from lib.L2_data.repositories import db as dbr
 from lib.L2_data.repositories import entities as er
-from lib.L2_data.schema import GoalStatusSchemaGet
+from lib.L2_data.schema import TaskStatusSchemaGet
 from lib.L3_app.api.v1.users import user_uc
 
 router = APIRouter(prefix="/statuses")
@@ -26,7 +26,7 @@ def _task_statuses_uc(
     )
 
 
-@router.get("/", response_model=list[GoalStatusSchemaGet])
+@router.get("/", response_model=list[TaskStatusSchemaGet])
 def get_task_statuses(
     uc: StatusUC = Depends(_task_statuses_uc),
 ) -> list[TaskStatus]:

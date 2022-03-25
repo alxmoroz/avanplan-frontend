@@ -21,9 +21,9 @@ class DBRepo(AbstractDBRepo[M]):
 
     def _update_timestamp(self, db_obj: M):
         updated = datetime.now(tz=utc)
-        if getattr(self._model_class, "created_on", None):
+        if getattr(self.model_class, "created_on", None):
             db_obj.created_on = db_obj.created_on or updated
-        if getattr(self._model_class, "updated_on", None):
+        if getattr(self.model_class, "updated_on", None):
             db_obj.updated_on = updated
 
     def get(
@@ -35,7 +35,7 @@ class DBRepo(AbstractDBRepo[M]):
         **filter_by,
     ) -> list[M]:
 
-        model_class = self._model_class
+        model_class = self.model_class
         stmt = lambda_stmt(lambda: select(model_class))
 
         if where is not None:
@@ -48,7 +48,7 @@ class DBRepo(AbstractDBRepo[M]):
         return self._db.execute(stmt).scalars().all()
 
     # def create(self, data: dict) -> M:
-    #     db_obj = self._model_class(**data)
+    #     db_obj = self.model_class(**data)
     #     self._update_timestamp(db_obj)
     #
     #     self._db.add(db_obj)
@@ -58,14 +58,14 @@ class DBRepo(AbstractDBRepo[M]):
     #     return db_obj
 
     def upsert(self, data: dict) -> M:
-        db_obj = self._db.merge(self._model_class(**data))
+        db_obj = self._db.merge(self.model_class(**data))
         self._update_timestamp(db_obj)
         self._db.commit()
 
         return db_obj
 
     def delete(self, pk_id: int) -> int:
-        stmt = delete(self._model_class).where(self._model_class.id == pk_id)
+        stmt = delete(self.model_class).where(self.model_class.id == pk_id)
         affected_rows = self._db.execute(stmt).rowcount
         if affected_rows:
             self._db.commit()

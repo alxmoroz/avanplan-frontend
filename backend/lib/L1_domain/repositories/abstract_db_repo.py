@@ -8,7 +8,7 @@ M = TypeVar("M")
 
 class AbstractDBRepo(Generic[M], ABC):
     def __init__(self, *, model_cls: Type[M]):
-        self._model_class = model_cls
+        self.model_class = model_cls
 
     def get(
         self,

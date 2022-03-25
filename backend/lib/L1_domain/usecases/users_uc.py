@@ -1,5 +1,4 @@
 #  Copyright (c) 2022. Alexandr Moroz
-from typing import Generic
 
 from ..entities.api.exceptions import ApiException
 from ..entities.auth import TokenPayload
@@ -8,7 +7,7 @@ from ..repositories import AbstractDBRepo, AbstractSecurityRepo
 from ..repositories.abstract_entity_repo import AbstractEntityRepo, SUpd
 
 
-class UsersUC(Generic[SUpd]):
+class UsersUC:
     def __init__(
         self,
         *,

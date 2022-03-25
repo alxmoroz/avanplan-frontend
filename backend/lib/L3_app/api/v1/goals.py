@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from lib.L1_domain.entities.goals import Goal
-from lib.L1_domain.usecases.goals_uc import GoalsUC
+from lib.L1_domain.usecases.smart_uc import SmartUC
 from lib.L1_domain.usecases.users_uc import UsersUC
 from lib.L2_data.db import db_session
 from lib.L2_data.repositories import db as dbr
@@ -21,36 +21,34 @@ router.include_router(statuses_router)
 def _goals_uc(
     uc: UsersUC = Depends(user_uc),
     db: Session = Depends(db_session),
-) -> GoalsUC:
+) -> SmartUC:
     uc.get_active_user()
-    return GoalsUC(
-        goal_db_repo=dbr.GoalRepo(db),
-        goal_e_repo=er.GoalRepo(),
-        task_db_repo=dbr.TaskRepo(db),
-        task_e_repo=er.TaskRepo(),
+    return SmartUC(
+        db_repo=dbr.GoalRepo(db),
+        e_repo=er.GoalRepo(),
     )
 
 
 @router.get("/", response_model=list[GoalSchemaGet])
 def get_goals(
-    uc: GoalsUC = Depends(_goals_uc),
+    uc: SmartUC = Depends(_goals_uc),
 ) -> list[Goal]:
-    return uc.get_goals()
+    return uc.get_all()
 
 
 @router.post("/", response_model=GoalSchemaGet, status_code=201)
 def upsert_goal(
     goal: GoalSchemaUpsert,
-    uc: GoalsUC = Depends(_goals_uc),
+    uc: SmartUC = Depends(_goals_uc),
 ) -> Goal:
 
-    return uc.upsert_goal(goal)
+    return uc.upsert(goal)
 
 
 @router.delete("/{goal_id}")
 def delete_goal(
     goal_id: int,
-    uc: GoalsUC = Depends(_goals_uc),
+    uc: SmartUC = Depends(_goals_uc),
 ) -> int:
 
-    return uc.delete_goal(goal_id)
+    return uc.delete(goal_id)

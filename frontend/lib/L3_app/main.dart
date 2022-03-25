@@ -11,8 +11,8 @@ import 'l10n/generated/l10n.dart';
 import 'views/auth/login_view.dart';
 import 'views/goal/goal_view.dart';
 import 'views/main/main_view.dart';
-import 'views/tasks/task_edit_view.dart';
-import 'views/tasks/task_view.dart';
+import 'views/task/task_edit_view.dart';
+import 'views/task/task_view.dart';
 
 void main() {
   setup();

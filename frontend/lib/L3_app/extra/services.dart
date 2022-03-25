@@ -20,8 +20,8 @@ import '../l10n/generated/l10n.dart';
 import '../views/auth/login_controller.dart';
 import '../views/goal/goal_edit_controller.dart';
 import '../views/main/main_controller.dart';
-import '../views/tasks/task_edit_controller.dart';
-import '../views/tasks/task_view_controller.dart';
+import '../views/task/task_edit_controller.dart';
+import '../views/task/task_view_controller.dart';
 
 S get loc => S.current;
 

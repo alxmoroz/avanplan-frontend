@@ -1,19 +1,25 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/goals/goal.dart';
+import '../../../L1_domain/entities/goals/goal_status.dart';
 import '../../components/bottom_sheet.dart';
 import '../../components/buttons.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
+import '../../components/splash.dart';
 import '../../components/text_field.dart';
 import '../../components/text_field_annotation.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import 'goal_edit_controller.dart';
+
+//TODO: 1. вытащить DropdownButtonFormField2 в отдельный виджет
+//TODO: 2. подумать над унификацией полей. Возможно, получится избавиться от дуэта MTField и TFAnnotation
 
 Future<Goal?> showEditGoalDialog(BuildContext context) async {
   return await showModalBottomSheet<Goal?>(
@@ -35,6 +41,7 @@ class GoalEditView extends StatefulWidget {
 class _GoalViewState extends State<GoalEditView> {
   GoalEditController get _controller => goalEditController;
   Goal? get _goal => _controller.goal;
+  Future<void>? _fetchStatuses;
 
   @override
   void initState() {
@@ -42,8 +49,9 @@ class _GoalViewState extends State<GoalEditView> {
       TFAnnotation('title', label: loc.common_title, text: _goal?.title ?? ''),
       TFAnnotation('description', label: loc.common_description, text: _goal?.description ?? '', needValidate: false),
       TFAnnotation('dueDate', label: loc.common_due_date_placeholder, noText: true),
-      TFAnnotation('status', label: loc.common_status_placeholder, noText: true, text: _goal?.status?.title ?? ''),
     ]);
+
+    _fetchStatuses = _controller.fetchGoalStatuses();
 
     super.initState();
   }
@@ -87,57 +95,88 @@ class _GoalViewState extends State<GoalEditView> {
     }
   }
 
+  List<DropdownMenuItem<GoalStatus>> get statusItems {
+    return _controller.statuses
+        .map(
+          (s) => DropdownMenuItem<GoalStatus>(
+            value: s,
+            child: NormalText(s.title),
+          ),
+        )
+        .toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context);
-    // TODO: CupertinoPageScaffold и в заголовок кнопки
+
     return SafeArea(
-      child: Observer(
-        builder: (_) => Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                H3(_goal == null ? loc.goal_title_new : '', align: TextAlign.center),
-                Row(
+      child: FutureBuilder(
+        future: _fetchStatuses,
+        builder: (_, snapshot) => snapshot.connectionState == ConnectionState.done
+            ? Observer(
+                builder: (_) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    if (_controller.canEdit)
-                      Button.icon(
-                        deleteIcon(context),
-                        () => _controller.deleteGoal(context),
-                        padding: EdgeInsets.only(left: onePadding),
+                    // TODO: CupertinoPageScaffold и в заголовок кнопки
+                    Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        H3(_goal == null ? loc.goal_title_new : '', align: TextAlign.center),
+                        Row(
+                          children: [
+                            if (_controller.canEdit)
+                              Button.icon(
+                                deleteIcon(context),
+                                () => _controller.deleteGoal(context),
+                                padding: EdgeInsets.only(left: onePadding),
+                              ),
+                            const Spacer(),
+                            Button(
+                              loc.btn_save_title,
+                              _controller.validated ? () => _controller.saveGoal(context) : null,
+                              titleColor: _controller.validated ? mainColor : borderColor,
+                              padding: EdgeInsets.only(right: onePadding),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Container(
+                      constraints: BoxConstraints(maxHeight: mq.size.height - mq.viewInsets.bottom - mq.viewPadding.bottom - 150),
+                      child: Scrollbar(
+                        isAlwaysShown: true,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              textFieldForCode('title'),
+                              textFieldForCode('dueDate', suffixIcon: calendarIcon(context), onTap: inputDateTime),
+                              textFieldForCode('description'),
+                              Padding(
+                                padding: tfPadding,
+                                child: DropdownButtonFormField2<GoalStatus>(
+                                  decoration: tfDecoration(context, label: loc.common_status_placeholder, readOnly: true),
+                                  icon: downCaretIcon(context),
+                                  items: statusItems,
+                                  value: _controller.selectedStatus,
+                                  onChanged: (status) => _controller.selectStatus(status),
+                                  dropdownWidth: mq.size.width - onePadding * 2,
+                                  dropdownPadding: EdgeInsets.symmetric(vertical: onePadding),
+                                  dropdownDecoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(onePadding),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                    const Spacer(),
-                    Button(
-                      loc.btn_save_title,
-                      _controller.validated ? () => _controller.saveGoal(context) : null,
-                      titleColor: _controller.validated ? mainColor : borderColor,
-                      padding: EdgeInsets.only(right: onePadding),
                     ),
                   ],
                 ),
-              ],
-            ),
-            Container(
-              constraints: BoxConstraints(maxHeight: mq.size.height - mq.viewInsets.bottom - mq.viewPadding.bottom - 150),
-              child: Scrollbar(
-                isAlwaysShown: true,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      textFieldForCode('title'),
-                      textFieldForCode('dueDate', suffixIcon: calendarIcon(context), onTap: inputDateTime),
-                      textFieldForCode('description'),
-                      textFieldForCode('status', suffixIcon: downCaretIcon(context)),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+              )
+            : const SplashScreen(),
       ),
     );
   }

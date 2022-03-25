@@ -7,7 +7,7 @@ import 'constants.dart';
 import 'material_wrapper.dart';
 import 'text_widgets.dart';
 
-InputDecoration _tfDecoration(
+InputDecoration tfDecoration(
   BuildContext context, {
   String? label,
   String? helper,
@@ -41,6 +41,8 @@ InputDecoration _tfDecoration(
     enabled: enabled,
   );
 }
+
+EdgeInsets get tfPadding => EdgeInsets.fromLTRB(onePadding, onePadding * 2, onePadding, 0);
 
 class MTTextField extends StatelessWidget {
   const MTTextField({
@@ -100,10 +102,10 @@ class MTTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return material(Padding(
-      padding: margin ?? EdgeInsets.fromLTRB(onePadding, onePadding * 2, onePadding, 0),
+      padding: margin ?? tfPadding,
       child: TextField(
         style: const MediumText('').style(context),
-        decoration: _tfDecoration(
+        decoration: tfDecoration(
           context,
           label: label,
           helper: description,

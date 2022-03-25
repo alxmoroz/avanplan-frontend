@@ -9,6 +9,7 @@ abstract class AbstractGoalsRepo {
     required String title,
     required String description,
     required DateTime dueDate,
+    required int? statusId,
   });
   Future<bool> deleteGoal(int id);
 }

@@ -1,11 +1,12 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/goals/goal.dart';
+import '../../../L1_domain/entities/goals/goal_status.dart';
 import '../../components/confirmation_dialog.dart';
-import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';
 import '../_base/base_controller.dart';
@@ -18,13 +19,34 @@ abstract class _GoalEditControllerBase extends BaseController with Store {
   Goal? get goal => mainController.selectedGoal;
 
   @override
-  void initState({List<TFAnnotation>? tfaList}) {
-    super.initState(tfaList: tfaList);
-    setDueDate(goal?.dueDate);
+  bool get allNeedFieldsTouched => super.allNeedFieldsTouched || (canEdit && selectedDueDate != null && anyFieldTouched);
+
+  @observable
+  ObservableList<GoalStatus> statuses = ObservableList();
+
+  @action
+  void _sortStatuses() {
+    statuses.sort((s1, s2) => s1.title.compareTo(s2.title));
   }
 
-  @override
-  bool get allNeedFieldsTouched => super.allNeedFieldsTouched || (canEdit && selectedDueDate != null && anyFieldTouched);
+  @action
+  Future fetchGoalStatuses() async {
+    statuses = ObservableList.of(await goalStatusesUC.getGoalStatuses());
+    _sortStatuses();
+    setDueDate(goal?.dueDate);
+    selectStatus(goal?.status);
+  }
+
+  @observable
+  int? selectedStatusId;
+
+  @action
+  void selectStatus(GoalStatus? _status) {
+    selectedStatusId = _status?.id;
+  }
+
+  @computed
+  GoalStatus? get selectedStatus => statuses.firstWhereOrNull((s) => s.id == selectedStatusId);
 
   @observable
   DateTime? selectedDueDate;
@@ -45,6 +67,7 @@ abstract class _GoalEditControllerBase extends BaseController with Store {
       title: tfAnnoForCode('title').text,
       description: tfAnnoForCode('description').text,
       dueDate: selectedDueDate,
+      statusId: selectedStatusId,
     );
 
     if (editedGoal != null) {

@@ -11,6 +11,7 @@ publish_to: none
 dependencies:
   cupertino_icons: any
   device_info_plus: any
+  dropdown_button2: any
   flutter:
     sdk: flutter
   flutter_localizations:

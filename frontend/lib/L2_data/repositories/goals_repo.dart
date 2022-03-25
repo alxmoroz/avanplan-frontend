@@ -26,6 +26,7 @@ class GoalsRepo extends AbstractGoalsRepo {
   @override
   Future<Goal?> saveGoal({
     required int? id,
+    required int? statusId,
     required String title,
     required String description,
     required DateTime dueDate,
@@ -36,7 +37,8 @@ class GoalsRepo extends AbstractGoalsRepo {
       ..id = id
       ..title = title
       ..description = description
-      ..dueDate = dueDate.toUtc();
+      ..dueDate = dueDate.toUtc()
+      ..statusId = statusId;
 
     final response = await api.upsertGoalApiV1GoalsPost(goalSchemaUpsert: builder.build());
     Goal? goal;

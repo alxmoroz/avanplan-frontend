@@ -17,11 +17,12 @@ class GoalsUC {
     required String title,
     required String description,
     required DateTime? dueDate,
+    required int? statusId,
   }) async {
     Goal? goal;
     // TODO: внутр. exception?
     if (title.trim().isNotEmpty && dueDate != null) {
-      goal = await repo.saveGoal(id: id, title: title, description: description, dueDate: dueDate);
+      goal = await repo.saveGoal(id: id, title: title, description: description, dueDate: dueDate, statusId: statusId);
     }
     return goal;
   }

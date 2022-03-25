@@ -4,6 +4,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../L1_domain/api_schema/goal.dart';
 import '../../../L1_domain/entities/goals/goal.dart';
 import '../../../L1_domain/entities/goals/goal_status.dart';
 import '../../components/confirmation_dialog.dart';
@@ -68,13 +69,14 @@ abstract class _GoalEditControllerBase extends BaseController with Store {
 
   //TODO: как вариант вызовы юзкейсов этих должны быть из главного контроллера
   Future saveGoal(BuildContext context) async {
-    final editedGoal = await goalsUC.save(
+    final editedGoal = await goalsUC.save(GoalUpsert(
       id: goal?.id,
       title: tfAnnoForCode('title').text,
       description: tfAnnoForCode('description').text,
       dueDate: selectedDueDate,
       statusId: selectedStatusId,
-    );
+      parentId: null,
+    ));
 
     if (editedGoal != null) {
       Navigator.of(context).pop(editedGoal);

@@ -1,37 +1,19 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:openapi/openapi.dart';
-
+import '../api_schema/task.dart';
 import '../entities/goals/task.dart';
 import '../repositories/abs_api_repo.dart';
 
 class TasksUC {
   TasksUC({required this.repo});
 
-  final AbstractApiRepo<Task> repo;
+  final AbstractApiRepo<Task, TaskUpsert> repo;
 
-  Future<Task?> save({
-    required int goalId,
-    required int? id,
-    required int? statusId,
-    required int? parentId,
-    required String title,
-    required String description,
-    required DateTime? dueDate,
-  }) async {
+  Future<Task?> save(TaskUpsert data) async {
     Task? task;
     // TODO: внутр. exception?
-    if (title.trim().isNotEmpty) {
-      final builder = TaskSchemaUpsertBuilder()
-        ..goalId = goalId
-        ..id = id
-        ..statusId = statusId
-        ..parentId = parentId
-        ..title = title
-        ..description = description
-        ..dueDate = dueDate?.toUtc();
-
-      task = await repo.save(builder.build());
+    if (data.title.trim().isNotEmpty) {
+      task = await repo.save(data);
     }
     return task;
   }

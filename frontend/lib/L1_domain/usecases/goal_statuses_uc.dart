@@ -6,7 +6,7 @@ import '../repositories/abs_api_repo.dart';
 class GoalStatusesUC {
   GoalStatusesUC({required this.repo});
 
-  final AbstractApiRepo<GoalStatus> repo;
+  final AbstractApiRepo<GoalStatus, dynamic> repo;
 
   Future<List<GoalStatus>> getStatuses() async {
     return await repo.getAll();

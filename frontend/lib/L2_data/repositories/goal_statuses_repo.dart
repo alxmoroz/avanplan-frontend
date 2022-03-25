@@ -7,7 +7,7 @@ import '../../L1_domain/repositories/abs_api_repo.dart';
 import '../../L3_app/extra/services.dart';
 import '../mappers/goal_status.dart';
 
-class GoalStatusesRepo extends AbstractApiRepo<GoalStatus> {
+class GoalStatusesRepo extends AbstractApiRepo<GoalStatus, dynamic> {
   GoalsApi get api => openAPI.getGoalsApi();
 
   @override
@@ -24,7 +24,7 @@ class GoalStatusesRepo extends AbstractApiRepo<GoalStatus> {
   }
 
   @override
-  Future<GoalStatus?> save(dynamic params) {
+  Future<GoalStatus?> save(dynamic data) {
     throw UnimplementedError();
   }
 

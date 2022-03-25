@@ -1,37 +1,23 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:openapi/openapi.dart';
-
+import '../api_schema/goal.dart';
 import '../entities/goals/goal.dart';
 import '../repositories/abs_api_repo.dart';
 
 class GoalsUC {
   GoalsUC({required this.repo});
 
-  final AbstractApiRepo<Goal> repo;
+  final AbstractApiRepo<Goal, GoalUpsert> repo;
 
   Future<List<Goal>> getAll() async {
     return await repo.getAll();
   }
 
-  Future<Goal?> save({
-    required int? id,
-    required String title,
-    required String description,
-    required DateTime? dueDate,
-    required int? statusId,
-  }) async {
+  Future<Goal?> save(GoalUpsert data) async {
     Goal? goal;
     // TODO: внутр. exception?
-    if (title.trim().isNotEmpty && dueDate != null) {
-      final builder = GoalSchemaUpsertBuilder()
-        ..id = id
-        ..statusId = statusId
-        ..title = title
-        ..description = description
-        ..dueDate = dueDate.toUtc();
-
-      goal = await repo.save(builder.build());
+    if (data.title.trim().isNotEmpty && data.dueDate != null) {
+      goal = await repo.save(data);
     }
     return goal;
   }

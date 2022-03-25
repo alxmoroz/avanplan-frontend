@@ -4,6 +4,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../L1_domain/api_schema/task.dart';
 import '../../../L1_domain/entities/goals/goal.dart';
 import '../../../L1_domain/entities/goals/task.dart';
 import '../../../L1_domain/entities/goals/task_status.dart';
@@ -77,7 +78,7 @@ abstract class _TaskEditControllerBase extends BaseController with Store {
   bool get canEdit => selectedTask != null;
 
   Future saveTask(BuildContext context) async {
-    final editedTask = await tasksUC.save(
+    final editedTask = await tasksUC.save(TaskUpsert(
       goalId: goal.id,
       id: selectedTask?.id,
       parentId: _parentId,
@@ -85,7 +86,7 @@ abstract class _TaskEditControllerBase extends BaseController with Store {
       description: tfAnnoForCode('description').text,
       dueDate: selectedDueDate,
       statusId: selectedStatusId,
-    );
+    ));
 
     if (editedTask != null) {
       Navigator.of(context).pop(editedTask);

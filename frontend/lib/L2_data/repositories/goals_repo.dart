@@ -2,6 +2,7 @@
 
 import 'package:openapi/openapi.dart';
 
+import '../../L1_domain/api_schema/goal.dart';
 import '../../L1_domain/entities/goals/goal.dart';
 import '../../L1_domain/repositories/abs_api_repo.dart';
 import '../../L3_app/extra/services.dart';
@@ -9,7 +10,7 @@ import '../mappers/goal.dart';
 
 // TODO: для всех подобных репозиториев: развязать узел зависимости от 3 уровня за счёт инициализации openApi в конструктор репы
 
-class GoalsRepo extends AbstractApiRepo<Goal> {
+class GoalsRepo extends AbstractApiRepo<Goal, GoalUpsert> {
   GoalsApi get api => openAPI.getGoalsApi();
 
   @override
@@ -26,11 +27,16 @@ class GoalsRepo extends AbstractApiRepo<Goal> {
   }
 
   @override
-  Future<Goal?> save(dynamic params) async {
-    final data = params as GoalSchemaUpsert;
+  Future<Goal?> save(GoalUpsert data) async {
     //TODO: не учитываются возможные ошибки! Нет обработки 403 и т.п.
+    final builder = GoalSchemaUpsertBuilder()
+      ..id = data.id
+      ..statusId = data.statusId
+      ..title = data.title
+      ..description = data.description
+      ..dueDate = data.dueDate?.toUtc();
 
-    final response = await api.upsertGoalApiV1GoalsPost(goalSchemaUpsert: data);
+    final response = await api.upsertGoalApiV1GoalsPost(goalSchemaUpsert: builder.build());
     Goal? goal;
     if (response.statusCode == 201) {
       goal = response.data?.goal;

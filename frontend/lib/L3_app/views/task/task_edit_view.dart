@@ -9,6 +9,7 @@ import '../../components/buttons.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
+import '../../components/splash.dart';
 import '../../components/text_field.dart';
 import '../../components/text_field_annotation.dart';
 import '../../components/text_widgets.dart';
@@ -39,6 +40,7 @@ class TaskEditView extends StatefulWidget {
 class _TaskEditViewState extends State<TaskEditView> {
   TaskEditController get _controller => taskEditController;
   Task? get _task => _controller.selectedTask;
+  Future<void>? _fetchStatuses;
 
   @override
   void initState() {
@@ -47,6 +49,8 @@ class _TaskEditViewState extends State<TaskEditView> {
       TFAnnotation('description', label: loc.common_description, text: _task?.description ?? '', needValidate: false),
       TFAnnotation('dueDate', label: loc.common_due_date_placeholder, noText: true, needValidate: false),
     ]);
+
+    _fetchStatuses = _controller.fetchGoalStatuses();
 
     super.initState();
   }
@@ -95,51 +99,56 @@ class _TaskEditViewState extends State<TaskEditView> {
     final mq = MediaQuery.of(context);
     // TODO: CupertinoPageScaffold и в заголовок кнопки
     return SafeArea(
-      child: Observer(
-        builder: (_) => Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                H3(_task == null ? loc.task_title_new : '', align: TextAlign.center),
-                Row(
+      child: FutureBuilder(
+        future: _fetchStatuses,
+        builder: (_, snapshot) => snapshot.connectionState == ConnectionState.done
+            ? Observer(
+                builder: (_) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    if (_controller.canEdit)
-                      Button.icon(
-                        deleteIcon(context),
-                        () => _controller.deleteTask(context),
-                        padding: EdgeInsets.only(left: onePadding),
+                    Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        H3(_task == null ? loc.task_title_new : '', align: TextAlign.center),
+                        Row(
+                          children: [
+                            if (_controller.canEdit)
+                              Button.icon(
+                                deleteIcon(context),
+                                () => _controller.deleteTask(context),
+                                padding: EdgeInsets.only(left: onePadding),
+                              ),
+                            const Spacer(),
+                            Button(
+                              loc.btn_save_title,
+                              _controller.validated ? () => _controller.saveTask(context) : null,
+                              titleColor: _controller.validated ? mainColor : borderColor,
+                              padding: EdgeInsets.only(right: onePadding),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Container(
+                      constraints: BoxConstraints(maxHeight: mq.size.height - mq.viewInsets.bottom - mq.viewPadding.bottom - 150),
+                      child: Scrollbar(
+                        isAlwaysShown: true,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              textFieldForCode('title'),
+                              textFieldForCode('dueDate', onTap: inputDateTime),
+                              textFieldForCode('description'),
+                            ],
+                          ),
+                        ),
                       ),
-                    const Spacer(),
-                    Button(
-                      loc.btn_save_title,
-                      _controller.validated ? () => _controller.saveTask(context) : null,
-                      titleColor: _controller.validated ? mainColor : borderColor,
-                      padding: EdgeInsets.only(right: onePadding),
                     ),
                   ],
                 ),
-              ],
-            ),
-            Container(
-              constraints: BoxConstraints(maxHeight: mq.size.height - mq.viewInsets.bottom - mq.viewPadding.bottom - 150),
-              child: Scrollbar(
-                isAlwaysShown: true,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      textFieldForCode('title'),
-                      textFieldForCode('dueDate', onTap: inputDateTime),
-                      textFieldForCode('description'),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+              )
+            : const SplashScreen(),
       ),
     );
   }

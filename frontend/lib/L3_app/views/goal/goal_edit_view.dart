@@ -21,6 +21,8 @@ import 'goal_edit_controller.dart';
 //TODO: 1. вытащить DropdownButtonFormField2 в отдельный виджет
 //TODO: 2. подумать над унификацией полей. Возможно, получится избавиться от дуэта MTField и TFAnnotation
 
+//TODO: дубль по коду редактора задачи!
+
 Future<Goal?> showEditGoalDialog(BuildContext context) async {
   return await showModalBottomSheet<Goal?>(
     context: context,

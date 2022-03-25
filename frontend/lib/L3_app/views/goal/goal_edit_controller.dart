@@ -8,6 +8,7 @@ import '../../../L1_domain/api_schema/goal.dart';
 import '../../../L1_domain/entities/goals/goal.dart';
 import '../../../L1_domain/entities/goals/goal_status.dart';
 import '../../components/confirmation_dialog.dart';
+import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';
 import '../_base/base_controller.dart';
@@ -18,6 +19,12 @@ class GoalEditController extends _GoalEditControllerBase with _$GoalEditControll
 
 abstract class _GoalEditControllerBase extends BaseController with Store {
   Goal? get goal => mainController.selectedGoal;
+
+  @override
+  void initState({List<TFAnnotation>? tfaList}) {
+    setDueDate(goal?.dueDate);
+    super.initState(tfaList: tfaList);
+  }
 
   @override
   bool get allNeedFieldsTouched => super.allNeedFieldsTouched || (canEdit && selectedDueDate != null && anyFieldTouched);
@@ -36,7 +43,6 @@ abstract class _GoalEditControllerBase extends BaseController with Store {
   Future fetchGoalStatuses() async {
     statuses = ObservableList.of(await goalStatusesUC.getStatuses());
     _sortStatuses();
-    setDueDate(goal?.dueDate);
     selectStatus(goal?.status);
   }
 
@@ -75,7 +81,6 @@ abstract class _GoalEditControllerBase extends BaseController with Store {
       description: tfAnnoForCode('description').text,
       dueDate: selectedDueDate,
       statusId: selectedStatusId,
-      parentId: null,
     ));
 
     if (editedGoal != null) {

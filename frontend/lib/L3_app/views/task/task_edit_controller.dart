@@ -9,6 +9,7 @@ import '../../../L1_domain/entities/goals/goal.dart';
 import '../../../L1_domain/entities/goals/task.dart';
 import '../../../L1_domain/entities/goals/task_status.dart';
 import '../../components/confirmation_dialog.dart';
+import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';
 import '../_base/base_controller.dart';
@@ -23,6 +24,13 @@ class TaskEditController extends _TaskEditControllerBase with _$TaskEditControll
 abstract class _TaskEditControllerBase extends BaseController with Store {
   Goal get goal => mainController.selectedGoal!;
 
+  @override
+  void initState({List<TFAnnotation>? tfaList}) {
+    setDueDate(selectedTask?.dueDate);
+    super.initState(tfaList: tfaList);
+  }
+
+  /// выбранная задача
   @observable
   Task? selectedTask;
 
@@ -48,7 +56,6 @@ abstract class _TaskEditControllerBase extends BaseController with Store {
   Future fetchGoalStatuses() async {
     statuses = ObservableList.of(await taskStatusesUC.getStatuses());
     _sortStatuses();
-    setDueDate(selectedTask?.dueDate);
     selectStatus(selectedTask?.status);
   }
 

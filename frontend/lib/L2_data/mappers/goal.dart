@@ -3,8 +3,8 @@
 import 'package:openapi/openapi.dart';
 
 import '../../L1_domain/entities/goals/goal.dart';
-import '../../L2_data/mappers/goal_status.dart';
 import 'goal_report.dart';
+import 'goal_status.dart';
 import 'task.dart';
 
 extension GoalMapper on GoalSchemaGet {

@@ -7,6 +7,8 @@ import '../../L1_domain/repositories/abstract_goals_repo.dart';
 import '../../L3_app/extra/services.dart';
 import '../mappers/goal.dart';
 
+// TODO: для всех подобных репозиториев: развязать узел зависимости от 3 уровня за счёт инициализации openApi в конструктор репы
+
 class GoalsRepo extends AbstractGoalsRepo {
   GoalsApi get api => openAPI.getGoalsApi();
 

@@ -1,6 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../../L1_domain/repositories/abstract_auth_repo.dart';
+import '../../L1_domain/repositories/abs_auth_repo.dart';
 import 'settings_uc.dart';
 
 class AuthUC {

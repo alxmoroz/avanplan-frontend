@@ -3,15 +3,15 @@
 import 'package:openapi/openapi.dart';
 
 import '../../L1_domain/entities/goals/goal_status.dart';
-import '../../L1_domain/repositories/abstract_goal_statuses_repo.dart';
+import '../../L1_domain/repositories/abs_api_repo.dart';
 import '../../L3_app/extra/services.dart';
 import '../mappers/goal_status.dart';
 
-class GoalStatusesRepo extends AbstractGoalStatusesRepo {
+class GoalStatusesRepo extends AbstractApiRepo<GoalStatus> {
   GoalsApi get api => openAPI.getGoalsApi();
 
   @override
-  Future<List<GoalStatus>> getGoalStatuses() async {
+  Future<List<GoalStatus>> getAll() async {
     final response = await api.getGoalsStatusesApiV1GoalsStatusesGet();
 
     final List<GoalStatus> statuses = [];
@@ -21,5 +21,15 @@ class GoalStatusesRepo extends AbstractGoalStatusesRepo {
       }
     }
     return statuses;
+  }
+
+  @override
+  Future<GoalStatus?> save(dynamic params) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> delete(int id) {
+    throw UnimplementedError();
   }
 }

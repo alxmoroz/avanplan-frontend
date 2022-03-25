@@ -56,7 +56,8 @@ class _TaskViewState extends State<TaskView> {
   Widget buildTitle() {
     return !controller.isGoal
         ? ListTile(
-            title: H2(task!.title),
+            title: task?.status != null ? SmallText(task?.status?.title ?? '-') : null,
+            subtitle: H2(task?.title ?? ''),
             trailing: editIcon(context),
             onTap: () => controller.editTask(context),
             dense: true,

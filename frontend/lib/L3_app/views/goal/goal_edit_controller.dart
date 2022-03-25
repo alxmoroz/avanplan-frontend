@@ -21,6 +21,8 @@ abstract class _GoalEditControllerBase extends BaseController with Store {
   @override
   bool get allNeedFieldsTouched => super.allNeedFieldsTouched || (canEdit && selectedDueDate != null && anyFieldTouched);
 
+  /// статусы
+
   @observable
   ObservableList<GoalStatus> statuses = ObservableList();
 
@@ -31,7 +33,7 @@ abstract class _GoalEditControllerBase extends BaseController with Store {
 
   @action
   Future fetchGoalStatuses() async {
-    statuses = ObservableList.of(await goalStatusesUC.getGoalStatuses());
+    statuses = ObservableList.of(await goalStatusesUC.getStatuses());
     _sortStatuses();
     setDueDate(goal?.dueDate);
     selectStatus(goal?.status);
@@ -48,6 +50,8 @@ abstract class _GoalEditControllerBase extends BaseController with Store {
   @computed
   GoalStatus? get selectedStatus => statuses.firstWhereOrNull((s) => s.id == selectedStatusId);
 
+  /// дата
+
   @observable
   DateTime? selectedDueDate;
 
@@ -60,9 +64,11 @@ abstract class _GoalEditControllerBase extends BaseController with Store {
   @computed
   bool get canEdit => goal != null;
 
+  /// действия
+
   //TODO: как вариант вызовы юзкейсов этих должны быть из главного контроллера
   Future saveGoal(BuildContext context) async {
-    final editedGoal = await goalsUC.saveGoal(
+    final editedGoal = await goalsUC.save(
       id: goal?.id,
       title: tfAnnoForCode('title').text,
       description: tfAnnoForCode('description').text,
@@ -87,7 +93,7 @@ abstract class _GoalEditControllerBase extends BaseController with Store {
         ],
       );
       if (confirm != null && confirm) {
-        Navigator.of(context).pop(await goalsUC.deleteGoal(goal: goal!));
+        Navigator.of(context).pop(await goalsUC.delete(goal: goal!));
       }
     }
   }

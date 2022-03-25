@@ -72,7 +72,7 @@ abstract class _MainControllerBase extends BaseController with Store {
   Future fetchGoals() async {
     if (authorized) {
       //TODO: добавить LOADING
-      goals = ObservableList.of(await goalsUC.getGoals());
+      goals = ObservableList.of(await goalsUC.getAll());
       _sortGoals();
     }
   }

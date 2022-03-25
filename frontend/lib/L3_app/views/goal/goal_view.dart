@@ -28,7 +28,6 @@ class _GoalViewState extends State<GoalView> {
   MainController get controller => mainController;
   Goal? get goal => controller.selectedGoal;
 
-  //TODO: цели обычно всего в двух состояниях. Есть ли смысл отображать название статуса
   Widget buildTitle() {
     return ListTile(
       title: goal?.status != null ? SmallText(goal?.status?.title ?? '-') : null,

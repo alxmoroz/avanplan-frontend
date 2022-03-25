@@ -1,12 +1,13 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/goals/goal.dart';
 import '../../../L1_domain/entities/goals/task.dart';
+import '../../../L1_domain/entities/goals/task_status.dart';
 import '../../components/confirmation_dialog.dart';
-import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';
 import '../_base/base_controller.dart';
@@ -21,12 +22,6 @@ class TaskEditController extends _TaskEditControllerBase with _$TaskEditControll
 abstract class _TaskEditControllerBase extends BaseController with Store {
   Goal get goal => mainController.selectedGoal!;
 
-  @override
-  void initState({List<TFAnnotation>? tfaList}) {
-    super.initState(tfaList: tfaList);
-    setDueDate(selectedTask?.dueDate);
-  }
-
   @observable
   Task? selectedTask;
 
@@ -38,6 +33,36 @@ abstract class _TaskEditControllerBase extends BaseController with Store {
 
   @override
   bool get allNeedFieldsTouched => super.allNeedFieldsTouched || (canEdit && anyFieldTouched);
+
+  /// статус
+  @observable
+  ObservableList<TaskStatus> statuses = ObservableList();
+
+  @action
+  void _sortStatuses() {
+    statuses.sort((s1, s2) => s1.title.compareTo(s2.title));
+  }
+
+  @action
+  Future fetchGoalStatuses() async {
+    statuses = ObservableList.of(await taskStatusesUC.getStatuses());
+    _sortStatuses();
+    setDueDate(selectedTask?.dueDate);
+    selectStatus(selectedTask?.status);
+  }
+
+  @observable
+  int? selectedStatusId;
+
+  @action
+  void selectStatus(TaskStatus? _status) {
+    selectedStatusId = _status?.id;
+  }
+
+  @computed
+  TaskStatus? get selectedStatus => statuses.firstWhereOrNull((s) => s.id == selectedStatusId);
+
+  /// дата
 
   @observable
   DateTime? selectedDueDate;
@@ -52,13 +77,14 @@ abstract class _TaskEditControllerBase extends BaseController with Store {
   bool get canEdit => selectedTask != null;
 
   Future saveTask(BuildContext context) async {
-    final editedTask = await tasksUC.saveTask(
+    final editedTask = await tasksUC.save(
       goalId: goal.id,
       id: selectedTask?.id,
       parentId: _parentId,
       title: tfAnnoForCode('title').text,
       description: tfAnnoForCode('description').text,
       dueDate: selectedDueDate,
+      statusId: selectedStatusId,
     );
 
     if (editedTask != null) {
@@ -78,7 +104,7 @@ abstract class _TaskEditControllerBase extends BaseController with Store {
         ],
       );
       if (confirm != null && confirm) {
-        Navigator.of(context).pop(await tasksUC.deleteTask(task: selectedTask!));
+        Navigator.of(context).pop(await tasksUC.delete(task: selectedTask!));
       }
     }
   }

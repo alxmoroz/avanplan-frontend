@@ -3,17 +3,17 @@
 import 'package:openapi/openapi.dart';
 
 import '../../L1_domain/entities/goals/goal.dart';
-import '../../L1_domain/repositories/abstract_goals_repo.dart';
+import '../../L1_domain/repositories/abs_api_repo.dart';
 import '../../L3_app/extra/services.dart';
 import '../mappers/goal.dart';
 
 // TODO: для всех подобных репозиториев: развязать узел зависимости от 3 уровня за счёт инициализации openApi в конструктор репы
 
-class GoalsRepo extends AbstractGoalsRepo {
+class GoalsRepo extends AbstractApiRepo<Goal> {
   GoalsApi get api => openAPI.getGoalsApi();
 
   @override
-  Future<List<Goal>> getGoals() async {
+  Future<List<Goal>> getAll() async {
     final response = await api.getGoalsApiV1GoalsGet();
 
     final List<Goal> goals = [];
@@ -26,23 +26,11 @@ class GoalsRepo extends AbstractGoalsRepo {
   }
 
   @override
-  Future<Goal?> saveGoal({
-    required int? id,
-    required int? statusId,
-    required String title,
-    required String description,
-    required DateTime dueDate,
-  }) async {
+  Future<Goal?> save(dynamic params) async {
+    final data = params as GoalSchemaUpsert;
     //TODO: не учитываются возможные ошибки! Нет обработки 403 и т.п.
 
-    final builder = GoalSchemaUpsertBuilder()
-      ..id = id
-      ..title = title
-      ..description = description
-      ..dueDate = dueDate.toUtc()
-      ..statusId = statusId;
-
-    final response = await api.upsertGoalApiV1GoalsPost(goalSchemaUpsert: builder.build());
+    final response = await api.upsertGoalApiV1GoalsPost(goalSchemaUpsert: data);
     Goal? goal;
     if (response.statusCode == 201) {
       goal = response.data?.goal;
@@ -51,7 +39,7 @@ class GoalsRepo extends AbstractGoalsRepo {
   }
 
   @override
-  Future<bool> deleteGoal(int id) async {
+  Future<bool> delete(int id) async {
     final response = await api.deleteGoalApiV1GoalsGoalIdDelete(goalId: id);
     return response.statusCode == 200 && response.data?.asNum == 1;
   }

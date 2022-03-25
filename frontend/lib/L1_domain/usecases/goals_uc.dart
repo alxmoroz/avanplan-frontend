@@ -1,18 +1,20 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:openapi/openapi.dart';
+
 import '../entities/goals/goal.dart';
-import '../repositories/abstract_goals_repo.dart';
+import '../repositories/abs_api_repo.dart';
 
 class GoalsUC {
   GoalsUC({required this.repo});
 
-  final AbstractGoalsRepo repo;
+  final AbstractApiRepo<Goal> repo;
 
-  Future<List<Goal>> getGoals() async {
-    return await repo.getGoals();
+  Future<List<Goal>> getAll() async {
+    return await repo.getAll();
   }
 
-  Future<Goal?> saveGoal({
+  Future<Goal?> save({
     required int? id,
     required String title,
     required String description,
@@ -22,13 +24,20 @@ class GoalsUC {
     Goal? goal;
     // TODO: внутр. exception?
     if (title.trim().isNotEmpty && dueDate != null) {
-      goal = await repo.saveGoal(id: id, title: title, description: description, dueDate: dueDate, statusId: statusId);
+      final builder = GoalSchemaUpsertBuilder()
+        ..id = id
+        ..statusId = statusId
+        ..title = title
+        ..description = description
+        ..dueDate = dueDate.toUtc();
+
+      goal = await repo.save(builder.build());
     }
     return goal;
   }
 
-  Future<Goal?> deleteGoal({required Goal goal}) async {
-    final deletedRows = await repo.deleteGoal(goal.id);
+  Future<Goal?> delete({required Goal goal}) async {
+    final deletedRows = await repo.delete(goal.id);
     // TODO: внутр. exception?
     if (deletedRows) {
       goal.deleted = true;

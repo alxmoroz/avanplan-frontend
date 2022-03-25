@@ -1,16 +1,19 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:openapi/openapi.dart';
+
 import '../entities/goals/task.dart';
-import '../repositories/abstract_tasks_repo.dart';
+import '../repositories/abs_api_repo.dart';
 
 class TasksUC {
   TasksUC({required this.repo});
 
-  final AbstractTasksRepo repo;
+  final AbstractApiRepo<Task> repo;
 
-  Future<Task?> saveTask({
+  Future<Task?> save({
     required int goalId,
     required int? id,
+    required int? statusId,
     required int? parentId,
     required String title,
     required String description,
@@ -19,13 +22,22 @@ class TasksUC {
     Task? task;
     // TODO: внутр. exception?
     if (title.trim().isNotEmpty) {
-      task = await repo.saveTask(goalId: goalId, id: id, parentId: parentId, title: title, description: description, dueDate: dueDate);
+      final builder = TaskSchemaUpsertBuilder()
+        ..goalId = goalId
+        ..id = id
+        ..statusId = statusId
+        ..parentId = parentId
+        ..title = title
+        ..description = description
+        ..dueDate = dueDate?.toUtc();
+
+      task = await repo.save(builder.build());
     }
     return task;
   }
 
-  Future<Task?> deleteTask({required Task task}) async {
-    final deletedRows = await repo.deleteTask(task.id);
+  Future<Task?> delete({required Task task}) async {
+    final deletedRows = await repo.delete(task.id);
     // TODO: внутр. exception?
     if (deletedRows) {
       task.deleted = true;

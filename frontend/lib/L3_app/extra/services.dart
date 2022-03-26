@@ -64,8 +64,8 @@ void setup() {
   getIt.registerSingletonAsync<AuthUC>(() async => AuthUC(settingsUC: settingsUC, authRepo: AuthRepo()), dependsOn: [SettingsUC]);
   getIt.registerSingletonAsync<GoalsUC>(() async => GoalsUC(repo: GoalsRepo()), dependsOn: [AuthUC]);
   getIt.registerSingletonAsync<TasksUC>(() async => TasksUC(repo: TasksRepo()), dependsOn: [AuthUC]);
-  getIt.registerSingletonAsync<StatusesUC>(() async => GoalStatusesUC(repo: GoalStatusesRepo()), dependsOn: [AuthUC]);
-  getIt.registerSingletonAsync<StatusesUC>(() async => TaskStatusesUC(repo: TaskStatusesRepo()), dependsOn: [AuthUC]);
+  getIt.registerSingletonAsync<GoalStatusesUC>(() async => GoalStatusesUC(repo: GoalStatusesRepo()), dependsOn: [AuthUC]);
+  getIt.registerSingletonAsync<TaskStatusesUC>(() async => TaskStatusesUC(repo: TaskStatusesRepo()), dependsOn: [AuthUC]);
 
   // controllers
   getIt.registerSingletonAsync<MainController>(

@@ -11,4 +11,5 @@ E = TypeVar("E", bound=Smartable)
 class SmartUC(BaseDBUC[E]):
     def upsert(self, s: SUpd) -> E:
         data = self.e_repo.dict_from_schema_upd(s)
+        # TODO: возможное место для логики определения открыто/закрыто по статусу
         return self.e_repo.entity_from_orm(self.db_repo.upsert(data))

@@ -8,6 +8,7 @@ from ..repositories import AbstractDBRepo, AbstractImportRepo
 from ..repositories.abstract_entity_repo import AbstractEntityRepo, E
 
 
+# TODO: в идеале ... использовать юзкейс по записи в БД "смарт"
 # TODO: обработка ошибок
 # Универсальный юзкейс для импорта из любых источников
 class ImportUC:

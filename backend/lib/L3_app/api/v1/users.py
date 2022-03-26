@@ -19,8 +19,8 @@ def user_uc(
     db: Session = Depends(db_session),
 ) -> UsersUC:
     return UsersUC(
-        user_repo=UserRepo(db),
-        user_e_repo=er.UserRepo(),
+        db_repo=UserRepo(db),
+        e_repo=er.UserRepo(),
         security_repo=SecurityRepo(token),
     )
 

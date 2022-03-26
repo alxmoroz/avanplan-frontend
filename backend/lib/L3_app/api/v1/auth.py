@@ -39,7 +39,7 @@ def token(
 #     email = verify_password_reset_token(token)
 #     if not email:
 #         raise HTTPException(status_code=400, detail="Invalid token")
-#     user = user_repo.get_one(email=email)
+#     user = db_repo.get_one(email=email)
 #     if not user:
 #         raise HTTPException(
 #             status_code=404,

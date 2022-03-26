@@ -11,12 +11,12 @@ class UsersUC:
     def __init__(
         self,
         *,
-        user_repo: AbstractDBRepo,
-        user_e_repo: AbstractEntityRepo,
+        db_repo: AbstractDBRepo,
+        e_repo: AbstractEntityRepo,
         security_repo: AbstractSecurityRepo,
     ):
-        self.user_repo = user_repo
-        self.user_e_repo = user_e_repo
+        self.user_repo = db_repo
+        self.user_e_repo = e_repo
         self.sec_repo = security_repo
 
     # TODO: очень связаны логически юзкейсы авторизации и этот

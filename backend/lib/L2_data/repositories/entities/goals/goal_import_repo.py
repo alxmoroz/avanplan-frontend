@@ -29,9 +29,9 @@ class GoalImportRepo(EntityRepo[GoalImportSchemaGet, GoalImportSchemaUpsert, Goa
         data = jsonable_encoder(e)
         data.pop("parent_id")
         s = GoalImportSchemaUpsert(
+            **data,
             parent_id=e.parent.id if e.parent else None,
             status_id=e.status.id if e.status else None,
-            **data,
         )
 
         return s

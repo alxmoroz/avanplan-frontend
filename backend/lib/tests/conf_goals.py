@@ -17,7 +17,7 @@ def goal_repo(db: Session) -> GoalRepo:
 
 @pytest.fixture(scope="session")
 def tmp_goal(goal_repo) -> Goal:
-    s = GoalSchemaUpsert(title="tmp_goal")
+    s = GoalSchemaUpsert(title="tmp_goal", closed=False)
     goal = goal_repo.upsert(jsonable_encoder(s))
     yield goal
     goal_repo.delete(goal.id)
@@ -43,7 +43,7 @@ def tmp_task_status(task_status_repo: TaskStatusRepo) -> TaskStatus:
 
 @pytest.fixture(scope="session")
 def tmp_task(task_repo, tmp_goal, tmp_task_status) -> Task:
-    s = TaskSchemaUpsert(title="tmp_task", goal_id=tmp_goal.id, status_id=tmp_task_status.id)
+    s = TaskSchemaUpsert(title="tmp_task", goal_id=tmp_goal.id, status_id=tmp_task_status.id, closed=False)
     task = task_repo.upsert(jsonable_encoder(s))
     yield task
     task_repo.delete(task.id)

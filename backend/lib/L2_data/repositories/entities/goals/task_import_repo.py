@@ -27,14 +27,17 @@ class TaskImportRepo(EntityRepo[TaskImportSchemaGet, TaskImportSchemaUpsert, Tas
 
     def schema_upd_from_entity(self, e: TaskImport) -> TaskImportSchemaUpsert:
 
+        data = jsonable_encoder(e)
+        data.pop("parent_id")
+
         s = TaskImportSchemaUpsert(
+            **data,
             goal_id=e.goal.id,
             parent_id=e.parent.id if e.parent else None,
             status_id=e.status.id if e.status else None,
             priority_id=e.priority.id if e.priority else None,
             assignee_id=e.assignee.id if e.assignee else None,
             author_id=e.author.id if e.author else None,
-            **jsonable_encoder(e),
         )
 
         return s

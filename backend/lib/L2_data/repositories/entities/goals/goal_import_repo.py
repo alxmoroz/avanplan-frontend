@@ -26,10 +26,12 @@ class GoalImportRepo(EntityRepo[GoalImportSchemaGet, GoalImportSchemaUpsert, Goa
 
     def schema_upd_from_entity(self, e: GoalImport) -> GoalImportSchemaUpsert:
 
+        data = jsonable_encoder(e)
+        data.pop("parent_id")
         s = GoalImportSchemaUpsert(
             parent_id=e.parent.id if e.parent else None,
             status_id=e.status.id if e.status else None,
-            **jsonable_encoder(e),
+            **data,
         )
 
         return s

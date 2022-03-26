@@ -28,5 +28,5 @@ class StatusUC:
     def delete_status(self, status_id: int) -> int:
         deleted_count = self.db_repo.delete(status_id)
         if deleted_count < 1:
-            raise ApiException(400, f"Error deleting {E} id = {status_id}")
+            raise ApiException(400, f"Error deleting {self.db_repo.model_class} id = {status_id}")
         return deleted_count

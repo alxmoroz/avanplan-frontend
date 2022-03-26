@@ -17,7 +17,3 @@ class Task(Smartable):
     assignee: Person | None = None
     author: Person | None = None
     tasks: list[Task] | None = None
-
-    @property
-    def closed(self):
-        return self.status.closed if self.status else False

@@ -13,7 +13,7 @@ def test_get_one(goal_repo: GoalRepo, tmp_goal):
 
 
 def test_get_create(goal_repo: GoalRepo, tmp_goal):
-    s = GoalSchemaUpsert(title="test_get_create")
+    s = GoalSchemaUpsert(title="test_get_create", closed=False)
     obj2 = goal_repo.upsert(jsonable_encoder(s))
 
     objects = goal_repo.get(
@@ -29,11 +29,7 @@ def test_get_create(goal_repo: GoalRepo, tmp_goal):
 
 def test_update(goal_repo: GoalRepo, tmp_goal):
 
-    s = GoalSchemaUpsert(
-        id=tmp_goal.id,
-        title="test_update",
-        description="description",
-    )
+    s = GoalSchemaUpsert(id=tmp_goal.id, title="test_update", description="description", closed=False)
 
     obj_out = goal_repo.upsert(jsonable_encoder(s))
     test_obj_out = goal_repo.get_one(id=tmp_goal.id)
@@ -45,7 +41,7 @@ def test_update(goal_repo: GoalRepo, tmp_goal):
 
 def test_upsert_delete(goal_repo: GoalRepo):
     # upsert
-    s = GoalSchemaUpsert(title="test_upsert_delete")
+    s = GoalSchemaUpsert(title="test_upsert_delete", closed=False)
     obj_out = goal_repo.upsert(jsonable_encoder(s))
     test_obj_out = goal_repo.get_one(id=obj_out.id)
 

@@ -16,7 +16,7 @@ def test_get_one(task_repo: TaskRepo, tmp_task):
 
 
 def test_get_create(task_repo: TaskRepo, tmp_task, tmp_goal):
-    s = TaskSchemaUpsert(title="test_get_create", goal_id=tmp_goal.id)
+    s = TaskSchemaUpsert(title="test_get_create", goal_id=tmp_goal.id, closed=False)
     obj2 = task_repo.upsert(jsonable_encoder(s))
 
     objects = task_repo.get(
@@ -39,6 +39,7 @@ def test_update(task_repo: TaskRepo, tmp_task, tmp_goal):
         title="test_update",
         description="description",
         due_date=datetime.now(tz=utc),
+        closed=False,
     )
     obj_out = task_repo.upsert(jsonable_encoder(s))
     test_obj_out = task_repo.get_one(id=tmp_task.id)
@@ -50,7 +51,11 @@ def test_update(task_repo: TaskRepo, tmp_task, tmp_goal):
 
 def test_upsert_delete(task_repo: TaskRepo, tmp_goal):
     # upsert
-    s = TaskSchemaUpsert(title="test_upsert_delete", goal_id=tmp_goal.id)
+    s = TaskSchemaUpsert(
+        title="test_upsert_delete",
+        goal_id=tmp_goal.id,
+        closed=False,
+    )
     obj_out = task_repo.upsert(jsonable_encoder(s))
     test_obj_out = task_repo.get_one(id=obj_out.id)
 

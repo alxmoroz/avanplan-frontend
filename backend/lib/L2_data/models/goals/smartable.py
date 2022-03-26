@@ -1,6 +1,6 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from sqlalchemy import Column, DateTime, String
+from sqlalchemy import Boolean, Column, DateTime, String
 
 
 class Smartable:
@@ -11,5 +11,6 @@ class Smartable:
     created_on = Column(DateTime(timezone=True), nullable=False)
     updated_on = Column(DateTime(timezone=True), nullable=False)
     due_date = Column(DateTime(timezone=True))
+    closed = Column(Boolean, nullable=False)
 
     remote_code = Column(String)

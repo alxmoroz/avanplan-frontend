@@ -16,7 +16,9 @@ class Smartable(Titleable):
     due_date: datetime | date | None = None
     remote_code: str | None = None
     parent_id: int | None = None
+    closed: bool | None = False
 
+    # TODO: на фронт
     @property
     def planned_period(self) -> timedelta | None:
         if self.due_date:

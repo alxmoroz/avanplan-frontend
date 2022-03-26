@@ -6,6 +6,7 @@ class GoalUpsert extends SmartUpsert {
   GoalUpsert({
     required String title,
     required String description,
+    required bool closed,
     required DateTime? dueDate,
     int? id,
     int? parentId,
@@ -14,6 +15,7 @@ class GoalUpsert extends SmartUpsert {
           id: id,
           parentId: parentId,
           title: title,
+          closed: closed,
           description: description,
           dueDate: dueDate,
           statusId: statusId,

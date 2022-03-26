@@ -14,10 +14,20 @@ class Goal extends Smartable {
     required String description,
     required DateTime? dueDate,
     required int? parentId,
+    required bool closed,
     required this.status,
     required this.report,
     required this.tasks,
-  }) : super(id: id, createdOn: createdOn, updatedOn: updatedOn, title: title, description: description, dueDate: dueDate, parentId: parentId);
+  }) : super(
+          id: id,
+          createdOn: createdOn,
+          updatedOn: updatedOn,
+          title: title,
+          description: description,
+          dueDate: dueDate,
+          parentId: parentId,
+          closed: closed,
+        );
 
   final GoalStatus? status;
   final GoalReport? report;
@@ -41,5 +51,6 @@ class Goal extends Smartable {
         status: status,
         report: report,
         tasks: tasks,
+        closed: closed,
       );
 }

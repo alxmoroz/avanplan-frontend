@@ -7,6 +7,7 @@ class TaskUpsert extends SmartUpsert {
     required this.goalId,
     required String title,
     required String description,
+    required bool closed,
     required DateTime? dueDate,
     int? id,
     int? parentId,
@@ -16,6 +17,7 @@ class TaskUpsert extends SmartUpsert {
           parentId: parentId,
           title: title,
           description: description,
+          closed: closed,
           dueDate: dueDate,
           statusId: statusId,
         );

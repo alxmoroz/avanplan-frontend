@@ -1,6 +1,5 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
@@ -10,20 +9,20 @@ import '../../../L1_domain/entities/goals/goal_status.dart';
 import '../../components/confirmation_dialog.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
-import '../../presenters/date_presenter.dart';
-import '../_base/base_controller.dart';
+import '../_base/smartable_controller.dart';
 
 part 'goal_edit_controller.g.dart';
 
 class GoalEditController extends _GoalEditControllerBase with _$GoalEditController {}
 
-abstract class _GoalEditControllerBase extends BaseController with Store {
+abstract class _GoalEditControllerBase extends SmartableController<GoalStatus> with Store {
   Goal? get goal => mainController.selectedGoal;
 
   @override
   void initState({List<TFAnnotation>? tfaList}) {
     super.initState(tfaList: tfaList);
     setDueDate(goal?.dueDate);
+    setClosed(goal?.closed);
   }
 
   @computed
@@ -34,41 +33,11 @@ abstract class _GoalEditControllerBase extends BaseController with Store {
 
   /// статусы
 
-  @observable
-  ObservableList<GoalStatus> statuses = ObservableList();
-
-  @action
-  void _sortStatuses() {
-    statuses.sort((s1, s2) => s1.title.compareTo(s2.title));
-  }
-
   @action
   Future fetchStatuses() async {
     statuses = ObservableList.of(await goalStatusesUC.getStatuses());
-    _sortStatuses();
+    sortStatuses();
     selectStatus(goal?.status);
-  }
-
-  @observable
-  int? selectedStatusId;
-
-  @action
-  void selectStatus(GoalStatus? _status) {
-    selectedStatusId = _status?.id;
-  }
-
-  @computed
-  GoalStatus? get selectedStatus => statuses.firstWhereOrNull((s) => s.id == selectedStatusId);
-
-  /// дата
-
-  @observable
-  DateTime? selectedDueDate;
-
-  @action
-  void setDueDate(DateTime? _date) {
-    selectedDueDate = _date;
-    controllers['dueDate']?.text = _date != null ? _date.strLong : '';
   }
 
   /// действия
@@ -79,6 +48,7 @@ abstract class _GoalEditControllerBase extends BaseController with Store {
       id: goal?.id,
       title: tfAnnoForCode('title').text,
       description: tfAnnoForCode('description').text,
+      closed: closed,
       dueDate: selectedDueDate,
       statusId: selectedStatusId,
     ));

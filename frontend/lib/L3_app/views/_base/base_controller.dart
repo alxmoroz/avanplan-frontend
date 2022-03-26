@@ -7,7 +7,7 @@ import '../../components/text_field_annotation.dart';
 
 part 'base_controller.g.dart';
 
-class BaseController = _BaseControllerBase with _$BaseController;
+abstract class BaseController = _BaseControllerBase with _$BaseController;
 
 abstract class _BaseControllerBase with Store {
   Map<String, TextEditingController> controllers = {};

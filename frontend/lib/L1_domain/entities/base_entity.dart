@@ -37,7 +37,7 @@ abstract class Statusable extends Titleable {
   Statusable({
     required int id,
     required String title,
-    this.closed = false,
+    required this.closed,
   }) : super(id: id, title: title);
 
   final bool closed;

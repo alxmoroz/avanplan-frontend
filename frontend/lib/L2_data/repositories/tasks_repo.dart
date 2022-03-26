@@ -26,6 +26,7 @@ class TasksRepo extends AbstractApiRepo<Task, TaskUpsert> {
       ..parentId = data.parentId
       ..title = data.title
       ..description = data.description
+      ..closed = data.closed
       ..dueDate = data.dueDate?.toUtc();
 
     final response = await api.upsertTaskApiV1TasksPost(taskSchemaUpsert: builder.build());

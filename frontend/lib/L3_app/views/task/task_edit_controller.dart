@@ -1,6 +1,5 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
@@ -11,8 +10,7 @@ import '../../../L1_domain/entities/goals/task_status.dart';
 import '../../components/confirmation_dialog.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
-import '../../presenters/date_presenter.dart';
-import '../_base/base_controller.dart';
+import '../_base/smartable_controller.dart';
 
 part 'task_edit_controller.g.dart';
 
@@ -21,13 +19,14 @@ class TaskEditController extends _TaskEditControllerBase with _$TaskEditControll
 // TODO: подумать над объединением с контроллером просмотра. Проблему может доставить initState, который вызывает вьюха редактирования
 //  можно ли вообще несколько вьюх на один контроллер?
 
-abstract class _TaskEditControllerBase extends BaseController with Store {
+abstract class _TaskEditControllerBase extends SmartableController<TaskStatus> with Store {
   Goal get goal => mainController.selectedGoal!;
 
   @override
   void initState({List<TFAnnotation>? tfaList}) {
     super.initState(tfaList: tfaList);
     setDueDate(selectedTask?.dueDate);
+    setClosed(selectedTask?.closed);
   }
 
   /// выбранная задача
@@ -46,43 +45,14 @@ abstract class _TaskEditControllerBase extends BaseController with Store {
   @override
   bool get allNeedFieldsTouched => super.allNeedFieldsTouched || (canEdit && anyFieldTouched);
 
-  /// статус
-  @observable
-  ObservableList<TaskStatus> statuses = ObservableList();
-
-  @action
-  void _sortStatuses() {
-    statuses.sort((s1, s2) => s1.title.compareTo(s2.title));
-  }
-
   @action
   Future fetchStatuses() async {
     statuses = ObservableList.of(await taskStatusesUC.getStatuses());
-    _sortStatuses();
+    sortStatuses();
     selectStatus(selectedTask?.status);
   }
 
-  @observable
-  int? selectedStatusId;
-
-  @action
-  void selectStatus(TaskStatus? _status) {
-    selectedStatusId = _status?.id;
-  }
-
-  @computed
-  TaskStatus? get selectedStatus => statuses.firstWhereOrNull((s) => s.id == selectedStatusId);
-
   /// дата
-
-  @observable
-  DateTime? selectedDueDate;
-
-  @action
-  void setDueDate(DateTime? _date) {
-    selectedDueDate = _date;
-    controllers['dueDate']?.text = _date != null ? _date.strLong : '';
-  }
 
   Future saveTask(BuildContext context) async {
     final editedTask = await tasksUC.save(TaskUpsert(
@@ -91,6 +61,7 @@ abstract class _TaskEditControllerBase extends BaseController with Store {
       parentId: _parentId,
       title: tfAnnoForCode('title').text,
       description: tfAnnoForCode('description').text,
+      closed: closed,
       dueDate: selectedDueDate,
       statusId: selectedStatusId,
     ));

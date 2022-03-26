@@ -34,6 +34,7 @@ class GoalsRepo extends AbstractApiRepo<Goal, GoalUpsert> {
       ..statusId = data.statusId
       ..title = data.title
       ..description = data.description
+      ..closed = data.closed
       ..dueDate = data.dueDate?.toUtc();
 
     final response = await api.upsertGoalApiV1GoalsPost(goalSchemaUpsert: builder.build());

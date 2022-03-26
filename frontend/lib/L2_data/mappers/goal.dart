@@ -16,6 +16,7 @@ extension GoalMapper on GoalSchemaGet {
         title: title,
         description: description ?? '',
         dueDate: dueDate?.toLocal(),
+        closed: closed,
         status: status != null ? status!.status : null,
         report: report != null ? report!.report : null,
         tasks: tasks?.map((t) => t.task).toList() ?? [],

@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/goals/task.dart';
+import '../../../L1_domain/entities/goals/task_status.dart';
 import '../../components/bottom_sheet.dart';
 import '../../components/buttons.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
+import '../../components/dropdown.dart';
 import '../../components/icons.dart';
 import '../../components/splash.dart';
 import '../../components/text_field.dart';
@@ -16,7 +18,7 @@ import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import 'task_edit_controller.dart';
 
-//TODO: дубль по коду редактора цели!
+//TODO: дубль по коду редактора цели! — ок, пока не определён способ использования этих компонентов. копипаст в данном случае оправдан
 
 Future<Task?> showEditTaskDialog(BuildContext context, [Task? selectedTask]) async {
   taskEditController.selectTask(selectedTask);
@@ -42,15 +44,19 @@ class _TaskEditViewState extends State<TaskEditView> {
   Task? get _task => _controller.selectedTask;
   Future<void>? _fetchStatuses;
 
+  //TODO: валидация о заполненности работает неправильно, не сбрасывается после закрытия диалога
+  // возможно, остаются tfa с теми же кодами для новых вьюх этого же контроллера и у них висит признак о произошедшем редактировании поля
+  // была попытка использовать TFAnnotation для выбора статуса, чтобы реагировать на изменения поля в плане логики валидации
   @override
   void initState() {
+    //TODO: возможно, это должно быть в инициализации контроллера?
     _controller.initState(tfaList: [
       TFAnnotation('title', label: loc.common_title, text: _task?.title ?? ''),
       TFAnnotation('description', label: loc.common_description, text: _task?.description ?? '', needValidate: false),
       TFAnnotation('dueDate', label: loc.common_due_date_placeholder, noText: true, needValidate: false),
     ]);
 
-    _fetchStatuses = _controller.fetchGoalStatuses();
+    _fetchStatuses = _controller.fetchStatuses();
 
     super.initState();
   }
@@ -92,6 +98,10 @@ class _TaskEditViewState extends State<TaskEditView> {
     if (date != null) {
       _controller.setDueDate(date);
     }
+  }
+
+  List<DropdownMenuItem<TaskStatus>> get statusItems {
+    return _controller.statuses.map((s) => DropdownMenuItem<TaskStatus>(value: s, child: NormalText(s.title))).toList();
   }
 
   @override
@@ -140,6 +150,12 @@ class _TaskEditViewState extends State<TaskEditView> {
                               textFieldForCode('title'),
                               textFieldForCode('dueDate', onTap: inputDateTime),
                               textFieldForCode('description'),
+                              MTDropdown<TaskStatus>(
+                                width: mq.size.width - onePadding * 2,
+                                onChanged: (status) => _controller.selectStatus(status),
+                                value: _controller.selectedStatus,
+                                items: statusItems,
+                              ),
                             ],
                           ),
                         ),

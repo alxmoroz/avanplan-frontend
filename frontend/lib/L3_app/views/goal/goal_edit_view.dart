@@ -1,6 +1,5 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -10,6 +9,7 @@ import '../../components/bottom_sheet.dart';
 import '../../components/buttons.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
+import '../../components/dropdown.dart';
 import '../../components/icons.dart';
 import '../../components/splash.dart';
 import '../../components/text_field.dart';
@@ -18,8 +18,7 @@ import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import 'goal_edit_controller.dart';
 
-//TODO: 1. вытащить DropdownButtonFormField2 в отдельный виджет
-//TODO: 2. подумать над унификацией полей. Возможно, получится избавиться от дуэта MTField и TFAnnotation
+//TODO: подумать над унификацией полей. Возможно, получится избавиться от дуэта MTField и TFAnnotation
 
 //TODO: дубль по коду редактора задачи!
 
@@ -53,7 +52,7 @@ class _GoalViewState extends State<GoalEditView> {
       TFAnnotation('dueDate', label: loc.common_due_date_placeholder, noText: true),
     ]);
 
-    _fetchStatuses = _controller.fetchGoalStatuses();
+    _fetchStatuses = _controller.fetchStatuses();
 
     super.initState();
   }
@@ -98,14 +97,7 @@ class _GoalViewState extends State<GoalEditView> {
   }
 
   List<DropdownMenuItem<GoalStatus>> get statusItems {
-    return _controller.statuses
-        .map(
-          (s) => DropdownMenuItem<GoalStatus>(
-            value: s,
-            child: NormalText(s.title),
-          ),
-        )
-        .toList();
+    return _controller.statuses.map((s) => DropdownMenuItem<GoalStatus>(value: s, child: NormalText(s.title))).toList();
   }
 
   @override
@@ -155,20 +147,11 @@ class _GoalViewState extends State<GoalEditView> {
                               textFieldForCode('title'),
                               textFieldForCode('dueDate', suffixIcon: calendarIcon(context), onTap: inputDateTime),
                               textFieldForCode('description'),
-                              Padding(
-                                padding: tfPadding,
-                                child: DropdownButtonFormField2<GoalStatus>(
-                                  decoration: tfDecoration(context, label: loc.common_status_placeholder, readOnly: true),
-                                  icon: downCaretIcon(context),
-                                  items: statusItems,
-                                  value: _controller.selectedStatus,
-                                  onChanged: (status) => _controller.selectStatus(status),
-                                  dropdownWidth: mq.size.width - onePadding * 2,
-                                  dropdownPadding: EdgeInsets.symmetric(vertical: onePadding),
-                                  dropdownDecoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(onePadding),
-                                  ),
-                                ),
+                              MTDropdown<GoalStatus>(
+                                width: mq.size.width - onePadding * 2,
+                                onChanged: (status) => _controller.selectStatus(status),
+                                value: _controller.selectedStatus,
+                                items: statusItems,
                               ),
                             ],
                           ),

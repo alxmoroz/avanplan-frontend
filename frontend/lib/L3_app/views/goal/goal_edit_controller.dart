@@ -22,9 +22,12 @@ abstract class _GoalEditControllerBase extends BaseController with Store {
 
   @override
   void initState({List<TFAnnotation>? tfaList}) {
-    setDueDate(goal?.dueDate);
     super.initState(tfaList: tfaList);
+    setDueDate(goal?.dueDate);
   }
+
+  @computed
+  bool get canEdit => goal != null;
 
   @override
   bool get allNeedFieldsTouched => super.allNeedFieldsTouched || (canEdit && selectedDueDate != null && anyFieldTouched);
@@ -40,7 +43,7 @@ abstract class _GoalEditControllerBase extends BaseController with Store {
   }
 
   @action
-  Future fetchGoalStatuses() async {
+  Future fetchStatuses() async {
     statuses = ObservableList.of(await goalStatusesUC.getStatuses());
     _sortStatuses();
     selectStatus(goal?.status);
@@ -67,9 +70,6 @@ abstract class _GoalEditControllerBase extends BaseController with Store {
     selectedDueDate = _date;
     controllers['dueDate']?.text = _date != null ? _date.strLong : '';
   }
-
-  @computed
-  bool get canEdit => goal != null;
 
   /// действия
 

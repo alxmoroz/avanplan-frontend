@@ -26,8 +26,8 @@ abstract class _TaskEditControllerBase extends BaseController with Store {
 
   @override
   void initState({List<TFAnnotation>? tfaList}) {
-    setDueDate(selectedTask?.dueDate);
     super.initState(tfaList: tfaList);
+    setDueDate(selectedTask?.dueDate);
   }
 
   /// выбранная задача
@@ -36,6 +36,9 @@ abstract class _TaskEditControllerBase extends BaseController with Store {
 
   @action
   void selectTask(Task? _task) => selectedTask = _task;
+
+  @computed
+  bool get canEdit => selectedTask != null;
 
   @computed
   int? get _parentId => canEdit ? taskViewController.task?.parentId : taskViewController.task?.id;
@@ -53,7 +56,7 @@ abstract class _TaskEditControllerBase extends BaseController with Store {
   }
 
   @action
-  Future fetchGoalStatuses() async {
+  Future fetchStatuses() async {
     statuses = ObservableList.of(await taskStatusesUC.getStatuses());
     _sortStatuses();
     selectStatus(selectedTask?.status);
@@ -80,9 +83,6 @@ abstract class _TaskEditControllerBase extends BaseController with Store {
     selectedDueDate = _date;
     controllers['dueDate']?.text = _date != null ? _date.strLong : '';
   }
-
-  @computed
-  bool get canEdit => selectedTask != null;
 
   Future saveTask(BuildContext context) async {
     final editedTask = await tasksUC.save(TaskUpsert(

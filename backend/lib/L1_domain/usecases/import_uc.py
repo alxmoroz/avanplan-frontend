@@ -68,6 +68,8 @@ class ImportUC:
     def _upsert_goal(self, goal: GoalImport) -> GoalImport:
         if goal:
             goal.parent = self._upsert_goal(goal.parent)
+            goal.closed = goal.status and goal.status.closed
+
             return self._upsert_once(
                 goal,
                 goal.remote_code,
@@ -96,6 +98,7 @@ class ImportUC:
             task.assignee = self._upsert_person(task.assignee)
             task.author = self._upsert_person(task.author)
             task.parent = self._upsert_task(task.parent)
+            task.closed = task.status and task.status.closed
 
             return self._upsert_once(
                 task,

@@ -16,9 +16,9 @@ import '../_base/base_controller.dart';
 
 part 'smartable_controller.g.dart';
 
-abstract class SmartableController<T extends Titleable> extends _SmartableControllerBase<T> with _$SmartableController {}
+abstract class SmartableController<T extends Statusable> extends _SmartableControllerBase<T> with _$SmartableController {}
 
-abstract class _SmartableControllerBase<T extends Titleable> extends BaseController with Store {
+abstract class _SmartableControllerBase<T extends Statusable> extends BaseController with Store {
   /// статусы
 
   @observable
@@ -31,7 +31,12 @@ abstract class _SmartableControllerBase<T extends Titleable> extends BaseControl
   int? selectedStatusId;
 
   @action
-  void selectStatus(T? _status) => selectedStatusId = _status?.id;
+  void selectStatus(T? _status) {
+    selectedStatusId = _status?.id;
+    if (_status != null && _status.closed) {
+      closed = true;
+    }
+  }
 
   @computed
   T? get selectedStatus => statuses.firstWhereOrNull((s) => s.id == selectedStatusId);
@@ -40,7 +45,12 @@ abstract class _SmartableControllerBase<T extends Titleable> extends BaseControl
   bool closed = false;
 
   @action
-  void setClosed(bool? _closed) => closed = _closed ?? false;
+  void setClosed(bool? _closed) {
+    closed = _closed ?? false;
+    if (!closed && selectedStatus != null && selectedStatus!.closed) {
+      selectedStatusId = null;
+    }
+  }
 
   /// дата
 
@@ -98,12 +108,13 @@ abstract class _SmartableControllerBase<T extends Titleable> extends BaseControl
           child: Column(
             children: [
               ...['title', 'dueDate', 'description'].map((code) => textFieldForCode(context, code)),
-              MTDropdown<T>(
-                width: mq.size.width - onePadding * 2,
-                onChanged: (status) => selectStatus(status),
-                value: selectedStatus,
-                items: statuses,
-              ),
+              if (statuses.isNotEmpty)
+                MTDropdown<T>(
+                  width: mq.size.width - onePadding * 2,
+                  onChanged: (status) => selectStatus(status),
+                  value: selectedStatus,
+                  items: statuses,
+                ),
               Padding(
                 padding: tfPadding,
                 child: InkWell(

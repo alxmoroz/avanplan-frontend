@@ -29,7 +29,7 @@ abstract class _GoalEditControllerBase extends SmartableController<GoalStatus> w
   bool get canEdit => goal != null;
 
   @override
-  bool get allNeedFieldsTouched => super.allNeedFieldsTouched || (canEdit && selectedDueDate != null && anyFieldTouched);
+  bool get allNeedFieldsTouched => super.allNeedFieldsTouched || (canEdit && selectedDueDate != null);
 
   /// статусы
 

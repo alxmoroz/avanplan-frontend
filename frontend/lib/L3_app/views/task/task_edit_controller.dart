@@ -43,7 +43,7 @@ abstract class _TaskEditControllerBase extends SmartableController<TaskStatus> w
   int? get _parentId => canEdit ? taskViewController.task?.parentId : taskViewController.task?.id;
 
   @override
-  bool get allNeedFieldsTouched => super.allNeedFieldsTouched || (canEdit && anyFieldTouched);
+  bool get allNeedFieldsTouched => super.allNeedFieldsTouched || canEdit;
 
   @action
   Future fetchStatuses() async {

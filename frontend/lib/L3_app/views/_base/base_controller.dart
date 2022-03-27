@@ -50,8 +50,8 @@ abstract class _BaseControllerBase with Store {
   @computed
   bool get allNeedFieldsTouched => !_validatableTA.any((ta) => !ta.edited);
 
-  @computed
-  bool get anyFieldTouched => _allTA.any((ta) => ta.edited);
+  // @computed
+  // bool get anyFieldTouched => _allTA.any((ta) => ta.edited);
 
   @computed
   bool get validated => !_validatableTA.any((ta) => ta.errorText != null) && allNeedFieldsTouched;

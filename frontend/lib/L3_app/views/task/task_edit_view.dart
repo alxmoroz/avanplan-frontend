@@ -83,7 +83,7 @@ class _TaskEditViewState extends State<TaskEditView> {
                           padding: EdgeInsets.only(left: onePadding),
                         )
                       : Container(),
-                  middle: H3(_goal == null ? loc.goal_title_new : '', align: TextAlign.center),
+                  middle: H3(_task == null ? loc.task_title_new : '', align: TextAlign.center),
                   trailing: Button(
                     loc.btn_save_title,
                     _controller.validated ? () => _controller.save(context) : null,

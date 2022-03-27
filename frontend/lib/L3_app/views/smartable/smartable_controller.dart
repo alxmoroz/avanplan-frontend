@@ -84,6 +84,8 @@ abstract class _SmartableControllerBase<T extends Titleable> extends BaseControl
           );
   }
 
+  /// общий виджет с полями
+
   Widget form(BuildContext context) {
     final mq = MediaQuery.of(context);
     return Container(

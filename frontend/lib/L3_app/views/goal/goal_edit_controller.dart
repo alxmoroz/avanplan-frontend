@@ -43,7 +43,7 @@ abstract class _GoalEditControllerBase extends SmartableController<GoalStatus> w
   /// действия
 
   //TODO: как вариант вызовы юзкейсов этих должны быть из главного контроллера
-  Future saveGoal(BuildContext context) async {
+  Future save(BuildContext context) async {
     final editedGoal = await goalsUC.save(GoalUpsert(
       id: goal?.id,
       title: tfAnnoForCode('title').text,
@@ -58,7 +58,7 @@ abstract class _GoalEditControllerBase extends SmartableController<GoalStatus> w
     }
   }
 
-  Future deleteGoal(BuildContext context) async {
+  Future delete(BuildContext context) async {
     if (canEdit) {
       final confirm = await showMTDialog<bool?>(
         context,

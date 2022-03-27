@@ -86,13 +86,13 @@ class _TaskEditViewState extends State<TaskEditView> {
                             if (_controller.canEdit)
                               Button.icon(
                                 deleteIcon(context),
-                                () => _controller.deleteTask(context),
+                                () => _controller.delete(context),
                                 padding: EdgeInsets.only(left: onePadding),
                               ),
                             const Spacer(),
                             Button(
                               loc.btn_save_title,
-                              _controller.validated ? () => _controller.saveTask(context) : null,
+                              _controller.validated ? () => _controller.save(context) : null,
                               titleColor: _controller.validated ? mainColor : borderColor,
                               padding: EdgeInsets.only(right: onePadding),
                             ),

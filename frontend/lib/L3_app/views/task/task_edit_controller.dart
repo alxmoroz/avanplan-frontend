@@ -52,9 +52,9 @@ abstract class _TaskEditControllerBase extends SmartableController<TaskStatus> w
     selectStatus(selectedTask?.status);
   }
 
-  /// дата
+  /// действия
 
-  Future saveTask(BuildContext context) async {
+  Future save(BuildContext context) async {
     final editedTask = await tasksUC.save(TaskUpsert(
       goalId: goal.id,
       id: selectedTask?.id,
@@ -71,7 +71,7 @@ abstract class _TaskEditControllerBase extends SmartableController<TaskStatus> w
     }
   }
 
-  Future deleteTask(BuildContext context) async {
+  Future delete(BuildContext context) async {
     if (canEdit) {
       final confirm = await showMTDialog<bool?>(
         context,

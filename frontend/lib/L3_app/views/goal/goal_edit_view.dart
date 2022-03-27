@@ -75,14 +75,14 @@ class _GoalViewState extends State<GoalEditView> {
                   leading: _controller.canEdit
                       ? Button.icon(
                           deleteIcon(context),
-                          () => _controller.deleteGoal(context),
+                          () => _controller.delete(context),
                           padding: EdgeInsets.only(left: onePadding),
                         )
                       : Container(),
                   middle: H3(_goal == null ? loc.goal_title_new : '', align: TextAlign.center),
                   trailing: Button(
                     loc.btn_save_title,
-                    _controller.validated ? () => _controller.saveGoal(context) : null,
+                    _controller.validated ? () => _controller.save(context) : null,
                     titleColor: _controller.validated ? mainColor : borderColor,
                     padding: EdgeInsets.only(right: onePadding),
                   ),

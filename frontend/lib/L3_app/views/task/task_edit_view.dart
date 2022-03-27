@@ -4,15 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/goals/task.dart';
-import '../../../L1_domain/entities/goals/task_status.dart';
 import '../../components/bottom_sheet.dart';
 import '../../components/buttons.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/dropdown.dart';
 import '../../components/icons.dart';
 import '../../components/splash.dart';
-import '../../components/text_field.dart';
 import '../../components/text_field_annotation.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
@@ -67,43 +64,6 @@ class _TaskEditViewState extends State<TaskEditView> {
     super.dispose();
   }
 
-  Widget textFieldForCode(String code, {VoidCallback? onTap}) {
-    final ta = _controller.tfAnnoForCode(code);
-    return ta.noText
-        ? MTTextField.noText(
-            controller: _controller.controllers[code],
-            label: ta.label,
-            error: ta.errorText,
-            onTap: onTap,
-            suffixIcon: calendarIcon(context),
-          )
-        : MTTextField(
-            controller: _controller.controllers[code],
-            label: ta.label,
-            error: ta.errorText,
-            onTap: onTap,
-          );
-  }
-
-  Future inputDateTime() async {
-    final firstDate =
-        _controller.selectedDueDate != null && DateTime.now().isAfter(_controller.selectedDueDate!) ? _controller.selectedDueDate! : DateTime.now();
-    final date = await showDatePicker(
-      context: context,
-      initialEntryMode: DatePickerEntryMode.calendarOnly,
-      initialDate: _controller.selectedDueDate ?? DateTime.now(),
-      firstDate: firstDate,
-      lastDate: DateTime.now().add(const Duration(days: 36500)),
-    );
-    if (date != null) {
-      _controller.setDueDate(date);
-    }
-  }
-
-  List<DropdownMenuItem<TaskStatus>> get statusItems {
-    return _controller.statuses.map((s) => DropdownMenuItem<TaskStatus>(value: s, child: NormalText(s.title))).toList();
-  }
-
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context);
@@ -140,27 +100,7 @@ class _TaskEditViewState extends State<TaskEditView> {
                         ),
                       ],
                     ),
-                    Container(
-                      constraints: BoxConstraints(maxHeight: mq.size.height - mq.viewInsets.bottom - mq.viewPadding.bottom - 150),
-                      child: Scrollbar(
-                        isAlwaysShown: true,
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              textFieldForCode('title'),
-                              textFieldForCode('dueDate', onTap: inputDateTime),
-                              textFieldForCode('description'),
-                              MTDropdown<TaskStatus>(
-                                width: mq.size.width - onePadding * 2,
-                                onChanged: (status) => _controller.selectStatus(status),
-                                value: _controller.selectedStatus,
-                                items: statusItems,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
+                    _controller.form(context),
                   ],
                 ),
               )

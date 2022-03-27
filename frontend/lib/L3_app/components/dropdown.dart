@@ -3,23 +3,42 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 
+import '../../L1_domain/entities/base_entity.dart';
 import '../extra/services.dart';
 import 'constants.dart';
 import 'icons.dart';
 import 'text_field.dart';
+import 'text_widgets.dart';
 
-class MTDropdown<T> extends StatelessWidget {
+class MTDropdown<T extends Titleable> extends StatefulWidget {
   const MTDropdown({
     required this.width,
+    required this.items,
     this.onChanged,
     this.value,
-    this.items,
   });
 
   final double width;
   final void Function(T?)? onChanged;
   final T? value;
-  final List<DropdownMenuItem<T>>? items;
+  final List<T> items;
+
+  @override
+  _MTDropdownState<T> createState() => _MTDropdownState();
+}
+
+class _MTDropdownState<T extends Titleable> extends State<MTDropdown<T>> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  List<DropdownMenuItem<T>> get ddItems => widget.items
+      .map((s) => DropdownMenuItem<T>(
+            value: s,
+            child: NormalText(s.title),
+          ))
+      .toList();
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +47,10 @@ class MTDropdown<T> extends StatelessWidget {
       child: DropdownButtonFormField2<T>(
         decoration: tfDecoration(context, label: loc.common_status_placeholder, readOnly: true),
         icon: downCaretIcon(context),
-        items: items,
-        value: value,
-        onChanged: onChanged,
-        dropdownWidth: width,
+        items: ddItems,
+        value: widget.value,
+        onChanged: widget.onChanged,
+        dropdownWidth: widget.width,
         dropdownPadding: EdgeInsets.symmetric(vertical: onePadding),
         dropdownDecoration: BoxDecoration(
           borderRadius: BorderRadius.circular(onePadding),

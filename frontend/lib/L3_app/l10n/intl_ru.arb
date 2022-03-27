@@ -7,8 +7,10 @@
   "auth_password_placeholder": "Пароль",
   "auth_log_in_button_title": "Войти",
 
+  "btn_delete_title": "Удалить ",
+  "btn_mark_done_title": "Выполнено",
   "btn_save_title": "Сохранить",
-  "btn_delete_title": "Удалить",
+
 
   "common_description": "Описание",
   "common_delete_dialog_description": "Это действие нельзя будет отменить!",

@@ -9,6 +9,8 @@ import '../../components/constants.dart';
 import '../../components/dropdown.dart';
 import '../../components/icons.dart';
 import '../../components/text_field.dart';
+import '../../components/text_widgets.dart';
+import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';
 import '../_base/base_controller.dart';
 
@@ -101,6 +103,17 @@ abstract class _SmartableControllerBase<T extends Titleable> extends BaseControl
                 onChanged: (status) => selectStatus(status),
                 value: selectedStatus,
                 items: statuses,
+              ),
+              Padding(
+                padding: tfPadding,
+                child: InkWell(
+                  child: Row(children: [
+                    doneIcon(context, closed),
+                    SizedBox(width: onePadding),
+                    NormalText(loc.btn_mark_done_title, padding: EdgeInsets.symmetric(vertical: onePadding)),
+                  ]),
+                  onTap: () => setClosed(!closed),
+                ),
               ),
             ],
           ),

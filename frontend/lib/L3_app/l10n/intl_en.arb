@@ -7,8 +7,10 @@
   "auth_password_placeholder": "Password",
   "auth_log_in_button_title": "Log in",
 
-  "btn_save_title": "Save",
   "btn_delete_title": "Delete",
+  "btn_mark_done_title": "Done",
+  "btn_save_title": "Save",
+
 
   "common_description": "Description",
   "common_delete_dialog_description": "This action cannot be undone!",

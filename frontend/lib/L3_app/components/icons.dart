@@ -36,6 +36,12 @@ Widget calendarIcon(BuildContext context, {Color? color, double? size}) => Icon(
       color: (color ?? mainColor).resolve(context),
     );
 
+Widget doneIcon(BuildContext context, bool done, {Color? color, double? size}) => Icon(
+      done ? CupertinoIcons.check_mark_circled : CupertinoIcons.circle,
+      size: size ?? 32,
+      color: (color ?? mainColor).resolve(context),
+    );
+
 Widget downCaretIcon(BuildContext context, {Color? color, double? size}) => Icon(
       CupertinoIcons.chevron_up_chevron_down,
       size: size ?? 24,

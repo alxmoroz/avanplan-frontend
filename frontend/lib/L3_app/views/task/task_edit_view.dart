@@ -8,7 +8,9 @@ import '../../components/bottom_sheet.dart';
 import '../../components/buttons.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
+import '../../components/cupertino_page.dart';
 import '../../components/icons.dart';
+import '../../components/navbar.dart';
 import '../../components/splash.dart';
 import '../../components/text_field_annotation.dart';
 import '../../components/text_widgets.dart';
@@ -66,46 +68,33 @@ class _TaskEditViewState extends State<TaskEditView> {
 
   @override
   Widget build(BuildContext context) {
-    final mq = MediaQuery.of(context);
-    // TODO: CupertinoPageScaffold и в заголовок кнопки
-    return SafeArea(
-      child: FutureBuilder(
-        future: _fetchStatuses,
-        builder: (_, snapshot) => snapshot.connectionState == ConnectionState.done
-            ? Observer(
-                builder: (_) => Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        H3(_task == null ? loc.task_title_new : '', align: TextAlign.center),
-                        Row(
-                          children: [
-                            if (_controller.canEdit)
-                              Button.icon(
-                                deleteIcon(context),
-                                () => _controller.delete(context),
-                                padding: EdgeInsets.only(left: onePadding),
-                              ),
-                            const Spacer(),
-                            Button(
-                              loc.btn_save_title,
-                              _controller.validated ? () => _controller.save(context) : null,
-                              titleColor: _controller.validated ? mainColor : borderColor,
-                              padding: EdgeInsets.only(right: onePadding),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    _controller.form(context),
-                  ],
+    return FutureBuilder(
+      future: _fetchStatuses,
+      builder: (_, snapshot) => snapshot.connectionState == ConnectionState.done
+          ? Observer(
+              builder: (_) => MTCupertinoPage(
+                bgColor: darkBackgroundColor,
+                navBar: navBar(
+                  context,
+                  leading: _controller.canEdit
+                      ? Button.icon(
+                          deleteIcon(context),
+                          () => _controller.delete(context),
+                          padding: EdgeInsets.only(left: onePadding),
+                        )
+                      : Container(),
+                  middle: H3(_goal == null ? loc.goal_title_new : '', align: TextAlign.center),
+                  trailing: Button(
+                    loc.btn_save_title,
+                    _controller.validated ? () => _controller.save(context) : null,
+                    titleColor: _controller.validated ? mainColor : borderColor,
+                    padding: EdgeInsets.only(right: onePadding),
+                  ),
                 ),
-              )
-            : const SplashScreen(),
-      ),
+                body: _controller.form(context),
+              ),
+            )
+          : const SplashScreen(),
     );
   }
 }

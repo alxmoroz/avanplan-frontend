@@ -19,8 +19,6 @@ import 'goal_edit_controller.dart';
 
 //TODO: подумать над унификацией полей. Возможно, получится избавиться от дуэта MTField и TFAnnotation
 
-//TODO: дубль по коду редактора задачи!
-
 Future<Goal?> showEditGoalDialog(BuildContext context) async {
   return await showModalBottomSheet<Goal?>(
     context: context,

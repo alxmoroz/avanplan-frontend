@@ -8,19 +8,21 @@ import 'material_wrapper.dart';
 
 class MTCupertinoPage extends StatelessWidget {
   const MTCupertinoPage({
-    this.navBar,
     required this.body,
+    this.navBar,
+    this.bgColor,
     this.mainAxisAlignment = MainAxisAlignment.start,
   });
 
   final CupertinoNavigationBar? navBar;
   final Widget body;
   final MainAxisAlignment mainAxisAlignment;
+  final Color? bgColor;
 
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      backgroundColor: backgroundColor,
+      backgroundColor: bgColor ?? backgroundColor,
       resizeToAvoidBottomInset: true,
       navigationBar: navBar,
       child: SafeArea(

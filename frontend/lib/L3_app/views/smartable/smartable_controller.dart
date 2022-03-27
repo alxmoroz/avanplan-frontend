@@ -87,7 +87,7 @@ abstract class _SmartableControllerBase<T extends Titleable> extends BaseControl
   Widget form(BuildContext context) {
     final mq = MediaQuery.of(context);
     return Container(
-      constraints: BoxConstraints(maxHeight: mq.size.height - mq.viewInsets.bottom - mq.viewPadding.bottom - 150),
+      constraints: BoxConstraints(maxHeight: (mq.size.height - mq.viewInsets.bottom - mq.viewPadding.bottom) * 0.82),
       child: Scrollbar(
         isAlwaysShown: true,
         child: SingleChildScrollView(

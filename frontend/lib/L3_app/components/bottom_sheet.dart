@@ -6,7 +6,8 @@ import 'package:flutter/widgets.dart';
 
 import 'colors.dart';
 import 'constants.dart';
-import 'notch.dart';
+
+double radius = onePadding;
 
 class MTBottomSheet extends StatelessWidget {
   const MTBottomSheet(this.bodyWidget);
@@ -22,15 +23,15 @@ class MTBottomSheet extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             color: darkBackgroundColor.resolve(context),
-            borderRadius: const BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(radius), topRight: Radius.circular(radius)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Notch(),
+              // const Notch(),
+              SizedBox(height: radius),
               bodyWidget,
-              SizedBox(height: onePadding),
             ],
           ),
         ),

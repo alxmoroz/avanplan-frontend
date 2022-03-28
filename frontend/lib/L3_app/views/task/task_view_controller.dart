@@ -29,17 +29,24 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   }
 
   @action
-  void updateTaskInList(Task? task) {
-    if (task != null) {
-      final index = goal.tasks.indexWhere((t) => t.id == task.id);
+  void updateTaskInList(Task? _task) {
+    if (_task != null) {
+      final index = goal.tasks.indexWhere((t) => t.id == _task.id);
       if (index >= 0) {
-        if (task.deleted) {
-          goal.tasks.remove(task);
+        if (_task.deleted) {
+          for (Task t in _task.tasks) {
+            t.deleted = true;
+            updateTaskInList(t);
+          }
+          goal.tasks.remove(_task);
         } else {
-          goal.tasks[index] = task;
+          goal.tasks[index] = _task;
         }
       } else {
-        goal.tasks.add(task);
+        if (task != null) {
+          task!.tasks.add(_task);
+        }
+        goal.tasks.add(_task);
       }
       sortTasks();
       mainController.updateGoalInList(goal.copy());

@@ -52,5 +52,5 @@ class Goal extends Smartable {
   double get _planSpeed => tasksCount / (plannedPeriod?.inSeconds ?? 1);
 
   DateTime? get etaDate => _factSpeed > 0 ? DateTime.now().add(Duration(seconds: (lefTasksCount / _factSpeed).round())) : null;
-  num get pace => _factSpeed - _planSpeed;
+  double get pace => _factSpeed - _planSpeed;
 }

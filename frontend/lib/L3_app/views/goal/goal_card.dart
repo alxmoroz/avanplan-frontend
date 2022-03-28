@@ -53,7 +53,7 @@ class GoalCard extends StatelessWidget {
         child: Stack(
           children: [
             Container(
-              color: (goal.pace >= 0 ? goodPaceColor : warningPaceColor).resolve(context),
+              color: (goal.dueDate != null ? (goal.pace >= 0 ? goodPaceColor : warningPaceColor) : borderColor).resolve(context),
               width: (goal.closedRatio ?? 0) * _width,
             ),
             Padding(

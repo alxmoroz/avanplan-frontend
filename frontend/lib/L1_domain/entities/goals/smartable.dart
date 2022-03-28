@@ -19,4 +19,7 @@ abstract class Smartable extends Statusable {
   final DateTime updatedOn;
   final DateTime? dueDate;
   final int? parentId;
+
+  Duration? get plannedPeriod => dueDate?.difference(createdOn);
+  Duration get pastPeriod => DateTime.now().difference(createdOn);
 }

@@ -1,9 +1,7 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
 from dataclasses import dataclass
-from datetime import date, datetime, timedelta
-
-from pytz import utc
+from datetime import date, datetime
 
 from ..base_entity import Titleable
 
@@ -17,13 +15,3 @@ class Smartable(Titleable):
     remote_code: str | None = None
     parent_id: int | None = None
     closed: bool | None = False
-
-    # TODO: на фронт
-    @property
-    def planned_period(self) -> timedelta | None:
-        if self.due_date:
-            return self.due_date - self.created_on
-
-    @property
-    def past_period(self) -> timedelta:
-        return datetime.now(tz=utc) - self.created_on

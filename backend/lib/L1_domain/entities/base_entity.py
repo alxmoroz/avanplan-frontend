@@ -20,7 +20,7 @@ class Orderable(Titleable):
 
 @dataclass
 class Statusable(Titleable):
-    closed: bool | None = None
+    closed: bool = False
 
 
 @dataclass

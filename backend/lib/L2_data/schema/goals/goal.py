@@ -6,7 +6,6 @@ from abc import ABC
 from typing import Optional
 
 from ..base_schema import BaseSchema, PKGetable, PKUpsertable, Timestampable
-from .goal_report import GoalReportSchema
 from .goal_status import GoalStatusSchemaGet
 from .smartable import Smartable
 from .task import TaskSchemaGet
@@ -18,7 +17,6 @@ class GoalSchema(Smartable, BaseSchema, ABC):
 
 class GoalSchemaGet(GoalSchema, PKGetable, Timestampable):
     status: Optional[GoalStatusSchemaGet]
-    report: Optional[GoalReportSchema]
     tasks: Optional[list[TaskSchemaGet]]
 
 

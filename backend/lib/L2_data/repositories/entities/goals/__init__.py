@@ -2,7 +2,6 @@
 
 from .goal_import_repo import GoalImportRepo
 from .goal_repo import GoalRepo
-from .goal_report import GoalReportRepo
 from .goal_status_repo import GoalStatusRepo
 from .person_repo import PersonRepo
 from .task_import_repo import TaskImportRepo

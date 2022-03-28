@@ -1,7 +1,7 @@
 #  Copyright (c) 2022. Alexandr Moroz
 from fastapi.testclient import TestClient
 
-from lib.L1_domain.entities import Goal, GoalReport
+from lib.L1_domain.entities import Goal
 from lib.L2_data.repositories import entities as er
 from lib.L2_data.schema import GoalSchemaGet
 from lib.L2_data.settings import settings
@@ -24,9 +24,7 @@ def test_get_goals(client: TestClient, auth_headers_test_user, tmp_goal):
     json_goals = r.json()
     goals_out = [_goal_from_json(json_goal) for json_goal in json_goals]
 
-    tmp_goal.report = GoalReport()
     assert _user_from_orm(tmp_goal) in goals_out
-    tmp_goal.report = None
 
 
 def test_resource_401(client: TestClient):

@@ -68,7 +68,6 @@ class ImportUC:
     def _upsert_goal(self, goal: GoalImport) -> GoalImport:
         if goal:
             goal.parent = self._upsert_goal(goal.parent)
-            goal.closed = goal.status and goal.status.closed
 
             return self._upsert_once(
                 goal,

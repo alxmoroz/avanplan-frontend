@@ -1,15 +1,15 @@
 """empty message
 
-Revision ID: 04683ed1b640
+Revision ID: b4ed7228440d
 Revises: 
-Create Date: 2022-03-26 22:16:19.560965
+Create Date: 2022-04-08 21:57:05.341085
 
 """
 import sqlalchemy as sa
 from alembic import op
 
 # revision identifiers, used by Alembic.
-revision = "04683ed1b640"
+revision = "b4ed7228440d"
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -36,6 +36,14 @@ def upgrade():
     )
     op.create_index(op.f("ix_persons_email"), "persons", ["email"], unique=True)
     op.create_index(op.f("ix_persons_id"), "persons", ["id"], unique=False)
+    op.create_table(
+        "remotetrackertypes",
+        sa.Column("id", sa.Integer(), nullable=False),
+        sa.Column("title", sa.String(), nullable=False),
+        sa.PrimaryKeyConstraint("id"),
+        sa.UniqueConstraint("title"),
+    )
+    op.create_index(op.f("ix_remotetrackertypes_id"), "remotetrackertypes", ["id"], unique=False)
     op.create_table(
         "taskprioritys",
         sa.Column("id", sa.Integer(), nullable=False),
@@ -68,6 +76,22 @@ def upgrade():
     op.create_index(op.f("ix_users_full_name"), "users", ["full_name"], unique=False)
     op.create_index(op.f("ix_users_id"), "users", ["id"], unique=False)
     op.create_table(
+        "remotetrackers",
+        sa.Column("id", sa.Integer(), nullable=False),
+        sa.Column("title", sa.String(), nullable=False),
+        sa.Column("remote_tracker_type_id", sa.Integer(), nullable=True),
+        sa.Column("url", sa.String(), nullable=False),
+        sa.Column("login_key", sa.String(), nullable=False),
+        sa.Column("password", sa.String(), nullable=True),
+        sa.ForeignKeyConstraint(
+            ["remote_tracker_type_id"],
+            ["remotetrackertypes.id"],
+        ),
+        sa.PrimaryKeyConstraint("id"),
+        sa.UniqueConstraint("title"),
+    )
+    op.create_index(op.f("ix_remotetrackers_id"), "remotetrackers", ["id"], unique=False)
+    op.create_table(
         "goals",
         sa.Column("id", sa.Integer(), nullable=False),
         sa.Column("title", sa.String(), nullable=False),
@@ -79,7 +103,12 @@ def upgrade():
         sa.Column("remote_code", sa.String(), nullable=True),
         sa.Column("parent_id", sa.Integer(), nullable=True),
         sa.Column("status_id", sa.Integer(), nullable=True),
+        sa.Column("remote_tracker_id", sa.Integer(), nullable=True),
         sa.ForeignKeyConstraint(["parent_id"], ["goals.id"], ondelete="CASCADE"),
+        sa.ForeignKeyConstraint(
+            ["remote_tracker_id"],
+            ["remotetrackers.id"],
+        ),
         sa.ForeignKeyConstraint(
             ["status_id"],
             ["goalstatuss.id"],
@@ -103,6 +132,7 @@ def upgrade():
         sa.Column("priority_id", sa.Integer(), nullable=True),
         sa.Column("assignee_id", sa.Integer(), nullable=True),
         sa.Column("author_id", sa.Integer(), nullable=True),
+        sa.Column("remote_tracker_id", sa.Integer(), nullable=True),
         sa.ForeignKeyConstraint(
             ["assignee_id"],
             ["persons.id"],
@@ -116,6 +146,10 @@ def upgrade():
         sa.ForeignKeyConstraint(
             ["priority_id"],
             ["taskprioritys.id"],
+        ),
+        sa.ForeignKeyConstraint(
+            ["remote_tracker_id"],
+            ["remotetrackers.id"],
         ),
         sa.ForeignKeyConstraint(
             ["status_id"],
@@ -133,6 +167,8 @@ def downgrade():
     op.drop_table("tasks")
     op.drop_index(op.f("ix_goals_id"), table_name="goals")
     op.drop_table("goals")
+    op.drop_index(op.f("ix_remotetrackers_id"), table_name="remotetrackers")
+    op.drop_table("remotetrackers")
     op.drop_index(op.f("ix_users_id"), table_name="users")
     op.drop_index(op.f("ix_users_full_name"), table_name="users")
     op.drop_index(op.f("ix_users_email"), table_name="users")
@@ -141,6 +177,8 @@ def downgrade():
     op.drop_table("taskstatuss")
     op.drop_index(op.f("ix_taskprioritys_id"), table_name="taskprioritys")
     op.drop_table("taskprioritys")
+    op.drop_index(op.f("ix_remotetrackertypes_id"), table_name="remotetrackertypes")
+    op.drop_table("remotetrackertypes")
     op.drop_index(op.f("ix_persons_id"), table_name="persons")
     op.drop_index(op.f("ix_persons_email"), table_name="persons")
     op.drop_table("persons")

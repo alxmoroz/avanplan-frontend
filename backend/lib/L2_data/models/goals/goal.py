@@ -1,4 +1,5 @@
 #  Copyright (c) 2022. Alexandr Moroz
+
 from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.orm import relationship
 
@@ -14,3 +15,6 @@ class Goal(Smartable, BaseModel):
 
     # goals = relationship("Goal", cascade="all, delete", remote_side="Goal.parent_id")
     tasks = relationship("Task", cascade="all, delete")
+
+    remote_tracker_id = Column(Integer, ForeignKey("remotetrackers.id"))
+    remote_tracker = relationship("RemoteTracker")

@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from datetime import date, datetime
 
 from ..base_entity import Titleable
-from .external_tracker import RemoteTracker
+from .remote_tracker import RemoteTracker
 
 
 @dataclass

@@ -1,4 +1,5 @@
 #  Copyright (c) 2022. Alexandr Moroz
+
 from sqlalchemy import Column, ForeignKey, Integer
 from sqlalchemy.orm import relationship
 
@@ -26,3 +27,6 @@ class Task(Smartable, BaseModel):
 
     author_id = Column(Integer, ForeignKey("persons.id"))
     author = relationship("Person", foreign_keys=[author_id])
+
+    remote_tracker_id = Column(Integer, ForeignKey("remotetrackers.id"))
+    remote_tracker = relationship("RemoteTracker")

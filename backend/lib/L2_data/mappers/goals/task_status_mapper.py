@@ -5,9 +5,9 @@ from lib.L1_domain.entities.goals import TaskStatus
 from lib.L2_data.models import TaskStatus as TaskStatusModel
 from lib.L2_data.schema import TaskStatusSchemaGet, TaskStatusSchemaUpsert
 
-from ..entity_repo import EntityRepo
+from ..base_mapper import BaseMapper
 
 
-class TaskStatusRepo(EntityRepo[TaskStatusSchemaGet, TaskStatusSchemaUpsert, TaskStatus, TaskStatusModel]):
+class TaskStatusMapper(BaseMapper[TaskStatusSchemaGet, TaskStatusSchemaUpsert, TaskStatus, TaskStatusModel]):
     def __init__(self):
         super().__init__(schema_get_cls=TaskStatusSchemaGet, schema_upd_cls=TaskStatusSchemaUpsert, entity_cls=TaskStatus)

@@ -6,11 +6,11 @@ from lib.L1_domain.entities import TaskImport
 from lib.L2_data.models import Task as TaskModel
 from lib.L2_data.schema import TaskImportSchemaGet, TaskImportSchemaUpsert
 
-from ..entity_repo import EntityRepo
-from ..goals import GoalImportRepo
+from ..base_mapper import BaseMapper
+from ..goals import GoalImportMapper
 
 
-class TaskImportRepo(EntityRepo[TaskImportSchemaGet, TaskImportSchemaUpsert, TaskImport, TaskModel]):
+class TaskImportMapper(BaseMapper[TaskImportSchemaGet, TaskImportSchemaUpsert, TaskImport, TaskModel]):
     def __init__(self):
         super().__init__(
             schema_get_cls=TaskImportSchemaGet,
@@ -21,7 +21,7 @@ class TaskImportRepo(EntityRepo[TaskImportSchemaGet, TaskImportSchemaUpsert, Tas
     def entity_from_schema_get(self, s: TaskImportSchemaGet) -> TaskImport | None:
         if s:
             t: TaskImport = super().entity_from_schema_get(s)
-            t.goal = GoalImportRepo().entity_from_schema_get(s.goal)
+            t.goal = GoalImportMapper().entity_from_schema_get(s.goal)
             t.parent = self.entity_from_schema_get(s.parent)
             return t
 
@@ -38,6 +38,7 @@ class TaskImportRepo(EntityRepo[TaskImportSchemaGet, TaskImportSchemaUpsert, Tas
             priority_id=e.priority.id if e.priority else None,
             assignee_id=e.assignee.id if e.assignee else None,
             author_id=e.author.id if e.author else None,
+            # remote_tracker_id=e.remote_tracker.id if e.remote_tracker else None,
         )
 
         return s

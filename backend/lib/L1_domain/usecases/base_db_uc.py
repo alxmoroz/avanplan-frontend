@@ -5,7 +5,7 @@ from typing import Generic, TypeVar
 from ..entities.api.exceptions import ApiException
 from ..entities.base_entity import Persistable
 from ..repositories.abstract_db_repo import AbstractDBRepo
-from ..repositories.abstract_entity_repo import AbstractEntityRepo, SUpd
+from ..repositories.abstract_mapper import AbstractMapper, SUpd
 
 E = TypeVar("E", bound=Persistable)
 
@@ -14,7 +14,7 @@ class BaseDBUC(Generic[E], ABC):
     def __init__(
         self,
         db_repo: AbstractDBRepo,
-        e_repo: AbstractEntityRepo,
+        e_repo: AbstractMapper,
     ):
         self.db_repo = db_repo
         self.e_repo = e_repo

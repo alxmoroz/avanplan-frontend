@@ -14,5 +14,6 @@ class TaskImportSchemaGet(TaskSchema, PKGetable, Importable):
     parent: Optional[TaskImportSchemaGet]
 
 
-class TaskImportSchemaUpsert(TaskSchemaUpsert, Importable):
+class TaskImportSchemaUpsert(TaskSchemaUpsert):
+    # remote_tracker_id: int
     pass

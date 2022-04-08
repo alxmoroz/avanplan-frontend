@@ -4,12 +4,12 @@ from lib.L1_domain.entities import Goal
 from lib.L2_data.models import Goal as GoalModel
 from lib.L2_data.schema import GoalSchemaGet, GoalSchemaUpsert
 
-from ..entity_repo import EntityRepo
-from .goal_status_repo import GoalStatusRepo
-from .task_repo import TaskRepo
+from ..base_mapper import BaseMapper
+from .goal_status_mapper import GoalStatusMapper
+from .task_mapper import TaskMapper
 
 
-class GoalRepo(EntityRepo[GoalSchemaGet, GoalSchemaUpsert, Goal, GoalModel]):
+class GoalMapper(BaseMapper[GoalSchemaGet, GoalSchemaUpsert, Goal, GoalModel]):
     def __init__(self):
         super().__init__(
             schema_get_cls=GoalSchemaGet,
@@ -20,6 +20,6 @@ class GoalRepo(EntityRepo[GoalSchemaGet, GoalSchemaUpsert, Goal, GoalModel]):
     def entity_from_schema_get(self, s: GoalSchemaGet) -> Goal | None:
         if s:
             g: Goal = super().entity_from_schema_get(s)
-            g.status = GoalStatusRepo().entity_from_schema_get(s.status)
-            g.tasks = [TaskRepo().entity_from_schema_get(t) for t in s.tasks]
+            g.status = GoalStatusMapper().entity_from_schema_get(s.status)
+            g.tasks = [TaskMapper().entity_from_schema_get(t) for t in s.tasks]
             return g

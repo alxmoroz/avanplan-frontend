@@ -1,3 +1,3 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from .user_repo import UserRepo
+from .user_mapper import UserMapper

@@ -5,7 +5,7 @@ from typing import Type, TypeVar
 from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel as BaseSchemaModel
 
-from lib.L1_domain.repositories.abstract_entity_repo import AbstractEntityRepo, E
+from lib.L1_domain.repositories.abstract_mapper import AbstractMapper, E
 from lib.L2_data.repositories.db.db_repo import M
 
 SGet = TypeVar("SGet", bound=BaseSchemaModel)
@@ -16,7 +16,7 @@ SUpd = TypeVar("SUpd", bound=BaseSchemaModel)
 #  потому что это даже не репы вовсе, а в лучшем случае мапперы
 
 
-class EntityRepo(AbstractEntityRepo[SGet, SUpd, E, M]):
+class BaseMapper(AbstractMapper[SGet, SUpd, E, M]):
     def __init__(
         self,
         *,

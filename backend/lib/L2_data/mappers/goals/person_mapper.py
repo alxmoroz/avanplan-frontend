@@ -4,9 +4,9 @@ from lib.L1_domain.entities.goals import Person
 from lib.L2_data.models import Person as PersonModel
 from lib.L2_data.schema import PersonSchemaGet, PersonSchemaUpsert
 
-from ..entity_repo import EntityRepo
+from ..base_mapper import BaseMapper
 
 
-class PersonRepo(EntityRepo[PersonSchemaGet, PersonSchemaUpsert, Person, PersonModel]):
+class PersonMapper(BaseMapper[PersonSchemaGet, PersonSchemaUpsert, Person, PersonModel]):
     def __init__(self):
         super().__init__(schema_get_cls=PersonSchemaGet, schema_upd_cls=PersonSchemaUpsert, entity_cls=Person)

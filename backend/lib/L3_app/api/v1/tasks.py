@@ -4,11 +4,11 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from lib.L1_domain.entities.goals import Task
-from lib.L1_domain.usecases.smart_uc import SmartUC
+from lib.L1_domain.usecases.base_db_uc import BaseDBUC
 from lib.L1_domain.usecases.users_uc import UsersUC
 from lib.L2_data.db import db_session
+from lib.L2_data.mappers import TaskMapper
 from lib.L2_data.repositories import db as dbr
-from lib.L2_data.repositories import entities as er
 from lib.L2_data.schema import TaskSchemaGet, TaskSchemaUpsert
 from lib.L3_app.api.v1.users import user_uc
 
@@ -21,11 +21,11 @@ router.include_router(statuses_router)
 def _tasks_uc(
     uc: UsersUC = Depends(user_uc),
     db: Session = Depends(db_session),
-) -> SmartUC:
+) -> BaseDBUC:
     uc.get_active_user()
-    return SmartUC(
+    return BaseDBUC(
         db_repo=dbr.TaskRepo(db),
-        e_repo=er.TaskRepo(),
+        e_repo=TaskMapper(),
     )
 
 
@@ -39,7 +39,7 @@ def _tasks_uc(
 @router.post("/", response_model=TaskSchemaGet, status_code=201)
 def upsert_task(
     task: TaskSchemaUpsert,
-    uc: SmartUC = Depends(_tasks_uc),
+    uc: BaseDBUC = Depends(_tasks_uc),
 ) -> Task:
 
     return uc.upsert(task)
@@ -48,7 +48,7 @@ def upsert_task(
 @router.delete("/{task_id}")
 def delete_task(
     task_id: int,
-    uc: SmartUC = Depends(_tasks_uc),
+    uc: BaseDBUC = Depends(_tasks_uc),
 ) -> int:
 
     return uc.delete(task_id)

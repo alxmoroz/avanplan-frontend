@@ -4,7 +4,7 @@ from ..entities.api.exceptions import ApiException
 from ..entities.auth import TokenPayload
 from ..entities.users import User
 from ..repositories import AbstractDBRepo, AbstractSecurityRepo
-from ..repositories.abstract_entity_repo import AbstractEntityRepo, SUpd
+from ..repositories.abstract_mapper import AbstractMapper, SUpd
 
 
 class UsersUC:
@@ -12,7 +12,7 @@ class UsersUC:
         self,
         *,
         db_repo: AbstractDBRepo,
-        e_repo: AbstractEntityRepo,
+        e_repo: AbstractMapper,
         security_repo: AbstractSecurityRepo,
     ):
         self.user_repo = db_repo

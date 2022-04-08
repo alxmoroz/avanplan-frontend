@@ -8,17 +8,17 @@ from pydantic import EmailStr, validator
 from ..base_schema import BaseSchema, PKGetable, PKUpsertable
 
 
-class _BasePersonSchema(BaseSchema, ABC):
+class _PersonSchema(BaseSchema, ABC):
     email: EmailStr
     firstname: Optional[str]
     lastname: Optional[str]
 
 
-class PersonSchemaGet(_BasePersonSchema, PKGetable):
+class PersonSchemaGet(_PersonSchema, PKGetable):
     pass
 
 
-class PersonSchemaUpsert(_BasePersonSchema, PKUpsertable):
+class PersonSchemaUpsert(_PersonSchema, PKUpsertable):
     @validator("firstname", "lastname", always=True)
     def name_must_filled(cls, v, values):
         vals = [values.get(attr, None) for attr in ["firstname", "lastname"]]

@@ -4,13 +4,13 @@ from lib.L1_domain.entities.goals import Task
 from lib.L2_data.models import Task as TaskModel
 from lib.L2_data.schema import TaskSchemaGet, TaskSchemaUpsert
 
-from ..entity_repo import EntityRepo
-from .person_repo import PersonRepo
-from .task_priority_repo import TaskPriorityRepo
-from .task_status_repo import TaskStatusRepo
+from ..base_mapper import BaseMapper
+from .person_mapper import PersonMapper
+from .task_priority_mapper import TaskPriorityMapper
+from .task_status_mapper import TaskStatusMapper
 
 
-class TaskRepo(EntityRepo[TaskSchemaGet, TaskSchemaUpsert, Task, TaskModel]):
+class TaskMapper(BaseMapper[TaskSchemaGet, TaskSchemaUpsert, Task, TaskModel]):
     def __init__(self):
         super().__init__(
             schema_get_cls=TaskSchemaGet,
@@ -22,9 +22,9 @@ class TaskRepo(EntityRepo[TaskSchemaGet, TaskSchemaUpsert, Task, TaskModel]):
 
         if s:
             t: Task = super().entity_from_schema_get(s)
-            t.status = TaskStatusRepo().entity_from_schema_get(s.status)
-            t.priority = TaskPriorityRepo().entity_from_schema_get(s.priority)
-            t.assignee = PersonRepo().entity_from_schema_get(s.assignee)
-            t.author = PersonRepo().entity_from_schema_get(s.author)
+            t.status = TaskStatusMapper().entity_from_schema_get(s.status)
+            t.priority = TaskPriorityMapper().entity_from_schema_get(s.priority)
+            t.assignee = PersonMapper().entity_from_schema_get(s.assignee)
+            t.author = PersonMapper().entity_from_schema_get(s.author)
             t.tasks = [self.entity_from_schema_get(ts) for ts in s.tasks]
             return t

@@ -1,5 +1,5 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from .entity_repo import EntityRepo
+from .base_mapper import BaseMapper
 from .goals import *
 from .users import *

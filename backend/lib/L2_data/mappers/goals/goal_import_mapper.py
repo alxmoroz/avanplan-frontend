@@ -6,11 +6,11 @@ from lib.L1_domain.entities import GoalImport
 from lib.L2_data.models import Goal as GoalModel
 from lib.L2_data.schema import GoalImportSchemaGet, GoalImportSchemaUpsert
 
-from ..entity_repo import EntityRepo
+from ..base_mapper import BaseMapper
 
 
 # TODO: наверное, это должно быть в репозитории импорта и отдельная схема просто. Такая сущность это не ок
-class GoalImportRepo(EntityRepo[GoalImportSchemaGet, GoalImportSchemaUpsert, GoalImport, GoalModel]):
+class GoalImportMapper(BaseMapper[GoalImportSchemaGet, GoalImportSchemaUpsert, GoalImport, GoalModel]):
     def __init__(self):
         super().__init__(
             schema_get_cls=GoalImportSchemaGet,
@@ -32,6 +32,7 @@ class GoalImportRepo(EntityRepo[GoalImportSchemaGet, GoalImportSchemaUpsert, Goa
             **data,
             parent_id=e.parent.id if e.parent else None,
             status_id=e.status.id if e.status else None,
+            # remote_tracker_id=e.remote_tracker.id if e.remote_tracker else None,
         )
 
         return s

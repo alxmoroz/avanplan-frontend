@@ -5,7 +5,7 @@ from ..entities.goals import Person, Task, TaskPriority, TaskStatus
 from ..entities.goals.goal_import import GoalImport
 from ..entities.goals.task_import import TaskImport
 from ..repositories import AbstractDBRepo, AbstractImportRepo
-from ..repositories.abstract_entity_repo import AbstractEntityRepo, E
+from ..repositories.abstract_mapper import AbstractMapper, E
 
 
 # TODO: в идеале ... использовать юзкейс по записи в БД "смарт"
@@ -16,15 +16,15 @@ class ImportUC:
         self,
         import_repo: AbstractImportRepo,
         goal_repo: AbstractDBRepo,
-        goal_e_repo: AbstractEntityRepo,
+        goal_e_repo: AbstractMapper,
         task_repo: AbstractDBRepo,
-        task_e_repo: AbstractEntityRepo,
+        task_e_repo: AbstractMapper,
         task_status_repo: AbstractDBRepo,
-        task_status_e_repo: AbstractEntityRepo,
+        task_status_e_repo: AbstractMapper,
         task_priority_repo: AbstractDBRepo,
-        task_priority_e_repo: AbstractEntityRepo,
+        task_priority_e_repo: AbstractMapper,
         person_repo: AbstractDBRepo,
-        person_e_repo: AbstractEntityRepo,
+        person_e_repo: AbstractMapper,
     ):
         self.import_repo = import_repo
         self.goal_repo = goal_repo
@@ -52,7 +52,7 @@ class ImportUC:
         key: str,
         processed_dict: dict,
         db_repo: AbstractDBRepo,
-        e_repo: AbstractEntityRepo,
+        e_repo: AbstractMapper,
         **filter_by,
     ) -> E:
         if key not in processed_dict:

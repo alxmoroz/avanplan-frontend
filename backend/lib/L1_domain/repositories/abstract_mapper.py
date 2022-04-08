@@ -10,7 +10,7 @@ SGet = TypeVar("SGet")
 SUpd = TypeVar("SUpd")
 
 
-class AbstractEntityRepo(Generic[SGet, SUpd, E, M], ABC):
+class AbstractMapper(Generic[SGet, SUpd, E, M], ABC):
     def __init__(
         self,
         *,

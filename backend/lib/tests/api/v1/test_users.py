@@ -5,7 +5,7 @@ from fastapi.testclient import TestClient
 from pydantic import EmailStr
 
 from lib.L1_domain.entities import User
-from lib.L2_data.repositories import entities as er
+from lib.L2_data.mappers import UserMapper
 from lib.L2_data.repositories.db import UserRepo
 from lib.L2_data.repositories.security_repo import SecurityRepo
 from lib.L2_data.schema import UserSchemaGet, UserSchemaUpsert
@@ -18,11 +18,11 @@ _users_api_path = f"{settings.API_PATH}{router.prefix}"
 
 
 def _user_from_json(json: dict) -> User:
-    return er.UserRepo().entity_from_schema_get(UserSchemaGet(**json))
+    return UserMapper().entity_from_schema_get(UserSchemaGet(**json))
 
 
 def _user_from_orm(obj: any) -> User:
-    return er.UserRepo().entity_from_orm(obj)
+    return UserMapper().entity_from_orm(obj)
 
 
 def test_get_users(client: TestClient, auth_headers_test_admin, tmp_user: User):

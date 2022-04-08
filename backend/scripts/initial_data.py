@@ -3,8 +3,8 @@
 from fastapi.encoders import jsonable_encoder
 from sqlalchemy.orm import Session
 
-from lib.L2_data.schema import UserSchemaUpsert
-from lib.L2_data.repositories.db import UserRepo
+from lib.L2_data.schema import RemoteTrackerTypeSchemaUpsert, UserSchemaUpsert
+from lib.L2_data.repositories.db import UserRepo, RemoteTrackerTypeRepo
 from lib.L2_data.db import DBSession
 from lib.L2_data.settings import settings
 
@@ -15,16 +15,21 @@ def main():
     user_repo = UserRepo(db)
     admin_user = user_repo.get_one(email=settings.TEST_ADMIN_EMAIL)
     if not admin_user:
-        s = (
-            UserSchemaUpsert(
-                email=settings.TEST_ADMIN_EMAIL,
-                password=settings.TEST_ADMIN_PASSWORD,
-                is_superuser=True,
-            ),
+        s = UserSchemaUpsert(
+            email=settings.TEST_ADMIN_EMAIL,
+            password=settings.TEST_ADMIN_PASSWORD,
+            is_superuser=True,
         )
 
-        user_repo.upsert(**jsonable_encoder(s))
+        user_repo.upsert(jsonable_encoder(s))
         print("Admin_user created")
+
+    ttype_repo = RemoteTrackerTypeRepo(db)
+    for code in ["Redmine"]:
+        type_in_db = ttype_repo.get_one(title=code)
+        if not type_in_db:
+            ttype_repo.upsert(jsonable_encoder(RemoteTrackerTypeSchemaUpsert(title=code)))
+    print("Remote Tracker types created")
 
     db.close()
 

@@ -4,5 +4,7 @@
 # Copyright (c) 2022. Alexandr Moroz
 #
 
+export PYTHONPATH="."
+
 bash ./scripts/migrate.sh
-python3 -m ./scripts/initial_data.py
+python3 ./scripts/initial_data.py

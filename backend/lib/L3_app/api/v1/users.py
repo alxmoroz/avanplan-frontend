@@ -59,7 +59,7 @@ def update_my_account(
 
 
 # TODO: другие пользователи могут видеть некоторую инфу по пользователям. Возможно, в другом методе или вьюхе это должно быть.
-# @router.get("/{user_id}", response_model=schemas.User)
+# @integrations_router.get("/{user_id}", response_model=schemas.User)
 # def get_user_by_id(
 #     user_id: int,
 #     _db: Session = Depends(deps.get_db),

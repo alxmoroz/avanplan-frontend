@@ -27,7 +27,7 @@ def token(
     )
 
 
-# @router.post("/reset-password/", response_model=schemas.Msg)
+# @integrations_router.post("/reset-password/", response_model=schemas.Msg)
 # def reset_password(
 #         token: str = Body(...),
 #         new_password: str = Body(...),

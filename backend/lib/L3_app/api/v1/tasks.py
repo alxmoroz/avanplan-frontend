@@ -29,7 +29,7 @@ def _tasks_uc(
     )
 
 
-# @router.get("/", response_model=list[TaskSchemaGet])
+# @integrations_router.get("/", response_model=list[TaskSchemaGet])
 # def get_tasks(
 #     uc: TasksUC = Depends(_tasks_uc),
 # ) -> list[Task]:

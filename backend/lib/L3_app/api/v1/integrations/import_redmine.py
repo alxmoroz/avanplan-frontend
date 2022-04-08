@@ -13,7 +13,7 @@ from lib.L2_data.repositories import db as dbr
 from lib.L2_data.repositories.integrations import ImportRedmineRepo
 from lib.L3_app.api.v1.users import user_uc
 
-router = APIRouter(prefix="/integrations/redmine")
+router = APIRouter(prefix="/redmine", tags=["integrations - redmine"])
 
 
 def _import_uc(
@@ -45,6 +45,6 @@ def goals(uc: ImportUC = Depends(_import_uc)) -> Msg:
     return uc.import_goals()
 
 
-# @router.post("/tasks", response_model=Msg)
+# @integrations_router.post("/tasks", response_model=Msg)
 # def tasks(uc: ImportUC = Depends(_import_uc)) -> Msg:
 #     return uc.import_tasks()

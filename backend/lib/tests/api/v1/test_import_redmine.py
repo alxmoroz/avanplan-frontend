@@ -3,21 +3,18 @@
 from fastapi.testclient import TestClient
 
 from lib.L2_data.settings import settings
-from lib.L3_app.api.v1.import_redmine import router
-
-_import_redmine_api_path = f"{settings.API_PATH}{router.prefix}"
-
-# TODO: проверить, что в базу запись прошла в тестах моделей!
+from lib.L3_app.api.v1.integrations.routers import integrations_router, redmine_router
 
 # TODO: 1951 нельзя привязываться к конкретному редмайну и оставлять тут креды для доступа к нему
 #  апи тестируем на фронте...
 
 _host = "https://redmine.moroz.team"
 _api_key = "101b62ea94b4132625a3d079451ea13fed3f4b87"
-_api_path = _import_redmine_api_path
+_api_path = f"{settings.API_PATH}{integrations_router.prefix}{redmine_router.prefix}"
 
 
 def _request(client: TestClient, auth_headers_test_user, path):
+    print(_api_path)
     return client.post(
         f"{_api_path}/{path}",
         json={"host": _host, "api_key": _api_key},

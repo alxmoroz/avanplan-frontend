@@ -12,7 +12,7 @@ import '../../components/text_field.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';
-import '../_base/base_controller.dart';
+import 'base_controller.dart';
 
 part 'smartable_controller.g.dart';
 

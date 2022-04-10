@@ -7,6 +7,7 @@ import 'package:package_info/package_info.dart';
 
 import '../../L1_domain/usecases/auth_uc.dart';
 import '../../L1_domain/usecases/goals_uc.dart';
+import '../../L1_domain/usecases/remote_trackers_uc.dart';
 import '../../L1_domain/usecases/settings_uc.dart';
 import '../../L1_domain/usecases/statuses_uc.dart';
 import '../../L1_domain/usecases/tasks_uc.dart';
@@ -15,12 +16,14 @@ import '../../L2_data/repositories/auth_repo.dart';
 import '../../L2_data/repositories/db_repo.dart';
 import '../../L2_data/repositories/goal_statuses_repo.dart';
 import '../../L2_data/repositories/goals_repo.dart';
+import '../../L2_data/repositories/remote_trackers_repo.dart';
 import '../../L2_data/repositories/task_statuses_repo.dart';
 import '../../L2_data/repositories/tasks_repo.dart';
 import '../l10n/generated/l10n.dart';
 import '../views/auth/login_controller.dart';
 import '../views/goal/goal_edit_controller.dart';
 import '../views/main/main_controller.dart';
+import '../views/remote_tracker/tracker_controller.dart';
 import '../views/task/task_edit_controller.dart';
 import '../views/task/task_view_controller.dart';
 
@@ -36,6 +39,7 @@ MainController get mainController => GetIt.I<MainController>();
 GoalEditController get goalEditController => GetIt.I<GoalEditController>();
 TaskViewController get taskViewController => GetIt.I<TaskViewController>();
 TaskEditController get taskEditController => GetIt.I<TaskEditController>();
+TrackerController get trackerController => GetIt.I<TrackerController>();
 
 Openapi get openAPI => GetIt.I<Openapi>();
 
@@ -44,6 +48,8 @@ GoalsUC get goalsUC => GetIt.I<GoalsUC>();
 GoalStatusesUC get goalStatusesUC => GetIt.I<GoalStatusesUC>();
 TaskStatusesUC get taskStatusesUC => GetIt.I<TaskStatusesUC>();
 TasksUC get tasksUC => GetIt.I<TasksUC>();
+RemoteTrackersUC get trackersUC => GetIt.I<RemoteTrackersUC>();
+
 SettingsUC get settingsUC => GetIt.I<SettingsUC>();
 
 void setup() {
@@ -66,6 +72,7 @@ void setup() {
   getIt.registerSingletonAsync<TasksUC>(() async => TasksUC(repo: TasksRepo()), dependsOn: [AuthUC]);
   getIt.registerSingletonAsync<GoalStatusesUC>(() async => GoalStatusesUC(repo: GoalStatusesRepo()), dependsOn: [AuthUC]);
   getIt.registerSingletonAsync<TaskStatusesUC>(() async => TaskStatusesUC(repo: TaskStatusesRepo()), dependsOn: [AuthUC]);
+  getIt.registerSingletonAsync<RemoteTrackersUC>(() async => RemoteTrackersUC(repo: RemoteTrackersRepo()), dependsOn: [AuthUC]);
 
   // controllers
   getIt.registerSingletonAsync<MainController>(
@@ -76,4 +83,5 @@ void setup() {
   getIt.registerSingletonAsync<GoalEditController>(() async => await GoalEditController().init(), dependsOn: [MainController]);
   getIt.registerSingletonAsync<TaskViewController>(() async => await TaskViewController().init(), dependsOn: [MainController]);
   getIt.registerSingletonAsync<TaskEditController>(() async => await TaskEditController().init(), dependsOn: [MainController]);
+  getIt.registerSingletonAsync<TrackerController>(() async => await TrackerController().init(), dependsOn: [MainController]);
 }

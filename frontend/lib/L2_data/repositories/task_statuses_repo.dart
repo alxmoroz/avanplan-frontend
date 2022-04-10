@@ -2,12 +2,13 @@
 
 import 'package:openapi/openapi.dart';
 
+import '../../L1_domain/api_schema/base_upsert_schema.dart';
 import '../../L1_domain/entities/goals/task_status.dart';
 import '../../L1_domain/repositories/abs_api_repo.dart';
 import '../../L3_app/extra/services.dart';
 import '../mappers/task_status.dart';
 
-class TaskStatusesRepo extends AbstractApiRepo<TaskStatus, dynamic> {
+class TaskStatusesRepo extends AbstractApiRepo<TaskStatus, BaseUpsert> {
   TasksApi get api => openAPI.getTasksApi();
 
   @override

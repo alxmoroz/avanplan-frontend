@@ -11,15 +11,12 @@
   "btn_mark_done_title": "Done",
   "btn_save_title": "Save",
 
-
   "common_description": "Description",
   "common_delete_dialog_description": "This action cannot be undone!",
-
   "common_due_date_placeholder": "Due date",
   "common_due_date_label": "Planned",
   "common_eta_date_label": "Predicted",
   "common_status_placeholder": "Status",
-
   "common_no": "No",
   "common_title": "Title",
   "common_yes": "Yes",
@@ -34,6 +31,8 @@
   "task_title": "Task",
   "task_title_new": "New task",
   "tasks_title": "Tasks",
+
+  "tracker_list_title": "Remote trackers",
 
   "validation_empty_text": "Should not be empty"
 }

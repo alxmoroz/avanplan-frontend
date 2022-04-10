@@ -1,0 +1,33 @@
+// Copyright (c) 2022. Alexandr Moroz
+
+import '../api_schema/remote_tracker.dart';
+import '../entities/goals/remote_tracker.dart';
+import '../repositories/abs_api_repo.dart';
+
+class RemoteTrackersUC {
+  RemoteTrackersUC({required this.repo});
+
+  final AbstractApiRepo<RemoteTracker, RemoteTrackerUpsert> repo;
+
+  Future<List<RemoteTracker>> getAll() async {
+    return await repo.getAll();
+  }
+
+  Future<RemoteTracker?> save(RemoteTrackerUpsert data) async {
+    RemoteTracker? tracker;
+    // TODO: внутр. exception?
+    if (data.title.trim().isNotEmpty) {
+      tracker = await repo.save(data);
+    }
+    return tracker;
+  }
+
+  Future<RemoteTracker?> delete({required RemoteTracker tracker}) async {
+    final deletedRows = await repo.delete(tracker.id);
+    // TODO: внутр. exception?
+    if (deletedRows) {
+      tracker.deleted = true;
+    }
+    return tracker;
+  }
+}

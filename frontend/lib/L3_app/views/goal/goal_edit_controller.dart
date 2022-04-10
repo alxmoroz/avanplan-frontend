@@ -9,7 +9,7 @@ import '../../../L1_domain/entities/goals/goal_status.dart';
 import '../../components/confirmation_dialog.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
-import '../smartable/smartable_controller.dart';
+import '../_base/smartable_controller.dart';
 
 part 'goal_edit_controller.g.dart';
 

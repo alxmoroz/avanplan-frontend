@@ -8,14 +8,13 @@ from .remote_tracker_type import RemoteTrackerTypeSchemaGet
 
 
 class _RemoteTrackerSchema(Titleable, BaseSchema):
-    type: RemoteTrackerTypeSchemaGet
     url: HttpUrl
     login_key: str
     password: str | None = None
 
 
 class RemoteTrackerSchemaGet(_RemoteTrackerSchema, PKGetable):
-    pass
+    type: RemoteTrackerTypeSchemaGet
 
 
 class RemoteTrackerSchemaUpsert(_RemoteTrackerSchema, PKUpsertable):

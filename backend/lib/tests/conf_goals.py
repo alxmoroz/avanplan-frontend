@@ -2,12 +2,19 @@
 
 import pytest
 from fastapi.encoders import jsonable_encoder
-from pydantic import EmailStr
+from pydantic import EmailStr, HttpUrl
 from sqlalchemy.orm import Session
 
-from lib.L2_data.models import Goal, Person, Task, TaskStatus
-from lib.L2_data.repositories.db import GoalRepo, PersonRepo, TaskRepo, TaskStatusRepo
-from lib.L2_data.schema import GoalSchemaUpsert, PersonSchemaUpsert, TaskSchemaUpsert, TaskStatusSchemaUpsert
+from lib.L2_data.models import Goal, Person, RemoteTracker, RemoteTrackerType, Task, TaskStatus
+from lib.L2_data.repositories.db import GoalRepo, PersonRepo, RemoteTrackerRepo, RemoteTrackerTypeRepo, TaskRepo, TaskStatusRepo
+from lib.L2_data.schema import (
+    GoalSchemaUpsert,
+    PersonSchemaUpsert,
+    RemoteTrackerSchemaUpsert,
+    RemoteTrackerTypeSchemaUpsert,
+    TaskSchemaUpsert,
+    TaskStatusSchemaUpsert,
+)
 
 
 @pytest.fixture(scope="session")
@@ -24,8 +31,34 @@ def tmp_goal(goal_repo) -> Goal:
 
 
 @pytest.fixture(scope="session")
-def task_repo(db) -> TaskRepo:
-    yield TaskRepo(db)
+def remote_tracker_type_repo(db) -> RemoteTrackerTypeRepo:
+    yield RemoteTrackerTypeRepo(db)
+
+
+@pytest.fixture(scope="session")
+def tmp_remote_tracker_type(remote_tracker_type_repo: RemoteTrackerTypeRepo) -> RemoteTrackerType:
+    s = RemoteTrackerTypeSchemaUpsert(title="tmp_remote_tracker_type")
+    tt = remote_tracker_type_repo.upsert(jsonable_encoder(s))
+    yield tt
+    remote_tracker_type_repo.delete(tt.id)
+
+
+@pytest.fixture(scope="session")
+def remote_tracker_repo(db) -> RemoteTrackerRepo:
+    yield RemoteTrackerRepo(db)
+
+
+@pytest.fixture(scope="session")
+def tmp_remote_tracker(remote_tracker_repo: RemoteTrackerRepo, tmp_remote_tracker_type) -> RemoteTracker:
+    s = RemoteTrackerSchemaUpsert(
+        title="tmp_remote_tracker",
+        remote_tracker_type_id=tmp_remote_tracker_type.id,
+        url=HttpUrl("https://test.url", scheme="https"),
+        login_key="login",
+    )
+    tr = remote_tracker_repo.upsert(jsonable_encoder(s))
+    yield tr
+    remote_tracker_repo.delete(tr.id)
 
 
 @pytest.fixture(scope="session")
@@ -39,6 +72,11 @@ def tmp_task_status(task_status_repo: TaskStatusRepo) -> TaskStatus:
     ts = task_status_repo.upsert(jsonable_encoder(s))
     yield ts
     task_status_repo.delete(ts.id)
+
+
+@pytest.fixture(scope="session")
+def task_repo(db) -> TaskRepo:
+    yield TaskRepo(db)
 
 
 @pytest.fixture(scope="session")

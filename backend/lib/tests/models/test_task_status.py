@@ -1,4 +1,5 @@
 #  Copyright (c) 2022. Alexandr Moroz
+
 from fastapi.encoders import jsonable_encoder
 from sqlalchemy import column
 

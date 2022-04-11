@@ -1,15 +1,15 @@
 """empty message
 
-Revision ID: b4ed7228440d
+Revision ID: 173097e3bb77
 Revises: 
-Create Date: 2022-04-08 21:57:05.341085
+Create Date: 2022-04-11 16:21:42.537992
 
 """
 import sqlalchemy as sa
 from alembic import op
 
 # revision identifiers, used by Alembic.
-revision = "b4ed7228440d"
+revision = "173097e3bb77"
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -78,17 +78,16 @@ def upgrade():
     op.create_table(
         "remotetrackers",
         sa.Column("id", sa.Integer(), nullable=False),
-        sa.Column("title", sa.String(), nullable=False),
         sa.Column("remote_tracker_type_id", sa.Integer(), nullable=True),
         sa.Column("url", sa.String(), nullable=False),
         sa.Column("login_key", sa.String(), nullable=False),
         sa.Column("password", sa.String(), nullable=True),
+        sa.Column("description", sa.String(), nullable=True),
         sa.ForeignKeyConstraint(
             ["remote_tracker_type_id"],
             ["remotetrackertypes.id"],
         ),
         sa.PrimaryKeyConstraint("id"),
-        sa.UniqueConstraint("title"),
     )
     op.create_index(op.f("ix_remotetrackers_id"), "remotetrackers", ["id"], unique=False)
     op.create_table(

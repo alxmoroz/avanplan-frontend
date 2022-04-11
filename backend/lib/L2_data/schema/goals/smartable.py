@@ -11,4 +11,4 @@ class Smartable(Titleable, ABC):
     description: Optional[str]
     due_date: Optional[datetime]
     parent_id: Optional[int]
-    closed: bool
+    closed: bool = False

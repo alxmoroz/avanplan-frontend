@@ -97,7 +97,9 @@ class ImportUC:
             task.assignee = self._upsert_person(task.assignee)
             task.author = self._upsert_person(task.author)
             task.parent = self._upsert_task(task.parent)
-            task.closed = task.status and task.status.closed
+            # TODO: ломается в тестах в этом месте, если раскомментировать. Выставляетя в none иногда...
+            # при импорте нужно выставлять этот признак вручную в зависимости от статуса
+            # task.closed = task.status and task.status.closed
 
             return self._upsert_once(
                 task,

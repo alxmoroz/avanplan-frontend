@@ -16,6 +16,7 @@ import '../../L2_data/repositories/auth_repo.dart';
 import '../../L2_data/repositories/db_repo.dart';
 import '../../L2_data/repositories/goal_statuses_repo.dart';
 import '../../L2_data/repositories/goals_repo.dart';
+import '../../L2_data/repositories/remote_tracker_types_repo.dart';
 import '../../L2_data/repositories/remote_trackers_repo.dart';
 import '../../L2_data/repositories/task_statuses_repo.dart';
 import '../../L2_data/repositories/tasks_repo.dart';
@@ -49,6 +50,7 @@ GoalStatusesUC get goalStatusesUC => GetIt.I<GoalStatusesUC>();
 TaskStatusesUC get taskStatusesUC => GetIt.I<TaskStatusesUC>();
 TasksUC get tasksUC => GetIt.I<TasksUC>();
 RemoteTrackersUC get trackersUC => GetIt.I<RemoteTrackersUC>();
+RemoteTrackerTypesUC get trackerTypesUC => GetIt.I<RemoteTrackerTypesUC>();
 
 SettingsUC get settingsUC => GetIt.I<SettingsUC>();
 
@@ -73,6 +75,7 @@ void setup() {
   getIt.registerSingletonAsync<GoalStatusesUC>(() async => GoalStatusesUC(repo: GoalStatusesRepo()), dependsOn: [AuthUC]);
   getIt.registerSingletonAsync<TaskStatusesUC>(() async => TaskStatusesUC(repo: TaskStatusesRepo()), dependsOn: [AuthUC]);
   getIt.registerSingletonAsync<RemoteTrackersUC>(() async => RemoteTrackersUC(repo: RemoteTrackersRepo()), dependsOn: [AuthUC]);
+  getIt.registerSingletonAsync<RemoteTrackerTypesUC>(() async => RemoteTrackerTypesUC(repo: RemoteTrackerTypesRepo()), dependsOn: [AuthUC]);
 
   // controllers
   getIt.registerSingletonAsync<MainController>(

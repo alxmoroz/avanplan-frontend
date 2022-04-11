@@ -4,6 +4,8 @@ import '../api_schema/remote_tracker.dart';
 import '../entities/goals/remote_tracker.dart';
 import '../repositories/abs_api_repo.dart';
 
+//TODO: похоже, есть смысл сделать абстрактный общий юзкейс
+
 class RemoteTrackersUC {
   RemoteTrackersUC({required this.repo});
 
@@ -29,5 +31,15 @@ class RemoteTrackersUC {
       tracker.deleted = true;
     }
     return tracker;
+  }
+}
+
+class RemoteTrackerTypesUC {
+  RemoteTrackerTypesUC({required this.repo});
+
+  final AbstractApiRepo<RemoteTrackerType, dynamic> repo;
+
+  Future<List<RemoteTrackerType>> getAll() async {
+    return await repo.getAll();
   }
 }

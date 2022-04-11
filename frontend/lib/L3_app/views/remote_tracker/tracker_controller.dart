@@ -5,16 +5,44 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../L1_domain/api_schema/remote_tracker.dart';
 import '../../../L1_domain/entities/goals/remote_tracker.dart';
+import '../../components/confirmation_dialog.dart';
 import '../../extra/services.dart';
 import '../_base/base_controller.dart';
+import 'tracker_edit_view.dart';
 
 part 'tracker_controller.g.dart';
 
 class TrackerController extends _TrackerControllerBase with _$TrackerController {}
 
 abstract class _TrackerControllerBase extends BaseController with Store {
+  /// тип трекера
+
+  @observable
+  ObservableList<RemoteTrackerType> types = ObservableList();
+
+  @action
+  void sortTypes() => types.sort((s1, s2) => s1.title.compareTo(s2.title));
+
+  @observable
+  int? selectedTypeId;
+
+  @action
+  void selectType(RemoteTrackerType? _type) => selectedTypeId = _type?.id;
+
+  @computed
+  RemoteTrackerType? get selectedType => types.firstWhereOrNull((s) => s.id == selectedTypeId);
+
+  @action
+  Future fetchTypes() async {
+    types = ObservableList.of(await trackerTypesUC.getAll());
+    sortTypes();
+    selectType(selectedTracker?.type);
+  }
+
   /// трекеры
+
   @observable
   ObservableList<RemoteTracker> trackers = ObservableList();
 
@@ -58,29 +86,57 @@ abstract class _TrackerControllerBase extends BaseController with Store {
   @computed
   RemoteTracker? get selectedTracker => trackers.firstWhereOrNull((g) => g.id == selectedTrackerId);
 
+  @computed
+  bool get canEdit => selectedTracker != null && selectedType != null;
+
+  /// действия
+
+  Future save(BuildContext context) async {
+    final editedTracker = await trackersUC.save(RemoteTrackerUpsert(
+      id: selectedTracker?.id,
+      typeId: selectedTypeId!,
+      title: tfAnnoForCode('title').text,
+      url: tfAnnoForCode('url').text,
+      loginKey: tfAnnoForCode('loginKey').text,
+      password: tfAnnoForCode('password').text,
+    ));
+
+    if (editedTracker != null) {
+      Navigator.of(context).pop(editedTracker);
+    }
+  }
+
+  Future delete(BuildContext context) async {
+    if (canEdit) {
+      final confirm = await showMTDialog<bool?>(
+        context,
+        title: loc.tracker_delete_dialog_title,
+        description: '${loc.common_delete_dialog_description}',
+        actions: [
+          MTDialogAction(title: loc.common_yes, isDestructive: true, result: true),
+          MTDialogAction(title: loc.common_no, isDefault: true, result: false),
+        ],
+      );
+      if (confirm != null && confirm) {
+        Navigator.of(context).pop(await trackersUC.delete(tracker: selectedTracker!));
+      }
+    }
+  }
+
   /// роутер
 
-  Future showTracker(BuildContext context, RemoteTracker rt) async {
-    selectTracker(rt);
-    // await Navigator.of(context).pushNamed(TrackerView.routeName);
-  }
-
   Future addTracker(BuildContext context) async {
-    selectTracker(null);
-    // final newTracker = await showEditTrackerDialog(context);
-    // if (newTracker != null) {
-    //   updateTrackerInList(newTracker);
-    //   await showTracker(context, newTracker);
-    // }
+    editTracker(context, null);
   }
 
-  Future editTracker(BuildContext context) async {
-    // final tracker = await showEditTrackerDialog(context);
-    // if (tracker != null) {
-    //   updateTrackerInList(tracker);
-    //   if (tracker.deleted) {
-    //     Navigator.of(context).pop();
-    //   }
-    // }
+  Future editTracker(BuildContext context, RemoteTracker? rt) async {
+    selectTracker(rt);
+    final tracker = await showEditTrackerDialog(context);
+    if (tracker != null) {
+      updateTrackerInList(tracker);
+      if (tracker.deleted) {
+        Navigator.of(context).pop();
+      }
+    }
   }
 }

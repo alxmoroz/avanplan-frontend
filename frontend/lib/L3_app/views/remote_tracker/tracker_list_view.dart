@@ -37,11 +37,12 @@ class _TrackerListViewState extends State<TrackerListView> {
       children: [
         if (index > 0) const MTDivider(),
         ListTile(
-          title: NormalText(tracker.title),
-          trailing: chevronIcon(context),
+          title: NormalText('${tracker.type.title} ${tracker.title}'),
+          subtitle: SmallText(tracker.url),
+          trailing: editIcon(context),
           dense: true,
           visualDensity: VisualDensity.compact,
-          onTap: () => controller.showTracker(context, tracker),
+          onTap: () => controller.editTracker(context, tracker),
         )
       ],
     );
@@ -49,7 +50,7 @@ class _TrackerListViewState extends State<TrackerListView> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: доработать в соотв. с использованием параметра LOADING в контроллере (там тудшка есть)
+    // TODO: доработать в соотв. с использованием параметра LOADING в контроллере
     // TODO: FutureBuilder тут очень может быть по ошибке, т.к. не было Observer
     return FutureBuilder(
       future: _fetchTrackers,

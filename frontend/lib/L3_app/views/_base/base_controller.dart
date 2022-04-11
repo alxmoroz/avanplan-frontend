@@ -7,6 +7,8 @@ import '../../components/text_field_annotation.dart';
 
 part 'base_controller.g.dart';
 
+//TODO: добавить сюда или в отдельный base_editController методы из SmartableController. А также canEdit, selected[T] и т.п.
+
 abstract class BaseController = _BaseControllerBase with _$BaseController;
 
 abstract class _BaseControllerBase with Store {
@@ -49,9 +51,6 @@ abstract class _BaseControllerBase with Store {
 
   @computed
   bool get allNeedFieldsTouched => !_validatableTA.any((ta) => !ta.edited);
-
-  // @computed
-  // bool get anyFieldTouched => _allTA.any((ta) => ta.edited);
 
   @computed
   bool get validated => !_validatableTA.any((ta) => ta.errorText != null) && allNeedFieldsTouched;

@@ -4,7 +4,6 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 
 import '../../L1_domain/entities/base_entity.dart';
-import '../extra/services.dart';
 import 'constants.dart';
 import 'icons.dart';
 import 'text_field.dart';
@@ -14,6 +13,7 @@ class MTDropdown<T extends Titleable> extends StatefulWidget {
   const MTDropdown({
     required this.width,
     required this.items,
+    required this.label,
     this.onChanged,
     this.value,
   });
@@ -22,6 +22,7 @@ class MTDropdown<T extends Titleable> extends StatefulWidget {
   final void Function(T?)? onChanged;
   final T? value;
   final List<T> items;
+  final String label;
 
   @override
   _MTDropdownState<T> createState() => _MTDropdownState();
@@ -45,7 +46,7 @@ class _MTDropdownState<T extends Titleable> extends State<MTDropdown<T>> {
     return Padding(
       padding: tfPadding,
       child: DropdownButtonFormField2<T>(
-        decoration: tfDecoration(context, label: loc.common_status_placeholder, readOnly: true),
+        decoration: tfDecoration(context, label: widget.label, readOnly: true),
         icon: downCaretIcon(context),
         items: ddItems,
         value: widget.value,

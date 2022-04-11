@@ -32,7 +32,10 @@
   "task_title_new": "Новая задача",
   "tasks_title": "Задачи",
 
+  "tracker_delete_dialog_title": "Удалить источник импорта?",
   "tracker_list_title": "Внешние трекеры задач",
+  "tracker_type_placeholder": "Тип трекера",
+  "tracker_url_placeholder": "URL",
 
   "validation_empty_text": "Нужно заполнить"
 }

@@ -114,6 +114,7 @@ abstract class _SmartableControllerBase<T extends Statusable> extends BaseContro
                   onChanged: (status) => selectStatus(status),
                   value: selectedStatus,
                   items: statuses,
+                  label: loc.common_status_placeholder,
                 ),
               Padding(
                 padding: tfPadding,

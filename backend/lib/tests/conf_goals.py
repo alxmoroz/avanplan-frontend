@@ -51,9 +51,9 @@ def remote_tracker_repo(db) -> RemoteTrackerRepo:
 @pytest.fixture(scope="session")
 def tmp_remote_tracker(remote_tracker_repo: RemoteTrackerRepo, tmp_remote_tracker_type) -> RemoteTracker:
     s = RemoteTrackerSchemaUpsert(
-        title="tmp_remote_tracker",
+        description="tmp_remote_tracker",
         remote_tracker_type_id=tmp_remote_tracker_type.id,
-        url=HttpUrl("https://test.url", scheme="https"),
+        url=HttpUrl("https://tmp_remote_tracker.test", scheme="https"),
         login_key="login",
     )
     tr = remote_tracker_repo.upsert(jsonable_encoder(s))

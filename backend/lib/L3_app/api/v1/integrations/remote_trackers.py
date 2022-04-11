@@ -18,7 +18,7 @@ router = APIRouter(prefix="/trackers", tags=["integrations - trackers"])
 router.include_router(tracker_types_router)
 
 
-def _remote_trackers_uc(
+def remote_trackers_uc(
     uc: UsersUC = Depends(user_uc),
     db: Session = Depends(db_session),
 ) -> BaseDBUC:
@@ -31,7 +31,7 @@ def _remote_trackers_uc(
 
 @router.get("/", response_model=list[RemoteTrackerSchemaGet])
 def get_trackers(
-    uc: BaseDBUC = Depends(_remote_trackers_uc),
+    uc: BaseDBUC = Depends(remote_trackers_uc),
 ) -> list[RemoteTracker]:
     return uc.get_all()
 
@@ -39,7 +39,7 @@ def get_trackers(
 @router.post("/", response_model=RemoteTrackerSchemaGet, status_code=201)
 def upsert_tracker(
     tracker: RemoteTrackerSchemaUpsert,
-    uc: BaseDBUC = Depends(_remote_trackers_uc),
+    uc: BaseDBUC = Depends(remote_trackers_uc),
 ) -> RemoteTracker:
 
     return uc.upsert(tracker)
@@ -48,7 +48,7 @@ def upsert_tracker(
 @router.delete("/{tracker_id}")
 def delete_tracker(
     tracker_id: int,
-    uc: BaseDBUC = Depends(_remote_trackers_uc),
+    uc: BaseDBUC = Depends(remote_trackers_uc),
 ) -> int:
 
     return uc.delete(tracker_id)

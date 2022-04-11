@@ -10,7 +10,7 @@ from .remote_tracker_type import RemoteTrackerTypeSchemaGet
 class _RemoteTrackerSchema(BaseSchema):
     url: HttpUrl
     login_key: str
-    password: str | None = None
+    password: Optional[str]
     description: Optional[str]
 
 

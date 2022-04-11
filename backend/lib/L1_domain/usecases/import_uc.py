@@ -151,7 +151,11 @@ class ImportUC:
             self._upsert_task(task)
 
         # отдельно проекты ради пустых проектов
-        for goal in self.import_repo.get_goals():
+        for goal in self.get_goals():
             self._upsert_goal(goal)
 
+        # TODO: source
         return Msg(msg=f"Goals from {self.import_repo.source} imported successful")
+
+    def get_goals(self) -> list[GoalImport]:
+        return self.import_repo.get_goals()

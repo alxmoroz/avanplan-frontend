@@ -6,6 +6,7 @@ from ..entities.goals.task_import import TaskImport
 
 class AbstractImportRepo:
 
+    # TODO: источник импорта для всей репы...
     source: str
 
     @staticmethod

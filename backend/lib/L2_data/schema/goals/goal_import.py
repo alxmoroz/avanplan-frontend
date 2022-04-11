@@ -12,6 +12,6 @@ class GoalImportSchemaGet(GoalSchema, PKGetable, Importable):
     parent: Optional[GoalImportSchemaGet]
 
 
-class GoalImportSchemaUpsert(GoalSchemaUpsert):
+class GoalImportSchemaUpsert(GoalSchemaUpsert, Importable):
     # remote_tracker_id: int
     pass

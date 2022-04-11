@@ -4,7 +4,6 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:openapi/openapi.dart';
 
 import '../../../L1_domain/entities/app_settings.dart';
 import '../../../L1_domain/entities/goals/goal.dart';
@@ -107,15 +106,15 @@ abstract class _MainControllerBase extends BaseController with Store {
   Goal? get selectedGoal => goals.firstWhereOrNull((g) => g.id == selectedGoalId);
 
   //TODO: для тестирования метод пока что тут. Нужен отдельный юзкейс и репы
-  Future redmine() async {
-    final builder = BodyGoalsApiV1IntegrationsRedmineGoalsPostBuilder()
-      ..apiKey = '101b62ea94b4132625a3d079451ea13fed3f4b87'
-      ..host = 'https://redmine.moroz.team';
-
-    await openAPI.getIntegrationsRedmineApi().goalsApiV1IntegrationsRedmineGoalsPost(
-          bodyGoalsApiV1IntegrationsRedmineGoalsPost: builder.build(),
-        );
-  }
+  // Future redmine() async {
+  //   final builder = BodyGoalsApiV1IntegrationsRedmineGoalsPostBuilder()
+  //     ..apiKey = '101b62ea94b4132625a3d079451ea13fed3f4b87'
+  //     ..host = 'https://redmine.moroz.team';
+  //
+  //   await openAPI.getIntegrationsRedmineApi().goalsApiV1IntegrationsRedmineGoalsPost(
+  //         bodyGoalsApiV1IntegrationsRedmineGoalsPost: builder.build(),
+  //       );
+  // }
 
   /// роутер
 

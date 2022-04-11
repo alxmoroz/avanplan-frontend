@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 
-from ..base_entity import Titleable
+from ..base_entity import Persistable, Titleable
 
 
 @dataclass
@@ -11,9 +11,10 @@ class RemoteTrackerType(Titleable):
 
 
 @dataclass
-class RemoteTracker(Titleable):
+class RemoteTracker(Persistable):
 
     type: RemoteTrackerType | None = None
     url: str = ""
     login_key: str = ""
     password: str | None = None
+    description: str | None = None

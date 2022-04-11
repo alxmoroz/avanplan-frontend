@@ -11,9 +11,10 @@ class RemoteTrackerType(TitleableUnique, BaseModel):
     pass
 
 
-class RemoteTracker(TitleableUnique, BaseModel):
+class RemoteTracker(BaseModel):
     remote_tracker_type_id = Column(Integer, ForeignKey("remotetrackertypes.id"))
     type = relationship("RemoteTrackerType")
     url = Column(String, nullable=False)
     login_key = Column(String, nullable=False)
     password = Column(String)
+    description = Column(String)

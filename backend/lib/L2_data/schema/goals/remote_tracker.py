@@ -3,14 +3,15 @@ from typing import Optional
 
 from pydantic import HttpUrl
 
-from ..base_schema import BaseSchema, PKGetable, PKUpsertable, Titleable
+from ..base_schema import BaseSchema, PKGetable, PKUpsertable
 from .remote_tracker_type import RemoteTrackerTypeSchemaGet
 
 
-class _RemoteTrackerSchema(Titleable, BaseSchema):
+class _RemoteTrackerSchema(BaseSchema):
     url: HttpUrl
     login_key: str
     password: str | None = None
+    description: Optional[str]
 
 
 class RemoteTrackerSchemaGet(_RemoteTrackerSchema, PKGetable):

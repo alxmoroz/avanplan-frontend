@@ -15,7 +15,7 @@ def test_get_one(remote_tracker_repo: RemoteTrackerRepo, tmp_remote_tracker):
 
 def test_get_create(remote_tracker_repo: RemoteTrackerRepo, tmp_remote_tracker, tmp_remote_tracker_type):
     s = RemoteTrackerSchemaUpsert(
-        title="test_get_create",
+        description="test_get_create",
         remote_tracker_type_id=tmp_remote_tracker_type.id,
         url=HttpUrl("https://test.url", scheme="https"),
         login_key="login",
@@ -37,7 +37,7 @@ def test_update(remote_tracker_repo: RemoteTrackerRepo, tmp_remote_tracker, tmp_
 
     s = RemoteTrackerSchemaUpsert(
         id=tmp_remote_tracker.id,
-        title="test_update",
+        description="test_update",
         remote_tracker_type_id=tmp_remote_tracker_type.id,
         url=HttpUrl("https://test_update.url", scheme="https"),
         login_key="login2",
@@ -47,7 +47,7 @@ def test_update(remote_tracker_repo: RemoteTrackerRepo, tmp_remote_tracker, tmp_
     test_obj_out = remote_tracker_repo.get_one(id=tmp_remote_tracker.id)
 
     assert obj_out == test_obj_out
-    assert obj_out.title == s.title
+    assert obj_out.description == s.description
     assert obj_out.remote_tracker_type_id == s.remote_tracker_type_id
     assert obj_out.url == s.url
     assert obj_out.login_key == s.login_key
@@ -56,7 +56,7 @@ def test_update(remote_tracker_repo: RemoteTrackerRepo, tmp_remote_tracker, tmp_
 def test_upsert_delete(remote_tracker_repo: RemoteTrackerRepo, tmp_remote_tracker_type):
     # upsert
     s = RemoteTrackerSchemaUpsert(
-        title="test_upsert_delete",
+        description="test_upsert_delete",
         remote_tracker_type_id=tmp_remote_tracker_type.id,
         url=HttpUrl("https://test.url", scheme="https"),
         login_key="login",
@@ -65,7 +65,7 @@ def test_upsert_delete(remote_tracker_repo: RemoteTrackerRepo, tmp_remote_tracke
     test_obj_out = remote_tracker_repo.get_one(id=obj_out.id)
 
     assert obj_out == test_obj_out
-    assert s.title == obj_out.title
+    assert s.description == obj_out.description
 
     # delete
     assert remote_tracker_repo.delete(obj_out.id) == 1

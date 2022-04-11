@@ -8,9 +8,9 @@ import 'remote_tracker_type.dart';
 extension TrackerMapper on RemoteTrackerSchemaGet {
   RemoteTracker get tracker => RemoteTracker(
         id: id,
-        title: title,
         type: type.type,
         url: url,
         loginKey: loginKey,
+        description: description,
       );
 }

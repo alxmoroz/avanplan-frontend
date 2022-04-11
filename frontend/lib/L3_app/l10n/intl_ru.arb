@@ -34,6 +34,7 @@
 
   "tracker_delete_dialog_title": "Удалить источник импорта?",
   "tracker_list_title": "Внешние трекеры задач",
+  "tracker_title_new": "Новый трекер",
   "tracker_type_placeholder": "Тип трекера",
   "tracker_url_placeholder": "URL",
 

@@ -44,10 +44,10 @@ class _TrackerEditViewState extends State<TrackerEditView> {
   @override
   void initState() {
     _controller.initState(tfaList: [
-      TFAnnotation('title', label: loc.common_title, text: _tracker?.title ?? ''),
       TFAnnotation('url', label: loc.tracker_url_placeholder, text: _tracker?.url ?? ''),
       TFAnnotation('loginKey', label: loc.auth_user_placeholder, text: _tracker?.loginKey ?? ''),
       TFAnnotation('password', label: loc.auth_password_placeholder),
+      TFAnnotation('description', label: loc.common_description, text: _tracker?.description ?? '', needValidate: false),
     ]);
 
     _fetchTypes = _controller.fetchTypes();
@@ -87,7 +87,7 @@ class _TrackerEditViewState extends State<TrackerEditView> {
                   items: _controller.types,
                   label: loc.tracker_type_placeholder,
                 ),
-              ...['title', 'url', 'loginKey', 'password'].map((code) => textFieldForCode(code)),
+              ...['url', 'loginKey', 'password', 'description'].map((code) => textFieldForCode(code)),
             ],
           ),
         ),
@@ -112,7 +112,7 @@ class _TrackerEditViewState extends State<TrackerEditView> {
                           padding: EdgeInsets.only(left: onePadding),
                         )
                       : Container(),
-                  middle: H3(_tracker == null ? loc.task_title_new : '', align: TextAlign.center),
+                  middle: H3(_tracker == null ? loc.tracker_title_new : '', align: TextAlign.center),
                   trailing: Button(
                     loc.btn_save_title,
                     _controller.validated ? () => _controller.save(context) : null,

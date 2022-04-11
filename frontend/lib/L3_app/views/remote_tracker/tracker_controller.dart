@@ -48,7 +48,7 @@ abstract class _TrackerControllerBase extends BaseController with Store {
 
   @action
   void _sortTrackers() {
-    trackers.sort((g1, g2) => g1.title.compareTo(g2.title));
+    trackers.sort((g1, g2) => g1.url.compareTo(g2.url));
   }
 
   @action
@@ -89,16 +89,19 @@ abstract class _TrackerControllerBase extends BaseController with Store {
   @computed
   bool get canEdit => selectedTracker != null && selectedType != null;
 
+  @override
+  bool get allNeedFieldsTouched => super.allNeedFieldsTouched || canEdit;
+
   /// действия
 
   Future save(BuildContext context) async {
     final editedTracker = await trackersUC.save(RemoteTrackerUpsert(
       id: selectedTracker?.id,
       typeId: selectedTypeId!,
-      title: tfAnnoForCode('title').text,
       url: tfAnnoForCode('url').text,
       loginKey: tfAnnoForCode('loginKey').text,
       password: tfAnnoForCode('password').text,
+      description: tfAnnoForCode('description').text,
     ));
 
     if (editedTracker != null) {

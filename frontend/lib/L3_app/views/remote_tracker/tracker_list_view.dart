@@ -37,7 +37,7 @@ class _TrackerListViewState extends State<TrackerListView> {
       children: [
         if (index > 0) const MTDivider(),
         ListTile(
-          title: NormalText('${tracker.type.title} ${tracker.title}'),
+          title: NormalText('${tracker.type.title} ${tracker.description}'),
           subtitle: SmallText(tracker.url),
           trailing: editIcon(context),
           dense: true,

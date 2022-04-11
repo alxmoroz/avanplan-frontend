@@ -2,18 +2,19 @@
 
 import 'base_upsert_schema.dart';
 
-class RemoteTrackerUpsert extends TitleableUpsert {
+class RemoteTrackerUpsert extends BaseUpsert {
   RemoteTrackerUpsert({
-    required String title,
     required int? id,
     required this.typeId,
     required this.url,
     required this.loginKey,
     required this.password,
-  }) : super(id: id, title: title);
+    required this.description,
+  }) : super(id: id);
 
   final int typeId;
   final String url;
   final String loginKey;
   final String password;
+  final String? description;
 }

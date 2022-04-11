@@ -34,6 +34,7 @@
 
   "tracker_delete_dialog_title": "Delete remote tracker connection?",
   "tracker_list_title": "Remote trackers",
+  "tracker_title_new": "New tracker",
   "tracker_type_placeholder": "Tracker type",
   "tracker_url_placeholder": "URL",
 

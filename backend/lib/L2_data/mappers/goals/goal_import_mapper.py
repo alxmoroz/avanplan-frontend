@@ -32,7 +32,7 @@ class GoalImportMapper(BaseMapper[GoalImportSchemaGet, GoalImportSchemaUpsert, G
             **data,
             parent_id=e.parent.id if e.parent else None,
             status_id=e.status.id if e.status else None,
-            # remote_tracker_id=e.remote_tracker.id if e.remote_tracker else None,
+            remote_tracker_id=e.remote_tracker.id if e.remote_tracker else None,
         )
 
         return s

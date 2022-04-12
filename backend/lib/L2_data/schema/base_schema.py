@@ -34,8 +34,9 @@ class Orderable(BaseSchema, ABC):
     order: int
 
 
+# TODO: возможно, это нужно только для upsert схемы
 class Importable(BaseSchema, ABC):
-    remote_code: Optional[str]
+    remote_code: str
 
 
 class Statusable(BaseSchema, ABC):

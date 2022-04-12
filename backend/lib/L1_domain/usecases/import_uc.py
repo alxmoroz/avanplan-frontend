@@ -68,6 +68,7 @@ class ImportUC:
     def _upsert_goal(self, goal: GoalImport) -> GoalImport:
         if goal:
             goal.parent = self._upsert_goal(goal.parent)
+            goal.remote_tracker = self.import_repo.tracker
 
             return self._upsert_once(
                 goal,
@@ -97,6 +98,7 @@ class ImportUC:
             task.assignee = self._upsert_person(task.assignee)
             task.author = self._upsert_person(task.author)
             task.parent = self._upsert_task(task.parent)
+            task.remote_tracker = self.import_repo.tracker
             # TODO: ломается в тестах в этом месте, если раскомментировать. Выставляетя в none иногда...
             # при импорте нужно выставлять этот признак вручную в зависимости от статуса
             # task.closed = task.status and task.status.closed
@@ -154,8 +156,7 @@ class ImportUC:
         for goal in self.get_goals():
             self._upsert_goal(goal)
 
-        # TODO: source
-        return Msg(msg=f"Goals from {self.import_repo.source} imported successful")
+        return Msg(msg=f"Goals from {self.import_repo.tracker.type.title} {self.import_repo.tracker.url} imported successful")
 
     def get_goals(self) -> list[GoalImport]:
         return self.import_repo.get_goals()

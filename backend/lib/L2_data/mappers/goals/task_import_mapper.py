@@ -38,7 +38,7 @@ class TaskImportMapper(BaseMapper[TaskImportSchemaGet, TaskImportSchemaUpsert, T
             priority_id=e.priority.id if e.priority else None,
             assignee_id=e.assignee.id if e.assignee else None,
             author_id=e.author.id if e.author else None,
-            # remote_tracker_id=e.remote_tracker.id if e.remote_tracker else None,
+            remote_tracker_id=e.remote_tracker.id if e.remote_tracker else None,
         )
 
         return s

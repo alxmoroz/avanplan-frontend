@@ -22,7 +22,6 @@ class TaskSchemaGet(TaskSchema, PKGetable, Timestampable):
     assignee: Optional[PersonSchemaGet]
     author: Optional[PersonSchemaGet]
     tasks: Optional[list[TaskSchemaGet]]
-    # remote_tracker: Optional[RemoteTrackerSchemaGet]
 
 
 class TaskSchemaUpsert(TaskSchema, PKUpsertable):

@@ -15,5 +15,4 @@ class TaskImportSchemaGet(TaskSchema, PKGetable, Importable):
 
 
 class TaskImportSchemaUpsert(TaskSchemaUpsert, Importable):
-    # remote_tracker_id: int
-    pass
+    remote_tracker_id: int

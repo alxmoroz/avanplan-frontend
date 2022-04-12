@@ -18,7 +18,6 @@ class GoalSchema(Smartable, BaseSchema, ABC):
 class GoalSchemaGet(GoalSchema, PKGetable, Timestampable):
     status: Optional[GoalStatusSchemaGet]
     tasks: Optional[list[TaskSchemaGet]]
-    # remote_tracker: Optional[RemoteTrackerSchemaGet]
 
 
 class GoalSchemaUpsert(GoalSchema, PKUpsertable):

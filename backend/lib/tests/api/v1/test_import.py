@@ -14,53 +14,56 @@ from lib.L3_app.api.v1.integrations.routers import goals_router, integrations_ro
 #  апи тестируем на фронте...
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="session")
 def tmp_remote_tracker_type_redmine(remote_tracker_type_repo: RemoteTrackerTypeRepo) -> RemoteTrackerType:
-    redmine_type = "Redmine"
-    tt = remote_tracker_type_repo.get_one(title=redmine_type)
+    tt = remote_tracker_type_repo.get_one(title="Redmine")
     if not tt:
-        s = RemoteTrackerTypeSchemaUpsert(title=redmine_type)
+        s = RemoteTrackerTypeSchemaUpsert(title="Redmine")
         tt = remote_tracker_type_repo.upsert(jsonable_encoder(s))
-    return tt
+    yield tt
 
 
 # TODO: реальные креды...
-@pytest.fixture(scope="module")
-def tmp_remote_tracker(remote_tracker_repo: RemoteTrackerRepo, tmp_remote_tracker_type_redmine) -> RemoteTracker:
-    s = RemoteTrackerSchemaUpsert(
-        description="tmp_remote_tracker",
-        remote_tracker_type_id=tmp_remote_tracker_type_redmine.id,
-        url=HttpUrl("https://redmine.moroz.team", scheme="https"),
-        login_key="101b62ea94b4132625a3d079451ea13fed3f4b87",
-    )
-    tr = remote_tracker_repo.upsert(jsonable_encoder(s))
+@pytest.fixture(scope="session")
+def tmp_remote_tracker_redmine(remote_tracker_repo: RemoteTrackerRepo, tmp_remote_tracker_type_redmine) -> RemoteTracker:
+    tr = remote_tracker_repo.get_one(remote_tracker_type_id=tmp_remote_tracker_type_redmine.id)
+    if not tr:
+        s = RemoteTrackerSchemaUpsert(
+            description="tmp_remote_tracker",
+            remote_tracker_type_id=tmp_remote_tracker_type_redmine.id,
+            url=HttpUrl("https://redmine.moroz.team", scheme="https"),
+            login_key="101b62ea94b4132625a3d079451ea13fed3f4b87",
+        )
+        tr = remote_tracker_repo.upsert(jsonable_encoder(s))
     yield tr
-    remote_tracker_repo.delete(tr.id)
 
 
 _api_path = f"{settings.API_PATH}{integrations_router.prefix}{goals_router.prefix}"
 
 
-def test_get_goals(client: TestClient, auth_headers_test_user, tmp_remote_tracker: RemoteTracker):
+def test_get_goals(client: TestClient, auth_headers_test_user, tmp_remote_tracker_redmine: RemoteTracker):
     r = client.get(
         _api_path,
         headers=auth_headers_test_user,
-        params={"tracker_id": tmp_remote_tracker.id},
+        params={"tracker_id": tmp_remote_tracker_redmine.id},
     )
 
     assert r.status_code == 200, r.json()
-    # print(r.json())
 
 
-def test_import_goals(client: TestClient, auth_headers_test_user, tmp_remote_tracker: RemoteTracker):
+def test_import_goals(client: TestClient, auth_headers_test_user, tmp_remote_tracker_redmine: RemoteTracker):
     r = client.post(
         f"{_api_path}/import",
         headers=auth_headers_test_user,
-        params={"tracker_id": tmp_remote_tracker.id},
+        params={"tracker_id": tmp_remote_tracker_redmine.id},
     )
 
     assert r.status_code == 200, r.json()
-    assert r.json()["msg"] == f"Goals from {tmp_remote_tracker.type.title} {tmp_remote_tracker.url} imported successful"
+    assert r.json()["msg"] == f"Goals from {tmp_remote_tracker_redmine.type.title} {tmp_remote_tracker_redmine.url} imported successful"
+
+    # goals = goal_repo.get(where=not_(column("id") == tmp_goal.id))
+    # for g in goals:
+    #     goal_repo.delete(g.id)
 
     # # 400 (no id)
     # r2 = client.post(

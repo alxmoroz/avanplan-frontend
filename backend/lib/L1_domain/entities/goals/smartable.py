@@ -14,6 +14,7 @@ class Smartable(Titleable):
     updated_on: datetime | None = None
     due_date: datetime | date | None = None
     remote_code: str | None = None
+    # TODO: remote_tracker автоматом попадает на фронт. Надо ли?
     remote_tracker: RemoteTracker | None = None
     parent_id: int | None = None
     closed: bool | None = False

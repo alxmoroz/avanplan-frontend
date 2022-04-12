@@ -13,5 +13,4 @@ class GoalImportSchemaGet(GoalSchema, PKGetable, Importable):
 
 
 class GoalImportSchemaUpsert(GoalSchemaUpsert, Importable):
-    # remote_tracker_id: int
-    pass
+    remote_tracker_id: int

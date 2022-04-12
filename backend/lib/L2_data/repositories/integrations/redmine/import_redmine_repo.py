@@ -6,20 +6,17 @@ from pytz import utc
 from redminelib import Redmine
 from redminelib import resources as R
 
-from lib.L1_domain.entities import Person, TaskPriority, TaskStatus
-from lib.L1_domain.entities.api.exceptions import ApiException
+from lib.L1_domain.entities import Person, RemoteTracker, TaskPriority, TaskStatus
 from lib.L1_domain.entities.goals import GoalImport, TaskImport
 from lib.L1_domain.repositories import AbstractImportRepo
 
 
 class ImportRedmineRepo(AbstractImportRepo):
-    def __init__(self, host: str, api_key: str):
+    def __init__(self, tracker: RemoteTracker):
 
-        if not host or not api_key:
-            raise ApiException(400, "Host and API-key must be filled")
-
-        self.source = f"Redmine {host}"
-        self.redmine = Redmine(host, key=api_key)
+        self.tracker = tracker
+        # TODO: добавить вариант с обычной авторизацией
+        self.redmine = Redmine(tracker.url, key=tracker.login_key)
 
         self.cached_r_projects: list[R.Project] | None = None
         self.goals_map: dict[int, GoalImport] = {}

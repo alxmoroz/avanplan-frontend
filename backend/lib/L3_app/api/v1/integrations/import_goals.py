@@ -33,9 +33,8 @@ def _import_uc(
     repo: AbstractImportRepo | None = None
     tracker: RemoteTracker = tracker_uc.get_one(id=tracker_id)
 
-    if tracker.type.title == "Redmine":
-        # TODO: добавить вариант с обычной авторизацией
-        repo = ImportRedmineRepo(host=tracker.url, api_key=tracker.login_key)
+    if tracker and tracker.type.title == "Redmine":
+        repo = ImportRedmineRepo(tracker)
 
     if not repo:
         raise ApiException(500, "Tracker not found")

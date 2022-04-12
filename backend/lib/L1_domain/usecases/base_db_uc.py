@@ -19,8 +19,10 @@ class BaseDBUC(Generic[E], ABC):
         self.db_repo = db_repo
         self.e_repo = e_repo
 
-    def get_one(self, **filter_by) -> E:
-        return self.e_repo.entity_from_orm(self.db_repo.get_one(**filter_by))
+    def get_one(self, **filter_by) -> E | None:
+        obj = self.db_repo.get_one(**filter_by)
+        if obj:
+            return self.e_repo.entity_from_orm(obj)
 
     def get_all(self) -> list[E]:
         return [self.e_repo.entity_from_orm(db_obj) for db_obj in self.db_repo.get()]

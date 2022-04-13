@@ -25,6 +25,9 @@
   "goal_delete_dialog_description": "All tasks of this goal will be deleted.",
   "goal_title": "Goal",
   "goal_title_new": "New goal",
+  "goal_import": "Import goals",
+
+  "integration": "Integration",
 
   "task_delete_dialog_title": "Delete task?",
   "task_delete_dialog_description": "All subtasks of this task will be deleted.",
@@ -33,6 +36,7 @@
   "tasks_title": "Tasks",
 
   "tracker_delete_dialog_title": "Delete remote tracker connection?",
+  "tracker_import_placeholder": "Source for importing goals and objectives",
   "tracker_list_title": "Remote trackers",
   "tracker_title_new": "New tracker",
   "tracker_type_placeholder": "Tracker type",

@@ -19,4 +19,7 @@ class RemoteTracker extends RPersistable {
   final String url;
   final String loginKey;
   final String? description;
+
+  @override
+  String toString() => '$type $url';
 }

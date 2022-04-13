@@ -28,7 +28,7 @@ class GoalsRepo extends AbstractApiRepo<Goal, GoalUpsert> {
 
   @override
   Future<Goal?> save(GoalUpsert data) async {
-    //TODO: не учитываются возможные ошибки! Нет обработки 403 и т.п.
+    // TODO: не учитываются возможные ошибки! Нет обработки 403 и т.п.
     final builder = GoalSchemaUpsertBuilder()
       ..id = data.id
       ..statusId = data.statusId

@@ -21,6 +21,9 @@ abstract class Titleable extends RPersistable {
   }) : super(id: id);
 
   final String title;
+
+  @override
+  String toString() => title;
 }
 
 abstract class Orderable extends Titleable {

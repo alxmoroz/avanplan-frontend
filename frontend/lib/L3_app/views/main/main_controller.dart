@@ -12,6 +12,7 @@ import '../_base/base_controller.dart';
 import '../auth/login_view.dart';
 import '../goal/goal_edit_view.dart';
 import '../goal/goal_view.dart';
+import '../remote_tracker/import_view.dart';
 import '../remote_tracker/tracker_list_view.dart';
 
 part 'main_controller.g.dart';
@@ -105,17 +106,6 @@ abstract class _MainControllerBase extends BaseController with Store {
   @computed
   Goal? get selectedGoal => goals.firstWhereOrNull((g) => g.id == selectedGoalId);
 
-  //TODO: для тестирования метод пока что тут. Нужен отдельный юзкейс и репы
-  // Future redmine() async {
-  //   final builder = BodyGoalsApiV1IntegrationsRedmineGoalsPostBuilder()
-  //     ..apiKey = '101b62ea94b4132625a3d079451ea13fed3f4b87'
-  //     ..host = 'https://redmine.moroz.team';
-  //
-  //   await openAPI.getIntegrationsRedmineApi().goalsApiV1IntegrationsRedmineGoalsPost(
-  //         bodyGoalsApiV1IntegrationsRedmineGoalsPost: builder.build(),
-  //       );
-  // }
-
   /// роутер
 
   Future showGoal(BuildContext context, Goal goal) async {
@@ -146,5 +136,9 @@ abstract class _MainControllerBase extends BaseController with Store {
 
   Future showTrackers(BuildContext context) async {
     await Navigator.of(context).pushNamed(TrackerListView.routeName);
+  }
+
+  Future importGoals(BuildContext context) async {
+    await showImportDialog(context);
   }
 }

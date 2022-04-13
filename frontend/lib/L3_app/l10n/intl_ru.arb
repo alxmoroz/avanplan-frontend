@@ -7,7 +7,7 @@
   "auth_password_placeholder": "Пароль",
   "auth_log_in_button_title": "Войти",
 
-  "btn_delete_title": "Удалить ",
+  "btn_delete_title": "Удалить",
   "btn_mark_done_title": "Выполнено",
   "btn_save_title": "Сохранить",
 
@@ -25,6 +25,9 @@
   "goal_delete_dialog_description": "Все задачи цели также будут удалены.",
   "goal_title": "Цель",
   "goal_title_new": "Новая цель",
+  "goal_import": "Импорт целей",
+
+  "integration": "Интеграция",
 
   "task_delete_dialog_title": "Удалить задачу?",
   "task_delete_dialog_description": "Все подзадачи также будут удалены.",
@@ -33,6 +36,7 @@
   "tasks_title": "Задачи",
 
   "tracker_delete_dialog_title": "Удалить источник импорта?",
+  "tracker_import_placeholder": "Источник импорта целей и задач",
   "tracker_list_title": "Внешние трекеры задач",
   "tracker_title_new": "Новый трекер",
   "tracker_type_placeholder": "Тип трекера",

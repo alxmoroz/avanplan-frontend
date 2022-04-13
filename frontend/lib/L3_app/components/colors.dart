@@ -21,6 +21,11 @@ const Color borderColor = CupertinoDynamicColor.withBrightness(
   darkColor: Color.fromARGB(255, 62, 62, 64),
 );
 
+const Color loaderColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(180, 200, 200, 205),
+  darkColor: Color.fromARGB(180, 62, 62, 64),
+);
+
 const Color backgroundColor = CupertinoColors.systemGrey6;
 const Color darkBackgroundColor = CupertinoColors.systemGrey5;
 

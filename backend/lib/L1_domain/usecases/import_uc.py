@@ -159,4 +159,5 @@ class ImportUC:
         for task in self.import_repo.get_tasks_tree(goals_ids):
             self._upsert_task(task)
 
+        # TODO: бесполезное сообщение
         return Msg(msg=f"Goals from {self.import_repo.tracker.type.title} {self.import_repo.tracker.url} imported successful")

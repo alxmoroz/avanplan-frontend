@@ -29,7 +29,6 @@ class MTBottomSheet extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              // const Notch(),
               SizedBox(height: radius),
               bodyWidget,
             ],

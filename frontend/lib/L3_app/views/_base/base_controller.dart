@@ -30,6 +30,18 @@ abstract class _BaseControllerBase with Store {
   }
 
   @observable
+  bool _loading = false;
+
+  @action
+  void startLoading() => _loading = true;
+
+  @action
+  void stopLoading() => _loading = false;
+
+  @computed
+  bool get isLoading => _loading;
+
+  @observable
   ObservableMap<String, TFAnnotation> tfAnnotations = ObservableMap();
 
   TextEditingController makeController(String code) {

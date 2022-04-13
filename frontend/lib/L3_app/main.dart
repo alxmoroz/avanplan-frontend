@@ -11,6 +11,7 @@ import 'l10n/generated/l10n.dart';
 import 'views/auth/login_view.dart';
 import 'views/goal/goal_view.dart';
 import 'views/main/main_view.dart';
+import 'views/remote_tracker/import_view.dart';
 import 'views/remote_tracker/tracker_list_view.dart';
 import 'views/task/task_edit_view.dart';
 import 'views/task/task_view.dart';
@@ -43,6 +44,7 @@ class App extends StatelessWidget {
           TaskView.routeName: (_) => TaskView(),
           TaskEditView.routeName: (_) => TaskEditView(),
           TrackerListView.routeName: (_) => TrackerListView(),
+          ImportView.routeName: (_) => ImportView(),
         },
         localizationsDelegates: const [
           S.delegate,

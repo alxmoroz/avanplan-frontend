@@ -3,13 +3,12 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 
-import '../../L1_domain/entities/base_entity.dart';
 import 'constants.dart';
 import 'icons.dart';
 import 'text_field.dart';
 import 'text_widgets.dart';
 
-class MTDropdown<T extends Titleable> extends StatefulWidget {
+class MTDropdown<T> extends StatefulWidget {
   const MTDropdown({
     required this.width,
     required this.items,
@@ -28,16 +27,11 @@ class MTDropdown<T extends Titleable> extends StatefulWidget {
   _MTDropdownState<T> createState() => _MTDropdownState();
 }
 
-class _MTDropdownState<T extends Titleable> extends State<MTDropdown<T>> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
+class _MTDropdownState<T> extends State<MTDropdown<T>> {
   List<DropdownMenuItem<T>> get ddItems => widget.items
       .map((s) => DropdownMenuItem<T>(
             value: s,
-            child: NormalText(s.title),
+            child: NormalText('$s'),
           ))
       .toList();
 

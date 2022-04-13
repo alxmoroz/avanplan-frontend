@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
-import 'material_wrapper.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({this.color});
@@ -14,10 +13,8 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: (color ?? backgroundColor).resolve(context),
-      child: material(
-        const Center(
-          child: CircularProgressIndicator(),
-        ),
+      child: const Center(
+        child: CircularProgressIndicator(),
       ),
     );
   }

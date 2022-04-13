@@ -41,21 +41,22 @@ def tmp_remote_tracker_redmine(remote_tracker_repo: RemoteTrackerRepo, tmp_remot
 _api_path = f"{settings.API_PATH}{integrations_router.prefix}{goals_router.prefix}"
 
 
-def test_get_goals(client: TestClient, auth_headers_test_user, tmp_remote_tracker_redmine: RemoteTracker):
-    r = client.get(
+def test_get_import_goals(client: TestClient, auth_headers_test_user, tmp_remote_tracker_redmine: RemoteTracker):
+    r_goals = client.get(
         _api_path,
         headers=auth_headers_test_user,
         params={"tracker_id": tmp_remote_tracker_redmine.id},
     )
 
-    assert r.status_code == 200, r.json()
+    assert r_goals.status_code == 200, r_goals.json()
+    goals_ids = [r["remote_code"] for r in r_goals.json()]
+    assert len(goals_ids) > 0
 
-
-def test_import_goals(client: TestClient, auth_headers_test_user, tmp_remote_tracker_redmine: RemoteTracker):
     r = client.post(
         f"{_api_path}/import",
         headers=auth_headers_test_user,
         params={"tracker_id": tmp_remote_tracker_redmine.id},
+        json=goals_ids,
     )
 
     assert r.status_code == 200, r.json()

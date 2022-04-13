@@ -16,10 +16,9 @@ class ImportRedmineRepo(AbstractImportRepo):
 
         self.tracker = tracker
         # TODO: добавить вариант с обычной авторизацией
-        self.redmine = Redmine(tracker.url, key=tracker.login_key)
-
-        self.cached_r_projects: list[R.Project] | None = None
-        self.goals_map: dict[int, GoalImport] = {}
+        self._redmine = Redmine(tracker.url, key=tracker.login_key)
+        self._r_projects: list[R.Project] | None = None
+        self._goals_map: dict[int, GoalImport] = {}
 
     @staticmethod
     def _set_parents(objects_map: dict[int, [TaskImport | GoalImport]]):
@@ -33,7 +32,7 @@ class ImportRedmineRepo(AbstractImportRepo):
                 lastname=user.lastname,
                 email=user.mail,
             )
-            for user in self.redmine.user.all()
+            for user in self._redmine.user.all()
         }
 
     def _get_task_statuses(self) -> dict[int, TaskStatus]:
@@ -42,7 +41,7 @@ class ImportRedmineRepo(AbstractImportRepo):
                 title=st.name,
                 closed=st.is_closed,
             )
-            for st in self.redmine.issue_status.all()
+            for st in self._redmine.issue_status.all()
         }
 
     # def _get_milestones_for_project(self, r_project: R.Project) -> dict[int, Milestone]:
@@ -54,23 +53,21 @@ class ImportRedmineRepo(AbstractImportRepo):
     #             remote_code=f"{version.id}",
     #             updated_on=datetime.now(tz=utc),
     #             due_date=getattr(version, "due_date", None),
-    #             goal=self.goals_map[r_project.id],
+    #             goal=self._goals_map[r_project.id],
     #         )
     #         milestones[version.id] = milestone
     #
     #     return milestones
 
     # по пустым запросам —> только открытые проекты и открытые задачи
-    def _get_cached_r_projects(self) -> list[R.Project]:
-        if not self.cached_r_projects:
-            self.cached_r_projects = self.redmine.project.all()
-        return self.cached_r_projects
+    def _fetch_r_projects(self) -> list[R.Project]:
+        if not self._r_projects:
+            self._r_projects = self._redmine.project.all()
+        return self._r_projects
 
     def get_goals(self) -> list[GoalImport]:
-        self.goals_map = {}
-        self.cached_r_projects = None
 
-        for r_project in self._get_cached_r_projects():
+        for r_project in self._fetch_r_projects():
             goal = GoalImport(
                 title=r_project.name,
                 description=r_project.description,
@@ -79,24 +76,21 @@ class ImportRedmineRepo(AbstractImportRepo):
             )
             parent_project = getattr(r_project, "parent", None)
             goal.remote_parent_id = parent_project.id if parent_project else None
-            self.goals_map[r_project.id] = goal
+            self._goals_map[r_project.id] = goal
 
-        self._set_parents(self.goals_map)
+        self._set_parents(self._goals_map)
 
-        return list(self.goals_map.values())
+        return list(self._goals_map.values())
 
-    def get_tasks_tree(self) -> list[TaskImport]:
+    def get_tasks_tree(self, goals_ids: list[str]) -> list[TaskImport]:
 
         tasks: dict[int, TaskImport] = {}
 
         persons = self._get_persons()
         statuses = self._get_task_statuses()
 
-        if not self.cached_r_projects:
-            self.get_goals()
-
-        for r_project in self._get_cached_r_projects():
-            goal = self.goals_map[r_project.id]
+        for r_project in [r for r in self._fetch_r_projects() if f"{r.id}" in goals_ids]:
+            goal = self._goals_map[r_project.id]
 
             if "issue_tracking" in r_project.enabled_modules:
                 # milestones = self._get_milestones_for_project(r_project)

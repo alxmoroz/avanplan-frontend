@@ -145,18 +145,18 @@ class ImportUC:
                 email=person.email,
             )
 
-    def import_goals(self) -> Msg:
-        self._reset_processed()
-
-        # структура всех задач с проектами и подпроектами
-        for task in self.import_repo.get_tasks_tree():
-            self._upsert_task(task)
-
-        # отдельно проекты ради пустых проектов
-        for goal in self.get_goals():
-            self._upsert_goal(goal)
-
-        return Msg(msg=f"Goals from {self.import_repo.tracker.type.title} {self.import_repo.tracker.url} imported successful")
-
     def get_goals(self) -> list[GoalImport]:
         return self.import_repo.get_goals()
+
+    def import_goals(self, goals_ids: list[str]) -> Msg:
+        self._reset_processed()
+
+        # отдельно проекты ради пустых проектов
+        for goal in [g for g in self.get_goals() if g.remote_code in goals_ids]:
+            self._upsert_goal(goal)
+
+        # структура всех задач с проектами и подпроектами
+        for task in self.import_repo.get_tasks_tree(goals_ids):
+            self._upsert_task(task)
+
+        return Msg(msg=f"Goals from {self.import_repo.tracker.type.title} {self.import_repo.tracker.url} imported successful")

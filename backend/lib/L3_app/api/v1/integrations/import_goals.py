@@ -14,7 +14,7 @@ from lib.L2_data.db import db_session
 from lib.L2_data.mappers import GoalImportMapper, PersonMapper, TaskImportMapper, TaskPriorityMapper, TaskStatusMapper
 from lib.L2_data.repositories import db as dbr
 from lib.L2_data.repositories.integrations import ImportRedmineRepo
-from lib.L2_data.schema.goals.goal import GoalSchema
+from lib.L2_data.schema.goals.goal_import import GoalImportRemoteSchemaGet
 from lib.L3_app.api.v1.users import user_uc
 
 from .remote_trackers import remote_trackers_uc
@@ -30,6 +30,7 @@ def _import_uc(
 ) -> ImportUC:
     uc.get_active_user()
 
+    # TODO: спрятать под капот определение трекера и юзкейса
     repo: AbstractImportRepo | None = None
     tracker: RemoteTracker = tracker_uc.get_one(id=tracker_id)
 
@@ -54,7 +55,7 @@ def _import_uc(
     )
 
 
-@router.get("/", response_model=list[GoalSchema])
+@router.get("/", response_model=list[GoalImportRemoteSchemaGet])
 def get_goals(
     uc: ImportUC = Depends(_import_uc),
 ) -> list[GoalImport]:
@@ -63,9 +64,10 @@ def get_goals(
 
 @router.post("/import", response_model=Msg)
 def import_goals(
+    goals_ids: list[str],
     uc: ImportUC = Depends(_import_uc),
 ) -> Msg:
-    return uc.import_goals()
+    return uc.import_goals(goals_ids)
 
 
 # @router.post("/tasks", response_model=Msg)

@@ -13,5 +13,5 @@ class AbstractImportRepo:
         raise NotImplementedError
 
     @staticmethod
-    def get_tasks_tree() -> list[TaskImport]:
+    def get_tasks_tree(goals_ids: list[str]) -> list[TaskImport]:
         raise NotImplementedError

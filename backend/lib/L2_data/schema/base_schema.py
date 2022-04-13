@@ -40,4 +40,4 @@ class Importable(BaseSchema, ABC):
 
 
 class Statusable(BaseSchema, ABC):
-    closed: bool = False
+    closed: bool

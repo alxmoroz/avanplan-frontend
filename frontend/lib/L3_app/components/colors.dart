@@ -13,8 +13,17 @@ const Color darkGreyColor = CupertinoDynamicColor.withBrightness(
   darkColor: Color(0xFF888888),
 );
 
-const Color warningColor = CupertinoColors.activeOrange;
+const Color lightGreyColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, 180, 180, 190),
+  darkColor: Color.fromARGB(255, 72, 72, 74),
+);
+
 const Color dangerColor = CupertinoColors.destructiveRed;
+const Color warningColor = CupertinoColors.activeOrange;
+const Color lightWarningColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, 195, 155, 115),
+  darkColor: Color.fromARGB(255, 120, 90, 50),
+);
 
 const Color borderColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(255, 200, 200, 205),

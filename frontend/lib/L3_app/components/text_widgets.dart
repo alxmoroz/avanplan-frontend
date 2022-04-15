@@ -99,6 +99,19 @@ class MediumText extends NormalText {
         );
 }
 
+class H4 extends MediumText {
+  const H4(String text, {Color? color, FontWeight? weight, TextAlign? align, EdgeInsets? padding, int? maxLines})
+      : super(
+          text,
+          color: color,
+          weight: weight,
+          sizeScale: 1.1,
+          align: align,
+          padding: padding,
+          maxLines: maxLines ?? 3,
+        );
+}
+
 class H3 extends MediumText {
   const H3(String text, {Color? color, FontWeight? weight, TextAlign? align, EdgeInsets? padding, int? maxLines})
       : super(

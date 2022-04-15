@@ -17,8 +17,8 @@ class RemoteTrackersUC {
 
   Future<RemoteTracker?> save(RemoteTrackerUpsert data) async {
     RemoteTracker? tracker;
-    // TODO: внутр. exception?
-    if (data.url.trim().isNotEmpty && data.loginKey.trim().isNotEmpty && data.password.trim().isNotEmpty) {
+    // TODO: внутр. exception - валидация...
+    if (data.url.trim().isNotEmpty && data.loginKey.trim().isNotEmpty) {
       tracker = await repo.save(data);
     }
     return tracker;
@@ -26,7 +26,7 @@ class RemoteTrackersUC {
 
   Future<RemoteTracker?> delete({required RemoteTracker tracker}) async {
     final deletedRows = await repo.delete(tracker.id);
-    // TODO: внутр. exception?
+    // TODO: внутр. exception
     if (deletedRows) {
       tracker.deleted = true;
     }

@@ -6,6 +6,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../components/buttons.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
+import '../../components/empty_widget.dart';
 import '../../components/icons.dart';
 import '../../components/splash.dart';
 import '../../extra/services.dart';
@@ -61,18 +62,25 @@ class _MainViewState extends State<MainView> {
                 drawer: MTDrawer(),
                 body: Container(
                   color: backgroundColor.resolve(context),
-                  child: Column(
-                    children: [
-                      SizedBox(height: onePadding),
-                      Expanded(
-                        child: ListView.builder(
-                          itemBuilder: goalCardBuilder,
-                          itemCount: mainController.goals.length,
+                  child: mainController.goals.isEmpty
+                      ? Center(
+                          child: EmptyDataWidget(
+                          title: loc.goal_list_empty_title,
+                          addTitle: loc.goal_title_new,
+                          onAdd: () => mainController.addGoal(context),
+                        ))
+                      : Column(
+                          children: [
+                            SizedBox(height: onePadding),
+                            Expanded(
+                              child: ListView.builder(
+                                itemBuilder: goalCardBuilder,
+                                itemCount: mainController.goals.length,
+                              ),
+                            ),
+                            SizedBox(height: onePadding),
+                          ],
                         ),
-                      ),
-                      SizedBox(height: onePadding),
-                    ],
-                  ),
                 ),
               ),
             )

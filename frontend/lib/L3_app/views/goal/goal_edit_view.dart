@@ -13,7 +13,6 @@ import '../../components/icons.dart';
 import '../../components/navbar.dart';
 import '../../components/splash.dart';
 import '../../components/text_field_annotation.dart';
-import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import 'goal_edit_controller.dart';
 
@@ -77,7 +76,7 @@ class _GoalViewState extends State<GoalEditView> {
                           padding: EdgeInsets.only(left: onePadding),
                         )
                       : Container(),
-                  middle: H3(_goal == null ? loc.goal_title_new : '', align: TextAlign.center),
+                  title: _goal == null ? loc.goal_title_new : '',
                   trailing: Button(
                     loc.btn_save_title,
                     _controller.validated ? () => _controller.save(context) : null,

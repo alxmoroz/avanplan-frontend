@@ -12,7 +12,7 @@ import '../_base/base_controller.dart';
 import '../auth/login_view.dart';
 import '../goal/goal_edit_view.dart';
 import '../goal/goal_view.dart';
-import '../remote_tracker/import_view.dart';
+import '../import/import_view.dart';
 import '../remote_tracker/tracker_list_view.dart';
 
 part 'main_controller.g.dart';

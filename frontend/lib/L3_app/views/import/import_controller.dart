@@ -5,9 +5,10 @@ import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/goals/goal_import.dart';
 import '../../../L1_domain/entities/goals/remote_tracker.dart';
+import '../../../L1_domain/system/errors.dart';
 import '../../extra/services.dart';
 import '../_base/base_controller.dart';
-import 'tracker_controller.dart';
+import '../remote_tracker/tracker_controller.dart';
 
 part 'import_controller.g.dart';
 
@@ -33,8 +34,13 @@ abstract class _ImportControllerBase extends BaseController with Store {
   @action
   Future _fetchGoals(int trackerId) async {
     startLoading();
-    goals = ObservableList.of(await importUC.getGoals(trackerId));
-    _sortGoals();
+    goals = ObservableList();
+    try {
+      goals = ObservableList.of(await importUC.getGoals(trackerId));
+      _sortGoals();
+    } catch (e) {
+      setErrorCode(e is MTException ? e.code : e.toString());
+    }
     stopLoading();
   }
 
@@ -67,5 +73,9 @@ abstract class _ImportControllerBase extends BaseController with Store {
       Navigator.of(context).pop();
     }
     stopLoading();
+  }
+
+  Future addTracker(BuildContext context) async {
+    _trackerController.addTracker(context);
   }
 }

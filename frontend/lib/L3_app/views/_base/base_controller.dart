@@ -30,6 +30,12 @@ abstract class _BaseControllerBase with Store {
   }
 
   @observable
+  String? errorCode;
+
+  @action
+  void setErrorCode(String? eCode) => errorCode = eCode;
+
+  @observable
   bool _loading = false;
 
   @action

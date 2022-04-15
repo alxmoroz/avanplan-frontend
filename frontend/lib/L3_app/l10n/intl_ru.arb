@@ -21,25 +21,31 @@
   "common_title": "Название",
   "common_yes": "Да",
 
+  "error_get_goals": "Ошибка получения списка целей или проектов\nПопробуйте выбрать другой источник",
+
   "goal_delete_dialog_title": "Удалить цель?",
-  "goal_delete_dialog_description": "Все задачи цели также будут удалены.",
+  "goal_delete_dialog_description": "Все задачи цели также будут удалены",
+  "goal_import": "Импорт целей",
+  "goal_list_empty_title": "Нет целей",
+  "goal_list_empty_title_import": "Нет доступных для импорта целей или проектов\nПопробуйте выбрать другой источник",
   "goal_title": "Цель",
   "goal_title_new": "Новая цель",
-  "goal_import": "Импорт целей",
 
   "integration": "Интеграция",
 
   "task_delete_dialog_title": "Удалить задачу?",
-  "task_delete_dialog_description": "Все подзадачи также будут удалены.",
+  "task_delete_dialog_description": "Все подзадачи также будут удалены",
   "task_title": "Задача",
   "task_title_new": "Новая задача",
   "tasks_title": "Задачи",
 
   "tracker_delete_dialog_title": "Удалить источник импорта?",
+  "tracker_delete_dialog_description": "Импортированные цели и задачи этого источника потеряют с ним связь",
   "tracker_import_placeholder": "Источник импорта целей и задач",
-  "tracker_list_title": "Внешние трекеры задач",
-  "tracker_title_new": "Новый трекер",
-  "tracker_type_placeholder": "Тип трекера",
+  "tracker_list_empty_title": "Источники импорта не настроены",
+  "tracker_list_title": "Источники импорта целей и задач",
+  "tracker_title_new": "Новый источник импорта",
+  "tracker_type_placeholder": "Тип источника",
   "tracker_url_placeholder": "URL",
 
   "validation_empty_text": "Нужно заполнить"

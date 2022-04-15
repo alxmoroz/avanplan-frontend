@@ -7,6 +7,7 @@ import '../../components/buttons.dart';
 import '../../components/constants.dart';
 import '../../components/cupertino_page.dart';
 import '../../components/divider.dart';
+import '../../components/empty_widget.dart';
 import '../../components/icons.dart';
 import '../../components/navbar.dart';
 import '../../components/splash.dart';
@@ -64,8 +65,15 @@ class _TrackerListViewState extends State<TrackerListView> {
               body: Observer(
                 builder: (_) => Expanded(
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       SizedBox(height: onePadding),
+                      if (controller.trackers.isEmpty)
+                        EmptyDataWidget(
+                          title: loc.tracker_list_empty_title,
+                          addTitle: loc.tracker_title_new,
+                          onAdd: () => controller.addTracker(context),
+                        ),
                       if (controller.trackers.isNotEmpty)
                         Expanded(
                           child: ListView.builder(

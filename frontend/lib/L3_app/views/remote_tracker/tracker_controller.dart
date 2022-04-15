@@ -114,7 +114,7 @@ abstract class _TrackerControllerBase extends BaseController with Store {
       final confirm = await showMTDialog<bool?>(
         context,
         title: loc.tracker_delete_dialog_title,
-        description: '${loc.common_delete_dialog_description}',
+        description: '${loc.tracker_delete_dialog_description}\n\n${loc.common_delete_dialog_description}',
         actions: [
           MTDialogAction(title: loc.common_yes, isDestructive: true, result: true),
           MTDialogAction(title: loc.common_no, isDefault: true, result: false),

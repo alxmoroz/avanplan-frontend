@@ -13,7 +13,6 @@ import '../../components/icons.dart';
 import '../../components/navbar.dart';
 import '../../components/splash.dart';
 import '../../components/text_field_annotation.dart';
-import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import 'task_edit_controller.dart';
 
@@ -83,7 +82,7 @@ class _TaskEditViewState extends State<TaskEditView> {
                           padding: EdgeInsets.only(left: onePadding),
                         )
                       : Container(),
-                  middle: H3(_task == null ? loc.task_title_new : '', align: TextAlign.center),
+                  title: _task == null ? loc.task_title_new : '',
                   trailing: Button(
                     loc.btn_save_title,
                     _controller.validated ? () => _controller.save(context) : null,

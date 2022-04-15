@@ -15,7 +15,6 @@ import '../../components/navbar.dart';
 import '../../components/splash.dart';
 import '../../components/text_field.dart';
 import '../../components/text_field_annotation.dart';
-import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import 'tracker_controller.dart';
 
@@ -46,7 +45,7 @@ class _TrackerEditViewState extends State<TrackerEditView> {
     _controller.initState(tfaList: [
       TFAnnotation('url', label: loc.tracker_url_placeholder, text: _tracker?.url ?? ''),
       TFAnnotation('loginKey', label: loc.auth_user_placeholder, text: _tracker?.loginKey ?? ''),
-      TFAnnotation('password', label: loc.auth_password_placeholder),
+      TFAnnotation('password', label: loc.auth_password_placeholder, needValidate: false),
       TFAnnotation('description', label: loc.common_description, text: _tracker?.description ?? '', needValidate: false),
     ]);
 
@@ -112,7 +111,7 @@ class _TrackerEditViewState extends State<TrackerEditView> {
                           padding: EdgeInsets.only(left: onePadding),
                         )
                       : Container(),
-                  middle: H3(_tracker == null ? loc.tracker_title_new : '', align: TextAlign.center),
+                  title: _tracker == null ? loc.tracker_title_new : '',
                   trailing: Button(
                     loc.btn_save_title,
                     _controller.validated ? () => _controller.save(context) : null,

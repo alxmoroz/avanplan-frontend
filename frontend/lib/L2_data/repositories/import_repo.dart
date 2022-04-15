@@ -5,6 +5,7 @@ import 'package:openapi/openapi.dart';
 
 import '../../L1_domain/entities/goals/goal_import.dart';
 import '../../L1_domain/repositories/abs_api_repo.dart';
+import '../../L1_domain/system/errors.dart';
 import '../../L3_app/extra/services.dart';
 import '../mappers/goal_import.dart';
 
@@ -15,14 +16,19 @@ class ImportRepo extends AbstractApiImportRepo {
 
   @override
   Future<List<GoalImport>> getGoals(int trackerId) async {
-    final response = await api.getGoalsApiV1IntegrationsGoalsGet(trackerId: trackerId);
-
     final List<GoalImport> goals = [];
-    if (response.statusCode == 200) {
-      for (GoalImportRemoteSchemaGet g in response.data?.toList() ?? []) {
-        goals.add(g.goalImport);
+
+    try {
+      final response = await api.getGoalsApiV1IntegrationsGoalsGet(trackerId: trackerId);
+      if (response.statusCode == 200) {
+        for (GoalImportRemoteSchemaGet g in response.data?.toList() ?? []) {
+          goals.add(g.goalImport);
+        }
       }
+    } catch (e) {
+      throw MTException(code: 'error_get_goals', detail: e.toString());
     }
+
     return goals;
   }
 

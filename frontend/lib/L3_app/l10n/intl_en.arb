@@ -21,24 +21,30 @@
   "common_title": "Title",
   "common_yes": "Yes",
 
+  "error_get_goals": "Error getting goals\nTry choosing a different tracker",
+
   "goal_delete_dialog_title": "Delete goal?",
-  "goal_delete_dialog_description": "All tasks of this goal will be deleted.",
+  "goal_delete_dialog_description": "All tasks of this goal will be deleted",
+  "goal_import": "Import goals",
+  "goal_list_empty_title": "There are no goals",
+  "goal_list_empty_title_import": "There are no goals or projects available to import\nTry choosing a different tracker",
   "goal_title": "Goal",
   "goal_title_new": "New goal",
-  "goal_import": "Import goals",
 
   "integration": "Integration",
 
   "task_delete_dialog_title": "Delete task?",
-  "task_delete_dialog_description": "All subtasks of this task will be deleted.",
+  "task_delete_dialog_description": "All subtasks of this task will be deleted",
   "task_title": "Task",
   "task_title_new": "New task",
   "tasks_title": "Tasks",
 
   "tracker_delete_dialog_title": "Delete remote tracker connection?",
+  "tracker_delete_dialog_description": "Imported goals and tasks of this source will lose their connection with it",
   "tracker_import_placeholder": "Source for importing goals and objectives",
+  "tracker_list_empty_title": "No remote trackers configured yet",
   "tracker_list_title": "Remote trackers",
-  "tracker_title_new": "New tracker",
+  "tracker_title_new": "New remote tracker",
   "tracker_type_placeholder": "Tracker type",
   "tracker_url_placeholder": "URL",
 

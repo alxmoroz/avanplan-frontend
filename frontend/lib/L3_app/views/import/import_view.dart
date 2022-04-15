@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:intl/intl.dart';
 
 import '../../../L1_domain/entities/goals/remote_tracker.dart';
 import '../../components/bottom_sheet.dart';
@@ -11,12 +12,13 @@ import '../../components/constants.dart';
 import '../../components/cupertino_page.dart';
 import '../../components/divider.dart';
 import '../../components/dropdown.dart';
+import '../../components/empty_widget.dart';
 import '../../components/navbar.dart';
 import '../../components/splash.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
+import '../remote_tracker/tracker_controller.dart';
 import 'import_controller.dart';
-import 'tracker_controller.dart';
 
 Future showImportDialog(BuildContext context) async {
   return await showModalBottomSheet<void>(
@@ -70,8 +72,14 @@ class _ImportViewState extends State<ImportView> {
       child: Stack(
         children: [
           Column(
-            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: _trackerController.trackers.isEmpty ? MainAxisAlignment.center : MainAxisAlignment.start,
             children: [
+              if (_trackerController.trackers.isEmpty)
+                EmptyDataWidget(
+                  title: loc.tracker_list_empty_title,
+                  addTitle: loc.tracker_title_new,
+                  onAdd: () => _importController.addTracker(context),
+                ),
               if (_trackerController.trackers.isNotEmpty)
                 MTDropdown<RemoteTracker>(
                   width: mq.size.width - onePadding * 2,
@@ -80,9 +88,16 @@ class _ImportViewState extends State<ImportView> {
                   items: _trackerController.trackers,
                   label: loc.tracker_import_placeholder,
                 ),
-              SizedBox(height: onePadding),
-              const MTDivider(),
+              if (_trackerController.selectedTracker != null && _importController.goals.isEmpty && _trackerController.trackers.isNotEmpty)
+                EmptyDataWidget(
+                  title: _importController.errorCode != null
+                      ? Intl.message(_importController.errorCode!, name: _importController.errorCode)
+                      : loc.goal_list_empty_title_import,
+                  color: _importController.errorCode != null ? lightWarningColor : null,
+                ),
               if (_importController.goals.isNotEmpty) ...[
+                SizedBox(height: onePadding),
+                const MTDivider(),
                 Expanded(
                   child: ListView.builder(
                     itemBuilder: goalItemBuilder,
@@ -112,7 +127,7 @@ class _ImportViewState extends State<ImportView> {
           ? Observer(
               builder: (_) => MTCupertinoPage(
                 bgColor: darkBackgroundColor,
-                navBar: navBar(context, middle: H3(loc.goal_import, align: TextAlign.center)),
+                navBar: navBar(context, title: loc.goal_import),
                 body: form(),
               ),
             )

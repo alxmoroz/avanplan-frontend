@@ -1,6 +1,7 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
 from ..entities.api import Msg
+from ..entities.api.exceptions import ApiException
 from ..entities.goals import Person, Task, TaskPriority, TaskStatus
 from ..entities.goals.goal_import import GoalImport
 from ..entities.goals.task_import import TaskImport
@@ -146,7 +147,10 @@ class ImportUC:
             )
 
     def get_goals(self) -> list[GoalImport]:
-        return self.import_repo.get_goals()
+        try:
+            return self.import_repo.get_goals()
+        except BaseException as e:
+            raise ApiException(500, f"Error process {self.import_repo.tracker.type.title} {self.import_repo.tracker.url}: {e}")
 
     def import_goals(self, goals_ids: list[str]) -> Msg:
         self._reset_processed()

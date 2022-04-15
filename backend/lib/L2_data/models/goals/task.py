@@ -28,5 +28,5 @@ class Task(Smartable, BaseModel):
     author_id = Column(Integer, ForeignKey("persons.id"))
     author = relationship("Person", foreign_keys=[author_id])
 
-    remote_tracker_id = Column(Integer, ForeignKey("remotetrackers.id"))
+    remote_tracker_id = Column(Integer, ForeignKey("remotetrackers.id", ondelete="SET NULL"))
     remote_tracker = relationship("RemoteTracker")

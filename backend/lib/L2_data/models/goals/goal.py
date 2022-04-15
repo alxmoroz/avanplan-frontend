@@ -16,5 +16,5 @@ class Goal(Smartable, BaseModel):
     # goals = relationship("Goal", cascade="all, delete", remote_side="Goal.parent_id")
     tasks = relationship("Task", cascade="all, delete")
 
-    remote_tracker_id = Column(Integer, ForeignKey("remotetrackers.id"))
+    remote_tracker_id = Column(Integer, ForeignKey("remotetrackers.id", ondelete="SET NULL"))
     remote_tracker = relationship("RemoteTracker")

@@ -26,7 +26,7 @@ def tmp_remote_tracker_type_redmine(remote_tracker_type_repo: RemoteTrackerTypeR
 # TODO: реальные креды...
 @pytest.fixture(scope="session")
 def tmp_remote_tracker_redmine(remote_tracker_repo: RemoteTrackerRepo, tmp_remote_tracker_type_redmine) -> RemoteTracker:
-    tr = remote_tracker_repo.get_one(remote_tracker_type_id=tmp_remote_tracker_type_redmine.id)
+    tr = remote_tracker_repo.get_one(url="https://redmine.moroz.team")
     if not tr:
         s = RemoteTrackerSchemaUpsert(
             description="tmp_remote_tracker",

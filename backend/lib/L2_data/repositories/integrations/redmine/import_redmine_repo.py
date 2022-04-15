@@ -29,7 +29,7 @@ class ImportRedmineRepo(AbstractImportRepo):
     @property
     def r_projects(self) -> list[r.Project]:
         if not self._r_projects:
-            self._r_projects = self._redmine.project.all()
+            self._r_projects = self.redmine.project.all()
         return self._r_projects
 
     @staticmethod
@@ -97,7 +97,7 @@ class ImportRedmineRepo(AbstractImportRepo):
         persons = self._get_persons()
         statuses = self._get_task_statuses()
 
-        for r_project in [r for r in self.r_projects if f"{r.id}" in goals_ids]:
+        for r_project in [rp for rp in self.r_projects if f"{rp.id}" in goals_ids]:
             goal = self._goals_map[r_project.id]
 
             if "issue_tracking" in r_project.enabled_modules:

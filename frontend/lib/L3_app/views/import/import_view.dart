@@ -45,6 +45,7 @@ class _ImportViewState extends State<ImportView> {
   @override
   void initState() {
     _fetchTrackers = _trackerController.fetchTrackers();
+    _importController.selectTracker(_trackerController.selectedTracker);
     super.initState();
   }
 

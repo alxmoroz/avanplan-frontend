@@ -23,8 +23,8 @@ class MTCard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Card(
-        margin: margin ?? EdgeInsets.symmetric(horizontal: isTablet ? 50 : 12, vertical: isTablet ? 10 : 8),
-        elevation: 3,
+        margin: margin ?? EdgeInsets.symmetric(horizontal: onePadding, vertical: onePadding / 2),
+        elevation: 2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)),
         child: Container(
           clipBehavior: Clip.hardEdge,
@@ -32,10 +32,7 @@ class MTCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(radius),
             gradient: LinearGradient(
               transform: const GradientRotation(pi / 2),
-              colors: [
-                secondBgColor,
-                mainBgColor,
-              ],
+              colors: [secondBgColor, mainBgColor],
             ),
           ),
           child: Column(

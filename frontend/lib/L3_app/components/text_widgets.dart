@@ -129,7 +129,7 @@ class H2 extends MediumText {
   const H2(String text, {Color? color, FontWeight? weight, TextAlign? align, EdgeInsets? padding, int? maxLines})
       : super(
           text,
-          color: color,
+          color: color ?? darkGreyColor,
           weight: weight,
           sizeScale: 1.5,
           align: align,

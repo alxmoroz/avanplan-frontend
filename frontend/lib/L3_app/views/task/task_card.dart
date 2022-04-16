@@ -4,39 +4,23 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import '../../../L1_domain/entities/goals/goal.dart';
+import '../../../L1_domain/entities/goals/task.dart';
 import '../../components/card.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/date_string_widget.dart';
 import '../../components/text_widgets.dart';
-import '../../extra/services.dart';
 
-class GoalCard extends StatelessWidget {
-  const GoalCard({required this.goal, this.alone = false, this.onTap});
+class TaskCard extends StatelessWidget {
+  const TaskCard({required this.task, this.onTap});
 
-  final Goal goal;
-  final bool alone;
+  final Task task;
   final VoidCallback? onTap;
 
-  Widget buildCardTitle() => H3(alone ? goal.title : loc.tasks_title, color: darkGreyColor, maxLines: 1);
+  Widget buildCardTitle() => H4(task.title, color: darkGreyColor, maxLines: 1);
 
   Widget buildTasksCount() {
-    final tasksString = '${goal.closedTasksCount} / ${goal.tasksCount}';
-    return H1(tasksString);
-  }
-
-  Widget buildDates() {
-    return alone
-        ? Container()
-        : Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              DateStringWidget(goal.dueDate, titleString: loc.common_due_date_label),
-              SizedBox(height: onePadding),
-              DateStringWidget(goal.etaDate, titleString: loc.common_eta_date_label),
-            ],
-          );
+    final tasksString = '${task.closedTasksCount} / ${task.tasksCount}';
+    return H3(tasksString, color: darkGreyColor);
   }
 
   @override
@@ -47,12 +31,12 @@ class GoalCard extends StatelessWidget {
       onTap: onTap,
       body: Container(
         color: darkBackgroundColor.resolve(context),
-        height: 112,
+        height: 70,
         child: Stack(
           children: [
             Container(
-              color: (goal.dueDate != null ? (goal.pace >= 0 ? goodPaceColor : warningPaceColor) : borderColor).resolve(context),
-              width: (goal.closedRatio ?? 0) * _width,
+              color: (task.dueDate != null ? (task.pace >= 0 ? goodPaceColor : warningPaceColor) : borderColor).resolve(context),
+              width: (task.closedRatio ?? 0) * _width,
             ),
             Padding(
               padding: EdgeInsets.all(onePadding),
@@ -64,11 +48,11 @@ class GoalCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         buildCardTitle(),
-                        if (goal.tasksCount > 0) buildTasksCount(),
+                        if (task.description.isNotEmpty) SmallText(task.description, maxLines: 1),
                       ],
                     ),
                   ),
-                  buildDates(),
+                  if (task.tasksCount > 0) buildTasksCount(),
                 ],
               ),
             ),

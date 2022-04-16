@@ -19,6 +19,7 @@ import '../../components/icons.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
+import 'task_card.dart';
 import 'task_view_controller.dart';
 
 class TaskView extends StatefulWidget {
@@ -99,17 +100,9 @@ class _TaskViewState extends State<TaskView> {
 
   Widget taskBuilder(BuildContext context, int index) {
     final task = controller.subtasks[index];
-    return Column(
-      children: [
-        if (index > 0) const MTDivider(),
-        ListTile(
-          title: NormalText(task.title),
-          trailing: chevronIcon(context),
-          dense: true,
-          visualDensity: VisualDensity.compact,
-          onTap: () => controller.showTask(context, task),
-        )
-      ],
+    return TaskCard(
+      task: task,
+      onTap: () => controller.showTask(context, task),
     );
   }
 

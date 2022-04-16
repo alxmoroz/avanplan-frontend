@@ -14,8 +14,8 @@ class Goal extends Smartable {
     required DateTime? dueDate,
     required int? parentId,
     required bool closed,
+    required List<Task> tasks,
     required this.status,
-    required this.tasks,
   }) : super(
           id: id,
           createdOn: createdOn,
@@ -25,10 +25,10 @@ class Goal extends Smartable {
           dueDate: dueDate,
           parentId: parentId,
           closed: closed,
+          tasks: tasks,
         );
 
   final GoalStatus? status;
-  List<Task> tasks;
 
   Goal copy() => Goal(
         id: id,
@@ -42,15 +42,4 @@ class Goal extends Smartable {
         tasks: tasks,
         closed: closed,
       );
-
-  int get tasksCount => tasks.length;
-  int get closedTasksCount => tasks.where((t) => t.closed).length;
-  int get lefTasksCount => tasksCount - closedTasksCount;
-  double? get closedRatio => tasksCount > 0 ? closedTasksCount / tasksCount : null;
-
-  double get _factSpeed => closedTasksCount / pastPeriod.inSeconds;
-  double get _planSpeed => tasksCount / (plannedPeriod?.inSeconds ?? 1);
-
-  DateTime? get etaDate => _factSpeed > 0 ? DateTime.now().add(Duration(seconds: (lefTasksCount / _factSpeed).round())) : null;
-  double get pace => _factSpeed - _planSpeed;
 }

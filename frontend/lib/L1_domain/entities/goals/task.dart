@@ -13,8 +13,8 @@ class Task extends Smartable {
     required DateTime? dueDate,
     required int? parentId,
     required bool closed,
+    required List<Task> tasks,
     required this.status,
-    required this.tasks,
   }) : super(
           id: id,
           createdOn: createdOn,
@@ -24,8 +24,8 @@ class Task extends Smartable {
           dueDate: dueDate,
           parentId: parentId,
           closed: closed,
+          tasks: tasks,
         );
 
   final TaskStatus? status;
-  List<Task> tasks;
 }

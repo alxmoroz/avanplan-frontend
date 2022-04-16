@@ -13,13 +13,21 @@ class RemoteTracker extends RPersistable {
     required this.url,
     required this.loginKey,
     required this.description,
+    this.connected = false,
   }) : super(id: id);
 
   final RemoteTrackerType type;
   final String url;
   final String loginKey;
   final String? description;
+  final bool connected;
 
-  @override
-  String toString() => '$type $url';
+  RemoteTracker copyWithConnected(bool _connected) => RemoteTracker(
+        id: id,
+        type: type,
+        url: url,
+        loginKey: loginKey,
+        description: description,
+        connected: _connected,
+      );
 }

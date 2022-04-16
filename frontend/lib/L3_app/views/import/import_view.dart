@@ -73,7 +73,6 @@ class _ImportViewState extends State<ImportView> {
       child: Stack(
         children: [
           Column(
-            mainAxisAlignment: _trackerController.trackers.isEmpty ? MainAxisAlignment.center : MainAxisAlignment.start,
             children: [
               _trackerController.trackers.isEmpty
                   ? Expanded(
@@ -95,7 +94,7 @@ class _ImportViewState extends State<ImportView> {
                   title: _importController.errorCode != null
                       ? Intl.message(_importController.errorCode!, name: _importController.errorCode)
                       : loc.goal_list_empty_title_import,
-                  color: _importController.errorCode != null ? lightWarningColor : null,
+                  color: _importController.errorCode != null ? warningColor : null,
                 ),
               if (_importController.goals.isNotEmpty) ...[
                 SizedBox(height: onePadding),

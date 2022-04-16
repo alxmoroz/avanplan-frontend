@@ -47,20 +47,29 @@ abstract class _TrackerControllerBase extends BaseController with Store {
   ObservableList<RemoteTracker> trackers = ObservableList();
 
   @action
-  void _sortTrackers() {
+  Future _sortAndCheckTrackers() async {
+    trackers.forEachIndexed((index, t) async {
+      bool connected = false;
+      try {
+        connected = (await importUC.getGoals(t.id)).isNotEmpty;
+      } catch (_) {}
+      trackers[index] = t.copyWithConnected(connected);
+    });
     trackers.sort((g1, g2) => g1.url.compareTo(g2.url));
   }
 
   @action
   Future fetchTrackers() async {
-    //TODO: добавить LOADING
+    startLoading();
     trackers = ObservableList.of(await trackersUC.getAll());
-    _sortTrackers();
+    _sortAndCheckTrackers();
+    stopLoading();
   }
 
   @action
   void updateTrackerInList(RemoteTracker? rt) {
     if (rt != null) {
+      startLoading();
       final index = trackers.indexWhere((g) => g.id == rt.id);
       if (index >= 0) {
         if (rt.deleted) {
@@ -71,7 +80,8 @@ abstract class _TrackerControllerBase extends BaseController with Store {
       } else {
         trackers.add(rt);
       }
-      _sortTrackers();
+      _sortAndCheckTrackers();
+      stopLoading();
     }
   }
 

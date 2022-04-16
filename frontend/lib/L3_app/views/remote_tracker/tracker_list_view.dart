@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../components/buttons.dart';
+import '../../components/circle.dart';
+import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/cupertino_page.dart';
 import '../../components/divider.dart';
@@ -38,9 +40,11 @@ class _TrackerListViewState extends State<TrackerListView> {
       children: [
         if (index > 0) const MTDivider(),
         ListTile(
+          leading: CircleWidget(color: tracker.connected ? goodPaceColor : warningColor),
           title: NormalText('${tracker.type.title} ${tracker.description}'),
           subtitle: SmallText(tracker.url),
           trailing: editIcon(context),
+          minLeadingWidth: 0,
           dense: true,
           visualDensity: VisualDensity.compact,
           onTap: () => controller.editTracker(context, tracker),
@@ -49,10 +53,11 @@ class _TrackerListViewState extends State<TrackerListView> {
     );
   }
 
+  // TODO:  нужно добавить индикатор загрузки такой ещё:
+  //  if (controller.isLoading) SplashScreen(color: loaderColor.resolve(context)),
+
   @override
   Widget build(BuildContext context) {
-    // TODO: доработать в соотв. с использованием параметра LOADING в контроллере
-    // TODO: FutureBuilder тут очень может быть по ошибке, т.к. не было Observer
     return FutureBuilder(
       future: _fetchTrackers,
       builder: (_, snapshot) => snapshot.connectionState == ConnectionState.done

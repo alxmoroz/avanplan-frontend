@@ -73,11 +73,12 @@ class ImportUC:
 
             return self._upsert_once(
                 goal,
-                goal.remote_code,
+                f"{self.import_repo.tracker.id}{goal.remote_code}",
                 self.processed_goals,
                 self.goal_repo,
                 self.goal_e_repo,
                 remote_code=goal.remote_code,
+                remote_tracker_id=self.import_repo.tracker.id,
             )
 
     # def _upsert_milestone(self, milestone: Milestone) -> Milestone:
@@ -106,11 +107,12 @@ class ImportUC:
 
             return self._upsert_once(
                 task,
-                task.remote_code,
+                f"{self.import_repo.tracker.id}{task.remote_code}",
                 self.processed_tasks,
                 self.task_repo,
                 self.task_e_repo,
                 remote_code=task.remote_code,
+                remote_tracker_id=self.import_repo.tracker.id,
             )
 
     def _upsert_status(self, status: TaskStatus) -> TaskStatus:

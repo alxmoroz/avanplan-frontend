@@ -35,6 +35,7 @@
 
   "task_delete_dialog_title": "Удалить задачу?",
   "task_delete_dialog_description": "Все подзадачи также будут удалены",
+  "task_list_empty_title": "Нет задач",
   "task_title": "Задача",
   "task_title_new": "Новая задача",
   "tasks_title": "Задачи",

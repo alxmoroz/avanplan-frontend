@@ -74,21 +74,22 @@ class _ImportViewState extends State<ImportView> {
           Column(
             mainAxisAlignment: _trackerController.trackers.isEmpty ? MainAxisAlignment.center : MainAxisAlignment.start,
             children: [
-              if (_trackerController.trackers.isEmpty)
-                EmptyDataWidget(
-                  title: loc.tracker_list_empty_title,
-                  addTitle: loc.tracker_title_new,
-                  onAdd: () => _importController.addTracker(context),
-                ),
-              if (_trackerController.trackers.isNotEmpty)
-                MTDropdown<RemoteTracker>(
-                  width: mq.size.width - onePadding * 2,
-                  onChanged: (t) => _importController.selectTracker(t),
-                  value: _trackerController.selectedTracker,
-                  items: _trackerController.trackers,
-                  label: loc.tracker_import_placeholder,
-                ),
-              if (_trackerController.selectedTracker != null && _importController.goals.isEmpty && _trackerController.trackers.isNotEmpty)
+              _trackerController.trackers.isEmpty
+                  ? Expanded(
+                      child: EmptyDataWidget(
+                        title: loc.tracker_list_empty_title,
+                        addTitle: loc.tracker_title_new,
+                        onAdd: () => _importController.addTracker(context),
+                      ),
+                    )
+                  : MTDropdown<RemoteTracker>(
+                      width: mq.size.width - onePadding * 2,
+                      onChanged: (t) => _importController.selectTracker(t),
+                      value: _trackerController.selectedTracker,
+                      items: _trackerController.trackers,
+                      label: loc.tracker_import_placeholder,
+                    ),
+              if (_trackerController.selectedTracker != null && _importController.goals.isEmpty)
                 EmptyDataWidget(
                   title: _importController.errorCode != null
                       ? Intl.message(_importController.errorCode!, name: _importController.errorCode)

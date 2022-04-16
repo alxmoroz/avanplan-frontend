@@ -14,6 +14,7 @@ import '../../components/cupertino_page.dart';
 import '../../components/date_string_widget.dart';
 import '../../components/details_dialog.dart';
 import '../../components/divider.dart';
+import '../../components/empty_widget.dart';
 import '../../components/icons.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
@@ -130,13 +131,18 @@ class _TaskViewState extends State<TaskView> {
               buildDescription(),
               buildDates(),
               const MTDivider(),
-              if (controller.subtasks.isNotEmpty)
-                Expanded(
-                  child: ListView.builder(
-                    itemBuilder: taskBuilder,
-                    itemCount: controller.subtasks.length,
-                  ),
-                ),
+              Expanded(
+                child: controller.subtasks.isEmpty && controller.isGoal
+                    ? EmptyDataWidget(
+                        title: loc.task_list_empty_title,
+                        addTitle: loc.task_title_new,
+                        onAdd: () => controller.addTask(context),
+                      )
+                    : ListView.builder(
+                        itemBuilder: taskBuilder,
+                        itemCount: controller.subtasks.length,
+                      ),
+              ),
             ],
           ),
         ),

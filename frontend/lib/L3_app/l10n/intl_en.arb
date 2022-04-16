@@ -35,6 +35,7 @@
 
   "task_delete_dialog_title": "Delete task?",
   "task_delete_dialog_description": "All subtasks of this task will be deleted",
+  "task_list_empty_title": "There are no tasks",
   "task_title": "Task",
   "task_title_new": "New task",
   "tasks_title": "Tasks",

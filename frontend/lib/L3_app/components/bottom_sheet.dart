@@ -18,21 +18,18 @@ class MTBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: FocusScope.of(context).unfocus,
-      child: Padding(
-        padding: MediaQuery.of(context).viewInsets,
-        child: Container(
-          decoration: BoxDecoration(
-            color: darkBackgroundColor.resolve(context),
-            borderRadius: BorderRadius.only(topLeft: Radius.circular(radius), topRight: Radius.circular(radius)),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(height: radius),
-              bodyWidget,
-            ],
-          ),
+      child: Container(
+        decoration: BoxDecoration(
+          color: darkBackgroundColor.resolve(context),
+          borderRadius: BorderRadius.only(topLeft: Radius.circular(radius), topRight: Radius.circular(radius)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(height: radius),
+            bodyWidget,
+          ],
         ),
       ),
     );

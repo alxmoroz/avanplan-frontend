@@ -23,7 +23,6 @@ class MTCupertinoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       backgroundColor: bgColor ?? backgroundColor,
-      resizeToAvoidBottomInset: true,
       navigationBar: navBar,
       child: SafeArea(
         child: material(

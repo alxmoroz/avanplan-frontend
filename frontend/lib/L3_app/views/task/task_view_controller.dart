@@ -93,7 +93,6 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
     final newTask = await showEditTaskDialog(context);
     if (newTask != null) {
       updateTaskInList(newTask);
-      await showTask(context, newTask);
     }
   }
 

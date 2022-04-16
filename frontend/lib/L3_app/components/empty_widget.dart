@@ -21,10 +21,12 @@ class EmptyDataWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: H4(title, align: TextAlign.center, color: color ?? lightGreyColor),
-      subtitle: addTitle != null ? H3('+ $addTitle', align: TextAlign.center, color: mainColor, padding: EdgeInsets.only(top: onePadding)) : null,
-      onTap: onAdd,
+    return Center(
+      child: ListTile(
+        title: H4(title, align: TextAlign.center, color: color ?? lightGreyColor),
+        subtitle: addTitle != null ? H3('+ $addTitle', align: TextAlign.center, color: mainColor, padding: EdgeInsets.only(top: onePadding)) : null,
+        onTap: onAdd,
+      ),
     );
   }
 }

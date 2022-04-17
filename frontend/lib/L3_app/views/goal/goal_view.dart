@@ -1,7 +1,5 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -14,6 +12,7 @@ import '../../components/icons.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
+import '../../presenters/string_presenter.dart';
 import '../main/main_controller.dart';
 import 'goal_card.dart';
 
@@ -43,11 +42,11 @@ class _GoalViewState extends State<GoalView> {
   Widget buildDescription() {
     final description = goal?.description ?? '';
     if (description.isNotEmpty) {
-      const truncateLength = 100;
-      final needTruncate = description.length > truncateLength;
+      const cutLength = 100;
+      final needTruncate = description.length > cutLength;
 
       return ListTile(
-        title: LightText(description.substring(0, min(description.length, truncateLength))),
+        title: LightText(description.cut(cutLength)),
         subtitle: needTruncate ? const MediumText('...', color: mainColor) : null,
         onTap: needTruncate ? () => showDetailsDialog(context, description) : null,
         dense: true,

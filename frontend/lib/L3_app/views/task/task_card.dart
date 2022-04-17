@@ -9,6 +9,7 @@ import '../../components/card.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/text_widgets.dart';
+import '../../presenters/string_presenter.dart';
 
 class TaskCard extends StatelessWidget {
   const TaskCard({required this.task, this.onTap});
@@ -16,12 +17,9 @@ class TaskCard extends StatelessWidget {
   final Task task;
   final VoidCallback? onTap;
 
-  Widget buildCardTitle() => H4(task.title, color: darkGreyColor, maxLines: 1);
-
-  Widget buildTasksCount() {
-    final tasksString = '${task.closedTasksCount} / ${task.tasksCount}';
-    return H3(tasksString, color: darkGreyColor);
-  }
+  Widget buildTitle() => MediumText(task.title, color: darkGreyColor, maxLines: 1);
+  Widget buildDescription() => task.description.isNotEmpty ? SmallText(task.description.cut(100), maxLines: 1) : Container();
+  Widget buildTasksCount() => H3('${task.closedTasksCount} / ${task.tasksCount}', color: darkGreyColor);
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +45,8 @@ class TaskCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        buildCardTitle(),
-                        if (task.description.isNotEmpty) SmallText(task.description, maxLines: 1),
+                        buildTitle(),
+                        buildDescription(),
                       ],
                     ),
                   ),

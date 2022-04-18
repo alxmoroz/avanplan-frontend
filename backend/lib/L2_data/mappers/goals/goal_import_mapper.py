@@ -28,6 +28,7 @@ class GoalImportMapper(BaseMapper[GoalImportSchemaGet, GoalImportSchemaUpsert, G
 
         data = jsonable_encoder(e)
         data.pop("parent_id")
+        data.pop("remote_tracker_id")
         s = GoalImportSchemaUpsert(
             **data,
             parent_id=e.parent.id if e.parent else None,

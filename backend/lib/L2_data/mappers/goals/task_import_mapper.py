@@ -29,6 +29,7 @@ class TaskImportMapper(BaseMapper[TaskImportSchemaGet, TaskImportSchemaUpsert, T
 
         data = jsonable_encoder(e)
         data.pop("parent_id")
+        data.pop("remote_tracker_id")
 
         s = TaskImportSchemaUpsert(
             **data,

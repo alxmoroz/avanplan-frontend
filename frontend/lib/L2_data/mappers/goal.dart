@@ -18,5 +18,6 @@ extension GoalMapper on GoalSchemaGet {
         closed: closed,
         status: status != null ? status!.status : null,
         tasks: tasks?.map((t) => t.task).toList() ?? [],
+        trackerId: remoteTrackerId,
       );
 }

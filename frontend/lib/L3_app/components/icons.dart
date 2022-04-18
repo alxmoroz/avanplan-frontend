@@ -7,19 +7,19 @@ import 'colors.dart';
 
 Widget menuIcon(BuildContext context, {Color? color, double? size}) => Icon(
       Icons.view_headline,
-      size: size ?? 32,
+      size: size ?? 30,
       color: (color ?? mainColor).resolve(context),
     );
 
 Widget plusIcon(BuildContext context, {Color? color, double? size}) => Icon(
       CupertinoIcons.plus_circle,
-      size: size ?? 32,
+      size: size ?? 30,
       color: (color ?? mainColor).resolve(context),
     );
 
 Widget editIcon(BuildContext context, {Color? color, double? size}) => Icon(
       Icons.edit,
-      size: size ?? 24,
+      size: size ?? 20,
       color: (color ?? mainColor).resolve(context),
     );
 
@@ -31,14 +31,13 @@ Widget deleteIcon(BuildContext context, {Color? color, double? size}) => Icon(
 
 Widget calendarIcon(BuildContext context, {Color? color, double? size}) => Icon(
       CupertinoIcons.calendar,
-      // Icons.calendar_month,
       size: size ?? 24,
       color: (color ?? mainColor).resolve(context),
     );
 
 Widget doneIcon(BuildContext context, bool done, {Color? color, double? size}) => Icon(
       done ? CupertinoIcons.check_mark_circled : CupertinoIcons.circle,
-      size: size ?? 32,
+      size: size ?? 24,
       color: (color ?? mainColor).resolve(context),
     );
 
@@ -54,8 +53,20 @@ Widget chevronIcon(BuildContext context, {Color? color, double? size}) => Icon(
       color: (color ?? mainColor).resolve(context),
     );
 
+Widget infoIcon(BuildContext context, {Color? color, double? size}) => Icon(
+      CupertinoIcons.info,
+      size: size ?? 20,
+      color: (color ?? mainColor).resolve(context),
+    );
+
+Widget linkIcon(BuildContext context, {Color? color, double? size}) => Icon(
+      CupertinoIcons.link,
+      size: size ?? 16,
+      color: (color ?? mainColor).resolve(context),
+    );
+
 Widget closeIcon(BuildContext context, {Color? color, double? size}) => Icon(
       CupertinoIcons.clear_circled,
-      size: size ?? 32,
+      size: size ?? 30,
       color: (color ?? mainColor).resolve(context),
     );

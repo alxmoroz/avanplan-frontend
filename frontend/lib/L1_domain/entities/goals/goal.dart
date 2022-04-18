@@ -13,6 +13,7 @@ class Goal extends Smartable {
     required String description,
     required DateTime? dueDate,
     required int? parentId,
+    required int? trackerId,
     required bool closed,
     required List<Task> tasks,
     required this.status,
@@ -26,6 +27,7 @@ class Goal extends Smartable {
           parentId: parentId,
           closed: closed,
           tasks: tasks,
+          trackerId: trackerId,
         );
 
   final GoalStatus? status;
@@ -41,5 +43,6 @@ class Goal extends Smartable {
         status: status,
         tasks: tasks,
         closed: closed,
+        trackerId: trackerId,
       );
 }

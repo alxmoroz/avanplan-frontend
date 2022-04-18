@@ -14,6 +14,7 @@ abstract class Smartable extends Statusable {
     required this.updatedOn,
     required this.dueDate,
     required this.parentId,
+    required this.trackerId,
   }) : super(id: id, title: title, closed: closed);
 
   final String description;
@@ -21,13 +22,15 @@ abstract class Smartable extends Statusable {
   final DateTime updatedOn;
   final DateTime? dueDate;
   final int? parentId;
+  final int? trackerId;
   List<Task> tasks;
 
   Duration? get plannedPeriod => dueDate?.difference(createdOn);
   Duration get pastPeriod => DateTime.now().difference(createdOn);
 
-  int get tasksCount => tasks.length;
-  int get closedTasksCount => tasks.where((t) => t.closed).length;
+  List<Task> get allTasks => tasks;
+  int get tasksCount => allTasks.length;
+  int get closedTasksCount => allTasks.where((t) => t.closed).length;
   int get lefTasksCount => tasksCount - closedTasksCount;
   double? get closedRatio => tasksCount > 0 ? closedTasksCount / tasksCount : null;
 

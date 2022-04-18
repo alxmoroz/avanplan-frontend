@@ -12,6 +12,7 @@ class Task extends Smartable {
     required String description,
     required DateTime? dueDate,
     required int? parentId,
+    required int? trackerId,
     required bool closed,
     required List<Task> tasks,
     required this.status,
@@ -25,7 +26,18 @@ class Task extends Smartable {
           parentId: parentId,
           closed: closed,
           tasks: tasks,
+          trackerId: trackerId,
         );
 
   final TaskStatus? status;
+
+  @override
+  List<Task> get allTasks {
+    final List<Task> res = [];
+    for (Task t in tasks) {
+      res.addAll(t.allTasks);
+      res.add(t);
+    }
+    return res;
+  }
 }

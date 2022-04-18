@@ -11,4 +11,5 @@ class Smartable(Titleable, ABC):
     description: Optional[str]
     due_date: Optional[datetime]
     parent_id: Optional[int]
+    remote_tracker_id: Optional[int]
     closed: bool

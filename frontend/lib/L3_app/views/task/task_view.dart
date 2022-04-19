@@ -8,7 +8,6 @@ import '../../../L1_domain/entities/goals/task.dart';
 import '../../components/buttons.dart';
 import '../../components/constants.dart';
 import '../../components/cupertino_page.dart';
-import '../../components/date_string_widget.dart';
 import '../../components/divider.dart';
 import '../../components/empty_widget.dart';
 import '../../components/icons.dart';
@@ -51,20 +50,6 @@ class _TaskViewState extends State<TaskView> {
     );
   }
 
-  Widget buildDates() {
-    return task?.dueDate != null
-        ? ListTile(
-            title: Row(
-              children: [
-                DateStringWidget(task?.dueDate, titleString: loc.common_due_date_label),
-                const Spacer(),
-                DateStringWidget(task?.etaDate, titleString: loc.common_eta_date_label),
-              ],
-            ),
-          )
-        : Container();
-  }
-
   Widget taskBuilder(BuildContext context, int index) {
     final task = controller.subtasks[index];
     return TaskCard(task: task, onTapHeader: () => controller.showTask(context, task));
@@ -90,7 +75,6 @@ class _TaskViewState extends State<TaskView> {
                   detailedScreen: true,
                   onTapHeader: () => controller.editTask(context),
                 ),
-              buildDates(),
               if (controller.subtasks.isNotEmpty) const MTDivider(),
               Expanded(
                 child: controller.subtasks.isEmpty && controller.isGoal

@@ -7,12 +7,12 @@ import '../../components/buttons.dart';
 import '../../components/card.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
+import '../../components/date_string_widget.dart';
 import '../../components/details_dialog.dart';
 import '../../components/divider.dart';
 import '../../components/icons.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/string_presenter.dart';
 
 class TaskCard extends StatelessWidget {
   const TaskCard({required this.task, this.onTapHeader, this.detailedScreen = false, this.onTapFooter});
@@ -21,6 +21,13 @@ class TaskCard extends StatelessWidget {
   final bool detailedScreen;
   final VoidCallback? onTapHeader;
   final VoidCallback? onTapFooter;
+
+  bool get hasLink => task.trackerId != null;
+
+  bool get hasDates => task.dueDate != null || task.etaDate != null;
+  bool get hasSubtasks => task.tasksCount > 0;
+  bool get hasStatus => task.status != null;
+  bool get hasFooter => hasDates || hasSubtasks || hasStatus;
 
   Widget progress(BuildContext context) {
     final _width = MediaQuery.of(context).size.width;
@@ -54,12 +61,20 @@ class TaskCard extends StatelessWidget {
   Widget header(BuildContext context) {
     return Button(
       '',
-      isSeparateFooter ? onTapHeader : null,
+      detailedScreen ? onTapHeader : null,
       child: Padding(
         padding: EdgeInsets.fromLTRB(onePadding, onePadding, onePadding, 0),
         child: Row(
           children: [
+            if (task.closed) ...[
+              doneIcon(context, true, size: onePadding * 1.4, color: Colors.green),
+              SizedBox(width: onePadding / 4),
+            ],
             Expanded(child: title(context)),
+            if (hasLink) ...[
+              SizedBox(width: onePadding / 4),
+              linkIcon(context, color: darkGreyColor),
+            ],
             headerTrailing(context),
           ],
         ),
@@ -67,87 +82,87 @@ class TaskCard extends StatelessWidget {
     );
   }
 
-  int get cutLength => detailedScreen ? 120 : 50;
-  bool get needCut => task.description.length > cutLength;
-  bool get isSeparateFooter => detailedScreen && needCut;
-
-  Widget footerTrailing(BuildContext context) {
-    return Row(
-      children: [
-        SizedBox(width: onePadding / 2),
-        infoIcon(context),
-      ],
-    );
-  }
-
   Widget description(BuildContext context) {
-    final text = '${task.description.cut(cutLength)}${needCut ? '...' : ''}';
-    return detailedScreen ? LightText(text) : SmallText(text);
+    return task.description.isNotEmpty
+        ? LayoutBuilder(builder: (context, size) {
+            final text = task.description;
+            final maxLines = detailedScreen ? 5 : 3;
+            final detailedTextWidget = LightText(text, maxLines: maxLines);
+            final listTextWidget = SmallText(text, maxLines: maxLines, weight: FontWeight.w300);
+            final span = TextSpan(text: text, style: detailedScreen ? detailedTextWidget.style(context) : listTextWidget.style(context));
+            final tp = TextPainter(text: span, maxLines: maxLines, textDirection: TextDirection.ltr);
+            tp.layout(maxWidth: size.maxWidth);
+            final bool separateDescription = tp.didExceedMaxLines && detailedScreen;
+
+            return Button(
+              '',
+              separateDescription ? () => showDetailsDialog(context, task.description) : null,
+              child: Column(
+                children: [
+                  MTDivider(color: separateDescription ? darkGreyColor : Colors.transparent),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: onePadding),
+                    child: Row(
+                      children: [
+                        Expanded(child: detailedScreen ? detailedTextWidget : listTextWidget),
+                        if (separateDescription)
+                          Row(
+                            children: [
+                              SizedBox(width: onePadding / 2),
+                              infoIcon(context),
+                            ],
+                          ),
+                      ],
+                    ),
+                  ),
+                  if (hasFooter) MTDivider(color: separateDescription ? darkGreyColor : Colors.transparent),
+                ],
+              ),
+            );
+          })
+        : Container();
   }
 
-  Widget status(BuildContext context) => Row(
+  Widget status() => SmallText(task.status!.title, weight: FontWeight.w500);
+
+  Widget closedProgressCount() => Row(
         children: [
-          if (task.closed) ...[
-            doneIcon(context, true, size: onePadding * 1.4, color: Colors.green),
-            SizedBox(width: onePadding / 4),
-          ],
-          if (task.status != null) SmallText(task.status?.title ?? ''),
+          SmallText('${loc.btn_mark_done_title} ', weight: FontWeight.w300),
+          SmallText('${task.closedTasksCount} / ${task.tasksCount}', weight: FontWeight.w500),
         ],
       );
 
-  Widget closedProgressCount() => task.tasksCount > 0
-      ? SmallText(
-          '${loc.btn_mark_done_title} ${task.closedTasksCount} / ${task.tasksCount}',
-        )
-      : Container();
-
-  Widget footer(BuildContext context) {
-    return Button(
-      '',
-      isSeparateFooter ? () => showDetailsDialog(context, task.description) : null,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.min,
+  Widget buildDates() {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(onePadding, onePadding, onePadding, 0),
+      child: Row(
         children: [
-          if (task.description.isNotEmpty) ...[
-            if (isSeparateFooter) const MTDivider(color: darkGreyColor),
-            Padding(
-              padding: EdgeInsets.fromLTRB(onePadding, 0, onePadding, 0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: description(context),
-                  ),
-                  if (isSeparateFooter) footerTrailing(context),
-                ],
-              ),
-            ),
-          ],
-          const MTDivider(color: darkGreyColor),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: onePadding),
-            child: Row(
-              children: [
-                status(context),
-                const Spacer(),
-                closedProgressCount(),
-                if (task.trackerId != null) ...[
-                  SizedBox(width: onePadding),
-                  linkIcon(context, color: darkGreyColor),
-                ]
-              ],
-            ),
-          ),
-          SizedBox(height: onePadding),
+          DateStringWidget(task.dueDate, titleString: loc.common_due_date_label),
+          const Spacer(),
+          DateStringWidget(task.etaDate, titleString: loc.common_eta_date_label),
         ],
       ),
     );
   }
 
+  Widget footer(BuildContext context) => Column(children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: onePadding),
+          child: Row(
+            children: [
+              if (hasStatus) status(),
+              const Spacer(),
+              if (hasSubtasks) closedProgressCount(),
+            ],
+          ),
+        ),
+        if (hasDates) buildDates(),
+      ]);
+
   @override
   Widget build(BuildContext context) {
     return MTCard(
-      onTap: isSeparateFooter ? null : onTapHeader,
+      onTap: detailedScreen ? null : onTapHeader,
       body: Container(
         child: Stack(
           children: [
@@ -155,7 +170,9 @@ class TaskCard extends StatelessWidget {
             Column(
               children: [
                 header(context),
-                footer(context),
+                description(context),
+                if (hasFooter) footer(context),
+                SizedBox(height: onePadding),
               ],
             )
           ],

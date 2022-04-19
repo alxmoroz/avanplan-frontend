@@ -22,9 +22,11 @@ class DateStringWidget extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  calendarIcon(context, size: 18, color: iconColor ?? darkGreyColor),
-                  const SizedBox(width: 2),
-                  if (titleString.isNotEmpty) SmallText(titleString),
+                  calendarIcon(context, size: 16, color: iconColor ?? darkGreyColor),
+                  if (titleString.isNotEmpty) ...[
+                    const SizedBox(width: 2),
+                    SmallText(titleString, weight: FontWeight.w300),
+                  ]
                 ],
               ),
               MediumText(date!.strShort, color: darkGreyColor),

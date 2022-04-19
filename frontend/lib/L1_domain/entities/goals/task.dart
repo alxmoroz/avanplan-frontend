@@ -31,6 +31,20 @@ class Task extends Smartable {
 
   final TaskStatus? status;
 
+  Task copy() => Task(
+        id: id,
+        parentId: parentId,
+        createdOn: createdOn,
+        updatedOn: updatedOn,
+        title: title,
+        description: description,
+        dueDate: dueDate,
+        status: status,
+        tasks: tasks,
+        closed: closed,
+        trackerId: trackerId,
+      );
+
   @override
   List<Task> get allTasks {
     final List<Task> res = [];

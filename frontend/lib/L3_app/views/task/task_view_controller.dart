@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/goals/goal.dart';
+import '../../../L1_domain/entities/goals/smartable.dart';
 import '../../../L1_domain/entities/goals/task.dart';
 import '../../extra/services.dart';
 import '../_base/base_controller.dart';
@@ -21,6 +22,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
 
   /// Список подзадач
 
+  // универсальный способ получить подзадачи первого уровня для цели и для выбранной задачи
   @computed
   List<Task> get subtasks => goal.tasks.where((t) => t.parentId == task?.id).toList();
 
@@ -28,28 +30,40 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
     goal.tasks.sort((t1, t2) => t1.title.compareTo(t2.title));
   }
 
-  @action
-  void updateTaskInList(Task? _task) {
-    if (_task != null) {
-      final index = goal.tasks.indexWhere((t) => t.id == _task.id);
-      if (index >= 0) {
-        if (_task.deleted) {
-          for (Task t in _task.tasks) {
-            t.deleted = true;
-            updateTaskInList(t);
-          }
-          goal.tasks.remove(_task);
-        } else {
-          goal.tasks[index] = _task;
-        }
+  void _addTask(Task _task) {
+    goal.tasks.add(_task);
+    if (!isGoal) {
+      task!.tasks.add(_task);
+    }
+  }
+
+  void _deleteTask(Task _task, List<Task>? _subtasks) {
+    for (Task t in _subtasks ?? []) {
+      _deleteTask(t, _task.tasks);
+    }
+    goal.tasks.remove(goal.tasks.firstWhereOrNull((t) => t.id == _task.id));
+  }
+
+  void _updateTask(Task _task, Smartable _parent) {
+    final index = _parent.tasks.indexWhere((t) => t.id == _task.id);
+    if (index >= 0) {
+      if (_task.deleted) {
+        _parent.tasks.removeAt(index);
       } else {
-        if (task != null) {
-          task!.tasks.add(_task);
-        }
-        goal.tasks.add(_task);
+        _parent.tasks[index] = _task.copy();
       }
+    }
+  }
+
+  void _updateParents(Task _task) {
+    final parent = goal.tasks.firstWhereOrNull((t) => t.id == _task.parentId);
+    if (parent != null) {
+      _updateParents(parent);
+      _updateTask(_task, parent);
+    } else {
+      _updateTask(_task, goal);
       sortTasks();
-      mainController.updateGoalInList(goal.copy());
+      mainController.updateGoalInList(goal);
     }
   }
 
@@ -82,27 +96,33 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   }
 
   /// роутер
-
+  @action
   Future showTask(BuildContext context, Task? _task) async {
     pushTask(_task);
     await Navigator.of(context).pushNamed(TaskView.routeName);
     popTask();
   }
 
+  @action
   Future addTask(BuildContext context) async {
     final newTask = await showEditTaskDialog(context);
     if (newTask != null) {
-      updateTaskInList(newTask);
+      _addTask(newTask);
+      _updateParents(newTask);
     }
   }
 
+  @action
   Future editTask(BuildContext context) async {
     final editedTask = await showEditTaskDialog(context, task);
     if (editedTask != null) {
-      updateTaskInList(editedTask);
       if (editedTask.deleted) {
+        _deleteTask(editedTask, null);
         Navigator.of(context).pop();
+      } else {
+        _updateTask(editedTask, goal);
       }
+      _updateParents(editedTask);
     }
   }
 }

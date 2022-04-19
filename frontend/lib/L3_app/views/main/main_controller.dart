@@ -79,17 +79,17 @@ abstract class _MainControllerBase extends BaseController with Store {
   }
 
   @action
-  void updateGoalInList(Goal? goal) {
-    if (goal != null) {
-      final index = goals.indexWhere((g) => g.id == goal.id);
+  void updateGoalInList(Goal? _goal) {
+    if (_goal != null) {
+      final index = goals.indexWhere((g) => g.id == _goal.id);
       if (index >= 0) {
-        if (goal.deleted) {
-          goals.remove(goal);
+        if (_goal.deleted) {
+          goals.remove(_goal);
         } else {
-          goals[index] = goal;
+          goals[index] = _goal.copy();
         }
       } else {
-        goals.add(goal);
+        goals.add(_goal);
       }
       _sortGoals();
     }

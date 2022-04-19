@@ -23,11 +23,10 @@ class TaskCard extends StatelessWidget {
   final VoidCallback? onTapFooter;
 
   bool get hasLink => task.trackerId != null;
-
   bool get hasDates => task.dueDate != null || task.etaDate != null;
   bool get hasSubtasks => task.tasksCount > 0;
   bool get hasStatus => task.status != null;
-  bool get hasFooter => hasDates || hasSubtasks || hasStatus;
+  bool get hasFooter => hasDates || hasSubtasks || hasStatus || hasLink;
 
   Widget progress(BuildContext context) {
     final _width = MediaQuery.of(context).size.width;
@@ -51,6 +50,7 @@ class TaskCard extends StatelessWidget {
 
   Widget headerTrailing(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
         SizedBox(width: onePadding / 2),
         detailedScreen ? editIcon(context) : chevronIcon(context),
@@ -71,10 +71,6 @@ class TaskCard extends StatelessWidget {
               SizedBox(width: onePadding / 4),
             ],
             Expanded(child: title(context)),
-            if (hasLink) ...[
-              SizedBox(width: onePadding / 4),
-              linkIcon(context, color: darkGreyColor),
-            ],
             headerTrailing(context),
           ],
         ),
@@ -153,6 +149,10 @@ class TaskCard extends StatelessWidget {
               if (hasStatus) status(),
               const Spacer(),
               if (hasSubtasks) closedProgressCount(),
+              if (hasLink) ...[
+                SizedBox(width: onePadding / 2),
+                linkIcon(context, color: darkGreyColor),
+              ],
             ],
           ),
         ),

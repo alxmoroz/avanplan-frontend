@@ -1,7 +1,7 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
 from abc import ABC
-from datetime import datetime
+from datetime import date, datetime
 from typing import Optional
 
 from pydantic import BaseModel
@@ -22,8 +22,8 @@ class PKUpsertable(PKGetable, ABC):
 
 
 class Timestampable(BaseSchema, ABC):
-    created_on: datetime
-    updated_on: datetime
+    created_on: datetime | date
+    updated_on: datetime | date
 
 
 class Titleable(BaseSchema, ABC):

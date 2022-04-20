@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from datetime import date, datetime
 from typing import Optional
 
 from ..base_schema import Importable
@@ -15,6 +16,8 @@ class GoalImportSchemaGet(SmartableGet, Importable):
 
 class GoalImportSchemaUpsert(GoalSchemaUpsert, Importable):
     remote_tracker_id: int
+    created_on: Optional[datetime | date]
+    updated_on: Optional[datetime | date]
 
 
 class GoalImportRemoteSchemaGet(SmartableGet, Importable):

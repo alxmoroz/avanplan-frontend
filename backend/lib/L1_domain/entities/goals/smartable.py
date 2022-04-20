@@ -11,8 +11,8 @@ from .remote_tracker import RemoteTracker
 @dataclass
 class Smartable(Titleable):
     description: str | None = None
-    created_on: datetime | None = None
-    updated_on: datetime | None = None
+    created_on: datetime | date | None = None
+    updated_on: datetime | date | None = None
     due_date: datetime | date | None = None
     remote_code: str | None = None
     remote_tracker: RemoteTracker | None = None

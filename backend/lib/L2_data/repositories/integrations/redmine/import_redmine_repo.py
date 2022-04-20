@@ -1,8 +1,5 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from datetime import datetime
-
-from pytz import utc
 from redminelib import Redmine
 from redminelib import resources as r
 
@@ -18,6 +15,7 @@ class ImportRedmineRepo(AbstractImportRepo):
         self._r_projects: list[r.Project] | None = None
         self._goals_map: dict[int, GoalImport] = {}
         self._redmine = None
+        self._persons = None
 
     @property
     def redmine(self):
@@ -37,15 +35,31 @@ class ImportRedmineRepo(AbstractImportRepo):
         for obj in objects_map.values():
             obj.parent = objects_map.get(getattr(obj, "remote_parent_id", None), None)
 
-    def _get_persons(self) -> dict[int, Person]:
-        return {
-            user.id: Person(
-                firstname=user.firstname,
-                lastname=user.lastname,
-                email=user.mail,
-            )
-            for user in self.redmine.user.all()
-        }
+    @staticmethod
+    def _person_from_user(r_user: r.User) -> Person:
+        return Person(
+            firstname=r_user.firstname,
+            lastname=r_user.lastname,
+            email=getattr(r_user, "mail", f"{r_user.firstname}{r_user.lastname}@none.none"),
+        )
+
+    @property
+    def persons(self) -> dict[int, Person]:
+        if not self._persons:
+            r_users = [u for u in self.redmine.user.filter(status=1)]
+            r_users += [u for u in self.redmine.user.filter(status=3)]
+            self._persons = {user.id: self._person_from_user(user) for user in r_users}
+        return self._persons
+
+    def _get_person_fallback(self, user_id: int) -> Person | None:
+        p = None
+        if user_id:
+            p = self.persons.get(user_id, None)
+            if not p:
+                r_user = self.redmine.user.get(user_id)
+                if r_user:
+                    p = self._person_from_user(r_user)
+        return p
 
     def _get_task_statuses(self) -> dict[int, TaskStatus]:
         return {
@@ -79,7 +93,8 @@ class ImportRedmineRepo(AbstractImportRepo):
             goal = GoalImport(
                 title=r_project.name,
                 description=r_project.description,
-                updated_on=datetime.now(tz=utc),
+                created_on=getattr(r_project, "created_on", None),
+                updated_on=getattr(r_project, "updated_on", None),
                 remote_code=f"{r_project.id}",
             )
             parent_project = getattr(r_project, "parent", None)
@@ -93,8 +108,6 @@ class ImportRedmineRepo(AbstractImportRepo):
     def get_tasks_tree(self, goals_ids: list[str]) -> list[TaskImport]:
 
         tasks: dict[int, TaskImport] = {}
-
-        persons = self._get_persons()
         statuses = self._get_task_statuses()
 
         for r_project in [rp for rp in self.r_projects if f"{rp.id}" in goals_ids]:
@@ -102,23 +115,30 @@ class ImportRedmineRepo(AbstractImportRepo):
 
             if "issue_tracking" in r_project.enabled_modules:
                 # milestones = self._get_milestones_for_project(r_project)
-                for issue in r_project.issues:
+                for issue in self.redmine.issue.filter(status_id="*", project_id=r_project.id):
 
-                    author = getattr(issue, "author", None)
-                    assignee = getattr(issue, "assigned_to", None)
+                    r_author = getattr(issue, "author", None)
+                    author = self._get_person_fallback(r_author.id) if r_author else None
+
+                    r_assignee = getattr(issue, "assigned_to", None)
+                    assignee = self._get_person_fallback(r_assignee.id) if r_assignee else None
                     # version = getattr(issue, "fixed_version", None)
 
+                    status = statuses[issue.status.id]
+
                     task = TaskImport(
+                        created_on=getattr(issue, "created_on", None),
+                        updated_on=getattr(issue, "updated_on", None),
                         goal=goal,
                         title=issue.subject,
                         description=issue.description,
                         due_date=getattr(issue, "due_date", None),
-                        updated_on=datetime.now(tz=utc),
                         remote_code=f"{issue.id}",
-                        status=statuses[issue.status.id],
+                        status=status,
+                        closed=status.closed,
                         priority=TaskPriority(title=f"{issue.priority.name}", order=issue.priority.id),
-                        assignee=persons[assignee.id] if assignee else None,
-                        author=persons[author.id] if author else None,
+                        assignee=assignee,
+                        author=author,
                     )
 
                     parent_issue = getattr(issue, "parent", None)

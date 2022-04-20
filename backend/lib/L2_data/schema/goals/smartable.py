@@ -1,7 +1,7 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
 from abc import ABC
-from datetime import datetime
+from datetime import date, datetime
 from typing import Optional
 
 from ..base_schema import PKGetable, PKUpsertable, Titleable
@@ -10,7 +10,7 @@ from .person import PersonSchemaGet
 
 class _Smartable(Titleable, ABC):
     description: Optional[str]
-    due_date: Optional[datetime]
+    due_date: Optional[datetime | date]
     parent_id: Optional[int]
     closed: bool
 

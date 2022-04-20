@@ -27,7 +27,8 @@ class TaskCard extends StatelessWidget {
   bool get hasDates => task.dueDate != null || task.etaDate != null;
   bool get hasSubtasks => task.tasksCount > 0;
   bool get hasStatus => task.status != null;
-  bool get hasFooter => hasDates || hasSubtasks || hasStatus || hasLink;
+  bool get isClosed => task.closed;
+  bool get hasFooter => hasDates || hasSubtasks || hasStatus || hasLink || isClosed;
 
   Widget progress(BuildContext context) {
     final _width = MediaQuery.of(context).size.width;
@@ -63,10 +64,6 @@ class TaskCard extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.fromLTRB(onePadding, onePadding, onePadding, 0),
         child: Row(children: [
-          if (task.closed) ...[
-            doneIcon(context, true, size: onePadding * 1.4, color: Colors.green),
-            SizedBox(width: onePadding / 4),
-          ],
           Expanded(child: title(context)),
           headerTrailing(context),
         ]),
@@ -112,12 +109,14 @@ class TaskCard extends StatelessWidget {
 
   Widget buildDates() {
     return Padding(
-      padding: EdgeInsets.fromLTRB(onePadding, onePadding, onePadding, 0),
-      child: Row(children: [
-        DateStringWidget(task.dueDate, titleString: loc.common_due_date_label),
-        const Spacer(),
-        DateStringWidget(task.etaDate, titleString: loc.common_eta_date_label),
-      ]),
+      padding: EdgeInsets.fromLTRB(onePadding, onePadding / 2, onePadding, 0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          if (task.dueDate != null) DateStringWidget(task.dueDate, titleString: loc.common_due_date_label),
+          DateStringWidget(task.etaDate, titleString: loc.common_eta_date_label),
+        ],
+      ),
     );
   }
 
@@ -125,6 +124,10 @@ class TaskCard extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: onePadding),
           child: Row(children: [
+            if (isClosed) ...[
+              doneIcon(context, true, size: onePadding * 1.4, color: Colors.green),
+              SizedBox(width: onePadding / 4),
+            ],
             if (hasStatus) status(),
             const Spacer(),
             if (hasSubtasks) closedProgressCount(),

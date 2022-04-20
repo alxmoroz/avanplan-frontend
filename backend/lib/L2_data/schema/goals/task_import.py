@@ -4,12 +4,13 @@ from __future__ import annotations
 
 from typing import Optional
 
-from ..base_schema import Importable, PKGetable
+from ..base_schema import Importable
 from .goal_import import GoalImportSchemaGet
-from .task import TaskSchema, TaskSchemaUpsert
+from .smartable import SmartableGet
+from .task import TaskSchemaUpsert
 
 
-class TaskImportSchemaGet(TaskSchema, PKGetable, Importable):
+class TaskImportSchemaGet(SmartableGet, Importable):
     goal: Optional[GoalImportSchemaGet]
     parent: Optional[TaskImportSchemaGet]
 

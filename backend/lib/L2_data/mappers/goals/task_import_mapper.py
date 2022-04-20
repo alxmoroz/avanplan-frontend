@@ -8,6 +8,7 @@ from lib.L2_data.schema import TaskImportSchemaGet, TaskImportSchemaUpsert
 
 from ..base_mapper import BaseMapper
 from ..goals import GoalImportMapper
+from .person_mapper import PersonMapper
 
 
 class TaskImportMapper(BaseMapper[TaskImportSchemaGet, TaskImportSchemaUpsert, TaskImport, TaskModel]):
@@ -23,6 +24,8 @@ class TaskImportMapper(BaseMapper[TaskImportSchemaGet, TaskImportSchemaUpsert, T
             t: TaskImport = super().entity_from_schema_get(s)
             t.goal = GoalImportMapper().entity_from_schema_get(s.goal)
             t.parent = self.entity_from_schema_get(s.parent)
+            t.assignee = PersonMapper().entity_from_schema_get(s.assignee)
+            t.author = PersonMapper().entity_from_schema_get(s.author)
             return t
 
     def schema_upd_from_entity(self, e: TaskImport) -> TaskImportSchemaUpsert:

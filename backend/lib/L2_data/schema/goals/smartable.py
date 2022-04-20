@@ -4,12 +4,24 @@ from abc import ABC
 from datetime import datetime
 from typing import Optional
 
-from ..base_schema import Titleable
+from ..base_schema import PKGetable, PKUpsertable, Titleable
+from .person import PersonSchemaGet
 
 
-class Smartable(Titleable, ABC):
+class _Smartable(Titleable, ABC):
     description: Optional[str]
     due_date: Optional[datetime]
     parent_id: Optional[int]
-    remote_tracker_id: Optional[int]
     closed: bool
+
+
+class SmartableGet(_Smartable, PKGetable, ABC):
+    assignee: Optional[PersonSchemaGet]
+    author: Optional[PersonSchemaGet]
+    remote_tracker_id: Optional[int]
+
+
+class SmartableUpsert(_Smartable, PKUpsertable, ABC):
+    assignee_id: Optional[int]
+    author_id: Optional[int]
+    status_id: Optional[int]

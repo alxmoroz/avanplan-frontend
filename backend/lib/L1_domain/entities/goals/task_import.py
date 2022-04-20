@@ -7,8 +7,6 @@ from dataclasses import dataclass
 from .goal_import import GoalImport
 from .task import Task
 
-# TODO: может, лучше со схемами работать? Тогда ещё подумать как их протаскивать в юзкейс Л1
-
 
 @dataclass
 class TaskImport(Task):

@@ -11,7 +11,5 @@ from .task import Task
 
 @dataclass
 class Goal(Smartable):
-
-    goals: list[Goal] | None = None
     tasks: list[Task] | None = None
     status: GoalStatus | None = None

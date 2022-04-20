@@ -7,6 +7,7 @@ from lib.L2_data.models import Goal as GoalModel
 from lib.L2_data.schema import GoalImportSchemaGet, GoalImportSchemaUpsert
 
 from ..base_mapper import BaseMapper
+from .person_mapper import PersonMapper
 
 
 # TODO: наверное, это должно быть в репозитории импорта и отдельная схема просто. Такая сущность это не ок
@@ -22,6 +23,8 @@ class GoalImportMapper(BaseMapper[GoalImportSchemaGet, GoalImportSchemaUpsert, G
         if s:
             g: GoalImport = super().entity_from_schema_get(s)
             g.parent = self.entity_from_schema_get(s.parent)
+            g.assignee = PersonMapper().entity_from_schema_get(s.assignee)
+            g.author = PersonMapper().entity_from_schema_get(s.author)
             return g
 
     def schema_upd_from_entity(self, e: GoalImport) -> GoalImportSchemaUpsert:

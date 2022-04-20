@@ -1,15 +1,15 @@
 """empty message
 
-Revision ID: 3dcb08430e8a
+Revision ID: 927ca44edf4e
 Revises: 
-Create Date: 2022-04-14 15:04:50.138057
+Create Date: 2022-04-20 00:44:39.184397
 
 """
 import sqlalchemy as sa
 from alembic import op
 
 # revision identifiers, used by Alembic.
-revision = "3dcb08430e8a"
+revision = "927ca44edf4e"
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -102,7 +102,17 @@ def upgrade():
         sa.Column("remote_code", sa.String(), nullable=True),
         sa.Column("parent_id", sa.Integer(), nullable=True),
         sa.Column("status_id", sa.Integer(), nullable=True),
+        sa.Column("assignee_id", sa.Integer(), nullable=True),
+        sa.Column("author_id", sa.Integer(), nullable=True),
         sa.Column("remote_tracker_id", sa.Integer(), nullable=True),
+        sa.ForeignKeyConstraint(
+            ["assignee_id"],
+            ["persons.id"],
+        ),
+        sa.ForeignKeyConstraint(
+            ["author_id"],
+            ["persons.id"],
+        ),
         sa.ForeignKeyConstraint(["parent_id"], ["goals.id"], ondelete="CASCADE"),
         sa.ForeignKeyConstraint(["remote_tracker_id"], ["remotetrackers.id"], ondelete="SET NULL"),
         sa.ForeignKeyConstraint(

@@ -21,12 +21,3 @@ class Task(Smartable, BaseModel):
 
     priority_id = Column(Integer, ForeignKey("taskprioritys.id"))
     priority = relationship("TaskPriority")
-
-    assignee_id = Column(Integer, ForeignKey("persons.id"))
-    assignee = relationship("Person", foreign_keys=[assignee_id])
-
-    author_id = Column(Integer, ForeignKey("persons.id"))
-    author = relationship("Person", foreign_keys=[author_id])
-
-    remote_tracker_id = Column(Integer, ForeignKey("remotetrackers.id", ondelete="SET NULL"))
-    remote_tracker = relationship("RemoteTracker")

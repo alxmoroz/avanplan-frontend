@@ -2,7 +2,7 @@
 
 from ..entities.api import Msg
 from ..entities.api.exceptions import ApiException
-from ..entities.goals import Person, Task, TaskPriority, TaskStatus
+from ..entities.goals import Person, TaskPriority, TaskStatus
 from ..entities.goals.goal_import import GoalImport
 from ..entities.goals.task_import import TaskImport
 from ..repositories import AbstractDBRepo, AbstractImportRepo
@@ -92,7 +92,7 @@ class ImportUC:
     #             remote_code=milestone.remote_code,
     #         )
 
-    def _upsert_task(self, task: TaskImport) -> Task:
+    def _upsert_task(self, task: TaskImport) -> TaskImport:
         if task:
             task.goal = self._upsert_goal(task.goal)
             task.status = self._upsert_status(task.status)

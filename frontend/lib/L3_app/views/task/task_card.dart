@@ -22,6 +22,7 @@ class TaskCard extends StatelessWidget {
   final VoidCallback? onTapHeader;
   final VoidCallback? onTapFooter;
 
+  bool get hasDescription => task.description.isNotEmpty;
   bool get hasLink => task.trackerId != null;
   bool get hasDates => task.dueDate != null || task.etaDate != null;
   bool get hasSubtasks => task.tasksCount > 0;
@@ -44,18 +45,15 @@ class TaskCard extends StatelessWidget {
         task.title,
         color: darkGreyColor,
         maxLines: detailedScreen ? 3 : 2,
-        sizeScale: detailedScreen ? 1.2 : 1,
+        sizeScale: detailedScreen ? 1.25 : 1,
         decoration: task.closed ? TextDecoration.lineThrough : null,
       );
 
   Widget headerTrailing(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        SizedBox(width: onePadding / 2),
-        detailedScreen ? editIcon(context) : chevronIcon(context),
-      ],
-    );
+    return Row(children: [
+      SizedBox(width: onePadding / 2),
+      detailedScreen ? editIcon(context) : chevronIcon(context),
+    ]);
   }
 
   Widget header(BuildContext context) {
@@ -64,97 +62,77 @@ class TaskCard extends StatelessWidget {
       detailedScreen ? onTapHeader : null,
       child: Padding(
         padding: EdgeInsets.fromLTRB(onePadding, onePadding, onePadding, 0),
-        child: Row(
-          children: [
-            if (task.closed) ...[
-              doneIcon(context, true, size: onePadding * 1.4, color: Colors.green),
-              SizedBox(width: onePadding / 4),
-            ],
-            Expanded(child: title(context)),
-            headerTrailing(context),
+        child: Row(children: [
+          if (task.closed) ...[
+            doneIcon(context, true, size: onePadding * 1.4, color: Colors.green),
+            SizedBox(width: onePadding / 4),
           ],
-        ),
+          Expanded(child: title(context)),
+          headerTrailing(context),
+        ]),
       ),
     );
   }
 
-  Widget description(BuildContext context) {
-    return task.description.isNotEmpty
-        ? LayoutBuilder(builder: (context, size) {
-            final text = task.description;
-            final maxLines = detailedScreen ? 5 : 3;
-            final detailedTextWidget = LightText(text, maxLines: maxLines);
-            final listTextWidget = SmallText(text, maxLines: maxLines, weight: FontWeight.w300);
-            final span = TextSpan(text: text, style: detailedScreen ? detailedTextWidget.style(context) : listTextWidget.style(context));
-            final tp = TextPainter(text: span, maxLines: maxLines, textDirection: TextDirection.ltr);
-            tp.layout(maxWidth: size.maxWidth);
-            final bool separateDescription = tp.didExceedMaxLines && detailedScreen;
-
-            return Button(
-              '',
-              separateDescription ? () => showDetailsDialog(context, task.description) : null,
-              child: Column(
-                children: [
-                  MTDivider(color: separateDescription ? darkGreyColor : Colors.transparent),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: onePadding),
-                    child: Row(
-                      children: [
-                        Expanded(child: detailedScreen ? detailedTextWidget : listTextWidget),
-                        if (separateDescription)
-                          Row(
-                            children: [
-                              SizedBox(width: onePadding / 2),
-                              infoIcon(context),
-                            ],
-                          ),
-                      ],
-                    ),
-                  ),
-                  if (hasFooter) MTDivider(color: separateDescription ? darkGreyColor : Colors.transparent),
-                ],
-              ),
-            );
-          })
-        : Container();
-  }
+  Widget description() => LayoutBuilder(builder: (context, size) {
+        final text = task.description;
+        final maxLines = detailedScreen ? 5 : 3;
+        final detailedTextWidget = LightText(text, maxLines: maxLines);
+        final listTextWidget = SmallText(text, maxLines: maxLines, weight: FontWeight.w300);
+        final span = TextSpan(text: text, style: detailedScreen ? detailedTextWidget.style(context) : listTextWidget.style(context));
+        final tp = TextPainter(text: span, maxLines: maxLines, textDirection: TextDirection.ltr);
+        tp.layout(maxWidth: size.maxWidth);
+        final bool hasButton = tp.didExceedMaxLines && detailedScreen;
+        final divider = MTDivider(
+          color: hasButton ? darkGreyColor : Colors.transparent,
+          height: detailedScreen ? onePadding : onePadding / 4,
+        );
+        final innerWidget = Column(children: [
+          divider,
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: onePadding),
+            child: Row(
+              children: [
+                Expanded(child: detailedScreen ? detailedTextWidget : listTextWidget),
+                if (hasButton) Row(children: [SizedBox(width: onePadding / 2), infoIcon(context)]),
+              ],
+            ),
+          ),
+          if (hasFooter) divider,
+        ]);
+        return hasButton ? Button('', () => showDetailsDialog(context, task.description), child: innerWidget) : innerWidget;
+      });
 
   Widget status() => SmallText(task.status!.title, weight: FontWeight.w500);
 
-  Widget closedProgressCount() => Row(
-        children: [
-          SmallText('${loc.btn_mark_done_title} ', weight: FontWeight.w300),
-          SmallText('${task.closedTasksCount} / ${task.tasksCount}', weight: FontWeight.w500),
-        ],
-      );
+  Widget closedProgressCount() => Row(children: [
+        SmallText('${loc.btn_mark_done_title} ', weight: FontWeight.w300),
+        SmallText('${task.closedTasksCount} / ${task.tasksCount}', weight: FontWeight.w500),
+      ]);
 
   Widget buildDates() {
     return Padding(
       padding: EdgeInsets.fromLTRB(onePadding, onePadding, onePadding, 0),
-      child: Row(
-        children: [
-          DateStringWidget(task.dueDate, titleString: loc.common_due_date_label),
-          const Spacer(),
-          DateStringWidget(task.etaDate, titleString: loc.common_eta_date_label),
-        ],
-      ),
+      child: Row(children: [
+        DateStringWidget(task.dueDate, titleString: loc.common_due_date_label),
+        const Spacer(),
+        DateStringWidget(task.etaDate, titleString: loc.common_eta_date_label),
+      ]),
     );
   }
 
   Widget footer(BuildContext context) => Column(children: [
         Padding(
           padding: EdgeInsets.symmetric(horizontal: onePadding),
-          child: Row(
-            children: [
-              if (hasStatus) status(),
-              const Spacer(),
-              if (hasSubtasks) closedProgressCount(),
-              if (hasLink) ...[
-                SizedBox(width: onePadding / 2),
-                linkIcon(context, color: darkGreyColor),
-              ],
+          child: Row(children: [
+            if (hasStatus) status(),
+            const Spacer(),
+            if (hasSubtasks) closedProgressCount(),
+            if (hasLink) ...[
+              SizedBox(width: onePadding / 2),
+              linkIcon(context, color: darkGreyColor),
             ],
-          ),
+          ]),
         ),
         if (hasDates) buildDates(),
       ]);
@@ -164,20 +142,18 @@ class TaskCard extends StatelessWidget {
     return MTCard(
       onTap: detailedScreen ? null : onTapHeader,
       body: Container(
-        child: Stack(
-          children: [
-            progress(context),
-            Column(
-              children: [
-                header(context),
-                description(context),
-                if (hasFooter) footer(context),
-                SizedBox(height: onePadding),
-              ],
-            )
-          ],
-        ),
+        child: Stack(children: [
+          progress(context),
+          Column(children: [
+            header(context),
+            if (hasDescription) description(),
+            if (hasFooter) footer(context),
+            SizedBox(height: onePadding),
+          ])
+        ]),
       ),
+      elevation: detailedScreen ? 5 : 2,
+      margin: EdgeInsets.fromLTRB(onePadding * (detailedScreen ? 0.5 : 2), onePadding / 2, onePadding * (detailedScreen ? 0.5 : 1), onePadding / 2),
     );
   }
 }

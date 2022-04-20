@@ -8,12 +8,13 @@ import 'colors.dart';
 import 'constants.dart';
 
 class MTCard extends StatelessWidget {
-  const MTCard({this.body, this.title, this.margin, this.onTap});
+  const MTCard({this.body, this.title, this.margin, this.onTap, this.elevation});
 
   final Widget? title;
   final Widget? body;
   final EdgeInsets? margin;
   final VoidCallback? onTap;
+  final double? elevation;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class MTCard extends StatelessWidget {
       onTap: onTap,
       child: Card(
         margin: margin ?? EdgeInsets.symmetric(horizontal: onePadding, vertical: onePadding / 2),
-        elevation: 2,
+        elevation: elevation ?? 2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)),
         child: Container(
           clipBehavior: Clip.hardEdge,

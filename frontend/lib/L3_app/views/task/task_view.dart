@@ -8,7 +8,6 @@ import '../../../L1_domain/entities/goals/task.dart';
 import '../../components/buttons.dart';
 import '../../components/constants.dart';
 import '../../components/cupertino_page.dart';
-import '../../components/divider.dart';
 import '../../components/empty_widget.dart';
 import '../../components/icons.dart';
 import '../../components/navbar.dart';
@@ -38,12 +37,12 @@ class _TaskViewState extends State<TaskView> {
   Widget buildBreadcrumbs() {
     const sepStr = '>';
     String parentsPath = '';
-    if (controller.navStackTasks.isNotEmpty) {
+    if (controller.navStackTasks.length > 1) {
       final titles = controller.navStackTasks.take(controller.navStackTasks.length - 1).map((pt) => pt.title);
-      parentsPath = titles.join(' $sepStr ');
+      parentsPath = titles.join(' $sepStr ') + ' $sepStr ';
     }
     return ListTile(
-      title: controller.isGoal ? MediumText(goal!.title) : LightText('${goal!.title}', maxLines: 1),
+      title: MediumText(goal!.title),
       subtitle: parentsPath.isNotEmpty ? LightText(parentsPath, padding: EdgeInsets.only(top: onePadding / 2)) : null,
       dense: true,
       visualDensity: VisualDensity.compact,
@@ -65,31 +64,28 @@ class _TaskViewState extends State<TaskView> {
       ),
       body: Observer(
         builder: (_) => Expanded(
-          child: Column(
-            children: [
-              SizedBox(height: onePadding),
-              buildBreadcrumbs(),
-              if (task != null)
-                TaskCard(
-                  task: task!,
-                  detailedScreen: true,
-                  onTapHeader: () => controller.editTask(context),
-                ),
-              if (controller.subtasks.isNotEmpty) const MTDivider(),
-              Expanded(
-                child: controller.subtasks.isEmpty && controller.isGoal
-                    ? EmptyDataWidget(
-                        title: loc.task_list_empty_title,
-                        addTitle: loc.task_title_new,
-                        onAdd: () => controller.addTask(context),
-                      )
-                    : ListView.builder(
-                        itemBuilder: taskBuilder,
-                        itemCount: controller.subtasks.length,
-                      ),
+          child: Column(children: [
+            SizedBox(height: onePadding / 4),
+            buildBreadcrumbs(),
+            if (task != null)
+              TaskCard(
+                task: task!,
+                detailedScreen: true,
+                onTapHeader: () => controller.editTask(context),
               ),
-            ],
-          ),
+            Expanded(
+              child: controller.subtasks.isEmpty && controller.isGoal
+                  ? EmptyDataWidget(
+                      title: loc.task_list_empty_title,
+                      addTitle: loc.task_title_new,
+                      onAdd: () => controller.addTask(context),
+                    )
+                  : ListView.builder(
+                      itemBuilder: taskBuilder,
+                      itemCount: controller.subtasks.length,
+                    ),
+            ),
+          ]),
         ),
       ),
     );

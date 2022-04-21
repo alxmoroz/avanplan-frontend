@@ -11,8 +11,8 @@ from lib.L2_data.repositories.security_repo import SecurityRepo
 from lib.L2_data.schema import UserSchemaGet, UserSchemaUpsert
 from lib.L2_data.settings import settings
 from lib.L3_app.api.v1.users import router
-from lib.tests.conf_user import auth_headers_for_user
-from lib.tests.utils import random_email
+from tests.conf_user import auth_headers_for_user
+from tests.utils import random_email
 
 _users_api_path = f"{settings.API_PATH}{router.prefix}"
 

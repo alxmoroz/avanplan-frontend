@@ -10,7 +10,7 @@ from lib.L2_data.repositories.db import UserRepo
 from lib.L2_data.repositories.security_repo import SecurityRepo
 from lib.L2_data.schema import UserSchemaUpsert
 from lib.L2_data.settings import settings
-from lib.tests.utils import random_email
+from tests.utils import random_email
 
 
 def auth_headers_for_user(user_repo: UserRepo, email: str, is_superuser: bool = False):

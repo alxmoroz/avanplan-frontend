@@ -7,4 +7,4 @@
 set -e
 set -x
 
-pytest --cov=lib --cov-report=html lib/tests
+pytest --cov=lib --cov-report=html tests

@@ -1,0 +1,7 @@
+fastapi
+pydantic
+pytest
+SQLAlchemy
+pytz
+python-redmine
+passlib

@@ -1,7 +1,13 @@
 fastapi
-pydantic
+alembic
+pydantic[email]
 pytest
 SQLAlchemy
 pytz
 python-redmine
 passlib
+psycopg2
+python-jose
+python-multipart
+pytest-cov
+uvicorn

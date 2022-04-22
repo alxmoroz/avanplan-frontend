@@ -1,0 +1,4 @@
+
+
+CREATE ROLE hercules WITH CREATEDB CREATEROLE LOGIN PASSWORD 'hercules';
+create database hercules with owner='hercules' encoding='utf-8' lc_collate='C' lc_ctype='C' template template0;

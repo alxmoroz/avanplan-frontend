@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import date, datetime
+from datetime import datetime
 from typing import Optional
 
 from ..base_schema import Importable
@@ -18,5 +18,5 @@ class TaskImportSchemaGet(SmartableGet, Importable):
 
 class TaskImportSchemaUpsert(TaskSchemaUpsert, Importable):
     remote_tracker_id: int
-    created_on: Optional[datetime | date]
-    updated_on: Optional[datetime | date]
+    created_on: Optional[datetime]
+    updated_on: Optional[datetime]

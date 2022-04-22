@@ -1,4 +1,5 @@
 #  Copyright (c) 2022. Alexandr Moroz
+from datetime import date, datetime
 
 from redminelib import Redmine
 from redminelib import resources as r
@@ -42,6 +43,10 @@ class ImportRedmineRepo(AbstractImportRepo):
             lastname=r_user.lastname,
             email=getattr(r_user, "mail", f"{r_user.firstname}{r_user.lastname}@none.none"),
         )
+
+    @staticmethod
+    def _dt_from_attr(data: date | datetime | None) -> datetime:
+        return datetime(year=data.year, month=data.month, day=data.day) if data else None
 
     @property
     def persons(self) -> dict[int, Person]:
@@ -93,8 +98,8 @@ class ImportRedmineRepo(AbstractImportRepo):
             goal = GoalImport(
                 title=r_project.name,
                 description=r_project.description,
-                created_on=getattr(r_project, "created_on", None),
-                updated_on=getattr(r_project, "updated_on", None),
+                created_on=self._dt_from_attr(getattr(r_project, "created_on", None)),
+                updated_on=self._dt_from_attr(getattr(r_project, "updated_on", None)),
                 remote_code=f"{r_project.id}",
             )
             parent_project = getattr(r_project, "parent", None)
@@ -127,12 +132,12 @@ class ImportRedmineRepo(AbstractImportRepo):
                     status = statuses[issue.status.id]
 
                     task = TaskImport(
-                        created_on=getattr(issue, "created_on", None),
-                        updated_on=getattr(issue, "updated_on", None),
+                        created_on=self._dt_from_attr(getattr(issue, "created_on", None)),
+                        updated_on=self._dt_from_attr(getattr(issue, "updated_on", None)),
                         goal=goal,
                         title=issue.subject,
                         description=issue.description,
-                        due_date=getattr(issue, "due_date", None),
+                        due_date=self._dt_from_attr(getattr(issue, "due_date", None)),
                         remote_code=f"{issue.id}",
                         status=status,
                         closed=status.closed,

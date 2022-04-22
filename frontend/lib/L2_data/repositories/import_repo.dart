@@ -19,7 +19,7 @@ class ImportRepo extends AbstractApiImportRepo {
     final List<GoalImport> goals = [];
 
     try {
-      final response = await api.getGoalsApiV1IntegrationsGoalsGet(trackerId: trackerId);
+      final response = await api.getGoalsV1IntegrationsGoalsGet(trackerId: trackerId);
       if (response.statusCode == 200) {
         for (GoalImportRemoteSchemaGet g in response.data?.toList() ?? []) {
           goals.add(g.goalImport);
@@ -34,7 +34,7 @@ class ImportRepo extends AbstractApiImportRepo {
 
   @override
   Future<bool> importGoals(int trackerId, List<String> goalsIds) async {
-    final response = await api.importGoalsApiV1IntegrationsGoalsImportPost(
+    final response = await api.importGoalsV1IntegrationsGoalsImportPost(
       trackerId: trackerId,
       requestBody: BuiltList.from(goalsIds),
     );

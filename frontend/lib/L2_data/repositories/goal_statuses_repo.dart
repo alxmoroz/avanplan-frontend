@@ -13,7 +13,7 @@ class GoalStatusesRepo extends AbstractApiRepo<GoalStatus, BaseUpsert> {
 
   @override
   Future<List<GoalStatus>> getAll() async {
-    final response = await api.getGoalsStatusesApiV1GoalsStatusesGet();
+    final response = await api.getGoalsStatusesV1GoalsStatusesGet();
 
     final List<GoalStatus> statuses = [];
     if (response.statusCode == 200) {

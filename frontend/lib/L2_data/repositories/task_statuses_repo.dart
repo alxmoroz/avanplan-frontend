@@ -13,7 +13,7 @@ class TaskStatusesRepo extends AbstractApiRepo<TaskStatus, BaseUpsert> {
 
   @override
   Future<List<TaskStatus>> getAll() async {
-    final response = await api.getTaskStatusesApiV1TasksStatusesGet();
+    final response = await api.getTaskStatusesV1TasksStatusesGet();
 
     final List<TaskStatus> statuses = [];
     if (response.statusCode == 200) {

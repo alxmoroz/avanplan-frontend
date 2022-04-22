@@ -29,7 +29,7 @@ class TasksRepo extends AbstractApiRepo<Task, TaskUpsert> {
       ..closed = data.closed
       ..dueDate = data.dueDate?.toUtc();
 
-    final response = await api.upsertTaskApiV1TasksPost(taskSchemaUpsert: builder.build());
+    final response = await api.upsertTaskV1TasksPost(taskSchemaUpsert: builder.build());
     Task? task;
     if (response.statusCode == 201) {
       task = response.data?.task;
@@ -39,7 +39,7 @@ class TasksRepo extends AbstractApiRepo<Task, TaskUpsert> {
 
   @override
   Future<bool> delete(int id) async {
-    final response = await api.deleteTaskApiV1TasksTaskIdDelete(taskId: id);
+    final response = await api.deleteTaskV1TasksTaskIdDelete(taskId: id);
     return response.statusCode == 200 && response.data?.asNum == 1;
   }
 }

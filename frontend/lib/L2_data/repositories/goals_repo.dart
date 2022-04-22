@@ -15,7 +15,7 @@ class GoalsRepo extends AbstractApiRepo<Goal, GoalUpsert> {
 
   @override
   Future<List<Goal>> getAll() async {
-    final response = await api.getGoalsApiV1GoalsGet();
+    final response = await api.getGoalsV1GoalsGet();
 
     final List<Goal> goals = [];
     if (response.statusCode == 200) {
@@ -37,7 +37,7 @@ class GoalsRepo extends AbstractApiRepo<Goal, GoalUpsert> {
       ..closed = data.closed
       ..dueDate = data.dueDate?.toUtc();
 
-    final response = await api.upsertGoalApiV1GoalsPost(goalSchemaUpsert: builder.build());
+    final response = await api.upsertGoalV1GoalsPost(goalSchemaUpsert: builder.build());
     Goal? goal;
     if (response.statusCode == 201) {
       goal = response.data?.goal;
@@ -47,7 +47,7 @@ class GoalsRepo extends AbstractApiRepo<Goal, GoalUpsert> {
 
   @override
   Future<bool> delete(int id) async {
-    final response = await api.deleteGoalApiV1GoalsGoalIdDelete(goalId: id);
+    final response = await api.deleteGoalV1GoalsGoalIdDelete(goalId: id);
     return response.statusCode == 200 && response.data?.asNum == 1;
   }
 }

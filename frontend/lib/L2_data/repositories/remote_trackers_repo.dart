@@ -14,7 +14,7 @@ class RemoteTrackersRepo extends AbstractApiRepo<RemoteTracker, RemoteTrackerUps
 
   @override
   Future<List<RemoteTracker>> getAll() async {
-    final response = await api.getTrackersApiV1IntegrationsTrackersGet();
+    final response = await api.getTrackersV1IntegrationsTrackersGet();
 
     final List<RemoteTracker> trackers = [];
     if (response.statusCode == 200) {
@@ -36,7 +36,7 @@ class RemoteTrackersRepo extends AbstractApiRepo<RemoteTracker, RemoteTrackerUps
       ..password = data.password
       ..description = data.description;
 
-    final response = await api.upsertTrackerApiV1IntegrationsTrackersPost(remoteTrackerSchemaUpsert: builder.build());
+    final response = await api.upsertTrackerV1IntegrationsTrackersPost(remoteTrackerSchemaUpsert: builder.build());
     RemoteTracker? tracker;
     if (response.statusCode == 201) {
       tracker = response.data?.tracker;
@@ -46,7 +46,7 @@ class RemoteTrackersRepo extends AbstractApiRepo<RemoteTracker, RemoteTrackerUps
 
   @override
   Future<bool> delete(int id) async {
-    final response = await api.deleteTrackerApiV1IntegrationsTrackersTrackerIdDelete(trackerId: id);
+    final response = await api.deleteTrackerV1IntegrationsTrackersTrackerIdDelete(trackerId: id);
     return response.statusCode == 200 && response.data?.asNum == 1;
   }
 }

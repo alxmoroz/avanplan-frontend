@@ -13,7 +13,7 @@ class RemoteTrackerTypesRepo extends AbstractApiRepo<RemoteTrackerType, BaseUpse
 
   @override
   Future<List<RemoteTrackerType>> getAll() async {
-    final response = await api.getTrackerTypesApiV1IntegrationsTrackersTypesGet();
+    final response = await api.getTrackerTypesV1IntegrationsTrackersTypesGet();
 
     final List<RemoteTrackerType> types = [];
     if (response.statusCode == 200) {

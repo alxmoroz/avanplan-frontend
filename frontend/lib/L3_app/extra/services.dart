@@ -69,7 +69,7 @@ void setup() {
   getIt.registerSingletonAsync<Openapi>(() async {
     // final api = Openapi(basePathOverride: 'http://localhost:8000/');
     final api = Openapi(basePathOverride: 'https://hercules.moroz.team/api/');
-    api.dio.options.connectTimeout = 10000;
+    api.dio.options.connectTimeout = 30000;
     return api;
   });
 

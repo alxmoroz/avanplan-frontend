@@ -5,9 +5,10 @@ pytest
 SQLAlchemy
 pytz
 python-redmine
-passlib
+passlib[bcrypt]
 psycopg2
-python-jose
+cryptography
+python-jose[cryptography]
 python-multipart
 pytest-cov
 uvicorn

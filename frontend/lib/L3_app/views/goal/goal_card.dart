@@ -19,61 +19,52 @@ class GoalCard extends StatelessWidget {
   final bool alone;
   final VoidCallback? onTap;
 
-  Widget buildCardTitle() => H3(alone ? goal.title : loc.tasks_title, color: darkGreyColor, maxLines: 1);
+  Widget buildTitle() => H3(alone ? goal.title : loc.tasks_title, color: darkGreyColor, maxLines: 1);
 
   Widget buildTasksCount() {
     final tasksString = '${goal.closedTasksCount} / ${goal.tasksCount}';
     return H1(tasksString);
   }
 
-  Widget buildDates() {
-    return alone
-        ? Container()
-        : Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              DateStringWidget(goal.dueDate, titleString: loc.common_due_date_label),
-              SizedBox(height: onePadding),
-              DateStringWidget(goal.etaDate, titleString: loc.common_eta_date_label),
-            ],
-          );
+  Widget buildDates() => Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        DateStringWidget(goal.dueDate, titleString: loc.common_due_date_label),
+        SizedBox(height: onePadding),
+        DateStringWidget(goal.etaDate, titleString: loc.common_eta_date_label),
+      ]);
+
+  Widget progress(BuildContext context) {
+    final _width = MediaQuery.of(context).size.width;
+    return Positioned(
+      top: 0,
+      bottom: 0,
+      width: (goal.closedRatio ?? 0) * _width,
+      child: Container(
+        color: (goal.dueDate != null ? (goal.pace >= 0 ? goodPaceColor : warningPaceColor) : borderColor).resolve(context),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    final _width = MediaQuery.of(context).size.width;
-
     return MTCard(
       onTap: onTap,
       body: Container(
         color: darkBackgroundColor.resolve(context),
-        height: 112,
-        child: Stack(
-          children: [
-            Container(
-              color: (goal.dueDate != null ? (goal.pace >= 0 ? goodPaceColor : warningPaceColor) : borderColor).resolve(context),
-              width: (goal.closedRatio ?? 0) * _width,
-            ),
-            Padding(
-              padding: EdgeInsets.all(onePadding),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        buildCardTitle(),
-                        if (goal.tasksCount > 0) buildTasksCount(),
-                      ],
-                    ),
-                  ),
-                  buildDates(),
-                ],
+        child: Stack(children: [
+          progress(context),
+          Padding(
+            padding: EdgeInsets.all(onePadding),
+            child: Row(children: [
+              Expanded(
+                child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  buildTitle(),
+                  if (goal.tasksCount > 0) buildTasksCount(),
+                ]),
               ),
-            ),
-          ],
-        ),
+              buildDates(),
+            ]),
+          ),
+        ]),
       ),
     );
   }

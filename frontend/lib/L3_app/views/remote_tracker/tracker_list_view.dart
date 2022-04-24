@@ -40,7 +40,7 @@ class _TrackerListViewState extends State<TrackerListView> {
       children: [
         if (index > 0) const MTDivider(),
         ListTile(
-          leading: CircleWidget(color: tracker.connected ? goodPaceColor : warningColor),
+          leading: CircleWidget(color: tracker.connected ? Colors.green : warningColor),
           title: NormalText('${tracker.type.title} ${tracker.description}'),
           subtitle: SmallText(tracker.url),
           trailing: editIcon(context),

@@ -145,7 +145,7 @@ class H4 extends MediumText {
           sizeScale: 1.1,
           align: align,
           padding: padding,
-          maxLines: maxLines ?? 3,
+          maxLines: maxLines ?? 5,
           decoration: decoration,
         );
 }

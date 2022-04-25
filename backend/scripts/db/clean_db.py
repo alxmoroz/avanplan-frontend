@@ -13,8 +13,6 @@ db_user = db_user_from_org(org_name)
 db_name = db_name_from_org(org_name)
 db_password = db_password_from_org(org_name)
 
-
-# DATABASE
 try:
     conn = psycopg2.connect(dbname="postgres", user="postgres", host="localhost", password="postgres")
     conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)

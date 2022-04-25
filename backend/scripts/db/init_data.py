@@ -3,6 +3,7 @@ import os
 
 from fastapi.encoders import jsonable_encoder
 
+from lib.L2_data.repositories.security_repo import SecurityRepo
 from lib.L2_data.db import session_maker_for_org
 from lib.L2_data.repositories.db.auth.organization_repo import OrganizationRepo
 from lib.L2_data.schema import OrganizationSchemaUpsert
@@ -32,11 +33,14 @@ def init_data():
         admin_user = user_repo.get_one(email=settings.DEFAULT_ADMIN_EMAIL, organization_id=org.id)
         if not admin_user:
             s = UserSchemaUpsert(
-                email=settings.DEFAULT_ADMIN_EMAIL, password=settings.DEFAULT_ADMIN_PASSWORD, is_superuser=True, organization_id=org.id
+                email=settings.DEFAULT_ADMIN_EMAIL,
+                password=SecurityRepo.secure_password(settings.DEFAULT_ADMIN_PASSWORD),
+                is_superuser=True,
+                organization_id=org.id,
             )
             admin_user = user_repo.upsert(jsonable_encoder(s))
             if admin_user:
-                print(f"Admin created {admin_user}")
+                print(f"Admin created: {admin_user.email}")
         data_db = session_maker_for_org(org.name)()
         # Remote Tracker type
         ttype_repo = RemoteTrackerTypeRepo(data_db)

@@ -6,7 +6,7 @@ import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
 
-from lib.L2_data.db import DBSession
+from lib.L2_data.db import session_maker_for_org
 from lib.L3_app.main import app
 
 
@@ -18,6 +18,13 @@ def client() -> Generator:
 
 @pytest.fixture(scope="session")
 def db() -> Session:
-    session = DBSession()
+    session = session_maker_for_org("test")()
+    yield session
+    session.close()
+
+
+@pytest.fixture(scope="session")
+def db_auth() -> Session:
+    session = session_maker_for_org("auth")()
     yield session
     session.close()

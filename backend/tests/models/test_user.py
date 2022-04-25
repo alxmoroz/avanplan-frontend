@@ -1,10 +1,11 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
 from fastapi.encoders import jsonable_encoder
+from lib.L2_data.models_auth import Organization
 from pydantic import EmailStr
 from sqlalchemy import column
 
-from lib.L2_data.models import User
+from lib.L2_data.models_auth import User
 from lib.L2_data.repositories.db import UserRepo
 from lib.L2_data.schema import UserSchemaUpsert
 
@@ -14,8 +15,8 @@ def test_get_one(user_repo: UserRepo, tmp_user: User):
     assert tmp_user == obj_out
 
 
-def test_get_create(user_repo: UserRepo, tmp_user: User):
-    s = UserSchemaUpsert(email=EmailStr("test_get_create@mail.com"), password="pass")
+def test_get_create(user_repo: UserRepo, tmp_user: User, tmp_org: Organization):
+    s = UserSchemaUpsert(email=EmailStr("test_get_create@mail.com"), password="pass", organization_id=tmp_org.id)
     obj2 = user_repo.upsert(jsonable_encoder(s))
 
     objects = user_repo.get(
@@ -29,7 +30,7 @@ def test_get_create(user_repo: UserRepo, tmp_user: User):
     assert user_repo.delete(obj2.id) == 1
 
 
-def test_update(user_repo: UserRepo, tmp_user: User):
+def test_update(user_repo: UserRepo, tmp_user: User, tmp_org: Organization):
     s = UserSchemaUpsert(
         id=tmp_user.id,
         email=EmailStr("test_update@mail.com"),
@@ -37,6 +38,7 @@ def test_update(user_repo: UserRepo, tmp_user: User):
         password="pass2",
         is_active=False,
         is_superuser=True,
+        organization_id=tmp_org.id,
     )
 
     obj_out = user_repo.upsert(jsonable_encoder(s))
@@ -50,9 +52,9 @@ def test_update(user_repo: UserRepo, tmp_user: User):
     assert obj_out.is_superuser == s.is_superuser
 
 
-def test_upsert_delete(user_repo: UserRepo):
+def test_upsert_delete(user_repo: UserRepo, tmp_org: Organization):
     # upsert
-    s = UserSchemaUpsert(email=EmailStr("test_upsert_delete@mail.com"), password="pass")
+    s = UserSchemaUpsert(email=EmailStr("test_upsert_delete@mail.com"), password="pass", organization_id=tmp_org.id)
     obj_out = user_repo.upsert(jsonable_encoder(s))
     test_obj_out = user_repo.get_one(id=obj_out.id)
 

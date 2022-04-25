@@ -8,7 +8,7 @@ export PYTHONPATH="."
 
 pip3 install -r ./scripts/reqs.txt
 
-python3 ./scripts/db/register_org.py test
+bash ./scripts/db/register_org.sh test
 
 # service
 cp ./scripts/hercules.service /etc/systemd/system

@@ -1,11 +1,10 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
 from fastapi.encoders import jsonable_encoder
-from lib.L2_data.models_auth import Organization
 from pydantic import EmailStr
 from sqlalchemy import column
 
-from lib.L2_data.models_auth import User
+from lib.L2_data.models_auth import Organization, User
 from lib.L2_data.repositories.db import UserRepo
 from lib.L2_data.schema import UserSchemaUpsert
 

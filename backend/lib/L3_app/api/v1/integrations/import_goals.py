@@ -9,14 +9,12 @@ from lib.L1_domain.entities.api.exceptions import ApiException
 from lib.L1_domain.repositories import AbstractImportRepo
 from lib.L1_domain.usecases.base_db_uc import BaseDBUC
 from lib.L1_domain.usecases.import_uc import ImportUC
-from lib.L1_domain.usecases.users_uc import UsersUC
-from lib.L2_data.db import db_session
 from lib.L2_data.mappers import GoalImportMapper, PersonMapper, TaskImportMapper, TaskPriorityMapper, TaskStatusMapper
 from lib.L2_data.repositories import db as dbr
 from lib.L2_data.repositories.integrations import ImportRedmineRepo
 from lib.L2_data.schema.goals.goal_import import GoalImportRemoteSchemaGet
-from lib.L3_app.api.v1.users import user_uc
 
+from ..auth import db_organization
 from .remote_trackers import remote_trackers_uc
 
 router = APIRouter(prefix="/goals", tags=["integrations - goals"])
@@ -25,10 +23,8 @@ router = APIRouter(prefix="/goals", tags=["integrations - goals"])
 def _import_uc(
     tracker_id: int,
     tracker_uc: BaseDBUC = Depends(remote_trackers_uc),
-    uc: UsersUC = Depends(user_uc),
-    db: Session = Depends(db_session),
+    db: Session = Depends(db_organization),
 ) -> ImportUC:
-    uc.get_active_user()
 
     # TODO: спрятать под капот определение трекера и юзкейса
     repo: AbstractImportRepo | None = None

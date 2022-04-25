@@ -2,7 +2,8 @@
 
 from pydantic import EmailStr
 
-from lib.L2_data.schema.base_schema import BaseSchema, PKGetable, PKUpsertable
+from ..base_schema import BaseSchema, PKGetable, PKUpsertable
+from .organization import OrganizationSchemaGet
 
 
 class _UserSchema(BaseSchema):
@@ -14,8 +15,8 @@ class _UserSchema(BaseSchema):
 
 
 class UserSchemaGet(_UserSchema, PKGetable):
-    pass
+    organization: OrganizationSchemaGet
 
 
 class UserSchemaUpsert(_UserSchema, PKUpsertable):
-    pass
+    organization_id: int

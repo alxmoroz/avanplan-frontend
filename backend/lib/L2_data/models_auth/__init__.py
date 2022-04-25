@@ -1,5 +1,5 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
+from .base_model import BaseAuthModel
 from .organization import Organization
-from .token import Token, TokenPayload
 from .user import User

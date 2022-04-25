@@ -5,13 +5,11 @@ from sqlalchemy.orm import Session
 
 from lib.L1_domain.entities.goals import Goal
 from lib.L1_domain.usecases.base_db_uc import BaseDBUC
-from lib.L1_domain.usecases.users_uc import UsersUC
-from lib.L2_data.db import db_session
 from lib.L2_data.mappers import GoalMapper
 from lib.L2_data.repositories import db as dbr
 from lib.L2_data.schema import GoalSchemaGet, GoalSchemaUpsert
-from lib.L3_app.api.v1.users import user_uc
 
+from .auth import db_organization
 from .goal_statuses import router as statuses_router
 
 router = APIRouter(prefix="/goals")
@@ -19,10 +17,9 @@ router.include_router(statuses_router)
 
 
 def _goals_uc(
-    uc: UsersUC = Depends(user_uc),
-    db: Session = Depends(db_session),
+    db: Session = Depends(db_organization),
 ) -> BaseDBUC:
-    uc.get_active_user()
+
     return BaseDBUC(
         db_repo=dbr.GoalRepo(db),
         e_repo=GoalMapper(),

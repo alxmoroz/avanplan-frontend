@@ -2,7 +2,7 @@
 
 from sqlalchemy.orm import Session
 
-from lib.L2_data.models import User as UserModel
+from lib.L2_data.models_auth import User as UserModel
 
 from ..db_repo import DBRepo
 

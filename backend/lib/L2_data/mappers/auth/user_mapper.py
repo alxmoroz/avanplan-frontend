@@ -2,7 +2,7 @@
 
 
 from lib.L1_domain.entities import User
-from lib.L2_data.models import User as UserModel
+from lib.L2_data.models_auth import User as UserModel
 from lib.L2_data.schema import UserSchemaGet, UserSchemaUpsert
 
 from ..base_mapper import BaseMapper

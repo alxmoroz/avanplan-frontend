@@ -5,13 +5,11 @@ from sqlalchemy.orm import Session
 
 from lib.L1_domain.entities import RemoteTracker
 from lib.L1_domain.usecases.base_db_uc import BaseDBUC
-from lib.L1_domain.usecases.users_uc import UsersUC
-from lib.L2_data.db import db_session
 from lib.L2_data.mappers import RemoteTrackerMapper
 from lib.L2_data.repositories import db as dbr
 from lib.L2_data.schema import RemoteTrackerSchemaGet, RemoteTrackerSchemaUpsert
-from lib.L3_app.api.v1.users import user_uc
 
+from ..auth import db_organization
 from .remote_trackers_types import router as tracker_types_router
 
 router = APIRouter(prefix="/trackers", tags=["integrations - trackers"])
@@ -19,10 +17,8 @@ router.include_router(tracker_types_router)
 
 
 def remote_trackers_uc(
-    uc: UsersUC = Depends(user_uc),
-    db: Session = Depends(db_session),
+    db: Session = Depends(db_organization),
 ) -> BaseDBUC:
-    uc.get_active_user()
     return BaseDBUC(
         db_repo=dbr.RemoteTrackerRepo(db),
         e_repo=RemoteTrackerMapper(),

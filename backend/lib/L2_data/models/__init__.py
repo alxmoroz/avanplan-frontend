@@ -2,4 +2,3 @@
 
 from .base_model import BaseModel
 from .goals import *
-from .users import *

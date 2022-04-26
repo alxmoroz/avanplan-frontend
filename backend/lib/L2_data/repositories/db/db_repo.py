@@ -10,9 +10,8 @@ from sqlalchemy.sql.elements import BinaryExpression
 
 from lib.L1_domain.repositories import AbstractDBRepo
 from lib.L2_data.models import BaseModel as BaseDBModel
-from lib.L2_data.models_auth import BaseAuthModel
 
-M = TypeVar("M", bound=BaseDBModel | BaseAuthModel)
+M = TypeVar("M", bound=BaseDBModel)
 
 
 class DBRepo(AbstractDBRepo[M]):

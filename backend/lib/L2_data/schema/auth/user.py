@@ -1,22 +1,21 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
+from abc import ABC
+
 from pydantic import EmailStr
 
 from ..base_schema import BaseSchema, PKGetable, PKUpsertable
-from .organization import OrganizationSchemaGet
 
 
-class _UserSchema(BaseSchema):
+class _UserSchema(BaseSchema, ABC):
     email: EmailStr
     password: str
     full_name: str | None = None
-    is_active: bool = True
-    is_superuser: bool = False
 
 
 class UserSchemaGet(_UserSchema, PKGetable):
-    organization: OrganizationSchemaGet
+    pass
 
 
 class UserSchemaUpsert(_UserSchema, PKUpsertable):
-    organization_id: int
+    pass

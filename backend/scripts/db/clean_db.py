@@ -5,13 +5,11 @@ import os
 
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
-from lib.L2_data.db import db_user_from_org, db_name_from_org, db_password_from_org
+from lib.L2_data.db import db_user_for_db, db_password_for_db
 
-org_name = os.getenv("H_ORG_NAME")
-
-db_user = db_user_from_org(org_name)
-db_name = db_name_from_org(org_name)
-db_password = db_password_from_org(org_name)
+db_name = os.getenv("DB_NAME")
+db_user = db_user_for_db(db_name)
+db_password = db_password_for_db(db_name)
 
 try:
     conn = psycopg2.connect(dbname="postgres", user="postgres", host="localhost", password="postgres")

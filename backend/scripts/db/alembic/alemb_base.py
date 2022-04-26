@@ -7,19 +7,14 @@ from logging.config import fileConfig
 from alembic import context
 from sqlalchemy import engine_from_config, pool
 
+from lib.L2_data.db import pg_dsn_url
+
 config = context.config
 fileConfig(config.config_file_name)
 
 
 def alembic_run(target_metadata):
-    def get_url():
-        org_name = os.getenv("H_ORG_NAME")
-        db_name = f"h_org_{org_name}"
-        db_user = os.getenv("PG_USER", f"h_{org_name}")
-        db_password = os.getenv("PG_PASSWORD", f"h_{org_name}")
-        return f"postgresql://{db_user}:{db_password}@localhost/{db_name}"
-
-    def run_migrations_offline():
+    def run_migrations_offline(url):
         """Run migrations in 'offline' mode.
 
         This configures the context with just a URL
@@ -31,13 +26,13 @@ def alembic_run(target_metadata):
         script output.
 
         """
-        url = get_url()
+
         context.configure(url=url, target_metadata=target_metadata, literal_binds=True, compare_type=True)
 
         with context.begin_transaction():
             context.run_migrations()
 
-    def run_migrations_online():
+    def run_migrations_online(url):
         """Run migrations in 'online' mode.
 
         In this scenario we need to create an Engine
@@ -45,7 +40,7 @@ def alembic_run(target_metadata):
 
         """
         configuration = config.get_section(config.config_ini_section)
-        configuration["sqlalchemy.url"] = get_url()
+        configuration["sqlalchemy.url"] = url
         connectable = engine_from_config(
             configuration,
             prefix="sqlalchemy.",
@@ -69,7 +64,8 @@ def alembic_run(target_metadata):
             with context.begin_transaction():
                 context.run_migrations()
 
+    pg_url = pg_dsn_url(os.getenv("DB_NAME"))
     if context.is_offline_mode():
-        run_migrations_offline()
+        run_migrations_offline(pg_url)
     else:
-        run_migrations_online()
+        run_migrations_online(pg_url)

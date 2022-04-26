@@ -9,7 +9,7 @@ from lib.L2_data.mappers import GoalMapper
 from lib.L2_data.repositories import db as dbr
 from lib.L2_data.schema import GoalSchemaGet, GoalSchemaUpsert
 
-from .auth import db_organization
+from .auth import auth_db
 from .goal_statuses import router as statuses_router
 
 router = APIRouter(prefix="/goals")
@@ -17,7 +17,7 @@ router.include_router(statuses_router)
 
 
 def _goals_uc(
-    db: Session = Depends(db_organization),
+    db: Session = Depends(auth_db),
 ) -> BaseDBUC:
 
     return BaseDBUC(

@@ -4,7 +4,7 @@ from fastapi.encoders import jsonable_encoder
 from pydantic import EmailStr
 from sqlalchemy import column
 
-from lib.L2_data.models_auth import Organization, User
+from lib.L2_data.models.auth import User
 from lib.L2_data.repositories.db import UserRepo
 from lib.L2_data.schema import UserSchemaUpsert
 
@@ -14,8 +14,8 @@ def test_get_one(user_repo: UserRepo, tmp_user: User):
     assert tmp_user == obj_out
 
 
-def test_get_create(user_repo: UserRepo, tmp_user: User, tmp_org: Organization):
-    s = UserSchemaUpsert(email=EmailStr("test_get_create@mail.com"), password="pass", organization_id=tmp_org.id)
+def test_get_create(user_repo: UserRepo, tmp_user: User):
+    s = UserSchemaUpsert(email=EmailStr("test_get_create@mail.com"), password="pass")
     obj2 = user_repo.upsert(jsonable_encoder(s))
 
     objects = user_repo.get(
@@ -29,15 +29,12 @@ def test_get_create(user_repo: UserRepo, tmp_user: User, tmp_org: Organization):
     assert user_repo.delete(obj2.id) == 1
 
 
-def test_update(user_repo: UserRepo, tmp_user: User, tmp_org: Organization):
+def test_update(user_repo: UserRepo, tmp_user: User):
     s = UserSchemaUpsert(
         id=tmp_user.id,
         email=EmailStr("test_update@mail.com"),
         full_name="test_update",
         password="pass2",
-        is_active=False,
-        is_superuser=True,
-        organization_id=tmp_org.id,
     )
 
     obj_out = user_repo.upsert(jsonable_encoder(s))
@@ -47,13 +44,11 @@ def test_update(user_repo: UserRepo, tmp_user: User, tmp_org: Organization):
     assert obj_out.email == s.email
     assert obj_out.full_name == s.full_name
     assert obj_out.password == s.password
-    assert obj_out.is_active == s.is_active
-    assert obj_out.is_superuser == s.is_superuser
 
 
-def test_upsert_delete(user_repo: UserRepo, tmp_org: Organization):
+def test_upsert_delete(user_repo: UserRepo):
     # upsert
-    s = UserSchemaUpsert(email=EmailStr("test_upsert_delete@mail.com"), password="pass", organization_id=tmp_org.id)
+    s = UserSchemaUpsert(email=EmailStr("test_upsert_delete@mail.com"), password="pass")
     obj_out = user_repo.upsert(jsonable_encoder(s))
     test_obj_out = user_repo.get_one(id=obj_out.id)
 

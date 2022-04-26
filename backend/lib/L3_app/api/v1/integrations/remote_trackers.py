@@ -9,7 +9,7 @@ from lib.L2_data.mappers import RemoteTrackerMapper
 from lib.L2_data.repositories import db as dbr
 from lib.L2_data.schema import RemoteTrackerSchemaGet, RemoteTrackerSchemaUpsert
 
-from ..auth import db_organization
+from ..auth import auth_db
 from .remote_trackers_types import router as tracker_types_router
 
 router = APIRouter(prefix="/trackers", tags=["integrations - trackers"])
@@ -17,7 +17,7 @@ router.include_router(tracker_types_router)
 
 
 def remote_trackers_uc(
-    db: Session = Depends(db_organization),
+    db: Session = Depends(auth_db),
 ) -> BaseDBUC:
     return BaseDBUC(
         db_repo=dbr.RemoteTrackerRepo(db),

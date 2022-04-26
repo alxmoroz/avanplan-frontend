@@ -6,29 +6,20 @@ from sqlalchemy.orm import Session
 
 from lib.L1_domain.entities.auth import Token, User
 from lib.L1_domain.usecases.auth_uc import AuthUC
-from lib.L2_data.db import session_maker_for_org
+from lib.L2_data.db import db_session
 from lib.L2_data.mappers import UserMapper
 from lib.L2_data.repositories.db import UserRepo
 from lib.L2_data.repositories.security_repo import SecurityRepo, oauth2_scheme
-from lib.L2_data.schema.auth import UserSchemaGet, UserSchemaUpsert
+from lib.L2_data.schema.auth import UserSchemaGet
 
 router = APIRouter(prefix="/auth")
 
 
-def db_auth() -> Session:
-    session: Session | None = None
-    try:
-        session = session_maker_for_org("auth")()
-        yield session
-    finally:
-        session.close()
-
-
 def _auth_uc_anon(
-    db: Session = Depends(db_auth),
+    db: Session = Depends(db_session),
 ) -> AuthUC:
     return AuthUC(
-        db_repo=UserRepo(db),
+        user_repo=UserRepo(db),
         user_mapper=UserMapper(),
         security_repo=SecurityRepo(),
     )
@@ -36,60 +27,44 @@ def _auth_uc_anon(
 
 def _auth_uc(
     auth_token: str = Depends(oauth2_scheme),
-    db: Session = Depends(db_auth),
+    db: Session = Depends(db_session),
 ) -> AuthUC:
     return AuthUC(
-        db_repo=UserRepo(db),
+        user_repo=UserRepo(db),
         user_mapper=UserMapper(),
         security_repo=SecurityRepo(auth_token),
     )
 
 
-def db_organization(
+def auth_user(
     uc: AuthUC = Depends(_auth_uc),
+) -> User:
+    return uc.get_auth_user()
+
+
+def auth_db(
+    user: User = Depends(auth_user),
+    db: Session = Depends(db_session),
 ) -> Session:
-    active_user = uc.get_active_user()
-    session: Session | None = None
-    try:
-        session = session_maker_for_org(active_user.organization.name)()
-        yield session
-    finally:
-        session.close()
+    return db
 
 
 @router.post("/token", response_model=Token, operation_id="get_auth_token")
 def token(
     form_data: OAuth2PasswordRequestForm = Depends(),
-    uc: AuthUC = Depends(_auth_uc_anon),
+    uc_anon: AuthUC = Depends(_auth_uc_anon),
 ) -> Token:
     """
     OAuth2 token login, access token for future requests
     """
-    return uc.create_token_for_creds(username=form_data.username, password=form_data.password)
-
-
-@router.get("/users", response_model=list[UserSchemaGet])
-def get_users(
-    skip: int = 0,
-    limit: int | None = None,
-    uc: AuthUC = Depends(_auth_uc),
-) -> list[User]:
-    return uc.get_users(skip, limit)
-
-
-@router.post("/users", response_model=UserSchemaGet, status_code=201)
-def upsert_user(
-    user_in: UserSchemaUpsert,
-    uc: AuthUC = Depends(_auth_uc),
-) -> User:
-    return uc.upsert_user(user_in)
+    return uc_anon.create_token_for_creds(username=form_data.username, password=form_data.password)
 
 
 @router.get("/my/account", response_model=UserSchemaGet)
 def get_my_account(
-    uc: AuthUC = Depends(_auth_uc),
+    user: User = Depends(auth_user),
 ) -> User:
-    return uc.get_active_user()
+    return user
 
 
 @router.put("/my/account", response_model=UserSchemaGet)
@@ -132,7 +107,7 @@ def update_my_account(
 #     email = verify_password_reset_token(token)
 #     if not email:
 #         raise HTTPException(status_code=400, detail="Invalid token")
-#     user = db_repo.get_one(email=email)
+#     user = user_repo.get_one(email=email)
 #     if not user:
 #         raise HTTPException(
 #             status_code=404,

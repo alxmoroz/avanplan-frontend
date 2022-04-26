@@ -5,11 +5,12 @@ from fastapi.encoders import jsonable_encoder
 from pydantic import EmailStr
 from sqlalchemy.orm import Session
 
-from lib.L2_data.models_auth import Organization, User
-from lib.L2_data.repositories.db import UserRepo
-from lib.L2_data.repositories.db.auth.organization_repo import OrganizationRepo
+from lib.L2_data.models import WSRole
+from lib.L2_data.models.auth import User, Workspace
+from lib.L2_data.repositories.db import UserRepo, WSRoleRepo
+from lib.L2_data.repositories.db.auth.workspace_repo import WorkspaceRepo
 from lib.L2_data.repositories.security_repo import SecurityRepo
-from lib.L2_data.schema import OrganizationSchemaUpsert, UserSchemaUpsert
+from lib.L2_data.schema import UserSchemaUpsert, WorkspaceSchemaUpsert, WSRoleSchemaUpsert
 from lib.L2_data.settings import settings
 from tests.utils import random_email
 
@@ -17,15 +18,13 @@ TEST_USER_EMAIL = "test@test.com"
 TEST_USER_PASSWORD = "test"
 
 
-def auth_headers_for_user(user_repo: UserRepo, tmp_org: Organization, email: str, is_superuser: bool = False):
+def auth_headers_for_user(user_repo: UserRepo, email: str, is_superuser: bool = False):
 
-    user = user_repo.get_one(email=email, organization_id=tmp_org.id)
+    user = user_repo.get_one(email=email)
     if not user:
         s = UserSchemaUpsert(
             email=EmailStr(email),
             password=SecurityRepo.secure_password(settings.DEFAULT_ADMIN_PASSWORD if is_superuser else TEST_USER_PASSWORD),
-            is_superuser=is_superuser,
-            organization_id=tmp_org.id,
         )
         user_repo.upsert(jsonable_encoder(s))
 
@@ -34,26 +33,25 @@ def auth_headers_for_user(user_repo: UserRepo, tmp_org: Organization, email: str
 
 
 @pytest.fixture(scope="session")
-def auth_headers_test_admin(user_repo: UserRepo, tmp_org: Organization) -> dict[str, str]:
-    return auth_headers_for_user(user_repo, tmp_org, settings.DEFAULT_ADMIN_EMAIL, is_superuser=True)
+def auth_headers_test_admin(user_repo: UserRepo) -> dict[str, str]:
+    return auth_headers_for_user(user_repo, settings.DEFAULT_ADMIN_EMAIL)
 
 
 @pytest.fixture(scope="session")
-def auth_headers_test_user(user_repo: UserRepo, tmp_org: Organization) -> dict[str, str]:
-    return auth_headers_for_user(user_repo, tmp_org, TEST_USER_EMAIL)
+def auth_headers_test_user(user_repo: UserRepo) -> dict[str, str]:
+    return auth_headers_for_user(user_repo, TEST_USER_EMAIL)
 
 
 @pytest.fixture(scope="session")
-def user_repo(db_auth: Session) -> UserRepo:
-    yield UserRepo(db_auth)
+def user_repo(db: Session) -> UserRepo:
+    yield UserRepo(db)
 
 
-@pytest.fixture(scope="module")
-def tmp_user(user_repo: UserRepo, tmp_org: Organization) -> User:
+@pytest.fixture(scope="session")
+def tmp_user(user_repo: UserRepo) -> User:
     s = UserSchemaUpsert(
         email=EmailStr(random_email()),
         password=SecurityRepo.secure_password("password"),
-        organization_id=tmp_org.id,
     )
 
     user = user_repo.upsert(jsonable_encoder(s))
@@ -62,14 +60,26 @@ def tmp_user(user_repo: UserRepo, tmp_org: Organization) -> User:
 
 
 @pytest.fixture(scope="session")
-def organization_repo(db_auth: Session) -> OrganizationRepo:
-    yield OrganizationRepo(db_auth)
+def ws_repo(db) -> WorkspaceRepo:
+    yield WorkspaceRepo(db)
 
 
 @pytest.fixture(scope="session")
-def tmp_org(organization_repo: OrganizationRepo) -> Organization:
-    org = organization_repo.get_one(name="test")
-    if not org:
-        s = OrganizationSchemaUpsert(name="test")
-        org = organization_repo.upsert(jsonable_encoder(s))
-    yield org
+def tmp_ws(ws_repo) -> Workspace:
+    s = WorkspaceSchemaUpsert(title="tmp_ws")
+    ws = ws_repo.upsert(jsonable_encoder(s))
+    yield ws
+    ws_repo.delete(ws.id)
+
+
+@pytest.fixture(scope="session")
+def ws_role_repo(db) -> WSRoleRepo:
+    yield WSRoleRepo(db)
+
+
+@pytest.fixture(scope="session")
+def tmp_ws_role(ws_role_repo) -> WSRole:
+    s = WSRoleSchemaUpsert(title="tmp_ws_role")
+    ws_role = ws_role_repo.upsert(jsonable_encoder(s))
+    yield ws_role
+    ws_role_repo.delete(ws_role.id)

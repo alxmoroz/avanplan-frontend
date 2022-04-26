@@ -2,31 +2,36 @@
 
 from pydantic import PostgresDsn
 from sqlalchemy.future import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import Session, sessionmaker
 
 
-def db_name_from_org(org_name) -> str:
-    return f"h_org_{org_name}"
+def db_user_for_db(db_name) -> str:
+    return f"h_{db_name}"
 
 
-def db_user_from_org(org_name) -> str:
-    return f"h_{org_name}"
+def db_password_for_db(db_name) -> str:
+    return f"h_{db_name}"
 
 
-def db_password_from_org(org_name) -> str:
-    return f"h_{org_name}"
-
-
-def _pg_url_from_org_name(org_name):
+def pg_dsn_url(db_name):
     return PostgresDsn.build(
         scheme="postgresql",
-        user=db_user_from_org(org_name),
-        password=db_password_from_org(org_name),
+        user=db_user_for_db(db_name),
+        password=db_password_for_db(db_name),
         host="localhost",
-        path=f"/{db_name_from_org(org_name)}",
+        path=f"/{db_name}",
     )
 
 
-def session_maker_for_org(org_name):
-    _engine = create_engine(_pg_url_from_org_name(org_name), pool_pre_ping=True, future=True)
+def session_maker_for_db(db_name):
+    _engine = create_engine(pg_dsn_url(db_name), pool_pre_ping=True, future=True)
     return sessionmaker(bind=_engine, future=True)
+
+
+def db_session() -> Session:
+    session: Session | None = None
+    try:
+        session = session_maker_for_db("hercules")()
+        yield session
+    finally:
+        session.close()

@@ -14,7 +14,7 @@ from lib.L2_data.repositories import db as dbr
 from lib.L2_data.repositories.integrations import ImportRedmineRepo
 from lib.L2_data.schema.goals.goal_import import GoalImportRemoteSchemaGet
 
-from ..auth import db_organization
+from ..auth import auth_db
 from .remote_trackers import remote_trackers_uc
 
 router = APIRouter(prefix="/goals", tags=["integrations - goals"])
@@ -23,7 +23,7 @@ router = APIRouter(prefix="/goals", tags=["integrations - goals"])
 def _import_uc(
     tracker_id: int,
     tracker_uc: BaseDBUC = Depends(remote_trackers_uc),
-    db: Session = Depends(db_organization),
+    db: Session = Depends(auth_db),
 ) -> ImportUC:
 
     # TODO: спрятать под капот определение трекера и юзкейса
@@ -67,5 +67,5 @@ def import_goals(
 
 
 # @router.post("/tasks", response_model=Msg)
-# def tasks(uc: ImportUC = Depends(_import_uc)) -> Msg:
-#     return uc.import_tasks()
+# def tasks(uc_anon: ImportUC = Depends(_import_uc)) -> Msg:
+#     return uc_anon.import_tasks()

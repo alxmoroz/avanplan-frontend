@@ -9,7 +9,7 @@ from lib.L2_data.mappers import TaskMapper
 from lib.L2_data.repositories import db as dbr
 from lib.L2_data.schema import TaskSchemaGet, TaskSchemaUpsert
 
-from .auth import db_organization
+from .auth import auth_db
 from .task_statuses import router as statuses_router
 
 router = APIRouter(prefix="/tasks")
@@ -17,7 +17,7 @@ router.include_router(statuses_router)
 
 
 def _tasks_uc(
-    db: Session = Depends(db_organization),
+    db: Session = Depends(auth_db),
 ) -> BaseDBUC:
     return BaseDBUC(
         db_repo=dbr.TaskRepo(db),
@@ -29,7 +29,7 @@ def _tasks_uc(
 # def get_tasks(
 #     uc: TasksUC = Depends(_tasks_uc),
 # ) -> list[Task]:
-#     return uc.get_tasks()
+#     return uc_anon.get_tasks()
 
 
 @router.post("/", response_model=TaskSchemaGet, status_code=201)

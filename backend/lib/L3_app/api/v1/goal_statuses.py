@@ -9,13 +9,13 @@ from lib.L2_data.mappers import GoalStatusMapper
 from lib.L2_data.repositories import db as dbr
 from lib.L2_data.schema import GoalStatusSchemaGet
 
-from .auth import db_organization
+from .auth import auth_db
 
 router = APIRouter(prefix="/statuses")
 
 
 def _goal_statuses_uc(
-    db: Session = Depends(db_organization),
+    db: Session = Depends(auth_db),
 ) -> BaseDBUC:
     return BaseDBUC(
         db_repo=dbr.GoalStatusRepo(db),

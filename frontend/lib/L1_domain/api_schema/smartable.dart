@@ -1,6 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'base_upsert_schema.dart';
+import 'base_upsert.dart';
 
 class SmartUpsert extends StatusableUpsert {
   SmartUpsert({

@@ -29,8 +29,7 @@ class _GoalViewState extends State<GoalView> {
 
   Widget buildTitle() {
     return ListTile(
-      title: goal?.status != null ? SmallText(goal?.status?.title ?? '-') : null,
-      subtitle: H2(goal?.title ?? ''),
+      title: H2(goal?.title ?? ''),
       trailing: editIcon(context),
       onTap: () => controller.editGoal(context),
       dense: true,

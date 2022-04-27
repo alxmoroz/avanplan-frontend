@@ -12,16 +12,17 @@ import '../../L1_domain/usecases/remote_trackers_uc.dart';
 import '../../L1_domain/usecases/settings_uc.dart';
 import '../../L1_domain/usecases/statuses_uc.dart';
 import '../../L1_domain/usecases/tasks_uc.dart';
+import '../../L1_domain/usecases/workspaces_uc.dart';
 import '../../L2_data/db.dart';
 import '../../L2_data/repositories/auth_repo.dart';
 import '../../L2_data/repositories/db_repo.dart';
-import '../../L2_data/repositories/goal_statuses_repo.dart';
 import '../../L2_data/repositories/goals_repo.dart';
 import '../../L2_data/repositories/import_repo.dart';
 import '../../L2_data/repositories/remote_tracker_types_repo.dart';
 import '../../L2_data/repositories/remote_trackers_repo.dart';
 import '../../L2_data/repositories/task_statuses_repo.dart';
 import '../../L2_data/repositories/tasks_repo.dart';
+import '../../L2_data/repositories/workspaces_repo.dart';
 import '../l10n/generated/l10n.dart';
 import '../views/auth/login_controller.dart';
 import '../views/goal/goal_edit_controller.dart';
@@ -49,8 +50,8 @@ ImportController get importController => GetIt.I<ImportController>();
 Openapi get openAPI => GetIt.I<Openapi>();
 
 AuthUC get authUC => GetIt.I<AuthUC>();
+WorkspacesUC get workspacesUC => GetIt.I<WorkspacesUC>();
 GoalsUC get goalsUC => GetIt.I<GoalsUC>();
-GoalStatusesUC get goalStatusesUC => GetIt.I<GoalStatusesUC>();
 TaskStatusesUC get taskStatusesUC => GetIt.I<TaskStatusesUC>();
 TasksUC get tasksUC => GetIt.I<TasksUC>();
 RemoteTrackersUC get trackersUC => GetIt.I<RemoteTrackersUC>();
@@ -67,8 +68,8 @@ void setup() {
   // repo / adapters
   getIt.registerSingletonAsync<HiveStorage>(() async => await HiveStorage().init());
   getIt.registerSingletonAsync<Openapi>(() async {
-    // final api = Openapi(basePathOverride: 'http://localhost:8000/');
-    final api = Openapi(basePathOverride: 'https://hercules.moroz.team/api/');
+    final api = Openapi(basePathOverride: 'http://localhost:8000/');
+    // final api = Openapi(basePathOverride: 'https://hercules.moroz.team/api/');
     api.dio.options.connectTimeout = 30000;
     return api;
   });
@@ -76,9 +77,9 @@ void setup() {
   // use cases
   getIt.registerSingletonAsync<SettingsUC>(() async => SettingsUC(settingsRepo: SettingsRepo()));
   getIt.registerSingletonAsync<AuthUC>(() async => AuthUC(settingsUC: settingsUC, authRepo: AuthRepo()), dependsOn: [SettingsUC]);
+  getIt.registerSingletonAsync<WorkspacesUC>(() async => WorkspacesUC(repo: WorkspacesRepo()), dependsOn: [AuthUC]);
   getIt.registerSingletonAsync<GoalsUC>(() async => GoalsUC(repo: GoalsRepo()), dependsOn: [AuthUC]);
   getIt.registerSingletonAsync<TasksUC>(() async => TasksUC(repo: TasksRepo()), dependsOn: [AuthUC]);
-  getIt.registerSingletonAsync<GoalStatusesUC>(() async => GoalStatusesUC(repo: GoalStatusesRepo()), dependsOn: [AuthUC]);
   getIt.registerSingletonAsync<TaskStatusesUC>(() async => TaskStatusesUC(repo: TaskStatusesRepo()), dependsOn: [AuthUC]);
   getIt.registerSingletonAsync<RemoteTrackersUC>(() async => RemoteTrackersUC(repo: RemoteTrackersRepo()), dependsOn: [AuthUC]);
   getIt.registerSingletonAsync<RemoteTrackerTypesUC>(() async => RemoteTrackerTypesUC(repo: RemoteTrackerTypesRepo()), dependsOn: [AuthUC]);
@@ -87,7 +88,7 @@ void setup() {
   // controllers
   getIt.registerSingletonAsync<MainController>(
     () async => await MainController().init(),
-    dependsOn: [HiveStorage, PackageInfo, IosDeviceInfo, Openapi, SettingsUC, AuthUC, GoalsUC],
+    dependsOn: [HiveStorage, PackageInfo, IosDeviceInfo, Openapi, SettingsUC, AuthUC, WorkspacesUC, GoalsUC],
   );
   getIt.registerSingletonAsync<LoginController>(() async => await LoginController().init(), dependsOn: [MainController]);
   getIt.registerSingletonAsync<GoalEditController>(() async => await GoalEditController().init(), dependsOn: [MainController]);

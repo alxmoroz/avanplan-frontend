@@ -3,7 +3,6 @@
 import 'package:openapi/openapi.dart';
 
 import '../../L1_domain/entities/goals/goal.dart';
-import 'goal_status.dart';
 import 'task.dart';
 
 extension GoalMapper on GoalSchemaGet {
@@ -16,7 +15,6 @@ extension GoalMapper on GoalSchemaGet {
         description: description?.trim() ?? '',
         dueDate: dueDate?.toLocal(),
         closed: closed,
-        status: status != null ? status!.status : null,
         tasks: tasks?.map((t) => t.task).toList() ?? [],
         trackerId: remoteTrackerId,
       );

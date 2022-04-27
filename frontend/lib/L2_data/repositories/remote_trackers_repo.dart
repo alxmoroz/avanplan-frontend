@@ -34,7 +34,8 @@ class RemoteTrackersRepo extends AbstractApiRepo<RemoteTracker, RemoteTrackerUps
       ..url = data.url
       ..loginKey = data.loginKey
       ..password = data.password
-      ..description = data.description;
+      ..description = data.description
+      ..workspaceId = data.workspaceId;
 
     final response = await api.upsertTrackerV1IntegrationsTrackersPost(remoteTrackerSchemaUpsert: builder.build());
     RemoteTracker? tracker;

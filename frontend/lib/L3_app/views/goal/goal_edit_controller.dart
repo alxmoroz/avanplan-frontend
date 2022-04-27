@@ -31,41 +31,15 @@ abstract class _GoalEditControllerBase extends SmartableController<GoalStatus> w
   @override
   bool get allNeedFieldsTouched => super.allNeedFieldsTouched || (canEdit && selectedDueDate != null);
 
-  /// рабочие пространства
-
-  @observable
-  ObservableList<> statuses = ObservableList();
-
-  @action
-  void sortStatuses() => statuses.sort((s1, s2) => s1.title.compareTo(s2.title));
-
-  @observable
-  int? selectedStatusId;
-
-  @action
-  void selectStatus(T? _status) {
-    selectedStatusId = _status?.id;
-    if (_status != null && _status.closed) {
-      closed = true;
-    }
-  }
-
-  @computed
-  T? get selectedStatus => statuses.firstWhereOrNull((s) => s.id == selectedStatusId);
-
-  /// статусы
-
-  @action
-  Future fetchStatuses() async {
-    statuses = ObservableList.of(await goalStatusesUC.getStatuses());
-    sortStatuses();
-    selectStatus(goal?.status);
-  }
-
   /// действия
 
   //TODO: как вариант вызовы юзкейсов этих должны быть из главного контроллера
   Future save(BuildContext context) async {
+    final wsId = mainController.selectedWSId;
+    if (wsId == null) {
+      return;
+    }
+
     final editedGoal = await goalsUC.save(GoalUpsert(
       id: goal?.id,
       title: tfAnnoForCode('title').text,
@@ -73,7 +47,7 @@ abstract class _GoalEditControllerBase extends SmartableController<GoalStatus> w
       closed: closed,
       dueDate: selectedDueDate,
       statusId: selectedStatusId,
-      workspaceId: workspaceId,
+      workspaceId: wsId,
     ));
 
     if (editedGoal != null) {

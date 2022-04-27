@@ -63,13 +63,19 @@ abstract class _ImportControllerBase extends BaseController with Store {
 
   @action
   Future startImport(BuildContext context) async {
+    final wsId = mainController.selectedWSId;
+    if (wsId == null) {
+      return;
+    }
+
     startLoading();
     final done = await importUC.importGoals(
       _trackerController.selectedTrackerId!,
+      wsId,
       selectedGoalsIds,
     );
     if (done) {
-      await mainController.fetchGoals();
+      await mainController.fetchData();
       Navigator.of(context).pop();
     }
     stopLoading();

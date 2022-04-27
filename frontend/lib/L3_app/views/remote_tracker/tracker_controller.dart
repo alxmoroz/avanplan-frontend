@@ -105,6 +105,11 @@ abstract class _TrackerControllerBase extends BaseController with Store {
   /// действия
 
   Future save(BuildContext context) async {
+    final wsId = mainController.selectedWSId;
+    if (wsId == null) {
+      return;
+    }
+
     final editedTracker = await trackersUC.save(RemoteTrackerUpsert(
       id: selectedTracker?.id,
       typeId: selectedTypeId!,
@@ -112,6 +117,7 @@ abstract class _TrackerControllerBase extends BaseController with Store {
       loginKey: tfAnnoForCode('loginKey').text,
       password: tfAnnoForCode('password').text,
       description: tfAnnoForCode('description').text,
+      workspaceId: wsId,
     ));
 
     if (editedTracker != null) {

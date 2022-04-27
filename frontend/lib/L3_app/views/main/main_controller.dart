@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/app_settings.dart';
+import '../../../L1_domain/entities/auth/workspace.dart';
 import '../../../L1_domain/entities/goals/goal.dart';
 import '../../extra/services.dart';
 import '../_base/base_controller.dart';
@@ -59,6 +60,23 @@ abstract class _MainControllerBase extends BaseController with Store {
     Navigator.of(context).pushReplacementNamed(LoginView.routeName);
   }
 
+  /// рабочие пространства
+
+  @observable
+  ObservableList<Workspace> workspaces = ObservableList();
+
+  @action
+  void _sortWS() => workspaces.sort((s1, s2) => s1.title.compareTo(s2.title));
+
+  @observable
+  int? selectedWSId;
+
+  @action
+  void selectWS(Workspace? _ws) => selectedWSId = _ws?.id;
+
+  @computed
+  Workspace? get selectedWS => workspaces.firstWhereOrNull((ws) => ws.id == selectedWSId);
+
   /// цели - рутовый объект
 
   @observable
@@ -67,15 +85,6 @@ abstract class _MainControllerBase extends BaseController with Store {
   @action
   void _sortGoals() {
     goals.sort((g1, g2) => g1.title.compareTo(g2.title));
-  }
-
-  @action
-  Future fetchGoals() async {
-    if (authorized) {
-      //TODO: добавить LOADING
-      goals = ObservableList.of(await goalsUC.getAll());
-      _sortGoals();
-    }
   }
 
   @action
@@ -92,6 +101,17 @@ abstract class _MainControllerBase extends BaseController with Store {
         goals.add(_goal);
       }
       _sortGoals();
+    }
+  }
+
+  @action
+  Future fetchData() async {
+    if (authorized) {
+      //TODO: добавить LOADING
+      goals = ObservableList.of(await goalsUC.getAll());
+      _sortGoals();
+      workspaces = ObservableList.of(await workspacesUC.getAll());
+      _sortWS();
     }
   }
 

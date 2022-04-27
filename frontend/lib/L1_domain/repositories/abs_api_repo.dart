@@ -1,6 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../api_schema/base_upsert_schema.dart';
+import '../api_schema/base_upsert.dart';
 import '../entities/base_entity.dart';
 import '../entities/goals/goal_import.dart';
 

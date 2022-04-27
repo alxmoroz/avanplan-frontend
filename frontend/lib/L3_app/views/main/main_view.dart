@@ -21,11 +21,11 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> {
-  Future<void>? _fetchGoals;
+  Future<void>? _fetchData;
 
   @override
   void initState() {
-    _fetchGoals = mainController.fetchGoals();
+    _fetchData = mainController.fetchData();
     super.initState();
   }
 
@@ -39,7 +39,7 @@ class _MainViewState extends State<MainView> {
     // TODO: доработать в соотв. с использованием параметра LOADING в контроллере (там тудшка есть)
     // TODO: FutureBuilder тут очень может быть по ошибке, т.к. не было Observer
     return FutureBuilder(
-      future: _fetchGoals,
+      future: _fetchData,
       builder: (_, snapshot) => snapshot.connectionState == ConnectionState.done
           //TODO: переделать на  MTCupertinoPage
           ? Observer(

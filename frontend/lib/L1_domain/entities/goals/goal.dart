@@ -1,6 +1,5 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'goal_status.dart';
 import 'smartable.dart';
 import 'task.dart';
 
@@ -16,7 +15,6 @@ class Goal extends Smartable {
     required int? trackerId,
     required bool closed,
     required List<Task> tasks,
-    required this.status,
   }) : super(
           id: id,
           createdOn: createdOn,
@@ -30,8 +28,6 @@ class Goal extends Smartable {
           trackerId: trackerId,
         );
 
-  final GoalStatus? status;
-
   Goal copy() => Goal(
         id: id,
         parentId: parentId,
@@ -40,7 +36,6 @@ class Goal extends Smartable {
         title: title,
         description: description,
         dueDate: dueDate,
-        status: status,
         tasks: tasks,
         closed: closed,
         trackerId: trackerId,

@@ -48,8 +48,6 @@ class _GoalViewState extends State<GoalEditView> {
       TFAnnotation('dueDate', label: loc.common_due_date_placeholder, noText: true),
     ]);
 
-    _fetchStatuses = _controller.fetchStatuses();
-
     super.initState();
   }
 

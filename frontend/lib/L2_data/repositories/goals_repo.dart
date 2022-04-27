@@ -31,11 +31,11 @@ class GoalsRepo extends AbstractApiRepo<Goal, GoalUpsert> {
     // TODO: не учитываются возможные ошибки! Нет обработки 403 и т.п.
     final builder = GoalSchemaUpsertBuilder()
       ..id = data.id
-      ..statusId = data.statusId
       ..title = data.title
       ..description = data.description
       ..closed = data.closed
-      ..dueDate = data.dueDate?.toUtc();
+      ..dueDate = data.dueDate?.toUtc()
+      ..workspaceId = data.workspaceId;
 
     final response = await api.upsertGoalV1GoalsPost(goalSchemaUpsert: builder.build());
     Goal? goal;

@@ -33,10 +33,11 @@ class ImportRepo extends AbstractApiImportRepo {
   }
 
   @override
-  Future<bool> importGoals(int trackerId, List<String> goalsIds) async {
+  Future<bool> importGoals(int trackerId, int workspaceId, List<String> goalsIds) async {
     final response = await api.importGoalsV1IntegrationsGoalsImportPost(
       trackerId: trackerId,
       requestBody: BuiltList.from(goalsIds),
+      workspaceId: workspaceId,
     );
     return response.statusCode == 200;
   }

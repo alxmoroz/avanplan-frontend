@@ -23,8 +23,8 @@ def goal_repo(db: Session) -> GoalRepo:
 
 
 @pytest.fixture(scope="session")
-def tmp_goal(goal_repo) -> Goal:
-    s = GoalSchemaUpsert(title="tmp_goal", closed=False)
+def tmp_goal(goal_repo, tmp_ws) -> Goal:
+    s = GoalSchemaUpsert(title="tmp_goal", closed=False, workspace_id=tmp_ws.id)
     goal = goal_repo.upsert(jsonable_encoder(s))
     yield goal
     goal_repo.delete(goal.id)
@@ -49,12 +49,13 @@ def remote_tracker_repo(db) -> RemoteTrackerRepo:
 
 
 @pytest.fixture(scope="session")
-def tmp_remote_tracker(remote_tracker_repo: RemoteTrackerRepo, tmp_remote_tracker_type) -> RemoteTracker:
+def tmp_remote_tracker(remote_tracker_repo: RemoteTrackerRepo, tmp_remote_tracker_type, tmp_ws) -> RemoteTracker:
     s = RemoteTrackerSchemaUpsert(
         description="tmp_remote_tracker",
         remote_tracker_type_id=tmp_remote_tracker_type.id,
         url=HttpUrl("https://tmp_remote_tracker.test", scheme="https"),
         login_key="login",
+        workspace_id=tmp_ws.id,
     )
     tr = remote_tracker_repo.upsert(jsonable_encoder(s))
     yield tr
@@ -67,8 +68,12 @@ def task_status_repo(db) -> TaskStatusRepo:
 
 
 @pytest.fixture(scope="session")
-def tmp_task_status(task_status_repo: TaskStatusRepo) -> TaskStatus:
-    s = TaskStatusSchemaUpsert(title="tmp_task_status", closed=False)
+def tmp_task_status(task_status_repo: TaskStatusRepo, tmp_ws) -> TaskStatus:
+    s = TaskStatusSchemaUpsert(
+        title="tmp_task_status",
+        closed=False,
+        workspace_id=tmp_ws.id,
+    )
     ts = task_status_repo.upsert(jsonable_encoder(s))
     yield ts
     task_status_repo.delete(ts.id)
@@ -93,8 +98,12 @@ def person_repo(db) -> PersonRepo:
 
 
 @pytest.fixture(scope="session")
-def tmp_person(person_repo) -> Person:
-    s = PersonSchemaUpsert(firstname="tmp_person", email=EmailStr("tmp_person@mail.com"))
+def tmp_person(person_repo, tmp_ws) -> Person:
+    s = PersonSchemaUpsert(
+        firstname="tmp_person",
+        email=EmailStr("tmp_person@mail.com"),
+        workspace_id=tmp_ws.id,
+    )
     person = person_repo.upsert(jsonable_encoder(s))
     yield person
     person_repo.delete(person.id)

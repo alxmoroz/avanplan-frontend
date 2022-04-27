@@ -17,27 +17,32 @@ class ImportUC:
         self,
         import_repo: AbstractImportRepo,
         goal_repo: AbstractDBRepo,
-        goal_e_repo: AbstractMapper,
+        goal_mapper: AbstractMapper,
         task_repo: AbstractDBRepo,
-        task_e_repo: AbstractMapper,
+        task_mapper: AbstractMapper,
         task_status_repo: AbstractDBRepo,
-        task_status_e_repo: AbstractMapper,
+        task_status_mapper: AbstractMapper,
         task_priority_repo: AbstractDBRepo,
-        task_priority_e_repo: AbstractMapper,
+        task_priority_mapper: AbstractMapper,
         person_repo: AbstractDBRepo,
-        person_e_repo: AbstractMapper,
+        person_mapper: AbstractMapper,
+        ws_repo: AbstractDBRepo,
+        ws_mapper: AbstractMapper,
     ):
         self.import_repo = import_repo
         self.goal_repo = goal_repo
-        self.goal_e_repo = goal_e_repo
+        self.goal_mapper = goal_mapper
         self.task_repo = task_repo
-        self.task_e_repo = task_e_repo
+        self.task_mapper = task_mapper
         self.task_status_repo = task_status_repo
-        self.task_status_e_repo = task_status_e_repo
+        self.task_status_mapper = task_status_mapper
         self.task_priority_repo = task_priority_repo
-        self.task_priority_e_repo = task_priority_e_repo
+        self.task_priority_mapper = task_priority_mapper
         self.person_repo = person_repo
-        self.person_e_repo = person_e_repo
+        self.person_mapper = person_mapper
+        self.ws_repo = ws_repo
+        self.ws_mapper = ws_mapper
+        self.workspace = None
 
     def _reset_processed(self):
         self.processed_goals = {}
@@ -46,23 +51,24 @@ class ImportUC:
         self.processed_persons = {}
         self.processed_priorities = {}
 
+    # TODO: этот метод можно вынести в общий юзкейс. А сюда отправлять ссылки на конкр. юзкейсы и вызывать уже этот метод у них
     @classmethod
     def _upsert_once(
         cls,
         e: E,
         key: str,
         processed_dict: dict,
-        db_repo: AbstractDBRepo,
-        e_repo: AbstractMapper,
+        repo: AbstractDBRepo,
+        mapper: AbstractMapper,
         **filter_by,
     ) -> E:
         if key not in processed_dict:
-            db_obj = db_repo.get_one(**filter_by)
+            db_obj = repo.get_one(**filter_by)
             e.id = db_obj.id if db_obj else None
-            schema_update = e_repo.schema_upd_from_entity(e)
-            data = e_repo.dict_from_schema_upd(schema_update)
-            obj = db_repo.upsert(data)
-            e = e_repo.entity_from_orm(obj)
+            schema_update = mapper.schema_upd_from_entity(e)
+            data = mapper.dict_from_schema_upd(schema_update)
+            obj = repo.upsert(data)
+            e = mapper.entity_from_orm(obj)
             processed_dict[key] = e
         return processed_dict[key]
 
@@ -70,27 +76,18 @@ class ImportUC:
         if goal:
             goal.parent = self._upsert_goal(goal.parent)
             goal.remote_tracker = self.import_repo.tracker
+            goal.workspace = self.workspace
 
             return self._upsert_once(
                 goal,
-                f"{self.import_repo.tracker.id}{goal.remote_code}",
+                f"{self.import_repo.tracker.id}{goal.remote_code}{self.workspace.id}",
                 self.processed_goals,
                 self.goal_repo,
-                self.goal_e_repo,
+                self.goal_mapper,
                 remote_code=goal.remote_code,
                 remote_tracker_id=self.import_repo.tracker.id,
+                workspace_id=self.workspace.id,
             )
-
-    # def _upsert_milestone(self, milestone: Milestone) -> Milestone:
-    #     if milestone:
-    #         milestone.goal = self._upsert_goal(milestone.goal)
-    #         return self._upsert_once(
-    #             milestone,
-    #             milestone.remote_code,
-    #             self.processed_milestones,
-    #             self.milestone_repo,
-    #             remote_code=milestone.remote_code,
-    #         )
 
     def _upsert_task(self, task: TaskImport) -> TaskImport:
         if task:
@@ -101,51 +98,54 @@ class ImportUC:
             task.author = self._upsert_person(task.author)
             task.parent = self._upsert_task(task.parent)
             task.remote_tracker = self.import_repo.tracker
-            # TODO: ломается в тестах в этом месте, если раскомментировать. Выставляетя в none иногда...
-            # при импорте нужно выставлять этот признак вручную в зависимости от статуса
-            # task.closed = task.status and task.status.closed
 
             return self._upsert_once(
                 task,
                 f"{self.import_repo.tracker.id}{task.remote_code}",
                 self.processed_tasks,
                 self.task_repo,
-                self.task_e_repo,
+                self.task_mapper,
                 remote_code=task.remote_code,
                 remote_tracker_id=self.import_repo.tracker.id,
             )
 
     def _upsert_status(self, status: TaskStatus) -> TaskStatus:
         if status:
+            status.workspace = self.workspace
             return self._upsert_once(
                 status,
-                status.title,
+                f"{status.title}{self.workspace.id}",
                 self.processed_task_statuses,
                 self.task_status_repo,
-                self.task_status_e_repo,
+                self.task_status_mapper,
                 title=status.title,
+                workspace_id=self.workspace.id,
             )
 
     def _upsert_priority(self, priority: TaskPriority) -> TaskPriority:
         if priority:
+            priority.workspace = self.workspace
             return self._upsert_once(
                 priority,
-                priority.title,
+                f"{priority.title}{self.workspace.id}",
                 self.processed_priorities,
                 self.task_priority_repo,
-                self.task_priority_e_repo,
+                self.task_priority_mapper,
                 title=priority.title,
+                workspace_id=self.workspace.id,
             )
 
     def _upsert_person(self, person: Person) -> Person:
         if person:
+            person.workspace = self.workspace
             return self._upsert_once(
                 person,
-                person.email,
+                f"{person.email}{self.workspace.id}",
                 self.processed_persons,
                 self.person_repo,
-                self.person_e_repo,
+                self.person_mapper,
                 email=person.email,
+                workspace_id=self.workspace.id,
             )
 
     def get_goals(self) -> list[GoalImport]:
@@ -154,8 +154,9 @@ class ImportUC:
         except BaseException as e:
             raise ApiException(500, f"Error process {self.import_repo.tracker.type.title} {self.import_repo.tracker.url}: {e}")
 
-    def import_goals(self, goals_ids: list[str]) -> Msg:
+    def import_goals(self, goals_ids: list[str], workspace_id: int) -> Msg:
         self._reset_processed()
+        self.workspace = self.ws_mapper.entity_from_orm(self.ws_repo.get_one(id=workspace_id))
 
         # отдельно проекты ради пустых проектов
         for goal in [g for g in self.get_goals() if g.remote_code in goals_ids]:

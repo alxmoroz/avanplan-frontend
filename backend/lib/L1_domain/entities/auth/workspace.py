@@ -8,3 +8,8 @@ from ..base_entity import Titleable
 @dataclass
 class Workspace(Titleable):
     pass
+
+
+@dataclass
+class WorkspaceBounded:
+    workspace: Workspace = None

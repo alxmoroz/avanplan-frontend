@@ -26,14 +26,7 @@ class DBRepo(AbstractDBRepo[M]):
         if getattr(self.model_class, "updated_on", None):
             db_obj.updated_on = updated
 
-    def get(
-        self,
-        *,
-        where: BinaryExpression | None = None,
-        skip: int = 0,
-        limit: int | None = None,
-        **filter_by,
-    ) -> list[M]:
+    def get(self, *, where: BinaryExpression | None = None, **filter_by) -> list[M]:
 
         model_class = self.model_class
         stmt = lambda_stmt(lambda: select(model_class))
@@ -41,10 +34,7 @@ class DBRepo(AbstractDBRepo[M]):
         if where is not None:
             stmt += lambda s: s.where(where)
 
-        stmt = stmt.filter_by(**filter_by).offset(skip)
-        if limit is not None:
-            stmt = stmt.limit(limit)
-
+        stmt = stmt.filter_by(**filter_by)
         return self._db.execute(stmt).scalars().all()
 
     # def create(self, data: dict) -> M:

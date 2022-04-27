@@ -12,12 +12,15 @@ def test_get_one(task_status_repo: TaskStatusRepo, tmp_task_status):
     assert tmp_task_status == obj_out
 
 
-def test_get_create(task_status_repo: TaskStatusRepo, tmp_task_status):
-    s = TaskStatusSchemaUpsert(title="test_get_create", closed=False)
+def test_get_create(task_status_repo: TaskStatusRepo, tmp_task_status, tmp_ws):
+    s = TaskStatusSchemaUpsert(
+        title="test_get_create",
+        closed=False,
+        workspace_id=tmp_ws.id,
+    )
     t2 = task_status_repo.upsert(jsonable_encoder(s))
 
     objects = task_status_repo.get(
-        limit=2,
         where=column("id").in_([tmp_task_status.id, t2.id]),
     )
     assert tmp_task_status in objects
@@ -27,12 +30,13 @@ def test_get_create(task_status_repo: TaskStatusRepo, tmp_task_status):
     assert task_status_repo.delete(t2.id) == 1
 
 
-def test_update(task_status_repo: TaskStatusRepo, tmp_task_status):
+def test_update(task_status_repo: TaskStatusRepo, tmp_task_status, tmp_ws):
 
     s = TaskStatusSchemaUpsert(
         id=tmp_task_status.id,
         title="test_update",
         closed=True,
+        workspace_id=tmp_ws.id,
     )
 
     obj_out = task_status_repo.upsert(jsonable_encoder(s))
@@ -43,9 +47,13 @@ def test_update(task_status_repo: TaskStatusRepo, tmp_task_status):
     assert obj_out.closed == s.closed
 
 
-def test_upsert_delete(task_status_repo: TaskStatusRepo):
+def test_upsert_delete(task_status_repo: TaskStatusRepo, tmp_ws):
     # upsert
-    s = TaskStatusSchemaUpsert(title="test_upsert_delete", closed=False)
+    s = TaskStatusSchemaUpsert(
+        title="test_upsert_delete",
+        closed=False,
+        workspace_id=tmp_ws.id,
+    )
     obj_out = task_status_repo.upsert(jsonable_encoder(s))
     test_obj_out = task_status_repo.get_one(id=obj_out.id)
 

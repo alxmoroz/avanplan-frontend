@@ -12,12 +12,11 @@ def test_get_one(goal_repo: GoalRepo, tmp_goal):
     assert tmp_goal == obj_out
 
 
-def test_get_create(goal_repo: GoalRepo, tmp_goal):
-    s = GoalSchemaUpsert(title="test_get_create", closed=False)
+def test_get_create(goal_repo: GoalRepo, tmp_goal, tmp_ws):
+    s = GoalSchemaUpsert(title="test_get_create", closed=False, workspace_id=tmp_ws.id)
     obj2 = goal_repo.upsert(jsonable_encoder(s))
 
     objects = goal_repo.get(
-        limit=2,
         where=column("id").in_([tmp_goal.id, obj2.id]),
     )
     assert tmp_goal in objects
@@ -27,9 +26,9 @@ def test_get_create(goal_repo: GoalRepo, tmp_goal):
     assert goal_repo.delete(obj2.id) == 1
 
 
-def test_update(goal_repo: GoalRepo, tmp_goal):
+def test_update(goal_repo: GoalRepo, tmp_goal, tmp_ws):
 
-    s = GoalSchemaUpsert(id=tmp_goal.id, title="test_update", description="description", closed=False)
+    s = GoalSchemaUpsert(id=tmp_goal.id, title="test_update", description="description", closed=False, workspace_id=tmp_ws.id)
 
     obj_out = goal_repo.upsert(jsonable_encoder(s))
     test_obj_out = goal_repo.get_one(id=tmp_goal.id)
@@ -39,9 +38,9 @@ def test_update(goal_repo: GoalRepo, tmp_goal):
     assert obj_out.description == s.description
 
 
-def test_upsert_delete(goal_repo: GoalRepo):
+def test_upsert_delete(goal_repo: GoalRepo, tmp_ws):
     # upsert
-    s = GoalSchemaUpsert(title="test_upsert_delete", closed=False)
+    s = GoalSchemaUpsert(title="test_upsert_delete", closed=False, workspace_id=tmp_ws.id)
     obj_out = goal_repo.upsert(jsonable_encoder(s))
     test_obj_out = goal_repo.get_one(id=obj_out.id)
 

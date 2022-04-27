@@ -4,6 +4,7 @@ import 'smartable.dart';
 
 class GoalUpsert extends SmartUpsert {
   GoalUpsert({
+    required this.workspaceId,
     required String title,
     required String description,
     required bool closed,
@@ -20,4 +21,6 @@ class GoalUpsert extends SmartUpsert {
           dueDate: dueDate,
           statusId: statusId,
         );
+
+  final int workspaceId;
 }

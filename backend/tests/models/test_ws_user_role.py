@@ -20,10 +20,7 @@ def test_get_create(ws_user_role_repo: WSUserRoleRepo, tmp_ws_user_role, tmp_use
     obj2 = ws_user_role_repo.upsert(jsonable_encoder(s))
     assert obj2
 
-    objects = ws_user_role_repo.get(
-        limit=2,
-        where=column("id").in_([tmp_ws_user_role.id, obj2.id]),
-    )
+    objects = ws_user_role_repo.get(where=column("id").in_([tmp_ws_user_role.id, obj2.id]))
     assert tmp_ws_user_role in objects
     assert obj2 in objects
     assert len(objects) == 2

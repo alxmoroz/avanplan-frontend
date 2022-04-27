@@ -9,7 +9,7 @@ from lib.L2_data.mappers import TaskStatusMapper
 from lib.L2_data.repositories import db as dbr
 from lib.L2_data.schema import TaskStatusSchemaGet
 
-from .auth import auth_db
+from .auth.auth import auth_db
 
 router = APIRouter(prefix="/statuses")
 
@@ -18,8 +18,8 @@ def _task_statuses_uc(
     db: Session = Depends(auth_db),
 ) -> BaseDBUC:
     return BaseDBUC(
-        db_repo=dbr.TaskStatusRepo(db),
-        e_repo=TaskStatusMapper(),
+        repo=dbr.TaskStatusRepo(db),
+        mapper=TaskStatusMapper(),
     )
 
 

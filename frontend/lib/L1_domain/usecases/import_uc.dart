@@ -12,7 +12,7 @@ class ImportUC {
     return await repo.getGoals(trackerId);
   }
 
-  Future<bool> importGoals(int trackerId, List<String> goalsIds) async {
-    return await repo.importGoals(trackerId, goalsIds);
+  Future<bool> importGoals(int trackerId, int workspaceId, List<String> goalsIds) async {
+    return await repo.importGoals(trackerId, workspaceId, goalsIds);
   }
 }

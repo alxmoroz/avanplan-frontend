@@ -13,12 +13,15 @@ def test_get_one(person_repo: PersonRepo, tmp_person):
     assert tmp_person == obj_out
 
 
-def test_get_create(person_repo: PersonRepo, tmp_person):
-    s = PersonSchemaUpsert(firstname="test_get_create", email=EmailStr("test_get_create@mail.com"))
+def test_get_create(person_repo: PersonRepo, tmp_person, tmp_ws):
+    s = PersonSchemaUpsert(
+        firstname="test_get_create",
+        email=EmailStr("test_get_create@mail.com"),
+        workspace_id=tmp_ws.id,
+    )
     obj2 = person_repo.upsert(jsonable_encoder(s))
 
     objects = person_repo.get(
-        limit=2,
         where=column("id").in_([tmp_person.id, obj2.id]),
     )
     assert tmp_person in objects
@@ -28,13 +31,14 @@ def test_get_create(person_repo: PersonRepo, tmp_person):
     assert person_repo.delete(obj2.id) == 1
 
 
-def test_update(person_repo: PersonRepo, tmp_person):
+def test_update(person_repo: PersonRepo, tmp_person, tmp_ws):
 
     s = PersonSchemaUpsert(
         id=tmp_person.id,
         firstname="test_update",
         lastname="lastname",
         email=EmailStr("test_update@mail.com"),
+        workspace_id=tmp_ws.id,
     )
 
     obj_out = person_repo.upsert(jsonable_encoder(s))
@@ -45,9 +49,13 @@ def test_update(person_repo: PersonRepo, tmp_person):
     assert obj_out.lastname == s.lastname
 
 
-def test_upsert_delete(person_repo: PersonRepo):
+def test_upsert_delete(person_repo: PersonRepo, tmp_ws):
     # upsert
-    s = PersonSchemaUpsert(firstname="test_upsert_delete", email=EmailStr("test_upsert_delete@mail.com"))
+    s = PersonSchemaUpsert(
+        firstname="test_upsert_delete",
+        email=EmailStr("test_upsert_delete@mail.com"),
+        workspace_id=tmp_ws.id,
+    )
     obj_out = person_repo.upsert(jsonable_encoder(s))
     test_obj_out = person_repo.get_one(id=obj_out.id)
 

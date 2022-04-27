@@ -2,9 +2,10 @@
 
 from dataclasses import dataclass
 
+from ..auth.workspace import WorkspaceBounded
 from ..base_entity import Orderable
 
 
 @dataclass
-class TaskPriority(Orderable):
+class TaskPriority(Orderable, WorkspaceBounded):
     pass

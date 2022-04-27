@@ -2,6 +2,7 @@
 
 from dataclasses import dataclass
 
+from ..auth.workspace import WorkspaceBounded
 from ..base_entity import Persistable, Titleable
 
 
@@ -11,7 +12,7 @@ class RemoteTrackerType(Titleable):
 
 
 @dataclass
-class RemoteTracker(Persistable):
+class RemoteTracker(Persistable, WorkspaceBounded):
 
     type: RemoteTrackerType | None = None
     url: str = ""

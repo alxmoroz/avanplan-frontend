@@ -4,14 +4,14 @@
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
-from ..base_model import BaseModel, TitleableUnique
+from ..base_model import BaseModel, TitleableUnique, WorkspaceBound
 
 
 class RemoteTrackerType(TitleableUnique, BaseModel):
     pass
 
 
-class RemoteTracker(BaseModel):
+class RemoteTracker(WorkspaceBound, BaseModel):
     remote_tracker_type_id = Column(Integer, ForeignKey("remotetrackertypes.id"))
     type = relationship("RemoteTrackerType")
     url = Column(String, nullable=False)

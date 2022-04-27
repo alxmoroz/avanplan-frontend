@@ -14,13 +14,16 @@ def test_get_one(task_priority_repo: TaskPriorityRepo, tmp_task_priority):
     assert tmp_task_priority == obj_out
 
 
-def test_get_create(task_priority_repo: TaskPriorityRepo, tmp_task_priority):
-    s = TaskPrioritySchemaUpsert(title="test_get_create", order=2)
+def test_get_create(task_priority_repo: TaskPriorityRepo, tmp_task_priority, tmp_ws):
+    s = TaskPrioritySchemaUpsert(
+        title="test_get_create",
+        order=2,
+        workspace_id=tmp_ws.id,
+    )
     obj2 = task_priority_repo.upsert(jsonable_encoder(s))
     assert obj2
 
     objects = task_priority_repo.get(
-        limit=2,
         where=column("id").in_([tmp_task_priority.id, obj2.id]),
     )
     assert tmp_task_priority in objects
@@ -30,12 +33,13 @@ def test_get_create(task_priority_repo: TaskPriorityRepo, tmp_task_priority):
     assert task_priority_repo.delete(obj2.id) == 1
 
 
-def test_update(task_priority_repo: TaskPriorityRepo, tmp_task_priority):
+def test_update(task_priority_repo: TaskPriorityRepo, tmp_task_priority, tmp_ws):
 
     s = TaskPrioritySchemaUpsert(
         id=tmp_task_priority.id,
         title="test_update",
         order=2,
+        workspace_id=tmp_ws.id,
     )
 
     obj_out = task_priority_repo.upsert(jsonable_encoder(s))
@@ -46,9 +50,13 @@ def test_update(task_priority_repo: TaskPriorityRepo, tmp_task_priority):
     assert obj_out.order == s.order
 
 
-def test_upsert_delete(task_priority_repo: TaskPriorityRepo):
+def test_upsert_delete(task_priority_repo: TaskPriorityRepo, tmp_ws):
     # upsert
-    s = TaskPrioritySchemaUpsert(title="test_upsert_delete", order=1)
+    s = TaskPrioritySchemaUpsert(
+        title="test_upsert_delete",
+        order=1,
+        workspace_id=tmp_ws.id,
+    )
     obj_out = task_priority_repo.upsert(jsonable_encoder(s))
     test_obj_out = task_priority_repo.get_one(id=obj_out.id)
 
@@ -65,8 +73,12 @@ def task_priority_repo(db) -> TaskPriorityRepo:
 
 
 @pytest.fixture(scope="module")
-def tmp_task_priority(task_priority_repo) -> TaskPriority:
-    s = TaskPrioritySchemaUpsert(title="tmp_task_priority", order=1)
+def tmp_task_priority(task_priority_repo, tmp_ws) -> TaskPriority:
+    s = TaskPrioritySchemaUpsert(
+        title="tmp_task_priority",
+        order=1,
+        workspace_id=tmp_ws.id,
+    )
     tp = task_priority_repo.upsert(jsonable_encoder(s))
     yield tp
     task_priority_repo.delete(tp.id)

@@ -1,4 +1,5 @@
 #  Copyright (c) 2022. Alexandr Moroz
+
 from ..entities import RemoteTracker
 from ..entities.goals.goal_import import GoalImport
 from ..entities.goals.task_import import TaskImport

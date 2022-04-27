@@ -13,17 +13,17 @@ def test_get_one(remote_tracker_repo: RemoteTrackerRepo, tmp_remote_tracker):
     assert tmp_remote_tracker == obj_out
 
 
-def test_get_create(remote_tracker_repo: RemoteTrackerRepo, tmp_remote_tracker, tmp_remote_tracker_type):
+def test_get_create(remote_tracker_repo: RemoteTrackerRepo, tmp_remote_tracker, tmp_remote_tracker_type, tmp_ws):
     s = RemoteTrackerSchemaUpsert(
         description="test_get_create",
         remote_tracker_type_id=tmp_remote_tracker_type.id,
         url=HttpUrl("https://test.url", scheme="https"),
         login_key="login",
+        workspace_id=tmp_ws.id,
     )
     t2 = remote_tracker_repo.upsert(jsonable_encoder(s))
 
     objects = remote_tracker_repo.get(
-        limit=2,
         where=column("id").in_([tmp_remote_tracker.id, t2.id]),
     )
     assert tmp_remote_tracker in objects
@@ -33,7 +33,7 @@ def test_get_create(remote_tracker_repo: RemoteTrackerRepo, tmp_remote_tracker, 
     assert remote_tracker_repo.delete(t2.id) == 1
 
 
-def test_update(remote_tracker_repo: RemoteTrackerRepo, tmp_remote_tracker, tmp_remote_tracker_type):
+def test_update(remote_tracker_repo: RemoteTrackerRepo, tmp_remote_tracker, tmp_remote_tracker_type, tmp_ws):
 
     s = RemoteTrackerSchemaUpsert(
         id=tmp_remote_tracker.id,
@@ -41,6 +41,7 @@ def test_update(remote_tracker_repo: RemoteTrackerRepo, tmp_remote_tracker, tmp_
         remote_tracker_type_id=tmp_remote_tracker_type.id,
         url=HttpUrl("https://test_update.url", scheme="https"),
         login_key="login2",
+        workspace_id=tmp_ws.id,
     )
 
     obj_out = remote_tracker_repo.upsert(jsonable_encoder(s))
@@ -53,13 +54,14 @@ def test_update(remote_tracker_repo: RemoteTrackerRepo, tmp_remote_tracker, tmp_
     assert obj_out.login_key == s.login_key
 
 
-def test_upsert_delete(remote_tracker_repo: RemoteTrackerRepo, tmp_remote_tracker_type):
+def test_upsert_delete(remote_tracker_repo: RemoteTrackerRepo, tmp_remote_tracker_type, tmp_ws):
     # upsert
     s = RemoteTrackerSchemaUpsert(
         description="test_upsert_delete",
         remote_tracker_type_id=tmp_remote_tracker_type.id,
         url=HttpUrl("https://test.url", scheme="https"),
         login_key="login",
+        workspace_id=tmp_ws.id,
     )
     obj_out = remote_tracker_repo.upsert(jsonable_encoder(s))
     test_obj_out = remote_tracker_repo.get_one(id=obj_out.id)

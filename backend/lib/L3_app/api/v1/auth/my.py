@@ -1,77 +1,50 @@
 #  Copyright (c) 2022. Alexandr Moroz
-
 from fastapi import APIRouter, Body, Depends
-from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
-from lib.L1_domain.entities.auth import Token, User
+from lib.L1_domain.entities import User, Workspace, WSUserRole
 from lib.L1_domain.usecases.auth_uc import AuthUC
-from lib.L2_data.db import db_session
-from lib.L2_data.mappers import UserMapper
-from lib.L2_data.repositories.db import UserRepo
-from lib.L2_data.repositories.security_repo import SecurityRepo, oauth2_scheme
-from lib.L2_data.schema.auth import UserSchemaGet
+from lib.L1_domain.usecases.base_db_uc import BaseDBUC
+from lib.L2_data.mappers import WSUserRoleMapper
+from lib.L2_data.repositories.db import WSUserRoleRepo
+from lib.L2_data.schema import UserSchemaGet, WorkspaceSchemaGet
 
-router = APIRouter(prefix="/auth")
+from .auth import auth_db, auth_uc, auth_user
+
+router = APIRouter(prefix="/my")
 
 
-def _auth_uc_anon(
-    db: Session = Depends(db_session),
-) -> AuthUC:
-    return AuthUC(
-        user_repo=UserRepo(db),
-        user_mapper=UserMapper(),
-        security_repo=SecurityRepo(),
+def _ws_user_role_uc(
+    db: Session = Depends(auth_db),
+) -> BaseDBUC:
+    return BaseDBUC(
+        repo=WSUserRoleRepo(db),
+        mapper=WSUserRoleMapper(),
     )
 
 
-def _auth_uc(
-    auth_token: str = Depends(oauth2_scheme),
-    db: Session = Depends(db_session),
-) -> AuthUC:
-    return AuthUC(
-        user_repo=UserRepo(db),
-        user_mapper=UserMapper(),
-        security_repo=SecurityRepo(auth_token),
-    )
-
-
-def auth_user(
-    uc: AuthUC = Depends(_auth_uc),
-) -> User:
-    return uc.get_auth_user()
-
-
-def auth_db(
+@router.get("/workspaces", response_model=list[WorkspaceSchemaGet])
+def get_my_workspaces(
+    uc: BaseDBUC = Depends(_ws_user_role_uc),
     user: User = Depends(auth_user),
-    db: Session = Depends(db_session),
-) -> Session:
-    return db
+) -> list[Workspace]:
+    roles: list[WSUserRole] = uc.get_all(user_id=user.id)
+
+    return [ws_user_role.workspace for ws_user_role in roles]
 
 
-@router.post("/token", response_model=Token, operation_id="get_auth_token")
-def token(
-    form_data: OAuth2PasswordRequestForm = Depends(),
-    uc_anon: AuthUC = Depends(_auth_uc_anon),
-) -> Token:
-    """
-    OAuth2 token login, access token for future requests
-    """
-    return uc_anon.create_token_for_creds(username=form_data.username, password=form_data.password)
-
-
-@router.get("/my/account", response_model=UserSchemaGet)
+@router.get("/account", response_model=UserSchemaGet)
 def get_my_account(
     user: User = Depends(auth_user),
 ) -> User:
     return user
 
 
-@router.put("/my/account", response_model=UserSchemaGet)
+@router.put("/account", response_model=UserSchemaGet)
 def update_my_account(
     password: str = Body(None),
     full_name: str = Body(None),
-    uc: AuthUC = Depends(_auth_uc),
+    uc: AuthUC = Depends(auth_uc),
 ) -> User:
     return uc.update_my_account(full_name=full_name, password=password)
 
@@ -107,7 +80,7 @@ def update_my_account(
 #     email = verify_password_reset_token(token)
 #     if not email:
 #         raise HTTPException(status_code=400, detail="Invalid token")
-#     user = user_repo.get_one(email=email)
+#     user = ws_repo.get_one(email=email)
 #     if not user:
 #         raise HTTPException(
 #             status_code=404,

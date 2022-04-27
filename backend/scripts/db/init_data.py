@@ -60,7 +60,7 @@ def _init_ws_user_role(db, ws: Workspace, user: User, role: WSRole) -> WSUserRol
         s = WSUserRoleSchemaUpsert(**data)
         ws_user_role = repo.upsert(jsonable_encoder(s))
         if ws_user_role:
-            print(f"WS Role {ws_user_role.id} created")
+            print(f"WS User Role {ws_user_role.id} created")
     return ws_user_role
 
 

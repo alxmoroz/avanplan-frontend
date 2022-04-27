@@ -2,9 +2,10 @@
 
 from dataclasses import dataclass
 
+from ..auth.workspace import WorkspaceBounded
 from ..base_entity import Statusable
 
 
 @dataclass
-class TaskStatus(Statusable):
+class TaskStatus(Statusable, WorkspaceBounded):
     pass

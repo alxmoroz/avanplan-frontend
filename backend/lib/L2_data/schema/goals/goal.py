@@ -2,16 +2,16 @@
 
 from typing import Optional
 
+from ..auth import WorkspaceSchemaGet
 from ..base_schema import Timestampable
-from .goal_status import GoalStatusSchemaGet
 from .smartable import SmartableGet, SmartableUpsert
 from .task import TaskSchemaGet
 
 
 class GoalSchemaGet(SmartableGet, Timestampable):
-    status: Optional[GoalStatusSchemaGet]
     tasks: Optional[list[TaskSchemaGet]]
+    workspace: WorkspaceSchemaGet
 
 
 class GoalSchemaUpsert(SmartableUpsert):
-    pass
+    workspace_id: int

@@ -24,4 +24,3 @@ class SmartableGet(_Smartable, PKGetable, ABC):
 class SmartableUpsert(_Smartable, PKUpsertable, ABC):
     assignee_id: Optional[int]
     author_id: Optional[int]
-    status_id: Optional[int]

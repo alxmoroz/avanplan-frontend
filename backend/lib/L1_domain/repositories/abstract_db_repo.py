@@ -10,19 +10,12 @@ class AbstractDBRepo(Generic[M], ABC):
     def __init__(self, *, model_cls: Type[M]):
         self.model_class = model_cls
 
-    def get(
-        self,
-        *,
-        where: any = None,
-        skip: int = 0,
-        limit: int | None = None,
-        **filter_by,
-    ) -> list[M]:
+    def get(self, *, where: any = None, **filter_by) -> list[M]:
         raise NotImplementedError
 
     # TODO: возможно, стоит использовать промежуточный результат rows из SA
-    def get_one(self, **filter_by) -> M | None:
-        objs = self.get(**filter_by)
+    def get_one(self, *, where=None, **filter_by) -> M | None:
+        objs = self.get(where=where, **filter_by)
         return objs[0] if len(objs) > 0 else None
 
     def upsert(self, data: dict) -> M:

@@ -9,7 +9,7 @@ from lib.L2_data.mappers import RemoteTrackerTypeMapper
 from lib.L2_data.repositories import db as dbr
 from lib.L2_data.schema import RemoteTrackerTypeSchemaGet
 
-from ..auth import auth_db
+from ..auth.auth import auth_db
 
 router = APIRouter(prefix="/types")
 
@@ -18,8 +18,8 @@ def _trackers_types_uc(
     db: Session = Depends(auth_db),
 ) -> BaseDBUC:
     return BaseDBUC(
-        db_repo=dbr.RemoteTrackerTypeRepo(db),
-        e_repo=RemoteTrackerTypeMapper(),
+        repo=dbr.RemoteTrackerTypeRepo(db),
+        mapper=RemoteTrackerTypeMapper(),
     )
 
 

@@ -52,12 +52,12 @@ class AuthUC:
     # def upsert_user(self, workspace_id: int, s_user: SUpd) -> User:
     #     self.get_active_superuser()
     #
-    #     if self.user_repo.get_one(email=s_user.email):
+    #     if self.ws_repo.get_one(email=s_user.email):
     #         raise ApiException(400, "A user with this email address already exists")
     #     s_user.password = self.sec_repo.secure_password(s_user.password)
     #
-    #     data = self.user_mapper.dict_from_schema_upd(s_user)
-    #     user = self.user_mapper.entity_from_orm(self.user_repo.upsert(data))
+    #     data = self.ws_mapper.dict_from_schema_upd(s_user)
+    #     user = self.ws_mapper.entity_from_orm(self.ws_repo.upsert(data))
     #     return user
     #
     #

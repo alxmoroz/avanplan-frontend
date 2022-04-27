@@ -2,7 +2,6 @@
 
 from .goal import Goal
 from .goal_import import GoalImport
-from .goal_status import GoalStatus
 from .person import Person
 from .remote_tracker import RemoteTracker, RemoteTrackerType
 from .smartable import Smartable

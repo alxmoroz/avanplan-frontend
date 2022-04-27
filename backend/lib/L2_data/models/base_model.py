@@ -1,7 +1,8 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from sqlalchemy import Boolean, Column, Integer, String
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.ext.declarative import as_declarative, declared_attr
+from sqlalchemy.orm import relationship
 
 
 @as_declarative()
@@ -29,3 +30,15 @@ class Statusable:
 
 class Emailable:
     email = Column(String, unique=True, index=True, nullable=False)
+
+
+class WorkspaceBound:
+    __abstract__ = True
+
+    @declared_attr
+    def workspace_id(self):
+        return Column(Integer, ForeignKey("workspaces.id", ondelete="CASCADE"))
+
+    @declared_attr
+    def workspace(self):
+        return relationship("Workspace")

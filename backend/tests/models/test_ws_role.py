@@ -18,7 +18,6 @@ def test_get_create(ws_role_repo: WSRoleRepo, tmp_ws_role):
     assert obj2
 
     objects = ws_role_repo.get(
-        limit=2,
         where=column("id").in_([tmp_ws_role.id, obj2.id]),
     )
     assert tmp_ws_role in objects

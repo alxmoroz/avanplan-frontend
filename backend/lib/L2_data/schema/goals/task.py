@@ -19,3 +19,4 @@ class TaskSchemaGet(SmartableGet, Timestampable):
 class TaskSchemaUpsert(SmartableUpsert):
     goal_id: int
     priority_id: Optional[int]
+    status_id: Optional[int]

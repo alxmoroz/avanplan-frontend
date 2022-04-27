@@ -8,6 +8,6 @@ from lib.L2_data.schema import WorkspaceSchemaGet, WorkspaceSchemaUpsert
 from ..base_mapper import BaseMapper
 
 
-class WSMapper(BaseMapper[WorkspaceSchemaGet, WorkspaceSchemaUpsert, Workspace, WSModel]):
+class WorkspaceMapper(BaseMapper[WorkspaceSchemaGet, WorkspaceSchemaUpsert, Workspace, WSModel]):
     def __init__(self):
         super().__init__(schema_get_cls=WorkspaceSchemaGet, schema_upd_cls=WorkspaceSchemaUpsert, entity_cls=Workspace)

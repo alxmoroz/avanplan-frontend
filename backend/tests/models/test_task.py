@@ -20,7 +20,6 @@ def test_get_create(task_repo: TaskRepo, tmp_task, tmp_goal):
     obj2 = task_repo.upsert(jsonable_encoder(s))
 
     objects = task_repo.get(
-        limit=2,
         where=column("id").in_([tmp_task.id, obj2.id]),
     )
     assert tmp_task in objects

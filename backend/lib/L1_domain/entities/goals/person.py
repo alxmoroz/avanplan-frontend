@@ -2,11 +2,12 @@
 
 from dataclasses import dataclass
 
+from ..auth.workspace import WorkspaceBounded
 from ..base_entity import Emailable, Persistable
 
 
 @dataclass
-class Person(Persistable, Emailable):
+class Person(Persistable, Emailable, WorkspaceBounded):
     firstname: str | None = None
     lastname: str | None = None
     email: str | None = None

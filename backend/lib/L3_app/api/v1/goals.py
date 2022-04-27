@@ -9,11 +9,9 @@ from lib.L2_data.mappers import GoalMapper
 from lib.L2_data.repositories import db as dbr
 from lib.L2_data.schema import GoalSchemaGet, GoalSchemaUpsert
 
-from .auth import auth_db
-from .goal_statuses import router as statuses_router
+from .auth.auth import auth_db
 
 router = APIRouter(prefix="/goals")
-router.include_router(statuses_router)
 
 
 def _goals_uc(
@@ -21,8 +19,8 @@ def _goals_uc(
 ) -> BaseDBUC:
 
     return BaseDBUC(
-        db_repo=dbr.GoalRepo(db),
-        e_repo=GoalMapper(),
+        repo=dbr.GoalRepo(db),
+        mapper=GoalMapper(),
     )
 
 

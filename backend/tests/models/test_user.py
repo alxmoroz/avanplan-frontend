@@ -19,7 +19,6 @@ def test_get_create(user_repo: UserRepo, tmp_user: User):
     obj2 = user_repo.upsert(jsonable_encoder(s))
 
     objects = user_repo.get(
-        limit=2,
         where=column("id").in_([tmp_user.id, obj2.id]),
     )
     assert tmp_user in objects

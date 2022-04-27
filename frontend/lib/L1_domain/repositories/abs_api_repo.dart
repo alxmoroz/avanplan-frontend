@@ -12,5 +12,5 @@ abstract class AbstractApiRepo<E extends RPersistable, U extends BaseUpsert> {
 
 abstract class AbstractApiImportRepo {
   Future<List<GoalImport>> getGoals(int trackerId);
-  Future<bool> importGoals(int trackerId, List<String> goalsIds);
+  Future<bool> importGoals(int trackerId, int workspaceId, List<String> goalsIds);
 }

@@ -17,7 +17,6 @@ def test_get_create(remote_tracker_type_repo: RemoteTrackerTypeRepo, tmp_remote_
     t2 = remote_tracker_type_repo.upsert(jsonable_encoder(s))
 
     objects = remote_tracker_type_repo.get(
-        limit=2,
         where=column("id").in_([tmp_remote_tracker_type.id, t2.id]),
     )
     assert tmp_remote_tracker_type in objects

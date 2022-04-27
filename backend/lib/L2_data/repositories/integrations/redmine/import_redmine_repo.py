@@ -1,4 +1,5 @@
 #  Copyright (c) 2022. Alexandr Moroz
+
 from datetime import date, datetime
 
 from redminelib import Redmine
@@ -74,21 +75,6 @@ class ImportRedmineRepo(AbstractImportRepo):
             )
             for st in self.redmine.issue_status.all()
         }
-
-    # def _get_milestones_for_project(self, r_project: r.Project) -> dict[int, Milestone]:
-    #     milestones = {}
-    #     for version in r_project.versions:
-    #         milestone = Milestone(
-    #             title=version.name,
-    #             description=version.description,
-    #             remote_code=f"{version.id}",
-    #             updated_on=datetime.now(tz=utc),
-    #             due_date=getattr(version, "due_date", None),
-    #             goal=self._goals_map[r_project.id],
-    #         )
-    #         milestones[version.id] = milestone
-    #
-    #     return milestones
 
     # по пустым запросам —> только открытые проекты и открытые задачи
 

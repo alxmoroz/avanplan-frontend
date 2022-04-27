@@ -18,7 +18,6 @@ def test_get_create(ws_repo: WorkspaceRepo, tmp_ws):
     assert obj2
 
     objects = ws_repo.get(
-        limit=2,
         where=column("id").in_([tmp_ws.id, obj2.id]),
     )
     assert tmp_ws in objects

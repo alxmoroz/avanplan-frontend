@@ -35,6 +35,9 @@ class MTDrawer extends StatelessWidget {
           child: Observer(
             builder: (_) => Column(
               children: [
+                SizedBox(height: onePadding),
+                // TODO: локализация и возможность выбора РП
+                if (mainController.workspaces.length > 1) MediumText('РП: ${mainController.workspaces.map((ws) => ws.title).toList().join(', ')}'),
                 const Spacer(),
                 const MTDivider(),
                 SmallText(loc.integration),

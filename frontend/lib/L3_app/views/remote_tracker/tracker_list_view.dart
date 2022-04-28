@@ -12,7 +12,6 @@ import '../../components/divider.dart';
 import '../../components/empty_widget.dart';
 import '../../components/icons.dart';
 import '../../components/navbar.dart';
-import '../../components/splash.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import 'tracker_controller.dart';
@@ -25,17 +24,10 @@ class TrackerListView extends StatefulWidget {
 }
 
 class _TrackerListViewState extends State<TrackerListView> {
-  Future<void>? _fetchTrackers;
-  TrackerController get controller => trackerController;
-
-  @override
-  void initState() {
-    _fetchTrackers = controller.fetchTrackers();
-    super.initState();
-  }
+  TrackerController get _controller => trackerController;
 
   Widget trackerBuilder(BuildContext context, int index) {
-    final tracker = controller.trackers[index];
+    final tracker = _controller.trackers[index];
     return Column(
       children: [
         if (index > 0) const MTDivider(),
@@ -47,7 +39,7 @@ class _TrackerListViewState extends State<TrackerListView> {
           minLeadingWidth: 0,
           dense: true,
           visualDensity: VisualDensity.compact,
-          onTap: () => controller.editTracker(context, tracker),
+          onTap: () => _controller.editTracker(context, tracker),
         )
       ],
     );
@@ -58,38 +50,31 @@ class _TrackerListViewState extends State<TrackerListView> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _fetchTrackers,
-      builder: (_, snapshot) => snapshot.connectionState == ConnectionState.done
-          ? MTCupertinoPage(
-              navBar: navBar(
-                context,
-                title: loc.tracker_list_title,
-                trailing: Button.icon(plusIcon(context), () => controller.addTracker(context)),
-              ),
-              body: Observer(
-                builder: (_) => Expanded(
-                  child: Column(
-                    children: [
-                      SizedBox(height: onePadding),
-                      Expanded(
-                        child: controller.trackers.isEmpty
-                            ? EmptyDataWidget(
-                                title: loc.tracker_list_empty_title,
-                                addTitle: loc.tracker_title_new,
-                                onAdd: () => controller.addTracker(context),
-                              )
-                            : ListView.builder(
-                                itemBuilder: trackerBuilder,
-                                itemCount: controller.trackers.length,
-                              ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            )
-          : const SplashScreen(),
+    return MTCupertinoPage(
+      navBar: navBar(
+        context,
+        title: loc.tracker_list_title,
+        trailing: Button.icon(plusIcon(context), () => _controller.addTracker(context)),
+      ),
+      body: Observer(
+        builder: (_) => Expanded(
+          child: Column(children: [
+            SizedBox(height: onePadding),
+            Expanded(
+              child: _controller.trackers.isEmpty
+                  ? EmptyDataWidget(
+                      title: loc.tracker_list_empty_title,
+                      addTitle: loc.tracker_title_new,
+                      onAdd: () => _controller.addTracker(context),
+                    )
+                  : ListView.builder(
+                      itemBuilder: trackerBuilder,
+                      itemCount: _controller.trackers.length,
+                    ),
+            ),
+          ]),
+        ),
+      ),
     );
   }
 }

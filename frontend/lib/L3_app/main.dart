@@ -35,7 +35,7 @@ class App extends StatelessWidget {
       child: CupertinoApp(
         home: FutureBuilder(
           future: getIt.allReady(),
-          builder: (_, snapshot) => snapshot.hasData ? (mainController.authorized ? MainView() : LoginView()) : const SplashScreen(),
+          builder: (_, snapshot) => snapshot.hasData ? (loginController.authorized ? MainView() : LoginView()) : const SplashScreen(),
         ),
         routes: {
           LoginView.routeName: (_) => LoginView(),

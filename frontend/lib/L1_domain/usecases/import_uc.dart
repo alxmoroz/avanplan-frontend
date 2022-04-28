@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import '../entities/goals/goal_import.dart';
+import '../entities/goals/remote_tracker.dart';
 import '../repositories/abs_api_repo.dart';
 
 class ImportUC {
@@ -12,7 +13,7 @@ class ImportUC {
     return await repo.getGoals(trackerId);
   }
 
-  Future<bool> importGoals(int trackerId, int workspaceId, List<String> goalsIds) async {
-    return await repo.importGoals(trackerId, workspaceId, goalsIds);
+  Future<bool> importGoals(RemoteTracker tracker, List<String> goalsIds) async {
+    return await repo.importGoals(tracker, goalsIds);
   }
 }

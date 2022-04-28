@@ -25,8 +25,8 @@ class TaskView extends StatefulWidget {
 
 class _TaskViewState extends State<TaskView> {
   TaskViewController get controller => taskViewController;
-  Task? get task => controller.task;
-  Goal? get goal => controller.goal;
+  Task? get _task => controller.task;
+  Goal? get _goal => controller.goal;
 
   @override
   void initState() {
@@ -42,7 +42,7 @@ class _TaskViewState extends State<TaskView> {
       parentsPath = titles.join(' $sepStr ') + ' $sepStr ';
     }
     return ListTile(
-      title: MediumText(goal!.title),
+      title: MediumText(_goal!.title),
       subtitle: parentsPath.isNotEmpty ? LightText(parentsPath, padding: EdgeInsets.only(top: onePadding / 2)) : null,
       dense: true,
       visualDensity: VisualDensity.compact,
@@ -59,7 +59,7 @@ class _TaskViewState extends State<TaskView> {
     return MTCupertinoPage(
       navBar: navBar(
         context,
-        title: task != null ? '${loc.task_title} #${task!.id}' : loc.tasks_title,
+        title: _task != null ? '${loc.task_title} #${_task!.id}' : loc.tasks_title,
         trailing: Button.icon(plusIcon(context), () => controller.addTask(context)),
       ),
       body: Observer(
@@ -67,9 +67,9 @@ class _TaskViewState extends State<TaskView> {
           child: Column(children: [
             SizedBox(height: onePadding / 4),
             buildBreadcrumbs(),
-            if (task != null)
+            if (_task != null)
               TaskCard(
-                task: task!,
+                task: _task!,
                 detailedScreen: true,
                 onTapHeader: () => controller.editTask(context),
               ),

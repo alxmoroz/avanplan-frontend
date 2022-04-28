@@ -11,12 +11,9 @@ import '../../components/constants.dart';
 import '../../components/cupertino_page.dart';
 import '../../components/icons.dart';
 import '../../components/navbar.dart';
-import '../../components/splash.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
 import 'task_edit_controller.dart';
-
-//TODO: дубль по коду редактора цели! — ок, пока не определён способ использования этих компонентов. копипаст в данном случае оправдан
 
 Future<Task?> showEditTaskDialog(BuildContext context, [Task? selectedTask]) async {
   taskEditController.selectTask(selectedTask);
@@ -40,7 +37,6 @@ class TaskEditView extends StatefulWidget {
 class _TaskEditViewState extends State<TaskEditView> {
   TaskEditController get _controller => taskEditController;
   Task? get _task => _controller.selectedTask;
-  Future<void>? _fetchStatuses;
 
   //TODO: валидация о заполненности работает неправильно, не сбрасывается после закрытия диалога
   // возможно, остаются tfa с теми же кодами для новых вьюх этого же контроллера и у них висит признак о произошедшем редактировании поля
@@ -53,9 +49,6 @@ class _TaskEditViewState extends State<TaskEditView> {
       TFAnnotation('description', label: loc.common_description, text: _task?.description ?? '', needValidate: false),
       TFAnnotation('dueDate', label: loc.common_due_date_placeholder, noText: true, needValidate: false),
     ]);
-
-    _fetchStatuses = _controller.fetchStatuses();
-
     super.initState();
   }
 
@@ -67,33 +60,28 @@ class _TaskEditViewState extends State<TaskEditView> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _fetchStatuses,
-      builder: (_, snapshot) => snapshot.connectionState == ConnectionState.done
-          ? Observer(
-              builder: (_) => MTCupertinoPage(
-                bgColor: darkBackgroundColor,
-                navBar: navBar(
-                  context,
-                  leading: _controller.canEdit
-                      ? Button.icon(
-                          deleteIcon(context),
-                          () => _controller.delete(context),
-                          padding: EdgeInsets.only(left: onePadding),
-                        )
-                      : Container(),
-                  title: _task == null ? loc.task_title_new : '',
-                  trailing: Button(
-                    loc.btn_save_title,
-                    _controller.validated ? () => _controller.save(context) : null,
-                    titleColor: _controller.validated ? mainColor : borderColor,
-                    padding: EdgeInsets.only(right: onePadding),
-                  ),
-                ),
-                body: _controller.form(context),
-              ),
-            )
-          : const SplashScreen(),
+    return Observer(
+      builder: (_) => MTCupertinoPage(
+        bgColor: darkBackgroundColor,
+        navBar: navBar(
+          context,
+          leading: _controller.canEdit
+              ? Button.icon(
+                  deleteIcon(context),
+                  () => _controller.delete(context),
+                  padding: EdgeInsets.only(left: onePadding),
+                )
+              : Container(),
+          title: _task == null ? loc.task_title_new : '',
+          trailing: Button(
+            loc.btn_save_title,
+            _controller.validated ? () => _controller.save(context) : null,
+            titleColor: _controller.validated ? mainColor : borderColor,
+            padding: EdgeInsets.only(right: onePadding),
+          ),
+        ),
+        body: _controller.form(context, _controller.customFields(context)),
+      ),
     );
   }
 }

@@ -11,10 +11,9 @@ import '../../components/constants.dart';
 import '../../components/cupertino_page.dart';
 import '../../components/icons.dart';
 import '../../components/navbar.dart';
-import '../../components/splash.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
-import 'goal_edit_controller.dart';
+import 'goal_controller.dart';
 
 //TODO: подумать над унификацией полей. Возможно, получится избавиться от дуэта MTField и TFAnnotation
 
@@ -36,9 +35,10 @@ class GoalEditView extends StatefulWidget {
 }
 
 class _GoalViewState extends State<GoalEditView> {
-  GoalEditController get _controller => goalEditController;
-  Goal? get _goal => _controller.goal;
-  Future<void>? _fetchStatuses;
+  GoalController get _controller => goalController;
+  Goal? get _goal => _controller.selectedGoal;
+  bool get _isNew => _goal == null;
+  bool get _canSave => _controller.validated;
 
   @override
   void initState() {
@@ -47,7 +47,6 @@ class _GoalViewState extends State<GoalEditView> {
       TFAnnotation('description', label: loc.common_description, text: _goal?.description ?? '', needValidate: false),
       TFAnnotation('dueDate', label: loc.common_due_date_placeholder, noText: true),
     ]);
-
     super.initState();
   }
 
@@ -59,33 +58,28 @@ class _GoalViewState extends State<GoalEditView> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _fetchStatuses,
-      builder: (_, snapshot) => snapshot.connectionState == ConnectionState.done
-          ? Observer(
-              builder: (_) => MTCupertinoPage(
-                bgColor: darkBackgroundColor,
-                navBar: navBar(
-                  context,
-                  leading: _controller.canEdit
-                      ? Button.icon(
-                          deleteIcon(context),
-                          () => _controller.delete(context),
-                          padding: EdgeInsets.only(left: onePadding),
-                        )
-                      : Container(),
-                  title: _goal == null ? loc.goal_title_new : '',
-                  trailing: Button(
-                    loc.btn_save_title,
-                    _controller.validated ? () => _controller.save(context) : null,
-                    titleColor: _controller.validated ? mainColor : borderColor,
-                    padding: EdgeInsets.only(right: onePadding),
-                  ),
-                ),
-                body: _controller.form(context),
-              ),
-            )
-          : const SplashScreen(),
+    return Observer(
+      builder: (_) => MTCupertinoPage(
+        bgColor: darkBackgroundColor,
+        navBar: navBar(
+          context,
+          leading: _controller.canEdit
+              ? Button.icon(
+                  deleteIcon(context),
+                  () => _controller.delete(context),
+                  padding: EdgeInsets.only(left: onePadding),
+                )
+              : Container(),
+          title: _isNew ? loc.goal_title_new : '',
+          trailing: Button(
+            loc.btn_save_title,
+            _canSave ? () => _controller.save(context) : null,
+            titleColor: _canSave ? mainColor : borderColor,
+            padding: EdgeInsets.only(right: onePadding),
+          ),
+        ),
+        body: _controller.form(context, _isNew ? _controller.wsDropdown(context) : null),
+      ),
     );
   }
 }

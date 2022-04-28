@@ -14,7 +14,11 @@ abstract class BaseController = _BaseControllerBase with _$BaseController;
 abstract class _BaseControllerBase with Store {
   Map<String, TextEditingController> controllers = {};
 
-  Future init() async => this;
+  @mustCallSuper
+  Future init() async {
+    await fetchData();
+    return this;
+  }
 
   @mustCallSuper
   void initState({List<TFAnnotation>? tfaList}) {
@@ -28,6 +32,9 @@ abstract class _BaseControllerBase with Store {
       c.dispose();
     }
   }
+
+  @action
+  Future fetchData() async {}
 
   @observable
   String? errorCode;

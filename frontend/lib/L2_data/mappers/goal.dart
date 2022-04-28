@@ -4,10 +4,12 @@ import 'package:openapi/openapi.dart';
 
 import '../../L1_domain/entities/goals/goal.dart';
 import 'task.dart';
+import 'workspace.dart';
 
 extension GoalMapper on GoalSchemaGet {
   Goal get goal => Goal(
         id: id,
+        workspace: workspace.workspace,
         parentId: parentId,
         createdOn: createdOn.toLocal(),
         updatedOn: updatedOn.toLocal(),

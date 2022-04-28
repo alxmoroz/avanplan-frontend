@@ -49,5 +49,7 @@
   "tracker_type_placeholder": "Tracker type",
   "tracker_url_placeholder": "URL",
 
-  "validation_empty_text": "Should not be empty"
+  "validation_empty_text": "Should not be empty",
+
+  "workspace_placeholder": "Workspace"
 }

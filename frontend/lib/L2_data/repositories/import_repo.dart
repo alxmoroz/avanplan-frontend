@@ -4,6 +4,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:openapi/openapi.dart';
 
 import '../../L1_domain/entities/goals/goal_import.dart';
+import '../../L1_domain/entities/goals/remote_tracker.dart';
 import '../../L1_domain/repositories/abs_api_repo.dart';
 import '../../L1_domain/system/errors.dart';
 import '../../L3_app/extra/services.dart';
@@ -33,11 +34,11 @@ class ImportRepo extends AbstractApiImportRepo {
   }
 
   @override
-  Future<bool> importGoals(int trackerId, int workspaceId, List<String> goalsIds) async {
+  Future<bool> importGoals(RemoteTracker tracker, List<String> goalsIds) async {
     final response = await api.importGoalsV1IntegrationsGoalsImportPost(
-      trackerId: trackerId,
+      trackerId: tracker.id,
       requestBody: BuiltList.from(goalsIds),
-      workspaceId: workspaceId,
+      workspaceId: tracker.workspace.id,
     );
     return response.statusCode == 200;
   }

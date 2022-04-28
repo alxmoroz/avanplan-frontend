@@ -1,12 +1,9 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/entities/base_entity.dart';
 import '../../components/constants.dart';
-import '../../components/dropdown.dart';
 import '../../components/icons.dart';
 import '../../components/text_field.dart';
 import '../../components/text_widgets.dart';
@@ -16,41 +13,14 @@ import 'base_controller.dart';
 
 part 'smartable_controller.g.dart';
 
-abstract class SmartableController<T extends Statusable> extends _SmartableControllerBase<T> with _$SmartableController {}
+abstract class SmartableController extends _SmartableControllerBase with _$SmartableController {}
 
-abstract class _SmartableControllerBase<T extends Statusable> extends BaseController with Store {
-  /// статусы
-
-  @observable
-  ObservableList<T> statuses = ObservableList();
-
-  @action
-  void sortStatuses() => statuses.sort((s1, s2) => s1.title.compareTo(s2.title));
-
-  @observable
-  int? selectedStatusId;
-
-  @action
-  void selectStatus(T? _status) {
-    selectedStatusId = _status?.id;
-    if (_status != null && _status.closed) {
-      closed = true;
-    }
-  }
-
-  @computed
-  T? get selectedStatus => statuses.firstWhereOrNull((s) => s.id == selectedStatusId);
-
+abstract class _SmartableControllerBase extends BaseController with Store {
   @observable
   bool closed = false;
 
   @action
-  void setClosed(bool? _closed) {
-    closed = _closed ?? false;
-    if (!closed && selectedStatus != null && selectedStatus!.closed) {
-      selectedStatusId = null;
-    }
-  }
+  void setClosed(bool? _closed) => closed = _closed ?? false;
 
   /// дата
 
@@ -96,9 +66,9 @@ abstract class _SmartableControllerBase<T extends Statusable> extends BaseContro
           );
   }
 
-  /// общий виджет с полями
+  /// общий виджет - форма с полями для задач и целей
 
-  Widget form(BuildContext context) {
+  Widget form(BuildContext context, [List<Widget>? customFields]) {
     final mq = MediaQuery.of(context);
     return Container(
       constraints: BoxConstraints(maxHeight: (mq.size.height - mq.viewInsets.bottom - mq.viewPadding.bottom) * 0.82),
@@ -108,14 +78,7 @@ abstract class _SmartableControllerBase<T extends Statusable> extends BaseContro
           child: Column(
             children: [
               ...['title', 'dueDate', 'description'].map((code) => textFieldForCode(context, code)),
-              if (statuses.isNotEmpty)
-                MTDropdown<T>(
-                  width: mq.size.width - onePadding * 2,
-                  onChanged: (status) => selectStatus(status),
-                  value: selectedStatus,
-                  items: statuses,
-                  label: loc.common_status_placeholder,
-                ),
+              if (customFields != null) ...customFields,
               Padding(
                 padding: tfPadding,
                 child: InkWell(

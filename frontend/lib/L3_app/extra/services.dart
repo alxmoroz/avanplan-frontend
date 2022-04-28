@@ -25,12 +25,14 @@ import '../../L2_data/repositories/tasks_repo.dart';
 import '../../L2_data/repositories/workspaces_repo.dart';
 import '../l10n/generated/l10n.dart';
 import '../views/auth/login_controller.dart';
-import '../views/goal/goal_edit_controller.dart';
+import '../views/goal/goal_controller.dart';
 import '../views/import/import_controller.dart';
 import '../views/main/main_controller.dart';
 import '../views/remote_tracker/tracker_controller.dart';
+import '../views/settings/settings_controller.dart';
 import '../views/task/task_edit_controller.dart';
 import '../views/task/task_view_controller.dart';
+import '../views/workspace/workspace_controller.dart';
 
 S get loc => S.current;
 
@@ -39,9 +41,11 @@ GetIt getIt = GetIt.instance;
 IosDeviceInfo get iosInfo => GetIt.I<IosDeviceInfo>();
 PackageInfo get packageInfo => GetIt.I<PackageInfo>();
 
+SettingsController get settingsController => GetIt.I<SettingsController>();
 LoginController get loginController => GetIt.I<LoginController>();
+WorkspaceController get workspaceController => GetIt.I<WorkspaceController>();
 MainController get mainController => GetIt.I<MainController>();
-GoalEditController get goalEditController => GetIt.I<GoalEditController>();
+GoalController get goalController => GetIt.I<GoalController>();
 TaskViewController get taskViewController => GetIt.I<TaskViewController>();
 TaskEditController get taskEditController => GetIt.I<TaskEditController>();
 TrackerController get trackerController => GetIt.I<TrackerController>();
@@ -49,6 +53,7 @@ ImportController get importController => GetIt.I<ImportController>();
 
 Openapi get openAPI => GetIt.I<Openapi>();
 
+SettingsUC get settingsUC => GetIt.I<SettingsUC>();
 AuthUC get authUC => GetIt.I<AuthUC>();
 WorkspacesUC get workspacesUC => GetIt.I<WorkspacesUC>();
 GoalsUC get goalsUC => GetIt.I<GoalsUC>();
@@ -57,8 +62,6 @@ TasksUC get tasksUC => GetIt.I<TasksUC>();
 RemoteTrackersUC get trackersUC => GetIt.I<RemoteTrackersUC>();
 RemoteTrackerTypesUC get trackerTypesUC => GetIt.I<RemoteTrackerTypesUC>();
 ImportUC get importUC => GetIt.I<ImportUC>();
-
-SettingsUC get settingsUC => GetIt.I<SettingsUC>();
 
 void setup() {
   // device
@@ -77,23 +80,22 @@ void setup() {
   // use cases
   getIt.registerSingletonAsync<SettingsUC>(() async => SettingsUC(settingsRepo: SettingsRepo()));
   getIt.registerSingletonAsync<AuthUC>(() async => AuthUC(settingsUC: settingsUC, authRepo: AuthRepo()), dependsOn: [SettingsUC]);
-  getIt.registerSingletonAsync<WorkspacesUC>(() async => WorkspacesUC(repo: WorkspacesRepo()), dependsOn: [AuthUC]);
-  getIt.registerSingletonAsync<GoalsUC>(() async => GoalsUC(repo: GoalsRepo()), dependsOn: [AuthUC]);
-  getIt.registerSingletonAsync<TasksUC>(() async => TasksUC(repo: TasksRepo()), dependsOn: [AuthUC]);
-  getIt.registerSingletonAsync<TaskStatusesUC>(() async => TaskStatusesUC(repo: TaskStatusesRepo()), dependsOn: [AuthUC]);
-  getIt.registerSingletonAsync<RemoteTrackersUC>(() async => RemoteTrackersUC(repo: RemoteTrackersRepo()), dependsOn: [AuthUC]);
-  getIt.registerSingletonAsync<RemoteTrackerTypesUC>(() async => RemoteTrackerTypesUC(repo: RemoteTrackerTypesRepo()), dependsOn: [AuthUC]);
-  getIt.registerSingletonAsync<ImportUC>(() async => ImportUC(repo: ImportRepo()), dependsOn: [AuthUC]);
+  getIt.registerSingletonAsync<WorkspacesUC>(() async => WorkspacesUC(repo: WorkspacesRepo()));
+  getIt.registerSingletonAsync<GoalsUC>(() async => GoalsUC(repo: GoalsRepo()));
+  getIt.registerSingletonAsync<TasksUC>(() async => TasksUC(repo: TasksRepo()));
+  getIt.registerSingletonAsync<TaskStatusesUC>(() async => TaskStatusesUC(repo: TaskStatusesRepo()));
+  getIt.registerSingletonAsync<RemoteTrackersUC>(() async => RemoteTrackersUC(repo: RemoteTrackersRepo()));
+  getIt.registerSingletonAsync<RemoteTrackerTypesUC>(() async => RemoteTrackerTypesUC(repo: RemoteTrackerTypesRepo()));
+  getIt.registerSingletonAsync<ImportUC>(() async => ImportUC(repo: ImportRepo()));
 
   // controllers
-  getIt.registerSingletonAsync<MainController>(
-    () async => await MainController().init(),
-    dependsOn: [HiveStorage, PackageInfo, IosDeviceInfo, Openapi, SettingsUC, AuthUC, WorkspacesUC, GoalsUC],
-  );
-  getIt.registerSingletonAsync<LoginController>(() async => await LoginController().init(), dependsOn: [MainController]);
-  getIt.registerSingletonAsync<GoalEditController>(() async => await GoalEditController().init(), dependsOn: [MainController]);
-  getIt.registerSingletonAsync<TaskViewController>(() async => await TaskViewController().init(), dependsOn: [MainController]);
-  getIt.registerSingletonAsync<TaskEditController>(() async => await TaskEditController().init(), dependsOn: [MainController]);
-  getIt.registerSingletonAsync<TrackerController>(() async => await TrackerController().init(), dependsOn: [MainController]);
-  getIt.registerSingletonAsync<ImportController>(() async => await ImportController().init(), dependsOn: [MainController]);
+  getIt.registerSingletonAsync<SettingsController>(() async => await SettingsController().init(), dependsOn: [HiveStorage, PackageInfo, SettingsUC]);
+  getIt.registerSingletonAsync<LoginController>(() async => await LoginController().init(), dependsOn: [SettingsController, Openapi]);
+  getIt.registerSingletonAsync<MainController>(() async => await MainController().init(), dependsOn: [LoginController]);
+  getIt.registerSingletonAsync<WorkspaceController>(() async => await WorkspaceController().init(), dependsOn: [LoginController]);
+  getIt.registerSingletonAsync<GoalController>(() async => await GoalController().init(), dependsOn: [LoginController]);
+  getIt.registerSingletonAsync<TaskViewController>(() async => await TaskViewController().init(), dependsOn: [LoginController]);
+  getIt.registerSingletonAsync<TaskEditController>(() async => await TaskEditController().init(), dependsOn: [LoginController]);
+  getIt.registerSingletonAsync<TrackerController>(() async => await TrackerController().init(), dependsOn: [LoginController]);
+  getIt.registerSingletonAsync<ImportController>(() async => await ImportController().init(), dependsOn: [LoginController]);
 }

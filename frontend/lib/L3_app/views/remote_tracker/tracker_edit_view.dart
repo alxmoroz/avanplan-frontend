@@ -12,7 +12,6 @@ import '../../components/cupertino_page.dart';
 import '../../components/dropdown.dart';
 import '../../components/icons.dart';
 import '../../components/navbar.dart';
-import '../../components/splash.dart';
 import '../../components/text_field.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
@@ -38,7 +37,8 @@ class TrackerEditView extends StatefulWidget {
 class _TrackerEditViewState extends State<TrackerEditView> {
   TrackerController get _controller => trackerController;
   RemoteTracker? get _tracker => _controller.selectedTracker;
-  Future<void>? _fetchTypes;
+  bool get _isNew => _tracker == null;
+  bool get _canSave => _controller.validated;
 
   @override
   void initState() {
@@ -48,9 +48,6 @@ class _TrackerEditViewState extends State<TrackerEditView> {
       TFAnnotation('password', label: loc.auth_password_placeholder, needValidate: false),
       TFAnnotation('description', label: loc.common_description, text: _tracker?.description ?? '', needValidate: false),
     ]);
-
-    _fetchTypes = _controller.fetchTypes();
-
     super.initState();
   }
 
@@ -78,12 +75,13 @@ class _TrackerEditViewState extends State<TrackerEditView> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              if (_controller.types.isNotEmpty)
+              if (_isNew) ..._controller.wsDropdown(context),
+              if (_controller.rtTypes.isNotEmpty)
                 MTDropdown<RemoteTrackerType>(
                   width: mq.size.width - onePadding * 2,
                   onChanged: (type) => _controller.selectType(type),
                   value: _controller.selectedType,
-                  items: _controller.types,
+                  items: _controller.rtTypes,
                   label: loc.tracker_type_placeholder,
                 ),
               ...['url', 'loginKey', 'password', 'description'].map((code) => textFieldForCode(code)),
@@ -96,33 +94,28 @@ class _TrackerEditViewState extends State<TrackerEditView> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _fetchTypes,
-      builder: (_, snapshot) => snapshot.connectionState == ConnectionState.done
-          ? Observer(
-              builder: (_) => MTCupertinoPage(
-                bgColor: darkBackgroundColor,
-                navBar: navBar(
-                  context,
-                  leading: _controller.canEdit
-                      ? Button.icon(
-                          deleteIcon(context),
-                          () => _controller.delete(context),
-                          padding: EdgeInsets.only(left: onePadding),
-                        )
-                      : Container(),
-                  title: _tracker == null ? loc.tracker_title_new : '',
-                  trailing: Button(
-                    loc.btn_save_title,
-                    _controller.validated ? () => _controller.save(context) : null,
-                    titleColor: _controller.validated ? mainColor : borderColor,
-                    padding: EdgeInsets.only(right: onePadding),
-                  ),
-                ),
-                body: form(),
-              ),
-            )
-          : const SplashScreen(),
+    return Observer(
+      builder: (_) => MTCupertinoPage(
+        bgColor: darkBackgroundColor,
+        navBar: navBar(
+          context,
+          leading: _controller.canEdit
+              ? Button.icon(
+                  deleteIcon(context),
+                  () => _controller.delete(context),
+                  padding: EdgeInsets.only(left: onePadding),
+                )
+              : Container(),
+          title: _isNew ? loc.tracker_title_new : '',
+          trailing: Button(
+            loc.btn_save_title,
+            _canSave ? () => _controller.save(context) : null,
+            titleColor: _canSave ? mainColor : borderColor,
+            padding: EdgeInsets.only(right: onePadding),
+          ),
+        ),
+        body: form(),
+      ),
     );
   }
 }

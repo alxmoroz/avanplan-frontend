@@ -48,6 +48,8 @@ class _LoginViewState extends State<LoginView> {
         capitalization: TextCapitalization.none,
       );
 
+  // TODO: LOADING
+
   @override
   Widget build(BuildContext context) {
     return MTCupertinoPage(

@@ -18,7 +18,7 @@ part 'task_view_controller.g.dart';
 class TaskViewController extends _TaskViewControllerBase with _$TaskViewController {}
 
 abstract class _TaskViewControllerBase extends BaseController with Store {
-  Goal get goal => mainController.selectedGoal!;
+  Goal get goal => goalController.selectedGoal!;
 
   /// Список подзадач
 

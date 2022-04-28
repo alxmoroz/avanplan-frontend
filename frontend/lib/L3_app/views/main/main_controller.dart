@@ -1,82 +1,22 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/entities/app_settings.dart';
-import '../../../L1_domain/entities/auth/workspace.dart';
 import '../../../L1_domain/entities/goals/goal.dart';
 import '../../extra/services.dart';
 import '../_base/base_controller.dart';
-import '../auth/login_view.dart';
-import '../goal/goal_edit_view.dart';
-import '../goal/goal_view.dart';
 import '../import/import_view.dart';
 import '../remote_tracker/tracker_list_view.dart';
 
 part 'main_controller.g.dart';
 
-//TODO: Это контроллер списка целей. Но не главное окно. Переименовать
+//TODO: Это контроллер списка целей. Но не главное окно. Переименовать?
 
-class MainController extends _MainControllerBase with _$MainController {
-  @override
-  Future<MainController> init() async {
-    // эти инициализации здесь для авторизации
-    // TODO: подыскать место получше
-    settings = await settingsUC.getSettings();
-    await settingsUC.updateVersion(packageInfo.version);
-    await authUC.setApiCredentialsFromSettings();
-
-    return this;
-  }
-}
+class MainController extends _MainControllerBase with _$MainController {}
 
 abstract class _MainControllerBase extends BaseController with Store {
-  // этот параметр не меняется после запуска
-  String get appName => packageInfo.appName;
-
-  /// настройки и авторизация
-
-  @observable
-  AppSettings? settings;
-
-  @action
-  void setSettings(AppSettings _settings) => settings = _settings;
-
-  @computed
-  bool get authorized => settings?.accessToken.isNotEmpty ?? false;
-
-  @computed
-  bool get isFirstLaunch => settings?.firstLaunch ?? true;
-
-  @computed
-  String get appVersion => settings?.version ?? '';
-
-  @action
-  Future logout(BuildContext context) async {
-    await authUC.logout();
-    Navigator.of(context).pushReplacementNamed(LoginView.routeName);
-  }
-
-  /// рабочие пространства
-
-  @observable
-  ObservableList<Workspace> workspaces = ObservableList();
-
-  @action
-  void _sortWS() => workspaces.sort((s1, s2) => s1.title.compareTo(s2.title));
-
-  @observable
-  int? selectedWSId;
-
-  @action
-  void selectWS(Workspace? _ws) => selectedWSId = _ws?.id;
-
-  @computed
-  Workspace? get selectedWS => workspaces.firstWhereOrNull((ws) => ws.id == selectedWSId);
-
   /// цели - рутовый объект
 
   @observable
@@ -104,54 +44,14 @@ abstract class _MainControllerBase extends BaseController with Store {
     }
   }
 
-  @action
+  @override
   Future fetchData() async {
-    if (authorized) {
-      //TODO: добавить LOADING
+    startLoading();
+    if (loginController.authorized) {
       goals = ObservableList.of(await goalsUC.getAll());
       _sortGoals();
-      workspaces = ObservableList.of(await workspacesUC.getAll());
-      _sortWS();
     }
-  }
-
-  /// выбранная цель
-
-  @observable
-  int? selectedGoalId;
-
-  @action
-  void selectGoal(Goal? _goal) => selectedGoalId = _goal?.id;
-
-  @computed
-  Goal? get selectedGoal => goals.firstWhereOrNull((g) => g.id == selectedGoalId);
-
-  /// роутер
-
-  Future showGoal(BuildContext context, Goal goal) async {
-    selectGoal(goal);
-    await Navigator.of(context).pushNamed(GoalView.routeName);
-  }
-
-  Future addGoal(BuildContext context) async {
-    selectGoal(null);
-    final newGoal = await showEditGoalDialog(context);
-    if (newGoal != null) {
-      updateGoalInList(newGoal);
-      await showGoal(context, newGoal);
-    }
-  }
-
-  Future editGoal(BuildContext context) async {
-    final goal = await showEditGoalDialog(context);
-    if (goal != null) {
-      // только если редактирование было вызвано из вьюхи просмотра цели. Т.е. метод должен вызываться из вьюхи цели!
-      // поэтому в контроллере цели должен находиться этот метод.
-      updateGoalInList(goal);
-      if (goal.deleted) {
-        Navigator.of(context).pop();
-      }
-    }
+    stopLoading();
   }
 
   Future showTrackers(BuildContext context) async {

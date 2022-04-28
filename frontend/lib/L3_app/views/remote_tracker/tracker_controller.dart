@@ -8,22 +8,48 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/api_schema/remote_tracker.dart';
 import '../../../L1_domain/entities/goals/remote_tracker.dart';
 import '../../components/confirmation_dialog.dart';
+import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
 import '../_base/base_controller.dart';
+import '../workspace/workspace_bounded.dart';
 import 'tracker_edit_view.dart';
 
 part 'tracker_controller.g.dart';
 
 class TrackerController extends _TrackerControllerBase with _$TrackerController {}
 
-abstract class _TrackerControllerBase extends BaseController with Store {
+abstract class _TrackerControllerBase extends BaseController with Store, WorkspaceBounded {
+  @override
+  void initState({List<TFAnnotation>? tfaList}) {
+    super.initState(tfaList: tfaList);
+    selectType(selectedTracker?.type);
+  }
+
+  // TODO: здесь загружаем и проверяем трекеры на старте приложения. Что не обязательно делать на старте.
+  // Если тут сделать по запросу, тогда в окне импорта нужно будет учесть тоже
+
+  @override
+  Future fetchData() async {
+    if (loginController.authorized) {
+      startLoading();
+
+      trackers = ObservableList.of(await trackersUC.getAll());
+      _sortAndCheckTrackers();
+
+      rtTypes = ObservableList.of(await trackerTypesUC.getAll());
+      _sortTypes();
+
+      stopLoading();
+    }
+  }
+
   /// тип трекера
 
   @observable
-  ObservableList<RemoteTrackerType> types = ObservableList();
+  ObservableList<RemoteTrackerType> rtTypes = ObservableList();
 
   @action
-  void sortTypes() => types.sort((s1, s2) => s1.title.compareTo(s2.title));
+  void _sortTypes() => rtTypes.sort((s1, s2) => s1.title.compareTo(s2.title));
 
   @observable
   int? selectedTypeId;
@@ -32,19 +58,32 @@ abstract class _TrackerControllerBase extends BaseController with Store {
   void selectType(RemoteTrackerType? _type) => selectedTypeId = _type?.id;
 
   @computed
-  RemoteTrackerType? get selectedType => types.firstWhereOrNull((s) => s.id == selectedTypeId);
-
-  @action
-  Future fetchTypes() async {
-    types = ObservableList.of(await trackerTypesUC.getAll());
-    sortTypes();
-    selectType(selectedTracker?.type);
-  }
+  RemoteTrackerType? get selectedType => rtTypes.firstWhereOrNull((s) => s.id == selectedTypeId);
 
   /// трекеры
 
   @observable
   ObservableList<RemoteTracker> trackers = ObservableList();
+
+  /// выбранный трекер
+
+  @observable
+  int? selectedTrackerId;
+
+  @action
+  void selectTracker(RemoteTracker? _rt) {
+    selectedTrackerId = _rt?.id;
+    selectWS(_rt?.workspace);
+  }
+
+  @computed
+  RemoteTracker? get selectedTracker => trackers.firstWhereOrNull((g) => g.id == selectedTrackerId);
+
+  @computed
+  bool get canEdit => selectedTracker != null;
+
+  @override
+  bool get validated => super.validated && selectedType != null && selectedWS != null;
 
   @action
   Future _sortAndCheckTrackers() async {
@@ -59,15 +98,7 @@ abstract class _TrackerControllerBase extends BaseController with Store {
   }
 
   @action
-  Future fetchTrackers() async {
-    startLoading();
-    trackers = ObservableList.of(await trackersUC.getAll());
-    _sortAndCheckTrackers();
-    stopLoading();
-  }
-
-  @action
-  void updateTrackerInList(RemoteTracker? rt) {
+  void _updateTrackerInList(RemoteTracker? rt) {
     if (rt != null) {
       startLoading();
       final index = trackers.indexWhere((g) => g.id == rt.id);
@@ -85,31 +116,9 @@ abstract class _TrackerControllerBase extends BaseController with Store {
     }
   }
 
-  /// выбранный трекер
-
-  @observable
-  int? selectedTrackerId;
-
-  @action
-  void selectTracker(RemoteTracker? _rt) => selectedTrackerId = _rt?.id;
-
-  @computed
-  RemoteTracker? get selectedTracker => trackers.firstWhereOrNull((g) => g.id == selectedTrackerId);
-
-  @computed
-  bool get canEdit => selectedTracker != null && selectedType != null;
-
-  @override
-  bool get allNeedFieldsTouched => super.allNeedFieldsTouched || canEdit;
-
   /// действия
 
   Future save(BuildContext context) async {
-    final wsId = mainController.selectedWSId;
-    if (wsId == null) {
-      return;
-    }
-
     final editedTracker = await trackersUC.save(RemoteTrackerUpsert(
       id: selectedTracker?.id,
       typeId: selectedTypeId!,
@@ -117,7 +126,7 @@ abstract class _TrackerControllerBase extends BaseController with Store {
       loginKey: tfAnnoForCode('loginKey').text,
       password: tfAnnoForCode('password').text,
       description: tfAnnoForCode('description').text,
-      workspaceId: wsId,
+      workspaceId: selectedWS!.id,
     ));
 
     if (editedTracker != null) {
@@ -152,7 +161,7 @@ abstract class _TrackerControllerBase extends BaseController with Store {
     selectTracker(rt);
     final tracker = await showEditTrackerDialog(context);
     if (tracker != null) {
-      updateTrackerInList(tracker);
+      _updateTrackerInList(tracker);
       if (tracker.deleted) {
         Navigator.of(context).pop();
       }

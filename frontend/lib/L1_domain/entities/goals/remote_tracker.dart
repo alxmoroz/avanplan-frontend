@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import '../auth/workspace.dart';
 import '../base_entity.dart';
 
 class RemoteTrackerType extends Titleable {
@@ -13,6 +14,7 @@ class RemoteTracker extends RPersistable {
     required this.url,
     required this.loginKey,
     required this.description,
+    required this.workspace,
     this.connected = false,
   }) : super(id: id);
 
@@ -21,6 +23,7 @@ class RemoteTracker extends RPersistable {
   final String loginKey;
   final String? description;
   final bool connected;
+  final Workspace workspace;
 
   RemoteTracker copyWithConnected(bool _connected) => RemoteTracker(
         id: id,
@@ -28,6 +31,7 @@ class RemoteTracker extends RPersistable {
         url: url,
         loginKey: loginKey,
         description: description,
+        workspace: workspace,
         connected: _connected,
       );
 }

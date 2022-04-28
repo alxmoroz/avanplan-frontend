@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import '../auth/workspace.dart';
 import '../base_entity.dart';
 
 class TaskStatus extends Statusable {
@@ -7,5 +8,8 @@ class TaskStatus extends Statusable {
     required int id,
     required String title,
     required bool closed,
+    required this.workspace,
   }) : super(id: id, title: title, closed: closed);
+
+  final Workspace workspace;
 }

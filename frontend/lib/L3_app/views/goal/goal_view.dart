@@ -13,8 +13,8 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/string_presenter.dart';
-import '../main/main_controller.dart';
 import 'goal_card.dart';
+import 'goal_controller.dart';
 
 class GoalView extends StatefulWidget {
   static String get routeName => 'goal';
@@ -24,22 +24,21 @@ class GoalView extends StatefulWidget {
 }
 
 class _GoalViewState extends State<GoalView> {
-  MainController get controller => mainController;
-  Goal? get goal => controller.selectedGoal;
+  GoalController get _controller => goalController;
+  Goal? get _goal => _controller.selectedGoal;
 
   Widget buildTitle() {
     return ListTile(
-      title: H2(goal?.title ?? ''),
+      title: H2(_goal?.title ?? ''),
       trailing: editIcon(context),
-      onTap: () => controller.editGoal(context),
+      onTap: () => _controller.editGoal(context, _goal),
       dense: true,
       visualDensity: VisualDensity.compact,
     );
   }
 
-  //TODO: дубль кода. Возможно, сам ListTile можно добавить в один файл с showDetailsDialog
   Widget buildDescription() {
-    final description = goal?.description ?? '';
+    final description = _goal?.description ?? '';
     if (description.isNotEmpty) {
       const cutLength = 100;
       final needTruncate = description.length > cutLength;
@@ -60,15 +59,15 @@ class _GoalViewState extends State<GoalView> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTCupertinoPage(
-        navBar: navBar(context, title: goal != null ? loc.goal_title : loc.goal_title_new),
+        navBar: navBar(context, title: _goal != null ? loc.goal_title : loc.goal_title_new),
         body: Column(
           children: [
             SizedBox(height: onePadding),
             buildTitle(),
             buildDescription(),
-            if (goal != null)
+            if (_goal != null)
               GoalCard(
-                goal: goal!,
+                goal: _goal!,
                 onTap: () => taskViewController.showTask(context, null),
               ),
           ],

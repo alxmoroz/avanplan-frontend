@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
@@ -8,15 +9,12 @@ import '../../../L1_domain/entities/goals/remote_tracker.dart';
 import '../../../L1_domain/system/errors.dart';
 import '../../extra/services.dart';
 import '../_base/base_controller.dart';
-import '../remote_tracker/tracker_controller.dart';
 
 part 'import_controller.g.dart';
 
 class ImportController extends _ImportControllerBase with _$ImportController {}
 
 abstract class _ImportControllerBase extends BaseController with Store {
-  TrackerController get _trackerController => trackerController;
-
   @observable
   ObservableList<GoalImport> goals = ObservableList();
 
@@ -52,28 +50,31 @@ abstract class _ImportControllerBase extends BaseController with Store {
     }
   }
 
-  /// действия,  роутер
+  /// выбранный трекер
 
+  @observable
+  int? selectedTrackerId;
+
+  @action
   Future selectTracker(RemoteTracker? _rt) async {
-    _trackerController.selectTracker(_rt);
+    selectedTrackerId = _rt?.id;
     if (_rt != null) {
       await _fetchGoals(_rt.id);
     }
   }
 
+  @computed
+  RemoteTracker? get selectedTracker => trackerController.trackers.firstWhereOrNull((g) => g.id == selectedTrackerId);
+
+  @computed
+  bool get canEdit => selectedTracker != null;
+
+  /// действия,  роутер
+
   @action
   Future startImport(BuildContext context) async {
-    final wsId = mainController.selectedWSId;
-    if (wsId == null) {
-      return;
-    }
-
     startLoading();
-    final done = await importUC.importGoals(
-      _trackerController.selectedTrackerId!,
-      wsId,
-      selectedGoalsIds,
-    );
+    final done = await importUC.importGoals(selectedTracker!, selectedGoalsIds);
     if (done) {
       await mainController.fetchData();
       Navigator.of(context).pop();
@@ -82,6 +83,6 @@ abstract class _ImportControllerBase extends BaseController with Store {
   }
 
   Future addTracker(BuildContext context) async {
-    _trackerController.addTracker(context);
+    trackerController.addTracker(context);
   }
 }

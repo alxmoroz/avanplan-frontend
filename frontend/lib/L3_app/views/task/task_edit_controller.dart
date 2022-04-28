@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
@@ -8,6 +9,8 @@ import '../../../L1_domain/entities/goals/goal.dart';
 import '../../../L1_domain/entities/goals/task.dart';
 import '../../../L1_domain/entities/goals/task_status.dart';
 import '../../components/confirmation_dialog.dart';
+import '../../components/constants.dart';
+import '../../components/dropdown.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
 import '../_base/smartable_controller.dart';
@@ -19,14 +22,74 @@ class TaskEditController extends _TaskEditControllerBase with _$TaskEditControll
 // TODO: подумать над объединением с контроллером просмотра. Проблему может доставить initState, который вызывает вьюха редактирования
 //  можно ли вообще несколько вьюх на один контроллер?
 
-abstract class _TaskEditControllerBase extends SmartableController<TaskStatus> with Store {
-  Goal get goal => mainController.selectedGoal!;
+abstract class _TaskEditControllerBase extends SmartableController with Store {
+  Goal get _goal => goalController.selectedGoal!;
 
   @override
   void initState({List<TFAnnotation>? tfaList}) {
     super.initState(tfaList: tfaList);
     setDueDate(selectedTask?.dueDate);
     setClosed(selectedTask?.closed);
+    selectStatus(selectedTask?.status);
+  }
+
+  @override
+  Future fetchData() async {
+    if (loginController.authorized) {
+      startLoading();
+
+      // TODO: все доступные статусы тут. Отдельно должен быть фильтр по текущему РП (для конкр. цели и задачи) –> в редакторе задачи
+
+      taskStatuses = ObservableList.of(await taskStatusesUC.getStatuses());
+      _sortStatuses();
+
+      stopLoading();
+    }
+  }
+
+  @override
+  void setClosed(bool? _closed) {
+    super.setClosed(_closed);
+    if (!closed && selectedStatus != null && selectedStatus!.closed) {
+      selectedStatusId = null;
+    }
+  }
+
+  /// статусы задач
+
+  @observable
+  ObservableList<TaskStatus> taskStatuses = ObservableList();
+
+  @action
+  void _sortStatuses() => taskStatuses.sort((s1, s2) => s1.title.compareTo(s2.title));
+
+  @observable
+  int? selectedStatusId;
+
+  @action
+  void selectStatus(TaskStatus? _status) {
+    selectedStatusId = _status?.id;
+    if (_status != null && _status.closed) {
+      closed = true;
+    }
+  }
+
+  @computed
+  TaskStatus? get selectedStatus => taskStatuses.firstWhereOrNull((s) => s.id == selectedStatusId);
+
+  List<Widget> customFields(BuildContext context) {
+    final mq = MediaQuery.of(context);
+    final items = <Widget>[];
+    if (taskStatuses.isNotEmpty) {
+      items.add(MTDropdown<TaskStatus>(
+        width: mq.size.width - onePadding * 2,
+        onChanged: (status) => selectStatus(status),
+        value: selectedStatus,
+        items: taskStatuses,
+        label: loc.common_status_placeholder,
+      ));
+    }
+    return items;
   }
 
   /// выбранная задача
@@ -45,18 +108,11 @@ abstract class _TaskEditControllerBase extends SmartableController<TaskStatus> w
   @override
   bool get allNeedFieldsTouched => super.allNeedFieldsTouched || canEdit;
 
-  @action
-  Future fetchStatuses() async {
-    statuses = ObservableList.of(await taskStatusesUC.getStatuses());
-    sortStatuses();
-    selectStatus(selectedTask?.status);
-  }
-
   /// действия
 
   Future save(BuildContext context) async {
     final editedTask = await tasksUC.save(TaskUpsert(
-      goalId: goal.id,
+      goalId: _goal.id,
       id: selectedTask?.id,
       parentId: _parentId,
       title: tfAnnoForCode('title').text,

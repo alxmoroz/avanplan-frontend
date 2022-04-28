@@ -4,6 +4,7 @@ import 'package:openapi/openapi.dart';
 
 import '../../L1_domain/entities/goals/remote_tracker.dart';
 import 'remote_tracker_type.dart';
+import 'workspace.dart';
 
 extension TrackerMapper on RemoteTrackerSchemaGet {
   RemoteTracker get tracker => RemoteTracker(
@@ -12,5 +13,6 @@ extension TrackerMapper on RemoteTrackerSchemaGet {
         url: url,
         loginKey: loginKey,
         description: description,
+        workspace: workspace.workspace,
       );
 }

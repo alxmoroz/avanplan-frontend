@@ -25,7 +25,7 @@ class MTDrawer extends StatelessWidget {
 
     Future logout() async {
       Navigator.of(context).pop();
-      await mainController.logout(context);
+      await loginController.logout(context);
     }
 
     return Drawer(
@@ -36,8 +36,6 @@ class MTDrawer extends StatelessWidget {
             builder: (_) => Column(
               children: [
                 SizedBox(height: onePadding),
-                // TODO: локализация и возможность выбора РП
-                if (mainController.workspaces.length > 1) MediumText('РП: ${mainController.workspaces.map((ws) => ws.title).toList().join(', ')}'),
                 const Spacer(),
                 const MTDivider(),
                 SmallText(loc.integration),
@@ -45,11 +43,11 @@ class MTDrawer extends StatelessWidget {
                 Button(loc.goal_import, importGoals),
                 Button(loc.tracker_list_title, showTrackers),
                 const MTDivider(),
-                if (mainController.authorized) Button('Выйти', logout),
+                if (loginController.authorized) Button('Выйти', logout),
                 SizedBox(height: onePadding),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  LightText(mainController.appName),
-                  NormalText(mainController.appVersion, padding: const EdgeInsets.only(left: 6)),
+                  LightText(settingsController.appName),
+                  NormalText(settingsController.appVersion, padding: const EdgeInsets.only(left: 6)),
                 ]),
               ],
             ),

@@ -1,10 +1,12 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import '../auth/workspace.dart';
 import 'smartable.dart';
 import 'task.dart';
 
 class Goal extends Smartable {
   Goal({
+    required this.workspace,
     required int id,
     required DateTime createdOn,
     required DateTime updatedOn,
@@ -28,7 +30,10 @@ class Goal extends Smartable {
           trackerId: trackerId,
         );
 
+  final Workspace workspace;
+
   Goal copy() => Goal(
+        workspace: workspace,
         id: id,
         parentId: parentId,
         createdOn: createdOn,

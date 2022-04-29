@@ -17,7 +17,7 @@ class Smartable:
 
     @declared_attr
     def assignee_id(self):
-        return Column(Integer, ForeignKey("persons.id"))
+        return Column(Integer, ForeignKey("persons.id", ondelete="SET NULL"))
 
     @declared_attr
     def assignee(self):
@@ -25,7 +25,7 @@ class Smartable:
 
     @declared_attr
     def author_id(self):
-        return Column(Integer, ForeignKey("persons.id"))
+        return Column(Integer, ForeignKey("persons.id", ondelete="SET NULL"))
 
     @declared_attr
     def author(self):

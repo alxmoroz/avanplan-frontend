@@ -9,9 +9,8 @@ from lib.L1_domain.entities.api.exceptions import ApiException
 from lib.L1_domain.repositories import AbstractImportRepo
 from lib.L1_domain.usecases.base_db_uc import BaseDBUC
 from lib.L1_domain.usecases.import_uc import ImportUC
-from lib.L2_data.mappers import GoalImportMapper, PersonMapper, TaskImportMapper, TaskPriorityMapper, TaskStatusMapper, WorkspaceMapper
+from lib.L2_data.mappers import GoalImportMapper, PersonMapper, TaskImportMapper, TaskPriorityMapper, TaskStatusMapper
 from lib.L2_data.repositories import db as dbr
-from lib.L2_data.repositories.db import WorkspaceRepo
 from lib.L2_data.repositories.integrations import ImportRedmineRepo
 from lib.L2_data.schema.goals.goal_import import GoalImportRemoteSchemaGet
 
@@ -49,8 +48,6 @@ def _import_uc(
         task_priority_mapper=TaskPriorityMapper(),
         person_repo=dbr.PersonRepo(db),
         person_mapper=PersonMapper(),
-        ws_repo=WorkspaceRepo(db),
-        ws_mapper=WorkspaceMapper(),
     )
 
 
@@ -64,10 +61,9 @@ def get_goals(
 @router.post("/import", response_model=Msg)
 def import_goals(
     goals_ids: list[str],
-    workspace_id: int,
     uc: ImportUC = Depends(_import_uc),
 ) -> Msg:
-    return uc.import_goals(goals_ids, workspace_id)
+    return uc.import_goals(goals_ids)
 
 
 # @router.post("/tasks", response_model=Msg)

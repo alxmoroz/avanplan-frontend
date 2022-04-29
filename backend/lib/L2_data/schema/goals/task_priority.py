@@ -1,16 +1,16 @@
 #  Copyright (c) 2022. Alexandr Moroz
+from abc import ABC
 
-from ..auth import WorkspaceSchemaGet
-from ..base_schema import BaseSchema, Orderable, PKGetable, PKUpsertable, Titleable
+from ..base_schema import Orderable, PKGetable, PKUpsertable, Titleable, WorkspaceBounded
 
 
-class _TaskPrioritySchema(Titleable, Orderable, BaseSchema):
+class _TaskPrioritySchema(Titleable, Orderable, WorkspaceBounded, ABC):
     pass
 
 
 class TaskPrioritySchemaGet(_TaskPrioritySchema, PKGetable):
-    workspace: WorkspaceSchemaGet
+    pass
 
 
 class TaskPrioritySchemaUpsert(_TaskPrioritySchema, PKUpsertable):
-    workspace_id: int
+    pass

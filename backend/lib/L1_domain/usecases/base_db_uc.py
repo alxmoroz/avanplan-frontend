@@ -1,4 +1,5 @@
 #  Copyright (c) 2022. Alexandr Moroz
+
 from abc import ABC
 from typing import Generic, TypeVar
 

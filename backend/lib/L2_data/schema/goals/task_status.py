@@ -1,16 +1,17 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-from ..auth import WorkspaceSchemaGet
-from ..base_schema import BaseSchema, PKGetable, PKUpsertable, Statusable, Titleable
+from abc import ABC
+
+from ..base_schema import PKGetable, PKUpsertable, Statusable, Titleable, WorkspaceBounded
 
 
-class _TaskStatusSchema(Titleable, Statusable, BaseSchema):
+class _TaskStatusSchema(Titleable, Statusable, WorkspaceBounded, ABC):
     pass
 
 
-class TaskStatusSchemaGet(PKGetable, _TaskStatusSchema):
-    workspace: WorkspaceSchemaGet
+class TaskStatusSchemaGet(_TaskStatusSchema, PKGetable):
+    pass
 
 
 class TaskStatusSchemaUpsert(_TaskStatusSchema, PKUpsertable):
-    workspace_id: int
+    pass

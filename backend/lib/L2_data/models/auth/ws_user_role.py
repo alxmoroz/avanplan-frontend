@@ -12,7 +12,5 @@ class WSUserRole(BaseModel):
     workspace = relationship("Workspace")
 
     user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
-    user = relationship("User")
 
     ws_role_id = Column(Integer, ForeignKey("wsroles.id", ondelete="CASCADE"))
-    ws_role = relationship("WSRole")

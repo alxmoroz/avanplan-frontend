@@ -1,4 +1,5 @@
 #  Copyright (c) 2022. Alexandr Moroz
+
 from fastapi import APIRouter, Body, Depends
 from sqlalchemy.orm import Session
 

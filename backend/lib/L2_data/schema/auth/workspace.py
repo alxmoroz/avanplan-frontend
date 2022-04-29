@@ -3,6 +3,7 @@
 from abc import ABC
 
 from ..base_schema import PKGetable, PKUpsertable, Titleable
+from ..goals import GoalSchemaGet, PersonSchemaGet, RemoteTrackerSchemaGet, TaskPrioritySchemaGet, TaskStatusSchemaGet
 
 
 class _WorkspaceSchema(Titleable, ABC):
@@ -10,7 +11,11 @@ class _WorkspaceSchema(Titleable, ABC):
 
 
 class WorkspaceSchemaGet(_WorkspaceSchema, PKGetable):
-    pass
+    goals: list[GoalSchemaGet] = None
+    task_statuses: list[TaskStatusSchemaGet] = None
+    task_priorities: list[TaskPrioritySchemaGet] = None
+    persons: list[PersonSchemaGet] = None
+    remote_trackers: list[RemoteTrackerSchemaGet] = None
 
 
 class WorkspaceSchemaUpsert(_WorkspaceSchema, PKUpsertable):

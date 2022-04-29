@@ -5,7 +5,6 @@ from lib.L1_domain.entities.goals import RemoteTracker
 
 from ...models import RemoteTracker as RemoteTrackerModel
 from ...schema.goals.remote_tracker import RemoteTrackerSchemaGet, RemoteTrackerSchemaUpsert
-from ..auth import WorkspaceMapper
 from ..base_mapper import BaseMapper
 from .remote_tracker_type_mapper import RemoteTrackerTypeMapper
 
@@ -19,5 +18,4 @@ class RemoteTrackerMapper(BaseMapper[RemoteTrackerSchemaGet, RemoteTrackerSchema
         if s:
             t: RemoteTracker = super().entity_from_schema_get(s)
             t.type = RemoteTrackerTypeMapper().entity_from_schema_get(s.type)
-            t.workspace = WorkspaceMapper().entity_from_schema_get(s.workspace)
             return t

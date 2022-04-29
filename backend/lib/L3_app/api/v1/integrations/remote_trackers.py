@@ -25,13 +25,6 @@ def remote_trackers_uc(
     )
 
 
-@router.get("/", response_model=list[RemoteTrackerSchemaGet])
-def get_trackers(
-    uc: BaseDBUC = Depends(remote_trackers_uc),
-) -> list[RemoteTracker]:
-    return uc.get_all()
-
-
 @router.post("/", response_model=RemoteTrackerSchemaGet, status_code=201)
 def upsert_tracker(
     tracker: RemoteTrackerSchemaUpsert,

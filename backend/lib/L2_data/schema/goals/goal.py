@@ -1,17 +1,19 @@
 #  Copyright (c) 2022. Alexandr Moroz
-
+from abc import ABC
 from typing import Optional
 
-from ..auth import WorkspaceSchemaGet
-from ..base_schema import Timestampable
+from ..base_schema import Timestampable, WorkspaceBounded
 from .smartable import SmartableGet, SmartableUpsert
 from .task import TaskSchemaGet
 
 
-class GoalSchemaGet(SmartableGet, Timestampable):
+class _GoalSchema(WorkspaceBounded, ABC):
+    pass
+
+
+class GoalSchemaGet(_GoalSchema, SmartableGet, Timestampable):
     tasks: Optional[list[TaskSchemaGet]]
-    workspace: WorkspaceSchemaGet
 
 
-class GoalSchemaUpsert(SmartableUpsert):
-    workspace_id: int
+class GoalSchemaUpsert(_GoalSchema, SmartableUpsert):
+    pass

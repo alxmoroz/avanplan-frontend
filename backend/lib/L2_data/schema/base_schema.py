@@ -41,3 +41,7 @@ class Importable(BaseSchema, ABC):
 
 class Statusable(BaseSchema, ABC):
     closed: bool
+
+
+class WorkspaceBounded(BaseSchema, ABC):
+    workspace_id: int

@@ -7,7 +7,6 @@ class Settings:
     # 60 minutes * 24 hours * 7 days = 7 days
     AUTH_TOKEN_EXPIRATION_MINUTES: int = 60 * 24 * 7
 
-    DEFAULT_ADMIN_EMAIL = "admin@test.com"
     DEFAULT_ADMIN_PASSWORD = "admin"
 
 

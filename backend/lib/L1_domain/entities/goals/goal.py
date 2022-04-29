@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 
-from ..auth.workspace import WorkspaceBounded
+from ..auth.workspace_bounded import WorkspaceBounded
 from .smartable import Smartable
 from .task import Task
 

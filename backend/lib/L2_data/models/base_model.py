@@ -2,7 +2,6 @@
 
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.ext.declarative import as_declarative, declared_attr
-from sqlalchemy.orm import relationship
 
 
 @as_declarative()
@@ -37,8 +36,4 @@ class WorkspaceBound:
 
     @declared_attr
     def workspace_id(self):
-        return Column(Integer, ForeignKey("workspaces.id", ondelete="CASCADE"))
-
-    @declared_attr
-    def workspace(self):
-        return relationship("Workspace")
+        return Column(Integer, ForeignKey("workspaces.id", ondelete="CASCADE"), nullable=False)

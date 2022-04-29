@@ -5,23 +5,20 @@ from typing import Optional
 
 from pydantic import EmailStr, root_validator
 
-from .. import WorkspaceSchemaGet
-from ..base_schema import BaseSchema, PKGetable, PKUpsertable
+from ..base_schema import PKGetable, PKUpsertable, WorkspaceBounded
 
 
-class _PersonSchema(BaseSchema, ABC):
+class _PersonSchema(WorkspaceBounded, ABC):
     email: EmailStr
     firstname: Optional[str]
     lastname: Optional[str]
 
 
 class PersonSchemaGet(_PersonSchema, PKGetable):
-    workspace: WorkspaceSchemaGet
+    pass
 
 
 class PersonSchemaUpsert(_PersonSchema, PKUpsertable):
-    workspace_id: int
-
     @root_validator
     def name_must_filled(cls, values):
         vals = [values.get(attr, None) for attr in ["firstname", "lastname"]]

@@ -10,10 +10,8 @@ from lib.L2_data.repositories import db as dbr
 from lib.L2_data.schema import TaskSchemaGet, TaskSchemaUpsert
 
 from .auth.auth import auth_db
-from .task_statuses import router as statuses_router
 
 router = APIRouter(prefix="/tasks")
-router.include_router(statuses_router)
 
 
 def _tasks_uc(

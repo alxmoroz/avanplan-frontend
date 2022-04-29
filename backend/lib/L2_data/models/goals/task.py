@@ -14,10 +14,9 @@ class Task(Smartable, BaseModel):
     tasks = relationship("Task", remote_side="Task.parent_id")
 
     goal_id = Column(Integer, ForeignKey("goals.id", ondelete="CASCADE"), nullable=False)
-    goal = relationship("Goal", back_populates="tasks")
 
-    status_id = Column(Integer, ForeignKey("taskstatuss.id"))
+    status_id = Column(Integer, ForeignKey("taskstatuss.id", ondelete="SET NULL"))
     status = relationship("TaskStatus")
 
-    priority_id = Column(Integer, ForeignKey("taskprioritys.id"))
+    priority_id = Column(Integer, ForeignKey("taskprioritys.id", ondelete="SET NULL"))
     priority = relationship("TaskPriority")

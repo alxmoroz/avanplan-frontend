@@ -4,9 +4,9 @@ from fastapi.encoders import jsonable_encoder
 from fastapi.testclient import TestClient
 from pydantic import HttpUrl
 
-from lib.L2_data.models import RemoteTracker, RemoteTrackerType, Workspace
+from lib.L2_data.models import RemoteTracker, RemoteTrackerType
 from lib.L2_data.repositories.db import RemoteTrackerRepo, RemoteTrackerTypeRepo
-from lib.L2_data.schema import RemoteTrackerSchemaUpsert, RemoteTrackerTypeSchemaUpsert, WorkspaceSchemaUpsert
+from lib.L2_data.schema import RemoteTrackerSchemaUpsert, RemoteTrackerTypeSchemaUpsert
 from lib.L2_data.settings import settings
 from lib.L3_app.api.v1.integrations.routers import goals_router, integrations_router
 
@@ -25,21 +25,12 @@ def tmp_remote_tracker_type_redmine(remote_tracker_type_repo: RemoteTrackerTypeR
     yield tt
 
 
-@pytest.fixture(scope="session")
-def tmp_import_ws(ws_repo) -> Workspace:
-    ws = ws_repo.get_one(title="tmp_import_ws")
-    if not ws:
-        s = WorkspaceSchemaUpsert(title="tmp_import_ws")
-        ws = ws_repo.upsert(jsonable_encoder(s))
-    yield ws
-
-
 # TODO: реальные креды...
 @pytest.fixture(scope="session")
 def tmp_remote_tracker_redmine(
     remote_tracker_repo: RemoteTrackerRepo,
     tmp_remote_tracker_type_redmine,
-    tmp_import_ws,
+    tmp_ws,
 ) -> RemoteTracker:
     tr = remote_tracker_repo.get_one(url="https://redmine.moroz.team")
     if not tr:
@@ -48,16 +39,16 @@ def tmp_remote_tracker_redmine(
             remote_tracker_type_id=tmp_remote_tracker_type_redmine.id,
             url=HttpUrl("https://redmine.moroz.team", scheme="https"),
             login_key="101b62ea94b4132625a3d079451ea13fed3f4b87",
-            workspace_id=tmp_import_ws.id,
+            workspace_id=tmp_ws.id,
         )
         tr = remote_tracker_repo.upsert(jsonable_encoder(s))
     yield tr
 
 
-def test_get_import_goals(client: TestClient, auth_headers_test_user, tmp_remote_tracker_redmine: RemoteTracker, tmp_import_ws):
+def test_get_import_goals(client: TestClient, auth_headers_tmp_user, tmp_remote_tracker_redmine: RemoteTracker, tmp_ws):
     r_goals = client.get(
         _api_path,
-        headers=auth_headers_test_user,
+        headers=auth_headers_tmp_user,
         params={"tracker_id": tmp_remote_tracker_redmine.id},
     )
 
@@ -67,10 +58,10 @@ def test_get_import_goals(client: TestClient, auth_headers_test_user, tmp_remote
 
     r = client.post(
         f"{_api_path}/import",
-        headers=auth_headers_test_user,
+        headers=auth_headers_tmp_user,
         params={
             "tracker_id": tmp_remote_tracker_redmine.id,
-            "workspace_id": tmp_import_ws.id,
+            "workspace_id": tmp_ws.id,
         },
         json=goals_ids,
     )

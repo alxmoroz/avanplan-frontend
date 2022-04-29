@@ -3,7 +3,7 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from lib.L1_domain.entities.goals import Goal
+from lib.L1_domain.entities import Goal
 from lib.L1_domain.usecases.base_db_uc import BaseDBUC
 from lib.L2_data.mappers import GoalMapper
 from lib.L2_data.repositories import db as dbr
@@ -22,13 +22,6 @@ def _goals_uc(
         repo=dbr.GoalRepo(db),
         mapper=GoalMapper(),
     )
-
-
-@router.get("/", response_model=list[GoalSchemaGet])
-def get_goals(
-    uc: BaseDBUC = Depends(_goals_uc),
-) -> list[Goal]:
-    return uc.get_all()
 
 
 @router.post("/", response_model=GoalSchemaGet, status_code=201)

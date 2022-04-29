@@ -1,10 +1,8 @@
 #  Copyright (c) 2022. Alexandr Moroz
 
-import pytest
 from fastapi.encoders import jsonable_encoder
 from sqlalchemy import column
 
-from lib.L2_data.models import WSUserRole
 from lib.L2_data.repositories.db import WSUserRoleRepo
 from lib.L2_data.schema import WSUserRoleSchemaUpsert
 
@@ -37,17 +35,3 @@ def test_update_upsert(ws_user_role_repo: WSUserRoleRepo, tmp_user, tmp_ws, tmp_
 
     assert obj_out == test_obj_out
     assert obj_out.workspace_id == s.workspace_id
-
-
-@pytest.fixture(scope="module")
-def ws_user_role_repo(db) -> WSUserRoleRepo:
-    yield WSUserRoleRepo(db)
-
-
-@pytest.fixture(scope="module")
-def tmp_ws_user_role(ws_user_role_repo, tmp_user, tmp_ws, tmp_ws_role) -> WSUserRole:
-    data = dict(workspace_id=tmp_ws.id, user_id=tmp_user.id, ws_role_id=tmp_ws_role.id)
-    s = WSUserRoleSchemaUpsert(**data)
-    ws_user_role = ws_user_role_repo.upsert(jsonable_encoder(s))
-    yield ws_user_role
-    ws_user_role_repo.delete(ws_user_role.id)

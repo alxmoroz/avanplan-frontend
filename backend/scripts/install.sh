@@ -5,7 +5,7 @@
 #
 
 set -e
-set -x
+#set -x
 
 export PYTHONPATH="."
 export DB_NAME="hercules"
@@ -14,7 +14,10 @@ pip3 install -r ./scripts/reqs.txt
 
 python3 ./scripts/db/clean_db.py || exit
 bash ./scripts/db/migrate.sh "$DB_NAME" || exit
-python3 ./scripts/db/init_data.py || exit
+python3 ./scripts/db/init_references.py || exit
+
+export ADMIN_EMAIL="admin@test.com"
+python3 ./scripts/db/init_workspace.py || exit
 
 # service
 cp ./scripts/hercules.service /etc/systemd/system || exit

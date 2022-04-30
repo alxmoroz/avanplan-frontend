@@ -10,6 +10,8 @@ set -e
 export PYTHONPATH="."
 export DB_NAME="hercules"
 
+service hercules stop
+
 pip3 install -r ./scripts/reqs.txt
 
 python3 ./scripts/db/clean_db.py || exit

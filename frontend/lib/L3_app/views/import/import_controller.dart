@@ -31,15 +31,17 @@ abstract class _ImportControllerBase extends BaseController with Store {
 
   @action
   Future _fetchGoals(int trackerId) async {
-    startLoading();
-    goals = ObservableList();
-    try {
-      goals = ObservableList.of(await importUC.getGoals(trackerId));
-      _sortGoals();
-    } catch (e) {
-      setErrorCode(e is MTException ? e.code : e.toString());
+    goals.clear();
+    if (loginController.authorized) {
+      startLoading();
+      try {
+        goals = ObservableList.of(await importUC.getGoals(trackerId));
+        _sortGoals();
+      } catch (e) {
+        setErrorCode(e is MTException ? e.code : e.toString());
+      }
+      stopLoading();
     }
-    stopLoading();
   }
 
   @action

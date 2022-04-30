@@ -20,9 +20,12 @@ abstract class _WorkspaceControllerBase extends BaseController with Store {
 
   @override
   Future fetchData() async {
+    //TODO: сделать computed для всех зависимых данных? pro: прозрачная логика загрузки cons: увеличение связанности. В любом случае большой вопрос с редактированием словарей.
+    // Например, трекеров... Будет похожая заморочка, как в дереве задач (зато есть опыт уже)
+
+    workspaces.clear();
     if (loginController.authorized) {
       startLoading();
-
       workspaces = ObservableList.of(await workspacesUC.getAll());
       _sortWS();
 

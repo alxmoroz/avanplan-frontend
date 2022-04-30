@@ -26,15 +26,14 @@ abstract class _TrackerControllerBase extends BaseController with Store, Workspa
     selectType(selectedTracker?.type);
   }
 
-  // TODO: здесь загружаем и проверяем трекеры на старте приложения. Что не обязательно делать на старте.
+  // TODO: здесь загружаем и проверяем трекеры на старте приложения (загружаем вместе в РП). Что не обязательно делать на старте.
   // Если тут сделать по запросу, тогда в окне импорта нужно будет учесть тоже
 
   @override
   Future fetchData() async {
+    trackers.clear();
     if (loginController.authorized) {
       startLoading();
-
-      trackers.clear();
       for (Workspace ws in workspaceController.workspaces) {
         trackers.addAll(ws.remoteTrackers);
       }

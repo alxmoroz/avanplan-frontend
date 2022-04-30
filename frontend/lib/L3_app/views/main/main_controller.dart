@@ -15,7 +15,13 @@ part 'main_controller.g.dart';
 
 //TODO: Это контроллер списка целей. Но не главное окно. Переименовать?
 
-class MainController extends _MainControllerBase with _$MainController {}
+class MainController extends _MainControllerBase with _$MainController {
+  @override
+  Future<MainController> init() async {
+    super.init();
+    return this;
+  }
+}
 
 abstract class _MainControllerBase extends BaseController with Store {
   /// цели - рутовый объект
@@ -47,15 +53,15 @@ abstract class _MainControllerBase extends BaseController with Store {
 
   @override
   Future fetchData() async {
-    startLoading();
+    goals.clear();
     if (loginController.authorized) {
-      goals.clear();
+      startLoading();
       for (Workspace ws in workspaceController.workspaces) {
         goals.addAll(ws.goals);
       }
       _sortGoals();
+      stopLoading();
     }
-    stopLoading();
   }
 
   Future showTrackers(BuildContext context) async {

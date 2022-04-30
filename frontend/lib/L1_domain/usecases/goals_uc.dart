@@ -19,11 +19,8 @@ class GoalsUC {
   }
 
   Future<Goal?> delete({required Goal goal}) async {
-    final deletedRows = await repo.delete(goal.id);
     // TODO: внутр. exception?
-    if (deletedRows) {
-      goal.deleted = true;
-    }
+    goal.deleted = await repo.delete(goal.id);
     return goal;
   }
 }

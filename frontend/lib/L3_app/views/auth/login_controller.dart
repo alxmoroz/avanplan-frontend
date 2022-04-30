@@ -33,11 +33,12 @@ abstract class _LoginControllerBase extends BaseController with Store {
     final bool _authorized = await authUC.authorize(username: tfAnnoForCode('login').text, password: tfAnnoForCode('password').text);
     setAuthorized(_authorized);
 
+    // TODO: должен быть общий метод где-то в районе extra.dart для этого. В главном контроллере по идее.
     if (_authorized) {
       for (var controller in [
         settingsController,
-        mainController,
         workspaceController,
+        mainController,
         goalController,
         taskEditController,
         trackerController,
@@ -55,9 +56,22 @@ abstract class _LoginControllerBase extends BaseController with Store {
 
   @action
   Future logout(BuildContext context) async {
-    // TODO: нужно чистить данные из памяти контроллеров.
+    setAuthorized(false);
+
+    // TODO: не очень изящное решение. Может, вызывать clear метод у контроллеров?
+    for (var controller in [
+      settingsController,
+      workspaceController,
+      mainController,
+      goalController,
+      taskEditController,
+      trackerController,
+    ]) {
+      await controller.fetchData();
+    }
 
     await authUC.logout();
+
     Navigator.of(context).pushReplacementNamed(LoginView.routeName);
   }
 }

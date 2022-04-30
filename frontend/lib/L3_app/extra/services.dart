@@ -90,13 +90,14 @@ void setup() {
   getIt.registerSingletonAsync<ImportUC>(() async => ImportUC(repo: ImportRepo()));
 
   // controllers
+  // TODO: убрать загрузку данных тут из инитов. Старт загрузки должен быть из контроллера главного после авторизации как раз
   getIt.registerSingletonAsync<SettingsController>(() async => await SettingsController().init(), dependsOn: [HiveStorage, PackageInfo, SettingsUC]);
   getIt.registerSingletonAsync<LoginController>(() async => await LoginController().init(), dependsOn: [SettingsController, Openapi]);
   getIt.registerSingletonAsync<WorkspaceController>(() async => await WorkspaceController().init(), dependsOn: [LoginController]);
-  getIt.registerSingletonAsync<MainController>(() async => await MainController().init(), dependsOn: [WorkspaceController]);
+  getIt.registerSingletonAsync<MainController>(() async => await MainController().init(), dependsOn: [WorkspaceController, WorkspacesUC]);
   getIt.registerSingletonAsync<GoalController>(() async => await GoalController().init(), dependsOn: [WorkspaceController]);
   getIt.registerSingletonAsync<TaskViewController>(() async => await TaskViewController().init(), dependsOn: [WorkspaceController]);
-  getIt.registerSingletonAsync<TaskEditController>(() async => await TaskEditController().init(), dependsOn: [WorkspaceController, GoalController]);
+  getIt.registerSingletonAsync<TaskEditController>(() async => await TaskEditController().init(), dependsOn: [WorkspaceController]);
   getIt.registerSingletonAsync<TrackerController>(() async => await TrackerController().init(), dependsOn: [WorkspaceController]);
   getIt.registerSingletonAsync<ImportController>(() async => await ImportController().init(), dependsOn: [WorkspaceController]);
 }

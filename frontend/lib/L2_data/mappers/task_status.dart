@@ -3,13 +3,12 @@
 import 'package:openapi/openapi.dart';
 
 import '../../L1_domain/entities/goals/task_status.dart';
-import 'workspace.dart';
 
 extension TaskStatusMapper on TaskStatusSchemaGet {
   TaskStatus get status => TaskStatus(
         id: id,
         title: title,
         closed: closed,
-        workspace: workspace.workspace,
+        workspaceId: workspaceId,
       );
 }

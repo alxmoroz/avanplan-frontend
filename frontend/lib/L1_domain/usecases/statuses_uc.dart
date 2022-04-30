@@ -8,10 +8,6 @@ abstract class StatusesUC<S extends Statusable> {
   StatusesUC({required this.repo});
 
   final AbstractApiRepo<S, dynamic> repo;
-
-  Future<List<S>> getStatuses() async {
-    return await repo.getAll();
-  }
 }
 
 class TaskStatusesUC extends StatusesUC<TaskStatus> {

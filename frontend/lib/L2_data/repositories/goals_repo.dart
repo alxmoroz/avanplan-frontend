@@ -14,17 +14,7 @@ class GoalsRepo extends AbstractApiRepo<Goal, GoalUpsert> {
   GoalsApi get api => openAPI.getGoalsApi();
 
   @override
-  Future<List<Goal>> getAll() async {
-    final response = await api.getGoalsV1GoalsGet();
-
-    final List<Goal> goals = [];
-    if (response.statusCode == 200) {
-      for (GoalSchemaGet g in response.data?.toList() ?? []) {
-        goals.add(g.goal);
-      }
-    }
-    return goals;
-  }
+  Future<List<Goal>> getAll() async => throw UnimplementedError();
 
   @override
   Future<Goal?> save(GoalUpsert data) async {

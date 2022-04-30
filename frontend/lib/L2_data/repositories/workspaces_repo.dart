@@ -9,11 +9,11 @@ import '../../L2_data/mappers/workspace.dart';
 import '../../L3_app/extra/services.dart';
 
 class WorkspacesRepo extends AbstractApiRepo<Workspace, BaseUpsert> {
-  AuthApi get api => openAPI.getAuthApi();
+  MyApi get myApi => openAPI.getMyApi();
 
   @override
   Future<List<Workspace>> getAll() async {
-    final response = await api.getMyWorkspacesV1MyWorkspacesGet();
+    final response = await myApi.getMyWorkspacesV1MyWorkspacesGet();
 
     final List<Workspace> workspaces = [];
     if (response.statusCode == 200) {
@@ -25,12 +25,8 @@ class WorkspacesRepo extends AbstractApiRepo<Workspace, BaseUpsert> {
   }
 
   @override
-  Future<Workspace?> save(dynamic data) {
-    throw UnimplementedError();
-  }
+  Future<Workspace?> save(dynamic data) => throw UnimplementedError();
 
   @override
-  Future<bool> delete(int id) {
-    throw UnimplementedError();
-  }
+  Future<bool> delete(int id) => throw UnimplementedError();
 }

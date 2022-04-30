@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'smartable.dart';
+import 'task_priority.dart';
 import 'task_status.dart';
 
 class Task extends Smartable {
@@ -16,6 +17,7 @@ class Task extends Smartable {
     required bool closed,
     required List<Task> tasks,
     required this.status,
+    required this.priority,
   }) : super(
           id: id,
           createdOn: createdOn,
@@ -30,6 +32,7 @@ class Task extends Smartable {
         );
 
   final TaskStatus? status;
+  final TaskPriority? priority;
 
   Task copy() => Task(
         id: id,
@@ -40,6 +43,7 @@ class Task extends Smartable {
         description: description,
         dueDate: dueDate,
         status: status,
+        priority: priority,
         tasks: tasks,
         closed: closed,
         trackerId: trackerId,

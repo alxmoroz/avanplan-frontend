@@ -74,6 +74,7 @@ void setup() {
     final api = Openapi(basePathOverride: 'http://localhost:8000/');
     // final api = Openapi(basePathOverride: 'https://hercules.moroz.team/api/');
     api.dio.options.connectTimeout = 30000;
+    api.dio.options.receiveTimeout = 30000;
     return api;
   });
 
@@ -91,11 +92,11 @@ void setup() {
   // controllers
   getIt.registerSingletonAsync<SettingsController>(() async => await SettingsController().init(), dependsOn: [HiveStorage, PackageInfo, SettingsUC]);
   getIt.registerSingletonAsync<LoginController>(() async => await LoginController().init(), dependsOn: [SettingsController, Openapi]);
-  getIt.registerSingletonAsync<MainController>(() async => await MainController().init(), dependsOn: [LoginController]);
   getIt.registerSingletonAsync<WorkspaceController>(() async => await WorkspaceController().init(), dependsOn: [LoginController]);
-  getIt.registerSingletonAsync<GoalController>(() async => await GoalController().init(), dependsOn: [LoginController]);
-  getIt.registerSingletonAsync<TaskViewController>(() async => await TaskViewController().init(), dependsOn: [LoginController]);
-  getIt.registerSingletonAsync<TaskEditController>(() async => await TaskEditController().init(), dependsOn: [LoginController]);
-  getIt.registerSingletonAsync<TrackerController>(() async => await TrackerController().init(), dependsOn: [LoginController]);
-  getIt.registerSingletonAsync<ImportController>(() async => await ImportController().init(), dependsOn: [LoginController]);
+  getIt.registerSingletonAsync<MainController>(() async => await MainController().init(), dependsOn: [WorkspaceController]);
+  getIt.registerSingletonAsync<GoalController>(() async => await GoalController().init(), dependsOn: [WorkspaceController]);
+  getIt.registerSingletonAsync<TaskViewController>(() async => await TaskViewController().init(), dependsOn: [WorkspaceController]);
+  getIt.registerSingletonAsync<TaskEditController>(() async => await TaskEditController().init(), dependsOn: [WorkspaceController, GoalController]);
+  getIt.registerSingletonAsync<TrackerController>(() async => await TrackerController().init(), dependsOn: [WorkspaceController]);
+  getIt.registerSingletonAsync<ImportController>(() async => await ImportController().init(), dependsOn: [WorkspaceController]);
 }

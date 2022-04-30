@@ -13,17 +13,7 @@ class RemoteTrackersRepo extends AbstractApiRepo<RemoteTracker, RemoteTrackerUps
   IntegrationsTrackersApi get api => openAPI.getIntegrationsTrackersApi();
 
   @override
-  Future<List<RemoteTracker>> getAll() async {
-    final response = await api.getTrackersV1IntegrationsTrackersGet();
-
-    final List<RemoteTracker> trackers = [];
-    if (response.statusCode == 200) {
-      for (RemoteTrackerSchemaGet t in response.data?.toList() ?? []) {
-        trackers.add(t.tracker);
-      }
-    }
-    return trackers;
-  }
+  Future<List<RemoteTracker>> getAll() async => throw UnimplementedError();
 
   @override
   Future<RemoteTracker?> save(RemoteTrackerUpsert data) async {

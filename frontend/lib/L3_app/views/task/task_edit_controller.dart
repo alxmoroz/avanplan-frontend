@@ -34,20 +34,6 @@ abstract class _TaskEditControllerBase extends SmartableController with Store {
   }
 
   @override
-  Future fetchData() async {
-    if (loginController.authorized) {
-      startLoading();
-
-      // TODO: все доступные статусы тут. Отдельно должен быть фильтр по текущему РП (для конкр. цели и задачи) –> в редакторе задачи
-
-      taskStatuses = ObservableList.of(await taskStatusesUC.getStatuses());
-      _sortStatuses();
-
-      stopLoading();
-    }
-  }
-
-  @override
   void setClosed(bool? _closed) {
     super.setClosed(_closed);
     if (!closed && selectedStatus != null && selectedStatus!.closed) {
@@ -57,11 +43,12 @@ abstract class _TaskEditControllerBase extends SmartableController with Store {
 
   /// статусы задач
 
-  @observable
-  ObservableList<TaskStatus> taskStatuses = ObservableList();
+  @computed
+  List<TaskStatus> get taskStatuses {
+    final ws = workspaceController.workspaces.firstWhereOrNull((ws) => ws.id == _goal.workspaceId);
 
-  @action
-  void _sortStatuses() => taskStatuses.sort((s1, s2) => s1.title.compareTo(s2.title));
+    return ws != null ? ws.taskStatuses : [];
+  }
 
   @observable
   int? selectedStatusId;

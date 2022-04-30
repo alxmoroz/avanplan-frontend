@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../L1_domain/entities/auth/workspace.dart';
 import '../../../L1_domain/entities/goals/goal.dart';
 import '../../extra/services.dart';
 import '../_base/base_controller.dart';
@@ -48,7 +49,10 @@ abstract class _MainControllerBase extends BaseController with Store {
   Future fetchData() async {
     startLoading();
     if (loginController.authorized) {
-      goals = ObservableList.of(await goalsUC.getAll());
+      goals.clear();
+      for (Workspace ws in workspaceController.workspaces) {
+        goals.addAll(ws.goals);
+      }
       _sortGoals();
     }
     stopLoading();

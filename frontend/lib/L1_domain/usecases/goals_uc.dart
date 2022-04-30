@@ -9,10 +9,6 @@ class GoalsUC {
 
   final AbstractApiRepo<Goal, GoalUpsert> repo;
 
-  Future<List<Goal>> getAll() async {
-    return await repo.getAll();
-  }
-
   Future<Goal?> save(GoalUpsert data) async {
     Goal? goal;
     // TODO: внутр. exception?

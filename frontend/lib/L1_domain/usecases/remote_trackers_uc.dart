@@ -11,10 +11,6 @@ class RemoteTrackersUC {
 
   final AbstractApiRepo<RemoteTracker, RemoteTrackerUpsert> repo;
 
-  Future<List<RemoteTracker>> getAll() async {
-    return await repo.getAll();
-  }
-
   Future<RemoteTracker?> save(RemoteTrackerUpsert data) async {
     RemoteTracker? tracker;
     // TODO: внутр. exception - валидация...

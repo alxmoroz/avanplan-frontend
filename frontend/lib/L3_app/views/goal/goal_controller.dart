@@ -34,7 +34,7 @@ abstract class _GoalControllerBase extends SmartableController with Store, Works
   @action
   void selectGoal(Goal? _goal) {
     selectedGoalId = _goal?.id;
-    selectWS(_goal?.workspace);
+    selectWS(_goal?.workspaceId);
   }
 
   @computed

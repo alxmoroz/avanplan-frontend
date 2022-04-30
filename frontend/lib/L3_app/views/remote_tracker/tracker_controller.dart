@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/api_schema/remote_tracker.dart';
+import '../../../L1_domain/entities/auth/workspace.dart';
 import '../../../L1_domain/entities/goals/remote_tracker.dart';
 import '../../components/confirmation_dialog.dart';
 import '../../components/text_field_annotation.dart';
@@ -33,7 +34,10 @@ abstract class _TrackerControllerBase extends BaseController with Store, Workspa
     if (loginController.authorized) {
       startLoading();
 
-      trackers = ObservableList.of(await trackersUC.getAll());
+      trackers.clear();
+      for (Workspace ws in workspaceController.workspaces) {
+        trackers.addAll(ws.remoteTrackers);
+      }
       _sortAndCheckTrackers();
 
       rtTypes = ObservableList.of(await trackerTypesUC.getAll());
@@ -73,7 +77,7 @@ abstract class _TrackerControllerBase extends BaseController with Store, Workspa
   @action
   void selectTracker(RemoteTracker? _rt) {
     selectedTrackerId = _rt?.id;
-    selectWS(_rt?.workspace);
+    selectWS(_rt?.workspaceId);
   }
 
   @computed

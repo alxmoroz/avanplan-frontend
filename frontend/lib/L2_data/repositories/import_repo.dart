@@ -38,7 +38,6 @@ class ImportRepo extends AbstractApiImportRepo {
     final response = await api.importGoalsV1IntegrationsGoalsImportPost(
       trackerId: tracker.id,
       requestBody: BuiltList.from(goalsIds),
-      workspaceId: tracker.workspace.id,
     );
     return response.statusCode == 200;
   }

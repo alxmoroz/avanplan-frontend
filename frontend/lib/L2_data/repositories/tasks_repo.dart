@@ -12,9 +12,7 @@ class TasksRepo extends AbstractApiRepo<Task, TaskUpsert> {
   TasksApi get api => openAPI.getTasksApi();
 
   @override
-  Future<List<Task>> getAll() {
-    throw UnimplementedError();
-  }
+  Future<List<Task>> getAll() => throw UnimplementedError();
 
   @override
   Future<Task?> save(TaskUpsert data) async {

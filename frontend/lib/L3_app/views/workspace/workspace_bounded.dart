@@ -15,7 +15,7 @@ mixin WorkspaceBounded {
   int? _selectedWSId;
 
   @action
-  void selectWS(Workspace? _ws) => _selectedWSId = _ws?.id;
+  void selectWS(int? _wsId) => _selectedWSId = _wsId;
 
   @computed
   Workspace? get selectedWS {
@@ -29,7 +29,7 @@ mixin WorkspaceBounded {
     if (workspaceController.workspaces.length > 1) {
       items.add(MTDropdown<Workspace>(
         width: mq.size.width - onePadding * 2,
-        onChanged: (ws) => selectWS(ws),
+        onChanged: (ws) => selectWS(ws?.id),
         value: selectedWS,
         items: workspaceController.workspaces,
         label: loc.workspace_placeholder,

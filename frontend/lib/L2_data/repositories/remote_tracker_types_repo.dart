@@ -25,12 +25,8 @@ class RemoteTrackerTypesRepo extends AbstractApiRepo<RemoteTrackerType, BaseUpse
   }
 
   @override
-  Future<RemoteTrackerType?> save(dynamic data) {
-    throw UnimplementedError();
-  }
+  Future<RemoteTrackerType?> save(dynamic data) => throw UnimplementedError();
 
   @override
-  Future<bool> delete(int id) {
-    throw UnimplementedError();
-  }
+  Future<bool> delete(int id) => throw UnimplementedError();
 }

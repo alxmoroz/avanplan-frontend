@@ -3,6 +3,7 @@
 import 'package:openapi/openapi.dart';
 
 import '../../L1_domain/entities/goals/task.dart';
+import 'task_priority.dart';
 import 'task_status.dart';
 
 extension TaskMapper on TaskSchemaGet {
@@ -15,8 +16,9 @@ extension TaskMapper on TaskSchemaGet {
         description: description?.trim() ?? '',
         dueDate: dueDate?.toLocal(),
         closed: closed,
-        status: status != null ? status!.status : null,
+        status: status?.status,
         tasks: tasks?.map((t) => t.task).toList() ?? [],
         trackerId: remoteTrackerId,
+        priority: priority?.priority,
       );
 }

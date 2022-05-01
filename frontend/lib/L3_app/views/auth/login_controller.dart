@@ -39,8 +39,6 @@ abstract class _LoginControllerBase extends BaseController with Store {
         settingsController,
         workspaceController,
         mainController,
-        goalController,
-        taskEditController,
         trackerController,
       ]) {
         await controller.fetchData();
@@ -63,8 +61,6 @@ abstract class _LoginControllerBase extends BaseController with Store {
       settingsController,
       workspaceController,
       mainController,
-      goalController,
-      taskEditController,
       trackerController,
     ]) {
       await controller.fetchData();

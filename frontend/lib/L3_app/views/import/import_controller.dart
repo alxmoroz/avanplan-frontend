@@ -78,7 +78,11 @@ abstract class _ImportControllerBase extends BaseController with Store {
     startLoading();
     final done = await importUC.importGoals(selectedTracker!, selectedGoalsIds);
     if (done) {
-      await workspaceController.fetchData();
+      // TODO: аналогично при авторизации - нужно обновление всех причастных данных
+      for (var controller in [workspaceController, mainController]) {
+        await controller.fetchData();
+      }
+
       Navigator.of(context).pop();
     }
     stopLoading();

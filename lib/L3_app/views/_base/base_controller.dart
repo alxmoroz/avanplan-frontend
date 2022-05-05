@@ -75,10 +75,7 @@ abstract class _BaseControllerBase with Store {
   Iterable<TFAnnotation> get _validatableTA => _allTA.where((ta) => ta.needValidate);
 
   @computed
-  bool get allNeedFieldsTouched => !_validatableTA.any((ta) => !ta.edited);
-
-  @computed
-  bool get validated => !_validatableTA.any((ta) => ta.errorText != null) && allNeedFieldsTouched;
+  bool get validated => !_validatableTA.any((ta) => ta.errorText != null);
 
   TFAnnotation tfAnnoForCode(String code) => tfAnnotations[code]!;
 }

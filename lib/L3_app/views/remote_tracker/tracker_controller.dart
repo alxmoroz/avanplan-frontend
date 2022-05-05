@@ -11,7 +11,6 @@ import '../../../L1_domain/entities/goals/remote_tracker.dart';
 import '../../components/confirmation_dialog.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
-import '../_base/base_controller.dart';
 import '../workspace/workspace_bounded.dart';
 import 'tracker_edit_view.dart';
 
@@ -19,7 +18,7 @@ part 'tracker_controller.g.dart';
 
 class TrackerController extends _TrackerControllerBase with _$TrackerController {}
 
-abstract class _TrackerControllerBase extends BaseController with Store, WorkspaceBounded {
+abstract class _TrackerControllerBase extends WorkspaceBounded with Store {
   @override
   void initState({List<TFAnnotation>? tfaList}) {
     super.initState(tfaList: tfaList);

@@ -9,13 +9,13 @@ import '../../components/text_field.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';
-import 'base_controller.dart';
+import '../workspace/workspace_bounded.dart';
 
 part 'smartable_controller.g.dart';
 
 abstract class SmartableController extends _SmartableControllerBase with _$SmartableController {}
 
-abstract class _SmartableControllerBase extends BaseController with Store {
+abstract class _SmartableControllerBase extends WorkspaceBounded with Store {
   @observable
   bool closed = false;
 

@@ -8,9 +8,13 @@ import '../../../L1_domain/entities/auth/workspace.dart';
 import '../../components/constants.dart';
 import '../../components/dropdown.dart';
 import '../../extra/services.dart';
+import '../_base/base_controller.dart';
 
-/// Рабочие пространства
-mixin WorkspaceBounded {
+part 'workspace_bounded.g.dart';
+
+class WorkspaceBounded extends _WorkspaceBoundedBase with _$WorkspaceBounded {}
+
+abstract class _WorkspaceBoundedBase extends BaseController with Store {
   @observable
   int? _selectedWSId;
 

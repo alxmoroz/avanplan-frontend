@@ -10,7 +10,6 @@ import '../../components/confirmation_dialog.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
 import '../_base/smartable_controller.dart';
-import '../workspace/workspace_bounded.dart';
 import 'goal_edit_view.dart';
 import 'goal_view.dart';
 
@@ -18,7 +17,7 @@ part 'goal_controller.g.dart';
 
 class GoalController extends _GoalControllerBase with _$GoalController {}
 
-abstract class _GoalControllerBase extends SmartableController with Store, WorkspaceBounded {
+abstract class _GoalControllerBase extends SmartableController with Store {
   @override
   void initState({List<TFAnnotation>? tfaList}) {
     super.initState(tfaList: tfaList);

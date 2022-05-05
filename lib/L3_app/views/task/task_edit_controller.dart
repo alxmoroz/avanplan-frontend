@@ -92,9 +92,6 @@ abstract class _TaskEditControllerBase extends SmartableController with Store {
   @computed
   int? get _parentId => canEdit ? taskViewController.task?.parentId : taskViewController.task?.id;
 
-  @override
-  bool get allNeedFieldsTouched => super.allNeedFieldsTouched || canEdit;
-
   /// действия
 
   Future save(BuildContext context) async {

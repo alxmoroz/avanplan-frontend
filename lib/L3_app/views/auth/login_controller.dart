@@ -36,7 +36,7 @@ abstract class _LoginControllerBase extends BaseController with Store {
       for (var controller in [
         settingsController,
         workspaceController,
-        mainController,
+        goalController,
         trackerController,
       ]) {
         await controller.fetchData();
@@ -55,7 +55,7 @@ abstract class _LoginControllerBase extends BaseController with Store {
     for (var controller in [
       settingsController,
       workspaceController,
-      mainController,
+      goalController,
       trackerController,
     ]) {
       await controller.fetchData();

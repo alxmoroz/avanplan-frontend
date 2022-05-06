@@ -23,7 +23,7 @@ Future<RemoteTracker?> showEditTrackerDialog(BuildContext context) async {
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
     useRootNavigator: true,
-    builder: (context) => MTBottomSheet(TrackerEditView()),
+    builder: (_) => MTBottomSheet(TrackerEditView(), context),
   );
 }
 

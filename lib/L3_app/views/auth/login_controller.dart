@@ -5,8 +5,6 @@ import 'package:mobx/mobx.dart';
 
 import '../../extra/services.dart';
 import '../_base/base_controller.dart';
-import '../main/main_view.dart';
-import 'login_view.dart';
 
 part 'login_controller.g.dart';
 
@@ -43,9 +41,6 @@ abstract class _LoginControllerBase extends BaseController with Store {
       ]) {
         await controller.fetchData();
       }
-
-      /// навигация
-      await Navigator.of(context).pushReplacementNamed(MainView.routeName);
     } else {
       //TODO: не учитываются возможные ошибки! Нет обработки 403 и т.п.
     }
@@ -67,7 +62,5 @@ abstract class _LoginControllerBase extends BaseController with Store {
     }
 
     await authUC.logout();
-
-    Navigator.of(context).pushReplacementNamed(LoginView.routeName);
   }
 }

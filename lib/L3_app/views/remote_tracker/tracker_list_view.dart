@@ -26,7 +26,7 @@ class TrackerListView extends StatefulWidget {
 class _TrackerListViewState extends State<TrackerListView> {
   TrackerController get _controller => trackerController;
 
-  Widget trackerBuilder(BuildContext context, int index) {
+  Widget trackerBuilder(BuildContext _, int index) {
     final tracker = _controller.trackers[index];
     return Column(
       children: [
@@ -57,23 +57,21 @@ class _TrackerListViewState extends State<TrackerListView> {
         trailing: Button.icon(plusIcon(context), () => _controller.addTracker(context)),
       ),
       body: Observer(
-        builder: (_) => Expanded(
-          child: Column(children: [
-            SizedBox(height: onePadding),
-            Expanded(
-              child: _controller.trackers.isEmpty
-                  ? EmptyDataWidget(
-                      title: loc.tracker_list_empty_title,
-                      addTitle: loc.tracker_title_new,
-                      onAdd: () => _controller.addTracker(context),
-                    )
-                  : ListView.builder(
-                      itemBuilder: trackerBuilder,
-                      itemCount: _controller.trackers.length,
-                    ),
-            ),
-          ]),
-        ),
+        builder: (context) => Column(children: [
+          SizedBox(height: onePadding),
+          Expanded(
+            child: _controller.trackers.isEmpty
+                ? EmptyDataWidget(
+                    title: loc.tracker_list_empty_title,
+                    addTitle: loc.tracker_title_new,
+                    onAdd: () => _controller.addTracker(context),
+                  )
+                : ListView.builder(
+                    itemBuilder: trackerBuilder,
+                    itemCount: _controller.trackers.length,
+                  ),
+          ),
+        ]),
       ),
     );
   }

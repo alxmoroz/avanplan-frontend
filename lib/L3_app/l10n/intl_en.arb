@@ -3,9 +3,10 @@
 
   "appTitle": "Hercules",
 
-  "auth_user_placeholder": "User",
-  "auth_password_placeholder": "Password",
   "auth_log_in_button_title": "Log in",
+  "auth_log_out_button_title": "Log out",
+  "auth_password_placeholder": "Password",
+  "auth_user_placeholder": "User",
 
   "btn_delete_title": "Delete",
   "btn_mark_done_title": "Done",
@@ -28,6 +29,7 @@
   "goal_import": "Import goals",
   "goal_list_empty_title": "There are no goals",
   "goal_list_empty_title_import": "There are no goals or projects available to import\nTry choosing a different tracker",
+  "goal_list_title": "Goals",
   "goal_title": "Goal",
   "goal_title_new": "New goal",
 

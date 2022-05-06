@@ -53,9 +53,9 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return MTCupertinoPage(
-      mainAxisAlignment: MainAxisAlignment.center,
       body: Observer(
         builder: (_) => Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             H1(loc.appTitle, align: TextAlign.center),
             textFieldForCode('login'),

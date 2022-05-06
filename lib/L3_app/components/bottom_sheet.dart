@@ -4,34 +4,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import 'colors.dart';
+import 'card.dart';
 import 'constants.dart';
 
 double radius = onePadding;
 
 class MTBottomSheet extends StatelessWidget {
-  const MTBottomSheet(this.bodyWidget);
+  const MTBottomSheet(this.bodyWidget, this.parentContext);
 
   final Widget bodyWidget;
+  final BuildContext parentContext;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    final mq = MediaQuery.of(parentContext);
+    return MTCard(
+      margin: EdgeInsets.only(top: mq.viewPadding.top + onePadding),
+      radius: onePadding,
+      body: Expanded(child: bodyWidget),
       onTap: FocusScope.of(context).unfocus,
-      child: Container(
-        decoration: BoxDecoration(
-          color: darkBackgroundColor.resolve(context),
-          borderRadius: BorderRadius.only(topLeft: Radius.circular(radius), topRight: Radius.circular(radius)),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(height: radius),
-            bodyWidget,
-          ],
-        ),
-      ),
     );
   }
 }

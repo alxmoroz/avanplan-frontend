@@ -16,14 +16,14 @@ import '../../presenters/string_presenter.dart';
 import 'goal_card.dart';
 import 'goal_controller.dart';
 
-class GoalView extends StatefulWidget {
-  static String get routeName => 'goal';
+class GoalDashboardView extends StatefulWidget {
+  static String get routeName => 'goal_dashboard';
 
   @override
-  _GoalViewState createState() => _GoalViewState();
+  _GoalDashboardViewState createState() => _GoalDashboardViewState();
 }
 
-class _GoalViewState extends State<GoalView> {
+class _GoalDashboardViewState extends State<GoalDashboardView> {
   GoalController get _controller => goalController;
   Goal? get _goal => _controller.selectedGoal;
 
@@ -60,18 +60,16 @@ class _GoalViewState extends State<GoalView> {
     return Observer(
       builder: (_) => MTCupertinoPage(
         navBar: navBar(context, title: _goal != null ? loc.goal_title : loc.goal_title_new),
-        body: Column(
-          children: [
-            SizedBox(height: onePadding),
-            buildTitle(),
-            buildDescription(),
-            if (_goal != null)
-              GoalCard(
-                goal: _goal!,
-                onTap: () => taskViewController.showTask(context, null),
-              ),
-          ],
-        ),
+        body: Column(children: [
+          SizedBox(height: onePadding),
+          buildTitle(),
+          buildDescription(),
+          if (_goal != null)
+            GoalCard(
+              goal: _goal!,
+              onTap: () => taskViewController.showTask(context, null),
+            ),
+        ]),
       ),
     );
   }

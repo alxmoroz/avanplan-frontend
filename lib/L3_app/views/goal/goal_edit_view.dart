@@ -23,7 +23,7 @@ Future<Goal?> showEditGoalDialog(BuildContext context) async {
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
     useRootNavigator: true,
-    builder: (context) => MTBottomSheet(GoalEditView()),
+    builder: (_) => MTBottomSheet(GoalEditView(), context),
   );
 }
 

@@ -5,13 +5,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/api_schema/goal.dart';
+import '../../../L1_domain/entities/auth/workspace.dart';
 import '../../../L1_domain/entities/goals/goal.dart';
 import '../../components/confirmation_dialog.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
 import '../_base/smartable_controller.dart';
+import 'goal_dashboard_view.dart';
 import 'goal_edit_view.dart';
-import 'goal_view.dart';
 
 part 'goal_controller.g.dart';
 
@@ -23,6 +24,46 @@ abstract class _GoalControllerBase extends SmartableController with Store {
     super.initState(tfaList: tfaList);
     setDueDate(selectedGoal?.dueDate);
     setClosed(selectedGoal?.closed);
+  }
+
+  /// цели - рутовый объект
+
+  @observable
+  ObservableList<Goal> goals = ObservableList();
+
+  @action
+  void _sortGoals() {
+    goals.sort((g1, g2) => g1.title.compareTo(g2.title));
+  }
+
+  @action
+  void updateGoalInList(Goal? _goal) {
+    if (_goal != null) {
+      final index = goals.indexWhere((g) => g.id == _goal.id);
+      if (index >= 0) {
+        if (_goal.deleted) {
+          goals.remove(_goal);
+        } else {
+          goals[index] = _goal.copy();
+        }
+      } else {
+        goals.add(_goal);
+      }
+      _sortGoals();
+    }
+  }
+
+  @override
+  Future fetchData() async {
+    goals.clear();
+    if (loginController.authorized) {
+      startLoading();
+      for (Workspace ws in workspaceController.workspaces) {
+        goals.addAll(ws.goals);
+      }
+      _sortGoals();
+      stopLoading();
+    }
   }
 
   /// выбранная цель
@@ -37,7 +78,7 @@ abstract class _GoalControllerBase extends SmartableController with Store {
   }
 
   @computed
-  Goal? get selectedGoal => mainController.goals.firstWhereOrNull((g) => g.id == selectedGoalId);
+  Goal? get selectedGoal => goals.firstWhereOrNull((g) => g.id == selectedGoalId);
 
   @computed
   bool get canEdit => selectedGoal != null;
@@ -83,7 +124,7 @@ abstract class _GoalControllerBase extends SmartableController with Store {
 
   Future showGoal(BuildContext context, Goal goal) async {
     selectGoal(goal);
-    await Navigator.of(context).pushNamed(GoalView.routeName);
+    await Navigator.of(context).pushNamed(GoalDashboardView.routeName);
   }
 
   Future addGoal(BuildContext context) async {
@@ -94,7 +135,7 @@ abstract class _GoalControllerBase extends SmartableController with Store {
     selectGoal(selectedGoal);
     final goal = await showEditGoalDialog(context);
     if (goal != null) {
-      mainController.updateGoalInList(goal);
+      updateGoalInList(goal);
       if (goal.deleted) {
         Navigator.of(context).pop();
       }

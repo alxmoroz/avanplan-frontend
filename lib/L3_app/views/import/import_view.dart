@@ -24,7 +24,7 @@ Future showImportDialog(BuildContext context) async {
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
     useRootNavigator: true,
-    builder: (context) => MTBottomSheet(ImportView()),
+    builder: (_) => MTBottomSheet(ImportView(), context),
   );
 }
 
@@ -50,55 +50,51 @@ class _ImportViewState extends State<ImportView> {
 
   Widget form() {
     final mq = MediaQuery.of(context);
-    return Container(
-      constraints: BoxConstraints(maxHeight: (mq.size.height - mq.viewInsets.bottom - mq.viewPadding.bottom) * 0.82),
-      child: Stack(
-        children: [
-          Column(
-            children: [
-              trackerController.trackers.isEmpty
-                  ? Expanded(
-                      child: EmptyDataWidget(
-                        title: loc.tracker_list_empty_title,
-                        addTitle: loc.tracker_title_new,
-                        onAdd: () => importController.addTracker(context),
-                      ),
-                    )
-                  : MTDropdown<RemoteTracker>(
-                      width: mq.size.width - onePadding * 2,
-                      onChanged: (t) => importController.selectTracker(t),
-                      value: importController.selectedTracker,
-                      items: trackerController.trackers,
-                      label: loc.tracker_import_placeholder,
-                    ),
-              if (importController.selectedTracker != null && importController.goals.isEmpty)
-                EmptyDataWidget(
-                  title: importController.errorCode != null
-                      ? Intl.message(importController.errorCode!, name: importController.errorCode)
-                      : loc.goal_list_empty_title_import,
-                  color: importController.errorCode != null ? warningColor : null,
-                ),
-              if (importController.goals.isNotEmpty) ...[
-                SizedBox(height: onePadding),
-                const MTDivider(),
-                Expanded(
-                  child: ListView.builder(
-                    itemBuilder: goalItemBuilder,
-                    itemCount: importController.goals.length,
+    return Stack(
+      children: [
+        Column(children: [
+          trackerController.trackers.isEmpty
+              ? Expanded(
+                  child: EmptyDataWidget(
+                    title: loc.tracker_list_empty_title,
+                    addTitle: loc.tracker_title_new,
+                    onAdd: () => importController.addTracker(context),
                   ),
+                )
+              : MTDropdown<RemoteTracker>(
+                  width: mq.size.width - onePadding * 2,
+                  onChanged: (t) => importController.selectTracker(t),
+                  value: importController.selectedTracker,
+                  items: trackerController.trackers,
+                  label: loc.tracker_import_placeholder,
                 ),
-                const MTDivider(),
-                Button(
-                  loc.goal_import,
-                  importController.validated ? () => importController.startImport(context) : null,
-                  titleColor: importController.validated ? mainColor : borderColor,
-                ),
-              ]
-            ],
-          ),
-          if (importController.isLoading) SplashScreen(color: loaderColor.resolve(context)),
-        ],
-      ),
+          if (importController.selectedTracker != null && importController.goals.isEmpty)
+            EmptyDataWidget(
+              title: importController.errorCode != null
+                  ? Intl.message(importController.errorCode!, name: importController.errorCode)
+                  : loc.goal_list_empty_title_import,
+              color: importController.errorCode != null ? warningColor : null,
+            ),
+          if (importController.goals.isNotEmpty) ...[
+            SizedBox(height: onePadding),
+            const MTDivider(),
+            Expanded(
+              child: ListView.builder(
+                itemBuilder: goalItemBuilder,
+                itemCount: importController.goals.length,
+              ),
+            ),
+            const MTDivider(),
+            Button(
+              loc.goal_import,
+              importController.validated ? () => importController.startImport(context) : null,
+              titleColor: importController.validated ? null : lightGreyColor,
+            ),
+            SizedBox(height: onePadding),
+          ]
+        ]),
+        if (importController.isLoading) SplashScreen(color: loaderColor.resolve(context)),
+      ],
     );
   }
 
@@ -106,7 +102,6 @@ class _ImportViewState extends State<ImportView> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTCupertinoPage(
-        bgColor: darkBackgroundColor,
         navBar: navBar(context, title: loc.goal_import),
         body: form(),
       ),

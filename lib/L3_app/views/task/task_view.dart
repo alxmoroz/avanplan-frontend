@@ -63,30 +63,28 @@ class _TaskViewState extends State<TaskView> {
         trailing: Button.icon(plusIcon(context), () => controller.addTask(context)),
       ),
       body: Observer(
-        builder: (_) => Expanded(
-          child: Column(children: [
-            SizedBox(height: onePadding / 4),
-            buildBreadcrumbs(),
-            if (_task != null)
-              TaskCard(
-                task: _task!,
-                detailedScreen: true,
-                onTapHeader: () => controller.editTask(context),
-              ),
-            Expanded(
-              child: controller.subtasks.isEmpty && controller.isGoal
-                  ? EmptyDataWidget(
-                      title: loc.task_list_empty_title,
-                      addTitle: loc.task_title_new,
-                      onAdd: () => controller.addTask(context),
-                    )
-                  : ListView.builder(
-                      itemBuilder: taskBuilder,
-                      itemCount: controller.subtasks.length,
-                    ),
+        builder: (_) => Column(children: [
+          SizedBox(height: onePadding / 4),
+          buildBreadcrumbs(),
+          if (_task != null)
+            TaskCard(
+              task: _task!,
+              detailedScreen: true,
+              onTapHeader: () => controller.editTask(context),
             ),
-          ]),
-        ),
+          Expanded(
+            child: controller.subtasks.isEmpty && controller.isGoal
+                ? EmptyDataWidget(
+                    title: loc.task_list_empty_title,
+                    addTitle: loc.task_title_new,
+                    onAdd: () => controller.addTask(context),
+                  )
+                : ListView.builder(
+                    itemBuilder: taskBuilder,
+                    itemCount: controller.subtasks.length,
+                  ),
+          ),
+        ]),
       ),
     );
   }

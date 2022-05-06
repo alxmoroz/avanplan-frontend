@@ -8,29 +8,30 @@ import 'colors.dart';
 import 'constants.dart';
 
 class MTCard extends StatelessWidget {
-  const MTCard({this.body, this.title, this.margin, this.onTap, this.elevation});
+  const MTCard({this.body, this.title, this.margin, this.onTap, this.elevation, this.radius});
 
   final Widget? title;
   final Widget? body;
   final EdgeInsets? margin;
   final VoidCallback? onTap;
   final double? elevation;
+  final double? radius;
 
   @override
   Widget build(BuildContext context) {
-    const double radius = 8;
     final mainBgColor = darkBackgroundColor.resolve(context);
     final secondBgColor = darkBackgroundColor.resolve(context);
+    final borderRadius = BorderRadius.circular(radius ?? onePadding / 2);
     return GestureDetector(
       onTap: onTap,
       child: Card(
         margin: margin ?? EdgeInsets.symmetric(horizontal: onePadding, vertical: onePadding / 2),
         elevation: elevation ?? 2,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)),
+        shape: RoundedRectangleBorder(borderRadius: borderRadius),
         child: Container(
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(radius),
+            borderRadius: borderRadius,
             gradient: LinearGradient(
               transform: const GradientRotation(pi / 2),
               colors: [secondBgColor, mainBgColor],

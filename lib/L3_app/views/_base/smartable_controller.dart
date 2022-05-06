@@ -69,30 +69,24 @@ abstract class _SmartableControllerBase extends WorkspaceBounded with Store {
   /// общий виджет - форма с полями для задач и целей
 
   Widget form(BuildContext context, [List<Widget>? customFields]) {
-    final mq = MediaQuery.of(context);
-    return Container(
-      constraints: BoxConstraints(maxHeight: (mq.size.height - mq.viewInsets.bottom - mq.viewPadding.bottom) * 0.82),
-      child: Scrollbar(
-        isAlwaysShown: true,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              ...['title', 'dueDate', 'description'].map((code) => textFieldForCode(context, code)),
-              if (customFields != null) ...customFields,
-              Padding(
-                padding: tfPadding,
-                child: InkWell(
-                  child: Row(children: [
-                    doneIcon(context, closed),
-                    SizedBox(width: onePadding),
-                    NormalText(loc.btn_mark_done_title, padding: EdgeInsets.symmetric(vertical: onePadding)),
-                  ]),
-                  onTap: () => setClosed(!closed),
-                ),
-              ),
-            ],
+    return Scrollbar(
+      isAlwaysShown: true,
+      child: SingleChildScrollView(
+        child: Column(children: [
+          ...['title', 'dueDate', 'description'].map((code) => textFieldForCode(context, code)),
+          if (customFields != null) ...customFields,
+          Padding(
+            padding: tfPadding,
+            child: InkWell(
+              child: Row(children: [
+                doneIcon(context, closed),
+                SizedBox(width: onePadding),
+                NormalText(loc.btn_mark_done_title, padding: EdgeInsets.symmetric(vertical: onePadding)),
+              ]),
+              onTap: () => setClosed(!closed),
+            ),
           ),
-        ),
+        ]),
       ),
     );
   }

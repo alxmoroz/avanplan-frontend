@@ -3,9 +3,10 @@
 
   "appTitle": "Геркулес",
 
-  "auth_user_placeholder": "Пользователь",
-  "auth_password_placeholder": "Пароль",
   "auth_log_in_button_title": "Войти",
+  "auth_log_out_button_title": "Выйти",
+  "auth_password_placeholder": "Пароль",
+  "auth_user_placeholder": "Пользователь",
 
   "btn_delete_title": "Удалить",
   "btn_mark_done_title": "Выполнено",
@@ -28,6 +29,7 @@
   "goal_import": "Импорт целей",
   "goal_list_empty_title": "Нет целей",
   "goal_list_empty_title_import": "Нет доступных для импорта целей или проектов\nПопробуйте выбрать другой источник",
+  "goal_list_title": "Цели",
   "goal_title": "Цель",
   "goal_title_new": "Новая цель",
 

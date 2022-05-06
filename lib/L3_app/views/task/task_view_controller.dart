@@ -63,7 +63,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
     } else {
       _updateTask(_task, goal);
       sortTasks();
-      mainController.updateGoalInList(goal);
+      goalController.updateGoalInList(goal);
     }
   }
 

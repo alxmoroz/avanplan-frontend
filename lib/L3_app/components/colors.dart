@@ -94,6 +94,16 @@ const Color warningPaceColor = CupertinoDynamicColor.withBrightness(
 //       darkColor: Color.fromARGB(0, 0, 0, 0),
 //     );
 
+Color get inactiveColor => const CupertinoDynamicColor.withBrightness(
+      color: Color(0xFF758599),
+      darkColor: Color(0xFF999999),
+    );
+
+Color get navbarBgColor => const CupertinoDynamicColor.withBrightness(
+      color: Color.fromARGB(170, 200, 215, 240),
+      darkColor: Color.fromARGB(170, 40, 50, 60),
+    );
+
 extension ResolvedColor on Color {
   Color resolve(BuildContext context) => CupertinoDynamicColor.resolve(this, context);
 }

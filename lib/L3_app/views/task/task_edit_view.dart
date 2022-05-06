@@ -23,7 +23,7 @@ Future<Task?> showEditTaskDialog(BuildContext context, [Task? selectedTask]) asy
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
     useRootNavigator: true,
-    builder: (context) => MTBottomSheet(TaskEditView()),
+    builder: (_) => MTBottomSheet(TaskEditView(), context),
   );
 }
 

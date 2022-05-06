@@ -68,26 +68,29 @@ class _TrackerEditViewState extends State<TrackerEditView> {
 
   Widget form() {
     final mq = MediaQuery.of(context);
-    return Container(
-      constraints: BoxConstraints(maxHeight: (mq.size.height - mq.viewInsets.bottom - mq.viewPadding.bottom) * 0.82),
-      child: Scrollbar(
-        isAlwaysShown: true,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              if (_isNew) ..._controller.wsDropdown(context),
-              if (_controller.rtTypes.isNotEmpty)
-                MTDropdown<RemoteTrackerType>(
-                  width: mq.size.width - onePadding * 2,
-                  onChanged: (type) => _controller.selectType(type),
-                  value: _controller.selectedType,
-                  items: _controller.rtTypes,
-                  label: loc.tracker_type_placeholder,
-                ),
-              ...['url', 'loginKey', 'password', 'description'].map((code) => textFieldForCode(code)),
-            ],
-          ),
-        ),
+    return Scrollbar(
+      isAlwaysShown: true,
+      child: ListView(
+        children: [
+          if (_isNew) ..._controller.wsDropdown(context),
+          if (_controller.rtTypes.isNotEmpty)
+            MTDropdown<RemoteTrackerType>(
+              width: mq.size.width - onePadding * 2,
+              onChanged: (type) => _controller.selectType(type),
+              value: _controller.selectedType,
+              items: _controller.rtTypes,
+              label: loc.tracker_type_placeholder,
+            ),
+          ...['url', 'loginKey', 'password', 'description'].map((code) => textFieldForCode(code)),
+          if (_controller.canEdit)
+            Button(
+              loc.common_delete_btn_title,
+              () => _controller.delete(context),
+              titleColor: dangerColor,
+              padding: EdgeInsets.only(top: onePadding),
+            ),
+          SizedBox(height: onePadding),
+        ],
       ),
     );
   }
@@ -99,16 +102,10 @@ class _TrackerEditViewState extends State<TrackerEditView> {
         bgColor: darkBackgroundColor,
         navBar: navBar(
           context,
-          leading: _controller.canEdit
-              ? Button.icon(
-                  deleteIcon(context),
-                  () => _controller.delete(context),
-                  padding: EdgeInsets.only(left: onePadding),
-                )
-              : Container(),
+          leading: Button.icon(closeIcon(context), () => Navigator.of(context).pop()),
           title: _isNew ? loc.tracker_title_new : '',
           trailing: Button(
-            loc.btn_save_title,
+            loc.common_save_btn_title,
             _canSave ? () => _controller.save(context) : null,
             titleColor: _canSave ? mainColor : borderColor,
             padding: EdgeInsets.only(right: onePadding),

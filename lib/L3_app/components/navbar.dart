@@ -22,6 +22,6 @@ CupertinoNavigationBar navBar(BuildContext context, {Widget? leading, Widget? mi
             : null,
     trailing: trailing != null ? mQuery(trailing, context) : null,
     padding: const EdgeInsetsDirectional.only(start: 0),
-    backgroundColor: bgColor ?? darkBackgroundColor,
+    backgroundColor: bgColor ?? navbarBgColor,
   );
 }

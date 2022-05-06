@@ -23,15 +23,18 @@ class _MainDashboardViewState extends State<MainDashboardView> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTCupertinoPage(
-          body: Center(
-        child: _controller.goals.isEmpty
-            ? EmptyDataWidget(
-                title: loc.goal_list_empty_title,
-                addTitle: loc.goal_title_new,
-                onAdd: () => _controller.addGoal(context),
-              )
-            : const H1('Status & Text'),
-      )),
+        body: SafeArea(
+          child: Center(
+            child: _controller.goals.isEmpty
+                ? EmptyDataWidget(
+                    title: loc.goal_list_empty_title,
+                    addTitle: loc.goal_title_new,
+                    onAdd: () => _controller.addGoal(context),
+                  )
+                : const H1('Status & Text'),
+          ),
+        ),
+      ),
     );
   }
 }

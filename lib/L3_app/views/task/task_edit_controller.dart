@@ -86,6 +86,7 @@ abstract class _TaskEditControllerBase extends SmartableController with Store {
   @action
   void selectTask(Task? _task) => selectedTask = _task;
 
+  @override
   @computed
   bool get canEdit => selectedTask != null;
 
@@ -111,6 +112,7 @@ abstract class _TaskEditControllerBase extends SmartableController with Store {
     }
   }
 
+  @override
   Future delete(BuildContext context) async {
     if (canEdit) {
       final confirm = await showMTDialog<bool?>(

@@ -80,6 +80,7 @@ abstract class _GoalControllerBase extends SmartableController with Store {
   @computed
   Goal? get selectedGoal => goals.firstWhereOrNull((g) => g.id == selectedGoalId);
 
+  @override
   @computed
   bool get canEdit => selectedGoal != null;
 
@@ -103,6 +104,7 @@ abstract class _GoalControllerBase extends SmartableController with Store {
     }
   }
 
+  @override
   Future delete(BuildContext context) async {
     if (canEdit) {
       final confirm = await showMTDialog<bool?>(

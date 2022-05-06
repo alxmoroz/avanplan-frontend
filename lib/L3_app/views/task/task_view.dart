@@ -56,6 +56,7 @@ class _TaskViewState extends State<TaskView> {
 
   @override
   Widget build(BuildContext context) {
+    final mq = MediaQuery.of(context);
     return MTCupertinoPage(
       navBar: navBar(
         context,
@@ -64,7 +65,7 @@ class _TaskViewState extends State<TaskView> {
       ),
       body: Observer(
         builder: (_) => Column(children: [
-          SizedBox(height: onePadding / 4),
+          SizedBox(height: mq.padding.top + mq.viewPadding.top),
           buildBreadcrumbs(),
           if (_task != null)
             TaskCard(
@@ -80,6 +81,7 @@ class _TaskViewState extends State<TaskView> {
                     onAdd: () => controller.addTask(context),
                   )
                 : ListView.builder(
+                    padding: EdgeInsets.only(bottom: mq.padding.bottom + onePadding),
                     itemBuilder: taskBuilder,
                     itemCount: controller.subtasks.length,
                   ),

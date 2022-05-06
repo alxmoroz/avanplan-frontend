@@ -65,16 +65,10 @@ class _TaskEditViewState extends State<TaskEditView> {
         bgColor: darkBackgroundColor,
         navBar: navBar(
           context,
-          leading: _controller.canEdit
-              ? Button.icon(
-                  deleteIcon(context),
-                  () => _controller.delete(context),
-                  padding: EdgeInsets.only(left: onePadding),
-                )
-              : Container(),
+          leading: Button.icon(closeIcon(context), () => Navigator.of(context).pop()),
           title: _task == null ? loc.task_title_new : '',
           trailing: Button(
-            loc.btn_save_title,
+            loc.common_save_btn_title,
             _controller.validated ? () => _controller.save(context) : null,
             titleColor: _controller.validated ? mainColor : borderColor,
             padding: EdgeInsets.only(right: onePadding),

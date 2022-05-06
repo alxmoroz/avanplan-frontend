@@ -21,7 +21,7 @@ class MTCupertinoPage extends StatelessWidget {
     return CupertinoPageScaffold(
       backgroundColor: bgColor ?? backgroundColor,
       navigationBar: navBar,
-      child: SafeArea(child: material(body)),
+      child: material(body),
     );
   }
 }

@@ -17,11 +17,11 @@ Widget editIcon(BuildContext context, {Color? color, double? size}) => Icon(
       color: (color ?? mainColor).resolve(context),
     );
 
-Widget deleteIcon(BuildContext context, {Color? color, double? size}) => Icon(
-      CupertinoIcons.delete,
-      size: size ?? 24,
-      color: (color ?? dangerColor).resolve(context),
-    );
+// Widget deleteIcon(BuildContext context, {Color? color, double? size}) => Icon(
+//       CupertinoIcons.delete,
+//       size: size ?? 24,
+//       color: (color ?? dangerColor).resolve(context),
+//     );
 
 Widget calendarIcon(BuildContext context, {Color? color, double? size}) => Icon(
       CupertinoIcons.calendar,
@@ -60,8 +60,8 @@ Widget linkIcon(BuildContext context, {Color? color, double? size}) => Icon(
     );
 
 Widget closeIcon(BuildContext context, {Color? color, double? size}) => Icon(
-      CupertinoIcons.clear_circled,
-      size: size ?? 28,
+      CupertinoIcons.clear,
+      size: size ?? 24,
       color: (color ?? mainColor).resolve(context),
     );
 

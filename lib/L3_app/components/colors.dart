@@ -100,8 +100,8 @@ Color get inactiveColor => const CupertinoDynamicColor.withBrightness(
     );
 
 Color get navbarBgColor => const CupertinoDynamicColor.withBrightness(
-      color: Color.fromARGB(170, 200, 215, 240),
-      darkColor: Color.fromARGB(170, 40, 50, 60),
+      color: Color.fromARGB(180, 215, 215, 220),
+      darkColor: Color.fromARGB(180, 55, 55, 58),
     );
 
 extension ResolvedColor on Color {

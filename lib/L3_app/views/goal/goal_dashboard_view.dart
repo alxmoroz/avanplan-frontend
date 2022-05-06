@@ -60,16 +60,18 @@ class _GoalDashboardViewState extends State<GoalDashboardView> {
     return Observer(
       builder: (_) => MTCupertinoPage(
         navBar: navBar(context, title: _goal != null ? loc.goal_title : loc.goal_title_new),
-        body: Column(children: [
-          SizedBox(height: onePadding),
-          buildTitle(),
-          buildDescription(),
-          if (_goal != null)
-            GoalCard(
-              goal: _goal!,
-              onTap: () => taskViewController.showTask(context, null),
-            ),
-        ]),
+        body: SafeArea(
+          child: Column(children: [
+            SizedBox(height: onePadding),
+            buildTitle(),
+            buildDescription(),
+            if (_goal != null)
+              GoalCard(
+                goal: _goal!,
+                onTap: () => taskViewController.showTask(context, null),
+              ),
+          ]),
+        ),
       ),
     );
   }

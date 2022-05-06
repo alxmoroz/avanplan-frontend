@@ -34,24 +34,26 @@ class _SettingsViewState extends State<SettingsView> {
   Widget build(BuildContext context) {
     return MTCupertinoPage(
       body: Observer(
-        builder: (_) => Column(
-          children: [
-            const MTDivider(),
-            SizedBox(height: onePadding),
-            Button(loc.auth_log_out_button_title, logout),
-            const MTDivider(),
-            SizedBox(height: onePadding),
-            SmallText(loc.integration),
-            SizedBox(height: onePadding),
-            Button(loc.goal_import, importGoals),
-            Button(loc.tracker_list_title, showTrackers),
-            const Spacer(),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              LightText(settingsController.appName),
-              NormalText(settingsController.appVersion, padding: const EdgeInsets.only(left: 6)),
-            ]),
-            SizedBox(height: onePadding),
-          ],
+        builder: (_) => SafeArea(
+          child: Column(
+            children: [
+              const MTDivider(),
+              SizedBox(height: onePadding),
+              Button(loc.auth_log_out_button_title, logout),
+              const MTDivider(),
+              SizedBox(height: onePadding),
+              SmallText(loc.integration),
+              SizedBox(height: onePadding),
+              Button(loc.goal_import, importGoals),
+              Button(loc.tracker_list_title, showTrackers),
+              const Spacer(),
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                LightText(settingsController.appName),
+                NormalText(settingsController.appVersion, padding: const EdgeInsets.only(left: 6)),
+              ]),
+              SizedBox(height: onePadding),
+            ],
+          ),
         ),
       ),
     );

@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../components/buttons.dart';
+import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/text_field.dart';
@@ -16,6 +18,9 @@ part 'smartable_controller.g.dart';
 abstract class SmartableController extends _SmartableControllerBase with _$SmartableController {}
 
 abstract class _SmartableControllerBase extends WorkspaceBounded with Store {
+  bool get canEdit => throw UnimplementedError();
+  Future delete(BuildContext context) async => throw UnimplementedError();
+
   @observable
   bool closed = false;
 
@@ -71,23 +76,23 @@ abstract class _SmartableControllerBase extends WorkspaceBounded with Store {
   Widget form(BuildContext context, [List<Widget>? customFields]) {
     return Scrollbar(
       isAlwaysShown: true,
-      child: SingleChildScrollView(
-        child: Column(children: [
-          ...['title', 'dueDate', 'description'].map((code) => textFieldForCode(context, code)),
-          if (customFields != null) ...customFields,
-          Padding(
-            padding: tfPadding,
-            child: InkWell(
-              child: Row(children: [
-                doneIcon(context, closed),
-                SizedBox(width: onePadding),
-                NormalText(loc.btn_mark_done_title, padding: EdgeInsets.symmetric(vertical: onePadding)),
-              ]),
-              onTap: () => setClosed(!closed),
-            ),
+      child: ListView(children: [
+        ...['title', 'dueDate', 'description'].map((code) => textFieldForCode(context, code)),
+        if (customFields != null) ...customFields,
+        Padding(
+          padding: tfPadding,
+          child: InkWell(
+            child: Row(children: [
+              doneIcon(context, closed),
+              SizedBox(width: onePadding),
+              NormalText(loc.common_mark_done_btn_title, padding: EdgeInsets.symmetric(vertical: onePadding)),
+            ]),
+            onTap: () => setClosed(!closed),
           ),
-        ]),
-      ),
+        ),
+        if (canEdit) Button(loc.common_delete_btn_title, () => delete(context), titleColor: dangerColor, padding: EdgeInsets.only(top: onePadding)),
+        SizedBox(height: onePadding),
+      ]),
     );
   }
 }

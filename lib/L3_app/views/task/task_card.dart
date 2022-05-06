@@ -103,7 +103,7 @@ class TaskCard extends StatelessWidget {
   Widget status() => SmallText(task.status!.title, weight: FontWeight.w500);
 
   Widget closedProgressCount() => Row(children: [
-        SmallText('${loc.btn_mark_done_title} ', weight: FontWeight.w300),
+        SmallText('${loc.common_mark_done_btn_title} ', weight: FontWeight.w300),
         SmallText('${task.closedTasksCount} / ${task.tasksCount}', weight: FontWeight.w500),
       ]);
 

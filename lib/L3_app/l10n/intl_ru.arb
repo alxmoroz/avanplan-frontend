@@ -8,17 +8,16 @@
   "auth_password_placeholder": "Пароль",
   "auth_user_placeholder": "Пользователь",
 
-  "btn_delete_title": "Удалить",
-  "btn_mark_done_title": "Выполнено",
-  "btn_save_title": "Сохранить",
-
-  "common_description": "Описание",
+  "common_delete_btn_title": "Удалить",
   "common_delete_dialog_description": "Это действие нельзя будет отменить!",
+  "common_description": "Описание",
   "common_due_date_placeholder": "Срок завершения",
   "common_due_date_label": "План",
   "common_eta_date_label": "Прогноз",
-  "common_status_placeholder": "Статус",
+  "common_mark_done_btn_title": "Выполнено",
   "common_no": "Нет",
+  "common_save_btn_title": "Сохранить",
+  "common_status_placeholder": "Статус",
   "common_title": "Название",
   "common_yes": "Да",
 

@@ -13,6 +13,7 @@ import '../../components/cupertino_page.dart';
 import '../../components/divider.dart';
 import '../../components/dropdown.dart';
 import '../../components/empty_widget.dart';
+import '../../components/icons.dart';
 import '../../components/navbar.dart';
 import '../../components/splash.dart';
 import '../../components/text_widgets.dart';
@@ -102,8 +103,12 @@ class _ImportViewState extends State<ImportView> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTCupertinoPage(
-        navBar: navBar(context, title: loc.goal_import),
-        body: form(),
+        navBar: navBar(
+          context,
+          leading: Button.icon(closeIcon(context), () => Navigator.of(context).pop()),
+          title: loc.goal_import,
+        ),
+        body: SafeArea(child: form()),
       ),
     );
   }

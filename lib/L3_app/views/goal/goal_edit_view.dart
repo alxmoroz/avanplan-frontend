@@ -63,18 +63,12 @@ class _GoalViewState extends State<GoalEditView> {
         bgColor: darkBackgroundColor,
         navBar: navBar(
           context,
-          leading: _controller.canEdit
-              ? Button.icon(
-                  deleteIcon(context),
-                  () => _controller.delete(context),
-                  padding: EdgeInsets.only(left: onePadding),
-                )
-              : Container(),
+          leading: Button.icon(closeIcon(context), () => Navigator.of(context).pop()),
           title: _isNew ? loc.goal_title_new : '',
           trailing: Button(
-            loc.btn_save_title,
+            loc.common_save_btn_title,
             _canSave ? () => _controller.save(context) : null,
-            titleColor: _canSave ? mainColor : borderColor,
+            titleColor: _canSave ? mainColor : lightGreyColor,
             padding: EdgeInsets.only(right: onePadding),
           ),
         ),

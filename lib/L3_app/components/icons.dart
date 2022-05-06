@@ -5,15 +5,9 @@ import 'package:flutter/material.dart';
 
 import 'colors.dart';
 
-Widget menuIcon(BuildContext context, {Color? color, double? size}) => Icon(
-      Icons.view_headline,
-      size: size ?? 30,
-      color: (color ?? mainColor).resolve(context),
-    );
-
 Widget plusIcon(BuildContext context, {Color? color, double? size}) => Icon(
       CupertinoIcons.plus_circle,
-      size: size ?? 30,
+      size: size ?? 28,
       color: (color ?? mainColor).resolve(context),
     );
 
@@ -67,6 +61,25 @@ Widget linkIcon(BuildContext context, {Color? color, double? size}) => Icon(
 
 Widget closeIcon(BuildContext context, {Color? color, double? size}) => Icon(
       CupertinoIcons.clear_circled,
-      size: size ?? 30,
+      size: size ?? 28,
       color: (color ?? mainColor).resolve(context),
+    );
+
+Widget homeIcon(BuildContext context, {Color? color, double? size}) => Icon(
+      // CupertinoIcons.chart_pie_fill,
+      // CupertinoIcons.info,
+      // CupertinoIcons.viewfinder,
+      // CupertinoIcons.scope,
+      CupertinoIcons.viewfinder_circle,
+      size: size ?? 28,
+    );
+
+Widget goalsIcon(BuildContext context, {Color? color, double? size}) => Icon(
+      CupertinoIcons.text_badge_checkmark,
+      size: size ?? 28,
+    );
+
+Widget menuIcon(BuildContext context, {Color? color, double? size}) => Icon(
+      Icons.view_headline,
+      size: size ?? 28,
     );

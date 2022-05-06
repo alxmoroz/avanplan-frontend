@@ -37,9 +37,9 @@ class _MainViewState extends State<MainView> {
                 inactiveColor: inactiveColor,
                 backgroundColor: navbarBgColor,
                 items: [
-                  BottomNavigationBarItem(icon: editIcon(context), label: 'home'),
-                  BottomNavigationBarItem(icon: menuIcon(context), label: loc.goal_list_title),
-                  BottomNavigationBarItem(icon: linkIcon(context), label: 'settings'),
+                  BottomNavigationBarItem(icon: homeIcon(context)),
+                  BottomNavigationBarItem(icon: goalsIcon(context)),
+                  BottomNavigationBarItem(icon: menuIcon(context)),
                 ],
               ),
               tabBuilder: (_, index) => CupertinoTabView(

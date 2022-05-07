@@ -37,7 +37,7 @@ class TaskCard extends StatelessWidget {
       bottom: 0,
       width: (task.closedRatio ?? 0) * _width,
       child: Container(
-        color: (task.dueDate != null ? (task.pace >= 0 ? goodPaceColor : warningPaceColor) : borderColor).resolve(context),
+        color: (task.pace != null ? (task.pace! >= 0 ? goodPaceColor : warningPaceColor) : borderColor).resolve(context),
       ),
     );
   }

@@ -20,15 +20,6 @@ const Color lightGreyColor = CupertinoDynamicColor.withBrightness(
 
 const Color dangerColor = CupertinoColors.destructiveRed;
 const Color warningColor = CupertinoColors.activeOrange;
-const Color lightWarningColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 195, 155, 115),
-  darkColor: Color.fromARGB(255, 120, 90, 50),
-);
-
-const Color borderColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 200, 200, 205),
-  darkColor: Color.fromARGB(255, 62, 62, 64),
-);
 
 const Color loaderColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(180, 200, 200, 205),
@@ -37,6 +28,10 @@ const Color loaderColor = CupertinoDynamicColor.withBrightness(
 
 const Color backgroundColor = CupertinoColors.systemGrey6;
 const Color darkBackgroundColor = CupertinoColors.systemGrey5;
+const Color borderColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, 200, 200, 205),
+  darkColor: Color.fromARGB(255, 62, 62, 64),
+);
 
 const Color _tealColor = Color.fromARGB(255, 90, 200, 250);
 const Color _darkTealColor = Color.fromARGB(255, 0, 113, 164);
@@ -88,6 +83,16 @@ const Color warningPaceColor = CupertinoDynamicColor.withBrightness(
   darkColor: Color.fromARGB(255, 115, 70, 0),
 );
 
+const Color dashboardGoodPaceColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, 240, 255, 242),
+  darkColor: Color.fromARGB(255, 35, 50, 40),
+);
+
+const Color dashboardWarningPaceColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, 255, 220, 175),
+  darkColor: Color.fromARGB(255, 60, 30, 0),
+);
+
 // цвет для "прозрачного" апп-бара
 // Color get appBarBgColor => const CupertinoDynamicColor.withBrightness(
 //       color: Color.fromARGB(0, 255, 255, 255),
@@ -100,8 +105,8 @@ Color get inactiveColor => const CupertinoDynamicColor.withBrightness(
     );
 
 Color get navbarBgColor => const CupertinoDynamicColor.withBrightness(
-      color: Color.fromARGB(180, 215, 215, 220),
-      darkColor: Color.fromARGB(180, 55, 55, 58),
+      color: Color.fromARGB(150, 209, 209, 214),
+      darkColor: Color.fromARGB(150, 58, 58, 60),
     );
 
 extension ResolvedColor on Color {

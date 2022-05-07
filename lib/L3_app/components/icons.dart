@@ -83,3 +83,21 @@ Widget menuIcon(BuildContext context, {Color? color, double? size}) => Icon(
       Icons.view_headline,
       size: size ?? 28,
     );
+
+Widget badPaceDashboardIcon(BuildContext context, {Color? color, double? size}) => Icon(
+      CupertinoIcons.question_diamond,
+      size: size ?? 30,
+      color: (color ?? warningColor).resolve(context),
+    );
+
+Widget goodPaceDashboardIcon(BuildContext context, {Color? color, double? size}) => Icon(
+      CupertinoIcons.rocket,
+      size: size ?? 30,
+      color: (color ?? goodPaceColor).resolve(context),
+    );
+
+Widget noInfoDashboardIcon(BuildContext context, {Color? color, double? size}) => Icon(
+      CupertinoIcons.question,
+      size: size ?? 30,
+      color: (color ?? borderColor).resolve(context),
+    );

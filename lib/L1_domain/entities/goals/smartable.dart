@@ -27,6 +27,8 @@ abstract class Smartable extends Statusable {
 
   Duration? get plannedPeriod => dueDate?.difference(createdOn);
   Duration get pastPeriod => DateTime.now().difference(createdOn);
+  Duration? get overduePeriod => dueDate != null ? DateTime.now().difference(dueDate!) : null;
+  bool get hasOverdue => (overduePeriod?.inSeconds ?? 0) > 0;
 
   List<Task> get allTasks => tasks;
   int get tasksCount => allTasks.length;
@@ -38,5 +40,6 @@ abstract class Smartable extends Statusable {
   double get _planSpeed => tasksCount / (plannedPeriod?.inSeconds ?? 1);
 
   DateTime? get etaDate => _factSpeed > 0 ? DateTime.now().add(Duration(seconds: (lefTasksCount / _factSpeed).round())) : null;
-  double? get pace => dueDate != null ? (_factSpeed - _planSpeed) : null;
+  Duration? get etaToPlanPeriod => dueDate != null ? etaDate?.difference(dueDate!) : null;
+  double? get pace => etaDate != null ? (_factSpeed - _planSpeed) : null;
 }

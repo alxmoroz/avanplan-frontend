@@ -78,19 +78,19 @@ const Color goodPaceColor = CupertinoDynamicColor.withBrightness(
   darkColor: Color.fromARGB(255, 5, 80, 5),
 );
 
+const Color bgGoodPaceColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(120, 120, 190, 142),
+  darkColor: Color.fromARGB(120, 5, 80, 5),
+);
+
 const Color warningPaceColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(255, 255, 195, 65),
   darkColor: Color.fromARGB(255, 115, 70, 0),
 );
 
-const Color dashboardGoodPaceColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 240, 255, 242),
-  darkColor: Color.fromARGB(255, 35, 50, 40),
-);
-
-const Color dashboardWarningPaceColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 255, 220, 175),
-  darkColor: Color.fromARGB(255, 60, 30, 0),
+const Color bgWarningPaceColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(120, 255, 195, 65),
+  darkColor: Color.fromARGB(120, 115, 70, 0),
 );
 
 // цвет для "прозрачного" апп-бара

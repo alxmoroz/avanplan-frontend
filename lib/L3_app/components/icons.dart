@@ -66,38 +66,33 @@ Widget closeIcon(BuildContext context, {Color? color, double? size}) => Icon(
     );
 
 Widget homeIcon(BuildContext context, {Color? color, double? size}) => Icon(
-      // CupertinoIcons.chart_pie_fill,
-      // CupertinoIcons.info,
       // CupertinoIcons.viewfinder,
       // CupertinoIcons.scope,
       CupertinoIcons.viewfinder_circle,
-      size: size ?? 28,
+      size: size,
     );
 
 Widget goalsIcon(BuildContext context, {Color? color, double? size}) => Icon(
       CupertinoIcons.text_badge_checkmark,
-      size: size ?? 28,
+      size: size,
     );
 
 Widget menuIcon(BuildContext context, {Color? color, double? size}) => Icon(
-      Icons.view_headline,
-      size: size ?? 28,
+      CupertinoIcons.ellipsis_vertical,
+      size: size,
     );
 
-Widget badPaceDashboardIcon(BuildContext context, {Color? color, double? size}) => Icon(
-      CupertinoIcons.question_diamond,
-      size: size ?? 30,
+Widget overdueIcon(BuildContext context, {Color? color, double? size}) => Icon(
+      CupertinoIcons.exclamationmark_triangle,
       color: (color ?? warningColor).resolve(context),
+      size: size,
     );
 
-Widget goodPaceDashboardIcon(BuildContext context, {Color? color, double? size}) => Icon(
-      CupertinoIcons.rocket,
-      size: size ?? 30,
-      color: (color ?? goodPaceColor).resolve(context),
-    );
+Widget badPaceIcon(BuildContext context, {Color? color, double? size}) =>
+    Icon(CupertinoIcons.tortoise, size: size, color: (color ?? warningPaceColor).resolve(context));
 
-Widget noInfoDashboardIcon(BuildContext context, {Color? color, double? size}) => Icon(
-      CupertinoIcons.question,
-      size: size ?? 30,
-      color: (color ?? borderColor).resolve(context),
-    );
+Widget goodPaceIcon(BuildContext context, {Color? color, double? size}) =>
+    Icon(CupertinoIcons.rocket, size: size, color: (color ?? goodPaceColor).resolve(context));
+
+Widget noInfoIcon(BuildContext context, {Color? color, double? size}) =>
+    Icon(CupertinoIcons.question, size: size, color: (color ?? borderColor).resolve(context));

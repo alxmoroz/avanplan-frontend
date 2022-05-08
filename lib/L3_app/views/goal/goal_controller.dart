@@ -32,16 +32,22 @@ abstract class _GoalControllerBase extends SmartableController with Store {
   ObservableList<Goal> goals = ObservableList();
 
   @computed
-  Iterable<Goal> get activeGoals => goals.where((g) => g.closedTasksCount > 0);
+  Iterable<Goal> get openedGoals => goals.where((g) => !g.closed);
 
   @computed
-  Iterable<Goal> get activeTimeBoundGoals => goals.where((g) => g.dueDate != null);
+  Iterable<Goal> get timeBoundGoals => openedGoals.where((g) => g.dueDate != null);
 
   @computed
-  Iterable<Goal> get badPaceGoals => activeTimeBoundGoals.where((g) => g.pace != null && g.pace! < 0);
+  Iterable<Goal> get overdueGoals => timeBoundGoals.where((g) => g.hasOverdue);
 
   @computed
-  Iterable<Goal> get goodPaceGoals => activeTimeBoundGoals.where((g) => g.pace != null && g.pace! >= 0);
+  Iterable<Goal> get badPaceGoals => timeBoundGoals.where((g) => g.pace != null && g.pace! < 0);
+
+  @computed
+  Iterable<Goal> get goodPaceGoals => timeBoundGoals.where((g) => g.pace != null && g.pace! >= 0);
+
+  @computed
+  Iterable<Goal> get activeGoals => openedGoals.where((g) => g.closedTasksCount > 0);
 
   @computed
   Iterable<Goal> get closableGoals => activeGoals.where((g) => g.lefTasksCount == 0);

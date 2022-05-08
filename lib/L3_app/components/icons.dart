@@ -89,10 +89,10 @@ Widget overdueIcon(BuildContext context, {Color? color, double? size}) => Icon(
     );
 
 Widget badPaceIcon(BuildContext context, {Color? color, double? size}) =>
-    Icon(CupertinoIcons.tortoise, size: size, color: (color ?? warningPaceColor).resolve(context));
+    Icon(CupertinoIcons.tortoise, size: size, color: (color ?? riskyColor).resolve(context));
 
 Widget goodPaceIcon(BuildContext context, {Color? color, double? size}) =>
-    Icon(CupertinoIcons.rocket, size: size, color: (color ?? goodPaceColor).resolve(context));
+    Icon(CupertinoIcons.rocket, size: size, color: (color ?? okColor).resolve(context));
 
 Widget noInfoIcon(BuildContext context, {Color? color, double? size}) =>
     Icon(CupertinoIcons.question, size: size, color: (color ?? borderColor).resolve(context));

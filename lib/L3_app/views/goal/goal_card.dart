@@ -6,11 +6,11 @@ import 'package:flutter/widgets.dart';
 
 import '../../../L1_domain/entities/goals/goal.dart';
 import '../../components/card.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/date_string_widget.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
+import '../_base/smartable_progress_widget.dart';
 
 class GoalCard extends StatelessWidget {
   const GoalCard({required this.goal, this.alone = false, this.onTap});
@@ -19,7 +19,7 @@ class GoalCard extends StatelessWidget {
   final bool alone;
   final VoidCallback? onTap;
 
-  Widget buildTitle() => H3(alone ? goal.title : loc.tasks_title, color: darkGreyColor, maxLines: 1);
+  Widget buildTitle() => H3(alone ? goal.title : loc.tasks_title, maxLines: 1);
 
   Widget buildTasksCount() {
     final tasksString = '${goal.closedTasksCount} / ${goal.tasksCount}';
@@ -32,40 +32,25 @@ class GoalCard extends StatelessWidget {
         DateStringWidget(goal.etaDate, titleString: loc.common_eta_date_label),
       ]);
 
-  Widget progress(BuildContext context) {
-    final _width = MediaQuery.of(context).size.width;
-    return Positioned(
-      top: 0,
-      bottom: 0,
-      width: (goal.closedRatio ?? 0) * _width,
-      child: Container(
-        color: (goal.pace != null ? (goal.pace! >= 0 ? goodPaceColor : warningPaceColor) : borderColor).resolve(context),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return MTCard(
       onTap: onTap,
-      body: Container(
-        color: darkBackgroundColor.resolve(context),
-        child: Stack(children: [
-          progress(context),
-          Padding(
-            padding: EdgeInsets.all(onePadding),
-            child: Row(children: [
-              Expanded(
-                child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  buildTitle(),
-                  if (goal.tasksCount > 0) buildTasksCount(),
-                ]),
-              ),
-              buildDates(),
-            ]),
-          ),
-        ]),
-      ),
+      body: Stack(children: [
+        SmartableProgressWidget(goal),
+        Padding(
+          padding: EdgeInsets.all(onePadding),
+          child: Row(children: [
+            Expanded(
+              child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.start, children: [
+                buildTitle(),
+                if (goal.tasksCount > 0) buildTasksCount(),
+              ]),
+            ),
+            buildDates(),
+          ]),
+        ),
+      ]),
     );
   }
 }

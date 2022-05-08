@@ -13,6 +13,7 @@ import '../../components/divider.dart';
 import '../../components/icons.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
+import '../_base/smartable_progress_widget.dart';
 
 class TaskCard extends StatelessWidget {
   const TaskCard({required this.task, this.onTapHeader, this.detailedScreen = false, this.onTapFooter});
@@ -29,18 +30,6 @@ class TaskCard extends StatelessWidget {
   bool get hasStatus => task.status != null;
   bool get isClosed => task.closed;
   bool get hasFooter => hasDates || hasSubtasks || hasStatus || hasLink || isClosed;
-
-  Widget progress(BuildContext context) {
-    final _width = MediaQuery.of(context).size.width;
-    return Positioned(
-      top: 0,
-      bottom: 0,
-      width: (task.closedRatio ?? 0) * _width,
-      child: Container(
-        color: (task.pace != null ? (task.pace! >= 0 ? goodPaceColor : warningPaceColor) : borderColor).resolve(context),
-      ),
-    );
-  }
 
   Widget title(BuildContext context) => MediumText(
         task.title,
@@ -144,18 +133,16 @@ class TaskCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTCard(
       onTap: detailedScreen ? null : onTapHeader,
-      body: Container(
-        child: Stack(children: [
-          progress(context),
-          Column(children: [
-            header(context),
-            if (hasDescription) description(),
-            if (hasFooter) footer(context),
-            SizedBox(height: onePadding),
-          ])
-        ]),
-      ),
-      elevation: detailedScreen ? 5 : 2,
+      body: Stack(children: [
+        SmartableProgressWidget(task),
+        Column(children: [
+          header(context),
+          if (hasDescription) description(),
+          if (hasFooter) footer(context),
+          SizedBox(height: onePadding),
+        ])
+      ]),
+      elevation: detailedScreen ? 5 : null,
       margin: EdgeInsets.fromLTRB(onePadding * (detailedScreen ? 0.5 : 2), onePadding / 2, onePadding * (detailedScreen ? 0.5 : 1), onePadding / 2),
     );
   }

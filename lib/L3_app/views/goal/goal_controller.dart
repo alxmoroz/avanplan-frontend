@@ -41,16 +41,30 @@ abstract class _GoalControllerBase extends SmartableController with Store {
   Iterable<Goal> get overdueGoals => timeBoundGoals.where((g) => g.hasOverdue);
 
   @computed
-  Iterable<Goal> get badPaceGoals => timeBoundGoals.where((g) => g.pace != null && g.pace! < 0);
+  Iterable<Goal> get riskyGoals => timeBoundGoals.where((g) => g.hasRisk);
 
   @computed
-  Iterable<Goal> get goodPaceGoals => timeBoundGoals.where((g) => g.pace != null && g.pace! >= 0);
+  Iterable<Goal> get okGoals => timeBoundGoals.where((g) => g.ok);
 
   @computed
   Iterable<Goal> get activeGoals => openedGoals.where((g) => g.closedTasksCount > 0);
 
   @computed
   Iterable<Goal> get closableGoals => activeGoals.where((g) => g.lefTasksCount == 0);
+
+  @computed
+  Duration get overduePeriod {
+    int totalSeconds = 0;
+    overdueGoals.forEach((g) => totalSeconds += g.overduePeriod?.inSeconds ?? 0);
+    return Duration(seconds: totalSeconds);
+  }
+
+  @computed
+  Duration get riskPeriod {
+    int totalSeconds = 0;
+    riskyGoals.forEach((g) => totalSeconds += g.etaRiskPeriod?.inSeconds ?? 0);
+    return Duration(seconds: totalSeconds);
+  }
 
   @action
   void _sortGoals() {

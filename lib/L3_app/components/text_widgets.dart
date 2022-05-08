@@ -161,7 +161,7 @@ class H3 extends MediumText {
     TextDecoration? decoration,
   }) : super(
           text,
-          color: color,
+          color: color ?? darkGreyColor,
           weight: weight,
           sizeScale: 1.2,
           align: align,

@@ -73,22 +73,22 @@ MaterialColor tealColorMaterial = MaterialColor(
   },
 );
 
-const Color goodPaceColor = CupertinoDynamicColor.withBrightness(
+const Color okColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(255, 120, 190, 142),
   darkColor: Color.fromARGB(255, 5, 80, 5),
 );
 
-const Color bgGoodPaceColor = CupertinoDynamicColor.withBrightness(
+const Color bgOkColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(120, 120, 190, 142),
   darkColor: Color.fromARGB(120, 5, 80, 5),
 );
 
-const Color warningPaceColor = CupertinoDynamicColor.withBrightness(
+const Color riskyColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(255, 255, 195, 65),
   darkColor: Color.fromARGB(255, 115, 70, 0),
 );
 
-const Color bgWarningPaceColor = CupertinoDynamicColor.withBrightness(
+const Color bgRiskyPaceColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(120, 255, 195, 65),
   darkColor: Color.fromARGB(120, 115, 70, 0),
 );

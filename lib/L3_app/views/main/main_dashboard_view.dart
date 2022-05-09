@@ -9,6 +9,7 @@ import '../../components/constants.dart';
 import '../../components/cupertino_page.dart';
 import '../../components/empty_widget.dart';
 import '../../components/icons.dart';
+import '../../components/progress.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 
@@ -22,8 +23,9 @@ class MainDashboardView extends StatefulWidget {
 enum _OverallState { overdue, risk, ok, noInfo }
 
 class _MainDashboardViewState extends State<MainDashboardView> {
-  int get _activeGoalsCount => goalController.activeGoals.length;
+  int get _inactiveGoalsCount => goalController.inactiveGoals.length;
   int get _timeBoundGoalsCount => goalController.timeBoundGoals.length;
+  int get _noDueGoalsCount => goalController.noDueGoals.length;
   int get _riskyGoalsCount => goalController.riskyGoals.length;
   int get _okGoalsCount => goalController.okGoals.length;
   int get _overdueGoalsCount => goalController.overdueGoals.length;
@@ -44,8 +46,8 @@ class _MainDashboardViewState extends State<MainDashboardView> {
       : _OverallState.noInfo;
 
   Color? get _dashboardColor => {
-        _OverallState.overdue: bgRiskyPaceColor,
-        _OverallState.risk: bgRiskyPaceColor,
+        _OverallState.overdue: bgRiskyColor,
+        _OverallState.risk: bgRiskyColor,
         _OverallState.ok: bgOkColor,
       }[_overallState];
 
@@ -62,12 +64,27 @@ class _MainDashboardViewState extends State<MainDashboardView> {
   // TODO: локализация
   String get _statusText =>
       {
-        _OverallState.overdue: 'Есть просрочка',
+        _OverallState.overdue: 'Опаздываем',
         _OverallState.risk: 'Есть риски',
         _OverallState.ok: 'Всё идёт по плану',
       }[_overallState] ??
       'Ставьте сроки, разделяйте цели на задачи';
 
+  Widget goalsProgress({required int goalsCount, required Color color, required List<Widget> texts}) => Column(children: [
+        SizedBox(height: onePadding),
+        MTProgress(
+          ratio: goalsCount / _totalGoalsCount,
+          color: color,
+          bgColor: borderColor.withAlpha(42),
+          padding: EdgeInsets.symmetric(horizontal: onePadding, vertical: onePadding / (texts.length)),
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: texts,
+          ),
+        ),
+      ]);
+
+  // TODO: локализация
   @override
   Widget build(BuildContext context) {
     return Observer(
@@ -87,40 +104,106 @@ class _MainDashboardViewState extends State<MainDashboardView> {
                     addTitle: loc.goal_title_new,
                     onAdd: () => goalController.addGoal(context),
                   )
-                : Column(children: [
-                    const Spacer(),
-
-                    /// статус и комментарий
-                    _statusIcon,
-                    H2(_statusText),
-                    SizedBox(height: onePadding),
-
-                    // TODO: локализация
-
-                    /// статистика по статусу
-                    if (_hasOverdue) ...[
-                      if (_overdueGoalsCount > 0) H3('Просроченные цели: $_overdueGoalsCount'),
-                      if (_overdueInDays > 0) LightText('Общее превышение сроков в днях: $_overdueInDays'),
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
                       SizedBox(height: onePadding),
+                      if (_totalGoalsCount > 0) H3(loc.goal_dashboard_total_title(_totalGoalsCount), align: TextAlign.center),
+
+                      const Spacer(),
+
+                      /// статус и комментарий
+                      _statusIcon,
+                      H2(_statusText, align: TextAlign.center),
+                      SizedBox(height: onePadding * 2),
+
+                      /// статистика по статусу
+                      if (_hasOverdue)
+                        goalsProgress(
+                          goalsCount: _overdueGoalsCount,
+                          color: warningColor,
+                          texts: [
+                            Row(children: [
+                              LightText(loc.goal_dashboard_progress_overdue_title(_overdueGoalsCount)),
+                              const Spacer(),
+                              H3('$_overdueGoalsCount'),
+                            ]),
+                            SmallText('Общее превышение сроков в днях: $_overdueInDays'),
+                          ],
+                        ),
+
+                      if (_hasRisk)
+                        goalsProgress(
+                          goalsCount: _riskyGoalsCount,
+                          color: riskyColor,
+                          texts: [
+                            Row(children: [
+                              LightText(loc.goal_dashboard_progress_risky_title(_riskyGoalsCount)),
+                              const Spacer(),
+                              H3('$_riskyGoalsCount'),
+                            ]),
+                            SmallText('Отставание в днях: $_riskInDays'),
+                          ],
+                        ),
+
+                      if (_noDueGoalsCount > 0)
+                        goalsProgress(
+                          goalsCount: _noDueGoalsCount,
+                          color: loaderColor,
+                          texts: [
+                            Row(children: [
+                              const LightText('Без указания срока'),
+                              const Spacer(),
+                              H3('$_noDueGoalsCount'),
+                            ]),
+                          ],
+                        ),
+
+                      if (_inactiveGoalsCount > 0)
+                        goalsProgress(
+                          goalsCount: _inactiveGoalsCount,
+                          color: loaderColor,
+                          texts: [
+                            Row(children: [
+                              const LightText('Без прогресса'),
+                              const Spacer(),
+                              H3('$_inactiveGoalsCount'),
+                            ]),
+                          ],
+                        ),
+
+                      if (_closableGoalsCount > 0)
+                        goalsProgress(
+                          goalsCount: _closableGoalsCount,
+                          color: loaderColor,
+                          texts: [
+                            Row(children: [
+                              const LightText('Закрыты все задачи'),
+                              const Spacer(),
+                              H3('$_closableGoalsCount'),
+                            ]),
+                          ],
+                        ),
+
+                      if ((_hasOverdue || _hasRisk) && _okGoalsCount > 0) ...[
+                        goalsProgress(
+                          goalsCount: _okGoalsCount,
+                          color: bgOkColor,
+                          texts: [
+                            Row(children: [
+                              const LightText('Успеваем'),
+                              const Spacer(),
+                              H3('$_okGoalsCount'),
+                            ]),
+                            // TODO: напрашивается количество запасных дней. Но при наличии рисковых целей, то лучше показывать сумму за вычетом отстающих дней.
+                            // TODO: Тогда путаница получается... Подумать, как учитывать суммарное отставание или запасы в днях
+                          ],
+                        ),
+                      ],
+
+                      const Spacer(),
                     ],
-
-                    if (_hasRisk) ...[
-                      if (_riskyGoalsCount > 0) H3('Цели с риском отставания: $_riskyGoalsCount'),
-                      if (_riskInDays > 0) LightText('Отставание в днях: $_riskInDays'),
-                      SizedBox(height: onePadding),
-                    ],
-
-                    if ((_hasOverdue || _hasRisk) && _okGoalsCount > 0) NormalText('Успеваем: $_okGoalsCount'),
-
-                    /// общая статистика
-                    if (_activeGoalsCount > 0) SmallText('Живые цели: $_activeGoalsCount'),
-                    if (_timeBoundGoalsCount > 0) SmallText('Указан срок: $_timeBoundGoalsCount'),
-                    if (_closableGoalsCount > 0) SmallText('Закрыты все задачи: $_closableGoalsCount'),
-
-                    const Spacer(),
-                    if (_totalGoalsCount > 0) LightText('Всего целей: $_totalGoalsCount'),
-                    SizedBox(height: onePadding),
-                  ]),
+                  ),
           ),
         ),
       ),

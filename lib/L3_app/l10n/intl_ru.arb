@@ -23,6 +23,10 @@
 
   "error_get_goals": "Ошибка получения списка целей или проектов\nПопробуйте выбрать другой источник",
 
+  "goal_dashboard_progress_overdue_title": "{count, plural, one{Просроченные цели} other{Просроченные цели}}",
+  "goal_dashboard_progress_risky_title": "{count, plural, one{Цель с риском отставания} other{Целей с риском отставания}}",
+  "goal_dashboard_total_title": "{count, plural, one{Поставлена 1 цель} other{Поставлено {count} целей}}",
+
   "goal_delete_dialog_title": "Удалить цель?",
   "goal_delete_dialog_description": "Все задачи цели также будут удалены",
   "goal_import": "Импорт целей",

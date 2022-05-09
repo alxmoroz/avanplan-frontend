@@ -23,6 +23,11 @@
 
   "error_get_goals": "Error getting goals\nTry choosing a different tracker",
 
+
+  "goal_dashboard_progress_overdue_title": "{count, plural, one{Overdue goal} other{Overdue goals}}",
+  "goal_dashboard_progress_risky_title": "{count, plural, one{Risky goal} other{Risky goals}}",
+  "goal_dashboard_total_title": "{count, plural, one{1 goal set} other{{count} goals have been set}}",
+
   "goal_delete_dialog_title": "Delete goal?",
   "goal_delete_dialog_description": "All tasks of this goal will be deleted",
   "goal_import": "Import goals",

@@ -47,10 +47,16 @@ abstract class _GoalControllerBase extends SmartableController with Store {
   Iterable<Goal> get okGoals => timeBoundGoals.where((g) => g.ok);
 
   @computed
+  Iterable<Goal> get noDueGoals => openedGoals.where((g) => g.dueDate == null);
+
+  @computed
   Iterable<Goal> get activeGoals => openedGoals.where((g) => g.closedTasksCount > 0);
 
   @computed
   Iterable<Goal> get closableGoals => activeGoals.where((g) => g.lefTasksCount == 0);
+
+  @computed
+  Iterable<Goal> get inactiveGoals => openedGoals.where((g) => g.closedTasksCount == 0);
 
   @computed
   Duration get overduePeriod {

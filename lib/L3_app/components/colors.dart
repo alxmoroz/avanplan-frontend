@@ -88,7 +88,7 @@ const Color riskyColor = CupertinoDynamicColor.withBrightness(
   darkColor: Color.fromARGB(255, 115, 70, 0),
 );
 
-const Color bgRiskyPaceColor = CupertinoDynamicColor.withBrightness(
+const Color bgRiskyColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(120, 255, 195, 65),
   darkColor: Color.fromARGB(120, 115, 70, 0),
 );

@@ -50,13 +50,10 @@ class TaskCard extends StatelessWidget {
     return Button(
       '',
       detailedScreen ? onTapHeader : null,
-      child: Padding(
-        padding: EdgeInsets.fromLTRB(onePadding, onePadding, onePadding, 0),
-        child: Row(children: [
-          Expanded(child: title(context)),
-          headerTrailing(context),
-        ]),
-      ),
+      child: Row(children: [
+        Expanded(child: title(context)),
+        headerTrailing(context),
+      ]),
     );
   }
 
@@ -75,15 +72,10 @@ class TaskCard extends StatelessWidget {
         );
         final innerWidget = Column(children: [
           divider,
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: onePadding),
-            child: Row(
-              children: [
-                Expanded(child: detailedScreen ? detailedTextWidget : listTextWidget),
-                if (hasButton) Row(children: [SizedBox(width: onePadding / 2), infoIcon(context)]),
-              ],
-            ),
-          ),
+          Row(children: [
+            Expanded(child: detailedScreen ? detailedTextWidget : listTextWidget),
+            if (hasButton) Row(children: [SizedBox(width: onePadding / 2), infoIcon(context)]),
+          ]),
           if (hasFooter) divider,
         ]);
         return hasButton ? Button('', () => showDetailsDialog(context, task.description), child: innerWidget) : innerWidget;
@@ -96,52 +88,47 @@ class TaskCard extends StatelessWidget {
         SmallText('${task.closedTasksCount} / ${task.tasksCount}', weight: FontWeight.w500),
       ]);
 
-  Widget buildDates() {
-    return Padding(
-      padding: EdgeInsets.fromLTRB(onePadding, onePadding / 2, onePadding, 0),
-      child: Row(
+  Widget buildDates() => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           if (task.dueDate != null) DateStringWidget(task.dueDate, titleString: loc.common_due_date_label),
           DateStringWidget(task.etaDate, titleString: loc.common_eta_date_label),
         ],
-      ),
-    );
-  }
+      );
 
   Widget footer(BuildContext context) => Column(children: [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: onePadding),
-          child: Row(children: [
-            if (isClosed) ...[
-              doneIcon(context, true, size: onePadding * 1.4, color: Colors.green),
-              SizedBox(width: onePadding / 4),
-            ],
-            if (hasStatus) status(),
-            const Spacer(),
-            if (hasSubtasks) closedProgressCount(),
-            if (hasLink) ...[
-              SizedBox(width: onePadding / 2),
-              linkIcon(context, color: darkGreyColor),
-            ],
-          ]),
-        ),
+        SizedBox(height: onePadding / 2),
+        Row(children: [
+          if (isClosed) ...[
+            doneIcon(context, true, size: onePadding * 1.4, color: Colors.green),
+            SizedBox(width: onePadding / 4),
+          ],
+          if (hasStatus) status(),
+          const Spacer(),
+          if (hasSubtasks) closedProgressCount(),
+          if (hasLink) ...[
+            SizedBox(width: onePadding / 2),
+            linkIcon(context, color: darkGreyColor),
+          ],
+        ]),
+        SizedBox(height: onePadding / 2),
         if (hasDates) buildDates(),
+      ]);
+
+  Widget buildProgressContent(BuildContext context) => Column(children: [
+        header(context),
+        if (hasDescription) description(),
+        if (hasFooter) footer(context),
       ]);
 
   @override
   Widget build(BuildContext context) {
     return MTCard(
       onTap: detailedScreen ? null : onTapHeader,
-      body: Stack(children: [
-        SmartableProgressWidget(task),
-        Column(children: [
-          header(context),
-          if (hasDescription) description(),
-          if (hasFooter) footer(context),
-          SizedBox(height: onePadding),
-        ])
-      ]),
+      body: SmartableProgressWidget(
+        task,
+        buildProgressContent(context),
+      ),
       elevation: detailedScreen ? 5 : null,
       margin: EdgeInsets.fromLTRB(onePadding * (detailedScreen ? 0.5 : 2), onePadding / 2, onePadding * (detailedScreen ? 0.5 : 1), onePadding / 2),
     );

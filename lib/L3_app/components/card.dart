@@ -37,14 +37,10 @@ class MTCard extends StatelessWidget {
               colors: [secondBgColor, mainBgColor],
             ),
           ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              if (title != null) title!,
-              if (body != null) body!,
-            ],
-          ),
+          child: Column(mainAxisSize: MainAxisSize.min, children: [
+            if (title != null) title!,
+            if (body != null) body!,
+          ]),
         ),
       ),
     );

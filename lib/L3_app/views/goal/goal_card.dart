@@ -32,25 +32,21 @@ class GoalCard extends StatelessWidget {
         DateStringWidget(goal.etaDate, titleString: loc.common_eta_date_label),
       ]);
 
+  Widget buildProgressBody(BuildContext context) => Row(children: [
+        Expanded(
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.start, children: [
+            buildTitle(),
+            if (goal.tasksCount > 0) buildTasksCount(),
+          ]),
+        ),
+        buildDates(),
+      ]);
+
   @override
   Widget build(BuildContext context) {
     return MTCard(
       onTap: onTap,
-      body: Stack(children: [
-        SmartableProgressWidget(goal),
-        Padding(
-          padding: EdgeInsets.all(onePadding),
-          child: Row(children: [
-            Expanded(
-              child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.start, children: [
-                buildTitle(),
-                if (goal.tasksCount > 0) buildTasksCount(),
-              ]),
-            ),
-            buildDates(),
-          ]),
-        ),
-      ]),
+      body: SmartableProgressWidget(goal, buildProgressBody(context)),
     );
   }
 }

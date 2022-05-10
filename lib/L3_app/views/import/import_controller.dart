@@ -8,13 +8,13 @@ import '../../../L1_domain/entities/goals/goal_import.dart';
 import '../../../L1_domain/entities/goals/remote_tracker.dart';
 import '../../../L1_domain/system/errors.dart';
 import '../../extra/services.dart';
-import '../_base/base_controller.dart';
+import '../_base/edit_controller.dart';
 
 part 'import_controller.g.dart';
 
 class ImportController extends _ImportControllerBase with _$ImportController {}
 
-abstract class _ImportControllerBase extends BaseController with Store {
+abstract class _ImportControllerBase extends EditController with Store {
   @observable
   ObservableList<GoalImport> goals = ObservableList();
 
@@ -78,11 +78,8 @@ abstract class _ImportControllerBase extends BaseController with Store {
     startLoading();
     final done = await importUC.importGoals(selectedTracker!, selectedGoalsIds);
     if (done) {
-      // TODO: аналогично при авторизации - нужно обновление всех причастных данных
-      for (var controller in [mainController, goalController]) {
-        await controller.fetchData();
-      }
-
+      // TODO: здесь должны обновляться только цели, но мы обновляем всё дерево данных. Поэтому есть побочки всякие
+      await mainController.fetchData();
       Navigator.of(context).pop();
     }
     stopLoading();

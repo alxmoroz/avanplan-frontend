@@ -6,10 +6,8 @@ class AppSettings extends LocalPersistable {
   AppSettings({
     required this.firstLaunch,
     this.version = '',
-    this.accessToken = '',
   }) : super(id: 'settings');
 
   final bool firstLaunch;
   String version;
-  String accessToken;
 }

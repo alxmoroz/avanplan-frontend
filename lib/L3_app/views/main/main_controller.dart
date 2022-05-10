@@ -26,15 +26,24 @@ abstract class _MainControllerBase extends BaseController with Store {
   Future fetchData() async {
     //TODO: сделать computed для всех зависимых данных? pro: прозрачная логика загрузки cons: увеличение связанности. В любом случае большой вопрос с редактированием словарей.
     // Например, трекеров... Будет похожая заморочка, как в дереве задач (зато есть опыт уже)
+    startLoading();
 
     workspaces.clear();
     if (loginController.authorized) {
-      startLoading();
       workspaces = ObservableList.of(await workspacesUC.getAll());
       _sortWS();
 
-      stopLoading();
+      await goalController.fetchData();
+      await trackerController.fetchData();
     }
+    stopLoading();
+  }
+
+  @override
+  void clearData() {
+    workspaces.clear();
+    goalController.clearData();
+    trackerController.clearData();
   }
 
   Future showTrackers(BuildContext context) async {

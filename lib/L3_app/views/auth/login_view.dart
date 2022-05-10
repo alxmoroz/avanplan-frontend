@@ -64,7 +64,7 @@ class _LoginViewState extends State<LoginView> {
               padding: EdgeInsets.all(onePadding),
               child: MTButton(
                 loc.auth_log_in_button_title,
-                _controller.validated ? () => _controller.authorize(context) : null,
+                _controller.validated ? _controller.authorize : null,
                 titleColor: _controller.validated ? mainColor : borderColor,
               ),
             ),

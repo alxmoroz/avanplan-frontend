@@ -30,20 +30,21 @@ abstract class _TrackerControllerBase extends WorkspaceBounded with Store {
 
   @override
   Future fetchData() async {
-    trackers.clear();
-    if (loginController.authorized) {
-      startLoading();
-      for (Workspace ws in mainController.workspaces) {
-        trackers.addAll(ws.remoteTrackers);
-      }
-      _sortAndCheckTrackers();
-
-      rtTypes = ObservableList.of(await trackerTypesUC.getAll());
-      _sortTypes();
-
-      stopLoading();
+    startLoading();
+    clearData();
+    for (Workspace ws in mainController.workspaces) {
+      trackers.addAll(ws.remoteTrackers);
     }
+    _sortAndCheckTrackers();
+
+    rtTypes = ObservableList.of(await trackerTypesUC.getAll());
+    _sortTypes();
+
+    stopLoading();
   }
+
+  @override
+  void clearData() => trackers.clear();
 
   /// тип трекера
 

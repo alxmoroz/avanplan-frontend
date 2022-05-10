@@ -14,16 +14,6 @@ class SettingsUC {
     await settingsRepo.update(settings);
   }
 
-  Future<String> getAccessToken() async {
-    return (await getSettings()).accessToken;
-  }
-
-  Future updateAccessToken(String accessToken) async {
-    final settings = await getSettings();
-    settings.accessToken = accessToken;
-    await settingsRepo.update(settings);
-  }
-
   Future<AppSettings> getSettings() async {
     return await settingsRepo.getOne() ?? AppSettings(firstLaunch: true);
   }

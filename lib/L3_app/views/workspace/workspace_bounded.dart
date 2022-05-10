@@ -8,13 +8,13 @@ import '../../../L1_domain/entities/auth/workspace.dart';
 import '../../components/constants.dart';
 import '../../components/mt_dropdown.dart';
 import '../../extra/services.dart';
-import '../_base/base_controller.dart';
+import '../_base/edit_controller.dart';
 
 part 'workspace_bounded.g.dart';
 
 class WorkspaceBounded extends _WorkspaceBoundedBase with _$WorkspaceBounded {}
 
-abstract class _WorkspaceBoundedBase extends BaseController with Store {
+abstract class _WorkspaceBoundedBase extends EditController with Store {
   @observable
   int? _selectedWSId;
 

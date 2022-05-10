@@ -1,12 +1,11 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../components/colors.dart';
 import '../../components/icons.dart';
+import '../../components/splash.dart';
 import '../../extra/services.dart';
-import '../auth/login_view.dart';
 import '../goal/goal_dashboard_view.dart';
 import '../goal/goal_list_view.dart';
 import '../remote_tracker/tracker_list_view.dart';
@@ -22,36 +21,45 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> {
+  final tabViews = [
+    MainDashboardView(),
+    GoalListView(),
+    SettingsView(),
+  ];
+
+  Widget buildTabScaffold() => CupertinoTabScaffold(
+        tabBar: CupertinoTabBar(
+          inactiveColor: inactiveColor,
+          backgroundColor: navbarBgColor,
+          items: [
+            BottomNavigationBarItem(icon: homeIcon(context)),
+            BottomNavigationBarItem(icon: goalsIcon(context)),
+            BottomNavigationBarItem(icon: menuIcon(context)),
+          ],
+        ),
+        tabBuilder: (_, index) => CupertinoTabView(
+          builder: (context) => tabViews[index],
+          routes: {
+            GoalDashboardView.routeName: (_) => GoalDashboardView(),
+            TaskView.routeName: (_) => TaskView(),
+            TrackerListView.routeName: (_) => TrackerListView(),
+          },
+        ),
+      );
+
+  final Future<void> _fetchData = mainController.fetchData();
+
+  @override
+  void dispose() {
+    mainController.clearData();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final tabViews = [
-      MainDashboardView(),
-      GoalListView(),
-      SettingsView(),
-    ];
-
-    return Observer(
-      builder: (_) => loginController.authorized
-          ? CupertinoTabScaffold(
-              tabBar: CupertinoTabBar(
-                inactiveColor: inactiveColor,
-                backgroundColor: navbarBgColor,
-                items: [
-                  BottomNavigationBarItem(icon: homeIcon(context)),
-                  BottomNavigationBarItem(icon: goalsIcon(context)),
-                  BottomNavigationBarItem(icon: menuIcon(context)),
-                ],
-              ),
-              tabBuilder: (_, index) => CupertinoTabView(
-                builder: (_) => tabViews[index],
-                routes: {
-                  GoalDashboardView.routeName: (_) => GoalDashboardView(),
-                  TaskView.routeName: (_) => TaskView(),
-                  TrackerListView.routeName: (_) => TrackerListView(),
-                },
-              ),
-            )
-          : LoginView(),
+    return FutureBuilder(
+      future: _fetchData,
+      builder: (_, snapshot) => snapshot.connectionState == ConnectionState.done ? buildTabScaffold() : const SplashScreen(),
     );
   }
 }

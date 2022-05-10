@@ -3,17 +3,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'components/colors.dart';
 import 'components/splash.dart';
 import 'extra/services.dart';
 import 'l10n/generated/l10n.dart';
+import 'views/auth/login_view.dart';
 import 'views/main/main_view.dart';
 
 void main() {
   setup();
   WidgetsFlutterBinding.ensureInitialized();
   runApp(App());
+}
+
+class RootView extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => Observer(builder: (_) => loginController.authorized ? MainView() : LoginView());
 }
 
 class App extends StatelessWidget {
@@ -29,7 +36,7 @@ class App extends StatelessWidget {
       child: CupertinoApp(
         home: FutureBuilder(
           future: getIt.allReady(),
-          builder: (_, snapshot) => snapshot.hasData ? MainView() : const SplashScreen(),
+          builder: (_, snapshot) => snapshot.hasData ? RootView() : const SplashScreen(),
         ),
         localizationsDelegates: const [
           S.delegate,

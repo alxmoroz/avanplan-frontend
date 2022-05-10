@@ -13,22 +13,16 @@ class AppSettingsHO extends BaseModel<AppSettings> {
   @HiveField(3, defaultValue: '')
   String version = '';
 
-  @HiveField(4, defaultValue: '')
-  String authToken = '';
-
   @override
   AppSettings toEntity() => AppSettings(
         version: version,
         firstLaunch: false,
-        accessToken: authToken,
       );
 
   @override
   Future update(AppSettings entity) async {
     id = entity.id;
     version = entity.version;
-    authToken = entity.accessToken;
-
     await save();
   }
 }

@@ -10,28 +10,23 @@ import '../../components/mt_page.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 
-class SettingsView extends StatefulWidget {
+class SettingsView extends StatelessWidget {
   static String get routeName => 'settings';
 
   @override
-  _SettingsViewState createState() => _SettingsViewState();
-}
-
-class _SettingsViewState extends State<SettingsView> {
-  Future importGoals() async {
-    await mainController.importGoals(context);
-  }
-
-  Future showTrackers() async {
-    await mainController.showTrackers(context);
-  }
-
-  Future logout() async {
-    await loginController.logout(context);
-  }
-
-  @override
   Widget build(BuildContext context) {
+    Future importGoals() async {
+      await mainController.importGoals(context);
+    }
+
+    Future showTrackers() async {
+      await mainController.showTrackers(context);
+    }
+
+    Future logout() async {
+      await loginController.logout();
+    }
+
     return Observer(
       builder: (_) => MTPage(
         isLoading: settingsController.isLoading,

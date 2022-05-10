@@ -68,33 +68,31 @@ void setup() {
 
   // repo / adapters
   getIt.registerSingletonAsync<HiveStorage>(() async => await HiveStorage().init());
-  getIt.registerSingletonAsync<Openapi>(() async {
-    // final api = Openapi(basePathOverride: 'http://localhost:8000/');
-    final api = Openapi(basePathOverride: 'https://hercules.moroz.team/api/');
-    api.dio.options.connectTimeout = 30000;
-    api.dio.options.receiveTimeout = 30000;
-    return api;
-  });
+
+  final api = Openapi(basePathOverride: 'https://hercules.moroz.team/api/');
+  // final api = Openapi(basePathOverride: 'http://localhost:8000/');
+  api.dio.options.connectTimeout = 30000;
+  api.dio.options.receiveTimeout = 30000;
+  getIt.registerSingleton<Openapi>(api);
 
   // use cases
-  getIt.registerSingletonAsync<SettingsUC>(() async => SettingsUC(settingsRepo: SettingsRepo()));
-  getIt.registerSingletonAsync<AuthUC>(() async => AuthUC(settingsUC: settingsUC, authRepo: AuthRepo()), dependsOn: [SettingsUC]);
-  getIt.registerSingletonAsync<WorkspacesUC>(() async => WorkspacesUC(repo: WorkspacesRepo()));
-  getIt.registerSingletonAsync<GoalsUC>(() async => GoalsUC(repo: GoalsRepo()));
-  getIt.registerSingletonAsync<TasksUC>(() async => TasksUC(repo: TasksRepo()));
-  getIt.registerSingletonAsync<TaskStatusesUC>(() async => TaskStatusesUC(repo: TaskStatusesRepo()));
-  getIt.registerSingletonAsync<RemoteTrackersUC>(() async => RemoteTrackersUC(repo: RemoteTrackersRepo()));
-  getIt.registerSingletonAsync<RemoteTrackerTypesUC>(() async => RemoteTrackerTypesUC(repo: RemoteTrackerTypesRepo()));
-  getIt.registerSingletonAsync<ImportUC>(() async => ImportUC(repo: ImportRepo()));
+  getIt.registerSingleton<AuthUC>(AuthUC(authRepo: AuthRepo(), localAuthRepo: LocalAuthRepo()));
+  getIt.registerSingleton<SettingsUC>(SettingsUC(settingsRepo: SettingsRepo()));
+  getIt.registerSingleton<WorkspacesUC>(WorkspacesUC(repo: WorkspacesRepo()));
+  getIt.registerSingleton<GoalsUC>(GoalsUC(repo: GoalsRepo()));
+  getIt.registerSingleton<TasksUC>(TasksUC(repo: TasksRepo()));
+  getIt.registerSingleton<TaskStatusesUC>(TaskStatusesUC(repo: TaskStatusesRepo()));
+  getIt.registerSingleton<RemoteTrackersUC>(RemoteTrackersUC(repo: RemoteTrackersRepo()));
+  getIt.registerSingleton<RemoteTrackerTypesUC>(RemoteTrackerTypesUC(repo: RemoteTrackerTypesRepo()));
+  getIt.registerSingleton<ImportUC>(ImportUC(repo: ImportRepo()));
 
   // controllers
-  // TODO: убрать загрузку данных тут из инитов. Старт загрузки должен быть из контроллера главного после авторизации как раз
-  getIt.registerSingletonAsync<SettingsController>(() async => await SettingsController().init(), dependsOn: [HiveStorage, PackageInfo, SettingsUC]);
-  getIt.registerSingletonAsync<LoginController>(() async => await LoginController().init(), dependsOn: [SettingsController, Openapi]);
-  getIt.registerSingletonAsync<MainController>(() async => await MainController().init(), dependsOn: [LoginController, WorkspacesUC]);
-  getIt.registerSingletonAsync<GoalController>(() async => await GoalController().init(), dependsOn: [MainController]);
-  getIt.registerSingletonAsync<TaskViewController>(() async => await TaskViewController().init(), dependsOn: [MainController]);
-  getIt.registerSingletonAsync<TaskEditController>(() async => await TaskEditController().init(), dependsOn: [MainController]);
-  getIt.registerSingletonAsync<TrackerController>(() async => await TrackerController().init(), dependsOn: [MainController]);
-  getIt.registerSingletonAsync<ImportController>(() async => await ImportController().init(), dependsOn: [MainController]);
+  getIt.registerSingletonAsync<LoginController>(() async => LoginController().init(), dependsOn: [HiveStorage]);
+  getIt.registerSingletonAsync<SettingsController>(() async => SettingsController().init(), dependsOn: [HiveStorage, IosDeviceInfo, PackageInfo]);
+  getIt.registerSingleton<MainController>(MainController());
+  getIt.registerSingleton<GoalController>(GoalController());
+  getIt.registerSingleton<TaskViewController>(TaskViewController());
+  getIt.registerSingleton<TaskEditController>(TaskEditController());
+  getIt.registerSingleton<TrackerController>(TrackerController());
+  getIt.registerSingleton<ImportController>(ImportController());
 }

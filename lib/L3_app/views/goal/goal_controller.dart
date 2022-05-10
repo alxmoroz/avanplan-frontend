@@ -96,16 +96,17 @@ abstract class _GoalControllerBase extends SmartableController with Store {
 
   @override
   Future fetchData() async {
-    goals.clear();
-    if (loginController.authorized) {
-      startLoading();
-      for (Workspace ws in mainController.workspaces) {
-        goals.addAll(ws.goals);
-      }
-      _sortGoals();
-      stopLoading();
+    startLoading();
+    clearData();
+    for (Workspace ws in mainController.workspaces) {
+      goals.addAll(ws.goals);
     }
+    _sortGoals();
+    stopLoading();
   }
+
+  @override
+  void clearData() => goals.clear();
 
   /// выбранная цель
 

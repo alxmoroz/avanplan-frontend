@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'colors.dart';
 import 'constants.dart';
 
-class CircleWidget extends StatelessWidget {
-  const CircleWidget({this.color, this.size});
+class MTCircle extends StatelessWidget {
+  const MTCircle({this.color, this.size});
 
   final Color? color;
   final double? size;

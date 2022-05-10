@@ -6,9 +6,9 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/cupertino_page.dart';
 import '../../components/empty_widget.dart';
 import '../../components/icons.dart';
+import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
@@ -67,7 +67,8 @@ class _MainDashboardViewState extends State<MainDashboardView> {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => MTCupertinoPage(
+      builder: (_) => MTPage(
+        isLoading: mainController.isLoading,
         navBar: _totalGoalsCount > 0 ? navBar(context, title: loc.main_dashboard_total_title(_totalGoalsCount)) : null,
         body: Container(
           alignment: Alignment.center,

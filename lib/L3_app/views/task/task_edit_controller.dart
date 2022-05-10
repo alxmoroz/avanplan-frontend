@@ -8,9 +8,9 @@ import '../../../L1_domain/api_schema/task.dart';
 import '../../../L1_domain/entities/goals/goal.dart';
 import '../../../L1_domain/entities/goals/task.dart';
 import '../../../L1_domain/entities/goals/task_status.dart';
-import '../../components/confirmation_dialog.dart';
 import '../../components/constants.dart';
-import '../../components/dropdown.dart';
+import '../../components/mt_confirm_dialog.dart';
+import '../../components/mt_dropdown.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
 import '../_base/smartable_controller.dart';
@@ -45,7 +45,7 @@ abstract class _TaskEditControllerBase extends SmartableController with Store {
 
   @computed
   List<TaskStatus> get taskStatuses {
-    final ws = workspaceController.workspaces.firstWhereOrNull((ws) => ws.id == _goal.workspaceId);
+    final ws = mainController.workspaces.firstWhereOrNull((ws) => ws.id == _goal.workspaceId);
 
     return ws != null ? ws.taskStatuses : [];
   }

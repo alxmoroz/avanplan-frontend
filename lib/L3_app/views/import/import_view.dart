@@ -5,19 +5,19 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 
 import '../../../L1_domain/entities/goals/remote_tracker.dart';
-import '../../components/bottom_sheet.dart';
-import '../../components/buttons.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/cupertino_page.dart';
-import '../../components/divider.dart';
-import '../../components/dropdown.dart';
 import '../../components/empty_widget.dart';
 import '../../components/icons.dart';
+import '../../components/mt_bottom_sheet.dart';
+import '../../components/mt_button.dart';
+import '../../components/mt_divider.dart';
+import '../../components/mt_dropdown.dart';
+import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
-import '../../components/splash.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
+import 'import_controller.dart';
 
 Future showImportDialog(BuildContext context) async {
   return await showModalBottomSheet<void>(
@@ -37,13 +37,15 @@ class ImportView extends StatefulWidget {
 }
 
 class _ImportViewState extends State<ImportView> {
+  ImportController get _controller => importController;
+
   Widget goalItemBuilder(BuildContext context, int index) {
-    final goal = importController.goals[index];
+    final goal = _controller.goals[index];
     return CheckboxListTile(
       title: NormalText(goal.title),
       subtitle: SmallText(goal.description, maxLines: 2),
       value: goal.selected,
-      onChanged: (bool? value) => importController.selectGoal(goal, value!),
+      onChanged: (bool? value) => _controller.selectGoal(goal, value!),
       dense: true,
       visualDensity: VisualDensity.compact,
     );
@@ -51,61 +53,55 @@ class _ImportViewState extends State<ImportView> {
 
   Widget form() {
     final mq = MediaQuery.of(context);
-    return Stack(
-      children: [
-        Column(children: [
-          trackerController.trackers.isEmpty
-              ? Expanded(
-                  child: EmptyDataWidget(
-                    title: loc.tracker_list_empty_title,
-                    addTitle: loc.tracker_title_new,
-                    onAdd: () => importController.addTracker(context),
-                  ),
-                )
-              : MTDropdown<RemoteTracker>(
-                  width: mq.size.width - onePadding * 2,
-                  onChanged: (t) => importController.selectTracker(t),
-                  value: importController.selectedTracker,
-                  items: trackerController.trackers,
-                  label: loc.tracker_import_placeholder,
-                ),
-          if (importController.selectedTracker != null && importController.goals.isEmpty)
-            EmptyDataWidget(
-              title: importController.errorCode != null
-                  ? Intl.message(importController.errorCode!, name: importController.errorCode)
-                  : loc.goal_list_empty_title_import,
-              color: importController.errorCode != null ? warningColor : null,
-            ),
-          if (importController.goals.isNotEmpty) ...[
-            SizedBox(height: onePadding),
-            const MTDivider(),
-            Expanded(
-              child: ListView.builder(
-                itemBuilder: goalItemBuilder,
-                itemCount: importController.goals.length,
+    return Column(children: [
+      trackerController.trackers.isEmpty
+          ? Expanded(
+              child: EmptyDataWidget(
+                title: loc.tracker_list_empty_title,
+                addTitle: loc.tracker_title_new,
+                onAdd: () => _controller.addTracker(context),
               ),
+            )
+          : MTDropdown<RemoteTracker>(
+              width: mq.size.width - onePadding * 2,
+              onChanged: (t) => _controller.selectTracker(t),
+              value: _controller.selectedTracker,
+              items: trackerController.trackers,
+              label: loc.tracker_import_placeholder,
             ),
-            const MTDivider(),
-            Button(
-              loc.goal_import,
-              importController.validated ? () => importController.startImport(context) : null,
-              titleColor: importController.validated ? null : lightGreyColor,
-            ),
-            SizedBox(height: onePadding),
-          ]
-        ]),
-        if (importController.isLoading) SplashScreen(color: loaderColor.resolve(context)),
-      ],
-    );
+      if (_controller.selectedTracker != null && _controller.goals.isEmpty)
+        EmptyDataWidget(
+          title: _controller.errorCode != null ? Intl.message(_controller.errorCode!, name: _controller.errorCode) : loc.goal_list_empty_title_import,
+          color: _controller.errorCode != null ? warningColor : null,
+        ),
+      if (_controller.goals.isNotEmpty) ...[
+        SizedBox(height: onePadding),
+        const MTDivider(),
+        Expanded(
+          child: ListView.builder(
+            itemBuilder: goalItemBuilder,
+            itemCount: _controller.goals.length,
+          ),
+        ),
+        const MTDivider(),
+        MTButton(
+          loc.goal_import,
+          _controller.validated ? () => _controller.startImport(context) : null,
+          titleColor: _controller.validated ? null : lightGreyColor,
+        ),
+        SizedBox(height: onePadding),
+      ]
+    ]);
   }
 
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => MTCupertinoPage(
+      builder: (_) => MTPage(
+        isLoading: _controller.isLoading,
         navBar: navBar(
           context,
-          leading: Button.icon(closeIcon(context), () => Navigator.of(context).pop()),
+          leading: MTButton.icon(closeIcon(context), () => Navigator.of(context).pop()),
           title: loc.goal_import,
         ),
         body: SafeArea(child: form()),

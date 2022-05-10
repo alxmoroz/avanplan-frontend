@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/goals/task.dart';
-import '../../components/bottom_sheet.dart';
-import '../../components/buttons.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/cupertino_page.dart';
 import '../../components/icons.dart';
+import '../../components/mt_bottom_sheet.dart';
+import '../../components/mt_button.dart';
+import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
@@ -61,13 +61,13 @@ class _TaskEditViewState extends State<TaskEditView> {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => MTCupertinoPage(
+      builder: (_) => MTPage(
         bgColor: darkBackgroundColor,
         navBar: navBar(
           context,
-          leading: Button.icon(closeIcon(context), () => Navigator.of(context).pop()),
+          leading: MTButton.icon(closeIcon(context), () => Navigator.of(context).pop()),
           title: _task == null ? loc.task_title_new : '',
-          trailing: Button(
+          trailing: MTButton(
             loc.common_save_btn_title,
             _controller.validated ? () => _controller.save(context) : null,
             titleColor: _controller.validated ? mainColor : borderColor,

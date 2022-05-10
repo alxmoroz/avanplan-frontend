@@ -3,14 +3,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../components/buttons.dart';
-import '../../components/circle.dart';
 import '../../components/colors.dart';
-import '../../components/constants.dart';
-import '../../components/cupertino_page.dart';
-import '../../components/divider.dart';
 import '../../components/empty_widget.dart';
 import '../../components/icons.dart';
+import '../../components/mt_button.dart';
+import '../../components/mt_circle.dart';
+import '../../components/mt_divider.dart';
+import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
@@ -32,7 +31,7 @@ class _TrackerListViewState extends State<TrackerListView> {
       children: [
         if (index > 0) const MTDivider(),
         ListTile(
-          leading: CircleWidget(color: tracker.connected ? Colors.green : warningColor),
+          leading: MTCircle(color: tracker.connected ? Colors.green : warningColor),
           title: NormalText('${tracker.type.title} ${tracker.description}'),
           subtitle: SmallText(tracker.url),
           trailing: editIcon(context),
@@ -45,33 +44,26 @@ class _TrackerListViewState extends State<TrackerListView> {
     );
   }
 
-  // TODO:  нужно добавить индикатор загрузки такой ещё:
-  //  if (controller.isLoading) SplashScreen(color: loaderColor.resolve(context)),
-
   @override
   Widget build(BuildContext context) {
-    return MTCupertinoPage(
-      navBar: navBar(
-        context,
-        title: loc.tracker_list_title,
-        trailing: Button.icon(plusIcon(context), () => _controller.addTracker(context)),
-      ),
-      body: Observer(
-        builder: (context) => Column(children: [
-          SizedBox(height: onePadding),
-          Expanded(
-            child: _controller.trackers.isEmpty
-                ? EmptyDataWidget(
-                    title: loc.tracker_list_empty_title,
-                    addTitle: loc.tracker_title_new,
-                    onAdd: () => _controller.addTracker(context),
-                  )
-                : ListView.builder(
-                    itemBuilder: trackerBuilder,
-                    itemCount: _controller.trackers.length,
-                  ),
-          ),
-        ]),
+    return Observer(
+      builder: (_) => MTPage(
+        isLoading: _controller.isLoading,
+        navBar: navBar(
+          context,
+          title: loc.tracker_list_title,
+          trailing: MTButton.icon(plusIcon(context), () => _controller.addTracker(context)),
+        ),
+        body: _controller.trackers.isEmpty
+            ? EmptyDataWidget(
+                title: loc.tracker_list_empty_title,
+                addTitle: loc.tracker_title_new,
+                onAdd: () => _controller.addTracker(context),
+              )
+            : ListView.builder(
+                itemBuilder: trackerBuilder,
+                itemCount: _controller.trackers.length,
+              ),
       ),
     );
   }

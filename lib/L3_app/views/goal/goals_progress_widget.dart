@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/progress.dart';
+import '../../components/mt_progress.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 

@@ -32,7 +32,6 @@ import '../views/remote_tracker/tracker_controller.dart';
 import '../views/settings/settings_controller.dart';
 import '../views/task/task_edit_controller.dart';
 import '../views/task/task_view_controller.dart';
-import '../views/workspace/workspace_controller.dart';
 
 S get loc => S.current;
 
@@ -43,7 +42,6 @@ PackageInfo get packageInfo => GetIt.I<PackageInfo>();
 
 SettingsController get settingsController => GetIt.I<SettingsController>();
 LoginController get loginController => GetIt.I<LoginController>();
-WorkspaceController get workspaceController => GetIt.I<WorkspaceController>();
 MainController get mainController => GetIt.I<MainController>();
 GoalController get goalController => GetIt.I<GoalController>();
 TaskViewController get taskViewController => GetIt.I<TaskViewController>();
@@ -93,11 +91,10 @@ void setup() {
   // TODO: убрать загрузку данных тут из инитов. Старт загрузки должен быть из контроллера главного после авторизации как раз
   getIt.registerSingletonAsync<SettingsController>(() async => await SettingsController().init(), dependsOn: [HiveStorage, PackageInfo, SettingsUC]);
   getIt.registerSingletonAsync<LoginController>(() async => await LoginController().init(), dependsOn: [SettingsController, Openapi]);
-  getIt.registerSingletonAsync<WorkspaceController>(() async => await WorkspaceController().init(), dependsOn: [LoginController]);
-  getIt.registerSingletonAsync<MainController>(() async => await MainController().init(), dependsOn: [WorkspaceController, WorkspacesUC]);
-  getIt.registerSingletonAsync<GoalController>(() async => await GoalController().init(), dependsOn: [WorkspaceController]);
-  getIt.registerSingletonAsync<TaskViewController>(() async => await TaskViewController().init(), dependsOn: [WorkspaceController]);
-  getIt.registerSingletonAsync<TaskEditController>(() async => await TaskEditController().init(), dependsOn: [WorkspaceController]);
-  getIt.registerSingletonAsync<TrackerController>(() async => await TrackerController().init(), dependsOn: [WorkspaceController]);
-  getIt.registerSingletonAsync<ImportController>(() async => await ImportController().init(), dependsOn: [WorkspaceController]);
+  getIt.registerSingletonAsync<MainController>(() async => await MainController().init(), dependsOn: [LoginController, WorkspacesUC]);
+  getIt.registerSingletonAsync<GoalController>(() async => await GoalController().init(), dependsOn: [MainController]);
+  getIt.registerSingletonAsync<TaskViewController>(() async => await TaskViewController().init(), dependsOn: [MainController]);
+  getIt.registerSingletonAsync<TaskEditController>(() async => await TaskEditController().init(), dependsOn: [MainController]);
+  getIt.registerSingletonAsync<TrackerController>(() async => await TrackerController().init(), dependsOn: [MainController]);
+  getIt.registerSingletonAsync<ImportController>(() async => await ImportController().init(), dependsOn: [MainController]);
 }

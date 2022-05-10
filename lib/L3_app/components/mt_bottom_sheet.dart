@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import 'card.dart';
 import 'constants.dart';
+import 'mt_card.dart';
 
 double radius = onePadding;
 

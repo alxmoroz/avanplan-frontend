@@ -3,11 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../components/buttons.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
-import '../../components/text_field.dart';
+import '../../components/mt_button.dart';
+import '../../components/mt_text_field.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';
@@ -90,7 +90,7 @@ abstract class _SmartableControllerBase extends WorkspaceBounded with Store {
             onTap: () => setClosed(!closed),
           ),
         ),
-        if (canEdit) Button(loc.common_delete_btn_title, () => delete(context), titleColor: dangerColor, padding: EdgeInsets.only(top: onePadding)),
+        if (canEdit) MTButton(loc.common_delete_btn_title, () => delete(context), titleColor: dangerColor, padding: EdgeInsets.only(top: onePadding)),
         SizedBox(height: onePadding),
       ]),
     );

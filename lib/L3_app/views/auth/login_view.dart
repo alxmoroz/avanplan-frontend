@@ -3,11 +3,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../components/buttons.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/cupertino_page.dart';
-import '../../components/text_field.dart';
+import '../../components/mt_button.dart';
+import '../../components/mt_page.dart';
+import '../../components/mt_text_field.dart';
 import '../../components/text_field_annotation.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
@@ -48,11 +48,10 @@ class _LoginViewState extends State<LoginView> {
         capitalization: TextCapitalization.none,
       );
 
-  // TODO: LOADING
-
   @override
   Widget build(BuildContext context) {
-    return MTCupertinoPage(
+    return MTPage(
+      isLoading: _controller.isLoading,
       body: Observer(
         builder: (_) => Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -63,7 +62,7 @@ class _LoginViewState extends State<LoginView> {
             SizedBox(height: onePadding),
             Padding(
               padding: EdgeInsets.all(onePadding),
-              child: Button(
+              child: MTButton(
                 loc.auth_log_in_button_title,
                 _controller.validated ? () => _controller.authorize(context) : null,
                 titleColor: _controller.validated ? mainColor : borderColor,

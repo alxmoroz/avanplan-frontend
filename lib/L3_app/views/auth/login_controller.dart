@@ -27,15 +27,15 @@ abstract class _LoginControllerBase extends BaseController with Store {
 
   Future authorize(BuildContext context) async {
     startLoading();
-
     final bool _authorized = await authUC.authorize(username: tfAnnoForCode('login').text, password: tfAnnoForCode('password').text);
     setAuthorized(_authorized);
+    stopLoading();
 
     // TODO: должен быть общий метод где-то в районе extra.dart для этого. В главном контроллере по идее.
     if (_authorized) {
       for (var controller in [
         settingsController,
-        workspaceController,
+        mainController,
         goalController,
         trackerController,
       ]) {
@@ -44,7 +44,6 @@ abstract class _LoginControllerBase extends BaseController with Store {
     } else {
       //TODO: не учитываются возможные ошибки! Нет обработки 403 и т.п.
     }
-    stopLoading();
   }
 
   @action
@@ -54,7 +53,7 @@ abstract class _LoginControllerBase extends BaseController with Store {
     // TODO: не очень изящное решение. Может, вызывать clear метод у контроллеров?
     for (var controller in [
       settingsController,
-      workspaceController,
+      mainController,
       goalController,
       trackerController,
     ]) {

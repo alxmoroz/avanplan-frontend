@@ -3,14 +3,14 @@
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/goals/task.dart';
-import '../../components/buttons.dart';
-import '../../components/card.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/date_string_widget.dart';
-import '../../components/details_dialog.dart';
-import '../../components/divider.dart';
 import '../../components/icons.dart';
+import '../../components/mt_button.dart';
+import '../../components/mt_card.dart';
+import '../../components/mt_details_dialog.dart';
+import '../../components/mt_divider.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../_base/smartable_progress_widget.dart';
@@ -47,7 +47,7 @@ class TaskCard extends StatelessWidget {
   }
 
   Widget header(BuildContext context) {
-    return Button(
+    return MTButton(
       '',
       detailedScreen ? onTapHeader : null,
       child: Row(children: [
@@ -78,7 +78,7 @@ class TaskCard extends StatelessWidget {
           ]),
           if (hasFooter) divider,
         ]);
-        return hasButton ? Button('', () => showDetailsDialog(context, task.description), child: innerWidget) : innerWidget;
+        return hasButton ? MTButton('', () => showDetailsDialog(context, task.description), child: innerWidget) : innerWidget;
       });
 
   Widget status() => SmallText(task.status!.title, weight: FontWeight.w500);

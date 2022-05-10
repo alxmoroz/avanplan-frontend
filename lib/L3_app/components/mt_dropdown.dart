@@ -4,17 +4,17 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/goals/remote_tracker.dart';
-import 'circle.dart';
 import 'colors.dart';
 import 'constants.dart';
 import 'icons.dart';
-import 'text_field.dart';
+import 'mt_circle.dart';
+import 'mt_text_field.dart';
 import 'text_widgets.dart';
 
 extension DropDownItem on RemoteTracker {
   Widget get dropDownItem => Row(
         children: [
-          CircleWidget(color: connected ? Colors.green : warningColor, size: onePadding),
+          MTCircle(color: connected ? Colors.green : warningColor, size: onePadding),
           NormalText(' $type $url'),
         ],
       );

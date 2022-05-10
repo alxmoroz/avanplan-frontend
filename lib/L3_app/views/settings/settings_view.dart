@@ -3,10 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../components/buttons.dart';
 import '../../components/constants.dart';
-import '../../components/cupertino_page.dart';
-import '../../components/divider.dart';
+import '../../components/mt_button.dart';
+import '../../components/mt_divider.dart';
+import '../../components/mt_page.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 
@@ -32,20 +32,21 @@ class _SettingsViewState extends State<SettingsView> {
 
   @override
   Widget build(BuildContext context) {
-    return MTCupertinoPage(
-      body: Observer(
-        builder: (_) => SafeArea(
+    return Observer(
+      builder: (_) => MTPage(
+        isLoading: settingsController.isLoading,
+        body: SafeArea(
           child: Column(
             children: [
               const MTDivider(),
               SizedBox(height: onePadding),
-              Button(loc.auth_log_out_button_title, logout),
+              MTButton(loc.auth_log_out_button_title, logout),
               const MTDivider(),
               SizedBox(height: onePadding),
               SmallText(loc.integration),
               SizedBox(height: onePadding),
-              Button(loc.goal_import, importGoals),
-              Button(loc.tracker_list_title, showTrackers),
+              MTButton(loc.goal_import, importGoals),
+              MTButton(loc.tracker_list_title, showTrackers),
               const Spacer(),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 LightText(settingsController.appName),

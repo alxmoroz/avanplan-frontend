@@ -2,10 +2,10 @@
 
 import 'package:flutter/material.dart';
 
-import 'buttons.dart';
-import 'card.dart';
 import 'constants.dart';
 import 'icons.dart';
+import 'mt_button.dart';
+import 'mt_card.dart';
 import 'text_widgets.dart';
 
 Future showDetailsDialog(BuildContext context, String text) async {
@@ -25,7 +25,7 @@ class MTDetailsDialog extends StatelessWidget {
     final mq = MediaQuery.of(context);
     return Center(
       child: MTCard(
-        title: Row(children: [const Spacer(), Button.icon(closeIcon(context), () => Navigator.of(context).pop())]),
+        title: Row(children: [const Spacer(), MTButton.icon(closeIcon(context), () => Navigator.of(context).pop())]),
         body: Container(
           constraints: BoxConstraints(maxHeight: mq.size.height - mq.viewInsets.bottom - mq.viewPadding.bottom - 180),
           child: Scrollbar(

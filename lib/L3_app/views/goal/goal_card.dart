@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../../L1_domain/entities/goals/goal.dart';
-import '../../components/card.dart';
 import '../../components/constants.dart';
 import '../../components/date_string_widget.dart';
+import '../../components/mt_card.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../_base/smartable_progress_widget.dart';

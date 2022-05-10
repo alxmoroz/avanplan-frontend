@@ -8,7 +8,7 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/api_schema/remote_tracker.dart';
 import '../../../L1_domain/entities/auth/workspace.dart';
 import '../../../L1_domain/entities/goals/remote_tracker.dart';
-import '../../components/confirmation_dialog.dart';
+import '../../components/mt_confirm_dialog.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
 import '../workspace/workspace_bounded.dart';
@@ -33,7 +33,7 @@ abstract class _TrackerControllerBase extends WorkspaceBounded with Store {
     trackers.clear();
     if (loginController.authorized) {
       startLoading();
-      for (Workspace ws in workspaceController.workspaces) {
+      for (Workspace ws in mainController.workspaces) {
         trackers.addAll(ws.remoteTrackers);
       }
       _sortAndCheckTrackers();

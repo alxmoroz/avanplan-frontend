@@ -6,7 +6,7 @@ import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/auth/workspace.dart';
 import '../../components/constants.dart';
-import '../../components/dropdown.dart';
+import '../../components/mt_dropdown.dart';
 import '../../extra/services.dart';
 import '../_base/base_controller.dart';
 
@@ -23,19 +23,19 @@ abstract class _WorkspaceBoundedBase extends BaseController with Store {
 
   @computed
   Workspace? get selectedWS {
-    final workspaces = workspaceController.workspaces;
+    final workspaces = mainController.workspaces;
     return workspaces.length == 1 ? workspaces.first : workspaces.firstWhereOrNull((s) => s.id == _selectedWSId);
   }
 
   List<Widget> wsDropdown(BuildContext context) {
     final mq = MediaQuery.of(context);
     final items = <Widget>[];
-    if (workspaceController.workspaces.length > 1) {
+    if (mainController.workspaces.length > 1) {
       items.add(MTDropdown<Workspace>(
         width: mq.size.width - onePadding * 2,
         onChanged: (ws) => selectWS(ws?.id),
         value: selectedWS,
-        items: workspaceController.workspaces,
+        items: mainController.workspaces,
         label: loc.workspace_placeholder,
       ));
     }

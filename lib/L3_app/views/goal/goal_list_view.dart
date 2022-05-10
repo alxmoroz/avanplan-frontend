@@ -3,11 +3,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../components/buttons.dart';
 import '../../components/constants.dart';
-import '../../components/cupertino_page.dart';
 import '../../components/empty_widget.dart';
 import '../../components/icons.dart';
+import '../../components/mt_button.dart';
+import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../extra/services.dart';
 import 'goal_card.dart';
@@ -30,15 +30,16 @@ class _GoalListViewState extends State<GoalListView> {
 
   @override
   Widget build(BuildContext context) {
-    return MTCupertinoPage(
-      navBar: navBar(
-        context,
-        leading: Container(),
-        title: loc.goal_list_title,
-        trailing: Button.icon(plusIcon(context), () => _controller.addGoal(context)),
-      ),
-      body: Observer(
-        builder: (_) => SafeArea(
+    return Observer(
+      builder: (_) => MTPage(
+        isLoading: _controller.isLoading,
+        navBar: navBar(
+          context,
+          leading: Container(),
+          title: loc.goal_list_title,
+          trailing: MTButton.icon(plusIcon(context), () => _controller.addGoal(context)),
+        ),
+        body: SafeArea(
           top: false,
           bottom: false,
           child: _controller.goals.isEmpty

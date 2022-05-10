@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/goals/remote_tracker.dart';
-import '../../components/bottom_sheet.dart';
-import '../../components/buttons.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/cupertino_page.dart';
-import '../../components/dropdown.dart';
 import '../../components/icons.dart';
+import '../../components/mt_bottom_sheet.dart';
+import '../../components/mt_button.dart';
+import '../../components/mt_dropdown.dart';
+import '../../components/mt_page.dart';
+import '../../components/mt_text_field.dart';
 import '../../components/navbar.dart';
-import '../../components/text_field.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
 import 'tracker_controller.dart';
@@ -83,7 +83,7 @@ class _TrackerEditViewState extends State<TrackerEditView> {
             ),
           ...['url', 'loginKey', 'password', 'description'].map((code) => textFieldForCode(code)),
           if (_controller.canEdit)
-            Button(
+            MTButton(
               loc.common_delete_btn_title,
               () => _controller.delete(context),
               titleColor: dangerColor,
@@ -98,13 +98,13 @@ class _TrackerEditViewState extends State<TrackerEditView> {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => MTCupertinoPage(
+      builder: (_) => MTPage(
         bgColor: darkBackgroundColor,
         navBar: navBar(
           context,
-          leading: Button.icon(closeIcon(context), () => Navigator.of(context).pop()),
+          leading: MTButton.icon(closeIcon(context), () => Navigator.of(context).pop()),
           title: _isNew ? loc.tracker_title_new : '',
-          trailing: Button(
+          trailing: MTButton(
             loc.common_save_btn_title,
             _canSave ? () => _controller.save(context) : null,
             titleColor: _canSave ? mainColor : borderColor,

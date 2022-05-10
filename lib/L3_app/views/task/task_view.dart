@@ -5,11 +5,11 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/goals/goal.dart';
 import '../../../L1_domain/entities/goals/task.dart';
-import '../../components/buttons.dart';
 import '../../components/constants.dart';
-import '../../components/cupertino_page.dart';
 import '../../components/empty_widget.dart';
 import '../../components/icons.dart';
+import '../../components/mt_button.dart';
+import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
@@ -24,21 +24,21 @@ class TaskView extends StatefulWidget {
 }
 
 class _TaskViewState extends State<TaskView> {
-  TaskViewController get controller => taskViewController;
-  Task? get _task => controller.task;
-  Goal? get _goal => controller.goal;
+  TaskViewController get _controller => taskViewController;
+  Task? get _task => _controller.task;
+  Goal? get _goal => _controller.goal;
 
   @override
   void initState() {
-    controller.sortTasks();
+    _controller.sortTasks();
     super.initState();
   }
 
   Widget buildBreadcrumbs() {
     const sepStr = '>';
     String parentsPath = '';
-    if (controller.navStackTasks.length > 1) {
-      final titles = controller.navStackTasks.take(controller.navStackTasks.length - 1).map((pt) => pt.title);
+    if (_controller.navStackTasks.length > 1) {
+      final titles = _controller.navStackTasks.take(_controller.navStackTasks.length - 1).map((pt) => pt.title);
       parentsPath = titles.join(' $sepStr ') + ' $sepStr ';
     }
     return ListTile(
@@ -50,18 +50,18 @@ class _TaskViewState extends State<TaskView> {
   }
 
   Widget taskBuilder(BuildContext context, int index) {
-    final task = controller.subtasks[index];
-    return TaskCard(task: task, onTapHeader: () => controller.showTask(context, task));
+    final task = _controller.subtasks[index];
+    return TaskCard(task: task, onTapHeader: () => _controller.showTask(context, task));
   }
 
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context);
-    return MTCupertinoPage(
+    return MTPage(
       navBar: navBar(
         context,
         title: _task != null ? '${loc.task_title} #${_task!.id}' : loc.tasks_title,
-        trailing: Button.icon(plusIcon(context), () => controller.addTask(context)),
+        trailing: MTButton.icon(plusIcon(context), () => _controller.addTask(context)),
       ),
       body: Observer(
         builder: (_) => Column(children: [
@@ -71,19 +71,19 @@ class _TaskViewState extends State<TaskView> {
             TaskCard(
               task: _task!,
               detailedScreen: true,
-              onTapHeader: () => controller.editTask(context),
+              onTapHeader: () => _controller.editTask(context),
             ),
           Expanded(
-            child: controller.subtasks.isEmpty && controller.isGoal
+            child: _controller.subtasks.isEmpty && _controller.isGoal
                 ? EmptyDataWidget(
                     title: loc.task_list_empty_title,
                     addTitle: loc.task_title_new,
-                    onAdd: () => controller.addTask(context),
+                    onAdd: () => _controller.addTask(context),
                   )
                 : ListView.builder(
                     padding: EdgeInsets.only(bottom: mq.padding.bottom + onePadding),
                     itemBuilder: taskBuilder,
-                    itemCount: controller.subtasks.length,
+                    itemCount: _controller.subtasks.length,
                   ),
           ),
         ]),

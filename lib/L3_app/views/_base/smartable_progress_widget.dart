@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../L1_domain/entities/goals/smartable.dart';
 import '../../components/colors.dart';
-import '../../components/progress.dart';
+import '../../components/mt_progress.dart';
 
 class SmartableProgressWidget extends StatelessWidget {
   const SmartableProgressWidget(this.element, this.body);

@@ -6,9 +6,9 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../L1_domain/entities/goals/goal.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/cupertino_page.dart';
-import '../../components/details_dialog.dart';
 import '../../components/icons.dart';
+import '../../components/mt_details_dialog.dart';
+import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
@@ -58,7 +58,8 @@ class _GoalDashboardViewState extends State<GoalDashboardView> {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => MTCupertinoPage(
+      builder: (_) => MTPage(
+        isLoading: _controller.isLoading,
         navBar: navBar(context, title: _goal != null ? loc.goal_title : loc.goal_title_new),
         body: SafeArea(
           child: Column(children: [

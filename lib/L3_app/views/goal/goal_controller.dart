@@ -7,7 +7,7 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/api_schema/goal.dart';
 import '../../../L1_domain/entities/auth/workspace.dart';
 import '../../../L1_domain/entities/goals/goal.dart';
-import '../../components/confirmation_dialog.dart';
+import '../../components/mt_confirm_dialog.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
 import '../_base/smartable_controller.dart';
@@ -99,7 +99,7 @@ abstract class _GoalControllerBase extends SmartableController with Store {
     goals.clear();
     if (loginController.authorized) {
       startLoading();
-      for (Workspace ws in workspaceController.workspaces) {
+      for (Workspace ws in mainController.workspaces) {
         goals.addAll(ws.goals);
       }
       _sortGoals();

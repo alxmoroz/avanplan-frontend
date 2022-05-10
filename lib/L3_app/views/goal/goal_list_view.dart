@@ -38,7 +38,9 @@ class _GoalListViewState extends State<GoalListView> {
         trailing: Button.icon(plusIcon(context), () => _controller.addGoal(context)),
       ),
       body: Observer(
-        builder: (_) => Container(
+        builder: (_) => SafeArea(
+          top: false,
+          bottom: false,
           child: _controller.goals.isEmpty
               ? Center(
                   child: EmptyDataWidget(

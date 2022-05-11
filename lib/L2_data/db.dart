@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -13,7 +14,6 @@ class HType {
 
 class HiveStorage {
   Future<HiveStorage> init() async {
-    const bool kIsWeb = identical(0, 0.0);
     if (!kIsWeb) {
       final _dir = await getApplicationDocumentsDirectory();
       final _dirPath = _dir.path;

@@ -22,7 +22,7 @@ dependencies:
   mobx: any
   openapi:
     path: ./openapi
-  package_info: any
+  package_info_plus: any
   path_provider: any
 
 dev_dependencies:
@@ -45,6 +45,7 @@ flutter:
   assets:
     - assets/
     - assets/icons/
+    - assets/ca/
 
 flutter_intl:
   main_locale: en

@@ -1,7 +1,11 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -12,9 +16,16 @@ import 'l10n/generated/l10n.dart';
 import 'views/auth/login_view.dart';
 import 'views/main/main_view.dart';
 
-void main() {
+Future main() async {
   setup();
   WidgetsFlutterBinding.ensureInitialized();
+
+  // certs
+  if (!kIsWeb) {
+    final ByteData data = await PlatformAssetBundle().load('assets/ca/lets-encrypt-r3.pem');
+    SecurityContext.defaultContext.setTrustedCertificatesBytes(data.buffer.asUint8List());
+  }
+
   runApp(App());
 }
 

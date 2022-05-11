@@ -3,7 +3,7 @@
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:openapi/openapi.dart';
-import 'package:package_info/package_info.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../L1_domain/usecases/auth_uc.dart';
 import '../../L1_domain/usecases/goals_uc.dart';
@@ -37,7 +37,7 @@ S get loc => S.current;
 
 GetIt getIt = GetIt.instance;
 
-IosDeviceInfo get iosInfo => GetIt.I<IosDeviceInfo>();
+BaseDeviceInfo get deviceInfo => GetIt.I<BaseDeviceInfo>();
 PackageInfo get packageInfo => GetIt.I<PackageInfo>();
 
 SettingsController get settingsController => GetIt.I<SettingsController>();
@@ -63,7 +63,7 @@ ImportUC get importUC => GetIt.I<ImportUC>();
 
 void setup() {
   // device
-  getIt.registerSingletonAsync<IosDeviceInfo>(() async => await DeviceInfoPlugin().iosInfo);
+  getIt.registerSingletonAsync<BaseDeviceInfo>(() async => await DeviceInfoPlugin().deviceInfo);
   getIt.registerSingletonAsync<PackageInfo>(() async => await PackageInfo.fromPlatform());
 
   // repo / adapters
@@ -88,7 +88,7 @@ void setup() {
 
   // controllers
   getIt.registerSingletonAsync<LoginController>(() async => LoginController().init(), dependsOn: [HiveStorage]);
-  getIt.registerSingletonAsync<SettingsController>(() async => SettingsController().init(), dependsOn: [HiveStorage, IosDeviceInfo, PackageInfo]);
+  getIt.registerSingletonAsync<SettingsController>(() async => SettingsController().init(), dependsOn: [HiveStorage, BaseDeviceInfo, PackageInfo]);
   getIt.registerSingleton<MainController>(MainController());
   getIt.registerSingleton<GoalController>(GoalController());
   getIt.registerSingleton<TaskViewController>(TaskViewController());

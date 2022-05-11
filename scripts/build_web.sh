@@ -4,6 +4,6 @@
 
 echo "BUILDING FOR WEB..."
 
-flutter build web
+flutter build web -t lib/L3_app/main.dart
 
 echo "BUILDING FOR WEB COMPLETE"

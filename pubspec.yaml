@@ -1,7 +1,7 @@
 name: hercules
 description: Hercules
 
-version: 1.0.215+215
+version: 1.0.229+229
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -38,13 +38,12 @@ dev_dependencies:
 flutter_icons:
   ios: true
   android: true
-  image_path: assets/icons/ios_icon_raw.png
+  image_path: scripts/ios_icon_raw.png
 
 flutter:
   uses-material-design: true
   assets:
     - assets/
-    - assets/icons/
     - assets/ca/
 
 flutter_intl:

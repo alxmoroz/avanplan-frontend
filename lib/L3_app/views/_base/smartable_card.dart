@@ -91,13 +91,11 @@ class SmartableCard extends StatelessWidget {
         SmallText('${element.closedTasksCount} / ${element.tasksCount}', weight: FontWeight.w500),
       ]);
 
-  Widget buildDates() => Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          if (element.dueDate != null) DateStringWidget(element.dueDate, titleString: loc.common_due_date_label),
-          DateStringWidget(element.etaDate, titleString: loc.common_eta_date_label),
-        ],
-      );
+  Widget buildDates() => Row(children: [
+        if (element.dueDate != null) DateStringWidget(element.dueDate, titleString: loc.common_due_date_label),
+        const Spacer(),
+        if (element.lefTasksCount > 0) DateStringWidget(element.etaDate, titleString: loc.common_eta_date_label),
+      ]);
 
   Widget footer(BuildContext context) => Column(children: [
         if (isTask || !showDetails) SizedBox(height: onePadding / 2),

@@ -30,9 +30,10 @@ abstract class Smartable extends Statusable {
   Duration? get overduePeriod => dueDate != null ? DateTime.now().difference(dueDate!) : null;
   bool get hasOverdue => (overduePeriod?.inSeconds ?? 0) > 0;
 
-  List<Task> get allTasks => tasks;
-  int get tasksCount => allTasks.length;
-  int get closedTasksCount => allTasks.where((t) => t.closed).length;
+  Iterable<Task> get allTasks => tasks;
+  Iterable<Task> get leafTasks => allTasks.where((t) => t.allTasks.isEmpty);
+  int get tasksCount => leafTasks.length;
+  int get closedTasksCount => leafTasks.where((t) => t.closed).length;
   int get lefTasksCount => tasksCount - closedTasksCount;
   double? get closedRatio => tasksCount > 0 ? closedTasksCount / tasksCount : null;
 

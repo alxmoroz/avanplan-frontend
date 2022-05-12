@@ -50,7 +50,7 @@ class Task extends Smartable {
       );
 
   @override
-  List<Task> get allTasks {
+  Iterable<Task> get allTasks {
     final List<Task> res = [];
     for (Task t in tasks) {
       res.addAll(t.allTasks);

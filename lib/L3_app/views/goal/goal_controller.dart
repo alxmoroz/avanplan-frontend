@@ -28,6 +28,8 @@ abstract class _GoalControllerBase extends SmartableController with Store {
 
   /// цели - рутовый объект
 
+  // TODO: здесь можно заменить на Smartable для подзадач и использовать в дашборде задач и цели. И перенести в контроллер Smartable
+
   @observable
   ObservableList<Goal> goals = ObservableList();
 

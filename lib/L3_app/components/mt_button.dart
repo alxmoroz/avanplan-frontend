@@ -24,6 +24,7 @@ class MTButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoButton(
+      minSize: 0,
       padding: padding ?? EdgeInsets.zero,
       onPressed: onPressed,
       color: color,

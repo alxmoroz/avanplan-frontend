@@ -41,6 +41,7 @@ class SettingsView extends StatelessWidget {
               SmallText(loc.integration),
               SizedBox(height: onePadding),
               MTButton(loc.goal_import, importGoals),
+              SizedBox(height: onePadding),
               MTButton(loc.tracker_list_title, showTrackers),
               const Spacer(),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [

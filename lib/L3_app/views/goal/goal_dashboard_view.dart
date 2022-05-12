@@ -7,13 +7,12 @@ import '../../../L1_domain/entities/goals/goal.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
-import '../../components/mt_details_dialog.dart';
+import '../../components/mt_card.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/string_presenter.dart';
-import 'goal_card.dart';
+import '../_base/smartable_card.dart';
 import 'goal_controller.dart';
 
 class GoalDashboardView extends StatefulWidget {
@@ -27,53 +26,50 @@ class _GoalDashboardViewState extends State<GoalDashboardView> {
   GoalController get _controller => goalController;
   Goal? get _goal => _controller.selectedGoal;
 
-  Widget buildTitle() {
-    return ListTile(
-      title: H2(_goal?.title ?? ''),
-      trailing: editIcon(context),
-      onTap: () => _controller.editGoal(context, _goal),
-      dense: true,
-      visualDensity: VisualDensity.compact,
-    );
-  }
+  bool get hasSubtasks => _goal!.tasksCount > 0;
+  bool get hasLink => _goal!.trackerId != null;
 
-  Widget buildDescription() {
-    final description = _goal?.description ?? '';
-    if (description.isNotEmpty) {
-      const cutLength = 100;
-      final needTruncate = description.length > cutLength;
-
-      return ListTile(
-        title: LightText(description.cut(cutLength)),
-        subtitle: needTruncate ? const MediumText('...', color: mainColor) : null,
-        onTap: needTruncate ? () => showDetailsDialog(context, description) : null,
-        dense: true,
-        visualDensity: VisualDensity.compact,
-      );
-    } else {
-      return Container();
-    }
-  }
+  Widget closedProgressCount() => Row(children: [
+        SmallText('${loc.common_mark_done_btn_title} ', weight: FontWeight.w300),
+        SmallText('${_goal?.closedTasksCount} / ${_goal?.tasksCount}', weight: FontWeight.w500),
+      ]);
 
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => MTPage(
-        isLoading: _controller.isLoading,
-        navBar: navBar(context, title: _goal != null ? loc.goal_title : loc.goal_title_new),
-        body: SafeArea(
-          child: Column(children: [
-            SizedBox(height: onePadding),
-            buildTitle(),
-            buildDescription(),
-            if (_goal != null)
-              GoalCard(
-                goal: _goal!,
-                onTap: () => taskViewController.showTask(context, null),
+      builder: (_) => _goal != null
+          ? MTPage(
+              isLoading: _controller.isLoading,
+              navBar: navBar(context, title: _goal != null ? loc.goal_title : loc.goal_title_new),
+              body: SafeArea(
+                top: false,
+                bottom: false,
+                child: ListView(children: [
+                  if (_goal != null)
+                    SmartableCard(
+                      element: _goal!,
+                      showDetails: true,
+                      onTapHeader: () => _controller.editGoal(context, _goal),
+                    ),
+                  MTCard(
+                    body: Padding(
+                        padding: EdgeInsets.all(onePadding),
+                        child: Row(children: [
+                          H3(loc.tasks_title),
+                          const Spacer(),
+                          if (hasSubtasks) closedProgressCount(),
+                          if (hasLink) ...[
+                            SizedBox(width: onePadding / 2),
+                            linkIcon(context, color: darkGreyColor),
+                          ],
+                          chevronIcon(context),
+                        ])),
+                    onTap: () => taskViewController.showTask(context, null),
+                  ),
+                ]),
               ),
-          ]),
-        ),
-      ),
+            )
+          : Container(),
     );
   }
 }

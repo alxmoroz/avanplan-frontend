@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/goals/remote_tracker.dart';
+import '../../components/close_dialog_button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/icons.dart';
 import '../../components/mt_bottom_sheet.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_dropdown.dart';
@@ -102,7 +102,7 @@ class _TrackerEditViewState extends State<TrackerEditView> {
         bgColor: darkBackgroundColor,
         navBar: navBar(
           context,
-          leading: MTButton.icon(closeIcon(context), () => Navigator.of(context).pop()),
+          leading: CloseDialogButton(),
           title: _isNew ? loc.tracker_title_new : '',
           trailing: MTButton(
             loc.common_save_btn_title,

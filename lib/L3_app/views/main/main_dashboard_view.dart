@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -87,8 +88,9 @@ class _MainDashboardViewState extends State<MainDashboardView> {
                     addTitle: loc.goal_title_new,
                     onAdd: () => goalController.addGoal(context),
                   )
-                : SingleChildScrollView(
-                    child: Column(children: [
+                : ListView(
+                    shrinkWrap: true,
+                    children: [
                       /// статус и комментарий
                       _statusIcon,
                       H2(_statusText, align: TextAlign.center, padding: EdgeInsets.symmetric(horizontal: onePadding)),
@@ -96,7 +98,8 @@ class _MainDashboardViewState extends State<MainDashboardView> {
 
                       /// статистика по статусу
                       GoalsProgressWidget(),
-                    ]),
+                      SizedBox(height: onePadding),
+                    ],
                   ),
           ),
         ),

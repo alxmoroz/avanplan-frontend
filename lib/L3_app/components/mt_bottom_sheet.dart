@@ -18,11 +18,13 @@ class MTBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(parentContext);
-    return MTCard(
-      margin: EdgeInsets.only(top: mq.viewPadding.top + onePadding),
-      radius: onePadding,
-      body: Expanded(child: bodyWidget),
+    return GestureDetector(
       onTap: FocusScope.of(context).unfocus,
+      child: MTCard(
+        margin: EdgeInsets.only(top: mq.viewPadding.top + onePadding),
+        radius: onePadding,
+        body: Expanded(child: bodyWidget),
+      ),
     );
   }
 }

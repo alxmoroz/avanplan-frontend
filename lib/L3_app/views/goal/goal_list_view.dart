@@ -10,7 +10,7 @@ import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../extra/services.dart';
-import 'goal_card.dart';
+import '../_base/smartable_card.dart';
 import 'goal_controller.dart';
 
 class GoalListView extends StatefulWidget {
@@ -24,12 +24,12 @@ class _GoalListViewState extends State<GoalListView> {
   GoalController get _controller => goalController;
 
   Widget goalCardBuilder(BuildContext context, int index) {
-    Widget element = SizedBox(height: onePadding);
+    Widget card = SizedBox(height: onePadding);
     if (index > 0 && index < _controller.goals.length + 1) {
       final goal = _controller.goals[index - 1];
-      element = GoalCard(goal: goal, alone: true, onTap: () => _controller.showGoal(context, goal));
+      card = SmartableCard(element: goal, onTapHeader: () => _controller.showGoal(context, goal));
     }
-    return element;
+    return card;
   }
 
   @override
@@ -41,7 +41,7 @@ class _GoalListViewState extends State<GoalListView> {
           context,
           leading: Container(),
           title: loc.goal_list_title,
-          trailing: MTButton.icon(plusIcon(context), () => _controller.addGoal(context)),
+          trailing: MTButton.icon(plusIcon(context), () => _controller.addGoal(context), padding: EdgeInsets.only(right: onePadding)),
         ),
         body: SafeArea(
           top: false,

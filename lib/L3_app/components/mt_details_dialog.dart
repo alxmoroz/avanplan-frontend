@@ -2,9 +2,8 @@
 
 import 'package:flutter/material.dart';
 
+import 'close_dialog_button.dart';
 import 'constants.dart';
-import 'icons.dart';
-import 'mt_button.dart';
 import 'mt_card.dart';
 import 'text_widgets.dart';
 
@@ -25,7 +24,7 @@ class MTDetailsDialog extends StatelessWidget {
     final mq = MediaQuery.of(context);
     return Center(
       child: MTCard(
-        title: Row(children: [const Spacer(), MTButton.icon(closeIcon(context), () => Navigator.of(context).pop())]),
+        title: Row(children: [const Spacer(), CloseDialogButton()]),
         body: Container(
           constraints: BoxConstraints(maxHeight: mq.size.height - mq.viewInsets.bottom - mq.viewPadding.bottom - 180),
           child: Scrollbar(

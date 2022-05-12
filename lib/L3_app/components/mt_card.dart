@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import 'colors.dart';
 import 'constants.dart';
+import 'mt_button.dart';
 
 class MTCard extends StatelessWidget {
   const MTCard({this.body, this.title, this.margin, this.onTap, this.elevation, this.radius});
@@ -22,8 +23,9 @@ class MTCard extends StatelessWidget {
     final mainBgColor = darkBackgroundColor.resolve(context);
     final secondBgColor = darkBackgroundColor.resolve(context);
     final borderRadius = BorderRadius.circular(radius ?? onePadding / 2);
-    return GestureDetector(
-      onTap: onTap,
+    return MTButton(
+      '',
+      onTap,
       child: Card(
         margin: margin ?? EdgeInsets.symmetric(horizontal: onePadding, vertical: onePadding / 2),
         elevation: elevation ?? 2,

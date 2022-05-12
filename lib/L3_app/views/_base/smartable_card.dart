@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 
+import '../../../L1_domain/entities/goals/smartable.dart';
 import '../../../L1_domain/entities/goals/task.dart';
+import '../../../L1_domain/entities/goals/task_status.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/date_string_widget.dart';
@@ -15,43 +17,38 @@ import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../_base/smartable_progress_widget.dart';
 
-class TaskCard extends StatelessWidget {
-  const TaskCard({
-    required this.task,
+class SmartableCard extends StatelessWidget {
+  const SmartableCard({
+    required this.element,
     this.onTapHeader,
     this.showDetails = false,
-    this.onTapFooter,
     this.breadcrumbs,
   });
 
-  final Task task;
+  final Smartable element;
   final bool showDetails;
   final String? breadcrumbs;
   final VoidCallback? onTapHeader;
-  final VoidCallback? onTapFooter;
 
-  bool get hasDescription => task.description.isNotEmpty;
-  bool get hasLink => task.trackerId != null;
-  bool get hasDates => task.dueDate != null || task.etaDate != null;
-  bool get hasSubtasks => task.tasksCount > 0;
-  bool get hasStatus => task.status != null;
-  bool get isClosed => task.closed;
+  bool get isTask => element is Task;
+
+  bool get hasDescription => element.description.isNotEmpty;
+  bool get hasLink => element.trackerId != null;
+  bool get hasDates => element.dueDate != null || element.etaDate != null;
+  bool get hasSubtasks => element.tasksCount > 0;
+  bool get isClosed => element.closed;
+  TaskStatus? get status => isTask ? (element as Task).status : null;
+  bool get hasStatus => status != null;
+
   bool get hasFooter => hasDates || hasSubtasks || hasStatus || hasLink || isClosed;
 
   Widget title(BuildContext context) => MediumText(
-        task.title,
+        element.title,
         color: darkGreyColor,
         maxLines: showDetails ? 3 : 2,
         sizeScale: showDetails ? 1.25 : 1,
-        decoration: task.closed ? TextDecoration.lineThrough : null,
+        decoration: element.closed ? TextDecoration.lineThrough : null,
       );
-
-  Widget headerTrailing(BuildContext context) {
-    return Row(children: [
-      SizedBox(width: onePadding / 2),
-      showDetails ? editIcon(context) : chevronIcon(context),
-    ]);
-  }
 
   Widget header(BuildContext context) {
     return MTButton(
@@ -59,13 +56,14 @@ class TaskCard extends StatelessWidget {
       showDetails ? onTapHeader : null,
       child: Row(children: [
         Expanded(child: title(context)),
-        headerTrailing(context),
+        SizedBox(width: onePadding / 2),
+        showDetails ? editIcon(context) : chevronIcon(context),
       ]),
     );
   }
 
   Widget description() => LayoutBuilder(builder: (context, size) {
-        final text = task.description;
+        final text = element.description;
         final maxLines = showDetails ? 5 : 3;
         final detailedTextWidget = LightText(text, maxLines: maxLines);
         final listTextWidget = SmallText(text, maxLines: maxLines, weight: FontWeight.w300);
@@ -85,41 +83,43 @@ class TaskCard extends StatelessWidget {
           ]),
           if (hasFooter) divider,
         ]);
-        return hasButton ? MTButton('', () => showDetailsDialog(context, task.description), child: innerWidget) : innerWidget;
+        return hasButton ? MTButton('', () => showDetailsDialog(context, element.description), child: innerWidget) : innerWidget;
       });
-
-  Widget status() => SmallText(task.status!.title, weight: FontWeight.w500);
 
   Widget closedProgressCount() => Row(children: [
         SmallText('${loc.common_mark_done_btn_title} ', weight: FontWeight.w300),
-        SmallText('${task.closedTasksCount} / ${task.tasksCount}', weight: FontWeight.w500),
+        SmallText('${element.closedTasksCount} / ${element.tasksCount}', weight: FontWeight.w500),
       ]);
 
   Widget buildDates() => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          if (task.dueDate != null) DateStringWidget(task.dueDate, titleString: loc.common_due_date_label),
-          DateStringWidget(task.etaDate, titleString: loc.common_eta_date_label),
+          if (element.dueDate != null) DateStringWidget(element.dueDate, titleString: loc.common_due_date_label),
+          DateStringWidget(element.etaDate, titleString: loc.common_eta_date_label),
         ],
       );
 
   Widget footer(BuildContext context) => Column(children: [
-        SizedBox(height: onePadding / 2),
-        Row(children: [
-          if (isClosed) ...[
-            doneIcon(context, true, size: onePadding * 1.4, color: Colors.green),
-            SizedBox(width: onePadding / 4),
-          ],
-          if (hasStatus) status(),
-          const Spacer(),
-          if (hasSubtasks) closedProgressCount(),
-          if (hasLink) ...[
-            SizedBox(width: onePadding / 2),
-            linkIcon(context, color: darkGreyColor),
-          ],
-        ]),
-        SizedBox(height: onePadding / 2),
-        if (hasDates) buildDates(),
+        if (isTask) ...[
+          SizedBox(height: onePadding / 2),
+          Row(children: [
+            if (isClosed) ...[
+              doneIcon(context, true, size: onePadding * 1.4, color: Colors.green),
+              SizedBox(width: onePadding / 4),
+            ],
+            if (hasStatus) SmallText(status!.title, weight: FontWeight.w500),
+            const Spacer(),
+            if (hasSubtasks) closedProgressCount(),
+            if (hasLink) ...[
+              SizedBox(width: onePadding / 2),
+              linkIcon(context, color: darkGreyColor),
+            ],
+          ]),
+        ],
+        if (hasDates) ...[
+          SizedBox(height: onePadding / 2),
+          buildDates(),
+        ]
       ]);
 
   Widget buildBody(BuildContext context) => Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
@@ -135,18 +135,18 @@ class TaskCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTCard(
-      onTap: showDetails ? null : onTapHeader,
-      body: SmartableProgressWidget(
-        task,
-        buildBody(context),
-      ),
-      elevation: showDetails ? 5 : null,
-      margin: EdgeInsets.fromLTRB(
-        onePadding * (showDetails ? 0.5 : 1),
-        onePadding / 2,
-        onePadding * (showDetails ? 0.5 : 1),
-        onePadding / 2,
-      ),
-    );
+        radius: showDetails ? 0 : null,
+        onTap: showDetails ? null : onTapHeader,
+        body: SmartableProgressWidget(
+          element,
+          buildBody(context),
+        ),
+        elevation: showDetails ? 0 : null,
+        margin: EdgeInsets.fromLTRB(
+          onePadding * (showDetails ? 0 : 1),
+          onePadding * (showDetails ? 0 : 0.5),
+          onePadding * (showDetails ? 0 : 1),
+          onePadding / 2,
+        ));
   }
 }

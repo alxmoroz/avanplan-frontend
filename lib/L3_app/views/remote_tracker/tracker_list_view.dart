@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../components/colors.dart';
+import '../../components/constants.dart';
 import '../../components/empty_widget.dart';
 import '../../components/icons.dart';
 import '../../components/mt_button.dart';
@@ -52,7 +53,7 @@ class _TrackerListViewState extends State<TrackerListView> {
         navBar: navBar(
           context,
           title: loc.tracker_list_title,
-          trailing: MTButton.icon(plusIcon(context), () => _controller.addTracker(context)),
+          trailing: MTButton.icon(plusIcon(context), () => _controller.addTracker(context), padding: EdgeInsets.only(right: onePadding)),
         ),
         body: _controller.trackers.isEmpty
             ? EmptyDataWidget(

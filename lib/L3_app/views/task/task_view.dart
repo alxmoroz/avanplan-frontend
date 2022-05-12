@@ -12,7 +12,7 @@ import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../extra/services.dart';
-import 'task_card.dart';
+import '../_base/smartable_card.dart';
 import 'task_view_controller.dart';
 
 class TaskView extends StatelessWidget {
@@ -25,29 +25,29 @@ class TaskView extends StatelessWidget {
   String breadcrumbs() {
     const sepStr = ' ⟩ ';
     String _breadcrumbs = '';
-    if (_controller.navStackTasks.length > 1) {
-      final titles = _controller.navStackTasks.take(_controller.navStackTasks.length - 1).map((pt) => pt.title).toList();
-      titles.insert(0, _goal!.title);
-      _breadcrumbs = titles.join(sepStr);
-    }
+    final titles = _controller.navStackTasks.take(_controller.navStackTasks.length - 1).map((pt) => pt.title).toList();
+    titles.insert(0, _goal!.title);
+    _breadcrumbs = titles.join(sepStr);
     return _breadcrumbs;
   }
 
-  Widget taskBuilder(BuildContext context, int index) {
+  Widget cardBuilder(BuildContext context, int index) {
     Widget element = SizedBox(height: onePadding);
     if (index == 0 && _task != null) {
-      element = TaskCard(
-        task: _task!,
+      element = SmartableCard(
+        element: _task!,
         showDetails: true,
         breadcrumbs: breadcrumbs(),
         onTapHeader: () => _controller.editTask(context),
       );
     } else if (index > 0 && index < _controller.subtasks.length + 1) {
       final task = _controller.subtasks[index - 1];
-      element = TaskCard(task: task, onTapHeader: () => _controller.showTask(context, task));
+      element = SmartableCard(element: task, onTapHeader: () => _controller.showTask(context, task));
     }
     return element;
   }
+
+  String get title => _task != null ? '${loc.task_title} #${_task!.id}' : '${loc.tasks_title} - ${_goal!.title}';
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +55,8 @@ class TaskView extends StatelessWidget {
       builder: (_) => MTPage(
         navBar: navBar(
           context,
-          title: _task != null ? '${loc.task_title} #${_task!.id}' : '${loc.tasks_title} - ${_goal!.title}',
-          trailing: MTButton.icon(plusIcon(context), () => _controller.addTask(context)),
+          title: title,
+          trailing: MTButton.icon(plusIcon(context), () => _controller.addTask(context), padding: EdgeInsets.only(right: onePadding)),
         ),
         body: SafeArea(
           top: false,
@@ -68,7 +68,7 @@ class TaskView extends StatelessWidget {
                   onAdd: () => _controller.addTask(context),
                 )
               : ListView.builder(
-                  itemBuilder: taskBuilder,
+                  itemBuilder: cardBuilder,
                   itemCount: _controller.subtasks.length + 2,
                 ),
         ),

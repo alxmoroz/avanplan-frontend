@@ -39,7 +39,11 @@ class MTProgress extends StatelessWidget {
         width: ratio * (width ?? mq.size.width),
         child: Container(color: color.resolve(context)),
       ),
-      if (body != null) Padding(padding: padding ?? EdgeInsets.all(onePadding), child: body!),
+      if (body != null)
+        Padding(
+          padding: padding ?? EdgeInsets.all(onePadding),
+          child: body!,
+        ),
     ]);
   }
 }

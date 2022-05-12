@@ -14,7 +14,7 @@ class GoalsProgressWidget extends StatelessWidget {
   int get _closableGoalsCount => goalController.closableGoals.length;
   int get _overdueInDays => goalController.overduePeriod.inDays;
   int get _riskInDays => goalController.riskPeriod.inDays;
-  int get _totalGoalsCount => goalController.goals.length;
+  int get _openedGoalsCount => goalController.openedGoals.length;
   int get _inactiveGoalsCount => goalController.inactiveGoals.length;
   int get _noDueGoalsCount => goalController.noDueGoals.length;
   int get _okGoalsCount => goalController.okGoals.length;
@@ -31,7 +31,7 @@ class GoalsProgressWidget extends StatelessWidget {
       Column(children: [
         SizedBox(height: onePadding),
         MTProgress(
-          ratio: goalsCount / _totalGoalsCount,
+          ratio: goalsCount / _openedGoalsCount,
           color: color,
           bgColor: borderColor.withAlpha(42),
           padding: EdgeInsets.symmetric(horizontal: onePadding, vertical: onePadding / (subtitleText != null ? 2 : 1)),

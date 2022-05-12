@@ -100,22 +100,20 @@ class SmartableCard extends StatelessWidget {
       );
 
   Widget footer(BuildContext context) => Column(children: [
-        if (isTask) ...[
-          SizedBox(height: onePadding / 2),
-          Row(children: [
-            if (isClosed) ...[
-              doneIcon(context, true, size: onePadding * 1.4, color: Colors.green),
-              SizedBox(width: onePadding / 4),
-            ],
-            if (hasStatus) SmallText(status!.title, weight: FontWeight.w500),
-            const Spacer(),
-            if (hasSubtasks) closedProgressCount(),
-            if (hasLink) ...[
-              SizedBox(width: onePadding / 2),
-              linkIcon(context, color: darkGreyColor),
-            ],
-          ]),
-        ],
+        if (isTask || !showDetails) SizedBox(height: onePadding / 2),
+        Row(children: [
+          if (isClosed && isTask) ...[
+            doneIcon(context, true, size: onePadding * 1.4, color: Colors.green),
+            SizedBox(width: onePadding / 4),
+          ],
+          if (hasStatus) SmallText(status!.title, weight: FontWeight.w500),
+          if (isTask) const Spacer(),
+          if (hasSubtasks && (isTask || !showDetails)) closedProgressCount(),
+          if (hasLink && isTask) ...[
+            SizedBox(width: onePadding / 2),
+            linkIcon(context, color: darkGreyColor),
+          ],
+        ]),
         if (hasDates) ...[
           SizedBox(height: onePadding / 2),
           buildDates(),

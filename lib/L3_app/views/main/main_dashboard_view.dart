@@ -28,7 +28,7 @@ class _MainDashboardViewState extends State<MainDashboardView> {
   int get _timeBoundGoalsCount => goalController.timeBoundGoals.length;
   int get _riskyGoalsCount => goalController.riskyGoals.length;
   int get _overdueGoalsCount => goalController.overdueGoals.length;
-  int get _totalGoalsCount => goalController.goals.length;
+  int get _openedGoalsCount => goalController.openedGoals.length;
 
   bool get _hasOverdue => _overdueGoalsCount > 0;
   bool get _hasRisk => _riskyGoalsCount > 0;
@@ -70,7 +70,7 @@ class _MainDashboardViewState extends State<MainDashboardView> {
     return Observer(
       builder: (_) => MTPage(
         isLoading: mainController.isLoading,
-        navBar: _totalGoalsCount > 0 ? navBar(context, title: loc.main_dashboard_total_title(_totalGoalsCount)) : null,
+        navBar: _openedGoalsCount > 0 ? navBar(context, title: loc.main_dashboard_total_title(_openedGoalsCount)) : null,
         body: Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(
@@ -82,7 +82,7 @@ class _MainDashboardViewState extends State<MainDashboardView> {
           child: SafeArea(
             top: false,
             bottom: false,
-            child: _totalGoalsCount < 1
+            child: _openedGoalsCount < 1
                 ? EmptyDataWidget(
                     title: loc.goal_list_empty_title,
                     addTitle: loc.goal_title_new,

@@ -106,7 +106,7 @@ class SmartableCard extends StatelessWidget {
           ],
           if (hasStatus) SmallText(status!.title, weight: FontWeight.w500),
           if (isTask) const Spacer(),
-          if (hasSubtasks && (isTask || !showDetails)) closedProgressCount(),
+          if (!isClosed && hasSubtasks && (isTask || !showDetails)) closedProgressCount(),
           if (hasLink && isTask) ...[
             SizedBox(width: onePadding / 2),
             linkIcon(context, color: darkGreyColor),

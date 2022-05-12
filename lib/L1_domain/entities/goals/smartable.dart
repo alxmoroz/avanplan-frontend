@@ -35,7 +35,7 @@ abstract class Smartable extends Statusable {
   int get tasksCount => leafTasks.length;
   int get closedTasksCount => leafTasks.where((t) => t.closed).length;
   int get lefTasksCount => tasksCount - closedTasksCount;
-  double? get closedRatio => tasksCount > 0 ? closedTasksCount / tasksCount : null;
+  double? get closedRatio => tasksCount > 0 && lefTasksCount > 0 ? closedTasksCount / tasksCount : null;
 
   double get _factSpeed => closedTasksCount / pastPeriod.inSeconds;
 

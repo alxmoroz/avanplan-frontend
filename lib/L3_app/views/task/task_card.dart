@@ -16,10 +16,17 @@ import '../../extra/services.dart';
 import '../_base/smartable_progress_widget.dart';
 
 class TaskCard extends StatelessWidget {
-  const TaskCard({required this.task, this.onTapHeader, this.detailedScreen = false, this.onTapFooter});
+  const TaskCard({
+    required this.task,
+    this.onTapHeader,
+    this.showDetails = false,
+    this.onTapFooter,
+    this.breadcrumbs,
+  });
 
   final Task task;
-  final bool detailedScreen;
+  final bool showDetails;
+  final String? breadcrumbs;
   final VoidCallback? onTapHeader;
   final VoidCallback? onTapFooter;
 
@@ -34,22 +41,22 @@ class TaskCard extends StatelessWidget {
   Widget title(BuildContext context) => MediumText(
         task.title,
         color: darkGreyColor,
-        maxLines: detailedScreen ? 3 : 2,
-        sizeScale: detailedScreen ? 1.25 : 1,
+        maxLines: showDetails ? 3 : 2,
+        sizeScale: showDetails ? 1.25 : 1,
         decoration: task.closed ? TextDecoration.lineThrough : null,
       );
 
   Widget headerTrailing(BuildContext context) {
     return Row(children: [
       SizedBox(width: onePadding / 2),
-      detailedScreen ? editIcon(context) : chevronIcon(context),
+      showDetails ? editIcon(context) : chevronIcon(context),
     ]);
   }
 
   Widget header(BuildContext context) {
     return MTButton(
       '',
-      detailedScreen ? onTapHeader : null,
+      showDetails ? onTapHeader : null,
       child: Row(children: [
         Expanded(child: title(context)),
         headerTrailing(context),
@@ -59,21 +66,21 @@ class TaskCard extends StatelessWidget {
 
   Widget description() => LayoutBuilder(builder: (context, size) {
         final text = task.description;
-        final maxLines = detailedScreen ? 5 : 3;
+        final maxLines = showDetails ? 5 : 3;
         final detailedTextWidget = LightText(text, maxLines: maxLines);
         final listTextWidget = SmallText(text, maxLines: maxLines, weight: FontWeight.w300);
-        final span = TextSpan(text: text, style: detailedScreen ? detailedTextWidget.style(context) : listTextWidget.style(context));
+        final span = TextSpan(text: text, style: showDetails ? detailedTextWidget.style(context) : listTextWidget.style(context));
         final tp = TextPainter(text: span, maxLines: maxLines, textDirection: TextDirection.ltr);
         tp.layout(maxWidth: size.maxWidth);
-        final bool hasButton = tp.didExceedMaxLines && detailedScreen;
+        final bool hasButton = tp.didExceedMaxLines && showDetails;
         final divider = MTDivider(
           color: hasButton ? darkGreyColor : Colors.transparent,
-          height: detailedScreen ? onePadding : onePadding / 4,
+          height: showDetails ? onePadding : onePadding / 4,
         );
         final innerWidget = Column(children: [
           divider,
           Row(children: [
-            Expanded(child: detailedScreen ? detailedTextWidget : listTextWidget),
+            Expanded(child: showDetails ? detailedTextWidget : listTextWidget),
             if (hasButton) Row(children: [SizedBox(width: onePadding / 2), infoIcon(context)]),
           ]),
           if (hasFooter) divider,
@@ -115,7 +122,11 @@ class TaskCard extends StatelessWidget {
         if (hasDates) buildDates(),
       ]);
 
-  Widget buildProgressContent(BuildContext context) => Column(children: [
+  Widget buildBody(BuildContext context) => Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+        if (breadcrumbs != null && breadcrumbs!.isNotEmpty && showDetails) ...[
+          SmallText(breadcrumbs!),
+          const MTDivider(color: darkGreyColor),
+        ],
         header(context),
         if (hasDescription) description(),
         if (hasFooter) footer(context),
@@ -124,13 +135,18 @@ class TaskCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTCard(
-      onTap: detailedScreen ? null : onTapHeader,
+      onTap: showDetails ? null : onTapHeader,
       body: SmartableProgressWidget(
         task,
-        buildProgressContent(context),
+        buildBody(context),
       ),
-      elevation: detailedScreen ? 5 : null,
-      margin: EdgeInsets.fromLTRB(onePadding * (detailedScreen ? 0.5 : 2), onePadding / 2, onePadding * (detailedScreen ? 0.5 : 1), onePadding / 2),
+      elevation: showDetails ? 5 : null,
+      margin: EdgeInsets.fromLTRB(
+        onePadding * (showDetails ? 0.5 : 1),
+        onePadding / 2,
+        onePadding * (showDetails ? 0.5 : 1),
+        onePadding / 2,
+      ),
     );
   }
 }

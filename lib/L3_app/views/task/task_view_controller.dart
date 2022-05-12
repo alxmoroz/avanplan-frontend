@@ -24,10 +24,10 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
 
   // универсальный способ получить подзадачи первого уровня для цели и для выбранной задачи
   @computed
-  List<Task> get subtasks => goal.tasks.where((t) => t.parentId == task?.id).toList();
-
-  void sortTasks() {
-    goal.tasks.sort((t1, t2) => t1.title.compareTo(t2.title));
+  List<Task> get subtasks {
+    final _tasks = goal.tasks.where((t) => t.parentId == task?.id).toList();
+    _tasks.sort((t1, t2) => t1.title.compareTo(t2.title));
+    return _tasks;
   }
 
   void _addTask(Task _task) {
@@ -62,7 +62,6 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
       _updateTask(_task, parent);
     } else {
       _updateTask(_task, goal);
-      sortTasks();
       goalController.updateGoalInList(goal);
     }
   }

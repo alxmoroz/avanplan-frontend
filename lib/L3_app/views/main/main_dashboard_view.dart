@@ -91,7 +91,7 @@ class _MainDashboardViewState extends State<MainDashboardView> {
                     child: Column(children: [
                       /// статус и комментарий
                       _statusIcon,
-                      H2(_statusText, align: TextAlign.center),
+                      H2(_statusText, align: TextAlign.center, padding: EdgeInsets.symmetric(horizontal: onePadding)),
                       SizedBox(height: onePadding),
 
                       /// статистика по статусу

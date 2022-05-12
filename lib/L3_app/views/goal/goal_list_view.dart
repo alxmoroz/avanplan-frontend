@@ -24,8 +24,12 @@ class _GoalListViewState extends State<GoalListView> {
   GoalController get _controller => goalController;
 
   Widget goalCardBuilder(BuildContext context, int index) {
-    final goal = _controller.goals[index];
-    return GoalCard(goal: goal, alone: true, onTap: () => _controller.showGoal(context, goal));
+    Widget element = SizedBox(height: onePadding);
+    if (index > 0 && index < _controller.goals.length + 1) {
+      final goal = _controller.goals[index - 1];
+      element = GoalCard(goal: goal, alone: true, onTap: () => _controller.showGoal(context, goal));
+    }
+    return element;
   }
 
   @override
@@ -43,22 +47,15 @@ class _GoalListViewState extends State<GoalListView> {
           top: false,
           bottom: false,
           child: _controller.goals.isEmpty
-              ? Center(
-                  child: EmptyDataWidget(
+              ? EmptyDataWidget(
                   title: loc.goal_list_empty_title,
                   addTitle: loc.goal_title_new,
                   onAdd: () => _controller.addGoal(context),
-                ))
-              : Column(children: [
-                  SizedBox(height: onePadding),
-                  Expanded(
-                    child: ListView.builder(
-                      itemBuilder: goalCardBuilder,
-                      itemCount: _controller.goals.length,
-                    ),
-                  ),
-                  SizedBox(height: onePadding),
-                ]),
+                )
+              : ListView.builder(
+                  itemBuilder: goalCardBuilder,
+                  itemCount: _controller.goals.length + 2,
+                ),
         ),
       ),
     );

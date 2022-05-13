@@ -8,7 +8,9 @@ import '../../components/mt_progress.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 
-class GoalsProgressWidget extends StatelessWidget {
+//TODO: отправлять внутрь параметром контроллер (наследник smartable). Использовать в дашбордах цели и задачи
+
+class SmartableDashboardWidget extends StatelessWidget {
   int get _riskyGoalsCount => goalController.riskyGoals.length;
   int get _overdueGoalsCount => goalController.overdueGoals.length;
   int get _closableGoalsCount => goalController.closableGoals.length;

@@ -10,7 +10,7 @@ import '../../../L1_domain/entities/goals/goal.dart';
 import '../../components/mt_confirm_dialog.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
-import '../_base/smartable_controller.dart';
+import '../smartable/smartable_controller.dart';
 import 'goal_dashboard_view.dart';
 import 'goal_edit_view.dart';
 

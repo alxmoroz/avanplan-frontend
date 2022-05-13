@@ -13,7 +13,7 @@ import '../../components/mt_confirm_dialog.dart';
 import '../../components/mt_dropdown.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
-import '../_base/smartable_controller.dart';
+import '../smartable/smartable_controller.dart';
 
 part 'task_edit_controller.g.dart';
 

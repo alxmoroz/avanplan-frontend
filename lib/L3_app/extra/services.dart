@@ -69,8 +69,7 @@ void setup() {
   // repo / adapters
   getIt.registerSingletonAsync<HiveStorage>(() async => await HiveStorage().init());
 
-  final api = Openapi();
-  // final api = Openapi(basePathOverride: 'https://hercules.moroz.team/api/');
+  final api = Openapi(basePathOverride: 'https://hercules.moroz.team/api/');
   // final api = Openapi(basePathOverride: 'http://localhost:8000/');
   api.dio.options.connectTimeout = 30000;
   api.dio.options.receiveTimeout = 30000;

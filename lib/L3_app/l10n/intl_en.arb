@@ -50,6 +50,7 @@
   "main_dashboard_status_risky_title": "There are risks",
 
   "main_dashboard_total_title": "{count, plural, one{1 goal set} other{{count} goals have been set}}",
+  "smartable_dashboard_total_title": "{count, plural, one{1 task set} other{{count} tasks have been set}}",
 
   "task_delete_dialog_title": "Delete task?",
   "task_delete_dialog_description": "All subtasks of this task will be deleted",

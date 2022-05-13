@@ -12,7 +12,8 @@ import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../extra/services.dart';
-import '../_base/smartable_card.dart';
+import '../smartable/smartable_card.dart';
+import '../smartable/smartable_header.dart';
 import 'task_view_controller.dart';
 
 class TaskView extends StatelessWidget {
@@ -34,15 +35,10 @@ class TaskView extends StatelessWidget {
   Widget cardBuilder(BuildContext context, int index) {
     Widget element = SizedBox(height: onePadding);
     if (index == 0 && _task != null) {
-      element = SmartableCard(
-        element: _task!,
-        showDetails: true,
-        breadcrumbs: breadcrumbs(),
-        onTapHeader: () => _controller.editTask(context),
-      );
+      element = SmartableHeader(element: _task!, breadcrumbs: breadcrumbs());
     } else if (index > 0 && index < _controller.subtasks.length + 1) {
       final task = _controller.subtasks[index - 1];
-      element = SmartableCard(element: task, onTapHeader: () => _controller.showTask(context, task));
+      element = SmartableCard(element: task, onTap: () => _controller.showTask(context, task));
     }
     return element;
   }
@@ -56,7 +52,8 @@ class TaskView extends StatelessWidget {
         navBar: navBar(
           context,
           title: title,
-          trailing: MTButton.icon(plusIcon(context), () => _controller.addTask(context), padding: EdgeInsets.only(right: onePadding)),
+          // trailing: MTButton.icon(plusIcon(context), () => _controller.addTask(context), padding: EdgeInsets.only(right: onePadding)),
+          trailing: MTButton.icon(editIcon(context), () => _controller.editTask(context), padding: EdgeInsets.only(right: onePadding)),
         ),
         body: SafeArea(
           top: false,

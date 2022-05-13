@@ -8,28 +8,26 @@ import 'constants.dart';
 class NormalText extends StatelessWidget {
   const NormalText(
     this.text, {
-    this.size,
     this.sizeScale,
     this.color,
     this.weight,
-    this.align,
-    this.padding,
     this.height,
     this.overflow,
     this.maxLines,
+    this.align,
+    this.padding,
     this.decoration,
   });
 
   final String text;
+  final double? sizeScale;
   final Color? color;
   final FontWeight? weight;
-  final TextAlign? align;
-  final double? size;
-  final double? sizeScale;
-  final EdgeInsets? padding;
   final double? height;
   final TextOverflow? overflow;
   final int? maxLines;
+  final TextAlign? align;
+  final EdgeInsets? padding;
   final TextDecoration? decoration;
 
   TextStyle style(BuildContext context) {
@@ -37,7 +35,7 @@ class NormalText extends StatelessWidget {
     return cupertinoTS.copyWith(
       color: CupertinoDynamicColor.maybeResolve(color ?? darkColor, context),
       fontWeight: weight ?? cupertinoTS.fontWeight,
-      fontSize: (size ?? cupertinoTS.fontSize ?? (isTablet ? 22 : 14)) * (sizeScale ?? 1),
+      fontSize: (cupertinoTS.fontSize ?? (isTablet ? 22 : 14)) * (sizeScale ?? 1),
       height: height ?? cupertinoTS.height,
       inherit: true,
       decoration: decoration,
@@ -64,19 +62,18 @@ class SmallText extends NormalText {
     String text, {
     Color? color,
     FontWeight? weight,
+    int? maxLines,
     TextAlign? align,
     EdgeInsets? padding,
-    double? sizeScale,
-    int? maxLines,
     TextDecoration? decoration,
   }) : super(
           text,
           color: color ?? darkGreyColor,
           weight: weight,
-          sizeScale: sizeScale ?? 0.85,
+          sizeScale: 0.85,
+          maxLines: maxLines ?? 5,
           align: align,
           padding: padding,
-          maxLines: maxLines ?? 5,
           decoration: decoration,
         );
 }
@@ -84,23 +81,20 @@ class SmallText extends NormalText {
 class LightText extends NormalText {
   const LightText(
     String text, {
-    double? size,
     Color? color,
-    FontWeight? weight,
+    int? maxLines,
+    double? sizeScale,
     TextAlign? align,
     EdgeInsets? padding,
-    double? sizeScale,
-    int? maxLines,
     TextDecoration? decoration,
   }) : super(
           text,
           color: color,
-          weight: weight ?? FontWeight.w300,
-          size: size,
+          weight: FontWeight.w300,
+          maxLines: maxLines ?? 5,
           sizeScale: sizeScale,
           align: align,
           padding: padding,
-          maxLines: maxLines ?? 5,
           decoration: decoration,
         );
 }
@@ -108,107 +102,99 @@ class LightText extends NormalText {
 class MediumText extends NormalText {
   const MediumText(
     String text, {
-    double? size,
     Color? color,
-    FontWeight? weight,
-    TextAlign? align,
-    EdgeInsets? padding,
     double? sizeScale,
     int? maxLines,
+    TextAlign? align,
+    EdgeInsets? padding,
     TextDecoration? decoration,
   }) : super(
           text,
           color: color,
-          weight: weight ?? FontWeight.w500,
-          size: size,
+          weight: FontWeight.w500,
+          maxLines: maxLines ?? 4,
           sizeScale: sizeScale,
           align: align,
           padding: padding,
-          maxLines: maxLines ?? 4,
           decoration: decoration,
         );
 }
 
-class H4 extends MediumText {
+class H4 extends NormalText {
   const H4(
     String text, {
     Color? color,
-    FontWeight? weight,
+    int? maxLines,
     TextAlign? align,
     EdgeInsets? padding,
-    int? maxLines,
     TextDecoration? decoration,
   }) : super(
           text,
-          color: color,
-          weight: weight,
+          color: color ?? darkGreyColor,
           sizeScale: 1.1,
+          maxLines: maxLines ?? 5,
           align: align,
           padding: padding,
-          maxLines: maxLines ?? 5,
           decoration: decoration,
         );
 }
 
-class H3 extends MediumText {
+class H3 extends NormalText {
   const H3(
     String text, {
     Color? color,
-    FontWeight? weight,
+    int? maxLines,
     TextAlign? align,
     EdgeInsets? padding,
-    int? maxLines,
     TextDecoration? decoration,
   }) : super(
           text,
           color: color ?? darkGreyColor,
-          weight: weight,
+          weight: FontWeight.w400,
           sizeScale: 1.2,
+          maxLines: maxLines ?? 3,
           align: align,
           padding: padding,
-          maxLines: maxLines ?? 3,
           decoration: decoration,
         );
 }
 
-class H2 extends MediumText {
+class H2 extends NormalText {
   const H2(
     String text, {
     Color? color,
-    FontWeight? weight,
+    int? maxLines,
     TextAlign? align,
     EdgeInsets? padding,
-    int? maxLines,
     TextDecoration? decoration,
   }) : super(
           text,
           color: color ?? darkGreyColor,
-          weight: weight,
+          weight: FontWeight.w400,
           sizeScale: 1.5,
+          maxLines: maxLines ?? 3,
           align: align,
           padding: padding,
-          maxLines: maxLines ?? 3,
           decoration: decoration,
         );
 }
 
-class H1 extends MediumText {
+class H1 extends NormalText {
   const H1(
     String text, {
     Color? color,
-    FontWeight? weight,
+    int? maxLines,
     TextAlign? align,
     EdgeInsets? padding,
-    int? maxLines,
     TextDecoration? decoration,
   }) : super(
           text,
           color: color ?? darkGreyColor,
-          weight: weight,
+          weight: FontWeight.w300,
           sizeScale: 2.5,
+          maxLines: maxLines ?? 2,
           align: align,
           padding: padding,
-          maxLines: maxLines ?? 2,
           decoration: decoration,
         );
 }

@@ -10,7 +10,7 @@ import '../../extra/services.dart';
 
 //TODO: отправлять внутрь параметром контроллер (наследник smartable). Использовать в дашбордах цели и задачи
 
-class SmartableDashboardWidget extends StatelessWidget {
+class SmartableDashboard extends StatelessWidget {
   int get _riskyGoalsCount => goalController.riskyGoals.length;
   int get _overdueGoalsCount => goalController.overdueGoals.length;
   int get _closableGoalsCount => goalController.closableGoals.length;

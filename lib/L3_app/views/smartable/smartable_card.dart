@@ -11,7 +11,7 @@ import '../../components/icons.dart';
 import '../../components/mt_card.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import 'smartable_progress_widget.dart';
+import 'smartable_progress.dart';
 
 class SmartableCard extends StatelessWidget {
   const SmartableCard({required this.element, this.onTap});
@@ -64,7 +64,7 @@ class SmartableCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MTCard(
         onTap: onTap,
-        body: SmartableProgressWidget(
+        body: SmartableProgress(
           element,
           body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             header(context),

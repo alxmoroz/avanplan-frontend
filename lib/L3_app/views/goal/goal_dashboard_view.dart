@@ -14,7 +14,7 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../smartable/smartable_header.dart';
-import '../smartable/smartable_progress_widget.dart';
+import '../smartable/smartable_progress.dart';
 import 'goal_controller.dart';
 
 class GoalDashboardView extends StatefulWidget {
@@ -50,7 +50,7 @@ class _GoalDashboardViewState extends State<GoalDashboardView> {
                   if (hasSubtasks) ...[
                     H4(loc.smartable_dashboard_total_title(_goal!.tasksCount), padding: EdgeInsets.symmetric(horizontal: onePadding)),
                     MTCard(
-                      body: SmartableProgressWidget(
+                      body: SmartableProgress(
                         _goal!,
                         body: Row(children: [
                           Expanded(child: LightText(loc.common_mark_done_btn_title)),

@@ -9,8 +9,8 @@ import '../../components/mt_progress.dart';
 // TODO: очень похож на goalsProgress из SmartableDashboardWidget. Нужно его перенести сюда просто (расширить этот)
 // TODO: этот виджет используется в одном месте! в карточке только!
 
-class SmartableProgressWidget extends StatelessWidget {
-  const SmartableProgressWidget(this.element, {this.body, this.padding});
+class SmartableProgress extends StatelessWidget {
+  const SmartableProgress(this.element, {this.body, this.padding});
 
   final Smartable element;
   final Widget? body;

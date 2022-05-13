@@ -13,7 +13,7 @@ import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../smartable/smartable_dashboard.dart';
+import 'main_dashboard.dart';
 
 class MainDashboardView extends StatefulWidget {
   static String get routeName => 'main_dashboard';
@@ -97,7 +97,7 @@ class _MainDashboardViewState extends State<MainDashboardView> {
                       SizedBox(height: onePadding),
 
                       /// статистика по статусу
-                      SmartableDashboard(),
+                      MainDashboard(),
                       SizedBox(height: onePadding),
                     ],
                   ),

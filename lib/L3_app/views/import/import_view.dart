@@ -8,7 +8,7 @@ import '../../../L1_domain/entities/goals/remote_tracker.dart';
 import '../../components/close_dialog_button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/empty_widget.dart';
+import '../../components/empty_data_widget.dart';
 import '../../components/mt_bottom_sheet.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_divider.dart';

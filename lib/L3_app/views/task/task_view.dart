@@ -6,7 +6,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../L1_domain/entities/goals/goal.dart';
 import '../../../L1_domain/entities/goals/task.dart';
 import '../../components/constants.dart';
-import '../../components/empty_widget.dart';
+import '../../components/empty_data_widget.dart';
 import '../../components/icons.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';

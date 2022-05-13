@@ -7,7 +7,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/empty_widget.dart';
+import '../../components/empty_data_widget.dart';
 import '../../components/icons.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';

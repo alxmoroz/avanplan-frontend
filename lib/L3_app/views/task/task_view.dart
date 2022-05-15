@@ -3,73 +3,49 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../L1_domain/entities/goals/goal.dart';
 import '../../../L1_domain/entities/goals/task.dart';
 import '../../components/constants.dart';
-import '../../components/empty_data_widget.dart';
 import '../../components/icons.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../extra/services.dart';
-import '../smartable/smartable_card.dart';
-import '../smartable/smartable_header.dart';
-import 'task_view_controller.dart';
+import '../smartable/smartable_dashboard.dart';
+import '../smartable/smartable_view_controller.dart';
 
 class TaskView extends StatelessWidget {
   static String get routeName => 'task';
 
-  TaskViewController get _controller => taskViewController;
+  SmartableViewController get _controller => smartableViewController;
   Task? get _task => _controller.task;
-  Goal? get _goal => _controller.goal;
 
   String breadcrumbs() {
     const sepStr = ' ⟩ ';
     String _breadcrumbs = '';
     final titles = _controller.navStackTasks.take(_controller.navStackTasks.length - 1).map((pt) => pt.title).toList();
-    titles.insert(0, _goal!.title);
+    titles.insert(0, _controller.goal.title);
     _breadcrumbs = titles.join(sepStr);
     return _breadcrumbs;
   }
 
-  Widget cardBuilder(BuildContext context, int index) {
-    Widget element = SizedBox(height: onePadding);
-    if (index == 0 && _task != null) {
-      element = SmartableHeader(element: _task!, breadcrumbs: breadcrumbs());
-    } else if (index > 0 && index < _controller.subtasks.length + 1) {
-      final task = _controller.subtasks[index - 1];
-      element = SmartableCard(element: task, onTap: () => _controller.showTask(context, task));
-    }
-    return element;
-  }
-
-  String get title => _task != null ? '${loc.task_title} #${_task!.id}' : '${loc.tasks_title} - ${_goal!.title}';
-
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => MTPage(
-        navBar: navBar(
-          context,
-          title: title,
-          // trailing: MTButton.icon(plusIcon(context), () => _controller.addTask(context), padding: EdgeInsets.only(right: onePadding)),
-          trailing: MTButton.icon(editIcon(context), () => _controller.editTask(context), padding: EdgeInsets.only(right: onePadding)),
-        ),
-        body: SafeArea(
-          top: false,
-          bottom: false,
-          child: _controller.subtasks.isEmpty && _controller.isGoal
-              ? EmptyDataWidget(
-                  title: loc.task_list_empty_title,
-                  addTitle: loc.task_title_new,
-                  onAdd: () => _controller.addTask(context),
-                )
-              : ListView.builder(
-                  itemBuilder: cardBuilder,
-                  itemCount: _controller.subtasks.length + 2,
-                ),
-        ),
-      ),
+      builder: (_) => _task != null
+          ? MTPage(
+              isLoading: _controller.isLoading,
+              navBar: navBar(
+                context,
+                title: '${loc.task_title} #${_task!.id}',
+                trailing: MTButton.icon(editIcon(context), () => _controller.editTask(context), padding: EdgeInsets.only(right: onePadding)),
+              ),
+              body: SafeArea(
+                top: false,
+                bottom: false,
+                child: SmartableDashboard(_task!, breadcrumbs: breadcrumbs()),
+              ),
+            )
+          : Container(),
     );
   }
 }

@@ -54,10 +54,7 @@ class SmartableHeader extends StatelessWidget {
         final tp = TextPainter(text: span, maxLines: maxLines, textDirection: TextDirection.ltr);
         tp.layout(maxWidth: size.maxWidth);
         final bool hasButton = tp.didExceedMaxLines;
-        final divider = MTDivider(
-          color: hasButton ? darkGreyColor : Colors.transparent,
-          height: onePadding,
-        );
+        final divider = MTDivider(color: !hasButton ? Colors.transparent : null);
         final innerWidget = Column(children: [
           divider,
           Row(children: [
@@ -70,7 +67,7 @@ class SmartableHeader extends StatelessWidget {
       });
 
   Widget buildDates() => Row(children: [
-        if (element.dueDate != null) DateStringWidget(element.dueDate, titleString: loc.common_due_date_label),
+        DateStringWidget(element.dueDate, titleString: loc.common_due_date_label),
         const Spacer(),
         if (element.lefTasksCount > 0) DateStringWidget(element.etaDate, titleString: loc.common_eta_date_label),
       ]);
@@ -82,7 +79,7 @@ class SmartableHeader extends StatelessWidget {
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         if (breadcrumbs != null && breadcrumbs!.isNotEmpty) ...[
           SmallText(breadcrumbs!),
-          const MTDivider(color: darkGreyColor),
+          const MTDivider(),
         ],
         header(context),
         if (hasStatus) ...[

@@ -14,14 +14,9 @@ import '../../extra/services.dart';
 import '../smartable/smartable_dashboard.dart';
 import 'goal_controller.dart';
 
-class GoalDashboardView extends StatefulWidget {
-  static String get routeName => 'goal_dashboard';
+class GoalView extends StatelessWidget {
+  static String get routeName => 'goal';
 
-  @override
-  _GoalDashboardViewState createState() => _GoalDashboardViewState();
-}
-
-class _GoalDashboardViewState extends State<GoalDashboardView> {
   GoalController get _controller => goalController;
   Goal? get _goal => _controller.selectedGoal;
 
@@ -39,7 +34,7 @@ class _GoalDashboardViewState extends State<GoalDashboardView> {
               body: SafeArea(
                 top: false,
                 bottom: false,
-                child: SmartableDashboard(_goal!, onTap: () => taskViewController.showTask(context, null)),
+                child: SmartableDashboard(_goal!),
               ),
             )
           : Container(),

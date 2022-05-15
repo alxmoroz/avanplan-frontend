@@ -6,8 +6,8 @@ import '../../components/colors.dart';
 import '../../components/icons.dart';
 import '../../components/splash.dart';
 import '../../extra/services.dart';
-import '../goal/goal_dashboard_view.dart';
 import '../goal/goal_list_view.dart';
+import '../goal/goal_view.dart';
 import '../remote_tracker/tracker_list_view.dart';
 import '../settings/settings_view.dart';
 import '../task/task_view.dart';
@@ -40,7 +40,7 @@ class _MainViewState extends State<MainView> {
         tabBuilder: (_, index) => CupertinoTabView(
           builder: (context) => tabViews[index],
           routes: {
-            GoalDashboardView.routeName: (_) => GoalDashboardView(),
+            GoalView.routeName: (_) => GoalView(),
             TaskView.routeName: (_) => TaskView(),
             TrackerListView.routeName: (_) => TrackerListView(),
           },

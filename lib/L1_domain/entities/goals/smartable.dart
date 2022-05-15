@@ -35,15 +35,15 @@ abstract class Smartable extends Statusable {
   int get tasksCount => leafTasks.length;
   int get closedTasksCount => leafTasks.where((t) => t.closed).length;
   int get lefTasksCount => tasksCount - closedTasksCount;
-  double? get closedRatio => tasksCount > 0 && lefTasksCount > 0 ? closedTasksCount / tasksCount : null;
+  double get doneRatio => tasksCount > 0 ? closedTasksCount / tasksCount : 0;
 
   double get _factSpeed => closedTasksCount / pastPeriod.inSeconds;
 
-  DateTime? get etaDate => _factSpeed > 0 ? DateTime.now().add(Duration(seconds: (lefTasksCount / _factSpeed).round())) : null;
+  DateTime? get etaDate => _factSpeed > 0 && lefTasksCount > 0 ? DateTime.now().add(Duration(seconds: (lefTasksCount / _factSpeed).round())) : null;
   Duration? get etaRiskPeriod => dueDate != null ? etaDate?.difference(dueDate!) : null;
 
-  bool get hasRisk => etaDate != null && (etaRiskPeriod?.inSeconds ?? 0) > 0;
-  bool get ok => etaDate != null && (etaRiskPeriod?.inSeconds ?? 0) <= 0;
+  bool get hasRisk => !closed && dueDate != null && etaDate != null && (etaRiskPeriod?.inSeconds ?? 0) > 0;
+  bool get ok => !closed && dueDate != null && etaDate != null && (etaRiskPeriod?.inSeconds ?? 0) <= 0;
 
   // double get _planSpeed => tasksCount / (plannedPeriod?.inSeconds ?? 1);
   // double? get pace => etaDate != null ? (_factSpeed - _planSpeed) : null;

@@ -35,7 +35,7 @@ class MainDashboard extends StatelessWidget {
         MTProgress(
           ratio: goalsCount / _openedGoalsCount,
           color: color,
-          bgColor: borderColor.withAlpha(42),
+          bgColor: darkBackgroundColor,
           padding: EdgeInsets.symmetric(horizontal: onePadding, vertical: onePadding / (subtitleText != null ? 2 : 1)),
           body: Row(children: [
             Expanded(
@@ -54,6 +54,8 @@ class MainDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const noInfoColor = borderColor;
+
     return Column(children: [
       if (_hasOverdue)
         goalsProgress(
@@ -76,7 +78,7 @@ class MainDashboard extends StatelessWidget {
       if (_noDueGoalsCount > 0)
         goalsProgress(
           goalsCount: _noDueGoalsCount,
-          color: loaderColor,
+          color: noInfoColor,
           titleText: loc.main_dashboard_progress_no_due_title,
           trailingText: '$_noDueGoalsCount',
         ),
@@ -84,7 +86,7 @@ class MainDashboard extends StatelessWidget {
       if (_inactiveGoalsCount > 0)
         goalsProgress(
           goalsCount: _inactiveGoalsCount,
-          color: loaderColor,
+          color: noInfoColor,
           titleText: loc.main_dashboard_progress_no_progress_title,
           trailingText: '$_inactiveGoalsCount',
         ),
@@ -92,7 +94,7 @@ class MainDashboard extends StatelessWidget {
       if (_closableGoalsCount > 0)
         goalsProgress(
           goalsCount: _closableGoalsCount,
-          color: loaderColor,
+          color: noInfoColor,
           titleText: loc.main_dashboard_progress_no_opened_tasks,
           trailingText: '$_closableGoalsCount',
         ),

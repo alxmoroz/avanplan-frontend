@@ -30,7 +30,7 @@ class DateStringWidget extends StatelessWidget {
                   ]
                 ],
               ),
-              NormalText(date!.strShort, color: darkGreyColor),
+              LightText(date!.strShort),
             ],
           )
         : Container();

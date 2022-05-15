@@ -51,7 +51,7 @@
 
   "main_dashboard_total_title": "{count, plural, one{Поставлена {count} цель} few{Поставлено {count} цели} other{Поставлено {count} целей}}",
 
-  "smartable_dashboard_total_title": "{count, plural, one{Поставлена {count} задача} few{Поставлено {count} задачи} other{Поставлено {count} задач}}",
+  "subtasks_count": "{count, plural, one{{count} задача} few{{count} задачи} other{{count} задач}}",
 
   "task_delete_dialog_title": "Удалить задачу?",
   "task_delete_dialog_description": "Все подзадачи также будут удалены",

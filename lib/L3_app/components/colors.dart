@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 // TODO: разобраться с серым цветом. По факту используется в коде не учитывая названия
 
 const Color darkColor = CupertinoDynamicColor.withBrightness(
-  color: Color(0xFF333333),
+  color: Color(0xFF424242),
   darkColor: Color(0xFFCCCCCC),
 );
 
@@ -34,7 +34,11 @@ const Color darkBackgroundColor = CupertinoColors.systemGrey5;
 const Color backgroundColor = CupertinoColors.systemGrey6;
 
 const Color dangerColor = CupertinoColors.destructiveRed;
-const Color warningColor = CupertinoColors.activeOrange;
+
+const Color warningColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, 255, 159, 10),
+  darkColor: Color.fromARGB(255, 180, 100, 0),
+);
 
 const Color _tealColor = Color.fromARGB(255, 90, 200, 250);
 const Color _darkTealColor = Color.fromARGB(255, 0, 113, 164);
@@ -92,12 +96,12 @@ const Color riskyColor = CupertinoDynamicColor.withBrightness(
 );
 
 const Color bgRiskyColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(120, 255, 195, 65),
-  darkColor: Color.fromARGB(120, 115, 70, 0),
+  color: Color.fromARGB(255, 255, 225, 165),
+  darkColor: Color.fromARGB(255, 45, 30, 0),
 );
 
 // цвет для "прозрачного" апп-бара
-// Color get appBarBgColor => const CupertinoDynamicColor.withBrightness(
+// const Color  appBarBgColor = CupertinoDynamicColor.withBrightness(
 //       color: Color.fromARGB(0, 255, 255, 255),
 //       darkColor: Color.fromARGB(0, 0, 0, 0),
 //     );

@@ -10,15 +10,15 @@ import '../../../L1_domain/entities/goals/goal.dart';
 import '../../components/mt_confirm_dialog.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
-import '../smartable/smartable_controller.dart';
-import 'goal_dashboard_view.dart';
+import '../smartable/smartable_edit_controller.dart';
 import 'goal_edit_view.dart';
+import 'goal_view.dart';
 
 part 'goal_controller.g.dart';
 
 class GoalController extends _GoalControllerBase with _$GoalController {}
 
-abstract class _GoalControllerBase extends SmartableController with Store {
+abstract class _GoalControllerBase extends SmartableEditController with Store {
   @override
   void initState({List<TFAnnotation>? tfaList}) {
     super.initState(tfaList: tfaList);
@@ -170,7 +170,7 @@ abstract class _GoalControllerBase extends SmartableController with Store {
 
   Future showGoal(BuildContext context, Goal goal) async {
     selectGoal(goal);
-    await Navigator.of(context).pushNamed(GoalDashboardView.routeName);
+    await Navigator.of(context).pushNamed(GoalView.routeName);
   }
 
   Future addGoal(BuildContext context) async {

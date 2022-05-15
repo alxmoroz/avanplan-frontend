@@ -30,8 +30,8 @@ import '../views/import/import_controller.dart';
 import '../views/main/main_controller.dart';
 import '../views/remote_tracker/tracker_controller.dart';
 import '../views/settings/settings_controller.dart';
+import '../views/smartable/smartable_view_controller.dart';
 import '../views/task/task_edit_controller.dart';
-import '../views/task/task_view_controller.dart';
 
 S get loc => S.current;
 
@@ -44,7 +44,7 @@ SettingsController get settingsController => GetIt.I<SettingsController>();
 LoginController get loginController => GetIt.I<LoginController>();
 MainController get mainController => GetIt.I<MainController>();
 GoalController get goalController => GetIt.I<GoalController>();
-TaskViewController get taskViewController => GetIt.I<TaskViewController>();
+SmartableViewController get smartableViewController => GetIt.I<SmartableViewController>();
 TaskEditController get taskEditController => GetIt.I<TaskEditController>();
 TrackerController get trackerController => GetIt.I<TrackerController>();
 ImportController get importController => GetIt.I<ImportController>();
@@ -91,7 +91,7 @@ void setup() {
   getIt.registerSingletonAsync<SettingsController>(() async => SettingsController().init(), dependsOn: [HiveStorage, BaseDeviceInfo, PackageInfo]);
   getIt.registerSingleton<MainController>(MainController());
   getIt.registerSingleton<GoalController>(GoalController());
-  getIt.registerSingleton<TaskViewController>(TaskViewController());
+  getIt.registerSingleton<SmartableViewController>(SmartableViewController());
   getIt.registerSingleton<TaskEditController>(TaskEditController());
   getIt.registerSingleton<TrackerController>(TrackerController());
   getIt.registerSingleton<ImportController>(ImportController());

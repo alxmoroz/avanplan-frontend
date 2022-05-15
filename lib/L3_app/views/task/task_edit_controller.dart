@@ -13,7 +13,7 @@ import '../../components/mt_confirm_dialog.dart';
 import '../../components/mt_dropdown.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
-import '../smartable/smartable_controller.dart';
+import '../smartable/smartable_edit_controller.dart';
 
 part 'task_edit_controller.g.dart';
 
@@ -22,7 +22,7 @@ class TaskEditController extends _TaskEditControllerBase with _$TaskEditControll
 // TODO: подумать над объединением с контроллером просмотра. Проблему может доставить initState, который вызывает вьюха редактирования
 //  можно ли вообще несколько вьюх на один контроллер?
 
-abstract class _TaskEditControllerBase extends SmartableController with Store {
+abstract class _TaskEditControllerBase extends SmartableEditController with Store {
   Goal get _goal => goalController.selectedGoal!;
 
   @override
@@ -91,7 +91,7 @@ abstract class _TaskEditControllerBase extends SmartableController with Store {
   bool get canEdit => selectedTask != null;
 
   @computed
-  int? get _parentId => canEdit ? taskViewController.task?.parentId : taskViewController.task?.id;
+  int? get _parentId => canEdit ? smartableViewController.task?.parentId : smartableViewController.task?.id;
 
   /// действия
 

@@ -10,27 +10,12 @@ import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../extra/services.dart';
-import '../smartable/smartable_card.dart';
+import '../smartable/smartable_list.dart';
 import 'goal_controller.dart';
 
-class GoalListView extends StatefulWidget {
+class GoalListView extends StatelessWidget {
   static String get routeName => 'goal_list';
-
-  @override
-  _GoalListViewState createState() => _GoalListViewState();
-}
-
-class _GoalListViewState extends State<GoalListView> {
   GoalController get _controller => goalController;
-
-  Widget goalCardBuilder(BuildContext context, int index) {
-    Widget card = SizedBox(height: onePadding);
-    if (index > 0 && index < _controller.goals.length + 1) {
-      final goal = _controller.goals[index - 1];
-      card = SmartableCard(element: goal, onTap: () => _controller.showGoal(context, goal));
-    }
-    return card;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,9 +37,12 @@ class _GoalListViewState extends State<GoalListView> {
                   addTitle: loc.goal_title_new,
                   onAdd: () => _controller.addGoal(context),
                 )
-              : ListView.builder(
-                  itemBuilder: goalCardBuilder,
-                  itemCount: _controller.goals.length + 2,
+              : ListView(
+                  children: [
+                    SizedBox(height: onePadding),
+                    SmartableList(_controller.goals),
+                    SizedBox(height: onePadding),
+                  ],
                 ),
         ),
       ),

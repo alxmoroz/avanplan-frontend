@@ -35,10 +35,7 @@ const Color backgroundColor = CupertinoColors.systemGrey6;
 
 const Color dangerColor = CupertinoColors.destructiveRed;
 
-const Color warningColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 255, 159, 10),
-  darkColor: Color.fromARGB(255, 180, 100, 0),
-);
+const Color warningColor = CupertinoColors.activeOrange;
 
 const Color _tealColor = Color.fromARGB(255, 90, 200, 250);
 const Color _darkTealColor = Color.fromARGB(255, 0, 113, 164);
@@ -96,7 +93,7 @@ const Color riskyColor = CupertinoDynamicColor.withBrightness(
 );
 
 const Color bgRiskyColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 255, 225, 165),
+  color: Color.fromARGB(255, 255, 240, 190),
   darkColor: Color.fromARGB(255, 45, 30, 0),
 );
 

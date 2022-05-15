@@ -4,14 +4,16 @@ import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/goals/smartable.dart';
 import '../../../L1_domain/entities/goals/task.dart';
+import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/date_string_widget.dart';
 import '../../components/icons.dart';
 import '../../components/mt_card.dart';
+import '../../components/mt_progress.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/number_presenter.dart';
-import 'smartable_progress.dart';
+import 'smartable_overall_state.dart';
 
 class SmartableCard extends StatelessWidget {
   const SmartableCard({required this.element, this.onTap});
@@ -21,7 +23,7 @@ class SmartableCard extends StatelessWidget {
 
   bool get isTask => element is Task;
   bool get hasDescription => element.description.isNotEmpty;
-  bool get hasDates => element.hasRisk || element.etaDate != null;
+  bool get hasDates => element.etaDate != null || element.dueDate != null;
   bool get hasSubtasks => element.tasksCount > 0;
   bool get isClosed => element.closed;
 
@@ -41,7 +43,7 @@ class SmartableCard extends StatelessWidget {
   Widget description() => SmallText(element.description, maxLines: 2, weight: FontWeight.w300);
 
   Widget subtasksInfo() => Row(children: [
-        LightText(loc.subtasks_count(element.tasksCount)),
+        LightText(loc.smart_subtasks_count(element.tasksCount)),
         const Spacer(),
         if (element.doneRatio > 0) ...[
           SmallText('${loc.common_mark_done_btn_title} ', weight: FontWeight.w300),
@@ -50,16 +52,17 @@ class SmartableCard extends StatelessWidget {
       ]);
 
   Widget buildDates() => Row(children: [
-        DateStringWidget(element.dueDate, titleString: loc.common_due_date_label),
+        DateStringWidget(element.dueDate, titleString: loc.smart_due_date_label),
         const Spacer(),
-        if (element.lefTasksCount > 0) DateStringWidget(element.etaDate, titleString: loc.common_eta_date_label),
+        if (element.lefTasksCount > 0) DateStringWidget(element.etaDate, titleString: loc.smart_eta_date_label),
       ]);
 
   @override
   Widget build(BuildContext context) => MTCard(
         onTap: onTap,
-        body: SmartableProgress(
-          element,
+        body: MTProgress(
+          ratio: element.doneRatio,
+          color: stateColor(element.overallState) ?? borderColor,
           body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             header(context),
             if (hasDescription) ...[

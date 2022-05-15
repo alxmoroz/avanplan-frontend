@@ -14,6 +14,7 @@ import '../../components/mt_details_dialog.dart';
 import '../../components/mt_divider.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
+import 'smartable_state_indicator.dart';
 
 class SmartableHeader extends StatelessWidget {
   const SmartableHeader({
@@ -32,6 +33,7 @@ class SmartableHeader extends StatelessWidget {
   bool get isClosed => element.closed;
   TaskStatus? get status => isTask ? (element as Task).status : null;
   bool get hasStatus => status != null;
+  bool get hasNotice => element.overallState != OverallState.noInfo;
 
   Widget title(BuildContext context) => H2(element.title, decoration: isClosed ? TextDecoration.lineThrough : null);
 
@@ -48,8 +50,8 @@ class SmartableHeader extends StatelessWidget {
 
   Widget description() => LayoutBuilder(builder: (context, size) {
         final text = element.description;
-        const maxLines = 5;
-        final detailedTextWidget = LightText(text, maxLines: 5);
+        final maxLines = element.tasksCount > 0 ? 3 : 9;
+        final detailedTextWidget = LightText(text, maxLines: maxLines);
         final span = TextSpan(text: text, style: detailedTextWidget.style(context));
         final tp = TextPainter(text: span, maxLines: maxLines, textDirection: TextDirection.ltr);
         tp.layout(maxWidth: size.maxWidth);
@@ -67,14 +69,14 @@ class SmartableHeader extends StatelessWidget {
       });
 
   Widget buildDates() => Row(children: [
-        DateStringWidget(element.dueDate, titleString: loc.common_due_date_label),
+        DateStringWidget(element.dueDate, titleString: loc.smart_due_date_label),
         const Spacer(),
-        if (element.lefTasksCount > 0) DateStringWidget(element.etaDate, titleString: loc.common_eta_date_label),
+        if (element.lefTasksCount > 0) DateStringWidget(element.etaDate, titleString: loc.smart_eta_date_label),
       ]);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
       padding: EdgeInsets.all(onePadding),
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         if (breadcrumbs != null && breadcrumbs!.isNotEmpty) ...[
@@ -90,7 +92,11 @@ class SmartableHeader extends StatelessWidget {
         if (hasDates) ...[
           SizedBox(height: onePadding / 2),
           buildDates(),
-        ]
+        ],
+        if (hasNotice) ...[
+          SizedBox(height: onePadding),
+          SmartableStateIndicator(element),
+        ],
       ]),
     );
   }

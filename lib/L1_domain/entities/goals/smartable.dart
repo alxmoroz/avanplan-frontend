@@ -3,6 +3,8 @@
 import '../base_entity.dart';
 import 'task.dart';
 
+enum OverallState { overdue, risk, ok, noInfo }
+
 abstract class Smartable extends Statusable {
   Smartable({
     required int id,
@@ -28,7 +30,6 @@ abstract class Smartable extends Statusable {
   Duration? get plannedPeriod => dueDate?.difference(createdOn);
   Duration get pastPeriod => DateTime.now().difference(createdOn);
   Duration? get overduePeriod => dueDate != null ? DateTime.now().difference(dueDate!) : null;
-  bool get hasOverdue => (overduePeriod?.inSeconds ?? 0) > 0;
 
   Iterable<Task> get allTasks => tasks;
   Iterable<Task> get leafTasks => allTasks.where((t) => t.allTasks.isEmpty);
@@ -42,9 +43,20 @@ abstract class Smartable extends Statusable {
   DateTime? get etaDate => _factSpeed > 0 && lefTasksCount > 0 ? DateTime.now().add(Duration(seconds: (lefTasksCount / _factSpeed).round())) : null;
   Duration? get etaRiskPeriod => dueDate != null ? etaDate?.difference(dueDate!) : null;
 
-  bool get hasRisk => !closed && dueDate != null && etaDate != null && (etaRiskPeriod?.inSeconds ?? 0) > 0;
-  bool get ok => !closed && dueDate != null && etaDate != null && (etaRiskPeriod?.inSeconds ?? 0) <= 0;
+  bool get _hasOverdue => (overduePeriod?.inSeconds ?? 0) > 0;
+  bool get _hasRisk => etaDate != null && (etaRiskPeriod?.inSeconds ?? 0) > 0;
+  bool get _isOk => etaDate != null && (etaRiskPeriod?.inSeconds ?? 0) <= 0;
 
+  //TODO: оставить только этот статус. Остальные выше сделать приватными
+  OverallState get overallState => dueDate != null && !closed
+      ? (_hasOverdue
+          ? OverallState.overdue
+          : _hasRisk
+              ? OverallState.risk
+              : _isOk
+                  ? OverallState.ok
+                  : OverallState.noInfo)
+      : OverallState.noInfo;
   // double get _planSpeed => tasksCount / (plannedPeriod?.inSeconds ?? 1);
   // double? get pace => etaDate != null ? (_factSpeed - _planSpeed) : null;
 }

@@ -12,9 +12,6 @@
   "common_delete_btn_title": "Delete",
   "common_description": "Description",
   "common_delete_dialog_description": "This action cannot be undone!",
-  "common_due_date_placeholder": "Due date",
-  "common_due_date_label": "Planned",
-  "common_eta_date_label": "Predicted",
   "common_mark_done_btn_title": "Done",
   "common_no": "No",
   "common_save_btn_title": "Save",
@@ -35,23 +32,28 @@
 
   "integration": "Integration",
 
-  "main_dashboard_progress_no_due_title": "No due date",
-  "main_dashboard_progress_no_opened_tasks": "All tasks are closed",
-  "main_dashboard_progress_no_progress_title": "No progress",
-  "main_dashboard_progress_ok_title": "On time",
-  "main_dashboard_progress_overdue_subtitle": "Total overdue is",
-  "main_dashboard_progress_overdue_title": "Overdue goals",
-  "main_dashboard_progress_risky_subtitle": "Total overdue risk is",
-  "main_dashboard_progress_risky_title": "Risky goals",
+  "smart_state_no_opened_tasks": "All tasks are closed",
+  "smart_state_no_progress": "No progress",
+  "smart_state_progress_ok": "On time",
+  "smart_state_progress_overdue_title": "Overdue goals",
+  "smart_state_progress_risky_subtitle": "Total overdue risk is",
+  "smart_state_progress_risky_title": "Risky goals",
 
-  "main_dashboard_status_no_info_title": "Set deadlines, divide goals into tasks",
-  "main_dashboard_status_ok_title": "All according to plan",
-  "main_dashboard_status_overdue_title": "There are overdue goals",
-  "main_dashboard_status_risky_title": "There are risks",
+  "smart_state_no_info_title": "Set deadlines, divide goals into tasks",
+  "smart_state_ok_title": "All according to plan",
+  "smart_state_overdue_title": "There are overdue goals",
+  "smart_state_risky_title": "There are risks",
 
-  "main_dashboard_total_title": "{count, plural, one{1 goal set} other{{count} goals have been set}}",
+  "main_dashboard_total_goals_title": "{count, plural, one{1 goal set} other{{count} goals have been set}}",
 
-  "subtasks_count": "{count, plural, one{1 task} other{{count} tasks}}",
+  "smart_due_date_label": "Planned",
+  "smart_due_date_placeholder": "Due date",
+  "smart_eta_date_label": "Predicted",
+
+  "smart_state_no_due": "No due date",
+  "smart_state_overdue": "Total overdue is",
+
+  "smart_subtasks_count": "{count, plural, one{1 task} other{{count} tasks}}",
 
   "task_delete_dialog_title": "Delete task?",
   "task_delete_dialog_description": "All subtasks of this task will be deleted",

@@ -70,7 +70,7 @@ Widget goalsIcon(BuildContext context, {Color? color, double? size}) => Icon(Cup
 Widget menuIcon(BuildContext context, {Color? color, double? size}) => Icon(CupertinoIcons.ellipsis_vertical, size: size);
 
 Widget overdueIcon(BuildContext context, {Color? color, double? size}) =>
-    Icon(CupertinoIcons.exclamationmark_triangle, color: (color ?? warningColor).resolve(context), size: size);
+    Icon(CupertinoIcons.exclamationmark_triangle, color: (color ?? dangerColor).resolve(context), size: size);
 
 Widget badPaceIcon(BuildContext context, {Color? color, double? size}) =>
     Icon(CupertinoIcons.tortoise, color: (color ?? riskyColor).resolve(context), size: size);

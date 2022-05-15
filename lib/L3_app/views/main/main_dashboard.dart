@@ -1,6 +1,8 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:hercules/L1_domain/entities/goals/smartable.dart';
+import 'package:hercules/L3_app/views/smartable/smartable_overall_state.dart';
 
 import '../../components/colors.dart';
 import '../../components/constants.dart';
@@ -54,32 +56,33 @@ class MainDashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const noInfoColor = borderColor;
+    final noInfoColor = stateColor(OverallState.noInfo) ?? borderColor;
 
     return Column(children: [
       if (_hasOverdue)
         goalsProgress(
           goalsCount: _overdueGoalsCount,
-          color: warningColor,
-          titleText: loc.main_dashboard_progress_overdue_title,
+          color: stateColor(OverallState.overdue) ?? dangerColor,
+          titleText: loc.smart_state_progress_overdue_title,
           trailingText: '$_overdueGoalsCount',
-          subtitleText: '${loc.main_dashboard_progress_overdue_subtitle} ${loc.common_days_count(_overdueInDays)}',
+          subtitleText: '${loc.smart_state_overdue} ${loc.common_days_count(_overdueInDays)}',
         ),
 
       if (_hasRisk)
         goalsProgress(
           goalsCount: _riskyGoalsCount,
-          color: riskyColor,
-          titleText: loc.main_dashboard_progress_risky_title,
+          color: stateColor(OverallState.risk) ?? riskyColor,
+          titleText: loc.smart_state_progress_risky_title,
           trailingText: '$_riskyGoalsCount',
-          subtitleText: '${loc.main_dashboard_progress_risky_subtitle} ${loc.common_days_count(_riskInDays)}',
+          subtitleText: '${loc.smart_state_progress_risky_subtitle} ${loc.common_days_count(_riskInDays)}',
         ),
 
+      //TODO: добавить неосновные статусы для Smartable
       if (_noDueGoalsCount > 0)
         goalsProgress(
           goalsCount: _noDueGoalsCount,
           color: noInfoColor,
-          titleText: loc.main_dashboard_progress_no_due_title,
+          titleText: loc.smart_state_no_due,
           trailingText: '$_noDueGoalsCount',
         ),
 
@@ -87,7 +90,7 @@ class MainDashboard extends StatelessWidget {
         goalsProgress(
           goalsCount: _inactiveGoalsCount,
           color: noInfoColor,
-          titleText: loc.main_dashboard_progress_no_progress_title,
+          titleText: loc.smart_state_no_progress,
           trailingText: '$_inactiveGoalsCount',
         ),
 
@@ -95,7 +98,7 @@ class MainDashboard extends StatelessWidget {
         goalsProgress(
           goalsCount: _closableGoalsCount,
           color: noInfoColor,
-          titleText: loc.main_dashboard_progress_no_opened_tasks,
+          titleText: loc.smart_state_no_opened_tasks,
           trailingText: '$_closableGoalsCount',
         ),
 
@@ -104,8 +107,8 @@ class MainDashboard extends StatelessWidget {
       if ((_hasOverdue || _hasRisk) && _okGoalsCount > 0)
         goalsProgress(
           goalsCount: _okGoalsCount,
-          color: bgOkColor,
-          titleText: loc.main_dashboard_progress_ok_title,
+          color: stateColor(OverallState.risk) ?? bgOkColor,
+          titleText: loc.smart_state_progress_ok,
           trailingText: '$_okGoalsCount',
         ),
     ]);

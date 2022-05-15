@@ -5,12 +5,13 @@ import 'package:flutter/cupertino.dart';
 import '../../../L1_domain/entities/goals/smartable.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
+import '../../components/mt_progress.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/number_presenter.dart';
 import 'smartable_header.dart';
 import 'smartable_list.dart';
-import 'smartable_progress.dart';
+import 'smartable_overall_state.dart';
 
 class SmartableDashboard extends StatelessWidget {
   const SmartableDashboard(this.element, {this.breadcrumbs, this.onTap});
@@ -20,7 +21,7 @@ class SmartableDashboard extends StatelessWidget {
   final String? breadcrumbs;
 
   Widget subtasksInfo() => Row(children: [
-        H2(loc.subtasks_count(element.tasksCount)),
+        H2(loc.smart_subtasks_count(element.tasksCount)),
         const Spacer(),
         if (element.doneRatio > 0) ...[
           LightText('${loc.common_mark_done_btn_title} '),
@@ -35,8 +36,9 @@ class SmartableDashboard extends StatelessWidget {
       children: [
         SmartableHeader(element: element, breadcrumbs: breadcrumbs),
         if (hasSubtasks) ...[
-          SmartableProgress(
-            element,
+          MTProgress(
+            ratio: element.doneRatio,
+            color: stateColor(element.overallState) ?? borderColor,
             bgColor: darkBackgroundColor,
             body: subtasksInfo(),
           ),

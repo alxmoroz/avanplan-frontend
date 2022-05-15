@@ -7,6 +7,7 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/api_schema/goal.dart';
 import '../../../L1_domain/entities/auth/workspace.dart';
 import '../../../L1_domain/entities/goals/goal.dart';
+import '../../../L1_domain/entities/goals/smartable.dart';
 import '../../components/mt_confirm_dialog.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
@@ -40,13 +41,13 @@ abstract class _GoalControllerBase extends SmartableEditController with Store {
   Iterable<Goal> get timeBoundGoals => openedGoals.where((g) => g.dueDate != null);
 
   @computed
-  Iterable<Goal> get overdueGoals => timeBoundGoals.where((g) => g.hasOverdue);
+  Iterable<Goal> get overdueGoals => timeBoundGoals.where((g) => g.overallState == OverallState.overdue);
 
   @computed
-  Iterable<Goal> get riskyGoals => timeBoundGoals.where((g) => g.hasRisk);
+  Iterable<Goal> get riskyGoals => timeBoundGoals.where((g) => g.overallState == OverallState.risk);
 
   @computed
-  Iterable<Goal> get okGoals => timeBoundGoals.where((g) => g.ok);
+  Iterable<Goal> get okGoals => timeBoundGoals.where((g) => g.overallState == OverallState.ok);
 
   @computed
   Iterable<Goal> get noDueGoals => openedGoals.where((g) => g.dueDate == null);

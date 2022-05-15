@@ -45,7 +45,7 @@ class _GoalViewState extends State<GoalEditView> {
     _controller.initState(tfaList: [
       TFAnnotation('title', label: loc.common_title, text: _goal?.title ?? ''),
       TFAnnotation('description', label: loc.common_description, text: _goal?.description ?? '', needValidate: false),
-      TFAnnotation('dueDate', label: loc.common_due_date_placeholder, noText: true),
+      TFAnnotation('dueDate', label: loc.smart_due_date_placeholder, noText: true),
     ]);
     super.initState();
   }

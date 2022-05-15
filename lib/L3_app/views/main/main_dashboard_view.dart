@@ -5,14 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../L1_domain/entities/goals/smartable.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/empty_data_widget.dart';
-import '../../components/icons.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
+import '../smartable/smartable_overall_state.dart';
 import 'main_dashboard.dart';
 
 class MainDashboardView extends StatefulWidget {
@@ -22,9 +23,9 @@ class MainDashboardView extends StatefulWidget {
   _MainDashboardViewState createState() => _MainDashboardViewState();
 }
 
-enum _OverallState { overdue, risk, ok, noInfo }
-
 class _MainDashboardViewState extends State<MainDashboardView> {
+  // TODO: добавлять рутовую невидимую цель (Smartable) и делать расчёты через неё?
+
   int get _timeBoundGoalsCount => goalController.timeBoundGoals.length;
   int get _riskyGoalsCount => goalController.riskyGoals.length;
   int get _overdueGoalsCount => goalController.overdueGoals.length;
@@ -33,50 +34,36 @@ class _MainDashboardViewState extends State<MainDashboardView> {
   bool get _hasOverdue => _overdueGoalsCount > 0;
   bool get _hasRisk => _riskyGoalsCount > 0;
 
-  _OverallState get _overallState => _timeBoundGoalsCount > 0
+  OverallState get _overallState => _timeBoundGoalsCount > 0
       ? (_hasOverdue
-          ? _OverallState.overdue
+          ? OverallState.overdue
           : _hasRisk
-              ? _OverallState.risk
-              : _OverallState.ok)
-      : _OverallState.noInfo;
-
-  Color? get _dashboardColor => {
-        _OverallState.overdue: bgRiskyColor,
-        _OverallState.risk: bgRiskyColor,
-        _OverallState.ok: bgOkColor,
-      }[_overallState];
+              ? OverallState.risk
+              : OverallState.ok)
+      : OverallState.noInfo;
 
   final double _iconSize = onePadding * 15;
 
-  Widget get _statusIcon =>
-      {
-        _OverallState.overdue: overdueIcon(context, size: _iconSize),
-        _OverallState.risk: badPaceIcon(context, size: _iconSize),
-        _OverallState.ok: goodPaceIcon(context, size: _iconSize),
-      }[_overallState] ??
-      noInfoIcon(context, size: _iconSize);
-
   String get _statusText =>
       {
-        _OverallState.overdue: loc.main_dashboard_status_overdue_title,
-        _OverallState.risk: loc.main_dashboard_status_risky_title,
-        _OverallState.ok: loc.main_dashboard_status_ok_title,
+        OverallState.overdue: loc.smart_state_overdue_title,
+        OverallState.risk: loc.smart_state_risky_title,
+        OverallState.ok: loc.smart_state_ok_title,
       }[_overallState] ??
-      loc.main_dashboard_status_no_info_title;
+      loc.smart_state_no_info_title;
 
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
         isLoading: mainController.isLoading,
-        navBar: _openedGoalsCount > 0 ? navBar(context, title: loc.main_dashboard_total_title(_openedGoalsCount)) : null,
+        navBar: _openedGoalsCount > 0 ? navBar(context, title: loc.main_dashboard_total_goals_title(_openedGoalsCount)) : null,
         body: Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(
             gradient: RadialGradient(
               radius: 1,
-              colors: [(_dashboardColor ?? backgroundColor).resolve(context), backgroundColor.resolve(context)],
+              colors: [(stateBgColor(_overallState) ?? backgroundColor).resolve(context), backgroundColor.resolve(context)],
             ),
           ),
           child: SafeArea(
@@ -92,8 +79,13 @@ class _MainDashboardViewState extends State<MainDashboardView> {
                     shrinkWrap: true,
                     children: [
                       /// статус и комментарий
-                      _statusIcon,
-                      H2(_statusText, align: TextAlign.center, padding: EdgeInsets.symmetric(horizontal: onePadding)),
+                      stateIcon(context, _overallState, _iconSize),
+                      H2(
+                        _statusText,
+                        align: TextAlign.center,
+                        padding: EdgeInsets.symmetric(horizontal: onePadding),
+                        color: stateColor(_overallState),
+                      ),
                       SizedBox(height: onePadding),
 
                       /// статистика по статусу

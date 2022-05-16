@@ -37,7 +37,16 @@ class TaskView extends StatelessWidget {
               navBar: navBar(
                 context,
                 title: '${loc.task_title} #${_task!.id}',
-                trailing: MTButton.icon(editIcon(context), () => _controller.editTask(context), padding: EdgeInsets.only(right: onePadding)),
+                trailing: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    MTButton.icon(plusIcon(context), () => smartableViewController.addTask(context)),
+                    SizedBox(width: onePadding * 2),
+                    MTButton.icon(editIcon(context), () => _controller.editTask(context)),
+                    SizedBox(width: onePadding),
+                  ],
+                ),
               ),
               body: SafeArea(
                 top: false,

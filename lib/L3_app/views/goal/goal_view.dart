@@ -29,7 +29,16 @@ class GoalView extends StatelessWidget {
               navBar: navBar(
                 context,
                 title: loc.goal_title,
-                trailing: MTButton.icon(editIcon(context), () => _controller.editGoal(context, _goal), padding: EdgeInsets.only(right: onePadding)),
+                trailing: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    MTButton.icon(plusIcon(context), () => smartableViewController.addTask(context)),
+                    SizedBox(width: onePadding * 2),
+                    MTButton.icon(editIcon(context), () => _controller.editGoal(context, _goal)),
+                    SizedBox(width: onePadding),
+                  ],
+                ),
               ),
               body: SafeArea(
                 top: false,

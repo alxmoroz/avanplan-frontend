@@ -8,13 +8,13 @@ import 'colors.dart';
 Widget plusIcon(BuildContext context, {Color? color, double? size}) => Icon(
       CupertinoIcons.plus_circle,
       color: (color ?? mainColor).resolve(context),
-      size: size ?? 28,
+      size: size ?? 30,
     );
 
 Widget editIcon(BuildContext context, {Color? color, double? size}) => Icon(
       Icons.edit,
       color: (color ?? mainColor).resolve(context),
-      size: size ?? 24,
+      size: size ?? 28,
     );
 
 Widget calendarIcon(BuildContext context, {Color? color, double? size}) => Icon(

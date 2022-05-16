@@ -79,4 +79,4 @@ Widget okStateIcon(BuildContext context, {Color? color, double? size}) =>
     Icon(CupertinoIcons.rocket, color: (color ?? okColor).resolve(context), size: size);
 
 Widget noInfoStateIcon(BuildContext context, {Color? color, double? size}) =>
-    Icon(CupertinoIcons.question, color: (color ?? borderColor).resolve(context), size: size);
+    Icon(CupertinoIcons.question_circle, color: (color ?? lightGreyColor).resolve(context), size: size);

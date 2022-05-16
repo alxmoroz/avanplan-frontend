@@ -22,17 +22,17 @@ const _bgColors = {
 Color? stateColor(OverallState state) => _colors[state];
 Color? stateBgColor(OverallState state) => _bgColors[state];
 
-Widget stateIcon(BuildContext context, OverallState state, [double? size]) {
-  Widget icon = noInfoStateIcon(context, size: size);
+Widget stateIcon(BuildContext context, OverallState state, {double? size, Color? color}) {
+  Widget icon = noInfoStateIcon(context, size: size, color: color);
   switch (state) {
     case OverallState.overdue:
-      icon = overdueStateIcon(context, size: size);
+      icon = overdueStateIcon(context, size: size, color: color);
       break;
     case OverallState.risk:
-      icon = riskStateIcon(context, size: size);
+      icon = riskStateIcon(context, size: size, color: color);
       break;
     case OverallState.ok:
-      icon = okStateIcon(context, size: size);
+      icon = okStateIcon(context, size: size, color: color);
       break;
     case OverallState.noInfo:
   }

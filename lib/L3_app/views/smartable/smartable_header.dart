@@ -33,7 +33,6 @@ class SmartableHeader extends StatelessWidget {
   bool get isClosed => element.closed;
   TaskStatus? get status => isTask ? (element as Task).status : null;
   bool get hasStatus => status != null;
-  bool get hasNotice => element.overallState != OverallState.noInfo;
 
   Widget title(BuildContext context) => H2(element.title, decoration: isClosed ? TextDecoration.lineThrough : null);
 
@@ -93,10 +92,8 @@ class SmartableHeader extends StatelessWidget {
           SizedBox(height: onePadding / 2),
           buildDates(),
         ],
-        if (hasNotice) ...[
-          SizedBox(height: onePadding),
-          SmartableStateIndicator(element),
-        ],
+        SizedBox(height: onePadding),
+        SmartableStateIndicator(element),
       ]),
     );
   }

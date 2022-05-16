@@ -71,7 +71,7 @@ class _MainDashboardViewState extends State<MainDashboardView> {
                     shrinkWrap: true,
                     children: [
                       /// статус и комментарий
-                      stateIcon(context, _overallState, _iconSize),
+                      stateIcon(context, _overallState, size: _iconSize),
                       H2(
                         stateTextTitle(_overallState),
                         align: TextAlign.center,

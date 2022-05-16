@@ -14,23 +14,25 @@ import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/number_presenter.dart';
 import 'smartable_overall_state.dart';
+import 'smartable_state_indicator.dart';
 
 class SmartableCard extends StatelessWidget {
-  const SmartableCard({required this.element, this.onTap});
+  const SmartableCard({required this.element, this.onTap, this.expanded = false});
 
   final Smartable element;
   final VoidCallback? onTap;
+  final bool expanded;
 
   bool get isTask => element is Task;
-  bool get hasDescription => element.description.isNotEmpty;
-  bool get hasDates => element.etaDate != null || element.dueDate != null;
-  bool get hasSubtasks => element.tasksCount > 0;
   bool get isClosed => element.closed;
 
-  Widget title(BuildContext context) => NormalText(
+  bool get showDescription => expanded && element.description.isNotEmpty;
+  bool get showSubtasks => expanded && element.tasksCount > 0;
+  bool get showDates => expanded && (element.etaDate != null || element.dueDate != null);
+
+  Widget title(BuildContext context) => H4(
         element.title,
-        sizeScale: 1.1,
-        maxLines: 2,
+        maxLines: 1,
         decoration: isClosed ? TextDecoration.lineThrough : null,
       );
 
@@ -65,18 +67,20 @@ class SmartableCard extends StatelessWidget {
           color: stateColor(element.overallState) ?? borderColor,
           body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             header(context),
-            if (hasDescription) ...[
+            if (showDescription) ...[
               SizedBox(height: onePadding / 4),
               description(),
             ],
-            if (hasSubtasks) ...[
+            if (showSubtasks) ...[
               SizedBox(height: onePadding / 2),
               subtasksInfo(),
             ],
-            if (hasDates) ...[
+            if (showDates) ...[
               SizedBox(height: onePadding / 2),
               buildDates(),
             ],
+            SizedBox(height: onePadding / 2),
+            SmartableStateIndicator(element, inCard: true),
           ]),
         ),
       );

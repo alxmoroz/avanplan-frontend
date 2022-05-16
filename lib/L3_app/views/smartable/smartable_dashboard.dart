@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 
+import '../../../L1_domain/entities/goals/goal.dart';
 import '../../../L1_domain/entities/goals/smartable.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
@@ -47,7 +48,7 @@ class SmartableDashboard extends StatelessWidget {
           SmartableList(smartableViewController.subtasks),
           SizedBox(height: onePadding),
         ],
-        if (!hasSubtasks)
+        if (!hasSubtasks && element is Goal)
           EmptyDataWidget(
             title: loc.task_list_empty_title,
             addTitle: loc.task_title_new,

@@ -24,6 +24,7 @@
   "goal_delete_dialog_title": "Удалить цель?",
   "goal_delete_dialog_description": "Все задачи цели также будут удалены",
   "goal_import": "Импорт целей",
+  "goal_list_count": "{count, plural, one{Поставлена {count} цель} few{Поставлено {count} цели} other{Поставлено {count} целей}}",
   "goal_list_empty_title": "Нет целей",
   "goal_list_empty_title_import": "Нет доступных для импорта целей или проектов\nПопробуйте выбрать другой источник",
   "goal_list_title": "Цели",
@@ -32,25 +33,28 @@
 
   "integration": "Интеграция",
 
-  "main_dashboard_total_goals_title": "{count, plural, one{Поставлена {count} цель} few{Поставлено {count} цели} other{Поставлено {count} целей}}",
-
   "smart_due_date_placeholder": "Срок завершения",
   "smart_due_date_label": "План",
   "smart_eta_date_label": "Прогноз",
 
-  "smart_state_no_info_title": "Ставьте сроки, разделяйте цели на задачи",
-  "smart_state_ok_title": "Всё идёт по плану",
-  "smart_state_overdue_title": "Опаздываем",
-  "smart_state_risky_title": "Есть риски",
+  "smart_state_no_info_title": "Ставьте сроки, разделяйте на задачи",
 
-  "smart_state_no_due": "Без указания срока",
+  "smart_state_no_due_goals": "Без указания срока",
+
   "smart_state_no_opened_tasks": "Все задачи закрыты",
+
   "smart_state_no_progress": "Без прогресса",
-  "smart_state_overdue": "Общее превышение сроков -",
-  "smart_state_progress_ok": "Успеваем",
-  "smart_state_progress_overdue_title": "Просроченные цели",
-  "smart_state_progress_risky_subtitle": "Общий риск отставания -",
-  "smart_state_progress_risky_title": "Цели с риском отставания",
+
+  "smart_state_ok_goals": "Успеваем",
+  "smart_state_ok_title": "Всё идёт по плану",
+
+  "smart_state_overdue_details": "Отставание на",
+  "smart_state_overdue_goals": "Просроченные цели",
+  "smart_state_overdue_title": "Опаздываем",
+
+  "smart_state_risky_details": "Есть риск отставания на",
+  "smart_state_risky_goals": "Цели с риском отставания",
+  "smart_state_risky_title": "Есть риски",
 
   "smart_subtasks_count": "{count, plural, one{{count} задача} few{{count} задачи} other{{count} задач}}",
 

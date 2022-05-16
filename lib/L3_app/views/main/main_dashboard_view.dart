@@ -44,20 +44,12 @@ class _MainDashboardViewState extends State<MainDashboardView> {
 
   final double _iconSize = onePadding * 15;
 
-  String get _statusText =>
-      {
-        OverallState.overdue: loc.smart_state_overdue_title,
-        OverallState.risk: loc.smart_state_risky_title,
-        OverallState.ok: loc.smart_state_ok_title,
-      }[_overallState] ??
-      loc.smart_state_no_info_title;
-
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
         isLoading: mainController.isLoading,
-        navBar: _openedGoalsCount > 0 ? navBar(context, title: loc.main_dashboard_total_goals_title(_openedGoalsCount)) : null,
+        navBar: _openedGoalsCount > 0 ? navBar(context, title: loc.goal_list_count(_openedGoalsCount)) : null,
         body: Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(
@@ -81,7 +73,7 @@ class _MainDashboardViewState extends State<MainDashboardView> {
                       /// статус и комментарий
                       stateIcon(context, _overallState, _iconSize),
                       H2(
-                        _statusText,
+                        stateTextTitle(_overallState),
                         align: TextAlign.center,
                         padding: EdgeInsets.symmetric(horizontal: onePadding),
                         color: stateColor(_overallState),

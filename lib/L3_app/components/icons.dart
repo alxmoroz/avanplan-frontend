@@ -69,14 +69,14 @@ Widget goalsIcon(BuildContext context, {Color? color, double? size}) => Icon(Cup
 
 Widget menuIcon(BuildContext context, {Color? color, double? size}) => Icon(CupertinoIcons.ellipsis_vertical, size: size);
 
-Widget overdueIcon(BuildContext context, {Color? color, double? size}) =>
+Widget overdueStateIcon(BuildContext context, {Color? color, double? size}) =>
     Icon(CupertinoIcons.exclamationmark_triangle, color: (color ?? dangerColor).resolve(context), size: size);
 
-Widget badPaceIcon(BuildContext context, {Color? color, double? size}) =>
+Widget riskStateIcon(BuildContext context, {Color? color, double? size}) =>
     Icon(CupertinoIcons.tortoise, color: (color ?? riskyColor).resolve(context), size: size);
 
-Widget goodPaceIcon(BuildContext context, {Color? color, double? size}) =>
+Widget okStateIcon(BuildContext context, {Color? color, double? size}) =>
     Icon(CupertinoIcons.rocket, color: (color ?? okColor).resolve(context), size: size);
 
-Widget noInfoIcon(BuildContext context, {Color? color, double? size}) =>
+Widget noInfoStateIcon(BuildContext context, {Color? color, double? size}) =>
     Icon(CupertinoIcons.question, color: (color ?? borderColor).resolve(context), size: size);

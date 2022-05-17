@@ -28,7 +28,7 @@ class MTDetailsDialog extends StatelessWidget {
         body: Container(
           constraints: BoxConstraints(maxHeight: mq.size.height - mq.viewInsets.bottom - mq.viewPadding.bottom - 180),
           child: Scrollbar(
-            isAlwaysShown: true,
+            thumbVisibility: true,
             child: SingleChildScrollView(
               padding: EdgeInsets.all(onePadding),
               child: NormalText(description),

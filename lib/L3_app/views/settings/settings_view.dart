@@ -46,7 +46,8 @@ class SettingsView extends StatelessWidget {
               const Spacer(),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 LightText(settingsController.appName),
-                NormalText(settingsController.appVersion, padding: const EdgeInsets.only(left: 6)),
+                SizedBox(width: onePadding / 4),
+                NormalText(settingsController.appVersion),
               ]),
               SizedBox(height: onePadding),
             ],

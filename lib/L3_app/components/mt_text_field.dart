@@ -24,7 +24,7 @@ InputDecoration tfDecoration(
 
   return InputDecoration(
     labelText: label,
-    labelStyle: const NormalText('', weight: FontWeight.normal, color: darkGreyColor).style(context),
+    labelStyle: const NormalText('', color: darkGreyColor).style(context),
     helperText: helper,
     helperStyle: const SmallText('').style(context),
     errorText: error,

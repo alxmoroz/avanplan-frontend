@@ -48,6 +48,25 @@ class _LoginViewState extends State<LoginView> {
         capitalization: TextCapitalization.none,
       );
 
+  // TODO: перенести в спец. средство
+  // Widget text(NormalText t) {
+  //   final style = t.style(context);
+  //   return Text(
+  //     '${t.text}: ${((style.fontWeight?.index ?? 0) + 1) * 100} | ${style.color?.red} | ${style.fontSize?.round()}',
+  //     style: style,
+  //   );
+  // }
+  //
+  // Widget testFonts() => Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+  //       text(const H1('H1')),
+  //       text(const H2('H2')),
+  //       text(const H3('H3')),
+  //       text(const H4('H4')),
+  //       text(const NormalText('NR')),
+  //       text(const LightText('LT')),
+  //       text(const SmallText('SM')),
+  //     ]);
+
   @override
   Widget build(BuildContext context) {
     return MTPage(
@@ -56,7 +75,7 @@ class _LoginViewState extends State<LoginView> {
         builder: (_) => Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            H1(loc.appTitle, align: TextAlign.center),
+            H1(loc.appTitle),
             textFieldForCode('login'),
             textFieldForCode('password'),
             SizedBox(height: onePadding),

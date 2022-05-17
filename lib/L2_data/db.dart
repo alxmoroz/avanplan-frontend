@@ -18,6 +18,9 @@ class HiveStorage {
       final _dir = await getApplicationDocumentsDirectory();
       final _dirPath = _dir.path;
       Hive.init(_dirPath);
+    } else {
+      // TODO: убрать после фикса Hive 2.2
+      Hive.init('');
     }
 
     Hive.registerAdapter(AppSettingsHOAdapter());

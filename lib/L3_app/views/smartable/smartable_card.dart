@@ -42,14 +42,14 @@ class SmartableCard extends StatelessWidget {
         chevronIcon(context),
       ]);
 
-  Widget description() => SmallText(element.description, maxLines: 2, weight: FontWeight.w300);
+  Widget description() => LightText(element.description, maxLines: 2);
 
   Widget subtasksInfo() => Row(children: [
         LightText(loc.smart_subtasks_count(element.tasksCount)),
         const Spacer(),
         if (element.doneRatio > 0) ...[
-          SmallText('${loc.common_mark_done_btn_title} ', weight: FontWeight.w300),
-          LightText(element.doneRatio.inPercents),
+          SmallText('${loc.common_mark_done_btn_title} '),
+          NormalText(element.doneRatio.inPercents),
         ]
       ]);
 

@@ -1,6 +1,6 @@
 {
-    "name": "hercules",
-    "short_name": "hercules",
+    "name": "Hercules",
+    "short_name": "Hercules",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

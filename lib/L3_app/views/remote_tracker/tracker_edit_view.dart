@@ -99,7 +99,6 @@ class _TrackerEditViewState extends State<TrackerEditView> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        bgColor: darkBackgroundColor,
         navBar: navBar(
           context,
           leading: CloseDialogButton(),

@@ -37,7 +37,8 @@ class RootView extends StatelessWidget {
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final Brightness platformBrightness = WidgetsBinding.instance!.window.platformBrightness;
+    final Brightness platformBrightness = WidgetsBinding.instance.window.platformBrightness;
+    final textTheme = CupertinoTheme.of(context).textTheme;
 
     return Theme(
       data: ThemeData(
@@ -56,7 +57,16 @@ class App extends StatelessWidget {
           GlobalCupertinoLocalizations.delegate
         ],
         supportedLocales: S.delegate.supportedLocales,
-        theme: const CupertinoThemeData(primaryColor: mainColor),
+        theme: CupertinoThemeData(
+          scaffoldBackgroundColor: backgroundColor,
+          primaryColor: mainColor,
+          textTheme: textTheme.copyWith(
+            primaryColor: mainColor,
+            textStyle: textTheme.textStyle.copyWith(
+              fontFamily: 'Roboto',
+            ),
+          ),
+        ),
       ),
     );
   }

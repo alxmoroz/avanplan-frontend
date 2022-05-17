@@ -42,7 +42,7 @@ class MainDashboard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  LightText(titleText),
+                  H4(titleText),
                   if (subtitleText != null) SmallText(subtitleText),
                 ],
               ),

@@ -72,11 +72,11 @@ class _MainDashboardViewState extends State<MainDashboardView> {
                     children: [
                       /// статус и комментарий
                       stateIcon(context, _overallState, size: _iconSize),
-                      H2(
+                      H3(
                         stateTextTitle(_overallState),
                         align: TextAlign.center,
                         padding: EdgeInsets.symmetric(horizontal: onePadding),
-                        color: stateColor(_overallState),
+                        color: stateColor(_overallState) ?? darkGreyColor,
                       ),
                       SizedBox(height: onePadding),
 

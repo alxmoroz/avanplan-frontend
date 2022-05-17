@@ -11,7 +11,6 @@ class NormalText extends StatelessWidget {
     this.sizeScale,
     this.color,
     this.weight,
-    this.height,
     this.overflow,
     this.maxLines,
     this.align,
@@ -23,7 +22,6 @@ class NormalText extends StatelessWidget {
   final double? sizeScale;
   final Color? color;
   final FontWeight? weight;
-  final double? height;
   final TextOverflow? overflow;
   final int? maxLines;
   final TextAlign? align;
@@ -34,9 +32,8 @@ class NormalText extends StatelessWidget {
     final cupertinoTS = CupertinoTheme.of(context).textTheme.textStyle;
     return cupertinoTS.copyWith(
       color: CupertinoDynamicColor.maybeResolve(color ?? darkColor, context),
-      fontWeight: weight ?? cupertinoTS.fontWeight,
-      fontSize: (cupertinoTS.fontSize ?? (isTablet ? 22 : 14)) * (sizeScale ?? 1),
-      height: height ?? cupertinoTS.height,
+      fontWeight: weight ?? FontWeight.w400,
+      fontSize: (cupertinoTS.fontSize ?? (isTablet ? 24 : 17)) * (sizeScale ?? 1),
       inherit: true,
       decoration: decoration,
     );
@@ -61,15 +58,13 @@ class SmallText extends NormalText {
   const SmallText(
     String text, {
     Color? color,
-    FontWeight? weight,
     int? maxLines,
     TextAlign? align,
     EdgeInsets? padding,
     TextDecoration? decoration,
   }) : super(
           text,
-          color: color ?? darkGreyColor,
-          weight: weight,
+          color: color,
           sizeScale: 0.85,
           maxLines: maxLines ?? 7,
           align: align,
@@ -91,28 +86,7 @@ class LightText extends NormalText {
           text,
           color: color,
           weight: FontWeight.w300,
-          maxLines: maxLines ?? 4,
-          sizeScale: sizeScale,
-          align: align,
-          padding: padding,
-          decoration: decoration,
-        );
-}
-
-class MediumText extends NormalText {
-  const MediumText(
-    String text, {
-    Color? color,
-    double? sizeScale,
-    int? maxLines,
-    TextAlign? align,
-    EdgeInsets? padding,
-    TextDecoration? decoration,
-  }) : super(
-          text,
-          color: color,
-          weight: FontWeight.w400,
-          maxLines: maxLines ?? 4,
+          maxLines: maxLines ?? 5,
           sizeScale: sizeScale,
           align: align,
           padding: padding,
@@ -132,7 +106,7 @@ class H4 extends NormalText {
           text,
           color: color ?? darkGreyColor,
           weight: FontWeight.w400,
-          sizeScale: 1.1,
+          sizeScale: 1.2,
           maxLines: maxLines ?? 4,
           align: align,
           padding: padding,
@@ -151,8 +125,8 @@ class H3 extends NormalText {
   }) : super(
           text,
           color: color ?? darkGreyColor,
-          weight: FontWeight.w500,
-          sizeScale: 1.2,
+          weight: FontWeight.w400,
+          sizeScale: 1.6,
           maxLines: maxLines ?? 3,
           align: align,
           padding: padding,
@@ -172,7 +146,7 @@ class H2 extends NormalText {
           text,
           color: color ?? darkGreyColor,
           weight: FontWeight.w300,
-          sizeScale: 1.6,
+          sizeScale: 2.0,
           maxLines: maxLines ?? 3,
           align: align,
           padding: padding,
@@ -190,9 +164,9 @@ class H1 extends NormalText {
     TextDecoration? decoration,
   }) : super(
           text,
-          color: color ?? darkGreyColor,
-          weight: FontWeight.w200,
-          sizeScale: 2.6,
+          color: color,
+          weight: FontWeight.w100,
+          sizeScale: 2.7,
           maxLines: maxLines ?? 2,
           align: align,
           padding: padding,

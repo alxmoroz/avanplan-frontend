@@ -61,7 +61,6 @@ class _GoalViewState extends State<GoalEditView> {
     return Observer(
       builder: (_) => MTPage(
         isLoading: _controller.isLoading,
-        bgColor: darkBackgroundColor,
         navBar: navBar(
           context,
           leading: CloseDialogButton(),

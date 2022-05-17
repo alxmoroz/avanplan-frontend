@@ -62,7 +62,6 @@ class _TaskEditViewState extends State<TaskEditView> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        bgColor: darkBackgroundColor,
         navBar: navBar(
           context,
           leading: CloseDialogButton(),

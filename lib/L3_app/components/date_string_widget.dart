@@ -26,7 +26,7 @@ class DateStringWidget extends StatelessWidget {
                   calendarIcon(context, size: onePadding * 1.5, color: iconColor ?? darkGreyColor),
                   if (titleString.isNotEmpty) ...[
                     SizedBox(width: onePadding / 6),
-                    SmallText(titleString, weight: FontWeight.w300),
+                    SmallText(titleString),
                   ]
                 ],
               ),

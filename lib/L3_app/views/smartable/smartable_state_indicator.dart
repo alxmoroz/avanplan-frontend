@@ -16,16 +16,16 @@ class SmartableStateIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = inCard ? darkGreyColor : stateColor(element.overallState);
+    final color = inCard ? darkGreyColor : stateColor(element.overallState) ?? darkGreyColor;
     final _stateTextTitle = stateTextTitle(element.overallState);
     final _stateTextDetails = stateTextDetails(element.overallState, overduePeriod: element.overduePeriod, etaRiskPeriod: element.etaRiskPeriod);
     final indicatorText = _stateTextDetails.isNotEmpty ? _stateTextDetails : _stateTextTitle;
 
     return Row(
       children: [
-        stateIcon(context, element.overallState, size: onePadding * (inCard ? 1.5 : 3), color: color),
+        stateIcon(context, element.overallState, size: onePadding * (inCard ? 1.5 : 2), color: color),
         SizedBox(width: onePadding / 3),
-        Expanded(child: inCard ? SmallText(indicatorText) : H4(indicatorText, color: color)),
+        Expanded(child: inCard ? SmallText(indicatorText, color: color) : NormalText(indicatorText, color: color)),
       ],
     );
   }

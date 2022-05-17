@@ -23,10 +23,10 @@ class SmartableDashboard extends StatelessWidget {
   final String? breadcrumbs;
 
   Widget subtasksInfo() => Row(children: [
-        H2(loc.smart_subtasks_count(element.tasksCount)),
+        H3(loc.smart_subtasks_count(element.tasksCount)),
         const Spacer(),
         if (element.doneRatio > 0) ...[
-          LightText('${loc.common_mark_done_btn_title} '),
+          // Normal('${loc.common_mark_done_btn_title} '),
           H2(element.doneRatio.inPercents),
         ]
       ]);

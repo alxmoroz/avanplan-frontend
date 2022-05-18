@@ -165,7 +165,7 @@ class H1 extends NormalText {
   }) : super(
           text,
           color: color,
-          weight: FontWeight.w200,
+          weight: FontWeight.w100,
           sizeScale: 2.7,
           maxLines: maxLines ?? 2,
           align: align,

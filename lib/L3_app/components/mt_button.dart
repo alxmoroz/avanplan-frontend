@@ -29,7 +29,7 @@ class MTButton extends StatelessWidget {
       onPressed: onPressed,
       color: color,
       disabledColor: darkBackgroundColor,
-      child: child ?? NormalText(title ?? '', color: titleColor ?? mainColor),
+      child: child ?? MediumText(title ?? '', color: titleColor ?? mainColor),
     );
   }
 }

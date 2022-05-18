@@ -104,7 +104,7 @@ class MTTextField extends StatelessWidget {
     return material(Padding(
       padding: margin ?? tfPadding,
       child: TextField(
-        style: const NormalText('').style(context),
+        style: const MediumText('').style(context),
         decoration: tfDecoration(
           context,
           label: label,

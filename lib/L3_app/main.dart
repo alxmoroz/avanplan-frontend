@@ -40,10 +40,14 @@ class App extends StatelessWidget {
     final Brightness platformBrightness = WidgetsBinding.instance.window.platformBrightness;
     final textTheme = CupertinoTheme.of(context).textTheme;
 
+    const fontFamily = '--apple-system';
+    // const fontFamily = 'Roboto';
+
     return Theme(
       data: ThemeData(
         brightness: platformBrightness,
         primarySwatch: platformBrightness == Brightness.light ? darkTealColorMaterial : tealColorMaterial,
+        fontFamily: fontFamily,
       ),
       child: CupertinoApp(
         home: FutureBuilder(
@@ -62,9 +66,7 @@ class App extends StatelessWidget {
           primaryColor: mainColor,
           textTheme: textTheme.copyWith(
             primaryColor: mainColor,
-            textStyle: textTheme.textStyle.copyWith(
-              fontFamily: 'Roboto',
-            ),
+            textStyle: textTheme.textStyle.copyWith(fontFamily: fontFamily),
           ),
         ),
       ),

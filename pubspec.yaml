@@ -50,35 +50,13 @@ flutter:
     - family: Roboto
       fonts:
         - asset: assets/fonts/Roboto-T.ttf
-          weight: 100
-        - asset: assets/fonts/Roboto-TI.ttf
-          weight: 100
-          style: italic
+          weight: 200
         - asset: assets/fonts/Roboto-L.ttf
           weight: 300
-        - asset: assets/fonts/Roboto-LI.ttf
-          weight: 300
-          style: italic
         - asset: assets/fonts/Roboto-R.ttf
           weight: 400
-        - asset: assets/fonts/Roboto-RI.ttf
-          weight: 400
-          style: italic
         - asset: assets/fonts/Roboto-M.ttf
           weight: 500
-        - asset: assets/fonts/Roboto-MI.ttf
-          weight: 500
-          style: italic
-        - asset: assets/fonts/Roboto-B.ttf
-          weight: 700
-        - asset: assets/fonts/Roboto-BI.ttf
-          weight: 700
-          style: italic
-        - asset: assets/fonts/Roboto-BL.ttf
-          weight: 900
-        - asset: assets/fonts/Roboto-BLI.ttf
-          weight: 900
-          style: italic
 
 flutter_intl:
   main_locale: en

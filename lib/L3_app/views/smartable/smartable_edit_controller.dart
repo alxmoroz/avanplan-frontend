@@ -85,7 +85,7 @@ abstract class _SmartableEditControllerBase extends WorkspaceBounded with Store 
             child: Row(children: [
               doneIcon(context, closed),
               SizedBox(width: onePadding),
-              NormalText(loc.common_mark_done_btn_title, padding: EdgeInsets.symmetric(vertical: onePadding)),
+              MediumText(loc.common_mark_done_btn_title, padding: EdgeInsets.symmetric(vertical: onePadding)),
             ]),
             onTap: () => setClosed(!closed),
           ),

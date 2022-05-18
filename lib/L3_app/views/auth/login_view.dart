@@ -49,7 +49,7 @@ class _LoginViewState extends State<LoginView> {
       );
 
   // TODO: перенести в спец. средство
-  // Widget text(NormalText t) {
+  // Widget text(BaseText t) {
   //   final style = t.style(context);
   //   return Text(
   //     '${t.text}: ${((style.fontWeight?.index ?? 0) + 1) * 100} | ${style.color?.red} | ${style.fontSize?.round()}',
@@ -62,6 +62,7 @@ class _LoginViewState extends State<LoginView> {
   //       text(const H2('H2')),
   //       text(const H3('H3')),
   //       text(const H4('H4')),
+  //       text(const MediumText('MD')),
   //       text(const NormalText('NR')),
   //       text(const LightText('LT')),
   //       text(const SmallText('SM')),
@@ -75,6 +76,7 @@ class _LoginViewState extends State<LoginView> {
         builder: (_) => Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // testFonts(),
             H1(loc.appTitle),
             textFieldForCode('login'),
             textFieldForCode('password'),

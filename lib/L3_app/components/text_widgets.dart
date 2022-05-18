@@ -5,8 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'colors.dart';
 import 'constants.dart';
 
-class NormalText extends StatelessWidget {
-  const NormalText(
+class _BaseText extends StatelessWidget {
+  const _BaseText(
     this.text, {
     this.sizeScale,
     this.color,
@@ -54,7 +54,7 @@ class NormalText extends StatelessWidget {
   }
 }
 
-class SmallText extends NormalText {
+class SmallText extends _BaseText {
   const SmallText(
     String text, {
     Color? color,
@@ -73,7 +73,7 @@ class SmallText extends NormalText {
         );
 }
 
-class LightText extends NormalText {
+class LightText extends _BaseText {
   const LightText(
     String text, {
     Color? color,
@@ -94,7 +94,49 @@ class LightText extends NormalText {
         );
 }
 
-class H4 extends NormalText {
+class NormalText extends _BaseText {
+  const NormalText(
+    String text, {
+    Color? color,
+    int? maxLines,
+    double? sizeScale,
+    TextAlign? align,
+    EdgeInsets? padding,
+    TextDecoration? decoration,
+  }) : super(
+          text,
+          color: color,
+          weight: FontWeight.w400,
+          maxLines: maxLines ?? 5,
+          sizeScale: sizeScale,
+          align: align,
+          padding: padding,
+          decoration: decoration,
+        );
+}
+
+class MediumText extends _BaseText {
+  const MediumText(
+    String text, {
+    Color? color,
+    int? maxLines,
+    double? sizeScale,
+    TextAlign? align,
+    EdgeInsets? padding,
+    TextDecoration? decoration,
+  }) : super(
+          text,
+          color: color,
+          weight: FontWeight.w500,
+          maxLines: maxLines ?? 5,
+          sizeScale: sizeScale,
+          align: align,
+          padding: padding,
+          decoration: decoration,
+        );
+}
+
+class H4 extends _BaseText {
   const H4(
     String text, {
     Color? color,
@@ -104,7 +146,7 @@ class H4 extends NormalText {
     TextDecoration? decoration,
   }) : super(
           text,
-          color: color ?? darkGreyColor,
+          color: color,
           weight: FontWeight.w400,
           sizeScale: 1.2,
           maxLines: maxLines ?? 4,
@@ -114,7 +156,7 @@ class H4 extends NormalText {
         );
 }
 
-class H3 extends NormalText {
+class H3 extends _BaseText {
   const H3(
     String text, {
     Color? color,
@@ -134,7 +176,7 @@ class H3 extends NormalText {
         );
 }
 
-class H2 extends NormalText {
+class H2 extends _BaseText {
   const H2(
     String text, {
     Color? color,
@@ -154,7 +196,7 @@ class H2 extends NormalText {
         );
 }
 
-class H1 extends NormalText {
+class H1 extends _BaseText {
   const H1(
     String text, {
     Color? color,
@@ -165,8 +207,8 @@ class H1 extends NormalText {
   }) : super(
           text,
           color: color,
-          weight: FontWeight.w100,
-          sizeScale: 2.7,
+          weight: FontWeight.w200,
+          sizeScale: 2.45,
           maxLines: maxLines ?? 2,
           align: align,
           padding: padding,

@@ -12,7 +12,7 @@ const Color darkColor = CupertinoDynamicColor.withBrightness(
 
 const Color darkGreyColor = CupertinoDynamicColor.withBrightness(
   color: Color(0xFF666666),
-  darkColor: Color(0xFF888888),
+  darkColor: Color(0xFF999999),
 );
 
 const Color lightGreyColor = CupertinoDynamicColor.withBrightness(

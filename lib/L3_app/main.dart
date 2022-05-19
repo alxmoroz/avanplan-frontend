@@ -40,8 +40,8 @@ class App extends StatelessWidget {
     final Brightness platformBrightness = WidgetsBinding.instance.window.platformBrightness;
     final textTheme = CupertinoTheme.of(context).textTheme;
 
-    const fontFamily = '--apple-system';
-    // const fontFamily = 'Roboto';
+    // const fontFamily = '--apple-system';
+    const fontFamily = 'Roboto';
 
     return Theme(
       data: ThemeData(

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/goals/smartable.dart';
 import '../../../L1_domain/entities/goals/task.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/date_string_widget.dart';
 import '../../components/icons.dart';
@@ -64,7 +63,7 @@ class SmartableCard extends StatelessWidget {
         onTap: onTap,
         body: MTProgress(
           ratio: element.doneRatio,
-          color: stateColor(element.overallState) ?? borderColor,
+          color: stateColor(element.overallState),
           body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             header(context),
             if (showDescription) ...[

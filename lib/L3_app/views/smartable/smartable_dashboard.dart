@@ -4,11 +4,9 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../L1_domain/entities/goals/goal.dart';
 import '../../../L1_domain/entities/goals/smartable.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/empty_data_widget.dart';
 import '../../components/mt_progress.dart';
-import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/number_presenter.dart';
 import 'smartable_header.dart';
@@ -22,15 +20,6 @@ class SmartableDashboard extends StatelessWidget {
   final VoidCallback? onTap;
   final String? breadcrumbs;
 
-  Widget subtasksInfo() => Row(children: [
-        H3(loc.smart_subtasks_count(element.tasksCount)),
-        const Spacer(),
-        if (element.doneRatio > 0) ...[
-          // Normal('${loc.common_mark_done_btn_title} '),
-          H2(element.doneRatio.inPercents),
-        ]
-      ]);
-
   @override
   Widget build(BuildContext context) {
     final hasSubtasks = element.tasksCount > 0;
@@ -38,11 +27,11 @@ class SmartableDashboard extends StatelessWidget {
       children: [
         SmartableHeader(element: element, breadcrumbs: breadcrumbs),
         if (hasSubtasks) ...[
-          MTProgress(
+          SampleProgress(
             ratio: element.doneRatio,
-            color: stateColor(element.overallState) ?? borderColor,
-            bgColor: darkBackgroundColor,
-            body: subtasksInfo(),
+            color: stateColor(element.overallState),
+            titleText: loc.smart_subtasks_count(element.tasksCount),
+            trailingText: element.doneRatio > 0 ? element.doneRatio.inPercents : '',
           ),
           SizedBox(height: onePadding / 2),
           SmartableList(smartableViewController.subtasks),

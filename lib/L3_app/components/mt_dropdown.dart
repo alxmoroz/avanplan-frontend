@@ -22,14 +22,12 @@ extension DropDownItem on RemoteTracker {
 
 class MTDropdown<T> extends StatefulWidget {
   const MTDropdown({
-    required this.width,
     required this.items,
     required this.label,
     this.onChanged,
     this.value,
   });
 
-  final double width;
   final void Function(T?)? onChanged;
   final T? value;
   final List<T> items;
@@ -49,6 +47,8 @@ class _MTDropdownState<T> extends State<MTDropdown<T>> {
 
   @override
   Widget build(BuildContext context) {
+    final mq = MediaQuery.of(context);
+    final width = mq.size.width - onePadding * 2;
     return Padding(
       padding: tfPadding,
       child: DropdownButtonFormField2<T>(
@@ -57,7 +57,7 @@ class _MTDropdownState<T> extends State<MTDropdown<T>> {
         items: ddItems,
         value: widget.value,
         onChanged: widget.onChanged,
-        dropdownWidth: widget.width,
+        dropdownWidth: width,
         dropdownPadding: EdgeInsets.symmetric(vertical: onePadding),
         dropdownDecoration: BoxDecoration(
           borderRadius: BorderRadius.circular(onePadding),

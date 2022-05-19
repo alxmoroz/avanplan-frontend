@@ -16,39 +16,40 @@ class ImportController extends _ImportControllerBase with _$ImportController {}
 
 abstract class _ImportControllerBase extends EditController with Store {
   @observable
-  ObservableList<GoalImport> goals = ObservableList();
+  ObservableList<GoalImport> remoteGoals = ObservableList();
 
   @computed
-  List<String> get selectedGoalsIds => goals.where((g) => g.selected).map((g) => g.code).toList();
+  List<String> get selectedGoalsIds => remoteGoals.where((g) => g.selected).map((g) => g.code).toList();
 
   @override
   bool get validated => selectedGoalsIds.isNotEmpty;
 
   @action
-  void _sortGoals() {
-    goals.sort((g1, g2) => g1.title.compareTo(g2.title));
-  }
+  void _sortGoals() => remoteGoals.sort((g1, g2) => g1.title.compareTo(g2.title));
 
   @action
-  Future _fetchGoals(int trackerId) async {
-    goals.clear();
+  Future fetchGoals(int trackerId) async {
+    startLoading();
+    clearData();
     if (loginController.authorized) {
-      startLoading();
       try {
-        goals = ObservableList.of(await importUC.getGoals(trackerId));
+        remoteGoals = ObservableList.of(await importUC.getGoals(trackerId));
         _sortGoals();
       } catch (e) {
         setErrorCode(e is MTException ? e.code : e.toString());
       }
-      stopLoading();
     }
+    stopLoading();
   }
 
   @action
+  void clearData() => remoteGoals.clear();
+
+  @action
   void selectGoal(GoalImport goal, bool selected) {
-    final index = goals.indexWhere((g) => g.code == goal.code);
+    final index = remoteGoals.indexWhere((g) => g.code == goal.code);
     if (index >= 0) {
-      goals[index] = goal.copyWithSelected(selected);
+      remoteGoals[index] = goal.copyWithSelected(selected);
     }
   }
 
@@ -61,7 +62,7 @@ abstract class _ImportControllerBase extends EditController with Store {
   Future selectTracker(RemoteTracker? _rt) async {
     selectedTrackerId = _rt?.id;
     if (_rt != null) {
-      await _fetchGoals(_rt.id);
+      await fetchGoals(_rt.id);
     }
   }
 

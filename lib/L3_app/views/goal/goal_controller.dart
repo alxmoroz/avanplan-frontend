@@ -76,9 +76,7 @@ abstract class _GoalControllerBase extends SmartableEditController with Store {
   }
 
   @action
-  void _sortGoals() {
-    goals.sort((g1, g2) => g1.title.compareTo(g2.title));
-  }
+  void _sortGoals() => goals.sort((g1, g2) => g1.title.compareTo(g2.title));
 
   @action
   void updateGoalInList(Goal? _goal) {
@@ -97,7 +95,7 @@ abstract class _GoalControllerBase extends SmartableEditController with Store {
     }
   }
 
-  @override
+  @action
   Future fetchData() async {
     startLoading();
     clearData();
@@ -108,7 +106,7 @@ abstract class _GoalControllerBase extends SmartableEditController with Store {
     stopLoading();
   }
 
-  @override
+  @action
   void clearData() => goals.clear();
 
   /// выбранная цель

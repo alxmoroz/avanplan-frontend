@@ -67,15 +67,12 @@ class _TrackerEditViewState extends State<TrackerEditView> {
       );
 
   Widget form() {
-    final mq = MediaQuery.of(context);
     return Scrollbar(
-      isAlwaysShown: true,
       child: ListView(
         children: [
           if (_isNew) ..._controller.wsDropdown(context),
           if (_controller.rtTypes.isNotEmpty)
             MTDropdown<RemoteTrackerType>(
-              width: mq.size.width - onePadding * 2,
               onChanged: (type) => _controller.selectType(type),
               value: _controller.selectedType,
               items: _controller.rtTypes,
@@ -89,7 +86,7 @@ class _TrackerEditViewState extends State<TrackerEditView> {
               titleColor: dangerColor,
               padding: EdgeInsets.only(top: onePadding),
             ),
-          SizedBox(height: onePadding),
+          SizedBox(height: onePadding * 2),
         ],
       ),
     );

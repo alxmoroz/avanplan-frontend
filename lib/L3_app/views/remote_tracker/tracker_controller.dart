@@ -28,7 +28,7 @@ abstract class _TrackerControllerBase extends WorkspaceBounded with Store {
   // TODO: здесь загружаем и проверяем трекеры на старте приложения (загружаем вместе в РП). Что не обязательно делать на старте.
   // Если тут сделать по запросу, тогда в окне импорта нужно будет учесть тоже
 
-  @override
+  @action
   Future fetchData() async {
     startLoading();
     clearData();
@@ -43,7 +43,7 @@ abstract class _TrackerControllerBase extends WorkspaceBounded with Store {
     stopLoading();
   }
 
-  @override
+  @action
   void clearData() => trackers.clear();
 
   /// тип трекера

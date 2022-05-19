@@ -61,7 +61,7 @@ class _MainDashboardViewState extends State<MainDashboardView> {
           child: SafeArea(
             top: false,
             bottom: false,
-            child: _openedGoalsCount < 1
+            child: _openedGoalsCount == 0
                 ? EmptyDataWidget(
                     title: loc.goal_list_empty_title,
                     addTitle: loc.goal_title_new,

@@ -40,7 +40,7 @@ class _ImportViewState extends State<ImportView> {
   ImportController get _controller => importController;
 
   Widget goalItemBuilder(BuildContext context, int index) {
-    final goal = _controller.goals[index];
+    final goal = _controller.remoteGoals[index];
     return CheckboxListTile(
       title: NormalText(goal.title),
       subtitle: SmallText(goal.description, maxLines: 2),
@@ -51,46 +51,49 @@ class _ImportViewState extends State<ImportView> {
     );
   }
 
-  Widget form() {
-    final mq = MediaQuery.of(context);
-    return Column(children: [
-      trackerController.trackers.isEmpty
-          ? Expanded(
-              child: EmptyDataWidget(
-                title: loc.tracker_list_empty_title,
-                addTitle: loc.tracker_title_new,
-                onAdd: () => _controller.addTracker(context),
-              ),
-            )
-          : MTDropdown<RemoteTracker>(
-              width: mq.size.width - onePadding * 2,
-              onChanged: (t) => _controller.selectTracker(t),
-              value: _controller.selectedTracker,
-              items: trackerController.trackers,
-              label: loc.tracker_import_placeholder,
-            ),
-      if (_controller.selectedTracker != null && _controller.goals.isEmpty)
-        EmptyDataWidget(
-          title: _controller.errorCode != null ? Intl.message(_controller.errorCode!, name: _controller.errorCode) : loc.goal_list_empty_title_import,
-          color: _controller.errorCode != null ? warningColor : null,
-        ),
-      if (_controller.goals.isNotEmpty) ...[
-        SizedBox(height: onePadding),
-        const MTDivider(),
-        Expanded(
-          child: ListView.builder(
-            itemBuilder: goalItemBuilder,
-            itemCount: _controller.goals.length,
+  Widget get trackerDropdown => trackerController.trackers.isEmpty
+      ? Expanded(
+          child: EmptyDataWidget(
+            title: loc.tracker_list_empty_title,
+            addTitle: loc.tracker_title_new,
+            onAdd: () => _controller.addTracker(context),
           ),
-        ),
-        const MTDivider(),
-        MTButton(
-          loc.goal_import,
-          _controller.validated ? () => _controller.startImport(context) : null,
-          titleColor: _controller.validated ? null : lightGreyColor,
-        ),
-        SizedBox(height: onePadding),
-      ]
+        )
+      : MTDropdown<RemoteTracker>(
+          onChanged: (t) => _controller.selectTracker(t),
+          value: _controller.selectedTracker,
+          items: trackerController.trackers,
+          label: loc.tracker_import_placeholder,
+        );
+
+  Widget form() {
+    return Column(children: [
+      trackerDropdown,
+      if (_controller.selectedTracker != null) ...[
+        if (_controller.remoteGoals.isEmpty)
+          EmptyDataWidget(
+            title:
+                _controller.errorCode != null ? Intl.message(_controller.errorCode!, name: _controller.errorCode) : loc.goal_list_empty_title_import,
+            color: _controller.errorCode != null ? warningColor : null,
+          ),
+        if (_controller.remoteGoals.isNotEmpty) ...[
+          SizedBox(height: onePadding),
+          const MTDivider(),
+          Expanded(
+            child: ListView.builder(
+              itemBuilder: goalItemBuilder,
+              itemCount: _controller.remoteGoals.length,
+            ),
+          ),
+          const MTDivider(),
+          MTButton(
+            loc.goal_import,
+            _controller.validated ? () => _controller.startImport(context) : null,
+            titleColor: _controller.validated ? null : lightGreyColor,
+          ),
+          SizedBox(height: onePadding),
+        ],
+      ],
     ]);
   }
 
@@ -99,11 +102,7 @@ class _ImportViewState extends State<ImportView> {
     return Observer(
       builder: (_) => MTPage(
         isLoading: _controller.isLoading,
-        navBar: navBar(
-          context,
-          leading: CloseDialogButton(),
-          title: loc.goal_import,
-        ),
+        navBar: navBar(context, leading: CloseDialogButton(), title: loc.goal_import),
         body: SafeArea(child: form()),
       ),
     );

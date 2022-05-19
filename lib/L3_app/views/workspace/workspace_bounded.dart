@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/auth/workspace.dart';
-import '../../components/constants.dart';
 import '../../components/mt_dropdown.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
@@ -28,11 +27,9 @@ abstract class _WorkspaceBoundedBase extends EditController with Store {
   }
 
   List<Widget> wsDropdown(BuildContext context) {
-    final mq = MediaQuery.of(context);
     final items = <Widget>[];
     if (mainController.workspaces.length > 1) {
       items.add(MTDropdown<Workspace>(
-        width: mq.size.width - onePadding * 2,
         onChanged: (ws) => selectWS(ws?.id),
         value: selectedWS,
         items: mainController.workspaces,

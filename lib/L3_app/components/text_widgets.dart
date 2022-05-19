@@ -11,7 +11,6 @@ class _BaseText extends StatelessWidget {
     this.sizeScale,
     this.color,
     this.weight,
-    this.overflow,
     this.maxLines,
     this.align,
     this.padding,
@@ -22,7 +21,6 @@ class _BaseText extends StatelessWidget {
   final double? sizeScale;
   final Color? color;
   final FontWeight? weight;
-  final TextOverflow? overflow;
   final int? maxLines;
   final TextAlign? align;
   final EdgeInsets? padding;
@@ -48,7 +46,7 @@ class _BaseText extends StatelessWidget {
         style: style(context),
         textAlign: align,
         maxLines: maxLines ?? 100,
-        overflow: overflow ?? TextOverflow.ellipsis,
+        overflow: TextOverflow.ellipsis,
       ),
     );
   }

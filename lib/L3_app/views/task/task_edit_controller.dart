@@ -8,7 +8,6 @@ import '../../../L1_domain/api_schema/task.dart';
 import '../../../L1_domain/entities/goals/goal.dart';
 import '../../../L1_domain/entities/goals/task.dart';
 import '../../../L1_domain/entities/goals/task_status.dart';
-import '../../components/constants.dart';
 import '../../components/mt_confirm_dialog.dart';
 import '../../components/mt_dropdown.dart';
 import '../../components/text_field_annotation.dart';
@@ -65,11 +64,9 @@ abstract class _TaskEditControllerBase extends SmartableEditController with Stor
   TaskStatus? get selectedStatus => taskStatuses.firstWhereOrNull((s) => s.id == selectedStatusId);
 
   List<Widget> customFields(BuildContext context) {
-    final mq = MediaQuery.of(context);
     final items = <Widget>[];
     if (taskStatuses.isNotEmpty) {
       items.add(MTDropdown<TaskStatus>(
-        width: mq.size.width - onePadding * 2,
         onChanged: (status) => selectStatus(status),
         value: selectedStatus,
         items: taskStatuses,

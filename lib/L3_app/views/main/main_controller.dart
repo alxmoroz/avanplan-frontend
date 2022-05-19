@@ -22,7 +22,7 @@ abstract class _MainControllerBase extends BaseController with Store {
   @action
   void _sortWS() => workspaces.sort((s1, s2) => s1.title.compareTo(s2.title));
 
-  @override
+  @action
   Future fetchData() async {
     //TODO: сделать computed для всех зависимых данных? pro: прозрачная логика загрузки cons: увеличение связанности. В любом случае большой вопрос с редактированием словарей.
     // Например, трекеров... Будет похожая заморочка, как в дереве задач (зато есть опыт уже)
@@ -39,11 +39,12 @@ abstract class _MainControllerBase extends BaseController with Store {
     stopLoading();
   }
 
-  @override
+  @action
   void clearData() {
     workspaces.clear();
     goalController.clearData();
     trackerController.clearData();
+    importController.clearData();
   }
 
   Future showTrackers(BuildContext context) async {

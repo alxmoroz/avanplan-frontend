@@ -75,7 +75,7 @@ abstract class _SmartableEditControllerBase extends WorkspaceBounded with Store 
 
   Widget form(BuildContext context, [List<Widget>? customFields]) {
     return Scrollbar(
-      isAlwaysShown: true,
+      thumbVisibility: true,
       child: ListView(children: [
         ...['title', 'dueDate', 'description'].map((code) => textFieldForCode(context, code)),
         if (customFields != null) ...customFields,

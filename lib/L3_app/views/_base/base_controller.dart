@@ -26,8 +26,4 @@ abstract class _BaseControllerBase with Store {
 
   @computed
   bool get isLoading => _loading;
-
-  void clearData() => throw UnimplementedError();
-
-  Future fetchData() => throw UnimplementedError();
 }

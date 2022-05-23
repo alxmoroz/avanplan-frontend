@@ -48,7 +48,7 @@ class MTConfirmDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoAlertDialog(
-      title: H3(title),
+      title: H4(title),
       content: description.isNotEmpty ? NormalText(description) : null,
       actions: actions
           .map((a) => CupertinoDialogAction(

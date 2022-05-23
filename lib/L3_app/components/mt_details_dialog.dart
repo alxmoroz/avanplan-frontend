@@ -31,7 +31,7 @@ class MTDetailsDialog extends StatelessWidget {
             thumbVisibility: true,
             child: SingleChildScrollView(
               padding: EdgeInsets.all(onePadding),
-              child: NormalText(description),
+              child: NormalText(description, maxLines: 100),
             ),
           ),
         ),

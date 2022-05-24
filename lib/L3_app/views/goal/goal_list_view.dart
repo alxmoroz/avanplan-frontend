@@ -10,7 +10,8 @@ import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../extra/services.dart';
-import '../smartable/smartable_list.dart';
+import '../element_of_work/ew_list.dart';
+import '../element_of_work/ew_list_settings.dart';
 import 'goal_controller.dart';
 
 class GoalListView extends StatelessWidget {
@@ -40,7 +41,9 @@ class GoalListView extends StatelessWidget {
               : ListView(
                   children: [
                     SizedBox(height: onePadding),
-                    SmartableList(_controller.goals),
+                    EWListSettings(),
+                    SizedBox(height: onePadding / 2),
+                    EWList(filterController.filteredEW),
                     SizedBox(height: onePadding),
                   ],
                 ),

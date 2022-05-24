@@ -25,12 +25,13 @@ import '../../L2_data/repositories/tasks_repo.dart';
 import '../../L2_data/repositories/workspaces_repo.dart';
 import '../l10n/generated/l10n.dart';
 import '../views/auth/login_controller.dart';
+import '../views/element_of_work/ew_view_controller.dart';
+import '../views/element_of_work/filter_controller.dart';
 import '../views/goal/goal_controller.dart';
 import '../views/import/import_controller.dart';
 import '../views/main/main_controller.dart';
 import '../views/remote_tracker/tracker_controller.dart';
 import '../views/settings/settings_controller.dart';
-import '../views/smartable/smartable_view_controller.dart';
 import '../views/task/task_edit_controller.dart';
 
 S get loc => S.current;
@@ -44,10 +45,11 @@ SettingsController get settingsController => GetIt.I<SettingsController>();
 LoginController get loginController => GetIt.I<LoginController>();
 MainController get mainController => GetIt.I<MainController>();
 GoalController get goalController => GetIt.I<GoalController>();
-SmartableViewController get smartableViewController => GetIt.I<SmartableViewController>();
+EWViewController get ewViewController => GetIt.I<EWViewController>();
 TaskEditController get taskEditController => GetIt.I<TaskEditController>();
 TrackerController get trackerController => GetIt.I<TrackerController>();
 ImportController get importController => GetIt.I<ImportController>();
+FilterController get filterController => GetIt.I<FilterController>();
 
 Openapi get openAPI => GetIt.I<Openapi>();
 
@@ -91,8 +93,9 @@ void setup() {
   getIt.registerSingletonAsync<SettingsController>(() async => SettingsController().init(), dependsOn: [HiveStorage, BaseDeviceInfo, PackageInfo]);
   getIt.registerSingleton<MainController>(MainController());
   getIt.registerSingleton<GoalController>(GoalController());
-  getIt.registerSingleton<SmartableViewController>(SmartableViewController());
+  getIt.registerSingleton<EWViewController>(EWViewController());
   getIt.registerSingleton<TaskEditController>(TaskEditController());
   getIt.registerSingleton<TrackerController>(TrackerController());
   getIt.registerSingleton<ImportController>(ImportController());
+  getIt.registerSingleton<FilterController>(FilterController());
 }

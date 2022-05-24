@@ -1,10 +1,10 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'smartable.dart';
+import 'element_of_work.dart';
 import 'task_priority.dart';
 import 'task_status.dart';
 
-class Task extends Smartable {
+class Task extends ElementOfWork {
   Task({
     required int id,
     required DateTime createdOn,

@@ -5,19 +5,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../L1_domain/entities/goals/element_of_work.dart';
 import '../../../L1_domain/entities/goals/goal.dart';
-import '../../../L1_domain/entities/goals/smartable.dart';
 import '../../../L1_domain/entities/goals/task.dart';
 import '../../extra/services.dart';
 import '../_base/base_controller.dart';
 import '../task/task_edit_view.dart';
 import '../task/task_view.dart';
 
-part 'smartable_view_controller.g.dart';
+part 'ew_view_controller.g.dart';
 
-class SmartableViewController extends _SmartableViewControllerBase with _$SmartableViewController {}
+class EWViewController extends _EWViewControllerBase with _$EWViewController {}
 
-abstract class _SmartableViewControllerBase extends BaseController with Store {
+abstract class _EWViewControllerBase extends BaseController with Store {
   Goal get goal => goalController.selectedGoal!;
 
   /// история переходов и текущая выбранная задача
@@ -72,7 +72,7 @@ abstract class _SmartableViewControllerBase extends BaseController with Store {
     goal.tasks.remove(goal.tasks.firstWhereOrNull((t) => t.id == _task.id));
   }
 
-  void _updateTask(Task _task, Smartable _parent) {
+  void _updateTask(Task _task, ElementOfWork _parent) {
     final index = _parent.tasks.indexWhere((t) => t.id == _task.id);
     if (index >= 0) {
       if (_task.deleted) {

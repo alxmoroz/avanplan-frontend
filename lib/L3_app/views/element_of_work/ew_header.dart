@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../L1_domain/entities/goals/smartable.dart';
+import '../../../L1_domain/entities/goals/element_of_work.dart';
 import '../../../L1_domain/entities/goals/task.dart';
 import '../../../L1_domain/entities/goals/task_status.dart';
 import '../../components/colors.dart';
@@ -14,15 +14,15 @@ import '../../components/mt_details_dialog.dart';
 import '../../components/mt_divider.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import 'smartable_state_indicator.dart';
+import 'ew_state_indicator.dart';
 
-class SmartableHeader extends StatelessWidget {
-  const SmartableHeader({
+class EWHeader extends StatelessWidget {
+  const EWHeader({
     required this.element,
     this.breadcrumbs,
   });
 
-  final Smartable element;
+  final ElementOfWork element;
   final String? breadcrumbs;
 
   bool get isTask => element is Task;
@@ -68,9 +68,9 @@ class SmartableHeader extends StatelessWidget {
       });
 
   Widget buildDates() => Row(children: [
-        DateStringWidget(element.dueDate, titleString: loc.smart_due_date_label),
+        DateStringWidget(element.dueDate, titleString: loc.ew_due_date_label),
         const Spacer(),
-        if (element.lefTasksCount > 0) DateStringWidget(element.etaDate, titleString: loc.smart_eta_date_label),
+        if (element.lefTasksCount > 0) DateStringWidget(element.etaDate, titleString: loc.ew_eta_date_label),
       ]);
 
   @override
@@ -93,7 +93,7 @@ class SmartableHeader extends StatelessWidget {
           buildDates(),
         ],
         SizedBox(height: onePadding),
-        SmartableStateIndicator(element),
+        EWStateIndicator(element),
       ]),
     );
   }

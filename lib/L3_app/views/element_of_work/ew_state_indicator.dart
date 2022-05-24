@@ -2,16 +2,16 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../L1_domain/entities/goals/smartable.dart';
+import '../../../L1_domain/entities/goals/element_of_work.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/text_widgets.dart';
-import 'smartable_overall_state.dart';
+import 'ew_overall_state.dart';
 
-class SmartableStateIndicator extends StatelessWidget {
-  const SmartableStateIndicator(this.element, {this.inCard = false});
+class EWStateIndicator extends StatelessWidget {
+  const EWStateIndicator(this.element, {this.inCard = false});
 
-  final Smartable element;
+  final ElementOfWork element;
   final bool inCard;
 
   @override

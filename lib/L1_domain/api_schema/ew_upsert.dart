@@ -2,8 +2,8 @@
 
 import 'base_upsert.dart';
 
-class SmartUpsert extends StatusableUpsert {
-  SmartUpsert({
+class EWUpsert extends StatusableUpsert {
+  EWUpsert({
     required int? id,
     required String title,
     required bool closed,

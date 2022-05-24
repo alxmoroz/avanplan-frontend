@@ -21,6 +21,15 @@
 
   "error_get_goals": "Error getting goals\nTry choosing a different tracker",
 
+  "ew_all_items": "All",
+  "ew_no_due_items": "No due date",
+  "ew_no_opened_tasks_items": "All tasks are closed",
+  "ew_no_progress_items": "No progress",
+  "ew_ok_items": "On time",
+  "ew_opened_items": "Opened",
+  "ew_overdue_items": "Overdue",
+  "ew_risky_items": "Risky",
+
   "goal_delete_dialog_title": "Delete goal?",
   "goal_delete_dialog_description": "All tasks of this goal will be deleted",
   "goal_import": "Import goals",
@@ -33,30 +42,18 @@
 
   "integration": "Integration",
 
-  "smart_due_date_label": "Planned",
-  "smart_due_date_placeholder": "Due date",
-  "smart_eta_date_label": "Predicted",
+  "ew_due_date_label": "Planned",
+  "ew_due_date_placeholder": "Due date",
+  "ew_eta_date_label": "Predicted",
 
-  "smart_state_no_info_title": "Set deadlines, set subtasks",
+  "ew_state_no_info_title": "Set deadlines, set subtasks",
+  "ew_state_ok_title": "All according to plan",
+  "ew_state_overdue_details": "Total overdue is",
+  "ew_state_overdue_title": "There are overdue",
+  "ew_state_risky_details": "Total overdue risk is",
+  "ew_state_risky_title": "There are risks",
 
-  "smart_state_no_due_goals": "No due date",
-
-  "smart_state_no_opened_tasks": "All tasks are closed",
-
-  "smart_state_no_progress": "No progress",
-
-  "smart_state_ok_goals": "On time",
-  "smart_state_ok_title": "All according to plan",
-
-  "smart_state_overdue_details": "Total overdue is",
-  "smart_state_overdue_goals": "Overdue goals",
-  "smart_state_overdue_title": "There are overdue",
-
-  "smart_state_risky_details": "Total overdue risk is",
-  "smart_state_risky_goals": "Risky goals",
-  "smart_state_risky_title": "There are risks",
-
-  "smart_subtasks_count": "{count, plural, one{1 task} other{{count} tasks}}",
+  "ew_subtasks_count": "{count, plural, one{1 task} other{{count} tasks}}",
 
   "task_delete_dialog_title": "Delete task?",
   "task_delete_dialog_description": "All subtasks of this task will be deleted",

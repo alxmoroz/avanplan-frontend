@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/api_schema/remote_tracker.dart';
+import '../../../L1_domain/api_schema/remote_tracker_upsert.dart';
 import '../../../L1_domain/entities/auth/workspace.dart';
 import '../../../L1_domain/entities/goals/remote_tracker.dart';
 import '../../components/mt_confirm_dialog.dart';

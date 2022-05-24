@@ -13,11 +13,11 @@ import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';
 import '../workspace/workspace_bounded.dart';
 
-part 'smartable_edit_controller.g.dart';
+part 'ew_edit_controller.g.dart';
 
-abstract class SmartableEditController extends _SmartableEditControllerBase with _$SmartableEditController {}
+abstract class EWEditController extends _EWEditControllerBase with _$EWEditController {}
 
-abstract class _SmartableEditControllerBase extends WorkspaceBounded with Store {
+abstract class _EWEditControllerBase extends WorkspaceBounded with Store {
   bool get canEdit => throw UnimplementedError();
   Future delete(BuildContext context) async => throw UnimplementedError();
 

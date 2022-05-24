@@ -1,10 +1,10 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'smartable.dart';
+import 'ew_upsert.dart';
 
-class GoalUpsert extends SmartUpsert {
-  GoalUpsert({
-    required this.workspaceId,
+class TaskUpsert extends EWUpsert {
+  TaskUpsert({
+    required this.goalId,
     required String title,
     required String description,
     required bool closed,
@@ -16,11 +16,11 @@ class GoalUpsert extends SmartUpsert {
           id: id,
           parentId: parentId,
           title: title,
-          closed: closed,
           description: description,
+          closed: closed,
           dueDate: dueDate,
           statusId: statusId,
         );
 
-  final int workspaceId;
+  final int goalId;
 }

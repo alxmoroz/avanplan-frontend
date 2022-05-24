@@ -1,6 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../api_schema/remote_tracker.dart';
+import '../api_schema/remote_tracker_upsert.dart';
 import '../entities/goals/remote_tracker.dart';
 import '../repositories/abs_api_repo.dart';
 

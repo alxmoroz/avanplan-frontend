@@ -5,8 +5,8 @@ import 'task.dart';
 
 enum OverallState { overdue, risk, ok, noInfo }
 
-abstract class Smartable extends Statusable {
-  Smartable({
+abstract class ElementOfWork extends Statusable {
+  ElementOfWork({
     required int id,
     required String title,
     required bool closed,

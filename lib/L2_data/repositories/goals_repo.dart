@@ -2,7 +2,7 @@
 
 import 'package:openapi/openapi.dart';
 
-import '../../L1_domain/api_schema/goal.dart';
+import '../../L1_domain/api_schema/goal_upsert.dart';
 import '../../L1_domain/entities/goals/goal.dart';
 import '../../L1_domain/repositories/abs_api_repo.dart';
 import '../../L3_app/extra/services.dart';

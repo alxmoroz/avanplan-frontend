@@ -2,26 +2,25 @@
 
 import 'package:flutter/cupertino.dart';
 
+import '../../../L1_domain/entities/goals/element_of_work.dart';
 import '../../../L1_domain/entities/goals/goal.dart';
-import '../../../L1_domain/entities/goals/smartable.dart';
 import '../../../L1_domain/entities/goals/task.dart';
 import '../../../L3_app/extra/services.dart';
-import 'smartable_card.dart';
+import 'ew_card.dart';
 
-class SmartableList extends StatelessWidget {
-  const SmartableList(this.elements);
-
-  // TODO: формировать тут внутри на основе входного (родительского) element
-  final List<Smartable> elements;
+class EWList extends StatelessWidget {
+  const EWList(this.elements);
+  final Iterable<ElementOfWork> elements;
 
   @override
   Widget build(BuildContext context) {
     Widget cardBuilder(BuildContext context, int index) {
-      final element = elements[index];
+      final element = elements.elementAt(index);
       // TODO: переход должен быть на SmartableView
-      return SmartableCard(
+      // TODO: обработку клика делать внутри карточки
+      return EWCard(
         element: element,
-        onTap: () => element is Goal ? goalController.showGoal(context, element) : smartableViewController.showTask(context, element as Task),
+        onTap: () => element is Goal ? goalController.showGoal(context, element) : ewViewController.showTask(context, element as Task),
       );
     }
 

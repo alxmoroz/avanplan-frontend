@@ -11,7 +11,7 @@ import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../extra/services.dart';
-import '../smartable/smartable_dashboard.dart';
+import '../element_of_work/ew_dashboard.dart';
 import 'goal_controller.dart';
 
 class GoalView extends StatelessWidget {
@@ -33,7 +33,7 @@ class GoalView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    MTButton.icon(plusIcon(context), () => smartableViewController.addTask(context)),
+                    MTButton.icon(plusIcon(context), () => ewViewController.addTask(context)),
                     SizedBox(width: onePadding * 2),
                     MTButton.icon(editIcon(context), () => _controller.editGoal(context, _goal)),
                     SizedBox(width: onePadding),
@@ -43,7 +43,7 @@ class GoalView extends StatelessWidget {
               body: SafeArea(
                 top: false,
                 bottom: false,
-                child: SmartableDashboard(_goal!),
+                child: EWDashboard(_goal!),
               ),
             )
           : Container(),

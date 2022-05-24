@@ -47,7 +47,7 @@ class _TaskEditViewState extends State<TaskEditView> {
     _controller.initState(tfaList: [
       TFAnnotation('title', label: loc.common_title, text: _task?.title ?? ''),
       TFAnnotation('description', label: loc.common_description, text: _task?.description ?? '', needValidate: false),
-      TFAnnotation('dueDate', label: loc.smart_due_date_placeholder, noText: true, needValidate: false),
+      TFAnnotation('dueDate', label: loc.ew_due_date_placeholder, noText: true, needValidate: false),
     ]);
     super.initState();
   }

@@ -21,6 +21,15 @@
 
   "error_get_goals": "Ошибка получения списка целей или проектов\nПопробуйте выбрать другой источник",
 
+  "ew_all_items": "Все",
+  "ew_no_due_items": "Без указания срока",
+  "ew_no_opened_tasks_items": "Все задачи закрыты",
+  "ew_no_progress_items": "Без прогресса",
+  "ew_ok_items": "Успеваем",
+  "ew_opened_items": "Открытые",
+  "ew_overdue_items": "Просроченные",
+  "ew_risky_items": "C риском отставания",
+
   "goal_delete_dialog_title": "Удалить цель?",
   "goal_delete_dialog_description": "Все задачи цели также будут удалены",
   "goal_import": "Импорт целей",
@@ -33,30 +42,18 @@
 
   "integration": "Интеграция",
 
-  "smart_due_date_placeholder": "Срок завершения",
-  "smart_due_date_label": "План",
-  "smart_eta_date_label": "Прогноз",
+  "ew_due_date_placeholder": "Срок завершения",
+  "ew_due_date_label": "План",
+  "ew_eta_date_label": "Прогноз",
 
-  "smart_state_no_info_title": "Ставьте сроки, разделяйте на задачи",
+  "ew_state_no_info_title": "Ставьте сроки, разделяйте на задачи",
+  "ew_state_ok_title": "Всё идёт по плану",
+  "ew_state_overdue_details": "Отставание на",
+  "ew_state_overdue_title": "Опаздываем",
+  "ew_state_risky_details": "Есть риск отставания на",
+  "ew_state_risky_title": "Есть риски",
 
-  "smart_state_no_due_goals": "Без указания срока",
-
-  "smart_state_no_opened_tasks": "Все задачи закрыты",
-
-  "smart_state_no_progress": "Без прогресса",
-
-  "smart_state_ok_goals": "Успеваем",
-  "smart_state_ok_title": "Всё идёт по плану",
-
-  "smart_state_overdue_details": "Отставание на",
-  "smart_state_overdue_goals": "Просроченные цели",
-  "smart_state_overdue_title": "Опаздываем",
-
-  "smart_state_risky_details": "Есть риск отставания на",
-  "smart_state_risky_goals": "Цели с риском отставания",
-  "smart_state_risky_title": "Есть риски",
-
-  "smart_subtasks_count": "{count, plural, one{{count} задача} few{{count} задачи} other{{count} задач}}",
+  "ew_subtasks_count": "{count, plural, one{{count} задача} few{{count} задачи} other{{count} задач}}",
 
   "task_delete_dialog_title": "Удалить задачу?",
   "task_delete_dialog_description": "Все подзадачи также будут удалены",

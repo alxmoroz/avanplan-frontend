@@ -10,13 +10,13 @@ import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../extra/services.dart';
-import '../smartable/smartable_dashboard.dart';
-import '../smartable/smartable_view_controller.dart';
+import '../element_of_work/ew_dashboard.dart';
+import '../element_of_work/ew_view_controller.dart';
 
 class TaskView extends StatelessWidget {
   static String get routeName => 'task';
 
-  SmartableViewController get _controller => smartableViewController;
+  EWViewController get _controller => ewViewController;
   Task? get _task => _controller.task;
 
   String breadcrumbs() {
@@ -41,7 +41,7 @@ class TaskView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    MTButton.icon(plusIcon(context), () => smartableViewController.addTask(context)),
+                    MTButton.icon(plusIcon(context), () => ewViewController.addTask(context)),
                     SizedBox(width: onePadding * 2),
                     MTButton.icon(editIcon(context), () => _controller.editTask(context)),
                     SizedBox(width: onePadding),
@@ -51,7 +51,7 @@ class TaskView extends StatelessWidget {
               body: SafeArea(
                 top: false,
                 bottom: false,
-                child: SmartableDashboard(_task!, breadcrumbs: breadcrumbs()),
+                child: EWDashboard(_task!, breadcrumbs: breadcrumbs()),
               ),
             )
           : Container(),

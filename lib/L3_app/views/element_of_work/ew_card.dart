@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../L1_domain/entities/goals/smartable.dart';
+import '../../../L1_domain/entities/goals/element_of_work.dart';
 import '../../../L1_domain/entities/goals/task.dart';
 import '../../components/constants.dart';
 import '../../components/date_string_widget.dart';
@@ -12,13 +12,13 @@ import '../../components/mt_progress.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/number_presenter.dart';
-import 'smartable_overall_state.dart';
-import 'smartable_state_indicator.dart';
+import 'ew_overall_state.dart';
+import 'ew_state_indicator.dart';
 
-class SmartableCard extends StatelessWidget {
-  const SmartableCard({required this.element, this.onTap, this.expanded = false});
+class EWCard extends StatelessWidget {
+  const EWCard({required this.element, this.onTap, this.expanded = false});
 
-  final Smartable element;
+  final ElementOfWork element;
   final VoidCallback? onTap;
   final bool expanded;
 
@@ -44,7 +44,7 @@ class SmartableCard extends StatelessWidget {
   Widget description() => LightText(element.description, maxLines: 2);
 
   Widget subtasksInfo() => Row(children: [
-        LightText(loc.smart_subtasks_count(element.tasksCount)),
+        LightText(loc.ew_subtasks_count(element.tasksCount)),
         const Spacer(),
         if (element.doneRatio > 0) ...[
           SmallText('${loc.common_mark_done_btn_title} '),
@@ -53,9 +53,9 @@ class SmartableCard extends StatelessWidget {
       ]);
 
   Widget buildDates() => Row(children: [
-        DateStringWidget(element.dueDate, titleString: loc.smart_due_date_label),
+        DateStringWidget(element.dueDate, titleString: loc.ew_due_date_label),
         const Spacer(),
-        if (element.lefTasksCount > 0) DateStringWidget(element.etaDate, titleString: loc.smart_eta_date_label),
+        if (element.lefTasksCount > 0) DateStringWidget(element.etaDate, titleString: loc.ew_eta_date_label),
       ]);
 
   @override
@@ -79,7 +79,7 @@ class SmartableCard extends StatelessWidget {
               buildDates(),
             ],
             SizedBox(height: onePadding / 2),
-            SmartableStateIndicator(element, inCard: true),
+            EWStateIndicator(element, inCard: true),
           ]),
         ),
       );

@@ -2,7 +2,7 @@
 
 import 'package:openapi/openapi.dart';
 
-import '../../L1_domain/api_schema/remote_tracker.dart';
+import '../../L1_domain/api_schema/remote_tracker_upsert.dart';
 import '../../L1_domain/entities/goals/remote_tracker.dart';
 import '../../L1_domain/repositories/abs_api_repo.dart';
 // TODO: нарушение направления зависимостей. аналогично в похожих местах

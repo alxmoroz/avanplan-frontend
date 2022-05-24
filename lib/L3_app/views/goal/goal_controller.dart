@@ -4,14 +4,13 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/api_schema/goal.dart';
+import '../../../L1_domain/api_schema/goal_upsert.dart';
 import '../../../L1_domain/entities/auth/workspace.dart';
 import '../../../L1_domain/entities/goals/goal.dart';
-import '../../../L1_domain/entities/goals/smartable.dart';
 import '../../components/mt_confirm_dialog.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
-import '../smartable/smartable_edit_controller.dart';
+import '../element_of_work/ew_edit_controller.dart';
 import 'goal_edit_view.dart';
 import 'goal_view.dart';
 
@@ -19,7 +18,7 @@ part 'goal_controller.g.dart';
 
 class GoalController extends _GoalControllerBase with _$GoalController {}
 
-abstract class _GoalControllerBase extends SmartableEditController with Store {
+abstract class _GoalControllerBase extends EWEditController with Store {
   @override
   void initState({List<TFAnnotation>? tfaList}) {
     super.initState(tfaList: tfaList);
@@ -35,43 +34,16 @@ abstract class _GoalControllerBase extends SmartableEditController with Store {
   ObservableList<Goal> goals = ObservableList();
 
   @computed
-  Iterable<Goal> get openedGoals => goals.where((g) => !g.closed);
-
-  @computed
-  Iterable<Goal> get timeBoundGoals => openedGoals.where((g) => g.dueDate != null);
-
-  @computed
-  Iterable<Goal> get overdueGoals => timeBoundGoals.where((g) => g.overallState == OverallState.overdue);
-
-  @computed
-  Iterable<Goal> get riskyGoals => timeBoundGoals.where((g) => g.overallState == OverallState.risk);
-
-  @computed
-  Iterable<Goal> get okGoals => timeBoundGoals.where((g) => g.overallState == OverallState.ok);
-
-  @computed
-  Iterable<Goal> get noDueGoals => openedGoals.where((g) => g.dueDate == null);
-
-  @computed
-  Iterable<Goal> get activeGoals => openedGoals.where((g) => g.closedTasksCount > 0);
-
-  @computed
-  Iterable<Goal> get closableGoals => activeGoals.where((g) => g.lefTasksCount == 0);
-
-  @computed
-  Iterable<Goal> get inactiveGoals => openedGoals.where((g) => g.closedTasksCount == 0);
-
-  @computed
   Duration get overduePeriod {
     int totalSeconds = 0;
-    overdueGoals.forEach((g) => totalSeconds += g.overduePeriod?.inSeconds ?? 0);
+    filterController.overdueEW.forEach((g) => totalSeconds += g.overduePeriod?.inSeconds ?? 0);
     return Duration(seconds: totalSeconds);
   }
 
   @computed
   Duration get riskPeriod {
     int totalSeconds = 0;
-    riskyGoals.forEach((g) => totalSeconds += g.etaRiskPeriod?.inSeconds ?? 0);
+    filterController.riskyEW.forEach((g) => totalSeconds += g.etaRiskPeriod?.inSeconds ?? 0);
     return Duration(seconds: totalSeconds);
   }
 
@@ -120,6 +92,7 @@ abstract class _GoalControllerBase extends SmartableEditController with Store {
     selectWS(_goal?.workspaceId);
   }
 
+  // TODO: из текущего фильтра?
   @computed
   Goal? get selectedGoal => goals.firstWhereOrNull((g) => g.id == selectedGoalId);
 

@@ -1,9 +1,9 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'smartable.dart';
+import 'element_of_work.dart';
 import 'task.dart';
 
-class Goal extends Smartable {
+class Goal extends ElementOfWork {
   Goal({
     required this.workspaceId,
     required int id,

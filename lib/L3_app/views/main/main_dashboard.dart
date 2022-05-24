@@ -2,23 +2,23 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../L1_domain/entities/goals/smartable.dart';
+import '../../../L1_domain/entities/goals/element_of_work.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/mt_progress.dart';
 import '../../extra/services.dart';
-import '../smartable/smartable_overall_state.dart';
+import '../element_of_work/ew_overall_state.dart';
 
 //TODO: вытащить отсюда всё, что можно в SmartableDashboard, либо сделать универсальный виджет для целей и задач из этого
 
 class MainDashboard extends StatelessWidget {
-  int get _riskyGoalsCount => goalController.riskyGoals.length;
-  int get _overdueGoalsCount => goalController.overdueGoals.length;
-  int get _closableGoalsCount => goalController.closableGoals.length;
-  int get _openedGoalsCount => goalController.openedGoals.length;
-  int get _inactiveGoalsCount => goalController.inactiveGoals.length;
-  int get _noDueGoalsCount => goalController.noDueGoals.length;
-  int get _okGoalsCount => goalController.okGoals.length;
+  int get _riskyGoalsCount => filterController.riskyEW.length;
+  int get _overdueGoalsCount => filterController.overdueEW.length;
+  int get _closableGoalsCount => filterController.closableEW.length;
+  int get _openedGoalsCount => filterController.openedEW.length;
+  int get _inactiveGoalsCount => filterController.inactiveEW.length;
+  int get _noDueGoalsCount => filterController.noDueEW.length;
+  int get _okGoalsCount => filterController.okEW.length;
   bool get _hasOverdue => _overdueGoalsCount > 0;
   bool get _hasRisk => _riskyGoalsCount > 0;
 
@@ -32,7 +32,7 @@ class MainDashboard extends StatelessWidget {
         SampleProgress(
           ratio: _overdueGoalsCount / _openedGoalsCount,
           color: stateColor(OverallState.overdue) ?? dangerColor,
-          titleText: loc.smart_state_overdue_goals,
+          titleText: loc.ew_overdue_items,
           trailingText: '$_overdueGoalsCount',
           subtitleText: stateTextDetails(OverallState.overdue, overduePeriod: goalController.overduePeriod),
         ),
@@ -43,7 +43,7 @@ class MainDashboard extends StatelessWidget {
         SampleProgress(
           ratio: _riskyGoalsCount / _openedGoalsCount,
           color: stateColor(OverallState.risk) ?? riskyColor,
-          titleText: loc.smart_state_risky_goals,
+          titleText: loc.ew_risky_items,
           trailingText: '$_riskyGoalsCount',
           subtitleText: stateTextDetails(OverallState.risk, etaRiskPeriod: goalController.riskPeriod),
         ),
@@ -54,7 +54,7 @@ class MainDashboard extends StatelessWidget {
         SampleProgress(
           ratio: _noDueGoalsCount / _openedGoalsCount,
           color: noInfoColor,
-          titleText: loc.smart_state_no_due_goals,
+          titleText: loc.ew_no_due_items,
           trailingText: '$_noDueGoalsCount',
         ),
       ],
@@ -63,7 +63,7 @@ class MainDashboard extends StatelessWidget {
         SampleProgress(
           ratio: _inactiveGoalsCount / _openedGoalsCount,
           color: noInfoColor,
-          titleText: loc.smart_state_no_progress,
+          titleText: loc.ew_no_progress_items,
           trailingText: '$_inactiveGoalsCount',
         ),
       ],
@@ -72,7 +72,7 @@ class MainDashboard extends StatelessWidget {
         SampleProgress(
           ratio: _closableGoalsCount / _openedGoalsCount,
           color: noInfoColor,
-          titleText: loc.smart_state_no_opened_tasks,
+          titleText: loc.ew_no_opened_tasks_items,
           trailingText: '$_closableGoalsCount',
         ),
       ],
@@ -83,7 +83,7 @@ class MainDashboard extends StatelessWidget {
         SampleProgress(
           ratio: _okGoalsCount / _openedGoalsCount,
           color: stateColor(OverallState.ok) ?? okColor,
-          titleText: loc.smart_state_ok_goals,
+          titleText: loc.ew_ok_items,
           trailingText: '$_okGoalsCount',
         ),
       ],

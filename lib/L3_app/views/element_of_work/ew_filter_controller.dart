@@ -95,6 +95,9 @@ abstract class _EWFilterControllerBase with Store {
   @action
   void setFilter(EWFilter? _ewFilter) => ewFilter = _ewFilter;
 
+  @action
+  void setDefaultFilter() => setFilter(ewFilterKeys.contains(EWFilter.opened) ? EWFilter.opened : EWFilter.all);
+
   @computed
   List<EWFilter> get ewFilterKeys {
     final keys = <EWFilter>[];
@@ -119,14 +122,12 @@ abstract class _EWFilterControllerBase with Store {
     if (hasOpened && openedEWCount < allEWCount) {
       keys.add(EWFilter.opened);
     }
-    if (keys.isNotEmpty) {
-      keys.add(EWFilter.all);
-    }
+    keys.add(EWFilter.all);
     return keys;
   }
 
   @computed
-  bool get hasFilters => ewFilterKeys.isNotEmpty;
+  bool get hasFilters => ewFilterKeys.length > 1;
 
   @computed
   Map<EWFilter, Iterable<ElementOfWork>> get ewFilters => {

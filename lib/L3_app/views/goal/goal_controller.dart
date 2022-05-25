@@ -2,6 +2,7 @@
 
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:hercules/L1_domain/entities/goals/element_of_work.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/api_schema/goal_upsert.dart';
@@ -36,7 +37,6 @@ abstract class _GoalControllerBase extends EWEditController with Store {
   @action
   void _sortGoals() {
     goals.sort((g1, g2) => g1.title.compareTo(g2.title));
-    ewFilterController.setFilter(ewFilterController.ewFilterKeys.firstOrNull);
   }
 
   @action
@@ -56,6 +56,13 @@ abstract class _GoalControllerBase extends EWEditController with Store {
     }
   }
 
+  void updateFilter(ElementOfWork ew) {
+    if (!ew.deleted && !ew.closed && ewFilterController.filteredEW.firstWhereOrNull((e) => e.id == ew.id) == null ||
+        !ewFilterController.ewFilterKeys.contains(ewFilterController.ewFilter)) {
+      ewFilterController.setDefaultFilter();
+    }
+  }
+
   @action
   Future fetchData() async {
     startLoading();
@@ -63,6 +70,7 @@ abstract class _GoalControllerBase extends EWEditController with Store {
     for (Workspace ws in mainController.workspaces) {
       goals.addAll(ws.goals);
     }
+    ewFilterController.setDefaultFilter();
     _sortGoals();
     stopLoading();
   }
@@ -142,7 +150,8 @@ abstract class _GoalControllerBase extends EWEditController with Store {
     final goal = await showEditGoalDialog(context);
     if (goal != null) {
       updateGoalInList(goal);
-      if (goal.deleted) {
+      updateFilter(goal);
+      if (goal.deleted || goal.closed) {
         Navigator.of(context).pop();
       }
     }

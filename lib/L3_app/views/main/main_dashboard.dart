@@ -3,88 +3,77 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../L1_domain/entities/goals/element_of_work.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/mt_progress.dart';
 import '../../extra/services.dart';
 import '../../presenters/ew_overall_state_presenter.dart';
 
-//TODO: вытащить отсюда всё, что можно в SmartableDashboard, либо сделать универсальный виджет для целей и задач из этого
+//TODO: вытащить отсюда всё, что можно в EWDashboard, либо сделать универсальный виджет для целей и задач из этого
 
 class MainDashboard extends StatelessWidget {
-  int get _riskyGoalsCount => ewFilterController.riskyEW.length;
-  int get _overdueGoalsCount => ewFilterController.overdueEW.length;
-  int get _closableGoalsCount => ewFilterController.closableEW.length;
-  int get _openedGoalsCount => ewFilterController.openedEW.length;
-  int get _inactiveGoalsCount => ewFilterController.inactiveEW.length;
-  int get _noDueGoalsCount => ewFilterController.noDueEW.length;
-  int get _okGoalsCount => ewFilterController.okEW.length;
-  bool get _hasOverdue => _overdueGoalsCount > 0;
-  bool get _hasRisk => _riskyGoalsCount > 0;
-
   @override
   Widget build(BuildContext context) {
     final noInfoColor = stateColor(OverallState.noInfo);
 
     return Column(children: [
-      if (_hasOverdue) ...[
+      if (ewFilterController.hasOverdue) ...[
         SizedBox(height: onePadding),
         SampleProgress(
-          ratio: _overdueGoalsCount / _openedGoalsCount,
-          color: stateColor(OverallState.overdue) ?? dangerColor,
+          ratio: ewFilterController.overdueGoalsCount / ewFilterController.openedGoalsCount,
+          color: stateColor(OverallState.overdue),
           titleText: loc.ew_overdue_items,
-          trailingText: '$_overdueGoalsCount',
+          trailingText: '${ewFilterController.overdueGoalsCount}',
           subtitleText: stateTextDetails(OverallState.overdue, overduePeriod: ewFilterController.overduePeriod),
         ),
       ],
 
-      if (_hasRisk) ...[
+      if (ewFilterController.hasRisk) ...[
         SizedBox(height: onePadding),
         SampleProgress(
-          ratio: _riskyGoalsCount / _openedGoalsCount,
-          color: stateColor(OverallState.risk) ?? riskyColor,
+          ratio: ewFilterController.riskyGoalsCount / ewFilterController.openedGoalsCount,
+          color: stateColor(OverallState.risk),
           titleText: loc.ew_risky_items,
-          trailingText: '$_riskyGoalsCount',
+          trailingText: '${ewFilterController.riskyGoalsCount}',
           subtitleText: stateTextDetails(OverallState.risk, etaRiskPeriod: ewFilterController.riskPeriod),
         ),
       ],
-      //TODO: добавить неосновные статусы для Smartable
-      if (_noDueGoalsCount > 0) ...[
+      //TODO: добавить неосновные статусы для EW
+      if (ewFilterController.noDueGoalsCount > 0) ...[
         SizedBox(height: onePadding),
         SampleProgress(
-          ratio: _noDueGoalsCount / _openedGoalsCount,
+          ratio: ewFilterController.noDueGoalsCount / ewFilterController.openedGoalsCount,
           color: noInfoColor,
           titleText: loc.ew_no_due_items,
-          trailingText: '$_noDueGoalsCount',
+          trailingText: '${ewFilterController.noDueGoalsCount}',
         ),
       ],
-      if (_inactiveGoalsCount > 0) ...[
+      if (ewFilterController.inactiveGoalsCount > 0) ...[
         SizedBox(height: onePadding),
         SampleProgress(
-          ratio: _inactiveGoalsCount / _openedGoalsCount,
+          ratio: ewFilterController.inactiveGoalsCount / ewFilterController.openedGoalsCount,
           color: noInfoColor,
           titleText: loc.ew_no_progress_items,
-          trailingText: '$_inactiveGoalsCount',
+          trailingText: '${ewFilterController.inactiveGoalsCount}',
         ),
       ],
-      if (_closableGoalsCount > 0) ...[
+      if (ewFilterController.closableGoalsCount > 0) ...[
         SizedBox(height: onePadding),
         SampleProgress(
-          ratio: _closableGoalsCount / _openedGoalsCount,
+          ratio: ewFilterController.closableGoalsCount / ewFilterController.openedGoalsCount,
           color: noInfoColor,
           titleText: loc.ew_no_opened_tasks_items,
-          trailingText: '$_closableGoalsCount',
+          trailingText: '${ewFilterController.closableGoalsCount}',
         ),
       ],
       // TODO: напрашивается количество запасных дней. Но при наличии рисковых целей, то лучше показывать сумму за вычетом отстающих дней.
       // TODO: Тогда путаница получается... Подумать, как учитывать суммарное отставание или запасы в днях
-      if ((_hasOverdue || _hasRisk) && _okGoalsCount > 0) ...[
+      if ((ewFilterController.hasOverdue || ewFilterController.hasRisk) && ewFilterController.okGoalsCount > 0) ...[
         SizedBox(height: onePadding),
         SampleProgress(
-          ratio: _okGoalsCount / _openedGoalsCount,
-          color: stateColor(OverallState.ok) ?? okColor,
+          ratio: ewFilterController.okGoalsCount / ewFilterController.openedGoalsCount,
+          color: stateColor(OverallState.ok),
           titleText: loc.ew_ok_items,
-          trailingText: '$_okGoalsCount',
+          trailingText: '${ewFilterController.okGoalsCount}',
         ),
       ],
     ]);

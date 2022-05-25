@@ -49,7 +49,6 @@ abstract class ElementOfWork extends Statusable {
   bool get _hasRisk => etaDate != null && (etaRiskPeriod?.inSeconds ?? 0) > 0;
   bool get _isOk => etaDate != null && (etaRiskPeriod?.inSeconds ?? 0) <= 0;
 
-  //TODO: оставить только этот статус. Остальные выше сделать приватными
   OverallState get overallState => dueDate != null && !closed
       ? (_hasOverdue
           ? OverallState.overdue
@@ -61,4 +60,7 @@ abstract class ElementOfWork extends Statusable {
       : OverallState.noInfo;
   // double get _planSpeed => tasksCount / (plannedPeriod?.inSeconds ?? 1);
   // double? get pace => etaDate != null ? (_factSpeed - _planSpeed) : null;
+
+  // TODO: подумать про перенос сюда выборок по подзадачам (сейчас в контроллере фильтра). Потому что это больше относится к бизнес-логике, а не к интерфейсу
+  //  Там есть тудушка про вопрос как определять для корня проекта. Наверное, имеет смысл создать рутовый EW
 }

@@ -43,6 +43,25 @@ abstract class _EWFilterControllerBase with Store {
   Iterable<ElementOfWork> get inactiveEW => openedEW.where((e) => e.closedEWCount == 0);
 
   @computed
+  int get riskyGoalsCount => riskyEW.length;
+  @computed
+  int get overdueGoalsCount => overdueEW.length;
+  @computed
+  int get closableGoalsCount => closableEW.length;
+  @computed
+  int get openedGoalsCount => openedEW.length;
+  @computed
+  int get inactiveGoalsCount => inactiveEW.length;
+  @computed
+  int get noDueGoalsCount => noDueEW.length;
+  @computed
+  int get okGoalsCount => okEW.length;
+  @computed
+  bool get hasOverdue => overdueGoalsCount > 0;
+  @computed
+  bool get hasRisk => riskyGoalsCount > 0;
+
+  @computed
   Duration get overduePeriod {
     int totalSeconds = 0;
     overdueEW.forEach((g) => totalSeconds += g.overduePeriod?.inSeconds ?? 0);

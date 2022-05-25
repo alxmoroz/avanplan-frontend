@@ -25,8 +25,8 @@ import '../../L2_data/repositories/tasks_repo.dart';
 import '../../L2_data/repositories/workspaces_repo.dart';
 import '../l10n/generated/l10n.dart';
 import '../views/auth/login_controller.dart';
+import '../views/element_of_work/ew_filter_controller.dart';
 import '../views/element_of_work/ew_view_controller.dart';
-import '../views/element_of_work/filter_controller.dart';
 import '../views/goal/goal_controller.dart';
 import '../views/import/import_controller.dart';
 import '../views/main/main_controller.dart';
@@ -49,7 +49,7 @@ EWViewController get ewViewController => GetIt.I<EWViewController>();
 TaskEditController get taskEditController => GetIt.I<TaskEditController>();
 TrackerController get trackerController => GetIt.I<TrackerController>();
 ImportController get importController => GetIt.I<ImportController>();
-FilterController get filterController => GetIt.I<FilterController>();
+EWFilterController get ewFilterController => GetIt.I<EWFilterController>();
 
 Openapi get openAPI => GetIt.I<Openapi>();
 
@@ -97,5 +97,5 @@ void setup() {
   getIt.registerSingleton<TaskEditController>(TaskEditController());
   getIt.registerSingleton<TrackerController>(TrackerController());
   getIt.registerSingleton<ImportController>(ImportController());
-  getIt.registerSingleton<FilterController>(FilterController());
+  getIt.registerSingleton<EWFilterController>(EWFilterController());
 }

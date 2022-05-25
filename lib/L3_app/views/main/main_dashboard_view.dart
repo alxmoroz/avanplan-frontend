@@ -13,7 +13,7 @@ import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../element_of_work/ew_overall_state.dart';
+import '../../presenters/ew_overall_state_presenter.dart';
 import 'main_dashboard.dart';
 
 class MainDashboardView extends StatefulWidget {
@@ -26,10 +26,10 @@ class MainDashboardView extends StatefulWidget {
 class _MainDashboardViewState extends State<MainDashboardView> {
   // TODO: добавлять рутовую невидимую цель (Smartable) и делать расчёты через неё?
 
-  int get _timeBoundGoalsCount => filterController.timeBoundEW.length;
-  int get _riskyGoalsCount => filterController.riskyEW.length;
-  int get _overdueGoalsCount => filterController.overdueEW.length;
-  int get _openedGoalsCount => filterController.openedEW.length;
+  int get _timeBoundGoalsCount => ewFilterController.timeBoundEW.length;
+  int get _riskyGoalsCount => ewFilterController.riskyEW.length;
+  int get _overdueGoalsCount => ewFilterController.overdueEW.length;
+  int get _openedGoalsCount => ewFilterController.openedEW.length;
 
   bool get _hasOverdue => _overdueGoalsCount > 0;
   bool get _hasRisk => _riskyGoalsCount > 0;

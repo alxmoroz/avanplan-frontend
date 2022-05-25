@@ -33,20 +33,6 @@ abstract class _GoalControllerBase extends EWEditController with Store {
   @observable
   ObservableList<Goal> goals = ObservableList();
 
-  @computed
-  Duration get overduePeriod {
-    int totalSeconds = 0;
-    filterController.overdueEW.forEach((g) => totalSeconds += g.overduePeriod?.inSeconds ?? 0);
-    return Duration(seconds: totalSeconds);
-  }
-
-  @computed
-  Duration get riskPeriod {
-    int totalSeconds = 0;
-    filterController.riskyEW.forEach((g) => totalSeconds += g.etaRiskPeriod?.inSeconds ?? 0);
-    return Duration(seconds: totalSeconds);
-  }
-
   @action
   void _sortGoals() => goals.sort((g1, g2) => g1.title.compareTo(g2.title));
 

@@ -11,8 +11,8 @@ import '../../components/mt_card.dart';
 import '../../components/mt_progress.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
+import '../../presenters/ew_overall_state_presenter.dart';
 import '../../presenters/number_presenter.dart';
-import 'ew_overall_state.dart';
 import 'ew_state_indicator.dart';
 
 class EWCard extends StatelessWidget {
@@ -55,7 +55,7 @@ class EWCard extends StatelessWidget {
   Widget buildDates() => Row(children: [
         DateStringWidget(element.dueDate, titleString: loc.ew_due_date_label),
         const Spacer(),
-        if (element.lefTasksCount > 0) DateStringWidget(element.etaDate, titleString: loc.ew_eta_date_label),
+        if (element.leftEWCount > 0) DateStringWidget(element.etaDate, titleString: loc.ew_eta_date_label),
       ]);
 
   @override

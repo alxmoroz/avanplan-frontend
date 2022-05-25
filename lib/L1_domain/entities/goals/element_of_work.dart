@@ -5,6 +5,8 @@ import 'task.dart';
 
 enum OverallState { overdue, risk, ok, noInfo }
 
+enum EWFilter { all, opened, overdue, risky, ok, noDue, closable, inactive }
+
 abstract class ElementOfWork extends Statusable {
   ElementOfWork({
     required int id,
@@ -34,13 +36,13 @@ abstract class ElementOfWork extends Statusable {
   Iterable<Task> get allTasks => tasks;
   Iterable<Task> get leafTasks => allTasks.where((t) => t.allTasks.isEmpty);
   int get tasksCount => leafTasks.length;
-  int get closedTasksCount => leafTasks.where((t) => t.closed).length;
-  int get lefTasksCount => tasksCount - closedTasksCount;
-  double get doneRatio => tasksCount > 0 ? closedTasksCount / tasksCount : 0;
+  int get closedEWCount => leafTasks.where((t) => t.closed).length;
+  int get leftEWCount => tasksCount - closedEWCount;
+  double get doneRatio => tasksCount > 0 ? closedEWCount / tasksCount : 0;
 
-  double get _factSpeed => closedTasksCount / pastPeriod.inSeconds;
+  double get _factSpeed => closedEWCount / pastPeriod.inSeconds;
 
-  DateTime? get etaDate => _factSpeed > 0 && lefTasksCount > 0 ? DateTime.now().add(Duration(seconds: (lefTasksCount / _factSpeed).round())) : null;
+  DateTime? get etaDate => _factSpeed > 0 && leftEWCount > 0 ? DateTime.now().add(Duration(seconds: (leftEWCount / _factSpeed).round())) : null;
   Duration? get etaRiskPeriod => dueDate != null ? etaDate?.difference(dueDate!) : null;
 
   bool get _hasOverdue => (overduePeriod?.inSeconds ?? 0) > 0;

@@ -70,7 +70,7 @@ class EWHeader extends StatelessWidget {
   Widget buildDates() => Row(children: [
         DateStringWidget(element.dueDate, titleString: loc.ew_due_date_label),
         const Spacer(),
-        if (element.lefTasksCount > 0) DateStringWidget(element.etaDate, titleString: loc.ew_eta_date_label),
+        if (element.leftEWCount > 0) DateStringWidget(element.etaDate, titleString: loc.ew_eta_date_label),
       ]);
 
   @override

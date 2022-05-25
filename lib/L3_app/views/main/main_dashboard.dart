@@ -7,18 +7,18 @@ import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/mt_progress.dart';
 import '../../extra/services.dart';
-import '../element_of_work/ew_overall_state.dart';
+import '../../presenters/ew_overall_state_presenter.dart';
 
 //TODO: вытащить отсюда всё, что можно в SmartableDashboard, либо сделать универсальный виджет для целей и задач из этого
 
 class MainDashboard extends StatelessWidget {
-  int get _riskyGoalsCount => filterController.riskyEW.length;
-  int get _overdueGoalsCount => filterController.overdueEW.length;
-  int get _closableGoalsCount => filterController.closableEW.length;
-  int get _openedGoalsCount => filterController.openedEW.length;
-  int get _inactiveGoalsCount => filterController.inactiveEW.length;
-  int get _noDueGoalsCount => filterController.noDueEW.length;
-  int get _okGoalsCount => filterController.okEW.length;
+  int get _riskyGoalsCount => ewFilterController.riskyEW.length;
+  int get _overdueGoalsCount => ewFilterController.overdueEW.length;
+  int get _closableGoalsCount => ewFilterController.closableEW.length;
+  int get _openedGoalsCount => ewFilterController.openedEW.length;
+  int get _inactiveGoalsCount => ewFilterController.inactiveEW.length;
+  int get _noDueGoalsCount => ewFilterController.noDueEW.length;
+  int get _okGoalsCount => ewFilterController.okEW.length;
   bool get _hasOverdue => _overdueGoalsCount > 0;
   bool get _hasRisk => _riskyGoalsCount > 0;
 
@@ -34,7 +34,7 @@ class MainDashboard extends StatelessWidget {
           color: stateColor(OverallState.overdue) ?? dangerColor,
           titleText: loc.ew_overdue_items,
           trailingText: '$_overdueGoalsCount',
-          subtitleText: stateTextDetails(OverallState.overdue, overduePeriod: goalController.overduePeriod),
+          subtitleText: stateTextDetails(OverallState.overdue, overduePeriod: ewFilterController.overduePeriod),
         ),
       ],
 
@@ -45,7 +45,7 @@ class MainDashboard extends StatelessWidget {
           color: stateColor(OverallState.risk) ?? riskyColor,
           titleText: loc.ew_risky_items,
           trailingText: '$_riskyGoalsCount',
-          subtitleText: stateTextDetails(OverallState.risk, etaRiskPeriod: goalController.riskPeriod),
+          subtitleText: stateTextDetails(OverallState.risk, etaRiskPeriod: ewFilterController.riskPeriod),
         ),
       ],
       //TODO: добавить неосновные статусы для Smartable

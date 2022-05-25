@@ -24,20 +24,14 @@ class MainDashboardView extends StatefulWidget {
 }
 
 class _MainDashboardViewState extends State<MainDashboardView> {
-  // TODO: добавлять рутовую невидимую цель (Smartable) и делать расчёты через неё?
+  // TODO: добавлять рутовую невидимую цель (EW) и делать расчёты через неё?
 
-  int get _timeBoundGoalsCount => ewFilterController.timeBoundEW.length;
-  int get _riskyGoalsCount => ewFilterController.riskyEW.length;
-  int get _overdueGoalsCount => ewFilterController.overdueEW.length;
-  int get _openedGoalsCount => ewFilterController.openedEW.length;
+  int get _openedGoalsCount => ewFilterController.openedEWCount;
 
-  bool get _hasOverdue => _overdueGoalsCount > 0;
-  bool get _hasRisk => _riskyGoalsCount > 0;
-
-  OverallState get _overallState => _timeBoundGoalsCount > 0
-      ? (_hasOverdue
+  OverallState get _overallState => ewFilterController.hasTimeBound
+      ? (ewFilterController.hasOverdue
           ? OverallState.overdue
-          : _hasRisk
+          : ewFilterController.hasRisk
               ? OverallState.risk
               : OverallState.ok)
       : OverallState.noInfo;
@@ -49,7 +43,7 @@ class _MainDashboardViewState extends State<MainDashboardView> {
     return Observer(
       builder: (_) => MTPage(
         isLoading: mainController.isLoading,
-        navBar: _openedGoalsCount > 0 ? navBar(context, title: loc.goal_list_count(_openedGoalsCount)) : null,
+        navBar: ewFilterController.hasOpened ? navBar(context, title: loc.goal_list_count(_openedGoalsCount)) : null,
         body: Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(
@@ -61,8 +55,9 @@ class _MainDashboardViewState extends State<MainDashboardView> {
           child: SafeArea(
             top: false,
             bottom: false,
-            child: _openedGoalsCount == 0
+            child: !ewFilterController.hasOpened
                 ? EmptyDataWidget(
+                    // TODO: здесь не про то, что целей вообще нет, а что нет открытых целей
                     title: loc.goal_list_empty_title,
                     addTitle: loc.goal_title_new,
                     onAdd: () => goalController.addGoal(context),

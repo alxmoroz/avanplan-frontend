@@ -19,10 +19,10 @@ class MainDashboard extends StatelessWidget {
       if (ewFilterController.hasOverdue) ...[
         SizedBox(height: onePadding),
         SampleProgress(
-          ratio: ewFilterController.overdueGoalsCount / ewFilterController.openedGoalsCount,
+          ratio: ewFilterController.overdueEWCount / ewFilterController.openedEWCount,
           color: stateColor(OverallState.overdue),
           titleText: loc.ew_overdue_items,
-          trailingText: '${ewFilterController.overdueGoalsCount}',
+          trailingText: '${ewFilterController.overdueEWCount}',
           subtitleText: stateTextDetails(OverallState.overdue, overduePeriod: ewFilterController.overduePeriod),
         ),
       ],
@@ -30,50 +30,50 @@ class MainDashboard extends StatelessWidget {
       if (ewFilterController.hasRisk) ...[
         SizedBox(height: onePadding),
         SampleProgress(
-          ratio: ewFilterController.riskyGoalsCount / ewFilterController.openedGoalsCount,
+          ratio: ewFilterController.riskyEWCount / ewFilterController.openedEWCount,
           color: stateColor(OverallState.risk),
           titleText: loc.ew_risky_items,
-          trailingText: '${ewFilterController.riskyGoalsCount}',
+          trailingText: '${ewFilterController.riskyEWCount}',
           subtitleText: stateTextDetails(OverallState.risk, etaRiskPeriod: ewFilterController.riskPeriod),
         ),
       ],
-      //TODO: добавить неосновные статусы для EW
-      if (ewFilterController.noDueGoalsCount > 0) ...[
+
+      if (ewFilterController.hasNoDue) ...[
         SizedBox(height: onePadding),
         SampleProgress(
-          ratio: ewFilterController.noDueGoalsCount / ewFilterController.openedGoalsCount,
+          ratio: ewFilterController.noDueEWCount / ewFilterController.openedEWCount,
           color: noInfoColor,
           titleText: loc.ew_no_due_items,
-          trailingText: '${ewFilterController.noDueGoalsCount}',
+          trailingText: '${ewFilterController.noDueEWCount}',
         ),
       ],
-      if (ewFilterController.inactiveGoalsCount > 0) ...[
+      if (ewFilterController.hasInactive) ...[
         SizedBox(height: onePadding),
         SampleProgress(
-          ratio: ewFilterController.inactiveGoalsCount / ewFilterController.openedGoalsCount,
+          ratio: ewFilterController.inactiveEWCount / ewFilterController.openedEWCount,
           color: noInfoColor,
           titleText: loc.ew_no_progress_items,
-          trailingText: '${ewFilterController.inactiveGoalsCount}',
+          trailingText: '${ewFilterController.inactiveEWCount}',
         ),
       ],
-      if (ewFilterController.closableGoalsCount > 0) ...[
+      if (ewFilterController.hasClosable) ...[
         SizedBox(height: onePadding),
         SampleProgress(
-          ratio: ewFilterController.closableGoalsCount / ewFilterController.openedGoalsCount,
+          ratio: ewFilterController.closableEWCount / ewFilterController.openedEWCount,
           color: noInfoColor,
           titleText: loc.ew_no_opened_tasks_items,
-          trailingText: '${ewFilterController.closableGoalsCount}',
+          trailingText: '${ewFilterController.closableEWCount}',
         ),
       ],
       // TODO: напрашивается количество запасных дней. Но при наличии рисковых целей, то лучше показывать сумму за вычетом отстающих дней.
       // TODO: Тогда путаница получается... Подумать, как учитывать суммарное отставание или запасы в днях
-      if ((ewFilterController.hasOverdue || ewFilterController.hasRisk) && ewFilterController.okGoalsCount > 0) ...[
+      if ((ewFilterController.hasOverdue || ewFilterController.hasRisk) && ewFilterController.hasOk) ...[
         SizedBox(height: onePadding),
         SampleProgress(
-          ratio: ewFilterController.okGoalsCount / ewFilterController.openedGoalsCount,
+          ratio: ewFilterController.okEWCount / ewFilterController.openedEWCount,
           color: stateColor(OverallState.ok),
           titleText: loc.ew_ok_items,
-          trailingText: '${ewFilterController.okGoalsCount}',
+          trailingText: '${ewFilterController.okEWCount}',
         ),
       ],
     ]);

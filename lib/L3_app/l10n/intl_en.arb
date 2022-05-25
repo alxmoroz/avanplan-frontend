@@ -23,7 +23,7 @@
 
   "ew_all_items": "All",
   "ew_no_due_items": "No due date",
-  "ew_no_opened_tasks_items": "All tasks are closed",
+  "ew_no_opened_tasks_items": "Closable",
   "ew_no_progress_items": "No progress",
   "ew_ok_items": "On time",
   "ew_opened_items": "Opened",

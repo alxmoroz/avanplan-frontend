@@ -61,6 +61,7 @@ abstract class _GoalControllerBase extends EWEditController with Store {
       goals.addAll(ws.goals);
     }
     _sortGoals();
+    ewFilterController.setFilter(ewFilterController.ewFilterKeys.firstOrNull);
     stopLoading();
   }
 

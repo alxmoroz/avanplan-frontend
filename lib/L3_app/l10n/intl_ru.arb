@@ -22,13 +22,13 @@
   "error_get_goals": "Ошибка получения списка целей или проектов\nПопробуйте выбрать другой источник",
 
   "ew_all_items": "Все",
-  "ew_no_due_items": "Без указания срока",
+  "ew_no_due_items": "Без срока",
   "ew_no_opened_tasks_items": "Все задачи закрыты",
   "ew_no_progress_items": "Без прогресса",
   "ew_ok_items": "Успеваем",
   "ew_opened_items": "Открытые",
   "ew_overdue_items": "Просроченные",
-  "ew_risky_items": "C риском отставания",
+  "ew_risky_items": "C риском",
 
   "goal_delete_dialog_title": "Удалить цель?",
   "goal_delete_dialog_description": "Все задачи цели также будут удалены",

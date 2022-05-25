@@ -13,53 +13,67 @@ abstract class _EWFilterControllerBase with Store {
   // TODO: здесь можно заменить на EW для подзадач и использовать в дашборде задач и цели. И перенести в контроллер EWViewController
   // TODO: инициализировать родителем (выбранная цель)
 
-  Iterable<ElementOfWork> get allEW => goalController.goals;
+  Iterable<ElementOfWork> get _allEW => goalController.goals;
+  @computed
+  int get allEWCount => _allEW.length;
 
   @computed
-  Iterable<ElementOfWork> get openedEW => allEW.where((e) => !e.closed);
+  Iterable<ElementOfWork> get openedEW => _allEW.where((e) => !e.closed);
+  @computed
+  int get openedEWCount => openedEW.length;
+  @computed
+  bool get hasOpened => openedEWCount > 0;
 
   @computed
   Iterable<ElementOfWork> get timeBoundEW => openedEW.where((e) => e.dueDate != null);
+  @computed
+  int get _timeBoundEWCount => timeBoundEW.length;
+  @computed
+  bool get hasTimeBound => _timeBoundEWCount > 0;
 
   @computed
   Iterable<ElementOfWork> get overdueEW => timeBoundEW.where((e) => e.overallState == OverallState.overdue);
+  @computed
+  int get overdueEWCount => overdueEW.length;
+  @computed
+  bool get hasOverdue => overdueEWCount > 0;
 
   @computed
   Iterable<ElementOfWork> get riskyEW => timeBoundEW.where((e) => e.overallState == OverallState.risk);
-
   @computed
-  Iterable<ElementOfWork> get okEW => timeBoundEW.where((e) => e.overallState == OverallState.ok);
+  int get riskyEWCount => riskyEW.length;
+  @computed
+  bool get hasRisk => riskyEWCount > 0;
 
   @computed
   Iterable<ElementOfWork> get noDueEW => openedEW.where((e) => e.dueDate == null);
+  @computed
+  int get noDueEWCount => noDueEW.length;
+  @computed
+  bool get hasNoDue => noDueEWCount > 0;
+
+  @computed
+  Iterable<ElementOfWork> get okEW => timeBoundEW.where((e) => e.overallState == OverallState.ok);
+  @computed
+  int get okEWCount => okEW.length;
+  @computed
+  bool get hasOk => okEWCount > 0;
 
   @computed
   Iterable<ElementOfWork> get _activeEW => openedEW.where((e) => e.closedEWCount > 0);
-
   @computed
   Iterable<ElementOfWork> get closableEW => _activeEW.where((e) => e.leftEWCount == 0);
+  @computed
+  int get closableEWCount => closableEW.length;
+  @computed
+  bool get hasClosable => closableEWCount > 0;
 
   @computed
   Iterable<ElementOfWork> get inactiveEW => openedEW.where((e) => e.closedEWCount == 0);
-
   @computed
-  int get riskyGoalsCount => riskyEW.length;
+  int get inactiveEWCount => inactiveEW.length;
   @computed
-  int get overdueGoalsCount => overdueEW.length;
-  @computed
-  int get closableGoalsCount => closableEW.length;
-  @computed
-  int get openedGoalsCount => openedEW.length;
-  @computed
-  int get inactiveGoalsCount => inactiveEW.length;
-  @computed
-  int get noDueGoalsCount => noDueEW.length;
-  @computed
-  int get okGoalsCount => okEW.length;
-  @computed
-  bool get hasOverdue => overdueGoalsCount > 0;
-  @computed
-  bool get hasRisk => riskyGoalsCount > 0;
+  bool get hasInactive => inactiveEWCount > 0;
 
   @computed
   Duration get overduePeriod {
@@ -76,21 +90,54 @@ abstract class _EWFilterControllerBase with Store {
   }
 
   @observable
-  EWFilter? ewFilter = EWFilter.opened;
+  EWFilter? ewFilter;
 
   @action
   void setFilter(EWFilter? _ewFilter) => ewFilter = _ewFilter;
 
   @computed
+  List<EWFilter> get ewFilterKeys {
+    final keys = <EWFilter>[];
+    if (hasOverdue && overdueEWCount < allEWCount) {
+      keys.add(EWFilter.overdue);
+    }
+    if (hasRisk && riskyEWCount < allEWCount) {
+      keys.add(EWFilter.risky);
+    }
+    if (hasNoDue && noDueEWCount < allEWCount) {
+      keys.add(EWFilter.noDue);
+    }
+    if (hasInactive && inactiveEWCount < allEWCount) {
+      keys.add(EWFilter.inactive);
+    }
+    if (hasClosable && closableEWCount < allEWCount) {
+      keys.add(EWFilter.closable);
+    }
+    if (hasOk && okEWCount < allEWCount) {
+      keys.add(EWFilter.ok);
+    }
+    if (hasOpened && openedEWCount < allEWCount) {
+      keys.add(EWFilter.opened);
+    }
+    if (keys.isNotEmpty) {
+      keys.add(EWFilter.all);
+    }
+    return keys;
+  }
+
+  @computed
+  bool get hasFilters => ewFilterKeys.isNotEmpty;
+
+  @computed
   Map<EWFilter, Iterable<ElementOfWork>> get ewFilters => {
-        EWFilter.all: allEW,
-        EWFilter.opened: openedEW,
         EWFilter.overdue: overdueEW,
         EWFilter.risky: riskyEW,
-        EWFilter.ok: okEW,
         EWFilter.noDue: noDueEW,
-        EWFilter.closable: closableEW,
         EWFilter.inactive: inactiveEW,
+        EWFilter.closable: closableEW,
+        EWFilter.opened: openedEW,
+        EWFilter.ok: okEW,
+        EWFilter.all: _allEW,
       };
 
   @computed

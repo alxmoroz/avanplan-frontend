@@ -11,7 +11,7 @@ import '../../extra/services.dart';
 import '../../presenters/ew_filter_presenter.dart';
 
 class EWFilterDropdown extends StatelessWidget {
-  List<DropdownMenuItem<EWFilter>> get ddItems => ewFilterController.ewFilters.keys
+  List<DropdownMenuItem<EWFilter>> get ddItems => ewFilterController.ewFilterKeys
       .map(
         (item) => DropdownMenuItem<EWFilter>(
           value: item,

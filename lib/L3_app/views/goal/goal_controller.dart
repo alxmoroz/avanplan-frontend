@@ -34,7 +34,10 @@ abstract class _GoalControllerBase extends EWEditController with Store {
   ObservableList<Goal> goals = ObservableList();
 
   @action
-  void _sortGoals() => goals.sort((g1, g2) => g1.title.compareTo(g2.title));
+  void _sortGoals() {
+    goals.sort((g1, g2) => g1.title.compareTo(g2.title));
+    ewFilterController.setFilter(ewFilterController.ewFilterKeys.firstOrNull);
+  }
 
   @action
   void updateGoalInList(Goal? _goal) {
@@ -61,7 +64,6 @@ abstract class _GoalControllerBase extends EWEditController with Store {
       goals.addAll(ws.goals);
     }
     _sortGoals();
-    ewFilterController.setFilter(ewFilterController.ewFilterKeys.firstOrNull);
     stopLoading();
   }
 

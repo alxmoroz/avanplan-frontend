@@ -81,7 +81,6 @@ abstract class _GoalControllerBase extends EWEditController with Store {
     selectWS(_goal?.workspaceId);
   }
 
-  // TODO: из текущего фильтра?
   @computed
   Goal? get selectedGoal => goals.firstWhereOrNull((g) => g.id == selectedGoalId);
 

@@ -60,7 +60,7 @@ class _MainDashboardViewState extends State<MainDashboardView> {
                     // TODO: здесь не про то, что целей вообще нет, а что нет открытых целей
                     title: loc.goal_list_empty_title,
                     addTitle: loc.goal_title_new,
-                    onAdd: () => goalController.addGoal(context),
+                    onAdd: () => ewViewController.addGoal(context),
                   )
                 : ListView(
                     shrinkWrap: true,

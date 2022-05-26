@@ -20,10 +20,9 @@ part 'task_edit_controller.g.dart';
 class TaskEditController extends _TaskEditControllerBase with _$TaskEditController {}
 
 // TODO: подумать над объединением с контроллером просмотра. Проблему может доставить initState, который вызывает вьюха редактирования
-//  можно ли вообще несколько вьюх на один контроллер?
 
 abstract class _TaskEditControllerBase extends EWEditController with Store {
-  Goal get _goal => goalController.selectedGoal!;
+  Goal get _goal => ewViewController.selectedGoal!;
 
   @override
   void initState({List<TFAnnotation>? tfaList}) {

@@ -12,11 +12,11 @@ import '../../components/navbar.dart';
 import '../../extra/services.dart';
 import '../element_of_work/ew_filter_dropdown.dart';
 import '../element_of_work/ew_list.dart';
-import 'goal_controller.dart';
+import '../element_of_work/ew_view_controller.dart';
 
 class GoalListView extends StatelessWidget {
   static String get routeName => 'goal_list';
-  GoalController get _controller => goalController;
+  EWViewController get _controller => ewViewController;
 
   @override
   Widget build(BuildContext context) {

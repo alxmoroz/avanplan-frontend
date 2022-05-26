@@ -36,7 +36,7 @@ class GoalEditView extends StatefulWidget {
 
 class _GoalViewState extends State<GoalEditView> {
   GoalController get _controller => goalController;
-  Goal? get _goal => _controller.selectedGoal;
+  Goal? get _goal => ewViewController.selectedGoal;
   bool get _isNew => _goal == null;
   bool get _canSave => _controller.validated;
 

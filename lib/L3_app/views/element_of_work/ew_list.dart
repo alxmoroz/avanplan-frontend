@@ -20,7 +20,7 @@ class EWList extends StatelessWidget {
       // TODO: обработку клика делать внутри карточки
       return EWCard(
         element: element,
-        onTap: () => element is Goal ? goalController.showGoal(context, element) : ewViewController.showTask(context, element as Task),
+        onTap: () => element is Goal ? ewViewController.showGoal(context, element) : ewViewController.showTask(context, element as Task),
       );
     }
 

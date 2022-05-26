@@ -13,7 +13,7 @@ abstract class _EWFilterControllerBase with Store {
   // TODO: здесь можно заменить на EW для подзадач и использовать в дашборде задач и цели. И перенести в контроллер EWViewController
   // TODO: инициализировать родителем (выбранная цель)
 
-  Iterable<ElementOfWork> get _allEW => goalController.goals;
+  Iterable<ElementOfWork> get _allEW => ewViewController.goals;
   @computed
   int get allEWCount => _allEW.length;
 

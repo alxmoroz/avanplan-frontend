@@ -25,7 +25,7 @@ class EWView extends StatelessWidget {
     String _breadcrumbs = '';
     if (!_isGoal) {
       final titles = _controller.navStackTasks.take(_controller.navStackTasks.length - 1).map((pt) => pt.title).toList();
-      titles.insert(0, _controller.selectedGoal.title);
+      titles.insert(0, _controller.selectedGoal!.title);
       _breadcrumbs = titles.join(sepStr);
     }
     return _breadcrumbs;

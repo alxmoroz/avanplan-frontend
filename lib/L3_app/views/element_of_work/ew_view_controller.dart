@@ -11,14 +11,14 @@ import '../../../L1_domain/entities/goals/task.dart';
 import '../../extra/services.dart';
 import '../_base/base_controller.dart';
 import '../task/task_edit_view.dart';
-import '../task/task_view.dart';
+import 'ew_view.dart';
 
 part 'ew_view_controller.g.dart';
 
 class EWViewController extends _EWViewControllerBase with _$EWViewController {}
 
 abstract class _EWViewControllerBase extends BaseController with Store {
-  Goal get goal => goalController.selectedGoal!;
+  Goal get selectedGoal => goalController.selectedGoal!;
 
   /// история переходов и текущая выбранная задача
 
@@ -29,10 +29,13 @@ abstract class _EWViewControllerBase extends BaseController with Store {
   int? get _selectedTaskId => navStackTasks.isNotEmpty ? navStackTasks.last.id : null;
 
   @computed
-  Task? get task => goal.tasks.firstWhereOrNull((t) => t.id == _selectedTaskId);
+  Task? get selectedTask => selectedGoal.tasks.firstWhereOrNull((t) => t.id == _selectedTaskId);
 
   @computed
-  bool get isGoal => task == null;
+  bool get isGoal => selectedTask == null;
+
+  @computed
+  ElementOfWork? get selectedEW => isGoal ? selectedGoal : selectedTask;
 
   @action
   void pushTask(Task _task) {
@@ -51,27 +54,30 @@ abstract class _EWViewControllerBase extends BaseController with Store {
   // универсальный способ получить подзадачи первого уровня для цели и для выбранной задачи
   @computed
   List<Task> get subtasks {
-    final _tasks = goal.tasks.where((t) => t.parentId == _selectedTaskId).toList();
+    // TODO: может просто selectedEW.tasks?
+    final _tasks = selectedGoal.tasks.where((t) => t.parentId == _selectedTaskId).toList();
     _tasks.sort((t1, t2) => t1.title.compareTo(t2.title));
     return _tasks;
   }
 
   /// редактирование подзадач
-
+  @action
   void _addTask(Task _task) {
-    goal.tasks.add(_task);
+    selectedGoal.tasks.add(_task);
     if (!isGoal) {
-      task!.tasks.add(_task);
+      selectedTask!.tasks.add(_task);
     }
   }
 
+  @action
   void _deleteTask(Task _task, List<Task>? _subtasks) {
     for (Task t in _subtasks ?? []) {
       _deleteTask(t, _task.tasks);
     }
-    goal.tasks.remove(goal.tasks.firstWhereOrNull((t) => t.id == _task.id));
+    selectedGoal.tasks.remove(selectedGoal.tasks.firstWhereOrNull((t) => t.id == _task.id));
   }
 
+  @action
   void _updateTask(Task _task, ElementOfWork _parent) {
     final index = _parent.tasks.indexWhere((t) => t.id == _task.id);
     if (index >= 0) {
@@ -83,26 +89,29 @@ abstract class _EWViewControllerBase extends BaseController with Store {
     }
   }
 
+  @action
   void _updateParents(Task _task) {
-    final parent = goal.tasks.firstWhereOrNull((t) => t.id == _task.parentId);
+    final parent = selectedGoal.tasks.firstWhereOrNull((t) => t.id == _task.parentId);
     if (parent != null) {
       _updateParents(parent);
       _updateTask(_task, parent);
     } else {
-      _updateTask(_task, goal);
-      goalController.updateGoalInList(goal);
+      _updateTask(_task, selectedGoal);
+      goalController.updateGoalInList(selectedGoal);
     }
   }
 
   /// роутер
-  @action
   Future showTask(BuildContext context, Task _task) async {
     pushTask(_task);
-    await Navigator.of(context).pushNamed(TaskView.routeName);
+    await Navigator.of(context).pushNamed(EWView.routeName);
     popTask();
   }
 
-  @action
+  Future addEW(BuildContext context) async {
+    await addTask(context);
+  }
+
   Future addTask(BuildContext context) async {
     final newTask = await showEditTaskDialog(context);
     if (newTask != null) {
@@ -111,15 +120,22 @@ abstract class _EWViewControllerBase extends BaseController with Store {
     }
   }
 
-  @action
+  Future editEW(BuildContext context) async {
+    if (isGoal) {
+      await goalController.editGoal(context, selectedGoal);
+    } else {
+      await editTask(context);
+    }
+  }
+
   Future editTask(BuildContext context) async {
-    final editedTask = await showEditTaskDialog(context, task);
+    final editedTask = await showEditTaskDialog(context, selectedTask);
     if (editedTask != null) {
       if (editedTask.deleted) {
         _deleteTask(editedTask, null);
         Navigator.of(context).pop();
       } else {
-        _updateTask(editedTask, goal);
+        _updateTask(editedTask, selectedGoal);
       }
       _updateParents(editedTask);
     }

@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/api_schema/task_upsert.dart';
+import '../../../L1_domain/entities/goals/element_of_work.dart';
 import '../../../L1_domain/entities/goals/goal.dart';
 import '../../../L1_domain/entities/goals/task.dart';
 import '../../../L1_domain/entities/goals/task_status.dart';
@@ -27,9 +28,11 @@ abstract class _TaskEditControllerBase extends EWEditController with Store {
   @override
   void initState({List<TFAnnotation>? tfaList}) {
     super.initState(tfaList: tfaList);
-    setDueDate(selectedTask?.dueDate);
-    setClosed(selectedTask?.closed);
-    selectStatus(selectedTask?.status);
+    setDueDate(selectedEW?.dueDate);
+    setClosed(selectedEW?.closed);
+    if (!ewViewController.isGoal) {
+      selectStatus((selectedEW as Task?)?.status);
+    }
   }
 
   @override
@@ -78,24 +81,24 @@ abstract class _TaskEditControllerBase extends EWEditController with Store {
 
   /// выбранная задача
   @observable
-  Task? selectedTask;
+  ElementOfWork? selectedEW;
 
   @action
-  void selectTask(Task? _task) => selectedTask = _task;
+  void selectTask(ElementOfWork? _ew) => selectedEW = _ew;
 
   @override
   @computed
-  bool get canEdit => selectedTask != null;
+  bool get canEdit => selectedEW != null;
 
   @computed
-  int? get _parentId => canEdit ? ewViewController.task?.parentId : ewViewController.task?.id;
+  int? get _parentId => canEdit ? ewViewController.selectedTask?.parentId : ewViewController.selectedTask?.id;
 
   /// действия
 
   Future save(BuildContext context) async {
     final editedTask = await tasksUC.save(TaskUpsert(
       goalId: _goal.id,
-      id: selectedTask?.id,
+      id: selectedEW?.id,
       parentId: _parentId,
       title: tfAnnoForCode('title').text,
       description: tfAnnoForCode('description').text,
@@ -122,7 +125,8 @@ abstract class _TaskEditControllerBase extends EWEditController with Store {
         ],
       );
       if (confirm != null && confirm) {
-        Navigator.of(context).pop(await tasksUC.delete(task: selectedTask!));
+        final deletedEW = ewViewController.isGoal ? await goalsUC.delete(goal: selectedEW as Goal) : await tasksUC.delete(task: selectedEW as Task);
+        Navigator.of(context).pop(deletedEW);
       }
     }
   }

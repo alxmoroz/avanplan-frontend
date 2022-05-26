@@ -2,18 +2,18 @@
 
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:hercules/L1_domain/entities/goals/element_of_work.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/api_schema/goal_upsert.dart';
 import '../../../L1_domain/entities/auth/workspace.dart';
+import '../../../L1_domain/entities/goals/element_of_work.dart';
 import '../../../L1_domain/entities/goals/goal.dart';
 import '../../components/mt_confirm_dialog.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
 import '../element_of_work/ew_edit_controller.dart';
+import '../element_of_work/ew_view.dart';
 import 'goal_edit_view.dart';
-import 'goal_view.dart';
 
 part 'goal_controller.g.dart';
 
@@ -138,7 +138,7 @@ abstract class _GoalControllerBase extends EWEditController with Store {
 
   Future showGoal(BuildContext context, Goal goal) async {
     selectGoal(goal);
-    await Navigator.of(context).pushNamed(GoalView.routeName);
+    await Navigator.of(context).pushNamed(EWView.routeName);
   }
 
   Future addGoal(BuildContext context) async {

@@ -21,7 +21,7 @@ class MainDashboard extends StatelessWidget {
         SampleProgress(
           ratio: ewFilterController.overdueEWCount / ewFilterController.openedEWCount,
           color: stateColor(OverallState.overdue),
-          titleText: loc.ew_overdue_items,
+          titleText: loc.ew_filter_overdue,
           trailingText: '${ewFilterController.overdueEWCount}',
           subtitleText: stateTextDetails(OverallState.overdue, overduePeriod: ewFilterController.overduePeriod),
         ),
@@ -32,7 +32,7 @@ class MainDashboard extends StatelessWidget {
         SampleProgress(
           ratio: ewFilterController.riskyEWCount / ewFilterController.openedEWCount,
           color: stateColor(OverallState.risk),
-          titleText: loc.ew_risky_items,
+          titleText: loc.ew_filter_risky,
           trailingText: '${ewFilterController.riskyEWCount}',
           subtitleText: stateTextDetails(OverallState.risk, etaRiskPeriod: ewFilterController.riskPeriod),
         ),
@@ -43,7 +43,7 @@ class MainDashboard extends StatelessWidget {
         SampleProgress(
           ratio: ewFilterController.noDueEWCount / ewFilterController.openedEWCount,
           color: noInfoColor,
-          titleText: loc.ew_no_due_items,
+          titleText: loc.ew_filter_no_due,
           trailingText: '${ewFilterController.noDueEWCount}',
         ),
       ],
@@ -52,7 +52,7 @@ class MainDashboard extends StatelessWidget {
         SampleProgress(
           ratio: ewFilterController.inactiveEWCount / ewFilterController.openedEWCount,
           color: noInfoColor,
-          titleText: loc.ew_no_progress_items,
+          titleText: loc.ew_filter_no_progress,
           trailingText: '${ewFilterController.inactiveEWCount}',
         ),
       ],
@@ -61,7 +61,7 @@ class MainDashboard extends StatelessWidget {
         SampleProgress(
           ratio: ewFilterController.closableEWCount / ewFilterController.openedEWCount,
           color: noInfoColor,
-          titleText: loc.ew_no_opened_tasks_items,
+          titleText: loc.ew_filter_no_opened_tasks,
           trailingText: '${ewFilterController.closableEWCount}',
         ),
       ],
@@ -72,7 +72,7 @@ class MainDashboard extends StatelessWidget {
         SampleProgress(
           ratio: ewFilterController.okEWCount / ewFilterController.openedEWCount,
           color: stateColor(OverallState.ok),
-          titleText: loc.ew_ok_items,
+          titleText: loc.ew_filter_ok,
           trailingText: '${ewFilterController.okEWCount}',
         ),
       ],

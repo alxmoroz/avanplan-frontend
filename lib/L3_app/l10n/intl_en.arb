@@ -21,30 +21,20 @@
 
   "error_get_goals": "Error getting goals\nTry choosing a different tracker",
 
-  "ew_all_items": "All",
-  "ew_no_due_items": "No due date",
-  "ew_no_opened_tasks_items": "Closable",
-  "ew_no_progress_items": "No progress",
-  "ew_ok_items": "On time",
-  "ew_opened_items": "Opened",
-  "ew_overdue_items": "Overdue",
-  "ew_risky_items": "Risky",
-
-  "goal_delete_dialog_title": "Delete goal?",
-  "goal_delete_dialog_description": "All tasks of this goal will be deleted",
-  "goal_import": "Import goals",
-  "goal_list_count": "{count, plural, one{1 goal set} other{{count} goals have been set}}",
-  "goal_list_empty_title": "There are no goals",
-  "goal_list_empty_title_import": "There are no goals or projects available to import\nTry choosing a different tracker",
-  "goal_list_title": "Goals",
-  "goal_title": "Goal",
-  "goal_title_new": "New goal",
-
-  "integration": "Integration",
+  "ew_delete_dialog_description": "All subtasks will be deleted",
 
   "ew_due_date_label": "Planned",
   "ew_due_date_placeholder": "Due date",
   "ew_eta_date_label": "Predicted",
+
+  "ew_filter_all": "All",
+  "ew_filter_no_due": "No due date",
+  "ew_filter_no_opened_tasks": "Closable",
+  "ew_filter_no_progress": "No progress",
+  "ew_filter_ok": "On time",
+  "ew_filter_opened": "Opened",
+  "ew_filter_overdue": "Overdue",
+  "ew_filter_risky": "Risky",
 
   "ew_state_no_info_title": "Set deadlines, set subtasks",
   "ew_state_ok_title": "All according to plan",
@@ -55,8 +45,18 @@
 
   "ew_subtasks_count": "{count, plural, one{1 task} other{{count} tasks}}",
 
+  "goal_delete_dialog_title": "Delete goal?",
+  "goal_import": "Import goals",
+  "goal_list_count": "{count, plural, one{1 goal set} other{{count} goals have been set}}",
+  "goal_list_empty_title": "There are no goals",
+  "goal_list_empty_title_import": "There are no goals or projects available to import\nTry choosing a different tracker",
+  "goal_list_title": "Goals",
+  "goal_title": "Goal",
+  "goal_title_new": "New goal",
+
+  "integration": "Integration",
+
   "task_delete_dialog_title": "Delete task?",
-  "task_delete_dialog_description": "All subtasks of this task will be deleted",
   "task_list_empty_title": "There are no tasks",
   "task_title": "Task",
   "task_title_new": "New task",

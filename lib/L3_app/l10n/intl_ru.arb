@@ -21,30 +21,20 @@
 
   "error_get_goals": "Ошибка получения списка целей или проектов\nПопробуйте выбрать другой источник",
 
-  "ew_all_items": "Все",
-  "ew_no_due_items": "Без срока",
-  "ew_no_opened_tasks_items": "Все задачи закрыты",
-  "ew_no_progress_items": "Без прогресса",
-  "ew_ok_items": "Успеваем",
-  "ew_opened_items": "Открытые",
-  "ew_overdue_items": "Просроченные",
-  "ew_risky_items": "C риском",
+  "ew_delete_dialog_description": "Все подзадачи также будут удалены",
 
-  "goal_delete_dialog_title": "Удалить цель?",
-  "goal_delete_dialog_description": "Все задачи цели также будут удалены",
-  "goal_import": "Импорт целей",
-  "goal_list_count": "{count, plural, one{Поставлена {count} цель} few{Поставлено {count} цели} other{Поставлено {count} целей}}",
-  "goal_list_empty_title": "Нет целей",
-  "goal_list_empty_title_import": "Нет доступных для импорта целей или проектов\nПопробуйте выбрать другой источник",
-  "goal_list_title": "Цели",
-  "goal_title": "Цель",
-  "goal_title_new": "Новая цель",
-
-  "integration": "Интеграция",
-
-  "ew_due_date_placeholder": "Срок завершения",
   "ew_due_date_label": "План",
+  "ew_due_date_placeholder": "Срок завершения",
   "ew_eta_date_label": "Прогноз",
+
+  "ew_filter_all": "Все",
+  "ew_filter_no_due": "Без срока",
+  "ew_filter_no_opened_tasks": "Все задачи закрыты",
+  "ew_filter_no_progress": "Без прогресса",
+  "ew_filter_ok": "Успеваем",
+  "ew_filter_opened": "Открытые",
+  "ew_filter_overdue": "Просроченные",
+  "ew_filter_risky": "C риском",
 
   "ew_state_no_info_title": "Ставьте сроки, разделяйте на задачи",
   "ew_state_ok_title": "Всё идёт по плану",
@@ -55,8 +45,18 @@
 
   "ew_subtasks_count": "{count, plural, one{{count} задача} few{{count} задачи} other{{count} задач}}",
 
+  "goal_delete_dialog_title": "Удалить цель?",
+  "goal_import": "Импорт целей",
+  "goal_list_count": "{count, plural, one{Поставлена {count} цель} few{Поставлено {count} цели} other{Поставлено {count} целей}}",
+  "goal_list_empty_title": "Нет целей",
+  "goal_list_empty_title_import": "Нет доступных для импорта целей или проектов\nПопробуйте выбрать другой источник",
+  "goal_list_title": "Цели",
+  "goal_title": "Цель",
+  "goal_title_new": "Новая цель",
+
+  "integration": "Интеграция",
+
   "task_delete_dialog_title": "Удалить задачу?",
-  "task_delete_dialog_description": "Все подзадачи также будут удалены",
   "task_list_empty_title": "Нет задач",
   "task_title": "Задача",
   "task_title_new": "Новая задача",

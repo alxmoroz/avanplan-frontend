@@ -9,28 +9,28 @@ String ewFilterText(EWFilter ewf) {
   String res = '???';
   switch (ewf) {
     case EWFilter.overdue:
-      res = '${loc.ew_overdue_items}$_sep${ewFilterController.overdueEWCount}';
+      res = '${loc.ew_filter_overdue}$_sep${ewFilterController.overdueEWCount}';
       break;
     case EWFilter.risky:
-      res = '${loc.ew_risky_items}$_sep${ewFilterController.riskyEWCount}';
+      res = '${loc.ew_filter_risky}$_sep${ewFilterController.riskyEWCount}';
       break;
     case EWFilter.noDue:
-      res = '${loc.ew_no_due_items}$_sep${ewFilterController.noDueEWCount}';
+      res = '${loc.ew_filter_no_due}$_sep${ewFilterController.noDueEWCount}';
       break;
     case EWFilter.inactive:
-      res = '${loc.ew_no_progress_items}$_sep${ewFilterController.inactiveEWCount}';
+      res = '${loc.ew_filter_no_progress}$_sep${ewFilterController.inactiveEWCount}';
       break;
     case EWFilter.closable:
-      res = '${loc.ew_no_opened_tasks_items}$_sep${ewFilterController.closableEWCount}';
+      res = '${loc.ew_filter_no_opened_tasks}$_sep${ewFilterController.closableEWCount}';
       break;
     case EWFilter.ok:
-      res = '${loc.ew_ok_items}$_sep${ewFilterController.okEWCount}';
+      res = '${loc.ew_filter_ok}$_sep${ewFilterController.okEWCount}';
       break;
     case EWFilter.opened:
-      res = '${loc.ew_opened_items}$_sep${ewFilterController.openedEWCount}';
+      res = '${loc.ew_filter_opened}$_sep${ewFilterController.openedEWCount}';
       break;
     case EWFilter.all:
-      res = '${loc.ew_all_items}$_sep${ewFilterController.allEWCount}';
+      res = '${loc.ew_filter_all}$_sep${ewFilterController.allEWCount}';
       break;
   }
   return res;

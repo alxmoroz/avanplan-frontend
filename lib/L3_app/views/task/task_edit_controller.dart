@@ -118,7 +118,7 @@ abstract class _TaskEditControllerBase extends EWEditController with Store {
       final confirm = await showMTDialog<bool?>(
         context,
         title: loc.task_delete_dialog_title,
-        description: '${loc.task_delete_dialog_description}\n${loc.common_delete_dialog_description}',
+        description: '${loc.ew_delete_dialog_description}\n${loc.common_delete_dialog_description}',
         actions: [
           MTDialogAction(title: loc.common_yes, isDestructive: true, result: true),
           MTDialogAction(title: loc.common_no, isDefault: true, result: false),

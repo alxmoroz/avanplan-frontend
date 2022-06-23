@@ -42,14 +42,7 @@ class GoalListView extends StatelessWidget {
                   children: [
                     if (ewFilterController.hasFilters) ...[
                       SizedBox(height: onePadding),
-                      Row(
-                        children: [
-                          SizedBox(width: onePadding),
-                          const Spacer(),
-                          Expanded(child: EWFilterDropdown()),
-                          SizedBox(width: onePadding),
-                        ],
-                      ),
+                      EWFilterDropdown(),
                     ],
                     SizedBox(height: onePadding / 2),
                     EWList(ewFilterController.filteredEW),

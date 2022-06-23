@@ -56,6 +56,8 @@
 
   "integration": "Интеграция",
 
+  "overview": "Обзор",
+
   "task_delete_dialog_title": "Удалить задачу?",
   "task_list_empty_title": "Нет задач",
   "task_title": "Задача",

@@ -3,97 +3,52 @@
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/goals/element_of_work.dart';
-import '../../../L1_domain/entities/goals/task.dart';
-import '../../../L1_domain/entities/goals/task_status.dart';
+import '../../../L1_domain/entities/goals/goal.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/date_string_widget.dart';
 import '../../components/icons.dart';
-import '../../components/mt_button.dart';
-import '../../components/mt_details_dialog.dart';
 import '../../components/mt_divider.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import 'ew_state_indicator.dart';
+import 'ew_view_controller.dart';
 
 class EWHeader extends StatelessWidget {
-  const EWHeader({
-    required this.element,
-    this.breadcrumbs,
-  });
+  const EWHeader(this.element);
 
   final ElementOfWork element;
-  final String? breadcrumbs;
 
-  bool get isTask => element is Task;
-
-  bool get hasDescription => element.description.isNotEmpty;
   bool get hasLink => element.trackerId != null;
-  bool get hasDates => element.dueDate != null || element.etaDate != null;
   bool get isClosed => element.closed;
-  TaskStatus? get status => isTask ? (element as Task).status : null;
-  bool get hasStatus => status != null;
+  EWViewController get _controller => ewViewController;
 
-  Widget title(BuildContext context) => H2(element.title, decoration: isClosed ? TextDecoration.lineThrough : null);
-
-  Widget header(BuildContext context) {
-    return Row(children: [
-      Expanded(child: title(context)),
-      SizedBox(width: onePadding / 2),
-      if (hasLink) ...[
-        SizedBox(height: onePadding / 2),
-        linkIcon(context, color: darkGreyColor),
-      ],
-    ]);
+  String get breadcrumbs {
+    const sepStr = ' ⟩ ';
+    String _breadcrumbs = '';
+    if (!(element is Goal)) {
+      final titles = _controller.navStackTasks.take(_controller.navStackTasks.length - 1).map((pt) => pt.title).toList();
+      titles.insert(0, _controller.selectedGoal!.title);
+      _breadcrumbs = titles.join(sepStr);
+    }
+    return _breadcrumbs;
   }
-
-  Widget description() => LayoutBuilder(builder: (context, size) {
-        final text = element.description;
-        final maxLines = element.tasksCount > 0 ? 3 : 9;
-        final detailedTextWidget = LightText(text, maxLines: maxLines);
-        final span = TextSpan(text: text, style: detailedTextWidget.style(context));
-        final tp = TextPainter(text: span, maxLines: maxLines, textDirection: TextDirection.ltr);
-        tp.layout(maxWidth: size.maxWidth);
-        final bool hasButton = tp.didExceedMaxLines;
-        final divider = MTDivider(color: !hasButton ? Colors.transparent : null);
-        final innerWidget = Column(children: [
-          divider,
-          Row(children: [
-            Expanded(child: detailedTextWidget),
-            if (hasButton) Row(children: [SizedBox(width: onePadding / 2), infoIcon(context)]),
-          ]),
-          divider,
-        ]);
-        return hasButton ? MTButton('', () => showDetailsDialog(context, element.description), child: innerWidget) : innerWidget;
-      });
-
-  Widget buildDates() => Row(children: [
-        DateStringWidget(element.dueDate, titleString: loc.ew_due_date_label),
-        const Spacer(),
-        if (element.leftEWCount > 0) DateStringWidget(element.etaDate, titleString: loc.ew_eta_date_label),
-      ]);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(onePadding),
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        if (breadcrumbs != null && breadcrumbs!.isNotEmpty) ...[
-          SmallText(breadcrumbs!),
+        if (breadcrumbs.isNotEmpty) ...[
+          SmallText(breadcrumbs),
           const MTDivider(),
         ],
-        header(context),
-        if (hasStatus) ...[
-          SizedBox(height: onePadding / 2),
-          SmallText(status!.title),
-        ],
-        if (hasDescription) description(),
-        if (hasDates) ...[
-          SizedBox(height: onePadding / 2),
-          buildDates(),
-        ],
-        SizedBox(height: onePadding),
-        EWStateIndicator(element),
+        Row(children: [
+          Expanded(child: H2(element.title, decoration: isClosed ? TextDecoration.lineThrough : null)),
+          SizedBox(width: onePadding / 2),
+          if (hasLink) ...[
+            SizedBox(height: onePadding / 2),
+            linkIcon(context, color: darkGreyColor),
+          ],
+        ]),
       ]),
     );
   }

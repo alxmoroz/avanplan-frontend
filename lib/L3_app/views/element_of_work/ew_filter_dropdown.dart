@@ -22,14 +22,23 @@ class EWFilterDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButtonFormField2<EWFilter>(
-      decoration: const InputDecoration(isDense: true, border: InputBorder.none),
-      items: ddItems,
-      value: ewFilterController.ewFilter,
-      icon: downCaretIcon(context),
-      onChanged: (type) => ewFilterController.setFilter(type),
-      dropdownDecoration: BoxDecoration(borderRadius: BorderRadius.circular(onePadding)),
-      isExpanded: true,
+    return Row(
+      children: [
+        SizedBox(width: onePadding),
+        const Spacer(),
+        Expanded(
+          child: DropdownButtonFormField2<EWFilter>(
+            decoration: const InputDecoration(isDense: true, border: InputBorder.none),
+            items: ddItems,
+            value: ewFilterController.ewFilter,
+            icon: downCaretIcon(context),
+            onChanged: (type) => ewFilterController.setFilter(type),
+            dropdownDecoration: BoxDecoration(borderRadius: BorderRadius.circular(onePadding)),
+            isExpanded: true,
+          ),
+        ),
+        SizedBox(width: onePadding),
+      ],
     );
   }
 }

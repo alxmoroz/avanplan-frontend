@@ -2,12 +2,12 @@
 
 import 'package:openapi/openapi.dart';
 
-import '../../L1_domain/entities/task.dart';
+import '../../L1_domain/entities/element_of_work.dart';
 import 'task_priority.dart';
 import 'task_status.dart';
 
 extension TaskMapper on TaskSchemaGet {
-  Task get task => Task(
+  ElementOfWork get task => ElementOfWork(
         id: id,
         parentId: parentId,
         createdOn: createdOn.toLocal(),

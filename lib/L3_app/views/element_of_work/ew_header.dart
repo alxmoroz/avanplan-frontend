@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/element_of_work.dart';
-import '../../../L1_domain/entities/goal.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -24,7 +23,7 @@ class EWHeader extends StatelessWidget {
   String get breadcrumbs {
     const sepStr = ' ⟩ ';
     String _breadcrumbs = '';
-    if (!(element is Goal)) {
+    if (!element.isGoal) {
       final titles = _controller.navStackTasks.take(_controller.navStackTasks.length - 1).map((pt) => pt.title).toList();
       titles.insert(0, _controller.selectedGoal!.title);
       _breadcrumbs = titles.join(sepStr);

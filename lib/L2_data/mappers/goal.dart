@@ -2,11 +2,11 @@
 
 import 'package:openapi/openapi.dart';
 
-import '../../L1_domain/entities/goal.dart';
+import '../../L1_domain/entities/element_of_work.dart';
 import 'task.dart';
 
 extension GoalMapper on GoalSchemaGet {
-  Goal get goal => Goal(
+  ElementOfWork get goal => ElementOfWork(
         id: id,
         workspaceId: workspaceId,
         parentId: parentId,

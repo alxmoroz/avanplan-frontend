@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/element_of_work.dart';
-import '../../../L1_domain/entities/goal.dart';
 import '../../components/constants.dart';
 import '../../components/empty_data_widget.dart';
 import '../../components/icons.dart';
@@ -44,7 +43,6 @@ class _EWPageState extends State<EWPage> {
   _TabKeys? tabKeyValue = _TabKeys.overview;
 
   ElementOfWork get ew => widget.ew;
-  bool get isGoal => ew is Goal;
   bool get hasSubtasks => ew.tasksCount > 0;
   EWViewController get _controller => ewViewController;
 
@@ -78,7 +76,7 @@ class _EWPageState extends State<EWPage> {
       isLoading: _controller.isLoading,
       navBar: navBar(
         context,
-        title: '${isGoal ? loc.goal_title : loc.task_title} #${ew.id}',
+        title: '${ew.isGoal ? loc.goal_title : loc.task_title} #${ew.id}',
         trailing: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
@@ -101,7 +99,7 @@ class _EWPageState extends State<EWPage> {
               tabPaneSelector(),
             ],
             selectedPane(),
-            if (!hasSubtasks && ew is Goal)
+            if (!hasSubtasks && ew.isGoal)
               EmptyDataWidget(
                 title: loc.task_list_empty_title,
                 addTitle: loc.task_title_new,

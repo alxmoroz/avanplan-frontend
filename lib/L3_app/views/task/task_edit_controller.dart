@@ -6,8 +6,6 @@ import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/api_schema/task_upsert.dart';
 import '../../../L1_domain/entities/element_of_work.dart';
-import '../../../L1_domain/entities/goal.dart';
-import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/task_status.dart';
 import '../../components/mt_confirm_dialog.dart';
 import '../../components/mt_dropdown.dart';
@@ -22,7 +20,7 @@ class TaskEditController extends _TaskEditControllerBase with _$TaskEditControll
 // TODO: подумать над объединением с контроллером просмотра. Проблему может доставить initState, который вызывает вьюха редактирования
 
 abstract class _TaskEditControllerBase extends EWEditController with Store {
-  Goal get _goal => ewViewController.selectedGoal!;
+  ElementOfWork get _goal => ewViewController.selectedGoal!;
 
   @override
   void initState({List<TFAnnotation>? tfaList}) {
@@ -30,7 +28,7 @@ abstract class _TaskEditControllerBase extends EWEditController with Store {
     setDueDate(selectedEW?.dueDate);
     setClosed(selectedEW?.closed);
     if (!ewViewController.isGoal) {
-      selectStatus((selectedEW as Task?)?.status);
+      selectStatus(selectedEW?.status);
     }
   }
 
@@ -124,7 +122,7 @@ abstract class _TaskEditControllerBase extends EWEditController with Store {
         ],
       );
       if (confirm != null && confirm) {
-        final deletedEW = ewViewController.isGoal ? await goalsUC.delete(goal: selectedEW as Goal) : await tasksUC.delete(task: selectedEW as Task);
+        final deletedEW = ewViewController.isGoal ? await goalsUC.delete(goal: selectedEW!) : await tasksUC.delete(task: selectedEW!);
         Navigator.of(context).pop(deletedEW);
       }
     }

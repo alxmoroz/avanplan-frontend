@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/element_of_work.dart';
-import '../../../L1_domain/entities/task.dart';
 import '../../components/constants.dart';
 import '../../components/date_string_widget.dart';
 import '../../components/icons.dart';
@@ -22,7 +21,6 @@ class EWCard extends StatelessWidget {
   final VoidCallback? onTap;
   final bool expanded;
 
-  bool get isTask => element is Task;
   bool get isClosed => element.closed;
 
   bool get showDescription => expanded && element.description.isNotEmpty;

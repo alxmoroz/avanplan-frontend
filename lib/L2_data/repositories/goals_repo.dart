@@ -3,21 +3,21 @@
 import 'package:openapi/openapi.dart';
 
 import '../../L1_domain/api_schema/goal_upsert.dart';
-import '../../L1_domain/entities/goal.dart';
+import '../../L1_domain/entities/element_of_work.dart';
 import '../../L1_domain/repositories/abs_api_repo.dart';
 import '../../L3_app/extra/services.dart';
 import '../mappers/goal.dart';
 
 // TODO: для всех подобных репозиториев: развязать узел зависимости от 3 уровня за счёт инициализации openApi в конструктор репы
 
-class GoalsRepo extends AbstractApiRepo<Goal, GoalUpsert> {
+class GoalsRepo extends AbstractApiRepo<ElementOfWork, GoalUpsert> {
   GoalsApi get api => openAPI.getGoalsApi();
 
   @override
-  Future<List<Goal>> getAll() async => throw UnimplementedError();
+  Future<List<ElementOfWork>> getAll() async => throw UnimplementedError();
 
   @override
-  Future<Goal?> save(GoalUpsert data) async {
+  Future<ElementOfWork?> save(GoalUpsert data) async {
     // TODO: не учитываются возможные ошибки! Нет обработки 403 и т.п.
     final builder = GoalSchemaUpsertBuilder()
       ..id = data.id
@@ -28,7 +28,7 @@ class GoalsRepo extends AbstractApiRepo<Goal, GoalUpsert> {
       ..workspaceId = data.workspaceId;
 
     final response = await api.upsertGoalV1GoalsPost(goalSchemaUpsert: builder.build());
-    Goal? goal;
+    ElementOfWork? goal;
     if (response.statusCode == 201) {
       goal = response.data?.goal;
     }

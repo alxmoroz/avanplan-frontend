@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../L1_domain/entities/goal.dart';
+import '../../../L1_domain/entities/element_of_work.dart';
 import '../../components/close_dialog_button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
@@ -17,8 +17,8 @@ import 'goal_controller.dart';
 
 //TODO: подумать над унификацией полей. Возможно, получится избавиться от дуэта MTField и TFAnnotation
 
-Future<Goal?> showEditGoalDialog(BuildContext context) async {
-  return await showModalBottomSheet<Goal?>(
+Future<ElementOfWork?> showEditGoalDialog(BuildContext context) async {
+  return await showModalBottomSheet<ElementOfWork?>(
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
@@ -36,7 +36,7 @@ class GoalEditView extends StatefulWidget {
 
 class _GoalViewState extends State<GoalEditView> {
   GoalController get _controller => goalController;
-  Goal? get _goal => ewViewController.selectedGoal;
+  ElementOfWork? get _goal => ewViewController.selectedGoal;
   bool get _isNew => _goal == null;
   bool get _canSave => _controller.validated;
 

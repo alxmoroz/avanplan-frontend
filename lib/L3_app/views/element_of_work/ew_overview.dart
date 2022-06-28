@@ -3,8 +3,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/element_of_work.dart';
-import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/entities/task_status.dart';
 import '../../components/constants.dart';
 import '../../components/date_string_widget.dart';
 import '../../components/icons.dart';
@@ -23,14 +21,11 @@ class EWOverview extends StatelessWidget {
 
   final ElementOfWork element;
 
-  bool get isTask => element is Task;
-
   bool get hasDescription => element.description.isNotEmpty;
   bool get hasLink => element.trackerId != null;
   bool get hasDates => element.dueDate != null || element.etaDate != null;
   bool get isClosed => element.closed;
-  TaskStatus? get status => isTask ? (element as Task).status : null;
-  bool get hasStatus => status != null;
+  bool get hasStatus => element.status != null;
   bool get hasSubtasks => element.tasksCount > 0;
 
   Widget description() => LayoutBuilder(builder: (context, size) {
@@ -66,7 +61,7 @@ class EWOverview extends StatelessWidget {
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         if (hasStatus) ...[
           SizedBox(height: onePadding / 2),
-          SmallText(status!.title),
+          SmallText(element.status!.title),
         ],
         if (hasDescription) description(),
         if (hasDates) ...[

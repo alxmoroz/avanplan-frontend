@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/element_of_work.dart';
-import '../../../L1_domain/entities/task.dart';
 import '../../components/close_dialog_button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
@@ -16,10 +15,10 @@ import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
 import 'task_edit_controller.dart';
 
-Future<Task?> showEditTaskDialog(BuildContext context, [ElementOfWork? selectedEW]) async {
+Future<ElementOfWork?> showEditTaskDialog(BuildContext context, [ElementOfWork? selectedEW]) async {
   taskEditController.selectTask(selectedEW);
 
-  return await showModalBottomSheet<Task?>(
+  return await showModalBottomSheet<ElementOfWork?>(
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,

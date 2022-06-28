@@ -1,13 +1,14 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'base_entity.dart';
-import 'task.dart';
+import 'task_priority.dart';
+import 'task_status.dart';
 
 enum OverallState { overdue, risk, ok, noInfo }
 
 enum EWFilter { all, opened, overdue, risky, ok, noDue, closable, inactive }
 
-abstract class ElementOfWork extends Statusable {
+class ElementOfWork extends Statusable {
   ElementOfWork({
     required int id,
     required String title,
@@ -19,6 +20,9 @@ abstract class ElementOfWork extends Statusable {
     required this.dueDate,
     required this.parentId,
     required this.trackerId,
+    this.workspaceId,
+    this.status,
+    this.priority,
   }) : super(id: id, title: title, closed: closed);
 
   final String description;
@@ -27,14 +31,41 @@ abstract class ElementOfWork extends Statusable {
   final DateTime? dueDate;
   final int? parentId;
   final int? trackerId;
-  List<Task> tasks;
+  final TaskStatus? status;
+  final TaskPriority? priority;
+  final int? workspaceId;
+  List<ElementOfWork> tasks;
+
+  ElementOfWork copy() => ElementOfWork(
+        id: id,
+        parentId: parentId,
+        createdOn: createdOn,
+        updatedOn: updatedOn,
+        title: title,
+        description: description,
+        dueDate: dueDate,
+        tasks: tasks,
+        closed: closed,
+        trackerId: trackerId,
+      );
+
+  // TODO: возможно, нужно тип задачи вводить просто (как трекер в редмайне)
+  bool get isGoal => workspaceId != null;
 
   Duration? get plannedPeriod => dueDate?.difference(createdOn);
   Duration get pastPeriod => DateTime.now().difference(createdOn);
   Duration? get overduePeriod => dueDate != null ? DateTime.now().difference(dueDate!) : null;
 
-  Iterable<Task> get allTasks => tasks;
-  Iterable<Task> get leafTasks => allTasks.where((t) => t.allTasks.isEmpty);
+  Iterable<ElementOfWork> get allEW {
+    final List<ElementOfWork> res = [];
+    for (ElementOfWork ew in tasks) {
+      res.addAll(ew.allEW);
+      res.add(ew);
+    }
+    return res;
+  }
+
+  Iterable<ElementOfWork> get leafTasks => allEW.where((t) => t.allEW.isEmpty);
   int get tasksCount => leafTasks.length;
   int get closedEWCount => leafTasks.where((t) => t.closed).length;
   int get leftEWCount => tasksCount - closedEWCount;

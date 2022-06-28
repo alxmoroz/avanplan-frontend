@@ -3,19 +3,19 @@
 import 'package:openapi/openapi.dart';
 
 import '../../L1_domain/api_schema/task_upsert.dart';
-import '../../L1_domain/entities/task.dart';
+import '../../L1_domain/entities/element_of_work.dart';
 import '../../L1_domain/repositories/abs_api_repo.dart';
 import '../../L3_app/extra/services.dart';
 import '../mappers/task.dart';
 
-class TasksRepo extends AbstractApiRepo<Task, TaskUpsert> {
+class TasksRepo extends AbstractApiRepo<ElementOfWork, TaskUpsert> {
   TasksApi get api => openAPI.getTasksApi();
 
   @override
-  Future<List<Task>> getAll() => throw UnimplementedError();
+  Future<List<ElementOfWork>> getAll() => throw UnimplementedError();
 
   @override
-  Future<Task?> save(TaskUpsert data) async {
+  Future<ElementOfWork?> save(TaskUpsert data) async {
     //TODO: не учитываются возможные ошибки! Нет обработки 403 и т.п.
     final builder = TaskSchemaUpsertBuilder()
       ..goalId = data.goalId
@@ -28,7 +28,7 @@ class TasksRepo extends AbstractApiRepo<Task, TaskUpsert> {
       ..dueDate = data.dueDate?.toUtc();
 
     final response = await api.upsertTaskV1TasksPost(taskSchemaUpsert: builder.build());
-    Task? task;
+    ElementOfWork? task;
     if (response.statusCode == 201) {
       task = response.data?.task;
     }

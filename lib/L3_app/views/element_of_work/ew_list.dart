@@ -3,8 +3,6 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../L1_domain/entities/element_of_work.dart';
-import '../../../L1_domain/entities/goal.dart';
-import '../../../L1_domain/entities/task.dart';
 import '../../../L3_app/extra/services.dart';
 import 'ew_card.dart';
 
@@ -20,7 +18,7 @@ class EWList extends StatelessWidget {
       // TODO: обработку клика делать внутри карточки
       return EWCard(
         element: element,
-        onTap: () => element is Goal ? ewViewController.showGoal(context, element) : ewViewController.showTask(context, element as Task),
+        onTap: () => element.isGoal ? ewViewController.showGoal(context, element) : ewViewController.showTask(context, element),
       );
     }
 

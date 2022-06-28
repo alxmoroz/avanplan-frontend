@@ -1,7 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../entities/goals/goal_import.dart';
-import '../entities/goals/remote_tracker.dart';
+import '../entities/goal_import.dart';
+import '../entities/remote_tracker.dart';
 import '../repositories/abs_api_repo.dart';
 
 class ImportUC {

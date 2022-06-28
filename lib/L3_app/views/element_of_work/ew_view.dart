@@ -3,8 +3,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../L1_domain/entities/goals/element_of_work.dart';
-import '../../../L1_domain/entities/goals/goal.dart';
+import '../../../L1_domain/entities/element_of_work.dart';
+import '../../../L1_domain/entities/goal.dart';
 import '../../components/constants.dart';
 import '../../components/empty_data_widget.dart';
 import '../../components/icons.dart';

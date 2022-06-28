@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../L1_domain/entities/goals/element_of_work.dart';
-import '../../../L1_domain/entities/goals/task.dart';
+import '../../../L1_domain/entities/element_of_work.dart';
+import '../../../L1_domain/entities/task.dart';
 import '../../components/close_dialog_button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';

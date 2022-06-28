@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../L1_domain/entities/goals/goal.dart';
+import '../../../L1_domain/entities/goal.dart';
 import '../../components/close_dialog_button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';

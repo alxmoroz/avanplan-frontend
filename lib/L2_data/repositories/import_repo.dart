@@ -3,8 +3,8 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/openapi.dart';
 
-import '../../L1_domain/entities/goals/goal_import.dart';
-import '../../L1_domain/entities/goals/remote_tracker.dart';
+import '../../L1_domain/entities/goal_import.dart';
+import '../../L1_domain/entities/remote_tracker.dart';
 import '../../L1_domain/repositories/abs_api_repo.dart';
 import '../../L1_domain/system/errors.dart';
 import '../../L3_app/extra/services.dart';

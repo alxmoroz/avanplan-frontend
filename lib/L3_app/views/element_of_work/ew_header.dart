@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../L1_domain/entities/goals/element_of_work.dart';
-import '../../../L1_domain/entities/goals/goal.dart';
+import '../../../L1_domain/entities/element_of_work.dart';
+import '../../../L1_domain/entities/goal.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';

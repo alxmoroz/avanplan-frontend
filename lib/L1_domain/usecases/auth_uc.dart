@@ -1,7 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import '../../L1_domain/repositories/abs_auth_repo.dart';
-import '../entities/auth/local_auth.dart';
+import '../entities/local_auth.dart';
 import '../repositories/abs_db_repo.dart';
 
 class AuthUC {

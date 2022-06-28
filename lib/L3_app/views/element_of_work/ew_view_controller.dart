@@ -5,10 +5,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/entities/auth/workspace.dart';
-import '../../../L1_domain/entities/goals/element_of_work.dart';
-import '../../../L1_domain/entities/goals/goal.dart';
-import '../../../L1_domain/entities/goals/task.dart';
+import '../../../L1_domain/entities/element_of_work.dart';
+import '../../../L1_domain/entities/goal.dart';
+import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities/workspace.dart';
 import '../../extra/services.dart';
 import '../_base/base_controller.dart';
 import '../goal/goal_edit_view.dart';

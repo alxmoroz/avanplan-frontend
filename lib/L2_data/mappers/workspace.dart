@@ -2,10 +2,10 @@
 
 import 'package:openapi/openapi.dart';
 
-import '../../L1_domain/entities/auth/workspace.dart';
-import '../../L1_domain/entities/goals/person.dart';
-import '../../L1_domain/entities/goals/task_priority.dart';
-import '../../L1_domain/entities/goals/task_status.dart';
+import '../../L1_domain/entities/person.dart';
+import '../../L1_domain/entities/task_priority.dart';
+import '../../L1_domain/entities/task_status.dart';
+import '../../L1_domain/entities/workspace.dart';
 import 'goal.dart';
 import 'person.dart';
 import 'remote_tracker.dart';

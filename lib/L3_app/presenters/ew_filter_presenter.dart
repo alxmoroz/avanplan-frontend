@@ -1,6 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../../L1_domain/entities/goals/element_of_work.dart';
+import '../../L1_domain/entities/element_of_work.dart';
 import '../extra/services.dart';
 
 const _sep = ': ';

@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/entities/auth/workspace.dart';
+import '../../../L1_domain/entities/workspace.dart';
 import '../../extra/services.dart';
 import '../_base/base_controller.dart';
 import '../import/import_view.dart';

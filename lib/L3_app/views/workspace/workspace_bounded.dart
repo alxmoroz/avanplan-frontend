@@ -4,7 +4,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/entities/auth/workspace.dart';
+import '../../../L1_domain/entities/workspace.dart';
 import '../../components/mt_dropdown.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';

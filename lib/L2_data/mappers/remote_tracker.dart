@@ -2,7 +2,7 @@
 
 import 'package:openapi/openapi.dart';
 
-import '../../L1_domain/entities/goals/remote_tracker.dart';
+import '../../L1_domain/entities/remote_tracker.dart';
 import 'remote_tracker_type.dart';
 
 extension TrackerMapper on RemoteTrackerSchemaGet {

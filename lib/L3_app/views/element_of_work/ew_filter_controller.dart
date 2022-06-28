@@ -2,7 +2,7 @@
 
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/entities/goals/element_of_work.dart';
+import '../../../L1_domain/entities/element_of_work.dart';
 import '../../extra/services.dart';
 
 part 'ew_filter_controller.g.dart';

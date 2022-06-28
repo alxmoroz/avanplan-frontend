@@ -3,7 +3,7 @@
 import 'package:openapi/openapi.dart';
 
 import '../../L1_domain/api_schema/base_upsert.dart';
-import '../../L1_domain/entities/goals/task_status.dart';
+import '../../L1_domain/entities/task_status.dart';
 import '../../L1_domain/repositories/abs_api_repo.dart';
 import '../../L3_app/extra/services.dart';
 

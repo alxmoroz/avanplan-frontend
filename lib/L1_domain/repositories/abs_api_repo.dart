@@ -2,8 +2,8 @@
 
 import '../api_schema/base_upsert.dart';
 import '../entities/base_entity.dart';
-import '../entities/goals/goal_import.dart';
-import '../entities/goals/remote_tracker.dart';
+import '../entities/goal_import.dart';
+import '../entities/remote_tracker.dart';
 
 abstract class AbstractApiRepo<E extends RPersistable, U extends BaseUpsert> {
   Future<List<E>> getAll();

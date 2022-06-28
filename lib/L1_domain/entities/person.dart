@@ -1,6 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../base_entity.dart';
+import 'base_entity.dart';
 
 class Person extends RPersistable {
   Person({

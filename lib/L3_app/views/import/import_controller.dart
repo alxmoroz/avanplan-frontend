@@ -4,8 +4,8 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/entities/goals/goal_import.dart';
-import '../../../L1_domain/entities/goals/remote_tracker.dart';
+import '../../../L1_domain/entities/goal_import.dart';
+import '../../../L1_domain/entities/remote_tracker.dart';
 import '../../../L1_domain/system/errors.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';

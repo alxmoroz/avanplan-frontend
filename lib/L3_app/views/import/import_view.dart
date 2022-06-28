@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 
-import '../../../L1_domain/entities/goals/remote_tracker.dart';
+import '../../../L1_domain/entities/remote_tracker.dart';
 import '../../components/close_dialog_button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';

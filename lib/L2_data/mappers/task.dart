@@ -2,7 +2,7 @@
 
 import 'package:openapi/openapi.dart';
 
-import '../../L1_domain/entities/goals/task.dart';
+import '../../L1_domain/entities/task.dart';
 import 'task_priority.dart';
 import 'task_status.dart';
 

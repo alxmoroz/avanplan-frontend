@@ -2,13 +2,13 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../L1_domain/entities/goals/element_of_work.dart';
+import '../../../L1_domain/entities/element_of_work.dart';
 import '../../components/constants.dart';
 import '../../components/mt_progress.dart';
 import '../../extra/services.dart';
-import '../../presenters/ew_overall_state_presenter.dart';
+import '../../presenters/ew_overview_presenter.dart';
 
-//TODO: вытащить отсюда всё, что можно в EWDashboard, либо сделать универсальный виджет для целей и задач из этого
+//TODO: вытащить отсюда всё, что можно в EWOverview, либо сделать универсальный виджет для целей и задач из этого
 
 class MainDashboard extends StatelessWidget {
   @override

@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../L1_domain/entities/goals/element_of_work.dart';
-import '../../../L1_domain/entities/goals/task.dart';
-import '../../../L1_domain/entities/goals/task_status.dart';
+import '../../../L1_domain/entities/element_of_work.dart';
+import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities/task_status.dart';
 import '../../components/constants.dart';
 import '../../components/date_string_widget.dart';
 import '../../components/icons.dart';
@@ -14,7 +14,7 @@ import '../../components/mt_divider.dart';
 import '../../components/mt_progress.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/ew_overall_state_presenter.dart';
+import '../../presenters/ew_overview_presenter.dart';
 import '../../presenters/number_presenter.dart';
 import 'ew_state_indicator.dart';
 

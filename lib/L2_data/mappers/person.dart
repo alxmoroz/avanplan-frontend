@@ -2,7 +2,7 @@
 
 import 'package:openapi/openapi.dart';
 
-import '../../L1_domain/entities/goals/person.dart';
+import '../../L1_domain/entities/person.dart';
 
 extension PersonMapper on PersonSchemaGet {
   Person get person => Person(

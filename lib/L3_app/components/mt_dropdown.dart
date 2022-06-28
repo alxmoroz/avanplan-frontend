@@ -3,7 +3,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 
-import '../../../L1_domain/entities/goals/remote_tracker.dart';
+import '../../../L1_domain/entities/remote_tracker.dart';
 import 'colors.dart';
 import 'constants.dart';
 import 'icons.dart';

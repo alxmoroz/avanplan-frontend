@@ -2,7 +2,7 @@
 
 import 'package:openapi/openapi.dart';
 
-import '../../L1_domain/entities/goals/goal.dart';
+import '../../L1_domain/entities/goal.dart';
 import 'task.dart';
 
 extension GoalMapper on GoalSchemaGet {

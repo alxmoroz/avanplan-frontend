@@ -2,7 +2,7 @@
 
 import 'package:openapi/openapi.dart';
 
-import '../../L1_domain/entities/goals/goal_import.dart';
+import '../../L1_domain/entities/goal_import.dart';
 
 extension GoalMapper on GoalImportRemoteSchemaGet {
   GoalImport get goalImport => GoalImport(

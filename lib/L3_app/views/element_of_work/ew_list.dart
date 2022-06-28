@@ -2,9 +2,9 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../L1_domain/entities/goals/element_of_work.dart';
-import '../../../L1_domain/entities/goals/goal.dart';
-import '../../../L1_domain/entities/goals/task.dart';
+import '../../../L1_domain/entities/element_of_work.dart';
+import '../../../L1_domain/entities/goal.dart';
+import '../../../L1_domain/entities/task.dart';
 import '../../../L3_app/extra/services.dart';
 import 'ew_card.dart';
 

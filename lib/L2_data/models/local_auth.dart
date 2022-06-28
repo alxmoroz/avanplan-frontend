@@ -2,7 +2,7 @@
 
 import 'package:hive/hive.dart';
 
-import '../../L1_domain/entities/auth/local_auth.dart';
+import '../../L1_domain/entities/local_auth.dart';
 import '../db.dart';
 import 'base.dart';
 

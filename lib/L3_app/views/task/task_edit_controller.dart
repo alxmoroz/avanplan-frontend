@@ -5,10 +5,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/api_schema/task_upsert.dart';
-import '../../../L1_domain/entities/goals/element_of_work.dart';
-import '../../../L1_domain/entities/goals/goal.dart';
-import '../../../L1_domain/entities/goals/task.dart';
-import '../../../L1_domain/entities/goals/task_status.dart';
+import '../../../L1_domain/entities/element_of_work.dart';
+import '../../../L1_domain/entities/goal.dart';
+import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities/task_status.dart';
 import '../../components/mt_confirm_dialog.dart';
 import '../../components/mt_dropdown.dart';
 import '../../components/text_field_annotation.dart';

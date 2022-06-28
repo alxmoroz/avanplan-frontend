@@ -1,7 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import '../api_schema/task_upsert.dart';
-import '../entities/goals/task.dart';
+import '../entities/task.dart';
 import '../repositories/abs_api_repo.dart';
 
 class TasksUC {

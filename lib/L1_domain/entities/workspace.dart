@@ -1,11 +1,11 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../base_entity.dart';
-import '../goals/goal.dart';
-import '../goals/person.dart';
-import '../goals/remote_tracker.dart';
-import '../goals/task_priority.dart';
-import '../goals/task_status.dart';
+import 'base_entity.dart';
+import 'goal.dart';
+import 'person.dart';
+import 'remote_tracker.dart';
+import 'task_priority.dart';
+import 'task_status.dart';
 
 class Workspace extends Titleable {
   Workspace({

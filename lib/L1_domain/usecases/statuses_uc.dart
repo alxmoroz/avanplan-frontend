@@ -1,7 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import '../entities/base_entity.dart';
-import '../entities/goals/task_status.dart';
+import '../entities/task_status.dart';
 import '../repositories/abs_api_repo.dart';
 
 abstract class StatusesUC<S extends Statusable> {

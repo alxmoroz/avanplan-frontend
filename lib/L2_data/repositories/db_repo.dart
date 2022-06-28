@@ -3,9 +3,9 @@
 import 'package:hive/hive.dart';
 
 import '../../../L1_domain/entities/app_settings.dart';
-import '../../../L1_domain/entities/auth/local_auth.dart';
 import '../../../L1_domain/entities/base_entity.dart';
 import '../../../L1_domain/repositories/abs_db_repo.dart';
+import '../../L1_domain/entities/local_auth.dart';
 import '../models/app_settings.dart';
 import '../models/base.dart';
 import '../models/local_auth.dart';

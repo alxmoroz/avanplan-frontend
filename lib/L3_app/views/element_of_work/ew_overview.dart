@@ -17,20 +17,20 @@ import '../../presenters/number_presenter.dart';
 import 'ew_state_indicator.dart';
 
 class EWOverview extends StatelessWidget {
-  const EWOverview(this.element);
+  const EWOverview(this.ew);
 
-  final ElementOfWork element;
+  final ElementOfWork ew;
 
-  bool get hasDescription => element.description.isNotEmpty;
-  bool get hasLink => element.trackerId != null;
-  bool get hasDates => element.dueDate != null || element.etaDate != null;
-  bool get isClosed => element.closed;
-  bool get hasStatus => element.status != null;
-  bool get hasSubtasks => element.tasksCount > 0;
+  bool get hasDescription => ew.description.isNotEmpty;
+  bool get hasLink => ew.trackerId != null;
+  bool get hasDates => ew.dueDate != null || ew.etaDate != null;
+  bool get isClosed => ew.closed;
+  bool get hasStatus => ew.status != null;
+  bool get hasSubEW => ew.ewCount > 0;
 
   Widget description() => LayoutBuilder(builder: (context, size) {
-        final text = element.description;
-        final maxLines = element.tasksCount > 0 ? 3 : 9;
+        final text = ew.description;
+        final maxLines = ew.ewCount > 0 ? 3 : 9;
         final detailedTextWidget = LightText(text, maxLines: maxLines);
         final span = TextSpan(text: text, style: detailedTextWidget.style(context));
         final tp = TextPainter(text: span, maxLines: maxLines, textDirection: TextDirection.ltr);
@@ -45,13 +45,13 @@ class EWOverview extends StatelessWidget {
           ]),
           divider,
         ]);
-        return hasButton ? MTButton('', () => showDetailsDialog(context, element.description), child: innerWidget) : innerWidget;
+        return hasButton ? MTButton('', () => showDetailsDialog(context, ew.description), child: innerWidget) : innerWidget;
       });
 
   Widget buildDates() => Row(children: [
-        DateStringWidget(element.dueDate, titleString: loc.ew_due_date_label),
+        DateStringWidget(ew.dueDate, titleString: loc.ew_due_date_label),
         const Spacer(),
-        if (element.leftEWCount > 0) DateStringWidget(element.etaDate, titleString: loc.ew_eta_date_label),
+        if (ew.leftEWCount > 0) DateStringWidget(ew.etaDate, titleString: loc.ew_eta_date_label),
       ]);
 
   @override
@@ -61,7 +61,7 @@ class EWOverview extends StatelessWidget {
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         if (hasStatus) ...[
           SizedBox(height: onePadding / 2),
-          SmallText(element.status!.title),
+          SmallText(ew.status!.title),
         ],
         if (hasDescription) description(),
         if (hasDates) ...[
@@ -69,14 +69,14 @@ class EWOverview extends StatelessWidget {
           buildDates(),
         ],
         SizedBox(height: onePadding),
-        EWStateIndicator(element),
-        if (hasSubtasks) ...[
+        EWStateIndicator(ew),
+        if (hasSubEW) ...[
           SizedBox(height: onePadding / 2),
           SampleProgress(
-            ratio: element.doneRatio,
-            color: stateColor(element.overallState),
-            titleText: loc.ew_subtasks_count(element.tasksCount),
-            trailingText: element.doneRatio > 0 ? element.doneRatio.inPercents : '',
+            ratio: ew.doneRatio,
+            color: stateColor(ew.overallState),
+            titleText: loc.ew_subtasks_count(ew.ewCount),
+            trailingText: ew.doneRatio > 0 ? ew.doneRatio.inPercents : '',
           ),
         ]
       ]),

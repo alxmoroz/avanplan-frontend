@@ -17,7 +17,7 @@ extension TaskMapper on TaskSchemaGet {
         dueDate: dueDate?.toLocal(),
         closed: closed,
         status: status?.status,
-        tasks: tasks?.map((t) => t.task).toList() ?? [],
+        ewList: tasks?.map((t) => t.task).toList() ?? [],
         trackerId: remoteTrackerId,
         priority: priority?.priority,
       );

@@ -2,10 +2,10 @@
 
 import 'package:openapi/openapi.dart';
 
-import '../../L1_domain/entities/task_status.dart';
+import '../../L1_domain/entities/ew_status.dart';
 
 extension TaskStatusMapper on TaskStatusSchemaGet {
-  TaskStatus get status => TaskStatus(
+  EWStatus get status => EWStatus(
         id: id,
         title: title,
         closed: closed,

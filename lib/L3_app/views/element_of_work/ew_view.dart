@@ -43,7 +43,7 @@ class _EWPageState extends State<EWPage> {
   _TabKeys? tabKeyValue = _TabKeys.overview;
 
   ElementOfWork get ew => widget.ew;
-  bool get hasSubtasks => ew.tasksCount > 0;
+  bool get hasSubtasks => ew.ewCount > 0;
   EWViewController get _controller => ewViewController;
 
   Widget tabPaneSelector() => Padding(

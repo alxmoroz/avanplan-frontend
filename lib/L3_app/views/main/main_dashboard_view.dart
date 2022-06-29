@@ -24,7 +24,7 @@ class MainDashboardView extends StatefulWidget {
 }
 
 class _MainDashboardViewState extends State<MainDashboardView> {
-  // TODO: добавлять рутовую невидимую цель (EW) и делать расчёты через неё?
+  // TODO: добавлять рутовую невидимую цель (EW) и делать расчёты через неё
 
   int get _openedGoalsCount => ewFilterController.openedEWCount;
 

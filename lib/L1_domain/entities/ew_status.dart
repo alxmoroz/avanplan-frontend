@@ -2,13 +2,13 @@
 
 import 'base_entity.dart';
 
-class TaskPriority extends Orderable {
-  TaskPriority({
+class EWStatus extends Statusable {
+  EWStatus({
     required int id,
-    required int order,
     required String title,
+    required bool closed,
     required this.workspaceId,
-  }) : super(id: id, title: title, order: order);
+  }) : super(id: id, title: title, closed: closed);
 
   final int workspaceId;
 }

@@ -15,20 +15,20 @@ import '../../presenters/number_presenter.dart';
 import 'ew_state_indicator.dart';
 
 class EWCard extends StatelessWidget {
-  const EWCard({required this.element, this.onTap, this.expanded = false});
+  const EWCard({required this.ew, this.onTap, this.expanded = false});
 
-  final ElementOfWork element;
+  final ElementOfWork ew;
   final VoidCallback? onTap;
   final bool expanded;
 
-  bool get isClosed => element.closed;
+  bool get isClosed => ew.closed;
 
-  bool get showDescription => expanded && element.description.isNotEmpty;
-  bool get showSubtasks => expanded && element.tasksCount > 0;
-  bool get showDates => expanded && (element.etaDate != null || element.dueDate != null);
+  bool get showDescription => expanded && ew.description.isNotEmpty;
+  bool get showSubEW => expanded && ew.ewCount > 0;
+  bool get showDates => expanded && (ew.etaDate != null || ew.dueDate != null);
 
   Widget title(BuildContext context) => H4(
-        element.title,
+        ew.title,
         maxLines: 1,
         decoration: isClosed ? TextDecoration.lineThrough : null,
       );
@@ -39,45 +39,45 @@ class EWCard extends StatelessWidget {
         chevronIcon(context),
       ]);
 
-  Widget description() => LightText(element.description, maxLines: 2);
+  Widget description() => LightText(ew.description, maxLines: 2);
 
-  Widget subtasksInfo() => Row(children: [
-        LightText(loc.ew_subtasks_count(element.tasksCount)),
+  Widget subEWInfo() => Row(children: [
+        LightText(loc.ew_subtasks_count(ew.ewCount)),
         const Spacer(),
-        if (element.doneRatio > 0) ...[
+        if (ew.doneRatio > 0) ...[
           SmallText('${loc.common_mark_done_btn_title} '),
-          NormalText(element.doneRatio.inPercents),
+          NormalText(ew.doneRatio.inPercents),
         ]
       ]);
 
   Widget buildDates() => Row(children: [
-        DateStringWidget(element.dueDate, titleString: loc.ew_due_date_label),
+        DateStringWidget(ew.dueDate, titleString: loc.ew_due_date_label),
         const Spacer(),
-        if (element.leftEWCount > 0) DateStringWidget(element.etaDate, titleString: loc.ew_eta_date_label),
+        if (ew.leftEWCount > 0) DateStringWidget(ew.etaDate, titleString: loc.ew_eta_date_label),
       ]);
 
   @override
   Widget build(BuildContext context) => MTCard(
         onTap: onTap,
         body: MTProgress(
-          ratio: element.doneRatio,
-          color: stateColor(element.overallState),
+          ratio: ew.doneRatio,
+          color: stateColor(ew.overallState),
           body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             header(context),
             if (showDescription) ...[
               SizedBox(height: onePadding / 4),
               description(),
             ],
-            if (showSubtasks) ...[
+            if (showSubEW) ...[
               SizedBox(height: onePadding / 2),
-              subtasksInfo(),
+              subEWInfo(),
             ],
             if (showDates) ...[
               SizedBox(height: onePadding / 2),
               buildDates(),
             ],
             SizedBox(height: onePadding / 2),
-            EWStateIndicator(element, inCard: true),
+            EWStateIndicator(ew, inCard: true),
           ]),
         ),
       );

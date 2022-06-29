@@ -6,7 +6,7 @@ import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/api_schema/task_upsert.dart';
 import '../../../L1_domain/entities/element_of_work.dart';
-import '../../../L1_domain/entities/task_status.dart';
+import '../../../L1_domain/entities/ew_status.dart';
 import '../../components/mt_confirm_dialog.dart';
 import '../../components/mt_dropdown.dart';
 import '../../components/text_field_annotation.dart';
@@ -43,17 +43,17 @@ abstract class _TaskEditControllerBase extends EWEditController with Store {
   /// статусы задач
 
   @computed
-  List<TaskStatus> get taskStatuses {
+  List<EWStatus> get taskStatuses {
     final ws = mainController.workspaces.firstWhereOrNull((ws) => ws.id == _goal.workspaceId);
 
-    return ws != null ? ws.taskStatuses : [];
+    return ws != null ? ws.ewStatuses : [];
   }
 
   @observable
   int? selectedStatusId;
 
   @action
-  void selectStatus(TaskStatus? _status) {
+  void selectStatus(EWStatus? _status) {
     selectedStatusId = _status?.id;
     if (_status != null && _status.closed) {
       closed = true;
@@ -61,12 +61,12 @@ abstract class _TaskEditControllerBase extends EWEditController with Store {
   }
 
   @computed
-  TaskStatus? get selectedStatus => taskStatuses.firstWhereOrNull((s) => s.id == selectedStatusId);
+  EWStatus? get selectedStatus => taskStatuses.firstWhereOrNull((s) => s.id == selectedStatusId);
 
   List<Widget> customFields(BuildContext context) {
     final items = <Widget>[];
     if (taskStatuses.isNotEmpty) {
-      items.add(MTDropdown<TaskStatus>(
+      items.add(MTDropdown<EWStatus>(
         onChanged: (status) => selectStatus(status),
         value: selectedStatus,
         items: taskStatuses,

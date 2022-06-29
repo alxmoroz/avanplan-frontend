@@ -1,8 +1,8 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'base_entity.dart';
-import 'task_priority.dart';
-import 'task_status.dart';
+import 'ew_priority.dart';
+import 'ew_status.dart';
 
 enum OverallState { overdue, risk, ok, noInfo }
 
@@ -13,7 +13,7 @@ class ElementOfWork extends Statusable {
     required int id,
     required String title,
     required bool closed,
-    required this.tasks,
+    required this.ewList,
     required this.description,
     required this.createdOn,
     required this.updatedOn,
@@ -31,10 +31,10 @@ class ElementOfWork extends Statusable {
   final DateTime? dueDate;
   final int? parentId;
   final int? trackerId;
-  final TaskStatus? status;
-  final TaskPriority? priority;
+  final EWStatus? status;
+  final EWPriority? priority;
   final int? workspaceId;
-  List<ElementOfWork> tasks;
+  List<ElementOfWork> ewList;
 
   ElementOfWork copy() => ElementOfWork(
         id: id,
@@ -44,7 +44,7 @@ class ElementOfWork extends Statusable {
         title: title,
         description: description,
         dueDate: dueDate,
-        tasks: tasks,
+        ewList: ewList,
         closed: closed,
         trackerId: trackerId,
       );
@@ -58,18 +58,18 @@ class ElementOfWork extends Statusable {
 
   Iterable<ElementOfWork> get allEW {
     final List<ElementOfWork> res = [];
-    for (ElementOfWork ew in tasks) {
+    for (ElementOfWork ew in ewList) {
       res.addAll(ew.allEW);
       res.add(ew);
     }
     return res;
   }
 
-  Iterable<ElementOfWork> get leafTasks => allEW.where((t) => t.allEW.isEmpty);
-  int get tasksCount => leafTasks.length;
-  int get closedEWCount => leafTasks.where((t) => t.closed).length;
-  int get leftEWCount => tasksCount - closedEWCount;
-  double get doneRatio => tasksCount > 0 ? closedEWCount / tasksCount : 0;
+  Iterable<ElementOfWork> get leafEW => allEW.where((t) => t.allEW.isEmpty);
+  int get ewCount => leafEW.length;
+  int get closedEWCount => leafEW.where((t) => t.closed).length;
+  int get leftEWCount => ewCount - closedEWCount;
+  double get doneRatio => ewCount > 0 ? closedEWCount / ewCount : 0;
 
   double get _factSpeed => closedEWCount / pastPeriod.inSeconds;
 

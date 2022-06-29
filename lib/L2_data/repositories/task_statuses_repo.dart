@@ -3,18 +3,18 @@
 import 'package:openapi/openapi.dart';
 
 import '../../L1_domain/api_schema/base_upsert.dart';
-import '../../L1_domain/entities/task_status.dart';
+import '../../L1_domain/entities/ew_status.dart';
 import '../../L1_domain/repositories/abs_api_repo.dart';
 import '../../L3_app/extra/services.dart';
 
-class TaskStatusesRepo extends AbstractApiRepo<TaskStatus, BaseUpsert> {
+class TaskStatusesRepo extends AbstractApiRepo<EWStatus, BaseUpsert> {
   TasksApi get api => openAPI.getTasksApi();
 
   @override
-  Future<List<TaskStatus>> getAll() async => throw UnimplementedError();
+  Future<List<EWStatus>> getAll() async => throw UnimplementedError();
 
   @override
-  Future<TaskStatus?> save(dynamic data) => throw UnimplementedError();
+  Future<EWStatus?> save(dynamic data) => throw UnimplementedError();
 
   @override
   Future<bool> delete(int id) => throw UnimplementedError();

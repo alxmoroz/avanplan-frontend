@@ -14,11 +14,10 @@ class EWList extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget cardBuilder(BuildContext context, int index) {
       final element = elements.elementAt(index);
-      // TODO: переход должен быть на EWView
       // TODO: обработку клика делать внутри карточки
       return EWCard(
-        element: element,
-        onTap: () => element.isGoal ? ewViewController.showGoal(context, element) : ewViewController.showTask(context, element),
+        ew: element,
+        onTap: () => ewViewController.showEW(context, element),
       );
     }
 

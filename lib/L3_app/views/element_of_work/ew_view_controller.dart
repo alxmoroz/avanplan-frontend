@@ -27,7 +27,7 @@ abstract class _EWViewControllerBase extends BaseController with Store {
   int? get _selectedTaskId => navStackTasks.isNotEmpty ? navStackTasks.last.id : null;
 
   @computed
-  ElementOfWork? get selectedTask => selectedGoal?.tasks.firstWhereOrNull((t) => t.id == _selectedTaskId);
+  ElementOfWork? get selectedTask => selectedGoal?.ewList.firstWhereOrNull((t) => t.id == _selectedTaskId);
 
   @computed
   bool get isGoal => selectedTask == null;
@@ -50,8 +50,6 @@ abstract class _EWViewControllerBase extends BaseController with Store {
 
   /// цели
   /// цели - рутовый объект
-
-  // TODO: здесь можно заменить на Smartable для подзадач и использовать в дашборде задач и цели. И перенести в контроллер Smartable
 
   @observable
   ObservableList<ElementOfWork> goals = ObservableList();
@@ -90,7 +88,7 @@ abstract class _EWViewControllerBase extends BaseController with Store {
     startLoading();
     clearData();
     for (Workspace ws in mainController.workspaces) {
-      goals.addAll(ws.goals);
+      goals.addAll(ws.ewList);
     }
     ewFilterController.setDefaultFilter();
     _sortGoals();
@@ -117,7 +115,7 @@ abstract class _EWViewControllerBase extends BaseController with Store {
   @computed
   List<ElementOfWork> get subtasks {
     // TODO: может просто selectedEW.tasks?
-    final _tasks = selectedGoal?.tasks.where((t) => t.parentId == _selectedTaskId).toList() ?? [];
+    final _tasks = selectedGoal?.ewList.where((t) => t.parentId == _selectedTaskId).toList() ?? [];
     _tasks.sort((t1, t2) => t1.title.compareTo(t2.title));
     return _tasks;
   }
@@ -125,35 +123,35 @@ abstract class _EWViewControllerBase extends BaseController with Store {
   /// редактирование подзадач
   @action
   void _addTask(ElementOfWork _task) {
-    selectedGoal!.tasks.add(_task);
+    selectedGoal!.ewList.add(_task);
     if (!isGoal) {
-      selectedTask!.tasks.add(_task);
+      selectedTask!.ewList.add(_task);
     }
   }
 
   @action
   void _deleteTask(ElementOfWork _task, List<ElementOfWork>? _subtasks) {
     for (ElementOfWork t in _subtasks ?? []) {
-      _deleteTask(t, _task.tasks);
+      _deleteTask(t, _task.ewList);
     }
-    selectedGoal!.tasks.remove(selectedGoal!.tasks.firstWhereOrNull((t) => t.id == _task.id));
+    selectedGoal!.ewList.remove(selectedGoal!.ewList.firstWhereOrNull((t) => t.id == _task.id));
   }
 
   @action
   void _updateTask(ElementOfWork _task, ElementOfWork _parent) {
-    final index = _parent.tasks.indexWhere((t) => t.id == _task.id);
+    final index = _parent.ewList.indexWhere((t) => t.id == _task.id);
     if (index >= 0) {
       if (_task.deleted) {
-        _parent.tasks.removeAt(index);
+        _parent.ewList.removeAt(index);
       } else {
-        _parent.tasks[index] = _task.copy();
+        _parent.ewList[index] = _task.copy();
       }
     }
   }
 
   @action
   void _updateParents(ElementOfWork _task) {
-    final parent = selectedGoal!.tasks.firstWhereOrNull((t) => t.id == _task.parentId);
+    final parent = selectedGoal!.ewList.firstWhereOrNull((t) => t.id == _task.parentId);
     if (parent != null) {
       _updateParents(parent);
       _updateTask(_task, parent);
@@ -164,15 +162,17 @@ abstract class _EWViewControllerBase extends BaseController with Store {
   }
 
   /// роутер
-  Future showTask(BuildContext context, ElementOfWork _task) async {
-    pushTask(_task);
-    await Navigator.of(context).pushNamed(EWView.routeName);
-    popTask();
-  }
 
-  Future showGoal(BuildContext context, ElementOfWork goal) async {
-    selectGoal(goal);
+  Future showEW(BuildContext context, ElementOfWork _ew) async {
+    if (_ew.isGoal) {
+      selectGoal(_ew);
+    } else {
+      pushTask(_ew);
+    }
     await Navigator.of(context).pushNamed(EWView.routeName);
+    if (!_ew.isGoal) {
+      popTask();
+    }
   }
 
   Future addEW(BuildContext context) async {

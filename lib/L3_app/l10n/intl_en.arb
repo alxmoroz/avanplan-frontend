@@ -19,54 +19,46 @@
   "common_title": "Title",
   "common_yes": "Yes",
 
-  "error_get_goals": "Error getting goals\nTry choosing a different tracker",
-
-  "ew_delete_dialog_description": "All subtasks will be deleted",
-
-  "ew_due_date_label": "Planned",
-  "ew_due_date_placeholder": "Due date",
-  "ew_eta_date_label": "Predicted",
-
-  "ew_filter_all": "All",
-  "ew_filter_no_due": "No due date",
-  "ew_filter_no_opened_tasks": "Closable",
-  "ew_filter_no_progress": "No progress",
-  "ew_filter_ok": "On time",
-  "ew_filter_opened": "Opened",
-  "ew_filter_overdue": "Overdue",
-  "ew_filter_risky": "Risky",
-
-  "ew_state_no_info_title": "Set deadlines, set subtasks",
-  "ew_state_ok_title": "All according to plan",
-  "ew_state_overdue_details": "Total overdue is",
-  "ew_state_overdue_title": "There are overdue",
-  "ew_state_risky_details": "Total overdue risk is",
-  "ew_state_risky_title": "There are risks",
-
-  "ew_subtasks_count": "{count, plural, one{1 task} other{{count} tasks}}",
-
-  "goal_delete_dialog_title": "Delete goal?",
-  "goal_import": "Import goals",
-  "goal_list_count": "{count, plural, one{1 goal set} other{{count} goals have been set}}",
-  "goal_list_empty_title": "There are no goals",
-  "goal_list_empty_title_import": "There are no goals or projects available to import\nTry choosing a different tracker",
-  "goal_list_title": "Goals",
-  "goal_title": "Goal",
-  "goal_title_new": "New goal",
-
   "integration": "Integration",
 
   "overview": "Overview",
 
   "task_delete_dialog_title": "Delete task?",
+  "task_delete_dialog_description": "All subtasks will be deleted",
+  "task_due_date_label": "Planned",
+  "task_due_date_placeholder": "Due date",
+  "task_eta_date_label": "Predicted",
+
+  "task_import_title": "Import tasks",
+  "task_import_title_error_get_list": "Error getting tasks\nTry choosing a different tracker",
+
+  "task_filter_all": "All",
+  "task_filter_no_due": "No due date",
+  "task_filter_no_opened_tasks": "Closable",
+  "task_filter_no_progress": "No progress",
+  "task_filter_ok": "On time",
+  "task_filter_opened": "Opened",
+  "task_filter_overdue": "Overdue",
+  "task_filter_risky": "Risky",
+
   "task_list_empty_title": "There are no tasks",
+  "task_list_empty_title_import": "There are no tasks available to import\nTry choosing a different tracker",
+  "task_list_title": "Tasks",
+  "task_list_title_count": "{count, plural, one{1 task} other{{count} tasks}}",
+
+  "task_state_no_info_title": "Set deadlines, set subtasks",
+  "task_state_ok_title": "All according to plan",
+  "task_state_overdue_details": "Total overdue is",
+  "task_state_overdue_title": "There are overdue",
+  "task_state_risky_details": "Total overdue risk is",
+  "task_state_risky_title": "There are risks",
+
   "task_title": "Task",
   "task_title_new": "New task",
-  "tasks_title": "Tasks",
 
   "tracker_delete_dialog_title": "Delete remote tracker connection?",
-  "tracker_delete_dialog_description": "Imported goals and tasks of this source will lose their connection with it",
-  "tracker_import_placeholder": "Source for importing goals and objectives",
+  "tracker_delete_dialog_description": "Imported tasks of this source will lose their connection with it",
+  "tracker_import_placeholder": "Source for importing tasks",
   "tracker_list_empty_title": "No remote trackers configured yet",
   "tracker_list_title": "Remote trackers",
   "tracker_title_new": "New remote tracker",

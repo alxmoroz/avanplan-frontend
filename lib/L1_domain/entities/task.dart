@@ -64,7 +64,7 @@ class Task extends Statusable {
         workspaceId: workspaceId,
       );
 
-  bool get isRoot => parentId == null;
+  // TODO: можно вынести в extension все расчёты
 
   Duration? get plannedPeriod => dueDate?.difference(createdOn);
   Duration get pastPeriod => DateTime.now().difference(createdOn);
@@ -106,6 +106,5 @@ class Task extends Statusable {
   // double get _planSpeed => tasksCount / (plannedPeriod?.inSeconds ?? 1);
   // double? get pace => etaDate != null ? (_factSpeed - _planSpeed) : null;
 
-  // TODO: подумать про перенос сюда выборок по подзадачам (сейчас в контроллере фильтра). Потому что это больше относится к бизнес-логике, а не к интерфейсу
-  //  Там есть тудушка про вопрос как определять для корня проекта. Наверное, имеет смысл создать рутовый EW
+  // TODO: перенос сюда выборок по подзадачам (сейчас в контроллере фильтра). Потому что это больше относится к бизнес-логике, а не к интерфейсу
 }

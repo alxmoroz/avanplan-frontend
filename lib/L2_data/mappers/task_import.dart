@@ -5,7 +5,7 @@ import 'package:openapi/openapi.dart';
 import '../../L1_domain/entities/task_import.dart';
 
 extension TaskImportMapper on TaskImportRemoteSchemaGet {
-  TaskImport get goalImport => TaskImport(
+  TaskImport get taskImport => TaskImport(
         code: remoteCode,
         title: title,
         description: description ?? '',

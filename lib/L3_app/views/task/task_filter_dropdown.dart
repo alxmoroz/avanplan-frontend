@@ -8,14 +8,14 @@ import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/ew_filter_presenter.dart';
+import '../../presenters/task_filter_presenter.dart';
 
-class EWFilterDropdown extends StatelessWidget {
+class TaskFilterDropdown extends StatelessWidget {
   List<DropdownMenuItem<TaskFilter>> get ddItems => tasksFilterController.taskFilterKeys
       .map(
         (item) => DropdownMenuItem<TaskFilter>(
           value: item,
-          child: NormalText(ewFilterText(item)),
+          child: NormalText(taskFilterText(item)),
         ),
       )
       .toList();

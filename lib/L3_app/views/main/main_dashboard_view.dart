@@ -13,7 +13,7 @@ import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/ew_overview_presenter.dart';
+import '../../presenters/task_overview_presenter.dart';
 import 'main_dashboard.dart';
 
 class MainDashboardView extends StatefulWidget {
@@ -24,9 +24,9 @@ class MainDashboardView extends StatefulWidget {
 }
 
 class _MainDashboardViewState extends State<MainDashboardView> {
-  // TODO: добавлять рутовую невидимую цель (EW) и делать расчёты через неё
+  // TODO: добавлять рутовую задачу и делать расчёты через неё
 
-  int get _openedGoalsCount => tasksFilterController.openedTasksCount;
+  int get _openedTasksCount => tasksFilterController.openedTasksCount;
 
   OverallState get _overallState => tasksFilterController.hasTimeBound
       ? (tasksFilterController.hasOverdue
@@ -43,7 +43,7 @@ class _MainDashboardViewState extends State<MainDashboardView> {
     return Observer(
       builder: (_) => MTPage(
         isLoading: mainController.isLoading,
-        navBar: tasksFilterController.hasOpened ? navBar(context, title: loc.goal_list_count(_openedGoalsCount)) : null,
+        navBar: tasksFilterController.hasOpened ? navBar(context, title: loc.task_list_title_count(_openedTasksCount)) : null,
         body: Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(
@@ -58,8 +58,8 @@ class _MainDashboardViewState extends State<MainDashboardView> {
             child: !tasksFilterController.hasOpened
                 ? EmptyDataWidget(
                     // TODO: здесь не про то, что целей вообще нет, а что нет открытых целей
-                    title: loc.goal_list_empty_title,
-                    addTitle: loc.goal_title_new,
+                    title: loc.task_list_empty_title,
+                    addTitle: loc.task_title_new,
                     onAdd: () => taskViewController.addTask(context),
                   )
                 : ListView(

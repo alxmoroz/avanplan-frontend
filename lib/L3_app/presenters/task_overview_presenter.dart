@@ -40,16 +40,16 @@ Widget stateIcon(BuildContext context, OverallState state, {double? size, Color?
 }
 
 String stateTextTitle(OverallState state) {
-  String res = loc.ew_state_no_info_title;
+  String res = loc.task_state_no_info_title;
   switch (state) {
     case OverallState.overdue:
-      res = loc.ew_state_overdue_title;
+      res = loc.task_state_overdue_title;
       break;
     case OverallState.risk:
-      res = loc.ew_state_risky_title;
+      res = loc.task_state_risky_title;
       break;
     case OverallState.ok:
-      res = loc.ew_state_ok_title;
+      res = loc.task_state_ok_title;
       break;
     case OverallState.noInfo:
   }
@@ -60,10 +60,10 @@ String stateTextDetails(OverallState state, {Duration? overduePeriod, Duration? 
   String res = '';
   switch (state) {
     case OverallState.overdue:
-      res = '${loc.ew_state_overdue_details} ${loc.common_days_count(overduePeriod!.inDays)}';
+      res = '${loc.task_state_overdue_details} ${loc.common_days_count(overduePeriod!.inDays)}';
       break;
     case OverallState.risk:
-      res = '${loc.ew_state_risky_details} ${loc.common_days_count(etaRiskPeriod!.inDays)}';
+      res = '${loc.task_state_risky_details} ${loc.common_days_count(etaRiskPeriod!.inDays)}';
       break;
     case OverallState.ok:
     case OverallState.noInfo:

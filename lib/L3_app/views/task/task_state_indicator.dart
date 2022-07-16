@@ -6,7 +6,7 @@ import '../../../L1_domain/entities/task.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/text_widgets.dart';
-import '../../presenters/ew_overview_presenter.dart';
+import '../../presenters/task_overview_presenter.dart';
 
 class TaskStateIndicator extends StatelessWidget {
   const TaskStateIndicator(this.task, {this.inCard = false});

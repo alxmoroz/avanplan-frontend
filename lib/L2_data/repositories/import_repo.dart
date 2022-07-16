@@ -23,11 +23,11 @@ class ImportRepo extends AbstractApiImportRepo {
       final response = await api.getRootTasksV1IntegrationsTasksGet(trackerId: trackerId);
       if (response.statusCode == 200) {
         for (TaskImportRemoteSchemaGet g in response.data?.toList() ?? []) {
-          rootTasks.add(g.goalImport);
+          rootTasks.add(g.taskImport);
         }
       }
     } catch (e) {
-      throw MTException(code: 'error_get_goals', detail: e.toString());
+      throw MTException(code: 'task_import_error_get_list', detail: e.toString());
     }
 
     return rootTasks;

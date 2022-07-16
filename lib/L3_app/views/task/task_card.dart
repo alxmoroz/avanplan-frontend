@@ -10,8 +10,8 @@ import '../../components/mt_card.dart';
 import '../../components/mt_progress.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/ew_overview_presenter.dart';
 import '../../presenters/number_presenter.dart';
+import '../../presenters/task_overview_presenter.dart';
 import 'task_state_indicator.dart';
 
 class TaskCard extends StatelessWidget {
@@ -24,7 +24,7 @@ class TaskCard extends StatelessWidget {
   bool get isClosed => task.closed;
 
   bool get showDescription => expanded && task.description.isNotEmpty;
-  bool get showSubEW => expanded && task.leafTasksCount > 0;
+  bool get showSubtasks => expanded && task.leafTasksCount > 0;
   bool get showDates => expanded && (task.etaDate != null || task.dueDate != null);
 
   Widget title(BuildContext context) => H4(
@@ -41,8 +41,8 @@ class TaskCard extends StatelessWidget {
 
   Widget description() => LightText(task.description, maxLines: 2);
 
-  Widget subEWInfo() => Row(children: [
-        LightText(loc.ew_subtasks_count(task.leafTasksCount)),
+  Widget subtasksInfo() => Row(children: [
+        LightText(loc.task_list_title_count(task.leafTasksCount)),
         const Spacer(),
         if (task.doneRatio > 0) ...[
           SmallText('${loc.common_mark_done_btn_title} '),
@@ -51,9 +51,9 @@ class TaskCard extends StatelessWidget {
       ]);
 
   Widget buildDates() => Row(children: [
-        DateStringWidget(task.dueDate, titleString: loc.ew_due_date_label),
+        DateStringWidget(task.dueDate, titleString: loc.task_due_date_label),
         const Spacer(),
-        if (task.leftTasksCount > 0) DateStringWidget(task.etaDate, titleString: loc.ew_eta_date_label),
+        if (task.leftTasksCount > 0) DateStringWidget(task.etaDate, titleString: loc.task_eta_date_label),
       ]);
 
   @override
@@ -68,9 +68,9 @@ class TaskCard extends StatelessWidget {
               SizedBox(height: onePadding / 4),
               description(),
             ],
-            if (showSubEW) ...[
+            if (showSubtasks) ...[
               SizedBox(height: onePadding / 2),
-              subEWInfo(),
+              subtasksInfo(),
             ],
             if (showDates) ...[
               SizedBox(height: onePadding / 2),

@@ -6,7 +6,7 @@ import '../../../L1_domain/entities/task.dart';
 import '../../components/constants.dart';
 import '../../components/mt_progress.dart';
 import '../../extra/services.dart';
-import '../../presenters/ew_overview_presenter.dart';
+import '../../presenters/task_overview_presenter.dart';
 
 //TODO: вытащить отсюда всё, что можно в EWOverview, либо сделать универсальный виджет для целей и задач из этого
 
@@ -21,7 +21,7 @@ class MainDashboard extends StatelessWidget {
         SampleProgress(
           ratio: tasksFilterController.overdueTasksCount / tasksFilterController.openedTasksCount,
           color: stateColor(OverallState.overdue),
-          titleText: loc.ew_filter_overdue,
+          titleText: loc.task_filter_overdue,
           trailingText: '${tasksFilterController.overdueTasksCount}',
           subtitleText: stateTextDetails(OverallState.overdue, overduePeriod: tasksFilterController.overduePeriod),
         ),
@@ -32,7 +32,7 @@ class MainDashboard extends StatelessWidget {
         SampleProgress(
           ratio: tasksFilterController.riskyTasksCount / tasksFilterController.openedTasksCount,
           color: stateColor(OverallState.risk),
-          titleText: loc.ew_filter_risky,
+          titleText: loc.task_filter_risky,
           trailingText: '${tasksFilterController.riskyTasksCount}',
           subtitleText: stateTextDetails(OverallState.risk, etaRiskPeriod: tasksFilterController.riskPeriod),
         ),
@@ -43,7 +43,7 @@ class MainDashboard extends StatelessWidget {
         SampleProgress(
           ratio: tasksFilterController.noDueTasksCount / tasksFilterController.openedTasksCount,
           color: noInfoColor,
-          titleText: loc.ew_filter_no_due,
+          titleText: loc.task_filter_no_due,
           trailingText: '${tasksFilterController.noDueTasksCount}',
         ),
       ],
@@ -52,7 +52,7 @@ class MainDashboard extends StatelessWidget {
         SampleProgress(
           ratio: tasksFilterController.inactiveTasksCount / tasksFilterController.openedTasksCount,
           color: noInfoColor,
-          titleText: loc.ew_filter_no_progress,
+          titleText: loc.task_filter_no_progress,
           trailingText: '${tasksFilterController.inactiveTasksCount}',
         ),
       ],
@@ -61,7 +61,7 @@ class MainDashboard extends StatelessWidget {
         SampleProgress(
           ratio: tasksFilterController.closableTasksCount / tasksFilterController.openedTasksCount,
           color: noInfoColor,
-          titleText: loc.ew_filter_no_opened_tasks,
+          titleText: loc.task_filter_no_opened_tasks,
           trailingText: '${tasksFilterController.closableTasksCount}',
         ),
       ],
@@ -72,7 +72,7 @@ class MainDashboard extends StatelessWidget {
         SampleProgress(
           ratio: tasksFilterController.okTasksCount / tasksFilterController.openedTasksCount,
           color: stateColor(OverallState.ok),
-          titleText: loc.ew_filter_ok,
+          titleText: loc.task_filter_ok,
           trailingText: '${tasksFilterController.okTasksCount}',
         ),
       ],

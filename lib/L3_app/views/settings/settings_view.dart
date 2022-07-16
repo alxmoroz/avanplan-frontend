@@ -15,17 +15,9 @@ class SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future importGoals() async {
-      await mainController.importGoals(context);
-    }
-
-    Future showTrackers() async {
-      await mainController.showTrackers(context);
-    }
-
-    Future logout() async {
-      await loginController.logout();
-    }
+    Future importTasks() async => await mainController.importTasks(context);
+    Future showTrackers() async => await mainController.showTrackers(context);
+    Future logout() async => await loginController.logout();
 
     return Observer(
       builder: (_) => MTPage(
@@ -40,7 +32,7 @@ class SettingsView extends StatelessWidget {
               SizedBox(height: onePadding),
               SmallText(loc.integration),
               SizedBox(height: onePadding),
-              MTButton(loc.goal_import, importGoals),
+              MTButton(loc.task_import_title, importTasks),
               SizedBox(height: onePadding),
               MTButton(loc.tracker_list_title, showTrackers),
               const Spacer(),

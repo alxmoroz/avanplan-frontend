@@ -10,10 +10,9 @@ part 'task_filter_controller.g.dart';
 class TaskFilterController extends _TaskFilterControllerBase with _$TaskFilterController {}
 
 abstract class _TaskFilterControllerBase with Store {
-  // TODO: здесь можно заменить на EW для подзадач и использовать в дашборде задач и цели. И перенести в контроллер EWViewController
-  // TODO: инициализировать родителем (выбранная цель)
+  // TODO: эти расчёты должны быть привязаны к задаче. В контроллере только что касается самого фильтра
 
-  Iterable<Task> get _allTasks => taskViewController.selectedTask?.allTasks ?? [];
+  Iterable<Task> get _allTasks => taskViewController.rootTask.tasks;
 
   @computed
   int get allTasksCount => _allTasks.length;
@@ -98,6 +97,13 @@ abstract class _TaskFilterControllerBase with Store {
 
   @action
   void setDefaultFilter() => setFilter(taskFilterKeys.contains(TaskFilter.opened) ? TaskFilter.opened : TaskFilter.all);
+
+  // void updateFilter(Task task) {
+  //   if (!task.deleted && !task.closed && filteredTasks.firstWhereOrNull((e) => e.id == task.id) == null ||
+  //       !taskFilterKeys.contains(tasksFilter)) {
+  //     setDefaultFilter();
+  //   }
+  // }
 
   @computed
   List<TaskFilter> get taskFilterKeys {

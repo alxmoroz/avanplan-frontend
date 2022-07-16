@@ -65,7 +65,7 @@ Widget homeIcon(BuildContext context, {Color? color, double? size}) => Icon(
     CupertinoIcons.viewfinder_circle,
     size: size);
 
-Widget goalsIcon(BuildContext context, {Color? color, double? size}) => Icon(CupertinoIcons.text_badge_checkmark, size: size);
+Widget tasksIcon(BuildContext context, {Color? color, double? size}) => Icon(CupertinoIcons.text_badge_checkmark, size: size);
 
 Widget menuIcon(BuildContext context, {Color? color, double? size}) => Icon(CupertinoIcons.ellipsis_vertical, size: size);
 

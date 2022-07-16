@@ -23,4 +23,6 @@ class Workspace extends Titleable {
   final List<Priority> priorities;
   final List<Person> persons;
   final List<RemoteTracker> remoteTrackers;
+
+  List<Task> get rootTasks => tasks.where((t) => t.parentId == null).toList(growable: false);
 }

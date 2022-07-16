@@ -61,20 +61,13 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
     rootTask.tasks.sort((g1, g2) => g1.title.compareTo(g2.title));
   }
 
-  void updateFilter(Task ew) {
-    if (!ew.deleted && !ew.closed && tasksFilterController.filteredTasks.firstWhereOrNull((e) => e.id == ew.id) == null ||
-        !tasksFilterController.taskFilterKeys.contains(tasksFilterController.tasksFilter)) {
-      tasksFilterController.setDefaultFilter();
-    }
-  }
-
   @action
   Future fetchData() async {
     startLoading();
     clearData();
     final List<Task> tasks = [];
     for (Workspace ws in mainController.workspaces) {
-      tasks.addAll(ws.tasks);
+      tasks.addAll(ws.rootTasks);
     }
     rootTask = rootTask.copyWithList(tasks);
     tasksFilterController.setDefaultFilter();

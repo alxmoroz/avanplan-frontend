@@ -18,32 +18,32 @@ import 'task_overview.dart';
 import 'task_view_controller.dart';
 
 class TaskView extends StatelessWidget {
-  static String get routeName => 'element_of_work';
+  static String get routeName => 'task_view';
 
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => taskViewController.selectedTask != null ? EWPage(taskViewController.selectedTask!) : Container(),
+      builder: (_) => taskViewController.selectedTask != null ? TaskPage(taskViewController.selectedTask!) : Container(),
     );
   }
 }
 
 enum _TabKeys { overview, tasks }
 
-class EWPage extends StatefulWidget {
-  const EWPage(this.ew);
+class TaskPage extends StatefulWidget {
+  const TaskPage(this.task);
 
-  final Task ew;
+  final Task task;
 
   @override
-  _EWPageState createState() => _EWPageState();
+  _TaskPageState createState() => _TaskPageState();
 }
 
-class _EWPageState extends State<EWPage> {
+class _TaskPageState extends State<TaskPage> {
   _TabKeys? tabKeyValue = _TabKeys.overview;
 
-  Task get ew => widget.ew;
-  bool get hasSubtasks => ew.leafTasksCount > 0;
+  Task get task => widget.task;
+  bool get hasSubtasks => task.leafTasksCount > 0;
   TaskViewController get _controller => taskViewController;
 
   Widget tabPaneSelector() => Padding(
@@ -51,14 +51,14 @@ class _EWPageState extends State<EWPage> {
         child: CupertinoSlidingSegmentedControl<_TabKeys>(
           children: {
             _TabKeys.overview: NormalText(loc.overview),
-            _TabKeys.tasks: NormalText(loc.tasks_title),
+            _TabKeys.tasks: NormalText(loc.task_list_title),
           },
           groupValue: tabKeyValue,
           onValueChanged: (value) => setState(() => tabKeyValue = value),
         ),
       );
 
-  Widget overviewPane() => TaskOverview(ew);
+  Widget overviewPane() => TaskOverview(task);
 
   Widget tasksPane() => Column(
         children: [
@@ -76,7 +76,7 @@ class _EWPageState extends State<EWPage> {
       isLoading: _controller.isLoading,
       navBar: navBar(
         context,
-        title: '${ew.isRoot ? loc.goal_title : loc.task_title} #${ew.id}',
+        title: '${loc.task_title} #${task.id}',
         trailing: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
@@ -93,13 +93,13 @@ class _EWPageState extends State<EWPage> {
         bottom: false,
         child: ListView(
           children: [
-            TaskHeader(ew),
+            TaskHeader(task),
             if (hasSubtasks) ...[
               SizedBox(height: onePadding / 2),
               tabPaneSelector(),
             ],
             selectedPane(),
-            if (!hasSubtasks && ew.isRoot)
+            if (!hasSubtasks)
               EmptyDataWidget(
                 title: loc.task_list_empty_title,
                 addTitle: loc.task_title_new,

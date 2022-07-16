@@ -17,17 +17,17 @@ class TaskHeader extends StatelessWidget {
   final Task task;
 
   bool get hasLink => task.trackerId != null;
-  bool get isClosed => task.closed;
   TaskViewController get _controller => taskViewController;
 
+  // TODO: поправить. Не работает
   String get breadcrumbs {
     const sepStr = ' ⟩ ';
     String _breadcrumbs = '';
-    if (!task.isRoot) {
-      final titles = _controller.navStackTasks.take(_controller.navStackTasks.length - 1).map((pt) => pt.title).toList();
-      titles.insert(0, _controller.selectedTask!.title);
-      _breadcrumbs = titles.join(sepStr);
-    }
+    // if (!task.isRoot) {
+    final titles = _controller.navStackTasks.take(_controller.navStackTasks.length).map((pt) => pt.title).toList();
+    // titles.insert(0, _controller.selectedTask!.title);
+    _breadcrumbs = titles.join(sepStr);
+    // }
     return _breadcrumbs;
   }
 
@@ -41,7 +41,7 @@ class TaskHeader extends StatelessWidget {
           const MTDivider(),
         ],
         Row(children: [
-          Expanded(child: H2(task.title, decoration: isClosed ? TextDecoration.lineThrough : null)),
+          Expanded(child: H2(task.title, decoration: task.closed ? TextDecoration.lineThrough : null)),
           SizedBox(width: onePadding / 2),
           if (hasLink) ...[
             SizedBox(height: onePadding / 2),

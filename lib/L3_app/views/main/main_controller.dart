@@ -51,7 +51,7 @@ abstract class _MainControllerBase extends BaseController with Store {
     await Navigator.of(context).pushNamed(TrackerListView.routeName);
   }
 
-  Future importGoals(BuildContext context) async {
+  Future importTasks(BuildContext context) async {
     await showImportDialog(context);
   }
 }

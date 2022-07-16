@@ -39,13 +39,13 @@ class ImportView extends StatefulWidget {
 class _ImportViewState extends State<ImportView> {
   ImportController get _controller => importController;
 
-  Widget goalItemBuilder(BuildContext context, int index) {
-    final goal = _controller.remoteGoals[index];
+  Widget taskItemBuilder(BuildContext context, int index) {
+    final task = _controller.remoteTasks[index];
     return CheckboxListTile(
-      title: NormalText(goal.title),
-      subtitle: SmallText(goal.description, maxLines: 2),
-      value: goal.selected,
-      onChanged: (bool? value) => _controller.selectGoal(goal, value!),
+      title: NormalText(task.title),
+      subtitle: SmallText(task.description, maxLines: 2),
+      value: task.selected,
+      onChanged: (bool? value) => _controller.selectTask(task, value!),
       dense: true,
       visualDensity: VisualDensity.compact,
     );
@@ -70,24 +70,24 @@ class _ImportViewState extends State<ImportView> {
     return Column(children: [
       trackerDropdown,
       if (_controller.selectedTracker != null) ...[
-        if (_controller.remoteGoals.isEmpty)
+        if (_controller.remoteTasks.isEmpty)
           EmptyDataWidget(
             title:
-                _controller.errorCode != null ? Intl.message(_controller.errorCode!, name: _controller.errorCode) : loc.goal_list_empty_title_import,
+                _controller.errorCode != null ? Intl.message(_controller.errorCode!, name: _controller.errorCode) : loc.task_list_empty_title_import,
             color: _controller.errorCode != null ? warningColor : null,
           ),
-        if (_controller.remoteGoals.isNotEmpty) ...[
+        if (_controller.remoteTasks.isNotEmpty) ...[
           SizedBox(height: onePadding),
           const MTDivider(),
           Expanded(
             child: ListView.builder(
-              itemBuilder: goalItemBuilder,
-              itemCount: _controller.remoteGoals.length,
+              itemBuilder: taskItemBuilder,
+              itemCount: _controller.remoteTasks.length,
             ),
           ),
           const MTDivider(),
           MTButton(
-            loc.goal_import,
+            loc.task_import_title,
             _controller.validated ? () => _controller.startImport(context) : null,
             titleColor: _controller.validated ? null : lightGreyColor,
           ),
@@ -102,7 +102,7 @@ class _ImportViewState extends State<ImportView> {
     return Observer(
       builder: (_) => MTPage(
         isLoading: _controller.isLoading,
-        navBar: navBar(context, leading: CloseDialogButton(), title: loc.goal_import),
+        navBar: navBar(context, leading: CloseDialogButton(), title: loc.task_import_title),
         body: SafeArea(child: form()),
       ),
     );

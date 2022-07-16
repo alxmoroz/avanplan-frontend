@@ -16,25 +16,25 @@ class ImportController extends _ImportControllerBase with _$ImportController {}
 
 abstract class _ImportControllerBase extends EditController with Store {
   @observable
-  ObservableList<TaskImport> remoteGoals = ObservableList();
+  ObservableList<TaskImport> remoteTasks = ObservableList();
 
   @computed
-  List<String> get selectedGoalsIds => remoteGoals.where((g) => g.selected).map((g) => g.code).toList();
+  List<String> get selectedTasksIds => remoteTasks.where((t) => t.selected).map((t) => t.code).toList();
 
   @override
-  bool get validated => selectedGoalsIds.isNotEmpty;
+  bool get validated => selectedTasksIds.isNotEmpty;
 
   @action
-  void _sortGoals() => remoteGoals.sort((g1, g2) => g1.title.compareTo(g2.title));
+  void _sortTasks() => remoteTasks.sort((t1, t2) => t1.title.compareTo(t2.title));
 
   @action
-  Future fetchGoals(int trackerId) async {
+  Future fetchTasks(int trackerId) async {
     startLoading();
     clearData();
     if (loginController.authorized) {
       try {
-        remoteGoals = ObservableList.of(await importUC.getRootTasks(trackerId));
-        _sortGoals();
+        remoteTasks = ObservableList.of(await importUC.getRootTasks(trackerId));
+        _sortTasks();
       } catch (e) {
         setErrorCode(e is MTException ? e.code : e.toString());
       }
@@ -43,13 +43,13 @@ abstract class _ImportControllerBase extends EditController with Store {
   }
 
   @action
-  void clearData() => remoteGoals.clear();
+  void clearData() => remoteTasks.clear();
 
   @action
-  void selectGoal(TaskImport goal, bool selected) {
-    final index = remoteGoals.indexWhere((g) => g.code == goal.code);
+  void selectTask(TaskImport task, bool selected) {
+    final index = remoteTasks.indexWhere((t) => t.code == task.code);
     if (index >= 0) {
-      remoteGoals[index] = goal.copyWithSelected(selected);
+      remoteTasks[index] = task.copyWithSelected(selected);
     }
   }
 
@@ -62,7 +62,7 @@ abstract class _ImportControllerBase extends EditController with Store {
   Future selectTracker(RemoteTracker? _rt) async {
     selectedTrackerId = _rt?.id;
     if (_rt != null) {
-      await fetchGoals(_rt.id);
+      await fetchTasks(_rt.id);
     }
   }
 
@@ -77,7 +77,7 @@ abstract class _ImportControllerBase extends EditController with Store {
   @action
   Future startImport(BuildContext context) async {
     startLoading();
-    final done = await importUC.importTasks(selectedTracker!, selectedGoalsIds);
+    final done = await importUC.importTasks(selectedTracker!, selectedTasksIds);
     if (done) {
       // TODO: здесь должны обновляться только цели, но мы обновляем всё дерево данных. Поэтому есть побочки всякие
       await mainController.fetchData();

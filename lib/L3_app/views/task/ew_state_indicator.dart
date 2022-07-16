@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../L1_domain/entities/element_of_work.dart';
+import '../../../L1_domain/entities/task.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/text_widgets.dart';
@@ -11,7 +11,7 @@ import '../../presenters/ew_overview_presenter.dart';
 class EWStateIndicator extends StatelessWidget {
   const EWStateIndicator(this.element, {this.inCard = false});
 
-  final ElementOfWork element;
+  final Task element;
   final bool inCard;
 
   @override

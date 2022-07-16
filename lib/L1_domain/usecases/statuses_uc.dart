@@ -1,7 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import '../entities/base_entity.dart';
-import '../entities/ew_status.dart';
+import '../entities/status.dart';
 import '../repositories/abs_api_repo.dart';
 
 abstract class StatusesUC<S extends Statusable> {
@@ -10,6 +10,6 @@ abstract class StatusesUC<S extends Statusable> {
   final AbstractApiRepo<S, dynamic> repo;
 }
 
-class TaskStatusesUC extends StatusesUC<EWStatus> {
-  TaskStatusesUC({required AbstractApiRepo<EWStatus, dynamic> repo}) : super(repo: repo);
+class TaskStatusesUC extends StatusesUC<Status> {
+  TaskStatusesUC({required AbstractApiRepo<Status, dynamic> repo}) : super(repo: repo);
 }

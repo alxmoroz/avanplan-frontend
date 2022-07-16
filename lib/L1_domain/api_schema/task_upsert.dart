@@ -1,26 +1,22 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'ew_upsert.dart';
+import 'base_upsert.dart';
 
-class TaskUpsert extends EWUpsert {
+class TaskUpsert extends StatusableUpsert {
   TaskUpsert({
-    required this.goalId,
+    required int? id,
     required String title,
-    required String description,
     required bool closed,
-    required DateTime? dueDate,
-    int? id,
-    int? parentId,
-    int? statusId,
-  }) : super(
-          id: id,
-          parentId: parentId,
-          title: title,
-          description: description,
-          closed: closed,
-          dueDate: dueDate,
-          statusId: statusId,
-        );
+    required this.workspaceId,
+    required this.parentId,
+    required this.description,
+    required this.dueDate,
+    required this.statusId,
+  }) : super(id: id, title: title, closed: closed);
 
-  final int goalId;
+  final int workspaceId;
+  final int? parentId;
+  final String description;
+  final DateTime? dueDate;
+  final int? statusId;
 }

@@ -3,7 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../L1_domain/entities/element_of_work.dart';
+import '../../../L1_domain/entities/task.dart';
 import '../../components/constants.dart';
 import '../../components/empty_data_widget.dart';
 import '../../components/icons.dart';
@@ -12,18 +12,18 @@ import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import 'ew_header.dart';
-import 'ew_list.dart';
 import 'ew_overview.dart';
-import 'ew_view_controller.dart';
+import 'task_header.dart';
+import 'task_listview.dart';
+import 'task_view_controller.dart';
 
-class EWView extends StatelessWidget {
+class TaskView extends StatelessWidget {
   static String get routeName => 'element_of_work';
 
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => ewViewController.selectedEW != null ? EWPage(ewViewController.selectedEW!) : Container(),
+      builder: (_) => taskViewController.selectedTask != null ? EWPage(taskViewController.selectedTask!) : Container(),
     );
   }
 }
@@ -33,7 +33,7 @@ enum _TabKeys { overview, tasks }
 class EWPage extends StatefulWidget {
   const EWPage(this.ew);
 
-  final ElementOfWork ew;
+  final Task ew;
 
   @override
   _EWPageState createState() => _EWPageState();
@@ -42,9 +42,9 @@ class EWPage extends StatefulWidget {
 class _EWPageState extends State<EWPage> {
   _TabKeys? tabKeyValue = _TabKeys.overview;
 
-  ElementOfWork get ew => widget.ew;
-  bool get hasSubtasks => ew.ewCount > 0;
-  EWViewController get _controller => ewViewController;
+  Task get ew => widget.ew;
+  bool get hasSubtasks => ew.leafTasksCount > 0;
+  TaskViewController get _controller => taskViewController;
 
   Widget tabPaneSelector() => Padding(
         padding: EdgeInsets.symmetric(horizontal: onePadding),
@@ -63,7 +63,7 @@ class _EWPageState extends State<EWPage> {
   Widget tasksPane() => Column(
         children: [
           SizedBox(height: onePadding / 2),
-          EWList(ewViewController.subtasks),
+          TaskListView(taskViewController.subtasks),
           SizedBox(height: onePadding),
         ],
       );
@@ -76,14 +76,14 @@ class _EWPageState extends State<EWPage> {
       isLoading: _controller.isLoading,
       navBar: navBar(
         context,
-        title: '${ew.isGoal ? loc.goal_title : loc.task_title} #${ew.id}',
+        title: '${ew.isRoot ? loc.goal_title : loc.task_title} #${ew.id}',
         trailing: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
           children: [
-            MTButton.icon(plusIcon(context), () => _controller.addEW(context)),
+            MTButton.icon(plusIcon(context), () => _controller.addTask(context)),
             SizedBox(width: onePadding * 2),
-            MTButton.icon(editIcon(context), () => _controller.editEW(context)),
+            MTButton.icon(editIcon(context), () => _controller.editTask(context)),
             SizedBox(width: onePadding),
           ],
         ),
@@ -93,17 +93,17 @@ class _EWPageState extends State<EWPage> {
         bottom: false,
         child: ListView(
           children: [
-            EWHeader(ew),
+            TaskHeader(ew),
             if (hasSubtasks) ...[
               SizedBox(height: onePadding / 2),
               tabPaneSelector(),
             ],
             selectedPane(),
-            if (!hasSubtasks && ew.isGoal)
+            if (!hasSubtasks && ew.isRoot)
               EmptyDataWidget(
                 title: loc.task_list_empty_title,
                 addTitle: loc.task_title_new,
-                onAdd: () => ewViewController.addTask(context),
+                onAdd: () => taskViewController.addTask(context),
               ),
           ],
         ),

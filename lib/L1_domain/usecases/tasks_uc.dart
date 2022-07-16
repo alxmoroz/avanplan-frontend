@@ -1,16 +1,16 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import '../api_schema/task_upsert.dart';
-import '../entities/element_of_work.dart';
+import '../entities/task.dart';
 import '../repositories/abs_api_repo.dart';
 
 class TasksUC {
   TasksUC({required this.repo});
 
-  final AbstractApiRepo<ElementOfWork, TaskUpsert> repo;
+  final AbstractApiRepo<Task, TaskUpsert> repo;
 
-  Future<ElementOfWork?> save(TaskUpsert data) async {
-    ElementOfWork? task;
+  Future<Task?> save(TaskUpsert data) async {
+    Task? task;
     // TODO: внутр. exception?
     if (data.title.trim().isNotEmpty) {
       task = await repo.save(data);
@@ -18,7 +18,7 @@ class TasksUC {
     return task;
   }
 
-  Future<ElementOfWork?> delete({required ElementOfWork task}) async {
+  Future<Task?> delete({required Task task}) async {
     final deletedRows = await repo.delete(task.id);
     // TODO: внутр. exception?
     if (deletedRows) {

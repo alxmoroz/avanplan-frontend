@@ -2,30 +2,30 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../L1_domain/entities/element_of_work.dart';
+import '../../../L1_domain/entities/task.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_divider.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import 'ew_view_controller.dart';
+import 'task_view_controller.dart';
 
-class EWHeader extends StatelessWidget {
-  const EWHeader(this.element);
+class TaskHeader extends StatelessWidget {
+  const TaskHeader(this.task);
 
-  final ElementOfWork element;
+  final Task task;
 
-  bool get hasLink => element.trackerId != null;
-  bool get isClosed => element.closed;
-  EWViewController get _controller => ewViewController;
+  bool get hasLink => task.trackerId != null;
+  bool get isClosed => task.closed;
+  TaskViewController get _controller => taskViewController;
 
   String get breadcrumbs {
     const sepStr = ' ⟩ ';
     String _breadcrumbs = '';
-    if (!element.isGoal) {
+    if (!task.isRoot) {
       final titles = _controller.navStackTasks.take(_controller.navStackTasks.length - 1).map((pt) => pt.title).toList();
-      titles.insert(0, _controller.selectedGoal!.title);
+      titles.insert(0, _controller.selectedTask!.title);
       _breadcrumbs = titles.join(sepStr);
     }
     return _breadcrumbs;
@@ -41,7 +41,7 @@ class EWHeader extends StatelessWidget {
           const MTDivider(),
         ],
         Row(children: [
-          Expanded(child: H2(element.title, decoration: isClosed ? TextDecoration.lineThrough : null)),
+          Expanded(child: H2(task.title, decoration: isClosed ? TextDecoration.lineThrough : null)),
           SizedBox(width: onePadding / 2),
           if (hasLink) ...[
             SizedBox(height: onePadding / 2),

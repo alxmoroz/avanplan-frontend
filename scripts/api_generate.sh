@@ -2,8 +2,8 @@
 
 # Copyright (c) 2022. Alexandr Moroz
 
-#remote_schema="http://localhost:8000/v1/openapi.json"
-remote_schema="https://hercules.moroz.team/api/v1/openapi.json"
+remote_schema="http://localhost:8000/v1/openapi.json"
+#remote_schema="https://hercules.moroz.team/api/v1/openapi.json"
 api_folder="./openapi"
 
 fullDir="${PWD}/${api_folder}"
@@ -13,7 +13,7 @@ mkdir "$fullDir"
 echo "Generate client service from $remote_schema"
 cd "$api_folder" || exit
 curl -L $remote_schema > openapi.json
-openapi-generator-cli generate -i openapi.json -g dart-dio-next -o .
+openapi-generator-cli generate -i openapi.json -g dart-dio -o .
 
 #flutter pub get
 bash ../scripts/build_runner_clean.sh

@@ -33,7 +33,7 @@ abstract class _MainControllerBase extends BaseController with Store {
       workspaces = ObservableList.of(await workspacesUC.getAll());
       _sortWS();
 
-      await ewViewController.fetchData();
+      await taskViewController.fetchData();
       await trackerController.fetchData();
     }
     stopLoading();
@@ -42,7 +42,7 @@ abstract class _MainControllerBase extends BaseController with Store {
   @action
   void clearData() {
     workspaces.clear();
-    ewViewController.clearData();
+    taskViewController.clearData();
     trackerController.clearData();
     importController.clearData();
   }

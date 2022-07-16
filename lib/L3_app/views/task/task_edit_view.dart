@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../L1_domain/entities/element_of_work.dart';
+import '../../../L1_domain/entities/task.dart';
 import '../../components/close_dialog_button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
@@ -15,10 +15,12 @@ import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
 import 'task_edit_controller.dart';
 
-Future<ElementOfWork?> showEditTaskDialog(BuildContext context, [ElementOfWork? selectedEW]) async {
+//TODO: подумать над унификацией полей. Возможно, получится избавиться от дуэта MTField и TFAnnotation
+
+Future<Task?> showEditTaskDialog(BuildContext context, [Task? selectedEW]) async {
   taskEditController.selectTask(selectedEW);
 
-  return await showModalBottomSheet<ElementOfWork?>(
+  return await showModalBottomSheet<Task?>(
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
@@ -36,7 +38,7 @@ class TaskEditView extends StatefulWidget {
 
 class _TaskEditViewState extends State<TaskEditView> {
   TaskEditController get _controller => taskEditController;
-  ElementOfWork? get _ew => _controller.selectedEW;
+  Task? get _ew => _controller.selectedTask;
 
   //TODO: валидация о заполненности работает неправильно, не сбрасывается после закрытия диалога
   // возможно, остаются tfa с теми же кодами для новых вьюх этого же контроллера и у них висит признак о произошедшем редактировании поля

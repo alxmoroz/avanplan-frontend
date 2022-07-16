@@ -4,8 +4,8 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/entities/goal_import.dart';
 import '../../../L1_domain/entities/remote_tracker.dart';
+import '../../../L1_domain/entities/task_import.dart';
 import '../../../L1_domain/system/errors.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
@@ -16,7 +16,7 @@ class ImportController extends _ImportControllerBase with _$ImportController {}
 
 abstract class _ImportControllerBase extends EditController with Store {
   @observable
-  ObservableList<GoalImport> remoteGoals = ObservableList();
+  ObservableList<TaskImport> remoteGoals = ObservableList();
 
   @computed
   List<String> get selectedGoalsIds => remoteGoals.where((g) => g.selected).map((g) => g.code).toList();
@@ -33,7 +33,7 @@ abstract class _ImportControllerBase extends EditController with Store {
     clearData();
     if (loginController.authorized) {
       try {
-        remoteGoals = ObservableList.of(await importUC.getGoals(trackerId));
+        remoteGoals = ObservableList.of(await importUC.getRootTasks(trackerId));
         _sortGoals();
       } catch (e) {
         setErrorCode(e is MTException ? e.code : e.toString());
@@ -46,7 +46,7 @@ abstract class _ImportControllerBase extends EditController with Store {
   void clearData() => remoteGoals.clear();
 
   @action
-  void selectGoal(GoalImport goal, bool selected) {
+  void selectGoal(TaskImport goal, bool selected) {
     final index = remoteGoals.indexWhere((g) => g.code == goal.code);
     if (index >= 0) {
       remoteGoals[index] = goal.copyWithSelected(selected);
@@ -77,7 +77,7 @@ abstract class _ImportControllerBase extends EditController with Store {
   @action
   Future startImport(BuildContext context) async {
     startLoading();
-    final done = await importUC.importGoals(selectedTracker!, selectedGoalsIds);
+    final done = await importUC.importTasks(selectedTracker!, selectedGoalsIds);
     if (done) {
       // TODO: здесь должны обновляться только цели, но мы обновляем всё дерево данных. Поэтому есть побочки всякие
       await mainController.fetchData();

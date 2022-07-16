@@ -6,10 +6,10 @@ import '../../components/colors.dart';
 import '../../components/icons.dart';
 import '../../components/splash.dart';
 import '../../extra/services.dart';
-import '../element_of_work/ew_view.dart';
-import '../goal/goal_list_view.dart';
 import '../remote_tracker/tracker_list_view.dart';
 import '../settings/settings_view.dart';
+import '../task/goal_list_view.dart';
+import '../task/task_view.dart';
 import 'main_dashboard_view.dart';
 
 class MainView extends StatefulWidget {
@@ -39,7 +39,7 @@ class _MainViewState extends State<MainView> {
         tabBuilder: (_, index) => CupertinoTabView(
           builder: (context) => tabViews[index],
           routes: {
-            EWView.routeName: (_) => EWView(),
+            TaskView.routeName: (_) => TaskView(),
             TrackerListView.routeName: (_) => TrackerListView(),
           },
         ),

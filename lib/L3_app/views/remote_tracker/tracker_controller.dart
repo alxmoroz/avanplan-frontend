@@ -93,7 +93,7 @@ abstract class _TrackerControllerBase extends WorkspaceBounded with Store {
     trackers.forEachIndexed((index, t) async {
       bool connected = false;
       try {
-        connected = (await importUC.getGoals(t.id)).isNotEmpty;
+        connected = (await importUC.getRootTasks(t.id)).isNotEmpty;
       } catch (_) {}
       trackers[index] = t.copyWithConnected(connected);
     });

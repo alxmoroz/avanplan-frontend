@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../L1_domain/entities/element_of_work.dart';
+import '../../../L1_domain/entities/task.dart';
 import '../../components/constants.dart';
 import '../../components/date_string_widget.dart';
 import '../../components/icons.dart';
@@ -19,18 +19,18 @@ import 'ew_state_indicator.dart';
 class EWOverview extends StatelessWidget {
   const EWOverview(this.ew);
 
-  final ElementOfWork ew;
+  final Task ew;
 
   bool get hasDescription => ew.description.isNotEmpty;
   bool get hasLink => ew.trackerId != null;
   bool get hasDates => ew.dueDate != null || ew.etaDate != null;
   bool get isClosed => ew.closed;
   bool get hasStatus => ew.status != null;
-  bool get hasSubEW => ew.ewCount > 0;
+  bool get hasSubEW => ew.leafTasksCount > 0;
 
   Widget description() => LayoutBuilder(builder: (context, size) {
         final text = ew.description;
-        final maxLines = ew.ewCount > 0 ? 3 : 9;
+        final maxLines = ew.leafTasksCount > 0 ? 3 : 9;
         final detailedTextWidget = LightText(text, maxLines: maxLines);
         final span = TextSpan(text: text, style: detailedTextWidget.style(context));
         final tp = TextPainter(text: span, maxLines: maxLines, textDirection: TextDirection.ltr);
@@ -51,7 +51,7 @@ class EWOverview extends StatelessWidget {
   Widget buildDates() => Row(children: [
         DateStringWidget(ew.dueDate, titleString: loc.ew_due_date_label),
         const Spacer(),
-        if (ew.leftEWCount > 0) DateStringWidget(ew.etaDate, titleString: loc.ew_eta_date_label),
+        if (ew.leftTasksCount > 0) DateStringWidget(ew.etaDate, titleString: loc.ew_eta_date_label),
       ]);
 
   @override
@@ -75,7 +75,7 @@ class EWOverview extends StatelessWidget {
           SampleProgress(
             ratio: ew.doneRatio,
             color: stateColor(ew.overallState),
-            titleText: loc.ew_subtasks_count(ew.ewCount),
+            titleText: loc.ew_subtasks_count(ew.leafTasksCount),
             trailingText: ew.doneRatio > 0 ? ew.doneRatio.inPercents : '',
           ),
         ]

@@ -2,22 +2,22 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../L1_domain/entities/element_of_work.dart';
-import '../../../L3_app/extra/services.dart';
-import 'ew_card.dart';
+import '../../../L1_domain/entities/task.dart';
+import '../../extra/services.dart';
+import 'task_card.dart';
 
-class EWList extends StatelessWidget {
-  const EWList(this.elements);
-  final Iterable<ElementOfWork> elements;
+class TaskListView extends StatelessWidget {
+  const TaskListView(this.tasks);
+  final Iterable<Task> tasks;
 
   @override
   Widget build(BuildContext context) {
     Widget cardBuilder(BuildContext context, int index) {
-      final element = elements.elementAt(index);
+      final element = tasks.elementAt(index);
       // TODO: обработку клика делать внутри карточки
-      return EWCard(
-        ew: element,
-        onTap: () => ewViewController.showEW(context, element),
+      return TaskCard(
+        task: element,
+        onTap: () => taskViewController.showEW(context, element),
       );
     }
 
@@ -25,7 +25,7 @@ class EWList extends StatelessWidget {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: cardBuilder,
-      itemCount: elements.length,
+      itemCount: tasks.length,
     );
   }
 }

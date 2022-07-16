@@ -2,8 +2,8 @@
 
 import '../api_schema/base_upsert.dart';
 import '../entities/base_entity.dart';
-import '../entities/goal_import.dart';
 import '../entities/remote_tracker.dart';
+import '../entities/task_import.dart';
 
 abstract class AbstractApiRepo<E extends RPersistable, U extends BaseUpsert> {
   Future<List<E>> getAll();
@@ -12,6 +12,6 @@ abstract class AbstractApiRepo<E extends RPersistable, U extends BaseUpsert> {
 }
 
 abstract class AbstractApiImportRepo {
-  Future<List<GoalImport>> getGoals(int trackerId);
-  Future<bool> importGoals(RemoteTracker tracker, List<String> goalsIds);
+  Future<List<TaskImport>> getRootTasks(int trackerId);
+  Future<bool> importTasks(RemoteTracker tracker, List<String> rootTasksIds);
 }

@@ -3,7 +3,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 
-import '../../../L1_domain/entities/element_of_work.dart';
+import '../../../L1_domain/entities/task.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/text_widgets.dart';
@@ -11,9 +11,9 @@ import '../../extra/services.dart';
 import '../../presenters/ew_filter_presenter.dart';
 
 class EWFilterDropdown extends StatelessWidget {
-  List<DropdownMenuItem<EWFilter>> get ddItems => ewFilterController.ewFilterKeys
+  List<DropdownMenuItem<TaskFilter>> get ddItems => ewFilterController.ewFilterKeys
       .map(
-        (item) => DropdownMenuItem<EWFilter>(
+        (item) => DropdownMenuItem<TaskFilter>(
           value: item,
           child: NormalText(ewFilterText(item)),
         ),
@@ -27,7 +27,7 @@ class EWFilterDropdown extends StatelessWidget {
         SizedBox(width: onePadding),
         const Spacer(),
         Expanded(
-          child: DropdownButtonFormField2<EWFilter>(
+          child: DropdownButtonFormField2<TaskFilter>(
             decoration: const InputDecoration(isDense: true, border: InputBorder.none),
             items: ddItems,
             value: ewFilterController.ewFilter,

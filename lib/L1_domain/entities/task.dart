@@ -1,19 +1,19 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'base_entity.dart';
-import 'ew_priority.dart';
-import 'ew_status.dart';
+import 'priority.dart';
+import 'status.dart';
 
 enum OverallState { overdue, risk, ok, noInfo }
 
-enum EWFilter { all, opened, overdue, risky, ok, noDue, closable, inactive }
+enum TaskFilter { all, opened, overdue, risky, ok, noDue, closable, inactive }
 
-class ElementOfWork extends Statusable {
-  ElementOfWork({
+class Task extends Statusable {
+  Task({
     required int id,
     required String title,
     required bool closed,
-    required this.ewList,
+    required this.tasks,
     required this.description,
     required this.createdOn,
     required this.updatedOn,
@@ -31,12 +31,12 @@ class ElementOfWork extends Statusable {
   final DateTime? dueDate;
   final int? parentId;
   final int? trackerId;
-  final EWStatus? status;
-  final EWPriority? priority;
+  final Status? status;
+  final Priority? priority;
   final int? workspaceId;
-  List<ElementOfWork> ewList;
+  List<Task> tasks;
 
-  ElementOfWork copy() => ElementOfWork(
+  Task copy() => Task(
         id: id,
         parentId: parentId,
         createdOn: createdOn,
@@ -44,36 +44,50 @@ class ElementOfWork extends Statusable {
         title: title,
         description: description,
         dueDate: dueDate,
-        ewList: ewList,
+        tasks: tasks,
         closed: closed,
         trackerId: trackerId,
+        workspaceId: workspaceId,
       );
 
-  // TODO: возможно, нужно тип задачи вводить просто (как трекер в редмайне)
-  bool get isGoal => workspaceId != null;
+  Task copyWithList(List<Task> _list) => Task(
+        id: id,
+        parentId: parentId,
+        createdOn: createdOn,
+        updatedOn: updatedOn,
+        title: title,
+        description: description,
+        dueDate: dueDate,
+        tasks: _list,
+        closed: closed,
+        trackerId: trackerId,
+        workspaceId: workspaceId,
+      );
+
+  bool get isRoot => parentId == null;
 
   Duration? get plannedPeriod => dueDate?.difference(createdOn);
   Duration get pastPeriod => DateTime.now().difference(createdOn);
   Duration? get overduePeriod => dueDate != null ? DateTime.now().difference(dueDate!) : null;
 
-  Iterable<ElementOfWork> get allEW {
-    final List<ElementOfWork> res = [];
-    for (ElementOfWork ew in ewList) {
-      res.addAll(ew.allEW);
-      res.add(ew);
+  Iterable<Task> get allTasks {
+    final List<Task> res = [];
+    for (Task t in tasks) {
+      res.addAll(t.allTasks);
+      res.add(t);
     }
     return res;
   }
 
-  Iterable<ElementOfWork> get leafEW => allEW.where((t) => t.allEW.isEmpty);
-  int get ewCount => leafEW.length;
-  int get closedEWCount => leafEW.where((t) => t.closed).length;
-  int get leftEWCount => ewCount - closedEWCount;
-  double get doneRatio => ewCount > 0 ? closedEWCount / ewCount : 0;
+  Iterable<Task> get leafTasks => allTasks.where((t) => t.allTasks.isEmpty);
+  int get leafTasksCount => leafTasks.length;
+  int get closedTasksCount => leafTasks.where((t) => t.closed).length;
+  int get leftTasksCount => leafTasksCount - closedTasksCount;
+  double get doneRatio => leafTasksCount > 0 ? closedTasksCount / leafTasksCount : 0;
 
-  double get _factSpeed => closedEWCount / pastPeriod.inSeconds;
+  double get _factSpeed => closedTasksCount / pastPeriod.inSeconds;
 
-  DateTime? get etaDate => _factSpeed > 0 && leftEWCount > 0 ? DateTime.now().add(Duration(seconds: (leftEWCount / _factSpeed).round())) : null;
+  DateTime? get etaDate => _factSpeed > 0 && leftTasksCount > 0 ? DateTime.now().add(Duration(seconds: (leftTasksCount / _factSpeed).round())) : null;
   Duration? get etaRiskPeriod => dueDate != null ? etaDate?.difference(dueDate!) : null;
 
   bool get _hasOverdue => (overduePeriod?.inSeconds ?? 0) > 0;

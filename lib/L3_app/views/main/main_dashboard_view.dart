@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../L1_domain/entities/element_of_work.dart';
+import '../../../L1_domain/entities/task.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/empty_data_widget.dart';
@@ -60,7 +60,7 @@ class _MainDashboardViewState extends State<MainDashboardView> {
                     // TODO: здесь не про то, что целей вообще нет, а что нет открытых целей
                     title: loc.goal_list_empty_title,
                     addTitle: loc.goal_title_new,
-                    onAdd: () => ewViewController.addGoal(context),
+                    onAdd: () => taskViewController.addTask(context),
                   )
                 : ListView(
                     shrinkWrap: true,

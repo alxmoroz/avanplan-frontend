@@ -2,10 +2,10 @@
 
 import 'package:openapi/openapi.dart';
 
-import '../../L1_domain/entities/ew_priority.dart';
+import '../../L1_domain/entities/priority.dart';
 
-extension TaskPriorityMapper on TaskPrioritySchemaGet {
-  EWPriority get priority => EWPriority(
+extension PriorityMapper on PrioritySchemaGet {
+  Priority get priority => Priority(
         id: id,
         title: title,
         order: order,

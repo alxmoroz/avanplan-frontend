@@ -3,8 +3,8 @@
 // TODO: можно было отнаследоваться от Smartable. Но там обязательно id...
 //  Возможно,если разнести Importable и PKGetable как на бэке,то получится упростить немного
 
-class GoalImport {
-  GoalImport({
+class TaskImport {
+  TaskImport({
     required this.code,
     required this.title,
     required this.description,
@@ -20,7 +20,7 @@ class GoalImport {
   final bool closed;
   final bool selected;
 
-  GoalImport copyWithSelected(bool _selected) => GoalImport(
+  TaskImport copyWithSelected(bool _selected) => TaskImport(
         code: code,
         title: title,
         description: description,

@@ -3,41 +3,41 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/openapi.dart';
 
-import '../../L1_domain/entities/goal_import.dart';
 import '../../L1_domain/entities/remote_tracker.dart';
+import '../../L1_domain/entities/task_import.dart';
 import '../../L1_domain/repositories/abs_api_repo.dart';
 import '../../L1_domain/system/errors.dart';
 import '../../L3_app/extra/services.dart';
-import '../mappers/goal_import.dart';
+import '../mappers/task_import.dart';
 
 // TODO: для всех подобных репозиториев: развязать узел зависимости от 3 уровня за счёт инициализации openApi в конструктор репы
 
 class ImportRepo extends AbstractApiImportRepo {
-  IntegrationsGoalsApi get api => openAPI.getIntegrationsGoalsApi();
+  IntegrationsTasksApi get api => openAPI.getIntegrationsTasksApi();
 
   @override
-  Future<List<GoalImport>> getGoals(int trackerId) async {
-    final List<GoalImport> goals = [];
+  Future<List<TaskImport>> getRootTasks(int trackerId) async {
+    final List<TaskImport> rootTasks = [];
 
     try {
-      final response = await api.getGoalsV1IntegrationsGoalsGet(trackerId: trackerId);
+      final response = await api.getRootTasksV1IntegrationsTasksGet(trackerId: trackerId);
       if (response.statusCode == 200) {
-        for (GoalImportRemoteSchemaGet g in response.data?.toList() ?? []) {
-          goals.add(g.goalImport);
+        for (TaskImportRemoteSchemaGet g in response.data?.toList() ?? []) {
+          rootTasks.add(g.goalImport);
         }
       }
     } catch (e) {
       throw MTException(code: 'error_get_goals', detail: e.toString());
     }
 
-    return goals;
+    return rootTasks;
   }
 
   @override
-  Future<bool> importGoals(RemoteTracker tracker, List<String> goalsIds) async {
-    final response = await api.importGoalsV1IntegrationsGoalsImportPost(
+  Future<bool> importTasks(RemoteTracker tracker, List<String> rootTasksIds) async {
+    final response = await api.importTasksV1IntegrationsTasksImportPost(
       trackerId: tracker.id,
-      requestBody: BuiltList.from(goalsIds),
+      requestBody: BuiltList.from(rootTasksIds),
     );
     return response.statusCode == 200;
   }

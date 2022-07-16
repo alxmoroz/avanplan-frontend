@@ -16,64 +16,64 @@ class MainDashboard extends StatelessWidget {
     final noInfoColor = stateColor(OverallState.noInfo);
 
     return Column(children: [
-      if (ewFilterController.hasOverdue) ...[
+      if (tasksFilterController.hasOverdue) ...[
         SizedBox(height: onePadding),
         SampleProgress(
-          ratio: ewFilterController.overdueEWCount / ewFilterController.openedEWCount,
+          ratio: tasksFilterController.overdueTasksCount / tasksFilterController.openedTasksCount,
           color: stateColor(OverallState.overdue),
           titleText: loc.ew_filter_overdue,
-          trailingText: '${ewFilterController.overdueEWCount}',
-          subtitleText: stateTextDetails(OverallState.overdue, overduePeriod: ewFilterController.overduePeriod),
+          trailingText: '${tasksFilterController.overdueTasksCount}',
+          subtitleText: stateTextDetails(OverallState.overdue, overduePeriod: tasksFilterController.overduePeriod),
         ),
       ],
 
-      if (ewFilterController.hasRisk) ...[
+      if (tasksFilterController.hasRisk) ...[
         SizedBox(height: onePadding),
         SampleProgress(
-          ratio: ewFilterController.riskyEWCount / ewFilterController.openedEWCount,
+          ratio: tasksFilterController.riskyTasksCount / tasksFilterController.openedTasksCount,
           color: stateColor(OverallState.risk),
           titleText: loc.ew_filter_risky,
-          trailingText: '${ewFilterController.riskyEWCount}',
-          subtitleText: stateTextDetails(OverallState.risk, etaRiskPeriod: ewFilterController.riskPeriod),
+          trailingText: '${tasksFilterController.riskyTasksCount}',
+          subtitleText: stateTextDetails(OverallState.risk, etaRiskPeriod: tasksFilterController.riskPeriod),
         ),
       ],
 
-      if (ewFilterController.hasNoDue) ...[
+      if (tasksFilterController.hasNoDue) ...[
         SizedBox(height: onePadding),
         SampleProgress(
-          ratio: ewFilterController.noDueEWCount / ewFilterController.openedEWCount,
+          ratio: tasksFilterController.noDueTasksCount / tasksFilterController.openedTasksCount,
           color: noInfoColor,
           titleText: loc.ew_filter_no_due,
-          trailingText: '${ewFilterController.noDueEWCount}',
+          trailingText: '${tasksFilterController.noDueTasksCount}',
         ),
       ],
-      if (ewFilterController.hasInactive) ...[
+      if (tasksFilterController.hasInactive) ...[
         SizedBox(height: onePadding),
         SampleProgress(
-          ratio: ewFilterController.inactiveEWCount / ewFilterController.openedEWCount,
+          ratio: tasksFilterController.inactiveTasksCount / tasksFilterController.openedTasksCount,
           color: noInfoColor,
           titleText: loc.ew_filter_no_progress,
-          trailingText: '${ewFilterController.inactiveEWCount}',
+          trailingText: '${tasksFilterController.inactiveTasksCount}',
         ),
       ],
-      if (ewFilterController.hasClosable) ...[
+      if (tasksFilterController.hasClosable) ...[
         SizedBox(height: onePadding),
         SampleProgress(
-          ratio: ewFilterController.closableEWCount / ewFilterController.openedEWCount,
+          ratio: tasksFilterController.closableTasksCount / tasksFilterController.openedTasksCount,
           color: noInfoColor,
           titleText: loc.ew_filter_no_opened_tasks,
-          trailingText: '${ewFilterController.closableEWCount}',
+          trailingText: '${tasksFilterController.closableTasksCount}',
         ),
       ],
       // TODO: напрашивается количество запасных дней. Но при наличии рисковых целей, то лучше показывать сумму за вычетом отстающих дней.
       // TODO: Тогда путаница получается... Подумать, как учитывать суммарное отставание или запасы в днях
-      if ((ewFilterController.hasOverdue || ewFilterController.hasRisk) && ewFilterController.hasOk) ...[
+      if ((tasksFilterController.hasOverdue || tasksFilterController.hasRisk) && tasksFilterController.hasOk) ...[
         SizedBox(height: onePadding),
         SampleProgress(
-          ratio: ewFilterController.okEWCount / ewFilterController.openedEWCount,
+          ratio: tasksFilterController.okTasksCount / tasksFilterController.openedTasksCount,
           color: stateColor(OverallState.ok),
           titleText: loc.ew_filter_ok,
-          trailingText: '${ewFilterController.okEWCount}',
+          trailingText: '${tasksFilterController.okTasksCount}',
         ),
       ],
     ]);

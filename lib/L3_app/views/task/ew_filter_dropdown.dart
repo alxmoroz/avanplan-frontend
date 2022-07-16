@@ -11,7 +11,7 @@ import '../../extra/services.dart';
 import '../../presenters/ew_filter_presenter.dart';
 
 class EWFilterDropdown extends StatelessWidget {
-  List<DropdownMenuItem<TaskFilter>> get ddItems => ewFilterController.ewFilterKeys
+  List<DropdownMenuItem<TaskFilter>> get ddItems => tasksFilterController.taskFilterKeys
       .map(
         (item) => DropdownMenuItem<TaskFilter>(
           value: item,
@@ -30,9 +30,9 @@ class EWFilterDropdown extends StatelessWidget {
           child: DropdownButtonFormField2<TaskFilter>(
             decoration: const InputDecoration(isDense: true, border: InputBorder.none),
             items: ddItems,
-            value: ewFilterController.ewFilter,
+            value: tasksFilterController.tasksFilter,
             icon: downCaretIcon(context),
-            onChanged: (type) => ewFilterController.setFilter(type),
+            onChanged: (type) => tasksFilterController.setFilter(type),
             dropdownDecoration: BoxDecoration(borderRadius: BorderRadius.circular(onePadding)),
             isExpanded: true,
           ),

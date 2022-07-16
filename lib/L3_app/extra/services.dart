@@ -27,8 +27,8 @@ import '../views/import/import_controller.dart';
 import '../views/main/main_controller.dart';
 import '../views/remote_tracker/tracker_controller.dart';
 import '../views/settings/settings_controller.dart';
-import '../views/task/ew_filter_controller.dart';
 import '../views/task/task_edit_controller.dart';
+import '../views/task/task_filter_controller.dart';
 import '../views/task/task_view_controller.dart';
 
 S get loc => S.current;
@@ -45,7 +45,7 @@ TaskViewController get taskViewController => GetIt.I<TaskViewController>();
 TaskEditController get taskEditController => GetIt.I<TaskEditController>();
 TrackerController get trackerController => GetIt.I<TrackerController>();
 ImportController get importController => GetIt.I<ImportController>();
-EWFilterController get ewFilterController => GetIt.I<EWFilterController>();
+TaskFilterController get tasksFilterController => GetIt.I<TaskFilterController>();
 
 Openapi get openAPI => GetIt.I<Openapi>();
 
@@ -90,5 +90,5 @@ void setup() {
   getIt.registerSingleton<TaskEditController>(TaskEditController());
   getIt.registerSingleton<TrackerController>(TrackerController());
   getIt.registerSingleton<ImportController>(ImportController());
-  getIt.registerSingleton<EWFilterController>(EWFilterController());
+  getIt.registerSingleton<TaskFilterController>(TaskFilterController());
 }

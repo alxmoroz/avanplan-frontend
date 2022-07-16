@@ -12,7 +12,7 @@ import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/ew_overview_presenter.dart';
 import '../../presenters/number_presenter.dart';
-import 'ew_state_indicator.dart';
+import 'task_state_indicator.dart';
 
 class TaskCard extends StatelessWidget {
   const TaskCard({required this.task, this.onTap, this.expanded = false});
@@ -77,7 +77,7 @@ class TaskCard extends StatelessWidget {
               buildDates(),
             ],
             SizedBox(height: onePadding / 2),
-            EWStateIndicator(task, inCard: true),
+            TaskStateIndicator(task, inCard: true),
           ]),
         ),
       );

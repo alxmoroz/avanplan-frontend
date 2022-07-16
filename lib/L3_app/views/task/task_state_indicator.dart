@@ -8,22 +8,22 @@ import '../../components/constants.dart';
 import '../../components/text_widgets.dart';
 import '../../presenters/ew_overview_presenter.dart';
 
-class EWStateIndicator extends StatelessWidget {
-  const EWStateIndicator(this.element, {this.inCard = false});
+class TaskStateIndicator extends StatelessWidget {
+  const TaskStateIndicator(this.task, {this.inCard = false});
 
-  final Task element;
+  final Task task;
   final bool inCard;
 
   @override
   Widget build(BuildContext context) {
-    final color = inCard ? darkGreyColor : stateColor(element.overallState) ?? darkGreyColor;
-    final _stateTextTitle = stateTextTitle(element.overallState);
-    final _stateTextDetails = stateTextDetails(element.overallState, overduePeriod: element.overduePeriod, etaRiskPeriod: element.etaRiskPeriod);
+    final color = inCard ? darkGreyColor : stateColor(task.overallState) ?? darkGreyColor;
+    final _stateTextTitle = stateTextTitle(task.overallState);
+    final _stateTextDetails = stateTextDetails(task.overallState, overduePeriod: task.overduePeriod, etaRiskPeriod: task.etaRiskPeriod);
     final indicatorText = _stateTextDetails.isNotEmpty ? _stateTextDetails : _stateTextTitle;
 
     return Row(
       children: [
-        stateIcon(context, element.overallState, size: onePadding * (inCard ? 1.5 : 2), color: color),
+        stateIcon(context, task.overallState, size: onePadding * (inCard ? 1.5 : 2), color: color),
         SizedBox(width: onePadding / 3),
         Expanded(child: inCard ? SmallText(indicatorText, color: color) : NormalText(indicatorText, color: color)),
       ],

@@ -62,9 +62,9 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   }
 
   void updateFilter(Task ew) {
-    if (!ew.deleted && !ew.closed && ewFilterController.filteredEW.firstWhereOrNull((e) => e.id == ew.id) == null ||
-        !ewFilterController.ewFilterKeys.contains(ewFilterController.ewFilter)) {
-      ewFilterController.setDefaultFilter();
+    if (!ew.deleted && !ew.closed && tasksFilterController.filteredTasks.firstWhereOrNull((e) => e.id == ew.id) == null ||
+        !tasksFilterController.taskFilterKeys.contains(tasksFilterController.tasksFilter)) {
+      tasksFilterController.setDefaultFilter();
     }
   }
 
@@ -77,7 +77,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
       tasks.addAll(ws.tasks);
     }
     rootTask = rootTask.copyWithList(tasks);
-    ewFilterController.setDefaultFilter();
+    tasksFilterController.setDefaultFilter();
     _sortTasks();
     stopLoading();
   }

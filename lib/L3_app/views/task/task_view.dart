@@ -12,9 +12,9 @@ import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import 'ew_overview.dart';
 import 'task_header.dart';
 import 'task_listview.dart';
+import 'task_overview.dart';
 import 'task_view_controller.dart';
 
 class TaskView extends StatelessWidget {
@@ -58,7 +58,7 @@ class _EWPageState extends State<EWPage> {
         ),
       );
 
-  Widget overviewPane() => EWOverview(ew);
+  Widget overviewPane() => TaskOverview(ew);
 
   Widget tasksPane() => Column(
         children: [

@@ -40,12 +40,12 @@ class GoalListView extends StatelessWidget {
                 )
               : ListView(
                   children: [
-                    if (ewFilterController.hasFilters) ...[
+                    if (tasksFilterController.hasFilters) ...[
                       SizedBox(height: onePadding),
                       EWFilterDropdown(),
                     ],
                     SizedBox(height: onePadding / 2),
-                    TaskListView(ewFilterController.filteredEW),
+                    TaskListView(tasksFilterController.filteredTasks),
                     SizedBox(height: onePadding),
                   ],
                 ),

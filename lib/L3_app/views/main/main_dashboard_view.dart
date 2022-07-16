@@ -26,12 +26,12 @@ class MainDashboardView extends StatefulWidget {
 class _MainDashboardViewState extends State<MainDashboardView> {
   // TODO: добавлять рутовую невидимую цель (EW) и делать расчёты через неё
 
-  int get _openedGoalsCount => ewFilterController.openedEWCount;
+  int get _openedGoalsCount => tasksFilterController.openedTasksCount;
 
-  OverallState get _overallState => ewFilterController.hasTimeBound
-      ? (ewFilterController.hasOverdue
+  OverallState get _overallState => tasksFilterController.hasTimeBound
+      ? (tasksFilterController.hasOverdue
           ? OverallState.overdue
-          : ewFilterController.hasRisk
+          : tasksFilterController.hasRisk
               ? OverallState.risk
               : OverallState.ok)
       : OverallState.noInfo;
@@ -43,7 +43,7 @@ class _MainDashboardViewState extends State<MainDashboardView> {
     return Observer(
       builder: (_) => MTPage(
         isLoading: mainController.isLoading,
-        navBar: ewFilterController.hasOpened ? navBar(context, title: loc.goal_list_count(_openedGoalsCount)) : null,
+        navBar: tasksFilterController.hasOpened ? navBar(context, title: loc.goal_list_count(_openedGoalsCount)) : null,
         body: Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(
@@ -55,7 +55,7 @@ class _MainDashboardViewState extends State<MainDashboardView> {
           child: SafeArea(
             top: false,
             bottom: false,
-            child: !ewFilterController.hasOpened
+            child: !tasksFilterController.hasOpened
                 ? EmptyDataWidget(
                     // TODO: здесь не про то, что целей вообще нет, а что нет открытых целей
                     title: loc.goal_list_empty_title,

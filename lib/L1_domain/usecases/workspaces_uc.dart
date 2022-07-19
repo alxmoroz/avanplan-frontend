@@ -4,12 +4,12 @@ import '../api_schema/base_upsert.dart';
 import '../entities/workspace.dart';
 import '../repositories/abs_api_repo.dart';
 
+//TODO: похоже, есть смысл сделать абстрактный общий юзкейс
+
 class WorkspacesUC {
   WorkspacesUC({required this.repo});
 
-  final AbstractApiRepo<Workspace, BaseUpsert> repo;
+  final AbstractApiRepo<Workspace, BaseUpsert, dynamic> repo;
 
-  Future<List<Workspace>> getAll() async {
-    return await repo.getAll();
-  }
+  Future<List<Workspace>> getAll() async => await repo.getAll();
 }

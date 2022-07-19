@@ -8,12 +8,12 @@ import '../../L1_domain/repositories/abs_api_repo.dart';
 import '../../L2_data/mappers/workspace.dart';
 import '../../L3_app/extra/services.dart';
 
-class WorkspacesRepo extends AbstractApiRepo<Workspace, BaseUpsert> {
-  MyApi get myApi => openAPI.getMyApi();
+class WorkspacesRepo extends AbstractApiRepo<Workspace, BaseUpsert, BaseSchema> {
+  MyApi get api => openAPI.getMyApi();
 
   @override
-  Future<List<Workspace>> getAll() async {
-    final response = await myApi.getMyWorkspacesV1MyWorkspacesGet();
+  Future<List<Workspace>> getAll([dynamic query]) async {
+    final response = await api.getMyWorkspacesV1MyWorkspacesGet();
 
     final List<Workspace> workspaces = [];
     if (response.statusCode == 200) {

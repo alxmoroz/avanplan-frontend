@@ -17,7 +17,7 @@ class TaskListView extends StatelessWidget {
       // TODO: обработку клика делать внутри карточки
       return TaskCard(
         task: element,
-        onTap: () => taskViewController.showEW(context, element),
+        onTap: () => taskViewController.showTask(context, element),
       );
     }
 

@@ -67,7 +67,8 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
     clearData();
     final List<Task> tasks = [];
     for (Workspace ws in mainController.workspaces) {
-      tasks.addAll(ws.rootTasks);
+      final rt = await tasksUC.getRoots(ws.id);
+      tasks.addAll(rt);
     }
     rootTask = rootTask.copyWithList(tasks);
     tasksFilterController.setDefaultFilter();
@@ -127,7 +128,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
 
   /// роутер
 
-  Future showEW(BuildContext context, Task _ew) async {
+  Future showTask(BuildContext context, Task _ew) async {
     pushTask(_ew);
     await Navigator.of(context).pushNamed(TaskView.routeName);
     popTask();

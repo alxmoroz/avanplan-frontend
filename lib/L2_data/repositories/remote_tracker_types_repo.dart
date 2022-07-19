@@ -8,11 +8,11 @@ import '../../L1_domain/repositories/abs_api_repo.dart';
 import '../../L3_app/extra/services.dart';
 import '../mappers/remote_tracker_type.dart';
 
-class RemoteTrackerTypesRepo extends AbstractApiRepo<RemoteTrackerType, BaseUpsert> {
+class RemoteTrackerTypesRepo extends AbstractApiRepo<RemoteTrackerType, BaseUpsert, BaseSchema> {
   IntegrationsTrackersApi get api => openAPI.getIntegrationsTrackersApi();
 
   @override
-  Future<List<RemoteTrackerType>> getAll() async {
+  Future<List<RemoteTrackerType>> getAll([dynamic query]) async {
     final response = await api.getTrackerTypesV1IntegrationsTrackersTypesGet();
 
     final List<RemoteTrackerType> types = [];

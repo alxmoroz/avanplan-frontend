@@ -18,16 +18,15 @@ class ImportRepo extends AbstractApiImportRepo {
   @override
   Future<List<TaskImport>> getRootTasks(int trackerId) async {
     final List<TaskImport> rootTasks = [];
-
     try {
       final response = await api.getRootTasksV1IntegrationsTasksGet(trackerId: trackerId);
       if (response.statusCode == 200) {
-        for (TaskImportRemoteSchemaGet g in response.data?.toList() ?? []) {
-          rootTasks.add(g.taskImport);
+        for (TaskImportRemoteSchemaGet t in response.data?.toList() ?? []) {
+          rootTasks.add(t.taskImport);
         }
       }
     } catch (e) {
-      throw MTException(code: 'task_import_error_get_list', detail: e.toString());
+      throw MTException(code: 'task_import_title_error_get_list', detail: e.toString());
     }
 
     return rootTasks;

@@ -5,8 +5,8 @@ import '../entities/base_entity.dart';
 import '../entities/remote_tracker.dart';
 import '../entities/task_import.dart';
 
-abstract class AbstractApiRepo<E extends RPersistable, U extends BaseUpsert> {
-  Future<List<E>> getAll();
+abstract class AbstractApiRepo<E extends RPersistable, U extends BaseUpsert, Q extends BaseSchema> {
+  Future<List<E>> getAll([Q? query]);
   Future<E?> save(U data);
   Future<bool> delete(int id);
 }

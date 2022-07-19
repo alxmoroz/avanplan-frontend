@@ -10,7 +10,6 @@ import 'person.dart';
 import 'priority.dart';
 import 'remote_tracker.dart';
 import 'status.dart';
-import 'task.dart';
 
 extension WorkspaceMapper on WorkspaceSchemaGet {
   // TODO: сортируем тут только те списки, которые не редактируем в приложении на данный момент. Нужно перенести в контроллеры для редактирования
@@ -37,7 +36,6 @@ extension WorkspaceMapper on WorkspaceSchemaGet {
         title: title.trim(),
         remoteTrackers: remoteTrackers?.map((rt) => rt.tracker).toList() ?? [],
         persons: _sortedPersons,
-        tasks: tasks?.map((t) => t.task).toList() ?? [],
         priorities: _sortedPriorities,
         statuses: _sortedStatuses,
       );

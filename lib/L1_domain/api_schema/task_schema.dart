@@ -20,3 +20,13 @@ class TaskUpsert extends StatusableUpsert {
   final DateTime? dueDate;
   final int? statusId;
 }
+
+class TaskQuery extends BaseSchema {
+  TaskQuery({
+    required this.workspaceId,
+    this.parentId,
+  });
+
+  final int workspaceId;
+  final int? parentId;
+}

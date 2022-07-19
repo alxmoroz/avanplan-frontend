@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import '../api_schema/base_upsert.dart';
 import '../api_schema/remote_tracker_upsert.dart';
 import '../entities/remote_tracker.dart';
 import '../repositories/abs_api_repo.dart';
@@ -9,7 +10,7 @@ import '../repositories/abs_api_repo.dart';
 class RemoteTrackersUC {
   RemoteTrackersUC({required this.repo});
 
-  final AbstractApiRepo<RemoteTracker, RemoteTrackerUpsert> repo;
+  final AbstractApiRepo<RemoteTracker, RemoteTrackerUpsert, BaseSchema> repo;
 
   Future<RemoteTracker?> save(RemoteTrackerUpsert data) async {
     RemoteTracker? tracker;
@@ -33,7 +34,7 @@ class RemoteTrackersUC {
 class RemoteTrackerTypesUC {
   RemoteTrackerTypesUC({required this.repo});
 
-  final AbstractApiRepo<RemoteTrackerType, dynamic> repo;
+  final AbstractApiRepo<RemoteTrackerType, dynamic, dynamic> repo;
 
   Future<List<RemoteTrackerType>> getAll() async {
     return await repo.getAll();

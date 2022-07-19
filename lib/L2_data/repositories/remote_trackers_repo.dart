@@ -2,6 +2,7 @@
 
 import 'package:openapi/openapi.dart';
 
+import '../../L1_domain/api_schema/base_upsert.dart';
 import '../../L1_domain/api_schema/remote_tracker_upsert.dart';
 import '../../L1_domain/entities/remote_tracker.dart';
 import '../../L1_domain/repositories/abs_api_repo.dart';
@@ -9,11 +10,11 @@ import '../../L1_domain/repositories/abs_api_repo.dart';
 import '../../L3_app/extra/services.dart';
 import '../mappers/remote_tracker.dart';
 
-class RemoteTrackersRepo extends AbstractApiRepo<RemoteTracker, RemoteTrackerUpsert> {
+class RemoteTrackersRepo extends AbstractApiRepo<RemoteTracker, RemoteTrackerUpsert, BaseSchema> {
   IntegrationsTrackersApi get api => openAPI.getIntegrationsTrackersApi();
 
   @override
-  Future<List<RemoteTracker>> getAll() async => throw UnimplementedError();
+  Future<List<RemoteTracker>> getAll([dynamic query]) async => throw UnimplementedError();
 
   @override
   Future<RemoteTracker?> save(RemoteTrackerUpsert data) async {

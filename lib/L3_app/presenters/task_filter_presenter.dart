@@ -30,7 +30,7 @@ String taskFilterText(TaskFilter tf) {
       res = '${loc.task_filter_opened}$_sep${tasksFilterController.openedTasksCount}';
       break;
     case TaskFilter.all:
-      res = '${loc.task_filter_all}$_sep${tasksFilterController.allTasksCount}';
+      res = '${loc.task_filter_all}$_sep${tasksFilterController.tasksCount}';
       break;
   }
   return res;

@@ -19,15 +19,11 @@ class TaskHeader extends StatelessWidget {
   bool get hasLink => task.trackerId != null;
   TaskViewController get _controller => taskViewController;
 
-  // TODO: поправить. Не работает
   String get breadcrumbs {
-    const sepStr = ' ⟩ ';
+    const sepStr = ' > ';
     String _breadcrumbs = '';
-    // if (!task.isRoot) {
-    final titles = _controller.navStackTasks.take(_controller.navStackTasks.length).map((pt) => pt.title).toList();
-    // titles.insert(0, _controller.selectedTask!.title);
+    final titles = _controller.navStackTasks.take(_controller.navStackTasks.length - 1).map((pt) => pt.title).toList();
     _breadcrumbs = titles.join(sepStr);
-    // }
     return _breadcrumbs;
   }
 

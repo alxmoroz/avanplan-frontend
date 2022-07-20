@@ -8,7 +8,6 @@ import '../../components/splash.dart';
 import '../../extra/services.dart';
 import '../remote_tracker/tracker_list_view.dart';
 import '../settings/settings_view.dart';
-import '../task/root_tasks_view.dart';
 import '../task/task_view.dart';
 import 'main_dashboard_view.dart';
 
@@ -22,7 +21,7 @@ class MainView extends StatefulWidget {
 class _MainViewState extends State<MainView> {
   final tabViews = [
     MainDashboardView(),
-    RootTasksView(),
+    TaskView(),
     SettingsView(),
   ];
 

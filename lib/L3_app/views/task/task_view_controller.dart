@@ -29,14 +29,14 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   @observable
   Task rootTask = Task(
     id: -1,
-    title: 'root',
+    parentId: null,
+    title: '',
+    tasks: [],
     description: '',
     closed: false,
-    tasks: [],
     dueDate: null,
-    createdOn: DateTime.now(),
     trackerId: null,
-    parentId: null,
+    createdOn: DateTime.now(),
     updatedOn: DateTime.now(),
   );
 

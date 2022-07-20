@@ -15,6 +15,9 @@ class MainDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     final noInfoColor = stateColor(OverallState.noInfo);
 
+    // TODO: расчёты здесь лучше подойдут какие для дашборда задачи. Вообще, стоит объединить.
+    // TODO: в любом случае нельзя считать обзор в контроллере фильтра!
+
     return Column(children: [
       if (tasksFilterController.hasOverdue) ...[
         SizedBox(height: onePadding),

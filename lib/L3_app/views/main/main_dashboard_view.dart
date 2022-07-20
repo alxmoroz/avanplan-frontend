@@ -26,15 +26,7 @@ class MainDashboardView extends StatefulWidget {
 class _MainDashboardViewState extends State<MainDashboardView> {
   // TODO: добавлять рутовую задачу и делать расчёты через неё
 
-  int get _openedTasksCount => tasksFilterController.openedTasksCount;
-
-  OverallState get _overallState => tasksFilterController.hasTimeBound
-      ? (tasksFilterController.hasOverdue
-          ? OverallState.overdue
-          : tasksFilterController.hasRisk
-              ? OverallState.risk
-              : OverallState.ok)
-      : OverallState.noInfo;
+  OverallState get _overallState => taskViewController.rootTask.overallState;
 
   final double _iconSize = onePadding * 15;
 
@@ -43,7 +35,7 @@ class _MainDashboardViewState extends State<MainDashboardView> {
     return Observer(
       builder: (_) => MTPage(
         isLoading: mainController.isLoading,
-        navBar: tasksFilterController.hasOpened ? navBar(context, title: loc.task_list_title_count(_openedTasksCount)) : null,
+        navBar: tasksFilterController.hasOpened ? navBar(context, title: loc.appTitle) : null,
         body: Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(

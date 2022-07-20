@@ -45,10 +45,9 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   ObservableList<Task> allTasks = ObservableList();
 
   @action
-  void updateTasks(List<Task> _rootTasks) {
+  void _updateTasks(List<Task> _rootTasks) {
     rootTask = rootTask.copyWithList(_rootTasks);
     allTasks = ObservableList.of(rootTask.allTasks);
-    tasksFilterController.setDefaultFilter();
   }
 
   @computed
@@ -57,7 +56,6 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   @action
   void pushTask(Task _task) {
     navStackTasks.add(_task);
-    tasksFilterController.setDefaultFilter();
   }
 
   @action
@@ -65,7 +63,6 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
     if (navStackTasks.isNotEmpty) {
       navStackTasks.removeLast();
     }
-    tasksFilterController.setDefaultFilter();
   }
 
   /// рутовый объект (для расчётов)
@@ -84,13 +81,14 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
       final rt = await tasksUC.getRoots(ws.id);
       rootTasks.addAll(rt);
     }
-    updateTasks(rootTasks);
+    _updateTasks(rootTasks);
+    tasksFilterController.setDefaultFilter();
     _sortTasks();
     stopLoading();
   }
 
   @action
-  void clearData() => updateTasks([]);
+  void clearData() => _updateTasks([]);
 
   /// Список подзадач
 
@@ -140,11 +138,13 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   }
 
   /// роутер
-
-  Future showTask(BuildContext context, Task _ew) async {
-    pushTask(_ew);
+  // TODO: обновлять фильтр при переходе к задаче лучше в initState TaskPage
+  Future showTask(BuildContext context, Task _t) async {
+    pushTask(_t);
+    tasksFilterController.setDefaultFilter();
     await Navigator.of(context).pushNamed(TaskView.routeName);
     popTask();
+    tasksFilterController.setDefaultFilter();
   }
 
   Future addTask(BuildContext context) async {
@@ -152,6 +152,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
     if (newTask != null) {
       _addTask(newTask);
       _updateParents(newTask);
+      tasksFilterController.setDefaultFilter();
     }
   }
 
@@ -165,6 +166,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
         _updateTask(editedTask, selectedTask!);
       }
       _updateParents(editedTask);
+      tasksFilterController.setDefaultFilter();
     }
   }
 }

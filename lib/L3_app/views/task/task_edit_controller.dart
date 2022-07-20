@@ -82,12 +82,17 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
 
   /// общий виджет - форма с полями для задач и целей
 
-  Widget form(BuildContext context, [List<Widget>? customFields]) {
+  Widget form(BuildContext context) {
     return Scrollbar(
       thumbVisibility: true,
       child: ListView(children: [
         ...['title', 'dueDate', 'description'].map((code) => textFieldForCode(context, code)),
-        if (customFields != null) ...customFields,
+        MTDropdown<Status>(
+          onChanged: (status) => selectStatus(status),
+          value: selectedStatus,
+          items: statuses,
+          label: loc.common_status_placeholder,
+        ),
         Padding(
           padding: tfPadding,
           child: InkWell(
@@ -115,13 +120,8 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
   }
 
   /// статусы задач
-
   @computed
-  List<Status> get statuses {
-    final ws = mainController.workspaces.firstWhereOrNull((ws) => ws.id == selectedTask?.workspaceId);
-
-    return ws != null ? ws.statuses : [];
-  }
+  List<Status> get statuses => selectedWS?.statuses ?? [];
 
   @observable
   int? selectedStatusId;
@@ -137,25 +137,12 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
   @computed
   Status? get selectedStatus => statuses.firstWhereOrNull((s) => s.id == selectedStatusId);
 
-  List<Widget> customFields(BuildContext context) {
-    final items = <Widget>[];
-    if (statuses.isNotEmpty) {
-      items.add(MTDropdown<Status>(
-        onChanged: (status) => selectStatus(status),
-        value: selectedStatus,
-        items: statuses,
-        label: loc.common_status_placeholder,
-      ));
-    }
-    return items;
-  }
-
   /// выбранная задача
   @observable
   Task? selectedTask;
 
   @action
-  void selectTask(Task? _ew) => selectedTask = _ew;
+  void selectTask(Task? _t) => selectedTask = _t;
 
   @computed
   bool get canEdit => selectedTask != null;

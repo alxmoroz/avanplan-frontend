@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:hercules/L3_app/views/task/task_filter_dropdown.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../components/constants.dart';
@@ -62,8 +63,12 @@ class _TaskPageState extends State<TaskPage> {
 
   Widget tasksPane() => Column(
         children: [
+          if (tasksFilterController.hasFilters) ...[
+            SizedBox(height: onePadding),
+            TaskFilterDropdown(),
+          ],
           SizedBox(height: onePadding / 2),
-          TaskListView(taskViewController.subtasks),
+          TaskListView(tasksFilterController.filteredTasks),
           SizedBox(height: onePadding),
         ],
       );
@@ -72,40 +77,42 @@ class _TaskPageState extends State<TaskPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MTPage(
-      isLoading: _controller.isLoading,
-      navBar: navBar(
-        context,
-        title: '${loc.task_title} #${task.id}',
-        trailing: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            MTButton.icon(plusIcon(context), () => _controller.addTask(context)),
-            SizedBox(width: onePadding * 2),
-            MTButton.icon(editIcon(context), () => _controller.editTask(context)),
-            SizedBox(width: onePadding),
-          ],
-        ),
-      ),
-      body: SafeArea(
-        top: false,
-        bottom: false,
-        child: ListView(
-          children: [
-            TaskHeader(task),
-            if (hasSubtasks) ...[
-              SizedBox(height: onePadding / 2),
-              tabPaneSelector(),
+    return Observer(
+      builder: (_) => MTPage(
+        isLoading: _controller.isLoading,
+        navBar: navBar(
+          context,
+          title: '${loc.task_title} #${task.id}',
+          trailing: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              MTButton.icon(plusIcon(context), () => _controller.addTask(context)),
+              SizedBox(width: onePadding * 2),
+              MTButton.icon(editIcon(context), () => _controller.editTask(context)),
+              SizedBox(width: onePadding),
             ],
-            selectedPane(),
-            if (!hasSubtasks)
-              EmptyDataWidget(
-                title: loc.task_list_empty_title,
-                addTitle: loc.task_title_new,
-                onAdd: () => taskViewController.addTask(context),
-              ),
-          ],
+          ),
+        ),
+        body: SafeArea(
+          top: false,
+          bottom: false,
+          child: ListView(
+            children: [
+              TaskHeader(task),
+              if (hasSubtasks) ...[
+                SizedBox(height: onePadding / 2),
+                tabPaneSelector(),
+              ],
+              selectedPane(),
+              if (!hasSubtasks)
+                EmptyDataWidget(
+                  title: loc.task_list_empty_title,
+                  addTitle: loc.task_title_new,
+                  onAdd: () => taskViewController.addTask(context),
+                ),
+            ],
+          ),
         ),
       ),
     );

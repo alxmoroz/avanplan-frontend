@@ -12,7 +12,7 @@ class TaskFilterController extends _TaskFilterControllerBase with _$TaskFilterCo
 abstract class _TaskFilterControllerBase with Store {
   // TODO: эти расчёты должны быть привязаны к задаче. В контроллере только что касается самого фильтра
 
-  Iterable<Task> get _allTasks => taskViewController.rootTask.tasks;
+  Iterable<Task> get _allTasks => taskViewController.selectedTask?.tasks ?? [];
 
   @computed
   int get allTasksCount => _allTasks.length;

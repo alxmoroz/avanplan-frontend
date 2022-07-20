@@ -28,7 +28,7 @@ abstract class _MainControllerBase extends BaseController with Store {
     // Например, трекеров... Будет похожая заморочка, как в дереве задач (зато есть опыт уже)
     startLoading();
 
-    workspaces.clear();
+    clearData();
     if (loginController.authorized) {
       workspaces = ObservableList.of(await workspacesUC.getAll());
       _sortWS();

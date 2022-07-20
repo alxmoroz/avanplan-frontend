@@ -25,23 +25,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   @computed
   int? get _selectedTaskId => navStackTasks.isNotEmpty ? navStackTasks.last.id : null;
 
-  @computed
-  Task? get selectedTask => rootTask.allTasks.firstWhereOrNull((t) => t.id == _selectedTaskId);
-
-  @action
-  void pushTask(Task _task) {
-    navStackTasks.add(_task);
-  }
-
-  @action
-  void popTask() {
-    if (navStackTasks.isNotEmpty) {
-      navStackTasks.removeLast();
-    }
-  }
-
-  /// рутовый объект
-
+  // нужно для расчетов на главном экране
   @observable
   Task rootTask = Task(
     id: -1,
@@ -56,28 +40,57 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
     updatedOn: DateTime.now(),
   );
 
+  // вообще все задачи
+  @observable
+  ObservableList<Task> allTasks = ObservableList();
+
+  @action
+  void updateTasks(List<Task> _rootTasks) {
+    rootTask = rootTask.copyWithList(_rootTasks);
+    allTasks = ObservableList.of(rootTask.allTasks);
+    tasksFilterController.setDefaultFilter();
+  }
+
+  @computed
+  Task? get selectedTask => allTasks.firstWhereOrNull((t) => t.id == _selectedTaskId) ?? rootTask;
+
+  @action
+  void pushTask(Task _task) {
+    navStackTasks.add(_task);
+    tasksFilterController.setDefaultFilter();
+  }
+
+  @action
+  void popTask() {
+    if (navStackTasks.isNotEmpty) {
+      navStackTasks.removeLast();
+    }
+    tasksFilterController.setDefaultFilter();
+  }
+
+  /// рутовый объект (для расчётов)
+
   @action
   void _sortTasks() {
-    rootTask.tasks.sort((g1, g2) => g1.title.compareTo(g2.title));
+    allTasks.sort((g1, g2) => g1.title.compareTo(g2.title));
   }
 
   @action
   Future fetchData() async {
     startLoading();
     clearData();
-    final List<Task> tasks = [];
+    final List<Task> rootTasks = [];
     for (Workspace ws in mainController.workspaces) {
       final rt = await tasksUC.getRoots(ws.id);
-      tasks.addAll(rt);
+      rootTasks.addAll(rt);
     }
-    rootTask = rootTask.copyWithList(tasks);
-    tasksFilterController.setDefaultFilter();
+    updateTasks(rootTasks);
     _sortTasks();
     stopLoading();
   }
 
   @action
-  void clearData() => rootTask = rootTask.copyWithList([]);
+  void clearData() => updateTasks([]);
 
   /// Список подзадач
 

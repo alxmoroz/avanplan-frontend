@@ -93,8 +93,14 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
     selectedTask!.tasks.remove(selectedTask!.tasks.firstWhereOrNull((t) => t.id == _task.id));
   }
 
+  // TODO: проверить необходимость переворачивать так дерево. Возможно, достаточно будет изменений в структуре как есть.
+  // TODO: Т.к. сейчас есть один рутовый объект для всего. Может, прокатит observable на нём?
+
+  Task _parentTask(Task _task) => rootTask.allTasks.firstWhereOrNull((t) => t.id == _task.parentId) ?? rootTask;
+
   @action
-  void _updateTask(Task _task, Task _parent) {
+  void _updateTask(Task _task) {
+    final _parent = _parentTask(_task);
     final index = _parent.tasks.indexWhere((t) => t.id == _task.id);
     if (index >= 0) {
       if (_task.deleted) {
@@ -107,13 +113,13 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
 
   @action
   void _updateParents(Task _task) {
-    final parent = rootTask.allTasks.firstWhereOrNull((t) => t.id == _task.parentId);
-    if (parent != null) {
-      _updateParents(parent);
-      _updateTask(_task, parent);
-    } else {
-      _updateTask(_task, rootTask);
+    final _parent = _parentTask(_task);
+    if (_parent != rootTask) {
+      _updateParents(_parent);
     }
+    _updateTask(_task);
+    // TODO: костыль для обновления selectedTask по сути...
+    rootTask = rootTask.copy();
   }
 
   /// роутер
@@ -141,8 +147,6 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
       if (editedTask.deleted) {
         _deleteTask(editedTask, null);
         Navigator.of(context).pop();
-      } else {
-        _updateTask(editedTask, selectedTask!);
       }
       _updateParents(editedTask);
       tasksFilterController.setDefaultFilter();

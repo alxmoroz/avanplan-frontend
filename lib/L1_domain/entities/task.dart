@@ -50,20 +50,6 @@ class Task extends Statusable {
         workspaceId: workspaceId,
       );
 
-  Task copyWithList(List<Task> _list) => Task(
-        id: id,
-        parentId: parentId,
-        createdOn: createdOn,
-        updatedOn: updatedOn,
-        title: title,
-        description: description,
-        dueDate: dueDate,
-        tasks: _list,
-        closed: closed,
-        trackerId: trackerId,
-        workspaceId: workspaceId,
-      );
-
   // TODO: можно вынести в extension все расчёты
 
   Duration? get plannedPeriod => dueDate?.difference(createdOn);

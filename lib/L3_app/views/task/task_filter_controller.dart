@@ -12,6 +12,7 @@ class TaskFilterController extends _TaskFilterControllerBase with _$TaskFilterCo
 abstract class _TaskFilterControllerBase with Store {
   // TODO: эти расчёты должны быть привязаны к задаче. В контроллере только что касается самого фильтра
   // TODO: расчёты по суммарному отставанию и т.п. очень сомнительные. Считается только для подзадач первого уровня.
+  @computed
   Iterable<Task> get _sortedTasks => taskViewController.sortedSubtasks;
 
   @computed

@@ -88,8 +88,10 @@ class _TaskPageState extends State<TaskPage> {
             mainAxisSize: MainAxisSize.min,
             children: [
               MTButton.icon(plusIcon(context), () => _controller.addTask(context)),
-              SizedBox(width: onePadding * 2),
-              MTButton.icon(editIcon(context), () => _controller.editTask(context)),
+              if (!_controller.isVirtualRoot) ...[
+                SizedBox(width: onePadding * 2),
+                MTButton.icon(editIcon(context), () => _controller.editTask(context)),
+              ],
               SizedBox(width: onePadding),
             ],
           ),
@@ -113,7 +115,7 @@ class _TaskPageState extends State<TaskPage> {
                 EmptyDataWidget(
                   title: loc.task_list_empty_title,
                   addTitle: loc.task_title_new,
-                  onAdd: () => taskViewController.addTask(context),
+                  onAdd: () => _controller.addTask(context),
                 ),
             ],
           ),

@@ -17,15 +17,7 @@ part 'task_view_controller.g.dart';
 class TaskViewController extends _TaskViewControllerBase with _$TaskViewController {}
 
 abstract class _TaskViewControllerBase extends BaseController with Store {
-  /// история переходов и текущая выбранная задача
-
-  @observable
-  ObservableList<Task> navStackTasks = ObservableList();
-
-  @computed
-  int? get _selectedTaskId => navStackTasks.isNotEmpty ? navStackTasks.last.id : null;
-
-  // нужно для расчетов на главном экране
+  /// рутовый объект
   @observable
   Task rootTask = Task(
     id: -1,
@@ -40,69 +32,53 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
     updatedOn: DateTime.now(),
   );
 
-  // вообще все задачи
+  /// история переходов и текущая выбранная задача
+
   @observable
-  ObservableList<Task> allTasks = ObservableList();
-
-  @action
-  void _updateTasks(List<Task> _rootTasks) {
-    rootTask = rootTask.copyWithList(_rootTasks);
-    allTasks = ObservableList.of(rootTask.allTasks);
-  }
+  ObservableList<Task> navStack = ObservableList();
 
   @computed
-  Task? get selectedTask => allTasks.firstWhereOrNull((t) => t.id == _selectedTaskId) ?? rootTask;
+  int? get _selectedTaskId => navStack.isNotEmpty ? navStack.last.id : null;
 
   @computed
-  bool get isVirtualRoot => selectedTask?.id == -1;
+  Task? get selectedTask => rootTask.allTasks.firstWhereOrNull((t) => t.id == _selectedTaskId) ?? rootTask;
+
+  @computed
+  bool get isVirtualRoot => selectedTask == rootTask;
 
   @action
-  void pushTask(Task _task) {
-    navStackTasks.add(_task);
-  }
+  void pushTask(Task _task) => navStack.add(_task);
 
   @action
   void popTask() {
-    if (navStackTasks.isNotEmpty) {
-      navStackTasks.removeLast();
+    if (navStack.isNotEmpty) {
+      navStack.removeLast();
     }
   }
 
-  /// рутовый объект (для расчётов)
-
-  @action
-  void _sortTasks() {
-    allTasks.sort((g1, g2) => g1.title.compareTo(g2.title));
+  @computed
+  Iterable<Task> get sortedSubtasks {
+    final _tasks = selectedTask?.tasks ?? [];
+    _tasks.sort((t1, t2) => t1.title.compareTo(t2.title));
+    return _tasks;
   }
 
   @action
   Future fetchData() async {
     startLoading();
     clearData();
-    final List<Task> rootTasks = [];
     for (Workspace ws in mainController.workspaces) {
       final rt = await tasksUC.getRoots(ws.id);
-      rootTasks.addAll(rt);
+      rootTask.tasks.addAll(rt);
     }
-    _updateTasks(rootTasks);
     tasksFilterController.setDefaultFilter();
-    _sortTasks();
     stopLoading();
   }
 
   @action
-  void clearData() => _updateTasks([]);
+  void clearData() => rootTask.tasks.clear();
 
   /// Список подзадач
-
-  // универсальный способ получить подзадачи первого уровня для цели и для выбранной задачи
-  @computed
-  List<Task> get subtasks {
-    final _tasks = selectedTask?.tasks ?? [];
-    _tasks.sort((t1, t2) => t1.title.compareTo(t2.title));
-    return _tasks;
-  }
-
   /// редактирование подзадач
   @action
   void _addTask(Task _task) {

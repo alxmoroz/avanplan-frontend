@@ -26,16 +26,14 @@ abstract class _WorkspaceBoundedBase extends EditController with Store {
     return workspaces.length == 1 ? workspaces.first : workspaces.firstWhereOrNull((s) => s.id == _selectedWSId);
   }
 
-  List<Widget> wsDropdown(BuildContext context) {
-    final items = <Widget>[];
-    if (mainController.workspaces.length > 1) {
-      items.add(MTDropdown<Workspace>(
-        onChanged: (ws) => selectWS(ws?.id),
-        value: selectedWS,
-        items: mainController.workspaces,
-        label: loc.workspace_placeholder,
-      ));
-    }
-    return items;
+  Widget wsDropdown(BuildContext context) {
+    return mainController.workspaces.length > 1
+        ? MTDropdown<Workspace>(
+            onChanged: (ws) => selectWS(ws?.id),
+            value: selectedWS,
+            items: mainController.workspaces,
+            label: loc.workspace_placeholder,
+          )
+        : Container();
   }
 }

@@ -7,15 +7,8 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/api_schema/task_schema.dart';
 import '../../../L1_domain/entities/status.dart';
 import '../../../L1_domain/entities/task.dart';
-import '../../components/colors.dart';
-import '../../components/constants.dart';
-import '../../components/icons.dart';
-import '../../components/mt_button.dart';
 import '../../components/mt_confirm_dialog.dart';
-import '../../components/mt_dropdown.dart';
-import '../../components/mt_text_field.dart';
 import '../../components/text_field_annotation.dart';
-import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';
 import '../workspace/workspace_bounded.dart';
@@ -32,27 +25,27 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
   void setClosed(bool? _closed) {
     closed = _closed ?? false;
     if (!closed && selectedStatus != null && selectedStatus!.closed) {
-      selectedStatusId = null;
+      _selectedStatusId = null; // не трогать
     }
   }
 
   /// дата
 
   @observable
-  DateTime? selectedDueDate;
+  DateTime? _selectedDueDate;
 
   @action
   void setDueDate(DateTime? _date) {
-    selectedDueDate = _date;
-    controllers['dueDate']?.text = _date != null ? _date.strLong : '';
+    _selectedDueDate = _date;
+    teControllers['dueDate']?.text = _date != null ? _date.strLong : '';
   }
 
   Future inputDateTime(BuildContext context) async {
-    final firstDate = selectedDueDate != null && DateTime.now().isAfter(selectedDueDate!) ? selectedDueDate! : DateTime.now();
+    final firstDate = _selectedDueDate != null && DateTime.now().isAfter(_selectedDueDate!) ? _selectedDueDate! : DateTime.now();
     final date = await showDatePicker(
       context: context,
       initialEntryMode: DatePickerEntryMode.calendarOnly,
-      initialDate: selectedDueDate ?? DateTime.now(),
+      initialDate: _selectedDueDate ?? DateTime.now(),
       firstDate: firstDate,
       lastDate: DateTime.now().add(const Duration(days: 36500)),
     );
@@ -61,109 +54,67 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
     }
   }
 
-  Widget textFieldForCode(BuildContext context, String code, {VoidCallback? onTap}) {
-    final ta = tfAnnoForCode(code);
-    final isDate = code.endsWith('Date');
-    return ta.noText
-        ? MTTextField.noText(
-            controller: controllers[code],
-            label: ta.label,
-            error: ta.errorText,
-            onTap: onTap ?? (isDate ? () => inputDateTime(context) : null),
-            suffixIcon: isDate ? calendarIcon(context) : null,
-          )
-        : MTTextField(
-            controller: controllers[code],
-            label: ta.label,
-            error: ta.errorText,
-            onTap: onTap,
-          );
-  }
-
-  /// общий виджет - форма с полями для задач и целей
-
-  Widget form(BuildContext context) {
-    return Scrollbar(
-      thumbVisibility: true,
-      child: ListView(children: [
-        ...['title', 'dueDate', 'description'].map((code) => textFieldForCode(context, code)),
-        MTDropdown<Status>(
-          onChanged: (status) => selectStatus(status),
-          value: selectedStatus,
-          items: statuses,
-          label: loc.common_status_placeholder,
-        ),
-        Padding(
-          padding: tfPadding,
-          child: InkWell(
-            child: Row(children: [
-              doneIcon(context, closed),
-              SizedBox(width: onePadding),
-              MediumText(loc.common_mark_done_btn_title, padding: EdgeInsets.symmetric(vertical: onePadding)),
-            ]),
-            onTap: () => setClosed(!closed),
-          ),
-        ),
-        if (canEdit) MTButton(loc.common_delete_btn_title, () => delete(context), titleColor: dangerColor, padding: EdgeInsets.only(top: onePadding)),
-        SizedBox(height: onePadding),
-      ]),
-    );
-  }
-
-  @override
-  void initState({List<TFAnnotation>? tfaList}) {
-    super.initState(tfaList: tfaList);
-    setDueDate(selectedTask?.dueDate);
-    setClosed(selectedTask?.closed);
-    selectWS(selectedTask?.workspaceId);
-    selectStatus(selectedTask?.status);
-  }
-
   /// статусы задач
   @computed
   List<Status> get statuses => selectedWS?.statuses ?? [];
 
   @observable
-  int? selectedStatusId;
+  int? _selectedStatusId;
 
   @action
   void selectStatus(Status? _status) {
-    selectedStatusId = _status?.id;
+    _selectedStatusId = _status?.id;
     if (_status != null && _status.closed) {
       closed = true;
     }
   }
 
   @computed
-  Status? get selectedStatus => statuses.firstWhereOrNull((s) => s.id == selectedStatusId);
+  Status? get selectedStatus => statuses.firstWhereOrNull((s) => s.id == _selectedStatusId);
 
-  /// выбранная задача
+  /// выбранная задача для редактирования
   @observable
-  Task? selectedTask;
+  Task? taskForEdit;
 
   @action
-  void selectTask(Task? _t) => selectedTask = _t;
+  void selectTaskForEdit(Task? _t) => taskForEdit = _t;
 
   @computed
-  bool get canEdit => selectedTask != null;
+  bool get isNew => taskForEdit == null;
 
   @computed
-  int? get _parentId => canEdit ? taskViewController.selectedTask?.parentId : taskViewController.selectedTask?.id;
+  bool get isRoot => _parentId == null;
+
+  @computed
+  int? get _parentId => isNew
+      ? taskViewController.isVirtualRoot
+          ? null
+          : taskViewController.selectedTask?.id
+      : taskForEdit!.parentId;
 
   @override
   bool get validated => super.validated && selectedWS != null;
+
+  @override
+  void initState({List<TFAnnotation>? tfaList}) {
+    super.initState(tfaList: tfaList);
+    setDueDate(taskForEdit?.dueDate);
+    setClosed(taskForEdit?.closed);
+    selectWS(taskForEdit?.workspaceId);
+    selectStatus(taskForEdit?.status);
+  }
 
   /// действия
 
   Future save(BuildContext context) async {
     final editedTask = await tasksUC.save(TaskUpsert(
-      id: selectedTask?.id,
+      id: taskForEdit?.id,
       parentId: _parentId,
       title: tfAnnoForCode('title').text,
       description: tfAnnoForCode('description').text,
       closed: closed,
-      dueDate: selectedDueDate,
-      statusId: selectedStatusId,
+      dueDate: _selectedDueDate,
+      statusId: _selectedStatusId,
       workspaceId: selectedWS!.id,
     ));
 
@@ -173,7 +124,7 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
   }
 
   Future delete(BuildContext context) async {
-    if (canEdit) {
+    if (!isNew) {
       final confirm = await showMTDialog<bool?>(
         context,
         title: loc.task_delete_dialog_title,
@@ -184,7 +135,7 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
         ],
       );
       if (confirm != null && confirm) {
-        final deletedEW = await tasksUC.delete(task: selectedTask!);
+        final deletedEW = await tasksUC.delete(task: taskForEdit!);
         Navigator.of(context).pop(deletedEW);
       }
     }

@@ -11,17 +11,17 @@ part 'edit_controller.g.dart';
 abstract class EditController = _EditControllerBase with _$EditController;
 
 abstract class _EditControllerBase extends BaseController with Store {
-  Map<String, TextEditingController> controllers = {};
+  Map<String, TextEditingController> teControllers = {};
 
   @mustCallSuper
   void initState({List<TFAnnotation>? tfaList}) {
     tfAnnotations = ObservableMap.of({for (var tfa in tfaList ?? <TFAnnotation>[]) tfa.code: tfa});
-    controllers = {for (var tfa in tfAnnotations.values) tfa.code: makeController(tfa.code)};
+    teControllers = {for (var tfa in tfAnnotations.values) tfa.code: makeTEController(tfa.code)};
   }
 
   @mustCallSuper
   void dispose() {
-    for (var c in controllers.values) {
+    for (var c in teControllers.values) {
       c.dispose();
     }
   }
@@ -29,15 +29,15 @@ abstract class _EditControllerBase extends BaseController with Store {
   @observable
   ObservableMap<String, TFAnnotation> tfAnnotations = ObservableMap();
 
-  TextEditingController makeController(String code) {
-    final controller = TextEditingController(text: '${tfAnnoForCode(code)}');
-    controller.addListener(() {
+  TextEditingController makeTEController(String code) {
+    final teController = TextEditingController(text: '${tfAnnoForCode(code)}');
+    teController.addListener(() {
       final ta = tfAnnoForCode(code);
-      if (ta.text != controller.text) {
-        tfAnnotations[ta.code] = ta.copyWith(text: controller.text);
+      if (ta.text != teController.text) {
+        tfAnnotations[ta.code] = ta.copyWith(text: teController.text);
       }
     });
-    return controller;
+    return teController;
   }
 
   @computed

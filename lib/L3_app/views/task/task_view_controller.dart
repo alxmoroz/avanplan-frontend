@@ -53,6 +53,9 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   @computed
   Task? get selectedTask => allTasks.firstWhereOrNull((t) => t.id == _selectedTaskId) ?? rootTask;
 
+  @computed
+  bool get isVirtualRoot => selectedTask?.id == -1;
+
   @action
   void pushTask(Task _task) {
     navStackTasks.add(_task);

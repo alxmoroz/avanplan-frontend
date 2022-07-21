@@ -58,7 +58,7 @@ class _TrackerEditViewState extends State<TrackerEditView> {
   }
 
   Widget textFieldForCode(String code) => MTTextField(
-        controller: _controller.controllers[code],
+        controller: _controller.teControllers[code],
         label: _controller.tfAnnoForCode(code).label,
         error: _controller.tfAnnoForCode(code).errorText,
         obscureText: code == 'password',
@@ -70,7 +70,7 @@ class _TrackerEditViewState extends State<TrackerEditView> {
     return Scrollbar(
       child: ListView(
         children: [
-          if (_isNew) ..._controller.wsDropdown(context),
+          if (_isNew) _controller.wsDropdown(context),
           if (_controller.rtTypes.isNotEmpty)
             MTDropdown<RemoteTrackerType>(
               onChanged: (type) => _controller.selectType(type),

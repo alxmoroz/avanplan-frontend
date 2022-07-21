@@ -44,7 +44,6 @@ class _TaskPageState extends State<TaskPage> {
   _TabKeys? tabKeyValue = _TabKeys.overview;
 
   Task get task => widget.task;
-  bool get isVirtualRoot => task.id == -1;
   bool get hasSubtasks => task.leafTasksCount > 0;
   TaskViewController get _controller => taskViewController;
 
@@ -83,7 +82,7 @@ class _TaskPageState extends State<TaskPage> {
         isLoading: _controller.isLoading,
         navBar: navBar(
           context,
-          title: isVirtualRoot ? loc.task_list_title : '${loc.task_title} #${task.id}',
+          title: _controller.isVirtualRoot ? loc.task_list_title : '${loc.task_title} #${task.id}',
           trailing: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             mainAxisSize: MainAxisSize.min,
@@ -100,7 +99,7 @@ class _TaskPageState extends State<TaskPage> {
           bottom: false,
           child: ListView(
             children: [
-              if (isVirtualRoot)
+              if (_controller.isVirtualRoot)
                 tasksPane()
               else ...[
                 TaskHeader(task),

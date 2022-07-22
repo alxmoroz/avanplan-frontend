@@ -14,13 +14,13 @@ class TaskFilterController extends _TaskFilterControllerBase with _$TaskFilterCo
 abstract class _TaskFilterControllerBase with Store {
   // TODO: эти расчёты должны быть привязаны к задаче. В контроллере только что касается самого фильтра
   // TODO: расчёты по суммарному отставанию и т.п. очень сомнительные. Считается только для подзадач первого уровня.
-  Iterable<Task> get _sortedTasks => taskViewController.sortedSubtasks;
+  Iterable<Task> get _tasks => taskViewController.selectedTask?.tasks ?? [];
 
   @computed
-  int get tasksCount => _sortedTasks.length;
+  int get tasksCount => _tasks.length;
 
   @computed
-  Iterable<Task> get openedTasks => _sortedTasks.where((e) => !e.closed);
+  Iterable<Task> get openedTasks => _tasks.where((e) => !e.closed);
 
   @computed
   int get openedTasksCount => openedTasks.length;
@@ -148,9 +148,13 @@ abstract class _TaskFilterControllerBase with Store {
         TaskFilter.closable: closableTasks,
         TaskFilter.opened: openedTasks,
         TaskFilter.ok: okTasks,
-        TaskFilter.all: _sortedTasks,
+        TaskFilter.all: _tasks,
       };
 
   @computed
-  Iterable<Task> get filteredTasks => taskFilters[tasksFilter] ?? openedTasks;
+  Iterable<Task> get filteredTasks {
+    final tasks = (taskFilters[tasksFilter] ?? openedTasks).toList();
+    tasks.sort((t1, t2) => t1.title.compareTo(t2.title));
+    return tasks;
+  }
 }

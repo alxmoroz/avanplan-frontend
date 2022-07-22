@@ -57,13 +57,6 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
     }
   }
 
-  @computed
-  Iterable<Task> get sortedSubtasks {
-    final _tasks = selectedTask?.tasks ?? [];
-    _tasks.sort((t1, t2) => t1.title.compareTo(t2.title));
-    return _tasks;
-  }
-
   @action
   Future fetchData() async {
     startLoading();

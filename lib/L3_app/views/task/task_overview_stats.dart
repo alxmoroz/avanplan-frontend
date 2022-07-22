@@ -47,13 +47,13 @@ class TaskOverviewStats extends StatelessWidget {
           subtitleText: riskStateTextDetails(task.tasksRiskPeriod),
         ),
       ],
-      if (task.hasNoDueTasks) ...[
+      if (task.hasNoDueGroups) ...[
         SizedBox(height: onePadding),
         SampleProgress(
-          ratio: task.noDueTasksCount / task.openedLeafTasksCount,
+          ratio: task.noDueGroupsCount / task.openedLeafTasksCount,
           color: noInfoColor,
           titleText: loc.task_filter_no_due,
-          trailingText: '${task.noDueTasksCount}',
+          trailingText: '${task.noDueGroupsCount}',
         ),
       ],
       if (task.hasInactiveGroups) ...[

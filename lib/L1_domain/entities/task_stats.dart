@@ -60,14 +60,14 @@ extension TaskStats on Task {
     return Duration(seconds: totalSeconds);
   }
 
-  Iterable<Task> get _noDueTasks => _openedLeafTasks.where((t) => t.dueDate == null);
-  int get noDueTasksCount => _noDueTasks.length;
-  bool get hasNoDueTasks => noDueTasksCount > 0;
-
   /// группы задач
   Iterable<Task> get _groups => allTasks.where((t) => t.tasks.isNotEmpty);
   Iterable<Task> get _openedGroups => _groups.where((t) => !t.closed);
   int get openedGroupsCount => _openedGroups.length;
+
+  Iterable<Task> get _noDueGroups => _openedGroups.where((t) => t.dueDate == null);
+  int get noDueGroupsCount => _noDueGroups.length;
+  bool get hasNoDueGroups => noDueGroupsCount > 0;
 
   Iterable<Task> get _inactiveGroups => _openedGroups.where((t) => t.closedTasksCount == 0);
   int get inactiveGroupsCount => _inactiveGroups.length;

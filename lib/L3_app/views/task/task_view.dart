@@ -45,7 +45,6 @@ class _TaskPageState extends State<TaskPage> {
   _TabKeys? tabKeyValue = _TabKeys.overview;
 
   Task get task => widget.task;
-  bool get hasSubtasks => task.leafTasksCount > 0;
   TaskViewController get _controller => taskViewController;
 
   Widget tabPaneSelector() => Padding(
@@ -106,13 +105,13 @@ class _TaskPageState extends State<TaskPage> {
                 tasksPane()
               else ...[
                 TaskHeader(task),
-                if (hasSubtasks) ...[
+                if (task.hasSubtasks) ...[
                   SizedBox(height: onePadding / 2),
                   tabPaneSelector(),
                 ],
                 selectedPane(),
               ],
-              if (!hasSubtasks)
+              if (!task.hasSubtasks)
                 EmptyDataWidget(
                   title: loc.task_list_empty_title,
                   addTitle: loc.task_title_new,

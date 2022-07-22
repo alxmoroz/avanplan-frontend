@@ -17,14 +17,21 @@ class TaskStateIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = inCard ? darkGreyColor : stateColor(task.overallState) ?? darkGreyColor;
-    final _stateTextTitle = stateTextTitle(task.overallState);
-    final _stateTextDetails = stateTextDetails(task.overallState, overduePeriod: task.overduePeriod, etaRiskPeriod: task.etaRiskPeriod);
+    final color = inCard ? darkGreyColor : stateColor(task.state) ?? darkGreyColor;
+    final _stateTextTitle = stateTextTitle(task);
+
+    String _stateTextDetails = '';
+
+    if (task.state == TaskState.overdue) {
+      _stateTextDetails = riskStateTextDetails(task.overduePeriod!);
+    } else if (task.state == TaskState.risk) {
+      _stateTextDetails = riskStateTextDetails(task.etaRiskPeriod!);
+    }
     final indicatorText = _stateTextDetails.isNotEmpty ? _stateTextDetails : _stateTextTitle;
 
     return Row(
       children: [
-        stateIcon(context, task.overallState, size: onePadding * (inCard ? 1.5 : 2), color: color),
+        stateIcon(context, task, size: onePadding * (inCard ? 1.5 : 2), color: color),
         SizedBox(width: onePadding / 3),
         Expanded(child: inCard ? SmallText(indicatorText, color: color) : NormalText(indicatorText, color: color)),
       ],

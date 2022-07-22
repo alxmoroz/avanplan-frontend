@@ -104,7 +104,7 @@ class _TaskEditViewState extends State<TaskEditView> {
             child: Row(children: [
               doneIcon(context, _controller.closed),
               SizedBox(width: onePadding),
-              MediumText(loc.common_mark_done_btn_title, padding: EdgeInsets.symmetric(vertical: onePadding)),
+              MediumText(loc.common_done, padding: EdgeInsets.symmetric(vertical: onePadding)),
             ]),
             onTap: () => _controller.setClosed(!_controller.closed),
           ),

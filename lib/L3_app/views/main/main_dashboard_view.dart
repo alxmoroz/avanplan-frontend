@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/task_stats.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
@@ -14,7 +15,7 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_overview_presenter.dart';
-import 'main_dashboard.dart';
+import '../task/task_overview_stats.dart';
 
 class MainDashboardView extends StatefulWidget {
   static String get routeName => 'main_dashboard';
@@ -26,7 +27,7 @@ class MainDashboardView extends StatefulWidget {
 class _MainDashboardViewState extends State<MainDashboardView> {
   // TODO: добавлять рутовую задачу и делать расчёты через неё
 
-  OverallState get _overallState => taskViewController.rootTask.overallState;
+  Task get task => taskViewController.rootTask;
 
   final double _iconSize = onePadding * 15;
 
@@ -41,7 +42,7 @@ class _MainDashboardViewState extends State<MainDashboardView> {
           decoration: BoxDecoration(
             gradient: RadialGradient(
               radius: 1,
-              colors: [(stateBgColor(_overallState) ?? backgroundColor).resolve(context), backgroundColor.resolve(context)],
+              colors: [(stateBgColor(task.state) ?? backgroundColor).resolve(context), backgroundColor.resolve(context)],
             ),
           ),
           child: SafeArea(
@@ -58,17 +59,17 @@ class _MainDashboardViewState extends State<MainDashboardView> {
                     shrinkWrap: true,
                     children: [
                       /// статус и комментарий
-                      stateIcon(context, _overallState, size: _iconSize),
+                      stateIcon(context, task, size: _iconSize),
                       H3(
-                        stateTextTitle(_overallState),
+                        stateTextTitle(task),
                         align: TextAlign.center,
                         padding: EdgeInsets.symmetric(horizontal: onePadding),
-                        color: stateColor(_overallState) ?? darkGreyColor,
+                        color: stateColor(task.state) ?? darkGreyColor,
                       ),
                       SizedBox(height: onePadding),
 
-                      /// статистика по статусу
-                      MainDashboard(),
+                      /// статистика по статусу всех задач
+                      TaskOverviewStats(taskViewController.rootTask),
                       SizedBox(height: onePadding),
                     ],
                   ),

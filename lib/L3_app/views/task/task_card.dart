@@ -25,7 +25,7 @@ class TaskCard extends StatelessWidget {
   bool get isClosed => task.closed;
 
   bool get showDescription => expanded && task.description.isNotEmpty;
-  bool get showSubtasks => expanded && task.leafTasksCount > 0;
+  bool get showSubtasks => expanded && task.hasSubtasks;
   bool get showDates => expanded && (task.etaDate != null || task.dueDate != null);
 
   Widget title(BuildContext context) => H4(
@@ -43,10 +43,10 @@ class TaskCard extends StatelessWidget {
   Widget description() => LightText(task.description, maxLines: 2);
 
   Widget subtasksInfo() => Row(children: [
-        LightText(loc.task_list_title_count(task.leafTasksCount)),
+        LightText(loc.task_list_title_count(task.openedLeafTasksCount)),
         const Spacer(),
         if (task.doneRatio > 0) ...[
-          SmallText('${loc.common_mark_done_btn_title} '),
+          SmallText('${loc.common_done} '),
           NormalText(task.doneRatio.inPercents),
         ]
       ]);
@@ -54,7 +54,7 @@ class TaskCard extends StatelessWidget {
   Widget buildDates() => Row(children: [
         DateStringWidget(task.dueDate, titleString: loc.task_due_date_label),
         const Spacer(),
-        if (task.leftTasksCount > 0) DateStringWidget(task.etaDate, titleString: loc.task_eta_date_label),
+        if (task.openedLeafTasksCount > 0) DateStringWidget(task.etaDate, titleString: loc.task_eta_date_label),
       ]);
 
   @override
@@ -62,7 +62,7 @@ class TaskCard extends StatelessWidget {
         onTap: onTap,
         body: MTProgress(
           ratio: task.doneRatio,
-          color: stateColor(task.overallState),
+          color: stateColor(task.state),
           body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             header(context),
             if (showDescription) ...[

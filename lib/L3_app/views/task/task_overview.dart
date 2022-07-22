@@ -10,11 +10,9 @@ import '../../components/icons.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_details_dialog.dart';
 import '../../components/mt_divider.dart';
-import '../../components/mt_progress.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/number_presenter.dart';
-import '../../presenters/task_overview_presenter.dart';
+import 'task_overview_stats.dart';
 import 'task_state_indicator.dart';
 
 class TaskOverview extends StatelessWidget {
@@ -27,11 +25,11 @@ class TaskOverview extends StatelessWidget {
   bool get hasDates => task.dueDate != null || task.etaDate != null;
   bool get isClosed => task.closed;
   bool get hasStatus => task.status != null;
-  bool get hasSubtasks => task.leafTasksCount > 0;
+  bool get hasSubtasks => task.tasks.isNotEmpty;
 
   Widget description() => LayoutBuilder(builder: (context, size) {
         final text = task.description;
-        final maxLines = task.leafTasksCount > 0 ? 3 : 9;
+        final maxLines = task.hasSubtasks ? 3 : 9;
         final detailedTextWidget = LightText(text, maxLines: maxLines);
         final span = TextSpan(text: text, style: detailedTextWidget.style(context));
         final tp = TextPainter(text: span, maxLines: maxLines, textDirection: TextDirection.ltr);
@@ -52,7 +50,7 @@ class TaskOverview extends StatelessWidget {
   Widget buildDates() => Row(children: [
         DateStringWidget(task.dueDate, titleString: loc.task_due_date_label),
         const Spacer(),
-        if (task.leftTasksCount > 0) DateStringWidget(task.etaDate, titleString: loc.task_eta_date_label),
+        DateStringWidget(task.etaDate, titleString: loc.task_eta_date_label),
       ]);
 
   @override
@@ -71,15 +69,7 @@ class TaskOverview extends StatelessWidget {
         ],
         SizedBox(height: onePadding),
         TaskStateIndicator(task),
-        if (hasSubtasks) ...[
-          SizedBox(height: onePadding / 2),
-          SampleProgress(
-            ratio: task.doneRatio,
-            color: stateColor(task.overallState),
-            titleText: loc.task_list_title_count(task.leafTasksCount),
-            trailingText: task.doneRatio > 0 ? task.doneRatio.inPercents : '',
-          ),
-        ]
+        if (hasSubtasks) TaskOverviewStats(task),
       ]),
     );
   }

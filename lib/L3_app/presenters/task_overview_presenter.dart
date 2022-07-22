@@ -2,71 +2,61 @@
 
 import 'package:flutter/cupertino.dart';
 
+import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities/task_stats.dart';
 import '../components/colors.dart';
 import '../components/icons.dart';
 import '../extra/services.dart';
 
 const _colors = {
-  OverallState.overdue: dangerColor,
-  OverallState.risk: riskyColor,
-  OverallState.ok: okColor,
+  TaskState.overdue: dangerColor,
+  TaskState.risk: riskyColor,
+  TaskState.ok: okColor,
 };
 
 const _bgColors = {
-  OverallState.overdue: bgRiskyColor,
-  OverallState.risk: bgRiskyColor,
-  OverallState.ok: bgOkColor,
+  TaskState.overdue: bgRiskyColor,
+  TaskState.risk: bgRiskyColor,
+  TaskState.ok: bgOkColor,
 };
 
-Color? stateColor(OverallState state) => _colors[state];
-Color? stateBgColor(OverallState state) => _bgColors[state];
+Color? stateColor(TaskState state) => _colors[state];
+Color? stateBgColor(TaskState state) => _bgColors[state];
 
-Widget stateIcon(BuildContext context, OverallState state, {double? size, Color? color}) {
+Widget stateIcon(BuildContext context, Task task, {double? size, Color? color}) {
   Widget icon = noInfoStateIcon(context, size: size, color: color);
-  switch (state) {
-    case OverallState.overdue:
+  switch (task.state) {
+    case TaskState.overdue:
       icon = overdueStateIcon(context, size: size, color: color);
       break;
-    case OverallState.risk:
+    case TaskState.risk:
       icon = riskStateIcon(context, size: size, color: color);
       break;
-    case OverallState.ok:
+    case TaskState.ok:
       icon = okStateIcon(context, size: size, color: color);
       break;
-    case OverallState.noInfo:
+    case TaskState.noInfo:
   }
   return icon;
 }
 
-String stateTextTitle(OverallState state) {
+String stateTextTitle(Task task) {
   String res = loc.task_state_no_info_title;
-  switch (state) {
-    case OverallState.overdue:
+  switch (task.state) {
+    case TaskState.overdue:
       res = loc.task_state_overdue_title;
       break;
-    case OverallState.risk:
+    case TaskState.risk:
       res = loc.task_state_risky_title;
       break;
-    case OverallState.ok:
+    case TaskState.ok:
       res = loc.task_state_ok_title;
       break;
-    case OverallState.noInfo:
+    case TaskState.noInfo:
   }
   return res;
 }
 
-String stateTextDetails(OverallState state, {Duration? overduePeriod, Duration? etaRiskPeriod}) {
-  String res = '';
-  switch (state) {
-    case OverallState.overdue:
-      res = '${loc.task_state_overdue_details} ${loc.common_days_count(overduePeriod!.inDays)}';
-      break;
-    case OverallState.risk:
-      res = '${loc.task_state_risky_details} ${loc.common_days_count(etaRiskPeriod!.inDays)}';
-      break;
-    case OverallState.ok:
-    case OverallState.noInfo:
-  }
-  return res;
-}
+String overdueStateTextDetails(Duration overduePeriod) => '${loc.task_state_overdue_details} ${loc.common_days_count(overduePeriod.inDays)}';
+
+String riskStateTextDetails(Duration etaRiskPeriod) => '${loc.task_state_risky_details} ${loc.common_days_count(etaRiskPeriod.inDays)}';

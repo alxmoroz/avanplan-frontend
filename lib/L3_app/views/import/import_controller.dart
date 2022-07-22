@@ -79,7 +79,6 @@ abstract class _ImportControllerBase extends EditController with Store {
     startLoading();
     final done = await importUC.importTasks(selectedTracker!, selectedTasksIds);
     if (done) {
-      // TODO: здесь должны обновляться только цели, но мы обновляем всё дерево данных. Поэтому есть побочки всякие
       await mainController.fetchData();
       Navigator.of(context).pop();
     }

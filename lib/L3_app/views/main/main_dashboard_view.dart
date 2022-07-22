@@ -25,8 +25,6 @@ class MainDashboardView extends StatefulWidget {
 }
 
 class _MainDashboardViewState extends State<MainDashboardView> {
-  // TODO: добавлять рутовую задачу и делать расчёты через неё
-
   Task get task => taskViewController.rootTask;
 
   final double _iconSize = onePadding * 15;
@@ -50,7 +48,6 @@ class _MainDashboardViewState extends State<MainDashboardView> {
             bottom: false,
             child: !tasksFilterController.hasOpened
                 ? EmptyDataWidget(
-                    // TODO: здесь не про то, что целей вообще нет, а что нет открытых целей
                     title: loc.task_list_empty_title,
                     addTitle: loc.task_title_new,
                     onAdd: () => taskViewController.addTask(context),

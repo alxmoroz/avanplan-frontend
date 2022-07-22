@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities/task_stats.dart';
 import '../../components/constants.dart';
 import '../../components/date_string_widget.dart';
 import '../../components/icons.dart';

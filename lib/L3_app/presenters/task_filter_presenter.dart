@@ -1,7 +1,8 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../../L1_domain/entities/task.dart';
 import '../extra/services.dart';
+
+enum TaskFilter { all, opened, overdue, risky, ok, noDue, closable, inactive }
 
 const _sep = ': ';
 

@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities/task_stats.dart';
 import '../../components/constants.dart';
 import '../../components/mt_progress.dart';
 import '../../extra/services.dart';

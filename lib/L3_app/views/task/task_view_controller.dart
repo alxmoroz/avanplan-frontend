@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities/task_stats.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../extra/services.dart';
 import '../_base/base_controller.dart';

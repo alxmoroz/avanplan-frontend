@@ -3,7 +3,9 @@
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities/task_stats.dart';
 import '../../extra/services.dart';
+import '../../presenters/task_filter_presenter.dart';
 
 part 'task_filter_controller.g.dart';
 
@@ -12,7 +14,6 @@ class TaskFilterController extends _TaskFilterControllerBase with _$TaskFilterCo
 abstract class _TaskFilterControllerBase with Store {
   // TODO: эти расчёты должны быть привязаны к задаче. В контроллере только что касается самого фильтра
   // TODO: расчёты по суммарному отставанию и т.п. очень сомнительные. Считается только для подзадач первого уровня.
-  @computed
   Iterable<Task> get _sortedTasks => taskViewController.sortedSubtasks;
 
   @computed
@@ -20,6 +21,7 @@ abstract class _TaskFilterControllerBase with Store {
 
   @computed
   Iterable<Task> get openedTasks => _sortedTasks.where((e) => !e.closed);
+
   @computed
   int get openedTasksCount => openedTasks.length;
   @computed

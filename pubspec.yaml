@@ -1,7 +1,7 @@
 name: hercules
 description: Hercules
 
-version: 1.0.297+297
+version: 1.0.299+299
 
 environment:
   sdk: ">=2.17.0 <3.0.0"

@@ -23,7 +23,7 @@ class TaskStateIndicator extends StatelessWidget {
     String _stateTextDetails = '';
 
     if (task.state == TaskState.overdue) {
-      _stateTextDetails = riskStateTextDetails(task.overduePeriod!);
+      _stateTextDetails = overdueStateTextDetails(task.overduePeriod!);
     } else if (task.state == TaskState.risk) {
       _stateTextDetails = riskStateTextDetails(task.etaRiskPeriod!);
     }

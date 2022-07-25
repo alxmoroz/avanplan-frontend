@@ -11,7 +11,7 @@ part 'task_filter_controller.g.dart';
 class TaskFilterController extends _TaskFilterControllerBase with _$TaskFilterController {}
 
 abstract class _TaskFilterControllerBase with Store {
-  @computed
+  /// непосредственно фильтр
   Iterable<Task> get _tasks => taskViewController.selectedTask?.tasks ?? [];
 
   @computed
@@ -24,6 +24,8 @@ abstract class _TaskFilterControllerBase with Store {
   int get openedTasksCount => _openedTasks.length;
   @computed
   bool get hasOpened => openedTasksCount > 0;
+
+  /// непосредственно фильтр
 
   @observable
   TaskFilter? tasksFilter = TaskFilter.opened;

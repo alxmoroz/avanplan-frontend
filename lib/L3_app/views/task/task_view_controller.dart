@@ -48,10 +48,10 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   bool get isVirtualRoot => selectedTask == rootTask;
 
   @action
-  void pushTask(Task _task) => navStack.add(_task);
+  void _pushTask(Task _task) => navStack.add(_task);
 
   @action
-  void popTask() {
+  void _popTask() {
     if (navStack.isNotEmpty) {
       navStack.removeLast();
     }
@@ -65,12 +65,20 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
       final rt = await tasksUC.getRoots(ws.id);
       rootTask.tasks.addAll(rt);
     }
-    tasksFilterController.setDefaultFilter();
+    _touchRoot();
     stopLoading();
   }
 
+  /// костыль для обновления selectedTask по сути...
   @action
-  void clearData() => rootTask.tasks.clear();
+  void _touchRoot() => rootTask = rootTask.copy();
+
+  @action
+  void clearData() {
+    navStack.clear();
+    rootTask.tasks.clear();
+    rootTask = rootTask.copy();
+  }
 
   /// Список подзадач
   /// редактирование подзадач
@@ -110,17 +118,14 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
     }
     _updateTask(_task);
 
-    /// костыль для обновления selectedTask по сути...
-    rootTask = rootTask.copy();
+    _touchRoot();
   }
 
   /// роутер
   Future showTask(BuildContext context, Task _t) async {
-    pushTask(_t);
-    tasksFilterController.setDefaultFilter();
+    _pushTask(_t);
     await Navigator.of(context).pushNamed(TaskView.routeName);
-    popTask();
-    tasksFilterController.setDefaultFilter();
+    _popTask();
   }
 
   Future addTask(BuildContext context) async {
@@ -128,7 +133,6 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
     if (newTask != null) {
       _addTask(newTask);
       _updateParents(newTask);
-      tasksFilterController.setDefaultFilter();
     }
   }
 
@@ -140,7 +144,6 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
         Navigator.of(context).pop();
       }
       _updateParents(editedTask);
-      tasksFilterController.setDefaultFilter();
     }
   }
 }

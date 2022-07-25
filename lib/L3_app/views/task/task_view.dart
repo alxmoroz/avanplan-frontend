@@ -76,11 +76,6 @@ class _TaskPageState extends State<TaskPage> {
   Widget selectedPane() => {_TabKeys.overview: overviewPane(), _TabKeys.tasks: tasksPane()}[tabKeyValue] ?? overviewPane();
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(

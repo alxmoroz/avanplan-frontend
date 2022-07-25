@@ -11,27 +11,25 @@ part 'task_filter_controller.g.dart';
 class TaskFilterController extends _TaskFilterControllerBase with _$TaskFilterController {}
 
 abstract class _TaskFilterControllerBase with Store {
+  @computed
   Iterable<Task> get _tasks => taskViewController.selectedTask?.tasks ?? [];
 
   @computed
   int get tasksCount => _tasks.length;
 
   @computed
-  Iterable<Task> get openedTasks => _tasks.where((e) => !e.closed);
+  Iterable<Task> get _openedTasks => _tasks.where((t) => !t.closed);
 
   @computed
-  int get openedTasksCount => openedTasks.length;
+  int get openedTasksCount => _openedTasks.length;
   @computed
   bool get hasOpened => openedTasksCount > 0;
 
   @observable
-  TaskFilter? tasksFilter;
+  TaskFilter? tasksFilter = TaskFilter.opened;
 
   @action
   void setFilter(TaskFilter? _filter) => tasksFilter = _filter;
-
-  @action
-  void setDefaultFilter() => setFilter(taskFilterKeys.contains(TaskFilter.opened) ? TaskFilter.opened : TaskFilter.all);
 
   @computed
   List<TaskFilter> get taskFilterKeys {
@@ -47,14 +45,14 @@ abstract class _TaskFilterControllerBase with Store {
   bool get hasFilters => taskFilterKeys.length > 1;
 
   @computed
-  Map<TaskFilter, Iterable<Task>> get taskFilters => {
-        TaskFilter.opened: openedTasks,
+  Map<TaskFilter, Iterable<Task>> get _taskFilters => {
+        TaskFilter.opened: _openedTasks,
         TaskFilter.all: _tasks,
       };
 
   @computed
   Iterable<Task> get filteredTasks {
-    final tasks = (taskFilters[tasksFilter] ?? openedTasks).toList();
+    final tasks = (_taskFilters[tasksFilter] ?? _openedTasks).toList();
     tasks.sort((t1, t2) => t1.title.compareTo(t2.title));
     return tasks;
   }

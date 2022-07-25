@@ -13,11 +13,11 @@ class TaskListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget cardBuilder(BuildContext context, int index) {
-      final element = tasks.elementAt(index);
+      final task = tasks.elementAt(index);
       // TODO: обработку клика делать внутри карточки
       return TaskCard(
-        task: element,
-        onTap: () => taskViewController.showTask(context, element),
+        task: task,
+        onTap: () => taskViewController.showTask(context, task),
       );
     }
 

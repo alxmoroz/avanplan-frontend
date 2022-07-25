@@ -13,10 +13,13 @@ class MainController extends _MainControllerBase with _$MainController {}
 abstract class _MainControllerBase extends BaseController with Store {
   /// рабочие пространства
   @observable
-  ObservableList<Workspace> workspaces = ObservableList();
+  ObservableList<Workspace> _workspaces = ObservableList();
 
-  @action
-  void _sortWS() => workspaces.sort((s1, s2) => s1.title.compareTo(s2.title));
+  @computed
+  List<Workspace> get workspaces {
+    _workspaces.sort((ws1, ws2) => ws1.title.compareTo(ws2.title));
+    return _workspaces;
+  }
 
   @action
   Future fetchData() async {
@@ -26,8 +29,7 @@ abstract class _MainControllerBase extends BaseController with Store {
 
     clearData();
     if (loginController.authorized) {
-      workspaces = ObservableList.of(await workspacesUC.getAll());
-      _sortWS();
+      _workspaces = ObservableList.of(await workspacesUC.getAll());
 
       await taskViewController.fetchData();
       await trackerController.fetchData();
@@ -39,7 +41,7 @@ abstract class _MainControllerBase extends BaseController with Store {
 
   @action
   void clearData() {
-    workspaces.clear();
+    _workspaces.clear();
     taskViewController.clearData();
     trackerController.clearData();
     importController.clearData();

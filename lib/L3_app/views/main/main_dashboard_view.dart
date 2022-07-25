@@ -25,7 +25,7 @@ class MainDashboardView extends StatefulWidget {
 }
 
 class _MainDashboardViewState extends State<MainDashboardView> {
-  Task get task => taskViewController.rootTask;
+  Task get rootTask => taskViewController.rootTask;
 
   final double _iconSize = onePadding * 15;
 
@@ -34,13 +34,13 @@ class _MainDashboardViewState extends State<MainDashboardView> {
     return Observer(
       builder: (_) => MTPage(
         isLoading: mainController.isLoading,
-        navBar: tasksFilterController.hasOpened ? navBar(context, title: loc.appTitle) : null,
+        navBar: navBar(context, title: loc.appTitle),
         body: Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(
             gradient: RadialGradient(
               radius: 1,
-              colors: [(stateBgColor(task.state) ?? backgroundColor).resolve(context), backgroundColor.resolve(context)],
+              colors: [(stateBgColor(rootTask.state) ?? backgroundColor).resolve(context), backgroundColor.resolve(context)],
             ),
           ),
           child: SafeArea(
@@ -56,12 +56,12 @@ class _MainDashboardViewState extends State<MainDashboardView> {
                     shrinkWrap: true,
                     children: [
                       /// статус и комментарий
-                      stateIcon(context, task, size: _iconSize),
+                      stateIcon(context, rootTask, size: _iconSize),
                       H3(
-                        stateTextTitle(task),
+                        stateTextTitle(rootTask),
                         align: TextAlign.center,
                         padding: EdgeInsets.symmetric(horizontal: onePadding),
-                        color: stateColor(task.state) ?? darkGreyColor,
+                        color: stateColor(rootTask.state) ?? darkGreyColor,
                       ),
                       SizedBox(height: onePadding),
 

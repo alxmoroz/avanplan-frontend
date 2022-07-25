@@ -22,7 +22,7 @@ class TaskHeader extends StatelessWidget {
   String get breadcrumbs {
     const sepStr = ' > ';
     String _breadcrumbs = '';
-    final titles = _controller.navStack.take(_controller.navStack.length - 1).map((pt) => pt.title).toList();
+    final titles = _controller.navStack.take(_controller.navStack.length - 1).map((t) => t.title).toList();
     _breadcrumbs = titles.join(sepStr);
     return _breadcrumbs;
   }

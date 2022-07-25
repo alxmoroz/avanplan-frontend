@@ -35,6 +35,8 @@ abstract class _MainControllerBase extends BaseController with Store {
 
       await taskViewController.fetchData();
       await trackerController.fetchData();
+      await settingsController.fetchData();
+      await userController.fetchData();
     }
     stopLoading();
   }
@@ -45,6 +47,8 @@ abstract class _MainControllerBase extends BaseController with Store {
     taskViewController.clearData();
     trackerController.clearData();
     importController.clearData();
+    settingsController.clearData();
+    userController.clearData();
   }
 
   Future showTrackers(BuildContext context) async {

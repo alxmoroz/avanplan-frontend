@@ -2,7 +2,7 @@
 
 import '../entities/remote_tracker.dart';
 import '../entities/task_import.dart';
-import '../repositories/abs_api_repo.dart';
+import '../repositories/abs_import_repo.dart';
 
 class ImportUC {
   ImportUC({required this.repo});

@@ -14,7 +14,5 @@ class SettingsUC {
     await settingsRepo.update(settings);
   }
 
-  Future<AppSettings> getSettings() async {
-    return await settingsRepo.getOne() ?? AppSettings(firstLaunch: true);
-  }
+  Future<AppSettings> getSettings() async => await settingsRepo.getOne() ?? AppSettings(firstLaunch: true);
 }

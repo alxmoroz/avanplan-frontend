@@ -14,6 +14,15 @@ abstract class RPersistable {
   bool deleted = false;
 }
 
+abstract class Emailable extends RPersistable {
+  Emailable({
+    required int id,
+    required this.email,
+  }) : super(id: id);
+
+  final String email;
+}
+
 abstract class Titleable extends RPersistable {
   Titleable({
     required int id,

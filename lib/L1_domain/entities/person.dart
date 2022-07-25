@@ -2,18 +2,17 @@
 
 import 'base_entity.dart';
 
-class Person extends RPersistable {
+class Person extends Emailable {
   Person({
     required int id,
     required this.workspaceId,
-    required this.email,
+    required String email,
     this.firstname,
     this.lastname,
-  }) : super(id: id);
+  }) : super(id: id, email: email);
 
   final String? firstname;
   final String? lastname;
-  final String email;
   final int workspaceId;
 
   @override

@@ -5,7 +5,7 @@ import 'package:openapi/openapi.dart';
 
 import '../../L1_domain/entities/remote_tracker.dart';
 import '../../L1_domain/entities/task_import.dart';
-import '../../L1_domain/repositories/abs_api_repo.dart';
+import '../../L1_domain/repositories/abs_import_repo.dart';
 import '../../L1_domain/system/errors.dart';
 import '../../L3_app/extra/services.dart';
 import '../mappers/task_import.dart';

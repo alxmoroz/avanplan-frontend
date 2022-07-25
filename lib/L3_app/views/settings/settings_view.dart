@@ -21,15 +21,17 @@ class SettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        isLoading: settingsController.isLoading,
+        isLoading: settingsController.isLoading || userController.isLoading,
         body: SafeArea(
           child: Column(
             children: [
-              const MTDivider(),
               SizedBox(height: onePadding),
+              NormalText('${userController.currentUser}'),
+              SizedBox(height: onePadding / 4),
               MTButton(loc.auth_log_out_button_title, logout),
+              SizedBox(height: onePadding / 4),
               const MTDivider(),
-              SizedBox(height: onePadding),
+              SizedBox(height: onePadding / 2),
               SmallText(loc.integration),
               SizedBox(height: onePadding),
               MTButton(loc.task_import_title, () => importTasks(context)),

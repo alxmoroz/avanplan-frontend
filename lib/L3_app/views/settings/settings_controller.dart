@@ -8,13 +8,7 @@ import '../_base/base_controller.dart';
 
 part 'settings_controller.g.dart';
 
-class SettingsController extends _SettingsControllerBase with _$SettingsController {
-  Future<SettingsController> init() async {
-    await settingsUC.updateVersion(packageInfo.version);
-    settings = await settingsUC.getSettings();
-    return this;
-  }
-}
+class SettingsController extends _SettingsControllerBase with _$SettingsController {}
 
 abstract class _SettingsControllerBase extends BaseController with Store {
   // этот параметр не меняется после запуска
@@ -28,4 +22,16 @@ abstract class _SettingsControllerBase extends BaseController with Store {
 
   @computed
   String get appVersion => settings?.version ?? '';
+
+  @action
+  Future fetchData() async {
+    startLoading();
+    clearData();
+    await settingsUC.updateVersion(packageInfo.version);
+    settings = await settingsUC.getSettings();
+    stopLoading();
+  }
+
+  @action
+  void clearData() => settings = null;
 }

@@ -10,6 +10,7 @@ import '../../L1_domain/usecases/import_uc.dart';
 import '../../L1_domain/usecases/remote_trackers_uc.dart';
 import '../../L1_domain/usecases/settings_uc.dart';
 import '../../L1_domain/usecases/tasks_uc.dart';
+import '../../L1_domain/usecases/users_uc.dart';
 import '../../L1_domain/usecases/workspaces_uc.dart';
 import '../../L2_data/db.dart';
 import '../../L2_data/repositories/auth_repo.dart';
@@ -18,6 +19,7 @@ import '../../L2_data/repositories/import_repo.dart';
 import '../../L2_data/repositories/remote_tracker_types_repo.dart';
 import '../../L2_data/repositories/remote_trackers_repo.dart';
 import '../../L2_data/repositories/tasks_repo.dart';
+import '../../L2_data/repositories/users_repo.dart';
 import '../../L2_data/repositories/workspaces_repo.dart';
 import '../l10n/generated/l10n.dart';
 import '../views/auth/login_controller.dart';
@@ -28,6 +30,7 @@ import '../views/settings/settings_controller.dart';
 import '../views/task/task_edit_controller.dart';
 import '../views/task/task_filter_controller.dart';
 import '../views/task/task_view_controller.dart';
+import '../views/user/user_controller.dart';
 
 S get loc => S.current;
 
@@ -44,6 +47,7 @@ TaskEditController get taskEditController => GetIt.I<TaskEditController>();
 TrackerController get trackerController => GetIt.I<TrackerController>();
 ImportController get importController => GetIt.I<ImportController>();
 TaskFilterController get tasksFilterController => GetIt.I<TaskFilterController>();
+UserController get userController => GetIt.I<UserController>();
 
 Openapi get openAPI => GetIt.I<Openapi>();
 
@@ -54,6 +58,7 @@ TasksUC get tasksUC => GetIt.I<TasksUC>();
 RemoteTrackersUC get trackersUC => GetIt.I<RemoteTrackersUC>();
 RemoteTrackerTypesUC get trackerTypesUC => GetIt.I<RemoteTrackerTypesUC>();
 ImportUC get importUC => GetIt.I<ImportUC>();
+UsersUC get usersUC => GetIt.I<UsersUC>();
 
 void setup() {
   // device
@@ -77,14 +82,16 @@ void setup() {
   getIt.registerSingleton<RemoteTrackersUC>(RemoteTrackersUC(repo: RemoteTrackersRepo()));
   getIt.registerSingleton<RemoteTrackerTypesUC>(RemoteTrackerTypesUC(repo: RemoteTrackerTypesRepo()));
   getIt.registerSingleton<ImportUC>(ImportUC(repo: ImportRepo()));
+  getIt.registerSingleton<UsersUC>(UsersUC(repo: UsersRepo()));
 
   // controllers
   getIt.registerSingletonAsync<LoginController>(() async => LoginController().init(), dependsOn: [HiveStorage]);
-  getIt.registerSingletonAsync<SettingsController>(() async => SettingsController().init(), dependsOn: [HiveStorage, BaseDeviceInfo, PackageInfo]);
+  getIt.registerSingleton<SettingsController>(SettingsController());
   getIt.registerSingleton<MainController>(MainController());
   getIt.registerSingleton<TaskViewController>(TaskViewController());
   getIt.registerSingleton<TaskEditController>(TaskEditController());
   getIt.registerSingleton<TrackerController>(TrackerController());
   getIt.registerSingleton<ImportController>(ImportController());
   getIt.registerSingleton<TaskFilterController>(TaskFilterController());
+  getIt.registerSingleton<UserController>(UserController());
 }

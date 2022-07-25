@@ -10,7 +10,8 @@ extension TrackerMapper on RemoteTrackerSchemaGet {
         id: id,
         type: type.type,
         url: url,
-        loginKey: loginKey,
+        apiKey: apiKey,
+        login: login,
         description: description,
         workspaceId: workspaceId,
       );

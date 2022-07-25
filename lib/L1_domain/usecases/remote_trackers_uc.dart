@@ -15,7 +15,9 @@ class RemoteTrackersUC {
   Future<RemoteTracker?> save(RemoteTrackerUpsert data) async {
     RemoteTracker? tracker;
     // TODO: внутр. exception - валидация...
-    if (data.url.trim().isNotEmpty && data.loginKey.trim().isNotEmpty) {
+    final login = data.login?.trim() ?? '';
+    final apiKey = data.apiKey?.trim() ?? '';
+    if (data.url.trim().isNotEmpty && (login.isNotEmpty || apiKey.isNotEmpty)) {
       tracker = await repo.save(data);
     }
     return tracker;

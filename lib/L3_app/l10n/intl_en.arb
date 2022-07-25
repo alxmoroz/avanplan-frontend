@@ -56,6 +56,7 @@
   "task_title": "Task",
   "task_title_new": "New task",
 
+  "tracker_api_key_placeholder": "API key / Token",
   "tracker_delete_dialog_title": "Delete remote tracker connection?",
   "tracker_delete_dialog_description": "Imported tasks of this source will lose their connection with it",
   "tracker_import_placeholder": "Source for importing tasks",

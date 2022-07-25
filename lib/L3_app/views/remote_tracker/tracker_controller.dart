@@ -126,8 +126,9 @@ abstract class _TrackerControllerBase extends WorkspaceBounded with Store {
       id: selectedTracker?.id,
       typeId: selectedTypeId!,
       url: tfAnnoForCode('url').text,
-      loginKey: tfAnnoForCode('loginKey').text,
-      password: tfAnnoForCode('password').text,
+      apiKey: tfAnnoForCode('apiKey').text,
+      // login: tfAnnoForCode('login').text,
+      // password: tfAnnoForCode('password').text,
       description: tfAnnoForCode('description').text,
       workspaceId: selectedWS!.id,
     ));

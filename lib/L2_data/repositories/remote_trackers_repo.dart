@@ -23,7 +23,8 @@ class RemoteTrackersRepo extends AbstractApiRepo<RemoteTracker, RemoteTrackerUps
       ..id = data.id
       ..remoteTrackerTypeId = data.typeId
       ..url = data.url
-      ..loginKey = data.loginKey
+      ..apiKey = data.apiKey
+      ..login = data.login
       ..password = data.password
       ..description = data.description
       ..workspaceId = data.workspaceId;

@@ -44,8 +44,9 @@ class _TrackerEditViewState extends State<TrackerEditView> {
   void initState() {
     _controller.initState(tfaList: [
       TFAnnotation('url', label: loc.tracker_url_placeholder, text: _tracker?.url ?? ''),
-      TFAnnotation('loginKey', label: loc.auth_user_placeholder, text: _tracker?.loginKey ?? ''),
-      TFAnnotation('password', label: loc.auth_password_placeholder, needValidate: false),
+      TFAnnotation('apiKey', label: loc.tracker_api_key_placeholder, text: _tracker?.apiKey ?? ''),
+      // TFAnnotation('login', label: loc.auth_user_placeholder, text: _tracker?.login ?? ''),
+      // TFAnnotation('password', label: loc.auth_password_placeholder, needValidate: false),
       TFAnnotation('description', label: loc.common_description, text: _tracker?.description ?? '', needValidate: false),
     ]);
     super.initState();
@@ -78,7 +79,13 @@ class _TrackerEditViewState extends State<TrackerEditView> {
               items: _controller.rtTypes,
               label: loc.tracker_type_placeholder,
             ),
-          ...['url', 'loginKey', 'password', 'description'].map((code) => textFieldForCode(code)),
+          ...[
+            'url',
+            'apiKey',
+            // 'login',
+            // 'password',
+            'description',
+          ].map((code) => textFieldForCode(code)),
           if (_controller.canEdit)
             MTButton(
               loc.common_delete_btn_title,

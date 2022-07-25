@@ -9,26 +9,32 @@ class RemoteTrackerType extends Titleable {
 class RemoteTracker extends RPersistable {
   RemoteTracker({
     required int id,
+    required this.workspaceId,
     required this.type,
     required this.url,
-    required this.loginKey,
-    required this.description,
-    required this.workspaceId,
+    this.apiKey,
+    this.login,
+    this.password,
+    this.description,
     this.connected = false,
   }) : super(id: id);
 
+  final int workspaceId;
   final RemoteTrackerType type;
   final String url;
-  final String loginKey;
+  final String? apiKey;
+  final String? login;
+  final String? password;
   final String? description;
   final bool connected;
-  final int workspaceId;
 
   RemoteTracker copyWithConnected(bool _connected) => RemoteTracker(
         id: id,
         type: type,
         url: url,
-        loginKey: loginKey,
+        apiKey: apiKey,
+        login: login,
+        password: password,
         description: description,
         workspaceId: workspaceId,
         connected: _connected,

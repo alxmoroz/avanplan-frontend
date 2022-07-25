@@ -56,6 +56,7 @@
   "task_title": "Задача",
   "task_title_new": "Новая задача",
 
+  "tracker_api_key_placeholder": "Ключ API / Токен",
   "tracker_delete_dialog_title": "Удалить источник импорта?",
   "tracker_delete_dialog_description": "Импортированные задачи этого источника потеряют с ним связь",
   "tracker_import_placeholder": "Источник импорта задач",

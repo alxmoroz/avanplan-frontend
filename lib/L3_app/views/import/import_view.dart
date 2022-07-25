@@ -19,8 +19,8 @@ import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import 'import_controller.dart';
 
-Future showImportDialog(BuildContext context) async {
-  return await showModalBottomSheet<void>(
+Future<String?> showImportDialog(BuildContext context) async {
+  return await showModalBottomSheet<String?>(
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,

@@ -9,19 +9,25 @@ import '../../components/mt_divider.dart';
 import '../../components/mt_page.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
+import 'settings_controller.dart';
 
 class SettingsView extends StatelessWidget {
   static String get routeName => 'settings';
 
-  Future importTasks(BuildContext context) async => await mainController.importTasks(context);
-  Future showTrackers(BuildContext context) async => await mainController.showTrackers(context);
+  SettingsController get _controller => settingsController;
+
+  Future importTasks(BuildContext context) async {
+    await _controller.importTasks(context);
+  }
+
+  Future showTrackers(BuildContext context) async => await _controller.showTrackers(context);
   Future logout() async => await loginController.logout();
 
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        isLoading: settingsController.isLoading || userController.isLoading,
+        isLoading: _controller.isLoading || userController.isLoading,
         body: SafeArea(
           child: Column(
             children: [
@@ -39,9 +45,9 @@ class SettingsView extends StatelessWidget {
               MTButton(loc.tracker_list_title, () => showTrackers(context)),
               const Spacer(),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                LightText(settingsController.appName),
+                LightText(_controller.appName),
                 SizedBox(width: onePadding / 4),
-                MediumText(settingsController.appVersion),
+                MediumText(_controller.appVersion),
               ]),
               SizedBox(height: onePadding),
             ],

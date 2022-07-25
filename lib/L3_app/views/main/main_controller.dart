@@ -1,14 +1,10 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
 import '../../extra/services.dart';
 import '../_base/base_controller.dart';
-import '../import/import_view.dart';
-import '../remote_tracker/tracker_list_view.dart';
 
 part 'main_controller.g.dart';
 
@@ -49,13 +45,5 @@ abstract class _MainControllerBase extends BaseController with Store {
     importController.clearData();
     settingsController.clearData();
     userController.clearData();
-  }
-
-  Future showTrackers(BuildContext context) async {
-    await Navigator.of(context).pushNamed(TrackerListView.routeName);
-  }
-
-  Future importTasks(BuildContext context) async {
-    await showImportDialog(context);
   }
 }

@@ -86,6 +86,6 @@ abstract class _ImportControllerBase extends EditController with Store {
   }
 
   Future addTracker(BuildContext context) async {
-    trackerController.addTracker(context);
+    Navigator.of(context).pop('Add tracker');
   }
 }

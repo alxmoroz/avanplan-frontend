@@ -158,7 +158,7 @@ abstract class _TrackerControllerBase extends WorkspaceBounded with Store {
   /// роутер
 
   Future addTracker(BuildContext context) async {
-    editTracker(context, null);
+    await editTracker(context, null);
   }
 
   Future editTracker(BuildContext context, RemoteTracker? rt) async {

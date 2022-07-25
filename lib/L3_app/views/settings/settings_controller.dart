@@ -10,8 +10,8 @@ part 'settings_controller.g.dart';
 
 class SettingsController extends _SettingsControllerBase with _$SettingsController {
   Future<SettingsController> init() async {
-    settings = await settingsUC.getSettings();
     await settingsUC.updateVersion(packageInfo.version);
+    settings = await settingsUC.getSettings();
     return this;
   }
 }

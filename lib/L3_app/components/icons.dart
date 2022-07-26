@@ -5,6 +5,12 @@ import 'package:flutter/material.dart';
 
 import 'colors.dart';
 
+Widget refreshIcon(BuildContext context, {Color? color, double? size}) => Icon(
+      CupertinoIcons.refresh_thin,
+      color: (color ?? mainColor).resolve(context),
+      size: size ?? 30,
+    );
+
 Widget plusIcon(BuildContext context, {Color? color, double? size}) => Icon(
       CupertinoIcons.plus_circle,
       color: (color ?? mainColor).resolve(context),
@@ -26,7 +32,7 @@ Widget calendarIcon(BuildContext context, {Color? color, double? size}) => Icon(
 Widget doneIcon(BuildContext context, bool done, {Color? color, double? size}) => Icon(
       done ? CupertinoIcons.check_mark_circled : CupertinoIcons.circle,
       color: (color ?? mainColor).resolve(context),
-      size: size ?? 24,
+      size: size ?? 26,
     );
 
 Widget downCaretIcon(BuildContext context, {Color? color, double? size}) => Icon(
@@ -59,11 +65,7 @@ Widget closeIcon(BuildContext context, {Color? color, double? size}) => Icon(
       size: size ?? 24,
     );
 
-Widget homeIcon(BuildContext context, {Color? color, double? size}) => Icon(
-    // CupertinoIcons.viewfinder,
-    // CupertinoIcons.scope,
-    CupertinoIcons.viewfinder_circle,
-    size: size);
+Widget homeIcon(BuildContext context, {Color? color, double? size}) => Icon(CupertinoIcons.viewfinder_circle, size: size);
 
 Widget tasksIcon(BuildContext context, {Color? color, double? size}) => Icon(CupertinoIcons.text_badge_checkmark, size: size);
 

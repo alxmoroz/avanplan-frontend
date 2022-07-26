@@ -13,23 +13,16 @@ class MainController extends _MainControllerBase with _$MainController {}
 abstract class _MainControllerBase extends BaseController with Store {
   /// рабочие пространства
   @observable
-  ObservableList<Workspace> _workspaces = ObservableList();
-
-  @computed
-  List<Workspace> get workspaces {
-    _workspaces.sort((ws1, ws2) => ws1.title.compareTo(ws2.title));
-    return _workspaces;
-  }
+  ObservableList<Workspace> workspaces = ObservableList();
 
   @action
   Future fetchData() async {
     //TODO: сделать computed для всех зависимых данных? pro: прозрачная логика загрузки cons: увеличение связанности. В любом случае большой вопрос с редактированием словарей.
     // Например, трекеров... Будет похожая заморочка, как в дереве задач (зато есть опыт уже)
     startLoading();
-
-    clearData();
     if (loginController.authorized) {
-      _workspaces = ObservableList.of(await workspacesUC.getAll());
+      workspaces = ObservableList.of(await workspacesUC.getAll());
+      workspaces.sort((ws1, ws2) => ws1.title.compareTo(ws2.title));
 
       await taskViewController.fetchData();
       await trackerController.fetchData();
@@ -41,11 +34,16 @@ abstract class _MainControllerBase extends BaseController with Store {
 
   @action
   void clearData() {
-    _workspaces.clear();
+    workspaces.clear();
     taskViewController.clearData();
     trackerController.clearData();
     importController.clearData();
     settingsController.clearData();
     userController.clearData();
+  }
+
+  Future updateAll() async {
+    await taskViewController.updateAll();
+    await fetchData();
   }
 }

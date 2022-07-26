@@ -34,7 +34,6 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   );
 
   /// история переходов и текущая выбранная задача
-
   @observable
   ObservableList<Task> navStack = ObservableList();
 
@@ -119,6 +118,16 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
     _updateTask(_task);
 
     _touchRoot();
+  }
+
+  @action
+  Future updateAll() async {
+    // TODO: исключение для "локальных" задач
+    // трекеры и импортированные задачи
+    final importedTasks = rootTask.tasks.where((rt) => rt.trackerId != null);
+    print(importedTasks);
+    // final ids = importedTasks.map((t) => t.);
+    // await importUC.importTasks(tracker, rootTasksIds);
   }
 
   /// роутер

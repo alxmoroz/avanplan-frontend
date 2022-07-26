@@ -25,16 +25,14 @@ abstract class _ImportControllerBase extends EditController with Store {
   bool get validated => selectedTasksIds.isNotEmpty;
 
   @action
-  void _sortTasks() => remoteTasks.sort((t1, t2) => t1.title.compareTo(t2.title));
-
-  @action
   Future fetchTasks(int trackerId) async {
     startLoading();
     clearData();
     if (loginController.authorized) {
       try {
-        remoteTasks = ObservableList.of(await importUC.getRootTasks(trackerId));
-        _sortTasks();
+        final rootTasks = await importUC.getRootTasks(trackerId);
+        remoteTasks = ObservableList.of(rootTasks);
+        remoteTasks.sort((t1, t2) => t1.title.compareTo(t2.title));
       } catch (e) {
         setErrorCode(e is MTException ? e.code : e.toString());
       }

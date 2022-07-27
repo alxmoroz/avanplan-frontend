@@ -19,12 +19,12 @@ class MTPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      navigationBar: navBar,
-      child: Stack(children: [
-        material(body),
-        if (isLoading) SplashScreen(color: loaderColor.resolve(context)),
-      ]),
-    );
+    return Stack(children: [
+      CupertinoPageScaffold(
+        navigationBar: navBar,
+        child: material(body),
+      ),
+      if (isLoading) SplashScreen(color: loaderColor.resolve(context)),
+    ]);
   }
 }

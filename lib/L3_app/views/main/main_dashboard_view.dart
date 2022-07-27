@@ -36,11 +36,16 @@ class _MainDashboardViewState extends State<MainDashboardView> {
     return Observer(
       builder: (_) => MTPage(
         isLoading: mainController.isLoading,
-        navBar: navBar(
-          context,
-          title: loc.appTitle,
-          leading: Row(children: [SizedBox(width: onePadding), MTButton.icon(refreshIcon(context), mainController.updateAll)]),
-        ),
+        navBar: navBar(context,
+            leading: Row(children: [
+              SizedBox(width: onePadding),
+              MTButton.icon(refreshIcon(context), mainController.updateAll),
+            ]),
+            title: loc.appTitle,
+            trailing: Row(mainAxisAlignment: MainAxisAlignment.end, mainAxisSize: MainAxisSize.min, children: [
+              MTButton.icon(importIcon(context), () => importController.importTasks(context)),
+              SizedBox(width: onePadding),
+            ])),
         body: Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(

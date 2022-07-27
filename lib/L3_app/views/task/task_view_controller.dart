@@ -22,13 +22,10 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   @observable
   Task rootTask = Task(
     id: -1,
-    parentId: null,
     title: '',
     tasks: [],
     description: '',
     closed: false,
-    dueDate: null,
-    trackerId: null,
     createdOn: DateTime.now(),
     updatedOn: DateTime.now(),
   );
@@ -56,16 +53,17 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
     }
   }
 
+  @override
+  bool get isLoading => super.isLoading || mainController.isLoading;
+
   @action
   Future fetchData() async {
-    startLoading();
     clearData();
     for (Workspace ws in mainController.workspaces) {
       final rt = await tasksUC.getRoots(ws.id);
       rootTask.tasks.addAll(rt);
     }
     _touchRoot();
-    stopLoading();
   }
 
   /// костыль для обновления selectedTask по сути...
@@ -118,16 +116,6 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
     _updateTask(_task);
 
     _touchRoot();
-  }
-
-  @action
-  Future updateAll() async {
-    // TODO: исключение для "локальных" задач
-    // трекеры и импортированные задачи
-    final importedTasks = rootTask.tasks.where((rt) => rt.trackerId != null);
-    print(importedTasks);
-    // final ids = importedTasks.map((t) => t.);
-    // await importUC.importTasks(tracker, rootTasksIds);
   }
 
   /// роутер

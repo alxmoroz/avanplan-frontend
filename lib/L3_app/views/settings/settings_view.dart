@@ -16,10 +16,6 @@ class SettingsView extends StatelessWidget {
 
   SettingsController get _controller => settingsController;
 
-  Future importTasks(BuildContext context) async {
-    await _controller.importTasks(context);
-  }
-
   Future showTrackers(BuildContext context) async => await _controller.showTrackers(context);
   Future logout() async => await loginController.logout();
 
@@ -27,7 +23,7 @@ class SettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        isLoading: _controller.isLoading || userController.isLoading,
+        isLoading: _controller.isLoading,
         body: SafeArea(
           child: Column(
             children: [
@@ -39,8 +35,6 @@ class SettingsView extends StatelessWidget {
               const MTDivider(),
               SizedBox(height: onePadding / 2),
               SmallText(loc.integration),
-              SizedBox(height: onePadding),
-              MTButton(loc.task_import_title, () => importTasks(context)),
               SizedBox(height: onePadding),
               MTButton(loc.tracker_list_title, () => showTrackers(context)),
               const Spacer(),

@@ -25,12 +25,17 @@ abstract class _TrackerControllerBase extends WorkspaceBounded with Store {
     selectType(selectedTracker?.type);
   }
 
+  /// тип трекера
+
+  @observable
+  ObservableList<RemoteTrackerType> rtTypes = ObservableList();
+
   // TODO: здесь загружаем и проверяем трекеры на старте приложения (загружаем вместе в РП). Что не обязательно делать на старте.
   // Если тут сделать по запросу, тогда в окне импорта нужно будет учесть тоже
 
   @action
   Future fetchData() async {
-    startLoading();
+    // startLoading();
     clearData();
     for (Workspace ws in mainController.workspaces) {
       trackers.addAll(ws.remoteTrackers);
@@ -38,21 +43,12 @@ abstract class _TrackerControllerBase extends WorkspaceBounded with Store {
     _sortAndCheckTrackers();
 
     rtTypes = ObservableList.of(await trackerTypesUC.getAll());
-    _sortTypes();
-
-    stopLoading();
+    rtTypes.sort((s1, s2) => s1.title.compareTo(s2.title));
+    // stopLoading();
   }
 
   @action
   void clearData() => trackers.clear();
-
-  /// тип трекера
-
-  @observable
-  ObservableList<RemoteTrackerType> rtTypes = ObservableList();
-
-  @action
-  void _sortTypes() => rtTypes.sort((s1, s2) => s1.title.compareTo(s2.title));
 
   @observable
   int? selectedTypeId;
@@ -63,10 +59,22 @@ abstract class _TrackerControllerBase extends WorkspaceBounded with Store {
   @computed
   RemoteTrackerType? get selectedType => rtTypes.firstWhereOrNull((s) => s.id == selectedTypeId);
 
+  @override
+  bool get isLoading => super.isLoading || mainController.isLoading;
+
   /// трекеры
 
   @observable
   ObservableList<RemoteTracker> trackers = ObservableList();
+
+  @computed
+  Map<int, RemoteTracker> get trackersMap {
+    final Map<int, RemoteTracker> res = {};
+    for (var t in trackers) {
+      res[t.id] = t;
+    }
+    return res;
+  }
 
   /// выбранный трекер
 

@@ -44,7 +44,7 @@ class _MainViewState extends State<MainView> {
         ),
       );
 
-  final Future<void> _fetchData = mainController.fetchData();
+  final Future<void> _fetchData = mainController.updateAll();
 
   @override
   void dispose() {

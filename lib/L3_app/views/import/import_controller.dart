@@ -9,6 +9,7 @@ import '../../../L1_domain/entities/task_import.dart';
 import '../../../L1_domain/system/errors.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
+import 'import_view.dart';
 
 part 'import_controller.g.dart';
 
@@ -19,7 +20,7 @@ abstract class _ImportControllerBase extends EditController with Store {
   ObservableList<TaskImport> remoteTasks = ObservableList();
 
   @computed
-  List<String> get selectedTasksIds => remoteTasks.where((t) => t.selected).map((t) => t.code).toList();
+  List<String> get selectedTasksIds => remoteTasks.where((t) => t.selected).map((t) => t.remoteCode).toList();
 
   @override
   bool get validated => selectedTasksIds.isNotEmpty;
@@ -45,11 +46,14 @@ abstract class _ImportControllerBase extends EditController with Store {
 
   @action
   void selectTask(TaskImport task, bool selected) {
-    final index = remoteTasks.indexWhere((t) => t.code == task.code);
+    final index = remoteTasks.indexWhere((t) => t.remoteCode == task.remoteCode);
     if (index >= 0) {
       remoteTasks[index] = task.copyWithSelected(selected);
     }
   }
+
+  @override
+  bool get isLoading => super.isLoading || mainController.isLoading;
 
   /// выбранный трекер
 
@@ -85,5 +89,27 @@ abstract class _ImportControllerBase extends EditController with Store {
 
   Future addTracker(BuildContext context) async {
     Navigator.of(context).pop('Add tracker');
+  }
+
+  Future importTasks(BuildContext context) async {
+    if (trackerController.trackers.isEmpty) {
+      await trackerController.addTracker(context);
+    }
+    final res = await showImportDialog(context);
+    if (res == 'Add tracker') {
+      await importTasks(context);
+    }
+  }
+
+  Future updateImportedTasks() async {
+    // TODO: исключение для "локальных" задач
+    // трекеры и импортированные задачи
+    final importedTasks = taskViewController.rootTask.tasks.where((rt) => rt.trackerId != null);
+    final Set trackersIds = importedTasks.map((t) => t.trackerId).toSet();
+    for (int trID in trackersIds) {
+      final Set<String> ids = (importedTasks.where((t) => t.trackerId == trID)).map((t) => t.remoteCode!).toSet();
+      final tracker = trackerController.trackersMap[trID];
+      await importUC.importTasks(tracker!, ids.toList());
+    }
   }
 }

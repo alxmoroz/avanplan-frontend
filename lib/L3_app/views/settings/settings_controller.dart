@@ -6,7 +6,6 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/entities/app_settings.dart';
 import '../../extra/services.dart';
 import '../_base/base_controller.dart';
-import '../import/import_view.dart';
 import '../remote_tracker/tracker_list_view.dart';
 
 part 'settings_controller.g.dart';
@@ -28,27 +27,20 @@ abstract class _SettingsControllerBase extends BaseController with Store {
 
   @action
   Future fetchData() async {
-    startLoading();
+    // startLoading();
     clearData();
     await settingsUC.updateVersion(packageInfo.version);
     settings = await settingsUC.getSettings();
-    stopLoading();
+    // stopLoading();
   }
 
   @action
   void clearData() => settings = null;
 
+  @override
+  bool get isLoading => super.isLoading || mainController.isLoading;
+
   Future showTrackers(BuildContext context) async {
     await Navigator.of(context).pushNamed(TrackerListView.routeName);
-  }
-
-  Future importTasks(BuildContext context) async {
-    if (trackerController.trackers.isEmpty) {
-      await trackerController.addTracker(context);
-    }
-    final res = await showImportDialog(context);
-    if (res == 'Add tracker') {
-      await importTasks(context);
-    }
   }
 }

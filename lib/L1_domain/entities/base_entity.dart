@@ -2,32 +2,25 @@
 
 abstract class LocalPersistable {
   LocalPersistable({required this.id});
+
   String id;
 }
 
 abstract class RPersistable {
-  RPersistable({
-    required this.id,
-  });
+  RPersistable({required this.id});
 
   final int id;
   bool deleted = false;
 }
 
 abstract class Emailable extends RPersistable {
-  Emailable({
-    required int id,
-    required this.email,
-  }) : super(id: id);
+  Emailable({required int id, required this.email}) : super(id: id);
 
   final String email;
 }
 
 abstract class Titleable extends RPersistable {
-  Titleable({
-    required int id,
-    required this.title,
-  }) : super(id: id);
+  Titleable({required int id, required this.title}) : super(id: id);
 
   final String title;
 

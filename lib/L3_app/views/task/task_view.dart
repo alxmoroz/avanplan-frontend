@@ -83,18 +83,20 @@ class _TaskPageState extends State<TaskPage> {
         navBar: navBar(
           context,
           title: _controller.isVirtualRoot ? loc.task_list_title : '${loc.task_title} #${task.id}',
-          trailing: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              MTButton.icon(plusIcon(context), () => _controller.addTask(context)),
-              if (!_controller.isVirtualRoot) ...[
-                SizedBox(width: onePadding * 2),
-                MTButton.icon(editIcon(context), () => _controller.editTask(context)),
-              ],
-              SizedBox(width: onePadding),
+          leading: Row(children: [
+            SizedBox(width: onePadding),
+            MTButton.icon(refreshIcon(context), mainController.updateAll),
+          ]),
+          trailing: Row(mainAxisAlignment: MainAxisAlignment.end, mainAxisSize: MainAxisSize.min, children: [
+            MTButton.icon(importIcon(context), () => importController.importTasks(context)),
+            SizedBox(width: onePadding * 2),
+            MTButton.icon(plusIcon(context), () => _controller.addTask(context)),
+            if (!_controller.isVirtualRoot) ...[
+              SizedBox(width: onePadding * 2),
+              MTButton.icon(editIcon(context), () => _controller.editTask(context)),
             ],
-          ),
+            SizedBox(width: onePadding),
+          ]),
         ),
         body: SafeArea(
           top: false,

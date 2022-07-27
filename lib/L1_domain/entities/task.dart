@@ -9,40 +9,46 @@ class Task extends Statusable {
     required int id,
     required String title,
     required bool closed,
-    required this.tasks,
     required this.description,
     required this.createdOn,
     required this.updatedOn,
-    required this.dueDate,
-    required this.parentId,
-    required this.trackerId,
+    required this.tasks,
+    this.dueDate,
+    this.parentId,
     this.workspaceId,
     this.status,
     this.priority,
+    this.trackerId,
+    this.remoteCode,
   }) : super(id: id, title: title, closed: closed);
 
   final String description;
   final DateTime createdOn;
   final DateTime updatedOn;
+  List<Task> tasks;
+
   final DateTime? dueDate;
   final int? parentId;
-  final int? trackerId;
+  final int? workspaceId;
   final Status? status;
   final Priority? priority;
-  final int? workspaceId;
-  List<Task> tasks;
+  final int? trackerId;
+  final String? remoteCode;
 
   Task copy() => Task(
         id: id,
-        parentId: parentId,
+        title: title,
+        closed: closed,
+        description: description,
         createdOn: createdOn,
         updatedOn: updatedOn,
-        title: title,
-        description: description,
-        dueDate: dueDate,
         tasks: tasks,
-        closed: closed,
-        trackerId: trackerId,
+        dueDate: dueDate,
+        parentId: parentId,
         workspaceId: workspaceId,
+        status: status,
+        priority: priority,
+        trackerId: trackerId,
+        remoteCode: remoteCode,
       );
 }

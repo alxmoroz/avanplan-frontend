@@ -11,6 +11,12 @@ Widget refreshIcon(BuildContext context, {Color? color, double? size}) => Icon(
       size: size ?? 30,
     );
 
+Widget importIcon(BuildContext context, {Color? color, double? size}) => Icon(
+      CupertinoIcons.arrow_down_circle,
+      color: (color ?? mainColor).resolve(context),
+      size: size ?? 30,
+    );
+
 Widget plusIcon(BuildContext context, {Color? color, double? size}) => Icon(
       CupertinoIcons.plus_circle,
       color: (color ?? mainColor).resolve(context),

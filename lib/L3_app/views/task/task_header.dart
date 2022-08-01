@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities/task_stats.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -16,7 +17,6 @@ class TaskHeader extends StatelessWidget {
 
   final Task task;
 
-  bool get hasLink => task.trackerId != null;
   TaskViewController get _controller => taskViewController;
 
   String get breadcrumbs {
@@ -39,7 +39,7 @@ class TaskHeader extends StatelessWidget {
         Row(children: [
           Expanded(child: H2(task.title, decoration: task.closed ? TextDecoration.lineThrough : null)),
           SizedBox(width: onePadding / 2),
-          if (hasLink) ...[
+          if (task.hasLink) ...[
             SizedBox(height: onePadding / 2),
             linkIcon(context, color: darkGreyColor),
           ],

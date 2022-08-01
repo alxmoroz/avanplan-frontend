@@ -6,8 +6,8 @@ import '../../components/colors.dart';
 import '../../components/icons.dart';
 import '../../components/splash.dart';
 import '../../extra/services.dart';
-import '../remote_tracker/tracker_list_view.dart';
 import '../settings/settings_view.dart';
+import '../source/source_list_view.dart';
 import '../task/task_view.dart';
 import 'main_dashboard_view.dart';
 
@@ -39,7 +39,7 @@ class _MainViewState extends State<MainView> {
           builder: (context) => tabViews[index],
           routes: {
             TaskView.routeName: (_) => TaskView(),
-            TrackerListView.routeName: (_) => TrackerListView(),
+            SourceListView.routeName: (_) => SourceListView(),
           },
         ),
       );

@@ -16,7 +16,7 @@ class SettingsView extends StatelessWidget {
 
   SettingsController get _controller => settingsController;
 
-  Future showTrackers(BuildContext context) async => await _controller.showTrackers(context);
+  Future showSources(BuildContext context) async => await _controller.showSources(context);
   Future logout() async => await loginController.logout();
 
   @override
@@ -36,7 +36,7 @@ class SettingsView extends StatelessWidget {
               SizedBox(height: onePadding / 2),
               SmallText(loc.integration),
               SizedBox(height: onePadding),
-              MTButton(loc.tracker_list_title, () => showTrackers(context)),
+              MTButton(loc.source_list_title, () => showSources(context)),
               const Spacer(),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 LightText(_controller.appName),

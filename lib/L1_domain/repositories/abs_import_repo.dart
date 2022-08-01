@@ -1,9 +1,9 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../entities/remote_tracker.dart';
+import '../entities/source.dart';
 import '../entities/task_import.dart';
 
 abstract class AbstractApiImportRepo {
-  Future<List<TaskImport>> getRootTasks(int trackerId);
-  Future<bool> importTasks(RemoteTracker tracker, List<String> rootTasksIds);
+  Future<List<TaskImport>> getRootTasks(int srcId);
+  Future<bool> importTasks(Source src, List<String> codes);
 }

@@ -3,7 +3,7 @@
 import 'base_entity.dart';
 import 'person.dart';
 import 'priority.dart';
-import 'remote_tracker.dart';
+import 'source.dart';
 import 'status.dart';
 
 class Workspace extends Titleable {
@@ -13,11 +13,11 @@ class Workspace extends Titleable {
     required this.statuses,
     required this.priorities,
     required this.persons,
-    required this.remoteTrackers,
+    required this.sources,
   }) : super(id: id, title: title);
 
   final List<Status> statuses;
   final List<Priority> priorities;
   final List<Person> persons;
-  final List<RemoteTracker> remoteTrackers;
+  final List<Source> sources;
 }

@@ -3,6 +3,7 @@
 import 'base_entity.dart';
 import 'priority.dart';
 import 'status.dart';
+import 'task_source.dart';
 
 class Task extends Statusable {
   Task({
@@ -18,8 +19,7 @@ class Task extends Statusable {
     this.workspaceId,
     this.status,
     this.priority,
-    this.trackerId,
-    this.remoteCode,
+    this.taskSource,
   }) : super(id: id, title: title, closed: closed);
 
   final String description;
@@ -32,8 +32,7 @@ class Task extends Statusable {
   final int? workspaceId;
   final Status? status;
   final Priority? priority;
-  final int? trackerId;
-  final String? remoteCode;
+  final TaskSource? taskSource;
 
   Task copy() => Task(
         id: id,
@@ -48,7 +47,6 @@ class Task extends Statusable {
         workspaceId: workspaceId,
         status: status,
         priority: priority,
-        trackerId: trackerId,
-        remoteCode: remoteCode,
+        taskSource: taskSource,
       );
 }

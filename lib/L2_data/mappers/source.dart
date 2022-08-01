@@ -2,11 +2,11 @@
 
 import 'package:openapi/openapi.dart';
 
-import '../../L1_domain/entities/remote_tracker.dart';
-import 'remote_tracker_type.dart';
+import '../../L1_domain/entities/source.dart';
+import 'source_type.dart';
 
-extension TrackerMapper on RemoteTrackerSchemaGet {
-  RemoteTracker get tracker => RemoteTracker(
+extension SourceMapper on SourceGet {
+  Source get source => Source(
         id: id,
         type: type.type,
         url: url,

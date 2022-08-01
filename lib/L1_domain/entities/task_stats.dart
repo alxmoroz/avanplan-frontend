@@ -20,6 +20,7 @@ extension TaskStats on Task {
   bool get _isOk => etaDate != null && (etaRiskPeriod?.inSeconds ?? 0) <= 0;
 
   bool get hasSubtasks => tasks.isNotEmpty;
+  bool get hasLink => taskSource?.keepConnection == true;
 
   /// статистика по подзадачам
   Iterable<Task> get allTasks {

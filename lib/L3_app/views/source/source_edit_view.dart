@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../L1_domain/entities/remote_tracker.dart';
+import '../../../L1_domain/entities/source.dart';
 import '../../components/close_dialog_button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
@@ -15,39 +15,39 @@ import '../../components/mt_text_field.dart';
 import '../../components/navbar.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
-import 'tracker_controller.dart';
+import 'source_controller.dart';
 
-Future<RemoteTracker?> showEditTrackerDialog(BuildContext context) async {
-  return await showModalBottomSheet<RemoteTracker?>(
+Future<Source?> showEditSourceDialog(BuildContext context) async {
+  return await showModalBottomSheet<Source?>(
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
     useRootNavigator: true,
-    builder: (_) => MTBottomSheet(TrackerEditView(), context),
+    builder: (_) => MTBottomSheet(SourceEditView(), context),
   );
 }
 
-class TrackerEditView extends StatefulWidget {
-  static String get routeName => 'tracker_edit';
+class SourceEditView extends StatefulWidget {
+  static String get routeName => 'source_edit';
 
   @override
-  _TrackerEditViewState createState() => _TrackerEditViewState();
+  _SourceEditViewState createState() => _SourceEditViewState();
 }
 
-class _TrackerEditViewState extends State<TrackerEditView> {
-  TrackerController get _controller => trackerController;
-  RemoteTracker? get _tracker => _controller.selectedTracker;
-  bool get _isNew => _tracker == null;
+class _SourceEditViewState extends State<SourceEditView> {
+  SourceController get _controller => sourceController;
+  Source? get _source => _controller.selectedSource;
+  bool get _isNew => _source == null;
   bool get _canSave => _controller.validated;
 
   @override
   void initState() {
     _controller.initState(tfaList: [
-      TFAnnotation('url', label: loc.tracker_url_placeholder, text: _tracker?.url ?? ''),
-      TFAnnotation('apiKey', label: loc.tracker_api_key_placeholder, text: _tracker?.apiKey ?? ''),
-      // TFAnnotation('login', label: loc.auth_user_placeholder, text: _tracker?.login ?? ''),
+      TFAnnotation('url', label: loc.source_url_placeholder, text: _source?.url ?? ''),
+      TFAnnotation('apiKey', label: loc.source_api_key_placeholder, text: _source?.apiKey ?? ''),
+      // TFAnnotation('login', label: loc.auth_user_placeholder, text: _source?.login ?? ''),
       // TFAnnotation('password', label: loc.auth_password_placeholder, needValidate: false),
-      TFAnnotation('description', label: loc.common_description, text: _tracker?.description ?? '', needValidate: false),
+      TFAnnotation('description', label: loc.common_description, text: _source?.description ?? '', needValidate: false),
     ]);
     super.initState();
   }
@@ -73,11 +73,11 @@ class _TrackerEditViewState extends State<TrackerEditView> {
         children: [
           if (_isNew) _controller.wsDropdown(context),
           if (_controller.rtTypes.isNotEmpty)
-            MTDropdown<RemoteTrackerType>(
+            MTDropdown<SourceType>(
               onChanged: (type) => _controller.selectType(type),
               value: _controller.selectedType,
               items: _controller.rtTypes,
-              label: loc.tracker_type_placeholder,
+              label: loc.source_type_placeholder,
             ),
           ...[
             'url',
@@ -106,7 +106,7 @@ class _TrackerEditViewState extends State<TrackerEditView> {
         navBar: navBar(
           context,
           leading: CloseDialogButton(),
-          title: _isNew ? loc.tracker_title_new : '',
+          title: _isNew ? loc.source_title_new : '',
           trailing: MTButton(
             loc.common_save_btn_title,
             _canSave ? () => _controller.save(context) : null,

@@ -5,30 +5,30 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/api_schema/remote_tracker_upsert.dart';
-import '../../../L1_domain/entities/remote_tracker.dart';
+import '../../../L1_domain/api_schema/source_upsert.dart';
+import '../../../L1_domain/entities/source.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/mt_confirm_dialog.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
 import '../workspace/workspace_bounded.dart';
-import 'tracker_edit_view.dart';
+import 'source_edit_view.dart';
 
-part 'tracker_controller.g.dart';
+part 'source_controller.g.dart';
 
-class TrackerController extends _TrackerControllerBase with _$TrackerController {}
+class SourceController extends _SourceControllerBase with _$SourceController {}
 
-abstract class _TrackerControllerBase extends WorkspaceBounded with Store {
+abstract class _SourceControllerBase extends WorkspaceBounded with Store {
   @override
   void initState({List<TFAnnotation>? tfaList}) {
     super.initState(tfaList: tfaList);
-    selectType(selectedTracker?.type);
+    selectType(selectedSource?.type);
   }
 
   /// тип трекера
 
   @observable
-  ObservableList<RemoteTrackerType> rtTypes = ObservableList();
+  ObservableList<SourceType> rtTypes = ObservableList();
 
   // TODO: здесь загружаем и проверяем трекеры на старте приложения (загружаем вместе в РП). Что не обязательно делать на старте.
   // Если тут сделать по запросу, тогда в окне импорта нужно будет учесть тоже
@@ -38,40 +38,40 @@ abstract class _TrackerControllerBase extends WorkspaceBounded with Store {
     // startLoading();
     clearData();
     for (Workspace ws in mainController.workspaces) {
-      trackers.addAll(ws.remoteTrackers);
+      sources.addAll(ws.sources);
     }
-    _sortAndCheckTrackers();
+    _sortAndCheckSources();
 
-    rtTypes = ObservableList.of(await trackerTypesUC.getAll());
+    rtTypes = ObservableList.of(await sourceTypesUC.getAll());
     rtTypes.sort((s1, s2) => s1.title.compareTo(s2.title));
     // stopLoading();
   }
 
   @action
-  void clearData() => trackers.clear();
+  void clearData() => sources.clear();
 
   @observable
   int? selectedTypeId;
 
   @action
-  void selectType(RemoteTrackerType? _type) => selectedTypeId = _type?.id;
+  void selectType(SourceType? _type) => selectedTypeId = _type?.id;
 
   @computed
-  RemoteTrackerType? get selectedType => rtTypes.firstWhereOrNull((s) => s.id == selectedTypeId);
+  SourceType? get selectedType => rtTypes.firstWhereOrNull((s) => s.id == selectedTypeId);
 
   @override
   bool get isLoading => super.isLoading || mainController.isLoading;
 
-  /// трекеры
+  /// источники импорта, трекеры
 
   @observable
-  ObservableList<RemoteTracker> trackers = ObservableList();
+  ObservableList<Source> sources = ObservableList();
 
   @computed
-  Map<int, RemoteTracker> get trackersMap {
-    final Map<int, RemoteTracker> res = {};
-    for (var t in trackers) {
-      res[t.id] = t;
+  Map<int, Source> get sourcesMap {
+    final Map<int, Source> res = {};
+    for (var s in sources) {
+      res[s.id] = s;
     }
     return res;
   }
@@ -79,50 +79,50 @@ abstract class _TrackerControllerBase extends WorkspaceBounded with Store {
   /// выбранный трекер
 
   @observable
-  int? selectedTrackerId;
+  int? selectedSourceId;
 
   @action
-  void selectTracker(RemoteTracker? _rt) {
-    selectedTrackerId = _rt?.id;
+  void selectSource(Source? _rt) {
+    selectedSourceId = _rt?.id;
     selectWS(_rt?.workspaceId);
   }
 
   @computed
-  RemoteTracker? get selectedTracker => trackers.firstWhereOrNull((g) => g.id == selectedTrackerId);
+  Source? get selectedSource => sources.firstWhereOrNull((g) => g.id == selectedSourceId);
 
   @computed
-  bool get canEdit => selectedTracker != null;
+  bool get canEdit => selectedSource != null;
 
   @override
   bool get validated => super.validated && selectedType != null && selectedWS != null;
 
   @action
-  Future _sortAndCheckTrackers() async {
-    trackers.forEachIndexed((index, t) async {
+  Future _sortAndCheckSources() async {
+    sources.forEachIndexed((index, s) async {
       bool connected = false;
       try {
-        connected = (await importUC.getRootTasks(t.id)).isNotEmpty;
+        connected = (await importUC.getRootTasks(s.id)).isNotEmpty;
       } catch (_) {}
-      trackers[index] = t.copyWithConnected(connected);
+      sources[index] = s.copyWithConnected(connected);
     });
-    trackers.sort((g1, g2) => g1.url.compareTo(g2.url));
+    sources.sort((s1, s2) => s1.url.compareTo(s2.url));
   }
 
   @action
-  void _updateTrackerInList(RemoteTracker? rt) {
-    if (rt != null) {
+  void _updateSourceInList(Source? _s) {
+    if (_s != null) {
       startLoading();
-      final index = trackers.indexWhere((g) => g.id == rt.id);
+      final index = sources.indexWhere((s) => s.id == _s.id);
       if (index >= 0) {
-        if (rt.deleted) {
-          trackers.remove(rt);
+        if (_s.deleted) {
+          sources.remove(_s);
         } else {
-          trackers[index] = rt;
+          sources[index] = _s;
         }
       } else {
-        trackers.add(rt);
+        sources.add(_s);
       }
-      _sortAndCheckTrackers();
+      _sortAndCheckSources();
       stopLoading();
     }
   }
@@ -130,8 +130,8 @@ abstract class _TrackerControllerBase extends WorkspaceBounded with Store {
   /// действия
 
   Future save(BuildContext context) async {
-    final editedTracker = await trackersUC.save(RemoteTrackerUpsert(
-      id: selectedTracker?.id,
+    final editedSource = await sourcesUC.save(SourceUpsert(
+      id: selectedSource?.id,
       typeId: selectedTypeId!,
       url: tfAnnoForCode('url').text,
       apiKey: tfAnnoForCode('apiKey').text,
@@ -141,8 +141,8 @@ abstract class _TrackerControllerBase extends WorkspaceBounded with Store {
       workspaceId: selectedWS!.id,
     ));
 
-    if (editedTracker != null) {
-      Navigator.of(context).pop(editedTracker);
+    if (editedSource != null) {
+      Navigator.of(context).pop(editedSource);
     }
   }
 
@@ -150,31 +150,31 @@ abstract class _TrackerControllerBase extends WorkspaceBounded with Store {
     if (canEdit) {
       final confirm = await showMTDialog<bool?>(
         context,
-        title: loc.tracker_delete_dialog_title,
-        description: '${loc.tracker_delete_dialog_description}\n\n${loc.common_delete_dialog_description}',
+        title: loc.source_delete_dialog_title,
+        description: '${loc.source_delete_dialog_description}\n\n${loc.common_delete_dialog_description}',
         actions: [
           MTDialogAction(title: loc.common_yes, isDestructive: true, result: true),
           MTDialogAction(title: loc.common_no, isDefault: true, result: false),
         ],
       );
       if (confirm != null && confirm) {
-        Navigator.of(context).pop(await trackersUC.delete(tracker: selectedTracker!));
+        Navigator.of(context).pop(await sourcesUC.delete(s: selectedSource!));
       }
     }
   }
 
   /// роутер
 
-  Future addTracker(BuildContext context) async {
-    await editTracker(context, null);
+  Future addSource(BuildContext context) async {
+    await editSource(context, null);
   }
 
-  Future editTracker(BuildContext context, RemoteTracker? rt) async {
-    selectTracker(rt);
-    final tracker = await showEditTrackerDialog(context);
-    if (tracker != null) {
-      _updateTrackerInList(tracker);
-      if (tracker.deleted) {
+  Future editSource(BuildContext context, Source? rt) async {
+    selectSource(rt);
+    final s = await showEditSourceDialog(context);
+    if (s != null) {
+      _updateSourceInList(s);
+      if (s.deleted) {
         Navigator.of(context).pop();
       }
     }

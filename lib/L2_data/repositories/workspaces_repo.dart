@@ -17,7 +17,7 @@ class WorkspacesRepo extends AbstractApiRepo<Workspace, BaseUpsert, BaseSchema> 
 
     final List<Workspace> workspaces = [];
     if (response.statusCode == 200) {
-      for (WorkspaceSchemaGet ws in response.data?.toList() ?? []) {
+      for (WorkspaceGet ws in response.data?.toList() ?? []) {
         workspaces.add(ws.workspace);
       }
     }

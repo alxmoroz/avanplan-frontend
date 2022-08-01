@@ -1,13 +1,13 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:openapi/openapi.dart';
+import 'package:openapi/openapi.dart' as api;
 
 import '../../L1_domain/entities/task_import.dart';
 
-extension TaskImportMapper on TaskImportRemoteSchemaGet {
+extension TaskImportMapper on api.TaskImport {
   TaskImport get taskImport => TaskImport(
-        remoteCode: remoteCode,
         title: title,
         description: description ?? '',
+        code: taskSource.code,
       );
 }

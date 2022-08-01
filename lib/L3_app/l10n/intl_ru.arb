@@ -23,6 +23,16 @@
 
   "overview": "Обзор",
 
+  "source_api_key_placeholder": "Ключ API / Токен",
+  "source_delete_dialog_title": "Удалить источник импорта?",
+  "source_delete_dialog_description": "Импортированные задачи этого источника потеряют с ним связь",
+  "source_import_placeholder": "Источник импорта задач",
+  "source_list_empty_title": "Источники импорта не настроены",
+  "source_list_title": "Источники импорта задач",
+  "source_title_new": "Новый источник импорта",
+  "source_type_placeholder": "Тип источника",
+  "source_url_placeholder": "URL",
+
   "task_delete_dialog_title": "Удалить задачу?",
   "task_delete_dialog_description": "Все подзадачи также будут удалены",
   "task_due_date_label": "План",
@@ -55,16 +65,6 @@
 
   "task_title": "Задача",
   "task_title_new": "Новая задача",
-
-  "tracker_api_key_placeholder": "Ключ API / Токен",
-  "tracker_delete_dialog_title": "Удалить источник импорта?",
-  "tracker_delete_dialog_description": "Импортированные задачи этого источника потеряют с ним связь",
-  "tracker_import_placeholder": "Источник импорта задач",
-  "tracker_list_empty_title": "Источники импорта не настроены",
-  "tracker_list_title": "Источники импорта задач",
-  "tracker_title_new": "Новый источник импорта",
-  "tracker_type_placeholder": "Тип источника",
-  "tracker_url_placeholder": "URL",
 
   "validation_empty_text": "Нужно заполнить",
 

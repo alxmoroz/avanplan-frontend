@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 
-import '../../../L1_domain/entities/remote_tracker.dart';
+import '../../../L1_domain/entities/source.dart';
 import '../../components/close_dialog_button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
@@ -51,25 +51,25 @@ class _ImportViewState extends State<ImportView> {
     );
   }
 
-  Widget get trackerDropdown => trackerController.trackers.isEmpty
+  Widget get sourceDropdown => sourceController.sources.isEmpty
       ? Expanded(
           child: EmptyDataWidget(
-            title: loc.tracker_list_empty_title,
-            addTitle: loc.tracker_title_new,
-            onAdd: () => _controller.addTracker(context),
+            title: loc.source_list_empty_title,
+            addTitle: loc.source_title_new,
+            onAdd: () => _controller.addSource(context),
           ),
         )
-      : MTDropdown<RemoteTracker>(
-          onChanged: (t) => _controller.selectTracker(t),
-          value: _controller.selectedTracker,
-          items: trackerController.trackers,
-          label: loc.tracker_import_placeholder,
+      : MTDropdown<Source>(
+          onChanged: (t) => _controller.selectSource(t),
+          value: _controller.selectedSource,
+          items: sourceController.sources,
+          label: loc.source_import_placeholder,
         );
 
   Widget form() {
     return Column(children: [
-      trackerDropdown,
-      if (_controller.selectedTracker != null) ...[
+      sourceDropdown,
+      if (_controller.selectedSource != null) ...[
         if (_controller.remoteTasks.isEmpty)
           EmptyDataWidget(
             title:

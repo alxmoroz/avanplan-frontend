@@ -1,6 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:openapi/openapi.dart';
+import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/api_schema/task_schema.dart';
 import '../../L1_domain/entities/task.dart';
@@ -12,7 +12,7 @@ import '../mappers/task.dart';
 // TODO: для всех подобных репозиториев: развязать узел зависимости от 3 уровня за счёт инициализации openApi в конструктор репы
 
 class TasksRepo extends AbstractApiRepo<Task, TaskUpsert, TaskQuery> {
-  TasksApi get api => openAPI.getTasksApi();
+  o_api.TasksApi get api => openAPI.getTasksApi();
 
   @override
   Future<List<Task>> getAll([TaskQuery? query]) async {
@@ -20,7 +20,7 @@ class TasksRepo extends AbstractApiRepo<Task, TaskUpsert, TaskQuery> {
     try {
       final response = await api.getRootTasksV1TasksGet(wsId: query!.workspaceId);
       if (response.statusCode == 200) {
-        for (TaskSchemaGet t in response.data?.toList() ?? []) {
+        for (o_api.TaskGet t in response.data?.toList() ?? []) {
           tasks.add(t.task);
         }
       }
@@ -34,7 +34,7 @@ class TasksRepo extends AbstractApiRepo<Task, TaskUpsert, TaskQuery> {
   @override
   Future<Task?> save(TaskUpsert data) async {
     //TODO: не учитываются возможные ошибки! Нет обработки 403 и т.п.
-    final qBuilder = TaskSchemaUpsertBuilder()
+    final qBuilder = o_api.TaskUpsertBuilder()
       ..workspaceId = data.workspaceId
       ..id = data.id
       ..statusId = data.statusId
@@ -44,7 +44,7 @@ class TasksRepo extends AbstractApiRepo<Task, TaskUpsert, TaskQuery> {
       ..closed = data.closed
       ..dueDate = data.dueDate?.toUtc();
 
-    final response = await api.upsertTaskV1TasksPost(taskSchemaUpsert: qBuilder.build());
+    final response = await api.upsertTaskV1TasksPost(taskUpsert: qBuilder.build());
     Task? task;
     if (response.statusCode == 201) {
       task = response.data?.task;

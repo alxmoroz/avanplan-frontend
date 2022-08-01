@@ -4,8 +4,9 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/entities/remote_tracker.dart';
+import '../../../L1_domain/entities/source.dart';
 import '../../../L1_domain/entities/task_import.dart';
+import '../../../L1_domain/entities/task_stats.dart';
 import '../../../L1_domain/system/errors.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
@@ -20,19 +21,18 @@ abstract class _ImportControllerBase extends EditController with Store {
   ObservableList<TaskImport> remoteTasks = ObservableList();
 
   @computed
-  List<String> get selectedTasksIds => remoteTasks.where((t) => t.selected).map((t) => t.remoteCode).toList();
+  List<String> get selectedTasksIds => remoteTasks.where((t) => t.selected).map((t) => t.code).toList();
 
   @override
   bool get validated => selectedTasksIds.isNotEmpty;
 
   @action
-  Future fetchTasks(int trackerId) async {
+  Future fetchTasks(int sourceID) async {
     startLoading();
     clearData();
     if (loginController.authorized) {
       try {
-        final rootTasks = await importUC.getRootTasks(trackerId);
-        remoteTasks = ObservableList.of(rootTasks);
+        remoteTasks = ObservableList.of(await importUC.getRootTasks(sourceID));
         remoteTasks.sort((t1, t2) => t1.title.compareTo(t2.title));
       } catch (e) {
         setErrorCode(e is MTException ? e.code : e.toString());
@@ -46,7 +46,7 @@ abstract class _ImportControllerBase extends EditController with Store {
 
   @action
   void selectTask(TaskImport task, bool selected) {
-    final index = remoteTasks.indexWhere((t) => t.remoteCode == task.remoteCode);
+    final index = remoteTasks.indexWhere((t) => t.code == task.code);
     if (index >= 0) {
       remoteTasks[index] = task.copyWithSelected(selected);
     }
@@ -55,31 +55,31 @@ abstract class _ImportControllerBase extends EditController with Store {
   @override
   bool get isLoading => super.isLoading || mainController.isLoading;
 
-  /// выбранный трекер
+  /// выбранный источник импорта, трекер
 
   @observable
-  int? selectedTrackerId;
+  int? selectedSourceId;
 
   @action
-  Future selectTracker(RemoteTracker? _rt) async {
-    selectedTrackerId = _rt?.id;
+  Future selectSource(Source? _rt) async {
+    selectedSourceId = _rt?.id;
     if (_rt != null) {
       await fetchTasks(_rt.id);
     }
   }
 
   @computed
-  RemoteTracker? get selectedTracker => trackerController.trackers.firstWhereOrNull((g) => g.id == selectedTrackerId);
+  Source? get selectedSource => sourceController.sources.firstWhereOrNull((g) => g.id == selectedSourceId);
 
   @computed
-  bool get canEdit => selectedTracker != null;
+  bool get canEdit => selectedSource != null;
 
   /// действия,  роутер
 
   @action
   Future startImport(BuildContext context) async {
     startLoading();
-    final done = await importUC.importTasks(selectedTracker!, selectedTasksIds);
+    final done = await importUC.importTasks(selectedSource!, selectedTasksIds);
     if (done) {
       await mainController.fetchData();
       Navigator.of(context).pop();
@@ -87,29 +87,27 @@ abstract class _ImportControllerBase extends EditController with Store {
     stopLoading();
   }
 
-  Future addTracker(BuildContext context) async {
-    Navigator.of(context).pop('Add tracker');
+  Future addSource(BuildContext context) async {
+    Navigator.of(context).pop('Add source');
   }
 
   Future importTasks(BuildContext context) async {
-    if (trackerController.trackers.isEmpty) {
-      await trackerController.addTracker(context);
+    if (sourceController.sources.isEmpty) {
+      await sourceController.addSource(context);
     }
     final res = await showImportDialog(context);
-    if (res == 'Add tracker') {
+    if (res == 'Add source') {
       await importTasks(context);
     }
   }
 
-  Future updateImportedTasks() async {
-    // TODO: исключение для "локальных" задач
-    // трекеры и импортированные задачи
-    final importedTasks = taskViewController.rootTask.tasks.where((rt) => rt.trackerId != null);
-    final Set trackersIds = importedTasks.map((t) => t.trackerId).toSet();
-    for (int trID in trackersIds) {
-      final Set<String> ids = (importedTasks.where((t) => t.trackerId == trID)).map((t) => t.remoteCode!).toSet();
-      final tracker = trackerController.trackersMap[trID];
-      await importUC.importTasks(tracker!, ids.toList());
+  Future updateLinkedTasks() async {
+    final linkedTasksSources = taskViewController.rootTask.tasks.where((t) => t.hasLink).map((t) => t.taskSource!);
+    final Set srcIDs = linkedTasksSources.map((ts) => ts.source.id).toSet();
+    for (int srcID in srcIDs) {
+      final Set<String> codes = (linkedTasksSources.where((ts) => ts.source.id == srcID)).map((t) => t.code).toSet();
+      final src = sourceController.sourcesMap[srcID];
+      await importUC.importTasks(src!, codes.toList());
     }
   }
 }

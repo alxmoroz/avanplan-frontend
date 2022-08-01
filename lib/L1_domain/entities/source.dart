@@ -2,12 +2,12 @@
 
 import 'base_entity.dart';
 
-class RemoteTrackerType extends Titleable {
-  RemoteTrackerType({required int id, required String title}) : super(id: id, title: title);
+class SourceType extends Titleable {
+  SourceType({required int id, required String title}) : super(id: id, title: title);
 }
 
-class RemoteTracker extends RPersistable {
-  RemoteTracker({
+class Source extends RPersistable {
+  Source({
     required int id,
     required this.workspaceId,
     required this.type,
@@ -20,7 +20,7 @@ class RemoteTracker extends RPersistable {
   }) : super(id: id);
 
   final int workspaceId;
-  final RemoteTrackerType type;
+  final SourceType type;
   final String url;
   final String? apiKey;
   final String? login;
@@ -28,7 +28,7 @@ class RemoteTracker extends RPersistable {
   final String? description;
   final bool connected;
 
-  RemoteTracker copyWithConnected(bool _connected) => RemoteTracker(
+  Source copyWithConnected(bool _connected) => Source(
         id: id,
         type: type,
         url: url,

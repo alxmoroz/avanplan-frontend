@@ -4,7 +4,7 @@ import 'package:openapi/openapi.dart';
 
 import '../../L1_domain/entities/user.dart';
 
-extension UserMapper on UserSchemaGet {
+extension UserMapper on UserGet {
   User get user => User(
         id: id,
         email: email,

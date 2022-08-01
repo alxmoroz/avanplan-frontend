@@ -6,7 +6,7 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/entities/app_settings.dart';
 import '../../extra/services.dart';
 import '../_base/base_controller.dart';
-import '../remote_tracker/tracker_list_view.dart';
+import '../source/source_list_view.dart';
 
 part 'settings_controller.g.dart';
 
@@ -40,7 +40,7 @@ abstract class _SettingsControllerBase extends BaseController with Store {
   @override
   bool get isLoading => super.isLoading || mainController.isLoading;
 
-  Future showTrackers(BuildContext context) async {
-    await Navigator.of(context).pushNamed(TrackerListView.routeName);
+  Future showSources(BuildContext context) async {
+    await Navigator.of(context).pushNamed(SourceListView.routeName);
   }
 }

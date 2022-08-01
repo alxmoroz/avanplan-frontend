@@ -24,7 +24,7 @@ abstract class _MainControllerBase extends BaseController with Store {
     workspaces.sort((ws1, ws2) => ws1.title.compareTo(ws2.title));
 
     await taskViewController.fetchData();
-    await trackerController.fetchData();
+    await sourceController.fetchData();
     await settingsController.fetchData();
     await userController.fetchData();
   }
@@ -33,7 +33,7 @@ abstract class _MainControllerBase extends BaseController with Store {
   void clearData() {
     workspaces.clear();
     taskViewController.clearData();
-    trackerController.clearData();
+    sourceController.clearData();
     importController.clearData();
     settingsController.clearData();
     userController.clearData();
@@ -44,7 +44,7 @@ abstract class _MainControllerBase extends BaseController with Store {
     await fetchData();
     // TODO: Подумать над фоновым обновлением или обновлением на бэке по расписанию. Иначе каждый запуск прилоежния — это будет вот это вст всё.
     // TODO: Можно эту логику на бэк отправить вообще вместе с настройкой частоты обновления для трекера. Чтобы вообще не запускать процесс импорта из клиента.
-    await importController.updateImportedTasks();
+    await importController.updateLinkedTasks();
     await fetchData();
     stopLoading();
   }

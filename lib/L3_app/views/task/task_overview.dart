@@ -21,9 +21,7 @@ class TaskOverview extends StatelessWidget {
   final Task task;
 
   bool get hasDescription => task.description.isNotEmpty;
-  bool get hasLink => task.trackerId != null;
   bool get hasDates => task.dueDate != null || task.etaDate != null;
-  bool get isClosed => task.closed;
   bool get hasStatus => task.status != null;
   bool get hasSubtasks => task.tasks.isNotEmpty;
 

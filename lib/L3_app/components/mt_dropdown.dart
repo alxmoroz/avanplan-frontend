@@ -3,7 +3,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 
-import '../../../L1_domain/entities/remote_tracker.dart';
+import '../../../L1_domain/entities/source.dart';
 import 'colors.dart';
 import 'constants.dart';
 import 'icons.dart';
@@ -11,7 +11,7 @@ import 'mt_circle.dart';
 import 'mt_text_field.dart';
 import 'text_widgets.dart';
 
-extension DropDownItem on RemoteTracker {
+extension DropDownItem on Source {
   Widget get dropDownItem => Row(
         children: [
           MTCircle(color: connected ? Colors.green : warningColor, size: onePadding),
@@ -41,7 +41,7 @@ class _MTDropdownState<T> extends State<MTDropdown<T>> {
   List<DropdownMenuItem<T>> get ddItems => widget.items
       .map((item) => DropdownMenuItem<T>(
             value: item,
-            child: item is RemoteTracker ? item.dropDownItem : NormalText('$item'),
+            child: item is Source ? item.dropDownItem : NormalText('$item'),
           ))
       .toList();
 

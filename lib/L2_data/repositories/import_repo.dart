@@ -3,8 +3,8 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/openapi.dart';
 
-import '../../L1_domain/entities/remote_tracker.dart';
-import '../../L1_domain/entities/task_import.dart';
+import '../../L1_domain/entities/source.dart';
+import '../../L1_domain/entities/task_import.dart' as ti;
 import '../../L1_domain/repositories/abs_import_repo.dart';
 import '../../L1_domain/system/errors.dart';
 import '../../L3_app/extra/services.dart';
@@ -16,12 +16,12 @@ class ImportRepo extends AbstractApiImportRepo {
   IntegrationsTasksApi get api => openAPI.getIntegrationsTasksApi();
 
   @override
-  Future<List<TaskImport>> getRootTasks(int trackerId) async {
-    final List<TaskImport> rootTasks = [];
+  Future<List<ti.TaskImport>> getRootTasks(int srcId) async {
+    final List<ti.TaskImport> rootTasks = [];
     try {
-      final response = await api.getRootTasksV1IntegrationsTasksGet(trackerId: trackerId);
+      final response = await api.getRootTasksV1IntegrationsTasksGet(sourceId: srcId);
       if (response.statusCode == 200) {
-        for (TaskImportRemoteSchemaGet t in response.data?.toList() ?? []) {
+        for (TaskImport t in response.data?.toList() ?? []) {
           rootTasks.add(t.taskImport);
         }
       }
@@ -33,10 +33,10 @@ class ImportRepo extends AbstractApiImportRepo {
   }
 
   @override
-  Future<bool> importTasks(RemoteTracker tracker, List<String> rootTasksIds) async {
+  Future<bool> importTasks(Source src, List<String> codes) async {
     final response = await api.importTasksV1IntegrationsTasksImportPost(
-      trackerId: tracker.id,
-      requestBody: BuiltList.from(rootTasksIds),
+      sourceId: src.id,
+      requestBody: BuiltList.from(codes),
     );
     return response.statusCode == 200;
   }

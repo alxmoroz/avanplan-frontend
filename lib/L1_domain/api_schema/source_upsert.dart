@@ -2,8 +2,8 @@
 
 import 'base_upsert.dart';
 
-class RemoteTrackerUpsert extends BaseUpsert {
-  RemoteTrackerUpsert({
+class SourceUpsert extends BaseUpsert {
+  SourceUpsert({
     required int? id,
     required this.workspaceId,
     required this.typeId,

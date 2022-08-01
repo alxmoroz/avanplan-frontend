@@ -14,32 +14,32 @@ import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import 'tracker_controller.dart';
+import 'source_controller.dart';
 
-class TrackerListView extends StatefulWidget {
-  static String get routeName => 'tracker_list';
+class SourceListView extends StatefulWidget {
+  static String get routeName => 'source_list';
 
   @override
-  _TrackerListViewState createState() => _TrackerListViewState();
+  _SourceListViewState createState() => _SourceListViewState();
 }
 
-class _TrackerListViewState extends State<TrackerListView> {
-  TrackerController get _controller => trackerController;
+class _SourceListViewState extends State<SourceListView> {
+  SourceController get _controller => sourceController;
 
-  Widget trackerBuilder(BuildContext _, int index) {
-    final tracker = _controller.trackers[index];
+  Widget sourceBuilder(BuildContext _, int index) {
+    final s = _controller.sources[index];
     return Column(
       children: [
         if (index > 0) const MTDivider(),
         ListTile(
-          leading: MTCircle(color: tracker.connected ? Colors.green : warningColor),
-          title: NormalText('${tracker.type.title} ${tracker.description}'),
-          subtitle: SmallText(tracker.url),
+          leading: MTCircle(color: s.connected ? Colors.green : warningColor),
+          title: NormalText('${s.type.title} ${s.description}'),
+          subtitle: SmallText(s.url),
           trailing: editIcon(context),
           minLeadingWidth: 0,
           dense: true,
           visualDensity: VisualDensity.compact,
-          onTap: () => _controller.editTracker(context, tracker),
+          onTap: () => _controller.editSource(context, s),
         )
       ],
     );
@@ -52,18 +52,18 @@ class _TrackerListViewState extends State<TrackerListView> {
         isLoading: _controller.isLoading,
         navBar: navBar(
           context,
-          title: loc.tracker_list_title,
-          trailing: MTButton.icon(plusIcon(context), () => _controller.addTracker(context), padding: EdgeInsets.only(right: onePadding)),
+          title: loc.source_list_title,
+          trailing: MTButton.icon(plusIcon(context), () => _controller.addSource(context), padding: EdgeInsets.only(right: onePadding)),
         ),
-        body: _controller.trackers.isEmpty
+        body: _controller.sources.isEmpty
             ? EmptyDataWidget(
-                title: loc.tracker_list_empty_title,
-                addTitle: loc.tracker_title_new,
-                onAdd: () => _controller.addTracker(context),
+                title: loc.source_list_empty_title,
+                addTitle: loc.source_title_new,
+                onAdd: () => _controller.addSource(context),
               )
             : ListView.builder(
-                itemBuilder: trackerBuilder,
-                itemCount: _controller.trackers.length,
+                itemBuilder: sourceBuilder,
+                itemCount: _controller.sources.length,
               ),
       ),
     );

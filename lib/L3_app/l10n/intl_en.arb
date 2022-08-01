@@ -23,6 +23,16 @@
 
   "overview": "Overview",
 
+  "source_api_key_placeholder": "API key / Token",
+  "source_delete_dialog_title": "Delete import source connection?",
+  "source_delete_dialog_description": "Imported tasks of this source will lose their connection with it",
+  "source_import_placeholder": "Source for importing tasks",
+  "source_list_empty_title": "No remote import sources configured yet",
+  "source_list_title": "Remote import sources",
+  "source_title_new": "New import source",
+  "source_type_placeholder": "Import sources type",
+  "source_url_placeholder": "URL",
+
   "task_delete_dialog_title": "Delete task?",
   "task_delete_dialog_description": "All subtasks will be deleted",
   "task_due_date_label": "Planned",
@@ -30,7 +40,7 @@
   "task_eta_date_label": "Predicted",
 
   "task_import_title": "Import tasks",
-  "task_import_title_error_get_list": "Error getting tasks\nTry choosing a different tracker",
+  "task_import_title_error_get_list": "Error getting tasks\nTry choosing a different source",
 
   "task_filter_all": "All",
   "task_filter_no_due": "No due date",
@@ -42,7 +52,7 @@
   "task_filter_risky": "Risky",
 
   "task_list_empty_title": "There are no tasks",
-  "task_list_empty_title_import": "There are no tasks available to import\nTry choosing a different tracker",
+  "task_list_empty_title_import": "There are no tasks available to import\nTry choosing a different source",
   "task_list_title": "Tasks",
   "task_list_title_count": "{count, plural, one{1 task} other{{count} tasks}}",
 
@@ -56,15 +66,7 @@
   "task_title": "Task",
   "task_title_new": "New task",
 
-  "tracker_api_key_placeholder": "API key / Token",
-  "tracker_delete_dialog_title": "Delete remote tracker connection?",
-  "tracker_delete_dialog_description": "Imported tasks of this source will lose their connection with it",
-  "tracker_import_placeholder": "Source for importing tasks",
-  "tracker_list_empty_title": "No remote trackers configured yet",
-  "tracker_list_title": "Remote trackers",
-  "tracker_title_new": "New remote tracker",
-  "tracker_type_placeholder": "Tracker type",
-  "tracker_url_placeholder": "URL",
+
 
   "validation_empty_text": "Should not be empty",
 

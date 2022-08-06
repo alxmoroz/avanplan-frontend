@@ -19,33 +19,20 @@ import 'task_listview.dart';
 import 'task_overview.dart';
 import 'task_view_controller.dart';
 
-class TaskView extends StatelessWidget {
-  static String get routeName => 'task_view';
-
-  @override
-  Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) => taskViewController.selectedTask != null ? TaskPage(taskViewController.selectedTask!) : Container(),
-    );
-  }
-}
-
 enum _TabKeys { overview, tasks }
 
-class TaskPage extends StatefulWidget {
-  const TaskPage(this.task);
-
-  final Task task;
+class TaskView extends StatefulWidget {
+  static String get routeName => 'task_view';
 
   @override
   _TaskPageState createState() => _TaskPageState();
 }
 
-class _TaskPageState extends State<TaskPage> {
+class _TaskPageState extends State<TaskView> {
   _TabKeys? tabKeyValue = _TabKeys.overview;
 
-  Task get task => widget.task;
   TaskViewController get _controller => taskViewController;
+  Task get task => _controller.selectedTask!;
 
   Widget tabPaneSelector() => Padding(
         padding: EdgeInsets.symmetric(horizontal: onePadding),
@@ -75,28 +62,27 @@ class _TaskPageState extends State<TaskPage> {
 
   Widget selectedPane() => {_TabKeys.overview: overviewPane(), _TabKeys.tasks: tasksPane()}[tabKeyValue] ?? overviewPane();
 
-  @override
-  Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) => MTPage(
+  Widget taskPage() => MTPage(
         isLoading: _controller.isLoading,
         navBar: navBar(
           context,
-          title: _controller.isVirtualRoot ? loc.task_list_title : '${loc.task_title} #${task.id}',
-          leading: _controller.isVirtualRoot
+          title: _controller.isRoot ? loc.project_list_title : '${loc.task_title} #${task.id}',
+          leading: _controller.canRefresh
               ? Row(children: [
                   SizedBox(width: onePadding),
                   MTButton.icon(refreshIcon(context), mainController.updateAll),
                 ])
               : null,
           trailing: Row(mainAxisAlignment: MainAxisAlignment.end, mainAxisSize: MainAxisSize.min, children: [
-            if (_controller.isVirtualRoot) ...[
+            if (_controller.canImport) ...[
               MTButton.icon(importIcon(context), () => importController.importTasks(context)),
               SizedBox(width: onePadding * 2),
             ],
-            MTButton.icon(plusIcon(context), () => _controller.addTask(context)),
-            if (!_controller.isVirtualRoot) ...[
+            if (_controller.canAdd) ...[
+              MTButton.icon(plusIcon(context), () => _controller.addTask(context)),
               SizedBox(width: onePadding * 2),
+            ],
+            if (_controller.canEdit) ...[
               MTButton.icon(editIcon(context), () => _controller.editTask(context)),
             ],
             SizedBox(width: onePadding),
@@ -107,7 +93,7 @@ class _TaskPageState extends State<TaskPage> {
           bottom: false,
           child: ListView(
             children: [
-              if (_controller.isVirtualRoot)
+              if (_controller.isRoot)
                 tasksPane()
               else ...[
                 TaskHeader(task),
@@ -117,7 +103,7 @@ class _TaskPageState extends State<TaskPage> {
                 ],
                 selectedPane(),
               ],
-              if (!task.hasSubtasks)
+              if (!task.hasSubtasks && _controller.canAdd)
                 EmptyDataWidget(
                   title: loc.task_list_empty_title,
                   addTitle: loc.task_title_new,
@@ -126,7 +112,12 @@ class _TaskPageState extends State<TaskPage> {
             ],
           ),
         ),
-      ),
+      );
+
+  @override
+  Widget build(BuildContext context) {
+    return Observer(
+      builder: (_) => taskViewController.selectedTask != null ? taskPage() : Container(),
     );
   }
 }

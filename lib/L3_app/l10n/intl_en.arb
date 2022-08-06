@@ -14,6 +14,7 @@
   "common_delete_dialog_description": "This action cannot be undone!",
   "common_done": "Done",
   "common_no": "No",
+  "common_or": "or",
   "common_save_btn_title": "Save",
   "common_status_placeholder": "Status",
   "common_title": "Title",
@@ -22,6 +23,8 @@
   "integration": "Integration",
 
   "overview": "Overview",
+
+  "project_list_title": "Projects",
 
   "source_api_key_placeholder": "API key / Token",
   "source_delete_dialog_title": "Delete import source connection?",
@@ -39,6 +42,8 @@
   "task_due_date_placeholder": "Due date",
   "task_eta_date_label": "Predicted",
 
+  "task_import_connect_button_title": "Track tasks (read only)",
+  "task_import_copy_button_title": "Import tasks",
   "task_import_title": "Import tasks",
   "task_import_title_error_get_list": "Error getting tasks\nTry choosing a different source",
 

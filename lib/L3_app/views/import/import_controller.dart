@@ -78,9 +78,9 @@ abstract class _ImportControllerBase extends EditController with Store {
   /// действия,  роутер
 
   @action
-  Future startImport(BuildContext context) async {
+  Future startImport(BuildContext context, {bool keepConnection = true}) async {
     startLoading();
-    final taskSources = selectedTasks.map((t) => t.taskSource!);
+    final taskSources = selectedTasks.map((t) => TaskSourceImport(code: t.taskSource!.code, keepConnection: keepConnection));
     final done = await importUC.importTasks(selectedSource!, taskSources);
     if (done) {
       await mainController.fetchData();
@@ -103,14 +103,15 @@ abstract class _ImportControllerBase extends EditController with Store {
     }
   }
 
-  Future updateLinkedTasks() async {
-    final linkedTSs = taskViewController.rootTask.tasks.where((t) => t.hasLink).map((t) => t.taskSource!);
-    final Set sources = linkedTSs.map((ts) => ts.source).toSet();
-    for (Source source in sources) {
-      final Iterable<TaskSourceImport> tss = linkedTSs.where((ts) => ts.source == source).toSet().map(
-            (ts) => TaskSourceImport(code: ts.code),
-          );
-      await importUC.importTasks(source, tss);
+  Future<bool> updateLinkedTasks() async {
+    bool needUpdate = false;
+    for (Source src in sourceController.sources) {
+      final linkedTSs = taskViewController.rootTask.tasks.where((t) => t.hasLink && t.taskSource?.source.id == src.id).map((t) => t.taskSource!);
+      needUpdate = linkedTSs.isNotEmpty;
+      if (needUpdate) {
+        await importUC.importTasks(src, linkedTSs.map((ts) => TaskSourceImport(code: ts.code)));
+      }
     }
+    return needUpdate;
   }
 }

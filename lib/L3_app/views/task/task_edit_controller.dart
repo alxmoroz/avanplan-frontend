@@ -87,7 +87,7 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
 
   @computed
   int? get _parentId => isNew
-      ? taskViewController.isVirtualRoot
+      ? taskViewController.isRoot
           ? null
           : taskViewController.selectedTask?.id
       : taskForEdit!.parentId;

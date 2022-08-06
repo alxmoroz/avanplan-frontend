@@ -14,6 +14,7 @@
   "common_description": "Описание",
   "common_done": "Выполнено",
   "common_no": "Нет",
+  "common_or": "или",
   "common_save_btn_title": "Сохранить",
   "common_status_placeholder": "Статус",
   "common_title": "Название",
@@ -22,6 +23,8 @@
   "integration": "Интеграция",
 
   "overview": "Обзор",
+
+  "project_list_title": "Проекты",
 
   "source_api_key_placeholder": "Ключ API / Токен",
   "source_delete_dialog_title": "Удалить источник импорта?",
@@ -39,6 +42,8 @@
   "task_due_date_placeholder": "Срок завершения",
   "task_eta_date_label": "Прогноз",
 
+  "task_import_connect_button_title": "Отслеживать задачи",
+  "task_import_copy_button_title": "Импортировать задачи",
   "task_import_title": "Импорт задач",
   "task_import_title_error_get_list": "Ошибка получения списка задач\nПопробуйте выбрать другой источник",
 

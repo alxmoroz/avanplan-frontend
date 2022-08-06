@@ -41,7 +41,20 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   Task? get selectedTask => rootTask.allTasks.firstWhereOrNull((t) => t.id == _selectedTaskId) ?? rootTask;
 
   @computed
-  bool get isVirtualRoot => selectedTask == rootTask;
+  bool get isRoot => selectedTask == rootTask;
+
+  /// доступные действия
+  @computed
+  bool get canAdd => !selectedTask!.hasLink;
+
+  @computed
+  bool get canEdit => canAdd && !isRoot;
+
+  @computed
+  bool get canImport => isRoot;
+
+  @computed
+  bool get canRefresh => isRoot;
 
   @action
   void _pushTask(Task _task) => navStack.add(_task);

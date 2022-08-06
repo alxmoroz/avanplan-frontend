@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/task_stats.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_divider.dart';
@@ -41,7 +40,7 @@ class TaskHeader extends StatelessWidget {
           SizedBox(width: onePadding / 2),
           if (task.hasLink) ...[
             SizedBox(height: onePadding / 2),
-            linkIcon(context, color: darkGreyColor),
+            linkIcon(context),
           ],
         ]),
       ]),

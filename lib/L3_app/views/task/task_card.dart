@@ -1,17 +1,15 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/task_stats.dart';
+import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/date_string_widget.dart';
 import '../../components/icons.dart';
 import '../../components/mt_card.dart';
 import '../../components/mt_progress.dart';
 import '../../components/text_widgets.dart';
-import '../../extra/services.dart';
-import '../../presenters/number_presenter.dart';
 import '../../presenters/task_overview_presenter.dart';
 import 'task_state_indicator.dart';
 
@@ -24,9 +22,21 @@ class TaskCard extends StatelessWidget {
 
   bool get isClosed => task.closed;
 
-  bool get showDescription => expanded && task.description.isNotEmpty;
-  bool get showSubtasks => expanded && task.hasSubtasks;
-  bool get showDates => expanded && (task.etaDate != null || task.dueDate != null);
+  Widget badge(BuildContext context) {
+    final dir = CupertinoTheme.brightnessOf(context) == Brightness.dark ? 1 : -1;
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: onePadding / 1.75, vertical: onePadding / 6),
+      decoration: BoxDecoration(
+        color: darkBackgroundColor.resolve(context),
+        borderRadius: BorderRadius.circular(onePadding),
+        boxShadow: [
+          BoxShadow(color: darkGreyColor.resolve(context), offset: Offset(0, dir * 0.4)),
+          BoxShadow(color: CupertinoColors.systemBackground.resolve(context), offset: Offset(0, dir * -0.4)),
+        ],
+      ),
+      child: SmallText('${task.openedLeafTasksCount}', color: darkGreyColor),
+    );
+  }
 
   Widget title(BuildContext context) => H4(
         task.title,
@@ -36,25 +46,8 @@ class TaskCard extends StatelessWidget {
 
   Widget header(BuildContext context) => Row(children: [
         Expanded(child: title(context)),
-        SizedBox(width: onePadding / 2),
+        if (task.openedLeafTasksCount > 0) badge(context),
         chevronIcon(context),
-      ]);
-
-  Widget description() => LightText(task.description, maxLines: 2);
-
-  Widget subtasksInfo() => Row(children: [
-        LightText(loc.task_list_title_count(task.openedLeafTasksCount)),
-        const Spacer(),
-        if (task.doneRatio > 0) ...[
-          SmallText('${loc.common_done} '),
-          NormalText(task.doneRatio.inPercents),
-        ]
-      ]);
-
-  Widget buildDates() => Row(children: [
-        DateStringWidget(task.dueDate, titleString: loc.task_due_date_label),
-        const Spacer(),
-        if (task.openedLeafTasksCount > 0) DateStringWidget(task.etaDate, titleString: loc.task_eta_date_label),
       ]);
 
   @override
@@ -65,20 +58,12 @@ class TaskCard extends StatelessWidget {
           color: stateColor(task.state),
           body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             header(context),
-            if (showDescription) ...[
-              SizedBox(height: onePadding / 4),
-              description(),
-            ],
-            if (showSubtasks) ...[
-              SizedBox(height: onePadding / 2),
-              subtasksInfo(),
-            ],
-            if (showDates) ...[
-              SizedBox(height: onePadding / 2),
-              buildDates(),
-            ],
             SizedBox(height: onePadding / 2),
-            TaskStateIndicator(task, inCard: true),
+            Row(children: [
+              Expanded(child: TaskStateIndicator(task, inCard: true)),
+              if (task.hasLink) linkIcon(context),
+              SizedBox(width: onePadding / 4),
+            ]),
           ]),
         ),
       );

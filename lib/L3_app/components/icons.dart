@@ -61,7 +61,7 @@ Widget infoIcon(BuildContext context, {Color? color, double? size}) => Icon(
 
 Widget linkIcon(BuildContext context, {Color? color, double? size}) => Icon(
       CupertinoIcons.link,
-      color: (color ?? mainColor).resolve(context),
+      color: (color ?? darkGreyColor).resolve(context),
       size: size ?? 14,
     );
 

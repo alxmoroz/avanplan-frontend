@@ -13,5 +13,15 @@ class TaskSource extends RPersistable {
 
   final String code;
   final Source source;
-  final bool keepConnection;
+  bool keepConnection;
+}
+
+class TaskSourceImport {
+  TaskSourceImport({
+    required this.code,
+    this.keepConnection = true,
+  });
+
+  final String code;
+  bool keepConnection;
 }

@@ -3,7 +3,6 @@
 import 'package:openapi/openapi.dart';
 
 import '../../L1_domain/entities/user.dart';
-import '../../L1_domain/entities/workspace.dart';
 import '../../L1_domain/repositories/abs_user_repo.dart';
 import '../../L1_domain/system/errors.dart';
 import '../../L3_app/extra/services.dart';
@@ -27,10 +26,10 @@ class UsersRepo extends AbstractApiUserRepo {
   }
 
   @override
-  Future<List<Workspace>> getAll([dynamic query]) async => throw UnimplementedError();
+  Future<List<User>> getAll([dynamic query]) async => throw UnimplementedError();
 
   @override
-  Future<Workspace?> save(dynamic data) => throw UnimplementedError();
+  Future<User?> save(dynamic data) => throw UnimplementedError();
 
   @override
   Future<bool> delete(int id) => throw UnimplementedError();

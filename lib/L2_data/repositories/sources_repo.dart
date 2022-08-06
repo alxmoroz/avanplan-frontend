@@ -2,7 +2,6 @@
 
 import 'package:openapi/openapi.dart';
 
-import '../../L1_domain/api_schema/base_upsert.dart';
 import '../../L1_domain/api_schema/source_upsert.dart' as su;
 import '../../L1_domain/entities/source.dart';
 import '../../L1_domain/repositories/abs_api_repo.dart';
@@ -10,7 +9,7 @@ import '../../L1_domain/repositories/abs_api_repo.dart';
 import '../../L3_app/extra/services.dart';
 import '../mappers/source.dart';
 
-class SourcesRepo extends AbstractApiRepo<Source, su.SourceUpsert, BaseSchema> {
+class SourcesRepo extends AbstractApiRepo<Source, su.SourceUpsert> {
   IntegrationsSourcesApi get api => openAPI.getIntegrationsSourcesApi();
 
   @override

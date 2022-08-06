@@ -9,10 +9,9 @@ import '../repositories/abs_api_repo.dart';
 class TasksUC {
   TasksUC({required this.repo});
 
-  final AbstractApiRepo<Task, TaskUpsert, TaskQuery> repo;
+  final AbstractApiRepo<Task, TaskUpsert> repo;
 
   Future<List<Task>> getTasks(int wsId, int? parentId) async => await repo.getAll(TaskQuery(workspaceId: wsId, parentId: parentId));
-
   Future<List<Task>> getRoots(int wsId) async => await getTasks(wsId, null);
 
   Future<Task?> save(TaskUpsert data) async {

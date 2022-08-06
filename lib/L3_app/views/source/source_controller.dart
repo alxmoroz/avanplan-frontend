@@ -67,15 +67,6 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
   @observable
   ObservableList<Source> sources = ObservableList();
 
-  @computed
-  Map<int, Source> get sourcesMap {
-    final Map<int, Source> res = {};
-    for (var s in sources) {
-      res[s.id] = s;
-    }
-    return res;
-  }
-
   /// выбранный трекер
 
   @observable

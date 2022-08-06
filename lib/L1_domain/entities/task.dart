@@ -50,3 +50,24 @@ class Task extends Statusable {
         taskSource: taskSource,
       );
 }
+
+class TaskImport {
+  TaskImport({
+    required this.title,
+    required this.description,
+    required this.taskSource,
+    this.selected = true,
+  });
+
+  final String title;
+  final String description;
+  TaskSourceImport? taskSource;
+  bool selected;
+
+  TaskImport copyWithSelected(bool _selected) => TaskImport(
+        title: title,
+        description: description,
+        taskSource: taskSource,
+        selected: _selected,
+      );
+}

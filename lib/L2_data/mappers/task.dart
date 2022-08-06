@@ -1,13 +1,13 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:openapi/openapi.dart';
+import 'package:openapi/openapi.dart' as api;
 
 import '../../L1_domain/entities/task.dart';
 import 'priority.dart';
 import 'status.dart';
 import 'task_source.dart';
 
-extension TaskMapper on TaskGet {
+extension TaskMapper on api.TaskGet {
   Task get task => Task(
         id: id,
         parentId: parentId,
@@ -22,5 +22,13 @@ extension TaskMapper on TaskGet {
         priority: priority?.priority,
         workspaceId: workspaceId,
         taskSource: taskSource?.taskSource,
+      );
+}
+
+extension TaskImportMapper on api.Task {
+  TaskImport get taskImport => TaskImport(
+        title: title,
+        description: description ?? '',
+        taskSource: taskSource?.taskSourceImport,
       );
 }

@@ -1,6 +1,5 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../api_schema/base_upsert.dart';
 import '../api_schema/source_upsert.dart';
 import '../entities/source.dart';
 import '../repositories/abs_api_repo.dart';
@@ -10,7 +9,7 @@ import '../repositories/abs_api_repo.dart';
 class SourcesUC {
   SourcesUC({required this.repo});
 
-  final AbstractApiRepo<Source, SourceUpsert, BaseSchema> repo;
+  final AbstractApiRepo<Source, SourceUpsert> repo;
 
   Future<Source?> save(SourceUpsert data) async {
     Source? s;
@@ -36,7 +35,7 @@ class SourcesUC {
 class SourceTypesUC {
   SourceTypesUC({required this.repo});
 
-  final AbstractApiRepo<SourceType, dynamic, dynamic> repo;
+  final AbstractApiRepo<SourceType, dynamic> repo;
 
   Future<List<SourceType>> getAll() async => await repo.getAll();
 }

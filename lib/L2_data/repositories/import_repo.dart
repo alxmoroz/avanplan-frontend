@@ -1,27 +1,28 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:built_collection/built_collection.dart';
-import 'package:openapi/openapi.dart';
+import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/source.dart';
-import '../../L1_domain/entities/task_import.dart' as ti;
+import '../../L1_domain/entities/task.dart';
+import '../../L1_domain/entities/task_source.dart';
 import '../../L1_domain/repositories/abs_import_repo.dart';
 import '../../L1_domain/system/errors.dart';
 import '../../L3_app/extra/services.dart';
-import '../mappers/task_import.dart';
+import '../mappers/task.dart';
 
 // TODO: для всех подобных репозиториев: развязать узел зависимости от 3 уровня за счёт инициализации openApi в конструктор репы
 
 class ImportRepo extends AbstractApiImportRepo {
-  IntegrationsTasksApi get api => openAPI.getIntegrationsTasksApi();
+  o_api.IntegrationsTasksApi get api => openAPI.getIntegrationsTasksApi();
 
   @override
-  Future<List<ti.TaskImport>> getRootTasks(int srcId) async {
-    final List<ti.TaskImport> rootTasks = [];
+  Future<List<TaskImport>> getRootTasks(int srcId) async {
+    final List<TaskImport> rootTasks = [];
     try {
       final response = await api.getRootTasksV1IntegrationsTasksGet(sourceId: srcId);
       if (response.statusCode == 200) {
-        for (TaskImport t in response.data?.toList() ?? []) {
+        for (o_api.Task t in response.data?.toList() ?? []) {
           rootTasks.add(t.taskImport);
         }
       }
@@ -33,10 +34,14 @@ class ImportRepo extends AbstractApiImportRepo {
   }
 
   @override
-  Future<bool> importTasks(Source src, List<String> codes) async {
+  Future<bool> importTasks(Source src, Iterable<TaskSourceImport> tss) async {
+    final tSchema = tss.map((ts) => (o_api.TaskSourceBuilder()
+          ..code = ts.code
+          ..keepConnection = ts.keepConnection)
+        .build());
     final response = await api.importTasksV1IntegrationsTasksImportPost(
       sourceId: src.id,
-      requestBody: BuiltList.from(codes),
+      taskSource: BuiltList.from(tSchema),
     );
     return response.statusCode == 200;
   }

@@ -9,7 +9,14 @@ extension TaskSourceMapper on api.TaskSourceGet {
   TaskSource get taskSource => TaskSource(
         id: id,
         code: code,
-        keepConnection: keepConnection ?? true,
+        keepConnection: keepConnection,
         source: source_.source,
+      );
+}
+
+extension TaskSourceImportMapper on api.TaskSource {
+  TaskSourceImport get taskSourceImport => TaskSourceImport(
+        code: code,
+        keepConnection: keepConnection,
       );
 }

@@ -8,7 +8,7 @@ import '../../L1_domain/repositories/abs_api_repo.dart';
 import '../../L2_data/mappers/workspace.dart';
 import '../../L3_app/extra/services.dart';
 
-class WorkspacesRepo extends AbstractApiRepo<Workspace, BaseUpsert, BaseSchema> {
+class WorkspacesRepo extends AbstractApiRepo<Workspace, BaseUpsert> {
   MyApi get api => openAPI.getMyApi();
 
   @override

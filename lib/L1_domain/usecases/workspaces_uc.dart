@@ -9,7 +9,7 @@ import '../repositories/abs_api_repo.dart';
 class WorkspacesUC {
   WorkspacesUC({required this.repo});
 
-  final AbstractApiRepo<Workspace, BaseUpsert, dynamic> repo;
+  final AbstractApiRepo<Workspace, BaseUpsert> repo;
 
   Future<List<Workspace>> getAll() async => await repo.getAll();
 }

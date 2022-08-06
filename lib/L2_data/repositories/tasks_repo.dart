@@ -11,11 +11,11 @@ import '../mappers/task.dart';
 
 // TODO: для всех подобных репозиториев: развязать узел зависимости от 3 уровня за счёт инициализации openApi в конструктор репы
 
-class TasksRepo extends AbstractApiRepo<Task, TaskUpsert, TaskQuery> {
+class TasksRepo extends AbstractApiRepo<Task, TaskUpsert> {
   o_api.TasksApi get api => openAPI.getTasksApi();
 
   @override
-  Future<List<Task>> getAll([TaskQuery? query]) async {
+  Future<List<Task>> getAll([dynamic query]) async {
     final List<Task> tasks = [];
     try {
       final response = await api.getRootTasksV1TasksGet(wsId: query!.workspaceId);

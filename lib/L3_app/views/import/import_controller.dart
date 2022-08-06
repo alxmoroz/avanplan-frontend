@@ -5,7 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/source.dart';
-import '../../../L1_domain/entities/task_import.dart';
+import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities/task_source.dart';
 import '../../../L1_domain/entities/task_stats.dart';
 import '../../../L1_domain/system/errors.dart';
 import '../../extra/services.dart';
@@ -21,10 +22,10 @@ abstract class _ImportControllerBase extends EditController with Store {
   ObservableList<TaskImport> remoteTasks = ObservableList();
 
   @computed
-  List<String> get selectedTasksIds => remoteTasks.where((t) => t.selected).map((t) => t.code).toList();
+  Iterable<TaskImport> get selectedTasks => remoteTasks.where((t) => t.selected);
 
   @override
-  bool get validated => selectedTasksIds.isNotEmpty;
+  bool get validated => selectedTasks.isNotEmpty;
 
   @action
   Future fetchTasks(int sourceID) async {
@@ -46,7 +47,7 @@ abstract class _ImportControllerBase extends EditController with Store {
 
   @action
   void selectTask(TaskImport task, bool selected) {
-    final index = remoteTasks.indexWhere((t) => t.code == task.code);
+    final index = remoteTasks.indexWhere((t) => t.taskSource?.code == task.taskSource?.code);
     if (index >= 0) {
       remoteTasks[index] = task.copyWithSelected(selected);
     }
@@ -79,7 +80,8 @@ abstract class _ImportControllerBase extends EditController with Store {
   @action
   Future startImport(BuildContext context) async {
     startLoading();
-    final done = await importUC.importTasks(selectedSource!, selectedTasksIds);
+    final taskSources = selectedTasks.map((t) => t.taskSource!);
+    final done = await importUC.importTasks(selectedSource!, taskSources);
     if (done) {
       await mainController.fetchData();
       Navigator.of(context).pop();
@@ -102,12 +104,13 @@ abstract class _ImportControllerBase extends EditController with Store {
   }
 
   Future updateLinkedTasks() async {
-    final linkedTasksSources = taskViewController.rootTask.tasks.where((t) => t.hasLink).map((t) => t.taskSource!);
-    final Set srcIDs = linkedTasksSources.map((ts) => ts.source.id).toSet();
-    for (int srcID in srcIDs) {
-      final Set<String> codes = (linkedTasksSources.where((ts) => ts.source.id == srcID)).map((t) => t.code).toSet();
-      final src = sourceController.sourcesMap[srcID];
-      await importUC.importTasks(src!, codes.toList());
+    final linkedTSs = taskViewController.rootTask.tasks.where((t) => t.hasLink).map((t) => t.taskSource!);
+    final Set sources = linkedTSs.map((ts) => ts.source).toSet();
+    for (Source source in sources) {
+      final Iterable<TaskSourceImport> tss = linkedTSs.where((ts) => ts.source == source).toSet().map(
+            (ts) => TaskSourceImport(code: ts.code),
+          );
+      await importUC.importTasks(source, tss);
     }
   }
 }

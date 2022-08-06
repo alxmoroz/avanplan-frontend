@@ -8,7 +8,7 @@ import '../../L1_domain/repositories/abs_api_repo.dart';
 import '../../L3_app/extra/services.dart';
 import '../mappers/source_type.dart';
 
-class SourceTypesRepo extends AbstractApiRepo<SourceType, BaseUpsert, BaseSchema> {
+class SourceTypesRepo extends AbstractApiRepo<SourceType, BaseUpsert> {
   IntegrationsSourcesApi get api => openAPI.getIntegrationsSourcesApi();
 
   @override

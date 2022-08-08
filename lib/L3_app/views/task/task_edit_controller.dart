@@ -124,20 +124,18 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
   }
 
   Future delete(BuildContext context) async {
-    if (!isNew) {
-      final confirm = await showMTDialog<bool?>(
-        context,
-        title: loc.task_delete_dialog_title,
-        description: '${loc.task_delete_dialog_description}\n${loc.common_delete_dialog_description}',
-        actions: [
-          MTDialogAction(title: loc.common_yes, isDestructive: true, result: true),
-          MTDialogAction(title: loc.common_no, isDefault: true, result: false),
-        ],
-      );
-      if (confirm != null && confirm) {
-        final deletedEW = await tasksUC.delete(task: taskForEdit!);
-        Navigator.of(context).pop(deletedEW);
-      }
+    final confirm = await showMTDialog<bool?>(
+      context,
+      title: loc.task_delete_dialog_title,
+      description: '${loc.task_delete_dialog_description}\n${loc.common_delete_dialog_description}',
+      actions: [
+        MTDialogAction(title: loc.common_yes, isDestructive: true, result: true),
+        MTDialogAction(title: loc.common_no, isDefault: true, result: false),
+      ],
+    );
+    if (confirm != null && confirm) {
+      final deletedTask = await tasksUC.delete(task: taskForEdit!);
+      Navigator.of(context).pop(deletedTask);
     }
   }
 }

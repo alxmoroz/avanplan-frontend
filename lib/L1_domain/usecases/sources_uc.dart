@@ -1,6 +1,5 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../api_schema/source_upsert.dart';
 import '../entities/source.dart';
 import '../repositories/abs_api_repo.dart';
 
@@ -9,9 +8,9 @@ import '../repositories/abs_api_repo.dart';
 class SourcesUC {
   SourcesUC({required this.repo});
 
-  final AbstractApiRepo<Source, SourceUpsert> repo;
+  final AbstractApiRepo<Source> repo;
 
-  Future<Source?> save(SourceUpsert data) async {
+  Future<Source?> save(Source data) async {
     Source? s;
     // TODO: внутр. exception - валидация...
     final login = data.login?.trim() ?? '';
@@ -23,10 +22,12 @@ class SourcesUC {
   }
 
   Future<Source?> delete({required Source s}) async {
-    final deletedRows = await repo.delete(s.id);
     // TODO: внутр. exception
-    if (deletedRows) {
-      s.deleted = true;
+    if (s.id != null) {
+      final deletedRows = await repo.delete(s.id!);
+      if (deletedRows) {
+        s.deleted = true;
+      }
     }
     return s;
   }
@@ -35,7 +36,7 @@ class SourcesUC {
 class SourceTypesUC {
   SourceTypesUC({required this.repo});
 
-  final AbstractApiRepo<SourceType, dynamic> repo;
+  final AbstractApiRepo<SourceType> repo;
 
   Future<List<SourceType>> getAll() async => await repo.getAll();
 }

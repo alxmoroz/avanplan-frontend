@@ -4,7 +4,6 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/api_schema/task_schema.dart';
 import '../../../L1_domain/entities/status.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../components/mt_confirm_dialog.dart';
@@ -107,15 +106,16 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
   /// действия
 
   Future save(BuildContext context) async {
-    final editedTask = await tasksUC.save(TaskUpsert(
+    final editedTask = await tasksUC.save(Task(
       id: taskForEdit?.id,
       parentId: _parentId,
       title: tfAnnoForCode('title').text,
       description: tfAnnoForCode('description').text,
       closed: closed,
       dueDate: _selectedDueDate,
-      statusId: _selectedStatusId,
+      status: selectedStatus,
       workspaceId: selectedWS!.id,
+      tasks: taskForEdit?.tasks ?? [],
     ));
 
     if (editedTask != null) {
@@ -134,7 +134,7 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
       ],
     );
     if (confirm != null && confirm) {
-      final deletedTask = await tasksUC.delete(task: taskForEdit!);
+      final deletedTask = await tasksUC.delete(t: taskForEdit!);
       Navigator.of(context).pop(deletedTask);
     }
   }

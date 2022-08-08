@@ -2,13 +2,12 @@
 
 import 'package:openapi/openapi.dart';
 
-import '../../L1_domain/api_schema/base_upsert.dart';
 import '../../L1_domain/entities/source.dart';
 import '../../L1_domain/repositories/abs_api_repo.dart';
 import '../../L3_app/extra/services.dart';
 import '../mappers/source_type.dart';
 
-class SourceTypesRepo extends AbstractApiRepo<SourceType, BaseUpsert> {
+class SourceTypesRepo extends AbstractApiRepo<SourceType> {
   IntegrationsSourcesApi get api => openAPI.getIntegrationsSourcesApi();
 
   @override
@@ -28,5 +27,5 @@ class SourceTypesRepo extends AbstractApiRepo<SourceType, BaseUpsert> {
   Future<SourceType?> save(dynamic data) => throw UnimplementedError();
 
   @override
-  Future<bool> delete(int id) => throw UnimplementedError();
+  Future<bool> delete(int? id) => throw UnimplementedError();
 }

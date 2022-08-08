@@ -7,13 +7,13 @@ import 'task_source.dart';
 
 class Task extends Statusable {
   Task({
-    required int id,
+    int? id,
     required String title,
     required bool closed,
-    required this.description,
-    required this.createdOn,
-    required this.updatedOn,
     required this.tasks,
+    this.description = '',
+    this.createdOn,
+    this.updatedOn,
     this.dueDate,
     this.parentId,
     this.workspaceId,
@@ -22,11 +22,11 @@ class Task extends Statusable {
     this.taskSource,
   }) : super(id: id, title: title, closed: closed);
 
-  final String description;
-  final DateTime createdOn;
-  final DateTime updatedOn;
   List<Task> tasks;
+  final String description;
 
+  final DateTime? createdOn;
+  final DateTime? updatedOn;
   final DateTime? dueDate;
   final int? parentId;
   final int? workspaceId;
@@ -70,4 +70,14 @@ class TaskImport {
         taskSource: taskSource,
         selected: _selected,
       );
+}
+
+class TaskQuery {
+  TaskQuery({
+    required this.workspaceId,
+    this.parentId,
+  });
+
+  final int workspaceId;
+  final int? parentId;
 }

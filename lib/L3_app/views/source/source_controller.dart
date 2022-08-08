@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/api_schema/source_upsert.dart';
 import '../../../L1_domain/entities/source.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/mt_confirm_dialog.dart';
@@ -28,7 +27,7 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
   /// тип трекера
 
   @observable
-  ObservableList<SourceType> rtTypes = ObservableList();
+  ObservableList<SourceType> sTypes = ObservableList();
 
   // TODO: здесь загружаем и проверяем трекеры на старте приложения (загружаем вместе в РП). Что не обязательно делать на старте.
   // Если тут сделать по запросу, тогда в окне импорта нужно будет учесть тоже
@@ -42,8 +41,8 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
     }
     _sortAndCheckSources();
 
-    rtTypes = ObservableList.of(await sourceTypesUC.getAll());
-    rtTypes.sort((s1, s2) => s1.title.compareTo(s2.title));
+    sTypes = ObservableList.of(await sourceTypesUC.getAll());
+    sTypes.sort((s1, s2) => s1.title.compareTo(s2.title));
     // stopLoading();
   }
 
@@ -57,7 +56,7 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
   void selectType(SourceType? _type) => selectedTypeId = _type?.id;
 
   @computed
-  SourceType? get selectedType => rtTypes.firstWhereOrNull((s) => s.id == selectedTypeId);
+  SourceType? get selectedType => sTypes.firstWhereOrNull((s) => s.id == selectedTypeId);
 
   @override
   bool get isLoading => super.isLoading || mainController.isLoading;
@@ -92,7 +91,9 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
     sources.forEachIndexed((index, s) async {
       bool connected = false;
       try {
-        connected = (await importUC.getRootTasks(s.id)).isNotEmpty;
+        if (s.id != null) {
+          connected = (await importUC.getRootTasks(s.id!)).isNotEmpty;
+        }
       } catch (_) {}
       sources[index] = s.copyWithConnected(connected);
     });
@@ -121,15 +122,15 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
   /// действия
 
   Future save(BuildContext context) async {
-    final editedSource = await sourcesUC.save(SourceUpsert(
+    final editedSource = await sourcesUC.save(Source(
       id: selectedSource?.id,
-      typeId: selectedTypeId!,
       url: tfAnnoForCode('url').text,
       apiKey: tfAnnoForCode('apiKey').text,
       // login: tfAnnoForCode('login').text,
       // password: tfAnnoForCode('password').text,
       description: tfAnnoForCode('description').text,
-      workspaceId: selectedWS!.id,
+      workspaceId: selectedWS!.id!,
+      type: selectedType!,
     ));
 
     if (editedSource != null) {

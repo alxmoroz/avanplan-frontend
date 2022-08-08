@@ -1,7 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-abstract class AbstractApiRepo<Get, Upsert> {
-  Future<List<Get>> getAll([dynamic query]);
-  Future<Get?> save(Upsert data);
+abstract class AbstractApiRepo<E> {
+  Future<List<E>> getAll([dynamic query]);
+  Future<E?> save(E data);
   Future<bool> delete(int id);
 }

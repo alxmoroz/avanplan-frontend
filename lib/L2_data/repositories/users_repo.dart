@@ -32,5 +32,5 @@ class UsersRepo extends AbstractApiUserRepo {
   Future<User?> save(dynamic data) => throw UnimplementedError();
 
   @override
-  Future<bool> delete(int id) => throw UnimplementedError();
+  Future<bool> delete(int? id) => throw UnimplementedError();
 }

@@ -62,10 +62,10 @@ abstract class _ImportControllerBase extends EditController with Store {
   int? selectedSourceId;
 
   @action
-  Future selectSource(Source? _rt) async {
-    selectedSourceId = _rt?.id;
-    if (_rt != null) {
-      await fetchTasks(_rt.id);
+  Future selectSource(Source? src) async {
+    selectedSourceId = src?.id;
+    if (selectedSourceId != null) {
+      await fetchTasks(selectedSourceId!);
     }
   }
 
@@ -81,7 +81,7 @@ abstract class _ImportControllerBase extends EditController with Store {
   Future startImport(BuildContext context, {bool keepConnection = true}) async {
     startLoading();
     final taskSources = selectedTasks.map((t) => TaskSourceImport(code: t.taskSource!.code, keepConnection: keepConnection));
-    final done = await importUC.importTasks(selectedSource!, taskSources);
+    final done = await importUC.importTaskSources(selectedSource?.id, taskSources);
     if (done) {
       await mainController.fetchData();
       Navigator.of(context).pop();
@@ -109,7 +109,7 @@ abstract class _ImportControllerBase extends EditController with Store {
       final linkedTSs = taskViewController.rootTask.tasks.where((t) => t.hasLink && t.taskSource?.source.id == src.id).map((t) => t.taskSource!);
       needUpdate = linkedTSs.isNotEmpty;
       if (needUpdate) {
-        await importUC.importTasks(src, linkedTSs.map((ts) => TaskSourceImport(code: ts.code)));
+        await importUC.importTaskSources(src.id, linkedTSs.map((ts) => TaskSourceImport(code: ts.code)));
       }
     }
     return needUpdate;

@@ -8,7 +8,7 @@ class SourceType extends Titleable {
 
 class Source extends RPersistable {
   Source({
-    required int id,
+    int? id,
     required this.workspaceId,
     required this.type,
     required this.url,

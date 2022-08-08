@@ -1,26 +1,25 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:openapi/openapi.dart';
+import 'package:openapi/openapi.dart' as o_api;
 
-import '../../L1_domain/api_schema/source_upsert.dart' as su;
 import '../../L1_domain/entities/source.dart';
 import '../../L1_domain/repositories/abs_api_repo.dart';
 // TODO: нарушение направления зависимостей. аналогично в похожих местах
 import '../../L3_app/extra/services.dart';
 import '../mappers/source.dart';
 
-class SourcesRepo extends AbstractApiRepo<Source, su.SourceUpsert> {
-  IntegrationsSourcesApi get api => openAPI.getIntegrationsSourcesApi();
+class SourcesRepo extends AbstractApiRepo<Source> {
+  o_api.IntegrationsSourcesApi get api => openAPI.getIntegrationsSourcesApi();
 
   @override
   Future<List<Source>> getAll([dynamic query]) async => throw UnimplementedError();
 
   @override
-  Future<Source?> save(su.SourceUpsert data) async {
+  Future<Source?> save(Source data) async {
     //TODO: не учитываются возможные ошибки! Нет обработки 403 и т.п.
-    final builder = SourceUpsertBuilder()
+    final builder = o_api.SourceUpsertBuilder()
       ..id = data.id
-      ..sourceTypeId = data.typeId
+      ..sourceTypeId = data.type.id
       ..url = data.url
       ..apiKey = data.apiKey
       ..login = data.login

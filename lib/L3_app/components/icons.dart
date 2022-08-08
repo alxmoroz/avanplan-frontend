@@ -67,7 +67,7 @@ Widget linkIcon(BuildContext context, {Color? color, double? size}) => Icon(
 
 Widget unlinkIcon(BuildContext context, {Color? color, double? size}) => Icon(
       CupertinoIcons.eye_slash,
-      color: (color ?? darkGreyColor).resolve(context),
+      color: (color ?? mainColor).resolve(context),
       size: size ?? 28,
     );
 

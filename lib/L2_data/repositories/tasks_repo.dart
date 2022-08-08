@@ -2,7 +2,6 @@
 
 import 'package:openapi/openapi.dart' as o_api;
 
-import '../../L1_domain/api_schema/task_schema.dart';
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/repositories/abs_api_repo.dart';
 import '../../L1_domain/system/errors.dart';
@@ -11,7 +10,7 @@ import '../mappers/task.dart';
 
 // TODO: для всех подобных репозиториев: развязать узел зависимости от 3 уровня за счёт инициализации openApi в конструктор репы
 
-class TasksRepo extends AbstractApiRepo<Task, TaskUpsert> {
+class TasksRepo extends AbstractApiRepo<Task> {
   o_api.TasksApi get api => openAPI.getTasksApi();
 
   @override
@@ -32,12 +31,12 @@ class TasksRepo extends AbstractApiRepo<Task, TaskUpsert> {
   }
 
   @override
-  Future<Task?> save(TaskUpsert data) async {
+  Future<Task?> save(Task data) async {
     //TODO: не учитываются возможные ошибки! Нет обработки 403 и т.п.
     final qBuilder = o_api.TaskUpsertBuilder()
       ..workspaceId = data.workspaceId
       ..id = data.id
-      ..statusId = data.statusId
+      ..statusId = data.status?.id
       ..parentId = data.parentId
       ..title = data.title
       ..description = data.description

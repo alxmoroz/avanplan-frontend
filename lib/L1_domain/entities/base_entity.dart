@@ -7,20 +7,20 @@ abstract class LocalPersistable {
 }
 
 abstract class RPersistable {
-  RPersistable({required this.id});
+  RPersistable({this.id});
 
-  final int id;
+  final int? id;
   bool deleted = false;
 }
 
 abstract class Emailable extends RPersistable {
-  Emailable({required int id, required this.email}) : super(id: id);
+  Emailable({int? id, required this.email}) : super(id: id);
 
   final String email;
 }
 
 abstract class Titleable extends RPersistable {
-  Titleable({required int id, required this.title}) : super(id: id);
+  Titleable({int? id, required this.title}) : super(id: id);
 
   final String title;
 
@@ -30,7 +30,7 @@ abstract class Titleable extends RPersistable {
 
 abstract class Orderable extends Titleable {
   Orderable({
-    required int id,
+    int? id,
     required String title,
     required this.order,
   }) : super(id: id, title: title);
@@ -40,7 +40,7 @@ abstract class Orderable extends Titleable {
 
 abstract class Statusable extends Titleable {
   Statusable({
-    required int id,
+    int? id,
     required String title,
     required this.closed,
   }) : super(id: id, title: title);

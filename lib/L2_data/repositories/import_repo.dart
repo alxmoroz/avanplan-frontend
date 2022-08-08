@@ -3,7 +3,6 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/openapi.dart' as o_api;
 
-import '../../L1_domain/entities/source.dart';
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities/task_source.dart';
 import '../../L1_domain/repositories/abs_import_repo.dart';
@@ -17,7 +16,7 @@ class ImportRepo extends AbstractApiImportRepo {
   o_api.IntegrationsTasksApi get api => openAPI.getIntegrationsTasksApi();
 
   @override
-  Future<List<TaskImport>> getRootTasks(int srcId) async {
+  Future<List<TaskImport>> getRootTaskSources(int srcId) async {
     final List<TaskImport> rootTasks = [];
     try {
       final response = await api.getRootTasksV1IntegrationsTasksGet(sourceId: srcId);
@@ -34,13 +33,17 @@ class ImportRepo extends AbstractApiImportRepo {
   }
 
   @override
-  Future<bool> importTasks(Source src, Iterable<TaskSourceImport> tss) async {
+  Future<bool> importTaskSources(int? srcId, Iterable<TaskSourceImport> tss) async {
+    if (srcId == null) {
+      return false;
+    }
+
     final tSchema = tss.map((ts) => (o_api.TaskSourceBuilder()
           ..code = ts.code
           ..keepConnection = ts.keepConnection)
         .build());
-    final response = await api.importTasksV1IntegrationsTasksImportPost(
-      sourceId: src.id,
+    final response = await api.importTaskSourcesV1IntegrationsTasksImportPost(
+      sourceId: srcId,
       taskSource: BuiltList.from(tSchema),
     );
     return response.statusCode == 200;

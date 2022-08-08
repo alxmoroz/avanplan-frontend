@@ -1,6 +1,5 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../api_schema/task_schema.dart';
 import '../entities/task.dart';
 import '../repositories/abs_api_repo.dart';
 
@@ -9,26 +8,28 @@ import '../repositories/abs_api_repo.dart';
 class TasksUC {
   TasksUC({required this.repo});
 
-  final AbstractApiRepo<Task, TaskUpsert> repo;
+  final AbstractApiRepo<Task> repo;
 
   Future<List<Task>> getTasks(int wsId, int? parentId) async => await repo.getAll(TaskQuery(workspaceId: wsId, parentId: parentId));
   Future<List<Task>> getRoots(int wsId) async => await getTasks(wsId, null);
 
-  Future<Task?> save(TaskUpsert data) async {
+  Future<Task?> save(Task t) async {
     Task? task;
     // TODO: внутр. exception?
-    if (data.title.trim().isNotEmpty) {
-      task = await repo.save(data);
+    if (t.title.trim().isNotEmpty) {
+      task = await repo.save(t);
     }
     return task;
   }
 
-  Future<Task?> delete({required Task task}) async {
-    final deletedRows = await repo.delete(task.id);
-    // TODO: внутр. exception?
-    if (deletedRows) {
-      task.deleted = true;
+  Future<Task?> delete({required Task t}) async {
+    if (t.id != null) {
+      final deletedRows = await repo.delete(t.id!);
+      // TODO: внутр. exception?
+      if (deletedRows) {
+        t.deleted = true;
+      }
     }
-    return task;
+    return t;
   }
 }

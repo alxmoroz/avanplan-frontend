@@ -21,7 +21,7 @@ class TaskUpsert extends StatusableUpsert {
   final int? statusId;
 }
 
-class TaskQuery extends BaseSchema {
+class TaskQuery {
   TaskQuery({
     required this.workspaceId,
     this.parentId,

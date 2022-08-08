@@ -1,8 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-abstract class BaseSchema {}
-
-abstract class BaseUpsert extends BaseSchema {
+abstract class BaseUpsert {
   BaseUpsert({required this.id});
 
   final int? id;

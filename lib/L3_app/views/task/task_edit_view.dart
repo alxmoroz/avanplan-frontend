@@ -22,8 +22,8 @@ import 'task_edit_controller.dart';
 
 //TODO: подумать над унификацией полей. Возможно, получится избавиться от дуэта MTField и TFAnnotation
 
-Future<Task?> showEditTaskDialog(BuildContext context, [Task? selectedEW]) async {
-  taskEditController.selectTaskForEdit(selectedEW);
+Future<Task?> showEditTaskDialog(BuildContext context, [Task? task]) async {
+  taskEditController.selectTaskForEdit(task);
 
   return await showModalBottomSheet<Task?>(
     context: context,

@@ -73,7 +73,7 @@ class _ImportViewState extends State<ImportView> {
         if (_controller.remoteTasks.isEmpty)
           EmptyDataWidget(
             title:
-                _controller.errorCode != null ? Intl.message(_controller.errorCode!, name: _controller.errorCode) : loc.task_list_empty_title_import,
+                _controller.errorCode != null ? Intl.message(_controller.errorCode!, name: _controller.errorCode) : loc.task_import_list_empty_title,
             color: _controller.errorCode != null ? warningColor : null,
           ),
         if (_controller.remoteTasks.isNotEmpty) ...[
@@ -88,13 +88,13 @@ class _ImportViewState extends State<ImportView> {
           const MTDivider(),
           SizedBox(height: onePadding),
           MTButton(
-            loc.task_import_connect_button_title,
+            loc.task_import_import_link_btn_title,
             _controller.validated ? () => _controller.startImport(context) : null,
             titleColor: _controller.validated ? null : lightGreyColor,
           ),
           SmallText(loc.common_or, color: darkGreyColor, padding: EdgeInsets.symmetric(vertical: onePadding / 2)),
           MTButton(
-            loc.task_import_copy_button_title,
+            loc.task_import_import_ro_btn_title,
             _controller.validated ? () => _controller.startImport(context, keepConnection: false) : null,
             titleColor: _controller.validated ? null : lightGreyColor,
           ),

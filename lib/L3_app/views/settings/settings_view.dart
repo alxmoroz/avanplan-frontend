@@ -30,7 +30,7 @@ class SettingsView extends StatelessWidget {
               SizedBox(height: onePadding),
               NormalText('${userController.currentUser}'),
               SizedBox(height: onePadding / 4),
-              MTButton(loc.auth_log_out_button_title, logout),
+              MTButton(loc.auth_log_out_btn_title, logout),
               SizedBox(height: onePadding / 4),
               const MTDivider(),
               SizedBox(height: onePadding / 2),

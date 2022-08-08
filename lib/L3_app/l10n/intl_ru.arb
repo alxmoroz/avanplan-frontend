@@ -3,8 +3,8 @@
 
   "appTitle": "Геркулес",
 
-  "auth_log_in_button_title": "Войти",
-  "auth_log_out_button_title": "Выйти",
+  "auth_log_in_btn_title": "Войти",
+  "auth_log_out_btn_title": "Выйти",
   "auth_password_placeholder": "Пароль",
   "auth_user_placeholder": "Пользователь",
 
@@ -42,10 +42,11 @@
   "task_due_date_placeholder": "Срок завершения",
   "task_eta_date_label": "Прогноз",
 
-  "task_import_connect_button_title": "Отслеживать задачи",
-  "task_import_copy_button_title": "Импортировать задачи",
+  "task_import_import_link_btn_title": "Отслеживать задачи",
+  "task_import_import_ro_btn_title": "Импортировать задачи",
   "task_import_title": "Импорт задач",
   "task_import_title_error_get_list": "Ошибка получения списка задач\nПопробуйте выбрать другой источник",
+  "task_import_list_empty_title": "Нет доступных для импорта задач\nПопробуйте выбрать другой источник",
 
   "task_filter_all": "Все",
   "task_filter_no_due": "Без срока",
@@ -57,9 +58,7 @@
   "task_filter_risky": "C риском",
 
   "task_list_empty_title": "Нет задач",
-  "task_list_empty_title_import": "Нет доступных для импорта задач\nПопробуйте выбрать другой источник",
   "task_list_title": "Задачи",
-  "task_list_title_count": "{count, plural, one{{count} задача} few{{count} задачи} other{{count} задач}}",
 
   "task_state_no_info_title": "Ставьте сроки, разделяйте на подзадачи",
   "task_state_ok_title": "Всё идёт по плану",
@@ -70,6 +69,11 @@
 
   "task_title": "Задача",
   "task_title_new": "Новая задача",
+
+  "task_unlink_dialog_action_copy_title": "Да, оставить",
+  "task_unlink_dialog_action_unlink_title": "Да, удалить",
+  "task_unlink_dialog_description": "Выбранные задачи потеряют связь с источником импорта и будут удалены.\nМожно оставить задачи без возможности отслеживания",
+  "task_unlink_dialog_title": "Прекратить отслеживать задачи?",
 
   "validation_empty_text": "Нужно заполнить",
 

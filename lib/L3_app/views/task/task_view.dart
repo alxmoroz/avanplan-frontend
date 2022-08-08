@@ -76,16 +76,16 @@ class _TaskPageState extends State<TaskView> {
           trailing: Row(mainAxisAlignment: MainAxisAlignment.end, mainAxisSize: MainAxisSize.min, children: [
             if (_controller.canImport) ...[
               MTButton.icon(importIcon(context), () => importController.importTasks(context)),
-              SizedBox(width: onePadding * 2),
+              SizedBox(width: onePadding),
             ],
             if (_controller.canAdd) ...[
               MTButton.icon(plusIcon(context), () => _controller.addTask(context)),
-              SizedBox(width: onePadding * 2),
+              SizedBox(width: onePadding),
             ],
             if (_controller.canEdit) ...[
               MTButton.icon(editIcon(context), () => _controller.editTask(context)),
+              SizedBox(width: onePadding),
             ],
-            SizedBox(width: onePadding),
           ]),
         ),
         body: SafeArea(

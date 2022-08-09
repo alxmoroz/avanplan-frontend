@@ -86,6 +86,10 @@ class _TaskPageState extends State<TaskView> {
               MTButton.icon(editIcon(context), () => _controller.editTask(context)),
               SizedBox(width: onePadding),
             ],
+            if (_controller.selectedTask!.hasLink) ...[
+              MTButton.icon(unlinkIcon(context), () => _controller.unlink(context)),
+              SizedBox(width: onePadding),
+            ],
           ]),
         ),
         body: SafeArea(

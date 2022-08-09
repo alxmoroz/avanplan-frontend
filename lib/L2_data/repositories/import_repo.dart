@@ -48,4 +48,19 @@ class ImportRepo extends AbstractApiImportRepo {
     );
     return response.statusCode == 200;
   }
+
+  @override
+  Future<bool> updateTaskSources(Iterable<TaskSource> tss) async {
+    final tSchema = tss.map((ts) => (o_api.TaskSourceUpsertBuilder()
+          ..id = ts.id
+          ..sourceId = ts.source.id
+          ..code = ts.code
+          ..keepConnection = ts.keepConnection)
+        .build());
+
+    final response = await api.updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost(
+      taskSourceUpsert: BuiltList.from(tSchema),
+    );
+    return response.statusCode == 200;
+  }
 }

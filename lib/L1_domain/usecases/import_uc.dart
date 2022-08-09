@@ -12,4 +12,5 @@ class ImportUC {
   Future<List<TaskImport>> getRootTasks(int srcId) async => await repo.getRootTaskSources(srcId);
 
   Future<bool> importTaskSources(int? srcId, Iterable<TaskSourceImport> tss) async => await repo.importTaskSources(srcId, tss);
+  Future<bool> updateTaskSources(Iterable<TaskSource> tss) async => await repo.updateTaskSources(tss);
 }

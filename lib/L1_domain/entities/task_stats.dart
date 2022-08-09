@@ -25,7 +25,7 @@ extension TaskStats on Task {
 
   /// статистика по подзадачам
   Iterable<Task> get allTasks {
-    final List<Task> res = [];
+    final res = <Task>[];
     for (Task t in tasks) {
       res.addAll(t.allTasks);
       res.add(t);

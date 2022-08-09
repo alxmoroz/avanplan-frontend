@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities/task_source.dart';
 import '../../../L1_domain/entities/task_stats.dart';
 import '../../../L1_domain/entities/workspace.dart';
+import '../../components/mt_confirm_dialog.dart';
 import '../../extra/services.dart';
 import '../_base/base_controller.dart';
 import '../task/task_edit_view.dart';
@@ -73,8 +75,9 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   Future fetchData() async {
     clearData();
     for (Workspace ws in mainController.workspaces) {
-      final rt = await tasksUC.getRoots(ws.id);
-      rootTask.tasks.addAll(rt);
+      if (ws.id != null) {
+        rootTask.tasks.addAll(await tasksUC.getRoots(ws.id!));
+      }
     }
     _touchRoot();
   }
@@ -90,21 +93,6 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
     rootTask = rootTask.copy();
   }
 
-  /// Список подзадач
-  /// редактирование подзадач
-  @action
-  void _addTask(Task _task) {
-    selectedTask!.tasks.add(_task);
-  }
-
-  @action
-  void _deleteTask(Task _task, List<Task>? _subtasks) {
-    for (Task t in _subtasks ?? []) {
-      _deleteTask(t, _task.tasks);
-    }
-    selectedTask!.tasks.remove(selectedTask!.tasks.firstWhereOrNull((t) => t.id == _task.id));
-  }
-
   Task _parentTask(Task _task) => rootTask.allTasks.firstWhereOrNull((t) => t.id == _task.parentId) ?? rootTask;
 
   @action
@@ -115,6 +103,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
       if (_task.deleted) {
         _parent.tasks.removeAt(index);
       } else {
+        //TODO: проверить необходимость в copy
         _parent.tasks[index] = _task.copy();
       }
     }
@@ -141,7 +130,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   Future addTask(BuildContext context) async {
     final newTask = await showEditTaskDialog(context);
     if (newTask != null) {
-      _addTask(newTask);
+      selectedTask!.tasks.add(newTask);
       _updateParents(newTask);
     }
   }
@@ -150,10 +139,48 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
     final editedTask = await showEditTaskDialog(context, selectedTask);
     if (editedTask != null) {
       if (editedTask.deleted) {
-        _deleteTask(editedTask, null);
         Navigator.of(context).pop();
       }
       _updateParents(editedTask);
+    }
+  }
+
+  Iterable<TaskSource> _unlinkTaskTree(Task t) {
+    final tss = <TaskSource>[];
+    for (Task subtask in t.tasks) {
+      tss.addAll(_unlinkTaskTree(subtask));
+    }
+
+    if (t.hasLink) {
+      t.taskSource?.keepConnection = false;
+      tss.add(t.taskSource!);
+    }
+    return tss;
+  }
+
+  Future unlink(BuildContext context) async {
+    final confirm = await showMTDialog<int?>(
+      context,
+      title: loc.task_unlink_dialog_title,
+      description: loc.task_unlink_dialog_description,
+      actions: [
+        MTDialogAction(title: loc.task_unlink_dialog_action_unlink_title, isDestructive: true, result: 1),
+        MTDialogAction(title: loc.task_unlink_dialog_action_copy_title, isDefault: true, result: 2),
+        MTDialogAction(title: loc.common_no, isDefault: true, result: 0),
+      ],
+    );
+    if (confirm != null && confirm > 0) {
+      startLoading();
+      if (confirm == 1) {
+        final unlinkedTask = await tasksUC.delete(t: selectedTask!);
+        if (unlinkedTask != null) {
+          _updateParents(unlinkedTask);
+          Navigator.of(context).pop();
+        }
+      } else if (confirm == 2) {
+        await importUC.updateTaskSources(_unlinkTaskTree(selectedTask!));
+      }
+      stopLoading();
     }
   }
 }

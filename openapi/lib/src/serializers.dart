@@ -28,6 +28,7 @@ import 'package:openapi/src/model/task.dart';
 import 'package:openapi/src/model/task_get.dart';
 import 'package:openapi/src/model/task_source.dart';
 import 'package:openapi/src/model/task_source_get.dart';
+import 'package:openapi/src/model/task_source_upsert.dart';
 import 'package:openapi/src/model/task_upsert.dart';
 import 'package:openapi/src/model/token.dart';
 import 'package:openapi/src/model/user_get.dart';
@@ -53,6 +54,7 @@ part 'serializers.g.dart';
   TaskGet,
   TaskSource,
   TaskSourceGet,
+  TaskSourceUpsert,
   TaskUpsert,
   Token,
   UserGet,
@@ -71,6 +73,10 @@ Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(Task)]),
         () => ListBuilder<Task>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(TaskSourceUpsert)]),
+        () => ListBuilder<TaskSourceUpsert>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskGet)]),

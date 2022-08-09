@@ -13,6 +13,7 @@ import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/msg.dart';
 import 'package:openapi/src/model/task.dart';
 import 'package:openapi/src/model/task_source.dart';
+import 'package:openapi/src/model/task_source_upsert.dart';
 
 class IntegrationsTasksApi {
 
@@ -216,8 +217,7 @@ class IntegrationsTasksApi {
   /// 
   ///
   /// Parameters:
-  /// * [sourceId] 
-  /// * [taskSource] 
+  /// * [taskSourceUpsert] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -228,8 +228,7 @@ class IntegrationsTasksApi {
   /// Returns a [Future] containing a [Response] with a [Msg] as data
   /// Throws [DioError] if API call or serialization fails
   Future<Response<Msg>> updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost({ 
-    required int sourceId,
-    required BuiltList<TaskSource> taskSource,
+    required BuiltList<TaskSourceUpsert> taskSourceUpsert,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -256,22 +255,17 @@ class IntegrationsTasksApi {
       validateStatus: validateStatus,
     );
 
-    final _queryParameters = <String, dynamic>{
-      r'source_id': encodeQueryParameter(_serializers, sourceId, const FullType(int)),
-    };
-
     dynamic _bodyData;
 
     try {
-      const _type = FullType(BuiltList, [FullType(TaskSource)]);
-      _bodyData = _serializers.serialize(taskSource, specifiedType: _type);
+      const _type = FullType(BuiltList, [FullType(TaskSourceUpsert)]);
+      _bodyData = _serializers.serialize(taskSourceUpsert, specifiedType: _type);
 
     } catch(error, stackTrace) {
       throw DioError(
          requestOptions: _options.compose(
           _dio.options,
           _path,
-          queryParameters: _queryParameters,
         ),
         type: DioErrorType.other,
         error: error,
@@ -282,7 +276,6 @@ class IntegrationsTasksApi {
       _path,
       data: _bodyData,
       options: _options,
-      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,

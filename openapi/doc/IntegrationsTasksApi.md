@@ -103,7 +103,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost**
-> Msg updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost(sourceId, taskSource)
+> Msg updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost(taskSourceUpsert)
 
 Update Task Sources
 
@@ -114,11 +114,10 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
 
 final api = Openapi().getIntegrationsTasksApi();
-final int sourceId = 56; // int | 
-final BuiltList<TaskSource> taskSource = ; // BuiltList<TaskSource> | 
+final BuiltList<TaskSourceUpsert> taskSourceUpsert = ; // BuiltList<TaskSourceUpsert> | 
 
 try {
-    final response = api.updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost(sourceId, taskSource);
+    final response = api.updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost(taskSourceUpsert);
     print(response);
 } catch on DioError (e) {
     print('Exception when calling IntegrationsTasksApi->updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost: $e\n');
@@ -129,8 +128,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **sourceId** | **int**|  | 
- **taskSource** | [**BuiltList&lt;TaskSource&gt;**](TaskSource.md)|  | 
+ **taskSourceUpsert** | [**BuiltList&lt;TaskSourceUpsert&gt;**](TaskSourceUpsert.md)|  | 
 
 ### Return type
 

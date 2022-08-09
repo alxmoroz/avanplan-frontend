@@ -31,6 +31,7 @@ export 'package:openapi/src/model/task.dart';
 export 'package:openapi/src/model/task_get.dart';
 export 'package:openapi/src/model/task_source.dart';
 export 'package:openapi/src/model/task_source_get.dart';
+export 'package:openapi/src/model/task_source_upsert.dart';
 export 'package:openapi/src/model/task_upsert.dart';
 export 'package:openapi/src/model/token.dart';
 export 'package:openapi/src/model/user_get.dart';

@@ -22,7 +22,7 @@ void main() {
 
     // Update Task Sources
     //
-    //Future<Msg> updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost(int sourceId, BuiltList<TaskSource> taskSource) async
+    //Future<Msg> updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost(BuiltList<TaskSourceUpsert> taskSourceUpsert) async
     test('test updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost',
         () async {
       // TODO

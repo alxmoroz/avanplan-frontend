@@ -44,8 +44,8 @@ class _SourceEditViewState extends State<SourceEditView> {
   void initState() {
     _controller.initState(tfaList: [
       TFAnnotation('url', label: loc.source_url_placeholder, text: _source?.url ?? ''),
+      TFAnnotation('login', label: loc.auth_user_placeholder, text: _source?.login ?? ''),
       TFAnnotation('apiKey', label: loc.source_api_key_placeholder, text: _source?.apiKey ?? ''),
-      // TFAnnotation('login', label: loc.auth_user_placeholder, text: _source?.login ?? ''),
       // TFAnnotation('password', label: loc.auth_password_placeholder, needValidate: false),
       TFAnnotation('description', label: loc.common_description, text: _source?.description ?? '', needValidate: false),
     ]);
@@ -81,8 +81,8 @@ class _SourceEditViewState extends State<SourceEditView> {
             ),
           ...[
             'url',
+            if (_controller.selectedType?.title == 'Jira') 'login',
             'apiKey',
-            // 'login',
             // 'password',
             'description',
           ].map((code) => textFieldForCode(code)),

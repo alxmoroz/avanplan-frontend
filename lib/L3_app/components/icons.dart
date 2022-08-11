@@ -94,3 +94,7 @@ Widget okStateIcon(BuildContext context, {Color? color, double? size}) =>
 
 Widget noInfoStateIcon(BuildContext context, {Color? color, double? size}) =>
     Icon(CupertinoIcons.question_circle, color: (color ?? lightGreyColor).resolve(context), size: size);
+
+Widget redmineIcon() => const Image(image: AssetImage('assets/images/redmine_icon.png'), width: 22, height: 22);
+Widget gitlabIcon() => const Image(image: AssetImage('assets/images/gitlab_icon.png'), width: 22, height: 22);
+Widget jiraIcon() => const Image(image: AssetImage('assets/images/jira_icon.png'), width: 22, height: 22);

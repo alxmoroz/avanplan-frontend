@@ -95,7 +95,7 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
           connected = (await importUC.getRootTasks(s.id!)).isNotEmpty;
         }
       } catch (_) {}
-      sources[index] = s.copyWithConnected(connected);
+      sources[index].connected = connected;
     });
     sources.sort((s1, s2) => s1.url.compareTo(s2.url));
   }

@@ -14,6 +14,7 @@ import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
+import '../../presenters/source_presenter.dart';
 import 'source_controller.dart';
 
 class SourceListView extends StatefulWidget {
@@ -33,7 +34,7 @@ class _SourceListViewState extends State<SourceListView> {
         if (index > 0) const MTDivider(),
         ListTile(
           leading: MTCircle(color: s.connected ? Colors.green : warningColor),
-          title: NormalText('${s.type.title} ${s.description}'),
+          title: Row(children: [sourceIcon(context, s), SizedBox(width: onePadding / 3), NormalText('${s.type.title} ${s.description}')]),
           subtitle: SmallText(s.url),
           trailing: editIcon(context),
           minLeadingWidth: 0,

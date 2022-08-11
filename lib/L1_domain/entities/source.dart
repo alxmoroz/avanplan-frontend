@@ -26,17 +26,5 @@ class Source extends RPersistable {
   final String? login;
   final String? password;
   final String? description;
-  final bool connected;
-
-  Source copyWithConnected(bool _connected) => Source(
-        id: id,
-        type: type,
-        url: url,
-        apiKey: apiKey,
-        login: login,
-        password: password,
-        description: description,
-        workspaceId: workspaceId,
-        connected: _connected,
-      );
+  bool connected;
 }

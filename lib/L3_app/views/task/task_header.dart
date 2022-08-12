@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/material.dart';
+import 'package:hercules/L3_app/presenters/source_presenter.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/task_stats.dart';
@@ -41,6 +42,7 @@ class TaskHeader extends StatelessWidget {
           if (task.hasLink) ...[
             SizedBox(height: onePadding / 2),
             linkIcon(context),
+            sourceIcon(context, task.taskSource!.source),
           ],
         ]),
       ]),

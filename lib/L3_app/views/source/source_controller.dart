@@ -41,8 +41,9 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
     }
     _sortAndCheckSources();
 
-    sTypes = ObservableList.of(await sourceTypesUC.getAll());
-    sTypes.sort((s1, s2) => s1.title.compareTo(s2.title));
+    final _sTypes = await sourceTypesUC.getAll();
+    _sTypes.sort((s1, s2) => s1.title.compareTo(s2.title));
+    sTypes = ObservableList.of(_sTypes);
     // stopLoading();
   }
 
@@ -88,16 +89,18 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
 
   @action
   Future _sortAndCheckSources() async {
-    sources.forEachIndexed((index, s) async {
+    for (int i = 0; i < sources.length; i++) {
       bool connected = false;
+      final id = sources[i].id;
       try {
-        if (s.id != null) {
-          connected = (await importUC.getRootTasks(s.id!)).isNotEmpty;
+        if (id != null) {
+          connected = (await importUC.getRootTasks(id)).isNotEmpty;
         }
       } catch (_) {}
-      sources[index].connected = connected;
-    });
+      sources[i].connected = connected;
+    }
     sources.sort((s1, s2) => s1.url.compareTo(s2.url));
+    sources = ObservableList.of(sources);
   }
 
   @action

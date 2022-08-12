@@ -33,8 +33,12 @@ class _SourceListViewState extends State<SourceListView> {
       children: [
         if (index > 0) const MTDivider(),
         ListTile(
-          leading: MTCircle(color: s.connected ? Colors.green : warningColor),
-          title: Row(children: [sourceIcon(context, s), SizedBox(width: onePadding / 3), NormalText('${s.type.title} ${s.description}')]),
+          leading: Column(children: [
+            sourceIcon(context, s),
+            SizedBox(height: onePadding / 3),
+            MTCircle(color: s.connected ? Colors.green : warningColor),
+          ]),
+          title: NormalText('${s.type.title} ${s.description}'),
           subtitle: SmallText(s.url),
           trailing: editIcon(context),
           minLeadingWidth: 0,

@@ -50,7 +50,7 @@ class TaskOverviewStats extends StatelessWidget {
       if (task.hasNoDueGroups) ...[
         SizedBox(height: onePadding),
         SampleProgress(
-          ratio: task.noDueGroupsCount / task.openedLeafTasksCount,
+          ratio: task.noDueGroupsCount / task.openedGroupsCount,
           color: noInfoColor,
           titleText: loc.task_filter_no_due,
           trailingText: '${task.noDueGroupsCount}',

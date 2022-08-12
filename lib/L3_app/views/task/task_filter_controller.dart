@@ -28,10 +28,13 @@ abstract class _TaskFilterControllerBase with Store {
   /// непосредственно фильтр
 
   @observable
-  TaskFilter? tasksFilter = TaskFilter.opened;
+  TaskFilter? _tasksFilter;
+
+  @computed
+  TaskFilter get tasksFilter => _tasksFilter ?? (hasOpened ? TaskFilter.opened : TaskFilter.all);
 
   @action
-  void setFilter(TaskFilter? _filter) => tasksFilter = _filter;
+  void setFilter(TaskFilter? _filter) => _tasksFilter = _filter;
 
   @computed
   List<TaskFilter> get taskFilterKeys {
@@ -54,7 +57,7 @@ abstract class _TaskFilterControllerBase with Store {
 
   @computed
   Iterable<Task> get filteredTasks {
-    final tasks = (_taskFilters[tasksFilter] ?? _openedTasks).toList();
+    final tasks = (_taskFilters[tasksFilter] ?? []).toList();
     tasks.sort((t1, t2) => t1.title.compareTo(t2.title));
     return tasks;
   }

@@ -70,8 +70,8 @@ void setup() {
 
   final api = Openapi(basePathOverride: 'https://hercules.moroz.team/api/');
   // final api = Openapi(basePathOverride: 'http://localhost:8000/');
-  api.dio.options.connectTimeout = 30000;
-  api.dio.options.receiveTimeout = 30000;
+  api.dio.options.connectTimeout = 300000;
+  api.dio.options.receiveTimeout = 300000;
   getIt.registerSingleton<Openapi>(api);
 
   // use cases

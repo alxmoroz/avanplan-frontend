@@ -12,7 +12,7 @@ extension SourceMapper on SourceGet {
         url: url,
         apiKey: apiKey,
         login: login,
-        description: description,
+        description: description ?? '',
         workspaceId: workspaceId,
       );
 }

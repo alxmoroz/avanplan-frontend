@@ -153,7 +153,10 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
         ],
       );
       if (confirm != null && confirm) {
+        startLoading();
         Navigator.of(context).pop(await sourcesUC.delete(s: selectedSource!));
+        stopLoading();
+        await mainController.updateAll();
       }
     }
   }
@@ -169,9 +172,9 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
     final s = await showEditSourceDialog(context);
     if (s != null) {
       _updateSourceInList(s);
-      if (s.deleted) {
-        Navigator.of(context).pop();
-      }
+      // if (s.deleted) {
+      //   Navigator.of(context).pop();
+      // }
     }
   }
 }

@@ -17,6 +17,7 @@ import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
+import '../../presenters/source_presenter.dart';
 import 'import_controller.dart';
 
 Future<String?> showImportDialog(BuildContext context) async {
@@ -51,6 +52,13 @@ class _ImportViewState extends State<ImportView> {
     );
   }
 
+  List<DropdownMenuItem<Source>> srcDdItems(BuildContext context, Iterable<Source> sources) => sources
+      .map((s) => DropdownMenuItem<Source>(
+            value: s,
+            child: sourceInfo(context, s),
+          ))
+      .toList();
+
   Widget get sourceDropdown => sourceController.sources.isEmpty
       ? Expanded(
           child: EmptyDataWidget(
@@ -62,8 +70,9 @@ class _ImportViewState extends State<ImportView> {
       : MTDropdown<Source>(
           onChanged: (t) => _controller.selectSource(t),
           value: _controller.selectedSource,
-          items: sourceController.sources,
+          ddItems: srcDdItems(context, sourceController.sources),
           label: loc.source_import_placeholder,
+          buttonHeight: 40,
         );
 
   Widget form() {

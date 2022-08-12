@@ -3,16 +3,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/empty_data_widget.dart';
 import '../../components/icons.dart';
 import '../../components/mt_button.dart';
-import '../../components/mt_circle.dart';
 import '../../components/mt_divider.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
-import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/source_presenter.dart';
 import 'source_controller.dart';
@@ -32,20 +29,15 @@ class _SourceListViewState extends State<SourceListView> {
     return Column(
       children: [
         if (index > 0) const MTDivider(),
-        ListTile(
-          leading: Column(children: [
-            sourceIcon(context, s),
-            SizedBox(height: onePadding / 3),
-            MTCircle(color: s.connected ? Colors.green : warningColor),
+        MTButton(
+          '',
+          () => _controller.editSource(context, s),
+          padding: EdgeInsets.symmetric(horizontal: onePadding, vertical: onePadding / 2),
+          child: Row(children: [
+            Expanded(child: sourceInfo(context, s)),
+            editIcon(context),
           ]),
-          title: NormalText('${s.type.title} ${s.description}'),
-          subtitle: SmallText(s.url),
-          trailing: editIcon(context),
-          minLeadingWidth: 0,
-          dense: true,
-          visualDensity: VisualDensity.compact,
-          onTap: () => _controller.editSource(context, s),
-        )
+        ),
       ],
     );
   }

@@ -14,7 +14,9 @@ import '../../components/mt_page.dart';
 import '../../components/mt_text_field.dart';
 import '../../components/navbar.dart';
 import '../../components/text_field_annotation.dart';
+import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
+import '../../presenters/source_presenter.dart';
 import 'source_controller.dart';
 
 Future<Source?> showEditSourceDialog(BuildContext context) async {
@@ -67,6 +69,17 @@ class _SourceEditViewState extends State<SourceEditView> {
         capitalization: TextCapitalization.none,
       );
 
+  List<DropdownMenuItem<SourceType>> srcTypeDdItems(BuildContext context, Iterable<SourceType> sTypes) => sTypes
+      .map((st) => DropdownMenuItem<SourceType>(
+            value: st,
+            child: Row(children: [
+              sourceTypeIcon(context, st),
+              SizedBox(width: onePadding / 2),
+              NormalText('$st'),
+            ]),
+          ))
+      .toList();
+
   Widget form() {
     return Scrollbar(
       child: ListView(
@@ -76,7 +89,7 @@ class _SourceEditViewState extends State<SourceEditView> {
             MTDropdown<SourceType>(
               onChanged: (type) => _controller.selectType(type),
               value: _controller.selectedType,
-              items: _controller.sTypes,
+              ddItems: srcTypeDdItems(context, _controller.sTypes),
               label: loc.source_type_placeholder,
             ),
           ...[

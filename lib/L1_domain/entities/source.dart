@@ -15,7 +15,7 @@ class Source extends RPersistable {
     this.apiKey,
     this.login,
     this.password,
-    this.description,
+    this.description = '',
     this.connected = false,
   }) : super(id: id);
 
@@ -25,6 +25,6 @@ class Source extends RPersistable {
   final String? apiKey;
   final String? login;
   final String? password;
-  final String? description;
+  final String description;
   bool connected;
 }

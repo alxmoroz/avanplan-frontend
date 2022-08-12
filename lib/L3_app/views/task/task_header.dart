@@ -42,7 +42,7 @@ class TaskHeader extends StatelessWidget {
           if (task.hasLink) ...[
             SizedBox(height: onePadding / 2),
             linkIcon(context),
-            sourceIcon(context, task.taskSource!.source),
+            sourceTypeIcon(context, task.taskSource!.source.type),
           ],
         ]),
       ]),

@@ -58,13 +58,17 @@ class TaskOverview extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(onePadding),
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        if (hasStatus) ...[
+        if (hasStatus || hasAssignee) ...[
           SizedBox(height: onePadding / 2),
-          SmallText(task.status!.title),
-        ],
-        if (hasAssignee) ...[
-          SizedBox(height: onePadding / 2),
-          SmallText('@ ${task.assignee}'),
+          Row(
+            children: [
+              if (hasStatus) SmallText(task.status!.title),
+              if (hasAssignee) ...[
+                SizedBox(width: onePadding / 2),
+                SmallText('@ ${task.assignee}'),
+              ],
+            ],
+          ),
         ],
         if (hasDescription) description(),
         if (hasAuthor) ...[

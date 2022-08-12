@@ -33,7 +33,11 @@ extension TaskStats on Task {
     return res;
   }
 
+  Iterable<Task> get _openedTasks => tasks.where((t) => !t.closed);
+  bool get hasOpenedTasks => _openedTasks.isNotEmpty;
+
   Iterable<Task> get _leafTasks => allTasks.where((t) => t.tasks.isEmpty);
+
   int get _leafTasksCount => _leafTasks.length;
 
   Iterable<Task> get _openedLeafTasks => _leafTasks.where((t) => !t.closed);

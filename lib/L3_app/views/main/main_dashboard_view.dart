@@ -57,7 +57,7 @@ class _MainDashboardViewState extends State<MainDashboardView> {
           child: SafeArea(
             top: false,
             bottom: false,
-            child: !tasksFilterController.hasOpened
+            child: !rootTask.hasOpenedTasks
                 ? EmptyDataWidget(
                     title: loc.task_list_empty_title,
                     addTitle: loc.task_title_new,
@@ -77,7 +77,7 @@ class _MainDashboardViewState extends State<MainDashboardView> {
                       SizedBox(height: onePadding),
 
                       /// статистика по статусу всех задач
-                      TaskOverviewStats(taskViewController.rootTask),
+                      TaskOverviewStats(rootTask),
                       SizedBox(height: onePadding),
                     ],
                   ),

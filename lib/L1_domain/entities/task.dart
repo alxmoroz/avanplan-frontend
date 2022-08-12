@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'base_entity.dart';
+import 'person.dart';
 import 'priority.dart';
 import 'status.dart';
 import 'task_source.dart';
@@ -19,6 +20,8 @@ class Task extends Statusable {
     this.workspaceId,
     this.status,
     this.priority,
+    this.author,
+    this.assignee,
     this.taskSource,
   }) : super(id: id, title: title, closed: closed);
 
@@ -32,6 +35,8 @@ class Task extends Statusable {
   final int? workspaceId;
   final Status? status;
   final Priority? priority;
+  final Person? author;
+  final Person? assignee;
   final TaskSource? taskSource;
 
   Task copy() => Task(
@@ -47,6 +52,8 @@ class Task extends Statusable {
         workspaceId: workspaceId,
         status: status,
         priority: priority,
+        author: author,
+        assignee: assignee,
         taskSource: taskSource,
       );
 }

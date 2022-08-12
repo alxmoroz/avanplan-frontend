@@ -24,6 +24,8 @@ class TaskOverview extends StatelessWidget {
   bool get hasDates => task.dueDate != null || task.etaDate != null;
   bool get hasStatus => task.status != null;
   bool get hasSubtasks => task.tasks.isNotEmpty;
+  bool get hasAuthor => task.author != null;
+  bool get hasAssignee => task.assignee != null;
 
   Widget description() => LayoutBuilder(builder: (context, size) {
         final text = task.description;
@@ -60,7 +62,15 @@ class TaskOverview extends StatelessWidget {
           SizedBox(height: onePadding / 2),
           SmallText(task.status!.title),
         ],
+        if (hasAssignee) ...[
+          SizedBox(height: onePadding / 2),
+          SmallText('@ ${task.assignee}'),
+        ],
         if (hasDescription) description(),
+        if (hasAuthor) ...[
+          SizedBox(height: onePadding / 3),
+          SmallText('/// ${task.author}', align: TextAlign.end),
+        ],
         if (hasDates) ...[
           SizedBox(height: onePadding / 2),
           buildDates(),

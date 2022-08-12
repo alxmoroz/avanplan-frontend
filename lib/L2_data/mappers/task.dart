@@ -3,6 +3,7 @@
 import 'package:openapi/openapi.dart' as api;
 
 import '../../L1_domain/entities/task.dart';
+import 'person.dart';
 import 'priority.dart';
 import 'status.dart';
 import 'task_source.dart';
@@ -20,6 +21,8 @@ extension TaskMapper on api.TaskGet {
         status: status?.status,
         tasks: tasks?.map((t) => t.task).toList() ?? [],
         priority: priority?.priority,
+        author: author?.person,
+        assignee: assignee?.person,
         workspaceId: workspaceId,
         taskSource: taskSource?.taskSource,
       );

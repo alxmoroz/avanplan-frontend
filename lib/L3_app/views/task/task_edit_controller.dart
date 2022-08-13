@@ -82,11 +82,7 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
   bool get isNew => taskForEdit == null;
 
   @computed
-  Task? get _parent => isNew
-      ? taskViewController.isRoot
-          ? null
-          : taskViewController.selectedTask
-      : taskForEdit!;
+  Task? get _parent => isNew ? taskViewController.selectedTask : taskForEdit?.parent;
 
   @override
   bool get validated => super.validated && selectedWS != null;

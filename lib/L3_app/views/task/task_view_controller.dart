@@ -23,7 +23,6 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   /// рутовый объект
   @observable
   Task rootTask = Task(
-    id: -1,
     title: '',
     parent: null,
     tasks: [],

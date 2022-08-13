@@ -12,7 +12,6 @@
   "common_delete_btn_title": "Delete",
   "common_description": "Description",
   "common_delete_dialog_description": "This action cannot be undone!",
-  "common_done": "Done",
   "common_no": "No",
   "common_or": "or",
   "common_save_btn_title": "Save",
@@ -60,6 +59,10 @@
   "task_list_empty_title": "There are no tasks",
   "task_list_title": "Tasks",
 
+  "task_state_closed": "Done",
+  "task_state_close_btn_title": "Close task",
+  "task_state_closable_hint": "Hooray! No open subtasks left",
+  "task_state_reopen_btn_title": "Reopen task",
   "task_state_no_info_title": "Set deadlines, set subtasks",
   "task_state_ok_title": "All according to plan",
   "task_state_overdue_details": "Total overdue is",

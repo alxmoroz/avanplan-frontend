@@ -36,6 +36,8 @@ extension TaskStats on Task {
   Iterable<Task> get _openedTasks => tasks.where((t) => !t.closed);
   bool get hasOpenedTasks => _openedTasks.isNotEmpty;
 
+  bool get isClosable => !closed && hasSubtasks && !hasOpenedTasks;
+
   Iterable<Task> get _leafTasks => allTasks.where((t) => t.tasks.isEmpty);
 
   int get _leafTasksCount => _leafTasks.length;
@@ -79,7 +81,7 @@ extension TaskStats on Task {
   int get inactiveGroupsCount => _inactiveGroups.length;
   bool get hasInactiveGroups => inactiveGroupsCount > 0;
 
-  Iterable<Task> get _closableGroups => _openedGroups.where((t) => t.openedLeafTasksCount == 0 && t.closedTasksCount > 0);
+  Iterable<Task> get _closableGroups => _openedGroups.where((t) => t.isClosable);
   int get closableGroupsCount => _closableGroups.length;
   bool get hasClosableGroups => closableGroupsCount > 0;
 

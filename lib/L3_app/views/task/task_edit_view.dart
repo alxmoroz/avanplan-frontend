@@ -103,8 +103,8 @@ class _TaskEditViewState extends State<TaskEditView> {
           child: InkWell(
             child: Row(children: [
               doneIcon(context, _controller.closed),
-              SizedBox(width: onePadding),
-              MediumText(loc.common_done, padding: EdgeInsets.symmetric(vertical: onePadding)),
+              SizedBox(width: onePadding / 2),
+              MediumText(loc.task_state_closed, padding: EdgeInsets.symmetric(vertical: onePadding), color: mainColor),
             ]),
             onTap: () => _controller.setClosed(!_controller.closed),
           ),

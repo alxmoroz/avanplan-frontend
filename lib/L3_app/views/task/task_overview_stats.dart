@@ -24,7 +24,7 @@ class TaskOverviewStats extends StatelessWidget {
       SampleProgress(
         ratio: task.doneRatio,
         color: stateColor(task.state),
-        titleText: loc.common_done,
+        titleText: loc.task_state_closed,
         trailingText: task.doneRatio.inPercents,
       ),
       if (task.hasOverdueTasks) ...[

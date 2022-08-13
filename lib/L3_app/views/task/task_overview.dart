@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/task_stats.dart';
+import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/date_string_widget.dart';
 import '../../components/icons.dart';
@@ -23,7 +24,6 @@ class TaskOverview extends StatelessWidget {
   bool get hasDescription => task.description.isNotEmpty;
   bool get hasDates => task.dueDate != null || task.etaDate != null;
   bool get hasStatus => task.status != null;
-  bool get hasSubtasks => task.tasks.isNotEmpty;
   bool get hasAuthor => task.author != null;
   bool get hasAssignee => task.assignee != null;
 
@@ -81,7 +81,27 @@ class TaskOverview extends StatelessWidget {
         ],
         SizedBox(height: onePadding),
         TaskStateIndicator(task),
-        if (hasSubtasks) TaskOverviewStats(task),
+        if (task.hasSubtasks) TaskOverviewStats(task),
+        if (task.isClosable || task.closed) ...[
+          SizedBox(height: onePadding * 2),
+          if (task.isClosable) ...[
+            LightText(loc.task_state_closable_hint, align: TextAlign.center),
+            SizedBox(height: onePadding),
+          ],
+          MTButton(
+            null,
+            () => taskViewController.setTaskClosed(context, task, !task.closed),
+            child: Row(
+              children: [
+                const Spacer(),
+                if (task.isClosable) doneIcon(context, true),
+                SizedBox(width: onePadding / 2),
+                H4(task.isClosable ? loc.task_state_close_btn_title : loc.task_state_reopen_btn_title, color: mainColor),
+                const Spacer(),
+              ],
+            ),
+          ),
+        ],
       ]),
     );
   }

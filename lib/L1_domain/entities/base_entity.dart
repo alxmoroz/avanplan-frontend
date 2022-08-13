@@ -45,5 +45,5 @@ abstract class Statusable extends Titleable {
     required this.closed,
   }) : super(id: id, title: title);
 
-  final bool closed;
+  bool closed;
 }

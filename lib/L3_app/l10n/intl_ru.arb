@@ -12,7 +12,7 @@
   "common_delete_btn_title": "Удалить",
   "common_delete_dialog_description": "Это действие нельзя будет отменить!",
   "common_description": "Описание",
-  "common_done": "Выполнено",
+
   "common_no": "Нет",
   "common_or": "или",
   "common_save_btn_title": "Сохранить",
@@ -60,6 +60,10 @@
   "task_list_empty_title": "Нет задач",
   "task_list_title": "Задачи",
 
+  "task_state_closed": "Выполнено",
+  "task_state_close_btn_title": "Завершить",
+  "task_state_closable_hint": "Ура! Не осталось открытых подзадач",
+  "task_state_reopen_btn_title": "Переоткрыть",
   "task_state_no_info_title": "Ставьте сроки, разделяйте на подзадачи",
   "task_state_ok_title": "Всё идёт по плану",
   "task_state_overdue_details": "Отставание на",

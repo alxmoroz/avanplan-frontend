@@ -149,6 +149,17 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
     }
   }
 
+  Future setTaskClosed(BuildContext context, Task task, bool closed) async {
+    task.closed = closed;
+    final editedTask = await tasksUC.save(task);
+    if (editedTask != null) {
+      if (editedTask.closed) {
+        Navigator.of(context).pop(editedTask);
+      }
+      _updateParents(editedTask);
+    }
+  }
+
   Iterable<TaskSource> _unlinkTaskTree(Task t) {
     final tss = <TaskSource>[];
     for (Task subtask in t.tasks) {

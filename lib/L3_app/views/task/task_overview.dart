@@ -1,10 +1,8 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/material.dart';
-import 'package:hercules/L3_app/views/task/task_view_controller.dart';
 
 import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/entities/task_stats.dart';
 import '../../components/constants.dart';
 import '../../components/date_string_widget.dart';
 import '../../components/icons.dart';
@@ -14,8 +12,10 @@ import '../../components/mt_details_dialog.dart';
 import '../../components/mt_divider.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
+import '../../presenters/task_stats_presenter.dart';
 import 'task_overview_stats.dart';
 import 'task_state_indicator.dart';
+import 'task_view_controller.dart';
 
 class TaskOverview extends StatelessWidget {
   TaskViewController get _controller => taskViewController;

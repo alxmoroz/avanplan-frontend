@@ -7,10 +7,10 @@ import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/task_source.dart';
-import '../../../L1_domain/entities/task_stats.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/mt_confirm_dialog.dart';
 import '../../extra/services.dart';
+import '../../presenters/task_stats_presenter.dart';
 import '../_base/base_controller.dart';
 import '../task/task_edit_view.dart';
 import '../task/task_view.dart';

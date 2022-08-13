@@ -1,15 +1,15 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/material.dart';
-import 'package:hercules/L3_app/presenters/source_presenter.dart';
 
 import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/entities/task_stats.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_divider.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
+import '../../presenters/source_presenter.dart';
+import '../../presenters/task_stats_presenter.dart';
 import 'task_view_controller.dart';
 
 class TaskHeader extends StatelessWidget {
@@ -19,6 +19,7 @@ class TaskHeader extends StatelessWidget {
 
   TaskViewController get _controller => taskViewController;
 
+  // TODO: виджет
   String get breadcrumbs {
     const sepStr = ' > ';
     String _breadcrumbs = '';

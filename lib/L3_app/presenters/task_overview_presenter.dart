@@ -3,10 +3,10 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/entities/task_stats.dart';
 import '../components/colors.dart';
 import '../components/icons.dart';
 import '../extra/services.dart';
+import 'task_stats_presenter.dart';
 
 const _colors = {
   TaskState.overdue: dangerColor,

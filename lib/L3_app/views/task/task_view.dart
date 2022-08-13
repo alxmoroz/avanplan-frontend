@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/entities/task_stats.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_button.dart';
@@ -12,6 +11,8 @@ import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
+import '../../presenters/task_level_presenter.dart';
+import '../../presenters/task_stats_presenter.dart';
 import '../task/task_filter_dropdown.dart';
 import 'task_add_action.dart';
 import 'task_header.dart';
@@ -69,7 +70,7 @@ class _TaskPageState extends State<TaskView> {
         isLoading: _controller.isLoading,
         navBar: navBar(
           context,
-          title: _controller.isRoot ? loc.project_list_title : '${loc.task_title} #${task.id}',
+          title: _controller.isRoot ? loc.project_list_title : '${task.viewTitle} #${task.id}',
           leading: _controller.canRefresh
               ? Row(children: [
                   SizedBox(width: onePadding),

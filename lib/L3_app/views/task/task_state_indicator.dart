@@ -3,11 +3,11 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/entities/task_stats.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/text_widgets.dart';
 import '../../presenters/task_overview_presenter.dart';
+import '../../presenters/task_stats_presenter.dart';
 
 class TaskStateIndicator extends StatelessWidget {
   const TaskStateIndicator(this.task, {this.inCard = false});

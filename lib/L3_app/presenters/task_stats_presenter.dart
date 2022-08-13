@@ -1,18 +1,17 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'task.dart';
+import '../../L1_domain/entities/task.dart';
 
 enum TaskState { overdue, risk, ok, noInfo }
 
 extension TaskStats on Task {
   /// непосредственно сама задача
-  DateTime get startDate => createdOn ?? DateTime.now();
-  Duration? get plannedPeriod => dueDate?.difference(startDate);
-  Duration get pastPeriod => DateTime.now().difference(startDate);
+  DateTime get _startDate => createdOn ?? DateTime.now();
+  // Duration? get plannedPeriod => dueDate?.difference(_startDate);
+  Duration get _pastPeriod => DateTime.now().difference(_startDate);
   Duration? get overduePeriod => dueDate != null ? DateTime.now().difference(dueDate!) : null;
 
-  double get _factSpeed => closedTasksCount / pastPeriod.inSeconds;
-
+  double get _factSpeed => closedTasksCount / _pastPeriod.inSeconds;
   DateTime? get etaDate =>
       _factSpeed > 0 && openedLeafTasksCount > 0 ? DateTime.now().add(Duration(seconds: (openedLeafTasksCount / _factSpeed).round())) : null;
   Duration? get etaRiskPeriod => dueDate != null ? etaDate?.difference(dueDate!) : null;

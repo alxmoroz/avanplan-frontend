@@ -7,9 +7,9 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/entities/source.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/task_source.dart';
-import '../../../L1_domain/entities/task_stats.dart';
 import '../../../L1_domain/system/errors.dart';
 import '../../extra/services.dart';
+import '../../presenters/task_stats_presenter.dart';
 import '../_base/edit_controller.dart';
 import 'import_view.dart';
 

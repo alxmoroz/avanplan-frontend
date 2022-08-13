@@ -9,23 +9,28 @@ import 'status.dart';
 import 'task_source.dart';
 
 extension TaskMapper on api.TaskGet {
-  Task get task => Task(
-        id: id,
-        parentId: parentId,
-        createdOn: createdOn.toLocal(),
-        updatedOn: updatedOn.toLocal(),
-        title: title.trim(),
-        description: description?.trim() ?? '',
-        dueDate: dueDate?.toLocal(),
-        closed: closed ?? false,
-        status: status?.status,
-        tasks: tasks?.map((t) => t.task).toList() ?? [],
-        priority: priority?.priority,
-        author: author?.person,
-        assignee: assignee?.person,
-        workspaceId: workspaceId,
-        taskSource: taskSource?.taskSource,
-      );
+  Task task([Task? _parent]) {
+    final _t = Task(
+      id: id,
+      parentId: parentId,
+      createdOn: createdOn.toLocal(),
+      updatedOn: updatedOn.toLocal(),
+      title: title.trim(),
+      description: description?.trim() ?? '',
+      dueDate: dueDate?.toLocal(),
+      closed: closed ?? false,
+      status: status?.status,
+      tasks: [],
+      priority: priority?.priority,
+      author: author?.person,
+      assignee: assignee?.person,
+      workspaceId: workspaceId,
+      taskSource: taskSource?.taskSource,
+      parent: _parent,
+    );
+    _t.tasks = tasks?.map((t) => t.task(_t)).toList() ?? [];
+    return _t;
+  }
 }
 
 extension TaskImportMapper on api.Task {

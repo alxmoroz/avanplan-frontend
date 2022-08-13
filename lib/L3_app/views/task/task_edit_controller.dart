@@ -82,14 +82,11 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
   bool get isNew => taskForEdit == null;
 
   @computed
-  bool get isRoot => _parentId == null;
-
-  @computed
-  int? get _parentId => isNew
+  Task? get _parent => isNew
       ? taskViewController.isRoot
           ? null
-          : taskViewController.selectedTask.id
-      : taskForEdit!.parentId;
+          : taskViewController.selectedTask
+      : taskForEdit!;
 
   @override
   bool get validated => super.validated && selectedWS != null;
@@ -108,7 +105,8 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
   Future save(BuildContext context) async {
     final editedTask = await tasksUC.save(Task(
       id: taskForEdit?.id,
-      parentId: _parentId,
+      parentId: _parent?.id,
+      parent: _parent,
       title: tfAnnoForCode('title').text,
       description: tfAnnoForCode('description').text,
       closed: closed,

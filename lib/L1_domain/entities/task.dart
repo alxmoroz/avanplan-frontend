@@ -11,6 +11,7 @@ class Task extends Statusable {
     int? id,
     required String title,
     required bool closed,
+    required this.parent,
     required this.tasks,
     this.description = '',
     this.createdOn,
@@ -38,6 +39,7 @@ class Task extends Statusable {
   final Person? author;
   final Person? assignee;
   final TaskSource? taskSource;
+  Task? parent;
 
   Task copy() => Task(
         id: id,
@@ -46,6 +48,7 @@ class Task extends Statusable {
         description: description,
         createdOn: createdOn,
         updatedOn: updatedOn,
+        parent: parent,
         tasks: tasks,
         dueDate: dueDate,
         parentId: parentId,

@@ -25,6 +25,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   Task rootTask = Task(
     id: -1,
     title: '',
+    parent: null,
     tasks: [],
     description: '',
     closed: false,
@@ -97,11 +98,9 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
     _touchRoot();
   }
 
-  Task _parentTask(Task _task) => rootTask.allTasks.firstWhereOrNull((t) => t.id == _task.parentId) ?? rootTask;
-
   @action
   void _updateTask(Task _task) {
-    final _parent = _parentTask(_task);
+    final _parent = _task.parent ?? rootTask;
     final index = _parent.tasks.indexWhere((t) => t.id == _task.id);
     if (index >= 0) {
       if (_task.deleted) {
@@ -115,7 +114,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
 
   @action
   void _updateParents(Task _task) {
-    final _parent = _parentTask(_task);
+    final _parent = _task.parent ?? rootTask;
     if (_parent != rootTask) {
       _updateParents(_parent);
     }

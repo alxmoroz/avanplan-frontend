@@ -90,7 +90,7 @@ class _TaskEditViewState extends State<TaskEditView> {
     return Scrollbar(
       thumbVisibility: true,
       child: ListView(children: [
-        if (_controller.isRoot && _controller.isNew) _controller.wsDropdown(context),
+        if (taskViewController.isRoot && _controller.isNew) _controller.wsDropdown(context),
         ...['title', 'dueDate', 'description'].map((code) => textFieldForCode(context, code)),
         if (_controller.statuses.isNotEmpty)
           MTDropdown<Status>(

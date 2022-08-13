@@ -20,7 +20,7 @@ class TasksRepo extends AbstractApiRepo<Task> {
       final response = await api.getRootTasksV1TasksGet(wsId: query!.workspaceId);
       if (response.statusCode == 200) {
         for (o_api.TaskGet t in response.data?.toList() ?? []) {
-          tasks.add(t.task);
+          tasks.add(t.task());
         }
       }
     } catch (e) {
@@ -46,7 +46,7 @@ class TasksRepo extends AbstractApiRepo<Task> {
     final response = await api.upsertTaskV1TasksPost(taskUpsert: qBuilder.build());
     Task? task;
     if (response.statusCode == 201) {
-      task = response.data?.task;
+      task = response.data?.task(data.parent);
     }
     return task;
   }

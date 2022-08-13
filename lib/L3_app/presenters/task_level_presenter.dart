@@ -1,25 +1,21 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:intl/intl.dart';
-
 import '../../L1_domain/entities/task.dart';
+import '../extra/services.dart';
 
-extension TaskLevel on Task {
-  /// иерархия
-  // bool get isProject => parent == null;
-  // bool get isGoal => parent?.isProject == true;
-  // bool get isTask => parent?.isGoal == true;
-  // bool get isSubtask => parent?.isTask == true || parent?.isSubtask == true;
+enum TaskLevel { project, goal, task, subtask }
 
-  int get level {
+extension TaskLevelPresenter on Task {
+  int get _level {
     int res = 1;
     if (parent != null) {
-      res += parent?.level ?? 1;
+      res += parent?._level ?? 1;
     }
     return res;
   }
 
-  String get _titleCode => {1: 'Project', 2: 'Goal', 3: 'Task'}[level] ?? 'Subtask';
+  TaskLevel get level => {1: TaskLevel.project, 2: TaskLevel.goal, 3: TaskLevel.task}[_level] ?? TaskLevel.subtask;
 
-  String get viewTitle => Intl.message(_titleCode, name: _titleCode);
+  String get viewTitle =>
+      {TaskLevel.project: loc.project_title, TaskLevel.goal: loc.goal_title, TaskLevel.task: loc.task_title}[level] ?? loc.subtask_title;
 }

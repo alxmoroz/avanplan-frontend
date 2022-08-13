@@ -129,7 +129,7 @@ class _TaskEditViewState extends State<TaskEditView> {
         navBar: navBar(
           context,
           leading: CloseDialogButton(),
-          title: _task == null ? loc.task_title_new : '',
+          title: _task == null ? loc.task_new_title : '',
           trailing: MTButton(
             loc.common_save_btn_title,
             _controller.validated ? () => _controller.save(context) : null,

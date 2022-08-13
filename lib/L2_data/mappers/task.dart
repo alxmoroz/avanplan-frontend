@@ -12,7 +12,6 @@ extension TaskMapper on api.TaskGet {
   Task task([Task? _parent]) {
     final _t = Task(
       id: id,
-      parentId: parentId,
       createdOn: createdOn.toLocal(),
       updatedOn: updatedOn.toLocal(),
       title: title.trim(),

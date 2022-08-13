@@ -7,7 +7,6 @@ enum TaskState { overdue, risk, ok, noInfo }
 extension TaskStats on Task {
   /// непосредственно сама задача
   DateTime get _startDate => createdOn ?? DateTime.now();
-  // Duration? get plannedPeriod => dueDate?.difference(_startDate);
   Duration get _pastPeriod => DateTime.now().difference(_startDate);
   Duration? get overduePeriod => dueDate != null ? DateTime.now().difference(dueDate!) : null;
 

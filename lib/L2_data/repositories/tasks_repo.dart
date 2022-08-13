@@ -37,7 +37,7 @@ class TasksRepo extends AbstractApiRepo<Task> {
       ..workspaceId = data.workspaceId
       ..id = data.id
       ..statusId = data.status?.id
-      ..parentId = data.parentId
+      ..parentId = data.parent?.id
       ..title = data.title
       ..description = data.description
       ..closed = data.closed

@@ -19,11 +19,19 @@
   "common_title": "Title",
   "common_yes": "Yes",
 
+  "goal_list_empty_title": "There are no goals",
+  "goal_list_title": "Goals",
+  "goal_new_title": "New goal",
+  "goal_title": "Goal",
+
   "integration": "Integration",
 
   "overview": "Overview",
 
+  "project_list_empty_title": "There are no projects",
   "project_list_title": "Projects",
+  "project_new_title": "New project",
+  "project_title": "Project",
 
   "source_api_key_placeholder": "API key / Token",
   "source_delete_dialog_title": "Delete import source connection?",
@@ -34,6 +42,11 @@
   "source_title_new": "New import source",
   "source_type_placeholder": "Import sources type",
   "source_url_placeholder": "URL",
+
+  "subtask_list_empty_title": "here are no subtasks",
+  "subtask_list_title": "Subtasks",
+  "subtask_new_title": "New subtask",
+  "subtask_title": "Subtask",
 
   "task_delete_dialog_title": "Delete task?",
   "task_delete_dialog_description": "All subtasks will be deleted",
@@ -58,6 +71,7 @@
 
   "task_list_empty_title": "There are no tasks",
   "task_list_title": "Tasks",
+  "task_new_title": "New task",
 
   "task_state_closed": "Done",
   "task_state_close_btn_title": "Close task",
@@ -71,7 +85,6 @@
   "task_state_risky_title": "There are risks",
 
   "task_title": "Task",
-  "task_title_new": "New task",
 
   "task_unlink_dialog_action_unlink_title": "Yes, delete",
   "task_unlink_dialog_action_copy_title": "Yes, keep tasks",

@@ -105,7 +105,6 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
   Future save(BuildContext context) async {
     final editedTask = await tasksUC.save(Task(
       id: taskForEdit?.id,
-      parentId: _parent?.id,
       parent: _parent,
       title: tfAnnoForCode('title').text,
       description: tfAnnoForCode('description').text,

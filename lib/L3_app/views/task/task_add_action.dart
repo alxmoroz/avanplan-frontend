@@ -11,7 +11,7 @@ class TaskAddAction extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTAction(
       hint: loc.task_list_empty_title,
-      title: loc.task_title_new,
+      title: loc.task_new_title,
       icon: plusIcon(context, size: 24),
       onPressed: () => taskViewController.addTask(context),
     );

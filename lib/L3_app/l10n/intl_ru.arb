@@ -20,11 +20,19 @@
   "common_title": "Название",
   "common_yes": "Да",
 
+  "goal_list_empty_title": "Нет целей",
+  "goal_list_title": "Цели",
+  "goal_new_title": "Новая цель",
+  "goal_title": "Цель",
+
   "integration": "Интеграция",
 
   "overview": "Обзор",
 
+  "project_list_empty_title": "Нет проектов",
   "project_list_title": "Проекты",
+  "project_new_title": "Новый проект",
+  "project_title": "Проект",
 
   "source_api_key_placeholder": "Ключ API / Токен",
   "source_delete_dialog_title": "Удалить источник импорта?",
@@ -35,6 +43,11 @@
   "source_title_new": "Новый источник импорта",
   "source_type_placeholder": "Тип источника",
   "source_url_placeholder": "URL",
+
+  "subtask_list_empty_title": "Нет подзадач",
+  "subtask_list_title": "Подзадачи",
+  "subtask_new_title": "Новая подзадача",
+  "subtask_title": "Подзадача",
 
   "task_delete_dialog_title": "Удалить задачу?",
   "task_delete_dialog_description": "Все подзадачи также будут удалены",
@@ -59,6 +72,7 @@
 
   "task_list_empty_title": "Нет задач",
   "task_list_title": "Задачи",
+  "task_new_title": "Новая задача",
 
   "task_state_closed": "Выполнено",
   "task_state_close_btn_title": "Завершить",
@@ -72,7 +86,6 @@
   "task_state_risky_title": "Есть риски",
 
   "task_title": "Задача",
-  "task_title_new": "Новая задача",
 
   "task_unlink_dialog_action_copy_title": "Да, оставить",
   "task_unlink_dialog_action_unlink_title": "Да, удалить",

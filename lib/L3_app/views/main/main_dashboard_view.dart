@@ -9,7 +9,6 @@ import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/task_stats.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/empty_data_widget.dart';
 import '../../components/icons.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
@@ -17,6 +16,7 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_overview_presenter.dart';
+import '../task/task_add_action.dart';
 import '../task/task_overview_stats.dart';
 
 class MainDashboardView extends StatefulWidget {
@@ -58,11 +58,8 @@ class _MainDashboardViewState extends State<MainDashboardView> {
             top: false,
             bottom: false,
             child: !rootTask.hasOpenedTasks
-                ? EmptyDataWidget(
-                    title: loc.task_list_empty_title,
-                    addTitle: loc.task_title_new,
-                    onAdd: () => taskViewController.addTask(context),
-                  )
+                // TODO: тут должен быть текст про проекты только
+                ? TaskAddAction()
                 : ListView(
                     shrinkWrap: true,
                     children: [

@@ -12,7 +12,7 @@ class TaskFilterController extends _TaskFilterControllerBase with _$TaskFilterCo
 
 abstract class _TaskFilterControllerBase with Store {
   /// непосредственно фильтр
-  Iterable<Task> get _tasks => taskViewController.selectedTask?.tasks ?? [];
+  Iterable<Task> get _tasks => taskViewController.selectedTask.tasks;
 
   @computed
   int get tasksCount => _tasks.length;

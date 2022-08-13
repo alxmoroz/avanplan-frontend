@@ -30,7 +30,7 @@ class TaskHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(onePadding),
+      padding: EdgeInsets.all(onePadding).copyWith(bottom: 0),
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         if (breadcrumbs.isNotEmpty) ...[
           SmallText(breadcrumbs),
@@ -38,9 +38,8 @@ class TaskHeader extends StatelessWidget {
         ],
         Row(children: [
           Expanded(child: H2(task.title, decoration: task.closed ? TextDecoration.lineThrough : null)),
-          SizedBox(width: onePadding / 2),
           if (task.hasLink) ...[
-            SizedBox(height: onePadding / 2),
+            SizedBox(height: onePadding / 3),
             linkIcon(context),
             sourceTypeIcon(context, task.taskSource!.source.type),
           ],

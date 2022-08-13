@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../components/constants.dart';
-import '../../components/empty_data_widget.dart';
 import '../../components/icons.dart';
+import '../../components/mt_action.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_divider.dart';
 import '../../components/mt_page.dart';
@@ -53,10 +53,11 @@ class _SourceListViewState extends State<SourceListView> {
           trailing: MTButton.icon(plusIcon(context), () => _controller.addSource(context), padding: EdgeInsets.only(right: onePadding)),
         ),
         body: _controller.sources.isEmpty
-            ? EmptyDataWidget(
-                title: loc.source_list_empty_title,
-                addTitle: loc.source_title_new,
-                onAdd: () => _controller.addSource(context),
+            ? MTAction(
+                hint: loc.source_list_empty_title,
+                title: loc.source_title_new,
+                icon: plusIcon(context, size: 24),
+                onPressed: () => _controller.addSource(context),
               )
             : ListView.builder(
                 itemBuilder: sourceBuilder,

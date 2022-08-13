@@ -1,13 +1,14 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/material.dart';
+import 'package:hercules/L3_app/views/task/task_view_controller.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/task_stats.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/date_string_widget.dart';
 import '../../components/icons.dart';
+import '../../components/mt_action.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_details_dialog.dart';
 import '../../components/mt_divider.dart';
@@ -17,9 +18,8 @@ import 'task_overview_stats.dart';
 import 'task_state_indicator.dart';
 
 class TaskOverview extends StatelessWidget {
-  const TaskOverview(this.task);
-
-  final Task task;
+  TaskViewController get _controller => taskViewController;
+  Task get task => _controller.selectedTask;
 
   bool get hasDescription => task.description.isNotEmpty;
   bool get hasDates => task.dueDate != null || task.etaDate != null;
@@ -35,12 +35,12 @@ class TaskOverview extends StatelessWidget {
         final tp = TextPainter(text: span, maxLines: maxLines, textDirection: TextDirection.ltr);
         tp.layout(maxWidth: size.maxWidth);
         final bool hasButton = tp.didExceedMaxLines;
-        final divider = MTDivider(color: !hasButton ? Colors.transparent : null);
+        final divider = MTDivider(color: !hasButton || task.hasSubtasks ? Colors.transparent : null);
         final innerWidget = Column(children: [
           divider,
           Row(children: [
             Expanded(child: detailedTextWidget),
-            if (hasButton) Row(children: [SizedBox(width: onePadding / 2), infoIcon(context)]),
+            if (hasButton) Row(children: [SizedBox(width: onePadding / 3), infoIcon(context)]),
           ]),
           divider,
         ]);
@@ -56,7 +56,7 @@ class TaskOverview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(onePadding),
+      padding: EdgeInsets.all(onePadding).copyWith(top: 0),
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         if (hasStatus || hasAssignee) ...[
           SizedBox(height: onePadding / 2),
@@ -76,30 +76,21 @@ class TaskOverview extends StatelessWidget {
           SmallText('/// ${task.author}', align: TextAlign.end),
         ],
         if (hasDates) ...[
-          SizedBox(height: onePadding / 2),
+          SizedBox(height: onePadding),
           buildDates(),
         ],
-        SizedBox(height: onePadding),
-        TaskStateIndicator(task),
+        if (!task.closed) ...[
+          SizedBox(height: onePadding),
+          TaskStateIndicator(task),
+        ],
         if (task.hasSubtasks) TaskOverviewStats(task),
-        if (task.isClosable || task.closed) ...[
+        if (_controller.canEdit && (task.isClosable || task.closed)) ...[
           SizedBox(height: onePadding * 2),
-          if (task.isClosable) ...[
-            LightText(loc.task_state_closable_hint, align: TextAlign.center),
-            SizedBox(height: onePadding),
-          ],
-          MTButton(
-            null,
-            () => taskViewController.setTaskClosed(context, task, !task.closed),
-            child: Row(
-              children: [
-                const Spacer(),
-                if (task.isClosable) doneIcon(context, true),
-                SizedBox(width: onePadding / 2),
-                H4(task.isClosable ? loc.task_state_close_btn_title : loc.task_state_reopen_btn_title, color: mainColor),
-                const Spacer(),
-              ],
-            ),
+          MTAction(
+            hint: task.isClosable ? loc.task_state_closable_hint : '',
+            title: task.isClosable ? loc.task_state_close_btn_title : loc.task_state_reopen_btn_title,
+            icon: task.isClosable ? doneIcon(context, true) : null,
+            onPressed: () => _controller.setTaskClosed(context, task, !task.closed),
           ),
         ],
       ]),

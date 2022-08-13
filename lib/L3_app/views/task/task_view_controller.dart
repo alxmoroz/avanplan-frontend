@@ -40,17 +40,17 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   int? get _selectedTaskId => navStack.isNotEmpty ? navStack.last.id : null;
 
   @computed
-  Task? get selectedTask => rootTask.allTasks.firstWhereOrNull((t) => t.id == _selectedTaskId) ?? rootTask;
+  Task get selectedTask => rootTask.allTasks.firstWhereOrNull((t) => t.id == _selectedTaskId) ?? rootTask;
 
   @computed
   bool get isRoot => selectedTask == rootTask;
 
   /// доступные действия
   @computed
-  bool get canAdd => !selectedTask!.hasLink;
+  bool get canAdd => !(selectedTask.hasLink || selectedTask.closed);
 
   @computed
-  bool get canEdit => canAdd && !isRoot;
+  bool get canEdit => !(selectedTask.hasLink || isRoot);
 
   @computed
   bool get canImport => isRoot;
@@ -134,7 +134,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   Future addTask(BuildContext context) async {
     final newTask = await showEditTaskDialog(context);
     if (newTask != null) {
-      selectedTask!.tasks.add(newTask);
+      selectedTask.tasks.add(newTask);
       _updateParents(newTask);
     }
   }
@@ -187,13 +187,13 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
     if (confirm != null && confirm > 0) {
       startLoading();
       if (confirm == 1) {
-        final unlinkedTask = await tasksUC.delete(t: selectedTask!);
+        final unlinkedTask = await tasksUC.delete(t: selectedTask);
         if (unlinkedTask != null) {
           _updateParents(unlinkedTask);
           Navigator.of(context).pop();
         }
       } else if (confirm == 2) {
-        await importUC.updateTaskSources(_unlinkTaskTree(selectedTask!));
+        await importUC.updateTaskSources(_unlinkTaskTree(selectedTask));
       }
       stopLoading();
     }

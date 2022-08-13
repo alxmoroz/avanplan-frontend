@@ -6,7 +6,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/task_stats.dart';
 import '../../components/constants.dart';
-import '../../components/empty_data_widget.dart';
 import '../../components/icons.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
@@ -14,6 +13,7 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../task/task_filter_dropdown.dart';
+import 'task_add_action.dart';
 import 'task_header.dart';
 import 'task_listview.dart';
 import 'task_overview.dart';
@@ -32,7 +32,7 @@ class _TaskPageState extends State<TaskView> {
   _TabKeys? tabKeyValue = _TabKeys.overview;
 
   TaskViewController get _controller => taskViewController;
-  Task get task => _controller.selectedTask!;
+  Task get task => _controller.selectedTask;
 
   Widget tabPaneSelector() => Padding(
         padding: EdgeInsets.symmetric(horizontal: onePadding),
@@ -46,7 +46,7 @@ class _TaskPageState extends State<TaskView> {
         ),
       );
 
-  Widget overviewPane() => TaskOverview(task);
+  Widget overviewPane() => TaskOverview();
 
   Widget tasksPane() => Column(
         children: [
@@ -62,7 +62,10 @@ class _TaskPageState extends State<TaskView> {
 
   Widget selectedPane() => {_TabKeys.overview: overviewPane(), _TabKeys.tasks: tasksPane()}[tabKeyValue] ?? overviewPane();
 
-  Widget taskPage() => MTPage(
+  @override
+  Widget build(BuildContext context) {
+    return Observer(
+      builder: (_) => MTPage(
         isLoading: _controller.isLoading,
         navBar: navBar(
           context,
@@ -86,7 +89,7 @@ class _TaskPageState extends State<TaskView> {
               MTButton.icon(editIcon(context), () => _controller.editTask(context)),
               SizedBox(width: onePadding),
             ],
-            if (_controller.selectedTask!.hasLink) ...[
+            if (_controller.selectedTask.hasLink) ...[
               MTButton.icon(unlinkIcon(context), () => _controller.unlink(context)),
               SizedBox(width: onePadding),
             ],
@@ -95,33 +98,27 @@ class _TaskPageState extends State<TaskView> {
         body: SafeArea(
           top: false,
           bottom: false,
-          child: ListView(
-            children: [
-              if (_controller.isRoot)
-                tasksPane()
-              else ...[
-                TaskHeader(task),
-                if (task.hasSubtasks) ...[
-                  SizedBox(height: onePadding / 2),
-                  tabPaneSelector(),
-                ],
-                selectedPane(),
-              ],
-              if (!task.hasSubtasks && _controller.canAdd)
-                EmptyDataWidget(
-                  title: loc.task_list_empty_title,
-                  addTitle: loc.task_title_new,
-                  onAdd: () => _controller.addTask(context),
+          child: (_controller.isRoot && !task.hasSubtasks)
+              // TODO: для проектов и целей другой текст
+              ? TaskAddAction()
+              : ListView(
+                  children: [
+                    if (_controller.isRoot)
+                      tasksPane()
+                    else ...[
+                      TaskHeader(task),
+                      if (task.hasSubtasks) ...[
+                        SizedBox(height: onePadding),
+                        tabPaneSelector(),
+                      ],
+                      selectedPane(),
+                    ],
+                    // TODO: для проектов и целей другой текст
+                    if (!task.hasSubtasks && _controller.canAdd) TaskAddAction(),
+                  ],
                 ),
-            ],
-          ),
         ),
-      );
-
-  @override
-  Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) => taskViewController.selectedTask != null ? taskPage() : Container(),
+      ),
     );
   }
 }

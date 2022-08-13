@@ -92,12 +92,13 @@ class _TaskEditViewState extends State<TaskEditView> {
       child: ListView(children: [
         if (_controller.isRoot && _controller.isNew) _controller.wsDropdown(context),
         ...['title', 'dueDate', 'description'].map((code) => textFieldForCode(context, code)),
-        MTDropdown<Status>(
-          onChanged: (status) => _controller.selectStatus(status),
-          value: _controller.selectedStatus,
-          items: _controller.statuses,
-          label: loc.common_status_placeholder,
-        ),
+        if (_controller.statuses.isNotEmpty)
+          MTDropdown<Status>(
+            onChanged: (status) => _controller.selectStatus(status),
+            value: _controller.selectedStatus,
+            items: _controller.statuses,
+            label: loc.common_status_placeholder,
+          ),
         Padding(
           padding: tfPadding,
           child: InkWell(
@@ -110,8 +111,12 @@ class _TaskEditViewState extends State<TaskEditView> {
           ),
         ),
         if (!_controller.isNew)
-          MTButton(loc.common_delete_btn_title, () => _controller.delete(context),
-              titleColor: dangerColor, padding: EdgeInsets.only(top: onePadding)),
+          MTButton(
+            loc.common_delete_btn_title,
+            () => _controller.delete(context),
+            titleColor: dangerColor,
+            padding: EdgeInsets.only(top: onePadding),
+          ),
         SizedBox(height: onePadding),
       ]),
     );

@@ -8,7 +8,8 @@ import '../../../L1_domain/entities/source.dart';
 import '../../components/close_dialog_button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/empty_data_widget.dart';
+import '../../components/icons.dart';
+import '../../components/mt_action.dart';
 import '../../components/mt_bottom_sheet.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_divider.dart';
@@ -61,10 +62,11 @@ class _ImportViewState extends State<ImportView> {
 
   Widget get sourceDropdown => sourceController.sources.isEmpty
       ? Expanded(
-          child: EmptyDataWidget(
-            title: loc.source_list_empty_title,
-            addTitle: loc.source_title_new,
-            onAdd: () => _controller.addSource(context),
+          child: MTAction(
+            hint: loc.source_list_empty_title,
+            title: loc.source_title_new,
+            icon: plusIcon(context, size: 24),
+            onPressed: () => _controller.addSource(context),
           ),
         )
       : MTDropdown<Source>(
@@ -80,8 +82,8 @@ class _ImportViewState extends State<ImportView> {
       sourceDropdown,
       if (_controller.selectedSource != null) ...[
         if (_controller.remoteTasks.isEmpty)
-          EmptyDataWidget(
-            title:
+          MTAction(
+            hint:
                 _controller.errorCode != null ? Intl.message(_controller.errorCode!, name: _controller.errorCode) : loc.task_import_list_empty_title,
             color: _controller.errorCode != null ? warningColor : null,
           ),

@@ -73,13 +73,17 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
 
   @action
   Future fetchData() async {
-    clearData();
+    final tasks = <Task>[];
     for (Workspace ws in mainController.workspaces) {
       if (ws.id != null) {
-        rootTask.tasks.addAll(await tasksUC.getRoots(ws.id!));
+        tasks.addAll(await tasksUC.getRoots(ws.id!));
       }
     }
+    rootTask.tasks = tasks;
     _touchRoot();
+    // TODO: чтобы сохранять положение в навигации внутри приложения, нужно отправлять набор хлебных крошек на сервер в профиль пользователя
+    // TODO: а также нужно проверять корректность пути этого при загрузке, чтобы не было зацикливаний, обрывов и т.п.
+    navStack.clear();
   }
 
   /// костыль для обновления selectedTask по сути...
@@ -90,7 +94,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   void clearData() {
     navStack.clear();
     rootTask.tasks.clear();
-    rootTask = rootTask.copy();
+    _touchRoot();
   }
 
   Task _parentTask(Task _task) => rootTask.allTasks.firstWhereOrNull((t) => t.id == _task.parentId) ?? rootTask;

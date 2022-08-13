@@ -25,16 +25,21 @@ Widget sourceTypeIcon(BuildContext context, SourceType st) {
   return icon;
 }
 
-Widget sourceInfo(BuildContext context, Source s) => Row(children: [
-      Column(children: [
-        sourceTypeIcon(context, s.type),
-        SizedBox(height: onePadding / 3),
-        MTCircle(color: s.connected ? Colors.green : warningColor),
-      ]),
-      SizedBox(width: onePadding / 2),
-      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        NormalText('${s.description.isEmpty ? s.type.title : s.description}'),
-        SizedBox(height: onePadding / 6),
-        SmallText(s.url),
-      ]),
-    ]);
+Widget sourceInfo(BuildContext context, Source s) {
+  final isUnknown = s.state == SrcState.unknown;
+  final connected = s.state == SrcState.connected;
+  final textColor = connected ? null : lightGreyColor;
+  return Row(children: [
+    Column(children: [
+      sourceTypeIcon(context, s.type),
+      SizedBox(height: onePadding / 3),
+      isUnknown ? connectingIcon(context) : MTCircle(color: connected ? Colors.green : warningColor),
+    ]),
+    SizedBox(width: onePadding / 2),
+    Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      NormalText('${s.description.isEmpty ? s.type.title : s.description}', color: textColor),
+      SizedBox(height: onePadding / 6),
+      SmallText(s.url, color: textColor),
+    ]),
+  ]);
+}

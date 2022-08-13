@@ -27,11 +27,8 @@ abstract class _SettingsControllerBase extends BaseController with Store {
 
   @action
   Future fetchData() async {
-    // startLoading();
-    clearData();
     await settingsUC.updateVersion(packageInfo.version);
     settings = await settingsUC.getSettings();
-    // stopLoading();
   }
 
   @action

@@ -34,21 +34,24 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
 
   @action
   Future fetchData() async {
-    // startLoading();
-    clearData();
+    final _sources = <Source>[];
     for (Workspace ws in mainController.workspaces) {
-      sources.addAll(ws.sources);
+      _sources.addAll(ws.sources);
     }
-    _sortAndCheckSources();
+    sources = ObservableList.of(_sources);
+    _sortSources();
+    _checkSources(sources);
 
     final _sTypes = await sourceTypesUC.getAll();
     _sTypes.sort((s1, s2) => s1.title.compareTo(s2.title));
     sTypes = ObservableList.of(_sTypes);
-    // stopLoading();
   }
 
   @action
-  void clearData() => sources.clear();
+  void clearData() {
+    sources.clear();
+    sTypes.clear();
+  }
 
   @observable
   int? selectedTypeId;
@@ -88,25 +91,29 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
   bool get validated => super.validated && selectedType != null && selectedWS != null;
 
   @action
-  Future _sortAndCheckSources() async {
-    for (int i = 0; i < sources.length; i++) {
-      bool connected = false;
-      final id = sources[i].id;
-      try {
-        if (id != null) {
-          connected = (await importUC.getRootTasks(id)).isNotEmpty;
+  Future _checkSources(List<Source> _sources) async {
+    for (int i = 0; i < _sources.length; i++) {
+      final index = sources.indexWhere((s) => s.id == _sources[i].id);
+      if (index >= 0) {
+        try {
+          final id = sources[index].id;
+          if (id != null) {
+            sources[index].state = (await importUC.getRootTasks(id)).isNotEmpty ? SrcState.connected : SrcState.error;
+          }
+        } catch (_) {
+          sources[index].state = SrcState.error;
         }
-      } catch (_) {}
-      sources[i].connected = connected;
+      }
     }
-    sources.sort((s1, s2) => s1.url.compareTo(s2.url));
     sources = ObservableList.of(sources);
   }
 
   @action
-  void _updateSourceInList(Source? _s) {
+  void _sortSources() => sources.sort((s1, s2) => s1.url.compareTo(s2.url));
+
+  @action
+  Future _updateSourceInList(Source? _s) async {
     if (_s != null) {
-      startLoading();
       final index = sources.indexWhere((s) => s.id == _s.id);
       if (index >= 0) {
         if (_s.deleted) {
@@ -117,8 +124,8 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
       } else {
         sources.add(_s);
       }
-      _sortAndCheckSources();
-      stopLoading();
+      _sortSources();
+      await _checkSources([_s]);
     }
   }
 
@@ -171,10 +178,7 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
     selectSource(rt);
     final s = await showEditSourceDialog(context);
     if (s != null) {
-      _updateSourceInList(s);
-      // if (s.deleted) {
-      //   Navigator.of(context).pop();
-      // }
+      await _updateSourceInList(s);
     }
   }
 }

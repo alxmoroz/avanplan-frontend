@@ -6,6 +6,12 @@ class SourceType extends Titleable {
   SourceType({required int id, required String title}) : super(id: id, title: title);
 }
 
+enum SrcState {
+  connected,
+  error,
+  unknown,
+}
+
 class Source extends RPersistable {
   Source({
     int? id,
@@ -16,7 +22,7 @@ class Source extends RPersistable {
     this.login,
     this.password,
     this.description = '',
-    this.connected = false,
+    this.state = SrcState.unknown,
   }) : super(id: id);
 
   final int workspaceId;
@@ -26,5 +32,5 @@ class Source extends RPersistable {
   final String? login;
   final String? password;
   final String description;
-  bool connected;
+  SrcState state;
 }

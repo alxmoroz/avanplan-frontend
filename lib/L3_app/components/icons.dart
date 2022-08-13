@@ -4,11 +4,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
+import 'constants.dart';
 
 Widget refreshIcon(BuildContext context, {Color? color, double? size}) => Icon(
       CupertinoIcons.refresh_thin,
       color: (color ?? mainColor).resolve(context),
       size: size ?? 30,
+    );
+
+Widget connectingIcon(BuildContext context, {Color? color, double? size}) => Icon(
+      CupertinoIcons.antenna_radiowaves_left_right,
+      color: (color ?? darkGreyColor).resolve(context),
+      size: size ?? onePadding,
     );
 
 Widget importIcon(BuildContext context, {Color? color, double? size}) => Icon(

@@ -16,10 +16,7 @@ abstract class _UserControllerBase extends BaseController with Store {
 
   @action
   Future fetchData() async {
-    // startLoading();
-    clearData();
     currentUser = await usersUC.getCurrentUser();
-    // stopLoading();
   }
 
   @action

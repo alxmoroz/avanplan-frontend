@@ -30,7 +30,6 @@ abstract class _ImportControllerBase extends EditController with Store {
   @action
   Future fetchTasks(int sourceID) async {
     startLoading();
-    clearData();
     if (loginController.authorized) {
       try {
         remoteTasks = ObservableList.of(await importUC.getRootTasks(sourceID));

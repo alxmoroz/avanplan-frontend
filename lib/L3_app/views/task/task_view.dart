@@ -17,7 +17,7 @@ import '../task/task_filter_dropdown.dart';
 import 'task_add_action.dart';
 import 'task_header.dart';
 import 'task_listview.dart';
-import 'task_overview.dart';
+import 'task_overview_pane.dart';
 import 'task_view_controller.dart';
 
 enum _TabKeys { overview, tasks }

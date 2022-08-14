@@ -1,10 +1,13 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../L1_domain/entities/task.dart';
+import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
+import '../../components/mt_button.dart';
 import '../../components/mt_divider.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
@@ -39,11 +42,18 @@ class TaskHeader extends StatelessWidget {
         ],
         Row(children: [
           Expanded(child: H2(task.title, decoration: task.closed ? TextDecoration.lineThrough : null)),
-          if (task.hasLink) ...[
-            SizedBox(height: onePadding / 3),
-            linkIcon(context),
-            sourceTypeIcon(context, task.taskSource!.source.type),
-          ],
+          if (task.hasLink)
+            MTButton(
+              '',
+              () => launchUrl(task.taskSource!.uri),
+              child: Row(
+                children: [
+                  SizedBox(width: onePadding / 3),
+                  linkIcon(context, size: 22, color: mainColor),
+                  sourceTypeIcon(context, task.taskSource!.source.type),
+                ],
+              ),
+            ),
         ]),
       ]),
     );

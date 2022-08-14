@@ -83,6 +83,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
     tasks.forEach((t) => t.parent = rootTask);
     rootTask.tasks = tasks;
 
+    rootTask = rootTask.copy();
     // TODO: чтобы сохранять положение в навигации внутри приложения, нужно отправлять набор хлебных крошек на сервер в профиль пользователя
     // TODO: а также нужно проверять корректность пути этого при загрузке, чтобы не было зацикливаний, обрывов и т.п.
     navStack.clear();

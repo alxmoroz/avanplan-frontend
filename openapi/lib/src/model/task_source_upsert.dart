@@ -13,6 +13,7 @@ part 'task_source_upsert.g.dart';
 /// * [id] 
 /// * [code] 
 /// * [keepConnection] 
+/// * [url] 
 /// * [sourceId] 
 abstract class TaskSourceUpsert implements Built<TaskSourceUpsert, TaskSourceUpsertBuilder> {
     @BuiltValueField(wireName: r'id')
@@ -23,6 +24,9 @@ abstract class TaskSourceUpsert implements Built<TaskSourceUpsert, TaskSourceUps
 
     @BuiltValueField(wireName: r'keep_connection')
     bool get keepConnection;
+
+    @BuiltValueField(wireName: r'url')
+    String get url;
 
     @BuiltValueField(wireName: r'source_id')
     int get sourceId;
@@ -64,6 +68,10 @@ class _$TaskSourceUpsertSerializer implements StructuredSerializer<TaskSourceUps
             ..add(serializers.serialize(object.keepConnection,
                 specifiedType: const FullType(bool)));
         result
+            ..add(r'url')
+            ..add(serializers.serialize(object.url,
+                specifiedType: const FullType(String)));
+        result
             ..add(r'source_id')
             ..add(serializers.serialize(object.sourceId,
                 specifiedType: const FullType(int)));
@@ -96,6 +104,11 @@ class _$TaskSourceUpsertSerializer implements StructuredSerializer<TaskSourceUps
                     final valueDes = serializers.deserialize(value,
                         specifiedType: const FullType(bool)) as bool;
                     result.keepConnection = valueDes;
+                    break;
+                case r'url':
+                    final valueDes = serializers.deserialize(value,
+                        specifiedType: const FullType(String)) as String;
+                    result.url = valueDes;
                     break;
                 case r'source_id':
                     final valueDes = serializers.deserialize(value,

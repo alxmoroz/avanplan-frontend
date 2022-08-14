@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **code** | **String** |  | 
 **keepConnection** | **bool** |  | 
+**url** | **String** |  | [optional] 
 **parentCode** | **String** |  | [optional] 
 **versionCode** | **String** |  | [optional] 
 

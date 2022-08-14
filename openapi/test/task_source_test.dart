@@ -17,6 +17,11 @@ void main() {
       // TODO
     });
 
+    // String url
+    test('to test the property `url`', () async {
+      // TODO
+    });
+
     // String parentCode
     test('to test the property `parentCode`', () async {
       // TODO

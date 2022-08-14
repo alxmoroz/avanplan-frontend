@@ -22,6 +22,11 @@ void main() {
       // TODO
     });
 
+    // String url
+    test('to test the property `url`', () async {
+      // TODO
+    });
+
     // SourceGet source_
     test('to test the property `source_`', () async {
       // TODO

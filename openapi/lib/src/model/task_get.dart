@@ -29,7 +29,6 @@ part 'task_get.g.dart';
 /// * [status] 
 /// * [taskSource] 
 /// * [tasks] 
-/// * [parentId] 
 abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
     @BuiltValueField(wireName: r'id')
     int get id;
@@ -72,9 +71,6 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
 
     @BuiltValueField(wireName: r'tasks')
     BuiltList<TaskGet>? get tasks;
-
-    @BuiltValueField(wireName: r'parent_id')
-    int? get parentId;
 
     TaskGet._();
 
@@ -173,12 +169,6 @@ class _$TaskGetSerializer implements StructuredSerializer<TaskGet> {
                 ..add(serializers.serialize(object.tasks,
                     specifiedType: const FullType(BuiltList, [FullType(TaskGet)])));
         }
-        if (object.parentId != null) {
-            result
-                ..add(r'parent_id')
-                ..add(serializers.serialize(object.parentId,
-                    specifiedType: const FullType(int)));
-        }
         return result;
     }
 
@@ -263,11 +253,6 @@ class _$TaskGetSerializer implements StructuredSerializer<TaskGet> {
                     final valueDes = serializers.deserialize(value,
                         specifiedType: const FullType(BuiltList, [FullType(TaskGet)])) as BuiltList<TaskGet>;
                     result.tasks.replace(valueDes);
-                    break;
-                case r'parent_id':
-                    final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(int)) as int;
-                    result.parentId = valueDes;
                     break;
             }
         }

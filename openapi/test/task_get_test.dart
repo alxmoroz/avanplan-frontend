@@ -76,10 +76,5 @@ void main() {
     test('to test the property `tasks`', () async {
       // TODO
     });
-
-    // int parentId
-    test('to test the property `parentId`', () async {
-      // TODO
-    });
   });
 }

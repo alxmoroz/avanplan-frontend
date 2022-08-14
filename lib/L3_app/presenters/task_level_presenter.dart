@@ -57,4 +57,13 @@ extension TaskLevelPresenter on Task {
         TaskLevel.goal: loc.task_list_empty_title,
       }[level] ??
       loc.subtask_list_empty_title;
+
+  String get deleteDialogTitle =>
+      {
+        TaskLevel.workspace: loc.workspace_delete_dialog_title,
+        TaskLevel.project: loc.project_delete_dialog_title,
+        TaskLevel.goal: loc.goal_delete_dialog_title,
+        TaskLevel.task: loc.task_delete_dialog_title,
+      }[level] ??
+      loc.subtask_delete_dialog_title;
 }

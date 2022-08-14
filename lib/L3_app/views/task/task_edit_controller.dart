@@ -10,6 +10,7 @@ import '../../components/mt_confirm_dialog.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';
+import '../../presenters/task_level_presenter.dart';
 import '../workspace/workspace_bounded.dart';
 
 part 'task_edit_controller.g.dart';
@@ -119,7 +120,7 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
   Future delete(BuildContext context) async {
     final confirm = await showMTDialog<bool?>(
       context,
-      title: loc.task_delete_dialog_title,
+      title: taskForEdit!.deleteDialogTitle,
       description: '${loc.task_delete_dialog_description}\n${loc.common_delete_dialog_description}',
       actions: [
         MTDialogAction(title: loc.common_yes, isDestructive: true, result: true),

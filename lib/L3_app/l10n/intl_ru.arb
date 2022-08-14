@@ -20,6 +20,7 @@
   "common_title": "Название",
   "common_yes": "Да",
 
+  "goal_delete_dialog_title": "Удалить цель?",
   "goal_list_empty_title": "Нет целей",
   "goal_list_title": "Цели",
   "goal_new_title": "Новая цель",
@@ -29,6 +30,7 @@
 
   "overview": "Обзор",
 
+  "project_delete_dialog_title": "Удалить проект?",
   "project_list_empty_title": "Нет проектов",
   "project_list_title": "Проекты",
   "project_new_title": "Новый проект",
@@ -44,6 +46,7 @@
   "source_type_placeholder": "Тип источника",
   "source_url_placeholder": "URL",
 
+  "subtask_delete_dialog_title": "Удалить подзадачу?",
   "subtask_list_empty_title": "Нет подзадач",
   "subtask_list_title": "Подзадачи",
   "subtask_new_title": "Новая подзадача",
@@ -58,8 +61,8 @@
   "task_import_import_link_btn_title": "Отслеживать задачи",
   "task_import_import_ro_btn_title": "Импортировать задачи",
   "task_import_title": "Импорт задач",
-  "task_import_title_error_get_list": "Ошибка получения списка задач\nПопробуйте выбрать другой источник",
-  "task_import_list_empty_title": "Нет доступных для импорта задач\nПопробуйте выбрать другой источник",
+  "task_import_title_error_get_list": "Ошибка получения списка проектов\nПопробуйте выбрать другой источник",
+  "task_import_list_empty_title": "Нет доступных для импорта проектов\nПопробуйте выбрать другой источник",
 
   "task_filter_all": "Все",
   "task_filter_no_due": "Без срока",
@@ -78,7 +81,7 @@
   "task_state_close_btn_title": "Завершить",
   "task_state_closable_hint": "Ура! Не осталось открытых подзадач",
   "task_state_reopen_btn_title": "Переоткрыть",
-  "task_state_no_info_title": "Ставьте сроки, разделяйте на подзадачи",
+  "task_state_no_info_title": "Ставьте сроки, разделяйте на задачи",
   "task_state_ok_title": "Всё идёт по плану",
   "task_state_overdue_details": "Отставание на",
   "task_state_overdue_title": "Опаздываем",
@@ -94,5 +97,6 @@
 
   "validation_empty_text": "Нужно заполнить",
 
+  "workspace_delete_dialog_title": "Удалить рабочее пространство?",
   "workspace_title": "Рабочее пространство"
 }

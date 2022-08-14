@@ -19,6 +19,7 @@
   "common_title": "Title",
   "common_yes": "Yes",
 
+  "goal_delete_dialog_title": "Delete goal?",
   "goal_list_empty_title": "There are no goals",
   "goal_list_title": "Goals",
   "goal_new_title": "New goal",
@@ -28,6 +29,7 @@
 
   "overview": "Overview",
 
+  "project_delete_dialog_title": "Delete project?",
   "project_list_empty_title": "There are no projects",
   "project_list_title": "Projects",
   "project_new_title": "New project",
@@ -43,6 +45,7 @@
   "source_type_placeholder": "Import sources type",
   "source_url_placeholder": "URL",
 
+  "subtask_delete_dialog_title": "Delete subtask?",
   "subtask_list_empty_title": "here are no subtasks",
   "subtask_list_title": "Subtasks",
   "subtask_new_title": "New subtask",
@@ -56,9 +59,9 @@
 
   "task_import_import_link_btn_title": "Track tasks (read only)",
   "task_import_import_ro_btn_title": "Import tasks",
-  "task_import_list_empty_title": "There are no tasks available to import\nTry choosing a different source",
+  "task_import_list_empty_title": "There are no projects available to import\nTry choosing a different source",
   "task_import_title": "Import tasks",
-  "task_import_title_error_get_list": "Error getting tasks\nTry choosing a different source",
+  "task_import_title_error_get_list": "Error getting projects\nTry choosing a different source",
 
   "task_filter_all": "All",
   "task_filter_no_due": "No due date",
@@ -77,7 +80,7 @@
   "task_state_close_btn_title": "Close task",
   "task_state_closable_hint": "Hooray! No open subtasks left",
   "task_state_reopen_btn_title": "Reopen task",
-  "task_state_no_info_title": "Set deadlines, set subtasks",
+  "task_state_no_info_title": "Set deadlines and tasks",
   "task_state_ok_title": "All according to plan",
   "task_state_overdue_details": "Total overdue is",
   "task_state_overdue_title": "There are overdue",
@@ -93,5 +96,6 @@
 
   "validation_empty_text": "Should not be empty",
 
+  "workspace_delete_dialog_title": "Delete workspace?",
   "workspace_title": "Workspace"
 }

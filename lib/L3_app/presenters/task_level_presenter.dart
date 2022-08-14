@@ -34,6 +34,14 @@ extension TaskLevelPresenter on Task {
 
   String get viewTitle => '$_levelName #$id';
 
+  String get listTitle =>
+      {
+        TaskLevel.workspace: loc.project_list_title,
+        TaskLevel.project: loc.goal_list_title,
+        TaskLevel.goal: loc.task_list_title,
+      }[level] ??
+      loc.subtask_list_title;
+
   String get newSubtaskTitle =>
       {
         TaskLevel.workspace: loc.project_new_title,

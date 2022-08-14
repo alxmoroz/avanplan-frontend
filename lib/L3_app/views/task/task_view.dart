@@ -40,7 +40,7 @@ class _TaskPageState extends State<TaskView> {
         child: CupertinoSlidingSegmentedControl<_TabKeys>(
           children: {
             _TabKeys.overview: NormalText(loc.overview),
-            _TabKeys.tasks: NormalText(loc.task_list_title),
+            _TabKeys.tasks: NormalText(task.listTitle),
           },
           groupValue: tabKeyValue,
           onValueChanged: (value) => setState(() => tabKeyValue = value),
@@ -70,7 +70,7 @@ class _TaskPageState extends State<TaskView> {
         isLoading: _controller.isLoading,
         navBar: navBar(
           context,
-          title: _controller.isWorkspace ? loc.project_list_title : '${task.viewTitle}',
+          title: _controller.isWorkspace ? loc.project_list_title : task.viewTitle,
           leading: _controller.canRefresh
               ? Row(children: [
                   SizedBox(width: onePadding),

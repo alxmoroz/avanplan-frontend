@@ -94,5 +94,5 @@
 
   "validation_empty_text": "Нужно заполнить",
 
-  "workspace_placeholder": "Рабочее пространство"
+  "workspace_title": "Рабочее пространство"
 }

@@ -58,8 +58,7 @@ class _MainDashboardViewState extends State<MainDashboardView> {
             top: false,
             bottom: false,
             child: !rootTask.hasOpenedTasks
-                // TODO: тут должен быть текст про проекты только
-                ? TaskAddAction()
+                ? TaskAddAction(rootTask)
                 : ListView(
                     shrinkWrap: true,
                     children: [

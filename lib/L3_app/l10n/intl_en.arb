@@ -93,5 +93,5 @@
 
   "validation_empty_text": "Should not be empty",
 
-  "workspace_placeholder": "Workspace"
+  "workspace_title": "Workspace"
 }

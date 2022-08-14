@@ -70,7 +70,7 @@ class _TaskPageState extends State<TaskView> {
         isLoading: _controller.isLoading,
         navBar: navBar(
           context,
-          title: _controller.isRoot ? loc.project_list_title : '${task.viewTitle} #${task.id}',
+          title: _controller.isWorkspace ? loc.project_list_title : '${task.viewTitle}',
           leading: _controller.canRefresh
               ? Row(children: [
                   SizedBox(width: onePadding),
@@ -99,12 +99,11 @@ class _TaskPageState extends State<TaskView> {
         body: SafeArea(
           top: false,
           bottom: false,
-          child: (_controller.isRoot && !task.hasSubtasks)
-              // TODO: для проектов и целей другой текст
-              ? TaskAddAction()
+          child: (_controller.isWorkspace && !task.hasSubtasks)
+              ? TaskAddAction(task)
               : ListView(
                   children: [
-                    if (_controller.isRoot)
+                    if (_controller.isWorkspace)
                       tasksPane()
                     else ...[
                       TaskHeader(task),
@@ -114,8 +113,13 @@ class _TaskPageState extends State<TaskView> {
                       ],
                       selectedPane(),
                     ],
-                    // TODO: для проектов и целей другой текст
-                    if (!task.hasSubtasks && _controller.canAdd) TaskAddAction(),
+                    if (!task.hasSubtasks &&
+                        _controller.canAdd &&
+                        [
+                          TaskLevel.project,
+                          TaskLevel.goal,
+                        ].contains(task.level))
+                      TaskAddAction(task),
                   ],
                 ),
         ),

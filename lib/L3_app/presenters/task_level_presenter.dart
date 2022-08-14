@@ -3,7 +3,7 @@
 import '../../L1_domain/entities/task.dart';
 import '../extra/services.dart';
 
-enum TaskLevel { project, goal, task, subtask }
+enum TaskLevel { workspace, project, goal, task, subtask }
 
 extension TaskLevelPresenter on Task {
   int get _level {
@@ -14,8 +14,39 @@ extension TaskLevelPresenter on Task {
     return res;
   }
 
-  TaskLevel get level => {1: TaskLevel.project, 2: TaskLevel.goal, 3: TaskLevel.task}[_level] ?? TaskLevel.subtask;
+  TaskLevel get level =>
+      {
+        1: TaskLevel.workspace,
+        2: TaskLevel.project,
+        3: TaskLevel.goal,
+        4: TaskLevel.task,
+      }[_level] ??
+      TaskLevel.subtask;
 
-  String get viewTitle =>
-      {TaskLevel.project: loc.project_title, TaskLevel.goal: loc.goal_title, TaskLevel.task: loc.task_title}[level] ?? loc.subtask_title;
+  String get _levelName =>
+      {
+        TaskLevel.workspace: loc.workspace_title,
+        TaskLevel.project: loc.project_title,
+        TaskLevel.goal: loc.goal_title,
+        TaskLevel.task: loc.task_title,
+      }[level] ??
+      loc.subtask_title;
+
+  String get viewTitle => '$_levelName #$id';
+
+  String get newSubtaskTitle =>
+      {
+        TaskLevel.workspace: loc.project_new_title,
+        TaskLevel.project: loc.goal_new_title,
+        TaskLevel.goal: loc.task_new_title,
+      }[level] ??
+      loc.subtask_new_title;
+
+  String get noSubtasksTitle =>
+      {
+        TaskLevel.workspace: loc.project_list_empty_title,
+        TaskLevel.project: loc.goal_list_empty_title,
+        TaskLevel.goal: loc.task_list_empty_title,
+      }[level] ??
+      loc.subtask_list_empty_title;
 }

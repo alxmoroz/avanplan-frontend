@@ -18,6 +18,7 @@ import '../../components/navbar.dart';
 import '../../components/text_field_annotation.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
+import '../../presenters/task_level_presenter.dart';
 import 'task_edit_controller.dart';
 
 //TODO: подумать над унификацией полей. Возможно, получится избавиться от дуэта MTField и TFAnnotation
@@ -90,7 +91,7 @@ class _TaskEditViewState extends State<TaskEditView> {
     return Scrollbar(
       thumbVisibility: true,
       child: ListView(children: [
-        if (taskViewController.isRoot && _controller.isNew) _controller.wsDropdown(context),
+        if (taskViewController.isWorkspace && _controller.isNew) _controller.wsDropdown(context),
         ...['title', 'dueDate', 'description'].map((code) => textFieldForCode(context, code)),
         if (_controller.statuses.isNotEmpty)
           MTDropdown<Status>(
@@ -129,7 +130,7 @@ class _TaskEditViewState extends State<TaskEditView> {
         navBar: navBar(
           context,
           leading: CloseDialogButton(),
-          title: _task == null ? loc.task_new_title : '',
+          title: _controller.isNew ? _controller.parent?.newSubtaskTitle : '',
           trailing: MTButton(
             loc.common_save_btn_title,
             _controller.validated ? () => _controller.save(context) : null,

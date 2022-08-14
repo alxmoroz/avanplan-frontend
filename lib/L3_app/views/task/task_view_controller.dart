@@ -10,6 +10,7 @@ import '../../../L1_domain/entities/task_source.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/mt_confirm_dialog.dart';
 import '../../extra/services.dart';
+import '../../presenters/task_level_presenter.dart';
 import '../../presenters/task_stats_presenter.dart';
 import '../_base/base_controller.dart';
 import '../task/task_edit_view.dart';
@@ -43,20 +44,20 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   Task get selectedTask => rootTask.allTasks.firstWhereOrNull((t) => t.id == _selectedTaskId) ?? rootTask;
 
   @computed
-  bool get isRoot => selectedTask == rootTask;
+  bool get isWorkspace => selectedTask.level == TaskLevel.workspace;
 
   /// доступные действия
   @computed
   bool get canAdd => !(selectedTask.hasLink || selectedTask.closed);
 
   @computed
-  bool get canEdit => !(selectedTask.hasLink || isRoot);
+  bool get canEdit => !(selectedTask.hasLink || isWorkspace);
 
   @computed
-  bool get canImport => isRoot;
+  bool get canImport => isWorkspace;
 
   @computed
-  bool get canRefresh => isRoot;
+  bool get canRefresh => isWorkspace;
 
   @action
   void _pushTask(Task _task) => navStack.add(_task);
@@ -79,47 +80,42 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
         tasks.addAll(await tasksUC.getRoots(ws.id!));
       }
     }
+    tasks.forEach((t) => t.parent = rootTask);
     rootTask.tasks = tasks;
-    _touchRoot();
+
     // TODO: чтобы сохранять положение в навигации внутри приложения, нужно отправлять набор хлебных крошек на сервер в профиль пользователя
     // TODO: а также нужно проверять корректность пути этого при загрузке, чтобы не было зацикливаний, обрывов и т.п.
     navStack.clear();
   }
 
-  /// костыль для обновления selectedTask по сути...
-  @action
-  void _touchRoot() => rootTask = rootTask.copy();
-
   @action
   void clearData() {
     navStack.clear();
-    rootTask.tasks.clear();
-    _touchRoot();
+    rootTask.tasks = [];
   }
 
-  @action
-  void _updateTask(Task _task) {
-    final _parent = _task.parent ?? rootTask;
-    final index = _parent.tasks.indexWhere((t) => t.id == _task.id);
-    if (index >= 0) {
-      if (_task.deleted) {
-        _parent.tasks.removeAt(index);
-      } else {
-        //TODO: проверить необходимость в copy
-        _parent.tasks[index] = _task.copy();
+  void _updateParentTask(Task _task) {
+    final _parent = _task.parent;
+    if (_parent != null) {
+      final index = _parent.tasks.indexWhere((t) => t.id == _task.id);
+      if (index >= 0) {
+        if (_task.deleted) {
+          _parent.tasks.removeAt(index);
+        } else {
+          //TODO: проверить необходимость в copy
+          _parent.tasks[index] = _task.copy();
+        }
       }
+      rootTask = rootTask.copy();
     }
   }
 
-  @action
   void _updateParents(Task _task) {
-    final _parent = _task.parent ?? rootTask;
-    if (_parent != rootTask) {
+    final _parent = _task.parent;
+    if (_parent != null) {
       _updateParents(_parent);
     }
-    _updateTask(_task);
-
-    _touchRoot();
+    _updateParentTask(_task);
   }
 
   /// роутер

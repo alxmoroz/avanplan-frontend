@@ -32,7 +32,7 @@ abstract class _WorkspaceBoundedBase extends EditController with Store {
             onChanged: (ws) => selectWS(ws?.id),
             value: selectedWS,
             items: mainController.workspaces,
-            label: loc.workspace_placeholder,
+            label: loc.workspace_title,
           )
         : Container();
   }

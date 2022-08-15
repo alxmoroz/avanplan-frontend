@@ -8,6 +8,8 @@
   "auth_password_placeholder": "Пароль",
   "auth_user_placeholder": "Пользователь",
 
+  "backlog": "Бэклог",
+
   "common_days_count": "{count, plural, one{{count} день} few{{count} дня} other{{count} дней}}",
   "common_delete_btn_title": "Удалить",
   "common_delete_dialog_description": "Это действие нельзя будет отменить!",
@@ -21,6 +23,7 @@
   "common_yes": "Да",
 
   "goal_delete_dialog_title": "Удалить цель?",
+  "goal_for_orphaned_tasks": "Задачи без целей",
   "goal_list_empty_title": "Нет целей",
   "goal_list_title": "Цели",
   "goal_new_title": "Новая цель",

@@ -8,6 +8,8 @@
   "auth_password_placeholder": "Password",
   "auth_user_placeholder": "User",
 
+  "backlog": "Backlog",
+
   "common_days_count": "{count, plural, one{{count} day} other{{count} days}}",
   "common_delete_btn_title": "Delete",
   "common_description": "Description",
@@ -20,6 +22,7 @@
   "common_yes": "Yes",
 
   "goal_delete_dialog_title": "Delete goal?",
+  "goal_for_orphaned_tasks": "Tasks without goals",
   "goal_list_empty_title": "There are no goals",
   "goal_list_title": "Goals",
   "goal_new_title": "New goal",

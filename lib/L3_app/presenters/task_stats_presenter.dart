@@ -12,15 +12,16 @@ extension TaskStats on Task {
   Duration? get _overduePeriod => hasDueDate ? DateTime.now().difference(dueDate!) : null;
 
   double get _factSpeed => closedTasksCount / _pastPeriod.inSeconds;
-  DateTime? get etaDate =>
-      _factSpeed > 0 && openedLeafTasksCount > 0 ? DateTime.now().add(Duration(seconds: (openedLeafTasksCount / _factSpeed).round())) : null;
+  DateTime? get etaDate => (hasDueDate && _factSpeed > 0 && openedLeafTasksCount > 0)
+      ? DateTime.now().add(Duration(seconds: (openedLeafTasksCount / _factSpeed).round()))
+      : null;
+  bool get hasEtaDate => etaDate != null;
 
-  Duration? get _etaRiskPeriod => dueDate != null ? etaDate?.difference(dueDate!) : null;
+  Duration? get _etaRiskPeriod => hasDueDate ? etaDate?.difference(dueDate!) : null;
 
-  bool get _hasEtaDate => etaDate != null;
   bool get _hasOverdue => hasDueDate && (_overduePeriod?.inSeconds ?? 0) > 0;
-  bool get _hasRisk => hasDueDate && _hasEtaDate && (_etaRiskPeriod?.inSeconds ?? 0) > 0;
-  bool get _isOk => hasDueDate && _hasEtaDate && (_etaRiskPeriod?.inSeconds ?? 0) <= 0;
+  bool get _hasRisk => hasDueDate && hasEtaDate && (_etaRiskPeriod?.inSeconds ?? 0) > 0;
+  bool get _isOk => hasDueDate && hasEtaDate && (_etaRiskPeriod?.inSeconds ?? 0) <= 0;
 
   bool get hasSubtasks => tasks.isNotEmpty;
   bool get hasLink => taskSource?.keepConnection == true;
@@ -47,7 +48,7 @@ extension TaskStats on Task {
   Iterable<Task> get _openedLeafTasks => _leafTasks.where((t) => !t.closed);
   int get openedLeafTasksCount => _openedLeafTasks.length;
   int get closedTasksCount => _leafTasksCount - openedLeafTasksCount;
-  double get doneRatio => _leafTasksCount > 0 ? closedTasksCount / _leafTasksCount : 0;
+  double get doneRatio => (hasDueDate && _leafTasksCount > 0) ? closedTasksCount / _leafTasksCount : 0;
 
   Iterable<Task> get _timeBoundOpenedTasks => allTasks.where((t) => !t.closed && t.dueDate != null);
 

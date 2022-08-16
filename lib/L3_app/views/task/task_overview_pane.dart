@@ -22,7 +22,7 @@ class TaskOverview extends StatelessWidget {
   Task get task => _controller.selectedTask;
 
   bool get hasDescription => task.description.isNotEmpty;
-  bool get hasDates => task.dueDate != null || task.etaDate != null;
+  bool get hasDates => task.hasDueDate || task.hasEtaDate;
   bool get hasStatus => task.status != null;
   bool get hasAuthor => task.author != null;
   bool get hasAssignee => task.assignee != null;

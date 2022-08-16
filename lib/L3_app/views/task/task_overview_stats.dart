@@ -20,13 +20,15 @@ class TaskOverviewStats extends StatelessWidget {
     final noInfoColor = stateColor(TaskState.noInfo);
 
     return Column(children: [
-      SizedBox(height: onePadding / 2),
-      SampleProgress(
-        ratio: task.doneRatio,
-        color: stateColor(task.state),
-        titleText: loc.task_state_closed,
-        trailingText: task.doneRatio.inPercents,
-      ),
+      if (task.hasDueDate) ...[
+        SizedBox(height: onePadding / 2),
+        SampleProgress(
+          ratio: task.doneRatio,
+          color: stateColor(task.state),
+          titleText: loc.task_state_closed,
+          trailingText: task.doneRatio.inPercents,
+        ),
+      ],
       if (task.hasOverdueTasks) ...[
         SizedBox(height: onePadding),
         SampleProgress(
@@ -34,7 +36,7 @@ class TaskOverviewStats extends StatelessWidget {
           color: stateColor(TaskState.overdue),
           titleText: loc.task_filter_overdue,
           trailingText: '${task.overdueTasksCount}',
-          subtitleText: overdueStateTextDetails(task.tasksOverduePeriod),
+          subtitleText: overdueStateTextDetails(task.totalOverduePeriod),
         ),
       ],
       if (task.hasRiskTasks) ...[
@@ -44,7 +46,7 @@ class TaskOverviewStats extends StatelessWidget {
           color: stateColor(TaskState.risk),
           titleText: loc.task_filter_risky,
           trailingText: '${task.riskyTasksCount}',
-          subtitleText: riskStateTextDetails(task.tasksRiskPeriod),
+          subtitleText: riskStateTextDetails(task.totalRiskPeriod),
         ),
       ],
       if (task.hasNoDueGroups) ...[

@@ -6,17 +6,21 @@ enum TaskState { overdue, risk, ok, noInfo }
 
 extension TaskStats on Task {
   /// непосредственно сама задача
+  bool get hasDueDate => dueDate != null;
   DateTime get _startDate => createdOn ?? DateTime.now();
   Duration get _pastPeriod => DateTime.now().difference(_startDate);
-  Duration? get overduePeriod => dueDate != null ? DateTime.now().difference(dueDate!) : null;
+  Duration? get _overduePeriod => hasDueDate ? DateTime.now().difference(dueDate!) : null;
 
   double get _factSpeed => closedTasksCount / _pastPeriod.inSeconds;
   DateTime? get etaDate =>
       _factSpeed > 0 && openedLeafTasksCount > 0 ? DateTime.now().add(Duration(seconds: (openedLeafTasksCount / _factSpeed).round())) : null;
-  Duration? get etaRiskPeriod => dueDate != null ? etaDate?.difference(dueDate!) : null;
-  bool get _hasOverdue => (overduePeriod?.inSeconds ?? 0) > 0;
-  bool get _hasRisk => etaDate != null && (etaRiskPeriod?.inSeconds ?? 0) > 0;
-  bool get _isOk => etaDate != null && (etaRiskPeriod?.inSeconds ?? 0) <= 0;
+
+  Duration? get _etaRiskPeriod => dueDate != null ? etaDate?.difference(dueDate!) : null;
+
+  bool get _hasEtaDate => etaDate != null;
+  bool get _hasOverdue => hasDueDate && (_overduePeriod?.inSeconds ?? 0) > 0;
+  bool get _hasRisk => hasDueDate && _hasEtaDate && (_etaRiskPeriod?.inSeconds ?? 0) > 0;
+  bool get _isOk => hasDueDate && _hasEtaDate && (_etaRiskPeriod?.inSeconds ?? 0) <= 0;
 
   bool get hasSubtasks => tasks.isNotEmpty;
   bool get hasLink => taskSource?.keepConnection == true;
@@ -50,9 +54,9 @@ extension TaskStats on Task {
   Iterable<Task> get _overdueTasks => _timeBoundOpenedTasks.where((t) => t._hasOverdue);
   int get overdueTasksCount => _overdueTasks.length;
   bool get hasOverdueTasks => overdueTasksCount > 0;
-  Duration get tasksOverduePeriod {
-    int totalSeconds = 0;
-    _overdueTasks.forEach((t) => totalSeconds += t.overduePeriod?.inSeconds ?? 0);
+  Duration get totalOverduePeriod {
+    int totalSeconds = _overduePeriod?.inSeconds ?? 0;
+    _overdueTasks.forEach((t) => totalSeconds += t._overduePeriod?.inSeconds ?? 0);
     return Duration(seconds: totalSeconds);
   }
 
@@ -60,9 +64,9 @@ extension TaskStats on Task {
   int get riskyTasksCount => _riskyTasks.length;
   bool get hasRiskTasks => riskyTasksCount > 0;
 
-  Duration get tasksRiskPeriod {
-    int totalSeconds = 0;
-    _riskyTasks.forEach((t) => totalSeconds += t.etaRiskPeriod?.inSeconds ?? 0);
+  Duration get totalRiskPeriod {
+    int totalSeconds = _etaRiskPeriod?.inSeconds ?? 0;
+    _riskyTasks.forEach((t) => totalSeconds += t._etaRiskPeriod?.inSeconds ?? 0);
     return Duration(seconds: totalSeconds);
   }
 
@@ -83,10 +87,10 @@ extension TaskStats on Task {
   int get closableGroupsCount => _closableGroups.length;
   bool get hasClosableGroups => closableGroupsCount > 0;
 
-  TaskState get state => dueDate != null && !closed
-      ? (_hasOverdue
+  TaskState get state => !closed
+      ? (_hasOverdue || hasOverdueTasks
           ? TaskState.overdue
-          : _hasRisk
+          : _hasRisk || hasRiskTasks
               ? TaskState.risk
               : _isOk
                   ? TaskState.ok

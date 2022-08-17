@@ -1,19 +1,24 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:hercules/L3_app/presenters/task_stats_presenter.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_filter_presenter.dart';
+import '../../presenters/task_stats_presenter.dart';
 
 part 'task_filter_controller.g.dart';
 
 class TaskFilterController extends _TaskFilterControllerBase with _$TaskFilterController {}
 
 abstract class _TaskFilterControllerBase with Store {
-  /// непосредственно фильтр
-  Iterable<Task> get _tasks => taskViewController.selectedTask.tasks;
+  /// непосредственно фильтр и сортировка
+  @computed
+  Iterable<Task> get _tasks {
+    final tasks = taskViewController.selectedTask.tasks;
+    tasks.sort((t1, t2) => t1.hasDueDate && t2.hasDueDate ? t1.dueDate!.compareTo(t2.dueDate!) : t1.title.compareTo(t2.title));
+    return tasks;
+  }
 
   @computed
   int get tasksCount => _tasks.length;
@@ -57,9 +62,5 @@ abstract class _TaskFilterControllerBase with Store {
       };
 
   @computed
-  Iterable<Task> get filteredTasks {
-    final tasks = (_taskFilters[tasksFilter] ?? []).toList();
-    tasks.sort((t1, t2) => t1.hasDueDate && t2.hasDueDate ? t1.dueDate!.compareTo(t2.dueDate!) : t1.title.compareTo(t2.title));
-    return tasks;
-  }
+  Iterable<Task> get filteredTasks => _taskFilters[tasksFilter] ?? [];
 }

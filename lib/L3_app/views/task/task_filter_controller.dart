@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:hercules/L3_app/presenters/task_stats_presenter.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
@@ -58,7 +59,7 @@ abstract class _TaskFilterControllerBase with Store {
   @computed
   Iterable<Task> get filteredTasks {
     final tasks = (_taskFilters[tasksFilter] ?? []).toList();
-    tasks.sort((t1, t2) => t1.title.compareTo(t2.title));
+    tasks.sort((t1, t2) => t1.hasDueDate && t2.hasDueDate ? t1.dueDate!.compareTo(t2.dueDate!) : t1.title.compareTo(t2.title));
     return tasks;
   }
 }

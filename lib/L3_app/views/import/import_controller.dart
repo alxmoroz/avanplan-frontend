@@ -85,9 +85,9 @@ abstract class _ImportControllerBase extends EditController with Store {
   /// действия,  роутер
 
   @action
-  Future startImport(BuildContext context, {bool keepConnection = true}) async {
+  Future startImport(BuildContext context) async {
     startLoading();
-    final taskSources = selectedTasks.map((t) => TaskSourceImport(code: t.taskSource!.code, keepConnection: keepConnection));
+    final taskSources = selectedTasks.map((t) => t.taskSource!);
     final done = await importUC.importTaskSources(selectedSource?.id, taskSources);
     if (done) {
       await mainController.fetchData();

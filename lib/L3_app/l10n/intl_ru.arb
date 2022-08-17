@@ -15,7 +15,6 @@
   "common_delete_dialog_description": "Это действие нельзя будет отменить!",
   "common_description": "Описание",
   "common_no": "Нет",
-  "common_or": "или",
   "common_save_btn_title": "Сохранить",
   "common_select_all_title": "Выбрать все",
   "common_status_placeholder": "Статус",
@@ -61,8 +60,7 @@
   "task_due_date_placeholder": "Срок завершения",
   "task_eta_date_label": "Прогноз",
 
-  "task_import_import_link_btn_title": "Отслеживать задачи",
-  "task_import_import_ro_btn_title": "Импортировать задачи",
+  "task_import_btn_title": "Начать отслеживать",
   "task_import_title": "Импорт задач",
   "task_import_title_error_get_list": "Ошибка получения списка проектов\nПопробуйте выбрать другой источник",
   "task_import_list_empty_title": "Нет доступных для импорта проектов\nПопробуйте выбрать другой источник",

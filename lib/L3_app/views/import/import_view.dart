@@ -17,7 +17,6 @@ import '../../components/mt_divider.dart';
 import '../../components/mt_dropdown.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
-import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/source_presenter.dart';
 import 'import_controller.dart';
@@ -104,14 +103,8 @@ class _ImportViewState extends State<ImportView> {
           const MTDivider(),
           SizedBox(height: onePadding),
           MTButton(
-            loc.task_import_import_link_btn_title,
+            loc.task_import_btn_title,
             validated ? () => _controller.startImport(context) : null,
-            titleColor: validated ? null : lightGreyColor,
-          ),
-          SmallText(loc.common_or, color: darkGreyColor, padding: EdgeInsets.symmetric(vertical: onePadding / 2)),
-          MTButton(
-            loc.task_import_import_ro_btn_title,
-            validated ? () => _controller.startImport(context, keepConnection: false) : null,
             titleColor: validated ? null : lightGreyColor,
           ),
           SizedBox(height: onePadding),

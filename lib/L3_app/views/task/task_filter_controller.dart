@@ -12,11 +12,30 @@ part 'task_filter_controller.g.dart';
 class TaskFilterController extends _TaskFilterControllerBase with _$TaskFilterController {}
 
 abstract class _TaskFilterControllerBase with Store {
+  int compareTasks(Task t1, Task t2) {
+    int res = 0;
+    if (t1.hasDueDate || t2.hasDueDate) {
+      if (!t1.hasDueDate) {
+        res = 1;
+      } else if (!t2.hasDueDate) {
+        res = -1;
+      } else {
+        res = t1.dueDate!.compareTo(t2.dueDate!);
+      }
+    }
+
+    if (res == 0) {
+      res = t1.title.compareTo(t2.title);
+    }
+
+    return res;
+  }
+
   /// непосредственно фильтр и сортировка
   @computed
   Iterable<Task> get _tasks {
     final tasks = taskViewController.selectedTask.tasks;
-    tasks.sort((t1, t2) => t1.hasDueDate && t2.hasDueDate ? t1.dueDate!.compareTo(t2.dueDate!) : t1.title.compareTo(t2.title));
+    tasks.sort(compareTasks);
     return tasks;
   }
 

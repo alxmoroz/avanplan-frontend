@@ -14,10 +14,10 @@
   "common_delete_btn_title": "Удалить",
   "common_delete_dialog_description": "Это действие нельзя будет отменить!",
   "common_description": "Описание",
-
   "common_no": "Нет",
   "common_or": "или",
   "common_save_btn_title": "Сохранить",
+  "common_select_all_title": "Выбрать все",
   "common_status_placeholder": "Статус",
   "common_title": "Название",
   "common_yes": "Да",

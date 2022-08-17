@@ -70,13 +70,6 @@ class TaskImport {
   final String description;
   TaskSourceImport? taskSource;
   bool selected;
-
-  TaskImport copyWithSelected(bool _selected) => TaskImport(
-        title: title,
-        description: description,
-        taskSource: taskSource,
-        selected: _selected,
-      );
 }
 
 class TaskQuery {

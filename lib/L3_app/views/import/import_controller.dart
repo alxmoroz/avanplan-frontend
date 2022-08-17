@@ -19,7 +19,7 @@ class ImportController extends _ImportControllerBase with _$ImportController {}
 
 abstract class _ImportControllerBase extends EditController with Store {
   @observable
-  ObservableList<TaskImport> remoteTasks = ObservableList();
+  List<TaskImport> remoteTasks = [];
 
   @computed
   Iterable<TaskImport> get selectedTasks => remoteTasks.where((t) => t.selected);
@@ -32,7 +32,8 @@ abstract class _ImportControllerBase extends EditController with Store {
     startLoading();
     if (loginController.authorized) {
       try {
-        remoteTasks = ObservableList.of(await importUC.getRootTasks(sourceID));
+        selectedAll = true;
+        remoteTasks = await importUC.getRootTasks(sourceID);
         remoteTasks.sort((t1, t2) => t1.title.compareTo(t2.title));
       } catch (e) {
         setErrorCode(e is MTException ? e.code : e.toString());
@@ -42,14 +43,21 @@ abstract class _ImportControllerBase extends EditController with Store {
   }
 
   @action
-  void clearData() => remoteTasks.clear();
+  void clearData() => remoteTasks = [];
+
+  @observable
+  bool selectedAll = true;
+
+  @action
+  void toggleSelectedAll(bool? value) {
+    selectedAll = !selectedAll;
+    remoteTasks.forEach((t) => t.selected = selectedAll);
+  }
 
   @action
   void selectTask(TaskImport task, bool selected) {
-    final index = remoteTasks.indexWhere((t) => t.taskSource?.code == task.taskSource?.code);
-    if (index >= 0) {
-      remoteTasks[index] = task.copyWithSelected(selected);
-    }
+    task.selected = selected;
+    remoteTasks = remoteTasks;
   }
 
   @override

@@ -55,7 +55,8 @@ class ImportRepo extends AbstractApiImportRepo {
           ..id = ts.id
           ..sourceId = ts.source.id
           ..code = ts.code
-          ..keepConnection = ts.keepConnection)
+          ..keepConnection = ts.keepConnection
+          ..url = ts.uri.toString())
         .build());
 
     final response = await api.updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost(

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:hercules/L3_app/components/mt_checkbox.dart';
 import 'package:intl/intl.dart';
 
 import '../../../L1_domain/entities/source.dart';
@@ -40,20 +41,23 @@ class ImportView extends StatefulWidget {
 
 class _ImportViewState extends State<ImportView> {
   ImportController get _controller => importController;
+  bool get hasTasks => _controller.remoteTasks.isNotEmpty;
+  bool get hasError => _controller.errorCode != null;
+  bool get validated => _controller.validated;
+  bool get selectedAll => _controller.selectedAll;
 
   Widget taskItemBuilder(BuildContext context, int index) {
     final task = _controller.remoteTasks[index];
-    return CheckboxListTile(
-      title: NormalText(task.title),
-      subtitle: SmallText(task.description, maxLines: 2),
-      value: task.selected,
+    final value = task.selected;
+    return MTCheckBoxTile(
+      title: task.title,
+      description: task.description,
+      value: value,
       onChanged: (bool? value) => _controller.selectTask(task, value!),
-      dense: true,
-      visualDensity: VisualDensity.compact,
     );
   }
 
-  List<DropdownMenuItem<Source>> srcDdItems(BuildContext context, Iterable<Source> sources) => sources
+  List<DropdownMenuItem<Source>> srcDdItems(Iterable<Source> sources) => sources
       .map((s) => DropdownMenuItem<Source>(
             value: s,
             child: sourceInfo(context, s),
@@ -72,7 +76,7 @@ class _ImportViewState extends State<ImportView> {
       : MTDropdown<Source>(
           onChanged: (t) => _controller.selectSource(t),
           value: _controller.selectedSource,
-          ddItems: srcDdItems(context, sourceController.sources),
+          ddItems: srcDdItems(sourceController.sources),
           label: loc.source_import_placeholder,
           buttonHeight: 40,
         );
@@ -81,14 +85,15 @@ class _ImportViewState extends State<ImportView> {
     return Column(children: [
       sourceDropdown,
       if (_controller.selectedSource != null) ...[
-        if (_controller.remoteTasks.isEmpty)
+        if (!hasTasks)
           MTAction(
-            hint:
-                _controller.errorCode != null ? Intl.message(_controller.errorCode!, name: _controller.errorCode) : loc.task_import_list_empty_title,
-            color: _controller.errorCode != null ? warningColor : null,
+            hint: hasError ? Intl.message(_controller.errorCode!, name: _controller.errorCode) : loc.task_import_list_empty_title,
+            color: hasError ? warningColor : null,
           ),
-        if (_controller.remoteTasks.isNotEmpty) ...[
+        if (hasTasks) ...[
           SizedBox(height: onePadding),
+          if (_controller.remoteTasks.length > 1)
+            MTCheckBoxTile(title: loc.common_select_all_title, value: selectedAll, onChanged: _controller.toggleSelectedAll),
           const MTDivider(),
           Expanded(
             child: ListView.builder(
@@ -100,14 +105,14 @@ class _ImportViewState extends State<ImportView> {
           SizedBox(height: onePadding),
           MTButton(
             loc.task_import_import_link_btn_title,
-            _controller.validated ? () => _controller.startImport(context) : null,
-            titleColor: _controller.validated ? null : lightGreyColor,
+            validated ? () => _controller.startImport(context) : null,
+            titleColor: validated ? null : lightGreyColor,
           ),
           SmallText(loc.common_or, color: darkGreyColor, padding: EdgeInsets.symmetric(vertical: onePadding / 2)),
           MTButton(
             loc.task_import_import_ro_btn_title,
-            _controller.validated ? () => _controller.startImport(context, keepConnection: false) : null,
-            titleColor: _controller.validated ? null : lightGreyColor,
+            validated ? () => _controller.startImport(context, keepConnection: false) : null,
+            titleColor: validated ? null : lightGreyColor,
           ),
           SizedBox(height: onePadding),
         ],

@@ -7,19 +7,19 @@ import 'constants.dart';
 import 'mt_button.dart';
 import 'text_widgets.dart';
 
-class MTAction extends StatelessWidget {
-  const MTAction({
+class MTFloatingAction extends StatelessWidget {
+  const MTFloatingAction({
     this.hint = '',
     this.title,
     this.onPressed,
-    this.color,
+    this.hintColor,
     this.icon,
   });
 
   final String hint;
   final VoidCallback? onPressed;
   final String? title;
-  final Color? color;
+  final Color? hintColor;
   final Widget? icon;
 
   @override
@@ -28,7 +28,7 @@ class MTAction extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (hint.isNotEmpty) MediumText(hint, align: TextAlign.center, color: color ?? lightGreyColor),
+          if (hint.isNotEmpty) MediumText(hint, align: TextAlign.center, color: hintColor ?? lightGreyColor),
           if (title != null) ...[
             if (hint.isNotEmpty) SizedBox(height: onePadding / 2),
             MTButton(

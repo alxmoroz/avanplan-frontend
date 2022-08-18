@@ -4,13 +4,16 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/task_source.dart';
 import '../../../L1_domain/entities/workspace.dart';
+import '../../components/icons.dart';
 import '../../components/mt_confirm_dialog.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_level_presenter.dart';
+import '../../presenters/task_source_presenter.dart';
 import '../../presenters/task_stats_presenter.dart';
 import '../_base/base_controller.dart';
 import '../task/task_edit_view.dart';
@@ -48,10 +51,10 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
 
   /// доступные действия
   @computed
-  bool get canAdd => !(selectedTask.hasLink || selectedTask.closed);
+  bool get canAdd => !selectedTask.closed;
 
   @computed
-  bool get canEdit => !(selectedTask.hasLink || isWorkspace);
+  bool get canEdit => !isWorkspace;
 
   @computed
   bool get canImport => isWorkspace;
@@ -119,6 +122,57 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
     _updateParentTask(_task);
   }
 
+  /// связь с источником импорта
+
+  Future<bool> _checkUnlinked(BuildContext context) async {
+    bool unlinked = !selectedTask.hasLink;
+    if (!unlinked) {
+      if (await _unlinkDialog(context) ?? false) {
+        unlinked = await _unlink();
+      }
+    }
+    return unlinked;
+  }
+
+  Future<bool?> _unlinkDialog(BuildContext context) async => await showMTDialog<bool?>(
+        context,
+        title: loc.task_unlink_dialog_title,
+        description: loc.task_unlink_dialog_description,
+        actions: [
+          MTDialogAction(
+            title: loc.task_unlink_dialog_action_unlink_title,
+            type: MTActionType.isWarning,
+            result: true,
+            icon: unlinkIcon(context),
+          ),
+          MTDialogAction(
+            type: MTActionType.isDefault,
+            onTap: () => launchUrl(selectedTask.taskSource!.uri),
+            result: false,
+            child: taskSourceGotoTitle(context, selectedTask),
+          ),
+        ],
+      );
+
+  Iterable<TaskSource> _unlinkTaskTree(Task t) {
+    final tss = <TaskSource>[];
+    for (Task subtask in t.tasks) {
+      tss.addAll(_unlinkTaskTree(subtask));
+    }
+    if (t.hasLink) {
+      t.taskSource?.keepConnection = false;
+      tss.add(t.taskSource!);
+    }
+    return tss;
+  }
+
+  Future<bool> _unlink() async {
+    startLoading();
+    final res = await importUC.updateTaskSources(_unlinkTaskTree(selectedTask));
+    stopLoading();
+    return res;
+  }
+
   /// роутер
   Future showTask(BuildContext context, Task _t) async {
     _pushTask(_t);
@@ -127,20 +181,24 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   }
 
   Future addTask(BuildContext context) async {
-    final newTask = await showEditTaskDialog(context);
-    if (newTask != null) {
-      selectedTask.tasks.add(newTask);
-      _updateParents(newTask);
+    if (await _checkUnlinked(context)) {
+      final newTask = await editTaskDialog(context);
+      if (newTask != null) {
+        selectedTask.tasks.add(newTask);
+        _updateParents(newTask);
+      }
     }
   }
 
   Future editTask(BuildContext context) async {
-    final editedTask = await showEditTaskDialog(context, selectedTask);
-    if (editedTask != null) {
-      if (editedTask.deleted) {
-        Navigator.of(context).pop();
+    if (await _checkUnlinked(context)) {
+      final editedTask = await editTaskDialog(context, selectedTask);
+      if (editedTask != null) {
+        if (editedTask.deleted) {
+          Navigator.of(context).pop();
+        }
+        _updateParents(editedTask);
       }
-      _updateParents(editedTask);
     }
   }
 
@@ -152,45 +210,6 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
         Navigator.of(context).pop(editedTask);
       }
       _updateParents(editedTask);
-    }
-  }
-
-  Iterable<TaskSource> _unlinkTaskTree(Task t) {
-    final tss = <TaskSource>[];
-    for (Task subtask in t.tasks) {
-      tss.addAll(_unlinkTaskTree(subtask));
-    }
-
-    if (t.hasLink) {
-      t.taskSource?.keepConnection = false;
-      tss.add(t.taskSource!);
-    }
-    return tss;
-  }
-
-  Future unlink(BuildContext context) async {
-    final confirm = await showMTDialog<int?>(
-      context,
-      title: loc.task_unlink_dialog_title,
-      description: loc.task_unlink_dialog_description,
-      actions: [
-        MTDialogAction(title: loc.task_unlink_dialog_action_unlink_title, isDestructive: true, result: 1),
-        MTDialogAction(title: loc.task_unlink_dialog_action_copy_title, isDefault: true, result: 2),
-        MTDialogAction(title: loc.common_no, isDefault: true, result: 0),
-      ],
-    );
-    if (confirm != null && confirm > 0) {
-      startLoading();
-      if (confirm == 1) {
-        final unlinkedTask = await tasksUC.delete(t: selectedTask);
-        if (unlinkedTask != null) {
-          _updateParents(unlinkedTask);
-          Navigator.of(context).pop();
-        }
-      } else if (confirm == 2) {
-        await importUC.updateTaskSources(_unlinkTaskTree(selectedTask));
-      }
-      stopLoading();
     }
   }
 }

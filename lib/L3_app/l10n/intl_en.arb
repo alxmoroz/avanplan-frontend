@@ -60,6 +60,8 @@
   "task_due_date_placeholder": "Due date",
   "task_eta_date_label": "Predicted",
 
+  "task_goto_source_title": "Go to source",
+
   "task_import_btn_title": "Track tasks (read only)",
   "task_import_list_empty_title": "There are no projects available to import\nTry choosing a different source",
   "task_import_title": "Import tasks",
@@ -91,9 +93,8 @@
 
   "task_title": "Task",
 
-  "task_unlink_dialog_action_unlink_title": "Yes, delete",
-  "task_unlink_dialog_action_copy_title": "Yes, keep tasks",
-  "task_unlink_dialog_description": "The tasks will lose their connection to the source and will be deleted.\nYou can leave tasks untracked",
+  "task_unlink_dialog_action_unlink_title": "Unlink and edit",
+  "task_unlink_dialog_description": "Only local tasks can be edited.\nChanges will no longer be synced from the source.",
   "task_unlink_dialog_title": "Stop tracking tasks?",
 
   "validation_empty_text": "Should not be empty",

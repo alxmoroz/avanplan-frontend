@@ -60,6 +60,8 @@
   "task_due_date_placeholder": "Срок завершения",
   "task_eta_date_label": "Прогноз",
 
+  "task_goto_source_title": "Перейти к источнику",
+
   "task_import_btn_title": "Начать отслеживать",
   "task_import_title": "Импорт задач",
   "task_import_title_error_get_list": "Ошибка получения списка проектов\nПопробуйте выбрать другой источник",
@@ -91,10 +93,9 @@
 
   "task_title": "Задача",
 
-  "task_unlink_dialog_action_copy_title": "Да, оставить",
-  "task_unlink_dialog_action_unlink_title": "Да, удалить",
-  "task_unlink_dialog_description": "Выбранные задачи потеряют связь с источником импорта и будут удалены.\nМожно оставить задачи без возможности отслеживания",
-  "task_unlink_dialog_title": "Прекратить отслеживать задачи?",
+  "task_unlink_dialog_action_unlink_title": "Отвязать и редактировать",
+  "task_unlink_dialog_description": "Можно редактировать только локальные задачи.\nИзменения перестанут загружаться из источника",
+  "task_unlink_dialog_title": "Отвязать задачи от источника?",
 
   "validation_empty_text": "Нужно заполнить",
 

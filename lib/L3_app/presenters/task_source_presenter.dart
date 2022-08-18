@@ -3,11 +3,13 @@
 import 'package:flutter/material.dart';
 
 import '../../L1_domain/entities/source.dart';
+import '../../L1_domain/entities/task.dart';
 import '../components/colors.dart';
 import '../components/constants.dart';
 import '../components/icons.dart';
 import '../components/mt_circle.dart';
 import '../components/text_widgets.dart';
+import '../extra/services.dart';
 
 Widget sourceTypeIcon(BuildContext context, SourceType st) {
   Widget icon = noInfoStateIcon(context);
@@ -43,3 +45,13 @@ Widget sourceInfo(BuildContext context, Source s) {
     ]),
   ]);
 }
+
+Widget taskSourceGotoTitle(BuildContext context, Task task) => Row(
+      children: [
+        sourceTypeIcon(context, task.taskSource!.source.type),
+        SizedBox(width: onePadding / 3),
+        NormalText(loc.task_goto_source_title, color: mainColor),
+        SizedBox(width: onePadding / 3),
+        linkOutIcon(context),
+      ],
+    );

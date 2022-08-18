@@ -14,8 +14,8 @@ import '../../extra/services.dart';
 import '../../presenters/task_level_presenter.dart';
 import '../../presenters/task_stats_presenter.dart';
 import '../task/task_filter_dropdown.dart';
-import 'task_add_action.dart';
 import 'task_header.dart';
+import 'task_list_empty_action.dart';
 import 'task_listview.dart';
 import 'task_overview_pane.dart';
 import 'task_view_controller.dart';
@@ -63,44 +63,42 @@ class _TaskPageState extends State<TaskView> {
 
   Widget selectedPane() => {_TabKeys.overview: overviewPane(), _TabKeys.tasks: tasksPane()}[tabKeyValue] ?? overviewPane();
 
+  CupertinoNavigationBar taskNavBar() => navBar(
+        context,
+        title: _controller.isWorkspace ? loc.project_list_title : task.viewTitle,
+        leading: _controller.canRefresh
+            ? Row(children: [
+                SizedBox(width: onePadding),
+                MTButton.icon(refreshIcon(context), mainController.updateAll),
+              ])
+            : null,
+        trailing: Row(mainAxisAlignment: MainAxisAlignment.end, mainAxisSize: MainAxisSize.min, children: [
+          if (_controller.canImport) ...[
+            MTButton.icon(importIcon(context), () => importController.importTasks(context)),
+            SizedBox(width: onePadding),
+          ],
+          if (_controller.canAdd) ...[
+            MTButton.icon(plusIcon(context), () => _controller.addTask(context)),
+            SizedBox(width: onePadding),
+          ],
+          if (_controller.canEdit) ...[
+            MTButton.icon(editIcon(context), () => _controller.editTask(context)),
+            SizedBox(width: onePadding),
+          ],
+        ]),
+      );
+
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
         isLoading: _controller.isLoading,
-        navBar: navBar(
-          context,
-          title: _controller.isWorkspace ? loc.project_list_title : task.viewTitle,
-          leading: _controller.canRefresh
-              ? Row(children: [
-                  SizedBox(width: onePadding),
-                  MTButton.icon(refreshIcon(context), mainController.updateAll),
-                ])
-              : null,
-          trailing: Row(mainAxisAlignment: MainAxisAlignment.end, mainAxisSize: MainAxisSize.min, children: [
-            if (_controller.canImport) ...[
-              MTButton.icon(importIcon(context), () => importController.importTasks(context)),
-              SizedBox(width: onePadding),
-            ],
-            if (_controller.canAdd) ...[
-              MTButton.icon(plusIcon(context), () => _controller.addTask(context)),
-              SizedBox(width: onePadding),
-            ],
-            if (_controller.canEdit) ...[
-              MTButton.icon(editIcon(context), () => _controller.editTask(context)),
-              SizedBox(width: onePadding),
-            ],
-            if (_controller.selectedTask.hasLink) ...[
-              MTButton.icon(unlinkIcon(context), () => _controller.unlink(context)),
-              SizedBox(width: onePadding),
-            ],
-          ]),
-        ),
+        navBar: taskNavBar(),
         body: SafeArea(
           top: false,
           bottom: false,
           child: (_controller.isWorkspace && !task.hasSubtasks)
-              ? TaskAddAction(task)
+              ? TaskListEmptyAction(task)
               : ListView(
                   children: [
                     if (_controller.isWorkspace)
@@ -119,7 +117,7 @@ class _TaskPageState extends State<TaskView> {
                           TaskLevel.project,
                           TaskLevel.goal,
                         ].contains(task.level))
-                      TaskAddAction(task),
+                      TaskListEmptyAction(task),
                   ],
                 ),
         ),

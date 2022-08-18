@@ -2,18 +2,19 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'colors.dart';
 import 'constants.dart';
 
 Widget refreshIcon(BuildContext context, {Color? color, double? size}) => Icon(
-      CupertinoIcons.refresh_thin,
+      CupertinoIcons.refresh_thick,
       color: (color ?? mainColor).resolve(context),
       size: size ?? 30,
     );
 
 Widget connectingIcon(BuildContext context, {Color? color, double? size}) => Icon(
-      CupertinoIcons.antenna_radiowaves_left_right,
+      CupertinoIcons.dot_radiowaves_left_right,
       color: (color ?? darkGreyColor).resolve(context),
       size: size ?? onePadding,
     );
@@ -66,16 +67,22 @@ Widget infoIcon(BuildContext context, {Color? color, double? size}) => Icon(
       size: size ?? 20,
     );
 
-Widget linkIcon(BuildContext context, {Color? color, double? size}) => Icon(
-      CupertinoIcons.link,
-      color: (color ?? darkGreyColor).resolve(context),
-      size: size ?? 14,
+Widget linkIcon(BuildContext context, {Color? color, double? size}) => FaIcon(
+      FontAwesomeIcons.link,
+      color: (color ?? lightGreyColor).resolve(context),
+      size: size ?? 16,
     );
 
-Widget unlinkIcon(BuildContext context, {Color? color, double? size}) => Icon(
-      CupertinoIcons.eye_slash,
+Widget linkOutIcon(BuildContext context, {Color? color, double? size}) => FaIcon(
+      FontAwesomeIcons.upRightFromSquare,
       color: (color ?? mainColor).resolve(context),
-      size: size ?? 28,
+      size: size ?? 12,
+    );
+
+Widget unlinkIcon(BuildContext context, {Color? color, double? size}) => FaIcon(
+      FontAwesomeIcons.linkSlash,
+      color: (color ?? warningColor).resolve(context),
+      size: size ?? 16,
     );
 
 Widget closeIcon(BuildContext context, {Color? color, double? size}) => Icon(

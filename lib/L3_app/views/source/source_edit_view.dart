@@ -16,7 +16,7 @@ import '../../components/navbar.dart';
 import '../../components/text_field_annotation.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/source_presenter.dart';
+import '../../presenters/task_source_presenter.dart';
 import 'source_controller.dart';
 
 Future<Source?> showEditSourceDialog(BuildContext context) async {

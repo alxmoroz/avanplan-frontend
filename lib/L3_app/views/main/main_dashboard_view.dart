@@ -16,7 +16,7 @@ import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_overview_presenter.dart';
 import '../../presenters/task_stats_presenter.dart';
-import '../task/task_add_action.dart';
+import '../task/task_list_empty_action.dart';
 import '../task/task_overview_stats.dart';
 
 class MainDashboardView extends StatefulWidget {
@@ -58,7 +58,7 @@ class _MainDashboardViewState extends State<MainDashboardView> {
             top: false,
             bottom: false,
             child: !rootTask.hasOpenedTasks
-                ? TaskAddAction(rootTask)
+                ? TaskListEmptyAction(rootTask)
                 : ListView(
                     shrinkWrap: true,
                     children: [

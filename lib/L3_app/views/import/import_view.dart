@@ -18,7 +18,7 @@ import '../../components/mt_dropdown.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../extra/services.dart';
-import '../../presenters/source_presenter.dart';
+import '../../presenters/task_source_presenter.dart';
 import 'import_controller.dart';
 
 Future<String?> showImportDialog(BuildContext context) async {
@@ -65,7 +65,7 @@ class _ImportViewState extends State<ImportView> {
 
   Widget get sourceDropdown => sourceController.sources.isEmpty
       ? Expanded(
-          child: MTAction(
+          child: MTFloatingAction(
             hint: loc.source_list_empty_title,
             title: loc.source_title_new,
             icon: plusIcon(context, size: 24),
@@ -85,9 +85,9 @@ class _ImportViewState extends State<ImportView> {
       sourceDropdown,
       if (_controller.selectedSource != null) ...[
         if (!hasTasks)
-          MTAction(
+          MTFloatingAction(
             hint: hasError ? Intl.message(_controller.errorCode!, name: _controller.errorCode) : loc.task_import_list_empty_title,
-            color: hasError ? warningColor : null,
+            hintColor: hasError ? warningColor : null,
           ),
         if (hasTasks) ...[
           SizedBox(height: onePadding),

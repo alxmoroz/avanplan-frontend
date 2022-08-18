@@ -11,7 +11,7 @@ import '../../components/mt_divider.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../extra/services.dart';
-import '../../presenters/source_presenter.dart';
+import '../../presenters/task_source_presenter.dart';
 import 'source_controller.dart';
 
 class SourceListView extends StatefulWidget {
@@ -53,7 +53,7 @@ class _SourceListViewState extends State<SourceListView> {
           trailing: MTButton.icon(plusIcon(context), () => _controller.addSource(context), padding: EdgeInsets.only(right: onePadding)),
         ),
         body: _controller.sources.isEmpty
-            ? MTAction(
+            ? MTFloatingAction(
                 hint: loc.source_list_empty_title,
                 title: loc.source_title_new,
                 icon: plusIcon(context, size: 24),

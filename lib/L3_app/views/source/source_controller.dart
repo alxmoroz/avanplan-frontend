@@ -155,9 +155,10 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
         title: loc.source_delete_dialog_title,
         description: '${loc.source_delete_dialog_description}\n\n${loc.common_delete_dialog_description}',
         actions: [
-          MTDialogAction(title: loc.common_yes, isDestructive: true, result: true),
-          MTDialogAction(title: loc.common_no, isDefault: true, result: false),
+          MTDialogAction(title: loc.common_yes, type: MTActionType.isDanger, result: true),
+          MTDialogAction(title: loc.common_no, type: MTActionType.isDefault, result: false),
         ],
+        simple: true,
       );
       if (confirm != null && confirm) {
         startLoading();

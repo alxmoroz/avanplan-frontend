@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../components/constants.dart';
@@ -12,6 +13,7 @@ import '../../components/mt_details_dialog.dart';
 import '../../components/mt_divider.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
+import '../../presenters/task_source_presenter.dart';
 import '../../presenters/task_stats_presenter.dart';
 import 'task_overview_stats.dart';
 import 'task_state_indicator.dart';
@@ -72,8 +74,16 @@ class TaskOverview extends StatelessWidget {
         ],
         if (hasDescription) description(),
         if (hasAuthor) ...[
-          SizedBox(height: onePadding / 3),
+          SizedBox(height: onePadding / 2),
           SmallText('/// ${task.author}', align: TextAlign.end),
+        ],
+        if (task.hasLink) ...[
+          SizedBox(height: onePadding / 2),
+          MTButton(
+            '',
+            () => launchUrl(task.taskSource!.uri),
+            child: taskSourceGotoTitle(context, task),
+          ),
         ],
         if (hasDates) ...[
           SizedBox(height: onePadding),
@@ -86,7 +96,7 @@ class TaskOverview extends StatelessWidget {
         if (task.hasSubtasks) TaskOverviewStats(task),
         if (_controller.canEdit && (task.isClosable || task.closed)) ...[
           SizedBox(height: onePadding * 2),
-          MTAction(
+          MTFloatingAction(
             hint: task.isClosable ? loc.task_state_closable_hint : '',
             title: task.isClosable ? loc.task_state_close_btn_title : loc.task_state_reopen_btn_title,
             icon: task.isClosable ? doneIcon(context, true) : null,

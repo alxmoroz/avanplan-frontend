@@ -93,9 +93,9 @@
 
   "task_title": "Задача",
 
-  "task_unlink_dialog_action_unlink_title": "Отвязать и редактировать",
-  "task_unlink_dialog_description": "Можно редактировать только локальные задачи.\nИзменения перестанут загружаться из источника",
-  "task_unlink_dialog_title": "Отвязать задачи от источника?",
+  "task_unlink_dialog_action_unlink_title": "Отвязать задачу",
+  "task_unlink_dialog_description": "Вы не сможете загружать обновления задачи. Изменения не попадут в исходный проект",
+  "task_unlink_dialog_title": "Отвязать задачу от источника?",
 
   "validation_empty_text": "Нужно заполнить",
 

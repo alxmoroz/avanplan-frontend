@@ -94,7 +94,7 @@
   "task_title": "Task",
 
   "task_unlink_dialog_action_unlink_title": "Unlink and edit",
-  "task_unlink_dialog_description": "Only local tasks can be edited.\nChanges will no longer be synced from the source.",
+  "task_unlink_dialog_description": "Only local tasks can be edited.\nChanges will no longer be synced with the source.",
   "task_unlink_dialog_title": "Stop tracking tasks?",
 
   "validation_empty_text": "Should not be empty",

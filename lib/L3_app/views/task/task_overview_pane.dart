@@ -82,7 +82,7 @@ class TaskOverview extends StatelessWidget {
           MTButton(
             '',
             () => launchUrl(task.taskSource!.uri),
-            child: taskSourceGotoTitle(context, task),
+            child: taskSourceGotoTitle(context, task, showSourceIcon: true),
           ),
         ],
         if (hasDates) ...[

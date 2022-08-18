@@ -46,12 +46,15 @@ Widget sourceInfo(BuildContext context, Source s) {
   ]);
 }
 
-Widget taskSourceGotoTitle(BuildContext context, Task task) => Row(
+Widget taskSourceGotoTitle(BuildContext context, Task task, {bool showSourceIcon = false}) => Row(
       children: [
-        sourceTypeIcon(context, task.taskSource!.source.type),
-        SizedBox(width: onePadding / 2),
+        if (showSourceIcon) ...[
+          sourceTypeIcon(context, task.taskSource!.source.type),
+          SizedBox(width: onePadding / 2),
+        ],
         NormalText(loc.task_goto_source_title, color: mainColor),
-        SizedBox(width: onePadding / 2),
-        linkOutIcon(context),
+        const NormalText(' >', color: mainColor),
+        // SizedBox(width: onePadding / 2),
+        // linkOutIcon(context),
       ],
     );

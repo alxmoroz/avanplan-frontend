@@ -1,10 +1,9 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/rendering.dart';
-import 'package:hercules/L3_app/components/constants.dart';
 
 import 'colors.dart';
+import 'constants.dart';
 import 'mt_button.dart';
 import 'text_widgets.dart';
 
@@ -92,7 +91,7 @@ class MTConfirmDialog extends StatelessWidget {
     }
 
     return CupertinoAlertDialog(
-      title: H4(title, padding: EdgeInsets.only(bottom: onePadding), maxLines: 5),
+      title: H4(title, padding: EdgeInsets.only(bottom: onePadding), maxLines: 5, color: darkColor),
       content: Column(
         children: [
           if (description.isNotEmpty) NormalText(description),

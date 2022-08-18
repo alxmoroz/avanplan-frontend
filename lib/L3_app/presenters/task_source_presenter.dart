@@ -49,9 +49,9 @@ Widget sourceInfo(BuildContext context, Source s) {
 Widget taskSourceGotoTitle(BuildContext context, Task task) => Row(
       children: [
         sourceTypeIcon(context, task.taskSource!.source.type),
-        SizedBox(width: onePadding / 3),
+        SizedBox(width: onePadding / 2),
         NormalText(loc.task_goto_source_title, color: mainColor),
-        SizedBox(width: onePadding / 3),
+        SizedBox(width: onePadding / 2),
         linkOutIcon(context),
       ],
     );

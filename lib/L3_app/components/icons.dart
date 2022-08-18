@@ -74,7 +74,7 @@ Widget linkIcon(BuildContext context, {Color? color, double? size}) => FaIcon(
     );
 
 Widget linkOutIcon(BuildContext context, {Color? color, double? size}) => FaIcon(
-      FontAwesomeIcons.upRightFromSquare,
+      FontAwesomeIcons.arrowUpRightFromSquare,
       color: (color ?? mainColor).resolve(context),
       size: size ?? 12,
     );

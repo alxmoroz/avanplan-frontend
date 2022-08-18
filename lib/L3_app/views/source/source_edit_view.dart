@@ -19,7 +19,7 @@ import '../../extra/services.dart';
 import '../../presenters/task_source_presenter.dart';
 import 'source_controller.dart';
 
-Future<Source?> showEditSourceDialog(BuildContext context) async {
+Future<Source?> editSourceDialog(BuildContext context) async {
   return await showModalBottomSheet<Source?>(
     context: context,
     backgroundColor: Colors.transparent,

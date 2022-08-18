@@ -160,7 +160,7 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
         ],
         simple: true,
       );
-      if (confirm != null && confirm) {
+      if (confirm == true) {
         startLoading();
         Navigator.of(context).pop(await sourcesUC.delete(s: selectedSource!));
         stopLoading();
@@ -171,13 +171,11 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
 
   /// роутер
 
-  Future addSource(BuildContext context) async {
-    await editSource(context, null);
-  }
+  Future addSource(BuildContext context) async => await editSource(context, null);
 
   Future editSource(BuildContext context, Source? rt) async {
     selectSource(rt);
-    final s = await showEditSourceDialog(context);
+    final s = await editSourceDialog(context);
     if (s != null) {
       await _updateSourceInList(s);
     }

@@ -12,13 +12,13 @@ import '../../components/mt_page.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_level_presenter.dart';
-import 'task_header.dart';
-import 'task_list_controller.dart';
 import 'task_list_empty_action.dart';
-import 'task_listview.dart';
-import 'task_navbar.dart';
-import 'task_overview_pane.dart';
 import 'task_view_controller.dart';
+import 'task_view_widgets/task_header.dart';
+import 'task_view_widgets/task_list_controller.dart';
+import 'task_view_widgets/task_listview.dart';
+import 'task_view_widgets/task_navbar.dart';
+import 'task_view_widgets/task_overview_pane.dart';
 
 enum _TabKeys { overview, tasks }
 

@@ -2,12 +2,12 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../L1_domain/entities/task.dart';
-import '../../components/constants.dart';
-import '../../components/mt_divider.dart';
-import '../../components/text_widgets.dart';
-import '../../extra/services.dart';
-import 'task_view_controller.dart';
+import '../../../../L1_domain/entities/task.dart';
+import '../../../components/constants.dart';
+import '../../../components/mt_divider.dart';
+import '../../../components/text_widgets.dart';
+import '../../../extra/services.dart';
+import '../task_view_controller.dart';
 
 class TaskHeader extends StatelessWidget {
   const TaskHeader(this.task);

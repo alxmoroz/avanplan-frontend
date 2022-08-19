@@ -3,9 +3,9 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 
-import '../../components/constants.dart';
-import '../../components/icons.dart';
-import '../../components/text_widgets.dart';
+import '../../../components/constants.dart';
+import '../../../components/icons.dart';
+import '../../../components/text_widgets.dart';
 import 'task_list_controller.dart';
 
 class TaskFilterDropdown extends StatelessWidget {

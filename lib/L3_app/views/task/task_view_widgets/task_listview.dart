@@ -3,8 +3,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../components/constants.dart';
-import '../../extra/services.dart';
+import '../../../components/constants.dart';
+import '../../../extra/services.dart';
 import 'task_card.dart';
 import 'task_filter_dropdown.dart';
 import 'task_list_controller.dart';

@@ -10,7 +10,6 @@ import '../../presenters/task_level_presenter.dart';
 
 class TaskListEmptyAction extends StatelessWidget {
   const TaskListEmptyAction(this.parent);
-
   final Task parent;
 
   @override

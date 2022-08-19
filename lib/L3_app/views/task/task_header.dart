@@ -11,7 +11,6 @@ import 'task_view_controller.dart';
 
 class TaskHeader extends StatelessWidget {
   const TaskHeader(this.task);
-
   final Task task;
 
   TaskViewController get _controller => taskViewController;

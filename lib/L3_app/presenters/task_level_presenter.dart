@@ -66,4 +66,6 @@ extension TaskLevelPresenter on Task {
         TaskLevel.task: loc.task_delete_dialog_title,
       }[level] ??
       loc.subtask_delete_dialog_title;
+
+  bool get isWorkspace => level == TaskLevel.workspace;
 }

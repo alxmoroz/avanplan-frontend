@@ -11,7 +11,6 @@ import '../../presenters/task_stats_presenter.dart';
 
 class TaskStateIndicator extends StatelessWidget {
   const TaskStateIndicator(this.task, {this.inCard = false});
-
   final Task task;
   final bool inCard;
 

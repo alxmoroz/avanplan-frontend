@@ -13,6 +13,7 @@ import '../../components/mt_details_dialog.dart';
 import '../../components/mt_divider.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
+import '../../presenters/task_actions_presenter.dart';
 import '../../presenters/task_source_presenter.dart';
 import '../../presenters/task_stats_presenter.dart';
 import 'task_overview_stats.dart';
@@ -20,8 +21,10 @@ import 'task_state_indicator.dart';
 import 'task_view_controller.dart';
 
 class TaskOverview extends StatelessWidget {
+  const TaskOverview(this.task);
+  final Task task;
+
   TaskViewController get _controller => taskViewController;
-  Task get task => _controller.selectedTask;
 
   bool get hasDescription => task.description.isNotEmpty;
   bool get hasDates => task.hasDueDate || task.hasEtaDate;
@@ -94,7 +97,7 @@ class TaskOverview extends StatelessWidget {
           TaskStateIndicator(task),
         ],
         if (task.hasSubtasks) TaskOverviewStats(task),
-        if (_controller.canEdit && (task.isClosable || task.closed)) ...[
+        if (task.canEdit && (task.isClosable || task.closed)) ...[
           SizedBox(height: onePadding * 2),
           MTFloatingAction(
             hint: task.isClosable ? loc.task_state_closable_hint : '',

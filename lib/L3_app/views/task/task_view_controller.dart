@@ -12,7 +12,6 @@ import '../../../L1_domain/entities/workspace.dart';
 import '../../components/icons.dart';
 import '../../components/mt_confirm_dialog.dart';
 import '../../extra/services.dart';
-import '../../presenters/task_level_presenter.dart';
 import '../../presenters/task_source_presenter.dart';
 import '../../presenters/task_stats_presenter.dart';
 import '../_base/base_controller.dart';
@@ -45,22 +44,6 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
 
   @computed
   Task get selectedTask => rootTask.allTasks.firstWhereOrNull((t) => t.id == _selectedTaskId) ?? rootTask;
-
-  @computed
-  bool get isWorkspace => selectedTask.level == TaskLevel.workspace;
-
-  /// доступные действия
-  @computed
-  bool get canAdd => !selectedTask.closed;
-
-  @computed
-  bool get canEdit => !isWorkspace;
-
-  @computed
-  bool get canImport => isWorkspace;
-
-  @computed
-  bool get canRefresh => isWorkspace;
 
   @action
   void _pushTask(Task _task) => navStack.add(_task);

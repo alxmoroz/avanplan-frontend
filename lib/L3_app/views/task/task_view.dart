@@ -5,18 +5,17 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../components/constants.dart';
-import '../../components/icons.dart';
-import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
-import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
+import '../../presenters/task_actions_presenter.dart';
 import '../../presenters/task_level_presenter.dart';
 import '../../presenters/task_stats_presenter.dart';
 import '../task/task_filter_dropdown.dart';
 import 'task_header.dart';
 import 'task_list_empty_action.dart';
 import 'task_listview.dart';
+import 'task_navbar.dart';
 import 'task_overview_pane.dart';
 import 'task_view_controller.dart';
 
@@ -33,7 +32,13 @@ class _TaskPageState extends State<TaskView> {
   _TabKeys? tabKeyValue = _TabKeys.overview;
 
   TaskViewController get _controller => taskViewController;
-  Task get task => _controller.selectedTask;
+  late final Task task;
+
+  @override
+  void initState() {
+    task = _controller.selectedTask;
+    super.initState();
+  }
 
   Widget tabPaneSelector() => Padding(
         padding: EdgeInsets.symmetric(horizontal: onePadding),
@@ -47,8 +52,6 @@ class _TaskPageState extends State<TaskView> {
         ),
       );
 
-  Widget overviewPane() => TaskOverview();
-
   Widget tasksPane() => Column(
         children: [
           if (tasksFilterController.hasFilters) ...[
@@ -61,47 +64,22 @@ class _TaskPageState extends State<TaskView> {
         ],
       );
 
-  Widget selectedPane() => {_TabKeys.overview: overviewPane(), _TabKeys.tasks: tasksPane()}[tabKeyValue] ?? overviewPane();
-
-  CupertinoNavigationBar taskNavBar() => navBar(
-        context,
-        title: _controller.isWorkspace ? loc.project_list_title : task.viewTitle,
-        leading: _controller.canRefresh
-            ? Row(children: [
-                SizedBox(width: onePadding),
-                MTButton.icon(refreshIcon(context), mainController.updateAll),
-              ])
-            : null,
-        trailing: Row(mainAxisAlignment: MainAxisAlignment.end, mainAxisSize: MainAxisSize.min, children: [
-          if (_controller.canImport) ...[
-            MTButton.icon(importIcon(context), () => importController.importTasks(context)),
-            SizedBox(width: onePadding),
-          ],
-          if (_controller.canAdd) ...[
-            MTButton.icon(plusIcon(context), () => _controller.addTask(context)),
-            SizedBox(width: onePadding),
-          ],
-          if (_controller.canEdit) ...[
-            MTButton.icon(editIcon(context), () => _controller.editTask(context)),
-            SizedBox(width: onePadding),
-          ],
-        ]),
-      );
+  Widget selectedPane() => {_TabKeys.overview: TaskOverview(task), _TabKeys.tasks: tasksPane()}[tabKeyValue] ?? TaskOverview(task);
 
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
         isLoading: _controller.isLoading,
-        navBar: taskNavBar(),
+        navBar: taskNavBar(context, task),
         body: SafeArea(
           top: false,
           bottom: false,
-          child: (_controller.isWorkspace && !task.hasSubtasks)
+          child: (task.isWorkspace && !task.hasSubtasks)
               ? TaskListEmptyAction(task)
               : ListView(
                   children: [
-                    if (_controller.isWorkspace)
+                    if (task.isWorkspace)
                       tasksPane()
                     else ...[
                       TaskHeader(task),
@@ -112,7 +90,7 @@ class _TaskPageState extends State<TaskView> {
                       selectedPane(),
                     ],
                     if (!task.hasSubtasks &&
-                        _controller.canAdd &&
+                        task.canAdd &&
                         [
                           TaskLevel.project,
                           TaskLevel.goal,

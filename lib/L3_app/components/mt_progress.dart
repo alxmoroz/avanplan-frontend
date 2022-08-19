@@ -52,10 +52,10 @@ class MTProgress extends StatelessWidget {
 class SampleProgress extends MTProgress {
   SampleProgress({
     required double ratio,
-    required Color? color,
     required String titleText,
     String? trailingText,
     String? subtitleText,
+    Color? color,
     Color? bgColor,
   }) : super(
           color: color,

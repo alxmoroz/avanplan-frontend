@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/status.dart';
 import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities/task_ext_level.dart';
 import '../../components/close_dialog_button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';

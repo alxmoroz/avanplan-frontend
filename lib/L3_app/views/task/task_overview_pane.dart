@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities/task_ext_actions.dart';
+import '../../../L1_domain/entities/task_ext_state.dart';
 import '../../components/constants.dart';
 import '../../components/date_string_widget.dart';
 import '../../components/icons.dart';
@@ -13,9 +15,7 @@ import '../../components/mt_details_dialog.dart';
 import '../../components/mt_divider.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/task_actions_presenter.dart';
 import '../../presenters/task_source_presenter.dart';
-import '../../presenters/task_stats_presenter.dart';
 import 'task_overview_stats.dart';
 import 'task_state_indicator.dart';
 import 'task_view_controller.dart';

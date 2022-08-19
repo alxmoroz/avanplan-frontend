@@ -1,9 +1,9 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../../L1_domain/entities/task.dart';
-import 'task_level_presenter.dart';
+import 'task.dart';
+import 'task_ext_level.dart';
 
-extension TaskActionsPresenter on Task {
+extension TaskActionsExt on Task {
   /// доступные действия
   bool get canAdd => !closed;
   bool get canEdit => !isWorkspace;

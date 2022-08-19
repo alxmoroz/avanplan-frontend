@@ -6,15 +6,17 @@ import 'package:flutter/material.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/text_widgets.dart';
-import '../../extra/services.dart';
-import '../../presenters/task_filter_presenter.dart';
+import 'task_list_controller.dart';
 
 class TaskFilterDropdown extends StatelessWidget {
-  List<DropdownMenuItem<TaskFilter>> get ddItems => tasksFilterController.taskFilterKeys
+  const TaskFilterDropdown(this.controller);
+  final TaskListController controller;
+
+  List<DropdownMenuItem<TaskFilter>> get ddItems => controller.taskFilterKeys
       .map(
         (item) => DropdownMenuItem<TaskFilter>(
           value: item,
-          child: NormalText(taskFilterText(item)),
+          child: NormalText(controller.taskFilterText(item)),
         ),
       )
       .toList();
@@ -29,9 +31,9 @@ class TaskFilterDropdown extends StatelessWidget {
           child: DropdownButtonFormField2<TaskFilter>(
             decoration: const InputDecoration(isDense: true, border: InputBorder.none),
             items: ddItems,
-            value: tasksFilterController.tasksFilter,
+            value: controller.tasksFilter,
             icon: downCaretIcon(context),
-            onChanged: (type) => tasksFilterController.setFilter(type),
+            onChanged: (type) => controller.setFilter(type),
             dropdownDecoration: BoxDecoration(borderRadius: BorderRadius.circular(onePadding)),
             isExpanded: true,
           ),

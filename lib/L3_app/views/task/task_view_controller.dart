@@ -7,13 +7,13 @@ import 'package:mobx/mobx.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities/task_ext_state.dart';
 import '../../../L1_domain/entities/task_source.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/icons.dart';
 import '../../components/mt_confirm_dialog.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_source_presenter.dart';
-import '../../presenters/task_stats_presenter.dart';
 import '../_base/base_controller.dart';
 import '../task/task_edit_view.dart';
 import '../task/task_view.dart';
@@ -43,7 +43,9 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   int? get _selectedTaskId => navStack.isNotEmpty ? navStack.last.id : null;
 
   @computed
-  Task get selectedTask => rootTask.allTasks.firstWhereOrNull((t) => t.id == _selectedTaskId) ?? rootTask;
+  Task get selectedTask => taskForId(_selectedTaskId);
+
+  Task taskForId(int? id) => rootTask.allTasks.firstWhereOrNull((t) => t.id == id) ?? rootTask;
 
   @action
   void _pushTask(Task _task) => navStack.add(_task);

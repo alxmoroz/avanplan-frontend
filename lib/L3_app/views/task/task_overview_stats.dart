@@ -3,12 +3,12 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities/task_ext_state.dart';
 import '../../components/constants.dart';
 import '../../components/mt_progress.dart';
 import '../../extra/services.dart';
 import '../../presenters/number_presenter.dart';
 import '../../presenters/task_overview_presenter.dart';
-import '../../presenters/task_stats_presenter.dart';
 
 class TaskOverviewStats extends StatelessWidget {
   const TaskOverviewStats(this.task);
@@ -17,14 +17,12 @@ class TaskOverviewStats extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final noInfoColor = stateColor(TaskState.noInfo);
-
     return Column(children: [
       if (task.hasDueDate) ...[
         SizedBox(height: onePadding / 2),
         SampleProgress(
           ratio: task.doneRatio,
-          color: stateColor(task.state),
+          color: task.stateColor,
           titleText: loc.task_state_closed,
           trailingText: task.doneRatio.inPercents,
         ),
@@ -33,27 +31,26 @@ class TaskOverviewStats extends StatelessWidget {
         SizedBox(height: onePadding),
         SampleProgress(
           ratio: task.overdueTasksCount / task.openedLeafTasksCount,
-          color: stateColor(TaskState.overdue),
+          color: task.stateColor,
           titleText: loc.task_filter_overdue,
           trailingText: '${task.overdueTasksCount}',
-          subtitleText: overdueStateTextDetails(task.totalOverduePeriod),
+          subtitleText: task.stateTextDetails,
         ),
       ],
       if (task.hasRiskTasks) ...[
         SizedBox(height: onePadding),
         SampleProgress(
           ratio: task.riskyTasksCount / task.openedLeafTasksCount,
-          color: stateColor(TaskState.risk),
+          color: task.stateColor,
           titleText: loc.task_filter_risky,
           trailingText: '${task.riskyTasksCount}',
-          subtitleText: riskStateTextDetails(task.totalRiskPeriod),
+          subtitleText: task.stateTextDetails,
         ),
       ],
       if (task.hasNoDueGroups) ...[
         SizedBox(height: onePadding),
         SampleProgress(
           ratio: task.noDueGroupsCount / task.openedGroupsCount,
-          color: noInfoColor,
           titleText: loc.task_filter_no_due,
           trailingText: '${task.noDueGroupsCount}',
         ),
@@ -62,7 +59,6 @@ class TaskOverviewStats extends StatelessWidget {
         SizedBox(height: onePadding),
         SampleProgress(
           ratio: task.inactiveGroupsCount / task.openedGroupsCount,
-          color: noInfoColor,
           titleText: loc.task_filter_no_progress,
           trailingText: '${task.inactiveGroupsCount}',
         ),
@@ -71,7 +67,6 @@ class TaskOverviewStats extends StatelessWidget {
         SizedBox(height: onePadding),
         SampleProgress(
           ratio: task.closableGroupsCount / task.openedGroupsCount,
-          color: noInfoColor,
           titleText: loc.task_filter_no_opened_tasks,
           trailingText: '${task.closableGroupsCount}',
         ),

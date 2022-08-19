@@ -4,15 +4,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities/task_ext_actions.dart';
+import '../../../L1_domain/entities/task_ext_level.dart';
+import '../../../L1_domain/entities/task_ext_state.dart';
 import '../../components/constants.dart';
 import '../../components/mt_page.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/task_actions_presenter.dart';
 import '../../presenters/task_level_presenter.dart';
-import '../../presenters/task_stats_presenter.dart';
-import '../task/task_filter_dropdown.dart';
 import 'task_header.dart';
+import 'task_list_controller.dart';
 import 'task_list_empty_action.dart';
 import 'task_listview.dart';
 import 'task_navbar.dart';
@@ -29,14 +30,17 @@ class TaskView extends StatefulWidget {
 }
 
 class _TaskPageState extends State<TaskView> {
-  _TabKeys? tabKeyValue = _TabKeys.overview;
-
+  _TabKeys? tabKeyValue;
   TaskViewController get _controller => taskViewController;
-  late final Task task;
+  late int taskId;
+  Task get task => _controller.taskForId(taskId);
+  late TaskListController taskFilterController;
 
   @override
   void initState() {
-    task = _controller.selectedTask;
+    taskId = _controller.selectedTask.id ?? -1;
+    tabKeyValue = _TabKeys.overview;
+    taskFilterController = TaskListController(taskId);
     super.initState();
   }
 
@@ -52,17 +56,7 @@ class _TaskPageState extends State<TaskView> {
         ),
       );
 
-  Widget tasksPane() => Column(
-        children: [
-          if (tasksFilterController.hasFilters) ...[
-            SizedBox(height: onePadding),
-            TaskFilterDropdown(),
-          ],
-          SizedBox(height: onePadding / 2),
-          TaskListView(tasksFilterController.filteredTasks),
-          SizedBox(height: onePadding),
-        ],
-      );
+  Widget tasksPane() => TaskListView(taskFilterController);
 
   Widget selectedPane() => {_TabKeys.overview: TaskOverview(task), _TabKeys.tasks: tasksPane()}[tabKeyValue] ?? TaskOverview(task);
 

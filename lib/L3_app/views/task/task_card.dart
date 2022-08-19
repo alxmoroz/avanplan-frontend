@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities/task_ext_state.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -10,7 +11,6 @@ import '../../components/mt_card.dart';
 import '../../components/mt_progress.dart';
 import '../../components/text_widgets.dart';
 import '../../presenters/task_overview_presenter.dart';
-import '../../presenters/task_stats_presenter.dart';
 import 'task_state_indicator.dart';
 
 class TaskCard extends StatelessWidget {
@@ -55,7 +55,7 @@ class TaskCard extends StatelessWidget {
         onTap: onTap,
         body: MTProgress(
           ratio: task.doneRatio,
-          color: stateColor(task.state),
+          color: task.stateColor,
           body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             header(context),
             SizedBox(height: onePadding / 2),

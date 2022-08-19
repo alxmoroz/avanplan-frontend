@@ -7,7 +7,6 @@ import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/text_widgets.dart';
 import '../../presenters/task_overview_presenter.dart';
-import '../../presenters/task_stats_presenter.dart';
 
 class TaskStateIndicator extends StatelessWidget {
   const TaskStateIndicator(this.task, {this.inCard = false});
@@ -16,21 +15,13 @@ class TaskStateIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = inCard ? darkGreyColor : stateColor(task.state) ?? darkGreyColor;
-    final _stateTextTitle = stateTextTitle(task);
+    final color = inCard ? darkGreyColor : task.stateColor ?? darkGreyColor;
 
-    String _stateTextDetails = '';
-
-    if (task.state == TaskState.overdue) {
-      _stateTextDetails = overdueStateTextDetails(task.totalOverduePeriod);
-    } else if (task.state == TaskState.risk) {
-      _stateTextDetails = riskStateTextDetails(task.totalRiskPeriod);
-    }
-    final indicatorText = _stateTextDetails.isNotEmpty ? _stateTextDetails : _stateTextTitle;
+    final indicatorText = task.stateTextDetails ?? task.stateTextTitle;
 
     return Row(
       children: [
-        stateIcon(context, task, size: onePadding * (inCard ? 1.5 : 2), color: color),
+        task.stateIcon(context, size: onePadding * (inCard ? 1.5 : 2), color: color),
         SizedBox(width: onePadding / 3),
         Expanded(child: inCard ? SmallText(indicatorText, color: color) : NormalText(indicatorText, color: color)),
       ],

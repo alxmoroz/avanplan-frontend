@@ -1,6 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../../L1_domain/entities/task.dart';
+import 'task.dart';
 
 enum TaskState { overdue, risk, ok, noInfo }
 
@@ -36,8 +36,9 @@ extension TaskStats on Task {
     return res;
   }
 
-  Iterable<Task> get _openedTasks => tasks.where((t) => !t.closed);
-  bool get hasOpenedTasks => _openedTasks.isNotEmpty;
+  Iterable<Task> get openedTasks => tasks.where((t) => !t.closed);
+  int get openedTasksCount => openedTasks.length;
+  bool get hasOpenedTasks => openedTasks.isNotEmpty;
 
   bool get isClosable => !closed && hasSubtasks && !hasOpenedTasks;
 
@@ -47,6 +48,7 @@ extension TaskStats on Task {
 
   Iterable<Task> get _openedLeafTasks => _leafTasks.where((t) => !t.closed);
   int get openedLeafTasksCount => _openedLeafTasks.length;
+
   int get closedTasksCount => _leafTasksCount - openedLeafTasksCount;
   double get doneRatio => (hasDueDate && _leafTasksCount > 0) ? closedTasksCount / _leafTasksCount : 0;
 
@@ -64,7 +66,6 @@ extension TaskStats on Task {
   Iterable<Task> get _riskyTasks => _timeBoundOpenedTasks.where((t) => t._hasRisk);
   int get riskyTasksCount => _riskyTasks.length;
   bool get hasRiskTasks => riskyTasksCount > 0;
-
   Duration get totalRiskPeriod {
     int totalSeconds = _etaRiskPeriod?.inSeconds ?? 0;
     _riskyTasks.forEach((t) => totalSeconds += t._etaRiskPeriod?.inSeconds ?? 0);

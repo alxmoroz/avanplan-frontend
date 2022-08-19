@@ -3,12 +3,13 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities/task_ext_actions.dart';
+import '../../../L1_domain/entities/task_ext_level.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_button.dart';
 import '../../components/navbar.dart';
 import '../../extra/services.dart';
-import '../../presenters/task_actions_presenter.dart';
 import '../../presenters/task_level_presenter.dart';
 
 CupertinoNavigationBar taskNavBar(BuildContext context, Task task) {

@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities/task_ext_state.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -15,7 +16,6 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_overview_presenter.dart';
-import '../../presenters/task_stats_presenter.dart';
 import '../task/task_list_empty_action.dart';
 import '../task/task_overview_stats.dart';
 
@@ -51,7 +51,7 @@ class _MainDashboardViewState extends State<MainDashboardView> {
           decoration: BoxDecoration(
             gradient: RadialGradient(
               radius: 1,
-              colors: [(stateBgColor(rootTask.state) ?? backgroundColor).resolve(context), backgroundColor.resolve(context)],
+              colors: [(rootTask.stateBgColor ?? backgroundColor).resolve(context), backgroundColor.resolve(context)],
             ),
           ),
           child: SafeArea(
@@ -63,12 +63,12 @@ class _MainDashboardViewState extends State<MainDashboardView> {
                     shrinkWrap: true,
                     children: [
                       /// статус и комментарий
-                      stateIcon(context, rootTask, size: _iconSize),
+                      rootTask.stateIcon(context, size: _iconSize),
                       H3(
-                        stateTextTitle(rootTask),
+                        rootTask.stateTextTitle,
                         align: TextAlign.center,
                         padding: EdgeInsets.symmetric(horizontal: onePadding),
-                        color: stateColor(rootTask.state) ?? darkGreyColor,
+                        color: rootTask.stateColor ?? darkGreyColor,
                       ),
                       SizedBox(height: onePadding),
 

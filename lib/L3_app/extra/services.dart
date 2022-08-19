@@ -28,7 +28,6 @@ import '../views/main/main_controller.dart';
 import '../views/settings/settings_controller.dart';
 import '../views/source/source_controller.dart';
 import '../views/task/task_edit_controller.dart';
-import '../views/task/task_filter_controller.dart';
 import '../views/task/task_view_controller.dart';
 import '../views/user/user_controller.dart';
 
@@ -46,7 +45,6 @@ TaskViewController get taskViewController => GetIt.I<TaskViewController>();
 TaskEditController get taskEditController => GetIt.I<TaskEditController>();
 SourceController get sourceController => GetIt.I<SourceController>();
 ImportController get importController => GetIt.I<ImportController>();
-TaskFilterController get tasksFilterController => GetIt.I<TaskFilterController>();
 UserController get userController => GetIt.I<UserController>();
 
 Openapi get openAPI => GetIt.I<Openapi>();
@@ -92,6 +90,5 @@ void setup() {
   getIt.registerSingleton<TaskEditController>(TaskEditController());
   getIt.registerSingleton<SourceController>(SourceController());
   getIt.registerSingleton<ImportController>(ImportController());
-  getIt.registerSingleton<TaskFilterController>(TaskFilterController());
   getIt.registerSingleton<UserController>(UserController());
 }

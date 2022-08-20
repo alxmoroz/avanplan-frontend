@@ -3,7 +3,7 @@
 # Copyright (c) 2022. Alexandr Moroz
 
 #remote_schema="http://localhost:8000/v1/openapi.json"
-remote_schema="https://hercules.moroz.team/api/v1/openapi.json"
+remote_schema="https://gercul.es/api/v1/openapi.json"
 api_folder="./openapi"
 
 fullDir="${PWD}/${api_folder}"

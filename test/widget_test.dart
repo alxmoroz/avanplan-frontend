@@ -1,7 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hercules/L3_app/main.dart';
+import 'package:gercules/L3_app/main.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {

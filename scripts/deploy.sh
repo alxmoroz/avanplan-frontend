@@ -2,25 +2,25 @@
 
 # Copyright (c) 2022. Alexandr Moroz
 
-if ! [ "$APP_SYNC_PATH" ]; then
-  echo "Путь APP_SYNC_PATH до папки деплоя не определен в env"
-  exit 1
-fi
+#if ! [ "$APP_SYNC_PATH" ]; then
+#  echo "Путь APP_SYNC_PATH до папки деплоя не определен в env"
+#  exit 1
+#fi
 
-echo "DEPLOYING..."
+#echo "DEPLOYING..."
 
-appName="Hercules"
+#appName="Gercules"
 
-version="v$(grep 'version: ' ./pubspec.yaml | sed 's/version: //')"
+#version="v$(grep 'version: ' ./pubspec.yaml | sed 's/version: //')"
 
 # Android
-deployPathAndroid="${APP_SYNC_PATH}/builds/$version/Android"
-if ! [ -d "$deployPathAndroid" ]; then
-  mkdir -p "$deployPathAndroid"
-fi
+#deployPathAndroid="${APP_SYNC_PATH}/builds/$version/Android"
+#if ! [ -d "$deployPathAndroid" ]; then
+#  mkdir -p "$deployPathAndroid"
+#fi
 
 #mv "./build/app/outputs/flutter-apk/app-release.apk" "${deployPathAndroid}/${appName}_all_platforms_${version}.apk"
-mv "./build/app/outputs/bundle/release/app-release.aab" "${deployPathAndroid}/${appName}_bundle_${version}.aab"
+#mv "./build/app/outputs/bundle/release/app-release.aab" "${deployPathAndroid}/${appName}_bundle_${version}.aab"
 
 # iOS
 #deployPath_iOS="${APP_SYNC_PATH}/builds/$version/iOS"
@@ -30,4 +30,4 @@ mv "./build/app/outputs/bundle/release/app-release.aab" "${deployPathAndroid}/${
 
 #mv "./build/ios/${appName}.xcarchive" "${deployPath_iOS}/${appName}_${version}.xcarchive"
 
-echo "DEPLOYING COMPLETE"
+#echo "DEPLOYING COMPLETE"

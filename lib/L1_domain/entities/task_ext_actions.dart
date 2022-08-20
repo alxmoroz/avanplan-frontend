@@ -8,6 +8,7 @@ enum TaskActionType {
   add,
   edit,
   import,
+  go2source,
   unlink,
   unwatch,
 }
@@ -17,8 +18,6 @@ extension TaskActionsExt on Task {
   bool get canAdd => isWorkspace || !(closed || hasLink);
   bool get canEdit => !(isWorkspace || hasLink);
   bool get canImport => isWorkspace;
-  bool get canUnlink => hasLink;
-  bool get canUnwatch => hasLink;
   bool get canRefresh => isWorkspace;
 
   List<TaskActionType> get actionTypes {
@@ -32,10 +31,9 @@ extension TaskActionsExt on Task {
     if (canImport) {
       res.add(TaskActionType.import);
     }
-    if (canUnlink) {
+    if (hasLink) {
+      res.add(TaskActionType.go2source);
       res.add(TaskActionType.unlink);
-    }
-    if (canUnwatch) {
       res.add(TaskActionType.unwatch);
     }
     return res;

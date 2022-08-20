@@ -59,7 +59,7 @@ class _ImportViewState extends State<ImportView> {
   List<DropdownMenuItem<Source>> srcDdItems(Iterable<Source> sources) => sources
       .map((s) => DropdownMenuItem<Source>(
             value: s,
-            child: sourceInfo(context, s),
+            child: s.info(context),
           ))
       .toList();
 

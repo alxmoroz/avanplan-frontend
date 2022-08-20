@@ -19,7 +19,6 @@ CupertinoNavigationBar taskNavBar(BuildContext context, Task task) {
   final _controller = taskViewController;
 
   Future<void> _action(TaskActionType? actionType) async {
-    print(actionType);
     switch (actionType) {
       case TaskActionType.add:
         _controller.addTask(context);
@@ -36,6 +35,8 @@ CupertinoNavigationBar taskNavBar(BuildContext context, Task task) {
       case TaskActionType.unwatch:
         // TODO: Handle this case.
         break;
+      case TaskActionType.go2source:
+        break;
       case null:
     }
   }
@@ -45,6 +46,7 @@ CupertinoNavigationBar taskNavBar(BuildContext context, Task task) {
         TaskActionType.add: plusIcon(context),
         TaskActionType.edit: editIcon(context),
         TaskActionType.import: importIcon(context),
+        TaskActionType.go2source: const NormalText('go2source'),
         TaskActionType.unlink: const NormalText('unlink'),
         TaskActionType.unwatch: const NormalText('unwatch'),
       }[at] ??

@@ -134,7 +134,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
             type: MTActionType.isDefault,
             onTap: () => launchUrl(selectedTask.taskSource!.uri),
             result: false,
-            child: taskSourceGotoTitle(context, selectedTask),
+            child: selectedTask.taskSource!.go2SourceTitle(context),
           ),
         ],
       );

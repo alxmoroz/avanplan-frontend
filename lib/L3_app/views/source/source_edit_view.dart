@@ -73,7 +73,7 @@ class _SourceEditViewState extends State<SourceEditView> {
       .map((st) => DropdownMenuItem<SourceType>(
             value: st,
             child: Row(children: [
-              sourceTypeIcon(context, st),
+              st.icon(context),
               SizedBox(width: onePadding / 2),
               NormalText('$st'),
             ]),

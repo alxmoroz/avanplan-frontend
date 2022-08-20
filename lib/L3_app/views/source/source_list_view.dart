@@ -34,7 +34,7 @@ class _SourceListViewState extends State<SourceListView> {
           () => _controller.editSource(context, s),
           padding: EdgeInsets.symmetric(horizontal: onePadding, vertical: onePadding / 2),
           child: Row(children: [
-            Expanded(child: sourceInfo(context, s)),
+            Expanded(child: s.info(context)),
             editIcon(context),
           ]),
         ),

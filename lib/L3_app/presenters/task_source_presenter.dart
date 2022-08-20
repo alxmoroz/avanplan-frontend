@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../../L1_domain/entities/source.dart';
-import '../../L1_domain/entities/task.dart';
+import '../../L1_domain/entities/task_source.dart';
 import '../components/colors.dart';
 import '../components/constants.dart';
 import '../components/icons.dart';
@@ -11,50 +11,56 @@ import '../components/mt_circle.dart';
 import '../components/text_widgets.dart';
 import '../extra/services.dart';
 
-Widget sourceTypeIcon(BuildContext context, SourceType st) {
-  Widget icon = noInfoStateIcon(context);
-  switch (st.title) {
-    case 'Redmine':
-      icon = redmineIcon();
-      break;
-    case 'GitLab':
-      icon = gitlabIcon();
-      break;
-    case 'Jira':
-      icon = jiraIcon();
-      break;
+extension SourceTypePresenter on SourceType {
+  Widget icon(BuildContext context) {
+    Widget icon = noInfoStateIcon(context);
+    switch (title) {
+      case 'Redmine':
+        icon = redmineIcon();
+        break;
+      case 'GitLab':
+        icon = gitlabIcon();
+        break;
+      case 'Jira':
+        icon = jiraIcon();
+        break;
+    }
+    return icon;
   }
-  return icon;
 }
 
-Widget sourceInfo(BuildContext context, Source s) {
-  final isUnknown = s.state == SrcState.unknown;
-  final connected = s.state == SrcState.connected;
-  final textColor = connected ? null : lightGreyColor;
-  return Row(children: [
-    Column(children: [
-      sourceTypeIcon(context, s.type),
-      SizedBox(height: onePadding / 3),
-      isUnknown ? connectingIcon(context) : MTCircle(color: connected ? Colors.green : warningColor),
-    ]),
-    SizedBox(width: onePadding / 2),
-    Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      NormalText('${s.description.isEmpty ? s.type.title : s.description}', color: textColor),
-      SizedBox(height: onePadding / 6),
-      SmallText(s.url, color: textColor),
-    ]),
-  ]);
+extension SourcePresenter on Source {
+  Widget info(BuildContext context) {
+    final isUnknown = state == SrcState.unknown;
+    final connected = state == SrcState.connected;
+    final textColor = connected ? null : lightGreyColor;
+    return Row(children: [
+      Column(children: [
+        type.icon(context),
+        SizedBox(height: onePadding / 3),
+        isUnknown ? connectingIcon(context) : MTCircle(color: connected ? Colors.green : warningColor),
+      ]),
+      SizedBox(width: onePadding / 2),
+      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        NormalText('${description.isEmpty ? type.title : description}', color: textColor),
+        SizedBox(height: onePadding / 6),
+        SmallText(url, color: textColor),
+      ]),
+    ]);
+  }
 }
 
-Widget taskSourceGotoTitle(BuildContext context, Task task, {bool showSourceIcon = false}) => Row(
-      children: [
-        if (showSourceIcon) ...[
-          sourceTypeIcon(context, task.taskSource!.source.type),
+extension TaskSourcePresenter on TaskSource {
+  Widget go2SourceTitle(BuildContext context, {bool showSourceIcon = false}) => Row(
+        children: [
+          if (showSourceIcon) ...[
+            source.type.icon(context),
+            SizedBox(width: onePadding / 2),
+          ],
+          NormalText(loc.task_goto_source_title, color: mainColor),
+          // const NormalText(' >', color: mainColor),
           SizedBox(width: onePadding / 2),
+          linkOutIcon(context),
         ],
-        NormalText(loc.task_goto_source_title, color: mainColor),
-        const NormalText(' >', color: mainColor),
-        // SizedBox(width: onePadding / 2),
-        // linkOutIcon(context),
-      ],
-    );
+      );
+}

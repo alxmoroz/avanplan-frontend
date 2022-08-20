@@ -85,6 +85,12 @@ Widget unlinkIcon(BuildContext context, {Color? color, double? size}) => FaIcon(
       size: size ?? 16,
     );
 
+Widget unwatchIcon(BuildContext context, {Color? color, double? size}) => FaIcon(
+      FontAwesomeIcons.eyeSlash,
+      color: (color ?? dangerColor).resolve(context),
+      size: size ?? 16,
+    );
+
 Widget closeIcon(BuildContext context, {Color? color, double? size}) => Icon(
       CupertinoIcons.clear,
       color: (color ?? mainColor).resolve(context),

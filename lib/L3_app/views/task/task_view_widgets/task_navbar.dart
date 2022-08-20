@@ -24,10 +24,10 @@ CupertinoNavigationBar taskNavBar(BuildContext context, Task task) {
   Future<void> _action(TaskActionType? actionType) async {
     switch (actionType) {
       case TaskActionType.add:
-        _controller.addTask(context);
+        await _controller.addTask(context);
         break;
       case TaskActionType.edit:
-        _controller.editTask(context);
+        await _controller.editTask(context);
         break;
       case TaskActionType.import:
         await importController.importTasks(context);
@@ -36,10 +36,10 @@ CupertinoNavigationBar taskNavBar(BuildContext context, Task task) {
         await launchUrl(task.taskSource!.uri);
         break;
       case TaskActionType.unlink:
-        // TODO: Handle this case.
+        await _controller.unlinkTask(context);
         break;
       case TaskActionType.unwatch:
-        // TODO: Handle this case.
+        await _controller.unwatchTask(context);
         break;
       case null:
     }

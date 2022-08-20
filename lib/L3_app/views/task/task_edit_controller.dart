@@ -128,7 +128,7 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
       ],
       simple: true,
     );
-    if (confirm != null && confirm) {
+    if (confirm == true) {
       final deletedTask = await tasksUC.delete(t: taskForEdit!);
       Navigator.of(context).pop(deletedTask);
     }

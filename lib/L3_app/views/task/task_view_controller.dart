@@ -112,12 +112,17 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   Future<bool> _checkUnlinked(BuildContext context) async {
     bool unlinked = !selectedTask.hasLink;
     if (!unlinked) {
-      if (await _unlinkDialog(context) ?? false) {
-        unlinked = await _unlink();
-      }
+      unlinked = await unlinkTask(context);
     }
     return unlinked;
   }
+
+  MTDialogAction<bool?> _go2SourceDialogAction(BuildContext context) => MTDialogAction(
+        type: MTActionType.isDefault,
+        onTap: () => launchUrl(selectedTask.taskSource!.uri),
+        result: false,
+        child: selectedTask.taskSource!.go2SourceTitle(context),
+      );
 
   Future<bool?> _unlinkDialog(BuildContext context) async => await showMTDialog<bool?>(
         context,
@@ -130,12 +135,22 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
             result: true,
             icon: unlinkIcon(context),
           ),
+          _go2SourceDialogAction(context),
+        ],
+      );
+
+  Future<bool?> _unwatchDialog(BuildContext context) async => await showMTDialog<bool?>(
+        context,
+        title: loc.task_unwatch_dialog_title,
+        description: loc.task_unwatch_dialog_description,
+        actions: [
           MTDialogAction(
-            type: MTActionType.isDefault,
-            onTap: () => launchUrl(selectedTask.taskSource!.uri),
-            result: false,
-            child: selectedTask.taskSource!.go2SourceTitle(context),
+            title: loc.task_unwatch_action_title,
+            type: MTActionType.isDanger,
+            result: true,
+            icon: unwatchIcon(context),
           ),
+          _go2SourceDialogAction(context),
         ],
       );
 
@@ -159,6 +174,18 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   }
 
   /// роутер
+
+  Future setTaskClosed(BuildContext context, Task task, bool closed) async {
+    task.closed = closed;
+    final editedTask = await tasksUC.save(task);
+    if (editedTask != null) {
+      if (editedTask.closed) {
+        Navigator.of(context).pop(editedTask);
+      }
+      _updateParents(editedTask);
+    }
+  }
+
   Future showTask(BuildContext context, Task _t) async {
     _pushTask(_t);
     await Navigator.of(context).pushNamed(TaskView.routeName);
@@ -187,14 +214,21 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
     }
   }
 
-  Future setTaskClosed(BuildContext context, Task task, bool closed) async {
-    task.closed = closed;
-    final editedTask = await tasksUC.save(task);
-    if (editedTask != null) {
-      if (editedTask.closed) {
-        Navigator.of(context).pop(editedTask);
+  Future<bool> unlinkTask(BuildContext context) async {
+    bool res = false;
+    if (await _unlinkDialog(context) == true) {
+      res = await _unlink();
+    }
+    return res;
+  }
+
+  Future unwatchTask(BuildContext context) async {
+    if (await _unwatchDialog(context) == true) {
+      final deletedTask = await tasksUC.delete(t: selectedTask);
+      if (deletedTask != null && deletedTask.deleted) {
+        Navigator.of(context).pop();
+        _updateParents(deletedTask);
       }
-      _updateParents(editedTask);
     }
   }
 }

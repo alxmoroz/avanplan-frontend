@@ -1,6 +1,5 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 
 import '../../../components/constants.dart';
@@ -16,7 +15,7 @@ class TaskFilterDropdown extends StatelessWidget {
       .map(
         (item) => DropdownMenuItem<TaskFilter>(
           value: item,
-          child: NormalText(controller.taskFilterText(item)),
+          child: NormalText(controller.taskFilterText(item), padding: EdgeInsets.only(right: onePadding / 2)),
         ),
       )
       .toList();
@@ -25,18 +24,14 @@ class TaskFilterDropdown extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        SizedBox(width: onePadding),
         const Spacer(),
-        Expanded(
-          child: DropdownButtonFormField2<TaskFilter>(
-            decoration: const InputDecoration(isDense: true, border: InputBorder.none),
-            items: ddItems,
-            value: controller.tasksFilter,
-            icon: downCaretIcon(context),
-            onChanged: (type) => controller.setFilter(type),
-            dropdownDecoration: BoxDecoration(borderRadius: BorderRadius.circular(onePadding)),
-            isExpanded: true,
-          ),
+        DropdownButton<TaskFilter>(
+          items: ddItems,
+          value: controller.tasksFilter,
+          icon: downCaretIcon(context),
+          underline: Container(),
+          onChanged: (type) => controller.setFilter(type),
+          borderRadius: BorderRadius.circular(onePadding / 2),
         ),
         SizedBox(width: onePadding),
       ],

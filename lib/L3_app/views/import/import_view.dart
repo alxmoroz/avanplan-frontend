@@ -73,11 +73,11 @@ class _ImportViewState extends State<ImportView> {
           ),
         )
       : MTDropdown<Source>(
-          onChanged: (t) => _controller.selectSource(t),
+          onChanged: (s) => _controller.selectSource(s),
           value: _controller.selectedSource,
           ddItems: srcDdItems(sourceController.sources),
           label: loc.source_import_placeholder,
-          buttonHeight: 40,
+          dense: false,
         );
 
   Widget form() {

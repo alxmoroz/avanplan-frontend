@@ -12,7 +12,7 @@ import '../../components/mt_page.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_level_presenter.dart';
-import 'task_list_empty_action.dart';
+import 'task_list_empty_widget.dart';
 import 'task_view_controller.dart';
 import 'task_view_widgets/task_header.dart';
 import 'task_view_widgets/task_list_controller.dart';
@@ -70,7 +70,7 @@ class _TaskPageState extends State<TaskView> {
           top: false,
           bottom: false,
           child: (task.isWorkspace && !task.hasSubtasks)
-              ? TaskListEmptyAction(task)
+              ? TaskListEmptyWidget(task)
               : ListView(
                   children: [
                     if (task.isWorkspace)
@@ -89,7 +89,7 @@ class _TaskPageState extends State<TaskView> {
                           TaskLevel.project,
                           TaskLevel.goal,
                         ].contains(task.level))
-                      TaskListEmptyAction(task),
+                      TaskListEmptyWidget(task),
                   ],
                 ),
         ),

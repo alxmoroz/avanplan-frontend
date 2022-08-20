@@ -8,8 +8,8 @@ import '../../components/mt_action.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_level_presenter.dart';
 
-class TaskListEmptyAction extends StatelessWidget {
-  const TaskListEmptyAction(this.parent);
+class TaskListEmptyWidget extends StatelessWidget {
+  const TaskListEmptyWidget(this.parent);
   final Task parent;
 
   @override

@@ -57,7 +57,7 @@ extension TaskSourcePresenter on TaskSource {
             source.type.icon(context),
             SizedBox(width: onePadding / 2),
           ],
-          NormalText(loc.task_goto_source_title, color: mainColor),
+          NormalText(loc.task_go2source_title, color: mainColor),
           // const NormalText(' >', color: mainColor),
           SizedBox(width: onePadding / 2),
           linkOutIcon(context),

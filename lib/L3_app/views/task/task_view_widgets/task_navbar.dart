@@ -2,10 +2,12 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities/task_ext_actions.dart';
 import '../../../../L1_domain/entities/task_ext_level.dart';
+import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/material_wrapper.dart';
@@ -14,6 +16,7 @@ import '../../../components/navbar.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_level_presenter.dart';
+import '../../../presenters/task_source_presenter.dart';
 
 CupertinoNavigationBar taskNavBar(BuildContext context, Task task) {
   final _controller = taskViewController;
@@ -29,28 +32,51 @@ CupertinoNavigationBar taskNavBar(BuildContext context, Task task) {
       case TaskActionType.import:
         await importController.importTasks(context);
         break;
+      case TaskActionType.go2source:
+        await launchUrl(task.taskSource!.uri);
+        break;
       case TaskActionType.unlink:
         // TODO: Handle this case.
         break;
       case TaskActionType.unwatch:
         // TODO: Handle this case.
         break;
-      case TaskActionType.go2source:
-        break;
       case null:
     }
   }
 
-  Widget itemWidget(TaskActionType at) =>
-      {
-        TaskActionType.add: plusIcon(context),
-        TaskActionType.edit: editIcon(context),
-        TaskActionType.import: importIcon(context),
-        TaskActionType.go2source: const NormalText('go2source'),
-        TaskActionType.unlink: const NormalText('unlink'),
-        TaskActionType.unwatch: const NormalText('unwatch'),
-      }[at] ??
-      NormalText('$at');
+  Widget rowIconTitle(String title, {Widget? icon, Color? color}) => Row(children: [
+        if (icon != null) ...[
+          icon,
+          SizedBox(width: onePadding / 2),
+        ],
+        NormalText(title, color: color ?? mainColor),
+      ]);
+
+  Widget itemWidget(TaskActionType at) {
+    Widget res = NormalText('$at');
+    switch (at) {
+      case TaskActionType.add:
+        res = rowIconTitle(task.newSubtaskTitle, icon: plusIcon(context));
+        break;
+      case TaskActionType.edit:
+        res = rowIconTitle(loc.task_edit_action_title, icon: editIcon(context));
+        break;
+      case TaskActionType.import:
+        res = rowIconTitle(loc.task_import_action_title, icon: importIcon(context));
+        break;
+      case TaskActionType.go2source:
+        res = task.taskSource!.go2SourceTitle(context);
+        break;
+      case TaskActionType.unlink:
+        res = rowIconTitle(loc.task_unlink_action_title, color: warningColor);
+        break;
+      case TaskActionType.unwatch:
+        res = rowIconTitle(loc.task_unwatch_action_title, color: dangerColor);
+        break;
+    }
+    return res;
+  }
 
   return navBar(
     context,

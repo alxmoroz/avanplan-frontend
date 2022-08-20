@@ -125,7 +125,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
         description: loc.task_unlink_dialog_description,
         actions: [
           MTDialogAction(
-            title: loc.task_unlink_dialog_action_unlink_title,
+            title: loc.task_unlink_action_title,
             type: MTActionType.isWarning,
             result: true,
             icon: unlinkIcon(context),

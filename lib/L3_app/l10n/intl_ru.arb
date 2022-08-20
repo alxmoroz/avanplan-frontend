@@ -58,11 +58,12 @@
   "task_delete_dialog_description": "Все подзадачи также будут удалены",
   "task_due_date_label": "План",
   "task_due_date_placeholder": "Срок завершения",
+  "task_edit_action_title": "Редактировать",
   "task_eta_date_label": "Прогноз",
-
-  "task_goto_source_title": "Перейти к источнику",
+  "task_go2source_title": "Перейти к источнику",
 
   "task_import_btn_title": "Начать отслеживать",
+  "task_import_action_title": "Импортировать задачи",
   "task_import_title": "Импорт задач",
   "task_import_title_error_get_list": "Ошибка получения списка проектов\nПопробуйте выбрать другой источник",
   "task_import_list_empty_title": "Нет доступных для импорта проектов\nПопробуйте выбрать другой источник",
@@ -93,9 +94,13 @@
 
   "task_title": "Задача",
 
-  "task_unlink_dialog_action_unlink_title": "Отвязать задачу",
-  "task_unlink_dialog_description": "Вы не сможете загружать обновления задачи. Изменения не попадут в исходный проект",
-  "task_unlink_dialog_title": "Отвязать задачу от источника?",
+  "task_unlink_action_title": "Удалить связь",
+  "task_unlink_dialog_description": "Вы не сможете загружать обновления. Изменения не попадут в источник",
+  "task_unlink_dialog_title": "Удалить связь с источником?",
+
+  "task_unwatch_action_title": "Прекратить отслеживать",
+  "task_unwatch_dialog_description": "Задачи будут удалены из Геркулеса, но останутся в источнике",
+  "task_unwatch_dialog_title": "Прекратить отслеживать?",
 
   "validation_empty_text": "Нужно заполнить",
 

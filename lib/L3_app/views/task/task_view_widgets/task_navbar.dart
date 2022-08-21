@@ -87,14 +87,16 @@ CupertinoNavigationBar taskNavBar(BuildContext context, Task task) {
           ])
         : null,
     title: task.isWorkspace ? loc.project_list_title : task.viewTitle,
-    trailing: material(
-      PopupMenuButton<TaskActionType>(
-        icon: menuIcon(context),
-        itemBuilder: (_) => task.actionTypes.map((at) => PopupMenuItem<TaskActionType>(value: at, child: itemWidget(at))).toList(),
-        onSelected: _action,
-        padding: EdgeInsets.symmetric(horizontal: onePadding / 2),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(onePadding / 2)),
-      ),
-    ),
+    trailing: task.actionTypes.isNotEmpty
+        ? material(
+            PopupMenuButton<TaskActionType>(
+              icon: menuIcon(context),
+              itemBuilder: (_) => task.actionTypes.map((at) => PopupMenuItem<TaskActionType>(value: at, child: itemWidget(at))).toList(),
+              onSelected: _action,
+              padding: EdgeInsets.symmetric(horizontal: onePadding / 2),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(onePadding / 2)),
+            ),
+          )
+        : null,
   );
 }

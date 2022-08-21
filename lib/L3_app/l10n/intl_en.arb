@@ -10,16 +10,10 @@
 
   "backlog": "Backlog",
 
-  "common_days_count": "{count, plural, one{{count} day} other{{count} days}}",
-  "common_delete_btn_title": "Delete",
-  "common_description": "Description",
-  "common_delete_dialog_description": "This action cannot be undone!",
-  "common_no": "No",
-  "common_save_btn_title": "Save",
-  "common_select_all_title": "Select all",
-  "common_status_placeholder": "Status",
-  "common_title": "Title",
-  "common_yes": "Yes",
+  "days_count": "{count, plural, one{{count} day} other{{count} days}}",
+  "delete_action_title": "Delete",
+  "delete_dialog_description": "This action cannot be undone!",
+  "description": "Description",
 
   "goal_delete_dialog_title": "Delete goal?",
   "goal_for_orphaned_tasks": "Tasks without goals",
@@ -29,7 +23,7 @@
   "goal_title": "Goal",
 
   "integration": "Integration",
-
+  "no": "No",
   "overview": "Overview",
 
   "project_delete_dialog_title": "Delete project?",
@@ -37,6 +31,9 @@
   "project_list_title": "Projects",
   "project_new_title": "New project",
   "project_title": "Project",
+
+  "save_action_title": "Save",
+  "select_all_action_title": "Select all",
 
   "source_api_key_placeholder": "API key / Token",
   "source_delete_dialog_title": "Delete import source connection?",
@@ -60,7 +57,6 @@
   "task_due_date_placeholder": "Due date",
   "task_edit_action_title": "Edit",
   "task_eta_date_label": "Predicted",
-
   "task_go2source_title": "Go to source",
 
   "task_import_btn_title": "Track tasks",
@@ -93,6 +89,7 @@
   "task_state_risky_details": "Total overdue risk is",
   "task_state_risky_title": "There are risks",
 
+  "task_status_placeholder": "Status",
   "task_title": "Task",
 
   "task_unlink_action_title": "Delete link",
@@ -103,8 +100,12 @@
   "task_unwatch_dialog_description": "Tasks will be removed from Gercules, but will remain in the source",
   "task_unwatch_dialog_title": "Stop tracking?",
 
+  "title": "Title",
+
   "validation_empty_text": "Should not be empty",
 
   "workspace_delete_dialog_title": "Delete workspace?",
-  "workspace_title": "Workspace"
+  "workspace_title": "Workspace",
+
+  "yes": "Yes"
 }

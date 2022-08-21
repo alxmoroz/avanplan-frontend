@@ -54,8 +54,8 @@ class _TaskEditViewState extends State<TaskEditView> {
   void initState() {
     //TODO: возможно, это должно быть в инициализации контроллера?
     _controller.initState(tfaList: [
-      TFAnnotation('title', label: loc.common_title, text: _task?.title ?? ''),
-      TFAnnotation('description', label: loc.common_description, text: _task?.description ?? '', needValidate: false),
+      TFAnnotation('title', label: loc.title, text: _task?.title ?? ''),
+      TFAnnotation('description', label: loc.description, text: _task?.description ?? '', needValidate: false),
       TFAnnotation('dueDate', label: loc.task_due_date_placeholder, noText: true, needValidate: false),
     ]);
     super.initState();
@@ -99,7 +99,7 @@ class _TaskEditViewState extends State<TaskEditView> {
             onChanged: (status) => _controller.selectStatus(status),
             value: _controller.selectedStatus,
             items: _controller.statuses,
-            label: loc.common_status_placeholder,
+            label: loc.task_status_placeholder,
           ),
         Padding(
           padding: tfPadding,
@@ -114,7 +114,7 @@ class _TaskEditViewState extends State<TaskEditView> {
         ),
         if (!_controller.isNew)
           MTButton(
-            loc.common_delete_btn_title,
+            loc.delete_action_title,
             () => _controller.delete(context),
             titleColor: dangerColor,
             padding: EdgeInsets.only(top: onePadding),
@@ -133,7 +133,7 @@ class _TaskEditViewState extends State<TaskEditView> {
           leading: CloseDialogButton(),
           title: _controller.isNew ? _controller.parent?.newSubtaskTitle : '',
           trailing: MTButton(
-            loc.common_save_btn_title,
+            loc.save_action_title,
             _controller.validated ? () => _controller.save(context) : null,
             titleColor: _controller.validated ? mainColor : borderColor,
             padding: EdgeInsets.only(right: onePadding),

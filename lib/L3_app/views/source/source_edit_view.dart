@@ -49,7 +49,7 @@ class _SourceEditViewState extends State<SourceEditView> {
       TFAnnotation('login', label: loc.auth_user_placeholder, text: _source?.login ?? ''),
       TFAnnotation('apiKey', label: loc.source_api_key_placeholder, text: _source?.apiKey ?? ''),
       // TFAnnotation('password', label: loc.auth_password_placeholder, needValidate: false),
-      TFAnnotation('description', label: loc.common_description, text: _source?.description ?? '', needValidate: false),
+      TFAnnotation('description', label: loc.description, text: _source?.description ?? '', needValidate: false),
     ]);
     super.initState();
   }
@@ -101,7 +101,7 @@ class _SourceEditViewState extends State<SourceEditView> {
           ].map((code) => textFieldForCode(code)),
           if (_controller.canEdit)
             MTButton(
-              loc.common_delete_btn_title,
+              loc.delete_action_title,
               () => _controller.delete(context),
               titleColor: dangerColor,
               padding: EdgeInsets.only(top: onePadding),
@@ -121,7 +121,7 @@ class _SourceEditViewState extends State<SourceEditView> {
           leading: CloseDialogButton(),
           title: _isNew ? loc.source_title_new : '',
           trailing: MTButton(
-            loc.common_save_btn_title,
+            loc.save_action_title,
             _canSave ? () => _controller.save(context) : null,
             titleColor: _canSave ? mainColor : borderColor,
             padding: EdgeInsets.only(right: onePadding),

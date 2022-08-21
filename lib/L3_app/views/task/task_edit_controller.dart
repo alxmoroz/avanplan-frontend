@@ -121,10 +121,10 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
     final confirm = await showMTDialog<bool?>(
       context,
       title: taskForEdit!.deleteDialogTitle,
-      description: '${loc.task_delete_dialog_description}\n${loc.common_delete_dialog_description}',
+      description: '${loc.task_delete_dialog_description}\n${loc.delete_dialog_description}',
       actions: [
-        MTDialogAction(title: loc.common_yes, type: MTActionType.isDanger, result: true),
-        MTDialogAction(title: loc.common_no, type: MTActionType.isDefault, result: false),
+        MTDialogAction(title: loc.yes, type: MTActionType.isDanger, result: true),
+        MTDialogAction(title: loc.no, type: MTActionType.isDefault, result: false),
       ],
       simple: true,
     );

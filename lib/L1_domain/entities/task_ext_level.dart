@@ -23,4 +23,5 @@ extension TaskLevelExtension on Task {
       TaskLevel.subtask;
 
   bool get isWorkspace => level == TaskLevel.workspace;
+  bool get isProject => level == TaskLevel.project;
 }

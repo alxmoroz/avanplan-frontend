@@ -10,16 +10,10 @@
 
   "backlog": "Бэклог",
 
-  "common_days_count": "{count, plural, one{{count} день} few{{count} дня} other{{count} дней}}",
-  "common_delete_btn_title": "Удалить",
-  "common_delete_dialog_description": "Это действие нельзя будет отменить!",
-  "common_description": "Описание",
-  "common_no": "Нет",
-  "common_save_btn_title": "Сохранить",
-  "common_select_all_title": "Выбрать все",
-  "common_status_placeholder": "Статус",
-  "common_title": "Название",
-  "common_yes": "Да",
+  "days_count": "{count, plural, one{{count} день} few{{count} дня} other{{count} дней}}",
+  "delete_action_title": "Удалить",
+  "delete_dialog_description": "Это действие нельзя будет отменить!",
+  "description": "Описание",
 
   "goal_delete_dialog_title": "Удалить цель?",
   "goal_for_orphaned_tasks": "Задачи без целей",
@@ -29,7 +23,7 @@
   "goal_title": "Цель",
 
   "integration": "Интеграция",
-
+  "no": "Нет",
   "overview": "Обзор",
 
   "project_delete_dialog_title": "Удалить проект?",
@@ -37,6 +31,9 @@
   "project_list_title": "Проекты",
   "project_new_title": "Новый проект",
   "project_title": "Проект",
+
+  "save_action_title": "Сохранить",
+  "select_all_action_title": "Выбрать все",
 
   "source_api_key_placeholder": "Ключ API / Токен",
   "source_delete_dialog_title": "Удалить источник импорта?",
@@ -92,6 +89,7 @@
   "task_state_risky_details": "Есть риск отставания на",
   "task_state_risky_title": "Есть риски",
 
+  "task_status_placeholder": "Статус",
   "task_title": "Задача",
 
   "task_unlink_action_title": "Удалить связь",
@@ -102,8 +100,12 @@
   "task_unwatch_dialog_description": "Задачи будут удалены из Геркулеса, но останутся в источнике",
   "task_unwatch_dialog_title": "Прекратить отслеживать?",
 
+  "title": "Название",
+
   "validation_empty_text": "Нужно заполнить",
 
   "workspace_delete_dialog_title": "Удалить рабочее пространство?",
-  "workspace_title": "Рабочее пространство"
+  "workspace_title": "Рабочее пространство",
+
+  "yes": "Да"
 }

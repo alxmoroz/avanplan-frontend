@@ -92,7 +92,7 @@ class _ImportViewState extends State<ImportView> {
         if (hasTasks) ...[
           SizedBox(height: onePadding),
           if (_controller.remoteTasks.length > 1)
-            MTCheckBoxTile(title: loc.common_select_all_title, value: selectedAll, onChanged: _controller.toggleSelectedAll),
+            MTCheckBoxTile(title: loc.select_all_action_title, value: selectedAll, onChanged: _controller.toggleSelectedAll),
           const MTDivider(),
           Expanded(
             child: ListView.builder(
@@ -124,7 +124,7 @@ class _ImportViewState extends State<ImportView> {
           title: loc.task_import_title,
           trailing: sourceController.sources.isNotEmpty
               ? MTButton.icon(plusIcon(context), () => _controller.needAddSource(context), padding: EdgeInsets.only(right: onePadding))
-              : const SizedBox(width: 0),
+              : null,
         ),
         body: SafeArea(child: form()),
       ),

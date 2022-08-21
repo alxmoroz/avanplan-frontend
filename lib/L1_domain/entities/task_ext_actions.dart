@@ -31,7 +31,7 @@ extension TaskActionsExt on Task {
     if (canImport) {
       res.add(TaskActionType.import);
     }
-    if (hasLink) {
+    if (isProject && hasLink) {
       res.add(TaskActionType.go2source);
       res.add(TaskActionType.unlink);
       res.add(TaskActionType.unwatch);

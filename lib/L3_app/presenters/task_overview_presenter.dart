@@ -64,10 +64,10 @@ extension TaskStatePresenter on Task {
 
     switch (state) {
       case TaskState.overdue:
-        res = '${loc.task_state_overdue_details} ${loc.common_days_count(totalOverduePeriod.inDays)}';
+        res = '${loc.task_state_overdue_details} ${loc.days_count(totalOverduePeriod.inDays)}';
         break;
       case TaskState.risk:
-        res = '${loc.task_state_risky_details} ${loc.common_days_count(totalRiskPeriod.inDays)}';
+        res = '${loc.task_state_risky_details} ${loc.days_count(totalRiskPeriod.inDays)}';
         break;
       case TaskState.ok:
       case TaskState.noInfo:

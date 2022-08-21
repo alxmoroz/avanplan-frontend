@@ -15,16 +15,14 @@ import '../../../components/mt_details_dialog.dart';
 import '../../../components/mt_divider.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
+import '../../../presenters/task_actions_presenter.dart';
 import '../../../presenters/task_source_presenter.dart';
-import '../task_view_controller.dart';
 import 'task_overview_stats.dart';
 import 'task_state_indicator.dart';
 
 class TaskOverview extends StatelessWidget {
   const TaskOverview(this.task);
   final Task task;
-
-  TaskViewController get _controller => taskViewController;
 
   bool get hasDescription => task.description.isNotEmpty;
   bool get hasDates => task.hasDueDate || task.hasEtaDate;
@@ -103,7 +101,7 @@ class TaskOverview extends StatelessWidget {
             hint: task.isClosable ? loc.task_state_closable_hint : '',
             title: task.isClosable ? loc.task_state_close_btn_title : loc.task_state_reopen_btn_title,
             icon: task.isClosable ? doneIcon(context, true) : null,
-            onPressed: () => _controller.setTaskClosed(context, task, !task.closed),
+            onPressed: () => task.setClosed(context, !task.closed),
           ),
         ],
       ]),

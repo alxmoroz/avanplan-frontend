@@ -27,7 +27,7 @@ class MainDashboardView extends StatefulWidget {
 }
 
 class _MainDashboardViewState extends State<MainDashboardView> {
-  Task get rootTask => taskViewController.rootTask;
+  Task get rootTask => mainController.rootTask;
 
   final double _iconSize = onePadding * 15;
 

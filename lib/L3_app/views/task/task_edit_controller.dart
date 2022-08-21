@@ -7,7 +7,6 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/entities/status.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../components/mt_confirm_dialog.dart';
-import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';
 import '../../presenters/task_level_presenter.dart';
@@ -73,35 +72,16 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
   Status? get selectedStatus => statuses.firstWhereOrNull((s) => s.id == _selectedStatusId);
 
   /// выбранная задача для редактирования
-  @observable
-  Task? taskForEdit;
-
-  @action
-  void selectTaskForEdit(Task? _t) => taskForEdit = _t;
-
-  @computed
-  bool get isNew => taskForEdit == null;
-
-  @computed
-  Task? get parent => isNew ? taskViewController.selectedTask : taskForEdit?.parent;
 
   @override
   bool get validated => super.validated && selectedWS != null;
 
-  @override
-  void initState({List<TFAnnotation>? tfaList}) {
-    super.initState(tfaList: tfaList);
-    setDueDate(taskForEdit?.dueDate);
-    setClosed(taskForEdit?.closed);
-    selectWS(taskForEdit?.workspaceId);
-    selectStatus(taskForEdit?.status);
-  }
-
   /// действия
 
-  Future save(BuildContext context) async {
+  Future save(BuildContext context, {Task? task, required Task parent}) async {
+    startLoading();
     final editedTask = await tasksUC.save(Task(
-      id: taskForEdit?.id,
+      id: task?.id,
       parent: parent,
       title: tfAnnoForCode('title').text,
       description: tfAnnoForCode('description').text,
@@ -109,18 +89,19 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
       dueDate: _selectedDueDate,
       status: selectedStatus,
       workspaceId: selectedWS!.id,
-      tasks: taskForEdit?.tasks ?? [],
+      tasks: task?.tasks ?? [],
     ));
+    stopLoading();
 
     if (editedTask != null) {
       Navigator.of(context).pop(editedTask);
     }
   }
 
-  Future delete(BuildContext context) async {
+  Future delete(BuildContext context, Task task) async {
     final confirm = await showMTDialog<bool?>(
       context,
-      title: taskForEdit!.deleteDialogTitle,
+      title: task.deleteDialogTitle,
       description: '${loc.task_delete_dialog_description}\n${loc.delete_dialog_description}',
       actions: [
         MTDialogAction(title: loc.yes, type: MTActionType.isDanger, result: true),
@@ -129,7 +110,9 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
       simple: true,
     );
     if (confirm == true) {
-      final deletedTask = await tasksUC.delete(t: taskForEdit!);
+      startLoading();
+      final deletedTask = await tasksUC.delete(t: task);
+      stopLoading();
       Navigator.of(context).pop(deletedTask);
     }
   }

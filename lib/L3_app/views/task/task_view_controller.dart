@@ -1,234 +1,79 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:collection/collection.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:gercules/L1_domain/usecases/task_comparators.dart';
 import 'package:mobx/mobx.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/task_ext_state.dart';
-import '../../../L1_domain/entities/task_source.dart';
-import '../../../L1_domain/entities/workspace.dart';
-import '../../components/icons.dart';
-import '../../components/mt_confirm_dialog.dart';
 import '../../extra/services.dart';
-import '../../presenters/task_source_presenter.dart';
+import '../../presenters/task_filter_presenter.dart';
 import '../_base/base_controller.dart';
-import '../task/task_edit_view.dart';
-import '../task/task_view.dart';
 
 part 'task_view_controller.g.dart';
 
-class TaskViewController extends _TaskViewControllerBase with _$TaskViewController {}
+class TaskViewController extends _TaskViewControllerBase with _$TaskViewController {
+  TaskViewController() {
+    setTaskID(mainController.selectedTaskId);
+  }
+}
 
 abstract class _TaskViewControllerBase extends BaseController with Store {
-  /// рутовый объект
-  @observable
-  Task rootTask = Task(
-    title: '',
-    parent: null,
-    tasks: [],
-    description: '',
-    closed: false,
-    createdOn: DateTime.now(),
-    updatedOn: DateTime.now(),
-  );
-
-  /// история переходов и текущая выбранная задача
-  @observable
-  ObservableList<Task> navStack = ObservableList();
-
-  @computed
-  int? get _selectedTaskId => navStack.isNotEmpty ? navStack.last.id : null;
-
-  @computed
-  Task get selectedTask => taskForId(_selectedTaskId);
-
-  Task taskForId(int? id) => rootTask.allTasks.firstWhereOrNull((t) => t.id == id) ?? rootTask;
-
-  @action
-  void _pushTask(Task _task) => navStack.add(_task);
-
-  @action
-  void _popTask() {
-    if (navStack.isNotEmpty) {
-      navStack.removeLast();
-    }
-  }
-
   @override
   bool get isLoading => super.isLoading || mainController.isLoading;
 
-  @action
-  Future fetchData() async {
-    final tasks = <Task>[];
-    for (Workspace ws in mainController.workspaces) {
-      if (ws.id != null) {
-        tasks.addAll(await tasksUC.getRoots(ws.id!));
-      }
-    }
-    tasks.forEach((t) => t.parent = rootTask);
-    rootTask.tasks = tasks;
-
-    rootTask = rootTask.copy();
-    // TODO: чтобы сохранять положение в навигации внутри приложения, нужно отправлять набор хлебных крошек на сервер в профиль пользователя
-    // TODO: а также нужно проверять корректность пути этого при загрузке, чтобы не было зацикливаний, обрывов и т.п.
-    navStack.clear();
-  }
+  @observable
+  int? taskID;
 
   @action
-  void clearData() {
-    navStack.clear();
-    rootTask.tasks = [];
+  void setTaskID(int? _id) => taskID = _id;
+
+  @computed
+  Task get task => mainController.taskForId(taskID);
+
+  /// непосредственно фильтр и сортировка
+  @computed
+  Iterable<Task> get _sortedTasks {
+    final tasks = task.tasks;
+    tasks.sort(sortByDateAsc);
+    return tasks;
   }
 
-  void _updateParentTask(Task _task) {
-    final _parent = _task.parent;
-    if (_parent != null) {
-      final index = _parent.tasks.indexWhere((t) => t.id == _task.id);
-      if (index >= 0) {
-        if (_task.deleted) {
-          _parent.tasks.removeAt(index);
-        } else {
-          //TODO: проверить необходимость в copy
-          _parent.tasks[index] = _task.copy();
-        }
-      }
-      rootTask = rootTask.copy();
+  @computed
+  Iterable<Task> get _sortedOpenedTasks {
+    final tasks = task.openedTasks.toList();
+    tasks.sort(sortByDateAsc);
+    return tasks;
+  }
+
+  /// фильтр
+
+  @observable
+  TaskFilter? _tasksFilter;
+
+  @computed
+  TaskFilter get tasksFilter => _tasksFilter ?? (task.hasOpenedTasks ? TaskFilter.opened : TaskFilter.all);
+
+  @action
+  void setFilter(TaskFilter? _filter) => _tasksFilter = _filter;
+
+  @computed
+  List<TaskFilter> get taskFilterKeys {
+    final keys = <TaskFilter>[];
+    if (task.hasOpenedTasks && task.openedTasksCount < task.tasks.length) {
+      keys.add(TaskFilter.opened);
     }
+    keys.add(TaskFilter.all);
+    return keys;
   }
 
-  void _updateParents(Task _task) {
-    final _parent = _task.parent;
-    if (_parent != null) {
-      _updateParents(_parent);
-    }
-    _updateParentTask(_task);
-  }
+  @computed
+  bool get hasFilters => taskFilterKeys.length > 1;
 
-  /// связь с источником импорта
+  Map<TaskFilter, Iterable<Task>> get _taskFilters => {
+        TaskFilter.opened: _sortedOpenedTasks,
+        TaskFilter.all: _sortedTasks,
+      };
 
-  Future<bool> _checkUnlinked(BuildContext context) async {
-    bool unlinked = !selectedTask.hasLink;
-    if (!unlinked) {
-      unlinked = await unlinkTask(context);
-    }
-    return unlinked;
-  }
-
-  MTDialogAction<bool?> _go2SourceDialogAction(BuildContext context) => MTDialogAction(
-        type: MTActionType.isDefault,
-        onTap: () => launchUrl(selectedTask.taskSource!.uri),
-        result: false,
-        child: selectedTask.taskSource!.go2SourceTitle(context),
-      );
-
-  Future<bool?> _unlinkDialog(BuildContext context) async => await showMTDialog<bool?>(
-        context,
-        title: loc.task_unlink_dialog_title,
-        description: loc.task_unlink_dialog_description,
-        actions: [
-          MTDialogAction(
-            title: loc.task_unlink_action_title,
-            type: MTActionType.isWarning,
-            result: true,
-            icon: unlinkIcon(context),
-          ),
-          _go2SourceDialogAction(context),
-        ],
-      );
-
-  Future<bool?> _unwatchDialog(BuildContext context) async => await showMTDialog<bool?>(
-        context,
-        title: loc.task_unwatch_dialog_title,
-        description: loc.task_unwatch_dialog_description,
-        actions: [
-          MTDialogAction(
-            title: loc.task_unwatch_action_title,
-            type: MTActionType.isDanger,
-            result: true,
-            icon: unwatchIcon(context),
-          ),
-          _go2SourceDialogAction(context),
-        ],
-      );
-
-  Iterable<TaskSource> _unlinkTaskTree(Task t) {
-    final tss = <TaskSource>[];
-    for (Task subtask in t.tasks) {
-      tss.addAll(_unlinkTaskTree(subtask));
-    }
-    if (t.hasLink) {
-      t.taskSource?.keepConnection = false;
-      tss.add(t.taskSource!);
-    }
-    return tss;
-  }
-
-  Future<bool> _unlink() async {
-    startLoading();
-    final res = await importUC.updateTaskSources(_unlinkTaskTree(selectedTask));
-    stopLoading();
-    return res;
-  }
-
-  /// роутер
-
-  Future setTaskClosed(BuildContext context, Task task, bool closed) async {
-    task.closed = closed;
-    final editedTask = await tasksUC.save(task);
-    if (editedTask != null) {
-      if (editedTask.closed) {
-        Navigator.of(context).pop(editedTask);
-      }
-      _updateParents(editedTask);
-    }
-  }
-
-  Future showTask(BuildContext context, Task _t) async {
-    _pushTask(_t);
-    await Navigator.of(context).pushNamed(TaskView.routeName);
-    _popTask();
-  }
-
-  Future addTask(BuildContext context) async {
-    if (await _checkUnlinked(context)) {
-      final newTask = await editTaskDialog(context);
-      if (newTask != null) {
-        selectedTask.tasks.add(newTask);
-        _updateParents(newTask);
-      }
-    }
-  }
-
-  Future editTask(BuildContext context) async {
-    if (await _checkUnlinked(context)) {
-      final editedTask = await editTaskDialog(context, selectedTask);
-      if (editedTask != null) {
-        if (editedTask.deleted) {
-          Navigator.of(context).pop();
-        }
-        _updateParents(editedTask);
-      }
-    }
-  }
-
-  Future<bool> unlinkTask(BuildContext context) async {
-    bool res = false;
-    if (await _unlinkDialog(context) == true) {
-      res = await _unlink();
-    }
-    return res;
-  }
-
-  Future unwatchTask(BuildContext context) async {
-    if (await _unwatchDialog(context) == true) {
-      final deletedTask = await tasksUC.delete(t: selectedTask);
-      if (deletedTask != null && deletedTask.deleted) {
-        Navigator.of(context).pop();
-        _updateParents(deletedTask);
-      }
-    }
-  }
+  @computed
+  Iterable<Task> get filteredTasks => _taskFilters[tasksFilter] ?? [];
 }

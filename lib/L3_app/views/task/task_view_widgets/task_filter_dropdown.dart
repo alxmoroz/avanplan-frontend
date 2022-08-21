@@ -5,17 +5,18 @@ import 'package:flutter/material.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/text_widgets.dart';
-import 'task_list_controller.dart';
+import '../../../presenters/task_filter_presenter.dart';
+import '../task_view_controller.dart';
 
 class TaskFilterDropdown extends StatelessWidget {
   const TaskFilterDropdown(this.controller);
-  final TaskListController controller;
+  final TaskViewController controller;
 
   List<DropdownMenuItem<TaskFilter>> get ddItems => controller.taskFilterKeys
       .map(
         (item) => DropdownMenuItem<TaskFilter>(
           value: item,
-          child: NormalText(controller.taskFilterText(item), padding: EdgeInsets.only(right: onePadding / 2)),
+          child: NormalText(controller.task.taskFilterText(item), padding: EdgeInsets.only(right: onePadding / 2)),
         ),
       )
       .toList();

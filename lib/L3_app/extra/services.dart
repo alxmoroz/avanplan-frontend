@@ -27,8 +27,6 @@ import '../views/import/import_controller.dart';
 import '../views/main/main_controller.dart';
 import '../views/settings/settings_controller.dart';
 import '../views/source/source_controller.dart';
-import '../views/task/task_edit_controller.dart';
-import '../views/task/task_view_controller.dart';
 import '../views/user/user_controller.dart';
 
 S get loc => S.current;
@@ -41,8 +39,6 @@ PackageInfo get packageInfo => GetIt.I<PackageInfo>();
 SettingsController get settingsController => GetIt.I<SettingsController>();
 LoginController get loginController => GetIt.I<LoginController>();
 MainController get mainController => GetIt.I<MainController>();
-TaskViewController get taskViewController => GetIt.I<TaskViewController>();
-TaskEditController get taskEditController => GetIt.I<TaskEditController>();
 SourceController get sourceController => GetIt.I<SourceController>();
 ImportController get importController => GetIt.I<ImportController>();
 UserController get userController => GetIt.I<UserController>();
@@ -86,8 +82,6 @@ void setup() {
   getIt.registerSingletonAsync<LoginController>(() async => LoginController().init(), dependsOn: [HiveStorage]);
   getIt.registerSingleton<SettingsController>(SettingsController());
   getIt.registerSingleton<MainController>(MainController());
-  getIt.registerSingleton<TaskViewController>(TaskViewController());
-  getIt.registerSingleton<TaskEditController>(TaskEditController());
   getIt.registerSingleton<SourceController>(SourceController());
   getIt.registerSingleton<ImportController>(ImportController());
   getIt.registerSingleton<UserController>(UserController());

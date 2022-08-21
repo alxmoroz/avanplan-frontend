@@ -116,7 +116,7 @@ abstract class _ImportControllerBase extends EditController with Store {
   Future<bool> updateLinkedTasks() async {
     bool needUpdate = false;
     for (Source src in sourceController.sources) {
-      final linkedTSs = taskViewController.rootTask.tasks.where((t) => t.hasLink && t.taskSource?.source.id == src.id).map((t) => t.taskSource!);
+      final linkedTSs = mainController.rootTask.tasks.where((t) => t.hasLink && t.taskSource?.source.id == src.id).map((t) => t.taskSource!);
       needUpdate = linkedTSs.isNotEmpty;
       if (needUpdate) {
         await importUC.importTaskSources(src.id, linkedTSs.map((ts) => TaskSourceImport(code: ts.code)));

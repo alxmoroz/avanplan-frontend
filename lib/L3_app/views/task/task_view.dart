@@ -12,12 +12,11 @@ import '../../components/mt_page.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_level_presenter.dart';
+import '../../presenters/task_navbar_presenter.dart';
 import 'task_list_empty_widget.dart';
 import 'task_view_controller.dart';
 import 'task_view_widgets/task_header.dart';
-import 'task_view_widgets/task_list_controller.dart';
 import 'task_view_widgets/task_listview.dart';
-import 'task_view_widgets/task_navbar.dart';
 import 'task_view_widgets/task_overview_pane.dart';
 
 enum _TabKeys { overview, tasks }
@@ -31,16 +30,14 @@ class TaskView extends StatefulWidget {
 
 class _TaskPageState extends State<TaskView> {
   _TabKeys? tabKeyValue;
-  TaskViewController get _controller => taskViewController;
-  late int taskId;
-  Task get task => _controller.taskForId(taskId);
-  late TaskListController taskFilterController;
+
+  late TaskViewController controller;
+  Task get task => controller.task;
 
   @override
   void initState() {
-    taskId = _controller.selectedTask.id ?? -1;
+    controller = TaskViewController();
     tabKeyValue = _TabKeys.overview;
-    taskFilterController = TaskListController(taskId);
     super.initState();
   }
 
@@ -56,7 +53,7 @@ class _TaskPageState extends State<TaskView> {
         ),
       );
 
-  Widget tasksPane() => TaskListView(taskFilterController);
+  Widget tasksPane() => TaskListView(controller);
 
   Widget selectedPane() => {_TabKeys.overview: TaskOverview(task), _TabKeys.tasks: tasksPane()}[tabKeyValue] ?? TaskOverview(task);
 
@@ -64,8 +61,8 @@ class _TaskPageState extends State<TaskView> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        isLoading: _controller.isLoading,
-        navBar: taskNavBar(context, task),
+        isLoading: controller.isLoading,
+        navBar: task.taskNavBar(context),
         body: SafeArea(
           top: false,
           bottom: false,

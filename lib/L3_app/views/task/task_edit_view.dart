@@ -24,62 +24,74 @@ import 'task_edit_controller.dart';
 
 //TODO: подумать над унификацией полей. Возможно, получится избавиться от дуэта MTField и TFAnnotation
 
-Future<Task?> editTaskDialog(BuildContext context, [Task? task]) async {
-  taskEditController.selectTaskForEdit(task);
-
+Future<Task?> editTaskDialog(BuildContext context, {required Task parent, Task? task}) async {
   return await showModalBottomSheet<Task?>(
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
     useRootNavigator: true,
-    builder: (_) => MTBottomSheet(TaskEditView(), context),
+    builder: (_) => MTBottomSheet(TaskEditView(task: task, parent: parent), context),
   );
 }
 
 class TaskEditView extends StatefulWidget {
+  const TaskEditView({required this.parent, this.task});
   static String get routeName => 'task_edit';
+
+  final Task parent;
+  final Task? task;
 
   @override
   _TaskEditViewState createState() => _TaskEditViewState();
 }
 
 class _TaskEditViewState extends State<TaskEditView> {
-  TaskEditController get _controller => taskEditController;
-  Task? get _task => _controller.taskForEdit;
+  Task? get task => widget.task;
+  Task get parent => widget.parent;
+  bool get isNew => task == null;
+
+  late final TaskEditController controller;
 
   //TODO: валидация о заполненности работает неправильно, не сбрасывается после закрытия диалога
   // возможно, остаются tfa с теми же кодами для новых вьюх этого же контроллера и у них висит признак о произошедшем редактировании поля
   // была попытка использовать TFAnnotation для выбора статуса, чтобы реагировать на изменения поля в плане логики валидации
   @override
   void initState() {
+    controller = TaskEditController();
     //TODO: возможно, это должно быть в инициализации контроллера?
-    _controller.initState(tfaList: [
-      TFAnnotation('title', label: loc.title, text: _task?.title ?? ''),
-      TFAnnotation('description', label: loc.description, text: _task?.description ?? '', needValidate: false),
+
+    controller.initState(tfaList: [
+      TFAnnotation('title', label: loc.title, text: task?.title ?? ''),
+      TFAnnotation('description', label: loc.description, text: task?.description ?? '', needValidate: false),
       TFAnnotation('dueDate', label: loc.task_due_date_placeholder, noText: true, needValidate: false),
     ]);
+
+    controller.setDueDate(task?.dueDate);
+    controller.setClosed(task?.closed);
+    controller.selectWS(task?.workspaceId);
+    controller.selectStatus(task?.status);
     super.initState();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    controller.dispose();
     super.dispose();
   }
 
   Widget textFieldForCode(BuildContext context, String code, {VoidCallback? onTap}) {
-    final ta = _controller.tfAnnoForCode(code);
+    final ta = controller.tfAnnoForCode(code);
     final isDate = code.endsWith('Date');
     return ta.noText
         ? MTTextField.noText(
-            controller: _controller.teControllers[code],
+            controller: controller.teControllers[code],
             label: ta.label,
             error: ta.errorText,
-            onTap: onTap ?? (isDate ? () => _controller.inputDateTime(context) : null),
+            onTap: onTap ?? (isDate ? () => controller.inputDateTime(context) : null),
             suffixIcon: isDate ? calendarIcon(context) : null,
           )
         : MTTextField(
-            controller: _controller.teControllers[code],
+            controller: controller.teControllers[code],
             label: ta.label,
             error: ta.errorText,
             onTap: onTap,
@@ -92,30 +104,30 @@ class _TaskEditViewState extends State<TaskEditView> {
     return Scrollbar(
       thumbVisibility: true,
       child: ListView(children: [
-        if (taskViewController.selectedTask.isWorkspace && _controller.isNew) _controller.wsDropdown(context),
+        if (parent.isWorkspace && isNew) controller.wsDropdown(context),
         ...['title', 'dueDate', 'description'].map((code) => textFieldForCode(context, code)),
-        if (_controller.statuses.isNotEmpty)
+        if (controller.statuses.isNotEmpty)
           MTDropdown<Status>(
-            onChanged: (status) => _controller.selectStatus(status),
-            value: _controller.selectedStatus,
-            items: _controller.statuses,
+            onChanged: (status) => controller.selectStatus(status),
+            value: controller.selectedStatus,
+            items: controller.statuses,
             label: loc.task_status_placeholder,
           ),
         Padding(
           padding: tfPadding,
           child: InkWell(
             child: Row(children: [
-              doneIcon(context, _controller.closed),
+              doneIcon(context, controller.closed),
               SizedBox(width: onePadding / 2),
               MediumText(loc.task_state_closed, padding: EdgeInsets.symmetric(vertical: onePadding), color: mainColor),
             ]),
-            onTap: () => _controller.setClosed(!_controller.closed),
+            onTap: () => controller.setClosed(!controller.closed),
           ),
         ),
-        if (!_controller.isNew)
+        if (!isNew)
           MTButton(
             loc.delete_action_title,
-            () => _controller.delete(context),
+            () => controller.delete(context, task!),
             titleColor: dangerColor,
             padding: EdgeInsets.only(top: onePadding),
           ),
@@ -131,11 +143,11 @@ class _TaskEditViewState extends State<TaskEditView> {
         navBar: navBar(
           context,
           leading: CloseDialogButton(),
-          title: _controller.isNew ? _controller.parent?.newSubtaskTitle : '',
+          title: isNew ? parent.newSubtaskTitle : '',
           trailing: MTButton(
             loc.save_action_title,
-            _controller.validated ? () => _controller.save(context) : null,
-            titleColor: _controller.validated ? mainColor : borderColor,
+            controller.validated ? () => controller.save(context, task: task, parent: parent) : null,
+            titleColor: controller.validated ? mainColor : borderColor,
             padding: EdgeInsets.only(right: onePadding),
           ),
         ),

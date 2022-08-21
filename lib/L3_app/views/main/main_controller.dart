@@ -1,10 +1,15 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:collection/collection.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities/task_ext_state.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../extra/services.dart';
 import '../_base/base_controller.dart';
+import '../task/task_view.dart';
 
 part 'main_controller.g.dart';
 
@@ -15,6 +20,31 @@ abstract class _MainControllerBase extends BaseController with Store {
   @observable
   ObservableList<Workspace> workspaces = ObservableList();
 
+  /// рутовый объект
+  @observable
+  Task rootTask = Task(
+    title: '',
+    parent: null,
+    tasks: [],
+    description: '',
+    closed: false,
+    createdOn: DateTime.now(),
+    updatedOn: DateTime.now(),
+  );
+
+  /// текущая выбранная задача
+
+  @observable
+  int? selectedTaskId;
+
+  Task taskForId(int? id) => rootTask.allTasks.firstWhereOrNull((t) => t.id == id) ?? rootTask;
+
+  @action
+  Future showTask(BuildContext context, Task task) async {
+    selectedTaskId = task.id;
+    await Navigator.of(context).pushNamed(TaskView.routeName);
+  }
+
   @action
   Future fetchData() async {
     //TODO: сделать computed для всех зависимых данных? pro: прозрачная логика загрузки cons: увеличение связанности. В любом случае большой вопрос с редактированием словарей.
@@ -23,16 +53,30 @@ abstract class _MainControllerBase extends BaseController with Store {
     workspaces = ObservableList.of(await workspacesUC.getAll());
     workspaces.sort((ws1, ws2) => ws1.title.compareTo(ws2.title));
 
-    await taskViewController.fetchData();
+    final tasks = <Task>[];
+    for (Workspace ws in workspaces) {
+      if (ws.id != null) {
+        tasks.addAll(await tasksUC.getRoots(ws.id!));
+      }
+    }
+    tasks.forEach((t) => t.parent = rootTask);
+    rootTask.tasks = tasks;
+
+    // TODO: чтобы сохранять положение в навигации внутри приложения, нужно синхронизировать id текущей выбранной задачи на сервер в профиль пользователя
+
     await sourceController.fetchData();
     await settingsController.fetchData();
     await userController.fetchData();
   }
 
   @action
+  void touchRootTask() => rootTask = rootTask.copy();
+
+  @action
   void clearData() {
     workspaces.clear();
-    taskViewController.clearData();
+    rootTask.tasks = [];
+
     sourceController.clearData();
     importController.clearData();
     settingsController.clearData();

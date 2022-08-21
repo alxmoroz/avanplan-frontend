@@ -3,27 +3,29 @@
 import 'package:flutter/material.dart';
 
 import '../../../../L1_domain/entities/task.dart';
+import '../../../../L1_domain/entities/task_ext_level.dart';
 import '../../../components/constants.dart';
 import '../../../components/mt_divider.dart';
 import '../../../components/text_widgets.dart';
-import '../../../extra/services.dart';
-import '../task_view_controller.dart';
 
 class TaskHeader extends StatelessWidget {
   const TaskHeader(this.task);
   final Task task;
 
-  TaskViewController get _controller => taskViewController;
-
   // TODO: виджет
   String get breadcrumbs {
-    const sepStr = ' > ';
-    String _breadcrumbs = '';
-    if (_controller.navStack.isNotEmpty) {
-      final titles = _controller.navStack.take(_controller.navStack.length - 1).map((t) => t.title).toList();
-      _breadcrumbs = titles.join(sepStr);
+    Iterable<String> parentsTitles(Task? task) {
+      final res = <String>[];
+      if (task != null && !task.isWorkspace) {
+        if (task.parent != null) {
+          res.addAll(parentsTitles(task.parent!));
+        }
+        res.add(task.title);
+      }
+      return res;
     }
-    return _breadcrumbs;
+
+    return parentsTitles(task.parent).join(' > ');
   }
 
   @override

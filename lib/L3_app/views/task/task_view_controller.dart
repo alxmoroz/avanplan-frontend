@@ -179,6 +179,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
     if (await _unlinkDialog(context) == true) {
       startLoading();
       res = await importUC.updateTaskSources(task.unlinkTaskTree());
+      mainController.touchRootTask();
       stopLoading();
     }
     return res;

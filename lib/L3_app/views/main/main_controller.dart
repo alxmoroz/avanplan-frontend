@@ -61,6 +61,7 @@ abstract class _MainControllerBase extends BaseController with Store {
     }
     tasks.forEach((t) => t.parent = rootTask);
     rootTask.tasks = tasks;
+    touchRootTask();
 
     // TODO: чтобы сохранять положение в навигации внутри приложения, нужно синхронизировать id текущей выбранной задачи на сервер в профиль пользователя
 

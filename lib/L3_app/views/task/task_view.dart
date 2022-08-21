@@ -12,11 +12,11 @@ import '../../components/mt_page.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_level_presenter.dart';
-import '../../presenters/task_navbar_presenter.dart';
 import 'task_list_empty_widget.dart';
 import 'task_view_controller.dart';
 import 'task_view_widgets/task_header.dart';
 import 'task_view_widgets/task_listview.dart';
+import 'task_view_widgets/task_navbar.dart';
 import 'task_view_widgets/task_overview_pane.dart';
 
 enum _TabKeys { overview, tasks }
@@ -55,19 +55,19 @@ class _TaskPageState extends State<TaskView> {
 
   Widget tasksPane() => TaskListView(controller);
 
-  Widget selectedPane() => {_TabKeys.overview: TaskOverview(task), _TabKeys.tasks: tasksPane()}[tabKeyValue] ?? TaskOverview(task);
+  Widget selectedPane() => {_TabKeys.overview: TaskOverview(controller), _TabKeys.tasks: tasksPane()}[tabKeyValue] ?? TaskOverview(controller);
 
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
         isLoading: controller.isLoading,
-        navBar: task.taskNavBar(context),
+        navBar: taskNavBar(context, controller),
         body: SafeArea(
           top: false,
           bottom: false,
           child: (task.isWorkspace && !task.hasSubtasks)
-              ? TaskListEmptyWidget(task)
+              ? TaskListEmptyWidget(controller)
               : ListView(
                   children: [
                     if (task.isWorkspace)
@@ -86,7 +86,7 @@ class _TaskPageState extends State<TaskView> {
                           TaskLevel.project,
                           TaskLevel.goal,
                         ].contains(task.level))
-                      TaskListEmptyWidget(task),
+                      TaskListEmptyWidget(controller),
                   ],
                 ),
         ),

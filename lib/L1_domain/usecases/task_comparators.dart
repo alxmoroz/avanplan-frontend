@@ -3,6 +3,7 @@
 import '../entities/task.dart';
 import '../entities/task_ext_state.dart';
 
+// TODO: найти подходящее место
 int sortByDateAsc(Task t1, Task t2) {
   int res = 0;
   if (t1.hasDueDate || t2.hasDueDate) {

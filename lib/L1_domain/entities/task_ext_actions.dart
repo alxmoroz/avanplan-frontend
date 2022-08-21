@@ -3,6 +3,7 @@
 import 'task.dart';
 import 'task_ext_level.dart';
 import 'task_ext_state.dart';
+import 'task_source.dart';
 
 enum TaskActionType {
   add,
@@ -37,5 +38,39 @@ extension TaskActionsExt on Task {
       res.add(TaskActionType.unwatch);
     }
     return res;
+  }
+
+  void _updateParentTask() {
+    if (parent != null) {
+      final index = parent!.tasks.indexWhere((t) => t.id == id);
+      if (index >= 0) {
+        if (deleted) {
+          parent!.tasks.removeAt(index);
+        } else {
+          //TODO: проверить необходимость в copy
+          parent!.tasks[index] = copy();
+        }
+      }
+    }
+  }
+
+  // TODO: в юзкейс
+  Iterable<TaskSource> unlinkTaskTree() {
+    final tss = <TaskSource>[];
+    for (Task subtask in tasks) {
+      tss.addAll(subtask.unlinkTaskTree());
+    }
+    if (hasLink) {
+      taskSource?.keepConnection = false;
+      tss.add(taskSource!);
+    }
+    return tss;
+  }
+
+  void updateParents() {
+    if (parent != null) {
+      parent!.updateParents();
+    }
+    _updateParentTask();
   }
 }

@@ -1,13 +1,20 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:gercules/L1_domain/usecases/task_comparators.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities/task_ext_actions.dart';
 import '../../../L1_domain/entities/task_ext_state.dart';
+import '../../../L1_domain/usecases/task_comparators.dart';
+import '../../components/icons.dart';
+import '../../components/mt_confirm_dialog.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_filter_presenter.dart';
+import '../../presenters/task_source_presenter.dart';
 import '../_base/base_controller.dart';
+import 'task_edit_view.dart';
 
 part 'task_view_controller.g.dart';
 
@@ -76,4 +83,141 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
 
   @computed
   Iterable<Task> get filteredTasks => _taskFilters[tasksFilter] ?? [];
+
+  /// связь с источником импорта
+
+  Future<bool> _checkUnlinked(BuildContext context) async {
+    bool unlinked = !task.hasLink;
+    if (!unlinked) {
+      unlinked = await unlink(context);
+    }
+    return unlinked;
+  }
+
+  MTDialogAction<bool?> _go2SourceDialogAction(BuildContext context) => MTDialogAction(
+        type: MTActionType.isDefault,
+        onTap: () => launchUrl(task.taskSource!.uri),
+        result: false,
+        child: task.taskSource!.go2SourceTitle(context),
+      );
+
+  Future<bool?> _unlinkDialog(BuildContext context) async => await showMTDialog<bool?>(
+        context,
+        title: loc.task_unlink_dialog_title,
+        description: loc.task_unlink_dialog_description,
+        actions: [
+          MTDialogAction(
+            title: loc.task_unlink_action_title,
+            type: MTActionType.isWarning,
+            result: true,
+            icon: unlinkIcon(context),
+          ),
+          _go2SourceDialogAction(context),
+        ],
+      );
+
+  Future<bool?> _unwatchDialog(BuildContext context) async => await showMTDialog<bool?>(
+        context,
+        title: loc.task_unwatch_dialog_title,
+        description: loc.task_unwatch_dialog_description,
+        actions: [
+          MTDialogAction(
+            title: loc.task_unwatch_action_title,
+            type: MTActionType.isDanger,
+            result: true,
+            icon: unwatchIcon(context),
+          ),
+          _go2SourceDialogAction(context),
+        ],
+      );
+
+  /// роутер
+
+  @action
+  Future setClosed(BuildContext context, bool _closed) async {
+    task.closed = _closed;
+    startLoading();
+    final editedTask = await tasksUC.save(task);
+    stopLoading();
+    if (editedTask != null) {
+      if (editedTask.closed) {
+        Navigator.of(context).pop(editedTask);
+      }
+      editedTask.updateParents();
+      mainController.touchRootTask();
+    }
+  }
+
+  Future addSubtask(BuildContext context) async {
+    if (await _checkUnlinked(context)) {
+      startLoading();
+      final newTask = await editTaskDialog(context, parent: task);
+      stopLoading();
+      if (newTask != null) {
+        task.tasks.add(newTask);
+        newTask.updateParents();
+        mainController.touchRootTask();
+      }
+    }
+  }
+
+  Future edit(BuildContext context) async {
+    if (await _checkUnlinked(context)) {
+      final editedTask = await editTaskDialog(context, parent: task.parent!, task: task);
+      if (editedTask != null) {
+        if (editedTask.deleted) {
+          Navigator.of(context).pop();
+        }
+        editedTask.updateParents();
+        mainController.touchRootTask();
+      }
+    }
+  }
+
+  Future<bool> unlink(BuildContext context) async {
+    bool res = false;
+    if (await _unlinkDialog(context) == true) {
+      startLoading();
+      res = await importUC.updateTaskSources(task.unlinkTaskTree());
+      stopLoading();
+    }
+    return res;
+  }
+
+  Future unwatch(BuildContext context) async {
+    if (await _unwatchDialog(context) == true) {
+      startLoading();
+      final deletedTask = await tasksUC.delete(t: task);
+      stopLoading();
+      if (deletedTask != null && deletedTask.deleted) {
+        Navigator.of(context).pop();
+        deletedTask.updateParents();
+        mainController.touchRootTask();
+      }
+    }
+  }
+
+  Future<void> taskAction(TaskActionType? actionType, BuildContext context) async {
+    switch (actionType) {
+      case TaskActionType.add:
+        await addSubtask(context);
+        break;
+      case TaskActionType.edit:
+        await edit(context);
+        break;
+      case TaskActionType.import:
+        await importController.importTasks(context);
+        break;
+      case TaskActionType.go2source:
+        await launchUrl(task.taskSource!.uri);
+        break;
+      case TaskActionType.unlink:
+        await unlink(context);
+        break;
+      case TaskActionType.unwatch:
+        await unwatch(context);
+        break;
+      case null:
+    }
+  }
 }

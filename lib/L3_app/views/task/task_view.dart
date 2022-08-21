@@ -67,7 +67,7 @@ class _TaskPageState extends State<TaskView> {
           top: false,
           bottom: false,
           child: (task.isWorkspace && !task.hasSubtasks)
-              ? TaskListEmptyWidget(controller)
+              ? TaskListEmptyWidget(controller, parentContext: context)
               : ListView(
                   children: [
                     if (task.isWorkspace)
@@ -86,7 +86,7 @@ class _TaskPageState extends State<TaskView> {
                           TaskLevel.project,
                           TaskLevel.goal,
                         ].contains(task.level))
-                      TaskListEmptyWidget(controller),
+                      TaskListEmptyWidget(controller, parentContext: context),
                   ],
                 ),
         ),

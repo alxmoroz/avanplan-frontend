@@ -8,8 +8,9 @@ import '../../presenters/task_level_presenter.dart';
 import 'task_view_controller.dart';
 
 class TaskListEmptyWidget extends StatelessWidget {
-  const TaskListEmptyWidget(this.controller);
+  const TaskListEmptyWidget(this.controller, {required this.parentContext});
   final TaskViewController controller;
+  final BuildContext parentContext;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class TaskListEmptyWidget extends StatelessWidget {
       hint: controller.task.noSubtasksTitle,
       title: controller.task.newSubtaskTitle,
       icon: plusIcon(context, size: 24),
-      onPressed: () => controller.addSubtask(context),
+      onPressed: () async => await controller.addSubtask(parentContext),
     );
   }
 }

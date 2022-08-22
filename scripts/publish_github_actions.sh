@@ -4,8 +4,11 @@
 
 flutter clean
 
-cd openapi || exit
-bash ./scripts/build_runner_build.sh
+cd ./openapi || exit
+bash ../scripts/build_runner_clean.sh
+bash ../scripts/build_runner_build.sh
+flutter format ./**/*.dart
+
 cd ../
 
 bash ./scripts/build_runner_build.sh

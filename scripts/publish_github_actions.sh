@@ -11,7 +11,7 @@ flutter format ./**/*.dart
 
 cd ../
 
-bash ../scripts/build_runner_clean.sh
+bash ./scripts/build_runner_clean.sh
 bash ./scripts/build_runner_build.sh
 bash ./scripts/test.sh || exit
 #bash ./scripts/bump_version.sh

@@ -4,8 +4,10 @@
 
 flutter clean
 
-#bash ./scripts/api_generate.sh
-bash ./scripts/build_runner_clean.sh
+cd openapi || exit
+bash ./scripts/build_runner_build.sh
+cd ../
+
 bash ./scripts/build_runner_build.sh
 bash ./scripts/test.sh || exit
 #bash ./scripts/bump_version.sh

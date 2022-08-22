@@ -17,6 +17,8 @@ Name | Type | Description | Notes
 **status** | [**Status**](Status.md) |  | [optional] 
 **priority** | [**Priority**](Priority.md) |  | [optional] 
 **taskSource** | [**TaskSource**](TaskSource.md) |  | [optional] 
+**createdOn** | [**DateTime**](DateTime.md) |  | [optional] 
+**updatedOn** | [**DateTime**](DateTime.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

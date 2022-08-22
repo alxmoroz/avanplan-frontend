@@ -23,6 +23,8 @@ part 'task.g.dart';
 /// * [status] 
 /// * [priority] 
 /// * [taskSource] 
+/// * [createdOn] 
+/// * [updatedOn] 
 abstract class Task implements Built<Task, TaskBuilder> {
     @BuiltValueField(wireName: r'title')
     String get title;
@@ -50,6 +52,12 @@ abstract class Task implements Built<Task, TaskBuilder> {
 
     @BuiltValueField(wireName: r'task_source')
     TaskSource? get taskSource;
+
+    @BuiltValueField(wireName: r'created_on')
+    DateTime? get createdOn;
+
+    @BuiltValueField(wireName: r'updated_on')
+    DateTime? get updatedOn;
 
     Task._();
 
@@ -126,6 +134,18 @@ class _$TaskSerializer implements StructuredSerializer<Task> {
                 ..add(serializers.serialize(object.taskSource,
                     specifiedType: const FullType(TaskSource)));
         }
+        if (object.createdOn != null) {
+            result
+                ..add(r'created_on')
+                ..add(serializers.serialize(object.createdOn,
+                    specifiedType: const FullType(DateTime)));
+        }
+        if (object.updatedOn != null) {
+            result
+                ..add(r'updated_on')
+                ..add(serializers.serialize(object.updatedOn,
+                    specifiedType: const FullType(DateTime)));
+        }
         return result;
     }
 
@@ -185,6 +205,16 @@ class _$TaskSerializer implements StructuredSerializer<Task> {
                     final valueDes = serializers.deserialize(value,
                         specifiedType: const FullType(TaskSource)) as TaskSource;
                     result.taskSource.replace(valueDes);
+                    break;
+                case r'created_on':
+                    final valueDes = serializers.deserialize(value,
+                        specifiedType: const FullType(DateTime)) as DateTime;
+                    result.createdOn = valueDes;
+                    break;
+                case r'updated_on':
+                    final valueDes = serializers.deserialize(value,
+                        specifiedType: const FullType(DateTime)) as DateTime;
+                    result.updatedOn = valueDes;
                     break;
             }
         }

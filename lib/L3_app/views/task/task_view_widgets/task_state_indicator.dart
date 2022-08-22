@@ -3,6 +3,8 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../L1_domain/entities/task.dart';
+import '../../../../L1_domain/entities/task_ext_level.dart';
+import '../../../../L1_domain/entities/task_ext_state.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/text_widgets.dart';
@@ -16,15 +18,29 @@ class TaskStateIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = inCard ? darkGreyColor : task.stateColor ?? darkGreyColor;
+    final inCardText = task.stateTextDetails ?? task.stateTextTitle;
 
-    final indicatorText = task.stateTextDetails ?? task.stateTextTitle;
+    final showIndicator = task.isGoal || task.hasSubtasks;
 
-    return Row(
+    final title = Row(
+      mainAxisAlignment: !inCard ? MainAxisAlignment.center : MainAxisAlignment.start,
       children: [
         task.stateIcon(context, size: onePadding * (inCard ? 1.5 : 2), color: color),
         SizedBox(width: onePadding / 3),
-        Expanded(child: inCard ? SmallText(indicatorText, color: color) : NormalText(indicatorText, color: color)),
+        inCard ? SmallText(inCardText, color: color) : NormalText(task.stateTextTitle, color: color),
       ],
     );
+
+    return showIndicator
+        ? Column(
+            children: [
+              title,
+              if (!inCard && task.stateTextDetails != null) ...[
+                SizedBox(height: onePadding / 4),
+                MediumText(task.stateTextDetails!, color: color),
+              ],
+            ],
+          )
+        : Container();
   }
 }

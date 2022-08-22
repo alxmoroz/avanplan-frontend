@@ -3,7 +3,7 @@
 import 'task.dart';
 import 'task_ext_level.dart';
 
-enum TaskState { overdue, risk, ok, noInfo }
+enum TaskState { overdue, risk, closable, ok, noInfo }
 
 extension TaskStats on Task {
   /// непосредственно сама задача
@@ -84,9 +84,9 @@ extension TaskStats on Task {
 
   Iterable<Task> get _emptyGoals => _openedGoals.where((t) => !t.hasSubtasks);
   int get emptyGoalsCount => _emptyGoals.length;
-  bool get hasEmptyGoals => noDueGoalsCount > 0;
+  bool get hasEmptyGoals => emptyGoalsCount > 0;
 
-  Iterable<Task> get _inactiveGoals => _openedGoals.where((t) => t.closedTasksCount == 0);
+  Iterable<Task> get _inactiveGoals => _openedGoals.where((t) => t.hasSubtasks && t.closedTasksCount == 0);
   int get inactiveGoalsCount => _inactiveGoals.length;
   bool get hasInactiveGoals => inactiveGoalsCount > 0;
 
@@ -101,8 +101,10 @@ extension TaskStats on Task {
           ? TaskState.overdue
           : _hasRisk || hasRiskTasks
               ? TaskState.risk
-              : _isOk
-                  ? TaskState.ok
-                  : TaskState.noInfo)
+              : isClosable
+                  ? TaskState.closable
+                  : _isOk
+                      ? TaskState.ok
+                      : TaskState.noInfo)
       : TaskState.noInfo;
 }

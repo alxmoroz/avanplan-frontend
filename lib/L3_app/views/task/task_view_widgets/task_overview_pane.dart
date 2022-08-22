@@ -95,9 +95,8 @@ class TaskOverview extends StatelessWidget {
           SizedBox(height: onePadding),
           TaskStateIndicator(task),
         ],
-        if (task.hasSubtasks) TaskOverviewStats(task),
         if (task.canEdit && (task.isClosable || task.closed)) ...[
-          SizedBox(height: onePadding * 2),
+          SizedBox(height: onePadding),
           MTFloatingAction(
             hint: task.isClosable ? loc.task_state_closable_hint : '',
             title: task.isClosable ? loc.task_state_close_btn_title : loc.task_state_reopen_btn_title,
@@ -105,6 +104,7 @@ class TaskOverview extends StatelessWidget {
             onPressed: () => controller.setClosed(context, !task.closed),
           ),
         ],
+        if (task.hasSubtasks) TaskOverviewStats(task),
       ]),
     );
   }

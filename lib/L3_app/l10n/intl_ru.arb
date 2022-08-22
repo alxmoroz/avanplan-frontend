@@ -75,16 +75,15 @@
   "task_state_closed": "Выполнено",
   "task_state_close_btn_title": "Завершить",
   "task_state_closable_hint": "Ура! Не осталось открытых подзадач",
-  "task_state_reopen_btn_title": "Переоткрыть",
-
+  "task_state_closable_title": "Можно закрыть",
   "task_state_no_due_details": "Не назначен срок",
   "task_state_no_info_title": "Недостаточно данных для прогноза",
-  "task_state_no_opened_tasks_details": "Можно закрыть",
   "task_state_no_progress_details": "Нет прогресса",
   "task_state_no_tasks_goal_details": "Нет задач",
   "task_state_ok_title": "Всё по плану",
   "task_state_overdue_details": "Опаздываем на",
   "task_state_overdue_title": "Опаздываем",
+  "task_state_reopen_btn_title": "Переоткрыть",
   "task_state_risky_details": "Риск отставания на",
   "task_state_risky_title": "Есть риски",
 

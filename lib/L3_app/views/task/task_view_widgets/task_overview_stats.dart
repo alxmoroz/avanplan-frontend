@@ -19,7 +19,7 @@ class TaskOverviewStats extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       if (task.hasDueDate) ...[
-        SizedBox(height: onePadding / 2),
+        SizedBox(height: onePadding),
         SampleProgress(
           ratio: task.doneRatio,
           color: task.stateColor,
@@ -73,7 +73,7 @@ class TaskOverviewStats extends StatelessWidget {
         SizedBox(height: onePadding),
         SampleProgress(
           ratio: task.closableGroupsCount / task.openedGoalsCount,
-          titleText: loc.task_state_no_opened_tasks_details,
+          titleText: loc.task_state_closable_title,
           trailingText: '${task.closableGroupsCount}',
         ),
       ],

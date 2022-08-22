@@ -15,7 +15,6 @@ class TaskListEmptyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTFloatingAction(
-      hint: controller.task.noSubtasksTitle,
       title: controller.task.newSubtaskTitle,
       icon: plusIcon(context, size: 24),
       onPressed: () async => await controller.addSubtask(parentContext),

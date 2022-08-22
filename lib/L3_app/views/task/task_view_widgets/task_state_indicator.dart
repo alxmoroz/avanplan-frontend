@@ -20,7 +20,7 @@ class TaskStateIndicator extends StatelessWidget {
     final color = inCard ? darkGreyColor : task.stateColor ?? darkGreyColor;
     final inCardText = task.stateTextDetails ?? task.stateTextTitle;
 
-    final showIndicator = task.isGoal || task.hasSubtasks;
+    final showIndicator = task.hasSubtasks || task.isGoal;
 
     final title = Row(
       mainAxisAlignment: !inCard ? MainAxisAlignment.center : MainAxisAlignment.start,

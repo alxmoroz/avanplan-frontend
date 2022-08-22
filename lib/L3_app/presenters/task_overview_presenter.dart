@@ -3,7 +3,6 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/entities/task_ext_level.dart';
 import '../../L1_domain/entities/task_ext_state.dart';
 import '../components/colors.dart';
 import '../components/icons.dart';
@@ -42,6 +41,9 @@ extension TaskStatePresenter on Task {
       case TaskState.ok:
         icon = okStateIcon(context, size: size, color: color);
         break;
+      case TaskState.noDueDate:
+      case TaskState.noSubtasks:
+      case TaskState.noProgress:
       case TaskState.noInfo:
     }
     return icon;
@@ -62,6 +64,9 @@ extension TaskStatePresenter on Task {
       case TaskState.ok:
         res = loc.task_state_ok_title;
         break;
+      case TaskState.noDueDate:
+      case TaskState.noSubtasks:
+      case TaskState.noProgress:
       case TaskState.noInfo:
     }
     return res;
@@ -80,19 +85,19 @@ extension TaskStatePresenter on Task {
       case TaskState.risk:
         res = riskyDetails;
         break;
-      case TaskState.noInfo:
-        if (isGoal) {
-          res = !hasDueDate
-              ? loc.task_state_no_due_details
-              : !hasSubtasks
-                  ? loc.task_state_no_tasks_goal_details
-                  : closedTasksCount == 0
-                      ? loc.task_state_no_progress_details
-                      : null;
-        }
+      case TaskState.noDueDate:
+        res = loc.task_state_no_due_details;
         break;
+      case TaskState.noSubtasks:
+        res = loc.task_state_no_tasks_goal_details;
+        break;
+      case TaskState.noProgress:
+        res = loc.task_state_no_progress_details;
+        break;
+
       case TaskState.closable:
       case TaskState.ok:
+      case TaskState.noInfo:
     }
     return res;
   }

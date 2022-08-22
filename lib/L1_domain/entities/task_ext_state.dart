@@ -3,7 +3,7 @@
 import 'task.dart';
 import 'task_ext_level.dart';
 
-enum TaskState { overdue, risk, closable, ok, noInfo }
+enum TaskState { overdue, risk, closable, noDueDate, noSubtasks, noProgress, ok, noInfo }
 
 extension TaskStats on Task {
   /// непосредственно сама задача
@@ -12,7 +12,7 @@ extension TaskStats on Task {
   Duration get _pastPeriod => DateTime.now().difference(_startDate);
   Duration? get _overduePeriod => hasDueDate ? DateTime.now().difference(dueDate!) : null;
 
-  double get _factSpeed => closedTasksCount / _pastPeriod.inSeconds;
+  double get _factSpeed => _closedLeafTasksCount / _pastPeriod.inSeconds;
   DateTime? get etaDate => (hasDueDate && _factSpeed > 0 && openedLeafTasksCount > 0)
       ? DateTime.now().add(Duration(seconds: (openedLeafTasksCount / _factSpeed).round()))
       : null;
@@ -40,6 +40,7 @@ extension TaskStats on Task {
   Iterable<Task> get openedSubtasks => tasks.where((t) => !t.closed);
   int get openedSubtasksCount => openedSubtasks.length;
   bool get hasOpenedSubtasks => openedSubtasks.isNotEmpty;
+  int get _closedSubtasksCount => tasks.length - openedSubtasksCount;
 
   bool get isClosable => !closed && hasSubtasks && !hasOpenedSubtasks;
 
@@ -48,9 +49,9 @@ extension TaskStats on Task {
   Iterable<Task> get _openedLeafTasks => _leafTasks.where((t) => !t.closed);
   int get openedLeafTasksCount => _openedLeafTasks.length;
 
-  int get closedTasksCount => _leafTasksCount - openedLeafTasksCount;
+  int get _closedLeafTasksCount => _leafTasksCount - openedLeafTasksCount;
 
-  double get doneRatio => (hasDueDate && _leafTasksCount > 0) ? closedTasksCount / _leafTasksCount : 0;
+  double get doneRatio => (hasDueDate && _leafTasksCount > 0) ? _closedLeafTasksCount / _leafTasksCount : 0;
 
   Iterable<Task> get _timeBoundOpenedTasks => allTasks.where((t) => !t.closed && t.hasDueDate);
 
@@ -86,7 +87,7 @@ extension TaskStats on Task {
   int get emptyGoalsCount => _emptyGoals.length;
   bool get hasEmptyGoals => emptyGoalsCount > 0;
 
-  Iterable<Task> get _inactiveGoals => _openedGoals.where((t) => t.hasSubtasks && t.closedTasksCount == 0);
+  Iterable<Task> get _inactiveGoals => _openedGoals.where((t) => t.hasSubtasks && t._closedSubtasksCount == 0);
   int get inactiveGoalsCount => _inactiveGoals.length;
   bool get hasInactiveGoals => inactiveGoalsCount > 0;
 
@@ -96,7 +97,7 @@ extension TaskStats on Task {
   bool get hasClosableGroups => closableGroupsCount > 0;
 
   /// подзадачи в порядке
-  bool get _subtasksOk => !openedSubtasks.any((t) => t.state != TaskState.ok);
+  bool get _subtasksOk => openedSubtasks.every((t) => t.state == TaskState.ok);
 
   /// интегральный статус
   TaskState get state => !closed
@@ -106,8 +107,14 @@ extension TaskStats on Task {
               ? TaskState.risk
               : isClosable
                   ? TaskState.closable
-                  : _isOk || _subtasksOk
-                      ? TaskState.ok
-                      : TaskState.noInfo)
+                  : (!isWorkspace && !isProject && !hasDueDate)
+                      ? TaskState.noDueDate
+                      : (isGoal && !hasSubtasks)
+                          ? TaskState.noSubtasks
+                          : (isGoal && _closedSubtasksCount == 0)
+                              ? TaskState.noProgress
+                              : _isOk || ((isWorkspace || isProject) && _subtasksOk)
+                                  ? TaskState.ok
+                                  : TaskState.noInfo)
       : TaskState.noInfo;
 }

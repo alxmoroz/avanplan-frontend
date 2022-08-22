@@ -10,20 +10,23 @@ import '../extra/services.dart';
 
 const _colors = {
   TaskState.overdue: dangerColor,
-  TaskState.risk: riskyColor,
-  TaskState.ok: okColor,
+  TaskState.risk: lightWarningColor,
+  TaskState.ok: greenColor,
 };
 
 const _bgColors = {
-  TaskState.overdue: bgRiskyColor,
-  TaskState.risk: bgRiskyColor,
-  TaskState.ok: bgOkColor,
+  TaskState.overdue: bgLightWarningColor,
+  TaskState.risk: bgLightWarningColor,
+  TaskState.ok: bgGreenColor,
 };
 
 extension TaskStatePresenter on Task {
   Color? get stateColor => _colors[state];
-
   Color? get stateBgColor => _bgColors[state];
+
+  Color? get overdueColor => _colors[TaskState.overdue];
+  Color? get riskColor => _colors[TaskState.risk];
+  Color? get okColor => _colors[TaskState.ok];
 
   Widget stateIcon(BuildContext context, {double? size, Color? color}) {
     Widget icon = noInfoStateIcon(context, size: size, color: color);
@@ -59,15 +62,18 @@ extension TaskStatePresenter on Task {
     return res;
   }
 
+  String get overDueDetails => '${loc.task_state_overdue_details} ${loc.days_count(totalOverduePeriod.inDays)}';
+  String get riskyDetails => '${loc.task_state_risky_details} ${loc.days_count(totalRiskPeriod.inDays)}';
+
   String? get stateTextDetails {
     String? res;
 
     switch (state) {
       case TaskState.overdue:
-        res = '${loc.task_state_overdue_details} ${loc.days_count(totalOverduePeriod.inDays)}';
+        res = overDueDetails;
         break;
       case TaskState.risk:
-        res = '${loc.task_state_risky_details} ${loc.days_count(totalRiskPeriod.inDays)}';
+        res = riskyDetails;
         break;
       case TaskState.ok:
       case TaskState.noInfo:

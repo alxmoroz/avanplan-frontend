@@ -24,4 +24,5 @@ extension TaskLevelExtension on Task {
 
   bool get isWorkspace => level == TaskLevel.workspace;
   bool get isProject => level == TaskLevel.project;
+  bool get isGoal => level == TaskLevel.goal;
 }

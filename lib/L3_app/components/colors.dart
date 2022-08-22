@@ -36,6 +36,24 @@ const Color backgroundColor = CupertinoColors.systemGrey6;
 const Color dangerColor = CupertinoColors.destructiveRed;
 
 const Color warningColor = CupertinoColors.activeOrange;
+const Color lightWarningColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, 255, 195, 65),
+  darkColor: Color.fromARGB(255, 115, 70, 0),
+);
+const Color bgLightWarningColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, 255, 240, 190),
+  darkColor: Color.fromARGB(255, 45, 30, 0),
+);
+
+const Color greenColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, 120, 190, 142),
+  darkColor: Color.fromARGB(255, 5, 80, 5),
+);
+
+const Color bgGreenColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(120, 120, 190, 142),
+  darkColor: Color.fromARGB(120, 5, 80, 5),
+);
 
 const Color _tealColor = Color.fromARGB(255, 90, 200, 250);
 const Color _darkTealColor = Color.fromARGB(255, 0, 113, 164);
@@ -75,26 +93,6 @@ MaterialColor tealColorMaterial = MaterialColor(
     800: _tealColor,
     900: _tealColor,
   },
-);
-
-const Color okColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 120, 190, 142),
-  darkColor: Color.fromARGB(255, 5, 80, 5),
-);
-
-const Color bgOkColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(120, 120, 190, 142),
-  darkColor: Color.fromARGB(120, 5, 80, 5),
-);
-
-const Color riskyColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 255, 195, 65),
-  darkColor: Color.fromARGB(255, 115, 70, 0),
-);
-
-const Color bgRiskyColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 255, 240, 190),
-  darkColor: Color.fromARGB(255, 45, 30, 0),
 );
 
 // цвет для "прозрачного" апп-бара

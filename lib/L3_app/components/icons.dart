@@ -107,10 +107,10 @@ Widget overdueStateIcon(BuildContext context, {Color? color, double? size}) =>
     Icon(CupertinoIcons.exclamationmark_triangle, color: (color ?? dangerColor).resolve(context), size: size);
 
 Widget riskStateIcon(BuildContext context, {Color? color, double? size}) =>
-    Icon(CupertinoIcons.tortoise, color: (color ?? riskyColor).resolve(context), size: size);
+    Icon(CupertinoIcons.tortoise, color: (color ?? lightWarningColor).resolve(context), size: size);
 
 Widget okStateIcon(BuildContext context, {Color? color, double? size}) =>
-    Icon(CupertinoIcons.rocket, color: (color ?? okColor).resolve(context), size: size);
+    Icon(CupertinoIcons.rocket, color: (color ?? greenColor).resolve(context), size: size);
 
 Widget noInfoStateIcon(BuildContext context, {Color? color, double? size}) =>
     Icon(CupertinoIcons.question_circle, color: (color ?? lightGreyColor).resolve(context), size: size);

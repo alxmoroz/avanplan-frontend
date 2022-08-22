@@ -47,7 +47,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
 
   @computed
   Iterable<Task> get _sortedOpenedTasks {
-    final tasks = task.openedTasks.toList();
+    final tasks = task.openedSubtasks.toList();
     tasks.sort(sortByDateAsc);
     return tasks;
   }
@@ -58,7 +58,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   TaskFilter? _tasksFilter;
 
   @computed
-  TaskFilter get tasksFilter => _tasksFilter ?? (task.hasOpenedTasks ? TaskFilter.opened : TaskFilter.all);
+  TaskFilter get tasksFilter => _tasksFilter ?? (task.hasOpenedSubtasks ? TaskFilter.opened : TaskFilter.all);
 
   @action
   void setFilter(TaskFilter? _filter) => _tasksFilter = _filter;
@@ -66,7 +66,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   @computed
   List<TaskFilter> get taskFilterKeys {
     final keys = <TaskFilter>[];
-    if (task.hasOpenedTasks && task.openedTasksCount < task.tasks.length) {
+    if (task.hasOpenedSubtasks && task.openedSubtasksCount < task.tasks.length) {
       keys.add(TaskFilter.opened);
     }
     keys.add(TaskFilter.all);

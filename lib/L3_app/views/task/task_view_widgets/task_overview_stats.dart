@@ -31,43 +31,49 @@ class TaskOverviewStats extends StatelessWidget {
         SizedBox(height: onePadding),
         SampleProgress(
           ratio: task.overdueTasksCount / task.openedLeafTasksCount,
-          color: task.stateColor,
-          titleText: loc.task_filter_overdue,
+          color: task.overdueColor,
+          titleText: task.overDueDetails,
           trailingText: '${task.overdueTasksCount}',
-          subtitleText: task.stateTextDetails,
         ),
       ],
       if (task.hasRiskTasks) ...[
         SizedBox(height: onePadding),
         SampleProgress(
           ratio: task.riskyTasksCount / task.openedLeafTasksCount,
-          color: task.stateColor,
-          titleText: loc.task_filter_risky,
+          color: task.riskColor,
+          titleText: task.riskyDetails,
           trailingText: '${task.riskyTasksCount}',
-          subtitleText: task.stateTextDetails,
         ),
       ],
-      if (task.hasNoDueGroups) ...[
+      if (task.hasNoDueGoals) ...[
         SizedBox(height: onePadding),
         SampleProgress(
-          ratio: task.noDueGroupsCount / task.openedGroupsCount,
-          titleText: loc.task_filter_no_due,
-          trailingText: '${task.noDueGroupsCount}',
+          ratio: task.noDueGoalsCount / task.openedGoalsCount,
+          titleText: loc.task_state_no_due_details,
+          trailingText: '${task.noDueGoalsCount}',
         ),
       ],
-      if (task.hasInactiveGroups) ...[
+      if (task.hasEmptyGoals) ...[
         SizedBox(height: onePadding),
         SampleProgress(
-          ratio: task.inactiveGroupsCount / task.openedGroupsCount,
-          titleText: loc.task_filter_no_progress,
-          trailingText: '${task.inactiveGroupsCount}',
+          ratio: task.emptyGoalsCount / task.openedGoalsCount,
+          titleText: loc.task_state_no_tasks_goal_details,
+          trailingText: '${task.emptyGoalsCount}',
+        ),
+      ],
+      if (task.hasInactiveGoals) ...[
+        SizedBox(height: onePadding),
+        SampleProgress(
+          ratio: task.inactiveGoalsCount / task.openedGoalsCount,
+          titleText: loc.task_state_no_progress_details,
+          trailingText: '${task.inactiveGoalsCount}',
         ),
       ],
       if (task.hasClosableGroups) ...[
         SizedBox(height: onePadding),
         SampleProgress(
-          ratio: task.closableGroupsCount / task.openedGroupsCount,
-          titleText: loc.task_filter_no_opened_tasks,
+          ratio: task.closableGroupsCount / task.openedGoalsCount,
+          titleText: loc.task_state_no_opened_tasks_details,
           trailingText: '${task.closableGroupsCount}',
         ),
       ],

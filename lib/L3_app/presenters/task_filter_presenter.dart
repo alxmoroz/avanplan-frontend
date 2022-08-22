@@ -16,7 +16,7 @@ extension TaskFilterPresenter on Task {
     String res = '???';
     switch (tf) {
       case TaskFilter.opened:
-        res = '${loc.task_filter_opened}$_sep$openedTasksCount';
+        res = '${loc.task_filter_opened}$_sep$openedSubtasksCount';
         break;
       case TaskFilter.all:
         res = '${loc.task_filter_all}$_sep${tasks.length}';

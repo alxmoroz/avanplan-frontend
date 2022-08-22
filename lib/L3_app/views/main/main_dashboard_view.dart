@@ -58,7 +58,7 @@ class _MainDashboardViewState extends State<MainDashboardView> {
           child: SafeArea(
             top: false,
             bottom: false,
-            child: !rootTask.hasOpenedTasks
+            child: !rootTask.hasOpenedSubtasks
                 ? TaskListEmptyWidget(TaskViewController(), parentContext: context)
                 : ListView(
                     shrinkWrap: true,

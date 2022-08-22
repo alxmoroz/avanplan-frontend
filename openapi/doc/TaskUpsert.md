@@ -14,8 +14,6 @@ Name | Type | Description | Notes
 **closed** | **bool** |  | [optional] [default to false]
 **description** | **String** |  | [optional] 
 **dueDate** | [**DateTime**](DateTime.md) |  | [optional] 
-**createdOn** | [**DateTime**](DateTime.md) |  | [optional] 
-**updatedOn** | [**DateTime**](DateTime.md) |  | [optional] 
 **assigneeId** | **int** |  | [optional] 
 **authorId** | **int** |  | [optional] 
 **priorityId** | **int** |  | [optional] 

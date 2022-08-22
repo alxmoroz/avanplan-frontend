@@ -12,8 +12,6 @@ Name | Type | Description | Notes
 **closed** | **bool** |  | [optional] [default to false]
 **description** | **String** |  | [optional] 
 **dueDate** | [**DateTime**](DateTime.md) |  | [optional] 
-**createdOn** | [**DateTime**](DateTime.md) |  | [optional] 
-**updatedOn** | [**DateTime**](DateTime.md) |  | [optional] 
 **assignee** | [**Person**](Person.md) |  | [optional] 
 **author** | [**Person**](Person.md) |  | [optional] 
 **status** | [**Status**](Status.md) |  | [optional] 

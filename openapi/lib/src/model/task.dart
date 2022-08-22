@@ -18,8 +18,6 @@ part 'task.g.dart';
 /// * [closed] 
 /// * [description] 
 /// * [dueDate] 
-/// * [createdOn] 
-/// * [updatedOn] 
 /// * [assignee] 
 /// * [author] 
 /// * [status] 
@@ -37,12 +35,6 @@ abstract class Task implements Built<Task, TaskBuilder> {
 
     @BuiltValueField(wireName: r'due_date')
     DateTime? get dueDate;
-
-    @BuiltValueField(wireName: r'created_on')
-    DateTime? get createdOn;
-
-    @BuiltValueField(wireName: r'updated_on')
-    DateTime? get updatedOn;
 
     @BuiltValueField(wireName: r'assignee')
     Person? get assignee;
@@ -102,18 +94,6 @@ class _$TaskSerializer implements StructuredSerializer<Task> {
             result
                 ..add(r'due_date')
                 ..add(serializers.serialize(object.dueDate,
-                    specifiedType: const FullType(DateTime)));
-        }
-        if (object.createdOn != null) {
-            result
-                ..add(r'created_on')
-                ..add(serializers.serialize(object.createdOn,
-                    specifiedType: const FullType(DateTime)));
-        }
-        if (object.updatedOn != null) {
-            result
-                ..add(r'updated_on')
-                ..add(serializers.serialize(object.updatedOn,
                     specifiedType: const FullType(DateTime)));
         }
         if (object.assignee != null) {
@@ -180,16 +160,6 @@ class _$TaskSerializer implements StructuredSerializer<Task> {
                     final valueDes = serializers.deserialize(value,
                         specifiedType: const FullType(DateTime)) as DateTime;
                     result.dueDate = valueDes;
-                    break;
-                case r'created_on':
-                    final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(DateTime)) as DateTime;
-                    result.createdOn = valueDes;
-                    break;
-                case r'updated_on':
-                    final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(DateTime)) as DateTime;
-                    result.updatedOn = valueDes;
                     break;
                 case r'assignee':
                     final valueDes = serializers.deserialize(value,

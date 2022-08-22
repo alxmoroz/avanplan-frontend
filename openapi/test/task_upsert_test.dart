@@ -37,16 +37,6 @@ void main() {
       // TODO
     });
 
-    // DateTime createdOn
-    test('to test the property `createdOn`', () async {
-      // TODO
-    });
-
-    // DateTime updatedOn
-    test('to test the property `updatedOn`', () async {
-      // TODO
-    });
-
     // int assigneeId
     test('to test the property `assigneeId`', () async {
       // TODO

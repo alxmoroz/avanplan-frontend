@@ -95,6 +95,9 @@ extension TaskStats on Task {
   int get closableGroupsCount => _closableGroups.length;
   bool get hasClosableGroups => closableGroupsCount > 0;
 
+  /// подзадачи в порядке
+  bool get _subtasksOk => !openedSubtasks.any((t) => t.state != TaskState.ok);
+
   /// интегральный статус
   TaskState get state => !closed
       ? (_hasOverdue || hasOverdueTasks
@@ -103,7 +106,7 @@ extension TaskStats on Task {
               ? TaskState.risk
               : isClosable
                   ? TaskState.closable
-                  : _isOk
+                  : _isOk || _subtasksOk
                       ? TaskState.ok
                       : TaskState.noInfo)
       : TaskState.noInfo;

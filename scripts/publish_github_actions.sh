@@ -4,8 +4,7 @@
 
 flutter clean
 
-npm install @openapitools/openapi-generator-cli
-bash ./scripts/api_generate.sh
+#bash ./scripts/api_generate.sh
 bash ./scripts/build_runner_clean.sh
 bash ./scripts/build_runner_build.sh
 bash ./scripts/test.sh || exit

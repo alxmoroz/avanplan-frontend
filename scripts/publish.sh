@@ -13,4 +13,4 @@ bash ./scripts/test.sh || exit
 #bash ./scripts/build_android.sh
 #bash ./scripts/build_ios.sh
 bash ./scripts/build_web.sh
-#bash ./deploy.sh
+bash ./deploy_web.sh

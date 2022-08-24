@@ -97,7 +97,7 @@ extension TaskStats on Task {
   bool get hasClosableGroups => closableGroupsCount > 0;
 
   /// подзадачи в порядке
-  bool get _subtasksOk => openedSubtasks.every((t) => t.state == TaskState.ok);
+  bool get _hasOkSubtasks => openedSubtasks.isNotEmpty && openedSubtasks.every((t) => t.state == TaskState.ok);
 
   /// интегральный статус
   TaskState get state => !closed
@@ -113,7 +113,7 @@ extension TaskStats on Task {
                           ? TaskState.noSubtasks
                           : (isGoal && _closedSubtasksCount == 0)
                               ? TaskState.noProgress
-                              : _isOk || ((isWorkspace || isProject) && _subtasksOk)
+                              : _isOk || ((isWorkspace || isProject) && _hasOkSubtasks)
                                   ? TaskState.ok
                                   : TaskState.noInfo)
       : TaskState.noInfo;

@@ -31,7 +31,7 @@ class _SourceListViewState extends State<SourceListView> {
         if (index > 0) const MTDivider(),
         MTButton(
           '',
-          () => _controller.editSource(context, s),
+          () => _controller.editSource(context, src: s),
           padding: EdgeInsets.symmetric(horizontal: onePadding, vertical: onePadding / 2),
           child: Row(children: [
             Expanded(child: s.info(context)),

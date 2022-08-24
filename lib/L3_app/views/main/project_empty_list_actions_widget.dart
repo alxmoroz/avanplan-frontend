@@ -21,7 +21,7 @@ class ProjectEmptyListActionsWidget extends StatelessWidget {
       ...sourceController.sTypes
           .map(
             (st) => MTRichButton(
-              onTap: () => print(st),
+              onTap: () => importController.importTasks(context, sType: st),
               icon: Row(children: [
                 importIcon(context, size: onePadding * 2),
                 SizedBox(width: onePadding / 2),

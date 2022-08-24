@@ -101,9 +101,9 @@ abstract class _ImportControllerBase extends EditController with Store {
   }
 
   // старт юзкейса по импорту задач
-  Future importTasks(BuildContext context, {bool needAddSource = false}) async {
+  Future importTasks(BuildContext context, {bool needAddSource = false, SourceType? sType}) async {
     if (sourceController.sources.isEmpty || needAddSource) {
-      await sourceController.addSource(context);
+      await sourceController.addSource(context, sType: sType);
     }
     // диалог с импортом задач
     // если вернулись из диалога с желанием добавить источник импорта, то опять пытаемся добавить источник импорта

@@ -21,7 +21,9 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
   @override
   void initState({List<TFAnnotation>? tfaList}) {
     super.initState(tfaList: tfaList);
-    selectType(selectedSource?.type);
+    if (selectedSource != null) {
+      selectType(selectedSource?.type);
+    }
   }
 
   /// тип трекера
@@ -171,13 +173,16 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
 
   /// роутер
 
-  Future addSource(BuildContext context) async => await editSource(context, null);
+  Future addSource(BuildContext context, {SourceType? sType}) async => await editSource(context, sType: sType);
 
-  Future editSource(BuildContext context, Source? rt) async {
-    selectSource(rt);
-    final s = await editSourceDialog(context);
-    if (s != null) {
-      await _updateSourceInList(s);
+  Future editSource(BuildContext context, {Source? src, SourceType? sType}) async {
+    selectSource(src);
+    if (src == null && sType != null) {
+      selectType(sType);
+    }
+    final _s = await editSourceDialog(context);
+    if (_s != null) {
+      await _updateSourceInList(_s);
     }
   }
 }

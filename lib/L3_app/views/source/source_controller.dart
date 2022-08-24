@@ -173,9 +173,9 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
 
   /// роутер
 
-  Future addSource(BuildContext context, {SourceType? sType}) async => await editSource(context, sType: sType);
+  Future<Source?> addSource(BuildContext context, {SourceType? sType}) async => await editSource(context, sType: sType);
 
-  Future editSource(BuildContext context, {Source? src, SourceType? sType}) async {
+  Future<Source?> editSource(BuildContext context, {Source? src, SourceType? sType}) async {
     selectSource(src);
     if (src == null && sType != null) {
       selectType(sType);
@@ -184,5 +184,6 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
     if (_s != null) {
       await _updateSourceInList(_s);
     }
+    return _s;
   }
 }

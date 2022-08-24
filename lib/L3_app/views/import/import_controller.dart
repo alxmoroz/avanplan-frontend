@@ -77,7 +77,10 @@ abstract class _ImportControllerBase extends EditController with Store {
   }
 
   @computed
-  Source? get selectedSource => sourceController.sources.firstWhereOrNull((g) => g.id == selectedSourceId);
+  Source? get selectedSource {
+    final sources = sourceController.sources;
+    return sources.length == 1 ? sources.first : sources.firstWhereOrNull((s) => s.id == selectedSourceId);
+  }
 
   @computed
   bool get canEdit => selectedSource != null;
@@ -103,7 +106,8 @@ abstract class _ImportControllerBase extends EditController with Store {
   // старт юзкейса по импорту задач
   Future importTasks(BuildContext context, {bool needAddSource = false, SourceType? sType}) async {
     if (sourceController.sources.isEmpty || needAddSource) {
-      await sourceController.addSource(context, sType: sType);
+      final addedSource = await sourceController.addSource(context, sType: sType);
+      selectSource(addedSource);
     }
     // диалог с импортом задач
     // если вернулись из диалога с желанием добавить источник импорта, то опять пытаемся добавить источник импорта

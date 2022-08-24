@@ -16,9 +16,9 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_overview_presenter.dart';
-import '../task/task_add_action_widget.dart';
 import '../task/task_view_controller.dart';
 import '../task/task_view_widgets/task_overview_stats.dart';
+import 'project_empty_list_actions_widget.dart';
 
 class MainDashboardView extends StatefulWidget {
   static String get routeName => 'main_dashboard';
@@ -59,7 +59,7 @@ class _MainDashboardViewState extends State<MainDashboardView> {
             top: false,
             bottom: false,
             child: !rootTask.hasOpenedSubtasks
-                ? TaskAddActionWidget(TaskViewController(), parentContext: context)
+                ? ProjectEmptyListActionsWidget(taskController: TaskViewController(), parentContext: context)
                 : ListView(
                     shrinkWrap: true,
                     children: [

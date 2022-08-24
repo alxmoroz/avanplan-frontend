@@ -30,15 +30,17 @@ abstract class _ImportControllerBase extends EditController with Store {
   @action
   Future fetchTasks(int sourceID) async {
     startLoading();
+    final rootTasks = <TaskImport>[];
     if (loginController.authorized) {
       try {
         selectedAll = true;
-        remoteTasks = await importUC.getRootTasks(sourceID);
-        remoteTasks.sort((t1, t2) => t1.title.compareTo(t2.title));
+        rootTasks.addAll(await importUC.getRootTasks(sourceID));
+        rootTasks.sort((t1, t2) => t1.title.compareTo(t2.title));
       } catch (e) {
         setErrorCode(e is MTException ? e.code : e.toString());
       }
     }
+    remoteTasks = rootTasks;
     stopLoading();
   }
 
@@ -87,7 +89,6 @@ abstract class _ImportControllerBase extends EditController with Store {
 
   /// действия,  роутер
 
-  @action
   Future startImport(BuildContext context) async {
     startLoading();
     final taskSources = selectedTasks.map((t) => t.taskSource!);
@@ -99,18 +100,30 @@ abstract class _ImportControllerBase extends EditController with Store {
     stopLoading();
   }
 
-  Future needAddSource(BuildContext context) async {
+  void needAddSourceEvent(BuildContext context) {
     Navigator.of(context).pop('NeedAddSourceEvent');
   }
 
-  // старт юзкейса по импорту задач
+  // старт сценария по импорту задач
   Future importTasks(BuildContext context, {bool needAddSource = false, SourceType? sType}) async {
-    if (sourceController.sources.isEmpty || needAddSource) {
-      final addedSource = await sourceController.addSource(context, sType: sType);
-      selectSource(addedSource);
+    // проверяем наличие выбранного типа источника импорта
+    Source? preselectedSource = sourceController.sources.firstWhereOrNull((s) => s.type.id == sType?.id);
+    // переходим к созданию источника, если нет источников, либо явный запрос на создание, либо источник выбранного типа отсутствует
+    if (sourceController.sources.isEmpty || needAddSource || (sType != null && preselectedSource == null)) {
+      preselectedSource = await sourceController.addSource(context, sType: sType);
+      // выходим из сценария, если отказались создавать или не получилось
+      if (preselectedSource == null) {
+        return;
+      }
     }
-    // диалог с импортом задач
+
+    // выбираем источник импорта заранее из созданного только что или существующий выбранного типа
+    if (preselectedSource != null) {
+      selectSource(preselectedSource);
+    }
+
     // если вернулись из диалога с желанием добавить источник импорта, то опять пытаемся добавить источник импорта
+    // диалог с импортом задач
     final needSource = await showImportDialog(context) == 'NeedAddSourceEvent';
     if (needSource) {
       await importTasks(context, needAddSource: needSource);

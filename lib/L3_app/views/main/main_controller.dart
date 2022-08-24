@@ -49,9 +49,10 @@ abstract class _MainControllerBase extends BaseController with Store {
   Future fetchData() async {
     //TODO: сделать computed для всех зависимых данных? pro: прозрачная логика загрузки cons: увеличение связанности. В любом случае большой вопрос с редактированием словарей.
     // Например, трекеров... Будет похожая заморочка, как в дереве задач (зато есть опыт уже)
-    // startLoading();
+    startLoading();
     workspaces = ObservableList.of(await workspacesUC.getAll());
     workspaces.sort((ws1, ws2) => ws1.title.compareTo(ws2.title));
+    stopLoading();
 
     final tasks = <Task>[];
     for (Workspace ws in workspaces) {

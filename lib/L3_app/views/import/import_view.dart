@@ -70,7 +70,7 @@ class _ImportViewState extends State<ImportView> {
             hint: loc.source_list_empty_title,
             title: loc.source_title_new,
             icon: plusIcon(context, size: 24),
-            onTap: () => _controller.needAddSource(context),
+            onTap: () => _controller.needAddSourceEvent(context),
           ),
         )
       : MTDropdown<Source>(
@@ -124,7 +124,7 @@ class _ImportViewState extends State<ImportView> {
           leading: CloseDialogButton(),
           title: loc.task_import_title,
           trailing: sourceController.sources.isNotEmpty
-              ? MTButton.icon(plusIcon(context), () => _controller.needAddSource(context), padding: EdgeInsets.only(right: onePadding))
+              ? MTButton.icon(plusIcon(context), () => _controller.needAddSourceEvent(context), padding: EdgeInsets.only(right: onePadding))
               : null,
         ),
         body: SafeArea(child: form()),

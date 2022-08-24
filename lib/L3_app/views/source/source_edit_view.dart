@@ -56,6 +56,7 @@ class _SourceEditViewState extends State<SourceEditView> {
 
   @override
   void dispose() {
+    _controller.selectType(null);
     _controller.dispose();
     super.dispose();
   }

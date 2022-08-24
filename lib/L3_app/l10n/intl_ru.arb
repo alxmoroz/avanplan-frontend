@@ -17,7 +17,6 @@
 
   "goal_delete_dialog_title": "Удалить цель?",
   "goal_for_orphaned_tasks": "Задачи без целей",
-  "goal_list_empty_title": "Нет целей",
   "goal_list_title": "Цели",
   "goal_new_title": "Новая цель",
   "goal_title": "Цель",
@@ -27,7 +26,8 @@
   "overview": "Обзор",
 
   "project_delete_dialog_title": "Удалить проект?",
-  "project_list_empty_title": "Нет проектов",
+  "project_list_empty_title_part1": "Загрузите задачи из источника импорта",
+  "project_list_empty_title_part2": "или создайте свои",
   "project_list_title": "Проекты",
   "project_new_title": "Новый проект",
   "project_title": "Проект",
@@ -46,7 +46,6 @@
   "source_url_placeholder": "URL",
 
   "subtask_delete_dialog_title": "Удалить подзадачу?",
-  "subtask_list_empty_title": "Нет подзадач",
   "subtask_list_title": "Подзадачи",
   "subtask_new_title": "Новая подзадача",
   "subtask_title": "Подзадача",
@@ -68,7 +67,6 @@
   "task_filter_all": "Все",
   "task_filter_opened": "Открытые",
 
-  "task_list_empty_title": "Нет задач",
   "task_list_title": "Задачи",
   "task_new_title": "Новая задача",
 

@@ -17,7 +17,6 @@
 
   "goal_delete_dialog_title": "Delete goal?",
   "goal_for_orphaned_tasks": "Tasks without goals",
-  "goal_list_empty_title": "There are no goals",
   "goal_list_title": "Goals",
   "goal_new_title": "New goal",
   "goal_title": "Goal",
@@ -27,7 +26,8 @@
   "overview": "Overview",
 
   "project_delete_dialog_title": "Delete project?",
-  "project_list_empty_title": "There are no projects",
+  "project_list_empty_title_part1": "Import tasks from source",
+  "project_list_empty_title_part2": "or create your own",
   "project_list_title": "Projects",
   "project_new_title": "New project",
   "project_title": "Project",
@@ -46,7 +46,6 @@
   "source_url_placeholder": "URL",
 
   "subtask_delete_dialog_title": "Delete subtask?",
-  "subtask_list_empty_title": "here are no subtasks",
   "subtask_list_title": "Subtasks",
   "subtask_new_title": "New subtask",
   "subtask_title": "Subtask",
@@ -68,7 +67,6 @@
   "task_filter_all": "All",
   "task_filter_opened": "Opened",
 
-  "task_list_empty_title": "There are no tasks",
   "task_list_title": "Tasks",
   "task_new_title": "New task",
 

@@ -2,9 +2,11 @@
 
 import 'package:flutter/cupertino.dart';
 
+import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_rich_button.dart';
+import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_source_presenter.dart';
 import '../task/task_add_action_widget.dart';
@@ -18,6 +20,9 @@ class ProjectEmptyListActionsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(shrinkWrap: true, children: [
+      SizedBox(height: onePadding * 2),
+      H4(loc.project_list_empty_title_part1, align: TextAlign.center, padding: EdgeInsets.symmetric(horizontal: onePadding), color: darkGreyColor),
+      SizedBox(height: onePadding / 2),
       ...sourceController.sTypes
           .map(
             (st) => MTRichButton(
@@ -31,10 +36,14 @@ class ProjectEmptyListActionsWidget extends StatelessWidget {
             ),
           )
           .toList(),
+      SizedBox(height: onePadding * 2),
+      H4(loc.project_list_empty_title_part2, align: TextAlign.center, padding: EdgeInsets.symmetric(horizontal: onePadding), color: darkGreyColor),
+      SizedBox(height: onePadding / 2),
       TaskAddActionWidget(
         taskController,
         parentContext: parentContext,
       ),
+      SizedBox(height: onePadding * 2),
     ]);
   }
 }

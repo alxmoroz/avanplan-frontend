@@ -43,7 +43,7 @@ class MTRichButton extends StatelessWidget {
                     icon!,
                     SizedBox(width: onePadding / 2),
                   ],
-                  H4(title!, color: mainColor),
+                  H4(title!),
                 ],
               ),
             ],

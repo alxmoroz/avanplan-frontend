@@ -32,14 +32,6 @@ extension TaskLevelPresenter on Task {
       }[level] ??
       loc.subtask_new_title;
 
-  String get noSubtasksTitle =>
-      {
-        TaskLevel.workspace: loc.project_list_empty_title,
-        TaskLevel.project: loc.goal_list_empty_title,
-        TaskLevel.goal: loc.task_list_empty_title,
-      }[level] ??
-      loc.subtask_list_empty_title;
-
   String get deleteDialogTitle =>
       {
         TaskLevel.workspace: loc.workspace_delete_dialog_title,

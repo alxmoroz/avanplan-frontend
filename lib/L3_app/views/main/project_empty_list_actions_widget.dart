@@ -2,6 +2,11 @@
 
 import 'package:flutter/cupertino.dart';
 
+import '../../components/constants.dart';
+import '../../components/icons.dart';
+import '../../components/mt_rich_button.dart';
+import '../../extra/services.dart';
+import '../../presenters/task_source_presenter.dart';
 import '../task/task_add_action_widget.dart';
 import '../task/task_view_controller.dart';
 
@@ -13,6 +18,19 @@ class ProjectEmptyListActionsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(shrinkWrap: true, children: [
+      ...sourceController.sTypes
+          .map(
+            (st) => MTRichButton(
+              onTap: () => print(st),
+              icon: Row(children: [
+                importIcon(context, size: onePadding * 2),
+                SizedBox(width: onePadding / 2),
+                st.icon(context),
+              ]),
+              title: '$st',
+            ),
+          )
+          .toList(),
       TaskAddActionWidget(
         taskController,
         parentContext: parentContext,

@@ -9,13 +9,13 @@ import '../../components/close_dialog_button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
-import '../../components/mt_action.dart';
 import '../../components/mt_bottom_sheet.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_checkbox.dart';
 import '../../components/mt_divider.dart';
 import '../../components/mt_dropdown.dart';
 import '../../components/mt_page.dart';
+import '../../components/mt_rich_button.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
@@ -66,11 +66,11 @@ class _ImportViewState extends State<ImportView> {
 
   Widget get sourceDropdown => sourceController.sources.isEmpty
       ? Expanded(
-          child: MTFloatingAction(
+          child: MTRichButton(
             hint: loc.source_list_empty_title,
             title: loc.source_title_new,
             icon: plusIcon(context, size: 24),
-            onPressed: () => _controller.needAddSource(context),
+            onTap: () => _controller.needAddSource(context),
           ),
         )
       : MTDropdown<Source>(

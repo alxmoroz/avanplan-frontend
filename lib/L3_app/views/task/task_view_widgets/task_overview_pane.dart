@@ -9,10 +9,10 @@ import '../../../../L1_domain/entities/task_ext_state.dart';
 import '../../../components/constants.dart';
 import '../../../components/date_string_widget.dart';
 import '../../../components/icons.dart';
-import '../../../components/mt_action.dart';
 import '../../../components/mt_button.dart';
 import '../../../components/mt_details_dialog.dart';
 import '../../../components/mt_divider.dart';
+import '../../../components/mt_rich_button.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_source_presenter.dart';
@@ -97,11 +97,11 @@ class TaskOverview extends StatelessWidget {
         ],
         if (task.canEdit && (task.isClosable || task.closed)) ...[
           SizedBox(height: onePadding),
-          MTFloatingAction(
+          MTRichButton(
             hint: task.isClosable ? loc.task_state_closable_hint : '',
             title: task.isClosable ? loc.task_state_close_btn_title : loc.task_state_reopen_btn_title,
             icon: task.isClosable ? doneIcon(context, true) : null,
-            onPressed: () => controller.setClosed(context, !task.closed),
+            onTap: () => controller.setClosed(context, !task.closed),
           ),
         ],
         if (task.hasSubtasks) TaskOverviewStats(task),

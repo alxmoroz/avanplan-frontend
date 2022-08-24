@@ -9,11 +9,12 @@ import 'constants.dart';
 import 'mt_button.dart';
 
 class MTCard extends StatelessWidget {
-  const MTCard({this.body, this.title, this.margin, this.onTap, this.elevation, this.radius});
+  const MTCard({this.body, this.title, this.margin, this.onTap, this.elevation, this.radius, this.padding});
 
   final Widget? title;
   final Widget? body;
   final EdgeInsets? margin;
+  final EdgeInsets? padding;
   final VoidCallback? onTap;
   final double? elevation;
   final double? radius;
@@ -32,6 +33,7 @@ class MTCard extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: borderRadius),
         child: Container(
           clipBehavior: Clip.hardEdge,
+          padding: padding,
           decoration: BoxDecoration(
             borderRadius: borderRadius,
             gradient: LinearGradient(

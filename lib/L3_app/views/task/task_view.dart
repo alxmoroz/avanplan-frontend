@@ -66,29 +66,27 @@ class _TaskPageState extends State<TaskView> {
         body: SafeArea(
           top: false,
           bottom: false,
-          child: (task.isWorkspace && !task.hasSubtasks)
-              ? TaskListEmptyWidget(controller, parentContext: context)
-              : ListView(
-                  children: [
-                    if (task.isWorkspace)
-                      tasksPane()
-                    else ...[
-                      TaskHeader(task),
-                      if (task.hasSubtasks) ...[
-                        SizedBox(height: onePadding),
-                        tabPaneSelector(),
-                      ],
-                      selectedPane(),
-                    ],
-                    if (!task.hasSubtasks &&
-                        task.canAdd &&
-                        [
-                          TaskLevel.project,
-                          TaskLevel.goal,
-                        ].contains(task.level))
-                      TaskListEmptyWidget(controller, parentContext: context),
-                  ],
-                ),
+          child: ListView(
+            children: [
+              if (task.isWorkspace)
+                tasksPane()
+              else ...[
+                TaskHeader(task),
+                if (task.hasSubtasks) ...[
+                  SizedBox(height: onePadding),
+                  tabPaneSelector(),
+                ],
+                selectedPane(),
+              ],
+              if (!task.hasSubtasks &&
+                  task.canAdd &&
+                  [
+                    TaskLevel.project,
+                    TaskLevel.goal,
+                  ].contains(task.level))
+                TaskAddActionWidget(controller, parentContext: context),
+            ],
+          ),
         ),
       ),
     );

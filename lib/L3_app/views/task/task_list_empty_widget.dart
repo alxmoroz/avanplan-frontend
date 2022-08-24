@@ -7,8 +7,8 @@ import '../../components/mt_action.dart';
 import '../../presenters/task_level_presenter.dart';
 import 'task_view_controller.dart';
 
-class TaskListEmptyWidget extends StatelessWidget {
-  const TaskListEmptyWidget(this.controller, {required this.parentContext});
+class TaskAddActionWidget extends StatelessWidget {
+  const TaskAddActionWidget(this.controller, {required this.parentContext});
   final TaskViewController controller;
   final BuildContext parentContext;
 

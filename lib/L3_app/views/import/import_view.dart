@@ -17,6 +17,7 @@ import '../../components/mt_divider.dart';
 import '../../components/mt_dropdown.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
+import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_source_presenter.dart';
 import 'import_controller.dart';
@@ -84,13 +85,8 @@ class _ImportViewState extends State<ImportView> {
     return Column(children: [
       sourceDropdown,
       if (_controller.selectedSource != null) ...[
-        if (!hasTasks)
-          MTFloatingAction(
-            hint: hasError ? Intl.message(_controller.errorCode!, name: _controller.errorCode) : loc.task_import_list_empty_title,
-            hintColor: hasError ? warningColor : null,
-          ),
+        SizedBox(height: onePadding),
         if (hasTasks) ...[
-          SizedBox(height: onePadding),
           if (_controller.remoteTasks.length > 1)
             MTCheckBoxTile(title: loc.select_all_action_title, value: selectedAll, onChanged: _controller.toggleSelectedAll),
           const MTDivider(),
@@ -108,7 +104,12 @@ class _ImportViewState extends State<ImportView> {
             titleColor: validated ? null : lightGreyColor,
           ),
           SizedBox(height: onePadding),
-        ],
+        ] else
+          MediumText(
+            hasError ? Intl.message(_controller.errorCode!, name: _controller.errorCode) : loc.task_import_list_empty_title,
+            align: TextAlign.center,
+            color: hasError ? warningColor : lightGreyColor,
+          ),
       ],
     ]);
   }

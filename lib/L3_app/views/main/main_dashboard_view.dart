@@ -59,7 +59,7 @@ class _MainDashboardViewState extends State<MainDashboardView> {
             top: false,
             bottom: false,
             child: !rootTask.hasOpenedSubtasks
-                ? TaskListEmptyWidget(TaskViewController(), parentContext: context)
+                ? TaskAddActionWidget(TaskViewController(), parentContext: context)
                 : ListView(
                     shrinkWrap: true,
                     children: [

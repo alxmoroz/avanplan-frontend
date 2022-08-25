@@ -67,10 +67,10 @@ Widget infoIcon(BuildContext context, {Color? color, double? size}) => Icon(
       size: size ?? 20,
     );
 
-Widget linkIcon(BuildContext context, {Color? color, double? size}) => FaIcon(
-      FontAwesomeIcons.link,
-      color: (color ?? lightGreyColor).resolve(context),
-      size: size ?? 16,
+Widget linkIcon(BuildContext context, {Color? color, double? size}) => Icon(
+      CupertinoIcons.link,
+      color: (color ?? darkGreyColor).resolve(context),
+      size: size ?? 15,
     );
 
 Widget linkOutIcon(BuildContext context, {Color? color, double? size}) => FaIcon(

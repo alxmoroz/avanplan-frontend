@@ -106,7 +106,7 @@ class _ImportViewState extends State<ImportView> {
           SizedBox(height: onePadding),
         ] else
           MediumText(
-            hasError ? Intl.message(_controller.errorCode!, name: _controller.errorCode) : loc.task_import_list_empty_title,
+            hasError ? Intl.message(_controller.errorCode!) : loc.task_import_list_empty_title,
             align: TextAlign.center,
             color: hasError ? warningColor : lightGreyColor,
           ),

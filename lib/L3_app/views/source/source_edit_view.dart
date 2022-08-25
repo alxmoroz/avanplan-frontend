@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:intl/intl.dart';
 
 import '../../../L1_domain/entities/source.dart';
 import '../../components/close_dialog_button.dart';
@@ -61,14 +62,29 @@ class _SourceEditViewState extends State<SourceEditView> {
     super.dispose();
   }
 
-  Widget textFieldForCode(String code) => MTTextField(
-        controller: _controller.teControllers[code],
-        label: _controller.tfAnnoForCode(code).label,
-        error: _controller.tfAnnoForCode(code).errorText,
-        obscureText: code == 'password',
-        maxLines: 1,
-        capitalization: TextCapitalization.none,
-      );
+  Widget textFieldForCode(String code) {
+    final tfa = _controller.tfAnnoForCode(code);
+
+    String? helper = tfa.helper;
+    if (code == 'apiKey' && helper == null) {
+      helper = _controller.selectedType != null ? Intl.message('source_api_key_helper_' + _controller.selectedType!.title.toLowerCase()) : null;
+    }
+
+    String? error;
+    if (tfa.errorText != null) {
+      error = tfa.errorText! + (helper != null ? '\n$helper' : '');
+    }
+
+    return MTTextField(
+      controller: _controller.teControllers[code],
+      label: tfa.label,
+      error: error,
+      helper: helper,
+      obscureText: code == 'password',
+      maxLines: 1,
+      capitalization: TextCapitalization.none,
+    );
+  }
 
   List<DropdownMenuItem<SourceType>> srcTypeDdItems(BuildContext context, Iterable<SourceType> sTypes) => sTypes
       .map((st) => DropdownMenuItem<SourceType>(

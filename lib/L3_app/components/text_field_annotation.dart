@@ -9,6 +9,7 @@ class TFAnnotation {
     this.code, {
     this.text = '',
     this.label = '',
+    this.helper,
     this.validator,
     this.needValidate = true,
     this.noText = false,
@@ -16,6 +17,7 @@ class TFAnnotation {
 
   final String code;
   final String label;
+  final String? helper;
   final String? Function(String)? validator;
   final bool needValidate;
   final bool noText;
@@ -27,6 +29,7 @@ class TFAnnotation {
         code,
         text: text,
         label: label,
+        helper: helper,
         validator: validator,
         needValidate: needValidate,
         noText: noText,

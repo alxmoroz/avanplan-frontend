@@ -35,6 +35,9 @@
   "save_action_title": "Save",
   "select_all_action_title": "Select all",
 
+  "source_api_key_helper_gitlab": "Personal access token can be created in the user settings -> Access tokens. Type: \"read_api\"",
+  "source_api_key_helper_jira": "API token can be created in the account control panel -> Security -> Token API -> Create and manage API tokens",
+  "source_api_key_helper_redmine": "API access key can be viewed in the \"My Account\" panel\nThe REST web service must be enabled on the API tab in the server settings",
   "source_api_key_placeholder": "API key / Token",
   "source_delete_dialog_title": "Delete import source connection?",
   "source_delete_dialog_description": "Imported tasks of this source will lose their connection with it",

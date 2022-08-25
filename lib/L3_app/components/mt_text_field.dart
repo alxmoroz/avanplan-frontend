@@ -27,8 +27,10 @@ InputDecoration tfDecoration(
     labelStyle: const NormalText('', color: darkGreyColor).style(context),
     helperText: helper,
     helperStyle: const SmallText('').style(context),
+    helperMaxLines: 15,
     errorText: error,
-    errorStyle: SmallText('', color: _rWarningColor).style(context),
+    errorStyle: const SmallText('', color: warningColor).style(context),
+    errorMaxLines: 15,
     floatingLabelBehavior: FloatingLabelBehavior.auto,
     isDense: true,
     border: _border,
@@ -48,7 +50,7 @@ class MTTextField extends StatelessWidget {
   const MTTextField({
     this.controller,
     this.label,
-    this.description,
+    this.helper,
     this.error,
     this.keyboardType,
     this.maxLines,
@@ -67,7 +69,7 @@ class MTTextField extends StatelessWidget {
   const MTTextField.noText({
     this.controller,
     this.label,
-    this.description,
+    this.helper,
     this.error,
     this.margin,
     this.suffixIcon,
@@ -84,7 +86,7 @@ class MTTextField extends StatelessWidget {
 
   final TextEditingController? controller;
   final String? label;
-  final String? description;
+  final String? helper;
   final String? error;
   final TextInputType? keyboardType;
   final int? maxLines;
@@ -108,7 +110,7 @@ class MTTextField extends StatelessWidget {
         decoration: tfDecoration(
           context,
           label: label,
-          helper: description,
+          helper: helper,
           error: error,
           suffixIcon: suffixIcon,
           enabled: enabled,

@@ -10,7 +10,6 @@ class MTProgress extends StatelessWidget {
   const MTProgress({
     required this.ratio,
     required this.body,
-    this.width,
     this.color,
     this.bgColor,
     this.padding,
@@ -19,33 +18,34 @@ class MTProgress extends StatelessWidget {
   final double ratio;
   final Color? color;
   final Widget? body;
-  final double? width;
   final Color? bgColor;
   final EdgeInsets? padding;
 
   @override
   Widget build(BuildContext context) {
-    final mq = MediaQuery.of(context);
-    return Stack(children: [
-      if (bgColor != null)
+    return LayoutBuilder(builder: (context, size) {
+      final rWidth = ratio * size.maxWidth;
+      return Stack(children: [
+        if (bgColor != null)
+          Positioned(
+            top: 0,
+            bottom: 0,
+            width: size.maxWidth,
+            child: Container(color: bgColor!.resolve(context)),
+          ),
         Positioned(
           top: 0,
           bottom: 0,
-          width: mq.size.width,
-          child: Container(color: bgColor!.resolve(context)),
+          width: rWidth,
+          child: Container(color: (color ?? borderColor).resolve(context)),
         ),
-      Positioned(
-        top: 0,
-        bottom: 0,
-        width: ratio * (width ?? mq.size.width),
-        child: Container(color: (color ?? borderColor).resolve(context)),
-      ),
-      if (body != null)
-        Padding(
-          padding: padding ?? EdgeInsets.all(onePadding),
-          child: body!,
-        ),
-    ]);
+        if (body != null)
+          Padding(
+            padding: padding ?? EdgeInsets.all(onePadding),
+            child: body!,
+          ),
+      ]);
+    });
   }
 }
 

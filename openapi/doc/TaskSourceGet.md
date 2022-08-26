@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  | 
 **code** | **String** |  | 
+**rootCode** | **String** |  | 
 **keepConnection** | **bool** |  | 
 **url** | **String** |  | 
 **source_** | [**SourceGet**](SourceGet.md) |  | 

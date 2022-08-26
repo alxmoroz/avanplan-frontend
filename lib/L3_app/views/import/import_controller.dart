@@ -136,7 +136,7 @@ abstract class _ImportControllerBase extends EditController with Store {
       final linkedTSs = mainController.rootTask.tasks.where((t) => t.hasLink && t.taskSource?.source.id == src.id).map((t) => t.taskSource!);
       needUpdate = linkedTSs.isNotEmpty;
       if (needUpdate) {
-        await importUC.importTaskSources(src.id, linkedTSs.map((ts) => TaskSourceImport(code: ts.code)));
+        await importUC.importTaskSources(src.id, linkedTSs.map((ts) => TaskSourceImport(code: ts.code, rootCode: ts.rootCode)));
       }
     }
     return needUpdate;

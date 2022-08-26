@@ -9,6 +9,7 @@ import 'package:openapi/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **code** | **String** |  | 
+**rootCode** | **String** |  | 
 **keepConnection** | **bool** |  | 
 **url** | **String** |  | [optional] 
 **parentCode** | **String** |  | [optional] 

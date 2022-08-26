@@ -11,6 +11,7 @@ part 'task_source.g.dart';
 ///
 /// Properties:
 /// * [code] 
+/// * [rootCode] 
 /// * [keepConnection] 
 /// * [url] 
 /// * [parentCode] 
@@ -18,6 +19,9 @@ part 'task_source.g.dart';
 abstract class TaskSource implements Built<TaskSource, TaskSourceBuilder> {
     @BuiltValueField(wireName: r'code')
     String get code;
+
+    @BuiltValueField(wireName: r'root_code')
+    String get rootCode;
 
     @BuiltValueField(wireName: r'keep_connection')
     bool get keepConnection;
@@ -56,6 +60,10 @@ class _$TaskSourceSerializer implements StructuredSerializer<TaskSource> {
         result
             ..add(r'code')
             ..add(serializers.serialize(object.code,
+                specifiedType: const FullType(String)));
+        result
+            ..add(r'root_code')
+            ..add(serializers.serialize(object.rootCode,
                 specifiedType: const FullType(String)));
         result
             ..add(r'keep_connection')
@@ -98,6 +106,11 @@ class _$TaskSourceSerializer implements StructuredSerializer<TaskSource> {
                     final valueDes = serializers.deserialize(value,
                         specifiedType: const FullType(String)) as String;
                     result.code = valueDes;
+                    break;
+                case r'root_code':
+                    final valueDes = serializers.deserialize(value,
+                        specifiedType: const FullType(String)) as String;
+                    result.rootCode = valueDes;
                     break;
                 case r'keep_connection':
                     final valueDes = serializers.deserialize(value,

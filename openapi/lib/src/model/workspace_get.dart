@@ -17,6 +17,7 @@ part 'workspace_get.g.dart';
 /// Properties:
 /// * [id] 
 /// * [title] 
+/// * [description] 
 /// * [statuses] 
 /// * [priorities] 
 /// * [persons] 
@@ -27,6 +28,9 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
 
     @BuiltValueField(wireName: r'title')
     String get title;
+
+    @BuiltValueField(wireName: r'description')
+    String? get description;
 
     @BuiltValueField(wireName: r'statuses')
     BuiltList<StatusGet> get statuses;
@@ -70,6 +74,12 @@ class _$WorkspaceGetSerializer implements StructuredSerializer<WorkspaceGet> {
             ..add(r'title')
             ..add(serializers.serialize(object.title,
                 specifiedType: const FullType(String)));
+        if (object.description != null) {
+            result
+                ..add(r'description')
+                ..add(serializers.serialize(object.description,
+                    specifiedType: const FullType(String)));
+        }
         result
             ..add(r'statuses')
             ..add(serializers.serialize(object.statuses,
@@ -110,6 +120,11 @@ class _$WorkspaceGetSerializer implements StructuredSerializer<WorkspaceGet> {
                     final valueDes = serializers.deserialize(value,
                         specifiedType: const FullType(String)) as String;
                     result.title = valueDes;
+                    break;
+                case r'description':
+                    final valueDes = serializers.deserialize(value,
+                        specifiedType: const FullType(String)) as String;
+                    result.description = valueDes;
                     break;
                 case r'statuses':
                     final valueDes = serializers.deserialize(value,

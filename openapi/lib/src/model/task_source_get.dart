@@ -13,6 +13,7 @@ part 'task_source_get.g.dart';
 /// Properties:
 /// * [id] 
 /// * [code] 
+/// * [rootCode] 
 /// * [keepConnection] 
 /// * [url] 
 /// * [source_] 
@@ -22,6 +23,9 @@ abstract class TaskSourceGet implements Built<TaskSourceGet, TaskSourceGetBuilde
 
     @BuiltValueField(wireName: r'code')
     String get code;
+
+    @BuiltValueField(wireName: r'root_code')
+    String get rootCode;
 
     @BuiltValueField(wireName: r'keep_connection')
     bool get keepConnection;
@@ -63,6 +67,10 @@ class _$TaskSourceGetSerializer implements StructuredSerializer<TaskSourceGet> {
             ..add(serializers.serialize(object.code,
                 specifiedType: const FullType(String)));
         result
+            ..add(r'root_code')
+            ..add(serializers.serialize(object.rootCode,
+                specifiedType: const FullType(String)));
+        result
             ..add(r'keep_connection')
             ..add(serializers.serialize(object.keepConnection,
                 specifiedType: const FullType(bool)));
@@ -98,6 +106,11 @@ class _$TaskSourceGetSerializer implements StructuredSerializer<TaskSourceGet> {
                     final valueDes = serializers.deserialize(value,
                         specifiedType: const FullType(String)) as String;
                     result.code = valueDes;
+                    break;
+                case r'root_code':
+                    final valueDes = serializers.deserialize(value,
+                        specifiedType: const FullType(String)) as String;
+                    result.rootCode = valueDes;
                     break;
                 case r'keep_connection':
                     final valueDes = serializers.deserialize(value,

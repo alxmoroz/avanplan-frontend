@@ -17,6 +17,11 @@ void main() {
       // TODO
     });
 
+    // String description
+    test('to test the property `description`', () async {
+      // TODO
+    });
+
     // BuiltList<StatusGet> statuses
     test('to test the property `statuses`', () async {
       // TODO

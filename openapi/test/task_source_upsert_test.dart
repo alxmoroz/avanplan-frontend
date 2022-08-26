@@ -17,6 +17,11 @@ void main() {
       // TODO
     });
 
+    // String rootCode
+    test('to test the property `rootCode`', () async {
+      // TODO
+    });
+
     // bool keepConnection
     test('to test the property `keepConnection`', () async {
       // TODO

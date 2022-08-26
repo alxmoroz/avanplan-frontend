@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  | 
 **title** | **String** |  | 
+**description** | **String** |  | [optional] 
 **statuses** | [**BuiltList&lt;StatusGet&gt;**](StatusGet.md) |  | 
 **priorities** | [**BuiltList&lt;PriorityGet&gt;**](PriorityGet.md) |  | 
 **persons** | [**BuiltList&lt;PersonGet&gt;**](PersonGet.md) |  | 

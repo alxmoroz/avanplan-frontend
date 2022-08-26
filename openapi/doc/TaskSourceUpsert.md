@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  | [optional] 
 **code** | **String** |  | 
+**rootCode** | **String** |  | 
 **keepConnection** | **bool** |  | 
 **url** | **String** |  | 
 **sourceId** | **int** |  | 

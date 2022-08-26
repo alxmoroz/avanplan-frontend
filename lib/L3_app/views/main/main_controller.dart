@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:collection/collection.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
@@ -49,7 +50,18 @@ abstract class _MainControllerBase extends BaseController with Store {
   Future fetchData() async {
     //TODO: сделать computed для всех зависимых данных? pro: прозрачная логика загрузки cons: увеличение связанности. В любом случае большой вопрос с редактированием словарей.
     // Например, трекеров... Будет похожая заморочка, как в дереве задач (зато есть опыт уже)
-    workspaces = ObservableList.of(await workspacesUC.getAll());
+
+    try {
+      workspaces = ObservableList.of(await workspacesUC.getAll());
+    } catch (e) {
+      if (e is DioError && e.response?.statusCode == 403) {
+        await loginController.logout();
+        return;
+      } else {
+        print(e);
+      }
+    }
+
     workspaces.sort((ws1, ws2) => ws1.title.compareTo(ws2.title));
 
     final tasks = <Task>[];

@@ -2,6 +2,9 @@
 
 # Copyright (c) 2022. Alexandr Moroz
 
+set -e
+set -x
+
 flutter clean
 
 bash ./scripts/api_generate.sh

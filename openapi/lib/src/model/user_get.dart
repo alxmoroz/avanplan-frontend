@@ -2,6 +2,7 @@
 // AUTO-GENERATED FILE, DO NOT MODIFY!
 //
 
+// ignore_for_file: unused_element
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -14,97 +15,142 @@ part 'user_get.g.dart';
 /// * [email] 
 /// * [password] 
 /// * [fullName] 
+@BuiltValue()
 abstract class UserGet implements Built<UserGet, UserGetBuilder> {
-    @BuiltValueField(wireName: r'id')
-    int get id;
+  @BuiltValueField(wireName: r'id')
+  int get id;
 
-    @BuiltValueField(wireName: r'email')
-    String get email;
+  @BuiltValueField(wireName: r'email')
+  String get email;
 
-    @BuiltValueField(wireName: r'password')
-    String get password;
+  @BuiltValueField(wireName: r'password')
+  String get password;
 
-    @BuiltValueField(wireName: r'full_name')
-    String? get fullName;
+  @BuiltValueField(wireName: r'full_name')
+  String? get fullName;
 
-    UserGet._();
+  UserGet._();
 
-    @BuiltValueHook(initializeBuilder: true)
-    static void _defaults(UserGetBuilder b) => b;
+  factory UserGet([void updates(UserGetBuilder b)]) = _$UserGet;
 
-    factory UserGet([void updates(UserGetBuilder b)]) = _$UserGet;
+  @BuiltValueHook(initializeBuilder: true)
+  static void _defaults(UserGetBuilder b) => b;
 
-    @BuiltValueSerializer(custom: true)
-    static Serializer<UserGet> get serializer => _$UserGetSerializer();
+  @BuiltValueSerializer(custom: true)
+  static Serializer<UserGet> get serializer => _$UserGetSerializer();
 }
 
-class _$UserGetSerializer implements StructuredSerializer<UserGet> {
-    @override
-    final Iterable<Type> types = const [UserGet, _$UserGet];
+class _$UserGetSerializer implements PrimitiveSerializer<UserGet> {
+  @override
+  final Iterable<Type> types = const [UserGet, _$UserGet];
 
-    @override
-    final String wireName = r'UserGet';
+  @override
+  final String wireName = r'UserGet';
 
-    @override
-    Iterable<Object?> serialize(Serializers serializers, UserGet object,
-        {FullType specifiedType = FullType.unspecified}) {
-        final result = <Object?>[];
-        result
-            ..add(r'id')
-            ..add(serializers.serialize(object.id,
-                specifiedType: const FullType(int)));
-        result
-            ..add(r'email')
-            ..add(serializers.serialize(object.email,
-                specifiedType: const FullType(String)));
-        result
-            ..add(r'password')
-            ..add(serializers.serialize(object.password,
-                specifiedType: const FullType(String)));
-        if (object.fullName != null) {
-            result
-                ..add(r'full_name')
-                ..add(serializers.serialize(object.fullName,
-                    specifiedType: const FullType(String)));
-        }
-        return result;
+  Iterable<Object?> _serializeProperties(
+    Serializers serializers,
+    UserGet object, {
+    FullType specifiedType = FullType.unspecified,
+  }) sync* {
+    yield r'id';
+    yield serializers.serialize(
+      object.id,
+      specifiedType: const FullType(int),
+    );
+    yield r'email';
+    yield serializers.serialize(
+      object.email,
+      specifiedType: const FullType(String),
+    );
+    yield r'password';
+    yield serializers.serialize(
+      object.password,
+      specifiedType: const FullType(String),
+    );
+    if (object.fullName != null) {
+      yield r'full_name';
+      yield serializers.serialize(
+        object.fullName,
+        specifiedType: const FullType(String),
+      );
     }
+  }
 
-    @override
-    UserGet deserialize(Serializers serializers, Iterable<Object?> serialized,
-        {FullType specifiedType = FullType.unspecified}) {
-        final result = UserGetBuilder();
+  @override
+  Object serialize(
+    Serializers serializers,
+    UserGet object, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
+  }
 
-        final iterator = serialized.iterator;
-        while (iterator.moveNext()) {
-            final key = iterator.current as String;
-            iterator.moveNext();
-            final Object? value = iterator.current;
-            
-            switch (key) {
-                case r'id':
-                    final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(int)) as int;
-                    result.id = valueDes;
-                    break;
-                case r'email':
-                    final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(String)) as String;
-                    result.email = valueDes;
-                    break;
-                case r'password':
-                    final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(String)) as String;
-                    result.password = valueDes;
-                    break;
-                case r'full_name':
-                    final valueDes = serializers.deserialize(value,
-                        specifiedType: const FullType(String)) as String;
-                    result.fullName = valueDes;
-                    break;
-            }
-        }
-        return result.build();
+  void _deserializeProperties(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+    required List<Object?> serializedList,
+    required UserGetBuilder result,
+    required List<Object?> unhandled,
+  }) {
+    for (var i = 0; i < serializedList.length; i += 2) {
+      final key = serializedList[i] as String;
+      final value = serializedList[i + 1];
+      switch (key) {
+        case r'id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.id = valueDes;
+          break;
+        case r'email':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.email = valueDes;
+          break;
+        case r'password':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.password = valueDes;
+          break;
+        case r'full_name':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.fullName = valueDes;
+          break;
+        default:
+          unhandled.add(key);
+          unhandled.add(value);
+          break;
+      }
     }
+  }
+
+  @override
+  UserGet deserialize(
+    Serializers serializers,
+    Object serialized, {
+    FullType specifiedType = FullType.unspecified,
+  }) {
+    final result = UserGetBuilder();
+    final serializedList = (serialized as Iterable<Object?>).toList();
+    final unhandled = <Object?>[];
+    _deserializeProperties(
+      serializers,
+      serialized,
+      specifiedType: specifiedType,
+      serializedList: serializedList,
+      unhandled: unhandled,
+      result: result,
+    );
+    return result.build();
+  }
 }
 

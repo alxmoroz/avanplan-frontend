@@ -10,7 +10,8 @@ import '../../../components/icons.dart';
 import '../../../components/mt_rich_button.dart';
 import '../../../extra/services.dart';
 import '../task_view_controller.dart';
-import 'task_overview_stats.dart';
+import 'task_overview_advices.dart';
+import 'task_overview_warnings.dart';
 import 'task_state_indicator.dart';
 
 class TaskOverview extends StatelessWidget {
@@ -22,22 +23,20 @@ class TaskOverview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(onePadding),
-      child: ListView(children: [
-        if (!task.closed) ...[
-          TaskStateIndicator(task),
-        ],
-        if (task.canEdit && (task.isClosable || task.closed)) ...[
-          MTRichButton(
-            hint: task.isClosable ? loc.task_state_closable_hint : '',
-            title: task.isClosable ? loc.task_state_close_btn_title : loc.task_state_reopen_btn_title,
-            icon: task.isClosable ? doneIcon(context, true) : null,
-            onTap: () => controller.setClosed(context, !task.closed),
-          ),
-        ],
-        if (task.hasSubtasks) TaskOverviewStats(task),
-      ]),
-    );
+    return ListView(children: [
+      if (!task.closed) ...[
+        SizedBox(height: onePadding),
+        TaskStateIndicator(task),
+      ],
+      if (task.canEdit && (task.isClosable || task.closed)) ...[
+        MTRichButton(
+          hint: task.isClosable ? loc.task_state_closable_hint : '',
+          title: task.isClosable ? loc.task_state_close_btn_title : loc.task_state_reopen_btn_title,
+          icon: task.isClosable ? doneIcon(context, true) : null,
+          onTap: () => controller.setClosed(context, !task.closed),
+        ),
+      ],
+      if (task.hasOverdueTasks || task.hasRiskTasks) TaskOverviewWarnings(task) else TaskOverviewAdvices(task),
+    ]);
   }
 }

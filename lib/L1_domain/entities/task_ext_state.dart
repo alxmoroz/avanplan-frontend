@@ -55,21 +55,21 @@ extension TaskStats on Task {
 
   Iterable<Task> get _timeBoundOpenedTasks => allTasks.where((t) => !t.closed && t.hasDueDate);
 
-  Iterable<Task> get _overdueTasks => _timeBoundOpenedTasks.where((t) => t._hasOverdue);
-  int get overdueTasksCount => _overdueTasks.length;
+  Iterable<Task> get overdueTasks => _timeBoundOpenedTasks.where((t) => t._hasOverdue);
+  int get overdueTasksCount => overdueTasks.length;
   bool get hasOverdueTasks => overdueTasksCount > 0;
   Duration get totalOverduePeriod {
     int totalSeconds = _overduePeriod?.inSeconds ?? 0;
-    _overdueTasks.forEach((t) => totalSeconds += t._overduePeriod?.inSeconds ?? 0);
+    overdueTasks.forEach((t) => totalSeconds += t._overduePeriod?.inSeconds ?? 0);
     return Duration(seconds: totalSeconds);
   }
 
-  Iterable<Task> get _riskyTasks => _timeBoundOpenedTasks.where((t) => t._hasRisk);
-  int get riskyTasksCount => _riskyTasks.length;
+  Iterable<Task> get riskyTasks => _timeBoundOpenedTasks.where((t) => t._hasRisk);
+  int get riskyTasksCount => riskyTasks.length;
   bool get hasRiskTasks => riskyTasksCount > 0;
   Duration get totalRiskPeriod {
     int totalSeconds = _etaRiskPeriod?.inSeconds ?? 0;
-    _riskyTasks.forEach((t) => totalSeconds += t._etaRiskPeriod?.inSeconds ?? 0);
+    riskyTasks.forEach((t) => totalSeconds += t._etaRiskPeriod?.inSeconds ?? 0);
     return Duration(seconds: totalSeconds);
   }
 

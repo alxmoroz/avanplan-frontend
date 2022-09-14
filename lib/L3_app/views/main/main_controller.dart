@@ -2,7 +2,7 @@
 
 import 'package:collection/collection.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
@@ -43,6 +43,15 @@ abstract class _MainControllerBase extends BaseController with Store {
   @action
   Future showTask(BuildContext context, Task task) async {
     selectedTaskId = task.id;
+    // if (dialog) {
+    //   await showModalBottomSheet<void>(
+    //     context: context,
+    //     backgroundColor: Colors.transparent,
+    //     isScrollControlled: true,
+    //     useRootNavigator: true,
+    //     builder: (BuildContext ctx) => MTBottomSheet(TaskView(parentContext: ctx), context),
+    //   );
+    // }
     await Navigator.of(context).pushNamed(TaskView.routeName);
   }
 

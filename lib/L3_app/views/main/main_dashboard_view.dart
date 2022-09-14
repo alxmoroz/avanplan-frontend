@@ -17,7 +17,8 @@ import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_overview_presenter.dart';
 import '../task/task_view_controller.dart';
-import '../task/task_view_widgets/task_overview_stats.dart';
+import '../task/task_view_widgets/task_overview_advices.dart';
+import '../task/task_view_widgets/task_overview_warnings.dart';
 import 'project_empty_list_actions_widget.dart';
 
 class MainDashboardView extends StatefulWidget {
@@ -74,7 +75,7 @@ class _MainDashboardViewState extends State<MainDashboardView> {
                       SizedBox(height: onePadding),
 
                       /// статистика по статусу всех задач
-                      TaskOverviewStats(rootTask),
+                      if (rootTask.hasOverdueTasks || rootTask.hasRiskTasks) TaskOverviewWarnings(rootTask) else TaskOverviewAdvices(rootTask),
                       SizedBox(height: onePadding),
                     ],
                   ),

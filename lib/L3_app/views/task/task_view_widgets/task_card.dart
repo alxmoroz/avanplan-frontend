@@ -4,9 +4,9 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities/task_ext_state.dart';
-import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
+import '../../../components/mt_badge.dart';
 import '../../../components/mt_card.dart';
 import '../../../components/mt_progress.dart';
 import '../../../components/text_widgets.dart';
@@ -22,22 +22,6 @@ class TaskCard extends StatelessWidget {
 
   bool get isClosed => task.closed;
 
-  Widget badge(BuildContext context) {
-    final dir = CupertinoTheme.brightnessOf(context) == Brightness.dark ? 1 : -1;
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: onePadding / 1.75, vertical: onePadding / 6),
-      decoration: BoxDecoration(
-        color: darkBackgroundColor.resolve(context),
-        borderRadius: BorderRadius.circular(onePadding),
-        boxShadow: [
-          BoxShadow(color: darkGreyColor.resolve(context), offset: Offset(0, dir * 0.4)),
-          BoxShadow(color: CupertinoColors.systemBackground.resolve(context), offset: Offset(0, dir * -0.4)),
-        ],
-      ),
-      child: SmallText('${task.openedLeafTasksCount}', color: darkGreyColor),
-    );
-  }
-
   Widget title(BuildContext context) => H4(
         task.title,
         maxLines: 1,
@@ -46,7 +30,8 @@ class TaskCard extends StatelessWidget {
 
   Widget header(BuildContext context) => Row(children: [
         Expanded(child: title(context)),
-        if (task.openedLeafTasksCount > 0) badge(context),
+        if (task.openedLeafTasksCount > 0) MTBadge('${task.openedLeafTasksCount}'),
+        SizedBox(width: onePadding / 4),
         chevronIcon(context),
       ]);
 

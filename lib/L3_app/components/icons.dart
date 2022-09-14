@@ -55,10 +55,10 @@ Widget downCaretIcon(BuildContext context, {Color? color, double? size}) => Icon
       size: size ?? 24,
     );
 
-Widget chevronIcon(BuildContext context, {Color? color, double? size}) => Icon(
-      CupertinoIcons.chevron_right,
+Widget chevronIcon(BuildContext context, {Color? color, double? size}) => FaIcon(
+      FontAwesomeIcons.chevronRight,
       color: (color ?? mainColor).resolve(context),
-      size: size ?? 20,
+      size: size ?? 14,
     );
 
 Widget infoIcon(BuildContext context, {Color? color, double? size}) => Icon(

@@ -19,6 +19,8 @@ import 'task_view_widgets/task_navbar.dart';
 import 'task_view_widgets/task_overview_pane.dart';
 
 class TaskView extends StatefulWidget {
+  const TaskView();
+
   static String get routeName => 'task_view';
 
   @override
@@ -63,14 +65,11 @@ class _TaskPageState extends State<TaskView> {
         ),
       );
 
-  Widget overviewPane() => TaskOverview(controller);
-  Widget tasksPane() => TaskListView(controller);
   Widget detailsPane() => TaskDetails(controller);
-
   Widget selectedPane() =>
       {
-        TaskTabKey.overview: overviewPane(),
-        TaskTabKey.subtasks: tasksPane(),
+        TaskTabKey.overview: TaskOverview(controller),
+        TaskTabKey.subtasks: TaskListView(controller),
         TaskTabKey.details: detailsPane(),
       }[controller.tabKey] ??
       detailsPane();

@@ -39,10 +39,7 @@ class ProjectEmptyListActionsWidget extends StatelessWidget {
       SizedBox(height: onePadding * 2),
       H4(loc.project_list_empty_title_part2, align: TextAlign.center, padding: EdgeInsets.symmetric(horizontal: onePadding), color: darkGreyColor),
       SizedBox(height: onePadding / 2),
-      TaskAddActionWidget(
-        taskController,
-        parentContext: parentContext,
-      ),
+      TaskAddActionWidget(taskController, parentContext: parentContext),
       SizedBox(height: onePadding * 2),
     ]);
   }

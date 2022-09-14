@@ -4,9 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/entities/task_ext_actions.dart';
 import '../../../L1_domain/entities/task_ext_level.dart';
-import '../../../L1_domain/entities/task_ext_state.dart';
 import '../../components/constants.dart';
 import '../../components/mt_page.dart';
 import '../../components/text_widgets.dart';
@@ -20,8 +18,6 @@ import 'task_view_widgets/task_listview.dart';
 import 'task_view_widgets/task_navbar.dart';
 import 'task_view_widgets/task_overview_pane.dart';
 
-enum _TabKeys { overview, subtasks, details }
-
 class TaskView extends StatefulWidget {
   static String get routeName => 'task_view';
 
@@ -30,43 +26,54 @@ class TaskView extends StatefulWidget {
 }
 
 class _TaskPageState extends State<TaskView> {
-  _TabKeys? tabKeyValue;
-
   late TaskViewController controller;
   Task get task => controller.task;
 
   @override
   void initState() {
     controller = TaskViewController();
-    tabKeyValue = task.hasSubtasks ? _TabKeys.overview : _TabKeys.details;
     super.initState();
+  }
+
+  Map<TaskTabKey, Widget> tabs() {
+    final res = <TaskTabKey, Widget>{};
+    controller.tabKeys.forEach((tk) {
+      switch (tk) {
+        case TaskTabKey.overview:
+          res[TaskTabKey.overview] = NormalText(loc.overview);
+          break;
+        case TaskTabKey.subtasks:
+          res[TaskTabKey.subtasks] = NormalText(task.listTitle);
+          break;
+        case TaskTabKey.details:
+          res[TaskTabKey.details] = NormalText(loc.description);
+          break;
+      }
+    });
+
+    return res;
   }
 
   Widget tabPaneSelector() => Padding(
         padding: EdgeInsets.symmetric(horizontal: onePadding),
-        child: CupertinoSlidingSegmentedControl<_TabKeys>(
-          children: {
-            _TabKeys.overview: NormalText(loc.overview),
-            _TabKeys.subtasks: NormalText(task.listTitle),
-            _TabKeys.details: NormalText(loc.description),
-          },
-          groupValue: tabKeyValue,
-          onValueChanged: (value) => setState(() => tabKeyValue = value),
+        child: CupertinoSlidingSegmentedControl<TaskTabKey>(
+          children: tabs(),
+          groupValue: controller.tabKey,
+          onValueChanged: controller.selectTab,
         ),
       );
 
   Widget overviewPane() => TaskOverview(controller);
   Widget tasksPane() => TaskListView(controller);
   Widget detailsPane() => TaskDetails(controller);
-  Widget defaultPane() => task.hasSubtasks ? overviewPane() : detailsPane();
 
   Widget selectedPane() =>
       {
-        _TabKeys.overview: overviewPane(),
-        _TabKeys.subtasks: tasksPane(),
-        _TabKeys.details: detailsPane(),
-      }[tabKeyValue] ??
-      defaultPane();
+        TaskTabKey.overview: overviewPane(),
+        TaskTabKey.subtasks: tasksPane(),
+        TaskTabKey.details: detailsPane(),
+      }[controller.tabKey] ??
+      detailsPane();
 
   @override
   Widget build(BuildContext context) {
@@ -75,27 +82,18 @@ class _TaskPageState extends State<TaskView> {
         isLoading: controller.isLoading,
         navBar: taskNavBar(context, controller),
         body: SafeArea(
-          top: false,
+          top: !task.isWorkspace,
           bottom: false,
-          child: ListView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              if (task.isWorkspace)
-                tasksPane()
-              else ...[
-                TaskHeader(task),
-                if (task.hasSubtasks) ...[
-                  SizedBox(height: onePadding),
-                  tabPaneSelector(),
-                ],
-                selectedPane(),
+              if (!task.isWorkspace) TaskHeader(task) else SizedBox(height: onePadding / 2),
+              if (controller.mayAddSubtask) TaskAddActionWidget(controller, parentContext: context),
+              if (controller.tabKeys.length > 1) ...[
+                SizedBox(height: onePadding / 2),
+                tabPaneSelector(),
               ],
-              if (!task.hasSubtasks &&
-                  task.canAdd &&
-                  [
-                    TaskLevel.project,
-                    TaskLevel.goal,
-                  ].contains(task.level))
-                TaskAddActionWidget(controller, parentContext: context),
+              Expanded(child: selectedPane()),
             ],
           ),
         ),

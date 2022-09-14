@@ -27,16 +27,15 @@ class TaskListView extends StatelessWidget {
     return Observer(
       builder: (_) => Column(
         children: [
+          SizedBox(height: controller.hasFilters ? 0 : onePadding),
           if (controller.hasFilters) ...[
-            SizedBox(height: onePadding),
             TaskFilterDropdown(controller),
           ],
-          SizedBox(height: onePadding / 2),
-          ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: cardBuilder,
-            itemCount: controller.filteredTasks.length,
+          Expanded(
+            child: ListView.builder(
+              itemBuilder: cardBuilder,
+              itemCount: controller.filteredTasks.length,
+            ),
           ),
           SizedBox(height: onePadding),
         ],

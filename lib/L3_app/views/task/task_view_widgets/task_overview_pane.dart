@@ -23,14 +23,12 @@ class TaskOverview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(onePadding).copyWith(top: 0),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      padding: EdgeInsets.all(onePadding),
+      child: ListView(children: [
         if (!task.closed) ...[
-          SizedBox(height: onePadding),
           TaskStateIndicator(task),
         ],
         if (task.canEdit && (task.isClosable || task.closed)) ...[
-          SizedBox(height: onePadding),
           MTRichButton(
             hint: task.isClosable ? loc.task_state_closable_hint : '',
             title: task.isClosable ? loc.task_state_close_btn_title : loc.task_state_reopen_btn_title,

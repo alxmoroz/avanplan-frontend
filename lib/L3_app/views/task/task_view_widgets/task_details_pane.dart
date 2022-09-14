@@ -20,17 +20,18 @@ class TaskDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(onePadding).copyWith(top: 0),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        if (hasDescription) ...[
-          SizedBox(height: onePadding),
-          description(),
+      padding: EdgeInsets.all(onePadding),
+      child: ListView(
+        children: [
+          if (hasDescription) ...[
+            description(),
+          ],
+          if (hasAuthor) ...[
+            SizedBox(height: onePadding / 2),
+            SmallText('/// ${task.author}', align: TextAlign.end),
+          ],
         ],
-        if (hasAuthor) ...[
-          SizedBox(height: onePadding / 2),
-          SmallText('/// ${task.author}', align: TextAlign.end),
-        ],
-      ]),
+      ),
     );
   }
 }

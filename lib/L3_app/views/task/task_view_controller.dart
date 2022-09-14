@@ -6,6 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/task_ext_actions.dart';
+import '../../../L1_domain/entities/task_ext_level.dart';
 import '../../../L1_domain/entities/task_ext_state.dart';
 import '../../../L1_domain/usecases/task_comparators.dart';
 import '../../components/icons.dart';
@@ -17,6 +18,8 @@ import '../_base/base_controller.dart';
 import 'task_edit_view.dart';
 
 part 'task_view_controller.g.dart';
+
+enum TaskTabKey { overview, subtasks, details }
 
 class TaskViewController extends _TaskViewControllerBase with _$TaskViewController {
   TaskViewController() {
@@ -36,6 +39,45 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
 
   @computed
   Task get task => mainController.taskForId(taskID);
+
+  @computed
+  bool get mayAddSubtask =>
+      !task.hasSubtasks &&
+      task.canAdd &&
+      [
+        TaskLevel.project,
+        TaskLevel.goal,
+      ].contains(task.level);
+
+  /// вкладки
+  @computed
+  bool get _hasDescription => task.description.isNotEmpty;
+  @computed
+  bool get _hasAuthor => task.author != null;
+  @computed
+  bool get _hasDetails => _hasDescription || _hasAuthor;
+
+  @computed
+  Iterable<TaskTabKey> get tabKeys {
+    final res = <TaskTabKey>[];
+    if (!task.isWorkspace) {
+      if (task.hasSubtasks) {
+        res.addAll([TaskTabKey.overview, TaskTabKey.subtasks]);
+      }
+      if (_hasDetails) {
+        res.add(TaskTabKey.details);
+      }
+    }
+    return res;
+  }
+
+  @observable
+  TaskTabKey? _tabKey;
+  @action
+  void selectTab(TaskTabKey? tk) => _tabKey = tk;
+
+  @computed
+  TaskTabKey get tabKey => (tabKeys.contains(_tabKey) ? _tabKey : null) ?? (tabKeys.isNotEmpty ? tabKeys.first : TaskTabKey.subtasks);
 
   /// непосредственно фильтр и сортировка
   @computed

@@ -14,12 +14,13 @@ import '../../extra/services.dart';
 import '../../presenters/task_level_presenter.dart';
 import 'task_add_action_widget.dart';
 import 'task_view_controller.dart';
+import 'task_view_widgets/task_details_pane.dart';
 import 'task_view_widgets/task_header.dart';
 import 'task_view_widgets/task_listview.dart';
 import 'task_view_widgets/task_navbar.dart';
 import 'task_view_widgets/task_overview_pane.dart';
 
-enum _TabKeys { overview, tasks }
+enum _TabKeys { overview, subtasks, details }
 
 class TaskView extends StatefulWidget {
   static String get routeName => 'task_view';
@@ -37,7 +38,7 @@ class _TaskPageState extends State<TaskView> {
   @override
   void initState() {
     controller = TaskViewController();
-    tabKeyValue = _TabKeys.overview;
+    tabKeyValue = task.hasSubtasks ? _TabKeys.overview : _TabKeys.details;
     super.initState();
   }
 
@@ -46,16 +47,26 @@ class _TaskPageState extends State<TaskView> {
         child: CupertinoSlidingSegmentedControl<_TabKeys>(
           children: {
             _TabKeys.overview: NormalText(loc.overview),
-            _TabKeys.tasks: NormalText(task.listTitle),
+            _TabKeys.subtasks: NormalText(task.listTitle),
+            _TabKeys.details: NormalText(loc.description),
           },
           groupValue: tabKeyValue,
           onValueChanged: (value) => setState(() => tabKeyValue = value),
         ),
       );
 
+  Widget overviewPane() => TaskOverview(controller);
   Widget tasksPane() => TaskListView(controller);
+  Widget detailsPane() => TaskDetails(controller);
+  Widget defaultPane() => task.hasSubtasks ? overviewPane() : detailsPane();
 
-  Widget selectedPane() => {_TabKeys.overview: TaskOverview(controller), _TabKeys.tasks: tasksPane()}[tabKeyValue] ?? TaskOverview(controller);
+  Widget selectedPane() =>
+      {
+        _TabKeys.overview: overviewPane(),
+        _TabKeys.subtasks: tasksPane(),
+        _TabKeys.details: detailsPane(),
+      }[tabKeyValue] ??
+      defaultPane();
 
   @override
   Widget build(BuildContext context) {

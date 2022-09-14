@@ -7,7 +7,6 @@ import '../../../../L1_domain/entities/task_ext_state.dart';
 import '../../../components/constants.dart';
 import '../../../components/mt_progress.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/number_presenter.dart';
 import '../../../presenters/task_overview_presenter.dart';
 
 class TaskOverviewStats extends StatelessWidget {
@@ -18,15 +17,6 @@ class TaskOverviewStats extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      if (task.hasDueDate) ...[
-        SizedBox(height: onePadding),
-        SampleProgress(
-          ratio: task.doneRatio,
-          color: task.stateColor,
-          titleText: loc.task_state_closed,
-          trailingText: task.doneRatio.inPercents,
-        ),
-      ],
       if (task.hasOverdueTasks) ...[
         SizedBox(height: onePadding),
         SampleProgress(

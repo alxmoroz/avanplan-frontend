@@ -1,21 +1,14 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities/task_ext_actions.dart';
 import '../../../../L1_domain/entities/task_ext_state.dart';
 import '../../../components/constants.dart';
-import '../../../components/date_string_widget.dart';
 import '../../../components/icons.dart';
-import '../../../components/mt_button.dart';
-import '../../../components/mt_details_dialog.dart';
-import '../../../components/mt_divider.dart';
 import '../../../components/mt_rich_button.dart';
-import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/task_source_presenter.dart';
 import '../task_view_controller.dart';
 import 'task_overview_stats.dart';
 import 'task_state_indicator.dart';
@@ -25,72 +18,13 @@ class TaskOverview extends StatelessWidget {
   final TaskViewController controller;
   Task get task => controller.task;
 
-  bool get hasDescription => task.description.isNotEmpty;
-  bool get hasDates => task.hasDueDate || task.hasEtaDate;
-  bool get hasStatus => task.status != null;
   bool get hasAuthor => task.author != null;
-  bool get hasAssignee => task.assignee != null;
-
-  Widget description() => LayoutBuilder(builder: (context, size) {
-        final text = task.description;
-        final maxLines = task.hasSubtasks ? 3 : 9;
-        final detailedTextWidget = LightText(text, maxLines: maxLines);
-        final span = TextSpan(text: text, style: detailedTextWidget.style(context));
-        final tp = TextPainter(text: span, maxLines: maxLines, textDirection: TextDirection.ltr);
-        tp.layout(maxWidth: size.maxWidth);
-        final bool hasButton = tp.didExceedMaxLines;
-        final divider = MTDivider(color: !hasButton || task.hasSubtasks ? Colors.transparent : null);
-        final innerWidget = Column(children: [
-          divider,
-          Row(children: [
-            Expanded(child: detailedTextWidget),
-            if (hasButton) Row(children: [SizedBox(width: onePadding / 3), infoIcon(context)]),
-          ]),
-          divider,
-        ]);
-        return hasButton ? MTButton('', () => showDetailsDialog(context, task.description), child: innerWidget) : innerWidget;
-      });
-
-  Widget buildDates() => Row(children: [
-        DateStringWidget(task.dueDate, titleString: loc.task_due_date_label),
-        const Spacer(),
-        DateStringWidget(task.etaDate, titleString: loc.task_eta_date_label),
-      ]);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(onePadding).copyWith(top: 0),
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        if (hasStatus || hasAssignee) ...[
-          SizedBox(height: onePadding / 2),
-          Row(
-            children: [
-              if (hasStatus) SmallText(task.status!.title),
-              if (hasAssignee) ...[
-                SizedBox(width: onePadding / 2),
-                SmallText('@ ${task.assignee}'),
-              ],
-            ],
-          ),
-        ],
-        if (hasDescription) description(),
-        if (hasAuthor) ...[
-          SizedBox(height: onePadding / 2),
-          SmallText('/// ${task.author}', align: TextAlign.end),
-        ],
-        if (task.hasLink) ...[
-          SizedBox(height: onePadding / 2),
-          MTButton(
-            '',
-            () => launchUrl(task.taskSource!.uri),
-            child: task.taskSource!.go2SourceTitle(context, showSourceIcon: true),
-          ),
-        ],
-        if (hasDates) ...[
-          SizedBox(height: onePadding),
-          buildDates(),
-        ],
         if (!task.closed) ...[
           SizedBox(height: onePadding),
           TaskStateIndicator(task),

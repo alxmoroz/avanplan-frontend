@@ -45,7 +45,7 @@ class _BaseText extends StatelessWidget {
         text,
         style: style(context),
         textAlign: align,
-        maxLines: maxLines ?? 100,
+        maxLines: maxLines ?? 1000,
         overflow: TextOverflow.ellipsis,
       ),
     );

@@ -61,18 +61,18 @@ class SampleProgress extends MTProgress {
           color: color,
           bgColor: bgColor ?? navbarBgColor,
           ratio: ratio,
-          padding: EdgeInsets.symmetric(vertical: onePadding / 2, horizontal: onePadding),
+          padding: EdgeInsets.symmetric(vertical: onePadding / 3, horizontal: onePadding),
           body: Row(children: [
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  H4(titleText),
+                  NormalText(titleText),
                   if (subtitleText != null) SmallText(subtitleText),
                 ],
               ),
             ),
-            if (trailingText != null) H2(trailingText),
+            if (trailingText != null) H4(trailingText),
           ]),
         );
 }

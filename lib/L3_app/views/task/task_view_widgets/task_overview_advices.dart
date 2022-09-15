@@ -40,7 +40,7 @@ class TaskOverviewAdvices extends StatelessWidget {
           categoryButton(context, loc.task_state_no_due_details, task.noDueGoalsCount),
         ],
         if (task.hasEmptyGoals) ...[
-          categoryButton(context, loc.task_state_no_tasks_goal_details, task.emptyGoalsCount),
+          categoryButton(context, loc.task_count(0), task.emptyGoalsCount),
         ],
         if (task.hasInactiveGoals) ...[
           categoryButton(context, loc.task_state_no_progress_details, task.inactiveGoalsCount),

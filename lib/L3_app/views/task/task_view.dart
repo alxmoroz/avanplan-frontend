@@ -5,11 +5,13 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/task_ext_level.dart';
+import '../../../L1_domain/entities/task_ext_state.dart';
 import '../../components/constants.dart';
 import '../../components/mt_page.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_level_presenter.dart';
+import '../main/project_empty_list_actions_widget.dart';
 import 'task_view_controller.dart';
 import 'task_view_widgets/task_details_pane.dart';
 import 'task_view_widgets/task_header.dart';
@@ -77,19 +79,24 @@ class _TaskPageState extends State<TaskView> {
       builder: (_) => MTPage(
         isLoading: controller.isLoading,
         navBar: taskNavBar(context, controller),
-        body: SafeArea(
-          top: !task.isWorkspace,
-          bottom: false,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              if (!task.isWorkspace) TaskHeader(task) else SizedBox(height: onePadding / 2),
-              if (controller.tabKeys.length > 1) ...[
-                SizedBox(height: onePadding / 2),
-                tabPaneSelector(),
-              ],
-              Expanded(child: selectedPane()),
-            ],
+        body: Container(
+          alignment: Alignment.center,
+          child: SafeArea(
+            top: !task.isWorkspace,
+            bottom: false,
+            child: !mainController.rootTask.hasOpenedSubtasks
+                ? ProjectEmptyListActionsWidget(taskController: TaskViewController(), parentContext: context)
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      if (!task.isWorkspace) TaskHeader(task) else SizedBox(height: onePadding / 2),
+                      if (controller.tabKeys.length > 1) ...[
+                        SizedBox(height: onePadding / 2),
+                        tabPaneSelector(),
+                      ],
+                      Expanded(child: selectedPane()),
+                    ],
+                  ),
           ),
         ),
       ),

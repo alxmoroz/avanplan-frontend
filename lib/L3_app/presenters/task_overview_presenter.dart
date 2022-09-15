@@ -93,7 +93,7 @@ extension TaskStatePresenter on Task {
         res = loc.task_state_no_due_details;
         break;
       case TaskState.noSubtasks:
-        res = loc.task_state_no_tasks_goal_details;
+        res = subtasksCount(0);
         break;
       case TaskState.noProgress:
         res = loc.task_state_no_progress_details;

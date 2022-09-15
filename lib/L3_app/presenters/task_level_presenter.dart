@@ -45,8 +45,17 @@ extension TaskLevelPresenter on Task {
       {
         TaskLevel.workspace: loc.project_dative_count(count),
         TaskLevel.project: loc.goal_dative_count(count),
-        TaskLevel.goal: loc.tasks_dative_count(count),
+        TaskLevel.goal: loc.task_dative_count(count),
         TaskLevel.task: loc.subtask_dative_count(count),
       }[level] ??
       loc.subtask_dative_count(count);
+
+  String subtasksCount(int count) =>
+      {
+        TaskLevel.workspace: loc.project_count(count),
+        TaskLevel.project: loc.goal_count(count),
+        TaskLevel.goal: loc.task_count(count),
+        TaskLevel.task: loc.subtask_count(count),
+      }[level] ??
+      loc.subtask_count(count);
 }

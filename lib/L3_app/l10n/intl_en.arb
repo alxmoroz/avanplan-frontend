@@ -17,7 +17,9 @@
 
   "for_dative": "for",
 
-  "goal_dative_count": "{count, plural, one{{count} goal} other{{count} goals}}",
+  "goal_count": "{count, plural, zero{No goals} one{1 goal} other{{count} goals}}",
+  "goal_dative_count": "{count, plural, one{1 goal} other{{count} goals}}",
+
   "goal_delete_dialog_title": "Delete goal?",
   "goal_for_orphaned_tasks": "Tasks without goals",
   "goal_list_title": "Goals",
@@ -30,7 +32,9 @@
   "no": "No",
   "overview": "Overview",
 
-  "project_dative_count": "{count, plural, one{{count} project} other{{count} projects}}",
+  "project_count": "{count, plural, zero{No projects} one{1 project} other{{count} projects}}",
+  "project_dative_count": "{count, plural, one{1 project} other{{count} projects}}",
+
   "project_delete_dialog_title": "Delete project?",
   "project_list_empty_title_part1": "Import tasks from source",
   "project_list_empty_title_part2": "or create your own",
@@ -54,13 +58,17 @@
   "source_type_placeholder": "Import sources type",
   "source_url_placeholder": "URL",
 
+  "subtask_count": "{count, plural, zero{No subtasks} one{1 subtask} other{{count} subtasks}}",
   "subtask_dative_count": "{count, plural, one{{count} subtask} other{{count} subtasks}}",
+
   "subtask_delete_dialog_title": "Delete subtask?",
   "subtask_list_title": "Subtasks",
   "subtask_new_title": "New subtask",
   "subtask_title": "Subtask",
 
-  "tasks_dative_count": "{count, plural, one{{count} task} other{{count} tasks}}",
+  "task_count": "{count, plural, zero{No tasks} one{1 task} other{{count} tasks}}",
+  "task_dative_count": "{count, plural, one{{count} task} other{{count} tasks}}",
+
   "task_delete_dialog_title": "Delete task?",
   "task_delete_dialog_description": "All subtasks will be deleted",
   "task_due_date_label": "Planned",
@@ -88,7 +96,6 @@
   "task_state_no_due_details": "No due date",
   "task_state_no_info_title": "Not enough data to estimate",
   "task_state_no_progress_details": "No progress",
-  "task_state_no_tasks_goal_details": "No tasks",
   "task_state_ok_title": "All according to plan",
   "task_state_overdue_details": "Total overdue is",
   "task_state_overdue_title": "There are overdue",

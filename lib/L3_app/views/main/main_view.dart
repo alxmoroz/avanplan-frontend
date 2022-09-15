@@ -1,9 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../L1_domain/entities/task_ext_state.dart';
 import '../../components/colors.dart';
 import '../../components/icons.dart';
 import '../../components/splash.dart';
@@ -21,36 +19,24 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> {
-  bool get showTasksTabview => mainController.rootTask.hasOpenedSubtasks;
+  List<Widget> get tabViews => [MainDashboardView(), TaskView(), SettingsView()];
 
-  List<Widget> get tabViews {
-    final res = <Widget>[MainDashboardView()];
-    if (showTasksTabview) {
-      res.add(TaskView());
-    }
-    res.add(SettingsView());
-
-    return res;
-  }
-
-  Widget buildTabScaffold() => Observer(
-        builder: (_) => CupertinoTabScaffold(
-          tabBar: CupertinoTabBar(
-            inactiveColor: inactiveColor,
-            backgroundColor: navbarBgColor,
-            items: [
-              BottomNavigationBarItem(icon: homeIcon(context)),
-              if (showTasksTabview) BottomNavigationBarItem(icon: tasksIcon(context)),
-              BottomNavigationBarItem(icon: menuIcon(context)),
-            ],
-          ),
-          tabBuilder: (_, index) => CupertinoTabView(
-            builder: (context) => tabViews[index],
-            routes: {
-              TaskView.routeName: (_) => TaskView(),
-              SourceListView.routeName: (_) => SourceListView(),
-            },
-          ),
+  Widget buildTabScaffold() => CupertinoTabScaffold(
+        tabBar: CupertinoTabBar(
+          inactiveColor: inactiveColor,
+          backgroundColor: navbarBgColor,
+          items: [
+            BottomNavigationBarItem(icon: homeIcon(context)),
+            BottomNavigationBarItem(icon: tasksIcon(context)),
+            BottomNavigationBarItem(icon: menuIcon(context)),
+          ],
+        ),
+        tabBuilder: (_, index) => CupertinoTabView(
+          builder: (context) => tabViews[index],
+          routes: {
+            TaskView.routeName: (_) => TaskView(),
+            SourceListView.routeName: (_) => SourceListView(),
+          },
         ),
       );
 

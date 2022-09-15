@@ -27,7 +27,6 @@ Future<String?> showImportDialog(BuildContext context) async {
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    useRootNavigator: true,
     builder: (_) => MTBottomSheet(ImportView(), context),
   );
 }

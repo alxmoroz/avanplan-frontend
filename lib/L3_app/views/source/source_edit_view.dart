@@ -25,7 +25,6 @@ Future<Source?> editSourceDialog(BuildContext context) async {
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    useRootNavigator: true,
     builder: (_) => MTBottomSheet(SourceEditView(), context),
   );
 }

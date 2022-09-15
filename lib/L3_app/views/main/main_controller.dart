@@ -8,6 +8,7 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/task_ext_state.dart';
 import '../../../L1_domain/entities/workspace.dart';
+import '../../components/mt_bottom_sheet.dart';
 import '../../extra/services.dart';
 import '../_base/base_controller.dart';
 import '../task/task_view.dart';
@@ -41,18 +42,18 @@ abstract class _MainControllerBase extends BaseController with Store {
   Task taskForId(int? id) => rootTask.allTasks.firstWhereOrNull((t) => t.id == id) ?? rootTask;
 
   @action
-  Future showTask(BuildContext context, Task task) async {
+  Future showTask(BuildContext context, Task task, {bool dialog = false}) async {
     selectedTaskId = task.id;
-    // if (dialog) {
-    //   await showModalBottomSheet<void>(
-    //     context: context,
-    //     backgroundColor: Colors.transparent,
-    //     isScrollControlled: true,
-    //     useRootNavigator: true,
-    //     builder: (BuildContext ctx) => MTBottomSheet(TaskView(parentContext: ctx), context),
-    //   );
-    // }
-    await Navigator.of(context).pushNamed(TaskView.routeName);
+    if (dialog) {
+      await showModalBottomSheet<void>(
+        context: context,
+        backgroundColor: Colors.transparent,
+        isScrollControlled: true,
+        builder: (BuildContext ctx) => MTBottomSheet(TaskView(), context),
+      );
+    } else {
+      await Navigator.of(context).pushNamed(TaskView.routeName);
+    }
   }
 
   @action

@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../L1_domain/entities/task.dart';
+import '../../../../L1_domain/entities/task_ext_level.dart';
 import '../../../../L1_domain/entities/task_ext_state.dart';
 import '../../../extra/services.dart';
 import 'task_card.dart';
@@ -22,7 +23,7 @@ class TaskOverviewWarnings extends StatelessWidget {
     }
 
     return Column(children: [
-      ...warningTasks.map((t) => TaskCard(task: t, onTap: () => mainController.showTask(context, t)))
+      ...warningTasks.map((t) => TaskCard(task: t, onTap: () => mainController.showTask(context, t, dialog: task.isWorkspace)))
       // TODO: хотелось бы знать количество запасных дней (если слишком быстро работаем). Но при наличии рисковых задач, то лучше показывать сумму за вычетом отстающих дней.
       // TODO: Подумать, как учитывать суммарное отставание или резерв в днях
     ]);

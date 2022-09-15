@@ -29,7 +29,6 @@ Future<Task?> editTaskDialog(BuildContext context, {required Task parent, Task? 
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    useRootNavigator: true,
     builder: (_) => MTBottomSheet(TaskEditView(task: task, parent: parent), context),
   );
 }

@@ -18,8 +18,6 @@ import 'task_view_widgets/task_navbar.dart';
 import 'task_view_widgets/task_overview_pane.dart';
 
 class TaskView extends StatefulWidget {
-  const TaskView();
-
   static String get routeName => 'task_view';
 
   @override

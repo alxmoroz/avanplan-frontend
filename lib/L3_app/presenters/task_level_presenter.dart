@@ -40,4 +40,13 @@ extension TaskLevelPresenter on Task {
         TaskLevel.task: loc.task_delete_dialog_title,
       }[level] ??
       loc.subtask_delete_dialog_title;
+
+  String dativeSubtasksCount(int count) =>
+      {
+        TaskLevel.workspace: loc.project_dative_count(count),
+        TaskLevel.project: loc.goal_dative_count(count),
+        TaskLevel.goal: loc.tasks_dative_count(count),
+        TaskLevel.task: loc.subtask_dative_count(count),
+      }[level] ??
+      loc.subtask_dative_count(count);
 }

@@ -15,6 +15,9 @@
   "delete_dialog_description": "Это действие нельзя будет отменить!",
   "description": "Описание",
 
+  "for_dative": "по",
+
+  "goal_dative_count": "{count, plural, one{{count} цели} other{{count} целям}}",
   "goal_delete_dialog_title": "Удалить цель?",
   "goal_for_orphaned_tasks": "Задачи без целей",
   "goal_list_title": "Цели",
@@ -27,6 +30,7 @@
   "no": "Нет",
   "overview": "Обзор",
 
+  "project_dative_count": "{count, plural, one{{count} проекту} other{{count} проектам}}",
   "project_delete_dialog_title": "Удалить проект?",
   "project_list_empty_title_part1": "Загрузите задачи из источника импорта",
   "project_list_empty_title_part2": "или создайте свои",
@@ -50,11 +54,13 @@
   "source_type_placeholder": "Тип источника",
   "source_url_placeholder": "Адрес сервера (URL)",
 
+  "subtask_dative_count": "{count, plural, one{{count} подзадаче} other{{count} подзадачам}}",
   "subtask_delete_dialog_title": "Удалить подзадачу?",
   "subtask_list_title": "Подзадачи",
   "subtask_new_title": "Новая подзадача",
   "subtask_title": "Подзадача",
 
+  "tasks_dative_count": "{count, plural, one{{count} задаче} other{{count} задачам}}",
   "task_delete_dialog_title": "Удалить задачу?",
   "task_delete_dialog_description": "Все подзадачи также будут удалены",
   "task_due_date_label": "План",

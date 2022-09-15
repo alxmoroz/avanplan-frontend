@@ -7,6 +7,7 @@ import '../../L1_domain/entities/task_ext_state.dart';
 import '../components/colors.dart';
 import '../components/icons.dart';
 import '../extra/services.dart';
+import '../presenters/task_level_presenter.dart';
 
 const _colors = {
   TaskState.overdue: dangerColor,
@@ -73,9 +74,10 @@ extension TaskStatePresenter on Task {
   }
 
   String durationString(Duration d) => d.inDays < 1 ? loc.hours_count(d.inHours) : loc.days_count(d.inDays);
+  String subjects(int count) => count > 0 ? ' ${loc.for_dative} ${dativeSubtasksCount(count)}' : '';
 
-  String get overDueDetails => '${loc.task_state_overdue_details} ${durationString(totalOverduePeriod)}';
-  String get riskyDetails => '${loc.task_state_risky_details} ${durationString(totalRiskPeriod)}';
+  String get overDueDetails => '${loc.task_state_overdue_details} ${durationString(totalOverduePeriod)}${subjects(overdueSubtasks.length)}';
+  String get riskyDetails => '${loc.task_state_risky_details} ${durationString(totalRiskPeriod)}${subjects(riskySubtasks.length)}';
 
   String? get stateTextDetails {
     String? res;

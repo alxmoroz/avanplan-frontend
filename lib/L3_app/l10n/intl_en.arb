@@ -15,6 +15,9 @@
   "delete_dialog_description": "This action cannot be undone!",
   "description": "Description",
 
+  "for_dative": "for",
+
+  "goal_dative_count": "{count, plural, one{{count} goal} other{{count} goals}}",
   "goal_delete_dialog_title": "Delete goal?",
   "goal_for_orphaned_tasks": "Tasks without goals",
   "goal_list_title": "Goals",
@@ -27,6 +30,7 @@
   "no": "No",
   "overview": "Overview",
 
+  "project_dative_count": "{count, plural, one{{count} project} other{{count} projects}}",
   "project_delete_dialog_title": "Delete project?",
   "project_list_empty_title_part1": "Import tasks from source",
   "project_list_empty_title_part2": "or create your own",
@@ -50,11 +54,13 @@
   "source_type_placeholder": "Import sources type",
   "source_url_placeholder": "URL",
 
+  "subtask_dative_count": "{count, plural, one{{count} subtask} other{{count} subtasks}}",
   "subtask_delete_dialog_title": "Delete subtask?",
   "subtask_list_title": "Subtasks",
   "subtask_new_title": "New subtask",
   "subtask_title": "Subtask",
 
+  "tasks_dative_count": "{count, plural, one{{count} task} other{{count} tasks}}",
   "task_delete_dialog_title": "Delete task?",
   "task_delete_dialog_description": "All subtasks will be deleted",
   "task_due_date_label": "Planned",

@@ -9,6 +9,7 @@ import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/mt_rich_button.dart';
 import '../../../extra/services.dart';
+import '../task_add_action_widget.dart';
 import '../task_view_controller.dart';
 import 'task_overview_advices.dart';
 import 'task_overview_warnings.dart';
@@ -28,6 +29,7 @@ class TaskOverview extends StatelessWidget {
         SizedBox(height: onePadding),
         TaskStateIndicator(task),
       ],
+      if (controller.mayAddSubtask) TaskAddActionWidget(controller, parentContext: context),
       if (task.canEdit && (task.isClosable || task.closed)) ...[
         MTRichButton(
           hint: task.isClosable ? loc.task_state_closable_hint : '',

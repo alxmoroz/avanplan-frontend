@@ -13,6 +13,7 @@ class MTProgress extends StatelessWidget {
     this.color,
     this.bgColor,
     this.padding,
+    this.height,
   });
 
   final double ratio;
@@ -20,6 +21,7 @@ class MTProgress extends StatelessWidget {
   final Widget? body;
   final Color? bgColor;
   final EdgeInsets? padding;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +36,9 @@ class MTProgress extends StatelessWidget {
             child: Container(color: bgColor!.resolve(context)),
           ),
         Positioned(
-          top: 0,
+          top: height != null ? null : 0,
           bottom: 0,
+          height: height != null ? height : null,
           width: rWidth,
           child: Container(color: (color ?? borderColor).resolve(context)),
         ),
@@ -54,7 +57,6 @@ class SampleProgress extends MTProgress {
     required double ratio,
     required String titleText,
     String? trailingText,
-    String? subtitleText,
     Color? color,
     Color? bgColor,
   }) : super(
@@ -63,15 +65,7 @@ class SampleProgress extends MTProgress {
           ratio: ratio,
           padding: EdgeInsets.symmetric(vertical: onePadding / 3, horizontal: onePadding),
           body: Row(children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  NormalText(titleText),
-                  if (subtitleText != null) SmallText(subtitleText),
-                ],
-              ),
-            ),
+            Expanded(child: NormalText(titleText)),
             if (trailingText != null) H4(trailingText),
           ]),
         );

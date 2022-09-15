@@ -3,8 +3,6 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../L1_domain/entities/task.dart';
-import '../../../../L1_domain/entities/task_ext_level.dart';
-import '../../../../L1_domain/entities/task_ext_state.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/text_widgets.dart';
@@ -20,8 +18,6 @@ class TaskStateIndicator extends StatelessWidget {
     final color = inCard ? darkGreyColor : task.stateColor ?? darkGreyColor;
     final inCardText = task.stateTextDetails ?? task.stateTextTitle;
 
-    final showIndicator = task.hasSubtasks || task.isGoal;
-
     final title = Row(
       mainAxisAlignment: !inCard ? MainAxisAlignment.center : MainAxisAlignment.start,
       children: [
@@ -31,16 +27,14 @@ class TaskStateIndicator extends StatelessWidget {
       ],
     );
 
-    return showIndicator
-        ? Column(
-            children: [
-              title,
-              if (!inCard && task.stateTextDetails != null) ...[
-                SizedBox(height: onePadding / 4),
-                MediumText(task.stateTextDetails!, color: color),
-              ],
-            ],
-          )
-        : Container();
+    return Column(
+      children: [
+        title,
+        if (!inCard && task.stateTextDetails != null) ...[
+          SizedBox(height: onePadding / 4),
+          MediumText(task.stateTextDetails!, color: color),
+        ],
+      ],
+    );
   }
 }

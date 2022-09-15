@@ -55,25 +55,28 @@ extension TaskStats on Task {
 
   Iterable<Task> get _timeBoundOpenedTasks => allTasks.where((t) => !t.closed && t.hasDueDate);
 
-  Iterable<Task> get overdueTasks => _timeBoundOpenedTasks.where((t) => t._hasOverdue);
-  int get overdueTasksCount => overdueTasks.length;
-  bool get hasOverdueTasks => overdueTasksCount > 0;
+  Iterable<Task> get _overdueTasks => _timeBoundOpenedTasks.where((t) => t._hasOverdue);
+  bool get hasOverdueTasks => _overdueTasks.isNotEmpty;
   Duration get totalOverduePeriod {
     int totalSeconds = _overduePeriod?.inSeconds ?? 0;
-    overdueTasks.forEach((t) => totalSeconds += t._overduePeriod?.inSeconds ?? 0);
+    _overdueTasks.forEach((t) => totalSeconds += t._overduePeriod?.inSeconds ?? 0);
     return Duration(seconds: totalSeconds);
   }
 
-  Iterable<Task> get riskyTasks => _timeBoundOpenedTasks.where((t) => t._hasRisk);
-  int get riskyTasksCount => riskyTasks.length;
-  bool get hasRiskTasks => riskyTasksCount > 0;
+  Iterable<Task> get overdueSubtasks => tasks.where((t) => t.state == TaskState.overdue);
+
+  Iterable<Task> get _riskyTasks => _timeBoundOpenedTasks.where((t) => t._hasRisk);
+  bool get hasRiskTasks => _riskyTasks.isNotEmpty;
   Duration get totalRiskPeriod {
     int totalSeconds = _etaRiskPeriod?.inSeconds ?? 0;
-    riskyTasks.forEach((t) => totalSeconds += t._etaRiskPeriod?.inSeconds ?? 0);
+    _riskyTasks.forEach((t) => totalSeconds += t._etaRiskPeriod?.inSeconds ?? 0);
     return Duration(seconds: totalSeconds);
   }
 
-  /// цели
+  Iterable<Task> get riskySubtasks => tasks.where((t) => t.state == TaskState.risk);
+
+  /// цели (для дашборда проекта рекомендации)
+  // TODO: нужно сделать универсальным. Речь про подзадачи первого уровня
   Iterable<Task> get _goals => allTasks.where((t) => t.isGoal);
 
   Iterable<Task> get _openedGoals => _goals.where((t) => !t.closed);
@@ -107,7 +110,7 @@ extension TaskStats on Task {
               ? TaskState.risk
               : isClosable
                   ? TaskState.closable
-                  : (!isWorkspace && !isProject && !hasDueDate)
+                  : (!hasDueDate && (!isWorkspace && !isProject && hasSubtasks))
                       ? TaskState.noDueDate
                       : (isGoal && !hasSubtasks)
                           ? TaskState.noSubtasks
@@ -117,4 +120,6 @@ extension TaskStats on Task {
                                   ? TaskState.ok
                                   : TaskState.noInfo)
       : TaskState.noInfo;
+
+  bool get showState => !closed && (hasSubtasks || isGoal || state != TaskState.noInfo);
 }

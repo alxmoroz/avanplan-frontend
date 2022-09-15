@@ -50,6 +50,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
       ].contains(task.level);
 
   /// вкладки
+
   @computed
   bool get _hasDescription => task.description.isNotEmpty;
   @computed
@@ -61,8 +62,11 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   Iterable<TaskTabKey> get tabKeys {
     final res = <TaskTabKey>[];
     if (!task.isWorkspace) {
+      if (task.showState) {
+        res.add(TaskTabKey.overview);
+      }
       if (task.hasSubtasks) {
-        res.addAll([TaskTabKey.overview, TaskTabKey.subtasks]);
+        res.add(TaskTabKey.subtasks);
       }
       if (_hasDetails) {
         res.add(TaskTabKey.details);
@@ -79,7 +83,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   @computed
   TaskTabKey get tabKey => (tabKeys.contains(_tabKey) ? _tabKey : null) ?? (tabKeys.isNotEmpty ? tabKeys.first : TaskTabKey.subtasks);
 
-  /// непосредственно фильтр и сортировка
+  /// фильтр и сортировка
   @computed
   Iterable<Task> get _sortedTasks {
     final tasks = task.tasks;
@@ -93,8 +97,6 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
     tasks.sort(sortByDateAsc);
     return tasks;
   }
-
-  /// фильтр
 
   @observable
   TaskFilter? _tasksFilter;

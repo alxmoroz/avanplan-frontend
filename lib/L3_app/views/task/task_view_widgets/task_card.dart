@@ -41,11 +41,12 @@ class TaskCard extends StatelessWidget {
         body: MTProgress(
           ratio: task.doneRatio,
           color: task.stateColor,
+          height: onePadding * 0.75,
           body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             header(context),
             SizedBox(height: onePadding / 2),
             Row(children: [
-              task.closed ? const Spacer() : Expanded(child: TaskStateIndicator(task, inCard: true)),
+              task.showState ? Expanded(child: TaskStateIndicator(task, inCard: true)) : const Spacer(),
               if (task.hasLink) linkIcon(context),
               SizedBox(width: onePadding / 4),
             ]),

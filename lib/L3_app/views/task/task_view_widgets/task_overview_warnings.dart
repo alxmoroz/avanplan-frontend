@@ -16,9 +16,9 @@ class TaskOverviewWarnings extends StatelessWidget {
   Widget build(BuildContext context) {
     final warningTasks = <Task>[];
     if (task.hasOverdueTasks) {
-      warningTasks.addAll(task.overdueTasks.take(3));
+      warningTasks.addAll(task.overdueSubtasks.take(3));
     } else if (task.hasRiskTasks) {
-      warningTasks.addAll(task.riskyTasks.take(3));
+      warningTasks.addAll(task.riskySubtasks.take(3));
     }
 
     return Column(children: [

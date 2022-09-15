@@ -10,7 +10,6 @@ import '../../components/mt_page.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_level_presenter.dart';
-import 'task_add_action_widget.dart';
 import 'task_view_controller.dart';
 import 'task_view_widgets/task_details_pane.dart';
 import 'task_view_widgets/task_header.dart';
@@ -87,7 +86,6 @@ class _TaskPageState extends State<TaskView> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               if (!task.isWorkspace) TaskHeader(task) else SizedBox(height: onePadding / 2),
-              if (controller.mayAddSubtask) TaskAddActionWidget(controller, parentContext: context),
               if (controller.tabKeys.length > 1) ...[
                 SizedBox(height: onePadding / 2),
                 tabPaneSelector(),

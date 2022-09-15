@@ -67,12 +67,12 @@ class _MainDashboardViewState extends State<MainDashboardView> {
                       /// статус и комментарий
                       rootTask.stateIcon(context, size: _iconSize),
                       H3(
-                        rootTask.stateTextTitle,
+                        rootTask.stateTextDetails ?? rootTask.stateTextTitle,
                         align: TextAlign.center,
                         padding: EdgeInsets.symmetric(horizontal: onePadding),
                         color: rootTask.stateColor ?? darkGreyColor,
                       ),
-                      SizedBox(height: onePadding),
+                      SizedBox(height: onePadding / 2),
 
                       /// статистика по статусу всех задач
                       if (rootTask.hasOverdueTasks || rootTask.hasRiskTasks) TaskOverviewWarnings(rootTask) else TaskOverviewAdvices(rootTask),

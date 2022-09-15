@@ -25,9 +25,10 @@ class TaskOverview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(children: [
-      if (!task.closed) ...[
+      if (task.showState) ...[
         SizedBox(height: onePadding),
         TaskStateIndicator(task),
+        SizedBox(height: onePadding / 2),
       ],
       if (controller.mayAddSubtask) TaskAddActionWidget(controller, parentContext: context),
       if (task.canEdit && (task.isClosable || task.closed)) ...[

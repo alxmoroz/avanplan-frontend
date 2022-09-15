@@ -72,8 +72,10 @@ extension TaskStatePresenter on Task {
     return res;
   }
 
-  String get overDueDetails => '${loc.task_state_overdue_details} ${loc.days_count(totalOverduePeriod.inDays)}';
-  String get riskyDetails => '${loc.task_state_risky_details} ${loc.days_count(totalRiskPeriod.inDays)}';
+  String durationString(Duration d) => d.inDays < 1 ? loc.hours_count(d.inHours) : loc.days_count(d.inDays);
+
+  String get overDueDetails => '${loc.task_state_overdue_details} ${durationString(totalOverduePeriod)}';
+  String get riskyDetails => '${loc.task_state_risky_details} ${durationString(totalRiskPeriod)}';
 
   String? get stateTextDetails {
     String? res;

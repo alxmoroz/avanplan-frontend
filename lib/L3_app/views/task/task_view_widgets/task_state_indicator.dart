@@ -18,22 +18,22 @@ class TaskStateIndicator extends StatelessWidget {
     final color = inCard ? darkGreyColor : task.stateColor ?? darkGreyColor;
     final inCardText = task.stateTextDetails ?? task.stateTextTitle;
 
-    final title = Row(
-      mainAxisAlignment: !inCard ? MainAxisAlignment.center : MainAxisAlignment.start,
+    return Row(
       children: [
-        task.stateIcon(context, size: onePadding * (inCard ? 1.5 : 2), color: color),
-        SizedBox(width: onePadding / 3),
-        inCard ? SmallText(inCardText, color: color) : NormalText(task.stateTextTitle, color: color),
-      ],
-    );
-
-    return Column(
-      children: [
-        title,
-        if (!inCard && task.stateTextDetails != null) ...[
-          SizedBox(height: onePadding / 4),
-          MediumText(task.stateTextDetails!, color: color),
-        ],
+        if (!inCard) const Spacer(flex: 1),
+        Expanded(
+          flex: 0,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: inCard ? MainAxisAlignment.start : MainAxisAlignment.center,
+            children: [
+              task.stateIcon(context, size: onePadding * (inCard ? 1.5 : 2), color: color),
+              SizedBox(width: onePadding / 4),
+              inCard ? SmallText(inCardText, color: color) : H4(inCardText, color: color),
+            ],
+          ),
+        ),
+        if (!inCard) const Spacer(flex: 1),
       ],
     );
   }

@@ -21,6 +21,8 @@
   "goal_new_title": "New goal",
   "goal_title": "Goal",
 
+  "hours_count": "{count, plural, one{{count} hour} other{{count} hours}}",
+
   "integration": "Integration",
   "no": "No",
   "overview": "Overview",

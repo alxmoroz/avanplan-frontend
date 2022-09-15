@@ -13,12 +13,12 @@ import '../../components/icons.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
-import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_overview_presenter.dart';
 import '../task/task_view_controller.dart';
 import '../task/task_view_widgets/task_overview_advices.dart';
 import '../task/task_view_widgets/task_overview_warnings.dart';
+import '../task/task_view_widgets/task_state_indicator.dart';
 import 'project_empty_list_actions_widget.dart';
 
 class MainDashboardView extends StatefulWidget {
@@ -30,8 +30,6 @@ class MainDashboardView extends StatefulWidget {
 
 class _MainDashboardViewState extends State<MainDashboardView> {
   Task get rootTask => mainController.rootTask;
-
-  final double _iconSize = onePadding * 15;
 
   @override
   Widget build(BuildContext context) {
@@ -64,18 +62,15 @@ class _MainDashboardViewState extends State<MainDashboardView> {
                 : ListView(
                     shrinkWrap: true,
                     children: [
+                      SizedBox(height: onePadding),
+
                       /// статус и комментарий
-                      rootTask.stateIcon(context, size: _iconSize),
-                      H3(
-                        rootTask.stateTextDetails ?? rootTask.stateTextTitle,
-                        align: TextAlign.center,
-                        padding: EdgeInsets.symmetric(horizontal: onePadding),
-                        color: rootTask.stateColor ?? darkGreyColor,
-                      ),
-                      SizedBox(height: onePadding / 2),
+                      TaskStateIndicator(rootTask, placement: IndicatorPlacement.workspace),
 
                       /// статистика по статусу всех задач
+                      SizedBox(height: onePadding / 2),
                       if (rootTask.hasOverdueTasks || rootTask.hasRiskTasks) TaskOverviewWarnings(rootTask) else TaskOverviewAdvices(rootTask),
+
                       SizedBox(height: onePadding),
                     ],
                   ),

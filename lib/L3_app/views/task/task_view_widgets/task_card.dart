@@ -46,7 +46,7 @@ class TaskCard extends StatelessWidget {
             header(context),
             SizedBox(height: onePadding / 2),
             Row(children: [
-              task.showState ? Expanded(child: TaskStateIndicator(task, inCard: true)) : const Spacer(),
+              task.showState ? Expanded(child: TaskStateIndicator(task, placement: IndicatorPlacement.card)) : const Spacer(),
               if (task.hasLink) linkIcon(context),
               SizedBox(width: onePadding / 4),
             ]),

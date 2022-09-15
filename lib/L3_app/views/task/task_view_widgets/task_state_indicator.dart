@@ -8,33 +8,56 @@ import '../../../components/constants.dart';
 import '../../../components/text_widgets.dart';
 import '../../../presenters/task_overview_presenter.dart';
 
+enum IndicatorPlacement { card, workspace, other }
+
 class TaskStateIndicator extends StatelessWidget {
-  const TaskStateIndicator(this.task, {this.inCard = false});
+  const TaskStateIndicator(this.task, {this.placement = IndicatorPlacement.other});
+
+  @protected
   final Task task;
-  final bool inCard;
+  @protected
+  final IndicatorPlacement placement;
+
+  bool get _inCard => placement == IndicatorPlacement.card;
+  bool get _inWorkspace => placement == IndicatorPlacement.workspace;
+  Color get _color => _inCard ? darkGreyColor : task.stateColor ?? darkGreyColor;
+  String get _text => task.stateTextDetails ?? task.stateTextTitle;
+
+  Widget get _textWidget => _inCard
+      ? SmallText(_text, color: _color)
+      : _inWorkspace
+          ? H3(
+              _text,
+              color: _color,
+              align: TextAlign.center,
+              padding: EdgeInsets.symmetric(horizontal: onePadding),
+            )
+          : H4(
+              _text,
+              color: _color,
+              align: TextAlign.center,
+              padding: EdgeInsets.symmetric(horizontal: onePadding),
+            );
+
+  Widget _icon(BuildContext context) => task.stateIcon(
+        context,
+        size: onePadding *
+            (_inCard
+                ? 1.3
+                : _inWorkspace
+                    ? 12
+                    : 3),
+        color: _color,
+      );
 
   @override
   Widget build(BuildContext context) {
-    final color = inCard ? darkGreyColor : task.stateColor ?? darkGreyColor;
-    final inCardText = task.stateTextDetails ?? task.stateTextTitle;
-
-    return Row(
-      children: [
-        if (!inCard) const Spacer(flex: 1),
-        Expanded(
-          flex: 0,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: inCard ? MainAxisAlignment.start : MainAxisAlignment.center,
-            children: [
-              task.stateIcon(context, size: onePadding * (inCard ? 1.5 : 2), color: color),
-              SizedBox(width: onePadding / 4),
-              inCard ? SmallText(inCardText, color: color) : H4(inCardText, color: color),
-            ],
-          ),
-        ),
-        if (!inCard) const Spacer(flex: 1),
-      ],
-    );
+    return Column(children: [
+      if (!_inCard) _icon(context),
+      Row(children: [
+        if (_inCard) ...[_icon(context), SizedBox(width: onePadding / 4)],
+        Expanded(child: _textWidget),
+      ]),
+    ]);
   }
 }

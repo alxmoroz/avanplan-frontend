@@ -67,7 +67,7 @@ class _TaskPageState extends State<TaskView> {
   Widget detailsPane() => TaskDetails(controller);
   Widget selectedPane() =>
       {
-        TaskTabKey.overview: TaskOverview(controller),
+        TaskTabKey.overview: TaskOverview(controller: controller, parentContext: context),
         TaskTabKey.subtasks: TaskListView(controller),
         TaskTabKey.details: detailsPane(),
       }[controller.tabKey] ??

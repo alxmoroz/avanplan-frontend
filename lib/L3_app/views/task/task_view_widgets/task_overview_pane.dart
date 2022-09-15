@@ -16,8 +16,9 @@ import 'task_overview_warnings.dart';
 import 'task_state_indicator.dart';
 
 class TaskOverview extends StatelessWidget {
-  const TaskOverview(this.controller);
+  const TaskOverview({required this.controller, required this.parentContext});
   final TaskViewController controller;
+  final BuildContext parentContext;
   Task get task => controller.task;
 
   bool get hasAuthor => task.author != null;
@@ -30,13 +31,13 @@ class TaskOverview extends StatelessWidget {
         TaskStateIndicator(task),
         SizedBox(height: onePadding / 2),
       ],
-      if (controller.mayAddSubtask) TaskAddActionWidget(controller, parentContext: context),
+      if (controller.mayAddSubtask) TaskAddActionWidget(controller, parentContext: parentContext),
       if (task.canEdit && (task.isClosable || task.closed)) ...[
         MTRichButton(
           hint: task.isClosable ? loc.task_state_closable_hint : '',
           title: task.isClosable ? loc.task_state_close_btn_title : loc.task_state_reopen_btn_title,
           icon: task.isClosable ? doneIcon(context, true) : null,
-          onTap: () => controller.setClosed(context, !task.closed),
+          onTap: () => controller.setClosed(parentContext, !task.closed),
         ),
       ],
       if (task.hasOverdueTasks || task.hasRiskTasks) TaskOverviewWarnings(task) else TaskOverviewAdvices(task),

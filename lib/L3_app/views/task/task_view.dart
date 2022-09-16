@@ -19,22 +19,14 @@ import 'task_view_widgets/task_listview.dart';
 import 'task_view_widgets/task_navbar.dart';
 import 'task_view_widgets/task_overview_pane.dart';
 
-class TaskView extends StatefulWidget {
+class TaskView extends StatelessWidget {
+  TaskView(this.taskId) : controller = TaskViewController(taskId);
+
+  final int? taskId;
+  final TaskViewController controller;
+
   static String get routeName => 'task_view';
-
-  @override
-  _TaskPageState createState() => _TaskPageState();
-}
-
-class _TaskPageState extends State<TaskView> {
-  late TaskViewController controller;
   Task get task => controller.task;
-
-  @override
-  void initState() {
-    controller = TaskViewController();
-    super.initState();
-  }
 
   Map<TaskTabKey, Widget> tabs() {
     final res = <TaskTabKey, Widget>{};
@@ -65,7 +57,7 @@ class _TaskPageState extends State<TaskView> {
       );
 
   Widget detailsPane() => TaskDetails(controller);
-  Widget selectedPane() =>
+  Widget selectedPane(BuildContext context) =>
       {
         TaskTabKey.overview: TaskOverview(controller: controller, parentContext: context),
         TaskTabKey.subtasks: TaskListView(controller),
@@ -85,7 +77,7 @@ class _TaskPageState extends State<TaskView> {
             top: !task.isWorkspace,
             bottom: false,
             child: !mainController.rootTask.hasOpenedSubtasks
-                ? ProjectEmptyListActionsWidget(taskController: TaskViewController(), parentContext: context)
+                ? ProjectEmptyListActionsWidget(taskController: controller, parentContext: context)
                 : Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -94,7 +86,7 @@ class _TaskPageState extends State<TaskView> {
                         SizedBox(height: onePadding / 2),
                         tabPaneSelector(),
                       ],
-                      Expanded(child: selectedPane()),
+                      Expanded(child: selectedPane(context)),
                     ],
                   ),
           ),

@@ -22,20 +22,16 @@ part 'task_view_controller.g.dart';
 enum TaskTabKey { overview, subtasks, details }
 
 class TaskViewController extends _TaskViewControllerBase with _$TaskViewController {
-  TaskViewController() {
-    setTaskID(mainController.selectedTaskId);
+  TaskViewController(int? _taskID) {
+    taskID = _taskID;
   }
 }
 
 abstract class _TaskViewControllerBase extends BaseController with Store {
-  @override
-  bool get isLoading => super.isLoading || mainController.isLoading;
-
-  @observable
   int? taskID;
 
-  @action
-  void setTaskID(int? _id) => taskID = _id;
+  @override
+  bool get isLoading => super.isLoading || mainController.isLoading;
 
   @computed
   Task get task => mainController.taskForId(taskID);

@@ -19,7 +19,7 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> {
-  List<Widget> get tabViews => [MainDashboardView(), TaskView(), SettingsView()];
+  List<Widget> get tabViews => [MainDashboardView(), TaskView(null), SettingsView()];
 
   Widget buildTabScaffold() => CupertinoTabScaffold(
         tabBar: CupertinoTabBar(
@@ -33,9 +33,12 @@ class _MainViewState extends State<MainView> {
         ),
         tabBuilder: (_, index) => CupertinoTabView(
           builder: (context) => tabViews[index],
-          routes: {
-            TaskView.routeName: (_) => TaskView(),
-            SourceListView.routeName: (_) => SourceListView(),
+          onGenerateRoute: (RouteSettings rs) {
+            if (rs.name == TaskView.routeName) {
+              return CupertinoPageRoute<TaskView>(builder: (_) => TaskView(rs.arguments as int?));
+            } else if (rs.name == SourceListView.routeName) {
+              return CupertinoPageRoute<SourceListView>(builder: (_) => SourceListView());
+            }
           },
         ),
       );

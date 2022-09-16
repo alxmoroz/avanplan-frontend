@@ -10,22 +10,20 @@ import '../../../components/mt_badge.dart';
 import '../../../components/mt_card.dart';
 import '../../../components/mt_progress.dart';
 import '../../../components/text_widgets.dart';
+import '../../../extra/services.dart';
 import '../../../presenters/task_overview_presenter.dart';
 import 'task_state_indicator.dart';
 
 class TaskCard extends StatelessWidget {
-  const TaskCard({required this.task, this.onTap, this.expanded = false});
+  const TaskCard(this.task, {this.expanded = false});
 
   final Task task;
-  final VoidCallback? onTap;
   final bool expanded;
-
-  bool get isClosed => task.closed;
 
   Widget title(BuildContext context) => H4(
         task.title,
         maxLines: 1,
-        decoration: isClosed ? TextDecoration.lineThrough : null,
+        decoration: task.closed ? TextDecoration.lineThrough : null,
       );
 
   Widget header(BuildContext context) => Row(children: [
@@ -37,7 +35,7 @@ class TaskCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MTCard(
-        onTap: onTap,
+        onTap: () => mainController.showTask(context, task.id),
         body: MTProgress(
           ratio: task.doneRatio,
           color: task.stateColor,

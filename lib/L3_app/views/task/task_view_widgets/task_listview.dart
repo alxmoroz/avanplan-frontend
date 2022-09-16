@@ -14,12 +14,8 @@ class TaskListView extends StatelessWidget {
   final TaskViewController controller;
 
   Widget cardBuilder(BuildContext context, int index) {
-    final task = mainController.taskForId(controller.filteredTasks.elementAt(index).id);
-    // TODO: обработку клика делать внутри карточки
-    return TaskCard(
-      task: task,
-      onTap: () => mainController.showTask(context, task),
-    );
+    final taskId = controller.filteredTasks.elementAt(index).id;
+    return TaskCard(mainController.taskForId(taskId));
   }
 
   @override

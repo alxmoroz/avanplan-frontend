@@ -33,17 +33,10 @@ abstract class _MainControllerBase extends BaseController with Store {
     updatedOn: DateTime.now(),
   );
 
-  /// текущая выбранная задача
-
-  @observable
-  int? selectedTaskId;
-
+  /// конкретная задача
   Task taskForId(int? id) => rootTask.allTasks.firstWhereOrNull((t) => t.id == id) ?? rootTask;
-
-  @action
-  Future showTask(BuildContext context, Task task) async {
-    selectedTaskId = task.id;
-    await Navigator.of(context).pushNamed(TaskView.routeName);
+  Future showTask(BuildContext context, int? taskId) async {
+    await Navigator.of(context).pushNamed(TaskView.routeName, arguments: taskId);
   }
 
   @action

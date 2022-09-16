@@ -39,6 +39,7 @@ class _MainDashboardViewState extends State<MainDashboardView> {
         isLoading: mainController.isLoading,
         navBar: navBar(
           context,
+          leading: const SizedBox(width: 0),
           middle: Row(children: [
             SizedBox(width: onePadding),
             MTButton.icon(refreshIcon(context, size: 30), mainController.updateAll),

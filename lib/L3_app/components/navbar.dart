@@ -10,7 +10,15 @@ MediaQuery mQuery(Widget child, BuildContext ctx) => MediaQuery(
       child: child,
     );
 
-CupertinoNavigationBar navBar(BuildContext context, {Widget? leading, Widget? middle, String? title, Widget? trailing, Color? bgColor}) {
+CupertinoNavigationBar navBar(
+  BuildContext context, {
+  Widget? leading,
+  Widget? middle,
+  String? title,
+  Widget? trailing,
+  Color? bgColor,
+  Border? border,
+}) {
   Widget backButton() => CupertinoNavigationBarBackButton(onPressed: () => Navigator.of(context).canPop() ? Navigator.of(context).pop() : null);
 
   return CupertinoNavigationBar(
@@ -23,5 +31,6 @@ CupertinoNavigationBar navBar(BuildContext context, {Widget? leading, Widget? mi
     trailing: trailing != null ? mQuery(trailing, context) : null,
     padding: const EdgeInsetsDirectional.only(start: 0),
     backgroundColor: bgColor ?? navbarBgColor,
+    border: border ?? const Border(bottom: BorderSide(color: Color(0x4D000000), width: 0)),
   );
 }

@@ -96,10 +96,10 @@ MaterialColor tealColorMaterial = MaterialColor(
 );
 
 // цвет для "прозрачного" апп-бара
-// const Color  appBarBgColor = CupertinoDynamicColor.withBrightness(
-//       color: Color.fromARGB(0, 255, 255, 255),
-//       darkColor: Color.fromARGB(0, 0, 0, 0),
-//     );
+const Color transparentAppbarBgColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(0, 255, 255, 255),
+  darkColor: Color.fromARGB(0, 0, 0, 0),
+);
 
 Color get inactiveColor => const CupertinoDynamicColor.withBrightness(
       color: Color(0xFF758599),

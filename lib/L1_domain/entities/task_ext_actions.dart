@@ -23,14 +23,14 @@ extension TaskActionsExt on Task {
 
   List<TaskActionType> get actionTypes {
     final res = <TaskActionType>[];
+    if (canImport) {
+      res.add(TaskActionType.import);
+    }
     if (canAdd) {
       res.add(TaskActionType.add);
     }
     if (canEdit) {
       res.add(TaskActionType.edit);
-    }
-    if (canImport) {
-      res.add(TaskActionType.import);
     }
     if (isProject && hasLink) {
       res.add(TaskActionType.go2source);

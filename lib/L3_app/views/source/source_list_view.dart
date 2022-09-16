@@ -56,7 +56,7 @@ class _SourceListViewState extends State<SourceListView> {
             ? MTRichButton(
                 hint: loc.source_list_empty_title,
                 title: loc.source_title_new,
-                icon: plusIcon(context, size: 24),
+                icon: plusIcon(context),
                 onTap: () => _controller.addSource(context),
               )
             : ListView.builder(

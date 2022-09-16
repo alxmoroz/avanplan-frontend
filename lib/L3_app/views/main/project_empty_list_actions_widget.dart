@@ -20,7 +20,7 @@ class ProjectEmptyListActionsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(shrinkWrap: true, children: [
-      SizedBox(height: onePadding * 2),
+      SizedBox(height: onePadding),
       H4(loc.project_list_empty_title_part1, align: TextAlign.center, padding: EdgeInsets.symmetric(horizontal: onePadding), color: darkGreyColor),
       SizedBox(height: onePadding / 2),
       ...sourceController.sTypes
@@ -28,7 +28,7 @@ class ProjectEmptyListActionsWidget extends StatelessWidget {
             (st) => MTRichButton(
               onTap: () => importController.importTasks(parentContext, sType: st),
               icon: Row(children: [
-                importIcon(context, size: onePadding * 2),
+                importIcon(context),
                 SizedBox(width: onePadding / 2),
                 st.icon(context),
               ]),
@@ -40,7 +40,7 @@ class ProjectEmptyListActionsWidget extends StatelessWidget {
       H4(loc.project_list_empty_title_part2, align: TextAlign.center, padding: EdgeInsets.symmetric(horizontal: onePadding), color: darkGreyColor),
       SizedBox(height: onePadding / 2),
       TaskAddActionWidget(taskController, parentContext: parentContext),
-      SizedBox(height: onePadding * 2),
+      SizedBox(height: onePadding),
     ]);
   }
 }

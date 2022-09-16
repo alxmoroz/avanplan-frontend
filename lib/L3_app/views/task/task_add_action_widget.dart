@@ -16,7 +16,7 @@ class TaskAddActionWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTRichButton(
       title: controller.task.newSubtaskTitle,
-      icon: plusIcon(context, size: 24),
+      icon: plusIcon(context),
       onTap: () async => await controller.addSubtask(parentContext),
     );
   }

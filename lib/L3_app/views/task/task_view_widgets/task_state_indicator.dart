@@ -45,7 +45,7 @@ class TaskStateIndicator extends StatelessWidget {
             (_inCard
                 ? 1.3
                 : _inWorkspace
-                    ? 12
+                    ? 10
                     : 3),
         color: _color,
       );

@@ -13,6 +13,7 @@ import '../../components/icons.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
+import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_overview_presenter.dart';
 import '../task/task_view_controller.dart';
@@ -36,16 +37,17 @@ class _MainDashboardViewState extends State<MainDashboardView> {
     return Observer(
       builder: (_) => MTPage(
         isLoading: mainController.isLoading,
-        navBar: navBar(context,
-            leading: Row(children: [
-              SizedBox(width: onePadding),
-              MTButton.icon(refreshIcon(context), mainController.updateAll),
-            ]),
-            title: loc.appTitle,
-            trailing: Row(mainAxisAlignment: MainAxisAlignment.end, mainAxisSize: MainAxisSize.min, children: [
-              MTButton.icon(importIcon(context), () => importController.importTasks(context)),
-              SizedBox(width: onePadding),
-            ])),
+        navBar: navBar(
+          context,
+          middle: Row(children: [
+            SizedBox(width: onePadding),
+            MTButton.icon(refreshIcon(context, size: 30), mainController.updateAll),
+            Expanded(child: H2(loc.appTitle, align: TextAlign.center)),
+            SizedBox(width: 30 + onePadding),
+          ]),
+          bgColor: transparentAppbarBgColor,
+          border: const Border(),
+        ),
         body: Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(

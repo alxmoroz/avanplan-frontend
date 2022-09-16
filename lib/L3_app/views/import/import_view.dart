@@ -27,6 +27,7 @@ Future<String?> showImportDialog(BuildContext context) async {
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
+    useRootNavigator: true,
     builder: (_) => MTBottomSheet(ImportView(), context),
   );
 }
@@ -68,7 +69,7 @@ class _ImportViewState extends State<ImportView> {
           child: MTRichButton(
             hint: loc.source_list_empty_title,
             title: loc.source_title_new,
-            icon: plusIcon(context, size: 24),
+            icon: plusIcon(context),
             onTap: () => _controller.needAddSourceEvent(context),
           ),
         )

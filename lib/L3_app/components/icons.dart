@@ -22,19 +22,19 @@ Widget connectingIcon(BuildContext context, {Color? color, double? size}) => Ico
 Widget importIcon(BuildContext context, {Color? color, double? size}) => Icon(
       CupertinoIcons.arrow_down_circle,
       color: (color ?? mainColor).resolve(context),
-      size: size ?? 30,
+      size: size ?? 24,
     );
 
 Widget plusIcon(BuildContext context, {Color? color, double? size}) => Icon(
       CupertinoIcons.plus_circle,
       color: (color ?? mainColor).resolve(context),
-      size: size ?? 30,
+      size: size ?? 24,
     );
 
 Widget editIcon(BuildContext context, {Color? color, double? size}) => Icon(
       Icons.edit,
       color: (color ?? mainColor).resolve(context),
-      size: size ?? 28,
+      size: size ?? 24,
     );
 
 Widget calendarIcon(BuildContext context, {Color? color, double? size}) => Icon(

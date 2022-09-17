@@ -22,12 +22,12 @@ import '../../L2_data/repositories/tasks_repo.dart';
 import '../../L2_data/repositories/users_repo.dart';
 import '../../L2_data/repositories/workspaces_repo.dart';
 import '../l10n/generated/l10n.dart';
-import '../views/auth/login_controller.dart';
+import '../views/account/login_controller.dart';
+import '../views/account/user_controller.dart';
 import '../views/import/import_controller.dart';
 import '../views/main/main_controller.dart';
 import '../views/settings/settings_controller.dart';
 import '../views/source/source_controller.dart';
-import '../views/user/user_controller.dart';
 
 S get loc => S.current;
 

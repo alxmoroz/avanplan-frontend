@@ -6,6 +6,7 @@ import '../../components/colors.dart';
 import '../../components/icons.dart';
 import '../../components/splash.dart';
 import '../../extra/services.dart';
+import '../account/account_view.dart';
 import '../settings/settings_view.dart';
 import '../source/source_list_view.dart';
 import '../task/task_view.dart';
@@ -38,6 +39,8 @@ class _MainViewState extends State<MainView> {
               return CupertinoPageRoute<TaskView>(builder: (_) => TaskView(rs.arguments as int?));
             } else if (rs.name == SourceListView.routeName) {
               return CupertinoPageRoute<SourceListView>(builder: (_) => SourceListView());
+            } else if (rs.name == AccountView.routeName) {
+              return CupertinoPageRoute<AccountView>(builder: (_) => AccountView());
             }
           },
         ),

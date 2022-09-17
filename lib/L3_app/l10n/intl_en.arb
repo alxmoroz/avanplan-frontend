@@ -1,6 +1,8 @@
 {
   "@@locale": "en",
 
+  "accountTitle": "Account",
+
   "appTitle": "Gercules",
 
   "auth_log_in_btn_title": "Log in",
@@ -28,7 +30,6 @@
 
   "hours_count": "{count, plural, one{{count} hour} other{{count} hours}}",
 
-  "integration": "Integration",
   "no": "No",
   "overview": "Overview",
 

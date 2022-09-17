@@ -8,7 +8,6 @@ import '../../components/icons.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_divider.dart';
 import '../../components/mt_page.dart';
-import '../../components/mt_rich_button.dart';
 import '../../components/navbar.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_source_presenter.dart';
@@ -53,12 +52,14 @@ class _SourceListViewState extends State<SourceListView> {
           trailing: MTButton.icon(plusIcon(context), () => _controller.addSource(context), padding: EdgeInsets.only(right: onePadding)),
         ),
         body: _controller.sources.isEmpty
-            ? MTRichButton(
-                hint: loc.source_list_empty_title,
-                title: loc.source_title_new,
-                icon: plusIcon(context),
-                onTap: () => _controller.addSource(context),
-              )
+            ? ListView(children: [
+                MTRichButton(
+                  hint: loc.source_list_empty_title,
+                  titleString: loc.source_title_new,
+                  prefix: plusIcon(context),
+                  onTap: () => _controller.addSource(context),
+                )
+              ])
             : ListView.builder(
                 itemBuilder: sourceBuilder,
                 itemCount: _controller.sources.length,

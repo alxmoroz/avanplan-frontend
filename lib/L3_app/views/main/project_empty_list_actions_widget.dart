@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
-import '../../components/mt_rich_button.dart';
+import '../../components/mt_button.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_source_presenter.dart';
@@ -27,12 +27,12 @@ class ProjectEmptyListActionsWidget extends StatelessWidget {
           .map(
             (st) => MTRichButton(
               onTap: () => importController.importTasks(parentContext, sType: st),
-              icon: Row(children: [
+              prefix: Row(children: [
                 importIcon(context),
                 SizedBox(width: onePadding / 2),
                 st.icon(context),
               ]),
-              title: '$st',
+              titleString: '$st',
             ),
           )
           .toList(),

@@ -1,6 +1,8 @@
 {
   "@@locale": "ru",
 
+  "accountTitle": "Учётная запись",
+
   "appTitle": "Геркулес",
 
   "auth_log_in_btn_title": "Войти",
@@ -28,7 +30,6 @@
 
   "hours_count": "{count, plural, one{1 час} few{{count} часа} other{{count} часов}}",
 
-  "integration": "Интеграция",
   "no": "Нет",
   "overview": "Обзор",
 

@@ -3,7 +3,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../components/icons.dart';
-import '../../components/mt_rich_button.dart';
+import '../../components/mt_button.dart';
 import '../../presenters/task_level_presenter.dart';
 import 'task_view_controller.dart';
 
@@ -15,8 +15,8 @@ class TaskAddActionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTRichButton(
-      title: controller.task.newSubtaskTitle,
-      icon: plusIcon(context),
+      titleString: controller.task.newSubtaskTitle,
+      prefix: plusIcon(context),
       onTap: () async => await controller.addSubtask(parentContext),
     );
   }

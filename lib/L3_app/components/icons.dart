@@ -97,6 +97,12 @@ Widget closeIcon(BuildContext context, {Color? color, double? size}) => Icon(
       size: size ?? 24,
     );
 
+Widget logoutIcon(BuildContext context, {Color? color, double? size}) => FaIcon(
+      FontAwesomeIcons.arrowRightFromBracket,
+      color: (color ?? mainColor).resolve(context),
+      size: size ?? 18,
+    );
+
 Widget homeIcon(BuildContext context, {Color? color, double? size}) => Icon(CupertinoIcons.viewfinder_circle, size: size);
 
 Widget tasksIcon(BuildContext context, {Color? color, double? size}) => Icon(CupertinoIcons.text_badge_checkmark, size: size);

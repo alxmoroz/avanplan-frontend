@@ -7,7 +7,7 @@ import '../../../../L1_domain/entities/task_ext_actions.dart';
 import '../../../../L1_domain/entities/task_ext_state.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
-import '../../../components/mt_rich_button.dart';
+import '../../../components/mt_button.dart';
 import '../../../extra/services.dart';
 import '../task_add_action_widget.dart';
 import '../task_view_controller.dart';
@@ -35,8 +35,8 @@ class TaskOverview extends StatelessWidget {
       if (task.canEdit && (task.isClosable || task.closed)) ...[
         MTRichButton(
           hint: task.isClosable ? loc.task_state_closable_hint : '',
-          title: task.isClosable ? loc.task_state_close_btn_title : loc.task_state_reopen_btn_title,
-          icon: task.isClosable ? doneIcon(context, true) : null,
+          titleString: task.isClosable ? loc.task_state_close_btn_title : loc.task_state_reopen_btn_title,
+          prefix: task.isClosable ? doneIcon(context, true) : null,
           onTap: () => controller.setClosed(parentContext, !task.closed),
         ),
       ],

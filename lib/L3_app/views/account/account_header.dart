@@ -12,7 +12,7 @@ class AccountHeader extends StatelessWidget {
   const AccountHeader({this.expanded = false});
   final bool expanded;
 
-  User get user => userController.currentUser!;
+  User get user => accountController.user!;
 
   Widget userIcon(BuildContext context) {
     return CircleAvatar(radius: onePadding * (expanded ? 2 : 1), backgroundColor: lightGreyColor.resolve(context));

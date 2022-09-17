@@ -49,7 +49,7 @@ class SettingsView extends StatelessWidget {
               menuItem(context, prefix: importIcon(context), title: loc.source_list_title, onTap: () => showSources(context)),
               const Spacer(),
               Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                LightText(_controller.appName),
+                LightText(loc.appTitle),
                 SizedBox(width: onePadding / 4),
                 MediumText(_controller.appVersion),
               ]),

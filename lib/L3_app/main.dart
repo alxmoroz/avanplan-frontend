@@ -13,7 +13,7 @@ import 'components/colors.dart';
 import 'components/splash.dart';
 import 'extra/services.dart';
 import 'l10n/generated/l10n.dart';
-import 'views/account/login_view.dart';
+import 'views/login/login_view.dart';
 import 'views/main/main_view.dart';
 
 Future main() async {

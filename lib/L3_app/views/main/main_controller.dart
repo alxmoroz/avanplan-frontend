@@ -45,7 +45,7 @@ abstract class _MainControllerBase extends BaseController with Store {
     // Например, трекеров... Будет похожая заморочка, как в дереве задач (зато есть опыт уже)
 
     try {
-      workspaces = ObservableList.of(await workspacesUC.getAll());
+      workspaces = ObservableList.of(await myUC.getWorkspaces());
     } catch (e) {
       if (e is DioError && e.response?.statusCode == 403) {
         await loginController.logout();
@@ -70,7 +70,7 @@ abstract class _MainControllerBase extends BaseController with Store {
 
     await sourceController.fetchData();
     await settingsController.fetchData();
-    await userController.fetchData();
+    await accountController.fetchData();
   }
 
   @action
@@ -84,7 +84,7 @@ abstract class _MainControllerBase extends BaseController with Store {
     sourceController.clearData();
     importController.clearData();
     settingsController.clearData();
-    userController.clearData();
+    accountController.clearData();
   }
 
   Future updateAll() async {

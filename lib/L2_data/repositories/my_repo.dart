@@ -3,16 +3,18 @@
 import 'package:openapi/openapi.dart';
 
 import '../../L1_domain/entities/user.dart';
-import '../../L1_domain/repositories/abs_user_repo.dart';
+import '../../L1_domain/entities/workspace.dart';
+import '../../L1_domain/repositories/abs_my_repo.dart';
 import '../../L1_domain/system/errors.dart';
 import '../../L3_app/extra/services.dart';
 import '../mappers/user.dart';
+import '../mappers/workspace.dart';
 
-class UsersRepo extends AbstractApiUserRepo {
+class MyRepo extends AbstractApiMyRepo {
   MyApi get api => openAPI.getMyApi();
 
   @override
-  Future<User?> getCurrentUser() async {
+  Future<User?> getMyAccount() async {
     User? user;
     try {
       final response = await api.getMyAccountV1MyAccountGet();
@@ -26,11 +28,15 @@ class UsersRepo extends AbstractApiUserRepo {
   }
 
   @override
-  Future<List<User>> getAll([dynamic query]) async => throw UnimplementedError();
+  Future<List<Workspace>> getMyWorkspaces() async {
+    final response = await api.getMyWorkspacesV1MyWorkspacesGet();
 
-  @override
-  Future<User?> save(dynamic data) => throw UnimplementedError();
-
-  @override
-  Future<bool> delete(int? id) => throw UnimplementedError();
+    final List<Workspace> workspaces = [];
+    if (response.statusCode == 200) {
+      for (WorkspaceGet ws in response.data?.toList() ?? []) {
+        workspaces.add(ws.workspace);
+      }
+    }
+    return workspaces;
+  }
 }

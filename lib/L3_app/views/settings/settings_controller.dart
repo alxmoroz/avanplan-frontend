@@ -11,9 +11,6 @@ part 'settings_controller.g.dart';
 class SettingsController extends _SettingsControllerBase with _$SettingsController {}
 
 abstract class _SettingsControllerBase extends BaseController with Store {
-  // этот параметр не меняется после запуска
-  String get appName => packageInfo.appName;
-
   @observable
   AppSettings? settings;
 

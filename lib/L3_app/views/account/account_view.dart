@@ -20,7 +20,7 @@ class AccountView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        isLoading: userController.isLoading,
+        isLoading: accountController.isLoading,
         navBar: navBar(context, title: loc.accountTitle),
         body: SafeArea(
           top: false,

@@ -8,10 +8,8 @@ import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/mt_badge.dart';
 import '../../../components/mt_card.dart';
-import '../../../components/mt_progress.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/task_overview_presenter.dart';
 import 'task_state_indicator.dart';
 
 class TaskCard extends StatelessWidget {
@@ -36,19 +34,15 @@ class TaskCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MTCard(
         onTap: () => mainController.showTask(context, task.id),
-        body: MTProgress(
-          ratio: task.doneRatio,
-          color: task.stateColor,
-          height: onePadding * 0.75,
-          body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-            header(context),
-            SizedBox(height: onePadding / 2),
-            Row(children: [
-              task.showState ? Expanded(child: TaskStateIndicator(task, placement: IndicatorPlacement.card)) : const Spacer(),
-              if (task.hasLink) linkIcon(context),
-              SizedBox(width: onePadding / 4),
-            ]),
+        padding: EdgeInsets.all(onePadding),
+        body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          header(context),
+          SizedBox(height: onePadding / 2),
+          Row(children: [
+            task.showState ? Expanded(child: TaskStateIndicator(task, placement: IndicatorPlacement.card)) : const Spacer(),
+            if (task.hasLink) linkIcon(context),
+            SizedBox(width: onePadding / 4),
           ]),
-        ),
+        ]),
       );
 }

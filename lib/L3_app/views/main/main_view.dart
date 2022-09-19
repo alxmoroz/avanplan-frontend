@@ -27,9 +27,9 @@ class _MainViewState extends State<MainView> {
           inactiveColor: inactiveColor,
           backgroundColor: navbarBgColor,
           items: [
-            BottomNavigationBarItem(icon: homeIcon(context)),
-            BottomNavigationBarItem(icon: tasksIcon(context)),
-            BottomNavigationBarItem(icon: menuIcon(context)),
+            BottomNavigationBarItem(icon: homeIcon()),
+            BottomNavigationBarItem(icon: tasksIcon()),
+            BottomNavigationBarItem(icon: menuIcon()),
           ],
         ),
         tabBuilder: (_, index) => CupertinoTabView(
@@ -42,6 +42,7 @@ class _MainViewState extends State<MainView> {
             } else if (rs.name == AccountView.routeName) {
               return CupertinoPageRoute<AccountView>(builder: (_) => AccountView());
             }
+            return null;
           },
         ),
       );

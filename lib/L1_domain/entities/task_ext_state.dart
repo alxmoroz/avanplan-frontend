@@ -20,9 +20,19 @@ extension TaskStats on Task {
 
   Duration? get _etaRiskPeriod => hasDueDate ? etaDate?.difference(dueDate!) : null;
 
-  bool get _hasOverdue => hasDueDate && (_overduePeriod?.inSeconds ?? 0) > 0;
-  bool get _hasRisk => hasDueDate && hasEtaDate && (_etaRiskPeriod?.inSeconds ?? 0) > 0;
+  bool get hasOverdue => hasDueDate && (_overduePeriod?.inSeconds ?? 0) > 0;
+  bool get hasRisk => hasDueDate && hasEtaDate && (_etaRiskPeriod?.inSeconds ?? 0) > 0;
   bool get _isOk => hasDueDate && hasEtaDate && (_etaRiskPeriod?.inSeconds ?? 0) <= 0;
+
+  DateTime get _minDate => hasOverdue ? dueDate! : DateTime.now();
+  DateTime? get _maxDate => hasOverdue
+      ? DateTime.now()
+      : hasRisk
+          ? etaDate
+          : dueDate;
+  int get _maxDateSeconds => _maxDate?.difference(_minDate).inSeconds ?? 1;
+
+  double dateRatio(DateTime dt) => dt.difference(_minDate).inSeconds / _maxDateSeconds;
 
   bool get hasSubtasks => tasks.isNotEmpty;
   bool get hasLink => taskSource?.keepConnection == true;
@@ -55,7 +65,7 @@ extension TaskStats on Task {
 
   Iterable<Task> get _timeBoundOpenedTasks => allTasks.where((t) => !t.closed && t.hasDueDate);
 
-  Iterable<Task> get _overdueTasks => _timeBoundOpenedTasks.where((t) => t._hasOverdue);
+  Iterable<Task> get _overdueTasks => _timeBoundOpenedTasks.where((t) => t.hasOverdue);
   bool get hasOverdueTasks => _overdueTasks.isNotEmpty;
   Duration get totalOverduePeriod {
     int totalSeconds = _overduePeriod?.inSeconds ?? 0;
@@ -65,7 +75,7 @@ extension TaskStats on Task {
 
   Iterable<Task> get overdueSubtasks => tasks.where((t) => t.state == TaskState.overdue);
 
-  Iterable<Task> get _riskyTasks => _timeBoundOpenedTasks.where((t) => t._hasRisk);
+  Iterable<Task> get _riskyTasks => _timeBoundOpenedTasks.where((t) => t.hasRisk);
   bool get hasRiskTasks => _riskyTasks.isNotEmpty;
   Duration get totalRiskPeriod {
     int totalSeconds = _etaRiskPeriod?.inSeconds ?? 0;
@@ -104,9 +114,9 @@ extension TaskStats on Task {
 
   /// интегральный статус
   TaskState get state => !closed
-      ? (_hasOverdue || hasOverdueTasks
+      ? (hasOverdue || hasOverdueTasks
           ? TaskState.overdue
-          : _hasRisk || hasRiskTasks
+          : hasRisk || hasRiskTasks
               ? TaskState.risk
               : isClosable
                   ? TaskState.closable

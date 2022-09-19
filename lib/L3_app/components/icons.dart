@@ -103,23 +103,65 @@ Widget logoutIcon(BuildContext context, {Color? color, double? size}) => FaIcon(
       size: size ?? 18,
     );
 
-Widget homeIcon(BuildContext context, {Color? color, double? size}) => Icon(CupertinoIcons.viewfinder_circle, size: size);
+Widget homeIcon({double? size}) => Icon(CupertinoIcons.viewfinder_circle, size: size);
 
-Widget tasksIcon(BuildContext context, {Color? color, double? size}) => Icon(CupertinoIcons.text_badge_checkmark, size: size);
+Widget tasksIcon({double? size}) => Icon(CupertinoIcons.text_badge_checkmark, size: size);
 
-Widget menuIcon(BuildContext context, {Color? color, double? size}) => Icon(CupertinoIcons.ellipsis_vertical, size: size);
+Widget menuIcon({double? size}) => Icon(CupertinoIcons.ellipsis_vertical, size: size);
 
-Widget overdueStateIcon(BuildContext context, {Color? color, double? size}) =>
-    Icon(CupertinoIcons.exclamationmark_triangle, color: (color ?? dangerColor).resolve(context), size: size);
+Widget overdueStateIcon(BuildContext context, {Color? color, double? size}) => Icon(
+      CupertinoIcons.exclamationmark_triangle,
+      color: (color ?? dangerColor).resolve(context),
+      size: size,
+    );
 
-Widget riskStateIcon(BuildContext context, {Color? color, double? size}) =>
-    Icon(CupertinoIcons.tortoise, color: (color ?? lightWarningColor).resolve(context), size: size);
+Widget riskStateIcon(BuildContext context, {Color? color, double? size}) => Icon(
+      CupertinoIcons.tortoise,
+      color: (color ?? lightWarningColor).resolve(context),
+      size: size,
+    );
 
-Widget okStateIcon(BuildContext context, {Color? color, double? size}) =>
-    Icon(CupertinoIcons.rocket, color: (color ?? greenColor).resolve(context), size: size);
+Widget okStateIcon(BuildContext context, {Color? color, double? size}) => Icon(
+      CupertinoIcons.rocket,
+      color: (color ?? greenColor).resolve(context),
+      size: size,
+    );
 
-Widget noInfoStateIcon(BuildContext context, {Color? color, double? size}) =>
-    Icon(CupertinoIcons.question_circle, color: (color ?? lightGreyColor).resolve(context), size: size);
+Widget noInfoStateIcon(BuildContext context, {Color? color, double? size}) => Icon(
+      CupertinoIcons.question_circle,
+      color: (color ?? lightGreyColor).resolve(context),
+      size: size,
+    );
+
+class TriangleShape extends CustomPainter {
+  TriangleShape({required this.color})
+      : painter = Paint()
+          ..color = color
+          ..style = PaintingStyle.fill;
+  final Paint painter;
+  final Color color;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final path = Path();
+    path.moveTo(0, size.height);
+    path.lineTo(size.width / 2, 0);
+    path.lineTo(size.width, size.height);
+    path.close();
+    canvas.drawPath(path, painter);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => false;
+}
+
+Widget caretIcon(BuildContext context, {required Size size, Color? color, bool up = false}) => RotatedBox(
+      quarterTurns: up ? 0 : 2,
+      child: CustomPaint(
+        painter: TriangleShape(color: (color ?? darkGreyColor).resolve(context)),
+        child: Container(height: size.height, width: size.width),
+      ),
+    );
 
 Widget redmineIcon() => Image.asset('assets/images/redmine_icon.png', width: 22, height: 22);
 Widget gitlabIcon() => Image.asset('assets/images/gitlab_icon.png', width: 22, height: 22);

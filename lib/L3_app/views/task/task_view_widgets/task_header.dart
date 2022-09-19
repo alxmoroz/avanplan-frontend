@@ -7,26 +7,21 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities/task_ext_level.dart';
 import '../../../../L1_domain/entities/task_ext_state.dart';
 import '../../../components/constants.dart';
-import '../../../components/date_string_widget.dart';
 import '../../../components/mt_button.dart';
 import '../../../components/mt_divider.dart';
-import '../../../components/mt_progress.dart';
 import '../../../components/text_widgets.dart';
-import '../../../extra/services.dart';
-import '../../../presenters/number_presenter.dart';
-import '../../../presenters/task_overview_presenter.dart';
 import '../../../presenters/task_source_presenter.dart';
+import 'task_time_chart.dart';
 
 class TaskHeader extends StatelessWidget {
   const TaskHeader(this.task);
   final Task task;
 
-  bool get hasStatus => task.status != null;
-  bool get hasAssignee => task.assignee != null;
-  bool get hasDates => task.hasDueDate || task.hasEtaDate;
+  bool get _hasStatus => task.status != null;
+  bool get _hasAssignee => task.assignee != null;
+  bool get _showTimeChart => !task.closed && (task.hasDueDate || task.hasEtaDate);
 
-  // TODO: виджет
-  String get breadcrumbs {
+  String get _breadcrumbs {
     Iterable<String> parentsTitles(Task? task) {
       final res = <String>[];
       if (task != null && !task.isWorkspace) {
@@ -41,19 +36,13 @@ class TaskHeader extends StatelessWidget {
     return parentsTitles(task.parent).join(' > ');
   }
 
-  Widget buildDates() => Row(children: [
-        DateStringWidget(task.dueDate, titleString: loc.task_due_date_label),
-        const Spacer(),
-        DateStringWidget(task.etaDate, titleString: loc.task_eta_date_label),
-      ]);
-
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(onePadding).copyWith(bottom: 0),
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        if (breadcrumbs.isNotEmpty) ...[
-          SmallText(breadcrumbs),
+        if (_breadcrumbs.isNotEmpty) ...[
+          SmallText(_breadcrumbs),
           const MTDivider(),
         ],
         H2(task.title, decoration: task.closed ? TextDecoration.lineThrough : null),
@@ -65,31 +54,31 @@ class TaskHeader extends StatelessWidget {
             child: task.taskSource!.go2SourceTitle(context, showSourceIcon: true),
           ),
         ],
-        if (hasStatus || hasAssignee) ...[
+        if (_hasStatus || _hasAssignee) ...[
           SizedBox(height: onePadding / 2),
           Row(
             children: [
-              if (hasStatus) SmallText(task.status!.title),
-              if (hasAssignee) ...[
-                SizedBox(width: onePadding / 2),
+              if (_hasStatus) SmallText(task.status!.title),
+              if (_hasAssignee) ...[
+                if (_hasStatus) SizedBox(width: onePadding / 2),
                 SmallText('@ ${task.assignee}'),
               ],
             ],
           ),
         ],
-        if (hasDates) ...[
-          SizedBox(height: onePadding / 2),
-          buildDates(),
+        if (_showTimeChart) ...[
+          SizedBox(height: onePadding / 4),
+          TaskTimeChart(task),
         ],
-        if (task.hasDueDate) ...[
-          SizedBox(height: onePadding / 2),
-          SampleProgress(
-            ratio: task.doneRatio,
-            color: task.stateColor,
-            titleText: loc.task_state_closed,
-            trailingText: task.doneRatio.inPercents,
-          ),
-        ],
+        // if (task.doneRatio > 0) ...[
+        //   SizedBox(height: onePadding / 2),
+        //   SampleProgress(
+        //     ratio: task.doneRatio,
+        //     color: task.stateColor,
+        //     titleText: loc.task_state_closed,
+        //     trailingText: task.doneRatio.inPercents,
+        //   ),
+        // ],
       ]),
     );
   }

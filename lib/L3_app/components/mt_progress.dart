@@ -4,30 +4,42 @@ import 'package:flutter/cupertino.dart';
 
 import 'colors.dart';
 import 'constants.dart';
-import 'text_widgets.dart';
+import 'icons.dart';
 
 class MTProgress extends StatelessWidget {
   const MTProgress({
-    required this.ratio,
-    required this.body,
+    required this.value,
+    this.child,
     this.color,
+    this.border,
     this.bgColor,
     this.padding,
     this.height,
-  });
+    this.showTopMark = false,
+    this.showBottomMark = false,
+    this.markSize,
+  }) : assert(((showTopMark || showBottomMark) && markSize != null) || !(showTopMark && showBottomMark));
 
-  final double ratio;
+  final double value;
   final Color? color;
-  final Widget? body;
+  final Border? border;
+  final Widget? child;
   final Color? bgColor;
   final EdgeInsets? padding;
   final double? height;
+  final bool showTopMark;
+  final bool showBottomMark;
+  final Size? markSize;
+
+  Size get _markSize => markSize ?? Size(onePadding, onePadding);
+
+  Widget _mark(BuildContext context, bool up) => caretIcon(context, up: up, size: _markSize);
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, size) {
-      final rWidth = ratio * size.maxWidth;
-      return Stack(children: [
+      final rWidth = value * size.maxWidth;
+      return Stack(clipBehavior: Clip.none, children: [
         if (bgColor != null)
           Positioned(
             top: 0,
@@ -40,33 +52,51 @@ class MTProgress extends StatelessWidget {
           bottom: 0,
           height: height != null ? height : null,
           width: rWidth,
-          child: Container(color: (color ?? borderColor).resolve(context)),
+          child: Container(
+            decoration: BoxDecoration(
+              color: (color ?? borderColor).resolve(context),
+              border: border ?? const Border(),
+            ),
+          ),
         ),
-        if (body != null)
-          Padding(
-            padding: padding ?? EdgeInsets.all(onePadding),
-            child: body!,
+        Padding(
+          padding: padding ?? EdgeInsets.all(onePadding),
+          child: Row(children: [
+            if (child != null) Expanded(child: child!),
+          ]),
+        ),
+        if (showTopMark)
+          Positioned(
+            left: rWidth - _markSize.width / 2,
+            top: -_markSize.height,
+            child: _mark(context, false),
+          ),
+        if (showBottomMark)
+          Positioned(
+            left: rWidth - _markSize.width / 2,
+            bottom: -_markSize.height,
+            child: _mark(context, true),
           ),
       ]);
     });
   }
 }
 
-class SampleProgress extends MTProgress {
-  SampleProgress({
-    required double ratio,
-    required String titleText,
-    String? trailingText,
-    Color? color,
-    Color? bgColor,
-  }) : super(
-          color: color,
-          bgColor: bgColor ?? navbarBgColor,
-          ratio: ratio,
-          padding: EdgeInsets.symmetric(vertical: onePadding / 3, horizontal: onePadding),
-          body: Row(children: [
-            Expanded(child: NormalText(titleText)),
-            if (trailingText != null) H4(trailingText),
-          ]),
-        );
-}
+// class SampleProgress extends MTProgress {
+//   SampleProgress({
+//     required double ratio,
+//     required String titleText,
+//     String? trailingText,
+//     Color? color,
+//     Color? bgColor,
+//   }) : super(
+//           color: color,
+//           bgColor: bgColor ?? navbarBgColor,
+//           value: ratio,
+//           padding: EdgeInsets.symmetric(vertical: onePadding / 3, horizontal: onePadding),
+//           child: Row(children: [
+//             Expanded(child: NormalText(titleText)),
+//             if (trailingText != null) H4(trailingText),
+//           ]),
+//         );
+// }

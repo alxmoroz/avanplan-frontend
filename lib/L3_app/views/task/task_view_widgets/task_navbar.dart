@@ -65,7 +65,7 @@ CupertinoNavigationBar taskNavBar(BuildContext context, TaskViewController contr
     trailing: task.actionTypes.isNotEmpty
         ? material(
             PopupMenuButton<TaskActionType>(
-              icon: menuIcon(context),
+              icon: menuIcon(),
               itemBuilder: (_) => task.actionTypes.map((at) => PopupMenuItem<TaskActionType>(value: at, child: itemWidget(at))).toList(),
               onSelected: (at) => controller.taskAction(at, context),
               padding: EdgeInsets.symmetric(horizontal: onePadding / 2),

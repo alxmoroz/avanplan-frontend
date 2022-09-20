@@ -64,8 +64,11 @@ class MTConfirmDialog extends StatelessWidget {
   final String description;
   final bool simple;
 
-  Widget actionRow(MTDialogAction a) {
-    return Row(
+  Widget _actionText(MTDialogAction a) => a.type == MTActionType.isDefault
+      ? MediumText(a.title ?? '', color: _actionColors[a.type])
+      : NormalText(a.title ?? '', color: _actionColors[a.type]);
+
+  Widget _actionRow(MTDialogAction a) => Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: a.child != null
           ? [a.child!]
@@ -74,12 +77,8 @@ class MTConfirmDialog extends StatelessWidget {
                 a.icon!,
                 SizedBox(width: onePadding / 3),
               ],
-              a.type == MTActionType.isDefault
-                  ? MediumText(a.title ?? '', color: _actionColors[a.type])
-                  : NormalText(a.title ?? '', color: _actionColors[a.type]),
-            ],
-    );
-  }
+              _actionText(a),
+            ]);
 
   @override
   Widget build(BuildContext context) {
@@ -100,22 +99,13 @@ class MTConfirmDialog extends StatelessWidget {
                 .map((a) => MTButton(
                       '',
                       () => action(a),
-                      child: actionRow(a),
+                      child: _actionRow(a),
                       padding: EdgeInsets.only(top: onePadding * 2),
                     ))
                 .toList(),
         ],
       ),
-      actions: !simple
-          ? []
-          : actions
-              .map((a) => CupertinoDialogAction(
-                    child: Text(a.title ?? ''),
-                    isDefaultAction: a.type == MTActionType.isDefault,
-                    isDestructiveAction: a.type == MTActionType.isDanger,
-                    onPressed: () => action(a),
-                  ))
-              .toList(),
+      actions: !simple ? [] : actions.map((a) => CupertinoDialogAction(child: _actionText(a), onPressed: () => action(a))).toList(),
     );
   }
 }

@@ -101,7 +101,7 @@
   "task_state_overdue_details_prefix": "Опаздываем на",
   "task_state_overdue_risk_details_prefix": "Опаздываем.",
   "task_state_reopen_btn_title": "Переоткрыть",
-  "task_state_risk_details_prefix": "Риск отставания на",
+  "task_state_risk_details_prefix": "Можем опоздать на",
 
   "task_status_placeholder": "Статус",
   "task_title": "Задача",

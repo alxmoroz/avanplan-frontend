@@ -87,28 +87,16 @@ extension TaskStatePresenter on Task {
   }
 
   String get stateDetails {
-    String res = '';
-    switch (state) {
-      case TaskState.overdue:
-        res = hasOverdue && overdueSubtasks.isNotEmpty ? _overDueDetails : '';
-        break;
-      case TaskState.risk:
-        res = hasRisk && riskySubtasks.isNotEmpty ? _riskyDetails : '';
-        break;
-      case TaskState.noDueDate:
-        res = loc.task_state_no_due_details;
-        break;
-      case TaskState.noSubtasks:
-        res = subtasksCount(0);
-        break;
-      case TaskState.noProgress:
-        res = loc.task_state_no_progress_details;
-        break;
-
-      case TaskState.closable:
-      case TaskState.ok:
-      case TaskState.noInfo:
-    }
-    return res;
+    return overdueSubtasks.isNotEmpty
+        ? _overDueDetails
+        : riskySubtasks.isNotEmpty
+            ? _riskyDetails
+            : state == TaskState.noDueDate
+                ? loc.task_state_no_due_details
+                : state == TaskState.noSubtasks
+                    ? subtasksCount(0)
+                    : state == TaskState.noProgress
+                        ? loc.task_state_no_progress_details
+                        : '';
   }
 }

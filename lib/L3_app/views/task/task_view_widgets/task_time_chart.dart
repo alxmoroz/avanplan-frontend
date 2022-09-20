@@ -30,7 +30,11 @@ class TaskTimeChart extends StatelessWidget {
   Iterable<_DateBarData> get _dateBarData {
     final res = <_DateBarData>[
       if (task.hasDueDate)
-        _DateBarData(date: task.dueDate!, color: task.hasRisk ? lightWarningColor : bgGreenColor, mark: const MTProgressMark(showBottom: true)),
+        _DateBarData(
+          date: task.dueDate!,
+          color: task.hasRisk ? darkBackgroundColor : bgGreenColor,
+          mark: const MTProgressMark(showBottom: true),
+        ),
       if (task.hasEtaDate)
         _DateBarData(date: task.etaDate!, color: task.hasRisk ? lightWarningColor : darkBackgroundColor, mark: const MTProgressMark(showTop: true)),
     ];

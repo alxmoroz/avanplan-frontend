@@ -86,7 +86,7 @@ extension TaskStats on Task {
 
   /// риск
   Duration get totalRiskPeriod => Duration(
-        seconds: openedSubtasks.map((t) => t.totalRiskPeriod.inSeconds).fold(
+        seconds: openedSubtasks.map((t) => max(0, t.totalRiskPeriod.inSeconds)).fold(
               riskPeriod.inSeconds,
               (s, res) => s + res,
             ),
@@ -122,9 +122,9 @@ extension TaskStats on Task {
 
   /// интегральный статус
   TaskState get state => !closed
-      ? (totalOverduePeriod.inSeconds > 0
+      ? (hasOverdue || (!hasDueDate && overdueSubtasks.isNotEmpty)
           ? TaskState.overdue
-          : totalRiskPeriod.inSeconds > 0
+          : hasRisk || (!hasEtaDate && riskySubtasks.isNotEmpty)
               ? TaskState.risk
               : isClosable
                   ? TaskState.closable

@@ -101,7 +101,7 @@
   "task_state_overdue_details_prefix": "Overdue is",
   "task_state_overdue_risk_details_prefix": "There is а overdue.",
   "task_state_reopen_btn_title": "Reopen",
-  "task_state_risk_details_prefix": "Total overdue risk is",
+  "task_state_risk_details_prefix": "Overdue may be",
 
   "task_status_placeholder": "Status",
   "task_title": "Task",

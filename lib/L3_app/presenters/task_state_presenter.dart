@@ -50,14 +50,22 @@ extension TaskStatePresenter on Task {
     return icon;
   }
 
+  String _durationString(Duration d) => d.inDays < 1 ? loc.hours_count(d.inHours) : loc.days_count(d.inDays);
+  String _subjects(int count) => count > 0 ? ' ${loc.for_dative} ${dativeSubtasksCount(count)}' : '';
+
+  String get _overDueTitle => '${loc.task_state_overdue_details} ${_durationString(overduePeriod)}';
+  String get _overDueDetails => '${loc.task_state_overdue_details} ${_durationString(totalOverduePeriod)}${_subjects(overdueSubtasks.length)}';
+  String get _riskyTitle => '${loc.task_state_risky_details} ${_durationString(riskPeriod)}';
+  String get _riskyDetails => '${loc.task_state_risky_details} ${_durationString(totalRiskPeriod)}${_subjects(riskySubtasks.length)}';
+
   String get stateTitle {
     String res = loc.task_state_no_info_title;
     switch (state) {
       case TaskState.overdue:
-        res = loc.task_state_overdue_title;
+        res = hasOverdue ? _overDueTitle : _overDueDetails;
         break;
       case TaskState.risk:
-        res = loc.task_state_risky_title;
+        res = hasRisk ? _riskyTitle : _riskyDetails;
         break;
       case TaskState.closable:
         res = loc.task_state_closable_title;
@@ -73,20 +81,14 @@ extension TaskStatePresenter on Task {
     return res;
   }
 
-  String durationString(Duration d) => d.inDays < 1 ? loc.hours_count(d.inHours) : loc.days_count(d.inDays);
-  String subjects(int count) => count > 0 ? ' ${loc.for_dative} ${dativeSubtasksCount(count)}' : '';
-
-  String get overDueDetails => '${loc.task_state_overdue_details} ${durationString(totalOverduePeriod)}${subjects(overdueSubtasks.length)}';
-  String get riskyDetails => '${loc.task_state_risky_details} ${durationString(totalRiskPeriod)}${subjects(riskySubtasks.length)}';
-
   String get stateDetails {
     String res = '';
     switch (state) {
       case TaskState.overdue:
-        res = overDueDetails;
+        res = hasOverdue ? _overDueDetails : '';
         break;
       case TaskState.risk:
-        res = riskyDetails;
+        res = hasRisk ? _riskyDetails : '';
         break;
       case TaskState.noDueDate:
         res = loc.task_state_no_due_details;

@@ -98,10 +98,8 @@
   "task_state_no_progress_details": "No progress",
   "task_state_ok_title": "All according to plan",
   "task_state_overdue_details": "Total overdue is",
-  "task_state_overdue_title": "There are overdue",
   "task_state_reopen_btn_title": "Reopen",
   "task_state_risky_details": "Total overdue risk is",
-  "task_state_risky_title": "There are risks",
 
   "task_status_placeholder": "Status",
   "task_title": "Task",

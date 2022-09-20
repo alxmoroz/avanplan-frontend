@@ -12,7 +12,7 @@ extension TaskStats on Task {
   bool get hasDueDate => dueDate != null;
   DateTime get _startDate => createdOn ?? DateTime.now();
   Duration get _pastPeriod => DateTime.now().difference(_startDate);
-  Duration get _overduePeriod => hasDueDate ? DateTime.now().difference(dueDate!) : const Duration(seconds: 0);
+  Duration get overduePeriod => hasDueDate ? DateTime.now().difference(dueDate!) : const Duration(seconds: 0);
 
   double get _factSpeed => _closedLeafTasksCount / _pastPeriod.inSeconds;
   DateTime? get etaDate => (hasDueDate && _factSpeed > 0 && openedLeafTasksCount > 0)
@@ -20,11 +20,11 @@ extension TaskStats on Task {
       : null;
   bool get hasEtaDate => etaDate != null;
 
-  Duration get _etaRiskPeriod => hasEtaDate ? etaDate!.difference(dueDate!) : const Duration(seconds: 0);
+  Duration get riskPeriod => hasEtaDate ? etaDate!.difference(dueDate!) : const Duration(seconds: 0);
 
-  bool get hasOverdue => _overduePeriod.inSeconds > 0;
-  bool get hasRisk => _etaRiskPeriod.inSeconds > 0;
-  bool get _isOk => hasEtaDate && _etaRiskPeriod.inSeconds < 1;
+  bool get hasOverdue => overduePeriod.inSeconds > 0;
+  bool get hasRisk => riskPeriod.inSeconds > 0;
+  bool get _isOk => hasEtaDate && riskPeriod.inSeconds < 1;
 
   Iterable<DateTime> get _sortedDates {
     final dates = [
@@ -77,8 +77,8 @@ extension TaskStats on Task {
   /// опоздание
   Duration get totalOverduePeriod => Duration(
         seconds: openedSubtasks.map((t) => t.totalOverduePeriod.inSeconds).fold(
-              _overduePeriod.inSeconds,
-              (value, element) => max(value, element),
+              overduePeriod.inSeconds,
+              (s, res) => max(s, res),
             ),
       );
   Iterable<Task> get overdueSubtasks => openedSubtasks.where((t) => t.state == TaskState.overdue);
@@ -86,8 +86,8 @@ extension TaskStats on Task {
   /// риск
   Duration get totalRiskPeriod => Duration(
         seconds: openedSubtasks.map((t) => t.totalRiskPeriod.inSeconds).fold(
-              _etaRiskPeriod.inSeconds,
-              (value, element) => value + element,
+              riskPeriod.inSeconds,
+              (s, res) => s + res,
             ),
       );
   Iterable<Task> get riskySubtasks => tasks.where((t) => t.state == TaskState.risk);

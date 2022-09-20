@@ -98,10 +98,8 @@
   "task_state_no_progress_details": "Нет прогресса",
   "task_state_ok_title": "Всё по плану",
   "task_state_overdue_details": "Опаздываем на",
-  "task_state_overdue_title": "Опаздываем",
   "task_state_reopen_btn_title": "Переоткрыть",
   "task_state_risky_details": "Риск отставания на",
-  "task_state_risky_title": "Есть риски",
 
   "task_status_placeholder": "Статус",
   "task_title": "Задача",

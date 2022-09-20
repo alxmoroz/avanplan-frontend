@@ -21,6 +21,7 @@ extension TaskStats on Task {
   bool get hasEtaDate => etaDate != null;
 
   Duration get riskPeriod => hasEtaDate ? etaDate!.difference(dueDate!) : const Duration(seconds: 0);
+  Duration get etaPeriod => hasEtaDate ? etaDate!.difference(DateTime.now()) : const Duration(seconds: 0);
 
   bool get hasOverdue => overduePeriod.inSeconds > 0;
   bool get hasRisk => riskPeriod.inSeconds > 0;

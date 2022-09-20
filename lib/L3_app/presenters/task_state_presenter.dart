@@ -53,16 +53,21 @@ extension TaskStatePresenter on Task {
   String _durationString(Duration d) => d.inDays < 1 ? loc.hours_count(d.inHours) : loc.days_count(d.inDays);
   String _subjects(int count) => count > 0 ? ' ${loc.for_dative} ${dativeSubtasksCount(count)}' : '';
 
-  String get _overDueTitle => '${loc.task_state_overdue_details} ${_durationString(overduePeriod)}';
-  String get _overDueDetails => '${loc.task_state_overdue_details} ${_durationString(totalOverduePeriod)}${_subjects(overdueSubtasks.length)}';
-  String get _riskyTitle => '${loc.task_state_risky_details} ${_durationString(riskPeriod)}';
-  String get _riskyDetails => '${loc.task_state_risky_details} ${_durationString(totalRiskPeriod)}${_subjects(riskySubtasks.length)}';
+  String get _overDueTitle => '${loc.task_state_overdue_details_prefix} ${_durationString(overduePeriod)}';
+  String get _overDueDetails => '${loc.task_state_overdue_details_prefix} ${_durationString(totalOverduePeriod)}${_subjects(overdueSubtasks.length)}';
+  String get _riskyTitle => '${loc.task_state_risk_details_prefix} ${_durationString(riskPeriod)}';
+  String get _riskyDetails => '${loc.task_state_risk_details_prefix} ${_durationString(totalRiskPeriod)}${_subjects(riskySubtasks.length)}';
+  String get _etaDetails => '${loc.task_state_eta_details_prefix} ${_durationString(etaPeriod)}';
 
   String get stateTitle {
     String res = loc.task_state_no_info_title;
     switch (state) {
       case TaskState.overdue:
-        res = hasOverdue ? _overDueTitle : _overDueDetails;
+        res = hasOverdue
+            ? hasRisk
+                ? '${loc.task_state_overdue_risk_details_prefix} $_etaDetails'
+                : _overDueTitle
+            : _overDueDetails;
         break;
       case TaskState.risk:
         res = hasRisk ? _riskyTitle : _riskyDetails;
@@ -85,10 +90,10 @@ extension TaskStatePresenter on Task {
     String res = '';
     switch (state) {
       case TaskState.overdue:
-        res = hasOverdue ? _overDueDetails : '';
+        res = hasOverdue && overdueSubtasks.isNotEmpty ? _overDueDetails : '';
         break;
       case TaskState.risk:
-        res = hasRisk ? _riskyDetails : '';
+        res = hasRisk && riskySubtasks.isNotEmpty ? _riskyDetails : '';
         break;
       case TaskState.noDueDate:
         res = loc.task_state_no_due_details;

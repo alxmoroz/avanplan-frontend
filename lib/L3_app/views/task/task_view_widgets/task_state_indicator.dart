@@ -26,7 +26,7 @@ class TaskStateIndicator extends StatelessWidget {
       ? SmallText(task.stateTitle, color: _color)
       : _inWorkspace
           ? H3(
-              task.stateDetails,
+              task.stateTitle,
               color: _color,
               align: TextAlign.center,
               padding: EdgeInsets.symmetric(horizontal: onePadding),
@@ -45,8 +45,8 @@ class TaskStateIndicator extends StatelessWidget {
             (_inCard
                 ? 1.3
                 : _inWorkspace
-                    ? 10
-                    : 2.5),
+                    ? 8
+                    : 2.0),
         color: _color,
       );
 

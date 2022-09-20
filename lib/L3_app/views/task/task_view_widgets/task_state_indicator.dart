@@ -20,7 +20,7 @@ class TaskStateIndicator extends StatelessWidget {
 
   bool get _inCard => placement == IndicatorPlacement.card;
   bool get _inWorkspace => placement == IndicatorPlacement.workspace;
-  Color get _color => _inCard ? darkGreyColor : task.stateColor ?? darkGreyColor;
+  Color get _color => task.stateColor ?? darkGreyColor;
   String get _text => task.stateTextDetails ?? task.stateTextTitle;
 
   Widget get _textWidget => _inCard

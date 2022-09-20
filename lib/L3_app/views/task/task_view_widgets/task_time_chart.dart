@@ -39,7 +39,7 @@ class TaskTimeChart extends StatelessWidget {
         mark: MTProgressMark(
           showTop: true,
           child: todayIcon(size: onePadding * 1.2),
-          size: Size(onePadding * 1.1, onePadding * 0.7),
+          size: Size(onePadding * 1.2, onePadding * 0.7),
         )));
     res.sort((a, b) => a.date.compareTo(b.date));
     return res.reversed;

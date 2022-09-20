@@ -8,7 +8,7 @@ set -x
 flutter clean
 
 bash ./scripts/api_generate.sh
-bash ./scripts/bump_version.sh
+#bash ./scripts/bump_version.sh
 bash ./scripts/build_runner_clean.sh
 flutter pub run intl_utils:generate
 bash ./scripts/build_runner_build.sh

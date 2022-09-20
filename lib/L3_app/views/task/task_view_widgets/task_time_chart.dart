@@ -1,5 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import '../../../../L1_domain/entities/task.dart';
@@ -13,32 +15,47 @@ import '../../../extra/services.dart';
 import '../../../presenters/date_presenter.dart';
 
 class _DateBarData {
-  _DateBarData({required this.date, required this.color, this.topMark = false, this.bottomMark = false});
+  _DateBarData({required this.date, required this.color, this.mark});
   final DateTime date;
   final Color color;
-  final bool topMark;
-  final bool bottomMark;
+  final MTProgressMark? mark;
 }
 
 class TaskTimeChart extends StatelessWidget {
   const TaskTimeChart(this.task);
   final Task task;
 
-  bool get showProgress => task.hasEtaDate || task.hasOverdue;
+  bool get _showProgress => task.hasEtaDate || task.hasOverdue;
 
   Iterable<_DateBarData> get _dateBarData {
     final res = <_DateBarData>[
-      if (task.hasDueDate) _DateBarData(date: task.dueDate!, color: darkBackgroundColor, bottomMark: true),
-      if (task.hasEtaDate) _DateBarData(date: task.etaDate!, color: task.hasRisk ? lightWarningColor : bgGreenColor, topMark: true),
+      if (task.hasDueDate) _DateBarData(date: task.dueDate!, color: darkBackgroundColor, mark: const MTProgressMark(showBottom: true)),
+      if (task.hasEtaDate)
+        _DateBarData(date: task.etaDate!, color: task.hasRisk ? lightWarningColor : bgGreenColor, mark: const MTProgressMark(showTop: true)),
     ];
-    if (task.hasOverdue) {
-      res.add(_DateBarData(date: DateTime.now(), color: warningColor, topMark: true));
-    }
+    res.add(_DateBarData(
+        date: DateTime.now(),
+        color: warningColor,
+        mark: MTProgressMark(
+          showTop: true,
+          child: todayIcon(size: onePadding * 1.2),
+          size: Size(onePadding * 1.2, onePadding * 0.7),
+        )));
     res.sort((a, b) => a.date.compareTo(b.date));
     return res.reversed;
   }
 
-  Widget _timeProgressBar(BuildContext context, {required Size markSize}) => Stack(
+  double get _topMarkMaxHeight => _dateBarData
+      .where((dbd) => dbd.mark != null && dbd.mark!.showTop == true)
+      .map((dbd) => dbd.mark!.mSize.height)
+      .fold(0, (h1, h2) => max(h1, h2));
+
+  double get _bottomMarkMaxHeight => _dateBarData
+      .where((dbd) => dbd.mark != null && dbd.mark!.showBottom == true)
+      .map((dbd) => dbd.mark!.mSize.height)
+      .fold(0, (h1, h2) => max(h1, h2));
+
+  Widget _timeProgressBar() => Stack(
         children: [
           ..._dateBarData.map((dbd) {
             final ratio = task.dateRatio(dbd.date);
@@ -47,45 +64,38 @@ class TaskTimeChart extends StatelessWidget {
               color: dbd.color,
               padding: EdgeInsets.zero,
               child: SizedBox(height: onePadding * 1.5),
-              border: ratio < 1 ? const Border(right: BorderSide(width: 0)) : null,
-              showTopMark: dbd.topMark,
-              showBottomMark: dbd.bottomMark,
-              markSize: markSize,
+              border: (ratio > 0 && ratio < 1) ? const Border(right: BorderSide(width: 0)) : null,
+              mark: dbd.mark,
             );
           }).toList(),
         ],
       );
 
-  Widget _alignedDateLabel(BuildContext context, {required DateTime date, required String label, required bool up}) => Align(
-      alignment: Alignment.lerp(
-        Alignment.topLeft,
-        Alignment.topRight,
-        task.dateRatio(date),
-      ) as Alignment,
-      child: SmallText('$label ${date.strShort}'));
+  Widget _alignedDateLabel(BuildContext context, {required DateTime date, required String label, required bool up}) {
+    return Align(
+        alignment: Alignment.lerp(
+          Alignment.topLeft,
+          Alignment.topRight,
+          task.dateRatio(date),
+        ) as Alignment,
+        child: SmallText('$label ${date.strShort}'));
+  }
 
   @override
   Widget build(BuildContext context) {
-    final markSize = Size(onePadding * 0.5, onePadding * 0.7);
-
     return Row(children: [
       Column(children: [
-        if (showProgress) const SmallText(''),
-        calendarIcon(context, size: onePadding * 1.9, color: darkGreyColor),
-        if (showProgress && task.hasDueDate) const SmallText(''),
+        if (_showProgress) const SmallText(''),
+        calendarIcon(context, size: onePadding * 2, color: darkGreyColor),
+        if (_showProgress && task.hasDueDate) const SmallText(''),
       ]),
-      if (showProgress)
+      if (_showProgress)
         Expanded(
           child: Column(children: [
-            _alignedDateLabel(
-              context,
-              date: task.hasEtaDate ? task.etaDate! : DateTime.now(),
-              label: task.hasEtaDate ? loc.task_eta_date_label : loc.today_date_label,
-              up: true,
-            ),
+            if (task.hasEtaDate) _alignedDateLabel(context, date: task.etaDate!, label: loc.task_eta_date_label, up: true),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: markSize.height),
-              child: _timeProgressBar(context, markSize: markSize),
+              padding: EdgeInsets.only(top: _topMarkMaxHeight, bottom: _bottomMarkMaxHeight, left: onePadding / 4, right: onePadding / 4),
+              child: _timeProgressBar(),
             ),
             if (task.hasDueDate) _alignedDateLabel(context, date: task.dueDate!, label: loc.task_due_date_label, up: false),
           ]),

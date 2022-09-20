@@ -6,6 +6,32 @@ import 'colors.dart';
 import 'constants.dart';
 import 'icons.dart';
 
+class MTProgressMark extends StatelessWidget {
+  const MTProgressMark({
+    this.size,
+    this.color,
+    this.showTop,
+    this.showBottom,
+    this.child,
+  }) : assert(showTop == true || showBottom == true);
+  @protected
+  final Color? color;
+  @protected
+  final Size? size;
+  @protected
+  final Widget? child;
+
+  final bool? showTop;
+  final bool? showBottom;
+
+  Size get mSize => size ?? Size(onePadding * 0.5, onePadding * 0.7);
+
+  @override
+  Widget build(BuildContext context) {
+    return child ?? caretIcon(context, up: showBottom == true, size: mSize);
+  }
+}
+
 class MTProgress extends StatelessWidget {
   const MTProgress({
     required this.value,
@@ -15,10 +41,8 @@ class MTProgress extends StatelessWidget {
     this.bgColor,
     this.padding,
     this.height,
-    this.showTopMark = false,
-    this.showBottomMark = false,
-    this.markSize,
-  }) : assert(((showTopMark || showBottomMark) && markSize != null) || !(showTopMark && showBottomMark));
+    this.mark,
+  });
 
   final double value;
   final Color? color;
@@ -27,13 +51,7 @@ class MTProgress extends StatelessWidget {
   final Color? bgColor;
   final EdgeInsets? padding;
   final double? height;
-  final bool showTopMark;
-  final bool showBottomMark;
-  final Size? markSize;
-
-  Size get _markSize => markSize ?? Size(onePadding, onePadding);
-
-  Widget _mark(BuildContext context, bool up) => caretIcon(context, up: up, size: _markSize);
+  final MTProgressMark? mark;
 
   @override
   Widget build(BuildContext context) {
@@ -65,17 +83,17 @@ class MTProgress extends StatelessWidget {
             if (child != null) Expanded(child: child!),
           ]),
         ),
-        if (showTopMark)
+        if (mark?.showTop == true)
           Positioned(
-            left: rWidth - _markSize.width / 2,
-            top: -_markSize.height,
-            child: _mark(context, false),
+            left: rWidth - mark!.mSize.width / 2,
+            top: -mark!.mSize.height,
+            child: mark!,
           ),
-        if (showBottomMark)
+        if (mark?.showBottom == true)
           Positioned(
-            left: rWidth - _markSize.width / 2,
-            bottom: -_markSize.height,
-            child: _mark(context, true),
+            left: rWidth - mark!.mSize.width / 2,
+            bottom: -mark!.mSize.height,
+            child: mark!,
           ),
       ]);
     });

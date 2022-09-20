@@ -40,7 +40,7 @@ class TaskOverview extends StatelessWidget {
           onTap: () => controller.setClosed(parentContext, !task.closed),
         ),
       ],
-      if (task.hasOverdueTasks || task.hasRiskTasks) TaskOverviewWarnings(task) else TaskOverviewAdvices(task),
+      if (task.overdueSubtasks.isNotEmpty || task.riskySubtasks.isNotEmpty) TaskOverviewWarnings(task) else TaskOverviewAdvices(task),
     ]);
   }
 }

@@ -1,5 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'dart:math';
+
 import 'task.dart';
 import 'task_ext_level.dart';
 
@@ -10,7 +12,7 @@ extension TaskStats on Task {
   bool get hasDueDate => dueDate != null;
   DateTime get _startDate => createdOn ?? DateTime.now();
   Duration get _pastPeriod => DateTime.now().difference(_startDate);
-  Duration? get _overduePeriod => hasDueDate ? DateTime.now().difference(dueDate!) : null;
+  Duration get _overduePeriod => hasDueDate ? DateTime.now().difference(dueDate!) : const Duration(seconds: 0);
 
   double get _factSpeed => _closedLeafTasksCount / _pastPeriod.inSeconds;
   DateTime? get etaDate => (hasDueDate && _factSpeed > 0 && openedLeafTasksCount > 0)
@@ -18,21 +20,30 @@ extension TaskStats on Task {
       : null;
   bool get hasEtaDate => etaDate != null;
 
-  Duration? get _etaRiskPeriod => hasDueDate ? etaDate?.difference(dueDate!) : null;
+  Duration get _etaRiskPeriod => hasEtaDate ? etaDate!.difference(dueDate!) : const Duration(seconds: 0);
 
-  bool get hasOverdue => hasDueDate && (_overduePeriod?.inSeconds ?? 0) > 0;
-  bool get hasRisk => hasDueDate && hasEtaDate && (_etaRiskPeriod?.inSeconds ?? 0) > 0;
-  bool get _isOk => hasDueDate && hasEtaDate && (_etaRiskPeriod?.inSeconds ?? 0) <= 0;
+  bool get hasOverdue => _overduePeriod.inSeconds > 0;
+  bool get hasRisk => _etaRiskPeriod.inSeconds > 0;
+  bool get _isOk => hasEtaDate && _etaRiskPeriod.inSeconds < 1;
 
-  DateTime get _minDate => hasOverdue ? dueDate! : DateTime.now();
-  DateTime? get _maxDate => hasOverdue
-      ? DateTime.now()
-      : hasRisk
-          ? etaDate
-          : dueDate;
-  int get _maxDateSeconds => _maxDate?.difference(_minDate).inSeconds ?? 1;
+  Iterable<DateTime> get _sortedDates {
+    final dates = [
+      if (hasDueDate) dueDate!,
+      if (hasEtaDate) etaDate!,
+      DateTime.now(),
+    ];
+    if (dates.length > 1) {
+      dates.sort((d1, d2) => d1.compareTo(d2));
+    }
+    return dates;
+  }
 
-  double dateRatio(DateTime dt) => dt.difference(_minDate).inSeconds / _maxDateSeconds;
+  /// диаграмма сроков
+  DateTime get _minDate => _sortedDates.first;
+  DateTime get _maxDate => _sortedDates.last;
+
+  int get _maxDateSeconds => _maxDate.difference(_minDate).inSeconds;
+  double dateRatio(DateTime dt) => _maxDateSeconds > 0 ? (dt.difference(_minDate).inSeconds / _maxDateSeconds) : 1;
 
   bool get hasSubtasks => tasks.isNotEmpty;
   bool get hasLink => taskSource?.keepConnection == true;
@@ -63,26 +74,22 @@ extension TaskStats on Task {
 
   double get doneRatio => (hasDueDate && _leafTasksCount > 0) ? _closedLeafTasksCount / _leafTasksCount : 0;
 
-  Iterable<Task> get _timeBoundOpenedTasks => allTasks.where((t) => !t.closed && t.hasDueDate);
+  /// опоздание
+  Duration get totalOverduePeriod => Duration(
+        seconds: openedSubtasks.map((t) => t.totalOverduePeriod.inSeconds).fold(
+              _overduePeriod.inSeconds,
+              (value, element) => max(value, element),
+            ),
+      );
+  Iterable<Task> get overdueSubtasks => openedSubtasks.where((t) => t.state == TaskState.overdue);
 
-  Iterable<Task> get _overdueTasks => _timeBoundOpenedTasks.where((t) => t.hasOverdue);
-  bool get hasOverdueTasks => _overdueTasks.isNotEmpty;
-  Duration get totalOverduePeriod {
-    int totalSeconds = _overduePeriod?.inSeconds ?? 0;
-    _overdueTasks.forEach((t) => totalSeconds += t._overduePeriod?.inSeconds ?? 0);
-    return Duration(seconds: totalSeconds);
-  }
-
-  Iterable<Task> get overdueSubtasks => tasks.where((t) => t.state == TaskState.overdue);
-
-  Iterable<Task> get _riskyTasks => _timeBoundOpenedTasks.where((t) => t.hasRisk);
-  bool get hasRiskTasks => _riskyTasks.isNotEmpty;
-  Duration get totalRiskPeriod {
-    int totalSeconds = _etaRiskPeriod?.inSeconds ?? 0;
-    _riskyTasks.forEach((t) => totalSeconds += t._etaRiskPeriod?.inSeconds ?? 0);
-    return Duration(seconds: totalSeconds);
-  }
-
+  /// риск
+  Duration get totalRiskPeriod => Duration(
+        seconds: openedSubtasks.map((t) => t.totalRiskPeriod.inSeconds).fold(
+              _etaRiskPeriod.inSeconds,
+              (value, element) => value + element,
+            ),
+      );
   Iterable<Task> get riskySubtasks => tasks.where((t) => t.state == TaskState.risk);
 
   /// цели (для дашборда проекта рекомендации)
@@ -114,9 +121,9 @@ extension TaskStats on Task {
 
   /// интегральный статус
   TaskState get state => !closed
-      ? (hasOverdue || hasOverdueTasks
+      ? (totalOverduePeriod.inSeconds > 0
           ? TaskState.overdue
-          : hasRisk || hasRiskTasks
+          : totalRiskPeriod.inSeconds > 0
               ? TaskState.risk
               : isClosable
                   ? TaskState.closable

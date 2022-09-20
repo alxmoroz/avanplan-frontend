@@ -49,7 +49,7 @@ Widget doneIcon(BuildContext context, bool done, {Color? color, double? size}) =
       size: size ?? 26,
     );
 
-Widget downCaretIcon(BuildContext context, {Color? color, double? size}) => Icon(
+Widget dropdownCaretIcon(BuildContext context, {Color? color, double? size}) => Icon(
       CupertinoIcons.chevron_up_chevron_down,
       color: (color ?? mainColor).resolve(context),
       size: size ?? 24,
@@ -162,6 +162,8 @@ Widget caretIcon(BuildContext context, {required Size size, Color? color, bool u
         child: Container(height: size.height, width: size.width),
       ),
     );
+
+Widget todayIcon({Color? color, double? size}) => Icon(CupertinoIcons.placemark, size: size);
 
 Widget redmineIcon() => Image.asset('assets/images/redmine_icon.png', width: 22, height: 22);
 Widget gitlabIcon() => Image.asset('assets/images/gitlab_icon.png', width: 22, height: 22);

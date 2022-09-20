@@ -29,7 +29,7 @@ class TaskFilterDropdown extends StatelessWidget {
         DropdownButton<TaskFilter>(
           items: ddItems,
           value: controller.tasksFilter,
-          icon: downCaretIcon(context),
+          icon: dropdownCaretIcon(context),
           underline: Container(),
           onChanged: (type) => controller.setFilter(type),
           borderRadius: BorderRadius.circular(onePadding / 2),

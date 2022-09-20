@@ -72,7 +72,10 @@ class _MainDashboardViewState extends State<MainDashboardView> {
 
                       /// статистика по статусу всех задач
                       SizedBox(height: onePadding / 2),
-                      if (rootTask.hasOverdueTasks || rootTask.hasRiskTasks) TaskOverviewWarnings(rootTask) else TaskOverviewAdvices(rootTask),
+                      if (rootTask.overdueSubtasks.isNotEmpty || rootTask.riskySubtasks.isNotEmpty)
+                        TaskOverviewWarnings(rootTask)
+                      else
+                        TaskOverviewAdvices(rootTask),
 
                       SizedBox(height: onePadding),
                     ],

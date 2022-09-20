@@ -12,9 +12,9 @@ class TaskOverviewWarnings extends StatelessWidget {
 
   Iterable<Task> get warningTasks {
     final res = <Task>[];
-    if (task.hasOverdueTasks) {
+    if (task.overdueSubtasks.isNotEmpty) {
       res.addAll(task.overdueSubtasks.take(3));
-    } else if (task.hasRiskTasks) {
+    } else if (task.riskySubtasks.isNotEmpty) {
       res.addAll(task.riskySubtasks.take(3));
     }
     return res;

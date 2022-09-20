@@ -17,7 +17,6 @@ import 'task_view_widgets/task_details_pane.dart';
 import 'task_view_widgets/task_header.dart';
 import 'task_view_widgets/task_listview.dart';
 import 'task_view_widgets/task_navbar.dart';
-import 'task_view_widgets/task_overview_pane.dart';
 
 class TaskView extends StatelessWidget {
   TaskView(this.taskId) : controller = TaskViewController(taskId);
@@ -32,9 +31,6 @@ class TaskView extends StatelessWidget {
     final res = <TaskTabKey, Widget>{};
     controller.tabKeys.forEach((tk) {
       switch (tk) {
-        case TaskTabKey.overview:
-          res[TaskTabKey.overview] = NormalText(loc.overview);
-          break;
         case TaskTabKey.subtasks:
           res[TaskTabKey.subtasks] = NormalText(task.listTitle);
           break;
@@ -59,7 +55,6 @@ class TaskView extends StatelessWidget {
   Widget detailsPane() => TaskDetails(controller);
   Widget selectedPane(BuildContext context) =>
       {
-        TaskTabKey.overview: TaskOverview(controller: controller, parentContext: context),
         TaskTabKey.subtasks: TaskListView(controller),
         TaskTabKey.details: detailsPane(),
       }[controller.tabKey] ??
@@ -81,7 +76,7 @@ class TaskView extends StatelessWidget {
                 : Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      if (!task.isWorkspace) TaskHeader(task) else SizedBox(height: onePadding / 2),
+                      if (!task.isWorkspace) TaskHeader(controller: controller, parentContext: context) else SizedBox(height: onePadding / 2),
                       if (controller.tabKeys.length > 1) ...[
                         SizedBox(height: onePadding / 2),
                         tabPaneSelector(),

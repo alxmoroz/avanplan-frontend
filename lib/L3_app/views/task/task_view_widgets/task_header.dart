@@ -4,18 +4,26 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../L1_domain/entities/task.dart';
+import '../../../../L1_domain/entities/task_ext_actions.dart';
 import '../../../../L1_domain/entities/task_ext_level.dart';
 import '../../../../L1_domain/entities/task_ext_state.dart';
 import '../../../components/constants.dart';
+import '../../../components/icons.dart';
 import '../../../components/mt_button.dart';
 import '../../../components/mt_divider.dart';
 import '../../../components/text_widgets.dart';
+import '../../../extra/services.dart';
 import '../../../presenters/task_source_presenter.dart';
+import '../task_add_action_widget.dart';
+import '../task_view_controller.dart';
+import 'task_state_indicator.dart';
 import 'task_time_chart.dart';
 
 class TaskHeader extends StatelessWidget {
-  const TaskHeader(this.task);
-  final Task task;
+  const TaskHeader({required this.controller, required this.parentContext});
+  final TaskViewController controller;
+  final BuildContext parentContext;
+  Task get task => controller.task;
 
   bool get _hasStatus => task.status != null;
   bool get _hasAssignee => task.assignee != null;
@@ -66,19 +74,23 @@ class TaskHeader extends StatelessWidget {
             ],
           ),
         ],
+        if (task.showState) ...[
+          SizedBox(height: onePadding),
+          TaskStateIndicator(task),
+        ],
         if (_showTimeChart) ...[
           SizedBox(height: onePadding / 4),
           TaskTimeChart(task),
         ],
-        // if (task.doneRatio > 0) ...[
-        //   SizedBox(height: onePadding / 2),
-        //   SampleProgress(
-        //     ratio: task.doneRatio,
-        //     color: task.stateColor,
-        //     titleText: loc.task_state_closed,
-        //     trailingText: task.doneRatio.inPercents,
-        //   ),
-        // ],
+        if (controller.mayAddSubtask) TaskAddActionWidget(controller, parentContext: parentContext),
+        if (task.canEdit && (task.isClosable || task.closed)) ...[
+          MTRichButton(
+            hint: task.isClosable ? loc.task_state_closable_hint : '',
+            titleString: task.isClosable ? loc.task_state_close_btn_title : loc.task_state_reopen_btn_title,
+            prefix: task.isClosable ? doneIcon(context, true) : null,
+            onTap: () => controller.setClosed(parentContext, !task.closed),
+          ),
+        ],
       ]),
     );
   }

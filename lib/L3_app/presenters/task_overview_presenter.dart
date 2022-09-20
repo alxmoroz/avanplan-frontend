@@ -50,7 +50,7 @@ extension TaskStatePresenter on Task {
     return icon;
   }
 
-  String get stateTextTitle {
+  String get stateTitle {
     String res = loc.task_state_no_info_title;
     switch (state) {
       case TaskState.overdue:
@@ -79,8 +79,8 @@ extension TaskStatePresenter on Task {
   String get overDueDetails => '${loc.task_state_overdue_details} ${durationString(totalOverduePeriod)}${subjects(overdueSubtasks.length)}';
   String get riskyDetails => '${loc.task_state_risky_details} ${durationString(totalRiskPeriod)}${subjects(riskySubtasks.length)}';
 
-  String? get stateTextDetails {
-    String? res;
+  String get stateDetails {
+    String res = loc.task_state_no_info_title;
 
     switch (state) {
       case TaskState.overdue:

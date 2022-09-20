@@ -21,22 +21,22 @@ class TaskStateIndicator extends StatelessWidget {
   bool get _inCard => placement == IndicatorPlacement.card;
   bool get _inWorkspace => placement == IndicatorPlacement.workspace;
   Color get _color => task.stateColor ?? darkGreyColor;
-  String get _text => task.stateTextDetails ?? task.stateTextTitle;
 
   Widget get _textWidget => _inCard
-      ? SmallText(_text, color: _color)
+      ? SmallText(task.stateTitle, color: _color)
       : _inWorkspace
           ? H3(
-              _text,
+              task.stateDetails,
               color: _color,
               align: TextAlign.center,
               padding: EdgeInsets.symmetric(horizontal: onePadding),
             )
-          : H4(
-              _text,
-              color: _color,
-              align: TextAlign.center,
-              padding: EdgeInsets.symmetric(horizontal: onePadding),
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                H4(task.stateTitle, color: _color),
+                NormalText(task.stateDetails, color: _color),
+              ],
             );
 
   Widget _icon(BuildContext context) => task.stateIcon(
@@ -46,16 +46,16 @@ class TaskStateIndicator extends StatelessWidget {
                 ? 1.3
                 : _inWorkspace
                     ? 10
-                    : 3),
+                    : 2.5),
         color: _color,
       );
 
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      if (!_inCard) _icon(context),
-      Row(children: [
-        if (_inCard) ...[_icon(context), SizedBox(width: onePadding / 4)],
+      if (_inWorkspace) _icon(context),
+      Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        if (!_inWorkspace) ...[_icon(context), SizedBox(width: onePadding / 4)],
         Expanded(child: _textWidget),
       ]),
     ]);

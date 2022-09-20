@@ -31,7 +31,6 @@
   "hours_count": "{count, plural, one{1 час} few{{count} часа} other{{count} часов}}",
 
   "no": "Нет",
-  "overview": "Обзор",
 
   "project_count": "{count, plural, zero{Нет проектов} one{1 проект} few{{count} проекта} other{{count} проектов}}",
   "project_dative_count": "{count, plural, one{1 проекту} other{{count} проектам}}",

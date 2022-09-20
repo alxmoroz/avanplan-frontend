@@ -19,7 +19,7 @@ import 'task_edit_view.dart';
 
 part 'task_view_controller.g.dart';
 
-enum TaskTabKey { overview, subtasks, details }
+enum TaskTabKey { subtasks, details }
 
 class TaskViewController extends _TaskViewControllerBase with _$TaskViewController {
   TaskViewController(int? _taskID) {
@@ -58,9 +58,6 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   Iterable<TaskTabKey> get tabKeys {
     final res = <TaskTabKey>[];
     if (!task.isWorkspace) {
-      if (task.showState) {
-        res.add(TaskTabKey.overview);
-      }
       if (task.hasSubtasks) {
         res.add(TaskTabKey.subtasks);
       }

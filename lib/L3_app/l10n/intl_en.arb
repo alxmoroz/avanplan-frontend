@@ -31,7 +31,6 @@
   "hours_count": "{count, plural, one{{count} hour} other{{count} hours}}",
 
   "no": "No",
-  "overview": "Overview",
 
   "project_count": "{count, plural, zero{No projects} one{1 project} other{{count} projects}}",
   "project_dative_count": "{count, plural, one{1 project} other{{count} projects}}",

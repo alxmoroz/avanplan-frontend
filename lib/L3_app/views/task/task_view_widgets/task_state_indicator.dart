@@ -35,7 +35,7 @@ class TaskStateIndicator extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 H4(task.stateTitle, color: _color),
-                NormalText(task.stateDetails, color: _color),
+                if (task.stateDetails.isNotEmpty) NormalText(task.stateDetails, color: _color),
               ],
             );
 

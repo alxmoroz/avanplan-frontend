@@ -58,11 +58,11 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   Iterable<TaskTabKey> get tabKeys {
     final res = <TaskTabKey>[];
     if (!task.isWorkspace) {
-      if (task.hasSubtasks) {
-        res.add(TaskTabKey.subtasks);
-      }
       if (_hasDetails) {
         res.add(TaskTabKey.details);
+      }
+      if (task.hasSubtasks) {
+        res.add(TaskTabKey.subtasks);
       }
     }
     return res;

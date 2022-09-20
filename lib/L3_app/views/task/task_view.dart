@@ -52,13 +52,14 @@ class TaskView extends StatelessWidget {
         ),
       );
 
-  Widget detailsPane() => TaskDetails(controller);
-  Widget selectedPane(BuildContext context) =>
+  Widget get _detailsPane => TaskDetails(controller);
+  Widget get _tasksPane => TaskListView(controller);
+  Widget _selectedPane(BuildContext context) =>
       {
-        TaskTabKey.subtasks: TaskListView(controller),
-        TaskTabKey.details: detailsPane(),
+        TaskTabKey.subtasks: _tasksPane,
+        TaskTabKey.details: _detailsPane,
       }[controller.tabKey] ??
-      detailsPane();
+      _tasksPane;
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +82,7 @@ class TaskView extends StatelessWidget {
                         SizedBox(height: onePadding / 2),
                         tabPaneSelector(),
                       ],
-                      Expanded(child: selectedPane(context)),
+                      Expanded(child: _selectedPane(context)),
                     ],
                   ),
           ),

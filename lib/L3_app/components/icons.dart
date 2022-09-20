@@ -117,7 +117,7 @@ Widget overdueStateIcon(BuildContext context, {Color? color, double? size}) => I
 
 Widget riskStateIcon(BuildContext context, {Color? color, double? size}) => Icon(
       CupertinoIcons.tortoise,
-      color: (color ?? lightWarningColor).resolve(context),
+      color: (color ?? warningColor).resolve(context),
       size: size,
     );
 

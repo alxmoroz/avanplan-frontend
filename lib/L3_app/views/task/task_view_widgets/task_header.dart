@@ -54,6 +54,26 @@ class TaskHeader extends StatelessWidget {
           const MTDivider(),
         ],
         H2(task.title, decoration: task.closed ? TextDecoration.lineThrough : null),
+        if (_hasStatus || _hasAssignee) ...[
+          SizedBox(height: onePadding / 3),
+          Row(
+            children: [
+              if (_hasStatus) SmallText(task.status!.title),
+              if (_hasAssignee) ...[
+                if (_hasStatus) SizedBox(width: onePadding / 3),
+                SmallText('@ ${task.assignee}'),
+              ],
+            ],
+          ),
+        ],
+        if (task.showState) ...[
+          SizedBox(height: onePadding / 3),
+          TaskStateIndicator(task),
+        ],
+        if (_showTimeChart) ...[
+          SizedBox(height: onePadding / 3),
+          TaskTimeChart(task),
+        ],
         if (task.hasLink) ...[
           SizedBox(height: onePadding / 2),
           MTButton(
@@ -61,26 +81,6 @@ class TaskHeader extends StatelessWidget {
             () => launchUrl(task.taskSource!.uri),
             child: task.taskSource!.go2SourceTitle(context, showSourceIcon: true),
           ),
-        ],
-        if (_hasStatus || _hasAssignee) ...[
-          SizedBox(height: onePadding / 2),
-          Row(
-            children: [
-              if (_hasStatus) SmallText(task.status!.title),
-              if (_hasAssignee) ...[
-                if (_hasStatus) SizedBox(width: onePadding / 2),
-                SmallText('@ ${task.assignee}'),
-              ],
-            ],
-          ),
-        ],
-        if (task.showState) ...[
-          SizedBox(height: onePadding),
-          TaskStateIndicator(task),
-        ],
-        if (_showTimeChart) ...[
-          SizedBox(height: onePadding / 4),
-          TaskTimeChart(task),
         ],
         if (controller.mayAddSubtask) TaskAddActionWidget(controller, parentContext: parentContext),
         if (task.canEdit && (task.isClosable || task.closed)) ...[

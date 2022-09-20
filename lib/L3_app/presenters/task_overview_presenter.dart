@@ -11,7 +11,7 @@ import '../presenters/task_level_presenter.dart';
 
 const _colors = {
   TaskState.overdue: dangerColor,
-  TaskState.risk: lightWarningColor,
+  TaskState.risk: warningColor,
   TaskState.ok: greenColor,
 };
 
@@ -80,8 +80,7 @@ extension TaskStatePresenter on Task {
   String get riskyDetails => '${loc.task_state_risky_details} ${durationString(totalRiskPeriod)}${subjects(riskySubtasks.length)}';
 
   String get stateDetails {
-    String res = loc.task_state_no_info_title;
-
+    String res = '';
     switch (state) {
       case TaskState.overdue:
         res = overDueDetails;

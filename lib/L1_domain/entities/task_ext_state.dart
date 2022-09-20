@@ -21,11 +21,15 @@ extension TaskStats on Task {
   bool get hasEtaDate => etaDate != null;
 
   Duration get riskPeriod => hasEtaDate ? etaDate!.difference(dueDate!) : const Duration(seconds: 0);
+  Duration get aheadPeriod => hasEtaDate ? dueDate!.difference(etaDate!) : const Duration(seconds: 0);
   Duration get etaPeriod => hasEtaDate ? etaDate!.difference(DateTime.now()) : const Duration(seconds: 0);
 
-  bool get hasOverdue => overduePeriod.inSeconds > 0;
-  bool get hasRisk => riskPeriod.inSeconds > 0;
-  bool get _isOk => hasEtaDate && riskPeriod.inSeconds < 1;
+  static const Duration _overdueThreshold = Duration(days: 1);
+  bool get hasOverdue => hasDueDate && overduePeriod > _overdueThreshold;
+
+  static const Duration _riskThreshold = Duration(days: 1);
+  bool get hasRisk => hasEtaDate && riskPeriod > _riskThreshold;
+  bool get isOk => hasEtaDate && riskPeriod <= _riskThreshold;
 
   Iterable<DateTime> get _sortedDates {
     final dates = [
@@ -93,6 +97,15 @@ extension TaskStats on Task {
       );
   Iterable<Task> get riskySubtasks => tasks.where((t) => t.state == TaskState.risk);
 
+  /// опережение
+  Duration get totalAheadPeriod => Duration(
+        seconds: openedSubtasks.map((t) => max(0, t.totalAheadPeriod.inSeconds)).fold(
+              aheadPeriod.inSeconds,
+              (s, res) => s + res,
+            ),
+      );
+  bool get isAhead => state == TaskState.ok && totalAheadPeriod >= _riskThreshold;
+
   /// цели (для дашборда проекта рекомендации)
   // TODO: нужно сделать универсальным. Речь про подзадачи первого уровня
   Iterable<Task> get _goals => allTasks.where((t) => t.isGoal);
@@ -134,7 +147,7 @@ extension TaskStats on Task {
                           ? TaskState.noSubtasks
                           : (isGoal && _closedSubtasksCount == 0)
                               ? TaskState.noProgress
-                              : _isOk || ((isWorkspace || isProject) && _hasOkSubtasks)
+                              : isOk || ((isWorkspace || isProject) && _hasOkSubtasks)
                                   ? TaskState.ok
                                   : TaskState.noInfo)
       : TaskState.noInfo;

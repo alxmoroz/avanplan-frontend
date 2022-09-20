@@ -76,7 +76,7 @@ extension TaskStatePresenter on Task {
         res = loc.task_state_closable_title;
         break;
       case TaskState.ok:
-        res = loc.task_state_ok_title;
+        res = isAhead ? loc.task_state_ahead_title_count(_durationString(totalAheadPeriod)) : loc.task_state_ok_title;
         break;
       case TaskState.noDueDate:
       case TaskState.noSubtasks:

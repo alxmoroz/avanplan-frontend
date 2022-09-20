@@ -9,7 +9,7 @@ import '../../components/mt_button.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_source_presenter.dart';
-import '../task/task_add_action_widget.dart';
+import '../task/task_related_widgets/task_add_action_widget.dart';
 import '../task/task_view_controller.dart';
 
 class ProjectEmptyListActionsWidget extends StatelessWidget {

@@ -16,10 +16,10 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_state_presenter.dart';
+import '../task/task_related_widgets/task_overview_advices.dart';
+import '../task/task_related_widgets/task_overview_warnings.dart';
+import '../task/task_related_widgets/task_state_indicator.dart';
 import '../task/task_view_controller.dart';
-import '../task/task_view_widgets/task_overview_advices.dart';
-import '../task/task_view_widgets/task_overview_warnings.dart';
-import '../task/task_view_widgets/task_state_indicator.dart';
 import 'project_empty_list_actions_widget.dart';
 
 class MainDashboardView extends StatefulWidget {

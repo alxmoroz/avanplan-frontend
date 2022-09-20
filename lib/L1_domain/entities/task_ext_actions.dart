@@ -20,6 +20,15 @@ extension TaskActionsExt on Task {
   bool get canEdit => !(isWorkspace || hasLink);
   bool get canImport => isWorkspace;
   bool get canRefresh => isWorkspace;
+  bool get canReopen => canEdit && (isClosable || closed);
+
+  bool get shouldAddSubtask =>
+      !hasSubtasks &&
+      canAdd &&
+      [
+        TaskLevel.project,
+        TaskLevel.goal,
+      ].contains(level);
 
   List<TaskActionType> get actionTypes {
     final res = <TaskActionType>[];

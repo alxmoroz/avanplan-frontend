@@ -4,14 +4,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities/task_ext_actions.dart';
 import '../../../L1_domain/entities/task_ext_level.dart';
 import '../../../L1_domain/entities/task_ext_state.dart';
 import '../../components/constants.dart';
+import '../../components/icons.dart';
+import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_level_presenter.dart';
 import '../main/project_empty_list_actions_widget.dart';
+import 'task_related_widgets/task_add_action_widget.dart';
 import 'task_view_controller.dart';
 import 'task_view_widgets/task_details_pane.dart';
 import 'task_view_widgets/task_header.dart';
@@ -61,6 +65,8 @@ class TaskView extends StatelessWidget {
       }[controller.tabKey] ??
       _tasksPane;
 
+  bool get _showFooter => task.shouldAddSubtask || task.canReopen;
+
   @override
   Widget build(BuildContext context) {
     return Observer(
@@ -71,7 +77,7 @@ class TaskView extends StatelessWidget {
           alignment: Alignment.center,
           child: SafeArea(
             top: !task.isWorkspace,
-            bottom: false,
+            bottom: _showFooter,
             child: !mainController.rootTask.hasOpenedSubtasks
                 ? ProjectEmptyListActionsWidget(taskController: controller, parentContext: context)
                 : Column(
@@ -83,6 +89,15 @@ class TaskView extends StatelessWidget {
                         tabPaneSelector(),
                       ],
                       Expanded(child: _selectedPane(context)),
+                      if (task.shouldAddSubtask) TaskAddActionWidget(controller, parentContext: context),
+                      if (task.canReopen)
+                        MTRichButton(
+                          hint: task.isClosable ? loc.task_state_closable_hint : '',
+                          titleString: task.isClosable ? loc.task_state_close_btn_title : loc.task_state_reopen_btn_title,
+                          prefix: task.isClosable ? doneIcon(context, true) : null,
+                          onTap: () => controller.setClosed(context, !task.closed),
+                        ),
+                      SizedBox(height: onePadding / 2),
                     ],
                   ),
           ),

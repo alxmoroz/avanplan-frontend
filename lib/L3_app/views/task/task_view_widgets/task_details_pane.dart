@@ -19,7 +19,7 @@ class TaskDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Padding(
       padding: EdgeInsets.all(onePadding),
       child: ListView(
         children: [

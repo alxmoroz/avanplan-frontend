@@ -36,15 +36,6 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   @computed
   Task get task => mainController.taskForId(taskID);
 
-  @computed
-  bool get mayAddSubtask =>
-      !task.hasSubtasks &&
-      task.canAdd &&
-      [
-        TaskLevel.project,
-        TaskLevel.goal,
-      ].contains(task.level);
-
   /// вкладки
 
   @computed

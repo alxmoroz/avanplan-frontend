@@ -4,19 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../L1_domain/entities/task.dart';
-import '../../../../L1_domain/entities/task_ext_actions.dart';
 import '../../../../L1_domain/entities/task_ext_level.dart';
 import '../../../../L1_domain/entities/task_ext_state.dart';
 import '../../../components/constants.dart';
-import '../../../components/icons.dart';
 import '../../../components/mt_button.dart';
 import '../../../components/mt_divider.dart';
 import '../../../components/text_widgets.dart';
-import '../../../extra/services.dart';
 import '../../../presenters/task_source_presenter.dart';
-import '../task_add_action_widget.dart';
+import '../task_related_widgets/task_state_indicator.dart';
 import '../task_view_controller.dart';
-import 'task_state_indicator.dart';
 import 'task_time_chart.dart';
 
 class TaskHeader extends StatelessWidget {
@@ -46,7 +42,7 @@ class TaskHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Padding(
       padding: EdgeInsets.all(onePadding).copyWith(bottom: 0),
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         if (_breadcrumbs.isNotEmpty) ...[
@@ -80,15 +76,6 @@ class TaskHeader extends StatelessWidget {
             '',
             () => launchUrl(task.taskSource!.uri),
             child: task.taskSource!.go2SourceTitle(context, showSourceIcon: true),
-          ),
-        ],
-        if (controller.mayAddSubtask) TaskAddActionWidget(controller, parentContext: parentContext),
-        if (task.canEdit && (task.isClosable || task.closed)) ...[
-          MTRichButton(
-            hint: task.isClosable ? loc.task_state_closable_hint : '',
-            titleString: task.isClosable ? loc.task_state_close_btn_title : loc.task_state_reopen_btn_title,
-            prefix: task.isClosable ? doneIcon(context, true) : null,
-            onTap: () => controller.setClosed(parentContext, !task.closed),
           ),
         ],
       ]),

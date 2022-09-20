@@ -5,8 +5,8 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../components/constants.dart';
 import '../../../extra/services.dart';
+import '../task_related_widgets/task_card.dart';
 import '../task_view_controller.dart';
-import 'task_card.dart';
 import 'task_filter_dropdown.dart';
 
 class TaskListView extends StatelessWidget {

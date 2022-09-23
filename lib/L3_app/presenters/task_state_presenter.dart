@@ -65,9 +65,9 @@ extension TaskStatePresenter on Task {
   String _subjects(int count) => count > 0 ? ' ${loc.for_dative} ${dativeSubtasksCount(count)}' : '';
 
   String get _overdueTitle => '${loc.task_state_overdue_details_prefix} ${_durationString(overduePeriod)}';
-  String get _overdueDetails => '${loc.task_state_overdue_details_prefix} ${_durationString(totalOverduePeriod)}${_subjects(overdueSubtasks.length)}';
+  String get _overdueDetails => '${loc.task_state_overdue_details_prefix} ${_durationString(maxOverduePeriod)}${_subjects(overdueSubtasks.length)}';
   String get _riskyTitle => '${loc.task_state_risk_details_prefix} ${_durationString(riskPeriod)}';
-  String get _riskyDetails => '${loc.task_state_risk_details_prefix} ${_durationString(totalRiskPeriod)}${_subjects(riskySubtasks.length)}';
+  String get _riskyDetails => '${loc.task_state_risk_details_prefix} ${_durationString(riskPeriod)}${_subjects(riskySubtasks.length)}';
   String get _etaDetails => '${loc.task_state_eta_details_prefix} ${_durationString(etaPeriod)}';
 
   String get stateTitle {

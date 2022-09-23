@@ -80,8 +80,8 @@ extension TaskStats on Task {
   double get doneRatio => (hasDueDate && _leafTasksCount > 0) ? _closedLeafTasksCount / _leafTasksCount : 0;
 
   /// опоздание
-  Duration get totalOverduePeriod => Duration(
-        seconds: openedSubtasks.map((t) => t.totalOverduePeriod.inSeconds).fold(
+  Duration get maxOverduePeriod => Duration(
+        seconds: openedSubtasks.map((t) => t.maxOverduePeriod.inSeconds).fold(
               overduePeriod.inSeconds,
               (s, res) => max(s, res),
             ),
@@ -89,12 +89,6 @@ extension TaskStats on Task {
   Iterable<Task> get overdueSubtasks => openedSubtasks.where((t) => t.state == TaskState.overdue);
 
   /// риск
-  Duration get totalRiskPeriod => Duration(
-        seconds: openedSubtasks.map((t) => max(0, t.totalRiskPeriod.inSeconds)).fold(
-              riskPeriod.inSeconds,
-              (s, res) => s + res,
-            ),
-      );
   Iterable<Task> get riskySubtasks => tasks.where((t) => t.state == TaskState.risk);
 
   /// опережение

@@ -152,6 +152,11 @@ extension TaskStats on Task {
                                   : TaskState.noInfo)
       : TaskState.noInfo;
 
-  bool get showState => !closed && (hasSubtasks || isGoal || state != TaskState.noInfo);
-  bool get showTimeChart => !closed && (hasDueDate || hasEtaDate);
+  TaskState get subtasksState => !closed
+      ? overdueSubtasks.isNotEmpty
+          ? TaskState.overdue
+          : riskySubtasks.isNotEmpty
+              ? TaskState.risk
+              : TaskState.noInfo
+      : TaskState.noInfo;
 }

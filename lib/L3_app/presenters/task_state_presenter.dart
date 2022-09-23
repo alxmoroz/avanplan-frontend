@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../L1_domain/entities/task.dart';
+import '../../L1_domain/entities/task_ext_level.dart';
 import '../../L1_domain/entities/task_ext_state.dart';
 import '../components/colors.dart';
 import '../components/icons.dart';
@@ -23,25 +24,39 @@ const _bgColors = {
 
 extension TaskStatePresenter on Task {
   Color get stateColor => _colors[state] ?? darkGreyColor;
+  Color get subtasksStateColor => _colors[subtasksState] ?? darkGreyColor;
   Color? get stateBgColor => _bgColors[state];
 
-  Widget stateIcon(BuildContext context, {double? size, Color? color}) {
-    Widget icon = noInfoStateIcon(context, size: size, color: color);
+  Widget stateIcon(BuildContext context, {double? size}) {
+    final _color = stateColor;
+    Widget icon = noInfoStateIcon(context, size: size, color: _color);
     switch (state) {
       case TaskState.overdue:
-        icon = overdueStateIcon(context, size: size, color: color);
+        icon = overdueStateIcon(context, size: size, color: _color);
         break;
       case TaskState.risk:
-        icon = riskStateIcon(context, size: size, color: color);
+        icon = riskStateIcon(context, size: size, color: _color);
         break;
       case TaskState.closable:
       case TaskState.ok:
-        icon = okStateIcon(context, size: size, color: color);
+        icon = okStateIcon(context, size: size, color: _color);
         break;
-      case TaskState.noDueDate:
-      case TaskState.noSubtasks:
-      case TaskState.noProgress:
-      case TaskState.noInfo:
+      default:
+    }
+    return icon;
+  }
+
+  Widget subtasksStateIcon(BuildContext context, {double? size}) {
+    final _color = subtasksStateColor;
+    Widget icon = noInfoStateIcon(context, size: size, color: _color);
+    switch (subtasksState) {
+      case TaskState.overdue:
+        icon = overdueStateIcon(context, size: size, color: _color);
+        break;
+      case TaskState.risk:
+        icon = riskStateIcon(context, size: size, color: _color);
+        break;
+      default:
     }
     return icon;
   }
@@ -95,4 +110,8 @@ extension TaskStatePresenter on Task {
             ? _riskyDetails
             : '';
   }
+
+  bool get showState => !closed && !isWorkspace && (hasSubtasks || isGoal || state != TaskState.noInfo);
+  bool get showSubtasksState => !closed && subtasksState != TaskState.noInfo && subtasksStateTitle != stateTitle || isWorkspace;
+  bool get showTimeChart => !closed && (hasDueDate || hasEtaDate);
 }

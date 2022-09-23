@@ -11,6 +11,7 @@ import '../../../components/mt_card.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_state_presenter.dart';
+import 'task_state_title.dart';
 
 class TaskCard extends StatelessWidget {
   const TaskCard(this.task, {this.expanded = false});
@@ -39,12 +40,7 @@ class TaskCard extends StatelessWidget {
           header(context),
           SizedBox(height: onePadding / 3),
           Row(children: [
-            if (task.showState) ...[
-              task.stateIcon(context, size: onePadding * 1.3, color: task.stateColor),
-              SizedBox(width: onePadding / 4),
-              Expanded(child: SmallText(task.stateTitle, color: task.stateColor)),
-            ] else
-              const Spacer(),
+            if (task.showState) Expanded(child: TaskStateTitle(task)) else const Spacer(),
             if (task.hasLink) linkIcon(context),
           ]),
         ]),

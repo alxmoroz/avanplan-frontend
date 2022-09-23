@@ -1,23 +1,25 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/material.dart';
-import 'package:gercules/L3_app/components/text_widgets.dart';
 import 'package:gercules/L3_app/presenters/task_state_presenter.dart';
 
 import '../../../../L1_domain/entities/task.dart';
-import '../../../../L1_domain/entities/task_ext_state.dart';
+import '../../../../L1_domain/entities/task_ext_level.dart';
 import '../../../components/constants.dart';
 import '../task_related_widgets/task_overview_advices.dart';
 import '../task_related_widgets/task_overview_warnings.dart';
+import '../task_related_widgets/task_state_title.dart';
 import '../task_view_controller.dart';
 import 'task_time_chart.dart';
 
-enum IndicatorPlacement { workspace, other }
-
 class TaskOverview extends StatelessWidget {
   const TaskOverview(this.controller);
+  @protected
   final TaskViewController controller;
-  Task get task => controller.task;
+
+  Task get _task => controller.task;
+  bool get _isWorkspace => _task.isWorkspace;
+  TaskStateTitleStyle get _taskStateTitleStyle => _isWorkspace ? TaskStateTitleStyle.L : TaskStateTitleStyle.M;
 
   @override
   Widget build(BuildContext context) {
@@ -25,18 +27,17 @@ class TaskOverview extends StatelessWidget {
       shrinkWrap: true,
       children: [
         Padding(
-          padding: EdgeInsets.all(onePadding),
+          padding: EdgeInsets.all(onePadding).copyWith(bottom: 0),
           child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-            if (task.showState) H4(task.stateTitle, color: task.stateColor),
-            if (task.showTimeChart) TaskTimeChart(task),
+            if (_task.showState) TaskStateTitle(_task, style: _taskStateTitleStyle),
+            if (_task.showTimeChart) TaskTimeChart(_task),
+            if (_task.showSubtasksState) ...[
+              SizedBox(height: onePadding),
+              TaskStateTitle(_task, style: _taskStateTitleStyle, forSubtasks: true),
+            ],
           ]),
         ),
-        if (task.overdueSubtasks.isNotEmpty || task.riskySubtasks.isNotEmpty) ...[
-          if (task.subtasksStateTitle != task.stateTitle)
-            NormalText(task.subtasksStateTitle, color: task.stateColor, padding: EdgeInsets.symmetric(horizontal: onePadding)),
-          TaskOverviewWarnings(task),
-        ] else
-          TaskOverviewAdvices(task),
+        if (_task.showSubtasksState) TaskOverviewWarnings(_task) else TaskOverviewAdvices(_task),
       ],
     );
   }

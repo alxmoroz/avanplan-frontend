@@ -67,7 +67,6 @@ class _MainDashboardViewState extends State<MainDashboardView> {
                       SizedBox(height: onePadding),
 
                       /// статус и комментарий, статистика по статусу всех задач
-                      rootTask.stateIcon(context, size: onePadding * 7),
                       TaskOverview(taskController),
 
                       SizedBox(height: onePadding),

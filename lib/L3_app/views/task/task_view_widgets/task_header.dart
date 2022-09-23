@@ -11,9 +11,7 @@ import '../../../components/mt_button.dart';
 import '../../../components/mt_divider.dart';
 import '../../../components/text_widgets.dart';
 import '../../../presenters/task_source_presenter.dart';
-import '../task_related_widgets/task_state_indicator.dart';
 import '../task_view_controller.dart';
-import 'task_time_chart.dart';
 
 class TaskHeader extends StatelessWidget {
   const TaskHeader({required this.controller, required this.parentContext});
@@ -23,7 +21,6 @@ class TaskHeader extends StatelessWidget {
 
   bool get _hasStatus => task.status != null;
   bool get _hasAssignee => task.assignee != null;
-  bool get _showTimeChart => !task.closed && (task.hasDueDate || task.hasEtaDate);
 
   String get _breadcrumbs {
     Iterable<String> parentsTitles(Task? task) {
@@ -61,14 +58,6 @@ class TaskHeader extends StatelessWidget {
               ],
             ],
           ),
-        ],
-        if (task.showState) ...[
-          SizedBox(height: onePadding / 3),
-          TaskStateIndicator(task),
-        ],
-        if (_showTimeChart) ...[
-          SizedBox(height: onePadding / 3),
-          TaskTimeChart(task),
         ],
         if (task.hasLink) ...[
           SizedBox(height: onePadding / 2),

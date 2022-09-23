@@ -16,10 +16,8 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_state_presenter.dart';
-import '../task/task_related_widgets/task_overview_advices.dart';
-import '../task/task_related_widgets/task_overview_warnings.dart';
-import '../task/task_related_widgets/task_state_indicator.dart';
 import '../task/task_view_controller.dart';
+import '../task/task_view_widgets/task_overview.dart';
 import 'project_empty_list_actions_widget.dart';
 
 class MainDashboardView extends StatefulWidget {
@@ -31,6 +29,7 @@ class MainDashboardView extends StatefulWidget {
 
 class _MainDashboardViewState extends State<MainDashboardView> {
   Task get rootTask => mainController.rootTask;
+  TaskViewController get taskController => TaskViewController(null);
 
   @override
   Widget build(BuildContext context) {
@@ -61,21 +60,15 @@ class _MainDashboardViewState extends State<MainDashboardView> {
             top: false,
             bottom: false,
             child: !rootTask.hasOpenedSubtasks
-                ? ProjectEmptyListActionsWidget(taskController: TaskViewController(null), parentContext: context)
+                ? ProjectEmptyListActionsWidget(taskController: taskController, parentContext: context)
                 : ListView(
                     shrinkWrap: true,
                     children: [
                       SizedBox(height: onePadding),
 
-                      /// статус и комментарий
-                      TaskStateIndicator(rootTask, placement: IndicatorPlacement.workspace),
-
-                      /// статистика по статусу всех задач
-                      SizedBox(height: onePadding / 2),
-                      if (rootTask.overdueSubtasks.isNotEmpty || rootTask.riskySubtasks.isNotEmpty)
-                        TaskOverviewWarnings(rootTask)
-                      else
-                        TaskOverviewAdvices(rootTask),
+                      /// статус и комментарий, статистика по статусу всех задач
+                      rootTask.stateIcon(context, size: onePadding * 7),
+                      TaskOverview(taskController),
 
                       SizedBox(height: onePadding),
                     ],

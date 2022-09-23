@@ -17,10 +17,11 @@ import '../../presenters/task_level_presenter.dart';
 import '../main/project_empty_list_actions_widget.dart';
 import 'task_related_widgets/task_add_action_widget.dart';
 import 'task_view_controller.dart';
-import 'task_view_widgets/task_details_pane.dart';
+import 'task_view_widgets/task_details.dart';
 import 'task_view_widgets/task_header.dart';
 import 'task_view_widgets/task_listview.dart';
 import 'task_view_widgets/task_navbar.dart';
+import 'task_view_widgets/task_overview.dart';
 
 class TaskView extends StatelessWidget {
   TaskView(this.taskId) : controller = TaskViewController(taskId);
@@ -35,6 +36,9 @@ class TaskView extends StatelessWidget {
     final res = <TaskTabKey, Widget>{};
     controller.tabKeys.forEach((tk) {
       switch (tk) {
+        case TaskTabKey.overview:
+          res[TaskTabKey.overview] = NormalText(loc.overview);
+          break;
         case TaskTabKey.subtasks:
           res[TaskTabKey.subtasks] = NormalText(task.listTitle);
           break;
@@ -56,10 +60,13 @@ class TaskView extends StatelessWidget {
         ),
       );
 
-  Widget get _detailsPane => TaskDetails(controller);
+  Widget get _overviewPane => TaskOverview(controller);
   Widget get _tasksPane => TaskListView(controller);
+  Widget get _detailsPane => TaskDetails(controller);
+
   Widget _selectedPane(BuildContext context) =>
       {
+        TaskTabKey.overview: _overviewPane,
         TaskTabKey.subtasks: _tasksPane,
         TaskTabKey.details: _detailsPane,
       }[controller.tabKey] ??

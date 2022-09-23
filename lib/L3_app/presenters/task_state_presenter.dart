@@ -22,12 +22,8 @@ const _bgColors = {
 };
 
 extension TaskStatePresenter on Task {
-  Color? get stateColor => _colors[state];
+  Color get stateColor => _colors[state] ?? darkGreyColor;
   Color? get stateBgColor => _bgColors[state];
-
-  Color? get overdueColor => _colors[TaskState.overdue];
-  Color? get riskColor => _colors[TaskState.risk];
-  Color? get okColor => _colors[TaskState.ok];
 
   Widget stateIcon(BuildContext context, {double? size, Color? color}) {
     Widget icon = noInfoStateIcon(context, size: size, color: color);
@@ -53,8 +49,8 @@ extension TaskStatePresenter on Task {
   String _durationString(Duration d) => d.inDays < 1 ? loc.hours_count(d.inHours) : loc.days_count(d.inDays);
   String _subjects(int count) => count > 0 ? ' ${loc.for_dative} ${dativeSubtasksCount(count)}' : '';
 
-  String get _overDueTitle => '${loc.task_state_overdue_details_prefix} ${_durationString(overduePeriod)}';
-  String get _overDueDetails => '${loc.task_state_overdue_details_prefix} ${_durationString(totalOverduePeriod)}${_subjects(overdueSubtasks.length)}';
+  String get _overdueTitle => '${loc.task_state_overdue_details_prefix} ${_durationString(overduePeriod)}';
+  String get _overdueDetails => '${loc.task_state_overdue_details_prefix} ${_durationString(totalOverduePeriod)}${_subjects(overdueSubtasks.length)}';
   String get _riskyTitle => '${loc.task_state_risk_details_prefix} ${_durationString(riskPeriod)}';
   String get _riskyDetails => '${loc.task_state_risk_details_prefix} ${_durationString(totalRiskPeriod)}${_subjects(riskySubtasks.length)}';
   String get _etaDetails => '${loc.task_state_eta_details_prefix} ${_durationString(etaPeriod)}';
@@ -66,8 +62,8 @@ extension TaskStatePresenter on Task {
         res = hasOverdue
             ? hasRisk
                 ? '${loc.task_state_overdue_risk_details_prefix} $_etaDetails'
-                : _overDueTitle
-            : _overDueDetails;
+                : _overdueTitle
+            : _overdueDetails;
         break;
       case TaskState.risk:
         res = hasRisk ? _riskyTitle : _riskyDetails;
@@ -92,9 +88,9 @@ extension TaskStatePresenter on Task {
     return res;
   }
 
-  String get stateDetails {
+  String get subtasksStateTitle {
     return overdueSubtasks.isNotEmpty
-        ? _overDueDetails
+        ? _overdueDetails
         : riskySubtasks.isNotEmpty
             ? _riskyDetails
             : '';

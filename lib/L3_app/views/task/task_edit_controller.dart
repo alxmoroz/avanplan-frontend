@@ -44,11 +44,11 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
       context: context,
       initialEntryMode: DatePickerEntryMode.calendarOnly,
       initialDate: _selectedDueDate ?? DateTime.now(),
-      firstDate: DateTime.now(),
+      firstDate: _selectedDueDate ?? DateTime.now(),
       lastDate: DateTime.now().add(const Duration(days: 36500)),
     );
     if (date != null) {
-      setDueDate(DateTime.now().isBefore(date) ? date : DateTime.now());
+      setDueDate(date);
     }
   }
 

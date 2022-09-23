@@ -10,7 +10,7 @@ import '../../../components/mt_badge.dart';
 import '../../../components/mt_card.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
-import 'task_state_indicator.dart';
+import '../../../presenters/task_state_presenter.dart';
 
 class TaskCard extends StatelessWidget {
   const TaskCard(this.task, {this.expanded = false});
@@ -37,11 +37,15 @@ class TaskCard extends StatelessWidget {
         padding: EdgeInsets.all(onePadding),
         body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           header(context),
-          SizedBox(height: onePadding / 2),
+          SizedBox(height: onePadding / 3),
           Row(children: [
-            task.showState ? Expanded(child: TaskStateIndicator(task, placement: IndicatorPlacement.card)) : const Spacer(),
+            if (task.showState) ...[
+              task.stateIcon(context, size: onePadding * 1.3, color: task.stateColor),
+              SizedBox(width: onePadding / 4),
+              Expanded(child: SmallText(task.stateTitle, color: task.stateColor)),
+            ] else
+              const Spacer(),
             if (task.hasLink) linkIcon(context),
-            SizedBox(width: onePadding / 4),
           ]),
         ]),
       );

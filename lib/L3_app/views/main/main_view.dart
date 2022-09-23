@@ -36,11 +36,11 @@ class _MainViewState extends State<MainView> {
           builder: (context) => tabViews[index],
           onGenerateRoute: (RouteSettings rs) {
             if (rs.name == TaskView.routeName) {
-              return CupertinoPageRoute<TaskView>(builder: (_) => TaskView(rs.arguments as int?));
+              return CupertinoPageRoute<dynamic>(builder: (_) => TaskView(rs.arguments as int?));
             } else if (rs.name == SourceListView.routeName) {
-              return CupertinoPageRoute<SourceListView>(builder: (_) => SourceListView());
+              return CupertinoPageRoute<dynamic>(builder: (_) => SourceListView());
             } else if (rs.name == AccountView.routeName) {
-              return CupertinoPageRoute<AccountView>(builder: (_) => AccountView());
+              return CupertinoPageRoute<dynamic>(builder: (_) => AccountView());
             }
             return null;
           },

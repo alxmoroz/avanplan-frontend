@@ -29,7 +29,6 @@ class TaskOverview extends StatelessWidget {
         Padding(
           padding: EdgeInsets.all(onePadding).copyWith(bottom: 0),
           child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-            if (_task.showState) TaskStateTitle(_task, style: _taskStateTitleStyle),
             if (_task.showTimeChart) TaskTimeChart(_task),
             if (_task.showSubtasksState) ...[
               SizedBox(height: onePadding),

@@ -11,16 +11,20 @@ import '../../../components/mt_button.dart';
 import '../../../components/mt_divider.dart';
 import '../../../components/text_widgets.dart';
 import '../../../presenters/task_source_presenter.dart';
+import '../../../presenters/task_state_presenter.dart';
+import '../task_related_widgets/task_state_title.dart';
 import '../task_view_controller.dart';
 
 class TaskHeader extends StatelessWidget {
   const TaskHeader({required this.controller, required this.parentContext});
+  @protected
   final TaskViewController controller;
+  @protected
   final BuildContext parentContext;
-  Task get task => controller.task;
 
-  bool get _hasStatus => task.status != null;
-  bool get _hasAssignee => task.assignee != null;
+  Task get _task => controller.task;
+  bool get _hasStatus => _task.status != null;
+  bool get _hasAssignee => _task.assignee != null;
 
   String get _breadcrumbs {
     Iterable<String> parentsTitles(Task? task) {
@@ -34,7 +38,7 @@ class TaskHeader extends StatelessWidget {
       return res;
     }
 
-    return parentsTitles(task.parent).join(' > ');
+    return parentsTitles(_task.parent).join(' > ');
   }
 
   @override
@@ -46,25 +50,26 @@ class TaskHeader extends StatelessWidget {
           SmallText(_breadcrumbs),
           const MTDivider(),
         ],
-        H2(task.title, decoration: task.closed ? TextDecoration.lineThrough : null),
+        H2(_task.title, decoration: _task.closed ? TextDecoration.lineThrough : null),
+        if (_task.showState) TaskStateTitle(_task, style: TaskStateTitleStyle.M),
         if (_hasStatus || _hasAssignee) ...[
           SizedBox(height: onePadding / 3),
           Row(
             children: [
-              if (_hasStatus) SmallText(task.status!.title),
+              if (_hasStatus) SmallText(_task.status!.title),
               if (_hasAssignee) ...[
                 if (_hasStatus) SizedBox(width: onePadding / 3),
-                SmallText('@ ${task.assignee}'),
+                SmallText('@ ${_task.assignee}'),
               ],
             ],
           ),
         ],
-        if (task.hasLink) ...[
+        if (_task.hasLink) ...[
           SizedBox(height: onePadding / 2),
           MTButton(
             '',
-            () => launchUrl(task.taskSource!.uri),
-            child: task.taskSource!.go2SourceTitle(context, showSourceIcon: true),
+            () => launchUrl(_task.taskSource!.uri),
+            child: _task.taskSource!.go2SourceTitle(context, showSourceIcon: true),
           ),
         ],
       ]),

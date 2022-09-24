@@ -125,6 +125,7 @@ extension TaskStats on Task {
   /// подзадачи в порядке
   bool get _hasOkSubtasks => openedSubtasks.isNotEmpty && openedSubtasks.every((t) => t.state == TaskState.ok);
 
+  // TODO(san-smith): я бы подумал, как избавиться от такого вложенного тернарника
   /// интегральный статус
   TaskState get state => !closed
       ? (hasOverdue || (!hasDueDate && overdueSubtasks.isNotEmpty)

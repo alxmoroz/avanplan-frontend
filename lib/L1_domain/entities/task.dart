@@ -39,6 +39,8 @@ class Task extends Statusable {
   final TaskSource? taskSource;
   Task? parent;
 
+  // TODO(san-smith): возможно заинтересует пакет freezed - он из коробки предоставляет метод copyWith и toString
+  // https://pub.dev/packages/freezed
   Task copy() => Task(
         id: id,
         title: title,

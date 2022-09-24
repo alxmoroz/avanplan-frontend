@@ -13,13 +13,13 @@ extension TaskStats on Task {
 
   /// опоздание
   bool get hasDueDate => dueDate != null;
-  Duration get overduePeriod => hasDueDate ? DateTime.now().difference(dueDate!) : const Duration(seconds: 0);
+  Duration? get overduePeriod => hasDueDate ? DateTime.now().difference(dueDate!) : null;
   static const Duration _overdueThreshold = Duration(days: 1);
-  bool get hasOverdue => hasDueDate && overduePeriod > _overdueThreshold;
+  bool get hasOverdue => overduePeriod != null && overduePeriod! > _overdueThreshold;
   // опоздание по подзадачам
   Duration get maxOverduePeriod => Duration(
         seconds: openedSubtasks.map((t) => t.maxOverduePeriod.inSeconds).fold(
-              overduePeriod.inSeconds,
+              overduePeriod?.inSeconds ?? 0,
               (s, res) => max(s, res),
             ),
       );
@@ -39,6 +39,9 @@ extension TaskStats on Task {
   Duration? get riskPeriod => (hasDueDate && hasEtaDate) ? etaDate!.difference(dueDate!) : null;
   bool get hasRisk => riskPeriod != null && riskPeriod! > _riskThreshold;
   // рисковые подзадачи
+  Duration get subtasksRiskPeriod => Duration(
+        seconds: riskySubtasks.map((t) => t.riskPeriod?.inSeconds ?? t.subtasksRiskPeriod.inSeconds).fold(0, (s, res) => s + res),
+      );
   Iterable<Task> get riskySubtasks => tasks.where((t) => t.state == TaskState.risk);
 
   /// запас, опережение
@@ -84,9 +87,6 @@ extension TaskStats on Task {
   Iterable<Task> get openedSubtasks => tasks.where((t) => !t.closed);
   int get openedSubtasksCount => openedSubtasks.length;
   bool get hasOpenedSubtasks => openedSubtasks.isNotEmpty;
-  int get _closedSubtasksCount => tasks.length - openedSubtasksCount;
-
-  bool get isClosable => !closed && hasSubtasks && !hasOpenedSubtasks;
 
   Iterable<Task> get _leafTasks => allTasks.where((t) => !t.hasSubtasks);
   int get _leafTasksCount => _leafTasks.length;
@@ -111,11 +111,13 @@ extension TaskStats on Task {
   int get emptyGoalsCount => _emptyGoals.length;
   bool get hasEmptyGoals => emptyGoalsCount > 0;
 
+  int get _closedSubtasksCount => tasks.length - openedSubtasksCount;
   Iterable<Task> get _inactiveGoals => _openedGoals.where((t) => t.hasSubtasks && t._closedSubtasksCount == 0);
   int get inactiveGoalsCount => _inactiveGoals.length;
   bool get hasInactiveGoals => inactiveGoalsCount > 0;
 
   /// можно закрыть
+  bool get isClosable => !closed && hasSubtasks && !hasOpenedSubtasks;
   Iterable<Task> get _closableGroups => allTasks.where((t) => t.isClosable);
   int get closableGroupsCount => _closableGroups.length;
   bool get hasClosableGroups => closableGroupsCount > 0;
@@ -127,7 +129,7 @@ extension TaskStats on Task {
   TaskState get state => !closed
       ? (hasOverdue || (!hasDueDate && overdueSubtasks.isNotEmpty)
           ? TaskState.overdue
-          : hasRisk || (!hasEtaDate && riskySubtasks.isNotEmpty)
+          : hasRisk || (!hasDueDate && riskySubtasks.isNotEmpty)
               ? TaskState.risk
               : isClosable
                   ? TaskState.closable

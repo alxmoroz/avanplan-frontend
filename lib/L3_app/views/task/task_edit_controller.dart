@@ -40,12 +40,17 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
   }
 
   Future inputDateTime(BuildContext context) async {
+    final today = DateTime.now();
+    final initialDate = _selectedDueDate ?? today;
+    final pastDate = today.subtract(const Duration(days: 365));
+    final firstDate = pastDate.isAfter(initialDate) ? initialDate : pastDate;
+
     final date = await showDatePicker(
       context: context,
       initialEntryMode: DatePickerEntryMode.calendarOnly,
-      initialDate: _selectedDueDate ?? DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime.now().add(const Duration(days: 36500)),
+      initialDate: initialDate,
+      firstDate: firstDate,
+      lastDate: today.add(const Duration(days: 36500)),
     );
     if (date != null) {
       setDueDate(date);

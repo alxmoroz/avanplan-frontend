@@ -30,9 +30,9 @@ class TaskStateTitle extends StatelessWidget {
   double get _iconSize =>
       onePadding *
       (style == TaskStateTitleStyle.L
-          ? 7
+          ? 12
           : style == TaskStateTitleStyle.M
-              ? 2.2
+              ? 3
               : 1.7);
 
   // forSubtasks

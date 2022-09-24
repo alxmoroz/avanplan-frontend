@@ -16,16 +16,9 @@ const _colors = {
   TaskState.ok: greenColor,
 };
 
-const _bgColors = {
-  TaskState.overdue: bgLightWarningColor,
-  TaskState.risk: bgLightWarningColor,
-  TaskState.ok: bgGreenColor,
-};
-
 extension TaskStatePresenter on Task {
   Color get stateColor => _colors[state] ?? darkGreyColor;
   Color get subtasksStateColor => _colors[subtasksState] ?? darkGreyColor;
-  Color? get stateBgColor => _bgColors[state];
 
   Widget stateIcon(BuildContext context, {double? size}) {
     final _color = stateColor;

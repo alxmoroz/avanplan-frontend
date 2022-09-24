@@ -40,10 +40,6 @@ const Color lightWarningColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(255, 255, 195, 65),
   darkColor: Color.fromARGB(255, 115, 70, 0),
 );
-const Color bgLightWarningColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 255, 240, 190),
-  darkColor: Color.fromARGB(255, 45, 30, 0),
-);
 
 const Color greenColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(255, 120, 190, 142),

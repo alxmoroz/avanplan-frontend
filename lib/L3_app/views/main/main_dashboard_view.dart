@@ -15,9 +15,8 @@ import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/task_state_presenter.dart';
+import '../task/task_related_widgets/task_overview.dart';
 import '../task/task_view_controller.dart';
-import '../task/task_view_widgets/task_overview.dart';
 import 'project_empty_list_actions_widget.dart';
 
 class MainDashboardView extends StatefulWidget {
@@ -50,12 +49,6 @@ class _MainDashboardViewState extends State<MainDashboardView> {
         ),
         body: Container(
           alignment: Alignment.center,
-          decoration: BoxDecoration(
-            gradient: RadialGradient(
-              radius: 1,
-              colors: [(rootTask.stateBgColor ?? backgroundColor).resolve(context), backgroundColor.resolve(context)],
-            ),
-          ),
           child: SafeArea(
             top: false,
             bottom: false,

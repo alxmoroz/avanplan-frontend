@@ -61,7 +61,7 @@ extension TaskStatePresenter on Task {
     return icon;
   }
 
-  String _durationString(Duration d) => d.inDays < 1 ? loc.hours_count(d.inHours) : loc.days_count(d.inDays);
+  String _durationString(Duration? d) => d != null ? (d.inDays < 1 ? loc.hours_count(d.inHours) : loc.days_count(d.inDays)) : '';
   String _subjects(int count) => count > 0 ? ' ${loc.for_dative} ${dativeSubtasksCount(count)}' : '';
 
   String get _overdueTitle => '${loc.task_state_overdue_details_prefix} ${_durationString(overduePeriod)}';
@@ -113,5 +113,5 @@ extension TaskStatePresenter on Task {
 
   bool get showState => !closed && !isWorkspace && (hasSubtasks || isGoal || state != TaskState.noInfo);
   bool get showSubtasksState => !closed && subtasksState != TaskState.noInfo && subtasksStateTitle != stateTitle || isWorkspace;
-  bool get showTimeChart => !closed && (hasDueDate || hasEtaDate);
+  bool get showTimeChart => !isWorkspace && !closed && (hasDueDate || hasEtaDate);
 }

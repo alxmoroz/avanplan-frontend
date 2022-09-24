@@ -9,28 +9,50 @@ enum TaskState { overdue, risk, closable, noDueDate, noSubtasks, noProgress, ok,
 
 extension TaskStats on Task {
   /// непосредственно сама задача
+  bool get hasLink => taskSource?.keepConnection == true;
+
+  /// опоздание
   bool get hasDueDate => dueDate != null;
-  DateTime get _startDate => createdOn ?? DateTime.now();
-  Duration get _pastPeriod => DateTime.now().difference(_startDate);
   Duration get overduePeriod => hasDueDate ? DateTime.now().difference(dueDate!) : const Duration(seconds: 0);
-
-  double get _factSpeed => _closedLeafTasksCount / _pastPeriod.inSeconds;
-  DateTime? get etaDate => (hasDueDate && _factSpeed > 0 && openedLeafTasksCount > 0)
-      ? DateTime.now().add(Duration(seconds: (openedLeafTasksCount / _factSpeed).round()))
-      : null;
-  bool get hasEtaDate => etaDate != null;
-
-  Duration get riskPeriod => hasEtaDate ? etaDate!.difference(dueDate!) : const Duration(seconds: 0);
-  Duration get aheadPeriod => hasEtaDate ? dueDate!.difference(etaDate!) : const Duration(seconds: 0);
-  Duration get etaPeriod => hasEtaDate ? etaDate!.difference(DateTime.now()) : const Duration(seconds: 0);
-
   static const Duration _overdueThreshold = Duration(days: 1);
   bool get hasOverdue => hasDueDate && overduePeriod > _overdueThreshold;
+  // опоздание по подзадачам
+  Duration get maxOverduePeriod => Duration(
+        seconds: openedSubtasks.map((t) => t.maxOverduePeriod.inSeconds).fold(
+              overduePeriod.inSeconds,
+              (s, res) => max(s, res),
+            ),
+      );
+  Iterable<Task> get overdueSubtasks => openedSubtasks.where((t) => t.state == TaskState.overdue);
 
+  /// прогноз
+  DateTime get _startDate => createdOn ?? DateTime.now();
+  Duration get _pastPeriod => DateTime.now().difference(_startDate);
+  double get _factSpeed => _closedLeafTasksCount / _pastPeriod.inSeconds;
+  DateTime? get etaDate =>
+      _factSpeed > 0 && openedLeafTasksCount > 0 ? DateTime.now().add(Duration(seconds: (openedLeafTasksCount / _factSpeed).round())) : null;
+  bool get hasEtaDate => etaDate != null;
+  Duration? get etaPeriod => hasEtaDate ? etaDate!.difference(DateTime.now()) : null;
+
+  /// риск
   static const Duration _riskThreshold = Duration(days: 1);
-  bool get hasRisk => hasEtaDate && riskPeriod > _riskThreshold;
-  bool get isOk => hasEtaDate && riskPeriod <= _riskThreshold;
+  Duration? get riskPeriod => (hasDueDate && hasEtaDate) ? etaDate!.difference(dueDate!) : null;
+  bool get hasRisk => riskPeriod != null && riskPeriod! > _riskThreshold;
+  // рисковые подзадачи
+  Iterable<Task> get riskySubtasks => tasks.where((t) => t.state == TaskState.risk);
 
+  /// запас, опережение
+  Duration? get aheadPeriod => (hasDueDate && hasEtaDate) ? dueDate!.difference(etaDate!) : null;
+  bool get isOk => riskPeriod != null && riskPeriod! <= _riskThreshold;
+  Duration get totalAheadPeriod => Duration(
+        seconds: openedSubtasks.map((t) => max(0, t.totalAheadPeriod.inSeconds)).fold(
+              aheadPeriod?.inSeconds ?? 0,
+              (s, res) => s + res,
+            ),
+      );
+  bool get isAhead => state == TaskState.ok && totalAheadPeriod >= _riskThreshold;
+
+  /// диаграмма сроков
   Iterable<DateTime> get _sortedDates {
     final dates = [
       if (hasDueDate) dueDate!,
@@ -43,17 +65,13 @@ extension TaskStats on Task {
     return dates;
   }
 
-  /// диаграмма сроков
   DateTime get _minDate => _sortedDates.first;
   DateTime get _maxDate => _sortedDates.last;
-
   int get _maxDateSeconds => _maxDate.difference(_minDate).inSeconds;
   double dateRatio(DateTime dt) => _maxDateSeconds > 0 ? (dt.difference(_minDate).inSeconds / _maxDateSeconds) : 1;
 
+  /// подзадачи
   bool get hasSubtasks => tasks.isNotEmpty;
-  bool get hasLink => taskSource?.keepConnection == true;
-
-  /// статистика по подзадачам
   Iterable<Task> get allTasks {
     final res = <Task>[];
     for (Task t in tasks) {
@@ -74,31 +92,9 @@ extension TaskStats on Task {
   int get _leafTasksCount => _leafTasks.length;
   Iterable<Task> get _openedLeafTasks => _leafTasks.where((t) => !t.closed);
   int get openedLeafTasksCount => _openedLeafTasks.length;
-
   int get _closedLeafTasksCount => _leafTasksCount - openedLeafTasksCount;
 
   double get doneRatio => (hasDueDate && _leafTasksCount > 0) ? _closedLeafTasksCount / _leafTasksCount : 0;
-
-  /// опоздание
-  Duration get maxOverduePeriod => Duration(
-        seconds: openedSubtasks.map((t) => t.maxOverduePeriod.inSeconds).fold(
-              overduePeriod.inSeconds,
-              (s, res) => max(s, res),
-            ),
-      );
-  Iterable<Task> get overdueSubtasks => openedSubtasks.where((t) => t.state == TaskState.overdue);
-
-  /// риск
-  Iterable<Task> get riskySubtasks => tasks.where((t) => t.state == TaskState.risk);
-
-  /// опережение
-  Duration get totalAheadPeriod => Duration(
-        seconds: openedSubtasks.map((t) => max(0, t.totalAheadPeriod.inSeconds)).fold(
-              aheadPeriod.inSeconds,
-              (s, res) => s + res,
-            ),
-      );
-  bool get isAhead => state == TaskState.ok && totalAheadPeriod >= _riskThreshold;
 
   /// цели (для дашборда проекта рекомендации)
   // TODO: нужно сделать универсальным. Речь про подзадачи первого уровня

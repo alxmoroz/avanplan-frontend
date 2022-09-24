@@ -14,7 +14,10 @@ abstract class RPersistable {
 }
 
 abstract class Emailable extends RPersistable {
-  Emailable({int? id, required this.email}) : super(id: id);
+  Emailable({
+    super.id,
+    required this.email,
+  });
 
   final String email;
 }

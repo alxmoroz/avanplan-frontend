@@ -5,7 +5,7 @@ import 'dart:math';
 import 'task.dart';
 import 'task_ext_level.dart';
 
-enum TaskState { overdue, risk, closable, noDueDate, noSubtasks, noProgress, ok, noInfo }
+enum TaskState { future, overdue, risk, ok, eta, closable, noDueDate, noSubtasks, noProgress, noInfo }
 
 extension TaskStats on Task {
   /// непосредственно сама задача
@@ -128,17 +128,19 @@ extension TaskStats on Task {
           ? TaskState.overdue
           : hasRisk || (!hasDueDate && riskySubtasks.isNotEmpty)
               ? TaskState.risk
-              : isClosable
-                  ? TaskState.closable
-                  : (!hasDueDate && (!isWorkspace && !isProject && hasSubtasks))
-                      ? TaskState.noDueDate
-                      : ((isGoal || isProject) && !hasSubtasks)
-                          ? TaskState.noSubtasks
-                          : (isGoal && _closedSubtasksCount == 0)
-                              ? TaskState.noProgress
-                              : isOk || ((isWorkspace || isProject) && _hasOkSubtasks)
-                                  ? TaskState.ok
-                                  : TaskState.noInfo)
+              : !hasDueDate && hasEtaDate
+                  ? TaskState.eta
+                  : isClosable
+                      ? TaskState.closable
+                      : (!hasDueDate && (!isWorkspace && !isProject && hasSubtasks))
+                          ? TaskState.noDueDate
+                          : ((isGoal || isProject) && !hasSubtasks)
+                              ? TaskState.noSubtasks
+                              : (isGoal && _closedSubtasksCount == 0)
+                                  ? TaskState.noProgress
+                                  : isOk || ((isWorkspace || isProject) && _hasOkSubtasks)
+                                      ? TaskState.ok
+                                      : TaskState.noInfo)
       : TaskState.noInfo;
 
   TaskState get subtasksState => !closed

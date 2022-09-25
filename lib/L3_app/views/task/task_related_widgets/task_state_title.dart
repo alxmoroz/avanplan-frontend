@@ -32,8 +32,8 @@ class TaskStateTitle extends StatelessWidget {
       (style == TaskStateTitleStyle.L
           ? 12
           : style == TaskStateTitleStyle.M
-              ? 3
-              : 1.7);
+              ? 2.2
+              : 1.5);
 
   // forSubtasks
   Widget _icon(BuildContext context) => forSubtasks ? task.subtasksStateIcon(context, size: _iconSize) : task.stateIcon(context, size: _iconSize);

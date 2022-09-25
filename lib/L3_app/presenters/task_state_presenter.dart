@@ -31,6 +31,7 @@ extension TaskStatePresenter on Task {
         icon = riskStateIcon(context, size: size, color: _color);
         break;
       case TaskState.closable:
+      case TaskState.eta:
       case TaskState.ok:
         icon = okStateIcon(context, size: size, color: _color);
         break;
@@ -66,6 +67,8 @@ extension TaskStatePresenter on Task {
   String get stateTitle {
     String res = loc.task_state_no_info_title;
     switch (state) {
+      case TaskState.future:
+        break;
       case TaskState.overdue:
         res = hasOverdue
             ? hasRisk
@@ -76,11 +79,15 @@ extension TaskStatePresenter on Task {
       case TaskState.risk:
         res = hasRisk ? _riskyTitle : _riskyDetails;
         break;
-      case TaskState.closable:
-        res = loc.task_state_closable_title;
-        break;
+
       case TaskState.ok:
         res = isAhead ? loc.task_state_ahead_title_count(_durationString(totalAheadPeriod)) : loc.task_state_ok_title;
+        break;
+      case TaskState.eta:
+        res = _etaDetails;
+        break;
+      case TaskState.closable:
+        res = loc.task_state_closable_title;
         break;
       case TaskState.noDueDate:
         res = loc.task_state_no_due_details;

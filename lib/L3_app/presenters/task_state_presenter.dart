@@ -111,7 +111,7 @@ extension TaskStatePresenter on Task {
             : '';
   }
 
-  bool get showState => !closed && !isWorkspace && (hasSubtasks || isGoal || state != TaskState.noInfo);
-  bool get showSubtasksState => !closed && subtasksState != TaskState.noInfo && subtasksStateTitle != stateTitle || isWorkspace;
+  bool get showState => !closed && (hasSubtasks || isGoal || state != TaskState.noInfo);
+  bool get showSubtasksState => !closed && subtasksState != TaskState.noInfo && subtasksStateTitle != stateTitle;
   bool get showTimeChart => !closed && hasDueDate;
 }

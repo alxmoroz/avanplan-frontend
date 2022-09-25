@@ -15,7 +15,9 @@ import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
+import '../../presenters/task_state_presenter.dart';
 import '../task/task_related_widgets/task_overview.dart';
+import '../task/task_related_widgets/task_state_title.dart';
 import '../task/task_view_controller.dart';
 import 'project_empty_list_actions_widget.dart';
 
@@ -27,8 +29,8 @@ class MainDashboardView extends StatefulWidget {
 }
 
 class _MainDashboardViewState extends State<MainDashboardView> {
-  Task get rootTask => mainController.rootTask;
   TaskViewController get taskController => TaskViewController(null);
+  Task get _task => taskController.task;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +54,7 @@ class _MainDashboardViewState extends State<MainDashboardView> {
           child: SafeArea(
             top: false,
             bottom: false,
-            child: !rootTask.hasOpenedSubtasks
+            child: !_task.hasOpenedSubtasks
                 ? ProjectEmptyListActionsWidget(taskController: taskController, parentContext: context)
                 : ListView(
                     shrinkWrap: true,
@@ -60,6 +62,7 @@ class _MainDashboardViewState extends State<MainDashboardView> {
                       SizedBox(height: onePadding),
 
                       /// статус и комментарий, статистика по статусу всех задач
+                      if (_task.showState) TaskStateTitle(_task, style: TaskStateTitleStyle.L),
                       TaskOverview(taskController),
 
                       SizedBox(height: onePadding),

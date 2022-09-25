@@ -18,8 +18,7 @@ class TaskOverview extends StatelessWidget {
   final TaskViewController controller;
 
   Task get _task => controller.task;
-  bool get _isWorkspace => _task.isWorkspace;
-  TaskStateTitleStyle get _taskStateTitleStyle => _isWorkspace ? TaskStateTitleStyle.L : TaskStateTitleStyle.M;
+  TaskStateTitleStyle get _taskStateTitleStyle => _task.isWorkspace ? TaskStateTitleStyle.L : TaskStateTitleStyle.M;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +35,8 @@ class TaskOverview extends StatelessWidget {
             ],
           ]),
         ),
-        if (_task.showSubtasksState) TaskOverviewWarnings(_task) else TaskOverviewAdvices(_task),
+        TaskOverviewWarnings(_task),
+        TaskOverviewAdvices(_task),
       ],
     );
   }

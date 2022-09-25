@@ -26,13 +26,21 @@ extension TaskStats on Task {
   Iterable<Task> get overdueSubtasks => openedSubtasks.where((t) => t.state == TaskState.overdue);
 
   /// прогноз
-  DateTime get _startDate => createdOn ?? DateTime.now();
+  DateTime get _oldestStartDate {
+    final startDates = allTasks.map((t) => t._startDate).toList();
+    startDates.add(_startDate);
+    if (startDates.length > 1) {
+      startDates.sort((d1, d2) => d1.compareTo(d2));
+    }
+    return startDates.first;
+  }
+
+  DateTime get _startDate => createdOn ?? _oldestStartDate;
   Duration get _pastPeriod => DateTime.now().difference(_startDate);
   double get _factSpeed => _closedLeafTasksCount / _pastPeriod.inSeconds;
-  DateTime? get etaDate =>
-      _factSpeed > 0 && openedLeafTasksCount > 0 ? DateTime.now().add(Duration(seconds: (openedLeafTasksCount / _factSpeed).round())) : null;
+  Duration? get etaPeriod => _factSpeed > 0 && openedLeafTasksCount > 0 ? Duration(seconds: (openedLeafTasksCount / _factSpeed).round()) : null;
+  DateTime? get etaDate => etaPeriod != null ? DateTime.now().add(etaPeriod!) : null;
   bool get hasEtaDate => etaDate != null;
-  Duration? get etaPeriod => hasEtaDate ? etaDate!.difference(DateTime.now()) : null;
 
   /// риск
   static const Duration _riskThreshold = Duration(days: 1);
@@ -97,24 +105,24 @@ extension TaskStats on Task {
   double get doneRatio => (hasDueDate && _leafTasksCount > 0) ? _closedLeafTasksCount / _leafTasksCount : 0;
 
   /// рекомендации TOI — task of interest
-  bool get _isTOI => !closed && (isGoal || hasSubtasks || (isProject && hasDueDate));
+  bool get _isTOI => !closed && (hasSubtasks && (isGoal || (isProject && hasDueDate)));
   Iterable<Task> get _toiTasks => tasks.where((t) => t._isTOI);
   // без срока
-  Iterable<Task> get _noDueToi => _toiTasks.where((t) => !t.hasDueDate);
+  Iterable<Task> get _noDueToi => _toiTasks.where((t) => t.state == TaskState.noDueDate);
   int get noDueToiCount => _noDueToi.length;
   bool get hasNoDueToi => noDueToiCount > 0;
   // без задач
-  Iterable<Task> get _emptyToi => _toiTasks.where((t) => !t.hasSubtasks);
+  Iterable<Task> get _emptyToi => _toiTasks.where((t) => t.state == TaskState.noSubtasks);
   int get emptyToiCount => _emptyToi.length;
   bool get hasEmptyToi => emptyToiCount > 0;
   // без прогресса
   int get _closedSubtasksCount => tasks.length - openedSubtasksCount;
-  Iterable<Task> get _inactiveToi => _toiTasks.where((t) => t.hasSubtasks && t._closedSubtasksCount == 0);
-  int get inactiveToiCount => _inactiveToi.length;
-  bool get hasInactiveToi => inactiveToiCount > 0;
+  Iterable<Task> get _noProgressToi => _toiTasks.where((t) => t.state == TaskState.noProgress);
+  int get noProgressToiCount => _noProgressToi.length;
+  bool get hasNoProgressToi => noProgressToiCount > 0;
   // можно закрыть
   bool get isClosable => !closed && hasSubtasks && !hasOpenedSubtasks;
-  Iterable<Task> get _closableToi => _toiTasks.where((t) => t.isClosable);
+  Iterable<Task> get _closableToi => _toiTasks.where((t) => t.state == TaskState.closable);
   int get closableToiCount => _closableToi.length;
   bool get hasClosableToi => closableToiCount > 0;
 
@@ -134,9 +142,9 @@ extension TaskStats on Task {
                       ? TaskState.closable
                       : (!hasDueDate && (!isWorkspace && !isProject && hasSubtasks))
                           ? TaskState.noDueDate
-                          : ((isGoal || isProject) && !hasSubtasks)
+                          : ((isProject || isGoal) && !hasSubtasks)
                               ? TaskState.noSubtasks
-                              : (isGoal && _closedSubtasksCount == 0)
+                              : _closedSubtasksCount == 0
                                   ? TaskState.noProgress
                                   : isOk || ((isWorkspace || isProject) && _hasOkSubtasks)
                                       ? TaskState.ok

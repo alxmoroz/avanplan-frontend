@@ -16,7 +16,7 @@ class TaskOverviewAdvices extends StatelessWidget {
 
   final Task task;
 
-  Widget categoryButton(BuildContext context, String title, int count) {
+  Widget _filteredToiButton(BuildContext context, String title, int count) {
     return MTCard(
       padding: EdgeInsets.all(onePadding),
       body: Row(
@@ -36,18 +36,10 @@ class TaskOverviewAdvices extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        if (task.hasNoDueToi) ...[
-          categoryButton(context, loc.task_state_no_due_details, task.noDueToiCount),
-        ],
-        if (task.hasEmptyToi) ...[
-          categoryButton(context, loc.task_count(0), task.emptyToiCount),
-        ],
-        if (task.hasInactiveToi) ...[
-          categoryButton(context, loc.task_state_no_progress_details, task.inactiveToiCount),
-        ],
-        if (task.hasClosableToi) ...[
-          categoryButton(context, loc.task_state_closable_title, task.closableToiCount),
-        ],
+        if (task.hasNoDueToi) _filteredToiButton(context, loc.task_state_no_due_details, task.noDueToiCount),
+        if (task.hasEmptyToi) _filteredToiButton(context, loc.task_count(0), task.emptyToiCount),
+        if (task.hasNoProgressToi) _filteredToiButton(context, loc.task_state_no_progress_details, task.noProgressToiCount),
+        if (task.hasClosableToi) _filteredToiButton(context, loc.task_state_closable_title, task.closableToiCount),
       ],
     );
   }

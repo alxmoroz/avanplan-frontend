@@ -5,13 +5,13 @@ import 'source.dart';
 
 class TaskSource extends RPersistable {
   TaskSource({
-    required int id,
+    required super.id,
     required this.code,
     required this.rootCode,
     required this.source,
     required this.keepConnection,
     required this.uri,
-  }) : super(id: id);
+  });
 
   final String code;
   final String rootCode;

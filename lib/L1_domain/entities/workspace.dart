@@ -8,13 +8,13 @@ import 'status.dart';
 
 class Workspace extends Titleable {
   Workspace({
-    required int id,
-    required String title,
+    required super.id,
+    required super.title,
     required this.statuses,
     required this.priorities,
     required this.persons,
     required this.sources,
-  }) : super(id: id, title: title);
+  });
 
   final List<Status> statuses;
   final List<Priority> priorities;

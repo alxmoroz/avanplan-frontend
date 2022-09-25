@@ -29,7 +29,6 @@ CupertinoNavigationBar taskNavBar(BuildContext context, TaskViewController contr
       ]);
 
   Widget itemWidget(TaskActionType at) {
-    // TODO(san-smith): можно чутка покороче
     switch (at) {
       case TaskActionType.add:
         return rowIconTitle(task.newSubtaskTitle, icon: plusIcon(context));
@@ -43,7 +42,8 @@ CupertinoNavigationBar taskNavBar(BuildContext context, TaskViewController contr
         return rowIconTitle(loc.task_unlink_action_title, color: warningColor);
       case TaskActionType.unwatch:
         return rowIconTitle(loc.task_unwatch_action_title, color: dangerColor);
-      default: return NormalText('$at');
+      default:
+        return NormalText('$at');
     }
   }
 

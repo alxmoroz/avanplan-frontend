@@ -52,8 +52,6 @@ class ImportRepo extends AbstractApiImportRepo {
 
   @override
   Future<bool> updateTaskSources(Iterable<TaskSource> tss) async {
-    // TODO(san-smith): вот, кстати, за это не люблю openapi: слишком легко пропустить поле в каскадной нотации.
-    // С конструктором и обязательными параметрами такое не проканает.
     final tSchema = tss.map((ts) => (o_api.TaskSourceUpsertBuilder()
           ..id = ts.id
           ..sourceId = ts.source.id

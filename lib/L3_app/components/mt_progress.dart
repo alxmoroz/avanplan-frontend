@@ -99,22 +99,3 @@ class MTProgress extends StatelessWidget {
     });
   }
 }
-
-// class SampleProgress extends MTProgress {
-//   SampleProgress({
-//     required double ratio,
-//     required String titleText,
-//     String? trailingText,
-//     Color? color,
-//     Color? bgColor,
-//   }) : super(
-//           color: color,
-//           bgColor: bgColor ?? navbarBgColor,
-//           value: ratio,
-//           padding: EdgeInsets.symmetric(vertical: onePadding / 3, horizontal: onePadding),
-//           child: Row(children: [
-//             Expanded(child: NormalText(titleText)),
-//             if (trailingText != null) H4(trailingText),
-//           ]),
-//         );
-// }

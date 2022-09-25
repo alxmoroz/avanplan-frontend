@@ -14,16 +14,13 @@ abstract class RPersistable {
 }
 
 abstract class Emailable extends RPersistable {
-  Emailable({
-    super.id,
-    required this.email,
-  });
+  Emailable({super.id, required this.email});
 
   final String email;
 }
 
 abstract class Titleable extends RPersistable {
-  Titleable({int? id, required this.title}) : super(id: id);
+  Titleable({super.id, required this.title});
 
   final String title;
 
@@ -33,20 +30,20 @@ abstract class Titleable extends RPersistable {
 
 abstract class Orderable extends Titleable {
   Orderable({
-    int? id,
-    required String title,
+    super.id,
+    required super.title,
     required this.order,
-  }) : super(id: id, title: title);
+  });
 
   final int order;
 }
 
 abstract class Statusable extends Titleable {
   Statusable({
-    int? id,
-    required String title,
+    super.id,
+    required super.title,
     required this.closed,
-  }) : super(id: id, title: title);
+  });
 
   bool closed;
 }

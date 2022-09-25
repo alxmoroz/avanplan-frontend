@@ -55,102 +55,79 @@ class _BaseText extends StatelessWidget {
 class SmallText extends _BaseText {
   const SmallText(
     String text, {
-    Color? color,
     int? maxLines,
-    TextAlign? align,
-    EdgeInsets? padding,
-    TextDecoration? decoration,
+    super.color,
+    super.align,
+    super.padding,
+    super.decoration,
   }) : super(
           text,
-          color: color,
           sizeScale: 0.85,
           maxLines: maxLines ?? 9,
-          align: align,
-          padding: padding,
-          decoration: decoration,
         );
 }
 
 class LightText extends _BaseText {
   const LightText(
     String text, {
-    Color? color,
     int? maxLines,
-    double? sizeScale,
-    TextAlign? align,
-    EdgeInsets? padding,
-    TextDecoration? decoration,
+    super.sizeScale,
+    super.color,
+    super.align,
+    super.padding,
+    super.decoration,
   }) : super(
           text,
-          color: color,
           weight: FontWeight.w300,
           maxLines: maxLines ?? 7,
-          sizeScale: sizeScale,
-          align: align,
-          padding: padding,
-          decoration: decoration,
         );
 }
 
 class NormalText extends _BaseText {
   const NormalText(
     String text, {
-    Color? color,
     int? maxLines,
-    double? sizeScale,
-    TextAlign? align,
-    EdgeInsets? padding,
-    TextDecoration? decoration,
+    super.sizeScale,
+    super.color,
+    super.align,
+    super.padding,
+    super.decoration,
   }) : super(
           text,
-          color: color,
           weight: FontWeight.w400,
           maxLines: maxLines ?? 7,
-          sizeScale: sizeScale,
-          align: align,
-          padding: padding,
-          decoration: decoration,
         );
 }
 
 class MediumText extends _BaseText {
   const MediumText(
     String text, {
-    Color? color,
     int? maxLines,
-    double? sizeScale,
-    TextAlign? align,
-    EdgeInsets? padding,
-    TextDecoration? decoration,
+    super.sizeScale,
+    super.color,
+    super.align,
+    super.padding,
+    super.decoration,
   }) : super(
           text,
-          color: color,
           weight: FontWeight.w500,
           maxLines: maxLines ?? 5,
-          sizeScale: sizeScale,
-          align: align,
-          padding: padding,
-          decoration: decoration,
         );
 }
 
 class H4 extends _BaseText {
   const H4(
     String text, {
-    Color? color,
     int? maxLines,
-    TextAlign? align,
-    EdgeInsets? padding,
-    TextDecoration? decoration,
+    super.color,
+    super.align,
+    super.padding,
+    super.decoration,
   }) : super(
           text,
-          color: color,
           weight: FontWeight.w400,
           sizeScale: 1.2,
           maxLines: maxLines ?? 3,
-          align: align,
-          padding: padding,
-          decoration: decoration,
         );
 }
 
@@ -159,18 +136,15 @@ class H3 extends _BaseText {
     String text, {
     Color? color,
     int? maxLines,
-    TextAlign? align,
-    EdgeInsets? padding,
-    TextDecoration? decoration,
+    super.align,
+    super.padding,
+    super.decoration,
   }) : super(
           text,
           color: color ?? darkGreyColor,
           weight: FontWeight.w400,
           sizeScale: 1.6,
           maxLines: maxLines ?? 3,
-          align: align,
-          padding: padding,
-          decoration: decoration,
         );
 }
 
@@ -179,37 +153,30 @@ class H2 extends _BaseText {
     String text, {
     Color? color,
     int? maxLines,
-    TextAlign? align,
-    EdgeInsets? padding,
-    TextDecoration? decoration,
+    super.align,
+    super.padding,
+    super.decoration,
   }) : super(
           text,
           color: color ?? darkGreyColor,
           weight: FontWeight.w300,
           sizeScale: 2.0,
           maxLines: maxLines ?? 3,
-          align: align,
-          padding: padding,
-          decoration: decoration,
         );
 }
 
 class H1 extends _BaseText {
   const H1(
     String text, {
-    Color? color,
     int? maxLines,
-    TextAlign? align,
-    EdgeInsets? padding,
-    TextDecoration? decoration,
+    super.color,
+    super.align,
+    super.padding,
+    super.decoration,
   }) : super(
           text,
-          color: color,
           weight: FontWeight.w200,
           sizeScale: 2.45,
           maxLines: maxLines ?? 2,
-          align: align,
-          padding: padding,
-          decoration: decoration,
         );
 }

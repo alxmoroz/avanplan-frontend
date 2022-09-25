@@ -50,14 +50,13 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
 
   @computed
   Iterable<TaskTabKey> get tabKeys {
-    // TODO(san-smith): коллекционный if тоже обычно лучше вызова .add()
-    if (task.isWorkspace) return [];
-
-    return [
-      if (_hasOverview) TaskTabKey.overview,
-      if (task.hasSubtasks) TaskTabKey.subtasks,
-      if (_hasDetails) TaskTabKey.details,
-    ];
+    return task.isWorkspace
+        ? []
+        : [
+            if (_hasOverview) TaskTabKey.overview,
+            if (task.hasSubtasks) TaskTabKey.subtasks,
+            if (_hasDetails) TaskTabKey.details,
+          ];
   }
 
   @observable

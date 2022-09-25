@@ -3,7 +3,7 @@
 import 'base_entity.dart';
 
 class SourceType extends Titleable {
-  SourceType({required int id, required String title}) : super(id: id, title: title);
+  SourceType({required super.id, required super.title});
 }
 
 enum SrcState {
@@ -14,7 +14,7 @@ enum SrcState {
 
 class Source extends RPersistable {
   Source({
-    int? id,
+    super.id,
     required this.workspaceId,
     required this.type,
     required this.url,
@@ -23,7 +23,7 @@ class Source extends RPersistable {
     this.password,
     this.description = '',
     this.state = SrcState.unknown,
-  }) : super(id: id);
+  });
 
   final int workspaceId;
   final SourceType type;

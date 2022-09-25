@@ -4,12 +4,12 @@ import 'base_entity.dart';
 
 class Person extends Emailable {
   Person({
-    required int id,
+    required super.id,
+    required super.email,
     required this.workspaceId,
-    required String email,
     this.firstname,
     this.lastname,
-  }) : super(id: id, email: email);
+  });
 
   final String? firstname;
   final String? lastname;

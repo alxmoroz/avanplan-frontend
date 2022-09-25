@@ -8,9 +8,9 @@ import 'task_source.dart';
 
 class Task extends Statusable {
   Task({
-    int? id,
-    required String title,
-    required bool closed,
+    super.id,
+    required super.title,
+    required super.closed,
     required this.parent,
     required this.tasks,
     this.description = '',
@@ -23,7 +23,7 @@ class Task extends Statusable {
     this.author,
     this.assignee,
     this.taskSource,
-  }) : super(id: id, title: title, closed: closed);
+  });
 
   List<Task> tasks;
   final String description;

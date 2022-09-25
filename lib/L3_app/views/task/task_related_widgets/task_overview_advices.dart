@@ -36,17 +36,17 @@ class TaskOverviewAdvices extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        if (task.hasNoDueGoals) ...[
-          categoryButton(context, loc.task_state_no_due_details, task.noDueGoalsCount),
+        if (task.hasNoDueToi) ...[
+          categoryButton(context, loc.task_state_no_due_details, task.noDueToiCount),
         ],
-        if (task.hasEmptyGoals) ...[
-          categoryButton(context, loc.task_count(0), task.emptyGoalsCount),
+        if (task.hasEmptyToi) ...[
+          categoryButton(context, loc.task_count(0), task.emptyToiCount),
         ],
-        if (task.hasInactiveGoals) ...[
-          categoryButton(context, loc.task_state_no_progress_details, task.inactiveGoalsCount),
+        if (task.hasInactiveToi) ...[
+          categoryButton(context, loc.task_state_no_progress_details, task.inactiveToiCount),
         ],
-        if (task.hasClosableGroups) ...[
-          categoryButton(context, loc.task_state_closable_title, task.closableGroupsCount),
+        if (task.hasClosableToi) ...[
+          categoryButton(context, loc.task_state_closable_title, task.closableToiCount),
         ],
       ],
     );

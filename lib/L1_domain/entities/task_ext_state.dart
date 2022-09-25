@@ -96,31 +96,27 @@ extension TaskStats on Task {
 
   double get doneRatio => (hasDueDate && _leafTasksCount > 0) ? _closedLeafTasksCount / _leafTasksCount : 0;
 
-  /// цели (для дашборда проекта рекомендации)
-  // TODO: нужно сделать универсальным. Речь про подзадачи первого уровня
-  Iterable<Task> get _goals => allTasks.where((t) => t.isGoal);
-
-  Iterable<Task> get _openedGoals => _goals.where((t) => !t.closed);
-  int get openedGoalsCount => _openedGoals.length;
-
-  Iterable<Task> get _noDueGoals => _openedGoals.where((t) => !t.hasDueDate);
-  int get noDueGoalsCount => _noDueGoals.length;
-  bool get hasNoDueGoals => noDueGoalsCount > 0;
-
-  Iterable<Task> get _emptyGoals => _openedGoals.where((t) => !t.hasSubtasks);
-  int get emptyGoalsCount => _emptyGoals.length;
-  bool get hasEmptyGoals => emptyGoalsCount > 0;
-
+  /// рекомендации TOI — task of interest
+  bool get _isTOI => !closed && (isGoal || hasSubtasks || (isProject && hasDueDate));
+  Iterable<Task> get _toiTasks => tasks.where((t) => t._isTOI);
+  // без срока
+  Iterable<Task> get _noDueToi => _toiTasks.where((t) => !t.hasDueDate);
+  int get noDueToiCount => _noDueToi.length;
+  bool get hasNoDueToi => noDueToiCount > 0;
+  // без задач
+  Iterable<Task> get _emptyToi => _toiTasks.where((t) => !t.hasSubtasks);
+  int get emptyToiCount => _emptyToi.length;
+  bool get hasEmptyToi => emptyToiCount > 0;
+  // без прогресса
   int get _closedSubtasksCount => tasks.length - openedSubtasksCount;
-  Iterable<Task> get _inactiveGoals => _openedGoals.where((t) => t.hasSubtasks && t._closedSubtasksCount == 0);
-  int get inactiveGoalsCount => _inactiveGoals.length;
-  bool get hasInactiveGoals => inactiveGoalsCount > 0;
-
-  /// можно закрыть
+  Iterable<Task> get _inactiveToi => _toiTasks.where((t) => t.hasSubtasks && t._closedSubtasksCount == 0);
+  int get inactiveToiCount => _inactiveToi.length;
+  bool get hasInactiveToi => inactiveToiCount > 0;
+  // можно закрыть
   bool get isClosable => !closed && hasSubtasks && !hasOpenedSubtasks;
-  Iterable<Task> get _closableGroups => allTasks.where((t) => t.isClosable);
-  int get closableGroupsCount => _closableGroups.length;
-  bool get hasClosableGroups => closableGroupsCount > 0;
+  Iterable<Task> get _closableToi => _toiTasks.where((t) => t.isClosable);
+  int get closableToiCount => _closableToi.length;
+  bool get hasClosableToi => closableToiCount > 0;
 
   /// подзадачи в порядке
   bool get _hasOkSubtasks => openedSubtasks.isNotEmpty && openedSubtasks.every((t) => t.state == TaskState.ok);

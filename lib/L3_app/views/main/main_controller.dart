@@ -23,15 +23,7 @@ abstract class _MainControllerBase extends BaseController with Store {
 
   /// рутовый объект
   @observable
-  Task rootTask = Task(
-    title: '',
-    parent: null,
-    tasks: [],
-    description: '',
-    closed: false,
-    createdOn: DateTime.now(),
-    updatedOn: DateTime.now(),
-  );
+  Task rootTask = Task(title: '', closed: false, parent: null, tasks: []);
 
   /// конкретная задача
   Task taskForId(int? id) => rootTask.allTasks.firstWhereOrNull((t) => t.id == id) ?? rootTask;
@@ -90,7 +82,7 @@ abstract class _MainControllerBase extends BaseController with Store {
   Future updateAll() async {
     startLoading();
     await fetchData();
-    // TODO: Подумать над фоновым обновлением или обновлением на бэке по расписанию. Иначе каждый запуск прилоежния — это будет вот это вст всё.
+    // TODO: Подумать над фоновым обновлением или обновлением на бэке по расписанию. Иначе каждый запуск приложения — это будет вот это вот всё.
     // TODO: Можно эту логику на бэк отправить вообще вместе с настройкой частоты обновления для трекера. Чтобы вообще не запускать процесс импорта из клиента.
     if (await importController.updateLinkedTasks()) {
       await fetchData();

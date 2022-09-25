@@ -26,16 +26,7 @@ extension TaskStats on Task {
   Iterable<Task> get overdueSubtasks => openedSubtasks.where((t) => t.state == TaskState.overdue);
 
   /// прогноз
-  DateTime get _oldestStartDate {
-    final startDates = allTasks.map((t) => t._startDate).toList();
-    startDates.add(_startDate);
-    if (startDates.length > 1) {
-      startDates.sort((d1, d2) => d1.compareTo(d2));
-    }
-    return startDates.first;
-  }
-
-  DateTime get _startDate => createdOn ?? _oldestStartDate;
+  DateTime get _startDate => createdOn ?? tasks.map((t) => t._startDate).fold(DateTime.now(), (d1, d2) => d1.isAfter(d2) ? d2 : d1);
   Duration get _pastPeriod => DateTime.now().difference(_startDate);
   double get _factSpeed => _closedLeafTasksCount / _pastPeriod.inSeconds;
   Duration? get etaPeriod => _factSpeed > 0 && openedLeafTasksCount > 0 ? Duration(seconds: (openedLeafTasksCount / _factSpeed).round()) : null;

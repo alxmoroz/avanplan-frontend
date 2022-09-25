@@ -29,28 +29,22 @@ CupertinoNavigationBar taskNavBar(BuildContext context, TaskViewController contr
       ]);
 
   Widget itemWidget(TaskActionType at) {
-    Widget res = NormalText('$at');
+    // TODO(san-smith): можно чутка покороче
     switch (at) {
       case TaskActionType.add:
-        res = rowIconTitle(task.newSubtaskTitle, icon: plusIcon(context));
-        break;
+        return rowIconTitle(task.newSubtaskTitle, icon: plusIcon(context));
       case TaskActionType.edit:
-        res = rowIconTitle(loc.task_edit_action_title, icon: editIcon(context));
-        break;
+        return rowIconTitle(loc.task_edit_action_title, icon: editIcon(context));
       case TaskActionType.import:
-        res = rowIconTitle(loc.task_import_action_title, icon: importIcon(context));
-        break;
+        return rowIconTitle(loc.task_import_action_title, icon: importIcon(context));
       case TaskActionType.go2source:
-        res = task.taskSource!.go2SourceTitle(context);
-        break;
+        return task.taskSource!.go2SourceTitle(context);
       case TaskActionType.unlink:
-        res = rowIconTitle(loc.task_unlink_action_title, color: warningColor);
-        break;
+        return rowIconTitle(loc.task_unlink_action_title, color: warningColor);
       case TaskActionType.unwatch:
-        res = rowIconTitle(loc.task_unwatch_action_title, color: dangerColor);
-        break;
+        return rowIconTitle(loc.task_unwatch_action_title, color: dangerColor);
+      default: return NormalText('$at');
     }
-    return res;
   }
 
   return navBar(

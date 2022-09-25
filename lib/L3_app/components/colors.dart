@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 // TODO: разобраться с серым цветом. По факту используется в коде не учитывая названия
 
+// TODO(san-smith): если в дальнейшем планируется сделать тёмную тему, то лучше бы сразу делать через Theme.
 const Color darkColor = CupertinoDynamicColor.withBrightness(
   color: Color(0xFF424242),
   darkColor: Color(0xFFCCCCCC),

@@ -95,6 +95,15 @@ class MTConfirmDialog extends StatelessWidget {
         children: [
           if (description.isNotEmpty) NormalText(description),
           if (!simple)
+          // TODO(san-smith): Есть мнение, что оператор распаковки плохо влияет на производительность из-за ленивости.
+          // То же самое можно сделать через коллекционный for:
+          // for (final a in actions) 
+          //   MTButton(
+          //     '',
+          //     () => action(a),
+          //     child: _actionRow(a),
+          //     padding: EdgeInsets.only(top: onePadding * 2),
+          //   ),
             ...actions
                 .map((a) => MTButton(
                       '',

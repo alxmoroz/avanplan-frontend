@@ -135,7 +135,7 @@ extension TaskStats on Task {
                           ? TaskState.noDueDate
                           : ((isProject || isGoal) && !hasSubtasks)
                               ? TaskState.noSubtasks
-                              : _closedSubtasksCount == 0
+                              : hasSubtasks && _closedSubtasksCount == 0
                                   ? TaskState.noProgress
                                   : isOk || ((isWorkspace || isProject) && _hasOkSubtasks)
                                       ? TaskState.ok

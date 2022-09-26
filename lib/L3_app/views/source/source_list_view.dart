@@ -6,7 +6,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_button.dart';
-import '../../components/mt_divider.dart';
+import '../../components/mt_list_tile.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../extra/services.dart';
@@ -25,19 +25,10 @@ class _SourceListViewState extends State<SourceListView> {
 
   Widget sourceBuilder(BuildContext _, int index) {
     final s = _controller.sources[index];
-    return Column(
-      children: [
-        if (index > 0) const MTDivider(),
-        MTButton(
-          '',
-          () => _controller.editSource(context, src: s),
-          padding: EdgeInsets.symmetric(horizontal: onePadding, vertical: onePadding / 2),
-          child: Row(children: [
-            Expanded(child: s.info(context)),
-            editIcon(context),
-          ]),
-        ),
-      ],
+    return MTListTile(
+      middle: s.info(context),
+      trailing: editIcon(context),
+      onTap: () => _controller.editSource(context, src: s),
     );
   }
 

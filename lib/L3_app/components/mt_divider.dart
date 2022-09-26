@@ -15,7 +15,7 @@ class MTDivider extends StatelessWidget {
   Widget build(BuildContext context) {
     return Divider(
       color: (color ?? darkGreyColor).resolve(context),
-      thickness: 0.15,
+      thickness: 0.2,
       height: height ?? onePadding,
     );
   }

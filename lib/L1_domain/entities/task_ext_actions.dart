@@ -23,8 +23,8 @@ extension TaskActionsExt on Task {
   bool get canReopen => canEdit && (isClosable || closed);
 
   bool get shouldAddSubtask =>
-      !hasSubtasks &&
       canAdd &&
+      !hasSubtasks &&
       [
         TaskLevel.project,
         TaskLevel.goal,

@@ -133,6 +133,12 @@ Widget noInfoStateIcon(BuildContext context, {Color? color, double? size}) => Ic
       size: size,
     );
 
+Widget expandIcon(BuildContext context, {Color? color, double? size}) => Icon(
+      CupertinoIcons.arrow_up_down,
+      color: (color ?? mainColor).resolve(context),
+      size: size,
+    );
+
 class TriangleShape extends CustomPainter {
   TriangleShape({required this.color})
       : painter = Paint()

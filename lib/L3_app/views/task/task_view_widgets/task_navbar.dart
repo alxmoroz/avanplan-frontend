@@ -9,7 +9,6 @@ import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/material_wrapper.dart';
-import '../../../components/mt_button.dart';
 import '../../../components/navbar.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
@@ -49,12 +48,12 @@ CupertinoNavigationBar taskNavBar(BuildContext context, TaskViewController contr
 
   return navBar(
     context,
-    leading: task.canRefresh
-        ? Row(children: [
-            SizedBox(width: onePadding),
-            MTButton.icon(refreshIcon(context), mainController.updateAll),
-          ])
-        : null,
+    // leading: task.canRefresh
+    //     ? Row(children: [
+    //         SizedBox(width: onePadding),
+    //         MTButton.icon(refreshIcon(context), mainController.updateAll),
+    //       ])
+    //     : null,
     title: task.isWorkspace ? loc.project_list_title : task.viewTitle,
     trailing: task.actionTypes.isNotEmpty
         ? material(

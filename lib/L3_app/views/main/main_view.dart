@@ -2,51 +2,16 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../components/colors.dart';
-import '../../components/icons.dart';
 import '../../components/splash.dart';
 import '../../extra/services.dart';
-import '../account/account_view.dart';
-import '../settings/settings_view.dart';
-import '../source/source_list_view.dart';
-import '../task/task_view.dart';
 import 'main_dashboard_view.dart';
 
 class MainView extends StatefulWidget {
-  static String get routeName => 'main';
-
   @override
   _MainViewState createState() => _MainViewState();
 }
 
 class _MainViewState extends State<MainView> {
-  List<Widget> get tabViews => [MainDashboardView(), TaskView(null), SettingsView()];
-
-  Widget buildTabScaffold() => CupertinoTabScaffold(
-        tabBar: CupertinoTabBar(
-          inactiveColor: inactiveColor,
-          backgroundColor: navbarBgColor,
-          items: [
-            BottomNavigationBarItem(icon: homeIcon()),
-            BottomNavigationBarItem(icon: tasksIcon()),
-            BottomNavigationBarItem(icon: menuIcon()),
-          ],
-        ),
-        tabBuilder: (_, index) => CupertinoTabView(
-          builder: (context) => tabViews[index],
-          onGenerateRoute: (RouteSettings rs) {
-            if (rs.name == TaskView.routeName) {
-              return CupertinoPageRoute<dynamic>(builder: (_) => TaskView(rs.arguments as int?));
-            } else if (rs.name == SourceListView.routeName) {
-              return CupertinoPageRoute<dynamic>(builder: (_) => SourceListView());
-            } else if (rs.name == AccountView.routeName) {
-              return CupertinoPageRoute<dynamic>(builder: (_) => AccountView());
-            }
-            return null;
-          },
-        ),
-      );
-
   @override
   void dispose() {
     mainController.clearData();
@@ -59,7 +24,7 @@ class _MainViewState extends State<MainView> {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: _fetchData,
-      builder: (_, snapshot) => snapshot.connectionState == ConnectionState.done ? buildTabScaffold() : const SplashScreen(),
+      builder: (_, snapshot) => snapshot.connectionState == ConnectionState.done ? MainDashboardView() : const SplashScreen(),
     );
   }
 }

@@ -16,21 +16,21 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_state_presenter.dart';
+import '../account/user_icon.dart';
+import '../settings/settings_view.dart';
 import '../task/task_related_widgets/task_overview.dart';
 import '../task/task_related_widgets/task_state_title.dart';
+import '../task/task_view.dart';
 import '../task/task_view_controller.dart';
 import 'project_empty_list_actions_widget.dart';
 
-class MainDashboardView extends StatefulWidget {
-  static String get routeName => 'main_dashboard';
+class MainDashboardView extends StatelessWidget {
+  TaskViewController get _taskController => TaskViewController(null);
+  Task get _task => _taskController.task;
 
-  @override
-  _MainDashboardViewState createState() => _MainDashboardViewState();
-}
-
-class _MainDashboardViewState extends State<MainDashboardView> {
-  TaskViewController get taskController => TaskViewController(null);
-  Task get _task => taskController.task;
+  Future _gotoSettings(BuildContext context) async => await Navigator.of(context).pushNamed(SettingsView.routeName);
+  Future _gotoProjects(BuildContext context) async => await Navigator.of(context).pushNamed(TaskView.routeName);
+  Future _addProject(BuildContext context) async => await _taskController.addSubtask(context);
 
   @override
   Widget build(BuildContext context) {
@@ -39,35 +39,67 @@ class _MainDashboardViewState extends State<MainDashboardView> {
         isLoading: mainController.isLoading,
         navBar: navBar(
           context,
-          leading: const SizedBox(width: 0),
-          middle: Row(children: [
-            SizedBox(width: onePadding),
-            MTButton.icon(refreshIcon(context, size: 30), mainController.updateAll),
-            Expanded(child: H2(loc.appTitle, align: TextAlign.center)),
-            SizedBox(width: 30 + onePadding),
-          ]),
+          leading: MTButton(
+            '',
+            () => _gotoSettings(context),
+            child: UserIcon(accountController.user!, radius: 20, borderSide: const BorderSide(color: mainColor)),
+            padding: EdgeInsets.only(left: onePadding),
+          ),
+          middle: H2(loc.appTitle),
+          trailing: MTButton.icon(refreshIcon(context, size: 32), mainController.updateAll, padding: EdgeInsets.only(right: onePadding)),
           bgColor: transparentAppbarBgColor,
           border: const Border(),
         ),
-        body: Container(
-          alignment: Alignment.center,
-          child: SafeArea(
-            top: false,
-            bottom: false,
-            child: !_task.hasOpenedSubtasks
-                ? ProjectEmptyListActionsWidget(taskController: taskController, parentContext: context)
-                : ListView(
-                    shrinkWrap: true,
-                    children: [
-                      SizedBox(height: onePadding),
-
-                      /// статус и комментарий, статистика по статусу всех задач
-                      if (_task.showState) TaskStateTitle(_task, style: TaskStateTitleStyle.L),
-                      TaskOverview(taskController),
-
-                      SizedBox(height: onePadding),
-                    ],
-                  ),
+        body: SafeArea(
+          top: false,
+          child: Column(
+            children: [
+              const Spacer(),
+              !_task.hasOpenedSubtasks
+                  ? ProjectEmptyListActionsWidget(taskController: _taskController, parentContext: context)
+                  : ListView(
+                      shrinkWrap: true,
+                      children: [
+                        if (_task.showState) TaskStateTitle(_task, style: TaskStateTitleStyle.L),
+                        TaskOverview(_taskController),
+                      ],
+                    ),
+              const Spacer(),
+              if (_task.hasOpenedSubtasks)
+                Row(
+                  children: [
+                    Expanded(
+                      child: MTButton(
+                        '',
+                        () => _gotoProjects(context),
+                        padding: EdgeInsets.symmetric(horizontal: onePadding),
+                        child: Container(
+                          padding: EdgeInsets.all(onePadding / 2),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(onePadding * 2),
+                            border: Border.all(color: mainColor.resolve(context), width: 2.5),
+                          ),
+                          child: Row(
+                            children: [
+                              const Spacer(),
+                              expandIcon(context, size: onePadding * 2.5),
+                              SizedBox(width: onePadding / 2),
+                              H4(loc.project_list_title, color: mainColor),
+                              const Spacer(),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    MTButton.icon(
+                      plusIcon(context, size: onePadding * 4.5),
+                      () => _addProject(context),
+                      padding: EdgeInsets.only(right: onePadding),
+                    ),
+                  ],
+                ),
+              SizedBox(height: onePadding / 2),
+            ],
           ),
         ),
       ),

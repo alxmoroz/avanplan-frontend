@@ -76,7 +76,7 @@ class MTRichButton extends StatelessWidget {
   final Color? bgColor;
   final bool expanded;
 
-  Widget get child => middle ?? MediumText(titleString!, color: darkGreyColor);
+  Widget get child => middle ?? MediumText(titleString!, color: darkGreyColor, align: TextAlign.center);
 
   @override
   Widget build(BuildContext context) {

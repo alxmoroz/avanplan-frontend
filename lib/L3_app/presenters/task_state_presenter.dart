@@ -8,6 +8,7 @@ import '../../L1_domain/entities/task_ext_state.dart';
 import '../components/colors.dart';
 import '../components/icons.dart';
 import '../extra/services.dart';
+import '../presenters/duration_presenter.dart';
 import '../presenters/task_level_presenter.dart';
 
 const _colors = {
@@ -55,7 +56,7 @@ extension TaskStatePresenter on Task {
     return icon;
   }
 
-  String _durationString(Duration? d) => d != null ? (d.inDays < 1 ? loc.hours_count(d.inHours) : loc.days_count(d.inDays)) : '';
+  String _durationString(Duration? d) => d != null ? d.localizedString : '';
   String _subjects(int count) => count > 0 ? ' ${loc.for_dative} ${dativeSubtasksCount(count)}' : '';
 
   String get _overdueTitle => '${loc.task_state_overdue_details_prefix} ${_durationString(overduePeriod)}';

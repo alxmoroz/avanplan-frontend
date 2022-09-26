@@ -29,6 +29,7 @@
   "goal_title": "Goal",
 
   "hours_count": "{count, plural, one{{count} hour} other{{count} hours}}",
+  "months_count": "{count, plural, one{{count} month} other{{count} months}}",
 
   "no": "No",
 
@@ -125,5 +126,6 @@
   "workspace_delete_dialog_title": "Delete workspace?",
   "workspace_title": "Workspace",
 
+  "years_count": "{count, plural, one{{count} year} other{{count} years}}",
   "yes": "Yes"
 }

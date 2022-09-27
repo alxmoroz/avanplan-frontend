@@ -44,8 +44,8 @@ class MainDashboardView extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    expandIcon(context, size: onePadding * 2.2),
-                    SizedBox(width: onePadding / 2),
+                    // expandIcon(context, size: onePadding * 2.2),
+                    // SizedBox(width: onePadding / 2),
                     H4(loc.project_list_title, color: mainColor),
                   ],
                 ),

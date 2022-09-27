@@ -27,6 +27,7 @@ class MTPage extends StatelessWidget {
         navigationBar: navBar,
         child: Scaffold(
           body: body,
+          resizeToAvoidBottomInset: false,
           backgroundColor: backgroundColor.resolve(context),
           extendBody: bottomBar != null,
           extendBodyBehindAppBar: bottomBar != null,

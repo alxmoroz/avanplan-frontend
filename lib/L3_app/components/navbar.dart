@@ -30,7 +30,8 @@ CupertinoNavigationBar navBar(
             : null,
     trailing: trailing != null ? mQuery(trailing, context) : null,
     padding: const EdgeInsetsDirectional.only(start: 0),
-    backgroundColor: bgColor ?? navbarBgColor,
-    border: border ?? const Border(bottom: BorderSide(color: Color(0x4D000000), width: 0)),
+    backgroundColor: bgColor ?? navbarDefaultBgColor,
+    // border: border ?? const Border(bottom: BorderSide(color: Color(0x4D000000), width: 0)),
+    border: border,
   );
 }

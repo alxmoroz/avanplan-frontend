@@ -150,7 +150,11 @@ class _TaskEditViewState extends State<TaskEditView> {
             padding: EdgeInsets.only(right: onePadding),
           ),
         ),
-        body: form(context),
+        body: SafeArea(
+          top: false,
+          bottom: false,
+          child: form(context),
+        ),
       ),
     );
   }

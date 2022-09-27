@@ -133,8 +133,8 @@ Widget noInfoStateIcon(BuildContext context, {Color? color, double? size}) => Ic
       size: size,
     );
 
-Widget expandIcon(BuildContext context, {Color? color, double? size}) => Icon(
-      CupertinoIcons.arrow_up_down,
+Widget expandIcon(BuildContext context, {Color? color, double? size}) => FaIcon(
+      FontAwesomeIcons.arrowUpShortWide,
       color: (color ?? mainColor).resolve(context),
       size: size,
     );

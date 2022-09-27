@@ -75,33 +75,31 @@ class TaskView extends StatelessWidget {
       builder: (_) => MTPage(
         isLoading: _controller.isLoading,
         navBar: taskNavBar(context, _controller),
-        body: Container(
-          alignment: Alignment.center,
-          child: SafeArea(
-            top: !_task.isWorkspace,
-            bottom: true,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                if (!_task.isWorkspace) TaskHeader(controller: _controller, parentContext: context) else SizedBox(height: onePadding / 2),
-                if (_controller.tabKeys.length > 1) ...[
-                  SizedBox(height: onePadding / 2),
-                  _tabPaneSelector(),
-                ],
-                Expanded(child: _selectedPane(context)),
-                if (_task.shouldAddSubtask) TaskAddActionWidget(_controller, parentContext: context),
-                if (_task.canReopen)
-                  MTRichButton(
+        body: SafeArea(
+          top: !_task.isWorkspace,
+          bottom: false,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              if (!_task.isWorkspace) TaskHeader(controller: _controller, parentContext: context) else SizedBox(height: onePadding / 2),
+              if (_controller.tabKeys.length > 1) ...[
+                SizedBox(height: onePadding / 2),
+                _tabPaneSelector(),
+              ],
+              Expanded(child: _selectedPane(context)),
+            ],
+          ),
+        ),
+        bottomBar: _task.shouldAddSubtask
+            ? TaskAddActionWidget(_controller, parentContext: context)
+            : _task.canReopen
+                ? MTRichButton(
                     hint: _task.isClosable ? loc.task_state_closable_hint : '',
                     titleString: _task.isClosable ? loc.task_state_close_btn_title : loc.task_state_reopen_btn_title,
                     prefix: _task.isClosable ? doneIcon(context, true) : null,
                     onTap: () => _controller.setClosed(context, !_task.closed),
-                  ),
-                SizedBox(height: onePadding / 2),
-              ],
-            ),
-          ),
-        ),
+                  )
+                : null,
       ),
     );
   }

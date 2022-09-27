@@ -102,10 +102,12 @@ Color get inactiveColor => const CupertinoDynamicColor.withBrightness(
       darkColor: Color(0xFF999999),
     );
 
-Color get navbarBgColor => const CupertinoDynamicColor.withBrightness(
+Color get navbarGreyBgColor => const CupertinoDynamicColor.withBrightness(
       color: Color.fromARGB(150, 209, 209, 214),
       darkColor: Color.fromARGB(150, 58, 58, 60),
     );
+
+Color get navbarDefaultBgColor => transparentAppbarBgColor;
 
 extension ResolvedColor on Color {
   Color resolve(BuildContext context) => CupertinoDynamicColor.resolve(this, context);

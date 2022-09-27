@@ -23,7 +23,7 @@ class TaskListView extends StatelessWidget {
     return Observer(
       builder: (_) => Column(
         children: [
-          SizedBox(height: controller.hasFilters ? 0 : onePadding),
+          SizedBox(height: controller.hasFilters ? 0 : onePadding / 2),
           if (controller.hasFilters) ...[
             TaskFilterDropdown(controller),
           ],
@@ -33,7 +33,6 @@ class TaskListView extends StatelessWidget {
               itemCount: controller.filteredTasks.length,
             ),
           ),
-          SizedBox(height: onePadding),
         ],
       ),
     );

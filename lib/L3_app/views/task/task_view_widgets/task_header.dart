@@ -11,8 +11,6 @@ import '../../../components/mt_button.dart';
 import '../../../components/mt_divider.dart';
 import '../../../components/text_widgets.dart';
 import '../../../presenters/task_source_presenter.dart';
-import '../../../presenters/task_state_presenter.dart';
-import '../task_related_widgets/task_state_title.dart';
 import '../task_view_controller.dart';
 
 class TaskHeader extends StatelessWidget {
@@ -51,7 +49,6 @@ class TaskHeader extends StatelessWidget {
           const MTDivider(),
         ],
         H2(_task.title, decoration: _task.closed ? TextDecoration.lineThrough : null),
-        if (_task.showState) TaskStateTitle(_task, style: TaskStateTitleStyle.M),
         if (_hasStatus || _hasAssignee) ...[
           SizedBox(height: onePadding / 3),
           Row(

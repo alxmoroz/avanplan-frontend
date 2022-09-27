@@ -84,8 +84,9 @@ class MTRichButton extends StatelessWidget {
       onTap: onTap,
       elevation: elevation,
       padding: padding ?? EdgeInsets.all(onePadding),
-      bgColor: bgColor,
-      body: Column(
+      color: bgColor,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           if (hint.isNotEmpty) ...[
             MediumText(hint, align: TextAlign.center, color: hintColor ?? lightGreyColor),

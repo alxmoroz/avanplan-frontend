@@ -127,18 +127,18 @@ extension TaskStats on Task {
           ? TaskState.overdue
           : hasRisk || (!hasDueDate && riskySubtasks.isNotEmpty)
               ? TaskState.risk
-              : !hasDueDate && hasEtaDate
-                  ? TaskState.eta
-                  : isClosable
-                      ? TaskState.closable
-                      : (!hasDueDate && (!isWorkspace && !isProject && hasSubtasks))
-                          ? TaskState.noDueDate
-                          : ((isProject || isGoal) && !hasSubtasks)
-                              ? TaskState.noSubtasks
-                              : hasSubtasks && _closedSubtasksCount == 0
-                                  ? TaskState.noProgress
-                                  : isOk || ((isWorkspace || isProject) && _hasOkSubtasks)
-                                      ? TaskState.ok
+              : isOk || ((isWorkspace || isProject) && _hasOkSubtasks)
+                  ? TaskState.ok
+                  : !hasDueDate && hasEtaDate
+                      ? TaskState.eta
+                      : isClosable
+                          ? TaskState.closable
+                          : (!hasDueDate && (!isWorkspace && !isProject && hasSubtasks))
+                              ? TaskState.noDueDate
+                              : ((isProject || isGoal) && !hasSubtasks)
+                                  ? TaskState.noSubtasks
+                                  : hasSubtasks && _closedSubtasksCount == 0
+                                      ? TaskState.noProgress
                                       : TaskState.noInfo)
       : TaskState.noInfo;
 

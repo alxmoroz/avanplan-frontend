@@ -76,7 +76,7 @@ class TaskView extends StatelessWidget {
         isLoading: _controller.isLoading,
         navBar: taskNavBar(context, _controller),
         body: SafeArea(
-          top: !_task.isWorkspace,
+          top: !_task.isWorkspace || _controller.hasFilters,
           bottom: false,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,

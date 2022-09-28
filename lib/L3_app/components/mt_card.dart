@@ -23,9 +23,8 @@ class MTCard extends StatelessWidget {
     final borderRadius = radius ?? defaultBorderRadius;
     final _color = (color ?? darkBackgroundColor).resolve(context);
     return MTButton(
-      '',
-      onTap,
-      child: Card(
+      onTap: onTap,
+      middle: Card(
         margin: margin ?? EdgeInsets.symmetric(horizontal: onePadding, vertical: onePadding / 2),
         elevation: elevation ?? 2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius)),

@@ -5,13 +5,13 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 
 import '../../../L1_domain/entities/source.dart';
-import '../../components/close_dialog_button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_bottom_sheet.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_checkbox.dart';
+import '../../components/mt_close_button.dart';
 import '../../components/mt_divider.dart';
 import '../../components/mt_dropdown.dart';
 import '../../components/mt_page.dart';
@@ -65,10 +65,10 @@ class _ImportViewState extends State<ImportView> {
 
   Widget get sourceDropdown => sourceController.sources.isEmpty
       ? Expanded(
-          child: MTRichButton(
-            hint: loc.source_list_empty_title,
+          child: MTRoundedButton(
+            topHint: MediumText(loc.source_list_empty_title, align: TextAlign.center, color: lightGreyColor),
             titleString: loc.source_title_new,
-            prefix: plusIcon(context),
+            leading: plusIcon(context),
             onTap: () => _controller.needAddSourceEvent(context),
           ),
         )
@@ -98,8 +98,8 @@ class _ImportViewState extends State<ImportView> {
           const MTDivider(),
           SizedBox(height: onePadding),
           MTButton(
-            loc.task_import_btn_title,
-            validated ? () => _controller.startImport(context) : null,
+            titleString: loc.task_import_btn_title,
+            onTap: validated ? () => _controller.startImport(context) : null,
             titleColor: validated ? null : lightGreyColor,
           ),
           SizedBox(height: onePadding),
@@ -120,10 +120,10 @@ class _ImportViewState extends State<ImportView> {
         isLoading: _controller.isLoading,
         navBar: navBar(
           context,
-          leading: CloseDialogButton(),
+          leading: MTCloseButton(),
           title: loc.task_import_title,
           trailing: sourceController.sources.isNotEmpty
-              ? MTButton.icon(plusIcon(context), () => _controller.needAddSourceEvent(context), padding: EdgeInsets.only(right: onePadding))
+              ? MTButtonIcon(plusIcon(context), () => _controller.needAddSourceEvent(context), padding: EdgeInsets.only(right: onePadding))
               : null,
         ),
         body: SafeArea(child: form()),

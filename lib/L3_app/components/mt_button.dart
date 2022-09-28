@@ -1,24 +1,22 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import 'colors.dart';
 import 'constants.dart';
-import 'mt_card.dart';
+import 'material_wrapper.dart';
+import 'mt_rounded_container.dart';
 import 'text_widgets.dart';
 
+//TODO: решить вопрос в UIKit по кнопкам. После чего добавить сюда все варианты кнопок
+
 class MTButton extends StatelessWidget {
-  const MTButton(this.title, this.onPressed, {this.child, this.color, this.titleColor, this.padding, this.icon});
+  const MTButton({this.titleString, this.onTap, this.middle, this.color, this.titleColor, this.padding});
 
-  const MTButton.icon(this.icon, this.onPressed, {this.color, this.padding})
-      : title = null,
-        child = icon,
-        titleColor = null;
-
-  final String? title;
-  final VoidCallback? onPressed;
-  final Widget? child;
-  final Widget? icon;
+  final String? titleString;
+  final VoidCallback? onTap;
+  final Widget? middle;
   final Color? color;
   final Color? titleColor;
   final EdgeInsets? padding;
@@ -28,80 +26,88 @@ class MTButton extends StatelessWidget {
     return CupertinoButton(
       minSize: 0,
       padding: padding ?? EdgeInsets.zero,
-      onPressed: onPressed,
+      onPressed: onTap,
       color: color,
       disabledColor: darkBackgroundColor,
-      child: child ?? MediumText(title ?? '', color: titleColor ?? mainColor),
+      child: middle ?? MediumText(titleString ?? '', color: titleColor ?? mainColor),
     );
   }
 }
 
-class MTRichButton extends StatelessWidget {
-  const MTRichButton({
-    this.hint = '',
+class MTRoundedButton extends StatelessWidget {
+  const MTRoundedButton({
+    required this.onTap,
     this.titleString,
+    this.topHint,
+    this.leading,
     this.middle,
-    this.onTap,
-    this.hintColor,
-    this.prefix,
-    this.suffix,
-    this.elevation,
+    this.trailing,
+    this.color,
+    this.titleColor,
+    this.borderColor,
     this.padding,
-    this.bgColor,
+    this.elevation = 0,
     this.expanded = false,
+    this.bordered = false,
   }) : assert((titleString == null && middle != null) || (titleString != null && middle == null));
 
-  const MTRichButton.flat({
-    this.hint = '',
-    this.onTap,
-    this.titleString,
-    this.middle,
-    this.hintColor,
-    this.prefix,
-    this.suffix,
-    this.expanded = false,
-  })  : elevation = 0,
-        bgColor = backgroundColor,
-        padding = EdgeInsets.zero;
-
-  final String hint;
-  final VoidCallback? onTap;
   final String? titleString;
-  final Widget? middle;
-  final Color? hintColor;
-  final Widget? prefix;
-  final Widget? suffix;
-  final double? elevation;
-  final EdgeInsets? padding;
-  final Color? bgColor;
-  final bool expanded;
+  final VoidCallback? onTap;
 
-  Widget get child => middle ?? MediumText(titleString!, color: darkGreyColor, align: TextAlign.center);
+  final Widget? topHint;
+  final Widget? leading;
+  final Widget? middle;
+  final Widget? trailing;
+
+  final Color? color;
+  final Color? titleColor;
+  final Color? borderColor;
+  final EdgeInsets? padding;
+  final bool expanded;
+  final bool bordered;
+  final double? elevation;
+
+  Widget get child => middle ?? MediumText(titleString!, color: titleColor ?? darkGreyColor, align: TextAlign.center);
 
   @override
   Widget build(BuildContext context) {
-    return MTCard(
+    final radius = bordered ? onePadding * 2 : 0.0;
+
+    return material(InkWell(
       onTap: onTap,
-      elevation: elevation,
-      padding: padding ?? EdgeInsets.all(onePadding),
-      color: bgColor,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (hint.isNotEmpty) ...[
-            MediumText(hint, align: TextAlign.center, color: hintColor ?? lightGreyColor),
-            SizedBox(height: onePadding / 2),
-          ],
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (prefix != null) ...[prefix!, SizedBox(width: onePadding / 2)],
-              expanded ? Expanded(child: child) : child,
-              if (suffix != null) ...[SizedBox(width: onePadding / 2), suffix!],
+      borderRadius: BorderRadius.circular(radius),
+      child: MTRoundedContainer(
+        padding: padding ?? EdgeInsets.all(onePadding / 2),
+        borderRadius: radius,
+        border: bordered ? Border.all(color: mainColor.resolve(context), width: 2) : null,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (topHint != null) ...[
+              topHint!,
+              SizedBox(height: onePadding / 2),
             ],
-          ),
-        ],
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (leading != null) ...[leading!, SizedBox(width: onePadding / 2)],
+                expanded ? Expanded(child: child) : child,
+                if (trailing != null) ...[SizedBox(width: onePadding / 2), trailing!],
+              ],
+            ),
+          ],
+        ),
       ),
-    );
+    ));
   }
+}
+
+class MTButtonIcon extends StatelessWidget {
+  const MTButtonIcon(this.icon, this.onTap, {this.padding});
+  final Widget icon;
+  final VoidCallback? onTap;
+  final EdgeInsets? padding;
+
+  @override
+  Widget build(BuildContext context) => MTButton(middle: icon, onTap: onTap, padding: padding);
 }

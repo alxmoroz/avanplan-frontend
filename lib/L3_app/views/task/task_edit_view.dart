@@ -6,12 +6,12 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../L1_domain/entities/status.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/task_ext_level.dart';
-import '../../components/close_dialog_button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_bottom_sheet.dart';
 import '../../components/mt_button.dart';
+import '../../components/mt_close_button.dart';
 import '../../components/mt_dropdown.dart';
 import '../../components/mt_page.dart';
 import '../../components/mt_text_field.dart';
@@ -125,8 +125,8 @@ class _TaskEditViewState extends State<TaskEditView> {
         ),
         if (!isNew)
           MTButton(
-            loc.delete_action_title,
-            () => controller.delete(context, task!),
+            titleString: loc.delete_action_title,
+            onTap: () => controller.delete(context, task!),
             titleColor: dangerColor,
             padding: EdgeInsets.only(top: onePadding),
           ),
@@ -141,11 +141,11 @@ class _TaskEditViewState extends State<TaskEditView> {
       builder: (_) => MTPage(
         navBar: navBar(
           context,
-          leading: CloseDialogButton(),
+          leading: MTCloseButton(),
           title: isNew ? parent.newSubtaskTitle : '',
           trailing: MTButton(
-            loc.save_action_title,
-            controller.validated ? () => controller.save(context, task: task, parent: parent) : null,
+            titleString: loc.save_action_title,
+            onTap: controller.validated ? () => controller.save(context, task: task, parent: parent) : null,
             titleColor: controller.validated ? mainColor : borderColor,
             padding: EdgeInsets.only(right: onePadding),
           ),

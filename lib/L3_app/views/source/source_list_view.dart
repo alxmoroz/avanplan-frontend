@@ -3,12 +3,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_list_tile.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
+import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_source_presenter.dart';
 import 'source_controller.dart';
@@ -40,14 +42,14 @@ class _SourceListViewState extends State<SourceListView> {
         navBar: navBar(
           context,
           title: loc.source_list_title,
-          trailing: MTButton.icon(plusIcon(context), () => _controller.addSource(context), padding: EdgeInsets.only(right: onePadding)),
+          trailing: MTButtonIcon(plusIcon(context), () => _controller.addSource(context), padding: EdgeInsets.only(right: onePadding)),
         ),
         body: _controller.sources.isEmpty
             ? ListView(children: [
-                MTRichButton(
-                  hint: loc.source_list_empty_title,
+                MTRoundedButton(
+                  topHint: MediumText(loc.source_list_empty_title, align: TextAlign.center, color: lightGreyColor),
                   titleString: loc.source_title_new,
-                  prefix: plusIcon(context),
+                  leading: plusIcon(context),
                   onTap: () => _controller.addSource(context),
                 )
               ])

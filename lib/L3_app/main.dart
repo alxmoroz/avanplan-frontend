@@ -10,7 +10,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'components/colors.dart';
-import 'components/splash.dart';
+import 'components/mt_splash.dart';
 import 'extra/services.dart';
 import 'l10n/generated/l10n.dart';
 import 'views/account/account_view.dart';
@@ -56,7 +56,7 @@ class App extends StatelessWidget {
       child: CupertinoApp(
         home: FutureBuilder(
           future: getIt.allReady(),
-          builder: (_, snapshot) => snapshot.hasData ? RootView() : const SplashScreen(),
+          builder: (_, snapshot) => snapshot.hasData ? RootView() : const MTSplashScreen(),
         ),
         localizationsDelegates: const [
           S.delegate,

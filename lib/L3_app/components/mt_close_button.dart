@@ -6,9 +6,9 @@ import 'constants.dart';
 import 'icons.dart';
 import 'mt_button.dart';
 
-class CloseDialogButton extends StatelessWidget {
+class MTCloseButton extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => MTButton.icon(
+  Widget build(BuildContext context) => MTButtonIcon(
         closeIcon(context),
         () => Navigator.of(context).pop(),
         padding: EdgeInsets.all(onePadding),

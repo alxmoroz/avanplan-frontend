@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../components/splash.dart';
+import '../../components/mt_splash.dart';
 import '../../extra/services.dart';
 import 'main_dashboard_view.dart';
 
@@ -24,7 +24,7 @@ class _MainViewState extends State<MainView> {
   Widget build(BuildContext context) {
     return FutureBuilder(
       future: _fetchData,
-      builder: (_, snapshot) => snapshot.connectionState == ConnectionState.done ? MainDashboardView() : const SplashScreen(),
+      builder: (_, snapshot) => snapshot.connectionState == ConnectionState.done ? MainDashboardView() : const MTSplashScreen(),
     );
   }
 }

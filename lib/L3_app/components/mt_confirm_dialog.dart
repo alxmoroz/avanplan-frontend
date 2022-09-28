@@ -97,9 +97,8 @@ class MTConfirmDialog extends StatelessWidget {
           if (!simple)
             for (final a in actions)
               MTButton(
-                '',
-                () => action(a),
-                child: _actionRow(a),
+                onTap: () => action(a),
+                middle: _actionRow(a),
                 padding: EdgeInsets.only(top: onePadding * 2),
               ),
         ],

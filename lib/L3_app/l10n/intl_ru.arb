@@ -5,10 +5,13 @@
 
   "appTitle": "Геркулес",
 
+  "auth_error_description": "Проверьте правильность указанных данных и повторите попытку",
+  "auth_error_title": "Ошибка авторизации",
   "auth_log_in_btn_title": "Войти",
   "auth_log_out_btn_title": "Выйти",
   "auth_password_placeholder": "Пароль",
   "auth_user_placeholder": "Пользователь",
+
 
   "backlog": "Бэклог",
 
@@ -32,6 +35,7 @@
   "months_count": "{count, plural, one{1 месяц} few{{count} месяца} other{{count} месяцев}}",
 
   "no": "Нет",
+  "ok": "Ясно",
 
   "overview": "Обзор",
 

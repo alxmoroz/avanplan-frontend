@@ -1,11 +1,10 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:gercules/L3_app/components/mt_card.dart';
 
 import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/icons.dart';
-import '../../components/mt_button.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_source_presenter.dart';
@@ -25,14 +24,16 @@ class ProjectEmptyListActionsWidget extends StatelessWidget {
       SizedBox(height: onePadding / 2),
       ...sourceController.sTypes
           .map(
-            (st) => MTRichButton(
+            (st) => MTCard(
+              padding: EdgeInsets.all(onePadding),
               onTap: () => importController.importTasks(parentContext, sType: st),
-              prefix: Row(children: [
-                importIcon(context),
-                SizedBox(width: onePadding / 2),
+              child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                // importIcon(context),
+                SizedBox(width: onePadding / 3),
                 st.icon(context),
+                SizedBox(width: onePadding / 3),
+                MediumText('$st'),
               ]),
-              titleString: '$st',
             ),
           )
           .toList(),

@@ -1,6 +1,9 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:dio/dio.dart';
+
 import '../../L1_domain/repositories/abs_auth_repo.dart';
+import '../../L1_domain/system/errors.dart';
 import '../../L3_app/extra/services.dart';
 
 class AuthRepo extends AbstractAuthRepo {
@@ -8,18 +11,24 @@ class AuthRepo extends AbstractAuthRepo {
   Future<String> getApiAuthToken(String username, String password) async {
     String accessToken = '';
 
-    final response = await openAPI.getAuthApi().getAuthToken(
-          username: username,
-          password: password,
-        );
+    try {
+      final response = await openAPI.getAuthApi().getAuthToken(
+            username: username,
+            password: password,
+          );
 
-    if (response.statusCode == 200) {
-      final token = response.data;
-      if (token != null) {
-        accessToken = token.accessToken;
+      if (response.statusCode == 200) {
+        final token = response.data;
+        if (token != null) {
+          accessToken = token.accessToken;
+        }
+      } else {
+        throw MTException(code: '${response.statusCode}', detail: response.statusMessage);
       }
+    } catch (e) {
+      throw MTException(code: e is DioError ? '${e.response?.statusCode}' : '', detail: e.toString());
     }
-    // TODO: обработка ошибок авторизации...
+
     return accessToken;
   }
 

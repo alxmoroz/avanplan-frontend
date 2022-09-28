@@ -47,7 +47,10 @@ abstract class _EditControllerBase extends BaseController with Store {
   Iterable<TFAnnotation> get _validatableTA => _allTA.where((ta) => ta.needValidate);
 
   @computed
-  bool get validated => !_validatableTA.any((ta) => ta.errorText != null);
+  bool get filled => _validatableTA.every((ta) => ta.text.isNotEmpty);
+
+  @computed
+  bool get validated => filled && !_validatableTA.any((ta) => ta.errorText != null);
 
   TFAnnotation tfAnnoForCode(String code) => tfAnnotations[code]!;
 }

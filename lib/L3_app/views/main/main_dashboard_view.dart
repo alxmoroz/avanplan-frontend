@@ -34,10 +34,9 @@ class MainDashboardView extends StatelessWidget {
         children: [
           Expanded(
             child: MTButton(
-              '',
-              () => _gotoProjects(context),
+              onTap: () => _gotoProjects(context),
               padding: EdgeInsets.symmetric(horizontal: onePadding),
-              child: MTRoundedContainer(
+              middle: MTRoundedContainer(
                 padding: EdgeInsets.all(onePadding / 2),
                 borderRadius: onePadding * 2,
                 border: Border.all(color: mainColor.resolve(context), width: 2.2),
@@ -52,7 +51,7 @@ class MainDashboardView extends StatelessWidget {
               ),
             ),
           ),
-          MTButton.icon(plusIcon(context, size: onePadding * 4.2), () => _addProject(context), padding: EdgeInsets.only(right: onePadding)),
+          MTButtonIcon(plusIcon(context, size: onePadding * 4.2), () => _addProject(context), padding: EdgeInsets.only(right: onePadding)),
         ],
       );
 
@@ -63,14 +62,13 @@ class MainDashboardView extends StatelessWidget {
         isLoading: mainController.isLoading,
         navBar: navBar(
           context,
-          leading: MTButton(
-            '',
+          leading: MTButtonIcon(
+            UserIcon(accountController.user!, radius: 20, borderSide: const BorderSide(color: mainColor)),
             () => _gotoSettings(context),
-            child: UserIcon(accountController.user!, radius: 20, borderSide: const BorderSide(color: mainColor)),
             padding: EdgeInsets.only(left: onePadding),
           ),
           middle: H2(loc.appTitle),
-          trailing: MTButton.icon(refreshIcon(context, size: 32), mainController.updateAll, padding: EdgeInsets.only(right: onePadding)),
+          trailing: MTButtonIcon(refreshIcon(context, size: 32), mainController.updateAll, padding: EdgeInsets.only(right: onePadding)),
           border: const Border(),
         ),
         body: SafeArea(

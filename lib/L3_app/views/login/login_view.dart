@@ -70,26 +70,30 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
-    return MTPage(
-      isLoading: _controller.isLoading,
-      body: Observer(
-        builder: (_) => Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // testFonts(),
-            H1(loc.appTitle),
-            textFieldForCode('login'),
-            textFieldForCode('password'),
-            SizedBox(height: onePadding),
-            Padding(
-              padding: EdgeInsets.all(onePadding),
-              child: MTButton(
-                loc.auth_log_in_btn_title,
-                _controller.validated ? _controller.authorize : null,
-                titleColor: _controller.validated ? mainColor : borderColor,
-              ),
+    return Observer(
+      builder: (_) => MTPage(
+        isLoading: _controller.isLoading,
+        body: SafeArea(
+          child: Center(
+            child: ListView(
+              shrinkWrap: true,
+              children: [
+                // testFonts(),
+                H1(loc.appTitle, align: TextAlign.center),
+                textFieldForCode('login'),
+                textFieldForCode('password'),
+                SizedBox(height: onePadding),
+                Padding(
+                  padding: EdgeInsets.all(onePadding),
+                  child: MTRoundedButton(
+                    titleString: loc.auth_log_in_btn_title,
+                    onTap: _controller.validated ? () => _controller.authorize(context) : null,
+                    titleColor: _controller.validated ? mainColor : borderColor,
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

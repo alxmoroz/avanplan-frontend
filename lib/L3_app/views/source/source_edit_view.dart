@@ -5,11 +5,11 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 
 import '../../../L1_domain/entities/source.dart';
-import '../../components/close_dialog_button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/mt_bottom_sheet.dart';
 import '../../components/mt_button.dart';
+import '../../components/mt_close_button.dart';
 import '../../components/mt_dropdown.dart';
 import '../../components/mt_page.dart';
 import '../../components/mt_text_field.dart';
@@ -117,8 +117,8 @@ class _SourceEditViewState extends State<SourceEditView> {
           ].map((code) => textFieldForCode(code)),
           if (_controller.canEdit)
             MTButton(
-              loc.delete_action_title,
-              () => _controller.delete(context),
+              titleString: loc.delete_action_title,
+              onTap: () => _controller.delete(context),
               titleColor: dangerColor,
               padding: EdgeInsets.only(top: onePadding),
             ),
@@ -134,11 +134,11 @@ class _SourceEditViewState extends State<SourceEditView> {
       builder: (_) => MTPage(
         navBar: navBar(
           context,
-          leading: CloseDialogButton(),
+          leading: MTCloseButton(),
           title: _isNew ? loc.source_title_new : '',
           trailing: MTButton(
-            loc.save_action_title,
-            _canSave ? () => _controller.save(context) : null,
+            titleString: loc.save_action_title,
+            onTap: _canSave ? () => _controller.save(context) : null,
             titleColor: _canSave ? mainColor : borderColor,
             padding: EdgeInsets.only(right: onePadding),
           ),

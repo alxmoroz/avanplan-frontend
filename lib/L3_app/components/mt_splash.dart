@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 import 'colors.dart';
 
-class SplashScreen extends StatelessWidget {
-  const SplashScreen({this.color});
+class MTSplashScreen extends StatelessWidget {
+  const MTSplashScreen({this.color});
 
   final Color? color;
 

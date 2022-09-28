@@ -7,6 +7,7 @@ import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/task_ext_actions.dart';
 import '../../../L1_domain/entities/task_ext_level.dart';
 import '../../../L1_domain/entities/task_ext_state.dart';
+import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_button.dart';
@@ -93,10 +94,10 @@ class TaskView extends StatelessWidget {
         bottomBar: _task.shouldAddSubtask
             ? TaskAddActionWidget(_controller, parentContext: context)
             : _task.canReopen
-                ? MTRichButton(
-                    hint: _task.isClosable ? loc.task_state_closable_hint : '',
+                ? MTRoundedButton(
+                    topHint: MediumText(_task.isClosable ? loc.task_state_closable_hint : '', align: TextAlign.center, color: lightGreyColor),
                     titleString: _task.isClosable ? loc.task_state_close_btn_title : loc.task_state_reopen_btn_title,
-                    prefix: _task.isClosable ? doneIcon(context, true) : null,
+                    leading: _task.isClosable ? doneIcon(context, true) : null,
                     onTap: () => _controller.setClosed(context, !_task.closed),
                   )
                 : null,

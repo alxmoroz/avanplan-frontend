@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
+import 'mt_splash.dart';
 import 'mt_toolbar.dart';
-import 'splash.dart';
 
 class MTPage extends StatelessWidget {
   const MTPage({
@@ -34,7 +34,7 @@ class MTPage extends StatelessWidget {
           bottomNavigationBar: bottomBar != null ? MTToolbar(child: bottomBar!) : null,
         ),
       ),
-      if (isLoading) SplashScreen(color: loaderColor.resolve(context)),
+      if (isLoading) MTSplashScreen(color: loaderColor.resolve(context)),
     ]);
   }
 }

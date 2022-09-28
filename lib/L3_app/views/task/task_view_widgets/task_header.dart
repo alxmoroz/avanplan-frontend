@@ -64,9 +64,8 @@ class TaskHeader extends StatelessWidget {
         if (_task.hasLink) ...[
           SizedBox(height: onePadding / 2),
           MTButton(
-            '',
-            () => launchUrl(_task.taskSource!.uri),
-            child: _task.taskSource!.go2SourceTitle(context, showSourceIcon: true),
+            onTap: () => launchUrl(_task.taskSource!.uri),
+            middle: _task.taskSource!.go2SourceTitle(context, showSourceIcon: true),
           ),
         ],
       ]),

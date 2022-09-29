@@ -25,8 +25,8 @@ const Color borderColor = CupertinoDynamicColor.withBrightness(
 );
 
 const Color loaderColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(180, 200, 200, 205),
-  darkColor: Color.fromARGB(180, 62, 62, 64),
+  color: Color.fromARGB(225, 200, 200, 205),
+  darkColor: Color.fromARGB(225, 62, 62, 64),
 );
 
 const Color darkBackgroundColor = CupertinoColors.systemGrey5;
@@ -64,15 +64,15 @@ const Color transparentAppbarBgColor = CupertinoDynamicColor.withBrightness(
   darkColor: Color.fromARGB(0, 0, 0, 0),
 );
 
-Color get inactiveColor => const CupertinoDynamicColor.withBrightness(
-      color: Color(0xFF758599),
-      darkColor: Color(0xFF999999),
-    );
+// Color get inactiveColor => const CupertinoDynamicColor.withBrightness(
+//       color: Color(0xFF758599),
+//       darkColor: Color(0xFF999999),
+//     );
 
-Color get navbarGreyBgColor => const CupertinoDynamicColor.withBrightness(
-      color: Color.fromARGB(150, 209, 209, 214),
-      darkColor: Color.fromARGB(150, 58, 58, 60),
-    );
+// Color get navbarGreyBgColor => const CupertinoDynamicColor.withBrightness(
+//       color: Color.fromARGB(150, 209, 209, 214),
+//       darkColor: Color.fromARGB(150, 58, 58, 60),
+//     );
 
 Color get navbarDefaultBgColor => transparentAppbarBgColor;
 

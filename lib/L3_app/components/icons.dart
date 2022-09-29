@@ -162,3 +162,4 @@ Widget todayIcon({Color? color, double? size}) => Icon(CupertinoIcons.placemark,
 Widget redmineIcon() => Image.asset('assets/images/redmine_icon.png', width: 22, height: 22);
 Widget gitlabIcon() => Image.asset('assets/images/gitlab_icon.png', width: 22, height: 22);
 Widget jiraIcon() => Image.asset('assets/images/jira_icon.png', width: 22, height: 22);
+Widget gerculesIcon({double? size}) => Image.asset('assets/images/gercules_icon.png', width: size, height: size);

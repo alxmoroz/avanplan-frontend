@@ -54,6 +54,7 @@ CupertinoNavigationBar taskNavBar(BuildContext context, TaskViewController contr
     //         MTButton.icon(refreshIcon(context), mainController.updateAll),
     //       ])
     //     : null,
+    bgColor: backgroundColor,
     title: task.isWorkspace ? loc.project_list_title : task.viewTitle,
     trailing: task.actionTypes.isNotEmpty
         ? material(

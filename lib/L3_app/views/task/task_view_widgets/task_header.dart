@@ -42,7 +42,7 @@ class TaskHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(onePadding).copyWith(bottom: 0),
+      padding: EdgeInsets.symmetric(horizontal: onePadding),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         if (_breadcrumbs.isNotEmpty) ...[
           SmallText(_breadcrumbs),

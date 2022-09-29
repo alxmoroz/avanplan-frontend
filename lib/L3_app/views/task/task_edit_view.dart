@@ -17,7 +17,6 @@ import '../../components/mt_page.dart';
 import '../../components/mt_text_field.dart';
 import '../../components/navbar.dart';
 import '../../components/text_field_annotation.dart';
-import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_level_presenter.dart';
 import 'task_edit_controller.dart';
@@ -81,13 +80,27 @@ class _TaskEditViewState extends State<TaskEditView> {
   Widget textFieldForCode(BuildContext context, String code, {VoidCallback? onTap}) {
     final ta = controller.tfAnnoForCode(code);
     final isDate = code.endsWith('Date');
+    final isDueDate = code == 'dueDate';
     return ta.noText
         ? MTTextField.noText(
             controller: controller.teControllers[code],
             label: ta.label,
             error: ta.errorText,
-            onTap: onTap ?? (isDate ? () => controller.inputDateTime(context) : null),
-            suffixIcon: isDate ? calendarIcon(context) : null,
+            onTap: onTap ?? (isDueDate ? () => controller.inputDueDate(context) : null),
+            prefixIcon: isDate ? calendarIcon(context) : null,
+            suffixIcon: isDueDate && controller.selectedDueDate != null
+                ? MTButton(
+                    middle: Row(
+                      children: [
+                        Container(height: onePadding * 3, width: 1, color: borderColor.resolve(context)),
+                        SizedBox(width: onePadding),
+                        closeIcon(context, color: dangerColor),
+                        SizedBox(width: onePadding),
+                      ],
+                    ),
+                    onTap: isDueDate ? () => controller.setDueDate(null) : null,
+                  )
+                : null,
           )
         : MTTextField(
             controller: controller.teControllers[code],
@@ -112,23 +125,18 @@ class _TaskEditViewState extends State<TaskEditView> {
             items: controller.statuses,
             label: loc.task_status_placeholder,
           ),
-        Padding(
-          padding: tfPadding,
-          child: InkWell(
-            child: Row(children: [
-              doneIcon(context, controller.closed),
-              SizedBox(width: onePadding / 2),
-              MediumText(loc.task_state_closed, padding: EdgeInsets.symmetric(vertical: onePadding), color: mainColor),
-            ]),
-            onTap: () => controller.setClosed(!controller.closed),
-          ),
+        MTButton(
+          leading: doneIcon(context, controller.closed),
+          titleString: loc.task_state_closed,
+          margin: tfPadding,
+          onTap: () => controller.setClosed(!controller.closed),
         ),
         if (!isNew)
-          MTButton(
+          MTButton.outlined(
             titleString: loc.delete_action_title,
-            onTap: () => controller.delete(context, task!),
             titleColor: dangerColor,
-            margin: EdgeInsets.only(top: onePadding),
+            margin: tfPadding.copyWith(top: onePadding * 4),
+            onTap: () => controller.delete(context, task!),
           ),
         SizedBox(height: onePadding),
       ]),

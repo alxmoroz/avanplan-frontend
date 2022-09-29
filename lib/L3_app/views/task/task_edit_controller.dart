@@ -31,17 +31,17 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
   /// дата
 
   @observable
-  DateTime? _selectedDueDate;
+  DateTime? selectedDueDate;
 
   @action
   void setDueDate(DateTime? _date) {
-    _selectedDueDate = _date;
+    selectedDueDate = _date;
     teControllers['dueDate']?.text = _date != null ? _date.strLong : '';
   }
 
-  Future inputDateTime(BuildContext context) async {
+  Future inputDueDate(BuildContext context) async {
     final today = DateTime.now();
-    final initialDate = _selectedDueDate ?? today;
+    final initialDate = selectedDueDate ?? today;
     final pastDate = today.subtract(const Duration(days: 365));
     final firstDate = pastDate.isAfter(initialDate) ? initialDate : pastDate;
 
@@ -90,7 +90,7 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
       title: tfAnnoForCode('title').text,
       description: tfAnnoForCode('description').text,
       closed: closed,
-      dueDate: _selectedDueDate,
+      dueDate: selectedDueDate,
       status: selectedStatus,
       workspaceId: selectedWS!.id,
       tasks: task?.tasks ?? [],

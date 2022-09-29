@@ -12,6 +12,7 @@ InputDecoration tfDecoration(
   String? label,
   String? helper,
   String? error,
+  Widget? prefixIcon,
   Widget? suffixIcon,
   bool enabled = true,
   bool readOnly = false,
@@ -39,6 +40,7 @@ InputDecoration tfDecoration(
     disabledBorder: _border,
     errorBorder: _warningBorder,
     focusedErrorBorder: _warningBorder,
+    prefixIcon: prefixIcon,
     suffixIcon: suffixIcon,
     enabled: enabled,
   );
@@ -61,6 +63,7 @@ class MTTextField extends StatelessWidget {
     this.autocorrect = false,
     this.suggestions = false,
     this.readOnly = false,
+    this.prefixIcon,
     this.suffixIcon,
     this.onTap,
     this.enabled = true,
@@ -72,6 +75,7 @@ class MTTextField extends StatelessWidget {
     this.helper,
     this.error,
     this.margin,
+    this.prefixIcon,
     this.suffixIcon,
     this.onTap,
     this.enabled = true,
@@ -98,6 +102,7 @@ class MTTextField extends StatelessWidget {
   final bool suggestions;
   final bool readOnly;
   final bool enabled;
+  final Widget? prefixIcon;
   final Widget? suffixIcon;
   final VoidCallback? onTap;
 
@@ -112,6 +117,7 @@ class MTTextField extends StatelessWidget {
           label: label,
           helper: helper,
           error: error,
+          prefixIcon: prefixIcon,
           suffixIcon: suffixIcon,
           enabled: enabled,
           readOnly: readOnly,

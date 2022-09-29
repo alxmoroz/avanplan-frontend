@@ -57,32 +57,35 @@ class MTButton extends StatelessWidget {
   final EdgeInsets? padding;
   final EdgeInsets? margin;
 
-  ButtonStyle get _style => ElevatedButton.styleFrom(
-      padding: padding ?? EdgeInsets.zero,
-      backgroundColor: Colors.transparent,
-      foregroundColor: Colors.transparent,
-      surfaceTintColor: Colors.transparent,
-      minimumSize: Size.zero,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(defaultBorderRadius)),
-      side: type == ButtonType.outlined ? const BorderSide(color: mainColor, width: 2) : null,
-      splashFactory: NoSplash.splashFactory);
+  Color get _titleColor => titleColor ?? mainColor;
 
-  Widget get _middle => middle ?? MediumText(titleString ?? '', color: onTap != null ? (titleColor ?? mainColor) : lightGreyColor);
+  ButtonStyle _style(BuildContext context) => ElevatedButton.styleFrom(
+        padding: padding ?? EdgeInsets.zero,
+        backgroundColor: (color ?? Colors.transparent).resolve(context),
+        // surfaceTintColor: _titleColor.resolve(context),
+        foregroundColor: _titleColor.resolve(context),
+        minimumSize: Size.zero,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(defaultBorderRadius)),
+        side: type == ButtonType.outlined ? BorderSide(color: _titleColor.resolve(context), width: 2) : null,
+        splashFactory: NoSplash.splashFactory,
+      );
+
+  Widget get _middle => middle ?? MediumText(titleString ?? '', color: onTap != null ? _titleColor : lightGreyColor);
   Widget get _child => _MTBaseLayout(leading: leading, middle: _middle, trailing: trailing);
 
-  Widget get _button {
+  Widget _button(BuildContext context) {
     switch (type) {
       case ButtonType.elevated:
-        return ElevatedButton(onPressed: onTap, style: _style, child: _child);
+        return ElevatedButton(onPressed: onTap, style: _style(context), child: _child);
       case ButtonType.outlined:
-        return OutlinedButton(onPressed: onTap, style: _style, child: _child);
+        return OutlinedButton(onPressed: onTap, style: _style(context), child: _child);
       default:
         return CupertinoButton(onPressed: onTap, child: _child, minSize: 0, padding: EdgeInsets.zero);
     }
   }
 
   @override
-  Widget build(BuildContext context) => Padding(padding: margin ?? EdgeInsets.zero, child: _button);
+  Widget build(BuildContext context) => Padding(padding: margin ?? EdgeInsets.zero, child: _button(context));
 }
 
 class _MTBaseLayout extends StatelessWidget {
@@ -102,9 +105,9 @@ class _MTBaseLayout extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (leading != null) ...[leading!, SizedBox(width: onePadding / 2)],
+        if (leading != null) ...[leading!, SizedBox(width: onePadding / 3)],
         middle,
-        if (trailing != null) ...[SizedBox(width: onePadding / 2), trailing!],
+        if (trailing != null) ...[SizedBox(width: onePadding / 3), trailing!],
       ],
     );
   }

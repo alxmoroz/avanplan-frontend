@@ -6,7 +6,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/task_ext_actions.dart';
 import '../../../L1_domain/entities/task_ext_level.dart';
-import '../../../L1_domain/entities/task_ext_state.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -93,9 +92,9 @@ class TaskView extends StatelessWidget {
         ),
         bottomBar: _task.shouldAddSubtask
             ? TaskAddActionWidget(_controller, parentContext: context)
-            : _task.canReopen || _task.canClose
+            : _task.canReopen || _task.canClose || _task.canCloseLeaf
                 ? Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                    if (_task.isClosable)
+                    if (_task.canClose)
                       MediumText(
                         loc.task_state_closable_hint,
                         align: TextAlign.center,
@@ -104,8 +103,8 @@ class TaskView extends StatelessWidget {
                       ),
                     MTButton.outlined(
                       margin: EdgeInsets.symmetric(horizontal: onePadding),
-                      titleString: _task.isClosable ? loc.task_state_close_btn_title : loc.task_state_reopen_btn_title,
-                      leading: _task.isClosable ? doneIcon(context, true) : null,
+                      titleString: (_task.canClose || _task.canCloseLeaf) ? loc.task_state_close_btn_title : loc.task_state_reopen_btn_title,
+                      leading: (_task.canClose || _task.canCloseLeaf) ? doneIcon(context, true) : null,
                       onTap: () => _controller.setClosed(context, !_task.closed),
                     ),
                   ])

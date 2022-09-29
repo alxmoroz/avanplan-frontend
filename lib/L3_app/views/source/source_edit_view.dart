@@ -42,11 +42,13 @@ class _SourceEditViewState extends State<SourceEditView> {
   bool get _isNew => _source == null;
   bool get _canSave => _controller.validated;
 
+  bool get _isJira => _controller.selectedType?.title == 'Jira';
+
   @override
   void initState() {
     _controller.initState(tfaList: [
       TFAnnotation('url', label: loc.source_url_placeholder, text: _source?.url ?? ''),
-      TFAnnotation('login', label: loc.auth_user_placeholder, text: _source?.login ?? ''),
+      TFAnnotation('login', label: loc.auth_user_placeholder, text: _source?.login ?? '', needValidate: _isJira),
       TFAnnotation('apiKey', label: loc.source_api_key_placeholder, text: _source?.apiKey ?? ''),
       // TFAnnotation('password', label: loc.auth_password_placeholder, needValidate: false),
       TFAnnotation('description', label: loc.description, text: _source?.description ?? '', needValidate: false),
@@ -110,7 +112,7 @@ class _SourceEditViewState extends State<SourceEditView> {
             ),
           ...[
             'url',
-            if (_controller.selectedType?.title == 'Jira') 'login',
+            if (_isJira) 'login',
             'apiKey',
             // 'password',
             'description',

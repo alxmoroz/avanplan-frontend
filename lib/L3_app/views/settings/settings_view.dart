@@ -38,6 +38,7 @@ class SettingsView extends StatelessWidget {
                 Expanded(
                   child: ListView(
                     children: [
+                      SizedBox(height: onePadding / 2),
                       if (_user != null) UserListTile(_user!),
                       MTListTile(
                         leading: importIcon(context, color: darkGreyColor),

@@ -1,10 +1,10 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/material.dart';
-import 'package:gercules/L3_app/components/constants.dart';
-import 'package:gercules/L3_app/components/icons.dart';
 
 import 'colors.dart';
+import 'constants.dart';
+import 'icons.dart';
 
 class MTSplashScreen extends StatelessWidget {
   const MTSplashScreen({this.color});

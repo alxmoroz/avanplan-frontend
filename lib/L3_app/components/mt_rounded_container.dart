@@ -20,7 +20,7 @@ class MTRoundedContainer extends StatelessWidget {
         padding: padding,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(borderRadius ?? defaultBorderRadius),
-          color: color != null ? color!.resolve(context) : null,
+          color: color?.maybeResolve(context),
           border: border,
         ),
         child: child,

@@ -20,7 +20,8 @@ extension TaskActionsExt on Task {
   bool get canEdit => !(isWorkspace || hasLink);
   bool get canImport => isWorkspace;
   bool get canRefresh => isWorkspace;
-  bool get canReopen => canEdit && (isClosable || closed);
+  bool get canReopen => canEdit && closed;
+  bool get canClose => canEdit && isClosable;
 
   bool get shouldAddSubtask =>
       canAdd &&

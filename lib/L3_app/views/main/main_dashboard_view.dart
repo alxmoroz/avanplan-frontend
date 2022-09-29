@@ -11,7 +11,6 @@ import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
-import '../../components/mt_rounded_container.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
@@ -33,25 +32,17 @@ class MainDashboardView extends StatelessWidget {
   Widget _bottomAppbarContent(BuildContext context) => Row(
         children: [
           Expanded(
-            child: MTButton(
+            child: MTButton.outlined(
+              titleString: loc.project_list_title,
+              margin: EdgeInsets.symmetric(horizontal: onePadding),
               onTap: () => _gotoProjects(context),
-              padding: EdgeInsets.symmetric(horizontal: onePadding),
-              middle: MTRoundedContainer(
-                padding: EdgeInsets.all(onePadding / 2),
-                borderRadius: onePadding * 2,
-                border: Border.all(color: mainColor.resolve(context), width: 2.2),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // expandIcon(context, size: onePadding * 2.2),
-                    // SizedBox(width: onePadding / 2),
-                    H4(loc.project_list_title, color: mainColor),
-                  ],
-                ),
-              ),
             ),
           ),
-          MTButtonIcon(plusIcon(context, size: onePadding * 4.2), () => _addProject(context), padding: EdgeInsets.only(right: onePadding)),
+          MTButton.outlined(
+            middle: plusIcon(context, size: onePadding * 2.2),
+            margin: EdgeInsets.only(right: onePadding),
+            onTap: () => _addProject(context),
+          ),
         ],
       );
 
@@ -62,13 +53,13 @@ class MainDashboardView extends StatelessWidget {
         isLoading: mainController.isLoading,
         navBar: navBar(
           context,
-          leading: MTButtonIcon(
+          leading: MTButton.icon(
             UserIcon(accountController.user!, radius: 20, borderSide: const BorderSide(color: mainColor)),
             () => _gotoSettings(context),
-            padding: EdgeInsets.only(left: onePadding),
+            margin: EdgeInsets.only(left: onePadding),
           ),
           middle: H2(loc.appTitle),
-          trailing: MTButtonIcon(refreshIcon(context, size: 32), mainController.updateAll, padding: EdgeInsets.only(right: onePadding)),
+          trailing: MTButton.icon(refreshIcon(context, size: 32), mainController.updateAll, margin: EdgeInsets.only(right: onePadding)),
           border: const Border(),
         ),
         body: SafeArea(

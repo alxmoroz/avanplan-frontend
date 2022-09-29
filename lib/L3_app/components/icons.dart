@@ -26,7 +26,7 @@ Widget importIcon(BuildContext context, {Color? color, double? size}) => Icon(
     );
 
 Widget plusIcon(BuildContext context, {Color? color, double? size}) => Icon(
-      CupertinoIcons.plus_circle,
+      CupertinoIcons.plus,
       color: (color ?? mainColor).resolve(context),
       size: size ?? 24,
     );
@@ -59,12 +59,6 @@ Widget chevronIcon(BuildContext context, {Color? color, double? size}) => FaIcon
       FontAwesomeIcons.chevronRight,
       color: (color ?? mainColor).resolve(context),
       size: size ?? 14,
-    );
-
-Widget infoIcon(BuildContext context, {Color? color, double? size}) => Icon(
-      CupertinoIcons.info,
-      color: (color ?? mainColor).resolve(context),
-      size: size ?? 20,
     );
 
 Widget linkIcon(BuildContext context, {Color? color, double? size}) => Icon(
@@ -103,11 +97,11 @@ Widget logoutIcon(BuildContext context, {Color? color, double? size}) => FaIcon(
       size: size ?? 18,
     );
 
-Widget homeIcon({double? size}) => Icon(CupertinoIcons.viewfinder_circle, size: size);
-
-Widget tasksIcon({double? size}) => Icon(CupertinoIcons.text_badge_checkmark, size: size);
-
-Widget menuIcon({double? size}) => Icon(CupertinoIcons.ellipsis_vertical, size: size);
+Widget menuIcon(BuildContext context, {double? size}) => Icon(
+      CupertinoIcons.ellipsis_vertical,
+      color: mainColor.resolve(context),
+      size: size,
+    );
 
 Widget overdueStateIcon(BuildContext context, {Color? color, double? size}) => Icon(
       CupertinoIcons.exclamationmark_triangle,
@@ -130,12 +124,6 @@ Widget okStateIcon(BuildContext context, {Color? color, double? size}) => Icon(
 Widget noInfoStateIcon(BuildContext context, {Color? color, double? size}) => Icon(
       CupertinoIcons.question_circle,
       color: (color ?? lightGreyColor).resolve(context),
-      size: size,
-    );
-
-Widget expandIcon(BuildContext context, {Color? color, double? size}) => FaIcon(
-      FontAwesomeIcons.arrowUpShortWide,
-      color: (color ?? mainColor).resolve(context),
       size: size,
     );
 

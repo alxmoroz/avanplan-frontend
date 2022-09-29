@@ -128,7 +128,7 @@ class _TaskEditViewState extends State<TaskEditView> {
             titleString: loc.delete_action_title,
             onTap: () => controller.delete(context, task!),
             titleColor: dangerColor,
-            padding: EdgeInsets.only(top: onePadding),
+            margin: EdgeInsets.only(top: onePadding),
           ),
         SizedBox(height: onePadding),
       ]),
@@ -146,8 +146,7 @@ class _TaskEditViewState extends State<TaskEditView> {
           trailing: MTButton(
             titleString: loc.save_action_title,
             onTap: controller.validated ? () => controller.save(context, task: task, parent: parent) : null,
-            titleColor: controller.validated ? mainColor : borderColor,
-            padding: EdgeInsets.only(right: onePadding),
+            margin: EdgeInsets.only(right: onePadding),
           ),
         ),
         body: SafeArea(

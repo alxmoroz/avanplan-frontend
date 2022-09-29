@@ -8,9 +8,9 @@ import 'mt_button.dart';
 
 class MTCloseButton extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => MTButtonIcon(
+  Widget build(BuildContext context) => MTButton.icon(
         closeIcon(context),
         () => Navigator.of(context).pop(),
-        padding: EdgeInsets.all(onePadding),
+        margin: EdgeInsets.all(onePadding),
       );
 }

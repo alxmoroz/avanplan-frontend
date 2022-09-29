@@ -42,21 +42,27 @@ class _SourceListViewState extends State<SourceListView> {
         navBar: navBar(
           context,
           title: loc.source_list_title,
-          trailing: MTButtonIcon(plusIcon(context), () => _controller.addSource(context), padding: EdgeInsets.only(right: onePadding)),
+          trailing: MTButton.icon(plusIcon(context), () => _controller.addSource(context), margin: EdgeInsets.only(right: onePadding)),
         ),
-        body: _controller.sources.isEmpty
-            ? ListView(children: [
-                MTRoundedButton(
-                  topHint: MediumText(loc.source_list_empty_title, align: TextAlign.center, color: lightGreyColor),
-                  titleString: loc.source_title_new,
-                  leading: plusIcon(context),
-                  onTap: () => _controller.addSource(context),
-                )
-              ])
-            : ListView.builder(
-                itemBuilder: sourceBuilder,
-                itemCount: _controller.sources.length,
-              ),
+        body: SafeArea(
+          top: false,
+          bottom: false,
+          child: _controller.sources.isEmpty
+              ? Center(
+                  child: ListView(shrinkWrap: true, children: [
+                  MediumText(loc.source_list_empty_title, align: TextAlign.center, color: lightGreyColor),
+                  MTButton.outlined(
+                    margin: EdgeInsets.all(onePadding),
+                    titleString: loc.source_title_new,
+                    leading: plusIcon(context),
+                    onTap: () => _controller.addSource(context),
+                  )
+                ]))
+              : ListView.builder(
+                  itemBuilder: sourceBuilder,
+                  itemCount: _controller.sources.length,
+                ),
+        ),
       ),
     );
   }

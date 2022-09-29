@@ -13,4 +13,4 @@ bool get isTablet {
 }
 
 double get onePadding => isTablet ? 24 : 12;
-double get defaultBorderRadius => onePadding;
+double get defaultBorderRadius => onePadding * 1.5;

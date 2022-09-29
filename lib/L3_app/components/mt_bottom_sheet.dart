@@ -17,7 +17,7 @@ class MTBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(parentContext);
     return Container(
-      constraints: BoxConstraints(maxHeight: mq.size.height - mq.padding.top - onePadding * 0),
+      constraints: BoxConstraints(maxHeight: mq.size.height - mq.padding.top - onePadding * 1),
       child: GestureDetector(
         onTap: FocusScope.of(context).unfocus,
         child: MTRoundedContainer(child: bodyWidget, borderRadius: onePadding),

@@ -3,7 +3,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
@@ -82,14 +81,11 @@ class _LoginViewState extends State<LoginView> {
                 H1(loc.appTitle, align: TextAlign.center),
                 textFieldForCode('login'),
                 textFieldForCode('password'),
-                SizedBox(height: onePadding),
-                Padding(
+                MTButton(
+                  margin: EdgeInsets.all(onePadding),
                   padding: EdgeInsets.all(onePadding),
-                  child: MTRoundedButton(
-                    titleString: loc.auth_log_in_btn_title,
-                    onTap: _controller.validated ? () => _controller.authorize(context) : null,
-                    titleColor: _controller.validated ? mainColor : borderColor,
-                  ),
+                  titleString: loc.auth_log_in_btn_title,
+                  onTap: _controller.validated ? () => _controller.authorize(context) : null,
                 ),
               ],
             ),

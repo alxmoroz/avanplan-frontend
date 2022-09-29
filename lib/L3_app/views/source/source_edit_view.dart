@@ -120,7 +120,7 @@ class _SourceEditViewState extends State<SourceEditView> {
               titleString: loc.delete_action_title,
               onTap: () => _controller.delete(context),
               titleColor: dangerColor,
-              padding: EdgeInsets.only(top: onePadding),
+              margin: EdgeInsets.only(top: onePadding),
             ),
           SizedBox(height: onePadding * 2),
         ],
@@ -139,11 +139,10 @@ class _SourceEditViewState extends State<SourceEditView> {
           trailing: MTButton(
             titleString: loc.save_action_title,
             onTap: _canSave ? () => _controller.save(context) : null,
-            titleColor: _canSave ? mainColor : borderColor,
-            padding: EdgeInsets.only(right: onePadding),
+            margin: EdgeInsets.only(right: onePadding),
           ),
         ),
-        body: form(),
+        body: SafeArea(child: form()),
       ),
     );
   }

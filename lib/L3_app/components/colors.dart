@@ -1,7 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 // TODO: разобраться с серым цветом. По факту используется в коде не учитывая названия
 
@@ -59,38 +58,6 @@ const Color mainColor = CupertinoDynamicColor.withBrightness(
   darkColor: _tealColor,
 );
 
-MaterialColor darkTealColorMaterial = MaterialColor(
-  _darkTealColor.value,
-  const <int, Color>{
-    50: Color.fromARGB(255, 0, 174, 255),
-    100: Color.fromARGB(255, 0, 166, 242),
-    200: Color.fromARGB(255, 0, 157, 230),
-    300: Color.fromARGB(255, 0, 139, 204),
-    400: Color.fromARGB(255, 0, 122, 179),
-    500: _darkTealColor,
-    600: Color.fromARGB(255, 0, 105, 153),
-    700: Color.fromARGB(255, 0, 87, 128),
-    800: Color.fromARGB(255, 0, 70, 102),
-    900: Color.fromARGB(255, 0, 52, 77),
-  },
-);
-
-MaterialColor tealColorMaterial = MaterialColor(
-  _tealColor.value,
-  const <int, Color>{
-    50: _tealColor,
-    100: _tealColor,
-    200: _tealColor,
-    300: _tealColor,
-    400: _tealColor,
-    500: _tealColor,
-    600: _tealColor,
-    700: _tealColor,
-    800: _tealColor,
-    900: _tealColor,
-  },
-);
-
 // цвет для "прозрачного" апп-бара
 const Color transparentAppbarBgColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(0, 255, 255, 255),
@@ -111,4 +78,5 @@ Color get navbarDefaultBgColor => transparentAppbarBgColor;
 
 extension ResolvedColor on Color {
   Color resolve(BuildContext context) => CupertinoDynamicColor.resolve(this, context);
+  Color? maybeResolve(BuildContext context) => CupertinoDynamicColor.maybeResolve(this, context);
 }

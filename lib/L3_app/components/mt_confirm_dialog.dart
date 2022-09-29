@@ -99,7 +99,7 @@ class MTConfirmDialog extends StatelessWidget {
               MTButton(
                 onTap: () => action(a),
                 middle: _actionRow(a),
-                padding: EdgeInsets.only(top: onePadding * 2),
+                margin: EdgeInsets.only(top: onePadding * 2),
               ),
         ],
       ),

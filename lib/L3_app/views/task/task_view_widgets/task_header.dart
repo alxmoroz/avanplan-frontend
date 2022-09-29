@@ -43,7 +43,7 @@ class TaskHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(onePadding).copyWith(bottom: 0),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         if (_breadcrumbs.isNotEmpty) ...[
           SmallText(_breadcrumbs),
           const MTDivider(),
@@ -61,13 +61,11 @@ class TaskHeader extends StatelessWidget {
             ],
           ),
         ],
-        if (_task.hasLink) ...[
-          SizedBox(height: onePadding / 2),
+        if (_task.hasLink)
           MTButton(
-            onTap: () => launchUrl(_task.taskSource!.uri),
             middle: _task.taskSource!.go2SourceTitle(context, showSourceIcon: true),
+            onTap: () => launchUrl(_task.taskSource!.uri),
           ),
-        ],
       ]),
     );
   }

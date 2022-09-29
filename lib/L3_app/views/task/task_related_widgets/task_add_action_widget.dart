@@ -4,8 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
-import '../../../components/mt_card.dart';
-import '../../../components/text_widgets.dart';
+import '../../../components/mt_button.dart';
 import '../../../presenters/task_level_presenter.dart';
 import '../task_view_controller.dart';
 
@@ -15,13 +14,10 @@ class TaskAddActionWidget extends StatelessWidget {
   final BuildContext parentContext;
 
   @override
-  Widget build(BuildContext context) => MTCard(
-        padding: EdgeInsets.all(onePadding),
-        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          plusIcon(context),
-          SizedBox(width: onePadding / 3),
-          MediumText(controller.task.newSubtaskTitle),
-        ]),
+  Widget build(BuildContext context) => MTButton.outlined(
+        margin: EdgeInsets.symmetric(horizontal: onePadding),
+        leading: plusIcon(context),
+        titleString: controller.task.newSubtaskTitle,
         onTap: () async => await controller.addSubtask(parentContext),
       );
 }

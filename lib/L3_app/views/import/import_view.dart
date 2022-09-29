@@ -63,22 +63,13 @@ class _ImportViewState extends State<ImportView> {
           ))
       .toList();
 
-  Widget get sourceDropdown => sourceController.sources.isEmpty
-      ? Expanded(
-          child: MTRoundedButton(
-            topHint: MediumText(loc.source_list_empty_title, align: TextAlign.center, color: lightGreyColor),
-            titleString: loc.source_title_new,
-            leading: plusIcon(context),
-            onTap: () => _controller.needAddSourceEvent(context),
-          ),
-        )
-      : MTDropdown<Source>(
-          onChanged: (s) => _controller.selectSource(s),
-          value: _controller.selectedSource,
-          ddItems: srcDdItems(sourceController.sources),
-          label: loc.source_import_placeholder,
-          dense: false,
-        );
+  Widget get sourceDropdown => MTDropdown<Source>(
+        onChanged: (s) => _controller.selectSource(s),
+        value: _controller.selectedSource,
+        ddItems: srcDdItems(sourceController.sources),
+        label: loc.source_import_placeholder,
+        dense: false,
+      );
 
   Widget form() {
     return Column(children: [
@@ -100,7 +91,6 @@ class _ImportViewState extends State<ImportView> {
           MTButton(
             titleString: loc.task_import_btn_title,
             onTap: validated ? () => _controller.startImport(context) : null,
-            titleColor: validated ? null : lightGreyColor,
           ),
           SizedBox(height: onePadding),
         ] else
@@ -123,7 +113,7 @@ class _ImportViewState extends State<ImportView> {
           leading: MTCloseButton(),
           title: loc.task_import_title,
           trailing: sourceController.sources.isNotEmpty
-              ? MTButtonIcon(plusIcon(context), () => _controller.needAddSourceEvent(context), padding: EdgeInsets.only(right: onePadding))
+              ? MTButton.icon(plusIcon(context), () => _controller.needAddSourceEvent(context), margin: EdgeInsets.only(right: onePadding))
               : null,
         ),
         body: SafeArea(child: form()),

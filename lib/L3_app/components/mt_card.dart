@@ -1,10 +1,10 @@
 // Copyright (c) 2021. Alexandr Moroz
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
 import 'constants.dart';
-import 'mt_button.dart';
 import 'mt_rounded_container.dart';
 
 class MTCard extends StatelessWidget {
@@ -22,9 +22,11 @@ class MTCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final borderRadius = radius ?? defaultBorderRadius;
     final _color = (color ?? darkBackgroundColor).resolve(context);
-    return MTButton(
-      onTap: onTap,
-      middle: Card(
+    return CupertinoButton(
+      minSize: 0,
+      padding: EdgeInsets.zero,
+      onPressed: onTap,
+      child: Card(
         margin: margin ?? EdgeInsets.symmetric(horizontal: onePadding, vertical: onePadding / 2),
         elevation: elevation ?? 2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius)),

@@ -41,7 +41,6 @@ class RootView extends StatelessWidget {
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final Brightness platformBrightness = WidgetsBinding.instance.window.platformBrightness;
     final textTheme = CupertinoTheme.of(context).textTheme;
 
     // const fontFamily = '--apple-system';
@@ -49,9 +48,11 @@ class App extends StatelessWidget {
 
     return Theme(
       data: ThemeData(
-        brightness: platformBrightness,
-        primarySwatch: platformBrightness == Brightness.light ? darkTealColorMaterial : tealColorMaterial,
+        // brightness: WidgetsBinding.instance.window.platformBrightness,
+        // colorSchemeSeed: mainColor.resolve(context),
+        colorScheme: ColorScheme.fromSeed(seedColor: mainColor.resolve(context), brightness: WidgetsBinding.instance.window.platformBrightness),
         fontFamily: fontFamily,
+        useMaterial3: true,
       ),
       child: CupertinoApp(
         home: FutureBuilder(

@@ -118,11 +118,11 @@ class _SourceEditViewState extends State<SourceEditView> {
             'description',
           ].map((code) => textFieldForCode(code)),
           if (_controller.canEdit)
-            MTButton(
+            MTButton.outlined(
               titleString: loc.delete_action_title,
-              onTap: () => _controller.delete(context),
               titleColor: dangerColor,
-              margin: EdgeInsets.only(top: onePadding),
+              margin: tfPadding.copyWith(top: onePadding * 4),
+              onTap: () => _controller.delete(context),
             ),
           SizedBox(height: onePadding * 2),
         ],

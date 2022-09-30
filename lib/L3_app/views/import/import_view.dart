@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import '../../../L1_domain/entities/source.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
+import '../../components/icons.dart';
 import '../../components/mt_bottom_sheet.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_checkbox.dart';
@@ -38,15 +39,24 @@ class ImportView extends StatelessWidget {
   bool get _validated => _controller.validated;
   bool get _selectedAll => _controller.selectedAll;
 
-  List<DropdownMenuItem<Source>> _srcDdItems(Iterable<Source> sources, BuildContext context) => sources
-      .map((s) => DropdownMenuItem<Source>(
-            value: s,
-            child: s.info(context),
-          ))
-      .toList();
+  List<DropdownMenuItem<Source>> _srcDdItems(Iterable<Source> sources, BuildContext context) {
+    final ddItems = sources
+        .map((s) => DropdownMenuItem<Source>(
+              value: s,
+              child: s.info(context),
+            ))
+        .toList();
+    ddItems.add(
+      DropdownMenuItem<Source>(
+        value: Source(workspaceId: -1, type: SourceType(id: -1, title: ''), url: 'none'),
+        child: Row(children: [plusIcon(context), MediumText(loc.source_title_new, color: mainColor)]),
+      ),
+    );
+    return ddItems;
+  }
 
   Widget _sourceDropdown(BuildContext context) => MTDropdown<Source>(
-        onChanged: (s) => _controller.selectSource(s),
+        onChanged: (s) => s?.id != null ? _controller.selectSource(s) : _controller.needAddSourceEvent(context),
         value: _controller.selectedSource,
         ddItems: _srcDdItems(sourceController.sources, context),
         label: loc.source_import_placeholder,
@@ -97,7 +107,7 @@ class ImportView extends StatelessWidget {
     );
   }
 
-  Widget? _bottomBar(BuildContext context) => _controller.selectedSource != null
+  Widget? _bottomBar(BuildContext context) => _controller.selectedSource != null && _hasProjects
       ? Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           if (!_validated)
             NormalText(

@@ -22,79 +22,79 @@ Widget connectingIcon(BuildContext context, {Color? color, double? size}) => Ico
 Widget importIcon(BuildContext context, {Color? color, double? size}) => Icon(
       CupertinoIcons.arrow_down_to_line,
       color: (color ?? mainColor).resolve(context),
-      size: size ?? 24,
+      size: size ?? onePadding * 2,
     );
 
 Widget plusIcon(BuildContext context, {Color? color, double? size}) => Icon(
       CupertinoIcons.plus,
       color: (color ?? mainColor).resolve(context),
-      size: size ?? 24,
+      size: size ?? onePadding * 2,
     );
 
 Widget editIcon(BuildContext context, {Color? color, double? size}) => Icon(
       Icons.edit,
       color: (color ?? mainColor).resolve(context),
-      size: size ?? 24,
+      size: size ?? onePadding * 2,
     );
 
 Widget calendarIcon(BuildContext context, {Color? color, double? size}) => Icon(
       CupertinoIcons.calendar,
       color: (color ?? mainColor).resolve(context),
-      size: size ?? 24,
+      size: size ?? onePadding * 2,
     );
 
 Widget doneIcon(BuildContext context, bool done, {Color? color, double? size}) => Icon(
       done ? CupertinoIcons.check_mark_circled : CupertinoIcons.circle,
       color: (color ?? mainColor).resolve(context),
-      size: size ?? 26,
+      size: size ?? onePadding * 2,
     );
 
 Widget dropdownCaretIcon(BuildContext context, {Color? color, double? size}) => Icon(
       CupertinoIcons.chevron_up_chevron_down,
       color: (color ?? mainColor).resolve(context),
-      size: size ?? 24,
+      size: size ?? onePadding * 2,
     );
 
 Widget chevronIcon(BuildContext context, {Color? color, double? size}) => FaIcon(
       FontAwesomeIcons.chevronRight,
       color: (color ?? mainColor).resolve(context),
-      size: size ?? 14,
+      size: size ?? onePadding * 1.2,
     );
 
 Widget linkIcon(BuildContext context, {Color? color, double? size}) => Icon(
       CupertinoIcons.link,
       color: (color ?? darkGreyColor).resolve(context),
-      size: size ?? 15,
+      size: size ?? onePadding * 1.4,
     );
 
 Widget linkOutIcon(BuildContext context, {Color? color, double? size}) => FaIcon(
       FontAwesomeIcons.arrowUpRightFromSquare,
       color: (color ?? mainColor).resolve(context),
-      size: size ?? 12,
+      size: size ?? onePadding,
     );
 
 Widget unlinkIcon(BuildContext context, {Color? color, double? size}) => FaIcon(
       FontAwesomeIcons.linkSlash,
       color: (color ?? warningColor).resolve(context),
-      size: size ?? 16,
+      size: size ?? onePadding * 1.4,
     );
 
 Widget unwatchIcon(BuildContext context, {Color? color, double? size}) => FaIcon(
       FontAwesomeIcons.eyeSlash,
       color: (color ?? dangerColor).resolve(context),
-      size: size ?? 16,
+      size: size ?? onePadding * 1.4,
     );
 
 Widget closeIcon(BuildContext context, {Color? color, double? size}) => Icon(
       CupertinoIcons.clear,
       color: (color ?? mainColor).resolve(context),
-      size: size ?? 24,
+      size: size ?? onePadding * 2,
     );
 
 Widget logoutIcon(BuildContext context, {Color? color, double? size}) => FaIcon(
       FontAwesomeIcons.arrowRightFromBracket,
       color: (color ?? mainColor).resolve(context),
-      size: size ?? 18,
+      size: size ?? onePadding * 1.5,
     );
 
 Widget menuIcon(BuildContext context, {double? size}) => Icon(

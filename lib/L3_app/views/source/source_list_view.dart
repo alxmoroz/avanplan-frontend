@@ -42,7 +42,11 @@ class _SourceListViewState extends State<SourceListView> {
         navBar: navBar(
           context,
           title: loc.source_list_title,
-          trailing: MTButton.icon(plusIcon(context), () => _controller.addSource(context), margin: EdgeInsets.only(right: onePadding)),
+          trailing: MTButton.icon(
+            plusIcon(context, size: onePadding * 2.5),
+            () => _controller.addSource(context),
+            margin: EdgeInsets.only(right: onePadding),
+          ),
         ),
         body: SafeArea(
           top: false,

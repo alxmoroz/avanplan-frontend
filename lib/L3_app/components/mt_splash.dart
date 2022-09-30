@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
-import 'constants.dart';
 import 'icons.dart';
 
 class MTSplashScreen extends StatelessWidget {
@@ -20,7 +19,7 @@ class MTSplashScreen extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           gerculesIcon(),
-          SizedBox(height: onePadding * 2),
+          const SizedBox(height: 30),
           const CircularProgressIndicator(),
         ],
       ),

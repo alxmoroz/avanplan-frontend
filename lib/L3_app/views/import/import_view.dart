@@ -12,7 +12,6 @@ import '../../components/mt_bottom_sheet.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_checkbox.dart';
 import '../../components/mt_close_button.dart';
-import '../../components/mt_divider.dart';
 import '../../components/mt_dropdown.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
@@ -40,12 +39,12 @@ class ImportView extends StatefulWidget {
 
 class _ImportViewState extends State<ImportView> {
   ImportController get _controller => importController;
-  bool get hasTasks => _controller.remoteTasks.isNotEmpty;
+  bool get hasProjects => _controller.remoteTasks.isNotEmpty;
   bool get hasError => _controller.errorCode != null;
   bool get validated => _controller.validated;
   bool get selectedAll => _controller.selectedAll;
 
-  Widget taskItemBuilder(BuildContext context, int index) {
+  Widget itemBuilder(BuildContext context, int index) {
     final task = _controller.remoteTasks[index];
     final value = task.selected;
     return MTCheckBoxTile(
@@ -71,37 +70,55 @@ class _ImportViewState extends State<ImportView> {
         dense: false,
       );
 
-  Widget form() {
-    return Column(children: [
-      sourceDropdown,
-      if (_controller.selectedSource != null) ...[
-        SizedBox(height: onePadding),
-        if (hasTasks) ...[
-          if (_controller.remoteTasks.length > 1)
-            MTCheckBoxTile(title: loc.select_all_action_title, value: selectedAll, onChanged: _controller.toggleSelectedAll),
-          const MTDivider(),
-          Expanded(
-            child: ListView.builder(
-              itemBuilder: taskItemBuilder,
-              itemCount: _controller.remoteTasks.length,
+  Widget get _header => Column(
+        children: [
+          sourceDropdown,
+          if (_controller.selectedSource != null) ...[
+            SizedBox(height: onePadding),
+            if (hasProjects) ...[
+              if (_controller.remoteTasks.length > 1)
+                MTCheckBoxTile(title: loc.select_all_action_title, value: selectedAll, onChanged: _controller.toggleSelectedAll),
+            ] else
+              MediumText(
+                hasError ? Intl.message(_controller.errorCode!) : loc.import_list_empty_title,
+                align: TextAlign.center,
+                color: hasError ? warningColor : lightGreyColor,
+              ),
+          ] else
+            NormalText(loc.import_source_select_hint, color: warningColor, align: TextAlign.center, padding: EdgeInsets.only(top: onePadding)),
+        ],
+      );
+
+  Widget get _body => Column(
+        children: [
+          _header,
+          if (_controller.selectedSource != null)
+            Expanded(
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemBuilder: itemBuilder,
+                itemCount: _controller.remoteTasks.length,
+              ),
             ),
-          ),
-          const MTDivider(),
-          SizedBox(height: onePadding),
-          MTButton(
-            titleString: loc.task_import_btn_title,
+        ],
+      );
+
+  Widget? get _bottomBar => _controller.selectedSource != null
+      ? Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          if (!validated)
+            NormalText(
+              loc.import_projects_select_hint,
+              color: warningColor,
+              align: TextAlign.center,
+              padding: EdgeInsets.only(bottom: onePadding / 2),
+            ),
+          MTButton.outlined(
+            titleString: loc.import_action_title,
+            margin: EdgeInsets.symmetric(horizontal: onePadding),
             onTap: validated ? () => _controller.startImport(context) : null,
-          ),
-          SizedBox(height: onePadding),
-        ] else
-          MediumText(
-            hasError ? Intl.message(_controller.errorCode!) : loc.task_import_list_empty_title,
-            align: TextAlign.center,
-            color: hasError ? warningColor : lightGreyColor,
-          ),
-      ],
-    ]);
-  }
+          )
+        ])
+      : null;
 
   @override
   Widget build(BuildContext context) {
@@ -111,12 +128,13 @@ class _ImportViewState extends State<ImportView> {
         navBar: navBar(
           context,
           leading: MTCloseButton(),
-          title: loc.task_import_title,
+          title: loc.import_title,
           trailing: sourceController.sources.isNotEmpty
               ? MTButton.icon(plusIcon(context), () => _controller.needAddSourceEvent(context), margin: EdgeInsets.only(right: onePadding))
               : null,
         ),
-        body: SafeArea(child: form()),
+        body: SafeArea(bottom: false, child: _body),
+        bottomBar: _bottomBar,
       ),
     );
   }

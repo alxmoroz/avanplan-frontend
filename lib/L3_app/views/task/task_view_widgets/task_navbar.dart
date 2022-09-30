@@ -34,7 +34,7 @@ CupertinoNavigationBar taskNavBar(BuildContext context, TaskViewController contr
       case TaskActionType.edit:
         return rowIconTitle(loc.task_edit_action_title, icon: editIcon(context));
       case TaskActionType.import:
-        return rowIconTitle(loc.task_import_action_title, icon: importIcon(context));
+        return rowIconTitle(loc.import_action_title, icon: importIcon(context));
       case TaskActionType.close:
         return rowIconTitle(loc.close_action_title, icon: doneIcon(context, true));
       case TaskActionType.go2source:

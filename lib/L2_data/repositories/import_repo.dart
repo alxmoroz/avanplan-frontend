@@ -26,7 +26,7 @@ class ImportRepo extends AbstractApiImportRepo {
         }
       }
     } catch (e) {
-      throw MTException(code: 'task_import_title_error_get_list', detail: e.toString());
+      throw MTException(code: 'import_title_error_get_list', detail: e.toString());
     }
 
     return rootTasks;

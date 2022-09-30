@@ -20,7 +20,7 @@ Widget connectingIcon(BuildContext context, {Color? color, double? size}) => Ico
     );
 
 Widget importIcon(BuildContext context, {Color? color, double? size}) => Icon(
-      CupertinoIcons.arrow_down_circle,
+      CupertinoIcons.arrow_down_to_line,
       color: (color ?? mainColor).resolve(context),
       size: size ?? 24,
     );

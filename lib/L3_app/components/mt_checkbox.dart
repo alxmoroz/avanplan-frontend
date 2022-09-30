@@ -14,14 +14,15 @@ class MTCheckBoxTile extends StatelessWidget {
   final Function(bool?) onChanged;
 
   @override
-  Widget build(BuildContext context) => CheckboxListTile(
-        title: NormalText(title, color: mainColor),
-        subtitle: description != null ? SmallText(description!, maxLines: 2) : null,
-        value: value,
-        onChanged: onChanged,
-        side: BorderSide(color: mainColor.resolve(context), width: 2),
-        activeColor: mainColor.resolve(context),
-        dense: true,
-        visualDensity: VisualDensity.compact,
+  Widget build(BuildContext context) => Container(
+        child: CheckboxListTile(
+          title: MediumText(title, color: mainColor),
+          subtitle: description != null && description!.isNotEmpty ? SmallText(description!, maxLines: 2) : null,
+          value: value,
+          onChanged: onChanged,
+          side: BorderSide(color: mainColor.resolve(context), width: 2),
+          activeColor: mainColor.resolve(context),
+        ),
+        decoration: BoxDecoration(border: Border(bottom: BorderSide(width: 0, color: borderColor.resolve(context)))),
       );
 }

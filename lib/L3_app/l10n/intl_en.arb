@@ -39,11 +39,19 @@
   "goal_title": "Goal",
 
   "hours_count": "{count, plural, one{{count} hour} other{{count} hours}}",
+
+  "import_action_title": "Import tasks",
+  "import_list_empty_title": "There are no projects available to import\nTry choosing a different source",
+  "import_projects_select_hint": "Select projects to import",
+  "import_source_select_hint": "Select an import source",
+  "import_title": "Import tasks",
+  "import_title_error_get_list": "Error getting projects\nTry choosing a different source",
+
   "months_count": "{count, plural, one{{count} month} other{{count} months}}",
 
   "no": "No",
-  "ok": "Ok",
 
+  "ok": "Ok",
   "overview": "Overview",
 
   "project_count": "{count, plural, zero{No projects} one{1 project} other{{count} projects}}",
@@ -95,12 +103,6 @@
   "task_edit_action_title": "Edit",
   "task_eta_date_label": "Predicted",
   "task_go2source_title": "Go to source",
-
-  "task_import_btn_title": "Track tasks",
-  "task_import_action_title": "Import tasks",
-  "task_import_list_empty_title": "There are no projects available to import\nTry choosing a different source",
-  "task_import_title": "Import tasks",
-  "task_import_title_error_get_list": "Error getting projects\nTry choosing a different source",
 
   "task_filter_all": "All",
   "task_filter_opened": "Opened",

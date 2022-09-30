@@ -57,7 +57,7 @@ class MTButton extends StatelessWidget {
   final EdgeInsets? padding;
   final EdgeInsets? margin;
 
-  Color get _titleColor => titleColor ?? mainColor;
+  Color get _titleColor => onTap != null ? (titleColor ?? mainColor) : lightGreyColor;
 
   ButtonStyle _style(BuildContext context) => ElevatedButton.styleFrom(
         padding: padding ?? EdgeInsets.zero,
@@ -70,7 +70,7 @@ class MTButton extends StatelessWidget {
         splashFactory: NoSplash.splashFactory,
       );
 
-  Widget get _middle => middle ?? MediumText(titleString ?? '', color: onTap != null ? _titleColor : lightGreyColor);
+  Widget get _middle => middle ?? MediumText(titleString ?? '', color: _titleColor);
   Widget get _child => _MTBaseLayout(leading: leading, middle: _middle, trailing: trailing);
 
   Widget _button(BuildContext context) {

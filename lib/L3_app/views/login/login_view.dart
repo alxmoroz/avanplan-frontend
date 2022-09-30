@@ -81,8 +81,8 @@ class _LoginViewState extends State<LoginView> {
                 H1(loc.appTitle, align: TextAlign.center),
                 textFieldForCode('login'),
                 textFieldForCode('password'),
-                MTButton(
-                  margin: EdgeInsets.all(onePadding),
+                MTButton.outlined(
+                  margin: EdgeInsets.symmetric(horizontal: onePadding * 4).copyWith(top: onePadding * 2),
                   padding: EdgeInsets.all(onePadding),
                   titleString: loc.auth_log_in_btn_title,
                   onTap: _controller.validated ? () => _controller.authorize(context) : null,

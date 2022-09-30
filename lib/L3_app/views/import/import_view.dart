@@ -7,7 +7,6 @@ import 'package:intl/intl.dart';
 import '../../../L1_domain/entities/source.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/icons.dart';
 import '../../components/mt_bottom_sheet.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_checkbox.dart';
@@ -30,21 +29,64 @@ Future<String?> showImportDialog(BuildContext context) async {
   );
 }
 
-class ImportView extends StatefulWidget {
+class ImportView extends StatelessWidget {
   static String get routeName => 'import';
 
-  @override
-  _ImportViewState createState() => _ImportViewState();
-}
-
-class _ImportViewState extends State<ImportView> {
   ImportController get _controller => importController;
-  bool get hasProjects => _controller.remoteTasks.isNotEmpty;
-  bool get hasError => _controller.errorCode != null;
-  bool get validated => _controller.validated;
-  bool get selectedAll => _controller.selectedAll;
+  bool get _hasProjects => _controller.remoteTasks.isNotEmpty;
+  bool get _hasError => _controller.errorCode != null;
+  bool get _validated => _controller.validated;
+  bool get _selectedAll => _controller.selectedAll;
 
-  Widget itemBuilder(BuildContext context, int index) {
+  List<DropdownMenuItem<Source>> _srcDdItems(Iterable<Source> sources, BuildContext context) => sources
+      .map((s) => DropdownMenuItem<Source>(
+            value: s,
+            child: s.info(context),
+          ))
+      .toList();
+
+  Widget _sourceDropdown(BuildContext context) => MTDropdown<Source>(
+        onChanged: (s) => _controller.selectSource(s),
+        value: _controller.selectedSource,
+        ddItems: _srcDdItems(sourceController.sources, context),
+        label: loc.source_import_placeholder,
+        dense: false,
+      );
+
+  Widget _header(BuildContext context) => Column(
+        children: [
+          _sourceDropdown(context),
+          if (_controller.selectedSource != null) ...[
+            SizedBox(height: onePadding),
+            if (_hasProjects) ...[
+              if (_controller.remoteTasks.length > 1)
+                MTCheckBoxTile(title: loc.select_all_action_title, value: _selectedAll, onChanged: _controller.toggleSelectedAll),
+            ] else
+              MediumText(
+                _hasError ? Intl.message(_controller.errorCode!) : loc.import_list_empty_title,
+                align: TextAlign.center,
+                color: _hasError ? warningColor : lightGreyColor,
+              ),
+          ] else
+            NormalText(loc.import_source_select_hint, color: warningColor, align: TextAlign.center, padding: EdgeInsets.only(top: onePadding)),
+        ],
+      );
+
+  Widget _body(BuildContext context) => Column(
+        children: [
+          _header(context),
+          if (_controller.selectedSource != null)
+            Expanded(
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemBuilder: _projectItemBuilder,
+                itemCount: _controller.remoteTasks.length,
+              ),
+            ),
+        ],
+      );
+
+  Widget _projectItemBuilder(BuildContext context, int index) {
     final task = _controller.remoteTasks[index];
     final value = task.selected;
     return MTCheckBoxTile(
@@ -55,57 +97,9 @@ class _ImportViewState extends State<ImportView> {
     );
   }
 
-  List<DropdownMenuItem<Source>> srcDdItems(Iterable<Source> sources) => sources
-      .map((s) => DropdownMenuItem<Source>(
-            value: s,
-            child: s.info(context),
-          ))
-      .toList();
-
-  Widget get sourceDropdown => MTDropdown<Source>(
-        onChanged: (s) => _controller.selectSource(s),
-        value: _controller.selectedSource,
-        ddItems: srcDdItems(sourceController.sources),
-        label: loc.source_import_placeholder,
-        dense: false,
-      );
-
-  Widget get _header => Column(
-        children: [
-          sourceDropdown,
-          if (_controller.selectedSource != null) ...[
-            SizedBox(height: onePadding),
-            if (hasProjects) ...[
-              if (_controller.remoteTasks.length > 1)
-                MTCheckBoxTile(title: loc.select_all_action_title, value: selectedAll, onChanged: _controller.toggleSelectedAll),
-            ] else
-              MediumText(
-                hasError ? Intl.message(_controller.errorCode!) : loc.import_list_empty_title,
-                align: TextAlign.center,
-                color: hasError ? warningColor : lightGreyColor,
-              ),
-          ] else
-            NormalText(loc.import_source_select_hint, color: warningColor, align: TextAlign.center, padding: EdgeInsets.only(top: onePadding)),
-        ],
-      );
-
-  Widget get _body => Column(
-        children: [
-          _header,
-          if (_controller.selectedSource != null)
-            Expanded(
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemBuilder: itemBuilder,
-                itemCount: _controller.remoteTasks.length,
-              ),
-            ),
-        ],
-      );
-
-  Widget? get _bottomBar => _controller.selectedSource != null
+  Widget? _bottomBar(BuildContext context) => _controller.selectedSource != null
       ? Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          if (!validated)
+          if (!_validated)
             NormalText(
               loc.import_projects_select_hint,
               color: warningColor,
@@ -115,26 +109,21 @@ class _ImportViewState extends State<ImportView> {
           MTButton.outlined(
             titleString: loc.import_action_title,
             margin: EdgeInsets.symmetric(horizontal: onePadding),
-            onTap: validated ? () => _controller.startImport(context) : null,
+            onTap: _validated ? () => _controller.startImport(context) : null,
           )
         ])
       : null;
+
+  // MTButton.icon(plusIcon(context), () => _controller.needAddSourceEvent(context), margin: EdgeInsets.only(right: onePadding))
 
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
         isLoading: _controller.isLoading,
-        navBar: navBar(
-          context,
-          leading: MTCloseButton(),
-          title: loc.import_title,
-          trailing: sourceController.sources.isNotEmpty
-              ? MTButton.icon(plusIcon(context), () => _controller.needAddSourceEvent(context), margin: EdgeInsets.only(right: onePadding))
-              : null,
-        ),
-        body: SafeArea(bottom: false, child: _body),
-        bottomBar: _bottomBar,
+        navBar: navBar(context, leading: MTCloseButton(), title: loc.import_title),
+        body: SafeArea(bottom: false, child: _body(context)),
+        bottomBar: _bottomBar(context),
       ),
     );
   }

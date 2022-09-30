@@ -162,7 +162,6 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
 
   /// роутер
 
-  @action
   Future setClosed(BuildContext context, bool _closed) async {
     task.closed = _closed;
     startLoading();
@@ -234,6 +233,9 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
         break;
       case TaskActionType.edit:
         await edit(context);
+        break;
+      case TaskActionType.close:
+        await setClosed(context, true);
         break;
       case TaskActionType.import:
         await importController.importTasks(context);

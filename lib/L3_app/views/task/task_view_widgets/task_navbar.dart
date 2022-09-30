@@ -22,7 +22,7 @@ CupertinoNavigationBar taskNavBar(BuildContext context, TaskViewController contr
   Widget rowIconTitle(String title, {Widget? icon, Color? color}) => Row(children: [
         if (icon != null) ...[
           icon,
-          SizedBox(width: onePadding / 2),
+          SizedBox(width: onePadding / 3),
         ],
         NormalText(title, color: color ?? mainColor),
       ]);
@@ -35,6 +35,8 @@ CupertinoNavigationBar taskNavBar(BuildContext context, TaskViewController contr
         return rowIconTitle(loc.task_edit_action_title, icon: editIcon(context));
       case TaskActionType.import:
         return rowIconTitle(loc.task_import_action_title, icon: importIcon(context));
+      case TaskActionType.close:
+        return rowIconTitle(loc.task_state_close_btn_title, icon: doneIcon(context, true));
       case TaskActionType.go2source:
         return task.taskSource!.go2SourceTitle(context);
       case TaskActionType.unlink:

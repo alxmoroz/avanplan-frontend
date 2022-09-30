@@ -8,6 +8,7 @@ import 'task_source.dart';
 enum TaskActionType {
   add,
   edit,
+  close,
   import,
   go2source,
   unlink,
@@ -42,6 +43,9 @@ extension TaskActionsExt on Task {
     }
     if (canEdit) {
       res.add(TaskActionType.edit);
+    }
+    if (canClose) {
+      res.add(TaskActionType.close);
     }
     if (isProject && hasLink) {
       res.add(TaskActionType.go2source);

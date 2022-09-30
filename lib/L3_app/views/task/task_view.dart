@@ -92,9 +92,9 @@ class TaskView extends StatelessWidget {
         ),
         bottomBar: _task.shouldAddSubtask
             ? TaskAddActionWidget(_controller, parentContext: context)
-            : _task.canReopen || _task.canClose || _task.canCloseLeaf
+            : _task.canReopen || _task.shouldClose || _task.shouldCloseLeaf
                 ? Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                    if (_task.canClose)
+                    if (_task.shouldClose)
                       MediumText(
                         loc.task_state_closable_hint,
                         align: TextAlign.center,
@@ -103,8 +103,8 @@ class TaskView extends StatelessWidget {
                       ),
                     MTButton.outlined(
                       margin: EdgeInsets.symmetric(horizontal: onePadding),
-                      titleString: (_task.canClose || _task.canCloseLeaf) ? loc.task_state_close_btn_title : loc.task_state_reopen_btn_title,
-                      leading: (_task.canClose || _task.canCloseLeaf) ? doneIcon(context, true) : null,
+                      titleString: (_task.shouldClose || _task.shouldCloseLeaf) ? loc.close_action_title : loc.task_state_reopen_btn_title,
+                      leading: (_task.shouldClose || _task.shouldCloseLeaf) ? doneIcon(context, true) : null,
                       onTap: () => _controller.setClosed(context, !_task.closed),
                     ),
                   ])

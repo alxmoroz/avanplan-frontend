@@ -15,6 +15,13 @@
 
   "backlog": "Backlog",
 
+  "cancel": "Cancel",
+
+  "close_action_title": "Close",
+  "close_dialog_recursive_description": "All subtasks will be marked completed",
+  "close_dialog_recursive_title": "Close with subtasks?",
+  "close_w_subtasks": "Close with subtasks",
+
   "days_count": "{count, plural, one{{count} day} other{{count} days}}",
   "delete_action_title": "Delete",
   "delete_dialog_description": "This action cannot be undone!",
@@ -48,6 +55,11 @@
   "project_list_title": "All projects",
   "project_new_title": "New project",
   "project_title": "Project",
+
+  "reopen_dialog_recursive_description": "All closed subtasks will be opened",
+  "reopen_dialog_recursive_title": "Reopen along with closed subtasks?",
+  "reopen_selected_only": "Reopen this one only",
+  "reopen_w_subtasks": "Yes, with subtasks",
 
   "save_action_title": "Save",
   "select_all_action_title": "Select all",
@@ -97,7 +109,6 @@
   "task_new_title": "New task",
 
   "task_state_closed": "Closed",
-  "task_state_close_btn_title": "Close",
   "task_state_closable_hint": "Hooray! No open subtasks left",
   "task_state_closable_title": "Can be closed",
   "task_state_eta_details_prefix": "We will finish in",

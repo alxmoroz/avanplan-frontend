@@ -160,12 +160,60 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
         ],
       );
 
+  Future<bool?> _closeDialog(BuildContext context) async => await showMTDialog<bool?>(
+        context,
+        title: loc.close_dialog_recursive_title,
+        description: loc.close_dialog_recursive_description,
+        actions: [
+          MTDialogAction(title: loc.close_w_subtasks, type: MTActionType.isWarning, result: true),
+          MTDialogAction(title: loc.cancel, type: MTActionType.isDefault, result: false),
+        ],
+      );
+
+  Future<bool?> _reopenDialog(BuildContext context) async => await showMTDialog<bool?>(
+        context,
+        title: loc.reopen_dialog_recursive_title,
+        description: loc.reopen_dialog_recursive_description,
+        actions: [
+          MTDialogAction(title: loc.reopen_w_subtasks, type: MTActionType.isWarning, result: true),
+          MTDialogAction(title: loc.reopen_selected_only, type: MTActionType.isDefault, result: false),
+        ],
+      );
+
   /// роутер
 
-  Future setClosed(BuildContext context, bool _closed) async {
-    task.closed = _closed;
+  Future<Task?> _setClosedTaskTree(Task _task, bool _isClose, bool _recursively) async {
+    if (_recursively) {
+      for (final t in _task.allTasks.where((t) => t.closed != _isClose)) {
+        t.closed = _isClose;
+        await tasksUC.save(t);
+      }
+    }
+    _task.closed = _isClose;
+    return await tasksUC.save(_task);
+  }
+
+  Future setClosed(BuildContext context, bool isClose) async {
+    bool cancel = false;
+    bool recursively = false;
+
+    if (isClose) {
+      if (task.hasOpenedSubtasks) {
+        recursively = await _closeDialog(context) == true;
+        cancel = !recursively;
+      }
+    } else if (task.hasClosedSubtasks) {
+      final res = await _reopenDialog(context);
+      cancel = res == null;
+      recursively = res == true;
+    }
+
+    if (cancel) {
+      return;
+    }
+
     startLoading();
-    final editedTask = await tasksUC.save(task);
+    final editedTask = await _setClosedTaskTree(task, isClose, recursively);
     stopLoading();
     if (editedTask != null) {
       if (editedTask.closed) {

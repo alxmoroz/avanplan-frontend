@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'colors.dart';
 import 'constants.dart';
-import 'mt_button.dart';
+import 'mt_divider.dart';
 import 'text_widgets.dart';
 
 enum MTActionType {
@@ -65,8 +65,8 @@ class MTConfirmDialog extends StatelessWidget {
   final bool simple;
 
   Widget _actionText(MTDialogAction a) => a.type == MTActionType.isDefault
-      ? MediumText(a.title ?? '', color: _actionColors[a.type])
-      : NormalText(a.title ?? '', color: _actionColors[a.type]);
+      ? MediumText(a.title ?? '', color: _actionColors[a.type], align: TextAlign.center)
+      : NormalText(a.title ?? '', color: _actionColors[a.type], align: TextAlign.center);
 
   Widget _actionRow(MTDialogAction a) => Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -77,7 +77,7 @@ class MTConfirmDialog extends StatelessWidget {
                 a.icon!,
                 SizedBox(width: onePadding / 3),
               ],
-              _actionText(a),
+              Expanded(child: _actionText(a)),
             ]);
 
   @override
@@ -89,18 +89,25 @@ class MTConfirmDialog extends StatelessWidget {
       Navigator.of(context).pop(a.result);
     }
 
+    Widget richButton(MTDialogAction a) => Column(
+          children: [
+            MTDivider(height: onePadding * 2),
+            CupertinoButton(
+              minSize: 0,
+              padding: EdgeInsets.zero,
+              onPressed: () => action(a),
+              child: _actionRow(a),
+            )
+          ],
+        );
+
     return CupertinoAlertDialog(
       title: H4(title, padding: EdgeInsets.only(bottom: onePadding), maxLines: 5, color: darkColor),
       content: Column(
         children: [
           if (description.isNotEmpty) NormalText(description),
           if (!simple)
-            for (final a in actions)
-              MTButton(
-                onTap: () => action(a),
-                middle: _actionRow(a),
-                margin: EdgeInsets.only(top: onePadding * 2),
-              ),
+            for (final a in actions) richButton(a),
         ],
       ),
       actions: !simple ? [] : actions.map((a) => CupertinoDialogAction(child: _actionText(a), onPressed: () => action(a))).toList(),

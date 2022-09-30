@@ -12,8 +12,14 @@
   "auth_password_placeholder": "Пароль",
   "auth_user_placeholder": "Пользователь",
 
-
   "backlog": "Бэклог",
+
+  "cancel": "Отмена",
+
+  "close_action_title": "Завершить",
+  "close_dialog_recursive_description": "Все открытые подзадачи будут отмечены выполненными",
+  "close_dialog_recursive_title": "Завершить вместе с подзадачами?",
+  "close_w_subtasks": "Завершить вместе с подзадачами",
 
   "days_count": "{count, plural, one{{count} день} few{{count} дня} other{{count} дней}}",
   "delete_action_title": "Удалить",
@@ -48,6 +54,11 @@
   "project_list_title": "Все проекты",
   "project_new_title": "Новый проект",
   "project_title": "Проект",
+
+  "reopen_dialog_recursive_description": "Все закрытые подзадачи будут открыты",
+  "reopen_dialog_recursive_title": "Переоткрыть вместе с закрытыми подзадачами?",
+  "reopen_selected_only": "Переоткрыть без подзадач",
+  "reopen_w_subtasks": "Переоткрыть вместе с подзадачами",
 
   "save_action_title": "Сохранить",
   "select_all_action_title": "Выбрать все",
@@ -97,7 +108,6 @@
   "task_new_title": "Новая задача",
 
   "task_state_closed": "Выполнено",
-  "task_state_close_btn_title": "Завершить",
   "task_state_closable_hint": "Ура! Не осталось открытых подзадач",
   "task_state_closable_title": "Можно закрыть",
   "task_state_eta_details_prefix": "Закончим через",

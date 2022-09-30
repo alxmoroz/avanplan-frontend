@@ -87,6 +87,9 @@ extension TaskStats on Task {
   int get openedSubtasksCount => openedSubtasks.length;
   bool get hasOpenedSubtasks => openedSubtasks.isNotEmpty;
 
+  Iterable<Task> get _closedSubtasks => tasks.where((t) => t.closed);
+  bool get hasClosedSubtasks => _closedSubtasks.isNotEmpty;
+
   Iterable<Task> get _leafTasks => allTasks.where((t) => !t.hasSubtasks);
   int get _leafTasksCount => _leafTasks.length;
   Iterable<Task> get _openedLeafTasks => _leafTasks.where((t) => !t.closed);

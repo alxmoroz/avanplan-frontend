@@ -22,9 +22,11 @@ extension TaskActionsExt on Task {
   bool get canImport => isWorkspace;
   bool get canRefresh => isWorkspace;
   bool get canReopen => canEdit && closed;
-  bool get canClose => canEdit && isClosable;
-  bool get canCloseLeaf => canEdit && !closed && (isTask || isSubtask) && !hasSubtasks;
+  bool get canClose => canEdit && !closed;
 
+  /// рекомендации, быстрые кнопки
+  bool get shouldClose => canEdit && isClosable;
+  bool get shouldCloseLeaf => canClose && (isTask || isSubtask) && !hasSubtasks;
   bool get shouldAddSubtask =>
       canAdd &&
       !hasSubtasks &&

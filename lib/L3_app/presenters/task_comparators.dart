@@ -1,5 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:collection/collection.dart';
+
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/usecases/task_ext_state.dart';
 
@@ -17,7 +19,7 @@ int sortByDateAsc(Task t1, Task t2) {
   }
 
   if (res == 0) {
-    res = t1.title.compareTo(t2.title);
+    res = compareNatural(t1.title, t2.title);
   }
 
   return res;

@@ -48,7 +48,7 @@ abstract class _MainControllerBase extends BaseController with Store {
       }
     }
 
-    workspaces.sort((ws1, ws2) => ws1.title.compareTo(ws2.title));
+    workspaces.sort((w1, w2) => compareNatural(w1.title, w2.title));
 
     final tasks = <Task>[];
     for (Workspace ws in workspaces) {

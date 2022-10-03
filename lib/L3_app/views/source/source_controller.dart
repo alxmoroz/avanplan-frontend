@@ -44,9 +44,7 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
     _sortSources();
     _checkSources(sources);
 
-    final _sTypes = await sourceTypesUC.getAll();
-    _sTypes.sort((s1, s2) => s1.title.compareTo(s2.title));
-    sTypes = ObservableList.of(_sTypes);
+    sTypes = ObservableList.of((await sourceTypesUC.getAll()).sorted((s1, s2) => compareNatural(s1.title, s2.title)));
   }
 
   @action

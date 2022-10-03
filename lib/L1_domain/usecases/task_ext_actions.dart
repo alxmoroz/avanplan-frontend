@@ -1,9 +1,9 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'task.dart';
+import '../entities/task.dart';
+import '../entities/task_source.dart';
 import 'task_ext_level.dart';
 import 'task_ext_state.dart';
-import 'task_source.dart';
 
 enum TaskActionType {
   add,
@@ -35,27 +35,17 @@ extension TaskActionsExt on Task {
         TaskLevel.goal,
       ].contains(level);
 
-  List<TaskActionType> get actionTypes {
-    final res = <TaskActionType>[];
-    if (canImport) {
-      res.add(TaskActionType.import);
-    }
-    if (canAdd) {
-      res.add(TaskActionType.add);
-    }
-    if (canEdit) {
-      res.add(TaskActionType.edit);
-    }
-    if (canClose) {
-      res.add(TaskActionType.close);
-    }
-    if (isProject && hasLink) {
-      res.add(TaskActionType.go2source);
-      res.add(TaskActionType.unlink);
-      res.add(TaskActionType.unwatch);
-    }
-    return res;
-  }
+  Iterable<TaskActionType> get actionTypes => [
+        if (canImport) TaskActionType.import,
+        if (canAdd) TaskActionType.add,
+        if (canEdit) TaskActionType.edit,
+        if (canClose) TaskActionType.close,
+        if (isProject && hasLink) ...[
+          TaskActionType.go2source,
+          TaskActionType.unlink,
+          TaskActionType.unwatch,
+        ]
+      ];
 
   void _updateParentTask() {
     if (parent != null) {

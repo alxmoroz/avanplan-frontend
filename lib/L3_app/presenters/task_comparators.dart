@@ -1,7 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../entities/task.dart';
-import '../entities/task_ext_state.dart';
+import '../../L1_domain/entities/task.dart';
+import '../../L1_domain/usecases/task_ext_state.dart';
 
 // TODO: найти подходящее место
 int sortByDateAsc(Task t1, Task t2) {

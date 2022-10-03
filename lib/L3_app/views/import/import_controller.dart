@@ -6,9 +6,9 @@ import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/source.dart';
 import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/entities/task_ext_state.dart';
 import '../../../L1_domain/entities/task_source.dart';
 import '../../../L1_domain/system/errors.dart';
+import '../../../L1_domain/usecases/task_ext_state.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
 import 'import_view.dart';

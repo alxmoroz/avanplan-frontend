@@ -5,10 +5,9 @@ import 'package:mobx/mobx.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/entities/task_ext_actions.dart';
-import '../../../L1_domain/entities/task_ext_level.dart';
-import '../../../L1_domain/entities/task_ext_state.dart';
-import '../../../L1_domain/usecases/task_comparators.dart';
+import '../../../L1_domain/usecases/task_ext_actions.dart';
+import '../../../L1_domain/usecases/task_ext_level.dart';
+import '../../../L1_domain/usecases/task_ext_state.dart';
 import '../../components/icons.dart';
 import '../../components/mt_confirm_dialog.dart';
 import '../../extra/services.dart';
@@ -67,50 +66,12 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   @computed
   TaskTabKey get tabKey => (tabKeys.contains(_tabKey) ? _tabKey : null) ?? (tabKeys.isNotEmpty ? tabKeys.first : TaskTabKey.subtasks);
 
-  /// фильтр и сортировка
-  @computed
-  Iterable<Task> get _sortedTasks {
-    final tasks = task.tasks;
-    tasks.sort(sortByDateAsc);
-    return tasks;
-  }
-
-  @computed
-  Iterable<Task> get _sortedOpenedTasks {
-    final tasks = task.openedSubtasks.toList();
-    tasks.sort(sortByDateAsc);
-    return tasks;
-  }
-
+  /// фильтры и сортировка
   @observable
-  TaskFilter? _tasksFilter;
+  bool? _hasGroupedListView;
 
   @computed
-  TaskFilter get tasksFilter => _tasksFilter ?? (task.hasOpenedSubtasks ? TaskFilter.opened : TaskFilter.all);
-
-  @action
-  void setFilter(TaskFilter? _filter) => _tasksFilter = _filter;
-
-  @computed
-  List<TaskFilter> get taskFilterKeys {
-    final keys = <TaskFilter>[];
-    if (task.hasOpenedSubtasks && task.openedSubtasksCount < task.tasks.length) {
-      keys.add(TaskFilter.opened);
-    }
-    keys.add(TaskFilter.all);
-    return keys;
-  }
-
-  @computed
-  bool get hasFilters => taskFilterKeys.length > 1;
-
-  Map<TaskFilter, Iterable<Task>> get _taskFilters => {
-        TaskFilter.opened: _sortedOpenedTasks,
-        TaskFilter.all: _sortedTasks,
-      };
-
-  @computed
-  Iterable<Task> get filteredTasks => _taskFilters[tasksFilter] ?? [];
+  bool get hasGroupedListView => _hasGroupedListView ?? task.subtaskGroups.length > 1 && (task.tasks.length > 7 || task.hasClosedSubtasks);
 
   /// связь с источником импорта
 
@@ -297,7 +258,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
       case TaskActionType.unwatch:
         await unwatch(context);
         break;
-      case null:
+      default:
     }
   }
 }

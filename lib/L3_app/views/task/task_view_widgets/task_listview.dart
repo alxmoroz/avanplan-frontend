@@ -5,35 +5,36 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../components/constants.dart';
 import '../../../extra/services.dart';
+import '../../../presenters/task_filter_presenter.dart';
 import '../task_related_widgets/task_card.dart';
+import '../task_related_widgets/task_state_title.dart';
 import '../task_view_controller.dart';
-import 'task_filter_dropdown.dart';
 
 class TaskListView extends StatelessWidget {
   const TaskListView(this.controller);
   final TaskViewController controller;
 
-  Widget cardBuilder(BuildContext context, int index) {
-    final taskId = controller.filteredTasks.elementAt(index).id;
-    return TaskCard(mainController.taskForId(taskId));
+  Widget _taskItem(int? taskId) => TaskCard(mainController.taskForId(taskId));
+
+  Widget _itemBuilder(BuildContext context, int index) => _taskItem(controller.task.sortedSubtasks[index].id);
+
+  Widget _groupedItemBuilder(BuildContext context, int index) {
+    final group = controller.task.subtaskGroups[index];
+    return Column(children: [
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: onePadding).copyWith(top: onePadding),
+        child: SubtasksStateTitle(controller.task, group.key, style: TaskStateTitleStyle.M),
+      ),
+      for (final t in group.value) _taskItem(t.id),
+    ]);
   }
 
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => Column(
-        children: [
-          SizedBox(height: controller.hasFilters ? 0 : onePadding / 2),
-          if (controller.hasFilters) ...[
-            TaskFilterDropdown(controller),
-          ],
-          Expanded(
-            child: ListView.builder(
-              itemBuilder: cardBuilder,
-              itemCount: controller.filteredTasks.length,
-            ),
-          ),
-        ],
+      builder: (_) => ListView.builder(
+        itemBuilder: controller.hasGroupedListView ? _groupedItemBuilder : _itemBuilder,
+        itemCount: controller.hasGroupedListView ? controller.task.subtaskGroups.length : controller.task.sortedSubtasks.length,
       ),
     );
   }

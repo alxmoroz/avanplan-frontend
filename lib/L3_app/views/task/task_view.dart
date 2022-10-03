@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/entities/task_ext_actions.dart';
-import '../../../L1_domain/entities/task_ext_level.dart';
+import '../../../L1_domain/usecases/task_ext_actions.dart';
+import '../../../L1_domain/usecases/task_ext_level.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -76,7 +76,7 @@ class TaskView extends StatelessWidget {
         isLoading: _controller.isLoading,
         navBar: taskNavBar(context, _controller),
         body: SafeArea(
-          top: !_task.isWorkspace || _controller.hasFilters,
+          top: !_task.isWorkspace,
           bottom: false,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,

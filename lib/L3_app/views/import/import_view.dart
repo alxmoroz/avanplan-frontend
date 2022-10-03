@@ -39,21 +39,13 @@ class ImportView extends StatelessWidget {
   bool get _validated => _controller.validated;
   bool get _selectedAll => _controller.selectedAll;
 
-  List<DropdownMenuItem<Source>> _srcDdItems(Iterable<Source> sources, BuildContext context) {
-    final ddItems = sources
-        .map((s) => DropdownMenuItem<Source>(
-              value: s,
-              child: s.info(context),
-            ))
-        .toList();
-    ddItems.add(
-      DropdownMenuItem<Source>(
-        value: Source(workspaceId: -1, type: SourceType(id: -1, title: ''), url: 'none'),
-        child: Row(children: [plusIcon(context), MediumText(loc.source_title_new, color: mainColor)]),
-      ),
-    );
-    return ddItems;
-  }
+  List<DropdownMenuItem<Source>> _srcDdItems(Iterable<Source> sources, BuildContext context) => [
+        for (final s in sources) DropdownMenuItem<Source>(value: s, child: s.info(context)),
+        DropdownMenuItem<Source>(
+          value: Source(workspaceId: -1, type: SourceType(id: -1, title: ''), url: 'none'),
+          child: Row(children: [plusIcon(context), MediumText(loc.source_title_new, color: mainColor)]),
+        ),
+      ];
 
   Widget _sourceDropdown(BuildContext context) => MTDropdown<Source>(
         onChanged: (s) => s?.id != null ? _controller.selectSource(s) : _controller.needAddSourceEvent(context),

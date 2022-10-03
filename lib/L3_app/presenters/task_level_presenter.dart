@@ -1,7 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/entities/task_ext_level.dart';
+import '../../L1_domain/usecases/task_ext_level.dart';
 import '../extra/services.dart';
 
 extension TaskLevelPresenter on Task {
@@ -56,6 +56,14 @@ extension TaskLevelPresenter on Task {
         TaskLevel.project: loc.goal_count(count),
         TaskLevel.goal: loc.task_count(count),
         TaskLevel.task: loc.subtask_count(count),
+      }[level] ??
+      loc.subtask_count(count);
+
+  String grandchildrenCount(int count) =>
+      {
+        TaskLevel.workspace: loc.goal_count(count),
+        TaskLevel.project: loc.task_count(count),
+        TaskLevel.goal: loc.subtask_count(count),
       }[level] ??
       loc.subtask_count(count);
 }

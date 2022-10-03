@@ -13,19 +13,16 @@ import '../extra/services.dart';
 
 extension SourceTypePresenter on SourceType {
   Widget icon(BuildContext context) {
-    Widget icon = noInfoStateIcon(context);
     switch (title) {
       case 'Redmine':
-        icon = redmineIcon();
-        break;
+        return redmineIcon();
       case 'GitLab':
-        icon = gitlabIcon();
-        break;
+        return gitlabIcon();
       case 'Jira':
-        icon = jiraIcon();
-        break;
+        return jiraIcon();
+      default:
+        return noInfoStateIcon(context);
     }
-    return icon;
   }
 }
 

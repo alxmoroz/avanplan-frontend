@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../L1_domain/entities/task.dart';
-import '../../../../L1_domain/entities/task_ext_level.dart';
+import '../../../../L1_domain/usecases/task_ext_level.dart';
 import '../../../components/constants.dart';
 import '../../../presenters/task_state_presenter.dart';
 import '../task_view_controller.dart';
@@ -30,10 +30,6 @@ class TaskOverview extends StatelessWidget {
           child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
             TaskStateTitle(_task, style: _taskStateTitleStyle),
             if (_task.showTimeChart) TaskTimeChart(_task),
-            if (_task.showSubtasksState) ...[
-              SizedBox(height: onePadding),
-              TaskStateTitle(_task, style: _taskStateTitleStyle, forSubtasks: true),
-            ],
           ]),
         ),
         TaskOverviewWarnings(_task),

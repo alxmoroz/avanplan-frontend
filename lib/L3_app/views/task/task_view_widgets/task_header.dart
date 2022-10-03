@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../L1_domain/entities/task.dart';
-import '../../../../L1_domain/entities/task_ext_level.dart';
-import '../../../../L1_domain/entities/task_ext_state.dart';
+import '../../../../L1_domain/usecases/task_ext_level.dart';
+import '../../../../L1_domain/usecases/task_ext_state.dart';
 import '../../../components/constants.dart';
 import '../../../components/mt_button.dart';
 import '../../../components/mt_divider.dart';

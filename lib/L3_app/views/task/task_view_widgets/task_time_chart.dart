@@ -5,7 +5,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import '../../../../L1_domain/entities/task.dart';
-import '../../../../L1_domain/entities/task_ext_state.dart';
+import '../../../../L1_domain/usecases/task_ext_state.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';

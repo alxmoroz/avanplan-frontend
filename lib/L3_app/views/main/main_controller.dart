@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/entities/task_ext_state.dart';
 import '../../../L1_domain/entities/workspace.dart';
+import '../../../L1_domain/usecases/task_ext_state.dart';
 import '../../extra/services.dart';
 import '../_base/base_controller.dart';
 import '../task/task_view.dart';

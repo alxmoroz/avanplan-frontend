@@ -2,10 +2,10 @@
 
 import 'dart:math';
 
-import 'task.dart';
+import '../entities/task.dart';
 import 'task_ext_level.dart';
 
-enum TaskState { future, overdue, risk, ok, eta, closable, noDueDate, noSubtasks, noProgress, noInfo }
+enum TaskState { future, overdue, risk, ok, eta, closable, noDueDate, noSubtasks, noProgress, noInfo, closed }
 
 extension TaskStats on Task {
   /// непосредственно сама задача
@@ -125,8 +125,9 @@ extension TaskStats on Task {
 
   // TODO(san-smith): я бы подумал, как избавиться от такого вложенного тернарника
   /// интегральный статус
-  TaskState get state => !closed
-      ? (hasOverdue || (!hasDueDate && overdueSubtasks.isNotEmpty)
+  TaskState get state => closed
+      ? TaskState.closed
+      : (hasOverdue || (!hasDueDate && overdueSubtasks.isNotEmpty)
           ? TaskState.overdue
           : hasRisk || (!hasDueDate && riskySubtasks.isNotEmpty)
               ? TaskState.risk
@@ -142,14 +143,5 @@ extension TaskStats on Task {
                                   ? TaskState.noSubtasks
                                   : hasSubtasks && _closedSubtasksCount == 0
                                       ? TaskState.noProgress
-                                      : TaskState.noInfo)
-      : TaskState.noInfo;
-
-  TaskState get subtasksState => !closed
-      ? overdueSubtasks.isNotEmpty
-          ? TaskState.overdue
-          : riskySubtasks.isNotEmpty
-              ? TaskState.risk
-              : TaskState.noInfo
-      : TaskState.noInfo;
+                                      : TaskState.noInfo);
 }

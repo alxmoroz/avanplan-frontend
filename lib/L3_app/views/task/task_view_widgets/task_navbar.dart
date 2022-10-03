@@ -3,8 +3,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../L1_domain/entities/task_ext_actions.dart';
-import '../../../../L1_domain/entities/task_ext_level.dart';
+import '../../../../L1_domain/usecases/task_ext_actions.dart';
+import '../../../../L1_domain/usecases/task_ext_level.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
@@ -56,7 +56,7 @@ CupertinoNavigationBar taskNavBar(BuildContext context, TaskViewController contr
     //         MTButton.icon(refreshIcon(context), mainController.updateAll),
     //       ])
     //     : null,
-    bgColor: backgroundColor,
+    bgColor: task.isWorkspace ? navbarDefaultBgColor : backgroundColor,
     title: task.isWorkspace ? loc.project_list_title : task.viewTitle,
     trailing: task.actionTypes.isNotEmpty
         ? material(

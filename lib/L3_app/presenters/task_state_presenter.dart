@@ -3,8 +3,8 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/entities/task_ext_level.dart';
-import '../../L1_domain/entities/task_ext_state.dart';
+import '../../L1_domain/usecases/task_ext_level.dart';
+import '../../L1_domain/usecases/task_ext_state.dart';
 import '../components/colors.dart';
 import '../components/icons.dart';
 import '../extra/services.dart';
@@ -17,102 +17,90 @@ const _colors = {
   TaskState.ok: greenColor,
 };
 
+Color colorForState(TaskState state) => _colors[state] ?? darkGreyColor;
+
+Widget iconForState(BuildContext context, TaskState state, {double? size}) {
+  final _color = colorForState(state);
+  switch (state) {
+    case TaskState.overdue:
+      return overdueStateIcon(context, size: size, color: _color);
+    case TaskState.risk:
+      return riskStateIcon(context, size: size, color: _color);
+    case TaskState.closable:
+    case TaskState.eta:
+    case TaskState.ok:
+      return okStateIcon(context, size: size, color: _color);
+    case TaskState.closed:
+      return doneIcon(context, true, size: size, color: _color);
+    default:
+      return noInfoStateIcon(context, size: size, color: _color);
+  }
+}
+
 extension TaskStatePresenter on Task {
-  Color get stateColor => _colors[state] ?? darkGreyColor;
-  Color get subtasksStateColor => _colors[subtasksState] ?? darkGreyColor;
+  Widget stateIcon(BuildContext context, {double? size}) => iconForState(context, state, size: size);
 
-  Widget stateIcon(BuildContext context, {double? size}) {
-    final _color = stateColor;
-    Widget icon = noInfoStateIcon(context, size: size, color: _color);
-    switch (state) {
-      case TaskState.overdue:
-        icon = overdueStateIcon(context, size: size, color: _color);
-        break;
-      case TaskState.risk:
-        icon = riskStateIcon(context, size: size, color: _color);
-        break;
-      case TaskState.closable:
-      case TaskState.eta:
-      case TaskState.ok:
-        icon = okStateIcon(context, size: size, color: _color);
-        break;
-      default:
-    }
-    return icon;
-  }
-
-  Widget subtasksStateIcon(BuildContext context, {double? size}) {
-    final _color = subtasksStateColor;
-    Widget icon = noInfoStateIcon(context, size: size, color: _color);
-    switch (subtasksState) {
-      case TaskState.overdue:
-        icon = overdueStateIcon(context, size: size, color: _color);
-        break;
-      case TaskState.risk:
-        icon = riskStateIcon(context, size: size, color: _color);
-        break;
-      default:
-    }
-    return icon;
-  }
-
-  String _durationString(Duration? d) => d != null ? d.localizedString : '';
   String _subjects(int count) => count > 0 ? ' ${loc.for_dative} ${dativeSubtasksCount(count)}' : '';
 
-  String get _overdueTitle => '${loc.task_state_overdue_details_prefix} ${_durationString(overduePeriod)}';
-  String get _overdueDetails => '${loc.task_state_overdue_details_prefix} ${_durationString(maxOverduePeriod)}${_subjects(overdueSubtasks.length)}';
-  String get _riskyTitle => '${loc.task_state_risk_details_prefix} ${_durationString(riskPeriod)}';
-  String get _riskyDetails => '${loc.task_state_risk_details_prefix} ${_durationString(subtasksRiskPeriod)}${_subjects(riskySubtasks.length)}';
-  String get _etaDetails => '${loc.task_state_eta_details_prefix} ${_durationString(etaPeriod)}';
+  String get _overdueTitle => '${loc.task_state_overdue_duration(overduePeriod!.localizedString)}';
+  String get _overdueDetails => '${loc.task_state_overdue_duration(maxOverduePeriod.localizedString)}${_subjects(overdueSubtasks.length)}';
+  String get _riskyTitle => '${loc.task_state_risk_duration(riskPeriod!.localizedString)}';
+  String get _riskyDetails => '${loc.task_state_risk_duration(subtasksRiskPeriod.localizedString)}${_subjects(riskySubtasks.length)}';
+  String get _etaDetails => '${loc.task_state_eta_duration(etaPeriod!.localizedString)}';
 
   String get stateTitle {
-    String res = loc.task_state_no_info_title;
     switch (state) {
-      case TaskState.future:
-        break;
       case TaskState.overdue:
-        res = hasOverdue
+        return hasOverdue
             ? hasRisk
-                ? '${loc.task_state_overdue_risk_details_prefix} $_etaDetails'
+                ? '${loc.task_state_overdue_title}. $_etaDetails'
                 : _overdueTitle
             : _overdueDetails;
-        break;
       case TaskState.risk:
-        res = hasRisk ? _riskyTitle : _riskyDetails;
-        break;
-
+        return hasRisk ? _riskyTitle : _riskyDetails;
       case TaskState.ok:
-        res = isAhead ? loc.task_state_ahead_title_count(_durationString(totalAheadPeriod)) : loc.task_state_ok_title;
-        break;
+        return isAhead ? loc.task_state_ahead_duration(totalAheadPeriod.localizedString) : loc.task_state_ok_title;
       case TaskState.eta:
-        res = _etaDetails;
-        break;
+        return _etaDetails;
       case TaskState.closable:
-        res = loc.task_state_closable_title;
-        break;
+        return loc.task_state_closable_title;
       case TaskState.noDueDate:
-        res = loc.task_state_no_due_details;
-        break;
+        return loc.task_state_no_due_details;
       case TaskState.noSubtasks:
-        res = subtasksCount(0);
-        break;
+        return subtasksCount(0);
       case TaskState.noProgress:
-        res = loc.task_state_no_progress_details;
-        break;
-      case TaskState.noInfo:
+        return loc.task_state_no_progress_details;
+      default:
+        return loc.task_state_no_info_title;
     }
-    return res;
   }
 
-  String get subtasksStateTitle {
-    return overdueSubtasks.isNotEmpty
-        ? _overdueDetails
-        : riskySubtasks.isNotEmpty
-            ? _riskyDetails
-            : '';
+  String subtasksStateTitle(TaskState subtasksState) {
+    switch (subtasksState) {
+      case TaskState.overdue:
+        return loc.task_state_overdue_title;
+      case TaskState.risk:
+        return loc.task_state_risk_title;
+      case TaskState.ok:
+        return loc.task_state_ok_title;
+      case TaskState.eta:
+        return loc.task_state_eta_title;
+      case TaskState.closable:
+        return loc.task_state_closable_title;
+      case TaskState.noDueDate:
+        return loc.task_state_no_due_details;
+      case TaskState.noSubtasks:
+        return grandchildrenCount(0);
+      case TaskState.noProgress:
+        return loc.task_state_no_progress_details;
+      case TaskState.closed:
+        return loc.task_state_closed;
+      case TaskState.future:
+      case TaskState.noInfo:
+        return loc.task_state_no_info_title;
+    }
   }
 
   bool get showState => !closed && (hasSubtasks || isGoal || state != TaskState.noInfo);
-  bool get showSubtasksState => !closed && subtasksState != TaskState.noInfo && subtasksStateTitle != stateTitle;
   bool get showTimeChart => !closed && hasDueDate;
 }

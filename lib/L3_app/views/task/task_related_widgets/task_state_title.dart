@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../L1_domain/entities/task.dart';
+import '../../../../L1_domain/usecases/task_ext_state.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/text_widgets.dart';
@@ -10,22 +11,17 @@ import '../../../presenters/task_state_presenter.dart';
 
 enum TaskStateTitleStyle { L, M, S }
 
-class TaskStateTitle extends StatelessWidget {
-  const TaskStateTitle(this.task, {this.style, this.forSubtasks = false});
-  @protected
-  final Task task;
-  @protected
+class _StateTitle extends StatelessWidget {
+  const _StateTitle(this.state, this.text, {this.style});
+  final TaskState state;
+  final String text;
   final TaskStateTitleStyle? style;
-  @protected
-  final bool forSubtasks;
-
-  String get _text => forSubtasks ? task.subtasksStateTitle : task.stateTitle;
 
   Widget get _textWidget => style == TaskStateTitleStyle.L
-      ? H3(_text, align: TextAlign.center)
+      ? H3(text, align: TextAlign.center)
       : style == TaskStateTitleStyle.M
-          ? NormalText(_text)
-          : SmallText(_text, color: darkGreyColor);
+          ? NormalText(text)
+          : SmallText(text, color: darkGreyColor);
 
   double get _iconSize =>
       onePadding *
@@ -35,8 +31,7 @@ class TaskStateTitle extends StatelessWidget {
               ? 2.2
               : 1.5);
 
-  // forSubtasks
-  Widget _icon(BuildContext context) => forSubtasks ? task.subtasksStateIcon(context, size: _iconSize) : task.stateIcon(context, size: _iconSize);
+  Widget _icon(BuildContext context) => iconForState(context, state, size: _iconSize);
 
   @override
   Widget build(BuildContext context) => style != TaskStateTitleStyle.L
@@ -53,4 +48,28 @@ class TaskStateTitle extends StatelessWidget {
             _textWidget,
           ],
         );
+}
+
+class SubtasksStateTitle extends StatelessWidget {
+  const SubtasksStateTitle(this.task, this.subtasksState, {this.style});
+  @protected
+  final Task task;
+  @protected
+  final TaskState subtasksState;
+  @protected
+  final TaskStateTitleStyle? style;
+
+  @override
+  Widget build(BuildContext context) => _StateTitle(subtasksState, task.subtasksStateTitle(subtasksState), style: style);
+}
+
+class TaskStateTitle extends StatelessWidget {
+  const TaskStateTitle(this.task, {this.style});
+  @protected
+  final Task task;
+  @protected
+  final TaskStateTitleStyle? style;
+
+  @override
+  Widget build(BuildContext context) => _StateTitle(task.state, task.stateTitle, style: style);
 }

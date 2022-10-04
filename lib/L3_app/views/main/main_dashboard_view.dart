@@ -14,6 +14,7 @@ import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
+import '../../presenters/task_filter_presenter.dart';
 import '../account/user_icon.dart';
 import '../settings/settings_view.dart';
 import '../task/task_related_widgets/task_overview.dart';
@@ -32,11 +33,13 @@ class MainDashboardView extends StatelessWidget {
   Widget _bottomAppbarContent(BuildContext context) => Row(
         children: [
           Expanded(
-            child: MTButton.outlined(
-              titleString: loc.project_list_title,
-              margin: EdgeInsets.symmetric(horizontal: onePadding),
-              onTap: () => _gotoProjects(context),
-            ),
+            child: _task.warningTasks.length < _task.openedSubtasks.length
+                ? MTButton.outlined(
+                    titleString: loc.project_list_title,
+                    margin: EdgeInsets.symmetric(horizontal: onePadding),
+                    onTap: () => _gotoProjects(context),
+                  )
+                : const SizedBox(width: 0),
           ),
           MTButton.outlined(
             middle: plusIcon(context, size: onePadding * 2.2),

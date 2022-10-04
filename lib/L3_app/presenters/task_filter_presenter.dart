@@ -13,4 +13,9 @@ extension TaskFilterPresenter on Task {
     final groupedTasks = groupBy<Task, TaskState>(sortedSubtasks, (t) => t.state);
     return groupedTasks.entries.sorted((g1, g2) => g1.key.index.compareTo(g2.key.index));
   }
+
+  List<Task> get warningTasks {
+    return [if (overdueSubtasks.isNotEmpty) ...overdueSubtasks.take(3) else if (riskySubtasks.isNotEmpty) ...riskySubtasks.take(3)]
+        .sorted(sortByDateAsc);
+  }
 }

@@ -110,6 +110,7 @@
   "task_list_title": "Tasks",
   "task_new_title": "New task",
 
+  "task_state_ahead_duration": "We can finish {duration} early",
   "task_state_closed": "Closed",
   "task_state_closable_hint": "Hooray! No open subtasks left",
   "task_state_closable_title": "Can be closed",
@@ -119,7 +120,7 @@
   "task_state_no_info_title": "Not enough data to estimate",
   "task_state_no_progress_details": "No progress",
   "task_state_ok_title": "We're on time",
-  "task_state_ahead_duration": "We can finish {duration} early",
+  "task_state_opened": "Opened",
   "task_state_overdue_duration": "Overdue is {duration}",
   "task_state_overdue_title": "There is аn overdue",
   "task_state_reopen_btn_title": "Reopen",

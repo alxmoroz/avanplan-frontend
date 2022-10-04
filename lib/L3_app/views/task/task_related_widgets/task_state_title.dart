@@ -60,7 +60,7 @@ class SubtasksStateTitle extends StatelessWidget {
   final TaskStateTitleStyle? style;
 
   @override
-  Widget build(BuildContext context) => _StateTitle(subtasksState, task.subtasksStateTitle(subtasksState), style: style);
+  Widget build(BuildContext context) => _StateTitle(subtasksState, task.groupStateTitle(subtasksState), style: style);
 }
 
 class TaskStateTitle extends StatelessWidget {

@@ -5,7 +5,7 @@ import 'dart:math';
 import '../entities/task.dart';
 import 'task_ext_level.dart';
 
-enum TaskState { future, overdue, risk, ok, eta, closable, noDueDate, noSubtasks, noProgress, noInfo, closed }
+enum TaskState { future, overdue, risk, ok, eta, closable, noDueDate, noSubtasks, noProgress, opened, closed }
 
 extension TaskStats on Task {
   /// непосредственно сама задача
@@ -143,5 +143,5 @@ extension TaskStats on Task {
                                   ? TaskState.noSubtasks
                                   : hasSubtasks && _closedSubtasksCount == 0
                                       ? TaskState.noProgress
-                                      : TaskState.noInfo);
+                                      : TaskState.opened);
 }

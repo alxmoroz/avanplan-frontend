@@ -127,6 +127,12 @@ Widget noInfoStateIcon(BuildContext context, {Color? color, double? size}) => Ic
       size: size,
     );
 
+Widget openedStateIcon(BuildContext context, {Color? color, double? size}) => Icon(
+      CupertinoIcons.play_circle,
+      color: (color ?? lightGreyColor).resolve(context),
+      size: size,
+    );
+
 class TriangleShape extends CustomPainter {
   TriangleShape({required this.color})
       : painter = Paint()

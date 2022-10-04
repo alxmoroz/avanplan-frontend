@@ -32,6 +32,9 @@ Widget iconForState(BuildContext context, TaskState state, {double? size}) {
       return okStateIcon(context, size: size, color: _color);
     case TaskState.closed:
       return doneIcon(context, true, size: size, color: _color);
+    case TaskState.opened:
+    case TaskState.future:
+      return openedStateIcon(context, size: size, color: _color);
     default:
       return noInfoStateIcon(context, size: size, color: _color);
   }
@@ -75,8 +78,8 @@ extension TaskStatePresenter on Task {
     }
   }
 
-  String subtasksStateTitle(TaskState subtasksState) {
-    switch (subtasksState) {
+  String groupStateTitle(TaskState groupState) {
+    switch (groupState) {
       case TaskState.overdue:
         return loc.task_state_overdue_title;
       case TaskState.risk:
@@ -96,11 +99,11 @@ extension TaskStatePresenter on Task {
       case TaskState.closed:
         return loc.task_state_closed;
       case TaskState.future:
-      case TaskState.noInfo:
-        return loc.task_state_no_info_title;
+      case TaskState.opened:
+        return loc.task_state_opened;
     }
   }
 
-  bool get showState => !closed && (hasSubtasks || isGoal || state != TaskState.noInfo);
+  bool get showState => !closed && (hasSubtasks || isGoal || state != TaskState.opened);
   bool get showTimeChart => !closed && hasDueDate;
 }

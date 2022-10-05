@@ -14,17 +14,24 @@ class TaskVolumeChart extends StatelessWidget {
   const TaskVolumeChart(this.task);
   final Task task;
 
+  double get _factValue => task.closedLeafTasksCount.toDouble();
+  double get _delta => (task.planVolume ?? _factValue) - _factValue;
+  double get _firstValue => _delta >= 0 ? _factValue : _factValue - _delta;
+
+  String get _factVolumeText => '${loc.task_state_closed}\n${task.closedLeafTasksCount} ${loc.count_of} ${task.leafTasksCount}';
+  String get _planVolumeText => _delta > 0 ? '\n\n${loc.goal_title}\n${task.planVolume?.round()} ${loc.count_of} ${task.leafTasksCount}' : '';
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(onePadding / 2),
       child: PieChart(
-        dataMap: {loc.task_state_closed: task.closedLeafTasksCount.toDouble()},
+        dataMap: {'f': _firstValue, 'd': _delta},
         totalValue: task.leafTasksCount.toDouble(),
-        chartRadius: onePadding * 9,
+        chartRadius: onePadding * 11,
         chartType: ChartType.ring,
         ringStrokeWidth: onePadding,
-        centerText: '${loc.task_state_closed}\n${task.closedLeafTasksCount} ${loc.count_of} ${task.leafTasksCount}',
+        centerText: '$_factVolumeText$_planVolumeText',
         centerTextStyle: const SmallText('').style(context),
         chartValuesOptions: const ChartValuesOptions(
           showChartValueBackground: false,
@@ -34,7 +41,7 @@ class TaskVolumeChart extends StatelessWidget {
         ),
         degreeOptions: const DegreeOptions(initialAngle: -90),
         legendOptions: const LegendOptions(showLegends: false),
-        colorList: [bgGreenColor.resolve(context)],
+        colorList: [bgGreenColor.resolve(context), (_delta >= 0 ? lightWarningColor : greenColor).resolve(context)],
         baseChartColor: darkBackgroundColor.resolve(context),
       ),
     );

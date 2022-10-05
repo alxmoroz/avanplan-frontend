@@ -8,8 +8,29 @@ import 'task_ext_level.dart';
 enum TaskState { future, overdue, risk, ok, eta, closable, noDueDate, noSubtasks, noProgress, opened, closed }
 
 extension TaskStats on Task {
-  /// непосредственно сама задача
-  bool get hasLink => taskSource?.keepConnection == true;
+  /// подзадачи
+  bool get hasSubtasks => tasks.isNotEmpty;
+  Iterable<Task> get allTasks {
+    final res = <Task>[];
+    for (Task t in tasks) {
+      res.addAll(t.allTasks);
+      res.add(t);
+    }
+    return res;
+  }
+
+  Iterable<Task> get openedSubtasks => tasks.where((t) => !t.closed);
+  int get openedSubtasksCount => openedSubtasks.length;
+  bool get hasOpenedSubtasks => openedSubtasks.isNotEmpty;
+
+  Iterable<Task> get _closedSubtasks => tasks.where((t) => t.closed);
+  bool get hasClosedSubtasks => _closedSubtasks.isNotEmpty;
+
+  Iterable<Task> get _leafTasks => allTasks.where((t) => !t.hasSubtasks);
+  int get leafTasksCount => _leafTasks.length;
+  Iterable<Task> get _openedLeafTasks => _leafTasks.where((t) => !t.closed);
+  int get openedLeafTasksCount => _openedLeafTasks.length;
+  int get closedLeafTasksCount => leafTasksCount - openedLeafTasksCount;
 
   /// опоздание
   bool get hasDueDate => dueDate != null;
@@ -25,13 +46,24 @@ extension TaskStats on Task {
       );
   Iterable<Task> get overdueSubtasks => openedSubtasks.where((t) => t.state == TaskState.overdue);
 
-  /// прогноз
+  /// фактическая скорость
   DateTime get _startDate => createdOn ?? tasks.map((t) => t._startDate).fold(DateTime.now(), (d1, d2) => d1.isAfter(d2) ? d2 : d1);
   Duration get _pastPeriod => DateTime.now().difference(_startDate);
   double get _factSpeed => closedLeafTasksCount / _pastPeriod.inSeconds;
+
+  /// прогноз
   Duration? get etaPeriod => _factSpeed > 0 && openedLeafTasksCount > 0 ? Duration(seconds: (openedLeafTasksCount / _factSpeed).round()) : null;
   DateTime? get etaDate => etaPeriod != null ? DateTime.now().add(etaPeriod!) : null;
   bool get hasEtaDate => etaDate != null;
+
+  /// целевая скорость
+  Duration? get _leftPeriod => hasDueDate ? dueDate!.difference(DateTime.now()) : null;
+  double? get targetSpeed => _leftPeriod != null && !hasOverdue ? openedLeafTasksCount / _leftPeriod!.inSeconds : null;
+
+  /// плановый объем
+  Duration? get _planPeriod => hasDueDate ? dueDate!.difference(_startDate) : null;
+  double? get _planSpeed => _planPeriod != null ? leafTasksCount / _planPeriod!.inSeconds : null;
+  double? get planVolume => _planSpeed != null ? _planSpeed! * _pastPeriod.inSeconds : null;
 
   /// риск
   static const Duration _riskThreshold = Duration(days: 1);
@@ -72,31 +104,7 @@ extension TaskStats on Task {
   int get _maxDateSeconds => _maxDate.difference(_minDate).inSeconds;
   double dateRatio(DateTime dt) => _maxDateSeconds > 0 ? (dt.difference(_minDate).inSeconds / _maxDateSeconds) : 1;
 
-  /// подзадачи
-  bool get hasSubtasks => tasks.isNotEmpty;
-  Iterable<Task> get allTasks {
-    final res = <Task>[];
-    for (Task t in tasks) {
-      res.addAll(t.allTasks);
-      res.add(t);
-    }
-    return res;
-  }
-
-  Iterable<Task> get openedSubtasks => tasks.where((t) => !t.closed);
-  int get openedSubtasksCount => openedSubtasks.length;
-  bool get hasOpenedSubtasks => openedSubtasks.isNotEmpty;
-
-  Iterable<Task> get _closedSubtasks => tasks.where((t) => t.closed);
-  bool get hasClosedSubtasks => _closedSubtasks.isNotEmpty;
-
-  Iterable<Task> get _leafTasks => allTasks.where((t) => !t.hasSubtasks);
-  int get leafTasksCount => _leafTasks.length;
-  Iterable<Task> get _openedLeafTasks => _leafTasks.where((t) => !t.closed);
-  int get openedLeafTasksCount => _openedLeafTasks.length;
-  int get closedLeafTasksCount => leafTasksCount - openedLeafTasksCount;
-
-  double get doneRatio => (hasDueDate && leafTasksCount > 0) ? closedLeafTasksCount / leafTasksCount : 0;
+  // double get doneRatio => (hasDueDate && leafTasksCount > 0) ? closedLeafTasksCount / leafTasksCount : 0;
 
   /// рекомендации TOI — task of interest
   bool get _isTOI => !closed && (hasSubtasks && (isGoal || (isProject && hasDueDate)));

@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../../L1_domain/usecases/task_ext_actions.dart';
 import '../../../../../L1_domain/usecases/task_ext_state.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';

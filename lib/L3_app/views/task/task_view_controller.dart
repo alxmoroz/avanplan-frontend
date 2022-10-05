@@ -75,7 +75,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
 
   /// связь с источником импорта
 
-  //TODO: похоже, не используется этот метод вообще сейчас
+  // TODO: похоже, не используется этот метод вообще сейчас
   Future<bool> _checkUnlinked(BuildContext context) async {
     bool unlinked = !task.hasLink;
     if (!unlinked) {

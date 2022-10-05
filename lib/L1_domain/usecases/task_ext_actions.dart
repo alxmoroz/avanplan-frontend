@@ -16,6 +16,8 @@ enum TaskActionType {
 }
 
 extension TaskActionsExt on Task {
+  bool get hasLink => taskSource?.keepConnection == true;
+
   /// доступные действия
   bool get canAdd => isWorkspace || !(closed || hasLink);
   bool get canEdit => !(isWorkspace || hasLink);

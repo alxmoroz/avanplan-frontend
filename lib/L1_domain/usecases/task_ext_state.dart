@@ -28,7 +28,7 @@ extension TaskStats on Task {
   /// прогноз
   DateTime get _startDate => createdOn ?? tasks.map((t) => t._startDate).fold(DateTime.now(), (d1, d2) => d1.isAfter(d2) ? d2 : d1);
   Duration get _pastPeriod => DateTime.now().difference(_startDate);
-  double get _factSpeed => _closedLeafTasksCount / _pastPeriod.inSeconds;
+  double get _factSpeed => closedLeafTasksCount / _pastPeriod.inSeconds;
   Duration? get etaPeriod => _factSpeed > 0 && openedLeafTasksCount > 0 ? Duration(seconds: (openedLeafTasksCount / _factSpeed).round()) : null;
   DateTime? get etaDate => etaPeriod != null ? DateTime.now().add(etaPeriod!) : null;
   bool get hasEtaDate => etaDate != null;
@@ -91,12 +91,12 @@ extension TaskStats on Task {
   bool get hasClosedSubtasks => _closedSubtasks.isNotEmpty;
 
   Iterable<Task> get _leafTasks => allTasks.where((t) => !t.hasSubtasks);
-  int get _leafTasksCount => _leafTasks.length;
+  int get leafTasksCount => _leafTasks.length;
   Iterable<Task> get _openedLeafTasks => _leafTasks.where((t) => !t.closed);
   int get openedLeafTasksCount => _openedLeafTasks.length;
-  int get _closedLeafTasksCount => _leafTasksCount - openedLeafTasksCount;
+  int get closedLeafTasksCount => leafTasksCount - openedLeafTasksCount;
 
-  double get doneRatio => (hasDueDate && _leafTasksCount > 0) ? _closedLeafTasksCount / _leafTasksCount : 0;
+  double get doneRatio => (hasDueDate && leafTasksCount > 0) ? closedLeafTasksCount / leafTasksCount : 0;
 
   /// рекомендации TOI — task of interest
   bool get _isTOI => !closed && (hasSubtasks && (isGoal || (isProject && hasDueDate)));

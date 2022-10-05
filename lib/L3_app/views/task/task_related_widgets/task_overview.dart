@@ -6,8 +6,9 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/usecases/task_ext_level.dart';
 import '../../../components/constants.dart';
 import '../../../presenters/task_state_presenter.dart';
+import '../task_charts/task_time_chart.dart';
+import '../task_charts/task_volume_chart.dart';
 import '../task_view_controller.dart';
-import '../task_view_widgets/task_time_chart.dart';
 import 'task_overview_advices.dart';
 import 'task_overview_warnings.dart';
 import 'task_state_title.dart';
@@ -27,10 +28,21 @@ class TaskOverview extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsets.all(onePadding).copyWith(bottom: 0),
-          child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-            TaskStateTitle(_task, style: _taskStateTitleStyle),
-            if (_task.showTimeChart) TaskTimeChart(_task),
-          ]),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              if (_task.canShowTimeChart) TaskTimeChart(_task),
+              if (_task.canShowSpeedVolumeCharts) ...[
+                SizedBox(height: onePadding / 2),
+                Row(children: [
+                  Expanded(child: TaskVolumeChart(_task)),
+                  // Expanded(child: TaskVolumeChart(_task)),
+                ]),
+              ],
+              SizedBox(height: onePadding / 2),
+              TaskStateTitle(_task, style: _taskStateTitleStyle),
+            ],
+          ),
         ),
         TaskOverviewWarnings(_task),
         TaskOverviewAdvices(_task),

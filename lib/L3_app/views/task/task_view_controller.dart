@@ -43,7 +43,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   @computed
   bool get _hasAuthor => task.author != null;
   @computed
-  bool get _hasOverview => task.showState || task.showTimeChart;
+  bool get _hasOverview => task.showState || task.canShowTimeChart;
   @computed
   bool get _hasDetails => _hasDescription || _hasAuthor;
 

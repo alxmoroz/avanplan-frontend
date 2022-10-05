@@ -24,6 +24,7 @@ dependencies:
     path: ./openapi
   package_info_plus: any
   path_provider: any
+  pie_chart: any
   url_launcher: any
 
 dev_dependencies:

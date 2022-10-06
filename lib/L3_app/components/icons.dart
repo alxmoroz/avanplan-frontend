@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'colors.dart';
 import 'constants.dart';
+import 'painters.dart';
 
 Widget refreshIcon(BuildContext context, {Color? color, double? size}) => Icon(
       CupertinoIcons.refresh_thick,
@@ -133,32 +134,10 @@ Widget openedStateIcon(BuildContext context, {Color? color, double? size}) => Ic
       size: size,
     );
 
-class TriangleShape extends CustomPainter {
-  TriangleShape({required this.color})
-      : painter = Paint()
-          ..color = color
-          ..style = PaintingStyle.fill;
-  final Paint painter;
-  final Color color;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final path = Path();
-    path.moveTo(0, size.height);
-    path.lineTo(size.width / 2, 0);
-    path.lineTo(size.width, size.height);
-    path.close();
-    canvas.drawPath(path, painter);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => false;
-}
-
 Widget caretIcon(BuildContext context, {required Size size, Color? color, bool up = false}) => RotatedBox(
       quarterTurns: up ? 0 : 2,
       child: CustomPaint(
-        painter: TriangleShape(color: (color ?? darkGreyColor).resolve(context)),
+        painter: TrianglePainter(color: (color ?? darkGreyColor).resolve(context)),
         child: Container(height: size.height, width: size.width),
       ),
     );

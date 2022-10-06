@@ -21,6 +21,8 @@
   "close_dialog_recursive_title": "Завершить вместе с подзадачами?",
   "close_w_subtasks": "Завершить вместе с подзадачами",
 
+  "count_of": "из",
+
   "days_count": "{count, plural, one{{count} день} few{{count} дня} other{{count} дней}}",
   "delete_action_title": "Удалить",
   "delete_dialog_description": "Это действие нельзя будет отменить!",
@@ -50,7 +52,7 @@
 
   "no": "Нет",
 
-  "count_of": "из",
+
   "ok": "Ясно",
   "overview": "Обзор",
 
@@ -109,6 +111,8 @@
 
   "task_list_title": "Задачи",
   "task_new_title": "Новая задача",
+
+  "task_speed_unit_t_mo": "задач / мес",
 
   "task_state_closed": "Выполнено",
   "task_state_closable_hint": "Ура! Не осталось открытых подзадач",

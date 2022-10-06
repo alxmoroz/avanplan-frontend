@@ -21,6 +21,7 @@
   "close_dialog_recursive_description": "All subtasks will be marked completed",
   "close_dialog_recursive_title": "Close with subtasks?",
   "close_w_subtasks": "Close with subtasks",
+  "count_of": "of",
 
   "days_count": "{count, plural, one{{count} day} other{{count} days}}",
   "delete_action_title": "Delete",
@@ -51,7 +52,6 @@
 
   "no": "No",
 
-  "count_of": "of",
   "ok": "Ok",
   "overview": "Overview",
 
@@ -110,6 +110,8 @@
 
   "task_list_title": "Tasks",
   "task_new_title": "New task",
+
+  "task_speed_unit_t_mo": "tasks / mo",
 
   "task_state_ahead_duration": "We can finish {duration} early",
   "task_state_closed": "Closed",

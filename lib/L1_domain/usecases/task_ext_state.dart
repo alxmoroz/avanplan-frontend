@@ -37,7 +37,7 @@ extension TaskStats on Task {
   Duration? get overduePeriod => hasDueDate ? DateTime.now().difference(dueDate!) : null;
   static const Duration _overdueThreshold = Duration(days: 1);
   bool get hasOverdue => overduePeriod != null && overduePeriod! > _overdueThreshold;
-  // опоздание по подзадачам
+  // максимальное опоздание с учётом подзадач
   Duration get maxOverduePeriod => Duration(
         seconds: openedSubtasks.map((t) => t.maxOverduePeriod.inSeconds).fold(
               overduePeriod?.inSeconds ?? 0,
@@ -47,12 +47,20 @@ extension TaskStats on Task {
   Iterable<Task> get overdueSubtasks => openedSubtasks.where((t) => t.state == TaskState.overdue);
 
   /// фактическая скорость
-  DateTime get _startDate => createdOn ?? tasks.map((t) => t._startDate).fold(DateTime.now(), (d1, d2) => d1.isAfter(d2) ? d2 : d1);
+  DateTime get _startDate {
+    DateTime start = createdOn ?? DateTime.now();
+    // на случай, если выставили дату окончания раньше, чем имеющаяся у нас дата начала. Добавляем один день хотя бы.
+    if (hasDueDate && dueDate!.compareTo(start) < 0) {
+      start = dueDate!.subtract(const Duration(days: 1));
+    }
+    return start;
+  }
+
   Duration get _pastPeriod => DateTime.now().difference(_startDate);
-  double get _factSpeed => closedLeafTasksCount / _pastPeriod.inSeconds;
+  double get factSpeed => closedLeafTasksCount / _pastPeriod.inSeconds;
 
   /// прогноз
-  Duration? get etaPeriod => _factSpeed > 0 && openedLeafTasksCount > 0 ? Duration(seconds: (openedLeafTasksCount / _factSpeed).round()) : null;
+  Duration? get etaPeriod => factSpeed > 0 && openedLeafTasksCount > 0 ? Duration(seconds: (openedLeafTasksCount / factSpeed).round()) : null;
   DateTime? get etaDate => etaPeriod != null ? DateTime.now().add(etaPeriod!) : null;
   bool get hasEtaDate => etaDate != null;
 
@@ -63,7 +71,7 @@ extension TaskStats on Task {
   /// плановый объем
   Duration? get _planPeriod => hasDueDate ? dueDate!.difference(_startDate) : null;
   double? get _planSpeed => _planPeriod != null ? leafTasksCount / _planPeriod!.inSeconds : null;
-  double? get planVolume => _planSpeed != null ? _planSpeed! * _pastPeriod.inSeconds : null;
+  double? get planVolume => _planSpeed != null ? min(_leafTasks.length.toDouble(), _planSpeed! * _pastPeriod.inSeconds) : null;
 
   /// риск
   static const Duration _riskThreshold = Duration(days: 1);

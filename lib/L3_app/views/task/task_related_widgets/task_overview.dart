@@ -6,6 +6,7 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/usecases/task_ext_level.dart';
 import '../../../components/constants.dart';
 import '../../../presenters/task_state_presenter.dart';
+import '../task_charts/task_speed_chart.dart';
 import '../task_charts/task_time_chart.dart';
 import '../task_charts/task_volume_chart.dart';
 import '../task_view_controller.dart';
@@ -36,7 +37,7 @@ class TaskOverview extends StatelessWidget {
                 SizedBox(height: onePadding / 2),
                 Row(children: [
                   Expanded(child: TaskVolumeChart(_task)),
-                  // Expanded(child: TaskVolumeChart(_task)),
+                  Expanded(child: TaskSpeedChart(_task)),
                 ]),
               ],
               SizedBox(height: onePadding / 2),

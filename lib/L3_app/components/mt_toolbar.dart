@@ -14,9 +14,11 @@ class MTToolbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final safePadding = MediaQuery.of(context).padding.bottom;
+
     return ClipRect(
       child: Container(
-        padding: EdgeInsets.only(top: onePadding / 2),
+        padding: EdgeInsets.only(top: onePadding / 2, bottom: safePadding > 0 ? 0 : onePadding * 1.4),
         color: (color ?? navbarDefaultBgColor).resolve(context),
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),

@@ -31,8 +31,10 @@ class TaskListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final padding = MediaQuery.of(context).padding;
     return Observer(
       builder: (_) => ListView.builder(
+        padding: padding.add(EdgeInsets.only(bottom: padding.bottom > 0 ? 0 : onePadding, top: onePadding / 2)),
         itemBuilder: controller.hasGroupedListView ? _groupedItemBuilder : _itemBuilder,
         itemCount: controller.hasGroupedListView ? controller.task.subtaskGroups.length : controller.task.sortedSubtasks.length,
       ),

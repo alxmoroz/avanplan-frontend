@@ -39,7 +39,7 @@ class _StateTitle extends StatelessWidget {
           children: [
             _icon(context),
             SizedBox(width: onePadding / 3),
-            _textWidget,
+            Expanded(child: _textWidget),
           ],
         )
       : Column(

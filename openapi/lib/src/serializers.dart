@@ -35,6 +35,8 @@ import 'package:openapi/src/model/task_upsert.dart';
 import 'package:openapi/src/model/token.dart';
 import 'package:openapi/src/model/user_get.dart';
 import 'package:openapi/src/model/validation_error.dart';
+import 'package:openapi/src/model/ws_role_get.dart';
+import 'package:openapi/src/model/ws_user_role_get.dart';
 import 'package:openapi/src/model/workspace_get.dart';
 
 part 'serializers.g.dart';
@@ -61,6 +63,8 @@ part 'serializers.g.dart';
   Token,
   UserGet,
   ValidationError,
+  WSRoleGet,
+  WSUserRoleGet,
   WorkspaceGet,
 ])
 Serializers serializers = (_$serializers.toBuilder()
@@ -69,12 +73,12 @@ Serializers serializers = (_$serializers.toBuilder()
         () => ListBuilder<TaskSource>(),
       )
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(WorkspaceGet)]),
-        () => ListBuilder<WorkspaceGet>(),
-      )
-      ..addBuilderFactory(
         const FullType(BuiltList, [FullType(Task)]),
         () => ListBuilder<Task>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(WSUserRoleGet)]),
+        () => ListBuilder<WSUserRoleGet>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskSourceUpsert)]),

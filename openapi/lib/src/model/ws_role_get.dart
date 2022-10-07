@@ -6,46 +6,42 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'user_get.g.dart';
+part 'ws_role_get.g.dart';
 
-/// UserGet
+/// WSRoleGet
 ///
 /// Properties:
 /// * [id] 
-/// * [email] 
-/// * [fullName] 
+/// * [title] 
 @BuiltValue()
-abstract class UserGet implements Built<UserGet, UserGetBuilder> {
+abstract class WSRoleGet implements Built<WSRoleGet, WSRoleGetBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
 
-  @BuiltValueField(wireName: r'email')
-  String get email;
+  @BuiltValueField(wireName: r'title')
+  String get title;
 
-  @BuiltValueField(wireName: r'full_name')
-  String? get fullName;
+  WSRoleGet._();
 
-  UserGet._();
-
-  factory UserGet([void updates(UserGetBuilder b)]) = _$UserGet;
+  factory WSRoleGet([void updates(WSRoleGetBuilder b)]) = _$WSRoleGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(UserGetBuilder b) => b;
+  static void _defaults(WSRoleGetBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<UserGet> get serializer => _$UserGetSerializer();
+  static Serializer<WSRoleGet> get serializer => _$WSRoleGetSerializer();
 }
 
-class _$UserGetSerializer implements PrimitiveSerializer<UserGet> {
+class _$WSRoleGetSerializer implements PrimitiveSerializer<WSRoleGet> {
   @override
-  final Iterable<Type> types = const [UserGet, _$UserGet];
+  final Iterable<Type> types = const [WSRoleGet, _$WSRoleGet];
 
   @override
-  final String wireName = r'UserGet';
+  final String wireName = r'WSRoleGet';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    UserGet object, {
+    WSRoleGet object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'id';
@@ -53,24 +49,17 @@ class _$UserGetSerializer implements PrimitiveSerializer<UserGet> {
       object.id,
       specifiedType: const FullType(int),
     );
-    yield r'email';
+    yield r'title';
     yield serializers.serialize(
-      object.email,
+      object.title,
       specifiedType: const FullType(String),
     );
-    if (object.fullName != null) {
-      yield r'full_name';
-      yield serializers.serialize(
-        object.fullName,
-        specifiedType: const FullType(String),
-      );
-    }
   }
 
   @override
   Object serialize(
     Serializers serializers,
-    UserGet object, {
+    WSRoleGet object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -81,7 +70,7 @@ class _$UserGetSerializer implements PrimitiveSerializer<UserGet> {
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required UserGetBuilder result,
+    required WSRoleGetBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -95,19 +84,12 @@ class _$UserGetSerializer implements PrimitiveSerializer<UserGet> {
           ) as int;
           result.id = valueDes;
           break;
-        case r'email':
+        case r'title':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.email = valueDes;
-          break;
-        case r'full_name':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.fullName = valueDes;
+          result.title = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -118,12 +100,12 @@ class _$UserGetSerializer implements PrimitiveSerializer<UserGet> {
   }
 
   @override
-  UserGet deserialize(
+  WSRoleGet deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = UserGetBuilder();
+    final result = WSRoleGetBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

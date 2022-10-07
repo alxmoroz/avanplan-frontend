@@ -3,49 +3,51 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:openapi/src/model/workspace_get.dart';
+import 'package:openapi/src/model/ws_role_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'user_get.g.dart';
+part 'ws_user_role_get.g.dart';
 
-/// UserGet
+/// WSUserRoleGet
 ///
 /// Properties:
 /// * [id] 
-/// * [email] 
-/// * [fullName] 
+/// * [workspace] 
+/// * [wsRole] 
 @BuiltValue()
-abstract class UserGet implements Built<UserGet, UserGetBuilder> {
+abstract class WSUserRoleGet implements Built<WSUserRoleGet, WSUserRoleGetBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
 
-  @BuiltValueField(wireName: r'email')
-  String get email;
+  @BuiltValueField(wireName: r'workspace')
+  WorkspaceGet get workspace;
 
-  @BuiltValueField(wireName: r'full_name')
-  String? get fullName;
+  @BuiltValueField(wireName: r'ws_role')
+  WSRoleGet get wsRole;
 
-  UserGet._();
+  WSUserRoleGet._();
 
-  factory UserGet([void updates(UserGetBuilder b)]) = _$UserGet;
+  factory WSUserRoleGet([void updates(WSUserRoleGetBuilder b)]) = _$WSUserRoleGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(UserGetBuilder b) => b;
+  static void _defaults(WSUserRoleGetBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<UserGet> get serializer => _$UserGetSerializer();
+  static Serializer<WSUserRoleGet> get serializer => _$WSUserRoleGetSerializer();
 }
 
-class _$UserGetSerializer implements PrimitiveSerializer<UserGet> {
+class _$WSUserRoleGetSerializer implements PrimitiveSerializer<WSUserRoleGet> {
   @override
-  final Iterable<Type> types = const [UserGet, _$UserGet];
+  final Iterable<Type> types = const [WSUserRoleGet, _$WSUserRoleGet];
 
   @override
-  final String wireName = r'UserGet';
+  final String wireName = r'WSUserRoleGet';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    UserGet object, {
+    WSUserRoleGet object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'id';
@@ -53,24 +55,22 @@ class _$UserGetSerializer implements PrimitiveSerializer<UserGet> {
       object.id,
       specifiedType: const FullType(int),
     );
-    yield r'email';
+    yield r'workspace';
     yield serializers.serialize(
-      object.email,
-      specifiedType: const FullType(String),
+      object.workspace,
+      specifiedType: const FullType(WorkspaceGet),
     );
-    if (object.fullName != null) {
-      yield r'full_name';
-      yield serializers.serialize(
-        object.fullName,
-        specifiedType: const FullType(String),
-      );
-    }
+    yield r'ws_role';
+    yield serializers.serialize(
+      object.wsRole,
+      specifiedType: const FullType(WSRoleGet),
+    );
   }
 
   @override
   Object serialize(
     Serializers serializers,
-    UserGet object, {
+    WSUserRoleGet object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -81,7 +81,7 @@ class _$UserGetSerializer implements PrimitiveSerializer<UserGet> {
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required UserGetBuilder result,
+    required WSUserRoleGetBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -95,19 +95,19 @@ class _$UserGetSerializer implements PrimitiveSerializer<UserGet> {
           ) as int;
           result.id = valueDes;
           break;
-        case r'email':
+        case r'workspace':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.email = valueDes;
+            specifiedType: const FullType(WorkspaceGet),
+          ) as WorkspaceGet;
+          result.workspace.replace(valueDes);
           break;
-        case r'full_name':
+        case r'ws_role':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.fullName = valueDes;
+            specifiedType: const FullType(WSRoleGet),
+          ) as WSRoleGet;
+          result.wsRole.replace(valueDes);
           break;
         default:
           unhandled.add(key);
@@ -118,12 +118,12 @@ class _$UserGetSerializer implements PrimitiveSerializer<UserGet> {
   }
 
   @override
-  UserGet deserialize(
+  WSUserRoleGet deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = UserGetBuilder();
+    final result = WSUserRoleGetBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

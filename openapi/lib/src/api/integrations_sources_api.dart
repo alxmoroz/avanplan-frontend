@@ -4,18 +4,15 @@
 
 import 'dart:async';
 
-import 'package:built_value/serializer.dart';
-import 'package:dio/dio.dart';
-
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/json_object.dart';
-import 'package:openapi/src/model/http_validation_error.dart';
+import 'package:built_value/serializer.dart';
+import 'package:dio/dio.dart';
 import 'package:openapi/src/model/source_get.dart';
 import 'package:openapi/src/model/source_type_get.dart';
 import 'package:openapi/src/model/source_upsert.dart';
 
 class IntegrationsSourcesApi {
-
   final Dio _dio;
 
   final Serializers _serializers;
@@ -23,10 +20,10 @@ class IntegrationsSourcesApi {
   const IntegrationsSourcesApi(this._dio, this._serializers);
 
   /// Delete Source
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [sourceId] 
+  /// * [sourceId]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -36,7 +33,7 @@ class IntegrationsSourcesApi {
   ///
   /// Returns a [Future] containing a [Response] with a [JsonObject] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<JsonObject>> deleteSourceV1IntegrationsSourcesSourceIdDelete({ 
+  Future<Response<JsonObject>> deleteSourceV1IntegrationsSourcesSourceIdDelete({
     required int sourceId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -79,7 +76,6 @@ class IntegrationsSourcesApi {
         _response.data!,
         specifiedType: _responseType,
       ) as JsonObject;
-
     } catch (error, stackTrace) {
       throw DioError(
         requestOptions: _response.requestOptions,
@@ -102,7 +98,7 @@ class IntegrationsSourcesApi {
   }
 
   /// Get Source Types
-  /// 
+  ///
   ///
   /// Parameters:
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
@@ -114,7 +110,7 @@ class IntegrationsSourcesApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<SourceTypeGet>] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<BuiltList<SourceTypeGet>>> getSourceTypesV1IntegrationsSourcesTypesGet({ 
+  Future<Response<BuiltList<SourceTypeGet>>> getSourceTypesV1IntegrationsSourcesTypesGet({
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -156,7 +152,6 @@ class IntegrationsSourcesApi {
         _response.data!,
         specifiedType: _responseType,
       ) as BuiltList<SourceTypeGet>;
-
     } catch (error, stackTrace) {
       throw DioError(
         requestOptions: _response.requestOptions,
@@ -179,10 +174,10 @@ class IntegrationsSourcesApi {
   }
 
   /// Upsert Source
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [sourceUpsert] 
+  /// * [sourceUpsert]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -192,7 +187,7 @@ class IntegrationsSourcesApi {
   ///
   /// Returns a [Future] containing a [Response] with a [SourceGet] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<SourceGet>> upsertSourceV1IntegrationsSourcesPost({ 
+  Future<Response<SourceGet>> upsertSourceV1IntegrationsSourcesPost({
     required SourceUpsert sourceUpsert,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -225,10 +220,9 @@ class IntegrationsSourcesApi {
     try {
       const _type = FullType(SourceUpsert);
       _bodyData = _serializers.serialize(sourceUpsert, specifiedType: _type);
-
-    } catch(error, stackTrace) {
+    } catch (error, stackTrace) {
       throw DioError(
-         requestOptions: _options.compose(
+        requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -254,7 +248,6 @@ class IntegrationsSourcesApi {
         _response.data!,
         specifiedType: _responseType,
       ) as SourceGet;
-
     } catch (error, stackTrace) {
       throw DioError(
         requestOptions: _response.requestOptions,
@@ -275,5 +268,4 @@ class IntegrationsSourcesApi {
       extra: _response.extra,
     );
   }
-
 }

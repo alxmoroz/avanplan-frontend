@@ -28,6 +28,8 @@ doc/TasksApi.md
 doc/Token.md
 doc/UserGet.md
 doc/ValidationError.md
+doc/WSRoleGet.md
+doc/WSUserRoleGet.md
 doc/WorkspaceGet.md
 lib/openapi.dart
 lib/src/api.dart
@@ -66,6 +68,8 @@ lib/src/model/token.dart
 lib/src/model/user_get.dart
 lib/src/model/validation_error.dart
 lib/src/model/workspace_get.dart
+lib/src/model/ws_role_get.dart
+lib/src/model/ws_user_role_get.dart
 lib/src/serializers.dart
 pubspec.yaml
 test/auth_api_test.dart
@@ -95,3 +99,5 @@ test/token_test.dart
 test/user_get_test.dart
 test/validation_error_test.dart
 test/workspace_get_test.dart
+test/ws_role_get_test.dart
+test/ws_user_role_get_test.dart

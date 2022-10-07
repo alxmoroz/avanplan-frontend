@@ -33,8 +33,8 @@ class MyRepo extends AbstractApiMyRepo {
 
     final List<Workspace> workspaces = [];
     if (response.statusCode == 200) {
-      for (WorkspaceGet ws in response.data?.toList() ?? []) {
-        workspaces.add(ws.workspace);
+      for (WSUserRoleGet wsUserRole in response.data?.toList() ?? []) {
+        workspaces.add(wsUserRole.workspace.workspace);
       }
     }
     return workspaces;

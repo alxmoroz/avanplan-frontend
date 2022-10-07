@@ -54,11 +54,13 @@ final String scope = scope_example; // String |
 final String clientId = clientId_example; // String | 
 final String clientSecret = clientSecret_example; // String | 
 
-try {
+void get () async {
+  try {
     final response = await api.getAuthToken(username, password, grantType, scope, clientId, clientSecret);
     print(response);
-} catch on DioError (e) {
+  } on DioError catch(e) {
     print("Exception when calling AuthApi->getAuthToken: $e\n");
+  }
 }
 
 ```
@@ -67,21 +69,21 @@ try {
 
 All URIs are relative to */api*
 
-Class | Method | HTTP request | Description
------------- | ------------- | ------------- | -------------
-[*AuthApi*](doc/AuthApi.md) | [**getAuthToken**](doc/AuthApi.md#getauthtoken) | **POST** /v1/auth/token | Token
-[*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**deleteSourceV1IntegrationsSourcesSourceIdDelete**](doc/IntegrationsSourcesApi.md#deletesourcev1integrationssourcessourceiddelete) | **DELETE** /v1/integrations/sources/{source_id} | Delete Source
-[*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**getSourceTypesV1IntegrationsSourcesTypesGet**](doc/IntegrationsSourcesApi.md#getsourcetypesv1integrationssourcestypesget) | **GET** /v1/integrations/sources/types/ | Get Source Types
-[*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**upsertSourceV1IntegrationsSourcesPost**](doc/IntegrationsSourcesApi.md#upsertsourcev1integrationssourcespost) | **POST** /v1/integrations/sources/ | Upsert Source
-[*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**getRootTasksV1IntegrationsTasksGet**](doc/IntegrationsTasksApi.md#getroottasksv1integrationstasksget) | **GET** /v1/integrations/tasks/ | Get Root Tasks
-[*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**importTaskSourcesV1IntegrationsTasksImportPost**](doc/IntegrationsTasksApi.md#importtasksourcesv1integrationstasksimportpost) | **POST** /v1/integrations/tasks/import | Import Task Sources
-[*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost**](doc/IntegrationsTasksApi.md#updatetasksourcesv1integrationstasksupdatetasksourcespost) | **POST** /v1/integrations/tasks/update_task_sources | Update Task Sources
-[*MyApi*](doc/MyApi.md) | [**getMyAccountV1MyAccountGet**](doc/MyApi.md#getmyaccountv1myaccountget) | **GET** /v1/my/account | Get My Account
-[*MyApi*](doc/MyApi.md) | [**getMyWorkspacesV1MyWorkspacesGet**](doc/MyApi.md#getmyworkspacesv1myworkspacesget) | **GET** /v1/my/workspaces | Get My Workspaces
-[*MyApi*](doc/MyApi.md) | [**updateMyAccountV1MyAccountPut**](doc/MyApi.md#updatemyaccountv1myaccountput) | **PUT** /v1/my/account | Update My Account
-[*TasksApi*](doc/TasksApi.md) | [**deleteTaskV1TasksTaskIdDelete**](doc/TasksApi.md#deletetaskv1taskstaskiddelete) | **DELETE** /v1/tasks/{task_id} | Delete Task
-[*TasksApi*](doc/TasksApi.md) | [**getRootTasksV1TasksGet**](doc/TasksApi.md#getroottasksv1tasksget) | **GET** /v1/tasks/ | Get Root Tasks
-[*TasksApi*](doc/TasksApi.md) | [**upsertTaskV1TasksPost**](doc/TasksApi.md#upserttaskv1taskspost) | **POST** /v1/tasks/ | Upsert Task
+| Class                                                      | Method                                                                                                                                                 | HTTP request                                        | Description         |
+|------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------|---------------------|
+| [*AuthApi*](doc/AuthApi.md)                                | [**getAuthToken**](doc/AuthApi.md#getauthtoken)                                                                                                        | **POST** /v1/auth/token                             | Token               |
+|  [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**deleteSourceV1IntegrationsSourcesSourceIdDelete**](doc/IntegrationsSourcesApi.md#deletesourcev1integrationssourcessourceiddelete)                   | **DELETE** /v1/integrations/sources/{source_id}     | Delete Source       |
+| [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md)  | [**getSourceTypesV1IntegrationsSourcesTypesGet**](doc/IntegrationsSourcesApi.md#getsourcetypesv1integrationssourcestypesget)                           | **GET** /v1/integrations/sources/types/             | Get Source Types    |
+| [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md)  | [**upsertSourceV1IntegrationsSourcesPost**](doc/IntegrationsSourcesApi.md#upsertsourcev1integrationssourcespost)                                       | **POST** /v1/integrations/sources/                  | Upsert Source       |
+| [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md)      | [**getRootTasksV1IntegrationsTasksGet**](doc/IntegrationsTasksApi.md#getroottasksv1integrationstasksget)                                               | **GET** /v1/integrations/tasks/                     | Get Root Tasks      |
+| [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md)      | [**importTaskSourcesV1IntegrationsTasksImportPost**](doc/IntegrationsTasksApi.md#importtasksourcesv1integrationstasksimportpost)                       | **POST** /v1/integrations/tasks/import              | Import Task Sources |
+| [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md)      | [**updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost**](doc/IntegrationsTasksApi.md#updatetasksourcesv1integrationstasksupdatetasksourcespost) | **POST** /v1/integrations/tasks/update_task_sources | Update Task Sources |
+| [*MyApi*](doc/MyApi.md)                                    | [**getMyAccountV1MyAccountGet**](doc/MyApi.md#getmyaccountv1myaccountget)                                                                              | **GET** /v1/my/account                              | Get My Account      |
+| [*MyApi*](doc/MyApi.md)                                    | [**getMyWorkspacesV1MyWorkspacesGet**](doc/MyApi.md#getmyworkspacesv1myworkspacesget)                                                                  | **GET** /v1/my/workspaces                           | Get My Workspaces   |
+| [*MyApi*](doc/MyApi.md)                                    | [**updateMyAccountV1MyAccountPut**](doc/MyApi.md#updatemyaccountv1myaccountput)                                                                        | **PUT** /v1/my/account                              | Update My Account   |
+| [*TasksApi*](doc/TasksApi.md)                              | [**deleteTaskV1TasksTaskIdDelete**](doc/TasksApi.md#deletetaskv1taskstaskiddelete)                                                                     | **DELETE** /v1/tasks/{task_id}                      | Delete Task         |
+| [*TasksApi*](doc/TasksApi.md)                              | [**getRootTasksV1TasksGet**](doc/TasksApi.md#getroottasksv1tasksget)                                                                                   | **GET** /v1/tasks/                                  | Get Root Tasks      |
+| [*TasksApi*](doc/TasksApi.md)                              | [**upsertTaskV1TasksPost**](doc/TasksApi.md#upserttaskv1taskspost)                                                                                     | **POST** /v1/tasks/                                 | Upsert Task         |
 
 
 ## Documentation For Models
@@ -107,6 +109,8 @@ Class | Method | HTTP request | Description
  - [Token](doc/Token.md)
  - [UserGet](doc/UserGet.md)
  - [ValidationError](doc/ValidationError.md)
+ - [WSRoleGet](doc/WSRoleGet.md)
+ - [WSUserRoleGet](doc/WSUserRoleGet.md)
  - [WorkspaceGet](doc/WorkspaceGet.md)
 
 

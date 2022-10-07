@@ -36,4 +36,6 @@ export 'package:openapi/src/model/task_upsert.dart';
 export 'package:openapi/src/model/token.dart';
 export 'package:openapi/src/model/user_get.dart';
 export 'package:openapi/src/model/validation_error.dart';
+export 'package:openapi/src/model/ws_role_get.dart';
+export 'package:openapi/src/model/ws_user_role_get.dart';
 export 'package:openapi/src/model/workspace_get.dart';

@@ -4,15 +4,18 @@
 
 import 'dart:async';
 
-import 'package:built_collection/built_collection.dart';
-import 'package:built_value/json_object.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
+
+import 'package:built_collection/built_collection.dart';
+import 'package:built_value/json_object.dart';
 import 'package:openapi/src/api_util.dart';
+import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/task_get.dart';
 import 'package:openapi/src/model/task_upsert.dart';
 
 class TasksApi {
+
   final Dio _dio;
 
   final Serializers _serializers;
@@ -20,10 +23,10 @@ class TasksApi {
   const TasksApi(this._dio, this._serializers);
 
   /// Delete Task
-  ///
+  /// 
   ///
   /// Parameters:
-  /// * [taskId]
+  /// * [taskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -33,7 +36,7 @@ class TasksApi {
   ///
   /// Returns a [Future] containing a [Response] with a [JsonObject] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<JsonObject>> deleteTaskV1TasksTaskIdDelete({
+  Future<Response<JsonObject>> deleteTaskV1TasksTaskIdDelete({ 
     required int taskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -76,6 +79,7 @@ class TasksApi {
         _response.data!,
         specifiedType: _responseType,
       ) as JsonObject;
+
     } catch (error, stackTrace) {
       throw DioError(
         requestOptions: _response.requestOptions,
@@ -98,10 +102,10 @@ class TasksApi {
   }
 
   /// Get Root Tasks
-  ///
+  /// 
   ///
   /// Parameters:
-  /// * [wsId]
+  /// * [wsId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -111,7 +115,7 @@ class TasksApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<TaskGet>] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<BuiltList<TaskGet>>> getRootTasksV1TasksGet({
+  Future<Response<BuiltList<TaskGet>>> getRootTasksV1TasksGet({ 
     required int wsId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -159,6 +163,7 @@ class TasksApi {
         _response.data!,
         specifiedType: _responseType,
       ) as BuiltList<TaskGet>;
+
     } catch (error, stackTrace) {
       throw DioError(
         requestOptions: _response.requestOptions,
@@ -181,10 +186,10 @@ class TasksApi {
   }
 
   /// Upsert Task
-  ///
+  /// 
   ///
   /// Parameters:
-  /// * [taskUpsert]
+  /// * [taskUpsert] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -194,7 +199,7 @@ class TasksApi {
   ///
   /// Returns a [Future] containing a [Response] with a [TaskGet] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<TaskGet>> upsertTaskV1TasksPost({
+  Future<Response<TaskGet>> upsertTaskV1TasksPost({ 
     required TaskUpsert taskUpsert,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -227,9 +232,10 @@ class TasksApi {
     try {
       const _type = FullType(TaskUpsert);
       _bodyData = _serializers.serialize(taskUpsert, specifiedType: _type);
-    } catch (error, stackTrace) {
+
+    } catch(error, stackTrace) {
       throw DioError(
-        requestOptions: _options.compose(
+         requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -255,6 +261,7 @@ class TasksApi {
         _response.data!,
         specifiedType: _responseType,
       ) as TaskGet;
+
     } catch (error, stackTrace) {
       throw DioError(
         requestOptions: _response.requestOptions,
@@ -275,4 +282,5 @@ class TasksApi {
       extra: _response.extra,
     );
   }
+
 }

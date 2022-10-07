@@ -6,10 +6,13 @@ import 'dart:async';
 
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
+
 import 'package:openapi/src/api_util.dart';
+import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/token.dart';
 
 class AuthApi {
+
   final Dio _dio;
 
   final Serializers _serializers;
@@ -20,12 +23,12 @@ class AuthApi {
   /// OAuth2 token login, access token for future requests
   ///
   /// Parameters:
-  /// * [username]
-  /// * [password]
-  /// * [grantType]
-  /// * [scope]
-  /// * [clientId]
-  /// * [clientSecret]
+  /// * [username] 
+  /// * [password] 
+  /// * [grantType] 
+  /// * [scope] 
+  /// * [clientId] 
+  /// * [clientSecret] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -35,7 +38,7 @@ class AuthApi {
   ///
   /// Returns a [Future] containing a [Response] with a [Token] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<Token>> getAuthToken({
+  Future<Response<Token>> getAuthToken({ 
     required String username,
     required String password,
     String? grantType,
@@ -74,9 +77,10 @@ class AuthApi {
         if (clientId != null) r'client_id': encodeQueryParameter(_serializers, clientId, const FullType(String)),
         if (clientSecret != null) r'client_secret': encodeQueryParameter(_serializers, clientSecret, const FullType(String)),
       };
-    } catch (error, stackTrace) {
+
+    } catch(error, stackTrace) {
       throw DioError(
-        requestOptions: _options.compose(
+         requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -102,6 +106,7 @@ class AuthApi {
         _response.data!,
         specifiedType: _responseType,
       ) as Token;
+
     } catch (error, stackTrace) {
       throw DioError(
         requestOptions: _response.requestOptions,
@@ -122,4 +127,5 @@ class AuthApi {
       extra: _response.extra,
     );
   }
+
 }

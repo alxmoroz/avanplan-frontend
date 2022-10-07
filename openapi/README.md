@@ -90,6 +90,7 @@ All URIs are relative to */api*
 
  - [BodyUpdateMyAccountV1MyAccountPut](doc/BodyUpdateMyAccountV1MyAccountPut.md)
  - [HTTPValidationError](doc/HTTPValidationError.md)
+ - [LocationInner](doc/LocationInner.md)
  - [Msg](doc/Msg.md)
  - [Person](doc/Person.md)
  - [PersonGet](doc/PersonGet.md)

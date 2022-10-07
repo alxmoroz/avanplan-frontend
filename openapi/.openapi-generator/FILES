@@ -7,6 +7,7 @@ doc/BodyUpdateMyAccountV1MyAccountPut.md
 doc/HTTPValidationError.md
 doc/IntegrationsSourcesApi.md
 doc/IntegrationsTasksApi.md
+doc/LocationInner.md
 doc/Msg.md
 doc/MyApi.md
 doc/Person.md
@@ -48,6 +49,7 @@ lib/src/date_serializer.dart
 lib/src/model/body_update_my_account_v1_my_account_put.dart
 lib/src/model/date.dart
 lib/src/model/http_validation_error.dart
+lib/src/model/location_inner.dart
 lib/src/model/msg.dart
 lib/src/model/person.dart
 lib/src/model/person_get.dart
@@ -77,6 +79,7 @@ test/body_update_my_account_v1_my_account_put_test.dart
 test/http_validation_error_test.dart
 test/integrations_sources_api_test.dart
 test/integrations_tasks_api_test.dart
+test/location_inner_test.dart
 test/msg_test.dart
 test/my_api_test.dart
 test/person_get_test.dart

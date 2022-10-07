@@ -4,14 +4,17 @@
 
 import 'dart:async';
 
-import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
+
+import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/model/body_update_my_account_v1_my_account_put.dart';
+import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/user_get.dart';
 import 'package:openapi/src/model/ws_user_role_get.dart';
 
 class MyApi {
+
   final Dio _dio;
 
   final Serializers _serializers;
@@ -19,7 +22,7 @@ class MyApi {
   const MyApi(this._dio, this._serializers);
 
   /// Get My Account
-  ///
+  /// 
   ///
   /// Parameters:
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
@@ -31,7 +34,7 @@ class MyApi {
   ///
   /// Returns a [Future] containing a [Response] with a [UserGet] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<UserGet>> getMyAccountV1MyAccountGet({
+  Future<Response<UserGet>> getMyAccountV1MyAccountGet({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -73,6 +76,7 @@ class MyApi {
         _response.data!,
         specifiedType: _responseType,
       ) as UserGet;
+
     } catch (error, stackTrace) {
       throw DioError(
         requestOptions: _response.requestOptions,
@@ -95,7 +99,7 @@ class MyApi {
   }
 
   /// Get My Workspaces
-  ///
+  /// 
   ///
   /// Parameters:
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
@@ -107,7 +111,7 @@ class MyApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<WSUserRoleGet>] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<BuiltList<WSUserRoleGet>>> getMyWorkspacesV1MyWorkspacesGet({
+  Future<Response<BuiltList<WSUserRoleGet>>> getMyWorkspacesV1MyWorkspacesGet({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -149,6 +153,7 @@ class MyApi {
         _response.data!,
         specifiedType: _responseType,
       ) as BuiltList<WSUserRoleGet>;
+
     } catch (error, stackTrace) {
       throw DioError(
         requestOptions: _response.requestOptions,
@@ -171,10 +176,10 @@ class MyApi {
   }
 
   /// Update My Account
-  ///
+  /// 
   ///
   /// Parameters:
-  /// * [bodyUpdateMyAccountV1MyAccountPut]
+  /// * [bodyUpdateMyAccountV1MyAccountPut] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -184,7 +189,7 @@ class MyApi {
   ///
   /// Returns a [Future] containing a [Response] with a [UserGet] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<UserGet>> updateMyAccountV1MyAccountPut({
+  Future<Response<UserGet>> updateMyAccountV1MyAccountPut({ 
     BodyUpdateMyAccountV1MyAccountPut? bodyUpdateMyAccountV1MyAccountPut,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -217,9 +222,10 @@ class MyApi {
     try {
       const _type = FullType(BodyUpdateMyAccountV1MyAccountPut);
       _bodyData = bodyUpdateMyAccountV1MyAccountPut == null ? null : _serializers.serialize(bodyUpdateMyAccountV1MyAccountPut, specifiedType: _type);
-    } catch (error, stackTrace) {
+
+    } catch(error, stackTrace) {
       throw DioError(
-        requestOptions: _options.compose(
+         requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -245,6 +251,7 @@ class MyApi {
         _response.data!,
         specifiedType: _responseType,
       ) as UserGet;
+
     } catch (error, stackTrace) {
       throw DioError(
         requestOptions: _response.requestOptions,
@@ -265,4 +272,5 @@ class MyApi {
       extra: _response.extra,
     );
   }
+
 }

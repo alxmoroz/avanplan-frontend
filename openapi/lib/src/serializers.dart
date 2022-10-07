@@ -16,6 +16,7 @@ import 'package:openapi/src/model/date.dart';
 
 import 'package:openapi/src/model/body_update_my_account_v1_my_account_put.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
+import 'package:openapi/src/model/location_inner.dart';
 import 'package:openapi/src/model/msg.dart';
 import 'package:openapi/src/model/person.dart';
 import 'package:openapi/src/model/person_get.dart';
@@ -44,6 +45,7 @@ part 'serializers.g.dart';
 @SerializersFor([
   BodyUpdateMyAccountV1MyAccountPut,
   HTTPValidationError,
+  LocationInner,
   Msg,
   Person,
   PersonGet,

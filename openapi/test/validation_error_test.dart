@@ -7,7 +7,7 @@ void main() {
   // TODO add properties to the builder and call build()
 
   group(ValidationError, () {
-    // BuiltList<String> loc
+    // BuiltList<LocationInner> loc
     test('to test the property `loc`', () async {
       // TODO
     });

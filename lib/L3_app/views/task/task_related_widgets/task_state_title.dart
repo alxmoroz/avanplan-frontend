@@ -28,7 +28,7 @@ class _StateTitle extends StatelessWidget {
       (style == TaskStateTitleStyle.L
           ? 12
           : style == TaskStateTitleStyle.M
-              ? 2.2
+              ? 2.5
               : 1.5);
 
   Widget _icon(BuildContext context) => iconForState(context, state, size: _iconSize);

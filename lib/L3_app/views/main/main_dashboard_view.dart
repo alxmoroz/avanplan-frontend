@@ -17,9 +17,9 @@ import '../../extra/services.dart';
 import '../../presenters/task_filter_presenter.dart';
 import '../account/user_icon.dart';
 import '../settings/settings_view.dart';
-import '../task/task_related_widgets/task_overview.dart';
 import '../task/task_view.dart';
 import '../task/task_view_controller.dart';
+import '../task/task_view_widgets/task_overview.dart';
 import 'project_empty_list_actions_widget.dart';
 
 class MainDashboardView extends StatelessWidget {

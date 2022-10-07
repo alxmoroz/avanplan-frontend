@@ -9,10 +9,10 @@ import '../../../presenters/task_state_presenter.dart';
 import '../task_charts/task_speed_chart.dart';
 import '../task_charts/task_time_chart.dart';
 import '../task_charts/task_volume_chart.dart';
+import '../task_related_widgets/task_overview_advices.dart';
+import '../task_related_widgets/task_overview_warnings.dart';
+import '../task_related_widgets/task_state_title.dart';
 import '../task_view_controller.dart';
-import 'task_overview_advices.dart';
-import 'task_overview_warnings.dart';
-import 'task_state_title.dart';
 
 class TaskOverview extends StatelessWidget {
   const TaskOverview(this.controller);
@@ -32,6 +32,8 @@ class TaskOverview extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              SizedBox(height: onePadding / 2),
+              TaskStateTitle(_task, style: _taskStateTitleStyle),
               if (_task.canShowTimeChart) TaskTimeChart(_task),
               if (_task.canShowSpeedVolumeCharts) ...[
                 SizedBox(height: onePadding / 2),
@@ -39,9 +41,8 @@ class TaskOverview extends StatelessWidget {
                   Expanded(child: TaskVolumeChart(_task)),
                   Expanded(child: TaskSpeedChart(_task)),
                 ]),
+                SizedBox(height: onePadding / 2),
               ],
-              SizedBox(height: onePadding / 2),
-              TaskStateTitle(_task, style: _taskStateTitleStyle),
             ],
           ),
         ),

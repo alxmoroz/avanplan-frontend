@@ -146,6 +146,7 @@
 
   "validation_empty_text": "Should not be empty",
 
+  "weeks_count_accusative": "{count, plural, one{{count} week} other{{count} weeks}}",
   "workspace_delete_dialog_title": "Delete workspace?",
   "workspace_title": "Workspace",
 

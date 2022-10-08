@@ -33,15 +33,12 @@ abstract class _MainControllerBase extends BaseController with Store {
 
   @action
   Future fetchData() async {
-    //TODO: сделать computed для всех зависимых данных? pro: прозрачная логика загрузки cons: увеличение связанности. В любом случае большой вопрос с редактированием словарей.
-    // Например, трекеров... Будет похожая заморочка, как в дереве задач (зато есть опыт уже)
-
     try {
       workspaces = ObservableList.of(await myUC.getWorkspaces());
     } on DioError catch (e) {
       if (e.response?.statusCode == 403) {
         //TODO: могут быть сюрпризы, возможно, лучше сделать поп до корня
-        await loginController.logout();
+        await authController.logout();
         return;
       } else {
         print(e);

@@ -31,7 +31,7 @@ abstract class _ImportControllerBase extends EditController with Store {
   Future fetchTasks(int sourceID) async {
     startLoading();
     final _remoteTasks = <TaskImport>[];
-    if (loginController.authorized) {
+    if (authController.authorized) {
       try {
         selectedAll = true;
         _remoteTasks.addAll((await importUC.getRootTasks(sourceID)).sorted((t1, t2) => compareNatural(t1.title, t2.title)));

@@ -20,10 +20,11 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  LoginController get _controller => loginController;
+  late LoginController _controller;
 
   @override
   void initState() {
+    _controller = LoginController();
     _controller.initState(tfaList: [
       TFAnnotation('login', label: loc.auth_user_placeholder),
       TFAnnotation('password', label: loc.auth_password_placeholder),

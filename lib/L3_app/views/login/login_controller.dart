@@ -10,28 +10,13 @@ import '../_base/edit_controller.dart';
 
 part 'login_controller.g.dart';
 
-class LoginController extends _LoginControllerBase with _$LoginController {
-  Future<LoginController> init() async {
-    await authUC.setApiCredentialsFromLocalAuth();
-    _setAuthorized(await authUC.isLocalAuthorized());
-    return this;
-  }
-}
+class LoginController extends _LoginControllerBase with _$LoginController {}
 
 abstract class _LoginControllerBase extends EditController with Store {
-  @observable
-  bool authorized = false;
-
-  @action
-  Future _setAuthorized(bool _auth) async => authorized = _auth;
-
   Future authorize(BuildContext context) async {
     startLoading();
     try {
-      _setAuthorized(await authUC.authorize(
-        username: tfAnnoForCode('login').text,
-        password: tfAnnoForCode('password').text,
-      ));
+      await authController.authorize(tfAnnoForCode('login').text, tfAnnoForCode('password').text);
     } catch (e) {
       stopLoading();
       // TODO: можно определять что именно произошло по типу кода и выдавать соотв. сообщение
@@ -44,12 +29,6 @@ abstract class _LoginControllerBase extends EditController with Store {
         simple: true,
       );
     }
-
     stopLoading();
-  }
-
-  Future logout() async {
-    await _setAuthorized(false);
-    await authUC.logout();
   }
 }

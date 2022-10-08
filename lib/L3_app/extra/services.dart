@@ -22,10 +22,10 @@ import '../../L2_data/repositories/tasks_repo.dart';
 import '../l10n/generated/l10n.dart';
 import '../views/account/account_controller.dart';
 import '../views/import/import_controller.dart';
-import '../views/login/login_controller.dart';
 import '../views/main/main_controller.dart';
 import '../views/settings/settings_controller.dart';
 import '../views/source/source_controller.dart';
+import 'auth/auth_controller.dart';
 
 S get loc => S.current;
 
@@ -35,11 +35,11 @@ BaseDeviceInfo get deviceInfo => GetIt.I<BaseDeviceInfo>();
 PackageInfo get packageInfo => GetIt.I<PackageInfo>();
 
 SettingsController get settingsController => GetIt.I<SettingsController>();
-LoginController get loginController => GetIt.I<LoginController>();
 MainController get mainController => GetIt.I<MainController>();
 SourceController get sourceController => GetIt.I<SourceController>();
 ImportController get importController => GetIt.I<ImportController>();
 AccountController get accountController => GetIt.I<AccountController>();
+AuthController get authController => GetIt.I<AuthController>();
 
 Openapi get openAPI => GetIt.I<Openapi>();
 
@@ -74,8 +74,8 @@ void setup() {
   getIt.registerSingleton<SourceTypesUC>(SourceTypesUC(repo: SourceTypesRepo()));
   getIt.registerSingleton<ImportUC>(ImportUC(repo: ImportRepo()));
 
-  // controllers
-  getIt.registerSingletonAsync<LoginController>(() async => LoginController().init(), dependsOn: [HiveStorage]);
+  // global state controllers
+  getIt.registerSingletonAsync<AuthController>(() async => AuthController().init(), dependsOn: [HiveStorage]);
   getIt.registerSingleton<SettingsController>(SettingsController());
   getIt.registerSingleton<MainController>(MainController());
   getIt.registerSingleton<SourceController>(SourceController());

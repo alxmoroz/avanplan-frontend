@@ -36,7 +36,7 @@ Future main() async {
 
 class RootView extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => Observer(builder: (_) => loginController.authorized ? MainView() : LoginView());
+  Widget build(BuildContext context) => Observer(builder: (_) => authController.authorized ? MainView() : LoginView());
 }
 
 class App extends StatelessWidget {

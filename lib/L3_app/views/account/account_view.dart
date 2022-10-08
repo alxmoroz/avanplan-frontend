@@ -20,7 +20,7 @@ class AccountView extends StatelessWidget {
 
   Future _logout(BuildContext context) async {
     Navigator.of(context).popUntil((r) => r.navigator?.canPop() == false);
-    await loginController.logout();
+    await authController.logout();
   }
 
   @override

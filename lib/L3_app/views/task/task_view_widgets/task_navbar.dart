@@ -58,7 +58,8 @@ CupertinoNavigationBar taskNavBar(BuildContext context, TaskViewController contr
     //     : null,
     bgColor: task.isWorkspace ? navbarDefaultBgColor : backgroundColor,
     title: task.isWorkspace ? loc.project_list_title : task.viewTitle,
-    trailing: task.actionTypes.isNotEmpty
+    trailing: (task.isWorkspace ? mainController.canEditAnyWS : authController.canEditWS(mainController.rolesForWS(task.workspaceId))) &&
+            task.actionTypes.isNotEmpty
         ? material(
             PopupMenuButton<TaskActionType>(
               icon: menuIcon(context),

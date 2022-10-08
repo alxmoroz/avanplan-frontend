@@ -37,11 +37,13 @@ class SourceListView extends StatelessWidget {
         navBar: navBar(
           context,
           title: loc.source_list_title,
-          trailing: MTButton.icon(
-            plusIcon(context, size: onePadding * 2.5),
-            () => _controller.addSource(context),
-            margin: EdgeInsets.only(right: onePadding),
-          ),
+          trailing: mainController.canEditAnyWS
+              ? MTButton.icon(
+                  plusIcon(context, size: onePadding * 2.5),
+                  () => _controller.addSource(context),
+                  margin: EdgeInsets.only(right: onePadding),
+                )
+              : null,
         ),
         body: SafeArea(
           top: false,
@@ -50,12 +52,13 @@ class SourceListView extends StatelessWidget {
               ? Center(
                   child: ListView(shrinkWrap: true, children: [
                   MediumText(loc.source_list_empty_title, align: TextAlign.center, color: lightGreyColor),
-                  MTButton.outlined(
-                    margin: EdgeInsets.all(onePadding),
-                    titleString: loc.source_title_new,
-                    leading: plusIcon(context),
-                    onTap: () => _controller.addSource(context),
-                  )
+                  if (mainController.canEditAnyWS)
+                    MTButton.outlined(
+                      margin: EdgeInsets.all(onePadding),
+                      titleString: loc.source_title_new,
+                      leading: plusIcon(context),
+                      onTap: () => _controller.addSource(context),
+                    )
                 ]))
               : ListView.builder(
                   itemBuilder: (_, int index) => _sourceBuilder(context, index),

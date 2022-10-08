@@ -37,7 +37,7 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
   @action
   Future fetchData() async {
     final _sources = <Source>[];
-    for (Workspace ws in mainController.workspaces) {
+    for (Workspace ws in mainController.selectableWSs) {
       _sources.addAll(ws.sources);
     }
     sources = ObservableList.of(_sources);

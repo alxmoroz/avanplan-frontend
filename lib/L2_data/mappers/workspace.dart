@@ -20,6 +20,9 @@ extension WorkspaceMapper on api.WorkspaceGet {
 
   List<Person> get _sortedPersons => persons.map((p) => p.person).sorted((p1, p2) => compareNatural('$p1', '$p2'));
 
+  // TODO: для гостевых ролей в памяти приложения доступна инфа, которая может быть конфиденц. Нужно не отдавать с бэка лишнее.
+  // TODO: сделать отдельные эндпойнты с контролем прав на бэкенде
+
   Workspace get workspace => Workspace(
         id: id,
         title: title.trim(),

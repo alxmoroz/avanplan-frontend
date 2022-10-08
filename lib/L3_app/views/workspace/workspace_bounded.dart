@@ -22,7 +22,7 @@ abstract class _WorkspaceBoundedBase extends EditController with Store {
 
   @computed
   Workspace? get selectedWS {
-    final workspaces = mainController.workspaces;
+    final workspaces = mainController.selectableWSs;
     return workspaces.length == 1 ? workspaces.first : workspaces.firstWhereOrNull((s) => s.id == _selectedWSId);
   }
 
@@ -31,7 +31,7 @@ abstract class _WorkspaceBoundedBase extends EditController with Store {
         ? MTDropdown<Workspace>(
             onChanged: (ws) => selectWS(ws?.id),
             value: selectedWS,
-            items: mainController.workspaces,
+            items: mainController.selectableWSs,
             label: loc.workspace_title,
           )
         : Container();

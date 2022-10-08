@@ -73,6 +73,9 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   @computed
   bool get hasGroupedListView => _hasGroupedListView ?? task.subtaskGroups.length > 1 && (task.tasks.length > 7 || task.hasClosedSubtasks);
 
+  @computed
+  bool get canShowBottomBar => authController.canEditWS(mainController.rolesForWS(task.workspaceId));
+
   /// связь с источником импорта
 
   // TODO: похоже, не используется этот метод вообще сейчас

@@ -69,6 +69,28 @@ class TaskView extends StatelessWidget {
       }[_controller.tabKey] ??
       _tasksPane;
 
+  Widget? _bottomBar(BuildContext context) => _controller.canShowBottomBar
+      ? _task.shouldAddSubtask
+          ? TaskAddActionWidget(_controller, parentContext: context)
+          : _task.canReopen || _task.shouldClose || _task.shouldCloseLeaf
+              ? Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                  if (_task.shouldClose)
+                    MediumText(
+                      loc.task_state_closable_hint,
+                      align: TextAlign.center,
+                      color: lightGreyColor,
+                      padding: EdgeInsets.only(bottom: onePadding / 3),
+                    ),
+                  MTButton.outlined(
+                    margin: EdgeInsets.symmetric(horizontal: onePadding),
+                    titleString: (_task.shouldClose || _task.shouldCloseLeaf) ? loc.close_action_title : loc.task_state_reopen_btn_title,
+                    leading: (_task.shouldClose || _task.shouldCloseLeaf) ? doneIcon(context, true) : null,
+                    onTap: () => _controller.setClosed(context, !_task.closed),
+                  ),
+                ])
+              : null
+      : null;
+
   @override
   Widget build(BuildContext context) {
     return Observer(
@@ -90,25 +112,7 @@ class TaskView extends StatelessWidget {
             ],
           ),
         ),
-        bottomBar: _task.shouldAddSubtask
-            ? TaskAddActionWidget(_controller, parentContext: context)
-            : _task.canReopen || _task.shouldClose || _task.shouldCloseLeaf
-                ? Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                    if (_task.shouldClose)
-                      MediumText(
-                        loc.task_state_closable_hint,
-                        align: TextAlign.center,
-                        color: lightGreyColor,
-                        padding: EdgeInsets.only(bottom: onePadding / 3),
-                      ),
-                    MTButton.outlined(
-                      margin: EdgeInsets.symmetric(horizontal: onePadding),
-                      titleString: (_task.shouldClose || _task.shouldCloseLeaf) ? loc.close_action_title : loc.task_state_reopen_btn_title,
-                      leading: (_task.shouldClose || _task.shouldCloseLeaf) ? doneIcon(context, true) : null,
-                      onTap: () => _controller.setClosed(context, !_task.closed),
-                    ),
-                  ])
-                : null,
+        bottomBar: _bottomBar(context),
       ),
     );
   }

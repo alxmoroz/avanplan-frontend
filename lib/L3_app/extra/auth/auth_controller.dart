@@ -1,7 +1,9 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../L1_domain/entities/ws_role.dart';
 import '../services.dart';
 
 part 'auth_controller.g.dart';
@@ -33,4 +35,6 @@ abstract class _AuthControllerBase with Store {
     _setAuthorized(false);
     await authUC.logout();
   }
+
+  bool canEditWS(Iterable<WSRole> roles) => roles.firstWhereOrNull((r) => r.title == 'admin') != null;
 }

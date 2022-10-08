@@ -41,11 +41,12 @@ class MainDashboardView extends StatelessWidget {
                   )
                 : const SizedBox(width: 0),
           ),
-          MTButton.outlined(
-            middle: plusIcon(context, size: onePadding * 2.2),
-            margin: EdgeInsets.only(right: onePadding),
-            onTap: () => _addProject(context),
-          ),
+          if (mainController.canEditAnyWS)
+            MTButton.outlined(
+              middle: plusIcon(context, size: onePadding * 2.2),
+              margin: EdgeInsets.only(right: onePadding),
+              onTap: () => _addProject(context),
+            ),
         ],
       );
 

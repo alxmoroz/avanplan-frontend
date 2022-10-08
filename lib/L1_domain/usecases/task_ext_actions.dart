@@ -18,6 +18,8 @@ enum TaskActionType {
 extension TaskActionsExt on Task {
   bool get hasLink => taskSource?.keepConnection == true;
 
+  // TODO: учесть в RDAC
+
   /// доступные действия
   bool get canAdd => isWorkspace || !(closed || hasLink);
   bool get canEdit => !(isWorkspace || hasLink);
@@ -63,7 +65,6 @@ extension TaskActionsExt on Task {
     }
   }
 
-  // TODO: в юзкейс
   Iterable<TaskSource> unlinkTaskTree() {
     final tss = <TaskSource>[];
     for (Task subtask in tasks) {

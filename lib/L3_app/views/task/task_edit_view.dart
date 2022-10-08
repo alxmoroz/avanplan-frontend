@@ -5,7 +5,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/status.dart';
 import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/usecases/task_ext_level.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -48,7 +47,7 @@ class _TaskEditViewState extends State<TaskEditView> {
   Task get parent => widget.parent;
   bool get isNew => task == null;
 
-  late final TaskEditController controller;
+  late TaskEditController controller;
 
   //TODO: валидация о заполненности работает неправильно, не сбрасывается после закрытия диалога
   // возможно, остаются tfa с теми же кодами для новых вьюх этого же контроллера и у них висит признак о произошедшем редактировании поля
@@ -66,7 +65,7 @@ class _TaskEditViewState extends State<TaskEditView> {
 
     controller.setDueDate(task?.dueDate);
     controller.setClosed(task?.closed);
-    controller.selectWS(task?.workspaceId);
+    controller.selectWS(task?.workspaceId ?? parent.workspaceId);
     controller.selectStatus(task?.status);
     super.initState();
   }
@@ -116,7 +115,7 @@ class _TaskEditViewState extends State<TaskEditView> {
     return Scrollbar(
       thumbVisibility: true,
       child: ListView(children: [
-        if (parent.isWorkspace && isNew) controller.wsDropdown(context),
+        if (controller.selectedWS == null) controller.wsDropdown(context),
         ...['title', 'dueDate', 'description'].map((code) => textFieldForCode(context, code)),
         if (controller.statuses.isNotEmpty)
           MTDropdown<Status>(

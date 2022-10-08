@@ -19,6 +19,7 @@ import 'views/main/main_view.dart';
 import 'views/settings/settings_view.dart';
 import 'views/source/source_list_view.dart';
 import 'views/task/task_view.dart';
+import 'views/workspace/workspace_list_view.dart';
 
 Future main() async {
   setup();
@@ -74,15 +75,15 @@ class App extends StatelessWidget {
             textStyle: textTheme.textStyle.copyWith(fontFamily: fontFamily),
           ),
         ),
+        routes: {
+          SourceListView.routeName: (_) => SourceListView(),
+          SettingsView.routeName: (_) => SettingsView(),
+          AccountView.routeName: (_) => AccountView(),
+          WorkspaceListView.routeName: (_) => WorkspaceListView(),
+        },
         onGenerateRoute: (RouteSettings rs) {
           if (rs.name == TaskView.routeName) {
             return CupertinoPageRoute<dynamic>(builder: (_) => TaskView(rs.arguments as int?));
-          } else if (rs.name == SourceListView.routeName) {
-            return CupertinoPageRoute<dynamic>(builder: (_) => SourceListView());
-          } else if (rs.name == SettingsView.routeName) {
-            return CupertinoPageRoute<dynamic>(builder: (_) => SettingsView());
-          } else if (rs.name == AccountView.routeName) {
-            return CupertinoPageRoute<dynamic>(builder: (_) => AccountView());
           }
           return null;
         },

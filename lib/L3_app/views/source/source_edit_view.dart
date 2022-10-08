@@ -144,7 +144,7 @@ class _SourceEditViewState extends State<SourceEditView> {
             margin: EdgeInsets.only(right: onePadding),
           ),
         ),
-        body: SafeArea(child: form()),
+        body: SafeArea(top: false, bottom: false, child: form()),
       ),
     );
   }

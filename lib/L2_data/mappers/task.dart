@@ -14,7 +14,7 @@ extension TaskMapper on api.TaskGet {
     final ts = taskSource?.taskSource;
     String _title = title.trim();
     if (ts != null && ts.code.startsWith('v_backlog_')) {
-      _title = Intl.message(_title, name: _title);
+      _title = Intl.message(_title);
     }
 
     final _t = Task(

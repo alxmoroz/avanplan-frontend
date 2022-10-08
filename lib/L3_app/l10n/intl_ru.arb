@@ -70,6 +70,10 @@
   "reopen_selected_only": "Переоткрыть без подзадач",
   "reopen_w_subtasks": "Переоткрыть вместе с подзадачами",
 
+  "role_admin": "Администратор",
+  "role_guest": "Гость",
+  "role_member": "Участник",
+
   "save_action_title": "Сохранить",
   "select_all_action_title": "Выбрать все",
 
@@ -150,6 +154,7 @@
   "weeks_count_accusative": "{count, plural, one{неделю} few{{count} недели} other{{count} недель}}",
   "workspace_delete_dialog_title": "Удалить рабочее пространство?",
   "workspace_title": "Рабочее пространство",
+  "workspaces_title": "Рабочие пространства",
 
   "years_count": "{count, plural, one{год} few{{count} года} other{{count} лет}}",
   "yes": "Да"

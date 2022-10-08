@@ -23,7 +23,13 @@ Widget connectingIcon(BuildContext context, {Color? color, double? size}) => Ico
 Widget importIcon(BuildContext context, {Color? color, double? size}) => Icon(
       CupertinoIcons.arrow_down_to_line,
       color: (color ?? mainColor).resolve(context),
-      size: size ?? onePadding * 2,
+      size: size ?? onePadding * 1.7,
+    );
+
+Widget wsIcon(BuildContext context, {Color? color, double? size}) => FaIcon(
+      FontAwesomeIcons.houseUser,
+      color: (color ?? darkGreyColor).resolve(context),
+      size: size ?? onePadding * 1.45,
     );
 
 Widget plusIcon(BuildContext context, {Color? color, double? size}) => Icon(

@@ -5,5 +5,5 @@ import '../entities/workspace.dart';
 
 abstract class AbstractApiMyRepo {
   Future<User?> getMyAccount();
-  Future<List<Workspace>> getMyWorkspaces();
+  Future<Iterable<Workspace>> getMyWorkspaces();
 }

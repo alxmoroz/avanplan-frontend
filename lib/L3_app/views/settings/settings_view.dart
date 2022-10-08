@@ -14,6 +14,7 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../source/source_list_view.dart';
+import '../workspace/workspace_list_view.dart';
 import 'settings_controller.dart';
 import 'user_list_tile.dart';
 
@@ -23,6 +24,7 @@ class SettingsView extends StatelessWidget {
   SettingsController get _controller => settingsController;
 
   Future _showSources(BuildContext context) async => await Navigator.of(context).pushNamed(SourceListView.routeName);
+  Future _showWorkspaces(BuildContext context) async => await Navigator.of(context).pushNamed(WorkspaceListView.routeName);
   User? get _user => accountController.user;
 
   @override
@@ -45,6 +47,12 @@ class SettingsView extends StatelessWidget {
                         titleText: loc.source_list_title,
                         trailing: chevronIcon(context),
                         onTap: () => _showSources(context),
+                      ),
+                      MTListTile(
+                        leading: wsIcon(context),
+                        titleText: loc.workspaces_title,
+                        trailing: chevronIcon(context),
+                        onTap: () => _showWorkspaces(context),
                       ),
                     ],
                   ),

@@ -9,6 +9,7 @@ import '../../L1_domain/system/errors.dart';
 import '../../L3_app/extra/services.dart';
 import '../mappers/user.dart';
 import '../mappers/workspace.dart';
+import '../mappers/ws_role.dart';
 
 class MyRepo extends AbstractApiMyRepo {
   MyApi get api => openAPI.getMyApi();
@@ -28,15 +29,22 @@ class MyRepo extends AbstractApiMyRepo {
   }
 
   @override
-  Future<List<Workspace>> getMyWorkspaces() async {
+  Future<Iterable<Workspace>> getMyWorkspaces() async {
     final response = await api.getMyWorkspacesV1MyWorkspacesGet();
 
-    final List<Workspace> workspaces = [];
+    final Map<int, Workspace> workspacesMap = {};
     if (response.statusCode == 200) {
-      for (WSUserRoleGet wsUserRole in response.data?.toList() ?? []) {
-        workspaces.add(wsUserRole.workspace.workspace);
+      // берем запись, смотрим id её РП. Если такая уже есть у нас, то берём её и в её список ролей добавляем роль из записи.
+      // если нет, то создаём и добавляем роль туда
+      for (WSUserRoleGet wsUserRoleGet in response.data ?? []) {
+        final wsId = wsUserRoleGet.workspace.id;
+        final role = wsUserRoleGet.wsRole.wsRole;
+        if (workspacesMap[wsId] == null) {
+          workspacesMap[wsId] = wsUserRoleGet.workspace.workspace;
+        }
+        workspacesMap[wsId]!.roles.add(role);
       }
     }
-    return workspaces;
+    return workspacesMap.values;
   }
 }

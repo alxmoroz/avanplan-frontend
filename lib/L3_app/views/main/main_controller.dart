@@ -38,8 +38,8 @@ abstract class _MainControllerBase extends BaseController with Store {
 
     try {
       workspaces = ObservableList.of(await myUC.getWorkspaces());
-    } catch (e) {
-      if (e is DioError && e.response?.statusCode == 403) {
+    } on DioError catch (e) {
+      if (e.response?.statusCode == 403) {
         //TODO: могут быть сюрпризы, возможно, лучше сделать поп до корня
         await loginController.logout();
         return;

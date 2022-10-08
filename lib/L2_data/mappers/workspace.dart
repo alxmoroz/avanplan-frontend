@@ -23,6 +23,7 @@ extension WorkspaceMapper on api.WorkspaceGet {
   Workspace get workspace => Workspace(
         id: id,
         title: title.trim(),
+        description: description?.trim() ?? '',
         sources: sources.map((rt) => rt.source).toList(),
         persons: _sortedPersons,
         priorities: _sortedPriorities,

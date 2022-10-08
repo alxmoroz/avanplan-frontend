@@ -70,6 +70,10 @@
   "reopen_selected_only": "Reopen this one only",
   "reopen_w_subtasks": "Yes, with subtasks",
 
+  "role_admin": "Administrator",
+  "role_guest": "Guest",
+  "role_member": "Member",
+
   "save_action_title": "Save",
   "select_all_action_title": "Select all",
 
@@ -149,6 +153,7 @@
   "weeks_count_accusative": "{count, plural, one{{count} week} other{{count} weeks}}",
   "workspace_delete_dialog_title": "Delete workspace?",
   "workspace_title": "Workspace",
+  "workspaces_title": "Workspaces",
 
   "years_count": "{count, plural, one{{count} year} other{{count} years}}",
   "yes": "Yes"

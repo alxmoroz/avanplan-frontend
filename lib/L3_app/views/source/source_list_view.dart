@@ -15,17 +15,12 @@ import '../../extra/services.dart';
 import '../../presenters/task_source_presenter.dart';
 import 'source_controller.dart';
 
-class SourceListView extends StatefulWidget {
+class SourceListView extends StatelessWidget {
   static String get routeName => 'source_list';
 
-  @override
-  _SourceListViewState createState() => _SourceListViewState();
-}
-
-class _SourceListViewState extends State<SourceListView> {
   SourceController get _controller => sourceController;
 
-  Widget sourceBuilder(BuildContext _, int index) {
+  Widget _sourceBuilder(BuildContext context, int index) {
     final s = _controller.sources[index];
     return MTListTile(
       middle: s.info(context),
@@ -63,7 +58,7 @@ class _SourceListViewState extends State<SourceListView> {
                   )
                 ]))
               : ListView.builder(
-                  itemBuilder: sourceBuilder,
+                  itemBuilder: (_, int index) => _sourceBuilder(context, index),
                   itemCount: _controller.sources.length,
                 ),
         ),

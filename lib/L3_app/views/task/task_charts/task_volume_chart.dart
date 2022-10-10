@@ -1,14 +1,14 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
-import 'package:gercules/L3_app/components/mt_pie_chart.dart';
-import 'package:gercules/L3_app/presenters/number_presenter.dart';
 
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/usecases/task_ext_state.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
+import '../../../components/mt_pie_chart.dart';
 import '../../../components/text_widgets.dart';
+import '../../../presenters/number_presenter.dart';
 
 class TaskVolumeChart extends StatelessWidget {
   const TaskVolumeChart(this.task);
@@ -36,6 +36,9 @@ class TaskVolumeChart extends StatelessWidget {
   MTPieChartData get _deltaBar => MTPieChartData(_delta.abs(), color: _barColor, strokeWidth: _delta > 0 ? onePadding / 6 : _radius);
   MTPieChartData get _deltaPointer => MTPieChartData(_degreeValue * 2, color: lightWarningColor, strokeWidth: onePadding);
 
+  String get _chartText => '${(_factValue / task.leafTasksCount).inPercents}';
+  // String get _chartText => '100%';
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -52,7 +55,7 @@ class TaskVolumeChart extends StatelessWidget {
             if (_delta > 0) _deltaPointer,
           ],
         ),
-        BaseText('${(_factValue / task.leafTasksCount).inPercents}', sizeScale: 3, color: _pointerColor, weight: FontWeight.w500),
+        D1(_chartText, color: _pointerColor),
       ],
     );
   }

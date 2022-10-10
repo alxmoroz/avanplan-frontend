@@ -45,7 +45,7 @@ class TaskSpeedChart extends StatelessWidget {
           : lightGreenColor;
 
   MTPieChartData get _mainBar => MTPieChartData(_firstValue, color: _barColor, strokeWidth: _barWidth);
-  MTPieChartData get _mainPointer => MTPieChartData(_degreeValue * 4, color: _pointerColor, strokeWidth: _gaugeWidth * 1.8);
+  MTPieChartData get _mainPointer => MTPieChartData(_degreeValue * 5, color: _pointerColor, strokeWidth: _gaugeWidth * 2.1);
   MTPieChartData get _deltaBar => MTPieChartData(_delta.abs(), color: _barColor, strokeWidth: _delta > 0 ? onePadding / 6 : _barWidth);
   MTPieChartData get _deltaPointer => MTPieChartData(_degreeValue * 2, color: _delta > 0 ? lightWarningColor : greenColor, strokeWidth: _gaugeWidth);
 
@@ -74,7 +74,7 @@ class TaskSpeedChart extends StatelessWidget {
             ],
           ],
         ),
-        BaseText('$_factSpeedText', sizeScale: 3, color: _pointerColor, weight: FontWeight.w500),
+        D1('$_factSpeedText', color: _pointerColor),
         SmallText(loc.task_speed_unit_t_mo, padding: EdgeInsets.only(top: _radius * 1.5), color: lightGreyColor),
         Padding(
             padding: EdgeInsets.symmetric(horizontal: onePadding * 3.3).copyWith(top: onePadding * 6.2),

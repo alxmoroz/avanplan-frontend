@@ -65,7 +65,7 @@ extension TaskStats on Task {
   bool get hasEtaDate => etaDate != null;
 
   /// целевая скорость
-  Duration? get _leftPeriod => hasDueDate ? dueDate!.difference(DateTime.now()) : null;
+  Duration? get _leftPeriod => hasDueDate ? dueDate!.add(_overdueThreshold).difference(DateTime.now()) : null;
   double? get targetSpeed => _leftPeriod != null && !hasOverdue ? openedLeafTasksCount / _leftPeriod!.inSeconds : null;
 
   /// плановый объем
@@ -84,11 +84,11 @@ extension TaskStats on Task {
   Iterable<Task> get riskySubtasks => tasks.where((t) => t.state == TaskState.risk);
 
   /// запас, опережение
-  Duration? get aheadPeriod => (hasDueDate && hasEtaDate) ? dueDate!.difference(etaDate!) : null;
+  Duration? get _aheadPeriod => (hasDueDate && hasEtaDate) ? dueDate!.difference(etaDate!) : null;
   bool get isOk => riskPeriod != null && riskPeriod! <= _riskThreshold;
   Duration get totalAheadPeriod => Duration(
         seconds: openedSubtasks.map((t) => max(0, t.totalAheadPeriod.inSeconds)).fold(
-              aheadPeriod?.inSeconds ?? 0,
+              _aheadPeriod?.inSeconds ?? 0,
               (s, res) => s + res,
             ),
       );
@@ -126,38 +126,37 @@ extension TaskStats on Task {
   int get emptyToiCount => _emptyToi.length;
   bool get hasEmptyToi => emptyToiCount > 0;
   // без прогресса
-  int get _closedSubtasksCount => tasks.length - openedSubtasksCount;
   Iterable<Task> get _noProgressToi => _toiTasks.where((t) => t.state == TaskState.noProgress);
   int get noProgressToiCount => _noProgressToi.length;
   bool get hasNoProgressToi => noProgressToiCount > 0;
   // можно закрыть
-  bool get isClosable => !closed && hasSubtasks && !hasOpenedSubtasks;
   Iterable<Task> get _closableToi => _toiTasks.where((t) => t.state == TaskState.closable);
   int get closableToiCount => _closableToi.length;
   bool get hasClosableToi => closableToiCount > 0;
 
   /// подзадачи в порядке
   bool get _hasOkSubtasks => openedSubtasks.isNotEmpty && openedSubtasks.every((t) => t.state == TaskState.ok);
+  bool get _allSubtasksAreClosable => openedSubtasks.isNotEmpty && openedSubtasks.every((t) => t.state == TaskState.closable);
 
   // TODO(san-smith): я бы подумал, как избавиться от такого вложенного тернарника
   /// интегральный статус
   TaskState get state => closed
       ? TaskState.closed
-      : (hasOverdue || (!hasDueDate && overdueSubtasks.isNotEmpty)
-          ? TaskState.overdue
-          : hasRisk || (!hasDueDate && riskySubtasks.isNotEmpty)
-              ? TaskState.risk
-              : isOk || ((isWorkspace || isProject) && _hasOkSubtasks)
-                  ? TaskState.ok
-                  : !hasDueDate && hasEtaDate
-                      ? TaskState.eta
-                      : isClosable
-                          ? TaskState.closable
-                          : (!hasDueDate && (!isWorkspace && !isProject && hasSubtasks))
-                              ? TaskState.noDueDate
-                              : ((isProject || isGoal) && !hasSubtasks)
-                                  ? TaskState.noSubtasks
-                                  : hasSubtasks && _closedSubtasksCount == 0
-                                      ? TaskState.noProgress
+      : ((isProject || isGoal) && !hasSubtasks)
+          ? TaskState.noSubtasks
+          : hasSubtasks && closedLeafTasksCount == 0
+              ? TaskState.noProgress
+              : hasSubtasks && (!hasOpenedSubtasks || _allSubtasksAreClosable)
+                  ? TaskState.closable
+                  : (hasOverdue || (!hasDueDate && overdueSubtasks.isNotEmpty)
+                      ? TaskState.overdue
+                      : hasRisk || (!hasDueDate && riskySubtasks.isNotEmpty)
+                          ? TaskState.risk
+                          : isOk || ((isWorkspace || isProject) && _hasOkSubtasks)
+                              ? TaskState.ok
+                              : !hasDueDate && hasEtaDate
+                                  ? TaskState.eta
+                                  : (!hasDueDate && (!isWorkspace && !isProject && hasSubtasks))
+                                      ? TaskState.noDueDate
                                       : TaskState.opened);
 }

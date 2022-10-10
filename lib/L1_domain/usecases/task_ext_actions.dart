@@ -29,7 +29,7 @@ extension TaskActionsExt on Task {
   bool get canClose => canEdit && !closed;
 
   /// рекомендации, быстрые кнопки
-  bool get shouldClose => canEdit && isClosable;
+  bool get shouldClose => canEdit && state == TaskState.closable;
   bool get shouldCloseLeaf => canClose && (isTask || isSubtask) && !hasSubtasks;
   bool get shouldAddSubtask =>
       canAdd &&

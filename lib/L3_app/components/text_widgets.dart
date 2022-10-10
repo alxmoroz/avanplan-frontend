@@ -5,8 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'colors.dart';
 import 'constants.dart';
 
-class BaseText extends StatelessWidget {
-  const BaseText(
+class _BaseText extends StatelessWidget {
+  const _BaseText(
     this.text, {
     this.sizeScale,
     this.color,
@@ -52,7 +52,7 @@ class BaseText extends StatelessWidget {
   }
 }
 
-class SmallText extends BaseText {
+class SmallText extends _BaseText {
   const SmallText(
     String text, {
     int? maxLines,
@@ -67,7 +67,7 @@ class SmallText extends BaseText {
         );
 }
 
-class LightText extends BaseText {
+class LightText extends _BaseText {
   const LightText(
     String text, {
     int? maxLines,
@@ -83,7 +83,7 @@ class LightText extends BaseText {
         );
 }
 
-class NormalText extends BaseText {
+class NormalText extends _BaseText {
   const NormalText(
     String text, {
     int? maxLines,
@@ -99,7 +99,7 @@ class NormalText extends BaseText {
         );
 }
 
-class MediumText extends BaseText {
+class MediumText extends _BaseText {
   const MediumText(
     String text, {
     int? maxLines,
@@ -115,7 +115,7 @@ class MediumText extends BaseText {
         );
 }
 
-class H4 extends BaseText {
+class H4 extends _BaseText {
   const H4(
     String text, {
     int? maxLines,
@@ -131,7 +131,7 @@ class H4 extends BaseText {
         );
 }
 
-class H3 extends BaseText {
+class H3 extends _BaseText {
   const H3(
     String text, {
     Color? color,
@@ -148,7 +148,7 @@ class H3 extends BaseText {
         );
 }
 
-class H2 extends BaseText {
+class H2 extends _BaseText {
   const H2(
     String text, {
     Color? color,
@@ -165,7 +165,7 @@ class H2 extends BaseText {
         );
 }
 
-class H1 extends BaseText {
+class H1 extends _BaseText {
   const H1(
     String text, {
     int? maxLines,
@@ -178,5 +178,21 @@ class H1 extends BaseText {
           weight: FontWeight.w200,
           sizeScale: 2.45,
           maxLines: maxLines ?? 2,
+        );
+}
+
+class D1 extends _BaseText {
+  const D1(
+    String text, {
+    int? maxLines,
+    super.color,
+    super.align,
+    super.padding,
+    super.decoration,
+  }) : super(
+          text,
+          weight: FontWeight.w500,
+          sizeScale: 2.5,
+          maxLines: maxLines ?? 1,
         );
 }

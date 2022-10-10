@@ -34,7 +34,6 @@ class TaskOverview extends StatelessWidget {
             children: [
               SizedBox(height: onePadding / 2),
               TaskStateTitle(_task, style: _taskStateTitleStyle),
-              if (_task.canShowTimeChart) TaskTimeChart(_task),
               if (_task.canShowSpeedVolumeCharts) ...[
                 SizedBox(height: onePadding / 2),
                 Row(children: [
@@ -43,6 +42,7 @@ class TaskOverview extends StatelessWidget {
                 ]),
                 SizedBox(height: onePadding / 2),
               ],
+              if (_task.canShowTimeChart) TaskTimeChart(_task),
             ],
           ),
         ),

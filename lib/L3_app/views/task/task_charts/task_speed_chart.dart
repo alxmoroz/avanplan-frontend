@@ -28,7 +28,7 @@ class TaskSpeedChart extends StatelessWidget {
   double get _delta => (task.targetSpeed ?? _factSpeed) - _factSpeed;
   double get _firstValue => _delta >= 0 ? _factSpeed : _factSpeed + _delta;
   double get _maxValue => max(_factSpeed, _factSpeed + _delta) * 1.3;
-  double get _degreeValue => _maxValue / (360 - _bottomGaugeAngle);
+  double get _degreeValue => _maxValue / _sweepAngle;
 
   String get _factSpeedText => '${(_factSpeed * _secondsInMonth).round()}';
   // String get _factSpeedText => '666';
@@ -51,42 +51,38 @@ class TaskSpeedChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
+      alignment: Alignment.center,
       children: [
-        Stack(
-          alignment: Alignment.center,
-          children: [
-            MTPieChart(
-              radius: _radius,
-              startAngle: _startAngle,
-              sweepAngle: _sweepAngle,
-              data: [MTPieChartData(_maxValue, strokeWidth: _gaugeWidth)],
-            ),
-            MTPieChart(
-              radius: _radius,
-              startAngle: _startAngle,
-              sweepAngle: _sweepAngle,
-              totalValue: _maxValue,
-              data: [
-                _mainBar,
-                _delta >= 0 ? _mainPointer : _deltaPointer,
-                if (_delta != 0) ...[
-                  _deltaBar,
-                  _delta > 0 ? _deltaPointer : _mainPointer,
-                ],
-              ],
-            ),
-            BaseText('$_factSpeedText', sizeScale: 3, color: _pointerColor, weight: FontWeight.w500),
-            SmallText(loc.task_speed_unit_t_mo, padding: EdgeInsets.only(top: _radius * 1.5), color: lightGreyColor),
-            Padding(
-                padding: EdgeInsets.symmetric(horizontal: onePadding * 3.3).copyWith(top: onePadding * 6.2),
-                child: Row(children: [
-                  if (_maxValue > 0) const MediumText('0', color: darkGreyColor),
-                  const Spacer(),
-                  if (_maxValue > 0) MediumText('${(_maxValue * _secondsInMonth).round()}', color: darkGreyColor),
-                ])),
+        MTPieChart(
+          radius: _radius,
+          startAngle: _startAngle,
+          sweepAngle: _sweepAngle,
+          data: [MTPieChartData(_maxValue, strokeWidth: _gaugeWidth)],
+        ),
+        MTPieChart(
+          radius: _radius,
+          startAngle: _startAngle,
+          sweepAngle: _sweepAngle,
+          totalValue: _maxValue,
+          data: [
+            _mainBar,
+            _delta >= 0 ? _mainPointer : _deltaPointer,
+            if (_delta != 0) ...[
+              _deltaBar,
+              _delta > 0 ? _deltaPointer : _mainPointer,
+            ],
           ],
         ),
+        BaseText('$_factSpeedText', sizeScale: 3, color: _pointerColor, weight: FontWeight.w500),
+        SmallText(loc.task_speed_unit_t_mo, padding: EdgeInsets.only(top: _radius * 1.5), color: lightGreyColor),
+        Padding(
+            padding: EdgeInsets.symmetric(horizontal: onePadding * 3.3).copyWith(top: onePadding * 6.2),
+            child: Row(children: [
+              if (_maxValue > 0) const MediumText('0', color: darkGreyColor),
+              const Spacer(),
+              if (_maxValue > 0) MediumText('${(_maxValue * _secondsInMonth).round()}', color: darkGreyColor),
+            ])),
       ],
     );
   }

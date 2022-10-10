@@ -5,8 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'colors.dart';
 import 'constants.dart';
 
-class _BaseText extends StatelessWidget {
-  const _BaseText(
+class BaseText extends StatelessWidget {
+  const BaseText(
     this.text, {
     this.sizeScale,
     this.color,
@@ -52,7 +52,7 @@ class _BaseText extends StatelessWidget {
   }
 }
 
-class SmallText extends _BaseText {
+class SmallText extends BaseText {
   const SmallText(
     String text, {
     int? maxLines,
@@ -67,7 +67,7 @@ class SmallText extends _BaseText {
         );
 }
 
-class LightText extends _BaseText {
+class LightText extends BaseText {
   const LightText(
     String text, {
     int? maxLines,
@@ -83,7 +83,7 @@ class LightText extends _BaseText {
         );
 }
 
-class NormalText extends _BaseText {
+class NormalText extends BaseText {
   const NormalText(
     String text, {
     int? maxLines,
@@ -99,7 +99,7 @@ class NormalText extends _BaseText {
         );
 }
 
-class MediumText extends _BaseText {
+class MediumText extends BaseText {
   const MediumText(
     String text, {
     int? maxLines,
@@ -115,7 +115,7 @@ class MediumText extends _BaseText {
         );
 }
 
-class H4 extends _BaseText {
+class H4 extends BaseText {
   const H4(
     String text, {
     int? maxLines,
@@ -131,7 +131,7 @@ class H4 extends _BaseText {
         );
 }
 
-class H3 extends _BaseText {
+class H3 extends BaseText {
   const H3(
     String text, {
     Color? color,
@@ -148,7 +148,7 @@ class H3 extends _BaseText {
         );
 }
 
-class H2 extends _BaseText {
+class H2 extends BaseText {
   const H2(
     String text, {
     Color? color,
@@ -165,7 +165,7 @@ class H2 extends _BaseText {
         );
 }
 
-class H1 extends _BaseText {
+class H1 extends BaseText {
   const H1(
     String text, {
     int? maxLines,

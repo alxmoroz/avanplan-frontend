@@ -8,7 +8,7 @@ import '../../../../L1_domain/usecases/task_ext_state.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/text_widgets.dart';
-import '../../../extra/services.dart';
+import '../../../presenters/number_presenter.dart';
 
 class TaskVolumeChart extends StatelessWidget {
   const TaskVolumeChart(this.task);
@@ -18,9 +18,6 @@ class TaskVolumeChart extends StatelessWidget {
   double get _delta => (task.planVolume ?? _factValue) - _factValue;
   double get _firstValue => _delta >= 0 ? _factValue : _factValue - _delta;
 
-  String get _factVolumeText => '${loc.task_state_closed}\n${task.closedLeafTasksCount} ${loc.count_of} ${task.leafTasksCount}';
-  String get _planVolumeText => _delta > 0 ? '\n\n${loc.goal_title}\n${task.planVolume?.round()} ${loc.count_of} ${task.leafTasksCount}' : '';
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -28,20 +25,14 @@ class TaskVolumeChart extends StatelessWidget {
       child: PieChart(
         dataMap: {'f': _firstValue, 'd': _delta},
         totalValue: task.leafTasksCount.toDouble(),
-        chartRadius: onePadding * 11,
-        chartType: ChartType.ring,
+        chartRadius: onePadding * 12,
         ringStrokeWidth: onePadding,
-        centerText: '$_factVolumeText$_planVolumeText',
-        centerTextStyle: const SmallText('').style(context),
-        chartValuesOptions: const ChartValuesOptions(
-          showChartValueBackground: false,
-          showChartValuesOutside: true,
-          showChartValuesInPercentage: true,
-          decimalPlaces: 0,
-        ),
+        centerText: '${(_factValue / task.leafTasksCount).inPercents}',
+        centerTextStyle: const LightText('', sizeScale: 2.5).style(context),
+        chartValuesOptions: const ChartValuesOptions(showChartValues: false, showChartValueBackground: false),
         degreeOptions: const DegreeOptions(initialAngle: -90),
         legendOptions: const LegendOptions(showLegends: false),
-        colorList: [bgGreenColor.resolve(context), (_delta >= 0 ? lightWarningColor : greenColor).resolve(context)],
+        colorList: [(_delta >= 0 ? lightWarningColor : lightGreenColor).resolve(context), darkBackgroundColor.resolve(context)],
         baseChartColor: darkBackgroundColor.resolve(context),
       ),
     );

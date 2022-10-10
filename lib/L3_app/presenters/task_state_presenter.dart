@@ -106,5 +106,5 @@ extension TaskStatePresenter on Task {
 
   bool get showState => !closed && (hasSubtasks || isGoal || state != TaskState.opened);
   bool get canShowTimeChart => !closed && hasDueDate;
-  bool get canShowSpeedVolumeCharts => canShowTimeChart && hasSubtasks;
+  bool get canShowSpeedVolumeCharts => canShowTimeChart && hasClosedSubtasks;
 }

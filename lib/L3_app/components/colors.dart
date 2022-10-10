@@ -24,7 +24,7 @@ const Color borderColor = CupertinoDynamicColor.withBrightness(
   darkColor: Color.fromARGB(255, 62, 62, 64),
 );
 
-const Color loaderColor = CupertinoDynamicColor.withBrightness(
+const Color loaderBgColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(225, 200, 200, 205),
   darkColor: Color.fromARGB(225, 62, 62, 64),
 );
@@ -41,21 +41,18 @@ const Color lightWarningColor = CupertinoDynamicColor.withBrightness(
 );
 
 const Color greenColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 120, 190, 142),
+  color: Color.fromARGB(255, 28, 120, 52),
+  darkColor: Color.fromARGB(255, 52, 165, 89),
+);
+
+const Color lightGreenColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, 120, 185, 142),
   darkColor: Color.fromARGB(255, 5, 80, 5),
 );
 
-const Color bgGreenColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(120, 120, 190, 142),
-  darkColor: Color.fromARGB(120, 5, 80, 5),
-);
-
-const Color _tealColor = Color.fromARGB(255, 90, 200, 250);
-const Color _darkTealColor = Color.fromARGB(255, 0, 113, 164);
-
 const Color mainColor = CupertinoDynamicColor.withBrightness(
-  color: _darkTealColor,
-  darkColor: _tealColor,
+  color: Color.fromARGB(255, 0, 113, 164),
+  darkColor: Color.fromARGB(255, 90, 200, 250),
 );
 
 // цвет для "прозрачного" апп-бара

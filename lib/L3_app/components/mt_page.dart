@@ -34,7 +34,7 @@ class MTPage extends StatelessWidget {
           bottomNavigationBar: bottomBar != null ? MTToolbar(child: bottomBar!) : null,
         ),
       ),
-      if (isLoading) MTSplashScreen(color: loaderColor.resolve(context)),
+      if (isLoading) MTSplashScreen(color: loaderBgColor.resolve(context)),
     ]);
   }
 }

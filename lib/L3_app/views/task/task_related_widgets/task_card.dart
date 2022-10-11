@@ -36,17 +36,18 @@ class TaskCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MTCard(
         onTap: () => mainController.showTask(context, task.id),
-        padding: EdgeInsets.all(onePadding),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,
           children: [
             header(context),
-            SizedBox(height: onePadding / 3),
-            Row(children: [
-              if (task.showState) Expanded(child: TaskStateTitle(task)) else const Spacer(),
-              if (task.hasLink) linkIcon(context),
-            ]),
+            if (task.showState || task.hasLink) ...[
+              SizedBox(height: onePadding / 3),
+              Row(children: [
+                if (task.showState) Expanded(child: TaskStateTitle(task)) else const Spacer(),
+                if (task.hasLink) linkIcon(context),
+              ]),
+            ],
           ],
         ),
       );

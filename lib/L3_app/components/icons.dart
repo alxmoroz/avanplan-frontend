@@ -150,7 +150,9 @@ Widget caretIcon(BuildContext context, {required Size size, Color? color, bool u
 
 Widget todayIcon({Color? color, double? size}) => Icon(CupertinoIcons.placemark, size: size);
 
-Widget redmineIcon() => Image.asset('assets/images/redmine_icon.png', width: 22, height: 22);
-Widget gitlabIcon() => Image.asset('assets/images/gitlab_icon.png', width: 22, height: 22);
-Widget jiraIcon() => Image.asset('assets/images/jira_icon.png', width: 22, height: 22);
+double get _sourceIconSize => onePadding * 2;
+
+Widget redmineIcon() => Image.asset('assets/images/redmine_icon.png', width: _sourceIconSize, height: _sourceIconSize);
+Widget gitlabIcon() => Image.asset('assets/images/gitlab_icon.png', width: _sourceIconSize, height: _sourceIconSize);
+Widget jiraIcon() => Image.asset('assets/images/jira_icon.png', width: _sourceIconSize, height: _sourceIconSize);
 Widget gerculesIcon({double? size}) => Image.asset('assets/images/gercules_icon.png', width: size, height: size);

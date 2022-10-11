@@ -7,7 +7,7 @@ import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_button.dart';
-import '../../components/mt_list_tile.dart';
+import '../../components/mt_card.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
@@ -22,9 +22,8 @@ class SourceListView extends StatelessWidget {
 
   Widget _sourceBuilder(BuildContext context, int index) {
     final s = _controller.sources[index];
-    return MTListTile(
-      middle: s.info(context),
-      trailing: editIcon(context),
+    return MTCard(
+      child: s.info(context),
       onTap: () => _controller.editSource(context, src: s),
     );
   }
@@ -34,37 +33,32 @@ class SourceListView extends StatelessWidget {
     return Observer(
       builder: (_) => MTPage(
         isLoading: _controller.isLoading,
-        navBar: navBar(
-          context,
-          title: loc.source_list_title,
-          trailing: mainController.canEditAnyWS
-              ? MTButton.icon(
-                  plusIcon(context, size: onePadding * 2.5),
-                  () => _controller.addSource(context),
-                  margin: EdgeInsets.only(right: onePadding),
-                )
-              : null,
-        ),
+        navBar: navBar(context, title: loc.source_list_title),
         body: SafeArea(
           top: false,
           bottom: false,
           child: _controller.sources.isEmpty
-              ? Center(
-                  child: ListView(shrinkWrap: true, children: [
-                  MediumText(loc.source_list_empty_title, align: TextAlign.center, color: lightGreyColor),
-                  if (mainController.canEditAnyWS)
-                    MTButton.outlined(
-                      margin: EdgeInsets.all(onePadding),
-                      titleString: loc.source_title_new,
-                      leading: plusIcon(context),
-                      onTap: () => _controller.addSource(context),
-                    )
-                ]))
+              ? Center(child: H4(loc.source_list_empty_title, align: TextAlign.center, color: lightGreyColor))
               : ListView.builder(
                   itemBuilder: (_, int index) => _sourceBuilder(context, index),
                   itemCount: _controller.sources.length,
                 ),
         ),
+        bottomBar: mainController.canEditAnyWS
+            ? Row(children: [
+                Expanded(
+                  child: _controller.sources.isEmpty
+                      ? MTButton.outlined(
+                          margin: EdgeInsets.all(onePadding),
+                          titleString: loc.source_title_new,
+                          leading: plusIcon(context),
+                          onTap: () => _controller.addSource(context),
+                        )
+                      : const SizedBox(),
+                ),
+                MTPlusButton(() => _controller.addSource(context)),
+              ])
+            : null,
       ),
     );
   }

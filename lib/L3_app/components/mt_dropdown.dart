@@ -42,6 +42,7 @@ class MTDropdown<T> extends StatelessWidget {
         decoration: tfDecoration(context, label: label, readOnly: true),
         icon: dropdownCaretIcon(context),
         items: _ddItems,
+        isExpanded: true,
         value: value,
         onChanged: onChanged,
         borderRadius: BorderRadius.circular(onePadding / 2),

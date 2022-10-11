@@ -18,7 +18,6 @@ class TaskOverviewAdvices extends StatelessWidget {
 
   Widget _filteredToiButton(BuildContext context, String title, int count) {
     return MTCard(
-      padding: EdgeInsets.all(onePadding),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

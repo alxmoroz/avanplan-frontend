@@ -32,17 +32,15 @@ extension SourcePresenter on Source {
     final connected = state == SrcState.connected;
     final textColor = connected ? null : lightGreyColor;
     return Row(children: [
-      Column(children: [
-        type.icon(context),
-        SizedBox(height: onePadding / 3),
-        isUnknown ? connectingIcon(context) : MTCircle(color: connected ? Colors.green : warningColor),
-      ]),
+      type.icon(context),
       SizedBox(width: onePadding / 2),
-      Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        NormalText('${description.isEmpty ? type.title : description}', color: textColor),
-        SizedBox(height: onePadding / 6),
-        SmallText(url, color: textColor),
-      ]),
+      Expanded(
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          NormalText('${description.isEmpty ? type.title : description}', color: textColor),
+          SmallText(url, color: textColor),
+        ]),
+      ),
+      isUnknown ? connectingIcon(context) : MTCircle(color: connected ? Colors.green : warningColor),
     ]);
   }
 }

@@ -8,8 +8,9 @@ import 'colors.dart';
 import 'constants.dart';
 
 class MTPieChartData {
-  MTPieChartData(this.value, {this.color, this.radius, this.strokeWidth});
+  MTPieChartData(this.value, {this.start, this.color, this.radius, this.strokeWidth});
   final double value;
+  final double? start;
   final Color? color;
   final double? radius;
   final double? strokeWidth;
@@ -36,12 +37,13 @@ class _PieChartPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final _totalSum = data.fold<double>(0, (res, arc) => res + (arc.value > 0 ? arc.value : 0));
-    final _totalValue = max(totalValue ?? 0, _totalSum);
+    final _totalValue = totalValue ?? _totalSum;
     double _startAngle = startAngle;
     final _dA = sweepAngle / _totalValue;
 
     for (final arcData in data) {
       final _sweepAngle = arcData.value * _dA;
+      _startAngle = arcData.start != null ? (startAngle + arcData.start! * _dA) : _startAngle;
       final _strokeWidth = arcData.strokeWidth ?? strokeWidth ?? onePadding;
 
       final _paint = Paint()

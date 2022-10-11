@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'colors.dart';
 import 'constants.dart';
+import 'icons.dart';
 import 'text_widgets.dart';
 
 //TODO: решить вопрос в UIKit по кнопкам. После чего добавить сюда все варианты кнопок
@@ -109,6 +110,20 @@ class _MTBaseLayout extends StatelessWidget {
         middle,
         if (trailing != null) ...[SizedBox(width: onePadding / 3), trailing!],
       ],
+    );
+  }
+}
+
+class MTPlusButton extends StatelessWidget {
+  const MTPlusButton(this.onTap);
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return MTButton.outlined(
+      middle: plusIcon(context, size: onePadding * 2.2),
+      margin: EdgeInsets.only(right: onePadding),
+      onTap: onTap,
     );
   }
 }

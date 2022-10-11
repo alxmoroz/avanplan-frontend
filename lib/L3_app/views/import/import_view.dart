@@ -40,7 +40,8 @@ class ImportView extends StatelessWidget {
   bool get _selectedAll => _controller.selectedAll;
 
   List<DropdownMenuItem<Source>> _srcDdItems(Iterable<Source> sources, BuildContext context) => [
-        for (final s in sources) DropdownMenuItem<Source>(value: s, child: s.info(context)),
+        for (final s in sources)
+          DropdownMenuItem<Source>(value: s, child: Padding(padding: EdgeInsets.only(right: onePadding), child: s.info(context))),
         DropdownMenuItem<Source>(
           value: Source(workspaceId: -1, type: SourceType(id: -1, title: ''), url: 'none'),
           child: Row(children: [plusIcon(context), MediumText(loc.source_title_new, color: mainColor)]),

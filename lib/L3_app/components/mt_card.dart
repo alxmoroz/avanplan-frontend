@@ -30,7 +30,7 @@ class MTCard extends StatelessWidget {
         margin: margin ?? EdgeInsets.symmetric(horizontal: onePadding, vertical: onePadding / 2),
         elevation: elevation ?? 2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius)),
-        child: MTRoundedContainer(borderRadius: borderRadius, child: child, padding: padding, color: _color),
+        child: MTRoundedContainer(borderRadius: borderRadius, child: child, padding: padding ?? EdgeInsets.all(onePadding), color: _color),
       ),
     );
   }

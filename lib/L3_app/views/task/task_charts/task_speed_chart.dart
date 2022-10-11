@@ -44,10 +44,25 @@ class TaskSpeedChart extends StatelessWidget {
           ? lightWarningColor
           : lightGreenColor;
 
-  MTPieChartData get _mainBar => MTPieChartData(_firstValue, color: _barColor, strokeWidth: _barWidth);
-  MTPieChartData get _mainPointer => MTPieChartData(_degreeValue * 5, color: _pointerColor, strokeWidth: _gaugeWidth * 2.1);
-  MTPieChartData get _deltaBar => MTPieChartData(_delta.abs(), color: _barColor, strokeWidth: _delta > 0 ? onePadding / 6 : _barWidth);
-  MTPieChartData get _deltaPointer => MTPieChartData(_degreeValue * 2, color: _delta > 0 ? lightWarningColor : greenColor, strokeWidth: _gaugeWidth);
+  MTPieChartData get _gaugeBar => MTPieChartData(_maxValue, strokeWidth: _gaugeWidth);
+  MTPieChartData get _mainBar => MTPieChartData(_firstValue, start: 0, color: _barColor, strokeWidth: _barWidth);
+
+  double get _mainPointerWidthValue => _degreeValue * 5;
+  double get _mainPointerStartValue => _firstValue + (_delta < 0 ? -_delta : 0) - _mainPointerWidthValue / 2;
+  MTPieChartData get _mainPointer =>
+      MTPieChartData(_mainPointerWidthValue, start: _mainPointerStartValue, color: _pointerColor, strokeWidth: _gaugeWidth * 2.1);
+
+  MTPieChartData get _deltaBar =>
+      MTPieChartData(_delta.abs(), start: _firstValue, color: _barColor, strokeWidth: _delta > 0 ? onePadding / 6 : _barWidth);
+
+  double get _deltaPointerWidthValue => _degreeValue * 2;
+  double get _deltaPointerStartValue => _firstValue + (_delta > 0 ? _delta : 0) - _deltaPointerWidthValue / 2;
+  MTPieChartData get _deltaPointer => MTPieChartData(
+        _deltaPointerWidthValue,
+        start: _deltaPointerStartValue,
+        color: _delta > 0 ? lightWarningColor : greenColor,
+        strokeWidth: _delta > 0 ? _gaugeWidth : _barWidth,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -58,20 +73,12 @@ class TaskSpeedChart extends StatelessWidget {
           radius: _radius,
           startAngle: _startAngle,
           sweepAngle: _sweepAngle,
-          data: [MTPieChartData(_maxValue, strokeWidth: _gaugeWidth)],
-        ),
-        MTPieChart(
-          radius: _radius,
-          startAngle: _startAngle,
-          sweepAngle: _sweepAngle,
           totalValue: _maxValue,
           data: [
+            _gaugeBar,
             _mainBar,
-            _delta >= 0 ? _mainPointer : _deltaPointer,
-            if (_delta != 0) ...[
-              _deltaBar,
-              _delta > 0 ? _deltaPointer : _mainPointer,
-            ],
+            if (_delta != 0) ...[_deltaBar, _deltaPointer],
+            _mainPointer,
           ],
         ),
         D1('$_factSpeedText', color: _pointerColor),

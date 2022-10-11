@@ -69,7 +69,7 @@ extension TaskStats on Task {
   double? get targetSpeed => _leftPeriod != null && !hasOverdue ? openedLeafTasksCount / _leftPeriod!.inSeconds : null;
 
   /// плановый объем
-  Duration? get _planPeriod => hasDueDate ? dueDate!.difference(_startDate) : null;
+  Duration? get _planPeriod => hasDueDate ? dueDate!.add(_overdueThreshold).difference(_startDate) : null;
   double? get _planSpeed => _planPeriod != null ? leafTasksCount / _planPeriod!.inSeconds : null;
   double? get planVolume => _planSpeed != null ? min(_leafTasks.length.toDouble(), _planSpeed! * _pastPeriod.inSeconds) : null;
 

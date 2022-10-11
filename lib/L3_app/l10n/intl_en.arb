@@ -82,6 +82,7 @@
   "source_api_key_placeholder": "API key / Token",
   "source_delete_dialog_title": "Delete import source connection?",
   "source_delete_dialog_description": "Imported tasks of this source will lose their connection with it",
+  "source_help_edit_action": "Connection instructions",
   "source_import_placeholder": "Source for importing tasks",
   "source_list_empty_title": "No remote import sources configured yet",
   "source_list_title": "Remote import sources",

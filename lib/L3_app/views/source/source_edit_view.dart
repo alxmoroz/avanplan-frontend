@@ -3,10 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../L1_domain/entities/source.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
+import '../../components/icons.dart';
 import '../../components/mt_bottom_sheet.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_close_button.dart';
@@ -42,7 +44,10 @@ class _SourceEditViewState extends State<SourceEditView> {
   bool get _isNew => _source == null;
   bool get _canSave => _controller.validated;
 
+  String get _sourceCode => _controller.selectedType != null ? _controller.selectedType!.title.toLowerCase() : '';
   bool get _isJira => _controller.selectedType?.title == 'Jira';
+  //TODO: настройку адреса вынести на бэк? Можно хранить для типа источника импорта, например.
+  String get _sourceEditHelperAddress => 'https://moroz.team/gercules/docs/${Intl.getCurrentLocale()}/import/$_sourceCode';
 
   @override
   void initState() {
@@ -68,7 +73,7 @@ class _SourceEditViewState extends State<SourceEditView> {
 
     String? helper = tfa.helper;
     if (code == 'apiKey' && helper == null) {
-      helper = _controller.selectedType != null ? Intl.message('source_api_key_helper_' + _controller.selectedType!.title.toLowerCase()) : null;
+      helper = _controller.selectedType != null ? Intl.message('source_api_key_helper_' + _sourceCode) : null;
     }
 
     String? error;
@@ -117,11 +122,17 @@ class _SourceEditViewState extends State<SourceEditView> {
             // 'password',
             'description',
           ].map((code) => textFieldForCode(code)),
+          MTButton.outlined(
+            titleString: loc.source_help_edit_action,
+            trailing: linkOutIcon(context, size: onePadding * 1.3),
+            margin: tfPadding.copyWith(top: onePadding * 2),
+            onTap: () => launchUrl(Uri.parse(_sourceEditHelperAddress)),
+          ),
           if (_controller.canEdit)
             MTButton.outlined(
               titleString: loc.delete_action_title,
               titleColor: dangerColor,
-              margin: tfPadding.copyWith(top: onePadding * 4),
+              margin: tfPadding.copyWith(top: onePadding * 5),
               onTap: () => _controller.delete(context),
             ),
           SizedBox(height: onePadding * 2),

@@ -81,6 +81,7 @@
   "source_api_key_placeholder": "Ключ API / Токен",
   "source_delete_dialog_title": "Удалить источник импорта?",
   "source_delete_dialog_description": "Импортированные задачи этого источника потеряют с ним связь",
+  "source_help_edit_action": "Инструкция по подключению",
   "source_import_placeholder": "Источник импорта задач",
   "source_list_empty_title": "Источники импорта не настроены",
   "source_list_title": "Источники импорта задач",

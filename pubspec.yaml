@@ -1,7 +1,7 @@
 name: gercules
 description: Gercules
 
-version: 1.0.613+613
+version: 1.0.615+615
 
 environment:
   sdk: ">=2.17.0 <4.0.0"

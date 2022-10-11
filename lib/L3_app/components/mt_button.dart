@@ -100,12 +100,16 @@ class _MTBaseLayout extends StatelessWidget {
   final Widget? leading;
   final Widget? trailing;
 
+  double get _minHeight => onePadding * 2 + 2;
+  // double get _minWidth => onePadding * 2;
+
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
+        SizedBox(height: _minHeight),
         if (leading != null) ...[leading!, SizedBox(width: onePadding / 3)],
         middle,
         if (trailing != null) ...[SizedBox(width: onePadding / 3), trailing!],

@@ -19,6 +19,7 @@ import '../account/user_icon.dart';
 import '../settings/settings_view.dart';
 import '../task/task_view.dart';
 import '../task/task_view_controller.dart';
+import '../task/task_view_widgets/task_navbar.dart';
 import '../task/task_view_widgets/task_overview.dart';
 import 'project_empty_list_actions_widget.dart';
 
@@ -28,7 +29,6 @@ class MainDashboardView extends StatelessWidget {
 
   Future _gotoSettings(BuildContext context) async => await Navigator.of(context).pushNamed(SettingsView.routeName);
   Future _gotoProjects(BuildContext context) async => await Navigator.of(context).pushNamed(TaskView.routeName);
-  Future _addProject(BuildContext context) async => await _taskController.addSubtask(context);
 
   Widget _bottomAppbarContent(BuildContext context) => Row(
         children: [
@@ -39,9 +39,10 @@ class MainDashboardView extends StatelessWidget {
                     margin: EdgeInsets.symmetric(horizontal: onePadding),
                     onTap: () => _gotoProjects(context),
                   )
-                : const SizedBox(width: 0),
+                : const SizedBox(),
           ),
-          if (mainController.canEditAnyWS) MTPlusButton(() => _addProject(context))
+          // if (mainController.canEditAnyWS) MTPlusButton(() => _addProject(context))
+          if (mainController.canEditAnyWS) TaskFloatingPlusButton(controller: _taskController, parentContext: context),
         ],
       );
 

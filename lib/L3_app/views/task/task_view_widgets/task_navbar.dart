@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/usecases/task_ext_actions.dart';
 import '../../../../L1_domain/usecases/task_ext_level.dart';
 import '../../../components/colors.dart';
@@ -16,8 +17,15 @@ import '../../../presenters/task_level_presenter.dart';
 import '../../../presenters/task_source_presenter.dart';
 import '../task_view_controller.dart';
 
-CupertinoNavigationBar taskNavBar(BuildContext context, TaskViewController controller) {
-  final task = controller.task;
+class TaskPopupMenu extends StatelessWidget {
+  const TaskPopupMenu(this.controller, {this.icon, this.child, this.margin, required this.parentContext});
+  final TaskViewController controller;
+  final BuildContext parentContext;
+  final Widget? icon;
+  final Widget? child;
+  final EdgeInsets? margin;
+
+  Task get task => controller.task;
 
   Widget rowIconTitle(String title, {Widget? icon, Color? color}) => Row(children: [
         if (icon != null) ...[
@@ -27,7 +35,7 @@ CupertinoNavigationBar taskNavBar(BuildContext context, TaskViewController contr
         NormalText(title, color: color ?? mainColor),
       ]);
 
-  Widget itemWidget(TaskActionType at) {
+  Widget itemWidget(BuildContext context, Task task, TaskActionType at) {
     switch (at) {
       case TaskActionType.add:
         return rowIconTitle(task.newSubtaskTitle, icon: plusIcon(context));
@@ -48,6 +56,27 @@ CupertinoNavigationBar taskNavBar(BuildContext context, TaskViewController contr
     }
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return material(
+      Padding(
+        padding: margin ?? EdgeInsets.zero,
+        child: PopupMenuButton<TaskActionType>(
+          child: child,
+          icon: icon,
+          itemBuilder: (_) => task.actionTypes.map((at) => PopupMenuItem<TaskActionType>(value: at, child: itemWidget(context, task, at))).toList(),
+          onSelected: (at) => controller.taskAction(at, parentContext),
+          padding: EdgeInsets.symmetric(horizontal: onePadding / 2),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(defaultBorderRadius)),
+        ),
+      ),
+    );
+  }
+}
+
+CupertinoNavigationBar taskNavBar(BuildContext context, TaskViewController controller) {
+  final task = controller.task;
+
   return navBar(
     context,
     // leading: task.canRefresh
@@ -58,17 +87,30 @@ CupertinoNavigationBar taskNavBar(BuildContext context, TaskViewController contr
     //     : null,
     bgColor: task.isWorkspace ? navbarDefaultBgColor : backgroundColor,
     title: task.isWorkspace ? loc.project_list_title : task.viewTitle,
-    trailing: (task.isWorkspace ? mainController.canEditAnyWS : authController.canEditWS(mainController.rolesForWS(task.workspaceId))) &&
-            task.actionTypes.isNotEmpty
-        ? material(
-            PopupMenuButton<TaskActionType>(
-              icon: menuIcon(context),
-              itemBuilder: (_) => task.actionTypes.map((at) => PopupMenuItem<TaskActionType>(value: at, child: itemWidget(at))).toList(),
-              onSelected: (at) => controller.taskAction(at, context),
-              padding: EdgeInsets.symmetric(horizontal: onePadding / 2),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(onePadding / 2)),
-            ),
-          )
-        : null,
+    trailing: !task.isWorkspace && task.actionTypes.isNotEmpty ? TaskPopupMenu(controller, icon: menuIcon(context), parentContext: context) : null,
   );
+}
+
+class TaskFloatingPlusButton extends StatelessWidget {
+  const TaskFloatingPlusButton({required this.controller, required this.parentContext});
+
+  final TaskViewController controller;
+  final BuildContext parentContext;
+
+  @override
+  Widget build(BuildContext context) {
+    return TaskPopupMenu(
+      controller,
+      parentContext: parentContext,
+      margin: EdgeInsets.only(right: onePadding),
+      child: Container(
+        padding: EdgeInsets.all(onePadding),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(defaultBorderRadius),
+          border: Border.fromBorderSide(BorderSide(color: mainColor.resolve(context), width: 2)),
+        ),
+        child: plusIcon(context),
+      ),
+    );
+  }
 }

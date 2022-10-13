@@ -9,7 +9,6 @@ import 'package:dio/dio.dart';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/json_object.dart';
-import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/source_get.dart';
 import 'package:openapi/src/model/source_type_get.dart';
 import 'package:openapi/src/model/source_upsert.dart';

@@ -9,7 +9,6 @@ import 'package:dio/dio.dart';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/model/body_update_my_account_v1_my_account_put.dart';
-import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/user_get.dart';
 import 'package:openapi/src/model/ws_user_role_get.dart';
 

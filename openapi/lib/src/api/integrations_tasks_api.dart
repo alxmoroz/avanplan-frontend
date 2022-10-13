@@ -9,7 +9,6 @@ import 'package:dio/dio.dart';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/api_util.dart';
-import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/msg.dart';
 import 'package:openapi/src/model/task.dart';
 import 'package:openapi/src/model/task_source.dart';

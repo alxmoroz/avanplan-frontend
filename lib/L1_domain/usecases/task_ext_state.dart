@@ -146,7 +146,7 @@ extension TaskStats on Task {
           ? TaskState.noSubtasks
           : hasSubtasks && closedLeafTasksCount == 0
               ? TaskState.noProgress
-              : hasSubtasks && (!hasOpenedSubtasks || _allSubtasksAreClosable)
+              : !isWorkspace && hasSubtasks && (!hasOpenedSubtasks || _allSubtasksAreClosable)
                   ? TaskState.closable
                   : (hasOverdue || (!hasDueDate && overdueSubtasks.isNotEmpty)
                       ? TaskState.overdue

@@ -14,6 +14,8 @@ import '../workspace/workspace_bounded.dart';
 
 part 'task_edit_controller.g.dart';
 
+const _year = Duration(days: 365);
+
 class TaskEditController extends _TaskEditControllerBase with _$TaskEditController {}
 
 abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
@@ -48,40 +50,29 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
     teControllers['dueDate']?.text = _date != null ? _date.strLong : '';
   }
 
-  Future<DateTime?> _selectDate(BuildContext context, DateTime? initialDate) async {
-    final today = DateTime.now();
-    initialDate ??= today;
-    final pastDate = today.subtract(const Duration(days: 365));
-    final firstDate = pastDate.isAfter(initialDate) ? initialDate : pastDate;
+  Future selectDate(BuildContext context, String code) async {
+    final isStart = code == 'startDate';
+    // final isDue = code == 'dueDate';
 
-    return await showDatePicker(
+    final today = DateTime.now();
+    final initialDate = (isStart ? selectedStartDate : selectedDueDate) ?? today;
+    final pastDate = today.subtract(_year);
+    final firstDate = (isStart ? null : selectedStartDate) ?? (pastDate.isAfter(initialDate) ? initialDate : pastDate);
+    final lastDate = (isStart ? selectedDueDate : null) ?? today.add(_year * 100);
+
+    final date = await showDatePicker(
       context: context,
       initialEntryMode: DatePickerEntryMode.calendarOnly,
       initialDate: initialDate,
       firstDate: firstDate,
-      lastDate: today.add(const Duration(days: 36500)),
+      lastDate: lastDate,
     );
-  }
-
-  Future _selectStartDate(BuildContext context) async {
-    final date = await _selectDate(context, selectedStartDate);
     if (date != null) {
-      setStartDate(date);
-    }
-  }
-
-  Future _selectDueDate(BuildContext context) async {
-    final date = await _selectDate(context, selectedDueDate);
-    if (date != null) {
-      setDueDate(date);
-    }
-  }
-
-  void selectDate(BuildContext context, String code) {
-    if (code == 'startDate') {
-      _selectStartDate(context);
-    } else if (code == 'dueDate') {
-      _selectDueDate(context);
+      if (isStart) {
+        setStartDate(date);
+      } else {
+        setDueDate(date);
+      }
     }
   }
 

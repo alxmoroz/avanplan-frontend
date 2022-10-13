@@ -48,7 +48,7 @@ extension TaskStats on Task {
 
   /// фактическая скорость
   DateTime get _startDate {
-    DateTime start = createdOn ?? DateTime.now();
+    DateTime start = startDate ?? createdOn ?? DateTime.now();
     // на случай, если выставили дату окончания раньше, чем имеющаяся у нас дата начала. Добавляем один день хотя бы.
     if (hasDueDate && dueDate!.compareTo(start) < 0) {
       start = dueDate!.subtract(const Duration(days: 1));

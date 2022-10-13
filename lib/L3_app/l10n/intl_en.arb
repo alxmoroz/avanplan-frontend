@@ -116,7 +116,7 @@
   "task_new_title": "New task",
 
   "task_speed_unit_t_mo": "tasks/mo",
-
+  "task_start_date_placeholder": "Start date",
   "task_state_ahead_duration": "We can finish {duration} early",
   "task_state_closed": "Closed",
   "task_state_closable_hint": "Hooray! No open subtasks left",

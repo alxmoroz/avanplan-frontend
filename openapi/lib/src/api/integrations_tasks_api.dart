@@ -4,10 +4,9 @@
 
 import 'dart:async';
 
+import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
-
-import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/api_util.dart';
 import 'package:openapi/src/model/msg.dart';
 import 'package:openapi/src/model/task.dart';
@@ -15,7 +14,6 @@ import 'package:openapi/src/model/task_source.dart';
 import 'package:openapi/src/model/task_source_upsert.dart';
 
 class IntegrationsTasksApi {
-
   final Dio _dio;
 
   final Serializers _serializers;
@@ -23,10 +21,10 @@ class IntegrationsTasksApi {
   const IntegrationsTasksApi(this._dio, this._serializers);
 
   /// Get Root Tasks
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [sourceId] 
+  /// * [sourceId]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -36,7 +34,7 @@ class IntegrationsTasksApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<Task>] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<BuiltList<Task>>> getRootTasksV1IntegrationsTasksGet({ 
+  Future<Response<BuiltList<Task>>> getRootTasksV1IntegrationsTasksGet({
     required int sourceId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -84,7 +82,6 @@ class IntegrationsTasksApi {
         _response.data!,
         specifiedType: _responseType,
       ) as BuiltList<Task>;
-
     } catch (error, stackTrace) {
       throw DioError(
         requestOptions: _response.requestOptions,
@@ -107,11 +104,11 @@ class IntegrationsTasksApi {
   }
 
   /// Import Task Sources
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [sourceId] 
-  /// * [taskSource] 
+  /// * [sourceId]
+  /// * [taskSource]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -121,7 +118,7 @@ class IntegrationsTasksApi {
   ///
   /// Returns a [Future] containing a [Response] with a [Msg] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<Msg>> importTaskSourcesV1IntegrationsTasksImportPost({ 
+  Future<Response<Msg>> importTaskSourcesV1IntegrationsTasksImportPost({
     required int sourceId,
     required BuiltList<TaskSource> taskSource,
     CancelToken? cancelToken,
@@ -159,10 +156,9 @@ class IntegrationsTasksApi {
     try {
       const _type = FullType(BuiltList, [FullType(TaskSource)]);
       _bodyData = _serializers.serialize(taskSource, specifiedType: _type);
-
-    } catch(error, stackTrace) {
+    } catch (error, stackTrace) {
       throw DioError(
-         requestOptions: _options.compose(
+        requestOptions: _options.compose(
           _dio.options,
           _path,
           queryParameters: _queryParameters,
@@ -190,7 +186,6 @@ class IntegrationsTasksApi {
         _response.data!,
         specifiedType: _responseType,
       ) as Msg;
-
     } catch (error, stackTrace) {
       throw DioError(
         requestOptions: _response.requestOptions,
@@ -213,10 +208,10 @@ class IntegrationsTasksApi {
   }
 
   /// Update Task Sources
-  /// 
+  ///
   ///
   /// Parameters:
-  /// * [taskSourceUpsert] 
+  /// * [taskSourceUpsert]
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -226,7 +221,7 @@ class IntegrationsTasksApi {
   ///
   /// Returns a [Future] containing a [Response] with a [Msg] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<Msg>> updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost({ 
+  Future<Response<Msg>> updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost({
     required BuiltList<TaskSourceUpsert> taskSourceUpsert,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -259,10 +254,9 @@ class IntegrationsTasksApi {
     try {
       const _type = FullType(BuiltList, [FullType(TaskSourceUpsert)]);
       _bodyData = _serializers.serialize(taskSourceUpsert, specifiedType: _type);
-
-    } catch(error, stackTrace) {
+    } catch (error, stackTrace) {
       throw DioError(
-         requestOptions: _options.compose(
+        requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -288,7 +282,6 @@ class IntegrationsTasksApi {
         _response.data!,
         specifiedType: _responseType,
       ) as Msg;
-
     } catch (error, stackTrace) {
       throw DioError(
         requestOptions: _response.requestOptions,
@@ -309,5 +302,4 @@ class IntegrationsTasksApi {
       extra: _response.extra,
     );
   }
-
 }

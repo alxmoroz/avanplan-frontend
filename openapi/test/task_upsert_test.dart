@@ -32,6 +32,11 @@ void main() {
       // TODO
     });
 
+    // DateTime startDate
+    test('to test the property `startDate`', () async {
+      // TODO
+    });
+
     // DateTime dueDate
     test('to test the property `dueDate`', () async {
       // TODO

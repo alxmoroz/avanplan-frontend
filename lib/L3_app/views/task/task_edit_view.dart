@@ -47,6 +47,8 @@ class _TaskEditViewState extends State<TaskEditView> {
   Task get parent => widget.parent;
   bool get isNew => task == null;
 
+  int? get _savedWsID => task?.workspaceId ?? parent.workspaceId;
+
   late TaskEditController controller;
 
   //TODO: валидация о заполненности работает неправильно, не сбрасывается после закрытия диалога
@@ -55,17 +57,20 @@ class _TaskEditViewState extends State<TaskEditView> {
   @override
   void initState() {
     controller = TaskEditController();
-    //TODO: возможно, это должно быть в инициализации контроллера?
+    // TODO: это должно быть в инициализации контроллера!
+    // TODO: Сам контроллер инициализировать по образу TaskViewController — передавать айдишник задачи
 
     controller.initState(tfaList: [
       TFAnnotation('title', label: loc.title, text: task?.title ?? ''),
       TFAnnotation('description', label: loc.description, text: task?.description ?? '', needValidate: false),
+      TFAnnotation('startDate', label: loc.task_start_date_placeholder, noText: true, needValidate: false),
       TFAnnotation('dueDate', label: loc.task_due_date_placeholder, noText: true, needValidate: false),
     ]);
 
+    controller.setStartDate(task?.startDate);
     controller.setDueDate(task?.dueDate);
     controller.setClosed(task?.closed);
-    controller.selectWS(task?.workspaceId ?? parent.workspaceId);
+    controller.selectWS(_savedWsID);
     controller.selectStatus(task?.status);
     super.initState();
   }
@@ -76,18 +81,18 @@ class _TaskEditViewState extends State<TaskEditView> {
     super.dispose();
   }
 
-  Widget textFieldForCode(BuildContext context, String code, {VoidCallback? onTap}) {
+  Widget textFieldForCode(BuildContext context, String code) {
     final ta = controller.tfAnnoForCode(code);
     final isDate = code.endsWith('Date');
-    final isDueDate = code == 'dueDate';
+
     return ta.noText
         ? MTTextField.noText(
             controller: controller.teControllers[code],
             label: ta.label,
             error: ta.errorText,
-            onTap: onTap ?? (isDueDate ? () => controller.inputDueDate(context) : null),
+            onTap: isDate ? () => controller.selectDate(context, code) : null,
             prefixIcon: isDate ? calendarIcon(context) : null,
-            suffixIcon: isDueDate && controller.selectedDueDate != null
+            suffixIcon: isDate && ta.text.isNotEmpty
                 ? MTButton(
                     middle: Row(
                       children: [
@@ -97,7 +102,7 @@ class _TaskEditViewState extends State<TaskEditView> {
                         SizedBox(width: onePadding),
                       ],
                     ),
-                    onTap: isDueDate ? () => controller.setDueDate(null) : null,
+                    onTap: () => controller.resetDate(code),
                   )
                 : null,
           )
@@ -105,7 +110,6 @@ class _TaskEditViewState extends State<TaskEditView> {
             controller: controller.teControllers[code],
             label: ta.label,
             error: ta.errorText,
-            onTap: onTap,
           );
   }
 
@@ -115,8 +119,8 @@ class _TaskEditViewState extends State<TaskEditView> {
     return Scrollbar(
       thumbVisibility: true,
       child: ListView(children: [
-        if (controller.selectedWS == null) controller.wsDropdown(context),
-        ...['title', 'dueDate', 'description'].map((code) => textFieldForCode(context, code)),
+        if (_savedWsID == null) controller.wsDropdown(context),
+        ...['title', 'startDate', 'dueDate', 'description'].map((code) => textFieldForCode(context, code)),
         if (controller.statuses.isNotEmpty)
           MTDropdown<Status>(
             onChanged: (status) => controller.selectStatus(status),

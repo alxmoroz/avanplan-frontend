@@ -33,27 +33,63 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
   @observable
   DateTime? selectedDueDate;
 
+  @observable
+  DateTime? selectedStartDate;
+
+  @action
+  void setStartDate(DateTime? _date) {
+    selectedStartDate = _date;
+    teControllers['startDate']?.text = _date != null ? _date.strLong : '';
+  }
+
   @action
   void setDueDate(DateTime? _date) {
     selectedDueDate = _date;
     teControllers['dueDate']?.text = _date != null ? _date.strLong : '';
   }
 
-  Future inputDueDate(BuildContext context) async {
+  Future<DateTime?> _selectDate(BuildContext context, DateTime? initialDate) async {
     final today = DateTime.now();
-    final initialDate = selectedDueDate ?? today;
+    initialDate ??= today;
     final pastDate = today.subtract(const Duration(days: 365));
     final firstDate = pastDate.isAfter(initialDate) ? initialDate : pastDate;
 
-    final date = await showDatePicker(
+    return await showDatePicker(
       context: context,
       initialEntryMode: DatePickerEntryMode.calendarOnly,
       initialDate: initialDate,
       firstDate: firstDate,
       lastDate: today.add(const Duration(days: 36500)),
     );
+  }
+
+  Future _selectStartDate(BuildContext context) async {
+    final date = await _selectDate(context, selectedStartDate);
+    if (date != null) {
+      setStartDate(date);
+    }
+  }
+
+  Future _selectDueDate(BuildContext context) async {
+    final date = await _selectDate(context, selectedDueDate);
     if (date != null) {
       setDueDate(date);
+    }
+  }
+
+  void selectDate(BuildContext context, String code) {
+    if (code == 'startDate') {
+      _selectStartDate(context);
+    } else if (code == 'dueDate') {
+      _selectDueDate(context);
+    }
+  }
+
+  void resetDate(String code) {
+    if (code == 'startDate') {
+      setStartDate(null);
+    } else if (code == 'dueDate') {
+      setDueDate(null);
     }
   }
 
@@ -90,6 +126,7 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
       title: tfAnnoForCode('title').text,
       description: tfAnnoForCode('description').text,
       closed: closed,
+      startDate: selectedStartDate,
       dueDate: selectedDueDate,
       status: selectedStatus,
       workspaceId: selectedWS!.id,

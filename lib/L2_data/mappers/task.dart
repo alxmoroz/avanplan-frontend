@@ -23,6 +23,7 @@ extension TaskMapper on api.TaskGet {
       updatedOn: updatedOn.toLocal(),
       title: _title,
       description: description?.trim() ?? '',
+      startDate: startDate?.toLocal(),
       dueDate: dueDate?.toLocal(),
       closed: closed ?? false,
       status: status?.status,

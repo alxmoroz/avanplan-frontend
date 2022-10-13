@@ -17,6 +17,7 @@ class Task extends Statusable {
     this.createdOn,
     this.updatedOn,
     this.dueDate,
+    this.startDate,
     this.workspaceId,
     this.status,
     this.priority,
@@ -30,6 +31,7 @@ class Task extends Statusable {
 
   final DateTime? createdOn;
   final DateTime? updatedOn;
+  final DateTime? startDate;
   final DateTime? dueDate;
   final int? workspaceId;
   final Status? status;
@@ -51,6 +53,7 @@ class Task extends Statusable {
         parent: parent,
         tasks: tasks,
         dueDate: dueDate,
+        startDate: startDate,
         workspaceId: workspaceId,
         status: status,
         priority: priority,

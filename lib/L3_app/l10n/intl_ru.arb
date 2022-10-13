@@ -115,7 +115,7 @@
   "task_new_title": "Новая задача",
 
   "task_speed_unit_t_mo": "задач/мес",
-
+  "task_start_date_placeholder": "Дата начала",
   "task_state_closed": "Выполнено",
   "task_state_closable_hint": "Ура! Не осталось открытых подзадач",
   "task_state_closable_title": "Можно закрыть",

@@ -123,6 +123,8 @@
   "task_state_ahead_duration": "Можем закончить на {duration} раньше",
   "task_state_eta_duration": "Закончим через {duration}",
   "task_state_eta_title": "Есть прогноз",
+  "task_state_future_duration": "Приступим через {duration}",
+  "task_state_future_title": "Скоро начнём",
   "task_state_no_due_details": "Не назначен срок",
   "task_state_no_info_title": "Недостаточно данных для прогноза",
   "task_state_no_progress_details": "Нет прогресса",

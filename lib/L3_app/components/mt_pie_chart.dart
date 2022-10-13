@@ -39,7 +39,7 @@ class _PieChartPainter extends CustomPainter {
     final _totalSum = data.fold<double>(0, (res, arc) => res + (arc.value > 0 ? arc.value : 0));
     final _totalValue = totalValue ?? _totalSum;
     double _startAngle = startAngle;
-    final _dA = sweepAngle / _totalValue;
+    final _dA = _totalValue > 0 ? (sweepAngle / _totalValue) : 0;
 
     for (final arcData in data) {
       final _sweepAngle = arcData.value * _dA;

@@ -27,7 +27,7 @@ class TaskSpeedChart extends StatelessWidget {
   double get _factSpeed => task.projectOrWSSpeed;
   double get _delta => (task.targetSpeed ?? _factSpeed) - _factSpeed;
   double get _firstValue => _delta >= 0 ? _factSpeed : _factSpeed + _delta;
-  double get _maxValue => max(_factSpeed, _factSpeed + _delta) * 1.3;
+  double get _maxValue => max(_factSpeed, task.targetSpeed ?? 1 / _secondsInMonth) * 1.3;
   double get _degreeValue => _maxValue / _sweepAngle;
 
   String get _factSpeedText => '${(_factSpeed * _secondsInMonth).round()}';
@@ -82,7 +82,7 @@ class TaskSpeedChart extends StatelessWidget {
           ],
         ),
         D1('$_factSpeedText', color: _pointerColor),
-        SmallText(loc.task_speed_unit_t_mo, padding: EdgeInsets.only(top: _radius * 1.5), color: lightGreyColor),
+        if (_maxValue > 0) SmallText(loc.task_speed_unit_t_mo, padding: EdgeInsets.only(top: _radius * 1.5), color: lightGreyColor),
         Padding(
             padding: EdgeInsets.symmetric(horizontal: onePadding * 3.3).copyWith(top: onePadding * 6.2),
             child: Row(children: [

@@ -123,6 +123,8 @@
   "task_state_closable_title": "Can be closed",
   "task_state_eta_duration": "We will finish in {duration}",
   "task_state_eta_title": "There is estimation",
+  "task_state_future_duration": "We will start in {duration}",
+  "task_state_future_title": "Starting soon",
   "task_state_no_due_details": "No due date",
   "task_state_no_info_title": "Not enough data to estimate",
   "task_state_no_progress_details": "No progress",

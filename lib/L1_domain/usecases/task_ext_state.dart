@@ -2,10 +2,14 @@
 
 import 'dart:math';
 
+import 'package:collection/collection.dart';
+
 import '../entities/task.dart';
 import 'task_ext_level.dart';
 
 enum TaskState { overdue, risk, ok, eta, closable, noDueDate, noSubtasks, noProgress, opened, future, closed }
+
+const _day = Duration(days: 1);
 
 extension TaskStats on Task {
   /// подзадачи
@@ -36,10 +40,29 @@ extension TaskStats on Task {
 
   /// дата начала
   DateTime get _startDate {
-    DateTime start = startDate ?? createdOn ?? _now;
-    // на случай, если выставили дату окончания раньше, чем имеющаяся у нас дата начала. Добавляем один день хотя бы.
-    if (hasDueDate && dueDate!.compareTo(start) < 0) {
-      start = dueDate!.subtract(const Duration(days: 1));
+    DateTime? start;
+    if (startDate == null) {
+      if (parent != null && !parent!.isWorkspace) {
+        final siblingsDueDates = parent!.tasks.where((t) => t.hasDueDate).map((t) => t.dueDate!).sorted((d1, d2) => d1.compareTo(d2));
+        if (siblingsDueDates.isNotEmpty) {
+          if (hasDueDate) {
+            start = siblingsDueDates.lastWhereOrNull((d) => dueDate!.isAfter(d));
+          } else {
+            start = siblingsDueDates.last;
+          }
+        } else {
+          start = parent!._startDate;
+        }
+      }
+    } else {
+      start = startDate!;
+    }
+
+    start = start ?? createdOn ?? _now;
+
+    // на случай, если выставили срок раньше, чем дату начала, добавляем один день хотя бы
+    if (hasDueDate && start.isAfter(dueDate!)) {
+      start = dueDate!.subtract(_day);
     }
     return start;
   }
@@ -50,7 +73,7 @@ extension TaskStats on Task {
   /// опоздание
   bool get hasDueDate => dueDate != null;
   Duration? get overduePeriod => hasDueDate ? _now.difference(dueDate!) : null;
-  static const Duration _overdueThreshold = Duration(days: 1);
+  static const Duration _overdueThreshold = _day;
   bool get hasOverdue => overduePeriod != null && overduePeriod! > _overdueThreshold;
   // максимальное опоздание с учётом подзадач
   Duration get maxOverduePeriod => Duration(
@@ -61,11 +84,10 @@ extension TaskStats on Task {
       );
   Iterable<Task> get overdueSubtasks => openedSubtasks.where((t) => t.state == TaskState.overdue);
 
-  /// фактическая скорость
-  // TODO: могут быть закрытые задачи в будущих проектах... Предлагать выставить старт на дату закрытия первой задачи или вручную
+  /// фактическая скорость проекта
   Duration? get _pastPeriod => _isFuture ? null : _now.difference(_startDate);
   Task get _projectOrWS => project != null ? project! : this;
-  double get projectOrWSSpeed => _pastPeriod != null ? (_projectOrWS.closedLeafTasksCount / _projectOrWS._pastPeriod!.inSeconds) : 0;
+  double get projectOrWSSpeed => _projectOrWS._pastPeriod != null ? (_projectOrWS.closedLeafTasksCount / _projectOrWS._pastPeriod!.inSeconds) : 0;
 
   /// прогноз
   Duration? get etaPeriod =>
@@ -78,13 +100,11 @@ extension TaskStats on Task {
   double? get targetSpeed => _leftPeriod != null && !hasOverdue ? openedLeafTasksCount / _leftPeriod!.inSeconds : null;
 
   /// плановый объем
-  Duration? get _planPeriod => hasDueDate ? dueDate!.add(_overdueThreshold).difference(_startDate) : null;
-  double? get _planSpeed => _planPeriod != null ? leafTasksCount / _planPeriod!.inSeconds : null;
   double? get planVolume =>
-      _planSpeed != null && _pastPeriod != null ? min(_leafTasks.length.toDouble(), _planSpeed! * _pastPeriod!.inSeconds) : null;
+      targetSpeed != null && _pastPeriod != null ? min(_leafTasks.length.toDouble(), targetSpeed! * _pastPeriod!.inSeconds) : null;
 
   /// риск
-  static const Duration _riskThreshold = Duration(days: 1);
+  static const Duration _riskThreshold = _day;
   Duration? get riskPeriod => (hasDueDate && hasEtaDate) ? etaDate!.difference(dueDate!) : null;
   bool get hasRisk => riskPeriod != null && riskPeriod! > _riskThreshold;
   // рисковые подзадачи

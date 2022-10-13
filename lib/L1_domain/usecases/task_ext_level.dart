@@ -27,4 +27,13 @@ extension TaskLevelExtension on Task {
   bool get isGoal => level == TaskLevel.goal;
   bool get isTask => level == TaskLevel.task;
   bool get isSubtask => level == TaskLevel.subtask;
+
+  Task? get project {
+    if (isProject) {
+      return this;
+    } else if (parent != null) {
+      return parent!.project;
+    }
+    return null;
+  }
 }

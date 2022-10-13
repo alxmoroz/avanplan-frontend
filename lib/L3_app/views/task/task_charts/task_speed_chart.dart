@@ -24,7 +24,7 @@ class TaskSpeedChart extends StatelessWidget {
   double get _gaugeWidth => onePadding * 1.5;
   double get _barWidth => _gaugeWidth / 2;
   double get _radius => onePadding * 6.5;
-  double get _factSpeed => task.factSpeed;
+  double get _factSpeed => task.projectOrWSSpeed;
   double get _delta => (task.targetSpeed ?? _factSpeed) - _factSpeed;
   double get _firstValue => _delta >= 0 ? _factSpeed : _factSpeed + _delta;
   double get _maxValue => max(_factSpeed, _factSpeed + _delta) * 1.3;

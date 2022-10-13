@@ -57,10 +57,12 @@ extension TaskStats on Task {
   }
 
   Duration get _pastPeriod => DateTime.now().difference(_startDate);
-  double get factSpeed => closedLeafTasksCount / _pastPeriod.inSeconds;
+  Task get _projectOrWS => project != null ? project! : this;
+  double get projectOrWSSpeed => _projectOrWS.closedLeafTasksCount / _projectOrWS._pastPeriod.inSeconds;
 
   /// прогноз
-  Duration? get etaPeriod => factSpeed > 0 && openedLeafTasksCount > 0 ? Duration(seconds: (openedLeafTasksCount / factSpeed).round()) : null;
+  Duration? get etaPeriod =>
+      projectOrWSSpeed > 0 && openedLeafTasksCount > 0 ? Duration(seconds: (openedLeafTasksCount / projectOrWSSpeed).round()) : null;
   DateTime? get etaDate => etaPeriod != null ? DateTime.now().add(etaPeriod!) : null;
   bool get hasEtaDate => etaDate != null;
 

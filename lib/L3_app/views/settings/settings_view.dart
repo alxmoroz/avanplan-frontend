@@ -48,7 +48,7 @@ class SettingsView extends StatelessWidget {
                         trailing: chevronIcon(context),
                         onTap: () => _showSources(context),
                       ),
-                      MTListTile(
+                      if(mainController.workspaces.length > 1) MTListTile(
                         leading: wsIcon(context),
                         titleText: loc.workspaces_title,
                         trailing: chevronIcon(context),

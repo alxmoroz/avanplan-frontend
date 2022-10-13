@@ -56,7 +56,7 @@ class SourceListView extends StatelessWidget {
                         )
                       : const SizedBox(),
                 ),
-                MTPlusButton(() => _controller.addSource(context)),
+                if(!_controller.sources.isEmpty) MTPlusButton(() => _controller.addSource(context)),
               ])
             : null,
       ),

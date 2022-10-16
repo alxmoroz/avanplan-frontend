@@ -3,7 +3,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../components/colors.dart';
 import '../../components/constants.dart';
+import '../../components/icons.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
 import '../../components/mt_text_field.dart';
@@ -87,6 +89,15 @@ class _LoginViewState extends State<LoginView> {
                   padding: EdgeInsets.all(onePadding),
                   titleString: loc.auth_log_in_btn_title,
                   onTap: _controller.validated ? () => _controller.authorize(context) : null,
+                ),
+                MTButton.outlined(
+                  margin: EdgeInsets.symmetric(horizontal: onePadding * 4).copyWith(top: onePadding * 2),
+                  padding: EdgeInsets.symmetric(horizontal: onePadding),
+                  leading: googleIcon(size: onePadding * 4),
+                  // titleColor: CupertinoColors.label,
+                  middle: MediumText(loc.auth_log_in_with_google_btn_title, padding: EdgeInsets.only(left: onePadding), color: CupertinoColors.label),
+                  color: googleBtnColor,
+                  onTap: () => _controller.authorizeWithGoogle(context),
                 ),
               ],
             ),

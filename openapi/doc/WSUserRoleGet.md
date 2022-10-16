@@ -6,11 +6,11 @@ import 'package:openapi/api.dart';
 ```
 
 ## Properties
-| Name          | Type                                | Description   | Notes   |
-|---------------|-------------------------------------|---------------|---------|
-| **id**        | **int**                             |               |         |
-| **workspace** | [**WorkspaceGet**](WorkspaceGet.md) |               |         | 
-|  **wsRole**   | [**WSRoleGet**](WSRoleGet.md)       |               |         |
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**id** | **int** |  | 
+**workspace** | [**WorkspaceGet**](WorkspaceGet.md) |  | 
+**wsRole** | [**WSRoleGet**](WSRoleGet.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

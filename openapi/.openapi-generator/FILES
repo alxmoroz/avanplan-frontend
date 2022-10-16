@@ -3,6 +3,7 @@
 README.md
 analysis_options.yaml
 doc/AuthApi.md
+doc/BodyAuthTokenGoogleOauth.md
 doc/BodyUpdateMyAccountV1MyAccountPut.md
 doc/HTTPValidationError.md
 doc/IntegrationsSourcesApi.md
@@ -46,6 +47,7 @@ lib/src/auth/basic_auth.dart
 lib/src/auth/bearer_auth.dart
 lib/src/auth/oauth.dart
 lib/src/date_serializer.dart
+lib/src/model/body_auth_token_google_oauth.dart
 lib/src/model/body_update_my_account_v1_my_account_put.dart
 lib/src/model/date.dart
 lib/src/model/http_validation_error.dart
@@ -75,6 +77,7 @@ lib/src/model/ws_user_role_get.dart
 lib/src/serializers.dart
 pubspec.yaml
 test/auth_api_test.dart
+test/body_auth_token_google_oauth_test.dart
 test/body_update_my_account_v1_my_account_put_test.dart
 test/http_validation_error_test.dart
 test/integrations_sources_api_test.dart

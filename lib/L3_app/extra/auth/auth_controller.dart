@@ -23,12 +23,12 @@ abstract class _AuthControllerBase with Store {
   @action
   void _setAuthorized(bool _auth) => authorized = _auth;
 
-  @action
   Future authorize(String login, String password) async {
-    _setAuthorized(await authUC.authorize(
-      username: login,
-      password: password,
-    ));
+    _setAuthorized(await authUC.authorize(username: login, password: password));
+  }
+
+  Future authorizeWithGoogle() async {
+    _setAuthorized(await authUC.authorizeWithGoogle());
   }
 
   Future logout() async {

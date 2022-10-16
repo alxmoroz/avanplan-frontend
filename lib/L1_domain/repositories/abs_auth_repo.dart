@@ -2,5 +2,6 @@
 
 abstract class AbstractAuthRepo {
   Future<String> getApiAuthToken(String username, String password);
+  Future<String> getApiAuthTokenGoogleOauth();
   void setApiCredentials(String token);
 }

@@ -18,6 +18,7 @@ dependencies:
   flutter_mobx: any
   font_awesome_flutter: any
   get_it: any
+  google_sign_in: any
   hive: any
   mobx: any
   openapi:

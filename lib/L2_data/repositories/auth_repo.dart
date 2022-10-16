@@ -1,35 +1,65 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:dio/dio.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:openapi/openapi.dart';
 
 import '../../L1_domain/repositories/abs_auth_repo.dart';
 import '../../L1_domain/system/errors.dart';
 import '../../L3_app/extra/services.dart';
 
 class AuthRepo extends AbstractAuthRepo {
+  AuthApi get api => openAPI.getAuthApi();
+
+  String? _parseTokenResponse(Response<Token> tokenResponse) {
+    if (tokenResponse.statusCode == 200) {
+      final token = tokenResponse.data;
+      if (token != null) {
+        return token.accessToken;
+      }
+    } else {
+      throw MTException(code: '${tokenResponse.statusCode}', detail: tokenResponse.statusMessage);
+    }
+    return null;
+  }
+
   @override
   Future<String> getApiAuthToken(String username, String password) async {
-    String accessToken = '';
-
     try {
-      final response = await openAPI.getAuthApi().getAuthToken(
-            username: username,
-            password: password,
-          );
+      final response = await api.authToken(
+        username: username,
+        password: password,
+      );
+      return _parseTokenResponse(response) ?? '';
+    } catch (e) {
+      throw MTException(code: e is DioError ? '${e.response?.statusCode}' : '', detail: e.toString());
+    }
+  }
 
-      if (response.statusCode == 200) {
-        final token = response.data;
-        if (token != null) {
-          accessToken = token.accessToken;
-        }
+  @override
+  Future<String> getApiAuthTokenGoogleOauth() async {
+    try {
+      final googleAuth = GoogleSignIn(scopes: ['email', 'profile']);
+      GoogleSignInAccount? account;
+      if (!await googleAuth.isSignedIn()) {
+        account = await googleAuth.signIn();
       } else {
-        throw MTException(code: '${response.statusCode}', detail: response.statusMessage);
+        account = await googleAuth.signInSilently();
+      }
+      final auth = await account?.authentication;
+      if (auth != null) {
+        final token = auth.idToken;
+        if (token != null) {
+          final Response<Token> response = await api.authTokenGoogleOauth(
+            bodyAuthTokenGoogleOauth: (BodyAuthTokenGoogleOauthBuilder()..googleToken = token).build(),
+          );
+          return _parseTokenResponse(response) ?? '';
+        }
       }
     } catch (e) {
       throw MTException(code: e is DioError ? '${e.response?.statusCode}' : '', detail: e.toString());
     }
-
-    return accessToken;
+    return '';
   }
 
   @override

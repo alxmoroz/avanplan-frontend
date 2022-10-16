@@ -8,10 +8,15 @@ void main() {
   group(AuthApi, () {
     // Token
     //
-    // OAuth2 token login, access token for future requests
+    //Future<Token> authToken(String username, String password, { String grantType, String scope, String clientId, String clientSecret }) async
+    test('test authToken', () async {
+      // TODO
+    });
+
+    // Token Google Oauth
     //
-    //Future<Token> getAuthToken(String username, String password, { String grantType, String scope, String clientId, String clientSecret }) async
-    test('test getAuthToken', () async {
+    //Future<Token> authTokenGoogleOauth(BodyAuthTokenGoogleOauth bodyAuthTokenGoogleOauth) async
+    test('test authTokenGoogleOauth', () async {
       // TODO
     });
   });

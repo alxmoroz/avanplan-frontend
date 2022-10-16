@@ -10,11 +10,20 @@ class AuthUC {
   final AbstractAuthRepo authRepo;
   final AbstractDBRepo<AbstractDBModel, LocalAuth> localAuthRepo;
 
-  Future<bool> authorize({required String username, required String password}) async {
-    final token = await authRepo.getApiAuthToken(username, password);
+  bool _checkToken(String token) {
     authRepo.setApiCredentials(token);
     _updateAccessToken(token);
     return token.isNotEmpty;
+  }
+
+  Future<bool> authorize({required String username, required String password}) async {
+    final token = await authRepo.getApiAuthToken(username, password);
+    return _checkToken(token);
+  }
+
+  Future<bool> authorizeWithGoogle() async {
+    final token = await authRepo.getApiAuthTokenGoogleOauth();
+    return _checkToken(token);
   }
 
   Future<LocalAuth> _getLocalAuth() async => await localAuthRepo.getOne() ?? LocalAuth();
@@ -31,6 +40,7 @@ class AuthUC {
 
   Future<bool> isLocalAuthorized() async => (await _getLocalAccessToken()).isNotEmpty;
 
+  //TODO: гугл тут тоже надо выходить
   Future logout() async {
     authRepo.setApiCredentials('');
     _updateAccessToken('');

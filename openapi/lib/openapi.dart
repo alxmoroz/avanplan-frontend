@@ -15,6 +15,7 @@ export 'package:openapi/src/api/integrations_tasks_api.dart';
 export 'package:openapi/src/api/my_api.dart';
 export 'package:openapi/src/api/tasks_api.dart';
 
+export 'package:openapi/src/model/body_auth_token_google_oauth.dart';
 export 'package:openapi/src/model/body_update_my_account_v1_my_account_put.dart';
 export 'package:openapi/src/model/http_validation_error.dart';
 export 'package:openapi/src/model/location_inner.dart';

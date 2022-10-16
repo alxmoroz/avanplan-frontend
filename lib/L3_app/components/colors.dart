@@ -73,6 +73,11 @@ const Color transparentAppbarBgColor = CupertinoDynamicColor.withBrightness(
 
 Color get navbarDefaultBgColor => transparentAppbarBgColor;
 
+const Color googleBtnColor = CupertinoDynamicColor.withBrightness(
+  color: Color(0xFFFFFFFF),
+  darkColor: Color(0xFF4285F4),
+);
+
 extension ResolvedColor on Color {
   Color resolve(BuildContext context) => CupertinoDynamicColor.resolve(this, context);
   Color? maybeResolve(BuildContext context) => CupertinoDynamicColor.maybeResolve(this, context);

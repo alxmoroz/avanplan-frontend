@@ -63,6 +63,11 @@ class AuthRepo extends AbstractAuthRepo {
   }
 
   @override
+  Future googleLogout() async {
+    await GoogleSignIn().signOut();
+  }
+
+  @override
   void setApiCredentials(String token) {
     openAPI.setOAuthToken('OAuth2PasswordBearer', token);
   }

@@ -12,10 +12,14 @@ part 'body_auth_token_google_oauth.g.dart';
 ///
 /// Properties:
 /// * [googleToken] 
+/// * [platform] 
 @BuiltValue()
 abstract class BodyAuthTokenGoogleOauth implements Built<BodyAuthTokenGoogleOauth, BodyAuthTokenGoogleOauthBuilder> {
   @BuiltValueField(wireName: r'google_token')
   String get googleToken;
+
+  @BuiltValueField(wireName: r'platform')
+  String get platform;
 
   BodyAuthTokenGoogleOauth._();
 
@@ -43,6 +47,11 @@ class _$BodyAuthTokenGoogleOauthSerializer implements PrimitiveSerializer<BodyAu
     yield r'google_token';
     yield serializers.serialize(
       object.googleToken,
+      specifiedType: const FullType(String),
+    );
+    yield r'platform';
+    yield serializers.serialize(
+      object.platform,
       specifiedType: const FullType(String),
     );
   }
@@ -74,6 +83,13 @@ class _$BodyAuthTokenGoogleOauthSerializer implements PrimitiveSerializer<BodyAu
             specifiedType: const FullType(String),
           ) as String;
           result.googleToken = valueDes;
+          break;
+        case r'platform':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.platform = valueDes;
           break;
         default:
           unhandled.add(key);

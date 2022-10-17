@@ -11,5 +11,10 @@ void main() {
     test('to test the property `googleToken`', () async {
       // TODO
     });
+
+    // String platform
+    test('to test the property `platform`', () async {
+      // TODO
+    });
   });
 }

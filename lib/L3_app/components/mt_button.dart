@@ -59,13 +59,14 @@ class MTButton extends StatelessWidget {
   final EdgeInsets? margin;
 
   Color get _titleColor => onTap != null ? (titleColor ?? mainColor) : lightGreyColor;
+  double get _minHeight => onePadding * 4;
 
   ButtonStyle _style(BuildContext context) => ElevatedButton.styleFrom(
         padding: padding ?? EdgeInsets.zero,
         backgroundColor: (color ?? Colors.transparent).resolve(context),
         // surfaceTintColor: _titleColor.resolve(context),
         foregroundColor: _titleColor.resolve(context),
-        minimumSize: Size.zero,
+        minimumSize: Size.fromHeight(_minHeight),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(defaultBorderRadius)),
         side: type == ButtonType.outlined ? BorderSide(color: _titleColor.resolve(context), width: 2) : null,
         splashFactory: NoSplash.splashFactory,
@@ -100,16 +101,12 @@ class _MTBaseLayout extends StatelessWidget {
   final Widget? leading;
   final Widget? trailing;
 
-  double get _minHeight => onePadding * 2 + 2;
-  // double get _minWidth => onePadding * 2;
-
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
-        SizedBox(height: _minHeight),
         if (leading != null) ...[leading!, SizedBox(width: onePadding / 3)],
         middle,
         if (trailing != null) ...[SizedBox(width: onePadding / 3), trailing!],

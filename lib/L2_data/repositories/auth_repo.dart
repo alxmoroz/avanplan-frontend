@@ -6,6 +6,7 @@ import 'package:openapi/openapi.dart';
 
 import '../../L1_domain/repositories/abs_auth_repo.dart';
 import '../../L1_domain/system/errors.dart';
+import '../../L3_app/components/constants.dart';
 import '../../L3_app/extra/services.dart';
 
 class AuthRepo extends AbstractAuthRepo {
@@ -31,8 +32,8 @@ class AuthRepo extends AbstractAuthRepo {
         password: password,
       );
       return _parseTokenResponse(response) ?? '';
-    } catch (e) {
-      throw MTException(code: e is DioError ? '${e.response?.statusCode}' : '', detail: e.toString());
+    } on DioError catch (e) {
+      throw MTException(code: '${e.response?.statusCode ?? '500'}', detail: e.toString());
     }
   }
 
@@ -51,13 +52,16 @@ class AuthRepo extends AbstractAuthRepo {
         final token = auth.idToken;
         if (token != null) {
           final Response<Token> response = await api.authTokenGoogleOauth(
-            bodyAuthTokenGoogleOauth: (BodyAuthTokenGoogleOauthBuilder()..googleToken = token).build(),
+            bodyAuthTokenGoogleOauth: (BodyAuthTokenGoogleOauthBuilder()
+                  ..googleToken = token
+                  ..platform = platformCode)
+                .build(),
           );
           return _parseTokenResponse(response) ?? '';
         }
       }
-    } catch (e) {
-      throw MTException(code: e is DioError ? '${e.response?.statusCode}' : '', detail: e.toString());
+    } on DioError catch (e) {
+      throw MTException(code: '${e.response?.statusCode ?? '500'}', detail: e.toString());
     }
     return '';
   }

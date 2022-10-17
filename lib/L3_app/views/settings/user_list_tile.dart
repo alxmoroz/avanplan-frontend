@@ -22,10 +22,14 @@ class UserListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTListTile(
-      leading: UserIcon(user, radius: onePadding * 2),
-      middle: NormalText(_title),
+      leading: Padding(
+        padding: EdgeInsets.only(right: onePadding / 2),
+        child: UserIcon(user, radius: onePadding * 3),
+      ),
+      middle: H3(_title),
       subtitle: _subtitle != _title ? LightText(_subtitle) : null,
       trailing: chevronIcon(context),
+      bottomBorder: false,
       onTap: () => _showAccount(context),
     );
   }

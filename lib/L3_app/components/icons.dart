@@ -150,6 +150,12 @@ Widget caretIcon(BuildContext context, {required Size size, Color? color, bool u
 
 Widget todayIcon({Color? color, double? size}) => Icon(CupertinoIcons.placemark, size: size);
 
+Widget mailIcon(BuildContext context, {Color? color, double? size}) => FaIcon(
+      FontAwesomeIcons.envelope,
+      color: (color ?? darkGreyColor).resolve(context),
+      size: size ?? onePadding * 1.5,
+    );
+
 double get _sourceIconSize => onePadding * 2;
 
 Widget redmineIcon() => Image.asset('assets/images/redmine_icon.png', width: _sourceIconSize, height: _sourceIconSize);

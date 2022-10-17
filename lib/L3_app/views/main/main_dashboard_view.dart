@@ -58,7 +58,7 @@ class MainDashboardView extends StatelessWidget {
             () => _gotoSettings(context),
             margin: EdgeInsets.only(left: onePadding),
           ),
-          middle: H2(loc.appTitle),
+          middle: H2(loc.app_title),
           trailing: MTButton.icon(refreshIcon(context, size: 32), mainController.updateAll, margin: EdgeInsets.only(right: onePadding)),
           border: const Border(),
         ),

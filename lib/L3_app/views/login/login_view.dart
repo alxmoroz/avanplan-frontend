@@ -81,7 +81,7 @@ class _LoginViewState extends State<LoginView> {
               shrinkWrap: true,
               children: [
                 // testFonts(),
-                H1(loc.appTitle, align: TextAlign.center),
+                H1(loc.app_title, align: TextAlign.center),
                 textFieldForCode('login'),
                 textFieldForCode('password'),
                 MTButton.outlined(

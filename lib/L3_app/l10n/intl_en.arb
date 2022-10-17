@@ -1,9 +1,10 @@
 {
   "@@locale": "en",
 
-  "accountTitle": "Account",
+  "about_service_title": "About service",
+  "account_title": "Account",
 
-  "appTitle": "Gercules",
+  "app_title": "Gercules",
 
   "auth_error_description": "Please check the information provided and try again",
   "auth_error_title": "Authorisation Error",
@@ -21,6 +22,9 @@
   "close_dialog_recursive_description": "All subtasks will be marked completed",
   "close_dialog_recursive_title": "Close with subtasks?",
   "close_w_subtasks": "Close with subtasks",
+
+  "contact_us_title": "Contact us",
+  "contact_us_mail_subject": "Gercules - feedback",
 
   "days_count": "{count, plural, one{{count} day} other{{count} days}}",
   "delete_action_title": "Delete",

@@ -1,9 +1,10 @@
 {
   "@@locale": "ru",
 
-  "accountTitle": "Учётная запись",
+  "about_service_title": "О сервисе",
+  "account_title": "Учётная запись",
 
-  "appTitle": "Геркулес",
+  "app_title": "Геркулес",
 
   "auth_error_description": "Проверьте правильность указанных данных и повторите попытку",
   "auth_error_title": "Ошибка авторизации",
@@ -21,6 +22,9 @@
   "close_dialog_recursive_description": "Все открытые подзадачи будут отмечены выполненными",
   "close_dialog_recursive_title": "Завершить вместе с подзадачами?",
   "close_w_subtasks": "Завершить вместе с подзадачами",
+
+  "contact_us_title": "Напишите нам",
+  "contact_us_mail_subject": "Геркулес - обратная связь",
 
   "days_count": "{count, plural, one{{count} день} few{{count} дня} other{{count} дней}}",
   "delete_action_title": "Удалить",

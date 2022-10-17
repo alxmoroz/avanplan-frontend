@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/user.dart';
+import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
-import '../../components/mt_list_tile.dart';
+import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
@@ -28,7 +29,7 @@ class AccountView extends StatelessWidget {
     return Observer(
       builder: (_) => MTPage(
         isLoading: accountController.isLoading,
-        navBar: navBar(context, title: loc.accountTitle),
+        navBar: navBar(context, title: loc.account_title),
         body: SafeArea(
           top: false,
           child: _user != null
@@ -41,11 +42,12 @@ class AccountView extends StatelessWidget {
                     SizedBox(height: onePadding / 2),
                     NormalText(_user!.email, align: TextAlign.center),
                     SizedBox(height: onePadding * 2),
-                    MTListTile(
-                      middle: NormalText(loc.auth_log_out_btn_title),
+                    MTButton.outlined(
+                      margin: EdgeInsets.symmetric(horizontal: onePadding * 4),
+                      titleString: loc.auth_log_out_btn_title,
+                      titleColor: darkGreyColor,
+                      trailing: logoutIcon(context, color: warningColor),
                       onTap: () async => await _logout(context),
-                      trailing: logoutIcon(context),
-                      topBorder: true,
                     ),
                   ],
                 )

@@ -21,6 +21,9 @@ class TaskVolumeChart extends StatelessWidget {
   double get _maxValue => task.leafTasksCount.toDouble();
   double get _degreeValue => _maxValue / 360;
 
+  double get _gaugeWidth => onePadding * 1.5;
+  double get _barWidth => _gaugeWidth / 2;
+
   Color get _pointerColor => _delta == 0
       ? darkGreyColor
       : _delta > 0
@@ -32,9 +35,15 @@ class TaskVolumeChart extends StatelessWidget {
           ? lightWarningColor
           : lightGreenColor;
 
-  MTPieChartData get _mainBar => MTPieChartData(_firstValue, color: _barColor);
-  MTPieChartData get _deltaBar => MTPieChartData(_delta.abs(), color: _barColor, strokeWidth: _delta > 0 ? onePadding / 6 : _radius);
-  MTPieChartData get _deltaPointer => MTPieChartData(_degreeValue * 2, color: lightWarningColor, strokeWidth: onePadding);
+  MTPieChartData get _gaugeBar => MTPieChartData(_maxValue, strokeWidth: _gaugeWidth);
+  MTPieChartData get _mainBar => MTPieChartData(_firstValue, start: 0, color: _barColor, strokeWidth: _barWidth);
+  MTPieChartData get _deltaBar => MTPieChartData(_delta.abs(), color: _barColor, strokeWidth: _delta > 0 ? onePadding / 6 : _barWidth);
+
+  double get _deltaPointerWidthValue => _degreeValue * 2;
+  double get _deltaPointerStartValue => _firstValue + (_delta > 0 ? _delta : 0) - _deltaPointerWidthValue / 2;
+
+  MTPieChartData get _deltaPointer => MTPieChartData(_deltaPointerWidthValue,
+      start: _deltaPointerStartValue, color: _pointerColor, strokeWidth: _delta > 0 ? _gaugeWidth : _barWidth);
 
   String get _chartText => '${(_factValue / task.leafTasksCount).inPercents}';
   // String get _chartText => '100%';
@@ -47,12 +56,12 @@ class TaskVolumeChart extends StatelessWidget {
         MTPieChart(radius: _radius, data: [MTPieChartData(_maxValue)]),
         MTPieChart(
           radius: _radius,
-          strokeWidth: _radius,
           totalValue: _maxValue,
           data: [
+            _gaugeBar,
             _mainBar,
             if (_delta != 0) _deltaBar,
-            if (_delta > 0) _deltaPointer,
+            if (_delta != 0) _deltaPointer,
           ],
         ),
         D1(_chartText, color: _pointerColor),

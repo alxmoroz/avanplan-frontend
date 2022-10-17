@@ -36,7 +36,7 @@ class AccountView extends StatelessWidget {
               ? ListView(
                   children: [
                     SizedBox(height: onePadding * 2),
-                    UserIcon(_user!, radius: onePadding * 5),
+                    UserIcon(_user!, radius: onePadding * 6),
                     SizedBox(height: onePadding),
                     H3('$_user', align: TextAlign.center),
                     SizedBox(height: onePadding / 2),

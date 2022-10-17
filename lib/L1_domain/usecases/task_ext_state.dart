@@ -53,6 +53,8 @@ extension TaskStats on Task {
         } else {
           start = parent!._startDate;
         }
+      } else if (isWorkspace && hasSubtasks) {
+        start = tasks.map((t) => t._startDate).sorted((d1, d2) => d1.compareTo(d2)).first;
       }
     } else {
       start = startDate!;
@@ -100,8 +102,8 @@ extension TaskStats on Task {
   double? get targetSpeed => _leftPeriod != null && !hasOverdue ? openedLeafTasksCount / _leftPeriod!.inSeconds : null;
 
   /// плановый объем
-  double? get planVolume =>
-      targetSpeed != null && _pastPeriod != null ? min(_leafTasks.length.toDouble(), targetSpeed! * _pastPeriod!.inSeconds) : null;
+  Duration? get _planPeriod => hasDueDate ? dueDate!.difference(_startDate) : null;
+  double? get planVolume => _pastPeriod != null && _planPeriod != null ? leafTasksCount * _pastPeriod!.inSeconds / _planPeriod!.inSeconds : null;
 
   /// риск
   static const Duration _riskThreshold = _day;
@@ -172,22 +174,22 @@ extension TaskStats on Task {
   /// интегральный статус
   TaskState get state => closed
       ? TaskState.closed
-      : _isFuture
-          ? TaskState.future
-          : ((isProject || isGoal) && !hasSubtasks)
-              ? TaskState.noSubtasks
-              : hasSubtasks && closedLeafTasksCount == 0
+      : ((isProject || isGoal) && !hasSubtasks)
+          ? TaskState.noSubtasks
+          : _isFuture
+              ? TaskState.future
+              : !isWorkspace && hasSubtasks && hasOpenedSubtasks && !hasEtaDate
                   ? TaskState.noProgress
                   : !isWorkspace && hasSubtasks && (!hasOpenedSubtasks || _allSubtasksAreClosable)
                       ? TaskState.closable
-                      : (hasOverdue || (!hasDueDate && overdueSubtasks.isNotEmpty)
-                          ? TaskState.overdue
-                          : hasRisk || (!hasDueDate && riskySubtasks.isNotEmpty)
-                              ? TaskState.risk
-                              : isOk || ((isWorkspace || isProject) && _hasOkSubtasks)
-                                  ? TaskState.ok
-                                  : !hasDueDate && hasEtaDate
-                                      ? TaskState.eta
+                      : !hasDueDate && hasEtaDate
+                          ? TaskState.eta
+                          : (hasOverdue || (!hasDueDate && overdueSubtasks.isNotEmpty)
+                              ? TaskState.overdue
+                              : hasRisk || (!hasDueDate && riskySubtasks.isNotEmpty)
+                                  ? TaskState.risk
+                                  : isOk || ((isWorkspace || isProject) && _hasOkSubtasks)
+                                      ? TaskState.ok
                                       : (!hasDueDate && (!isWorkspace && !isProject && hasSubtasks))
                                           ? TaskState.noDueDate
                                           : TaskState.opened);

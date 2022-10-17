@@ -47,8 +47,8 @@ class _LoginViewState extends State<LoginView> {
       controller: _controller.teControllers[code],
       label: _controller.tfAnnoForCode(code).label,
       error: _controller.tfAnnoForCode(code).errorText,
-      obscureText: isPassword && _controller.showPassword == true,
-      suffixIcon: isPassword ? MTButton.icon(eyeIcon(context, open: _controller.showPassword), _controller.toggleShowPassword) : null,
+      obscureText: isPassword && _controller.showPassword == false,
+      suffixIcon: isPassword ? MTButton.icon(eyeIcon(context, open: !_controller.showPassword), _controller.toggleShowPassword) : null,
       maxLines: 1,
       capitalization: TextCapitalization.none,
     );
@@ -74,6 +74,8 @@ class _LoginViewState extends State<LoginView> {
   //       text(const SmallText('SM')),
   //     ]);
 
+  bool get _hasFocus => FocusScope.of(context).hasFocus;
+
   @override
   Widget build(BuildContext context) {
     return Observer(
@@ -85,8 +87,12 @@ class _LoginViewState extends State<LoginView> {
               shrinkWrap: true,
               children: [
                 // testFonts(),
-                SizedBox(height: onePadding * 2),
-                gerculesIcon(size: onePadding * 8),
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 250),
+                  height: onePadding * (_hasFocus ? 5 : 12),
+                  child: gerculesIcon(),
+                ),
+
                 H1(loc.app_title, align: TextAlign.center),
                 textFieldForCode('login'),
                 textFieldForCode('password'),

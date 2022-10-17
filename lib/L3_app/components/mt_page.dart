@@ -26,7 +26,10 @@ class MTPage extends StatelessWidget {
       CupertinoPageScaffold(
         navigationBar: navBar,
         child: Scaffold(
-          body: body,
+          body: GestureDetector(
+            onTap: FocusScope.of(context).unfocus,
+            child: body,
+          ),
           resizeToAvoidBottomInset: false,
           backgroundColor: backgroundColor.resolve(context),
           extendBody: bottomBar != null,

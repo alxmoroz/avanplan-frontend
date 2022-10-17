@@ -63,7 +63,7 @@ class AuthRepo extends AbstractAuthRepo {
     } on DioError catch (e) {
       throw MTException(code: '${e.response?.statusCode ?? '500'}', detail: e.toString());
     } catch (e) {
-      print(e.toString());
+      // print(e.toString());
     }
     return '';
   }

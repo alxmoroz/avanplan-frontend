@@ -92,6 +92,12 @@ Widget unwatchIcon(BuildContext context, {Color? color, double? size}) => FaIcon
       size: size ?? onePadding * 1.4,
     );
 
+Widget eyeIcon(BuildContext context, {bool open = true, Color? color, double? size}) => FaIcon(
+      open ? FontAwesomeIcons.eye : FontAwesomeIcons.eyeSlash,
+      color: (color ?? darkGreyColor).resolve(context),
+      size: size ?? onePadding * 2,
+    );
+
 Widget closeIcon(BuildContext context, {Color? color, double? size}) => Icon(
       CupertinoIcons.clear,
       color: (color ?? mainColor).resolve(context),

@@ -41,14 +41,18 @@ class _LoginViewState extends State<LoginView> {
     super.dispose();
   }
 
-  Widget textFieldForCode(String code) => MTTextField(
-        controller: _controller.teControllers[code],
-        label: _controller.tfAnnoForCode(code).label,
-        error: _controller.tfAnnoForCode(code).errorText,
-        obscureText: code == 'password',
-        maxLines: 1,
-        capitalization: TextCapitalization.none,
-      );
+  Widget textFieldForCode(String code) {
+    final isPassword = code == 'password';
+    return MTTextField(
+      controller: _controller.teControllers[code],
+      label: _controller.tfAnnoForCode(code).label,
+      error: _controller.tfAnnoForCode(code).errorText,
+      obscureText: isPassword && _controller.showPassword == true,
+      suffixIcon: isPassword ? MTButton.icon(eyeIcon(context, open: _controller.showPassword), _controller.toggleShowPassword) : null,
+      maxLines: 1,
+      capitalization: TextCapitalization.none,
+    );
+  }
 
   // TODO: перенести в спец. средство
   // Widget text(BaseText t) {
@@ -81,6 +85,8 @@ class _LoginViewState extends State<LoginView> {
               shrinkWrap: true,
               children: [
                 // testFonts(),
+                SizedBox(height: onePadding * 2),
+                gerculesIcon(size: onePadding * 8),
                 H1(loc.app_title, align: TextAlign.center),
                 textFieldForCode('login'),
                 textFieldForCode('password'),
@@ -99,6 +105,7 @@ class _LoginViewState extends State<LoginView> {
                   color: googleBtnColor,
                   onTap: () => _controller.authorizeWithGoogle(context),
                 ),
+                SizedBox(height: onePadding * 2),
               ],
             ),
           ),

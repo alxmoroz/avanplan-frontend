@@ -13,6 +13,12 @@ part 'login_controller.g.dart';
 class LoginController extends _LoginControllerBase with _$LoginController {}
 
 abstract class _LoginControllerBase extends EditController with Store {
+  @observable
+  bool showPassword = false;
+
+  @action
+  void toggleShowPassword() => showPassword = !showPassword;
+
   Future _parseException(BuildContext context, Object e) async {
     stopLoading();
     // TODO: можно определять что именно произошло по типу кода и выдавать соотв. сообщение

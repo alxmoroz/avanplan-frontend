@@ -58,9 +58,9 @@
   "ok": "Ok",
   "overview": "Overview",
 
+  "privacy_policy_title": "Privacy policy",
   "project_count": "{count, plural, zero{No projects} one{1 project} other{{count} projects}}",
   "project_dative_count": "{count, plural, one{1 project} other{{count} projects}}",
-
   "project_delete_dialog_title": "Delete project?",
   "project_list_empty_title_part1": "Import tasks from source",
   "project_list_empty_title_part2": "or create your own",

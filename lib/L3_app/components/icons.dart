@@ -156,10 +156,15 @@ Widget caretIcon(BuildContext context, {required Size size, Color? color, bool u
 
 Widget todayIcon({Color? color, double? size}) => Icon(CupertinoIcons.placemark, size: size);
 
-Widget mailIcon(BuildContext context, {Color? color, double? size}) => FaIcon(
-      FontAwesomeIcons.envelope,
+Widget mailIcon(BuildContext context, {Color? color, double? size}) => Icon(
+      CupertinoIcons.envelope,
       color: (color ?? darkGreyColor).resolve(context),
-      size: size ?? onePadding * 1.5,
+      size: size ?? onePadding * 2,
+    );
+Widget privacyIcon(BuildContext context, {Color? color, double? size}) => Icon(
+      CupertinoIcons.lock_shield,
+      color: (color ?? darkGreyColor).resolve(context),
+      size: size ?? onePadding * 2,
     );
 
 double get _sourceIconSize => onePadding * 2;

@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../components/colors.dart';
 import '../../components/constants.dart';
@@ -89,7 +90,7 @@ class _LoginViewState extends State<LoginView> {
                 // testFonts(),
                 AnimatedContainer(
                   duration: const Duration(milliseconds: 250),
-                  height: onePadding * (_hasFocus ? 5 : 12),
+                  height: onePadding * (_hasFocus && !isWeb ? 5 : 12),
                   child: gerculesIcon(),
                 ),
 
@@ -110,6 +111,12 @@ class _LoginViewState extends State<LoginView> {
                   middle: MediumText(loc.auth_log_in_with_google_btn_title, padding: EdgeInsets.only(left: onePadding), color: CupertinoColors.label),
                   color: googleBtnColor,
                   onTap: () => _controller.authorizeWithGoogle(context),
+                ),
+                SizedBox(height: onePadding * 2),
+                MTButton(
+                  titleString: loc.privacy_policy_title,
+                  trailing: linkOutIcon(context),
+                  onTap: () => launchUrlString('$docsUrlPath/privacy'),
                 ),
                 SizedBox(height: onePadding * 2),
               ],

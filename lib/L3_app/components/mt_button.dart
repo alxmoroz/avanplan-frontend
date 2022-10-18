@@ -59,7 +59,7 @@ class MTButton extends StatelessWidget {
   final EdgeInsets? margin;
 
   Color get _titleColor => onTap != null ? (titleColor ?? mainColor) : lightGreyColor;
-  double get _minHeight => onePadding * 4;
+  double get _minHeight => onePadding * 4.3;
 
   ButtonStyle _style(BuildContext context) => ElevatedButton.styleFrom(
         padding: padding ?? EdgeInsets.zero,
@@ -122,7 +122,7 @@ class MTPlusButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTButton.outlined(
-      middle: plusIcon(context, size: onePadding * 2.2),
+      middle: plusIcon(context, size: onePadding * 2),
       margin: EdgeInsets.only(right: onePadding),
       onTap: onTap,
     );

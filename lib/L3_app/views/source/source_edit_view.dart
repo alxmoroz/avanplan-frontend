@@ -46,8 +46,8 @@ class _SourceEditViewState extends State<SourceEditView> {
 
   String get _sourceCode => _controller.selectedType != null ? _controller.selectedType!.title.toLowerCase() : '';
   bool get _isJira => _controller.selectedType?.title == 'Jira';
-  //TODO: настройку адреса вынести на бэк? Можно хранить для типа источника импорта, например.
-  String get _sourceEditHelperAddress => 'https://moroz.team/gercules/docs/${Intl.getCurrentLocale()}/import/$_sourceCode';
+
+  String get _sourceEditHelperAddress => '/import/$_sourceCode';
 
   @override
   void initState() {

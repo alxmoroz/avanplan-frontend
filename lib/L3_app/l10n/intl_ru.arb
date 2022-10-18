@@ -58,9 +58,9 @@
   "ok": "Ясно",
   "overview": "Обзор",
 
+  "privacy_policy_title": "Политика конфиденциальности",
   "project_count": "{count, plural, zero{Нет проектов} one{1 проект} few{{count} проекта} other{{count} проектов}}",
   "project_dative_count": "{count, plural, one{1 проекту} other{{count} проектам}}",
-
   "project_delete_dialog_title": "Удалить проект?",
   "project_list_empty_title_part1": "Загрузите задачи из источника импорта",
   "project_list_empty_title_part2": "или создайте свои",

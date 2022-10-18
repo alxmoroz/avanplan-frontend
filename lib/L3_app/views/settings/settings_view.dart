@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../L1_domain/entities/user.dart';
 import '../../components/colors.dart';
@@ -62,8 +63,14 @@ class SettingsView extends StatelessWidget {
               MTListTile(
                 leading: mailIcon(context),
                 titleText: loc.contact_us_title,
-                trailing: chevronIcon(context),
+                trailing: linkOutIcon(context),
                 onTap: () => launchUrl(Uri.parse('mailto:hello@gercul.es?subject=${loc.contact_us_mail_subject}')),
+              ),
+              MTListTile(
+                leading: privacyIcon(context),
+                titleText: loc.privacy_policy_title,
+                trailing: linkOutIcon(context),
+                onTap: () => launchUrlString('$docsUrlPath/privacy'),
               ),
             ],
           ),

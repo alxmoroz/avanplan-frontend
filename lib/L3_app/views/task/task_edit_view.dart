@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../L1_domain/entities/status.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
@@ -11,7 +10,6 @@ import '../../components/icons.dart';
 import '../../components/mt_bottom_sheet.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_close_button.dart';
-import '../../components/mt_dropdown.dart';
 import '../../components/mt_page.dart';
 import '../../components/mt_text_field.dart';
 import '../../components/navbar.dart';
@@ -69,9 +67,9 @@ class _TaskEditViewState extends State<TaskEditView> {
 
     controller.setStartDate(task?.startDate);
     controller.setDueDate(task?.dueDate);
-    controller.setClosed(task?.closed);
     controller.selectWS(_savedWsID);
-    controller.selectStatus(task?.status);
+    // controller.setClosed(task?.closed);
+    // controller.selectStatus(task?.status);
     super.initState();
   }
 
@@ -121,19 +119,7 @@ class _TaskEditViewState extends State<TaskEditView> {
       child: ListView(children: [
         if (_savedWsID == null) controller.wsDropdown(context),
         ...['title', 'startDate', 'dueDate', 'description'].map((code) => textFieldForCode(context, code)),
-        if (controller.statuses.isNotEmpty)
-          MTDropdown<Status>(
-            onChanged: (status) => controller.selectStatus(status),
-            value: controller.selectedStatus,
-            items: controller.statuses,
-            label: loc.task_status_placeholder,
-          ),
-        MTButton(
-          leading: doneIcon(context, controller.closed),
-          titleString: loc.task_state_closed,
-          margin: tfPadding,
-          onTap: () => controller.setClosed(!controller.closed),
-        ),
+        // ...[statuses],
         if (!isNew)
           MTButton.outlined(
             titleString: loc.delete_action_title,
@@ -145,6 +131,22 @@ class _TaskEditViewState extends State<TaskEditView> {
       ]),
     );
   }
+
+  // List<Widget> get statuses => [
+  //   if (controller.statuses.isNotEmpty)
+  //     MTDropdown<Status>(
+  //       onChanged: (status) => controller.selectStatus(status),
+  //       value: controller.selectedStatus,
+  //       items: controller.statuses,
+  //       label: loc.task_status_placeholder,
+  //     ),
+  //   MTButton(
+  //     leading: doneIcon(context, controller.closed),
+  //     titleString: loc.task_state_closed,
+  //     margin: tfPadding,
+  //     onTap: () => controller.setClosed(!controller.closed),
+  //   ),
+  // ];
 
   @override
   Widget build(BuildContext context) {

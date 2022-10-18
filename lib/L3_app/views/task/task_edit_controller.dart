@@ -1,10 +1,8 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/entities/status.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../components/mt_confirm_dialog.dart';
 import '../../extra/services.dart';
@@ -19,17 +17,6 @@ const _year = Duration(days: 365);
 class TaskEditController extends _TaskEditControllerBase with _$TaskEditController {}
 
 abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
-  @observable
-  bool closed = false;
-
-  @action
-  void setClosed(bool? _closed) {
-    closed = _closed ?? false;
-    if (!closed && selectedStatus != null && selectedStatus!.closed) {
-      _selectedStatusId = null; // не трогать
-    }
-  }
-
   /// дата
 
   @observable
@@ -52,7 +39,6 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
 
   Future selectDate(BuildContext context, String code) async {
     final isStart = code == 'startDate';
-    // final isDue = code == 'dueDate';
 
     final today = DateTime.now();
     final initialDate = (isStart ? selectedStartDate : selectedDueDate) ?? today;
@@ -84,24 +70,6 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
     }
   }
 
-  /// статусы задач
-  @computed
-  List<Status> get statuses => selectedWS?.statuses ?? [];
-
-  @observable
-  int? _selectedStatusId;
-
-  @action
-  void selectStatus(Status? _status) {
-    _selectedStatusId = _status?.id;
-    if (_status != null && _status.closed) {
-      closed = true;
-    }
-  }
-
-  @computed
-  Status? get selectedStatus => statuses.firstWhereOrNull((s) => s.id == _selectedStatusId);
-
   /// выбранная задача для редактирования
 
   @override
@@ -116,10 +84,10 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
       parent: parent,
       title: tfAnnoForCode('title').text,
       description: tfAnnoForCode('description').text,
-      closed: closed,
+      closed: task?.closed == true,
+      // status: selectedStatus,
       startDate: selectedStartDate,
       dueDate: selectedDueDate,
-      status: selectedStatus,
       workspaceId: selectedWS!.id,
       tasks: task?.tasks ?? [],
     ));
@@ -148,4 +116,34 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
       Navigator.of(context).pop(deletedTask);
     }
   }
+
+  /// статусы задач
+
+  // @observable
+  // bool closed = false;
+  //
+  // @action
+  // void setClosed(bool? _closed) {
+  //   closed = _closed ?? false;
+  //   if (!closed && selectedStatus != null && selectedStatus!.closed) {
+  //     _selectedStatusId = null; // не трогать
+  //   }
+  // }
+
+  // @computed
+  // List<Status> get statuses => selectedWS?.statuses ?? [];
+  //
+  // @observable
+  // int? _selectedStatusId;
+  //
+  // @action
+  // void selectStatus(Status? _status) {
+  //   _selectedStatusId = _status?.id;
+  //   if (_status != null && _status.closed) {
+  //     closed = true;
+  //   }
+  // }
+
+  // @computed
+  // Status? get selectedStatus => statuses.firstWhereOrNull((s) => s.id == _selectedStatusId);
 }

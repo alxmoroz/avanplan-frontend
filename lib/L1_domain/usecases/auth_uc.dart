@@ -41,8 +41,7 @@ class AuthUC {
   Future<bool> isLocalAuthorized() async => (await _getLocalAccessToken()).isNotEmpty;
 
   Future logout() async {
-    // TODO: для выхода из гугла должна быть отдельная кнопка в настройках где-то? Подумать над ВИ
-    // await authRepo.googleLogout();
+    await authRepo.googleLogout();
     authRepo.setApiCredentials('');
     _updateAccessToken('');
   }

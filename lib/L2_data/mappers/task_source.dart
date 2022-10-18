@@ -6,14 +6,13 @@ import '../../L1_domain/entities/task_source.dart';
 import 'source.dart';
 
 extension TaskSourceMapper on api.TaskSourceGet {
-  //TODO: обработка ошибок преобразования URL
   TaskSource get taskSource => TaskSource(
         id: id,
         code: code,
         rootCode: rootCode,
         keepConnection: keepConnection,
         source: source_.source,
-        uri: Uri.parse(url),
+        urlString: url,
       );
 }
 

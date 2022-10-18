@@ -1,7 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/usecases/task_ext_actions.dart';
@@ -64,7 +64,7 @@ class TaskHeader extends StatelessWidget {
         if (_task.hasLink)
           MTButton(
             middle: _task.taskSource!.go2SourceTitle(context, showSourceIcon: true),
-            onTap: () => launchUrl(_task.taskSource!.uri),
+            onTap: () => launchUrlString(_task.taskSource!.urlString),
           ),
       ]),
     );

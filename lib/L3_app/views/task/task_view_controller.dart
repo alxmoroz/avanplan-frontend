@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/usecases/task_ext_actions.dart';
@@ -89,7 +89,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
 
   MTDialogAction<bool?> _go2SourceDialogAction(BuildContext context) => MTDialogAction(
         type: MTActionType.isDefault,
-        onTap: () => launchUrl(task.taskSource!.uri),
+        onTap: () => launchUrlString(task.taskSource!.urlString),
         result: false,
         child: task.taskSource!.go2SourceTitle(context),
       );
@@ -253,7 +253,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
         await importController.importTasks(context);
         break;
       case TaskActionType.go2source:
-        await launchUrl(task.taskSource!.uri);
+        await launchUrlString(task.taskSource!.urlString);
         break;
       case TaskActionType.unlink:
         await unlink(context);

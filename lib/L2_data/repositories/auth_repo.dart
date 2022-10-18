@@ -6,7 +6,7 @@ import 'package:openapi/openapi.dart';
 
 import '../../L1_domain/repositories/abs_auth_repo.dart';
 import '../../L1_domain/system/errors.dart';
-import '../../L3_app/components/constants.dart';
+import '../../L3_app/extra/platform.dart';
 import '../../L3_app/extra/services.dart';
 
 class AuthRepo extends AbstractAuthRepo {

@@ -12,7 +12,9 @@ import '../../components/mt_page.dart';
 import '../../components/mt_text_field.dart';
 import '../../components/text_field_annotation.dart';
 import '../../components/text_widgets.dart';
+import '../../extra/platform.dart';
 import '../../extra/services.dart';
+import '../../presenters/communications_presenter.dart';
 import '../login/login_controller.dart';
 
 class LoginView extends StatefulWidget {

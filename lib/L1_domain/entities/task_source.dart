@@ -10,13 +10,13 @@ class TaskSource extends RPersistable {
     required this.rootCode,
     required this.source,
     required this.keepConnection,
-    required this.uri,
+    required this.urlString,
   });
 
   final String code;
   final String rootCode;
   final Source source;
-  final Uri uri;
+  final String urlString;
   bool keepConnection;
 }
 

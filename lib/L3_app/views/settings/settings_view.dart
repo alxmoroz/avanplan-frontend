@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../L1_domain/entities/user.dart';
@@ -14,6 +13,7 @@ import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
+import '../../presenters/communications_presenter.dart';
 import '../source/source_list_view.dart';
 import '../workspace/workspace_list_view.dart';
 import 'settings_controller.dart';
@@ -64,7 +64,7 @@ class SettingsView extends StatelessWidget {
                 leading: mailIcon(context),
                 titleText: loc.contact_us_title,
                 trailing: linkOutIcon(context),
-                onTap: () => launchUrl(Uri.parse('mailto:hello@gercul.es?subject=${loc.contact_us_mail_subject}')),
+                onTap: () => launchUrlString(contactUsMailSample),
               ),
               MTListTile(
                 leading: privacyIcon(context),

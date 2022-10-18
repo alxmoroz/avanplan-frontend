@@ -45,6 +45,8 @@ class TaskPopupMenu extends StatelessWidget {
         return rowIconTitle(loc.import_action_title, icon: importIcon(context));
       case TaskActionType.close:
         return rowIconTitle(loc.close_action_title, icon: doneIcon(context, true));
+      case TaskActionType.reopen:
+        return rowIconTitle(loc.task_reopen_action_title, icon: doneIcon(context, false));
       case TaskActionType.go2source:
         return task.taskSource!.go2SourceTitle(context);
       case TaskActionType.unlink:

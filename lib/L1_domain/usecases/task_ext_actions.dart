@@ -9,6 +9,7 @@ enum TaskActionType {
   add,
   edit,
   close,
+  reopen,
   import,
   go2source,
   unlink,
@@ -25,7 +26,7 @@ extension TaskActionsExt on Task {
   bool get canEdit => !(isWorkspace || hasLink);
   bool get canImport => isWorkspace;
   bool get canRefresh => isWorkspace;
-  bool get canReopen => canEdit && closed;
+  bool get canReopen => canEdit && closed && parent?.closed == false;
   bool get canClose => canEdit && !closed;
 
   /// рекомендации, быстрые кнопки
@@ -44,6 +45,7 @@ extension TaskActionsExt on Task {
         if (canAdd) TaskActionType.add,
         if (canEdit) TaskActionType.edit,
         if (canClose) TaskActionType.close,
+        if (canReopen) TaskActionType.reopen,
         if (isProject && hasLink) ...[
           TaskActionType.go2source,
           TaskActionType.unlink,

@@ -68,11 +68,6 @@
   "project_new_title": "Новый проект",
   "project_title": "Проект",
 
-  "reopen_dialog_recursive_description": "Все закрытые подзадачи будут открыты",
-  "reopen_dialog_recursive_title": "Переоткрыть вместе с закрытыми подзадачами?",
-  "reopen_selected_only": "Переоткрыть без подзадач",
-  "reopen_w_subtasks": "Переоткрыть вместе с подзадачами",
-
   "role_admin": "Администратор",
   "role_guest": "Гость",
   "role_member": "Участник",
@@ -119,6 +114,8 @@
   "task_list_title": "Задачи",
   "task_new_title": "Новая задача",
 
+  "task_reopen_action_title": "Переоткрыть",
+
   "task_speed_unit_t_mo": "задач/мес",
   "task_start_date_placeholder": "Дата начала",
   "task_state_closed": "Выполнено",
@@ -137,7 +134,6 @@
   "task_state_opened": "Открыто",
   "task_state_overdue_duration": "Опаздываем на {duration}",
   "task_state_overdue_title": "Опаздываем",
-  "task_state_reopen_btn_title": "Переоткрыть",
   "task_state_risk_duration": "Можем опоздать на {duration}",
   "task_state_risk_title": "Можем опоздать",
 

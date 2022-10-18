@@ -85,8 +85,8 @@ class TaskView extends StatelessWidget {
                         ),
                       MTButton.outlined(
                         margin: EdgeInsets.symmetric(horizontal: onePadding),
-                        titleString: (_task.shouldClose || _task.shouldCloseLeaf) ? loc.close_action_title : loc.task_state_reopen_btn_title,
-                        leading: (_task.shouldClose || _task.shouldCloseLeaf) ? doneIcon(context, true) : null,
+                        titleString: (_task.shouldClose || _task.shouldCloseLeaf) ? loc.close_action_title : loc.task_reopen_action_title,
+                        leading: doneIcon(context, _task.shouldClose || _task.shouldCloseLeaf),
                         onTap: () => _controller.setClosed(context, !_task.closed),
                       ),
                     ])

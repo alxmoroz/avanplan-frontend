@@ -134,16 +134,6 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
         ],
       );
 
-  Future<bool?> _reopenDialog(BuildContext context) async => await showMTDialog<bool?>(
-        context,
-        title: loc.reopen_dialog_recursive_title,
-        description: loc.reopen_dialog_recursive_description,
-        actions: [
-          MTDialogAction(title: loc.reopen_w_subtasks, type: MTActionType.isWarning, result: true),
-          MTDialogAction(title: loc.reopen_selected_only, type: MTActionType.isDefault, result: false),
-        ],
-      );
-
   /// роутер
 
   Future<Task?> _setClosedTaskTree(Task _task, bool _isClose, bool _recursively) async {
@@ -158,22 +148,17 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   }
 
   Future setClosed(BuildContext context, bool isClose) async {
-    bool cancel = false;
     bool recursively = false;
 
     if (isClose) {
       if (task.hasOpenedSubtasks) {
         recursively = await _closeDialog(context) == true;
-        cancel = !recursively;
+        if (!recursively) {
+          return;
+        }
       }
-    } else if (task.hasClosedSubtasks) {
-      final res = await _reopenDialog(context);
-      cancel = res == null;
-      recursively = res == true;
-    }
-
-    if (cancel) {
-      return;
+    } else {
+      recursively = false;
     }
 
     startLoading();
@@ -248,6 +233,9 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
         break;
       case TaskActionType.close:
         await setClosed(context, true);
+        break;
+      case TaskActionType.reopen:
+        await setClosed(context, false);
         break;
       case TaskActionType.import:
         await importController.importTasks(context);

@@ -68,11 +68,6 @@
   "project_new_title": "New project",
   "project_title": "Project",
 
-  "reopen_dialog_recursive_description": "All closed subtasks will be opened",
-  "reopen_dialog_recursive_title": "Reopen along with closed subtasks?",
-  "reopen_selected_only": "Reopen this one only",
-  "reopen_w_subtasks": "Yes, with subtasks",
-
   "role_admin": "Administrator",
   "role_guest": "Guest",
   "role_member": "Member",
@@ -119,6 +114,8 @@
   "task_list_title": "Tasks",
   "task_new_title": "New task",
 
+  "task_reopen_action_title": "Reopen",
+
   "task_speed_unit_t_mo": "tasks/mo",
   "task_start_date_placeholder": "Start date",
   "task_state_ahead_duration": "We can finish {duration} early",
@@ -136,7 +133,6 @@
   "task_state_opened": "Opened",
   "task_state_overdue_duration": "Overdue is {duration}",
   "task_state_overdue_title": "There is аn overdue",
-  "task_state_reopen_btn_title": "Reopen",
   "task_state_risk_duration": "Overdue may be {duration}",
   "task_state_risk_title": "There is аn risk of overdue",
 

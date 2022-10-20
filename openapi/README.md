@@ -106,6 +106,8 @@ Class | Method | HTTP request | Description
  - [TaskSource](doc/TaskSource.md)
  - [TaskSourceGet](doc/TaskSourceGet.md)
  - [TaskSourceUpsert](doc/TaskSourceUpsert.md)
+ - [TaskType](doc/TaskType.md)
+ - [TaskTypeGet](doc/TaskTypeGet.md)
  - [TaskUpsert](doc/TaskUpsert.md)
  - [Token](doc/Token.md)
  - [UserGet](doc/UserGet.md)

@@ -8,12 +8,14 @@ import 'person.dart';
 import 'priority.dart';
 import 'status.dart';
 import 'task_source.dart';
+import 'task_type.dart';
 
 extension TaskMapper on api.TaskGet {
   Task task([Task? _parent]) {
     final ts = taskSource?.taskSource;
+    final _type = type?.type;
     String _title = title.trim();
-    if (ts != null && ts.code.startsWith('v_backlog_')) {
+    if (_type != null && _type.title == 'backlog') {
       _title = Intl.message(_title);
     }
 
@@ -22,6 +24,7 @@ extension TaskMapper on api.TaskGet {
       createdOn: createdOn.toLocal(),
       updatedOn: updatedOn.toLocal(),
       title: _title,
+      type: _type,
       description: description?.trim() ?? '',
       startDate: startDate?.toLocal(),
       dueDate: dueDate?.toLocal(),

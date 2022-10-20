@@ -7,6 +7,7 @@ import 'package:openapi/src/model/person.dart';
 import 'package:openapi/src/model/status.dart';
 import 'package:openapi/src/model/priority.dart';
 import 'package:openapi/src/model/task_source.dart';
+import 'package:openapi/src/model/task_type.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -24,6 +25,7 @@ part 'task.g.dart';
 /// * [author] 
 /// * [status] 
 /// * [priority] 
+/// * [type] 
 /// * [taskSource] 
 /// * [createdOn] 
 /// * [updatedOn] 
@@ -55,6 +57,9 @@ abstract class Task implements Built<Task, TaskBuilder> {
 
   @BuiltValueField(wireName: r'priority')
   Priority? get priority;
+
+  @BuiltValueField(wireName: r'type')
+  TaskType? get type;
 
   @BuiltValueField(wireName: r'task_source')
   TaskSource? get taskSource;
@@ -148,6 +153,13 @@ class _$TaskSerializer implements PrimitiveSerializer<Task> {
       yield serializers.serialize(
         object.priority,
         specifiedType: const FullType(Priority),
+      );
+    }
+    if (object.type != null) {
+      yield r'type';
+      yield serializers.serialize(
+        object.type,
+        specifiedType: const FullType(TaskType),
       );
     }
     if (object.taskSource != null) {
@@ -256,6 +268,13 @@ class _$TaskSerializer implements PrimitiveSerializer<Task> {
             specifiedType: const FullType(Priority),
           ) as Priority;
           result.priority.replace(valueDes);
+          break;
+        case r'type':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(TaskType),
+          ) as TaskType;
+          result.type.replace(valueDes);
           break;
         case r'task_source':
           final valueDes = serializers.deserialize(

@@ -77,6 +77,11 @@ void main() {
       // TODO
     });
 
+    // TaskTypeGet type
+    test('to test the property `type`', () async {
+      // TODO
+    });
+
     // BuiltList<TaskGet> tasks
     test('to test the property `tasks`', () async {
       // TODO

@@ -22,6 +22,7 @@ Name | Type | Description | Notes
 **priority** | [**PriorityGet**](PriorityGet.md) |  | [optional] 
 **status** | [**StatusGet**](StatusGet.md) |  | [optional] 
 **taskSource** | [**TaskSourceGet**](TaskSourceGet.md) |  | [optional] 
+**type** | [**TaskTypeGet**](TaskTypeGet.md) |  | [optional] 
 **tasks** | [**BuiltList&lt;TaskGet&gt;**](TaskGet.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

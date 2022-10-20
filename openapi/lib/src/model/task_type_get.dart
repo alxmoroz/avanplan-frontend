@@ -6,51 +6,42 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'user_get.g.dart';
+part 'task_type_get.g.dart';
 
-/// UserGet
+/// TaskTypeGet
 ///
 /// Properties:
 /// * [id] 
-/// * [email] 
-/// * [fullName] 
-/// * [regSource] 
+/// * [title] 
 @BuiltValue()
-abstract class UserGet implements Built<UserGet, UserGetBuilder> {
+abstract class TaskTypeGet implements Built<TaskTypeGet, TaskTypeGetBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
 
-  @BuiltValueField(wireName: r'email')
-  String get email;
+  @BuiltValueField(wireName: r'title')
+  String get title;
 
-  @BuiltValueField(wireName: r'full_name')
-  String? get fullName;
+  TaskTypeGet._();
 
-  @BuiltValueField(wireName: r'reg_source')
-  String? get regSource;
-
-  UserGet._();
-
-  factory UserGet([void updates(UserGetBuilder b)]) = _$UserGet;
+  factory TaskTypeGet([void updates(TaskTypeGetBuilder b)]) = _$TaskTypeGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(UserGetBuilder b) => b
-      ..regSource = 'local';
+  static void _defaults(TaskTypeGetBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<UserGet> get serializer => _$UserGetSerializer();
+  static Serializer<TaskTypeGet> get serializer => _$TaskTypeGetSerializer();
 }
 
-class _$UserGetSerializer implements PrimitiveSerializer<UserGet> {
+class _$TaskTypeGetSerializer implements PrimitiveSerializer<TaskTypeGet> {
   @override
-  final Iterable<Type> types = const [UserGet, _$UserGet];
+  final Iterable<Type> types = const [TaskTypeGet, _$TaskTypeGet];
 
   @override
-  final String wireName = r'UserGet';
+  final String wireName = r'TaskTypeGet';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    UserGet object, {
+    TaskTypeGet object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'id';
@@ -58,31 +49,17 @@ class _$UserGetSerializer implements PrimitiveSerializer<UserGet> {
       object.id,
       specifiedType: const FullType(int),
     );
-    yield r'email';
+    yield r'title';
     yield serializers.serialize(
-      object.email,
+      object.title,
       specifiedType: const FullType(String),
     );
-    if (object.fullName != null) {
-      yield r'full_name';
-      yield serializers.serialize(
-        object.fullName,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.regSource != null) {
-      yield r'reg_source';
-      yield serializers.serialize(
-        object.regSource,
-        specifiedType: const FullType(String),
-      );
-    }
   }
 
   @override
   Object serialize(
     Serializers serializers,
-    UserGet object, {
+    TaskTypeGet object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -93,7 +70,7 @@ class _$UserGetSerializer implements PrimitiveSerializer<UserGet> {
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required UserGetBuilder result,
+    required TaskTypeGetBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -107,26 +84,12 @@ class _$UserGetSerializer implements PrimitiveSerializer<UserGet> {
           ) as int;
           result.id = valueDes;
           break;
-        case r'email':
+        case r'title':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.email = valueDes;
-          break;
-        case r'full_name':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.fullName = valueDes;
-          break;
-        case r'reg_source':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.regSource = valueDes;
+          result.title = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -137,12 +100,12 @@ class _$UserGetSerializer implements PrimitiveSerializer<UserGet> {
   }
 
   @override
-  UserGet deserialize(
+  TaskTypeGet deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = UserGetBuilder();
+    final result = TaskTypeGetBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

@@ -71,5 +71,10 @@ void main() {
     test('to test the property `taskSourceId`', () async {
       // TODO
     });
+
+    // int typeId
+    test('to test the property `typeId`', () async {
+      // TODO
+    });
   });
 }

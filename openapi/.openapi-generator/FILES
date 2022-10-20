@@ -25,6 +25,8 @@ doc/TaskGet.md
 doc/TaskSource.md
 doc/TaskSourceGet.md
 doc/TaskSourceUpsert.md
+doc/TaskType.md
+doc/TaskTypeGet.md
 doc/TaskUpsert.md
 doc/TasksApi.md
 doc/Token.md
@@ -67,6 +69,8 @@ lib/src/model/task_get.dart
 lib/src/model/task_source.dart
 lib/src/model/task_source_get.dart
 lib/src/model/task_source_upsert.dart
+lib/src/model/task_type.dart
+lib/src/model/task_type_get.dart
 lib/src/model/task_upsert.dart
 lib/src/model/token.dart
 lib/src/model/user_get.dart
@@ -99,6 +103,8 @@ test/task_source_get_test.dart
 test/task_source_test.dart
 test/task_source_upsert_test.dart
 test/task_test.dart
+test/task_type_get_test.dart
+test/task_type_test.dart
 test/task_upsert_test.dart
 test/tasks_api_test.dart
 test/token_test.dart

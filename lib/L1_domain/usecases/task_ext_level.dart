@@ -36,4 +36,6 @@ extension TaskLevelExtension on Task {
     }
     return null;
   }
+
+  bool get isBacklog => type?.title == 'backlog';
 }

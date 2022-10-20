@@ -75,8 +75,12 @@ extension TaskStatePresenter on Task {
         return loc.task_state_no_progress_details;
       case TaskState.future:
         return loc.task_state_future_duration(startPeriod.localizedString);
-      default:
-        return loc.task_state_no_info_title;
+      case TaskState.backlog:
+        return loc.backlog;
+      case TaskState.opened:
+        return loc.task_state_opened;
+      case TaskState.closed:
+        return loc.task_state_closed;
     }
   }
 
@@ -102,6 +106,8 @@ extension TaskStatePresenter on Task {
         return loc.task_state_closed;
       case TaskState.future:
         return loc.task_state_future_title;
+      case TaskState.backlog:
+        return loc.backlog;
       case TaskState.opened:
         return loc.task_state_opened;
     }

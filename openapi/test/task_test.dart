@@ -52,6 +52,11 @@ void main() {
       // TODO
     });
 
+    // TaskType type
+    test('to test the property `type`', () async {
+      // TODO
+    });
+
     // TaskSource taskSource
     test('to test the property `taskSource`', () async {
       // TODO

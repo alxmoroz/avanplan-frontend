@@ -6,6 +6,10 @@ import 'priority.dart';
 import 'status.dart';
 import 'task_source.dart';
 
+class TaskType extends Titleable {
+  TaskType({required super.id, required super.title});
+}
+
 class Task extends Statusable {
   Task({
     super.id,
@@ -24,6 +28,7 @@ class Task extends Statusable {
     this.author,
     this.assignee,
     this.taskSource,
+    this.type,
   });
 
   List<Task> tasks;
@@ -39,6 +44,7 @@ class Task extends Statusable {
   final Person? author;
   final Person? assignee;
   final TaskSource? taskSource;
+  final TaskType? type;
   Task? parent;
 
   // TODO(san-smith): возможно заинтересует пакет freezed - он из коробки предоставляет метод copyWith и toString
@@ -60,6 +66,7 @@ class Task extends Statusable {
         author: author,
         assignee: assignee,
         taskSource: taskSource,
+        type: type,
       );
 }
 

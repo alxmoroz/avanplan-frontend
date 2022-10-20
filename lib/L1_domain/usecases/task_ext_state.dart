@@ -7,7 +7,7 @@ import 'package:collection/collection.dart';
 import '../entities/task.dart';
 import 'task_ext_level.dart';
 
-enum TaskState { overdue, risk, ok, eta, closable, noDueDate, noSubtasks, noProgress, opened, future, closed }
+enum TaskState { overdue, risk, ok, eta, closable, noDueDate, noSubtasks, noProgress, opened, future, backlog, closed }
 
 const _day = Duration(days: 1);
 
@@ -174,23 +174,25 @@ extension TaskStats on Task {
   /// интегральный статус
   TaskState get state => closed
       ? TaskState.closed
-      : ((isProject || isGoal) && !hasSubtasks)
-          ? TaskState.noSubtasks
-          : _isFuture
-              ? TaskState.future
-              : !isWorkspace && hasSubtasks && hasOpenedSubtasks && !hasEtaDate
-                  ? TaskState.noProgress
-                  : !isWorkspace && hasSubtasks && (!hasOpenedSubtasks || _allSubtasksAreClosable)
-                      ? TaskState.closable
-                      : !hasDueDate && hasEtaDate
-                          ? TaskState.eta
-                          : (hasOverdue || (!hasDueDate && overdueSubtasks.isNotEmpty)
-                              ? TaskState.overdue
-                              : hasRisk || (!hasDueDate && riskySubtasks.isNotEmpty)
-                                  ? TaskState.risk
-                                  : isOk || ((isWorkspace || isProject) && _hasOkSubtasks)
-                                      ? TaskState.ok
-                                      : (!hasDueDate && (!isWorkspace && !isProject && hasSubtasks))
-                                          ? TaskState.noDueDate
-                                          : TaskState.opened);
+      : isBacklog
+          ? TaskState.backlog
+          : ((isProject || isGoal) && !hasSubtasks)
+              ? TaskState.noSubtasks
+              : _isFuture
+                  ? TaskState.future
+                  : !isWorkspace && hasSubtasks && hasOpenedSubtasks && !hasEtaDate
+                      ? TaskState.noProgress
+                      : !isWorkspace && hasSubtasks && (!hasOpenedSubtasks || _allSubtasksAreClosable)
+                          ? TaskState.closable
+                          : !hasDueDate && hasEtaDate
+                              ? TaskState.eta
+                              : (hasOverdue || (!hasDueDate && overdueSubtasks.isNotEmpty)
+                                  ? TaskState.overdue
+                                  : hasRisk || (!hasDueDate && riskySubtasks.isNotEmpty)
+                                      ? TaskState.risk
+                                      : isOk || ((isWorkspace || isProject) && _hasOkSubtasks)
+                                          ? TaskState.ok
+                                          : (!hasDueDate && (!isWorkspace && !isProject && hasSubtasks))
+                                              ? TaskState.noDueDate
+                                              : TaskState.opened);
 }

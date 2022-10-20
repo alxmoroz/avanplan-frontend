@@ -33,6 +33,8 @@ import 'package:openapi/src/model/task_get.dart';
 import 'package:openapi/src/model/task_source.dart';
 import 'package:openapi/src/model/task_source_get.dart';
 import 'package:openapi/src/model/task_source_upsert.dart';
+import 'package:openapi/src/model/task_type.dart';
+import 'package:openapi/src/model/task_type_get.dart';
 import 'package:openapi/src/model/task_upsert.dart';
 import 'package:openapi/src/model/token.dart';
 import 'package:openapi/src/model/user_get.dart';
@@ -63,6 +65,8 @@ part 'serializers.g.dart';
   TaskSource,
   TaskSourceGet,
   TaskSourceUpsert,
+  TaskType,
+  TaskTypeGet,
   TaskUpsert,
   Token,
   UserGet,

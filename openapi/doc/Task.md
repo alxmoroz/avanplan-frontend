@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **author** | [**Person**](Person.md) |  | [optional] 
 **status** | [**Status**](Status.md) |  | [optional] 
 **priority** | [**Priority**](Priority.md) |  | [optional] 
+**type** | [**TaskType**](TaskType.md) |  | [optional] 
 **taskSource** | [**TaskSource**](TaskSource.md) |  | [optional] 
 **createdOn** | [**DateTime**](DateTime.md) |  | [optional] 
 **updatedOn** | [**DateTime**](DateTime.md) |  | [optional] 

@@ -24,6 +24,7 @@ part 'task_upsert.g.dart';
 /// * [statusId] 
 /// * [parentId] 
 /// * [taskSourceId] 
+/// * [typeId] 
 @BuiltValue()
 abstract class TaskUpsert implements Built<TaskUpsert, TaskUpsertBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -64,6 +65,9 @@ abstract class TaskUpsert implements Built<TaskUpsert, TaskUpsertBuilder> {
 
   @BuiltValueField(wireName: r'task_source_id')
   int? get taskSourceId;
+
+  @BuiltValueField(wireName: r'type_id')
+  int? get typeId;
 
   TaskUpsert._();
 
@@ -173,6 +177,13 @@ class _$TaskUpsertSerializer implements PrimitiveSerializer<TaskUpsert> {
       yield r'task_source_id';
       yield serializers.serialize(
         object.taskSourceId,
+        specifiedType: const FullType(int),
+      );
+    }
+    if (object.typeId != null) {
+      yield r'type_id';
+      yield serializers.serialize(
+        object.typeId,
         specifiedType: const FullType(int),
       );
     }
@@ -289,6 +300,13 @@ class _$TaskUpsertSerializer implements PrimitiveSerializer<TaskUpsert> {
             specifiedType: const FullType(int),
           ) as int;
           result.taskSourceId = valueDes;
+          break;
+        case r'type_id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.typeId = valueDes;
           break;
         default:
           unhandled.add(key);

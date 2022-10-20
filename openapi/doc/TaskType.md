@@ -1,4 +1,4 @@
-# openapi.model.UserGet
+# openapi.model.TaskType
 
 ## Load the model package
 ```dart
@@ -8,10 +8,7 @@ import 'package:openapi/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** |  | 
-**email** | **String** |  | 
-**fullName** | **String** |  | [optional] 
-**regSource** | **String** |  | [optional] [default to 'local']
+**title** | **String** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

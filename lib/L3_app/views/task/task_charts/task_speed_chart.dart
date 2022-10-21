@@ -83,13 +83,16 @@ class TaskSpeedChart extends StatelessWidget {
         ),
         D1('$_factSpeedText', color: _pointerColor),
         if (_maxValue > 0) SmallText(loc.task_speed_unit_t_mo, padding: EdgeInsets.only(top: _radius * 1.5), color: lightGreyColor),
-        Padding(
-            padding: EdgeInsets.symmetric(horizontal: onePadding * 3.3).copyWith(top: onePadding * 6.2),
-            child: Row(children: [
-              if (_maxValue > 0) const MediumText('0', color: darkGreyColor),
-              const Spacer(),
-              if (_maxValue > 0) MediumText('${(_maxValue * _secondsInMonth).round()}', color: darkGreyColor),
-            ])),
+        Container(
+          width: _radius * 2 - onePadding * 4.4,
+          height: _radius * 2 - onePadding * 4.4,
+          alignment: Alignment.bottomCenter,
+          child: Row(children: [
+            if (_maxValue > 0) const MediumText('0', color: darkGreyColor),
+            const Spacer(),
+            if (_maxValue > 0) MediumText('${(_maxValue * _secondsInMonth).round()}', color: darkGreyColor),
+          ]),
+        ),
       ],
     );
   }

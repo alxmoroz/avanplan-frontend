@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/usecases/task_ext_level.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -55,7 +56,7 @@ class _TaskEditViewState extends State<TaskEditView> {
   @override
   void initState() {
     controller = TaskEditController();
-    // TODO: это должно быть в инициализации контроллера!
+    // TODO: это всё должно быть в инициализации контроллера!
     // TODO: Сам контроллер инициализировать по образу TaskViewController — передавать айдишник задачи
 
     controller.initState(tfaList: [
@@ -68,6 +69,7 @@ class _TaskEditViewState extends State<TaskEditView> {
     controller.setStartDate(task?.startDate);
     controller.setDueDate(task?.dueDate);
     controller.selectWS(_savedWsID);
+    controller.selectType(task?.type);
     // controller.setClosed(task?.closed);
     // controller.selectStatus(task?.status);
     super.initState();
@@ -119,6 +121,14 @@ class _TaskEditViewState extends State<TaskEditView> {
       child: ListView(children: [
         if (_savedWsID == null) controller.wsDropdown(context),
         ...['title', 'startDate', 'dueDate', 'description'].map((code) => textFieldForCode(context, code)),
+        if (parent.isProject)
+          MTButton(
+            leading: doneIcon(context, controller.isBacklog),
+            titleString: loc.backlog,
+            margin: tfPadding,
+            onTap: controller.toggleBacklog,
+          ),
+
         // ...[statuses],
         if (!isNew)
           MTButton.outlined(

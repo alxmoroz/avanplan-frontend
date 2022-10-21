@@ -25,7 +25,6 @@ abstract class _ReferencesControllerBase extends BaseController with Store {
   Future fetchData() async {
     sourceTypes = ObservableList.of((await sourceTypesUC.getAll()).sorted((s1, s2) => compareNatural(s1.title, s2.title)));
     taskTypes = ObservableList.of(await taskTypesUC.getAll());
-    print(taskTypes);
   }
 
   @action

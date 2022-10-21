@@ -42,7 +42,8 @@ class TasksRepo extends AbstractApiRepo<Task> {
       ..description = data.description
       ..closed = data.closed
       ..startDate = data.startDate?.toUtc()
-      ..dueDate = data.dueDate?.toUtc();
+      ..dueDate = data.dueDate?.toUtc()
+      ..typeId = data.type?.id;
 
     final response = await api.upsertTaskV1TasksPost(taskUpsert: qBuilder.build());
     Task? task;

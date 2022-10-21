@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
@@ -17,8 +18,6 @@ const _year = Duration(days: 365);
 class TaskEditController extends _TaskEditControllerBase with _$TaskEditController {}
 
 abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
-  /// дата
-
   @observable
   DateTime? selectedDueDate;
 
@@ -75,6 +74,24 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
   @override
   bool get validated => super.validated && selectedWS != null;
 
+  /// тип задачи
+  @observable
+  int? selectedTypeId;
+
+  @action
+  void selectType(TaskType? _type) => selectedTypeId = _type?.id;
+
+  @computed
+  TaskType? get selectedType => referencesController.taskTypes.firstWhereOrNull((t) => t.id == selectedTypeId);
+
+  @computed
+  bool get isBacklog => selectedType?.title == 'backlog';
+
+  void toggleBacklog() {
+    final type = referencesController.taskTypes.firstWhereOrNull((t) => t.title == (isBacklog ? 'goal' : 'backlog'));
+    selectType(type);
+  }
+
   /// действия
 
   Future save(BuildContext context, {Task? task, required Task parent}) async {
@@ -90,6 +107,7 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
       dueDate: selectedDueDate,
       workspaceId: selectedWS!.id,
       tasks: task?.tasks ?? [],
+      type: selectedType,
     ));
     stopLoading();
 

@@ -35,7 +35,11 @@ Widget iconForState(BuildContext context, TaskState state, {double? size}) {
     case TaskState.opened:
     case TaskState.future:
       return openedStateIcon(context, size: size, color: _color);
-    default:
+    case TaskState.backlog:
+      return backlogStateIcon(context, size: size, color: _color);
+    case TaskState.noDueDate:
+    case TaskState.noSubtasks:
+    case TaskState.noProgress:
       return noInfoStateIcon(context, size: size, color: _color);
   }
 }

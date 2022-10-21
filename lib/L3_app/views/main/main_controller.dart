@@ -71,6 +71,7 @@ abstract class _MainControllerBase extends BaseController with Store {
 
     await sourceController.fetchData();
     await settingsController.fetchData();
+    await referencesController.fetchData();
     await accountController.fetchData();
   }
 
@@ -85,6 +86,7 @@ abstract class _MainControllerBase extends BaseController with Store {
     sourceController.clearData();
     importController.clearData();
     settingsController.clearData();
+    referencesController.clearData();
     accountController.clearData();
   }
 

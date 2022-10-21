@@ -26,11 +26,6 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
     }
   }
 
-  /// тип трекера
-
-  @observable
-  ObservableList<SourceType> sTypes = ObservableList();
-
   // TODO: здесь загружаем и проверяем трекеры на старте приложения (загружаем вместе в РП). Что не обязательно делать на старте.
   // Если тут сделать по запросу, тогда в окне импорта нужно будет учесть тоже
 
@@ -43,14 +38,11 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
     sources = ObservableList.of(_sources);
     _sortSources();
     _checkSources(sources);
-
-    sTypes = ObservableList.of((await sourceTypesUC.getAll()).sorted((s1, s2) => compareNatural(s1.title, s2.title)));
   }
 
   @action
   void clearData() {
     sources.clear();
-    sTypes.clear();
   }
 
   @observable
@@ -60,7 +52,7 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
   void selectType(SourceType? _type) => selectedTypeId = _type?.id;
 
   @computed
-  SourceType? get selectedType => sTypes.firstWhereOrNull((s) => s.id == selectedTypeId);
+  SourceType? get selectedType => referencesController.sourceTypes.firstWhereOrNull((s) => s.id == selectedTypeId);
 
   @override
   bool get isLoading => super.isLoading || mainController.isLoading;

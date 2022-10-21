@@ -118,7 +118,7 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
             title: loc.task_unwatch_action_title,
             type: MTActionType.isDanger,
             result: true,
-            icon: unwatchIcon(context),
+            icon: eyeSlashIcon(context),
           ),
           _go2SourceDialogAction(context),
         ],

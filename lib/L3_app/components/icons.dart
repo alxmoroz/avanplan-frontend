@@ -86,14 +86,14 @@ Widget unlinkIcon(BuildContext context, {Color? color, double? size}) => FaIcon(
       size: size ?? onePadding * 1.4,
     );
 
-Widget unwatchIcon(BuildContext context, {Color? color, double? size}) => FaIcon(
-      FontAwesomeIcons.eyeSlash,
+Widget eyeSlashIcon(BuildContext context, {Color? color, double? size}) => Icon(
+      CupertinoIcons.eye_slash,
       color: (color ?? dangerColor).resolve(context),
-      size: size ?? onePadding * 1.4,
+      size: size ?? onePadding * 2,
     );
 
-Widget eyeIcon(BuildContext context, {bool open = true, Color? color, double? size}) => FaIcon(
-      open ? FontAwesomeIcons.eye : FontAwesomeIcons.eyeSlash,
+Widget eyeIcon(BuildContext context, {bool open = true, Color? color, double? size}) => Icon(
+      open ? CupertinoIcons.eye : CupertinoIcons.eye_slash,
       color: (color ?? darkGreyColor).resolve(context),
       size: size ?? onePadding * 2,
     );
@@ -141,7 +141,13 @@ Widget noInfoStateIcon(BuildContext context, {Color? color, double? size}) => Ic
     );
 
 Widget openedStateIcon(BuildContext context, {Color? color, double? size}) => Icon(
-      CupertinoIcons.play_circle,
+      CupertinoIcons.pause_circle,
+      color: (color ?? lightGreyColor).resolve(context),
+      size: size,
+    );
+
+Widget backlogStateIcon(BuildContext context, {Color? color, double? size}) => Icon(
+      CupertinoIcons.archivebox,
       color: (color ?? lightGreyColor).resolve(context),
       size: size,
     );

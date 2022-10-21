@@ -33,3 +33,11 @@ class TasksUC {
     return t;
   }
 }
+
+class TaskTypesUC {
+  TaskTypesUC({required this.repo});
+
+  final AbstractApiRepo<TaskType> repo;
+
+  Future<List<TaskType>> getAll() async => await repo.getAll();
+}

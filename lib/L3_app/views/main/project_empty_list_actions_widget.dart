@@ -22,7 +22,7 @@ class ProjectEmptyListActionsWidget extends StatelessWidget {
       SizedBox(height: onePadding),
       H4(loc.project_list_empty_title_part1, align: TextAlign.center, padding: EdgeInsets.symmetric(horizontal: onePadding), color: darkGreyColor),
       SizedBox(height: onePadding / 2),
-      ...sourceController.sTypes
+      ...referencesController.sourceTypes
           .map(
             (st) => MTCard(
               onTap: () => importController.importTasks(parentContext, sType: st),

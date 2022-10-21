@@ -108,11 +108,11 @@ class _SourceEditViewState extends State<SourceEditView> {
       child: ListView(
         children: [
           if (_isNew) _controller.wsDropdown(context),
-          if (_controller.sTypes.isNotEmpty)
+          if (referencesController.sourceTypes.isNotEmpty)
             MTDropdown<SourceType>(
               onChanged: (type) => _controller.selectType(type),
               value: _controller.selectedType,
-              ddItems: srcTypeDdItems(context, _controller.sTypes),
+              ddItems: srcTypeDdItems(context, referencesController.sourceTypes),
               label: loc.source_type_placeholder,
             ),
           ...[

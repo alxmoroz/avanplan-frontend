@@ -178,9 +178,9 @@ extension TaskStats on Task {
           ? TaskState.backlog
           : ((isProject || isGoal) && !hasSubtasks)
               ? TaskState.noSubtasks
-              : _isFuture
+              : _isFuture && hasOpenedSubtasks
                   ? TaskState.future
-                  : !isWorkspace && hasSubtasks && hasOpenedSubtasks && !hasEtaDate
+                  : !isWorkspace && hasOpenedSubtasks && !hasEtaDate
                       ? TaskState.noProgress
                       : !isWorkspace && hasSubtasks && (!hasOpenedSubtasks || _allSubtasksAreClosable)
                           ? TaskState.closable

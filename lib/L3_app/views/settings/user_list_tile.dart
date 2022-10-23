@@ -28,7 +28,7 @@ class UserListTile extends StatelessWidget {
       ),
       middle: H3(_title),
       subtitle: _subtitle != _title ? LightText(_subtitle) : null,
-      trailing: chevronIcon(context),
+      trailing: const ChevronIcon(),
       bottomBorder: false,
       onTap: () => _showAccount(context),
     );

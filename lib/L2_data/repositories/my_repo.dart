@@ -23,6 +23,7 @@ class MyRepo extends AbstractApiMyRepo {
         user = response.data?.user;
       }
     } catch (e) {
+      // TODO: это что и зачем?
       throw MTException(code: 'api_error_get_current_user', detail: e.toString());
     }
     return user;

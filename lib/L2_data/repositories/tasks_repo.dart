@@ -24,6 +24,7 @@ class TasksRepo extends AbstractApiRepo<Task> {
         }
       }
     } catch (e) {
+      // TODO: ошибка трекера
       throw MTException(code: 'task_error_get_root_tasks', detail: e.toString());
     }
 
@@ -32,7 +33,6 @@ class TasksRepo extends AbstractApiRepo<Task> {
 
   @override
   Future<Task?> save(Task data) async {
-    //TODO: не учитываются возможные ошибки! Нет обработки 403 и т.п.
     final qBuilder = o_api.TaskUpsertBuilder()
       ..workspaceId = data.workspaceId
       ..id = data.id

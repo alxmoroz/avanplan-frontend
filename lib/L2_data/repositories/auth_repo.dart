@@ -5,7 +5,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:openapi/openapi.dart';
 
 import '../../L1_domain/repositories/abs_auth_repo.dart';
-import '../../L1_domain/system/errors.dart';
 import '../../L3_app/extra/platform.dart';
 import '../../L3_app/extra/services.dart';
 
@@ -18,52 +17,42 @@ class AuthRepo extends AbstractAuthRepo {
       if (token != null) {
         return token.accessToken;
       }
-    } else {
-      throw MTException(code: '${tokenResponse.statusCode}', detail: tokenResponse.statusMessage);
     }
     return null;
   }
 
   @override
   Future<String> getApiAuthToken(String username, String password) async {
-    try {
-      final response = await api.authToken(
-        username: username,
-        password: password,
-      );
-      return _parseTokenResponse(response) ?? '';
-    } on DioError catch (e) {
-      throw MTException(code: '${e.response?.statusCode ?? '500'}', detail: e.toString());
-    }
+    final response = await api.authToken(
+      username: username,
+      password: password,
+    );
+    return _parseTokenResponse(response) ?? '';
   }
+
+  // TODO: тут можно throw ошибок от получения токена от гугла сделать отдельно
 
   @override
   Future<String> getApiAuthTokenGoogleOauth() async {
-    try {
-      final googleAuth = GoogleSignIn(scopes: ['email', 'profile']);
-      GoogleSignInAccount? account;
-      if (!await googleAuth.isSignedIn()) {
-        account = await googleAuth.signIn();
-      } else {
-        account = await googleAuth.signInSilently();
+    final googleAuth = GoogleSignIn(scopes: ['email', 'profile']);
+    GoogleSignInAccount? account;
+    if (!await googleAuth.isSignedIn()) {
+      account = await googleAuth.signIn();
+    } else {
+      account = await googleAuth.signInSilently();
+    }
+    final auth = await account?.authentication;
+    if (auth != null) {
+      final token = auth.idToken;
+      if (token != null) {
+        final Response<Token> response = await api.authTokenGoogleOauth(
+          bodyAuthTokenGoogleOauth: (BodyAuthTokenGoogleOauthBuilder()
+                ..googleToken = token
+                ..platform = platformCode)
+              .build(),
+        );
+        return _parseTokenResponse(response) ?? '';
       }
-      final auth = await account?.authentication;
-      if (auth != null) {
-        final token = auth.idToken;
-        if (token != null) {
-          final Response<Token> response = await api.authTokenGoogleOauth(
-            bodyAuthTokenGoogleOauth: (BodyAuthTokenGoogleOauthBuilder()
-                  ..googleToken = token
-                  ..platform = platformCode)
-                .build(),
-          );
-          return _parseTokenResponse(response) ?? '';
-        }
-      }
-    } on DioError catch (e) {
-      throw MTException(code: '${e.response?.statusCode ?? '500'}', detail: e.toString());
-    } catch (e) {
-      // print(e.toString());
     }
     return '';
   }

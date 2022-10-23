@@ -29,7 +29,7 @@ class ProjectEmptyListActionsWidget extends StatelessWidget {
               child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 // importIcon(context),
                 SizedBox(width: onePadding / 3),
-                st.icon(context),
+                st.icon,
                 SizedBox(width: onePadding / 3),
                 MediumText('$st'),
               ]),

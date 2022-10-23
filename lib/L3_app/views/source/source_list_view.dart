@@ -32,7 +32,6 @@ class SourceListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        isLoading: _controller.isLoading,
         navBar: navBar(context, title: loc.source_list_title),
         body: SafeArea(
           top: false,
@@ -50,13 +49,13 @@ class SourceListView extends StatelessWidget {
                   child: _controller.sources.isEmpty
                       ? MTButton.outlined(
                           margin: EdgeInsets.all(onePadding),
-                          titleString: loc.source_title_new,
-                          leading: plusIcon(context),
+                          titleText: loc.source_title_new,
+                          leading: const PlusIcon(),
                           onTap: () => _controller.addSource(context),
                         )
                       : const SizedBox(),
                 ),
-                if(!_controller.sources.isEmpty) MTPlusButton(() => _controller.addSource(context)),
+                if (!_controller.sources.isEmpty) MTPlusButton(() => _controller.addSource(context)),
               ])
             : null,
       ),

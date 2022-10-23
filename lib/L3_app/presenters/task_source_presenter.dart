@@ -12,7 +12,7 @@ import '../components/text_widgets.dart';
 import '../extra/services.dart';
 
 extension SourceTypePresenter on SourceType {
-  Widget icon(BuildContext context) {
+  Widget get icon {
     switch (title) {
       case 'Redmine':
         return redmineIcon();
@@ -21,7 +21,7 @@ extension SourceTypePresenter on SourceType {
       case 'Jira':
         return jiraIcon();
       default:
-        return noInfoStateIcon(context);
+        return const StateNoInfoIcon();
     }
   }
 }
@@ -32,7 +32,7 @@ extension SourcePresenter on Source {
     final connected = state == SrcState.connected;
     final textColor = connected ? null : lightGreyColor;
     return Row(children: [
-      type.icon(context),
+      type.icon,
       SizedBox(width: onePadding / 2),
       Expanded(
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -40,22 +40,22 @@ extension SourcePresenter on Source {
           SmallText(url, color: textColor),
         ]),
       ),
-      isUnknown ? connectingIcon(context) : MTCircle(color: connected ? Colors.green : warningColor),
+      isUnknown ? const ConnectingIcon() : MTCircle(color: connected ? Colors.green : warningColor),
     ]);
   }
 }
 
 extension TaskSourcePresenter on TaskSource {
-  Widget go2SourceTitle(BuildContext context, {bool showSourceIcon = false}) => Row(
+  Widget go2SourceTitle({bool showSourceIcon = false}) => Row(
         children: [
           if (showSourceIcon) ...[
-            source.type.icon(context),
+            source.type.icon,
             SizedBox(width: onePadding / 2),
           ],
           NormalText(loc.task_go2source_title, color: mainColor),
           // const NormalText(' >', color: mainColor),
           SizedBox(width: onePadding / 2),
-          linkOutIcon(context),
+          const LinkOutIcon(),
         ],
       );
 }

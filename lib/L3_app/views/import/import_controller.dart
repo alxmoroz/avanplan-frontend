@@ -27,9 +27,15 @@ abstract class _ImportControllerBase extends EditController with Store {
   @override
   bool get validated => selectedTasks.isNotEmpty;
 
+  @observable
+  String? errorCode;
+
   @action
-  Future fetchTasks(int sourceID) async {
-    startLoading();
+  void setErrorCode(String? eCode) => errorCode = eCode;
+
+  @action
+  Future fetchTasks(BuildContext context, int sourceID) async {
+    loaderController.setLoader(context);
     final _remoteTasks = <TaskImport>[];
     if (authController.authorized) {
       try {
@@ -40,7 +46,7 @@ abstract class _ImportControllerBase extends EditController with Store {
       }
     }
     remoteTasks = _remoteTasks;
-    stopLoading();
+    loaderController.hideLoader();
   }
 
   @action
@@ -61,19 +67,16 @@ abstract class _ImportControllerBase extends EditController with Store {
     remoteTasks = remoteTasks;
   }
 
-  @override
-  bool get isLoading => super.isLoading || mainController.isLoading;
-
   /// выбранный источник импорта, трекер
 
   @observable
   int? selectedSourceId;
 
   @action
-  Future selectSource(Source? src) async {
+  Future selectSource(BuildContext context, Source? src) async {
     selectedSourceId = src?.id;
     if (selectedSourceId != null) {
-      await fetchTasks(selectedSourceId!);
+      await fetchTasks(context, selectedSourceId!);
     }
   }
 
@@ -89,14 +92,14 @@ abstract class _ImportControllerBase extends EditController with Store {
   /// действия,  роутер
 
   Future startImport(BuildContext context) async {
-    startLoading();
+    loaderController.setLoader(context, titleText: 'Importing...');
     final taskSources = selectedTasks.map((t) => t.taskSource!);
     final done = await importUC.importTaskSources(selectedSource?.id, taskSources);
     if (done) {
       await mainController.fetchData();
       Navigator.of(context).pop();
     }
-    stopLoading();
+    loaderController.hideLoader();
   }
 
   void needAddSourceEvent(BuildContext context) {
@@ -118,7 +121,7 @@ abstract class _ImportControllerBase extends EditController with Store {
 
     // выбираем источник импорта заранее из созданного только что или существующий выбранного типа
     if (preselectedSource != null) {
-      await selectSource(preselectedSource);
+      await selectSource(context, preselectedSource);
     }
 
     // если вернулись из диалога с желанием добавить источник импорта, то опять пытаемся добавить источник импорта

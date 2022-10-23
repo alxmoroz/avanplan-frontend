@@ -14,7 +14,6 @@ import '../../extra/services.dart';
 import '../../presenters/task_filter_presenter.dart';
 import '../../presenters/task_source_presenter.dart';
 import '../../presenters/task_state_presenter.dart';
-import '../_base/base_controller.dart';
 import 'task_edit_view.dart';
 
 part 'task_view_controller.g.dart';
@@ -27,11 +26,8 @@ class TaskViewController extends _TaskViewControllerBase with _$TaskViewControll
   }
 }
 
-abstract class _TaskViewControllerBase extends BaseController with Store {
+abstract class _TaskViewControllerBase with Store {
   int? taskID;
-
-  @override
-  bool get isLoading => super.isLoading || mainController.isLoading;
 
   @computed
   Task get task => mainController.taskForId(taskID);
@@ -87,11 +83,11 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
     return unlinked;
   }
 
-  MTDialogAction<bool?> _go2SourceDialogAction(BuildContext context) => MTDialogAction(
+  MTDialogAction<bool?> _go2SourceDialogAction() => MTDialogAction(
         type: MTActionType.isDefault,
         onTap: () => launchUrlString(task.taskSource!.urlString),
         result: false,
-        child: task.taskSource!.go2SourceTitle(context),
+        child: task.taskSource!.go2SourceTitle(),
       );
 
   Future<bool?> _unlinkDialog(BuildContext context) async => await showMTDialog<bool?>(
@@ -103,9 +99,9 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
             title: loc.task_unlink_action_title,
             type: MTActionType.isWarning,
             result: true,
-            icon: unlinkIcon(context),
+            icon: const UnlinkIcon(),
           ),
-          _go2SourceDialogAction(context),
+          _go2SourceDialogAction(),
         ],
       );
 
@@ -118,9 +114,9 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
             title: loc.task_unwatch_action_title,
             type: MTActionType.isDanger,
             result: true,
-            icon: eyeSlashIcon(context),
+            icon: const EyeSlashIcon(),
           ),
-          _go2SourceDialogAction(context),
+          _go2SourceDialogAction(),
         ],
       );
 
@@ -161,9 +157,9 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
       recursively = false;
     }
 
-    startLoading();
+    loaderController.setLoader(context);
     final editedTask = await _setClosedTaskTree(task, isClose, recursively);
-    stopLoading();
+    loaderController.hideLoader();
     if (editedTask != null) {
       if (editedTask.closed) {
         Navigator.of(context).pop(editedTask);
@@ -175,9 +171,9 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
 
   Future addSubtask(BuildContext context) async {
     if (await _checkUnlinked(context)) {
-      startLoading();
+      loaderController.setLoader(context);
       final newTask = await editTaskDialog(context, parent: task);
-      stopLoading();
+      loaderController.hideLoader();
       if (newTask != null) {
         task.tasks.add(newTask);
         newTask.updateParents();
@@ -202,19 +198,19 @@ abstract class _TaskViewControllerBase extends BaseController with Store {
   Future<bool> unlink(BuildContext context) async {
     bool res = false;
     if (await _unlinkDialog(context) == true) {
-      startLoading();
+      loaderController.setLoader(context);
       res = await importUC.updateTaskSources(task.unlinkTaskTree());
       mainController.touchRootTask();
-      stopLoading();
+      loaderController.hideLoader();
     }
     return res;
   }
 
   Future unwatch(BuildContext context) async {
     if (await _unwatchDialog(context) == true) {
-      startLoading();
+      loaderController.setLoader(context);
       final deletedTask = await tasksUC.delete(t: task);
-      stopLoading();
+      loaderController.hideLoader();
       if (deletedTask != null && deletedTask.deleted) {
         Navigator.of(context).pop();
         deletedTask.updateParents();

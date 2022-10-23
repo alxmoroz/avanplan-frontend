@@ -20,17 +20,17 @@ class TaskCard extends StatelessWidget {
   final Task task;
   final bool expanded;
 
-  Widget title(BuildContext context) => H4(
+  Widget get title => H4(
         task.title,
         maxLines: 1,
         decoration: task.closed ? TextDecoration.lineThrough : null,
       );
 
-  Widget header(BuildContext context) => Row(children: [
-        Expanded(child: title(context)),
+  Widget get header => Row(children: [
+        Expanded(child: title),
         if (task.openedLeafTasksCount > 0) MTBadge('${task.openedLeafTasksCount}'),
         SizedBox(width: onePadding / 4),
-        chevronIcon(context),
+        const ChevronIcon(),
       ]);
 
   @override
@@ -40,12 +40,12 @@ class TaskCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,
           children: [
-            header(context),
+            header,
             if (task.showState || task.hasLink) ...[
               SizedBox(height: onePadding / 3),
               Row(children: [
                 if (task.showState) Expanded(child: TaskStateTitle(task)) else const Spacer(),
-                if (task.hasLink) linkIcon(context),
+                if (task.hasLink) const LinkIcon(),
               ]),
             ],
           ],

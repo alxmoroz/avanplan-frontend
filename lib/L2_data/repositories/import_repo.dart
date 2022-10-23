@@ -26,6 +26,7 @@ class ImportRepo extends AbstractApiImportRepo {
         }
       }
     } catch (e) {
+      // TODO: ошибка трекера
       throw MTException(code: 'import_title_error_get_list', detail: e.toString());
     }
 

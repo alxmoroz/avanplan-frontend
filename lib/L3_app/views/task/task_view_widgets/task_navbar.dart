@@ -35,20 +35,20 @@ class TaskPopupMenu extends StatelessWidget {
         NormalText(title, color: color ?? mainColor),
       ]);
 
-  Widget itemWidget(BuildContext context, Task task, TaskActionType at) {
+  Widget itemWidget(Task task, TaskActionType at) {
     switch (at) {
       case TaskActionType.add:
-        return rowIconTitle(task.newSubtaskTitle, icon: plusIcon(context));
+        return rowIconTitle(task.newSubtaskTitle, icon: const PlusIcon());
       case TaskActionType.edit:
-        return rowIconTitle(loc.task_edit_action_title, icon: editIcon(context));
+        return rowIconTitle(loc.task_edit_action_title, icon: const EditIcon());
       case TaskActionType.import:
-        return rowIconTitle(loc.import_action_title, icon: importIcon(context));
+        return rowIconTitle(loc.import_action_title, icon: const ImportIcon());
       case TaskActionType.close:
-        return rowIconTitle(loc.close_action_title, icon: doneIcon(context, true));
+        return rowIconTitle(loc.close_action_title, icon: const DoneIcon(true));
       case TaskActionType.reopen:
-        return rowIconTitle(loc.task_reopen_action_title, icon: doneIcon(context, false));
+        return rowIconTitle(loc.task_reopen_action_title, icon: const DoneIcon(false));
       case TaskActionType.go2source:
-        return task.taskSource!.go2SourceTitle(context);
+        return task.taskSource!.go2SourceTitle();
       case TaskActionType.unlink:
         return rowIconTitle(loc.task_unlink_action_title, color: warningColor);
       case TaskActionType.unwatch:
@@ -66,7 +66,7 @@ class TaskPopupMenu extends StatelessWidget {
         child: PopupMenuButton<TaskActionType>(
           child: child,
           icon: icon,
-          itemBuilder: (_) => task.actionTypes.map((at) => PopupMenuItem<TaskActionType>(value: at, child: itemWidget(context, task, at))).toList(),
+          itemBuilder: (_) => task.actionTypes.map((at) => PopupMenuItem<TaskActionType>(value: at, child: itemWidget(task, at))).toList(),
           onSelected: (at) => controller.taskAction(at, parentContext),
           padding: EdgeInsets.symmetric(horizontal: onePadding / 2),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(defaultBorderRadius)),
@@ -89,7 +89,7 @@ CupertinoNavigationBar taskNavBar(BuildContext context, TaskViewController contr
     //     : null,
     bgColor: task.isWorkspace ? navbarDefaultBgColor : backgroundColor,
     title: task.isWorkspace ? loc.project_list_title : task.viewTitle,
-    trailing: !task.isWorkspace && task.actionTypes.isNotEmpty ? TaskPopupMenu(controller, icon: menuIcon(context), parentContext: context) : null,
+    trailing: !task.isWorkspace && task.actionTypes.isNotEmpty ? TaskPopupMenu(controller, icon: const MenuIcon(), parentContext: context) : null,
   );
 }
 
@@ -111,7 +111,7 @@ class TaskFloatingPlusButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(defaultBorderRadius),
           border: Border.fromBorderSide(BorderSide(color: mainColor.resolve(context), width: 2)),
         ),
-        child: plusIcon(context),
+        child: const PlusIcon(),
       ),
     );
   }

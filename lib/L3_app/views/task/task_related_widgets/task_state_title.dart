@@ -31,20 +31,20 @@ class _StateTitle extends StatelessWidget {
               ? 2.5
               : 1.5);
 
-  Widget _icon(BuildContext context) => iconForState(context, state, size: _iconSize);
+  Widget get _icon => iconForState(state, size: _iconSize);
 
   @override
   Widget build(BuildContext context) => style != TaskStateTitleStyle.L
       ? Row(
           children: [
-            _icon(context),
+            _icon,
             SizedBox(width: onePadding / 3),
             Expanded(child: _textWidget),
           ],
         )
       : Column(
           children: [
-            _icon(context),
+            _icon,
             _textWidget,
           ],
         );

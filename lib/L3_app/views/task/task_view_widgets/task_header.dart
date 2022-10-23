@@ -63,7 +63,7 @@ class TaskHeader extends StatelessWidget {
         ],
         if (_task.hasLink)
           MTButton(
-            middle: _task.taskSource!.go2SourceTitle(context, showSourceIcon: true),
+            middle: _task.taskSource!.go2SourceTitle(showSourceIcon: true),
             onTap: () => launchUrlString(_task.taskSource!.urlString),
           ),
       ]),

@@ -16,8 +16,8 @@ class TaskAddActionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MTButton.outlined(
         margin: EdgeInsets.symmetric(horizontal: onePadding),
-        leading: plusIcon(context),
-        titleString: controller.task.newSubtaskTitle,
+        leading: const PlusIcon(),
+        titleText: controller.task.newSubtaskTitle,
         onTap: () async => await controller.addSubtask(parentContext),
       );
 }

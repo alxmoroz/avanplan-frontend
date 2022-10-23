@@ -91,14 +91,14 @@ class _TaskEditViewState extends State<TaskEditView> {
             label: ta.label,
             error: ta.errorText,
             onTap: isDate ? () => controller.selectDate(context, code) : null,
-            prefixIcon: isDate ? calendarIcon(context) : null,
+            prefixIcon: isDate ? const CalendarIcon() : null,
             suffixIcon: isDate && ta.text.isNotEmpty
                 ? MTButton(
                     middle: Row(
                       children: [
                         Container(height: onePadding * 3, width: 1, color: borderColor.resolve(context)),
                         SizedBox(width: onePadding),
-                        closeIcon(context, color: dangerColor),
+                        const CloseIcon(color: dangerColor),
                         SizedBox(width: onePadding),
                       ],
                     ),
@@ -123,8 +123,8 @@ class _TaskEditViewState extends State<TaskEditView> {
         ...['title', 'startDate', 'dueDate', 'description'].map((code) => textFieldForCode(context, code)),
         if (parent.isProject)
           MTButton(
-            leading: doneIcon(context, controller.isBacklog),
-            titleString: loc.backlog,
+            leading: DoneIcon(controller.isBacklog),
+            titleText: loc.backlog,
             margin: tfPadding,
             onTap: controller.toggleBacklog,
           ),
@@ -132,7 +132,7 @@ class _TaskEditViewState extends State<TaskEditView> {
         // ...[statuses],
         if (!isNew)
           MTButton.outlined(
-            titleString: loc.delete_action_title,
+            titleText: loc.delete_action_title,
             titleColor: dangerColor,
             margin: tfPadding.copyWith(top: onePadding * 4),
             onTap: () => controller.delete(context, task!),
@@ -167,7 +167,7 @@ class _TaskEditViewState extends State<TaskEditView> {
           leading: MTCloseButton(),
           title: isNew ? parent.newSubtaskTitle : '',
           trailing: MTButton(
-            titleString: loc.save_action_title,
+            titleText: loc.save_action_title,
             onTap: controller.validated ? () => controller.save(context, task: task, parent: parent) : null,
             margin: EdgeInsets.only(right: onePadding),
           ),

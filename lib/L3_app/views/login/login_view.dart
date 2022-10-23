@@ -51,7 +51,7 @@ class _LoginViewState extends State<LoginView> {
       label: _controller.tfAnnoForCode(code).label,
       error: _controller.tfAnnoForCode(code).errorText,
       obscureText: isPassword && _controller.showPassword == false,
-      suffixIcon: isPassword ? MTButton.icon(eyeIcon(context, open: !_controller.showPassword), _controller.toggleShowPassword) : null,
+      suffixIcon: isPassword ? MTButton.icon(EyeIcon(open: !_controller.showPassword), _controller.toggleShowPassword) : null,
       maxLines: 1,
       capitalization: TextCapitalization.none,
     );
@@ -83,7 +83,6 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        isLoading: _controller.isLoading,
         body: SafeArea(
           child: Center(
             child: ListView(
@@ -92,7 +91,7 @@ class _LoginViewState extends State<LoginView> {
                 // testFonts(),
                 AnimatedContainer(
                   duration: const Duration(milliseconds: 250),
-                  height: onePadding * (_hasFocus && !isWeb ? 5 : 12),
+                  height: onePadding * (_hasFocus && !isWeb ? 5 : 14),
                   child: gerculesIcon(),
                 ),
 
@@ -102,7 +101,7 @@ class _LoginViewState extends State<LoginView> {
                 MTButton.outlined(
                   margin: EdgeInsets.symmetric(horizontal: onePadding * 4).copyWith(top: onePadding * 2),
                   padding: EdgeInsets.all(onePadding),
-                  titleString: loc.auth_log_in_btn_title,
+                  titleText: loc.auth_log_in_btn_title,
                   onTap: _controller.validated ? () => _controller.authorize(context) : null,
                 ),
                 MTButton.outlined(
@@ -112,12 +111,12 @@ class _LoginViewState extends State<LoginView> {
                   // titleColor: CupertinoColors.label,
                   middle: MediumText(loc.auth_log_in_with_google_btn_title, padding: EdgeInsets.only(left: onePadding), color: CupertinoColors.label),
                   color: googleBtnColor,
-                  onTap: () => _controller.authorizeWithGoogle(context),
+                  onTap: () => authController.authorizeWithGoogle(context),
                 ),
                 SizedBox(height: onePadding * 2),
                 MTButton(
-                  titleString: loc.privacy_policy_title,
-                  trailing: linkOutIcon(context),
+                  titleText: loc.privacy_policy_title,
+                  trailing: const LinkOutIcon(),
                   onTap: () => launchUrlString('$docsUrlPath/privacy'),
                 ),
                 SizedBox(height: onePadding * 2),

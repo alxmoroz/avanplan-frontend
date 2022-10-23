@@ -51,7 +51,7 @@ class TaskTimeChart extends StatelessWidget {
         color: task.hasOverdue ? warningColor : darkBackgroundColor,
         mark: MTProgressMark(
           showTop: true,
-          child: todayIcon(size: onePadding * 1.2),
+          child: TodayIcon(size: onePadding * 1.2),
           size: Size(onePadding * 1.2, onePadding * 0.7),
         )));
     res.sort((a, b) => a.date.compareTo(b.date));
@@ -99,7 +99,7 @@ class TaskTimeChart extends StatelessWidget {
     return Row(children: [
       Column(children: [
         if (_showProgress && task.hasEtaDate) const SmallText(''),
-        calendarIcon(context, size: onePadding * 2, color: darkGreyColor),
+        CalendarIcon(size: onePadding * 2, color: darkGreyColor),
         if (_showProgress && task.hasDueDate) const SmallText(''),
       ]),
       if (_showProgress)

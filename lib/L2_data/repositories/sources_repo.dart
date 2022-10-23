@@ -16,7 +16,6 @@ class SourcesRepo extends AbstractApiRepo<Source> {
 
   @override
   Future<Source?> save(Source data) async {
-    //TODO: не учитываются возможные ошибки! Нет обработки 403 и т.п.
     final builder = o_api.SourceUpsertBuilder()
       ..id = data.id
       ..sourceTypeId = data.type.id

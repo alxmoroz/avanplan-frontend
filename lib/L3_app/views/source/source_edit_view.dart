@@ -92,11 +92,11 @@ class _SourceEditViewState extends State<SourceEditView> {
     );
   }
 
-  List<DropdownMenuItem<SourceType>> srcTypeDdItems(BuildContext context, Iterable<SourceType> sTypes) => sTypes
+  List<DropdownMenuItem<SourceType>> srcTypeDdItems(Iterable<SourceType> sTypes) => sTypes
       .map((st) => DropdownMenuItem<SourceType>(
             value: st,
             child: Row(children: [
-              st.icon(context),
+              st.icon,
               SizedBox(width: onePadding / 2),
               NormalText('$st'),
             ]),
@@ -112,7 +112,7 @@ class _SourceEditViewState extends State<SourceEditView> {
             MTDropdown<SourceType>(
               onChanged: (type) => _controller.selectType(type),
               value: _controller.selectedType,
-              ddItems: srcTypeDdItems(context, referencesController.sourceTypes),
+              ddItems: srcTypeDdItems(referencesController.sourceTypes),
               label: loc.source_type_placeholder,
             ),
           ...[
@@ -123,14 +123,14 @@ class _SourceEditViewState extends State<SourceEditView> {
             'description',
           ].map((code) => textFieldForCode(code)),
           MTButton.outlined(
-            titleString: loc.source_help_edit_action,
-            trailing: linkOutIcon(context, size: onePadding * 1.3),
+            titleText: loc.source_help_edit_action,
+            trailing: LinkOutIcon(size: onePadding * 1.3),
             margin: tfPadding.copyWith(top: onePadding * 2),
             onTap: () => launchUrl(Uri.parse(_sourceEditHelperAddress)),
           ),
           if (_controller.canEdit)
             MTButton.outlined(
-              titleString: loc.delete_action_title,
+              titleText: loc.delete_action_title,
               titleColor: dangerColor,
               margin: tfPadding.copyWith(top: onePadding * 5),
               onTap: () => _controller.delete(context),
@@ -150,7 +150,7 @@ class _SourceEditViewState extends State<SourceEditView> {
           leading: MTCloseButton(),
           title: _isNew ? loc.source_title_new : '',
           trailing: MTButton(
-            titleString: loc.save_action_title,
+            titleText: loc.save_action_title,
             onTap: _canSave ? () => _controller.save(context) : null,
             margin: EdgeInsets.only(right: onePadding),
           ),

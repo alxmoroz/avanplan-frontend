@@ -32,7 +32,6 @@ class SettingsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        isLoading: _controller.isLoading,
         navBar: navBar(context),
         body: SafeArea(
           top: false,
@@ -43,16 +42,16 @@ class SettingsView extends StatelessWidget {
               if (_user != null) UserListTile(_user!),
               SizedBox(height: onePadding / 2),
               MTListTile(
-                leading: importIcon(context, color: darkGreyColor),
+                leading: const ImportIcon(color: darkGreyColor),
                 titleText: loc.source_list_title,
-                trailing: chevronIcon(context),
+                trailing: const ChevronIcon(),
                 onTap: () => _showSources(context),
               ),
               if (mainController.workspaces.length > 1)
                 MTListTile(
-                  leading: wsIcon(context),
+                  leading: const WSIcon(),
                   titleText: loc.workspaces_title,
-                  trailing: chevronIcon(context),
+                  trailing: const ChevronIcon(),
                   onTap: () => _showWorkspaces(context),
                 ),
               H4(
@@ -61,15 +60,15 @@ class SettingsView extends StatelessWidget {
                 color: lightGreyColor,
               ),
               MTListTile(
-                leading: mailIcon(context),
+                leading: const MailIcon(),
                 titleText: loc.contact_us_title,
-                trailing: linkOutIcon(context),
+                trailing: const LinkOutIcon(),
                 onTap: () => launchUrlString(contactUsMailSample),
               ),
               MTListTile(
-                leading: privacyIcon(context),
+                leading: const PrivacyIcon(),
                 titleText: loc.privacy_policy_title,
-                trailing: linkOutIcon(context),
+                trailing: const LinkOutIcon(),
                 onTap: () => launchUrlString('$docsUrlPath/privacy'),
               ),
             ],

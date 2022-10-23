@@ -10,5 +10,5 @@ class MyUC {
   final AbstractApiMyRepo repo;
 
   Future<Iterable<Workspace>> getWorkspaces() async => await repo.getMyWorkspaces();
-  Future<User?> getCurrentUser() async => await repo.getMyAccount();
+  Future<User?> getMyAccount() async => await repo.getMyAccount();
 }

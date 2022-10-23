@@ -1,9 +1,14 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:collection/collection.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/ws_role.dart';
+import '../../../L1_domain/system/errors.dart';
+import '../../components/colors.dart';
+import '../../components/constants.dart';
+import '../../components/icons.dart';
 import '../services.dart';
 
 part 'auth_controller.g.dart';
@@ -23,12 +28,43 @@ abstract class _AuthControllerBase with Store {
   @action
   void _setAuthorized(bool _auth) => authorized = _auth;
 
-  Future authorize(String login, String password) async {
-    _setAuthorized(await authUC.authorize(username: login, password: password));
+  Widget get _loaderIcon => PrivacyIcon(size: onePadding * 10, color: lightGreyColor);
+
+  void _catchAuthError(BuildContext context) {
+    loaderController.setLoader(
+      context,
+      icon: _loaderIcon,
+      titleText: loc.auth_error_title,
+      descriptionText: loc.auth_error_description,
+      actionText: loc.ok,
+    );
   }
 
-  Future authorizeWithGoogle() async {
-    _setAuthorized(await authUC.authorizeWithGoogle());
+  void _catchGoogleAuthError(BuildContext context, MTException e) {
+    // TODO: можно определять что именно произошло по типу кода и выдавать соотв. сообщение
+    loaderController.setLoader(context, icon: _loaderIcon, titleText: e.code, actionText: loc.ok);
+  }
+
+  Future authorize(BuildContext context, String login, String password) async {
+    loaderController.setLoader(context, icon: _loaderIcon, titleText: 'AUTH');
+    try {
+      _setAuthorized(await authUC.authorize(username: login, password: password));
+      loaderController.hideLoader();
+    } catch (_) {
+      _catchAuthError(context);
+    }
+  }
+
+  Future authorizeWithGoogle(BuildContext context) async {
+    loaderController.setLoader(context, icon: _loaderIcon, titleText: 'G_AUTH');
+    try {
+      _setAuthorized(await authUC.authorizeWithGoogle());
+      loaderController.hideLoader();
+    } on MTException catch (e) {
+      _catchGoogleAuthError(context, e);
+    } catch (_) {
+      _catchAuthError(context);
+    }
   }
 
   Future logout() async {

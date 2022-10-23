@@ -16,7 +16,7 @@ class TaskOverviewAdvices extends StatelessWidget {
 
   final Task task;
 
-  Widget _filteredToiButton(BuildContext context, String title, int count) {
+  Widget _filteredToiButton(String title, int count) {
     return MTCard(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -24,7 +24,7 @@ class TaskOverviewAdvices extends StatelessWidget {
           Expanded(child: NormalText(title)),
           MTBadge('$count'),
           SizedBox(width: onePadding / 4),
-          chevronIcon(context),
+          const ChevronIcon(),
         ],
       ),
     );
@@ -35,10 +35,10 @@ class TaskOverviewAdvices extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        if (task.hasNoDueToi) _filteredToiButton(context, loc.task_state_no_due_details, task.noDueToiCount),
-        if (task.hasEmptyToi) _filteredToiButton(context, loc.task_count(0), task.emptyToiCount),
-        if (task.hasNoProgressToi) _filteredToiButton(context, loc.task_state_no_progress_details, task.noProgressToiCount),
-        if (task.hasClosableToi) _filteredToiButton(context, loc.task_state_closable_title, task.closableToiCount),
+        if (task.hasNoDueToi) _filteredToiButton(loc.task_state_no_due_details, task.noDueToiCount),
+        if (task.hasEmptyToi) _filteredToiButton(loc.task_count(0), task.emptyToiCount),
+        if (task.hasNoProgressToi) _filteredToiButton(loc.task_state_no_progress_details, task.noProgressToiCount),
+        if (task.hasClosableToi) _filteredToiButton(loc.task_state_closable_title, task.closableToiCount),
       ],
     );
   }

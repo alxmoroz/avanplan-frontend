@@ -28,7 +28,6 @@ class AccountView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        isLoading: accountController.isLoading,
         navBar: navBar(context, title: loc.account_title),
         body: SafeArea(
           top: false,
@@ -44,9 +43,9 @@ class AccountView extends StatelessWidget {
                     SizedBox(height: onePadding * 2),
                     MTButton.outlined(
                       margin: EdgeInsets.symmetric(horizontal: onePadding * 4),
-                      titleString: loc.auth_log_out_btn_title,
+                      titleText: loc.auth_log_out_btn_title,
                       titleColor: darkGreyColor,
-                      trailing: logoutIcon(context, color: warningColor),
+                      trailing: const LogoutIcon(color: warningColor),
                       onTap: () async => await _logout(context),
                     ),
                   ],

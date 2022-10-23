@@ -54,9 +54,6 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
   @computed
   SourceType? get selectedType => referencesController.sourceTypes.firstWhereOrNull((s) => s.id == selectedTypeId);
 
-  @override
-  bool get isLoading => super.isLoading || mainController.isLoading;
-
   /// источники импорта, трекеры
 
   @observable
@@ -153,10 +150,10 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
         simple: true,
       );
       if (confirm == true) {
-        startLoading();
+        loaderController.setLoader(context);
         Navigator.of(context).pop(await sourcesUC.delete(s: selectedSource!));
-        stopLoading();
-        await mainController.updateAll();
+        loaderController.hideLoader();
+        await mainController.updateAll(context);
       }
     }
   }

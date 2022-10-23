@@ -19,33 +19,33 @@ const _colors = {
 
 Color colorForState(TaskState state) => _colors[state] ?? darkGreyColor;
 
-Widget iconForState(BuildContext context, TaskState state, {double? size}) {
+Widget iconForState(TaskState state, {double? size}) {
   final _color = colorForState(state);
   switch (state) {
     case TaskState.overdue:
-      return overdueStateIcon(context, size: size, color: _color);
+      return StateOverdueIcon(size: size, color: _color);
     case TaskState.risk:
-      return riskStateIcon(context, size: size, color: _color);
+      return StateRiskIcon(size: size, color: _color);
     case TaskState.closable:
     case TaskState.eta:
     case TaskState.ok:
-      return okStateIcon(context, size: size, color: _color);
+      return StateOkIcon(size: size, color: _color);
     case TaskState.closed:
-      return doneIcon(context, true, size: size, color: _color);
+      return DoneIcon(true, size: size, color: _color);
     case TaskState.opened:
     case TaskState.future:
-      return openedStateIcon(context, size: size, color: _color);
+      return StateOpenedIcon(size: size, color: _color);
     case TaskState.backlog:
-      return backlogStateIcon(context, size: size, color: _color);
+      return StateBacklogIcon(size: size, color: _color);
     case TaskState.noDueDate:
     case TaskState.noSubtasks:
     case TaskState.noProgress:
-      return noInfoStateIcon(context, size: size, color: _color);
+      return StateNoInfoIcon(size: size, color: _color);
   }
 }
 
 extension TaskStatePresenter on Task {
-  Widget stateIcon(BuildContext context, {double? size}) => iconForState(context, state, size: size);
+  Widget stateIcon({double? size}) => iconForState(state, size: size);
 
   String _subjects(int count) => count > 0 ? ' ${loc.for_dative} ${dativeSubtasksCount(count)}' : '';
 

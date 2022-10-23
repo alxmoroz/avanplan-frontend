@@ -6,13 +6,12 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/entities/source.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../extra/services.dart';
-import '../_base/base_controller.dart';
 
 part 'references_controller.g.dart';
 
 class ReferencesController extends _ReferencesControllerBase with _$ReferencesController {}
 
-abstract class _ReferencesControllerBase extends BaseController with Store {
+abstract class _ReferencesControllerBase with Store {
   /// тип источника импорта
   @observable
   ObservableList<SourceType> sourceTypes = ObservableList();

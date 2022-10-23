@@ -1,7 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:collection/collection.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
@@ -10,14 +9,13 @@ import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities/ws_role.dart';
 import '../../../L1_domain/usecases/task_ext_state.dart';
 import '../../extra/services.dart';
-import '../_base/base_controller.dart';
 import '../task/task_view.dart';
 
 part 'main_controller.g.dart';
 
 class MainController extends _MainControllerBase with _$MainController {}
 
-abstract class _MainControllerBase extends BaseController with Store {
+abstract class _MainControllerBase with Store {
   /// рабочие пространства
   @observable
   ObservableList<Workspace> workspaces = ObservableList();
@@ -44,17 +42,7 @@ abstract class _MainControllerBase extends BaseController with Store {
 
   @action
   Future fetchData() async {
-    try {
-      workspaces = ObservableList.of(await myUC.getWorkspaces());
-    } on DioError catch (e) {
-      if (e.response?.statusCode == 403) {
-        //TODO: могут быть сюрпризы, возможно, лучше сделать поп до корня
-        await authController.logout();
-        return;
-      } else {
-        print(e);
-      }
-    }
+    workspaces = ObservableList.of(await myUC.getWorkspaces());
 
     workspaces.sort((w1, w2) => compareNatural(w1.title, w2.title));
 
@@ -90,14 +78,14 @@ abstract class _MainControllerBase extends BaseController with Store {
     accountController.clearData();
   }
 
-  Future updateAll() async {
-    startLoading();
+  Future updateAll(BuildContext? context) async {
+    loaderController.setLoader(context, titleText: 'Loading...');
     await fetchData();
     // TODO: Подумать над фоновым обновлением или обновлением на бэке по расписанию. Иначе каждый запуск приложения — это будет вот это вот всё.
-    // TODO: Можно эту логику на бэк отправить вообще вместе с настройкой частоты обновления для трекера. Чтобы вообще не запускать процесс импорта из клиента.
+    // TODO: Нужно эту логику на бэк отправить вообще вместе с настройкой частоты обновления для трекера. Чтобы вообще не запускать процесс импорта из клиента.
     if (await importController.updateLinkedTasks()) {
       await fetchData();
     }
-    stopLoading();
+    loaderController.hideLoader();
   }
 }

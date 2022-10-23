@@ -85,8 +85,8 @@ class TaskView extends StatelessWidget {
                         ),
                       MTButton.outlined(
                         margin: EdgeInsets.symmetric(horizontal: onePadding),
-                        titleString: (_task.shouldClose || _task.shouldCloseLeaf) ? loc.close_action_title : loc.task_reopen_action_title,
-                        leading: doneIcon(context, _task.shouldClose || _task.shouldCloseLeaf),
+                        titleText: (_task.shouldClose || _task.shouldCloseLeaf) ? loc.close_action_title : loc.task_reopen_action_title,
+                        leading: DoneIcon(_task.shouldClose || _task.shouldCloseLeaf),
                         onTap: () => _controller.setClosed(context, !_task.closed),
                       ),
                     ])
@@ -97,7 +97,6 @@ class TaskView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        isLoading: _controller.isLoading,
         navBar: taskNavBar(context, _controller),
         body: SafeArea(
           top: !_task.isWorkspace,

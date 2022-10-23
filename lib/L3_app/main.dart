@@ -10,12 +10,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'components/colors.dart';
-import 'components/mt_splash.dart';
+import 'extra/loader/loader_screen.dart';
 import 'extra/services.dart';
 import 'l10n/generated/l10n.dart';
 import 'views/account/account_view.dart';
 import 'views/login/login_view.dart';
-import 'views/main/main_view.dart';
+import 'views/main/root_view.dart';
 import 'views/settings/settings_view.dart';
 import 'views/source/source_list_view.dart';
 import 'views/task/task_view.dart';
@@ -32,11 +32,6 @@ Future main() async {
   }
 
   runApp(App());
-}
-
-class RootView extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) => Observer(builder: (_) => authController.authorized ? MainView() : LoginView());
 }
 
 class App extends StatelessWidget {
@@ -58,7 +53,11 @@ class App extends StatelessWidget {
       child: CupertinoApp(
         home: FutureBuilder(
           future: getIt.allReady(),
-          builder: (_, snapshot) => snapshot.hasData ? RootView() : const MTSplashScreen(),
+          builder: (_, snapshot) => snapshot.hasData
+              ? Observer(
+                  builder: (_) => authController.authorized ? RootView() : LoginView(),
+                )
+              : LoaderScreen(),
         ),
         localizationsDelegates: const [
           S.delegate,

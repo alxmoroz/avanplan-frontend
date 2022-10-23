@@ -14,7 +14,7 @@ enum ButtonType { text, elevated, outlined, icon }
 
 class MTButton extends StatelessWidget {
   const MTButton({
-    this.titleString,
+    this.titleText,
     this.onTap,
     this.leading,
     this.middle,
@@ -26,7 +26,7 @@ class MTButton extends StatelessWidget {
   }) : type = ButtonType.text;
 
   MTButton.outlined({
-    this.titleString,
+    this.titleText,
     this.onTap,
     this.leading,
     this.middle,
@@ -41,14 +41,14 @@ class MTButton extends StatelessWidget {
   const MTButton.icon(Widget icon, this.onTap, {this.margin, this.padding})
       : type = ButtonType.icon,
         middle = icon,
-        titleString = null,
+        titleText = null,
         color = null,
         leading = null,
         trailing = null,
         titleColor = null;
 
   final ButtonType type;
-  final String? titleString;
+  final String? titleText;
   final VoidCallback? onTap;
   final Widget? leading;
   final Widget? middle;
@@ -73,7 +73,7 @@ class MTButton extends StatelessWidget {
         splashFactory: NoSplash.splashFactory,
       );
 
-  Widget get _middle => middle ?? MediumText(titleString ?? '', color: _titleColor);
+  Widget get _middle => middle ?? MediumText(titleText ?? '', color: _titleColor);
   Widget get _child => _MTBaseLayout(leading: leading, middle: _middle, trailing: trailing);
 
   Widget _button(BuildContext context) {
@@ -123,7 +123,7 @@ class MTPlusButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTButton.outlined(
-      middle: plusIcon(context, size: onePadding * 2),
+      middle: PlusIcon(size: onePadding * 2),
       margin: EdgeInsets.only(right: onePadding),
       onTap: onTap,
     );

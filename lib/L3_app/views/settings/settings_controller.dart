@@ -4,13 +4,12 @@ import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/app_settings.dart';
 import '../../extra/services.dart';
-import '../_base/base_controller.dart';
 
 part 'settings_controller.g.dart';
 
 class SettingsController extends _SettingsControllerBase with _$SettingsController {}
 
-abstract class _SettingsControllerBase extends BaseController with Store {
+abstract class _SettingsControllerBase with Store {
   @observable
   AppSettings? settings;
 
@@ -28,7 +27,4 @@ abstract class _SettingsControllerBase extends BaseController with Store {
 
   @action
   void clearData() => settings = null;
-
-  @override
-  bool get isLoading => super.isLoading || mainController.isLoading;
 }

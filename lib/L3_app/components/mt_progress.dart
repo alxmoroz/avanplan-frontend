@@ -28,7 +28,7 @@ class MTProgressMark extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return child ?? caretIcon(context, up: showBottom == true, size: mSize);
+    return child ?? CaretIcon(up: showBottom == true, size: mSize);
   }
 }
 

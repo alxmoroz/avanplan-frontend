@@ -1,6 +1,9 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'dart:io';
+
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:openapi/openapi.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -24,10 +27,11 @@ import '../l10n/generated/l10n.dart';
 import '../views/account/account_controller.dart';
 import '../views/import/import_controller.dart';
 import '../views/main/main_controller.dart';
-import '../views/references/references_controller.dart';
 import '../views/settings/settings_controller.dart';
 import '../views/source/source_controller.dart';
 import 'auth/auth_controller.dart';
+import 'loader/loader_controller.dart';
+import 'references/references_controller.dart';
 
 S get loc => S.current;
 
@@ -38,6 +42,7 @@ PackageInfo get packageInfo => GetIt.I<PackageInfo>();
 
 SettingsController get settingsController => GetIt.I<SettingsController>();
 MainController get mainController => GetIt.I<MainController>();
+LoaderController get loaderController => GetIt.I<LoaderController>();
 SourceController get sourceController => GetIt.I<SourceController>();
 ReferencesController get referencesController => GetIt.I<ReferencesController>();
 ImportController get importController => GetIt.I<ImportController>();
@@ -67,6 +72,24 @@ void setup() {
   // final api = Openapi(basePathOverride: 'http://localhost:8000/');
   api.dio.options.connectTimeout = 300000;
   api.dio.options.receiveTimeout = 300000;
+  api.dio.interceptors.add(InterceptorsWrapper(onError: (DioError e, handler) async {
+    String errMessage = '';
+    if (e.type == DioErrorType.other) {
+      errMessage = e.error.message;
+      if (e.error is SocketException) {
+        //TODO: перевести на человеческий
+      }
+    } else if ([400, 401, 402, 403, 404].contains(e.response?.statusCode)) {
+      await authController.logout();
+      // errMessage = loc.auth_error_description;
+    }
+
+    if (errMessage.isNotEmpty) {
+      loaderController.setLoader(null, titleText: errMessage, actionText: loc.ok);
+    }
+
+    return handler.next(e);
+  }));
   getIt.registerSingleton<Openapi>(api);
 
   // use cases
@@ -84,6 +107,7 @@ void setup() {
   getIt.registerSingleton<SettingsController>(SettingsController());
   getIt.registerSingleton<ReferencesController>(ReferencesController());
   getIt.registerSingleton<MainController>(MainController());
+  getIt.registerSingleton<LoaderController>(LoaderController());
   getIt.registerSingleton<SourceController>(SourceController());
   getIt.registerSingleton<ImportController>(ImportController());
   getIt.registerSingleton<AccountController>(AccountController());

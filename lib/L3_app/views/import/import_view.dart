@@ -44,12 +44,12 @@ class ImportView extends StatelessWidget {
           DropdownMenuItem<Source>(value: s, child: Padding(padding: EdgeInsets.only(right: onePadding), child: s.info(context))),
         DropdownMenuItem<Source>(
           value: Source(workspaceId: -1, type: SourceType(id: -1, title: ''), url: 'none'),
-          child: Row(children: [plusIcon(context), MediumText(loc.source_title_new, color: mainColor)]),
+          child: Row(children: [const PlusIcon(), MediumText(loc.source_title_new, color: mainColor)]),
         ),
       ];
 
   Widget _sourceDropdown(BuildContext context) => MTDropdown<Source>(
-        onChanged: (s) => s?.id != null ? _controller.selectSource(s) : _controller.needAddSourceEvent(context),
+        onChanged: (s) => s?.id != null ? _controller.selectSource(context, s) : _controller.needAddSourceEvent(context),
         value: _controller.selectedSource,
         ddItems: _srcDdItems(sourceController.sources, context),
         label: loc.source_import_placeholder,
@@ -110,7 +110,7 @@ class ImportView extends StatelessWidget {
               padding: EdgeInsets.only(bottom: onePadding / 2),
             ),
           MTButton.outlined(
-            titleString: loc.import_action_title,
+            titleText: loc.import_action_title,
             margin: EdgeInsets.symmetric(horizontal: onePadding),
             onTap: _validated ? () => _controller.startImport(context) : null,
           )
@@ -123,7 +123,6 @@ class ImportView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        isLoading: _controller.isLoading,
         navBar: navBar(context, leading: MTCloseButton(), title: loc.import_title),
         body: SafeArea(bottom: false, child: _body(context)),
         bottomBar: _bottomBar(context),

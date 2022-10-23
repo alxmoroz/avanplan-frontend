@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 
+import '../../extra/loader/loader_screen.dart';
 import '../../extra/services.dart';
 import 'main_view.dart';
 
@@ -17,11 +18,13 @@ class _RootViewState extends State<RootView> {
     super.dispose();
   }
 
+  final Future<void> _fetchData = mainController.updateAll(null);
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<void>(
-      future: mainController.updateAll(context),
-      builder: (_, snapshot) => MainView(),
+      future: _fetchData,
+      builder: (_, snapshot) => snapshot.connectionState == ConnectionState.done ? MainView() : LoaderScreen(),
     );
   }
 }

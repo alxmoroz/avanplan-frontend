@@ -109,7 +109,7 @@ class _LoginViewState extends State<LoginView> {
                   padding: EdgeInsets.symmetric(horizontal: onePadding),
                   leading: googleIcon(size: onePadding * 3.7),
                   // titleColor: CupertinoColors.label,
-                  middle: MediumText(loc.auth_log_in_with_google_btn_title, padding: EdgeInsets.only(left: onePadding), color: CupertinoColors.label),
+                  middle: MediumText(loc.auth_log_in_with_google_btn_title, color: CupertinoColors.label),
                   color: googleBtnColor,
                   onTap: () => authController.authorizeWithGoogle(context),
                 ),

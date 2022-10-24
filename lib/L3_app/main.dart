@@ -15,7 +15,7 @@ import 'extra/services.dart';
 import 'l10n/generated/l10n.dart';
 import 'views/account/account_view.dart';
 import 'views/login/login_view.dart';
-import 'views/main/root_view.dart';
+import 'views/main/main_view.dart';
 import 'views/settings/settings_view.dart';
 import 'views/source/source_list_view.dart';
 import 'views/task/task_view.dart';
@@ -55,7 +55,7 @@ class App extends StatelessWidget {
           future: getIt.allReady(),
           builder: (_, snapshot) => snapshot.hasData
               ? Observer(
-                  builder: (_) => authController.authorized ? RootView() : LoginView(),
+                  builder: (_) => authController.authorized ? MainView() : LoginView(),
                 )
               : LoaderScreen(),
         ),

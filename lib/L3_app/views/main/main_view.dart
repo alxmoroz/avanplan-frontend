@@ -23,7 +23,24 @@ import '../task/task_view_widgets/task_navbar.dart';
 import '../task/task_view_widgets/task_overview.dart';
 import 'project_empty_list_actions_widget.dart';
 
-class MainView extends StatelessWidget {
+class MainView extends StatefulWidget {
+  @override
+  _MainViewState createState() => _MainViewState();
+}
+
+class _MainViewState extends State<MainView> {
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) async => await mainController.updateAll(context));
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    mainController.clearData();
+    super.dispose();
+  }
+
   TaskViewController get _taskController => TaskViewController(null);
   Task get _task => _taskController.task;
 

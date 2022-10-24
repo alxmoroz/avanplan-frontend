@@ -123,7 +123,6 @@ abstract class _LoaderControllerBase with Store {
       } else {
         // программные ошибки клиента и сервера
         final errorText = '${code < 500 ? 'HTTP Client' : code < 600 ? 'HTTP Server' : 'Unknown HTTP'} Error $code';
-        // TODO: не правильно обрабатывается логика каскада запросов, среди которых могут быть ок и не ок
         _setHTTPError(context, errorText);
       }
     }

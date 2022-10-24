@@ -2,7 +2,7 @@
 
 import 'package:intl/intl.dart';
 
-import '../extra/platform.dart';
+import '../../L2_data/repositories/platform.dart';
 import '../extra/services.dart';
 
 //TODO: настройку адресов вынести на бэк. Можно хранить как для типа источника импорта, например.

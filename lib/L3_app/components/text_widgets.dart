@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../extra/platform.dart';
+import '../../L2_data/repositories/platform.dart';
 import 'colors.dart';
 
 class _BaseText extends StatelessWidget {

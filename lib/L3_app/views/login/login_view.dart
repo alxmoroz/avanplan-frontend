@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import '../../../L2_data/repositories/platform.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -12,7 +13,6 @@ import '../../components/mt_page.dart';
 import '../../components/mt_text_field.dart';
 import '../../components/text_field_annotation.dart';
 import '../../components/text_widgets.dart';
-import '../../extra/platform.dart';
 import '../../extra/services.dart';
 import '../../presenters/communications_presenter.dart';
 import '../login/login_controller.dart';

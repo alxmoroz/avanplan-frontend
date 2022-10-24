@@ -11,8 +11,9 @@ import '../../L1_domain/usecases/my_uc.dart';
 import '../../L1_domain/usecases/settings_uc.dart';
 import '../../L1_domain/usecases/sources_uc.dart';
 import '../../L1_domain/usecases/tasks_uc.dart';
-import '../../L2_data/db.dart';
+import '../../L2_data/repositories/api.dart';
 import '../../L2_data/repositories/auth_repo.dart';
+import '../../L2_data/repositories/db.dart';
 import '../../L2_data/repositories/db_repo.dart';
 import '../../L2_data/repositories/import_repo.dart';
 import '../../L2_data/repositories/my_repo.dart';
@@ -26,7 +27,6 @@ import '../views/import/import_controller.dart';
 import '../views/main/main_controller.dart';
 import '../views/settings/settings_controller.dart';
 import '../views/source/source_controller.dart';
-import 'api.dart';
 import 'auth/auth_controller.dart';
 import 'loader/loader_controller.dart';
 import 'references/references_controller.dart';
@@ -34,9 +34,6 @@ import 'references/references_controller.dart';
 S get loc => S.current;
 
 GetIt getIt = GetIt.instance;
-
-BaseDeviceInfo get deviceInfo => GetIt.I<BaseDeviceInfo>();
-PackageInfo get packageInfo => GetIt.I<PackageInfo>();
 
 SettingsController get settingsController => GetIt.I<SettingsController>();
 MainController get mainController => GetIt.I<MainController>();

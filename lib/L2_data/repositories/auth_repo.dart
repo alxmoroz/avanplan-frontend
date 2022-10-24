@@ -5,8 +5,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:openapi/openapi.dart';
 
 import '../../L1_domain/repositories/abs_auth_repo.dart';
-import '../../L3_app/extra/api.dart';
-import '../../L3_app/extra/platform.dart';
+import 'api.dart';
+import 'platform.dart';
 
 class AuthRepo extends AbstractAuthRepo {
   AuthApi get api => openAPI.getAuthApi();

@@ -6,10 +6,10 @@ import '../../L1_domain/entities/user.dart';
 import '../../L1_domain/entities/workspace.dart';
 import '../../L1_domain/repositories/abs_my_repo.dart';
 import '../../L1_domain/system/errors.dart';
-import '../../L3_app/extra/api.dart';
 import '../mappers/user.dart';
 import '../mappers/workspace.dart';
 import '../mappers/ws_role.dart';
+import 'api.dart';
 
 class MyRepo extends AbstractApiMyRepo {
   MyApi get api => openAPI.getMyApi();

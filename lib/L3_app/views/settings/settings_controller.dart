@@ -3,6 +3,7 @@
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/app_settings.dart';
+import '../../../L2_data/repositories/platform.dart';
 import '../../extra/services.dart';
 
 part 'settings_controller.g.dart';

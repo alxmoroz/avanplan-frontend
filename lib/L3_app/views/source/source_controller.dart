@@ -7,6 +7,7 @@ import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/source.dart';
 import '../../../L1_domain/entities/workspace.dart';
+import '../../../L1_domain/system/errors.dart';
 import '../../components/mt_confirm_dialog.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
@@ -89,7 +90,9 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
           if (id != null) {
             sources[index].state = (await importUC.getRootTasks(id)).isNotEmpty ? SrcState.connected : SrcState.error;
           }
-        } catch (_) {
+        } on MTException catch (e) {
+          //TODO: проверить код или сделать подкласс на этот случай
+          print(e.code);
           sources[index].state = SrcState.error;
         }
       }

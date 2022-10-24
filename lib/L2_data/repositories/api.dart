@@ -9,13 +9,13 @@ import 'package:get_it/get_it.dart';
 import 'package:openapi/openapi.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import '../components/colors.dart';
-import '../components/constants.dart';
-import '../components/icons.dart';
-import '../components/mt_button.dart';
-import '../presenters/communications_presenter.dart';
+import '../../L3_app/components/colors.dart';
+import '../../L3_app/components/constants.dart';
+import '../../L3_app/components/icons.dart';
+import '../../L3_app/components/mt_button.dart';
+import '../../L3_app/extra/services.dart';
+import '../../L3_app/presenters/communications_presenter.dart';
 import 'platform.dart';
-import 'services.dart';
 
 Openapi get openAPI => GetIt.I<Openapi>();
 
@@ -23,7 +23,6 @@ void _reportError(String error) {
   launchUrlString('$contactUsMailSample%0D%0A$error');
 }
 
-//TODO: иконка
 void _setLoader(String errorText) {
   final mainRecommendationText = isWeb ? loc.update_web_app_recommendation_title : loc.update_app_recommendation_title;
   loaderController.setLoader(
@@ -79,6 +78,8 @@ Openapi setupApi() {
   // final api = Openapi(basePathOverride: 'http://localhost:8000/');
   api.dio.options.connectTimeout = 300000;
   api.dio.options.receiveTimeout = 300000;
+
+  // TODO: Он должен отправлять MTException в контроллеры для обработки их там уже и лоадером там же управлять, а не тут
   api.dio.interceptors.add(InterceptorsWrapper(onError: (DioError e, handler) async {
     if (e.type == DioErrorType.other) {
       if (e.error is SocketException) {
@@ -97,13 +98,10 @@ Openapi setupApi() {
 
       if ([401, 403, 407].contains(code)) {
         // ошибки авторизации
-        if (path.startsWith('/v1/auth')) {
+        if (!path.startsWith('/v1/auth')) {
           // Обрабатываются дальше, если это именно авторизация.
-          return handler.next(e);
-        } else {
           //... остальных случаях выбрасываем без объяснений
           await authController.logout();
-          loaderController.hideLoader();
         }
       } else {
         // программные ошибки клиента и сервера
@@ -114,6 +112,7 @@ Openapi setupApi() {
         // TODO: не правильно обрабатывается логика каскада запросов, среди которых могут быть ок и не ок
         _setLoader(errorText);
       }
+      return handler.next(e);
     }
   }));
   return api;

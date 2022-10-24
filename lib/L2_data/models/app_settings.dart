@@ -3,7 +3,7 @@
 import 'package:hive/hive.dart';
 
 import '../../L1_domain/entities/app_settings.dart';
-import '../db.dart';
+import '../repositories/db.dart';
 import 'base.dart';
 
 part 'app_settings.g.dart';

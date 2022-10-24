@@ -42,10 +42,12 @@ abstract class _MainControllerBase with Store {
 
   @action
   Future fetchData() async {
+    await settingsController.fetchData();
+    await referencesController.fetchData();
+    await accountController.fetchData();
+
     workspaces = ObservableList.of(await myUC.getWorkspaces());
-
     workspaces.sort((w1, w2) => compareNatural(w1.title, w2.title));
-
     final tasks = <Task>[];
     for (Workspace ws in workspaces) {
       if (ws.id != null) {
@@ -58,9 +60,6 @@ abstract class _MainControllerBase with Store {
     // TODO: чтобы сохранять положение в навигации внутри приложения, нужно синхронизировать id текущей выбранной задачи на сервер в профиль пользователя
 
     await sourceController.fetchData();
-    await settingsController.fetchData();
-    await referencesController.fetchData();
-    await accountController.fetchData();
   }
 
   @action
@@ -80,12 +79,16 @@ abstract class _MainControllerBase with Store {
 
   Future updateAll(BuildContext? context) async {
     loaderController.setLoader(context, titleText: 'Loading...');
-    await fetchData();
-    // TODO: Подумать над фоновым обновлением или обновлением на бэке по расписанию. Иначе каждый запуск приложения — это будет вот это вот всё.
-    // TODO: Нужно эту логику на бэк отправить вообще вместе с настройкой частоты обновления для трекера. Чтобы вообще не запускать процесс импорта из клиента.
-    if (await importController.updateLinkedTasks()) {
+    try {
       await fetchData();
+      // TODO: Подумать над фоновым обновлением или обновлением на бэке по расписанию. Иначе каждый запуск приложения — это будет вот это вот всё.
+      // TODO: Нужно эту логику на бэк отправить вообще вместе с настройкой частоты обновления для трекера. Чтобы вообще не запускать процесс импорта из клиента.
+      if (await importController.updateLinkedTasks()) {
+        await fetchData();
+      }
+      loaderController.hideLoader();
+    } catch (e) {
+      print(e);
     }
-    loaderController.hideLoader();
   }
 }

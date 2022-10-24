@@ -1,8 +1,11 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:get_it/get_it.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
-import 'services.dart';
+BaseDeviceInfo get deviceInfo => GetIt.I<BaseDeviceInfo>();
+PackageInfo get packageInfo => GetIt.I<PackageInfo>();
 
 bool get isWeb => deviceInfo is WebBrowserInfo;
 bool get _isIOs => deviceInfo is IosDeviceInfo;

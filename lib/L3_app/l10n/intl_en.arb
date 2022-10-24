@@ -53,6 +53,8 @@
 
   "months_count": "{count, plural, one{{count} month} other{{count} months}}",
 
+  "network_error_description": "Please check your internet connection and try again",
+  "network_error_title": "Network error\nNo connection to server",
   "no": "No",
 
   "ok": "Ok",
@@ -67,6 +69,9 @@
   "project_list_title": "All projects",
   "project_new_title": "New project",
   "project_title": "Project",
+
+  "reload_action_title": "Reload",
+  "report_bug_action_title": "Report a bug",
 
   "role_admin": "Administrator",
   "role_guest": "Guest",
@@ -149,6 +154,9 @@
 
   "title": "Title",
   "today_date_label": "Today",
+
+  "update_app_recommendation_title": "Update the app to the latest version",
+  "update_web_app_recommendation_title": "Refresh the page in your browser or reinstall the web application",
 
   "validation_empty_text": "Should not be empty",
 

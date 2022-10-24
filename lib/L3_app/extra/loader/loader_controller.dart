@@ -29,6 +29,12 @@ abstract class _LoaderControllerBase with Store {
   @observable
   BuildContext? _loaderContext;
 
+  // @observable
+  // ObservableList<VoidCallback>? callbacks;
+
+  @observable
+  int stack = 0;
+
   @action
   void setLoader(
     BuildContext? context, {
@@ -43,7 +49,7 @@ abstract class _LoaderControllerBase with Store {
     iconWidget = icon ?? gerculesIcon();
     titleWidget = title ??
         (titleText != null
-            ? H2(
+            ? H3(
                 titleText,
                 align: TextAlign.center,
                 padding: EdgeInsets.symmetric(horizontal: onePadding).copyWith(top: onePadding),
@@ -51,7 +57,7 @@ abstract class _LoaderControllerBase with Store {
             : null);
     descriptionWidget = description ??
         (descriptionText != null
-            ? NormalText(
+            ? H4(
                 descriptionText,
                 align: TextAlign.center,
                 padding: EdgeInsets.symmetric(horizontal: onePadding).copyWith(top: onePadding / 2),
@@ -67,7 +73,7 @@ abstract class _LoaderControllerBase with Store {
               )
             : null);
 
-    if (_loaderContext == null && context != null) {
+    if (_loaderContext == null && context != null && stack == 0) {
       showDialog<void>(
           context: context,
           barrierDismissible: false,
@@ -76,12 +82,13 @@ abstract class _LoaderControllerBase with Store {
             _loaderContext = context;
             return LoaderScreen();
           });
+      stack++;
     }
   }
 
   @action
   void hideLoader() {
-    if (_loaderContext != null) {
+    if (_loaderContext != null && --stack == 0) {
       Navigator.of(_loaderContext!).pop();
       _loaderContext = null;
     }

@@ -1,9 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'dart:io';
-
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:openapi/openapi.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -29,6 +26,7 @@ import '../views/import/import_controller.dart';
 import '../views/main/main_controller.dart';
 import '../views/settings/settings_controller.dart';
 import '../views/source/source_controller.dart';
+import 'api.dart';
 import 'auth/auth_controller.dart';
 import 'loader/loader_controller.dart';
 import 'references/references_controller.dart';
@@ -49,8 +47,6 @@ ImportController get importController => GetIt.I<ImportController>();
 AccountController get accountController => GetIt.I<AccountController>();
 AuthController get authController => GetIt.I<AuthController>();
 
-Openapi get openAPI => GetIt.I<Openapi>();
-
 SettingsUC get settingsUC => GetIt.I<SettingsUC>();
 AuthUC get authUC => GetIt.I<AuthUC>();
 MyUC get myUC => GetIt.I<MyUC>();
@@ -67,30 +63,7 @@ void setup() {
 
   // repo / adapters
   getIt.registerSingletonAsync<HiveStorage>(() async => await HiveStorage().init());
-
-  final api = Openapi(basePathOverride: 'https://gercul.es/api/');
-  // final api = Openapi(basePathOverride: 'http://localhost:8000/');
-  api.dio.options.connectTimeout = 300000;
-  api.dio.options.receiveTimeout = 300000;
-  api.dio.interceptors.add(InterceptorsWrapper(onError: (DioError e, handler) async {
-    String errMessage = '';
-    if (e.type == DioErrorType.other) {
-      errMessage = e.error.message;
-      if (e.error is SocketException) {
-        //TODO: перевести на человеческий
-      }
-    } else if ([400, 401, 402, 403, 404].contains(e.response?.statusCode)) {
-      await authController.logout();
-      // errMessage = loc.auth_error_description;
-    }
-
-    if (errMessage.isNotEmpty) {
-      loaderController.setLoader(null, titleText: errMessage, actionText: loc.ok);
-    }
-
-    return handler.next(e);
-  }));
-  getIt.registerSingleton<Openapi>(api);
+  getIt.registerSingleton<Openapi>(setupApi());
 
   // use cases
   getIt.registerSingleton<AuthUC>(AuthUC(authRepo: AuthRepo(), localAuthRepo: LocalAuthRepo()));

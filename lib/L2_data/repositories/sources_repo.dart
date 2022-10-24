@@ -5,7 +5,7 @@ import 'package:openapi/openapi.dart' as o_api;
 import '../../L1_domain/entities/source.dart';
 import '../../L1_domain/repositories/abs_api_repo.dart';
 // TODO: нарушение направления зависимостей. аналогично в похожих местах
-import '../../L3_app/extra/services.dart';
+import '../../L3_app/extra/api.dart';
 import '../mappers/source.dart';
 
 class SourcesRepo extends AbstractApiRepo<Source> {

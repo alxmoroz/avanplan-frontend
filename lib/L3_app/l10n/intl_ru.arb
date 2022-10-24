@@ -53,6 +53,9 @@
 
   "months_count": "{count, plural, one{месяц} few{{count} месяца} other{{count} месяцев}}",
 
+  "network_error_description": "Проверьте соединение с интернетом и повторите попытку",
+  "network_error_title": "Ошибка сети\nНет соединения с сервером",
+
   "no": "Нет",
 
   "ok": "Ясно",
@@ -67,6 +70,9 @@
   "project_list_title": "Все проекты",
   "project_new_title": "Новый проект",
   "project_title": "Проект",
+
+  "reload_action_title": "Перезагрузить",
+  "report_bug_action_title": "Сообщить об ошибке",
 
   "role_admin": "Администратор",
   "role_guest": "Гость",
@@ -150,6 +156,9 @@
 
   "title": "Название",
   "today_date_label": "Сегодня",
+
+  "update_app_recommendation_title": "Обновите приложение до самой свежей версии",
+  "update_web_app_recommendation_title": "Обновите страницу в браузере или переустановите веб-приложение",
 
   "validation_empty_text": "Нужно заполнить",
 

@@ -5,7 +5,7 @@ import 'package:openapi/openapi.dart' as o_api;
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/repositories/abs_api_repo.dart';
 import '../../L1_domain/system/errors.dart';
-import '../../L3_app/extra/services.dart';
+import '../../L3_app/extra/api.dart';
 import '../mappers/task.dart';
 
 // TODO: для всех подобных репозиториев: развязать узел зависимости от 3 уровня за счёт инициализации openApi в конструктор репы

@@ -300,6 +300,16 @@ class PrivacyIcon extends _MTIcon {
       );
 }
 
+class NetworkErrorIcon extends _MTIcon {
+  const NetworkErrorIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.wifi_exclamationmark,
+        color: (color ?? lightGreyColor).resolve(context),
+        size: size ?? onePadding * 2,
+      );
+}
+
 double get _sourceIconSize => onePadding * 2;
 
 Widget redmineIcon() => Image.asset('assets/images/redmine_icon.png', width: _sourceIconSize, height: _sourceIconSize);

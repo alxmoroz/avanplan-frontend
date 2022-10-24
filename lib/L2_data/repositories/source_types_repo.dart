@@ -4,7 +4,7 @@ import 'package:openapi/openapi.dart';
 
 import '../../L1_domain/entities/source.dart';
 import '../../L1_domain/repositories/abs_api_repo.dart';
-import '../../L3_app/extra/services.dart';
+import '../../L3_app/extra/api.dart';
 import '../mappers/source_type.dart';
 
 class SourceTypesRepo extends AbstractApiRepo<SourceType> {

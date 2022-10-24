@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:collection/collection.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
@@ -35,18 +36,19 @@ abstract class _ImportControllerBase extends EditController with Store {
 
   @action
   Future fetchTasks(BuildContext context, int sourceID) async {
-    loaderController.setLoader(context);
+    loaderController.setLoader(context, titleText: 'Getting list of projects...');
     final _remoteTasks = <TaskImport>[];
-    if (authController.authorized) {
-      try {
-        selectedAll = true;
-        _remoteTasks.addAll((await importUC.getRootTasks(sourceID)).sorted((t1, t2) => compareNatural(t1.title, t2.title)));
-      } catch (e) {
-        setErrorCode(e is MTException ? e.code : e.toString());
-      }
+    try {
+      selectedAll = true;
+      _remoteTasks.addAll((await importUC.getRootTasks(sourceID)).sorted((t1, t2) => compareNatural(t1.title, t2.title)));
+      loaderController.hideLoader();
+    } on MTImportError catch (e) {
+      setErrorCode(e.code);
+      loaderController.hideLoader();
+    } on DioError catch (e) {
+      loaderController.catchDioErrors(context, e);
     }
     remoteTasks = _remoteTasks;
-    loaderController.hideLoader();
   }
 
   @action
@@ -96,7 +98,7 @@ abstract class _ImportControllerBase extends EditController with Store {
     final taskSources = selectedTasks.map((t) => t.taskSource!);
     final done = await importUC.importTaskSources(selectedSource?.id, taskSources);
     if (done) {
-      await mainController.fetchData();
+      await mainController.fetchData(context);
       Navigator.of(context).pop();
     }
     loaderController.hideLoader();

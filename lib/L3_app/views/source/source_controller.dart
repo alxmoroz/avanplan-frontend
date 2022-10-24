@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:collection/collection.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -31,14 +32,14 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
   // Если тут сделать по запросу, тогда в окне импорта нужно будет учесть тоже
 
   @action
-  Future fetchData() async {
+  Future fetchData(BuildContext? context) async {
     final _sources = <Source>[];
     for (Workspace ws in mainController.selectableWSs) {
       _sources.addAll(ws.sources);
     }
     sources = ObservableList.of(_sources);
     _sortSources();
-    _checkSources(sources);
+    _checkSources(context, sources);
   }
 
   @action
@@ -81,22 +82,25 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
   bool get validated => super.validated && selectedType != null && selectedWS != null;
 
   @action
-  Future _checkSources(List<Source> _sources) async {
+  Future _checkSources(BuildContext? context, List<Source> _sources) async {
     for (int i = 0; i < _sources.length; i++) {
       final index = sources.indexWhere((s) => s.id == _sources[i].id);
       if (index >= 0) {
         try {
+          loaderController.setLoader(context, titleText: 'Check source connection... ${sources[index].type.title}');
           final id = sources[index].id;
           if (id != null) {
             sources[index].state = (await importUC.getRootTasks(id)).isNotEmpty ? SrcState.connected : SrcState.error;
           }
-        } on MTException catch (e) {
-          //TODO: проверить код или сделать подкласс на этот случай
-          print(e.code);
+        } on MTImportError catch (e) {
+          print(e.detail);
           sources[index].state = SrcState.error;
+        } on DioError catch (e) {
+          loaderController.catchDioErrors(context, e);
         }
       }
     }
+    loaderController.hideLoader();
     sources = ObservableList.of(sources);
   }
 
@@ -104,7 +108,7 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
   void _sortSources() => sources.sort((s1, s2) => s1.url.compareTo(s2.url));
 
   @action
-  Future _updateSourceInList(Source? _s) async {
+  Future _updateSourceInList(BuildContext? context, Source? _s) async {
     if (_s != null) {
       final index = sources.indexWhere((s) => s.id == _s.id);
       if (index >= 0) {
@@ -117,7 +121,7 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
         sources.add(_s);
       }
       _sortSources();
-      await _checkSources([_s]);
+      await _checkSources(context, [_s]);
     }
   }
 
@@ -172,7 +176,7 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
     }
     final _s = await editSourceDialog(context);
     if (_s != null) {
-      await _updateSourceInList(_s);
+      await _updateSourceInList(context, _s);
     }
     return _s;
   }

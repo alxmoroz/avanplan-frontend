@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:built_collection/built_collection.dart';
+import 'package:dio/dio.dart';
 import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/task.dart';
@@ -9,8 +10,6 @@ import '../../L1_domain/repositories/abs_import_repo.dart';
 import '../../L1_domain/system/errors.dart';
 import '../mappers/task.dart';
 import 'api.dart';
-
-// TODO: для всех подобных репозиториев: развязать узел зависимости от 3 уровня за счёт инициализации openApi в конструктор репы
 
 class ImportRepo extends AbstractApiImportRepo {
   o_api.IntegrationsTasksApi get api => openAPI.getIntegrationsTasksApi();
@@ -25,9 +24,17 @@ class ImportRepo extends AbstractApiImportRepo {
           rootTasks.add(t.taskImport);
         }
       }
-    } catch (e) {
-      // TODO: ошибка трекера
-      throw MTException(code: 'import_title_error_get_list', detail: e.toString());
+    } on DioError catch (e) {
+      if (e.response?.statusCode == 500) {
+        final String detail = e.response?.data['detail'];
+        if (detail.startsWith('ERR_SOURCE_GET_ROOT_TASKS')) {
+          throw MTImportError(code: 'import_title_error_get_list', detail: detail);
+        } else {
+          rethrow;
+        }
+      } else {
+        rethrow;
+      }
     }
 
     return rootTasks;

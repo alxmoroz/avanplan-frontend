@@ -1,12 +1,20 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
+import '../../../L2_data/repositories/platform.dart';
+import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_button.dart';
 import '../../components/text_widgets.dart';
+import '../../presenters/communications_presenter.dart';
+import '../services.dart';
 import 'loader_screen.dart';
 
 part 'loader_controller.g.dart';
@@ -92,5 +100,98 @@ abstract class _LoaderControllerBase with Store {
       Navigator.of(_loaderContext!).pop();
       _loaderContext = null;
     }
+  }
+
+  Future catchDioErrors(BuildContext? context, DioError e) async {
+    if (e.type == DioErrorType.other) {
+      if (e.error is SocketException) {
+        _setNetworkError(context, '${e.error}');
+      }
+    } else if (e.type == DioErrorType.response) {
+      final code = e.response?.statusCode ?? 666;
+      final path = e.requestOptions.path;
+
+      if ([401, 403, 407].contains(code)) {
+        // ошибки авторизации
+        if (!path.startsWith('/v1/auth')) {
+          // Обрабатываются дальше, если это именно авторизация.
+          //... остальных случаях выбрасываем без объяснений
+          await authController.logout();
+        } else {
+          _setAuthError(context);
+        }
+      } else {
+        // программные ошибки клиента и сервера
+        final errorText = '${code < 500 ? 'HTTP Client' : code < 600 ? 'HTTP Server' : 'Unknown HTTP'} Error $code';
+        // TODO: не правильно обрабатывается логика каскада запросов, среди которых могут быть ок и не ок
+        _setHTTPError(context, errorText);
+      }
+    }
+  }
+
+  Widget _reportErrorButton(String errorText) => MTButton.outlined(
+        titleColor: darkColor,
+        leading: const MailIcon(),
+        titleText: loc.report_bug_action_title,
+        margin: EdgeInsets.symmetric(horizontal: onePadding).copyWith(top: onePadding),
+        onTap: () => launchUrlString('$contactUsMailSample%0D%0A$errorText'),
+      );
+
+  Widget get authIcon => PrivacyIcon(size: onePadding * 10, color: lightGreyColor);
+
+  void _setAuthError(BuildContext? context) {
+    setLoader(
+      context,
+      icon: authIcon,
+      titleText: loc.auth_error_title,
+      descriptionText: loc.auth_error_description,
+      actionText: loc.ok,
+    );
+  }
+
+  void _setHTTPError(BuildContext? context, String? errorText) {
+    errorText ??= 'LoaderHTTPError';
+    final mainRecommendationText = isWeb ? loc.update_web_app_recommendation_title : loc.update_app_recommendation_title;
+    setLoader(
+      context,
+      icon: NetworkErrorIcon(size: onePadding * 10),
+      titleText: errorText,
+      descriptionText: '$mainRecommendationText\n${loc.report_bug_action_title}',
+      action: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          MTButton.outlined(
+            titleText: loc.ok,
+            margin: EdgeInsets.symmetric(horizontal: onePadding),
+            onTap: () => loaderController.hideLoader(),
+          ),
+          _reportErrorButton(errorText),
+        ],
+      ),
+    );
+  }
+
+  void _setNetworkError(BuildContext? context, String? errorText) {
+    errorText ??= 'LoaderNetworkError';
+    setLoader(
+      context,
+      icon: NetworkErrorIcon(size: onePadding * 10),
+      titleText: loc.network_error_title,
+      descriptionText: loc.network_error_description,
+      action: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          MTButton.outlined(
+            leading: const RefreshIcon(),
+            titleText: loc.reload_action_title,
+            margin: EdgeInsets.symmetric(horizontal: onePadding),
+            onTap: () => mainController.updateAll(null),
+          ),
+          _reportErrorButton(errorText),
+        ],
+      ),
+    );
   }
 }

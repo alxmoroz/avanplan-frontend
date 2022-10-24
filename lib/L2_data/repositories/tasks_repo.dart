@@ -4,7 +4,6 @@ import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/repositories/abs_api_repo.dart';
-import '../../L1_domain/system/errors.dart';
 import '../mappers/task.dart';
 import 'api.dart';
 
@@ -16,18 +15,12 @@ class TasksRepo extends AbstractApiRepo<Task> {
   @override
   Future<List<Task>> getAll([dynamic query]) async {
     final List<Task> tasks = [];
-    try {
-      final response = await api.getRootTasksV1TasksGet(wsId: query!.workspaceId);
-      if (response.statusCode == 200) {
-        for (o_api.TaskGet t in response.data?.toList() ?? []) {
-          tasks.add(t.task());
-        }
+    final response = await api.getRootTasksV1TasksGet(wsId: query!.workspaceId);
+    if (response.statusCode == 200) {
+      for (o_api.TaskGet t in response.data?.toList() ?? []) {
+        tasks.add(t.task());
       }
-    } catch (e) {
-      // TODO: ошибка трекера
-      throw MTException(code: 'task_error_get_root_tasks', detail: e.toString());
     }
-
     return tasks;
   }
 

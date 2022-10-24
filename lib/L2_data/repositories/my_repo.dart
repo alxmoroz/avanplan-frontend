@@ -5,7 +5,6 @@ import 'package:openapi/openapi.dart';
 import '../../L1_domain/entities/user.dart';
 import '../../L1_domain/entities/workspace.dart';
 import '../../L1_domain/repositories/abs_my_repo.dart';
-import '../../L1_domain/system/errors.dart';
 import '../mappers/user.dart';
 import '../mappers/workspace.dart';
 import '../mappers/ws_role.dart';
@@ -17,14 +16,9 @@ class MyRepo extends AbstractApiMyRepo {
   @override
   Future<User?> getMyAccount() async {
     User? user;
-    try {
-      final response = await api.getMyAccountV1MyAccountGet();
-      if (response.statusCode == 200) {
-        user = response.data?.user;
-      }
-    } catch (e) {
-      // TODO: это что и зачем?
-      throw MTException(code: 'api_error_get_current_user', detail: e.toString());
+    final response = await api.getMyAccountV1MyAccountGet();
+    if (response.statusCode == 200) {
+      user = response.data?.user;
     }
     return user;
   }

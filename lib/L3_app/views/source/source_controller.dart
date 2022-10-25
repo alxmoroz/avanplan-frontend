@@ -1,7 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:collection/collection.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -83,23 +82,22 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
 
   @action
   Future _checkSources(BuildContext? context, List<Source> _sources) async {
+    loaderController.setLoader(context, titleText: 'Check source connection...');
     for (int i = 0; i < _sources.length; i++) {
       final index = sources.indexWhere((s) => s.id == _sources[i].id);
       if (index >= 0) {
         try {
-          loaderController.setLoader(context, titleText: 'Check source connection... ${sources[index].type.title}');
+          loaderController.setLoader(context, titleText: 'Check source connection...\n${sources[index].type.title}');
           final id = sources[index].id;
           if (id != null) {
             sources[index].state = (await importUC.getRootTasks(id)).isNotEmpty ? SrcState.connected : SrcState.error;
           }
         } on MTImportError {
           sources[index].state = SrcState.error;
-        } on DioError {
-          print('_checkSources DioError');
-          break;
         }
       }
     }
+    loaderController.hideLoader();
 
     sources = ObservableList.of(sources);
   }

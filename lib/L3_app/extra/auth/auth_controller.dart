@@ -1,7 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:collection/collection.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
@@ -28,12 +27,8 @@ abstract class _AuthControllerBase with Store {
 
   Future authorize(BuildContext context, String login, String password) async {
     loaderController.setLoader(context, icon: loaderController.authIcon, titleText: 'AUTH');
-    try {
-      _setAuthorized(await authUC.authorize(username: login, password: password));
-      loaderController.hideLoader();
-    } on DioError catch (e) {
-      print(e);
-    }
+    _setAuthorized(await authUC.authorize(username: login, password: password));
+    loaderController.hideLoader();
   }
 
   Future authorizeWithGoogle(BuildContext context) async {
@@ -44,8 +39,6 @@ abstract class _AuthControllerBase with Store {
     } on MTOAuthError catch (e) {
       // TODO: можно определять что именно произошло по типу кода и выдавать соотв. сообщение
       loaderController.setLoader(context, icon: loaderController.authIcon, titleText: e.code, actionText: loc.ok);
-    } on DioError catch (e) {
-      print(e);
     }
   }
 

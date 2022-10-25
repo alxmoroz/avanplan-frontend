@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart' hide Interceptor;
 import 'package:url_launcher/url_launcher_string.dart';
 
+import '../../../L2_data/repositories/api.dart';
 import '../../../L2_data/repositories/platform.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
@@ -113,26 +114,27 @@ abstract class _LoaderControllerBase with Store {
         } else if (e.type == DioErrorType.response) {
           final code = e.response?.statusCode ?? 666;
           final path = e.requestOptions.path;
-          final errCode = e.response?.headers['err_code']?.first;
-
-          print('InterceptorsWrapper $errCode');
 
           if ([401, 403, 407].contains(code)) {
             // ошибки авторизации
-            if (!path.startsWith('/v1/auth')) {
-              // Обрабатываются дальше, если это именно авторизация.
-              //... остальных случаях выбрасываем без объяснений
-              await authController.logout();
-            } else {
+            if (path.startsWith('/v1/auth')) {
+              // Показываем диалог, если это именно авторизация
               _setAuthError();
+            } else {
+              // в остальных случаях выбрасываем без объяснений
+              await authController.logout();
+              hideLoader();
             }
           } else {
             // программные ошибки клиента и сервера
             final errorText = '${code < 500 ? 'HTTP Client' : code < 600 ? 'HTTP Server' : 'Unknown HTTP'} Error $code';
-            _setHTTPError(errorText);
+            if (e.errCode != null && e.errCode!.startsWith('ERR_')) {
+              return handler.next(e);
+            } else {
+              _setHTTPError(errorText);
+            }
           }
         }
-        return handler.next(e);
       })
     ];
   }

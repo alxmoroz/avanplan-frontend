@@ -25,15 +25,8 @@ class ImportRepo extends AbstractApiImportRepo {
         }
       }
     } on DioError catch (e) {
-      if (e.response?.statusCode == 500) {
-        final String detail = e.response?.data['detail'];
-        if (detail.startsWith('ERR_SOURCE_GET_ROOT_TASKS')) {
-          throw MTImportError(code: 'import_title_error_get_list', detail: detail);
-        } else {
-          rethrow;
-        }
-      } else {
-        rethrow;
+      if (e.errCode == 'ERR_SOURCE_GET_ROOT_TASKS') {
+        throw MTImportError(code: 'import_title_error_get_list');
       }
     }
 

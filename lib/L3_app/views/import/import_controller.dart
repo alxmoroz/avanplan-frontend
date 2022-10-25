@@ -1,7 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:collection/collection.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
@@ -45,8 +44,6 @@ abstract class _ImportControllerBase extends EditController with Store {
     } on MTImportError catch (e) {
       setErrorCode(e.code);
       loaderController.hideLoader();
-    } on DioError catch (e) {
-      loaderController.catchDioErrors(context, e);
     }
     remoteTasks = _remoteTasks;
   }
@@ -103,8 +100,8 @@ abstract class _ImportControllerBase extends EditController with Store {
         Navigator.of(context).pop();
       }
       loaderController.hideLoader();
-    } on DioError catch (e) {
-      loaderController.catchDioErrors(context, e);
+    } on MTImportError catch (e) {
+      print('startImport $e');
     }
   }
 

@@ -157,7 +157,7 @@
   "title": "Название",
   "today_date_label": "Сегодня",
 
-  "update_app_recommendation_title": "Обновите приложение до самой свежей версии",
+  "update_app_recommendation_title": "Убедитесь, что у вас самая свежая версия приложения.\nПопробуйте ещё раз",
   "update_web_app_recommendation_title": "Обновите страницу в браузере или переустановите веб-приложение",
 
   "validation_empty_text": "Нужно заполнить",

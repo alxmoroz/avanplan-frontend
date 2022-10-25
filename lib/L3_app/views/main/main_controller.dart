@@ -1,7 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:collection/collection.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
@@ -80,16 +79,12 @@ abstract class _MainControllerBase with Store {
 
   Future updateAll(BuildContext? context) async {
     loaderController.setLoader(context, titleText: 'Loading...');
-    try {
+    await fetchData(context);
+    // TODO: Подумать над фоновым обновлением или обновлением на бэке по расписанию. Иначе каждый запуск приложения — это будет вот это вот всё.
+    // TODO: Нужно эту логику на бэк отправить вообще вместе с настройкой частоты обновления для трекера. Чтобы вообще не запускать процесс импорта из клиента.
+    if (await importController.updateLinkedTasks()) {
       await fetchData(context);
-      // TODO: Подумать над фоновым обновлением или обновлением на бэке по расписанию. Иначе каждый запуск приложения — это будет вот это вот всё.
-      // TODO: Нужно эту логику на бэк отправить вообще вместе с настройкой частоты обновления для трекера. Чтобы вообще не запускать процесс импорта из клиента.
-      if (await importController.updateLinkedTasks()) {
-        await fetchData(context);
-      }
-      loaderController.hideLoader();
-    } on DioError catch (e) {
-      loaderController.catchDioErrors(context, e);
     }
+    loaderController.hideLoader();
   }
 }

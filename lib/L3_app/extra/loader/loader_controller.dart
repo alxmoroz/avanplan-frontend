@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:mobx/mobx.dart';
+import 'package:mobx/mobx.dart' hide Interceptor;
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../L2_data/repositories/platform.dart';
@@ -69,6 +69,7 @@ abstract class _LoaderControllerBase with Store {
                 descriptionText,
                 align: TextAlign.center,
                 padding: EdgeInsets.symmetric(horizontal: onePadding).copyWith(top: onePadding / 2),
+                maxLines: 5,
               )
             : null);
 
@@ -102,30 +103,38 @@ abstract class _LoaderControllerBase with Store {
     }
   }
 
-  Future catchDioErrors(BuildContext? context, DioError e) async {
-    if (e.type == DioErrorType.other) {
-      if (e.error is SocketException) {
-        _setNetworkError(context, '${e.error}');
-      }
-    } else if (e.type == DioErrorType.response) {
-      final code = e.response?.statusCode ?? 666;
-      final path = e.requestOptions.path;
+  Iterable<Interceptor> get dioInterceptors {
+    return [
+      InterceptorsWrapper(onError: (e, handler) async {
+        if (e.type == DioErrorType.other) {
+          if (e.error is SocketException) {
+            _setNetworkError('${e.error}');
+          }
+        } else if (e.type == DioErrorType.response) {
+          final code = e.response?.statusCode ?? 666;
+          final path = e.requestOptions.path;
+          final errCode = e.response?.headers['err_code']?.first;
 
-      if ([401, 403, 407].contains(code)) {
-        // ошибки авторизации
-        if (!path.startsWith('/v1/auth')) {
-          // Обрабатываются дальше, если это именно авторизация.
-          //... остальных случаях выбрасываем без объяснений
-          await authController.logout();
-        } else {
-          _setAuthError(context);
+          print('InterceptorsWrapper $errCode');
+
+          if ([401, 403, 407].contains(code)) {
+            // ошибки авторизации
+            if (!path.startsWith('/v1/auth')) {
+              // Обрабатываются дальше, если это именно авторизация.
+              //... остальных случаях выбрасываем без объяснений
+              await authController.logout();
+            } else {
+              _setAuthError();
+            }
+          } else {
+            // программные ошибки клиента и сервера
+            final errorText = '${code < 500 ? 'HTTP Client' : code < 600 ? 'HTTP Server' : 'Unknown HTTP'} Error $code';
+            _setHTTPError(errorText);
+          }
         }
-      } else {
-        // программные ошибки клиента и сервера
-        final errorText = '${code < 500 ? 'HTTP Client' : code < 600 ? 'HTTP Server' : 'Unknown HTTP'} Error $code';
-        _setHTTPError(context, errorText);
-      }
-    }
+        return handler.next(e);
+      })
+    ];
   }
 
   Widget _reportErrorButton(String errorText) => MTButton.outlined(
@@ -138,9 +147,9 @@ abstract class _LoaderControllerBase with Store {
 
   Widget get authIcon => PrivacyIcon(size: onePadding * 10, color: lightGreyColor);
 
-  void _setAuthError(BuildContext? context) {
+  void _setAuthError() {
     setLoader(
-      context,
+      null,
       icon: authIcon,
       titleText: loc.auth_error_title,
       descriptionText: loc.auth_error_description,
@@ -148,14 +157,14 @@ abstract class _LoaderControllerBase with Store {
     );
   }
 
-  void _setHTTPError(BuildContext? context, String? errorText) {
+  void _setHTTPError(String? errorText) {
     errorText ??= 'LoaderHTTPError';
     final mainRecommendationText = isWeb ? loc.update_web_app_recommendation_title : loc.update_app_recommendation_title;
     setLoader(
-      context,
+      null,
       icon: NetworkErrorIcon(size: onePadding * 10),
       titleText: errorText,
-      descriptionText: '$mainRecommendationText\n${loc.report_bug_action_title}',
+      descriptionText: mainRecommendationText,
       action: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -171,10 +180,10 @@ abstract class _LoaderControllerBase with Store {
     );
   }
 
-  void _setNetworkError(BuildContext? context, String? errorText) {
+  void _setNetworkError(String? errorText) {
     errorText ??= 'LoaderNetworkError';
     setLoader(
-      context,
+      null,
       icon: NetworkErrorIcon(size: onePadding * 10),
       titleText: loc.network_error_title,
       descriptionText: loc.network_error_description,

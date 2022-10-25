@@ -92,15 +92,15 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
           if (id != null) {
             sources[index].state = (await importUC.getRootTasks(id)).isNotEmpty ? SrcState.connected : SrcState.error;
           }
-        } on MTImportError catch (e) {
-          print(e.detail);
+        } on MTImportError {
           sources[index].state = SrcState.error;
-        } on DioError catch (e) {
-          loaderController.catchDioErrors(context, e);
+        } on DioError {
+          print('_checkSources DioError');
+          break;
         }
       }
     }
-    loaderController.hideLoader();
+
     sources = ObservableList.of(sources);
   }
 

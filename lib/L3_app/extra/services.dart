@@ -60,7 +60,6 @@ void setup() {
 
   // repo / adapters
   getIt.registerSingletonAsync<HiveStorage>(() async => await HiveStorage().init());
-  getIt.registerSingleton<Openapi>(setupApi());
 
   // use cases
   getIt.registerSingleton<AuthUC>(AuthUC(authRepo: AuthRepo(), localAuthRepo: LocalAuthRepo()));
@@ -81,4 +80,7 @@ void setup() {
   getIt.registerSingleton<SourceController>(SourceController());
   getIt.registerSingleton<ImportController>(ImportController());
   getIt.registerSingleton<AccountController>(AccountController());
+
+  // Openapi
+  getIt.registerSingleton<Openapi>(setupApi(loaderController.dioInterceptors));
 }

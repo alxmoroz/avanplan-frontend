@@ -32,7 +32,7 @@ abstract class _AuthControllerBase with Store {
       _setAuthorized(await authUC.authorize(username: login, password: password));
       loaderController.hideLoader();
     } on DioError catch (e) {
-      loaderController.catchDioErrors(context, e);
+      print(e);
     }
   }
 
@@ -45,7 +45,7 @@ abstract class _AuthControllerBase with Store {
       // TODO: можно определять что именно произошло по типу кода и выдавать соотв. сообщение
       loaderController.setLoader(context, icon: loaderController.authIcon, titleText: e.code, actionText: loc.ok);
     } on DioError catch (e) {
-      loaderController.catchDioErrors(context, e);
+      print(e);
     }
   }
 

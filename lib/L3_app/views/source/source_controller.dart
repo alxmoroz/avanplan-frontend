@@ -96,8 +96,6 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
         } on MTImportError {
           sources[index].state = SrcState.error;
         }
-
-        print(sources[index].state);
       }
     }
     if (context != null) {

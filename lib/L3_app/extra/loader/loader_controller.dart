@@ -154,8 +154,6 @@ abstract class _LoaderControllerBase with Store {
   }
 
   void _setNetworkError(String? errorText) {
-    print(errorText);
-
     errorText ??= 'LoaderNetworkError';
     set(
       icon: NetworkErrorIcon(size: onePadding * 10),

@@ -35,15 +35,16 @@ abstract class _ImportControllerBase extends EditController with Store {
 
   @action
   Future fetchTasks(BuildContext context, int sourceID) async {
-    loaderController.setLoader(context, titleText: 'Getting list of projects...');
+    loaderController.start(context);
+    loaderController.set(titleText: 'Getting list of projects...');
     final _remoteTasks = <TaskImport>[];
     try {
       selectedAll = true;
       _remoteTasks.addAll((await importUC.getRootTasks(sourceID)).sorted((t1, t2) => compareNatural(t1.title, t2.title)));
-      loaderController.hideLoader();
+      loaderController.stop();
     } on MTImportError catch (e) {
       setErrorCode(e.code);
-      loaderController.hideLoader();
+      loaderController.stop();
     }
     remoteTasks = _remoteTasks;
   }
@@ -91,7 +92,8 @@ abstract class _ImportControllerBase extends EditController with Store {
   /// действия,  роутер
 
   Future startImport(BuildContext context) async {
-    loaderController.setLoader(context, titleText: 'Importing...');
+    loaderController.start(context);
+    loaderController.set(titleText: 'Importing...');
     try {
       final taskSources = selectedTasks.map((t) => t.taskSource!);
       final done = await importUC.importTaskSources(selectedSource?.id, taskSources);
@@ -99,7 +101,7 @@ abstract class _ImportControllerBase extends EditController with Store {
         await mainController.fetchData(context);
         Navigator.of(context).pop();
       }
-      loaderController.hideLoader();
+      loaderController.stop();
     } on MTImportError catch (e) {
       print('startImport $e');
     }

@@ -45,8 +45,22 @@ abstract class _LoaderControllerBase with Store {
   int stack = 0;
 
   @action
-  void setLoader(
-    BuildContext? context, {
+  void start(BuildContext context) {
+    if (_loaderContext == null) {
+      showDialog<void>(
+          context: context,
+          barrierDismissible: false,
+          useSafeArea: false,
+          builder: (BuildContext ctx) {
+            _loaderContext = ctx;
+            return LoaderScreen();
+          });
+    }
+    stack++;
+  }
+
+  @action
+  void set({
     String? titleText,
     Widget? title,
     String? descriptionText,
@@ -79,34 +93,91 @@ abstract class _LoaderControllerBase with Store {
             ? MTButton.outlined(
                 titleText: actionText,
                 margin: EdgeInsets.symmetric(horizontal: onePadding),
-                onTap: hideLoader,
+                onTap: stop,
               )
             : null);
-
-    if (_loaderContext == null && context != null && stack == 0) {
-      showDialog<void>(
-          context: context,
-          barrierDismissible: false,
-          useSafeArea: false,
-          builder: (BuildContext context) {
-            _loaderContext = context;
-            return LoaderScreen();
-          });
-      stack++;
-    }
   }
 
   @action
-  void hideLoader() {
+  void stop() {
     if (_loaderContext != null && --stack == 0) {
       Navigator.of(_loaderContext!).pop();
       _loaderContext = null;
     }
   }
 
-  Iterable<Interceptor> get dioInterceptors {
-    return [
-      InterceptorsWrapper(onError: (e, handler) async {
+  Widget _reportErrorButton(String errorText) => MTButton.outlined(
+        titleColor: darkColor,
+        leading: const MailIcon(),
+        titleText: loc.report_bug_action_title,
+        margin: EdgeInsets.symmetric(horizontal: onePadding).copyWith(top: onePadding),
+        onTap: () => launchUrlString('$contactUsMailSample%0D%0A$errorText'),
+      );
+
+  Widget get authIcon => PrivacyIcon(size: onePadding * 10, color: lightGreyColor);
+
+  void _setAuthError() {
+    set(
+      icon: authIcon,
+      titleText: loc.auth_error_title,
+      descriptionText: loc.auth_error_description,
+      actionText: loc.ok,
+    );
+  }
+
+  void _setHTTPError(String? errorText) {
+    errorText ??= 'LoaderHTTPError';
+    final mainRecommendationText = isWeb ? loc.update_web_app_recommendation_title : loc.update_app_recommendation_title;
+    set(
+      icon: NetworkErrorIcon(size: onePadding * 10),
+      titleText: errorText,
+      descriptionText: mainRecommendationText,
+      action: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          MTButton.outlined(
+            titleText: loc.ok,
+            margin: EdgeInsets.symmetric(horizontal: onePadding),
+            onTap: stop,
+          ),
+          _reportErrorButton(errorText),
+        ],
+      ),
+    );
+  }
+
+  void _reload() {
+    final context = _loaderContext;
+    stop();
+    mainController.updateAll(context!);
+  }
+
+  void _setNetworkError(String? errorText) {
+    print(errorText);
+
+    errorText ??= 'LoaderNetworkError';
+    set(
+      icon: NetworkErrorIcon(size: onePadding * 10),
+      titleText: loc.network_error_title,
+      descriptionText: loc.network_error_description,
+      action: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          MTButton.outlined(
+            leading: const RefreshIcon(),
+            titleText: loc.reload_action_title,
+            margin: EdgeInsets.symmetric(horizontal: onePadding),
+            onTap: _reload,
+          ),
+          _reportErrorButton(errorText),
+        ],
+      ),
+    );
+  }
+
+  Interceptor get interceptor => InterceptorsWrapper(onError: (e, handler) async {
         if (e.type == DioErrorType.other) {
           if (e.error is SocketException) {
             _setNetworkError('${e.error}');
@@ -123,7 +194,7 @@ abstract class _LoaderControllerBase with Store {
             } else {
               // в остальных случаях выбрасываем без объяснений
               await authController.logout();
-              hideLoader();
+              stop();
             }
           } else {
             // программные ошибки клиента и сервера
@@ -135,73 +206,5 @@ abstract class _LoaderControllerBase with Store {
             }
           }
         }
-      })
-    ];
-  }
-
-  Widget _reportErrorButton(String errorText) => MTButton.outlined(
-        titleColor: darkColor,
-        leading: const MailIcon(),
-        titleText: loc.report_bug_action_title,
-        margin: EdgeInsets.symmetric(horizontal: onePadding).copyWith(top: onePadding),
-        onTap: () => launchUrlString('$contactUsMailSample%0D%0A$errorText'),
-      );
-
-  Widget get authIcon => PrivacyIcon(size: onePadding * 10, color: lightGreyColor);
-
-  void _setAuthError() {
-    setLoader(
-      null,
-      icon: authIcon,
-      titleText: loc.auth_error_title,
-      descriptionText: loc.auth_error_description,
-      actionText: loc.ok,
-    );
-  }
-
-  void _setHTTPError(String? errorText) {
-    errorText ??= 'LoaderHTTPError';
-    final mainRecommendationText = isWeb ? loc.update_web_app_recommendation_title : loc.update_app_recommendation_title;
-    setLoader(
-      null,
-      icon: NetworkErrorIcon(size: onePadding * 10),
-      titleText: errorText,
-      descriptionText: mainRecommendationText,
-      action: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          MTButton.outlined(
-            titleText: loc.ok,
-            margin: EdgeInsets.symmetric(horizontal: onePadding),
-            onTap: () => loaderController.hideLoader(),
-          ),
-          _reportErrorButton(errorText),
-        ],
-      ),
-    );
-  }
-
-  void _setNetworkError(String? errorText) {
-    errorText ??= 'LoaderNetworkError';
-    setLoader(
-      null,
-      icon: NetworkErrorIcon(size: onePadding * 10),
-      titleText: loc.network_error_title,
-      descriptionText: loc.network_error_description,
-      action: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          MTButton.outlined(
-            leading: const RefreshIcon(),
-            titleText: loc.reload_action_title,
-            margin: EdgeInsets.symmetric(horizontal: onePadding),
-            onTap: () => mainController.updateAll(null),
-          ),
-          _reportErrorButton(errorText),
-        ],
-      ),
-    );
-  }
+      });
 }

@@ -95,7 +95,8 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
   /// действия
 
   Future save(BuildContext context, {Task? task, required Task parent}) async {
-    loaderController.setLoader(context);
+    loaderController.start(context);
+    loaderController.set(titleText: 'Saving...');
     final editedTask = await tasksUC.save(Task(
       id: task?.id,
       parent: parent,
@@ -109,7 +110,7 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
       tasks: task?.tasks ?? [],
       type: selectedType,
     ));
-    loaderController.hideLoader();
+    loaderController.stop();
 
     if (editedTask != null) {
       Navigator.of(context).pop(editedTask);
@@ -128,9 +129,10 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
       simple: true,
     );
     if (confirm == true) {
-      loaderController.setLoader(context);
+      loaderController.start(context);
+      loaderController.set(titleText: 'Deleting...');
       final deletedTask = await tasksUC.delete(t: task);
-      loaderController.hideLoader();
+      loaderController.stop();
       Navigator.of(context).pop(deletedTask);
     }
   }

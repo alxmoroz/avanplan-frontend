@@ -77,14 +77,15 @@ abstract class _MainControllerBase with Store {
     accountController.clearData();
   }
 
-  Future updateAll(BuildContext? context) async {
-    loaderController.setLoader(context, titleText: 'Loading...');
+  Future updateAll(BuildContext context) async {
+    loaderController.start(context);
+    loaderController.set(titleText: 'Loading...');
     await fetchData(context);
     // TODO: Подумать над фоновым обновлением или обновлением на бэке по расписанию. Иначе каждый запуск приложения — это будет вот это вот всё.
     // TODO: Нужно эту логику на бэк отправить вообще вместе с настройкой частоты обновления для трекера. Чтобы вообще не запускать процесс импорта из клиента.
     if (await importController.updateLinkedTasks()) {
       await fetchData(context);
     }
-    loaderController.hideLoader();
+    loaderController.stop();
   }
 }

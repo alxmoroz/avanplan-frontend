@@ -38,7 +38,6 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
     }
     sources = ObservableList.of(_sources);
     _sortSources();
-    _checkSources(context, sources);
   }
 
   @action
@@ -82,12 +81,14 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
 
   @action
   Future _checkSources(BuildContext? context, List<Source> _sources) async {
-    loaderController.setLoader(context, titleText: 'Check source connection...');
+    if (context != null) {
+      loaderController.start(context);
+    }
     for (int i = 0; i < _sources.length; i++) {
       final index = sources.indexWhere((s) => s.id == _sources[i].id);
       if (index >= 0) {
         try {
-          loaderController.setLoader(context, titleText: 'Check source connection...\n${sources[index].type.title}');
+          loaderController.set(titleText: 'Check source connection...\n${sources[index].type.title}');
           final id = sources[index].id;
           if (id != null) {
             sources[index].state = (await importUC.getRootTasks(id)).isNotEmpty ? SrcState.connected : SrcState.error;
@@ -95,9 +96,13 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
         } on MTImportError {
           sources[index].state = SrcState.error;
         }
+
+        print(sources[index].state);
       }
     }
-    loaderController.hideLoader();
+    if (context != null) {
+      loaderController.stop();
+    }
 
     sources = ObservableList.of(sources);
   }
@@ -106,7 +111,7 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
   void _sortSources() => sources.sort((s1, s2) => s1.url.compareTo(s2.url));
 
   @action
-  Future _updateSourceInList(BuildContext? context, Source? _s) async {
+  Future _updateSourceInList(BuildContext context, Source? _s) async {
     if (_s != null) {
       final index = sources.indexWhere((s) => s.id == _s.id);
       if (index >= 0) {
@@ -119,13 +124,15 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
         sources.add(_s);
       }
       _sortSources();
-      await _checkSources(context, [_s]);
+      // await _checkSources(context, [_s]);
     }
   }
 
   /// действия
 
   Future save(BuildContext context) async {
+    loaderController.start(context);
+    loaderController.set(titleText: 'Saving...');
     final editedSource = await sourcesUC.save(Source(
       id: selectedSource?.id,
       url: tfAnnoForCode('url').text,
@@ -136,6 +143,11 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
       workspaceId: selectedWS!.id!,
       type: selectedType!,
     ));
+    //TODO: не обязательно проверять все источники тут. Достаточно только того, который редактировали
+    if (editedSource != null) {
+      await _checkSources(null, [editedSource]);
+    }
+    loaderController.stop();
 
     if (editedSource != null) {
       Navigator.of(context).pop(editedSource);
@@ -155,9 +167,10 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
         simple: true,
       );
       if (confirm == true) {
-        loaderController.setLoader(context);
+        loaderController.start(context);
+        loaderController.set(titleText: 'Deleting...');
         Navigator.of(context).pop(await sourcesUC.delete(s: selectedSource!));
-        loaderController.hideLoader();
+        loaderController.stop();
         await mainController.updateAll(context);
       }
     }

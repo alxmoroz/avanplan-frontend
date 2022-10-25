@@ -157,9 +157,10 @@ abstract class _TaskViewControllerBase with Store {
       recursively = false;
     }
 
-    loaderController.setLoader(context);
+    loaderController.start(context);
+    loaderController.set(titleText: 'Closing...');
     final editedTask = await _setClosedTaskTree(task, isClose, recursively);
-    loaderController.hideLoader();
+    loaderController.stop();
     if (editedTask != null) {
       if (editedTask.closed) {
         Navigator.of(context).pop(editedTask);
@@ -171,9 +172,7 @@ abstract class _TaskViewControllerBase with Store {
 
   Future addSubtask(BuildContext context) async {
     if (await _checkUnlinked(context)) {
-      loaderController.setLoader(context);
       final newTask = await editTaskDialog(context, parent: task);
-      loaderController.hideLoader();
       if (newTask != null) {
         task.tasks.add(newTask);
         newTask.updateParents();
@@ -198,19 +197,21 @@ abstract class _TaskViewControllerBase with Store {
   Future<bool> unlink(BuildContext context) async {
     bool res = false;
     if (await _unlinkDialog(context) == true) {
-      loaderController.setLoader(context);
+      loaderController.start(context);
+      loaderController.set(titleText: 'Unlinking...');
       res = await importUC.updateTaskSources(task.unlinkTaskTree());
       mainController.touchRootTask();
-      loaderController.hideLoader();
+      loaderController.stop();
     }
     return res;
   }
 
   Future unwatch(BuildContext context) async {
     if (await _unwatchDialog(context) == true) {
-      loaderController.setLoader(context);
+      loaderController.start(context);
+      loaderController.set(titleText: 'Unwatching...');
       final deletedTask = await tasksUC.delete(t: task);
-      loaderController.hideLoader();
+      loaderController.stop();
       if (deletedTask != null && deletedTask.deleted) {
         Navigator.of(context).pop();
         deletedTask.updateParents();

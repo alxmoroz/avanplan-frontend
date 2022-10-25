@@ -82,5 +82,5 @@ void setup() {
   getIt.registerSingleton<AccountController>(AccountController());
 
   // Openapi
-  getIt.registerSingleton<Openapi>(setupApi(loaderController.dioInterceptors));
+  getIt.registerSingleton<Openapi>(setupApi([loaderController.interceptor]));
 }

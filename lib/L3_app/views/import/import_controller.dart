@@ -98,7 +98,7 @@ abstract class _ImportControllerBase extends EditController with Store {
       if (done) {
         await mainController.fetchData();
         Navigator.of(context).pop();
-        await loaderController.stop();
+        await loaderController.stop(300);
       }
     } on MTImportError catch (e) {
       //TODO: #2055

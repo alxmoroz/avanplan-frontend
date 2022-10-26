@@ -45,6 +45,7 @@
   "hours_count": "{count, plural, one{час} few{{count} часа} other{{count} часов}}",
 
   "import_action_title": "Импортировать задачи",
+  "import_error_title": "Ошибка импорта",
   "import_list_empty_title": "Нет доступных для импорта проектов\nПопробуйте выбрать другой источник",
   "import_source_select_hint": "Выберите источник импорта",
   "import_projects_select_hint": "Выберите проекты для импорта",

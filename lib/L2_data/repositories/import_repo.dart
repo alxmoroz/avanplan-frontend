@@ -25,7 +25,7 @@ class ImportRepo extends AbstractApiImportRepo {
         }
       }
     } on DioError catch (e) {
-      if (e.errCode == 'ERR_SOURCE_GET_ROOT_TASKS') {
+      if (e.errCode == 'ERR_IMPORT_GET_ROOT_TASKS') {
         throw MTImportError(code: 'import_title_error_get_list');
       }
     }

@@ -300,6 +300,16 @@ class PrivacyIcon extends _MTIcon {
       );
 }
 
+class ServerErrorIcon extends _MTIcon {
+  const ServerErrorIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => FaIcon(
+        FontAwesomeIcons.roadBarrier,
+        color: (color ?? darkGreyColor).resolve(context),
+        size: size ?? onePadding * 2,
+      );
+}
+
 class NetworkErrorIcon extends _MTIcon {
   const NetworkErrorIcon({super.color, super.size});
   @override

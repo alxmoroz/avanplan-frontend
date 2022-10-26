@@ -45,6 +45,7 @@
   "hours_count": "{count, plural, one{{count} hour} other{{count} hours}}",
 
   "import_action_title": "Import tasks",
+  "import_error_title": "Import error",
   "import_list_empty_title": "There are no projects available to import\nTry choosing a different source",
   "import_projects_select_hint": "Select projects to import",
   "import_source_select_hint": "Select an import source",

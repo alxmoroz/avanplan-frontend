@@ -84,10 +84,12 @@ abstract class _LoaderControllerBase with Store {
           } else {
             // программные ошибки клиента и сервера
             final errorText = '${code < 500 ? 'HTTP Client' : code < 600 ? 'HTTP Server' : 'Unknown HTTP'} Error $code';
-            if (e.errCode != null && e.errCode! == 'ERR_SOURCE_GET_ROOT_TASKS') {
+            if (e.errCode == 'ERR_IMPORT_GET_ROOT_TASKS') {
               return handler.next(e);
+            } else if (e.errCode.startsWith('ERR_IMPORT')) {
+              _setImportError(e.detail, e.detail);
             } else {
-              _setHTTPError(errorText, e.response?.data['detail']);
+              _setHTTPError(errorText, e.detail);
             }
           }
         }
@@ -100,6 +102,7 @@ abstract class _LoaderControllerBase with Store {
   Widget get _defaultIcon => gerculesIcon();
   Widget get _authIcon => PrivacyIcon(size: iconSize, color: iconColor);
   Widget get _networkErrorIcon => NetworkErrorIcon(size: iconSize, color: iconColor);
+  Widget get _serverErrorIcon => ServerErrorIcon(size: iconSize, color: iconColor);
 
   Widget _title(String titleText) => H3(
         titleText,
@@ -132,18 +135,14 @@ abstract class _LoaderControllerBase with Store {
     errorText ??= 'LoaderHTTPError';
     final mainRecommendationText = isWeb ? loc.update_web_app_recommendation_title : loc.update_app_recommendation_title;
     _set(
-      icon: _networkErrorIcon,
+      icon: _serverErrorIcon,
       titleText: errorText,
       descriptionText: mainRecommendationText,
       action: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          MTButton.outlined(
-            titleText: loc.ok,
-            margin: EdgeInsets.symmetric(horizontal: onePadding),
-            onTap: stop,
-          ),
+          _stopAction(loc.ok),
           _reportErrorButton('$errorText ${errorDetail ?? ''}'),
         ],
       ),
@@ -193,6 +192,15 @@ abstract class _LoaderControllerBase with Store {
         titleText: loc.loader_importing_title,
         descriptionText: descriptionText,
         icon: ImportIcon(size: iconSize, color: iconColor),
+      );
+  void _setImportError(String? descriptionText, String? errorDetail) => _set(
+        titleText: loc.import_error_title,
+        descriptionText: descriptionText,
+        icon: ImportIcon(size: iconSize, color: iconColor),
+        action: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          _stopAction(loc.ok),
+          _reportErrorButton('$descriptionText ${errorDetail ?? ''}'),
+        ]),
       );
   void setRefreshing() => _set(titleText: loc.loader_refreshing_title, icon: RefreshIcon(size: iconSize, color: iconColor));
   void setSaving() => _set(titleText: loc.loader_saving_title, icon: EditIcon(size: iconSize, color: iconColor));

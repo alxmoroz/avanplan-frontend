@@ -51,6 +51,16 @@
   "import_title": "Импорт задач",
   "import_title_error_get_list": "Ошибка получения списка проектов\nПопробуйте выбрать другой источник",
 
+  "loader_auth_title": "Проверяем доступ...",
+  "loader_check_connection_title": "Проверка соединения...",
+  "loader_deleting_title": "Удаляем...",
+  "loader_importing_title": "Импортируем...",
+  "loader_refreshing_title": "Обновляем...",
+  "loader_saving_title": "Сохраняем...",
+  "loader_source_listing": "Получаем список проектов...",
+  "loader_unlinking_title": "Рвём связи...",
+  "loader_unwatch_title": "Отправляем в игнор...",
+
   "months_count": "{count, plural, one{месяц} few{{count} месяца} other{{count} месяцев}}",
 
   "network_error_description": "Проверьте соединение с интернетом и повторите попытку",
@@ -72,7 +82,7 @@
   "project_title": "Проект",
 
   "reload_action_title": "Перезагрузить",
-  "report_bug_action_title": "Сообщить об ошибке",
+  "report_bug_action_title": "Сообщить о проблеме",
 
   "role_admin": "Администратор",
   "role_guest": "Гость",

@@ -1,6 +1,8 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:gercules/L3_app/components/colors.dart';
+import 'package:gercules/L3_app/components/constants.dart';
 import 'package:mobx/mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -114,7 +116,7 @@ abstract class _TaskViewControllerBase with Store {
             title: loc.task_unwatch_action_title,
             type: MTActionType.isDanger,
             result: true,
-            icon: const EyeSlashIcon(),
+            icon: EyeIcon(open: false, color: dangerColor, size: onePadding * 1.4),
           ),
           _go2SourceDialogAction(),
         ],
@@ -157,10 +159,11 @@ abstract class _TaskViewControllerBase with Store {
       recursively = false;
     }
 
-    loaderController.start(context);
-    loaderController.set(titleText: 'Closing...');
+    loaderController.start();
+    loaderController.setClosing(isClose);
     final editedTask = await _setClosedTaskTree(task, isClose, recursively);
-    loaderController.stop();
+    await loaderController.stop();
+
     if (editedTask != null) {
       if (editedTask.closed) {
         Navigator.of(context).pop(editedTask);
@@ -197,21 +200,21 @@ abstract class _TaskViewControllerBase with Store {
   Future<bool> unlink(BuildContext context) async {
     bool res = false;
     if (await _unlinkDialog(context) == true) {
-      loaderController.start(context);
-      loaderController.set(titleText: 'Unlinking...');
+      loaderController.start();
+      loaderController.setUnlinking();
       res = await importUC.updateTaskSources(task.unlinkTaskTree());
       mainController.touchRootTask();
-      loaderController.stop();
+      await loaderController.stop();
     }
     return res;
   }
 
   Future unwatch(BuildContext context) async {
     if (await _unwatchDialog(context) == true) {
-      loaderController.start(context);
-      loaderController.set(titleText: 'Unwatching...');
+      loaderController.start();
+      loaderController.setUnwatch();
       final deletedTask = await tasksUC.delete(t: task);
-      loaderController.stop();
+      await loaderController.stop();
       if (deletedTask != null && deletedTask.deleted) {
         Navigator.of(context).pop();
         deletedTask.updateParents();

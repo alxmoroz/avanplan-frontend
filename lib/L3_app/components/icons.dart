@@ -48,7 +48,7 @@ class ImportIcon extends _MTIcon {
 class WSIcon extends _MTIcon {
   const WSIcon({super.color, super.size});
   @override
-  Widget build(BuildContext context) => Icon(
+  Widget build(BuildContext context) => FaIcon(
         FontAwesomeIcons.houseUser,
         color: (color ?? darkGreyColor).resolve(context),
         size: size ?? onePadding * 1.45,
@@ -71,6 +71,16 @@ class EditIcon extends _MTIcon {
   Widget build(BuildContext context) => Icon(
         Icons.edit,
         color: (color ?? mainColor).resolve(context),
+        size: size ?? onePadding * 2,
+      );
+}
+
+class DeleteIcon extends _MTIcon {
+  const DeleteIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.delete,
+        color: (color ?? dangerColor).resolve(context),
         size: size ?? onePadding * 2,
       );
 }
@@ -151,20 +161,10 @@ class EyeIcon extends _MTIcon {
   const EyeIcon({this.open = true, super.color, super.size});
   final bool open;
   @override
-  Widget build(BuildContext context) => Icon(
-        open ? CupertinoIcons.eye : CupertinoIcons.eye_slash,
+  Widget build(BuildContext context) => FaIcon(
+        open ? FontAwesomeIcons.eye : FontAwesomeIcons.eyeSlash,
         color: (color ?? darkGreyColor).resolve(context),
-        size: size ?? onePadding * 2,
-      );
-}
-
-class EyeSlashIcon extends _MTIcon {
-  const EyeSlashIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.eye_slash,
-        color: (color ?? dangerColor).resolve(context),
-        size: size ?? onePadding * 2,
+        size: size ?? onePadding * 1.7,
       );
 }
 
@@ -305,7 +305,7 @@ class NetworkErrorIcon extends _MTIcon {
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.wifi_exclamationmark,
-        color: (color ?? lightGreyColor).resolve(context),
+        color: (color ?? darkGreyColor).resolve(context),
         size: size ?? onePadding * 2,
       );
 }

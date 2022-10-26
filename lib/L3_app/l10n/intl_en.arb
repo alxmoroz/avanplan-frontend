@@ -51,6 +51,16 @@
   "import_title": "Import tasks",
   "import_title_error_get_list": "Error getting projects\nTry choosing a different source",
 
+  "loader_auth_title": "Checking access...",
+  "loader_check_connection_title": "Checking connection...",
+  "loader_deleting_title": "Deleting...",
+  "loader_importing_title": "Importing...",
+  "loader_refreshing_title": "Refreshing...",
+  "loader_saving_title": "Saving...",
+  "loader_source_listing": "Getting a list of projects...",
+  "loader_unlinking_title": "Breaking the chains...",
+  "loader_unwatch_title": "Sending to ignore...",
+
   "months_count": "{count, plural, one{{count} month} other{{count} months}}",
 
   "network_error_description": "Please check your internet connection and try again",

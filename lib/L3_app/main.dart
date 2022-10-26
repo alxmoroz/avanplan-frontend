@@ -42,50 +42,52 @@ class App extends StatelessWidget {
     // const fontFamily = '--apple-system';
     const fontFamily = 'Roboto';
 
-    return Theme(
-      data: ThemeData(
+    return MaterialApp(
+      theme: ThemeData(
         // brightness: WidgetsBinding.instance.window.platformBrightness,
         // colorSchemeSeed: mainColor.resolve(context),
         colorScheme: ColorScheme.fromSeed(seedColor: mainColor.resolve(context), brightness: WidgetsBinding.instance.window.platformBrightness),
         fontFamily: fontFamily,
         useMaterial3: true,
       ),
-      child: CupertinoApp(
-        home: FutureBuilder(
-          future: getIt.allReady(),
-          builder: (_, snapshot) => snapshot.hasData
-              ? Observer(
-                  builder: (_) => authController.authorized ? MainView() : LoginView(),
-                )
-              : LoaderScreen(),
-        ),
-        localizationsDelegates: const [
-          S.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate
-        ],
-        supportedLocales: S.delegate.supportedLocales,
-        theme: CupertinoThemeData(
-          scaffoldBackgroundColor: backgroundColor,
-          primaryColor: mainColor,
-          textTheme: textTheme.copyWith(
-            primaryColor: mainColor,
-            textStyle: textTheme.textStyle.copyWith(fontFamily: fontFamily),
+      home: Observer(
+        builder: (_) => Stack(children: [
+          CupertinoApp(
+            home: FutureBuilder(
+              future: getIt.allReady(),
+              builder: (_, snapshot) =>
+                  snapshot.hasData ? Observer(builder: (_) => authController.authorized ? MainView() : LoginView()) : LoaderScreen(),
+            ),
+            localizationsDelegates: const [
+              S.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate
+            ],
+            supportedLocales: S.delegate.supportedLocales,
+            theme: CupertinoThemeData(
+              scaffoldBackgroundColor: backgroundColor,
+              primaryColor: mainColor,
+              textTheme: textTheme.copyWith(
+                primaryColor: mainColor,
+                textStyle: textTheme.textStyle.copyWith(fontFamily: fontFamily),
+              ),
+            ),
+            routes: {
+              SourceListView.routeName: (_) => SourceListView(),
+              SettingsView.routeName: (_) => SettingsView(),
+              AccountView.routeName: (_) => AccountView(),
+              WorkspaceListView.routeName: (_) => WorkspaceListView(),
+            },
+            onGenerateRoute: (RouteSettings rs) {
+              if (rs.name == TaskView.routeName) {
+                return CupertinoPageRoute<dynamic>(builder: (_) => TaskView(rs.arguments as int?));
+              }
+              return null;
+            },
           ),
-        ),
-        routes: {
-          SourceListView.routeName: (_) => SourceListView(),
-          SettingsView.routeName: (_) => SettingsView(),
-          AccountView.routeName: (_) => AccountView(),
-          WorkspaceListView.routeName: (_) => WorkspaceListView(),
-        },
-        onGenerateRoute: (RouteSettings rs) {
-          if (rs.name == TaskView.routeName) {
-            return CupertinoPageRoute<dynamic>(builder: (_) => TaskView(rs.arguments as int?));
-          }
-          return null;
-        },
+          if (loaderController.stack > 0) LoaderScreen(),
+        ]),
       ),
     );
   }

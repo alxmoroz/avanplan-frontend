@@ -4,9 +4,12 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../L1_domain/entities/source.dart';
 import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities/task_source.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities/ws_role.dart';
+import '../../../L1_domain/usecases/task_ext_actions.dart';
 import '../../../L1_domain/usecases/task_ext_state.dart';
 import '../../extra/services.dart';
 import '../task/task_view.dart';
@@ -41,7 +44,8 @@ abstract class _MainControllerBase with Store {
   }
 
   @action
-  Future fetchData(BuildContext? context) async {
+  Future fetchData() async {
+    loaderController.setRefreshing();
     await settingsController.fetchData();
     await accountController.fetchData();
     await referencesController.fetchData();
@@ -58,7 +62,7 @@ abstract class _MainControllerBase with Store {
     rootTask.tasks = tasks;
     touchRootTask();
 
-    await sourceController.fetchData(context);
+    await sourceController.fetchData();
     // TODO: чтобы сохранять положение в навигации внутри приложения, нужно синхронизировать id текущей выбранной задачи на сервер в профиль пользователя
   }
 
@@ -77,15 +81,28 @@ abstract class _MainControllerBase with Store {
     accountController.clearData();
   }
 
-  Future updateAll(BuildContext context) async {
-    loaderController.start(context);
-    loaderController.set(titleText: 'Loading...');
-    await fetchData(context);
+  Future updateAll() async {
+    loaderController.start();
+    await fetchData();
     // TODO: Подумать над фоновым обновлением или обновлением на бэке по расписанию. Иначе каждый запуск приложения — это будет вот это вот всё.
     // TODO: Нужно эту логику на бэк отправить вообще вместе с настройкой частоты обновления для трекера. Чтобы вообще не запускать процесс импорта из клиента.
-    if (await importController.updateLinkedTasks()) {
-      await fetchData(context);
+    if (await _updateLinkedTasks()) {
+      await fetchData();
     }
-    loaderController.stop();
+    await loaderController.stop();
+  }
+
+  Future<bool> _updateLinkedTasks() async {
+    bool needUpdate = false;
+    for (Source src in sourceController.sources) {
+      final linkedTSs = mainController.rootTask.tasks.where((t) => t.hasLink && t.taskSource?.source.id == src.id).map((t) => t.taskSource!);
+      needUpdate = linkedTSs.isNotEmpty;
+      if (needUpdate) {
+        //TODO: тут можно указать из какого источника обновляем данные
+        loaderController.setImporting();
+        await importUC.importTaskSources(src.id, linkedTSs.map((ts) => TaskSourceImport(code: ts.code, rootCode: ts.rootCode)));
+      }
+    }
+    return needUpdate;
   }
 }

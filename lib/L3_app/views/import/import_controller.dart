@@ -6,9 +6,7 @@ import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/source.dart';
 import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/entities/task_source.dart';
 import '../../../L1_domain/system/errors.dart';
-import '../../../L1_domain/usecases/task_ext_actions.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
 import 'import_view.dart';
@@ -31,20 +29,20 @@ abstract class _ImportControllerBase extends EditController with Store {
   String? errorCode;
 
   @action
-  void setErrorCode(String? eCode) => errorCode = eCode;
+  void _setErrorCode(String? eCode) => errorCode = eCode;
 
   @action
-  Future fetchTasks(BuildContext context, int sourceID) async {
-    loaderController.start(context);
-    loaderController.set(titleText: 'Getting list of projects...');
+  Future fetchTasks(int sourceID) async {
+    loaderController.start();
+    loaderController.setSourceListing();
     final _remoteTasks = <TaskImport>[];
     try {
       selectedAll = true;
       _remoteTasks.addAll((await importUC.getRootTasks(sourceID)).sorted((t1, t2) => compareNatural(t1.title, t2.title)));
-      loaderController.stop();
+      await loaderController.stop();
     } on MTImportError catch (e) {
-      setErrorCode(e.code);
-      loaderController.stop();
+      _setErrorCode(e.code);
+      await loaderController.stop();
     }
     remoteTasks = _remoteTasks;
   }
@@ -73,10 +71,10 @@ abstract class _ImportControllerBase extends EditController with Store {
   int? selectedSourceId;
 
   @action
-  Future selectSource(BuildContext context, Source? src) async {
+  Future selectSource(Source? src) async {
     selectedSourceId = src?.id;
     if (selectedSourceId != null) {
-      await fetchTasks(context, selectedSourceId!);
+      await fetchTasks(selectedSourceId!);
     }
   }
 
@@ -92,16 +90,16 @@ abstract class _ImportControllerBase extends EditController with Store {
   /// действия,  роутер
 
   Future startImport(BuildContext context) async {
-    loaderController.start(context);
-    loaderController.set(titleText: 'Importing...');
+    loaderController.start();
+    loaderController.setImporting();
     try {
       final taskSources = selectedTasks.map((t) => t.taskSource!);
       final done = await importUC.importTaskSources(selectedSource?.id, taskSources);
       if (done) {
-        await mainController.fetchData(context);
+        await mainController.fetchData();
         Navigator.of(context).pop();
+        await loaderController.stop();
       }
-      loaderController.stop();
     } on MTImportError catch (e) {
       //TODO: #2055
       print('startImport $e');
@@ -127,7 +125,7 @@ abstract class _ImportControllerBase extends EditController with Store {
 
     // выбираем источник импорта заранее из созданного только что или существующий выбранного типа
     if (preselectedSource != null) {
-      await selectSource(context, preselectedSource);
+      await selectSource(preselectedSource);
     }
 
     // если вернулись из диалога с желанием добавить источник импорта, то опять пытаемся добавить источник импорта
@@ -136,17 +134,5 @@ abstract class _ImportControllerBase extends EditController with Store {
     if (needSource) {
       await importTasks(context, needAddSource: needSource);
     }
-  }
-
-  Future<bool> updateLinkedTasks() async {
-    bool needUpdate = false;
-    for (Source src in sourceController.sources) {
-      final linkedTSs = mainController.rootTask.tasks.where((t) => t.hasLink && t.taskSource?.source.id == src.id).map((t) => t.taskSource!);
-      needUpdate = linkedTSs.isNotEmpty;
-      if (needUpdate) {
-        await importUC.importTaskSources(src.id, linkedTSs.map((ts) => TaskSourceImport(code: ts.code, rootCode: ts.rootCode)));
-      }
-    }
-    return needUpdate;
   }
 }

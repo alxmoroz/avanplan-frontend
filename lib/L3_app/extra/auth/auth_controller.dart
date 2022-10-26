@@ -26,21 +26,20 @@ abstract class _AuthControllerBase with Store {
   void _setAuthorized(bool _auth) => authorized = _auth;
 
   Future authorize(BuildContext context, String login, String password) async {
-    loaderController.start(context);
-    loaderController.set(icon: loaderController.authIcon, titleText: 'AUTH');
+    loaderController.start();
+    loaderController.setAuth();
     _setAuthorized(await authUC.authorize(username: login, password: password));
-    loaderController.stop();
+    await loaderController.stop();
   }
 
   Future authorizeWithGoogle(BuildContext context) async {
-    loaderController.start(context);
-    loaderController.set(icon: loaderController.authIcon, titleText: 'G_AUTH');
+    loaderController.start();
+    loaderController.setAuth();
     try {
       _setAuthorized(await authUC.authorizeWithGoogle());
-      loaderController.stop();
-    } on MTOAuthError catch (e) {
-      // TODO: можно определять что именно произошло по типу кода и выдавать соотв. сообщение
-      loaderController.set(icon: loaderController.authIcon, titleText: e.code, actionText: loc.ok);
+      await loaderController.stop();
+    } on MTOAuthError {
+      loaderController.setAuthError();
     }
   }
 

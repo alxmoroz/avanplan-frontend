@@ -31,7 +31,7 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
   // Если тут сделать по запросу, тогда в окне импорта нужно будет учесть тоже
 
   @action
-  Future fetchData(BuildContext? context) async {
+  Future fetchData() async {
     final _sources = <Source>[];
     for (Workspace ws in mainController.selectableWSs) {
       _sources.addAll(ws.sources);
@@ -80,15 +80,13 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
   bool get validated => super.validated && selectedType != null && selectedWS != null;
 
   @action
-  Future _checkSources(BuildContext? context, List<Source> _sources) async {
-    if (context != null) {
-      loaderController.start(context);
-    }
+  Future _checkSources(List<Source> _sources) async {
+    loaderController.start();
     for (int i = 0; i < _sources.length; i++) {
       final index = sources.indexWhere((s) => s.id == _sources[i].id);
       if (index >= 0) {
         try {
-          loaderController.set(titleText: 'Check source connection...\n${sources[index].type.title}');
+          loaderController.setCheckConnection(sources[index].type.title);
           final id = sources[index].id;
           if (id != null) {
             sources[index].state = (await importUC.getRootTasks(id)).isNotEmpty ? SrcState.connected : SrcState.error;
@@ -98,18 +96,16 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
         }
       }
     }
-    if (context != null) {
-      loaderController.stop();
-    }
-
     sources = ObservableList.of(sources);
+
+    await loaderController.stop();
   }
 
   @action
   void _sortSources() => sources.sort((s1, s2) => s1.url.compareTo(s2.url));
 
   @action
-  Future _updateSourceInList(BuildContext context, Source? _s) async {
+  Future _updateSourceInList(Source? _s) async {
     if (_s != null) {
       final index = sources.indexWhere((s) => s.id == _s.id);
       if (index >= 0) {
@@ -122,15 +118,14 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
         sources.add(_s);
       }
       _sortSources();
-      // await _checkSources(context, [_s]);
     }
   }
 
   /// действия
 
   Future save(BuildContext context) async {
-    loaderController.start(context);
-    loaderController.set(titleText: 'Saving...');
+    loaderController.start();
+    loaderController.setSaving();
     final editedSource = await sourcesUC.save(Source(
       id: selectedSource?.id,
       url: tfAnnoForCode('url').text,
@@ -141,14 +136,10 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
       workspaceId: selectedWS!.id!,
       type: selectedType!,
     ));
-    //TODO: не обязательно проверять все источники тут. Достаточно только того, который редактировали
-    if (editedSource != null) {
-      await _checkSources(null, [editedSource]);
-    }
-    loaderController.stop();
 
     if (editedSource != null) {
       Navigator.of(context).pop(editedSource);
+      await loaderController.stop(300);
     }
   }
 
@@ -165,11 +156,12 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
         simple: true,
       );
       if (confirm == true) {
-        loaderController.start(context);
-        loaderController.set(titleText: 'Deleting...');
+        loaderController.start();
+        loaderController.setDeleting();
         Navigator.of(context).pop(await sourcesUC.delete(s: selectedSource!));
-        loaderController.stop();
-        await mainController.updateAll(context);
+        await loaderController.stop(300);
+
+        await mainController.updateAll();
       }
     }
   }
@@ -185,7 +177,9 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
     }
     final _s = await editSourceDialog(context);
     if (_s != null) {
-      await _updateSourceInList(context, _s);
+      //TODO: не обязательно проверять все источники тут. Достаточно только того, который редактировали
+      await _updateSourceInList(_s);
+      await _checkSources([_s]);
     }
     return _s;
   }

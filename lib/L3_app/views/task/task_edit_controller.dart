@@ -15,7 +15,7 @@ part 'task_edit_controller.g.dart';
 
 const _year = Duration(days: 365);
 
-class TaskEditController extends _TaskEditControllerBase with _$TaskEditController {}
+class TaskEditController = _TaskEditControllerBase with _$TaskEditController;
 
 abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
   @observable
@@ -95,8 +95,8 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
   /// действия
 
   Future save(BuildContext context, {Task? task, required Task parent}) async {
-    loaderController.start(context);
-    loaderController.set(titleText: 'Saving...');
+    loaderController.start();
+    loaderController.setSaving();
     final editedTask = await tasksUC.save(Task(
       id: task?.id,
       parent: parent,
@@ -110,11 +110,12 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
       tasks: task?.tasks ?? [],
       type: selectedType,
     ));
-    loaderController.stop();
 
     if (editedTask != null) {
       Navigator.of(context).pop(editedTask);
     }
+
+    await loaderController.stop(300);
   }
 
   Future delete(BuildContext context, Task task) async {
@@ -129,11 +130,11 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
       simple: true,
     );
     if (confirm == true) {
-      loaderController.start(context);
-      loaderController.set(titleText: 'Deleting...');
+      loaderController.start();
+      loaderController.setDeleting();
       final deletedTask = await tasksUC.delete(t: task);
-      loaderController.stop();
       Navigator.of(context).pop(deletedTask);
+      await loaderController.stop(300);
     }
   }
 

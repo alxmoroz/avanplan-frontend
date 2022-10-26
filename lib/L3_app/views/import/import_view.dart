@@ -49,7 +49,7 @@ class ImportView extends StatelessWidget {
       ];
 
   Widget _sourceDropdown(BuildContext context) => MTDropdown<Source>(
-        onChanged: (s) => s?.id != null ? _controller.selectSource(context, s) : _controller.needAddSourceEvent(context),
+        onChanged: (s) => s?.id != null ? _controller.selectSource(s) : _controller.needAddSourceEvent(context),
         value: _controller.selectedSource,
         ddItems: _srcDdItems(sourceController.sources, context),
         label: loc.source_import_placeholder,

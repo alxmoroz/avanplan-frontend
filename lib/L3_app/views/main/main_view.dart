@@ -25,13 +25,13 @@ import 'project_empty_list_actions_widget.dart';
 
 class MainView extends StatefulWidget {
   @override
-  _MainViewState createState() => _MainViewState();
+  MainViewState createState() => MainViewState();
 }
 
-class _MainViewState extends State<MainView> {
+class MainViewState extends State<MainView> {
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) async => await mainController.updateAll(context));
+    WidgetsBinding.instance.addPostFrameCallback((_) async => await mainController.updateAll());
     super.initState();
   }
 
@@ -79,7 +79,7 @@ class _MainViewState extends State<MainView> {
           middle: H2(loc.app_title),
           trailing: MTButton.icon(
             const RefreshIcon(size: 32),
-            () => mainController.updateAll(context),
+            mainController.updateAll,
             margin: EdgeInsets.only(right: onePadding),
           ),
           border: const Border(),

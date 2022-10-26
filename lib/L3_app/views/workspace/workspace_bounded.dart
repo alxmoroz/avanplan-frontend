@@ -11,7 +11,7 @@ import '../_base/edit_controller.dart';
 
 part 'workspace_bounded.g.dart';
 
-class WorkspaceBounded extends _WorkspaceBoundedBase with _$WorkspaceBounded {}
+class WorkspaceBounded = _WorkspaceBoundedBase with _$WorkspaceBounded;
 
 abstract class _WorkspaceBoundedBase extends EditController with Store {
   @observable

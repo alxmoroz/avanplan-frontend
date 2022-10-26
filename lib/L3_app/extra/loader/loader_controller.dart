@@ -16,11 +16,10 @@ import '../../components/mt_button.dart';
 import '../../components/text_widgets.dart';
 import '../../presenters/communications_presenter.dart';
 import '../services.dart';
-import 'loader_screen.dart';
 
 part 'loader_controller.g.dart';
 
-class LoaderController extends _LoaderControllerBase with _$LoaderController {}
+class LoaderController = _LoaderControllerBase with _$LoaderController;
 
 abstract class _LoaderControllerBase with Store {
   @observable
@@ -36,31 +35,13 @@ abstract class _LoaderControllerBase with Store {
   Widget? actionWidget;
 
   @observable
-  BuildContext? _loaderContext;
-
-  // @observable
-  // ObservableList<VoidCallback>? callbacks;
-
-  @observable
   int stack = 0;
 
   @action
-  void start(BuildContext context) {
-    if (_loaderContext == null) {
-      showDialog<void>(
-          context: context,
-          barrierDismissible: false,
-          useSafeArea: false,
-          builder: (BuildContext ctx) {
-            _loaderContext = ctx;
-            return LoaderScreen();
-          });
-    }
-    stack++;
-  }
+  void start() => stack++;
 
   @action
-  void set({
+  void _set({
     String? titleText,
     Widget? title,
     String? descriptionText,
@@ -69,42 +50,73 @@ abstract class _LoaderControllerBase with Store {
     String? actionText,
     Widget? action,
   }) {
-    iconWidget = icon ?? gerculesIcon();
-    titleWidget = title ??
-        (titleText != null
-            ? H3(
-                titleText,
-                align: TextAlign.center,
-                padding: EdgeInsets.symmetric(horizontal: onePadding).copyWith(top: onePadding),
-              )
-            : null);
-    descriptionWidget = description ??
-        (descriptionText != null
-            ? H4(
-                descriptionText,
-                align: TextAlign.center,
-                padding: EdgeInsets.symmetric(horizontal: onePadding).copyWith(top: onePadding / 2),
-                maxLines: 5,
-              )
-            : null);
-
-    actionWidget = action ??
-        (actionText != null
-            ? MTButton.outlined(
-                titleText: actionText,
-                margin: EdgeInsets.symmetric(horizontal: onePadding),
-                onTap: stop,
-              )
-            : null);
+    iconWidget = icon ?? _defaultIcon;
+    titleWidget = title ?? (titleText != null ? _title(titleText) : null);
+    descriptionWidget = description ?? (descriptionText != null ? _description(descriptionText) : null);
+    actionWidget = action ?? (actionText != null ? _stopAction(actionText) : null);
   }
 
   @action
-  void stop() {
-    if (_loaderContext != null && --stack == 0) {
-      Navigator.of(_loaderContext!).pop();
-      _loaderContext = null;
-    }
-  }
+  Future<void> stop([int? milliseconds]) async => await Future.delayed(Duration(milliseconds: milliseconds ?? 0), () => --stack);
+
+  /// Interceptor
+  Interceptor get interceptor => InterceptorsWrapper(onError: (e, handler) async {
+        if (e.type == DioErrorType.other) {
+          if (e.error is SocketException) {
+            _setNetworkError('${e.error}');
+          }
+        } else if (e.type == DioErrorType.response) {
+          final code = e.response?.statusCode ?? 666;
+          final path = e.requestOptions.path;
+
+          if ([401, 403, 407].contains(code)) {
+            // ошибки авторизации
+            if (path.startsWith('/v1/auth')) {
+              // Показываем диалог, если это именно авторизация
+              setAuthError();
+            } else {
+              // в остальных случаях выбрасываем без объяснений
+              await authController.logout();
+              await stop();
+            }
+          } else {
+            // программные ошибки клиента и сервера
+            final errorText = '${code < 500 ? 'HTTP Client' : code < 600 ? 'HTTP Server' : 'Unknown HTTP'} Error $code';
+            if (e.errCode != null && e.errCode!.startsWith('ERR_')) {
+              return handler.next(e);
+            } else {
+              _setHTTPError(errorText);
+            }
+          }
+        }
+      });
+
+  /// UI
+  static double get iconSize => onePadding * 10;
+  static const Color iconColor = lightGreyColor;
+
+  Widget get _defaultIcon => gerculesIcon();
+  Widget get _authIcon => PrivacyIcon(size: iconSize, color: iconColor);
+  Widget get _networkErrorIcon => NetworkErrorIcon(size: iconSize, color: iconColor);
+
+  Widget _title(String titleText) => H3(
+        titleText,
+        align: TextAlign.center,
+        padding: EdgeInsets.symmetric(horizontal: onePadding).copyWith(top: onePadding),
+      );
+
+  Widget _description(String descriptionText) => H4(
+        descriptionText,
+        align: TextAlign.center,
+        padding: EdgeInsets.symmetric(horizontal: onePadding).copyWith(top: onePadding / 2),
+        maxLines: 5,
+      );
+
+  Widget _stopAction(String actionText) => MTButton.outlined(
+        titleText: actionText,
+        margin: EdgeInsets.symmetric(horizontal: onePadding),
+        onTap: stop,
+      );
 
   Widget _reportErrorButton(String errorText) => MTButton.outlined(
         titleColor: darkColor,
@@ -114,22 +126,11 @@ abstract class _LoaderControllerBase with Store {
         onTap: () => launchUrlString('$contactUsMailSample%0D%0A$errorText'),
       );
 
-  Widget get authIcon => PrivacyIcon(size: onePadding * 10, color: lightGreyColor);
-
-  void _setAuthError() {
-    set(
-      icon: authIcon,
-      titleText: loc.auth_error_title,
-      descriptionText: loc.auth_error_description,
-      actionText: loc.ok,
-    );
-  }
-
   void _setHTTPError(String? errorText) {
     errorText ??= 'LoaderHTTPError';
     final mainRecommendationText = isWeb ? loc.update_web_app_recommendation_title : loc.update_app_recommendation_title;
-    set(
-      icon: NetworkErrorIcon(size: onePadding * 10),
+    _set(
+      icon: _networkErrorIcon,
       titleText: errorText,
       descriptionText: mainRecommendationText,
       action: Column(
@@ -147,62 +148,49 @@ abstract class _LoaderControllerBase with Store {
     );
   }
 
-  void _reload() {
-    final context = _loaderContext;
-    stop();
-    mainController.updateAll(context!);
+  Future _reload() async {
+    await stop();
+    await mainController.updateAll();
   }
 
-  void _setNetworkError(String? errorText) {
-    errorText ??= 'LoaderNetworkError';
-    set(
-      icon: NetworkErrorIcon(size: onePadding * 10),
-      titleText: loc.network_error_title,
-      descriptionText: loc.network_error_description,
-      action: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          MTButton.outlined(
-            leading: const RefreshIcon(),
-            titleText: loc.reload_action_title,
-            margin: EdgeInsets.symmetric(horizontal: onePadding),
-            onTap: _reload,
-          ),
-          _reportErrorButton(errorText),
-        ],
-      ),
-    );
-  }
+  void _setNetworkError(String? errorText) => _set(
+        icon: _networkErrorIcon,
+        titleText: loc.network_error_title,
+        descriptionText: loc.network_error_description,
+        action: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            MTButton.outlined(
+              leading: const RefreshIcon(),
+              titleText: loc.reload_action_title,
+              margin: EdgeInsets.symmetric(horizontal: onePadding),
+              onTap: _reload,
+            ),
+            _reportErrorButton(errorText ?? 'LoaderNetworkError'),
+          ],
+        ),
+      );
 
-  Interceptor get interceptor => InterceptorsWrapper(onError: (e, handler) async {
-        if (e.type == DioErrorType.other) {
-          if (e.error is SocketException) {
-            _setNetworkError('${e.error}');
-          }
-        } else if (e.type == DioErrorType.response) {
-          final code = e.response?.statusCode ?? 666;
-          final path = e.requestOptions.path;
+  void setAuth() => _set(titleText: loc.loader_auth_title, icon: _authIcon);
+  void setAuthError() => _set(
+        icon: _authIcon,
+        titleText: loc.auth_error_title,
+        descriptionText: loc.auth_error_description,
+        actionText: loc.ok,
+      );
 
-          if ([401, 403, 407].contains(code)) {
-            // ошибки авторизации
-            if (path.startsWith('/v1/auth')) {
-              // Показываем диалог, если это именно авторизация
-              _setAuthError();
-            } else {
-              // в остальных случаях выбрасываем без объяснений
-              await authController.logout();
-              stop();
-            }
-          } else {
-            // программные ошибки клиента и сервера
-            final errorText = '${code < 500 ? 'HTTP Client' : code < 600 ? 'HTTP Server' : 'Unknown HTTP'} Error $code';
-            if (e.errCode != null && e.errCode!.startsWith('ERR_')) {
-              return handler.next(e);
-            } else {
-              _setHTTPError(errorText);
-            }
-          }
-        }
-      });
+  void setCheckConnection(String descriptionText) => _set(
+        icon: ConnectingIcon(size: iconSize, color: iconColor),
+        titleText: loc.loader_check_connection_title,
+        descriptionText: descriptionText,
+      );
+  void setClosing(bool isClose) => _set(titleText: loc.loader_saving_title, icon: DoneIcon(isClose, size: iconSize, color: iconColor));
+  void setDeleting() => _set(titleText: loc.loader_deleting_title, icon: DeleteIcon(size: iconSize, color: iconColor));
+  void setImporting() => _set(titleText: loc.loader_importing_title, icon: ImportIcon(size: iconSize, color: iconColor));
+  void setRefreshing() => _set(titleText: loc.loader_refreshing_title, icon: RefreshIcon(size: iconSize, color: iconColor));
+  void setSaving() => _set(titleText: loc.loader_saving_title, icon: EditIcon(size: iconSize, color: iconColor));
+  void setSourceListing() => _set(titleText: loc.loader_source_listing, icon: ImportIcon(size: iconSize, color: iconColor));
+  void setUnlinking() => _set(titleText: loc.loader_unlinking_title, icon: UnlinkIcon(size: iconSize, color: iconColor));
+  void setUnwatch() => _set(titleText: loc.loader_unwatch_title, icon: EyeIcon(open: false, size: iconSize, color: iconColor));
 }

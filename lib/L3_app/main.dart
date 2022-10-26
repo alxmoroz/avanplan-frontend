@@ -37,10 +37,19 @@ Future main() async {
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final textTheme = CupertinoTheme.of(context).textTheme;
+    final cupertinoTextTheme = CupertinoTheme.of(context).textTheme;
 
     // const fontFamily = '--apple-system';
     const fontFamily = 'Roboto';
+
+    const Iterable<LocalizationsDelegate<dynamic>> localizationsDelegates = [
+      S.delegate,
+      GlobalMaterialLocalizations.delegate,
+      GlobalWidgetsLocalizations.delegate,
+      GlobalCupertinoLocalizations.delegate
+    ];
+
+    final supportedLocales = S.delegate.supportedLocales;
 
     return MaterialApp(
       theme: ThemeData(
@@ -50,6 +59,8 @@ class App extends StatelessWidget {
         fontFamily: fontFamily,
         useMaterial3: true,
       ),
+      localizationsDelegates: localizationsDelegates,
+      supportedLocales: supportedLocales,
       home: Observer(
         builder: (_) => Stack(children: [
           CupertinoApp(
@@ -58,19 +69,14 @@ class App extends StatelessWidget {
               builder: (_, snapshot) =>
                   snapshot.hasData ? Observer(builder: (_) => authController.authorized ? MainView() : LoginView()) : LoaderScreen(),
             ),
-            localizationsDelegates: const [
-              S.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate
-            ],
-            supportedLocales: S.delegate.supportedLocales,
+            localizationsDelegates: localizationsDelegates,
+            supportedLocales: supportedLocales,
             theme: CupertinoThemeData(
               scaffoldBackgroundColor: backgroundColor,
               primaryColor: mainColor,
-              textTheme: textTheme.copyWith(
+              textTheme: cupertinoTextTheme.copyWith(
                 primaryColor: mainColor,
-                textStyle: textTheme.textStyle.copyWith(fontFamily: fontFamily),
+                textStyle: cupertinoTextTheme.textStyle.copyWith(fontFamily: fontFamily),
               ),
             ),
             routes: {

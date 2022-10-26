@@ -34,25 +34,17 @@ class ImportRepo extends AbstractApiImportRepo {
   }
 
   @override
-  Future<bool> importTaskSources(int? srcId, Iterable<TaskSourceImport> tss) async {
-    if (srcId == null) {
-      return false;
-    }
-
+  Future importTaskSources(int srcId, Iterable<TaskSourceImport> tss) async {
     final tSchema = tss.map((ts) => (o_api.TaskSourceBuilder()
           ..code = ts.code
           ..rootCode = ts.rootCode
           ..keepConnection = ts.keepConnection)
         .build());
-    final response = await api.importTaskSourcesV1IntegrationsTasksImportPost(
-      sourceId: srcId,
-      taskSource: BuiltList.from(tSchema),
-    );
-    return response.statusCode == 200;
+    await api.importTaskSourcesV1IntegrationsTasksImportPost(sourceId: srcId, taskSource: BuiltList.from(tSchema));
   }
 
   @override
-  Future<bool> updateTaskSources(Iterable<TaskSource> tss) async {
+  Future updateTaskSources(Iterable<TaskSource> tss) async {
     final tSchema = tss.map((ts) => (o_api.TaskSourceUpsertBuilder()
           ..id = ts.id
           ..sourceId = ts.source.id
@@ -62,9 +54,6 @@ class ImportRepo extends AbstractApiImportRepo {
           ..url = ts.urlString)
         .build());
 
-    final response = await api.updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost(
-      taskSourceUpsert: BuiltList.from(tSchema),
-    );
-    return response.statusCode == 200;
+    await api.updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost(taskSourceUpsert: BuiltList.from(tSchema));
   }
 }

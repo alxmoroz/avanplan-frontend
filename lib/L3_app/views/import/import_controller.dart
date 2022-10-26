@@ -91,19 +91,12 @@ abstract class _ImportControllerBase extends EditController with Store {
 
   Future startImport(BuildContext context) async {
     loaderController.start();
-    loaderController.setImporting();
-    try {
-      final taskSources = selectedTasks.map((t) => t.taskSource!);
-      final done = await importUC.importTaskSources(selectedSource?.id, taskSources);
-      if (done) {
-        await mainController.fetchData();
-        Navigator.of(context).pop();
-        await loaderController.stop(300);
-      }
-    } on MTImportError catch (e) {
-      //TODO: #2055
-      print('startImport $e');
-    }
+    loaderController.setImporting('$selectedSource\n${selectedSource?.url}');
+    final taskSources = selectedTasks.map((t) => t.taskSource!);
+    await importUC.importTaskSources(selectedSource!.id!, taskSources);
+    Navigator.of(context).pop();
+    await mainController.fetchData();
+    await loaderController.stop();
   }
 
   void needAddSourceEvent(BuildContext context) {

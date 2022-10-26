@@ -5,6 +5,6 @@ import '../entities/task_source.dart';
 
 abstract class AbstractApiImportRepo {
   Future<List<TaskImport>> getRootTaskSources(int srcId);
-  Future<bool> importTaskSources(int? srcId, Iterable<TaskSourceImport> tss);
-  Future<bool> updateTaskSources(Iterable<TaskSource> tss);
+  Future importTaskSources(int srcId, Iterable<TaskSourceImport> tss);
+  Future updateTaskSources(Iterable<TaskSource> tss);
 }

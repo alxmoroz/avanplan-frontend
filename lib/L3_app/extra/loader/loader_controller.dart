@@ -84,10 +84,10 @@ abstract class _LoaderControllerBase with Store {
           } else {
             // программные ошибки клиента и сервера
             final errorText = '${code < 500 ? 'HTTP Client' : code < 600 ? 'HTTP Server' : 'Unknown HTTP'} Error $code';
-            if (e.errCode != null && e.errCode!.startsWith('ERR_')) {
+            if (e.errCode != null && e.errCode! == 'ERR_SOURCE_GET_ROOT_TASKS') {
               return handler.next(e);
             } else {
-              _setHTTPError(errorText);
+              _setHTTPError(errorText, e.response?.data['detail']);
             }
           }
         }
@@ -128,7 +128,7 @@ abstract class _LoaderControllerBase with Store {
         onTap: () => launchUrlString('$contactUsMailSample%0D%0A$errorText'),
       );
 
-  void _setHTTPError(String? errorText) {
+  void _setHTTPError(String? errorText, String? errorDetail) {
     errorText ??= 'LoaderHTTPError';
     final mainRecommendationText = isWeb ? loc.update_web_app_recommendation_title : loc.update_app_recommendation_title;
     _set(
@@ -144,7 +144,7 @@ abstract class _LoaderControllerBase with Store {
             margin: EdgeInsets.symmetric(horizontal: onePadding),
             onTap: stop,
           ),
-          _reportErrorButton(errorText),
+          _reportErrorButton('$errorText ${errorDetail ?? ''}'),
         ],
       ),
     );
@@ -189,7 +189,11 @@ abstract class _LoaderControllerBase with Store {
       );
   void setClosing(bool isClose) => _set(titleText: loc.loader_saving_title, icon: DoneIcon(isClose, size: iconSize, color: iconColor));
   void setDeleting() => _set(titleText: loc.loader_deleting_title, icon: DeleteIcon(size: iconSize, color: iconColor));
-  void setImporting() => _set(titleText: loc.loader_importing_title, icon: ImportIcon(size: iconSize, color: iconColor));
+  void setImporting(String descriptionText) => _set(
+        titleText: loc.loader_importing_title,
+        descriptionText: descriptionText,
+        icon: ImportIcon(size: iconSize, color: iconColor),
+      );
   void setRefreshing() => _set(titleText: loc.loader_refreshing_title, icon: RefreshIcon(size: iconSize, color: iconColor));
   void setSaving() => _set(titleText: loc.loader_saving_title, icon: EditIcon(size: iconSize, color: iconColor));
   void setSourceListing() => _set(titleText: loc.loader_source_listing, icon: ImportIcon(size: iconSize, color: iconColor));

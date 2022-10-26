@@ -36,7 +36,7 @@ extension SourcePresenter on Source {
       SizedBox(width: onePadding / 2),
       Expanded(
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          NormalText('${description.isEmpty ? type.title : description}', color: textColor),
+          NormalText('$this', color: textColor),
           SmallText(url, color: textColor),
         ]),
       ),

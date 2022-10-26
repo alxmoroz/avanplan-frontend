@@ -33,4 +33,7 @@ class Source extends RPersistable {
   final String? password;
   final String description;
   SrcState state;
+
+  @override
+  String toString() => description.isEmpty ? type.title : description;
 }

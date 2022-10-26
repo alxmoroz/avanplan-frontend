@@ -99,8 +99,8 @@ abstract class _MainControllerBase with Store {
       needUpdate = linkedTSs.isNotEmpty;
       if (needUpdate) {
         //TODO: тут можно указать из какого источника обновляем данные
-        loaderController.setImporting();
-        await importUC.importTaskSources(src.id, linkedTSs.map((ts) => TaskSourceImport(code: ts.code, rootCode: ts.rootCode)));
+        loaderController.setImporting('$src\n${src.url}');
+        await importUC.importTaskSources(src.id!, linkedTSs.map((ts) => TaskSourceImport(code: ts.code, rootCode: ts.rootCode)));
       }
     }
     return needUpdate;

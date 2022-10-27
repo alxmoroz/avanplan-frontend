@@ -1,14 +1,15 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:dio/dio.dart';
 import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/source.dart';
-import '../../L1_domain/repositories/abs_api_repo.dart';
+import '../../L1_domain/repositories/abs_api_source_repo.dart';
+import '../../L1_domain/system/errors.dart';
 import '../mappers/source.dart';
-// TODO: нарушение направления зависимостей. аналогично в похожих местах
 import 'api.dart';
 
-class SourcesRepo extends AbstractApiRepo<Source> {
+class SourcesRepo extends AbstractApiSourceRepo {
   o_api.IntegrationsSourcesApi get api => openAPI.getIntegrationsSourcesApi();
 
   @override
@@ -38,5 +39,19 @@ class SourcesRepo extends AbstractApiRepo<Source> {
   Future<bool> delete(int id) async {
     final response = await api.deleteSourceV1IntegrationsSourcesSourceIdDelete(sourceId: id);
     return response.statusCode == 200 && response.data?.asNum == 1;
+  }
+
+  @override
+  Future<bool> checkConnection(int id) async {
+    bool res = false;
+    try {
+      final response = await api.checkConnectionV1IntegrationsSourcesCheckConnectionGet(sourceId: id);
+      res = response.statusCode == 200 && response.data == true;
+    } on DioError catch (e) {
+      if (['ERR_IMPORT_CONNECTION'].contains(e.errCode)) {
+        throw MTImportError();
+      }
+    }
+    return res;
   }
 }

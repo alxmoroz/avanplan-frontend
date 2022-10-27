@@ -6,7 +6,6 @@ import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/source.dart';
 import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/system/errors.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
 import 'import_view.dart';
@@ -17,13 +16,13 @@ class ImportController extends _ImportControllerBase with _$ImportController {}
 
 abstract class _ImportControllerBase extends EditController with Store {
   @observable
-  List<TaskImport> remoteTasks = [];
+  List<TaskImport> projects = [];
 
   @computed
-  Iterable<TaskImport> get selectedTasks => remoteTasks.where((t) => t.selected);
+  Iterable<TaskImport> get selectedProjects => projects.where((t) => t.selected);
 
   @override
-  bool get validated => selectedTasks.isNotEmpty;
+  bool get validated => selectedProjects.isNotEmpty;
 
   @observable
   String? errorCode;
@@ -32,23 +31,10 @@ abstract class _ImportControllerBase extends EditController with Store {
   void _setErrorCode(String? eCode) => errorCode = eCode;
 
   @action
-  Future fetchTasks(int sourceID) async {
-    loaderController.start();
-    loaderController.setSourceListing();
-    final _remoteTasks = <TaskImport>[];
-    try {
-      selectedAll = true;
-      _remoteTasks.addAll((await importUC.getRootTasks(sourceID)).sorted((t1, t2) => compareNatural(t1.title, t2.title)));
-      await loaderController.stop();
-    } on MTImportError catch (e) {
-      _setErrorCode(e.code);
-      await loaderController.stop();
-    }
-    remoteTasks = _remoteTasks;
+  void clearData() {
+    projects = [];
+    selectedAll = true;
   }
-
-  @action
-  void clearData() => remoteTasks = [];
 
   @observable
   bool selectedAll = true;
@@ -56,33 +42,45 @@ abstract class _ImportControllerBase extends EditController with Store {
   @action
   void toggleSelectedAll(bool? value) {
     selectedAll = !selectedAll;
-    remoteTasks.forEach((t) => t.selected = selectedAll);
+    projects.forEach((t) => t.selected = selectedAll);
   }
 
   @action
-  void selectTask(TaskImport task, bool selected) {
-    task.selected = selected;
-    remoteTasks = remoteTasks;
+  void selectProject(TaskImport task, bool? selected) {
+    task.selected = selected == true;
+    projects = projects;
   }
 
   /// выбранный источник импорта, трекер
 
   @observable
-  int? selectedSourceId;
+  int? selectedSourceId = sourceController.sources.length == 1 ? sourceController.sources.first.id : null;
 
   @action
   Future selectSource(Source? src) async {
     selectedSourceId = src?.id;
+    clearData();
+
     if (selectedSourceId != null) {
-      await fetchTasks(selectedSourceId!);
+      final loaderDescription = '$selectedSource\n${selectedSource?.url}';
+      loaderController.start();
+      bool connected = selectedSource?.state == SrcState.connected;
+      if (!connected) {
+        loaderController.setCheckConnection(loaderDescription);
+        connected = await sourceController.checkSourceConnection(selectedSourceId);
+      }
+      if (connected) {
+        loaderController.setSourceListing(loaderDescription);
+        projects = ObservableList.of((await importUC.getRootTasks(selectedSourceId!)).sorted((t1, t2) => compareNatural(t1.title, t2.title)));
+      } else {
+        _setErrorCode('import_connection_error');
+      }
+      await loaderController.stop();
     }
   }
 
   @computed
-  Source? get selectedSource {
-    final sources = sourceController.sources;
-    return sources.length == 1 ? sources.first : sources.firstWhereOrNull((s) => s.id == selectedSourceId);
-  }
+  Source? get selectedSource => sourceController.sources.firstWhereOrNull((s) => s.id == selectedSourceId);
 
   @computed
   bool get canEdit => selectedSource != null;
@@ -92,7 +90,7 @@ abstract class _ImportControllerBase extends EditController with Store {
   Future startImport(BuildContext context) async {
     loaderController.start();
     loaderController.setImporting('$selectedSource\n${selectedSource?.url}');
-    final taskSources = selectedTasks.map((t) => t.taskSource!);
+    final taskSources = selectedProjects.map((t) => t.taskSource!);
     await importUC.importTaskSources(selectedSource!.id!, taskSources);
     Navigator.of(context).pop();
     await mainController.fetchData();

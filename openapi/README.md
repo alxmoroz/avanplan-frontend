@@ -71,6 +71,7 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 [*AuthApi*](doc/AuthApi.md) | [**authToken**](doc/AuthApi.md#authtoken) | **POST** /v1/auth/token | Token
 [*AuthApi*](doc/AuthApi.md) | [**authTokenGoogleOauth**](doc/AuthApi.md#authtokengoogleoauth) | **POST** /v1/auth/token_google_oauth | Token Google Oauth
+[*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**checkConnectionV1IntegrationsSourcesCheckConnectionGet**](doc/IntegrationsSourcesApi.md#checkconnectionv1integrationssourcescheckconnectionget) | **GET** /v1/integrations/sources/check_connection | Check Connection
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**deleteSourceV1IntegrationsSourcesSourceIdDelete**](doc/IntegrationsSourcesApi.md#deletesourcev1integrationssourcessourceiddelete) | **DELETE** /v1/integrations/sources/{source_id} | Delete Source
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**getSourceTypesV1IntegrationsSourcesTypesGet**](doc/IntegrationsSourcesApi.md#getsourcetypesv1integrationssourcestypesget) | **GET** /v1/integrations/sources/types/ | Get Source Types
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**upsertSourceV1IntegrationsSourcesPost**](doc/IntegrationsSourcesApi.md#upsertsourcev1integrationssourcespost) | **POST** /v1/integrations/sources/ | Upsert Source

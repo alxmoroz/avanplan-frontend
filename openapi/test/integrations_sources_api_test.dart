@@ -6,6 +6,14 @@ void main() {
   final instance = Openapi().getIntegrationsSourcesApi();
 
   group(IntegrationsSourcesApi, () {
+    // Check Connection
+    //
+    //Future<bool> checkConnectionV1IntegrationsSourcesCheckConnectionGet(int sourceId) async
+    test('test checkConnectionV1IntegrationsSourcesCheckConnectionGet',
+        () async {
+      // TODO
+    });
+
     // Delete Source
     //
     //Future<JsonObject> deleteSourceV1IntegrationsSourcesSourceIdDelete(int sourceId) async

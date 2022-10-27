@@ -80,26 +80,30 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
   bool get validated => super.validated && selectedType != null && selectedWS != null;
 
   @action
-  Future _checkSources(List<Source> _sources) async {
-    loaderController.start();
-    for (int i = 0; i < _sources.length; i++) {
-      final index = sources.indexWhere((s) => s.id == _sources[i].id);
-      if (index >= 0) {
-        try {
-          loaderController.setCheckConnection(sources[index].type.title);
-          final id = sources[index].id;
-          if (id != null) {
-            sources[index].state = (await importUC.getRootTasks(id)).isNotEmpty ? SrcState.connected : SrcState.error;
-          }
-        } on MTImportError {
-          sources[index].state = SrcState.error;
+  Future<bool> checkSourceConnection(int? srcId) async {
+    final index = sources.indexWhere((s) => s.id == srcId);
+    bool connected = false;
+    if (index >= 0) {
+      final src = sources[index];
+      try {
+        if (src.id != null) {
+          src.state = SrcState.unknown;
+          // TODO: нужен способ дергать обсервер без этих хаков
+          sources = sources;
+
+          connected = await sourcesUC.checkConnection(src.id!);
+          src.state = connected ? SrcState.connected : SrcState.error;
+          sources = sources;
         }
+      } on MTImportError {
+        src.state = SrcState.error;
+        sources = sources;
       }
     }
-    sources = ObservableList.of(sources);
-
-    await loaderController.stop();
+    return connected;
   }
+
+  void checkSources() => sources.forEach((src) => checkSourceConnection(src.id));
 
   @action
   void _sortSources() => sources.sort((s1, s2) => s1.url.compareTo(s2.url));
@@ -177,9 +181,8 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
     }
     final _s = await editSourceDialog(context);
     if (_s != null) {
-      //TODO: не обязательно проверять все источники тут. Достаточно только того, который редактировали
       await _updateSourceInList(_s);
-      await _checkSources([_s]);
+      checkSourceConnection(_s.id);
     }
     return _s;
   }

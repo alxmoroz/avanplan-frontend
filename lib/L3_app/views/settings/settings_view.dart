@@ -24,7 +24,11 @@ class SettingsView extends StatelessWidget {
 
   SettingsController get _controller => settingsController;
 
-  Future _showSources(BuildContext context) async => await Navigator.of(context).pushNamed(SourceListView.routeName);
+  Future _showSources(BuildContext context) async {
+    sourceController.checkSources();
+    await Navigator.of(context).pushNamed(SourceListView.routeName);
+  }
+
   Future _showWorkspaces(BuildContext context) async => await Navigator.of(context).pushNamed(WorkspaceListView.routeName);
   User? get _user => accountController.user;
 

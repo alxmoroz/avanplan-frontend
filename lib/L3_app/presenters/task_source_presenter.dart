@@ -26,6 +26,8 @@ extension SourceTypePresenter on SourceType {
   }
 }
 
+double get _connectionIndicatorSize => onePadding;
+
 extension SourcePresenter on Source {
   Widget info(BuildContext context) {
     final isUnknown = state == SrcState.unknown;
@@ -40,7 +42,13 @@ extension SourcePresenter on Source {
           SmallText(url, color: textColor),
         ]),
       ),
-      isUnknown ? const ConnectingIcon() : MTCircle(color: connected ? Colors.green : warningColor),
+      isUnknown
+          ? SizedBox(
+              height: _connectionIndicatorSize,
+              width: _connectionIndicatorSize,
+              child: CircularProgressIndicator(color: lightGreyColor.resolve(context)),
+            )
+          : MTCircle(color: connected ? Colors.green : warningColor, size: _connectionIndicatorSize),
     ]);
   }
 }

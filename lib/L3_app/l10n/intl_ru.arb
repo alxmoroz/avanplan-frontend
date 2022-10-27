@@ -45,12 +45,12 @@
   "hours_count": "{count, plural, one{час} few{{count} часа} other{{count} часов}}",
 
   "import_action_title": "Импортировать задачи",
+  "import_connection_error": "Ошибка подключения\nИсточник импорта недоступен",
   "import_error_title": "Ошибка импорта",
   "import_list_empty_title": "Нет доступных для импорта проектов\nПопробуйте выбрать другой источник",
   "import_source_select_hint": "Выберите источник импорта",
   "import_projects_select_hint": "Выберите проекты для импорта",
   "import_title": "Импорт задач",
-  "import_title_error_get_list": "Ошибка получения списка проектов\nПопробуйте выбрать другой источник",
 
   "loader_auth_title": "Проверяем доступ...",
   "loader_check_connection_title": "Проверка соединения...",

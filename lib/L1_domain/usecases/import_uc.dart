@@ -2,7 +2,7 @@
 
 import '../entities/task.dart';
 import '../entities/task_source.dart';
-import '../repositories/abs_import_repo.dart';
+import '../repositories/abs_api_import_repo.dart';
 
 class ImportUC {
   ImportUC({required this.repo});

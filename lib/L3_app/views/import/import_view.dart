@@ -21,6 +21,7 @@ import '../../presenters/task_source_presenter.dart';
 import 'import_controller.dart';
 
 Future<String?> showImportDialog(BuildContext context) async {
+  sourceController.checkSources();
   return await showModalBottomSheet<String?>(
     context: context,
     backgroundColor: Colors.transparent,
@@ -33,7 +34,7 @@ class ImportView extends StatelessWidget {
   static String get routeName => 'import';
 
   ImportController get _controller => importController;
-  bool get _hasProjects => _controller.remoteTasks.isNotEmpty;
+  bool get _hasProjects => _controller.projects.isNotEmpty;
   bool get _hasError => _controller.errorCode != null;
   bool get _validated => _controller.validated;
   bool get _selectedAll => _controller.selectedAll;
@@ -61,7 +62,7 @@ class ImportView extends StatelessWidget {
           if (_controller.selectedSource != null) ...[
             SizedBox(height: onePadding),
             if (_hasProjects) ...[
-              if (_controller.remoteTasks.length > 1)
+              if (_controller.projects.length > 1)
                 MTCheckBoxTile(title: loc.select_all_action_title, value: _selectedAll, onChanged: _controller.toggleSelectedAll),
             ] else
               MediumText(
@@ -82,20 +83,20 @@ class ImportView extends StatelessWidget {
               child: ListView.builder(
                 shrinkWrap: true,
                 itemBuilder: _projectItemBuilder,
-                itemCount: _controller.remoteTasks.length,
+                itemCount: _controller.projects.length,
               ),
             ),
         ],
       );
 
   Widget _projectItemBuilder(BuildContext context, int index) {
-    final task = _controller.remoteTasks[index];
-    final value = task.selected;
+    final project = _controller.projects[index];
+    final value = project.selected;
     return MTCheckBoxTile(
-      title: task.title,
-      description: task.description,
+      title: project.title,
+      description: project.description,
       value: value,
-      onChanged: (bool? value) => _controller.selectTask(task, value!),
+      onChanged: (bool? value) => _controller.selectProject(project, value),
     );
   }
 

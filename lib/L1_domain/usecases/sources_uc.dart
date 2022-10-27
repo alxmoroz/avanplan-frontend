@@ -2,13 +2,16 @@
 
 import '../entities/source.dart';
 import '../repositories/abs_api_repo.dart';
+import '../repositories/abs_api_source_repo.dart';
 
 //TODO: похоже, есть смысл сделать абстрактный общий юзкейс
 
 class SourcesUC {
   SourcesUC({required this.repo});
 
-  final AbstractApiRepo<Source> repo;
+  final AbstractApiSourceRepo repo;
+
+  Future<bool> checkConnection(int id) async => await repo.checkConnection(id);
 
   Future<Source?> save(Source data) async {
     Source? s;

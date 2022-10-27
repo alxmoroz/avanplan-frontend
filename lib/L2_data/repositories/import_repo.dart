@@ -1,13 +1,11 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:built_collection/built_collection.dart';
-import 'package:dio/dio.dart';
 import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities/task_source.dart';
-import '../../L1_domain/repositories/abs_import_repo.dart';
-import '../../L1_domain/system/errors.dart';
+import '../../L1_domain/repositories/abs_api_import_repo.dart';
 import '../mappers/task.dart';
 import 'api.dart';
 
@@ -17,19 +15,12 @@ class ImportRepo extends AbstractApiImportRepo {
   @override
   Future<List<TaskImport>> getRootTaskSources(int srcId) async {
     final List<TaskImport> rootTasks = [];
-    try {
-      final response = await api.getRootTasksV1IntegrationsTasksGet(sourceId: srcId);
-      if (response.statusCode == 200) {
-        for (o_api.Task t in response.data?.toList() ?? []) {
-          rootTasks.add(t.taskImport);
-        }
-      }
-    } on DioError catch (e) {
-      if (e.errCode == 'ERR_IMPORT_GET_ROOT_TASKS') {
-        throw MTImportError(code: 'import_title_error_get_list');
+    final response = await api.getRootTasksV1IntegrationsTasksGet(sourceId: srcId);
+    if (response.statusCode == 200) {
+      for (o_api.Task t in response.data?.toList() ?? []) {
+        rootTasks.add(t.taskImport);
       }
     }
-
     return rootTasks;
   }
 

@@ -84,7 +84,7 @@ abstract class _LoaderControllerBase with Store {
           } else {
             // программные ошибки клиента и сервера
             final errorText = '${code < 500 ? 'HTTP Client' : code < 600 ? 'HTTP Server' : 'Unknown HTTP'} Error $code';
-            if (e.errCode == 'ERR_IMPORT_GET_ROOT_TASKS') {
+            if (e.errCode == 'ERR_IMPORT_CONNECTION') {
               return handler.next(e);
             } else if (e.errCode.startsWith('ERR_IMPORT')) {
               _setImportError(e.detail, e.detail);
@@ -204,7 +204,11 @@ abstract class _LoaderControllerBase with Store {
       );
   void setRefreshing() => _set(titleText: loc.loader_refreshing_title, icon: RefreshIcon(size: iconSize, color: iconColor));
   void setSaving() => _set(titleText: loc.loader_saving_title, icon: EditIcon(size: iconSize, color: iconColor));
-  void setSourceListing() => _set(titleText: loc.loader_source_listing, icon: ImportIcon(size: iconSize, color: iconColor));
+  void setSourceListing(String descriptionText) => _set(
+        titleText: loc.loader_source_listing,
+        descriptionText: descriptionText,
+        icon: ImportIcon(size: iconSize, color: iconColor),
+      );
   void setUnlinking() => _set(titleText: loc.loader_unlinking_title, icon: UnlinkIcon(size: iconSize, color: iconColor));
   void setUnwatch() => _set(titleText: loc.loader_unwatch_title, icon: EyeIcon(open: false, size: iconSize, color: iconColor));
 }

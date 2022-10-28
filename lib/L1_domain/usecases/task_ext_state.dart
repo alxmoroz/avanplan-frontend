@@ -146,26 +146,6 @@ extension TaskStats on Task {
 
   // double get doneRatio => (hasDueDate && leafTasksCount > 0) ? closedLeafTasksCount / leafTasksCount : 0;
 
-  /// рекомендации TOI — task of interest
-  bool get _isTOI => !closed && (hasSubtasks && (isGoal || (isProject && hasDueDate)));
-  Iterable<Task> get _toiTasks => tasks.where((t) => t._isTOI);
-  // без срока
-  Iterable<Task> get _noDueToi => _toiTasks.where((t) => t.state == TaskState.noDueDate);
-  int get noDueToiCount => _noDueToi.length;
-  bool get hasNoDueToi => noDueToiCount > 0;
-  // без задач
-  Iterable<Task> get _emptyToi => _toiTasks.where((t) => t.state == TaskState.noSubtasks);
-  int get emptyToiCount => _emptyToi.length;
-  bool get hasEmptyToi => emptyToiCount > 0;
-  // без прогресса
-  Iterable<Task> get _noProgressToi => _toiTasks.where((t) => t.state == TaskState.noProgress);
-  int get noProgressToiCount => _noProgressToi.length;
-  bool get hasNoProgressToi => noProgressToiCount > 0;
-  // можно закрыть
-  Iterable<Task> get _closableToi => _toiTasks.where((t) => t.state == TaskState.closable);
-  int get closableToiCount => _closableToi.length;
-  bool get hasClosableToi => closableToiCount > 0;
-
   /// подзадачи в порядке
   bool get _hasOkSubtasks => openedSubtasks.isNotEmpty && openedSubtasks.every((t) => t.state == TaskState.ok);
   bool get _allSubtasksAreClosable => openedSubtasks.isNotEmpty && openedSubtasks.every((t) => t.state == TaskState.closable);

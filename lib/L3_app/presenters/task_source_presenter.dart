@@ -21,7 +21,7 @@ extension SourceTypePresenter on SourceType {
       case 'Jira':
         return jiraIcon();
       default:
-        return const StateNoInfoIcon();
+        return const NoInfoIcon();
     }
   }
 }

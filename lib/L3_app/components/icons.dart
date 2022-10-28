@@ -107,8 +107,8 @@ class DoneIcon extends _MTIcon {
       );
 }
 
-class DropdownCaretIcon extends _MTIcon {
-  const DropdownCaretIcon({super.color, super.size});
+class DropdownIcon extends _MTIcon {
+  const DropdownIcon({super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.chevron_up_chevron_down,
@@ -198,8 +198,8 @@ class MenuIcon extends _MTIcon {
       );
 }
 
-class StateOverdueIcon extends _MTIcon {
-  const StateOverdueIcon({super.color, super.size});
+class OverdueIcon extends _MTIcon {
+  const OverdueIcon({super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.exclamationmark_triangle,
@@ -208,8 +208,8 @@ class StateOverdueIcon extends _MTIcon {
       );
 }
 
-class StateRiskIcon extends _MTIcon {
-  const StateRiskIcon({super.color, super.size});
+class RiskIcon extends _MTIcon {
+  const RiskIcon({super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.tortoise,
@@ -218,8 +218,8 @@ class StateRiskIcon extends _MTIcon {
       );
 }
 
-class StateOkIcon extends _MTIcon {
-  const StateOkIcon({super.color, super.size});
+class OkIcon extends _MTIcon {
+  const OkIcon({super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.rocket,
@@ -228,8 +228,8 @@ class StateOkIcon extends _MTIcon {
       );
 }
 
-class StateNoInfoIcon extends _MTIcon {
-  const StateNoInfoIcon({super.color, super.size});
+class NoInfoIcon extends _MTIcon {
+  const NoInfoIcon({super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.question_circle,
@@ -238,8 +238,8 @@ class StateNoInfoIcon extends _MTIcon {
       );
 }
 
-class StateOpenedIcon extends _MTIcon {
-  const StateOpenedIcon({super.color, super.size});
+class PauseIcon extends _MTIcon {
+  const PauseIcon({super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.pause_circle,
@@ -248,8 +248,18 @@ class StateOpenedIcon extends _MTIcon {
       );
 }
 
-class StateBacklogIcon extends _MTIcon {
-  const StateBacklogIcon({super.color, super.size});
+class PlayIcon extends _MTIcon {
+  const PlayIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.play_circle,
+        color: (color ?? lightGreyColor).resolve(context),
+        size: size,
+      );
+}
+
+class BacklogIcon extends _MTIcon {
+  const BacklogIcon({super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.archivebox,

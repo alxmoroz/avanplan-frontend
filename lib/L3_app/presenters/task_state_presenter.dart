@@ -23,24 +23,25 @@ Widget iconForState(TaskState state, {double? size}) {
   final _color = colorForState(state);
   switch (state) {
     case TaskState.overdue:
-      return StateOverdueIcon(size: size, color: _color);
+      return OverdueIcon(size: size, color: _color);
     case TaskState.risk:
-      return StateRiskIcon(size: size, color: _color);
+      return RiskIcon(size: size, color: _color);
     case TaskState.closable:
     case TaskState.eta:
     case TaskState.ok:
-      return StateOkIcon(size: size, color: _color);
+      return OkIcon(size: size, color: _color);
     case TaskState.closed:
       return DoneIcon(true, size: size, color: _color);
     case TaskState.opened:
+      return PlayIcon(size: size, color: _color);
     case TaskState.future:
-      return StateOpenedIcon(size: size, color: _color);
+      return PauseIcon(size: size, color: _color);
     case TaskState.backlog:
-      return StateBacklogIcon(size: size, color: _color);
+      return BacklogIcon(size: size, color: _color);
     case TaskState.noDueDate:
     case TaskState.noSubtasks:
     case TaskState.noProgress:
-      return StateNoInfoIcon(size: size, color: _color);
+      return NoInfoIcon(size: size, color: _color);
   }
 }
 

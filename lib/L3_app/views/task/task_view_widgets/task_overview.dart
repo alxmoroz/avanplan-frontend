@@ -9,7 +9,6 @@ import '../../../presenters/task_state_presenter.dart';
 import '../task_charts/task_speed_chart.dart';
 import '../task_charts/task_time_chart.dart';
 import '../task_charts/task_volume_chart.dart';
-import '../task_related_widgets/task_overview_advices.dart';
 import '../task_related_widgets/task_overview_warnings.dart';
 import '../task_related_widgets/task_state_title.dart';
 import '../task_view_controller.dart';
@@ -47,7 +46,6 @@ class TaskOverview extends StatelessWidget {
           ),
         ),
         TaskOverviewWarnings(_task),
-        TaskOverviewAdvices(_task),
       ],
     );
   }

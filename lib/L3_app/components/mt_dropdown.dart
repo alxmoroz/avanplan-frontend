@@ -40,7 +40,7 @@ class MTDropdown<T> extends StatelessWidget {
       child: DropdownButtonFormField<T>(
         isDense: dense,
         decoration: tfDecoration(context, label: label, readOnly: true),
-        icon: const DropdownCaretIcon(),
+        icon: const DropdownIcon(),
         items: _ddItems,
         isExpanded: true,
         value: value,

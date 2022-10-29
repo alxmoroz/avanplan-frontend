@@ -1,5 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'dart:math';
+
 import 'package:collection/collection.dart';
 
 import '../entities/task.dart';
@@ -112,7 +114,9 @@ extension TaskStats on Task {
 
   /// плановый объем
   Duration? get _planPeriod => hasDueDate ? dueDate!.difference(_startDate) : null;
-  double? get planVolume => _pastPeriod != null && _planPeriod != null ? leafTasksCount * _pastPeriod!.inSeconds / _planPeriod!.inSeconds : null;
+  double? get planVolume => _pastPeriod != null && _planPeriod != null
+      ? min(leafTasksCount.toDouble(), leafTasksCount * _pastPeriod!.inSeconds / _planPeriod!.inSeconds)
+      : null;
 
   /// риск
   static const Duration _riskThreshold = _day;

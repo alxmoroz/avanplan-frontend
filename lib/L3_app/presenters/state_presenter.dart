@@ -65,8 +65,9 @@ extension TaskStatePresenter on Task {
       case TaskState.riskSubtasks:
         return '${loc.state_risk_title}${_subjects(riskySubtasks.length)}';
       case TaskState.ok:
-      case TaskState.okSubtasks:
         return loc.state_ok_title;
+      case TaskState.okSubtasks:
+        return '${loc.state_ok_title}${_subjects(okSubtasks.length)}';
       case TaskState.ahead:
         return loc.state_ahead_duration((-riskPeriod!).localizedString);
       case TaskState.aheadSubtasks:

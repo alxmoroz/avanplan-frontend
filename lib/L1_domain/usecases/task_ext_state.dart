@@ -1,13 +1,29 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'dart:math';
-
 import 'package:collection/collection.dart';
 
 import '../entities/task.dart';
 import 'task_ext_level.dart';
 
-enum TaskState { overdue, risk, ok, eta, closable, noDueDate, noSubtasks, noProgress, opened, future, backlog, closed }
+enum TaskState {
+  overdue,
+  overdueSubtasks,
+  risk,
+  riskSubtasks,
+  ok,
+  okSubtasks,
+  ahead,
+  aheadSubtasks,
+  eta,
+  closable,
+  noSubtasks,
+  noProgress,
+  opened,
+  future,
+  noInfo,
+  backlog,
+  closed,
+}
 
 const _day = Duration(days: 1);
 
@@ -77,13 +93,6 @@ extension TaskStats on Task {
   Duration? get overduePeriod => hasDueDate ? _now.difference(dueDate!) : null;
   static const Duration _overdueThreshold = _day;
   bool get hasOverdue => overduePeriod != null && overduePeriod! > _overdueThreshold;
-  // максимальное опоздание с учётом подзадач
-  Duration get maxOverduePeriod => Duration(
-        seconds: openedSubtasks.map((t) => t.maxOverduePeriod.inSeconds).fold(
-              overduePeriod?.inSeconds ?? 0,
-              (s, res) => max(s, res),
-            ),
-      );
   Iterable<Task> get overdueSubtasks => openedSubtasks.where((t) => t.state == TaskState.overdue);
 
   /// фактическая скорость проекта
@@ -109,22 +118,18 @@ extension TaskStats on Task {
   static const Duration _riskThreshold = _day;
   Duration? get riskPeriod => (hasDueDate && hasEtaDate) ? etaDate!.difference(dueDate!) : null;
   bool get hasRisk => riskPeriod != null && riskPeriod! > _riskThreshold;
-  // рисковые подзадачи
-  Duration get subtasksRiskPeriod => Duration(
-        seconds: riskySubtasks.map((t) => t.riskPeriod?.inSeconds ?? t.subtasksRiskPeriod.inSeconds).fold(0, (s, res) => s + res),
-      );
-  Iterable<Task> get riskySubtasks => tasks.where((t) => t.state == TaskState.risk);
+  Iterable<Task> get riskySubtasks => openedSubtasks.where((t) => t.state == TaskState.risk);
 
-  /// запас, опережение
-  Duration? get _aheadPeriod => (hasDueDate && hasEtaDate) ? dueDate!.difference(etaDate!) : null;
+  /// ok
   bool get isOk => riskPeriod != null && riskPeriod! <= _riskThreshold;
-  Duration get totalAheadPeriod => Duration(
-        seconds: openedSubtasks.map((t) => max(0, t.totalAheadPeriod.inSeconds)).fold(
-              _aheadPeriod?.inSeconds ?? 0,
-              (s, res) => s + res,
-            ),
-      );
-  bool get isAhead => state == TaskState.ok && totalAheadPeriod >= _riskThreshold;
+  Iterable<Task> get okSubtasks => openedSubtasks.where((t) => t.state == TaskState.ok);
+
+  /// опережение
+  bool get isAhead => riskPeriod != null && -riskPeriod! > _riskThreshold;
+  Iterable<Task> get aheadSubtasks => openedSubtasks.where((t) => t.state == TaskState.ahead);
+
+  /// только прогноз
+  Iterable<Task> get etaSubtasks => openedSubtasks.where((t) => t.state == TaskState.eta);
 
   /// диаграмма сроков
   Iterable<DateTime> get _sortedDates {
@@ -146,33 +151,52 @@ extension TaskStats on Task {
 
   // double get doneRatio => (hasDueDate && leafTasksCount > 0) ? closedLeafTasksCount / leafTasksCount : 0;
 
-  /// подзадачи в порядке
-  bool get _hasOkSubtasks => openedSubtasks.isNotEmpty && openedSubtasks.every((t) => t.state == TaskState.ok);
-  bool get _allSubtasksAreClosable => openedSubtasks.isNotEmpty && openedSubtasks.every((t) => t.state == TaskState.closable);
+  bool _allOpenedSubtasksAre(TaskState state) => openedSubtasks.isNotEmpty && !openedSubtasks.any((t) => t.state != state);
 
-  // TODO(san-smith): я бы подумал, как избавиться от такого вложенного тернарника
   /// интегральный статус
-  TaskState get state => closed
-      ? TaskState.closed
-      : isBacklog
-          ? TaskState.backlog
-          : ((isProject || isGoal) && !hasSubtasks)
-              ? TaskState.noSubtasks
-              : _isFuture && hasOpenedSubtasks
-                  ? TaskState.future
-                  : !isWorkspace && hasOpenedSubtasks && !hasEtaDate
-                      ? TaskState.noProgress
-                      : !isWorkspace && hasSubtasks && (!hasOpenedSubtasks || _allSubtasksAreClosable)
-                          ? TaskState.closable
-                          : !hasDueDate && hasEtaDate
-                              ? TaskState.eta
-                              : (hasOverdue || (!hasDueDate && overdueSubtasks.isNotEmpty)
-                                  ? TaskState.overdue
-                                  : hasRisk || (!hasDueDate && riskySubtasks.isNotEmpty)
-                                      ? TaskState.risk
-                                      : isOk || ((isWorkspace || isProject) && _hasOkSubtasks)
-                                          ? TaskState.ok
-                                          : (!hasDueDate && (!isWorkspace && !isProject && hasSubtasks))
-                                              ? TaskState.noDueDate
-                                              : TaskState.opened);
+  TaskState get state {
+    TaskState s = TaskState.opened;
+
+    if (closed) {
+      s = TaskState.closed;
+    } else if (isBacklog) {
+      s = TaskState.backlog;
+    } else if (!(isTask || isSubtask) && !hasSubtasks || _allOpenedSubtasksAre(TaskState.backlog)) {
+      s = TaskState.noSubtasks;
+    } else if (hasSubtasks && !hasOpenedSubtasks || _allOpenedSubtasksAre(TaskState.closable)) {
+      s = TaskState.closable;
+    } else if (!isWorkspace && hasSubtasks && closedLeafTasksCount == 0) {
+      if (_isFuture) {
+        s = TaskState.future;
+      } else {
+        s = TaskState.noProgress;
+      }
+    } else if (hasDueDate) {
+      if (hasOverdue) {
+        s = TaskState.overdue;
+      } else if (hasRisk) {
+        s = TaskState.risk;
+      } else if (isAhead) {
+        s = TaskState.ahead;
+      } else if (isOk) {
+        s = TaskState.ok;
+      }
+    } else if (hasSubtasks) {
+      if (overdueSubtasks.isNotEmpty) {
+        s = TaskState.overdueSubtasks;
+      } else if (riskySubtasks.isNotEmpty) {
+        s = TaskState.riskSubtasks;
+      } else if (okSubtasks.isNotEmpty) {
+        s = TaskState.okSubtasks;
+      } else if (aheadSubtasks.isNotEmpty) {
+        s = TaskState.aheadSubtasks;
+      } else if (etaSubtasks.isNotEmpty) {
+        s = TaskState.eta;
+      } else {
+        s = TaskState.noInfo;
+      }
+    }
+
+    return s;
+  }
 }

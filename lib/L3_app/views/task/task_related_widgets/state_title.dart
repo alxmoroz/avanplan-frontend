@@ -7,7 +7,7 @@ import '../../../../L1_domain/usecases/task_ext_state.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/text_widgets.dart';
-import '../../../presenters/task_state_presenter.dart';
+import '../../../presenters/state_presenter.dart';
 
 enum TaskStateTitleStyle { L, M, S }
 

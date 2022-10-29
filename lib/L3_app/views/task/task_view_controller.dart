@@ -13,9 +13,9 @@ import '../../../L1_domain/usecases/task_ext_state.dart';
 import '../../components/icons.dart';
 import '../../components/mt_confirm_dialog.dart';
 import '../../extra/services.dart';
+import '../../presenters/source_presenter.dart';
+import '../../presenters/state_presenter.dart';
 import '../../presenters/task_filter_presenter.dart';
-import '../../presenters/task_source_presenter.dart';
-import '../../presenters/task_state_presenter.dart';
 import 'task_edit_view.dart';
 
 part 'task_view_controller.g.dart';

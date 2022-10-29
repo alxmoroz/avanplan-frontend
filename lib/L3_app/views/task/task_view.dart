@@ -78,7 +78,7 @@ class TaskView extends StatelessWidget {
                   ? Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
                       if (_task.shouldClose)
                         MediumText(
-                          loc.task_state_closable_hint,
+                          loc.state_closable_hint,
                           align: TextAlign.center,
                           color: lightGreyColor,
                           padding: EdgeInsets.only(bottom: onePadding / 3),

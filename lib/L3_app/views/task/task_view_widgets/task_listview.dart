@@ -6,8 +6,8 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../components/constants.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_filter_presenter.dart';
+import '../task_related_widgets/state_title.dart';
 import '../task_related_widgets/task_card.dart';
-import '../task_related_widgets/task_state_title.dart';
 import '../task_view_controller.dart';
 
 class TaskListView extends StatelessWidget {

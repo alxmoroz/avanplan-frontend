@@ -11,8 +11,8 @@ import '../../../components/mt_badge.dart';
 import '../../../components/mt_card.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/task_state_presenter.dart';
-import 'task_state_title.dart';
+import '../../../presenters/state_presenter.dart';
+import 'state_title.dart';
 
 class TaskCard extends StatelessWidget {
   const TaskCard(this.task, {this.expanded = false});

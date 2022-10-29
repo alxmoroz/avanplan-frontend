@@ -152,7 +152,7 @@ class _TaskEditViewState extends State<TaskEditView> {
   //     ),
   //   MTButton(
   //     leading: doneIcon(context, controller.closed),
-  //     titleString: loc.task_state_closed,
+  //     titleString: loc.state_closed,
   //     margin: tfPadding,
   //     onTap: () => controller.setClosed(!controller.closed),
   //   ),

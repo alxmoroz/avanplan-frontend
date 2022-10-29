@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../L1_domain/entities/source.dart';
 import '../../components/colors.dart';
@@ -19,6 +19,7 @@ import '../../components/navbar.dart';
 import '../../components/text_field_annotation.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
+import '../../presenters/communications_presenter.dart';
 import '../../presenters/source_presenter.dart';
 import 'source_controller.dart';
 
@@ -47,7 +48,7 @@ class _SourceEditViewState extends State<SourceEditView> {
   String get _sourceCode => _controller.selectedType != null ? _controller.selectedType!.title.toLowerCase() : '';
   bool get _isJira => _controller.selectedType?.title == 'Jira';
 
-  String get _sourceEditHelperAddress => '/import/$_sourceCode';
+  String get _sourceEditHelperAddress => '$docsUrlPath/import/$_sourceCode';
 
   @override
   void initState() {
@@ -126,7 +127,7 @@ class _SourceEditViewState extends State<SourceEditView> {
             titleText: loc.source_help_edit_action,
             trailing: LinkOutIcon(size: onePadding * 1.3),
             margin: tfPadding.copyWith(top: onePadding * 2),
-            onTap: () => launchUrl(Uri.parse(_sourceEditHelperAddress)),
+            onTap: () => launchUrlString(_sourceEditHelperAddress),
           ),
           if (_controller.canEdit)
             MTButton.outlined(

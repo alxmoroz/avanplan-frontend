@@ -8,6 +8,7 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/entities/source.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/system/errors.dart';
+import '../../../L1_domain/usecases/task_ext_actions.dart';
 import '../../components/mt_confirm_dialog.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
@@ -163,9 +164,12 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
         loaderController.start();
         loaderController.setDeleting();
         Navigator.of(context).pop(await sourcesUC.delete(s: selectedSource!));
-        await loaderController.stop(300);
 
-        await mainController.updateAll();
+        // отвязываем задачи
+        mainController.rootTask.tasks.where((t) => t.taskSource?.source.id == selectedSourceId).forEach((t) => t.unlinkTaskTree());
+        mainController.touchRootTask();
+
+        await loaderController.stop(300);
       }
     }
   }
@@ -182,7 +186,9 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
     final _s = await editSourceDialog(context);
     if (_s != null) {
       await _updateSourceInList(_s);
-      checkSourceConnection(_s.id);
+      if (!_s.deleted) {
+        checkSourceConnection(_s.id);
+      }
     }
     return _s;
   }

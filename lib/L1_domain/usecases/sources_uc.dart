@@ -15,7 +15,6 @@ class SourcesUC {
 
   Future<Source?> save(Source data) async {
     Source? s;
-    // TODO: внутр. exception - валидация...
     final login = data.login?.trim() ?? '';
     final apiKey = data.apiKey?.trim() ?? '';
     if (data.url.trim().isNotEmpty && (login.isNotEmpty || apiKey.isNotEmpty)) {
@@ -25,7 +24,6 @@ class SourcesUC {
   }
 
   Future<Source?> delete({required Source s}) async {
-    // TODO: внутр. exception
     if (s.id != null) {
       final deletedRows = await repo.delete(s.id!);
       if (deletedRows) {

@@ -44,12 +44,7 @@ abstract class _MainControllerBase with Store {
   }
 
   @action
-  Future fetchData() async {
-    loaderController.setRefreshing();
-    await settingsController.fetchData();
-    await accountController.fetchData();
-    await referencesController.fetchData();
-
+  Future fetchWorkspaces() async {
     workspaces = ObservableList.of(await myUC.getWorkspaces());
     workspaces.sort((w1, w2) => compareNatural(w1.title, w2.title));
     final tasks = <Task>[];
@@ -61,6 +56,16 @@ abstract class _MainControllerBase with Store {
     tasks.forEach((t) => t.parent = rootTask);
     rootTask.tasks = tasks;
     touchRootTask();
+  }
+
+  @action
+  Future fetchData() async {
+    loaderController.setRefreshing();
+    await settingsController.fetchData();
+    await accountController.fetchData();
+    await referencesController.fetchData();
+
+    await fetchWorkspaces();
 
     await sourceController.fetchData();
     // TODO: чтобы сохранять положение в навигации внутри приложения, нужно синхронизировать id текущей выбранной задачи на сервер в профиль пользователя
@@ -92,10 +97,12 @@ abstract class _MainControllerBase with Store {
     await loaderController.stop();
   }
 
+  Iterable<Task> linkedTasks(int? srcId) => rootTask.tasks.where((t) => t.hasLink && t.taskSource?.source.id == srcId);
+
   Future<bool> _updateLinkedTasks() async {
     bool needUpdate = false;
     for (Source src in sourceController.sources) {
-      final linkedTSs = mainController.rootTask.tasks.where((t) => t.hasLink && t.taskSource?.source.id == src.id).map((t) => t.taskSource!);
+      final linkedTSs = linkedTasks(src.id).map((t) => t.taskSource!);
       needUpdate = linkedTSs.isNotEmpty;
       if (needUpdate) {
         //TODO: тут можно указать из какого источника обновляем данные

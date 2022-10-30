@@ -82,6 +82,10 @@ class AuthRepo extends AbstractAuthRepo {
           AppleIDAuthorizationScopes.email,
           AppleIDAuthorizationScopes.fullName,
         ],
+        webAuthenticationOptions: WebAuthenticationOptions(
+          redirectUri: Uri.parse('https://gercul.es'),
+          clientId: 'team.moroz.gercules',
+        ),
       );
       token = creds.authorizationCode;
       email = creds.email;
@@ -95,8 +99,11 @@ class AuthRepo extends AbstractAuthRepo {
         throw MTOAuthError(code: 'apple AuthorizationException', detail: e.code.toString());
       }
     } on SignInWithAppleCredentialsException catch (e) {
-      throw MTOAuthError(code: 'apple CredentialsException', detail: e.message);
+      if (!e.message.contains('popup_closed_by_user')) {
+        throw MTOAuthError(code: 'apple CredentialsException', detail: e.message);
+      }
     } catch (e) {
+      print(e);
       throw MTOAuthError(code: 'apple', detail: e.toString());
     }
 

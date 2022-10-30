@@ -25,6 +25,7 @@ dependencies:
     path: ./openapi
   package_info_plus: any
   path_provider: any
+  sign_in_with_apple: any
   url_launcher: any
 
 dev_dependencies:

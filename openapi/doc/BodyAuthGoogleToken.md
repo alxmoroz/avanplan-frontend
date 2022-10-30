@@ -1,4 +1,4 @@
-# openapi.model.BodyAuthTokenGoogleOauth
+# openapi.model.BodyAuthGoogleToken
 
 ## Load the model package
 ```dart

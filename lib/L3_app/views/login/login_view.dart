@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../L2_data/repositories/platform.dart';
@@ -100,19 +101,30 @@ class _LoginViewState extends State<LoginView> {
                 textFieldForCode('password'),
                 MTButton.outlined(
                   margin: EdgeInsets.symmetric(horizontal: onePadding * 4).copyWith(top: onePadding * 2),
-                  padding: EdgeInsets.all(onePadding),
                   titleText: loc.auth_log_in_btn_title,
                   onTap: _controller.validated ? () => _controller.authorize(context) : null,
                 ),
                 MTButton.outlined(
                   margin: EdgeInsets.symmetric(horizontal: onePadding * 4).copyWith(top: onePadding * 2),
-                  padding: EdgeInsets.symmetric(horizontal: onePadding),
-                  leading: googleIcon(size: onePadding * 3.7),
-                  // titleColor: CupertinoColors.label,
+                  leading: googleIcon(size: minButtonHeight),
                   middle: MediumText(loc.auth_log_in_with_google_btn_title, color: CupertinoColors.label),
                   color: googleBtnColor,
                   onTap: () => authController.authorizeWithGoogle(context),
                 ),
+                // для Андроида не показываем SignInWithApple
+                if (!isAndroid && authController.authWithAppleIsAvailable)
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: onePadding * 4).copyWith(top: onePadding * 1),
+                    child: SignInWithAppleButton(
+                      height: minButtonHeight,
+                      text: loc.auth_log_in_with_apple_btn_title,
+                      borderRadius: BorderRadius.all(Radius.circular(defaultBorderRadius)),
+                      style: MediaQuery.of(context).platformBrightness == Brightness.dark
+                          ? SignInWithAppleButtonStyle.white
+                          : SignInWithAppleButtonStyle.black,
+                      onPressed: () => authController.authorizeWithApple(context),
+                    ),
+                  ),
                 SizedBox(height: onePadding * 2),
                 MTButton(
                   titleText: loc.privacy_policy_title,

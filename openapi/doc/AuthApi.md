@@ -9,9 +9,92 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**authAppleToken**](AuthApi.md#authappletoken) | **POST** /v1/auth/apple/token | Token
+[**authGoogleToken**](AuthApi.md#authgoogletoken) | **POST** /v1/auth/google/token | Token
 [**authToken**](AuthApi.md#authtoken) | **POST** /v1/auth/token | Token
-[**authTokenGoogleOauth**](AuthApi.md#authtokengoogleoauth) | **POST** /v1/auth/token_google_oauth | Token Google Oauth
 
+
+# **authAppleToken**
+> Token authAppleToken(bodyAuthAppleToken)
+
+Token
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+
+final api = Openapi().getAuthApi();
+final BodyAuthAppleToken bodyAuthAppleToken = ; // BodyAuthAppleToken | 
+
+try {
+    final response = api.authAppleToken(bodyAuthAppleToken);
+    print(response);
+} catch on DioError (e) {
+    print('Exception when calling AuthApi->authAppleToken: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **bodyAuthAppleToken** | [**BodyAuthAppleToken**](BodyAuthAppleToken.md)|  | 
+
+### Return type
+
+[**Token**](Token.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **authGoogleToken**
+> Token authGoogleToken(bodyAuthGoogleToken)
+
+Token
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+
+final api = Openapi().getAuthApi();
+final BodyAuthGoogleToken bodyAuthGoogleToken = ; // BodyAuthGoogleToken | 
+
+try {
+    final response = api.authGoogleToken(bodyAuthGoogleToken);
+    print(response);
+} catch on DioError (e) {
+    print('Exception when calling AuthApi->authGoogleToken: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **bodyAuthGoogleToken** | [**BodyAuthGoogleToken**](BodyAuthGoogleToken.md)|  | 
+
+### Return type
+
+[**Token**](Token.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **authToken**
 > Token authToken(username, password, grantType, scope, clientId, clientSecret)
@@ -60,47 +143,6 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/x-www-form-urlencoded
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **authTokenGoogleOauth**
-> Token authTokenGoogleOauth(bodyAuthTokenGoogleOauth)
-
-Token Google Oauth
-
-### Example
-```dart
-import 'package:openapi/api.dart';
-
-final api = Openapi().getAuthApi();
-final BodyAuthTokenGoogleOauth bodyAuthTokenGoogleOauth = ; // BodyAuthTokenGoogleOauth | 
-
-try {
-    final response = api.authTokenGoogleOauth(bodyAuthTokenGoogleOauth);
-    print(response);
-} catch on DioError (e) {
-    print('Exception when calling AuthApi->authTokenGoogleOauth: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **bodyAuthTokenGoogleOauth** | [**BodyAuthTokenGoogleOauth**](BodyAuthTokenGoogleOauth.md)|  | 
-
-### Return type
-
-[**Token**](Token.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

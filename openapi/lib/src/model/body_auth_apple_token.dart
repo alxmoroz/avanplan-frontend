@@ -6,85 +6,64 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'user_get.g.dart';
+part 'body_auth_apple_token.g.dart';
 
-/// UserGet
+/// BodyAuthAppleToken
 ///
 /// Properties:
-/// * [id] 
+/// * [appleToken] 
 /// * [email] 
-/// * [fullName] 
-/// * [regSource] 
-/// * [sourceId] 
+/// * [name] 
 @BuiltValue()
-abstract class UserGet implements Built<UserGet, UserGetBuilder> {
-  @BuiltValueField(wireName: r'id')
-  int get id;
+abstract class BodyAuthAppleToken implements Built<BodyAuthAppleToken, BodyAuthAppleTokenBuilder> {
+  @BuiltValueField(wireName: r'apple_token')
+  String get appleToken;
 
   @BuiltValueField(wireName: r'email')
-  String get email;
+  String? get email;
 
-  @BuiltValueField(wireName: r'full_name')
-  String? get fullName;
+  @BuiltValueField(wireName: r'name')
+  String? get name;
 
-  @BuiltValueField(wireName: r'reg_source')
-  String? get regSource;
+  BodyAuthAppleToken._();
 
-  @BuiltValueField(wireName: r'source_id')
-  String? get sourceId;
-
-  UserGet._();
-
-  factory UserGet([void updates(UserGetBuilder b)]) = _$UserGet;
+  factory BodyAuthAppleToken([void updates(BodyAuthAppleTokenBuilder b)]) = _$BodyAuthAppleToken;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(UserGetBuilder b) => b
-      ..regSource = 'local';
+  static void _defaults(BodyAuthAppleTokenBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<UserGet> get serializer => _$UserGetSerializer();
+  static Serializer<BodyAuthAppleToken> get serializer => _$BodyAuthAppleTokenSerializer();
 }
 
-class _$UserGetSerializer implements PrimitiveSerializer<UserGet> {
+class _$BodyAuthAppleTokenSerializer implements PrimitiveSerializer<BodyAuthAppleToken> {
   @override
-  final Iterable<Type> types = const [UserGet, _$UserGet];
+  final Iterable<Type> types = const [BodyAuthAppleToken, _$BodyAuthAppleToken];
 
   @override
-  final String wireName = r'UserGet';
+  final String wireName = r'BodyAuthAppleToken';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    UserGet object, {
+    BodyAuthAppleToken object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    yield r'id';
+    yield r'apple_token';
     yield serializers.serialize(
-      object.id,
-      specifiedType: const FullType(int),
-    );
-    yield r'email';
-    yield serializers.serialize(
-      object.email,
+      object.appleToken,
       specifiedType: const FullType(String),
     );
-    if (object.fullName != null) {
-      yield r'full_name';
+    if (object.email != null) {
+      yield r'email';
       yield serializers.serialize(
-        object.fullName,
+        object.email,
         specifiedType: const FullType(String),
       );
     }
-    if (object.regSource != null) {
-      yield r'reg_source';
+    if (object.name != null) {
+      yield r'name';
       yield serializers.serialize(
-        object.regSource,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.sourceId != null) {
-      yield r'source_id';
-      yield serializers.serialize(
-        object.sourceId,
+        object.name,
         specifiedType: const FullType(String),
       );
     }
@@ -93,7 +72,7 @@ class _$UserGetSerializer implements PrimitiveSerializer<UserGet> {
   @override
   Object serialize(
     Serializers serializers,
-    UserGet object, {
+    BodyAuthAppleToken object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -104,19 +83,19 @@ class _$UserGetSerializer implements PrimitiveSerializer<UserGet> {
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required UserGetBuilder result,
+    required BodyAuthAppleTokenBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'id':
+        case r'apple_token':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.id = valueDes;
+            specifiedType: const FullType(String),
+          ) as String;
+          result.appleToken = valueDes;
           break;
         case r'email':
           final valueDes = serializers.deserialize(
@@ -125,26 +104,12 @@ class _$UserGetSerializer implements PrimitiveSerializer<UserGet> {
           ) as String;
           result.email = valueDes;
           break;
-        case r'full_name':
+        case r'name':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.fullName = valueDes;
-          break;
-        case r'reg_source':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.regSource = valueDes;
-          break;
-        case r'source_id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.sourceId = valueDes;
+          result.name = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -155,12 +120,12 @@ class _$UserGetSerializer implements PrimitiveSerializer<UserGet> {
   }
 
   @override
-  UserGet deserialize(
+  BodyAuthAppleToken deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = UserGetBuilder();
+    final result = BodyAuthAppleTokenBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

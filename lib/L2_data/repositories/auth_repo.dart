@@ -3,6 +3,7 @@
 import 'package:dio/dio.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:openapi/openapi.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../../L1_domain/repositories/abs_api_auth_repo.dart';
 import '../../L1_domain/system/errors.dart';
@@ -32,7 +33,7 @@ class AuthRepo extends AbstractAuthRepo {
   }
 
   @override
-  Future<String> getApiAuthTokenGoogleOauth() async {
+  Future<String> getApiAuthGoogleToken() async {
     GoogleSignInAuthentication? auth;
     try {
       final googleAuth = GoogleSignIn(scopes: ['email', 'profile']);
@@ -50,8 +51,8 @@ class AuthRepo extends AbstractAuthRepo {
     if (auth != null) {
       final token = auth.idToken;
       if (token != null) {
-        final Response<Token> response = await api.authTokenGoogleOauth(
-          bodyAuthTokenGoogleOauth: (BodyAuthTokenGoogleOauthBuilder()
+        final Response<Token> response = await api.authGoogleToken(
+          bodyAuthGoogleToken: (BodyAuthGoogleTokenBuilder()
                 ..googleToken = token
                 ..platform = platformCode)
               .build(),
@@ -63,7 +64,51 @@ class AuthRepo extends AbstractAuthRepo {
   }
 
   @override
-  Future googleLogout() async {
+  Future<bool> authWithAppleIsAvailable() async => await SignInWithApple.isAvailable();
+
+  @override
+  Future<String> getApiAuthAppleToken() async {
+    String token = '';
+    String? email;
+    String name = '';
+    try {
+      final creds = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+      );
+      token = creds.authorizationCode;
+      email = creds.email;
+      name = creds.givenName ?? '';
+      if (creds.familyName != null) {
+        name += name.isNotEmpty ? ' ' : '';
+        name += creds.familyName!;
+      }
+    } on SignInWithAppleAuthorizationException catch (e) {
+      if (e.code != AuthorizationErrorCode.canceled) {
+        throw MTOAuthError(code: 'apple', detail: e.toString());
+      }
+    } catch (e) {
+      print(e);
+      throw MTOAuthError(code: 'apple', detail: e.toString());
+    }
+    if (token.isNotEmpty) {
+      final Response<Token> response = await api.authAppleToken(
+        bodyAuthAppleToken: (BodyAuthAppleTokenBuilder()
+              ..appleToken = token
+              ..email = email
+              ..name = name)
+            .build(),
+      );
+      return _parseTokenResponse(response) ?? '';
+    }
+
+    return '';
+  }
+
+  @override
+  Future logout() async {
     await GoogleSignIn().signOut();
   }
 

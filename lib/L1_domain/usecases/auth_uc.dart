@@ -22,7 +22,14 @@ class AuthUC {
   }
 
   Future<bool> authorizeWithGoogle() async {
-    final token = await authRepo.getApiAuthTokenGoogleOauth();
+    final token = await authRepo.getApiAuthGoogleToken();
+    return _checkToken(token);
+  }
+
+  Future<bool> authWithAppleIsAvailable() async => await authRepo.authWithAppleIsAvailable();
+
+  Future<bool> authorizeWithApple() async {
+    final token = await authRepo.getApiAuthAppleToken();
     return _checkToken(token);
   }
 
@@ -41,7 +48,7 @@ class AuthUC {
   Future<bool> isLocalAuthorized() async => (await _getLocalAccessToken()).isNotEmpty;
 
   Future logout() async {
-    await authRepo.googleLogout();
+    await authRepo.logout();
     authRepo.setApiCredentials('');
     _updateAccessToken('');
   }

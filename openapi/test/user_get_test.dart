@@ -26,5 +26,10 @@ void main() {
     test('to test the property `regSource`', () async {
       // TODO
     });
+
+    // String sourceId
+    test('to test the property `sourceId`', () async {
+      // TODO
+    });
   });
 }

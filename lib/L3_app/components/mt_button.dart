@@ -36,7 +36,7 @@ class MTButton extends StatelessWidget {
     EdgeInsets? padding,
     this.margin,
   })  : type = ButtonType.outlined,
-        padding = padding ?? EdgeInsets.all(onePadding);
+        padding = padding ?? EdgeInsets.symmetric(horizontal: onePadding);
 
   const MTButton.icon(Widget icon, this.onTap, {this.margin, this.padding})
       : type = ButtonType.icon,
@@ -59,15 +59,14 @@ class MTButton extends StatelessWidget {
   final EdgeInsets? margin;
 
   Color get _titleColor => onTap != null ? (titleColor ?? mainColor) : lightGreyColor;
-  double get _minHeight => onePadding * 4.3;
-  double get _minWidth => _minHeight;
+  double get _minWidth => minButtonHeight;
 
   ButtonStyle _style(BuildContext context) => ElevatedButton.styleFrom(
         padding: padding ?? EdgeInsets.zero,
         backgroundColor: (color ?? Colors.transparent).resolve(context),
         // surfaceTintColor: _titleColor.resolve(context),
         foregroundColor: _titleColor.resolve(context),
-        minimumSize: Size(_minWidth, _minHeight),
+        minimumSize: Size(_minWidth, minButtonHeight),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(defaultBorderRadius)),
         side: type == ButtonType.outlined ? BorderSide(color: _titleColor.resolve(context), width: 2) : null,
         splashFactory: NoSplash.splashFactory,

@@ -47,18 +47,13 @@ import 'package:openapi/openapi.dart';
 
 
 final api = Openapi().getAuthApi();
-final String username = username_example; // String | 
-final String password = password_example; // String | 
-final String grantType = grantType_example; // String | 
-final String scope = scope_example; // String | 
-final String clientId = clientId_example; // String | 
-final String clientSecret = clientSecret_example; // String | 
+final BodyAuthAppleToken bodyAuthAppleToken = ; // BodyAuthAppleToken | 
 
 try {
-    final response = await api.authToken(username, password, grantType, scope, clientId, clientSecret);
+    final response = await api.authAppleToken(bodyAuthAppleToken);
     print(response);
 } catch on DioError (e) {
-    print("Exception when calling AuthApi->authToken: $e\n");
+    print("Exception when calling AuthApi->authAppleToken: $e\n");
 }
 
 ```
@@ -69,8 +64,9 @@ All URIs are relative to */api*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
+[*AuthApi*](doc/AuthApi.md) | [**authAppleToken**](doc/AuthApi.md#authappletoken) | **POST** /v1/auth/apple/token | Token
+[*AuthApi*](doc/AuthApi.md) | [**authGoogleToken**](doc/AuthApi.md#authgoogletoken) | **POST** /v1/auth/google/token | Token
 [*AuthApi*](doc/AuthApi.md) | [**authToken**](doc/AuthApi.md#authtoken) | **POST** /v1/auth/token | Token
-[*AuthApi*](doc/AuthApi.md) | [**authTokenGoogleOauth**](doc/AuthApi.md#authtokengoogleoauth) | **POST** /v1/auth/token_google_oauth | Token Google Oauth
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**checkConnectionV1IntegrationsSourcesCheckConnectionGet**](doc/IntegrationsSourcesApi.md#checkconnectionv1integrationssourcescheckconnectionget) | **GET** /v1/integrations/sources/check_connection | Check Connection
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**deleteSourceV1IntegrationsSourcesSourceIdDelete**](doc/IntegrationsSourcesApi.md#deletesourcev1integrationssourcessourceiddelete) | **DELETE** /v1/integrations/sources/{source_id} | Delete Source
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**getSourceTypesV1IntegrationsSourcesTypesGet**](doc/IntegrationsSourcesApi.md#getsourcetypesv1integrationssourcestypesget) | **GET** /v1/integrations/sources/types/ | Get Source Types
@@ -89,7 +85,8 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
- - [BodyAuthTokenGoogleOauth](doc/BodyAuthTokenGoogleOauth.md)
+ - [BodyAuthAppleToken](doc/BodyAuthAppleToken.md)
+ - [BodyAuthGoogleToken](doc/BodyAuthGoogleToken.md)
  - [BodyUpdateMyAccountV1MyAccountPut](doc/BodyUpdateMyAccountV1MyAccountPut.md)
  - [HTTPValidationError](doc/HTTPValidationError.md)
  - [LocationInner](doc/LocationInner.md)

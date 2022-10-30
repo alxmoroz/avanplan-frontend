@@ -6,42 +6,42 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'body_auth_token_google_oauth.g.dart';
+part 'body_auth_google_token.g.dart';
 
-/// BodyAuthTokenGoogleOauth
+/// BodyAuthGoogleToken
 ///
 /// Properties:
 /// * [googleToken] 
 /// * [platform] 
 @BuiltValue()
-abstract class BodyAuthTokenGoogleOauth implements Built<BodyAuthTokenGoogleOauth, BodyAuthTokenGoogleOauthBuilder> {
+abstract class BodyAuthGoogleToken implements Built<BodyAuthGoogleToken, BodyAuthGoogleTokenBuilder> {
   @BuiltValueField(wireName: r'google_token')
   String get googleToken;
 
   @BuiltValueField(wireName: r'platform')
   String get platform;
 
-  BodyAuthTokenGoogleOauth._();
+  BodyAuthGoogleToken._();
 
-  factory BodyAuthTokenGoogleOauth([void updates(BodyAuthTokenGoogleOauthBuilder b)]) = _$BodyAuthTokenGoogleOauth;
+  factory BodyAuthGoogleToken([void updates(BodyAuthGoogleTokenBuilder b)]) = _$BodyAuthGoogleToken;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(BodyAuthTokenGoogleOauthBuilder b) => b;
+  static void _defaults(BodyAuthGoogleTokenBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<BodyAuthTokenGoogleOauth> get serializer => _$BodyAuthTokenGoogleOauthSerializer();
+  static Serializer<BodyAuthGoogleToken> get serializer => _$BodyAuthGoogleTokenSerializer();
 }
 
-class _$BodyAuthTokenGoogleOauthSerializer implements PrimitiveSerializer<BodyAuthTokenGoogleOauth> {
+class _$BodyAuthGoogleTokenSerializer implements PrimitiveSerializer<BodyAuthGoogleToken> {
   @override
-  final Iterable<Type> types = const [BodyAuthTokenGoogleOauth, _$BodyAuthTokenGoogleOauth];
+  final Iterable<Type> types = const [BodyAuthGoogleToken, _$BodyAuthGoogleToken];
 
   @override
-  final String wireName = r'BodyAuthTokenGoogleOauth';
+  final String wireName = r'BodyAuthGoogleToken';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    BodyAuthTokenGoogleOauth object, {
+    BodyAuthGoogleToken object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'google_token';
@@ -59,7 +59,7 @@ class _$BodyAuthTokenGoogleOauthSerializer implements PrimitiveSerializer<BodyAu
   @override
   Object serialize(
     Serializers serializers,
-    BodyAuthTokenGoogleOauth object, {
+    BodyAuthGoogleToken object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -70,7 +70,7 @@ class _$BodyAuthTokenGoogleOauthSerializer implements PrimitiveSerializer<BodyAu
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required BodyAuthTokenGoogleOauthBuilder result,
+    required BodyAuthGoogleTokenBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -100,12 +100,12 @@ class _$BodyAuthTokenGoogleOauthSerializer implements PrimitiveSerializer<BodyAu
   }
 
   @override
-  BodyAuthTokenGoogleOauth deserialize(
+  BodyAuthGoogleToken deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = BodyAuthTokenGoogleOauthBuilder();
+    final result = BodyAuthGoogleTokenBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

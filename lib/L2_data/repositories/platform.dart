@@ -9,13 +9,13 @@ PackageInfo get packageInfo => GetIt.I<PackageInfo>();
 
 bool get isWeb => deviceInfo is WebBrowserInfo;
 bool get _isIOs => deviceInfo is IosDeviceInfo;
-bool get _isAndroid => deviceInfo is AndroidDeviceInfo;
+bool get isAndroid => deviceInfo is AndroidDeviceInfo;
 
 String get platformCode => _isIOs
     ? 'ios'
     : isWeb
         ? 'web'
-        : _isAndroid
+        : isAndroid
             ? 'android'
             : '?';
 
@@ -27,7 +27,7 @@ String get deviceModelName {
   String res = '';
   if (_isIOs) {
     res = _iosDevInfo.name ?? 'iOS device';
-  } else if (_isAndroid) {
+  } else if (isAndroid) {
     res = _androidDevInfo.model ?? 'Android device';
   } else if (isWeb) {
     res = _webDevInfo.userAgent ?? 'Web platform';
@@ -39,7 +39,7 @@ String get deviceSystemInfo {
   String res = '';
   if (_isIOs) {
     res = '${_iosDevInfo.systemName ?? 'Apple OS'} ${_iosDevInfo.systemVersion ?? ''}';
-  } else if (_isAndroid) {
+  } else if (isAndroid) {
     final osVersion = _androidDevInfo.version;
     res = '${osVersion.baseOS ?? 'Android'} ${osVersion.codename ?? ''}';
   }

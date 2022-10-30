@@ -14,6 +14,7 @@ class AuthController extends _AuthControllerBase with _$AuthController {
   Future<AuthController> init() async {
     await authUC.setApiCredentialsFromLocalAuth();
     _setAuthorized(await authUC.isLocalAuthorized());
+    authWithAppleIsAvailable = await authUC.authWithAppleIsAvailable();
     return this;
   }
 }
@@ -37,6 +38,20 @@ abstract class _AuthControllerBase with Store {
     loaderController.setAuth();
     try {
       _setAuthorized(await authUC.authorizeWithGoogle());
+      await loaderController.stop();
+    } on MTOAuthError {
+      loaderController.setAuthError();
+    }
+  }
+
+  @observable
+  bool authWithAppleIsAvailable = false;
+
+  Future authorizeWithApple(BuildContext context) async {
+    loaderController.start();
+    loaderController.setAuth();
+    try {
+      _setAuthorized(await authUC.authorizeWithApple());
       await loaderController.stop();
     } on MTOAuthError {
       loaderController.setAuthError();

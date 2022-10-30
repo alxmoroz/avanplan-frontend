@@ -14,7 +14,8 @@ import 'package:built_value/iso_8601_date_time_serializer.dart';
 import 'package:openapi/src/date_serializer.dart';
 import 'package:openapi/src/model/date.dart';
 
-import 'package:openapi/src/model/body_auth_token_google_oauth.dart';
+import 'package:openapi/src/model/body_auth_apple_token.dart';
+import 'package:openapi/src/model/body_auth_google_token.dart';
 import 'package:openapi/src/model/body_update_my_account_v1_my_account_put.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/location_inner.dart';
@@ -46,7 +47,8 @@ import 'package:openapi/src/model/workspace_get.dart';
 part 'serializers.g.dart';
 
 @SerializersFor([
-  BodyAuthTokenGoogleOauth,
+  BodyAuthAppleToken,
+  BodyAuthGoogleToken,
   BodyUpdateMyAccountV1MyAccountPut,
   HTTPValidationError,
   LocationInner,

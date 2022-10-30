@@ -16,5 +16,5 @@ Openapi setupApi(Iterable<Interceptor>? interceptors) {
 
 extension DioErrorExt on DioError {
   String get errCode => response?.headers['err_code']?.first ?? '';
-  String get detail => response?.data['detail'] ?? '';
+  String get detail => response?.data is String ? response?.data : response?.data['detail'] ?? '';
 }

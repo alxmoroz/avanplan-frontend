@@ -39,8 +39,8 @@ abstract class _AuthControllerBase with Store {
     try {
       _setAuthorized(await authUC.authorizeWithGoogle());
       await loaderController.stop();
-    } on MTOAuthError {
-      loaderController.setAuthError();
+    } on MTOAuthError catch (e) {
+      loaderController.setAuthError(e.detail);
     }
   }
 
@@ -53,8 +53,8 @@ abstract class _AuthControllerBase with Store {
     try {
       _setAuthorized(await authUC.authorizeWithApple());
       await loaderController.stop();
-    } on MTOAuthError {
-      loaderController.setAuthError();
+    } on MTOAuthError catch (e) {
+      loaderController.setAuthError(e.detail);
     }
   }
 

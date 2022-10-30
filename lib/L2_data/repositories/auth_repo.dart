@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:openapi/openapi.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
@@ -44,6 +45,10 @@ class AuthRepo extends AbstractAuthRepo {
         account = await googleAuth.signInSilently();
       }
       auth = await account?.authentication;
+    } on PlatformException catch (e) {
+      if (e.code != 'popup_closed_by_user') {
+        throw MTOAuthError(code: 'google', detail: e.code);
+      }
     } catch (e) {
       throw MTOAuthError(code: 'google', detail: e.toString());
     }
@@ -87,12 +92,14 @@ class AuthRepo extends AbstractAuthRepo {
       }
     } on SignInWithAppleAuthorizationException catch (e) {
       if (e.code != AuthorizationErrorCode.canceled) {
-        throw MTOAuthError(code: 'apple', detail: e.toString());
+        throw MTOAuthError(code: 'apple AuthorizationException', detail: e.code.toString());
       }
+    } on SignInWithAppleCredentialsException catch (e) {
+      throw MTOAuthError(code: 'apple CredentialsException', detail: e.message);
     } catch (e) {
-      print(e);
       throw MTOAuthError(code: 'apple', detail: e.toString());
     }
+
     if (token.isNotEmpty) {
       final Response<Token> response = await api.authAppleToken(
         bodyAuthAppleToken: (BodyAuthAppleTokenBuilder()

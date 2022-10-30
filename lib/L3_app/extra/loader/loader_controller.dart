@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mobx/mobx.dart' hide Interceptor;
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -174,10 +175,10 @@ abstract class _LoaderControllerBase with Store {
       );
 
   void setAuth() => _set(titleText: loc.loader_auth_title, icon: _authIcon);
-  void setAuthError() => _set(
+  void setAuthError([String? description]) => _set(
         icon: _authIcon,
         titleText: loc.auth_error_title,
-        descriptionText: loc.auth_error_description,
+        descriptionText: description != null ? Intl.message('auth_error_$description') : loc.auth_error_description,
         actionText: loc.ok,
       );
 

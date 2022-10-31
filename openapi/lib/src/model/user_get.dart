@@ -14,8 +14,6 @@ part 'user_get.g.dart';
 /// * [id] 
 /// * [email] 
 /// * [fullName] 
-/// * [regSource] 
-/// * [sourceId] 
 @BuiltValue()
 abstract class UserGet implements Built<UserGet, UserGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -27,19 +25,12 @@ abstract class UserGet implements Built<UserGet, UserGetBuilder> {
   @BuiltValueField(wireName: r'full_name')
   String? get fullName;
 
-  @BuiltValueField(wireName: r'reg_source')
-  String? get regSource;
-
-  @BuiltValueField(wireName: r'source_id')
-  String? get sourceId;
-
   UserGet._();
 
   factory UserGet([void updates(UserGetBuilder b)]) = _$UserGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(UserGetBuilder b) => b
-      ..regSource = 'local';
+  static void _defaults(UserGetBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<UserGet> get serializer => _$UserGetSerializer();
@@ -71,20 +62,6 @@ class _$UserGetSerializer implements PrimitiveSerializer<UserGet> {
       yield r'full_name';
       yield serializers.serialize(
         object.fullName,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.regSource != null) {
-      yield r'reg_source';
-      yield serializers.serialize(
-        object.regSource,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.sourceId != null) {
-      yield r'source_id';
-      yield serializers.serialize(
-        object.sourceId,
         specifiedType: const FullType(String),
       );
     }
@@ -131,20 +108,6 @@ class _$UserGetSerializer implements PrimitiveSerializer<UserGet> {
             specifiedType: const FullType(String),
           ) as String;
           result.fullName = valueDes;
-          break;
-        case r'reg_source':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.regSource = valueDes;
-          break;
-        case r'source_id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.sourceId = valueDes;
           break;
         default:
           unhandled.add(key);

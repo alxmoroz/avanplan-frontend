@@ -21,15 +21,5 @@ void main() {
     test('to test the property `fullName`', () async {
       // TODO
     });
-
-    // String regSource (default value: 'local')
-    test('to test the property `regSource`', () async {
-      // TODO
-    });
-
-    // String sourceId
-    test('to test the property `sourceId`', () async {
-      // TODO
-    });
   });
 }

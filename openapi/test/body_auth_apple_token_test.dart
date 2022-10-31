@@ -12,6 +12,11 @@ void main() {
       // TODO
     });
 
+    // String platform
+    test('to test the property `platform`', () async {
+      // TODO
+    });
+
     // String email
     test('to test the property `email`', () async {
       // TODO

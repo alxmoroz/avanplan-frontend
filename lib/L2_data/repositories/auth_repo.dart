@@ -84,7 +84,7 @@ class AuthRepo extends AbstractAuthRepo {
         ],
         webAuthenticationOptions: WebAuthenticationOptions(
           redirectUri: Uri.parse('https://gercul.es'),
-          clientId: 'team.moroz.gercules',
+          clientId: 'team.moroz.gercules.services',
         ),
       );
       token = creds.authorizationCode;
@@ -111,6 +111,7 @@ class AuthRepo extends AbstractAuthRepo {
       final Response<Token> response = await api.authAppleToken(
         bodyAuthAppleToken: (BodyAuthAppleTokenBuilder()
               ..appleToken = token
+              ..platform = platformCode
               ..email = email
               ..name = name)
             .build(),

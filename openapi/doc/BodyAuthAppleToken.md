@@ -9,6 +9,7 @@ import 'package:openapi/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **appleToken** | **String** |  | 
+**platform** | **String** |  | 
 **email** | **String** |  | [optional] 
 **name** | **String** |  | [optional] 
 

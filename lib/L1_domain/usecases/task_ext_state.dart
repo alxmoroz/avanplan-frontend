@@ -95,7 +95,7 @@ extension TaskStats on Task {
   Duration? get overduePeriod => hasDueDate ? _now.difference(dueDate!) : null;
   static const Duration _overdueThreshold = _day;
   bool get hasOverdue => overduePeriod != null && overduePeriod! > _overdueThreshold;
-  Iterable<Task> get overdueSubtasks => openedSubtasks.where((t) => t.state == TaskState.overdue);
+  Iterable<Task> get overdueSubtasks => openedSubtasks.where((t) => [TaskState.overdue, TaskState.overdueSubtasks].contains(t.state));
 
   /// фактическая скорость проекта
   Duration? get _pastPeriod => _isFuture ? null : _now.difference(_startDate);
@@ -122,15 +122,15 @@ extension TaskStats on Task {
   static const Duration _riskThreshold = _day;
   Duration? get riskPeriod => (hasDueDate && hasEtaDate) ? etaDate!.difference(dueDate!) : null;
   bool get hasRisk => riskPeriod != null && riskPeriod! > _riskThreshold;
-  Iterable<Task> get riskySubtasks => openedSubtasks.where((t) => t.state == TaskState.risk);
+  Iterable<Task> get riskySubtasks => openedSubtasks.where((t) => [TaskState.risk, TaskState.riskSubtasks].contains(t.state));
 
   /// ok
   bool get isOk => riskPeriod != null && riskPeriod! <= _riskThreshold;
-  Iterable<Task> get okSubtasks => openedSubtasks.where((t) => t.state == TaskState.ok);
+  Iterable<Task> get okSubtasks => openedSubtasks.where((t) => [TaskState.ok, TaskState.okSubtasks].contains(t.state));
 
   /// опережение
   bool get isAhead => riskPeriod != null && -riskPeriod! > _riskThreshold;
-  Iterable<Task> get aheadSubtasks => openedSubtasks.where((t) => t.state == TaskState.ahead);
+  Iterable<Task> get aheadSubtasks => openedSubtasks.where((t) => [TaskState.ahead, TaskState.aheadSubtasks].contains(t.state));
 
   /// только прогноз
   Iterable<Task> get etaSubtasks => openedSubtasks.where((t) => t.state == TaskState.eta);

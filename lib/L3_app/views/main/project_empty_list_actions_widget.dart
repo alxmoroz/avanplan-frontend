@@ -25,7 +25,7 @@ class ProjectEmptyListActionsWidget extends StatelessWidget {
         SizedBox(height: onePadding / 2),
         ...referencesController.sourceTypes
             .map(
-              (st) => MTCard(
+              (st) => MTCardButton(
                 onTap: () => importController.importTasks(parentContext, sType: st),
                 child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   // importIcon(context),

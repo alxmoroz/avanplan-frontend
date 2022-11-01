@@ -57,7 +57,7 @@ extension TaskStats on Task {
   DateTime get _now => DateTime.now();
 
   /// дата начала
-  DateTime get _startDate {
+  DateTime get calculatedStartDate {
     DateTime? start;
     if (startDate == null) {
       if (parent != null && !parent!.isWorkspace) {
@@ -69,10 +69,10 @@ extension TaskStats on Task {
             start = siblingsDueDates.last;
           }
         } else {
-          start = parent!._startDate;
+          start = parent!.calculatedStartDate;
         }
       } else if (isWorkspace && hasSubtasks) {
-        start = tasks.map((t) => t._startDate).sorted((d1, d2) => d1.compareTo(d2)).first;
+        start = tasks.map((t) => t.calculatedStartDate).sorted((d1, d2) => d1.compareTo(d2)).first;
       }
     } else {
       start = startDate!;
@@ -87,8 +87,8 @@ extension TaskStats on Task {
     return start;
   }
 
-  Duration get startPeriod => _startDate.difference(_now);
-  bool get _isFuture => _startDate.isAfter(_now);
+  Duration get startPeriod => calculatedStartDate.difference(_now);
+  bool get _isFuture => calculatedStartDate.isAfter(_now);
 
   /// опоздание
   bool get hasDueDate => dueDate != null;
@@ -98,7 +98,7 @@ extension TaskStats on Task {
   Iterable<Task> get overdueSubtasks => openedSubtasks.where((t) => [TaskState.overdue, TaskState.overdueSubtasks].contains(t.state));
 
   /// фактическая скорость проекта
-  Duration? get _pastPeriod => _isFuture ? null : _now.difference(_startDate);
+  Duration? get _pastPeriod => _isFuture ? null : _now.difference(calculatedStartDate);
   Task get _projectOrWS => project != null ? project! : this;
   double get projectOrWSSpeed => _projectOrWS._pastPeriod != null ? (_projectOrWS.closedLeafTasksCount / _projectOrWS._pastPeriod!.inSeconds) : 0;
 
@@ -113,7 +113,7 @@ extension TaskStats on Task {
   double? get targetSpeed => _leftPeriod != null && !hasOverdue ? openedLeafTasksCount / _leftPeriod!.inSeconds : null;
 
   /// плановый объем
-  Duration? get _planPeriod => hasDueDate ? dueDate!.difference(_startDate) : null;
+  Duration? get _planPeriod => hasDueDate ? dueDate!.difference(calculatedStartDate) : null;
   double? get planVolume => _pastPeriod != null && _planPeriod != null
       ? min(leafTasksCount.toDouble(), leafTasksCount * _pastPeriod!.inSeconds / _planPeriod!.inSeconds)
       : null;
@@ -134,24 +134,6 @@ extension TaskStats on Task {
 
   /// только прогноз
   Iterable<Task> get etaSubtasks => openedSubtasks.where((t) => t.state == TaskState.eta);
-
-  /// диаграмма сроков
-  Iterable<DateTime> get _sortedDates {
-    final dates = [
-      if (hasDueDate) dueDate!,
-      if (hasEtaDate) etaDate!,
-      _now,
-    ];
-    if (dates.length > 1) {
-      dates.sort((d1, d2) => d1.compareTo(d2));
-    }
-    return dates;
-  }
-
-  DateTime get _minDate => _sortedDates.first;
-  DateTime get _maxDate => _sortedDates.last;
-  int get _maxDateSeconds => _maxDate.difference(_minDate).inSeconds;
-  double dateRatio(DateTime dt) => _maxDateSeconds > 0 ? (dt.difference(_minDate).inSeconds / _maxDateSeconds) : 1;
 
   // double get doneRatio => (hasDueDate && leafTasksCount > 0) ? closedLeafTasksCount / leafTasksCount : 0;
 

@@ -5,10 +5,36 @@ import 'package:flutter/material.dart';
 
 import 'colors.dart';
 import 'constants.dart';
-import 'mt_rounded_container.dart';
 
 class MTCard extends StatelessWidget {
-  const MTCard({required this.child, this.margin, this.onTap, this.elevation, this.radius, this.padding, this.color});
+  const MTCard({required this.child, this.margin, this.elevation, this.radius, this.padding, this.color, this.borderSide});
+
+  final Widget child;
+  final EdgeInsets? margin;
+  final EdgeInsets? padding;
+  final double? elevation;
+  final double? radius;
+  final Color? color;
+  final BorderSide? borderSide;
+
+  @override
+  Widget build(BuildContext context) {
+    final borderRadius = radius ?? defaultBorderRadius;
+    final _color = (color ?? darkBackgroundColor).resolve(context);
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      margin: margin,
+      elevation: elevation ?? 0,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius), side: borderSide ?? BorderSide.none),
+      child: Padding(child: child, padding: padding ?? EdgeInsets.zero),
+      surfaceTintColor: _color,
+      color: _color,
+    );
+  }
+}
+
+class MTCardButton extends StatelessWidget {
+  const MTCardButton({required this.child, this.margin, this.onTap, this.elevation, this.radius, this.padding, this.color});
 
   final Widget child;
   final EdgeInsets? margin;
@@ -20,17 +46,17 @@ class MTCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final borderRadius = radius ?? defaultBorderRadius;
-    final _color = (color ?? darkBackgroundColor).resolve(context);
     return CupertinoButton(
       minSize: 0,
       padding: EdgeInsets.zero,
       onPressed: onTap,
-      child: Card(
+      child: MTCard(
+        child: child,
         margin: margin ?? EdgeInsets.symmetric(horizontal: onePadding, vertical: onePadding / 2),
         elevation: elevation ?? 2,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius)),
-        child: MTRoundedContainer(borderRadius: borderRadius, child: child, padding: padding ?? EdgeInsets.all(onePadding), color: _color),
+        radius: radius,
+        padding: padding ?? EdgeInsets.all(onePadding),
+        color: color,
       ),
     );
   }

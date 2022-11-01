@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'colors.dart';
 import 'constants.dart';
 
+//TODO: лишний. Заменить на MTSimpleCard
 class MTRoundedContainer extends StatelessWidget {
   const MTRoundedContainer({required this.child, this.padding, this.borderRadius, this.color, this.border});
 

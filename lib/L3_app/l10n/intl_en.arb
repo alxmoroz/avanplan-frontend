@@ -112,6 +112,7 @@
   "state_overdue_title": "There is аn overdue",
   "state_risk_duration": "Overdue may be {duration}",
   "state_risk_title": "There is аn risk of overdue",
+  "state_warning_tasks_title_suffix": "{count, plural, other{require attention}}",
 
   "source_api_key_helper_gitlab": "Personal access token can be created in the user settings -> Access tokens. Type: \"read_api\"",
   "source_api_key_helper_jira": "API token can be created in the account control panel -> Security -> Token API -> Create and manage API tokens",

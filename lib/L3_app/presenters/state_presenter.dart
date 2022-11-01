@@ -130,5 +130,5 @@ extension TaskStatePresenter on Task {
 
   bool get showState => !closed && (hasSubtasks || isGoal || state != TaskState.opened);
   bool get canShowTimeChart => hasDueDate;
-  bool get canShowSpeedVolumeCharts => showState && canShowTimeChart;
+  bool get canShowSpeedVolumeCharts => showState && !isWorkspace;
 }

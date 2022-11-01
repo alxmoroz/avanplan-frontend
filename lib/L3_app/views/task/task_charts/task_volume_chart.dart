@@ -66,7 +66,7 @@ class TaskVolumeChart extends StatelessWidget {
           ],
         ),
         D1(_chartText, color: _pointerColor, padding: EdgeInsets.only(bottom: onePadding / 2)),
-        SmallText(loc.task_volume_unit, padding: EdgeInsets.only(top: _radius / 2 + onePadding), color: lightGreyColor),
+        SmallText(loc.task_volume_unit, padding: EdgeInsets.only(top: _radius / 2 + onePadding / 2), color: lightGreyColor),
       ],
     );
   }

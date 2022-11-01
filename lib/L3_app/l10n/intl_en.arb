@@ -154,7 +154,7 @@
 
   "task_reopen_action_title": "Reopen",
 
-  "task_speed_unit_t_mo": "tasks/mo",
+  "task_speed_unit_t_mo": "tasks / month",
   "task_start_date_placeholder": "Start date",
 
   "task_status_placeholder": "Status",

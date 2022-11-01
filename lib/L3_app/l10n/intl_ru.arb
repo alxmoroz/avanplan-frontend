@@ -154,7 +154,7 @@
 
   "task_reopen_action_title": "Переоткрыть",
 
-  "task_speed_unit_t_mo": "задач/мес",
+  "task_speed_unit_t_mo": "задач / месяц",
   "task_start_date_placeholder": "Дата начала",
   "task_status_placeholder": "Статус",
   "task_title": "Задача",

@@ -167,6 +167,8 @@
   "task_unwatch_dialog_description": "Задачи будут удалены из Геркулеса, но останутся в источнике",
   "task_unwatch_dialog_title": "Прекратить отслеживать?",
 
+  "task_volume_unit": "выполнено",
+
   "title": "Название",
   "today_date_label": "Сегодня",
 

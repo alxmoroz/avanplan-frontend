@@ -8,6 +8,7 @@ import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/mt_pie_chart.dart';
 import '../../../components/text_widgets.dart';
+import '../../../extra/services.dart';
 import '../../../presenters/number_presenter.dart';
 
 class TaskVolumeChart extends StatelessWidget {
@@ -64,7 +65,8 @@ class TaskVolumeChart extends StatelessWidget {
             if (_delta != 0) _deltaPointer,
           ],
         ),
-        D1(_chartText, color: _pointerColor),
+        D1(_chartText, color: _pointerColor, padding: EdgeInsets.only(bottom: onePadding / 2)),
+        SmallText(loc.task_volume_unit, padding: EdgeInsets.only(top: _radius / 2 + onePadding), color: lightGreyColor),
       ],
     );
   }

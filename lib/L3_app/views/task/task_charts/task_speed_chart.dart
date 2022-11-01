@@ -17,7 +17,7 @@ class TaskSpeedChart extends StatelessWidget {
   final Task task;
 
   static const _secondsInMonth = 3600 * 24 * 30.4;
-  static const _bottomGaugeAngle = 100.0;
+  static const _bottomGaugeAngle = 90.0;
   static const _startAngle = 90 + _bottomGaugeAngle / 2;
   static const _sweepAngle = 360 - _bottomGaugeAngle;
 
@@ -81,11 +81,11 @@ class TaskSpeedChart extends StatelessWidget {
             _mainPointer,
           ],
         ),
-        D1('$_factSpeedText', color: _pointerColor),
-        if (_maxValue > 0) SmallText(loc.task_speed_unit_t_mo, padding: EdgeInsets.only(top: _radius * 1.5), color: lightGreyColor),
+        D1('$_factSpeedText', color: _pointerColor, padding: EdgeInsets.only(bottom: onePadding / 2)),
+        SmallText(loc.task_speed_unit_t_mo, padding: EdgeInsets.only(top: _radius / 2 + onePadding), color: lightGreyColor),
         Container(
-          width: _radius * 2 - onePadding * 4.4,
-          height: _radius * 2 - onePadding * 4.4,
+          width: _radius * 2 - onePadding * 5,
+          height: _radius * 2 - onePadding * 4,
           alignment: Alignment.bottomCenter,
           child: Row(children: [
             if (_maxValue > 0) const MediumText('0', color: darkGreyColor),

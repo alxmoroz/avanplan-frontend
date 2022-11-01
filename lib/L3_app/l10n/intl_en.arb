@@ -168,6 +168,8 @@
   "task_unwatch_dialog_description": "Tasks will be removed from Gercules, but will remain in the source",
   "task_unwatch_dialog_title": "Stop tracking?",
 
+  "task_volume_unit": "completed",
+
   "title": "Title",
   "today_date_label": "Today",
 

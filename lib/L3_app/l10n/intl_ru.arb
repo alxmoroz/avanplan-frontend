@@ -35,8 +35,8 @@
 
   "for_dative": "по",
 
-  "goal_count": "{count, plural, zero{Нет целей} one{1 цель} few{{count} цели} other{{count} целей}}",
-  "goal_dative_count": "{count, plural, one{1 цели} other{{count} целям}}",
+  "goal_count": "{count, plural, zero{Нет целей} one{{count} цель} few{{count} цели} other{{count} целей}}",
+  "goal_dative_count": "{count, plural, one{{count} цели} other{{count} целям}}",
 
   "goal_delete_dialog_title": "Удалить цель?",
   "goal_for_orphaned_tasks": "Задачи без целей",
@@ -44,7 +44,7 @@
   "goal_new_title": "Новая цель",
   "goal_title": "Цель",
 
-  "hours_count": "{count, plural, one{час} few{{count} часа} other{{count} часов}}",
+  "hours_count": "{count, plural, one{{count} час} few{{count} часа} other{{count} часов}}",
 
   "import_action_title": "Импортировать задачи",
   "import_connection_error": "Ошибка подключения\nИсточник импорта недоступен",
@@ -64,7 +64,7 @@
   "loader_unlinking_title": "Рвём связи...",
   "loader_unwatch_title": "Отправляем в игнор...",
 
-  "months_count": "{count, plural, one{месяц} few{{count} месяца} other{{count} месяцев}}",
+  "months_count": "{count, plural, one{{count} месяц} few{{count} месяца} other{{count} месяцев}}",
 
   "network_error_description": "Проверьте соединение с интернетом и повторите попытку",
   "network_error_title": "Ошибка сети\nНет соединения с сервером",
@@ -75,8 +75,8 @@
   "overview": "Обзор",
 
   "privacy_policy_title": "Политика конфиденциальности",
-  "project_count": "{count, plural, zero{Нет проектов} one{1 проект} few{{count} проекта} other{{count} проектов}}",
-  "project_dative_count": "{count, plural, one{1 проекту} other{{count} проектам}}",
+  "project_count": "{count, plural, zero{Нет проектов} one{{count} проект} few{{count} проекта} other{{count} проектов}}",
+  "project_dative_count": "{count, plural, one{{count} проекту} other{{count} проектам}}",
   "project_delete_dialog_title": "Удалить проект?",
   "project_list_empty_title_part1": "Загрузите задачи из источника импорта",
   "project_list_empty_title_part2": "или создайте свои",
@@ -127,16 +127,16 @@
   "source_type_placeholder": "Тип источника",
   "source_url_placeholder": "Адрес сервера (URL)",
 
-  "subtask_count": "{count, plural, zero{Нет подзадач} one{1 подзадача} few{{count} подзадачи} other{{count} подзадач}}",
-  "subtask_dative_count": "{count, plural, one{1 подзадаче} other{{count} подзадачам}}",
+  "subtask_count": "{count, plural, zero{Нет подзадач} one{{count} подзадача} few{{count} подзадачи} other{{count} подзадач}}",
+  "subtask_dative_count": "{count, plural, one{{count} подзадаче} other{{count} подзадачам}}",
 
   "subtask_delete_dialog_title": "Удалить подзадачу?",
   "subtask_list_title": "Подзадачи",
   "subtask_new_title": "Новая подзадача",
   "subtask_title": "Подзадача",
 
-  "task_count": "{count, plural, zero{Нет задач} one{1 задача} few{{count} задачи} other{{count} задач}}",
-  "task_dative_count": "{count, plural, one{1 задаче} other{{count} задачам}}",
+  "task_count": "{count, plural, zero{Нет задач} one{{count} задача} few{{count} задачи} other{{count} задач}}",
+  "task_dative_count": "{count, plural, one{{count} задаче} other{{count} задачам}}",
 
   "task_delete_dialog_title": "Удалить задачу?",
   "task_delete_dialog_description": "Все подзадачи также будут удалены",
@@ -175,11 +175,11 @@
 
   "validation_empty_text": "Нужно заполнить",
 
-  "weeks_count_accusative": "{count, plural, one{неделю} few{{count} недели} other{{count} недель}}",
+  "weeks_count_accusative": "{count, plural, one{{count} неделю} few{{count} недели} other{{count} недель}}",
   "workspace_delete_dialog_title": "Удалить рабочее пространство?",
   "workspace_title": "Рабочее пространство",
   "workspaces_title": "Рабочие пространства",
 
-  "years_count": "{count, plural, one{год} few{{count} года} other{{count} лет}}",
+  "years_count": "{count, plural, one{{count} год} few{{count} года} other{{count} лет}}",
   "yes": "Да"
 }

@@ -35,8 +35,8 @@
 
   "for_dative": "for",
 
-  "goal_count": "{count, plural, zero{No goals} one{1 goal} other{{count} goals}}",
-  "goal_dative_count": "{count, plural, one{1 goal} other{{count} goals}}",
+  "goal_count": "{count, plural, zero{No goals} one{{count} goal} other{{count} goals}}",
+  "goal_dative_count": "{count, plural, one{{count} goal} other{{count} goals}}",
 
   "goal_delete_dialog_title": "Delete goal?",
   "goal_for_orphaned_tasks": "Tasks without goals",
@@ -74,8 +74,8 @@
   "overview": "Overview",
 
   "privacy_policy_title": "Privacy policy",
-  "project_count": "{count, plural, zero{No projects} one{1 project} other{{count} projects}}",
-  "project_dative_count": "{count, plural, one{1 project} other{{count} projects}}",
+  "project_count": "{count, plural, zero{No projects} one{{count} project} other{{count} projects}}",
+  "project_dative_count": "{count, plural, one{{count} project} other{{count} projects}}",
   "project_delete_dialog_title": "Delete project?",
   "project_list_empty_title_part1": "Import tasks from source",
   "project_list_empty_title_part2": "or create your own",
@@ -127,7 +127,7 @@
   "source_type_placeholder": "Import sources type",
   "source_url_placeholder": "URL",
 
-  "subtask_count": "{count, plural, zero{No subtasks} one{1 subtask} other{{count} subtasks}}",
+  "subtask_count": "{count, plural, zero{No subtasks} one{{count} subtask} other{{count} subtasks}}",
   "subtask_dative_count": "{count, plural, one{{count} subtask} other{{count} subtasks}}",
 
   "subtask_delete_dialog_title": "Delete subtask?",
@@ -135,7 +135,7 @@
   "subtask_new_title": "New subtask",
   "subtask_title": "Subtask",
 
-  "task_count": "{count, plural, zero{No tasks} one{1 task} other{{count} tasks}}",
+  "task_count": "{count, plural, zero{No tasks} one{{count} task} other{{count} tasks}}",
   "task_dative_count": "{count, plural, one{{count} task} other{{count} tasks}}",
 
   "task_delete_dialog_title": "Delete task?",

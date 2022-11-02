@@ -21,19 +21,24 @@ class LoaderScreen extends StatelessWidget {
               child: ListView(
                 shrinkWrap: true,
                 children: [
-                  Column(
+                  Stack(
+                    alignment: Alignment.center,
                     children: [
                       if (loaderController.iconWidget != null) loaderController.iconWidget!,
-                      if (loaderController.titleWidget != null) loaderController.titleWidget!,
-                      if (loaderController.descriptionWidget != null) loaderController.descriptionWidget!,
-                      if (loaderController.actionWidget == null) ...[
-                        const SizedBox(height: 20),
-                        Row(children: [
-                          const Spacer(),
-                          CircularProgressIndicator(color: darkGreyColor.resolve(context)),
-                          const Spacer(),
-                        ]),
-                      ],
+                      Column(
+                        children: [
+                          if (loaderController.titleWidget != null) loaderController.titleWidget!,
+                          if (loaderController.descriptionWidget != null) loaderController.descriptionWidget!,
+                          if (loaderController.actionWidget == null) ...[
+                            const SizedBox(height: 20),
+                            Row(children: [
+                              const Spacer(),
+                              CircularProgressIndicator(color: darkGreyColor.resolve(context)),
+                              const Spacer(),
+                            ]),
+                          ],
+                        ],
+                      ),
                     ],
                   ),
                 ],

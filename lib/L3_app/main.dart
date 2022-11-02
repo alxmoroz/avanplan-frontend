@@ -52,6 +52,14 @@ class App extends StatelessWidget {
     ];
 
     final supportedLocales = S.delegate.supportedLocales;
+    final cupertinoTheme = CupertinoThemeData(
+      scaffoldBackgroundColor: backgroundColor,
+      primaryColor: mainColor,
+      textTheme: cupertinoTextTheme.copyWith(
+        primaryColor: mainColor,
+        textStyle: cupertinoTextTheme.textStyle.copyWith(fontFamily: fontFamily),
+      ),
+    );
 
     return MaterialApp(
       theme: ThemeData(
@@ -74,14 +82,7 @@ class App extends StatelessWidget {
             ),
             localizationsDelegates: localizationsDelegates,
             supportedLocales: supportedLocales,
-            theme: CupertinoThemeData(
-              scaffoldBackgroundColor: backgroundColor,
-              primaryColor: mainColor,
-              textTheme: cupertinoTextTheme.copyWith(
-                primaryColor: mainColor,
-                textStyle: cupertinoTextTheme.textStyle.copyWith(fontFamily: fontFamily),
-              ),
-            ),
+            theme: cupertinoTheme,
             routes: {
               SourceListView.routeName: (_) => SourceListView(),
               SettingsView.routeName: (_) => SettingsView(),
@@ -95,7 +96,13 @@ class App extends StatelessWidget {
               return null;
             },
           ),
-          if (loaderController.stack > 0) LoaderScreen(),
+          if (loaderController.stack > 0)
+            CupertinoApp(
+              home: LoaderScreen(),
+              localizationsDelegates: localizationsDelegates,
+              supportedLocales: supportedLocales,
+              theme: cupertinoTheme,
+            )
         ]),
       ),
     );

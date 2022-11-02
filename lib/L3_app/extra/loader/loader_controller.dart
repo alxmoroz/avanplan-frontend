@@ -97,8 +97,8 @@ abstract class _LoaderControllerBase with Store {
       });
 
   /// UI
-  static double get iconSize => onePadding * 10;
-  static const Color iconColor = lightGreyColor;
+  static double get iconSize => onePadding * 36;
+  static const Color iconColor = darkBackgroundColor;
 
   Widget get _defaultIcon => gerculesIcon();
   Widget get _authIcon => PrivacyIcon(size: iconSize, color: iconColor);

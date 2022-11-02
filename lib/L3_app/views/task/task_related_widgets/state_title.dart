@@ -20,7 +20,7 @@ class _StateTitle extends StatelessWidget {
   Widget get _textWidget => style == TaskStateTitleStyle.L
       ? H3(text, align: TextAlign.center)
       : style == TaskStateTitleStyle.M
-          ? NormalText(text)
+          ? H4(text, align: TextAlign.center)
           : SmallText(text, color: darkGreyColor);
 
   double get _iconSize =>
@@ -34,20 +34,11 @@ class _StateTitle extends StatelessWidget {
   Widget get _icon => iconForState(state, size: _iconSize);
 
   @override
-  Widget build(BuildContext context) => style != TaskStateTitleStyle.L
-      ? Row(
-          children: [
-            _icon,
-            SizedBox(width: onePadding / 3),
-            Expanded(child: _textWidget),
-          ],
-        )
-      : Column(
-          children: [
-            _icon,
-            _textWidget,
-          ],
-        );
+  Widget build(BuildContext context) => style == TaskStateTitleStyle.L
+      ? Column(children: [_icon, _textWidget])
+      : style == TaskStateTitleStyle.M
+          ? _textWidget
+          : Row(children: [_icon, SizedBox(width: onePadding / 3), Expanded(child: _textWidget)]);
 }
 
 class SubtasksStateTitle extends StatelessWidget {

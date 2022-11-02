@@ -131,7 +131,7 @@ class H4 extends _BaseText {
           weight: FontWeight.w400,
           sizeScale: 1.2,
           maxLines: maxLines ?? 3,
-          height: 1.3,
+          height: 1.2,
         );
 }
 
@@ -149,7 +149,7 @@ class H3 extends _BaseText {
           weight: FontWeight.w400,
           sizeScale: 1.6,
           maxLines: maxLines ?? 3,
-          height: 1.2,
+          height: 1.1,
         );
 }
 

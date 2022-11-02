@@ -15,6 +15,7 @@ class _BaseText extends StatelessWidget {
     this.align,
     this.padding,
     this.decoration,
+    this.height,
   });
 
   final String text;
@@ -25,6 +26,7 @@ class _BaseText extends StatelessWidget {
   final TextAlign? align;
   final EdgeInsets? padding;
   final TextDecoration? decoration;
+  final double? height;
 
   TextStyle style(BuildContext context) {
     final cupertinoTS = CupertinoTheme.of(context).textTheme.textStyle;
@@ -34,6 +36,7 @@ class _BaseText extends StatelessWidget {
       fontSize: (cupertinoTS.fontSize ?? (isTablet ? 24 : 17)) * (sizeScale ?? 1),
       inherit: true,
       decoration: decoration,
+      height: height ?? cupertinoTS.height,
     );
   }
 
@@ -128,6 +131,7 @@ class H4 extends _BaseText {
           weight: FontWeight.w400,
           sizeScale: 1.2,
           maxLines: maxLines ?? 3,
+          height: 1.3,
         );
 }
 
@@ -145,6 +149,7 @@ class H3 extends _BaseText {
           weight: FontWeight.w400,
           sizeScale: 1.6,
           maxLines: maxLines ?? 3,
+          height: 1.2,
         );
 }
 
@@ -162,6 +167,7 @@ class H2 extends _BaseText {
           weight: FontWeight.w300,
           sizeScale: 2.0,
           maxLines: maxLines ?? 3,
+          height: 1.1,
         );
 }
 
@@ -178,6 +184,7 @@ class H1 extends _BaseText {
           weight: FontWeight.w200,
           sizeScale: 2.45,
           maxLines: maxLines ?? 2,
+          height: 1,
         );
 }
 
@@ -194,5 +201,6 @@ class D1 extends _BaseText {
           weight: FontWeight.w500,
           sizeScale: 2.5,
           maxLines: maxLines ?? 1,
+          height: 1,
         );
 }

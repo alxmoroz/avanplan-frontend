@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import 'constants.dart';
-import 'mt_rounded_container.dart';
+import 'mt_card.dart';
 
 class MTBottomSheet extends StatelessWidget {
   const MTBottomSheet(this.bodyWidget, this.parentContext);
@@ -18,7 +18,7 @@ class MTBottomSheet extends StatelessWidget {
     final mq = MediaQuery.of(parentContext);
     return Container(
       constraints: BoxConstraints(maxHeight: mq.size.height - mq.padding.top - onePadding * 1),
-      child: MTRoundedContainer(child: bodyWidget, borderRadius: onePadding),
+      child: MTCard(child: bodyWidget, radius: onePadding),
     );
   }
 }

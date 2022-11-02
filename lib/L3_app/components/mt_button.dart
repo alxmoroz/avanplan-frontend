@@ -82,7 +82,7 @@ class MTButton extends StatelessWidget {
       case ButtonType.outlined:
         return OutlinedButton(onPressed: onTap, style: _style(context), child: _child);
       default:
-        return CupertinoButton(onPressed: onTap, child: _child, minSize: 0, padding: EdgeInsets.zero);
+        return CupertinoButton(onPressed: onTap, child: _child, minSize: 0, padding: padding ?? EdgeInsets.zero, color: color);
     }
   }
 

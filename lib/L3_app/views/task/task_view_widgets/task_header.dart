@@ -50,12 +50,12 @@ class TaskHeader extends StatelessWidget {
         ],
         H2(_task.title, decoration: _task.closed ? TextDecoration.lineThrough : null),
         if (_hasStatus || _hasAssignee) ...[
-          SizedBox(height: onePadding / 3),
+          SizedBox(height: onePadding),
           Row(
             children: [
               if (_hasStatus) SmallText(_task.status!.title),
               if (_hasAssignee) ...[
-                if (_hasStatus) SizedBox(width: onePadding / 3),
+                if (_hasStatus) SizedBox(width: onePadding / 2),
                 SmallText('@ ${_task.assignee}'),
               ],
             ],
@@ -65,6 +65,7 @@ class TaskHeader extends StatelessWidget {
           MTButton(
             middle: _task.taskSource!.go2SourceTitle(showSourceIcon: true),
             onTap: () => launchUrlString(_task.taskSource!.urlString),
+            padding: EdgeInsets.symmetric(vertical: onePadding / 2),
           ),
       ]),
     );

@@ -117,13 +117,11 @@ class ImportView extends StatelessWidget {
         ])
       : null;
 
-  // MTButton.icon(plusIcon(context), () => _controller.needAddSourceEvent(context), margin: EdgeInsets.only(right: onePadding))
-
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        navBar: navBar(context, leading: MTCloseButton(), title: loc.import_title),
+        navBar: navBar(context, leading: MTCloseButton(), title: loc.import_title, bgColor: darkBackgroundColor),
         body: SafeArea(bottom: false, child: _body(context)),
         bottomBar: _bottomBar(context),
       ),

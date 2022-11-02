@@ -155,6 +155,7 @@ class _SourceEditViewState extends State<SourceEditView> {
             onTap: _canSave ? () => _controller.save(context) : null,
             margin: EdgeInsets.only(right: onePadding),
           ),
+          bgColor: darkBackgroundColor,
         ),
         body: SafeArea(top: false, bottom: false, child: form()),
       ),

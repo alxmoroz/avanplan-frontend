@@ -36,7 +36,7 @@
   "for_dative": "по",
 
   "goal_count": "{count, plural, zero{Нет целей} one{{count} цель} few{{count} цели} other{{count} целей}}",
-  "goal_dative_count": "{count, plural, one{{count} цели} other{{count} целям}}",
+  "goal_count_dative": "{count, plural, one{{count} цели} other{{count} целям}}",
 
   "goal_delete_dialog_title": "Удалить цель?",
   "goal_for_orphaned_tasks": "Задачи без целей",
@@ -76,7 +76,7 @@
 
   "privacy_policy_title": "Политика конфиденциальности",
   "project_count": "{count, plural, zero{Нет проектов} one{{count} проект} few{{count} проекта} other{{count} проектов}}",
-  "project_dative_count": "{count, plural, one{{count} проекту} other{{count} проектам}}",
+  "project_count_dative": "{count, plural, one{{count} проекту} other{{count} проектам}}",
   "project_delete_dialog_title": "Удалить проект?",
   "project_list_empty_title_part1": "Загрузите задачи из источника импорта",
   "project_list_empty_title_part2": "или создайте свои",
@@ -129,7 +129,7 @@
   "source_url_placeholder": "Адрес сервера (URL)",
 
   "subtask_count": "{count, plural, zero{Нет подзадач} one{{count} подзадача} few{{count} подзадачи} other{{count} подзадач}}",
-  "subtask_dative_count": "{count, plural, one{{count} подзадаче} other{{count} подзадачам}}",
+  "subtask_count_dative": "{count, plural, one{{count} подзадаче} other{{count} подзадачам}}",
 
   "subtask_delete_dialog_title": "Удалить подзадачу?",
   "subtask_list_title": "Подзадачи",
@@ -137,7 +137,14 @@
   "subtask_title": "Подзадача",
 
   "task_count": "{count, plural, zero{Нет задач} one{{count} задача} few{{count} задачи} other{{count} задач}}",
-  "task_dative_count": "{count, plural, one{{count} задаче} other{{count} задачам}}",
+  "task_count_dative": "{count, plural, one{{count} задаче} other{{count} задачам}}",
+
+  "task_charts_details_action_title": "Подробнее",
+  "task_charts_speed_title": "Скорость",
+  "task_charts_speed_unit_t_mo": "задач / месяц",
+  "task_charts_timings_title": "Сроки",
+  "task_charts_volume_title": "Объём",
+  "task_charts_volume_unit": "выполнено",
 
   "task_delete_dialog_title": "Удалить задачу?",
   "task_delete_dialog_description": "Все подзадачи также будут удалены",
@@ -155,7 +162,6 @@
 
   "task_reopen_action_title": "Переоткрыть",
 
-  "task_speed_unit_t_mo": "задач / месяц",
   "task_start_date_placeholder": "Дата начала",
   "task_status_placeholder": "Статус",
   "task_title": "Задача",
@@ -167,8 +173,6 @@
   "task_unwatch_action_title": "Прекратить отслеживать",
   "task_unwatch_dialog_description": "Задачи будут удалены из Геркулеса, но останутся в источнике",
   "task_unwatch_dialog_title": "Прекратить отслеживать?",
-
-  "task_volume_unit": "выполнено",
 
   "title": "Название",
   "today_date_label": "Сегодня",

@@ -28,13 +28,11 @@ Future<Source?> editSourceDialog(BuildContext context) async {
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    builder: (_) => MTBottomSheet(SourceEditView(), context),
+    builder: (_) => MTBottomSheet(SourceEditView()),
   );
 }
 
 class SourceEditView extends StatefulWidget {
-  static String get routeName => 'source_edit';
-
   @override
   _SourceEditViewState createState() => _SourceEditViewState();
 }

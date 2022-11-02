@@ -34,6 +34,8 @@ Future main() async {
   runApp(App());
 }
 
+final navigatorKey = GlobalKey<NavigatorState>();
+
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -64,6 +66,7 @@ class App extends StatelessWidget {
       home: Observer(
         builder: (_) => Stack(children: [
           CupertinoApp(
+            navigatorKey: navigatorKey,
             home: FutureBuilder(
               future: getIt.allReady(),
               builder: (_, snapshot) =>

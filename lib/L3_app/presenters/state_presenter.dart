@@ -27,17 +27,17 @@ Widget iconForState(TaskState state, {double? size}) {
     case TaskState.aheadSubtasks:
       return OkIcon(size: size, color: greenColor);
     case TaskState.closed:
-      return DoneIcon(true, size: size, color: darkGreyColor);
+      return DoneIcon(true, size: size, color: lightGreyColor);
     case TaskState.opened:
-      return PlayIcon(size: size, color: darkGreyColor);
+      return PlayIcon(size: size, color: lightGreyColor);
     case TaskState.future:
-      return PauseIcon(size: size, color: darkGreyColor);
+      return PauseIcon(size: size, color: lightGreyColor);
     case TaskState.backlog:
-      return BacklogIcon(size: size, color: darkGreyColor);
+      return BacklogIcon(size: size, color: lightGreyColor);
     case TaskState.noSubtasks:
     case TaskState.noProgress:
     case TaskState.noInfo:
-      return NoInfoIcon(size: size, color: darkGreyColor);
+      return NoInfoIcon(size: size, color: lightGreyColor);
   }
 }
 

@@ -20,20 +20,15 @@ class TaskDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final padding = MediaQuery.of(context).padding;
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: onePadding),
-      child: ListView(
-        padding: padding.add(EdgeInsets.only(bottom: padding.bottom > 0 ? 0 : onePadding, top: onePadding)),
-        children: [
-          if (hasDescription) ...[
-            description(),
-          ],
-          if (hasAuthor) ...[
-            SizedBox(height: onePadding / 2),
-            SmallText('/// ${task.author}', align: TextAlign.end),
-          ],
+    return ListView(
+      padding: padding.add(EdgeInsets.all(onePadding).copyWith(bottom: padding.bottom > 0 ? 0 : onePadding)),
+      children: [
+        if (hasDescription) description(),
+        if (hasAuthor) ...[
+          SizedBox(height: onePadding / 2),
+          SmallText('/// ${task.author}', align: TextAlign.end),
         ],
-      ),
+      ],
     );
   }
 }

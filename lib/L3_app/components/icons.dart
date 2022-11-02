@@ -209,20 +209,23 @@ class OverdueIcon extends _MTIcon {
 }
 
 class RiskIcon extends _MTIcon {
-  const RiskIcon({super.color, super.size});
+  const RiskIcon({super.color, super.size, this.solid = false});
+  final bool solid;
+
   @override
   Widget build(BuildContext context) => Icon(
-        CupertinoIcons.tortoise,
+        solid ? CupertinoIcons.tortoise_fill : CupertinoIcons.tortoise,
         color: (color ?? warningColor).resolve(context),
         size: size,
       );
 }
 
 class OkIcon extends _MTIcon {
-  const OkIcon({super.color, super.size});
+  const OkIcon({super.color, super.size, this.solid = false});
+  final bool solid;
   @override
   Widget build(BuildContext context) => Icon(
-        CupertinoIcons.rocket,
+        solid ? CupertinoIcons.rocket_fill : CupertinoIcons.rocket,
         color: (color ?? greenColor).resolve(context),
         size: size,
       );

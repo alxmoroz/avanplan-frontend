@@ -9,9 +9,6 @@ import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/mt_card.dart';
 import '../../../components/mt_progress.dart';
-import '../../../components/text_widgets.dart';
-import '../../../extra/services.dart';
-import '../../../presenters/date_presenter.dart';
 
 class _DateBarData {
   _DateBarData({required this.date, this.color, this.mark});
@@ -22,20 +19,30 @@ class _DateBarData {
 
 class TaskTimeChart extends StatelessWidget {
   const TaskTimeChart(this.task);
+  @protected
   final Task task;
+  bool get _isFuture => task.state == TaskState.future;
+  bool get _isOverdue => task.state == TaskState.overdue;
+  bool get _isRisk => task.state == TaskState.risk;
+  bool get _isOk => task.state == TaskState.ok || task.state == TaskState.ahead;
 
-  Color get _etaMarkColor => task.hasRisk || task.hasOverdue
-      ? warningColor
-      : task.isOk || task.isAhead
-          ? greenColor
-          : lightGreyColor;
+  double get _barHeight => onePadding * 3;
 
-  Color get _mainBarColor => (task.hasRisk || task.hasOverdue)
-      ? lightWarningColor
-      : task.isOk || task.isAhead
-          ? lightGreenColor
-          : darkBackgroundColor;
+  Color get _etaMarkColor => _isOverdue
+      ? dangerColor
+      : _isRisk
+          ? warningColor
+          : _isOk
+              ? greenColor
+              : darkGreyColor;
 
+  // Color get _mainBarColor => (task.hasRisk || task.hasOverdue)
+  //     ? lightWarningColor
+  //     : task.isOk || task.isAhead
+  //         ? lightGreenColor
+  //         : darkBackgroundColor;
+
+  Color get _mainBarColor => borderColor;
   DateTime get _now => DateTime.now();
 
   Iterable<_DateBarData> get _dateBarData {
@@ -52,17 +59,17 @@ class TaskTimeChart extends StatelessWidget {
       // прогноз
       if (task.hasEtaDate) _DateBarData(date: task.etaDate!, color: backgroundColor, mark: MTProgressMark(color: _etaMarkColor)),
       // сегодня
-      if (task.state != TaskState.future)
+      if (!_isFuture)
         _DateBarData(
           date: _now,
-          color: task.hasOverdue ? warningColor : _mainBarColor,
+          color: _isOverdue ? lightWarningColor : _mainBarColor,
           mark: MTProgressMark(
-            child: task.hasRisk || task.hasOverdue
-                ? RiskIcon(size: onePadding * 3, color: task.hasOverdue ? dangerColor : warningColor)
-                : task.state == TaskState.ok
-                    ? OkIcon(size: onePadding * 3)
-                    : NoInfoIcon(size: onePadding * 3),
-            size: Size(onePadding * 3, 0),
+            child: _isRisk || _isOverdue
+                ? RiskIcon(size: _barHeight, color: _isOverdue ? dangerColor : warningColor, solid: true)
+                : _isOk
+                    ? OkIcon(size: _barHeight)
+                    : NoInfoIcon(size: _barHeight),
+            size: Size(_barHeight, 0),
           ),
         ),
     ];
@@ -85,24 +92,19 @@ class TaskTimeChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      NormalText('${loc.task_due_date_label} ${task.dueDate!.strMedium}', align: TextAlign.center),
-      MTCard(
-        color: backgroundColor,
-        margin: EdgeInsets.symmetric(horizontal: onePadding, vertical: onePadding / 2),
-        borderSide: BorderSide(color: lightGreyColor.resolve(context), width: 1),
-        child: SizedBox(
-          height: onePadding * 3,
-          child: Row(
-            children: [
-              Container(color: _mainBarColor.resolve(context), width: onePadding * 2),
-              Expanded(child: _timeProgressBar()),
-              Container(width: onePadding * 2),
-            ],
-          ),
+    return MTCard(
+      color: backgroundColor,
+      borderSide: BorderSide(color: lightGreyColor.resolve(context), width: 1),
+      child: SizedBox(
+        height: _barHeight,
+        child: Row(
+          children: [
+            Container(color: _isFuture ? null : _mainBarColor.resolve(context), width: _barHeight),
+            Expanded(child: _timeProgressBar()),
+            Container(width: _barHeight),
+          ],
         ),
       ),
-      if (task.hasEtaDate) NormalText('${loc.task_eta_date_label} ${task.etaDate!.strMedium}', align: TextAlign.center),
-    ]);
+    );
   }
 }

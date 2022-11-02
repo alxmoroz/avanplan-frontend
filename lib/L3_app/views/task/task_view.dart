@@ -57,7 +57,7 @@ class TaskView extends StatelessWidget {
         ),
       );
 
-  Widget get _overviewPane => TaskOverview(_controller);
+  Widget get _overviewPane => TaskOverview(_controller.task);
   Widget get _tasksPane => TaskListView(_controller);
   Widget get _detailsPane => TaskDetails(_controller);
 

@@ -26,13 +26,11 @@ Future<String?> showImportDialog(BuildContext context) async {
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    builder: (_) => MTBottomSheet(ImportView(), context),
+    builder: (_) => MTBottomSheet(ImportView()),
   );
 }
 
 class ImportView extends StatelessWidget {
-  static String get routeName => 'import';
-
   ImportController get _controller => importController;
   bool get _hasProjects => _controller.projects.isNotEmpty;
   bool get _hasError => _controller.errorCode != null;

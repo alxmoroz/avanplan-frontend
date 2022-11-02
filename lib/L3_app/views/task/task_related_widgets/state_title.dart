@@ -18,9 +18,9 @@ class _StateTitle extends StatelessWidget {
   final TaskStateTitleStyle? style;
 
   Widget get _textWidget => style == TaskStateTitleStyle.L
-      ? H3(text, align: TextAlign.center)
+      ? H2(text, align: TextAlign.center)
       : style == TaskStateTitleStyle.M
-          ? H4(text, align: TextAlign.center)
+          ? H3(text, align: TextAlign.center)
           : SmallText(text, color: darkGreyColor);
 
   double get _iconSize =>
@@ -28,17 +28,20 @@ class _StateTitle extends StatelessWidget {
       (style == TaskStateTitleStyle.L
           ? 12
           : style == TaskStateTitleStyle.M
-              ? 2.5
+              ? 5
               : 1.5);
 
   Widget get _icon => iconForState(state, size: _iconSize);
 
   @override
-  Widget build(BuildContext context) => style == TaskStateTitleStyle.L
+  // Widget build(BuildContext context) => style == TaskStateTitleStyle.L
+  //     ? Column(children: [_icon, _textWidget])
+  //     : style == TaskStateTitleStyle.M
+  //         ? _textWidget
+  //         : Row(children: [_icon, SizedBox(width: onePadding / 3), Expanded(child: _textWidget)]);
+  Widget build(BuildContext context) => style == TaskStateTitleStyle.L || style == TaskStateTitleStyle.M
       ? Column(children: [_icon, _textWidget])
-      : style == TaskStateTitleStyle.M
-          ? _textWidget
-          : Row(children: [_icon, SizedBox(width: onePadding / 3), Expanded(child: _textWidget)]);
+      : Row(children: [_icon, SizedBox(width: onePadding / 3), Expanded(child: _textWidget)]);
 }
 
 class SubtasksStateTitle extends StatelessWidget {

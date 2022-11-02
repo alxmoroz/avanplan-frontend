@@ -25,10 +25,10 @@ import 'project_empty_list_actions_widget.dart';
 
 class MainView extends StatefulWidget {
   @override
-  MainViewState createState() => MainViewState();
+  _MainViewState createState() => _MainViewState();
 }
 
-class MainViewState extends State<MainView> {
+class _MainViewState extends State<MainView> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async => await mainController.updateAll());
@@ -90,7 +90,7 @@ class MainViewState extends State<MainView> {
           child: Center(
             child: !_task.hasOpenedSubtasks
                 ? ProjectEmptyListActionsWidget(taskController: _taskController, parentContext: context)
-                : TaskOverview(_taskController),
+                : TaskOverview(_taskController.task),
           ),
         ),
         bottomBar: _task.hasOpenedSubtasks ? _bottomAppbarContent(context) : null,

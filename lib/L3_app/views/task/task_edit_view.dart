@@ -26,13 +26,12 @@ Future<Task?> editTaskDialog(BuildContext context, {required Task parent, Task? 
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    builder: (_) => MTBottomSheet(TaskEditView(task: task, parent: parent), context),
+    builder: (_) => MTBottomSheet(TaskEditView(task: task, parent: parent)),
   );
 }
 
 class TaskEditView extends StatefulWidget {
   const TaskEditView({required this.parent, this.task});
-  static String get routeName => 'task_edit';
 
   final Task parent;
   final Task? task;

@@ -40,10 +40,10 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
     final isStart = code == 'startDate';
 
     final today = DateTime.now();
-    final initialDate = (isStart ? selectedStartDate : selectedDueDate) ?? today;
     final pastDate = today.subtract(_year);
+    final lastDate = (isStart ? selectedDueDate?.subtract(const Duration(days: 1)) : null) ?? today.add(_year * 100);
+    final initialDate = (isStart ? selectedStartDate : selectedDueDate) ?? (today.isAfter(lastDate) ? lastDate : today);
     final firstDate = (isStart ? null : selectedStartDate) ?? (pastDate.isAfter(initialDate) ? initialDate : pastDate);
-    final lastDate = (isStart ? selectedDueDate : null) ?? today.add(_year * 100);
 
     final date = await showDatePicker(
       context: context,

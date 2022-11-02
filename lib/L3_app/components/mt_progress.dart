@@ -4,16 +4,13 @@ import 'package:flutter/cupertino.dart';
 
 import 'colors.dart';
 import 'constants.dart';
-import 'icons.dart';
 
 class MTProgressMark extends StatelessWidget {
   const MTProgressMark({
     this.size,
     this.color,
-    this.showTop,
-    this.showBottom,
     this.child,
-  }) : assert(showTop == true || showBottom == true);
+  });
   @protected
   final Color? color;
   @protected
@@ -21,35 +18,25 @@ class MTProgressMark extends StatelessWidget {
   @protected
   final Widget? child;
 
-  final bool? showTop;
-  final bool? showBottom;
-
-  Size get mSize => size ?? Size(onePadding * 0.5, onePadding * 0.7);
+  Size get mSize => size ?? const Size(2, 0);
 
   @override
-  Widget build(BuildContext context) {
-    return child ?? CaretIcon(up: showBottom == true, size: mSize);
-  }
+  Widget build(BuildContext context) =>
+      child ?? Container(height: onePadding * 3, width: mSize.width, color: (color ?? borderColor).resolve(context));
 }
 
 class MTProgress extends StatelessWidget {
   const MTProgress({
     required this.value,
-    this.child,
     this.color,
-    this.border,
     this.bgColor,
-    this.padding,
     this.height,
     this.mark,
   });
 
   final double value;
   final Color? color;
-  final Border? border;
-  final Widget? child;
   final Color? bgColor;
-  final EdgeInsets? padding;
   final double? height;
   final MTProgressMark? mark;
 
@@ -70,29 +57,12 @@ class MTProgress extends StatelessWidget {
           bottom: 0,
           height: height != null ? height : null,
           width: rWidth,
-          child: Container(
-            decoration: BoxDecoration(
-              color: (color ?? borderColor).resolve(context),
-              border: border ?? const Border(),
-            ),
-          ),
+          child: Container(color: (color ?? darkBackgroundColor).resolve(context)),
         ),
-        Padding(
-          padding: padding ?? EdgeInsets.all(onePadding),
-          child: Row(children: [
-            if (child != null) Expanded(child: child!),
-          ]),
-        ),
-        if (mark?.showTop == true)
+        if (mark != null)
           Positioned(
             left: rWidth - mark!.mSize.width / 2,
             top: -mark!.mSize.height,
-            child: mark!,
-          ),
-        if (mark?.showBottom == true)
-          Positioned(
-            left: rWidth - mark!.mSize.width / 2,
-            bottom: -mark!.mSize.height,
             child: mark!,
           ),
       ]);

@@ -74,6 +74,7 @@ class LightText extends _BaseText {
   const LightText(
     String text, {
     int? maxLines,
+    double? height,
     super.sizeScale,
     super.color,
     super.align,
@@ -83,6 +84,7 @@ class LightText extends _BaseText {
           text,
           weight: FontWeight.w300,
           maxLines: maxLines ?? 7,
+          height: height,
         );
 }
 

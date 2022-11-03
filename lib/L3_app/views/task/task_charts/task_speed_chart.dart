@@ -11,12 +11,12 @@ import '../../../components/constants.dart';
 import '../../../components/mt_pie_chart.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
+import '../../../presenters/date_presenter.dart';
 
 class TaskSpeedChart extends StatelessWidget {
   const TaskSpeedChart(this.task);
   final Task task;
 
-  static const _secondsInMonth = 3600 * 24 * 30.4;
   static const _bottomGaugeAngle = 90.0;
   static const _startAngle = 90 + _bottomGaugeAngle / 2;
   static const _sweepAngle = 360 - _bottomGaugeAngle;
@@ -27,10 +27,10 @@ class TaskSpeedChart extends StatelessWidget {
   double get _factSpeed => task.projectOrWSSpeed;
   double get _delta => (task.targetSpeed ?? _factSpeed) - _factSpeed;
   double get _firstValue => _delta >= 0 ? _factSpeed : _factSpeed + _delta;
-  double get _maxValue => max(_factSpeed, task.targetSpeed ?? 1 / _secondsInMonth) * 1.3;
+  double get _maxValue => max(_factSpeed, task.targetSpeed ?? 1 / secondsInMonth) * 1.3;
   double get _degreeValue => _maxValue / _sweepAngle;
 
-  String get _factSpeedText => '${(_factSpeed * _secondsInMonth).round()}';
+  String get _factSpeedText => '${(_factSpeed * secondsInMonth).round()}';
 
   Color get _pointerColor => _delta == 0
       ? darkGreyColor
@@ -91,7 +91,7 @@ class TaskSpeedChart extends StatelessWidget {
           child: Row(children: [
             if (_maxValue > 0) const MediumText('0', color: darkGreyColor),
             const Spacer(),
-            if (_maxValue > 0) MediumText('${(_maxValue * _secondsInMonth).round()}', color: darkGreyColor),
+            if (_maxValue > 0) MediumText('${(_maxValue * secondsInMonth).round()}', color: darkGreyColor),
           ]),
         ),
       ],

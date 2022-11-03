@@ -8,3 +8,5 @@ extension DateFormatter on DateTime {
   String get strMedium => thisYear ? DateFormat.MMMMd().format(this) : strLong;
   String get strLong => DateFormat.yMMMMd().format(this);
 }
+
+const secondsInMonth = 3600 * 24 * 30.4;

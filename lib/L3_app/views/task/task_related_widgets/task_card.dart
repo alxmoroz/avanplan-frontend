@@ -15,10 +15,12 @@ import '../../../presenters/state_presenter.dart';
 import 'state_title.dart';
 
 class TaskCard extends StatelessWidget {
-  const TaskCard(this.task, {this.expanded = false});
+  const TaskCard(this.task, {this.margin});
 
+  @protected
   final Task task;
-  final bool expanded;
+
+  final EdgeInsets? margin;
 
   Widget get title => H4(
         task.title,
@@ -35,6 +37,7 @@ class TaskCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MTCardButton(
+        margin: margin ?? EdgeInsets.symmetric(vertical: onePadding / 2),
         onTap: () => mainController.showTask(context, task.id),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

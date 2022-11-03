@@ -50,7 +50,7 @@ class TaskSpeedChart extends StatelessWidget {
   double get _mainPointerWidthValue => _degreeValue * 5;
   double get _mainPointerStartValue => _firstValue + (_delta < 0 ? -_delta : 0) - _mainPointerWidthValue / 2;
   MTPieChartData get _mainPointer =>
-      MTPieChartData(_mainPointerWidthValue, start: _mainPointerStartValue, color: _pointerColor, strokeWidth: _gaugeWidth * 2.3);
+      MTPieChartData(_mainPointerWidthValue, start: _mainPointerStartValue, color: _pointerColor, strokeWidth: _gaugeWidth * 2.1);
 
   MTPieChartData get _deltaBar => MTPieChartData(_delta.abs(),
       start: _firstValue, color: _delta > 0 ? _pointerColor : _barColor, strokeWidth: _delta > 0 ? onePadding / 6 : _barWidth);

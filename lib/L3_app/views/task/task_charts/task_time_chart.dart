@@ -12,6 +12,7 @@ import '../../../components/mt_progress.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/date_presenter.dart';
+import '../../../presenters/state_presenter.dart';
 
 class _DateBarData {
   _DateBarData({required this.date, this.color, this.mark});
@@ -39,6 +40,8 @@ class TaskTimeChart extends StatelessWidget {
   Color get _mainBarColor => borderColor;
   DateTime get _now => DateTime.now();
 
+  Size get _markSize => Size(onePadding * 0.5, onePadding * 1);
+
   Iterable<_DateBarData> get _dateBarData {
     final res = <_DateBarData>[
       // старт
@@ -48,22 +51,23 @@ class TaskTimeChart extends StatelessWidget {
         _DateBarData(
           date: task.dueDate!,
           color: _now.isAfter(task.dueDate!) ? _mainBarColor : backgroundColor,
-          mark: const MTProgressMark(color: darkGreyColor),
+          mark: MTProgressMark(child: CaretIcon(color: darkGreyColor, size: _markSize), size: _markSize),
         ),
       // прогноз
-      if (task.hasEtaDate) _DateBarData(date: task.etaDate!, color: backgroundColor, mark: MTProgressMark(color: _etaMarkColor)),
+      if (task.hasEtaDate)
+        _DateBarData(
+          date: task.etaDate!,
+          color: backgroundColor,
+          mark: MTProgressMark(child: CaretIcon(color: _etaMarkColor, size: _markSize), size: _markSize),
+        ),
       // сегодня
       if (!_isFuture)
         _DateBarData(
           date: _now,
           color: task.hasOverdue ? lightWarningColor : _mainBarColor,
           mark: MTProgressMark(
-            child: task.hasRisk || task.hasOverdue
-                ? RiskIcon(size: _barHeight, color: task.hasOverdue ? dangerColor : warningColor, solid: true)
-                : task.isOk
-                    ? OkIcon(size: _barHeight)
-                    : NoInfoIcon(size: _barHeight),
-            size: Size(_barHeight, 0),
+            child: task.stateIcon(size: _barHeight * 0.75),
+            size: Size(_barHeight * 0.75, 0),
           ),
         ),
     ];
@@ -100,7 +104,7 @@ class TaskTimeChart extends StatelessWidget {
               Container(
                 alignment: Alignment.centerLeft,
                 color: _isFuture ? null : _mainBarColor.resolve(context),
-                width: _barHeight * 1.7 + onePadding * 2,
+                width: _barHeight * 0.7 + onePadding * 2,
                 padding: EdgeInsets.symmetric(horizontal: onePadding),
                 child: CalendarIcon(size: _barHeight * 0.7, color: darkGreyColor),
               ),

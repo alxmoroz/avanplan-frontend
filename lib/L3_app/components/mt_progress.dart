@@ -62,7 +62,8 @@ class MTProgress extends StatelessWidget {
         if (mark != null)
           Positioned(
             left: rWidth - mark!.mSize.width / 2,
-            top: -mark!.mSize.height,
+            // bottom: mark!.mSize.height,
+            bottom: 1,
             child: mark!,
           ),
       ]);

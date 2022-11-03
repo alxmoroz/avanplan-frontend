@@ -26,7 +26,7 @@ Widget iconForState(TaskState state, {double? size}) {
     case TaskState.okSubtasks:
     case TaskState.ahead:
     case TaskState.aheadSubtasks:
-      return OkIcon(size: size, color: greenColor);
+      return OkIcon(size: size, color: greenColor, solid: size == null || size < onePadding * 5);
     case TaskState.closed:
       return DoneIcon(true, size: size, color: lightGreyColor);
     case TaskState.opened:
@@ -131,6 +131,6 @@ extension TaskStatePresenter on Task {
 
   bool get showState => !closed && (state != TaskState.opened && state != TaskState.backlog);
   bool get showTimeChart => !closed && hasDueDate;
-  bool get showSpeedVolumeCharts => !closed && !isWorkspace;
+  bool get showSpeedVolumeCharts => !closed && !isWorkspace && hasSubtasks;
   bool get showChartDetails => showState && (showSpeedVolumeCharts || showTimeChart);
 }

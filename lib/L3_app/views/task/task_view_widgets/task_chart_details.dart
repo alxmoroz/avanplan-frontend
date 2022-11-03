@@ -27,6 +27,7 @@ Future<String?> showChartsDetailsDialog(BuildContext context, Task task) async {
 
 class TaskChartDetails extends StatelessWidget {
   const TaskChartDetails(this.task);
+  @protected
   final Task task;
 
   @override

@@ -17,7 +17,7 @@ import '../task_charts/task_time_chart.dart';
 import '../task_charts/task_volume_chart.dart';
 import '../task_related_widgets/state_title.dart';
 import '../task_related_widgets/task_overview_warnings.dart';
-import '../task_view_widgets/task_charts_details.dart';
+import '../task_view_widgets/task_chart_details.dart';
 
 class TaskOverview extends StatelessWidget {
   const TaskOverview(this.task);

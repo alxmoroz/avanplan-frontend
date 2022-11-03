@@ -37,7 +37,8 @@ class TaskChartDetails extends StatelessWidget {
         H4(t2, color: color, padding: EdgeInsets.only(top: onePadding / 6, bottom: onePadding / 6))
       ]);
 
-  int get _volumeDelta => task.closedLeafTasksCount - task.planVolume!.round();
+  int get _volumeDelta => task.planVolume != null ? (task.closedLeafTasksCount - task.planVolume!.round()) : 0;
+  int get _speedDelta => task.targetSpeed != null ? ((task.projectOrWSSpeed - task.targetSpeed!) * secondsInMonth).round() : 0;
 
   @override
   Widget build(BuildContext context) {
@@ -61,14 +62,15 @@ class TaskChartDetails extends StatelessWidget {
               SizedBox(width: onePadding),
               Expanded(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                  _textRow(loc.state_closed, '${task.closedLeafTasksCount} / ${task.leafTasksCount}'),
+                  _textRow(loc.task_charts_volume_total_label, '${task.leafTasksCount}'),
                   _textRow(loc.state_opened, '${task.openedLeafTasksCount}'),
+                  _textRow(loc.state_closed, '${task.closedLeafTasksCount}'),
                   if (task.planVolume != null) ...[
                     SizedBox(height: onePadding),
                     _textRow(loc.task_charts_volume_plan_label, '${task.planVolume!.round()}'),
                     if (_volumeDelta != 0)
                       _textRow(
-                        _volumeDelta > 0 ? loc.task_charts_volume_delta_ahead_label : loc.task_charts_volume_delta_lag_label,
+                        _volumeDelta > 0 ? loc.task_charts_delta_ahead_label : loc.task_charts_delta_lag_label,
                         '${_volumeDelta.abs()}',
                         color: _volumeDelta > 0 ? greenColor : warningColor,
                       ),
@@ -87,6 +89,12 @@ class TaskChartDetails extends StatelessWidget {
                 child: Column(children: [
                   _textRow(loc.task_charts_speed_project_label, '${(task.projectOrWSSpeed * secondsInMonth).round()}'),
                   if (task.targetSpeed != null) _textRow(loc.task_charts_speed_target_label, '${(task.targetSpeed! * secondsInMonth).round()}'),
+                  if (_speedDelta != 0)
+                    _textRow(
+                      _speedDelta > 0 ? loc.task_charts_delta_ahead_label : loc.task_charts_delta_lag_label,
+                      '${_speedDelta.abs()}',
+                      color: _speedDelta > 0 ? greenColor : warningColor,
+                    ),
                 ]),
               ),
             ]),

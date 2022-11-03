@@ -13,54 +13,58 @@ part 'auth_controller.g.dart';
 class AuthController extends _AuthControllerBase with _$AuthController {
   Future<AuthController> init() async {
     await authUC.setApiCredentialsFromLocalAuth();
-    _setAuthorized(await authUC.isLocalAuthorized());
-    authWithAppleIsAvailable = await authUC.authWithAppleIsAvailable();
+    setAuthorized(await authUC.isLocalAuthorized());
+    signInWithAppleIsAvailable = await authUC.signInWithAppleIsAvailable();
     return this;
   }
 }
 
 abstract class _AuthControllerBase with Store {
   @observable
+  bool signInWithAppleIsAvailable = false;
+
+  @observable
   bool authorized = false;
 
   @action
-  void _setAuthorized(bool _auth) => authorized = _auth;
+  void setAuthorized(bool _auth) => authorized = _auth;
 
-  Future authorize(BuildContext context, String login, String password) async {
+  Future signInWithPassword(BuildContext context, String username, String password) async {
     loaderController.start();
     loaderController.setAuth();
-    _setAuthorized(await authUC.authorize(username: login, password: password));
+    authController.setAuthorized(await authUC.signInWithPassword(
+      username: username,
+      password: password,
+    ));
+    Navigator.of(context).pop();
     await loaderController.stop();
   }
 
-  Future authorizeWithGoogle(BuildContext context) async {
+  Future signInWithGoogle(BuildContext context) async {
     loaderController.start();
     loaderController.setAuth();
     try {
-      _setAuthorized(await authUC.authorizeWithGoogle());
+      authController.setAuthorized(await authUC.signInWithGoogle());
       await loaderController.stop();
     } on MTOAuthError catch (e) {
       loaderController.setAuthError(e.detail);
     }
   }
 
-  @observable
-  bool authWithAppleIsAvailable = false;
-
-  Future authorizeWithApple(BuildContext context) async {
+  Future signInWithApple(BuildContext context) async {
     loaderController.start();
     loaderController.setAuth();
     try {
-      _setAuthorized(await authUC.authorizeWithApple());
+      authController.setAuthorized(await authUC.signInWithApple());
       await loaderController.stop();
     } on MTOAuthError catch (e) {
       loaderController.setAuthError(e.detail);
     }
   }
 
-  Future logout() async {
-    _setAuthorized(false);
-    await authUC.logout();
+  Future signOut() async {
+    setAuthorized(false);
+    await authUC.signOut();
   }
 
   bool canEditWS(Iterable<WSRole> roles) => roles.firstWhereOrNull((r) => r.title == 'admin') != null;

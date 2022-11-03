@@ -14,9 +14,9 @@ import 'extra/loader/loader_screen.dart';
 import 'extra/services.dart';
 import 'l10n/generated/l10n.dart';
 import 'views/account/account_view.dart';
-import 'views/login/login_view.dart';
 import 'views/main/main_view.dart';
 import 'views/settings/settings_view.dart';
+import 'views/sign_in/sign_in_view.dart';
 import 'views/source/source_list_view.dart';
 import 'views/task/task_view.dart';
 import 'views/workspace/workspace_list_view.dart';
@@ -78,7 +78,7 @@ class App extends StatelessWidget {
             home: FutureBuilder(
               future: getIt.allReady(),
               builder: (_, snapshot) =>
-                  snapshot.hasData ? Observer(builder: (_) => authController.authorized ? MainView() : LoginView()) : LoaderScreen(),
+                  snapshot.hasData ? Observer(builder: (_) => authController.authorized ? MainView() : SignInView()) : LoaderScreen(),
             ),
             localizationsDelegates: localizationsDelegates,
             supportedLocales: supportedLocales,

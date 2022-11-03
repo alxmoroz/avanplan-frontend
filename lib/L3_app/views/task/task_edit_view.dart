@@ -170,7 +170,7 @@ class _TaskEditViewState extends State<TaskEditView> {
             onTap: controller.validated ? () => controller.save(context, task: task, parent: parent) : null,
             margin: EdgeInsets.only(right: onePadding),
           ),
-          bgColor: darkBackgroundColor,
+          bgColor: backgroundColor,
         ),
         body: SafeArea(
           top: false,

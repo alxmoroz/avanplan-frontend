@@ -69,7 +69,7 @@ class AuthRepo extends AbstractAuthRepo {
   }
 
   @override
-  Future<bool> authWithAppleIsAvailable() async => await SignInWithApple.isAvailable();
+  Future<bool> signInWithAppleIsAvailable() async => await SignInWithApple.isAvailable();
 
   @override
   Future<String> getApiAuthAppleToken() async {
@@ -123,7 +123,7 @@ class AuthRepo extends AbstractAuthRepo {
   }
 
   @override
-  Future logout() async {
+  Future signOut() async {
     await GoogleSignIn().signOut();
   }
 

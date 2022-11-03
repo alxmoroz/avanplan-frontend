@@ -15,9 +15,9 @@ class SourcesUC {
 
   Future<Source?> save(Source data) async {
     Source? s;
-    final login = data.login?.trim() ?? '';
+    final username = data.username?.trim() ?? '';
     final apiKey = data.apiKey?.trim() ?? '';
-    if (data.url.trim().isNotEmpty && (login.isNotEmpty || apiKey.isNotEmpty)) {
+    if (data.url.trim().isNotEmpty && (username.isNotEmpty || apiKey.isNotEmpty)) {
       s = await repo.save(data);
     }
     return s;

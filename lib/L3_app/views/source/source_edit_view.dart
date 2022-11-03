@@ -52,7 +52,7 @@ class _SourceEditViewState extends State<SourceEditView> {
   void initState() {
     _controller.initState(tfaList: [
       TFAnnotation('url', label: loc.source_url_placeholder, text: _source?.url ?? ''),
-      TFAnnotation('login', label: loc.auth_user_placeholder, text: _source?.login ?? '', needValidate: _isJira),
+      TFAnnotation('username', label: loc.auth_user_placeholder, text: _source?.username ?? '', needValidate: _isJira),
       TFAnnotation('apiKey', label: loc.source_api_key_placeholder, text: _source?.apiKey ?? ''),
       // TFAnnotation('password', label: loc.auth_password_placeholder, needValidate: false),
       TFAnnotation('description', label: loc.description, text: _source?.description ?? '', needValidate: false),
@@ -116,7 +116,7 @@ class _SourceEditViewState extends State<SourceEditView> {
             ),
           ...[
             'url',
-            if (_isJira) 'login',
+            if (_isJira) 'username',
             'apiKey',
             // 'password',
             'description',
@@ -153,7 +153,7 @@ class _SourceEditViewState extends State<SourceEditView> {
             onTap: _canSave ? () => _controller.save(context) : null,
             margin: EdgeInsets.only(right: onePadding),
           ),
-          bgColor: darkBackgroundColor,
+          bgColor: backgroundColor,
         ),
         body: SafeArea(top: false, bottom: false, child: form()),
       ),

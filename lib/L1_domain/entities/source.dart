@@ -19,7 +19,7 @@ class Source extends RPersistable {
     required this.type,
     required this.url,
     this.apiKey,
-    this.login,
+    this.username,
     this.password,
     this.description = '',
     this.state = SrcState.unknown,
@@ -29,7 +29,7 @@ class Source extends RPersistable {
   final SourceType type;
   final String url;
   final String? apiKey;
-  final String? login;
+  final String? username;
   final String? password;
   final String description;
   SrcState state;

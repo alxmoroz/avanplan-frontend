@@ -22,7 +22,7 @@ class SourcesRepo extends AbstractApiSourceRepo {
       ..sourceTypeId = data.type.id
       ..url = data.url
       ..apiKey = data.apiKey
-      ..login = data.login
+      ..username = data.username
       ..password = data.password
       ..description = data.description
       ..workspaceId = data.workspaceId;

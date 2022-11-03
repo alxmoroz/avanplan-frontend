@@ -15,7 +15,7 @@ part 'source_upsert.g.dart';
 /// * [workspaceId] 
 /// * [url] 
 /// * [apiKey] 
-/// * [login] 
+/// * [username] 
 /// * [description] 
 /// * [sourceTypeId] 
 /// * [password] 
@@ -33,8 +33,8 @@ abstract class SourceUpsert implements Built<SourceUpsert, SourceUpsertBuilder> 
   @BuiltValueField(wireName: r'api_key')
   String? get apiKey;
 
-  @BuiltValueField(wireName: r'login')
-  String? get login;
+  @BuiltValueField(wireName: r'username')
+  String? get username;
 
   @BuiltValueField(wireName: r'description')
   String? get description;
@@ -92,10 +92,10 @@ class _$SourceUpsertSerializer implements PrimitiveSerializer<SourceUpsert> {
         specifiedType: const FullType(String),
       );
     }
-    if (object.login != null) {
-      yield r'login';
+    if (object.username != null) {
+      yield r'username';
       yield serializers.serialize(
-        object.login,
+        object.username,
         specifiedType: const FullType(String),
       );
     }
@@ -169,12 +169,12 @@ class _$SourceUpsertSerializer implements PrimitiveSerializer<SourceUpsert> {
           ) as String;
           result.apiKey = valueDes;
           break;
-        case r'login':
+        case r'username':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.login = valueDes;
+          result.username = valueDes;
           break;
         case r'description':
           final valueDes = serializers.deserialize(

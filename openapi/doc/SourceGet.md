@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **workspaceId** | **int** |  | 
 **url** | **String** |  | 
 **apiKey** | **String** |  | [optional] 
-**login** | **String** |  | [optional] 
+**username** | **String** |  | [optional] 
 **description** | **String** |  | [optional] 
 **type** | [**SourceTypeGet**](SourceTypeGet.md) |  | 
 

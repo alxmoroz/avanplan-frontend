@@ -11,7 +11,7 @@ extension SourceMapper on SourceGet {
         type: type.type,
         url: url,
         apiKey: apiKey,
-        login: login,
+        username: username,
         description: description ?? '',
         workspaceId: workspaceId,
       );

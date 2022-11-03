@@ -16,19 +16,19 @@ class AuthUC {
     return token.isNotEmpty;
   }
 
-  Future<bool> authorize({required String username, required String password}) async {
+  Future<bool> signInWithPassword({required String username, required String password}) async {
     final token = await authRepo.getApiAuthToken(username, password);
     return _checkToken(token);
   }
 
-  Future<bool> authorizeWithGoogle() async {
+  Future<bool> signInWithGoogle() async {
     final token = await authRepo.getApiAuthGoogleToken();
     return _checkToken(token);
   }
 
-  Future<bool> authWithAppleIsAvailable() async => await authRepo.authWithAppleIsAvailable();
+  Future<bool> signInWithAppleIsAvailable() async => await authRepo.signInWithAppleIsAvailable();
 
-  Future<bool> authorizeWithApple() async {
+  Future<bool> signInWithApple() async {
     final token = await authRepo.getApiAuthAppleToken();
     return _checkToken(token);
   }
@@ -47,8 +47,8 @@ class AuthUC {
 
   Future<bool> isLocalAuthorized() async => (await _getLocalAccessToken()).isNotEmpty;
 
-  Future logout() async {
-    await authRepo.logout();
+  Future signOut() async {
+    await authRepo.signOut();
     authRepo.setApiCredentials('');
     _updateAccessToken('');
   }

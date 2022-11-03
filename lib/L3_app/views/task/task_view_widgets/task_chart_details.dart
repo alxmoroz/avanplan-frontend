@@ -48,7 +48,7 @@ class TaskChartDetails extends StatelessWidget {
         context,
         leading: MTCloseButton(),
         title: loc.task_charts_details_title,
-        bgColor: darkBackgroundColor,
+        bgColor: backgroundColor,
       ),
       body: SafeArea(
         bottom: false,

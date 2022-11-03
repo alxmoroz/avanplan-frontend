@@ -6,20 +6,20 @@ import 'package:mobx/mobx.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
 
-part 'login_controller.g.dart';
+part 'sign_in_controller.g.dart';
 
-class LoginController extends _LoginControllerBase with _$LoginController {}
+class SignInController extends _SignInControllerBase with _$SignInController {}
 
-abstract class _LoginControllerBase extends EditController with Store {
+abstract class _SignInControllerBase extends EditController with Store {
   @observable
   bool showPassword = false;
 
   @action
   void toggleShowPassword() => showPassword = !showPassword;
 
-  Future authorize(BuildContext context) async => await authController.authorize(
+  Future signInWithPassword(BuildContext context) async => await authController.signInWithPassword(
         context,
-        tfAnnoForCode('login').text,
+        tfAnnoForCode('username').text,
         tfAnnoForCode('password').text,
       );
 }

@@ -79,7 +79,7 @@ abstract class _LoaderControllerBase with Store {
               setAuthError();
             } else {
               // в остальных случаях выбрасываем без объяснений
-              await authController.logout();
+              await authController.signOut();
               await stop();
             }
           } else {

@@ -135,7 +135,7 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
       id: selectedSource?.id,
       url: tfAnnoForCode('url').text,
       apiKey: tfAnnoForCode('apiKey').text,
-      login: tfAnnoForCode('login').text,
+      username: tfAnnoForCode('username').text,
       // password: tfAnnoForCode('password').text,
       description: tfAnnoForCode('description').text,
       workspaceId: selectedWS!.id!,

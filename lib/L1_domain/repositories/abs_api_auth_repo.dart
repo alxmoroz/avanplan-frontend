@@ -3,8 +3,8 @@
 abstract class AbstractAuthRepo {
   Future<String> getApiAuthToken(String username, String password);
   Future<String> getApiAuthGoogleToken();
-  Future<bool> authWithAppleIsAvailable();
+  Future<bool> signInWithAppleIsAvailable();
   Future<String> getApiAuthAppleToken();
-  Future logout();
+  Future signOut();
   void setApiCredentials(String token);
 }

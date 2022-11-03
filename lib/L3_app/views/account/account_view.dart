@@ -21,7 +21,7 @@ class AccountView extends StatelessWidget {
 
   Future _logout(BuildContext context) async {
     Navigator.of(context).popUntil((r) => r.navigator?.canPop() == false);
-    await authController.logout();
+    await authController.signOut();
   }
 
   @override
@@ -43,7 +43,7 @@ class AccountView extends StatelessWidget {
                     SizedBox(height: onePadding * 2),
                     MTButton.outlined(
                       margin: EdgeInsets.symmetric(horizontal: onePadding * 4),
-                      titleText: loc.auth_log_out_btn_title,
+                      titleText: loc.auth_sign_out_btn_title,
                       titleColor: darkGreyColor,
                       trailing: const LogoutIcon(color: warningColor),
                       onTap: () async => await _logout(context),

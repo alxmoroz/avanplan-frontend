@@ -140,6 +140,7 @@
   "task_count_dative": "{count, plural, one{{count} задаче} other{{count} задачам}}",
 
   "task_charts_details_action_title": "Подробнее",
+  "task_charts_details_title": "Метрики",
   "task_charts_speed_title": "Скорость",
   "task_charts_speed_unit_t_mo": "задач / месяц",
   "task_charts_timings_title": "Сроки",

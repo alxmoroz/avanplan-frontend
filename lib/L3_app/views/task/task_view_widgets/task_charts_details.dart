@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../../L1_domain/entities/task.dart';
-import '../../../../L1_domain/usecases/task_ext_state.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/mt_bottom_sheet.dart';
@@ -12,7 +11,6 @@ import '../../../components/mt_page.dart';
 import '../../../components/navbar.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/date_presenter.dart';
 import '../../../presenters/state_presenter.dart';
 import '../task_charts/task_speed_chart.dart';
 import '../task_charts/task_time_chart.dart';
@@ -38,7 +36,7 @@ class TaskChartDetails extends StatelessWidget {
       navBar: navBar(
         context,
         leading: MTCloseButton(),
-        title: '',
+        title: loc.task_charts_details_title,
         bgColor: darkBackgroundColor,
       ),
       body: SafeArea(
@@ -47,7 +45,7 @@ class TaskChartDetails extends StatelessWidget {
         child: ListView(
           padding: padding.add(EdgeInsets.symmetric(horizontal: onePadding)),
           children: [
-            if (task.canShowSpeedVolumeCharts) ...[
+            if (task.showSpeedVolumeCharts) ...[
               /// объем
               H3(loc.task_charts_volume_title, padding: EdgeInsets.symmetric(vertical: onePadding)),
               Row(children: [
@@ -64,11 +62,9 @@ class TaskChartDetails extends StatelessWidget {
             ],
 
             /// срок
-            if (task.canShowTimeChart) ...[
+            if (task.showTimeChart) ...[
               H3(loc.task_charts_timings_title, padding: EdgeInsets.symmetric(vertical: onePadding)),
               TaskTimeChart(task),
-              NormalText('${loc.task_due_date_label} ${task.dueDate!.strMedium}', align: TextAlign.center),
-              if (task.hasEtaDate) NormalText('${loc.task_eta_date_label} ${task.etaDate!.strMedium}', align: TextAlign.center),
             ],
           ],
         ),

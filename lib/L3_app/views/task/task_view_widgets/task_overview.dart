@@ -1,9 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/material.dart';
-import 'package:gercules/L1_domain/usecases/task_ext_state.dart';
-import 'package:gercules/L3_app/presenters/date_presenter.dart';
-import 'package:gercules/L3_app/views/task/task_view_widgets/task_charts_details.dart';
 
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/usecases/task_ext_level.dart';
@@ -20,6 +17,7 @@ import '../task_charts/task_time_chart.dart';
 import '../task_charts/task_volume_chart.dart';
 import '../task_related_widgets/state_title.dart';
 import '../task_related_widgets/task_overview_warnings.dart';
+import '../task_view_widgets/task_charts_details.dart';
 
 class TaskOverview extends StatelessWidget {
   const TaskOverview(this.task);
@@ -30,42 +28,32 @@ class TaskOverview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final padding = MediaQuery.of(context).padding;
     return ListView(
       shrinkWrap: true,
+      padding: padding.add(EdgeInsets.all(onePadding).copyWith(bottom: 0)),
       children: [
-        Padding(
-          padding: EdgeInsets.all(onePadding).copyWith(bottom: 0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              TaskStateTitle(task, style: _taskStateTitleStyle),
+        if (task.showState) TaskStateTitle(task, style: _taskStateTitleStyle),
 
-              /// объем и скорость
-              if (task.canShowSpeedVolumeCharts) ...[
-                SizedBox(height: onePadding * 2),
-                Row(children: [
-                  Expanded(child: TaskVolumeChart(task)),
-                  Expanded(child: TaskSpeedChart(task)),
-                ]),
-              ],
+        /// объем и скорость
+        if (task.showSpeedVolumeCharts) ...[
+          SizedBox(height: onePadding * 2),
+          Row(children: [Expanded(child: TaskVolumeChart(task)), Expanded(child: TaskSpeedChart(task))]),
+        ],
 
-              /// срок
-              if (task.canShowTimeChart) ...[
-                SizedBox(height: onePadding),
-                NormalText('${loc.task_due_date_label} ${task.dueDate!.strMedium}', align: TextAlign.center),
-                TaskTimeChart(task),
-                if (task.hasEtaDate) NormalText('${loc.task_eta_date_label} ${task.etaDate!.strMedium}', align: TextAlign.center),
-              ],
-              if (task.canShowSpeedVolumeCharts || task.canShowTimeChart) ...[
-                SizedBox(height: onePadding * 2),
-                MTButton.outlined(
-                  titleText: loc.task_charts_details_action_title,
-                  onTap: () => showChartsDetailsDialog(context, task),
-                ),
-              ],
-            ],
+        /// срок
+        if (task.showTimeChart) ...[
+          SizedBox(height: onePadding),
+          TaskTimeChart(task),
+        ],
+
+        if (task.showChartDetails) ...[
+          SizedBox(height: onePadding * 2),
+          MTButton.outlined(
+            titleText: loc.task_charts_details_action_title,
+            onTap: () => showChartsDetailsDialog(context, task),
           ),
-        ),
+        ],
 
         /// проблемные задачи
         if (task.warningTasks.isNotEmpty) ...[

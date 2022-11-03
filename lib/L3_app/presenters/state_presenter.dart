@@ -6,6 +6,7 @@ import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/usecases/task_ext_level.dart';
 import '../../L1_domain/usecases/task_ext_state.dart';
 import '../components/colors.dart';
+import '../components/constants.dart';
 import '../components/icons.dart';
 import '../extra/services.dart';
 import '../presenters/duration_presenter.dart';
@@ -18,7 +19,7 @@ Widget iconForState(TaskState state, {double? size}) {
       return OverdueIcon(size: size, color: dangerColor);
     case TaskState.risk:
     case TaskState.riskSubtasks:
-      return RiskIcon(size: size, color: warningColor);
+      return RiskIcon(size: size, color: warningColor, solid: size == null || size < onePadding * 5);
     case TaskState.closable:
     case TaskState.eta:
     case TaskState.ok:
@@ -128,7 +129,8 @@ extension TaskStatePresenter on Task {
     }
   }
 
-  bool get showState => !closed && (state != TaskState.opened);
-  bool get canShowTimeChart => showState && hasDueDate;
-  bool get canShowSpeedVolumeCharts => showState && !isWorkspace;
+  bool get showState => !closed && (state != TaskState.opened && state != TaskState.backlog);
+  bool get showTimeChart => !closed && hasDueDate;
+  bool get showSpeedVolumeCharts => !closed && !isWorkspace;
+  bool get showChartDetails => showState && (showSpeedVolumeCharts || showTimeChart);
 }

@@ -139,6 +139,7 @@
   "task_count_dative": "{count, plural, one{{count} task} other{{count} tasks}}",
 
   "task_charts_details_action_title": "Details",
+  "task_charts_details_title": "Project Metrics",
   "task_charts_speed_title": "Execution speed",
   "task_charts_speed_unit_t_mo": "tasks / month",
   "task_charts_timings_title": "Deadlines",

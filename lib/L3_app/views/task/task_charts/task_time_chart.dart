@@ -9,6 +9,9 @@ import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/mt_card.dart';
 import '../../../components/mt_progress.dart';
+import '../../../components/text_widgets.dart';
+import '../../../extra/services.dart';
+import '../../../presenters/date_presenter.dart';
 
 class _DateBarData {
   _DateBarData({required this.date, this.color, this.mark});
@@ -22,25 +25,16 @@ class TaskTimeChart extends StatelessWidget {
   @protected
   final Task task;
   bool get _isFuture => task.state == TaskState.future;
-  bool get _isOverdue => task.state == TaskState.overdue;
-  bool get _isRisk => task.state == TaskState.risk;
-  bool get _isOk => task.state == TaskState.ok || task.state == TaskState.ahead;
 
   double get _barHeight => onePadding * 3;
 
-  Color get _etaMarkColor => _isOverdue
+  Color get _etaMarkColor => task.hasOverdue
       ? dangerColor
-      : _isRisk
+      : task.hasRisk
           ? warningColor
-          : _isOk
+          : task.isOk
               ? greenColor
               : darkGreyColor;
-
-  // Color get _mainBarColor => (task.hasRisk || task.hasOverdue)
-  //     ? lightWarningColor
-  //     : task.isOk || task.isAhead
-  //         ? lightGreenColor
-  //         : darkBackgroundColor;
 
   Color get _mainBarColor => borderColor;
   DateTime get _now => DateTime.now();
@@ -62,11 +56,11 @@ class TaskTimeChart extends StatelessWidget {
       if (!_isFuture)
         _DateBarData(
           date: _now,
-          color: _isOverdue ? lightWarningColor : _mainBarColor,
+          color: task.hasOverdue ? lightWarningColor : _mainBarColor,
           mark: MTProgressMark(
-            child: _isRisk || _isOverdue
-                ? RiskIcon(size: _barHeight, color: _isOverdue ? dangerColor : warningColor, solid: true)
-                : _isOk
+            child: task.hasRisk || task.hasOverdue
+                ? RiskIcon(size: _barHeight, color: task.hasOverdue ? dangerColor : warningColor, solid: true)
+                : task.isOk
                     ? OkIcon(size: _barHeight)
                     : NoInfoIcon(size: _barHeight),
             size: Size(_barHeight, 0),
@@ -90,21 +84,39 @@ class TaskTimeChart extends StatelessWidget {
         ],
       );
 
+  String get _dueText => '${loc.task_due_date_label} ${task.dueDate!.strMedium}';
+  String get _etaText => '${loc.task_eta_date_label} ${task.etaDate!.strMedium}';
+
   @override
   Widget build(BuildContext context) {
-    return MTCard(
-      color: backgroundColor,
-      borderSide: BorderSide(color: lightGreyColor.resolve(context), width: 1),
-      child: SizedBox(
-        height: _barHeight,
-        child: Row(
-          children: [
-            Container(color: _isFuture ? null : _mainBarColor.resolve(context), width: _barHeight),
-            Expanded(child: _timeProgressBar()),
-            Container(width: _barHeight),
-          ],
+    return Column(children: [
+      MTCard(
+        color: backgroundColor,
+        borderSide: BorderSide(color: lightGreyColor.resolve(context), width: 1),
+        child: SizedBox(
+          height: _barHeight,
+          child: Row(
+            children: [
+              Container(
+                alignment: Alignment.centerLeft,
+                color: _isFuture ? null : _mainBarColor.resolve(context),
+                width: _barHeight * 1.7 + onePadding * 2,
+                padding: EdgeInsets.symmetric(horizontal: onePadding),
+                child: CalendarIcon(size: _barHeight * 0.7, color: darkGreyColor),
+              ),
+              Expanded(child: _timeProgressBar()),
+              Container(width: _barHeight),
+            ],
+          ),
         ),
       ),
-    );
+      Row(children: [
+        if (task.hasEtaDate) ...[
+          Expanded(child: NormalText(task.hasRisk ? _dueText : _etaText, color: task.isOk ? greenColor : null)),
+          Expanded(child: NormalText(task.hasRisk ? _etaText : _dueText, align: TextAlign.right, color: task.hasRisk ? warningColor : null)),
+        ] else
+          NormalText(_dueText, align: TextAlign.center),
+      ]),
+    ]);
   }
 }

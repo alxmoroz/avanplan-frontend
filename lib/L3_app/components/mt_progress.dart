@@ -46,7 +46,7 @@ class MTProgress extends StatelessWidget {
           width: rWidth,
           child: Container(
             decoration: BoxDecoration(
-              color: (color ?? darkBackgroundColor).resolve(context),
+              color: color?.maybeResolve(context),
               border: border ?? const Border(),
             ),
           ),

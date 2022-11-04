@@ -29,6 +29,7 @@ class TaskTimeChart extends StatelessWidget {
 
   bool get _isFuture => task.state == TaskState.future;
   double get _barHeight => onePadding * 2.5;
+  double get _suffixWidth => _barHeight / 2;
   double get _borderWidth => 1.0;
 
   Color get _barColor => lightGreyColor;
@@ -53,7 +54,6 @@ class TaskTimeChart extends StatelessWidget {
       if (task.hasDueDate)
         _DateBarData(
           date: task.dueDate!,
-          color: _now.isAfter(task.dueDate!) ? _barColor : backgroundColor,
           mark: MTProgressMark(
             child: CaretIcon(color: _planMarkColor, size: _markSize),
             size: Size(_markSize.width, -_markSize.height),
@@ -65,7 +65,6 @@ class TaskTimeChart extends StatelessWidget {
       if (task.hasEtaDate)
         _DateBarData(
           date: task.etaDate!,
-          color: backgroundColor,
           mark: MTProgressMark(
             child: CaretIcon(color: _etaMarkColor, size: _markSize, up: true),
             size: Size(_markSize.width, _barHeight),
@@ -123,7 +122,7 @@ class TaskTimeChart extends StatelessWidget {
               }).toList(),
             ),
           ),
-          SizedBox(width: _barHeight),
+          SizedBox(width: _suffixWidth),
         ],
       ),
     );
@@ -147,7 +146,14 @@ class TaskTimeChart extends StatelessWidget {
                   color: _isFuture ? null : _barColor.resolve(context),
                   width: prefixWidth,
                   padding: EdgeInsets.symmetric(horizontal: onePadding),
-                  child: CalendarIcon(size: _barHeight * 0.7, color: darkGreyColor),
+                  child: CalendarIcon(size: _barHeight * 0.7, color: darkColor),
+                ),
+                const Spacer(),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  height: _barHeight,
+                  width: _suffixWidth,
+                  child: Image.asset('assets/images/checkers.png'),
                 ),
               ],
             ),

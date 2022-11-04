@@ -88,7 +88,7 @@ extension TaskStats on Task {
   }
 
   Duration get startPeriod => calculatedStartDate.difference(_now);
-  bool get _isFuture => calculatedStartDate.isAfter(_now);
+  bool get isFuture => calculatedStartDate.isAfter(_now);
 
   /// опоздание
   bool get hasDueDate => dueDate != null;
@@ -98,7 +98,7 @@ extension TaskStats on Task {
   Iterable<Task> get overdueSubtasks => openedSubtasks.where((t) => [TaskState.overdue, TaskState.overdueSubtasks].contains(t.state));
 
   /// фактическая скорость проекта
-  Duration? get _pastPeriod => _isFuture ? null : _now.difference(calculatedStartDate);
+  Duration? get _pastPeriod => isFuture ? null : _now.difference(calculatedStartDate);
   Task get _projectOrWS => project != null ? project! : this;
   double get projectOrWSSpeed => _projectOrWS._pastPeriod != null ? (_projectOrWS.closedLeafTasksCount / _projectOrWS._pastPeriod!.inSeconds) : 0;
 
@@ -109,7 +109,7 @@ extension TaskStats on Task {
   bool get hasEtaDate => etaDate != null;
 
   /// целевая скорость
-  Duration? get _leftPeriod => hasDueDate && !_isFuture ? dueDate!.add(_overdueThreshold).difference(_now) : null;
+  Duration? get _leftPeriod => hasDueDate && !isFuture ? dueDate!.add(_overdueThreshold).difference(_now) : null;
   double? get targetSpeed => _leftPeriod != null && !hasOverdue ? openedLeafTasksCount / _leftPeriod!.inSeconds : null;
 
   /// плановый объем
@@ -152,7 +152,7 @@ extension TaskStats on Task {
     } else if (hasSubtasks && !hasOpenedSubtasks || _allOpenedSubtasksAre(TaskState.closable)) {
       s = TaskState.closable;
     } else if (!isWorkspace && hasSubtasks && closedLeafTasksCount == 0) {
-      if (_isFuture) {
+      if (isFuture) {
         s = TaskState.future;
       } else {
         s = TaskState.noProgress;

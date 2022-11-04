@@ -22,18 +22,39 @@ class _DateBarData {
   final MTProgressMark? mark;
 }
 
-class TaskTimeChart extends StatelessWidget {
+class TaskTimeChart extends StatefulWidget {
   const TaskTimeChart(this.task);
   @protected
   final Task task;
 
-  bool get _isFuture => task.state == TaskState.future;
+  @override
+  State<TaskTimeChart> createState() => _TaskTimeChartState();
+}
+
+class _TaskTimeChartState extends State<TaskTimeChart> {
+  Task get task => widget.task;
+
+  late int _maxDateSeconds;
+  late DateTime _minDate;
+  late Iterable<_DateBarData> _dateBarData;
+
+  @override
+  void initState() {
+    _dateBarData = _makeDateBarData;
+    final _sortedDates = _dateBarData.map((dbd) => dbd.date);
+    final _maxDate = _sortedDates.first;
+    _minDate = _sortedDates.last;
+    _maxDateSeconds = _maxDate.difference(_minDate).inSeconds;
+
+    super.initState();
+  }
+
   double get _barHeight => onePadding * 2.5;
   double get _suffixWidth => _barHeight / 2;
   double get _borderWidth => 1.0;
-
   Color get _barColor => lightGreyColor;
   Color get _planMarkColor => darkGreyColor;
+
   Color get _etaMarkColor => task.hasOverdue
       ? dangerColor
       : task.hasRisk
@@ -44,7 +65,7 @@ class TaskTimeChart extends StatelessWidget {
 
   Size get _markSize => Size(onePadding * 0.6, onePadding * 0.75);
 
-  Iterable<_DateBarData> get _dateBarData {
+  Iterable<_DateBarData> get _makeDateBarData {
     final _now = DateTime.now();
     final res = <_DateBarData>[
       /// старт
@@ -73,7 +94,7 @@ class TaskTimeChart extends StatelessWidget {
         ),
 
       /// сегодня
-      if (!_isFuture)
+      if (!task.isFuture)
         _DateBarData(
           date: _now,
           color: task.hasOverdue ? lightWarningColor : _barColor,
@@ -95,10 +116,6 @@ class TaskTimeChart extends StatelessWidget {
     return res.reversed;
   }
 
-  Iterable<DateTime> get _sortedDates => _dateBarData.map((dbd) => dbd.date);
-  DateTime get _minDate => _sortedDates.last;
-  DateTime get _maxDate => _sortedDates.first;
-  int get _maxDateSeconds => _maxDate.difference(_minDate).inSeconds;
   double _dateRatio(DateTime dt) => _maxDateSeconds > 0 ? (dt.difference(_minDate).inSeconds / _maxDateSeconds) : 1;
 
   Widget _progressBar(BuildContext context, double prefixWidth) {
@@ -143,7 +160,7 @@ class TaskTimeChart extends StatelessWidget {
               children: [
                 Container(
                   alignment: Alignment.center,
-                  color: _isFuture ? null : _barColor.resolve(context),
+                  color: task.isFuture ? null : _barColor.resolve(context),
                   width: prefixWidth,
                   padding: EdgeInsets.symmetric(horizontal: onePadding),
                   child: CalendarIcon(size: _barHeight * 0.7, color: darkColor),

@@ -23,7 +23,7 @@ class TaskVolumeChart extends StatelessWidget {
   double get _degreeValue => _maxValue / 360;
 
   double get _gaugeWidth => onePadding * 1.5;
-  double get _barWidth => _gaugeWidth / 2;
+  double get _barWidth => _gaugeWidth;
 
   Color get _pointerColor => _delta == 0
       ? darkGreyColor

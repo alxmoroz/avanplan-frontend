@@ -130,7 +130,7 @@ extension TaskStatePresenter on Task {
   }
 
   bool get showState => !closed && (state != TaskState.opened && state != TaskState.backlog);
-  bool get showTimeChart => !closed && hasDueDate;
+  bool get showTimeChart => !closed && !isWorkspace && (hasDueDate || hasEtaDate);
   bool get showSpeedVolumeCharts => !closed && !isWorkspace && hasSubtasks;
   bool get showChartDetails => showState && (showSpeedVolumeCharts || showTimeChart);
 }

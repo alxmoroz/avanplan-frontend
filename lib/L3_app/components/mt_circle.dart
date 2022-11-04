@@ -6,10 +6,11 @@ import 'colors.dart';
 import 'constants.dart';
 
 class MTCircle extends StatelessWidget {
-  const MTCircle({this.color, this.size});
+  const MTCircle({this.color, this.size, this.border});
 
   final Color? color;
   final double? size;
+  final Border? border;
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +20,7 @@ class MTCircle extends StatelessWidget {
       decoration: BoxDecoration(
         color: (color ?? darkGreyColor).resolve(context),
         shape: BoxShape.circle,
+        border: border ?? const Border(),
       ),
     );
   }

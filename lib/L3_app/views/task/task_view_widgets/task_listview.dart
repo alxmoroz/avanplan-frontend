@@ -26,7 +26,7 @@ class TaskListView extends StatelessWidget {
     return Column(children: [
       Padding(
         padding: EdgeInsets.symmetric(horizontal: onePadding).copyWith(top: onePadding),
-        child: SubtasksStateTitle(task, group.key, style: TaskStateTitleStyle.M),
+        child: SubtasksStateTitle(task, group.key, style: TaskStateTitleStyle.S),
       ),
       for (final t in group.value) _taskItem(t.id),
     ]);

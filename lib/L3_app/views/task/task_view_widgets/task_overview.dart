@@ -38,17 +38,17 @@ class TaskOverview extends StatelessWidget {
         /// объем и скорость
         if (task.showSpeedVolumeCharts) ...[
           SizedBox(height: onePadding * 2),
-          Row(children: [Expanded(child: TaskVolumeChart(task)), Expanded(child: TaskSpeedChart(task))]),
+          Row(children: [TaskVolumeChart(task), Spacer(), TaskSpeedChart(task)]),
         ],
 
         /// срок
         if (task.showTimeChart) ...[
-          SizedBox(height: onePadding),
+          SizedBox(height: onePadding / 2),
           TaskTimeChart(task),
         ],
 
         if (task.showChartDetails) ...[
-          SizedBox(height: onePadding * 2),
+          SizedBox(height: onePadding),
           MTButton.outlined(
             titleText: loc.task_charts_details_action_title,
             onTap: () => showChartsDetailsDialog(context, task),

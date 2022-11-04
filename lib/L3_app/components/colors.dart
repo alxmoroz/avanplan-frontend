@@ -19,16 +19,7 @@ const Color lightGreyColor = CupertinoDynamicColor.withBrightness(
   darkColor: Color.fromARGB(255, 72, 72, 74),
 );
 
-const Color borderColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 200, 200, 205),
-  darkColor: Color.fromARGB(255, 62, 62, 64),
-);
-
-const Color loaderBgColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(225, 200, 200, 205),
-  darkColor: Color.fromARGB(225, 62, 62, 64),
-);
-
+const Color borderColor = CupertinoColors.systemGrey3;
 const Color darkBackgroundColor = CupertinoColors.systemGrey5;
 const Color backgroundColor = CupertinoColors.systemGrey6;
 
@@ -45,10 +36,10 @@ const Color greenColor = CupertinoDynamicColor.withBrightness(
   darkColor: Color.fromARGB(255, 52, 165, 89),
 );
 
-const Color lightGreenColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 120, 185, 142),
-  darkColor: Color.fromARGB(255, 5, 80, 5),
-);
+// const Color lightGreenColor = CupertinoDynamicColor.withBrightness(
+//   color: Color.fromARGB(255, 120, 185, 142),
+//   darkColor: Color.fromARGB(255, 5, 80, 5),
+// );
 
 const Color mainColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(255, 0, 113, 164),
@@ -60,16 +51,6 @@ const Color transparentAppbarBgColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(0, 255, 255, 255),
   darkColor: Color.fromARGB(0, 0, 0, 0),
 );
-
-// Color get inactiveColor => const CupertinoDynamicColor.withBrightness(
-//       color: Color(0xFF758599),
-//       darkColor: Color(0xFF999999),
-//     );
-
-// Color get navbarGreyBgColor => const CupertinoDynamicColor.withBrightness(
-//       color: Color.fromARGB(150, 209, 209, 214),
-//       darkColor: Color.fromARGB(150, 58, 58, 60),
-//     );
 
 Color get navbarDefaultBgColor => transparentAppbarBgColor;
 

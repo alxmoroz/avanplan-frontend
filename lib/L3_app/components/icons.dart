@@ -9,10 +9,13 @@ import 'constants.dart';
 import 'painters.dart';
 
 abstract class _MTIcon extends StatelessWidget {
-  const _MTIcon({this.color, this.size});
+  const _MTIcon({this.color, this.size, this.solid});
 
   final Color? color;
   final double? size;
+  final bool? solid;
+
+  bool get _solid => size == null || size! < onePadding * 5;
 }
 
 class ConnectingIcon extends _MTIcon {
@@ -198,34 +201,22 @@ class MenuIcon extends _MTIcon {
       );
 }
 
-class OverdueIcon extends _MTIcon {
-  const OverdueIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.exclamationmark_triangle,
-        color: (color ?? dangerColor).resolve(context),
-        size: size,
-      );
-}
-
 class RiskIcon extends _MTIcon {
-  const RiskIcon({super.color, super.size, this.solid = false});
-  final bool solid;
+  const RiskIcon({super.color, super.size, super.solid});
 
   @override
   Widget build(BuildContext context) => Icon(
-        solid ? CupertinoIcons.tortoise_fill : CupertinoIcons.tortoise,
+        _solid ? CupertinoIcons.tortoise_fill : CupertinoIcons.tortoise,
         color: (color ?? warningColor).resolve(context),
         size: size,
       );
 }
 
 class OkIcon extends _MTIcon {
-  const OkIcon({super.color, super.size, this.solid = false});
-  final bool solid;
+  const OkIcon({super.color, super.size, super.solid});
   @override
   Widget build(BuildContext context) => Icon(
-        solid ? CupertinoIcons.rocket_fill : CupertinoIcons.rocket,
+        _solid ? CupertinoIcons.rocket_fill : CupertinoIcons.rocket,
         color: (color ?? greenColor).resolve(context),
         size: size,
       );

@@ -6,7 +6,6 @@ import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/usecases/task_ext_level.dart';
 import '../../L1_domain/usecases/task_ext_state.dart';
 import '../components/colors.dart';
-import '../components/constants.dart';
 import '../components/icons.dart';
 import '../extra/services.dart';
 import '../presenters/duration_presenter.dart';
@@ -16,17 +15,17 @@ Widget iconForState(TaskState state, {double? size}) {
   switch (state) {
     case TaskState.overdue:
     case TaskState.overdueSubtasks:
-      return OverdueIcon(size: size, color: dangerColor);
+      return RiskIcon(size: size, color: dangerColor);
     case TaskState.risk:
     case TaskState.riskSubtasks:
-      return RiskIcon(size: size, color: warningColor, solid: size == null || size < onePadding * 5);
+      return RiskIcon(size: size, color: warningColor);
     case TaskState.closable:
     case TaskState.eta:
     case TaskState.ok:
     case TaskState.okSubtasks:
     case TaskState.ahead:
     case TaskState.aheadSubtasks:
-      return OkIcon(size: size, color: greenColor, solid: size == null || size < onePadding * 5);
+      return OkIcon(size: size, color: greenColor);
     case TaskState.closed:
       return DoneIcon(true, size: size, color: lightGreyColor);
     case TaskState.opened:

@@ -12,9 +12,9 @@ import '../../../extra/services.dart';
 import '../../../presenters/state_presenter.dart';
 import '../../../presenters/task_filter_presenter.dart';
 import '../../../presenters/task_level_presenter.dart';
-import '../task_charts/task_speed_chart.dart';
-import '../task_charts/task_time_chart.dart';
-import '../task_charts/task_volume_chart.dart';
+import '../task_charts/timing_chart.dart';
+import '../task_charts/velocity_chart.dart';
+import '../task_charts/volume_chart.dart';
 import '../task_related_widgets/state_title.dart';
 import '../task_related_widgets/task_overview_warnings.dart';
 import '../task_view_widgets/task_chart_details.dart';
@@ -36,21 +36,21 @@ class TaskOverview extends StatelessWidget {
         if (task.showState) TaskStateTitle(task, style: _taskStateTitleStyle),
 
         /// объем и скорость
-        if (task.showSpeedVolumeCharts) ...[
+        if (task.showVelocityVolumeCharts) ...[
           SizedBox(height: onePadding * 2),
-          Row(children: [TaskVolumeChart(task), const Spacer(), TaskSpeedChart(task)]),
+          Row(children: [TaskVolumeChart(task), const Spacer(), VelocityChart(task)]),
         ],
 
         /// срок
         if (task.showTimeChart) ...[
           SizedBox(height: onePadding),
-          TaskTimeChart(task),
+          TimingChart(task),
         ],
 
         if (task.showChartDetails) ...[
           SizedBox(height: onePadding),
           MTButton.outlined(
-            titleText: loc.charts_details_action_title,
+            titleText: loc.chart_details_action_title,
             onTap: () => showChartsDetailsDialog(context, task),
           ),
         ],

@@ -41,7 +41,7 @@ abstract class _TaskViewControllerBase with Store {
   @computed
   bool get _hasAuthor => task.author != null;
   @computed
-  bool get _hasOverview => task.showState || task.showTimeChart || task.showSpeedVolumeCharts;
+  bool get _hasOverview => task.showState || task.showTimeChart || task.showVelocityVolumeCharts;
   @computed
   bool get _hasDetails => _hasDescription || _hasAuthor;
 

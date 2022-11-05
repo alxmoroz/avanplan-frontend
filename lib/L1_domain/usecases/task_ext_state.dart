@@ -28,6 +28,7 @@ enum TaskState {
 }
 
 const _day = Duration(days: 1);
+const _week = Duration(days: 7);
 
 extension TaskStats on Task {
   /// подзадачи
@@ -97,25 +98,36 @@ extension TaskStats on Task {
   bool get hasOverdue => overduePeriod != null && overduePeriod! > _overdueThreshold;
   Iterable<Task> get overdueSubtasks => openedSubtasks.where((t) => [TaskState.overdue, TaskState.overdueSubtasks].contains(t.state));
 
-  /// фактическая скорость проекта
-  Duration? get elapsedPeriod => isFuture ? null : _now.difference(calculatedStartDate);
+  /// скорость (проекта, цели, средневзвешенная)
+  static const Duration _startThreshold = _week;
+  Duration get _rawElapsedPeriod => _now.difference(calculatedStartDate);
+  Duration? get elapsedPeriod => isFuture || _rawElapsedPeriod < _startThreshold ? null : _rawElapsedPeriod;
+
+  Duration? get _projectElapsedPeriod => _projectOrWS.elapsedPeriod;
   Task get _projectOrWS => project != null ? project! : this;
-  double get projectOrWSSpeed => _projectOrWS.elapsedPeriod != null ? (_projectOrWS.closedLeafTasksCount / _projectOrWS.elapsedPeriod!.inSeconds) : 0;
+  double get _projectVelocity => _projectElapsedPeriod != null ? (_projectOrWS.closedLeafTasksCount / _projectElapsedPeriod!.inDays) : 0;
+  double get _velocity => elapsedPeriod != null ? (closedLeafTasksCount / elapsedPeriod!.inDays) : 0;
+
+  static const int _baseVelocityDays = 42;
+  int get _elapsedDays => elapsedPeriod?.inDays ?? 0;
+  int get _weightPeriod => max(_elapsedDays, _baseVelocityDays);
+  double get weightedVelocity =>
+      isProject ? _projectVelocity : (_projectVelocity * (_weightPeriod - _elapsedDays) + _velocity * _elapsedDays) / _weightPeriod;
 
   /// прогноз
   Duration? get etaPeriod =>
-      projectOrWSSpeed > 0 && openedLeafTasksCount > 0 ? Duration(seconds: (openedLeafTasksCount / projectOrWSSpeed).round()) : null;
+      weightedVelocity > 0 && openedLeafTasksCount > 0 ? Duration(days: (openedLeafTasksCount / weightedVelocity).round()) : null;
   DateTime? get etaDate => etaPeriod != null ? _now.add(etaPeriod!) : null;
   bool get hasEtaDate => etaDate != null;
 
   /// целевая скорость
   Duration? get leftPeriod => hasDueDate && !isFuture ? dueDate!.add(_overdueThreshold).difference(_now) : null;
-  double? get targetSpeed => leftPeriod != null && !hasOverdue ? openedLeafTasksCount / leftPeriod!.inSeconds : null;
+  double? get targetVelocity => leftPeriod != null && !hasOverdue ? openedLeafTasksCount / leftPeriod!.inDays : null;
 
   /// плановый объем
   Duration? get _planPeriod => hasDueDate ? dueDate!.difference(calculatedStartDate) : null;
   double? get planVolume => elapsedPeriod != null && _planPeriod != null
-      ? min(leafTasksCount.toDouble(), leafTasksCount * elapsedPeriod!.inSeconds / _planPeriod!.inSeconds)
+      ? min(leafTasksCount.toDouble(), leafTasksCount * elapsedPeriod!.inDays / _planPeriod!.inDays)
       : null;
 
   /// риск
@@ -166,6 +178,8 @@ extension TaskStats on Task {
         s = TaskState.ahead;
       } else if (isOk) {
         s = TaskState.ok;
+      } else {
+        s = TaskState.noInfo;
       }
     } else if (hasSubtasks) {
       if (overdueSubtasks.isNotEmpty) {

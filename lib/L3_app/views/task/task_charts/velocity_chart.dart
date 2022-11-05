@@ -13,8 +13,8 @@ import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/date_presenter.dart';
 
-class TaskSpeedChart extends StatelessWidget {
-  const TaskSpeedChart(this.task);
+class VelocityChart extends StatelessWidget {
+  const VelocityChart(this.task);
   final Task task;
 
   static const _bottomGaugeAngle = 90.0;
@@ -24,13 +24,13 @@ class TaskSpeedChart extends StatelessWidget {
   double get _gaugeWidth => onePadding * 1.5;
   double get _barWidth => _gaugeWidth / 2;
   double get _radius => onePadding * 6.5;
-  double get _factSpeed => task.projectOrWSSpeed;
-  double get _delta => (task.targetSpeed ?? _factSpeed) - _factSpeed;
-  double get _firstValue => _delta >= 0 ? _factSpeed : _factSpeed + _delta;
-  double get _maxValue => max(_factSpeed, task.targetSpeed ?? 1 / secondsInMonth) * 1.3;
+  double get _velocity => task.weightedVelocity;
+  double get _delta => (task.targetVelocity ?? _velocity) - _velocity;
+  double get _firstValue => _delta >= 0 ? _velocity : _velocity + _delta;
+  double get _maxValue => max(_velocity, task.targetVelocity ?? 1 / daysPerMonth) * 1.3;
   double get _degreeValue => _maxValue / _sweepAngle;
 
-  String get _factSpeedText => '${(_factSpeed * secondsInMonth).round()}';
+  String get _displayText => '${(_velocity * daysPerMonth).round()}';
 
   Color get _barColor => lightGreyColor;
   Color get _deltaBarColor => _delta > 0 ? lightWarningColor : _barColor;
@@ -77,8 +77,8 @@ class TaskSpeedChart extends StatelessWidget {
             _mainPointer,
           ],
         ),
-        D1('$_factSpeedText', color: _pointerColor, padding: EdgeInsets.only(bottom: onePadding / 2)),
-        SmallText(loc.charts_speed_unit_t_mo, padding: EdgeInsets.only(top: _radius / 2 + onePadding / 2), color: lightGreyColor),
+        D1('$_displayText', color: _pointerColor, padding: EdgeInsets.only(bottom: onePadding / 2)),
+        SmallText(loc.chart_velocity_unit_t_mo, padding: EdgeInsets.only(top: _radius / 2 + onePadding / 2), color: lightGreyColor),
         Container(
           width: _radius * 2 - onePadding * 5,
           height: _radius * 2 - onePadding * 4,
@@ -86,7 +86,7 @@ class TaskSpeedChart extends StatelessWidget {
           child: Row(children: [
             if (_maxValue > 0) const MediumText('0', color: darkGreyColor),
             const Spacer(),
-            if (_maxValue > 0) MediumText('${(_maxValue * secondsInMonth).round()}', color: darkGreyColor),
+            if (_maxValue > 0) MediumText('${(_maxValue * daysPerMonth).round()}', color: darkGreyColor),
           ]),
         ),
       ],

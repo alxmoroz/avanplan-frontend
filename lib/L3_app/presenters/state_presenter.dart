@@ -128,8 +128,8 @@ extension TaskStatePresenter on Task {
     }
   }
 
-  bool get showState => !closed && (state != TaskState.opened && state != TaskState.backlog);
-  bool get showTimeChart => !closed && !isWorkspace && (hasDueDate || hasEtaDate);
-  bool get showSpeedVolumeCharts => !closed && !isWorkspace && hasSubtasks;
-  bool get showChartDetails => showState && (showSpeedVolumeCharts || showTimeChart);
+  bool get showState => !closed && (hasSubtasks && state != TaskState.backlog);
+  bool get showTimeChart => !isWorkspace && showState && (hasDueDate || hasEtaDate);
+  bool get showVelocityVolumeCharts => !isWorkspace && showState;
+  bool get showChartDetails => showVelocityVolumeCharts || showTimeChart;
 }

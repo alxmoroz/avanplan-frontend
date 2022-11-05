@@ -21,26 +21,26 @@
 
   "cancel": "Cancel",
 
-  "charts_details_action_title": "Details",
-  "charts_details_title": "Project Metrics",
+  "chart_details_action_title": "Details",
+  "chart_details_title": "Project Metrics",
 
-  "charts_delta_ahead_label": "Ahead",
-  "charts_delta_lag_label": "Lag",
+  "chart_delta_ahead_label": "Ahead",
+  "chart_delta_lag_label": "Lag",
 
-  "charts_speed_project_label": "Current",
-  "charts_speed_target_label": "Expected",
-  "charts_speed_title": "Execution speed",
-  "charts_speed_unit_t_mo": "tasks / month",
+  "chart_velocity_project_label": "Current",
+  "chart_velocity_target_label": "Expected",
+  "chart_velocity_title": "Velocity",
+  "chart_velocity_unit_t_mo": "tasks / month",
 
-  "charts_timings_elapsed_label": "Since start",
-  "charts_timings_eta_label": "Estimate time to complete",
-  "charts_timings_left_label": "Time left",
-  "charts_timings_title": "Timing",
+  "chart_timing_elapsed_label": "Since start",
+  "chart_timing_eta_label": "Estimate time to complete",
+  "chart_timing_left_label": "Time left",
+  "chart_timing_title": "Timing",
 
-  "charts_volume_plan_label": "Expected closed",
-  "charts_volume_title": "Scope of work",
-  "charts_volume_total_label": "Total",
-  "charts_volume_unit": "completed",
+  "chart_volume_plan_label": "Expected closed",
+  "chart_volume_title": "Scope of work",
+  "chart_volume_total_label": "Total",
+  "chart_volume_unit": "completed",
 
   "close_action_title": "Close",
   "close_dialog_recursive_description": "All subtasks will be marked completed",

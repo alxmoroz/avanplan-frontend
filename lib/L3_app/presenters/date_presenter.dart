@@ -9,4 +9,4 @@ extension DateFormatter on DateTime {
   String get strLong => DateFormat.yMMMMd().format(this);
 }
 
-const secondsInMonth = 3600 * 24 * 30.4;
+const daysPerMonth = 30.4;

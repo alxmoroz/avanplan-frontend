@@ -77,7 +77,7 @@ class TaskSpeedChart extends StatelessWidget {
           ],
         ),
         D1('$_factSpeedText', color: _pointerColor, padding: EdgeInsets.only(bottom: onePadding / 2)),
-        SmallText(loc.task_charts_speed_unit_t_mo, padding: EdgeInsets.only(top: _radius / 2 + onePadding / 2), color: lightGreyColor),
+        SmallText(loc.charts_speed_unit_t_mo, padding: EdgeInsets.only(top: _radius / 2 + onePadding / 2), color: lightGreyColor),
         Container(
           width: _radius * 2 - onePadding * 5,
           height: _radius * 2 - onePadding * 4,

@@ -98,9 +98,9 @@ extension TaskStats on Task {
   Iterable<Task> get overdueSubtasks => openedSubtasks.where((t) => [TaskState.overdue, TaskState.overdueSubtasks].contains(t.state));
 
   /// фактическая скорость проекта
-  Duration? get _pastPeriod => isFuture ? null : _now.difference(calculatedStartDate);
+  Duration? get elapsedPeriod => isFuture ? null : _now.difference(calculatedStartDate);
   Task get _projectOrWS => project != null ? project! : this;
-  double get projectOrWSSpeed => _projectOrWS._pastPeriod != null ? (_projectOrWS.closedLeafTasksCount / _projectOrWS._pastPeriod!.inSeconds) : 0;
+  double get projectOrWSSpeed => _projectOrWS.elapsedPeriod != null ? (_projectOrWS.closedLeafTasksCount / _projectOrWS.elapsedPeriod!.inSeconds) : 0;
 
   /// прогноз
   Duration? get etaPeriod =>
@@ -109,13 +109,13 @@ extension TaskStats on Task {
   bool get hasEtaDate => etaDate != null;
 
   /// целевая скорость
-  Duration? get _leftPeriod => hasDueDate && !isFuture ? dueDate!.add(_overdueThreshold).difference(_now) : null;
-  double? get targetSpeed => _leftPeriod != null && !hasOverdue ? openedLeafTasksCount / _leftPeriod!.inSeconds : null;
+  Duration? get leftPeriod => hasDueDate && !isFuture ? dueDate!.add(_overdueThreshold).difference(_now) : null;
+  double? get targetSpeed => leftPeriod != null && !hasOverdue ? openedLeafTasksCount / leftPeriod!.inSeconds : null;
 
   /// плановый объем
   Duration? get _planPeriod => hasDueDate ? dueDate!.difference(calculatedStartDate) : null;
-  double? get planVolume => _pastPeriod != null && _planPeriod != null
-      ? min(leafTasksCount.toDouble(), leafTasksCount * _pastPeriod!.inSeconds / _planPeriod!.inSeconds)
+  double? get planVolume => elapsedPeriod != null && _planPeriod != null
+      ? min(leafTasksCount.toDouble(), leafTasksCount * elapsedPeriod!.inSeconds / _planPeriod!.inSeconds)
       : null;
 
   /// риск

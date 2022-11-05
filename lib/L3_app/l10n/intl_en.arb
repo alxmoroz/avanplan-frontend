@@ -21,6 +21,27 @@
 
   "cancel": "Cancel",
 
+  "charts_details_action_title": "Details",
+  "charts_details_title": "Project Metrics",
+
+  "charts_delta_ahead_label": "Ahead",
+  "charts_delta_lag_label": "Lag",
+
+  "charts_speed_project_label": "Current",
+  "charts_speed_target_label": "Expected",
+  "charts_speed_title": "Execution speed",
+  "charts_speed_unit_t_mo": "tasks / month",
+
+  "charts_timings_elapsed_label": "Since start",
+  "charts_timings_eta_label": "Estimate time to complete",
+  "charts_timings_left_label": "Time left",
+  "charts_timings_title": "Timing",
+
+  "charts_volume_plan_label": "Expected closed",
+  "charts_volume_title": "Scope of work",
+  "charts_volume_total_label": "Total",
+  "charts_volume_unit": "completed",
+
   "close_action_title": "Close",
   "close_dialog_recursive_description": "All subtasks will be marked completed",
   "close_dialog_recursive_title": "Close with subtasks?",
@@ -139,24 +160,10 @@
   "task_count": "{count, plural, zero{No tasks} one{{count} task} other{{count} tasks}}",
   "task_count_dative": "{count, plural, one{{count} task} other{{count} tasks}}",
 
-  "task_charts_details_action_title": "Details",
-  "task_charts_details_title": "Project Metrics",
-  "task_charts_delta_ahead_label": "Ahead",
-  "task_charts_delta_lag_label": "Lag",
-  "task_charts_speed_project_label": "Current",
-  "task_charts_speed_target_label": "Expected",
-  "task_charts_speed_title": "Execution speed",
-  "task_charts_speed_unit_t_mo": "tasks / month",
-  "task_charts_timings_title": "Deadlines",
-  "task_charts_volume_plan_label": "Expected closed",
-  "task_charts_volume_title": "Scope of work",
-  "task_charts_volume_total_label": "Total",
-  "task_charts_volume_unit": "completed",
-
   "task_delete_dialog_title": "Delete task?",
   "task_delete_dialog_description": "All subtasks will be deleted",
-  "task_due_date_label": "Planned",
-  "task_due_date_placeholder": "Due date",
+  "task_due_date_label": "Deadline",
+  "task_due_date_placeholder": "Deadline date",
   "task_edit_action_title": "Edit",
   "task_eta_date_label": "Predicted",
   "task_go2source_title": "Go to source",

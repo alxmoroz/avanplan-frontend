@@ -44,33 +44,28 @@ class TaskChartDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     final padding = MediaQuery.of(context).padding;
     return MTPage(
-      navBar: navBar(
-        context,
-        leading: MTCloseButton(),
-        title: loc.task_charts_details_title,
-        bgColor: backgroundColor,
-      ),
+      navBar: navBar(context, leading: MTCloseButton(), title: loc.charts_details_title, bgColor: backgroundColor),
       body: SafeArea(
         bottom: false,
         // top: false,
-        child: ListView(padding: padding.add(EdgeInsets.symmetric(horizontal: onePadding)), children: [
+        child: ListView(padding: padding.add(EdgeInsets.all(onePadding)), children: [
           if (task.showSpeedVolumeCharts) ...[
             /// объем
-            H3(loc.task_charts_volume_title, padding: EdgeInsets.symmetric(vertical: onePadding)),
+            H3(loc.charts_volume_title, padding: EdgeInsets.only(bottom: onePadding)),
             Row(children: [
               TaskVolumeChart(task),
               SizedBox(width: onePadding),
               Expanded(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                  _textRow(loc.task_charts_volume_total_label, '${task.leafTasksCount}'),
+                  _textRow(loc.charts_volume_total_label, '${task.leafTasksCount}'),
                   _textRow(loc.state_opened, '${task.openedLeafTasksCount}'),
                   _textRow(loc.state_closed, '${task.closedLeafTasksCount}'),
                   if (task.planVolume != null) ...[
                     SizedBox(height: onePadding),
-                    _textRow(loc.task_charts_volume_plan_label, '${task.planVolume!.round()}'),
+                    _textRow(loc.charts_volume_plan_label, '${task.planVolume!.round()}'),
                     if (_volumeDelta != 0)
                       _textRow(
-                        _volumeDelta > 0 ? loc.task_charts_delta_ahead_label : loc.task_charts_delta_lag_label,
+                        _volumeDelta > 0 ? loc.charts_delta_ahead_label : loc.charts_delta_lag_label,
                         '${_volumeDelta.abs()}',
                         color: _volumeDelta > 0 ? greenColor : warningColor,
                       ),
@@ -81,17 +76,17 @@ class TaskChartDetails extends StatelessWidget {
 
             /// скорость
             SizedBox(height: onePadding),
-            H3(loc.task_charts_speed_title, padding: EdgeInsets.symmetric(vertical: onePadding)),
+            H3(loc.charts_speed_title, padding: EdgeInsets.symmetric(vertical: onePadding)),
             Row(children: [
               TaskSpeedChart(task),
               SizedBox(width: onePadding),
               Expanded(
                 child: Column(children: [
-                  _textRow(loc.task_charts_speed_project_label, '${(task.projectOrWSSpeed * secondsInMonth).round()}'),
-                  if (task.targetSpeed != null) _textRow(loc.task_charts_speed_target_label, '${(task.targetSpeed! * secondsInMonth).round()}'),
+                  _textRow(loc.charts_speed_project_label, '${(task.projectOrWSSpeed * secondsInMonth).round()}'),
+                  if (task.targetSpeed != null) _textRow(loc.charts_speed_target_label, '${(task.targetSpeed! * secondsInMonth).round()}'),
                   if (_speedDelta != 0)
                     _textRow(
-                      _speedDelta > 0 ? loc.task_charts_delta_ahead_label : loc.task_charts_delta_lag_label,
+                      _speedDelta > 0 ? loc.charts_delta_ahead_label : loc.charts_delta_lag_label,
                       '${_speedDelta.abs()}',
                       color: _speedDelta > 0 ? greenColor : warningColor,
                     ),
@@ -102,8 +97,13 @@ class TaskChartDetails extends StatelessWidget {
 
           /// срок
           if (task.showTimeChart) ...[
-            H3(loc.task_charts_timings_title, padding: EdgeInsets.symmetric(vertical: onePadding)),
+            H3(loc.charts_timings_title, padding: EdgeInsets.symmetric(vertical: onePadding)),
             TaskTimeChart(task),
+            SizedBox(height: onePadding / 2),
+            if (task.elapsedPeriod != null) _textRow(loc.charts_timings_elapsed_label, '${loc.days_count(task.elapsedPeriod!.inDays)}'),
+            if (task.leftPeriod != null) _textRow(loc.charts_timings_left_label, '${loc.days_count(task.leftPeriod!.inDays)}'),
+            if (task.etaPeriod != null) _textRow(loc.charts_timings_eta_label, '${loc.days_count(task.etaPeriod!.inDays)}'),
+            if (task.riskPeriod != null) H4(task.stateTitle, padding: EdgeInsets.only(top: onePadding / 2)),
           ],
         ]),
       ),

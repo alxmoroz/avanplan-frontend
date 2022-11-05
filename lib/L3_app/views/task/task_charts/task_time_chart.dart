@@ -75,6 +75,7 @@ class _TaskTimeChartState extends State<TaskTimeChart> {
       if (task.hasDueDate)
         _DateBarData(
           date: task.dueDate!,
+          color: task.hasOverdue ? _barColor : null,
           mark: MTProgressMark(
             child: CaretIcon(color: _planMarkColor, size: _markSize),
             size: Size(_markSize.width, -_markSize.height),
@@ -188,15 +189,21 @@ class _TaskTimeChartState extends State<TaskTimeChart> {
           Alignment.topRight,
           _dateRatio(date),
         ) as Alignment,
-        child: NormalText('$label ${date.strShort}', padding: EdgeInsets.symmetric(vertical: _markSize.height * 0.8), color: color));
+        child: NormalText('$label ${date.strShort}', color: color));
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      if (task.hasDueDate) _alignedDateLabel(context, date: task.dueDate!, label: loc.task_due_date_label, color: _planMarkColor) else const H3(''),
+      if (task.hasDueDate) ...[
+        _alignedDateLabel(context, date: task.dueDate!, label: loc.task_due_date_label, color: _planMarkColor),
+        SizedBox(height: _markSize.height * 0.8),
+      ],
       _timeChart(context),
-      if (task.hasEtaDate) _alignedDateLabel(context, date: task.etaDate!, label: loc.task_eta_date_label, color: _etaMarkColor) else const H3(''),
+      if (task.hasEtaDate) ...[
+        SizedBox(height: _markSize.height * 0.8),
+        _alignedDateLabel(context, date: task.etaDate!, label: loc.task_eta_date_label, color: _etaMarkColor),
+      ]
     ]);
   }
 }

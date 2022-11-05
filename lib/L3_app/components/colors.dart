@@ -27,8 +27,8 @@ const Color dangerColor = CupertinoColors.destructiveRed;
 
 const Color warningColor = CupertinoColors.activeOrange;
 const Color lightWarningColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 255, 202, 120),
-  darkColor: Color.fromARGB(255, 115, 70, 0),
+  color: Color.fromARGB(100, 255, 202, 120),
+  darkColor: Color.fromARGB(100, 115, 70, 0),
 );
 
 const Color greenColor = CupertinoDynamicColor.withBrightness(
@@ -37,8 +37,8 @@ const Color greenColor = CupertinoDynamicColor.withBrightness(
 );
 
 // const Color lightGreenColor = CupertinoDynamicColor.withBrightness(
-//   color: Color.fromARGB(255, 120, 185, 142),
-//   darkColor: Color.fromARGB(255, 5, 80, 5),
+//   color: Color.fromARGB(100, 28, 120, 52),
+//   darkColor: Color.fromARGB(100, 52, 165, 89),
 // );
 
 const Color mainColor = CupertinoDynamicColor.withBrightness(

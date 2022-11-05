@@ -98,12 +98,12 @@ class _TaskTimeChartState extends State<TaskTimeChart> {
       if (!task.isFuture)
         _DateBarData(
           date: _now,
-          color: task.hasOverdue ? lightWarningColor : _barColor,
+          color: task.hasOverdue ? warningColor : _barColor,
           mark: MTProgressMark(
             child: Stack(
               alignment: Alignment.center,
               children: [
-                MTCircle(size: _barHeight, color: darkBackgroundColor, border: Border.all(color: _barColor)),
+                MTCircle(size: _barHeight, color: darkBackgroundColor, border: Border.all(color: task.hasOverdue ? warningColor : _barColor)),
                 task.stateIcon(size: _barHeight * 0.7),
               ],
             ),

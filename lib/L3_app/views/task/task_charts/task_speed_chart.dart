@@ -32,17 +32,18 @@ class TaskSpeedChart extends StatelessWidget {
 
   String get _factSpeedText => '${(_factSpeed * secondsInMonth).round()}';
 
+  Color get _barColor => lightGreyColor;
+  Color get _deltaBarColor => _delta > 0 ? lightWarningColor : _barColor;
+
   Color get _pointerColor => _delta == 0
       ? darkGreyColor
       : _delta > 0
           ? warningColor
           : greenColor;
 
-  Color get _barColor => lightGreyColor;
-
   MTPieChartData get _gaugeBar => MTPieChartData(_maxValue, strokeWidth: _gaugeWidth);
   MTPieChartData get _mainBar => MTPieChartData(_firstValue, start: 0, color: _barColor, strokeWidth: _barWidth);
-  MTPieChartData get _deltaBar => MTPieChartData(_delta.abs(), color: _barColor, strokeWidth: _barWidth);
+  MTPieChartData get _deltaBar => MTPieChartData(_delta.abs(), color: _deltaBarColor, strokeWidth: _barWidth);
 
   double get _mainPointerWidthValue => _degreeValue * 5;
   double get _mainPointerStartValue => _firstValue + (_delta < 0 ? -_delta : 0) - _mainPointerWidthValue / 2;
@@ -55,7 +56,7 @@ class TaskSpeedChart extends StatelessWidget {
         _deltaPointerWidthValue,
         start: _deltaPointerStartValue,
         color: _pointerColor,
-        strokeWidth: _delta > 0 ? _gaugeWidth : _barWidth,
+        strokeWidth: _barWidth,
       );
 
   @override
@@ -71,7 +72,7 @@ class TaskSpeedChart extends StatelessWidget {
           data: [
             _gaugeBar,
             _mainBar,
-            if (_delta < 0) _deltaBar,
+            if (_delta != 0) _deltaBar,
             if (_delta != 0) _deltaPointer,
             _mainPointer,
           ],

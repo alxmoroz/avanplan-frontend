@@ -12,7 +12,7 @@ import '../../../components/mt_page.dart';
 import '../../../components/navbar.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/date_presenter.dart';
+import '../../../presenters/duration_presenter.dart';
 import '../../../presenters/state_presenter.dart';
 import '../task_charts/timing_chart.dart';
 import '../task_charts/velocity_chart.dart';

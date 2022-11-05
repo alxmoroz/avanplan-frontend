@@ -45,7 +45,6 @@ class TaskVolumeChart extends StatelessWidget {
       MTPieChartData(_deltaPointerWidthValue, start: _deltaPointerStartValue, color: _pointerColor, strokeWidth: _barWidth);
 
   String get _chartText => '${(_factValue / (task.leafTasksCount > 0 ? task.leafTasksCount : 1)).inPercents}';
-  // String get _chartText => '100%';
 
   @override
   Widget build(BuildContext context) {

@@ -44,7 +44,7 @@ class _PieChartPainter extends CustomPainter {
     for (final arcData in data) {
       final _sweepAngle = arcData.value * _dA;
       _startAngle = arcData.start != null ? (startAngle + arcData.start! * _dA) : _startAngle;
-      final _strokeWidth = arcData.strokeWidth ?? strokeWidth ?? onePadding;
+      final _strokeWidth = arcData.strokeWidth ?? strokeWidth ?? P;
 
       final _paint = Paint()
         ..color = (arcData.color ?? darkBackgroundColor).resolve(context)

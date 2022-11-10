@@ -75,7 +75,7 @@ class MTConfirmDialog extends StatelessWidget {
           : [
               if (a.icon != null) ...[
                 a.icon!,
-                SizedBox(width: onePadding / 3),
+                const SizedBox(width: P_3),
               ],
               Expanded(child: _actionText(a)),
             ]);
@@ -91,7 +91,7 @@ class MTConfirmDialog extends StatelessWidget {
 
     Widget richButton(MTDialogAction a) => Column(
           children: [
-            MTDivider(height: onePadding * 2),
+            const MTDivider(height: P2),
             CupertinoButton(
               minSize: 0,
               padding: EdgeInsets.zero,
@@ -102,7 +102,7 @@ class MTConfirmDialog extends StatelessWidget {
         );
 
     return CupertinoAlertDialog(
-      title: H4(title, padding: EdgeInsets.only(bottom: onePadding), maxLines: 5, color: darkColor),
+      title: H4(title, padding: const EdgeInsets.only(bottom: P), maxLines: 5, color: darkColor),
       content: Column(
         children: [
           if (description.isNotEmpty) NormalText(description),

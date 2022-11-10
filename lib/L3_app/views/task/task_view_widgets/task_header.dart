@@ -42,7 +42,7 @@ class TaskHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: onePadding),
+      padding: const EdgeInsets.symmetric(horizontal: P),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         if (_breadcrumbs.isNotEmpty) ...[
           SmallText(_breadcrumbs),
@@ -50,12 +50,12 @@ class TaskHeader extends StatelessWidget {
         ],
         H2(_task.title, decoration: _task.closed ? TextDecoration.lineThrough : null),
         if (_hasStatus || _hasAssignee) ...[
-          SizedBox(height: onePadding),
+          const SizedBox(height: P),
           Row(
             children: [
               if (_hasStatus) SmallText(_task.status!.title),
               if (_hasAssignee) ...[
-                if (_hasStatus) SizedBox(width: onePadding / 2),
+                if (_hasStatus) const SizedBox(width: P_2),
                 SmallText('@ ${_task.assignee}'),
               ],
             ],
@@ -65,7 +65,7 @@ class TaskHeader extends StatelessWidget {
           MTButton(
             middle: _task.taskSource!.go2SourceTitle(showSourceIcon: true),
             onTap: () => launchUrlString(_task.taskSource!.urlString),
-            padding: EdgeInsets.symmetric(vertical: onePadding / 2),
+            padding: const EdgeInsets.symmetric(vertical: P_2),
           ),
       ]),
     );

@@ -48,7 +48,7 @@ class SourceListView extends StatelessWidget {
                 Expanded(
                   child: _controller.sources.isEmpty
                       ? MTButton.outlined(
-                          margin: EdgeInsets.all(onePadding),
+                          margin: const EdgeInsets.all(P),
                           titleText: loc.source_title_new,
                           leading: const PlusIcon(),
                           onTap: () => _controller.addSource(context),

@@ -34,15 +34,15 @@ class AccountView extends StatelessWidget {
           child: _user != null
               ? ListView(
                   children: [
-                    SizedBox(height: onePadding * 2),
-                    UserIcon(_user!, radius: onePadding * 6),
-                    SizedBox(height: onePadding),
+                    const SizedBox(height: P2),
+                    UserIcon(_user!, radius: P2 * 3),
+                    const SizedBox(height: P),
                     H3('$_user', align: TextAlign.center),
-                    SizedBox(height: onePadding / 2),
+                    const SizedBox(height: P_2),
                     NormalText(_user!.email, align: TextAlign.center),
-                    SizedBox(height: onePadding * 2),
+                    const SizedBox(height: P2),
                     MTButton.outlined(
-                      margin: EdgeInsets.symmetric(horizontal: onePadding * 4),
+                      margin: const EdgeInsets.symmetric(horizontal: P * 4),
                       titleText: loc.auth_sign_out_btn_title,
                       titleColor: darkGreyColor,
                       trailing: const LogoutIcon(color: warningColor),

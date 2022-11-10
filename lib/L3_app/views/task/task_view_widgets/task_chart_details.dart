@@ -34,7 +34,7 @@ class TaskChartDetails extends StatelessWidget {
 
   Widget _textRow(String t1, String t2, {Color? color}) => Row(children: [
         Expanded(child: LightText(t1, height: 1.1, sizeScale: 1.1)),
-        H4(t2, color: color, padding: EdgeInsets.only(top: onePadding / 6, bottom: onePadding / 6))
+        H4(t2, color: color, padding: const EdgeInsets.only(top: P / 6, bottom: P / 6))
       ]);
 
   int get _volumeDelta => task.planVolume != null ? (task.closedLeafTasksCount - task.planVolume!.round()) : 0;
@@ -49,20 +49,20 @@ class TaskChartDetails extends StatelessWidget {
       body: SafeArea(
         bottom: false,
         // top: false,
-        child: ListView(padding: padding.add(EdgeInsets.all(onePadding)), children: [
+        child: ListView(padding: padding.add(const EdgeInsets.all(P)), children: [
           if (task.showVelocityVolumeCharts) ...[
             /// объем
-            H3(loc.chart_volume_title, padding: EdgeInsets.only(bottom: onePadding)),
+            H3(loc.chart_volume_title, padding: const EdgeInsets.only(bottom: P)),
             Row(children: [
               TaskVolumeChart(task),
-              SizedBox(width: onePadding),
+              const SizedBox(width: P),
               Expanded(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
                   _textRow(loc.chart_volume_total_label, '${task.leafTasksCount}'),
                   _textRow(loc.state_opened, '${task.openedLeafTasksCount}'),
                   _textRow(loc.state_closed, '${task.closedLeafTasksCount}'),
                   if (task.planVolume != null) ...[
-                    SizedBox(height: onePadding),
+                    const SizedBox(height: P),
                     _textRow(loc.chart_volume_plan_label, '${task.planVolume!.round()}'),
                     if (_volumeDelta != 0)
                       _textRow(
@@ -76,11 +76,11 @@ class TaskChartDetails extends StatelessWidget {
             ]),
 
             /// скорость
-            SizedBox(height: onePadding),
-            H3(loc.chart_velocity_title, padding: EdgeInsets.symmetric(vertical: onePadding)),
+            const SizedBox(height: P),
+            H3(loc.chart_velocity_title, padding: const EdgeInsets.symmetric(vertical: P)),
             Row(children: [
               VelocityChart(task),
-              SizedBox(width: onePadding),
+              const SizedBox(width: P),
               Expanded(
                 child: Column(children: [
                   _textRow(loc.chart_velocity_project_label, '${(task.weightedVelocity * daysPerMonth).round()}'),
@@ -98,9 +98,9 @@ class TaskChartDetails extends StatelessWidget {
 
           /// срок
           if (task.showTimeChart) ...[
-            H3(loc.chart_timing_title, padding: EdgeInsets.symmetric(vertical: onePadding)),
+            H3(loc.chart_timing_title, padding: const EdgeInsets.symmetric(vertical: P)),
             TimingChart(task),
-            SizedBox(height: onePadding / 2),
+            const SizedBox(height: P_2),
             if (task.elapsedPeriod != null) _textRow(loc.chart_timing_elapsed_label, '${loc.days_count(task.elapsedPeriod!.inDays)}'),
             if (task.leftPeriod != null)
               _textRow(
@@ -109,7 +109,7 @@ class TaskChartDetails extends StatelessWidget {
                 color: _timeDelta > 0 ? null : warningColor,
               ),
             if (task.etaPeriod != null) _textRow(loc.chart_timing_eta_label, '${loc.days_count(task.etaPeriod!.inDays)}'),
-            if (task.riskPeriod != null) H4(task.stateTitle, padding: EdgeInsets.only(top: onePadding / 2)),
+            if (task.riskPeriod != null) H4(task.stateTitle, padding: const EdgeInsets.only(top: P_2)),
           ],
         ]),
       ),

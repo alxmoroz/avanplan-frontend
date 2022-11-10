@@ -14,10 +14,10 @@ class MTBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     final dir = CupertinoTheme.brightnessOf(context) == Brightness.dark ? 1 : -1;
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: onePadding / 1.75, vertical: onePadding / 6),
+      padding: const EdgeInsets.symmetric(horizontal: P / 1.75, vertical: P / 6),
       decoration: BoxDecoration(
         color: darkBackgroundColor.resolve(context),
-        borderRadius: BorderRadius.circular(onePadding),
+        borderRadius: BorderRadius.circular(P),
         boxShadow: [
           BoxShadow(color: darkGreyColor.resolve(context), offset: Offset(0, dir * 0.4)),
           BoxShadow(color: CupertinoColors.systemBackground.resolve(context), offset: Offset(0, dir * -0.4)),

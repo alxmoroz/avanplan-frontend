@@ -28,7 +28,7 @@ String get deviceModelName {
   if (_isIOs) {
     res = _iosDevInfo.name ?? 'iOS device';
   } else if (isAndroid) {
-    res = _androidDevInfo.model ?? 'Android device';
+    res = _androidDevInfo.model;
   } else if (isWeb) {
     res = _webDevInfo.userAgent ?? 'Web platform';
   }
@@ -41,7 +41,7 @@ String get deviceSystemInfo {
     res = '${_iosDevInfo.systemName ?? 'Apple OS'} ${_iosDevInfo.systemVersion ?? ''}';
   } else if (isAndroid) {
     final osVersion = _androidDevInfo.version;
-    res = '${osVersion.baseOS ?? 'Android'} ${osVersion.codename ?? ''}';
+    res = '${osVersion.baseOS ?? 'Android'} ${osVersion.codename}';
   }
   return res;
 }

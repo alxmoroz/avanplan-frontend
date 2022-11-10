@@ -95,10 +95,10 @@ class _TaskEditViewState extends State<TaskEditView> {
                 ? MTButton(
                     middle: Row(
                       children: [
-                        Container(height: onePadding * 3, width: 1, color: borderColor.resolve(context)),
-                        SizedBox(width: onePadding),
+                        Container(height: P * 3, width: 1, color: borderColor.resolve(context)),
+                        const SizedBox(width: P),
                         const CloseIcon(color: dangerColor),
-                        SizedBox(width: onePadding),
+                        const SizedBox(width: P),
                       ],
                     ),
                     onTap: () => controller.resetDate(code),
@@ -133,10 +133,10 @@ class _TaskEditViewState extends State<TaskEditView> {
           MTButton.outlined(
             titleText: loc.delete_action_title,
             titleColor: dangerColor,
-            margin: tfPadding.copyWith(top: onePadding * 4),
+            margin: tfPadding.copyWith(top: P * 4),
             onTap: () => controller.delete(context, task!),
           ),
-        SizedBox(height: onePadding),
+        const SizedBox(height: P),
       ]),
     );
   }
@@ -168,7 +168,7 @@ class _TaskEditViewState extends State<TaskEditView> {
           trailing: MTButton(
             titleText: loc.save_action_title,
             onTap: controller.validated ? () => controller.save(context, task: task, parent: parent) : null,
-            margin: EdgeInsets.only(right: onePadding),
+            margin: const EdgeInsets.only(right: P),
           ),
           bgColor: backgroundColor,
         ),

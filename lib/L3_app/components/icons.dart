@@ -15,7 +15,7 @@ abstract class _MTIcon extends StatelessWidget {
   final double? size;
   final bool? solid;
 
-  bool get _solid => size == null || size! < onePadding * 5;
+  bool get _solid => size == null || size! < 60;
 }
 
 class ConnectingIcon extends _MTIcon {
@@ -24,7 +24,7 @@ class ConnectingIcon extends _MTIcon {
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.dot_radiowaves_left_right,
         color: (color ?? darkGreyColor).resolve(context),
-        size: size ?? onePadding,
+        size: size ?? P,
       );
 }
 
@@ -44,7 +44,7 @@ class ImportIcon extends _MTIcon {
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.arrow_down_to_line,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? onePadding * 1.7,
+        size: size ?? P * 1.7,
       );
 }
 
@@ -54,7 +54,7 @@ class WSIcon extends _MTIcon {
   Widget build(BuildContext context) => FaIcon(
         FontAwesomeIcons.houseUser,
         color: (color ?? darkGreyColor).resolve(context),
-        size: size ?? onePadding * 1.45,
+        size: size ?? P * 1.45,
       );
 }
 
@@ -64,7 +64,7 @@ class PlusIcon extends _MTIcon {
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.plus,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? onePadding * 2,
+        size: size ?? P2,
       );
 }
 
@@ -74,7 +74,7 @@ class EditIcon extends _MTIcon {
   Widget build(BuildContext context) => Icon(
         Icons.edit,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? onePadding * 2,
+        size: size ?? P2,
       );
 }
 
@@ -84,7 +84,7 @@ class DeleteIcon extends _MTIcon {
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.delete,
         color: (color ?? dangerColor).resolve(context),
-        size: size ?? onePadding * 2,
+        size: size ?? P2,
       );
 }
 
@@ -94,7 +94,7 @@ class CalendarIcon extends _MTIcon {
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.calendar,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? onePadding * 2,
+        size: size ?? P2,
       );
 }
 
@@ -106,7 +106,7 @@ class DoneIcon extends _MTIcon {
   Widget build(BuildContext context) => Icon(
         done ? CupertinoIcons.check_mark_circled : CupertinoIcons.circle,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? onePadding * 2,
+        size: size ?? P2,
       );
 }
 
@@ -116,7 +116,7 @@ class DropdownIcon extends _MTIcon {
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.chevron_up_chevron_down,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? onePadding * 2,
+        size: size ?? P2,
       );
 }
 
@@ -126,7 +126,7 @@ class ChevronIcon extends _MTIcon {
   Widget build(BuildContext context) => FaIcon(
         FontAwesomeIcons.chevronRight,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? onePadding * 1.2,
+        size: size ?? P * 1.2,
       );
 }
 
@@ -136,7 +136,7 @@ class LinkIcon extends _MTIcon {
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.link,
         color: (color ?? darkGreyColor).resolve(context),
-        size: size ?? onePadding * 1.4,
+        size: size ?? P * 1.4,
       );
 }
 
@@ -146,7 +146,7 @@ class LinkOutIcon extends _MTIcon {
   Widget build(BuildContext context) => FaIcon(
         FontAwesomeIcons.arrowUpRightFromSquare,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? onePadding,
+        size: size ?? P,
       );
 }
 
@@ -156,7 +156,7 @@ class UnlinkIcon extends _MTIcon {
   Widget build(BuildContext context) => FaIcon(
         FontAwesomeIcons.linkSlash,
         color: (color ?? warningColor).resolve(context),
-        size: size ?? onePadding * 1.4,
+        size: size ?? P * 1.4,
       );
 }
 
@@ -167,7 +167,7 @@ class EyeIcon extends _MTIcon {
   Widget build(BuildContext context) => FaIcon(
         open ? FontAwesomeIcons.eye : FontAwesomeIcons.eyeSlash,
         color: (color ?? darkGreyColor).resolve(context),
-        size: size ?? onePadding * 1.7,
+        size: size ?? P * 1.7,
       );
 }
 
@@ -177,7 +177,7 @@ class CloseIcon extends _MTIcon {
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.clear,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? onePadding * 2,
+        size: size ?? P2,
       );
 }
 
@@ -187,7 +187,7 @@ class LogoutIcon extends _MTIcon {
   Widget build(BuildContext context) => FaIcon(
         FontAwesomeIcons.arrowRightFromBracket,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? onePadding * 1.5,
+        size: size ?? P * 1.5,
       );
 }
 
@@ -290,7 +290,7 @@ class MailIcon extends _MTIcon {
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.envelope,
         color: (color ?? darkGreyColor).resolve(context),
-        size: size ?? onePadding * 2,
+        size: size ?? P2,
       );
 }
 
@@ -300,7 +300,7 @@ class PrivacyIcon extends _MTIcon {
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.lock_shield,
         color: (color ?? darkGreyColor).resolve(context),
-        size: size ?? onePadding * 2,
+        size: size ?? P2,
       );
 }
 
@@ -310,7 +310,7 @@ class ServerErrorIcon extends _MTIcon {
   Widget build(BuildContext context) => FaIcon(
         FontAwesomeIcons.roadBarrier,
         color: (color ?? darkGreyColor).resolve(context),
-        size: size ?? onePadding * 2,
+        size: size ?? P2,
       );
 }
 
@@ -320,11 +320,11 @@ class NetworkErrorIcon extends _MTIcon {
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.wifi_exclamationmark,
         color: (color ?? darkGreyColor).resolve(context),
-        size: size ?? onePadding * 2,
+        size: size ?? P2,
       );
 }
 
-double get _sourceIconSize => onePadding * 2;
+double get _sourceIconSize => P2;
 
 Widget redmineIcon() => Image.asset('assets/images/redmine_icon.png', width: _sourceIconSize, height: _sourceIconSize);
 Widget gitlabIcon() => Image.asset('assets/images/gitlab_icon.png', width: _sourceIconSize, height: _sourceIconSize);

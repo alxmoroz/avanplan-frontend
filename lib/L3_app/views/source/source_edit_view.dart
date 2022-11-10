@@ -44,7 +44,7 @@ class _SourceEditViewState extends State<SourceEditView> {
   bool get _canSave => _controller.validated;
 
   String get _sourceCode => _controller.selectedType != null ? _controller.selectedType!.title.toLowerCase() : '';
-  bool get _isJira => _controller.selectedType?.title == 'Jira';
+  bool get _showUsername => _controller.selectedType?.title == 'Jira';
 
   String get _sourceEditHelperAddress => '$docsUrlPath/import/$_sourceCode';
 
@@ -52,7 +52,7 @@ class _SourceEditViewState extends State<SourceEditView> {
   void initState() {
     _controller.initState(tfaList: [
       TFAnnotation('url', label: loc.source_url_placeholder, text: _source?.url ?? ''),
-      TFAnnotation('username', label: loc.auth_user_placeholder, text: _source?.username ?? '', needValidate: _isJira),
+      TFAnnotation('username', label: loc.auth_user_placeholder, text: _source?.username ?? '', needValidate: _showUsername),
       TFAnnotation('apiKey', label: loc.source_api_key_placeholder, text: _source?.apiKey ?? ''),
       // TFAnnotation('password', label: loc.auth_password_placeholder, needValidate: false),
       TFAnnotation('description', label: loc.description, text: _source?.description ?? '', needValidate: false),
@@ -96,7 +96,7 @@ class _SourceEditViewState extends State<SourceEditView> {
             value: st,
             child: Row(children: [
               st.icon,
-              SizedBox(width: onePadding / 2),
+              const SizedBox(width: P_2),
               NormalText('$st'),
             ]),
           ))
@@ -116,25 +116,25 @@ class _SourceEditViewState extends State<SourceEditView> {
             ),
           ...[
             'url',
-            if (_isJira) 'username',
+            if (_showUsername) 'username',
             'apiKey',
             // 'password',
             'description',
           ].map((code) => textFieldForCode(code)),
           MTButton.outlined(
             titleText: loc.source_help_edit_action,
-            trailing: LinkOutIcon(size: onePadding * 1.3),
-            margin: tfPadding.copyWith(top: onePadding * 2),
+            trailing: const LinkOutIcon(size: P * 1.3),
+            margin: tfPadding.copyWith(top: P2),
             onTap: () => launchUrlString(_sourceEditHelperAddress),
           ),
           if (_controller.canEdit)
             MTButton.outlined(
               titleText: loc.delete_action_title,
               titleColor: dangerColor,
-              margin: tfPadding.copyWith(top: onePadding * 5),
+              margin: tfPadding.copyWith(top: P * 5),
               onTap: () => _controller.delete(context),
             ),
-          SizedBox(height: onePadding * 2),
+          const SizedBox(height: P2),
         ],
       ),
     );
@@ -151,7 +151,7 @@ class _SourceEditViewState extends State<SourceEditView> {
           trailing: MTButton(
             titleText: loc.save_action_title,
             onTap: _canSave ? () => _controller.save(context) : null,
-            margin: EdgeInsets.only(right: onePadding),
+            margin: const EdgeInsets.only(right: P),
           ),
           bgColor: backgroundColor,
         ),

@@ -116,7 +116,7 @@ abstract class _TaskViewControllerBase with Store {
             title: loc.task_unwatch_action_title,
             type: MTActionType.isDanger,
             result: true,
-            icon: EyeIcon(open: false, color: dangerColor, size: onePadding * 1.4),
+            icon: const EyeIcon(open: false, color: dangerColor, size: P * 1.4),
           ),
           _go2SourceDialogAction(),
         ],

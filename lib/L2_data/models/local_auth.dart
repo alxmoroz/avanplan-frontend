@@ -14,9 +14,7 @@ class LocalAuthHO extends BaseModel<LocalAuth> {
   String authToken = '';
 
   @override
-  LocalAuth toEntity() => LocalAuth(
-        accessToken: authToken,
-      );
+  LocalAuth toEntity() => LocalAuth(accessToken: authToken);
 
   @override
   Future update(LocalAuth entity) async {

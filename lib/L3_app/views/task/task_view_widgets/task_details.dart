@@ -21,11 +21,11 @@ class TaskDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     final padding = MediaQuery.of(context).padding;
     return ListView(
-      padding: padding.add(EdgeInsets.all(onePadding).copyWith(bottom: padding.bottom > 0 ? 0 : onePadding)),
+      padding: padding.add(const EdgeInsets.all(P).copyWith(bottom: padding.bottom > 0 ? 0 : P)),
       children: [
         if (hasDescription) description(),
         if (hasAuthor) ...[
-          SizedBox(height: onePadding / 2),
+          const SizedBox(height: P_2),
           SmallText('/// ${task.author}', align: TextAlign.end),
         ],
       ],

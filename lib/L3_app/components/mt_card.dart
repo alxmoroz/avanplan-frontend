@@ -19,7 +19,7 @@ class MTCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final borderRadius = radius ?? defaultBorderRadius;
+    final borderRadius = radius ?? DEF_BORDER_RADIUS;
     final _color = (color ?? darkBackgroundColor).resolve(context);
     return Card(
       clipBehavior: Clip.antiAlias,
@@ -52,10 +52,10 @@ class MTCardButton extends StatelessWidget {
       onPressed: onTap,
       child: MTCard(
         child: child,
-        margin: margin ?? EdgeInsets.symmetric(horizontal: onePadding, vertical: onePadding / 2),
+        margin: margin ?? const EdgeInsets.symmetric(horizontal: P, vertical: P_2),
         elevation: elevation ?? 2,
         radius: radius,
-        padding: padding ?? EdgeInsets.all(onePadding),
+        padding: padding ?? const EdgeInsets.all(P),
         color: color,
       ),
     );

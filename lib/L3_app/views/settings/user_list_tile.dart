@@ -23,8 +23,8 @@ class UserListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTListTile(
       leading: Padding(
-        padding: EdgeInsets.only(right: onePadding / 2),
-        child: UserIcon(user, radius: onePadding * 3),
+        padding: const EdgeInsets.only(right: P_2),
+        child: UserIcon(user, radius: P * 3),
       ),
       middle: H3(_title),
       subtitle: _subtitle != _title ? LightText(_subtitle) : null,

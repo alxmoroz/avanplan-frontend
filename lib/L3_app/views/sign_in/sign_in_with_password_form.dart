@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../L2_data/repositories/platform.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -65,8 +64,6 @@ class _SignInWithPasswordFormState extends State<SignInWithPasswordForm> {
     );
   }
 
-  bool get _hasFocus => FocusScope.of(context).hasFocus;
-
   @override
   Widget build(BuildContext context) {
     return Observer(
@@ -74,25 +71,26 @@ class _SignInWithPasswordFormState extends State<SignInWithPasswordForm> {
         navBar: navBar(context, bgColor: backgroundColor),
         body: SafeArea(
           child: Center(
-            child: ListView(
-              shrinkWrap: true,
-              children: [
-                AnimatedContainer(
-                  duration: const Duration(milliseconds: 250),
-                  height: onePadding * (_hasFocus && !isWeb ? 5 : 14),
-                  child: gerculesIcon(),
+            child: Container(
+              constraints: const BoxConstraints(maxWidth: SCR_S_WIDTH),
+              child: LayoutBuilder(
+                builder: (_, size) => ListView(
+                  shrinkWrap: true,
+                  children: [
+                    gerculesIcon(size: size.maxHeight / 7),
+                    H1(loc.app_title, align: TextAlign.center, padding: const EdgeInsets.only(bottom: P)),
+                    textFieldForCode('username'),
+                    textFieldForCode('password'),
+                    MTButton.outlined(
+                      margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
+                      titleText: loc.auth_sign_in_action_title,
+                      onTap: _controller.validated ? () => _controller.signInWithPassword(context) : null,
+                    ),
+                    const SizedBox(height: P2),
+                    const SignInTermsLinks(),
+                  ],
                 ),
-                H1(loc.app_title, align: TextAlign.center),
-                textFieldForCode('username'),
-                textFieldForCode('password'),
-                MTButton.outlined(
-                  margin: EdgeInsets.symmetric(horizontal: onePadding * 4).copyWith(top: onePadding * 2),
-                  titleText: loc.auth_sign_in_action_title,
-                  onTap: _controller.validated ? () => _controller.signInWithPassword(context) : null,
-                ),
-                SizedBox(height: onePadding * 2),
-                const SignInTermsLinks(),
-              ],
+              ),
             ),
           ),
         ),

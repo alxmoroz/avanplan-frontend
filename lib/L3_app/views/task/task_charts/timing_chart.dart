@@ -49,7 +49,7 @@ class _TimingChartState extends State<TimingChart> {
     super.initState();
   }
 
-  double get _barHeight => onePadding * 2.5;
+  double get _barHeight => P2;
   double get _suffixWidth => _barHeight / 2;
   double get _borderWidth => 1.0;
   Color get _barColor => lightGreyColor;
@@ -63,7 +63,7 @@ class _TimingChartState extends State<TimingChart> {
               ? greenColor
               : darkGreyColor;
 
-  Size get _markSize => Size(onePadding * 0.6, onePadding * 0.75);
+  Size get _markSize => const Size(P * 0.6, P * 0.75);
 
   Iterable<_DateBarData> get _makeDateBarData {
     final _now = DateTime.now();
@@ -147,7 +147,7 @@ class _TimingChartState extends State<TimingChart> {
   }
 
   Widget _timeChart(BuildContext context) {
-    final prefixWidth = _barHeight * 0.7 + onePadding * 2;
+    final prefixWidth = _barHeight * 0.7 + P2;
 
     return SizedBox(
       height: _barHeight + _borderWidth * 2,
@@ -163,7 +163,7 @@ class _TimingChartState extends State<TimingChart> {
                   alignment: Alignment.center,
                   color: task.isFuture ? null : _barColor.resolve(context),
                   width: prefixWidth,
-                  padding: EdgeInsets.symmetric(horizontal: onePadding),
+                  padding: const EdgeInsets.symmetric(horizontal: P),
                   child: CalendarIcon(size: _barHeight * 0.7, color: darkColor),
                 ),
                 const Spacer(),

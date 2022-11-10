@@ -19,30 +19,30 @@ class ProjectEmptyListActionsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(shrinkWrap: true, children: [
-      SizedBox(height: onePadding),
+      const SizedBox(height: P),
       if (referencesController.sourceTypes.isNotEmpty) ...[
-        H4(loc.project_list_empty_title_part1, align: TextAlign.center, padding: EdgeInsets.symmetric(horizontal: onePadding), color: darkGreyColor),
-        SizedBox(height: onePadding / 2),
+        H4(loc.project_list_empty_title_part1, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P), color: darkGreyColor),
+        const SizedBox(height: P_2),
         ...referencesController.sourceTypes
             .map(
               (st) => MTCardButton(
                 onTap: () => importController.importTasks(parentContext, sType: st),
                 child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   // importIcon(context),
-                  SizedBox(width: onePadding / 3),
+                  const SizedBox(width: P_3),
                   st.icon,
-                  SizedBox(width: onePadding / 3),
+                  const SizedBox(width: P_3),
                   MediumText('$st'),
                 ]),
               ),
             )
             .toList(),
-        SizedBox(height: onePadding * 2),
-        H4(loc.project_list_empty_title_part2, align: TextAlign.center, padding: EdgeInsets.symmetric(horizontal: onePadding), color: darkGreyColor),
-        SizedBox(height: onePadding / 2),
+        const SizedBox(height: P2),
+        H4(loc.project_list_empty_title_part2, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P), color: darkGreyColor),
+        const SizedBox(height: P_2),
         TaskAddActionWidget(taskController, parentContext: parentContext),
       ],
-      SizedBox(height: onePadding),
+      const SizedBox(height: P),
     ]);
   }
 }

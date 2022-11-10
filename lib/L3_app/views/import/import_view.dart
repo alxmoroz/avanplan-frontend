@@ -38,8 +38,7 @@ class ImportView extends StatelessWidget {
   bool get _selectedAll => _controller.selectedAll;
 
   List<DropdownMenuItem<Source>> _srcDdItems(Iterable<Source> sources, BuildContext context) => [
-        for (final s in sources)
-          DropdownMenuItem<Source>(value: s, child: Padding(padding: EdgeInsets.only(right: onePadding), child: s.info(context))),
+        for (final s in sources) DropdownMenuItem<Source>(value: s, child: Padding(padding: const EdgeInsets.only(right: P), child: s.info(context))),
         DropdownMenuItem<Source>(
           value: Source(workspaceId: -1, type: SourceType(id: -1, title: ''), url: 'none'),
           child: Row(children: [const PlusIcon(), MediumText(loc.source_title_new, color: mainColor)]),
@@ -58,7 +57,7 @@ class ImportView extends StatelessWidget {
         children: [
           _sourceDropdown(context),
           if (_controller.selectedSource != null) ...[
-            SizedBox(height: onePadding),
+            const SizedBox(height: P),
             if (_hasProjects) ...[
               if (_controller.projects.length > 1)
                 MTCheckBoxTile(title: loc.select_all_action_title, value: _selectedAll, onChanged: _controller.toggleSelectedAll),
@@ -69,7 +68,7 @@ class ImportView extends StatelessWidget {
                 color: _hasError ? warningColor : lightGreyColor,
               ),
           ] else
-            NormalText(loc.import_source_select_hint, color: warningColor, align: TextAlign.center, padding: EdgeInsets.only(top: onePadding)),
+            NormalText(loc.import_source_select_hint, color: warningColor, align: TextAlign.center, padding: const EdgeInsets.only(top: P)),
         ],
       );
 
@@ -105,11 +104,11 @@ class ImportView extends StatelessWidget {
               loc.import_projects_select_hint,
               color: warningColor,
               align: TextAlign.center,
-              padding: EdgeInsets.only(bottom: onePadding / 2),
+              padding: const EdgeInsets.only(bottom: P_2),
             ),
           MTButton.outlined(
             titleText: loc.import_action_title,
-            margin: EdgeInsets.symmetric(horizontal: onePadding),
+            margin: const EdgeInsets.symmetric(horizontal: P),
             onTap: _validated ? () => _controller.startImport(context) : null,
           )
         ])

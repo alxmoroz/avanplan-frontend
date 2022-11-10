@@ -26,7 +26,7 @@ extension SourceTypePresenter on SourceType {
   }
 }
 
-double get _connectionIndicatorSize => onePadding;
+double get _connectionIndicatorSize => P;
 
 extension SourcePresenter on Source {
   Widget info(BuildContext context) {
@@ -35,7 +35,7 @@ extension SourcePresenter on Source {
     final textColor = connected ? null : lightGreyColor;
     return Row(children: [
       type.icon,
-      SizedBox(width: onePadding / 2),
+      const SizedBox(width: P_2),
       Expanded(
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           NormalText('$this', color: textColor),
@@ -58,11 +58,11 @@ extension TaskSourcePresenter on TaskSource {
         children: [
           if (showSourceIcon) ...[
             source.type.icon,
-            SizedBox(width: onePadding / 2),
+            const SizedBox(width: P_2),
           ],
           NormalText(loc.task_go2source_title, color: mainColor),
           // const NormalText(' >', color: mainColor),
-          SizedBox(width: onePadding / 2),
+          const SizedBox(width: P_2),
           const LinkOutIcon(),
         ],
       );

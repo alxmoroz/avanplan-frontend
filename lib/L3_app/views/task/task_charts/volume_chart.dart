@@ -15,14 +15,14 @@ class TaskVolumeChart extends StatelessWidget {
   const TaskVolumeChart(this.task);
   final Task task;
 
-  double get _radius => onePadding * 6.5;
+  double get _radius => P * 6.5;
   double get _factValue => task.closedLeafTasksCount.toDouble();
   double get _delta => (task.planVolume ?? _factValue) - _factValue;
   double get _firstValue => _delta >= 0 ? _factValue : _factValue + _delta;
   double get _maxValue => (task.leafTasksCount > 0 ? task.leafTasksCount : 1).toDouble();
   double get _degreeValue => _maxValue / 360;
 
-  double get _gaugeWidth => onePadding * 1.5;
+  double get _gaugeWidth => P * 1.5;
   double get _barWidth => _gaugeWidth;
 
   Color get _pointerColor => _delta == 0
@@ -62,8 +62,8 @@ class TaskVolumeChart extends StatelessWidget {
             if (_delta != 0) _deltaPointer,
           ],
         ),
-        D1(_chartText, color: _pointerColor, padding: EdgeInsets.only(bottom: onePadding / 2)),
-        SmallText(loc.chart_volume_unit, padding: EdgeInsets.only(top: _radius / 2 + onePadding / 2), color: lightGreyColor),
+        D1(_chartText, color: _pointerColor, padding: const EdgeInsets.only(bottom: P_2)),
+        SmallText(loc.chart_volume_unit, padding: EdgeInsets.only(top: _radius / 2 + P_2), color: lightGreyColor),
       ],
     );
   }

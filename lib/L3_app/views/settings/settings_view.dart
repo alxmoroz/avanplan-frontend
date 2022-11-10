@@ -42,9 +42,9 @@ class SettingsView extends StatelessWidget {
           bottom: false,
           child: ListView(
             children: [
-              SizedBox(height: onePadding / 2),
+              const SizedBox(height: P_2),
               if (_user != null) UserListTile(_user!),
-              SizedBox(height: onePadding / 2),
+              const SizedBox(height: P_2),
               MTListTile(
                 leading: const ImportIcon(color: darkGreyColor),
                 titleText: loc.source_list_title,
@@ -60,7 +60,7 @@ class SettingsView extends StatelessWidget {
                 ),
               H4(
                 loc.about_service_title,
-                padding: EdgeInsets.symmetric(horizontal: onePadding).copyWith(top: onePadding * 2),
+                padding: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
                 color: lightGreyColor,
               ),
               MTListTile(
@@ -82,7 +82,7 @@ class SettingsView extends StatelessWidget {
         /// версия
         bottomBar: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           LightText(loc.app_title),
-          SizedBox(width: onePadding / 4),
+          const SizedBox(width: P / 4),
           NormalText(_controller.appVersion),
         ]),
       ),

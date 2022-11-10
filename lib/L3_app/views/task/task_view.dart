@@ -49,7 +49,7 @@ class TaskView extends StatelessWidget {
   }
 
   Widget _tabPaneSelector() => Padding(
-        padding: EdgeInsets.symmetric(horizontal: onePadding),
+        padding: const EdgeInsets.symmetric(horizontal: P),
         child: CupertinoSlidingSegmentedControl<TaskTabKey>(
           children: _tabs(),
           groupValue: _controller.tabKey,
@@ -81,10 +81,10 @@ class TaskView extends StatelessWidget {
                           loc.state_closable_hint,
                           align: TextAlign.center,
                           color: lightGreyColor,
-                          padding: EdgeInsets.only(bottom: onePadding / 3),
+                          padding: const EdgeInsets.only(bottom: P_3),
                         ),
                       MTButton.outlined(
-                        margin: EdgeInsets.symmetric(horizontal: onePadding),
+                        margin: const EdgeInsets.symmetric(horizontal: P),
                         titleText: (_task.shouldClose || _task.shouldCloseLeaf) ? loc.close_action_title : loc.task_reopen_action_title,
                         leading: DoneIcon(_task.shouldClose || _task.shouldCloseLeaf),
                         onTap: () => _controller.setClosed(context, !_task.closed),
@@ -104,9 +104,9 @@ class TaskView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              if (!_task.isWorkspace) TaskHeader(controller: _controller, parentContext: context) else SizedBox(height: onePadding / 2),
+              if (!_task.isWorkspace) TaskHeader(controller: _controller, parentContext: context) else const SizedBox(height: P_2),
               if (_controller.tabKeys.length > 1) ...[
-                SizedBox(height: onePadding / 2),
+                const SizedBox(height: P_2),
                 _tabPaneSelector(),
               ],
               Expanded(child: _selectedPane(context)),

@@ -26,7 +26,7 @@ class _StateTitle extends StatelessWidget {
               : SmallText(text, color: darkGreyColor);
 
   double get _iconSize =>
-      onePadding *
+      P *
       (style == TaskStateTitleStyle.L
           ? 12
           : style == TaskStateTitleStyle.S
@@ -40,7 +40,7 @@ class _StateTitle extends StatelessWidget {
       ? Column(children: [_icon, _textWidget])
       : style == TaskStateTitleStyle.M
           ? _textWidget
-          : Row(children: [_icon, SizedBox(width: onePadding / 3), Expanded(child: _textWidget)]);
+          : Row(children: [_icon, const SizedBox(width: P_3), Expanded(child: _textWidget)]);
 }
 
 class SubtasksStateTitle extends StatelessWidget {

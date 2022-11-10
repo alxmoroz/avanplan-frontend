@@ -30,7 +30,7 @@ class MTListTile extends StatelessWidget {
   Widget build(BuildContext context) => InkWell(
         onTap: onTap,
         child: Container(
-          padding: EdgeInsets.all(onePadding),
+          padding: const EdgeInsets.all(P),
           decoration: BoxDecoration(
             border: Border(
               top: topBorder ? BorderSide(width: 0.5, color: borderColor.resolve(context)) : BorderSide.none,
@@ -39,7 +39,7 @@ class MTListTile extends StatelessWidget {
           ),
           child: Row(
             children: [
-              if (leading != null) ...[leading!, SizedBox(width: onePadding / 2)],
+              if (leading != null) ...[leading!, const SizedBox(width: P_2)],
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,

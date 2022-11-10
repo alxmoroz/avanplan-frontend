@@ -31,13 +31,13 @@ class TaskCard extends StatelessWidget {
   Widget get header => Row(children: [
         Expanded(child: title),
         if (task.openedLeafTasksCount > 0) MTBadge('${task.openedLeafTasksCount}'),
-        SizedBox(width: onePadding / 4),
+        const SizedBox(width: P / 4),
         const ChevronIcon(),
       ]);
 
   @override
   Widget build(BuildContext context) => MTCardButton(
-        margin: margin ?? EdgeInsets.symmetric(vertical: onePadding / 2),
+        margin: margin ?? const EdgeInsets.symmetric(vertical: P_2),
         onTap: () => mainController.showTask(context, task.id),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -45,7 +45,7 @@ class TaskCard extends StatelessWidget {
           children: [
             header,
             if (task.showState || task.hasLink) ...[
-              SizedBox(height: onePadding / 3),
+              const SizedBox(height: P_3),
               Row(children: [
                 if (task.showState) Expanded(child: TaskStateTitle(task)) else const Spacer(),
                 if (task.hasLink) const LinkIcon(),

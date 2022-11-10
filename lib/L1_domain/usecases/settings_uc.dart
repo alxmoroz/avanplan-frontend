@@ -1,7 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../../L1_domain/entities/app_settings.dart';
-import '../../L1_domain/repositories/abs_db_repo.dart';
+import '../entities/app_settings.dart';
+import '../repositories/abs_db_repo.dart';
 
 class SettingsUC {
   SettingsUC({required this.settingsRepo});

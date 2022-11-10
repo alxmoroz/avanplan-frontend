@@ -25,7 +25,7 @@ class TaskListView extends StatelessWidget {
     final group = task.subtaskGroups[index];
     return Column(children: [
       Padding(
-        padding: EdgeInsets.symmetric(horizontal: onePadding).copyWith(top: onePadding),
+        padding: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P),
         child: SubtasksStateTitle(task, group.key, style: TaskStateTitleStyle.S),
       ),
       for (final t in group.value) _taskItem(t.id),
@@ -37,7 +37,7 @@ class TaskListView extends StatelessWidget {
     final padding = MediaQuery.of(context).padding;
     return Observer(
       builder: (_) => ListView.builder(
-        padding: padding.add(EdgeInsets.all(onePadding).copyWith(bottom: padding.bottom > 0 ? 0 : onePadding, top: onePadding / 2)),
+        padding: padding.add(const EdgeInsets.all(P).copyWith(bottom: padding.bottom > 0 ? 0 : P, top: P_2)),
         itemBuilder: controller.hasGroupedListView ? _groupedItemBuilder : _itemBuilder,
         itemCount: controller.hasGroupedListView ? task.subtaskGroups.length : task.sortedSubtasks.length,
       ),

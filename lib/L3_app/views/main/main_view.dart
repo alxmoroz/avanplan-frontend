@@ -53,7 +53,7 @@ class _MainViewState extends State<MainView> {
             child: _task.warningTasks.length < _task.openedSubtasks.length
                 ? MTButton.outlined(
                     titleText: loc.project_list_title,
-                    margin: EdgeInsets.symmetric(horizontal: onePadding),
+                    margin: const EdgeInsets.symmetric(horizontal: P),
                     onTap: () => _gotoProjects(context),
                   )
                 : const SizedBox(),
@@ -73,14 +73,14 @@ class _MainViewState extends State<MainView> {
               ? MTButton.icon(
                   UserIcon(accountController.user!, radius: 20, borderSide: const BorderSide(color: mainColor)),
                   () => _gotoSettings(context),
-                  margin: EdgeInsets.only(left: onePadding),
+                  margin: const EdgeInsets.only(left: P),
                 )
               : null,
           middle: H2(loc.app_title),
           trailing: MTButton.icon(
             const RefreshIcon(size: 32),
             mainController.updateAll,
-            margin: EdgeInsets.only(right: onePadding),
+            margin: const EdgeInsets.only(right: P),
           ),
           border: const Border(),
         ),

@@ -45,7 +45,7 @@ class MTDropdown<T> extends StatelessWidget {
         isExpanded: true,
         value: value,
         onChanged: onChanged,
-        borderRadius: BorderRadius.circular(onePadding / 2),
+        borderRadius: BorderRadius.circular(P_2),
       ),
     );
   }

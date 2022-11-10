@@ -17,8 +17,8 @@ class MTBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(navigatorKey.currentContext ?? context);
     return Container(
-      constraints: BoxConstraints(maxHeight: mq.size.height - mq.padding.top - onePadding * 1),
-      child: MTCard(child: bodyWidget, radius: onePadding),
+      constraints: BoxConstraints(maxHeight: mq.size.height - mq.padding.top - P * 1),
+      child: MTCard(child: bodyWidget, radius: P),
     );
   }
 }

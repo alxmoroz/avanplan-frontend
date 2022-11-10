@@ -31,24 +31,24 @@ class TaskOverview extends StatelessWidget {
     final padding = MediaQuery.of(context).padding;
     return ListView(
       shrinkWrap: true,
-      padding: padding.add(EdgeInsets.all(onePadding).copyWith(bottom: 0)),
+      padding: padding.add(const EdgeInsets.all(P).copyWith(bottom: 0)),
       children: [
         if (task.showState) TaskStateTitle(task, style: _taskStateTitleStyle),
 
         /// объем и скорость
         if (task.showVelocityVolumeCharts) ...[
-          SizedBox(height: onePadding * 2),
+          const SizedBox(height: P2),
           Row(children: [TaskVolumeChart(task), const Spacer(), VelocityChart(task)]),
         ],
 
         /// срок
         if (task.showTimeChart) ...[
-          SizedBox(height: onePadding),
+          const SizedBox(height: P),
           TimingChart(task),
         ],
 
         if (task.showChartDetails) ...[
-          SizedBox(height: onePadding),
+          const SizedBox(height: P),
           MTButton.outlined(
             titleText: loc.chart_details_action_title,
             onTap: () => showChartsDetailsDialog(context, task),
@@ -57,11 +57,11 @@ class TaskOverview extends StatelessWidget {
 
         /// проблемные задачи
         if (task.warningTasks.isNotEmpty) ...[
-          SizedBox(height: onePadding),
+          const SizedBox(height: P),
           if (!task.isWorkspace)
             MediumText(
               '${task.subtasksCount(task.warningTasks.length)} ${loc.state_warning_tasks_title_suffix(task.warningTasks.length)}',
-              padding: EdgeInsets.symmetric(horizontal: onePadding),
+              padding: const EdgeInsets.symmetric(horizontal: P),
               color: darkGreyColor,
               align: TextAlign.center,
             ),

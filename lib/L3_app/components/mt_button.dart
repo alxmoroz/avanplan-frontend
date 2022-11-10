@@ -25,7 +25,7 @@ class MTButton extends StatelessWidget {
     this.margin,
   }) : type = ButtonType.text;
 
-  MTButton.outlined({
+  const MTButton.outlined({
     this.titleText,
     this.onTap,
     this.leading,
@@ -36,7 +36,7 @@ class MTButton extends StatelessWidget {
     EdgeInsets? padding,
     this.margin,
   })  : type = ButtonType.outlined,
-        padding = padding ?? EdgeInsets.symmetric(horizontal: onePadding);
+        padding = padding ?? const EdgeInsets.symmetric(horizontal: P);
 
   const MTButton.icon(Widget icon, this.onTap, {this.margin, this.padding})
       : type = ButtonType.icon,
@@ -59,15 +59,15 @@ class MTButton extends StatelessWidget {
   final EdgeInsets? margin;
 
   Color get _titleColor => onTap != null ? (titleColor ?? mainColor) : lightGreyColor;
-  double get _minWidth => minButtonHeight;
+  double get _minWidth => MIN_BTN_HEIGHT;
 
   ButtonStyle _style(BuildContext context) => ElevatedButton.styleFrom(
         padding: padding ?? EdgeInsets.zero,
         backgroundColor: (color ?? Colors.transparent).resolve(context),
         // surfaceTintColor: _titleColor.resolve(context),
         foregroundColor: _titleColor.resolve(context),
-        minimumSize: Size(_minWidth, minButtonHeight),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(defaultBorderRadius)),
+        minimumSize: Size(_minWidth, MIN_BTN_HEIGHT),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS)),
         side: type == ButtonType.outlined ? BorderSide(color: _titleColor.resolve(context), width: 2) : null,
         splashFactory: NoSplash.splashFactory,
       );
@@ -107,9 +107,9 @@ class _MTBaseLayout extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (leading != null) ...[leading!, SizedBox(width: onePadding / 3)],
+        if (leading != null) ...[leading!, const SizedBox(width: P_3)],
         middle,
-        if (trailing != null) ...[SizedBox(width: onePadding / 3), trailing!],
+        if (trailing != null) ...[const SizedBox(width: P_3), trailing!],
       ],
     );
   }
@@ -122,8 +122,8 @@ class MTPlusButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTButton.outlined(
-      middle: PlusIcon(size: onePadding * 2),
-      margin: EdgeInsets.only(right: onePadding),
+      middle: const PlusIcon(),
+      margin: const EdgeInsets.only(right: P),
       onTap: onTap,
     );
   }

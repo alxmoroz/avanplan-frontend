@@ -21,7 +21,7 @@ class WorkspaceListView extends StatelessWidget {
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            if (ws.description.isNotEmpty) SmallText(ws.description, padding: EdgeInsets.only(bottom: onePadding / 2)),
+            if (ws.description.isNotEmpty) SmallText(ws.description, padding: const EdgeInsets.only(bottom: P_2)),
             SmallText(ws.rolesList),
           ],
         )

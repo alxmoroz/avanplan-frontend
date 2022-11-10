@@ -11,6 +11,6 @@ class MTCloseButton extends StatelessWidget {
   Widget build(BuildContext context) => MTButton.icon(
         const CloseIcon(),
         () => Navigator.of(context).pop(),
-        margin: EdgeInsets.all(onePadding),
+        margin: const EdgeInsets.all(P),
       );
 }

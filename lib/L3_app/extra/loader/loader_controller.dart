@@ -97,7 +97,7 @@ abstract class _LoaderControllerBase with Store {
       });
 
   /// UI
-  static double get iconSize => onePadding * 36;
+  static double get iconSize => P * 36;
   static const Color iconColor = darkBackgroundColor;
 
   Widget get _defaultIcon => gerculesIcon();
@@ -108,19 +108,19 @@ abstract class _LoaderControllerBase with Store {
   Widget _title(String titleText) => H3(
         titleText,
         align: TextAlign.center,
-        padding: EdgeInsets.symmetric(horizontal: onePadding).copyWith(top: onePadding),
+        padding: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P),
       );
 
   Widget _description(String descriptionText) => H4(
         descriptionText,
         align: TextAlign.center,
-        padding: EdgeInsets.symmetric(horizontal: onePadding).copyWith(top: onePadding / 2),
+        padding: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P_2),
         maxLines: 5,
       );
 
   Widget _stopAction(String actionText) => MTButton.outlined(
         titleText: actionText,
-        margin: EdgeInsets.symmetric(horizontal: onePadding),
+        margin: const EdgeInsets.symmetric(horizontal: P),
         onTap: stop,
       );
 
@@ -128,7 +128,7 @@ abstract class _LoaderControllerBase with Store {
         titleColor: darkColor,
         leading: const MailIcon(),
         titleText: loc.report_bug_action_title,
-        margin: EdgeInsets.symmetric(horizontal: onePadding).copyWith(top: onePadding),
+        margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P),
         onTap: () => launchUrlString('$contactUsMailSample%0D%0A$errorText'),
       );
 
@@ -166,7 +166,7 @@ abstract class _LoaderControllerBase with Store {
             MTButton.outlined(
               leading: const RefreshIcon(),
               titleText: loc.reload_action_title,
-              margin: EdgeInsets.symmetric(horizontal: onePadding),
+              margin: const EdgeInsets.symmetric(horizontal: P),
               onTap: _reload,
             ),
             _reportErrorButton(errorText ?? 'LoaderNetworkError'),

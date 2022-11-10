@@ -30,7 +30,7 @@ class TaskPopupMenu extends StatelessWidget {
   Widget rowIconTitle(String title, {Widget? icon, Color? color}) => Row(children: [
         if (icon != null) ...[
           icon,
-          SizedBox(width: onePadding / 3),
+          const SizedBox(width: P_3),
         ],
         NormalText(title, color: color ?? mainColor),
       ]);
@@ -68,8 +68,8 @@ class TaskPopupMenu extends StatelessWidget {
           icon: icon,
           itemBuilder: (_) => task.actionTypes.map((at) => PopupMenuItem<TaskActionType>(value: at, child: itemWidget(task, at))).toList(),
           onSelected: (at) => controller.taskAction(at, parentContext),
-          padding: EdgeInsets.symmetric(horizontal: onePadding / 2),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(defaultBorderRadius)),
+          padding: const EdgeInsets.symmetric(horizontal: P_2),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS)),
         ),
       ),
     );
@@ -101,15 +101,16 @@ class TaskFloatingPlusButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const bWidth = 2.0;
     return TaskPopupMenu(
       controller,
       parentContext: parentContext,
-      margin: EdgeInsets.only(right: onePadding),
+      margin: const EdgeInsets.only(right: P),
       child: Container(
-        padding: EdgeInsets.all(onePadding),
+        padding: const EdgeInsets.all(P - bWidth),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(defaultBorderRadius),
-          border: Border.fromBorderSide(BorderSide(color: mainColor.resolve(context), width: 2)),
+          borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS),
+          border: Border.fromBorderSide(BorderSide(color: mainColor.resolve(context), width: bWidth)),
         ),
         child: const PlusIcon(),
       ),

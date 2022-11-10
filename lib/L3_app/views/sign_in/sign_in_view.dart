@@ -24,41 +24,46 @@ class SignInView extends StatelessWidget {
       builder: (_) => MTPage(
         body: SafeArea(
           child: Center(
-            child: ListView(
-              shrinkWrap: true,
-              children: [
-                gerculesIcon(size: onePadding * 14),
-                H1(loc.app_title, align: TextAlign.center),
+            child: Container(
+              constraints: const BoxConstraints(maxWidth: SCR_S_WIDTH),
+              child: LayoutBuilder(
+                builder: (_, size) => ListView(
+                  shrinkWrap: true,
+                  children: [
+                    gerculesIcon(size: size.maxHeight / 7),
+                    H1(loc.app_title, align: TextAlign.center, padding: const EdgeInsets.only(bottom: P)),
 
-                MTButton.outlined(
-                  margin: EdgeInsets.symmetric(horizontal: onePadding * 4).copyWith(top: onePadding * 3),
-                  leading: googleIcon(size: minButtonHeight),
-                  middle: MediumText(loc.auth_sign_in_with_google_btn_title, color: CupertinoColors.label),
-                  color: googleBtnColor,
-                  onTap: () => authController.signInWithGoogle(context),
-                ),
-                // для Андроида не показываем SignInWithApple
-                if (!isAndroid && authController.signInWithAppleIsAvailable)
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: onePadding * 4).copyWith(top: onePadding * 1),
-                    child: SignInWithAppleButton(
-                      height: minButtonHeight,
-                      text: loc.auth_sign_in_with_apple_btn_title,
-                      borderRadius: BorderRadius.all(Radius.circular(defaultBorderRadius)),
-                      style: MediaQuery.of(context).platformBrightness == Brightness.dark
-                          ? SignInWithAppleButtonStyle.white
-                          : SignInWithAppleButtonStyle.black,
-                      onPressed: () => authController.signInWithApple(context),
+                    MTButton.outlined(
+                      margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
+                      leading: googleIcon(size: MIN_BTN_HEIGHT),
+                      middle: MediumText(loc.auth_sign_in_with_google_btn_title, color: CupertinoColors.label),
+                      color: googleBtnColor,
+                      onTap: () => authController.signInWithGoogle(context),
                     ),
-                  ),
-                MTButton.outlined(
-                  margin: EdgeInsets.symmetric(horizontal: onePadding * 4).copyWith(top: onePadding * 1),
-                  titleText: loc.auth_show_sign_in_form_action_title,
-                  onTap: () => showSignInPasswordDialog(context),
+                    // для Андроида не показываем SignInWithApple
+                    if (!isAndroid && authController.signInWithAppleIsAvailable)
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P),
+                        child: SignInWithAppleButton(
+                          height: MIN_BTN_HEIGHT,
+                          text: loc.auth_sign_in_with_apple_btn_title,
+                          borderRadius: const BorderRadius.all(Radius.circular(DEF_BORDER_RADIUS)),
+                          style: MediaQuery.of(context).platformBrightness == Brightness.dark
+                              ? SignInWithAppleButtonStyle.white
+                              : SignInWithAppleButtonStyle.black,
+                          onPressed: () => authController.signInWithApple(context),
+                        ),
+                      ),
+                    MTButton.outlined(
+                      margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P),
+                      titleText: loc.auth_show_sign_in_form_action_title,
+                      onTap: () => showSignInPasswordDialog(context),
+                    ),
+                    const SizedBox(height: P * 3),
+                    const SignInTermsLinks(),
+                  ],
                 ),
-                SizedBox(height: onePadding * 3),
-                const SignInTermsLinks(),
-              ],
+              ),
             ),
           ),
         ),

@@ -18,9 +18,8 @@ import '../../../presenters/task_level_presenter.dart';
 import '../task_view_controller.dart';
 
 class TaskPopupMenu extends StatelessWidget {
-  const TaskPopupMenu(this.controller, {this.icon, this.child, this.margin, required this.parentContext});
+  const TaskPopupMenu(this.controller, {this.icon, this.child, this.margin});
   final TaskViewController controller;
-  final BuildContext parentContext;
   final Widget? icon;
   final Widget? child;
   final EdgeInsets? margin;
@@ -67,7 +66,7 @@ class TaskPopupMenu extends StatelessWidget {
           child: child,
           icon: icon,
           itemBuilder: (_) => task.actionTypes.map((at) => PopupMenuItem<TaskActionType>(value: at, child: itemWidget(task, at))).toList(),
-          onSelected: (at) => controller.taskAction(at, parentContext),
+          onSelected: (at) => controller.taskAction(at, context),
           padding: const EdgeInsets.symmetric(horizontal: P_2),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS)),
         ),
@@ -81,30 +80,22 @@ CupertinoNavigationBar taskNavBar(BuildContext context, TaskViewController contr
 
   return navBar(
     context,
-    // leading: task.canRefresh
-    //     ? Row(children: [
-    //         SizedBox(width: onePadding),
-    //         MTButton.icon(refreshIcon(context), mainController.updateAll),
-    //       ])
-    //     : null,
     bgColor: task.isWorkspace ? navbarDefaultBgColor : backgroundColor,
     title: task.isWorkspace ? loc.project_list_title : task.viewTitle,
-    trailing: !task.isWorkspace && task.actionTypes.isNotEmpty ? TaskPopupMenu(controller, icon: const MenuIcon(), parentContext: context) : null,
+    trailing: !task.isWorkspace && task.actionTypes.isNotEmpty ? TaskPopupMenu(controller, icon: const MenuIcon()) : null,
   );
 }
 
 class TaskFloatingPlusButton extends StatelessWidget {
-  const TaskFloatingPlusButton({required this.controller, required this.parentContext});
+  const TaskFloatingPlusButton({required this.controller});
 
   final TaskViewController controller;
-  final BuildContext parentContext;
 
   @override
   Widget build(BuildContext context) {
     const bWidth = 2.0;
     return TaskPopupMenu(
       controller,
-      parentContext: parentContext,
       margin: const EdgeInsets.only(right: P),
       child: Container(
         padding: const EdgeInsets.all(P - bWidth),

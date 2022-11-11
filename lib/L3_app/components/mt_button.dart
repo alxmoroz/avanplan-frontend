@@ -6,11 +6,12 @@ import 'package:flutter/material.dart';
 import 'colors.dart';
 import 'constants.dart';
 import 'icons.dart';
+import 'mt_constrained.dart';
 import 'text_widgets.dart';
 
 //TODO: решить вопрос в UIKit по кнопкам. После чего добавить сюда все варианты кнопок
 
-enum ButtonType { text, elevated, outlined, icon }
+enum ButtonType { text, outlined, icon }
 
 class MTButton extends StatelessWidget {
   const MTButton({
@@ -23,6 +24,7 @@ class MTButton extends StatelessWidget {
     this.titleColor,
     this.padding,
     this.margin,
+    this.constrained = false,
   }) : type = ButtonType.text;
 
   const MTButton.outlined({
@@ -33,6 +35,7 @@ class MTButton extends StatelessWidget {
     this.trailing,
     this.color,
     this.titleColor,
+    this.constrained = true,
     EdgeInsets? padding,
     this.margin,
   })  : type = ButtonType.outlined,
@@ -45,7 +48,8 @@ class MTButton extends StatelessWidget {
         color = null,
         leading = null,
         trailing = null,
-        titleColor = null;
+        titleColor = null,
+        constrained = false;
 
   final ButtonType type;
   final String? titleText;
@@ -57,16 +61,15 @@ class MTButton extends StatelessWidget {
   final Color? titleColor;
   final EdgeInsets? padding;
   final EdgeInsets? margin;
+  final bool constrained;
 
   Color get _titleColor => onTap != null ? (titleColor ?? mainColor) : lightGreyColor;
-  double get _minWidth => MIN_BTN_HEIGHT;
 
   ButtonStyle _style(BuildContext context) => ElevatedButton.styleFrom(
         padding: padding ?? EdgeInsets.zero,
         backgroundColor: (color ?? Colors.transparent).resolve(context),
-        // surfaceTintColor: _titleColor.resolve(context),
         foregroundColor: _titleColor.resolve(context),
-        minimumSize: Size(_minWidth, MIN_BTN_HEIGHT),
+        minimumSize: const Size(MIN_BTN_HEIGHT, MIN_BTN_HEIGHT),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS)),
         side: type == ButtonType.outlined ? BorderSide(color: _titleColor.resolve(context), width: 2) : null,
         splashFactory: NoSplash.splashFactory,
@@ -77,8 +80,6 @@ class MTButton extends StatelessWidget {
 
   Widget _button(BuildContext context) {
     switch (type) {
-      case ButtonType.elevated:
-        return ElevatedButton(onPressed: onTap, style: _style(context), child: _child);
       case ButtonType.outlined:
         return OutlinedButton(onPressed: onTap, style: _style(context), child: _child);
       default:
@@ -87,7 +88,10 @@ class MTButton extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => Padding(padding: margin ?? EdgeInsets.zero, child: _button(context));
+  Widget build(BuildContext context) {
+    final btn = Padding(padding: margin ?? EdgeInsets.zero, child: _button(context));
+    return constrained ? MTConstrained(btn) : btn;
+  }
 }
 
 class _MTBaseLayout extends StatelessWidget {
@@ -122,6 +126,7 @@ class MTPlusButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTButton.outlined(
+      constrained: false,
       middle: const PlusIcon(),
       margin: const EdgeInsets.only(right: P),
       onTap: onTap,

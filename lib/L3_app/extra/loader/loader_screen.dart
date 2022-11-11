@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:gercules/L3_app/components/mt_constrained.dart';
 
 import '../../components/colors.dart';
 import '../../components/mt_page.dart';
@@ -11,17 +12,17 @@ import '../../extra/services.dart';
 
 class LoaderScreen extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => Observer(
-        builder: (_) => MTPage(
-          navBar: navBar(context, leading: const SizedBox(), middle: H2(loc.app_title)),
-          body: SafeArea(
-            top: false,
-            bottom: false,
-            child: Center(
-              child: ListView(
-                shrinkWrap: true,
-                children: [
-                  Stack(
+  Widget build(BuildContext context) => MTPage(
+        navBar: navBar(context, leading: const SizedBox(), middle: H2(loc.app_title)),
+        body: SafeArea(
+          top: false,
+          bottom: false,
+          child: Center(
+            child: ListView(
+              shrinkWrap: true,
+              children: [
+                Observer(
+                  builder: (_) => Stack(
                     alignment: Alignment.center,
                     children: [
                       if (loaderController.iconWidget != null) loaderController.iconWidget!,
@@ -41,11 +42,11 @@ class LoaderScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-          bottomBar: loaderController.actionWidget,
         ),
+        bottomBar: Observer(builder: (_) => MTConstrained(loaderController.actionWidget)),
       );
 }

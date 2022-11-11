@@ -11,27 +11,27 @@ class MTPage extends StatelessWidget {
     required this.body,
     this.navBar,
     this.bottomBar,
+    this.drawer,
+    super.key,
   });
 
   final CupertinoNavigationBar? navBar;
   final Widget body;
   final Widget? bottomBar;
+  final Widget? drawer;
 
   @override
-  Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      navigationBar: navBar,
-      child: Scaffold(
+  Widget build(BuildContext context) => Scaffold(
+        key: key,
+        appBar: navBar,
         body: GestureDetector(
           onTap: FocusScope.of(context).unfocus,
           child: body,
         ),
-        resizeToAvoidBottomInset: false,
+        drawer: drawer,
         backgroundColor: backgroundColor.resolve(context),
         extendBody: bottomBar != null,
         extendBodyBehindAppBar: bottomBar != null,
         bottomNavigationBar: bottomBar != null ? MTToolbar(child: bottomBar!) : null,
-      ),
-    );
-  }
+      );
 }

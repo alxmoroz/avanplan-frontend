@@ -33,59 +33,57 @@ class SettingsView extends StatelessWidget {
   User? get _user => accountController.user;
 
   @override
-  Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) => MTPage(
-        navBar: navBar(context),
-        body: SafeArea(
-          top: false,
-          bottom: false,
-          child: ListView(
-            children: [
-              const SizedBox(height: P_2),
-              if (_user != null) UserListTile(_user!),
-              const SizedBox(height: P_2),
-              MTListTile(
-                leading: const ImportIcon(color: darkGreyColor),
-                titleText: loc.source_list_title,
-                trailing: const ChevronIcon(),
-                onTap: () => _showSources(context),
-              ),
-              if (mainController.workspaces.length > 1)
+  Widget build(BuildContext context) => Observer(
+        builder: (_) => MTPage(
+          navBar: navBar(context),
+          body: SafeArea(
+            top: false,
+            bottom: false,
+            child: ListView(
+              children: [
+                const SizedBox(height: P_2),
+                if (_user != null) UserListTile(_user!),
+                const SizedBox(height: P_2),
                 MTListTile(
-                  leading: const WSIcon(),
-                  titleText: loc.workspaces_title,
+                  leading: const ImportIcon(color: darkGreyColor),
+                  titleText: loc.source_list_title,
                   trailing: const ChevronIcon(),
-                  onTap: () => _showWorkspaces(context),
+                  onTap: () => _showSources(context),
                 ),
-              H4(
-                loc.about_service_title,
-                padding: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
-                color: lightGreyColor,
-              ),
-              MTListTile(
-                leading: const MailIcon(),
-                titleText: loc.contact_us_title,
-                trailing: const LinkOutIcon(),
-                onTap: () => launchUrlString(contactUsMailSample),
-              ),
-              MTListTile(
-                leading: const PrivacyIcon(),
-                titleText: loc.privacy_policy_title,
-                trailing: const LinkOutIcon(),
-                onTap: () => launchUrlString('$docsUrlPath/privacy'),
-              ),
-            ],
+                if (mainController.workspaces.length > 1)
+                  MTListTile(
+                    leading: const WSIcon(),
+                    titleText: loc.workspaces_title,
+                    trailing: const ChevronIcon(),
+                    onTap: () => _showWorkspaces(context),
+                  ),
+                H4(
+                  loc.about_service_title,
+                  padding: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
+                  color: lightGreyColor,
+                ),
+                MTListTile(
+                  leading: const MailIcon(),
+                  titleText: loc.contact_us_title,
+                  trailing: const LinkOutIcon(),
+                  onTap: () => launchUrlString(contactUsMailSample),
+                ),
+                MTListTile(
+                  leading: const PrivacyIcon(),
+                  titleText: loc.privacy_policy_title,
+                  trailing: const LinkOutIcon(),
+                  onTap: () => launchUrlString('$docsUrlPath/privacy'),
+                ),
+              ],
+            ),
           ),
-        ),
 
-        /// версия
-        bottomBar: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          LightText(loc.app_title),
-          const SizedBox(width: P / 4),
-          NormalText(_controller.appVersion),
-        ]),
-      ),
-    );
-  }
+          /// версия
+          bottomBar: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            LightText(loc.app_title),
+            const SizedBox(width: P / 4),
+            NormalText(_controller.appVersion),
+          ]),
+        ),
+      );
 }

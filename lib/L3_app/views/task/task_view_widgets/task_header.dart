@@ -14,11 +14,9 @@ import '../../../presenters/source_presenter.dart';
 import '../task_view_controller.dart';
 
 class TaskHeader extends StatelessWidget {
-  const TaskHeader({required this.controller, required this.parentContext});
+  const TaskHeader({required this.controller});
   @protected
   final TaskViewController controller;
-  @protected
-  final BuildContext parentContext;
 
   Task get _task => controller.task;
   bool get _hasStatus => _task.status != null;

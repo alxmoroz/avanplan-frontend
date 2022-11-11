@@ -70,10 +70,10 @@ class TaskView extends StatelessWidget {
       _tasksPane;
 
   Widget? _bottomBar(BuildContext context) => _task.isWorkspace && _task.actionTypes.isNotEmpty && mainController.canEditAnyWS
-      ? Row(children: [const Spacer(), TaskFloatingPlusButton(controller: _controller, parentContext: context)])
+      ? Row(children: [const Spacer(), TaskFloatingPlusButton(controller: _controller)])
       : _controller.canShowBottomBar
           ? _task.shouldAddSubtask
-              ? TaskAddActionWidget(_controller, parentContext: context)
+              ? TaskAddActionWidget(_controller)
               : _task.canReopen || _task.shouldClose || _task.shouldCloseLeaf
                   ? Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
                       if (_task.shouldClose)
@@ -104,7 +104,7 @@ class TaskView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              if (!_task.isWorkspace) TaskHeader(controller: _controller, parentContext: context) else const SizedBox(height: P_2),
+              if (!_task.isWorkspace) TaskHeader(controller: _controller) else const SizedBox(height: P_2),
               if (_controller.tabKeys.length > 1) ...[
                 const SizedBox(height: P_2),
                 _tabPaneSelector(),

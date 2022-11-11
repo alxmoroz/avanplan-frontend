@@ -48,18 +48,18 @@ class _MainViewState extends State<MainView> {
   Future _gotoProjects(BuildContext context) async => await Navigator.of(context).pushNamed(TaskView.routeName);
 
   Widget _bottomAppbarContent(BuildContext context) => Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(
-            child: _task.warningTasks.length < _task.openedSubtasks.length
-                ? MTButton.outlined(
+          _task.warningTasks.length < _task.openedSubtasks.length
+              ? Flexible(
+                  child: MTButton.outlined(
                     titleText: loc.project_list_title,
                     margin: const EdgeInsets.symmetric(horizontal: P),
                     onTap: () => _gotoProjects(context),
-                  )
-                : const SizedBox(),
-          ),
-          // if (mainController.canEditAnyWS) MTPlusButton(() => _addProject(context))
-          if (mainController.canEditAnyWS) TaskFloatingPlusButton(controller: _taskController, parentContext: context),
+                  ),
+                )
+              : const Spacer(),
+          if (mainController.canEditAnyWS) TaskFloatingPlusButton(controller: _taskController),
         ],
       );
 
@@ -88,9 +88,7 @@ class _MainViewState extends State<MainView> {
           top: false,
           bottom: false,
           child: Center(
-            child: !_task.hasOpenedSubtasks
-                ? ProjectEmptyListActionsWidget(taskController: _taskController, parentContext: context)
-                : TaskOverview(_taskController.task),
+            child: !_task.hasOpenedSubtasks ? ProjectEmptyListActionsWidget(taskController: _taskController) : TaskOverview(_taskController.task),
           ),
         ),
         bottomBar: _task.hasOpenedSubtasks ? _bottomAppbarContent(context) : null,

@@ -65,36 +65,34 @@ class _SignInWithPasswordFormState extends State<SignInWithPasswordForm> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) => MTPage(
+  Widget build(BuildContext context) => MTPage(
         navBar: navBar(context, bgColor: backgroundColor),
         body: SafeArea(
           child: Center(
             child: Container(
               constraints: const BoxConstraints(maxWidth: SCR_S_WIDTH),
               child: LayoutBuilder(
-                builder: (_, size) => ListView(
-                  shrinkWrap: true,
-                  children: [
-                    gerculesIcon(size: size.maxHeight / 7),
-                    H1(loc.app_title, align: TextAlign.center, padding: const EdgeInsets.only(bottom: P)),
-                    textFieldForCode('username'),
-                    textFieldForCode('password'),
-                    MTButton.outlined(
-                      margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
-                      titleText: loc.auth_sign_in_action_title,
-                      onTap: _controller.validated ? () => _controller.signInWithPassword(context) : null,
-                    ),
-                    const SizedBox(height: P2),
-                    const SignInTermsLinks(),
-                  ],
+                builder: (_, size) => Observer(
+                  builder: (_) => ListView(
+                    shrinkWrap: true,
+                    children: [
+                      gerculesIcon(size: size.maxHeight / 7),
+                      H1(loc.app_title, align: TextAlign.center, padding: const EdgeInsets.only(bottom: P)),
+                      textFieldForCode('username'),
+                      textFieldForCode('password'),
+                      MTButton.outlined(
+                        margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
+                        titleText: loc.auth_sign_in_action_title,
+                        onTap: _controller.validated ? () => _controller.signInWithPassword(context) : null,
+                      ),
+                      const SizedBox(height: P2),
+                      const SignInTermsLinks(),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
         ),
-      ),
-    );
-  }
+      );
 }

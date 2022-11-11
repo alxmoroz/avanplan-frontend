@@ -9,15 +9,14 @@ import '../../../presenters/task_level_presenter.dart';
 import '../task_view_controller.dart';
 
 class TaskAddActionWidget extends StatelessWidget {
-  const TaskAddActionWidget(this.controller, {required this.parentContext});
+  const TaskAddActionWidget(this.controller);
   final TaskViewController controller;
-  final BuildContext parentContext;
 
   @override
   Widget build(BuildContext context) => MTButton.outlined(
         margin: const EdgeInsets.symmetric(horizontal: P),
         leading: const PlusIcon(),
         titleText: controller.task.newSubtaskTitle,
-        onTap: () async => await controller.addSubtask(parentContext),
+        onTap: () async => await controller.addSubtask(context),
       );
 }

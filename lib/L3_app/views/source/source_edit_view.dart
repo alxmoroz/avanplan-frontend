@@ -131,7 +131,7 @@ class _SourceEditViewState extends State<SourceEditView> {
             MTButton.outlined(
               titleText: loc.delete_action_title,
               titleColor: dangerColor,
-              margin: tfPadding.copyWith(top: P * 5),
+              margin: tfPadding.copyWith(top: P * 3),
               onTap: () => _controller.delete(context),
             ),
           const SizedBox(height: P2),

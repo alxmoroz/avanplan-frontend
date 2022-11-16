@@ -1,55 +1,51 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import '../../L2_data/repositories/api.dart';
 import '../entities/local_auth.dart';
 import '../repositories/abs_api_auth_repo.dart';
 import '../repositories/abs_db_repo.dart';
 
 class AuthUC {
-  AuthUC({required this.authRepo, required this.localAuthRepo});
+  AuthUC({required this.localDBAuthRepo, required this.googleRepo, required this.appleRepo, required this.passwordRepo});
 
-  final AbstractAuthRepo authRepo;
-  final AbstractDBRepo<AbstractDBModel, LocalAuth> localAuthRepo;
+  final AbstractAuthRepo googleRepo;
+  final AbstractAuthRepo appleRepo;
+  final AbstractAuthRepo passwordRepo;
+  final AbstractDBRepo<AbstractDBModel, LocalAuth> localDBAuthRepo;
 
-  bool _checkToken(String token) {
-    authRepo.setApiCredentials(token);
-    _updateAccessToken(token);
-    return token.isNotEmpty;
-  }
+  AbstractAuthRepo? _currentRepo;
 
-  Future<bool> signInWithPassword({required String username, required String password}) async {
-    final token = await authRepo.getApiAuthToken(username, password);
-    return _checkToken(token);
-  }
-
-  Future<bool> signInWithGoogle() async {
-    final token = await authRepo.getApiAuthGoogleToken();
-    return _checkToken(token);
-  }
-
-  Future<bool> signInWithAppleIsAvailable() async => await authRepo.signInWithAppleIsAvailable();
-
-  Future<bool> signInWithApple() async {
-    final token = await authRepo.getApiAuthAppleToken();
-    return _checkToken(token);
-  }
-
-  Future<LocalAuth> _getLocalAuth() async => await localAuthRepo.getOne() ?? LocalAuth();
-
-  Future _updateAccessToken(String accessToken) async {
+  Future<LocalAuth> _getLocalAuth() async => await localDBAuthRepo.getOne() ?? LocalAuth();
+  Future<String> _getToken() async => (await _getLocalAuth()).accessToken;
+  Future _setToken(String token) async {
     final la = await _getLocalAuth();
-    la.accessToken = accessToken;
-    await localAuthRepo.update(la);
+    la.accessToken = token;
+    await localDBAuthRepo.update(la);
   }
 
-  Future<String> _getLocalAccessToken() async => (await _getLocalAuth()).accessToken;
+  Future<bool> get hasLocalAuth async => (await _getToken()).isNotEmpty;
 
-  Future setApiCredentialsFromLocalAuth() async => authRepo.setApiCredentials(await _getLocalAccessToken());
+  Future updateOAuthToken() async => openAPI.setOAuthToken('OAuth2PasswordBearer', await _getToken());
 
-  Future<bool> isLocalAuthorized() async => (await _getLocalAccessToken()).isNotEmpty;
+  Future<bool> _signIn(AbstractAuthRepo repo, {String? username, String? password}) async {
+    _currentRepo = repo;
+    await _setToken(await repo.signIn(username: username, password: password));
+    await updateOAuthToken();
+    return await hasLocalAuth;
+  }
+
+  Future<bool> signInWithPassword({required String username, required String password}) async =>
+      await _signIn(passwordRepo, username: username, password: password);
+
+  Future<bool> signInWithGoogle() async => _signIn(googleRepo);
+
+  Future<bool> signInWithApple() async => _signIn(appleRepo);
+
+  Future<bool> signInWithAppleIsAvailable() async => await appleRepo.signInIsAvailable();
 
   Future signOut() async {
-    await authRepo.signOut();
-    authRepo.setApiCredentials('');
-    _updateAccessToken('');
+    await _currentRepo?.signOut();
+    _setToken('');
+    updateOAuthToken();
   }
 }

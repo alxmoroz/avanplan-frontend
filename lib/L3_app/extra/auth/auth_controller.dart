@@ -12,8 +12,8 @@ part 'auth_controller.g.dart';
 
 class AuthController extends _AuthControllerBase with _$AuthController {
   Future<AuthController> init() async {
-    await authUC.setApiCredentialsFromLocalAuth();
-    setAuthorized(await authUC.isLocalAuthorized());
+    await authUC.updateOAuthToken();
+    setAuthorized(await authUC.hasLocalAuth);
     signInWithAppleIsAvailable = await authUC.signInWithAppleIsAvailable();
     return this;
   }

@@ -92,19 +92,17 @@ class TaskFloatingPlusButton extends StatelessWidget {
   final TaskViewController controller;
 
   @override
-  Widget build(BuildContext context) {
-    const bWidth = 2.0;
-    return TaskPopupMenu(
-      controller,
-      margin: const EdgeInsets.only(right: P),
-      child: Container(
-        padding: const EdgeInsets.all(P - bWidth),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS),
-          border: Border.fromBorderSide(BorderSide(color: mainColor.resolve(context), width: bWidth)),
+  Widget build(BuildContext context) => TaskPopupMenu(
+        controller,
+        margin: const EdgeInsets.only(right: P),
+        child: Container(
+          width: MIN_BTN_HEIGHT,
+          height: MIN_BTN_HEIGHT,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS),
+            border: Border.fromBorderSide(BorderSide(color: mainColor.resolve(context), width: DEF_BORDER_WIDTH)),
+          ),
+          child: const PlusIcon(),
         ),
-        child: const PlusIcon(),
-      ),
-    );
-  }
+      );
 }

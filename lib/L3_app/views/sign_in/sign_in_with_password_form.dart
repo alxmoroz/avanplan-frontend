@@ -17,8 +17,8 @@ import '../../extra/services.dart';
 import 'sign_in_controller.dart';
 import 'sign_in_terms_links.dart';
 
-Future<String?> showSignInPasswordDialog(BuildContext context) async {
-  return await showModalBottomSheet<String?>(
+Future showSignInPasswordDialog(BuildContext context) async {
+  return await showModalBottomSheet<void>(
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,

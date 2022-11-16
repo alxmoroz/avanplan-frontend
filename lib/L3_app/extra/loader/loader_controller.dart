@@ -97,7 +97,7 @@ abstract class _LoaderControllerBase with Store {
       });
 
   /// UI
-  static double get iconSize => P * 36;
+  static double get iconSize => P * 20;
   static const Color iconColor = darkBackgroundColor;
 
   Widget get _defaultIcon => gerculesIcon();

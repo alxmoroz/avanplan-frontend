@@ -18,8 +18,8 @@ import '../task_charts/timing_chart.dart';
 import '../task_charts/velocity_chart.dart';
 import '../task_charts/volume_chart.dart';
 
-Future<String?> showChartsDetailsDialog(BuildContext context, Task task) async {
-  return await showModalBottomSheet<String?>(
+Future showChartsDetailsDialog(BuildContext context, Task task) async {
+  return await showModalBottomSheet<void>(
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,

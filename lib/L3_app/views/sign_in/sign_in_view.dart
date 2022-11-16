@@ -56,7 +56,7 @@ class SignInView extends StatelessWidget {
                         ),
                       ),
                     MTButton.outlined(
-                      margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P),
+                      margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
                       titleText: loc.auth_show_sign_in_form_action_title,
                       onTap: () => showSignInPasswordDialog(context),
                     ),

@@ -12,7 +12,9 @@ import '../../L1_domain/usecases/settings_uc.dart';
 import '../../L1_domain/usecases/sources_uc.dart';
 import '../../L1_domain/usecases/tasks_uc.dart';
 import '../../L2_data/repositories/api.dart';
-import '../../L2_data/repositories/auth_repo.dart';
+import '../../L2_data/repositories/auth_apple_repo.dart';
+import '../../L2_data/repositories/auth_google_repo.dart';
+import '../../L2_data/repositories/auth_password_repo.dart';
 import '../../L2_data/repositories/db.dart';
 import '../../L2_data/repositories/db_repo.dart';
 import '../../L2_data/repositories/import_repo.dart';
@@ -61,16 +63,6 @@ void setup() {
   // repo / adapters
   getIt.registerSingletonAsync<HiveStorage>(() async => await HiveStorage().init());
 
-  // use cases
-  getIt.registerSingleton<AuthUC>(AuthUC(authRepo: AuthRepo(), localAuthRepo: LocalAuthRepo()));
-  getIt.registerSingleton<SettingsUC>(SettingsUC(settingsRepo: SettingsRepo()));
-  getIt.registerSingleton<TaskTypesUC>(TaskTypesUC(repo: TaskTypesRepo()));
-  getIt.registerSingleton<MyUC>(MyUC(repo: MyRepo()));
-  getIt.registerSingleton<TasksUC>(TasksUC(repo: TasksRepo()));
-  getIt.registerSingleton<SourcesUC>(SourcesUC(repo: SourcesRepo()));
-  getIt.registerSingleton<SourceTypesUC>(SourceTypesUC(repo: SourceTypesRepo()));
-  getIt.registerSingleton<ImportUC>(ImportUC(repo: ImportRepo()));
-
   // global state controllers
   getIt.registerSingletonAsync<AuthController>(() async => AuthController().init(), dependsOn: [HiveStorage]);
   getIt.registerSingleton<SettingsController>(SettingsController());
@@ -83,4 +75,19 @@ void setup() {
 
   // Openapi
   getIt.registerSingleton<Openapi>(setupApi([loaderController.interceptor]));
+
+  // use cases
+  getIt.registerSingleton<AuthUC>(AuthUC(
+    passwordRepo: AuthPasswordRepo(),
+    googleRepo: AuthGoogleRepo(),
+    appleRepo: AuthAppleRepo(),
+    localDBAuthRepo: LocalAuthRepo(),
+  ));
+  getIt.registerSingleton<SettingsUC>(SettingsUC(settingsRepo: SettingsRepo()));
+  getIt.registerSingleton<TaskTypesUC>(TaskTypesUC(repo: TaskTypesRepo()));
+  getIt.registerSingleton<MyUC>(MyUC(repo: MyRepo()));
+  getIt.registerSingleton<TasksUC>(TasksUC(repo: TasksRepo()));
+  getIt.registerSingleton<SourcesUC>(SourcesUC(repo: SourcesRepo()));
+  getIt.registerSingleton<SourceTypesUC>(SourceTypesUC(repo: SourceTypesRepo()));
+  getIt.registerSingleton<ImportUC>(ImportUC(repo: ImportRepo()));
 }

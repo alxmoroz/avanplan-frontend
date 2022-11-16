@@ -202,8 +202,11 @@ abstract class _TaskViewControllerBase with Store {
     if (await _unlinkDialog(context) == true) {
       loaderController.start();
       loaderController.setUnlinking();
-      res = await importUC.updateTaskSources(task.unlinkTaskTree());
-      mainController.touchRootTask();
+      try {
+        await importUC.updateTaskSources(task.unlinkTaskTree());
+        mainController.touchRootTask();
+        res = true;
+      } catch (_) {}
       await loaderController.stop();
     }
     return res;

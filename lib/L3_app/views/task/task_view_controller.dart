@@ -132,6 +132,18 @@ abstract class _TaskViewControllerBase with Store {
         ],
       );
 
+  void _updateTaskParents(Task task) {
+    task.updateParents();
+    mainController.touchRootTask();
+  }
+
+  void _popDeleted(BuildContext context, Task task) {
+    Navigator.of(context).pop();
+    if (task.parent?.isWorkspace == true && task.parent?.tasks.length == 1) {
+      Navigator.of(context).pop();
+    }
+  }
+
   /// роутер
 
   Future<Task?> _setClosedTaskTree(Task _task, bool _isClose, bool _recursively) async {
@@ -168,8 +180,7 @@ abstract class _TaskViewControllerBase with Store {
       if (editedTask.closed) {
         Navigator.of(context).pop(editedTask);
       }
-      editedTask.updateParents();
-      mainController.touchRootTask();
+      _updateTaskParents(editedTask);
     }
   }
 
@@ -178,8 +189,7 @@ abstract class _TaskViewControllerBase with Store {
       final newTask = await editTaskDialog(context, parent: task);
       if (newTask != null) {
         task.tasks.add(newTask);
-        newTask.updateParents();
-        mainController.touchRootTask();
+        _updateTaskParents(newTask);
       }
     }
   }
@@ -189,10 +199,9 @@ abstract class _TaskViewControllerBase with Store {
       final editedTask = await editTaskDialog(context, parent: task.parent!, task: task);
       if (editedTask != null) {
         if (editedTask.deleted) {
-          Navigator.of(context).pop();
+          _popDeleted(context, editedTask);
         }
-        editedTask.updateParents();
-        mainController.touchRootTask();
+        _updateTaskParents(editedTask);
       }
     }
   }
@@ -219,9 +228,8 @@ abstract class _TaskViewControllerBase with Store {
       final deletedTask = await tasksUC.delete(t: task);
       await loaderController.stop();
       if (deletedTask != null && deletedTask.deleted) {
-        Navigator.of(context).pop();
-        deletedTask.updateParents();
-        mainController.touchRootTask();
+        _popDeleted(context, deletedTask);
+        _updateTaskParents(deletedTask);
       }
     }
   }

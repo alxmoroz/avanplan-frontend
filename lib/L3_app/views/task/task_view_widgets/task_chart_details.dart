@@ -45,7 +45,17 @@ class TaskChartDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     final padding = MediaQuery.of(context).padding;
     return MTPage(
-      navBar: navBar(context, leading: MTCloseButton(), title: loc.chart_details_title, bgColor: backgroundColor),
+      navBar: navBar(
+        context,
+        leading: MTCloseButton(),
+        middle: Column(children: [
+          const SizedBox(height: P_6),
+          LightText(loc.chart_details_title),
+          MediumText(task.title, maxLines: 1),
+        ]),
+        trailing: const SizedBox(width: P * 4),
+        bgColor: backgroundColor,
+      ),
       body: SafeArea(
         bottom: false,
         // top: false,

@@ -110,7 +110,7 @@ class MTConfirmDialog extends StatelessWidget {
             for (final a in actions) richButton(a),
         ],
       ),
-      actions: !simple ? [] : actions.map((a) => CupertinoDialogAction(child: _actionText(a), onPressed: () => action(a))).toList(),
+      actions: !simple ? [] : [for (final a in actions) CupertinoDialogAction(child: _actionText(a), onPressed: () => action(a))],
     );
   }
 }

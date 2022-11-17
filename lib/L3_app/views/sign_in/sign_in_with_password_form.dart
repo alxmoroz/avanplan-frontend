@@ -76,7 +76,7 @@ class _SignInWithPasswordFormState extends State<SignInWithPasswordForm> {
                   builder: (_) => ListView(
                     shrinkWrap: true,
                     children: [
-                      gerculesIcon(size: size.maxHeight / 7),
+                      gerculesIcon(size: size.maxHeight / 5),
                       H1(loc.app_title, align: TextAlign.center, padding: const EdgeInsets.only(bottom: P)),
                       textFieldForCode('username'),
                       textFieldForCode('password'),

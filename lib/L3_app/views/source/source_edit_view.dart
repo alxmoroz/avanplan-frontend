@@ -91,16 +91,13 @@ class _SourceEditViewState extends State<SourceEditView> {
     );
   }
 
-  List<DropdownMenuItem<SourceType>> srcTypeDdItems(Iterable<SourceType> sTypes) => sTypes
-      .map((st) => DropdownMenuItem<SourceType>(
+  List<DropdownMenuItem<SourceType>> srcTypeDdItems(Iterable<SourceType> sTypes) => [
+        for (final st in sTypes)
+          DropdownMenuItem<SourceType>(
             value: st,
-            child: Row(children: [
-              st.icon,
-              const SizedBox(width: P_2),
-              NormalText('$st'),
-            ]),
-          ))
-      .toList();
+            child: Row(children: [st.icon, const SizedBox(width: P_2), NormalText('$st')]),
+          )
+      ];
 
   Widget form() {
     return Scrollbar(
@@ -114,13 +111,14 @@ class _SourceEditViewState extends State<SourceEditView> {
               ddItems: srcTypeDdItems(referencesController.sourceTypes),
               label: loc.source_type_placeholder,
             ),
-          ...[
+          for (final code in [
             'url',
             if (_showUsername) 'username',
             'apiKey',
             // 'password',
             'description',
-          ].map((code) => textFieldForCode(code)),
+          ])
+            textFieldForCode(code),
           MTButton.outlined(
             titleText: loc.source_help_edit_action,
             trailing: const LinkOutIcon(size: P * 1.3),

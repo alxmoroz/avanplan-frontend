@@ -68,6 +68,8 @@
 
   "hours_count": "{count, plural, one{{count} hour} other{{count} hours}}",
 
+  "import_action_closed_projects_title": "All projects are closed.\n\nImport from source or create your own",
+  "import_action_no_projects_title": "Import projects from source or create your own",
   "import_action_title": "Import tasks",
   "import_connection_error": "Connection error\nThe import source is not available",
   "import_error_title": "Import error",
@@ -99,8 +101,7 @@
   "project_count": "{count, plural, zero{No projects} one{{count} project} other{{count} projects}}",
   "project_count_dative": "{count, plural, one{{count} project} other{{count} projects}}",
   "project_delete_dialog_title": "Delete project?",
-  "project_list_empty_title_part1": "Import tasks from source",
-  "project_list_empty_title_part2": "or create your own",
+
   "project_list_title": "All projects",
   "project_new_title": "New project",
   "project_title": "Project",

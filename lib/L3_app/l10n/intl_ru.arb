@@ -65,7 +65,9 @@
 
   "hours_count": "{count, plural, one{{count} час} few{{count} часа} other{{count} часов}}",
 
-  "import_action_title": "Импортировать задачи",
+  "import_action_closed_projects_title": "Все проекты закрыты.\n\nЗагрузите из источника импорта или создайте свои",
+  "import_action_no_projects_title": "Загрузите проекты из источника импорта или создайте свои",
+  "import_action_title": "Импортировать проекты",
   "import_connection_error": "Ошибка подключения\nИсточник импорта недоступен",
   "import_error_title": "Ошибка импорта",
   "import_list_empty_title": "Нет доступных для импорта проектов\nПопробуйте выбрать другой источник",
@@ -97,8 +99,6 @@
   "project_count": "{count, plural, zero{Нет проектов} one{{count} проект} few{{count} проекта} other{{count} проектов}}",
   "project_count_dative": "{count, plural, one{{count} проекту} other{{count} проектам}}",
   "project_delete_dialog_title": "Удалить проект?",
-  "project_list_empty_title_part1": "Загрузите задачи из источника импорта",
-  "project_list_empty_title_part2": "или создайте свои",
   "project_list_title": "Все проекты",
   "project_new_title": "Новый проект",
   "project_title": "Проект",

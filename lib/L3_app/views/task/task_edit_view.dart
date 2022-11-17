@@ -119,7 +119,7 @@ class _TaskEditViewState extends State<TaskEditView> {
       thumbVisibility: true,
       child: ListView(children: [
         if (_savedWsID == null) controller.wsDropdown(context),
-        ...['title', 'startDate', 'dueDate', 'description'].map((code) => textFieldForCode(context, code)),
+        for (final code in ['title', 'startDate', 'dueDate', 'description']) textFieldForCode(context, code),
         if (parent.isProject)
           MTButton(
             leading: DoneIcon(controller.isBacklog),

@@ -127,17 +127,19 @@ class _TimingChartState extends State<TimingChart> {
           SizedBox(width: prefixWidth),
           Expanded(
             child: Stack(
-              children: _dateBarData.map((dbd) {
-                final ratio = _dateRatio(dbd.date);
-                return ratio > 0
-                    ? MTProgress(
-                        value: ratio,
-                        color: dbd.color,
-                        mark: dbd.mark,
-                        border: Border(right: BorderSide(color: (dbd.mark?.color ?? darkGreyColor).resolve(context))),
-                      )
-                    : const SizedBox();
-              }).toList(),
+              children: [
+                ..._dateBarData.map((dbd) {
+                  final ratio = _dateRatio(dbd.date);
+                  return ratio > 0
+                      ? MTProgress(
+                          value: ratio,
+                          color: dbd.color,
+                          mark: dbd.mark,
+                          border: Border(right: BorderSide(color: (dbd.mark?.color ?? darkGreyColor).resolve(context))),
+                        )
+                      : const SizedBox();
+                })
+              ],
             ),
           ),
           SizedBox(width: _suffixWidth),

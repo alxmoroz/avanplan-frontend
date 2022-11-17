@@ -24,7 +24,7 @@ class TaskPopupMenu extends StatelessWidget {
   final Widget? child;
   final EdgeInsets? margin;
 
-  Task get task => controller.task;
+  Task get _task => controller.task;
 
   Widget rowIconTitle(String title, {Widget? icon, Color? color}) => Row(children: [
         if (icon != null) ...[
@@ -65,7 +65,7 @@ class TaskPopupMenu extends StatelessWidget {
         child: PopupMenuButton<TaskActionType>(
           child: child,
           icon: icon,
-          itemBuilder: (_) => task.actionTypes.map((at) => PopupMenuItem<TaskActionType>(value: at, child: itemWidget(task, at))).toList(),
+          itemBuilder: (_) => [for (final at in _task.actionTypes) PopupMenuItem<TaskActionType>(value: at, child: itemWidget(_task, at))],
           onSelected: (at) => controller.taskAction(at, context),
           padding: const EdgeInsets.symmetric(horizontal: P_2),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS)),

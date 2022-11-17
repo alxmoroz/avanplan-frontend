@@ -14,14 +14,14 @@ import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/task_filter_presenter.dart';
 import '../account/user_icon.dart';
 import '../settings/settings_view.dart';
+import '../task/task_related_widgets/task_add_action_widget.dart';
 import '../task/task_view.dart';
 import '../task/task_view_controller.dart';
 import '../task/task_view_widgets/task_navbar.dart';
 import '../task/task_view_widgets/task_overview.dart';
-import 'project_empty_list_actions_widget.dart';
+import 'import_projects_actions.dart';
 
 class MainView extends StatefulWidget {
   @override
@@ -47,21 +47,21 @@ class _MainViewState extends State<MainView> {
   Future _gotoSettings(BuildContext context) async => await Navigator.of(context).pushNamed(SettingsView.routeName);
   Future _gotoProjects(BuildContext context) async => await Navigator.of(context).pushNamed(TaskView.routeName);
 
-  Widget _bottomAppbarContent(BuildContext context) => Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _task.warningTasks.length < _task.openedSubtasks.length
-              ? Flexible(
-                  child: MTButton.outlined(
-                    titleText: loc.project_list_title,
-                    margin: const EdgeInsets.symmetric(horizontal: P),
-                    onTap: () => _gotoProjects(context),
-                  ),
-                )
-              : const Spacer(),
-          if (mainController.canEditAnyWS) TaskFloatingPlusButton(controller: _taskController),
-        ],
-      );
+  Widget _bottomBar(BuildContext context) => _task.hasSubtasks
+      ? Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Flexible(
+              child: MTButton.outlined(
+                titleText: loc.project_list_title,
+                margin: const EdgeInsets.symmetric(horizontal: P),
+                onTap: () => _gotoProjects(context),
+              ),
+            ),
+            if (mainController.canEditAnyWS) TaskFloatingPlusButton(controller: _taskController),
+          ],
+        )
+      : TaskAddActionWidget(_taskController);
 
   @override
   Widget build(BuildContext context) {
@@ -88,10 +88,10 @@ class _MainViewState extends State<MainView> {
           top: false,
           bottom: false,
           child: Center(
-            child: !_task.hasOpenedSubtasks ? ProjectEmptyListActionsWidget(taskController: _taskController) : TaskOverview(_taskController.task),
+            child: !_task.hasOpenedSubtasks ? ImportProjectsActions(_task) : TaskOverview(_task),
           ),
         ),
-        bottomBar: _task.hasOpenedSubtasks ? _bottomAppbarContent(context) : null,
+        bottomBar: _bottomBar(context),
       ),
     );
   }

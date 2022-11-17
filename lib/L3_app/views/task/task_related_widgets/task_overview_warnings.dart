@@ -11,5 +11,5 @@ class TaskOverviewWarnings extends StatelessWidget {
   final Task task;
 
   @override
-  Widget build(BuildContext context) => Column(children: [...task.warningTasks.map((wt) => TaskCard(wt))]);
+  Widget build(BuildContext context) => Column(children: [for (final wt in task.warningTasks) TaskCard(wt)]);
 }

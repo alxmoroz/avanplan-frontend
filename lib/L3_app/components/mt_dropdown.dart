@@ -26,12 +26,13 @@ class MTDropdown<T> extends StatelessWidget {
 
   List<DropdownMenuItem<T>> get _ddItems =>
       ddItems ??
-      items!
-          .map((item) => DropdownMenuItem<T>(
-                value: item,
-                child: NormalText('$item'),
-              ))
-          .toList();
+      [
+        for (final item in items!)
+          DropdownMenuItem<T>(
+            value: item,
+            child: NormalText('$item'),
+          ),
+      ];
 
   @override
   Widget build(BuildContext context) {

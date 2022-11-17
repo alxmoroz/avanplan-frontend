@@ -14,8 +14,16 @@ extension TaskFilterPresenter on Task {
     return groupedTasks.entries.sorted((g1, g2) => g1.key.index.compareTo(g2.key.index));
   }
 
-  List<Task> get warningTasks {
-    return [if (overdueSubtasks.isNotEmpty) ...overdueSubtasks.take(3) else if (riskySubtasks.isNotEmpty) ...riskySubtasks.take(3)]
-        .sorted(sortByDateAsc);
-  }
+  List<Task> get attentionalTasks => [
+        TaskState.overdue,
+        TaskState.overdueSubtasks,
+        TaskState.risk,
+        TaskState.riskSubtasks,
+        TaskState.ok,
+        TaskState.okSubtasks,
+        TaskState.ahead,
+        TaskState.aheadSubtasks
+      ].contains(subtaskGroups.first.key)
+          ? subtaskGroups.first.value
+          : [];
 }

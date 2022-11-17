@@ -4,14 +4,11 @@ import 'package:flutter/material.dart';
 
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/usecases/task_ext_level.dart';
-import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/mt_button.dart';
-import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/state_presenter.dart';
 import '../../../presenters/task_filter_presenter.dart';
-import '../../../presenters/task_level_presenter.dart';
 import '../task_charts/timing_chart.dart';
 import '../task_charts/velocity_chart.dart';
 import '../task_charts/volume_chart.dart';
@@ -55,16 +52,9 @@ class TaskOverview extends StatelessWidget {
           ),
         ],
 
-        /// проблемные задачи
-        if (task.warningTasks.isNotEmpty) ...[
+        /// требующие внимания задачи
+        if (task.attentionalTasks.isNotEmpty) ...[
           const SizedBox(height: P),
-          if (!task.isWorkspace)
-            MediumText(
-              '${task.subtasksCount(task.warningTasks.length)} ${loc.state_warning_tasks_title_suffix(task.warningTasks.length)}',
-              padding: const EdgeInsets.symmetric(horizontal: P),
-              color: darkGreyColor,
-              align: TextAlign.center,
-            ),
           TaskOverviewWarnings(task),
         ],
       ],

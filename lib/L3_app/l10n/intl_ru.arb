@@ -131,7 +131,6 @@
   "state_overdue_title": "Опаздываем",
   "state_risk_duration": "Можем опоздать на {duration}",
   "state_risk_title": "Можем опоздать",
-  "state_warning_tasks_title_suffix": "{count, plural, one{требует} other{требуют}} внимания",
 
   "source_api_key_helper_gitlab": "Личный токен доступа можно создать в настройках пользователя -> Токены доступа. Тип: read_api",
   "source_api_key_helper_jira": "Токен API можно создать в панели управления аккаунтом -> Безопасность -> Token API -> Создание токенов API и управление ими",

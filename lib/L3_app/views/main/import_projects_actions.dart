@@ -19,7 +19,7 @@ class ImportProjectsActions extends StatelessWidget {
   @override
   Widget build(BuildContext context) => referencesController.sourceTypes.isNotEmpty
       ? ListView(shrinkWrap: true, children: [
-          const Center(child: StartIcon()),
+          Center(child: StartIcon(size: MediaQuery.of(context).size.height / 5)),
           const SizedBox(height: P2),
           H3(
             task.hasSubtasks ? loc.import_action_closed_projects_title : loc.import_action_no_projects_title,

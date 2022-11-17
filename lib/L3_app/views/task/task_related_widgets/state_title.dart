@@ -17,30 +17,28 @@ class _StateTitle extends StatelessWidget {
   final String text;
   final TaskStateTitleStyle? style;
 
-  Widget get _textWidget => style == TaskStateTitleStyle.L
-      ? H2(text, align: TextAlign.center)
-      : style == TaskStateTitleStyle.M
-          ? H3(text, align: TextAlign.center)
-          : style == TaskStateTitleStyle.S
-              ? H4(text)
-              : SmallText(text, color: darkGreyColor);
-
-  double get _iconSize =>
-      P *
-      (style == TaskStateTitleStyle.L
-          ? 12
-          : style == TaskStateTitleStyle.S
-              ? 2.5
-              : 1.5);
-
-  Widget get _icon => iconForState(state, size: _iconSize);
-
   @override
-  Widget build(BuildContext context) => style == TaskStateTitleStyle.L
-      ? Column(children: [_icon, _textWidget])
-      : style == TaskStateTitleStyle.M
-          ? _textWidget
-          : Row(children: [_icon, const SizedBox(width: P_3), Expanded(child: _textWidget)]);
+  Widget build(BuildContext context) {
+    final _textWidget = style == TaskStateTitleStyle.L
+        ? H2(text, align: TextAlign.center)
+        : style == TaskStateTitleStyle.M
+            ? H3(text, align: TextAlign.center)
+            : style == TaskStateTitleStyle.S
+                ? H4(text)
+                : SmallText(text, color: darkGreyColor);
+
+    final _iconSize = style == TaskStateTitleStyle.L
+        ? MediaQuery.of(context).size.height / 5
+        : style == TaskStateTitleStyle.S
+            ? P * 2.5
+            : P * 1.5;
+    final _icon = iconForState(state, size: _iconSize);
+    return style == TaskStateTitleStyle.L
+        ? Column(children: [_icon, _textWidget])
+        : style == TaskStateTitleStyle.M
+            ? _textWidget
+            : Row(children: [_icon, const SizedBox(width: P_3), Expanded(child: _textWidget)]);
+  }
 }
 
 class SubtasksStateTitle extends StatelessWidget {

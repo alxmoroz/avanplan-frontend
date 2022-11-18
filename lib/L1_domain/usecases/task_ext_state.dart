@@ -9,15 +9,11 @@ import 'task_ext_level.dart';
 
 enum TaskState {
   overdue,
-  overdueSubtasks,
   risk,
-  riskSubtasks,
   ok,
-  okSubtasks,
   ahead,
-  aheadSubtasks,
-  eta,
   closable,
+  eta,
   noSubtasks,
   noProgress,
   opened,
@@ -96,7 +92,8 @@ extension TaskStats on Task {
   Duration? get overduePeriod => hasDueDate ? _now.difference(dueDate!) : null;
   static const Duration _overdueThreshold = _day;
   bool get hasOverdue => overduePeriod != null && overduePeriod! > _overdueThreshold;
-  Iterable<Task> get overdueSubtasks => openedSubtasks.where((t) => [TaskState.overdue, TaskState.overdueSubtasks].contains(t.state));
+  // Iterable<Task> get overdueSubtasks => openedSubtasks.where((t) => [TaskState.overdue, TaskState.overdueSubtasks].contains(t.state));
+  Iterable<Task> get overdueSubtasks => openedSubtasks.where((t) => TaskState.overdue == t.overallState);
 
   /// скорость (проекта, цели, средневзвешенная)
   static const Duration _startThreshold = _week;
@@ -122,7 +119,7 @@ extension TaskStats on Task {
 
   /// целевая скорость
   Duration? get leftPeriod => hasDueDate && !isFuture ? dueDate!.add(_overdueThreshold).difference(_now) : null;
-  double? get targetVelocity => leftPeriod != null && !hasOverdue ? openedLeafTasksCount / leftPeriod!.inDays : null;
+  double? get targetVelocity => leftPeriod != null && leftPeriod!.inDays > 0 && !hasOverdue ? openedLeafTasksCount / leftPeriod!.inDays : null;
 
   /// плановый объем
   Duration? get _planPeriod => hasDueDate ? dueDate!.difference(calculatedStartDate) : null;
@@ -134,15 +131,18 @@ extension TaskStats on Task {
   static const Duration _riskThreshold = _day;
   Duration? get riskPeriod => (hasDueDate && hasEtaDate) ? etaDate!.difference(dueDate!) : null;
   bool get hasRisk => riskPeriod != null && riskPeriod! > _riskThreshold;
-  Iterable<Task> get riskySubtasks => openedSubtasks.where((t) => [TaskState.risk, TaskState.riskSubtasks].contains(t.state));
+  // Iterable<Task> get riskySubtasks => openedSubtasks.where((t) => [TaskState.risk, TaskState.riskSubtasks].contains(t.state));
+  Iterable<Task> get riskySubtasks => openedSubtasks.where((t) => TaskState.risk == t.overallState);
 
   /// ok
   bool get isOk => riskPeriod != null && riskPeriod! <= _riskThreshold;
-  Iterable<Task> get okSubtasks => openedSubtasks.where((t) => [TaskState.ok, TaskState.okSubtasks].contains(t.state));
+  // Iterable<Task> get okSubtasks => openedSubtasks.where((t) => [TaskState.ok, TaskState.okSubtasks].contains(t.state));
+  Iterable<Task> get okSubtasks => openedSubtasks.where((t) => TaskState.ok == t.overallState);
 
   /// опережение
   bool get isAhead => riskPeriod != null && -riskPeriod! > _riskThreshold;
-  Iterable<Task> get aheadSubtasks => openedSubtasks.where((t) => [TaskState.ahead, TaskState.aheadSubtasks].contains(t.state));
+  // Iterable<Task> get aheadSubtasks => openedSubtasks.where((t) => [TaskState.ahead, TaskState.aheadSubtasks].contains(t.state));
+  Iterable<Task> get aheadSubtasks => openedSubtasks.where((t) => TaskState.ahead == t.overallState);
 
   /// только прогноз
   Iterable<Task> get etaSubtasks => openedSubtasks.where((t) => t.state == TaskState.eta);
@@ -181,15 +181,24 @@ extension TaskStats on Task {
       } else {
         s = TaskState.noInfo;
       }
-    } else if (hasSubtasks) {
+    } else if (hasEtaDate) {
+      s = TaskState.eta;
+    }
+    return s;
+  }
+
+  TaskState get subtasksState {
+    TaskState s = TaskState.noSubtasks;
+
+    if (hasSubtasks) {
       if (overdueSubtasks.isNotEmpty) {
-        s = TaskState.overdueSubtasks;
+        s = TaskState.overdue;
       } else if (riskySubtasks.isNotEmpty) {
-        s = TaskState.riskSubtasks;
+        s = TaskState.risk;
       } else if (okSubtasks.isNotEmpty) {
-        s = TaskState.okSubtasks;
+        s = TaskState.ok;
       } else if (aheadSubtasks.isNotEmpty) {
-        s = TaskState.aheadSubtasks;
+        s = TaskState.ahead;
       } else if (etaSubtasks.isNotEmpty) {
         s = TaskState.eta;
       } else {
@@ -199,4 +208,6 @@ extension TaskStats on Task {
 
     return s;
   }
+
+  TaskState get overallState => hasDueDate ? state : subtasksState;
 }

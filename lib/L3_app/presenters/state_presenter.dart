@@ -14,21 +14,17 @@ import '../presenters/task_level_presenter.dart';
 Widget iconForState(TaskState state, {double? size}) {
   switch (state) {
     case TaskState.overdue:
-    case TaskState.overdueSubtasks:
       return RiskIcon(size: size, color: dangerColor);
     case TaskState.risk:
-    case TaskState.riskSubtasks:
       return RiskIcon(size: size, color: warningColor);
     case TaskState.closable:
-    case TaskState.eta:
     case TaskState.ok:
-    case TaskState.okSubtasks:
     case TaskState.ahead:
-    case TaskState.aheadSubtasks:
       return OkIcon(size: size, color: greenColor);
     case TaskState.closed:
       return DoneIcon(true, size: size, color: lightGreyColor);
     case TaskState.opened:
+    case TaskState.eta:
       return PlayIcon(size: size, color: lightGreyColor);
     case TaskState.future:
       return PauseIcon(size: size, color: lightGreyColor);
@@ -58,20 +54,12 @@ extension TaskStatePresenter on Task {
     switch (state) {
       case TaskState.overdue:
         return '${loc.state_overdue_title}. $_etaDetails';
-      case TaskState.overdueSubtasks:
-        return '${loc.state_overdue_title}${_subjects(overdueSubtasks.length)}';
       case TaskState.risk:
         return '${loc.state_risk_duration(riskPeriod!.localizedString)}';
-      case TaskState.riskSubtasks:
-        return '${loc.state_risk_title}${_subjects(riskySubtasks.length)}';
       case TaskState.ok:
         return loc.state_ok_title;
-      case TaskState.okSubtasks:
-        return '${loc.state_ok_title}${_subjects(okSubtasks.length)}';
       case TaskState.ahead:
         return loc.state_ahead_duration((-riskPeriod!).localizedString);
-      case TaskState.aheadSubtasks:
-        return '${loc.state_ahead_title}${_subjects(aheadSubtasks.length, dative: false)}';
       case TaskState.eta:
         return _etaDetails;
       case TaskState.closable:
@@ -93,19 +81,34 @@ extension TaskStatePresenter on Task {
     }
   }
 
+  String get subtasksStateTitle {
+    switch (subtasksState) {
+      case TaskState.overdue:
+        return '${loc.state_overdue_title}${_subjects(overdueSubtasks.length)}';
+      case TaskState.risk:
+        return '${loc.state_risk_title}${_subjects(riskySubtasks.length)}';
+      case TaskState.ok:
+        return '${loc.state_ok_title}${_subjects(okSubtasks.length)}';
+      case TaskState.ahead:
+        return '${loc.state_ahead_title}${_subjects(aheadSubtasks.length, dative: false)}';
+      case TaskState.eta:
+        return _etaDetails;
+      default:
+        return '${loc.state_no_info_title}${_subjects(openedSubtasks.where((t) => !t.isBacklog).length)}';
+    }
+  }
+
+  String get overallStateTitle => hasDueDate ? stateTitle : subtasksStateTitle;
+
   String groupStateTitle(TaskState groupState) {
     switch (groupState) {
       case TaskState.overdue:
-      case TaskState.overdueSubtasks:
         return loc.state_overdue_title;
       case TaskState.risk:
-      case TaskState.riskSubtasks:
         return loc.state_risk_title;
       case TaskState.ok:
-      case TaskState.okSubtasks:
         return loc.state_ok_title;
       case TaskState.ahead:
-      case TaskState.aheadSubtasks:
         return loc.state_ahead_title;
       case TaskState.eta:
         return loc.state_eta_title;

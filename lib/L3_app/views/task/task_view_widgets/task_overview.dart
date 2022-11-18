@@ -6,6 +6,7 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/usecases/task_ext_level.dart';
 import '../../../components/constants.dart';
 import '../../../components/mt_button.dart';
+import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/state_presenter.dart';
 import '../../../presenters/task_filter_presenter.dart';
@@ -21,7 +22,7 @@ class TaskOverview extends StatelessWidget {
   @protected
   final Task task;
 
-  TaskStateTitleStyle get _taskStateTitleStyle => task.isWorkspace ? TaskStateTitleStyle.L : TaskStateTitleStyle.M;
+  StateTitlePlace get _statePlace => task.isWorkspace ? StateTitlePlace.workspace : StateTitlePlace.taskOverview;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class TaskOverview extends StatelessWidget {
       shrinkWrap: true,
       padding: padding.add(const EdgeInsets.all(P).copyWith(bottom: 0)),
       children: [
-        if (task.showState) TaskStateTitle(task, style: _taskStateTitleStyle),
+        if (task.showState) TaskStateTitle(task, place: _statePlace),
 
         /// объем и скорость
         if (task.showVelocityVolumeCharts) ...[
@@ -54,7 +55,8 @@ class TaskOverview extends StatelessWidget {
 
         /// требующие внимания задачи
         if (task.attentionalTasks.isNotEmpty) ...[
-          const SizedBox(height: P),
+          const SizedBox(height: P2),
+          if (!task.isWorkspace) H4(task.subtasksStateTitle, align: TextAlign.center),
           TaskOverviewWarnings(task),
         ],
       ],

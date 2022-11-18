@@ -9,58 +9,62 @@ import '../../../components/constants.dart';
 import '../../../components/text_widgets.dart';
 import '../../../presenters/state_presenter.dart';
 
-enum TaskStateTitleStyle { L, M, S, XS }
+enum StateTitlePlace { workspace, taskOverview, groupHeader, card }
 
 class _StateTitle extends StatelessWidget {
-  const _StateTitle(this.state, this.text, {this.style});
+  const _StateTitle(this.state, this.text, {this.place});
   final TaskState state;
   final String text;
-  final TaskStateTitleStyle? style;
+  final StateTitlePlace? place;
 
   @override
   Widget build(BuildContext context) {
-    final _textWidget = style == TaskStateTitleStyle.L
+    final _textWidget = place == StateTitlePlace.workspace
         ? H2(text, align: TextAlign.center)
-        : style == TaskStateTitleStyle.M
+        : place == StateTitlePlace.taskOverview
             ? H3(text, align: TextAlign.center)
-            : style == TaskStateTitleStyle.S
+            : place == StateTitlePlace.groupHeader
                 ? H4(text)
                 : SmallText(text, color: darkGreyColor);
 
-    final _iconSize = style == TaskStateTitleStyle.L
+    final _iconSize = place == StateTitlePlace.workspace
         ? MediaQuery.of(context).size.height / 5
-        : style == TaskStateTitleStyle.S
+        : place == StateTitlePlace.groupHeader
             ? P * 2.5
             : P * 1.5;
     final _icon = iconForState(state, size: _iconSize);
-    return style == TaskStateTitleStyle.L
+    return place == StateTitlePlace.workspace
         ? Column(children: [_icon, _textWidget])
-        : style == TaskStateTitleStyle.M
+        : place == StateTitlePlace.taskOverview
             ? _textWidget
             : Row(children: [_icon, const SizedBox(width: P_3), Expanded(child: _textWidget)]);
   }
 }
 
-class SubtasksStateTitle extends StatelessWidget {
-  const SubtasksStateTitle(this.task, this.subtasksState, {this.style});
+class GroupStateTitle extends StatelessWidget {
+  const GroupStateTitle(this.task, this.subtasksState, {this.place});
   @protected
   final Task task;
   @protected
   final TaskState subtasksState;
   @protected
-  final TaskStateTitleStyle? style;
+  final StateTitlePlace? place;
 
   @override
-  Widget build(BuildContext context) => _StateTitle(subtasksState, task.groupStateTitle(subtasksState), style: style);
+  Widget build(BuildContext context) => _StateTitle(subtasksState, task.groupStateTitle(subtasksState), place: place);
 }
 
 class TaskStateTitle extends StatelessWidget {
-  const TaskStateTitle(this.task, {this.style});
+  const TaskStateTitle(this.task, {this.place});
   @protected
   final Task task;
   @protected
-  final TaskStateTitleStyle? style;
+  final StateTitlePlace? place;
 
   @override
-  Widget build(BuildContext context) => _StateTitle(task.state, task.stateTitle, style: style);
+  Widget build(BuildContext context) {
+    final state = place == StateTitlePlace.taskOverview ? task.state : task.overallState;
+    final text = place == StateTitlePlace.taskOverview ? task.stateTitle : task.overallStateTitle;
+    return _StateTitle(state, text, place: place);
+  }
 }

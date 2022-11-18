@@ -52,7 +52,7 @@ extension TaskStatePresenter on Task {
   String get stateTitle {
     switch (state) {
       case TaskState.overdue:
-        return '${loc.state_overdue_title}. $_etaDetails';
+        return '${loc.state_overdue_title}${etaPeriod != null ? '. $_etaDetails' : ''}';
       case TaskState.risk:
         return '${loc.state_risk_duration(riskPeriod!.localizedString)}';
       case TaskState.ok:
@@ -93,7 +93,17 @@ extension TaskStatePresenter on Task {
     }
   }
 
-  String get overallStateTitle => hasDueDate ? stateTitle : subtasksStateTitle;
+  String get overallStateTitle {
+    final st = state;
+    final subSt = subtasksState;
+    final stTitle = stateTitle;
+
+    return ![TaskState.noInfo, TaskState.eta].contains(st)
+        ? stTitle
+        : subSt != TaskState.noInfo
+            ? subtasksStateTitle
+            : stTitle;
+  }
 
   String groupStateTitle(TaskState groupState) {
     switch (groupState) {

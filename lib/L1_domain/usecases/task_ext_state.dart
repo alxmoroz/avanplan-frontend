@@ -145,7 +145,7 @@ extension TaskStats on Task {
 
   /// интегральный статус
   TaskState get state {
-    TaskState s = TaskState.opened;
+    TaskState s = TaskState.noInfo;
 
     if (closed) {
       s = TaskState.closed;
@@ -168,8 +168,6 @@ extension TaskStats on Task {
         s = TaskState.risk;
       } else if (isOk) {
         s = TaskState.ok;
-      } else {
-        s = TaskState.noInfo;
       }
     } else if (hasEtaDate) {
       s = TaskState.eta;
@@ -178,24 +176,29 @@ extension TaskStats on Task {
   }
 
   TaskState get subtasksState {
-    TaskState s = TaskState.noSubtasks;
+    TaskState s = TaskState.noInfo;
 
-    if (hasSubtasks) {
-      if (overdueSubtasks.isNotEmpty) {
-        s = TaskState.overdue;
-      } else if (riskySubtasks.isNotEmpty) {
-        s = TaskState.risk;
-      } else if (okSubtasks.isNotEmpty) {
-        s = TaskState.ok;
-      } else if (etaSubtasks.isNotEmpty) {
-        s = TaskState.eta;
-      } else {
-        s = TaskState.noInfo;
-      }
+    if (overdueSubtasks.isNotEmpty) {
+      s = TaskState.overdue;
+    } else if (riskySubtasks.isNotEmpty) {
+      s = TaskState.risk;
+    } else if (okSubtasks.isNotEmpty) {
+      s = TaskState.ok;
+    } else if (etaSubtasks.isNotEmpty) {
+      s = TaskState.eta;
     }
 
     return s;
   }
 
-  TaskState get overallState => hasDueDate ? state : subtasksState;
+  TaskState get overallState {
+    final st = state;
+    final subSt = subtasksState;
+
+    return ![TaskState.noInfo, TaskState.eta].contains(st)
+        ? st
+        : subSt != TaskState.noInfo
+            ? subSt
+            : st;
+  }
 }

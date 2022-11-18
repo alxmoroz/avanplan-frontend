@@ -11,7 +11,6 @@ enum TaskState {
   overdue,
   risk,
   ok,
-  ahead,
   closable,
   eta,
   noSubtasks,
@@ -92,7 +91,6 @@ extension TaskStats on Task {
   Duration? get overduePeriod => hasDueDate ? _now.difference(dueDate!) : null;
   static const Duration _overdueThreshold = _day;
   bool get hasOverdue => overduePeriod != null && overduePeriod! > _overdueThreshold;
-  // Iterable<Task> get overdueSubtasks => openedSubtasks.where((t) => [TaskState.overdue, TaskState.overdueSubtasks].contains(t.state));
   Iterable<Task> get overdueSubtasks => openedSubtasks.where((t) => TaskState.overdue == t.overallState);
 
   /// скорость (проекта, цели, средневзвешенная)
@@ -131,23 +129,17 @@ extension TaskStats on Task {
   static const Duration _riskThreshold = _day;
   Duration? get riskPeriod => (hasDueDate && hasEtaDate) ? etaDate!.difference(dueDate!) : null;
   bool get hasRisk => riskPeriod != null && riskPeriod! > _riskThreshold;
-  // Iterable<Task> get riskySubtasks => openedSubtasks.where((t) => [TaskState.risk, TaskState.riskSubtasks].contains(t.state));
   Iterable<Task> get riskySubtasks => openedSubtasks.where((t) => TaskState.risk == t.overallState);
 
   /// ok
   bool get isOk => riskPeriod != null && riskPeriod! <= _riskThreshold;
-  // Iterable<Task> get okSubtasks => openedSubtasks.where((t) => [TaskState.ok, TaskState.okSubtasks].contains(t.state));
   Iterable<Task> get okSubtasks => openedSubtasks.where((t) => TaskState.ok == t.overallState);
 
   /// опережение
   bool get isAhead => riskPeriod != null && -riskPeriod! > _riskThreshold;
-  // Iterable<Task> get aheadSubtasks => openedSubtasks.where((t) => [TaskState.ahead, TaskState.aheadSubtasks].contains(t.state));
-  Iterable<Task> get aheadSubtasks => openedSubtasks.where((t) => TaskState.ahead == t.overallState);
 
   /// только прогноз
   Iterable<Task> get etaSubtasks => openedSubtasks.where((t) => t.state == TaskState.eta);
-
-  // double get doneRatio => (hasDueDate && leafTasksCount > 0) ? closedLeafTasksCount / leafTasksCount : 0;
 
   bool _allOpenedSubtasksAre(TaskState state) => openedSubtasks.isNotEmpty && !openedSubtasks.any((t) => t.state != state);
 
@@ -174,8 +166,6 @@ extension TaskStats on Task {
         s = TaskState.overdue;
       } else if (hasRisk) {
         s = TaskState.risk;
-      } else if (isAhead) {
-        s = TaskState.ahead;
       } else if (isOk) {
         s = TaskState.ok;
       } else {
@@ -197,8 +187,6 @@ extension TaskStats on Task {
         s = TaskState.risk;
       } else if (okSubtasks.isNotEmpty) {
         s = TaskState.ok;
-      } else if (aheadSubtasks.isNotEmpty) {
-        s = TaskState.ahead;
       } else if (etaSubtasks.isNotEmpty) {
         s = TaskState.eta;
       } else {

@@ -22,34 +22,12 @@ class _DateBarData {
   final MTProgressMark? mark;
 }
 
-class TimingChart extends StatefulWidget {
+class TimingChart extends StatelessWidget {
   const TimingChart(this.task);
   @protected
   final Task task;
 
-  @override
-  State<TimingChart> createState() => _TimingChartState();
-}
-
-class _TimingChartState extends State<TimingChart> {
-  Task get task => widget.task;
-
-  late int _maxDateDays;
-  late DateTime _minDate;
-  late Iterable<_DateBarData> _dateBarData;
-
-  @override
-  void initState() {
-    _dateBarData = _makeDateBarData;
-    final _sortedDates = _dateBarData.map((dbd) => dbd.date);
-    final _maxDate = _sortedDates.first;
-    _minDate = _sortedDates.last;
-    _maxDateDays = _maxDate.difference(_minDate).inDays;
-
-    super.initState();
-  }
-
-  double get _barHeight => P2;
+  static double get _barHeight => P2;
   double get _suffixWidth => _barHeight / 2;
   double get _borderWidth => 1.0;
   Color get _barColor => lightGreyColor;
@@ -65,7 +43,7 @@ class _TimingChartState extends State<TimingChart> {
 
   Size get _markSize => const Size(P * 0.6, P * 0.75);
 
-  Iterable<_DateBarData> get _makeDateBarData {
+  Iterable<_DateBarData> get _dateBarData {
     final _now = DateTime.now();
     final res = <_DateBarData>[
       /// старт
@@ -117,7 +95,13 @@ class _TimingChartState extends State<TimingChart> {
     return res.reversed;
   }
 
-  double _dateRatio(DateTime dt) => _maxDateDays > 0 ? (dt.difference(_minDate).inDays / _maxDateDays) : 1;
+  double _dateRatio(DateTime dt) {
+    final _sortedDates = _dateBarData.map((dbd) => dbd.date);
+    final _maxDate = _sortedDates.first;
+    final _minDate = _sortedDates.last;
+    final _maxDateDays = _maxDate.difference(_minDate).inDays;
+    return _maxDateDays > 0 ? (dt.difference(_minDate).inDays / _maxDateDays) : 1;
+  }
 
   Widget _progressBar(BuildContext context, double prefixWidth) {
     return SizedBox(

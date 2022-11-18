@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/usecases/task_ext_level.dart';
+import '../../../../L1_domain/usecases/task_ext_state.dart';
 import '../../../components/constants.dart';
 import '../../../components/mt_button.dart';
 import '../../../components/text_widgets.dart';
@@ -13,16 +14,14 @@ import '../../../presenters/task_filter_presenter.dart';
 import '../task_charts/timing_chart.dart';
 import '../task_charts/velocity_chart.dart';
 import '../task_charts/volume_chart.dart';
+import '../task_related_widgets/attentional_tasks.dart';
 import '../task_related_widgets/state_title.dart';
-import '../task_related_widgets/task_overview_warnings.dart';
 import '../task_view_widgets/task_chart_details.dart';
 
 class TaskOverview extends StatelessWidget {
   const TaskOverview(this.task);
   @protected
   final Task task;
-
-  StateTitlePlace get _statePlace => task.isWorkspace ? StateTitlePlace.workspace : StateTitlePlace.taskOverview;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +30,10 @@ class TaskOverview extends StatelessWidget {
       shrinkWrap: true,
       padding: padding.add(const EdgeInsets.all(P).copyWith(bottom: 0)),
       children: [
-        if (task.showState) TaskStateTitle(task, place: _statePlace),
+        if (task.showState)
+          task.isWorkspace
+              ? GroupStateTitle(task, task.overallState, place: StateTitlePlace.workspace)
+              : TaskStateTitle(task, place: StateTitlePlace.taskOverview),
 
         /// объем и скорость
         if (task.showVelocityVolumeCharts) ...[
@@ -57,7 +59,7 @@ class TaskOverview extends StatelessWidget {
         if (task.attentionalTasks.isNotEmpty) ...[
           const SizedBox(height: P2),
           if (!task.isWorkspace) H4(task.subtasksStateTitle, align: TextAlign.center),
-          TaskOverviewWarnings(task),
+          AttentionalTasks(task),
         ],
       ],
     );

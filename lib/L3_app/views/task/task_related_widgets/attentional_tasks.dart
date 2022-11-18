@@ -6,8 +6,8 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../presenters/task_filter_presenter.dart';
 import 'task_card.dart';
 
-class TaskOverviewWarnings extends StatelessWidget {
-  const TaskOverviewWarnings(this.task);
+class AttentionalTasks extends StatelessWidget {
+  const AttentionalTasks(this.task);
   final Task task;
 
   @override

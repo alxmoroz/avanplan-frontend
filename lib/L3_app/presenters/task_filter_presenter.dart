@@ -18,7 +18,6 @@ extension TaskFilterPresenter on Task {
         TaskState.overdue,
         TaskState.risk,
         TaskState.ok,
-        TaskState.ahead,
       ].contains(subtaskGroups.first.key)
           ? subtaskGroups.first.value
           : [];

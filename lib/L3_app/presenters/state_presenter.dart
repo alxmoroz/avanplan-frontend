@@ -19,7 +19,6 @@ Widget iconForState(TaskState state, {double? size}) {
       return RiskIcon(size: size, color: warningColor);
     case TaskState.closable:
     case TaskState.ok:
-    case TaskState.ahead:
       return OkIcon(size: size, color: greenColor);
     case TaskState.closed:
       return DoneIcon(true, size: size, color: lightGreyColor);
@@ -57,9 +56,7 @@ extension TaskStatePresenter on Task {
       case TaskState.risk:
         return '${loc.state_risk_duration(riskPeriod!.localizedString)}';
       case TaskState.ok:
-        return loc.state_ok_title;
-      case TaskState.ahead:
-        return loc.state_ahead_duration((-riskPeriod!).localizedString);
+        return isAhead ? loc.state_ahead_duration((-riskPeriod!).localizedString) : loc.state_on_time_title;
       case TaskState.eta:
         return _etaDetails;
       case TaskState.closable:
@@ -75,7 +72,7 @@ extension TaskStatePresenter on Task {
       case TaskState.opened:
         return loc.state_opened;
       case TaskState.noInfo:
-        return '${loc.state_no_info_title}${_subjects(openedSubtasks.where((t) => !t.isBacklog).length)}';
+        return loc.state_no_info_title;
       case TaskState.closed:
         return loc.state_closed;
     }
@@ -88,9 +85,7 @@ extension TaskStatePresenter on Task {
       case TaskState.risk:
         return '${loc.state_risk_title}${_subjects(riskySubtasks.length)}';
       case TaskState.ok:
-        return '${loc.state_ok_title}${_subjects(okSubtasks.length)}';
-      case TaskState.ahead:
-        return '${loc.state_ahead_title}${_subjects(aheadSubtasks.length, dative: false)}';
+        return '${loc.state_on_time_title}${_subjects(okSubtasks.length)}';
       case TaskState.eta:
         return _etaDetails;
       default:
@@ -108,8 +103,6 @@ extension TaskStatePresenter on Task {
         return loc.state_risk_title;
       case TaskState.ok:
         return loc.state_ok_title;
-      case TaskState.ahead:
-        return loc.state_ahead_title;
       case TaskState.eta:
         return loc.state_eta_title;
       case TaskState.closable:

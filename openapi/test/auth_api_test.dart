@@ -6,14 +6,14 @@ void main() {
   final instance = Openapi().getAuthApi();
 
   group(AuthApi, () {
-    // Token
+    // Apple Token
     //
     //Future<Token> authAppleToken(BodyAuthAppleToken bodyAuthAppleToken) async
     test('test authAppleToken', () async {
       // TODO
     });
 
-    // Token
+    // Google Token
     //
     //Future<Token> authGoogleToken(BodyAuthGoogleToken bodyAuthGoogleToken) async
     test('test authGoogleToken', () async {

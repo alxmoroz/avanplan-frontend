@@ -21,5 +21,10 @@ void main() {
     test('to test the property `wsRole`', () async {
       // TODO
     });
+
+    // int userId
+    test('to test the property `userId`', () async {
+      // TODO
+    });
   });
 }

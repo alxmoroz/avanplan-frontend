@@ -19,16 +19,15 @@ class AccountView extends StatelessWidget {
 
   User? get _user => accountController.user;
 
-  Future _logout(BuildContext context) async {
-    Navigator.of(context).popUntil((r) => r.navigator?.canPop() == false);
-    await authController.signOut();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        navBar: navBar(context, title: loc.account_title),
+        navBar: navBar(
+          context,
+          title: loc.account_title,
+          trailing: MTButton.icon(const DeleteIcon(), () => accountController.delete(context), margin: const EdgeInsets.only(right: P)),
+        ),
         body: SafeArea(
           top: false,
           child: _user != null
@@ -46,7 +45,7 @@ class AccountView extends StatelessWidget {
                       titleText: loc.auth_sign_out_btn_title,
                       titleColor: darkGreyColor,
                       trailing: const LogoutIcon(color: warningColor),
-                      onTap: () async => await _logout(context),
+                      onTap: () async => await accountController.logout(context),
                     ),
                   ],
                 )

@@ -6,6 +6,13 @@ void main() {
   final instance = Openapi().getMyApi();
 
   group(MyApi, () {
+    // Delete My Account
+    //
+    //Future<JsonObject> deleteMyAccountV1MyAccountDelete() async
+    test('test deleteMyAccountV1MyAccountDelete', () async {
+      // TODO
+    });
+
     // Get My Account
     //
     //Future<UserGet> getMyAccountV1MyAccountGet() async

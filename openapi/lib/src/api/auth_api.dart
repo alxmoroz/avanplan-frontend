@@ -6,23 +6,26 @@ import 'dart:async';
 
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
+
 import 'package:openapi/src/api_util.dart';
 import 'package:openapi/src/model/body_auth_apple_token.dart';
 import 'package:openapi/src/model/body_auth_google_token.dart';
+import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/token.dart';
 
 class AuthApi {
+
   final Dio _dio;
 
   final Serializers _serializers;
 
   const AuthApi(this._dio, this._serializers);
 
-  /// Token
-  ///
+  /// Apple Token
+  /// 
   ///
   /// Parameters:
-  /// * [bodyAuthAppleToken]
+  /// * [bodyAuthAppleToken] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -32,7 +35,7 @@ class AuthApi {
   ///
   /// Returns a [Future] containing a [Response] with a [Token] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<Token>> authAppleToken({
+  Future<Response<Token>> authAppleToken({ 
     required BodyAuthAppleToken bodyAuthAppleToken,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -60,9 +63,10 @@ class AuthApi {
     try {
       const _type = FullType(BodyAuthAppleToken);
       _bodyData = _serializers.serialize(bodyAuthAppleToken, specifiedType: _type);
-    } catch (error, stackTrace) {
+
+    } catch(error, stackTrace) {
       throw DioError(
-        requestOptions: _options.compose(
+         requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -88,6 +92,7 @@ class AuthApi {
         _response.data!,
         specifiedType: _responseType,
       ) as Token;
+
     } catch (error, stackTrace) {
       throw DioError(
         requestOptions: _response.requestOptions,
@@ -109,11 +114,11 @@ class AuthApi {
     );
   }
 
-  /// Token
-  ///
+  /// Google Token
+  /// 
   ///
   /// Parameters:
-  /// * [bodyAuthGoogleToken]
+  /// * [bodyAuthGoogleToken] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -123,7 +128,7 @@ class AuthApi {
   ///
   /// Returns a [Future] containing a [Response] with a [Token] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<Token>> authGoogleToken({
+  Future<Response<Token>> authGoogleToken({ 
     required BodyAuthGoogleToken bodyAuthGoogleToken,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -151,9 +156,10 @@ class AuthApi {
     try {
       const _type = FullType(BodyAuthGoogleToken);
       _bodyData = _serializers.serialize(bodyAuthGoogleToken, specifiedType: _type);
-    } catch (error, stackTrace) {
+
+    } catch(error, stackTrace) {
       throw DioError(
-        requestOptions: _options.compose(
+         requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -179,6 +185,7 @@ class AuthApi {
         _response.data!,
         specifiedType: _responseType,
       ) as Token;
+
     } catch (error, stackTrace) {
       throw DioError(
         requestOptions: _response.requestOptions,
@@ -201,15 +208,15 @@ class AuthApi {
   }
 
   /// Token
-  ///
+  /// 
   ///
   /// Parameters:
-  /// * [username]
-  /// * [password]
-  /// * [grantType]
-  /// * [scope]
-  /// * [clientId]
-  /// * [clientSecret]
+  /// * [username] 
+  /// * [password] 
+  /// * [grantType] 
+  /// * [scope] 
+  /// * [clientId] 
+  /// * [clientSecret] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -219,7 +226,7 @@ class AuthApi {
   ///
   /// Returns a [Future] containing a [Response] with a [Token] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<Token>> authToken({
+  Future<Response<Token>> authToken({ 
     required String username,
     required String password,
     String? grantType,
@@ -258,9 +265,10 @@ class AuthApi {
         if (clientId != null) r'client_id': encodeQueryParameter(_serializers, clientId, const FullType(String)),
         if (clientSecret != null) r'client_secret': encodeQueryParameter(_serializers, clientSecret, const FullType(String)),
       };
-    } catch (error, stackTrace) {
+
+    } catch(error, stackTrace) {
       throw DioError(
-        requestOptions: _options.compose(
+         requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
@@ -286,6 +294,7 @@ class AuthApi {
         _response.data!,
         specifiedType: _responseType,
       ) as Token;
+
     } catch (error, stackTrace) {
       throw DioError(
         requestOptions: _response.requestOptions,
@@ -306,4 +315,5 @@ class AuthApi {
       extra: _response.extra,
     );
   }
+
 }

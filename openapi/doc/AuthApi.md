@@ -9,15 +9,15 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**authAppleToken**](AuthApi.md#authappletoken) | **POST** /v1/auth/apple/token | Token
-[**authGoogleToken**](AuthApi.md#authgoogletoken) | **POST** /v1/auth/google/token | Token
+[**authAppleToken**](AuthApi.md#authappletoken) | **POST** /v1/auth/apple/token | Apple Token
+[**authGoogleToken**](AuthApi.md#authgoogletoken) | **POST** /v1/auth/google/token | Google Token
 [**authToken**](AuthApi.md#authtoken) | **POST** /v1/auth/token | Token
 
 
 # **authAppleToken**
 > Token authAppleToken(bodyAuthAppleToken)
 
-Token
+Apple Token
 
 ### Example
 ```dart
@@ -58,7 +58,7 @@ No authorization required
 # **authGoogleToken**
 > Token authGoogleToken(bodyAuthGoogleToken)
 
-Token
+Google Token
 
 ### Example
 ```dart

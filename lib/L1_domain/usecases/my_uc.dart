@@ -11,4 +11,5 @@ class MyUC {
 
   Future<Iterable<Workspace>> getWorkspaces() async => await repo.getMyWorkspaces();
   Future<User?> getMyAccount() async => await repo.getMyAccount();
+  Future deleteMyAccount() async => await repo.deleteMyAccount();
 }

@@ -2,6 +2,9 @@
   "@@locale": "en",
 
   "about_service_title": "About service",
+
+  "account_delete_dialog_description": "Your workspaces will also be deleted along with tasks if there are no other users in them.\nThis action is irreversible",
+  "account_delete_dialog_title": "Delete your account?",
   "account_title": "Account",
 
   "app_title": "Gercules",

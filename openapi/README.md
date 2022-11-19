@@ -64,8 +64,8 @@ All URIs are relative to */api*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-[*AuthApi*](doc/AuthApi.md) | [**authAppleToken**](doc/AuthApi.md#authappletoken) | **POST** /v1/auth/apple/token | Token
-[*AuthApi*](doc/AuthApi.md) | [**authGoogleToken**](doc/AuthApi.md#authgoogletoken) | **POST** /v1/auth/google/token | Token
+[*AuthApi*](doc/AuthApi.md) | [**authAppleToken**](doc/AuthApi.md#authappletoken) | **POST** /v1/auth/apple/token | Apple Token
+[*AuthApi*](doc/AuthApi.md) | [**authGoogleToken**](doc/AuthApi.md#authgoogletoken) | **POST** /v1/auth/google/token | Google Token
 [*AuthApi*](doc/AuthApi.md) | [**authToken**](doc/AuthApi.md#authtoken) | **POST** /v1/auth/token | Token
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**checkConnectionV1IntegrationsSourcesCheckConnectionGet**](doc/IntegrationsSourcesApi.md#checkconnectionv1integrationssourcescheckconnectionget) | **GET** /v1/integrations/sources/check_connection | Check Connection
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**deleteSourceV1IntegrationsSourcesSourceIdDelete**](doc/IntegrationsSourcesApi.md#deletesourcev1integrationssourcessourceiddelete) | **DELETE** /v1/integrations/sources/{source_id} | Delete Source
@@ -74,6 +74,7 @@ Class | Method | HTTP request | Description
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**getRootTasksV1IntegrationsTasksGet**](doc/IntegrationsTasksApi.md#getroottasksv1integrationstasksget) | **GET** /v1/integrations/tasks/ | Get Root Tasks
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**importTaskSourcesV1IntegrationsTasksImportPost**](doc/IntegrationsTasksApi.md#importtasksourcesv1integrationstasksimportpost) | **POST** /v1/integrations/tasks/import | Import Task Sources
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost**](doc/IntegrationsTasksApi.md#updatetasksourcesv1integrationstasksupdatetasksourcespost) | **POST** /v1/integrations/tasks/update_task_sources | Update Task Sources
+[*MyApi*](doc/MyApi.md) | [**deleteMyAccountV1MyAccountDelete**](doc/MyApi.md#deletemyaccountv1myaccountdelete) | **DELETE** /v1/my/account | Delete My Account
 [*MyApi*](doc/MyApi.md) | [**getMyAccountV1MyAccountGet**](doc/MyApi.md#getmyaccountv1myaccountget) | **GET** /v1/my/account | Get My Account
 [*MyApi*](doc/MyApi.md) | [**getMyWorkspacesV1MyWorkspacesGet**](doc/MyApi.md#getmyworkspacesv1myworkspacesget) | **GET** /v1/my/workspaces | Get My Workspaces
 [*MyApi*](doc/MyApi.md) | [**updateMyAccountV1MyAccountPut**](doc/MyApi.md#updatemyaccountv1myaccountput) | **PUT** /v1/my/account | Update My Account

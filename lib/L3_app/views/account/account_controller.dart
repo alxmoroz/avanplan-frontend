@@ -1,8 +1,10 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/user.dart';
+import '../../components/mt_confirm_dialog.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
 
@@ -22,4 +24,31 @@ abstract class _AccountControllerBase extends EditController with Store {
 
   @action
   void clearData() => user = null;
+
+  Future logout(BuildContext context) async {
+    Navigator.of(context).popUntil((r) => r.navigator?.canPop() == false);
+    await authController.signOut();
+  }
+
+  Future delete(BuildContext context) async {
+    final confirm = await showMTDialog<bool?>(
+      context,
+      title: loc.account_delete_dialog_title,
+      description: loc.account_delete_dialog_description,
+      actions: [
+        MTDialogAction(title: loc.yes, type: MTActionType.isDanger, result: true),
+        MTDialogAction(title: loc.no, type: MTActionType.isDefault, result: false),
+      ],
+      simple: true,
+    );
+    if (confirm == true) {
+      loaderController.start();
+      loaderController.setDeleting();
+
+      await myUC.deleteMyAccount();
+      await logout(context);
+
+      await loaderController.stop();
+    }
+  }
 }

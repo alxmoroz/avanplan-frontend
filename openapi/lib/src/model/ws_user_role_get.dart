@@ -16,6 +16,7 @@ part 'ws_user_role_get.g.dart';
 /// * [id] 
 /// * [workspace] 
 /// * [wsRole] 
+/// * [userId] 
 @BuiltValue()
 abstract class WSUserRoleGet implements Built<WSUserRoleGet, WSUserRoleGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -26,6 +27,9 @@ abstract class WSUserRoleGet implements Built<WSUserRoleGet, WSUserRoleGetBuilde
 
   @BuiltValueField(wireName: r'ws_role')
   WSRoleGet get wsRole;
+
+  @BuiltValueField(wireName: r'user_id')
+  int get userId;
 
   WSUserRoleGet._();
 
@@ -64,6 +68,11 @@ class _$WSUserRoleGetSerializer implements PrimitiveSerializer<WSUserRoleGet> {
     yield serializers.serialize(
       object.wsRole,
       specifiedType: const FullType(WSRoleGet),
+    );
+    yield r'user_id';
+    yield serializers.serialize(
+      object.userId,
+      specifiedType: const FullType(int),
     );
   }
 
@@ -108,6 +117,13 @@ class _$WSUserRoleGetSerializer implements PrimitiveSerializer<WSUserRoleGet> {
             specifiedType: const FullType(WSRoleGet),
           ) as WSRoleGet;
           result.wsRole.replace(valueDes);
+          break;
+        case r'user_id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.userId = valueDes;
           break;
         default:
           unhandled.add(key);

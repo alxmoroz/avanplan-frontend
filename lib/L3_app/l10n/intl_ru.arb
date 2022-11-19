@@ -2,6 +2,9 @@
   "@@locale": "ru",
 
   "about_service_title": "О сервисе",
+
+  "account_delete_dialog_title": "Удалить учётную запись?",
+  "account_delete_dialog_description": "Также будут удалены ваши рабочие пространства вместе с задачами, если в них нет других пользователей\nЭто действие необратимо",
   "account_title": "Учётная запись",
 
   "app_title": "Геркулес",

@@ -24,6 +24,9 @@ class MyRepo extends AbstractApiMyRepo {
   }
 
   @override
+  Future deleteMyAccount() async => await api.deleteMyAccountV1MyAccountDelete();
+
+  @override
   Future<Iterable<Workspace>> getMyWorkspaces() async {
     final response = await api.getMyWorkspacesV1MyWorkspacesGet();
 

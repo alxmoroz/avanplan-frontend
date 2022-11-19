@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **id** | **int** |  | 
 **workspace** | [**WorkspaceGet**](WorkspaceGet.md) |  | 
 **wsRole** | [**WSRoleGet**](WSRoleGet.md) |  | 
+**userId** | **int** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -167,7 +167,7 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
 
         // отвязываем задачи
         mainController.rootTask.tasks.where((t) => t.taskSource?.source.id == selectedSourceId).forEach((t) => t.unlinkTaskTree());
-        mainController.touchRootTask();
+        mainController.updateRootTask();
 
         await loaderController.stop(300);
       }

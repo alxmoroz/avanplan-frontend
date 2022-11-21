@@ -1,8 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
-import 'package:gercules/L3_app/components/colors.dart';
-import 'package:gercules/L3_app/components/constants.dart';
 import 'package:mobx/mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -10,6 +8,8 @@ import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/usecases/task_ext_actions.dart';
 import '../../../L1_domain/usecases/task_ext_level.dart';
 import '../../../L1_domain/usecases/task_ext_state.dart';
+import '../../components/colors.dart';
+import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_confirm_dialog.dart';
 import '../../extra/services.dart';
@@ -134,7 +134,7 @@ abstract class _TaskViewControllerBase with Store {
 
   void _updateTaskParents(Task task) {
     task.updateParents();
-    mainController.touchRootTask();
+    mainController.updateRootTask();
   }
 
   void _popDeleted(BuildContext context, Task task) {
@@ -213,7 +213,7 @@ abstract class _TaskViewControllerBase with Store {
       loaderController.setUnlinking();
       try {
         await importUC.updateTaskSources(task.unlinkTaskTree());
-        mainController.touchRootTask();
+        mainController.updateRootTask();
         res = true;
       } catch (_) {}
       await loaderController.stop();

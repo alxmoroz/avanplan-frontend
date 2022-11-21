@@ -2,26 +2,7 @@
 
 import '../entities/task.dart';
 
-enum TaskLevel { workspace, project, goal, task, subtask }
-
 extension TaskLevelExtension on Task {
-  int get _numLevel {
-    int res = 1;
-    if (parent != null) {
-      res += parent?._numLevel ?? 1;
-    }
-    return res;
-  }
-
-  TaskLevel get level =>
-      {
-        1: TaskLevel.workspace,
-        2: TaskLevel.project,
-        3: TaskLevel.goal,
-        4: TaskLevel.task,
-      }[_numLevel] ??
-      TaskLevel.subtask;
-
   bool get isWorkspace => level == TaskLevel.workspace;
   bool get isProject => level == TaskLevel.project;
   bool get isGoal => level == TaskLevel.goal;
@@ -37,5 +18,21 @@ extension TaskLevelExtension on Task {
     return null;
   }
 
-  bool get isBacklog => type?.title == 'backlog';
+  void updateLevel() {
+    level = {
+          1: TaskLevel.workspace,
+          2: TaskLevel.project,
+          3: TaskLevel.goal,
+          4: TaskLevel.task,
+        }[_numLevel] ??
+        TaskLevel.subtask;
+  }
+
+  int get _numLevel {
+    int res = 1;
+    if (parent != null) {
+      res += parent?._numLevel ?? 1;
+    }
+    return res;
+  }
 }

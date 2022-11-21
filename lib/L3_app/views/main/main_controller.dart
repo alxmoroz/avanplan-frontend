@@ -39,9 +39,7 @@ abstract class _MainControllerBase with Store {
 
   /// конкретная задача
   Task taskForId(int? id) => rootTask.allTasks.firstWhereOrNull((t) => t.id == id) ?? rootTask;
-  Future showTask(BuildContext context, int? taskId) async {
-    await Navigator.of(context).pushNamed(TaskView.routeName, arguments: taskId);
-  }
+  Future showTask(BuildContext context, int? taskId) async => await Navigator.of(context).pushNamed(TaskView.routeName, arguments: taskId);
 
   @action
   Future fetchWorkspaces() async {
@@ -55,7 +53,7 @@ abstract class _MainControllerBase with Store {
     }
     tasks.forEach((t) => t.parent = rootTask);
     rootTask.tasks = tasks;
-    touchRootTask();
+    updateRootTask();
   }
 
   @action
@@ -72,7 +70,7 @@ abstract class _MainControllerBase with Store {
   }
 
   @action
-  void touchRootTask() => rootTask = rootTask.copy();
+  void updateRootTask() => rootTask = rootTask.update();
 
   @action
   void clearData() {

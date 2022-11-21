@@ -10,6 +10,23 @@ class TaskType extends Titleable {
   TaskType({required super.id, required super.title});
 }
 
+enum TaskLevel { workspace, project, goal, task, subtask }
+
+enum TaskState {
+  overdue,
+  risk,
+  ok,
+  closable,
+  eta,
+  noSubtasks,
+  noProgress,
+  opened,
+  future,
+  noInfo,
+  backlog,
+  closed,
+}
+
 class Task extends Statusable {
   Task({
     super.id,
@@ -47,27 +64,36 @@ class Task extends Statusable {
   final TaskType? type;
   Task? parent;
 
-  // TODO(san-smith): возможно заинтересует пакет freezed - он из коробки предоставляет метод copyWith и toString
-  // https://pub.dev/packages/freezed
-  Task copy() => Task(
-        id: id,
-        title: title,
-        closed: closed,
-        description: description,
-        createdOn: createdOn,
-        updatedOn: updatedOn,
-        parent: parent,
-        tasks: tasks,
-        dueDate: dueDate,
-        startDate: startDate,
-        workspaceId: workspaceId,
-        status: status,
-        priority: priority,
-        author: author,
-        assignee: assignee,
-        taskSource: taskSource,
-        type: type,
-      );
+  TaskLevel level = TaskLevel.workspace;
+
+  Iterable<Task> allTasks = [];
+  Iterable<Task> openedSubtasks = [];
+  Iterable<Task> closedSubtasks = [];
+  Iterable<Task> leafTasks = [];
+  Iterable<Task> openedLeafTasks = [];
+  Iterable<Task> overdueSubtasks = [];
+  Iterable<Task> riskySubtasks = [];
+  Iterable<Task> okSubtasks = [];
+  Iterable<Task> etaSubtasks = [];
+
+  late DateTime calculatedStartDate;
+  bool isFuture = false;
+  late Duration startPeriod;
+  Duration? elapsedPeriod;
+  Duration? overduePeriod;
+  Duration? etaPeriod;
+  DateTime? etaDate;
+
+  Duration? leftPeriod;
+  Duration? riskPeriod;
+
+  double weightedVelocity = 0;
+  double? targetVelocity;
+  double? planVolume;
+
+  late TaskState state;
+  late TaskState subtasksState;
+  late TaskState overallState;
 }
 
 class TaskImport {

@@ -61,7 +61,7 @@ extension TaskActionsExt on Task {
           parent!.tasks.removeAt(index);
         } else {
           //TODO: проверить необходимость в copy
-          parent!.tasks[index] = copy();
+          parent!.tasks[index] = update();
         }
       }
     }

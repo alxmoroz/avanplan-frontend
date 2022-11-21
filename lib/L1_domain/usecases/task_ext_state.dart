@@ -7,53 +7,87 @@ import 'package:collection/collection.dart';
 import '../entities/task.dart';
 import 'task_ext_level.dart';
 
-enum TaskState {
-  overdue,
-  risk,
-  ok,
-  closable,
-  eta,
-  noSubtasks,
-  noProgress,
-  opened,
-  future,
-  noInfo,
-  backlog,
-  closed,
-}
-
-const _day = Duration(days: 1);
-const _week = Duration(days: 7);
-
 extension TaskStats on Task {
-  /// подзадачи
-  bool get hasSubtasks => tasks.isNotEmpty;
-  Iterable<Task> get allTasks {
+  static const _day = Duration(days: 1);
+  static const _week = Duration(days: 7);
+
+  static const Duration _startThreshold = _week;
+  static const Duration _overdueThreshold = _day;
+  static const Duration _riskThreshold = _day;
+
+  DateTime get _now => DateTime.now();
+
+  void _updateState() {
+    state = _state;
+    subtasksState = _subtasksState;
+    overallState = _overallState;
+
+    overdueSubtasks = openedSubtasks.where((t) => t.overallState == TaskState.overdue);
+    riskySubtasks = openedSubtasks.where((t) => t.overallState == TaskState.risk);
+    okSubtasks = openedSubtasks.where((t) => t.overallState == TaskState.ok);
+    etaSubtasks = openedSubtasks.where((t) => t.state == TaskState.eta);
+  }
+
+  Task update() {
+    updateLevel();
+
+    allTasks = _setAllTasks;
+    openedSubtasks = tasks.where((t) => !t.closed);
+    closedSubtasks = tasks.where((t) => t.closed);
+    leafTasks = allTasks.where((t) => !t.hasSubtasks);
+    openedLeafTasks = leafTasks.where((t) => !t.closed);
+
+    calculatedStartDate = _calculateStartDate;
+    isFuture = calculatedStartDate.isAfter(_now);
+
+    startPeriod = calculatedStartDate.difference(_now);
+    final _rawElapsedPeriod = _now.difference(calculatedStartDate);
+    elapsedPeriod = isFuture || _rawElapsedPeriod < _startThreshold ? null : _rawElapsedPeriod;
+    leftPeriod = hasDueDate && !isFuture ? dueDate!.add(_overdueThreshold).difference(_now) : null;
+    overduePeriod = hasDueDate ? _now.difference(dueDate!) : null;
+
+    weightedVelocity = _weightedVelocity;
+    targetVelocity = leftPeriod != null && leftPeriod!.inDays > 0 && !hasOverdue ? openedLeafTasksCount / leftPeriod!.inDays : null;
+
+    etaPeriod = weightedVelocity > 0 && openedLeafTasksCount > 0 ? Duration(days: (openedLeafTasksCount / weightedVelocity).round()) : null;
+    etaDate = etaPeriod != null ? _now.add(etaPeriod!) : null;
+
+    riskPeriod = (hasDueDate && hasEtaDate) ? etaDate!.difference(dueDate!) : null;
+
+    /// плановый объем
+    final _planPeriod = hasDueDate ? dueDate!.difference(calculatedStartDate) : null;
+    planVolume = elapsedPeriod != null && _planPeriod != null
+        ? min(leafTasksCount.toDouble(), leafTasksCount * elapsedPeriod!.inDays / _planPeriod.inDays)
+        : null;
+
+    for (Task t in tasks) {
+      t.update();
+    }
+
+    for (Task t in tasks) {
+      t._updateState();
+    }
+    _updateState();
+    return this;
+  }
+
+  Iterable<Task> get _setAllTasks {
     final res = <Task>[];
     for (Task t in tasks) {
-      res.addAll(t.allTasks);
+      res.addAll(t._setAllTasks);
       res.add(t);
     }
     return res;
   }
 
-  Iterable<Task> get openedSubtasks => tasks.where((t) => !t.closed);
-  int get openedSubtasksCount => openedSubtasks.length;
   bool get hasOpenedSubtasks => openedSubtasks.isNotEmpty;
-
-  Iterable<Task> get _closedSubtasks => tasks.where((t) => t.closed);
-  bool get hasClosedSubtasks => _closedSubtasks.isNotEmpty;
-
-  Iterable<Task> get _leafTasks => allTasks.where((t) => !t.hasSubtasks);
-  int get leafTasksCount => _leafTasks.length;
-  Iterable<Task> get _openedLeafTasks => _leafTasks.where((t) => !t.closed);
-  int get openedLeafTasksCount => _openedLeafTasks.length;
+  bool get hasClosedSubtasks => closedSubtasks.isNotEmpty;
+  int get leafTasksCount => leafTasks.length;
+  int get openedLeafTasksCount => openedLeafTasks.length;
   int get closedLeafTasksCount => leafTasksCount - openedLeafTasksCount;
 
-  DateTime get _now => DateTime.now();
-
   /// дата начала
-  DateTime get calculatedStartDate {
+  DateTime get _calculateStartDate {
     DateTime? start;
     if (startDate == null) {
       if (parent != null && !parent!.isWorkspace) {
@@ -68,7 +102,7 @@ extension TaskStats on Task {
           start = parent!.calculatedStartDate;
         }
       } else if (isWorkspace && hasSubtasks) {
-        start = tasks.map((t) => t.calculatedStartDate).sorted((d1, d2) => d1.compareTo(d2)).first;
+        start = tasks.map((t) => t._calculateStartDate).sorted((d1, d2) => d1.compareTo(d2)).first;
       }
     } else {
       start = startDate!;
@@ -83,68 +117,22 @@ extension TaskStats on Task {
     return start;
   }
 
-  Duration get startPeriod => calculatedStartDate.difference(_now);
-  bool get isFuture => calculatedStartDate.isAfter(_now);
-
-  /// опоздание
-  bool get hasDueDate => dueDate != null;
-  Duration? get overduePeriod => hasDueDate ? _now.difference(dueDate!) : null;
-  static const Duration _overdueThreshold = _day;
-  bool get hasOverdue => overduePeriod != null && overduePeriod! > _overdueThreshold;
-  Iterable<Task> get overdueSubtasks => openedSubtasks.where((t) => TaskState.overdue == t.overallState);
-
   /// скорость (проекта, цели, средневзвешенная)
-  static const Duration _startThreshold = _week;
-  Duration get _rawElapsedPeriod => _now.difference(calculatedStartDate);
-  Duration? get elapsedPeriod => isFuture || _rawElapsedPeriod < _startThreshold ? null : _rawElapsedPeriod;
+  double get _weightedVelocity {
+    final _projectOrWS = project != null ? project! : this;
+    final _projectElapsedPeriod = _projectOrWS.elapsedPeriod;
+    final double _projectVelocity = _projectElapsedPeriod != null ? (_projectOrWS.closedLeafTasksCount / _projectElapsedPeriod.inDays) : 0;
+    final _velocity = elapsedPeriod != null ? (closedLeafTasksCount / elapsedPeriod!.inDays) : 0;
+    const _baseVelocityDays = 42;
+    final _elapsedDays = elapsedPeriod?.inDays ?? 0;
+    final _weightPeriod = max(_elapsedDays, _baseVelocityDays);
+    return isProject ? _projectVelocity : (_projectVelocity * (_weightPeriod - _elapsedDays) + _velocity * _elapsedDays) / _weightPeriod;
+  }
 
-  Duration? get _projectElapsedPeriod => _projectOrWS.elapsedPeriod;
-  Task get _projectOrWS => project != null ? project! : this;
-  double get _projectVelocity => _projectElapsedPeriod != null ? (_projectOrWS.closedLeafTasksCount / _projectElapsedPeriod!.inDays) : 0;
-  double get _velocity => elapsedPeriod != null ? (closedLeafTasksCount / elapsedPeriod!.inDays) : 0;
-
-  static const int _baseVelocityDays = 42;
-  int get _elapsedDays => elapsedPeriod?.inDays ?? 0;
-  int get _weightPeriod => max(_elapsedDays, _baseVelocityDays);
-  double get weightedVelocity =>
-      isProject ? _projectVelocity : (_projectVelocity * (_weightPeriod - _elapsedDays) + _velocity * _elapsedDays) / _weightPeriod;
-
-  /// прогноз
-  Duration? get etaPeriod =>
-      weightedVelocity > 0 && openedLeafTasksCount > 0 ? Duration(days: (openedLeafTasksCount / weightedVelocity).round()) : null;
-  DateTime? get etaDate => etaPeriod != null ? _now.add(etaPeriod!) : null;
-  bool get hasEtaDate => etaDate != null;
-
-  /// целевая скорость
-  Duration? get leftPeriod => hasDueDate && !isFuture ? dueDate!.add(_overdueThreshold).difference(_now) : null;
-  double? get targetVelocity => leftPeriod != null && leftPeriod!.inDays > 0 && !hasOverdue ? openedLeafTasksCount / leftPeriod!.inDays : null;
-
-  /// плановый объем
-  Duration? get _planPeriod => hasDueDate ? dueDate!.difference(calculatedStartDate) : null;
-  double? get planVolume => elapsedPeriod != null && _planPeriod != null
-      ? min(leafTasksCount.toDouble(), leafTasksCount * elapsedPeriod!.inDays / _planPeriod!.inDays)
-      : null;
-
-  /// риск
-  static const Duration _riskThreshold = _day;
-  Duration? get riskPeriod => (hasDueDate && hasEtaDate) ? etaDate!.difference(dueDate!) : null;
-  bool get hasRisk => riskPeriod != null && riskPeriod! > _riskThreshold;
-  Iterable<Task> get riskySubtasks => openedSubtasks.where((t) => TaskState.risk == t.overallState);
-
-  /// ok
-  bool get isOk => riskPeriod != null && riskPeriod! <= _riskThreshold;
-  Iterable<Task> get okSubtasks => openedSubtasks.where((t) => TaskState.ok == t.overallState);
-
-  /// опережение
-  bool get isAhead => riskPeriod != null && -riskPeriod! > _riskThreshold;
-
-  /// только прогноз
-  Iterable<Task> get etaSubtasks => openedSubtasks.where((t) => t.state == TaskState.eta);
-
-  bool _allOpenedSubtasksAre(TaskState state) => openedSubtasks.isNotEmpty && !openedSubtasks.any((t) => t.state != state);
+  bool _allOpenedSubtasksAre(TaskState state) => openedSubtasks.isNotEmpty && !openedSubtasks.any((t) => t._state != state);
 
   /// интегральный статус
-  TaskState get state {
+  TaskState get _state {
     TaskState s = TaskState.noInfo;
 
     if (closed) {
@@ -175,7 +163,7 @@ extension TaskStats on Task {
     return s;
   }
 
-  TaskState get subtasksState {
+  TaskState get _subtasksState {
     TaskState s = TaskState.noInfo;
 
     if (overdueSubtasks.isNotEmpty) {
@@ -191,14 +179,21 @@ extension TaskStats on Task {
     return s;
   }
 
-  TaskState get overallState {
-    final st = state;
-    final subSt = subtasksState;
-
-    return ![TaskState.noInfo, TaskState.eta].contains(st)
-        ? st
-        : subSt != TaskState.noInfo
-            ? subSt
-            : st;
+  TaskState get _overallState {
+    return ![TaskState.noInfo, TaskState.eta].contains(state)
+        ? state
+        : subtasksState != TaskState.noInfo
+            ? subtasksState
+            : state;
   }
+
+  bool get isBacklog => type?.title == 'backlog';
+
+  bool get hasSubtasks => tasks.isNotEmpty;
+  bool get hasDueDate => dueDate != null;
+  bool get hasOverdue => overduePeriod != null && overduePeriod! > _overdueThreshold;
+  bool get hasEtaDate => etaDate != null;
+  bool get hasRisk => riskPeriod != null && riskPeriod! > _riskThreshold;
+  bool get isOk => riskPeriod != null && riskPeriod! <= _riskThreshold;
+  bool get isAhead => riskPeriod != null && -riskPeriod! > _riskThreshold;
 }

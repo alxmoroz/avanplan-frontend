@@ -180,11 +180,14 @@ extension TaskStats on Task {
   }
 
   TaskState get _overallState {
-    return ![TaskState.noInfo, TaskState.eta].contains(state)
-        ? state
-        : subtasksState != TaskState.noInfo
-            ? subtasksState
-            : state;
+    final st = _state;
+    final subSt = _subtasksState;
+
+    return ![TaskState.noInfo, TaskState.eta].contains(st)
+        ? st
+        : subSt != TaskState.noInfo
+            ? subSt
+            : st;
   }
 
   bool get isBacklog => type?.title == 'backlog';

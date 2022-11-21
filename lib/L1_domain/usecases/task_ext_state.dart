@@ -18,13 +18,12 @@ extension TaskStats on Task {
   DateTime get _now => DateTime.now();
 
   Task update() {
-    // TODO: костыли из-за необходимости знать инфу о родителе и братьях
-    updateLevel();
-    calculatedStartDate = _calculateStartDate;
-
     for (Task t in tasks) {
       t.update();
     }
+
+    updateLevel();
+    calculatedStartDate = _calculateStartDate;
 
     allTasks = _setAllTasks;
     openedSubtasks = tasks.where((t) => !t.closed);
@@ -103,7 +102,7 @@ extension TaskStats on Task {
           start = parent!.calculatedStartDate;
         }
       } else if (isWorkspace && hasSubtasks) {
-        start = tasks.map((t) => t._calculateStartDate).sorted((d1, d2) => d1.compareTo(d2)).first;
+        start = tasks.map((t) => t.calculatedStartDate).sorted((d1, d2) => d1.compareTo(d2)).first;
       }
     } else {
       start = startDate!;

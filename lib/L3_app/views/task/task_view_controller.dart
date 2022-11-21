@@ -139,7 +139,7 @@ abstract class _TaskViewControllerBase with Store {
 
   void _popDeleted(BuildContext context, Task task) {
     Navigator.of(context).pop();
-    if (task.parent?.isWorkspace == true && task.parent?.tasks.length == 1) {
+    if (task.parent?.isWorkspace == true && task.parent?.tasks.length == 1 && Navigator.canPop(context)) {
       Navigator.of(context).pop();
     }
   }

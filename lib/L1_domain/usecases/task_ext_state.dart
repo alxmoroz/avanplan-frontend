@@ -17,19 +17,14 @@ extension TaskStats on Task {
 
   DateTime get _now => DateTime.now();
 
-  void _updateState() {
-    state = _state;
-    subtasksState = _subtasksState;
-    overallState = _overallState;
-
-    overdueSubtasks = openedSubtasks.where((t) => t.overallState == TaskState.overdue);
-    riskySubtasks = openedSubtasks.where((t) => t.overallState == TaskState.risk);
-    okSubtasks = openedSubtasks.where((t) => t.overallState == TaskState.ok);
-    etaSubtasks = openedSubtasks.where((t) => t.state == TaskState.eta);
-  }
-
   Task update() {
+    // TODO: костыли из-за необходимости знать инфу о родителе и братьях
     updateLevel();
+    calculatedStartDate = _calculateStartDate;
+
+    for (Task t in tasks) {
+      t.update();
+    }
 
     allTasks = _setAllTasks;
     openedSubtasks = tasks.where((t) => !t.closed);
@@ -37,7 +32,6 @@ extension TaskStats on Task {
     leafTasks = allTasks.where((t) => !t.hasSubtasks);
     openedLeafTasks = leafTasks.where((t) => !t.closed);
 
-    calculatedStartDate = _calculateStartDate;
     isFuture = calculatedStartDate.isAfter(_now);
 
     startPeriod = calculatedStartDate.difference(_now);
@@ -60,15 +54,22 @@ extension TaskStats on Task {
         ? min(leafTasksCount.toDouble(), leafTasksCount * elapsedPeriod!.inDays / _planPeriod.inDays)
         : null;
 
-    for (Task t in tasks) {
-      t.update();
-    }
+    _updateState();
+    return this;
+  }
 
+  void _updateState() {
     for (Task t in tasks) {
       t._updateState();
     }
-    _updateState();
-    return this;
+    state = _state;
+    subtasksState = _subtasksState;
+    overallState = _overallState;
+
+    overdueSubtasks = openedSubtasks.where((t) => t.overallState == TaskState.overdue);
+    riskySubtasks = openedSubtasks.where((t) => t.overallState == TaskState.risk);
+    okSubtasks = openedSubtasks.where((t) => t.overallState == TaskState.ok);
+    etaSubtasks = openedSubtasks.where((t) => t.state == TaskState.eta);
   }
 
   Iterable<Task> get _setAllTasks {

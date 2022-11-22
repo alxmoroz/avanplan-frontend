@@ -78,16 +78,18 @@ class Task extends Statusable {
 
   late DateTime calculatedStartDate;
   bool isFuture = false;
-  late Duration startPeriod;
+  late Duration beforeStartPeriod;
   Duration? elapsedPeriod;
   Duration? overduePeriod;
   Duration? etaPeriod;
   DateTime? etaDate;
+  DateTime? closedDate;
+  Duration? closedPeriod;
 
   Duration? leftPeriod;
   Duration? riskPeriod;
 
-  double weightedVelocity = 0;
+  double? velocity;
   double? targetVelocity;
   double? planVolume;
 

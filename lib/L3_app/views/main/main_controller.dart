@@ -70,7 +70,7 @@ abstract class _MainControllerBase with Store {
   }
 
   @action
-  void updateRootTask() => rootTask = rootTask.update();
+  void updateRootTask() => rootTask = rootTask.updateRoot();
 
   @action
   void clearData() {

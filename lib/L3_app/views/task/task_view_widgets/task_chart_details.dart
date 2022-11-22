@@ -38,7 +38,8 @@ class TaskChartDetails extends StatelessWidget {
       ]);
 
   int get _volumeDelta => task.planVolume != null ? (task.closedLeafTasksCount - task.planVolume!.round()) : 0;
-  int get _velocityDelta => task.targetVelocity != null ? ((task.weightedVelocity - task.targetVelocity!) * daysPerMonth).round() : 0;
+  double get _velocity => task.projectVelocity ?? 0;
+  int get _velocityDelta => task.targetVelocity != null && _velocity > 0 ? ((_velocity - task.targetVelocity!) * daysPerMonth).round() : 0;
   int get _timeDelta => task.leftPeriod!.inDays;
 
   @override
@@ -93,7 +94,7 @@ class TaskChartDetails extends StatelessWidget {
               const SizedBox(width: P),
               Expanded(
                 child: Column(children: [
-                  _textRow(loc.chart_velocity_project_label, '${(task.weightedVelocity * daysPerMonth).round()}'),
+                  _textRow(loc.chart_velocity_project_label, '${(_velocity * daysPerMonth).round()}'),
                   if (task.targetVelocity != null) _textRow(loc.chart_velocity_target_label, '${(task.targetVelocity! * daysPerMonth).round()}'),
                   if (_velocityDelta != 0)
                     _textRow(

@@ -66,7 +66,7 @@ extension TaskStatePresenter on Task {
       case TaskState.noProgress:
         return loc.state_no_progress_details;
       case TaskState.future:
-        return loc.state_future_duration(startPeriod.localizedString);
+        return loc.state_future_duration(beforeStartPeriod.localizedString);
       case TaskState.backlog:
         return loc.backlog;
       case TaskState.opened:

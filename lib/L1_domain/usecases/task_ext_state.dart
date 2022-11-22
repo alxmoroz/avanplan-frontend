@@ -148,26 +148,36 @@ extension TaskStats on Task {
     return start;
   }
 
-  /// скорость (проекта, цели, средневзвешенная)
-  static const _baseVelocityDays = 42;
+  /// скорость проекта
+  static const _velocityFrameInDays = 42;
   double get _velocity => elapsedPeriod != null ? (closedLeafTasksCount / elapsedPeriod!.inDays) : 0;
   double get _velocityWeight {
     final elapsedDays = elapsedPeriod != null ? elapsedPeriod!.inDays : 0;
     final distance = elapsedDays + _closedDays;
-    final w = distance < _baseVelocityDays ? (distance / _baseVelocityDays) : (_baseVelocityDays / distance);
+    final w = distance < _velocityFrameInDays ? (distance / _velocityFrameInDays) : (_velocityFrameInDays / distance);
     return w;
   }
 
   int get _closedDays => closedPeriod != null ? closedPeriod!.inDays : 0;
   double get _weightedVelocity {
+    // средняя скорость по проекту без учёта закрытых задач или скоростей целей в пределах окна
     double v = _velocity;
-    final actualTasks =
-        tasks.where((t) => !t.isFuture && !t.isBacklog && t._velocity > 0 && (!t.closed || (hasClosedDate && _closedDays < _baseVelocityDays)));
-    if (actualTasks.isNotEmpty) {
-      final double vSum = actualTasks.fold(0, (v, task) => v + task._velocity * task._velocityWeight);
-      final double wSum = actualTasks.fold(0, (w, task) => w + task._velocityWeight);
-      v = vSum / wSum;
+    // ищем закрытые задачи с датой закрытия в пределах окна
+    final referencesTasks = leafTasks.where((t) => t.closed && t.hasClosedDate);
+    if (referencesTasks.isNotEmpty) {
+      final closedTasks = referencesTasks.where((t) => t._closedDays < _velocityFrameInDays).length;
+      v = closedTasks / _velocityFrameInDays;
+    } else {
+      // если задач с датой закрытия совсем не найдено, то ориентируемся на скорость по целям
+      final referencesGoals =
+          tasks.where((t) => !t.isFuture && !t.isBacklog && t._velocity > 0 && (!t.closed || (hasClosedDate && _closedDays < _velocityFrameInDays)));
+      if (referencesGoals.isNotEmpty) {
+        final double vSum = referencesGoals.fold(0, (v, task) => v + task._velocity * task._velocityWeight);
+        final double wSum = referencesGoals.fold(0, (w, task) => w + task._velocityWeight);
+        v = vSum / wSum;
+      }
     }
+
     return v;
   }
 

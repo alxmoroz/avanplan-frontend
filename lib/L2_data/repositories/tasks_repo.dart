@@ -35,6 +35,7 @@ class TasksRepo extends AbstractApiRepo<Task> {
       ..description = data.description
       ..closed = data.closed
       ..startDate = data.startDate?.toUtc()
+      ..closedDate = data.closedDate?.toUtc()
       ..dueDate = data.dueDate?.toUtc()
       ..typeId = data.type?.id;
 

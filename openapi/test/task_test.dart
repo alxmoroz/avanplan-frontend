@@ -32,6 +32,11 @@ void main() {
       // TODO
     });
 
+    // DateTime closedDate
+    test('to test the property `closedDate`', () async {
+      // TODO
+    });
+
     // Person assignee
     test('to test the property `assignee`', () async {
       // TODO

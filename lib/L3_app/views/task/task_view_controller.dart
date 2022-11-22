@@ -146,21 +146,27 @@ abstract class _TaskViewControllerBase with Store {
 
   /// роутер
 
-  Future<Task?> _setClosedTaskTree(Task _task, bool _isClose, bool _recursively) async {
-    if (_recursively) {
-      for (final t in _task.allTasks.where((t) => t.closed != _isClose)) {
-        t.closed = _isClose;
-        await tasksUC.save(t);
-      }
+  Future<Task?> _setClosedTask(Task t, bool close) async {
+    t.closed = close;
+    if (close) {
+      t.closedDate = DateTime.now();
     }
-    _task.closed = _isClose;
-    return await tasksUC.save(_task);
+    return await tasksUC.save(t);
   }
 
-  Future setClosed(BuildContext context, bool isClose) async {
+  Future<Task?> _setClosedTaskTree(Task _task, bool close, bool _recursively) async {
+    if (_recursively) {
+      for (final t in _task.allTasks.where((t) => t.closed != close)) {
+        await _setClosedTask(t, close);
+      }
+    }
+    return await _setClosedTask(_task, close);
+  }
+
+  Future setClosed(BuildContext context, bool close) async {
     bool recursively = false;
 
-    if (isClose) {
+    if (close) {
       if (task.hasOpenedSubtasks) {
         recursively = await _closeDialog(context) == true;
         if (!recursively) {
@@ -172,8 +178,8 @@ abstract class _TaskViewControllerBase with Store {
     }
 
     loaderController.start();
-    loaderController.setClosing(isClose);
-    final editedTask = await _setClosedTaskTree(task, isClose, recursively);
+    loaderController.setClosing(close);
+    final editedTask = await _setClosedTaskTree(task, close, recursively);
     await loaderController.stop();
 
     if (editedTask != null) {

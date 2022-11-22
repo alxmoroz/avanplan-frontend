@@ -39,6 +39,7 @@ class Task extends Statusable {
     this.updatedOn,
     this.dueDate,
     this.startDate,
+    this.closedDate,
     this.workspaceId,
     this.status,
     this.priority,
@@ -53,7 +54,8 @@ class Task extends Statusable {
 
   final DateTime? createdOn;
   final DateTime? updatedOn;
-  final DateTime? startDate;
+  DateTime? startDate;
+  DateTime? closedDate;
   final DateTime? dueDate;
   final int? workspaceId;
   final Status? status;
@@ -76,14 +78,12 @@ class Task extends Statusable {
   Iterable<Task> okSubtasks = [];
   Iterable<Task> etaSubtasks = [];
 
-  late DateTime calculatedStartDate;
   bool isFuture = false;
   late Duration beforeStartPeriod;
   Duration? elapsedPeriod;
   Duration? overduePeriod;
   Duration? etaPeriod;
   DateTime? etaDate;
-  DateTime? closedDate;
   Duration? closedPeriod;
 
   Duration? leftPeriod;

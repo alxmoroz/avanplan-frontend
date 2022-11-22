@@ -27,6 +27,7 @@ extension TaskMapper on api.TaskGet {
       type: _type,
       description: description?.trim() ?? '',
       startDate: startDate?.toLocal(),
+      closedDate: closedDate?.toLocal(),
       dueDate: dueDate?.toLocal(),
       closed: closed ?? false,
       status: status?.status,

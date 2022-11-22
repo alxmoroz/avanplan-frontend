@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **description** | **String** |  | [optional] 
 **startDate** | [**DateTime**](DateTime.md) |  | [optional] 
 **dueDate** | [**DateTime**](DateTime.md) |  | [optional] 
+**closedDate** | [**DateTime**](DateTime.md) |  | [optional] 
 **assignee** | [**PersonGet**](PersonGet.md) |  | [optional] 
 **author** | [**PersonGet**](PersonGet.md) |  | [optional] 
 **priority** | [**PriorityGet**](PriorityGet.md) |  | [optional] 

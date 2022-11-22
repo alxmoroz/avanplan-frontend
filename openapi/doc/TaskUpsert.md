@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **description** | **String** |  | [optional] 
 **startDate** | [**DateTime**](DateTime.md) |  | [optional] 
 **dueDate** | [**DateTime**](DateTime.md) |  | [optional] 
+**closedDate** | [**DateTime**](DateTime.md) |  | [optional] 
 **assigneeId** | **int** |  | [optional] 
 **authorId** | **int** |  | [optional] 
 **priorityId** | **int** |  | [optional] 

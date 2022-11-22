@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **description** | **String** |  | [optional] 
 **startDate** | [**DateTime**](DateTime.md) |  | [optional] 
 **dueDate** | [**DateTime**](DateTime.md) |  | [optional] 
+**closedDate** | [**DateTime**](DateTime.md) |  | [optional] 
 **assignee** | [**Person**](Person.md) |  | [optional] 
 **author** | [**Person**](Person.md) |  | [optional] 
 **status** | [**Status**](Status.md) |  | [optional] 

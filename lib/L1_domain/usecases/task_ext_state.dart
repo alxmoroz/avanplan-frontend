@@ -28,7 +28,7 @@ extension TaskStats on Task {
     for (Task t in tasks) {
       t._updateStartDate();
     }
-    calculatedStartDate = _calculateStartDate;
+    startDate ??= _calculateStartDate;
   }
 
   void _updateSubtasksAndTimings() {
@@ -41,19 +41,20 @@ extension TaskStats on Task {
     leafTasks = allTasks.where((t) => !t.hasSubtasks);
     openedLeafTasks = leafTasks.where((t) => !t.closed);
 
-    isFuture = calculatedStartDate.isAfter(_now);
+    isFuture = startDate!.isAfter(_now);
 
-    beforeStartPeriod = calculatedStartDate.difference(_now);
-    closedDate = closed && hasDueDate ? dueDate : null;
+    beforeStartPeriod = startDate!.difference(_now);
+
+    closedDate ??= closed && hasDueDate ? dueDate : null;
     closedPeriod = closedDate != null ? _now.difference(closedDate!) : null;
-    final _rawElapsedPeriod = (closedDate ?? _now).difference(calculatedStartDate);
+    final _rawElapsedPeriod = (closedDate ?? _now).difference(startDate!);
     elapsedPeriod = isFuture || _rawElapsedPeriod < _startThreshold ? null : _rawElapsedPeriod;
     leftPeriod = hasDueDate && !isFuture ? dueDate!.add(_overdueThreshold).difference(_now) : null;
     overduePeriod = hasDueDate ? _now.difference(dueDate!) : null;
 
     targetVelocity = leftPeriod != null && leftPeriod!.inDays > 0 && !hasOverdue ? openedLeafTasksCount / leftPeriod!.inDays : null;
 
-    final _planPeriod = hasDueDate ? dueDate!.difference(calculatedStartDate) : null;
+    final _planPeriod = hasDueDate ? dueDate!.difference(startDate!) : null;
     planVolume = elapsedPeriod != null && _planPeriod != null
         ? min(leafTasksCount.toDouble(), leafTasksCount * elapsedPeriod!.inDays / _planPeriod.inDays)
         : null;

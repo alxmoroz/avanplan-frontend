@@ -26,6 +26,7 @@ part 'task_get.g.dart';
 /// * [description] 
 /// * [startDate] 
 /// * [dueDate] 
+/// * [closedDate] 
 /// * [assignee] 
 /// * [author] 
 /// * [priority] 
@@ -61,6 +62,9 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
 
   @BuiltValueField(wireName: r'due_date')
   DateTime? get dueDate;
+
+  @BuiltValueField(wireName: r'closed_date')
+  DateTime? get closedDate;
 
   @BuiltValueField(wireName: r'assignee')
   PersonGet? get assignee;
@@ -157,6 +161,13 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
       yield r'due_date';
       yield serializers.serialize(
         object.dueDate,
+        specifiedType: const FullType(DateTime),
+      );
+    }
+    if (object.closedDate != null) {
+      yield r'closed_date';
+      yield serializers.serialize(
+        object.closedDate,
         specifiedType: const FullType(DateTime),
       );
     }
@@ -294,6 +305,13 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
             specifiedType: const FullType(DateTime),
           ) as DateTime;
           result.dueDate = valueDes;
+          break;
+        case r'closed_date':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.closedDate = valueDes;
           break;
         case r'assignee':
           final valueDes = serializers.deserialize(

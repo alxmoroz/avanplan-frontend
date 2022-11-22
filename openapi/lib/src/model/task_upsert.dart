@@ -18,6 +18,7 @@ part 'task_upsert.g.dart';
 /// * [description] 
 /// * [startDate] 
 /// * [dueDate] 
+/// * [closedDate] 
 /// * [assigneeId] 
 /// * [authorId] 
 /// * [priorityId] 
@@ -47,6 +48,9 @@ abstract class TaskUpsert implements Built<TaskUpsert, TaskUpsertBuilder> {
 
   @BuiltValueField(wireName: r'due_date')
   DateTime? get dueDate;
+
+  @BuiltValueField(wireName: r'closed_date')
+  DateTime? get closedDate;
 
   @BuiltValueField(wireName: r'assignee_id')
   int? get assigneeId;
@@ -135,6 +139,13 @@ class _$TaskUpsertSerializer implements PrimitiveSerializer<TaskUpsert> {
       yield r'due_date';
       yield serializers.serialize(
         object.dueDate,
+        specifiedType: const FullType(DateTime),
+      );
+    }
+    if (object.closedDate != null) {
+      yield r'closed_date';
+      yield serializers.serialize(
+        object.closedDate,
         specifiedType: const FullType(DateTime),
       );
     }
@@ -258,6 +269,13 @@ class _$TaskUpsertSerializer implements PrimitiveSerializer<TaskUpsert> {
             specifiedType: const FullType(DateTime),
           ) as DateTime;
           result.dueDate = valueDes;
+          break;
+        case r'closed_date':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.closedDate = valueDes;
           break;
         case r'assignee_id':
           final valueDes = serializers.deserialize(

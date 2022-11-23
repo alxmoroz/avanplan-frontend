@@ -109,6 +109,9 @@
   "project_new_title": "New project",
   "project_title": "Project",
 
+  "recommendation_add_tasks_title": "Add",
+  "recommendation_working_duration_title": "Complete tasks for at least {duration}",
+
   "reload_action_title": "Reload",
   "report_bug_action_title": "Report a bug",
 
@@ -128,6 +131,7 @@
   "state_eta_title": "There is estimation",
   "state_future_duration": "We will start in {duration}",
   "state_future_title": "Starting soon",
+  "state_low_start_duration": "It's been less than {duration} since launch.",
   "state_no_due_details": "No due date",
   "state_no_info_title": "Not enough data to estimate",
   "state_no_progress_details": "No progress",

@@ -32,7 +32,7 @@ const Color lightWarningColor = CupertinoDynamicColor.withBrightness(
 );
 
 const Color greenColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 28, 120, 52),
+  color: Color.fromARGB(255, 64, 170, 94),
   darkColor: Color.fromARGB(255, 52, 165, 89),
 );
 

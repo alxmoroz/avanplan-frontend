@@ -22,6 +22,7 @@ import 'task_view_widgets/task_listview.dart';
 import 'task_view_widgets/task_navbar.dart';
 import 'task_view_widgets/task_overview.dart';
 
+//TODO: возможно, при перерисовке (изменение размера окна) происходит создание заново (StatelessWidget) и не сохраняется выбранная вкладка и т.п.
 class TaskView extends StatelessWidget {
   TaskView(int? taskId) : _controller = TaskViewController(taskId);
   final TaskViewController _controller;

@@ -15,7 +15,7 @@ abstract class _MTIcon extends StatelessWidget {
   final double? size;
   final bool? solid;
 
-  bool get _solid => size == null || size! < 60;
+  bool get _solid => solid ?? (size == null || size! < 60);
 }
 
 class ConnectingIcon extends _MTIcon {
@@ -99,12 +99,12 @@ class CalendarIcon extends _MTIcon {
 }
 
 class DoneIcon extends _MTIcon {
-  const DoneIcon(this.done, {super.color, super.size});
+  const DoneIcon(this.done, {super.color, super.size, super.solid});
   final bool done;
 
   @override
   Widget build(BuildContext context) => Icon(
-        done ? CupertinoIcons.check_mark_circled : CupertinoIcons.circle,
+        done ? (solid == true ? CupertinoIcons.check_mark_circled_solid : CupertinoIcons.check_mark_circled) : CupertinoIcons.circle,
         color: (color ?? mainColor).resolve(context),
         size: size ?? P2,
       );

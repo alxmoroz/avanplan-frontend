@@ -22,6 +22,7 @@ enum TaskState {
   noProgress,
   opened,
   future,
+  lowStart,
   noInfo,
   backlog,
   closed,
@@ -79,6 +80,7 @@ class Task extends Statusable {
   Iterable<Task> etaSubtasks = [];
 
   bool isFuture = false;
+  bool isLowStart = true;
   late Duration beforeStartPeriod;
   Duration? elapsedPeriod;
   Duration? overduePeriod;

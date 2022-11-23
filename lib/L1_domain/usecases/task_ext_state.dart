@@ -8,12 +8,9 @@ import '../entities/task.dart';
 import 'task_ext_level.dart';
 
 extension TaskStats on Task {
-  static const _day = Duration(days: 1);
-  static const _week = Duration(days: 7);
-
-  static const Duration _startThreshold = _week;
-  static const Duration _overdueThreshold = _day;
-  static const Duration _riskThreshold = _day;
+  Duration get lowStartThreshold => const Duration(days: 5);
+  static const Duration _overdueThreshold = Duration(days: 1);
+  static const Duration _riskThreshold = Duration(days: 1);
 
   DateTime get _now => DateTime.now();
 
@@ -48,7 +45,8 @@ extension TaskStats on Task {
     closedDate ??= closed && hasDueDate ? dueDate : null;
     closedPeriod = closedDate != null ? _now.difference(closedDate!) : null;
     final _rawElapsedPeriod = (closedDate ?? _now).difference(startDate!);
-    elapsedPeriod = isFuture || _rawElapsedPeriod < _startThreshold ? null : _rawElapsedPeriod;
+    isLowStart = _rawElapsedPeriod < lowStartThreshold;
+    elapsedPeriod = isFuture || isLowStart ? null : _rawElapsedPeriod;
     leftPeriod = hasDueDate && !isFuture ? dueDate!.add(_overdueThreshold).difference(_now) : null;
     overduePeriod = hasDueDate ? _now.difference(dueDate!) : null;
 
@@ -143,37 +141,46 @@ extension TaskStats on Task {
 
     // на случай, если выставили срок раньше, чем дату начала, добавляем один день хотя бы
     if (hasDueDate && start.isAfter(dueDate!)) {
-      start = dueDate!.subtract(_day);
+      start = dueDate!.subtract(_overdueThreshold);
     }
     return start;
   }
 
   /// скорость проекта
   static const _velocityFrameInDays = 42;
-  double get _velocity => elapsedPeriod != null ? (closedLeafTasksCount / elapsedPeriod!.inDays) : 0;
-  double get _velocityWeight {
-    final elapsedDays = elapsedPeriod != null ? elapsedPeriod!.inDays : 0;
-    final distance = elapsedDays + _closedDays;
-    final w = distance < _velocityFrameInDays ? (distance / _velocityFrameInDays) : (_velocityFrameInDays / distance);
+  int? get _elapsedDays => elapsedPeriod?.inDays;
+  int? get _closedDays => closedPeriod?.inDays;
+
+  double? get _velocity => _elapsedDays != null ? (closedLeafTasksCount / _elapsedDays!) : null;
+  double? get _velocityWeight {
+    double? w;
+    if (_elapsedDays != null || _closedDays != null) {
+      final distance = (_elapsedDays ?? 0) + (_closedDays ?? 0);
+      w = distance < _velocityFrameInDays ? (distance / _velocityFrameInDays) : (_velocityFrameInDays / distance);
+    }
     return w;
   }
 
-  int get _closedDays => closedPeriod != null ? closedPeriod!.inDays : 0;
-  double get _weightedVelocity {
+  double? get _weightedVelocity {
     // средняя скорость по проекту без учёта закрытых задач или скоростей целей в пределах окна
-    double v = _velocity;
+    double? v = _velocity;
+
     // ищем закрытые задачи с датой закрытия в пределах окна
     final referencesTasks = leafTasks.where((t) => t.closed && t.hasClosedDate);
-    if (referencesTasks.isNotEmpty) {
-      final closedTasks = referencesTasks.where((t) => t._closedDays < _velocityFrameInDays).length;
-      v = closedTasks / _velocityFrameInDays;
+    if (referencesTasks.isNotEmpty && _elapsedDays != null) {
+      final closedTasks = referencesTasks.where((t) => t._closedDays! < _velocityFrameInDays).length;
+      v = closedTasks / _elapsedDays!;
     } else {
       // если задач с датой закрытия совсем не найдено, то ориентируемся на скорость по целям
-      final referencesGoals =
-          tasks.where((t) => !t.isFuture && !t.isBacklog && t._velocity > 0 && (!t.closed || (hasClosedDate && _closedDays < _velocityFrameInDays)));
+      final referencesGoals = tasks.where((t) =>
+          !t.isFuture &&
+          !t.isBacklog &&
+          t._velocity != null &&
+          t._velocityWeight != null &&
+          (!t.closed || (t.hasClosedDate && t._closedDays! < _velocityFrameInDays)));
       if (referencesGoals.isNotEmpty) {
-        final double vSum = referencesGoals.fold(0, (v, task) => v + task._velocity * task._velocityWeight);
-        final double wSum = referencesGoals.fold(0, (w, task) => w + task._velocityWeight);
+        final double vSum = referencesGoals.fold(0, (v, t) => v + t._velocity! * t._velocityWeight!);
+        final double wSum = referencesGoals.fold(0, (w, t) => w + t._velocityWeight!);
         v = vSum / wSum;
       }
     }
@@ -213,6 +220,8 @@ extension TaskStats on Task {
       }
     } else if (hasEtaDate) {
       s = TaskState.eta;
+    } else if (isLowStart) {
+      s = TaskState.lowStart;
     }
     return s;
   }

@@ -31,6 +31,7 @@ Widget iconForState(TaskState state, {double? size}) {
       return BacklogIcon(size: size, color: lightGreyColor);
     case TaskState.noSubtasks:
     case TaskState.noProgress:
+    case TaskState.lowStart:
     case TaskState.noInfo:
       return NoInfoIcon(size: size, color: lightGreyColor);
   }
@@ -71,6 +72,8 @@ extension TaskStatePresenter on Task {
         return loc.backlog;
       case TaskState.opened:
         return loc.state_opened;
+      case TaskState.lowStart:
+        return loc.state_low_start_duration(lowStartThreshold.localizedString);
       case TaskState.noInfo:
         return loc.state_no_info_title;
       case TaskState.closed:
@@ -130,11 +133,14 @@ extension TaskStatePresenter on Task {
       case TaskState.opened:
         return loc.state_opened;
       case TaskState.noInfo:
+      case TaskState.lowStart:
         return loc.state_no_info_title;
     }
   }
 
-  bool get showState => !closed && (hasSubtasks && state != TaskState.backlog);
+  bool get showState => !closed && (hasSubtasks || isProject || isGoal) && state != TaskState.backlog;
+  bool get showRecommendsEta =>
+      !isWorkspace && [TaskState.noInfo, TaskState.noSubtasks, TaskState.noProgress, TaskState.lowStart].contains(overallState);
   bool get showTimeChart => !isWorkspace && showState && (hasDueDate || hasEtaDate);
   bool get showVelocityVolumeCharts => !isWorkspace && showState;
   bool get showChartDetails => showVelocityVolumeCharts || showTimeChart;

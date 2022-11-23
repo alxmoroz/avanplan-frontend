@@ -4,7 +4,6 @@ import 'package:collection/collection.dart';
 
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/usecases/task_ext_level.dart';
-import '../../L1_domain/usecases/task_ext_state.dart';
 import 'task_comparators.dart';
 
 extension TaskFilterPresenter on Task {
@@ -16,11 +15,12 @@ extension TaskFilterPresenter on Task {
   }
 
   List<Task> get attentionalTasks => isWorkspace ||
-          [
-            TaskState.overdue,
-            TaskState.risk,
-            TaskState.ok,
-          ].contains(subtaskGroups.first.key)
+          subtaskGroups.isNotEmpty &&
+              [
+                TaskState.overdue,
+                TaskState.risk,
+                TaskState.ok,
+              ].contains(subtaskGroups.first.key)
       ? subtaskGroups.first.value
       : [];
 }

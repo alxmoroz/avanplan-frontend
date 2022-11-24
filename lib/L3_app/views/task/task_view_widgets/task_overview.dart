@@ -45,7 +45,7 @@ class TaskOverview extends StatelessWidget {
       children: [
         if (task.showState)
           task.isWorkspace
-              ? GroupStateTitle(task, task.overallState, place: StateTitlePlace.workspace)
+              ? GroupStateTitle(task, task.subtasksState, place: StateTitlePlace.workspace)
               : task.showRecommendsEta
                   ? H3('${loc.state_no_info_title}: ${task.stateTitle.toLowerCase()}', align: TextAlign.center)
                   : TaskStateTitle(task, place: StateTitlePlace.taskOverview),
@@ -79,7 +79,7 @@ class TaskOverview extends StatelessWidget {
 
           /// нет прогноза - показываем шаги
         ] else ...[
-          const SizedBox(height: P),
+          const SizedBox(height: P2),
           _checkRecommendsItem(task.hasSubtasks, '${loc.recommendation_add_tasks_title} ${task.listTitle.toLowerCase()}'),
           _line(context),
           _checkRecommendsItem(task.hasClosedSubtasks, loc.recommendation_close_tasks_title),

@@ -31,18 +31,12 @@ class TaskViewController extends _TaskViewControllerBase with _$TaskViewControll
 abstract class _TaskViewControllerBase with Store {
   int? taskID;
 
-  @computed
   Task get task => mainController.taskForId(taskID);
 
   /// вкладки
-
-  @computed
   bool get _hasDescription => task.description.isNotEmpty;
-  @computed
   bool get _hasAuthor => task.author != null;
-  @computed
   bool get _hasOverview => task.showState || task.showTimeChart || task.showVelocityVolumeCharts;
-  @computed
   bool get _hasDetails => _hasDescription || _hasAuthor;
 
   @computed
@@ -196,6 +190,7 @@ abstract class _TaskViewControllerBase with Store {
       if (newTask != null) {
         task.tasks.add(newTask);
         _updateTaskParents(newTask);
+        selectTab(TaskTabKey.subtasks);
       }
     }
   }
@@ -240,7 +235,7 @@ abstract class _TaskViewControllerBase with Store {
     }
   }
 
-  Future<void> taskAction(TaskActionType? actionType, BuildContext context) async {
+  Future taskAction(TaskActionType? actionType, BuildContext context) async {
     switch (actionType) {
       case TaskActionType.add:
         await addSubtask(context);

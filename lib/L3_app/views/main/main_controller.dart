@@ -30,6 +30,12 @@ abstract class _MainControllerBase with Store {
   @observable
   Task rootTask = Task(title: '', closed: false, parent: null, tasks: []);
 
+  @computed
+  Map<int, Task> get _tasksMap => {for (var t in rootTask.allTasks) t.id!: t};
+
+  /// конкретная задача
+  Task taskForId(int? id) => _tasksMap[id] ?? rootTask;
+
   /// роли и права доступа
   @computed
   Map<int, Iterable<WSRole>> get _rolesMap => {for (var ws in workspaces) ws.id!: ws.roles};
@@ -37,8 +43,6 @@ abstract class _MainControllerBase with Store {
   // TODO: проблема совместного отображения списка задач из разных РП
   bool get canEditAnyWS => selectableWSs.isNotEmpty;
 
-  /// конкретная задача
-  Task taskForId(int? id) => rootTask.allTasks.firstWhereOrNull((t) => t.id == id) ?? rootTask;
   Future showTask(BuildContext context, int? taskId) async => await Navigator.of(context).pushNamed(TaskView.routeName, arguments: taskId);
 
   @action

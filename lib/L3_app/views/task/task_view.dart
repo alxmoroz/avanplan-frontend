@@ -22,13 +22,25 @@ import 'task_view_widgets/task_listview.dart';
 import 'task_view_widgets/task_navbar.dart';
 import 'task_view_widgets/task_overview.dart';
 
-//TODO: возможно, при перерисовке (изменение размера окна) происходит создание заново (StatelessWidget) и не сохраняется выбранная вкладка и т.п.
-class TaskView extends StatelessWidget {
-  TaskView(int? taskId) : _controller = TaskViewController(taskId);
-  final TaskViewController _controller;
+class TaskView extends StatefulWidget {
+  const TaskView(this.taskId);
+  final int? taskId;
 
   static String get routeName => 'task_view';
+
+  @override
+  State<TaskView> createState() => _TaskViewState();
+}
+
+class _TaskViewState extends State<TaskView> {
+  late TaskViewController _controller;
   Task get _task => _controller.task;
+
+  @override
+  void initState() {
+    _controller = TaskViewController(widget.taskId);
+    super.initState();
+  }
 
   Map<TaskTabKey, Widget> _tabs() {
     final res = <TaskTabKey, Widget>{};
@@ -58,20 +70,20 @@ class TaskView extends StatelessWidget {
         ),
       );
 
-  Widget get _overviewPane => TaskOverview(_controller.task);
-  Widget get _tasksPane => TaskListView(_controller);
-  Widget get _detailsPane => TaskDetails(_controller);
-
-  Widget _selectedPane(BuildContext context) =>
-      {
-        TaskTabKey.overview: _overviewPane,
-        TaskTabKey.subtasks: _tasksPane,
-        TaskTabKey.details: _detailsPane,
-      }[_controller.tabKey] ??
-      _tasksPane;
+  Widget _selectedPane(BuildContext context) {
+    final _overviewPane = TaskOverview(_controller.task);
+    final _tasksPane = TaskListView(_controller);
+    final _detailsPane = TaskDetails(_controller);
+    return {
+          TaskTabKey.overview: _overviewPane,
+          TaskTabKey.subtasks: _tasksPane,
+          TaskTabKey.details: _detailsPane,
+        }[_controller.tabKey] ??
+        _tasksPane;
+  }
 
   Widget? _bottomBar(BuildContext context) => _task.isWorkspace && _task.actionTypes.isNotEmpty && mainController.canEditAnyWS
-      ? Row(children: [const Spacer(), TaskFloatingPlusButton(controller: _controller)])
+      ? Row(children: [const Spacer(), TaskFloatingPlusButton(_controller)])
       : _controller.canShowBottomBar
           ? _task.shouldAddSubtask
               ? TaskAddActionWidget(_controller)

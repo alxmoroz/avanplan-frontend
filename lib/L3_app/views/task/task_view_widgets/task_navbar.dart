@@ -87,7 +87,7 @@ CupertinoNavigationBar taskNavBar(BuildContext context, TaskViewController contr
 }
 
 class TaskFloatingPlusButton extends StatelessWidget {
-  const TaskFloatingPlusButton({required this.controller});
+  const TaskFloatingPlusButton(this.controller);
 
   final TaskViewController controller;
 

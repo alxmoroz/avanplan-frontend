@@ -150,17 +150,7 @@ extension TaskStats on Task {
   static const _velocityFrameInDays = 42;
   int? get _elapsedDays => elapsedPeriod?.inDays;
   int? get _closedDays => closedPeriod?.inDays;
-
   double? get _velocity => _elapsedDays != null ? (closedLeafTasksCount / _elapsedDays!) : null;
-  double? get _velocityWeight {
-    double? w;
-    if (_elapsedDays != null || _closedDays != null) {
-      final distance = (_elapsedDays ?? 0) + (_closedDays ?? 0);
-      w = distance < _velocityFrameInDays ? (distance / _velocityFrameInDays) : (_velocityFrameInDays / distance);
-    }
-    return w;
-  }
-
   double? get _weightedVelocity {
     // средняя скорость по проекту без учёта закрытых задач или скоростей целей в пределах окна
     double? v = _velocity;
@@ -169,22 +159,8 @@ extension TaskStats on Task {
     final referencesTasks = leafTasks.where((t) => t.closed && t.hasClosedDate);
     if (referencesTasks.isNotEmpty && _elapsedDays != null) {
       final closedTasks = referencesTasks.where((t) => t._closedDays! < _velocityFrameInDays).length;
-      v = closedTasks / _elapsedDays!;
-    } else {
-      // если задач с датой закрытия совсем не найдено, то ориентируемся на скорость по целям
-      final referencesGoals = tasks.where((t) =>
-          !t.isFuture &&
-          !t.isBacklog &&
-          t._velocity != null &&
-          t._velocityWeight != null &&
-          (!t.closed || (t.hasClosedDate && t._closedDays! < _velocityFrameInDays)));
-      if (referencesGoals.isNotEmpty) {
-        final double vSum = referencesGoals.fold(0, (v, t) => v + t._velocity! * t._velocityWeight!);
-        final double wSum = referencesGoals.fold(0, (w, t) => w + t._velocityWeight!);
-        v = vSum / wSum;
-      }
+      v = closedTasks / min(_elapsedDays!, _velocityFrameInDays);
     }
-
     return v;
   }
 

@@ -80,7 +80,7 @@ class Task extends Statusable {
   Iterable<Task> etaSubtasks = [];
 
   bool isFuture = false;
-  bool isLowStart = true;
+  bool isLowStart = false;
   late Duration beforeStartPeriod;
   Duration? elapsedPeriod;
   Duration? overduePeriod;

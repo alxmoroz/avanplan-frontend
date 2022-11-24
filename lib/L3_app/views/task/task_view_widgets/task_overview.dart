@@ -27,6 +27,15 @@ class TaskOverview extends StatelessWidget {
   @protected
   final Task task;
 
+  Widget _checkRecommendsItem(bool checked, String text) => Row(children: [
+        DoneIcon(checked, color: checked ? greenColor : darkGreyColor, size: P * 3, solid: checked),
+        const SizedBox(width: P_3),
+        H4(text),
+      ]);
+
+  Widget _line(BuildContext context) =>
+      Row(children: [const SizedBox(width: P * 1.4), Container(height: P * 1.5, width: 2, color: darkGreyColor.resolve(context))]);
+
   @override
   Widget build(BuildContext context) {
     final padding = MediaQuery.of(context).padding;
@@ -71,17 +80,11 @@ class TaskOverview extends StatelessWidget {
           /// нет прогноза - показываем шаги
         ] else ...[
           const SizedBox(height: P),
-          Row(children: [
-            DoneIcon(task.hasSubtasks, color: task.hasSubtasks ? greenColor : darkGreyColor, size: P * 3, solid: task.hasSubtasks),
-            const SizedBox(width: P_3),
-            H4('${loc.recommendation_add_tasks_title} ${task.listTitle.toLowerCase()}'),
-          ]),
-          Row(children: [const SizedBox(width: P * 1.4), Container(height: P * 1.5, width: 2, color: darkGreyColor.resolve(context))]),
-          Row(children: [
-            const DoneIcon(false, color: darkGreyColor, size: P * 3),
-            const SizedBox(width: P_3),
-            H4('${loc.recommendation_working_duration_title(task.lowStartThreshold.localizedString)}'),
-          ]),
+          _checkRecommendsItem(task.hasSubtasks, '${loc.recommendation_add_tasks_title} ${task.listTitle.toLowerCase()}'),
+          _line(context),
+          _checkRecommendsItem(task.hasClosedSubtasks, loc.recommendation_close_tasks_title),
+          _line(context),
+          _checkRecommendsItem(false, loc.recommendation_working_duration_title(task.lowStartThreshold.localizedString)),
         ]
       ],
     );

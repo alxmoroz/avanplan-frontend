@@ -45,7 +45,7 @@ extension TaskStats on Task {
     closedDate ??= closed && hasDueDate ? dueDate : null;
     closedPeriod = closedDate != null ? _now.difference(closedDate!) : null;
     final _rawElapsedPeriod = (closedDate ?? _now).difference(startDate!);
-    isLowStart = _rawElapsedPeriod < lowStartThreshold;
+    isLowStart = isProject && _rawElapsedPeriod < lowStartThreshold;
     elapsedPeriod = isFuture || isLowStart ? null : _rawElapsedPeriod;
     leftPeriod = hasDueDate && !isFuture ? dueDate!.add(_overdueThreshold).difference(_now) : null;
     overduePeriod = hasDueDate ? _now.difference(dueDate!) : null;
@@ -72,7 +72,7 @@ extension TaskStats on Task {
       t._updateRisks();
     }
     etaPeriod = (projectVelocity ?? 0) > 0 && openedLeafTasksCount > 0 ? Duration(days: (openedLeafTasksCount / projectVelocity!).round()) : null;
-    etaDate = etaPeriod != null ? _now.add(etaPeriod!) : null;
+    etaDate = etaPeriod != null ? (isFuture ? startDate! : _now).add(etaPeriod!) : null;
     riskPeriod = (hasDueDate && hasEtaDate) ? etaDate!.difference(dueDate!) : null;
   }
 
@@ -118,23 +118,17 @@ extension TaskStats on Task {
   /// дата начала
   DateTime get _calculateStartDate {
     DateTime? start;
-    if (startDate == null) {
-      if (parent != null && !parent!.isWorkspace) {
-        final siblingsDueDates = parent!.tasks.where((t) => t.hasDueDate).map((t) => t.dueDate!).sorted((d1, d2) => d1.compareTo(d2));
-        if (siblingsDueDates.isNotEmpty) {
-          if (hasDueDate) {
-            start = siblingsDueDates.lastWhereOrNull((d) => dueDate!.isAfter(d));
-          } else {
-            start = siblingsDueDates.last;
-          }
+    if (parent != null && !parent!.isWorkspace) {
+      final siblingsDueDates = parent!.tasks.where((t) => t.hasDueDate).map((t) => t.dueDate!).sorted((d1, d2) => d1.compareTo(d2));
+      if (siblingsDueDates.isNotEmpty) {
+        if (hasDueDate) {
+          start = siblingsDueDates.lastWhereOrNull((d) => dueDate!.isAfter(d));
         } else {
-          start = parent!._calculateStartDate;
+          start = siblingsDueDates.last;
         }
-      } else if (isWorkspace && hasSubtasks) {
-        start = tasks.map((t) => t._calculateStartDate).sorted((d1, d2) => d1.compareTo(d2)).first;
+      } else {
+        start = parent!._calculateStartDate;
       }
-    } else {
-      start = startDate!;
     }
 
     start = start ?? createdOn ?? _now;
@@ -170,7 +164,7 @@ extension TaskStats on Task {
 
   /// интегральный статус
   TaskState get _state {
-    TaskState s = TaskState.noInfo;
+    TaskState s = TaskState.opened;
 
     if (closed) {
       s = TaskState.closed;
@@ -222,7 +216,7 @@ extension TaskStats on Task {
     final st = _state;
     final subSt = _subtasksState;
 
-    return ![TaskState.noInfo, TaskState.eta].contains(st)
+    return ![TaskState.opened, TaskState.eta].contains(st)
         ? st
         : subSt != TaskState.noInfo
             ? subSt

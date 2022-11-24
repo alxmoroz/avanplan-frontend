@@ -107,7 +107,8 @@
   "project_title": "Проект",
 
   "recommendation_add_tasks_title": "Добавить",
-  "recommendation_working_duration_title": "Завершать задачи не менее {duration}",
+  "recommendation_close_tasks_title": "Завершить одну задачу",
+  "recommendation_working_duration_title": "Работать над проектом {duration}",
 
   "reload_action_title": "Перезагрузить",
   "report_bug_action_title": "Сообщить о проблеме",
@@ -130,7 +131,7 @@
   "state_future_title": "Скоро начнём",
   "state_low_start_duration": "Прошло менее {duration} со старта",
   "state_no_due_details": "Не назначен срок",
-  "state_no_info_title": "Не хватает данных для оценки",
+  "state_no_info_title": "Мало данных для прогноза",
   "state_no_progress_details": "Нет прогресса",
   "state_on_time_title": "Успеваем в срок",
   "state_ok_title": "Всё по плану",

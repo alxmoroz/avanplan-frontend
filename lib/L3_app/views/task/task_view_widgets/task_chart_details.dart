@@ -65,8 +65,8 @@ class TaskChartDetails extends StatelessWidget {
             /// объем
             H3(loc.chart_volume_title, padding: const EdgeInsets.only(bottom: P)),
             Row(children: [
-              TaskVolumeChart(task),
-              const SizedBox(width: P),
+              Expanded(child: TaskVolumeChart(task)),
+              const SizedBox(width: P_2),
               Expanded(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
                   _textRow(loc.chart_volume_total_label, '${task.leafTasksCount}'),
@@ -92,7 +92,7 @@ class TaskChartDetails extends StatelessWidget {
             Row(children: [
               Expanded(child: VelocityChart(task)),
               if (!task.projectLowStart) ...[
-                const SizedBox(width: P),
+                const SizedBox(width: P_2),
                 Expanded(
                   child: Column(children: [
                     _textRow(loc.chart_velocity_project_label, '${(_velocity * daysPerMonth).round()}'),

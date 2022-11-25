@@ -66,6 +66,7 @@ class TaskOverview extends StatelessWidget {
           const SizedBox(height: P2),
           Row(children: [
             Expanded(child: TaskVolumeChart(task)),
+            const SizedBox(width: P2),
             Expanded(child: VelocityChart(task)),
           ]),
         ],

@@ -50,7 +50,7 @@ class _TaskViewState extends State<TaskView> {
           res[TaskTabKey.overview] = NormalText(loc.overview);
           break;
         case TaskTabKey.subtasks:
-          res[TaskTabKey.subtasks] = NormalText(_task.listTitle);
+          res[TaskTabKey.subtasks] = NormalText('${_task.listTitle} (${_task.openedSubtasks.length})');
           break;
         case TaskTabKey.details:
           res[TaskTabKey.details] = NormalText(loc.description);

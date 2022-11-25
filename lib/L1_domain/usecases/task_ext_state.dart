@@ -166,9 +166,7 @@ extension TaskStats on Task {
 
     if (closed) {
       s = TaskState.closed;
-    } else if (isBacklog) {
-      s = TaskState.backlog;
-    } else if (!(isTask || isSubtask) && !hasSubtasks || _allOpenedSubtasksAre(TaskState.backlog)) {
+    } else if (!(isTask || isSubtask) && !hasSubtasks) {
       s = TaskState.noSubtasks;
     } else if (hasSubtasks && !hasOpenedSubtasks || _allOpenedSubtasksAre(TaskState.closable)) {
       s = TaskState.closable;
@@ -188,8 +186,6 @@ extension TaskStats on Task {
       }
     } else if (hasEtaDate) {
       s = TaskState.eta;
-    } else if (projectLowStart) {
-      s = TaskState.lowStart;
     }
     return s;
   }
@@ -221,7 +217,7 @@ extension TaskStats on Task {
             : st;
   }
 
-  bool get isBacklog => type?.title == 'backlog';
+  // bool get isBacklog => type?.title == 'backlog';
 
   int get leafTasksCount => leafTasks.length;
   int get openedLeafTasksCount => openedLeafTasks.length;

@@ -27,11 +27,8 @@ Widget iconForState(TaskState state, {double? size}) {
       return PlayIcon(size: size, color: lightGreyColor);
     case TaskState.future:
       return PauseIcon(size: size, color: lightGreyColor);
-    case TaskState.backlog:
-      return BacklogIcon(size: size, color: lightGreyColor);
     case TaskState.noSubtasks:
     case TaskState.noProgress:
-    case TaskState.lowStart:
     case TaskState.noInfo:
       return NoInfoIcon(size: size, color: lightGreyColor);
   }
@@ -68,12 +65,8 @@ extension TaskStatePresenter on Task {
         return loc.state_no_progress_details;
       case TaskState.future:
         return loc.state_future_duration(beforeStartPeriod.localizedString);
-      case TaskState.backlog:
-        return loc.backlog;
       case TaskState.opened:
         return loc.state_opened;
-      case TaskState.lowStart:
-        return loc.state_low_start_duration(lowStartThreshold.localizedString);
       case TaskState.noInfo:
         return loc.state_no_info_title;
       case TaskState.closed:
@@ -92,7 +85,7 @@ extension TaskStatePresenter on Task {
       case TaskState.eta:
         return _etaDetails;
       default:
-        return '${loc.state_no_info_title}${_subjects(openedSubtasks.where((t) => !t.isBacklog).length)}';
+        return '${loc.state_no_info_title}${_subjects(openedSubtasks.length)}';
     }
   }
 
@@ -128,20 +121,16 @@ extension TaskStatePresenter on Task {
         return loc.state_closed;
       case TaskState.future:
         return loc.state_future_title;
-      case TaskState.backlog:
-        return loc.backlog;
       case TaskState.opened:
         return loc.state_opened;
       case TaskState.noInfo:
-      case TaskState.lowStart:
         return loc.state_no_info_title;
     }
   }
 
-  bool get showState => !closed && (hasSubtasks || isProject || isGoal) && state != TaskState.backlog;
-  bool get showRecommendsEta =>
-      !isWorkspace && [TaskState.noInfo, TaskState.noSubtasks, TaskState.noProgress, TaskState.lowStart].contains(overallState);
+  bool get showState => !closed && (hasSubtasks || isProject || isGoal);
+  bool get showRecommendsEta => !isWorkspace && [TaskState.noInfo, TaskState.noSubtasks, TaskState.noProgress].contains(overallState);
   bool get showTimeChart => !isWorkspace && showState && (hasDueDate || hasEtaDate);
-  bool get showVelocityVolumeCharts => !isWorkspace && showState;
+  bool get showVelocityVolumeCharts => !isWorkspace && !showRecommendsEta && showState;
   bool get showChartDetails => showVelocityVolumeCharts || showTimeChart;
 }

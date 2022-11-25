@@ -22,9 +22,7 @@ enum TaskState {
   noProgress,
   opened,
   future,
-  lowStart,
   noInfo,
-  backlog,
   closed,
 }
 

@@ -11,7 +11,6 @@ import '../../../components/icons.dart';
 import '../../../components/mt_button.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/duration_presenter.dart';
 import '../../../presenters/state_presenter.dart';
 import '../../../presenters/task_filter_presenter.dart';
 import '../../../presenters/task_level_presenter.dart';
@@ -49,49 +48,49 @@ class TaskOverview extends StatelessWidget {
               : task.showRecommendsEta
                   ? H3('${loc.state_no_info_title}: ${task.stateTitle.toLowerCase()}', align: TextAlign.center)
                   : TaskStateTitle(task, place: StateTitlePlace.taskOverview),
-        if (!task.showRecommendsEta) ...[
-          /// объем и скорость
-          if (task.showVelocityVolumeCharts) ...[
-            const SizedBox(height: P2),
-            Row(children: [TaskVolumeChart(task), const Spacer(), VelocityChart(task)]),
-          ],
 
-          /// срок
-          if (task.showTimeChart) ...[
-            const SizedBox(height: P),
-            TimingChart(task),
-          ],
-
-          if (task.showChartDetails) ...[
-            const SizedBox(height: P),
-            MTButton.outlined(
-              titleText: loc.chart_details_action_title,
-              onTap: () => showChartsDetailsDialog(context, task),
-            ),
-          ],
-
-          /// требующие внимания задачи
-          if (task.attentionalTasks.isNotEmpty) ...[
-            const SizedBox(height: P2),
-            if (!task.isWorkspace) H4(task.subtasksStateTitle, align: TextAlign.center),
-            AttentionalTasks(task),
-          ],
-
-          /// нет прогноза - показываем шаги
-        ] else ...[
+        /// нет прогноза - показываем шаги
+        if (task.showRecommendsEta) ...[
           const SizedBox(height: P2),
-          if (!task.projectLowStart) ...[
-            _checkRecommendsItem(true, loc.recommendation_working_duration_title(task.lowStartThreshold.localizedString)),
-            _line(context),
-          ],
-          _checkRecommendsItem(task.hasSubtasks, '${loc.recommendation_add_tasks_title} ${task.listTitle.toLowerCase()}'),
+          _checkRecommendsItem(task.overallState != TaskState.noSubtasks, '${loc.recommendation_add_tasks_title} ${task.listTitle.toLowerCase()}'),
           _line(context),
-          _checkRecommendsItem(task.hasClosedSubtasks, loc.recommendation_close_tasks_title),
-          if (task.projectLowStart) ...[
-            _line(context),
-            _checkRecommendsItem(false, loc.recommendation_working_duration_title(task.lowStartThreshold.localizedString)),
-          ]
-        ]
+          _checkRecommendsItem(task.overallState != TaskState.noSubtasks && task.closedLeafTasksCount > 0, loc.recommendation_close_tasks_title),
+          // if (task.projectLowStart) ...[
+          //   _line(context),
+          //   _checkRecommendsItem(false, loc.recommendation_working_duration_title(task.lowStartThreshold.localizedString)),
+          // ]
+        ],
+
+        /// объем и скорость
+        if (task.showVelocityVolumeCharts) ...[
+          const SizedBox(height: P2),
+          Row(children: [
+            TaskVolumeChart(task),
+            const Spacer(),
+            VelocityChart(task),
+          ]),
+        ],
+
+        /// срок
+        if (task.showTimeChart) ...[
+          const SizedBox(height: P),
+          TimingChart(task),
+        ],
+
+        if (task.showChartDetails) ...[
+          const SizedBox(height: P),
+          MTButton.outlined(
+            titleText: loc.chart_details_action_title,
+            onTap: () => showChartsDetailsDialog(context, task),
+          ),
+        ],
+
+        /// требующие внимания задачи
+        if (task.attentionalTasks.isNotEmpty) ...[
+          const SizedBox(height: P2),
+          if (!task.isWorkspace) H4(task.subtasksStateTitle, align: TextAlign.center),
+          AttentionalTasks(task),
+        ],
       ],
     );
   }

@@ -1,7 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/usecases/task_ext_level.dart';
 import '../extra/services.dart';
 
 extension TaskLevelPresenter on Task {

@@ -112,7 +112,7 @@ class TaskChartDetails extends StatelessWidget {
             H3(loc.chart_timing_title, padding: const EdgeInsets.symmetric(vertical: P)),
             TimingChart(task),
             const SizedBox(height: P_2),
-            if (task.elapsedPeriod != null) _textRow(loc.chart_timing_elapsed_label, '${loc.days_count(task.elapsedPeriod!.inDays)}'),
+            if (!task.isFuture) _textRow(loc.chart_timing_elapsed_label, '${loc.days_count(task.elapsedPeriod.inDays)}'),
             if (task.leftPeriod != null)
               _textRow(
                 _timeDelta > 0 ? loc.chart_timing_left_label : loc.state_overdue_title,

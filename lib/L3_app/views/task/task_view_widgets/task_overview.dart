@@ -80,11 +80,17 @@ class TaskOverview extends StatelessWidget {
           /// нет прогноза - показываем шаги
         ] else ...[
           const SizedBox(height: P2),
+          if (!task.projectLowStart) ...[
+            _checkRecommendsItem(true, loc.recommendation_working_duration_title(task.lowStartThreshold.localizedString)),
+            _line(context),
+          ],
           _checkRecommendsItem(task.hasSubtasks, '${loc.recommendation_add_tasks_title} ${task.listTitle.toLowerCase()}'),
           _line(context),
           _checkRecommendsItem(task.hasClosedSubtasks, loc.recommendation_close_tasks_title),
-          _line(context),
-          _checkRecommendsItem(false, loc.recommendation_working_duration_title(task.lowStartThreshold.localizedString)),
+          if (task.projectLowStart) ...[
+            _line(context),
+            _checkRecommendsItem(false, loc.recommendation_working_duration_title(task.lowStartThreshold.localizedString)),
+          ]
         ]
       ],
     );

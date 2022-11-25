@@ -60,13 +60,13 @@ abstract class _TaskViewControllerBase with Store {
 
   /// фильтры и сортировка
   @observable
-  bool? _hasGroupedListView;
+  bool? _showGroupTitles;
 
   @computed
-  bool get hasGroupedListView => _hasGroupedListView ?? task.subtaskGroups.length > 1 && (task.tasks.length > 7 || task.hasClosedSubtasks);
+  bool get showGroupTitles => _showGroupTitles ?? task.subtaskGroups.length > 1 && task.tasks.length > 4;
 
   @computed
-  bool get canShowBottomBar => authController.canEditWS(mainController.rolesForWS(task.workspaceId));
+  bool get showBottomBar => authController.canEditWS(mainController.rolesForWS(task.workspaceId));
 
   /// связь с источником импорта
 

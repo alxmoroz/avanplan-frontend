@@ -84,7 +84,7 @@ class _TaskViewState extends State<TaskView> {
 
   Widget? _bottomBar(BuildContext context) => _task.isWorkspace && _task.actionTypes.isNotEmpty && mainController.canEditAnyWS
       ? Row(children: [const Spacer(), TaskFloatingPlusButton(_controller)])
-      : _controller.canShowBottomBar
+      : _controller.showBottomBar
           ? _task.shouldAddSubtask
               ? TaskAddActionWidget(_controller)
               : _task.canReopen || _task.shouldClose || _task.shouldCloseLeaf

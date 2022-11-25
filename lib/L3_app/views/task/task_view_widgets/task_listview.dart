@@ -19,15 +19,14 @@ class TaskListView extends StatelessWidget {
 
   Widget _taskItem(int? taskId) => TaskCard(mainController.taskForId(taskId));
 
-  Widget _itemBuilder(BuildContext context, int index) => _taskItem(task.sortedSubtasks[index].id);
-
   Widget _groupedItemBuilder(BuildContext context, int index) {
     final group = task.subtaskGroups[index];
     return Column(children: [
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P),
-        child: GroupStateTitle(task, group.key, place: StateTitlePlace.groupHeader),
-      ),
+      if (controller.showGroupTitles)
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P),
+          child: GroupStateTitle(task, group.key, place: StateTitlePlace.groupHeader),
+        ),
       for (final t in group.value) _taskItem(t.id),
     ]);
   }
@@ -38,8 +37,8 @@ class TaskListView extends StatelessWidget {
     return Observer(
       builder: (_) => ListView.builder(
         padding: padding.add(const EdgeInsets.all(P).copyWith(bottom: padding.bottom > 0 ? 0 : P, top: P_2)),
-        itemBuilder: controller.hasGroupedListView ? _groupedItemBuilder : _itemBuilder,
-        itemCount: controller.hasGroupedListView ? task.subtaskGroups.length : task.sortedSubtasks.length,
+        itemBuilder: _groupedItemBuilder,
+        itemCount: task.subtaskGroups.length,
       ),
     );
   }

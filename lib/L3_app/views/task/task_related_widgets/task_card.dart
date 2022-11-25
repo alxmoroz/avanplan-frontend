@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/usecases/task_ext_actions.dart';
+import '../../../../../L1_domain/usecases/task_ext_level.dart';
 import '../../../../../L1_domain/usecases/task_ext_state.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
@@ -35,6 +36,8 @@ class TaskCard extends StatelessWidget {
         const ChevronIcon(),
       ]);
 
+  bool get _showLink => task.hasLink && task.isProject;
+
   @override
   Widget build(BuildContext context) => MTCardButton(
         margin: margin ?? const EdgeInsets.symmetric(vertical: P_2),
@@ -44,11 +47,11 @@ class TaskCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             header,
-            if (task.showState || task.hasLink) ...[
+            if (task.showState || _showLink) ...[
               const SizedBox(height: P_3),
               Row(children: [
                 if (task.showState) Expanded(child: TaskStateTitle(task)) else const Spacer(),
-                if (task.hasLink) const LinkIcon(),
+                if (_showLink) const LinkIcon(),
               ]),
             ],
           ],

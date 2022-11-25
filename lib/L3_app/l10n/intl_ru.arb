@@ -130,6 +130,7 @@
   "state_future_duration": "Приступим через {duration}",
   "state_future_title": "Скоро начнём",
   "state_low_start_duration": "Прошло менее {duration} со старта",
+  "state_low_start_before_calc_duration": "Скорость и прогноз посчитаем через {duration}",
   "state_no_due_details": "Не назначен срок",
   "state_no_info_title": "Мало данных для прогноза",
   "state_no_progress_details": "Нет прогресса",

@@ -90,20 +90,22 @@ class TaskChartDetails extends StatelessWidget {
             const SizedBox(height: P),
             H3(loc.chart_velocity_title, padding: const EdgeInsets.symmetric(vertical: P)),
             Row(children: [
-              VelocityChart(task),
-              const SizedBox(width: P),
-              Expanded(
-                child: Column(children: [
-                  _textRow(loc.chart_velocity_project_label, '${(_velocity * daysPerMonth).round()}'),
-                  if (task.targetVelocity != null) _textRow(loc.chart_velocity_target_label, '${(task.targetVelocity! * daysPerMonth).round()}'),
-                  if (_velocityDelta != 0)
-                    _textRow(
-                      _velocityDelta > 0 ? loc.chart_delta_ahead_label : loc.chart_delta_lag_label,
-                      '${_velocityDelta.abs()}',
-                      color: _velocityDelta > 0 ? greenColor : warningColor,
-                    ),
-                ]),
-              ),
+              Expanded(child: VelocityChart(task)),
+              if (!task.projectLowStart) ...[
+                const SizedBox(width: P),
+                Expanded(
+                  child: Column(children: [
+                    _textRow(loc.chart_velocity_project_label, '${(_velocity * daysPerMonth).round()}'),
+                    if (task.targetVelocity != null) _textRow(loc.chart_velocity_target_label, '${(task.targetVelocity! * daysPerMonth).round()}'),
+                    if (_velocityDelta != 0)
+                      _textRow(
+                        _velocityDelta > 0 ? loc.chart_delta_ahead_label : loc.chart_delta_lag_label,
+                        '${_velocityDelta.abs()}',
+                        color: _velocityDelta > 0 ? greenColor : warningColor,
+                      ),
+                  ]),
+                ),
+              ],
             ]),
           ],
 

@@ -157,6 +157,7 @@ extension TaskStats on Task {
 
   double? get projectVelocity => isWorkspace ? 0 : project!.velocity;
   bool get projectLowStart => isWorkspace ? false : project!.isLowStart == true;
+  Duration? get projectStartEtaCalcPeriod => isWorkspace ? null : project!.startDate!.add(lowStartThreshold).difference(_now);
 
   bool _allOpenedSubtasksAre(TaskState state) => openedSubtasks.isNotEmpty && !openedSubtasks.any((t) => t._state != state);
 
@@ -186,6 +187,8 @@ extension TaskStats on Task {
       }
     } else if (hasEtaDate) {
       s = TaskState.eta;
+    } else if (projectLowStart) {
+      s = TaskState.noInfo;
     }
     return s;
   }

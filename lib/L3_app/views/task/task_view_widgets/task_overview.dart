@@ -45,7 +45,7 @@ class TaskOverview extends StatelessWidget {
         if (task.showState)
           task.isWorkspace
               ? GroupStateTitle(task, task.subtasksState, place: StateTitlePlace.workspace)
-              : task.showRecommendsEta
+              : task.showRecommendsEta || task.projectLowStart
                   ? H3('${loc.state_no_info_title}: ${task.stateTitle.toLowerCase()}', align: TextAlign.center)
                   : TaskStateTitle(task, place: StateTitlePlace.taskOverview),
 
@@ -65,9 +65,8 @@ class TaskOverview extends StatelessWidget {
         if (task.showVelocityVolumeCharts) ...[
           const SizedBox(height: P2),
           Row(children: [
-            TaskVolumeChart(task),
-            const Spacer(),
-            VelocityChart(task),
+            Expanded(child: TaskVolumeChart(task)),
+            Expanded(child: VelocityChart(task)),
           ]),
         ],
 

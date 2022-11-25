@@ -61,35 +61,37 @@ class VelocityChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        MTPieChart(
-          radius: _radius,
-          startAngle: _startAngle,
-          sweepAngle: _sweepAngle,
-          totalValue: _maxValue,
-          data: [
-            _gaugeBar,
-            _mainBar,
-            if (_delta != 0) _deltaBar,
-            if (_delta != 0) _deltaPointer,
-            _mainPointer,
-          ],
-        ),
-        D1('$_displayText', color: _pointerColor, padding: const EdgeInsets.only(bottom: P_2)),
-        SmallText(loc.chart_velocity_unit_t_mo, padding: EdgeInsets.only(top: _radius / 2 + P_2), color: lightGreyColor),
-        Container(
-          width: _radius * 2 - P * 5,
-          height: _radius * 2 - P * 4,
-          alignment: Alignment.bottomCenter,
-          child: Row(children: [
-            if (_maxValue > 0) const MediumText('0', color: darkGreyColor),
-            const Spacer(),
-            if (_maxValue > 0) MediumText('${(_maxValue * daysPerMonth).round()}', color: darkGreyColor),
-          ]),
-        ),
-      ],
-    );
+    return task.projectLowStart
+        ? H4(loc.state_low_start_before_calc_duration(task.projectStartEtaCalcPeriod!.localizedString), maxLines: 5)
+        : Stack(
+            alignment: Alignment.center,
+            children: [
+              MTPieChart(
+                radius: _radius,
+                startAngle: _startAngle,
+                sweepAngle: _sweepAngle,
+                totalValue: _maxValue,
+                data: [
+                  _gaugeBar,
+                  _mainBar,
+                  if (_delta != 0) _deltaBar,
+                  if (_delta != 0) _deltaPointer,
+                  _mainPointer,
+                ],
+              ),
+              D1('$_displayText', color: _pointerColor, padding: const EdgeInsets.only(bottom: P_2)),
+              SmallText(loc.chart_velocity_unit_t_mo, padding: EdgeInsets.only(top: _radius / 2 + P_2), color: lightGreyColor),
+              Container(
+                width: _radius * 2 - P * 5,
+                height: _radius * 2 - P * 4,
+                alignment: Alignment.bottomCenter,
+                child: Row(children: [
+                  if (_maxValue > 0) const MediumText('0', color: darkGreyColor),
+                  const Spacer(),
+                  if (_maxValue > 0) MediumText('${(_maxValue * daysPerMonth).round()}', color: darkGreyColor),
+                ]),
+              ),
+            ],
+          );
   }
 }

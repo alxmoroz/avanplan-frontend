@@ -68,7 +68,7 @@ extension TaskStatePresenter on Task {
       case TaskState.opened:
         return loc.state_opened;
       case TaskState.noInfo:
-        return loc.state_no_info_title;
+        return projectLowStart ? loc.state_low_start_duration(lowStartThreshold.localizedString) : loc.state_no_info_title;
       case TaskState.closed:
         return loc.state_closed;
     }
@@ -129,8 +129,8 @@ extension TaskStatePresenter on Task {
   }
 
   bool get showState => !closed && (hasSubtasks || isProject || isGoal);
-  bool get showRecommendsEta => !isWorkspace && [TaskState.noInfo, TaskState.noSubtasks, TaskState.noProgress].contains(overallState);
+  bool get showRecommendsEta => !isWorkspace && [TaskState.noSubtasks, TaskState.noProgress].contains(overallState);
   bool get showTimeChart => !isWorkspace && showState && (hasDueDate || hasEtaDate);
-  bool get showVelocityVolumeCharts => !isWorkspace && !showRecommendsEta && showState;
+  bool get showVelocityVolumeCharts => !isWorkspace && showState;
   bool get showChartDetails => showVelocityVolumeCharts || showTimeChart;
 }

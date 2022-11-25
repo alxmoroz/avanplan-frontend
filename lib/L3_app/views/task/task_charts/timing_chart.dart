@@ -31,15 +31,13 @@ class TimingChart extends StatelessWidget {
   double get _suffixWidth => _barHeight / 2;
   double get _borderWidth => 1.0;
   Color get _barColor => lightGreyColor;
-  Color get _planMarkColor => darkGreyColor;
+  Color get _planMarkColor => task.hasOverdue ? dangerColor : darkGreyColor;
 
-  Color get _etaMarkColor => task.hasOverdue
-      ? dangerColor
-      : task.hasRisk
-          ? warningColor
-          : task.isOk
-              ? greenColor
-              : darkGreyColor;
+  Color get _etaMarkColor => task.hasRisk
+      ? warningColor
+      : task.isOk
+          ? greenColor
+          : darkGreyColor;
 
   Size get _markSize => const Size(P * 0.6, P * 0.75);
 
@@ -76,7 +74,7 @@ class TimingChart extends StatelessWidget {
       if (!task.isFuture)
         _DateBarData(
           date: _now,
-          color: task.hasOverdue ? warningColor : _barColor,
+          color: _barColor,
           mark: MTProgressMark(
             child: Stack(
               alignment: Alignment.center,

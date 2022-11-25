@@ -131,6 +131,6 @@ extension TaskStatePresenter on Task {
   bool get showState => !closed && (hasSubtasks || isProject || isGoal);
   bool get showRecommendsEta => !isWorkspace && [TaskState.noSubtasks, TaskState.noProgress].contains(overallState);
   bool get showTimeChart => !isWorkspace && showState && (hasDueDate || hasEtaDate);
-  bool get showVelocityVolumeCharts => !isWorkspace && showState;
+  bool get showVelocityVolumeCharts => !isWorkspace && !showRecommendsEta && showState;
   bool get showChartDetails => showVelocityVolumeCharts || showTimeChart;
 }

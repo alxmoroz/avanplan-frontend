@@ -58,9 +58,7 @@ abstract class _LoaderControllerBase with Store {
   }
 
   @action
-  Future<void> stop([int? milliseconds]) async {
-    await Future.delayed(Duration(milliseconds: milliseconds ?? 0), () => --stack);
-  }
+  Future stop([int? milliseconds]) async => await Future<void>.delayed(Duration(milliseconds: milliseconds ?? 0), () => --stack);
 
   /// Interceptor
   Interceptor get interceptor => InterceptorsWrapper(onError: (e, handler) async {

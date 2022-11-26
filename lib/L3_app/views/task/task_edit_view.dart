@@ -21,8 +21,14 @@ import 'task_edit_controller.dart';
 
 //TODO: подумать над унификацией полей. Возможно, получится избавиться от дуэта MTField и TFAnnotation
 
-Future<Task?> editTaskDialog(BuildContext context, {required Task parent, Task? task}) async {
-  return await showModalBottomSheet<Task?>(
+class EditTaskResult {
+  const EditTaskResult(this.task, [this.proceed]);
+  final Task task;
+  final bool? proceed;
+}
+
+Future<EditTaskResult?> editTaskDialog(BuildContext context, {required Task parent, Task? task}) async {
+  return await showModalBottomSheet<EditTaskResult?>(
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
@@ -49,9 +55,6 @@ class _TaskEditViewState extends State<TaskEditView> {
 
   late TaskEditController controller;
 
-  //TODO: валидация о заполненности работает неправильно, не сбрасывается после закрытия диалога
-  // возможно, остаются tfa с теми же кодами для новых вьюх этого же контроллера и у них висит признак о произошедшем редактировании поля
-  // была попытка использовать TFAnnotation для выбора статуса, чтобы реагировать на изменения поля в плане логики валидации
   @override
   void initState() {
     controller = TaskEditController();
@@ -69,7 +72,6 @@ class _TaskEditViewState extends State<TaskEditView> {
     controller.setDueDate(task?.dueDate);
     controller.selectWS(_savedWsID);
     controller.selectType(task?.type);
-    // controller.setClosed(task?.closed);
     // controller.selectStatus(task?.status);
     super.initState();
   }
@@ -120,23 +122,35 @@ class _TaskEditViewState extends State<TaskEditView> {
       child: ListView(children: [
         if (_savedWsID == null) controller.wsDropdown(context),
         for (final code in ['title', 'startDate', 'dueDate', 'description']) textFieldForCode(context, code),
-        if (parent.isProject)
-          MTButton(
-            leading: DoneIcon(controller.isBacklog),
-            titleText: loc.backlog,
-            margin: tfPadding,
-            onTap: controller.toggleBacklog,
-          ),
-
+        // if (parent.isProject)
+        //   MTButton(
+        //     leading: DoneIcon(controller.isBacklog),
+        //     titleText: loc.backlog,
+        //     margin: tfPadding,
+        //     onTap: controller.toggleBacklog,
+        //   ),
         // ...[statuses],
-        if (!isNew)
-          MTButton.outlined(
-            titleText: loc.delete_action_title,
-            titleColor: dangerColor,
-            margin: tfPadding.copyWith(top: P * 4),
-            onTap: () => controller.delete(context, task!),
-          ),
         const SizedBox(height: P),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            MTButton.outlined(
+              constrained: false,
+              titleText: loc.save_action_title,
+              onTap: controller.validated ? () => controller.save(context, task: task, parent: parent) : null,
+              padding: const EdgeInsets.symmetric(horizontal: P2),
+            ),
+            if (isNew)
+              MTButton.outlined(
+                constrained: false,
+                titleText: (parent.isProject || parent.isWorkspace) ? 'Сохранить и перейти' : 'Сохранить и повторить',
+                onTap: controller.validated ? () => controller.save(context, task: task, parent: parent, proceed: true) : null,
+                margin: const EdgeInsets.only(left: P),
+                padding: const EdgeInsets.symmetric(horizontal: P),
+              ),
+          ],
+        ),
+        const SizedBox(height: P2),
       ]),
     );
   }
@@ -165,18 +179,16 @@ class _TaskEditViewState extends State<TaskEditView> {
           context,
           leading: MTCloseButton(),
           title: isNew ? parent.newSubtaskTitle : '',
-          trailing: MTButton(
-            titleText: loc.save_action_title,
-            onTap: controller.validated ? () => controller.save(context, task: task, parent: parent) : null,
-            margin: const EdgeInsets.only(right: P),
-          ),
+          trailing: !isNew
+              ? MTButton.icon(
+                  const DeleteIcon(),
+                  () => controller.delete(context, task!),
+                  margin: const EdgeInsets.only(right: P),
+                )
+              : null,
           bgColor: backgroundColor,
         ),
-        body: SafeArea(
-          top: false,
-          bottom: false,
-          child: form(context),
-        ),
+        body: SafeArea(top: false, bottom: false, child: form(context)),
       ),
     );
   }

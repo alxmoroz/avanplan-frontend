@@ -2,6 +2,7 @@
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:gercules/L3_app/views/task/task_edit_view.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
@@ -93,28 +94,27 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
   }
 
   /// действия
+  Future<Task?> _saveTask(Task? task, Task parent) async => await tasksUC.save(Task(
+        id: task?.id,
+        parent: parent,
+        title: tfAnnoForCode('title').text,
+        description: tfAnnoForCode('description').text,
+        closed: task?.closed == true,
+        // status: selectedStatus,
+        startDate: selectedStartDate,
+        dueDate: selectedDueDate,
+        workspaceId: selectedWS!.id,
+        tasks: task?.tasks ?? [],
+        type: selectedType,
+      ));
 
-  Future save(BuildContext context, {Task? task, required Task parent}) async {
+  Future save(BuildContext context, {Task? task, required Task parent, bool proceed = false}) async {
     loaderController.start();
     loaderController.setSaving();
-    final editedTask = await tasksUC.save(Task(
-      id: task?.id,
-      parent: parent,
-      title: tfAnnoForCode('title').text,
-      description: tfAnnoForCode('description').text,
-      closed: task?.closed == true,
-      // status: selectedStatus,
-      startDate: selectedStartDate,
-      dueDate: selectedDueDate,
-      workspaceId: selectedWS!.id,
-      tasks: task?.tasks ?? [],
-      type: selectedType,
-    ));
-
+    final editedTask = await _saveTask(task, parent);
     if (editedTask != null) {
-      Navigator.of(context).pop(editedTask);
+      Navigator.of(context).pop(EditTaskResult(editedTask, proceed));
     }
-
     await loaderController.stop(300);
   }
 
@@ -133,7 +133,7 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
       loaderController.start();
       loaderController.setDeleting();
       final deletedTask = await tasksUC.delete(t: task);
-      Navigator.of(context).pop(deletedTask);
+      Navigator.of(context).pop(EditTaskResult(deletedTask));
       await loaderController.stop(300);
     }
   }

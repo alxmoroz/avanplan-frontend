@@ -186,10 +186,18 @@ abstract class _TaskViewControllerBase with Store {
 
   Future addSubtask(BuildContext context) async {
     if (await _checkUnlinked(context)) {
-      final newTask = await editTaskDialog(context, parent: task);
-      if (newTask != null) {
+      final newTaskResult = await editTaskDialog(context, parent: task);
+      if (newTaskResult != null) {
+        final newTask = newTaskResult.task;
         task.tasks.add(newTask);
         _updateTaskParents(newTask);
+        if (newTaskResult.proceed == true) {
+          if (task.isProject || task.isWorkspace) {
+            await mainController.showTask(context, newTask.id);
+          } else {
+            await addSubtask(context);
+          }
+        }
         selectTab(TaskTabKey.subtasks);
       }
     }
@@ -197,8 +205,9 @@ abstract class _TaskViewControllerBase with Store {
 
   Future edit(BuildContext context) async {
     if (await _checkUnlinked(context)) {
-      final editedTask = await editTaskDialog(context, parent: task.parent!, task: task);
-      if (editedTask != null) {
+      final editTaskResult = await editTaskDialog(context, parent: task.parent!, task: task);
+      if (editTaskResult != null) {
+        final editedTask = editTaskResult.task;
         if (editedTask.deleted) {
           _popDeleted(context, editedTask);
         }
@@ -228,7 +237,7 @@ abstract class _TaskViewControllerBase with Store {
       loaderController.setUnwatch();
       final deletedTask = await tasksUC.delete(t: task);
       await loaderController.stop();
-      if (deletedTask != null && deletedTask.deleted) {
+      if (deletedTask.deleted) {
         _popDeleted(context, deletedTask);
         _updateTaskParents(deletedTask);
       }

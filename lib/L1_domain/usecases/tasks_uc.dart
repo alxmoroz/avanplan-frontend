@@ -22,7 +22,7 @@ class TasksUC {
     return task;
   }
 
-  Future<Task?> delete({required Task t}) async {
+  Future<Task> delete({required Task t}) async {
     if (t.id != null) {
       final deletedRows = await repo.delete(t.id!);
       // TODO: внутр. exception?

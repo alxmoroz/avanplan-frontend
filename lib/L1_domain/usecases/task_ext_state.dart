@@ -187,7 +187,7 @@ extension TaskStats on Task {
       }
     } else if (hasEtaDate) {
       s = TaskState.eta;
-    } else if (projectLowStart) {
+    } else if ((isProject || isGoal) && projectLowStart) {
       s = TaskState.noInfo;
     }
     return s;

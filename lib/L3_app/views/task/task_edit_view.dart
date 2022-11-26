@@ -143,7 +143,7 @@ class _TaskEditViewState extends State<TaskEditView> {
             if (isNew)
               MTButton.outlined(
                 constrained: false,
-                titleText: (parent.isProject || parent.isWorkspace) ? 'Сохранить и перейти' : 'Сохранить и повторить',
+                titleText: (parent.isProject || parent.isWorkspace) ? loc.save_and_go_action_title : loc.save_and_repeat_action_title,
                 onTap: controller.validated ? () => controller.save(context, task: task, parent: parent, proceed: true) : null,
                 margin: const EdgeInsets.only(left: P),
                 padding: const EdgeInsets.symmetric(horizontal: P),

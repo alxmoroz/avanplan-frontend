@@ -121,6 +121,9 @@
   "role_member": "Member",
 
   "save_action_title": "Save",
+  "save_and_go_action_title": "Save & Go",
+  "save_and_repeat_action_title": "Save & Repeat",
+
   "select_all_action_title": "Select all",
 
   "state_ahead_duration": "We can finish {duration} early",

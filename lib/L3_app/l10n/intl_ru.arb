@@ -118,6 +118,9 @@
   "role_member": "Участник",
 
   "save_action_title": "Сохранить",
+  "save_and_go_action_title": "Сохранить и перейти",
+  "save_and_repeat_action_title": "Сохранить и повторить",
+
   "select_all_action_title": "Выбрать все",
 
   "state_ahead_duration": "Можем закончить на {duration} раньше",

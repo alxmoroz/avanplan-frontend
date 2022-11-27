@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'colors.dart';
 import 'constants.dart';
+import 'material_wrapper.dart';
 import 'text_widgets.dart';
 
 class MTListTile extends StatelessWidget {
@@ -14,6 +15,7 @@ class MTListTile extends StatelessWidget {
     this.titleText,
     this.trailing,
     this.onTap,
+    this.color,
     this.topBorder = false,
     this.bottomBorder = true,
   });
@@ -25,33 +27,37 @@ class MTListTile extends StatelessWidget {
   final Function()? onTap;
   final bool topBorder;
   final bool bottomBorder;
+  final Color? color;
 
   @override
-  Widget build(BuildContext context) => InkWell(
-        onTap: onTap,
-        child: Container(
-          padding: const EdgeInsets.all(P),
-          decoration: BoxDecoration(
-            border: Border(
-              top: topBorder ? BorderSide(width: 0.5, color: borderColor.resolve(context)) : BorderSide.none,
-              bottom: bottomBorder ? BorderSide(width: 0.5, color: borderColor.resolve(context)) : BorderSide.none,
+  Widget build(BuildContext context) => material(
+        InkWell(
+          onTap: onTap,
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border(
+                top: topBorder ? BorderSide(width: 1, color: borderColor.resolve(context)) : BorderSide.none,
+                bottom: bottomBorder ? BorderSide(width: 1, color: borderColor.resolve(context)) : BorderSide.none,
+              ),
+            ),
+            padding: const EdgeInsets.all(P),
+            child: Row(
+              children: [
+                if (leading != null) ...[leading!, const SizedBox(width: P_2)],
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      if (middle != null || titleText != null) middle ?? (titleText != null ? NormalText(titleText!) : Container()),
+                      if (subtitle != null) subtitle!,
+                    ],
+                  ),
+                ),
+                if (trailing != null) trailing!,
+              ],
             ),
           ),
-          child: Row(
-            children: [
-              if (leading != null) ...[leading!, const SizedBox(width: P_2)],
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    if (middle != null || titleText != null) middle ?? (titleText != null ? NormalText(titleText!) : Container()),
-                    if (subtitle != null) subtitle!,
-                  ],
-                ),
-              ),
-              if (trailing != null) trailing!,
-            ],
-          ),
         ),
+        color: color?.resolve(context),
       );
 }

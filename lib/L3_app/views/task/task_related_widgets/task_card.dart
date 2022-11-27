@@ -44,9 +44,6 @@ class TaskCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MTCardButton(
-        elevation: 0,
-        margin: margin ?? const EdgeInsets.symmetric(vertical: P_6),
-        radius: DEF_BORDER_RADIUS / 2,
         onTap: () => mainController.showTask(context, task.id),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

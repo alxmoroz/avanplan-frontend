@@ -37,58 +37,61 @@ class TaskOverview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final padding = MediaQuery.of(context).padding;
+    // final padding = MediaQuery.of(context).padding;
     return ListView(
       shrinkWrap: true,
-      padding: padding.add(const EdgeInsets.all(P).copyWith(bottom: 0)),
+      // padding: padding.add(const EdgeInsets.all(P).copyWith(bottom: 0)),
       children: [
-        if (task.showState)
-          task.isWorkspace
-              ? GroupStateTitle(task, task.subtasksState, place: StateTitlePlace.workspace)
-              : task.showRecommendsEta || task.projectLowStart
-                  ? H3('${loc.state_no_info_title}: ${task.stateTitle.toLowerCase()}', align: TextAlign.center)
-                  : TaskStateTitle(task, place: StateTitlePlace.taskOverview),
+        Padding(
+            padding: const EdgeInsets.all(P).copyWith(bottom: 0),
+            child: Column(children: [
+              if (task.showState)
+                task.isWorkspace
+                    ? GroupStateTitle(task, task.subtasksState, place: StateTitlePlace.workspace)
+                    : task.showRecommendsEta || task.projectLowStart
+                        ? H3('${loc.state_no_info_title}: ${task.stateTitle.toLowerCase()}', align: TextAlign.center)
+                        : TaskStateTitle(task, place: StateTitlePlace.taskOverview),
 
-        /// нет прогноза - показываем шаги
-        if (task.showRecommendsEta) ...[
-          const SizedBox(height: P2),
-          _checkRecommendsItem(task.overallState != TaskState.noSubtasks, '${loc.recommendation_add_tasks_title} ${task.listTitle.toLowerCase()}'),
-          _line(context),
-          _checkRecommendsItem(task.overallState != TaskState.noSubtasks && task.closedLeafTasksCount > 0, loc.recommendation_close_tasks_title),
-          // if (task.projectLowStart) ...[
-          //   _line(context),
-          //   _checkRecommendsItem(false, loc.recommendation_working_duration_title(task.lowStartThreshold.localizedString)),
-          // ]
-        ],
+              /// нет прогноза - показываем шаги
+              if (task.showRecommendsEta) ...[
+                const SizedBox(height: P2),
+                _checkRecommendsItem(
+                    task.overallState != TaskState.noSubtasks, '${loc.recommendation_add_tasks_title} ${task.listTitle.toLowerCase()}'),
+                _line(context),
+                _checkRecommendsItem(
+                    task.overallState != TaskState.noSubtasks && task.closedLeafTasksCount > 0, loc.recommendation_close_tasks_title),
+              ],
 
-        /// объем и скорость
-        if (task.showVelocityVolumeCharts) ...[
-          const SizedBox(height: P2),
-          Row(children: [
-            Expanded(child: TaskVolumeChart(task)),
-            const SizedBox(width: P2),
-            Expanded(child: VelocityChart(task)),
-          ]),
-        ],
+              /// объем и скорость
+              if (task.showVelocityVolumeCharts) ...[
+                const SizedBox(height: P2),
+                Row(children: [
+                  Expanded(child: TaskVolumeChart(task)),
+                  const SizedBox(width: P2),
+                  Expanded(child: VelocityChart(task)),
+                ]),
+              ],
 
-        /// срок
-        if (task.showTimeChart) ...[
-          const SizedBox(height: P),
-          TimingChart(task),
-        ],
+              /// срок
+              if (task.showTimeChart) ...[
+                const SizedBox(height: P),
+                TimingChart(task),
+              ],
 
-        if (task.showChartDetails) ...[
-          const SizedBox(height: P),
-          MTButton.outlined(
-            titleText: loc.chart_details_action_title,
-            onTap: () => showChartsDetailsDialog(context, task),
-          ),
-        ],
+              if (task.showChartDetails) ...[
+                const SizedBox(height: P),
+                MTButton.outlined(
+                  titleText: loc.chart_details_action_title,
+                  onTap: () => showChartsDetailsDialog(context, task),
+                ),
+              ],
+            ])),
 
         /// требующие внимания задачи
         if (task.attentionalTasks.isNotEmpty) ...[
           const SizedBox(height: P2),
-          if (!task.isWorkspace) H4(task.subtasksStateTitle, align: TextAlign.center),
+          if (!task.isWorkspace)
+            H4(task.subtasksStateTitle, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P).copyWith(bottom: P_3)),
           AttentionalTasks(task),
         ],
       ],

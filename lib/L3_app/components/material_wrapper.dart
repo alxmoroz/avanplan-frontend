@@ -2,4 +2,4 @@
 
 import 'package:flutter/material.dart';
 
-Widget material(Widget child) => Material(color: Colors.transparent, child: child);
+Widget material(Widget child, {Color? color}) => Material(color: color ?? Colors.transparent, child: child);

@@ -6,12 +6,14 @@ import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/usecases/task_ext_actions.dart';
 import '../../../../../L1_domain/usecases/task_ext_level.dart';
 import '../../../../../L1_domain/usecases/task_ext_state.dart';
+import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/mt_badge.dart';
 import '../../../components/mt_card.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
+import '../../../presenters/date_presenter.dart';
 import '../../../presenters/state_presenter.dart';
 import 'state_title.dart';
 
@@ -20,12 +22,14 @@ class TaskCard extends StatelessWidget {
 
   @protected
   final Task task;
-
   final EdgeInsets? margin;
+
+  bool get _hasStatus => task.status != null;
+  bool get _hasAssignee => task.assignee != null;
 
   Widget get title => H4(
         task.title,
-        maxLines: 1,
+        maxLines: 2,
         decoration: task.closed ? TextDecoration.lineThrough : null,
       );
 
@@ -40,13 +44,24 @@ class TaskCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MTCardButton(
-        margin: margin ?? const EdgeInsets.symmetric(vertical: P_2),
+        elevation: 0,
+        margin: margin ?? const EdgeInsets.symmetric(vertical: P_6),
+        radius: DEF_BORDER_RADIUS / 2,
         onTap: () => mainController.showTask(context, task.id),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,
           children: [
             header,
+            if (task.hasDueDate) ...[
+              const SizedBox(height: P_3),
+              Row(
+                children: [
+                  const CalendarIcon(size: P * 1.5, color: lightGreyColor),
+                  SmallText('${task.dueDate?.strMedium}', color: darkGreyColor, padding: const EdgeInsets.only(left: P_3)),
+                ],
+              ),
+            ],
             if (task.showState || _showLink) ...[
               const SizedBox(height: P_3),
               Row(children: [
@@ -54,6 +69,12 @@ class TaskCard extends StatelessWidget {
                 if (_showLink) const LinkIcon(),
               ]),
             ],
+            Row(
+              children: [
+                if (!task.closed && _hasStatus) SmallText(task.status!.title, padding: const EdgeInsets.only(top: P_3), color: darkGreyColor),
+                if (_hasAssignee) SmallText('@ ${task.assignee}', color: darkGreyColor),
+              ],
+            ),
           ],
         ),
       );

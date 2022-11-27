@@ -6,7 +6,7 @@ const double P_2 = P / 2;
 const double P_3 = P / 3;
 const double P_6 = P / 6;
 
-const double DEF_BORDER_RADIUS = P * 1.5;
+const double DEF_BORDER_RADIUS = P2;
 const double DEF_BORDER_WIDTH = 2;
 const double MIN_BTN_HEIGHT = P * 4;
 

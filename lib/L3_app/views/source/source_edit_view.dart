@@ -119,19 +119,17 @@ class _SourceEditViewState extends State<SourceEditView> {
             'description',
           ])
             textFieldForCode(code),
-          MTButton.outlined(
+          MTButton(
             titleText: loc.source_help_edit_action,
             trailing: const LinkOutIcon(size: P * 1.3),
             margin: tfPadding.copyWith(top: P2),
             onTap: () => launchUrlString(_sourceEditHelperAddress),
           ),
-          if (_controller.canEdit)
-            MTButton.outlined(
-              titleText: loc.delete_action_title,
-              titleColor: dangerColor,
-              margin: tfPadding.copyWith(top: P * 3),
-              onTap: () => _controller.delete(context),
-            ),
+          MTButton.outlined(
+            titleText: loc.save_action_title,
+            margin: tfPadding.copyWith(top: P2),
+            onTap: _canSave ? () => _controller.save(context) : null,
+          ),
           const SizedBox(height: P2),
         ],
       ),
@@ -146,11 +144,13 @@ class _SourceEditViewState extends State<SourceEditView> {
           context,
           leading: MTCloseButton(),
           title: _isNew ? loc.source_title_new : '',
-          trailing: MTButton(
-            titleText: loc.save_action_title,
-            onTap: _canSave ? () => _controller.save(context) : null,
-            margin: const EdgeInsets.only(right: P),
-          ),
+          trailing: _controller.canEdit
+              ? MTButton.icon(
+                  const DeleteIcon(),
+                  () => _controller.delete(context),
+                  margin: const EdgeInsets.only(right: P),
+                )
+              : null,
           bgColor: backgroundColor,
         ),
         body: SafeArea(top: false, bottom: false, child: form()),

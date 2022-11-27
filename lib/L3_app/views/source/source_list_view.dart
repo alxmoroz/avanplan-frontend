@@ -23,6 +23,8 @@ class SourceListView extends StatelessWidget {
   Widget _sourceBuilder(BuildContext context, int index) {
     final s = _controller.sources[index];
     return MTCardButton(
+      elevation: 0,
+      radius: DEF_BORDER_RADIUS / 2,
       child: s.info(context),
       onTap: () => _controller.editSource(context, src: s),
     );

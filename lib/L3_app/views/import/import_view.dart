@@ -7,7 +7,6 @@ import 'package:intl/intl.dart';
 import '../../../L1_domain/entities/source.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/icons.dart';
 import '../../components/mt_bottom_sheet.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_checkbox.dart';
@@ -37,27 +36,29 @@ class ImportView extends StatelessWidget {
   bool get _validated => _controller.validated;
   bool get _selectedAll => _controller.selectedAll;
 
-  List<DropdownMenuItem<Source>> _srcDdItems(Iterable<Source> sources, BuildContext context) => [
-        for (final s in sources) DropdownMenuItem<Source>(value: s, child: Padding(padding: const EdgeInsets.only(right: P), child: s.info(context))),
-        DropdownMenuItem<Source>(
-          value: Source(workspaceId: -1, type: SourceType(id: -1, title: ''), url: 'none'),
-          child: Row(children: [const PlusIcon(), MediumText(loc.source_title_new, color: mainColor)]),
-        ),
-      ];
+  List<DropdownMenuItem<Source>> _srcDdItems(Iterable<Source> sources, BuildContext context) =>
+      [for (final s in sources) DropdownMenuItem<Source>(value: s, child: Padding(padding: const EdgeInsets.only(right: P), child: s.info(context)))];
 
   Widget _sourceDropdown(BuildContext context) => MTDropdown<Source>(
-        onChanged: (s) => s?.id != null ? _controller.selectSource(s) : _controller.needAddSourceEvent(context),
+        onChanged: (s) => _controller.selectSource(s),
         value: _controller.selectedSource,
         ddItems: _srcDdItems(sourceController.sources, context),
         label: loc.source_import_placeholder,
         dense: false,
+        margin: const EdgeInsets.symmetric(horizontal: P),
       );
 
   Widget _header(BuildContext context) => Column(
         children: [
-          _sourceDropdown(context),
+          const SizedBox(height: P2),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(child: _sourceDropdown(context)),
+              MTPlusButton(() => _controller.needAddSourceEvent(context)),
+            ],
+          ),
           if (_controller.selectedSource != null) ...[
-            const SizedBox(height: P),
             if (_hasProjects) ...[
               if (_controller.projects.length > 1)
                 MTCheckBoxTile(title: loc.select_all_action_title, value: _selectedAll, onChanged: _controller.toggleSelectedAll),
@@ -66,6 +67,7 @@ class ImportView extends StatelessWidget {
                 _hasError ? Intl.message(_controller.errorCode!) : loc.import_list_empty_title,
                 align: TextAlign.center,
                 color: _hasError ? warningColor : lightGreyColor,
+                padding: const EdgeInsets.only(top: P_2),
               ),
           ] else
             NormalText(loc.import_source_select_hint, color: warningColor, align: TextAlign.center, padding: const EdgeInsets.only(top: P)),

@@ -14,6 +14,7 @@ class MTDropdown<T> extends StatelessWidget {
     this.value,
     this.ddItems,
     this.items,
+    this.margin,
     this.dense = true,
   }) : assert((ddItems == null && items != null) || (ddItems != null && items == null));
 
@@ -23,6 +24,7 @@ class MTDropdown<T> extends StatelessWidget {
   final List<DropdownMenuItem<T>>? ddItems;
   final String label;
   final bool dense;
+  final EdgeInsets? margin;
 
   List<DropdownMenuItem<T>> get _ddItems =>
       ddItems ??
@@ -37,7 +39,7 @@ class MTDropdown<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: tfPadding,
+      padding: margin ?? EdgeInsets.zero,
       child: DropdownButtonFormField<T>(
         isDense: dense,
         decoration: tfDecoration(context, label: label, readOnly: true),
@@ -46,7 +48,7 @@ class MTDropdown<T> extends StatelessWidget {
         isExpanded: true,
         value: value,
         onChanged: onChanged,
-        borderRadius: BorderRadius.circular(P_2),
+        borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS),
       ),
     );
   }

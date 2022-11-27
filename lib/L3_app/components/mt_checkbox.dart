@@ -23,6 +23,6 @@ class MTCheckBoxTile extends StatelessWidget {
           side: BorderSide(color: mainColor.resolve(context), width: 2),
           activeColor: mainColor.resolve(context),
         ),
-        decoration: BoxDecoration(border: Border(bottom: BorderSide(width: 0, color: borderColor.resolve(context)))),
+        decoration: BoxDecoration(border: Border(bottom: BorderSide(width: 0.5, color: borderColor.resolve(context)))),
       );
 }

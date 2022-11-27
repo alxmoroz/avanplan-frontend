@@ -110,6 +110,7 @@ class _SourceEditViewState extends State<SourceEditView> {
               value: _controller.selectedType,
               ddItems: srcTypeDdItems(referencesController.sourceTypes),
               label: loc.source_type_placeholder,
+              margin: tfPadding,
             ),
           for (final code in [
             'url',

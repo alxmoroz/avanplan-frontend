@@ -6,6 +6,7 @@ import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/mt_dropdown.dart';
+import '../../components/mt_text_field.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
 
@@ -33,6 +34,7 @@ abstract class _WorkspaceBoundedBase extends EditController with Store {
             value: selectedWS,
             items: mainController.selectableWSs,
             label: loc.workspace_title,
+            margin: tfPadding,
           )
         : Container();
   }

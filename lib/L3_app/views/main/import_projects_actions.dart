@@ -33,8 +33,6 @@ class ImportProjectsActions extends StatelessWidget {
               MTCardButton(
                 onTap: () => importController.importTasks(context, sType: st),
                 child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  // importIcon(context),
-                  // const SizedBox(width: P_3),
                   st.icon,
                   const SizedBox(width: P_2),
                   H4('$st'),

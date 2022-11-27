@@ -24,6 +24,8 @@ extension SourceTypePresenter on SourceType {
         return const NoInfoIcon();
     }
   }
+
+  Widget get iconTitle => Row(children: [icon, const SizedBox(width: P_2), NormalText('$this')]);
 }
 
 double get _connectionIndicatorSize => P;

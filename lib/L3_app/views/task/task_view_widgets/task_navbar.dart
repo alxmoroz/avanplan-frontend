@@ -10,6 +10,7 @@ import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/material_wrapper.dart';
+import '../../../components/mt_menu_plus_shape.dart';
 import '../../../components/navbar.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
@@ -17,8 +18,8 @@ import '../../../presenters/source_presenter.dart';
 import '../../../presenters/task_level_presenter.dart';
 import '../task_view_controller.dart';
 
-class TaskPopupMenu extends StatelessWidget {
-  const TaskPopupMenu(this.controller, {this.icon, this.child, this.margin});
+class _TaskPopupMenu extends StatelessWidget {
+  const _TaskPopupMenu(this.controller, {this.icon, this.child, this.margin});
   final TaskViewController controller;
   final Widget? icon;
   final Widget? child;
@@ -67,7 +68,7 @@ class TaskPopupMenu extends StatelessWidget {
           icon: icon,
           itemBuilder: (_) => [for (final at in _task.actionTypes) PopupMenuItem<TaskActionType>(value: at, child: itemWidget(_task, at))],
           onSelected: (at) => controller.taskAction(at, context),
-          padding: const EdgeInsets.symmetric(horizontal: P_2),
+          padding: EdgeInsets.zero,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS)),
         ),
       ),
@@ -82,27 +83,19 @@ CupertinoNavigationBar taskNavBar(BuildContext context, TaskViewController contr
     context,
     bgColor: task.isWorkspace ? navbarDefaultBgColor : backgroundColor,
     title: task.isWorkspace ? loc.project_list_title : task.viewTitle,
-    trailing: !task.isWorkspace && task.actionTypes.isNotEmpty ? TaskPopupMenu(controller, icon: const MenuIcon()) : null,
+    trailing: !task.isWorkspace && task.actionTypes.isNotEmpty && controller.canEditTask ? _TaskPopupMenu(controller, icon: const MenuIcon()) : null,
   );
 }
 
-class TaskFloatingPlusButton extends StatelessWidget {
-  const TaskFloatingPlusButton(this.controller);
+class TaskAddMenu extends StatelessWidget {
+  const TaskAddMenu(this.controller);
 
   final TaskViewController controller;
 
   @override
-  Widget build(BuildContext context) => TaskPopupMenu(
+  Widget build(BuildContext context) => _TaskPopupMenu(
         controller,
         margin: const EdgeInsets.only(right: P),
-        child: Container(
-          width: MIN_BTN_HEIGHT,
-          height: MIN_BTN_HEIGHT,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS),
-            border: Border.fromBorderSide(BorderSide(color: mainColor.resolve(context), width: DEF_BORDER_WIDTH)),
-          ),
-          child: const PlusIcon(),
-        ),
+        child: const MTMenuShape(icon: PlusIcon()),
       );
 }

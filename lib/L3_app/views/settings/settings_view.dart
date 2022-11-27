@@ -44,12 +44,13 @@ class SettingsView extends StatelessWidget {
                 const SizedBox(height: P_2),
                 if (_user != null) UserListTile(_user!),
                 const SizedBox(height: P_2),
-                MTListTile(
-                  leading: const ImportIcon(color: darkGreyColor),
-                  titleText: loc.source_list_title,
-                  trailing: const ChevronIcon(),
-                  onTap: () => _showSources(context),
-                ),
+                if (mainController.canEditAnyWS)
+                  MTListTile(
+                    leading: const ImportIcon(color: darkGreyColor),
+                    titleText: loc.source_list_title,
+                    trailing: const ChevronIcon(),
+                    onTap: () => _showSources(context),
+                  ),
                 if (mainController.workspaces.length > 1)
                   MTListTile(
                     leading: const WSIcon(),

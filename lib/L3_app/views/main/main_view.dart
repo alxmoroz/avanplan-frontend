@@ -58,7 +58,7 @@ class _MainViewState extends State<MainView> {
                 onTap: () => _gotoProjects(context),
               ),
             ),
-            if (mainController.canEditAnyWS) TaskFloatingPlusButton(_taskController),
+            if (mainController.canEditAnyWS) TaskAddMenu(_taskController),
           ],
         )
       : TaskAddButton(_taskController);

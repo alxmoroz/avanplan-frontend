@@ -1,9 +1,9 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:collection/collection.dart';
+import 'package:gercules/L1_domain/usecases/task_ext_level.dart';
 
 import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/usecases/task_ext_level.dart';
 import 'task_comparators.dart';
 
 extension TaskFilterPresenter on Task {
@@ -14,13 +14,13 @@ extension TaskFilterPresenter on Task {
     return groupedTasks.entries.sorted((g1, g2) => g1.key.index.compareTo(g2.key.index));
   }
 
-  List<Task> get attentionalTasks => isWorkspace ||
-          subtaskGroups.isNotEmpty &&
+  List<Task> get attentionalTasks => subtaskGroups.isNotEmpty &&
+          (isWorkspace ||
               [
                 TaskState.overdue,
                 TaskState.risk,
                 TaskState.ok,
-              ].contains(subtaskGroups.first.key)
+              ].contains(subtaskGroups.first.key))
       ? subtaskGroups.first.value
       : [];
 }

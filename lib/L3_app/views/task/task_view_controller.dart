@@ -66,7 +66,7 @@ abstract class _TaskViewControllerBase with Store {
   bool get showGroupTitles => _showGroupTitles ?? task.subtaskGroups.length > 1 && task.tasks.length > 4;
 
   @computed
-  bool get showBottomBar => authController.canEditWS(mainController.rolesForWS(task.workspaceId));
+  bool get canEditTask => authController.canEditWS(mainController.rolesForWS(task.workspaceId));
 
   /// связь с источником импорта
 

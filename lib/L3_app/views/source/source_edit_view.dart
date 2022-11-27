@@ -12,7 +12,6 @@ import '../../components/icons.dart';
 import '../../components/mt_bottom_sheet.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_close_button.dart';
-import '../../components/mt_dropdown.dart';
 import '../../components/mt_page.dart';
 import '../../components/mt_text_field.dart';
 import '../../components/navbar.dart';
@@ -91,27 +90,11 @@ class _SourceEditViewState extends State<SourceEditView> {
     );
   }
 
-  List<DropdownMenuItem<SourceType>> srcTypeDdItems(Iterable<SourceType> sTypes) => [
-        for (final st in sTypes)
-          DropdownMenuItem<SourceType>(
-            value: st,
-            child: Row(children: [st.icon, const SizedBox(width: P_2), NormalText('$st')]),
-          )
-      ];
-
   Widget form() {
     return Scrollbar(
       child: ListView(
         children: [
           if (_isNew) _controller.wsDropdown(context),
-          if (referencesController.sourceTypes.isNotEmpty)
-            MTDropdown<SourceType>(
-              onChanged: (type) => _controller.selectType(type),
-              value: _controller.selectedType,
-              ddItems: srcTypeDdItems(referencesController.sourceTypes),
-              label: loc.source_type_placeholder,
-              margin: tfPadding,
-            ),
           for (final code in [
             'url',
             if (_showUsername) 'username',
@@ -144,7 +127,13 @@ class _SourceEditViewState extends State<SourceEditView> {
         navBar: navBar(
           context,
           leading: MTCloseButton(),
-          title: _isNew ? loc.source_title_new : '',
+          middle: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (_isNew) MediumText(loc.source_title_new, padding: const EdgeInsets.only(right: P_2)),
+              _controller.selectedType!.iconTitle,
+            ],
+          ),
           trailing: _controller.canEdit
               ? MTButton.icon(
                   const DeleteIcon(),

@@ -17,11 +17,12 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/source_presenter.dart';
+import '../source/source_add_menu.dart';
 import 'import_controller.dart';
 
-Future<String?> showImportDialog(BuildContext context) async {
+Future<SourceType?> showImportDialog(BuildContext context) async {
   sourceController.checkSources();
-  return await showModalBottomSheet<String?>(
+  return await showModalBottomSheet<SourceType?>(
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
@@ -55,7 +56,10 @@ class ImportView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(child: _sourceDropdown(context)),
-              MTPlusButton(() => _controller.needAddSourceEvent(context)),
+              SourceAddMenu(
+                onSelected: (st) => _controller.needAddSourceEvent(context, st),
+                margin: const EdgeInsets.only(right: P),
+              )
             ],
           ),
           if (_controller.selectedSource != null) ...[
@@ -74,19 +78,21 @@ class ImportView extends StatelessWidget {
         ],
       );
 
-  Widget _body(BuildContext context) => Column(
-        children: [
-          _header(context),
-          if (_controller.selectedSource != null)
-            Expanded(
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemBuilder: _projectItemBuilder,
-                itemCount: _controller.projects.length,
+  Widget _body(BuildContext context) => sourceController.sources.isNotEmpty
+      ? Column(
+          children: [
+            _header(context),
+            if (_controller.selectedSource != null)
+              Expanded(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemBuilder: _projectItemBuilder,
+                  itemCount: _controller.projects.length,
+                ),
               ),
-            ),
-        ],
-      );
+          ],
+        )
+      : Center(child: H4(loc.source_list_empty_title, align: TextAlign.center, color: lightGreyColor));
 
   Widget _projectItemBuilder(BuildContext context, int index) {
     final project = _controller.projects[index];
@@ -114,7 +120,12 @@ class ImportView extends StatelessWidget {
             onTap: _validated ? () => _controller.startImport(context) : null,
           )
         ])
-      : null;
+      : sourceController.sources.isEmpty
+          ? SourceAddMenu(
+              onSelected: (st) => _controller.needAddSourceEvent(context, st),
+              margin: const EdgeInsets.symmetric(horizontal: P),
+              title: loc.source_title_new)
+          : null;
 
   @override
   Widget build(BuildContext context) {

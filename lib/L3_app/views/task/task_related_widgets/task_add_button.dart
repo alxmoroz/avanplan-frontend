@@ -8,8 +8,8 @@ import '../../../components/mt_button.dart';
 import '../../../presenters/task_level_presenter.dart';
 import '../task_view_controller.dart';
 
-class TaskAddActionWidget extends StatelessWidget {
-  const TaskAddActionWidget(this.controller);
+class TaskAddButton extends StatelessWidget {
+  const TaskAddButton(this.controller);
   final TaskViewController controller;
 
   @override

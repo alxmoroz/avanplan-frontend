@@ -14,7 +14,7 @@ import '../../components/mt_page.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_level_presenter.dart';
-import 'task_related_widgets/task_add_action_widget.dart';
+import 'task_related_widgets/task_add_button.dart';
 import 'task_view_controller.dart';
 import 'task_view_widgets/task_details.dart';
 import 'task_view_widgets/task_header.dart';
@@ -86,7 +86,7 @@ class _TaskViewState extends State<TaskView> {
       ? Row(children: [const Spacer(), TaskFloatingPlusButton(_controller)])
       : _controller.showBottomBar
           ? _task.shouldAddSubtask
-              ? TaskAddActionWidget(_controller)
+              ? TaskAddButton(_controller)
               : _task.canReopen || _task.shouldClose || _task.shouldCloseLeaf
                   ? Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
                       if (_task.shouldClose)

@@ -16,7 +16,7 @@ import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../account/user_icon.dart';
 import '../settings/settings_view.dart';
-import '../task/task_related_widgets/task_add_action_widget.dart';
+import '../task/task_related_widgets/task_add_button.dart';
 import '../task/task_view.dart';
 import '../task/task_view_controller.dart';
 import '../task/task_view_widgets/task_navbar.dart';
@@ -61,7 +61,7 @@ class _MainViewState extends State<MainView> {
             if (mainController.canEditAnyWS) TaskFloatingPlusButton(_taskController),
           ],
         )
-      : TaskAddActionWidget(_taskController);
+      : TaskAddButton(_taskController);
 
   @override
   Widget build(BuildContext context) {

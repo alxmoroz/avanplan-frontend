@@ -15,14 +15,14 @@ enum TaskLevel { workspace, project, goal, task, subtask }
 enum TaskState {
   overdue,
   risk,
-  ok,
   closable,
-  eta,
   noSubtasks,
-  noProgress,
-  opened,
-  future,
+  eta,
   noInfo,
+  ok,
+  noProgress,
+  future,
+  opened,
   closed,
 }
 

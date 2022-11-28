@@ -158,6 +158,7 @@ extension TaskStats on Task {
   double? get projectVelocity => isWorkspace ? 0 : project!.velocity;
   bool get projectLowStart => isWorkspace ? false : project!.isLowStart == true;
   Duration? get projectStartEtaCalcPeriod => isWorkspace ? null : project!.startDate!.add(lowStartThreshold).difference(_now);
+  bool get projectHasProgress => isWorkspace ? true : project!.closedLeafTasksCount > 0;
 
   bool _allOpenedSubtasksAre(TaskState state) => openedSubtasks.isNotEmpty && !openedSubtasks.any((t) => t._state != state);
 
@@ -171,7 +172,7 @@ extension TaskStats on Task {
       s = TaskState.noSubtasks;
     } else if (hasSubtasks && !hasOpenedSubtasks || _allOpenedSubtasksAre(TaskState.closable)) {
       s = TaskState.closable;
-    } else if (!isWorkspace && hasSubtasks && closedLeafTasksCount == 0) {
+    } else if (!projectHasProgress) {
       if (isFuture) {
         s = TaskState.future;
       } else {

@@ -61,7 +61,10 @@ class App extends StatelessWidget {
       ),
     );
 
+    const _DEBUG_BANNER = true;
+
     return MaterialApp(
+      debugShowCheckedModeBanner: _DEBUG_BANNER,
       theme: ThemeData(
         // brightness: WidgetsBinding.instance.window.platformBrightness,
         // colorSchemeSeed: mainColor.resolve(context),
@@ -74,6 +77,7 @@ class App extends StatelessWidget {
       home: Observer(
         builder: (_) => Stack(children: [
           CupertinoApp(
+            debugShowCheckedModeBanner: _DEBUG_BANNER,
             navigatorKey: rootKey,
             home: FutureBuilder(
               future: getIt.allReady(),
@@ -98,6 +102,7 @@ class App extends StatelessWidget {
           ),
           if (loaderController.stack > 0)
             CupertinoApp(
+              debugShowCheckedModeBanner: _DEBUG_BANNER,
               home: LoaderScreen(),
               localizationsDelegates: localizationsDelegates,
               supportedLocales: supportedLocales,

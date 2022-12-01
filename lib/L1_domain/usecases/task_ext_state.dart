@@ -168,29 +168,34 @@ extension TaskStats on Task {
 
     if (closed) {
       s = TaskState.closed;
-    } else if (!(isTask || isSubtask) && !hasSubtasks) {
-      s = TaskState.noSubtasks;
-    } else if (hasSubtasks && !hasOpenedSubtasks || _allOpenedSubtasksAre(TaskState.closable)) {
-      s = TaskState.closable;
-    } else if (!projectHasProgress) {
-      if (isFuture) {
-        s = TaskState.future;
-      } else {
-        s = TaskState.noProgress;
+    } else if (!hasSubtasks) {
+      if (!(isTask || isSubtask)) {
+        s = TaskState.noSubtasks;
       }
-    } else if (hasDueDate) {
-      if (hasOverdue) {
-        s = TaskState.overdue;
-      } else if (hasRisk) {
-        s = TaskState.risk;
-      } else if (isOk) {
-        s = TaskState.ok;
-      }
-    } else if (hasEtaDate) {
-      s = TaskState.eta;
-    } else if ((isProject || isGoal) && projectLowStart) {
-      s = TaskState.noInfo;
     }
+    // есть подзадачи
+    else {
+      if (!hasOpenedSubtasks || _allOpenedSubtasksAre(TaskState.closable)) {
+        s = TaskState.closable;
+      } else if (isFuture) {
+        s = TaskState.future;
+      } else if (!projectHasProgress) {
+        s = TaskState.noProgress;
+      } else if (hasDueDate) {
+        if (hasOverdue) {
+          s = TaskState.overdue;
+        } else if (hasRisk) {
+          s = TaskState.risk;
+        } else if (isOk) {
+          s = TaskState.ok;
+        }
+      } else if (hasEtaDate) {
+        s = TaskState.eta;
+      } else if ((isProject || isGoal) && projectLowStart) {
+        s = TaskState.noInfo;
+      }
+    }
+
     return s;
   }
 

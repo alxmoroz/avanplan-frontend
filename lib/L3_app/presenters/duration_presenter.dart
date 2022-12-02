@@ -16,7 +16,5 @@ extension DurationPresenter on Duration {
           ? loc.months_count(_inMonths.round())
           : _inWeeks > 1
               ? loc.weeks_count_accusative(_inWeeks.round())
-              : inDays > 1
-                  ? loc.days_count(inDays.round())
-                  : loc.hours_count(inHours.round());
+              : loc.days_count(inDays);
 }

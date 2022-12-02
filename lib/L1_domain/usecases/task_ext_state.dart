@@ -69,7 +69,7 @@ extension TaskStats on Task {
     for (Task t in tasks) {
       t._updateRisks();
     }
-    etaPeriod = (projectVelocity ?? 0) > 0 && openedLeafTasksCount > 0 ? Duration(days: (openedLeafTasksCount / projectVelocity!).round()) : null;
+    etaPeriod = (projectVelocity ?? 0) > 0 && openedLeafTasksCount > 0 ? Duration(days: (openedLeafTasksCount / projectVelocity!).ceil()) : null;
     etaDate = etaPeriod != null ? (isFuture ? startDate! : _now).add(etaPeriod!) : null;
     riskPeriod = (hasDueDate && hasEtaDate) ? etaDate!.difference(dueDate!) : null;
   }

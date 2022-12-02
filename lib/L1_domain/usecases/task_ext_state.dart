@@ -219,7 +219,7 @@ extension TaskStats on Task {
     final st = _state;
     final subSt = _subtasksState;
 
-    return ![TaskState.opened, TaskState.eta].contains(st)
+    return ![TaskState.opened, TaskState.eta, TaskState.noInfo].contains(st)
         ? st
         : subSt != TaskState.noInfo
             ? subSt

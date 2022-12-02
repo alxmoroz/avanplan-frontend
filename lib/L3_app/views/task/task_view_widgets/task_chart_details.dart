@@ -117,7 +117,7 @@ class TaskChartDetails extends StatelessWidget {
             if (!task.isFuture) _textRow(loc.chart_timing_elapsed_label, '${loc.days_count(task.elapsedPeriod.inDays)}'),
             if (task.leftPeriod != null)
               _textRow(
-                _timeDelta > 0 ? loc.chart_timing_left_label : loc.state_overdue_title,
+                _timeDelta >= 0 ? loc.chart_timing_left_label : loc.state_overdue_title,
                 '${loc.days_count(_timeDelta.abs())}',
                 color: _timeDelta > 0 ? null : warningColor,
               ),

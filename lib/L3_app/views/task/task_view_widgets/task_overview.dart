@@ -37,10 +37,8 @@ class TaskOverview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final padding = MediaQuery.of(context).padding;
     return ListView(
       shrinkWrap: true,
-      // padding: padding.add(const EdgeInsets.all(P).copyWith(bottom: 0)),
       children: [
         Padding(
             padding: const EdgeInsets.all(P).copyWith(bottom: 0),

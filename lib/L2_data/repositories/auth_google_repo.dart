@@ -19,12 +19,9 @@ class AuthGoogleRepo extends AuthBaseRepo {
   Future<String> signIn({String? username, String? password}) async {
     GoogleSignInAuthentication? auth;
     try {
-      final googleAuth = _gSI;
-      GoogleSignInAccount? account;
-      if (!await googleAuth.isSignedIn()) {
-        account = await googleAuth.signIn();
-      } else {
-        account = await googleAuth.signInSilently();
+      GoogleSignInAccount? account = await _gSI.signInSilently();
+      if (!await _gSI.isSignedIn()) {
+        account = await _gSI.signIn();
       }
       auth = await account?.authentication;
     } on PlatformException catch (e) {
@@ -51,5 +48,5 @@ class AuthGoogleRepo extends AuthBaseRepo {
   }
 
   @override
-  Future signOut() async => await _gSI.signOut();
+  Future signOut() async => await _gSI.disconnect();
 }

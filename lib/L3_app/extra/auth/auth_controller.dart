@@ -15,6 +15,7 @@ class AuthController extends _AuthControllerBase with _$AuthController {
     await authUC.updateOAuthToken();
     setAuthorized(await authUC.hasLocalAuth);
     signInWithAppleIsAvailable = await authUC.signInWithAppleIsAvailable();
+    await authUC.signInWithGoogleIsAvailable();
     return this;
   }
 }

@@ -37,11 +37,12 @@ class AuthUC {
   Future<bool> signInWithPassword({required String username, required String password}) async =>
       await _signIn(passwordRepo, username: username, password: password);
 
-  Future<bool> signInWithGoogle() async => _signIn(googleRepo);
+  Future<bool> signInWithGoogle() async => await _signIn(googleRepo);
 
-  Future<bool> signInWithApple() async => _signIn(appleRepo);
+  Future<bool> signInWithApple() async => await _signIn(appleRepo);
 
   Future<bool> signInWithAppleIsAvailable() async => await appleRepo.signInIsAvailable();
+  Future<bool> signInWithGoogleIsAvailable() async => await googleRepo.signInIsAvailable();
 
   Future signOut() async {
     await _currentRepo?.signOut();

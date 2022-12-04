@@ -13,7 +13,12 @@ class AuthGoogleRepo extends AuthBaseRepo {
   GoogleSignIn get _gSI => GoogleSignIn(scopes: ['email', 'profile']);
 
   @override
-  Future<bool> signInIsAvailable() async => true;
+  Future<bool> signInIsAvailable() async {
+    // костыль для возможности открывать popup для гугловой авторизации при первом посещении accounts.google.com
+    await _gSI.signInSilently();
+    await _gSI.signOut();
+    return true;
+  }
 
   @override
   Future<String> signIn({String? username, String? password}) async {

@@ -15,8 +15,10 @@ class AuthGoogleRepo extends AuthBaseRepo {
   @override
   Future<bool> signInIsAvailable() async {
     // костыль для возможности открывать popup для гугловой авторизации при первом посещении accounts.google.com
-    await _gSI.signInSilently();
-    await _gSI.signOut();
+    final acc = await _gSI.signInSilently();
+    if (acc != null) {
+      await _gSI.signOut();
+    }
     return true;
   }
 

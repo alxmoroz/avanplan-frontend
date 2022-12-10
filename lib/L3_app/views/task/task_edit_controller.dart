@@ -2,15 +2,16 @@
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:gercules/L3_app/views/task/task_edit_view.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../L1_domain/entities/estimate.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../components/mt_confirm_dialog.dart';
 import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';
 import '../../presenters/task_level_presenter.dart';
 import '../workspace/workspace_bounded.dart';
+import 'task_edit_view.dart';
 
 part 'task_edit_controller.g.dart';
 
@@ -101,6 +102,7 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
         description: tfAnnoForCode('description').text,
         closed: task?.closed == true,
         // status: selectedStatus,
+        estimate: selectedEstimate?.value,
         startDate: selectedStartDate,
         dueDate: selectedDueDate,
         workspaceId: selectedWS!.id,
@@ -137,6 +139,20 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
       await loaderController.stop(300);
     }
   }
+
+  /// оценки задач
+  @computed
+  List<Estimate> get estimates => selectedWS?.estimates ?? [];
+
+  @observable
+  int? _selectedEstimateId;
+
+  @action
+  void selectEstimate(Estimate? _est) => _selectedEstimateId = _est?.id;
+  void selectEstimateByValue(int? value) => selectEstimate(estimates.firstWhereOrNull((e) => e.value == value));
+
+  @computed
+  Estimate? get selectedEstimate => estimates.firstWhereOrNull((e) => e.id == _selectedEstimateId);
 
   /// статусы задач
 

@@ -8,6 +8,7 @@ import 'package:openapi/src/model/source_get.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/model/person_get.dart';
 import 'package:openapi/src/model/status_get.dart';
+import 'package:openapi/src/model/estimate_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -23,6 +24,7 @@ part 'workspace_get.g.dart';
 /// * [priorities] 
 /// * [persons] 
 /// * [sources] 
+/// * [estimates] 
 @BuiltValue()
 abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -45,6 +47,9 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
 
   @BuiltValueField(wireName: r'sources')
   BuiltList<SourceGet> get sources;
+
+  @BuiltValueField(wireName: r'estimates')
+  BuiltList<EstimateGet> get estimates;
 
   WorkspaceGet._();
 
@@ -105,6 +110,11 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
     yield serializers.serialize(
       object.sources,
       specifiedType: const FullType(BuiltList, [FullType(SourceGet)]),
+    );
+    yield r'estimates';
+    yield serializers.serialize(
+      object.estimates,
+      specifiedType: const FullType(BuiltList, [FullType(EstimateGet)]),
     );
   }
 
@@ -177,6 +187,13 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
             specifiedType: const FullType(BuiltList, [FullType(SourceGet)]),
           ) as BuiltList<SourceGet>;
           result.sources.replace(valueDes);
+          break;
+        case r'estimates':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [FullType(EstimateGet)]),
+          ) as BuiltList<EstimateGet>;
+          result.estimates.replace(valueDes);
           break;
         default:
           unhandled.add(key);

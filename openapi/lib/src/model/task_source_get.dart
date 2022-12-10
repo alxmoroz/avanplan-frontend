@@ -16,6 +16,7 @@ part 'task_source_get.g.dart';
 /// * [code] 
 /// * [rootCode] 
 /// * [keepConnection] 
+/// * [updatedOn] 
 /// * [url] 
 /// * [source_] 
 @BuiltValue()
@@ -31,6 +32,9 @@ abstract class TaskSourceGet implements Built<TaskSourceGet, TaskSourceGetBuilde
 
   @BuiltValueField(wireName: r'keep_connection')
   bool get keepConnection;
+
+  @BuiltValueField(wireName: r'updated_on')
+  DateTime? get updatedOn;
 
   @BuiltValueField(wireName: r'url')
   String get url;
@@ -81,6 +85,13 @@ class _$TaskSourceGetSerializer implements PrimitiveSerializer<TaskSourceGet> {
       object.keepConnection,
       specifiedType: const FullType(bool),
     );
+    if (object.updatedOn != null) {
+      yield r'updated_on';
+      yield serializers.serialize(
+        object.updatedOn,
+        specifiedType: const FullType(DateTime),
+      );
+    }
     yield r'url';
     yield serializers.serialize(
       object.url,
@@ -141,6 +152,13 @@ class _$TaskSourceGetSerializer implements PrimitiveSerializer<TaskSourceGet> {
             specifiedType: const FullType(bool),
           ) as bool;
           result.keepConnection = valueDes;
+          break;
+        case r'updated_on':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.updatedOn = valueDes;
           break;
         case r'url':
           final valueDes = serializers.deserialize(

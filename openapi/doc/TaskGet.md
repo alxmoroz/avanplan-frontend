@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **startDate** | [**DateTime**](DateTime.md) |  | [optional] 
 **dueDate** | [**DateTime**](DateTime.md) |  | [optional] 
 **closedDate** | [**DateTime**](DateTime.md) |  | [optional] 
+**estimate** | **int** |  | [optional] 
 **assignee** | [**PersonGet**](PersonGet.md) |  | [optional] 
 **author** | [**PersonGet**](PersonGet.md) |  | [optional] 
 **priority** | [**PriorityGet**](PriorityGet.md) |  | [optional] 

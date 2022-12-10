@@ -3,14 +3,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../L1_domain/entities/estimate.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/usecases/task_ext_level.dart';
+import '../../../L1_domain/usecases/task_ext_state.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_bottom_sheet.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_close_button.dart';
+import '../../components/mt_dropdown.dart';
 import '../../components/mt_page.dart';
 import '../../components/mt_text_field.dart';
 import '../../components/navbar.dart';
@@ -72,6 +75,7 @@ class _TaskEditViewState extends State<TaskEditView> {
     controller.setDueDate(task?.dueDate);
     controller.selectWS(_savedWsID);
     controller.selectType(task?.type);
+    controller.selectEstimateByValue(task?.estimate);
     // controller.selectStatus(task?.status);
     super.initState();
   }
@@ -130,7 +134,17 @@ class _TaskEditViewState extends State<TaskEditView> {
         //     onTap: controller.toggleBacklog,
         //   ),
         // ...[statuses],
-        const SizedBox(height: P),
+
+        if (controller.estimates.isNotEmpty && (isNew || task?.hasSubtasks == false))
+          MTDropdown<Estimate>(
+            onChanged: (est) => controller.selectEstimate(est),
+            value: controller.selectedEstimate,
+            items: controller.estimates,
+            margin: tfPadding,
+            label: loc.task_estimate_placeholder,
+            helper: controller.selectedEstimate == null && task?.estimate != null ? '${loc.task_estimate_placeholder}: ${task?.estimate}' : null,
+          ),
+        const SizedBox(height: P2),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

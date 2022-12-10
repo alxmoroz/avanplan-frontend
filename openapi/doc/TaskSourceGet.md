@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **code** | **String** |  | 
 **rootCode** | **String** |  | 
 **keepConnection** | **bool** |  | 
+**updatedOn** | [**DateTime**](DateTime.md) |  | [optional] 
 **url** | **String** |  | 
 **source_** | [**SourceGet**](SourceGet.md) |  | 
 

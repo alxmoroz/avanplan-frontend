@@ -10,6 +10,7 @@ import 'text_widgets.dart';
 class MTDropdown<T> extends StatelessWidget {
   const MTDropdown({
     required this.label,
+    this.helper,
     this.onChanged,
     this.value,
     this.ddItems,
@@ -23,6 +24,7 @@ class MTDropdown<T> extends StatelessWidget {
   final List<T>? items;
   final List<DropdownMenuItem<T>>? ddItems;
   final String label;
+  final String? helper;
   final bool dense;
   final EdgeInsets? margin;
 
@@ -42,7 +44,7 @@ class MTDropdown<T> extends StatelessWidget {
       padding: margin ?? EdgeInsets.zero,
       child: DropdownButtonFormField<T>(
         isDense: dense,
-        decoration: tfDecoration(context, label: label, readOnly: true),
+        decoration: tfDecoration(context, label: label, helper: helper, readOnly: true),
         icon: const DropdownIcon(),
         items: _ddItems,
         isExpanded: true,

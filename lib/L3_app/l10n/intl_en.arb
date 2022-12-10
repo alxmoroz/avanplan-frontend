@@ -178,17 +178,15 @@
   "task_due_date_label": "Deadline",
   "task_due_date_placeholder": "Deadline date",
   "task_edit_action_title": "Edit",
+  "task_estimate_placeholder": "Estimate",
+  "task_estimate_unit": "sp",
   "task_eta_date_label": "Predicted",
   "task_go2source_title": "Go to source",
-
   "task_filter_all": "All",
   "task_filter_opened": "Opened",
-
   "task_list_title": "Tasks",
   "task_new_title": "New task",
-
   "task_reopen_action_title": "Reopen",
-
   "task_start_date_placeholder": "Start date",
   "task_status_placeholder": "Status",
   "task_title": "Task",

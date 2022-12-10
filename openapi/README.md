@@ -89,6 +89,7 @@ Class | Method | HTTP request | Description
  - [BodyAuthAppleToken](doc/BodyAuthAppleToken.md)
  - [BodyAuthGoogleToken](doc/BodyAuthGoogleToken.md)
  - [BodyUpdateMyAccountV1MyAccountPut](doc/BodyUpdateMyAccountV1MyAccountPut.md)
+ - [EstimateGet](doc/EstimateGet.md)
  - [HTTPValidationError](doc/HTTPValidationError.md)
  - [LocationInner](doc/LocationInner.md)
  - [Msg](doc/Msg.md)

@@ -6,6 +6,7 @@ doc/AuthApi.md
 doc/BodyAuthAppleToken.md
 doc/BodyAuthGoogleToken.md
 doc/BodyUpdateMyAccountV1MyAccountPut.md
+doc/EstimateGet.md
 doc/HTTPValidationError.md
 doc/IntegrationsSourcesApi.md
 doc/IntegrationsTasksApi.md
@@ -54,6 +55,7 @@ lib/src/model/body_auth_apple_token.dart
 lib/src/model/body_auth_google_token.dart
 lib/src/model/body_update_my_account_v1_my_account_put.dart
 lib/src/model/date.dart
+lib/src/model/estimate_get.dart
 lib/src/model/http_validation_error.dart
 lib/src/model/location_inner.dart
 lib/src/model/msg.dart
@@ -86,6 +88,7 @@ test/auth_api_test.dart
 test/body_auth_apple_token_test.dart
 test/body_auth_google_token_test.dart
 test/body_update_my_account_v1_my_account_put_test.dart
+test/estimate_get_test.dart
 test/http_validation_error_test.dart
 test/integrations_sources_api_test.dart
 test/integrations_tasks_api_test.dart

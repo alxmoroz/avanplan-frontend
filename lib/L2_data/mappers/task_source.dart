@@ -13,6 +13,7 @@ extension TaskSourceMapper on api.TaskSourceGet {
         keepConnection: keepConnection,
         source: source_.source,
         urlString: url,
+        updatedOn: updatedOn,
       );
 }
 
@@ -21,5 +22,6 @@ extension TaskSourceImportMapper on api.TaskSource {
         code: code,
         rootCode: rootCode,
         keepConnection: keepConnection,
+        updatedOn: updatedOn,
       );
 }

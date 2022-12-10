@@ -46,6 +46,7 @@ class Task extends Statusable {
     this.assignee,
     this.taskSource,
     this.type,
+    this.estimate,
   });
 
   List<Task> tasks;
@@ -63,6 +64,7 @@ class Task extends Statusable {
   final Person? assignee;
   final TaskSource? taskSource;
   final TaskType? type;
+  int? estimate;
   Task? parent;
 
   TaskLevel level = TaskLevel.workspace;

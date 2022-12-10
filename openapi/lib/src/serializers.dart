@@ -17,6 +17,7 @@ import 'package:openapi/src/model/date.dart';
 import 'package:openapi/src/model/body_auth_apple_token.dart';
 import 'package:openapi/src/model/body_auth_google_token.dart';
 import 'package:openapi/src/model/body_update_my_account_v1_my_account_put.dart';
+import 'package:openapi/src/model/estimate_get.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/location_inner.dart';
 import 'package:openapi/src/model/msg.dart';
@@ -50,6 +51,7 @@ part 'serializers.g.dart';
   BodyAuthAppleToken,
   BodyAuthGoogleToken,
   BodyUpdateMyAccountV1MyAccountPut,
+  EstimateGet,
   HTTPValidationError,
   LocationInner,
   Msg,

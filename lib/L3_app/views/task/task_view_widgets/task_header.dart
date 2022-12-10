@@ -6,10 +6,12 @@ import 'package:url_launcher/url_launcher_string.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/usecases/task_ext_actions.dart';
 import '../../../../L1_domain/usecases/task_ext_level.dart';
+import '../../../../L1_domain/usecases/task_ext_state.dart';
 import '../../../components/constants.dart';
 import '../../../components/mt_button.dart';
 import '../../../components/mt_divider.dart';
 import '../../../components/text_widgets.dart';
+import '../../../extra/services.dart';
 import '../../../presenters/source_presenter.dart';
 import '../task_view_controller.dart';
 
@@ -47,7 +49,7 @@ class TaskHeader extends StatelessWidget {
           const MTDivider(),
         ],
         H2(_task.title, decoration: _task.closed ? TextDecoration.lineThrough : null),
-        if (_hasStatus || _hasAssignee) ...[
+        if (_hasStatus || _hasAssignee || _task.hasEstimate) ...[
           const SizedBox(height: P),
           Row(
             children: [
@@ -56,6 +58,10 @@ class TaskHeader extends StatelessWidget {
                 if (_hasStatus) const SizedBox(width: P_2),
                 SmallText('@ ${_task.assignee}'),
               ],
+              if (_task.hasEstimate) ...[
+                if (_hasStatus || _hasAssignee) const Spacer(),
+                SmallText('${_task.estimate} ${loc.task_estimate_unit}'),
+              ]
             ],
           ),
         ],

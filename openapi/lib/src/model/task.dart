@@ -22,6 +22,7 @@ part 'task.g.dart';
 /// * [startDate] 
 /// * [dueDate] 
 /// * [closedDate] 
+/// * [estimate] 
 /// * [assignee] 
 /// * [author] 
 /// * [status] 
@@ -49,6 +50,9 @@ abstract class Task implements Built<Task, TaskBuilder> {
 
   @BuiltValueField(wireName: r'closed_date')
   DateTime? get closedDate;
+
+  @BuiltValueField(wireName: r'estimate')
+  int? get estimate;
 
   @BuiltValueField(wireName: r'assignee')
   Person? get assignee;
@@ -136,6 +140,13 @@ class _$TaskSerializer implements PrimitiveSerializer<Task> {
       yield serializers.serialize(
         object.closedDate,
         specifiedType: const FullType(DateTime),
+      );
+    }
+    if (object.estimate != null) {
+      yield r'estimate';
+      yield serializers.serialize(
+        object.estimate,
+        specifiedType: const FullType(int),
       );
     }
     if (object.assignee != null) {
@@ -258,6 +269,13 @@ class _$TaskSerializer implements PrimitiveSerializer<Task> {
             specifiedType: const FullType(DateTime),
           ) as DateTime;
           result.closedDate = valueDes;
+          break;
+        case r'estimate':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.estimate = valueDes;
           break;
         case r'assignee':
           final valueDes = serializers.deserialize(

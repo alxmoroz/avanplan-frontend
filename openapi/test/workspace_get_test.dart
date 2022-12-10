@@ -41,5 +41,10 @@ void main() {
     test('to test the property `sources`', () async {
       // TODO
     });
+
+    // BuiltList<EstimateGet> estimates
+    test('to test the property `estimates`', () async {
+      // TODO
+    });
   });
 }

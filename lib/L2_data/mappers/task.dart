@@ -31,6 +31,7 @@ extension TaskMapper on api.TaskGet {
       dueDate: dueDate?.toLocal(),
       closed: closed ?? false,
       status: status?.status,
+      estimate: estimate,
       tasks: [],
       priority: priority?.priority,
       author: author?.person,

@@ -22,6 +22,11 @@ void main() {
       // TODO
     });
 
+    // DateTime updatedOn
+    test('to test the property `updatedOn`', () async {
+      // TODO
+    });
+
     // String url
     test('to test the property `url`', () async {
       // TODO
@@ -34,6 +39,11 @@ void main() {
 
     // String versionCode
     test('to test the property `versionCode`', () async {
+      // TODO
+    });
+
+    // bool skipUpdate (default value: false)
+    test('to test the property `skipUpdate`', () async {
       // TODO
     });
   });

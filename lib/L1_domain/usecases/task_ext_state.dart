@@ -38,6 +38,11 @@ extension TaskStats on Task {
     leafTasks = allTasks.where((t) => !t.hasSubtasks);
     openedLeafTasks = leafTasks.where((t) => !t.closed);
 
+    // суммарная оценка в приоритете над локальной
+    // TODO: суммарная оценка для групп задач, если не 0 => из специальной функции, которая заполняет оценки усреднёнными при их отсутствии
+    final _sumEstimate = openedLeafTasks.fold<int>(0, (est, t) => (t.estimate ?? 0) + est);
+    estimate = _sumEstimate > 0 ? _sumEstimate : estimate;
+
     isFuture = startDate!.isAfter(_now);
     beforeStartPeriod = startDate!.difference(_now);
 
@@ -243,4 +248,6 @@ extension TaskStats on Task {
   bool get hasRisk => riskPeriod != null && riskPeriod! > _riskThreshold;
   bool get isOk => riskPeriod != null && riskPeriod! <= _riskThreshold;
   bool get isAhead => riskPeriod != null && -riskPeriod! > _riskThreshold;
+
+  bool get hasEstimate => estimate != null;
 }

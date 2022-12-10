@@ -42,6 +42,8 @@ class TaskCard extends StatelessWidget {
 
   bool get _showLink => task.hasLink && task.isProject;
 
+  Widget get _estimateText => SmallText(' ${task.estimate} ${loc.task_estimate_unit}', color: darkGreyColor);
+
   @override
   Widget build(BuildContext context) => MTCardButton(
         onTap: () => mainController.showTask(context, task.id),
@@ -62,7 +64,10 @@ class TaskCard extends StatelessWidget {
             if (task.showState || _showLink) ...[
               const SizedBox(height: P_3),
               Row(children: [
-                if (task.showState) Expanded(child: TaskStateTitle(task)) else const Spacer(),
+                if (task.showState) ...[
+                  Expanded(child: TaskStateTitle(task)),
+                  if (task.hasEstimate) _estimateText,
+                ],
                 if (_showLink) const LinkIcon(),
               ]),
             ],
@@ -70,6 +75,10 @@ class TaskCard extends StatelessWidget {
               children: [
                 if (!task.closed && _hasStatus) SmallText(task.status!.title, color: darkGreyColor),
                 if (_hasAssignee) SmallText(' @ ${task.assignee}', color: darkGreyColor),
+                if (task.hasEstimate && !task.showState) ...[
+                  const Spacer(),
+                  _estimateText,
+                ]
               ],
             ),
           ],

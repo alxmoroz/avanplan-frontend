@@ -27,6 +27,11 @@ void main() {
       // TODO
     });
 
+    // DateTime updatedOn
+    test('to test the property `updatedOn`', () async {
+      // TODO
+    });
+
     // String url
     test('to test the property `url`', () async {
       // TODO

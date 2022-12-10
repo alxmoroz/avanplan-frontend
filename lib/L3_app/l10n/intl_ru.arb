@@ -175,17 +175,15 @@
   "task_due_date_label": "Срок",
   "task_due_date_placeholder": "Срок завершения",
   "task_edit_action_title": "Редактировать",
+  "task_estimate_placeholder": "Оценка",
+  "task_estimate_unit": "sp",
   "task_eta_date_label": "Прогноз",
   "task_go2source_title": "Перейти к источнику",
-
   "task_filter_all": "Все",
   "task_filter_opened": "Открытые",
-
   "task_list_title": "Задачи",
   "task_new_title": "Новая задача",
-
   "task_reopen_action_title": "Переоткрыть",
-
   "task_start_date_placeholder": "Дата начала",
   "task_status_placeholder": "Статус",
   "task_title": "Задача",

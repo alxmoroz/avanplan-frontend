@@ -14,9 +14,11 @@ part 'task_source.g.dart';
 /// * [code] 
 /// * [rootCode] 
 /// * [keepConnection] 
+/// * [updatedOn] 
 /// * [url] 
 /// * [parentCode] 
 /// * [versionCode] 
+/// * [skipUpdate] 
 @BuiltValue()
 abstract class TaskSource implements Built<TaskSource, TaskSourceBuilder> {
   @BuiltValueField(wireName: r'code')
@@ -28,6 +30,9 @@ abstract class TaskSource implements Built<TaskSource, TaskSourceBuilder> {
   @BuiltValueField(wireName: r'keep_connection')
   bool get keepConnection;
 
+  @BuiltValueField(wireName: r'updated_on')
+  DateTime? get updatedOn;
+
   @BuiltValueField(wireName: r'url')
   String? get url;
 
@@ -37,12 +42,16 @@ abstract class TaskSource implements Built<TaskSource, TaskSourceBuilder> {
   @BuiltValueField(wireName: r'version_code')
   String? get versionCode;
 
+  @BuiltValueField(wireName: r'skip_update')
+  bool? get skipUpdate;
+
   TaskSource._();
 
   factory TaskSource([void updates(TaskSourceBuilder b)]) = _$TaskSource;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(TaskSourceBuilder b) => b;
+  static void _defaults(TaskSourceBuilder b) => b
+      ..skipUpdate = false;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<TaskSource> get serializer => _$TaskSourceSerializer();
@@ -75,6 +84,13 @@ class _$TaskSourceSerializer implements PrimitiveSerializer<TaskSource> {
       object.keepConnection,
       specifiedType: const FullType(bool),
     );
+    if (object.updatedOn != null) {
+      yield r'updated_on';
+      yield serializers.serialize(
+        object.updatedOn,
+        specifiedType: const FullType(DateTime),
+      );
+    }
     if (object.url != null) {
       yield r'url';
       yield serializers.serialize(
@@ -94,6 +110,13 @@ class _$TaskSourceSerializer implements PrimitiveSerializer<TaskSource> {
       yield serializers.serialize(
         object.versionCode,
         specifiedType: const FullType(String),
+      );
+    }
+    if (object.skipUpdate != null) {
+      yield r'skip_update';
+      yield serializers.serialize(
+        object.skipUpdate,
+        specifiedType: const FullType(bool),
       );
     }
   }
@@ -140,6 +163,13 @@ class _$TaskSourceSerializer implements PrimitiveSerializer<TaskSource> {
           ) as bool;
           result.keepConnection = valueDes;
           break;
+        case r'updated_on':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.updatedOn = valueDes;
+          break;
         case r'url':
           final valueDes = serializers.deserialize(
             value,
@@ -160,6 +190,13 @@ class _$TaskSourceSerializer implements PrimitiveSerializer<TaskSource> {
             specifiedType: const FullType(String),
           ) as String;
           result.versionCode = valueDes;
+          break;
+        case r'skip_update':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.skipUpdate = valueDes;
           break;
         default:
           unhandled.add(key);

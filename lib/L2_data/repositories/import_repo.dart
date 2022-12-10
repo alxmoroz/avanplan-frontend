@@ -29,7 +29,8 @@ class ImportRepo extends AbstractApiImportRepo {
     final tSchema = tss.map((ts) => (o_api.TaskSourceBuilder()
           ..code = ts.code
           ..rootCode = ts.rootCode
-          ..keepConnection = ts.keepConnection)
+          ..keepConnection = ts.keepConnection
+          ..updatedOn = ts.updatedOn)
         .build());
     await api.importTaskSourcesV1IntegrationsTasksImportPost(sourceId: srcId, taskSource: BuiltList.from(tSchema));
   }
@@ -42,6 +43,7 @@ class ImportRepo extends AbstractApiImportRepo {
           ..code = ts.code
           ..rootCode = ts.rootCode
           ..keepConnection = ts.keepConnection
+          ..updatedOn = ts.updatedOn
           ..url = ts.urlString)
         .build());
 

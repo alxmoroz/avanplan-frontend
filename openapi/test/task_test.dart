@@ -37,6 +37,11 @@ void main() {
       // TODO
     });
 
+    // int estimate
+    test('to test the property `estimate`', () async {
+      // TODO
+    });
+
     // Person assignee
     test('to test the property `assignee`', () async {
       // TODO

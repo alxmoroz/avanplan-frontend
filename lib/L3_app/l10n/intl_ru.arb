@@ -28,14 +28,17 @@
   "chart_details_title": "Метрики",
   "chart_delta_ahead_label": "Опережение",
   "chart_delta_lag_label": "Отставание",
-  "chart_velocity_project_label": "Текущая",
-  "chart_velocity_target_label": "Ожидаемая",
-  "chart_velocity_title": "Скорость",
-  "chart_velocity_unit_t_mo": "задач / месяц",
+
   "chart_timing_elapsed_label": "Прошло",
   "chart_timing_eta_label": "Прогноз завершения",
   "chart_timing_left_label": "До срока осталось",
   "chart_timing_title": "Время",
+
+  "chart_velocity_project_label": "Текущая",
+  "chart_velocity_target_label": "Ожидаемая",
+  "chart_velocity_title": "Скорость",
+  "chart_velocity_unit_sp_mo": "sp / месяц",
+  "chart_velocity_unit_t_mo": "задач / месяц",
 
   "chart_volume_plan_label": "Должно быть выполнено",
   "chart_volume_title": "Объём",

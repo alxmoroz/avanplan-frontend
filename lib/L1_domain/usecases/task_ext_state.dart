@@ -37,11 +37,10 @@ extension TaskStats on Task {
     closedSubtasks = tasks.where((t) => t.closed);
     leafTasks = allTasks.where((t) => !t.hasSubtasks);
     openedLeafTasks = leafTasks.where((t) => !t.closed);
+    closedLeafTasks = leafTasks.where((t) => t.closed);
 
     // суммарная оценка в приоритете над локальной
-    // TODO: суммарная оценка для групп задач, если не 0 => из специальной функции, которая заполняет оценки усреднёнными при их отсутствии
-    final _sumEstimate = openedLeafTasks.fold<int>(0, (est, t) => (t.estimate ?? 0) + est);
-    estimate = _sumEstimate > 0 ? _sumEstimate : estimate;
+    estimate = _sumEstimate(openedLeafTasks) ?? estimate;
 
     isFuture = startDate!.isAfter(_now);
     beforeStartPeriod = startDate!.difference(_now);
@@ -52,20 +51,50 @@ extension TaskStats on Task {
     leftPeriod = hasDueDate && !isFuture ? dueDate!.add(_overdueThreshold).difference(_now) : null;
     overduePeriod = hasDueDate ? _now.difference(dueDate!) : null;
 
-    targetVelocity = leftPeriod != null && leftPeriod!.inDays > 0 && !hasOverdue ? openedLeafTasksCount / leftPeriod!.inDays : null;
-
     final _planPeriod = hasDueDate ? dueDate!.difference(startDate!) : null;
     planVolume = !isFuture && _planPeriod != null ? min(leafTasksCount.toDouble(), leafTasksCount * elapsedPeriod.inDays / _planPeriod.inDays) : null;
   }
 
+  static int? _sumEstimate(Iterable<Task> tasks) {
+    int? res;
+    final count = tasks.length;
+    if (count > 0) {
+      final noEstimateTasks = tasks.where((t) => t.estimate == null);
+      final hasEstimate = noEstimateTasks.length / count < 0.75;
+      if (hasEstimate) {
+        res = tasks.fold<int>(0, (est, t) => (t.estimate ?? 0) + est);
+        final avg = res / count;
+        res += (avg * noEstimateTasks.length).round();
+      }
+    }
+    return res;
+  }
+
+  /// скорость проекта
+  int? get _closedDays => closedPeriod?.inDays;
   void _updateVelocity() {
     for (Task t in tasks) {
       t._updateVelocity();
     }
+
     if (isProject) {
       isLowStart = elapsedPeriod < lowStartThreshold;
       if (isLowStart == false) {
-        velocity = _velocity;
+        const velocityFrameInDays = 42;
+        final elapsedDays = elapsedPeriod.inDays;
+        // средняя скорость по проекту без учёта закрытых задач или скоростей целей в пределах окна
+        velocityTasks = closedLeafTasksCount / elapsedDays;
+        final closedEstimate = _sumEstimate(closedLeafTasks);
+        velocitySP = closedEstimate != null ? closedEstimate / elapsedDays : null;
+
+        // ищем закрытые задачи с датой закрытия в пределах окна
+        final referencesTasks = leafTasks.where((t) => t.closed && t.hasClosedDate);
+        if (referencesTasks.isNotEmpty) {
+          final closedTasks = referencesTasks.where((t) => t._closedDays! < velocityFrameInDays);
+          final closedEstimate = _sumEstimate(closedTasks);
+          velocityTasks = closedLeafTasksCount / min(elapsedDays, velocityFrameInDays);
+          velocitySP = closedEstimate != null ? (closedEstimate / min(elapsedDays, velocityFrameInDays)) : null;
+        }
       }
     }
   }
@@ -74,7 +103,15 @@ extension TaskStats on Task {
     for (Task t in tasks) {
       t._updateRisks();
     }
-    etaPeriod = (projectVelocity ?? 0) > 0 && openedLeafTasksCount > 0 ? Duration(days: (openedLeafTasksCount / projectVelocity!).ceil()) : null;
+
+    final pVelocitySP = isWorkspace ? null : project!.velocitySP;
+    showSP = estimate != null && pVelocitySP != null;
+    final leftCapacity = showSP ? estimate! : openedLeafTasksCount;
+    if (leftPeriod != null && leftPeriod!.inDays > 0 && !hasOverdue) {
+      targetVelocity = leftCapacity / leftPeriod!.inDays;
+    }
+
+    etaPeriod = (projectVelocity ?? 0) > 0 && leftCapacity > 0 ? Duration(days: (leftCapacity / projectVelocity!).ceil()) : null;
     etaDate = etaPeriod != null ? (isFuture ? startDate! : _now).add(etaPeriod!) : null;
     riskPeriod = (hasDueDate && hasEtaDate) ? etaDate!.difference(dueDate!) : null;
   }
@@ -143,24 +180,8 @@ extension TaskStats on Task {
     return start;
   }
 
-  /// скорость проекта
-  int? get _closedDays => closedPeriod?.inDays;
-  double get _velocity {
-    const velocityFrameInDays = 42;
-    final elapsedDays = elapsedPeriod.inDays;
-    // средняя скорость по проекту без учёта закрытых задач или скоростей целей в пределах окна
-    double v = closedLeafTasksCount / elapsedDays;
+  double? get projectVelocity => isWorkspace ? 0 : (showSP ? project!.velocitySP : project!.velocityTasks);
 
-    // ищем закрытые задачи с датой закрытия в пределах окна
-    final referencesTasks = leafTasks.where((t) => t.closed && t.hasClosedDate);
-    if (referencesTasks.isNotEmpty) {
-      final closedTasks = referencesTasks.where((t) => t._closedDays! < velocityFrameInDays).length;
-      v = closedTasks / min(elapsedDays, velocityFrameInDays);
-    }
-    return v;
-  }
-
-  double? get projectVelocity => isWorkspace ? 0 : project!.velocity;
   bool get projectLowStart => isWorkspace ? false : project!.isLowStart == true;
   Duration? get projectStartEtaCalcPeriod => isWorkspace ? null : project!.startDate!.add(lowStartThreshold).difference(_now);
   bool get projectHasProgress => isWorkspace ? true : project!.closedLeafTasksCount > 0;
@@ -235,7 +256,7 @@ extension TaskStats on Task {
 
   int get leafTasksCount => leafTasks.length;
   int get openedLeafTasksCount => openedLeafTasks.length;
-  int get closedLeafTasksCount => leafTasksCount - openedLeafTasksCount;
+  int get closedLeafTasksCount => closedLeafTasks.length;
 
   bool get hasOpenedSubtasks => openedSubtasks.isNotEmpty;
   bool get hasClosedSubtasks => closedSubtasks.isNotEmpty;

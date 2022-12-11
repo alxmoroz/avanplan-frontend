@@ -79,7 +79,8 @@ class VelocityChart extends StatelessWidget {
         ),
         if (!task.projectLowStart) ...[
           D1('$_displayText', color: _pointerColor, padding: const EdgeInsets.only(bottom: P_2)),
-          SmallText(loc.chart_velocity_unit_t_mo, padding: EdgeInsets.only(top: _radius / 2 + P_2), color: lightGreyColor),
+          SmallText(task.showSP ? loc.chart_velocity_unit_sp_mo : loc.chart_velocity_unit_t_mo,
+              padding: EdgeInsets.only(top: _radius / 2 + P_2), color: lightGreyColor),
           Container(
             width: _radius * 2 - P * 5,
             height: _radius * 2 - P * 4,

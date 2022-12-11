@@ -68,7 +68,10 @@ class TaskCard extends StatelessWidget {
                   Expanded(child: TaskStateTitle(task)),
                   if (task.hasEstimate) _estimateText,
                 ],
-                if (_showLink) const LinkIcon(),
+                if (_showLink) ...[
+                  if (task.hasEstimate) const SizedBox(width: P_3),
+                  const LinkIcon(),
+                ]
               ]),
             ],
             Row(

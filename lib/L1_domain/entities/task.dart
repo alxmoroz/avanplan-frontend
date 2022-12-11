@@ -74,6 +74,7 @@ class Task extends Statusable {
   Iterable<Task> closedSubtasks = [];
   Iterable<Task> leafTasks = [];
   Iterable<Task> openedLeafTasks = [];
+  Iterable<Task> closedLeafTasks = [];
   Iterable<Task> overdueSubtasks = [];
   Iterable<Task> riskySubtasks = [];
   Iterable<Task> okSubtasks = [];
@@ -91,8 +92,11 @@ class Task extends Statusable {
   Duration? leftPeriod;
   Duration? riskPeriod;
 
-  double? velocity;
+  double? velocityTasks;
+  double? velocitySP;
   double? targetVelocity;
+  bool showSP = false;
+
   double? planVolume;
 
   late TaskState state;

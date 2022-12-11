@@ -30,15 +30,16 @@
   "chart_delta_ahead_label": "Ahead",
   "chart_delta_lag_label": "Lag",
 
-  "chart_velocity_project_label": "Current",
-  "chart_velocity_target_label": "Expected",
-  "chart_velocity_title": "Velocity",
-  "chart_velocity_unit_t_mo": "tasks / month",
-
   "chart_timing_elapsed_label": "Since start",
   "chart_timing_eta_label": "Estimate time to complete",
   "chart_timing_left_label": "Time left",
   "chart_timing_title": "Timing",
+
+  "chart_velocity_project_label": "Current",
+  "chart_velocity_target_label": "Expected",
+  "chart_velocity_title": "Velocity",
+  "chart_velocity_unit_sp_mo": "sp / month",
+  "chart_velocity_unit_t_mo": "tasks / month",
 
   "chart_volume_plan_label": "Expected closed",
   "chart_volume_title": "Scope of work",

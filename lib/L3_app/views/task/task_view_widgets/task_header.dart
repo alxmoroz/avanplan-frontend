@@ -7,6 +7,7 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/usecases/task_ext_actions.dart';
 import '../../../../L1_domain/usecases/task_ext_level.dart';
 import '../../../../L1_domain/usecases/task_ext_state.dart';
+import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/mt_button.dart';
 import '../../../components/mt_divider.dart';
@@ -49,7 +50,7 @@ class TaskHeader extends StatelessWidget {
           const MTDivider(),
         ],
         H2(_task.title, decoration: _task.closed ? TextDecoration.lineThrough : null),
-        if (_hasStatus || _hasAssignee || _task.hasEstimate) ...[
+        if (_hasStatus || _hasAssignee) ...[
           const SizedBox(height: P),
           Row(
             children: [
@@ -58,10 +59,15 @@ class TaskHeader extends StatelessWidget {
                 if (_hasStatus) const SizedBox(width: P_2),
                 SmallText('@ ${_task.assignee}'),
               ],
-              if (_task.hasEstimate) ...[
-                if (_hasStatus || _hasAssignee) const Spacer(),
-                SmallText('${_task.estimate} ${loc.task_estimate_unit}'),
-              ]
+            ],
+          ),
+        ],
+        if (_task.hasEstimate) ...[
+          const SizedBox(height: P_2),
+          Row(
+            children: [
+              SmallText('${loc.task_estimate_placeholder}', color: darkGreyColor),
+              SmallText(' ${_task.estimate} ${loc.task_estimate_unit}'),
             ],
           ),
         ],

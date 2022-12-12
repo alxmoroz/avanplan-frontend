@@ -9,11 +9,9 @@ import '../../../../../L1_domain/usecases/task_ext_state.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
-import '../../../components/mt_badge.dart';
 import '../../../components/mt_card.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/date_presenter.dart';
 import '../../../presenters/state_presenter.dart';
 import 'state_title.dart';
 
@@ -35,14 +33,23 @@ class TaskCard extends StatelessWidget {
 
   Widget get header => Row(children: [
         Expanded(child: title),
-        if (task.openedLeafTasksCount > 0) MTBadge('${task.openedLeafTasksCount}'),
-        const SizedBox(width: P / 4),
+        // if (task.openedLeafTasksCount > 0) MTBadge('${task.openedLeafTasksCount}'),
+        // const SizedBox(width: P / 4),
         const ChevronIcon(),
       ]);
 
   bool get _showLink => task.hasLink && task.isProject;
 
-  Widget get _estimateText => SmallText(' ${task.estimate} ${loc.task_estimate_unit}', color: darkGreyColor);
+  Widget get _estimate => SmallText('${task.estimate} ${loc.task_estimate_unit}', color: darkGreyColor);
+  // List<Widget> get _dueDate => [
+  //       const SizedBox(height: P_3),
+  //       Row(
+  //         children: [
+  //           const CalendarIcon(size: P * 1.5, color: lightGreyColor),
+  //           SmallText('${task.dueDate?.strMedium}', color: darkGreyColor, padding: const EdgeInsets.only(left: P_3)),
+  //         ],
+  //       ),
+  //     ];
 
   @override
   Widget build(BuildContext context) => MTCardButton(
@@ -52,26 +59,12 @@ class TaskCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             header,
-            if (task.hasDueDate) ...[
-              const SizedBox(height: P_3),
-              Row(
-                children: [
-                  const CalendarIcon(size: P * 1.5, color: lightGreyColor),
-                  SmallText('${task.dueDate?.strMedium}', color: darkGreyColor, padding: const EdgeInsets.only(left: P_3)),
-                ],
-              ),
-            ],
+            // if (task.hasDueDate) ..._dueDate,
             if (task.showState || _showLink) ...[
               const SizedBox(height: P_3),
               Row(children: [
-                if (task.showState) ...[
-                  Expanded(child: TaskStateTitle(task)),
-                  if (task.hasEstimate) _estimateText,
-                ],
-                if (_showLink) ...[
-                  if (task.hasEstimate) const SizedBox(width: P_3),
-                  const LinkIcon(),
-                ]
+                if (task.showState) Expanded(child: TaskStateTitle(task)),
+                if (_showLink) const LinkIcon(),
               ]),
             ],
             Row(
@@ -80,7 +73,7 @@ class TaskCard extends StatelessWidget {
                 if (_hasAssignee) SmallText(' @ ${task.assignee}', color: darkGreyColor),
                 if (task.hasEstimate && !task.showState) ...[
                   const Spacer(),
-                  _estimateText,
+                  _estimate,
                 ]
               ],
             ),

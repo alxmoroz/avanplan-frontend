@@ -37,9 +37,9 @@ class TimingChart extends StatelessWidget {
       ? warningColor
       : task.isOk
           ? greenColor
-          : darkGreyColor;
+          : darkColor;
 
-  Size get _markSize => const Size(P * 0.6, P * 0.75);
+  Size get _markSize => const Size(P * 0.7, P * 0.9);
 
   Iterable<_DateBarData> get _dateBarData {
     final _now = DateTime.now();
@@ -173,7 +173,13 @@ class TimingChart extends StatelessWidget {
           Alignment.topRight,
           _dateRatio(date),
         ) as Alignment,
-        child: NormalText('$label ${date.strShort}', color: color));
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            LightText('$label ', sizeScale: 1.1, color: color),
+            H4('${date.strShort}', color: color),
+          ],
+        ));
   }
 
   @override
@@ -181,11 +187,11 @@ class TimingChart extends StatelessWidget {
     return Column(children: [
       if (task.hasDueDate) ...[
         _alignedDateLabel(context, date: task.dueDate!, label: loc.task_due_date_label, color: _planMarkColor),
-        SizedBox(height: _markSize.height * 0.8),
+        SizedBox(height: _markSize.height * 0.9),
       ],
       _timeChart(context),
       if (task.hasEtaDate) ...[
-        SizedBox(height: _markSize.height * 0.8),
+        SizedBox(height: _markSize.height * 0.9),
         _alignedDateLabel(context, date: task.etaDate!, label: loc.task_eta_date_label, color: _etaMarkColor),
       ]
     ]);

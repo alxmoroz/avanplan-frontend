@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **apiKey** | **String** |  | [optional] 
 **username** | **String** |  | [optional] 
 **description** | **String** |  | [optional] 
+**importedOn** | [**DateTime**](DateTime.md) |  | [optional] 
 **type** | [**SourceTypeGet**](SourceTypeGet.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -31,7 +31,7 @@ class MainView extends StatefulWidget {
 class _MainViewState extends State<MainView> {
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) async => await mainController.updateAll());
+    WidgetsBinding.instance.addPostFrameCallback((_) async => await mainController.update());
     super.initState();
   }
 
@@ -79,7 +79,7 @@ class _MainViewState extends State<MainView> {
           middle: H2(loc.app_title),
           trailing: MTButton.icon(
             const RefreshIcon(size: 32),
-            mainController.updateAll,
+            mainController.update,
             margin: const EdgeInsets.only(right: P),
           ),
           border: const Border(),

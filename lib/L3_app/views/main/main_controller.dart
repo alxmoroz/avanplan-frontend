@@ -4,12 +4,9 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/entities/source.dart';
 import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/entities/task_source.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities/ws_role.dart';
-import '../../../L1_domain/usecases/task_ext_actions.dart';
 import '../../../L1_domain/usecases/task_ext_state.dart';
 import '../../extra/services.dart';
 import '../task/task_view.dart';
@@ -88,35 +85,9 @@ abstract class _MainControllerBase with Store {
     accountController.clearData();
   }
 
-  Future updateAll() async {
+  Future update() async {
     loaderController.start();
     await fetchData();
-    // TODO: Подумать над фоновым обновлением или обновлением на бэке по расписанию. Иначе каждый запуск приложения — это будет вот это вот всё.
-    // TODO: Нужно эту логику на бэк отправить вообще вместе с настройкой частоты обновления для трекера. Чтобы вообще не запускать процесс импорта из клиента.
-    if (await _updateLinkedTasks()) {
-      await fetchData();
-    }
     await loaderController.stop();
-  }
-
-  Iterable<Task> linkedTasks(int? srcId) => rootTask.tasks.where((t) => t.hasLink && t.taskSource?.source.id == srcId);
-
-  Future<bool> _updateLinkedTasks() async {
-    bool needUpdate = false;
-    for (Source src in sourceController.sources) {
-      final linkedTSs = linkedTasks(src.id).map((t) => t.taskSource!);
-      needUpdate = linkedTSs.isNotEmpty;
-      if (needUpdate) {
-        loaderController.setImporting('$src\n${src.url}');
-        await importUC.importTaskSources(
-            src.id!,
-            linkedTSs.map((ts) => TaskSourceImport(
-                  code: ts.code,
-                  rootCode: ts.rootCode,
-                  updatedOn: ts.updatedOn,
-                )));
-      }
-    }
-    return needUpdate;
   }
 }

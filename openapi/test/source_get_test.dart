@@ -37,6 +37,11 @@ void main() {
       // TODO
     });
 
+    // DateTime importedOn
+    test('to test the property `importedOn`', () async {
+      // TODO
+    });
+
     // SourceTypeGet type
     test('to test the property `type`', () async {
       // TODO

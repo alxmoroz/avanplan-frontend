@@ -18,6 +18,7 @@ part 'source_get.g.dart';
 /// * [apiKey] 
 /// * [username] 
 /// * [description] 
+/// * [importedOn] 
 /// * [type] 
 @BuiltValue()
 abstract class SourceGet implements Built<SourceGet, SourceGetBuilder> {
@@ -38,6 +39,9 @@ abstract class SourceGet implements Built<SourceGet, SourceGetBuilder> {
 
   @BuiltValueField(wireName: r'description')
   String? get description;
+
+  @BuiltValueField(wireName: r'imported_on')
+  DateTime? get importedOn;
 
   @BuiltValueField(wireName: r'type')
   SourceTypeGet get type;
@@ -99,6 +103,13 @@ class _$SourceGetSerializer implements PrimitiveSerializer<SourceGet> {
       yield serializers.serialize(
         object.description,
         specifiedType: const FullType(String),
+      );
+    }
+    if (object.importedOn != null) {
+      yield r'imported_on';
+      yield serializers.serialize(
+        object.importedOn,
+        specifiedType: const FullType(DateTime),
       );
     }
     yield r'type';
@@ -170,6 +181,13 @@ class _$SourceGetSerializer implements PrimitiveSerializer<SourceGet> {
             specifiedType: const FullType(String),
           ) as String;
           result.description = valueDes;
+          break;
+        case r'imported_on':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.importedOn = valueDes;
           break;
         case r'type':
           final valueDes = serializers.deserialize(

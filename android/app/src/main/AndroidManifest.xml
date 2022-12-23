@@ -1,9 +1,9 @@
 <!-- Copyright (c) 2022. Alexandr Moroz -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="team.moroz.gercules">
+    package="team.moroz.avanplan">
    <application
-        android:label="gercules"
+        android:label="avanplan"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

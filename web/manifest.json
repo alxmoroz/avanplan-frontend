@@ -1,9 +1,9 @@
 {
-    "name": "Gercules",
-    "short_name": "Gercules",
+    "name": "Avanplan",
+    "short_name": "Avanplan",
     "start_url": ".",
     "display": "standalone",
-    "description": "Gercules",
+    "description": "Avanplan",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

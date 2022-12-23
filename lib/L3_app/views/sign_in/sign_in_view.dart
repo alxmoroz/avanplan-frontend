@@ -30,7 +30,7 @@ class SignInView extends StatelessWidget {
                 builder: (_) => ListView(
                   shrinkWrap: true,
                   children: [
-                    SizedBox(height: size.maxHeight / 5, child: FittedBox(child: gerculesIcon())),
+                    SizedBox(height: size.maxHeight / 5, child: FittedBox(child: appIcon())),
                     H1(loc.app_title, align: TextAlign.center, padding: const EdgeInsets.symmetric(vertical: P)),
                     MTButton.outlined(
                       margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),

@@ -98,7 +98,7 @@ abstract class _LoaderControllerBase with Store {
   static double get iconSize => P * 20;
   static const Color iconColor = darkBackgroundColor;
 
-  Widget get _defaultIcon => gerculesIcon();
+  Widget get _defaultIcon => appIcon();
   Widget get _authIcon => PrivacyIcon(size: iconSize, color: iconColor);
   Widget get _networkErrorIcon => NetworkErrorIcon(size: iconSize, color: iconColor);
   Widget get _serverErrorIcon => ServerErrorIcon(size: iconSize, color: iconColor);

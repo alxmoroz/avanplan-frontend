@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:gercules/L3_app/components/mt_constrained.dart';
 
 import '../../components/colors.dart';
+import '../../components/mt_constrained.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';

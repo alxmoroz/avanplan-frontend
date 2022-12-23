@@ -4,6 +4,6 @@
 
 echo "DEPLOYING WEB..."
 
-cp -r ./build/web/* /var/www/gercules/
+cp -r ./build/web/* /var/www/avanplan/
 
 echo "DEPLOYING WEB COMPLETE"

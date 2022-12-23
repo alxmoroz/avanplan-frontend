@@ -24,8 +24,8 @@ class AuthAppleRepo extends AuthBaseRepo {
           AppleIDAuthorizationScopes.fullName,
         ],
         webAuthenticationOptions: WebAuthenticationOptions(
-          redirectUri: Uri.parse('https://gercul.es'),
-          clientId: 'team.moroz.gercules.services',
+          redirectUri: Uri.parse('https://avanplan.ru'),
+          clientId: 'team.moroz.avanplan.services',
         ),
       );
       appleToken = creds.authorizationCode;

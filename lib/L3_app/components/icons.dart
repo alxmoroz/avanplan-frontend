@@ -340,4 +340,4 @@ Widget redmineIcon() => Image.asset('assets/images/redmine_icon.png', width: _so
 Widget gitlabIcon() => Image.asset('assets/images/gitlab_icon.png', width: _sourceIconSize, height: _sourceIconSize);
 Widget jiraIcon() => Image.asset('assets/images/jira_icon.png', width: _sourceIconSize, height: _sourceIconSize);
 Widget googleIcon({double? size}) => Image.asset('assets/images/google_icon.png', width: size, height: size);
-Widget gerculesIcon({double? size}) => Image.asset('assets/images/gercules_icon.png', width: size, height: size);
+Widget appIcon({double? size}) => Image.asset('assets/images/app_icon.png', width: size, height: size);

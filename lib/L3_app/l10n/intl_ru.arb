@@ -7,7 +7,7 @@
   "account_delete_dialog_description": "Также будут удалены ваши рабочие пространства вместе с задачами, если в них нет других пользователей\nЭто действие необратимо",
   "account_title": "Учётная запись",
 
-  "app_title": "Геркулес",
+  "app_title": "Аванплан",
 
   "auth_error_popup_blocked_by_browser": "Окно аутентификации заблокировано браузером\nОткройте заблокированное окно и перезагрузите страницу",
   "auth_error_description": "Проверьте правильность указанных данных и повторите попытку",
@@ -51,7 +51,7 @@
   "close_w_subtasks": "Завершить вместе с подзадачами",
 
   "contact_us_title": "Напишите нам",
-  "contact_us_mail_subject": "Геркулес - обратная связь",
+  "contact_us_mail_subject": "Аванплан - обратная связь",
 
   "days_count": "{count, plural, one{{count} день} few{{count} дня} other{{count} дней}}",
   "delete_action_title": "Удалить",
@@ -196,7 +196,7 @@
   "task_unlink_dialog_title": "Удалить связь с источником?",
 
   "task_unwatch_action_title": "Прекратить отслеживать",
-  "task_unwatch_dialog_description": "Задачи будут удалены из Геркулеса, но останутся в источнике",
+  "task_unwatch_dialog_description": "Задачи будут удалены из Аванплана, но останутся в источнике",
   "task_unwatch_dialog_title": "Прекратить отслеживать?",
 
   "title": "Название",

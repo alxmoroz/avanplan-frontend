@@ -1,4 +1,4 @@
-package team.moroz.gercules
+package team.moroz.avanplan
 
 import io.flutter.embedding.android.FlutterActivity
 

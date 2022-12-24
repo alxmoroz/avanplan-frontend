@@ -294,6 +294,16 @@ class MailIcon extends _MTIcon {
       );
 }
 
+class RulesIcon extends _MTIcon {
+  const RulesIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.doc_plaintext,
+        color: (color ?? darkGreyColor).resolve(context),
+        size: size ?? P2,
+      );
+}
+
 class PrivacyIcon extends _MTIcon {
   const PrivacyIcon({super.color, super.size});
   @override

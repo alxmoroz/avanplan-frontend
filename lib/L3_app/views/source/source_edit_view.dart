@@ -45,7 +45,7 @@ class _SourceEditViewState extends State<SourceEditView> {
   String get _sourceCode => _controller.selectedType != null ? _controller.selectedType!.title.toLowerCase() : '';
   bool get _showUsername => _controller.selectedType?.title == 'Jira';
 
-  String get _sourceEditHelperAddress => '$docsUrlPath/import/$_sourceCode';
+  String get _sourceEditHelperAddress => '$docsPath/import/$_sourceCode';
 
   @override
   void initState() {

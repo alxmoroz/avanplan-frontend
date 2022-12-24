@@ -12,7 +12,7 @@ import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import 'sign_in_terms_links.dart';
+import 'legal_links.dart';
 import 'sign_in_with_password_form.dart';
 
 class SignInView extends StatelessWidget {
@@ -59,7 +59,7 @@ class SignInView extends StatelessWidget {
                       onTap: () => showSignInPasswordDialog(context),
                     ),
                     const SizedBox(height: P * 3),
-                    const SignInTermsLinks(),
+                    const LegalLinks(),
                   ],
                 ),
               ),

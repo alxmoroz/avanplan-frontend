@@ -14,8 +14,8 @@ import '../../components/navbar.dart';
 import '../../components/text_field_annotation.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
+import 'legal_links.dart';
 import 'sign_in_controller.dart';
-import 'sign_in_terms_links.dart';
 
 Future showSignInPasswordDialog(BuildContext context) async {
   return await showModalBottomSheet<void>(
@@ -86,7 +86,7 @@ class _SignInWithPasswordFormState extends State<SignInWithPasswordForm> {
                         onTap: _controller.validated ? () => _controller.signInWithPassword(context) : null,
                       ),
                       const SizedBox(height: P2),
-                      const SignInTermsLinks(),
+                      const LegalLinks(),
                     ],
                   ),
                 ),

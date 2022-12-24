@@ -82,6 +82,9 @@
   "import_source_select_hint": "Select an import source",
   "import_title": "Import tasks",
 
+  "legal_privacy_policy_title": "Privacy policy",
+  "legal_rules_title": "License agreement",
+
   "loader_auth_title": "Checking access...",
   "loader_check_connection_title": "Checking connection...",
   "loader_deleting_title": "Deleting...",
@@ -101,7 +104,6 @@
   "ok": "Ok",
   "overview": "Overview",
 
-  "privacy_policy_title": "Privacy policy",
   "project_count": "{count, plural, zero{No projects} one{{count} project} other{{count} projects}}",
   "project_count_dative": "{count, plural, one{{count} project} other{{count} projects}}",
   "project_delete_dialog_title": "Delete project?",

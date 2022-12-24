@@ -81,6 +81,9 @@
   "import_projects_select_hint": "Выберите проекты для импорта",
   "import_title": "Импорт задач",
 
+  "legal_privacy_policy_title": "Политика конфиденциальности",
+  "legal_rules_title": "Пользовательское соглашение",
+
   "loader_auth_title": "Проверяем доступ...",
   "loader_check_connection_title": "Проверка соединения...",
   "loader_deleting_title": "Удаляем...",
@@ -101,7 +104,7 @@
   "ok": "Ясно",
   "overview": "Обзор",
 
-  "privacy_policy_title": "Политика конфиденциальности",
+
   "project_count": "{count, plural, zero{Нет проектов} one{{count} проект} few{{count} проекта} other{{count} проектов}}",
   "project_count_dative": "{count, plural, one{{count} проекту} other{{count} проектам}}",
   "project_delete_dialog_title": "Удалить проект?",

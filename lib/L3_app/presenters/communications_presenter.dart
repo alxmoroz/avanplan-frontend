@@ -1,13 +1,12 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:intl/intl.dart';
-
 import '../../L2_data/repositories/platform.dart';
 import '../extra/services.dart';
 
-//TODO: настройку адресов вынести на бэк. Можно хранить как для типа источника импорта, например.
-String get _docsHost => 'https://moroz.team';
-String get docsUrlPath => '$_docsHost/avanplan/docs/${Intl.getCurrentLocale()}';
+const _host = 'https://moroz.team';
+const legalConfidentialPath = '$_host/legal/confidential';
+const legalRulesPath = '$_host/avanplan/legal/rules';
+const docsPath = '$_host/avanplan/docs/';
 
 String get _contactUsMailAddress => 'hello@avanplan.ru';
 String get _contactUsBody => '%0D%0A-----'

@@ -2,7 +2,7 @@
 
 import 'package:openapi/openapi.dart' as api;
 
-import '../../L1_domain/entities/task.dart';
+import '../../L1_domain/entities/task_type.dart';
 
 extension TaskTypeMapper on api.TaskTypeGet {
   TaskType get type => TaskType(

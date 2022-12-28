@@ -8,9 +8,9 @@ import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:built_collection/built_collection.dart';
+import 'package:built_value/json_object.dart';
 import 'package:openapi/src/api_util.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
-import 'package:openapi/src/model/msg.dart';
 import 'package:openapi/src/model/task.dart';
 import 'package:openapi/src/model/task_source.dart';
 import 'package:openapi/src/model/task_source_upsert.dart';
@@ -120,9 +120,9 @@ class IntegrationsTasksApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [Msg] as data
+  /// Returns a [Future] containing a [Response] with a [JsonObject] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<Msg>> importTaskSourcesV1IntegrationsTasksImportPost({ 
+  Future<Response<JsonObject>> importTaskSourcesV1IntegrationsTasksImportPost({ 
     required int sourceId,
     required BuiltList<TaskSource> taskSource,
     CancelToken? cancelToken,
@@ -183,14 +183,14 @@ class IntegrationsTasksApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    Msg _responseData;
+    JsonObject _responseData;
 
     try {
-      const _responseType = FullType(Msg);
+      const _responseType = FullType(JsonObject);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as Msg;
+      ) as JsonObject;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -201,7 +201,7 @@ class IntegrationsTasksApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<Msg>(
+    return Response<JsonObject>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -225,9 +225,9 @@ class IntegrationsTasksApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [Msg] as data
+  /// Returns a [Future] containing a [Response] with a [JsonObject] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<Msg>> updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost({ 
+  Future<Response<JsonObject>> updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost({ 
     required BuiltList<TaskSourceUpsert> taskSourceUpsert,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -281,14 +281,14 @@ class IntegrationsTasksApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    Msg _responseData;
+    JsonObject _responseData;
 
     try {
-      const _responseType = FullType(Msg);
+      const _responseType = FullType(JsonObject);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as Msg;
+      ) as JsonObject;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -299,7 +299,7 @@ class IntegrationsTasksApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<Msg>(
+    return Response<JsonObject>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

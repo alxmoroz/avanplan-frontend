@@ -2,7 +2,7 @@
 
 import 'package:openapi/openapi.dart' as o_api;
 
-import '../../L1_domain/entities/task.dart';
+import '../../L1_domain/entities/task_type.dart';
 import '../../L1_domain/repositories/abs_api_repo.dart';
 import '../mappers/task_type.dart';
 import 'api.dart';

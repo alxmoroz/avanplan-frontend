@@ -13,10 +13,24 @@ void main() {
       // TODO
     });
 
+    // Delete My Messages
+    //
+    //Future<JsonObject> deleteMyMessagesV1MyMessagesDelete(BuiltList<int> requestBody) async
+    test('test deleteMyMessagesV1MyMessagesDelete', () async {
+      // TODO
+    });
+
     // Get My Account
     //
     //Future<UserGet> getMyAccountV1MyAccountGet() async
     test('test getMyAccountV1MyAccountGet', () async {
+      // TODO
+    });
+
+    // Get My Messages
+    //
+    //Future<BuiltList<MessageGet>> getMyMessagesV1MyMessagesGet() async
+    test('test getMyMessagesV1MyMessagesGet', () async {
       // TODO
     });
 
@@ -29,8 +43,15 @@ void main() {
 
     // Update My Account
     //
-    //Future<UserGet> updateMyAccountV1MyAccountPut({ BodyUpdateMyAccountV1MyAccountPut bodyUpdateMyAccountV1MyAccountPut }) async
-    test('test updateMyAccountV1MyAccountPut', () async {
+    //Future<UserGet> updateMyAccountV1MyAccountPost({ BodyUpdateMyAccountV1MyAccountPost bodyUpdateMyAccountV1MyAccountPost }) async
+    test('test updateMyAccountV1MyAccountPost', () async {
+      // TODO
+    });
+
+    // Update My Messages
+    //
+    //Future<JsonObject> updateMyMessagesV1MyMessagesPost(BuiltList<MessageUpsert> messageUpsert) async
+    test('test updateMyMessagesV1MyMessagesPost', () async {
       // TODO
     });
   });

@@ -5,10 +5,7 @@ import 'person.dart';
 import 'priority.dart';
 import 'status.dart';
 import 'task_source.dart';
-
-class TaskType extends Titleable {
-  TaskType({required super.id, required super.title});
-}
+import 'task_type.dart';
 
 enum TaskLevel { workspace, project, goal, task, subtask }
 

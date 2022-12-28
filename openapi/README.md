@@ -60,7 +60,7 @@ try {
 
 ## Documentation for API Endpoints
 
-All URIs are relative to */api*
+All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -75,9 +75,12 @@ Class | Method | HTTP request | Description
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**importTaskSourcesV1IntegrationsTasksImportPost**](doc/IntegrationsTasksApi.md#importtasksourcesv1integrationstasksimportpost) | **POST** /v1/integrations/tasks/import | Import Task Sources
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost**](doc/IntegrationsTasksApi.md#updatetasksourcesv1integrationstasksupdatetasksourcespost) | **POST** /v1/integrations/tasks/update_task_sources | Update Task Sources
 [*MyApi*](doc/MyApi.md) | [**deleteMyAccountV1MyAccountDelete**](doc/MyApi.md#deletemyaccountv1myaccountdelete) | **DELETE** /v1/my/account | Delete My Account
+[*MyApi*](doc/MyApi.md) | [**deleteMyMessagesV1MyMessagesDelete**](doc/MyApi.md#deletemymessagesv1mymessagesdelete) | **DELETE** /v1/my/messages | Delete My Messages
 [*MyApi*](doc/MyApi.md) | [**getMyAccountV1MyAccountGet**](doc/MyApi.md#getmyaccountv1myaccountget) | **GET** /v1/my/account | Get My Account
+[*MyApi*](doc/MyApi.md) | [**getMyMessagesV1MyMessagesGet**](doc/MyApi.md#getmymessagesv1mymessagesget) | **GET** /v1/my/messages | Get My Messages
 [*MyApi*](doc/MyApi.md) | [**getMyWorkspacesV1MyWorkspacesGet**](doc/MyApi.md#getmyworkspacesv1myworkspacesget) | **GET** /v1/my/workspaces | Get My Workspaces
-[*MyApi*](doc/MyApi.md) | [**updateMyAccountV1MyAccountPut**](doc/MyApi.md#updatemyaccountv1myaccountput) | **PUT** /v1/my/account | Update My Account
+[*MyApi*](doc/MyApi.md) | [**updateMyAccountV1MyAccountPost**](doc/MyApi.md#updatemyaccountv1myaccountpost) | **POST** /v1/my/account | Update My Account
+[*MyApi*](doc/MyApi.md) | [**updateMyMessagesV1MyMessagesPost**](doc/MyApi.md#updatemymessagesv1mymessagespost) | **POST** /v1/my/messages | Update My Messages
 [*TasksApi*](doc/TasksApi.md) | [**deleteTaskV1TasksTaskIdDelete**](doc/TasksApi.md#deletetaskv1taskstaskiddelete) | **DELETE** /v1/tasks/{task_id} | Delete Task
 [*TasksApi*](doc/TasksApi.md) | [**getRootTasksV1TasksGet**](doc/TasksApi.md#getroottasksv1tasksget) | **GET** /v1/tasks/ | Get Root Tasks
 [*TasksApi*](doc/TasksApi.md) | [**getTasksTypesV1TasksTypesGet**](doc/TasksApi.md#gettaskstypesv1taskstypesget) | **GET** /v1/tasks/types/ | Get Tasks Types
@@ -88,11 +91,15 @@ Class | Method | HTTP request | Description
 
  - [BodyAuthAppleToken](doc/BodyAuthAppleToken.md)
  - [BodyAuthGoogleToken](doc/BodyAuthGoogleToken.md)
- - [BodyUpdateMyAccountV1MyAccountPut](doc/BodyUpdateMyAccountV1MyAccountPut.md)
+ - [BodyUpdateMyAccountV1MyAccountPost](doc/BodyUpdateMyAccountV1MyAccountPost.md)
  - [EstimateGet](doc/EstimateGet.md)
+ - [EventGet](doc/EventGet.md)
+ - [EventTypeGet](doc/EventTypeGet.md)
  - [HTTPValidationError](doc/HTTPValidationError.md)
  - [LocationInner](doc/LocationInner.md)
- - [Msg](doc/Msg.md)
+ - [MessageChannelGet](doc/MessageChannelGet.md)
+ - [MessageGet](doc/MessageGet.md)
+ - [MessageUpsert](doc/MessageUpsert.md)
  - [Person](doc/Person.md)
  - [PersonGet](doc/PersonGet.md)
  - [Priority](doc/Priority.md)

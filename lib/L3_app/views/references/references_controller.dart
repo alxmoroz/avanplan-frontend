@@ -4,7 +4,7 @@ import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/source.dart';
-import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities/task_type.dart';
 import '../../extra/services.dart';
 
 part 'references_controller.g.dart';

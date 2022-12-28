@@ -1,4 +1,4 @@
-# openapi.model.BodyUpdateMyAccountV1MyAccountPut
+# openapi.model.BodyUpdateMyAccountV1MyAccountPost
 
 ## Load the model package
 ```dart

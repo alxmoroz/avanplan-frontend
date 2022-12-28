@@ -5,7 +5,7 @@
 import 'package:openapi/api.dart';
 ```
 
-All URIs are relative to */api*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -58,7 +58,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **importTaskSourcesV1IntegrationsTasksImportPost**
-> Msg importTaskSourcesV1IntegrationsTasksImportPost(sourceId, taskSource)
+> JsonObject importTaskSourcesV1IntegrationsTasksImportPost(sourceId, taskSource)
 
 Import Task Sources
 
@@ -89,7 +89,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Msg**](Msg.md)
+[**JsonObject**](JsonObject.md)
 
 ### Authorization
 
@@ -103,7 +103,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost**
-> Msg updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost(taskSourceUpsert)
+> JsonObject updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost(taskSourceUpsert)
 
 Update Task Sources
 
@@ -132,7 +132,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Msg**](Msg.md)
+[**JsonObject**](JsonObject.md)
 
 ### Authorization
 

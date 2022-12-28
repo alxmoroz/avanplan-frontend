@@ -6,43 +6,52 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'msg.g.dart';
+part 'message_channel_get.g.dart';
 
-/// Msg
+/// MessageChannelGet
 ///
 /// Properties:
-/// * [msg] 
+/// * [id] 
+/// * [title] 
 @BuiltValue()
-abstract class Msg implements Built<Msg, MsgBuilder> {
-  @BuiltValueField(wireName: r'msg')
-  String get msg;
+abstract class MessageChannelGet implements Built<MessageChannelGet, MessageChannelGetBuilder> {
+  @BuiltValueField(wireName: r'id')
+  int get id;
 
-  Msg._();
+  @BuiltValueField(wireName: r'title')
+  String get title;
 
-  factory Msg([void updates(MsgBuilder b)]) = _$Msg;
+  MessageChannelGet._();
+
+  factory MessageChannelGet([void updates(MessageChannelGetBuilder b)]) = _$MessageChannelGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(MsgBuilder b) => b;
+  static void _defaults(MessageChannelGetBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<Msg> get serializer => _$MsgSerializer();
+  static Serializer<MessageChannelGet> get serializer => _$MessageChannelGetSerializer();
 }
 
-class _$MsgSerializer implements PrimitiveSerializer<Msg> {
+class _$MessageChannelGetSerializer implements PrimitiveSerializer<MessageChannelGet> {
   @override
-  final Iterable<Type> types = const [Msg, _$Msg];
+  final Iterable<Type> types = const [MessageChannelGet, _$MessageChannelGet];
 
   @override
-  final String wireName = r'Msg';
+  final String wireName = r'MessageChannelGet';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    Msg object, {
+    MessageChannelGet object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    yield r'msg';
+    yield r'id';
     yield serializers.serialize(
-      object.msg,
+      object.id,
+      specifiedType: const FullType(int),
+    );
+    yield r'title';
+    yield serializers.serialize(
+      object.title,
       specifiedType: const FullType(String),
     );
   }
@@ -50,7 +59,7 @@ class _$MsgSerializer implements PrimitiveSerializer<Msg> {
   @override
   Object serialize(
     Serializers serializers,
-    Msg object, {
+    MessageChannelGet object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -61,19 +70,26 @@ class _$MsgSerializer implements PrimitiveSerializer<Msg> {
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required MsgBuilder result,
+    required MessageChannelGetBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'msg':
+        case r'id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.id = valueDes;
+          break;
+        case r'title':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.msg = valueDes;
+          result.title = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -84,12 +100,12 @@ class _$MsgSerializer implements PrimitiveSerializer<Msg> {
   }
 
   @override
-  Msg deserialize(
+  MessageChannelGet deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = MsgBuilder();
+    final result = MessageChannelGetBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

@@ -17,11 +17,15 @@ export 'package:openapi/src/api/tasks_api.dart';
 
 export 'package:openapi/src/model/body_auth_apple_token.dart';
 export 'package:openapi/src/model/body_auth_google_token.dart';
-export 'package:openapi/src/model/body_update_my_account_v1_my_account_put.dart';
+export 'package:openapi/src/model/body_update_my_account_v1_my_account_post.dart';
 export 'package:openapi/src/model/estimate_get.dart';
+export 'package:openapi/src/model/event_get.dart';
+export 'package:openapi/src/model/event_type_get.dart';
 export 'package:openapi/src/model/http_validation_error.dart';
 export 'package:openapi/src/model/location_inner.dart';
-export 'package:openapi/src/model/msg.dart';
+export 'package:openapi/src/model/message_channel_get.dart';
+export 'package:openapi/src/model/message_get.dart';
+export 'package:openapi/src/model/message_upsert.dart';
 export 'package:openapi/src/model/person.dart';
 export 'package:openapi/src/model/person_get.dart';
 export 'package:openapi/src/model/priority.dart';

@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import '../entities/task.dart';
+import '../entities/task_type.dart';
 import '../repositories/abs_api_repo.dart';
 
 //TODO: похоже, есть смысл сделать абстрактный общий юзкейс

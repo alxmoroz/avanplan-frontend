@@ -16,11 +16,15 @@ import 'package:openapi/src/model/date.dart';
 
 import 'package:openapi/src/model/body_auth_apple_token.dart';
 import 'package:openapi/src/model/body_auth_google_token.dart';
-import 'package:openapi/src/model/body_update_my_account_v1_my_account_put.dart';
+import 'package:openapi/src/model/body_update_my_account_v1_my_account_post.dart';
 import 'package:openapi/src/model/estimate_get.dart';
+import 'package:openapi/src/model/event_get.dart';
+import 'package:openapi/src/model/event_type_get.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/location_inner.dart';
-import 'package:openapi/src/model/msg.dart';
+import 'package:openapi/src/model/message_channel_get.dart';
+import 'package:openapi/src/model/message_get.dart';
+import 'package:openapi/src/model/message_upsert.dart';
 import 'package:openapi/src/model/person.dart';
 import 'package:openapi/src/model/person_get.dart';
 import 'package:openapi/src/model/priority.dart';
@@ -50,11 +54,15 @@ part 'serializers.g.dart';
 @SerializersFor([
   BodyAuthAppleToken,
   BodyAuthGoogleToken,
-  BodyUpdateMyAccountV1MyAccountPut,
+  BodyUpdateMyAccountV1MyAccountPost,
   EstimateGet,
+  EventGet,
+  EventTypeGet,
   HTTPValidationError,
   LocationInner,
-  Msg,
+  MessageChannelGet,
+  MessageGet,
+  MessageUpsert,
   Person,
   PersonGet,
   Priority,
@@ -81,8 +89,20 @@ part 'serializers.g.dart';
 ])
 Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(MessageGet)]),
+        () => ListBuilder<MessageGet>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(MessageUpsert)]),
+        () => ListBuilder<MessageUpsert>(),
+      )
+      ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskSource)]),
         () => ListBuilder<TaskSource>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(int)]),
+        () => ListBuilder<int>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskTypeGet)]),

@@ -63,6 +63,10 @@ abstract class _MainControllerBase with Store {
     await settingsController.fetchData();
     await accountController.fetchData();
     await referencesController.fetchData();
+    await messagesController.fetchData();
+
+    // print('messagesController');
+    // print(messagesController.messages);
 
     await fetchWorkspaces();
 

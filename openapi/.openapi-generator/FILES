@@ -13,7 +13,6 @@ doc/HTTPValidationError.md
 doc/IntegrationsSourcesApi.md
 doc/IntegrationsTasksApi.md
 doc/LocationInner.md
-doc/MessageChannelGet.md
 doc/MessageGet.md
 doc/MessageUpsert.md
 doc/MyApi.md
@@ -64,7 +63,6 @@ lib/src/model/event_get.dart
 lib/src/model/event_type_get.dart
 lib/src/model/http_validation_error.dart
 lib/src/model/location_inner.dart
-lib/src/model/message_channel_get.dart
 lib/src/model/message_get.dart
 lib/src/model/message_upsert.dart
 lib/src/model/person.dart
@@ -103,7 +101,6 @@ test/http_validation_error_test.dart
 test/integrations_sources_api_test.dart
 test/integrations_tasks_api_test.dart
 test/location_inner_test.dart
-test/message_channel_get_test.dart
 test/message_get_test.dart
 test/message_upsert_test.dart
 test/my_api_test.dart

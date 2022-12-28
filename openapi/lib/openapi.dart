@@ -23,7 +23,6 @@ export 'package:openapi/src/model/event_get.dart';
 export 'package:openapi/src/model/event_type_get.dart';
 export 'package:openapi/src/model/http_validation_error.dart';
 export 'package:openapi/src/model/location_inner.dart';
-export 'package:openapi/src/model/message_channel_get.dart';
 export 'package:openapi/src/model/message_get.dart';
 export 'package:openapi/src/model/message_upsert.dart';
 export 'package:openapi/src/model/person.dart';

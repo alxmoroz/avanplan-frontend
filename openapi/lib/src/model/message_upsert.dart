@@ -12,22 +12,13 @@ part 'message_upsert.g.dart';
 ///
 /// Properties:
 /// * [id] 
-/// * [scheduledDate] 
-/// * [sentDate] 
 /// * [readDate] 
 /// * [eventId] 
-/// * [channelId] 
 /// * [recipientId] 
 @BuiltValue()
 abstract class MessageUpsert implements Built<MessageUpsert, MessageUpsertBuilder> {
   @BuiltValueField(wireName: r'id')
   int? get id;
-
-  @BuiltValueField(wireName: r'scheduled_date')
-  DateTime? get scheduledDate;
-
-  @BuiltValueField(wireName: r'sent_date')
-  DateTime? get sentDate;
 
   @BuiltValueField(wireName: r'read_date')
   DateTime? get readDate;
@@ -35,11 +26,8 @@ abstract class MessageUpsert implements Built<MessageUpsert, MessageUpsertBuilde
   @BuiltValueField(wireName: r'event_id')
   int get eventId;
 
-  @BuiltValueField(wireName: r'channel_id')
-  int get channelId;
-
   @BuiltValueField(wireName: r'recipient_id')
-  int? get recipientId;
+  int get recipientId;
 
   MessageUpsert._();
 
@@ -71,20 +59,6 @@ class _$MessageUpsertSerializer implements PrimitiveSerializer<MessageUpsert> {
         specifiedType: const FullType(int),
       );
     }
-    if (object.scheduledDate != null) {
-      yield r'scheduled_date';
-      yield serializers.serialize(
-        object.scheduledDate,
-        specifiedType: const FullType(DateTime),
-      );
-    }
-    if (object.sentDate != null) {
-      yield r'sent_date';
-      yield serializers.serialize(
-        object.sentDate,
-        specifiedType: const FullType(DateTime),
-      );
-    }
     if (object.readDate != null) {
       yield r'read_date';
       yield serializers.serialize(
@@ -97,18 +71,11 @@ class _$MessageUpsertSerializer implements PrimitiveSerializer<MessageUpsert> {
       object.eventId,
       specifiedType: const FullType(int),
     );
-    yield r'channel_id';
+    yield r'recipient_id';
     yield serializers.serialize(
-      object.channelId,
+      object.recipientId,
       specifiedType: const FullType(int),
     );
-    if (object.recipientId != null) {
-      yield r'recipient_id';
-      yield serializers.serialize(
-        object.recipientId,
-        specifiedType: const FullType(int),
-      );
-    }
   }
 
   @override
@@ -139,20 +106,6 @@ class _$MessageUpsertSerializer implements PrimitiveSerializer<MessageUpsert> {
           ) as int;
           result.id = valueDes;
           break;
-        case r'scheduled_date':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
-          result.scheduledDate = valueDes;
-          break;
-        case r'sent_date':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
-          result.sentDate = valueDes;
-          break;
         case r'read_date':
           final valueDes = serializers.deserialize(
             value,
@@ -166,13 +119,6 @@ class _$MessageUpsertSerializer implements PrimitiveSerializer<MessageUpsert> {
             specifiedType: const FullType(int),
           ) as int;
           result.eventId = valueDes;
-          break;
-        case r'channel_id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.channelId = valueDes;
           break;
         case r'recipient_id':
           final valueDes = serializers.deserialize(

@@ -3,7 +3,6 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:openapi/src/model/message_channel_get.dart';
 import 'package:openapi/src/model/user_get.dart';
 import 'package:openapi/src/model/event_get.dart';
 import 'package:built_value/built_value.dart';
@@ -15,22 +14,13 @@ part 'message_get.g.dart';
 ///
 /// Properties:
 /// * [id] 
-/// * [scheduledDate] 
-/// * [sentDate] 
 /// * [readDate] 
 /// * [event] 
-/// * [channel] 
 /// * [recipient] 
 @BuiltValue()
 abstract class MessageGet implements Built<MessageGet, MessageGetBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
-
-  @BuiltValueField(wireName: r'scheduled_date')
-  DateTime? get scheduledDate;
-
-  @BuiltValueField(wireName: r'sent_date')
-  DateTime? get sentDate;
 
   @BuiltValueField(wireName: r'read_date')
   DateTime? get readDate;
@@ -38,11 +28,8 @@ abstract class MessageGet implements Built<MessageGet, MessageGetBuilder> {
   @BuiltValueField(wireName: r'event')
   EventGet get event;
 
-  @BuiltValueField(wireName: r'channel')
-  MessageChannelGet get channel;
-
   @BuiltValueField(wireName: r'recipient')
-  UserGet? get recipient;
+  UserGet get recipient;
 
   MessageGet._();
 
@@ -72,20 +59,6 @@ class _$MessageGetSerializer implements PrimitiveSerializer<MessageGet> {
       object.id,
       specifiedType: const FullType(int),
     );
-    if (object.scheduledDate != null) {
-      yield r'scheduled_date';
-      yield serializers.serialize(
-        object.scheduledDate,
-        specifiedType: const FullType(DateTime),
-      );
-    }
-    if (object.sentDate != null) {
-      yield r'sent_date';
-      yield serializers.serialize(
-        object.sentDate,
-        specifiedType: const FullType(DateTime),
-      );
-    }
     if (object.readDate != null) {
       yield r'read_date';
       yield serializers.serialize(
@@ -98,18 +71,11 @@ class _$MessageGetSerializer implements PrimitiveSerializer<MessageGet> {
       object.event,
       specifiedType: const FullType(EventGet),
     );
-    yield r'channel';
+    yield r'recipient';
     yield serializers.serialize(
-      object.channel,
-      specifiedType: const FullType(MessageChannelGet),
+      object.recipient,
+      specifiedType: const FullType(UserGet),
     );
-    if (object.recipient != null) {
-      yield r'recipient';
-      yield serializers.serialize(
-        object.recipient,
-        specifiedType: const FullType(UserGet),
-      );
-    }
   }
 
   @override
@@ -140,20 +106,6 @@ class _$MessageGetSerializer implements PrimitiveSerializer<MessageGet> {
           ) as int;
           result.id = valueDes;
           break;
-        case r'scheduled_date':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
-          result.scheduledDate = valueDes;
-          break;
-        case r'sent_date':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
-          result.sentDate = valueDes;
-          break;
         case r'read_date':
           final valueDes = serializers.deserialize(
             value,
@@ -167,13 +119,6 @@ class _$MessageGetSerializer implements PrimitiveSerializer<MessageGet> {
             specifiedType: const FullType(EventGet),
           ) as EventGet;
           result.event.replace(valueDes);
-          break;
-        case r'channel':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(MessageChannelGet),
-          ) as MessageChannelGet;
-          result.channel.replace(valueDes);
           break;
         case r'recipient':
           final valueDes = serializers.deserialize(

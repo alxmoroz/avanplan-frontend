@@ -22,7 +22,6 @@ import 'package:openapi/src/model/event_get.dart';
 import 'package:openapi/src/model/event_type_get.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/location_inner.dart';
-import 'package:openapi/src/model/message_channel_get.dart';
 import 'package:openapi/src/model/message_get.dart';
 import 'package:openapi/src/model/message_upsert.dart';
 import 'package:openapi/src/model/person.dart';
@@ -60,7 +59,6 @@ part 'serializers.g.dart';
   EventTypeGet,
   HTTPValidationError,
   LocationInner,
-  MessageChannelGet,
   MessageGet,
   MessageUpsert,
   Person,

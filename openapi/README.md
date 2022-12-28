@@ -97,7 +97,6 @@ Class | Method | HTTP request | Description
  - [EventTypeGet](doc/EventTypeGet.md)
  - [HTTPValidationError](doc/HTTPValidationError.md)
  - [LocationInner](doc/LocationInner.md)
- - [MessageChannelGet](doc/MessageChannelGet.md)
  - [MessageGet](doc/MessageGet.md)
  - [MessageUpsert](doc/MessageUpsert.md)
  - [Person](doc/Person.md)

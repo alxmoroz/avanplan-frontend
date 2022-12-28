@@ -12,16 +12,6 @@ void main() {
       // TODO
     });
 
-    // DateTime scheduledDate
-    test('to test the property `scheduledDate`', () async {
-      // TODO
-    });
-
-    // DateTime sentDate
-    test('to test the property `sentDate`', () async {
-      // TODO
-    });
-
     // DateTime readDate
     test('to test the property `readDate`', () async {
       // TODO
@@ -29,11 +19,6 @@ void main() {
 
     // int eventId
     test('to test the property `eventId`', () async {
-      // TODO
-    });
-
-    // int channelId
-    test('to test the property `channelId`', () async {
       // TODO
     });
 

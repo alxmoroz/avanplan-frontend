@@ -27,13 +27,13 @@ void main() {
       // TODO
     });
 
-    // DateTime createdOn
-    test('to test the property `createdOn`', () async {
+    // EventTypeGet type
+    test('to test the property `type`', () async {
       // TODO
     });
 
-    // EventTypeGet type
-    test('to test the property `type`', () async {
+    // DateTime createdOn
+    test('to test the property `createdOn`', () async {
       // TODO
     });
   });

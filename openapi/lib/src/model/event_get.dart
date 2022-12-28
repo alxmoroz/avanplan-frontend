@@ -16,8 +16,8 @@ part 'event_get.g.dart';
 /// * [title] 
 /// * [description] 
 /// * [expiresOn] 
-/// * [createdOn] 
 /// * [type] 
+/// * [createdOn] 
 @BuiltValue()
 abstract class EventGet implements Built<EventGet, EventGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -32,11 +32,11 @@ abstract class EventGet implements Built<EventGet, EventGetBuilder> {
   @BuiltValueField(wireName: r'expires_on')
   DateTime? get expiresOn;
 
-  @BuiltValueField(wireName: r'created_on')
-  DateTime? get createdOn;
-
   @BuiltValueField(wireName: r'type')
   EventTypeGet get type;
+
+  @BuiltValueField(wireName: r'created_on')
+  DateTime get createdOn;
 
   EventGet._();
 
@@ -85,17 +85,15 @@ class _$EventGetSerializer implements PrimitiveSerializer<EventGet> {
         specifiedType: const FullType(DateTime),
       );
     }
-    if (object.createdOn != null) {
-      yield r'created_on';
-      yield serializers.serialize(
-        object.createdOn,
-        specifiedType: const FullType(DateTime),
-      );
-    }
     yield r'type';
     yield serializers.serialize(
       object.type,
       specifiedType: const FullType(EventTypeGet),
+    );
+    yield r'created_on';
+    yield serializers.serialize(
+      object.createdOn,
+      specifiedType: const FullType(DateTime),
     );
   }
 
@@ -148,19 +146,19 @@ class _$EventGetSerializer implements PrimitiveSerializer<EventGet> {
           ) as DateTime;
           result.expiresOn = valueDes;
           break;
-        case r'created_on':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
-          result.createdOn = valueDes;
-          break;
         case r'type':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(EventTypeGet),
           ) as EventTypeGet;
           result.type.replace(valueDes);
+          break;
+        case r'created_on':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.createdOn = valueDes;
           break;
         default:
           unhandled.add(key);

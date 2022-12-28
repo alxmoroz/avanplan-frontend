@@ -28,6 +28,7 @@ import '../views/account/account_controller.dart';
 import '../views/import/import_controller.dart';
 import '../views/loader/loader_controller.dart';
 import '../views/main/main_controller.dart';
+import '../views/messages/messages_controller.dart';
 import '../views/references/references_controller.dart';
 import '../views/settings/settings_controller.dart';
 import '../views/source/source_controller.dart';
@@ -45,6 +46,7 @@ ReferencesController get referencesController => GetIt.I<ReferencesController>()
 ImportController get importController => GetIt.I<ImportController>();
 AccountController get accountController => GetIt.I<AccountController>();
 AuthController get authController => GetIt.I<AuthController>();
+MessagesController get messagesController => GetIt.I<MessagesController>();
 
 SettingsUC get settingsUC => GetIt.I<SettingsUC>();
 AuthUC get authUC => GetIt.I<AuthUC>();
@@ -72,6 +74,7 @@ void setup() {
   getIt.registerSingleton<SourceController>(SourceController());
   getIt.registerSingleton<ImportController>(ImportController());
   getIt.registerSingleton<AccountController>(AccountController());
+  getIt.registerSingleton<MessagesController>(MessagesController());
 
   // Openapi
   getIt.registerSingleton<Openapi>(setupApi([loaderController.interceptor]));

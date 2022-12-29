@@ -95,6 +95,10 @@
   "loader_unlinking_title": "Breaking the chains...",
   "loader_unwatch_title": "Sending to ignore...",
 
+  "message_list_empty_title": "No messages",
+  "message_list_title": "Messages",
+  "message_title": "Message",
+
   "months_count": "{count, plural, one{{count} month} other{{count} months}}",
 
   "network_error_description": "Please check your internet connection and try again",

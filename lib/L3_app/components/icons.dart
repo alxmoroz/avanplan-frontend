@@ -344,6 +344,16 @@ class StartIcon extends _MTIcon {
       );
 }
 
+class BellIcon extends _MTIcon {
+  const BellIcon({super.color, super.size, super.solid});
+  @override
+  Widget build(BuildContext context) => Icon(
+        solid == true ? CupertinoIcons.bell_solid : CupertinoIcons.bell,
+        color: (color ?? darkGreyColor).resolve(context),
+        size: size ?? P2,
+      );
+}
+
 double get _sourceIconSize => P2;
 
 Widget redmineIcon() => Image.asset('assets/images/redmine_icon.png', width: _sourceIconSize, height: _sourceIconSize);

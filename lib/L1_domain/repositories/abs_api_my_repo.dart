@@ -9,4 +9,5 @@ abstract class AbstractApiMyRepo {
   Future deleteMyAccount();
   Future<Iterable<Workspace>> getMyWorkspaces();
   Future<Iterable<Message>> getMyMessages();
+  Future updateMessages(Iterable<Message> messages);
 }

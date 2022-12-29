@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:built_collection/built_collection.dart';
 import 'package:openapi/openapi.dart';
 
 import '../../L1_domain/entities/message.dart';
@@ -52,5 +53,16 @@ class MyRepo extends AbstractApiMyRepo {
   Future<Iterable<Message>> getMyMessages() async {
     final response = await api.getMyMessagesV1MyMessagesGet();
     return response.data?.map((m) => m.message) ?? [];
+  }
+
+  @override
+  Future updateMessages(Iterable<Message> messages) async {
+    final messagesUpsert = messages.map((m) => (MessageUpsertBuilder()
+          ..id = m.id
+          ..eventId = m.event.id
+          ..recipientId = m.recipient.id
+          ..readDate = m.readDate?.toUtc())
+        .build());
+    await api.updateMyMessagesV1MyMessagesPost(messageUpsert: BuiltList.from(messagesUpsert));
   }
 }

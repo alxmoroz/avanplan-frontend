@@ -14,5 +14,7 @@ class Message extends RPersistable {
 
   final Event event;
   final User recipient;
-  final DateTime? readDate;
+
+  DateTime? readDate;
+  bool get isRead => readDate != null;
 }

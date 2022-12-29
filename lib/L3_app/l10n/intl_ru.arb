@@ -94,6 +94,10 @@
   "loader_unlinking_title": "Рвём связи...",
   "loader_unwatch_title": "Отправляем в игнор...",
 
+  "message_list_empty_title": "Сообщений нет",
+  "message_list_title": "Сообщения",
+  "message_title": "Сообщение",
+
   "months_count": "{count, plural, one{{count} месяц} few{{count} месяца} other{{count} месяцев}}",
 
   "network_error_description": "Проверьте соединение с интернетом и повторите попытку",

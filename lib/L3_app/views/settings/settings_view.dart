@@ -14,6 +14,7 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/communications_presenter.dart';
+import '../messages/message_list_view.dart';
 import '../source/source_list_view.dart';
 import '../workspace/workspace_list_view.dart';
 import 'settings_controller.dart';
@@ -30,6 +31,7 @@ class SettingsView extends StatelessWidget {
   }
 
   Future _showWorkspaces(BuildContext context) async => await Navigator.of(context).pushNamed(WorkspaceListView.routeName);
+  Future _showMessages(BuildContext context) async => await Navigator.of(context).pushNamed(MessageListView.routeName);
   User? get _user => accountController.user;
 
   @override
@@ -44,6 +46,19 @@ class SettingsView extends StatelessWidget {
                 const SizedBox(height: P_2),
                 if (_user != null) UserListTile(_user!),
                 const SizedBox(height: P_2),
+                MTListTile(
+                  leading: BellIcon(color: darkGreyColor, solid: messageController.hasUnread),
+                  titleText: loc.message_list_title,
+                  trailing: Row(children: [
+                    if (messageController.hasUnread)
+                      NormalText(
+                        messageController.unreadCount.toString(),
+                        padding: const EdgeInsets.only(right: P_2),
+                      ),
+                    const ChevronIcon(),
+                  ]),
+                  onTap: () => _showMessages(context),
+                ),
                 if (mainController.canEditAnyWS)
                   MTListTile(
                     leading: const ImportIcon(color: darkGreyColor),

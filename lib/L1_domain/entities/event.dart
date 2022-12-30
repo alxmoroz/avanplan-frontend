@@ -13,7 +13,7 @@ class Event extends Titleable {
   });
 
   final String? description;
-  final EventType type;
+  final EventType? type;
   final DateTime createdOn;
 
   bool get hasDescription => description != null && description!.trim().isNotEmpty;

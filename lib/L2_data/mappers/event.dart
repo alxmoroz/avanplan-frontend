@@ -10,7 +10,7 @@ extension EventMapper on api.EventGet {
         id: id,
         title: title,
         description: description,
-        type: type.type,
+        type: type?.type,
         createdOn: createdOn.toLocal(),
       );
 }

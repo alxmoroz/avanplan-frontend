@@ -33,7 +33,7 @@ abstract class EventGet implements Built<EventGet, EventGetBuilder> {
   DateTime? get expiresOn;
 
   @BuiltValueField(wireName: r'type')
-  EventTypeGet get type;
+  EventTypeGet? get type;
 
   @BuiltValueField(wireName: r'created_on')
   DateTime get createdOn;
@@ -85,11 +85,13 @@ class _$EventGetSerializer implements PrimitiveSerializer<EventGet> {
         specifiedType: const FullType(DateTime),
       );
     }
-    yield r'type';
-    yield serializers.serialize(
-      object.type,
-      specifiedType: const FullType(EventTypeGet),
-    );
+    if (object.type != null) {
+      yield r'type';
+      yield serializers.serialize(
+        object.type,
+        specifiedType: const FullType(EventTypeGet),
+      );
+    }
     yield r'created_on';
     yield serializers.serialize(
       object.createdOn,

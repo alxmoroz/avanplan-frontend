@@ -17,9 +17,9 @@ import '../../extra/services.dart';
 import '../account/user_icon.dart';
 import '../settings/settings_view.dart';
 import '../task/task_related_widgets/task_add_button.dart';
+import '../task/task_related_widgets/task_add_menu.dart';
 import '../task/task_view.dart';
 import '../task/task_view_controller.dart';
-import '../task/task_view_widgets/task_navbar.dart';
 import '../task/task_view_widgets/task_overview.dart';
 import 'import_projects_actions.dart';
 

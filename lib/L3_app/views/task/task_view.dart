@@ -15,11 +15,12 @@ import '../../extra/services.dart';
 import '../../presenters/task_level_presenter.dart';
 import 'task_ext_actions.dart';
 import 'task_related_widgets/task_add_button.dart';
+import 'task_related_widgets/task_add_menu.dart';
+import 'task_related_widgets/task_navbar.dart';
 import 'task_view_controller.dart';
 import 'task_view_widgets/task_details.dart';
 import 'task_view_widgets/task_header.dart';
 import 'task_view_widgets/task_listview.dart';
-import 'task_view_widgets/task_navbar.dart';
 import 'task_view_widgets/task_overview.dart';
 
 class TaskView extends StatefulWidget {

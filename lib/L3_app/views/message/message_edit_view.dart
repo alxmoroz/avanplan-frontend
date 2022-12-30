@@ -54,7 +54,7 @@ class _MessageEditViewState extends State<MessageEditView> {
         const SizedBox(height: P_2),
         H3(msg.event.title),
         const SizedBox(height: P),
-        if (msg.event.hasDescription) NormalText(msg.event.description!),
+        if (msg.event.hasDescription) NormalText(msg.event.description!, maxLines: 1000),
       ],
     );
   }

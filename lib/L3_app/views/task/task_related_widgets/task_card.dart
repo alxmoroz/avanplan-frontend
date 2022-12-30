@@ -3,7 +3,6 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../../L1_domain/usecases/task_ext_actions.dart';
 import '../../../../../L1_domain/usecases/task_ext_level.dart';
 import '../../../../../L1_domain/usecases/task_ext_state.dart';
 import '../../../components/colors.dart';
@@ -13,6 +12,7 @@ import '../../../components/mt_card.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/state_presenter.dart';
+import '../task_ext_actions.dart';
 import 'state_title.dart';
 
 class TaskCard extends StatelessWidget {

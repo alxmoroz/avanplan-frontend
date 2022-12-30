@@ -14,7 +14,7 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/communications_presenter.dart';
-import '../messages/message_list_view.dart';
+import '../message/message_list_view.dart';
 import '../source/source_list_view.dart';
 import '../workspace/workspace_list_view.dart';
 import 'settings_controller.dart';

@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../L1_domain/entities/task.dart';
-import '../../../../L1_domain/usecases/task_ext_actions.dart';
 import '../../../../L1_domain/usecases/task_ext_level.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
@@ -16,6 +15,7 @@ import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/source_presenter.dart';
 import '../../../presenters/task_level_presenter.dart';
+import '../task_ext_actions.dart';
 import '../task_view_controller.dart';
 
 class _TaskPopupMenu extends StatelessWidget {
@@ -27,32 +27,34 @@ class _TaskPopupMenu extends StatelessWidget {
 
   Task get _task => controller.task;
 
-  Widget rowIconTitle(String title, {Widget? icon, Color? color}) => Row(children: [
-        if (icon != null) ...[
-          icon,
-          const SizedBox(width: P_3),
-        ],
-        NormalText(title, color: color ?? mainColor),
+  Widget tile({Widget? leading, String? title, Widget? trailing, Color? color}) => Row(children: [
+        if (leading != null) ...[leading, const SizedBox(width: P_3)],
+        title != null ? NormalText(title, color: color ?? mainColor) : const SizedBox(),
+        if (trailing != null) ...[const SizedBox(width: P_3), trailing],
       ]);
 
   Widget itemWidget(Task task, TaskActionType at) {
     switch (at) {
       case TaskActionType.add:
-        return rowIconTitle(task.newSubtaskTitle, icon: const PlusIcon());
+        return tile(leading: const PlusIcon(), title: task.newSubtaskTitle);
       case TaskActionType.edit:
-        return rowIconTitle(loc.task_edit_action_title, icon: const EditIcon());
-      case TaskActionType.import:
-        return rowIconTitle(loc.import_action_title, icon: const ImportIcon());
+        return tile(leading: const EditIcon(), title: loc.task_edit_action_title);
+      case TaskActionType.import_gitlab:
+        return tile(leading: const ImportIcon(), title: loc.import_title, trailing: referencesController.stGitlab!.iconTitle);
+      case TaskActionType.import_jira:
+        return tile(leading: const ImportIcon(), title: loc.import_title, trailing: referencesController.stJira!.iconTitle);
+      case TaskActionType.import_redmine:
+        return tile(leading: const ImportIcon(), title: loc.import_title, trailing: referencesController.stRedmine!.iconTitle);
       case TaskActionType.close:
-        return rowIconTitle(loc.close_action_title, icon: const DoneIcon(true));
+        return tile(leading: const DoneIcon(true), title: loc.close_action_title);
       case TaskActionType.reopen:
-        return rowIconTitle(loc.task_reopen_action_title, icon: const DoneIcon(false));
+        return tile(leading: const DoneIcon(false), title: loc.task_reopen_action_title);
       case TaskActionType.go2source:
         return task.taskSource!.go2SourceTitle();
       case TaskActionType.unlink:
-        return rowIconTitle(loc.task_unlink_action_title, color: warningColor);
+        return tile(title: loc.task_unlink_action_title, color: warningColor);
       case TaskActionType.unwatch:
-        return rowIconTitle(loc.task_unwatch_action_title, color: dangerColor);
+        return tile(title: loc.task_unwatch_action_title, color: dangerColor);
       default:
         return NormalText('$at');
     }

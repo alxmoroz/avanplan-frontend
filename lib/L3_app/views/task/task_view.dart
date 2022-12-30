@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/usecases/task_ext_actions.dart';
 import '../../../L1_domain/usecases/task_ext_level.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
@@ -14,6 +13,7 @@ import '../../components/mt_page.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_level_presenter.dart';
+import 'task_ext_actions.dart';
 import 'task_related_widgets/task_add_button.dart';
 import 'task_view_controller.dart';
 import 'task_view_widgets/task_details.dart';

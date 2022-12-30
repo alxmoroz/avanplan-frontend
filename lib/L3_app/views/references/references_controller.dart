@@ -16,6 +16,26 @@ abstract class _ReferencesControllerBase with Store {
   @observable
   ObservableList<SourceType> sourceTypes = ObservableList();
 
+  SourceType? _sourceType(String typeTitle) => sourceTypes.firstWhereOrNull((st) => st.title.toLowerCase() == typeTitle);
+
+  @computed
+  SourceType? get stJira => _sourceType('jira');
+
+  @computed
+  bool get hasStJira => stJira != null;
+
+  @computed
+  SourceType? get stGitlab => _sourceType('gitlab');
+
+  @computed
+  bool get hasStGitlab => stGitlab != null;
+
+  @computed
+  SourceType? get stRedmine => _sourceType('redmine');
+
+  @computed
+  bool get hasStRedmine => stRedmine != null;
+
   /// тип задачи
   @observable
   ObservableList<TaskType> taskTypes = ObservableList();

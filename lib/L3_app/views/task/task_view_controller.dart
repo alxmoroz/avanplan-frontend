@@ -5,7 +5,6 @@ import 'package:mobx/mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/usecases/task_ext_actions.dart';
 import '../../../L1_domain/usecases/task_ext_level.dart';
 import '../../../L1_domain/usecases/task_ext_state.dart';
 import '../../components/colors.dart';
@@ -17,6 +16,7 @@ import '../../presenters/source_presenter.dart';
 import '../../presenters/state_presenter.dart';
 import '../../presenters/task_filter_presenter.dart';
 import 'task_edit_view.dart';
+import 'task_ext_actions.dart';
 
 part 'task_view_controller.g.dart';
 
@@ -258,8 +258,14 @@ abstract class _TaskViewControllerBase with Store {
       case TaskActionType.reopen:
         await setClosed(context, false);
         break;
-      case TaskActionType.import:
-        await importController.importTasks(context);
+      case TaskActionType.import_gitlab:
+        await importController.importTasks(context, sType: referencesController.stGitlab);
+        break;
+      case TaskActionType.import_jira:
+        await importController.importTasks(context, sType: referencesController.stJira);
+        break;
+      case TaskActionType.import_redmine:
+        await importController.importTasks(context, sType: referencesController.stRedmine);
         break;
       case TaskActionType.go2source:
         await launchUrlString(task.taskSource!.urlString);

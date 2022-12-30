@@ -8,10 +8,10 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/entities/source.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/system/errors.dart';
-import '../../../L1_domain/usecases/task_ext_actions.dart';
 import '../../components/mt_confirm_dialog.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
+import '../task/task_ext_actions.dart';
 import '../workspace/workspace_bounded.dart';
 import 'source_edit_view.dart';
 

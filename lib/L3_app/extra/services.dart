@@ -28,7 +28,7 @@ import '../views/account/account_controller.dart';
 import '../views/import/import_controller.dart';
 import '../views/loader/loader_controller.dart';
 import '../views/main/main_controller.dart';
-import '../views/messages/message_controller.dart';
+import '../views/message/message_controller.dart';
 import '../views/references/references_controller.dart';
 import '../views/settings/settings_controller.dart';
 import '../views/source/source_controller.dart';

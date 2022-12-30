@@ -47,7 +47,7 @@ class _MainViewState extends State<MainView> {
   Future _gotoSettings(BuildContext context) async => await Navigator.of(context).pushNamed(SettingsView.routeName);
   Future _gotoProjects(BuildContext context) async => await Navigator.of(context).pushNamed(TaskView.routeName);
 
-  Widget _bottomBar(BuildContext context) => _task.hasSubtasks
+  Widget? _bottomBar(BuildContext context) => _task.hasSubtasks
       ? Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -61,7 +61,9 @@ class _MainViewState extends State<MainView> {
             if (mainController.canEditAnyWS) TaskAddMenu(_taskController),
           ],
         )
-      : TaskAddButton(_taskController);
+      : mainController.canEditAnyWS
+          ? TaskAddButton(_taskController)
+          : null;
 
   @override
   Widget build(BuildContext context) {

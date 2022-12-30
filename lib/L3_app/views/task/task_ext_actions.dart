@@ -1,16 +1,19 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../entities/task.dart';
-import '../entities/task_source.dart';
-import 'task_ext_level.dart';
-import 'task_ext_state.dart';
+import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities/task_source.dart';
+import '../../../L1_domain/usecases/task_ext_level.dart';
+import '../../../L1_domain/usecases/task_ext_state.dart';
+import '../../extra/services.dart';
 
 enum TaskActionType {
   add,
   edit,
   close,
   reopen,
-  import,
+  import_gitlab,
+  import_jira,
+  import_redmine,
   go2source,
   unlink,
   unwatch,
@@ -41,7 +44,11 @@ extension TaskActionsExt on Task {
       ].contains(level);
 
   Iterable<TaskActionType> get actionTypes => [
-        if (canImport) TaskActionType.import,
+        if (canImport) ...[
+          if (referencesController.hasStGitlab) TaskActionType.import_gitlab,
+          if (referencesController.hasStJira) TaskActionType.import_jira,
+          if (referencesController.hasStRedmine) TaskActionType.import_redmine,
+        ],
         if (canAdd) TaskActionType.add,
         if (canEdit) TaskActionType.edit,
         if (canClose) TaskActionType.close,

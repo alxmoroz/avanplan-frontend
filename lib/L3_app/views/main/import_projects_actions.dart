@@ -17,7 +17,7 @@ class ImportProjectsActions extends StatelessWidget {
   final Task task;
 
   @override
-  Widget build(BuildContext context) => referencesController.sourceTypes.isNotEmpty
+  Widget build(BuildContext context) => referencesController.sourceTypes.isNotEmpty && mainController.canEditAnyWS
       ? ListView(shrinkWrap: true, children: [
           Center(child: StartIcon(size: MediaQuery.of(context).size.height / 5)),
           const SizedBox(height: P2),
@@ -40,5 +40,5 @@ class ImportProjectsActions extends StatelessWidget {
               ),
             )
         ])
-      : const SizedBox();
+      : Center(child: H4(loc.project_count(0)));
 }

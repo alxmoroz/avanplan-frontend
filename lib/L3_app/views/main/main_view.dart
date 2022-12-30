@@ -15,6 +15,7 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../account/user_icon.dart';
+import '../message/message_list_view.dart';
 import '../settings/settings_view.dart';
 import '../task/task_related_widgets/task_add_button.dart';
 import '../task/task_related_widgets/task_add_menu.dart';
@@ -46,6 +47,7 @@ class _MainViewState extends State<MainView> {
 
   Future _gotoSettings(BuildContext context) async => await Navigator.of(context).pushNamed(SettingsView.routeName);
   Future _gotoProjects(BuildContext context) async => await Navigator.of(context).pushNamed(TaskView.routeName);
+  Future _gotoMessages(BuildContext context) async => await Navigator.of(context).pushNamed(MessageListView.routeName);
 
   Widget? _bottomBar(BuildContext context) => _task.hasSubtasks
       ? Row(
@@ -79,10 +81,20 @@ class _MainViewState extends State<MainView> {
                 )
               : null,
           middle: H2(loc.app_title),
-          trailing: MTButton.icon(
-            const RefreshIcon(size: 32),
-            mainController.update,
-            margin: const EdgeInsets.only(right: P),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              MTButton.icon(
+                BellIcon(size: P3, hasUnread: messageController.hasUnread, color: mainColor),
+                () => _gotoMessages(context),
+                margin: const EdgeInsets.only(right: P),
+              ),
+              MTButton.icon(
+                const RefreshIcon(size: P3),
+                mainController.update,
+                margin: const EdgeInsets.only(right: P),
+              ),
+            ],
           ),
           border: const Border(),
         ),

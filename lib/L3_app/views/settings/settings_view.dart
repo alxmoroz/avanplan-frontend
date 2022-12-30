@@ -47,7 +47,7 @@ class SettingsView extends StatelessWidget {
                 if (_user != null) UserListTile(_user!),
                 const SizedBox(height: P_2),
                 MTListTile(
-                  leading: BellIcon(color: darkGreyColor, solid: messageController.hasUnread),
+                  leading: BellIcon(color: darkGreyColor, hasUnread: messageController.hasUnread),
                   titleText: loc.message_list_title,
                   trailing: Row(children: [
                     if (messageController.hasUnread)

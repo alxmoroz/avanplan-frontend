@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'colors.dart';
 import 'constants.dart';
+import 'mt_circle.dart';
 import 'painters.dart';
 
 abstract class _MTIcon extends StatelessWidget {
@@ -345,13 +346,26 @@ class StartIcon extends _MTIcon {
 }
 
 class BellIcon extends _MTIcon {
-  const BellIcon({super.color, super.size, super.solid});
+  const BellIcon({super.color, super.size, this.hasUnread = false});
+
+  final bool hasUnread;
+
   @override
-  Widget build(BuildContext context) => Icon(
-        solid == true ? CupertinoIcons.bell_solid : CupertinoIcons.bell,
-        color: (color ?? darkGreyColor).resolve(context),
-        size: size ?? P2,
-      );
+  Widget build(BuildContext context) {
+    final _size = size ?? P2;
+    final _color = color ?? darkGreyColor;
+    return Stack(
+      alignment: Alignment.topRight,
+      children: [
+        Icon(
+          CupertinoIcons.bell,
+          color: _color.resolve(context),
+          size: _size,
+        ),
+        if (hasUnread) MTCircle(size: _size * 0.45, color: _color),
+      ],
+    );
+  }
 }
 
 double get _sourceIconSize => P2;

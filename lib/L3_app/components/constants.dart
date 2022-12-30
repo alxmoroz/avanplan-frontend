@@ -2,6 +2,7 @@
 
 const double P = 12;
 const double P2 = P * 2;
+const double P3 = P * 3;
 const double P_2 = P / 2;
 const double P_3 = P / 3;
 const double P_6 = P / 6;

@@ -74,9 +74,10 @@ class _TaskEditViewState extends State<TaskEditView> {
     controller.setStartDate(task?.startDate);
     controller.setDueDate(task?.dueDate);
     controller.selectWS(_savedWsID);
-    controller.selectType(task?.type);
     controller.selectEstimateByValue(task?.estimate);
+
     // controller.selectStatus(task?.status);
+    // controller.selectType(task?.type);
     super.initState();
   }
 

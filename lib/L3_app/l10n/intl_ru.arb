@@ -58,6 +58,11 @@
   "delete_dialog_description": "Это действие нельзя будет отменить!",
   "description": "Описание",
 
+  "event_task_due_today_description": "Пришло время закрыть или определиться с переносом срока",
+  "event_task_due_today_title": "Срок сегодня",
+  "event_task_due_tomorrow_description": "Убедитесь, что всё готово к завершению",
+  "event_task_due_tomorrow_title": "Срок уже завтра",
+
   "for_dative": "по",
 
   "goal_count": "{count, plural, zero{Нет целей} one{{count} цель} few{{count} цели} other{{count} целей}}",
@@ -95,6 +100,7 @@
   "loader_unwatch_title": "Отправляем в игнор...",
 
   "message_list_empty_title": "Сообщений нет",
+  "message_list_hint_title": "Отображаются сообщения за последние 30 дней",
   "message_list_title": "Сообщения",
   "message_title": "Сообщение",
 
@@ -107,7 +113,6 @@
 
   "ok": "Ясно",
   "overview": "Обзор",
-
 
   "project_count": "{count, plural, zero{Нет проектов} one{{count} проект} few{{count} проекта} other{{count} проектов}}",
   "project_count_dative": "{count, plural, one{{count} проекту} other{{count} проектам}}",

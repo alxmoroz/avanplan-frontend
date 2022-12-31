@@ -27,13 +27,13 @@ class TaskOverview extends StatelessWidget {
   final Task task;
 
   Widget _checkRecommendsItem(bool checked, String text) => Row(children: [
-        DoneIcon(checked, color: checked ? greenColor : darkGreyColor, size: P * 3, solid: checked),
+        DoneIcon(checked, color: checked ? greenColor : greyColor, size: P * 3, solid: checked),
         const SizedBox(width: P_3),
         H4(text),
       ]);
 
   Widget _line(BuildContext context) =>
-      Row(children: [const SizedBox(width: P * 1.4), Container(height: P * 1.5, width: 2, color: darkGreyColor.resolve(context))]);
+      Row(children: [const SizedBox(width: P * 1.4), Container(height: P * 1.5, width: 2, color: greyColor.resolve(context))]);
 
   @override
   Widget build(BuildContext context) {

@@ -19,11 +19,11 @@ class MTBadge extends StatelessWidget {
         color: darkBackgroundColor.resolve(context),
         borderRadius: BorderRadius.circular(P),
         boxShadow: [
-          BoxShadow(color: darkGreyColor.resolve(context), offset: Offset(0, dir * 0.4)),
+          BoxShadow(color: greyColor.resolve(context), offset: Offset(0, dir * 0.4)),
           BoxShadow(color: CupertinoColors.systemBackground.resolve(context), offset: Offset(0, dir * -0.4)),
         ],
       ),
-      child: SmallText(text, color: darkGreyColor),
+      child: SmallText(text, color: greyColor),
     );
   }
 }

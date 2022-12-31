@@ -19,7 +19,7 @@ class UserIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) => CircleAvatar(
         radius: radius,
-        backgroundColor: (borderSide?.color ?? darkGreyColor).resolve(context),
+        backgroundColor: (borderSide?.color ?? greyColor).resolve(context),
         child: CircleAvatar(
           radius: radius - (borderSide?.width ?? 0.5) * 2,
           backgroundColor: lightGreyColor.resolve(context),

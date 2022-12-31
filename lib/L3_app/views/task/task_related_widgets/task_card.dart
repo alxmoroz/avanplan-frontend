@@ -40,7 +40,7 @@ class TaskCard extends StatelessWidget {
 
   bool get _showLink => task.hasLink && task.isProject;
 
-  Widget get _estimate => SmallText('${task.estimate} ${loc.task_estimate_unit}', color: darkGreyColor);
+  Widget get _estimate => SmallText('${task.estimate} ${loc.task_estimate_unit}', color: greyColor);
   // List<Widget> get _dueDate => [
   //       const SizedBox(height: P_3),
   //       Row(
@@ -69,8 +69,8 @@ class TaskCard extends StatelessWidget {
             ],
             Row(
               children: [
-                if (!task.closed && _hasStatus) SmallText(task.status!.title, color: darkGreyColor),
-                if (_hasAssignee) SmallText(' @ ${task.assignee}', color: darkGreyColor),
+                if (!task.closed && _hasStatus) SmallText(task.status!.title, color: greyColor),
+                if (_hasAssignee) SmallText(' @ ${task.assignee}', color: greyColor),
                 if (task.hasEstimate && !task.showState) ...[
                   const Spacer(),
                   _estimate,

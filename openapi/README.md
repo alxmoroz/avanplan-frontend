@@ -83,7 +83,6 @@ Class | Method | HTTP request | Description
 [*MyApi*](doc/MyApi.md) | [**updateMyMessagesV1MyMessagesPost**](doc/MyApi.md#updatemymessagesv1mymessagespost) | **POST** /v1/my/messages | Update My Messages
 [*TasksApi*](doc/TasksApi.md) | [**deleteTaskV1TasksTaskIdDelete**](doc/TasksApi.md#deletetaskv1taskstaskiddelete) | **DELETE** /v1/tasks/{task_id} | Delete Task
 [*TasksApi*](doc/TasksApi.md) | [**getRootTasksV1TasksGet**](doc/TasksApi.md#getroottasksv1tasksget) | **GET** /v1/tasks/ | Get Root Tasks
-[*TasksApi*](doc/TasksApi.md) | [**getTasksTypesV1TasksTypesGet**](doc/TasksApi.md#gettaskstypesv1taskstypesget) | **GET** /v1/tasks/types/ | Get Tasks Types
 [*TasksApi*](doc/TasksApi.md) | [**upsertTaskV1TasksPost**](doc/TasksApi.md#upserttaskv1taskspost) | **POST** /v1/tasks/ | Upsert Task
 
 

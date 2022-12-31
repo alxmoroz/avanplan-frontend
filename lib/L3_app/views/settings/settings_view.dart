@@ -47,7 +47,7 @@ class SettingsView extends StatelessWidget {
                 if (_user != null) UserListTile(_user!),
                 const SizedBox(height: P_2),
                 MTListTile(
-                  leading: BellIcon(color: darkGreyColor, hasUnread: messageController.hasUnread),
+                  leading: BellIcon(color: greyColor, hasUnread: messageController.hasUnread),
                   titleText: loc.message_list_title,
                   trailing: Row(children: [
                     if (messageController.hasUnread)
@@ -61,7 +61,7 @@ class SettingsView extends StatelessWidget {
                 ),
                 if (mainController.canEditAnyWS)
                   MTListTile(
-                    leading: const ImportIcon(color: darkGreyColor),
+                    leading: const ImportIcon(color: greyColor),
                     titleText: loc.source_list_title,
                     trailing: const ChevronIcon(),
                     onTap: () => _showSources(context),

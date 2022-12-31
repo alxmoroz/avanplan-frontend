@@ -12,11 +12,6 @@ void main() {
       // TODO
     });
 
-    // String title
-    test('to test the property `title`', () async {
-      // TODO
-    });
-
     // String description
     test('to test the property `description`', () async {
       // TODO
@@ -24,6 +19,11 @@ void main() {
 
     // DateTime expiresOn
     test('to test the property `expiresOn`', () async {
+      // TODO
+    });
+
+    // int taskId
+    test('to test the property `taskId`', () async {
       // TODO
     });
 

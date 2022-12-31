@@ -24,7 +24,7 @@ class ConnectingIcon extends _MTIcon {
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.dot_radiowaves_left_right,
-        color: (color ?? darkGreyColor).resolve(context),
+        color: (color ?? greyColor).resolve(context),
         size: size ?? P,
       );
 }
@@ -54,7 +54,7 @@ class WSIcon extends _MTIcon {
   @override
   Widget build(BuildContext context) => FaIcon(
         FontAwesomeIcons.houseUser,
-        color: (color ?? darkGreyColor).resolve(context),
+        color: (color ?? greyColor).resolve(context),
         size: size ?? P * 1.45,
       );
 }
@@ -136,7 +136,7 @@ class LinkIcon extends _MTIcon {
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.link,
-        color: (color ?? darkGreyColor).resolve(context),
+        color: (color ?? greyColor).resolve(context),
         size: size ?? P * 1.4,
       );
 }
@@ -167,7 +167,7 @@ class EyeIcon extends _MTIcon {
   @override
   Widget build(BuildContext context) => FaIcon(
         open ? FontAwesomeIcons.eye : FontAwesomeIcons.eyeSlash,
-        color: (color ?? darkGreyColor).resolve(context),
+        color: (color ?? greyColor).resolve(context),
         size: size ?? P * 1.7,
       );
 }
@@ -273,7 +273,7 @@ class CaretIcon extends StatelessWidget {
   Widget build(BuildContext context) => RotatedBox(
         quarterTurns: up ? 0 : 2,
         child: CustomPaint(
-          painter: TrianglePainter(color: (color ?? darkGreyColor).resolve(context)),
+          painter: TrianglePainter(color: (color ?? greyColor).resolve(context)),
           child: Container(height: size.height, width: size.width),
         ),
       );
@@ -290,7 +290,7 @@ class MailIcon extends _MTIcon {
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.envelope,
-        color: (color ?? darkGreyColor).resolve(context),
+        color: (color ?? greyColor).resolve(context),
         size: size ?? P2,
       );
 }
@@ -300,7 +300,7 @@ class RulesIcon extends _MTIcon {
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.doc_plaintext,
-        color: (color ?? darkGreyColor).resolve(context),
+        color: (color ?? greyColor).resolve(context),
         size: size ?? P2,
       );
 }
@@ -310,7 +310,7 @@ class PrivacyIcon extends _MTIcon {
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.lock_shield,
-        color: (color ?? darkGreyColor).resolve(context),
+        color: (color ?? greyColor).resolve(context),
         size: size ?? P2,
       );
 }
@@ -320,7 +320,7 @@ class ServerErrorIcon extends _MTIcon {
   @override
   Widget build(BuildContext context) => FaIcon(
         FontAwesomeIcons.roadBarrier,
-        color: (color ?? darkGreyColor).resolve(context),
+        color: (color ?? greyColor).resolve(context),
         size: size ?? P2,
       );
 }
@@ -330,7 +330,7 @@ class NetworkErrorIcon extends _MTIcon {
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.wifi_exclamationmark,
-        color: (color ?? darkGreyColor).resolve(context),
+        color: (color ?? greyColor).resolve(context),
         size: size ?? P2,
       );
 }
@@ -353,7 +353,7 @@ class BellIcon extends _MTIcon {
   @override
   Widget build(BuildContext context) {
     final _size = size ?? P2;
-    final _color = color ?? darkGreyColor;
+    final _color = color ?? greyColor;
     return Stack(
       alignment: Alignment.topRight,
       children: [

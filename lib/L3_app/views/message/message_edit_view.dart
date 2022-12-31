@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/message.dart';
 import '../../../L1_domain/entities/source.dart';
+import '../../../L1_domain/usecases/task_ext_level.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/mt_bottom_sheet.dart';
@@ -14,6 +15,7 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';
+import '../../presenters/event_presenter.dart';
 import 'message_controller.dart';
 
 Future<Source?> editMessageDialog(BuildContext context) async {
@@ -48,13 +50,16 @@ class _MessageEditViewState extends State<MessageEditView> {
   Widget form() {
     final padding = MediaQuery.of(context).padding;
     return ListView(
-      padding: padding.add(const EdgeInsets.all(P).copyWith(bottom: padding.bottom > 0 ? 0 : P)),
+      padding: padding.add(const EdgeInsets.all(P).copyWith(top: 0, bottom: padding.bottom > 0 ? 0 : P)),
       children: [
-        LightText(msg.event.createdOn.strShortWTime),
+        if (msg.event.task?.isProject == false) ...[
+          const SizedBox(height: P_2),
+          LightText(msg.event.projectTitle),
+        ],
         const SizedBox(height: P_2),
         H3(msg.event.title),
         const SizedBox(height: P),
-        if (msg.event.hasDescription) NormalText(msg.event.description!, maxLines: 1000),
+        H4(msg.event.localizedDescription, color: greyColor, maxLines: 1000),
       ],
     );
   }
@@ -66,7 +71,7 @@ class _MessageEditViewState extends State<MessageEditView> {
         navBar: navBar(
           context,
           leading: MTCloseButton(),
-          title: loc.message_title,
+          middle: LightText('${loc.message_title}  ${msg.event.createdOn.strShortWTime}'),
           bgColor: backgroundColor,
         ),
         body: SafeArea(top: false, bottom: false, child: form()),

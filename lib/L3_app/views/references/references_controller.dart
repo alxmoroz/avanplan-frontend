@@ -4,7 +4,6 @@ import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/source.dart';
-import '../../../L1_domain/entities/task_type.dart';
 import '../../extra/services.dart';
 
 part 'references_controller.g.dart';
@@ -37,18 +36,18 @@ abstract class _ReferencesControllerBase with Store {
   bool get hasStRedmine => stRedmine != null;
 
   /// тип задачи
-  @observable
-  ObservableList<TaskType> taskTypes = ObservableList();
+  // @observable
+  // ObservableList<TaskType> taskTypes = ObservableList();
 
   @action
   Future fetchData() async {
     sourceTypes = ObservableList.of((await sourceTypesUC.getAll()).sorted((s1, s2) => compareNatural(s1.title, s2.title)));
-    taskTypes = ObservableList.of(await taskTypesUC.getAll());
+    // taskTypes = ObservableList.of(await taskTypesUC.getAll());
   }
 
   @action
   void clearData() {
     sourceTypes.clear();
-    taskTypes.clear();
+    // taskTypes.clear();
   }
 }

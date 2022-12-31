@@ -33,7 +33,7 @@ abstract class _MessagesControllerBase with Store {
 
   @action
   Future fetchData() async {
-    messages = (await myUC.getMessages()).sorted((m1, m2) => m1.event.createdOn.compareTo(m2.event.createdOn));
+    messages = (await myUC.getMessages()).sorted((m1, m2) => m2.event.createdOn.compareTo(m1.event.createdOn));
   }
 
   @action

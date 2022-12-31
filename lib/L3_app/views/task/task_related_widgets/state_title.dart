@@ -24,7 +24,7 @@ class _StateTitle extends StatelessWidget {
             ? H3(text, align: TextAlign.center)
             : place == StateTitlePlace.groupHeader
                 ? H4(text)
-                : SmallText(text, color: darkGreyColor);
+                : SmallText(text, color: greyColor);
 
     final _iconSize = place == StateTitlePlace.workspace
         ? MediaQuery.of(context).size.height / 5

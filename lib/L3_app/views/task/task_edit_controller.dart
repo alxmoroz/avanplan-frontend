@@ -6,7 +6,6 @@ import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/estimate.dart';
 import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/entities/task_type.dart';
 import '../../components/mt_confirm_dialog.dart';
 import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';
@@ -77,24 +76,6 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
   @override
   bool get validated => super.validated && selectedWS != null;
 
-  /// тип задачи
-  @observable
-  int? selectedTypeId;
-
-  @action
-  void selectType(TaskType? _type) => selectedTypeId = _type?.id;
-
-  @computed
-  TaskType? get selectedType => referencesController.taskTypes.firstWhereOrNull((t) => t.id == selectedTypeId);
-
-  @computed
-  bool get isBacklog => selectedType?.title == 'backlog';
-
-  void toggleBacklog() {
-    final type = referencesController.taskTypes.firstWhereOrNull((t) => t.title == (isBacklog ? 'goal' : 'backlog'));
-    selectType(type);
-  }
-
   /// действия
   Future<Task?> _saveTask(Task? task, Task parent) async => await tasksUC.save(Task(
         id: task?.id,
@@ -108,7 +89,7 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
         dueDate: selectedDueDate,
         workspaceId: selectedWS!.id,
         tasks: task?.tasks ?? [],
-        type: selectedType,
+        // type: selectedType,
       ));
 
   Future save(BuildContext context, {Task? task, required Task parent, bool proceed = false}) async {
@@ -184,4 +165,22 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
 
   // @computed
   // Status? get selectedStatus => statuses.firstWhereOrNull((s) => s.id == _selectedStatusId);
+
+  /// тип задачи
+  // @observable
+  // int? selectedTypeId;
+
+  // @action
+  // void selectType(TaskType? _type) => selectedTypeId = _type?.id;
+
+  // @computed
+  // TaskType? get selectedType => referencesController.taskTypes.firstWhereOrNull((t) => t.id == selectedTypeId);
+
+  // @computed
+  // bool get isBacklog => selectedType?.title == 'backlog';
+
+  // void toggleBacklog() {
+  //   final type = referencesController.taskTypes.firstWhereOrNull((t) => t.title == (isBacklog ? 'goal' : 'backlog'));
+  //   selectType(type);
+  // }
 }

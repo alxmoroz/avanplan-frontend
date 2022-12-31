@@ -13,9 +13,9 @@ part 'event_get.g.dart';
 ///
 /// Properties:
 /// * [id] 
-/// * [title] 
 /// * [description] 
 /// * [expiresOn] 
+/// * [taskId] 
 /// * [type] 
 /// * [createdOn] 
 @BuiltValue()
@@ -23,17 +23,17 @@ abstract class EventGet implements Built<EventGet, EventGetBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
 
-  @BuiltValueField(wireName: r'title')
-  String get title;
-
   @BuiltValueField(wireName: r'description')
   String? get description;
 
   @BuiltValueField(wireName: r'expires_on')
   DateTime? get expiresOn;
 
+  @BuiltValueField(wireName: r'task_id')
+  int? get taskId;
+
   @BuiltValueField(wireName: r'type')
-  EventTypeGet? get type;
+  EventTypeGet get type;
 
   @BuiltValueField(wireName: r'created_on')
   DateTime get createdOn;
@@ -66,11 +66,6 @@ class _$EventGetSerializer implements PrimitiveSerializer<EventGet> {
       object.id,
       specifiedType: const FullType(int),
     );
-    yield r'title';
-    yield serializers.serialize(
-      object.title,
-      specifiedType: const FullType(String),
-    );
     if (object.description != null) {
       yield r'description';
       yield serializers.serialize(
@@ -85,13 +80,18 @@ class _$EventGetSerializer implements PrimitiveSerializer<EventGet> {
         specifiedType: const FullType(DateTime),
       );
     }
-    if (object.type != null) {
-      yield r'type';
+    if (object.taskId != null) {
+      yield r'task_id';
       yield serializers.serialize(
-        object.type,
-        specifiedType: const FullType(EventTypeGet),
+        object.taskId,
+        specifiedType: const FullType(int),
       );
     }
+    yield r'type';
+    yield serializers.serialize(
+      object.type,
+      specifiedType: const FullType(EventTypeGet),
+    );
     yield r'created_on';
     yield serializers.serialize(
       object.createdOn,
@@ -127,13 +127,6 @@ class _$EventGetSerializer implements PrimitiveSerializer<EventGet> {
           ) as int;
           result.id = valueDes;
           break;
-        case r'title':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.title = valueDes;
-          break;
         case r'description':
           final valueDes = serializers.deserialize(
             value,
@@ -147,6 +140,13 @@ class _$EventGetSerializer implements PrimitiveSerializer<EventGet> {
             specifiedType: const FullType(DateTime),
           ) as DateTime;
           result.expiresOn = valueDes;
+          break;
+        case r'task_id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.taskId = valueDes;
           break;
         case r'type':
           final valueDes = serializers.deserialize(

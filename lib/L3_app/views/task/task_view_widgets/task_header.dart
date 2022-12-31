@@ -66,7 +66,7 @@ class TaskHeader extends StatelessWidget {
           const SizedBox(height: P_2),
           Row(
             children: [
-              SmallText('${loc.task_estimate_placeholder}', color: darkGreyColor),
+              SmallText('${loc.task_estimate_placeholder}', color: greyColor),
               SmallText(' ${_task.estimate} ${loc.task_estimate_unit}'),
             ],
           ),

@@ -4,12 +4,12 @@ import 'package:flutter/cupertino.dart';
 
 // TODO: разобраться с серым цветом. По факту используется в коде не учитывая названия
 
-const Color darkColor = CupertinoDynamicColor.withBrightness(
+const Color darkGreyColor = CupertinoDynamicColor.withBrightness(
   color: Color(0xFF424242),
   darkColor: Color(0xFFCCCCCC),
 );
 
-const Color darkGreyColor = CupertinoDynamicColor.withBrightness(
+const Color greyColor = CupertinoDynamicColor.withBrightness(
   color: Color(0xFF666666),
   darkColor: Color(0xFF999999),
 );

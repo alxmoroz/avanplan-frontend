@@ -102,7 +102,7 @@ class MTConfirmDialog extends StatelessWidget {
         );
 
     return CupertinoAlertDialog(
-      title: H4(title, padding: const EdgeInsets.only(bottom: P), maxLines: 5, color: darkColor),
+      title: H4(title, padding: const EdgeInsets.only(bottom: P), maxLines: 5, color: darkGreyColor),
       content: Column(
         children: [
           if (description.isNotEmpty) NormalText(description),

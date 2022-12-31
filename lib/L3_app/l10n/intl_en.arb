@@ -59,6 +59,11 @@
   "delete_dialog_description": "This action cannot be undone!",
   "description": "Description",
 
+  "event_task_due_today_description": "It's time to close or decide to reschedule",
+  "event_task_due_today_title": "Due is today",
+  "event_task_due_tomorrow_description": "Make sure everything is ready to be completed",
+  "event_task_due_tomorrow_title": "Due is tomorrow",
+
   "for_dative": "for",
 
   "goal_count": "{count, plural, zero{No goals} one{{count} goal} other{{count} goals}}",
@@ -96,6 +101,7 @@
   "loader_unwatch_title": "Sending to ignore...",
 
   "message_list_empty_title": "No messages",
+  "message_list_hint_title": "Shows messages from the last 30 days",
   "message_list_title": "Messages",
   "message_title": "Message",
 

@@ -36,7 +36,7 @@ class VelocityChart extends StatelessWidget {
   Color get _deltaBarColor => _delta > 0 ? lightWarningColor : _barColor;
 
   Color get _pointerColor => _delta == 0
-      ? darkGreyColor
+      ? greyColor
       : _delta > 0
           ? warningColor
           : greenColor;
@@ -86,9 +86,9 @@ class VelocityChart extends StatelessWidget {
             height: _radius * 2 - P * 4,
             alignment: Alignment.bottomCenter,
             child: Row(children: [
-              if (_maxValue > 0) const MediumText('0', color: darkGreyColor),
+              if (_maxValue > 0) const MediumText('0', color: greyColor),
               const Spacer(),
-              if (_maxValue > 0) MediumText('${(_maxValue * daysPerMonth).round()}', color: darkGreyColor),
+              if (_maxValue > 0) MediumText('${(_maxValue * daysPerMonth).round()}', color: greyColor),
             ]),
           ),
         ],

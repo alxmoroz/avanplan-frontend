@@ -20,13 +20,6 @@ void main() {
       // TODO
     });
 
-    // Get Tasks Types
-    //
-    //Future<BuiltList<TaskTypeGet>> getTasksTypesV1TasksTypesGet() async
-    test('test getTasksTypesV1TasksTypesGet', () async {
-      // TODO
-    });
-
     // Upsert Task
     //
     //Future<TaskGet> upsertTaskV1TasksPost(TaskUpsert taskUpsert) async

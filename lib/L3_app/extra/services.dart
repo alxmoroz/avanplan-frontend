@@ -21,7 +21,6 @@ import '../../L2_data/repositories/import_repo.dart';
 import '../../L2_data/repositories/my_repo.dart';
 import '../../L2_data/repositories/source_types_repo.dart';
 import '../../L2_data/repositories/sources_repo.dart';
-import '../../L2_data/repositories/task_types_repo.dart';
 import '../../L2_data/repositories/tasks_repo.dart';
 import '../l10n/generated/l10n.dart';
 import '../views/account/account_controller.dart';
@@ -54,7 +53,7 @@ MyUC get myUC => GetIt.I<MyUC>();
 TasksUC get tasksUC => GetIt.I<TasksUC>();
 SourcesUC get sourcesUC => GetIt.I<SourcesUC>();
 SourceTypesUC get sourceTypesUC => GetIt.I<SourceTypesUC>();
-TaskTypesUC get taskTypesUC => GetIt.I<TaskTypesUC>();
+// TaskTypesUC get taskTypesUC => GetIt.I<TaskTypesUC>();
 ImportUC get importUC => GetIt.I<ImportUC>();
 
 void setup() {
@@ -87,7 +86,7 @@ void setup() {
     localDBAuthRepo: LocalAuthRepo(),
   ));
   getIt.registerSingleton<SettingsUC>(SettingsUC(settingsRepo: SettingsRepo()));
-  getIt.registerSingleton<TaskTypesUC>(TaskTypesUC(repo: TaskTypesRepo()));
+  // getIt.registerSingleton<TaskTypesUC>(TaskTypesUC(repo: TaskTypesRepo()));
   getIt.registerSingleton<MyUC>(MyUC(repo: MyRepo()));
   getIt.registerSingleton<TasksUC>(TasksUC(repo: TasksRepo()));
   getIt.registerSingleton<SourcesUC>(SourcesUC(repo: SourcesRepo()));

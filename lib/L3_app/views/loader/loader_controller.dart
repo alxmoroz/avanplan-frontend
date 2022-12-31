@@ -123,7 +123,7 @@ abstract class _LoaderControllerBase with Store {
       );
 
   Widget _reportErrorButton(String errorText) => MTButton.outlined(
-        titleColor: darkColor,
+        titleColor: darkGreyColor,
         leading: const MailIcon(),
         titleText: loc.report_bug_action_title,
         margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P),

@@ -26,7 +26,7 @@ class TaskVolumeChart extends StatelessWidget {
   double get _barWidth => _gaugeWidth;
 
   Color get _pointerColor => _delta == 0
-      ? darkGreyColor
+      ? greyColor
       : _delta > 0
           ? warningColor
           : greenColor;

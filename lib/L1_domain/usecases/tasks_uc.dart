@@ -1,7 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import '../entities/task.dart';
-import '../entities/task_type.dart';
 import '../repositories/abs_api_repo.dart';
 
 //TODO: похоже, есть смысл сделать абстрактный общий юзкейс
@@ -35,10 +34,10 @@ class TasksUC {
   }
 }
 
-class TaskTypesUC {
-  TaskTypesUC({required this.repo});
-
-  final AbstractApiRepo<TaskType> repo;
-
-  Future<List<TaskType>> getAll() async => await repo.getAll();
-}
+// class TaskTypesUC {
+//   TaskTypesUC({required this.repo});
+//
+//   final AbstractApiRepo<TaskType> repo;
+//
+//   Future<List<TaskType>> getAll() async => await repo.getAll();
+// }

@@ -8,9 +8,9 @@ import 'event_type.dart';
 extension EventMapper on api.EventGet {
   Event get event => Event(
         id: id,
-        title: title,
         description: description,
-        type: type?.type,
+        type: type.type,
         createdOn: createdOn.toLocal(),
+        taskId: taskId,
       );
 }

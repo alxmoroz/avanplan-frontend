@@ -34,7 +34,7 @@ class LoaderScreen extends StatelessWidget {
                             const SizedBox(height: 20),
                             Row(children: [
                               const Spacer(),
-                              CircularProgressIndicator(color: darkGreyColor.resolve(context)),
+                              CircularProgressIndicator(color: greyColor.resolve(context)),
                               const Spacer(),
                             ]),
                           ],

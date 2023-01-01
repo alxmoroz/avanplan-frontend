@@ -9,7 +9,7 @@ Openapi get openAPI => GetIt.I<Openapi>();
 Openapi setupApi(Iterable<Interceptor>? interceptors) {
   return Openapi(basePathOverride: 'https://avanplan.ru/api/')
     // return Openapi(basePathOverride: 'http://localhost:8000/')
-    ..dio.options.connectTimeout = 300000
+    ..dio.options.connectTimeout = 30000
     ..dio.options.receiveTimeout = 300000
     ..dio.interceptors.addAll(interceptors ?? []);
 }

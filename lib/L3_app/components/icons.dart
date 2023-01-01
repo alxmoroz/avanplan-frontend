@@ -362,7 +362,7 @@ class BellIcon extends _MTIcon {
           color: _color.resolve(context),
           size: _size,
         ),
-        if (hasUnread) MTCircle(size: _size * 0.45, color: _color),
+        if (hasUnread) MTCircle(size: _size * 0.42, color: _color),
       ],
     );
   }

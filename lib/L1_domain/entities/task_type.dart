@@ -2,6 +2,6 @@
 
 import 'base_entity.dart';
 
-class TaskType extends Titleable {
-  TaskType({required super.id, required super.title});
+class TaskType extends Codable {
+  TaskType({required super.id, required super.code});
 }

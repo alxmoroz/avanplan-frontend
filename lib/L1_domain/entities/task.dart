@@ -23,11 +23,11 @@ enum TaskState {
   closed,
 }
 
-class Task extends Statusable {
+class Task extends Titleable {
   Task({
     super.id,
     required super.title,
-    required super.closed,
+    required this.closed,
     required this.parent,
     required this.tasks,
     this.description = '',
@@ -63,6 +63,7 @@ class Task extends Statusable {
   final TaskType? type;
   int? estimate;
   Task? parent;
+  bool closed;
 
   TaskLevel level = TaskLevel.workspace;
 

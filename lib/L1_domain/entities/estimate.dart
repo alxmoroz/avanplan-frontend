@@ -2,14 +2,15 @@
 
 import 'base_entity.dart';
 
-class Estimate extends Titleable {
+class Estimate extends RPersistable {
   Estimate({
     required super.id,
-    required super.title,
+    required this.unit,
     required this.value,
     required this.workspaceId,
   });
 
   final int value;
+  final String unit;
   final int workspaceId;
 }

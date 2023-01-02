@@ -2,9 +2,9 @@
 
 import 'base_entity.dart';
 
-class EventType extends Titleable {
+class EventType extends Codable {
   EventType({
     required super.id,
-    required super.title,
+    required super.code,
   });
 }

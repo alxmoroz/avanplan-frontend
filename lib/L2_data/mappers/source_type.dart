@@ -7,6 +7,6 @@ import '../../L1_domain/entities/source.dart';
 extension SourceTypeMapper on SourceTypeGet {
   SourceType get type => SourceType(
         id: id,
-        title: title,
+        code: code,
       );
 }

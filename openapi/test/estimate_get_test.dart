@@ -22,8 +22,8 @@ void main() {
       // TODO
     });
 
-    // String title
-    test('to test the property `title`', () async {
+    // String unit
+    test('to test the property `unit`', () async {
       // TODO
     });
   });

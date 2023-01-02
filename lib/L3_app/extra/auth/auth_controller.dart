@@ -68,5 +68,5 @@ abstract class _AuthControllerBase with Store {
     await authUC.signOut();
   }
 
-  bool canEditWS(Iterable<WSRole> roles) => roles.firstWhereOrNull((r) => r.title == 'admin') != null;
+  bool canEditWS(Iterable<WSRole> roles) => roles.firstWhereOrNull((r) => r.code == 'admin') != null;
 }

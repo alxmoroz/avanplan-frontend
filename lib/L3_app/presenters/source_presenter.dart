@@ -13,7 +13,7 @@ import '../extra/services.dart';
 
 extension SourceTypePresenter on SourceType {
   Widget get icon {
-    switch (title) {
+    switch (code) {
       case 'Redmine':
         return redmineIcon();
       case 'GitLab':

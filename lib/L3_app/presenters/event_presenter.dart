@@ -10,7 +10,7 @@ import '../extra/services.dart';
 extension EventPresenter on Event {
   Task? get task => taskId != null ? mainController.taskForId(taskId) : null;
   String get projectTitle => task!.project?.title ?? '';
-  String get title => Intl.message('${type.title}_title') + (task != null ? ': ${task!.title}' : '');
-  String get _localizedEventDescription => Intl.message('${type.title}_description');
+  String get title => Intl.message('event_${type.code}_title') + (task != null ? ': ${task!.title}' : '');
+  String get _localizedEventDescription => Intl.message('event_${type.code}_description');
   String get localizedDescription => description ?? _localizedEventDescription;
 }

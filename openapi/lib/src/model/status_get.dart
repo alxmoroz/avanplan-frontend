@@ -14,7 +14,7 @@ part 'status_get.g.dart';
 /// * [id] 
 /// * [workspaceId] 
 /// * [closed] 
-/// * [title] 
+/// * [code] 
 @BuiltValue()
 abstract class StatusGet implements Built<StatusGet, StatusGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -26,8 +26,8 @@ abstract class StatusGet implements Built<StatusGet, StatusGetBuilder> {
   @BuiltValueField(wireName: r'closed')
   bool get closed;
 
-  @BuiltValueField(wireName: r'title')
-  String get title;
+  @BuiltValueField(wireName: r'code')
+  String get code;
 
   StatusGet._();
 
@@ -67,9 +67,9 @@ class _$StatusGetSerializer implements PrimitiveSerializer<StatusGet> {
       object.closed,
       specifiedType: const FullType(bool),
     );
-    yield r'title';
+    yield r'code';
     yield serializers.serialize(
-      object.title,
+      object.code,
       specifiedType: const FullType(String),
     );
   }
@@ -116,12 +116,12 @@ class _$StatusGetSerializer implements PrimitiveSerializer<StatusGet> {
           ) as bool;
           result.closed = valueDes;
           break;
-        case r'title':
+        case r'code':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.title = valueDes;
+          result.code = valueDes;
           break;
         default:
           unhandled.add(key);

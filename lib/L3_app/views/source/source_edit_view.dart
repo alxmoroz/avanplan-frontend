@@ -42,8 +42,8 @@ class _SourceEditViewState extends State<SourceEditView> {
   bool get _isNew => _source == null;
   bool get _canSave => _controller.validated;
 
-  String get _sourceCode => _controller.selectedType != null ? _controller.selectedType!.title.toLowerCase() : '';
-  bool get _showUsername => _controller.selectedType?.title == 'Jira';
+  String get _sourceCode => _controller.selectedType != null ? _controller.selectedType!.code.toLowerCase() : '';
+  bool get _showUsername => _controller.selectedType?.code == 'Jira';
 
   String get _sourceEditHelperAddress => '$docsPath/import/$_sourceCode';
 

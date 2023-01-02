@@ -8,7 +8,7 @@ extension EstimateMapper on api.EstimateGet {
   Estimate get estimate => Estimate(
         id: id,
         value: value,
-        title: title ?? value.toString(),
+        unit: unit ?? value.toString(),
         workspaceId: workspaceId,
       );
 }

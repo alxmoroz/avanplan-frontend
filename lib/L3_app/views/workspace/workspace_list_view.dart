@@ -17,7 +17,7 @@ class WorkspaceListView extends StatelessWidget {
   Widget _wsBuilder(BuildContext context, int index) {
     final ws = mainController.workspaces[index];
     return MTListTile(
-        middle: NormalText(ws.title),
+        middle: NormalText(ws.code),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [

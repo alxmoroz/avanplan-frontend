@@ -12,14 +12,14 @@ part 'status.g.dart';
 ///
 /// Properties:
 /// * [closed] 
-/// * [title] 
+/// * [code] 
 @BuiltValue()
 abstract class Status implements Built<Status, StatusBuilder> {
   @BuiltValueField(wireName: r'closed')
   bool get closed;
 
-  @BuiltValueField(wireName: r'title')
-  String get title;
+  @BuiltValueField(wireName: r'code')
+  String get code;
 
   Status._();
 
@@ -49,9 +49,9 @@ class _$StatusSerializer implements PrimitiveSerializer<Status> {
       object.closed,
       specifiedType: const FullType(bool),
     );
-    yield r'title';
+    yield r'code';
     yield serializers.serialize(
-      object.title,
+      object.code,
       specifiedType: const FullType(String),
     );
   }
@@ -84,12 +84,12 @@ class _$StatusSerializer implements PrimitiveSerializer<Status> {
           ) as bool;
           result.closed = valueDes;
           break;
-        case r'title':
+        case r'code':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.title = valueDes;
+          result.code = valueDes;
           break;
         default:
           unhandled.add(key);

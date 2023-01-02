@@ -45,7 +45,7 @@ abstract class _MainControllerBase with Store {
   @action
   Future fetchWorkspaces() async {
     workspaces = ObservableList.of(await myUC.getWorkspaces());
-    workspaces.sort((w1, w2) => compareNatural(w1.title, w2.title));
+    workspaces.sort((w1, w2) => compareNatural(w1.code, w2.code));
     final tasks = <Task>[];
     for (Workspace ws in workspaces) {
       if (ws.id != null) {

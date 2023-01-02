@@ -7,7 +7,7 @@ import '../../L1_domain/entities/status.dart';
 extension StatusMapper on api.StatusGet {
   Status get status => Status(
         id: id,
-        title: title,
+        code: code,
         closed: closed,
         workspaceId: workspaceId,
       );

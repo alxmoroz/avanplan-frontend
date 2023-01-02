@@ -7,7 +7,7 @@ import '../../L1_domain/entities/priority.dart';
 extension PriorityMapper on api.PriorityGet {
   Priority get priority => Priority(
         id: id,
-        title: title,
+        code: code,
         order: order,
         workspaceId: workspaceId,
       );

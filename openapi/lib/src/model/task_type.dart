@@ -11,11 +11,11 @@ part 'task_type.g.dart';
 /// TaskType
 ///
 /// Properties:
-/// * [title] 
+/// * [code] 
 @BuiltValue()
 abstract class TaskType implements Built<TaskType, TaskTypeBuilder> {
-  @BuiltValueField(wireName: r'title')
-  String get title;
+  @BuiltValueField(wireName: r'code')
+  String get code;
 
   TaskType._();
 
@@ -40,9 +40,9 @@ class _$TaskTypeSerializer implements PrimitiveSerializer<TaskType> {
     TaskType object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    yield r'title';
+    yield r'code';
     yield serializers.serialize(
-      object.title,
+      object.code,
       specifiedType: const FullType(String),
     );
   }
@@ -68,12 +68,12 @@ class _$TaskTypeSerializer implements PrimitiveSerializer<TaskType> {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'title':
+        case r'code':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.title = valueDes;
+          result.code = valueDes;
           break;
         default:
           unhandled.add(key);

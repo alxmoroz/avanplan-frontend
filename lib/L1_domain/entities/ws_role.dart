@@ -2,9 +2,9 @@
 
 import 'base_entity.dart';
 
-class WSRole extends Titleable {
+class WSRole extends Codable {
   WSRole({
     required super.id,
-    required super.title,
+    required super.code,
   });
 }

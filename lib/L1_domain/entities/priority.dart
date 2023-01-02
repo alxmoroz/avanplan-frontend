@@ -6,7 +6,7 @@ class Priority extends Orderable {
   Priority({
     required super.id,
     required super.order,
-    required super.title,
+    required super.code,
     required this.workspaceId,
   });
 

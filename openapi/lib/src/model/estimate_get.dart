@@ -14,7 +14,7 @@ part 'estimate_get.g.dart';
 /// * [id] 
 /// * [workspaceId] 
 /// * [value] 
-/// * [title] 
+/// * [unit] 
 @BuiltValue()
 abstract class EstimateGet implements Built<EstimateGet, EstimateGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -26,8 +26,8 @@ abstract class EstimateGet implements Built<EstimateGet, EstimateGetBuilder> {
   @BuiltValueField(wireName: r'value')
   int get value;
 
-  @BuiltValueField(wireName: r'title')
-  String? get title;
+  @BuiltValueField(wireName: r'unit')
+  String? get unit;
 
   EstimateGet._();
 
@@ -67,10 +67,10 @@ class _$EstimateGetSerializer implements PrimitiveSerializer<EstimateGet> {
       object.value,
       specifiedType: const FullType(int),
     );
-    if (object.title != null) {
-      yield r'title';
+    if (object.unit != null) {
+      yield r'unit';
       yield serializers.serialize(
-        object.title,
+        object.unit,
         specifiedType: const FullType(String),
       );
     }
@@ -118,12 +118,12 @@ class _$EstimateGetSerializer implements PrimitiveSerializer<EstimateGet> {
           ) as int;
           result.value = valueDes;
           break;
-        case r'title':
+        case r'unit':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.title = valueDes;
+          result.unit = valueDes;
           break;
         default:
           unhandled.add(key);

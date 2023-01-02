@@ -7,8 +7,8 @@ void main() {
   // TODO add properties to the builder and call build()
 
   group(TaskType, () {
-    // String title
-    test('to test the property `title`', () async {
+    // String code
+    test('to test the property `code`', () async {
       // TODO
     });
   });

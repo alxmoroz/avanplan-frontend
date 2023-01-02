@@ -12,14 +12,14 @@ part 'priority.g.dart';
 ///
 /// Properties:
 /// * [order] 
-/// * [title] 
+/// * [code] 
 @BuiltValue()
 abstract class Priority implements Built<Priority, PriorityBuilder> {
   @BuiltValueField(wireName: r'order')
   int get order;
 
-  @BuiltValueField(wireName: r'title')
-  String get title;
+  @BuiltValueField(wireName: r'code')
+  String get code;
 
   Priority._();
 
@@ -49,9 +49,9 @@ class _$PrioritySerializer implements PrimitiveSerializer<Priority> {
       object.order,
       specifiedType: const FullType(int),
     );
-    yield r'title';
+    yield r'code';
     yield serializers.serialize(
-      object.title,
+      object.code,
       specifiedType: const FullType(String),
     );
   }
@@ -84,12 +84,12 @@ class _$PrioritySerializer implements PrimitiveSerializer<Priority> {
           ) as int;
           result.order = valueDes;
           break;
-        case r'title':
+        case r'code':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.title = valueDes;
+          result.code = valueDes;
           break;
         default:
           unhandled.add(key);

@@ -5,7 +5,7 @@ import 'base_entity.dart';
 class Status extends Statusable {
   Status({
     required super.id,
-    required super.title,
+    required super.code,
     required super.closed,
     required this.workspaceId,
   });

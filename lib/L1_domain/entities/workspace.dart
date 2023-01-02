@@ -8,10 +8,10 @@ import 'source.dart';
 import 'status.dart';
 import 'ws_role.dart';
 
-class Workspace extends Titleable {
+class Workspace extends Codable {
   Workspace({
     required super.id,
-    required super.title,
+    required super.code,
     required this.statuses,
     required this.estimates,
     required this.priorities,

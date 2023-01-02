@@ -69,7 +69,7 @@ class TaskCard extends StatelessWidget {
             ],
             Row(
               children: [
-                if (!task.closed && _hasStatus) SmallText(task.status!.title, color: greyColor),
+                if (!task.closed && _hasStatus) SmallText(task.status!.code, color: greyColor),
                 if (_hasAssignee) SmallText(' @ ${task.assignee}', color: greyColor),
                 if (task.hasEstimate && !task.showState) ...[
                   const Spacer(),

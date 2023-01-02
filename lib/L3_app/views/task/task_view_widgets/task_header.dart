@@ -54,7 +54,7 @@ class TaskHeader extends StatelessWidget {
           const SizedBox(height: P),
           Row(
             children: [
-              if (_hasStatus) SmallText(_task.status!.title),
+              if (_hasStatus) SmallText(_task.status!.code),
               if (_hasAssignee) ...[
                 if (_hasStatus) const SizedBox(width: P_2),
                 SmallText('@ ${_task.assignee}'),

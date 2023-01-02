@@ -9,7 +9,7 @@ import 'package:openapi/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  | 
-**title** | **String** |  | 
+**code** | **String** |  | 
 **description** | **String** |  | [optional] 
 **statuses** | [**BuiltList&lt;StatusGet&gt;**](StatusGet.md) |  | 
 **priorities** | [**BuiltList&lt;PriorityGet&gt;**](PriorityGet.md) |  | 

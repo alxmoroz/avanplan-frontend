@@ -15,7 +15,7 @@ abstract class _ReferencesControllerBase with Store {
   @observable
   ObservableList<SourceType> sourceTypes = ObservableList();
 
-  SourceType? _sourceType(String typeTitle) => sourceTypes.firstWhereOrNull((st) => st.title.toLowerCase() == typeTitle);
+  SourceType? _sourceType(String typeTitle) => sourceTypes.firstWhereOrNull((st) => st.code.toLowerCase() == typeTitle);
 
   @computed
   SourceType? get stJira => _sourceType('jira');
@@ -41,7 +41,7 @@ abstract class _ReferencesControllerBase with Store {
 
   @action
   Future fetchData() async {
-    sourceTypes = ObservableList.of((await sourceTypesUC.getAll()).sorted((s1, s2) => compareNatural(s1.title, s2.title)));
+    sourceTypes = ObservableList.of((await sourceTypesUC.getAll()).sorted((s1, s2) => compareNatural(s1.code, s2.code)));
     // taskTypes = ObservableList.of(await taskTypesUC.getAll());
   }
 

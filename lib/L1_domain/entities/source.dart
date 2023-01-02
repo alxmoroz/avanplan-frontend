@@ -2,8 +2,8 @@
 
 import 'base_entity.dart';
 
-class SourceType extends Titleable {
-  SourceType({required super.id, required super.title});
+class SourceType extends Codable {
+  SourceType({required super.id, required super.code});
 }
 
 enum SrcState {
@@ -35,5 +35,5 @@ class Source extends RPersistable {
   SrcState state;
 
   @override
-  String toString() => description.isEmpty ? type.title : description;
+  String toString() => description.isEmpty ? type.code : description;
 }

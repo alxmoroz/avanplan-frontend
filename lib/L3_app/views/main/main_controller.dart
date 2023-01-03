@@ -60,7 +60,6 @@ abstract class _MainControllerBase with Store {
   @action
   Future fetchData() async {
     loaderController.setRefreshing();
-    await settingsController.fetchData();
     await accountController.fetchData();
     await referencesController.fetchData();
     await messageController.fetchData();
@@ -81,7 +80,6 @@ abstract class _MainControllerBase with Store {
 
     sourceController.clearData();
     importController.clearData();
-    settingsController.clearData();
     referencesController.clearData();
     accountController.clearData();
   }

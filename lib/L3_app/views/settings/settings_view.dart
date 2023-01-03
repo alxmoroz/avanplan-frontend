@@ -17,13 +17,11 @@ import '../../presenters/communications_presenter.dart';
 import '../message/message_list_view.dart';
 import '../source/source_list_view.dart';
 import '../workspace/workspace_list_view.dart';
-import 'settings_controller.dart';
+import 'app_version.dart';
 import 'user_list_tile.dart';
 
 class SettingsView extends StatelessWidget {
   static String get routeName => 'settings';
-
-  SettingsController get _controller => settingsController;
 
   Future _showSources(BuildContext context) async {
     sourceController.checkSources();
@@ -101,11 +99,7 @@ class SettingsView extends StatelessWidget {
           ),
 
           /// версия
-          bottomBar: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            LightText(loc.app_title),
-            const SizedBox(width: P / 4),
-            NormalText(_controller.appVersion),
-          ]),
+          bottomBar: const AppVersion(),
         ),
       );
 }

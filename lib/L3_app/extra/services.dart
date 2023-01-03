@@ -66,7 +66,7 @@ void setup() {
 
   // global state controllers
   getIt.registerSingletonAsync<AuthController>(() async => AuthController().init(), dependsOn: [HiveStorage]);
-  getIt.registerSingleton<SettingsController>(SettingsController());
+  getIt.registerSingletonAsync<SettingsController>(() async => SettingsController().init(), dependsOn: [HiveStorage, PackageInfo]);
   getIt.registerSingleton<ReferencesController>(ReferencesController());
   getIt.registerSingleton<MainController>(MainController());
   getIt.registerSingleton<LoaderController>(LoaderController());

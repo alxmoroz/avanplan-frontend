@@ -12,6 +12,7 @@ import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
+import '../settings/app_version.dart';
 import 'legal_links.dart';
 import 'sign_in_with_password_form.dart';
 
@@ -60,6 +61,8 @@ class SignInView extends StatelessWidget {
                     ),
                     const SizedBox(height: P * 3),
                     const LegalLinks(),
+                    const SizedBox(height: P2),
+                    const AppVersion()
                   ],
                 ),
               ),

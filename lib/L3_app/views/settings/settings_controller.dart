@@ -8,7 +8,12 @@ import '../../extra/services.dart';
 
 part 'settings_controller.g.dart';
 
-class SettingsController extends _SettingsControllerBase with _$SettingsController {}
+class SettingsController extends _SettingsControllerBase with _$SettingsController {
+  Future<SettingsController> init() async {
+    await fetchData();
+    return this;
+  }
+}
 
 abstract class _SettingsControllerBase with Store {
   @observable

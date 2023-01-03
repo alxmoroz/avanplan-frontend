@@ -3,85 +3,86 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:openapi/src/model/user_get.dart';
+import 'package:openapi/src/model/event_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'message_upsert.g.dart';
+part 'event_message_get.g.dart';
 
-/// MessageUpsert
+/// EventMessageGet
 ///
 /// Properties:
 /// * [id] 
-/// * [readDate] 
-/// * [eventId] 
-/// * [recipientId] 
+/// * [isRead] 
+/// * [event] 
+/// * [recipient] 
 @BuiltValue()
-abstract class MessageUpsert implements Built<MessageUpsert, MessageUpsertBuilder> {
+abstract class EventMessageGet implements Built<EventMessageGet, EventMessageGetBuilder> {
   @BuiltValueField(wireName: r'id')
-  int? get id;
+  int get id;
 
-  @BuiltValueField(wireName: r'read_date')
-  DateTime? get readDate;
+  @BuiltValueField(wireName: r'is_read')
+  bool? get isRead;
 
-  @BuiltValueField(wireName: r'event_id')
-  int get eventId;
+  @BuiltValueField(wireName: r'event')
+  EventGet get event;
 
-  @BuiltValueField(wireName: r'recipient_id')
-  int get recipientId;
+  @BuiltValueField(wireName: r'recipient')
+  UserGet get recipient;
 
-  MessageUpsert._();
+  EventMessageGet._();
 
-  factory MessageUpsert([void updates(MessageUpsertBuilder b)]) = _$MessageUpsert;
+  factory EventMessageGet([void updates(EventMessageGetBuilder b)]) = _$EventMessageGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(MessageUpsertBuilder b) => b;
+  static void _defaults(EventMessageGetBuilder b) => b
+      ..isRead = false;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<MessageUpsert> get serializer => _$MessageUpsertSerializer();
+  static Serializer<EventMessageGet> get serializer => _$EventMessageGetSerializer();
 }
 
-class _$MessageUpsertSerializer implements PrimitiveSerializer<MessageUpsert> {
+class _$EventMessageGetSerializer implements PrimitiveSerializer<EventMessageGet> {
   @override
-  final Iterable<Type> types = const [MessageUpsert, _$MessageUpsert];
+  final Iterable<Type> types = const [EventMessageGet, _$EventMessageGet];
 
   @override
-  final String wireName = r'MessageUpsert';
+  final String wireName = r'EventMessageGet';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    MessageUpsert object, {
+    EventMessageGet object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.id != null) {
-      yield r'id';
-      yield serializers.serialize(
-        object.id,
-        specifiedType: const FullType(int),
-      );
-    }
-    if (object.readDate != null) {
-      yield r'read_date';
-      yield serializers.serialize(
-        object.readDate,
-        specifiedType: const FullType(DateTime),
-      );
-    }
-    yield r'event_id';
+    yield r'id';
     yield serializers.serialize(
-      object.eventId,
+      object.id,
       specifiedType: const FullType(int),
     );
-    yield r'recipient_id';
+    if (object.isRead != null) {
+      yield r'is_read';
+      yield serializers.serialize(
+        object.isRead,
+        specifiedType: const FullType(bool),
+      );
+    }
+    yield r'event';
     yield serializers.serialize(
-      object.recipientId,
-      specifiedType: const FullType(int),
+      object.event,
+      specifiedType: const FullType(EventGet),
+    );
+    yield r'recipient';
+    yield serializers.serialize(
+      object.recipient,
+      specifiedType: const FullType(UserGet),
     );
   }
 
   @override
   Object serialize(
     Serializers serializers,
-    MessageUpsert object, {
+    EventMessageGet object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -92,7 +93,7 @@ class _$MessageUpsertSerializer implements PrimitiveSerializer<MessageUpsert> {
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required MessageUpsertBuilder result,
+    required EventMessageGetBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -106,26 +107,26 @@ class _$MessageUpsertSerializer implements PrimitiveSerializer<MessageUpsert> {
           ) as int;
           result.id = valueDes;
           break;
-        case r'read_date':
+        case r'is_read':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
-          result.readDate = valueDes;
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.isRead = valueDes;
           break;
-        case r'event_id':
+        case r'event':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.eventId = valueDes;
+            specifiedType: const FullType(EventGet),
+          ) as EventGet;
+          result.event.replace(valueDes);
           break;
-        case r'recipient_id':
+        case r'recipient':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.recipientId = valueDes;
+            specifiedType: const FullType(UserGet),
+          ) as UserGet;
+          result.recipient.replace(valueDes);
           break;
         default:
           unhandled.add(key);
@@ -136,12 +137,12 @@ class _$MessageUpsertSerializer implements PrimitiveSerializer<MessageUpsert> {
   }
 
   @override
-  MessageUpsert deserialize(
+  EventMessageGet deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = MessageUpsertBuilder();
+    final result = EventMessageGetBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

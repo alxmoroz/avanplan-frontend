@@ -13,8 +13,8 @@ Name | Type | Description | Notes
 **updatedOn** | [**DateTime**](DateTime.md) |  | 
 **workspaceId** | **int** |  | 
 **title** | **String** |  | 
-**closed** | **bool** |  | [optional] [default to false]
 **description** | **String** |  | [optional] 
+**closed** | **bool** |  | [optional] [default to false]
 **startDate** | [**DateTime**](DateTime.md) |  | [optional] 
 **dueDate** | [**DateTime**](DateTime.md) |  | [optional] 
 **closedDate** | [**DateTime**](DateTime.md) |  | [optional] 

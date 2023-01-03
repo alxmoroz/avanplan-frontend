@@ -29,7 +29,7 @@ void main() {
 
     // Get My Messages
     //
-    //Future<BuiltList<MessageGet>> getMyMessagesV1MyMessagesGet() async
+    //Future<BuiltList<EventMessageGet>> getMyMessagesV1MyMessagesGet() async
     test('test getMyMessagesV1MyMessagesGet', () async {
       // TODO
     });
@@ -50,7 +50,7 @@ void main() {
 
     // Update My Messages
     //
-    //Future<JsonObject> updateMyMessagesV1MyMessagesPost(BuiltList<MessageUpsert> messageUpsert) async
+    //Future<JsonObject> updateMyMessagesV1MyMessagesPost(BuiltList<EventMessageUpsert> eventMessageUpsert) async
     test('test updateMyMessagesV1MyMessagesPost', () async {
       // TODO
     });

@@ -10,9 +10,9 @@ import 'package:dio/dio.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/json_object.dart';
 import 'package:openapi/src/model/body_update_my_account_v1_my_account_post.dart';
+import 'package:openapi/src/model/event_message_get.dart';
+import 'package:openapi/src/model/event_message_upsert.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
-import 'package:openapi/src/model/message_get.dart';
-import 'package:openapi/src/model/message_upsert.dart';
 import 'package:openapi/src/model/user_get.dart';
 import 'package:openapi/src/model/ws_user_role_get.dart';
 
@@ -287,9 +287,9 @@ class MyApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [BuiltList<MessageGet>] as data
+  /// Returns a [Future] containing a [Response] with a [BuiltList<EventMessageGet>] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<BuiltList<MessageGet>>> getMyMessagesV1MyMessagesGet({ 
+  Future<Response<BuiltList<EventMessageGet>>> getMyMessagesV1MyMessagesGet({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -323,14 +323,14 @@ class MyApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltList<MessageGet> _responseData;
+    BuiltList<EventMessageGet> _responseData;
 
     try {
-      const _responseType = FullType(BuiltList, [FullType(MessageGet)]);
+      const _responseType = FullType(BuiltList, [FullType(EventMessageGet)]);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as BuiltList<MessageGet>;
+      ) as BuiltList<EventMessageGet>;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -341,7 +341,7 @@ class MyApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<BuiltList<MessageGet>>(
+    return Response<BuiltList<EventMessageGet>>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -532,7 +532,7 @@ class MyApi {
   /// 
   ///
   /// Parameters:
-  /// * [messageUpsert] 
+  /// * [eventMessageUpsert] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -543,7 +543,7 @@ class MyApi {
   /// Returns a [Future] containing a [Response] with a [JsonObject] as data
   /// Throws [DioError] if API call or serialization fails
   Future<Response<JsonObject>> updateMyMessagesV1MyMessagesPost({ 
-    required BuiltList<MessageUpsert> messageUpsert,
+    required BuiltList<EventMessageUpsert> eventMessageUpsert,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -573,8 +573,8 @@ class MyApi {
     dynamic _bodyData;
 
     try {
-      const _type = FullType(BuiltList, [FullType(MessageUpsert)]);
-      _bodyData = _serializers.serialize(messageUpsert, specifiedType: _type);
+      const _type = FullType(BuiltList, [FullType(EventMessageUpsert)]);
+      _bodyData = _serializers.serialize(eventMessageUpsert, specifiedType: _type);
 
     } catch(error, stackTrace) {
       throw DioError(

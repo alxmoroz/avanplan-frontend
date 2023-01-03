@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../L1_domain/usecases/task_ext_level.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -13,7 +12,6 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';
-import '../../presenters/event_presenter.dart';
 import 'message_controller.dart';
 
 class MessageListView extends StatelessWidget {
@@ -25,18 +23,17 @@ class MessageListView extends StatelessWidget {
     if (index < _controller.messages.length) {
       final m = _controller.messages[index];
       final date = m.event.createdOn.strShortWTime;
-      final title = m.event.title;
-      final description = m.event.description ?? '';
+      final title = m.event.type.code;
       return MTListTile(
         middle: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             SmallText(date),
-            if (m.event.task?.isProject == false) SmallText(m.event.projectTitle, color: greyColor),
+            // if (m.event.task?.isProject == false) SmallText(m.event.projectTitle, color: greyColor),
             m.isRead ? NormalText(title) : MediumText(title),
           ],
         ),
-        subtitle: description.isNotEmpty && !m.isRead ? LightText(description, maxLines: 2) : null,
+        // subtitle: description.isNotEmpty && !m.isRead ? LightText(description, maxLines: 2) : null,
         trailing: const ChevronIcon(),
         onTap: () => _controller.showMessage(context, msg: m),
       );

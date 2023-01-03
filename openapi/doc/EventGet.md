@@ -9,9 +9,8 @@ import 'package:openapi/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  | 
-**description** | **String** |  | [optional] 
 **expiresOn** | [**DateTime**](DateTime.md) |  | [optional] 
-**taskId** | **int** |  | [optional] 
+**objectId** | **int** |  | [optional] 
 **type** | [**EventTypeGet**](EventTypeGet.md) |  | 
 **createdOn** | [**DateTime**](DateTime.md) |  | 
 

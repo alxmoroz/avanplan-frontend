@@ -140,7 +140,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **getMyMessagesV1MyMessagesGet**
-> BuiltList<MessageGet> getMyMessagesV1MyMessagesGet()
+> BuiltList<EventMessageGet> getMyMessagesV1MyMessagesGet()
 
 Get My Messages
 
@@ -165,7 +165,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**BuiltList&lt;MessageGet&gt;**](MessageGet.md)
+[**BuiltList&lt;EventMessageGet&gt;**](EventMessageGet.md)
 
 ### Authorization
 
@@ -261,7 +261,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **updateMyMessagesV1MyMessagesPost**
-> JsonObject updateMyMessagesV1MyMessagesPost(messageUpsert)
+> JsonObject updateMyMessagesV1MyMessagesPost(eventMessageUpsert)
 
 Update My Messages
 
@@ -272,10 +272,10 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
 
 final api = Openapi().getMyApi();
-final BuiltList<MessageUpsert> messageUpsert = ; // BuiltList<MessageUpsert> | 
+final BuiltList<EventMessageUpsert> eventMessageUpsert = ; // BuiltList<EventMessageUpsert> | 
 
 try {
-    final response = api.updateMyMessagesV1MyMessagesPost(messageUpsert);
+    final response = api.updateMyMessagesV1MyMessagesPost(eventMessageUpsert);
     print(response);
 } catch on DioError (e) {
     print('Exception when calling MyApi->updateMyMessagesV1MyMessagesPost: $e\n');
@@ -286,7 +286,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **messageUpsert** | [**BuiltList&lt;MessageUpsert&gt;**](MessageUpsert.md)|  | 
+ **eventMessageUpsert** | [**BuiltList&lt;EventMessageUpsert&gt;**](EventMessageUpsert.md)|  | 
 
 ### Return type
 

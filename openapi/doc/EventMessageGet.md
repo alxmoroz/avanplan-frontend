@@ -1,4 +1,4 @@
-# openapi.model.MessageUpsert
+# openapi.model.EventMessageGet
 
 ## Load the model package
 ```dart
@@ -8,10 +8,10 @@ import 'package:openapi/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** |  | [optional] 
-**readDate** | [**DateTime**](DateTime.md) |  | [optional] 
-**eventId** | **int** |  | 
-**recipientId** | **int** |  | 
+**id** | **int** |  | 
+**isRead** | **bool** |  | [optional] [default to false]
+**event** | [**EventGet**](EventGet.md) |  | 
+**recipient** | [**UserGet**](UserGet.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

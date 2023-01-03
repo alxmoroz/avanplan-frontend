@@ -22,13 +22,13 @@ void main() {
       // TODO
     });
 
-    // bool closed (default value: false)
-    test('to test the property `closed`', () async {
+    // String description
+    test('to test the property `description`', () async {
       // TODO
     });
 
-    // String description
-    test('to test the property `description`', () async {
+    // bool closed (default value: false)
+    test('to test the property `closed`', () async {
       // TODO
     });
 

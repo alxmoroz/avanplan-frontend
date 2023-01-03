@@ -14,8 +14,8 @@ part 'task_upsert.g.dart';
 /// * [id] 
 /// * [workspaceId] 
 /// * [title] 
-/// * [closed] 
 /// * [description] 
+/// * [closed] 
 /// * [startDate] 
 /// * [dueDate] 
 /// * [closedDate] 
@@ -38,11 +38,11 @@ abstract class TaskUpsert implements Built<TaskUpsert, TaskUpsertBuilder> {
   @BuiltValueField(wireName: r'title')
   String get title;
 
-  @BuiltValueField(wireName: r'closed')
-  bool? get closed;
-
   @BuiltValueField(wireName: r'description')
   String? get description;
+
+  @BuiltValueField(wireName: r'closed')
+  bool? get closed;
 
   @BuiltValueField(wireName: r'start_date')
   DateTime? get startDate;
@@ -118,18 +118,18 @@ class _$TaskUpsertSerializer implements PrimitiveSerializer<TaskUpsert> {
       object.title,
       specifiedType: const FullType(String),
     );
-    if (object.closed != null) {
-      yield r'closed';
-      yield serializers.serialize(
-        object.closed,
-        specifiedType: const FullType(bool),
-      );
-    }
     if (object.description != null) {
       yield r'description';
       yield serializers.serialize(
         object.description,
         specifiedType: const FullType(String),
+      );
+    }
+    if (object.closed != null) {
+      yield r'closed';
+      yield serializers.serialize(
+        object.closed,
+        specifiedType: const FullType(bool),
       );
     }
     if (object.startDate != null) {
@@ -253,19 +253,19 @@ class _$TaskUpsertSerializer implements PrimitiveSerializer<TaskUpsert> {
           ) as String;
           result.title = valueDes;
           break;
-        case r'closed':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool;
-          result.closed = valueDes;
-          break;
         case r'description':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
           result.description = valueDes;
+          break;
+        case r'closed':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.closed = valueDes;
           break;
         case r'start_date':
           final valueDes = serializers.deserialize(

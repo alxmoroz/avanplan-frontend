@@ -8,6 +8,7 @@ import 'package:openapi/src/model/source_get.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/model/person_get.dart';
 import 'package:openapi/src/model/status_get.dart';
+import 'package:openapi/src/model/ws_settings_get.dart';
 import 'package:openapi/src/model/estimate_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -19,12 +20,14 @@ part 'workspace_get.g.dart';
 /// Properties:
 /// * [id] 
 /// * [code] 
+/// * [title] 
 /// * [description] 
 /// * [statuses] 
 /// * [priorities] 
 /// * [persons] 
 /// * [sources] 
 /// * [estimates] 
+/// * [settings] 
 @BuiltValue()
 abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -32,6 +35,9 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
 
   @BuiltValueField(wireName: r'code')
   String get code;
+
+  @BuiltValueField(wireName: r'title')
+  String get title;
 
   @BuiltValueField(wireName: r'description')
   String? get description;
@@ -50,6 +56,9 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
 
   @BuiltValueField(wireName: r'estimates')
   BuiltList<EstimateGet> get estimates;
+
+  @BuiltValueField(wireName: r'settings')
+  WSSettingsGet get settings;
 
   WorkspaceGet._();
 
@@ -84,6 +93,11 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
       object.code,
       specifiedType: const FullType(String),
     );
+    yield r'title';
+    yield serializers.serialize(
+      object.title,
+      specifiedType: const FullType(String),
+    );
     if (object.description != null) {
       yield r'description';
       yield serializers.serialize(
@@ -115,6 +129,11 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
     yield serializers.serialize(
       object.estimates,
       specifiedType: const FullType(BuiltList, [FullType(EstimateGet)]),
+    );
+    yield r'settings';
+    yield serializers.serialize(
+      object.settings,
+      specifiedType: const FullType(WSSettingsGet),
     );
   }
 
@@ -152,6 +171,13 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
             specifiedType: const FullType(String),
           ) as String;
           result.code = valueDes;
+          break;
+        case r'title':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.title = valueDes;
           break;
         case r'description':
           final valueDes = serializers.deserialize(
@@ -194,6 +220,13 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
             specifiedType: const FullType(BuiltList, [FullType(EstimateGet)]),
           ) as BuiltList<EstimateGet>;
           result.estimates.replace(valueDes);
+          break;
+        case r'settings':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(WSSettingsGet),
+          ) as WSSettingsGet;
+          result.settings.replace(valueDes);
           break;
         default:
           unhandled.add(key);

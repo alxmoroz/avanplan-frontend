@@ -50,19 +50,19 @@ class MyRepo extends AbstractApiMyRepo {
   }
 
   @override
-  Future<Iterable<Message>> getMyMessages() async {
+  Future<Iterable<EventMessage>> getMyMessages() async {
     final response = await api.getMyMessagesV1MyMessagesGet();
     return response.data?.map((m) => m.message) ?? [];
   }
 
   @override
-  Future updateMessages(Iterable<Message> messages) async {
-    final messagesUpsert = messages.map((m) => (MessageUpsertBuilder()
+  Future updateMessages(Iterable<EventMessage> messages) async {
+    final messagesUpsert = messages.map((m) => (EventMessageUpsertBuilder()
           ..id = m.id
           ..eventId = m.event.id
           ..recipientId = m.recipient.id
-          ..readDate = m.readDate?.toUtc())
+          ..isRead = m.isRead)
         .build());
-    await api.updateMyMessagesV1MyMessagesPost(messageUpsert: BuiltList.from(messagesUpsert));
+    await api.updateMyMessagesV1MyMessagesPost(eventMessageUpsert: BuiltList.from(messagesUpsert));
   }
 }

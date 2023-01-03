@@ -3,55 +3,50 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:openapi/src/model/user_get.dart';
-import 'package:openapi/src/model/event_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'message_get.g.dart';
+part 'ws_settings_get.g.dart';
 
-/// MessageGet
+/// WSSettingsGet
 ///
 /// Properties:
 /// * [id] 
-/// * [readDate] 
-/// * [event] 
-/// * [recipient] 
+/// * [workspaceId] 
+/// * [estimateUnit] 
 @BuiltValue()
-abstract class MessageGet implements Built<MessageGet, MessageGetBuilder> {
+abstract class WSSettingsGet implements Built<WSSettingsGet, WSSettingsGetBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
 
-  @BuiltValueField(wireName: r'read_date')
-  DateTime? get readDate;
+  @BuiltValueField(wireName: r'workspace_id')
+  int get workspaceId;
 
-  @BuiltValueField(wireName: r'event')
-  EventGet get event;
+  @BuiltValueField(wireName: r'estimate_unit')
+  String? get estimateUnit;
 
-  @BuiltValueField(wireName: r'recipient')
-  UserGet get recipient;
+  WSSettingsGet._();
 
-  MessageGet._();
-
-  factory MessageGet([void updates(MessageGetBuilder b)]) = _$MessageGet;
+  factory WSSettingsGet([void updates(WSSettingsGetBuilder b)]) = _$WSSettingsGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(MessageGetBuilder b) => b;
+  static void _defaults(WSSettingsGetBuilder b) => b
+      ..estimateUnit = 'sp';
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<MessageGet> get serializer => _$MessageGetSerializer();
+  static Serializer<WSSettingsGet> get serializer => _$WSSettingsGetSerializer();
 }
 
-class _$MessageGetSerializer implements PrimitiveSerializer<MessageGet> {
+class _$WSSettingsGetSerializer implements PrimitiveSerializer<WSSettingsGet> {
   @override
-  final Iterable<Type> types = const [MessageGet, _$MessageGet];
+  final Iterable<Type> types = const [WSSettingsGet, _$WSSettingsGet];
 
   @override
-  final String wireName = r'MessageGet';
+  final String wireName = r'WSSettingsGet';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    MessageGet object, {
+    WSSettingsGet object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'id';
@@ -59,29 +54,24 @@ class _$MessageGetSerializer implements PrimitiveSerializer<MessageGet> {
       object.id,
       specifiedType: const FullType(int),
     );
-    if (object.readDate != null) {
-      yield r'read_date';
+    yield r'workspace_id';
+    yield serializers.serialize(
+      object.workspaceId,
+      specifiedType: const FullType(int),
+    );
+    if (object.estimateUnit != null) {
+      yield r'estimate_unit';
       yield serializers.serialize(
-        object.readDate,
-        specifiedType: const FullType(DateTime),
+        object.estimateUnit,
+        specifiedType: const FullType(String),
       );
     }
-    yield r'event';
-    yield serializers.serialize(
-      object.event,
-      specifiedType: const FullType(EventGet),
-    );
-    yield r'recipient';
-    yield serializers.serialize(
-      object.recipient,
-      specifiedType: const FullType(UserGet),
-    );
   }
 
   @override
   Object serialize(
     Serializers serializers,
-    MessageGet object, {
+    WSSettingsGet object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -92,7 +82,7 @@ class _$MessageGetSerializer implements PrimitiveSerializer<MessageGet> {
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required MessageGetBuilder result,
+    required WSSettingsGetBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -106,26 +96,19 @@ class _$MessageGetSerializer implements PrimitiveSerializer<MessageGet> {
           ) as int;
           result.id = valueDes;
           break;
-        case r'read_date':
+        case r'workspace_id':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
-          result.readDate = valueDes;
+            specifiedType: const FullType(int),
+          ) as int;
+          result.workspaceId = valueDes;
           break;
-        case r'event':
+        case r'estimate_unit':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(EventGet),
-          ) as EventGet;
-          result.event.replace(valueDes);
-          break;
-        case r'recipient':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(UserGet),
-          ) as UserGet;
-          result.recipient.replace(valueDes);
+            specifiedType: const FullType(String),
+          ) as String;
+          result.estimateUnit = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -136,12 +119,12 @@ class _$MessageGetSerializer implements PrimitiveSerializer<MessageGet> {
   }
 
   @override
-  MessageGet deserialize(
+  WSSettingsGet deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = MessageGetBuilder();
+    final result = WSSettingsGetBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

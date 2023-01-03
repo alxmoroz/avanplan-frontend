@@ -4,17 +4,16 @@ import 'base_entity.dart';
 import 'event.dart';
 import 'user.dart';
 
-class Message extends RPersistable {
-  Message({
+class EventMessage extends RPersistable {
+  EventMessage({
     required super.id,
     required this.event,
     required this.recipient,
-    required this.readDate,
+    required this.isRead,
   });
 
   final Event event;
   final User recipient;
 
-  DateTime? readDate;
-  bool get isRead => readDate != null;
+  bool isRead;
 }

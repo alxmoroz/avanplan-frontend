@@ -8,13 +8,13 @@ doc/BodyAuthGoogleToken.md
 doc/BodyUpdateMyAccountV1MyAccountPost.md
 doc/EstimateGet.md
 doc/EventGet.md
+doc/EventMessageGet.md
+doc/EventMessageUpsert.md
 doc/EventTypeGet.md
 doc/HTTPValidationError.md
 doc/IntegrationsSourcesApi.md
 doc/IntegrationsTasksApi.md
 doc/LocationInner.md
-doc/MessageGet.md
-doc/MessageUpsert.md
 doc/MyApi.md
 doc/Person.md
 doc/PersonGet.md
@@ -38,6 +38,7 @@ doc/Token.md
 doc/UserGet.md
 doc/ValidationError.md
 doc/WSRoleGet.md
+doc/WSSettingsGet.md
 doc/WSUserRoleGet.md
 doc/WorkspaceGet.md
 lib/openapi.dart
@@ -60,11 +61,11 @@ lib/src/model/body_update_my_account_v1_my_account_post.dart
 lib/src/model/date.dart
 lib/src/model/estimate_get.dart
 lib/src/model/event_get.dart
+lib/src/model/event_message_get.dart
+lib/src/model/event_message_upsert.dart
 lib/src/model/event_type_get.dart
 lib/src/model/http_validation_error.dart
 lib/src/model/location_inner.dart
-lib/src/model/message_get.dart
-lib/src/model/message_upsert.dart
 lib/src/model/person.dart
 lib/src/model/person_get.dart
 lib/src/model/priority.dart
@@ -87,6 +88,7 @@ lib/src/model/user_get.dart
 lib/src/model/validation_error.dart
 lib/src/model/workspace_get.dart
 lib/src/model/ws_role_get.dart
+lib/src/model/ws_settings_get.dart
 lib/src/model/ws_user_role_get.dart
 lib/src/serializers.dart
 pubspec.yaml
@@ -96,13 +98,13 @@ test/body_auth_google_token_test.dart
 test/body_update_my_account_v1_my_account_post_test.dart
 test/estimate_get_test.dart
 test/event_get_test.dart
+test/event_message_get_test.dart
+test/event_message_upsert_test.dart
 test/event_type_get_test.dart
 test/http_validation_error_test.dart
 test/integrations_sources_api_test.dart
 test/integrations_tasks_api_test.dart
 test/location_inner_test.dart
-test/message_get_test.dart
-test/message_upsert_test.dart
 test/my_api_test.dart
 test/person_get_test.dart
 test/person_test.dart
@@ -127,4 +129,5 @@ test/user_get_test.dart
 test/validation_error_test.dart
 test/workspace_get_test.dart
 test/ws_role_get_test.dart
+test/ws_settings_get_test.dart
 test/ws_user_role_get_test.dart

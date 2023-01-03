@@ -19,11 +19,11 @@ import 'package:openapi/src/model/body_auth_google_token.dart';
 import 'package:openapi/src/model/body_update_my_account_v1_my_account_post.dart';
 import 'package:openapi/src/model/estimate_get.dart';
 import 'package:openapi/src/model/event_get.dart';
+import 'package:openapi/src/model/event_message_get.dart';
+import 'package:openapi/src/model/event_message_upsert.dart';
 import 'package:openapi/src/model/event_type_get.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/location_inner.dart';
-import 'package:openapi/src/model/message_get.dart';
-import 'package:openapi/src/model/message_upsert.dart';
 import 'package:openapi/src/model/person.dart';
 import 'package:openapi/src/model/person_get.dart';
 import 'package:openapi/src/model/priority.dart';
@@ -45,6 +45,7 @@ import 'package:openapi/src/model/token.dart';
 import 'package:openapi/src/model/user_get.dart';
 import 'package:openapi/src/model/validation_error.dart';
 import 'package:openapi/src/model/ws_role_get.dart';
+import 'package:openapi/src/model/ws_settings_get.dart';
 import 'package:openapi/src/model/ws_user_role_get.dart';
 import 'package:openapi/src/model/workspace_get.dart';
 
@@ -56,11 +57,11 @@ part 'serializers.g.dart';
   BodyUpdateMyAccountV1MyAccountPost,
   EstimateGet,
   EventGet,
+  EventMessageGet,
+  EventMessageUpsert,
   EventTypeGet,
   HTTPValidationError,
   LocationInner,
-  MessageGet,
-  MessageUpsert,
   Person,
   PersonGet,
   Priority,
@@ -82,21 +83,18 @@ part 'serializers.g.dart';
   UserGet,
   ValidationError,
   WSRoleGet,
+  WSSettingsGet,
   WSUserRoleGet,
   WorkspaceGet,
 ])
 Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(MessageGet)]),
-        () => ListBuilder<MessageGet>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(MessageUpsert)]),
-        () => ListBuilder<MessageUpsert>(),
-      )
-      ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskSource)]),
         () => ListBuilder<TaskSource>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(EventMessageUpsert)]),
+        () => ListBuilder<EventMessageUpsert>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(int)]),
@@ -113,6 +111,10 @@ Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskSourceUpsert)]),
         () => ListBuilder<TaskSourceUpsert>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(EventMessageGet)]),
+        () => ListBuilder<EventMessageGet>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskGet)]),

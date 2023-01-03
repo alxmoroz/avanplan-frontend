@@ -8,6 +8,6 @@ abstract class AbstractApiMyRepo {
   Future<User?> getMyAccount();
   Future deleteMyAccount();
   Future<Iterable<Workspace>> getMyWorkspaces();
-  Future<Iterable<Message>> getMyMessages();
-  Future updateMessages(Iterable<Message> messages);
+  Future<Iterable<EventMessage>> getMyMessages();
+  Future updateMessages(Iterable<EventMessage> messages);
 }

@@ -13,6 +13,7 @@ import 'person.dart';
 import 'priority.dart';
 import 'source.dart';
 import 'status.dart';
+import 'ws_settings.dart';
 
 extension WorkspaceMapper on api.WorkspaceGet {
   // TODO: сортируем тут только те списки, которые не редактируем в приложении на данный момент. Нужно перенести в контроллеры для редактирования
@@ -33,5 +34,7 @@ extension WorkspaceMapper on api.WorkspaceGet {
         priorities: _sortedPriorities,
         statuses: _sortedStatuses,
         estimates: _sortedEstimates,
+        title: title,
+        settings: settings.settings,
       );
 }

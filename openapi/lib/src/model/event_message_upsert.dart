@@ -6,61 +6,75 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'estimate_get.g.dart';
+part 'event_message_upsert.g.dart';
 
-/// EstimateGet
+/// EventMessageUpsert
 ///
 /// Properties:
 /// * [id] 
-/// * [workspaceId] 
-/// * [value] 
+/// * [isRead] 
+/// * [eventId] 
+/// * [recipientId] 
 @BuiltValue()
-abstract class EstimateGet implements Built<EstimateGet, EstimateGetBuilder> {
+abstract class EventMessageUpsert implements Built<EventMessageUpsert, EventMessageUpsertBuilder> {
   @BuiltValueField(wireName: r'id')
-  int get id;
+  int? get id;
 
-  @BuiltValueField(wireName: r'workspace_id')
-  int get workspaceId;
+  @BuiltValueField(wireName: r'is_read')
+  bool? get isRead;
 
-  @BuiltValueField(wireName: r'value')
-  int get value;
+  @BuiltValueField(wireName: r'event_id')
+  int get eventId;
 
-  EstimateGet._();
+  @BuiltValueField(wireName: r'recipient_id')
+  int get recipientId;
 
-  factory EstimateGet([void updates(EstimateGetBuilder b)]) = _$EstimateGet;
+  EventMessageUpsert._();
+
+  factory EventMessageUpsert([void updates(EventMessageUpsertBuilder b)]) = _$EventMessageUpsert;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(EstimateGetBuilder b) => b;
+  static void _defaults(EventMessageUpsertBuilder b) => b
+      ..isRead = false;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<EstimateGet> get serializer => _$EstimateGetSerializer();
+  static Serializer<EventMessageUpsert> get serializer => _$EventMessageUpsertSerializer();
 }
 
-class _$EstimateGetSerializer implements PrimitiveSerializer<EstimateGet> {
+class _$EventMessageUpsertSerializer implements PrimitiveSerializer<EventMessageUpsert> {
   @override
-  final Iterable<Type> types = const [EstimateGet, _$EstimateGet];
+  final Iterable<Type> types = const [EventMessageUpsert, _$EventMessageUpsert];
 
   @override
-  final String wireName = r'EstimateGet';
+  final String wireName = r'EventMessageUpsert';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    EstimateGet object, {
+    EventMessageUpsert object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    yield r'id';
+    if (object.id != null) {
+      yield r'id';
+      yield serializers.serialize(
+        object.id,
+        specifiedType: const FullType(int),
+      );
+    }
+    if (object.isRead != null) {
+      yield r'is_read';
+      yield serializers.serialize(
+        object.isRead,
+        specifiedType: const FullType(bool),
+      );
+    }
+    yield r'event_id';
     yield serializers.serialize(
-      object.id,
+      object.eventId,
       specifiedType: const FullType(int),
     );
-    yield r'workspace_id';
+    yield r'recipient_id';
     yield serializers.serialize(
-      object.workspaceId,
-      specifiedType: const FullType(int),
-    );
-    yield r'value';
-    yield serializers.serialize(
-      object.value,
+      object.recipientId,
       specifiedType: const FullType(int),
     );
   }
@@ -68,7 +82,7 @@ class _$EstimateGetSerializer implements PrimitiveSerializer<EstimateGet> {
   @override
   Object serialize(
     Serializers serializers,
-    EstimateGet object, {
+    EventMessageUpsert object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -79,7 +93,7 @@ class _$EstimateGetSerializer implements PrimitiveSerializer<EstimateGet> {
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required EstimateGetBuilder result,
+    required EventMessageUpsertBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -93,19 +107,26 @@ class _$EstimateGetSerializer implements PrimitiveSerializer<EstimateGet> {
           ) as int;
           result.id = valueDes;
           break;
-        case r'workspace_id':
+        case r'is_read':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.workspaceId = valueDes;
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.isRead = valueDes;
           break;
-        case r'value':
+        case r'event_id':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(int),
           ) as int;
-          result.value = valueDes;
+          result.eventId = valueDes;
+          break;
+        case r'recipient_id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.recipientId = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -116,12 +137,12 @@ class _$EstimateGetSerializer implements PrimitiveSerializer<EstimateGet> {
   }
 
   @override
-  EstimateGet deserialize(
+  EventMessageUpsert deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = EstimateGetBuilder();
+    final result = EventMessageUpsertBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

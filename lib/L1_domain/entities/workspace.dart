@@ -7,6 +7,7 @@ import 'priority.dart';
 import 'source.dart';
 import 'status.dart';
 import 'ws_role.dart';
+import 'ws_settings.dart';
 
 class Workspace extends Codable {
   Workspace({
@@ -17,7 +18,9 @@ class Workspace extends Codable {
     required this.priorities,
     required this.persons,
     required this.sources,
-    this.description = '',
+    required this.title,
+    required this.description,
+    required this.settings,
   });
 
   final List<Status> statuses;
@@ -26,7 +29,10 @@ class Workspace extends Codable {
   final List<Source> sources;
   final List<Estimate> estimates;
 
+  final String title;
   final String description;
+
+  final WSSettings settings;
 
   List<WSRole> roles = [];
 }

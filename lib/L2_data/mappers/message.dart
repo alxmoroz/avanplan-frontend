@@ -6,11 +6,11 @@ import '../../L1_domain/entities/message.dart';
 import 'event.dart';
 import 'user.dart';
 
-extension MessageMapper on api.MessageGet {
-  Message get message => Message(
+extension EventMessageMapper on api.EventMessageGet {
+  EventMessage get message => EventMessage(
         id: id,
         event: event.event,
         recipient: recipient.user,
-        readDate: readDate?.toLocal(),
+        isRead: isRead ?? false,
       );
 }

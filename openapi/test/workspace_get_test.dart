@@ -17,6 +17,11 @@ void main() {
       // TODO
     });
 
+    // String title
+    test('to test the property `title`', () async {
+      // TODO
+    });
+
     // String description
     test('to test the property `description`', () async {
       // TODO
@@ -44,6 +49,11 @@ void main() {
 
     // BuiltList<EstimateGet> estimates
     test('to test the property `estimates`', () async {
+      // TODO
+    });
+
+    // WSSettingsGet settings
+    test('to test the property `settings`', () async {
       // TODO
     });
   });

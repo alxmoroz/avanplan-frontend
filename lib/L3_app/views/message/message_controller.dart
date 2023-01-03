@@ -14,7 +14,7 @@ class MessageController extends _MessagesControllerBase with _$MessageController
 
 abstract class _MessagesControllerBase with Store {
   @observable
-  List<Message> messages = [];
+  List<EventMessage> messages = [];
 
   @observable
   int? selectedMsgId;
@@ -26,10 +26,10 @@ abstract class _MessagesControllerBase with Store {
   bool get hasUnread => unreadCount > 0;
 
   @action
-  void selectMessage(Message? _m) => selectedMsgId = _m?.id;
+  void selectMessage(EventMessage? _m) => selectedMsgId = _m?.id;
 
   @computed
-  Message? get selectedMessage => messages.firstWhereOrNull((m) => m.id == selectedMsgId);
+  EventMessage? get selectedMessage => messages.firstWhereOrNull((m) => m.id == selectedMsgId);
 
   @action
   Future fetchData() async {
@@ -39,12 +39,12 @@ abstract class _MessagesControllerBase with Store {
   @action
   void clearData() => messages.clear();
 
-  Future showMessage(BuildContext context, {required Message msg}) async {
+  Future showMessage(BuildContext context, {required EventMessage msg}) async {
     selectMessage(msg);
     await editMessageDialog(context);
 
     if (!msg.isRead) {
-      msg.readDate = DateTime.now();
+      msg.isRead = true;
       await myUC.updateMessages([msg]);
       await fetchData();
     }

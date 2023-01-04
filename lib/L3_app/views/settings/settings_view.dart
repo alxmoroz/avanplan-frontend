@@ -14,7 +14,7 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/communications_presenter.dart';
-import '../message/message_list_view.dart';
+import '../notification/notification_list_view.dart';
 import '../source/source_list_view.dart';
 import '../workspace/workspace_list_view.dart';
 import 'app_version.dart';
@@ -29,7 +29,7 @@ class SettingsView extends StatelessWidget {
   }
 
   Future _showWorkspaces(BuildContext context) async => await Navigator.of(context).pushNamed(WorkspaceListView.routeName);
-  Future _showMessages(BuildContext context) async => await Navigator.of(context).pushNamed(MessageListView.routeName);
+  Future _showMessages(BuildContext context) async => await Navigator.of(context).pushNamed(NotificationListView.routeName);
   User? get _user => accountController.user;
 
   @override
@@ -45,12 +45,12 @@ class SettingsView extends StatelessWidget {
                 if (_user != null) UserListTile(_user!),
                 const SizedBox(height: P_2),
                 MTListTile(
-                  leading: BellIcon(color: greyColor, hasUnread: messageController.hasUnread),
+                  leading: BellIcon(color: greyColor, hasUnread: notificationController.hasUnread),
                   titleText: loc.message_list_title,
                   trailing: Row(children: [
-                    if (messageController.hasUnread)
+                    if (notificationController.hasUnread)
                       NormalText(
-                        messageController.unreadCount.toString(),
+                        notificationController.unreadCount.toString(),
                         padding: const EdgeInsets.only(right: P_2),
                       ),
                     const ChevronIcon(),

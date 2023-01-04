@@ -15,7 +15,7 @@ import 'l10n/generated/l10n.dart';
 import 'views/account/account_view.dart';
 import 'views/loader/loader_screen.dart';
 import 'views/main/main_view.dart';
-import 'views/message/message_list_view.dart';
+import 'views/notification/notification_list_view.dart';
 import 'views/settings/settings_view.dart';
 import 'views/sign_in/sign_in_view.dart';
 import 'views/source/source_list_view.dart';
@@ -93,7 +93,7 @@ class App extends StatelessWidget {
               SettingsView.routeName: (_) => SettingsView(),
               AccountView.routeName: (_) => AccountView(),
               WorkspaceListView.routeName: (_) => WorkspaceListView(),
-              MessageListView.routeName: (_) => MessageListView(),
+              NotificationListView.routeName: (_) => NotificationListView(),
             },
             onGenerateRoute: (RouteSettings rs) {
               if (rs.name == TaskView.routeName) {

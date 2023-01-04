@@ -35,6 +35,6 @@ extension WorkspaceMapper on api.WorkspaceGet {
         statuses: _sortedStatuses,
         estimates: _sortedEstimates,
         title: title,
-        settings: settings.settings,
+        settings: settings?.settings,
       );
 }

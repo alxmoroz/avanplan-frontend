@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **persons** | [**BuiltList&lt;PersonGet&gt;**](PersonGet.md) |  | 
 **sources** | [**BuiltList&lt;SourceGet&gt;**](SourceGet.md) |  | 
 **estimates** | [**BuiltList&lt;EstimateGet&gt;**](EstimateGet.md) |  | 
-**settings** | [**WSSettingsGet**](WSSettingsGet.md) |  | 
+**settings** | [**WSSettingsGet**](WSSettingsGet.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

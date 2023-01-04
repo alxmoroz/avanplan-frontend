@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../L1_domain/entities/message.dart';
+import '../../../L1_domain/entities/notification.dart';
 import '../../../L1_domain/entities/source.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
@@ -14,25 +14,25 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';
-import 'message_controller.dart';
+import 'notification_controller.dart';
 
-Future<Source?> editMessageDialog(BuildContext context) async {
+Future<Source?> showNotificationDialog(BuildContext context) async {
   return await showModalBottomSheet<Source?>(
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    builder: (_) => MTBottomSheet(MessageEditView()),
+    builder: (_) => MTBottomSheet(NotificationView()),
   );
 }
 
-class MessageEditView extends StatefulWidget {
+class NotificationView extends StatefulWidget {
   @override
-  _MessageEditViewState createState() => _MessageEditViewState();
+  _NotificationViewState createState() => _NotificationViewState();
 }
 
-class _MessageEditViewState extends State<MessageEditView> {
-  MessageController get controller => messageController;
-  EventMessage get msg => controller.selectedMessage!;
+class _NotificationViewState extends State<NotificationView> {
+  NotificationController get controller => notificationController;
+  MTNotification get nf => controller.selectedNotification!;
 
   @override
   void initState() {
@@ -45,7 +45,7 @@ class _MessageEditViewState extends State<MessageEditView> {
     super.dispose();
   }
 
-  Widget form() {
+  Widget body() {
     final padding = MediaQuery.of(context).padding;
     return ListView(
       padding: padding.add(const EdgeInsets.all(P).copyWith(top: 0, bottom: padding.bottom > 0 ? 0 : P)),
@@ -55,9 +55,10 @@ class _MessageEditViewState extends State<MessageEditView> {
         //   LightText(msg.event.projectTitle),
         // ],
         // const SizedBox(height: P_2),
-        // H3(msg.event.title),
-        // const SizedBox(height: P),
-        // H4(msg.event.localizedDescription, color: greyColor, maxLines: 1000),
+
+        H3(nf.title),
+        const SizedBox(height: P),
+        H4(nf.description, color: greyColor, maxLines: 1000),
       ],
     );
   }
@@ -69,10 +70,14 @@ class _MessageEditViewState extends State<MessageEditView> {
         navBar: navBar(
           context,
           leading: MTCloseButton(),
-          middle: LightText('${loc.message_title}  ${msg.event.createdOn.strShortWTime}'),
+          middle: LightText('${loc.message_title}  ${nf.scheduledDate.strShortWTime}'),
           bgColor: backgroundColor,
         ),
-        body: SafeArea(top: false, bottom: false, child: form()),
+        body: SafeArea(
+          top: false,
+          bottom: false,
+          child: body(),
+        ),
       ),
     );
   }

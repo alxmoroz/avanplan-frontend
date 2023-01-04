@@ -3,11 +3,11 @@
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/openapi.dart';
 
-import '../../L1_domain/entities/message.dart';
+import '../../L1_domain/entities/notification.dart';
 import '../../L1_domain/entities/user.dart';
 import '../../L1_domain/entities/workspace.dart';
 import '../../L1_domain/repositories/abs_api_my_repo.dart';
-import '../mappers/message.dart';
+import '../mappers/notification.dart';
 import '../mappers/user.dart';
 import '../mappers/workspace.dart';
 import '../mappers/ws_role.dart';
@@ -50,19 +50,13 @@ class MyRepo extends AbstractApiMyRepo {
   }
 
   @override
-  Future<Iterable<EventMessage>> getMyMessages() async {
-    final response = await api.getMyMessagesV1MyMessagesGet();
-    return response.data?.map((m) => m.message) ?? [];
+  Future<Iterable<MTNotification>> getMyNotifications() async {
+    final response = await api.getMyNotificationsV1MyNotificationsGet();
+    return response.data?.map((n) => n.notification) ?? [];
   }
 
   @override
-  Future updateMessages(Iterable<EventMessage> messages) async {
-    final messagesUpsert = messages.map((m) => (EventMessageUpsertBuilder()
-          ..id = m.id
-          ..eventId = m.event.id
-          ..recipientId = m.recipient.id
-          ..isRead = m.isRead)
-        .build());
-    await api.updateMyMessagesV1MyMessagesPost(eventMessageUpsert: BuiltList.from(messagesUpsert));
+  Future readMyMessages(Iterable<int> messagesIds) async {
+    await api.readMyMessagesV1MyMessagesPost(requestBody: BuiltList.from(messagesIds));
   }
 }

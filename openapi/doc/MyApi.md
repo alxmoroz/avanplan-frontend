@@ -10,12 +10,11 @@ All URIs are relative to */api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**deleteMyAccountV1MyAccountDelete**](MyApi.md#deletemyaccountv1myaccountdelete) | **DELETE** /v1/my/account | Delete My Account
-[**deleteMyMessagesV1MyMessagesDelete**](MyApi.md#deletemymessagesv1mymessagesdelete) | **DELETE** /v1/my/messages | Delete My Messages
 [**getMyAccountV1MyAccountGet**](MyApi.md#getmyaccountv1myaccountget) | **GET** /v1/my/account | Get My Account
-[**getMyMessagesV1MyMessagesGet**](MyApi.md#getmymessagesv1mymessagesget) | **GET** /v1/my/messages | Get My Messages
+[**getMyNotificationsV1MyNotificationsGet**](MyApi.md#getmynotificationsv1mynotificationsget) | **GET** /v1/my/notifications | Get My Notifications
 [**getMyWorkspacesV1MyWorkspacesGet**](MyApi.md#getmyworkspacesv1myworkspacesget) | **GET** /v1/my/workspaces | Get My Workspaces
+[**readMyMessagesV1MyMessagesPost**](MyApi.md#readmymessagesv1mymessagespost) | **POST** /v1/my/messages | Read My Messages
 [**updateMyAccountV1MyAccountPost**](MyApi.md#updatemyaccountv1myaccountpost) | **POST** /v1/my/account | Update My Account
-[**updateMyMessagesV1MyMessagesPost**](MyApi.md#updatemymessagesv1mymessagespost) | **POST** /v1/my/messages | Update My Messages
 
 
 # **deleteMyAccountV1MyAccountDelete**
@@ -53,49 +52,6 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **deleteMyMessagesV1MyMessagesDelete**
-> JsonObject deleteMyMessagesV1MyMessagesDelete(requestBody)
-
-Delete My Messages
-
-### Example
-```dart
-import 'package:openapi/api.dart';
-// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
-//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
-
-final api = Openapi().getMyApi();
-final BuiltList<int> requestBody = ; // BuiltList<int> | 
-
-try {
-    final response = api.deleteMyMessagesV1MyMessagesDelete(requestBody);
-    print(response);
-} catch on DioError (e) {
-    print('Exception when calling MyApi->deleteMyMessagesV1MyMessagesDelete: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **requestBody** | [**BuiltList&lt;int&gt;**](int.md)|  | 
-
-### Return type
-
-[**JsonObject**](JsonObject.md)
-
-### Authorization
-
-[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -139,10 +95,10 @@ This endpoint does not need any parameter.
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **getMyMessagesV1MyMessagesGet**
-> BuiltList<EventMessageGet> getMyMessagesV1MyMessagesGet()
+# **getMyNotificationsV1MyNotificationsGet**
+> BuiltList<Notification> getMyNotificationsV1MyNotificationsGet()
 
-Get My Messages
+Get My Notifications
 
 ### Example
 ```dart
@@ -153,10 +109,10 @@ import 'package:openapi/api.dart';
 final api = Openapi().getMyApi();
 
 try {
-    final response = api.getMyMessagesV1MyMessagesGet();
+    final response = api.getMyNotificationsV1MyNotificationsGet();
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling MyApi->getMyMessagesV1MyMessagesGet: $e\n');
+    print('Exception when calling MyApi->getMyNotificationsV1MyNotificationsGet: $e\n');
 }
 ```
 
@@ -165,7 +121,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**BuiltList&lt;EventMessageGet&gt;**](EventMessageGet.md)
+[**BuiltList&lt;Notification&gt;**](Notification.md)
 
 ### Authorization
 
@@ -217,6 +173,49 @@ This endpoint does not need any parameter.
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **readMyMessagesV1MyMessagesPost**
+> JsonObject readMyMessagesV1MyMessagesPost(requestBody)
+
+Read My Messages
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
+//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
+
+final api = Openapi().getMyApi();
+final BuiltList<int> requestBody = ; // BuiltList<int> | 
+
+try {
+    final response = api.readMyMessagesV1MyMessagesPost(requestBody);
+    print(response);
+} catch on DioError (e) {
+    print('Exception when calling MyApi->readMyMessagesV1MyMessagesPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **requestBody** | [**BuiltList&lt;int&gt;**](int.md)|  | 
+
+### Return type
+
+[**JsonObject**](JsonObject.md)
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **updateMyAccountV1MyAccountPost**
 > UserGet updateMyAccountV1MyAccountPost(bodyUpdateMyAccountV1MyAccountPost)
 
@@ -248,49 +247,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**UserGet**](UserGet.md)
-
-### Authorization
-
-[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **updateMyMessagesV1MyMessagesPost**
-> JsonObject updateMyMessagesV1MyMessagesPost(eventMessageUpsert)
-
-Update My Messages
-
-### Example
-```dart
-import 'package:openapi/api.dart';
-// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
-//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
-
-final api = Openapi().getMyApi();
-final BuiltList<EventMessageUpsert> eventMessageUpsert = ; // BuiltList<EventMessageUpsert> | 
-
-try {
-    final response = api.updateMyMessagesV1MyMessagesPost(eventMessageUpsert);
-    print(response);
-} catch on DioError (e) {
-    print('Exception when calling MyApi->updateMyMessagesV1MyMessagesPost: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **eventMessageUpsert** | [**BuiltList&lt;EventMessageUpsert&gt;**](EventMessageUpsert.md)|  | 
-
-### Return type
-
-[**JsonObject**](JsonObject.md)
 
 ### Authorization
 

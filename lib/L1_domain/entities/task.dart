@@ -26,11 +26,11 @@ enum TaskState {
 class Task extends Titleable {
   Task({
     super.id,
+    super.description,
     required super.title,
     required this.closed,
     required this.parent,
     required this.tasks,
-    this.description = '',
     this.createdOn,
     this.updatedOn,
     this.dueDate,
@@ -47,8 +47,6 @@ class Task extends Titleable {
   });
 
   List<Task> tasks;
-  final String description;
-
   final DateTime? createdOn;
   final DateTime? updatedOn;
   DateTime? startDate;

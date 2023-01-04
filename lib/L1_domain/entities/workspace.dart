@@ -32,7 +32,7 @@ class Workspace extends Codable {
   final String title;
   final String description;
 
-  final WSSettings settings;
+  final WSSettings? settings;
 
   List<WSRole> roles = [];
 }

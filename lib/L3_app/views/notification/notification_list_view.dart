@@ -12,30 +12,30 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';
-import 'message_controller.dart';
+import 'notification_controller.dart';
 
-class MessageListView extends StatelessWidget {
-  static String get routeName => 'messages';
+class NotificationListView extends StatelessWidget {
+  static String get routeName => 'notifications';
 
-  MessageController get _controller => messageController;
+  NotificationController get _controller => notificationController;
 
-  Widget _messageBuilder(BuildContext context, int index) {
-    if (index < _controller.messages.length) {
-      final m = _controller.messages[index];
-      final date = m.event.createdOn.strShortWTime;
-      final title = m.event.type.code;
+  Widget _itemBuilder(BuildContext context, int index) {
+    if (index < _controller.notifications.length) {
+      final n = _controller.notifications[index];
+      final date = n.scheduledDate.strShortWTime;
+      final title = n.title;
       return MTListTile(
         middle: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             SmallText(date),
             // if (m.event.task?.isProject == false) SmallText(m.event.projectTitle, color: greyColor),
-            m.isRead ? NormalText(title) : MediumText(title),
+            n.isRead ? NormalText(title) : MediumText(title),
           ],
         ),
         // subtitle: description.isNotEmpty && !m.isRead ? LightText(description, maxLines: 2) : null,
         trailing: const ChevronIcon(),
-        onTap: () => _controller.showMessage(context, msg: m),
+        onTap: () => _controller.showNotification(context, n: n),
       );
     } else {
       return SmallText(
@@ -54,11 +54,11 @@ class MessageListView extends StatelessWidget {
           body: SafeArea(
             top: false,
             bottom: false,
-            child: _controller.messages.isEmpty
+            child: _controller.notifications.isEmpty
                 ? Center(child: H4(loc.message_list_empty_title, align: TextAlign.center, color: lightGreyColor))
                 : ListView.builder(
-                    itemBuilder: (_, int index) => _messageBuilder(context, index),
-                    itemCount: _controller.messages.length + 1,
+                    itemBuilder: (_, int index) => _itemBuilder(context, index),
+                    itemCount: _controller.notifications.length + 1,
                   ),
           ),
         ),

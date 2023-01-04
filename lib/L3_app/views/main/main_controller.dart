@@ -62,7 +62,7 @@ abstract class _MainControllerBase with Store {
     loaderController.setRefreshing();
     await accountController.fetchData();
     await referencesController.fetchData();
-    await messageController.fetchData();
+    await notificationController.fetchData();
 
     await fetchWorkspaces();
 

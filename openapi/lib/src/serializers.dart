@@ -18,12 +18,9 @@ import 'package:openapi/src/model/body_auth_apple_token.dart';
 import 'package:openapi/src/model/body_auth_google_token.dart';
 import 'package:openapi/src/model/body_update_my_account_v1_my_account_post.dart';
 import 'package:openapi/src/model/estimate_get.dart';
-import 'package:openapi/src/model/event_get.dart';
-import 'package:openapi/src/model/event_message_get.dart';
-import 'package:openapi/src/model/event_message_upsert.dart';
-import 'package:openapi/src/model/event_type_get.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/location_inner.dart';
+import 'package:openapi/src/model/notification.dart';
 import 'package:openapi/src/model/person.dart';
 import 'package:openapi/src/model/person_get.dart';
 import 'package:openapi/src/model/priority.dart';
@@ -56,12 +53,9 @@ part 'serializers.g.dart';
   BodyAuthGoogleToken,
   BodyUpdateMyAccountV1MyAccountPost,
   EstimateGet,
-  EventGet,
-  EventMessageGet,
-  EventMessageUpsert,
-  EventTypeGet,
   HTTPValidationError,
   LocationInner,
+  Notification,
   Person,
   PersonGet,
   Priority,
@@ -93,8 +87,8 @@ Serializers serializers = (_$serializers.toBuilder()
         () => ListBuilder<TaskSource>(),
       )
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(EventMessageUpsert)]),
-        () => ListBuilder<EventMessageUpsert>(),
+        const FullType(BuiltList, [FullType(Notification)]),
+        () => ListBuilder<Notification>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(int)]),
@@ -111,10 +105,6 @@ Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskSourceUpsert)]),
         () => ListBuilder<TaskSourceUpsert>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(EventMessageGet)]),
-        () => ListBuilder<EventMessageGet>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskGet)]),

@@ -58,7 +58,7 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
   BuiltList<EstimateGet> get estimates;
 
   @BuiltValueField(wireName: r'settings')
-  WSSettingsGet get settings;
+  WSSettingsGet? get settings;
 
   WorkspaceGet._();
 
@@ -130,11 +130,13 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
       object.estimates,
       specifiedType: const FullType(BuiltList, [FullType(EstimateGet)]),
     );
-    yield r'settings';
-    yield serializers.serialize(
-      object.settings,
-      specifiedType: const FullType(WSSettingsGet),
-    );
+    if (object.settings != null) {
+      yield r'settings';
+      yield serializers.serialize(
+        object.settings,
+        specifiedType: const FullType(WSSettingsGet),
+      );
+    }
   }
 
   @override

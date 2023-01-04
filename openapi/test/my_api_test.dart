@@ -13,13 +13,6 @@ void main() {
       // TODO
     });
 
-    // Delete My Messages
-    //
-    //Future<JsonObject> deleteMyMessagesV1MyMessagesDelete(BuiltList<int> requestBody) async
-    test('test deleteMyMessagesV1MyMessagesDelete', () async {
-      // TODO
-    });
-
     // Get My Account
     //
     //Future<UserGet> getMyAccountV1MyAccountGet() async
@@ -27,10 +20,10 @@ void main() {
       // TODO
     });
 
-    // Get My Messages
+    // Get My Notifications
     //
-    //Future<BuiltList<EventMessageGet>> getMyMessagesV1MyMessagesGet() async
-    test('test getMyMessagesV1MyMessagesGet', () async {
+    //Future<BuiltList<Notification>> getMyNotificationsV1MyNotificationsGet() async
+    test('test getMyNotificationsV1MyNotificationsGet', () async {
       // TODO
     });
 
@@ -41,17 +34,17 @@ void main() {
       // TODO
     });
 
+    // Read My Messages
+    //
+    //Future<JsonObject> readMyMessagesV1MyMessagesPost(BuiltList<int> requestBody) async
+    test('test readMyMessagesV1MyMessagesPost', () async {
+      // TODO
+    });
+
     // Update My Account
     //
     //Future<UserGet> updateMyAccountV1MyAccountPost({ BodyUpdateMyAccountV1MyAccountPost bodyUpdateMyAccountV1MyAccountPost }) async
     test('test updateMyAccountV1MyAccountPost', () async {
-      // TODO
-    });
-
-    // Update My Messages
-    //
-    //Future<JsonObject> updateMyMessagesV1MyMessagesPost(BuiltList<EventMessageUpsert> eventMessageUpsert) async
-    test('test updateMyMessagesV1MyMessagesPost', () async {
       // TODO
     });
   });

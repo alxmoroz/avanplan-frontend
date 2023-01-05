@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 
 # **authAppleToken**
-> Token authAppleToken(bodyAuthAppleToken)
+> Token authAppleToken(locale, bodyAuthAppleToken)
 
 Apple Token
 
@@ -24,10 +24,11 @@ Apple Token
 import 'package:openapi/api.dart';
 
 final api = Openapi().getAuthApi();
+final String locale = locale_example; // String | 
 final BodyAuthAppleToken bodyAuthAppleToken = ; // BodyAuthAppleToken | 
 
 try {
-    final response = api.authAppleToken(bodyAuthAppleToken);
+    final response = api.authAppleToken(locale, bodyAuthAppleToken);
     print(response);
 } catch on DioError (e) {
     print('Exception when calling AuthApi->authAppleToken: $e\n');
@@ -38,6 +39,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **locale** | **String**|  | 
  **bodyAuthAppleToken** | [**BodyAuthAppleToken**](BodyAuthAppleToken.md)|  | 
 
 ### Return type
@@ -56,7 +58,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **authGoogleToken**
-> Token authGoogleToken(bodyAuthGoogleToken)
+> Token authGoogleToken(locale, bodyAuthGoogleToken)
 
 Google Token
 
@@ -65,10 +67,11 @@ Google Token
 import 'package:openapi/api.dart';
 
 final api = Openapi().getAuthApi();
+final String locale = locale_example; // String | 
 final BodyAuthGoogleToken bodyAuthGoogleToken = ; // BodyAuthGoogleToken | 
 
 try {
-    final response = api.authGoogleToken(bodyAuthGoogleToken);
+    final response = api.authGoogleToken(locale, bodyAuthGoogleToken);
     print(response);
 } catch on DioError (e) {
     print('Exception when calling AuthApi->authGoogleToken: $e\n');
@@ -79,6 +82,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **locale** | **String**|  | 
  **bodyAuthGoogleToken** | [**BodyAuthGoogleToken**](BodyAuthGoogleToken.md)|  | 
 
 ### Return type

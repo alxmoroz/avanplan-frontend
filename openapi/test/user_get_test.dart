@@ -21,5 +21,10 @@ void main() {
     test('to test the property `fullName`', () async {
       // TODO
     });
+
+    // String locale (default value: 'ru')
+    test('to test the property `locale`', () async {
+      // TODO
+    });
   });
 }

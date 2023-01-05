@@ -70,7 +70,7 @@ class _NotificationViewState extends State<NotificationView> {
         navBar: navBar(
           context,
           leading: MTCloseButton(),
-          middle: LightText('${loc.message_title}  ${nf.scheduledDate.strShortWTime}'),
+          middle: LightText('${loc.notification_title}  ${nf.scheduledDate.strShortWTime}'),
           bgColor: backgroundColor,
         ),
         body: SafeArea(

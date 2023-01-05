@@ -39,7 +39,7 @@ class NotificationListView extends StatelessWidget {
       );
     } else {
       return SmallText(
-        loc.message_list_hint_title,
+        loc.notification_list_hint_title,
         align: TextAlign.center,
         padding: const EdgeInsets.symmetric(horizontal: P, vertical: P2),
         color: greyColor,
@@ -50,12 +50,12 @@ class NotificationListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Observer(
         builder: (_) => MTPage(
-          navBar: navBar(context, title: loc.message_list_title),
+          navBar: navBar(context, title: loc.notification_list_title),
           body: SafeArea(
             top: false,
             bottom: false,
             child: _controller.notifications.isEmpty
-                ? Center(child: H4(loc.message_list_empty_title, align: TextAlign.center, color: lightGreyColor))
+                ? Center(child: H4(loc.notification_list_empty_title, align: TextAlign.center, color: lightGreyColor))
                 : ListView.builder(
                     itemBuilder: (_, int index) => _itemBuilder(context, index),
                     itemCount: _controller.notifications.length + 1,

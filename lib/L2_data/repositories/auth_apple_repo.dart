@@ -13,7 +13,7 @@ class AuthAppleRepo extends AuthBaseRepo {
   Future<bool> signInIsAvailable() async => await SignInWithApple.isAvailable();
 
   @override
-  Future<String> signIn({String? username, String? password}) async {
+  Future<String> signIn({String? username, String? password, String? locale}) async {
     String appleToken = '';
     String? email;
     String name = '';
@@ -56,6 +56,7 @@ class AuthAppleRepo extends AuthBaseRepo {
               ..email = email
               ..name = name)
             .build(),
+        locale: locale ?? 'ru',
       );
       return parseTokenResponse(response) ?? '';
     }

@@ -46,7 +46,7 @@ class SettingsView extends StatelessWidget {
                 const SizedBox(height: P_2),
                 MTListTile(
                   leading: BellIcon(color: greyColor, hasUnread: notificationController.hasUnread),
-                  titleText: loc.message_list_title,
+                  titleText: loc.notification_list_title,
                   trailing: Row(children: [
                     if (notificationController.hasUnread)
                       NormalText(

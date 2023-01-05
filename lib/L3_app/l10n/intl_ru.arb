@@ -58,11 +58,6 @@
   "delete_dialog_description": "Это действие нельзя будет отменить!",
   "description": "Описание",
 
-  "event_task_due_today_description": "Пришло время закрыть или определиться с переносом срока",
-  "event_task_due_today_title": "Срок сегодня",
-  "event_task_due_tomorrow_description": "Убедитесь, что всё готово к завершению",
-  "event_task_due_tomorrow_title": "Срок уже завтра",
-
   "for_dative": "по",
 
   "goal_count": "{count, plural, zero{Нет целей} one{{count} цель} few{{count} цели} other{{count} целей}}",
@@ -99,17 +94,17 @@
   "loader_unlinking_title": "Рвём связи...",
   "loader_unwatch_title": "Отправляем в игнор...",
 
-  "message_list_empty_title": "Сообщений нет",
-  "message_list_hint_title": "Отображаются сообщения за последние 30 дней",
-  "message_list_title": "Сообщения",
-  "message_title": "Сообщение",
-
   "months_count": "{count, plural, one{{count} месяц} few{{count} месяца} other{{count} месяцев}}",
 
   "network_error_description": "Проверьте соединение с интернетом и повторите попытку",
   "network_error_title": "Ошибка сети\nНет соединения с сервером",
 
   "no": "Нет",
+
+  "notification_list_empty_title": "Уведомлений нет",
+  "notification_list_hint_title": "Отображаются уведомления за последние 30 дней",
+  "notification_list_title": "Уведомления",
+  "notification_title": "Уведомление",
 
   "ok": "Ясно",
   "overview": "Обзор",

@@ -14,6 +14,7 @@ part 'user_get.g.dart';
 /// * [id] 
 /// * [email] 
 /// * [fullName] 
+/// * [locale] 
 @BuiltValue()
 abstract class UserGet implements Built<UserGet, UserGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -25,12 +26,16 @@ abstract class UserGet implements Built<UserGet, UserGetBuilder> {
   @BuiltValueField(wireName: r'full_name')
   String? get fullName;
 
+  @BuiltValueField(wireName: r'locale')
+  String? get locale;
+
   UserGet._();
 
   factory UserGet([void updates(UserGetBuilder b)]) = _$UserGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(UserGetBuilder b) => b;
+  static void _defaults(UserGetBuilder b) => b
+      ..locale = 'ru';
 
   @BuiltValueSerializer(custom: true)
   static Serializer<UserGet> get serializer => _$UserGetSerializer();
@@ -62,6 +67,13 @@ class _$UserGetSerializer implements PrimitiveSerializer<UserGet> {
       yield r'full_name';
       yield serializers.serialize(
         object.fullName,
+        specifiedType: const FullType(String),
+      );
+    }
+    if (object.locale != null) {
+      yield r'locale';
+      yield serializers.serialize(
+        object.locale,
         specifiedType: const FullType(String),
       );
     }
@@ -108,6 +120,13 @@ class _$UserGetSerializer implements PrimitiveSerializer<UserGet> {
             specifiedType: const FullType(String),
           ) as String;
           result.fullName = valueDes;
+          break;
+        case r'locale':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.locale = valueDes;
           break;
         default:
           unhandled.add(key);

@@ -27,9 +27,9 @@ class AuthUC {
 
   Future updateOAuthToken() async => openAPI.setOAuthToken('OAuth2PasswordBearer', await _getToken());
 
-  Future<bool> _signIn(AbstractAuthRepo repo, {String? username, String? password}) async {
+  Future<bool> _signIn(AbstractAuthRepo repo, {String? username, String? password, String? locale}) async {
     _currentRepo = repo;
-    await _setToken(await repo.signIn(username: username, password: password));
+    await _setToken(await repo.signIn(locale: locale, username: username, password: password));
     await updateOAuthToken();
     return await hasLocalAuth;
   }
@@ -37,9 +37,9 @@ class AuthUC {
   Future<bool> signInWithPassword({required String username, required String password}) async =>
       await _signIn(passwordRepo, username: username, password: password);
 
-  Future<bool> signInWithGoogle() async => await _signIn(googleRepo);
+  Future<bool> signInWithGoogle(String locale) async => await _signIn(googleRepo, locale: locale);
 
-  Future<bool> signInWithApple() async => await _signIn(appleRepo);
+  Future<bool> signInWithApple(String locale) async => await _signIn(appleRepo, locale: locale);
 
   Future<bool> signInWithAppleIsAvailable() async => await appleRepo.signInIsAvailable();
   Future<bool> signInWithGoogleIsAvailable() async => await googleRepo.signInIsAvailable();

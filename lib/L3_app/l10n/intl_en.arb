@@ -59,11 +59,6 @@
   "delete_dialog_description": "This action cannot be undone!",
   "description": "Description",
 
-  "event_task_due_today_description": "It's time to close or decide to reschedule",
-  "event_task_due_today_title": "Due is today",
-  "event_task_due_tomorrow_description": "Make sure everything is ready to be completed",
-  "event_task_due_tomorrow_title": "Due is tomorrow",
-
   "for_dative": "for",
 
   "goal_count": "{count, plural, zero{No goals} one{{count} goal} other{{count} goals}}",
@@ -100,16 +95,16 @@
   "loader_unlinking_title": "Breaking the chains...",
   "loader_unwatch_title": "Sending to ignore...",
 
-  "message_list_empty_title": "No messages",
-  "message_list_hint_title": "Shows messages from the last 30 days",
-  "message_list_title": "Messages",
-  "message_title": "Message",
-
   "months_count": "{count, plural, one{{count} month} other{{count} months}}",
 
   "network_error_description": "Please check your internet connection and try again",
   "network_error_title": "Network error\nNo connection to server",
   "no": "No",
+
+  "notification_list_empty_title": "No notifications",
+  "notification_list_hint_title": "Shows notifications from the last 30 days",
+  "notification_list_title": "Notifications",
+  "notification_title": "Notification",
 
   "ok": "Ok",
   "overview": "Overview",

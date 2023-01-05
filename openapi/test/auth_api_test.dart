@@ -8,14 +8,14 @@ void main() {
   group(AuthApi, () {
     // Apple Token
     //
-    //Future<Token> authAppleToken(BodyAuthAppleToken bodyAuthAppleToken) async
+    //Future<Token> authAppleToken(String locale, BodyAuthAppleToken bodyAuthAppleToken) async
     test('test authAppleToken', () async {
       // TODO
     });
 
     // Google Token
     //
-    //Future<Token> authGoogleToken(BodyAuthGoogleToken bodyAuthGoogleToken) async
+    //Future<Token> authGoogleToken(String locale, BodyAuthGoogleToken bodyAuthGoogleToken) async
     test('test authGoogleToken', () async {
       // TODO
     });

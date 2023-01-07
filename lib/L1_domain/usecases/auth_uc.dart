@@ -1,6 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../../L2_data/repositories/api.dart';
+import '../../L2_data/services/api.dart';
 import '../entities/local_auth.dart';
 import '../repositories/abs_api_auth_repo.dart';
 import '../repositories/abs_db_repo.dart';

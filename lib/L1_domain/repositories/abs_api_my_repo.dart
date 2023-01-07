@@ -10,4 +10,5 @@ abstract class AbstractApiMyRepo {
   Future<Iterable<Workspace>> getMyWorkspaces();
   Future<Iterable<MTNotification>> getMyNotifications();
   Future readMyMessages(Iterable<int> messagesIds);
+  Future updatePushToken(String token, bool hasPermission);
 }

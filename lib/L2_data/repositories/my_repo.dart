@@ -1,7 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:built_collection/built_collection.dart';
-import 'package:openapi/openapi.dart';
+import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/notification.dart';
 import '../../L1_domain/entities/user.dart';
@@ -11,10 +11,11 @@ import '../mappers/notification.dart';
 import '../mappers/user.dart';
 import '../mappers/workspace.dart';
 import '../mappers/ws_role.dart';
-import 'api.dart';
+import '../services//platform.dart';
+import '../services/api.dart';
 
 class MyRepo extends AbstractApiMyRepo {
-  MyApi get api => openAPI.getMyApi();
+  o_api.MyApi get api => openAPI.getMyApi();
 
   @override
   Future<User?> getMyAccount() async {
@@ -37,7 +38,7 @@ class MyRepo extends AbstractApiMyRepo {
     if (response.statusCode == 200) {
       // берем запись, смотрим id её РП. Если такая уже есть у нас, то берём её и в её список ролей добавляем роль из записи.
       // если нет, то создаём и добавляем роль туда
-      for (WSUserRoleGet wsUserRoleGet in response.data ?? []) {
+      for (o_api.WSUserRoleGet wsUserRoleGet in response.data ?? []) {
         final wsId = wsUserRoleGet.workspace.id;
         final role = wsUserRoleGet.wsRole.wsRole;
         if (workspacesMap[wsId] == null) {
@@ -58,5 +59,15 @@ class MyRepo extends AbstractApiMyRepo {
   @override
   Future readMyMessages(Iterable<int> messagesIds) async {
     await api.readMyMessagesV1MyMessagesPost(requestBody: BuiltList.from(messagesIds));
+  }
+
+  @override
+  Future updatePushToken(String token, bool hasPermission) async {
+    final body = (o_api.BodyUpdatePushTokenV1MyPushTokenPostBuilder()
+          ..platform = platformCode
+          ..code = token
+          ..hasPermission = hasPermission)
+        .build();
+    await api.updatePushTokenV1MyPushTokenPost(bodyUpdatePushTokenV1MyPushTokenPost: body);
   }
 }

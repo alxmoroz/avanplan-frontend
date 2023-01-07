@@ -81,6 +81,7 @@ Class | Method | HTTP request | Description
 [*MyApi*](doc/MyApi.md) | [**getMyWorkspacesV1MyWorkspacesGet**](doc/MyApi.md#getmyworkspacesv1myworkspacesget) | **GET** /v1/my/workspaces | Get My Workspaces
 [*MyApi*](doc/MyApi.md) | [**readMyMessagesV1MyMessagesPost**](doc/MyApi.md#readmymessagesv1mymessagespost) | **POST** /v1/my/messages | Read My Messages
 [*MyApi*](doc/MyApi.md) | [**updateMyAccountV1MyAccountPost**](doc/MyApi.md#updatemyaccountv1myaccountpost) | **POST** /v1/my/account | Update My Account
+[*MyApi*](doc/MyApi.md) | [**updatePushTokenV1MyPushTokenPost**](doc/MyApi.md#updatepushtokenv1mypushtokenpost) | **POST** /v1/my/push_token | Update Push Token
 [*TasksApi*](doc/TasksApi.md) | [**deleteTaskV1TasksTaskIdDelete**](doc/TasksApi.md#deletetaskv1taskstaskiddelete) | **DELETE** /v1/tasks/{task_id} | Delete Task
 [*TasksApi*](doc/TasksApi.md) | [**getRootTasksV1TasksGet**](doc/TasksApi.md#getroottasksv1tasksget) | **GET** /v1/tasks/ | Get Root Tasks
 [*TasksApi*](doc/TasksApi.md) | [**upsertTaskV1TasksPost**](doc/TasksApi.md#upserttaskv1taskspost) | **POST** /v1/tasks/ | Upsert Task
@@ -91,10 +92,12 @@ Class | Method | HTTP request | Description
  - [BodyAuthAppleToken](doc/BodyAuthAppleToken.md)
  - [BodyAuthGoogleToken](doc/BodyAuthGoogleToken.md)
  - [BodyUpdateMyAccountV1MyAccountPost](doc/BodyUpdateMyAccountV1MyAccountPost.md)
+ - [BodyUpdatePushTokenV1MyPushTokenPost](doc/BodyUpdatePushTokenV1MyPushTokenPost.md)
  - [EstimateGet](doc/EstimateGet.md)
  - [HTTPValidationError](doc/HTTPValidationError.md)
  - [LocationInner](doc/LocationInner.md)
  - [Notification](doc/Notification.md)
+ - [NotificationChannelGet](doc/NotificationChannelGet.md)
  - [Person](doc/Person.md)
  - [PersonGet](doc/PersonGet.md)
  - [Priority](doc/Priority.md)
@@ -113,7 +116,8 @@ Class | Method | HTTP request | Description
  - [TaskTypeGet](doc/TaskTypeGet.md)
  - [TaskUpsert](doc/TaskUpsert.md)
  - [Token](doc/Token.md)
- - [UserGet](doc/UserGet.md)
+ - [UNotificationPermissionGet](doc/UNotificationPermissionGet.md)
+ - [User](doc/User.md)
  - [ValidationError](doc/ValidationError.md)
  - [WSRoleGet](doc/WSRoleGet.md)
  - [WSSettingsGet](doc/WSSettingsGet.md)

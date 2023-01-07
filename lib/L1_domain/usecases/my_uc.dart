@@ -15,4 +15,5 @@ class MyUC {
   Future readMyMessages(Iterable<int> messagesIds) async => await repo.readMyMessages(messagesIds);
   Future<User?> getMyAccount() async => await repo.getMyAccount();
   Future deleteMyAccount() async => await repo.deleteMyAccount();
+  Future updatePushToken(String token, bool hasPermission) async => await repo.updatePushToken(token, hasPermission);
 }

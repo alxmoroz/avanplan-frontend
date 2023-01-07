@@ -1,12 +1,12 @@
 import 'package:test/test.dart';
 import 'package:openapi/openapi.dart';
 
-// tests for UserGet
+// tests for User
 void main() {
-  final instance = UserGetBuilder();
+  final instance = UserBuilder();
   // TODO add properties to the builder and call build()
 
-  group(UserGet, () {
+  group(User, () {
     // int id
     test('to test the property `id`', () async {
       // TODO
@@ -24,6 +24,11 @@ void main() {
 
     // String locale (default value: 'ru')
     test('to test the property `locale`', () async {
+      // TODO
+    });
+
+    // BuiltList<UNotificationPermissionGet> notificationPermissions
+    test('to test the property `notificationPermissions`', () async {
       // TODO
     });
   });

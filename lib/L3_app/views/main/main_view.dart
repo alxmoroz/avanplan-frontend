@@ -32,7 +32,11 @@ class MainView extends StatefulWidget {
 class _MainViewState extends State<MainView> {
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) async => await mainController.update());
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await mainController.update();
+      await notificationController.initPush();
+    });
+
     super.initState();
   }
 

@@ -13,6 +13,7 @@ dependencies:
   device_info_plus: any
   flutter:
     sdk: flutter
+  flutter_apns_only: any
   flutter_localizations:
     sdk: flutter
   flutter_mobx: any

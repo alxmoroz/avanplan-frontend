@@ -8,8 +8,8 @@ import 'package:intl/intl.dart';
 import 'package:mobx/mobx.dart' hide Interceptor;
 import 'package:url_launcher/url_launcher_string.dart';
 
-import '../../../L2_data/repositories/api.dart';
-import '../../../L2_data/repositories/platform.dart';
+import '../../../L2_data/services/api.dart';
+import '../../../L2_data/services/platform.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';

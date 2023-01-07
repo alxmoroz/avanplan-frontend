@@ -15,6 +15,7 @@ Method | HTTP request | Description
 [**getMyWorkspacesV1MyWorkspacesGet**](MyApi.md#getmyworkspacesv1myworkspacesget) | **GET** /v1/my/workspaces | Get My Workspaces
 [**readMyMessagesV1MyMessagesPost**](MyApi.md#readmymessagesv1mymessagespost) | **POST** /v1/my/messages | Read My Messages
 [**updateMyAccountV1MyAccountPost**](MyApi.md#updatemyaccountv1myaccountpost) | **POST** /v1/my/account | Update My Account
+[**updatePushTokenV1MyPushTokenPost**](MyApi.md#updatepushtokenv1mypushtokenpost) | **POST** /v1/my/push_token | Update Push Token
 
 
 # **deleteMyAccountV1MyAccountDelete**
@@ -57,7 +58,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **getMyAccountV1MyAccountGet**
-> UserGet getMyAccountV1MyAccountGet()
+> User getMyAccountV1MyAccountGet()
 
 Get My Account
 
@@ -82,7 +83,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**UserGet**](UserGet.md)
+[**User**](User.md)
 
 ### Authorization
 
@@ -217,7 +218,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **updateMyAccountV1MyAccountPost**
-> UserGet updateMyAccountV1MyAccountPost(bodyUpdateMyAccountV1MyAccountPost)
+> User updateMyAccountV1MyAccountPost(bodyUpdateMyAccountV1MyAccountPost)
 
 Update My Account
 
@@ -246,7 +247,50 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UserGet**](UserGet.md)
+[**User**](User.md)
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **updatePushTokenV1MyPushTokenPost**
+> JsonObject updatePushTokenV1MyPushTokenPost(bodyUpdatePushTokenV1MyPushTokenPost)
+
+Update Push Token
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
+//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
+
+final api = Openapi().getMyApi();
+final BodyUpdatePushTokenV1MyPushTokenPost bodyUpdatePushTokenV1MyPushTokenPost = ; // BodyUpdatePushTokenV1MyPushTokenPost | 
+
+try {
+    final response = api.updatePushTokenV1MyPushTokenPost(bodyUpdatePushTokenV1MyPushTokenPost);
+    print(response);
+} catch on DioError (e) {
+    print('Exception when calling MyApi->updatePushTokenV1MyPushTokenPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **bodyUpdatePushTokenV1MyPushTokenPost** | [**BodyUpdatePushTokenV1MyPushTokenPost**](BodyUpdatePushTokenV1MyPushTokenPost.md)|  | 
+
+### Return type
+
+[**JsonObject**](JsonObject.md)
 
 ### Authorization
 

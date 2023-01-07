@@ -3,7 +3,7 @@
 import 'package:hive/hive.dart';
 
 import '../../L1_domain/entities/local_auth.dart';
-import '../repositories/db.dart';
+import '../services/db.dart';
 import 'base.dart';
 
 part 'local_auth.g.dart';

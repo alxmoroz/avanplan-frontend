@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/notification.dart';
+import '../../../L2_data/services/push_service.dart';
 import '../../extra/services.dart';
 import 'notification_edit_view.dart';
 
@@ -47,6 +48,15 @@ abstract class _NotificationControllerBase with Store {
       n.isRead = true;
       await myUC.readMyMessages([n.messageId]);
       await fetchData();
+    }
+  }
+
+  Future initPush() async {
+    final connector = await getApnsTokenConnector();
+    final token = connector.token.value;
+    final hasPermission = connector.isDisabledByUser.value;
+    if (token != null) {
+      await myUC.updatePushToken(token, hasPermission ?? false);
     }
   }
 }

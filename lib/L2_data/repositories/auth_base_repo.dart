@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:openapi/openapi.dart';
 
 import '../../L1_domain/repositories/abs_api_auth_repo.dart';
-import 'api.dart';
+import '../services/api.dart';
 
 abstract class AuthBaseRepo extends AbstractAuthRepo {
   AuthBaseRepo() : authApi = openAPI.getAuthApi();

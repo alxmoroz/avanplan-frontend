@@ -1,6 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../../L2_data/repositories/platform.dart';
+import '../../L2_data/services/platform.dart';
 import '../extra/services.dart';
 
 const _host = 'https://moroz.team';

@@ -7,7 +7,7 @@ import '../../L1_domain/entities/source.dart';
 import '../../L1_domain/repositories/abs_api_source_repo.dart';
 import '../../L1_domain/system/errors.dart';
 import '../mappers/source.dart';
-import 'api.dart';
+import '../services/api.dart';
 
 class SourcesRepo extends AbstractApiSourceRepo {
   o_api.IntegrationsSourcesApi get api => openAPI.getIntegrationsSourcesApi();

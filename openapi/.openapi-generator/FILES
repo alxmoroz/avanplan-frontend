@@ -6,6 +6,7 @@ doc/AuthApi.md
 doc/BodyAuthAppleToken.md
 doc/BodyAuthGoogleToken.md
 doc/BodyUpdateMyAccountV1MyAccountPost.md
+doc/BodyUpdatePushTokenV1MyPushTokenPost.md
 doc/EstimateGet.md
 doc/HTTPValidationError.md
 doc/IntegrationsSourcesApi.md
@@ -13,6 +14,7 @@ doc/IntegrationsTasksApi.md
 doc/LocationInner.md
 doc/MyApi.md
 doc/Notification.md
+doc/NotificationChannelGet.md
 doc/Person.md
 doc/PersonGet.md
 doc/Priority.md
@@ -32,7 +34,8 @@ doc/TaskTypeGet.md
 doc/TaskUpsert.md
 doc/TasksApi.md
 doc/Token.md
-doc/UserGet.md
+doc/UNotificationPermissionGet.md
+doc/User.md
 doc/ValidationError.md
 doc/WSRoleGet.md
 doc/WSSettingsGet.md
@@ -55,11 +58,13 @@ lib/src/date_serializer.dart
 lib/src/model/body_auth_apple_token.dart
 lib/src/model/body_auth_google_token.dart
 lib/src/model/body_update_my_account_v1_my_account_post.dart
+lib/src/model/body_update_push_token_v1_my_push_token_post.dart
 lib/src/model/date.dart
 lib/src/model/estimate_get.dart
 lib/src/model/http_validation_error.dart
 lib/src/model/location_inner.dart
 lib/src/model/notification.dart
+lib/src/model/notification_channel_get.dart
 lib/src/model/person.dart
 lib/src/model/person_get.dart
 lib/src/model/priority.dart
@@ -78,7 +83,8 @@ lib/src/model/task_type.dart
 lib/src/model/task_type_get.dart
 lib/src/model/task_upsert.dart
 lib/src/model/token.dart
-lib/src/model/user_get.dart
+lib/src/model/u_notification_permission_get.dart
+lib/src/model/user.dart
 lib/src/model/validation_error.dart
 lib/src/model/workspace_get.dart
 lib/src/model/ws_role_get.dart
@@ -90,12 +96,14 @@ test/auth_api_test.dart
 test/body_auth_apple_token_test.dart
 test/body_auth_google_token_test.dart
 test/body_update_my_account_v1_my_account_post_test.dart
+test/body_update_push_token_v1_my_push_token_post_test.dart
 test/estimate_get_test.dart
 test/http_validation_error_test.dart
 test/integrations_sources_api_test.dart
 test/integrations_tasks_api_test.dart
 test/location_inner_test.dart
 test/my_api_test.dart
+test/notification_channel_get_test.dart
 test/notification_test.dart
 test/person_get_test.dart
 test/person_test.dart
@@ -116,7 +124,8 @@ test/task_type_test.dart
 test/task_upsert_test.dart
 test/tasks_api_test.dart
 test/token_test.dart
-test/user_get_test.dart
+test/u_notification_permission_get_test.dart
+test/user_test.dart
 test/validation_error_test.dart
 test/workspace_get_test.dart
 test/ws_role_get_test.dart

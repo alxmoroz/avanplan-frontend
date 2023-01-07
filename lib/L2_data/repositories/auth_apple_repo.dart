@@ -5,8 +5,8 @@ import 'package:openapi/openapi.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../../L1_domain/system/errors.dart';
+import '../services/platform.dart';
 import 'auth_base_repo.dart';
-import 'platform.dart';
 
 class AuthAppleRepo extends AuthBaseRepo {
   @override

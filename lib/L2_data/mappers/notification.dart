@@ -4,7 +4,7 @@ import 'package:openapi/openapi.dart' as api;
 
 import '../../L1_domain/entities/notification.dart';
 
-extension EventMessageMapper on api.Notification {
+extension NotificationMapper on api.Notification {
   MTNotification get notification => MTNotification(
         id: id,
         title: title,

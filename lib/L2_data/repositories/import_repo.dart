@@ -7,7 +7,7 @@ import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities/task_source.dart';
 import '../../L1_domain/repositories/abs_api_import_repo.dart';
 import '../mappers/task.dart';
-import 'api.dart';
+import '../services/api.dart';
 
 class ImportRepo extends AbstractApiImportRepo {
   o_api.IntegrationsTasksApi get api => openAPI.getIntegrationsTasksApi();

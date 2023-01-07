@@ -15,7 +15,7 @@ void main() {
 
     // Get My Account
     //
-    //Future<UserGet> getMyAccountV1MyAccountGet() async
+    //Future<User> getMyAccountV1MyAccountGet() async
     test('test getMyAccountV1MyAccountGet', () async {
       // TODO
     });
@@ -43,8 +43,15 @@ void main() {
 
     // Update My Account
     //
-    //Future<UserGet> updateMyAccountV1MyAccountPost({ BodyUpdateMyAccountV1MyAccountPost bodyUpdateMyAccountV1MyAccountPost }) async
+    //Future<User> updateMyAccountV1MyAccountPost({ BodyUpdateMyAccountV1MyAccountPost bodyUpdateMyAccountV1MyAccountPost }) async
     test('test updateMyAccountV1MyAccountPost', () async {
+      // TODO
+    });
+
+    // Update Push Token
+    //
+    //Future<JsonObject> updatePushTokenV1MyPushTokenPost(BodyUpdatePushTokenV1MyPushTokenPost bodyUpdatePushTokenV1MyPushTokenPost) async
+    test('test updatePushTokenV1MyPushTokenPost', () async {
       // TODO
     });
   });

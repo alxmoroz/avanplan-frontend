@@ -2,6 +2,7 @@
 
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_apns_only/flutter_apns_only.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/notification.dart';
@@ -54,9 +55,10 @@ abstract class _NotificationControllerBase with Store {
   Future initPush() async {
     final connector = await getApnsTokenConnector();
     final token = connector.token.value;
-    final hasPermission = connector.isDisabledByUser.value;
+    final hasPermission = await connector.getAuthorizationStatus() == ApnsAuthorizationStatus.authorized;
+
     if (token != null) {
-      await myUC.updatePushToken(token, hasPermission ?? false);
+      await myUC.updatePushToken(token, hasPermission);
     }
   }
 }

@@ -88,9 +88,8 @@ extension TaskStats on Task {
         velocitySP = closedEstimate != null ? closedEstimate / elapsedDays : null;
 
         // ищем закрытые задачи с датой закрытия в пределах окна
-        final referencesTasks = leafTasks.where((t) => t.closed && t.hasClosedDate);
-        if (referencesTasks.isNotEmpty) {
-          final closedTasks = referencesTasks.where((t) => t._closedDays! < velocityFrameInDays);
+        final closedTasks = leafTasks.where((t) => t.closed && t.hasClosedDate && t._closedDays! < velocityFrameInDays);
+        if (closedTasks.isNotEmpty) {
           final closedEstimate = _sumEstimate(closedTasks);
           velocityTasks = closedTasks.length / min(elapsedDays, velocityFrameInDays);
           velocitySP = closedEstimate != null ? (closedEstimate / min(elapsedDays, velocityFrameInDays)) : null;

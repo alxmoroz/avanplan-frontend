@@ -92,7 +92,7 @@ extension TaskStats on Task {
         if (referencesTasks.isNotEmpty) {
           final closedTasks = referencesTasks.where((t) => t._closedDays! < velocityFrameInDays);
           final closedEstimate = _sumEstimate(closedTasks);
-          velocityTasks = closedLeafTasksCount / min(elapsedDays, velocityFrameInDays);
+          velocityTasks = closedTasks.length / min(elapsedDays, velocityFrameInDays);
           velocitySP = closedEstimate != null ? (closedEstimate / min(elapsedDays, velocityFrameInDays)) : null;
         }
       }

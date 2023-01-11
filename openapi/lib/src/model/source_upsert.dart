@@ -17,7 +17,6 @@ part 'source_upsert.g.dart';
 /// * [apiKey] 
 /// * [username] 
 /// * [description] 
-/// * [importedOn] 
 /// * [sourceTypeId] 
 /// * [password] 
 @BuiltValue()
@@ -39,9 +38,6 @@ abstract class SourceUpsert implements Built<SourceUpsert, SourceUpsertBuilder> 
 
   @BuiltValueField(wireName: r'description')
   String? get description;
-
-  @BuiltValueField(wireName: r'imported_on')
-  DateTime? get importedOn;
 
   @BuiltValueField(wireName: r'source_type_id')
   int get sourceTypeId;
@@ -108,13 +104,6 @@ class _$SourceUpsertSerializer implements PrimitiveSerializer<SourceUpsert> {
       yield serializers.serialize(
         object.description,
         specifiedType: const FullType(String),
-      );
-    }
-    if (object.importedOn != null) {
-      yield r'imported_on';
-      yield serializers.serialize(
-        object.importedOn,
-        specifiedType: const FullType(DateTime),
       );
     }
     yield r'source_type_id';
@@ -193,13 +182,6 @@ class _$SourceUpsertSerializer implements PrimitiveSerializer<SourceUpsert> {
             specifiedType: const FullType(String),
           ) as String;
           result.description = valueDes;
-          break;
-        case r'imported_on':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
-          result.importedOn = valueDes;
           break;
         case r'source_type_id':
           final valueDes = serializers.deserialize(

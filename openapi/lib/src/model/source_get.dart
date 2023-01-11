@@ -18,8 +18,8 @@ part 'source_get.g.dart';
 /// * [apiKey] 
 /// * [username] 
 /// * [description] 
-/// * [importedOn] 
 /// * [type] 
+/// * [importedOn] 
 @BuiltValue()
 abstract class SourceGet implements Built<SourceGet, SourceGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -40,11 +40,11 @@ abstract class SourceGet implements Built<SourceGet, SourceGetBuilder> {
   @BuiltValueField(wireName: r'description')
   String? get description;
 
-  @BuiltValueField(wireName: r'imported_on')
-  DateTime? get importedOn;
-
   @BuiltValueField(wireName: r'type')
   SourceTypeGet get type;
+
+  @BuiltValueField(wireName: r'imported_on')
+  DateTime? get importedOn;
 
   SourceGet._();
 
@@ -105,6 +105,11 @@ class _$SourceGetSerializer implements PrimitiveSerializer<SourceGet> {
         specifiedType: const FullType(String),
       );
     }
+    yield r'type';
+    yield serializers.serialize(
+      object.type,
+      specifiedType: const FullType(SourceTypeGet),
+    );
     if (object.importedOn != null) {
       yield r'imported_on';
       yield serializers.serialize(
@@ -112,11 +117,6 @@ class _$SourceGetSerializer implements PrimitiveSerializer<SourceGet> {
         specifiedType: const FullType(DateTime),
       );
     }
-    yield r'type';
-    yield serializers.serialize(
-      object.type,
-      specifiedType: const FullType(SourceTypeGet),
-    );
   }
 
   @override
@@ -182,19 +182,19 @@ class _$SourceGetSerializer implements PrimitiveSerializer<SourceGet> {
           ) as String;
           result.description = valueDes;
           break;
-        case r'imported_on':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
-          result.importedOn = valueDes;
-          break;
         case r'type':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(SourceTypeGet),
           ) as SourceTypeGet;
           result.type.replace(valueDes);
+          break;
+        case r'imported_on':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.importedOn = valueDes;
           break;
         default:
           unhandled.add(key);

@@ -14,7 +14,6 @@ Name | Type | Description | Notes
 **apiKey** | **String** |  | [optional] 
 **username** | **String** |  | [optional] 
 **description** | **String** |  | [optional] 
-**importedOn** | [**DateTime**](DateTime.md) |  | [optional] 
 **sourceTypeId** | **int** |  | 
 **password** | **String** |  | [optional] 
 

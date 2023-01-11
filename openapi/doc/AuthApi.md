@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**authAppleToken**](AuthApi.md#authappletoken) | **POST** /v1/auth/apple/token | Apple Token
 [**authGoogleToken**](AuthApi.md#authgoogletoken) | **POST** /v1/auth/google/token | Google Token
 [**authToken**](AuthApi.md#authtoken) | **POST** /v1/auth/token | Token
+[**refreshToken**](AuthApi.md#refreshtoken) | **POST** /v1/auth/refresh_token | Refresh Token
 
 
 # **authAppleToken**
@@ -147,6 +148,45 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/x-www-form-urlencoded
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **refreshToken**
+> Token refreshToken()
+
+Refresh Token
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
+//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
+
+final api = Openapi().getAuthApi();
+
+try {
+    final response = api.refreshToken();
+    print(response);
+} catch on DioError (e) {
+    print('Exception when calling AuthApi->refreshToken: $e\n');
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**Token**](Token.md)
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

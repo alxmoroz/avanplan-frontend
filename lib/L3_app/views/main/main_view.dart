@@ -29,25 +29,40 @@ class MainView extends StatefulWidget {
   _MainViewState createState() => _MainViewState();
 }
 
-class _MainViewState extends State<MainView> {
+class _MainViewState extends State<MainView> with WidgetsBindingObserver {
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await mainController.update();
-      await notificationController.initPush();
-    });
-
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    _startupActions();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      _startupActions();
+    }
   }
 
   @override
   void dispose() {
     mainController.clearData();
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
   TaskViewController get _taskController => TaskViewController(null);
   Task get _task => _taskController.task;
+
+  void _startupActions() {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await authController.updateAuth(context);
+      if (authController.authorized) {
+        await notificationController.initPush();
+        await mainController.requestUpdate();
+      }
+    });
+  }
 
   Future _gotoSettings(BuildContext context) async => await Navigator.of(context).pushNamed(SettingsView.routeName);
   Future _gotoProjects(BuildContext context) async => await Navigator.of(context).pushNamed(TaskView.routeName);

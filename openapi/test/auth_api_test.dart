@@ -26,5 +26,12 @@ void main() {
     test('test authToken', () async {
       // TODO
     });
+
+    // Refresh Token
+    //
+    //Future<Token> refreshToken() async
+    test('test refreshToken', () async {
+      // TODO
+    });
   });
 }

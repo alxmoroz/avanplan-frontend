@@ -10,13 +10,8 @@ abstract class AuthBaseRepo extends AbstractAuthRepo {
   AuthBaseRepo() : authApi = openAPI.getAuthApi();
   final AuthApi authApi;
 
-  String? parseTokenResponse(Response<Token> tokenResponse) {
-    if (tokenResponse.statusCode == 200) {
-      final token = tokenResponse.data;
-      if (token != null) {
-        return token.accessToken;
-      }
-    }
-    return null;
-  }
+  String? parseTokenResponse(Response<Token> tokenResponse) => tokenResponse.data?.accessToken;
+
+  @override
+  Future<String> refreshToken() async => parseTokenResponse(await authApi.refreshToken()) ?? '';
 }

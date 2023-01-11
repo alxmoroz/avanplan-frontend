@@ -68,6 +68,7 @@ Class | Method | HTTP request | Description
 [*AuthApi*](doc/AuthApi.md) | [**authAppleToken**](doc/AuthApi.md#authappletoken) | **POST** /v1/auth/apple/token | Apple Token
 [*AuthApi*](doc/AuthApi.md) | [**authGoogleToken**](doc/AuthApi.md#authgoogletoken) | **POST** /v1/auth/google/token | Google Token
 [*AuthApi*](doc/AuthApi.md) | [**authToken**](doc/AuthApi.md#authtoken) | **POST** /v1/auth/token | Token
+[*AuthApi*](doc/AuthApi.md) | [**refreshToken**](doc/AuthApi.md#refreshtoken) | **POST** /v1/auth/refresh_token | Refresh Token
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**checkConnectionV1IntegrationsSourcesCheckConnectionGet**](doc/IntegrationsSourcesApi.md#checkconnectionv1integrationssourcescheckconnectionget) | **GET** /v1/integrations/sources/check_connection | Check Connection
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**deleteSourceV1IntegrationsSourcesSourceIdDelete**](doc/IntegrationsSourcesApi.md#deletesourcev1integrationssourcessourceiddelete) | **DELETE** /v1/integrations/sources/{source_id} | Delete Source
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**getSourceTypesV1IntegrationsSourcesTypesGet**](doc/IntegrationsSourcesApi.md#getsourcetypesv1integrationssourcestypesget) | **GET** /v1/integrations/sources/types/ | Get Source Types

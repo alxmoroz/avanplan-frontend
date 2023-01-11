@@ -20,6 +20,7 @@ class AuthUC {
   Future _setToken(String token) async {
     final la = await _getLocalAuth();
     la.accessToken = token;
+    la.signinDate = token.isNotEmpty ? DateTime.now() : null;
     await localDBAuthRepo.update(la);
   }
 
@@ -27,22 +28,36 @@ class AuthUC {
 
   Future updateOAuthToken() async => openAPI.setOAuthToken('OAuth2PasswordBearer', await _getToken());
 
-  Future<bool> _signIn(AbstractAuthRepo repo, {String? username, String? password, String? locale}) async {
-    _currentRepo = repo;
-    await _setToken(await repo.signIn(locale: locale, username: username, password: password));
+  Future<bool> _signInWithToken(String token) async {
+    await _setToken(token);
     await updateOAuthToken();
     return await hasLocalAuth;
   }
 
-  Future<bool> signInWithPassword({required String username, required String password}) async =>
-      await _signIn(passwordRepo, username: username, password: password);
+  Future<bool> _signIn(AbstractAuthRepo repo, {String? login, String? pwd, String? locale}) async {
+    _currentRepo = repo;
+    return await _signInWithToken(
+      await repo.signIn(locale: locale, login: login, pwd: pwd),
+    );
+  }
 
+  Future<bool> signInWithPassword({required String login, required String pwd}) async => await _signIn(passwordRepo, login: login, pwd: pwd);
+
+  Future<bool> signInWithGoogleIsAvailable() async => await googleRepo.signInIsAvailable();
   Future<bool> signInWithGoogle(String locale) async => await _signIn(googleRepo, locale: locale);
 
+  Future<bool> signInWithAppleIsAvailable() async => await appleRepo.signInIsAvailable();
   Future<bool> signInWithApple(String locale) async => await _signIn(appleRepo, locale: locale);
 
-  Future<bool> signInWithAppleIsAvailable() async => await appleRepo.signInIsAvailable();
-  Future<bool> signInWithGoogleIsAvailable() async => await googleRepo.signInIsAvailable();
+  static const _authCheckPeriod = Duration(hours: 12);
+  Future<bool> refreshAuth() async {
+    bool res = await hasLocalAuth;
+    final signinDate = (await _getLocalAuth()).signinDate;
+    if (signinDate == null || signinDate.add(_authCheckPeriod).isBefore(DateTime.now())) {
+      res = await _signInWithToken(await passwordRepo.refreshToken());
+    }
+    return res;
+  }
 
   Future signOut() async {
     await _currentRepo?.signOut();

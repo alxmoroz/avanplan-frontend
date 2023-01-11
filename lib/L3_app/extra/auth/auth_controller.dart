@@ -32,13 +32,10 @@ abstract class _AuthControllerBase with Store {
 
   String _langCode(BuildContext context) => Localizations.localeOf(context).languageCode;
 
-  Future signInWithPassword(BuildContext context, String username, String password) async {
+  Future signInWithPassword(BuildContext context, String login, String pwd) async {
     loaderController.start();
     loaderController.setAuth();
-    authController.setAuthorized(await authUC.signInWithPassword(
-      username: username,
-      password: password,
-    ));
+    setAuthorized(await authUC.signInWithPassword(login: login, pwd: pwd));
     Navigator.of(context).pop();
     await loaderController.stop();
   }
@@ -47,7 +44,7 @@ abstract class _AuthControllerBase with Store {
     loaderController.start();
     loaderController.setAuth();
     try {
-      authController.setAuthorized(await authUC.signInWithGoogle(_langCode(context)));
+      setAuthorized(await authUC.signInWithGoogle(_langCode(context)));
       await loaderController.stop();
     } on MTOAuthError catch (e) {
       loaderController.setAuthError(e.detail);
@@ -58,11 +55,18 @@ abstract class _AuthControllerBase with Store {
     loaderController.start();
     loaderController.setAuth();
     try {
-      authController.setAuthorized(await authUC.signInWithApple(_langCode(context)));
+      setAuthorized(await authUC.signInWithApple(_langCode(context)));
       await loaderController.stop();
     } on MTOAuthError catch (e) {
       loaderController.setAuthError(e.detail);
     }
+  }
+
+  Future updateAuth(BuildContext context) async {
+    loaderController.start();
+    loaderController.setAuth();
+    setAuthorized(await authUC.refreshAuth());
+    await loaderController.stop();
   }
 
   Future signOut() async {

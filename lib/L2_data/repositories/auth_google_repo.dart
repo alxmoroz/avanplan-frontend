@@ -23,7 +23,7 @@ class AuthGoogleRepo extends AuthBaseRepo {
   }
 
   @override
-  Future<String> signIn({String? locale, String? username, String? password}) async {
+  Future<String> signIn({String? locale, String? login, String? pwd}) async {
     GoogleSignInAuthentication? auth;
     try {
       GoogleSignInAccount? account = await _gSI.signInSilently();

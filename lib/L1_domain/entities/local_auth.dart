@@ -6,7 +6,9 @@ class LocalAuth extends LocalPersistable {
   LocalAuth({
     super.id = 'local_auth',
     this.accessToken = '',
+    this.signinDate,
   });
 
   String accessToken;
+  DateTime? signinDate;
 }

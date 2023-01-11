@@ -42,6 +42,11 @@ abstract class _MainControllerBase with Store {
 
   Future showTask(BuildContext context, int? taskId) async => await Navigator.of(context).pushNamed(TaskView.routeName, arguments: taskId);
 
+  /// рабочие пространства, справочники и задачи
+
+  @observable
+  DateTime? updatedDate;
+
   @action
   Future fetchWorkspaces() async {
     workspaces = ObservableList.of(await myUC.getWorkspaces());
@@ -60,6 +65,7 @@ abstract class _MainControllerBase with Store {
   @action
   Future fetchData() async {
     loaderController.setRefreshing();
+    // TODO: можно завести при открытии соотв. экранов, если тут это не обязательно данные эти
     await accountController.fetchData();
     await referencesController.fetchData();
     await notificationController.fetchData();
@@ -84,9 +90,19 @@ abstract class _MainControllerBase with Store {
     accountController.clearData();
   }
 
+  @action
   Future update() async {
     loaderController.start();
     await fetchData();
     await loaderController.stop();
+    updatedDate = DateTime.now();
+  }
+
+  // static const _updateDuration = Duration(minutes: 30);
+  static const _updatePeriod = Duration(hours: 1);
+  Future requestUpdate() async {
+    if (updatedDate == null || updatedDate!.add(_updatePeriod).isBefore(DateTime.now())) {
+      await update();
+    }
   }
 }

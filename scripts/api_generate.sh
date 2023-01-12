@@ -13,7 +13,15 @@ mkdir "$fullDir"
 echo "Generate client service from $remote_schema"
 cd "$api_folder" || exit
 curl -L $remote_schema > openapi.json
-openapi-generator-cli generate -i openapi.json -g dart-dio -o .
+
+#openapi-generator-cli generate -i openapi.json -g dart-dio -o .
+
+java -ea                          \
+  ${JAVA_OPTS}                    \
+  -Xms512M                        \
+  -Xmx1024M                       \
+  -server                         \
+  -jar ../scripts/openapi-generator-cli-6.2.1.jar generate -i openapi.json -g dart-dio -o .
 
 #flutter pub get
 bash ../scripts/build_runner_clean.sh

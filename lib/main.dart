@@ -9,18 +9,18 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import 'components/colors.dart';
-import 'extra/services.dart';
-import 'l10n/generated/l10n.dart';
-import 'views/account/account_view.dart';
-import 'views/loader/loader_screen.dart';
-import 'views/main/main_view.dart';
-import 'views/notification/notification_list_view.dart';
-import 'views/settings/settings_view.dart';
-import 'views/sign_in/sign_in_view.dart';
-import 'views/source/source_list_view.dart';
-import 'views/task/task_view.dart';
-import 'views/workspace/workspace_list_view.dart';
+import 'L3_app/components/colors.dart';
+import 'L3_app/extra/services.dart';
+import 'L3_app/l10n/generated/l10n.dart';
+import 'L3_app/views/account/account_view.dart';
+import 'L3_app/views/loader/loader_screen.dart';
+import 'L3_app/views/main/main_view.dart';
+import 'L3_app/views/notification/notification_list_view.dart';
+import 'L3_app/views/settings/settings_view.dart';
+import 'L3_app/views/sign_in/sign_in_view.dart';
+import 'L3_app/views/source/source_list_view.dart';
+import 'L3_app/views/task/task_view.dart';
+import 'L3_app/views/workspace/workspace_list_view.dart';
 
 Future main() async {
   setup();

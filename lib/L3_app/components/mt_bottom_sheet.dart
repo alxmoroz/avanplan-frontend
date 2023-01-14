@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-import '../main.dart';
+import '../../main.dart';
 import 'constants.dart';
 import 'mt_card.dart';
 

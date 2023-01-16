@@ -17,7 +17,7 @@ class AuthGoogleRepo extends AuthBaseRepo {
     // костыль для возможности открывать popup для гугловой авторизации при первом посещении accounts.google.com
     final acc = await _gSI.signInSilently();
     if (acc != null) {
-      await _gSI.signOut();
+      await _gSI.disconnect();
     }
     return true;
   }
@@ -26,10 +26,7 @@ class AuthGoogleRepo extends AuthBaseRepo {
   Future<String> signIn({String? locale, String? login, String? pwd}) async {
     GoogleSignInAuthentication? auth;
     try {
-      GoogleSignInAccount? account = await _gSI.signInSilently();
-      if (!await _gSI.isSignedIn()) {
-        account = await _gSI.signIn();
-      }
+      final account = await _gSI.signIn();
       auth = await account?.authentication;
     } on PlatformException catch (e) {
       if (e.code != 'popup_closed_by_user') {

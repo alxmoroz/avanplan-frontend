@@ -6,6 +6,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/usecases/task_ext_state.dart';
+import '../../../L2_data/services/platform.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -58,7 +59,10 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await authController.updateAuth(context);
       if (authController.authorized) {
-        await notificationController.initPush();
+        if (isIOS) {
+          await notificationController.initPush();
+        }
+
         await mainController.requestUpdate();
       }
     });

@@ -10,14 +10,20 @@ import '../services/platform.dart';
 import 'auth_base_repo.dart';
 
 class AuthGoogleRepo extends AuthBaseRepo {
-  GoogleSignIn get _gSI => GoogleSignIn(scopes: ['email', 'profile']);
+  // для андроида обязательно, если без FireBase и google-services, иначе не отдает id_token
+  static String serverClientID = '1039142486698-ki2e3ne2ntjfk2peqfn0r36rs489075o.apps.googleusercontent.com';
+
+  GoogleSignIn get _gSI => GoogleSignIn(
+        scopes: ['email', 'profile'],
+        serverClientId: isAndroid ? serverClientID : null,
+      );
 
   @override
   Future<bool> signInIsAvailable() async {
     // костыль для возможности открывать popup для гугловой авторизации при первом посещении accounts.google.com
     final acc = await _gSI.signInSilently();
     if (acc != null) {
-      await _gSI.disconnect();
+      await _gSI.signOut();
     }
     return true;
   }
@@ -26,7 +32,7 @@ class AuthGoogleRepo extends AuthBaseRepo {
   Future<String> signIn({String? locale, String? login, String? pwd}) async {
     GoogleSignInAuthentication? auth;
     try {
-      final account = await _gSI.signIn();
+      final account = await _gSI.signInSilently() ?? await _gSI.signIn();
       auth = await account?.authentication;
     } on PlatformException catch (e) {
       if (e.code != 'popup_closed_by_user') {

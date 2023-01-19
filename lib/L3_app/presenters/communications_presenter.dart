@@ -9,9 +9,9 @@ const legalRulesPath = '$_host/avanplan/legal/rules';
 const docsPath = '$_host/avanplan/docs/';
 
 String get _contactUsMailAddress => 'hello@avanplan.ru';
-String get _contactUsBody => '%0D%0A-----'
-    '%0D%0A${loc.app_title} ${settingsController.appVersion}'
-    '%0D%0A$deviceModelName'
-    '%0D%0A$deviceSystemInfo'
-    '%0D%0AUserId:${accountController.user?.id}';
-String get contactUsMailSample => 'mailto:$_contactUsMailAddress?subject=${loc.contact_us_mail_subject}&body=$_contactUsBody';
+String get _contactUsBody => '\r\n-----'
+    '\r\n${loc.app_title} ${settingsController.appVersion}'
+    '\r\n$deviceModelName'
+    '\r\n$deviceSystemInfo'
+    '\r\nUserId:${accountController.user?.id}';
+String get contactUsMailSample => Uri.encodeFull('mailto:$_contactUsMailAddress?subject=${loc.contact_us_mail_subject}&body=$_contactUsBody');

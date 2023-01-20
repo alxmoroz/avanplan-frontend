@@ -117,8 +117,7 @@
   "project_title": "Проект",
 
   "recommendation_add_tasks_title": "Добавить",
-  "recommendation_close_tasks_title": "Завершить одну задачу",
-  "recommendation_working_duration_title": "Работать над проектом {duration}",
+  "recommendation_close_tasks_title": "Закрыть задачу в проекте",
 
   "reload_action_title": "Перезагрузить",
   "report_bug_action_title": "Сообщить о проблеме",

@@ -118,8 +118,7 @@
   "project_title": "Project",
 
   "recommendation_add_tasks_title": "Add",
-  "recommendation_close_tasks_title": "Complete one task",
-  "recommendation_working_duration_title": "Work on the project for {duration}",
+  "recommendation_close_tasks_title": "Complete task in project",
 
   "reload_action_title": "Reload",
   "report_bug_action_title": "Report a bug",

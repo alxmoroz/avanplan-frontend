@@ -32,6 +32,13 @@ class TaskOverview extends StatelessWidget {
         H4(text),
       ]);
 
+  Widget get _rItemAddTask => _checkRecommendsItem(
+        task.overallState != TaskState.noSubtasks,
+        '${loc.recommendation_add_tasks_title} ${task.listTitle.toLowerCase()}',
+      );
+
+  Widget get _rItemProgress => _checkRecommendsItem(task.projectHasProgress, loc.recommendation_close_tasks_title);
+
   Widget _line(BuildContext context) =>
       Row(children: [const SizedBox(width: P * 1.4), Container(height: P * 1.5, width: 2, color: greyColor.resolve(context))]);
 
@@ -53,11 +60,9 @@ class TaskOverview extends StatelessWidget {
               /// нет прогноза - показываем шаги
               if (task.showRecommendsEta) ...[
                 const SizedBox(height: P2),
-                _checkRecommendsItem(
-                    task.overallState != TaskState.noSubtasks, '${loc.recommendation_add_tasks_title} ${task.listTitle.toLowerCase()}'),
+                task.projectHasProgress ? _rItemProgress : _rItemAddTask,
                 _line(context),
-                _checkRecommendsItem(
-                    task.overallState != TaskState.noSubtasks && task.closedLeafTasksCount > 0, loc.recommendation_close_tasks_title),
+                task.projectHasProgress ? _rItemAddTask : _rItemProgress,
               ],
 
               /// объем и скорость

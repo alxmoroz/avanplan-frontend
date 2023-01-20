@@ -65,7 +65,7 @@ class TaskPopupMenu extends StatelessWidget {
           child: child,
           icon: icon,
           itemBuilder: (_) => [for (final at in _task.actionTypes) PopupMenuItem<TaskActionType>(value: at, child: _atWidget(_task, at))],
-          onSelected: (at) => controller.taskAction(at, context),
+          onSelected: (at) => controller.taskAction(at),
           padding: EdgeInsets.zero,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS)),
         ),

@@ -7,6 +7,7 @@ import '../../../L1_domain/entities/estimate.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/usecases/task_ext_level.dart';
 import '../../../L1_domain/usecases/task_ext_state.dart';
+import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -30,9 +31,9 @@ class EditTaskResult {
   final bool? proceed;
 }
 
-Future<EditTaskResult?> editTaskDialog(BuildContext context, {required Task parent, Task? task}) async {
+Future<EditTaskResult?> editTaskDialog({required Task parent, Task? task}) async {
   return await showModalBottomSheet<EditTaskResult?>(
-    context: context,
+    context: rootKey.currentContext!,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
     builder: (_) => MTBottomSheet(TaskEditView(task: task, parent: parent)),

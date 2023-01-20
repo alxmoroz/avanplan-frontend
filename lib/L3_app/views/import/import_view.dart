@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 
 import '../../../L1_domain/entities/source.dart';
+import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/mt_bottom_sheet.dart';
@@ -20,10 +21,10 @@ import '../../presenters/source_presenter.dart';
 import '../source/source_add_menu.dart';
 import 'import_controller.dart';
 
-Future<SourceType?> showImportDialog(BuildContext context) async {
+Future<SourceType?> showImportDialog() async {
   sourceController.checkSources();
   return await showModalBottomSheet<SourceType?>(
-    context: context,
+    context: rootKey.currentContext!,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
     builder: (_) => MTBottomSheet(ImportView()),

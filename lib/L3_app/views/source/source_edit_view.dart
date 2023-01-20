@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../L1_domain/entities/source.dart';
+import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -22,9 +23,9 @@ import '../../presenters/communications_presenter.dart';
 import '../../presenters/source_presenter.dart';
 import 'source_controller.dart';
 
-Future<Source?> editSourceDialog(BuildContext context) async {
+Future<Source?> editSourceDialog() async {
   return await showModalBottomSheet<Source?>(
-    context: context,
+    context: rootKey.currentContext!,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
     builder: (_) => MTBottomSheet(SourceEditView()),

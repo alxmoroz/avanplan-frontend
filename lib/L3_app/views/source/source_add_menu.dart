@@ -25,7 +25,7 @@ class SourceAddMenu extends StatelessWidget {
         child: PopupMenuButton<SourceType>(
           child: MTMenuShape(icon: const PlusIcon(), title: title),
           itemBuilder: (_) => [for (final st in referencesController.sourceTypes) PopupMenuItem<SourceType>(value: st, child: st.iconTitle)],
-          onSelected: onSelected ?? (st) => sourceController.addSource(context, sType: st),
+          onSelected: onSelected ?? (st) => sourceController.addSource(sType: st),
           padding: EdgeInsets.zero,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS)),
         ),

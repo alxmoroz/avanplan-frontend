@@ -71,7 +71,7 @@ class _TaskViewState extends State<TaskView> {
         ),
       );
 
-  Widget _selectedPane(BuildContext context) {
+  Widget _selectedPane() {
     final _overviewPane = TaskOverview(_controller.task);
     final _tasksPane = TaskListView(_controller);
     final _detailsPane = TaskDetails(_controller);
@@ -83,7 +83,7 @@ class _TaskViewState extends State<TaskView> {
         _tasksPane;
   }
 
-  Widget? _bottomBar(BuildContext context) => _task.isWorkspace && _task.actionTypes.isNotEmpty && mainController.canEditAnyWS
+  Widget? _bottomBar() => _task.isWorkspace && _task.actionTypes.isNotEmpty && mainController.canEditAnyWS
       ? Row(children: [const Spacer(), TaskAddMenu(_controller)])
       : _controller.canEditTask
           ? _task.shouldAddSubtask
@@ -101,7 +101,7 @@ class _TaskViewState extends State<TaskView> {
                         margin: const EdgeInsets.symmetric(horizontal: P),
                         titleText: (_task.shouldClose || _task.shouldCloseLeaf) ? loc.close_action_title : loc.task_reopen_action_title,
                         leading: DoneIcon(_task.shouldClose || _task.shouldCloseLeaf),
-                        onTap: () => _controller.setClosed(context, !_task.closed),
+                        onTap: () => _controller.setClosed(!_task.closed),
                       ),
                     ])
                   : null
@@ -123,11 +123,11 @@ class _TaskViewState extends State<TaskView> {
                 const SizedBox(height: P_2),
                 _tabPaneSelector(),
               ],
-              Expanded(child: _selectedPane(context)),
+              Expanded(child: _selectedPane()),
             ],
           ),
         ),
-        bottomBar: _bottomBar(context),
+        bottomBar: _bottomBar(),
       ),
     );
   }

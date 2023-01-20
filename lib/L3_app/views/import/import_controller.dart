@@ -100,12 +100,12 @@ abstract class _ImportControllerBase extends EditController with Store {
   void needAddSourceEvent(BuildContext context, SourceType st) => Navigator.of(context).pop(st);
 
   // старт сценария по импорту задач
-  Future importTasks(BuildContext context, {bool needAddSource = false, SourceType? sType}) async {
+  Future importTasks({bool needAddSource = false, SourceType? sType}) async {
     // проверяем наличие выбранного типа источника импорта
     Source? preselectedSource = sType != null ? sourceController.sources.firstWhereOrNull((s) => s.type.id == sType.id) : selectedSource;
     // переходим к созданию источника, если нет источников, либо явный запрос на создание, либо источник выбранного типа отсутствует
     if (sourceController.sources.isEmpty || needAddSource || (sType != null && preselectedSource == null)) {
-      preselectedSource = await sourceController.addSource(context, sType: sType);
+      preselectedSource = await sourceController.addSource(sType: sType);
       // выходим из сценария, если отказались создавать или не получилось
       // if (preselectedSource == null) {
       //   return;
@@ -119,9 +119,9 @@ abstract class _ImportControllerBase extends EditController with Store {
 
     // если вернулись из диалога с желанием добавить источник импорта, то опять пытаемся добавить источник импорта
     // диалог с импортом задач
-    final st = await showImportDialog(context);
+    final st = await showImportDialog();
     if (st != null) {
-      await importTasks(context, needAddSource: true, sType: st);
+      await importTasks(needAddSource: true, sType: st);
     }
   }
 }

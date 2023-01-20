@@ -7,6 +7,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/usecases/task_ext_level.dart';
 import '../../../L1_domain/usecases/task_ext_state.dart';
+import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -71,10 +72,10 @@ abstract class _TaskViewControllerBase with Store {
   /// связь с источником импорта
 
   // TODO: похоже, не используется этот метод вообще сейчас
-  Future<bool> _checkUnlinked(BuildContext context) async {
+  Future<bool> _checkUnlinked() async {
     bool unlinked = !task.hasLink;
     if (!unlinked) {
-      unlinked = await unlink(context);
+      unlinked = await unlink();
     }
     return unlinked;
   }
@@ -86,8 +87,8 @@ abstract class _TaskViewControllerBase with Store {
         child: task.taskSource!.go2SourceTitle(),
       );
 
-  Future<bool?> _unlinkDialog(BuildContext context) async => await showMTDialog<bool?>(
-        context,
+  Future<bool?> _unlinkDialog() async => await showMTDialog<bool?>(
+        rootKey.currentContext!,
         title: loc.task_unlink_dialog_title,
         description: loc.task_unlink_dialog_description,
         actions: [
@@ -101,8 +102,8 @@ abstract class _TaskViewControllerBase with Store {
         ],
       );
 
-  Future<bool?> _unwatchDialog(BuildContext context) async => await showMTDialog<bool?>(
-        context,
+  Future<bool?> _unwatchDialog() async => await showMTDialog<bool?>(
+        rootKey.currentContext!,
         title: loc.task_unwatch_dialog_title,
         description: loc.task_unwatch_dialog_description,
         actions: [
@@ -116,8 +117,8 @@ abstract class _TaskViewControllerBase with Store {
         ],
       );
 
-  Future<bool?> _closeDialog(BuildContext context) async => await showMTDialog<bool?>(
-        context,
+  Future<bool?> _closeDialog() async => await showMTDialog<bool?>(
+        rootKey.currentContext!,
         title: loc.close_dialog_recursive_title,
         description: loc.close_dialog_recursive_description,
         actions: [
@@ -131,7 +132,8 @@ abstract class _TaskViewControllerBase with Store {
     mainController.updateRootTask();
   }
 
-  void _popDeleted(BuildContext context, Task task) {
+  void _popDeleted(Task task) {
+    final context = rootKey.currentContext!;
     Navigator.of(context).pop();
     if (task.parent?.isWorkspace == true && task.parent?.tasks.length == 1 && Navigator.canPop(context)) {
       Navigator.of(context).pop();
@@ -157,12 +159,11 @@ abstract class _TaskViewControllerBase with Store {
     return await _setClosedTask(_task, close);
   }
 
-  Future setClosed(BuildContext context, bool close) async {
+  Future setClosed(bool close) async {
     bool recursively = false;
-
     if (close) {
       if (task.hasOpenedSubtasks) {
-        recursively = await _closeDialog(context) == true;
+        recursively = await _closeDialog() == true;
         if (!recursively) {
           return;
         }
@@ -178,24 +179,25 @@ abstract class _TaskViewControllerBase with Store {
 
     if (editedTask != null) {
       if (editedTask.closed) {
-        Navigator.of(context).pop(editedTask);
+        Navigator.of(rootKey.currentContext!).pop(editedTask);
       }
       _updateTaskParents(editedTask);
     }
   }
 
-  Future addSubtask(BuildContext context) async {
-    if (await _checkUnlinked(context)) {
-      final newTaskResult = await editTaskDialog(context, parent: task);
+  Future addSubtask() async {
+    if (await _checkUnlinked()) {
+      final newTaskResult = await editTaskDialog(parent: task);
+
       if (newTaskResult != null) {
         final newTask = newTaskResult.task;
         task.tasks.add(newTask);
         _updateTaskParents(newTask);
         if (newTaskResult.proceed == true) {
           if (task.isProject || task.isWorkspace) {
-            await mainController.showTask(context, newTask.id);
+            await mainController.showTask(newTask.id);
           } else {
-            await addSubtask(context);
+            await addSubtask();
           }
         }
         selectTab(TaskTabKey.subtasks);
@@ -203,22 +205,22 @@ abstract class _TaskViewControllerBase with Store {
     }
   }
 
-  Future edit(BuildContext context) async {
-    if (await _checkUnlinked(context)) {
-      final editTaskResult = await editTaskDialog(context, parent: task.parent!, task: task);
+  Future edit() async {
+    if (await _checkUnlinked()) {
+      final editTaskResult = await editTaskDialog(parent: task.parent!, task: task);
       if (editTaskResult != null) {
         final editedTask = editTaskResult.task;
         if (editedTask.deleted) {
-          _popDeleted(context, editedTask);
+          _popDeleted(editedTask);
         }
         _updateTaskParents(editedTask);
       }
     }
   }
 
-  Future<bool> unlink(BuildContext context) async {
+  Future<bool> unlink() async {
     bool res = false;
-    if (await _unlinkDialog(context) == true) {
+    if (await _unlinkDialog() == true) {
       loaderController.start();
       loaderController.setUnlinking();
       try {
@@ -231,50 +233,50 @@ abstract class _TaskViewControllerBase with Store {
     return res;
   }
 
-  Future unwatch(BuildContext context) async {
-    if (await _unwatchDialog(context) == true) {
+  Future unwatch() async {
+    if (await _unwatchDialog() == true) {
       loaderController.start();
       loaderController.setUnwatch();
       final deletedTask = await tasksUC.delete(t: task);
       await loaderController.stop();
       if (deletedTask.deleted) {
-        _popDeleted(context, deletedTask);
+        _popDeleted(deletedTask);
         _updateTaskParents(deletedTask);
       }
     }
   }
 
-  Future taskAction(TaskActionType? actionType, BuildContext context) async {
+  Future taskAction(TaskActionType? actionType) async {
     switch (actionType) {
       case TaskActionType.add:
-        await addSubtask(context);
+        await addSubtask();
         break;
       case TaskActionType.edit:
-        await edit(context);
+        await edit();
         break;
       case TaskActionType.close:
-        await setClosed(context, true);
+        await setClosed(true);
         break;
       case TaskActionType.reopen:
-        await setClosed(context, false);
+        await setClosed(false);
         break;
       case TaskActionType.import_gitlab:
-        await importController.importTasks(context, sType: referencesController.stGitlab);
+        await importController.importTasks(sType: referencesController.stGitlab);
         break;
       case TaskActionType.import_jira:
-        await importController.importTasks(context, sType: referencesController.stJira);
+        await importController.importTasks(sType: referencesController.stJira);
         break;
       case TaskActionType.import_redmine:
-        await importController.importTasks(context, sType: referencesController.stRedmine);
+        await importController.importTasks(sType: referencesController.stRedmine);
         break;
       case TaskActionType.go2source:
         await launchUrlString(task.taskSource!.urlString);
         break;
       case TaskActionType.unlink:
-        await unlink(context);
+        await unlink();
         break;
       case TaskActionType.unwatch:
-        await unwatch(context);
+        await unwatch();
         break;
       default:
     }

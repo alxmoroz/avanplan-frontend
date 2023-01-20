@@ -8,6 +8,7 @@ import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities/ws_role.dart';
 import '../../../L1_domain/usecases/task_ext_state.dart';
+import '../../../main.dart';
 import '../../extra/services.dart';
 import '../task/task_view.dart';
 
@@ -40,7 +41,7 @@ abstract class _MainControllerBase with Store {
   // TODO: проблема совместного отображения списка задач из разных РП
   bool get canEditAnyWS => selectableWSs.isNotEmpty;
 
-  Future showTask(BuildContext context, int? taskId) async => await Navigator.of(context).pushNamed(TaskView.routeName, arguments: taskId);
+  Future showTask(int? taskId) async => await Navigator.of(rootKey.currentContext!).pushNamed(TaskView.routeName, arguments: taskId);
 
   /// рабочие пространства, справочники и задачи
 

@@ -17,6 +17,6 @@ class TaskAddButton extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: P),
         leading: const PlusIcon(),
         titleText: controller.task.newSubtaskTitle,
-        onTap: () async => await controller.addSubtask(context),
+        onTap: () async => await controller.addSubtask(),
       );
 }

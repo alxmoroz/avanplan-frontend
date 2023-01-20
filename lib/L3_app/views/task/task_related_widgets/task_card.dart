@@ -53,7 +53,7 @@ class TaskCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MTCardButton(
-        onTap: () => mainController.showTask(context, task.id),
+        onTap: () => mainController.showTask(task.id),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,

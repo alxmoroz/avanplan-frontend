@@ -3,9 +3,6 @@
 import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/entities/source.dart';
-import '../../extra/services.dart';
-
 part 'references_controller.g.dart';
 
 class ReferencesController extends _ReferencesControllerBase with _$ReferencesController {}
@@ -13,24 +10,24 @@ class ReferencesController extends _ReferencesControllerBase with _$ReferencesCo
 abstract class _ReferencesControllerBase with Store {
   /// тип источника импорта
   @observable
-  ObservableList<SourceType> sourceTypes = ObservableList();
+  List<String> sourceTypes = [];
 
-  SourceType? _sourceType(String typeTitle) => sourceTypes.firstWhereOrNull((st) => st.code.toLowerCase() == typeTitle);
+  String? _sourceType(String typeTitle) => sourceTypes.firstWhereOrNull((st) => st.toLowerCase() == typeTitle);
 
   @computed
-  SourceType? get stJira => _sourceType('jira');
+  String? get stJira => _sourceType('jira');
 
   @computed
   bool get hasStJira => stJira != null;
 
   @computed
-  SourceType? get stGitlab => _sourceType('gitlab');
+  String? get stGitlab => _sourceType('gitlab');
 
   @computed
   bool get hasStGitlab => stGitlab != null;
 
   @computed
-  SourceType? get stRedmine => _sourceType('redmine');
+  String? get stRedmine => _sourceType('redmine');
 
   @computed
   bool get hasStRedmine => stRedmine != null;
@@ -41,7 +38,8 @@ abstract class _ReferencesControllerBase with Store {
 
   @action
   Future fetchData() async {
-    sourceTypes = ObservableList.of((await sourceTypesUC.getAll()).sorted((s1, s2) => compareNatural(s1.code, s2.code)));
+    sourceTypes = ['Jira', 'GitLab', 'Redmine'];
+    // ObservableList.of((await sourceTypesUC.getAll()).sorted((s1, s2) => compareNatural(s1.code, s2.code)));
     // taskTypes = ObservableList.of(await taskTypesUC.getAll());
   }
 

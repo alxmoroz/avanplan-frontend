@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **title** | **String** |  | 
 **description** | **String** |  | [optional] 
 **closed** | **bool** |  | [optional] [default to false]
+**type** | **String** |  | [optional] [default to 'TASK']
 **startDate** | [**DateTime**](DateTime.md) |  | [optional] 
 **dueDate** | [**DateTime**](DateTime.md) |  | [optional] 
 **closedDate** | [**DateTime**](DateTime.md) |  | [optional] 
@@ -19,7 +20,6 @@ Name | Type | Description | Notes
 **author** | [**Person**](Person.md) |  | [optional] 
 **status** | [**Status**](Status.md) |  | [optional] 
 **priority** | [**Priority**](Priority.md) |  | [optional] 
-**type** | [**TaskType**](TaskType.md) |  | [optional] 
 **taskSource** | [**TaskSource**](TaskSource.md) |  | [optional] 
 **createdOn** | [**DateTime**](DateTime.md) |  | [optional] 
 **updatedOn** | [**DateTime**](DateTime.md) |  | [optional] 

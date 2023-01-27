@@ -12,20 +12,16 @@ part 'source_upsert.g.dart';
 ///
 /// Properties:
 /// * [id] 
-/// * [workspaceId] 
 /// * [url] 
 /// * [apiKey] 
 /// * [username] 
 /// * [description] 
-/// * [sourceTypeId] 
+/// * [type] 
 /// * [password] 
 @BuiltValue()
 abstract class SourceUpsert implements Built<SourceUpsert, SourceUpsertBuilder> {
   @BuiltValueField(wireName: r'id')
   int? get id;
-
-  @BuiltValueField(wireName: r'workspace_id')
-  int get workspaceId;
 
   @BuiltValueField(wireName: r'url')
   String get url;
@@ -39,8 +35,8 @@ abstract class SourceUpsert implements Built<SourceUpsert, SourceUpsertBuilder> 
   @BuiltValueField(wireName: r'description')
   String? get description;
 
-  @BuiltValueField(wireName: r'source_type_id')
-  int get sourceTypeId;
+  @BuiltValueField(wireName: r'type')
+  String get type;
 
   @BuiltValueField(wireName: r'password')
   String? get password;
@@ -75,11 +71,6 @@ class _$SourceUpsertSerializer implements PrimitiveSerializer<SourceUpsert> {
         specifiedType: const FullType(int),
       );
     }
-    yield r'workspace_id';
-    yield serializers.serialize(
-      object.workspaceId,
-      specifiedType: const FullType(int),
-    );
     yield r'url';
     yield serializers.serialize(
       object.url,
@@ -106,10 +97,10 @@ class _$SourceUpsertSerializer implements PrimitiveSerializer<SourceUpsert> {
         specifiedType: const FullType(String),
       );
     }
-    yield r'source_type_id';
+    yield r'type';
     yield serializers.serialize(
-      object.sourceTypeId,
-      specifiedType: const FullType(int),
+      object.type,
+      specifiedType: const FullType(String),
     );
     if (object.password != null) {
       yield r'password';
@@ -148,13 +139,6 @@ class _$SourceUpsertSerializer implements PrimitiveSerializer<SourceUpsert> {
           ) as int;
           result.id = valueDes;
           break;
-        case r'workspace_id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.workspaceId = valueDes;
-          break;
         case r'url':
           final valueDes = serializers.deserialize(
             value,
@@ -183,12 +167,12 @@ class _$SourceUpsertSerializer implements PrimitiveSerializer<SourceUpsert> {
           ) as String;
           result.description = valueDes;
           break;
-        case r'source_type_id':
+        case r'type':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.sourceTypeId = valueDes;
+            specifiedType: const FullType(String),
+          ) as String;
+          result.type = valueDes;
           break;
         case r'password':
           final valueDes = serializers.deserialize(

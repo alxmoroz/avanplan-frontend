@@ -22,7 +22,7 @@ abstract class _MainControllerBase with Store {
   ObservableList<Workspace> workspaces = ObservableList();
 
   @computed
-  List<Workspace> get selectableWSs => workspaces.where((ws) => authController.canEditWS(ws.roles)).toList();
+  List<Workspace> get editableWSs => workspaces.where((ws) => authController.canEditWS(ws.roles)).toList();
 
   /// рутовый объект
   @observable
@@ -39,7 +39,7 @@ abstract class _MainControllerBase with Store {
   Map<int, Iterable<WSRole>> get _rolesMap => {for (var ws in workspaces) ws.id!: ws.roles};
   Iterable<WSRole> rolesForWS(int? wsId) => _rolesMap[wsId] ?? [];
   // TODO: проблема совместного отображения списка задач из разных РП
-  bool get canEditAnyWS => selectableWSs.isNotEmpty;
+  bool get canEditAnyWS => editableWSs.isNotEmpty;
 
   Future showTask(int? taskId) async => await Navigator.of(rootKey.currentContext!).pushNamed(TaskView.routeName, arguments: taskId);
 
@@ -51,14 +51,31 @@ abstract class _MainControllerBase with Store {
   @action
   Future fetchWorkspaces() async {
     workspaces = ObservableList.of(await myUC.getWorkspaces());
-    workspaces.sort((w1, w2) => compareNatural(w1.code, w2.code));
+    workspaces.sort((w1, w2) => compareNatural(w1.title, w2.title));
     final tasks = <Task>[];
     for (Workspace ws in workspaces) {
-      if (ws.id != null) {
-        tasks.addAll(await tasksUC.getRoots(ws.id!));
-      }
+      ws.sources = await sourcesUC.getAll(ws.id!);
+      ws.sources.forEach((s) => s.workspaceId = ws.id!);
+
+      // TODO: сортируем тут только те списки, которые не редактируем в приложении на данный момент. Нужно перенести в контроллеры для редактирования
+      // List<Status> get _sortedStatuses => statuses.map((s) => s.status).sorted((s1, s2) => compareNatural('$s1', '$s2'));
+      // List<Priority> get _sortedPriorities => priorities.map((p) => p.priority).sorted((p1, p2) => compareNatural('$p1', '$p2'));
+      // List<Person> get _sortedPersons => persons.map((p) => p.person).sorted((p1, p2) => compareNatural('$p1', '$p2'));
+      // List<Estimate> get _sortedEstimates => estimates.map((e) => e.estimate).sorted((e1, e2) => compareNatural('$e1', '$e2'));
+      // sourceTypes = ObservableList.of((await sourceTypesUC.getAll()).sorted((s1, s2) => compareNatural(s1.code, s2.code)));
+
+      // TODO: для гостевых ролей в памяти приложения доступна инфа, которая может быть конфиденц. Нужно не отдавать с бэка лишнее.
+      // TODO: сделать отдельные эндпойнты с контролем прав на бэкенде
+
+      final projects = await tasksUC.getRoots(ws.id!);
+      projects.forEach((p) {
+        p.parent = rootTask;
+        p.workspaceId = ws.id!;
+      });
+
+      tasks.addAll(projects);
     }
-    tasks.forEach((t) => t.parent = rootTask);
+
     rootTask.tasks = tasks;
     updateRootTask();
   }
@@ -68,7 +85,7 @@ abstract class _MainControllerBase with Store {
     loaderController.setRefreshing();
     // TODO: можно завести при открытии соотв. экранов, если тут это не обязательно данные эти
     await accountController.fetchData();
-    await referencesController.fetchData();
+    await refsController.fetchData();
     await notificationController.fetchData();
 
     await fetchWorkspaces();
@@ -88,7 +105,7 @@ abstract class _MainControllerBase with Store {
 
     sourceController.clearData();
     importController.clearData();
-    referencesController.clearData();
+    refsController.clearData();
     accountController.clearData();
   }
 

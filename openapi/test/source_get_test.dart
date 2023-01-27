@@ -12,11 +12,6 @@ void main() {
       // TODO
     });
 
-    // int workspaceId
-    test('to test the property `workspaceId`', () async {
-      // TODO
-    });
-
     // String url
     test('to test the property `url`', () async {
       // TODO
@@ -37,7 +32,7 @@ void main() {
       // TODO
     });
 
-    // SourceTypeGet type
+    // String type
     test('to test the property `type`', () async {
       // TODO
     });

@@ -1,7 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import '../entities/source.dart';
-import '../repositories/abs_api_repo.dart';
 import '../repositories/abs_api_source_repo.dart';
 
 //TODO: похоже, есть смысл сделать абстрактный общий юзкейс
@@ -11,33 +10,27 @@ class SourcesUC {
 
   final AbstractApiSourceRepo repo;
 
-  Future<bool> checkConnection(int id) async => await repo.checkConnection(id);
+  Future<bool> checkConnection(Source source) async => await repo.checkConnection(source);
 
-  Future<Source?> save(Source data) async {
+  Future<List<Source>> getAll(int wsId) async => await repo.getAll(wsId);
+
+  Future<Source?> save(Source source) async {
     Source? s;
-    final username = data.username?.trim() ?? '';
-    final apiKey = data.apiKey?.trim() ?? '';
-    if (data.url.trim().isNotEmpty && (username.isNotEmpty || apiKey.isNotEmpty)) {
-      s = await repo.save(data);
+    final username = source.username?.trim() ?? '';
+    final apiKey = source.apiKey?.trim() ?? '';
+    if (source.url.trim().isNotEmpty && (username.isNotEmpty || apiKey.isNotEmpty)) {
+      s = await repo.save(source);
     }
     return s;
   }
 
-  Future<Source?> delete({required Source s}) async {
+  Future<Source?> delete(Source s) async {
     if (s.id != null) {
-      final deletedRows = await repo.delete(s.id!);
+      final deletedRows = await repo.delete(s);
       if (deletedRows) {
         s.deleted = true;
       }
     }
     return s;
   }
-}
-
-class SourceTypesUC {
-  SourceTypesUC({required this.repo});
-
-  final AbstractApiRepo<SourceType> repo;
-
-  Future<List<SourceType>> getAll() async => await repo.getAll();
 }

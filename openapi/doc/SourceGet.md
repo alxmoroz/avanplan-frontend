@@ -9,12 +9,11 @@ import 'package:openapi/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  | 
-**workspaceId** | **int** |  | 
 **url** | **String** |  | 
 **apiKey** | **String** |  | [optional] 
 **username** | **String** |  | [optional] 
 **description** | **String** |  | [optional] 
-**type** | [**SourceTypeGet**](SourceTypeGet.md) |  | 
+**type** | **String** |  | 
 **importedOn** | [**DateTime**](DateTime.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

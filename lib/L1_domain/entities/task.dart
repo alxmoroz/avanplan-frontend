@@ -5,7 +5,6 @@ import 'person.dart';
 import 'priority.dart';
 import 'status.dart';
 import 'task_source.dart';
-import 'task_type.dart';
 
 enum TaskLevel { workspace, project, goal, task, subtask }
 
@@ -36,7 +35,7 @@ class Task extends Titleable {
     this.dueDate,
     this.startDate,
     this.closedDate,
-    this.workspaceId,
+    this.workspaceId = -1,
     this.status,
     this.priority,
     this.author,
@@ -52,13 +51,13 @@ class Task extends Titleable {
   DateTime? startDate;
   DateTime? closedDate;
   final DateTime? dueDate;
-  final int? workspaceId;
+  int workspaceId;
   final Status? status;
   final Priority? priority;
   final Person? author;
   final Person? assignee;
   final TaskSource? taskSource;
-  final TaskType? type;
+  final String? type;
   int? estimate;
   Task? parent;
   bool closed;

@@ -18,17 +18,14 @@ import 'package:openapi/src/model/body_auth_apple_token.dart';
 import 'package:openapi/src/model/body_auth_google_token.dart';
 import 'package:openapi/src/model/body_update_my_account_v1_my_account_post.dart';
 import 'package:openapi/src/model/body_update_push_token_v1_my_push_token_post.dart';
-import 'package:openapi/src/model/estimate_get.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/location_inner.dart';
 import 'package:openapi/src/model/notification.dart';
-import 'package:openapi/src/model/notification_channel_get.dart';
 import 'package:openapi/src/model/person.dart';
 import 'package:openapi/src/model/person_get.dart';
 import 'package:openapi/src/model/priority.dart';
 import 'package:openapi/src/model/priority_get.dart';
 import 'package:openapi/src/model/source_get.dart';
-import 'package:openapi/src/model/source_type_get.dart';
 import 'package:openapi/src/model/source_upsert.dart';
 import 'package:openapi/src/model/status.dart';
 import 'package:openapi/src/model/status_get.dart';
@@ -37,15 +34,12 @@ import 'package:openapi/src/model/task_get.dart';
 import 'package:openapi/src/model/task_source.dart';
 import 'package:openapi/src/model/task_source_get.dart';
 import 'package:openapi/src/model/task_source_upsert.dart';
-import 'package:openapi/src/model/task_type.dart';
-import 'package:openapi/src/model/task_type_get.dart';
 import 'package:openapi/src/model/task_upsert.dart';
 import 'package:openapi/src/model/token.dart';
 import 'package:openapi/src/model/u_notification_permission_get.dart';
 import 'package:openapi/src/model/user.dart';
 import 'package:openapi/src/model/validation_error.dart';
 import 'package:openapi/src/model/ws_role_get.dart';
-import 'package:openapi/src/model/ws_settings_get.dart';
 import 'package:openapi/src/model/ws_user_role_get.dart';
 import 'package:openapi/src/model/workspace_get.dart';
 
@@ -56,17 +50,14 @@ part 'serializers.g.dart';
   BodyAuthGoogleToken,
   BodyUpdateMyAccountV1MyAccountPost,
   BodyUpdatePushTokenV1MyPushTokenPost,
-  EstimateGet,
   HTTPValidationError,
   LocationInner,
   Notification,
-  NotificationChannelGet,
   Person,
   PersonGet,
   Priority,
   PriorityGet,
   SourceGet,
-  SourceTypeGet,
   SourceUpsert,
   Status,
   StatusGet,
@@ -75,15 +66,12 @@ part 'serializers.g.dart';
   TaskSource,
   TaskSourceGet,
   TaskSourceUpsert,
-  TaskType,
-  TaskTypeGet,
   TaskUpsert,
   Token,
   UNotificationPermissionGet,
   User,
   ValidationError,
   WSRoleGet,
-  WSSettingsGet,
   WSUserRoleGet,
   WorkspaceGet,
 ])
@@ -91,6 +79,10 @@ Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskSource)]),
         () => ListBuilder<TaskSource>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(SourceGet)]),
+        () => ListBuilder<SourceGet>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(Notification)]),
@@ -115,10 +107,6 @@ Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskGet)]),
         () => ListBuilder<TaskGet>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(SourceTypeGet)]),
-        () => ListBuilder<SourceTypeGet>(),
       )
       ..add(const OneOfSerializer())
       ..add(const AnyOfSerializer())

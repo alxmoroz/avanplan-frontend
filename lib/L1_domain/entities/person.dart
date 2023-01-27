@@ -6,14 +6,13 @@ class Person extends Emailable {
   Person({
     required super.id,
     required super.email,
-    required this.workspaceId,
     this.firstname,
     this.lastname,
   });
 
   final String? firstname;
   final String? lastname;
-  final int workspaceId;
+  int workspaceId = -1;
 
   @override
   String toString() => '${firstname ?? ''}${(lastname ?? '').isNotEmpty ? ' ' : ''}${lastname ?? ''}';

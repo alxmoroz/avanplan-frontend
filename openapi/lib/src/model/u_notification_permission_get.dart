@@ -3,7 +3,6 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:openapi/src/model/notification_channel_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -14,9 +13,8 @@ part 'u_notification_permission_get.g.dart';
 /// Properties:
 /// * [id] 
 /// * [userId] 
-/// * [channelId] 
-/// * [eventTypeId] 
 /// * [channel] 
+/// * [eventType] 
 @BuiltValue()
 abstract class UNotificationPermissionGet implements Built<UNotificationPermissionGet, UNotificationPermissionGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -25,14 +23,11 @@ abstract class UNotificationPermissionGet implements Built<UNotificationPermissi
   @BuiltValueField(wireName: r'user_id')
   int get userId;
 
-  @BuiltValueField(wireName: r'channel_id')
-  int get channelId;
-
-  @BuiltValueField(wireName: r'event_type_id')
-  int get eventTypeId;
-
   @BuiltValueField(wireName: r'channel')
-  NotificationChannelGet get channel;
+  String get channel;
+
+  @BuiltValueField(wireName: r'event_type')
+  String get eventType;
 
   UNotificationPermissionGet._();
 
@@ -67,20 +62,15 @@ class _$UNotificationPermissionGetSerializer implements PrimitiveSerializer<UNot
       object.userId,
       specifiedType: const FullType(int),
     );
-    yield r'channel_id';
-    yield serializers.serialize(
-      object.channelId,
-      specifiedType: const FullType(int),
-    );
-    yield r'event_type_id';
-    yield serializers.serialize(
-      object.eventTypeId,
-      specifiedType: const FullType(int),
-    );
     yield r'channel';
     yield serializers.serialize(
       object.channel,
-      specifiedType: const FullType(NotificationChannelGet),
+      specifiedType: const FullType(String),
+    );
+    yield r'event_type';
+    yield serializers.serialize(
+      object.eventType,
+      specifiedType: const FullType(String),
     );
   }
 
@@ -119,26 +109,19 @@ class _$UNotificationPermissionGetSerializer implements PrimitiveSerializer<UNot
           ) as int;
           result.userId = valueDes;
           break;
-        case r'channel_id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.channelId = valueDes;
-          break;
-        case r'event_type_id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.eventTypeId = valueDes;
-          break;
         case r'channel':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(NotificationChannelGet),
-          ) as NotificationChannelGet;
-          result.channel.replace(valueDes);
+            specifiedType: const FullType(String),
+          ) as String;
+          result.channel = valueDes;
+          break;
+        case r'event_type':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.eventType = valueDes;
           break;
         default:
           unhandled.add(key);

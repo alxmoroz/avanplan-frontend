@@ -22,6 +22,11 @@ void main() {
       // TODO
     });
 
+    // String type (default value: 'TASK')
+    test('to test the property `type`', () async {
+      // TODO
+    });
+
     // DateTime startDate
     test('to test the property `startDate`', () async {
       // TODO
@@ -59,11 +64,6 @@ void main() {
 
     // Priority priority
     test('to test the property `priority`', () async {
-      // TODO
-    });
-
-    // TaskType type
-    test('to test the property `type`', () async {
       // TODO
     });
 

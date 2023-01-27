@@ -3,16 +3,14 @@
 import 'package:openapi/openapi.dart';
 
 import '../../L1_domain/entities/source.dart';
-import 'source_type.dart';
 
 extension SourceMapper on SourceGet {
   Source get source => Source(
         id: id,
-        type: type.type,
+        type: type,
         url: url,
         apiKey: apiKey,
         username: username,
         description: description ?? '',
-        workspaceId: workspaceId,
       );
 }

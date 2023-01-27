@@ -5,7 +5,7 @@
 import 'package:openapi/api.dart';
 ```
 
-All URIs are relative to */api*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 
 # **deleteTaskV1TasksTaskIdDelete**
-> JsonObject deleteTaskV1TasksTaskIdDelete(taskId)
+> JsonObject deleteTaskV1TasksTaskIdDelete(taskId, wsId)
 
 Delete Task
 
@@ -27,9 +27,10 @@ import 'package:openapi/api.dart';
 
 final api = Openapi().getTasksApi();
 final int taskId = 56; // int | 
+final int wsId = 56; // int | 
 
 try {
-    final response = api.deleteTaskV1TasksTaskIdDelete(taskId);
+    final response = api.deleteTaskV1TasksTaskIdDelete(taskId, wsId);
     print(response);
 } catch on DioError (e) {
     print('Exception when calling TasksApi->deleteTaskV1TasksTaskIdDelete: $e\n');
@@ -41,6 +42,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **taskId** | **int**|  | 
+ **wsId** | **int**|  | 
 
 ### Return type
 
@@ -101,7 +103,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **upsertTaskV1TasksPost**
-> TaskGet upsertTaskV1TasksPost(taskUpsert)
+> TaskGet upsertTaskV1TasksPost(wsId, taskUpsert)
 
 Upsert Task
 
@@ -112,10 +114,11 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
 
 final api = Openapi().getTasksApi();
+final int wsId = 56; // int | 
 final TaskUpsert taskUpsert = ; // TaskUpsert | 
 
 try {
-    final response = api.upsertTaskV1TasksPost(taskUpsert);
+    final response = api.upsertTaskV1TasksPost(wsId, taskUpsert);
     print(response);
 } catch on DioError (e) {
     print('Exception when calling TasksApi->upsertTaskV1TasksPost: $e\n');
@@ -126,6 +129,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **wsId** | **int**|  | 
  **taskUpsert** | [**TaskUpsert**](TaskUpsert.md)|  | 
 
 ### Return type

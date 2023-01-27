@@ -21,9 +21,9 @@ import '../../presenters/source_presenter.dart';
 import '../source/source_add_menu.dart';
 import 'import_controller.dart';
 
-Future<SourceType?> showImportDialog() async {
+Future<String?> showImportDialog() async {
   sourceController.checkSources();
-  return await showModalBottomSheet<SourceType?>(
+  return await showModalBottomSheet<String?>(
     context: rootKey.currentContext!,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,

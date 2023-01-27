@@ -12,11 +12,6 @@ void main() {
       // TODO
     });
 
-    // int workspaceId
-    test('to test the property `workspaceId`', () async {
-      // TODO
-    });
-
     // String email
     test('to test the property `email`', () async {
       // TODO

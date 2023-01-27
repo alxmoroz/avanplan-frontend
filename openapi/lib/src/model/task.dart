@@ -7,7 +7,6 @@ import 'package:openapi/src/model/person.dart';
 import 'package:openapi/src/model/status.dart';
 import 'package:openapi/src/model/priority.dart';
 import 'package:openapi/src/model/task_source.dart';
-import 'package:openapi/src/model/task_type.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -19,6 +18,7 @@ part 'task.g.dart';
 /// * [title] 
 /// * [description] 
 /// * [closed] 
+/// * [type] 
 /// * [startDate] 
 /// * [dueDate] 
 /// * [closedDate] 
@@ -27,7 +27,6 @@ part 'task.g.dart';
 /// * [author] 
 /// * [status] 
 /// * [priority] 
-/// * [type] 
 /// * [taskSource] 
 /// * [createdOn] 
 /// * [updatedOn] 
@@ -41,6 +40,9 @@ abstract class Task implements Built<Task, TaskBuilder> {
 
   @BuiltValueField(wireName: r'closed')
   bool? get closed;
+
+  @BuiltValueField(wireName: r'type')
+  String? get type;
 
   @BuiltValueField(wireName: r'start_date')
   DateTime? get startDate;
@@ -66,9 +68,6 @@ abstract class Task implements Built<Task, TaskBuilder> {
   @BuiltValueField(wireName: r'priority')
   Priority? get priority;
 
-  @BuiltValueField(wireName: r'type')
-  TaskType? get type;
-
   @BuiltValueField(wireName: r'task_source')
   TaskSource? get taskSource;
 
@@ -84,7 +83,8 @@ abstract class Task implements Built<Task, TaskBuilder> {
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(TaskBuilder b) => b
-      ..closed = false;
+      ..closed = false
+      ..type = 'TASK';
 
   @BuiltValueSerializer(custom: true)
   static Serializer<Task> get serializer => _$TaskSerializer();
@@ -119,6 +119,13 @@ class _$TaskSerializer implements PrimitiveSerializer<Task> {
       yield serializers.serialize(
         object.closed,
         specifiedType: const FullType(bool),
+      );
+    }
+    if (object.type != null) {
+      yield r'type';
+      yield serializers.serialize(
+        object.type,
+        specifiedType: const FullType(String),
       );
     }
     if (object.startDate != null) {
@@ -175,13 +182,6 @@ class _$TaskSerializer implements PrimitiveSerializer<Task> {
       yield serializers.serialize(
         object.priority,
         specifiedType: const FullType(Priority),
-      );
-    }
-    if (object.type != null) {
-      yield r'type';
-      yield serializers.serialize(
-        object.type,
-        specifiedType: const FullType(TaskType),
       );
     }
     if (object.taskSource != null) {
@@ -249,6 +249,13 @@ class _$TaskSerializer implements PrimitiveSerializer<Task> {
           ) as bool;
           result.closed = valueDes;
           break;
+        case r'type':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.type = valueDes;
+          break;
         case r'start_date':
           final valueDes = serializers.deserialize(
             value,
@@ -304,13 +311,6 @@ class _$TaskSerializer implements PrimitiveSerializer<Task> {
             specifiedType: const FullType(Priority),
           ) as Priority;
           result.priority.replace(valueDes);
-          break;
-        case r'type':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(TaskType),
-          ) as TaskType;
-          result.type.replace(valueDes);
           break;
         case r'task_source':
           final valueDes = serializers.deserialize(

@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../L1_domain/entities/source.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/material_wrapper.dart';
@@ -15,16 +14,16 @@ class SourceAddMenu extends StatelessWidget {
 
   final EdgeInsets? margin;
   final String? title;
-  final PopupMenuItemSelected<SourceType>? onSelected;
+  final PopupMenuItemSelected<String>? onSelected;
 
   @override
   Widget build(BuildContext context) {
     return material(
       Padding(
         padding: margin ?? EdgeInsets.zero,
-        child: PopupMenuButton<SourceType>(
+        child: PopupMenuButton<String>(
           child: MTMenuShape(icon: const PlusIcon(), title: title),
-          itemBuilder: (_) => [for (final st in referencesController.sourceTypes) PopupMenuItem<SourceType>(value: st, child: st.iconTitle)],
+          itemBuilder: (_) => [for (final st in refsController.sourceTypes) PopupMenuItem<String>(value: st, child: iconTitleForSourceType(st))],
           onSelected: onSelected ?? (st) => sourceController.addSource(sType: st),
           padding: EdgeInsets.zero,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS)),

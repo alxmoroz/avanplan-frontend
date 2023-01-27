@@ -12,11 +12,6 @@ void main() {
       // TODO
     });
 
-    // int workspaceId
-    test('to test the property `workspaceId`', () async {
-      // TODO
-    });
-
     // int order
     test('to test the property `order`', () async {
       // TODO

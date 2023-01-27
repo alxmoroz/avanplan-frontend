@@ -45,16 +45,16 @@ extension TaskActionsExt on Task {
 
   Iterable<TaskActionType> get actionTypes => [
         if (canImport) ...[
-          if (referencesController.hasStGitlab) TaskActionType.import_gitlab,
-          if (referencesController.hasStJira) TaskActionType.import_jira,
-          if (referencesController.hasStRedmine) TaskActionType.import_redmine,
+          if (refsController.hasStGitlab) TaskActionType.import_gitlab,
+          if (refsController.hasStJira) TaskActionType.import_jira,
+          if (refsController.hasStRedmine) TaskActionType.import_redmine,
         ],
         if (canAdd) TaskActionType.add,
         if (canEdit) TaskActionType.edit,
         if (canClose) TaskActionType.close,
         if (canReopen) TaskActionType.reopen,
         if (isProject && hasLink) ...[
-          TaskActionType.go2source,
+          // TaskActionType.go2source,
           TaskActionType.unlink,
           TaskActionType.unwatch,
         ]

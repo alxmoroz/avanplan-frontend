@@ -12,11 +12,6 @@ void main() {
       // TODO
     });
 
-    // int workspaceId
-    test('to test the property `workspaceId`', () async {
-      // TODO
-    });
-
     // bool closed
     test('to test the property `closed`', () async {
       // TODO

@@ -17,7 +17,7 @@ class ImportProjectsActions extends StatelessWidget {
   final Task task;
 
   @override
-  Widget build(BuildContext context) => referencesController.sourceTypes.isNotEmpty && mainController.canEditAnyWS
+  Widget build(BuildContext context) => refsController.sourceTypes.isNotEmpty && mainController.canEditAnyWS
       ? ListView(shrinkWrap: true, children: [
           Center(child: StartIcon(size: MediaQuery.of(context).size.height / 5)),
           const SizedBox(height: P2),
@@ -28,12 +28,12 @@ class ImportProjectsActions extends StatelessWidget {
             maxLines: 5,
           ),
           const SizedBox(height: P),
-          for (final st in referencesController.sourceTypes)
+          for (final st in refsController.sourceTypes)
             MTConstrained(
               MTCardButton(
                 onTap: () => importController.importTasks(sType: st),
                 child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  st.icon,
+                  iconForSourceType(st),
                   const SizedBox(width: P_2),
                   H4('$st'),
                 ]),

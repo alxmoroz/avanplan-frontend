@@ -27,6 +27,7 @@ class TasksApi {
   ///
   /// Parameters:
   /// * [taskId] 
+  /// * [wsId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -38,6 +39,7 @@ class TasksApi {
   /// Throws [DioError] if API call or serialization fails
   Future<Response<JsonObject>> deleteTaskV1TasksTaskIdDelete({ 
     required int taskId,
+    required int wsId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -63,9 +65,14 @@ class TasksApi {
       validateStatus: validateStatus,
     );
 
+    final _queryParameters = <String, dynamic>{
+      r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
+    };
+
     final _response = await _dio.request<Object>(
       _path,
       options: _options,
+      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
@@ -189,6 +196,7 @@ class TasksApi {
   /// 
   ///
   /// Parameters:
+  /// * [wsId] 
   /// * [taskUpsert] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
@@ -200,6 +208,7 @@ class TasksApi {
   /// Returns a [Future] containing a [Response] with a [TaskGet] as data
   /// Throws [DioError] if API call or serialization fails
   Future<Response<TaskGet>> upsertTaskV1TasksPost({ 
+    required int wsId,
     required TaskUpsert taskUpsert,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -227,6 +236,10 @@ class TasksApi {
       validateStatus: validateStatus,
     );
 
+    final _queryParameters = <String, dynamic>{
+      r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
+    };
+
     dynamic _bodyData;
 
     try {
@@ -238,6 +251,7 @@ class TasksApi {
          requestOptions: _options.compose(
           _dio.options,
           _path,
+          queryParameters: _queryParameters,
         ),
         type: DioErrorType.other,
         error: error,
@@ -248,6 +262,7 @@ class TasksApi {
       _path,
       data: _bodyData,
       options: _options,
+      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,

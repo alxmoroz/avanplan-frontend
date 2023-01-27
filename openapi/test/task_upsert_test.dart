@@ -12,11 +12,6 @@ void main() {
       // TODO
     });
 
-    // int workspaceId
-    test('to test the property `workspaceId`', () async {
-      // TODO
-    });
-
     // String title
     test('to test the property `title`', () async {
       // TODO
@@ -29,6 +24,11 @@ void main() {
 
     // bool closed (default value: false)
     test('to test the property `closed`', () async {
+      // TODO
+    });
+
+    // String type (default value: 'TASK')
+    test('to test the property `type`', () async {
       // TODO
     });
 
@@ -79,11 +79,6 @@ void main() {
 
     // int taskSourceId
     test('to test the property `taskSourceId`', () async {
-      // TODO
-    });
-
-    // int typeId
-    test('to test the property `typeId`', () async {
       // TODO
     });
   });

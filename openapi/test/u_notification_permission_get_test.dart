@@ -17,18 +17,13 @@ void main() {
       // TODO
     });
 
-    // int channelId
-    test('to test the property `channelId`', () async {
-      // TODO
-    });
-
-    // int eventTypeId
-    test('to test the property `eventTypeId`', () async {
-      // TODO
-    });
-
-    // NotificationChannelGet channel
+    // String channel
     test('to test the property `channel`', () async {
+      // TODO
+    });
+
+    // String eventType
+    test('to test the property `eventType`', () async {
       // TODO
     });
   });

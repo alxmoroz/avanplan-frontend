@@ -13,21 +13,30 @@ class SourcesRepo extends AbstractApiSourceRepo {
   o_api.IntegrationsSourcesApi get api => openAPI.getIntegrationsSourcesApi();
 
   @override
-  Future<List<Source>> getAll([dynamic query]) async => throw UnimplementedError();
+  Future<List<Source>> getAll(int wsId) async {
+    final response = await api.getSourcesV1IntegrationsSourcesGet(wsId: wsId);
+
+    final List<Source> sources = [];
+    if (response.statusCode == 200) {
+      for (o_api.SourceGet s in response.data?.toList() ?? []) {
+        sources.add(s.source);
+      }
+    }
+    return sources;
+  }
 
   @override
   Future<Source?> save(Source data) async {
     final builder = o_api.SourceUpsertBuilder()
       ..id = data.id
-      ..sourceTypeId = data.type.id
+      ..type = data.type
       ..url = data.url
       ..apiKey = data.apiKey
       ..username = data.username
       ..password = data.password
-      ..description = data.description
-      ..workspaceId = data.workspaceId;
+      ..description = data.description;
 
-    final response = await api.upsertSourceV1IntegrationsSourcesPost(sourceUpsert: builder.build());
+    final response = await api.upsertSourceV1IntegrationsSourcesPost(sourceUpsert: builder.build(), wsId: data.workspaceId);
     Source? source;
     if (response.statusCode == 201) {
       source = response.data?.source;
@@ -36,16 +45,16 @@ class SourcesRepo extends AbstractApiSourceRepo {
   }
 
   @override
-  Future<bool> delete(int id) async {
-    final response = await api.deleteSourceV1IntegrationsSourcesSourceIdDelete(sourceId: id);
+  Future<bool> delete(Source data) async {
+    final response = await api.deleteSourceV1IntegrationsSourcesSourceIdDelete(sourceId: data.id!, wsId: data.workspaceId);
     return response.statusCode == 200 && response.data?.asNum == 1;
   }
 
   @override
-  Future<bool> checkConnection(int id) async {
+  Future<bool> checkConnection(Source s) async {
     bool res = false;
     try {
-      final response = await api.checkConnectionV1IntegrationsSourcesCheckConnectionGet(sourceId: id);
+      final response = await api.checkConnectionV1IntegrationsSourcesCheckConnectionGet(sourceId: s.id!, wsId: s.workspaceId);
       res = response.statusCode == 200 && response.data == true;
     } on DioError catch (e) {
       if (['ERR_IMPORT_CONNECTION'].contains(e.errCode)) {

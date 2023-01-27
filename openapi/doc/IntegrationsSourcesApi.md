@@ -5,18 +5,18 @@
 import 'package:openapi/api.dart';
 ```
 
-All URIs are relative to */api*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**checkConnectionV1IntegrationsSourcesCheckConnectionGet**](IntegrationsSourcesApi.md#checkconnectionv1integrationssourcescheckconnectionget) | **GET** /v1/integrations/sources/check_connection | Check Connection
 [**deleteSourceV1IntegrationsSourcesSourceIdDelete**](IntegrationsSourcesApi.md#deletesourcev1integrationssourcessourceiddelete) | **DELETE** /v1/integrations/sources/{source_id} | Delete Source
-[**getSourceTypesV1IntegrationsSourcesTypesGet**](IntegrationsSourcesApi.md#getsourcetypesv1integrationssourcestypesget) | **GET** /v1/integrations/sources/types/ | Get Source Types
+[**getSourcesV1IntegrationsSourcesGet**](IntegrationsSourcesApi.md#getsourcesv1integrationssourcesget) | **GET** /v1/integrations/sources/ | Get Sources
 [**upsertSourceV1IntegrationsSourcesPost**](IntegrationsSourcesApi.md#upsertsourcev1integrationssourcespost) | **POST** /v1/integrations/sources/ | Upsert Source
 
 
 # **checkConnectionV1IntegrationsSourcesCheckConnectionGet**
-> bool checkConnectionV1IntegrationsSourcesCheckConnectionGet(sourceId)
+> bool checkConnectionV1IntegrationsSourcesCheckConnectionGet(sourceId, wsId)
 
 Check Connection
 
@@ -28,9 +28,10 @@ import 'package:openapi/api.dart';
 
 final api = Openapi().getIntegrationsSourcesApi();
 final int sourceId = 56; // int | 
+final int wsId = 56; // int | 
 
 try {
-    final response = api.checkConnectionV1IntegrationsSourcesCheckConnectionGet(sourceId);
+    final response = api.checkConnectionV1IntegrationsSourcesCheckConnectionGet(sourceId, wsId);
     print(response);
 } catch on DioError (e) {
     print('Exception when calling IntegrationsSourcesApi->checkConnectionV1IntegrationsSourcesCheckConnectionGet: $e\n');
@@ -42,6 +43,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sourceId** | **int**|  | 
+ **wsId** | **int**|  | 
 
 ### Return type
 
@@ -59,7 +61,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **deleteSourceV1IntegrationsSourcesSourceIdDelete**
-> JsonObject deleteSourceV1IntegrationsSourcesSourceIdDelete(sourceId)
+> JsonObject deleteSourceV1IntegrationsSourcesSourceIdDelete(sourceId, wsId)
 
 Delete Source
 
@@ -71,9 +73,10 @@ import 'package:openapi/api.dart';
 
 final api = Openapi().getIntegrationsSourcesApi();
 final int sourceId = 56; // int | 
+final int wsId = 56; // int | 
 
 try {
-    final response = api.deleteSourceV1IntegrationsSourcesSourceIdDelete(sourceId);
+    final response = api.deleteSourceV1IntegrationsSourcesSourceIdDelete(sourceId, wsId);
     print(response);
 } catch on DioError (e) {
     print('Exception when calling IntegrationsSourcesApi->deleteSourceV1IntegrationsSourcesSourceIdDelete: $e\n');
@@ -85,6 +88,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sourceId** | **int**|  | 
+ **wsId** | **int**|  | 
 
 ### Return type
 
@@ -101,10 +105,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **getSourceTypesV1IntegrationsSourcesTypesGet**
-> BuiltList<SourceTypeGet> getSourceTypesV1IntegrationsSourcesTypesGet()
+# **getSourcesV1IntegrationsSourcesGet**
+> BuiltList<SourceGet> getSourcesV1IntegrationsSourcesGet(wsId)
 
-Get Source Types
+Get Sources
 
 ### Example
 ```dart
@@ -113,21 +117,25 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
 
 final api = Openapi().getIntegrationsSourcesApi();
+final int wsId = 56; // int | 
 
 try {
-    final response = api.getSourceTypesV1IntegrationsSourcesTypesGet();
+    final response = api.getSourcesV1IntegrationsSourcesGet(wsId);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling IntegrationsSourcesApi->getSourceTypesV1IntegrationsSourcesTypesGet: $e\n');
+    print('Exception when calling IntegrationsSourcesApi->getSourcesV1IntegrationsSourcesGet: $e\n');
 }
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **wsId** | **int**|  | 
 
 ### Return type
 
-[**BuiltList&lt;SourceTypeGet&gt;**](SourceTypeGet.md)
+[**BuiltList&lt;SourceGet&gt;**](SourceGet.md)
 
 ### Authorization
 
@@ -141,7 +149,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **upsertSourceV1IntegrationsSourcesPost**
-> SourceGet upsertSourceV1IntegrationsSourcesPost(sourceUpsert)
+> SourceGet upsertSourceV1IntegrationsSourcesPost(wsId, sourceUpsert)
 
 Upsert Source
 
@@ -152,10 +160,11 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
 
 final api = Openapi().getIntegrationsSourcesApi();
+final int wsId = 56; // int | 
 final SourceUpsert sourceUpsert = ; // SourceUpsert | 
 
 try {
-    final response = api.upsertSourceV1IntegrationsSourcesPost(sourceUpsert);
+    final response = api.upsertSourceV1IntegrationsSourcesPost(wsId, sourceUpsert);
     print(response);
 } catch on DioError (e) {
     print('Exception when calling IntegrationsSourcesApi->upsertSourceV1IntegrationsSourcesPost: $e\n');
@@ -166,6 +175,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **wsId** | **int**|  | 
  **sourceUpsert** | [**SourceUpsert**](SourceUpsert.md)|  | 
 
 ### Return type

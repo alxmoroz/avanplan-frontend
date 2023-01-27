@@ -12,10 +12,10 @@ part 'task_upsert.g.dart';
 ///
 /// Properties:
 /// * [id] 
-/// * [workspaceId] 
 /// * [title] 
 /// * [description] 
 /// * [closed] 
+/// * [type] 
 /// * [startDate] 
 /// * [dueDate] 
 /// * [closedDate] 
@@ -26,14 +26,10 @@ part 'task_upsert.g.dart';
 /// * [statusId] 
 /// * [parentId] 
 /// * [taskSourceId] 
-/// * [typeId] 
 @BuiltValue()
 abstract class TaskUpsert implements Built<TaskUpsert, TaskUpsertBuilder> {
   @BuiltValueField(wireName: r'id')
   int? get id;
-
-  @BuiltValueField(wireName: r'workspace_id')
-  int get workspaceId;
 
   @BuiltValueField(wireName: r'title')
   String get title;
@@ -43,6 +39,9 @@ abstract class TaskUpsert implements Built<TaskUpsert, TaskUpsertBuilder> {
 
   @BuiltValueField(wireName: r'closed')
   bool? get closed;
+
+  @BuiltValueField(wireName: r'type')
+  String? get type;
 
   @BuiltValueField(wireName: r'start_date')
   DateTime? get startDate;
@@ -74,16 +73,14 @@ abstract class TaskUpsert implements Built<TaskUpsert, TaskUpsertBuilder> {
   @BuiltValueField(wireName: r'task_source_id')
   int? get taskSourceId;
 
-  @BuiltValueField(wireName: r'type_id')
-  int? get typeId;
-
   TaskUpsert._();
 
   factory TaskUpsert([void updates(TaskUpsertBuilder b)]) = _$TaskUpsert;
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(TaskUpsertBuilder b) => b
-      ..closed = false;
+      ..closed = false
+      ..type = 'TASK';
 
   @BuiltValueSerializer(custom: true)
   static Serializer<TaskUpsert> get serializer => _$TaskUpsertSerializer();
@@ -108,11 +105,6 @@ class _$TaskUpsertSerializer implements PrimitiveSerializer<TaskUpsert> {
         specifiedType: const FullType(int),
       );
     }
-    yield r'workspace_id';
-    yield serializers.serialize(
-      object.workspaceId,
-      specifiedType: const FullType(int),
-    );
     yield r'title';
     yield serializers.serialize(
       object.title,
@@ -130,6 +122,13 @@ class _$TaskUpsertSerializer implements PrimitiveSerializer<TaskUpsert> {
       yield serializers.serialize(
         object.closed,
         specifiedType: const FullType(bool),
+      );
+    }
+    if (object.type != null) {
+      yield r'type';
+      yield serializers.serialize(
+        object.type,
+        specifiedType: const FullType(String),
       );
     }
     if (object.startDate != null) {
@@ -202,13 +201,6 @@ class _$TaskUpsertSerializer implements PrimitiveSerializer<TaskUpsert> {
         specifiedType: const FullType(int),
       );
     }
-    if (object.typeId != null) {
-      yield r'type_id';
-      yield serializers.serialize(
-        object.typeId,
-        specifiedType: const FullType(int),
-      );
-    }
   }
 
   @override
@@ -239,13 +231,6 @@ class _$TaskUpsertSerializer implements PrimitiveSerializer<TaskUpsert> {
           ) as int;
           result.id = valueDes;
           break;
-        case r'workspace_id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.workspaceId = valueDes;
-          break;
         case r'title':
           final valueDes = serializers.deserialize(
             value,
@@ -266,6 +251,13 @@ class _$TaskUpsertSerializer implements PrimitiveSerializer<TaskUpsert> {
             specifiedType: const FullType(bool),
           ) as bool;
           result.closed = valueDes;
+          break;
+        case r'type':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.type = valueDes;
           break;
         case r'start_date':
           final valueDes = serializers.deserialize(
@@ -336,13 +328,6 @@ class _$TaskUpsertSerializer implements PrimitiveSerializer<TaskUpsert> {
             specifiedType: const FullType(int),
           ) as int;
           result.taskSourceId = valueDes;
-          break;
-        case r'type_id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.typeId = valueDes;
           break;
         default:
           unhandled.add(key);

@@ -8,7 +8,7 @@ void main() {
   group(IntegrationsSourcesApi, () {
     // Check Connection
     //
-    //Future<bool> checkConnectionV1IntegrationsSourcesCheckConnectionGet(int sourceId) async
+    //Future<bool> checkConnectionV1IntegrationsSourcesCheckConnectionGet(int sourceId, int wsId) async
     test('test checkConnectionV1IntegrationsSourcesCheckConnectionGet',
         () async {
       // TODO
@@ -16,21 +16,21 @@ void main() {
 
     // Delete Source
     //
-    //Future<JsonObject> deleteSourceV1IntegrationsSourcesSourceIdDelete(int sourceId) async
+    //Future<JsonObject> deleteSourceV1IntegrationsSourcesSourceIdDelete(int sourceId, int wsId) async
     test('test deleteSourceV1IntegrationsSourcesSourceIdDelete', () async {
       // TODO
     });
 
-    // Get Source Types
+    // Get Sources
     //
-    //Future<BuiltList<SourceTypeGet>> getSourceTypesV1IntegrationsSourcesTypesGet() async
-    test('test getSourceTypesV1IntegrationsSourcesTypesGet', () async {
+    //Future<BuiltList<SourceGet>> getSourcesV1IntegrationsSourcesGet(int wsId) async
+    test('test getSourcesV1IntegrationsSourcesGet', () async {
       // TODO
     });
 
     // Upsert Source
     //
-    //Future<SourceGet> upsertSourceV1IntegrationsSourcesPost(SourceUpsert sourceUpsert) async
+    //Future<SourceGet> upsertSourceV1IntegrationsSourcesPost(int wsId, SourceUpsert sourceUpsert) async
     test('test upsertSourceV1IntegrationsSourcesPost', () async {
       // TODO
     });

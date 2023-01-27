@@ -3,19 +3,19 @@
 import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/repositories/abs_api_repo.dart';
+import '../../L1_domain/repositories/abs_api_ws_repo.dart';
 import '../mappers/task.dart';
 import '../services/api.dart';
 
 // TODO: для всех подобных репозиториев: развязать узел зависимости от 3 уровня за счёт инициализации openApi в конструктор репы
 
-class TasksRepo extends AbstractApiRepo<Task> {
+class TasksRepo extends AbstractApiWSRepo<Task> {
   o_api.TasksApi get api => openAPI.getTasksApi();
 
   @override
-  Future<List<Task>> getAll([dynamic query]) async {
+  Future<List<Task>> getAll(int wsId) async {
     final List<Task> tasks = [];
-    final response = await api.getRootTasksV1TasksGet(wsId: query!.workspaceId);
+    final response = await api.getRootTasksV1TasksGet(wsId: wsId);
     if (response.statusCode == 200) {
       for (o_api.TaskGet t in response.data?.toList() ?? []) {
         tasks.add(t.task());
@@ -27,7 +27,6 @@ class TasksRepo extends AbstractApiRepo<Task> {
   @override
   Future<Task?> save(Task data) async {
     final qBuilder = o_api.TaskUpsertBuilder()
-      ..workspaceId = data.workspaceId
       ..id = data.id
       ..statusId = data.status?.id
       ..estimate = data.estimate
@@ -38,9 +37,9 @@ class TasksRepo extends AbstractApiRepo<Task> {
       ..startDate = data.startDate?.toUtc()
       ..closedDate = data.closedDate?.toUtc()
       ..dueDate = data.dueDate?.toUtc()
-      ..typeId = data.type?.id;
+      ..type = data.type;
 
-    final response = await api.upsertTaskV1TasksPost(taskUpsert: qBuilder.build());
+    final response = await api.upsertTaskV1TasksPost(taskUpsert: qBuilder.build(), wsId: data.workspaceId);
     Task? task;
     if (response.statusCode == 201) {
       task = response.data?.task(data.parent);
@@ -49,8 +48,8 @@ class TasksRepo extends AbstractApiRepo<Task> {
   }
 
   @override
-  Future<bool> delete(int id) async {
-    final response = await api.deleteTaskV1TasksTaskIdDelete(taskId: id);
+  Future<bool> delete(Task data) async {
+    final response = await api.deleteTaskV1TasksTaskIdDelete(taskId: data.id!, wsId: data.workspaceId);
     return response.statusCode == 200 && response.data?.asNum == 1;
   }
 }

@@ -5,7 +5,7 @@
 import 'package:openapi/api.dart';
 ```
 
-All URIs are relative to */api*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 
 # **getRootTasksV1IntegrationsTasksGet**
-> BuiltList<Task> getRootTasksV1IntegrationsTasksGet(sourceId)
+> BuiltList<Task> getRootTasksV1IntegrationsTasksGet(sourceId, wsId)
 
 Get Root Tasks
 
@@ -27,9 +27,10 @@ import 'package:openapi/api.dart';
 
 final api = Openapi().getIntegrationsTasksApi();
 final int sourceId = 56; // int | 
+final int wsId = 56; // int | 
 
 try {
-    final response = api.getRootTasksV1IntegrationsTasksGet(sourceId);
+    final response = api.getRootTasksV1IntegrationsTasksGet(sourceId, wsId);
     print(response);
 } catch on DioError (e) {
     print('Exception when calling IntegrationsTasksApi->getRootTasksV1IntegrationsTasksGet: $e\n');
@@ -41,6 +42,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sourceId** | **int**|  | 
+ **wsId** | **int**|  | 
 
 ### Return type
 
@@ -58,7 +60,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **importTaskSourcesV1IntegrationsTasksImportPost**
-> JsonObject importTaskSourcesV1IntegrationsTasksImportPost(sourceId, taskSource)
+> JsonObject importTaskSourcesV1IntegrationsTasksImportPost(sourceId, wsId, taskSource)
 
 Import Task Sources
 
@@ -70,10 +72,11 @@ import 'package:openapi/api.dart';
 
 final api = Openapi().getIntegrationsTasksApi();
 final int sourceId = 56; // int | 
+final int wsId = 56; // int | 
 final BuiltList<TaskSource> taskSource = ; // BuiltList<TaskSource> | 
 
 try {
-    final response = api.importTaskSourcesV1IntegrationsTasksImportPost(sourceId, taskSource);
+    final response = api.importTaskSourcesV1IntegrationsTasksImportPost(sourceId, wsId, taskSource);
     print(response);
 } catch on DioError (e) {
     print('Exception when calling IntegrationsTasksApi->importTaskSourcesV1IntegrationsTasksImportPost: $e\n');
@@ -85,6 +88,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sourceId** | **int**|  | 
+ **wsId** | **int**|  | 
  **taskSource** | [**BuiltList&lt;TaskSource&gt;**](TaskSource.md)|  | 
 
 ### Return type
@@ -103,7 +107,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost**
-> JsonObject updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost(taskSourceUpsert)
+> JsonObject updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost(wsId, taskSourceUpsert)
 
 Update Task Sources
 
@@ -114,10 +118,11 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
 
 final api = Openapi().getIntegrationsTasksApi();
+final int wsId = 56; // int | 
 final BuiltList<TaskSourceUpsert> taskSourceUpsert = ; // BuiltList<TaskSourceUpsert> | 
 
 try {
-    final response = api.updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost(taskSourceUpsert);
+    final response = api.updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost(wsId, taskSourceUpsert);
     print(response);
 } catch on DioError (e) {
     print('Exception when calling IntegrationsTasksApi->updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost: $e\n');
@@ -128,6 +133,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **wsId** | **int**|  | 
  **taskSourceUpsert** | [**BuiltList&lt;TaskSourceUpsert&gt;**](TaskSourceUpsert.md)|  | 
 
 ### Return type

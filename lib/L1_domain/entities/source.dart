@@ -2,10 +2,6 @@
 
 import 'base_entity.dart';
 
-class SourceType extends Codable {
-  SourceType({required super.id, required super.code});
-}
-
 enum SrcState {
   connected,
   error,
@@ -15,7 +11,7 @@ enum SrcState {
 class Source extends RPersistable {
   Source({
     super.id,
-    required this.workspaceId,
+    this.workspaceId = -1,
     required this.type,
     required this.url,
     this.apiKey,
@@ -25,8 +21,8 @@ class Source extends RPersistable {
     this.state = SrcState.unknown,
   });
 
-  final int workspaceId;
-  final SourceType type;
+  int workspaceId;
+  final String type;
   final String url;
   final String? apiKey;
   final String? username;
@@ -35,5 +31,5 @@ class Source extends RPersistable {
   SrcState state;
 
   @override
-  String toString() => description.isEmpty ? type.code : description;
+  String toString() => description.isEmpty ? type : description;
 }

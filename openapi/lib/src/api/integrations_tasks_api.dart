@@ -28,6 +28,7 @@ class IntegrationsTasksApi {
   ///
   /// Parameters:
   /// * [sourceId] 
+  /// * [wsId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -39,6 +40,7 @@ class IntegrationsTasksApi {
   /// Throws [DioError] if API call or serialization fails
   Future<Response<BuiltList<Task>>> getRootTasksV1IntegrationsTasksGet({ 
     required int sourceId,
+    required int wsId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -66,6 +68,7 @@ class IntegrationsTasksApi {
 
     final _queryParameters = <String, dynamic>{
       r'source_id': encodeQueryParameter(_serializers, sourceId, const FullType(int)),
+      r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
     };
 
     final _response = await _dio.request<Object>(
@@ -112,6 +115,7 @@ class IntegrationsTasksApi {
   ///
   /// Parameters:
   /// * [sourceId] 
+  /// * [wsId] 
   /// * [taskSource] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
@@ -124,6 +128,7 @@ class IntegrationsTasksApi {
   /// Throws [DioError] if API call or serialization fails
   Future<Response<JsonObject>> importTaskSourcesV1IntegrationsTasksImportPost({ 
     required int sourceId,
+    required int wsId,
     required BuiltList<TaskSource> taskSource,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -153,6 +158,7 @@ class IntegrationsTasksApi {
 
     final _queryParameters = <String, dynamic>{
       r'source_id': encodeQueryParameter(_serializers, sourceId, const FullType(int)),
+      r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
     };
 
     dynamic _bodyData;
@@ -217,6 +223,7 @@ class IntegrationsTasksApi {
   /// 
   ///
   /// Parameters:
+  /// * [wsId] 
   /// * [taskSourceUpsert] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
@@ -228,6 +235,7 @@ class IntegrationsTasksApi {
   /// Returns a [Future] containing a [Response] with a [JsonObject] as data
   /// Throws [DioError] if API call or serialization fails
   Future<Response<JsonObject>> updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost({ 
+    required int wsId,
     required BuiltList<TaskSourceUpsert> taskSourceUpsert,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -255,6 +263,10 @@ class IntegrationsTasksApi {
       validateStatus: validateStatus,
     );
 
+    final _queryParameters = <String, dynamic>{
+      r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
+    };
+
     dynamic _bodyData;
 
     try {
@@ -266,6 +278,7 @@ class IntegrationsTasksApi {
          requestOptions: _options.compose(
           _dio.options,
           _path,
+          queryParameters: _queryParameters,
         ),
         type: DioErrorType.other,
         error: error,
@@ -276,6 +289,7 @@ class IntegrationsTasksApi {
       _path,
       data: _bodyData,
       options: _options,
+      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,

@@ -1,17 +1,16 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import '../entities/task.dart';
-import '../repositories/abs_api_repo.dart';
+import '../repositories/abs_api_ws_repo.dart';
 
 //TODO: похоже, есть смысл сделать абстрактный общий юзкейс
 
 class TasksUC {
   TasksUC({required this.repo});
 
-  final AbstractApiRepo<Task> repo;
+  final AbstractApiWSRepo<Task> repo;
 
-  Future<List<Task>> getTasks(int wsId, int? parentId) async => await repo.getAll(TaskQuery(workspaceId: wsId, parentId: parentId));
-  Future<List<Task>> getRoots(int wsId) async => await getTasks(wsId, null);
+  Future<List<Task>> getRoots(int wsId) async => await repo.getAll(wsId);
 
   Future<Task?> save(Task t) async {
     Task? task;
@@ -22,9 +21,9 @@ class TasksUC {
     return task;
   }
 
-  Future<Task> delete({required Task t}) async {
+  Future<Task> delete(Task t) async {
     if (t.id != null) {
-      final deletedRows = await repo.delete(t.id!);
+      final deletedRows = await repo.delete(t);
       // TODO: внутр. exception?
       if (deletedRows) {
         t.deleted = true;

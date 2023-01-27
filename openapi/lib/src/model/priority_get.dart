@@ -12,16 +12,12 @@ part 'priority_get.g.dart';
 ///
 /// Properties:
 /// * [id] 
-/// * [workspaceId] 
 /// * [order] 
 /// * [code] 
 @BuiltValue()
 abstract class PriorityGet implements Built<PriorityGet, PriorityGetBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
-
-  @BuiltValueField(wireName: r'workspace_id')
-  int get workspaceId;
 
   @BuiltValueField(wireName: r'order')
   int get order;
@@ -55,11 +51,6 @@ class _$PriorityGetSerializer implements PrimitiveSerializer<PriorityGet> {
     yield r'id';
     yield serializers.serialize(
       object.id,
-      specifiedType: const FullType(int),
-    );
-    yield r'workspace_id';
-    yield serializers.serialize(
-      object.workspaceId,
       specifiedType: const FullType(int),
     );
     yield r'order';
@@ -101,13 +92,6 @@ class _$PriorityGetSerializer implements PrimitiveSerializer<PriorityGet> {
             specifiedType: const FullType(int),
           ) as int;
           result.id = valueDes;
-          break;
-        case r'workspace_id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.workspaceId = valueDes;
           break;
         case r'order':
           final valueDes = serializers.deserialize(

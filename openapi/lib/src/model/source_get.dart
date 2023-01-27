@@ -3,7 +3,6 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:openapi/src/model/source_type_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -13,7 +12,6 @@ part 'source_get.g.dart';
 ///
 /// Properties:
 /// * [id] 
-/// * [workspaceId] 
 /// * [url] 
 /// * [apiKey] 
 /// * [username] 
@@ -24,9 +22,6 @@ part 'source_get.g.dart';
 abstract class SourceGet implements Built<SourceGet, SourceGetBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
-
-  @BuiltValueField(wireName: r'workspace_id')
-  int get workspaceId;
 
   @BuiltValueField(wireName: r'url')
   String get url;
@@ -41,7 +36,7 @@ abstract class SourceGet implements Built<SourceGet, SourceGetBuilder> {
   String? get description;
 
   @BuiltValueField(wireName: r'type')
-  SourceTypeGet get type;
+  String get type;
 
   @BuiltValueField(wireName: r'imported_on')
   DateTime? get importedOn;
@@ -74,11 +69,6 @@ class _$SourceGetSerializer implements PrimitiveSerializer<SourceGet> {
       object.id,
       specifiedType: const FullType(int),
     );
-    yield r'workspace_id';
-    yield serializers.serialize(
-      object.workspaceId,
-      specifiedType: const FullType(int),
-    );
     yield r'url';
     yield serializers.serialize(
       object.url,
@@ -108,7 +98,7 @@ class _$SourceGetSerializer implements PrimitiveSerializer<SourceGet> {
     yield r'type';
     yield serializers.serialize(
       object.type,
-      specifiedType: const FullType(SourceTypeGet),
+      specifiedType: const FullType(String),
     );
     if (object.importedOn != null) {
       yield r'imported_on';
@@ -147,13 +137,6 @@ class _$SourceGetSerializer implements PrimitiveSerializer<SourceGet> {
           ) as int;
           result.id = valueDes;
           break;
-        case r'workspace_id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.workspaceId = valueDes;
-          break;
         case r'url':
           final valueDes = serializers.deserialize(
             value,
@@ -185,9 +168,9 @@ class _$SourceGetSerializer implements PrimitiveSerializer<SourceGet> {
         case r'type':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(SourceTypeGet),
-          ) as SourceTypeGet;
-          result.type.replace(valueDes);
+            specifiedType: const FullType(String),
+          ) as String;
+          result.type = valueDes;
           break;
         case r'imported_on':
           final valueDes = serializers.deserialize(

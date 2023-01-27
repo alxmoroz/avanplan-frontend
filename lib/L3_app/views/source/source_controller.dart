@@ -34,7 +34,7 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
   @action
   Future fetchData() async {
     final _sources = <Source>[];
-    for (Workspace ws in mainController.selectableWSs) {
+    for (Workspace ws in mainController.editableWSs) {
       _sources.addAll(ws.sources);
     }
     sources = ObservableList.of(_sources);
@@ -42,18 +42,13 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
   }
 
   @action
-  void clearData() {
-    sources.clear();
-  }
+  void clearData() => sources.clear();
 
   @observable
-  int? selectedTypeId;
+  String? selectedType;
 
   @action
-  void selectType(SourceType? _type) => selectedTypeId = _type?.id;
-
-  @computed
-  SourceType? get selectedType => referencesController.sourceTypes.firstWhereOrNull((s) => s.id == selectedTypeId);
+  void selectType(String? _type) => selectedType = _type;
 
   /// источники импорта, трекеры
 
@@ -92,7 +87,7 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
           // TODO: нужен способ дергать обсервер без этих хаков
           sources = sources;
 
-          connected = await sourcesUC.checkConnection(src.id!);
+          connected = await sourcesUC.checkConnection(src);
           src.state = connected ? SrcState.connected : SrcState.error;
           sources = sources;
         }
@@ -143,6 +138,8 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
     ));
 
     if (editedSource != null) {
+      editedSource.workspaceId = selectedWS!.id!;
+
       Navigator.of(context).pop(editedSource);
       await loaderController.stop(300);
     }
@@ -163,7 +160,7 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
       if (confirm == true) {
         loaderController.start();
         loaderController.setDeleting();
-        Navigator.of(context).pop(await sourcesUC.delete(s: selectedSource!));
+        Navigator.of(context).pop(await sourcesUC.delete(selectedSource!));
 
         // отвязываем задачи
         mainController.rootTask.tasks.where((t) => t.taskSource?.source.id == selectedSourceId).forEach((t) => t.unlinkTaskTree());
@@ -176,9 +173,9 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
 
   /// роутер
 
-  Future<Source?> addSource({SourceType? sType}) async => await editSource(sType: sType);
+  Future<Source?> addSource({String? sType}) async => await editSource(sType: sType);
 
-  Future<Source?> editSource({Source? src, SourceType? sType}) async {
+  Future<Source?> editSource({Source? src, String? sType}) async {
     selectSource(src);
     if (src == null && sType != null) {
       selectType(sType);

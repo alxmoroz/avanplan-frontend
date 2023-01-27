@@ -11,22 +11,20 @@ import '../components/mt_circle.dart';
 import '../components/text_widgets.dart';
 import '../extra/services.dart';
 
-extension SourceTypePresenter on SourceType {
-  Widget get icon {
-    switch (code) {
-      case 'Redmine':
-        return redmineIcon();
-      case 'GitLab':
-        return gitlabIcon();
-      case 'Jira':
-        return jiraIcon();
-      default:
-        return const NoInfoIcon();
-    }
+Widget iconForSourceType(String st) {
+  switch (st) {
+    case 'Redmine':
+      return redmineIcon();
+    case 'GitLab':
+      return gitlabIcon();
+    case 'Jira':
+      return jiraIcon();
+    default:
+      return const NoInfoIcon();
   }
-
-  Widget get iconTitle => Row(children: [icon, const SizedBox(width: P_2), NormalText('$this')]);
 }
+
+Widget iconTitleForSourceType(String st) => Row(children: [iconForSourceType(st), const SizedBox(width: P_2), NormalText(st)]);
 
 double get _connectionIndicatorSize => P;
 
@@ -36,7 +34,7 @@ extension SourcePresenter on Source {
     final connected = state == SrcState.connected;
     final textColor = connected ? null : lightGreyColor;
     return Row(children: [
-      type.icon,
+      iconForSourceType(type),
       const SizedBox(width: P_2),
       Expanded(
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -59,7 +57,7 @@ extension TaskSourcePresenter on TaskSource {
   Widget go2SourceTitle({bool showSourceIcon = false}) => Row(
         children: [
           if (showSourceIcon) ...[
-            source.type.icon,
+            iconForSourceType(source.type),
             const SizedBox(width: P_2),
           ],
           NormalText(loc.task_go2source_title, color: mainColor),

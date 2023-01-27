@@ -77,7 +77,9 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
   bool get validated => super.validated && selectedWS != null;
 
   /// действия
-  Future<Task?> _saveTask(Task? task, Task parent) async => await tasksUC.save(Task(
+  Future<Task?> _saveTask(Task? task, Task parent) async {
+    final sTask = await tasksUC.save(
+      Task(
         id: task?.id,
         parent: parent,
         title: tfAnnoForCode('title').text,
@@ -87,10 +89,17 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
         estimate: selectedEstimate?.value,
         startDate: selectedStartDate,
         dueDate: selectedDueDate,
-        workspaceId: selectedWS!.id,
         tasks: task?.tasks ?? [],
-        // type: selectedType,
-      ));
+        type: task?.type,
+        workspaceId: selectedWS!.id!,
+      ),
+    );
+    if (sTask != null) {
+      sTask.workspaceId = selectedWS!.id!;
+    }
+
+    return sTask;
+  }
 
   Future save(BuildContext context, {Task? task, required Task parent, bool proceed = false}) async {
     loaderController.start();
@@ -116,7 +125,7 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
     if (confirm == true) {
       loaderController.start();
       loaderController.setDeleting();
-      final deletedTask = await tasksUC.delete(t: task);
+      final deletedTask = await tasksUC.delete(task);
       Navigator.of(context).pop(EditTaskResult(deletedTask));
       await loaderController.stop(300);
     }
@@ -124,7 +133,7 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
 
   /// оценки задач
   @computed
-  List<Estimate> get estimates => selectedWS?.estimates ?? [];
+  List<Estimate> get estimates => []; // selectedWS?.estimates ?? [];
 
   @observable
   int? _selectedEstimateId;

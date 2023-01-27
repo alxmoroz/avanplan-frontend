@@ -43,8 +43,8 @@ class _SourceEditViewState extends State<SourceEditView> {
   bool get _isNew => _source == null;
   bool get _canSave => _controller.validated;
 
-  String get _sourceCode => _controller.selectedType != null ? _controller.selectedType!.code.toLowerCase() : '';
-  bool get _showUsername => _controller.selectedType?.code == 'Jira';
+  String get _sourceCode => _controller.selectedType != null ? _controller.selectedType!.toLowerCase() : '';
+  bool get _showUsername => _controller.selectedType == 'Jira';
 
   String get _sourceEditHelperAddress => '$docsPath/import/$_sourceCode';
 
@@ -132,7 +132,7 @@ class _SourceEditViewState extends State<SourceEditView> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               if (_isNew) MediumText(loc.source_title_new, padding: const EdgeInsets.only(right: P_2)),
-              _controller.selectedType!.iconTitle,
+              iconTitleForSourceType(_controller.selectedType!),
             ],
           ),
           trailing: _controller.canEdit

@@ -8,7 +8,7 @@ void main() {
   group(TasksApi, () {
     // Delete Task
     //
-    //Future<JsonObject> deleteTaskV1TasksTaskIdDelete(int taskId) async
+    //Future<JsonObject> deleteTaskV1TasksTaskIdDelete(int taskId, int wsId) async
     test('test deleteTaskV1TasksTaskIdDelete', () async {
       // TODO
     });
@@ -22,7 +22,7 @@ void main() {
 
     // Upsert Task
     //
-    //Future<TaskGet> upsertTaskV1TasksPost(TaskUpsert taskUpsert) async
+    //Future<TaskGet> upsertTaskV1TasksPost(int wsId, TaskUpsert taskUpsert) async
     test('test upsertTaskV1TasksPost', () async {
       // TODO
     });

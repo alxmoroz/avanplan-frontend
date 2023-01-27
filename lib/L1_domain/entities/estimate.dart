@@ -6,11 +6,10 @@ class Estimate extends RPersistable {
   Estimate({
     required super.id,
     required this.value,
-    required this.workspaceId,
   });
 
   final int value;
-  final int workspaceId;
+  int workspaceId = -1;
 
   @override
   String toString() => '$value';

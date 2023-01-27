@@ -9,4 +9,5 @@ class WSSettings extends RPersistable {
   });
 
   final String estimateUnit;
+  int workspaceId = -1;
 }

@@ -1,7 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'base_entity.dart';
-import 'event_type.dart';
 
 class Event extends RPersistable {
   Event({
@@ -11,7 +10,7 @@ class Event extends RPersistable {
     required this.objectId,
   });
 
-  final EventType type;
+  final String type;
   final DateTime createdOn;
   final int? objectId;
 }

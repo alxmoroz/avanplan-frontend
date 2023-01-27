@@ -12,7 +12,6 @@ part 'person_get.g.dart';
 ///
 /// Properties:
 /// * [id] 
-/// * [workspaceId] 
 /// * [email] 
 /// * [firstname] 
 /// * [lastname] 
@@ -20,9 +19,6 @@ part 'person_get.g.dart';
 abstract class PersonGet implements Built<PersonGet, PersonGetBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
-
-  @BuiltValueField(wireName: r'workspace_id')
-  int get workspaceId;
 
   @BuiltValueField(wireName: r'email')
   String get email;
@@ -59,11 +55,6 @@ class _$PersonGetSerializer implements PrimitiveSerializer<PersonGet> {
     yield r'id';
     yield serializers.serialize(
       object.id,
-      specifiedType: const FullType(int),
-    );
-    yield r'workspace_id';
-    yield serializers.serialize(
-      object.workspaceId,
       specifiedType: const FullType(int),
     );
     yield r'email';
@@ -114,13 +105,6 @@ class _$PersonGetSerializer implements PrimitiveSerializer<PersonGet> {
             specifiedType: const FullType(int),
           ) as int;
           result.id = valueDes;
-          break;
-        case r'workspace_id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.workspaceId = valueDes;
           break;
         case r'email':
           final valueDes = serializers.deserialize(

@@ -67,7 +67,7 @@ abstract class _TaskViewControllerBase with Store {
   bool get showGroupTitles => _showGroupTitles ?? task.subtaskGroups.length > 1 && task.tasks.length > 4;
 
   @computed
-  bool get canEditTask => authController.canEditWS(mainController.rolesForWS(task.workspaceId));
+  bool get canEditTask => authController.canEditWS(mainController.rolesForWS(task.project?.workspaceId));
 
   /// связь с источником импорта
 
@@ -224,7 +224,7 @@ abstract class _TaskViewControllerBase with Store {
       loaderController.start();
       loaderController.setUnlinking();
       try {
-        await importUC.updateTaskSources(task.unlinkTaskTree());
+        await importUC.updateTaskSources(task.workspaceId, task.unlinkTaskTree());
         mainController.updateRootTask();
         res = true;
       } catch (_) {}
@@ -237,7 +237,7 @@ abstract class _TaskViewControllerBase with Store {
     if (await _unwatchDialog() == true) {
       loaderController.start();
       loaderController.setUnwatch();
-      final deletedTask = await tasksUC.delete(t: task);
+      final deletedTask = await tasksUC.delete(task);
       await loaderController.stop();
       if (deletedTask.deleted) {
         _popDeleted(deletedTask);
@@ -261,13 +261,13 @@ abstract class _TaskViewControllerBase with Store {
         await setClosed(false);
         break;
       case TaskActionType.import_gitlab:
-        await importController.importTasks(sType: referencesController.stGitlab);
+        await importController.importTasks(sType: refsController.stGitlab);
         break;
       case TaskActionType.import_jira:
-        await importController.importTasks(sType: referencesController.stJira);
+        await importController.importTasks(sType: refsController.stJira);
         break;
       case TaskActionType.import_redmine:
-        await importController.importTasks(sType: referencesController.stRedmine);
+        await importController.importTasks(sType: refsController.stRedmine);
         break;
       case TaskActionType.go2source:
         await launchUrlString(task.taskSource!.urlString);

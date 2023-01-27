@@ -9,30 +9,19 @@ import 'status.dart';
 import 'ws_role.dart';
 import 'ws_settings.dart';
 
-class Workspace extends Codable {
+class Workspace extends Titleable {
   Workspace({
     required super.id,
-    required super.code,
-    required this.statuses,
-    required this.estimates,
-    required this.priorities,
-    required this.persons,
-    required this.sources,
-    required this.title,
-    required this.description,
-    required this.settings,
+    required super.title,
+    required super.description,
   });
 
-  final List<Status> statuses;
-  final List<Priority> priorities;
-  final List<Person> persons;
-  final List<Source> sources;
-  final List<Estimate> estimates;
-
-  final String title;
-  final String description;
-
-  final WSSettings? settings;
+  List<Status> statuses = [];
+  List<Priority> priorities = [];
+  List<Person> persons = [];
+  List<Source> sources = [];
+  List<Estimate> estimates = [];
+  WSSettings? settings;
 
   List<WSRole> roles = [];
 }

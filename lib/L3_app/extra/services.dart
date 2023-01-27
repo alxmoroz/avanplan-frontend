@@ -17,7 +17,6 @@ import '../../L2_data/repositories/auth_password_repo.dart';
 import '../../L2_data/repositories/db_repo.dart';
 import '../../L2_data/repositories/import_repo.dart';
 import '../../L2_data/repositories/my_repo.dart';
-import '../../L2_data/repositories/source_types_repo.dart';
 import '../../L2_data/repositories/sources_repo.dart';
 import '../../L2_data/repositories/tasks_repo.dart';
 import '../../L2_data/services/api.dart';
@@ -41,7 +40,7 @@ SettingsController get settingsController => GetIt.I<SettingsController>();
 MainController get mainController => GetIt.I<MainController>();
 LoaderController get loaderController => GetIt.I<LoaderController>();
 SourceController get sourceController => GetIt.I<SourceController>();
-ReferencesController get referencesController => GetIt.I<ReferencesController>();
+ReferencesController get refsController => GetIt.I<ReferencesController>();
 ImportController get importController => GetIt.I<ImportController>();
 AccountController get accountController => GetIt.I<AccountController>();
 AuthController get authController => GetIt.I<AuthController>();
@@ -52,8 +51,6 @@ AuthUC get authUC => GetIt.I<AuthUC>();
 MyUC get myUC => GetIt.I<MyUC>();
 TasksUC get tasksUC => GetIt.I<TasksUC>();
 SourcesUC get sourcesUC => GetIt.I<SourcesUC>();
-SourceTypesUC get sourceTypesUC => GetIt.I<SourceTypesUC>();
-// TaskTypesUC get taskTypesUC => GetIt.I<TaskTypesUC>();
 ImportUC get importUC => GetIt.I<ImportUC>();
 
 void setup() {
@@ -90,6 +87,5 @@ void setup() {
   getIt.registerSingleton<MyUC>(MyUC(repo: MyRepo()));
   getIt.registerSingleton<TasksUC>(TasksUC(repo: TasksRepo()));
   getIt.registerSingleton<SourcesUC>(SourcesUC(repo: SourcesRepo()));
-  getIt.registerSingleton<SourceTypesUC>(SourceTypesUC(repo: SourceTypesRepo()));
   getIt.registerSingleton<ImportUC>(ImportUC(repo: ImportRepo()));
 }

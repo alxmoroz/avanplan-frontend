@@ -9,7 +9,6 @@ import 'package:openapi/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  | 
-**workspaceId** | **int** |  | 
 **closed** | **bool** |  | 
 **code** | **String** |  | 
 

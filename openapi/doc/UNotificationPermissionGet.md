@@ -10,9 +10,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  | 
 **userId** | **int** |  | 
-**channelId** | **int** |  | 
-**eventTypeId** | **int** |  | 
-**channel** | [**NotificationChannelGet**](NotificationChannelGet.md) |  | 
+**channel** | **String** |  | 
+**eventType** | **String** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

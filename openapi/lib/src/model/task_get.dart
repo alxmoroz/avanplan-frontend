@@ -5,7 +5,6 @@
 // ignore_for_file: unused_element
 import 'package:openapi/src/model/priority_get.dart';
 import 'package:openapi/src/model/task_source_get.dart';
-import 'package:openapi/src/model/task_type_get.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/model/person_get.dart';
 import 'package:openapi/src/model/status_get.dart';
@@ -20,10 +19,10 @@ part 'task_get.g.dart';
 /// * [id] 
 /// * [createdOn] 
 /// * [updatedOn] 
-/// * [workspaceId] 
 /// * [title] 
 /// * [description] 
 /// * [closed] 
+/// * [type] 
 /// * [startDate] 
 /// * [dueDate] 
 /// * [closedDate] 
@@ -33,7 +32,6 @@ part 'task_get.g.dart';
 /// * [priority] 
 /// * [status] 
 /// * [taskSource] 
-/// * [type] 
 /// * [tasks] 
 @BuiltValue()
 abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
@@ -46,9 +44,6 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'updated_on')
   DateTime get updatedOn;
 
-  @BuiltValueField(wireName: r'workspace_id')
-  int get workspaceId;
-
   @BuiltValueField(wireName: r'title')
   String get title;
 
@@ -57,6 +52,9 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
 
   @BuiltValueField(wireName: r'closed')
   bool? get closed;
+
+  @BuiltValueField(wireName: r'type')
+  String? get type;
 
   @BuiltValueField(wireName: r'start_date')
   DateTime? get startDate;
@@ -85,9 +83,6 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'task_source')
   TaskSourceGet? get taskSource;
 
-  @BuiltValueField(wireName: r'type')
-  TaskTypeGet? get type;
-
   @BuiltValueField(wireName: r'tasks')
   BuiltList<TaskGet>? get tasks;
 
@@ -97,7 +92,8 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(TaskGetBuilder b) => b
-      ..closed = false;
+      ..closed = false
+      ..type = 'TASK';
 
   @BuiltValueSerializer(custom: true)
   static Serializer<TaskGet> get serializer => _$TaskGetSerializer();
@@ -130,11 +126,6 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
       object.updatedOn,
       specifiedType: const FullType(DateTime),
     );
-    yield r'workspace_id';
-    yield serializers.serialize(
-      object.workspaceId,
-      specifiedType: const FullType(int),
-    );
     yield r'title';
     yield serializers.serialize(
       object.title,
@@ -152,6 +143,13 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
       yield serializers.serialize(
         object.closed,
         specifiedType: const FullType(bool),
+      );
+    }
+    if (object.type != null) {
+      yield r'type';
+      yield serializers.serialize(
+        object.type,
+        specifiedType: const FullType(String),
       );
     }
     if (object.startDate != null) {
@@ -217,13 +215,6 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
         specifiedType: const FullType(TaskSourceGet),
       );
     }
-    if (object.type != null) {
-      yield r'type';
-      yield serializers.serialize(
-        object.type,
-        specifiedType: const FullType(TaskTypeGet),
-      );
-    }
     if (object.tasks != null) {
       yield r'tasks';
       yield serializers.serialize(
@@ -275,13 +266,6 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
           ) as DateTime;
           result.updatedOn = valueDes;
           break;
-        case r'workspace_id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.workspaceId = valueDes;
-          break;
         case r'title':
           final valueDes = serializers.deserialize(
             value,
@@ -302,6 +286,13 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
             specifiedType: const FullType(bool),
           ) as bool;
           result.closed = valueDes;
+          break;
+        case r'type':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.type = valueDes;
           break;
         case r'start_date':
           final valueDes = serializers.deserialize(
@@ -365,13 +356,6 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
             specifiedType: const FullType(TaskSourceGet),
           ) as TaskSourceGet;
           result.taskSource.replace(valueDes);
-          break;
-        case r'type':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(TaskTypeGet),
-          ) as TaskTypeGet;
-          result.type.replace(valueDes);
           break;
         case r'tasks':
           final valueDes = serializers.deserialize(

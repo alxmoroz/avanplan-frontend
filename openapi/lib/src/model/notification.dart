@@ -17,6 +17,7 @@ part 'notification.g.dart';
 /// * [scheduledDate] 
 /// * [url] 
 /// * [messageId] 
+/// * [channel] 
 /// * [isRead] 
 @BuiltValue()
 abstract class Notification implements Built<Notification, NotificationBuilder> {
@@ -37,6 +38,9 @@ abstract class Notification implements Built<Notification, NotificationBuilder> 
 
   @BuiltValueField(wireName: r'message_id')
   int get messageId;
+
+  @BuiltValueField(wireName: r'channel')
+  String get channel;
 
   @BuiltValueField(wireName: r'is_read')
   bool get isRead;
@@ -99,6 +103,11 @@ class _$NotificationSerializer implements PrimitiveSerializer<Notification> {
     yield serializers.serialize(
       object.messageId,
       specifiedType: const FullType(int),
+    );
+    yield r'channel';
+    yield serializers.serialize(
+      object.channel,
+      specifiedType: const FullType(String),
     );
     yield r'is_read';
     yield serializers.serialize(
@@ -169,6 +178,13 @@ class _$NotificationSerializer implements PrimitiveSerializer<Notification> {
             specifiedType: const FullType(int),
           ) as int;
           result.messageId = valueDes;
+          break;
+        case r'channel':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.channel = valueDes;
           break;
         case r'is_read':
           final valueDes = serializers.deserialize(

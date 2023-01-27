@@ -71,7 +71,7 @@ abstract class _ImportControllerBase extends EditController with Store {
       }
       if (connected) {
         loaderController.setSourceListing(loaderDescription);
-        projects = ObservableList.of((await importUC.getRootTasks(selectedSourceId!)).sorted((t1, t2) => compareNatural(t1.title, t2.title)));
+        projects = ObservableList.of((await importUC.getRootTasks(selectedSource!)).sorted((p1, p2) => compareNatural(p1.title, p2.title)));
       } else {
         _setErrorCode('import_connection_error');
       }
@@ -91,18 +91,18 @@ abstract class _ImportControllerBase extends EditController with Store {
     loaderController.start();
     loaderController.setImporting('$selectedSource\n${selectedSource?.url}');
     final taskSources = selectedProjects.map((t) => t.taskSource!);
-    await importUC.importTaskSources(selectedSource!.id!, taskSources);
+    await importUC.importTaskSources(selectedSource!, taskSources);
     Navigator.of(context).pop();
     await mainController.fetchData();
     await loaderController.stop();
   }
 
-  void needAddSourceEvent(BuildContext context, SourceType st) => Navigator.of(context).pop(st);
+  void needAddSourceEvent(BuildContext context, String st) => Navigator.of(context).pop(st);
 
   // старт сценария по импорту задач
-  Future importTasks({bool needAddSource = false, SourceType? sType}) async {
+  Future importTasks({bool needAddSource = false, String? sType}) async {
     // проверяем наличие выбранного типа источника импорта
-    Source? preselectedSource = sType != null ? sourceController.sources.firstWhereOrNull((s) => s.type.id == sType.id) : selectedSource;
+    Source? preselectedSource = sType != null ? sourceController.sources.firstWhereOrNull((s) => s.type == sType) : selectedSource;
     // переходим к созданию источника, если нет источников, либо явный запрос на создание, либо источник выбранного типа отсутствует
     if (sourceController.sources.isEmpty || needAddSource || (sType != null && preselectedSource == null)) {
       preselectedSource = await sourceController.addSource(sType: sType);

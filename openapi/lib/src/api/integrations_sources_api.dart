@@ -12,7 +12,6 @@ import 'package:built_value/json_object.dart';
 import 'package:openapi/src/api_util.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/source_get.dart';
-import 'package:openapi/src/model/source_type_get.dart';
 import 'package:openapi/src/model/source_upsert.dart';
 
 class IntegrationsSourcesApi {
@@ -28,6 +27,7 @@ class IntegrationsSourcesApi {
   ///
   /// Parameters:
   /// * [sourceId] 
+  /// * [wsId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -39,6 +39,7 @@ class IntegrationsSourcesApi {
   /// Throws [DioError] if API call or serialization fails
   Future<Response<bool>> checkConnectionV1IntegrationsSourcesCheckConnectionGet({ 
     required int sourceId,
+    required int wsId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -66,6 +67,7 @@ class IntegrationsSourcesApi {
 
     final _queryParameters = <String, dynamic>{
       r'source_id': encodeQueryParameter(_serializers, sourceId, const FullType(int)),
+      r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
     };
 
     final _response = await _dio.request<Object>(
@@ -108,6 +110,7 @@ class IntegrationsSourcesApi {
   ///
   /// Parameters:
   /// * [sourceId] 
+  /// * [wsId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -119,6 +122,7 @@ class IntegrationsSourcesApi {
   /// Throws [DioError] if API call or serialization fails
   Future<Response<JsonObject>> deleteSourceV1IntegrationsSourcesSourceIdDelete({ 
     required int sourceId,
+    required int wsId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -144,9 +148,14 @@ class IntegrationsSourcesApi {
       validateStatus: validateStatus,
     );
 
+    final _queryParameters = <String, dynamic>{
+      r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
+    };
+
     final _response = await _dio.request<Object>(
       _path,
       options: _options,
+      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
@@ -182,10 +191,11 @@ class IntegrationsSourcesApi {
     );
   }
 
-  /// Get Source Types
+  /// Get Sources
   /// 
   ///
   /// Parameters:
+  /// * [wsId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -193,9 +203,10 @@ class IntegrationsSourcesApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [BuiltList<SourceTypeGet>] as data
+  /// Returns a [Future] containing a [Response] with a [BuiltList<SourceGet>] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<BuiltList<SourceTypeGet>>> getSourceTypesV1IntegrationsSourcesTypesGet({ 
+  Future<Response<BuiltList<SourceGet>>> getSourcesV1IntegrationsSourcesGet({ 
+    required int wsId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -203,7 +214,7 @@ class IntegrationsSourcesApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/integrations/sources/types/';
+    final _path = r'/v1/integrations/sources/';
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
@@ -221,22 +232,27 @@ class IntegrationsSourcesApi {
       validateStatus: validateStatus,
     );
 
+    final _queryParameters = <String, dynamic>{
+      r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
+    };
+
     final _response = await _dio.request<Object>(
       _path,
       options: _options,
+      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltList<SourceTypeGet> _responseData;
+    BuiltList<SourceGet> _responseData;
 
     try {
-      const _responseType = FullType(BuiltList, [FullType(SourceTypeGet)]);
+      const _responseType = FullType(BuiltList, [FullType(SourceGet)]);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as BuiltList<SourceTypeGet>;
+      ) as BuiltList<SourceGet>;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -247,7 +263,7 @@ class IntegrationsSourcesApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<BuiltList<SourceTypeGet>>(
+    return Response<BuiltList<SourceGet>>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -263,6 +279,7 @@ class IntegrationsSourcesApi {
   /// 
   ///
   /// Parameters:
+  /// * [wsId] 
   /// * [sourceUpsert] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
@@ -274,6 +291,7 @@ class IntegrationsSourcesApi {
   /// Returns a [Future] containing a [Response] with a [SourceGet] as data
   /// Throws [DioError] if API call or serialization fails
   Future<Response<SourceGet>> upsertSourceV1IntegrationsSourcesPost({ 
+    required int wsId,
     required SourceUpsert sourceUpsert,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -301,6 +319,10 @@ class IntegrationsSourcesApi {
       validateStatus: validateStatus,
     );
 
+    final _queryParameters = <String, dynamic>{
+      r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
+    };
+
     dynamic _bodyData;
 
     try {
@@ -312,6 +334,7 @@ class IntegrationsSourcesApi {
          requestOptions: _options.compose(
           _dio.options,
           _path,
+          queryParameters: _queryParameters,
         ),
         type: DioErrorType.other,
         error: error,
@@ -322,6 +345,7 @@ class IntegrationsSourcesApi {
       _path,
       data: _bodyData,
       options: _options,
+      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,

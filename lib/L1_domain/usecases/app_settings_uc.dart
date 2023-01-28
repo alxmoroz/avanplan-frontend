@@ -3,8 +3,8 @@
 import '../entities/app_settings.dart';
 import '../repositories/abs_db_repo.dart';
 
-class SettingsUC {
-  SettingsUC({required this.settingsRepo});
+class AppSettingsUC {
+  AppSettingsUC({required this.settingsRepo});
 
   final AbstractDBRepo<AbstractDBModel, AppSettings> settingsRepo;
 

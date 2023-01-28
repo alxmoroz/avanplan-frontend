@@ -7,6 +7,8 @@ doc/BodyAuthAppleToken.md
 doc/BodyAuthGoogleToken.md
 doc/BodyUpdateMyAccountV1MyAccountPost.md
 doc/BodyUpdatePushTokenV1MyPushTokenPost.md
+doc/EstimateUnitGet.md
+doc/EstimateValueGet.md
 doc/HTTPValidationError.md
 doc/IntegrationsSourcesApi.md
 doc/IntegrationsTasksApi.md
@@ -17,6 +19,8 @@ doc/Person.md
 doc/PersonGet.md
 doc/Priority.md
 doc/PriorityGet.md
+doc/SettingsApi.md
+doc/SettingsGet.md
 doc/SourceGet.md
 doc/SourceUpsert.md
 doc/Status.md
@@ -41,6 +45,7 @@ lib/src/api/auth_api.dart
 lib/src/api/integrations_sources_api.dart
 lib/src/api/integrations_tasks_api.dart
 lib/src/api/my_api.dart
+lib/src/api/settings_api.dart
 lib/src/api/tasks_api.dart
 lib/src/api_util.dart
 lib/src/auth/api_key_auth.dart
@@ -54,6 +59,8 @@ lib/src/model/body_auth_google_token.dart
 lib/src/model/body_update_my_account_v1_my_account_post.dart
 lib/src/model/body_update_push_token_v1_my_push_token_post.dart
 lib/src/model/date.dart
+lib/src/model/estimate_unit_get.dart
+lib/src/model/estimate_value_get.dart
 lib/src/model/http_validation_error.dart
 lib/src/model/location_inner.dart
 lib/src/model/notification.dart
@@ -61,6 +68,7 @@ lib/src/model/person.dart
 lib/src/model/person_get.dart
 lib/src/model/priority.dart
 lib/src/model/priority_get.dart
+lib/src/model/settings_get.dart
 lib/src/model/source_get.dart
 lib/src/model/source_upsert.dart
 lib/src/model/status.dart
@@ -85,6 +93,8 @@ test/body_auth_apple_token_test.dart
 test/body_auth_google_token_test.dart
 test/body_update_my_account_v1_my_account_post_test.dart
 test/body_update_push_token_v1_my_push_token_post_test.dart
+test/estimate_unit_get_test.dart
+test/estimate_value_get_test.dart
 test/http_validation_error_test.dart
 test/integrations_sources_api_test.dart
 test/integrations_tasks_api_test.dart
@@ -95,6 +105,8 @@ test/person_get_test.dart
 test/person_test.dart
 test/priority_get_test.dart
 test/priority_test.dart
+test/settings_api_test.dart
+test/settings_get_test.dart
 test/source_get_test.dart
 test/source_upsert_test.dart
 test/status_get_test.dart

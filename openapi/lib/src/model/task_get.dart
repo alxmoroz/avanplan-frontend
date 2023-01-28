@@ -45,7 +45,7 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   DateTime get updatedOn;
 
   @BuiltValueField(wireName: r'title')
-  String get title;
+  String? get title;
 
   @BuiltValueField(wireName: r'description')
   String? get description;
@@ -126,11 +126,13 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
       object.updatedOn,
       specifiedType: const FullType(DateTime),
     );
-    yield r'title';
-    yield serializers.serialize(
-      object.title,
-      specifiedType: const FullType(String),
-    );
+    if (object.title != null) {
+      yield r'title';
+      yield serializers.serialize(
+        object.title,
+        specifiedType: const FullType(String),
+      );
+    }
     if (object.description != null) {
       yield r'description';
       yield serializers.serialize(

@@ -27,8 +27,8 @@ abstract class _SettingsControllerBase with Store {
 
   @action
   Future fetchData() async {
-    await settingsUC.updateVersion(packageInfo.version);
-    settings = await settingsUC.getSettings();
+    await appSettingsUC.updateVersion(packageInfo.version);
+    settings = await appSettingsUC.getSettings();
   }
 
   @action

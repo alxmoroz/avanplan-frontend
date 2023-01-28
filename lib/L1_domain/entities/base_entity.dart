@@ -29,7 +29,7 @@ abstract class Codable extends RPersistable {
 }
 
 abstract class Titleable extends RPersistable {
-  Titleable({super.id, required this.title, this.description = ''});
+  Titleable({super.id, this.title = '', this.description = ''});
 
   final String title;
   final String description;

@@ -33,7 +33,7 @@ part 'task.g.dart';
 @BuiltValue()
 abstract class Task implements Built<Task, TaskBuilder> {
   @BuiltValueField(wireName: r'title')
-  String get title;
+  String? get title;
 
   @BuiltValueField(wireName: r'description')
   String? get description;
@@ -102,11 +102,13 @@ class _$TaskSerializer implements PrimitiveSerializer<Task> {
     Task object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    yield r'title';
-    yield serializers.serialize(
-      object.title,
-      specifiedType: const FullType(String),
-    );
+    if (object.title != null) {
+      yield r'title';
+      yield serializers.serialize(
+        object.title,
+        specifiedType: const FullType(String),
+      );
+    }
     if (object.description != null) {
       yield r'description';
       yield serializers.serialize(

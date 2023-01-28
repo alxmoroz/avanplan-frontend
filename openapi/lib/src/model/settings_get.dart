@@ -3,49 +3,46 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:openapi/src/model/estimate_unit_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'workspace_get.g.dart';
+part 'settings_get.g.dart';
 
-/// WorkspaceGet
+/// SettingsGet
 ///
 /// Properties:
 /// * [id] 
-/// * [title] 
-/// * [description] 
+/// * [estimateUnit] 
 @BuiltValue()
-abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> {
+abstract class SettingsGet implements Built<SettingsGet, SettingsGetBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
 
-  @BuiltValueField(wireName: r'title')
-  String? get title;
+  @BuiltValueField(wireName: r'estimate_unit')
+  EstimateUnitGet? get estimateUnit;
 
-  @BuiltValueField(wireName: r'description')
-  String? get description;
+  SettingsGet._();
 
-  WorkspaceGet._();
-
-  factory WorkspaceGet([void updates(WorkspaceGetBuilder b)]) = _$WorkspaceGet;
+  factory SettingsGet([void updates(SettingsGetBuilder b)]) = _$SettingsGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(WorkspaceGetBuilder b) => b;
+  static void _defaults(SettingsGetBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<WorkspaceGet> get serializer => _$WorkspaceGetSerializer();
+  static Serializer<SettingsGet> get serializer => _$SettingsGetSerializer();
 }
 
-class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
+class _$SettingsGetSerializer implements PrimitiveSerializer<SettingsGet> {
   @override
-  final Iterable<Type> types = const [WorkspaceGet, _$WorkspaceGet];
+  final Iterable<Type> types = const [SettingsGet, _$SettingsGet];
 
   @override
-  final String wireName = r'WorkspaceGet';
+  final String wireName = r'SettingsGet';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    WorkspaceGet object, {
+    SettingsGet object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'id';
@@ -53,18 +50,11 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
       object.id,
       specifiedType: const FullType(int),
     );
-    if (object.title != null) {
-      yield r'title';
+    if (object.estimateUnit != null) {
+      yield r'estimate_unit';
       yield serializers.serialize(
-        object.title,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.description != null) {
-      yield r'description';
-      yield serializers.serialize(
-        object.description,
-        specifiedType: const FullType(String),
+        object.estimateUnit,
+        specifiedType: const FullType(EstimateUnitGet),
       );
     }
   }
@@ -72,7 +62,7 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
   @override
   Object serialize(
     Serializers serializers,
-    WorkspaceGet object, {
+    SettingsGet object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -83,7 +73,7 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required WorkspaceGetBuilder result,
+    required SettingsGetBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -97,19 +87,12 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
           ) as int;
           result.id = valueDes;
           break;
-        case r'title':
+        case r'estimate_unit':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.title = valueDes;
-          break;
-        case r'description':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.description = valueDes;
+            specifiedType: const FullType(EstimateUnitGet),
+          ) as EstimateUnitGet;
+          result.estimateUnit.replace(valueDes);
           break;
         default:
           unhandled.add(key);
@@ -120,12 +103,12 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
   }
 
   @override
-  WorkspaceGet deserialize(
+  SettingsGet deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = WorkspaceGetBuilder();
+    final result = SettingsGetBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

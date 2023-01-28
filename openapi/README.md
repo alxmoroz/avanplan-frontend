@@ -83,6 +83,8 @@ Class | Method | HTTP request | Description
 [*MyApi*](doc/MyApi.md) | [**readMyMessagesV1MyMessagesPost**](doc/MyApi.md#readmymessagesv1mymessagespost) | **POST** /v1/my/messages | Read My Messages
 [*MyApi*](doc/MyApi.md) | [**updateMyAccountV1MyAccountPost**](doc/MyApi.md#updatemyaccountv1myaccountpost) | **POST** /v1/my/account | Update My Account
 [*MyApi*](doc/MyApi.md) | [**updatePushTokenV1MyPushTokenPost**](doc/MyApi.md#updatepushtokenv1mypushtokenpost) | **POST** /v1/my/push_token | Update Push Token
+[*SettingsApi*](doc/SettingsApi.md) | [**getEstimateValuesV1SettingsEstimateValuesGet**](doc/SettingsApi.md#getestimatevaluesv1settingsestimatevaluesget) | **GET** /v1/settings/estimate_values | Get Estimate Values
+[*SettingsApi*](doc/SettingsApi.md) | [**getSettingsV1SettingsGet**](doc/SettingsApi.md#getsettingsv1settingsget) | **GET** /v1/settings/ | Get Settings
 [*TasksApi*](doc/TasksApi.md) | [**deleteTaskV1TasksTaskIdDelete**](doc/TasksApi.md#deletetaskv1taskstaskiddelete) | **DELETE** /v1/tasks/{task_id} | Delete Task
 [*TasksApi*](doc/TasksApi.md) | [**getRootTasksV1TasksGet**](doc/TasksApi.md#getroottasksv1tasksget) | **GET** /v1/tasks/ | Get Root Tasks
 [*TasksApi*](doc/TasksApi.md) | [**upsertTaskV1TasksPost**](doc/TasksApi.md#upserttaskv1taskspost) | **POST** /v1/tasks/ | Upsert Task
@@ -94,6 +96,8 @@ Class | Method | HTTP request | Description
  - [BodyAuthGoogleToken](doc/BodyAuthGoogleToken.md)
  - [BodyUpdateMyAccountV1MyAccountPost](doc/BodyUpdateMyAccountV1MyAccountPost.md)
  - [BodyUpdatePushTokenV1MyPushTokenPost](doc/BodyUpdatePushTokenV1MyPushTokenPost.md)
+ - [EstimateUnitGet](doc/EstimateUnitGet.md)
+ - [EstimateValueGet](doc/EstimateValueGet.md)
  - [HTTPValidationError](doc/HTTPValidationError.md)
  - [LocationInner](doc/LocationInner.md)
  - [Notification](doc/Notification.md)
@@ -101,6 +105,7 @@ Class | Method | HTTP request | Description
  - [PersonGet](doc/PersonGet.md)
  - [Priority](doc/Priority.md)
  - [PriorityGet](doc/PriorityGet.md)
+ - [SettingsGet](doc/SettingsGet.md)
  - [SourceGet](doc/SourceGet.md)
  - [SourceUpsert](doc/SourceUpsert.md)
  - [Status](doc/Status.md)

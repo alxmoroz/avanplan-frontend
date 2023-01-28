@@ -7,7 +7,7 @@ import '../../L1_domain/entities/notification.dart';
 extension NotificationMapper on api.Notification {
   MTNotification get notification => MTNotification(
         id: id,
-        title: title,
+        title: title ?? '',
         description: description ?? '',
         scheduledDate: scheduledDate?.toLocal() ?? DateTime.now(),
         isRead: isRead,

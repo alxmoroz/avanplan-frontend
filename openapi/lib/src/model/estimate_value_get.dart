@@ -6,21 +6,17 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'notification.g.dart';
+part 'estimate_value_get.g.dart';
 
-/// Notification
+/// EstimateValueGet
 ///
 /// Properties:
 /// * [id] 
 /// * [title] 
 /// * [description] 
-/// * [scheduledDate] 
-/// * [url] 
-/// * [messageId] 
-/// * [channel] 
-/// * [isRead] 
+/// * [value] 
 @BuiltValue()
-abstract class Notification implements Built<Notification, NotificationBuilder> {
+abstract class EstimateValueGet implements Built<EstimateValueGet, EstimateValueGetBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
 
@@ -30,42 +26,30 @@ abstract class Notification implements Built<Notification, NotificationBuilder> 
   @BuiltValueField(wireName: r'description')
   String? get description;
 
-  @BuiltValueField(wireName: r'scheduled_date')
-  DateTime? get scheduledDate;
+  @BuiltValueField(wireName: r'value')
+  int get value;
 
-  @BuiltValueField(wireName: r'url')
-  String? get url;
+  EstimateValueGet._();
 
-  @BuiltValueField(wireName: r'message_id')
-  int get messageId;
-
-  @BuiltValueField(wireName: r'channel')
-  String get channel;
-
-  @BuiltValueField(wireName: r'is_read')
-  bool get isRead;
-
-  Notification._();
-
-  factory Notification([void updates(NotificationBuilder b)]) = _$Notification;
+  factory EstimateValueGet([void updates(EstimateValueGetBuilder b)]) = _$EstimateValueGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(NotificationBuilder b) => b;
+  static void _defaults(EstimateValueGetBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<Notification> get serializer => _$NotificationSerializer();
+  static Serializer<EstimateValueGet> get serializer => _$EstimateValueGetSerializer();
 }
 
-class _$NotificationSerializer implements PrimitiveSerializer<Notification> {
+class _$EstimateValueGetSerializer implements PrimitiveSerializer<EstimateValueGet> {
   @override
-  final Iterable<Type> types = const [Notification, _$Notification];
+  final Iterable<Type> types = const [EstimateValueGet, _$EstimateValueGet];
 
   @override
-  final String wireName = r'Notification';
+  final String wireName = r'EstimateValueGet';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    Notification object, {
+    EstimateValueGet object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'id';
@@ -87,41 +71,17 @@ class _$NotificationSerializer implements PrimitiveSerializer<Notification> {
         specifiedType: const FullType(String),
       );
     }
-    if (object.scheduledDate != null) {
-      yield r'scheduled_date';
-      yield serializers.serialize(
-        object.scheduledDate,
-        specifiedType: const FullType(DateTime),
-      );
-    }
-    if (object.url != null) {
-      yield r'url';
-      yield serializers.serialize(
-        object.url,
-        specifiedType: const FullType(String),
-      );
-    }
-    yield r'message_id';
+    yield r'value';
     yield serializers.serialize(
-      object.messageId,
+      object.value,
       specifiedType: const FullType(int),
-    );
-    yield r'channel';
-    yield serializers.serialize(
-      object.channel,
-      specifiedType: const FullType(String),
-    );
-    yield r'is_read';
-    yield serializers.serialize(
-      object.isRead,
-      specifiedType: const FullType(bool),
     );
   }
 
   @override
   Object serialize(
     Serializers serializers,
-    Notification object, {
+    EstimateValueGet object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -132,7 +92,7 @@ class _$NotificationSerializer implements PrimitiveSerializer<Notification> {
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required NotificationBuilder result,
+    required EstimateValueGetBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -160,40 +120,12 @@ class _$NotificationSerializer implements PrimitiveSerializer<Notification> {
           ) as String;
           result.description = valueDes;
           break;
-        case r'scheduled_date':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
-          result.scheduledDate = valueDes;
-          break;
-        case r'url':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.url = valueDes;
-          break;
-        case r'message_id':
+        case r'value':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(int),
           ) as int;
-          result.messageId = valueDes;
-          break;
-        case r'channel':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.channel = valueDes;
-          break;
-        case r'is_read':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool;
-          result.isRead = valueDes;
+          result.value = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -204,12 +136,12 @@ class _$NotificationSerializer implements PrimitiveSerializer<Notification> {
   }
 
   @override
-  Notification deserialize(
+  EstimateValueGet deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = NotificationBuilder();
+    final result = EstimateValueGetBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

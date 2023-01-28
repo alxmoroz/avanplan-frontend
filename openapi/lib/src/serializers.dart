@@ -18,6 +18,8 @@ import 'package:openapi/src/model/body_auth_apple_token.dart';
 import 'package:openapi/src/model/body_auth_google_token.dart';
 import 'package:openapi/src/model/body_update_my_account_v1_my_account_post.dart';
 import 'package:openapi/src/model/body_update_push_token_v1_my_push_token_post.dart';
+import 'package:openapi/src/model/estimate_unit_get.dart';
+import 'package:openapi/src/model/estimate_value_get.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/location_inner.dart';
 import 'package:openapi/src/model/notification.dart';
@@ -25,6 +27,7 @@ import 'package:openapi/src/model/person.dart';
 import 'package:openapi/src/model/person_get.dart';
 import 'package:openapi/src/model/priority.dart';
 import 'package:openapi/src/model/priority_get.dart';
+import 'package:openapi/src/model/settings_get.dart';
 import 'package:openapi/src/model/source_get.dart';
 import 'package:openapi/src/model/source_upsert.dart';
 import 'package:openapi/src/model/status.dart';
@@ -50,6 +53,8 @@ part 'serializers.g.dart';
   BodyAuthGoogleToken,
   BodyUpdateMyAccountV1MyAccountPost,
   BodyUpdatePushTokenV1MyPushTokenPost,
+  EstimateUnitGet,
+  EstimateValueGet,
   HTTPValidationError,
   LocationInner,
   Notification,
@@ -57,6 +62,7 @@ part 'serializers.g.dart';
   PersonGet,
   Priority,
   PriorityGet,
+  SettingsGet,
   SourceGet,
   SourceUpsert,
   Status,
@@ -103,6 +109,10 @@ Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskSourceUpsert)]),
         () => ListBuilder<TaskSourceUpsert>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(EstimateValueGet)]),
+        () => ListBuilder<EstimateValueGet>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskGet)]),

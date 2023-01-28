@@ -7,8 +7,6 @@ import '../../L1_domain/repositories/abs_api_ws_repo.dart';
 import '../mappers/task.dart';
 import '../services/api.dart';
 
-// TODO: для всех подобных репозиториев: развязать узел зависимости от 3 уровня за счёт инициализации openApi в конструктор репы
-
 class TasksRepo extends AbstractApiWSRepo<Task> {
   o_api.TasksApi get api => openAPI.getTasksApi();
 

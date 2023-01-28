@@ -12,7 +12,7 @@ import 'task_source.dart';
 extension TaskMapper on api.TaskGet {
   Task task({required int wsId, Task? parent}) {
     final ts = taskSource?.taskSource;
-    String _title = title.trim();
+    String _title = title?.trim() ?? '';
     if (type != null && type?.toLowerCase() == 'backlog') {
       _title = Intl.message(_title);
     }
@@ -48,7 +48,7 @@ extension TaskMapper on api.TaskGet {
 
 extension TaskImportMapper on api.Task {
   TaskImport get taskImport => TaskImport(
-        title: title,
+        title: title ?? '??',
         description: description ?? '',
         taskSource: taskSource?.taskSourceImport,
       );

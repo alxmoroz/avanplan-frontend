@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'base_entity.dart';
+import 'estimate_unit.dart';
 
 class WSSettings extends RPersistable {
   WSSettings({
@@ -9,6 +10,6 @@ class WSSettings extends RPersistable {
     required this.workspaceId,
   });
 
-  final String estimateUnit;
+  final EstimateUnit? estimateUnit;
   final int workspaceId;
 }

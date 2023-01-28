@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../L1_domain/entities/estimate.dart';
+import '../../../L1_domain/entities/estimate_value.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/usecases/task_ext_level.dart';
 import '../../../L1_domain/usecases/task_ext_state.dart';
@@ -137,11 +137,11 @@ class _TaskEditViewState extends State<TaskEditView> {
         //   ),
         // ...[statuses],
 
-        if (controller.estimates.isNotEmpty && (isNew || task?.hasSubtasks == false))
-          MTDropdown<Estimate>(
+        if (controller.estimateValues.isNotEmpty && (isNew || task?.hasSubtasks == false))
+          MTDropdown<EstimateValue>(
             onChanged: (est) => controller.selectEstimate(est),
             value: controller.selectedEstimate,
-            items: controller.estimates,
+            items: controller.estimateValues,
             margin: tfPadding,
             label: loc.task_estimate_placeholder,
             helper: controller.selectedEstimate == null && task?.estimate != null ? '${loc.task_estimate_placeholder}: ${task?.estimate}' : null,

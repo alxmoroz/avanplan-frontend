@@ -5,20 +5,23 @@ import 'package:get_it/get_it.dart';
 import 'package:openapi/openapi.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+import '../../L1_domain/usecases/app_settings_uc.dart';
 import '../../L1_domain/usecases/auth_uc.dart';
 import '../../L1_domain/usecases/import_uc.dart';
 import '../../L1_domain/usecases/my_uc.dart';
-import '../../L1_domain/usecases/settings_uc.dart';
 import '../../L1_domain/usecases/sources_uc.dart';
 import '../../L1_domain/usecases/tasks_uc.dart';
+import '../../L1_domain/usecases/ws_settings_uc.dart';
 import '../../L2_data/repositories/auth_apple_repo.dart';
 import '../../L2_data/repositories/auth_google_repo.dart';
 import '../../L2_data/repositories/auth_password_repo.dart';
 import '../../L2_data/repositories/db_repo.dart';
+import '../../L2_data/repositories/estimate_values_repo.dart';
 import '../../L2_data/repositories/import_repo.dart';
 import '../../L2_data/repositories/my_repo.dart';
 import '../../L2_data/repositories/sources_repo.dart';
 import '../../L2_data/repositories/tasks_repo.dart';
+import '../../L2_data/repositories/ws_settings_repo.dart';
 import '../../L2_data/services/api.dart';
 import '../../L2_data/services/db.dart';
 import '../l10n/generated/l10n.dart';
@@ -46,7 +49,8 @@ AccountController get accountController => GetIt.I<AccountController>();
 AuthController get authController => GetIt.I<AuthController>();
 NotificationController get notificationController => GetIt.I<NotificationController>();
 
-SettingsUC get settingsUC => GetIt.I<SettingsUC>();
+AppSettingsUC get appSettingsUC => GetIt.I<AppSettingsUC>();
+WSSettingsUC get wsSettingsUC => GetIt.I<WSSettingsUC>();
 AuthUC get authUC => GetIt.I<AuthUC>();
 MyUC get myUC => GetIt.I<MyUC>();
 TasksUC get tasksUC => GetIt.I<TasksUC>();
@@ -82,10 +86,11 @@ void setup() {
     appleRepo: AuthAppleRepo(),
     localDBAuthRepo: LocalAuthRepo(),
   ));
-  getIt.registerSingleton<SettingsUC>(SettingsUC(settingsRepo: SettingsRepo()));
+  getIt.registerSingleton<AppSettingsUC>(AppSettingsUC(settingsRepo: SettingsRepo()));
   // getIt.registerSingleton<TaskTypesUC>(TaskTypesUC(repo: TaskTypesRepo()));
   getIt.registerSingleton<MyUC>(MyUC(repo: MyRepo()));
   getIt.registerSingleton<TasksUC>(TasksUC(repo: TasksRepo()));
   getIt.registerSingleton<SourcesUC>(SourcesUC(repo: SourcesRepo()));
   getIt.registerSingleton<ImportUC>(ImportUC(repo: ImportRepo()));
+  getIt.registerSingleton<WSSettingsUC>(WSSettingsUC(settingsRepo: WSSettingsRepo(), estValueRepo: EstimateValueRepo()));
 }

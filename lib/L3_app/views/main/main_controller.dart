@@ -55,16 +55,12 @@ abstract class _MainControllerBase with Store {
     final tasks = <Task>[];
     for (Workspace ws in workspaces) {
       ws.sources = await sourcesUC.getAll(ws.id!);
+      ws.estimateValues = await wsSettingsUC.getEstimateValues(ws.id!);
+      ws.settings = await wsSettingsUC.getSettings(ws.id!);
 
-      // TODO: сортируем тут только те списки, которые не редактируем в приложении на данный момент. Нужно перенести в контроллеры для редактирования
       // List<Status> get _sortedStatuses => statuses.map((s) => s.status).sorted((s1, s2) => compareNatural('$s1', '$s2'));
       // List<Priority> get _sortedPriorities => priorities.map((p) => p.priority).sorted((p1, p2) => compareNatural('$p1', '$p2'));
       // List<Person> get _sortedPersons => persons.map((p) => p.person).sorted((p1, p2) => compareNatural('$p1', '$p2'));
-      // List<Estimate> get _sortedEstimates => estimates.map((e) => e.estimate).sorted((e1, e2) => compareNatural('$e1', '$e2'));
-      // sourceTypes = ObservableList.of((await sourceTypesUC.getAll()).sorted((s1, s2) => compareNatural(s1.code, s2.code)));
-
-      // TODO: для гостевых ролей в памяти приложения доступна инфа, которая может быть конфиденц. Нужно не отдавать с бэка лишнее.
-      // TODO: сделать отдельные эндпойнты с контролем прав на бэкенде
 
       final projects = await tasksUC.getRoots(ws.id!);
       projects.forEach((p) {

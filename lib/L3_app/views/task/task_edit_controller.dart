@@ -4,7 +4,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/entities/estimate.dart';
+import '../../../L1_domain/entities/estimate_value.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../components/mt_confirm_dialog.dart';
 import '../../extra/services.dart';
@@ -126,17 +126,17 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
 
   /// оценки задач
   @computed
-  List<Estimate> get estimates => []; // selectedWS?.estimates ?? [];
+  List<EstimateValue> get estimateValues => selectedWS?.estimateValues ?? [];
 
   @observable
   int? _selectedEstimateId;
 
   @action
-  void selectEstimate(Estimate? _est) => _selectedEstimateId = _est?.id;
-  void selectEstimateByValue(int? value) => selectEstimate(estimates.firstWhereOrNull((e) => e.value == value));
+  void selectEstimate(EstimateValue? _est) => _selectedEstimateId = _est?.id;
+  void selectEstimateByValue(int? value) => selectEstimate(estimateValues.firstWhereOrNull((e) => e.value == value));
 
   @computed
-  Estimate? get selectedEstimate => estimates.firstWhereOrNull((e) => e.id == _selectedEstimateId);
+  EstimateValue? get selectedEstimate => estimateValues.firstWhereOrNull((e) => e.id == _selectedEstimateId);
 
   /// статусы задач
 

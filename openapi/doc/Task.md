@@ -8,7 +8,7 @@ import 'package:openapi/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**title** | **String** |  | 
+**title** | **String** |  | [optional] 
 **description** | **String** |  | [optional] 
 **closed** | **bool** |  | [optional] [default to false]
 **type** | **String** |  | [optional] [default to 'TASK']

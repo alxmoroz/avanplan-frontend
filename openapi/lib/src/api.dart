@@ -13,6 +13,7 @@ import 'package:openapi/src/api/auth_api.dart';
 import 'package:openapi/src/api/integrations_sources_api.dart';
 import 'package:openapi/src/api/integrations_tasks_api.dart';
 import 'package:openapi/src/api/my_api.dart';
+import 'package:openapi/src/api/settings_api.dart';
 import 'package:openapi/src/api/tasks_api.dart';
 
 class Openapi {
@@ -91,6 +92,12 @@ class Openapi {
   /// by doing that all interceptors will not be executed
   MyApi getMyApi() {
     return MyApi(dio, serializers);
+  }
+
+  /// Get SettingsApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  SettingsApi getSettingsApi() {
+    return SettingsApi(dio, serializers);
   }
 
   /// Get TasksApi instance, base route and serializer can be overridden by a given but be careful,

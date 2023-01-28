@@ -3,7 +3,6 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:openapi/src/model/source_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -18,7 +17,7 @@ part 'task_source_get.g.dart';
 /// * [keepConnection] 
 /// * [updatedOn] 
 /// * [url] 
-/// * [source_] 
+/// * [sourceId] 
 @BuiltValue()
 abstract class TaskSourceGet implements Built<TaskSourceGet, TaskSourceGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -39,8 +38,8 @@ abstract class TaskSourceGet implements Built<TaskSourceGet, TaskSourceGetBuilde
   @BuiltValueField(wireName: r'url')
   String get url;
 
-  @BuiltValueField(wireName: r'source')
-  SourceGet get source_;
+  @BuiltValueField(wireName: r'source_id')
+  int get sourceId;
 
   TaskSourceGet._();
 
@@ -97,10 +96,10 @@ class _$TaskSourceGetSerializer implements PrimitiveSerializer<TaskSourceGet> {
       object.url,
       specifiedType: const FullType(String),
     );
-    yield r'source';
+    yield r'source_id';
     yield serializers.serialize(
-      object.source_,
-      specifiedType: const FullType(SourceGet),
+      object.sourceId,
+      specifiedType: const FullType(int),
     );
   }
 
@@ -167,12 +166,12 @@ class _$TaskSourceGetSerializer implements PrimitiveSerializer<TaskSourceGet> {
           ) as String;
           result.url = valueDes;
           break;
-        case r'source':
+        case r'source_id':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(SourceGet),
-          ) as SourceGet;
-          result.source_.replace(valueDes);
+            specifiedType: const FullType(int),
+          ) as int;
+          result.sourceId = valueDes;
           break;
         default:
           unhandled.add(key);

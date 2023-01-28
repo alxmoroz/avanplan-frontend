@@ -10,12 +10,15 @@ import 'status.dart';
 import 'task_source.dart';
 
 extension TaskMapper on api.TaskGet {
-  Task task([Task? _parent]) {
+  Task task({required int wsId, Task? parent}) {
     final ts = taskSource?.taskSource;
     String _title = title.trim();
     if (type != null && type?.toLowerCase() == 'backlog') {
       _title = Intl.message(_title);
     }
+
+    // TODO: для снижения трафика и нагрузки на чтение из БД можно не тащить полный объект справочников, а забирать на фронте по необходимости. А тут хранить айдишники только
+    // TODO: речь про персон, статусы, приоритеты
 
     final _t = Task(
       id: id,
@@ -28,16 +31,17 @@ extension TaskMapper on api.TaskGet {
       closedDate: closedDate?.toLocal(),
       dueDate: dueDate?.toLocal(),
       closed: closed ?? false,
-      status: status?.status,
+      status: status?.status(wsId),
       estimate: estimate,
       tasks: [],
-      priority: priority?.priority,
-      author: author?.person,
-      assignee: assignee?.person,
+      priority: priority?.priority(wsId),
+      author: author?.person(wsId),
+      assignee: assignee?.person(wsId),
       taskSource: ts,
-      parent: _parent,
+      parent: parent,
+      workspaceId: wsId,
     );
-    _t.tasks = tasks?.map((t) => t.task(_t)).toList() ?? [];
+    _t.tasks = tasks?.map((t) => t.task(wsId: wsId, parent: _t)).toList() ?? [];
     return _t;
   }
 }

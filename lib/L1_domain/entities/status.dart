@@ -7,7 +7,8 @@ class Status extends Statusable {
     required super.id,
     required super.code,
     required super.closed,
+    required this.workspaceId,
   });
 
-  int workspaceId = -1;
+  final int workspaceId;
 }

@@ -12,14 +12,7 @@ class TasksUC {
 
   Future<List<Task>> getRoots(int wsId) async => await repo.getAll(wsId);
 
-  Future<Task?> save(Task t) async {
-    Task? task;
-    // TODO: внутр. exception?
-    if (t.title.trim().isNotEmpty) {
-      task = await repo.save(t);
-    }
-    return task;
-  }
+  Future<Task?> save(Task t) async => await repo.save(t);
 
   Future<Task> delete(Task t) async {
     if (t.id != null) {

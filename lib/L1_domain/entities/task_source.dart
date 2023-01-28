@@ -1,14 +1,13 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'base_entity.dart';
-import 'source.dart';
 
 class TaskSource extends RPersistable {
   TaskSource({
     required super.id,
     required this.code,
     required this.rootCode,
-    required this.source,
+    required this.sourceId,
     required this.keepConnection,
     required this.urlString,
     required this.updatedOn,
@@ -16,7 +15,7 @@ class TaskSource extends RPersistable {
 
   final String code;
   final String rootCode;
-  final Source source;
+  final int sourceId;
   final String urlString;
   final DateTime? updatedOn;
   bool keepConnection;

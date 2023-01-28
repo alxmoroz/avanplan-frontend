@@ -18,7 +18,7 @@ class TasksRepo extends AbstractApiWSRepo<Task> {
     final response = await api.getRootTasksV1TasksGet(wsId: wsId);
     if (response.statusCode == 200) {
       for (o_api.TaskGet t in response.data?.toList() ?? []) {
-        tasks.add(t.task());
+        tasks.add(t.task(wsId: wsId));
       }
     }
     return tasks;
@@ -26,6 +26,7 @@ class TasksRepo extends AbstractApiWSRepo<Task> {
 
   @override
   Future<Task?> save(Task data) async {
+    final wsId = data.workspaceId;
     final qBuilder = o_api.TaskUpsertBuilder()
       ..id = data.id
       ..statusId = data.status?.id
@@ -39,10 +40,10 @@ class TasksRepo extends AbstractApiWSRepo<Task> {
       ..dueDate = data.dueDate?.toUtc()
       ..type = data.type;
 
-    final response = await api.upsertTaskV1TasksPost(taskUpsert: qBuilder.build(), wsId: data.workspaceId);
+    final response = await api.upsertTaskV1TasksPost(taskUpsert: qBuilder.build(), wsId: wsId);
     Task? task;
     if (response.statusCode == 201) {
-      task = response.data?.task(data.parent);
+      task = response.data?.task(wsId: wsId, parent: data.parent);
     }
     return task;
   }

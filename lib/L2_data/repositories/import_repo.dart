@@ -44,7 +44,7 @@ class ImportRepo extends AbstractApiImportRepo {
   Future updateTaskSources(int wsId, Iterable<TaskSource> tss) async {
     final tSchema = tss.map((ts) => (o_api.TaskSourceUpsertBuilder()
           ..id = ts.id
-          ..sourceId = ts.source.id
+          ..sourceId = ts.sourceId
           ..code = ts.code
           ..rootCode = ts.rootCode
           ..keepConnection = ts.keepConnection

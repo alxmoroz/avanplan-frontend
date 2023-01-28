@@ -26,7 +26,7 @@ abstract class _MainControllerBase with Store {
 
   /// рутовый объект
   @observable
-  Task rootTask = Task(title: '', closed: false, parent: null, tasks: []);
+  Task rootTask = Task(title: '', closed: false, parent: null, tasks: [], workspaceId: -1);
 
   @computed
   Map<int, Task> get _tasksMap => {for (var t in rootTask.allTasks) t.id!: t};
@@ -55,7 +55,6 @@ abstract class _MainControllerBase with Store {
     final tasks = <Task>[];
     for (Workspace ws in workspaces) {
       ws.sources = await sourcesUC.getAll(ws.id!);
-      ws.sources.forEach((s) => s.workspaceId = ws.id!);
 
       // TODO: сортируем тут только те списки, которые не редактируем в приложении на данный момент. Нужно перенести в контроллеры для редактирования
       // List<Status> get _sortedStatuses => statuses.map((s) => s.status).sorted((s1, s2) => compareNatural('$s1', '$s2'));
@@ -70,7 +69,6 @@ abstract class _MainControllerBase with Store {
       final projects = await tasksUC.getRoots(ws.id!);
       projects.forEach((p) {
         p.parent = rootTask;
-        p.workspaceId = ws.id!;
       });
 
       tasks.addAll(projects);

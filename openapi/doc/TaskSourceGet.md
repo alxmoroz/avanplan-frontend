@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **keepConnection** | **bool** |  | 
 **updatedOn** | [**DateTime**](DateTime.md) |  | [optional] 
 **url** | **String** |  | 
-**source_** | [**SourceGet**](SourceGet.md) |  | 
+**sourceId** | **int** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

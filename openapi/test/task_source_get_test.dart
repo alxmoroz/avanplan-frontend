@@ -37,8 +37,8 @@ void main() {
       // TODO
     });
 
-    // SourceGet source_
-    test('to test the property `source_`', () async {
+    // int sourceId
+    test('to test the property `sourceId`', () async {
       // TODO
     });
   });

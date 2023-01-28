@@ -19,7 +19,7 @@ class SourcesRepo extends AbstractApiSourceRepo {
     final List<Source> sources = [];
     if (response.statusCode == 200) {
       for (o_api.SourceGet s in response.data?.toList() ?? []) {
-        sources.add(s.source);
+        sources.add(s.source(wsId));
       }
     }
     return sources;
@@ -27,6 +27,7 @@ class SourcesRepo extends AbstractApiSourceRepo {
 
   @override
   Future<Source?> save(Source data) async {
+    final wsId = data.workspaceId;
     final builder = o_api.SourceUpsertBuilder()
       ..id = data.id
       ..type = data.type
@@ -36,10 +37,10 @@ class SourcesRepo extends AbstractApiSourceRepo {
       ..password = data.password
       ..description = data.description;
 
-    final response = await api.upsertSourceV1IntegrationsSourcesPost(sourceUpsert: builder.build(), wsId: data.workspaceId);
+    final response = await api.upsertSourceV1IntegrationsSourcesPost(sourceUpsert: builder.build(), wsId: wsId);
     Source? source;
     if (response.statusCode == 201) {
-      source = response.data?.source;
+      source = response.data?.source(wsId);
     }
     return source;
   }

@@ -28,6 +28,19 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
     }
   }
 
+  /// тип источника
+
+  @observable
+  String? selectedType;
+
+  @action
+  void selectType(String? _type) => selectedType = _type;
+
+  /// источники импорта, трекеры
+
+  @observable
+  ObservableList<Source> sources = ObservableList();
+
   // TODO: здесь загружаем и проверяем трекеры на старте приложения (загружаем вместе в РП). Что не обязательно делать на старте.
   // Если тут сделать по запросу, тогда в окне импорта нужно будет учесть тоже
 
@@ -44,17 +57,6 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
   @action
   void clearData() => sources.clear();
 
-  @observable
-  String? selectedType;
-
-  @action
-  void selectType(String? _type) => selectedType = _type;
-
-  /// источники импорта, трекеры
-
-  @observable
-  ObservableList<Source> sources = ObservableList();
-
   /// выбранный трекер
 
   @observable
@@ -66,8 +68,10 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
     selectWS(_rt?.workspaceId);
   }
 
+  Source? sourceForId(int? id) => sources.firstWhereOrNull((s) => s.id == id);
+
   @computed
-  Source? get selectedSource => sources.firstWhereOrNull((g) => g.id == selectedSourceId);
+  Source? get selectedSource => sourceForId(selectedSourceId);
 
   @computed
   bool get canEdit => selectedSource != null;
@@ -138,8 +142,6 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
     ));
 
     if (editedSource != null) {
-      editedSource.workspaceId = selectedWS!.id!;
-
       Navigator.of(context).pop(editedSource);
       await loaderController.stop(300);
     }
@@ -163,7 +165,7 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
         Navigator.of(context).pop(await sourcesUC.delete(selectedSource!));
 
         // отвязываем задачи
-        mainController.rootTask.tasks.where((t) => t.taskSource?.source.id == selectedSourceId).forEach((t) => t.unlinkTaskTree());
+        mainController.rootTask.tasks.where((t) => t.taskSource?.sourceId == selectedSourceId).forEach((t) => t.unlinkTaskTree());
         mainController.updateRootTask();
 
         await loaderController.stop(300);

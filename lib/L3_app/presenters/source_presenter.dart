@@ -11,7 +11,7 @@ import '../components/mt_circle.dart';
 import '../components/text_widgets.dart';
 import '../extra/services.dart';
 
-Widget iconForSourceType(String st) {
+Widget iconForSourceType(String? st) {
   switch (st) {
     case 'Redmine':
       return redmineIcon();
@@ -54,10 +54,11 @@ extension SourcePresenter on Source {
 }
 
 extension TaskSourcePresenter on TaskSource {
+  String? get _typeForId => sourceController.sourceForId(sourceId)?.type;
   Widget go2SourceTitle({bool showSourceIcon = false}) => Row(
         children: [
           if (showSourceIcon) ...[
-            iconForSourceType(source.type),
+            iconForSourceType(_typeForId),
             const SizedBox(width: P_2),
           ],
           NormalText(loc.task_go2source_title, color: mainColor),

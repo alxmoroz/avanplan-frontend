@@ -30,12 +30,12 @@ class Task extends Titleable {
     required this.closed,
     required this.parent,
     required this.tasks,
+    required this.workspaceId,
     this.createdOn,
     this.updatedOn,
     this.dueDate,
     this.startDate,
     this.closedDate,
-    this.workspaceId = -1,
     this.status,
     this.priority,
     this.author,
@@ -51,7 +51,7 @@ class Task extends Titleable {
   DateTime? startDate;
   DateTime? closedDate;
   final DateTime? dueDate;
-  int workspaceId;
+  final int workspaceId;
   final Status? status;
   final Priority? priority;
   final Person? author;

@@ -77,29 +77,22 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
   bool get validated => super.validated && selectedWS != null;
 
   /// действия
-  Future<Task?> _saveTask(Task? task, Task parent) async {
-    final sTask = await tasksUC.save(
-      Task(
-        id: task?.id,
-        parent: parent,
-        title: tfAnnoForCode('title').text,
-        description: tfAnnoForCode('description').text,
-        closed: task?.closed == true,
-        // status: selectedStatus,
-        estimate: selectedEstimate?.value,
-        startDate: selectedStartDate,
-        dueDate: selectedDueDate,
-        tasks: task?.tasks ?? [],
-        type: task?.type,
-        workspaceId: selectedWS!.id!,
-      ),
-    );
-    if (sTask != null) {
-      sTask.workspaceId = selectedWS!.id!;
-    }
-
-    return sTask;
-  }
+  Future<Task?> _saveTask(Task? task, Task parent) async => await tasksUC.save(
+        Task(
+          id: task?.id,
+          parent: parent,
+          title: tfAnnoForCode('title').text,
+          description: tfAnnoForCode('description').text,
+          closed: task?.closed == true,
+          // status: selectedStatus,
+          estimate: selectedEstimate?.value,
+          startDate: selectedStartDate,
+          dueDate: selectedDueDate,
+          tasks: task?.tasks ?? [],
+          type: task?.type,
+          workspaceId: selectedWS!.id!,
+        ),
+      );
 
   Future save(BuildContext context, {Task? task, required Task parent, bool proceed = false}) async {
     loaderController.start();

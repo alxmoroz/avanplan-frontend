@@ -6,8 +6,9 @@ class WSSettings extends RPersistable {
   WSSettings({
     required super.id,
     required this.estimateUnit,
+    required this.workspaceId,
   });
 
   final String estimateUnit;
-  int workspaceId = -1;
+  final int workspaceId;
 }

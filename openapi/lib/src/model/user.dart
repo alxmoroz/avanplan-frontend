@@ -17,6 +17,7 @@ part 'user.g.dart';
 /// * [email] 
 /// * [fullName] 
 /// * [locale] 
+/// * [nickname] 
 /// * [notificationPermissions] 
 @BuiltValue()
 abstract class User implements Built<User, UserBuilder> {
@@ -31,6 +32,9 @@ abstract class User implements Built<User, UserBuilder> {
 
   @BuiltValueField(wireName: r'locale')
   String? get locale;
+
+  @BuiltValueField(wireName: r'nickname')
+  String? get nickname;
 
   @BuiltValueField(wireName: r'notification_permissions')
   BuiltList<UNotificationPermissionGet> get notificationPermissions;
@@ -80,6 +84,13 @@ class _$UserSerializer implements PrimitiveSerializer<User> {
       yield r'locale';
       yield serializers.serialize(
         object.locale,
+        specifiedType: const FullType(String),
+      );
+    }
+    if (object.nickname != null) {
+      yield r'nickname';
+      yield serializers.serialize(
+        object.nickname,
         specifiedType: const FullType(String),
       );
     }
@@ -138,6 +149,13 @@ class _$UserSerializer implements PrimitiveSerializer<User> {
             specifiedType: const FullType(String),
           ) as String;
           result.locale = valueDes;
+          break;
+        case r'nickname':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.nickname = valueDes;
           break;
         case r'notification_permissions':
           final valueDes = serializers.deserialize(

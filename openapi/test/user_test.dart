@@ -27,6 +27,11 @@ void main() {
       // TODO
     });
 
+    // String nickname
+    test('to test the property `nickname`', () async {
+      // TODO
+    });
+
     // BuiltList<UNotificationPermissionGet> notificationPermissions
     test('to test the property `notificationPermissions`', () async {
       // TODO

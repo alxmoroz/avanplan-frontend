@@ -1,4 +1,4 @@
-# openapi.model.PersonGet
+# openapi.model.Member
 
 ## Load the model package
 ```dart
@@ -8,10 +8,9 @@ import 'package:openapi/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** |  | 
 **email** | **String** |  | 
-**firstname** | **String** |  | [optional] 
-**lastname** | **String** |  | [optional] 
+**fullName** | **String** |  | [optional] 
+**userId** | **int** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

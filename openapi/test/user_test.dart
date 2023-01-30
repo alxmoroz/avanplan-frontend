@@ -22,13 +22,13 @@ void main() {
       // TODO
     });
 
-    // String locale (default value: 'ru')
-    test('to test the property `locale`', () async {
+    // String nickName
+    test('to test the property `nickName`', () async {
       // TODO
     });
 
-    // String nickname
-    test('to test the property `nickname`', () async {
+    // String locale (default value: 'ru')
+    test('to test the property `locale`', () async {
       // TODO
     });
 

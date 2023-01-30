@@ -62,12 +62,12 @@ void main() {
       // TODO
     });
 
-    // PersonGet assignee
+    // MemberGet assignee
     test('to test the property `assignee`', () async {
       // TODO
     });
 
-    // PersonGet author
+    // MemberGet author
     test('to test the property `author`', () async {
       // TODO
     });

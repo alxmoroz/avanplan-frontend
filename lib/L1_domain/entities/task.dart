@@ -1,7 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'base_entity.dart';
-import 'person.dart';
+import 'member.dart';
 import 'priority.dart';
 import 'status.dart';
 import 'task_source.dart';
@@ -54,8 +54,8 @@ class Task extends Titleable {
   final int workspaceId;
   final Status? status;
   final Priority? priority;
-  final Person? author;
-  final Person? assignee;
+  final Member? author;
+  final Member? assignee;
   final TaskSource? taskSource;
   final String? type;
   int? estimate;

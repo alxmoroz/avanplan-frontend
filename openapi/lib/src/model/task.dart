@@ -3,10 +3,10 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:openapi/src/model/person.dart';
 import 'package:openapi/src/model/status.dart';
 import 'package:openapi/src/model/priority.dart';
 import 'package:openapi/src/model/task_source.dart';
+import 'package:openapi/src/model/member.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -57,10 +57,10 @@ abstract class Task implements Built<Task, TaskBuilder> {
   int? get estimate;
 
   @BuiltValueField(wireName: r'assignee')
-  Person? get assignee;
+  Member? get assignee;
 
   @BuiltValueField(wireName: r'author')
-  Person? get author;
+  Member? get author;
 
   @BuiltValueField(wireName: r'status')
   Status? get status;
@@ -162,14 +162,14 @@ class _$TaskSerializer implements PrimitiveSerializer<Task> {
       yield r'assignee';
       yield serializers.serialize(
         object.assignee,
-        specifiedType: const FullType(Person),
+        specifiedType: const FullType(Member),
       );
     }
     if (object.author != null) {
       yield r'author';
       yield serializers.serialize(
         object.author,
-        specifiedType: const FullType(Person),
+        specifiedType: const FullType(Member),
       );
     }
     if (object.status != null) {
@@ -289,15 +289,15 @@ class _$TaskSerializer implements PrimitiveSerializer<Task> {
         case r'assignee':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(Person),
-          ) as Person;
+            specifiedType: const FullType(Member),
+          ) as Member;
           result.assignee.replace(valueDes);
           break;
         case r'author':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(Person),
-          ) as Person;
+            specifiedType: const FullType(Member),
+          ) as Member;
           result.author.replace(valueDes);
           break;
         case r'status':

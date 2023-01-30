@@ -60,7 +60,7 @@ abstract class _MainControllerBase with Store {
 
       // List<Status> get _sortedStatuses => statuses.map((s) => s.status).sorted((s1, s2) => compareNatural('$s1', '$s2'));
       // List<Priority> get _sortedPriorities => priorities.map((p) => p.priority).sorted((p1, p2) => compareNatural('$p1', '$p2'));
-      // List<Person> get _sortedPersons => persons.map((p) => p.person).sorted((p1, p2) => compareNatural('$p1', '$p2'));
+      // List<Member> get _sortedMembers => members.map((m) => m.member).sorted((m1, m2) => compareNatural('$m1', '$m2'));
 
       final projects = await tasksUC.getRoots(ws.id!);
       projects.forEach((p) {

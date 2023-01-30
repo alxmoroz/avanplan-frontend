@@ -47,12 +47,12 @@ void main() {
       // TODO
     });
 
-    // Person assignee
+    // Member assignee
     test('to test the property `assignee`', () async {
       // TODO
     });
 
-    // Person author
+    // Member author
     test('to test the property `author`', () async {
       // TODO
     });

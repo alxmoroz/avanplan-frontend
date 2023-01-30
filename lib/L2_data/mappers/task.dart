@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:openapi/openapi.dart' as api;
 
 import '../../L1_domain/entities/task.dart';
-import 'person.dart';
+import 'member.dart';
 import 'priority.dart';
 import 'status.dart';
 import 'task_source.dart';
@@ -35,8 +35,8 @@ extension TaskMapper on api.TaskGet {
       estimate: estimate,
       tasks: [],
       priority: priority?.priority(wsId),
-      author: author?.person(wsId),
-      assignee: assignee?.person(wsId),
+      author: author?.member(wsId),
+      assignee: assignee?.member(wsId),
       taskSource: ts,
       parent: parent,
       workspaceId: wsId,

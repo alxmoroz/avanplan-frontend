@@ -10,7 +10,7 @@ extension WorkspaceMapper on api.WorkspaceGet {
         title: title?.trim() ?? '',
         description: description?.trim() ?? '',
         // sources: sources.map((rt) => rt.source).toList(),
-        // persons: _sortedPersons,
+        // members: _sortedMembers,
         // priorities: _sortedPriorities,
         // statuses: _sortedStatuses,
         // estimates: _sortedEstimates,

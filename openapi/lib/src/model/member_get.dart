@@ -6,50 +6,50 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'person_get.g.dart';
+part 'member_get.g.dart';
 
-/// PersonGet
+/// MemberGet
 ///
 /// Properties:
 /// * [id] 
 /// * [email] 
-/// * [firstname] 
-/// * [lastname] 
+/// * [fullName] 
+/// * [userId] 
 @BuiltValue()
-abstract class PersonGet implements Built<PersonGet, PersonGetBuilder> {
+abstract class MemberGet implements Built<MemberGet, MemberGetBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
 
   @BuiltValueField(wireName: r'email')
   String get email;
 
-  @BuiltValueField(wireName: r'firstname')
-  String? get firstname;
+  @BuiltValueField(wireName: r'full_name')
+  String? get fullName;
 
-  @BuiltValueField(wireName: r'lastname')
-  String? get lastname;
+  @BuiltValueField(wireName: r'user_id')
+  int? get userId;
 
-  PersonGet._();
+  MemberGet._();
 
-  factory PersonGet([void updates(PersonGetBuilder b)]) = _$PersonGet;
+  factory MemberGet([void updates(MemberGetBuilder b)]) = _$MemberGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(PersonGetBuilder b) => b;
+  static void _defaults(MemberGetBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<PersonGet> get serializer => _$PersonGetSerializer();
+  static Serializer<MemberGet> get serializer => _$MemberGetSerializer();
 }
 
-class _$PersonGetSerializer implements PrimitiveSerializer<PersonGet> {
+class _$MemberGetSerializer implements PrimitiveSerializer<MemberGet> {
   @override
-  final Iterable<Type> types = const [PersonGet, _$PersonGet];
+  final Iterable<Type> types = const [MemberGet, _$MemberGet];
 
   @override
-  final String wireName = r'PersonGet';
+  final String wireName = r'MemberGet';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    PersonGet object, {
+    MemberGet object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'id';
@@ -62,18 +62,18 @@ class _$PersonGetSerializer implements PrimitiveSerializer<PersonGet> {
       object.email,
       specifiedType: const FullType(String),
     );
-    if (object.firstname != null) {
-      yield r'firstname';
+    if (object.fullName != null) {
+      yield r'full_name';
       yield serializers.serialize(
-        object.firstname,
+        object.fullName,
         specifiedType: const FullType(String),
       );
     }
-    if (object.lastname != null) {
-      yield r'lastname';
+    if (object.userId != null) {
+      yield r'user_id';
       yield serializers.serialize(
-        object.lastname,
-        specifiedType: const FullType(String),
+        object.userId,
+        specifiedType: const FullType(int),
       );
     }
   }
@@ -81,7 +81,7 @@ class _$PersonGetSerializer implements PrimitiveSerializer<PersonGet> {
   @override
   Object serialize(
     Serializers serializers,
-    PersonGet object, {
+    MemberGet object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -92,7 +92,7 @@ class _$PersonGetSerializer implements PrimitiveSerializer<PersonGet> {
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required PersonGetBuilder result,
+    required MemberGetBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -113,19 +113,19 @@ class _$PersonGetSerializer implements PrimitiveSerializer<PersonGet> {
           ) as String;
           result.email = valueDes;
           break;
-        case r'firstname':
+        case r'full_name':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.firstname = valueDes;
+          result.fullName = valueDes;
           break;
-        case r'lastname':
+        case r'user_id':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.lastname = valueDes;
+            specifiedType: const FullType(int),
+          ) as int;
+          result.userId = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -136,12 +136,12 @@ class _$PersonGetSerializer implements PrimitiveSerializer<PersonGet> {
   }
 
   @override
-  PersonGet deserialize(
+  MemberGet deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = PersonGetBuilder();
+    final result = MemberGetBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

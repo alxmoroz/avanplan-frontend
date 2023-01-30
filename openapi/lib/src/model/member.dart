@@ -6,46 +6,46 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'person.g.dart';
+part 'member.g.dart';
 
-/// Person
+/// Member
 ///
 /// Properties:
 /// * [email] 
-/// * [firstname] 
-/// * [lastname] 
+/// * [fullName] 
+/// * [userId] 
 @BuiltValue()
-abstract class Person implements Built<Person, PersonBuilder> {
+abstract class Member implements Built<Member, MemberBuilder> {
   @BuiltValueField(wireName: r'email')
   String get email;
 
-  @BuiltValueField(wireName: r'firstname')
-  String? get firstname;
+  @BuiltValueField(wireName: r'full_name')
+  String? get fullName;
 
-  @BuiltValueField(wireName: r'lastname')
-  String? get lastname;
+  @BuiltValueField(wireName: r'user_id')
+  int? get userId;
 
-  Person._();
+  Member._();
 
-  factory Person([void updates(PersonBuilder b)]) = _$Person;
+  factory Member([void updates(MemberBuilder b)]) = _$Member;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(PersonBuilder b) => b;
+  static void _defaults(MemberBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<Person> get serializer => _$PersonSerializer();
+  static Serializer<Member> get serializer => _$MemberSerializer();
 }
 
-class _$PersonSerializer implements PrimitiveSerializer<Person> {
+class _$MemberSerializer implements PrimitiveSerializer<Member> {
   @override
-  final Iterable<Type> types = const [Person, _$Person];
+  final Iterable<Type> types = const [Member, _$Member];
 
   @override
-  final String wireName = r'Person';
+  final String wireName = r'Member';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    Person object, {
+    Member object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'email';
@@ -53,18 +53,18 @@ class _$PersonSerializer implements PrimitiveSerializer<Person> {
       object.email,
       specifiedType: const FullType(String),
     );
-    if (object.firstname != null) {
-      yield r'firstname';
+    if (object.fullName != null) {
+      yield r'full_name';
       yield serializers.serialize(
-        object.firstname,
+        object.fullName,
         specifiedType: const FullType(String),
       );
     }
-    if (object.lastname != null) {
-      yield r'lastname';
+    if (object.userId != null) {
+      yield r'user_id';
       yield serializers.serialize(
-        object.lastname,
-        specifiedType: const FullType(String),
+        object.userId,
+        specifiedType: const FullType(int),
       );
     }
   }
@@ -72,7 +72,7 @@ class _$PersonSerializer implements PrimitiveSerializer<Person> {
   @override
   Object serialize(
     Serializers serializers,
-    Person object, {
+    Member object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -83,7 +83,7 @@ class _$PersonSerializer implements PrimitiveSerializer<Person> {
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required PersonBuilder result,
+    required MemberBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -97,19 +97,19 @@ class _$PersonSerializer implements PrimitiveSerializer<Person> {
           ) as String;
           result.email = valueDes;
           break;
-        case r'firstname':
+        case r'full_name':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.firstname = valueDes;
+          result.fullName = valueDes;
           break;
-        case r'lastname':
+        case r'user_id':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.lastname = valueDes;
+            specifiedType: const FullType(int),
+          ) as int;
+          result.userId = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -120,12 +120,12 @@ class _$PersonSerializer implements PrimitiveSerializer<Person> {
   }
 
   @override
-  Person deserialize(
+  Member deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = PersonBuilder();
+    final result = MemberBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

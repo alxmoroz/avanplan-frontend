@@ -1,24 +1,24 @@
 import 'package:test/test.dart';
 import 'package:openapi/openapi.dart';
 
-// tests for Person
+// tests for Member
 void main() {
-  final instance = PersonBuilder();
+  final instance = MemberBuilder();
   // TODO add properties to the builder and call build()
 
-  group(Person, () {
+  group(Member, () {
     // String email
     test('to test the property `email`', () async {
       // TODO
     });
 
-    // String firstname
-    test('to test the property `firstname`', () async {
+    // String fullName
+    test('to test the property `fullName`', () async {
       // TODO
     });
 
-    // String lastname
-    test('to test the property `lastname`', () async {
+    // int userId
+    test('to test the property `userId`', () async {
       // TODO
     });
   });

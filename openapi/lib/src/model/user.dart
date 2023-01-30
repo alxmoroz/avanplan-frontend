@@ -16,8 +16,8 @@ part 'user.g.dart';
 /// * [id] 
 /// * [email] 
 /// * [fullName] 
+/// * [nickName] 
 /// * [locale] 
-/// * [nickname] 
 /// * [notificationPermissions] 
 @BuiltValue()
 abstract class User implements Built<User, UserBuilder> {
@@ -30,11 +30,11 @@ abstract class User implements Built<User, UserBuilder> {
   @BuiltValueField(wireName: r'full_name')
   String? get fullName;
 
+  @BuiltValueField(wireName: r'nick_name')
+  String? get nickName;
+
   @BuiltValueField(wireName: r'locale')
   String? get locale;
-
-  @BuiltValueField(wireName: r'nickname')
-  String? get nickname;
 
   @BuiltValueField(wireName: r'notification_permissions')
   BuiltList<UNotificationPermissionGet> get notificationPermissions;
@@ -80,17 +80,17 @@ class _$UserSerializer implements PrimitiveSerializer<User> {
         specifiedType: const FullType(String),
       );
     }
+    if (object.nickName != null) {
+      yield r'nick_name';
+      yield serializers.serialize(
+        object.nickName,
+        specifiedType: const FullType(String),
+      );
+    }
     if (object.locale != null) {
       yield r'locale';
       yield serializers.serialize(
         object.locale,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.nickname != null) {
-      yield r'nickname';
-      yield serializers.serialize(
-        object.nickname,
         specifiedType: const FullType(String),
       );
     }
@@ -143,19 +143,19 @@ class _$UserSerializer implements PrimitiveSerializer<User> {
           ) as String;
           result.fullName = valueDes;
           break;
+        case r'nick_name':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.nickName = valueDes;
+          break;
         case r'locale':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
           result.locale = valueDes;
-          break;
-        case r'nickname':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.nickname = valueDes;
           break;
         case r'notification_permissions':
           final valueDes = serializers.deserialize(

@@ -4,9 +4,9 @@
 
 // ignore_for_file: unused_element
 import 'package:openapi/src/model/priority_get.dart';
+import 'package:openapi/src/model/member_get.dart';
 import 'package:openapi/src/model/task_source_get.dart';
 import 'package:built_collection/built_collection.dart';
-import 'package:openapi/src/model/person_get.dart';
 import 'package:openapi/src/model/status_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -69,10 +69,10 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   int? get estimate;
 
   @BuiltValueField(wireName: r'assignee')
-  PersonGet? get assignee;
+  MemberGet? get assignee;
 
   @BuiltValueField(wireName: r'author')
-  PersonGet? get author;
+  MemberGet? get author;
 
   @BuiltValueField(wireName: r'priority')
   PriorityGet? get priority;
@@ -186,14 +186,14 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
       yield r'assignee';
       yield serializers.serialize(
         object.assignee,
-        specifiedType: const FullType(PersonGet),
+        specifiedType: const FullType(MemberGet),
       );
     }
     if (object.author != null) {
       yield r'author';
       yield serializers.serialize(
         object.author,
-        specifiedType: const FullType(PersonGet),
+        specifiedType: const FullType(MemberGet),
       );
     }
     if (object.priority != null) {
@@ -327,15 +327,15 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
         case r'assignee':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(PersonGet),
-          ) as PersonGet;
+            specifiedType: const FullType(MemberGet),
+          ) as MemberGet;
           result.assignee.replace(valueDes);
           break;
         case r'author':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(PersonGet),
-          ) as PersonGet;
+            specifiedType: const FullType(MemberGet),
+          ) as MemberGet;
           result.author.replace(valueDes);
           break;
         case r'priority':

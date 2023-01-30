@@ -2,7 +2,7 @@
 
 import 'base_entity.dart';
 import 'estimate_value.dart';
-import 'person.dart';
+import 'member.dart';
 import 'priority.dart';
 import 'source.dart';
 import 'status.dart';
@@ -18,7 +18,7 @@ class Workspace extends Titleable {
 
   List<Status> statuses = [];
   List<Priority> priorities = [];
-  List<Person> persons = [];
+  List<Member> members = [];
   List<Source> sources = [];
   List<EstimateValue> estimateValues = [];
   WSSettings? settings;

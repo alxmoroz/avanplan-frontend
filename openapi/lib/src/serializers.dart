@@ -22,9 +22,9 @@ import 'package:openapi/src/model/estimate_unit_get.dart';
 import 'package:openapi/src/model/estimate_value_get.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/location_inner.dart';
+import 'package:openapi/src/model/member.dart';
+import 'package:openapi/src/model/member_get.dart';
 import 'package:openapi/src/model/notification.dart';
-import 'package:openapi/src/model/person.dart';
-import 'package:openapi/src/model/person_get.dart';
 import 'package:openapi/src/model/priority.dart';
 import 'package:openapi/src/model/priority_get.dart';
 import 'package:openapi/src/model/settings_get.dart';
@@ -57,9 +57,9 @@ part 'serializers.g.dart';
   EstimateValueGet,
   HTTPValidationError,
   LocationInner,
+  Member,
+  MemberGet,
   Notification,
-  Person,
-  PersonGet,
   Priority,
   PriorityGet,
   SettingsGet,

@@ -8,11 +8,11 @@ class EstimateValue extends Titleable {
     required super.title,
     required super.description,
     required this.value,
-    required this.workspaceId,
+    required this.wsId,
   });
 
   final int value;
-  final int workspaceId;
+  final int wsId;
 
   @override
   String toString() => '$value';

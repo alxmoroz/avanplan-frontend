@@ -3,13 +3,12 @@
 import 'base_entity.dart';
 import 'estimate_unit.dart';
 
-class WSSettings extends RPersistable {
+class WSSettings extends WSBounded {
   WSSettings({
     required super.id,
     required this.estimateUnit,
-    required this.workspaceId,
+    required super.wsId,
   });
 
   final EstimateUnit? estimateUnit;
-  final int workspaceId;
 }

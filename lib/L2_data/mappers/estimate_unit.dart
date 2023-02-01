@@ -10,6 +10,6 @@ extension EstimateUnitMapper on EstimateUnitGet {
         abbreviation: abbreviation,
         title: title ?? '',
         description: description ?? '',
-        workspaceId: wsId,
+        wsId: wsId,
       );
 }

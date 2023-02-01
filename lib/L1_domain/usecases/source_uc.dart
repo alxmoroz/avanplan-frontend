@@ -5,8 +5,8 @@ import '../repositories/abs_api_source_repo.dart';
 
 //TODO: похоже, есть смысл сделать абстрактный общий юзкейс
 
-class SourcesUC {
-  SourcesUC({required this.repo});
+class SourceUC {
+  SourceUC({required this.repo});
 
   final AbstractApiSourceRepo repo;
 

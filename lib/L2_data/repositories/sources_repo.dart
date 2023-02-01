@@ -27,7 +27,7 @@ class SourcesRepo extends AbstractApiSourceRepo {
 
   @override
   Future<Source?> save(Source data) async {
-    final wsId = data.workspaceId;
+    final wsId = data.wsId;
     final builder = o_api.SourceUpsertBuilder()
       ..id = data.id
       ..type = data.type
@@ -47,7 +47,7 @@ class SourcesRepo extends AbstractApiSourceRepo {
 
   @override
   Future<bool> delete(Source data) async {
-    final response = await api.deleteSourceV1IntegrationsSourcesSourceIdDelete(sourceId: data.id!, wsId: data.workspaceId);
+    final response = await api.deleteSourceV1IntegrationsSourcesSourceIdDelete(sourceId: data.id!, wsId: data.wsId);
     return response.statusCode == 200 && response.data?.asNum == 1;
   }
 
@@ -55,7 +55,7 @@ class SourcesRepo extends AbstractApiSourceRepo {
   Future<bool> checkConnection(Source s) async {
     bool res = false;
     try {
-      final response = await api.checkConnectionV1IntegrationsSourcesCheckConnectionGet(sourceId: s.id!, wsId: s.workspaceId);
+      final response = await api.checkConnectionV1IntegrationsSourcesCheckConnectionGet(sourceId: s.id!, wsId: s.wsId);
       res = response.statusCode == 200 && response.data == true;
     } on DioError catch (e) {
       if (['ERR_IMPORT_CONNECTION'].contains(e.errCode)) {

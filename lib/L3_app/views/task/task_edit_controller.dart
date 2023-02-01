@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/estimate_value.dart';
+import '../../../L1_domain/entities/member.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../components/mt_confirm_dialog.dart';
 import '../../extra/services.dart';
@@ -77,7 +78,7 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
   bool get validated => super.validated && selectedWS != null;
 
   /// действия
-  Future<Task?> _saveTask(Task? task, Task parent) async => await tasksUC.save(
+  Future<Task?> _saveTask(Task? task, Task parent) async => await taskUC.save(
         Task(
           id: task?.id,
           parent: parent,
@@ -90,7 +91,8 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
           dueDate: selectedDueDate,
           tasks: task?.tasks ?? [],
           type: task?.type,
-          workspaceId: selectedWS!.id!,
+          assignee: selectedAssignee,
+          wsId: selectedWS!.id!,
         ),
       );
 
@@ -118,7 +120,7 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
     if (confirm == true) {
       loaderController.start();
       loaderController.setDeleting();
-      final deletedTask = await tasksUC.delete(task);
+      final deletedTask = await taskUC.delete(task);
       Navigator.of(context).pop(EditTaskResult(deletedTask));
       await loaderController.stop(300);
     }
@@ -137,6 +139,20 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
 
   @computed
   EstimateValue? get selectedEstimate => estimateValues.firstWhereOrNull((e) => e.id == _selectedEstimateId);
+
+  /// назначенный
+  @observable
+  List<Member> allowedAssignees = [];
+
+  @action
+  void setAllowedAssignees(List<Member> assignees) => allowedAssignees = assignees;
+
+  @observable
+  Member? selectedAssignee;
+
+  @action
+  void selectAssignee(Member? ass) => selectedAssignee = ass;
+  void selectAssigneeById(int? id) => selectAssignee(allowedAssignees.firstWhereOrNull((m) => m.id == id));
 
   /// статусы задач
 

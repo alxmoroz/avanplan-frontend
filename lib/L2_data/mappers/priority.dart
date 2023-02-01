@@ -9,6 +9,6 @@ extension PriorityMapper on api.PriorityGet {
         id: id,
         code: code,
         order: order,
-        workspaceId: wsId,
+        wsId: wsId,
       );
 }

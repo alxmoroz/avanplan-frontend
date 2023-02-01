@@ -8,6 +8,6 @@ extension UserMapper on api.User {
   User get user => User(
         id: id,
         email: email,
-        fullname: fullName ?? '',
+        fullName: fullName ?? '',
       );
 }

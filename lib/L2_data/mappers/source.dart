@@ -12,6 +12,6 @@ extension SourceMapper on SourceGet {
         apiKey: apiKey,
         username: username,
         description: description ?? '',
-        workspaceId: wsId,
+        wsId: wsId,
       );
 }

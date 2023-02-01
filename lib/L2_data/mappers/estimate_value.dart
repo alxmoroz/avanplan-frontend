@@ -10,6 +10,6 @@ extension EstimateValueMapper on EstimateValueGet {
         value: value,
         title: title ?? '',
         description: description ?? '',
-        workspaceId: wsId,
+        wsId: wsId,
       );
 }

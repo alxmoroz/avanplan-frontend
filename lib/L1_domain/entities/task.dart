@@ -30,7 +30,7 @@ class Task extends Titleable {
     required this.closed,
     required this.parent,
     required this.tasks,
-    required this.workspaceId,
+    required this.wsId,
     this.createdOn,
     this.updatedOn,
     this.dueDate,
@@ -51,7 +51,7 @@ class Task extends Titleable {
   DateTime? startDate;
   DateTime? closedDate;
   final DateTime? dueDate;
-  final int workspaceId;
+  final int wsId;
   final Status? status;
   final Priority? priority;
   final Member? author;
@@ -97,6 +97,8 @@ class Task extends Titleable {
   late TaskState state;
   late TaskState subtasksState;
   late TaskState overallState;
+
+  List<Member> members = [];
 }
 
 class TaskImport {
@@ -115,10 +117,10 @@ class TaskImport {
 
 class TaskQuery {
   TaskQuery({
-    required this.workspaceId,
+    required this.wsId,
     this.parentId,
   });
 
-  final int workspaceId;
+  final int wsId;
   final int? parentId;
 }

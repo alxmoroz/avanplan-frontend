@@ -26,7 +26,7 @@ abstract class _MainControllerBase with Store {
 
   /// рутовый объект
   @observable
-  Task rootTask = Task(title: '', closed: false, parent: null, tasks: [], workspaceId: -1);
+  Task rootTask = Task(title: '', closed: false, parent: null, tasks: [], wsId: -1);
 
   @computed
   Map<int, Task> get _tasksMap => {for (var t in rootTask.allTasks) t.id!: t};
@@ -34,10 +34,10 @@ abstract class _MainControllerBase with Store {
   /// конкретная задача
   Task taskForId(int? id) => _tasksMap[id] ?? rootTask;
 
-  /// роли и права доступа
+  /// роли и права доступа к РП
   @computed
-  Map<int, Iterable<WSRole>> get _rolesMap => {for (var ws in workspaces) ws.id!: ws.roles};
-  Iterable<WSRole> rolesForWS(int? wsId) => _rolesMap[wsId] ?? [];
+  Map<int, Iterable<WSRole>> get _wsRolesMap => {for (var ws in workspaces) ws.id!: ws.roles};
+  Iterable<WSRole> rolesForWS(int? wsId) => _wsRolesMap[wsId] ?? [];
   // TODO: проблема совместного отображения списка задач из разных РП
   bool get canEditAnyWS => editableWSs.isNotEmpty;
 
@@ -54,17 +54,19 @@ abstract class _MainControllerBase with Store {
     workspaces.sort((w1, w2) => compareNatural(w1.title, w2.title));
     final tasks = <Task>[];
     for (Workspace ws in workspaces) {
-      ws.sources = await sourcesUC.getAll(ws.id!);
-      ws.estimateValues = await wsSettingsUC.getEstimateValues(ws.id!);
-      ws.settings = await wsSettingsUC.getSettings(ws.id!);
+      final wsId = ws.id!;
+      ws.sources = await sourceUC.getAll(wsId);
+      // TODO: сортировка
+      ws.estimateValues = await wsSettingsUC.getEstimateValues(wsId);
+      ws.settings = await wsSettingsUC.getSettings(wsId);
 
       // List<Status> get _sortedStatuses => statuses.map((s) => s.status).sorted((s1, s2) => compareNatural('$s1', '$s2'));
       // List<Priority> get _sortedPriorities => priorities.map((p) => p.priority).sorted((p1, p2) => compareNatural('$p1', '$p2'));
-      // List<Member> get _sortedMembers => members.map((m) => m.member).sorted((m1, m2) => compareNatural('$m1', '$m2'));
 
-      final projects = await tasksUC.getRoots(ws.id!);
-      projects.forEach((p) {
+      final projects = await taskUC.getRoots(ws.id!);
+      projects.forEach((p) async {
         p.parent = rootTask;
+        p.members = (await taskUC.getTaskMembers(wsId, p.id!)).sorted((m1, m2) => compareNatural('$m1', '$m2'));
       });
 
       tasks.addAll(projects);

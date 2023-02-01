@@ -9,6 +9,7 @@ extension MemberMapper on api.MemberGet {
         id: id,
         email: email,
         fullName: fullName,
-        workspaceId: wsId,
+        wsId: wsId,
+        userId: userId,
       );
 }

@@ -12,7 +12,6 @@ import 'package:openapi/src/auth/oauth.dart';
 import 'package:openapi/src/api/auth_api.dart';
 import 'package:openapi/src/api/integrations_sources_api.dart';
 import 'package:openapi/src/api/integrations_tasks_api.dart';
-import 'package:openapi/src/api/members_api.dart';
 import 'package:openapi/src/api/my_api.dart';
 import 'package:openapi/src/api/settings_api.dart';
 import 'package:openapi/src/api/tasks_api.dart';
@@ -87,12 +86,6 @@ class Openapi {
   /// by doing that all interceptors will not be executed
   IntegrationsTasksApi getIntegrationsTasksApi() {
     return IntegrationsTasksApi(dio, serializers);
-  }
-
-  /// Get MembersApi instance, base route and serializer can be overridden by a given but be careful,
-  /// by doing that all interceptors will not be executed
-  MembersApi getMembersApi() {
-    return MembersApi(dio, serializers);
   }
 
   /// Get MyApi instance, base route and serializer can be overridden by a given but be careful,

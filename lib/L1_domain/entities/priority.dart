@@ -7,8 +7,8 @@ class Priority extends Orderable {
     required super.id,
     required super.order,
     required super.code,
-    required this.workspaceId,
+    required this.wsId,
   });
 
-  final int workspaceId;
+  final int wsId;
 }

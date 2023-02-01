@@ -67,7 +67,7 @@ abstract class _TaskViewControllerBase with Store {
   bool get showGroupTitles => _showGroupTitles ?? task.subtaskGroups.length > 1 && task.tasks.length > 4;
 
   @computed
-  bool get canEditTask => authController.canEditWS(mainController.rolesForWS(task.workspaceId));
+  bool get canEditTask => authController.canEditWS(mainController.rolesForWS(task.wsId));
 
   /// связь с источником импорта
 
@@ -147,7 +147,7 @@ abstract class _TaskViewControllerBase with Store {
     if (close) {
       t.closedDate = DateTime.now();
     }
-    return await tasksUC.save(t);
+    return await taskUC.save(t);
   }
 
   Future<Task?> _setClosedTaskTree(Task _task, bool close, bool _recursively) async {
@@ -224,7 +224,7 @@ abstract class _TaskViewControllerBase with Store {
       loaderController.start();
       loaderController.setUnlinking();
       try {
-        await importUC.updateTaskSources(task.workspaceId, task.unlinkTaskTree());
+        await importUC.updateTaskSources(task.wsId, task.unlinkTaskTree());
         mainController.updateRootTask();
         res = true;
       } catch (_) {}
@@ -237,7 +237,7 @@ abstract class _TaskViewControllerBase with Store {
     if (await _unwatchDialog() == true) {
       loaderController.start();
       loaderController.setUnwatch();
-      final deletedTask = await tasksUC.delete(task);
+      final deletedTask = await taskUC.delete(task);
       await loaderController.stop();
       if (deletedTask.deleted) {
         _popDeleted(deletedTask);

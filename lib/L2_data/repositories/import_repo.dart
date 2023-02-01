@@ -16,7 +16,7 @@ class ImportRepo extends AbstractApiImportRepo {
   @override
   Future<List<TaskImport>> getRootTaskSources(Source source) async {
     final List<TaskImport> rootTasks = [];
-    final response = await api.getRootTasksV1IntegrationsTasksGet(sourceId: source.id!, wsId: source.workspaceId);
+    final response = await api.getRootTasksV1IntegrationsTasksGet(sourceId: source.id!, wsId: source.wsId);
     if (response.statusCode == 200) {
       for (o_api.Task t in response.data?.toList() ?? []) {
         rootTasks.add(t.taskImport);
@@ -36,7 +36,7 @@ class ImportRepo extends AbstractApiImportRepo {
     await api.importTaskSourcesV1IntegrationsTasksImportPost(
       sourceId: source.id!,
       taskSource: BuiltList.from(tSchema),
-      wsId: source.workspaceId,
+      wsId: source.wsId,
     );
   }
 

@@ -177,6 +177,9 @@
   "subtask_new_title": "New subtask",
   "subtask_title": "Subtask",
 
+  "task_assignee_nobody": "Nobody",
+  "task_assignee_placeholder": "Assigned",
+
   "task_count": "{count, plural, zero{No tasks} one{{count} task} other{{count} tasks}}",
   "task_count_dative": "{count, plural, one{{count} task} other{{count} tasks}}",
 

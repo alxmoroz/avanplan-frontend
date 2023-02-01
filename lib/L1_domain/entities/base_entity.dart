@@ -13,10 +13,10 @@ abstract class RPersistable {
   bool deleted = false;
 }
 
-abstract class Emailable extends RPersistable {
-  Emailable({super.id, required this.email});
+abstract class WSBounded extends RPersistable {
+  WSBounded({super.id, required this.wsId});
 
-  final String email;
+  final int wsId;
 }
 
 abstract class Codable extends RPersistable {

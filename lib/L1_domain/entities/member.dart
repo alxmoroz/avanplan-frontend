@@ -1,17 +1,22 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'base_entity.dart';
+import 'package:avanplan/L1_domain/entities/task_role.dart';
 
-class Member extends Emailable {
+import 'user.dart';
+
+class Member extends User {
   Member({
     required super.id,
     required super.email,
-    required this.workspaceId,
-    this.fullName,
+    required super.fullName,
+    required this.wsId,
+    required this.userId,
   });
 
-  final String? fullName;
-  final int workspaceId;
+  final int wsId;
+  final int? userId;
+
+  List<TaskRole> roles = [];
 
   @override
   String toString() => '${fullName ?? email}';

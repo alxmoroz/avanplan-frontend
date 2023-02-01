@@ -9,8 +9,8 @@ import '../../L1_domain/usecases/app_settings_uc.dart';
 import '../../L1_domain/usecases/auth_uc.dart';
 import '../../L1_domain/usecases/import_uc.dart';
 import '../../L1_domain/usecases/my_uc.dart';
-import '../../L1_domain/usecases/sources_uc.dart';
-import '../../L1_domain/usecases/tasks_uc.dart';
+import '../../L1_domain/usecases/source_uc.dart';
+import '../../L1_domain/usecases/task_uc.dart';
 import '../../L1_domain/usecases/ws_settings_uc.dart';
 import '../../L2_data/repositories/auth_apple_repo.dart';
 import '../../L2_data/repositories/auth_google_repo.dart';
@@ -20,6 +20,7 @@ import '../../L2_data/repositories/estimate_values_repo.dart';
 import '../../L2_data/repositories/import_repo.dart';
 import '../../L2_data/repositories/my_repo.dart';
 import '../../L2_data/repositories/sources_repo.dart';
+import '../../L2_data/repositories/task_member_role_repo.dart';
 import '../../L2_data/repositories/tasks_repo.dart';
 import '../../L2_data/repositories/ws_settings_repo.dart';
 import '../../L2_data/services/api.dart';
@@ -53,8 +54,8 @@ AppSettingsUC get appSettingsUC => GetIt.I<AppSettingsUC>();
 WSSettingsUC get wsSettingsUC => GetIt.I<WSSettingsUC>();
 AuthUC get authUC => GetIt.I<AuthUC>();
 MyUC get myUC => GetIt.I<MyUC>();
-TasksUC get tasksUC => GetIt.I<TasksUC>();
-SourcesUC get sourcesUC => GetIt.I<SourcesUC>();
+TaskUC get taskUC => GetIt.I<TaskUC>();
+SourceUC get sourceUC => GetIt.I<SourceUC>();
 ImportUC get importUC => GetIt.I<ImportUC>();
 
 void setup() {
@@ -89,8 +90,8 @@ void setup() {
   getIt.registerSingleton<AppSettingsUC>(AppSettingsUC(settingsRepo: SettingsRepo()));
   // getIt.registerSingleton<TaskTypesUC>(TaskTypesUC(repo: TaskTypesRepo()));
   getIt.registerSingleton<MyUC>(MyUC(repo: MyRepo()));
-  getIt.registerSingleton<TasksUC>(TasksUC(repo: TasksRepo()));
-  getIt.registerSingleton<SourcesUC>(SourcesUC(repo: SourcesRepo()));
+  getIt.registerSingleton<TaskUC>(TaskUC(taskRepo: TasksRepo(), tmRoleRepo: TaskMemberRoleRepo()));
+  getIt.registerSingleton<SourceUC>(SourceUC(repo: SourcesRepo()));
   getIt.registerSingleton<ImportUC>(ImportUC(repo: ImportRepo()));
   getIt.registerSingleton<WSSettingsUC>(WSSettingsUC(settingsRepo: WSSettingsRepo(), estValueRepo: EstimateValueRepo()));
 }

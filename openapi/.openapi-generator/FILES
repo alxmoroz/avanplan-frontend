@@ -15,7 +15,6 @@ doc/IntegrationsTasksApi.md
 doc/LocationInner.md
 doc/Member.md
 doc/MemberGet.md
-doc/MembersApi.md
 doc/MyApi.md
 doc/Notification.md
 doc/Priority.md
@@ -47,7 +46,6 @@ lib/src/api.dart
 lib/src/api/auth_api.dart
 lib/src/api/integrations_sources_api.dart
 lib/src/api/integrations_tasks_api.dart
-lib/src/api/members_api.dart
 lib/src/api/my_api.dart
 lib/src/api/settings_api.dart
 lib/src/api/tasks_api.dart
@@ -107,7 +105,6 @@ test/integrations_tasks_api_test.dart
 test/location_inner_test.dart
 test/member_get_test.dart
 test/member_test.dart
-test/members_api_test.dart
 test/my_api_test.dart
 test/notification_test.dart
 test/priority_get_test.dart

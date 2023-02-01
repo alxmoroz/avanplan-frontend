@@ -27,6 +27,7 @@ abstract class _WorkspaceBoundedBase extends EditController with Store {
     return workspaces.length == 1 ? workspaces.first : workspaces.firstWhereOrNull((s) => s.id == _selectedWSId);
   }
 
+  // TODO: в текущей реализации возможность выбора РП не предусмотрена!
   Widget wsDropdown(BuildContext context) {
     return mainController.workspaces.length > 1
         ? MTDropdown<Workspace>(

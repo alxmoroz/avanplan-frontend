@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/estimate_value.dart';
+import '../../../L1_domain/entities/member.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/usecases/task_ext_level.dart';
 import '../../../L1_domain/usecases/task_ext_state.dart';
@@ -55,7 +56,7 @@ class _TaskEditViewState extends State<TaskEditView> {
   Task get parent => widget.parent;
   bool get isNew => task == null;
 
-  int? get _savedWsID => task?.workspaceId ?? parent.workspaceId;
+  int? get _savedWsID => task?.wsId ?? parent.wsId;
 
   late TaskEditController controller;
 
@@ -76,6 +77,11 @@ class _TaskEditViewState extends State<TaskEditView> {
     controller.setDueDate(task?.dueDate);
     controller.selectWS(_savedWsID);
     controller.selectEstimateByValue(task?.estimate);
+    controller.setAllowedAssignees([
+      Member(fullName: loc.task_assignee_nobody, wsId: -1, id: null, email: '', userId: null),
+      ...task?.project?.members ?? [],
+    ]);
+    controller.selectAssigneeById(task?.assignee?.id);
 
     // controller.selectStatus(task?.status);
     // controller.selectType(task?.type);
@@ -126,17 +132,18 @@ class _TaskEditViewState extends State<TaskEditView> {
     return Scrollbar(
       thumbVisibility: true,
       child: ListView(children: [
+        // TODO: перенос между РП??
         if (_savedWsID == null) controller.wsDropdown(context),
         for (final code in ['title', 'startDate', 'dueDate', 'description']) textFieldForCode(context, code),
-        // if (parent.isProject)
-        //   MTButton(
-        //     leading: DoneIcon(controller.isBacklog),
-        //     titleText: loc.backlog,
-        //     margin: tfPadding,
-        //     onTap: controller.toggleBacklog,
-        //   ),
         // ...[statuses],
-
+        if (controller.allowedAssignees.isNotEmpty)
+          MTDropdown<Member>(
+            onChanged: (m) => controller.selectAssignee(m),
+            value: controller.selectedAssignee,
+            items: controller.allowedAssignees,
+            margin: tfPadding,
+            label: loc.task_assignee_placeholder,
+          ),
         if (controller.estimateValues.isNotEmpty && (isNew || task?.hasSubtasks == false))
           MTDropdown<EstimateValue>(
             onChanged: (est) => controller.selectEstimate(est),

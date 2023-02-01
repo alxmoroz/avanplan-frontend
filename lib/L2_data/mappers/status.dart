@@ -9,6 +9,6 @@ extension StatusMapper on api.StatusGet {
         id: id,
         code: code,
         closed: closed,
-        workspaceId: wsId,
+        wsId: wsId,
       );
 }

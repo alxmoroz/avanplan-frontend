@@ -8,10 +8,10 @@ enum SrcState {
   unknown,
 }
 
-class Source extends RPersistable {
+class Source extends WSBounded {
   Source({
     super.id,
-    required this.workspaceId,
+    required super.wsId,
     required this.type,
     required this.url,
     this.apiKey,
@@ -21,7 +21,6 @@ class Source extends RPersistable {
     this.state = SrcState.unknown,
   });
 
-  final int workspaceId;
   final String type;
   final String url;
   final String? apiKey;

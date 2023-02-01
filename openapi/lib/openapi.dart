@@ -12,7 +12,6 @@ export 'package:openapi/src/model/date.dart';
 export 'package:openapi/src/api/auth_api.dart';
 export 'package:openapi/src/api/integrations_sources_api.dart';
 export 'package:openapi/src/api/integrations_tasks_api.dart';
-export 'package:openapi/src/api/members_api.dart';
 export 'package:openapi/src/api/my_api.dart';
 export 'package:openapi/src/api/settings_api.dart';
 export 'package:openapi/src/api/tasks_api.dart';

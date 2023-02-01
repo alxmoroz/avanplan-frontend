@@ -39,7 +39,7 @@ extension TaskMapper on api.TaskGet {
       assignee: assignee?.member(wsId),
       taskSource: ts,
       parent: parent,
-      workspaceId: wsId,
+      wsId: wsId,
     );
     _t.tasks = tasks?.map((t) => t.task(wsId: wsId, parent: _t)).toList() ?? [];
     return _t;

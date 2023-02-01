@@ -9,6 +9,6 @@ extension WSSettingsMapper on SettingsGet {
   WSSettings settings(int wsId) => WSSettings(
         id: id,
         estimateUnit: estimateUnit?.unit(wsId),
-        workspaceId: wsId,
+        wsId: wsId,
       );
 }

@@ -8,11 +8,11 @@ class EstimateUnit extends Titleable {
     required super.title,
     required super.description,
     required this.abbreviation,
-    required this.workspaceId,
+    required this.wsId,
   });
 
   final String abbreviation;
-  final int workspaceId;
+  final int wsId;
 
   @override
   String toString() => '$abbreviation';

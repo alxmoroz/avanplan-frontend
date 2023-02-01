@@ -2,15 +2,16 @@
 
 import 'base_entity.dart';
 
-class User extends Emailable {
+class User extends RPersistable {
   User({
     required super.id,
-    required super.email,
-    required this.fullname,
+    required this.email,
+    required this.fullName,
   });
 
-  final String fullname;
+  final String? fullName;
+  final String email;
 
   @override
-  String toString() => '${fullname.isNotEmpty ? fullname : email}';
+  String toString() => '${fullName ?? email}';
 }

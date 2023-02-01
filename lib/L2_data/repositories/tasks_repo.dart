@@ -24,9 +24,11 @@ class TasksRepo extends AbstractApiWSRepo<Task> {
 
   @override
   Future<Task?> save(Task data) async {
-    final wsId = data.workspaceId;
+    final wsId = data.wsId;
     final qBuilder = o_api.TaskUpsertBuilder()
       ..id = data.id
+      ..assigneeId = data.assignee?.id
+      ..authorId = data.author?.id
       ..statusId = data.status?.id
       ..estimate = data.estimate
       ..parentId = data.parent?.id
@@ -48,7 +50,7 @@ class TasksRepo extends AbstractApiWSRepo<Task> {
 
   @override
   Future<bool> delete(Task data) async {
-    final response = await api.deleteTaskV1TasksTaskIdDelete(taskId: data.id!, wsId: data.workspaceId);
+    final response = await api.deleteTaskV1TasksTaskIdDelete(taskId: data.id!, wsId: data.wsId);
     return response.statusCode == 200 && response.data?.asNum == 1;
   }
 }

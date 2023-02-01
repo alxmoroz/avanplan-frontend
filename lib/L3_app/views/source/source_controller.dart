@@ -63,9 +63,9 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
   int? selectedSourceId;
 
   @action
-  void selectSource(Source? _rt) {
-    selectedSourceId = _rt?.id;
-    selectWS(_rt?.workspaceId);
+  void selectSource(Source? s) {
+    selectedSourceId = s?.id;
+    selectWS(s?.wsId);
   }
 
   Source? sourceForId(int? id) => sources.firstWhereOrNull((s) => s.id == id);
@@ -91,7 +91,7 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
           // TODO: нужен способ дергать обсервер без этих хаков
           sources = sources;
 
-          connected = await sourcesUC.checkConnection(src);
+          connected = await sourceUC.checkConnection(src);
           src.state = connected ? SrcState.connected : SrcState.error;
           sources = sources;
         }
@@ -130,14 +130,14 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
   Future save(BuildContext context) async {
     loaderController.start();
     loaderController.setSaving();
-    final editedSource = await sourcesUC.save(Source(
+    final editedSource = await sourceUC.save(Source(
       id: selectedSource?.id,
       url: tfAnnoForCode('url').text,
       apiKey: tfAnnoForCode('apiKey').text,
       username: tfAnnoForCode('username').text,
       // password: tfAnnoForCode('password').text,
       description: tfAnnoForCode('description').text,
-      workspaceId: selectedWS!.id!,
+      wsId: selectedWS!.id!,
       type: selectedType!,
     ));
 
@@ -162,7 +162,7 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
       if (confirm == true) {
         loaderController.start();
         loaderController.setDeleting();
-        Navigator.of(context).pop(await sourcesUC.delete(selectedSource!));
+        Navigator.of(context).pop(await sourceUC.delete(selectedSource!));
 
         // отвязываем задачи
         mainController.rootTask.tasks.where((t) => t.taskSource?.sourceId == selectedSourceId).forEach((t) => t.unlinkTaskTree());

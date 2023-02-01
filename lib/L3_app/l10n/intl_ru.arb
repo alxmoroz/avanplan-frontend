@@ -176,6 +176,9 @@
   "subtask_new_title": "Новая подзадача",
   "subtask_title": "Подзадача",
 
+  "task_assignee_nobody": "Никому",
+  "task_assignee_placeholder": "Назначено",
+
   "task_count": "{count, plural, zero{Нет задач} one{{count} задача} few{{count} задачи} other{{count} задач}}",
   "task_count_dative": "{count, plural, one{{count} задаче} other{{count} задачам}}",
 

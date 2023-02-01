@@ -12,11 +12,6 @@ void main() {
       // TODO
     });
 
-    // TaskGet task
-    test('to test the property `task`', () async {
-      // TODO
-    });
-
     // MemberGet member
     test('to test the property `member`', () async {
       // TODO

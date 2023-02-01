@@ -4,7 +4,6 @@
 
 // ignore_for_file: unused_element
 import 'package:openapi/src/model/member_get.dart';
-import 'package:openapi/src/model/task_get.dart';
 import 'package:openapi/src/model/task_role_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -15,16 +14,12 @@ part 'task_member_role_get.g.dart';
 ///
 /// Properties:
 /// * [id] 
-/// * [task] 
 /// * [member] 
 /// * [role] 
 @BuiltValue()
 abstract class TaskMemberRoleGet implements Built<TaskMemberRoleGet, TaskMemberRoleGetBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
-
-  @BuiltValueField(wireName: r'task')
-  TaskGet get task;
 
   @BuiltValueField(wireName: r'member')
   MemberGet get member;
@@ -59,11 +54,6 @@ class _$TaskMemberRoleGetSerializer implements PrimitiveSerializer<TaskMemberRol
     yield serializers.serialize(
       object.id,
       specifiedType: const FullType(int),
-    );
-    yield r'task';
-    yield serializers.serialize(
-      object.task,
-      specifiedType: const FullType(TaskGet),
     );
     yield r'member';
     yield serializers.serialize(
@@ -104,13 +94,6 @@ class _$TaskMemberRoleGetSerializer implements PrimitiveSerializer<TaskMemberRol
             specifiedType: const FullType(int),
           ) as int;
           result.id = valueDes;
-          break;
-        case r'task':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(TaskGet),
-          ) as TaskGet;
-          result.task.replace(valueDes);
           break;
         case r'member':
           final valueDes = serializers.deserialize(

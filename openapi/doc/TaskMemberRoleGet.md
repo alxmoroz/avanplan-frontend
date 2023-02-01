@@ -9,7 +9,6 @@ import 'package:openapi/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  | 
-**task** | [**TaskGet**](TaskGet.md) |  | 
 **member** | [**MemberGet**](MemberGet.md) |  | 
 **role** | [**TaskRoleGet**](TaskRoleGet.md) |  | 
 

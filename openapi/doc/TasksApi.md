@@ -11,7 +11,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**deleteTaskV1TasksTaskIdDelete**](TasksApi.md#deletetaskv1taskstaskiddelete) | **DELETE** /v1/tasks/{task_id} | Delete Task
 [**getRootTasksV1TasksGet**](TasksApi.md#getroottasksv1tasksget) | **GET** /v1/tasks/ | Get Root Tasks
-[**getTaskMemberRolesV1TasksMembersGet**](TasksApi.md#gettaskmemberrolesv1tasksmembersget) | **GET** /v1/tasks/members | Get Task Member Roles
+[**getTaskMembersV1TasksTaskIdMembersGet**](TasksApi.md#gettaskmembersv1taskstaskidmembersget) | **GET** /v1/tasks/{task_id}/members | Get Task Members
 [**upsertTaskV1TasksPost**](TasksApi.md#upserttaskv1taskspost) | **POST** /v1/tasks/ | Upsert Task
 
 
@@ -103,10 +103,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **getTaskMemberRolesV1TasksMembersGet**
-> BuiltList<TaskMemberRoleGet> getTaskMemberRolesV1TasksMembersGet(taskId, wsId)
+# **getTaskMembersV1TasksTaskIdMembersGet**
+> BuiltList<MemberGet> getTaskMembersV1TasksTaskIdMembersGet(taskId, wsId)
 
-Get Task Member Roles
+Get Task Members
 
 ### Example
 ```dart
@@ -119,10 +119,10 @@ final int taskId = 56; // int |
 final int wsId = 56; // int | 
 
 try {
-    final response = api.getTaskMemberRolesV1TasksMembersGet(taskId, wsId);
+    final response = api.getTaskMembersV1TasksTaskIdMembersGet(taskId, wsId);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling TasksApi->getTaskMemberRolesV1TasksMembersGet: $e\n');
+    print('Exception when calling TasksApi->getTaskMembersV1TasksTaskIdMembersGet: $e\n');
 }
 ```
 
@@ -135,7 +135,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BuiltList&lt;TaskMemberRoleGet&gt;**](TaskMemberRoleGet.md)
+[**BuiltList&lt;MemberGet&gt;**](MemberGet.md)
 
 ### Authorization
 

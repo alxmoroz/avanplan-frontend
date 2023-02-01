@@ -3,6 +3,8 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:openapi/src/model/task_role_get.dart';
+import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -11,15 +13,14 @@ part 'member_get.g.dart';
 /// MemberGet
 ///
 /// Properties:
-/// * [id] 
 /// * [email] 
 /// * [fullName] 
 /// * [userId] 
+/// * [id] 
+/// * [roles] 
+/// * [isActive] 
 @BuiltValue()
 abstract class MemberGet implements Built<MemberGet, MemberGetBuilder> {
-  @BuiltValueField(wireName: r'id')
-  int get id;
-
   @BuiltValueField(wireName: r'email')
   String get email;
 
@@ -28,6 +29,15 @@ abstract class MemberGet implements Built<MemberGet, MemberGetBuilder> {
 
   @BuiltValueField(wireName: r'user_id')
   int? get userId;
+
+  @BuiltValueField(wireName: r'id')
+  int get id;
+
+  @BuiltValueField(wireName: r'roles')
+  BuiltList<TaskRoleGet>? get roles;
+
+  @BuiltValueField(wireName: r'is_active')
+  bool? get isActive;
 
   MemberGet._();
 
@@ -52,11 +62,6 @@ class _$MemberGetSerializer implements PrimitiveSerializer<MemberGet> {
     MemberGet object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    yield r'id';
-    yield serializers.serialize(
-      object.id,
-      specifiedType: const FullType(int),
-    );
     yield r'email';
     yield serializers.serialize(
       object.email,
@@ -74,6 +79,25 @@ class _$MemberGetSerializer implements PrimitiveSerializer<MemberGet> {
       yield serializers.serialize(
         object.userId,
         specifiedType: const FullType(int),
+      );
+    }
+    yield r'id';
+    yield serializers.serialize(
+      object.id,
+      specifiedType: const FullType(int),
+    );
+    if (object.roles != null) {
+      yield r'roles';
+      yield serializers.serialize(
+        object.roles,
+        specifiedType: const FullType(BuiltList, [FullType(TaskRoleGet)]),
+      );
+    }
+    if (object.isActive != null) {
+      yield r'is_active';
+      yield serializers.serialize(
+        object.isActive,
+        specifiedType: const FullType(bool),
       );
     }
   }
@@ -99,13 +123,6 @@ class _$MemberGetSerializer implements PrimitiveSerializer<MemberGet> {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.id = valueDes;
-          break;
         case r'email':
           final valueDes = serializers.deserialize(
             value,
@@ -126,6 +143,27 @@ class _$MemberGetSerializer implements PrimitiveSerializer<MemberGet> {
             specifiedType: const FullType(int),
           ) as int;
           result.userId = valueDes;
+          break;
+        case r'id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.id = valueDes;
+          break;
+        case r'roles':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [FullType(TaskRoleGet)]),
+          ) as BuiltList<TaskRoleGet>;
+          result.roles.replace(valueDes);
+          break;
+        case r'is_active':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.isActive = valueDes;
           break;
         default:
           unhandled.add(key);

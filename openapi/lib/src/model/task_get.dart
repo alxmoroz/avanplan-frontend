@@ -4,7 +4,6 @@
 
 // ignore_for_file: unused_element
 import 'package:openapi/src/model/priority_get.dart';
-import 'package:openapi/src/model/member_get.dart';
 import 'package:openapi/src/model/task_source_get.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/model/status_get.dart';
@@ -27,8 +26,8 @@ part 'task_get.g.dart';
 /// * [dueDate] 
 /// * [closedDate] 
 /// * [estimate] 
-/// * [assignee] 
-/// * [author] 
+/// * [assigneeId] 
+/// * [authorId] 
 /// * [priority] 
 /// * [status] 
 /// * [taskSource] 
@@ -68,11 +67,11 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'estimate')
   int? get estimate;
 
-  @BuiltValueField(wireName: r'assignee')
-  MemberGet? get assignee;
+  @BuiltValueField(wireName: r'assignee_id')
+  int? get assigneeId;
 
-  @BuiltValueField(wireName: r'author')
-  MemberGet? get author;
+  @BuiltValueField(wireName: r'author_id')
+  int? get authorId;
 
   @BuiltValueField(wireName: r'priority')
   PriorityGet? get priority;
@@ -182,18 +181,18 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
         specifiedType: const FullType(int),
       );
     }
-    if (object.assignee != null) {
-      yield r'assignee';
+    if (object.assigneeId != null) {
+      yield r'assignee_id';
       yield serializers.serialize(
-        object.assignee,
-        specifiedType: const FullType(MemberGet),
+        object.assigneeId,
+        specifiedType: const FullType(int),
       );
     }
-    if (object.author != null) {
-      yield r'author';
+    if (object.authorId != null) {
+      yield r'author_id';
       yield serializers.serialize(
-        object.author,
-        specifiedType: const FullType(MemberGet),
+        object.authorId,
+        specifiedType: const FullType(int),
       );
     }
     if (object.priority != null) {
@@ -324,19 +323,19 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
           ) as int;
           result.estimate = valueDes;
           break;
-        case r'assignee':
+        case r'assignee_id':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(MemberGet),
-          ) as MemberGet;
-          result.assignee.replace(valueDes);
+            specifiedType: const FullType(int),
+          ) as int;
+          result.assigneeId = valueDes;
           break;
-        case r'author':
+        case r'author_id':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(MemberGet),
-          ) as MemberGet;
-          result.author.replace(valueDes);
+            specifiedType: const FullType(int),
+          ) as int;
+          result.authorId = valueDes;
           break;
         case r'priority':
           final valueDes = serializers.deserialize(

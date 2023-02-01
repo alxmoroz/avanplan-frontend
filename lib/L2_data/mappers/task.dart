@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 import 'package:openapi/openapi.dart' as api;
 
 import '../../L1_domain/entities/task.dart';
-import 'member.dart';
 import 'priority.dart';
 import 'status.dart';
 import 'task_source.dart';
@@ -18,7 +17,7 @@ extension TaskMapper on api.TaskGet {
     }
 
     // TODO: для снижения трафика и нагрузки на чтение из БД можно не тащить полный объект справочников, а забирать на фронте по необходимости. А тут хранить айдишники только
-    // TODO: речь про персон, статусы, приоритеты
+    // TODO: речь про статусы и приоритеты
 
     final _t = Task(
       id: id,
@@ -35,8 +34,8 @@ extension TaskMapper on api.TaskGet {
       estimate: estimate,
       tasks: [],
       priority: priority?.priority(wsId),
-      author: author?.member(wsId),
-      assignee: assignee?.member(wsId),
+      authorId: authorId,
+      assigneeId: assigneeId,
       taskSource: ts,
       parent: parent,
       wsId: wsId,

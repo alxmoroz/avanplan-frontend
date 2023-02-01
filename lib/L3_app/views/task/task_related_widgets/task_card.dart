@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/usecases/task_ext_level.dart';
+import '../../../../../L1_domain/usecases/task_ext_members.dart';
 import '../../../../../L1_domain/usecases/task_ext_state.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
@@ -23,7 +24,7 @@ class TaskCard extends StatelessWidget {
   final EdgeInsets? margin;
 
   bool get _hasStatus => task.status != null;
-  bool get _hasAssignee => task.assignee != null;
+  bool get _hasAssignee => task.assigneeId != null;
 
   Widget get title => H4(
         task.title,

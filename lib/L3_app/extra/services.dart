@@ -20,7 +20,6 @@ import '../../L2_data/repositories/estimate_values_repo.dart';
 import '../../L2_data/repositories/import_repo.dart';
 import '../../L2_data/repositories/my_repo.dart';
 import '../../L2_data/repositories/sources_repo.dart';
-import '../../L2_data/repositories/task_member_role_repo.dart';
 import '../../L2_data/repositories/tasks_repo.dart';
 import '../../L2_data/repositories/ws_settings_repo.dart';
 import '../../L2_data/services/api.dart';
@@ -90,7 +89,7 @@ void setup() {
   getIt.registerSingleton<AppSettingsUC>(AppSettingsUC(settingsRepo: SettingsRepo()));
   // getIt.registerSingleton<TaskTypesUC>(TaskTypesUC(repo: TaskTypesRepo()));
   getIt.registerSingleton<MyUC>(MyUC(repo: MyRepo()));
-  getIt.registerSingleton<TaskUC>(TaskUC(taskRepo: TasksRepo(), tmRoleRepo: TaskMemberRoleRepo()));
+  getIt.registerSingleton<TaskUC>(TaskUC(repo: TasksRepo()));
   getIt.registerSingleton<SourceUC>(SourceUC(repo: SourcesRepo()));
   getIt.registerSingleton<ImportUC>(ImportUC(repo: ImportRepo()));
   getIt.registerSingleton<WSSettingsUC>(WSSettingsUC(settingsRepo: WSSettingsRepo(), estValueRepo: EstimateValueRepo()));

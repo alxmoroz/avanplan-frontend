@@ -27,7 +27,6 @@ doc/Status.md
 doc/StatusGet.md
 doc/Task.md
 doc/TaskGet.md
-doc/TaskMemberRoleGet.md
 doc/TaskRoleGet.md
 doc/TaskSource.md
 doc/TaskSourceGet.md
@@ -77,7 +76,6 @@ lib/src/model/status.dart
 lib/src/model/status_get.dart
 lib/src/model/task.dart
 lib/src/model/task_get.dart
-lib/src/model/task_member_role_get.dart
 lib/src/model/task_role_get.dart
 lib/src/model/task_source.dart
 lib/src/model/task_source_get.dart
@@ -116,7 +114,6 @@ test/source_upsert_test.dart
 test/status_get_test.dart
 test/status_test.dart
 test/task_get_test.dart
-test/task_member_role_get_test.dart
 test/task_role_get_test.dart
 test/task_source_get_test.dart
 test/task_source_test.dart

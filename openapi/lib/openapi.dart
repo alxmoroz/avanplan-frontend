@@ -36,7 +36,6 @@ export 'package:openapi/src/model/status.dart';
 export 'package:openapi/src/model/status_get.dart';
 export 'package:openapi/src/model/task.dart';
 export 'package:openapi/src/model/task_get.dart';
-export 'package:openapi/src/model/task_member_role_get.dart';
 export 'package:openapi/src/model/task_role_get.dart';
 export 'package:openapi/src/model/task_source.dart';
 export 'package:openapi/src/model/task_source_get.dart';

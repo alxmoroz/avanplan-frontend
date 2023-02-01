@@ -38,8 +38,8 @@ class Task extends Titleable {
     this.closedDate,
     this.status,
     this.priority,
-    this.author,
-    this.assignee,
+    this.authorId,
+    this.assigneeId,
     this.taskSource,
     this.type,
     this.estimate,
@@ -54,8 +54,8 @@ class Task extends Titleable {
   final int wsId;
   final Status? status;
   final Priority? priority;
-  final Member? author;
-  final Member? assignee;
+  final int? authorId;
+  final int? assigneeId;
   final TaskSource? taskSource;
   final String? type;
   int? estimate;

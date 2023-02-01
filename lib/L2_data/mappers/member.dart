@@ -3,13 +3,14 @@
 import 'package:openapi/openapi.dart' as api;
 
 import '../../L1_domain/entities/member.dart';
+import 'task_role.dart';
 
 extension MemberMapper on api.MemberGet {
-  Member member(int wsId) => Member(
+  Member get member => Member(
         id: id,
         email: email,
         fullName: fullName,
-        wsId: wsId,
-        userId: userId,
+        roles: roles?.map((r) => r.role).toList() ?? [],
+        isActive: isActive == true,
       );
 }

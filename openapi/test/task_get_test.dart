@@ -62,13 +62,13 @@ void main() {
       // TODO
     });
 
-    // MemberGet assignee
-    test('to test the property `assignee`', () async {
+    // int assigneeId
+    test('to test the property `assigneeId`', () async {
       // TODO
     });
 
-    // MemberGet author
-    test('to test the property `author`', () async {
+    // int authorId
+    test('to test the property `authorId`', () async {
       // TODO
     });
 

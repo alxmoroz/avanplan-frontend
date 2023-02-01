@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../L1_domain/entities/task.dart';
+import '../../../../L1_domain/usecases/task_ext_members.dart';
 import '../../../components/constants.dart';
 import '../../../components/text_widgets.dart';
 import '../task_view_controller.dart';
@@ -13,7 +14,7 @@ class TaskDetails extends StatelessWidget {
   Task get task => controller.task;
 
   bool get hasDescription => task.description.isNotEmpty;
-  bool get hasAuthor => task.author != null;
+  bool get hasAuthor => task.authorId != null;
 
   Widget description() => LightText(task.description, maxLines: 1000);
 

@@ -7,11 +7,6 @@ void main() {
   // TODO add properties to the builder and call build()
 
   group(MemberGet, () {
-    // int id
-    test('to test the property `id`', () async {
-      // TODO
-    });
-
     // String email
     test('to test the property `email`', () async {
       // TODO
@@ -24,6 +19,21 @@ void main() {
 
     // int userId
     test('to test the property `userId`', () async {
+      // TODO
+    });
+
+    // int id
+    test('to test the property `id`', () async {
+      // TODO
+    });
+
+    // BuiltList<TaskRoleGet> roles
+    test('to test the property `roles`', () async {
+      // TODO
+    });
+
+    // bool isActive
+    test('to test the property `isActive`', () async {
       // TODO
     });
   });

@@ -20,10 +20,10 @@ void main() {
       // TODO
     });
 
-    // Get Task Member Roles
+    // Get Task Members
     //
-    //Future<BuiltList<TaskMemberRoleGet>> getTaskMemberRolesV1TasksMembersGet(int taskId, int wsId) async
-    test('test getTaskMemberRolesV1TasksMembersGet', () async {
+    //Future<BuiltList<MemberGet>> getTaskMembersV1TasksTaskIdMembersGet(int taskId, int wsId) async
+    test('test getTaskMembersV1TasksTaskIdMembersGet', () async {
       // TODO
     });
 

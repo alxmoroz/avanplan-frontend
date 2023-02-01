@@ -92,7 +92,7 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
           dueDate: selectedDueDate,
           tasks: task?.tasks ?? [],
           type: task?.type,
-          assignee: selectedAssignee,
+          assigneeId: selectedAssignee?.id,
           wsId: selectedWS!.id!,
         ),
       );

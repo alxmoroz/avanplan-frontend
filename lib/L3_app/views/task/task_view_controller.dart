@@ -36,7 +36,7 @@ abstract class _TaskViewControllerBase with Store {
 
   /// вкладки
   bool get _hasDescription => task.description.isNotEmpty;
-  bool get _hasAuthor => task.author != null;
+  bool get _hasAuthor => task.authorId != null;
   bool get _hasOverview => task.showState || task.showTimeChart || task.showVelocityVolumeCharts;
   bool get _hasDetails => _hasDescription || _hasAuthor;
 

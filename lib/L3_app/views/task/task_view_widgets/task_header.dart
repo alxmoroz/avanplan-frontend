@@ -5,6 +5,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/usecases/task_ext_level.dart';
+import '../../../../L1_domain/usecases/task_ext_members.dart';
 import '../../../../L1_domain/usecases/task_ext_state.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
@@ -23,7 +24,7 @@ class TaskHeader extends StatelessWidget {
 
   Task get _task => controller.task;
   bool get _hasStatus => _task.status != null;
-  bool get _hasAssignee => _task.assignee != null;
+  bool get _hasAssignee => _task.assigneeId != null;
 
   String get _breadcrumbs {
     Iterable<String> parentsTitles(Task? task) {

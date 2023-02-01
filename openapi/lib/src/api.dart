@@ -17,7 +17,7 @@ import 'package:openapi/src/api/settings_api.dart';
 import 'package:openapi/src/api/tasks_api.dart';
 
 class Openapi {
-  static const String basePath = r'http://localhost';
+  static const String basePath = r'/api';
 
   final Dio dio;
   final Serializers serializers;

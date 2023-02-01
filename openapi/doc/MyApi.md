@@ -136,7 +136,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **getMyWorkspacesV1MyWorkspacesGet**
-> BuiltList<WSUserRoleGet> getMyWorkspacesV1MyWorkspacesGet()
+> BuiltList<WSUserRole> getMyWorkspacesV1MyWorkspacesGet()
 
 Get My Workspaces
 
@@ -161,7 +161,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**BuiltList&lt;WSUserRoleGet&gt;**](WSUserRoleGet.md)
+[**BuiltList&lt;WSUserRole&gt;**](WSUserRole.md)
 
 ### Authorization
 

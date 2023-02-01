@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 
 # **checkConnectionV1IntegrationsSourcesCheckConnectionGet**
-> bool checkConnectionV1IntegrationsSourcesCheckConnectionGet(sourceId, wsId)
+> bool checkConnectionV1IntegrationsSourcesCheckConnectionGet(wsId, sourceId)
 
 Check Connection
 
@@ -27,11 +27,11 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
 
 final api = Openapi().getIntegrationsSourcesApi();
-final int sourceId = 56; // int | 
 final int wsId = 56; // int | 
+final int sourceId = 56; // int | 
 
 try {
-    final response = api.checkConnectionV1IntegrationsSourcesCheckConnectionGet(sourceId, wsId);
+    final response = api.checkConnectionV1IntegrationsSourcesCheckConnectionGet(wsId, sourceId);
     print(response);
 } catch on DioError (e) {
     print('Exception when calling IntegrationsSourcesApi->checkConnectionV1IntegrationsSourcesCheckConnectionGet: $e\n');
@@ -42,8 +42,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **sourceId** | **int**|  | 
  **wsId** | **int**|  | 
+ **sourceId** | **int**|  | 
 
 ### Return type
 

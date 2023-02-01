@@ -76,6 +76,7 @@ Class | Method | HTTP request | Description
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**getRootTasksV1IntegrationsTasksGet**](doc/IntegrationsTasksApi.md#getroottasksv1integrationstasksget) | **GET** /v1/integrations/tasks/ | Get Root Tasks
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**importTaskSourcesV1IntegrationsTasksImportPost**](doc/IntegrationsTasksApi.md#importtasksourcesv1integrationstasksimportpost) | **POST** /v1/integrations/tasks/import | Import Task Sources
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost**](doc/IntegrationsTasksApi.md#updatetasksourcesv1integrationstasksupdatetasksourcespost) | **POST** /v1/integrations/tasks/update_task_sources | Update Task Sources
+[*MembersApi*](doc/MembersApi.md) | [**getTaskMembersV1MembersGet**](doc/MembersApi.md#gettaskmembersv1membersget) | **GET** /v1/members/ | Get Task Members
 [*MyApi*](doc/MyApi.md) | [**deleteMyAccountV1MyAccountDelete**](doc/MyApi.md#deletemyaccountv1myaccountdelete) | **DELETE** /v1/my/account | Delete My Account
 [*MyApi*](doc/MyApi.md) | [**getMyAccountV1MyAccountGet**](doc/MyApi.md#getmyaccountv1myaccountget) | **GET** /v1/my/account | Get My Account
 [*MyApi*](doc/MyApi.md) | [**getMyNotificationsV1MyNotificationsGet**](doc/MyApi.md#getmynotificationsv1mynotificationsget) | **GET** /v1/my/notifications | Get My Notifications
@@ -112,6 +113,8 @@ Class | Method | HTTP request | Description
  - [StatusGet](doc/StatusGet.md)
  - [Task](doc/Task.md)
  - [TaskGet](doc/TaskGet.md)
+ - [TaskMemberRoleGet](doc/TaskMemberRoleGet.md)
+ - [TaskRoleGet](doc/TaskRoleGet.md)
  - [TaskSource](doc/TaskSource.md)
  - [TaskSourceGet](doc/TaskSourceGet.md)
  - [TaskSourceUpsert](doc/TaskSourceUpsert.md)
@@ -121,7 +124,7 @@ Class | Method | HTTP request | Description
  - [User](doc/User.md)
  - [ValidationError](doc/ValidationError.md)
  - [WSRoleGet](doc/WSRoleGet.md)
- - [WSUserRoleGet](doc/WSUserRoleGet.md)
+ - [WSUserRole](doc/WSUserRole.md)
  - [WorkspaceGet](doc/WorkspaceGet.md)
 
 

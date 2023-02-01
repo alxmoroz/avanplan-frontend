@@ -26,8 +26,8 @@ class IntegrationsSourcesApi {
   /// 
   ///
   /// Parameters:
-  /// * [sourceId] 
   /// * [wsId] 
+  /// * [sourceId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -38,8 +38,8 @@ class IntegrationsSourcesApi {
   /// Returns a [Future] containing a [Response] with a [bool] as data
   /// Throws [DioError] if API call or serialization fails
   Future<Response<bool>> checkConnectionV1IntegrationsSourcesCheckConnectionGet({ 
-    required int sourceId,
     required int wsId,
+    required int sourceId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -66,8 +66,8 @@ class IntegrationsSourcesApi {
     );
 
     final _queryParameters = <String, dynamic>{
-      r'source_id': encodeQueryParameter(_serializers, sourceId, const FullType(int)),
       r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
+      r'source_id': encodeQueryParameter(_serializers, sourceId, const FullType(int)),
     };
 
     final _response = await _dio.request<Object>(

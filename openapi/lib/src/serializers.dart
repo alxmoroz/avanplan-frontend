@@ -34,6 +34,8 @@ import 'package:openapi/src/model/status.dart';
 import 'package:openapi/src/model/status_get.dart';
 import 'package:openapi/src/model/task.dart';
 import 'package:openapi/src/model/task_get.dart';
+import 'package:openapi/src/model/task_member_role_get.dart';
+import 'package:openapi/src/model/task_role_get.dart';
 import 'package:openapi/src/model/task_source.dart';
 import 'package:openapi/src/model/task_source_get.dart';
 import 'package:openapi/src/model/task_source_upsert.dart';
@@ -43,7 +45,7 @@ import 'package:openapi/src/model/u_notification_permission_get.dart';
 import 'package:openapi/src/model/user.dart';
 import 'package:openapi/src/model/validation_error.dart';
 import 'package:openapi/src/model/ws_role_get.dart';
-import 'package:openapi/src/model/ws_user_role_get.dart';
+import 'package:openapi/src/model/ws_user_role.dart';
 import 'package:openapi/src/model/workspace_get.dart';
 
 part 'serializers.g.dart';
@@ -69,6 +71,8 @@ part 'serializers.g.dart';
   StatusGet,
   Task,
   TaskGet,
+  TaskMemberRoleGet,
+  TaskRoleGet,
   TaskSource,
   TaskSourceGet,
   TaskSourceUpsert,
@@ -78,13 +82,17 @@ part 'serializers.g.dart';
   User,
   ValidationError,
   WSRoleGet,
-  WSUserRoleGet,
+  WSUserRole,
   WorkspaceGet,
 ])
 Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskSource)]),
         () => ListBuilder<TaskSource>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(TaskMemberRoleGet)]),
+        () => ListBuilder<TaskMemberRoleGet>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(SourceGet)]),
@@ -103,10 +111,6 @@ Serializers serializers = (_$serializers.toBuilder()
         () => ListBuilder<Task>(),
       )
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(WSUserRoleGet)]),
-        () => ListBuilder<WSUserRoleGet>(),
-      )
-      ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskSourceUpsert)]),
         () => ListBuilder<TaskSourceUpsert>(),
       )
@@ -117,6 +121,10 @@ Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskGet)]),
         () => ListBuilder<TaskGet>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(WSUserRole)]),
+        () => ListBuilder<WSUserRole>(),
       )
       ..add(const OneOfSerializer())
       ..add(const AnyOfSerializer())

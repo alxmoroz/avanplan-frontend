@@ -38,11 +38,11 @@ class MyRepo extends AbstractApiMyRepo {
     if (response.statusCode == 200) {
       // берем запись, смотрим id её РП. Если такая уже есть у нас, то берём её и в её список ролей добавляем роль из записи.
       // если нет, то создаём и добавляем роль туда
-      for (o_api.WSUserRoleGet wsUserRoleGet in response.data ?? []) {
-        final wsId = wsUserRoleGet.workspace.id;
-        final role = wsUserRoleGet.wsRole.wsRole;
+      for (o_api.WSUserRole wsUserRole in response.data ?? []) {
+        final wsId = wsUserRole.workspace.id;
+        final role = wsUserRole.wsRole.wsRole;
         if (workspacesMap[wsId] == null) {
-          workspacesMap[wsId] = wsUserRoleGet.workspace.workspace;
+          workspacesMap[wsId] = wsUserRole.workspace.workspace;
         }
         workspacesMap[wsId]!.roles.add(role);
       }

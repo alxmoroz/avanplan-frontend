@@ -27,8 +27,8 @@ class IntegrationsTasksApi {
   /// 
   ///
   /// Parameters:
-  /// * [sourceId] 
   /// * [wsId] 
+  /// * [sourceId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -39,8 +39,8 @@ class IntegrationsTasksApi {
   /// Returns a [Future] containing a [Response] with a [BuiltList<Task>] as data
   /// Throws [DioError] if API call or serialization fails
   Future<Response<BuiltList<Task>>> getRootTasksV1IntegrationsTasksGet({ 
-    required int sourceId,
     required int wsId,
+    required int sourceId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -67,8 +67,8 @@ class IntegrationsTasksApi {
     );
 
     final _queryParameters = <String, dynamic>{
-      r'source_id': encodeQueryParameter(_serializers, sourceId, const FullType(int)),
       r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
+      r'source_id': encodeQueryParameter(_serializers, sourceId, const FullType(int)),
     };
 
     final _response = await _dio.request<Object>(
@@ -114,8 +114,8 @@ class IntegrationsTasksApi {
   /// 
   ///
   /// Parameters:
-  /// * [sourceId] 
   /// * [wsId] 
+  /// * [sourceId] 
   /// * [taskSource] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
@@ -127,8 +127,8 @@ class IntegrationsTasksApi {
   /// Returns a [Future] containing a [Response] with a [JsonObject] as data
   /// Throws [DioError] if API call or serialization fails
   Future<Response<JsonObject>> importTaskSourcesV1IntegrationsTasksImportPost({ 
-    required int sourceId,
     required int wsId,
+    required int sourceId,
     required BuiltList<TaskSource> taskSource,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -157,8 +157,8 @@ class IntegrationsTasksApi {
     );
 
     final _queryParameters = <String, dynamic>{
-      r'source_id': encodeQueryParameter(_serializers, sourceId, const FullType(int)),
       r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
+      r'source_id': encodeQueryParameter(_serializers, sourceId, const FullType(int)),
     };
 
     dynamic _bodyData;

@@ -27,6 +27,6 @@ java -ea                          \
 #flutter pub get
 bash ../scripts/build_runner_clean.sh
 bash ../scripts/build_runner_build.sh
-flutter format ./**/*.dart
+dart format ./**/*.dart
 
 cd ../

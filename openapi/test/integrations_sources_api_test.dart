@@ -8,7 +8,7 @@ void main() {
   group(IntegrationsSourcesApi, () {
     // Check Connection
     //
-    //Future<bool> checkConnectionV1IntegrationsSourcesCheckConnectionGet(int sourceId, int wsId) async
+    //Future<bool> checkConnectionV1IntegrationsSourcesCheckConnectionGet(int wsId, int sourceId) async
     test('test checkConnectionV1IntegrationsSourcesCheckConnectionGet',
         () async {
       // TODO

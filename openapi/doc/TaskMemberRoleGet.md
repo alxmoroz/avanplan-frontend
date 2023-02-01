@@ -1,4 +1,4 @@
-# openapi.model.WSUserRoleGet
+# openapi.model.TaskMemberRoleGet
 
 ## Load the model package
 ```dart
@@ -9,9 +9,9 @@ import 'package:openapi/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  | 
-**workspace** | [**WorkspaceGet**](WorkspaceGet.md) |  | 
-**wsRole** | [**WSRoleGet**](WSRoleGet.md) |  | 
-**userId** | **int** |  | 
+**task** | [**TaskGet**](TaskGet.md) |  | 
+**member** | [**MemberGet**](MemberGet.md) |  | 
+**role** | [**TaskRoleGet**](TaskRoleGet.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

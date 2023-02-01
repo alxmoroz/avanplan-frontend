@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 
 # **getRootTasksV1IntegrationsTasksGet**
-> BuiltList<Task> getRootTasksV1IntegrationsTasksGet(sourceId, wsId)
+> BuiltList<Task> getRootTasksV1IntegrationsTasksGet(wsId, sourceId)
 
 Get Root Tasks
 
@@ -26,11 +26,11 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
 
 final api = Openapi().getIntegrationsTasksApi();
-final int sourceId = 56; // int | 
 final int wsId = 56; // int | 
+final int sourceId = 56; // int | 
 
 try {
-    final response = api.getRootTasksV1IntegrationsTasksGet(sourceId, wsId);
+    final response = api.getRootTasksV1IntegrationsTasksGet(wsId, sourceId);
     print(response);
 } catch on DioError (e) {
     print('Exception when calling IntegrationsTasksApi->getRootTasksV1IntegrationsTasksGet: $e\n');
@@ -41,8 +41,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **sourceId** | **int**|  | 
  **wsId** | **int**|  | 
+ **sourceId** | **int**|  | 
 
 ### Return type
 
@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **importTaskSourcesV1IntegrationsTasksImportPost**
-> JsonObject importTaskSourcesV1IntegrationsTasksImportPost(sourceId, wsId, taskSource)
+> JsonObject importTaskSourcesV1IntegrationsTasksImportPost(wsId, sourceId, taskSource)
 
 Import Task Sources
 
@@ -71,12 +71,12 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
 
 final api = Openapi().getIntegrationsTasksApi();
-final int sourceId = 56; // int | 
 final int wsId = 56; // int | 
+final int sourceId = 56; // int | 
 final BuiltList<TaskSource> taskSource = ; // BuiltList<TaskSource> | 
 
 try {
-    final response = api.importTaskSourcesV1IntegrationsTasksImportPost(sourceId, wsId, taskSource);
+    final response = api.importTaskSourcesV1IntegrationsTasksImportPost(wsId, sourceId, taskSource);
     print(response);
 } catch on DioError (e) {
     print('Exception when calling IntegrationsTasksApi->importTaskSourcesV1IntegrationsTasksImportPost: $e\n');
@@ -87,8 +87,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **sourceId** | **int**|  | 
  **wsId** | **int**|  | 
+ **sourceId** | **int**|  | 
  **taskSource** | [**BuiltList&lt;TaskSource&gt;**](TaskSource.md)|  | 
 
 ### Return type

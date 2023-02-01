@@ -8,14 +8,14 @@ void main() {
   group(IntegrationsTasksApi, () {
     // Get Root Tasks
     //
-    //Future<BuiltList<Task>> getRootTasksV1IntegrationsTasksGet(int sourceId, int wsId) async
+    //Future<BuiltList<Task>> getRootTasksV1IntegrationsTasksGet(int wsId, int sourceId) async
     test('test getRootTasksV1IntegrationsTasksGet', () async {
       // TODO
     });
 
     // Import Task Sources
     //
-    //Future<JsonObject> importTaskSourcesV1IntegrationsTasksImportPost(int sourceId, int wsId, BuiltList<TaskSource> taskSource) async
+    //Future<JsonObject> importTaskSourcesV1IntegrationsTasksImportPost(int wsId, int sourceId, BuiltList<TaskSource> taskSource) async
     test('test importTaskSourcesV1IntegrationsTasksImportPost', () async {
       // TODO
     });

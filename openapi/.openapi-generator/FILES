@@ -15,6 +15,7 @@ doc/IntegrationsTasksApi.md
 doc/LocationInner.md
 doc/Member.md
 doc/MemberGet.md
+doc/MembersApi.md
 doc/MyApi.md
 doc/Notification.md
 doc/Priority.md
@@ -27,6 +28,8 @@ doc/Status.md
 doc/StatusGet.md
 doc/Task.md
 doc/TaskGet.md
+doc/TaskMemberRoleGet.md
+doc/TaskRoleGet.md
 doc/TaskSource.md
 doc/TaskSourceGet.md
 doc/TaskSourceUpsert.md
@@ -37,13 +40,14 @@ doc/UNotificationPermissionGet.md
 doc/User.md
 doc/ValidationError.md
 doc/WSRoleGet.md
-doc/WSUserRoleGet.md
+doc/WSUserRole.md
 doc/WorkspaceGet.md
 lib/openapi.dart
 lib/src/api.dart
 lib/src/api/auth_api.dart
 lib/src/api/integrations_sources_api.dart
 lib/src/api/integrations_tasks_api.dart
+lib/src/api/members_api.dart
 lib/src/api/my_api.dart
 lib/src/api/settings_api.dart
 lib/src/api/tasks_api.dart
@@ -75,6 +79,8 @@ lib/src/model/status.dart
 lib/src/model/status_get.dart
 lib/src/model/task.dart
 lib/src/model/task_get.dart
+lib/src/model/task_member_role_get.dart
+lib/src/model/task_role_get.dart
 lib/src/model/task_source.dart
 lib/src/model/task_source_get.dart
 lib/src/model/task_source_upsert.dart
@@ -85,7 +91,7 @@ lib/src/model/user.dart
 lib/src/model/validation_error.dart
 lib/src/model/workspace_get.dart
 lib/src/model/ws_role_get.dart
-lib/src/model/ws_user_role_get.dart
+lib/src/model/ws_user_role.dart
 lib/src/serializers.dart
 pubspec.yaml
 test/auth_api_test.dart
@@ -101,6 +107,7 @@ test/integrations_tasks_api_test.dart
 test/location_inner_test.dart
 test/member_get_test.dart
 test/member_test.dart
+test/members_api_test.dart
 test/my_api_test.dart
 test/notification_test.dart
 test/priority_get_test.dart
@@ -112,6 +119,8 @@ test/source_upsert_test.dart
 test/status_get_test.dart
 test/status_test.dart
 test/task_get_test.dart
+test/task_member_role_get_test.dart
+test/task_role_get_test.dart
 test/task_source_get_test.dart
 test/task_source_test.dart
 test/task_source_upsert_test.dart
@@ -124,4 +133,4 @@ test/user_test.dart
 test/validation_error_test.dart
 test/workspace_get_test.dart
 test/ws_role_get_test.dart
-test/ws_user_role_get_test.dart
+test/ws_user_role_test.dart

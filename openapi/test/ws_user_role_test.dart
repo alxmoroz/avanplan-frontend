@@ -1,12 +1,12 @@
 import 'package:test/test.dart';
 import 'package:openapi/openapi.dart';
 
-// tests for WSUserRoleGet
+// tests for WSUserRole
 void main() {
-  final instance = WSUserRoleGetBuilder();
+  final instance = WSUserRoleBuilder();
   // TODO add properties to the builder and call build()
 
-  group(WSUserRoleGet, () {
+  group(WSUserRole, () {
     // int id
     test('to test the property `id`', () async {
       // TODO

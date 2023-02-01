@@ -3,55 +3,56 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:openapi/src/model/workspace_get.dart';
-import 'package:openapi/src/model/ws_role_get.dart';
+import 'package:openapi/src/model/member_get.dart';
+import 'package:openapi/src/model/task_get.dart';
+import 'package:openapi/src/model/task_role_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'ws_user_role_get.g.dart';
+part 'task_member_role_get.g.dart';
 
-/// WSUserRoleGet
+/// TaskMemberRoleGet
 ///
 /// Properties:
 /// * [id] 
-/// * [workspace] 
-/// * [wsRole] 
-/// * [userId] 
+/// * [task] 
+/// * [member] 
+/// * [role] 
 @BuiltValue()
-abstract class WSUserRoleGet implements Built<WSUserRoleGet, WSUserRoleGetBuilder> {
+abstract class TaskMemberRoleGet implements Built<TaskMemberRoleGet, TaskMemberRoleGetBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
 
-  @BuiltValueField(wireName: r'workspace')
-  WorkspaceGet get workspace;
+  @BuiltValueField(wireName: r'task')
+  TaskGet get task;
 
-  @BuiltValueField(wireName: r'ws_role')
-  WSRoleGet get wsRole;
+  @BuiltValueField(wireName: r'member')
+  MemberGet get member;
 
-  @BuiltValueField(wireName: r'user_id')
-  int get userId;
+  @BuiltValueField(wireName: r'role')
+  TaskRoleGet get role;
 
-  WSUserRoleGet._();
+  TaskMemberRoleGet._();
 
-  factory WSUserRoleGet([void updates(WSUserRoleGetBuilder b)]) = _$WSUserRoleGet;
+  factory TaskMemberRoleGet([void updates(TaskMemberRoleGetBuilder b)]) = _$TaskMemberRoleGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(WSUserRoleGetBuilder b) => b;
+  static void _defaults(TaskMemberRoleGetBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<WSUserRoleGet> get serializer => _$WSUserRoleGetSerializer();
+  static Serializer<TaskMemberRoleGet> get serializer => _$TaskMemberRoleGetSerializer();
 }
 
-class _$WSUserRoleGetSerializer implements PrimitiveSerializer<WSUserRoleGet> {
+class _$TaskMemberRoleGetSerializer implements PrimitiveSerializer<TaskMemberRoleGet> {
   @override
-  final Iterable<Type> types = const [WSUserRoleGet, _$WSUserRoleGet];
+  final Iterable<Type> types = const [TaskMemberRoleGet, _$TaskMemberRoleGet];
 
   @override
-  final String wireName = r'WSUserRoleGet';
+  final String wireName = r'TaskMemberRoleGet';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    WSUserRoleGet object, {
+    TaskMemberRoleGet object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'id';
@@ -59,27 +60,27 @@ class _$WSUserRoleGetSerializer implements PrimitiveSerializer<WSUserRoleGet> {
       object.id,
       specifiedType: const FullType(int),
     );
-    yield r'workspace';
+    yield r'task';
     yield serializers.serialize(
-      object.workspace,
-      specifiedType: const FullType(WorkspaceGet),
+      object.task,
+      specifiedType: const FullType(TaskGet),
     );
-    yield r'ws_role';
+    yield r'member';
     yield serializers.serialize(
-      object.wsRole,
-      specifiedType: const FullType(WSRoleGet),
+      object.member,
+      specifiedType: const FullType(MemberGet),
     );
-    yield r'user_id';
+    yield r'role';
     yield serializers.serialize(
-      object.userId,
-      specifiedType: const FullType(int),
+      object.role,
+      specifiedType: const FullType(TaskRoleGet),
     );
   }
 
   @override
   Object serialize(
     Serializers serializers,
-    WSUserRoleGet object, {
+    TaskMemberRoleGet object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -90,7 +91,7 @@ class _$WSUserRoleGetSerializer implements PrimitiveSerializer<WSUserRoleGet> {
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required WSUserRoleGetBuilder result,
+    required TaskMemberRoleGetBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -104,26 +105,26 @@ class _$WSUserRoleGetSerializer implements PrimitiveSerializer<WSUserRoleGet> {
           ) as int;
           result.id = valueDes;
           break;
-        case r'workspace':
+        case r'task':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(WorkspaceGet),
-          ) as WorkspaceGet;
-          result.workspace.replace(valueDes);
+            specifiedType: const FullType(TaskGet),
+          ) as TaskGet;
+          result.task.replace(valueDes);
           break;
-        case r'ws_role':
+        case r'member':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(WSRoleGet),
-          ) as WSRoleGet;
-          result.wsRole.replace(valueDes);
+            specifiedType: const FullType(MemberGet),
+          ) as MemberGet;
+          result.member.replace(valueDes);
           break;
-        case r'user_id':
+        case r'role':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.userId = valueDes;
+            specifiedType: const FullType(TaskRoleGet),
+          ) as TaskRoleGet;
+          result.role.replace(valueDes);
           break;
         default:
           unhandled.add(key);
@@ -134,12 +135,12 @@ class _$WSUserRoleGetSerializer implements PrimitiveSerializer<WSUserRoleGet> {
   }
 
   @override
-  WSUserRoleGet deserialize(
+  TaskMemberRoleGet deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = WSUserRoleGetBuilder();
+    final result = TaskMemberRoleGetBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

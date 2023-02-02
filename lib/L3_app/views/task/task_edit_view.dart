@@ -79,7 +79,7 @@ class _TaskEditViewState extends State<TaskEditView> {
     controller.selectEstimateByValue(task?.estimate);
     controller.setAllowedAssignees([
       Member(fullName: loc.task_assignee_nobody, id: null, email: '', roles: [], isActive: false),
-      ...task?.project?.members ?? [],
+      ...task?.project?.members.where((m) => m.isActive) ?? [],
     ]);
     controller.selectAssigneeById(task?.assigneeId);
 

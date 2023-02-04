@@ -91,5 +91,10 @@ void main() {
     test('to test the property `tasks`', () async {
       // TODO
     });
+
+    // BuiltList<MemberGet> members
+    test('to test the property `members`', () async {
+      // TODO
+    });
   });
 }

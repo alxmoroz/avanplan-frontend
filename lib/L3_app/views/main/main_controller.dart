@@ -26,7 +26,7 @@ abstract class _MainControllerBase with Store {
 
   /// рутовый объект
   @observable
-  Task rootTask = Task(title: '', closed: false, parent: null, tasks: [], wsId: -1);
+  Task rootTask = Task(title: '', closed: false, parent: null, tasks: [], members: [], wsId: -1);
 
   @computed
   Map<int, Task> get _tasksMap => {for (var t in rootTask.allTasks) t.id!: t};
@@ -66,7 +66,6 @@ abstract class _MainControllerBase with Store {
       final projects = await taskUC.getRoots(ws.id!);
       projects.forEach((p) async {
         p.parent = rootTask;
-        p.members = (await taskUC.getTaskMembers(wsId, p.id!)).sorted((m1, m2) => compareNatural('$m1', '$m2'));
       });
 
       tasks.addAll(projects);

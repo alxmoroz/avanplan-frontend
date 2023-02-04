@@ -22,6 +22,7 @@ import '../../components/navbar.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_level_presenter.dart';
+import '../../presenters/task_members_presenter.dart';
 import 'task_edit_controller.dart';
 
 //TODO: подумать над унификацией полей. Возможно, получится избавиться от дуэта MTField и TFAnnotation
@@ -79,7 +80,7 @@ class _TaskEditViewState extends State<TaskEditView> {
     controller.selectEstimateByValue(task?.estimate);
     controller.setAllowedAssignees([
       Member(fullName: loc.task_assignee_nobody, id: null, email: '', roles: [], isActive: false),
-      ...task?.project?.members.where((m) => m.isActive) ?? [],
+      ...task?.project?.activeMembers ?? [],
     ]);
     controller.selectAssigneeById(task?.assigneeId);
 

@@ -2,14 +2,12 @@
 
 import 'package:openapi/openapi.dart' as o_api;
 
-import '../../L1_domain/entities/member.dart';
 import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/repositories/abs_api_task_repo.dart';
-import '../mappers/member.dart';
+import '../../L1_domain/repositories/abs_api_ws_repo.dart';
 import '../mappers/task.dart';
 import '../services/api.dart';
 
-class TasksRepo extends AbstractApiTaskRepo {
+class TasksRepo extends AbstractApiWSRepo<Task> {
   o_api.TasksApi get api => openAPI.getTasksApi();
 
   @override
@@ -54,11 +52,5 @@ class TasksRepo extends AbstractApiTaskRepo {
   Future<bool> delete(Task data) async {
     final response = await api.deleteTaskV1TasksTaskIdDelete(taskId: data.id!, wsId: data.wsId);
     return response.statusCode == 200 && response.data?.asNum == 1;
-  }
-
-  @override
-  Future<Iterable<Member>> getMembers(int wsId, int taskId) async {
-    final response = await api.getTaskMembersV1TasksTaskIdMembersGet(wsId: wsId, taskId: taskId);
-    return response.data?.map((m) => m.member) ?? [];
   }
 }

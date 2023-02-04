@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:openapi/openapi.dart' as api;
 
 import '../../L1_domain/entities/task.dart';
+import 'member.dart';
 import 'priority.dart';
 import 'status.dart';
 import 'task_source.dart';
@@ -36,6 +37,7 @@ extension TaskMapper on api.TaskGet {
       priority: priority?.priority(wsId),
       authorId: authorId,
       assigneeId: assigneeId,
+      members: members?.map((m) => m.member).toList() ?? [],
       taskSource: ts,
       parent: parent,
       wsId: wsId,

@@ -31,6 +31,7 @@ class Task extends Titleable {
     required this.parent,
     required this.tasks,
     required this.wsId,
+    required this.members,
     this.createdOn,
     this.updatedOn,
     this.dueDate,
@@ -98,7 +99,7 @@ class Task extends Titleable {
   late TaskState subtasksState;
   late TaskState overallState;
 
-  List<Member> members = [];
+  List<Member> members;
 }
 
 class TaskRemote {

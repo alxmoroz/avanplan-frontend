@@ -87,7 +87,6 @@ Class | Method | HTTP request | Description
 [*SettingsApi*](doc/SettingsApi.md) | [**getSettingsV1SettingsGet**](doc/SettingsApi.md#getsettingsv1settingsget) | **GET** /v1/settings/ | Get Settings
 [*TasksApi*](doc/TasksApi.md) | [**deleteTaskV1TasksTaskIdDelete**](doc/TasksApi.md#deletetaskv1taskstaskiddelete) | **DELETE** /v1/tasks/{task_id} | Delete Task
 [*TasksApi*](doc/TasksApi.md) | [**getRootTasksV1TasksGet**](doc/TasksApi.md#getroottasksv1tasksget) | **GET** /v1/tasks/ | Get Root Tasks
-[*TasksApi*](doc/TasksApi.md) | [**getTaskMembersV1TasksTaskIdMembersGet**](doc/TasksApi.md#gettaskmembersv1taskstaskidmembersget) | **GET** /v1/tasks/{task_id}/members | Get Task Members
 [*TasksApi*](doc/TasksApi.md) | [**upsertTaskV1TasksPost**](doc/TasksApi.md#upserttaskv1taskspost) | **POST** /v1/tasks/ | Upsert Task
 
 

@@ -99,10 +99,6 @@ Serializers serializers = (_$serializers.toBuilder()
         () => ListBuilder<int>(),
       )
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(MemberGet)]),
-        () => ListBuilder<MemberGet>(),
-      )
-      ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskSourceUpsert)]),
         () => ListBuilder<TaskSourceUpsert>(),
       )

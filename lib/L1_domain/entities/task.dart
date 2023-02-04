@@ -101,8 +101,8 @@ class Task extends Titleable {
   List<Member> members = [];
 }
 
-class TaskImport {
-  TaskImport({
+class TaskRemote {
+  TaskRemote({
     required this.title,
     required this.description,
     required this.taskSource,

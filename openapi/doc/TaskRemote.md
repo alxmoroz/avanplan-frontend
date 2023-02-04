@@ -1,4 +1,4 @@
-# openapi.model.Task
+# openapi.model.TaskRemote
 
 ## Load the model package
 ```dart
@@ -16,13 +16,7 @@ Name | Type | Description | Notes
 **dueDate** | [**DateTime**](DateTime.md) |  | [optional] 
 **closedDate** | [**DateTime**](DateTime.md) |  | [optional] 
 **estimate** | **int** |  | [optional] 
-**assignee** | [**Member**](Member.md) |  | [optional] 
-**author** | [**Member**](Member.md) |  | [optional] 
-**status** | [**Status**](Status.md) |  | [optional] 
-**priority** | [**Priority**](Priority.md) |  | [optional] 
 **taskSource** | [**TaskSource**](TaskSource.md) |  | [optional] 
-**createdOn** | [**DateTime**](DateTime.md) |  | [optional] 
-**updatedOn** | [**DateTime**](DateTime.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

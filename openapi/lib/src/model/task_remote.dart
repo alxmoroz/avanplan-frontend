@@ -3,16 +3,13 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:openapi/src/model/status.dart';
-import 'package:openapi/src/model/priority.dart';
 import 'package:openapi/src/model/task_source.dart';
-import 'package:openapi/src/model/member.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'task.g.dart';
+part 'task_remote.g.dart';
 
-/// Task
+/// TaskRemote
 ///
 /// Properties:
 /// * [title] 
@@ -23,15 +20,9 @@ part 'task.g.dart';
 /// * [dueDate] 
 /// * [closedDate] 
 /// * [estimate] 
-/// * [assignee] 
-/// * [author] 
-/// * [status] 
-/// * [priority] 
 /// * [taskSource] 
-/// * [createdOn] 
-/// * [updatedOn] 
 @BuiltValue()
-abstract class Task implements Built<Task, TaskBuilder> {
+abstract class TaskRemote implements Built<TaskRemote, TaskRemoteBuilder> {
   @BuiltValueField(wireName: r'title')
   String? get title;
 
@@ -56,50 +47,32 @@ abstract class Task implements Built<Task, TaskBuilder> {
   @BuiltValueField(wireName: r'estimate')
   int? get estimate;
 
-  @BuiltValueField(wireName: r'assignee')
-  Member? get assignee;
-
-  @BuiltValueField(wireName: r'author')
-  Member? get author;
-
-  @BuiltValueField(wireName: r'status')
-  Status? get status;
-
-  @BuiltValueField(wireName: r'priority')
-  Priority? get priority;
-
   @BuiltValueField(wireName: r'task_source')
   TaskSource? get taskSource;
 
-  @BuiltValueField(wireName: r'created_on')
-  DateTime? get createdOn;
+  TaskRemote._();
 
-  @BuiltValueField(wireName: r'updated_on')
-  DateTime? get updatedOn;
-
-  Task._();
-
-  factory Task([void updates(TaskBuilder b)]) = _$Task;
+  factory TaskRemote([void updates(TaskRemoteBuilder b)]) = _$TaskRemote;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(TaskBuilder b) => b
+  static void _defaults(TaskRemoteBuilder b) => b
       ..closed = false
       ..type = 'TASK';
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<Task> get serializer => _$TaskSerializer();
+  static Serializer<TaskRemote> get serializer => _$TaskRemoteSerializer();
 }
 
-class _$TaskSerializer implements PrimitiveSerializer<Task> {
+class _$TaskRemoteSerializer implements PrimitiveSerializer<TaskRemote> {
   @override
-  final Iterable<Type> types = const [Task, _$Task];
+  final Iterable<Type> types = const [TaskRemote, _$TaskRemote];
 
   @override
-  final String wireName = r'Task';
+  final String wireName = r'TaskRemote';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    Task object, {
+    TaskRemote object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     if (object.title != null) {
@@ -158,34 +131,6 @@ class _$TaskSerializer implements PrimitiveSerializer<Task> {
         specifiedType: const FullType(int),
       );
     }
-    if (object.assignee != null) {
-      yield r'assignee';
-      yield serializers.serialize(
-        object.assignee,
-        specifiedType: const FullType(Member),
-      );
-    }
-    if (object.author != null) {
-      yield r'author';
-      yield serializers.serialize(
-        object.author,
-        specifiedType: const FullType(Member),
-      );
-    }
-    if (object.status != null) {
-      yield r'status';
-      yield serializers.serialize(
-        object.status,
-        specifiedType: const FullType(Status),
-      );
-    }
-    if (object.priority != null) {
-      yield r'priority';
-      yield serializers.serialize(
-        object.priority,
-        specifiedType: const FullType(Priority),
-      );
-    }
     if (object.taskSource != null) {
       yield r'task_source';
       yield serializers.serialize(
@@ -193,26 +138,12 @@ class _$TaskSerializer implements PrimitiveSerializer<Task> {
         specifiedType: const FullType(TaskSource),
       );
     }
-    if (object.createdOn != null) {
-      yield r'created_on';
-      yield serializers.serialize(
-        object.createdOn,
-        specifiedType: const FullType(DateTime),
-      );
-    }
-    if (object.updatedOn != null) {
-      yield r'updated_on';
-      yield serializers.serialize(
-        object.updatedOn,
-        specifiedType: const FullType(DateTime),
-      );
-    }
   }
 
   @override
   Object serialize(
     Serializers serializers,
-    Task object, {
+    TaskRemote object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -223,7 +154,7 @@ class _$TaskSerializer implements PrimitiveSerializer<Task> {
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required TaskBuilder result,
+    required TaskRemoteBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -286,54 +217,12 @@ class _$TaskSerializer implements PrimitiveSerializer<Task> {
           ) as int;
           result.estimate = valueDes;
           break;
-        case r'assignee':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(Member),
-          ) as Member;
-          result.assignee.replace(valueDes);
-          break;
-        case r'author':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(Member),
-          ) as Member;
-          result.author.replace(valueDes);
-          break;
-        case r'status':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(Status),
-          ) as Status;
-          result.status.replace(valueDes);
-          break;
-        case r'priority':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(Priority),
-          ) as Priority;
-          result.priority.replace(valueDes);
-          break;
         case r'task_source':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(TaskSource),
           ) as TaskSource;
           result.taskSource.replace(valueDes);
-          break;
-        case r'created_on':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
-          result.createdOn = valueDes;
-          break;
-        case r'updated_on':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
-          result.updatedOn = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -344,12 +233,12 @@ class _$TaskSerializer implements PrimitiveSerializer<Task> {
   }
 
   @override
-  Task deserialize(
+  TaskRemote deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = TaskBuilder();
+    final result = TaskRemoteBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

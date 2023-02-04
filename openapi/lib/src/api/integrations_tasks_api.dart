@@ -11,7 +11,7 @@ import 'package:built_collection/built_collection.dart';
 import 'package:built_value/json_object.dart';
 import 'package:openapi/src/api_util.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
-import 'package:openapi/src/model/task.dart';
+import 'package:openapi/src/model/task_remote.dart';
 import 'package:openapi/src/model/task_source.dart';
 import 'package:openapi/src/model/task_source_upsert.dart';
 
@@ -36,9 +36,9 @@ class IntegrationsTasksApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [BuiltList<Task>] as data
+  /// Returns a [Future] containing a [Response] with a [BuiltList<TaskRemote>] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<BuiltList<Task>>> getRootTasksV1IntegrationsTasksGet({ 
+  Future<Response<BuiltList<TaskRemote>>> getRootTasksV1IntegrationsTasksGet({ 
     required int wsId,
     required int sourceId,
     CancelToken? cancelToken,
@@ -80,14 +80,14 @@ class IntegrationsTasksApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltList<Task> _responseData;
+    BuiltList<TaskRemote> _responseData;
 
     try {
-      const _responseType = FullType(BuiltList, [FullType(Task)]);
+      const _responseType = FullType(BuiltList, [FullType(TaskRemote)]);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as BuiltList<Task>;
+      ) as BuiltList<TaskRemote>;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -98,7 +98,7 @@ class IntegrationsTasksApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<BuiltList<Task>>(
+    return Response<BuiltList<TaskRemote>>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

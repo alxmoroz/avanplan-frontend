@@ -1,12 +1,12 @@
 import 'package:test/test.dart';
 import 'package:openapi/openapi.dart';
 
-// tests for Task
+// tests for TaskRemote
 void main() {
-  final instance = TaskBuilder();
+  final instance = TaskRemoteBuilder();
   // TODO add properties to the builder and call build()
 
-  group(Task, () {
+  group(TaskRemote, () {
     // String title
     test('to test the property `title`', () async {
       // TODO
@@ -47,38 +47,8 @@ void main() {
       // TODO
     });
 
-    // Member assignee
-    test('to test the property `assignee`', () async {
-      // TODO
-    });
-
-    // Member author
-    test('to test the property `author`', () async {
-      // TODO
-    });
-
-    // Status status
-    test('to test the property `status`', () async {
-      // TODO
-    });
-
-    // Priority priority
-    test('to test the property `priority`', () async {
-      // TODO
-    });
-
     // TaskSource taskSource
     test('to test the property `taskSource`', () async {
-      // TODO
-    });
-
-    // DateTime createdOn
-    test('to test the property `createdOn`', () async {
-      // TODO
-    });
-
-    // DateTime updatedOn
-    test('to test the property `updatedOn`', () async {
       // TODO
     });
   });

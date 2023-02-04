@@ -8,7 +8,7 @@ void main() {
   group(IntegrationsTasksApi, () {
     // Get Root Tasks
     //
-    //Future<BuiltList<Task>> getRootTasksV1IntegrationsTasksGet(int wsId, int sourceId) async
+    //Future<BuiltList<TaskRemote>> getRootTasksV1IntegrationsTasksGet(int wsId, int sourceId) async
     test('test getRootTasksV1IntegrationsTasksGet', () async {
       // TODO
     });

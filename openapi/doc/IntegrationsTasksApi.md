@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 
 # **getRootTasksV1IntegrationsTasksGet**
-> BuiltList<Task> getRootTasksV1IntegrationsTasksGet(wsId, sourceId)
+> BuiltList<TaskRemote> getRootTasksV1IntegrationsTasksGet(wsId, sourceId)
 
 Get Root Tasks
 
@@ -46,7 +46,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BuiltList&lt;Task&gt;**](Task.md)
+[**BuiltList&lt;TaskRemote&gt;**](TaskRemote.md)
 
 ### Authorization
 

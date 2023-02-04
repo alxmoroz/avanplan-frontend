@@ -16,10 +16,10 @@ class ImportController extends _ImportControllerBase with _$ImportController {}
 
 abstract class _ImportControllerBase extends EditController with Store {
   @observable
-  List<TaskImport> projects = [];
+  List<TaskRemote> projects = [];
 
   @computed
-  Iterable<TaskImport> get selectedProjects => projects.where((t) => t.selected);
+  Iterable<TaskRemote> get selectedProjects => projects.where((t) => t.selected);
 
   @override
   bool get validated => selectedProjects.isNotEmpty;
@@ -46,7 +46,7 @@ abstract class _ImportControllerBase extends EditController with Store {
   }
 
   @action
-  void selectProject(TaskImport task, bool? selected) {
+  void selectProject(TaskRemote task, bool? selected) {
     task.selected = selected == true;
     projects = projects;
   }

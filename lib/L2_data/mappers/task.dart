@@ -45,8 +45,8 @@ extension TaskMapper on api.TaskGet {
   }
 }
 
-extension TaskImportMapper on api.Task {
-  TaskImport get taskImport => TaskImport(
+extension TaskImportMapper on api.TaskRemote {
+  TaskRemote get taskImport => TaskRemote(
         title: title ?? '??',
         description: description ?? '',
         taskSource: taskSource?.taskSourceImport,

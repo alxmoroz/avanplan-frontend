@@ -22,18 +22,15 @@ import 'package:openapi/src/model/estimate_unit_get.dart';
 import 'package:openapi/src/model/estimate_value_get.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/location_inner.dart';
-import 'package:openapi/src/model/member.dart';
 import 'package:openapi/src/model/member_get.dart';
 import 'package:openapi/src/model/notification.dart';
-import 'package:openapi/src/model/priority.dart';
 import 'package:openapi/src/model/priority_get.dart';
 import 'package:openapi/src/model/settings_get.dart';
 import 'package:openapi/src/model/source_get.dart';
 import 'package:openapi/src/model/source_upsert.dart';
-import 'package:openapi/src/model/status.dart';
 import 'package:openapi/src/model/status_get.dart';
-import 'package:openapi/src/model/task.dart';
 import 'package:openapi/src/model/task_get.dart';
+import 'package:openapi/src/model/task_remote.dart';
 import 'package:openapi/src/model/task_role_get.dart';
 import 'package:openapi/src/model/task_source.dart';
 import 'package:openapi/src/model/task_source_get.dart';
@@ -58,18 +55,15 @@ part 'serializers.g.dart';
   EstimateValueGet,
   HTTPValidationError,
   LocationInner,
-  Member,
   MemberGet,
   Notification,
-  Priority,
   PriorityGet,
   SettingsGet,
   SourceGet,
   SourceUpsert,
-  Status,
   StatusGet,
-  Task,
   TaskGet,
+  TaskRemote,
   TaskRoleGet,
   TaskSource,
   TaskSourceGet,
@@ -85,6 +79,10 @@ part 'serializers.g.dart';
 ])
 Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(TaskRemote)]),
+        () => ListBuilder<TaskRemote>(),
+      )
+      ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskSource)]),
         () => ListBuilder<TaskSource>(),
       )
@@ -99,10 +97,6 @@ Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(int)]),
         () => ListBuilder<int>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(Task)]),
-        () => ListBuilder<Task>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(MemberGet)]),

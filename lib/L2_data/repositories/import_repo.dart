@@ -14,11 +14,11 @@ class ImportRepo extends AbstractApiImportRepo {
   o_api.IntegrationsTasksApi get api => openAPI.getIntegrationsTasksApi();
 
   @override
-  Future<List<TaskImport>> getRootTaskSources(Source source) async {
-    final List<TaskImport> rootTasks = [];
+  Future<List<TaskRemote>> getRootTaskSources(Source source) async {
+    final List<TaskRemote> rootTasks = [];
     final response = await api.getRootTasksV1IntegrationsTasksGet(sourceId: source.id!, wsId: source.wsId);
     if (response.statusCode == 200) {
-      for (o_api.Task t in response.data?.toList() ?? []) {
+      for (o_api.TaskRemote t in response.data?.toList() ?? []) {
         rootTasks.add(t.taskImport);
       }
     }

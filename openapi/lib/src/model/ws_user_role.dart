@@ -3,8 +3,8 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:openapi/src/model/w_role_get.dart';
 import 'package:openapi/src/model/workspace_get.dart';
-import 'package:openapi/src/model/ws_role_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -15,7 +15,7 @@ part 'ws_user_role.g.dart';
 /// Properties:
 /// * [id] 
 /// * [workspace] 
-/// * [wsRole] 
+/// * [role] 
 /// * [userId] 
 @BuiltValue()
 abstract class WSUserRole implements Built<WSUserRole, WSUserRoleBuilder> {
@@ -25,8 +25,8 @@ abstract class WSUserRole implements Built<WSUserRole, WSUserRoleBuilder> {
   @BuiltValueField(wireName: r'workspace')
   WorkspaceGet get workspace;
 
-  @BuiltValueField(wireName: r'ws_role')
-  WSRoleGet get wsRole;
+  @BuiltValueField(wireName: r'role')
+  WRoleGet get role;
 
   @BuiltValueField(wireName: r'user_id')
   int get userId;
@@ -64,10 +64,10 @@ class _$WSUserRoleSerializer implements PrimitiveSerializer<WSUserRole> {
       object.workspace,
       specifiedType: const FullType(WorkspaceGet),
     );
-    yield r'ws_role';
+    yield r'role';
     yield serializers.serialize(
-      object.wsRole,
-      specifiedType: const FullType(WSRoleGet),
+      object.role,
+      specifiedType: const FullType(WRoleGet),
     );
     yield r'user_id';
     yield serializers.serialize(
@@ -111,12 +111,12 @@ class _$WSUserRoleSerializer implements PrimitiveSerializer<WSUserRole> {
           ) as WorkspaceGet;
           result.workspace.replace(valueDes);
           break;
-        case r'ws_role':
+        case r'role':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(WSRoleGet),
-          ) as WSRoleGet;
-          result.wsRole.replace(valueDes);
+            specifiedType: const FullType(WRoleGet),
+          ) as WRoleGet;
+          result.role.replace(valueDes);
           break;
         case r'user_id':
           final valueDes = serializers.deserialize(

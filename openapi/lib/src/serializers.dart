@@ -25,13 +25,13 @@ import 'package:openapi/src/model/location_inner.dart';
 import 'package:openapi/src/model/member_get.dart';
 import 'package:openapi/src/model/notification.dart';
 import 'package:openapi/src/model/priority_get.dart';
+import 'package:openapi/src/model/role_get.dart';
 import 'package:openapi/src/model/settings_get.dart';
 import 'package:openapi/src/model/source_get.dart';
 import 'package:openapi/src/model/source_upsert.dart';
 import 'package:openapi/src/model/status_get.dart';
 import 'package:openapi/src/model/task_get.dart';
 import 'package:openapi/src/model/task_remote.dart';
-import 'package:openapi/src/model/task_role_get.dart';
 import 'package:openapi/src/model/task_source.dart';
 import 'package:openapi/src/model/task_source_get.dart';
 import 'package:openapi/src/model/task_source_upsert.dart';
@@ -40,7 +40,7 @@ import 'package:openapi/src/model/token.dart';
 import 'package:openapi/src/model/u_notification_permission_get.dart';
 import 'package:openapi/src/model/user.dart';
 import 'package:openapi/src/model/validation_error.dart';
-import 'package:openapi/src/model/ws_role_get.dart';
+import 'package:openapi/src/model/w_role_get.dart';
 import 'package:openapi/src/model/ws_user_role.dart';
 import 'package:openapi/src/model/workspace_get.dart';
 
@@ -58,13 +58,13 @@ part 'serializers.g.dart';
   MemberGet,
   Notification,
   PriorityGet,
+  RoleGet,
   SettingsGet,
   SourceGet,
   SourceUpsert,
   StatusGet,
   TaskGet,
   TaskRemote,
-  TaskRoleGet,
   TaskSource,
   TaskSourceGet,
   TaskSourceUpsert,
@@ -73,7 +73,7 @@ part 'serializers.g.dart';
   UNotificationPermissionGet,
   User,
   ValidationError,
-  WSRoleGet,
+  WRoleGet,
   WSUserRole,
   WorkspaceGet,
 ])

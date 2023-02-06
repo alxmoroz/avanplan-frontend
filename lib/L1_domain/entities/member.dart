@@ -1,6 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'task_role.dart';
+import 'role.dart';
 import 'user.dart';
 
 class Member extends User {
@@ -12,7 +12,7 @@ class Member extends User {
     required this.isActive,
   });
 
-  List<TaskRole> roles = [];
+  List<Role> roles = [];
   bool isActive;
 
   @override

@@ -2,10 +2,10 @@
 
 import 'package:openapi/openapi.dart';
 
-import '../../L1_domain/entities/task_role.dart';
+import '../../L1_domain/entities/role.dart';
 
-extension TaskRoleMapper on TaskRoleGet {
-  TaskRole get role => TaskRole(
+extension TaskRoleMapper on RoleGet {
+  Role get role => Role(
         id: id,
         code: code.toLowerCase(),
       );

@@ -11,8 +11,8 @@ import '../mappers/notification.dart';
 import '../mappers/user.dart';
 import '../mappers/workspace.dart';
 import '../mappers/ws_role.dart';
-import '../services//platform.dart';
 import '../services/api.dart';
+import '../services/platform.dart';
 
 class MyRepo extends AbstractApiMyRepo {
   o_api.MyApi get api => openAPI.getMyApi();
@@ -40,7 +40,7 @@ class MyRepo extends AbstractApiMyRepo {
       // если нет, то создаём и добавляем роль туда
       for (o_api.WSUserRole wsUserRole in response.data ?? []) {
         final wsId = wsUserRole.workspace.id;
-        final role = wsUserRole.wsRole.wsRole;
+        final role = wsUserRole.role.wsRole;
         if (workspacesMap[wsId] == null) {
           workspacesMap[wsId] = wsUserRole.workspace.workspace;
         }

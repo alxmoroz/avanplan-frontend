@@ -12,6 +12,11 @@ void main() {
       // TODO
     });
 
+    // String type
+    test('to test the property `type`', () async {
+      // TODO
+    });
+
     // String url
     test('to test the property `url`', () async {
       // TODO
@@ -29,11 +34,6 @@ void main() {
 
     // String description
     test('to test the property `description`', () async {
-      // TODO
-    });
-
-    // String type
-    test('to test the property `type`', () async {
       // TODO
     });
 

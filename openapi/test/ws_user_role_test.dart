@@ -17,8 +17,8 @@ void main() {
       // TODO
     });
 
-    // WSRoleGet wsRole
-    test('to test the property `wsRole`', () async {
+    // WRoleGet role
+    test('to test the property `role`', () async {
       // TODO
     });
 

@@ -6,42 +6,42 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'ws_role_get.g.dart';
+part 'w_role_get.g.dart';
 
-/// WSRoleGet
+/// WRoleGet
 ///
 /// Properties:
 /// * [id] 
 /// * [code] 
 @BuiltValue()
-abstract class WSRoleGet implements Built<WSRoleGet, WSRoleGetBuilder> {
+abstract class WRoleGet implements Built<WRoleGet, WRoleGetBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
 
   @BuiltValueField(wireName: r'code')
   String get code;
 
-  WSRoleGet._();
+  WRoleGet._();
 
-  factory WSRoleGet([void updates(WSRoleGetBuilder b)]) = _$WSRoleGet;
+  factory WRoleGet([void updates(WRoleGetBuilder b)]) = _$WRoleGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(WSRoleGetBuilder b) => b;
+  static void _defaults(WRoleGetBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<WSRoleGet> get serializer => _$WSRoleGetSerializer();
+  static Serializer<WRoleGet> get serializer => _$WRoleGetSerializer();
 }
 
-class _$WSRoleGetSerializer implements PrimitiveSerializer<WSRoleGet> {
+class _$WRoleGetSerializer implements PrimitiveSerializer<WRoleGet> {
   @override
-  final Iterable<Type> types = const [WSRoleGet, _$WSRoleGet];
+  final Iterable<Type> types = const [WRoleGet, _$WRoleGet];
 
   @override
-  final String wireName = r'WSRoleGet';
+  final String wireName = r'WRoleGet';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    WSRoleGet object, {
+    WRoleGet object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'id';
@@ -59,7 +59,7 @@ class _$WSRoleGetSerializer implements PrimitiveSerializer<WSRoleGet> {
   @override
   Object serialize(
     Serializers serializers,
-    WSRoleGet object, {
+    WRoleGet object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -70,7 +70,7 @@ class _$WSRoleGetSerializer implements PrimitiveSerializer<WSRoleGet> {
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required WSRoleGetBuilder result,
+    required WRoleGetBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -100,12 +100,12 @@ class _$WSRoleGetSerializer implements PrimitiveSerializer<WSRoleGet> {
   }
 
   @override
-  WSRoleGet deserialize(
+  WRoleGet deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = WSRoleGetBuilder();
+    final result = WRoleGetBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

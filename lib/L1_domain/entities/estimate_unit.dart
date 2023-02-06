@@ -7,13 +7,13 @@ class EstimateUnit extends Titleable {
     required super.id,
     required super.title,
     required super.description,
-    required this.abbreviation,
+    required this.code,
     required this.wsId,
   });
 
-  final String abbreviation;
+  final String code;
   final int wsId;
 
   @override
-  String toString() => '$abbreviation';
+  String toString() => '$code';
 }

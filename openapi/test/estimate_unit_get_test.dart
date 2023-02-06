@@ -22,8 +22,8 @@ void main() {
       // TODO
     });
 
-    // String abbreviation
-    test('to test the property `abbreviation`', () async {
+    // String code
+    test('to test the property `code`', () async {
       // TODO
     });
   });

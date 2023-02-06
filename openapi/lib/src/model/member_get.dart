@@ -3,8 +3,8 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:openapi/src/model/task_role_get.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:openapi/src/model/role_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -34,7 +34,7 @@ abstract class MemberGet implements Built<MemberGet, MemberGetBuilder> {
   int get id;
 
   @BuiltValueField(wireName: r'roles')
-  BuiltList<TaskRoleGet>? get roles;
+  BuiltList<RoleGet>? get roles;
 
   @BuiltValueField(wireName: r'is_active')
   bool? get isActive;
@@ -90,7 +90,7 @@ class _$MemberGetSerializer implements PrimitiveSerializer<MemberGet> {
       yield r'roles';
       yield serializers.serialize(
         object.roles,
-        specifiedType: const FullType(BuiltList, [FullType(TaskRoleGet)]),
+        specifiedType: const FullType(BuiltList, [FullType(RoleGet)]),
       );
     }
     if (object.isActive != null) {
@@ -154,8 +154,8 @@ class _$MemberGetSerializer implements PrimitiveSerializer<MemberGet> {
         case r'roles':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(BuiltList, [FullType(TaskRoleGet)]),
-          ) as BuiltList<TaskRoleGet>;
+            specifiedType: const FullType(BuiltList, [FullType(RoleGet)]),
+          ) as BuiltList<RoleGet>;
           result.roles.replace(valueDes);
           break;
         case r'is_active':

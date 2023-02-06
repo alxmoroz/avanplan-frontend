@@ -1,4 +1,4 @@
-# openapi.model.WSRoleGet
+# openapi.model.WRoleGet
 
 ## Load the model package
 ```dart

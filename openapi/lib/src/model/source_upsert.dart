@@ -12,16 +12,19 @@ part 'source_upsert.g.dart';
 ///
 /// Properties:
 /// * [id] 
+/// * [type] 
 /// * [url] 
 /// * [apiKey] 
 /// * [username] 
 /// * [description] 
-/// * [type] 
 /// * [password] 
 @BuiltValue()
 abstract class SourceUpsert implements Built<SourceUpsert, SourceUpsertBuilder> {
   @BuiltValueField(wireName: r'id')
   int? get id;
+
+  @BuiltValueField(wireName: r'type')
+  String get type;
 
   @BuiltValueField(wireName: r'url')
   String get url;
@@ -34,9 +37,6 @@ abstract class SourceUpsert implements Built<SourceUpsert, SourceUpsertBuilder> 
 
   @BuiltValueField(wireName: r'description')
   String? get description;
-
-  @BuiltValueField(wireName: r'type')
-  String get type;
 
   @BuiltValueField(wireName: r'password')
   String? get password;
@@ -71,6 +71,11 @@ class _$SourceUpsertSerializer implements PrimitiveSerializer<SourceUpsert> {
         specifiedType: const FullType(int),
       );
     }
+    yield r'type';
+    yield serializers.serialize(
+      object.type,
+      specifiedType: const FullType(String),
+    );
     yield r'url';
     yield serializers.serialize(
       object.url,
@@ -97,11 +102,6 @@ class _$SourceUpsertSerializer implements PrimitiveSerializer<SourceUpsert> {
         specifiedType: const FullType(String),
       );
     }
-    yield r'type';
-    yield serializers.serialize(
-      object.type,
-      specifiedType: const FullType(String),
-    );
     if (object.password != null) {
       yield r'password';
       yield serializers.serialize(
@@ -139,6 +139,13 @@ class _$SourceUpsertSerializer implements PrimitiveSerializer<SourceUpsert> {
           ) as int;
           result.id = valueDes;
           break;
+        case r'type':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.type = valueDes;
+          break;
         case r'url':
           final valueDes = serializers.deserialize(
             value,
@@ -166,13 +173,6 @@ class _$SourceUpsertSerializer implements PrimitiveSerializer<SourceUpsert> {
             specifiedType: const FullType(String),
           ) as String;
           result.description = valueDes;
-          break;
-        case r'type':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.type = valueDes;
           break;
         case r'password':
           final valueDes = serializers.deserialize(

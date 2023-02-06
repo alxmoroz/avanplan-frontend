@@ -27,7 +27,7 @@ void main() {
       // TODO
     });
 
-    // BuiltList<TaskRoleGet> roles
+    // BuiltList<RoleGet> roles
     test('to test the property `roles`', () async {
       // TODO
     });

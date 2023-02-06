@@ -6,42 +6,42 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'task_role_get.g.dart';
+part 'role_get.g.dart';
 
-/// TaskRoleGet
+/// RoleGet
 ///
 /// Properties:
 /// * [id] 
 /// * [code] 
 @BuiltValue()
-abstract class TaskRoleGet implements Built<TaskRoleGet, TaskRoleGetBuilder> {
+abstract class RoleGet implements Built<RoleGet, RoleGetBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
 
   @BuiltValueField(wireName: r'code')
   String get code;
 
-  TaskRoleGet._();
+  RoleGet._();
 
-  factory TaskRoleGet([void updates(TaskRoleGetBuilder b)]) = _$TaskRoleGet;
+  factory RoleGet([void updates(RoleGetBuilder b)]) = _$RoleGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(TaskRoleGetBuilder b) => b;
+  static void _defaults(RoleGetBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<TaskRoleGet> get serializer => _$TaskRoleGetSerializer();
+  static Serializer<RoleGet> get serializer => _$RoleGetSerializer();
 }
 
-class _$TaskRoleGetSerializer implements PrimitiveSerializer<TaskRoleGet> {
+class _$RoleGetSerializer implements PrimitiveSerializer<RoleGet> {
   @override
-  final Iterable<Type> types = const [TaskRoleGet, _$TaskRoleGet];
+  final Iterable<Type> types = const [RoleGet, _$RoleGet];
 
   @override
-  final String wireName = r'TaskRoleGet';
+  final String wireName = r'RoleGet';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    TaskRoleGet object, {
+    RoleGet object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'id';
@@ -59,7 +59,7 @@ class _$TaskRoleGetSerializer implements PrimitiveSerializer<TaskRoleGet> {
   @override
   Object serialize(
     Serializers serializers,
-    TaskRoleGet object, {
+    RoleGet object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -70,7 +70,7 @@ class _$TaskRoleGetSerializer implements PrimitiveSerializer<TaskRoleGet> {
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required TaskRoleGetBuilder result,
+    required RoleGetBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -100,12 +100,12 @@ class _$TaskRoleGetSerializer implements PrimitiveSerializer<TaskRoleGet> {
   }
 
   @override
-  TaskRoleGet deserialize(
+  RoleGet deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = TaskRoleGetBuilder();
+    final result = RoleGetBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

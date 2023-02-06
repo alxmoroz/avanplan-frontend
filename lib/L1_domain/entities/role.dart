@@ -2,8 +2,8 @@
 
 import 'base_entity.dart';
 
-class TaskRole extends Codable {
-  TaskRole({
+class Role extends Codable {
+  Role({
     required super.id,
     required super.code,
   });

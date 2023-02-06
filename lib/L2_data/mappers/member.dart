@@ -3,7 +3,7 @@
 import 'package:openapi/openapi.dart' as api;
 
 import '../../L1_domain/entities/member.dart';
-import 'task_role.dart';
+import 'role.dart';
 
 extension MemberMapper on api.MemberGet {
   Member get member => Member(

@@ -47,8 +47,8 @@ import 'package:openapi/openapi.dart';
 
 
 final api = Openapi().getAuthApi();
-final String locale = locale_example; // String | 
-final BodyAuthAppleToken bodyAuthAppleToken = ; // BodyAuthAppleToken | 
+final String locale = locale_example; // String
+final BodyAuthAppleToken bodyAuthAppleToken; // BodyAuthAppleToken();
 
 try {
     final response = await api.authAppleToken(locale, bodyAuthAppleToken);
@@ -103,13 +103,13 @@ Class | Method | HTTP request | Description
  - [MemberGet](doc/MemberGet.md)
  - [Notification](doc/Notification.md)
  - [PriorityGet](doc/PriorityGet.md)
+ - [RoleGet](doc/RoleGet.md)
  - [SettingsGet](doc/SettingsGet.md)
  - [SourceGet](doc/SourceGet.md)
  - [SourceUpsert](doc/SourceUpsert.md)
  - [StatusGet](doc/StatusGet.md)
  - [TaskGet](doc/TaskGet.md)
  - [TaskRemote](doc/TaskRemote.md)
- - [TaskRoleGet](doc/TaskRoleGet.md)
  - [TaskSource](doc/TaskSource.md)
  - [TaskSourceGet](doc/TaskSourceGet.md)
  - [TaskSourceUpsert](doc/TaskSourceUpsert.md)
@@ -118,7 +118,7 @@ Class | Method | HTTP request | Description
  - [UNotificationPermissionGet](doc/UNotificationPermissionGet.md)
  - [User](doc/User.md)
  - [ValidationError](doc/ValidationError.md)
- - [WSRoleGet](doc/WSRoleGet.md)
+ - [WRoleGet](doc/WRoleGet.md)
  - [WSUserRole](doc/WSUserRole.md)
  - [WorkspaceGet](doc/WorkspaceGet.md)
 

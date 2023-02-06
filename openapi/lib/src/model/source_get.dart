@@ -12,16 +12,19 @@ part 'source_get.g.dart';
 ///
 /// Properties:
 /// * [id] 
+/// * [type] 
 /// * [url] 
 /// * [apiKey] 
 /// * [username] 
 /// * [description] 
-/// * [type] 
 /// * [importedOn] 
 @BuiltValue()
 abstract class SourceGet implements Built<SourceGet, SourceGetBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
+
+  @BuiltValueField(wireName: r'type')
+  String get type;
 
   @BuiltValueField(wireName: r'url')
   String get url;
@@ -34,9 +37,6 @@ abstract class SourceGet implements Built<SourceGet, SourceGetBuilder> {
 
   @BuiltValueField(wireName: r'description')
   String? get description;
-
-  @BuiltValueField(wireName: r'type')
-  String get type;
 
   @BuiltValueField(wireName: r'imported_on')
   DateTime? get importedOn;
@@ -69,6 +69,11 @@ class _$SourceGetSerializer implements PrimitiveSerializer<SourceGet> {
       object.id,
       specifiedType: const FullType(int),
     );
+    yield r'type';
+    yield serializers.serialize(
+      object.type,
+      specifiedType: const FullType(String),
+    );
     yield r'url';
     yield serializers.serialize(
       object.url,
@@ -95,11 +100,6 @@ class _$SourceGetSerializer implements PrimitiveSerializer<SourceGet> {
         specifiedType: const FullType(String),
       );
     }
-    yield r'type';
-    yield serializers.serialize(
-      object.type,
-      specifiedType: const FullType(String),
-    );
     if (object.importedOn != null) {
       yield r'imported_on';
       yield serializers.serialize(
@@ -137,6 +137,13 @@ class _$SourceGetSerializer implements PrimitiveSerializer<SourceGet> {
           ) as int;
           result.id = valueDes;
           break;
+        case r'type':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.type = valueDes;
+          break;
         case r'url':
           final valueDes = serializers.deserialize(
             value,
@@ -164,13 +171,6 @@ class _$SourceGetSerializer implements PrimitiveSerializer<SourceGet> {
             specifiedType: const FullType(String),
           ) as String;
           result.description = valueDes;
-          break;
-        case r'type':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.type = valueDes;
           break;
         case r'imported_on':
           final valueDes = serializers.deserialize(

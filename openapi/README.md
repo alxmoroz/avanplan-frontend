@@ -47,8 +47,8 @@ import 'package:openapi/openapi.dart';
 
 
 final api = Openapi().getAuthApi();
-final String locale = locale_example; // String
-final BodyAuthAppleToken bodyAuthAppleToken; // BodyAuthAppleToken();
+final String locale = locale_example; // String | 
+final BodyAuthAppleToken bodyAuthAppleToken = ; // BodyAuthAppleToken | 
 
 try {
     final response = await api.authAppleToken(locale, bodyAuthAppleToken);

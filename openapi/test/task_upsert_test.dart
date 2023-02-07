@@ -81,5 +81,15 @@ void main() {
     test('to test the property `taskSourceId`', () async {
       // TODO
     });
+
+    // DateTime createdOn
+    test('to test the property `createdOn`', () async {
+      // TODO
+    });
+
+    // DateTime updatedOn
+    test('to test the property `updatedOn`', () async {
+      // TODO
+    });
   });
 }

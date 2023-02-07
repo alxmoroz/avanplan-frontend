@@ -33,7 +33,7 @@ abstract class TaskSourceGet implements Built<TaskSourceGet, TaskSourceGetBuilde
   bool get keepConnection;
 
   @BuiltValueField(wireName: r'updated_on')
-  DateTime? get updatedOn;
+  DateTime get updatedOn;
 
   @BuiltValueField(wireName: r'url')
   String get url;
@@ -84,13 +84,11 @@ class _$TaskSourceGetSerializer implements PrimitiveSerializer<TaskSourceGet> {
       object.keepConnection,
       specifiedType: const FullType(bool),
     );
-    if (object.updatedOn != null) {
-      yield r'updated_on';
-      yield serializers.serialize(
-        object.updatedOn,
-        specifiedType: const FullType(DateTime),
-      );
-    }
+    yield r'updated_on';
+    yield serializers.serialize(
+      object.updatedOn,
+      specifiedType: const FullType(DateTime),
+    );
     yield r'url';
     yield serializers.serialize(
       object.url,

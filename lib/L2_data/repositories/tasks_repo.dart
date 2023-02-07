@@ -13,7 +13,7 @@ class TasksRepo extends AbstractApiWSRepo<Task> {
   @override
   Future<List<Task>> getAll(int wsId) async {
     final List<Task> tasks = [];
-    final response = await api.getRootTasksV1TasksGet(wsId: wsId);
+    final response = await api.getProjectsV1TasksGet(wsId: wsId);
     if (response.statusCode == 200) {
       for (o_api.TaskGet t in response.data?.toList() ?? []) {
         tasks.add(t.task(wsId: wsId));

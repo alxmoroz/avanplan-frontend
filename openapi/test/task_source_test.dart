@@ -42,8 +42,8 @@ void main() {
       // TODO
     });
 
-    // bool skipUpdate (default value: false)
-    test('to test the property `skipUpdate`', () async {
+    // bool skipUpsert (default value: false)
+    test('to test the property `skipUpsert`', () async {
       // TODO
     });
   });

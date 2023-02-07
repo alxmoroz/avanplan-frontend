@@ -36,10 +36,5 @@ void main() {
     test('to test the property `description`', () async {
       // TODO
     });
-
-    // DateTime importedOn
-    test('to test the property `importedOn`', () async {
-      // TODO
-    });
   });
 }

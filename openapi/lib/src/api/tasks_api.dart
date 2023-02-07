@@ -108,7 +108,7 @@ class TasksApi {
     );
   }
 
-  /// Get Root Tasks
+  /// Get Projects
   /// 
   ///
   /// Parameters:
@@ -122,7 +122,7 @@ class TasksApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<TaskGet>] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<BuiltList<TaskGet>>> getRootTasksV1TasksGet({ 
+  Future<Response<BuiltList<TaskGet>>> getProjectsV1TasksGet({ 
     required int wsId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,

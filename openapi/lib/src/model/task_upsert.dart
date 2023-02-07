@@ -26,6 +26,8 @@ part 'task_upsert.g.dart';
 /// * [statusId] 
 /// * [parentId] 
 /// * [taskSourceId] 
+/// * [createdOn] 
+/// * [updatedOn] 
 @BuiltValue()
 abstract class TaskUpsert implements Built<TaskUpsert, TaskUpsertBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -72,6 +74,12 @@ abstract class TaskUpsert implements Built<TaskUpsert, TaskUpsertBuilder> {
 
   @BuiltValueField(wireName: r'task_source_id')
   int? get taskSourceId;
+
+  @BuiltValueField(wireName: r'created_on')
+  DateTime? get createdOn;
+
+  @BuiltValueField(wireName: r'updated_on')
+  DateTime? get updatedOn;
 
   TaskUpsert._();
 
@@ -203,6 +211,20 @@ class _$TaskUpsertSerializer implements PrimitiveSerializer<TaskUpsert> {
         specifiedType: const FullType(int),
       );
     }
+    if (object.createdOn != null) {
+      yield r'created_on';
+      yield serializers.serialize(
+        object.createdOn,
+        specifiedType: const FullType(DateTime),
+      );
+    }
+    if (object.updatedOn != null) {
+      yield r'updated_on';
+      yield serializers.serialize(
+        object.updatedOn,
+        specifiedType: const FullType(DateTime),
+      );
+    }
   }
 
   @override
@@ -330,6 +352,20 @@ class _$TaskUpsertSerializer implements PrimitiveSerializer<TaskUpsert> {
             specifiedType: const FullType(int),
           ) as int;
           result.taskSourceId = valueDes;
+          break;
+        case r'created_on':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.createdOn = valueDes;
+          break;
+        case r'updated_on':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.updatedOn = valueDes;
           break;
         default:
           unhandled.add(key);

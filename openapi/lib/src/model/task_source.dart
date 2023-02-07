@@ -18,7 +18,7 @@ part 'task_source.g.dart';
 /// * [url] 
 /// * [parentCode] 
 /// * [versionCode] 
-/// * [skipUpdate] 
+/// * [skipUpsert] 
 @BuiltValue()
 abstract class TaskSource implements Built<TaskSource, TaskSourceBuilder> {
   @BuiltValueField(wireName: r'code')
@@ -42,8 +42,8 @@ abstract class TaskSource implements Built<TaskSource, TaskSourceBuilder> {
   @BuiltValueField(wireName: r'version_code')
   String? get versionCode;
 
-  @BuiltValueField(wireName: r'skip_update')
-  bool? get skipUpdate;
+  @BuiltValueField(wireName: r'skip_upsert')
+  bool? get skipUpsert;
 
   TaskSource._();
 
@@ -51,7 +51,7 @@ abstract class TaskSource implements Built<TaskSource, TaskSourceBuilder> {
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(TaskSourceBuilder b) => b
-      ..skipUpdate = false;
+      ..skipUpsert = false;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<TaskSource> get serializer => _$TaskSourceSerializer();
@@ -112,10 +112,10 @@ class _$TaskSourceSerializer implements PrimitiveSerializer<TaskSource> {
         specifiedType: const FullType(String),
       );
     }
-    if (object.skipUpdate != null) {
-      yield r'skip_update';
+    if (object.skipUpsert != null) {
+      yield r'skip_upsert';
       yield serializers.serialize(
-        object.skipUpdate,
+        object.skipUpsert,
         specifiedType: const FullType(bool),
       );
     }
@@ -191,12 +191,12 @@ class _$TaskSourceSerializer implements PrimitiveSerializer<TaskSource> {
           ) as String;
           result.versionCode = valueDes;
           break;
-        case r'skip_update':
+        case r'skip_upsert':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(bool),
           ) as bool;
-          result.skipUpdate = valueDes;
+          result.skipUpsert = valueDes;
           break;
         default:
           unhandled.add(key);

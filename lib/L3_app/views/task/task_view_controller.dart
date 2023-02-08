@@ -7,6 +7,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/usecases/task_ext_level.dart';
 import '../../../L1_domain/usecases/task_ext_state.dart';
+import '../../../L1_domain/usecases/user_ext_permissions.dart';
 import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
@@ -67,7 +68,7 @@ abstract class _TaskViewControllerBase with Store {
   bool get showGroupTitles => _showGroupTitles ?? task.subtaskGroups.length > 1 && task.tasks.length > 4;
 
   @computed
-  bool get canEditTask => authController.canEditWS(mainController.rolesForWS(task.wsId));
+  bool get canEditTask => accountController.user != null && accountController.user!.canEditTask(task);
 
   /// связь с источником импорта
 

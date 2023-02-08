@@ -6,8 +6,8 @@ import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
-import '../../../L1_domain/entities/ws_role.dart';
 import '../../../L1_domain/usecases/task_ext_state.dart';
+import '../../../L1_domain/usecases/user_ext_permissions.dart';
 import '../../../main.dart';
 import '../../extra/services.dart';
 import '../task/task_view.dart';
@@ -22,7 +22,11 @@ abstract class _MainControllerBase with Store {
   ObservableList<Workspace> workspaces = ObservableList();
 
   @computed
-  List<Workspace> get editableWSs => workspaces.where((ws) => authController.canEditWS(ws.roles)).toList();
+  List<Workspace> get editableWSs => workspaces.where((ws) => accountController.user != null && accountController.user!.canEditProjects(ws)).toList();
+
+  /// роли и права доступа к РП
+  @computed
+  bool get canEditAnyWS => editableWSs.isNotEmpty;
 
   /// рутовый объект
   @observable
@@ -34,16 +38,7 @@ abstract class _MainControllerBase with Store {
   /// конкретная задача
   Task taskForId(int? id) => _tasksMap[id] ?? rootTask;
 
-  /// роли и права доступа к РП
-  @computed
-  Map<int, Iterable<WSRole>> get _wsRolesMap => {for (var ws in workspaces) ws.id!: ws.roles};
-  Iterable<WSRole> rolesForWS(int? wsId) => _wsRolesMap[wsId] ?? [];
-  // TODO: проблема совместного отображения списка задач из разных РП
-  bool get canEditAnyWS => editableWSs.isNotEmpty;
-
   Future showTask(int? taskId) async => await Navigator.of(rootKey.currentContext!).pushNamed(TaskView.routeName, arguments: taskId);
-
-  /// рабочие пространства, справочники и задачи
 
   @observable
   DateTime? updatedDate;

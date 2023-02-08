@@ -3,6 +3,8 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:built_collection/built_collection.dart';
+import 'package:openapi/src/model/user.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -14,6 +16,7 @@ part 'workspace_get.g.dart';
 /// * [id] 
 /// * [title] 
 /// * [description] 
+/// * [users] 
 @BuiltValue()
 abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -24,6 +27,9 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
 
   @BuiltValueField(wireName: r'description')
   String? get description;
+
+  @BuiltValueField(wireName: r'users')
+  BuiltList<User>? get users;
 
   WorkspaceGet._();
 
@@ -65,6 +71,13 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
       yield serializers.serialize(
         object.description,
         specifiedType: const FullType(String),
+      );
+    }
+    if (object.users != null) {
+      yield r'users';
+      yield serializers.serialize(
+        object.users,
+        specifiedType: const FullType(BuiltList, [FullType(User)]),
       );
     }
   }
@@ -110,6 +123,13 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
             specifiedType: const FullType(String),
           ) as String;
           result.description = valueDes;
+          break;
+        case r'users':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [FullType(User)]),
+          ) as BuiltList<User>;
+          result.users.replace(valueDes);
           break;
         default:
           unhandled.add(key);

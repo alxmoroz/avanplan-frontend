@@ -21,5 +21,10 @@ void main() {
     test('to test the property `description`', () async {
       // TODO
     });
+
+    // BuiltList<User> users
+    test('to test the property `users`', () async {
+      // TODO
+    });
   });
 }

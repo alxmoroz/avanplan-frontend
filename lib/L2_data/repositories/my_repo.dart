@@ -10,7 +10,6 @@ import '../../L1_domain/repositories/abs_api_my_repo.dart';
 import '../mappers/notification.dart';
 import '../mappers/user.dart';
 import '../mappers/workspace.dart';
-import '../mappers/ws_role.dart';
 import '../services/api.dart';
 import '../services/platform.dart';
 
@@ -33,21 +32,7 @@ class MyRepo extends AbstractApiMyRepo {
   @override
   Future<Iterable<Workspace>> getMyWorkspaces() async {
     final response = await api.getMyWorkspacesV1MyWorkspacesGet();
-
-    final Map<int, Workspace> workspacesMap = {};
-    if (response.statusCode == 200) {
-      // берем запись, смотрим id её РП. Если такая уже есть у нас, то берём её и в её список ролей добавляем роль из записи.
-      // если нет, то создаём и добавляем роль туда
-      for (o_api.WSUserRole wsUserRole in response.data ?? []) {
-        final wsId = wsUserRole.workspace.id;
-        final role = wsUserRole.role.wsRole;
-        if (workspacesMap[wsId] == null) {
-          workspacesMap[wsId] = wsUserRole.workspace.workspace;
-        }
-        workspacesMap[wsId]!.roles.add(role);
-      }
-    }
-    return workspacesMap.values;
+    return response.data?.map((ws) => ws.workspace) ?? [];
   }
 
   @override

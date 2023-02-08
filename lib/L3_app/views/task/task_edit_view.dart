@@ -7,6 +7,7 @@ import '../../../L1_domain/entities/estimate_value.dart';
 import '../../../L1_domain/entities/member.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/usecases/task_ext_level.dart';
+import '../../../L1_domain/usecases/task_ext_members.dart';
 import '../../../L1_domain/usecases/task_ext_state.dart';
 import '../../../main.dart';
 import '../../components/colors.dart';
@@ -22,7 +23,6 @@ import '../../components/navbar.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_level_presenter.dart';
-import '../../presenters/task_members_presenter.dart';
 import 'task_edit_controller.dart';
 
 //TODO: подумать над унификацией полей. Возможно, получится избавиться от дуэта MTField и TFAnnotation
@@ -79,8 +79,8 @@ class _TaskEditViewState extends State<TaskEditView> {
     controller.selectWS(_savedWsID);
     controller.selectEstimateByValue(task?.estimate);
     controller.setAllowedAssignees([
-      Member(fullName: loc.task_assignee_nobody, id: null, email: '', roles: [], isActive: false),
-      ...task?.project?.activeMembers ?? [],
+      Member(fullName: loc.task_assignee_nobody, id: null, email: '', isActive: false, roles: [], permissions: [], userId: null),
+      ...task?.activeMembers ?? [],
     ]);
     controller.selectAssigneeById(task?.assigneeId);
 

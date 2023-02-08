@@ -15,5 +15,5 @@ class EstimateUnit extends Titleable {
   final int wsId;
 
   @override
-  String toString() => '$code';
+  String toString() => code;
 }

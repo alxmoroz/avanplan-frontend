@@ -15,5 +15,5 @@ class WSSettingsUC {
   final AbstractApiSettingsRepo settingsRepo;
 
   Future<List<EstimateValue>> getEstimateValues(int wsId) async => await estValueRepo.getAll(wsId);
-  Future<WSSettings?> getSettings(int wsId) async => await settingsRepo.getSettings(wsId);
+  Future<WSettings?> getSettings(int wsId) async => await settingsRepo.getSettings(wsId);
 }

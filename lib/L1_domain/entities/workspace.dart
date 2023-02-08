@@ -2,11 +2,8 @@
 
 import 'base_entity.dart';
 import 'estimate_value.dart';
-import 'member.dart';
-import 'priority.dart';
 import 'source.dart';
-import 'status.dart';
-import 'ws_role.dart';
+import 'user.dart';
 import 'ws_settings.dart';
 
 class Workspace extends Titleable {
@@ -14,14 +11,15 @@ class Workspace extends Titleable {
     required super.id,
     required super.title,
     required super.description,
+    required this.users,
   });
 
-  List<Status> statuses = [];
-  List<Priority> priorities = [];
-  List<Member> members = [];
+  final List<User> users;
+
   List<Source> sources = [];
   List<EstimateValue> estimateValues = [];
-  WSSettings? settings;
+  WSettings? settings;
 
-  List<WSRole> roles = [];
+  // List<Status> statuses = [];
+  // List<Priority> priorities = [];
 }

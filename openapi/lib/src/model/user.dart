@@ -17,7 +17,10 @@ part 'user.g.dart';
 /// * [email] 
 /// * [fullName] 
 /// * [nickName] 
+/// * [locale] 
 /// * [notificationPermissions] 
+/// * [roleCodes] 
+/// * [permissionCodes] 
 @BuiltValue()
 abstract class User implements Built<User, UserBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -32,15 +35,25 @@ abstract class User implements Built<User, UserBuilder> {
   @BuiltValueField(wireName: r'nick_name')
   String? get nickName;
 
+  @BuiltValueField(wireName: r'locale')
+  String? get locale;
+
   @BuiltValueField(wireName: r'notification_permissions')
   BuiltList<UNotificationPermissionGet> get notificationPermissions;
+
+  @BuiltValueField(wireName: r'role_codes')
+  BuiltList<String>? get roleCodes;
+
+  @BuiltValueField(wireName: r'permission_codes')
+  BuiltSet<String>? get permissionCodes;
 
   User._();
 
   factory User([void updates(UserBuilder b)]) = _$User;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(UserBuilder b) => b;
+  static void _defaults(UserBuilder b) => b
+      ..locale = 'ru';
 
   @BuiltValueSerializer(custom: true)
   static Serializer<User> get serializer => _$UserSerializer();
@@ -82,11 +95,32 @@ class _$UserSerializer implements PrimitiveSerializer<User> {
         specifiedType: const FullType(String),
       );
     }
+    if (object.locale != null) {
+      yield r'locale';
+      yield serializers.serialize(
+        object.locale,
+        specifiedType: const FullType(String),
+      );
+    }
     yield r'notification_permissions';
     yield serializers.serialize(
       object.notificationPermissions,
       specifiedType: const FullType(BuiltList, [FullType(UNotificationPermissionGet)]),
     );
+    if (object.roleCodes != null) {
+      yield r'role_codes';
+      yield serializers.serialize(
+        object.roleCodes,
+        specifiedType: const FullType(BuiltList, [FullType(String)]),
+      );
+    }
+    if (object.permissionCodes != null) {
+      yield r'permission_codes';
+      yield serializers.serialize(
+        object.permissionCodes,
+        specifiedType: const FullType(BuiltSet, [FullType(String)]),
+      );
+    }
   }
 
   @override
@@ -138,12 +172,33 @@ class _$UserSerializer implements PrimitiveSerializer<User> {
           ) as String;
           result.nickName = valueDes;
           break;
+        case r'locale':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.locale = valueDes;
+          break;
         case r'notification_permissions':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(BuiltList, [FullType(UNotificationPermissionGet)]),
           ) as BuiltList<UNotificationPermissionGet>;
           result.notificationPermissions.replace(valueDes);
+          break;
+        case r'role_codes':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [FullType(String)]),
+          ) as BuiltList<String>;
+          result.roleCodes.replace(valueDes);
+          break;
+        case r'permission_codes':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltSet, [FullType(String)]),
+          ) as BuiltSet<String>;
+          result.permissionCodes.replace(valueDes);
           break;
         default:
           unhandled.add(key);

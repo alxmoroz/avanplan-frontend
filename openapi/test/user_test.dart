@@ -27,8 +27,23 @@ void main() {
       // TODO
     });
 
+    // String locale (default value: 'ru')
+    test('to test the property `locale`', () async {
+      // TODO
+    });
+
     // BuiltList<UNotificationPermissionGet> notificationPermissions
     test('to test the property `notificationPermissions`', () async {
+      // TODO
+    });
+
+    // BuiltList<String> roleCodes
+    test('to test the property `roleCodes`', () async {
+      // TODO
+    });
+
+    // BuiltSet<String> permissionCodes
+    test('to test the property `permissionCodes`', () async {
       // TODO
     });
   });

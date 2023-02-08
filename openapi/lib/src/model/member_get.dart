@@ -4,7 +4,6 @@
 
 // ignore_for_file: unused_element
 import 'package:built_collection/built_collection.dart';
-import 'package:openapi/src/model/role_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -13,14 +12,18 @@ part 'member_get.g.dart';
 /// MemberGet
 ///
 /// Properties:
+/// * [id] 
 /// * [email] 
 /// * [fullName] 
 /// * [userId] 
-/// * [id] 
-/// * [roles] 
+/// * [roleCodes] 
+/// * [permissionCodes] 
 /// * [isActive] 
 @BuiltValue()
 abstract class MemberGet implements Built<MemberGet, MemberGetBuilder> {
+  @BuiltValueField(wireName: r'id')
+  int get id;
+
   @BuiltValueField(wireName: r'email')
   String get email;
 
@@ -30,11 +33,11 @@ abstract class MemberGet implements Built<MemberGet, MemberGetBuilder> {
   @BuiltValueField(wireName: r'user_id')
   int? get userId;
 
-  @BuiltValueField(wireName: r'id')
-  int get id;
+  @BuiltValueField(wireName: r'role_codes')
+  BuiltList<String>? get roleCodes;
 
-  @BuiltValueField(wireName: r'roles')
-  BuiltList<RoleGet>? get roles;
+  @BuiltValueField(wireName: r'permission_codes')
+  BuiltSet<String>? get permissionCodes;
 
   @BuiltValueField(wireName: r'is_active')
   bool? get isActive;
@@ -62,6 +65,11 @@ class _$MemberGetSerializer implements PrimitiveSerializer<MemberGet> {
     MemberGet object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
+    yield r'id';
+    yield serializers.serialize(
+      object.id,
+      specifiedType: const FullType(int),
+    );
     yield r'email';
     yield serializers.serialize(
       object.email,
@@ -81,16 +89,18 @@ class _$MemberGetSerializer implements PrimitiveSerializer<MemberGet> {
         specifiedType: const FullType(int),
       );
     }
-    yield r'id';
-    yield serializers.serialize(
-      object.id,
-      specifiedType: const FullType(int),
-    );
-    if (object.roles != null) {
-      yield r'roles';
+    if (object.roleCodes != null) {
+      yield r'role_codes';
       yield serializers.serialize(
-        object.roles,
-        specifiedType: const FullType(BuiltList, [FullType(RoleGet)]),
+        object.roleCodes,
+        specifiedType: const FullType(BuiltList, [FullType(String)]),
+      );
+    }
+    if (object.permissionCodes != null) {
+      yield r'permission_codes';
+      yield serializers.serialize(
+        object.permissionCodes,
+        specifiedType: const FullType(BuiltSet, [FullType(String)]),
       );
     }
     if (object.isActive != null) {
@@ -123,6 +133,13 @@ class _$MemberGetSerializer implements PrimitiveSerializer<MemberGet> {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
+        case r'id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.id = valueDes;
+          break;
         case r'email':
           final valueDes = serializers.deserialize(
             value,
@@ -144,19 +161,19 @@ class _$MemberGetSerializer implements PrimitiveSerializer<MemberGet> {
           ) as int;
           result.userId = valueDes;
           break;
-        case r'id':
+        case r'role_codes':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.id = valueDes;
+            specifiedType: const FullType(BuiltList, [FullType(String)]),
+          ) as BuiltList<String>;
+          result.roleCodes.replace(valueDes);
           break;
-        case r'roles':
+        case r'permission_codes':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(BuiltList, [FullType(RoleGet)]),
-          ) as BuiltList<RoleGet>;
-          result.roles.replace(valueDes);
+            specifiedType: const FullType(BuiltSet, [FullType(String)]),
+          ) as BuiltSet<String>;
+          result.permissionCodes.replace(valueDes);
           break;
         case r'is_active':
           final valueDes = serializers.deserialize(

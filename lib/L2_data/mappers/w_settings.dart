@@ -5,8 +5,8 @@ import 'package:openapi/openapi.dart';
 import '../../L1_domain/entities/ws_settings.dart';
 import 'estimate_unit.dart';
 
-extension WSSettingsMapper on SettingsGet {
-  WSSettings settings(int wsId) => WSSettings(
+extension WSettingsMapper on SettingsGet {
+  WSettings settings(int wsId) => WSettings(
         id: id,
         estimateUnit: estimateUnit?.unit(wsId),
         wsId: wsId,

@@ -9,5 +9,7 @@ extension UserMapper on api.User {
         id: id,
         email: email,
         fullName: fullName ?? '',
+        roles: roleCodes ?? [],
+        permissions: permissionCodes ?? [],
       );
 }

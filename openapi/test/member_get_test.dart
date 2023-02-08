@@ -7,6 +7,11 @@ void main() {
   // TODO add properties to the builder and call build()
 
   group(MemberGet, () {
+    // int id
+    test('to test the property `id`', () async {
+      // TODO
+    });
+
     // String email
     test('to test the property `email`', () async {
       // TODO
@@ -22,13 +27,13 @@ void main() {
       // TODO
     });
 
-    // int id
-    test('to test the property `id`', () async {
+    // BuiltList<String> roleCodes
+    test('to test the property `roleCodes`', () async {
       // TODO
     });
 
-    // BuiltList<RoleGet> roles
-    test('to test the property `roles`', () async {
+    // BuiltSet<String> permissionCodes
+    test('to test the property `permissionCodes`', () async {
       // TODO
     });
 

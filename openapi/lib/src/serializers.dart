@@ -25,7 +25,6 @@ import 'package:openapi/src/model/location_inner.dart';
 import 'package:openapi/src/model/member_get.dart';
 import 'package:openapi/src/model/notification.dart';
 import 'package:openapi/src/model/priority_get.dart';
-import 'package:openapi/src/model/role_get.dart';
 import 'package:openapi/src/model/settings_get.dart';
 import 'package:openapi/src/model/source_get.dart';
 import 'package:openapi/src/model/source_upsert.dart';
@@ -40,8 +39,6 @@ import 'package:openapi/src/model/token.dart';
 import 'package:openapi/src/model/u_notification_permission_get.dart';
 import 'package:openapi/src/model/user.dart';
 import 'package:openapi/src/model/validation_error.dart';
-import 'package:openapi/src/model/w_role_get.dart';
-import 'package:openapi/src/model/ws_user_role.dart';
 import 'package:openapi/src/model/workspace_get.dart';
 
 part 'serializers.g.dart';
@@ -58,7 +55,6 @@ part 'serializers.g.dart';
   MemberGet,
   Notification,
   PriorityGet,
-  RoleGet,
   SettingsGet,
   SourceGet,
   SourceUpsert,
@@ -73,8 +69,6 @@ part 'serializers.g.dart';
   UNotificationPermissionGet,
   User,
   ValidationError,
-  WRoleGet,
-  WSUserRole,
   WorkspaceGet,
 ])
 Serializers serializers = (_$serializers.toBuilder()
@@ -99,6 +93,10 @@ Serializers serializers = (_$serializers.toBuilder()
         () => ListBuilder<int>(),
       )
       ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(WorkspaceGet)]),
+        () => ListBuilder<WorkspaceGet>(),
+      )
+      ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskSourceUpsert)]),
         () => ListBuilder<TaskSourceUpsert>(),
       )
@@ -109,10 +107,6 @@ Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskGet)]),
         () => ListBuilder<TaskGet>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(WSUserRole)]),
-        () => ListBuilder<WSUserRole>(),
       )
       ..add(const OneOfSerializer())
       ..add(const AnyOfSerializer())

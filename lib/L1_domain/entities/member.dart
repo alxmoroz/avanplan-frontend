@@ -1,20 +1,18 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'role.dart';
-import 'user.dart';
+import 'base_entity.dart';
 
-class Member extends User {
+class Member extends Person {
   Member({
     required super.id,
     required super.email,
     required super.fullName,
-    required this.roles,
+    required super.roles,
+    required super.permissions,
     required this.isActive,
+    required this.userId,
   });
 
-  List<Role> roles = [];
-  bool isActive;
-
-  @override
-  String toString() => '${fullName ?? email}';
+  final bool isActive;
+  final int? userId;
 }

@@ -17,7 +17,6 @@ doc/MemberGet.md
 doc/MyApi.md
 doc/Notification.md
 doc/PriorityGet.md
-doc/RoleGet.md
 doc/SettingsApi.md
 doc/SettingsGet.md
 doc/SourceGet.md
@@ -34,8 +33,6 @@ doc/Token.md
 doc/UNotificationPermissionGet.md
 doc/User.md
 doc/ValidationError.md
-doc/WRoleGet.md
-doc/WSUserRole.md
 doc/WorkspaceGet.md
 lib/openapi.dart
 lib/src/api.dart
@@ -64,7 +61,6 @@ lib/src/model/location_inner.dart
 lib/src/model/member_get.dart
 lib/src/model/notification.dart
 lib/src/model/priority_get.dart
-lib/src/model/role_get.dart
 lib/src/model/settings_get.dart
 lib/src/model/source_get.dart
 lib/src/model/source_upsert.dart
@@ -79,9 +75,7 @@ lib/src/model/token.dart
 lib/src/model/u_notification_permission_get.dart
 lib/src/model/user.dart
 lib/src/model/validation_error.dart
-lib/src/model/w_role_get.dart
 lib/src/model/workspace_get.dart
-lib/src/model/ws_user_role.dart
 lib/src/serializers.dart
 pubspec.yaml
 test/auth_api_test.dart
@@ -99,7 +93,6 @@ test/member_get_test.dart
 test/my_api_test.dart
 test/notification_test.dart
 test/priority_get_test.dart
-test/role_get_test.dart
 test/settings_api_test.dart
 test/settings_get_test.dart
 test/source_get_test.dart
@@ -116,6 +109,4 @@ test/token_test.dart
 test/u_notification_permission_get_test.dart
 test/user_test.dart
 test/validation_error_test.dart
-test/w_role_get_test.dart
 test/workspace_get_test.dart
-test/ws_user_role_test.dart

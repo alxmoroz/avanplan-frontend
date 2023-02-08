@@ -3,8 +3,8 @@
 import 'base_entity.dart';
 import 'estimate_unit.dart';
 
-class WSSettings extends WSBounded {
-  WSSettings({
+class WSettings extends WSBounded {
+  WSettings({
     required super.id,
     required this.estimateUnit,
     required super.wsId,

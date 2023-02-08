@@ -103,7 +103,6 @@ Class | Method | HTTP request | Description
  - [MemberGet](doc/MemberGet.md)
  - [Notification](doc/Notification.md)
  - [PriorityGet](doc/PriorityGet.md)
- - [RoleGet](doc/RoleGet.md)
  - [SettingsGet](doc/SettingsGet.md)
  - [SourceGet](doc/SourceGet.md)
  - [SourceUpsert](doc/SourceUpsert.md)
@@ -118,8 +117,6 @@ Class | Method | HTTP request | Description
  - [UNotificationPermissionGet](doc/UNotificationPermissionGet.md)
  - [User](doc/User.md)
  - [ValidationError](doc/ValidationError.md)
- - [WRoleGet](doc/WRoleGet.md)
- - [WSUserRole](doc/WSUserRole.md)
  - [WorkspaceGet](doc/WorkspaceGet.md)
 
 

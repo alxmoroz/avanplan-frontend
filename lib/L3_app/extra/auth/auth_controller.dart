@@ -1,10 +1,8 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/entities/ws_role.dart';
 import '../../../L1_domain/system/errors.dart';
 import '../services.dart';
 
@@ -73,6 +71,4 @@ abstract class _AuthControllerBase with Store {
     setAuthorized(false);
     await authUC.signOut();
   }
-
-  bool canEditWS(Iterable<WSRole> roles) => roles.firstWhereOrNull((r) => r.code == 'admin') != null;
 }

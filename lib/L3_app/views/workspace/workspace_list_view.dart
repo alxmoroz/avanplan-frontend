@@ -9,7 +9,7 @@ import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/workspace_presenter.dart';
+import '../../presenters/user_presenter.dart';
 
 class WorkspaceListView extends StatelessWidget {
   static String get routeName => 'workspaces_list';
@@ -22,7 +22,10 @@ class WorkspaceListView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             if (ws.description.isNotEmpty) SmallText(ws.description, padding: const EdgeInsets.only(bottom: P_2)),
-            SmallText(ws.rolesList),
+            for (final user in ws.users) ...[
+              LightText('$user'),
+              SmallText(user.rolesStr),
+            ],
           ],
         )
         // trailing: editIcon(context),

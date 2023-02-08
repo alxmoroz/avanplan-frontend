@@ -29,7 +29,7 @@ void main() {
 
     // Get My Workspaces
     //
-    //Future<BuiltList<WSUserRole>> getMyWorkspacesV1MyWorkspacesGet() async
+    //Future<BuiltList<WorkspaceGet>> getMyWorkspacesV1MyWorkspacesGet() async
     test('test getMyWorkspacesV1MyWorkspacesGet', () async {
       // TODO
     });

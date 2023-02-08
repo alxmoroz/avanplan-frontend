@@ -14,7 +14,7 @@ import 'package:openapi/src/model/body_update_push_token_v1_my_push_token_post.d
 import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/notification.dart';
 import 'package:openapi/src/model/user.dart';
-import 'package:openapi/src/model/ws_user_role.dart';
+import 'package:openapi/src/model/workspace_get.dart';
 
 class MyApi {
 
@@ -266,9 +266,9 @@ class MyApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [BuiltList<WSUserRole>] as data
+  /// Returns a [Future] containing a [Response] with a [BuiltList<WorkspaceGet>] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<BuiltList<WSUserRole>>> getMyWorkspacesV1MyWorkspacesGet({ 
+  Future<Response<BuiltList<WorkspaceGet>>> getMyWorkspacesV1MyWorkspacesGet({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -302,14 +302,14 @@ class MyApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltList<WSUserRole> _responseData;
+    BuiltList<WorkspaceGet> _responseData;
 
     try {
-      const _responseType = FullType(BuiltList, [FullType(WSUserRole)]);
+      const _responseType = FullType(BuiltList, [FullType(WorkspaceGet)]);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as BuiltList<WSUserRole>;
+      ) as BuiltList<WorkspaceGet>;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -320,7 +320,7 @@ class MyApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<BuiltList<WSUserRole>>(
+    return Response<BuiltList<WorkspaceGet>>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

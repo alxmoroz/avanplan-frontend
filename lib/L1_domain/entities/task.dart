@@ -26,7 +26,7 @@ class Task extends Titleable {
   Task({
     super.id,
     super.description,
-    required super.title,
+    super.title,
     required this.closed,
     required this.parent,
     required this.tasks,

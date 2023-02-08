@@ -2,16 +2,12 @@
 
 import 'base_entity.dart';
 
-class User extends RPersistable {
+class User extends Person {
   User({
     required super.id,
-    required this.email,
-    required this.fullName,
+    required super.email,
+    required super.fullName,
+    required super.roles,
+    required super.permissions,
   });
-
-  final String? fullName;
-  final String email;
-
-  @override
-  String toString() => '${fullName ?? email}';
 }

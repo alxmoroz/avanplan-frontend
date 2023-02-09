@@ -34,6 +34,7 @@ import '../views/references/references_controller.dart';
 import '../views/settings/settings_controller.dart';
 import '../views/source/source_controller.dart';
 import 'auth/auth_controller.dart';
+import 'router/link_controller.dart';
 
 S get loc => S.current;
 
@@ -48,6 +49,7 @@ ImportController get importController => GetIt.I<ImportController>();
 AccountController get accountController => GetIt.I<AccountController>();
 AuthController get authController => GetIt.I<AuthController>();
 NotificationController get notificationController => GetIt.I<NotificationController>();
+LinkController get linkController => GetIt.I<LinkController>();
 
 AppSettingsUC get appSettingsUC => GetIt.I<AppSettingsUC>();
 WSSettingsUC get wsSettingsUC => GetIt.I<WSSettingsUC>();
@@ -75,6 +77,7 @@ void setup() {
   getIt.registerSingleton<ImportController>(ImportController());
   getIt.registerSingleton<AccountController>(AccountController());
   getIt.registerSingleton<NotificationController>(NotificationController());
+  getIt.registerSingleton<LinkController>(LinkController());
 
   // Openapi
   getIt.registerSingleton<Openapi>(setupApi([loaderController.interceptor]));

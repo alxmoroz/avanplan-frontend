@@ -62,7 +62,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
         if (isIOS) {
           await notificationController.initPush();
         }
-
+        await linkController.processLinks();
         await mainController.requestUpdate();
       }
     });

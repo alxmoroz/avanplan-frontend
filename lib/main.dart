@@ -75,6 +75,10 @@ class App extends StatelessWidget {
       ),
       localizationsDelegates: localizationsDelegates,
       supportedLocales: supportedLocales,
+      onGenerateRoute: (RouteSettings rs) {
+        linkController.registerLink(rs.name);
+        return null;
+      },
       home: Observer(
         builder: (_) => Stack(children: [
           CupertinoApp(

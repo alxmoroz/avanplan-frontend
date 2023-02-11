@@ -22,9 +22,16 @@ abstract class _MainControllerBase with Store {
   ObservableList<Workspace> workspaces = ObservableList();
 
   @computed
-  List<Workspace> get editableWSs => workspaces.where((ws) => accountController.user != null && accountController.user!.canEditProjects(ws)).toList();
+  Map<int, Workspace> get _wsMap => {for (var ws in workspaces) ws.id!: ws};
+
+  Workspace? wsForId(int? id) => _wsMap[id];
+
+  // TODO: уточнить логику, где нужен этот список и для чего. Можно ли заменить на проверку прав
+  @computed
+  List<Workspace> get editableWSs => workspaces.where((ws) => accountController.user?.canEditProjects(ws) == true).toList();
 
   /// роли и права доступа к РП
+  // TODO: заменить на конкретные проверки
   @computed
   bool get canEditAnyWS => editableWSs.isNotEmpty;
 

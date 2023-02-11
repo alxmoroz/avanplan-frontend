@@ -8,9 +8,10 @@ import '../entities/workspace.dart';
 import 'task_ext_members.dart';
 
 extension UserExtension on User {
-  Iterable<String> _wsPermissions(Workspace ws) => ws.users.firstWhereOrNull((u) => u.id == id)?.permissions ?? [];
-  bool canEditProjects(Workspace ws) => _wsPermissions(ws).contains('PROJECTS_EDIT');
+  Iterable<String> _wP(Workspace? ws) => ws?.users.firstWhereOrNull((u) => u.id == id)?.permissions ?? [];
+  bool canEditProjects(Workspace? ws) => _wP(ws).contains('PROJECTS_EDIT');
+  bool canEditSources(Workspace? ws) => _wP(ws).contains('SOURCES_EDIT');
 
-  Iterable<String> _taskPermissions(Task task) => task.projectMembers.firstWhereOrNull((m) => m.userId == id)?.permissions ?? [];
-  bool canEditTask(Task task) => _taskPermissions(task).contains('TASKS_EDIT');
+  Iterable<String> _tP(Task task) => task.projectMembers.firstWhereOrNull((m) => m.userId == id)?.permissions ?? [];
+  bool canEditTasks(Task task, Workspace? ws) => _tP(task).contains('TASKS_EDIT') || canEditProjects(ws);
 }

@@ -5,6 +5,7 @@ import 'package:mobx/mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/usecases/task_ext_level.dart';
 import '../../../L1_domain/usecases/task_ext_state.dart';
 import '../../../L1_domain/usecases/user_ext_permissions.dart';
@@ -34,6 +35,7 @@ abstract class _TaskViewControllerBase with Store {
   int? taskID;
 
   Task get task => mainController.taskForId(taskID);
+  Workspace? get ws => mainController.wsForId(task.wsId);
 
   /// вкладки
   bool get _hasDescription => task.description.isNotEmpty;
@@ -68,7 +70,7 @@ abstract class _TaskViewControllerBase with Store {
   bool get showGroupTitles => _showGroupTitles ?? task.subtaskGroups.length > 1 && task.tasks.length > 4;
 
   @computed
-  bool get canEditTask => accountController.user != null && accountController.user!.canEditTask(task);
+  bool get canEditTask => accountController.user?.canEditTasks(task, ws) == true;
 
   /// связь с источником импорта
 

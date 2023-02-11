@@ -21,7 +21,7 @@ import 'app_version.dart';
 import 'user_list_tile.dart';
 
 class SettingsView extends StatelessWidget {
-  static String get routeName => 'settings';
+  static String get routeName => '/settings';
 
   Future _showSources(BuildContext context) async {
     sourceController.checkSources();

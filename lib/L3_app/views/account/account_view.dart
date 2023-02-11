@@ -15,7 +15,7 @@ import '../../extra/services.dart';
 import 'user_icon.dart';
 
 class AccountView extends StatelessWidget {
-  static String get routeName => 'account_view';
+  static String get routeName => '/account';
 
   User? get _user => accountController.user;
 

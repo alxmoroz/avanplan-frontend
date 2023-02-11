@@ -12,7 +12,7 @@ import '../../extra/services.dart';
 import '../../presenters/user_presenter.dart';
 
 class WorkspaceListView extends StatelessWidget {
-  static String get routeName => 'workspaces_list';
+  static String get routeName => '/workspaces';
 
   Widget _wsBuilder(BuildContext context, int index) {
     final ws = mainController.workspaces[index];

@@ -15,7 +15,7 @@ import '../../presenters/date_presenter.dart';
 import 'notification_controller.dart';
 
 class NotificationListView extends StatelessWidget {
-  static String get routeName => 'notifications';
+  static String get routeName => '/notifications';
 
   NotificationController get _controller => notificationController;
 

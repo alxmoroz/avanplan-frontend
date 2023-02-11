@@ -79,43 +79,46 @@ class App extends StatelessWidget {
         linkController.registerLink(rs.name);
         return null;
       },
-      home: Observer(
-        builder: (_) => Stack(children: [
-          CupertinoApp(
-            debugShowCheckedModeBanner: _DEBUG_BANNER,
-            navigatorKey: rootKey,
-            home: FutureBuilder(
-              future: getIt.allReady(),
-              builder: (_, snapshot) =>
-                  snapshot.hasData ? Observer(builder: (_) => authController.authorized ? MainView() : SignInView()) : LoaderScreen(),
+      initialRoute: '/home',
+      routes: {
+        '/home': (_) => Observer(
+              builder: (_) => Stack(children: [
+                CupertinoApp(
+                  debugShowCheckedModeBanner: _DEBUG_BANNER,
+                  navigatorKey: rootKey,
+                  home: FutureBuilder(
+                    future: getIt.allReady(),
+                    builder: (_, snapshot) =>
+                        snapshot.hasData ? Observer(builder: (_) => authController.authorized ? MainView() : SignInView()) : LoaderScreen(),
+                  ),
+                  localizationsDelegates: localizationsDelegates,
+                  supportedLocales: supportedLocales,
+                  theme: cupertinoTheme,
+                  routes: {
+                    SourceListView.routeName: (_) => SourceListView(),
+                    SettingsView.routeName: (_) => SettingsView(),
+                    AccountView.routeName: (_) => AccountView(),
+                    WorkspaceListView.routeName: (_) => WorkspaceListView(),
+                    NotificationListView.routeName: (_) => NotificationListView(),
+                  },
+                  onGenerateRoute: (RouteSettings rs) {
+                    if (rs.name == TaskView.routeName) {
+                      return CupertinoPageRoute<dynamic>(builder: (_) => TaskView(rs.arguments as int?));
+                    }
+                    return null;
+                  },
+                ),
+                if (loaderController.stack > 0)
+                  CupertinoApp(
+                    debugShowCheckedModeBanner: _DEBUG_BANNER,
+                    home: LoaderScreen(),
+                    localizationsDelegates: localizationsDelegates,
+                    supportedLocales: supportedLocales,
+                    theme: cupertinoTheme,
+                  )
+              ]),
             ),
-            localizationsDelegates: localizationsDelegates,
-            supportedLocales: supportedLocales,
-            theme: cupertinoTheme,
-            routes: {
-              SourceListView.routeName: (_) => SourceListView(),
-              SettingsView.routeName: (_) => SettingsView(),
-              AccountView.routeName: (_) => AccountView(),
-              WorkspaceListView.routeName: (_) => WorkspaceListView(),
-              NotificationListView.routeName: (_) => NotificationListView(),
-            },
-            onGenerateRoute: (RouteSettings rs) {
-              if (rs.name == TaskView.routeName) {
-                return CupertinoPageRoute<dynamic>(builder: (_) => TaskView(rs.arguments as int?));
-              }
-              return null;
-            },
-          ),
-          if (loaderController.stack > 0)
-            CupertinoApp(
-              debugShowCheckedModeBanner: _DEBUG_BANNER,
-              home: LoaderScreen(),
-              localizationsDelegates: localizationsDelegates,
-              supportedLocales: supportedLocales,
-              theme: cupertinoTheme,
-            )
-        ]),
-      ),
+      },
     );
   }
 }

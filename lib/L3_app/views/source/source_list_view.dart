@@ -15,7 +15,7 @@ import 'source_add_menu.dart';
 import 'source_controller.dart';
 
 class SourceListView extends StatelessWidget {
-  static String get routeName => 'source_list';
+  static String get routeName => '/sources';
 
   SourceController get _controller => sourceController;
 

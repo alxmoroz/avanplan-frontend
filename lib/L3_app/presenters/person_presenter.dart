@@ -2,8 +2,8 @@
 
 import 'package:intl/intl.dart';
 
-import '../../L1_domain/entities/user.dart';
+import '../../L1_domain/entities/base_entity.dart';
 
-extension UserPresenter on User {
+extension PersonPresenter on Person {
   String get rolesStr => roles.map((r) => Intl.message('role_${r.toLowerCase()}')).join(', ');
 }

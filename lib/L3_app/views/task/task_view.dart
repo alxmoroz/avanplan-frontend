@@ -22,6 +22,7 @@ import 'task_view_widgets/task_details.dart';
 import 'task_view_widgets/task_header.dart';
 import 'task_view_widgets/task_listview.dart';
 import 'task_view_widgets/task_overview.dart';
+import 'task_view_widgets/task_team.dart';
 
 class TaskView extends StatefulWidget {
   const TaskView(this.taskId);
@@ -56,6 +57,9 @@ class _TaskViewState extends State<TaskView> {
         case TaskTabKey.details:
           res[TaskTabKey.details] = NormalText(loc.description);
           break;
+        case TaskTabKey.team:
+          res[TaskTabKey.team] = NormalText(loc.team_title);
+          break;
       }
     });
 
@@ -75,10 +79,12 @@ class _TaskViewState extends State<TaskView> {
     final _overviewPane = TaskOverview(_controller.task);
     final _tasksPane = TaskListView(_controller);
     final _detailsPane = TaskDetails(_controller);
+    final _teamPane = TaskTeam(_controller);
     return {
           TaskTabKey.overview: _overviewPane,
           TaskTabKey.subtasks: _tasksPane,
           TaskTabKey.details: _detailsPane,
+          TaskTabKey.team: _teamPane,
         }[_controller.tabKey] ??
         _tasksPane;
   }

@@ -7,8 +7,8 @@ import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_list_tile.dart';
 import '../../components/text_widgets.dart';
+import '../../presenters/person_icon.dart';
 import '../account/account_view.dart';
-import '../account/user_icon.dart';
 
 class UserListTile extends StatelessWidget {
   const UserListTile(this.user);
@@ -24,7 +24,7 @@ class UserListTile extends StatelessWidget {
     return MTListTile(
       leading: Padding(
         padding: const EdgeInsets.only(right: P_2),
-        child: UserIcon(user, radius: P * 3),
+        child: PersonIcon(user, radius: P * 3),
       ),
       middle: H3(_title),
       subtitle: _subtitle != _title ? LightText(_subtitle) : null,

@@ -9,7 +9,7 @@ import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/user_presenter.dart';
+import '../../presenters/person_presenter.dart';
 
 class WorkspaceListView extends StatelessWidget {
   static String get routeName => '/workspaces';

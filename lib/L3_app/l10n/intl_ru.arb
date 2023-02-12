@@ -123,6 +123,7 @@
   "report_bug_action_title": "Сообщить о проблеме",
 
   "role_admin": "Администратор",
+  "role_full": "Полный доступ",
   "role_guest": "Гость",
   "role_member": "Участник",
 
@@ -207,6 +208,8 @@
   "task_unwatch_action_title": "Прекратить отслеживать",
   "task_unwatch_dialog_description": "Задачи будут удалены из Аванплана, но останутся в источнике",
   "task_unwatch_dialog_title": "Прекратить отслеживать?",
+
+  "team_title": "Команда",
 
   "title": "Название",
   "today_date_label": "Сегодня",

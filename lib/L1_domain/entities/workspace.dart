@@ -3,7 +3,6 @@
 import 'base_entity.dart';
 import 'estimate_value.dart';
 import 'source.dart';
-import 'user.dart';
 import 'ws_settings.dart';
 
 class Workspace extends Titleable {
@@ -14,7 +13,7 @@ class Workspace extends Titleable {
     required this.users,
   });
 
-  final List<User> users;
+  final List<Person> users;
 
   List<Source> sources = [];
   List<EstimateValue> estimateValues = [];

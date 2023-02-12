@@ -12,7 +12,7 @@ import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import 'user_icon.dart';
+import '../../presenters/person_icon.dart';
 
 class AccountView extends StatelessWidget {
   static String get routeName => '/account';
@@ -34,7 +34,7 @@ class AccountView extends StatelessWidget {
               ? ListView(
                   children: [
                     const SizedBox(height: P2),
-                    UserIcon(_user!, radius: P2 * 3),
+                    PersonIcon(_user!, radius: P2 * 3),
                     const SizedBox(height: P),
                     H3('$_user', align: TextAlign.center),
                     const SizedBox(height: P_2),

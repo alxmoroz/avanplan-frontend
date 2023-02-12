@@ -1,9 +1,9 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'package:avanplan/L3_app/components/colors.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../L1_domain/entities/member.dart';
+import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/mt_list_tile.dart';
 import '../../../components/text_widgets.dart';

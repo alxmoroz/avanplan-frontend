@@ -19,6 +19,6 @@ CupertinoNavigationBar taskNavBar(BuildContext context, TaskViewController contr
     context,
     bgColor: task.isWorkspace ? navbarDefaultBgColor : backgroundColor,
     title: task.isWorkspace ? loc.project_list_title : task.viewTitle,
-    trailing: !task.isWorkspace && task.actionTypes.isNotEmpty && controller.canEditTask ? TaskPopupMenu(controller, icon: const MenuIcon()) : null,
+    trailing: !task.isWorkspace && task.actionTypes.isNotEmpty ? TaskPopupMenu(controller, icon: const MenuIcon()) : null,
   );
 }

@@ -13,7 +13,7 @@ class TasksRepo extends AbstractApiWSRepo<Task> {
   @override
   Future<List<Task>> getAll(int wsId) async {
     final List<Task> tasks = [];
-    final response = await api.getProjectsV1TasksGet(wsId: wsId);
+    final response = await api.projectsV1TasksGet(wsId: wsId);
     if (response.statusCode == 200) {
       for (o_api.TaskGet t in response.data?.toList() ?? []) {
         tasks.add(t.task(wsId: wsId));
@@ -40,7 +40,7 @@ class TasksRepo extends AbstractApiWSRepo<Task> {
       ..dueDate = data.dueDate?.toUtc()
       ..type = data.type;
 
-    final response = await api.upsertTaskV1TasksPost(taskUpsert: qBuilder.build(), wsId: wsId);
+    final response = await api.upsertV1TasksPost(taskUpsert: qBuilder.build(), wsId: wsId);
     Task? task;
     if (response.statusCode == 201) {
       task = response.data?.task(wsId: wsId, parent: data.parent);
@@ -50,7 +50,7 @@ class TasksRepo extends AbstractApiWSRepo<Task> {
 
   @override
   Future<bool> delete(Task data) async {
-    final response = await api.deleteTaskV1TasksTaskIdDelete(taskId: data.id!, wsId: data.wsId);
+    final response = await api.deleteV1TasksTaskIdDelete(taskId: data.id!, wsId: data.wsId);
     return response.statusCode == 200 && response.data?.asNum == 1;
   }
 }

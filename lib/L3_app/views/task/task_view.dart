@@ -17,12 +17,13 @@ import 'task_ext_actions.dart';
 import 'task_related_widgets/task_add_button.dart';
 import 'task_related_widgets/task_add_menu.dart';
 import 'task_related_widgets/task_navbar.dart';
+import 'task_team/task_team.dart';
+import 'task_team/task_team_controller.dart';
 import 'task_view_controller.dart';
 import 'task_view_widgets/task_details.dart';
 import 'task_view_widgets/task_header.dart';
 import 'task_view_widgets/task_listview.dart';
 import 'task_view_widgets/task_overview.dart';
-import 'task_view_widgets/task_team.dart';
 
 class TaskView extends StatefulWidget {
   const TaskView(this.taskId);
@@ -36,11 +37,13 @@ class TaskView extends StatefulWidget {
 
 class _TaskViewState extends State<TaskView> {
   late TaskViewController _controller;
+  late TaskTeamController _teamController;
   Task get _task => _controller.task;
 
   @override
   void initState() {
     _controller = TaskViewController(widget.taskId);
+    _teamController = TaskTeamController(_controller.task);
     super.initState();
   }
 
@@ -79,7 +82,7 @@ class _TaskViewState extends State<TaskView> {
     final _overviewPane = TaskOverview(_controller.task);
     final _tasksPane = TaskListView(_controller);
     final _detailsPane = TaskDetails(_controller);
-    final _teamPane = TaskTeam(_controller);
+    final _teamPane = TaskTeam(_teamController);
     return {
           TaskTabKey.overview: _overviewPane,
           TaskTabKey.subtasks: _tasksPane,
@@ -91,7 +94,7 @@ class _TaskViewState extends State<TaskView> {
 
   Widget? _bottomBar() => _task.isWorkspace && _task.actionTypes.isNotEmpty && mainController.canEditAnyWS
       ? Row(children: [const Spacer(), TaskAddMenu(_controller)])
-      : _controller.canEditTask
+      : _task.canEdit
           ? _task.shouldAddSubtask
               ? TaskAddButton(_controller)
               : _task.canReopen || _task.shouldClose || _task.shouldCloseLeaf

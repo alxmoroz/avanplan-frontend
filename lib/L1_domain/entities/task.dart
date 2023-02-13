@@ -5,6 +5,7 @@ import 'member.dart';
 import 'priority.dart';
 import 'status.dart';
 import 'task_source.dart';
+import 'workspace.dart';
 
 enum TaskLevel { workspace, project, goal, task, subtask }
 
@@ -63,6 +64,9 @@ class Task extends Titleable {
   Task? parent;
   bool closed;
 
+  List<Member> members;
+  Workspace? ws;
+
   TaskLevel level = TaskLevel.workspace;
 
   Iterable<Task> allTasks = [];
@@ -98,8 +102,6 @@ class Task extends Titleable {
   late TaskState state;
   late TaskState subtasksState;
   late TaskState overallState;
-
-  List<Member> members;
 }
 
 class TaskRemote {

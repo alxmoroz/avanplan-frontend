@@ -7,10 +7,10 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/usecases/task_ext_state.dart';
-import '../../../L1_domain/usecases/user_ext_permissions.dart';
 import '../../../main.dart';
 import '../../extra/services.dart';
 import '../task/task_view.dart';
+import '../workspace/ws_ext_permissions.dart';
 
 part 'main_controller.g.dart';
 
@@ -21,17 +21,12 @@ abstract class _MainControllerBase with Store {
   @observable
   ObservableList<Workspace> workspaces = ObservableList();
 
-  @computed
-  Map<int, Workspace> get _wsMap => {for (var ws in workspaces) ws.id!: ws};
-
-  Workspace? wsForId(int? id) => _wsMap[id];
-
   // TODO: уточнить логику, где нужен этот список и для чего. Можно ли заменить на проверку прав
   @computed
-  List<Workspace> get editableWSs => workspaces.where((ws) => accountController.user?.canEditProjects(ws) == true).toList();
+  List<Workspace> get editableWSs => workspaces.where((ws) => ws.hpEditProjects).toList();
 
   /// роли и права доступа к РП
-  // TODO: заменить на конкретные проверки
+  // TODO: заменить на конкретные проверки в местах вызова
   @computed
   bool get canEditAnyWS => editableWSs.isNotEmpty;
 
@@ -39,6 +34,7 @@ abstract class _MainControllerBase with Store {
   @observable
   Task rootTask = Task(title: '', closed: false, parent: null, tasks: [], members: [], wsId: -1);
 
+  // TODO: пропала уникальность задач по id. Т.к. могут быть из разных БД!!!
   @computed
   Map<int, Task> get _tasksMap => {for (var t in rootTask.allTasks) t.id!: t};
 
@@ -68,6 +64,7 @@ abstract class _MainControllerBase with Store {
       final projects = await taskUC.getRoots(ws.id!);
       projects.forEach((p) async {
         p.parent = rootTask;
+        p.ws = ws;
       });
 
       tasks.addAll(projects);

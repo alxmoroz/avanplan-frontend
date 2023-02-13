@@ -9,15 +9,15 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**deleteTaskV1TasksTaskIdDelete**](TasksApi.md#deletetaskv1taskstaskiddelete) | **DELETE** /v1/tasks/{task_id} | Delete Task
-[**getProjectsV1TasksGet**](TasksApi.md#getprojectsv1tasksget) | **GET** /v1/tasks/ | Get Projects
-[**upsertTaskV1TasksPost**](TasksApi.md#upserttaskv1taskspost) | **POST** /v1/tasks/ | Upsert Task
+[**deleteV1TasksTaskIdDelete**](TasksApi.md#deletev1taskstaskiddelete) | **DELETE** /v1/tasks/{task_id} | Delete
+[**projectsV1TasksGet**](TasksApi.md#projectsv1tasksget) | **GET** /v1/tasks/ | Projects
+[**upsertV1TasksPost**](TasksApi.md#upsertv1taskspost) | **POST** /v1/tasks/ | Upsert
 
 
-# **deleteTaskV1TasksTaskIdDelete**
-> JsonObject deleteTaskV1TasksTaskIdDelete(taskId, wsId)
+# **deleteV1TasksTaskIdDelete**
+> JsonObject deleteV1TasksTaskIdDelete(taskId, wsId)
 
-Delete Task
+Delete
 
 ### Example
 ```dart
@@ -30,10 +30,10 @@ final int taskId = 56; // int |
 final int wsId = 56; // int | 
 
 try {
-    final response = api.deleteTaskV1TasksTaskIdDelete(taskId, wsId);
+    final response = api.deleteV1TasksTaskIdDelete(taskId, wsId);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling TasksApi->deleteTaskV1TasksTaskIdDelete: $e\n');
+    print('Exception when calling TasksApi->deleteV1TasksTaskIdDelete: $e\n');
 }
 ```
 
@@ -59,10 +59,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **getProjectsV1TasksGet**
-> BuiltList<TaskGet> getProjectsV1TasksGet(wsId)
+# **projectsV1TasksGet**
+> BuiltList<TaskGet> projectsV1TasksGet(wsId)
 
-Get Projects
+Projects
 
 ### Example
 ```dart
@@ -74,10 +74,10 @@ final api = Openapi().getTasksApi();
 final int wsId = 56; // int | 
 
 try {
-    final response = api.getProjectsV1TasksGet(wsId);
+    final response = api.projectsV1TasksGet(wsId);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling TasksApi->getProjectsV1TasksGet: $e\n');
+    print('Exception when calling TasksApi->projectsV1TasksGet: $e\n');
 }
 ```
 
@@ -102,10 +102,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **upsertTaskV1TasksPost**
-> TaskGet upsertTaskV1TasksPost(wsId, taskUpsert)
+# **upsertV1TasksPost**
+> TaskGet upsertV1TasksPost(wsId, taskUpsert)
 
-Upsert Task
+Upsert
 
 ### Example
 ```dart
@@ -118,10 +118,10 @@ final int wsId = 56; // int |
 final TaskUpsert taskUpsert = ; // TaskUpsert | 
 
 try {
-    final response = api.upsertTaskV1TasksPost(wsId, taskUpsert);
+    final response = api.upsertV1TasksPost(wsId, taskUpsert);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling TasksApi->upsertTaskV1TasksPost: $e\n');
+    print('Exception when calling TasksApi->upsertV1TasksPost: $e\n');
 }
 ```
 

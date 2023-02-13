@@ -21,10 +21,14 @@ import 'package:openapi/src/model/body_update_push_token_v1_my_push_token_post.d
 import 'package:openapi/src/model/estimate_unit_get.dart';
 import 'package:openapi/src/model/estimate_value_get.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
+import 'package:openapi/src/model/invitation.dart';
 import 'package:openapi/src/model/location_inner.dart';
 import 'package:openapi/src/model/member_get.dart';
 import 'package:openapi/src/model/notification.dart';
+import 'package:openapi/src/model/permission_get.dart';
+import 'package:openapi/src/model/permission_role_get.dart';
 import 'package:openapi/src/model/priority_get.dart';
+import 'package:openapi/src/model/role_get.dart';
 import 'package:openapi/src/model/settings_get.dart';
 import 'package:openapi/src/model/source_get.dart';
 import 'package:openapi/src/model/source_upsert.dart';
@@ -51,10 +55,14 @@ part 'serializers.g.dart';
   EstimateUnitGet,
   EstimateValueGet,
   HTTPValidationError,
+  Invitation,
   LocationInner,
   MemberGet,
   Notification,
+  PermissionGet,
+  PermissionRoleGet,
   PriorityGet,
+  RoleGet,
   SettingsGet,
   SourceGet,
   SourceUpsert,
@@ -107,6 +115,10 @@ Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskGet)]),
         () => ListBuilder<TaskGet>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(RoleGet)]),
+        () => ListBuilder<RoleGet>(),
       )
       ..add(const OneOfSerializer())
       ..add(const AnyOfSerializer())

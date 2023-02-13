@@ -12,7 +12,9 @@ import 'package:openapi/src/auth/oauth.dart';
 import 'package:openapi/src/api/auth_api.dart';
 import 'package:openapi/src/api/integrations_sources_api.dart';
 import 'package:openapi/src/api/integrations_tasks_api.dart';
+import 'package:openapi/src/api/invitation_api.dart';
 import 'package:openapi/src/api/my_api.dart';
+import 'package:openapi/src/api/roles_api.dart';
 import 'package:openapi/src/api/settings_api.dart';
 import 'package:openapi/src/api/tasks_api.dart';
 
@@ -88,10 +90,22 @@ class Openapi {
     return IntegrationsTasksApi(dio, serializers);
   }
 
+  /// Get InvitationApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  InvitationApi getInvitationApi() {
+    return InvitationApi(dio, serializers);
+  }
+
   /// Get MyApi instance, base route and serializer can be overridden by a given but be careful,
   /// by doing that all interceptors will not be executed
   MyApi getMyApi() {
     return MyApi(dio, serializers);
+  }
+
+  /// Get RolesApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  RolesApi getRolesApi() {
+    return RolesApi(dio, serializers);
   }
 
   /// Get SettingsApi instance, base route and serializer can be overridden by a given but be careful,

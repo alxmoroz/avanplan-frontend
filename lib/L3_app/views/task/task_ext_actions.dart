@@ -5,6 +5,7 @@ import '../../../L1_domain/entities/task_source.dart';
 import '../../../L1_domain/usecases/task_ext_level.dart';
 import '../../../L1_domain/usecases/task_ext_state.dart';
 import '../../extra/services.dart';
+import 'task_ext_permissions.dart';
 
 enum TaskActionType {
   add,
@@ -22,15 +23,17 @@ enum TaskActionType {
 extension TaskActionsExt on Task {
   bool get hasLink => taskSource?.keepConnection == true;
 
-  // TODO: учесть в RDAC
-
   /// доступные действия
-  bool get canAdd => isWorkspace || !(closed || hasLink);
-  bool get canEdit => !(isWorkspace || hasLink);
-  bool get canImport => isWorkspace;
+
+  bool get rootCanEditProjects => isWorkspace && mainController.canEditAnyWS;
+
+  bool get canAdd => rootCanEditProjects || (!closed && canEdit);
+  bool get canEdit => hpEdit && !hasLink;
+  bool get canImport => rootCanEditProjects;
   bool get canRefresh => isWorkspace;
   bool get canReopen => canEdit && closed && parent?.closed == false;
   bool get canClose => canEdit && !closed;
+  bool get canEditMembers => canEdit && hpEditMembers;
 
   /// рекомендации, быстрые кнопки
   bool get shouldClose => canEdit && state == TaskState.closable;

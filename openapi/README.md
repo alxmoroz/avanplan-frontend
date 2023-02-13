@@ -76,6 +76,8 @@ Class | Method | HTTP request | Description
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**getRootTasksV1IntegrationsTasksGet**](doc/IntegrationsTasksApi.md#getroottasksv1integrationstasksget) | **GET** /v1/integrations/tasks/ | Get Root Tasks
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**importTaskSourcesV1IntegrationsTasksImportPost**](doc/IntegrationsTasksApi.md#importtasksourcesv1integrationstasksimportpost) | **POST** /v1/integrations/tasks/import | Import Task Sources
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost**](doc/IntegrationsTasksApi.md#updatetasksourcesv1integrationstasksupdatetasksourcespost) | **POST** /v1/integrations/tasks/update_task_sources | Update Task Sources
+[*InvitationApi*](doc/InvitationApi.md) | [**createV1InvitationCreatePost**](doc/InvitationApi.md#createv1invitationcreatepost) | **POST** /v1/invitation/create | Create
+[*InvitationApi*](doc/InvitationApi.md) | [**redeemV1InvitationRedeemPost**](doc/InvitationApi.md#redeemv1invitationredeempost) | **POST** /v1/invitation/redeem | Redeem
 [*MyApi*](doc/MyApi.md) | [**deleteMyAccountV1MyAccountDelete**](doc/MyApi.md#deletemyaccountv1myaccountdelete) | **DELETE** /v1/my/account | Delete My Account
 [*MyApi*](doc/MyApi.md) | [**getMyAccountV1MyAccountGet**](doc/MyApi.md#getmyaccountv1myaccountget) | **GET** /v1/my/account | Get My Account
 [*MyApi*](doc/MyApi.md) | [**getMyNotificationsV1MyNotificationsGet**](doc/MyApi.md#getmynotificationsv1mynotificationsget) | **GET** /v1/my/notifications | Get My Notifications
@@ -83,11 +85,12 @@ Class | Method | HTTP request | Description
 [*MyApi*](doc/MyApi.md) | [**readMyMessagesV1MyMessagesPost**](doc/MyApi.md#readmymessagesv1mymessagespost) | **POST** /v1/my/messages | Read My Messages
 [*MyApi*](doc/MyApi.md) | [**updateMyAccountV1MyAccountPost**](doc/MyApi.md#updatemyaccountv1myaccountpost) | **POST** /v1/my/account | Update My Account
 [*MyApi*](doc/MyApi.md) | [**updatePushTokenV1MyPushTokenPost**](doc/MyApi.md#updatepushtokenv1mypushtokenpost) | **POST** /v1/my/push_token | Update Push Token
+[*RolesApi*](doc/RolesApi.md) | [**projectsV1RolesRolesGet**](doc/RolesApi.md#projectsv1rolesrolesget) | **GET** /v1/roles/roles | Projects
 [*SettingsApi*](doc/SettingsApi.md) | [**getEstimateValuesV1SettingsEstimateValuesGet**](doc/SettingsApi.md#getestimatevaluesv1settingsestimatevaluesget) | **GET** /v1/settings/estimate_values | Get Estimate Values
 [*SettingsApi*](doc/SettingsApi.md) | [**getSettingsV1SettingsGet**](doc/SettingsApi.md#getsettingsv1settingsget) | **GET** /v1/settings/ | Get Settings
-[*TasksApi*](doc/TasksApi.md) | [**deleteTaskV1TasksTaskIdDelete**](doc/TasksApi.md#deletetaskv1taskstaskiddelete) | **DELETE** /v1/tasks/{task_id} | Delete Task
-[*TasksApi*](doc/TasksApi.md) | [**getProjectsV1TasksGet**](doc/TasksApi.md#getprojectsv1tasksget) | **GET** /v1/tasks/ | Get Projects
-[*TasksApi*](doc/TasksApi.md) | [**upsertTaskV1TasksPost**](doc/TasksApi.md#upserttaskv1taskspost) | **POST** /v1/tasks/ | Upsert Task
+[*TasksApi*](doc/TasksApi.md) | [**deleteV1TasksTaskIdDelete**](doc/TasksApi.md#deletev1taskstaskiddelete) | **DELETE** /v1/tasks/{task_id} | Delete
+[*TasksApi*](doc/TasksApi.md) | [**projectsV1TasksGet**](doc/TasksApi.md#projectsv1tasksget) | **GET** /v1/tasks/ | Projects
+[*TasksApi*](doc/TasksApi.md) | [**upsertV1TasksPost**](doc/TasksApi.md#upsertv1taskspost) | **POST** /v1/tasks/ | Upsert
 
 
 ## Documentation For Models
@@ -99,10 +102,14 @@ Class | Method | HTTP request | Description
  - [EstimateUnitGet](doc/EstimateUnitGet.md)
  - [EstimateValueGet](doc/EstimateValueGet.md)
  - [HTTPValidationError](doc/HTTPValidationError.md)
+ - [Invitation](doc/Invitation.md)
  - [LocationInner](doc/LocationInner.md)
  - [MemberGet](doc/MemberGet.md)
  - [Notification](doc/Notification.md)
+ - [PermissionGet](doc/PermissionGet.md)
+ - [PermissionRoleGet](doc/PermissionRoleGet.md)
  - [PriorityGet](doc/PriorityGet.md)
+ - [RoleGet](doc/RoleGet.md)
  - [SettingsGet](doc/SettingsGet.md)
  - [SourceGet](doc/SourceGet.md)
  - [SourceUpsert](doc/SourceUpsert.md)

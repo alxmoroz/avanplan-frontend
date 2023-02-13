@@ -95,6 +95,7 @@
   "loader_unlinking_title": "Breaking the chains...",
   "loader_unwatch_title": "Sending to ignore...",
 
+  "member_title": "Member",
   "months_count": "{count, plural, one{{count} month} other{{count} months}}",
 
   "network_error_description": "Please check your internet connection and try again",

@@ -5,10 +5,8 @@ import 'package:mobx/mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/usecases/task_ext_level.dart';
 import '../../../L1_domain/usecases/task_ext_state.dart';
-import '../../../L1_domain/usecases/user_ext_permissions.dart';
 import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
@@ -35,7 +33,7 @@ abstract class _TaskViewControllerBase with Store {
   int? taskID;
 
   Task get task => mainController.taskForId(taskID);
-  Workspace? get ws => mainController.wsForId(task.wsId);
+  // Workspace? get ws => mainController.wsForId(task.wsId);
 
   /// вкладки
   bool get _hasDescription => task.description.isNotEmpty;
@@ -70,9 +68,6 @@ abstract class _TaskViewControllerBase with Store {
 
   @computed
   bool get showGroupTitles => _showGroupTitles ?? task.subtaskGroups.length > 1 && task.tasks.length > 4;
-
-  @computed
-  bool get canEditTask => accountController.user?.canEditTasks(task, ws) == true;
 
   /// связь с источником импорта
 
@@ -248,6 +243,24 @@ abstract class _TaskViewControllerBase with Store {
         _popDeleted(deletedTask);
         _updateTaskParents(deletedTask);
       }
+    }
+  }
+
+  Future addMember() async {
+    final newTaskResult = await editTaskDialog(parent: task);
+
+    if (newTaskResult != null) {
+      final newTask = newTaskResult.task;
+      task.tasks.add(newTask);
+      _updateTaskParents(newTask);
+      if (newTaskResult.proceed == true) {
+        if (task.isProject || task.isWorkspace) {
+          await mainController.showTask(newTask.id);
+        } else {
+          await addSubtask();
+        }
+      }
+      selectTab(TaskTabKey.subtasks);
     }
   }
 

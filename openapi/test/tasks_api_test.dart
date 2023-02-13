@@ -6,24 +6,24 @@ void main() {
   final instance = Openapi().getTasksApi();
 
   group(TasksApi, () {
-    // Delete Task
+    // Delete
     //
-    //Future<JsonObject> deleteTaskV1TasksTaskIdDelete(int taskId, int wsId) async
-    test('test deleteTaskV1TasksTaskIdDelete', () async {
+    //Future<JsonObject> deleteV1TasksTaskIdDelete(int taskId, int wsId) async
+    test('test deleteV1TasksTaskIdDelete', () async {
       // TODO
     });
 
-    // Get Projects
+    // Projects
     //
-    //Future<BuiltList<TaskGet>> getProjectsV1TasksGet(int wsId) async
-    test('test getProjectsV1TasksGet', () async {
+    //Future<BuiltList<TaskGet>> projectsV1TasksGet(int wsId) async
+    test('test projectsV1TasksGet', () async {
       // TODO
     });
 
-    // Upsert Task
+    // Upsert
     //
-    //Future<TaskGet> upsertTaskV1TasksPost(int wsId, TaskUpsert taskUpsert) async
-    test('test upsertTaskV1TasksPost', () async {
+    //Future<TaskGet> upsertV1TasksPost(int wsId, TaskUpsert taskUpsert) async
+    test('test upsertV1TasksPost', () async {
       // TODO
     });
   });

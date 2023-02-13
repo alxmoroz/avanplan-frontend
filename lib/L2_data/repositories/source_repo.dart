@@ -4,25 +4,18 @@ import 'package:dio/dio.dart';
 import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/source.dart';
-import '../../L1_domain/repositories/abs_api_source_repo.dart';
+import '../../L1_domain/repositories/abs_source_repo.dart';
 import '../../L1_domain/system/errors.dart';
 import '../mappers/source.dart';
 import '../services/api.dart';
 
-class SourcesRepo extends AbstractApiSourceRepo {
+class SourceRepo extends AbstractSourceRepo {
   o_api.IntegrationsSourcesApi get api => openAPI.getIntegrationsSourcesApi();
 
   @override
-  Future<List<Source>> getAll(int wsId) async {
+  Future<Iterable<Source>> getAll(int wsId) async {
     final response = await api.getSourcesV1IntegrationsSourcesGet(wsId: wsId);
-
-    final List<Source> sources = [];
-    if (response.statusCode == 200) {
-      for (o_api.SourceGet s in response.data?.toList() ?? []) {
-        sources.add(s.source(wsId));
-      }
-    }
-    return sources;
+    return response.data?.map((s) => s.source(wsId)) ?? [];
   }
 
   @override
@@ -38,17 +31,13 @@ class SourcesRepo extends AbstractApiSourceRepo {
       ..description = data.description;
 
     final response = await api.upsertSourceV1IntegrationsSourcesPost(sourceUpsert: builder.build(), wsId: wsId);
-    Source? source;
-    if (response.statusCode == 201) {
-      source = response.data?.source(wsId);
-    }
-    return source;
+    return response.data?.source(wsId);
   }
 
   @override
   Future<bool> delete(Source data) async {
     final response = await api.deleteSourceV1IntegrationsSourcesSourceIdDelete(sourceId: data.id!, wsId: data.wsId);
-    return response.statusCode == 200 && response.data?.asNum == 1;
+    return response.data == true;
   }
 
   @override
@@ -56,7 +45,7 @@ class SourcesRepo extends AbstractApiSourceRepo {
     bool res = false;
     try {
       final response = await api.checkConnectionV1IntegrationsSourcesCheckConnectionGet(sourceId: s.id!, wsId: s.wsId);
-      res = response.statusCode == 200 && response.data == true;
+      res = response.data == true;
     } on DioError catch (e) {
       if (['ERR_IMPORT_CONNECTION'].contains(e.errCode)) {
         throw MTImportError();

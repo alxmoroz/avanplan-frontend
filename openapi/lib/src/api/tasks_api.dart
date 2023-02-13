@@ -8,7 +8,6 @@ import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:built_collection/built_collection.dart';
-import 'package:built_value/json_object.dart';
 import 'package:openapi/src/api_util.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/task_get.dart';
@@ -35,9 +34,9 @@ class TasksApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [JsonObject] as data
+  /// Returns a [Future] containing a [Response] with a [bool] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<JsonObject>> deleteV1TasksTaskIdDelete({ 
+  Future<Response<bool>> deleteV1TasksTaskIdDelete({ 
     required int taskId,
     required int wsId,
     CancelToken? cancelToken,
@@ -78,14 +77,10 @@ class TasksApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    JsonObject _responseData;
+    bool _responseData;
 
     try {
-      const _responseType = FullType(JsonObject);
-      _responseData = _serializers.deserialize(
-        _response.data!,
-        specifiedType: _responseType,
-      ) as JsonObject;
+      _responseData = _response.data as bool;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -96,7 +91,7 @@ class TasksApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<JsonObject>(
+    return Response<bool>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

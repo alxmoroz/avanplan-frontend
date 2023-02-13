@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **importTaskSourcesV1IntegrationsTasksImportPost**
-> JsonObject importTaskSourcesV1IntegrationsTasksImportPost(wsId, sourceId, taskSource)
+> bool importTaskSourcesV1IntegrationsTasksImportPost(wsId, sourceId, taskSource)
 
 Import Task Sources
 
@@ -93,7 +93,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**JsonObject**](JsonObject.md)
+**bool**
 
 ### Authorization
 
@@ -107,7 +107,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost**
-> JsonObject updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost(wsId, taskSourceUpsert)
+> bool updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost(wsId, taskSourceUpsert)
 
 Update Task Sources
 
@@ -138,7 +138,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**JsonObject**](JsonObject.md)
+**bool**
 
 ### Authorization
 

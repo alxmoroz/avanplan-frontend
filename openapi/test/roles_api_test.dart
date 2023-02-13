@@ -6,10 +6,10 @@ void main() {
   final instance = Openapi().getRolesApi();
 
   group(RolesApi, () {
-    // Projects
+    // Roles
     //
-    //Future<BuiltList<RoleGet>> projectsV1RolesRolesGet(int wsId) async
-    test('test projectsV1RolesRolesGet', () async {
+    //Future<BuiltList<RoleGet>> rolesV1RolesGet(int wsId) async
+    test('test rolesV1RolesGet', () async {
       // TODO
     });
   });

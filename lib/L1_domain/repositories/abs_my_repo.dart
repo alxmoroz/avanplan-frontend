@@ -4,7 +4,7 @@ import '../entities/notification.dart';
 import '../entities/user.dart';
 import '../entities/workspace.dart';
 
-abstract class AbstractApiMyRepo {
+abstract class AbstractMyRepo {
   Future<User?> getMyAccount();
   Future deleteMyAccount();
   Future<Iterable<Workspace>> getMyWorkspaces();

@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 
 # **deleteV1TasksTaskIdDelete**
-> JsonObject deleteV1TasksTaskIdDelete(taskId, wsId)
+> bool deleteV1TasksTaskIdDelete(taskId, wsId)
 
 Delete
 
@@ -46,7 +46,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**JsonObject**](JsonObject.md)
+**bool**
 
 ### Authorization
 

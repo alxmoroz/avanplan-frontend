@@ -28,7 +28,7 @@ class TaskView extends StatefulWidget {
   const TaskView(this.taskId);
   final int? taskId;
 
-  static String get routeName => 'task_view';
+  static String get routeName => 'task';
 
   @override
   State<TaskView> createState() => _TaskViewState();

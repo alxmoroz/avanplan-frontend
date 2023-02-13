@@ -1,18 +1,18 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import '../entities/source.dart';
-import '../repositories/abs_api_source_repo.dart';
+import '../repositories/abs_source_repo.dart';
 
 //TODO: похоже, есть смысл сделать абстрактный общий юзкейс
 
 class SourceUC {
   SourceUC({required this.repo});
 
-  final AbstractApiSourceRepo repo;
+  final AbstractSourceRepo repo;
 
   Future<bool> checkConnection(Source source) async => await repo.checkConnection(source);
 
-  Future<List<Source>> getAll(int wsId) async => await repo.getAll(wsId);
+  Future<Iterable<Source>> getAll(int wsId) async => await repo.getAll(wsId);
 
   Future<Source?> save(Source source) async {
     Source? s;

@@ -8,7 +8,6 @@ import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:built_collection/built_collection.dart';
-import 'package:built_value/json_object.dart';
 import 'package:openapi/src/model/body_update_my_account_v1_my_account_post.dart';
 import 'package:openapi/src/model/body_update_push_token_v1_my_push_token_post.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
@@ -35,9 +34,9 @@ class MyApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [JsonObject] as data
+  /// Returns a [Future] containing a [Response] with a [bool] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<JsonObject>> deleteMyAccountV1MyAccountDelete({ 
+  Future<Response<bool>> deleteMyAccountV1MyAccountDelete({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -71,14 +70,10 @@ class MyApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    JsonObject _responseData;
+    bool _responseData;
 
     try {
-      const _responseType = FullType(JsonObject);
-      _responseData = _serializers.deserialize(
-        _response.data!,
-        specifiedType: _responseType,
-      ) as JsonObject;
+      _responseData = _response.data as bool;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -89,7 +84,7 @@ class MyApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<JsonObject>(
+    return Response<bool>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -344,9 +339,9 @@ class MyApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [JsonObject] as data
+  /// Returns a [Future] containing a [Response] with a [bool] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<JsonObject>> readMyMessagesV1MyMessagesPost({ 
+  Future<Response<bool>> readMyMessagesV1MyMessagesPost({ 
     required BuiltList<int> requestBody,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -400,14 +395,10 @@ class MyApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    JsonObject _responseData;
+    bool _responseData;
 
     try {
-      const _responseType = FullType(JsonObject);
-      _responseData = _serializers.deserialize(
-        _response.data!,
-        specifiedType: _responseType,
-      ) as JsonObject;
+      _responseData = _response.data as bool;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -418,7 +409,7 @@ class MyApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<JsonObject>(
+    return Response<bool>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -540,9 +531,9 @@ class MyApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [JsonObject] as data
+  /// Returns a [Future] containing a [Response] with a [bool] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<JsonObject>> updatePushTokenV1MyPushTokenPost({ 
+  Future<Response<bool>> updatePushTokenV1MyPushTokenPost({ 
     required BodyUpdatePushTokenV1MyPushTokenPost bodyUpdatePushTokenV1MyPushTokenPost,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -596,14 +587,10 @@ class MyApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    JsonObject _responseData;
+    bool _responseData;
 
     try {
-      const _responseType = FullType(JsonObject);
-      _responseData = _serializers.deserialize(
-        _response.data!,
-        specifiedType: _responseType,
-      ) as JsonObject;
+      _responseData = _response.data as bool;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -614,7 +601,7 @@ class MyApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<JsonObject>(
+    return Response<bool>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

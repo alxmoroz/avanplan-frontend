@@ -54,14 +54,14 @@ abstract class _MainControllerBase with Store {
     for (Workspace ws in workspaces) {
       final wsId = ws.id!;
       ws.sources = await sourceUC.getAll(wsId);
-      // TODO: сортировка
       ws.estimateValues = await wsSettingsUC.getEstimateValues(wsId);
       ws.settings = await wsSettingsUC.getSettings(wsId);
+      ws.roles = await roleUC.getAll(wsId);
 
       // List<Status> get _sortedStatuses => statuses.map((s) => s.status).sorted((s1, s2) => compareNatural('$s1', '$s2'));
       // List<Priority> get _sortedPriorities => priorities.map((p) => p.priority).sorted((p1, p2) => compareNatural('$p1', '$p2'));
 
-      final projects = await taskUC.getRoots(ws.id!);
+      final projects = (await taskUC.getRoots(ws.id!)).toList();
       projects.forEach((p) async {
         p.parent = rootTask;
         p.ws = ws;

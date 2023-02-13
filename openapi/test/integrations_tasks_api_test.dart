@@ -15,14 +15,14 @@ void main() {
 
     // Import Task Sources
     //
-    //Future<JsonObject> importTaskSourcesV1IntegrationsTasksImportPost(int wsId, int sourceId, BuiltList<TaskSource> taskSource) async
+    //Future<bool> importTaskSourcesV1IntegrationsTasksImportPost(int wsId, int sourceId, BuiltList<TaskSource> taskSource) async
     test('test importTaskSourcesV1IntegrationsTasksImportPost', () async {
       // TODO
     });
 
     // Update Task Sources
     //
-    //Future<JsonObject> updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost(int wsId, BuiltList<TaskSourceUpsert> taskSourceUpsert) async
+    //Future<bool> updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost(int wsId, BuiltList<TaskSourceUpsert> taskSourceUpsert) async
     test('test updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost',
         () async {
       // TODO

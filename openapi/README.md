@@ -85,7 +85,7 @@ Class | Method | HTTP request | Description
 [*MyApi*](doc/MyApi.md) | [**readMyMessagesV1MyMessagesPost**](doc/MyApi.md#readmymessagesv1mymessagespost) | **POST** /v1/my/messages | Read My Messages
 [*MyApi*](doc/MyApi.md) | [**updateMyAccountV1MyAccountPost**](doc/MyApi.md#updatemyaccountv1myaccountpost) | **POST** /v1/my/account | Update My Account
 [*MyApi*](doc/MyApi.md) | [**updatePushTokenV1MyPushTokenPost**](doc/MyApi.md#updatepushtokenv1mypushtokenpost) | **POST** /v1/my/push_token | Update Push Token
-[*RolesApi*](doc/RolesApi.md) | [**projectsV1RolesRolesGet**](doc/RolesApi.md#projectsv1rolesrolesget) | **GET** /v1/roles/roles | Projects
+[*RolesApi*](doc/RolesApi.md) | [**rolesV1RolesGet**](doc/RolesApi.md#rolesv1rolesget) | **GET** /v1/roles/ | Roles
 [*SettingsApi*](doc/SettingsApi.md) | [**getEstimateValuesV1SettingsEstimateValuesGet**](doc/SettingsApi.md#getestimatevaluesv1settingsestimatevaluesget) | **GET** /v1/settings/estimate_values | Get Estimate Values
 [*SettingsApi*](doc/SettingsApi.md) | [**getSettingsV1SettingsGet**](doc/SettingsApi.md#getsettingsv1settingsget) | **GET** /v1/settings/ | Get Settings
 [*TasksApi*](doc/TasksApi.md) | [**deleteV1TasksTaskIdDelete**](doc/TasksApi.md#deletev1taskstaskiddelete) | **DELETE** /v1/tasks/{task_id} | Delete

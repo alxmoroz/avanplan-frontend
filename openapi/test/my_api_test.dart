@@ -8,7 +8,7 @@ void main() {
   group(MyApi, () {
     // Delete My Account
     //
-    //Future<JsonObject> deleteMyAccountV1MyAccountDelete() async
+    //Future<bool> deleteMyAccountV1MyAccountDelete() async
     test('test deleteMyAccountV1MyAccountDelete', () async {
       // TODO
     });
@@ -36,7 +36,7 @@ void main() {
 
     // Read My Messages
     //
-    //Future<JsonObject> readMyMessagesV1MyMessagesPost(BuiltList<int> requestBody) async
+    //Future<bool> readMyMessagesV1MyMessagesPost(BuiltList<int> requestBody) async
     test('test readMyMessagesV1MyMessagesPost', () async {
       // TODO
     });
@@ -50,7 +50,7 @@ void main() {
 
     // Update Push Token
     //
-    //Future<JsonObject> updatePushTokenV1MyPushTokenPost(BodyUpdatePushTokenV1MyPushTokenPost bodyUpdatePushTokenV1MyPushTokenPost) async
+    //Future<bool> updatePushTokenV1MyPushTokenPost(BodyUpdatePushTokenV1MyPushTokenPost bodyUpdatePushTokenV1MyPushTokenPost) async
     test('test updatePushTokenV1MyPushTokenPost', () async {
       // TODO
     });

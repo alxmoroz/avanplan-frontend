@@ -34,7 +34,6 @@ abstract class _TaskViewControllerBase with Store {
   int? taskID;
 
   Task get task => mainController.taskForId(taskID);
-  // Workspace? get ws => mainController.wsForId(task.wsId);
 
   /// вкладки
   bool get _hasDescription => task.description.isNotEmpty;

@@ -9,13 +9,13 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**projectsV1RolesRolesGet**](RolesApi.md#projectsv1rolesrolesget) | **GET** /v1/roles/roles | Projects
+[**rolesV1RolesGet**](RolesApi.md#rolesv1rolesget) | **GET** /v1/roles/ | Roles
 
 
-# **projectsV1RolesRolesGet**
-> BuiltList<RoleGet> projectsV1RolesRolesGet(wsId)
+# **rolesV1RolesGet**
+> BuiltList<RoleGet> rolesV1RolesGet(wsId)
 
-Projects
+Roles
 
 ### Example
 ```dart
@@ -27,10 +27,10 @@ final api = Openapi().getRolesApi();
 final int wsId = 56; // int | 
 
 try {
-    final response = api.projectsV1RolesRolesGet(wsId);
+    final response = api.rolesV1RolesGet(wsId);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling RolesApi->projectsV1RolesRolesGet: $e\n');
+    print('Exception when calling RolesApi->rolesV1RolesGet: $e\n');
 }
 ```
 

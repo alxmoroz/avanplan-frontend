@@ -3,12 +3,12 @@
 import '../entities/notification.dart';
 import '../entities/user.dart';
 import '../entities/workspace.dart';
-import '../repositories/abs_api_my_repo.dart';
+import '../repositories/abs_my_repo.dart';
 
 class MyUC {
   MyUC({required this.repo});
 
-  final AbstractApiMyRepo repo;
+  final AbstractMyRepo repo;
 
   Future<Iterable<Workspace>> getWorkspaces() async => await repo.getMyWorkspaces();
   Future<Iterable<MTNotification>> getNotifications() async => await repo.getMyNotifications();

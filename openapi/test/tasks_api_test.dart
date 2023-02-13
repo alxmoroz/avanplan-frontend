@@ -8,7 +8,7 @@ void main() {
   group(TasksApi, () {
     // Delete
     //
-    //Future<JsonObject> deleteV1TasksTaskIdDelete(int taskId, int wsId) async
+    //Future<bool> deleteV1TasksTaskIdDelete(int taskId, int wsId) async
     test('test deleteV1TasksTaskIdDelete', () async {
       // TODO
     });

@@ -149,7 +149,7 @@ class _TaskEditViewState extends State<TaskEditView> {
           MTDropdown<EstimateValue>(
             onChanged: (est) => controller.selectEstimate(est),
             value: controller.selectedEstimate,
-            items: controller.estimateValues,
+            items: controller.estimateValues.toList(),
             margin: tfPadding,
             label: loc.task_estimate_placeholder,
             helper: controller.selectedEstimate == null && task?.estimate != null ? '${loc.task_estimate_placeholder}: ${task?.estimate}' : null,

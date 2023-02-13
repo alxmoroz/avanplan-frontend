@@ -1,8 +1,8 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import '../entities/source.dart';
-import 'abs_api_ws_repo.dart';
+import 'abs_ws_repo.dart';
 
-abstract class AbstractApiSourceRepo extends AbstractApiWSRepo<Source> {
+abstract class AbstractSourceRepo extends AbstractWSRepo<Source> {
   Future<bool> checkConnection(Source s);
 }

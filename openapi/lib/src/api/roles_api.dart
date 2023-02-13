@@ -20,7 +20,7 @@ class RolesApi {
 
   const RolesApi(this._dio, this._serializers);
 
-  /// Projects
+  /// Roles
   /// 
   ///
   /// Parameters:
@@ -34,7 +34,7 @@ class RolesApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<RoleGet>] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<BuiltList<RoleGet>>> projectsV1RolesRolesGet({ 
+  Future<Response<BuiltList<RoleGet>>> rolesV1RolesGet({ 
     required int wsId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -43,7 +43,7 @@ class RolesApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/roles/roles';
+    final _path = r'/v1/roles/';
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{

@@ -2,8 +2,8 @@
 
 import '../entities/estimate_value.dart';
 import '../entities/ws_settings.dart';
-import '../repositories/abs_api_settings_repo.dart';
-import '../repositories/abs_api_ws_repo.dart';
+import '../repositories/abs_settings_repo.dart';
+import '../repositories/abs_ws_repo.dart';
 
 class WSSettingsUC {
   WSSettingsUC({
@@ -11,9 +11,9 @@ class WSSettingsUC {
     required this.settingsRepo,
   });
 
-  final AbstractApiWSRepo<EstimateValue> estValueRepo;
-  final AbstractApiSettingsRepo settingsRepo;
+  final AbstractWSRepo<EstimateValue> estValueRepo;
+  final AbstractSettingsRepo settingsRepo;
 
-  Future<List<EstimateValue>> getEstimateValues(int wsId) async => await estValueRepo.getAll(wsId);
+  Future<Iterable<EstimateValue>> getEstimateValues(int wsId) async => await estValueRepo.getAll(wsId);
   Future<WSettings?> getSettings(int wsId) async => await settingsRepo.getSettings(wsId);
 }

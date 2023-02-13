@@ -176,11 +176,11 @@ class _TMREditViewState extends State<TMREditView> {
           leading: MTCloseButton(),
           title: loc.member_title,
           trailing: !isNew
-              ? MTButton.icon(
-                  const DeleteIcon(),
+              ? const MTButton.icon(
+                  DeleteIcon(),
                   // () => controller.delete(context, tmr),
                   null,
-                  margin: const EdgeInsets.only(right: P),
+                  margin: EdgeInsets.only(right: P),
                 )
               : null,
           bgColor: backgroundColor,

@@ -6,24 +6,20 @@ import 'package:openapi/openapi.dart' as o_api;
 import '../../L1_domain/entities/notification.dart';
 import '../../L1_domain/entities/user.dart';
 import '../../L1_domain/entities/workspace.dart';
-import '../../L1_domain/repositories/abs_api_my_repo.dart';
+import '../../L1_domain/repositories/abs_my_repo.dart';
 import '../mappers/notification.dart';
 import '../mappers/user.dart';
 import '../mappers/workspace.dart';
 import '../services/api.dart';
 import '../services/platform.dart';
 
-class MyRepo extends AbstractApiMyRepo {
+class MyRepo extends AbstractMyRepo {
   o_api.MyApi get api => openAPI.getMyApi();
 
   @override
   Future<User?> getMyAccount() async {
-    User? user;
     final response = await api.getMyAccountV1MyAccountGet();
-    if (response.statusCode == 200) {
-      user = response.data?.user;
-    }
-    return user;
+    return response.data?.user;
   }
 
   @override

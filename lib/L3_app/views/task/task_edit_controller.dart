@@ -131,7 +131,7 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
 
   /// оценки задач
   @computed
-  List<EstimateValue> get estimateValues => selectedWS?.estimateValues ?? [];
+  Iterable<EstimateValue> get estimateValues => selectedWS?.estimateValues ?? [];
 
   @observable
   int? _selectedEstimateId;

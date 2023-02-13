@@ -16,7 +16,7 @@ void main() {
 
     // Delete Source
     //
-    //Future<JsonObject> deleteSourceV1IntegrationsSourcesSourceIdDelete(int sourceId, int wsId) async
+    //Future<bool> deleteSourceV1IntegrationsSourcesSourceIdDelete(int sourceId, int wsId) async
     test('test deleteSourceV1IntegrationsSourcesSourceIdDelete', () async {
       // TODO
     });

@@ -2,6 +2,6 @@
 
 import '../../L1_domain/entities/ws_settings.dart';
 
-abstract class AbstractApiSettingsRepo {
+abstract class AbstractSettingsRepo {
   Future<WSettings?> getSettings(int wsId);
 }

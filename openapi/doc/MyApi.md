@@ -19,7 +19,7 @@ Method | HTTP request | Description
 
 
 # **deleteMyAccountV1MyAccountDelete**
-> JsonObject deleteMyAccountV1MyAccountDelete()
+> bool deleteMyAccountV1MyAccountDelete()
 
 Delete My Account
 
@@ -44,7 +44,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**JsonObject**](JsonObject.md)
+**bool**
 
 ### Authorization
 
@@ -175,7 +175,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **readMyMessagesV1MyMessagesPost**
-> JsonObject readMyMessagesV1MyMessagesPost(requestBody)
+> bool readMyMessagesV1MyMessagesPost(requestBody)
 
 Read My Messages
 
@@ -204,7 +204,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**JsonObject**](JsonObject.md)
+**bool**
 
 ### Authorization
 
@@ -261,7 +261,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **updatePushTokenV1MyPushTokenPost**
-> JsonObject updatePushTokenV1MyPushTokenPost(bodyUpdatePushTokenV1MyPushTokenPost)
+> bool updatePushTokenV1MyPushTokenPost(bodyUpdatePushTokenV1MyPushTokenPost)
 
 Update Push Token
 
@@ -290,7 +290,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**JsonObject**](JsonObject.md)
+**bool**
 
 ### Authorization
 

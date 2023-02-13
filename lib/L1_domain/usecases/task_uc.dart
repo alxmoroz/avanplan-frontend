@@ -1,16 +1,16 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import '../entities/task.dart';
-import '../repositories/abs_api_ws_repo.dart';
+import '../repositories/abs_ws_repo.dart';
 
 //TODO: похоже, есть смысл сделать абстрактный общий юзкейс
 
 class TaskUC {
   TaskUC({required this.repo});
 
-  final AbstractApiWSRepo<Task> repo;
+  final AbstractWSRepo<Task> repo;
 
-  Future<List<Task>> getRoots(int wsId) async => await repo.getAll(wsId);
+  Future<Iterable<Task>> getRoots(int wsId) async => await repo.getAll(wsId);
 
   Future<Task?> save(Task t) async => await repo.save(t);
 

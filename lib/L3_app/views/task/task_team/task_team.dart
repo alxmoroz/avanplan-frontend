@@ -11,11 +11,11 @@ import '../../../components/mt_button.dart';
 import '../../../extra/services.dart';
 import '../task_ext_actions.dart';
 import '../task_related_widgets/member_list_tile.dart';
-import 'task_team_controller.dart';
+import '../task_view_controller.dart';
 
 class TaskTeam extends StatelessWidget {
   const TaskTeam(this.controller);
-  final TaskTeamController controller;
+  final TaskViewController controller;
 
   Task get task => controller.task;
 

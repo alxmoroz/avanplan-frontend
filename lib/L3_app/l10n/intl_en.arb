@@ -82,6 +82,8 @@
   "import_source_select_hint": "Select an import source",
   "import_title": "Import tasks",
 
+  "invitation_active_date_placeholder": "Active Until",
+
   "legal_privacy_policy_title": "Privacy policy",
   "legal_rules_title": "License agreement",
 
@@ -124,10 +126,11 @@
   "reload_action_title": "Reload",
   "report_bug_action_title": "Report a bug",
 
-  "role_admin": "Administrator",
-  "role_full": "Full access",
-  "role_guest": "Guest",
-  "role_member": "Member",
+  "role_code_admin": "Administrator",
+  "role_code_full": "Full access",
+  "role_code_guest": "Guest",
+  "role_code_member": "Member",
+  "role_title": "Роль",
 
   "save_action_title": "Save",
   "save_and_go_action_title": "Save & Go",

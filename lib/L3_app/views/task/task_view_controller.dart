@@ -18,6 +18,7 @@ import '../../presenters/state_presenter.dart';
 import '../../presenters/task_filter_presenter.dart';
 import 'task_edit_view.dart';
 import 'task_ext_actions.dart';
+import 'task_team/tmr_edit_view.dart';
 
 part 'task_view_controller.g.dart';
 
@@ -247,21 +248,20 @@ abstract class _TaskViewControllerBase with Store {
   }
 
   Future addMember() async {
-    final newTaskResult = await editTaskDialog(parent: task);
+    final tmrResult = await editTMRDialog(task: task);
+    print(tmrResult);
 
-    if (newTaskResult != null) {
-      final newTask = newTaskResult.task;
-      task.tasks.add(newTask);
-      _updateTaskParents(newTask);
-      if (newTaskResult.proceed == true) {
-        if (task.isProject || task.isWorkspace) {
-          await mainController.showTask(newTask.id);
-        } else {
-          await addSubtask();
-        }
-      }
-      selectTab(TaskTabKey.subtasks);
-    }
+    // if (newMemberResult != null) {
+    //   final newMember = newMemberResult.member;
+    //   task.members.add(newMember);
+    //   if (newMemberResult.proceed == true) {
+    //     if (task.isProject || task.isWorkspace) {
+    //       await mainController.showTask(newMember.id);
+    //     } else {
+    //       await addMember();
+    //     }
+    //   }
+    // }
   }
 
   Future taskAction(TaskActionType? actionType) async {

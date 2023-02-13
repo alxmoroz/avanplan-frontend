@@ -18,7 +18,6 @@ import 'task_related_widgets/task_add_button.dart';
 import 'task_related_widgets/task_add_menu.dart';
 import 'task_related_widgets/task_navbar.dart';
 import 'task_team/task_team.dart';
-import 'task_team/task_team_controller.dart';
 import 'task_view_controller.dart';
 import 'task_view_widgets/task_details.dart';
 import 'task_view_widgets/task_header.dart';
@@ -37,13 +36,11 @@ class TaskView extends StatefulWidget {
 
 class _TaskViewState extends State<TaskView> {
   late TaskViewController _controller;
-  late TaskTeamController _teamController;
   Task get _task => _controller.task;
 
   @override
   void initState() {
     _controller = TaskViewController(widget.taskId);
-    _teamController = TaskTeamController(_controller.task);
     super.initState();
   }
 
@@ -82,7 +79,7 @@ class _TaskViewState extends State<TaskView> {
     final _overviewPane = TaskOverview(_controller.task);
     final _tasksPane = TaskListView(_controller);
     final _detailsPane = TaskDetails(_controller);
-    final _teamPane = TaskTeam(_teamController);
+    final _teamPane = TaskTeam(_controller);
     return {
           TaskTabKey.overview: _overviewPane,
           TaskTabKey.subtasks: _tasksPane,

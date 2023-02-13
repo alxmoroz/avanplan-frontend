@@ -81,6 +81,8 @@
   "import_projects_select_hint": "Выберите проекты для импорта",
   "import_title": "Импорт задач",
 
+  "invitation_active_date_placeholder": "Срок годности",
+
   "legal_privacy_policy_title": "Политика конфиденциальности",
   "legal_rules_title": "Пользовательское соглашение",
 
@@ -123,10 +125,11 @@
   "reload_action_title": "Перезагрузить",
   "report_bug_action_title": "Сообщить о проблеме",
 
-  "role_admin": "Администратор",
-  "role_full": "Полный доступ",
-  "role_guest": "Гость",
-  "role_member": "Участник",
+  "role_code_admin": "Администратор",
+  "role_code_full": "Полный доступ",
+  "role_code_guest": "Гость",
+  "role_code_member": "Участник",
+  "role_title": "Роль",
 
   "save_action_title": "Сохранить",
   "save_and_go_action_title": "Сохранить и перейти",

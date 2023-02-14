@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 
 import 'L3_app/components/colors.dart';
 import 'L3_app/extra/services.dart';
@@ -32,6 +33,7 @@ Future main() async {
     SecurityContext.defaultContext.setTrustedCertificatesBytes(data.buffer.asUint8List());
   }
 
+  usePathUrlStrategy();
   runApp(App());
 }
 
@@ -79,46 +81,43 @@ class App extends StatelessWidget {
         linkController.parseDeepLink(rs.name);
         return null;
       },
-      initialRoute: '/home',
-      routes: {
-        '/home': (_) => Observer(
-              builder: (_) => Stack(children: [
-                CupertinoApp(
-                  debugShowCheckedModeBanner: _DEBUG_BANNER,
-                  navigatorKey: rootKey,
-                  home: FutureBuilder(
-                    future: getIt.allReady(),
-                    builder: (_, snapshot) =>
-                        snapshot.hasData ? Observer(builder: (_) => authController.authorized ? MainView() : SignInView()) : LoaderScreen(),
-                  ),
-                  localizationsDelegates: localizationsDelegates,
-                  supportedLocales: supportedLocales,
-                  theme: cupertinoTheme,
-                  routes: {
-                    SourceListView.routeName: (_) => SourceListView(),
-                    SettingsView.routeName: (_) => SettingsView(),
-                    AccountView.routeName: (_) => AccountView(),
-                    WorkspaceListView.routeName: (_) => WorkspaceListView(),
-                    NotificationListView.routeName: (_) => NotificationListView(),
-                  },
-                  onGenerateRoute: (RouteSettings rs) {
-                    if (rs.name == TaskView.routeName) {
-                      return CupertinoPageRoute<dynamic>(builder: (_) => TaskView(rs.arguments as int?));
-                    }
-                    return null;
-                  },
-                ),
-                if (loaderController.stack > 0)
-                  CupertinoApp(
-                    debugShowCheckedModeBanner: _DEBUG_BANNER,
-                    home: LoaderScreen(),
-                    localizationsDelegates: localizationsDelegates,
-                    supportedLocales: supportedLocales,
-                    theme: cupertinoTheme,
-                  )
-              ]),
+      home: Observer(
+        builder: (_) => Stack(children: [
+          CupertinoApp(
+            debugShowCheckedModeBanner: _DEBUG_BANNER,
+            navigatorKey: rootKey,
+            home: FutureBuilder(
+              future: getIt.allReady(),
+              builder: (_, snapshot) =>
+                  snapshot.hasData ? Observer(builder: (_) => authController.authorized ? MainView() : SignInView()) : LoaderScreen(),
             ),
-      },
+            localizationsDelegates: localizationsDelegates,
+            supportedLocales: supportedLocales,
+            theme: cupertinoTheme,
+            routes: {
+              SourceListView.routeName: (_) => SourceListView(),
+              SettingsView.routeName: (_) => SettingsView(),
+              AccountView.routeName: (_) => AccountView(),
+              WorkspaceListView.routeName: (_) => WorkspaceListView(),
+              NotificationListView.routeName: (_) => NotificationListView(),
+            },
+            onGenerateRoute: (RouteSettings rs) {
+              if (rs.name == TaskView.routeName) {
+                return CupertinoPageRoute<dynamic>(builder: (_) => TaskView(rs.arguments as int?));
+              }
+              return null;
+            },
+          ),
+          if (loaderController.stack > 0)
+            CupertinoApp(
+              debugShowCheckedModeBanner: _DEBUG_BANNER,
+              home: LoaderScreen(),
+              localizationsDelegates: localizationsDelegates,
+              supportedLocales: supportedLocales,
+              theme: cupertinoTheme,
+            )
+        ]),
+      ),
     );
   }
 }

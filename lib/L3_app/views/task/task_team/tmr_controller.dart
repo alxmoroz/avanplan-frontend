@@ -170,4 +170,6 @@ abstract class _TMRControllerBase extends EditController with Store {
           task.wsId);
     }
   }
+
+  String get invitationSubject => '${loc.invitation_share_subject_prefix}${loc.app_title} - ${task.title}';
 }

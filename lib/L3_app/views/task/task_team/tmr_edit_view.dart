@@ -93,7 +93,9 @@ class _TMREditViewState extends State<TMREditView> {
     return Scrollbar(
       thumbVisibility: true,
       child: ListView(children: [
-        tabPaneSelector,
+        // TODO: https://redmine.moroz.team/issues/2520
+        // tabPaneSelector,
+        H4(controller.role!.localize, align: TextAlign.center),
         selectedPane,
       ]),
     );
@@ -106,7 +108,7 @@ class _TMREditViewState extends State<TMREditView> {
         navBar: navBar(
           context,
           leading: MTCloseButton(),
-          title: '${loc.new_title} ${controller.role!.localize}',
+          title: controller.tabKey == MemberSourceKey.invitation ? controller.invitationSubject : '',
           trailing: !isNew && controller.tabKey == MemberSourceKey.workspace
               ? const MTButton.icon(
                   DeleteIcon(),

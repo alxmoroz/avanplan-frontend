@@ -44,7 +44,7 @@ class InvitationPane extends StatelessWidget {
     final box = context.findRenderObject() as RenderBox?;
     await Share.shareWithResult(
       controller.invitationUrl,
-      subject: '${loc.invitation_share_subject_prefix}${loc.app_title} - ${controller.task.title}',
+      subject: controller.invitationSubject,
       sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
     );
   }

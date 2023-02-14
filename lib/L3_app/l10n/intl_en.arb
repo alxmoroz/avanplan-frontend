@@ -100,6 +100,9 @@
   "loader_unwatch_title": "Sending to ignore...",
 
   "member_title": "Member",
+  "member_source_invitation_title": "Invite",
+  "member_source_workspace_title": "Select",
+
   "months_count": "{count, plural, one{{count} month} other{{count} months}}",
 
   "network_error_description": "Please check your internet connection and try again",
@@ -125,7 +128,7 @@
   "recommendation_add_tasks_title": "Add",
   "recommendation_close_tasks_title": "Complete task in project",
 
-  "redeem_invitation_error_description": "The number of invitations has run out or the invitation has expired.\nContact your workspace/project administrator.",
+  "redeem_invitation_error_description": "The number of invitations has run out or the invitation has expired.\n\nContact your workspace/project administrator.",
   "redeem_invitation_error_title": "Error while processing invitation",
 
   "reload_action_title": "Reload",

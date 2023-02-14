@@ -99,6 +99,9 @@
   "loader_unwatch_title": "Отправляем в игнор...",
 
   "member_title": "Участник",
+  "member_source_invitation_title": "Пригласить",
+  "member_source_workspace_title": "Выбрать",
+
   "months_count": "{count, plural, one{{count} месяц} few{{count} месяца} other{{count} месяцев}}",
 
   "network_error_description": "Проверьте соединение с интернетом и повторите попытку",
@@ -124,7 +127,7 @@
   "recommendation_add_tasks_title": "Добавить",
   "recommendation_close_tasks_title": "Закрыть задачу в проекте",
 
-  "redeem_invitation_error_description": "Закончилось количество приглашений или срок действия приглашения.\nОбратитесь к администратору рабочего пространства / проекта.",
+  "redeem_invitation_error_description": "Закончилось количество активаций или истёк срок действия приглашения.\n\nОбратитесь к администратору рабочего пространства / проекта.",
   "redeem_invitation_error_title": "Ошибка при обработке приглашения",
 
   "reload_action_title": "Перезагрузить",

@@ -1,12 +1,14 @@
 // Copyright (c) 2023. Alexandr Moroz
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:intl/intl.dart';
 
-import '../../../../L1_domain/entities/member.dart';
 import '../../../../L1_domain/entities/role.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities/task_member_role.dart';
+import '../../../../L1_domain/usecases/task_ext_level.dart';
 import '../../../../main.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
@@ -19,8 +21,12 @@ import '../../../components/mt_page.dart';
 import '../../../components/mt_text_field.dart';
 import '../../../components/navbar.dart';
 import '../../../components/text_field_annotation.dart';
+import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
+import '../../../presenters/role_presenter.dart';
+import 'invitation_pane.dart';
 import 'tmr_edit_controller.dart';
+import 'ws_members_pane.dart';
 
 class EditTMRResult {
   const EditTMRResult(this.tmr, [this.proceed]);
@@ -52,24 +58,30 @@ class _TMREditViewState extends State<TMREditView> {
   TaskMemberRole? get tmr => widget.tmr;
   bool get isNew => tmr == null;
 
-  late TMREditController controller;
+  late final TMREditController controller;
+  late final InvitationPane invitationPane;
+  late final WSMembersPane wsMembersPane;
 
   @override
   void initState() {
-    controller = TMREditController();
+    controller = TMREditController(task);
     // TODO: это всё должно быть в инициализации контроллера!
     // TODO: Сам контроллер инициализировать по образу TaskViewController — передавать айдишник объекта
 
     controller.initState(tfaList: [
-      TFAnnotation('activeDate', label: loc.invitation_active_date_placeholder, noText: true, needValidate: false),
+      TFAnnotation('activeDate', label: loc.invitation_active_until_placeholder, noText: true),
+      TFAnnotation('activationsCount', label: loc.invitation_activations_count_placeholder, text: '10'),
     ]);
 
-    controller.setAllowedRoles([Role(id: null, code: 'ROLE_TEST', wsId: -1)]);
+    controller.setAllowedRoles(task.projectWs?.roles ?? []);
     controller.selectRoleById(tmr?.roleId);
 
     controller.setActiveDate(DateTime.now().add(const Duration(days: 7)));
     controller.setAllowedMembers([]);
     controller.selectMemberById(tmr?.memberId);
+
+    invitationPane = InvitationPane(controller);
+    wsMembersPane = WSMembersPane(controller);
 
     super.initState();
   }
@@ -80,24 +92,24 @@ class _TMREditViewState extends State<TMREditView> {
     super.dispose();
   }
 
-  Widget textFieldForCode(BuildContext context, String code) {
-    final ta = controller.tfAnnoForCode(code);
-    final isDate = code.endsWith('Date');
+  Widget get tabPaneSelector => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: P),
+        child: CupertinoSlidingSegmentedControl<MemberSourceKey>(
+          children: {
+            MemberSourceKey.invitation: NormalText(loc.member_source_invitation_title),
+            MemberSourceKey.workspace: NormalText(loc.member_source_workspace_title),
+          },
+          groupValue: controller.tabKey,
+          onValueChanged: controller.selectTab,
+        ),
+      );
 
-    return ta.noText
-        ? MTTextField.noText(
-            controller: controller.teControllers[code],
-            label: ta.label,
-            error: ta.errorText,
-            onTap: isDate ? () => controller.selectDate(context) : null,
-            prefixIcon: isDate ? const CalendarIcon() : null,
-          )
-        : MTTextField(
-            controller: controller.teControllers[code],
-            label: ta.label,
-            error: ta.errorText,
-          );
-  }
+  Widget get selectedPane =>
+      {
+        MemberSourceKey.workspace: wsMembersPane,
+        MemberSourceKey.invitation: invitationPane,
+      }[controller.tabKey] ??
+      invitationPane;
 
   /// общий виджет - форма с полями
 
@@ -108,64 +120,20 @@ class _TMREditViewState extends State<TMREditView> {
         if (controller.allowedRoles.isNotEmpty)
           MTDropdown<Role>(
             onChanged: (r) => controller.selectRole(r),
-            value: controller.selectedRole,
-            items: controller.allowedRoles,
+            value: controller.role,
+            ddItems: [
+              for (final r in controller.allowedRoles)
+                DropdownMenuItem<Role>(value: r, child: NormalText(Intl.message('role_code_${r.code.toLowerCase()}')))
+            ],
             margin: tfPadding,
             label: loc.role_title,
           ),
-        for (final code in ['activeDate']) textFieldForCode(context, code),
-        // TODO: выбор участника из РП или приглашение
-        if (controller.allowedMembers.isNotEmpty)
-          MTDropdown<Member>(
-            onChanged: (m) => controller.selectMember(m),
-            value: controller.selectedMember,
-            items: controller.allowedMembers,
-            margin: tfPadding,
-            label: loc.task_assignee_placeholder,
-          ),
-
-        const SizedBox(height: P2),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (controller.selectedMember != null) ...[
-              // MTButton.outlined(
-              //   constrained: false,
-              //   titleText: loc.save_action_title,
-              //   onTap: controller.validated ? () => controller.save(context, task: task, parent: parent) : null,
-              //   padding: const EdgeInsets.symmetric(horizontal: P2),
-              // ),
-              // if (isNew)
-              //   MTButton.outlined(
-              //     constrained: false,
-              //     titleText: loc.save_and_repeat_action_title,
-              //     onTap: controller.validated ? () => controller.save(context, task: task, parent: parent, proceed: true) : null,
-              //     margin: const EdgeInsets.only(left: P),
-              //     padding: const EdgeInsets.symmetric(horizontal: P),
-              //   ),
-            ]
-          ],
-        ),
-        const SizedBox(height: P2),
+        const SizedBox(height: P),
+        tabPaneSelector,
+        selectedPane,
       ]),
     );
   }
-
-  // List<Widget> get statuses => [
-  //   if (controller.statuses.isNotEmpty)
-  //     MTDropdown<Status>(
-  //       onChanged: (status) => controller.selectStatus(status),
-  //       value: controller.selectedStatus,
-  //       items: controller.statuses,
-  //       label: loc.task_status_placeholder,
-  //     ),
-  //   MTButton(
-  //     leading: doneIcon(context, controller.closed),
-  //     titleString: loc.state_closed,
-  //     margin: tfPadding,
-  //     onTap: () => controller.setClosed(!controller.closed),
-  //   ),
-  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -174,12 +142,12 @@ class _TMREditViewState extends State<TMREditView> {
         navBar: navBar(
           context,
           leading: MTCloseButton(),
-          title: loc.member_title,
-          trailing: !isNew
+          title: controller.role?.localize ?? '',
+          trailing: !isNew && controller.tabKey == MemberSourceKey.workspace
               ? const MTButton.icon(
                   DeleteIcon(),
-                  // () => controller.delete(context, tmr),
                   null,
+                  // () => controller.delete(context, tmr),
                   margin: EdgeInsets.only(right: P),
                 )
               : null,

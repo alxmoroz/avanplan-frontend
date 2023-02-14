@@ -14,7 +14,7 @@ import '../../_base/edit_controller.dart';
 
 part 'tmr_edit_controller.g.dart';
 
-enum MemberSourceTabKey { workspace, external }
+enum MemberSourceKey { workspace, invitation }
 
 class TMREditController extends _TMREditControllerBase with _$TMREditController {
   TMREditController(Task _task) {
@@ -25,18 +25,18 @@ class TMREditController extends _TMREditControllerBase with _$TMREditController 
 abstract class _TMREditControllerBase extends EditController with Store {
   late final Task task;
   final tabKeys = [
-    MemberSourceTabKey.workspace,
-    MemberSourceTabKey.external,
+    MemberSourceKey.workspace,
+    MemberSourceKey.invitation,
   ];
 
   @observable
-  MemberSourceTabKey? _tabKey;
+  MemberSourceKey? _tabKey;
 
   @action
-  void selectTab(MemberSourceTabKey? tk) => _tabKey = tk;
+  void selectTab(MemberSourceKey? tk) => _tabKey = tk;
 
   @computed
-  MemberSourceTabKey get tabKey => (tabKeys.contains(_tabKey) ? _tabKey : null) ?? MemberSourceTabKey.external;
+  MemberSourceKey get tabKey => (tabKeys.contains(_tabKey) ? _tabKey : null) ?? MemberSourceKey.invitation;
 
   @observable
   DateTime? activeDate;

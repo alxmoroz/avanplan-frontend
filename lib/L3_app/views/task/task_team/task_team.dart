@@ -31,7 +31,7 @@ class TaskTeam extends StatelessWidget {
             MTButton.outlined(
               leading: const PlusIcon(),
               titleText: loc.member_title,
-              margin: const EdgeInsets.symmetric(horizontal: P_2).copyWith(top: P2),
+              margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
               onTap: () async => await controller.addMember(),
             ),
           Expanded(

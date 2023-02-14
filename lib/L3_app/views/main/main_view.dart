@@ -129,7 +129,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
           top: false,
           bottom: false,
           child: Center(
-            child: !_task.hasOpenedSubtasks ? ImportProjectsActions(_task) : TaskOverview(_task),
+            child: !_task.hasOpenedSubtasks ? ImportProjectsActions(_task) : TaskOverview(_taskController),
           ),
         ),
         bottomBar: _bottomBar(context),

@@ -5,17 +5,11 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/usecases/task_ext_level.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/icons.dart';
-import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_level_presenter.dart';
-import 'task_ext_actions.dart';
-import 'task_related_widgets/task_add_button.dart';
-import 'task_related_widgets/task_add_menu.dart';
 import 'task_related_widgets/task_navbar.dart';
 import 'task_team/task_team.dart';
 import 'task_view_controller.dart';
@@ -35,12 +29,23 @@ class TaskView extends StatefulWidget {
 }
 
 class _TaskViewState extends State<TaskView> {
-  late TaskViewController _controller;
   Task get _task => _controller.task;
+
+  late TaskViewController _controller;
+
+  late final TaskOverview _overviewPane;
+  late final TaskListView _tasksPane;
+  late final TaskDetails _detailsPane;
+  late final TaskTeam _teamPane;
 
   @override
   void initState() {
     _controller = TaskViewController(widget.taskId);
+    _overviewPane = TaskOverview(_controller);
+    _tasksPane = TaskListView(_controller);
+    _detailsPane = TaskDetails(_controller);
+    _teamPane = TaskTeam(_controller);
+
     super.initState();
   }
 
@@ -75,43 +80,19 @@ class _TaskViewState extends State<TaskView> {
         ),
       );
 
-  Widget _selectedPane() {
-    final _overviewPane = TaskOverview(_controller.task);
-    final _tasksPane = TaskListView(_controller);
-    final _detailsPane = TaskDetails(_controller);
-    final _teamPane = TaskTeam(_controller);
-    return {
-          TaskTabKey.overview: _overviewPane,
-          TaskTabKey.subtasks: _tasksPane,
-          TaskTabKey.details: _detailsPane,
-          TaskTabKey.team: _teamPane,
-        }[_controller.tabKey] ??
-        _tasksPane;
-  }
+  Widget get _selectedPane =>
+      {
+        TaskTabKey.overview: _overviewPane,
+        TaskTabKey.subtasks: _tasksPane,
+        TaskTabKey.details: _detailsPane,
+        TaskTabKey.team: _teamPane,
+      }[_controller.tabKey] ??
+      _tasksPane;
 
-  Widget? _bottomBar() => _task.isWorkspace && _task.actionTypes.isNotEmpty && mainController.canEditAnyWS
-      ? Row(children: [const Spacer(), TaskAddMenu(_controller)])
-      : _task.canEdit
-          ? _task.shouldAddSubtask
-              ? TaskAddButton(_controller)
-              : _task.canReopen || _task.shouldClose || _task.shouldCloseLeaf
-                  ? Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                      if (_task.shouldClose)
-                        MediumText(
-                          loc.state_closable_hint,
-                          align: TextAlign.center,
-                          color: lightGreyColor,
-                          padding: const EdgeInsets.only(bottom: P_3),
-                        ),
-                      MTButton.outlined(
-                        margin: const EdgeInsets.symmetric(horizontal: P),
-                        titleText: (_task.shouldClose || _task.shouldCloseLeaf) ? loc.close_action_title : loc.task_reopen_action_title,
-                        leading: DoneIcon(_task.shouldClose || _task.shouldCloseLeaf),
-                        onTap: () => _controller.setClosed(!_task.closed),
-                      ),
-                    ])
-                  : null
-          : null;
+  Widget? get _selectedBottomBar => {
+        TaskTabKey.overview: _overviewPane.bottomBar,
+        TaskTabKey.team: _teamPane.bottomBar,
+      }[_controller.tabKey];
 
   @override
   Widget build(BuildContext context) {
@@ -129,11 +110,11 @@ class _TaskViewState extends State<TaskView> {
                 const SizedBox(height: P_2),
                 _tabPaneSelector(),
               ],
-              Expanded(child: _selectedPane()),
+              Expanded(child: _selectedPane),
             ],
           ),
         ),
-        bottomBar: _bottomBar(),
+        bottomBar: _selectedBottomBar,
       ),
     );
   }

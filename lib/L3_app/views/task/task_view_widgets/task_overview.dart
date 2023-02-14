@@ -17,14 +17,41 @@ import '../../../presenters/task_level_presenter.dart';
 import '../task_charts/timing_chart.dart';
 import '../task_charts/velocity_chart.dart';
 import '../task_charts/volume_chart.dart';
+import '../task_ext_actions.dart';
 import '../task_related_widgets/attentional_tasks.dart';
 import '../task_related_widgets/state_title.dart';
+import '../task_related_widgets/task_add_button.dart';
+import '../task_related_widgets/task_add_menu.dart';
+import '../task_view_controller.dart';
 import '../task_view_widgets/task_chart_details.dart';
 
 class TaskOverview extends StatelessWidget {
-  const TaskOverview(this.task);
-  @protected
-  final Task task;
+  const TaskOverview(this.controller);
+  final TaskViewController controller;
+
+  Task get task => controller.task;
+
+  Widget? get bottomBar => task.isWorkspace && task.actionTypes.isNotEmpty && mainController.canEditAnyWS
+      ? Row(children: [const Spacer(), TaskAddMenu(controller)])
+      : task.shouldAddSubtask
+          ? TaskAddButton(controller)
+          : task.canReopen || task.shouldClose || task.shouldCloseLeaf
+              ? Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                  if (task.shouldClose)
+                    MediumText(
+                      loc.state_closable_hint,
+                      align: TextAlign.center,
+                      color: lightGreyColor,
+                      padding: const EdgeInsets.only(bottom: P_3),
+                    ),
+                  MTButton.outlined(
+                    margin: const EdgeInsets.symmetric(horizontal: P),
+                    titleText: (task.shouldClose || task.shouldCloseLeaf) ? loc.close_action_title : loc.task_reopen_action_title,
+                    leading: DoneIcon(task.shouldClose || task.shouldCloseLeaf),
+                    onTap: () => controller.setClosed(!task.closed),
+                  ),
+                ])
+              : null;
 
   Widget _checkRecommendsItem(bool checked, String text) => Row(children: [
         DoneIcon(checked, color: checked ? greenColor : greyColor, size: P * 3, solid: checked),

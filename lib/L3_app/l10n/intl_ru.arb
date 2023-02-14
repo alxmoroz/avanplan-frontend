@@ -83,6 +83,8 @@
 
   "invitation_activations_count_placeholder": "Число активаций",
   "invitation_active_until_placeholder": "Срок годности",
+  "invitation_share_action_title": "Отправить приглашение",
+  "invitation_share_subject_prefix": "Приглашение в ",
 
   "legal_privacy_policy_title": "Политика конфиденциальности",
   "legal_rules_title": "Пользовательское соглашение",
@@ -98,7 +100,7 @@
   "loader_unlinking_title": "Рвём связи...",
   "loader_unwatch_title": "Отправляем в игнор...",
 
-  "member_title": "Участник",
+  "member_new_title": "Новый участник",
   "member_source_invitation_title": "Пригласить",
   "member_source_workspace_title": "Выбрать",
 

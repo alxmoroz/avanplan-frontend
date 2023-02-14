@@ -29,8 +29,8 @@ class TaskTeam extends StatelessWidget {
         children: [
           if (task.canEditMembers)
             MTButton.outlined(
-              leading: const PlusIcon(),
-              titleText: loc.member_title,
+              leading: const AddMemberIcon(),
+              titleText: loc.member_new_title,
               margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
               onTap: () async => await controller.addMember(),
             ),

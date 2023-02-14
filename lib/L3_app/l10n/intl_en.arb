@@ -84,6 +84,8 @@
 
   "invitation_activations_count_placeholder": "Activations Count",
   "invitation_active_until_placeholder": "Active Until",
+  "invitation_share_action_title": "Share Invitation",
+  "invitation_share_subject_prefix": "Invitation to ",
 
   "legal_privacy_policy_title": "Privacy policy",
   "legal_rules_title": "License agreement",
@@ -99,7 +101,7 @@
   "loader_unlinking_title": "Breaking the chains...",
   "loader_unwatch_title": "Sending to ignore...",
 
-  "member_title": "Member",
+  "member_new_title": "New Member",
   "member_source_invitation_title": "Invite",
   "member_source_workspace_title": "Select",
 

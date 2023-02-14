@@ -371,10 +371,21 @@ class BellIcon extends _MTIcon {
 class ShareIcon extends _MTIcon {
   const ShareIcon({super.color, super.size});
   @override
-  Widget build(BuildContext context) => FaIcon(
-        FontAwesomeIcons.shareFromSquare,
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.square_arrow_up,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? P3,
+        size: size ?? P2,
+      );
+}
+
+class AddMemberIcon extends _MTIcon {
+  const AddMemberIcon({super.color, super.size});
+
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.person_add,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P2,
       );
 }
 

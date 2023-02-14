@@ -6,10 +6,12 @@ import 'package:openapi/openapi.dart';
 
 Openapi get openAPI => GetIt.I<Openapi>();
 
+const API_PATH = 'https://avanplan.ru/api/';
+// const API_PATH = 'http://localhost:8000/';
+// const API_PATH = 'http://10.0.2.2:8000';
+
 Openapi setupApi(Iterable<Interceptor>? interceptors) {
-  return Openapi(basePathOverride: 'https://avanplan.ru/api/')
-    // return Openapi(basePathOverride: 'http://localhost:8000/')
-    // return Openapi(basePathOverride: 'http://10.0.2.2:8000')
+  return Openapi(basePathOverride: API_PATH)
     // TODO: до решения вопроса о фоновой загрузке (с т.з. фронта) пока что лимиты по 10 минут на подключение и получение
     ..dio.options.connectTimeout = 600000
     ..dio.options.receiveTimeout = 600000

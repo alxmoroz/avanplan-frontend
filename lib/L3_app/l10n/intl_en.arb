@@ -82,7 +82,8 @@
   "import_source_select_hint": "Select an import source",
   "import_title": "Import tasks",
 
-  "invitation_active_date_placeholder": "Active Until",
+  "invitation_activations_count_placeholder": "Activations Count",
+  "invitation_active_until_placeholder": "Active Until",
 
   "legal_privacy_policy_title": "Privacy policy",
   "legal_rules_title": "License agreement",
@@ -91,6 +92,7 @@
   "loader_check_connection_title": "Checking connection...",
   "loader_deleting_title": "Deleting...",
   "loader_importing_title": "Importing...",
+  "loader_redeem_invitation_title": "Accessing to projects...",
   "loader_refreshing_title": "Refreshing...",
   "loader_saving_title": "Saving...",
   "loader_source_listing": "Getting a list of projects...",
@@ -122,6 +124,9 @@
 
   "recommendation_add_tasks_title": "Add",
   "recommendation_close_tasks_title": "Complete task in project",
+
+  "redeem_invitation_error_description": "The number of invitations has run out or the invitation has expired.\nContact your workspace/project administrator.",
+  "redeem_invitation_error_title": "Error while processing invitation",
 
   "reload_action_title": "Reload",
   "report_bug_action_title": "Report a bug",

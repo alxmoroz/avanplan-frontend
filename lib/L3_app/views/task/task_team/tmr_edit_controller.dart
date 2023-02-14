@@ -4,8 +4,11 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../../L1_domain/entities/invitation.dart';
 import '../../../../L1_domain/entities/member.dart';
 import '../../../../L1_domain/entities/role.dart';
+import '../../../../L1_domain/entities/task.dart';
+import '../../../extra/services.dart';
 import '../../../presenters/date_presenter.dart';
 import '../../_base/edit_controller.dart';
 
@@ -13,16 +16,18 @@ part 'tmr_edit_controller.g.dart';
 
 enum MemberSourceTabKey { workspace, external }
 
-class TMREditController = _TMREditControllerBase with _$TMREditController;
+class TMREditController extends _TMREditControllerBase with _$TMREditController {
+  TMREditController(Task _task) {
+    task = _task;
+  }
+}
 
 abstract class _TMREditControllerBase extends EditController with Store {
-  @computed
-  Iterable<MemberSourceTabKey> get tabKeys {
-    return [
-      MemberSourceTabKey.workspace,
-      MemberSourceTabKey.external,
-    ];
-  }
+  late final Task task;
+  final tabKeys = [
+    MemberSourceTabKey.workspace,
+    MemberSourceTabKey.external,
+  ];
 
   @observable
   MemberSourceTabKey? _tabKey;
@@ -31,7 +36,7 @@ abstract class _TMREditControllerBase extends EditController with Store {
   void selectTab(MemberSourceTabKey? tk) => _tabKey = tk;
 
   @computed
-  MemberSourceTabKey get tabKey => (tabKeys.contains(_tabKey) ? _tabKey : null) ?? (tabKeys.isNotEmpty ? tabKeys.first : MemberSourceTabKey.external);
+  MemberSourceTabKey get tabKey => (tabKeys.contains(_tabKey) ? _tabKey : null) ?? MemberSourceTabKey.external;
 
   @observable
   DateTime? activeDate;
@@ -59,9 +64,6 @@ abstract class _TMREditControllerBase extends EditController with Store {
       setActiveDate(date);
     }
   }
-
-  // @override
-  // bool get validated => super.validated;
 
   /// действия
   // Future<TaskMemberRole?> _saveTMR(int? id, int wsId, int taskId, int memberId, int roleId) async => await tmrUC.save(
@@ -91,6 +93,7 @@ abstract class _TMREditControllerBase extends EditController with Store {
   //   await loaderController.stop(300);
   // }
   //
+
   // Future delete(BuildContext context, TaskMemberRole tmr) async {
   //   final confirm = await showMTDialog<bool?>(
   //     context,
@@ -116,26 +119,49 @@ abstract class _TMREditControllerBase extends EditController with Store {
   List<Member> allowedMembers = [];
 
   @action
-  void setAllowedMembers(List<Member> assignees) => allowedMembers = assignees;
+  void setAllowedMembers(List<Member> members) => allowedMembers = members;
 
   @observable
-  Member? selectedMember;
+  Member? member;
 
   @action
-  void selectMember(Member? m) => selectedMember = m;
+  void selectMember(Member? m) => member = m;
   void selectMemberById(int? id) => selectMember(allowedMembers.firstWhereOrNull((m) => m.id == id));
 
   /// роли
   @observable
-  List<Role> allowedRoles = [];
+  Iterable<Role> allowedRoles = [];
 
   @action
-  void setAllowedRoles(List<Role> roles) => allowedRoles = roles;
+  void setAllowedRoles(Iterable<Role> roles) => allowedRoles = roles;
 
   @observable
-  Role? selectedRole;
+  Role? role;
 
   @action
-  void selectRole(Role? r) => selectedRole = r;
+  void selectRole(Role? r) => role = r;
   void selectRoleById(int? id) => selectRole(allowedRoles.firstWhereOrNull((r) => r.id == id));
+
+  /// приглашение
+
+  @observable
+  String invitationUrl = '';
+
+  @override
+  bool get validated => super.validated && role != null;
+
+  @action
+  Future createInvitation() async {
+    final activationsCount = int.tryParse(tfAnnoForCode('activationsCount').text) ?? 0;
+    if (activationsCount > 0) {
+      invitationUrl = await invitationUC.create(
+          Invitation(
+            task.id!,
+            role!.id!,
+            activationsCount,
+            activeDate!,
+          ),
+          task.wsId);
+    }
+  }
 }

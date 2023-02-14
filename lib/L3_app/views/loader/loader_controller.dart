@@ -87,6 +87,8 @@ abstract class _LoaderControllerBase with Store {
               return handler.next(e);
             } else if (e.errCode.startsWith('ERR_IMPORT')) {
               _setImportError(e.detail, e.detail);
+            } else if (e.errCode.startsWith('ERR_INVITATION_REDEEM_INACTIVE')) {
+              setRedeemInvitationError();
             } else {
               _setHTTPError(errorText, e.detail);
             }
@@ -177,6 +179,14 @@ abstract class _LoaderControllerBase with Store {
         icon: _authIcon,
         titleText: loc.auth_error_title,
         descriptionText: description != null ? Intl.message('auth_error_$description') : loc.auth_error_description,
+        actionText: loc.ok,
+      );
+
+  void setRedeemInvitation() => _set(titleText: loc.loader_redeem_invitation_title, icon: _authIcon);
+  void setRedeemInvitationError() => _set(
+        icon: _authIcon,
+        titleText: loc.redeem_invitation_error_title,
+        descriptionText: loc.redeem_invitation_error_description,
         actionText: loc.ok,
       );
 

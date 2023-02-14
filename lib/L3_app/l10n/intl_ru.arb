@@ -81,7 +81,8 @@
   "import_projects_select_hint": "Выберите проекты для импорта",
   "import_title": "Импорт задач",
 
-  "invitation_active_date_placeholder": "Срок годности",
+  "invitation_activations_count_placeholder": "Число активаций",
+  "invitation_active_until_placeholder": "Срок годности",
 
   "legal_privacy_policy_title": "Политика конфиденциальности",
   "legal_rules_title": "Пользовательское соглашение",
@@ -90,6 +91,7 @@
   "loader_check_connection_title": "Проверка соединения...",
   "loader_deleting_title": "Удаляем...",
   "loader_importing_title": "Импортируем...",
+  "loader_redeem_invitation_title": "Подключаем к проектам...",
   "loader_refreshing_title": "Обновляем...",
   "loader_saving_title": "Сохраняем...",
   "loader_source_listing": "Получаем список проектов...",
@@ -121,6 +123,9 @@
 
   "recommendation_add_tasks_title": "Добавить",
   "recommendation_close_tasks_title": "Закрыть задачу в проекте",
+
+  "redeem_invitation_error_description": "Закончилось количество приглашений или срок действия приглашения.\nОбратитесь к администратору рабочего пространства / проекта.",
+  "redeem_invitation_error_title": "Ошибка при обработке приглашения",
 
   "reload_action_title": "Перезагрузить",
   "report_bug_action_title": "Сообщить о проблеме",

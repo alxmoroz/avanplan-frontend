@@ -8,6 +8,7 @@ import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:openapi/src/api_util.dart';
+import 'package:openapi/src/model/body_redeem_v1_invitation_redeem_post.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/invitation.dart';
 
@@ -125,7 +126,7 @@ class InvitationApi {
   /// 
   ///
   /// Parameters:
-  /// * [url] 
+  /// * [bodyRedeemV1InvitationRedeemPost] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -136,7 +137,7 @@ class InvitationApi {
   /// Returns a [Future] containing a [Response] with a [bool] as data
   /// Throws [DioError] if API call or serialization fails
   Future<Response<bool>> redeemV1InvitationRedeemPost({ 
-    required String url,
+    required BodyRedeemV1InvitationRedeemPost bodyRedeemV1InvitationRedeemPost,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -159,17 +160,31 @@ class InvitationApi {
         ],
         ...?extra,
       },
+      contentType: 'application/json',
       validateStatus: validateStatus,
     );
 
-    final _queryParameters = <String, dynamic>{
-      r'url': encodeQueryParameter(_serializers, url, const FullType(String)),
-    };
+    dynamic _bodyData;
+
+    try {
+      const _type = FullType(BodyRedeemV1InvitationRedeemPost);
+      _bodyData = _serializers.serialize(bodyRedeemV1InvitationRedeemPost, specifiedType: _type);
+
+    } catch(error, stackTrace) {
+      throw DioError(
+         requestOptions: _options.compose(
+          _dio.options,
+          _path,
+        ),
+        type: DioErrorType.other,
+        error: error,
+      )..stackTrace = stackTrace;
+    }
 
     final _response = await _dio.request<Object>(
       _path,
+      data: _bodyData,
       options: _options,
-      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,

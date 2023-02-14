@@ -20,6 +20,7 @@ export 'package:openapi/src/api/tasks_api.dart';
 
 export 'package:openapi/src/model/body_auth_apple_token.dart';
 export 'package:openapi/src/model/body_auth_google_token.dart';
+export 'package:openapi/src/model/body_redeem_v1_invitation_redeem_post.dart';
 export 'package:openapi/src/model/body_update_my_account_v1_my_account_post.dart';
 export 'package:openapi/src/model/body_update_push_token_v1_my_push_token_post.dart';
 export 'package:openapi/src/model/estimate_unit_get.dart';

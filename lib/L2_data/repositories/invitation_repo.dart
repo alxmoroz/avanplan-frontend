@@ -15,15 +15,16 @@ class InvitationRepo extends AbstractInvitationRepo {
           ..roleId = invitation.roleId
           ..taskId = invitation.taskId
           ..activationsCount = invitation.activationsCount
-          ..activeUntil = invitation.activeUntil)
+          ..activeUntil = invitation.activeUntil.toUtc())
         .build();
     final response = await api.createV1InvitationCreatePost(wsId: wsId, invitation: invitationData);
     return response.data ?? '';
   }
 
   @override
-  Future<bool> redeem(String url) async {
-    final response = await api.redeemV1InvitationRedeemPost(url: url);
+  Future<bool> redeem(String token) async {
+    final body = (o_api.BodyRedeemV1InvitationRedeemPostBuilder()..token = token).build();
+    final response = await api.redeemV1InvitationRedeemPost(bodyRedeemV1InvitationRedeemPost: body);
     return response.data == true;
   }
 }

@@ -5,6 +5,7 @@ analysis_options.yaml
 doc/AuthApi.md
 doc/BodyAuthAppleToken.md
 doc/BodyAuthGoogleToken.md
+doc/BodyRedeemV1InvitationRedeemPost.md
 doc/BodyUpdateMyAccountV1MyAccountPost.md
 doc/BodyUpdatePushTokenV1MyPushTokenPost.md
 doc/EstimateUnitGet.md
@@ -59,6 +60,7 @@ lib/src/auth/oauth.dart
 lib/src/date_serializer.dart
 lib/src/model/body_auth_apple_token.dart
 lib/src/model/body_auth_google_token.dart
+lib/src/model/body_redeem_v1_invitation_redeem_post.dart
 lib/src/model/body_update_my_account_v1_my_account_post.dart
 lib/src/model/body_update_push_token_v1_my_push_token_post.dart
 lib/src/model/date.dart
@@ -93,6 +95,7 @@ pubspec.yaml
 test/auth_api_test.dart
 test/body_auth_apple_token_test.dart
 test/body_auth_google_token_test.dart
+test/body_redeem_v1_invitation_redeem_post_test.dart
 test/body_update_my_account_v1_my_account_post_test.dart
 test/body_update_push_token_v1_my_push_token_post_test.dart
 test/estimate_unit_get_test.dart

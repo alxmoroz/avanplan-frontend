@@ -247,10 +247,9 @@ abstract class _TaskViewControllerBase with Store {
   }
 
   Future addMember() async {
-    final tmrResult = await editTMRDialog(task: task);
-    print(tmrResult);
+    await editTMRDialog(task: task);
 
-    // if (newMemberResult != null) {
+    // if (result != null) {
     //   final newMember = newMemberResult.member;
     //   task.members.add(newMember);
     //   if (newMemberResult.proceed == true) {

@@ -76,7 +76,7 @@ class App extends StatelessWidget {
       localizationsDelegates: localizationsDelegates,
       supportedLocales: supportedLocales,
       onGenerateRoute: (RouteSettings rs) {
-        linkController.registerLink(rs.name);
+        linkController.parseDeepLink(rs.name);
         return null;
       },
       initialRoute: '/home',

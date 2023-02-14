@@ -25,24 +25,25 @@ class TaskTeam extends StatelessWidget {
   Widget build(BuildContext context) {
     final padding = MediaQuery.of(context).padding;
     return Observer(
-        builder: (_) => Column(
-              children: [
-                if (task.canEditMembers)
-                  MTButton.outlined(
-                    leading: const PlusIcon(),
-                    titleText: loc.member_title,
-                    margin: const EdgeInsets.symmetric(horizontal: P_2).copyWith(top: P2),
-                    onTap: () async => await controller.addMember(),
-                  ),
-                Expanded(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    padding: padding.add(EdgeInsets.only(bottom: padding.bottom > 0 ? 0 : P, top: P_2)),
-                    itemBuilder: _itemBuilder,
-                    itemCount: task.sortedMembers.length,
-                  ),
-                ),
-              ],
-            ));
+      builder: (_) => Column(
+        children: [
+          if (task.canEditMembers)
+            MTButton.outlined(
+              leading: const PlusIcon(),
+              titleText: loc.member_title,
+              margin: const EdgeInsets.symmetric(horizontal: P_2).copyWith(top: P2),
+              onTap: () async => await controller.addMember(),
+            ),
+          Expanded(
+            child: ListView.builder(
+              shrinkWrap: true,
+              padding: padding.add(EdgeInsets.only(bottom: padding.bottom > 0 ? 0 : P, top: P_2)),
+              itemBuilder: _itemBuilder,
+              itemCount: task.sortedMembers.length,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

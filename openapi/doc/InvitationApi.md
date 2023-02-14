@@ -59,7 +59,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **redeemV1InvitationRedeemPost**
-> bool redeemV1InvitationRedeemPost(url)
+> bool redeemV1InvitationRedeemPost(bodyRedeemV1InvitationRedeemPost)
 
 Redeem
 
@@ -70,10 +70,10 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
 
 final api = Openapi().getInvitationApi();
-final String url = url_example; // String | 
+final BodyRedeemV1InvitationRedeemPost bodyRedeemV1InvitationRedeemPost = ; // BodyRedeemV1InvitationRedeemPost | 
 
 try {
-    final response = api.redeemV1InvitationRedeemPost(url);
+    final response = api.redeemV1InvitationRedeemPost(bodyRedeemV1InvitationRedeemPost);
     print(response);
 } catch on DioError (e) {
     print('Exception when calling InvitationApi->redeemV1InvitationRedeemPost: $e\n');
@@ -84,7 +84,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **url** | **String**|  | 
+ **bodyRedeemV1InvitationRedeemPost** | [**BodyRedeemV1InvitationRedeemPost**](BodyRedeemV1InvitationRedeemPost.md)|  | 
 
 ### Return type
 
@@ -96,7 +96,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

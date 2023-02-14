@@ -368,6 +368,16 @@ class BellIcon extends _MTIcon {
   }
 }
 
+class ShareIcon extends _MTIcon {
+  const ShareIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => FaIcon(
+        FontAwesomeIcons.shareFromSquare,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P3,
+      );
+}
+
 const _sourceIconSize = P2;
 
 Widget redmineIcon() => Image.asset('assets/images/redmine_icon.png', height: _sourceIconSize);

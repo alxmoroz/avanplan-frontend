@@ -15,7 +15,7 @@ void main() {
 
     // Redeem
     //
-    //Future<bool> redeemV1InvitationRedeemPost(String url) async
+    //Future<bool> redeemV1InvitationRedeemPost(BodyRedeemV1InvitationRedeemPost bodyRedeemV1InvitationRedeemPost) async
     test('test redeemV1InvitationRedeemPost', () async {
       // TODO
     });

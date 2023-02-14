@@ -97,6 +97,7 @@ Class | Method | HTTP request | Description
 
  - [BodyAuthAppleToken](doc/BodyAuthAppleToken.md)
  - [BodyAuthGoogleToken](doc/BodyAuthGoogleToken.md)
+ - [BodyRedeemV1InvitationRedeemPost](doc/BodyRedeemV1InvitationRedeemPost.md)
  - [BodyUpdateMyAccountV1MyAccountPost](doc/BodyUpdateMyAccountV1MyAccountPost.md)
  - [BodyUpdatePushTokenV1MyPushTokenPost](doc/BodyUpdatePushTokenV1MyPushTokenPost.md)
  - [EstimateUnitGet](doc/EstimateUnitGet.md)

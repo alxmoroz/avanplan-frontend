@@ -4,11 +4,11 @@ import 'package:mobx/mobx.dart';
 
 import '../services.dart';
 
-part 'link_controller.g.dart';
+part 'deep_link_controller.g.dart';
 
-class LinkController = _LinkControllerBase with _$LinkController;
+class DeepLinkController = _DeepLinkControllerBase with _$DeepLinkController;
 
-abstract class _LinkControllerBase with Store {
+abstract class _DeepLinkControllerBase with Store {
   @observable
   String? invitationToken;
 

@@ -378,8 +378,8 @@ class ShareIcon extends _MTIcon {
       );
 }
 
-class AddMemberIcon extends _MTIcon {
-  const AddMemberIcon({super.color, super.size});
+class MemberAddIcon extends _MTIcon {
+  const MemberAddIcon({super.color, super.size});
 
   @override
   Widget build(BuildContext context) => Icon(

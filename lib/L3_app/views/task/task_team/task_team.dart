@@ -1,45 +1,40 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../L1_domain/entities/task.dart';
+import '../../../../L1_domain/entities/member.dart';
 import '../../../../L1_domain/usecases/task_ext_members.dart';
 import '../../../components/constants.dart';
-import '../../../components/icons.dart';
-import '../../../components/mt_button.dart';
 import '../../../extra/services.dart';
 import '../task_ext_actions.dart';
 import '../task_related_widgets/member_list_tile.dart';
-import '../task_view_controller.dart';
+import 'member_add_menu.dart';
+import 'tmr_controller.dart';
 
 class TaskTeam extends StatelessWidget {
   const TaskTeam(this.controller);
-  final TaskViewController controller;
+  final TMRController controller;
 
-  Task get task => controller.task;
+  List<Member> get _sortedMembers => controller.task.sortedMembers;
 
-  Widget? get bottomBar => task.canEditMembers
-      ? MTButton.outlined(
-          leading: const AddMemberIcon(),
-          titleText: loc.member_new_title,
+  Widget? get bottomBar => controller.task.canEditMembers && controller.allowedRoles.isNotEmpty
+      ? MemberAddMenu(
+          controller,
+          title: loc.member_new_title,
           margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
-          onTap: () async => await controller.addMember(),
         )
       : null;
 
-  Widget _itemBuilder(BuildContext context, int index) => MemberListTile(task.sortedMembers[index]);
+  Widget _itemBuilder(BuildContext context, int index) => MemberListTile(_sortedMembers[index]);
 
   @override
   Widget build(BuildContext context) {
     final padding = MediaQuery.of(context).padding;
-    return Observer(
-      builder: (_) => ListView.builder(
-        shrinkWrap: true,
-        padding: padding.add(EdgeInsets.only(bottom: padding.bottom > 0 ? 0 : P, top: P_2)),
-        itemBuilder: _itemBuilder,
-        itemCount: task.sortedMembers.length,
-      ),
+    return ListView.builder(
+      shrinkWrap: true,
+      padding: padding.add(EdgeInsets.only(bottom: padding.bottom > 0 ? 0 : P, top: P_2)),
+      itemBuilder: _itemBuilder,
+      itemCount: _sortedMembers.length,
     );
   }
 }

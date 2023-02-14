@@ -10,13 +10,13 @@ import '../../../components/icons.dart';
 import '../../../components/mt_button.dart';
 import '../../../components/mt_text_field.dart';
 import '../../../extra/services.dart';
-import 'tmr_edit_controller.dart';
+import 'tmr_controller.dart';
 
 class InvitationPane extends StatelessWidget {
   const InvitationPane(this.controller);
-  final TMREditController controller;
+  final TMRController controller;
 
-  Widget textFieldForCode(BuildContext context, String code) {
+  Widget _tfForCode(BuildContext context, String code) {
     final ta = controller.tfAnnoForCode(code);
     final isDate = code.endsWith('Date');
 
@@ -36,7 +36,7 @@ class InvitationPane extends StatelessWidget {
           );
   }
 
-  Future shareInvitation(BuildContext context) async {
+  Future _shareInvitation(BuildContext context) async {
     if (controller.invitationUrl.isEmpty) {
       await controller.createInvitation();
     }
@@ -44,24 +44,24 @@ class InvitationPane extends StatelessWidget {
     final box = context.findRenderObject() as RenderBox?;
     await Share.shareWithResult(
       controller.invitationUrl,
-      subject: '${loc.invitation_share_subject_prefix}${loc.app_title}',
+      subject: '${loc.invitation_share_subject_prefix}${loc.app_title} - ${controller.task.title}',
       sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
     );
   }
 
-  bool get canShare => controller.invitationUrl.isNotEmpty || controller.validated;
+  bool get _canShare => controller.invitationUrl.isNotEmpty || controller.validated;
 
   @override
   Widget build(BuildContext context) => Observer(
         builder: (_) => Column(
           children: [
-            for (final code in ['activeDate', 'activationsCount']) textFieldForCode(context, code),
+            for (final code in ['activationsCount', 'activeDate']) _tfForCode(context, code),
             const SizedBox(height: P2),
             MTButton.outlined(
-              leading: ShareIcon(size: P2, color: canShare ? mainColor : lightGreyColor),
+              leading: ShareIcon(size: P2, color: _canShare ? mainColor : lightGreyColor),
               constrained: false,
               titleText: loc.invitation_share_action_title,
-              onTap: canShare ? () => shareInvitation(context) : null,
+              onTap: _canShare ? () => _shareInvitation(context) : null,
               padding: const EdgeInsets.symmetric(horizontal: P2),
             ),
           ],

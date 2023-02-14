@@ -8,21 +8,33 @@ import '../../../../L1_domain/entities/invitation.dart';
 import '../../../../L1_domain/entities/member.dart';
 import '../../../../L1_domain/entities/role.dart';
 import '../../../../L1_domain/entities/task.dart';
+import '../../../../L1_domain/usecases/task_ext_level.dart';
+import '../../../components/text_field_annotation.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/date_presenter.dart';
 import '../../_base/edit_controller.dart';
 
-part 'tmr_edit_controller.g.dart';
+part 'tmr_controller.g.dart';
 
 enum MemberSourceKey { workspace, invitation }
 
-class TMREditController extends _TMREditControllerBase with _$TMREditController {
-  TMREditController(Task _task) {
+class TMRController extends _TMRControllerBase with _$TMRController {
+  TMRController(Task _task) {
     task = _task;
+
+    initState(tfaList: [
+      TFAnnotation('activeDate', label: loc.invitation_active_until_placeholder, noText: true),
+      TFAnnotation('activationsCount', label: loc.invitation_activations_count_placeholder, text: '10'),
+    ]);
+
+    allowedRoles = task.projectWs?.roles ?? [];
+    // TODO:
+    allowedMembers = [];
+    setActiveDate(DateTime.now().add(const Duration(days: 7)));
   }
 }
 
-abstract class _TMREditControllerBase extends EditController with Store {
+abstract class _TMRControllerBase extends EditController with Store {
   late final Task task;
   final tabKeys = [
     MemberSourceKey.workspace,
@@ -118,9 +130,6 @@ abstract class _TMREditControllerBase extends EditController with Store {
   @observable
   List<Member> allowedMembers = [];
 
-  @action
-  void setAllowedMembers(List<Member> members) => allowedMembers = members;
-
   @observable
   Member? member;
 
@@ -131,9 +140,6 @@ abstract class _TMREditControllerBase extends EditController with Store {
   /// роли
   @observable
   Iterable<Role> allowedRoles = [];
-
-  @action
-  void setAllowedRoles(Iterable<Role> roles) => allowedRoles = roles;
 
   @observable
   Role? role;

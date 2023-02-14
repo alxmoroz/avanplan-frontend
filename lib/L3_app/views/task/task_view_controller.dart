@@ -18,7 +18,6 @@ import '../../presenters/state_presenter.dart';
 import '../../presenters/task_filter_presenter.dart';
 import 'task_edit_view.dart';
 import 'task_ext_actions.dart';
-import 'task_team/tmr_edit_view.dart';
 
 part 'task_view_controller.g.dart';
 
@@ -244,22 +243,6 @@ abstract class _TaskViewControllerBase with Store {
         _updateTaskParents(deletedTask);
       }
     }
-  }
-
-  Future addMember() async {
-    await editTMRDialog(task: task);
-
-    // if (result != null) {
-    //   final newMember = newMemberResult.member;
-    //   task.members.add(newMember);
-    //   if (newMemberResult.proceed == true) {
-    //     if (task.isProject || task.isWorkspace) {
-    //       await mainController.showTask(newMember.id);
-    //     } else {
-    //       await addMember();
-    //     }
-    //   }
-    // }
   }
 
   Future taskAction(TaskActionType? actionType) async {

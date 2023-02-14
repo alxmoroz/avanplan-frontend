@@ -109,6 +109,8 @@
 
   "network_error_description": "Please check your internet connection and try again",
   "network_error_title": "Network error\nNo connection to server",
+  "new_title": "New",
+
   "no": "No",
 
   "notification_list_empty_title": "No notifications",

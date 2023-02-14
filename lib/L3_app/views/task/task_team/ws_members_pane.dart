@@ -8,11 +8,11 @@ import '../../../components/constants.dart';
 import '../../../components/mt_dropdown.dart';
 import '../../../components/mt_text_field.dart';
 import '../../../extra/services.dart';
-import 'tmr_edit_controller.dart';
+import 'tmr_controller.dart';
 
 class WSMembersPane extends StatelessWidget {
   const WSMembersPane(this.controller);
-  final TMREditController controller;
+  final TMRController controller;
 
   @override
   Widget build(BuildContext context) => Observer(

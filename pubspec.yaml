@@ -4,7 +4,7 @@ description: Avanplan
 version: 1.0.983+983
 
 environment:
-  sdk: ">=2.17.0 <4.0.0"
+  sdk: ">=2.19.0 <3.0.0"
 
 publish_to: none
 
@@ -68,5 +68,5 @@ flutter:
 flutter_intl:
   main_locale: en
   enabled: true
-  arb_dir: lib/L3_app/l10n # Optional. Sets the directory of your ARB resource files. Provided value should be a valid path on your system. Default: lib/l10n
-  output_dir: lib/L3_app/l10n/generated # Optional. Sets the directory of generated localization files. Provided value should be a valid path on your system. Default: lib/generated
+  arb_dir: lib/L3_app/l10n # Optional. Default: lib/l10n
+  output_dir: lib/L3_app/l10n/generated # Optional. Default: lib/generated

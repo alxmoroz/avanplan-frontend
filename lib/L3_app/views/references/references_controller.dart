@@ -34,7 +34,7 @@ abstract class _ReferencesControllerBase with Store {
 
   /// тип задачи
   // @observable
-  // ObservableList<TaskType> taskTypes = ObservableList();
+  // List<TaskType> taskTypes = [];
 
   @action
   Future fetchData() async {
@@ -45,7 +45,7 @@ abstract class _ReferencesControllerBase with Store {
 
   @action
   void clearData() {
-    sourceTypes.clear();
-    // taskTypes.clear();
+    sourceTypes = [];
+    // taskTypes = [];
   }
 }

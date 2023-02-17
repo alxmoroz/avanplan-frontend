@@ -50,7 +50,7 @@ abstract class _MainControllerBase with Store {
   Future fetchWorkspaces() async {
     workspaces = ObservableList.of(await myUC.getWorkspaces());
     workspaces.sort((w1, w2) => compareNatural(w1.title, w2.title));
-    final tasks = <Task>[];
+    rootTask.tasks = [];
     for (Workspace ws in workspaces) {
       final wsId = ws.id!;
       ws.sources = await sourceUC.getAll(wsId);
@@ -67,10 +67,9 @@ abstract class _MainControllerBase with Store {
         p.ws = ws;
       });
 
-      tasks.addAll(projects);
+      rootTask.tasks.addAll(projects);
     }
 
-    rootTask.tasks = tasks;
     updateRootTask();
   }
 

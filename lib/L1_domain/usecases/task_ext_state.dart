@@ -135,14 +135,37 @@ extension TaskStats on Task {
   }
 
   Task updateRoot() {
-    _updateLevels();
-    _updateStartDate();
-    _updateSubtasksAndTimings();
-    _updateVelocity();
-    _updateRisks();
-    _updateStatedSubtasks();
-    _updateState();
-    return this;
+    final t = Task(
+      id: id,
+      description: description,
+      title: title,
+      closed: closed,
+      parent: parent,
+      tasks: tasks,
+      wsId: wsId,
+      members: members,
+      createdOn: createdOn,
+      updatedOn: updatedOn,
+      dueDate: dueDate,
+      startDate: startDate,
+      closedDate: closedDate,
+      status: status,
+      priority: priority,
+      authorId: authorId,
+      assigneeId: assigneeId,
+      taskSource: taskSource,
+      type: type,
+      estimate: estimate,
+    );
+
+    t._updateLevels();
+    t._updateStartDate();
+    t._updateSubtasksAndTimings();
+    t._updateVelocity();
+    t._updateRisks();
+    t._updateStatedSubtasks();
+    t._updateState();
+    return t;
   }
 
   Iterable<Task> get _setAllTasks {

@@ -10,7 +10,7 @@ publish_to: none
 
 dependencies:
   cupertino_icons: any
-  device_info_plus: any
+  device_info_plus: ^8.1.0
   flutter:
     sdk: flutter
   flutter_apns_only: any
@@ -19,14 +19,14 @@ dependencies:
   flutter_mobx: any
   font_awesome_flutter: any
   get_it: any
-  google_sign_in: any
+  google_sign_in: ^5.4.4
   hive: any
   mobx: any
   openapi:
     path: ./openapi
   package_info_plus: any
   path_provider: any
-  share_plus: any
+  share_plus: ^6.3.1
   sign_in_with_apple: any
   url_launcher: any
 

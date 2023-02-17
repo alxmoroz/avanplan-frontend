@@ -48,7 +48,7 @@ abstract class _ImportControllerBase extends EditController with Store {
   @action
   void selectProject(TaskRemote task, bool? selected) {
     task.selected = selected == true;
-    projects = projects;
+    projects = [...projects];
   }
 
   /// выбранный источник импорта, трекер

@@ -15,7 +15,7 @@ import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/person_icon.dart';
+import '../../presenters/person_presenter.dart';
 import '../notification/notification_list_view.dart';
 import '../settings/settings_view.dart';
 import '../task/task_related_widgets/task_add_button.dart';
@@ -102,7 +102,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
           context,
           leading: accountController.user != null
               ? MTButton.icon(
-                  PersonIcon(accountController.user!, radius: 20, borderSide: const BorderSide(color: mainColor)),
+                  accountController.user!.icon(20, borderSide: const BorderSide(color: mainColor)),
                   () => _gotoSettings(context),
                   margin: const EdgeInsets.only(left: P),
                 )

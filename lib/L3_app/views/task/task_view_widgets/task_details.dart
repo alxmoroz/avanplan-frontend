@@ -6,6 +6,7 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/usecases/task_ext_members.dart';
 import '../../../components/constants.dart';
 import '../../../components/text_widgets.dart';
+import '../../../presenters/person_presenter.dart';
 import '../task_view_controller.dart';
 
 class TaskDetails extends StatelessWidget {
@@ -14,7 +15,7 @@ class TaskDetails extends StatelessWidget {
   Task get task => controller.task;
 
   bool get hasDescription => task.description.isNotEmpty;
-  bool get hasAuthor => task.authorId != null;
+  bool get hasAuthor => task.author != null;
 
   Widget description() => LightText(task.description, maxLines: 1000);
 
@@ -27,7 +28,7 @@ class TaskDetails extends StatelessWidget {
         if (hasDescription) description(),
         if (hasAuthor) ...[
           const SizedBox(height: P_2),
-          SmallText('/// ${task.author}', align: TextAlign.end),
+          Row(children: [const Spacer(), task.author!.iconName()]),
         ],
       ],
     );

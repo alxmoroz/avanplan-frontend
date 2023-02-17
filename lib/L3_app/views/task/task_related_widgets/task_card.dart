@@ -12,6 +12,7 @@ import '../../../components/icons.dart';
 import '../../../components/mt_card.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
+import '../../../presenters/person_presenter.dart';
 import '../../../presenters/state_presenter.dart';
 import '../task_ext_actions.dart';
 import 'state_title.dart';
@@ -71,13 +72,13 @@ class TaskCard extends StatelessWidget {
             Row(
               children: [
                 if (!task.closed && _hasStatus) SmallText(task.status!.code, color: greyColor),
-                if (_hasAssignee) SmallText(' @ ${task.assignee}', color: greyColor),
                 if (task.hasEstimate && !task.showState) ...[
                   const Spacer(),
                   _estimate,
                 ]
               ],
             ),
+            if (_hasAssignee) task.assignee!.iconName(),
           ],
         ),
       );

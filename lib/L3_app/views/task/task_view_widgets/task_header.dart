@@ -13,6 +13,7 @@ import '../../../components/mt_button.dart';
 import '../../../components/mt_divider.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
+import '../../../presenters/person_presenter.dart';
 import '../../../presenters/source_presenter.dart';
 import '../task_ext_actions.dart';
 import '../task_view_controller.dart';
@@ -58,7 +59,7 @@ class TaskHeader extends StatelessWidget {
               if (_hasStatus) SmallText(_task.status!.code),
               if (_hasAssignee) ...[
                 if (_hasStatus) const SizedBox(width: P_2),
-                SmallText('@ ${_task.assignee}'),
+                _task.assignee!.iconName(),
               ],
             ],
           ),

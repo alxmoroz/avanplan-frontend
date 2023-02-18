@@ -3,29 +3,29 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../L1_domain/entities/member.dart';
+import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/usecases/task_ext_members.dart';
 import '../../components/constants.dart';
 import '../../extra/services.dart';
 import '../../usecases/task_ext_actions.dart';
 import 'member_add_menu.dart';
 import 'member_list_tile.dart';
-import 'tmr_controller.dart';
 
 class MemberListView extends StatelessWidget {
-  const MemberListView(this.controller);
-  final TMRController controller;
+  const MemberListView(this.task);
+  final Task task;
 
-  List<Member> get _sortedMembers => controller.task.sortedMembers;
+  List<Member> get _sortedMembers => task.sortedMembers;
 
-  Widget? get bottomBar => controller.task.canEditMembers && controller.allowedRoles.isNotEmpty
+  Widget? get bottomBar => task.canEditMembers && task.allowedRoles.isNotEmpty
       ? MemberAddMenu(
-          controller,
+          task,
           title: loc.member_new_title,
           margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
         )
       : null;
 
-  Widget _itemBuilder(BuildContext context, int index) => MemberListTile(_sortedMembers[index], controller.task);
+  Widget _itemBuilder(BuildContext context, int index) => MemberListTile(_sortedMembers[index], task);
 
   @override
   Widget build(BuildContext context) {

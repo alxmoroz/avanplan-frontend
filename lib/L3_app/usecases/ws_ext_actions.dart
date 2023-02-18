@@ -12,7 +12,7 @@ extension WActionsExt on Workspace {
 
   Iterable<String> get _wP => users.firstWhereOrNull((u) => u.id == _user?.id)?.permissions ?? [];
 
-  // bool get _hpMembersView => _wP.contains('MEMBERS_VIEW');
+  bool get _hpMembersView => _wP.contains('MEMBERS_VIEW');
   // bool get _hpMembersEdit => _wP.contains('MEMBERS_EDIT');
   // bool get _hpProjectsView => _wP.contains('PROJECTS_VIEW');
   bool get _hpProjectsEdit => _wP.contains('PROJECTS_EDIT');
@@ -22,4 +22,7 @@ extension WActionsExt on Workspace {
   // bool get _hpTariffChange => _wP.contains('TARIFF_CHANGE');
 
   bool get canProjectsEdit => _hpProjectsEdit;
+
+  /// доступные пользователи для добавления в проект
+  Iterable<User> get allowedUsers => _hpMembersView ? users : [];
 }

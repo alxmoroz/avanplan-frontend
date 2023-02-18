@@ -4,8 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../L1_domain/entities/member.dart';
+import '../../../L1_domain/entities/role.dart';
 import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/entities/task_member_role.dart';
 import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
@@ -16,54 +17,59 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/role_presenter.dart';
+import 'invitation_controller.dart';
 import 'invitation_pane.dart';
-import 'tmr_controller.dart';
-import 'ws_members_pane.dart';
+import 'member_add_controller.dart';
 
-class EditTMRResult {
-  const EditTMRResult(this.tmr, [this.proceed]);
-  final TaskMemberRole tmr;
+class MemberAddResult {
+  const MemberAddResult(this.member, [this.proceed]);
+  final Member member;
   final bool? proceed;
 }
 
-Future<EditTMRResult?> editTMRDialog(TMRController controller) async {
-  return await showModalBottomSheet<EditTMRResult?>(
+Future<MemberAddResult?> memberAddDialog(Task task, Role role) async {
+  return await showModalBottomSheet<MemberAddResult?>(
     context: rootKey.currentContext!,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    builder: (_) => MTBottomSheet(MemberEditView(controller)),
+    builder: (_) => MTBottomSheet(MemberAddView(task, role)),
   );
 }
 
-class MemberEditView extends StatefulWidget {
-  const MemberEditView(this.controller, {this.tmr});
-  final TMRController controller;
-  final TaskMemberRole? tmr;
+class MemberAddView extends StatefulWidget {
+  const MemberAddView(this.task, this.role);
+  final Task task;
+  final Role role;
 
   @override
-  _MemberEditViewState createState() => _MemberEditViewState();
+  _MemberAddViewState createState() => _MemberAddViewState();
 }
 
-class _MemberEditViewState extends State<MemberEditView> {
-  TMRController get controller => widget.controller;
-  Task get task => controller.task;
-  TaskMemberRole? get tmr => widget.tmr;
-  bool get isNew => tmr == null;
+class _MemberAddViewState extends State<MemberAddView> {
+  Task get task => widget.task;
+  Role get role => widget.role;
 
   late final InvitationPane invitationPane;
-  late final WSMembersPane wsMembersPane;
+  // late final WSMembersPane wsMembersPane;
+
+  late final MemberAddController controller;
+  late final InvitationController invitationController;
 
   @override
   void initState() {
-    if (tmr != null) {
-      controller.selectRoleById(tmr?.roleId);
-      controller.selectMemberById(tmr?.memberId);
-    }
+    controller = MemberAddController();
+    invitationController = InvitationController(task, role);
 
-    invitationPane = InvitationPane(controller);
-    wsMembersPane = WSMembersPane(controller);
+    invitationPane = InvitationPane(invitationController);
+    // wsMembersPane = WSMembersPane();
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    invitationController.dispose();
+    super.dispose();
   }
 
   Widget get tabPaneSelector => Padding(
@@ -80,7 +86,7 @@ class _MemberEditViewState extends State<MemberEditView> {
 
   Widget get selectedPane =>
       {
-        MemberSourceKey.workspace: wsMembersPane,
+        // MemberSourceKey.workspace: wsMembersPane,
         MemberSourceKey.invitation: invitationPane,
       }[controller.tabKey] ??
       invitationPane;
@@ -93,7 +99,7 @@ class _MemberEditViewState extends State<MemberEditView> {
       child: ListView(children: [
         // TODO: https://redmine.moroz.team/issues/2520
         // tabPaneSelector,
-        H4(controller.role!.localize, align: TextAlign.center),
+        H4(role.localize, align: TextAlign.center),
         selectedPane,
       ]),
     );
@@ -106,7 +112,7 @@ class _MemberEditViewState extends State<MemberEditView> {
         navBar: navBar(
           context,
           leading: MTCloseButton(),
-          title: controller.tabKey == MemberSourceKey.invitation ? controller.invitationSubject : '',
+          title: controller.tabKey == MemberSourceKey.invitation ? invitationController.invitationSubject : '',
           bgColor: backgroundColor,
         ),
         body: SafeArea(top: false, bottom: false, child: form(context)),

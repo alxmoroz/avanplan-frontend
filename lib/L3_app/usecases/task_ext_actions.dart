@@ -2,6 +2,7 @@
 
 import 'package:collection/collection.dart';
 
+import '../../L1_domain/entities/role.dart';
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities/task_source.dart';
 import '../../L1_domain/entities/user.dart';
@@ -51,6 +52,10 @@ extension TaskActionsExt on Task {
   bool get canClose => canEdit && !closed;
   bool get canViewMembers => members.isNotEmpty && _hpMembersView;
   bool get canEditMembers => canEdit && _hpMembersEdit;
+
+  /// доступные роли для управления
+  // TODO: https://redmine.moroz.team/issues/2518
+  Iterable<Role> get allowedRoles => projectWs?.roles ?? [];
 
   /// рекомендации, быстрые кнопки
   bool get shouldClose => canEdit && state == TaskState.closable;

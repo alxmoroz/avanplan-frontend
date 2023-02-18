@@ -10,11 +10,11 @@ import '../../components/icons.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_text_field.dart';
 import '../../extra/services.dart';
-import 'tmr_controller.dart';
+import 'invitation_controller.dart';
 
 class InvitationPane extends StatelessWidget {
   const InvitationPane(this.controller);
-  final TMRController controller;
+  final InvitationController controller;
 
   Widget _tfForCode(BuildContext context, String code) {
     final ta = controller.tfAnnoForCode(code);

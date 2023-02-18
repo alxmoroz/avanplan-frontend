@@ -11,7 +11,6 @@ import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_level_presenter.dart';
 import '../members/member_list_view.dart';
-import '../members/tmr_controller.dart';
 import 'panes/task_details.dart';
 import 'panes/task_listview.dart';
 import 'panes/task_overview.dart';
@@ -33,7 +32,6 @@ class _TaskViewState extends State<TaskView> {
   Task get _task => _controller.task;
 
   late TaskViewController _controller;
-  late TMRController _tmrController;
 
   late final TaskOverview _overviewPane;
   late final TaskListView _tasksPane;
@@ -43,20 +41,13 @@ class _TaskViewState extends State<TaskView> {
   @override
   void initState() {
     _controller = TaskViewController(widget.taskId);
-    _tmrController = TMRController(_controller.task);
 
     _overviewPane = TaskOverview(_controller);
     _tasksPane = TaskListView(_controller);
-    _detailsPane = TaskDetails(_controller);
-    _teamPane = MemberListView(_tmrController);
+    _detailsPane = TaskDetails(_task);
+    _teamPane = MemberListView(_task);
 
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    _tmrController.dispose();
-    super.dispose();
   }
 
   Map<TaskTabKey, Widget> _tabs() {

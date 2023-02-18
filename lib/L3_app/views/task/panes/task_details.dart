@@ -7,12 +7,10 @@ import '../../../../L1_domain/usecases/task_ext_members.dart';
 import '../../../components/constants.dart';
 import '../../../components/text_widgets.dart';
 import '../../../presenters/person_presenter.dart';
-import '../task_view_controller.dart';
 
 class TaskDetails extends StatelessWidget {
-  const TaskDetails(this.controller);
-  final TaskViewController controller;
-  Task get task => controller.task;
+  const TaskDetails(this.task);
+  final Task task;
 
   bool get hasDescription => task.description.isNotEmpty;
   bool get hasAuthor => task.author != null;

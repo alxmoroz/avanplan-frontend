@@ -9,7 +9,7 @@ import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/usecases/task_ext_state.dart';
 import '../../../main.dart';
 import '../../extra/services.dart';
-import '../../usecases/ws_ext_permissions.dart';
+import '../../usecases/ws_ext_actions.dart';
 import '../task/task_view.dart';
 
 part 'main_controller.g.dart';
@@ -23,7 +23,7 @@ abstract class _MainControllerBase with Store {
 
   // TODO: уточнить логику, где нужен этот список и для чего. Можно ли заменить на проверку прав
   @computed
-  List<Workspace> get editableWSs => workspaces.where((ws) => ws.hpProjectsEdit).toList();
+  List<Workspace> get editableWSs => workspaces.where((ws) => ws.canProjectsEdit).toList();
 
   /// роли и права доступа к РП
   // TODO: заменить на конкретные проверки в местах вызова

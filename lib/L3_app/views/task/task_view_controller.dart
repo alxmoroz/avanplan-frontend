@@ -17,7 +17,6 @@ import '../../presenters/source_presenter.dart';
 import '../../presenters/state_presenter.dart';
 import '../../presenters/task_filter_presenter.dart';
 import '../../usecases/task_ext_actions.dart';
-import '../../usecases/task_ext_permissions.dart';
 import 'task_edit_view.dart';
 
 part 'task_view_controller.g.dart';
@@ -40,7 +39,6 @@ abstract class _TaskViewControllerBase with Store {
   bool get _hasAuthor => task.authorId != null;
   bool get _hasOverview => task.showState || task.showTimeChart || task.showVelocityVolumeCharts;
   bool get _hasDetails => _hasDescription || _hasAuthor;
-  bool get _canViewMembers => task.hpViewMembers && task.members.isNotEmpty;
 
   @computed
   Iterable<TaskTabKey> get tabKeys {
@@ -50,7 +48,7 @@ abstract class _TaskViewControllerBase with Store {
             if (_hasOverview) TaskTabKey.overview,
             if (task.hasSubtasks) TaskTabKey.subtasks,
             if (_hasDetails) TaskTabKey.details,
-            if (_canViewMembers) TaskTabKey.team,
+            if (task.canViewMembers) TaskTabKey.team,
           ];
   }
 

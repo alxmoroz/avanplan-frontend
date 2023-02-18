@@ -54,7 +54,7 @@ class MemberView extends StatelessWidget {
                   for (final r in member.roles)
                     MTListTile(
                       middle: NormalText(localizedRoleCode(r)),
-                      // trailing: task.hpEditMembers ? MTButton.icon(const EditIcon(), () => print(r)) : null,
+                      // trailing: task.canEditMembers ? MTButton.icon(const EditIcon(), () => print(r)) : null,
                     )
                 ]
               ],

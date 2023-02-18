@@ -10,7 +10,7 @@ import '../../components/mt_page.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_level_presenter.dart';
-import '../members/members_view.dart';
+import '../members/member_list_view.dart';
 import '../members/tmr_controller.dart';
 import 'panes/task_details.dart';
 import 'panes/task_listview.dart';
@@ -38,7 +38,7 @@ class _TaskViewState extends State<TaskView> {
   late final TaskOverview _overviewPane;
   late final TaskListView _tasksPane;
   late final TaskDetails _detailsPane;
-  late final MembersView _teamPane;
+  late final MemberListView _teamPane;
 
   @override
   void initState() {
@@ -48,7 +48,7 @@ class _TaskViewState extends State<TaskView> {
     _overviewPane = TaskOverview(_controller);
     _tasksPane = TaskListView(_controller);
     _detailsPane = TaskDetails(_controller);
-    _teamPane = MembersView(_tmrController);
+    _teamPane = MemberListView(_tmrController);
 
     super.initState();
   }

@@ -6,13 +6,15 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../L1_domain/entities/member.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../components/constants.dart';
+import '../../components/icons.dart';
+import '../../components/mt_button.dart';
 import '../../components/mt_list_tile.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/person_presenter.dart';
-import '../../presenters/role_presenter.dart';
+import '../../usecases/task_ext_actions.dart';
 
 class MemberViewArgs {
   MemberViewArgs(this.member, this.task);
@@ -28,6 +30,11 @@ class MemberView extends StatelessWidget {
   Task get task => args.task;
 
   static String get routeName => '/member';
+
+  Future _editMember() async {
+    // await editTMRDialog(controller);
+    print(member.id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,11 +58,10 @@ class MemberView extends StatelessWidget {
                 if (member.roles.isNotEmpty) ...[
                   const SizedBox(height: P2),
                   H4(loc.roles_title, align: TextAlign.center),
-                  for (final r in member.roles)
-                    MTListTile(
-                      middle: NormalText(localizedRoleCode(r)),
-                      // trailing: task.canEditMembers ? MTButton.icon(const EditIcon(), () => print(r)) : null,
-                    )
+                  MTListTile(
+                    middle: NormalText(member.rolesStr),
+                    trailing: task.canEditMembers ? MTButton.icon(const EditIcon(), () => _editMember()) : null,
+                  )
                 ]
               ],
             )),

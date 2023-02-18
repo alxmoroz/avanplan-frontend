@@ -9,8 +9,8 @@ import '../../components/material_wrapper.dart';
 import '../../components/mt_menu_plus_shape.dart';
 import '../../components/text_widgets.dart';
 import '../../presenters/role_presenter.dart';
+import 'member_edit_view.dart';
 import 'tmr_controller.dart';
-import 'tmr_edit_view.dart';
 
 class MemberAddMenu extends StatelessWidget {
   const MemberAddMenu(this.controller, {this.title, this.margin});

@@ -9,9 +9,7 @@ import '../../../L1_domain/entities/task_member_role.dart';
 import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/icons.dart';
 import '../../components/mt_bottom_sheet.dart';
-import '../../components/mt_button.dart';
 import '../../components/mt_close_button.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
@@ -33,20 +31,20 @@ Future<EditTMRResult?> editTMRDialog(TMRController controller) async {
     context: rootKey.currentContext!,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    builder: (_) => MTBottomSheet(TMREditView(controller)),
+    builder: (_) => MTBottomSheet(MemberEditView(controller)),
   );
 }
 
-class TMREditView extends StatefulWidget {
-  const TMREditView(this.controller, {this.tmr});
+class MemberEditView extends StatefulWidget {
+  const MemberEditView(this.controller, {this.tmr});
   final TMRController controller;
   final TaskMemberRole? tmr;
 
   @override
-  _TMREditViewState createState() => _TMREditViewState();
+  _MemberEditViewState createState() => _MemberEditViewState();
 }
 
-class _TMREditViewState extends State<TMREditView> {
+class _MemberEditViewState extends State<MemberEditView> {
   TMRController get controller => widget.controller;
   Task get task => controller.task;
   TaskMemberRole? get tmr => widget.tmr;
@@ -109,14 +107,6 @@ class _TMREditViewState extends State<TMREditView> {
           context,
           leading: MTCloseButton(),
           title: controller.tabKey == MemberSourceKey.invitation ? controller.invitationSubject : '',
-          trailing: !isNew && controller.tabKey == MemberSourceKey.workspace
-              ? const MTButton.icon(
-                  DeleteIcon(),
-                  null,
-                  // () => controller.delete(context, tmr),
-                  margin: EdgeInsets.only(right: P),
-                )
-              : null,
           bgColor: backgroundColor,
         ),
         body: SafeArea(top: false, bottom: false, child: form(context)),

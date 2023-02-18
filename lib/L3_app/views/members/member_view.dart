@@ -15,6 +15,7 @@ import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/person_presenter.dart';
 import '../../usecases/task_ext_actions.dart';
+import 'member_edit_view.dart';
 
 class MemberViewArgs {
   MemberViewArgs(this.member, this.task);
@@ -32,8 +33,7 @@ class MemberView extends StatelessWidget {
   static String get routeName => '/member';
 
   Future _editMember() async {
-    // await editTMRDialog(controller);
-    print(member.id);
+    await memberEditDialog(task, member);
   }
 
   @override

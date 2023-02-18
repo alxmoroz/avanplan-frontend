@@ -141,7 +141,8 @@
   "role_code_full": "Полный доступ",
   "role_code_guest": "Гость",
   "role_code_member": "Участник",
-  "roles_title": "Роли",
+  "roles_in_task_prefix": "Роли в ",
+
 
   "save_action_title": "Сохранить",
   "save_and_go_action_title": "Сохранить и перейти",

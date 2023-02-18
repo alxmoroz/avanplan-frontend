@@ -27,10 +27,10 @@ class MemberView extends StatelessWidget {
   const MemberView(this.args);
   final MemberViewArgs args;
 
+  static String get routeName => '/member';
+
   Member get member => args.member;
   Task get task => args.task;
-
-  static String get routeName => '/member';
 
   Future _editMember() async {
     await memberEditDialog(task, member);
@@ -40,11 +40,7 @@ class MemberView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        navBar: navBar(
-          context,
-          title: '${loc.member_title} $task',
-          // trailing: MTButton.icon(const DeleteIcon(), () => accountController.delete(context), margin: const EdgeInsets.only(right: P)),
-        ),
+        navBar: navBar(context, title: loc.member_title),
         body: SafeArea(
             top: false,
             child: ListView(
@@ -57,7 +53,7 @@ class MemberView extends StatelessWidget {
                 NormalText(member.email, align: TextAlign.center),
                 if (member.roles.isNotEmpty) ...[
                   const SizedBox(height: P2),
-                  H4(loc.roles_title, align: TextAlign.center),
+                  H4('${loc.roles_in_task_prefix}$task', align: TextAlign.center),
                   MTListTile(
                     middle: NormalText(member.rolesStr),
                     trailing: task.canEditMembers ? MTButton.icon(const EditIcon(), () => _editMember()) : null,

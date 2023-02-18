@@ -10,4 +10,6 @@ class Role extends Codable {
   });
 
   final int wsId;
+
+  bool selected = false;
 }

@@ -7,11 +7,18 @@ import '../../../L1_domain/entities/member.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../main.dart';
 import '../../components/colors.dart';
+import '../../components/constants.dart';
 import '../../components/mt_bottom_sheet.dart';
+import '../../components/mt_button.dart';
+import '../../components/mt_checkbox.dart';
 import '../../components/mt_close_button.dart';
 import '../../components/mt_page.dart';
+import '../../components/mt_text_field.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
+import '../../extra/services.dart';
+import '../../presenters/role_presenter.dart';
+import 'member_edit_controller.dart';
 
 Future<Member?> memberEditDialog(Task task, Member member) async {
   return await showModalBottomSheet<Member?>(
@@ -35,28 +42,38 @@ class _MemberEditViewState extends State<MemberEditView> {
   Task get task => widget.task;
   Member get member => widget.member;
 
-  // late final MemberEditController controller;
+  late final MemberEditController controller;
 
   @override
   void initState() {
-    // controller = MemberEditController();
+    controller = MemberEditController(task, member);
     super.initState();
   }
 
-  @override
-  void dispose() {
-    // controller.dispose();
-    super.dispose();
-  }
-
-  Widget form(BuildContext context) {
-    return Scrollbar(
-      thumbVisibility: true,
-      child: ListView(children: [
-        for (final r in member.roles) NormalText(r),
-      ]),
+  Widget roleItem(BuildContext context, int index) {
+    final role = controller.roles[index];
+    final value = role.selected;
+    return MTCheckBoxTile(
+      title: role.localize,
+      value: value,
+      onChanged: (bool? value) => controller.selectRole(role, value),
     );
   }
+
+  Widget get form => Scrollbar(
+        child: Column(
+          children: [
+            H4('${loc.roles_in_task_prefix}$task'),
+            Expanded(
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemBuilder: roleItem,
+                itemCount: controller.roles.length,
+              ),
+            ),
+          ],
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -65,10 +82,15 @@ class _MemberEditViewState extends State<MemberEditView> {
         navBar: navBar(
           context,
           leading: MTCloseButton(),
-          title: 'РОЛИ $member',
+          title: '$member',
           bgColor: backgroundColor,
         ),
-        body: SafeArea(top: false, bottom: false, child: form(context)),
+        body: SafeArea(bottom: false, child: form),
+        bottomBar: MTButton.outlined(
+          titleText: loc.save_action_title,
+          margin: tfPadding.copyWith(top: P2),
+          onTap: () => controller.save(context),
+        ),
       ),
     );
   }

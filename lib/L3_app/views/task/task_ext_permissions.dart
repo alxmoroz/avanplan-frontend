@@ -13,7 +13,12 @@ extension TaskPermissionsExt on Task {
   /// разрешения для текущего пользователя для выбранной задачи или проекта
   User? get _user => accountController.user;
 
+  bool get hpEditProjects => projectWs?.hpProjectsEdit == true;
+
   Iterable<String> get _tP => projectMembers.firstWhereOrNull((m) => m.userId == _user?.id)?.permissions ?? [];
-  bool get hpEdit => _tP.contains('TASKS_EDIT') || projectWs?.hpEditProjects == true;
-  bool get hpEditMembers => _tP.contains('MEMBERS_EDIT') || projectWs?.hpEditProjects == true;
+  bool get hpViewMembers => _tP.contains('MEMBERS_VIEW') || hpEditProjects;
+  bool get hpEditMembers => _tP.contains('MEMBERS_EDIT') || hpEditProjects;
+  bool get hpView => _tP.contains('TASKS_VIEW') || hpEditProjects;
+  bool get hpEdit => _tP.contains('TASKS_EDIT') || hpEditProjects;
+  bool get hpRolesEdit => _tP.contains('ROLES_EDIT') || hpEditProjects;
 }

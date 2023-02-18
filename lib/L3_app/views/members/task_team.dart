@@ -2,14 +2,14 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../../L1_domain/entities/member.dart';
-import '../../../../L1_domain/usecases/task_ext_members.dart';
-import '../../../components/constants.dart';
-import '../../../extra/services.dart';
-import '../../../usecases/task_ext_actions.dart';
-import '../../members/member_add_menu.dart';
-import '../../members/member_list_tile.dart';
-import '../../members/tmr_controller.dart';
+import '../../../L1_domain/entities/member.dart';
+import '../../../L1_domain/usecases/task_ext_members.dart';
+import '../../components/constants.dart';
+import '../../extra/services.dart';
+import '../../usecases/task_ext_actions.dart';
+import 'member_add_menu.dart';
+import 'member_list_tile.dart';
+import 'tmr_controller.dart';
 
 class TaskTeam extends StatelessWidget {
   const TaskTeam(this.controller);

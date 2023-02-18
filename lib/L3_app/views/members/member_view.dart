@@ -3,16 +3,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../L1_domain/entities/member.dart';
-import '../../../../L1_domain/entities/task.dart';
-import '../../../components/constants.dart';
-import '../../../components/mt_list_tile.dart';
-import '../../../components/mt_page.dart';
-import '../../../components/navbar.dart';
-import '../../../components/text_widgets.dart';
-import '../../../extra/services.dart';
-import '../../../presenters/person_presenter.dart';
-import '../../../presenters/role_presenter.dart';
+import '../../../L1_domain/entities/member.dart';
+import '../../../L1_domain/entities/task.dart';
+import '../../components/constants.dart';
+import '../../components/mt_list_tile.dart';
+import '../../components/mt_page.dart';
+import '../../components/navbar.dart';
+import '../../components/text_widgets.dart';
+import '../../extra/services.dart';
+import '../../presenters/person_presenter.dart';
+import '../../presenters/role_presenter.dart';
 
 class MemberViewArgs {
   MemberViewArgs(this.member, this.task);

@@ -16,11 +16,11 @@ import 'L3_app/l10n/generated/l10n.dart';
 import 'L3_app/views/account/account_view.dart';
 import 'L3_app/views/loader/loader_screen.dart';
 import 'L3_app/views/main/main_view.dart';
+import 'L3_app/views/members/member_view.dart';
 import 'L3_app/views/notification/notification_list_view.dart';
 import 'L3_app/views/settings/settings_view.dart';
 import 'L3_app/views/sign_in/sign_in_view.dart';
 import 'L3_app/views/source/source_list_view.dart';
-import 'L3_app/views/task/members/member_view.dart';
 import 'L3_app/views/task/task_view.dart';
 import 'L3_app/views/workspace/workspace_list_view.dart';
 

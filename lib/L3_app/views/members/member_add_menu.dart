@@ -2,13 +2,13 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../../L1_domain/entities/role.dart';
-import '../../../components/constants.dart';
-import '../../../components/icons.dart';
-import '../../../components/material_wrapper.dart';
-import '../../../components/mt_menu_plus_shape.dart';
-import '../../../components/text_widgets.dart';
-import '../../../presenters/role_presenter.dart';
+import '../../../L1_domain/entities/role.dart';
+import '../../components/constants.dart';
+import '../../components/icons.dart';
+import '../../components/material_wrapper.dart';
+import '../../components/mt_menu_plus_shape.dart';
+import '../../components/text_widgets.dart';
+import '../../presenters/role_presenter.dart';
 import 'tmr_controller.dart';
 import 'tmr_edit_view.dart';
 

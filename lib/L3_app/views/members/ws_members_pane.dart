@@ -3,11 +3,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../L1_domain/entities/member.dart';
-import '../../../components/constants.dart';
-import '../../../components/mt_dropdown.dart';
-import '../../../components/mt_text_field.dart';
-import '../../../extra/services.dart';
+import '../../../L1_domain/entities/member.dart';
+import '../../components/constants.dart';
+import '../../components/mt_dropdown.dart';
+import '../../components/mt_text_field.dart';
+import '../../extra/services.dart';
 import 'tmr_controller.dart';
 
 class WSMembersPane extends StatelessWidget {

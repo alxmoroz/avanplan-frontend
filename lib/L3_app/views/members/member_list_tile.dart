@@ -2,14 +2,14 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../../L1_domain/entities/member.dart';
-import '../../../../L1_domain/entities/task.dart';
-import '../../../components/colors.dart';
-import '../../../components/constants.dart';
-import '../../../components/icons.dart';
-import '../../../components/mt_list_tile.dart';
-import '../../../components/text_widgets.dart';
-import '../../../presenters/person_presenter.dart';
+import '../../../L1_domain/entities/member.dart';
+import '../../../L1_domain/entities/task.dart';
+import '../../components/colors.dart';
+import '../../components/constants.dart';
+import '../../components/icons.dart';
+import '../../components/mt_list_tile.dart';
+import '../../components/text_widgets.dart';
+import '../../presenters/person_presenter.dart';
 import 'member_view.dart';
 
 class MemberListTile extends StatelessWidget {

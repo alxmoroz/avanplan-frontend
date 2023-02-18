@@ -4,12 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../../components/colors.dart';
-import '../../../components/constants.dart';
-import '../../../components/icons.dart';
-import '../../../components/mt_button.dart';
-import '../../../components/mt_text_field.dart';
-import '../../../extra/services.dart';
+import '../../components/colors.dart';
+import '../../components/constants.dart';
+import '../../components/icons.dart';
+import '../../components/mt_button.dart';
+import '../../components/mt_text_field.dart';
+import '../../extra/services.dart';
 import 'tmr_controller.dart';
 
 class InvitationPane extends StatelessWidget {

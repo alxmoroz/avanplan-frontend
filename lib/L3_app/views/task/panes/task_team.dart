@@ -7,9 +7,9 @@ import '../../../../L1_domain/usecases/task_ext_members.dart';
 import '../../../components/constants.dart';
 import '../../../extra/services.dart';
 import '../../../usecases/task_ext_actions.dart';
-import '../members/member_add_menu.dart';
-import '../members/member_list_tile.dart';
-import '../members/tmr_controller.dart';
+import '../../members/member_add_menu.dart';
+import '../../members/member_list_tile.dart';
+import '../../members/tmr_controller.dart';
 
 class TaskTeam extends StatelessWidget {
   const TaskTeam(this.controller);

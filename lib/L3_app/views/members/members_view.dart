@@ -11,8 +11,8 @@ import 'member_add_menu.dart';
 import 'member_list_tile.dart';
 import 'tmr_controller.dart';
 
-class TaskTeam extends StatelessWidget {
-  const TaskTeam(this.controller);
+class MembersView extends StatelessWidget {
+  const MembersView(this.controller);
   final TMRController controller;
 
   List<Member> get _sortedMembers => controller.task.sortedMembers;

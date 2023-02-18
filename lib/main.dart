@@ -20,6 +20,7 @@ import 'L3_app/views/notification/notification_list_view.dart';
 import 'L3_app/views/settings/settings_view.dart';
 import 'L3_app/views/sign_in/sign_in_view.dart';
 import 'L3_app/views/source/source_list_view.dart';
+import 'L3_app/views/task/task_team/member_view.dart';
 import 'L3_app/views/task/task_view.dart';
 import 'L3_app/views/workspace/workspace_list_view.dart';
 
@@ -104,6 +105,8 @@ class App extends StatelessWidget {
             onGenerateRoute: (RouteSettings rs) {
               if (rs.name == TaskView.routeName) {
                 return CupertinoPageRoute<dynamic>(builder: (_) => TaskView(rs.arguments as int?));
+              } else if (rs.name == MemberView.routeName) {
+                return CupertinoPageRoute<dynamic>(builder: (_) => MemberView(rs.arguments as MemberViewArgs));
               }
               return null;
             },

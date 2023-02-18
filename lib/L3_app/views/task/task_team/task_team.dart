@@ -7,8 +7,8 @@ import '../../../../L1_domain/usecases/task_ext_members.dart';
 import '../../../components/constants.dart';
 import '../../../extra/services.dart';
 import '../task_ext_actions.dart';
-import '../task_related_widgets/member_list_tile.dart';
 import 'member_add_menu.dart';
+import 'member_list_tile.dart';
 import 'tmr_controller.dart';
 
 class TaskTeam extends StatelessWidget {
@@ -25,7 +25,7 @@ class TaskTeam extends StatelessWidget {
         )
       : null;
 
-  Widget _itemBuilder(BuildContext context, int index) => MemberListTile(_sortedMembers[index]);
+  Widget _itemBuilder(BuildContext context, int index) => MemberListTile(_sortedMembers[index], controller.task);
 
   @override
   Widget build(BuildContext context) {

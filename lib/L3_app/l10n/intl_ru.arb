@@ -103,6 +103,7 @@
   "member_new_title": "Новый участник",
   "member_source_invitation_title": "Пригласить",
   "member_source_workspace_title": "Выбрать",
+  "member_title": "Участник",
 
   "months_count": "{count, plural, one{{count} месяц} few{{count} месяца} other{{count} месяцев}}",
 
@@ -140,7 +141,7 @@
   "role_code_full": "Полный доступ",
   "role_code_guest": "Гость",
   "role_code_member": "Участник",
-  "role_title": "Роль",
+  "roles_title": "Роли",
 
   "save_action_title": "Сохранить",
   "save_and_go_action_title": "Сохранить и перейти",

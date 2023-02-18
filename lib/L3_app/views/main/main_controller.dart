@@ -23,7 +23,7 @@ abstract class _MainControllerBase with Store {
 
   // TODO: уточнить логику, где нужен этот список и для чего. Можно ли заменить на проверку прав
   @computed
-  List<Workspace> get editableWSs => workspaces.where((ws) => ws.hpEditProjects).toList();
+  List<Workspace> get editableWSs => workspaces.where((ws) => ws.hpProjectsEdit).toList();
 
   /// роли и права доступа к РП
   // TODO: заменить на конкретные проверки в местах вызова

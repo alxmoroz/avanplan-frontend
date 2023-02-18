@@ -10,14 +10,14 @@ import '../../components/mt_page.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_level_presenter.dart';
-import 'task_related_widgets/task_navbar.dart';
-import 'task_team/task_team.dart';
-import 'task_team/tmr_controller.dart';
+import 'members/tmr_controller.dart';
+import 'panes/task_details.dart';
+import 'panes/task_listview.dart';
+import 'panes/task_overview.dart';
+import 'panes/task_team.dart';
 import 'task_view_controller.dart';
-import 'task_view_widgets/task_details.dart';
-import 'task_view_widgets/task_header.dart';
-import 'task_view_widgets/task_listview.dart';
-import 'task_view_widgets/task_overview.dart';
+import 'widgets/task_header.dart';
+import 'widgets/task_navbar.dart';
 
 class TaskView extends StatefulWidget {
   const TaskView(this.taskId);

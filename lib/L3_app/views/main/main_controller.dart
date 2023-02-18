@@ -9,8 +9,8 @@ import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/usecases/task_ext_state.dart';
 import '../../../main.dart';
 import '../../extra/services.dart';
+import '../../usecases/ws_ext_permissions.dart';
 import '../task/task_view.dart';
-import '../workspace/ws_ext_permissions.dart';
 
 part 'main_controller.g.dart';
 

@@ -18,11 +18,11 @@ import '../../extra/services.dart';
 import '../../presenters/person_presenter.dart';
 import '../notification/notification_list_view.dart';
 import '../settings/settings_view.dart';
-import '../task/task_related_widgets/task_add_button.dart';
-import '../task/task_related_widgets/task_add_menu.dart';
+import '../task/panes/task_overview.dart';
 import '../task/task_view.dart';
 import '../task/task_view_controller.dart';
-import '../task/task_view_widgets/task_overview.dart';
+import '../task/widgets/task_add_button.dart';
+import '../task/widgets/task_add_menu.dart';
 import 'import_projects_actions.dart';
 
 class MainView extends StatefulWidget {

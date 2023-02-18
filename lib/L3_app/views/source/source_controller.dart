@@ -11,7 +11,7 @@ import '../../../L1_domain/system/errors.dart';
 import '../../components/mt_confirm_dialog.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
-import '../task/task_ext_actions.dart';
+import '../../usecases/task_ext_actions.dart';
 import '../workspace/workspace_bounded.dart';
 import 'source_edit_view.dart';
 

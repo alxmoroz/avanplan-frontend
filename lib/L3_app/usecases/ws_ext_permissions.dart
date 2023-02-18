@@ -2,9 +2,9 @@
 
 import 'package:collection/collection.dart';
 
-import '../../../L1_domain/entities/user.dart';
-import '../../../L1_domain/entities/workspace.dart';
-import '../../extra/services.dart';
+import '../../L1_domain/entities/user.dart';
+import '../../L1_domain/entities/workspace.dart';
+import '../extra/services.dart';
 
 extension WPermissionsExt on Workspace {
   /// разрешения для текущего пользователя для выбранного рабочего пространства

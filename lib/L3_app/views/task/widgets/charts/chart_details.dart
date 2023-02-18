@@ -2,21 +2,21 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../../L1_domain/entities/task.dart';
-import '../../../../L1_domain/usecases/task_ext_state.dart';
-import '../../../components/colors.dart';
-import '../../../components/constants.dart';
-import '../../../components/mt_bottom_sheet.dart';
-import '../../../components/mt_close_button.dart';
-import '../../../components/mt_page.dart';
-import '../../../components/navbar.dart';
-import '../../../components/text_widgets.dart';
-import '../../../extra/services.dart';
-import '../../../presenters/duration_presenter.dart';
-import '../../../presenters/state_presenter.dart';
-import '../task_charts/timing_chart.dart';
-import '../task_charts/velocity_chart.dart';
-import '../task_charts/volume_chart.dart';
+import '../../../../../L1_domain/entities/task.dart';
+import '../../../../../L1_domain/usecases/task_ext_state.dart';
+import '../../../../components/colors.dart';
+import '../../../../components/constants.dart';
+import '../../../../components/mt_bottom_sheet.dart';
+import '../../../../components/mt_close_button.dart';
+import '../../../../components/mt_page.dart';
+import '../../../../components/navbar.dart';
+import '../../../../components/text_widgets.dart';
+import '../../../../extra/services.dart';
+import '../../../../presenters/duration_presenter.dart';
+import '../../../../presenters/state_presenter.dart';
+import 'timing_chart.dart';
+import 'velocity_chart.dart';
+import 'volume_chart.dart';
 
 Future showChartsDetailsDialog(BuildContext context, Task task) async {
   return await showModalBottomSheet<void>(

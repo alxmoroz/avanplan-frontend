@@ -16,9 +16,9 @@ import '../../extra/services.dart';
 import '../../presenters/source_presenter.dart';
 import '../../presenters/state_presenter.dart';
 import '../../presenters/task_filter_presenter.dart';
+import '../../usecases/task_ext_actions.dart';
+import '../../usecases/task_ext_permissions.dart';
 import 'task_edit_view.dart';
-import 'task_ext_actions.dart';
-import 'task_ext_permissions.dart';
 
 part 'task_view_controller.g.dart';
 

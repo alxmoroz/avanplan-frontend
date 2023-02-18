@@ -20,7 +20,7 @@ import 'L3_app/views/notification/notification_list_view.dart';
 import 'L3_app/views/settings/settings_view.dart';
 import 'L3_app/views/sign_in/sign_in_view.dart';
 import 'L3_app/views/source/source_list_view.dart';
-import 'L3_app/views/task/task_team/member_view.dart';
+import 'L3_app/views/task/members/member_view.dart';
 import 'L3_app/views/task/task_view.dart';
 import 'L3_app/views/workspace/workspace_list_view.dart';
 

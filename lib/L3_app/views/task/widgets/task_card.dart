@@ -14,7 +14,7 @@ import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/person_presenter.dart';
 import '../../../presenters/state_presenter.dart';
-import '../task_ext_actions.dart';
+import '../../../usecases/task_ext_actions.dart';
 import 'state_title.dart';
 
 class TaskCard extends StatelessWidget {

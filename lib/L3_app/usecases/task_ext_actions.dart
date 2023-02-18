@@ -1,10 +1,10 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2023. Alexandr Moroz
 
-import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/entities/task_source.dart';
-import '../../../L1_domain/usecases/task_ext_level.dart';
-import '../../../L1_domain/usecases/task_ext_state.dart';
-import '../../extra/services.dart';
+import '../../L1_domain/entities/task.dart';
+import '../../L1_domain/entities/task_source.dart';
+import '../../L1_domain/usecases/task_ext_level.dart';
+import '../../L1_domain/usecases/task_ext_state.dart';
+import '../extra/services.dart';
 import 'task_ext_permissions.dart';
 
 enum TaskActionType {

@@ -7,9 +7,9 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../components/constants.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_filter_presenter.dart';
-import '../task_related_widgets/state_title.dart';
-import '../task_related_widgets/task_card.dart';
 import '../task_view_controller.dart';
+import '../widgets/state_title.dart';
+import '../widgets/task_card.dart';
 
 class TaskListView extends StatelessWidget {
   const TaskListView(this.controller);

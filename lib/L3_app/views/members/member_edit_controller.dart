@@ -34,7 +34,8 @@ abstract class _MemberEditControllerBase with Store {
   }
 
   Future assignRoles(BuildContext context) async {
-    await taskMemberRoleUC.assignRoles(task.wsId, task.id!, member.id!, roles.map((r) => r.id!));
+    final rolesIds = roles.where((r) => r.selected).map((r) => r.id!);
+    await taskMemberRoleUC.assignRoles(task.wsId, task.id!, member.id!, rolesIds);
     // TODO: нужен отдельный контроллер для отслеживания состояния списка участников в задаче / проекте,
     //  либо завязываться на контроллер задачи и там вплоть до рутовой задачи обновлять инфу после сохранения ролей участника
 

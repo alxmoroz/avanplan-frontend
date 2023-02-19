@@ -7,5 +7,6 @@ class TaskMemberRoleUC {
 
   final AbstractTaskMemberRoleRepo repo;
 
-  Future assignRoles(int wsId, int taskId, int memberId, Iterable<int> rolesIds) async => await repo.assignRoles(wsId, taskId, memberId, rolesIds);
+  Future<bool> assignRoles(int wsId, int taskId, int memberId, Iterable<int> rolesIds) async =>
+      await repo.assignRoles(wsId, taskId, memberId, rolesIds);
 }

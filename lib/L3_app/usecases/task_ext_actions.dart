@@ -50,7 +50,7 @@ extension TaskActionsExt on Task {
   bool get canRefresh => isWorkspace;
   bool get canReopen => canEdit && closed && parent?.closed == false;
   bool get canClose => canEdit && !closed;
-  bool get canViewMembers => members.isNotEmpty && _hpMembersView;
+  bool get canViewMembers => isProject && _hpMembersView;
   bool get canEditMembers => canEdit && _hpMembersEdit;
 
   /// доступные роли для управления

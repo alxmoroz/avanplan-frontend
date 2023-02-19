@@ -34,6 +34,8 @@ class MemberView extends StatelessWidget {
 
   Future _editMember() async {
     await memberEditDialog(task, member);
+    // TODO: нужен отдельный контроллер для отслеживания состояния списка участников в задаче / проекте,
+    //  либо завязываться на контроллер задачи и там вплоть до рутовой задачи обновлять инфу после сохранения ролей участника
   }
 
   @override

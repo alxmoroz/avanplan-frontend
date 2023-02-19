@@ -12,6 +12,7 @@ import '../../L1_domain/usecases/invitation_uc.dart';
 import '../../L1_domain/usecases/my_uc.dart';
 import '../../L1_domain/usecases/role_uc.dart';
 import '../../L1_domain/usecases/source_uc.dart';
+import '../../L1_domain/usecases/task_member_role_uc.dart';
 import '../../L1_domain/usecases/task_uc.dart';
 import '../../L1_domain/usecases/ws_settings_uc.dart';
 import '../../L2_data/repositories/auth_apple_repo.dart';
@@ -24,6 +25,7 @@ import '../../L2_data/repositories/invitation_repo.dart';
 import '../../L2_data/repositories/my_repo.dart';
 import '../../L2_data/repositories/role_repo.dart';
 import '../../L2_data/repositories/source_repo.dart';
+import '../../L2_data/repositories/task_member_role_repo.dart';
 import '../../L2_data/repositories/task_repo.dart';
 import '../../L2_data/repositories/ws_settings_repo.dart';
 import '../../L2_data/services/api.dart';
@@ -64,6 +66,7 @@ SourceUC get sourceUC => GetIt.I<SourceUC>();
 ImportUC get importUC => GetIt.I<ImportUC>();
 InvitationUC get invitationUC => GetIt.I<InvitationUC>();
 RoleUC get roleUC => GetIt.I<RoleUC>();
+TaskMemberRoleUC get taskMemberRoleUC => GetIt.I<TaskMemberRoleUC>();
 
 void setup() {
   // device
@@ -104,4 +107,5 @@ void setup() {
   getIt.registerSingleton<WSSettingsUC>(WSSettingsUC(settingsRepo: WSSettingsRepo(), estValueRepo: EstimateValueRepo()));
   getIt.registerSingleton<InvitationUC>(InvitationUC(repo: InvitationRepo()));
   getIt.registerSingleton<RoleUC>(RoleUC(repo: RoleRepo()));
+  getIt.registerSingleton<TaskMemberRoleUC>(TaskMemberRoleUC(repo: TaskMemberRoleRepo()));
 }

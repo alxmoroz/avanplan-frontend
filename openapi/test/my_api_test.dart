@@ -6,45 +6,38 @@ void main() {
   final instance = Openapi().getMyApi();
 
   group(MyApi, () {
-    // Delete My Account
+    // Account
     //
-    //Future<bool> deleteMyAccountV1MyAccountDelete() async
-    test('test deleteMyAccountV1MyAccountDelete', () async {
+    //Future<User> accountV1MyAccountGet() async
+    test('test accountV1MyAccountGet', () async {
       // TODO
     });
 
-    // Get My Account
+    // Delete Account
     //
-    //Future<User> getMyAccountV1MyAccountGet() async
-    test('test getMyAccountV1MyAccountGet', () async {
+    //Future<bool> deleteAccountV1MyAccountDelete() async
+    test('test deleteAccountV1MyAccountDelete', () async {
       // TODO
     });
 
-    // Get My Notifications
+    // Notifications
     //
-    //Future<BuiltList<Notification>> getMyNotificationsV1MyNotificationsGet() async
-    test('test getMyNotificationsV1MyNotificationsGet', () async {
+    //Future<BuiltList<Notification>> notificationsV1MyNotificationsGet() async
+    test('test notificationsV1MyNotificationsGet', () async {
       // TODO
     });
 
-    // Get My Workspaces
+    // Read Messages
     //
-    //Future<BuiltList<WorkspaceGet>> getMyWorkspacesV1MyWorkspacesGet() async
-    test('test getMyWorkspacesV1MyWorkspacesGet', () async {
+    //Future<bool> readMessagesV1MyMessagesPost(BuiltList<int> requestBody) async
+    test('test readMessagesV1MyMessagesPost', () async {
       // TODO
     });
 
-    // Read My Messages
+    // Update Account
     //
-    //Future<bool> readMyMessagesV1MyMessagesPost(BuiltList<int> requestBody) async
-    test('test readMyMessagesV1MyMessagesPost', () async {
-      // TODO
-    });
-
-    // Update My Account
-    //
-    //Future<User> updateMyAccountV1MyAccountPost({ BodyUpdateMyAccountV1MyAccountPost bodyUpdateMyAccountV1MyAccountPost }) async
-    test('test updateMyAccountV1MyAccountPost', () async {
+    //Future<User> updateAccountV1MyAccountPost({ BodyUpdateAccountV1MyAccountPost bodyUpdateAccountV1MyAccountPost }) async
+    test('test updateAccountV1MyAccountPost', () async {
       // TODO
     });
 
@@ -52,6 +45,13 @@ void main() {
     //
     //Future<bool> updatePushTokenV1MyPushTokenPost(BodyUpdatePushTokenV1MyPushTokenPost bodyUpdatePushTokenV1MyPushTokenPost) async
     test('test updatePushTokenV1MyPushTokenPost', () async {
+      // TODO
+    });
+
+    // Workspaces
+    //
+    //Future<BuiltList<WorkspaceGet>> workspacesV1MyWorkspacesGet() async
+    test('test workspacesV1MyWorkspacesGet', () async {
       // TODO
     });
   });

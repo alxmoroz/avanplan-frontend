@@ -104,7 +104,7 @@ class IntegrationsSourcesApi {
     );
   }
 
-  /// Delete Source
+  /// Delete
   /// 
   ///
   /// Parameters:
@@ -119,7 +119,7 @@ class IntegrationsSourcesApi {
   ///
   /// Returns a [Future] containing a [Response] with a [bool] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<bool>> deleteSourceV1IntegrationsSourcesSourceIdDelete({ 
+  Future<Response<bool>> deleteV1IntegrationsSourcesSourceIdDelete({ 
     required int sourceId,
     required int wsId,
     CancelToken? cancelToken,
@@ -186,7 +186,7 @@ class IntegrationsSourcesApi {
     );
   }
 
-  /// Get Sources
+  /// Sources
   /// 
   ///
   /// Parameters:
@@ -200,7 +200,7 @@ class IntegrationsSourcesApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<SourceGet>] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<BuiltList<SourceGet>>> getSourcesV1IntegrationsSourcesGet({ 
+  Future<Response<BuiltList<SourceGet>>> sourcesV1IntegrationsSourcesGet({ 
     required int wsId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -270,7 +270,7 @@ class IntegrationsSourcesApi {
     );
   }
 
-  /// Upsert Source
+  /// Upsert
   /// 
   ///
   /// Parameters:
@@ -285,7 +285,7 @@ class IntegrationsSourcesApi {
   ///
   /// Returns a [Future] containing a [Response] with a [SourceGet] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<SourceGet>> upsertSourceV1IntegrationsSourcesPost({ 
+  Future<Response<SourceGet>> upsertV1IntegrationsSourcesPost({ 
     required int wsId,
     required SourceUpsert sourceUpsert,
     CancelToken? cancelToken,

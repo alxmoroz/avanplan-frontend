@@ -70,22 +70,23 @@ Class | Method | HTTP request | Description
 [*AuthApi*](doc/AuthApi.md) | [**authToken**](doc/AuthApi.md#authtoken) | **POST** /v1/auth/token | Token
 [*AuthApi*](doc/AuthApi.md) | [**refreshToken**](doc/AuthApi.md#refreshtoken) | **POST** /v1/auth/refresh_token | Refresh Token
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**checkConnectionV1IntegrationsSourcesCheckConnectionGet**](doc/IntegrationsSourcesApi.md#checkconnectionv1integrationssourcescheckconnectionget) | **GET** /v1/integrations/sources/check_connection | Check Connection
-[*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**deleteSourceV1IntegrationsSourcesSourceIdDelete**](doc/IntegrationsSourcesApi.md#deletesourcev1integrationssourcessourceiddelete) | **DELETE** /v1/integrations/sources/{source_id} | Delete Source
-[*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**getSourcesV1IntegrationsSourcesGet**](doc/IntegrationsSourcesApi.md#getsourcesv1integrationssourcesget) | **GET** /v1/integrations/sources/ | Get Sources
-[*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**upsertSourceV1IntegrationsSourcesPost**](doc/IntegrationsSourcesApi.md#upsertsourcev1integrationssourcespost) | **POST** /v1/integrations/sources/ | Upsert Source
-[*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**getRootTasksV1IntegrationsTasksGet**](doc/IntegrationsTasksApi.md#getroottasksv1integrationstasksget) | **GET** /v1/integrations/tasks/ | Get Root Tasks
+[*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**deleteV1IntegrationsSourcesSourceIdDelete**](doc/IntegrationsSourcesApi.md#deletev1integrationssourcessourceiddelete) | **DELETE** /v1/integrations/sources/{source_id} | Delete
+[*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**sourcesV1IntegrationsSourcesGet**](doc/IntegrationsSourcesApi.md#sourcesv1integrationssourcesget) | **GET** /v1/integrations/sources/ | Sources
+[*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**upsertV1IntegrationsSourcesPost**](doc/IntegrationsSourcesApi.md#upsertv1integrationssourcespost) | **POST** /v1/integrations/sources/ | Upsert
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**importTaskSourcesV1IntegrationsTasksImportPost**](doc/IntegrationsTasksApi.md#importtasksourcesv1integrationstasksimportpost) | **POST** /v1/integrations/tasks/import | Import Task Sources
+[*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**rootTasksV1IntegrationsTasksGet**](doc/IntegrationsTasksApi.md#roottasksv1integrationstasksget) | **GET** /v1/integrations/tasks/ | Root Tasks
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost**](doc/IntegrationsTasksApi.md#updatetasksourcesv1integrationstasksupdatetasksourcespost) | **POST** /v1/integrations/tasks/update_task_sources | Update Task Sources
 [*InvitationApi*](doc/InvitationApi.md) | [**createV1InvitationCreatePost**](doc/InvitationApi.md#createv1invitationcreatepost) | **POST** /v1/invitation/create | Create
 [*InvitationApi*](doc/InvitationApi.md) | [**redeemV1InvitationRedeemPost**](doc/InvitationApi.md#redeemv1invitationredeempost) | **POST** /v1/invitation/redeem | Redeem
-[*MyApi*](doc/MyApi.md) | [**deleteMyAccountV1MyAccountDelete**](doc/MyApi.md#deletemyaccountv1myaccountdelete) | **DELETE** /v1/my/account | Delete My Account
-[*MyApi*](doc/MyApi.md) | [**getMyAccountV1MyAccountGet**](doc/MyApi.md#getmyaccountv1myaccountget) | **GET** /v1/my/account | Get My Account
-[*MyApi*](doc/MyApi.md) | [**getMyNotificationsV1MyNotificationsGet**](doc/MyApi.md#getmynotificationsv1mynotificationsget) | **GET** /v1/my/notifications | Get My Notifications
-[*MyApi*](doc/MyApi.md) | [**getMyWorkspacesV1MyWorkspacesGet**](doc/MyApi.md#getmyworkspacesv1myworkspacesget) | **GET** /v1/my/workspaces | Get My Workspaces
-[*MyApi*](doc/MyApi.md) | [**readMyMessagesV1MyMessagesPost**](doc/MyApi.md#readmymessagesv1mymessagespost) | **POST** /v1/my/messages | Read My Messages
-[*MyApi*](doc/MyApi.md) | [**updateMyAccountV1MyAccountPost**](doc/MyApi.md#updatemyaccountv1myaccountpost) | **POST** /v1/my/account | Update My Account
+[*MyApi*](doc/MyApi.md) | [**accountV1MyAccountGet**](doc/MyApi.md#accountv1myaccountget) | **GET** /v1/my/account | Account
+[*MyApi*](doc/MyApi.md) | [**deleteAccountV1MyAccountDelete**](doc/MyApi.md#deleteaccountv1myaccountdelete) | **DELETE** /v1/my/account | Delete Account
+[*MyApi*](doc/MyApi.md) | [**notificationsV1MyNotificationsGet**](doc/MyApi.md#notificationsv1mynotificationsget) | **GET** /v1/my/notifications | Notifications
+[*MyApi*](doc/MyApi.md) | [**readMessagesV1MyMessagesPost**](doc/MyApi.md#readmessagesv1mymessagespost) | **POST** /v1/my/messages | Read Messages
+[*MyApi*](doc/MyApi.md) | [**updateAccountV1MyAccountPost**](doc/MyApi.md#updateaccountv1myaccountpost) | **POST** /v1/my/account | Update Account
 [*MyApi*](doc/MyApi.md) | [**updatePushTokenV1MyPushTokenPost**](doc/MyApi.md#updatepushtokenv1mypushtokenpost) | **POST** /v1/my/push_token | Update Push Token
-[*RolesApi*](doc/RolesApi.md) | [**rolesV1RolesGet**](doc/RolesApi.md#rolesv1rolesget) | **GET** /v1/roles/ | Roles
+[*MyApi*](doc/MyApi.md) | [**workspacesV1MyWorkspacesGet**](doc/MyApi.md#workspacesv1myworkspacesget) | **GET** /v1/my/workspaces | Workspaces
+[*RolesApi*](doc/RolesApi.md) | [**assignV1RolesAssignPost**](doc/RolesApi.md#assignv1rolesassignpost) | **POST** /v1/roles/assign | Assign
+[*RolesApi*](doc/RolesApi.md) | [**getAllV1RolesGet**](doc/RolesApi.md#getallv1rolesget) | **GET** /v1/roles/ | Get All
 [*SettingsApi*](doc/SettingsApi.md) | [**getEstimateValuesV1SettingsEstimateValuesGet**](doc/SettingsApi.md#getestimatevaluesv1settingsestimatevaluesget) | **GET** /v1/settings/estimate_values | Get Estimate Values
 [*SettingsApi*](doc/SettingsApi.md) | [**getSettingsV1SettingsGet**](doc/SettingsApi.md#getsettingsv1settingsget) | **GET** /v1/settings/ | Get Settings
 [*TasksApi*](doc/TasksApi.md) | [**deleteV1TasksTaskIdDelete**](doc/TasksApi.md#deletev1taskstaskiddelete) | **DELETE** /v1/tasks/{task_id} | Delete
@@ -98,7 +99,7 @@ Class | Method | HTTP request | Description
  - [BodyAuthAppleToken](doc/BodyAuthAppleToken.md)
  - [BodyAuthGoogleToken](doc/BodyAuthGoogleToken.md)
  - [BodyRedeemV1InvitationRedeemPost](doc/BodyRedeemV1InvitationRedeemPost.md)
- - [BodyUpdateMyAccountV1MyAccountPost](doc/BodyUpdateMyAccountV1MyAccountPost.md)
+ - [BodyUpdateAccountV1MyAccountPost](doc/BodyUpdateAccountV1MyAccountPost.md)
  - [BodyUpdatePushTokenV1MyPushTokenPost](doc/BodyUpdatePushTokenV1MyPushTokenPost.md)
  - [EstimateUnitGet](doc/EstimateUnitGet.md)
  - [EstimateValueGet](doc/EstimateValueGet.md)

@@ -6,10 +6,17 @@ void main() {
   final instance = Openapi().getRolesApi();
 
   group(RolesApi, () {
-    // Roles
+    // Assign
     //
-    //Future<BuiltList<RoleGet>> rolesV1RolesGet(int wsId) async
-    test('test rolesV1RolesGet', () async {
+    //Future<bool> assignV1RolesAssignPost(int taskId, int memberId, int wsId, BuiltList<int> requestBody) async
+    test('test assignV1RolesAssignPost', () async {
+      // TODO
+    });
+
+    // Get All
+    //
+    //Future<BuiltList<RoleGet>> getAllV1RolesGet(int wsId) async
+    test('test getAllV1RolesGet', () async {
       // TODO
     });
   });

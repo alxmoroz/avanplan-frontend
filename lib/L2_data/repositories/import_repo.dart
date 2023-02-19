@@ -15,7 +15,7 @@ class ImportRepo extends AbstractImportRepo {
 
   @override
   Future<List<TaskRemote>> getRootTaskSources(Source source) async {
-    final response = await api.getRootTasksV1IntegrationsTasksGet(sourceId: source.id!, wsId: source.wsId);
+    final response = await api.rootTasksV1IntegrationsTasksGet(sourceId: source.id!, wsId: source.wsId);
     return response.data?.map((t) => t.taskImport).toList() ?? [];
   }
 

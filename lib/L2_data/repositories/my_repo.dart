@@ -18,28 +18,28 @@ class MyRepo extends AbstractMyRepo {
 
   @override
   Future<User?> getMyAccount() async {
-    final response = await api.getMyAccountV1MyAccountGet();
+    final response = await api.accountV1MyAccountGet();
     return response.data?.user;
   }
 
   @override
-  Future deleteMyAccount() async => await api.deleteMyAccountV1MyAccountDelete();
+  Future deleteMyAccount() async => await api.deleteAccountV1MyAccountDelete();
 
   @override
   Future<Iterable<Workspace>> getMyWorkspaces() async {
-    final response = await api.getMyWorkspacesV1MyWorkspacesGet();
+    final response = await api.workspacesV1MyWorkspacesGet();
     return response.data?.map((ws) => ws.workspace) ?? [];
   }
 
   @override
   Future<Iterable<MTNotification>> getMyNotifications() async {
-    final response = await api.getMyNotificationsV1MyNotificationsGet();
+    final response = await api.notificationsV1MyNotificationsGet();
     return response.data?.map((n) => n.notification) ?? [];
   }
 
   @override
   Future readMyMessages(Iterable<int> messagesIds) async {
-    await api.readMyMessagesV1MyMessagesPost(requestBody: BuiltList.from(messagesIds));
+    await api.readMessagesV1MyMessagesPost(requestBody: BuiltList.from(messagesIds));
   }
 
   @override

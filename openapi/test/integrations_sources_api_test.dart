@@ -14,24 +14,24 @@ void main() {
       // TODO
     });
 
-    // Delete Source
+    // Delete
     //
-    //Future<bool> deleteSourceV1IntegrationsSourcesSourceIdDelete(int sourceId, int wsId) async
-    test('test deleteSourceV1IntegrationsSourcesSourceIdDelete', () async {
+    //Future<bool> deleteV1IntegrationsSourcesSourceIdDelete(int sourceId, int wsId) async
+    test('test deleteV1IntegrationsSourcesSourceIdDelete', () async {
       // TODO
     });
 
-    // Get Sources
+    // Sources
     //
-    //Future<BuiltList<SourceGet>> getSourcesV1IntegrationsSourcesGet(int wsId) async
-    test('test getSourcesV1IntegrationsSourcesGet', () async {
+    //Future<BuiltList<SourceGet>> sourcesV1IntegrationsSourcesGet(int wsId) async
+    test('test sourcesV1IntegrationsSourcesGet', () async {
       // TODO
     });
 
-    // Upsert Source
+    // Upsert
     //
-    //Future<SourceGet> upsertSourceV1IntegrationsSourcesPost(int wsId, SourceUpsert sourceUpsert) async
-    test('test upsertSourceV1IntegrationsSourcesPost', () async {
+    //Future<SourceGet> upsertV1IntegrationsSourcesPost(int wsId, SourceUpsert sourceUpsert) async
+    test('test upsertV1IntegrationsSourcesPost', () async {
       // TODO
     });
   });

@@ -12,7 +12,7 @@ class RoleRepo extends AbstractWSRepo<Role> {
 
   @override
   Future<Iterable<Role>> getAll(int wsId) async {
-    final response = await api.rolesV1RolesGet(wsId: wsId);
+    final response = await api.getAllV1RolesGet(wsId: wsId);
     return response.data?.map((r) => r.role(wsId)).toList() ?? [];
   }
 

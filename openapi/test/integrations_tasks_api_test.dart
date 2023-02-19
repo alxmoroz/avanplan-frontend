@@ -6,17 +6,17 @@ void main() {
   final instance = Openapi().getIntegrationsTasksApi();
 
   group(IntegrationsTasksApi, () {
-    // Get Root Tasks
-    //
-    //Future<BuiltList<TaskRemote>> getRootTasksV1IntegrationsTasksGet(int wsId, int sourceId) async
-    test('test getRootTasksV1IntegrationsTasksGet', () async {
-      // TODO
-    });
-
     // Import Task Sources
     //
     //Future<bool> importTaskSourcesV1IntegrationsTasksImportPost(int wsId, int sourceId, BuiltList<TaskSource> taskSource) async
     test('test importTaskSourcesV1IntegrationsTasksImportPost', () async {
+      // TODO
+    });
+
+    // Root Tasks
+    //
+    //Future<BuiltList<TaskRemote>> rootTasksV1IntegrationsTasksGet(int wsId, int sourceId) async
+    test('test rootTasksV1IntegrationsTasksGet', () async {
       // TODO
     });
 

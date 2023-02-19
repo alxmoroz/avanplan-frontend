@@ -14,7 +14,7 @@ class SourceRepo extends AbstractSourceRepo {
 
   @override
   Future<Iterable<Source>> getAll(int wsId) async {
-    final response = await api.getSourcesV1IntegrationsSourcesGet(wsId: wsId);
+    final response = await api.sourcesV1IntegrationsSourcesGet(wsId: wsId);
     return response.data?.map((s) => s.source(wsId)) ?? [];
   }
 
@@ -30,13 +30,13 @@ class SourceRepo extends AbstractSourceRepo {
       ..password = data.password
       ..description = data.description;
 
-    final response = await api.upsertSourceV1IntegrationsSourcesPost(sourceUpsert: builder.build(), wsId: wsId);
+    final response = await api.upsertV1IntegrationsSourcesPost(sourceUpsert: builder.build(), wsId: wsId);
     return response.data?.source(wsId);
   }
 
   @override
   Future<bool> delete(Source data) async {
-    final response = await api.deleteSourceV1IntegrationsSourcesSourceIdDelete(sourceId: data.id!, wsId: data.wsId);
+    final response = await api.deleteV1IntegrationsSourcesSourceIdDelete(sourceId: data.id!, wsId: data.wsId);
     return response.data == true;
   }
 

@@ -10,9 +10,9 @@ All URIs are relative to */api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**checkConnectionV1IntegrationsSourcesCheckConnectionGet**](IntegrationsSourcesApi.md#checkconnectionv1integrationssourcescheckconnectionget) | **GET** /v1/integrations/sources/check_connection | Check Connection
-[**deleteSourceV1IntegrationsSourcesSourceIdDelete**](IntegrationsSourcesApi.md#deletesourcev1integrationssourcessourceiddelete) | **DELETE** /v1/integrations/sources/{source_id} | Delete Source
-[**getSourcesV1IntegrationsSourcesGet**](IntegrationsSourcesApi.md#getsourcesv1integrationssourcesget) | **GET** /v1/integrations/sources/ | Get Sources
-[**upsertSourceV1IntegrationsSourcesPost**](IntegrationsSourcesApi.md#upsertsourcev1integrationssourcespost) | **POST** /v1/integrations/sources/ | Upsert Source
+[**deleteV1IntegrationsSourcesSourceIdDelete**](IntegrationsSourcesApi.md#deletev1integrationssourcessourceiddelete) | **DELETE** /v1/integrations/sources/{source_id} | Delete
+[**sourcesV1IntegrationsSourcesGet**](IntegrationsSourcesApi.md#sourcesv1integrationssourcesget) | **GET** /v1/integrations/sources/ | Sources
+[**upsertV1IntegrationsSourcesPost**](IntegrationsSourcesApi.md#upsertv1integrationssourcespost) | **POST** /v1/integrations/sources/ | Upsert
 
 
 # **checkConnectionV1IntegrationsSourcesCheckConnectionGet**
@@ -60,10 +60,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **deleteSourceV1IntegrationsSourcesSourceIdDelete**
-> bool deleteSourceV1IntegrationsSourcesSourceIdDelete(sourceId, wsId)
+# **deleteV1IntegrationsSourcesSourceIdDelete**
+> bool deleteV1IntegrationsSourcesSourceIdDelete(sourceId, wsId)
 
-Delete Source
+Delete
 
 ### Example
 ```dart
@@ -76,10 +76,10 @@ final int sourceId = 56; // int |
 final int wsId = 56; // int | 
 
 try {
-    final response = api.deleteSourceV1IntegrationsSourcesSourceIdDelete(sourceId, wsId);
+    final response = api.deleteV1IntegrationsSourcesSourceIdDelete(sourceId, wsId);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling IntegrationsSourcesApi->deleteSourceV1IntegrationsSourcesSourceIdDelete: $e\n');
+    print('Exception when calling IntegrationsSourcesApi->deleteV1IntegrationsSourcesSourceIdDelete: $e\n');
 }
 ```
 
@@ -105,10 +105,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **getSourcesV1IntegrationsSourcesGet**
-> BuiltList<SourceGet> getSourcesV1IntegrationsSourcesGet(wsId)
+# **sourcesV1IntegrationsSourcesGet**
+> BuiltList<SourceGet> sourcesV1IntegrationsSourcesGet(wsId)
 
-Get Sources
+Sources
 
 ### Example
 ```dart
@@ -120,10 +120,10 @@ final api = Openapi().getIntegrationsSourcesApi();
 final int wsId = 56; // int | 
 
 try {
-    final response = api.getSourcesV1IntegrationsSourcesGet(wsId);
+    final response = api.sourcesV1IntegrationsSourcesGet(wsId);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling IntegrationsSourcesApi->getSourcesV1IntegrationsSourcesGet: $e\n');
+    print('Exception when calling IntegrationsSourcesApi->sourcesV1IntegrationsSourcesGet: $e\n');
 }
 ```
 
@@ -148,10 +148,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **upsertSourceV1IntegrationsSourcesPost**
-> SourceGet upsertSourceV1IntegrationsSourcesPost(wsId, sourceUpsert)
+# **upsertV1IntegrationsSourcesPost**
+> SourceGet upsertV1IntegrationsSourcesPost(wsId, sourceUpsert)
 
-Upsert Source
+Upsert
 
 ### Example
 ```dart
@@ -164,10 +164,10 @@ final int wsId = 56; // int |
 final SourceUpsert sourceUpsert = ; // SourceUpsert | 
 
 try {
-    final response = api.upsertSourceV1IntegrationsSourcesPost(wsId, sourceUpsert);
+    final response = api.upsertV1IntegrationsSourcesPost(wsId, sourceUpsert);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling IntegrationsSourcesApi->upsertSourceV1IntegrationsSourcesPost: $e\n');
+    print('Exception when calling IntegrationsSourcesApi->upsertV1IntegrationsSourcesPost: $e\n');
 }
 ```
 

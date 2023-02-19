@@ -6,42 +6,42 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'body_update_my_account_v1_my_account_post.g.dart';
+part 'body_update_account_v1_my_account_post.g.dart';
 
-/// BodyUpdateMyAccountV1MyAccountPost
+/// BodyUpdateAccountV1MyAccountPost
 ///
 /// Properties:
 /// * [password] 
 /// * [fullName] 
 @BuiltValue()
-abstract class BodyUpdateMyAccountV1MyAccountPost implements Built<BodyUpdateMyAccountV1MyAccountPost, BodyUpdateMyAccountV1MyAccountPostBuilder> {
+abstract class BodyUpdateAccountV1MyAccountPost implements Built<BodyUpdateAccountV1MyAccountPost, BodyUpdateAccountV1MyAccountPostBuilder> {
   @BuiltValueField(wireName: r'password')
   String? get password;
 
   @BuiltValueField(wireName: r'full_name')
   String? get fullName;
 
-  BodyUpdateMyAccountV1MyAccountPost._();
+  BodyUpdateAccountV1MyAccountPost._();
 
-  factory BodyUpdateMyAccountV1MyAccountPost([void updates(BodyUpdateMyAccountV1MyAccountPostBuilder b)]) = _$BodyUpdateMyAccountV1MyAccountPost;
+  factory BodyUpdateAccountV1MyAccountPost([void updates(BodyUpdateAccountV1MyAccountPostBuilder b)]) = _$BodyUpdateAccountV1MyAccountPost;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(BodyUpdateMyAccountV1MyAccountPostBuilder b) => b;
+  static void _defaults(BodyUpdateAccountV1MyAccountPostBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<BodyUpdateMyAccountV1MyAccountPost> get serializer => _$BodyUpdateMyAccountV1MyAccountPostSerializer();
+  static Serializer<BodyUpdateAccountV1MyAccountPost> get serializer => _$BodyUpdateAccountV1MyAccountPostSerializer();
 }
 
-class _$BodyUpdateMyAccountV1MyAccountPostSerializer implements PrimitiveSerializer<BodyUpdateMyAccountV1MyAccountPost> {
+class _$BodyUpdateAccountV1MyAccountPostSerializer implements PrimitiveSerializer<BodyUpdateAccountV1MyAccountPost> {
   @override
-  final Iterable<Type> types = const [BodyUpdateMyAccountV1MyAccountPost, _$BodyUpdateMyAccountV1MyAccountPost];
+  final Iterable<Type> types = const [BodyUpdateAccountV1MyAccountPost, _$BodyUpdateAccountV1MyAccountPost];
 
   @override
-  final String wireName = r'BodyUpdateMyAccountV1MyAccountPost';
+  final String wireName = r'BodyUpdateAccountV1MyAccountPost';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    BodyUpdateMyAccountV1MyAccountPost object, {
+    BodyUpdateAccountV1MyAccountPost object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     if (object.password != null) {
@@ -63,7 +63,7 @@ class _$BodyUpdateMyAccountV1MyAccountPostSerializer implements PrimitiveSeriali
   @override
   Object serialize(
     Serializers serializers,
-    BodyUpdateMyAccountV1MyAccountPost object, {
+    BodyUpdateAccountV1MyAccountPost object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -74,7 +74,7 @@ class _$BodyUpdateMyAccountV1MyAccountPostSerializer implements PrimitiveSeriali
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required BodyUpdateMyAccountV1MyAccountPostBuilder result,
+    required BodyUpdateAccountV1MyAccountPostBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -104,12 +104,12 @@ class _$BodyUpdateMyAccountV1MyAccountPostSerializer implements PrimitiveSeriali
   }
 
   @override
-  BodyUpdateMyAccountV1MyAccountPost deserialize(
+  BodyUpdateAccountV1MyAccountPost deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = BodyUpdateMyAccountV1MyAccountPostBuilder();
+    final result = BodyUpdateAccountV1MyAccountPostBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

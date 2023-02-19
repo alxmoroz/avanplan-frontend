@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 
 # **assignV1RolesAssignPost**
-> bool assignV1RolesAssignPost(taskId, memberId, wsId, requestBody)
+> BuiltList<MemberGet> assignV1RolesAssignPost(taskId, memberId, wsId, requestBody)
 
 Assign
 
@@ -49,7 +49,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**bool**
+[**BuiltList&lt;MemberGet&gt;**](MemberGet.md)
 
 ### Authorization
 

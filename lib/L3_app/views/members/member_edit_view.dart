@@ -20,8 +20,8 @@ import '../../extra/services.dart';
 import '../../presenters/role_presenter.dart';
 import 'member_edit_controller.dart';
 
-Future<Member?> memberEditDialog(Task task, Member member) async {
-  return await showModalBottomSheet<Member?>(
+Future<Iterable<Member>?> memberEditDialog(Task task, Member member) async {
+  return await showModalBottomSheet<Iterable<Member>?>(
     context: rootKey.currentContext!,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,

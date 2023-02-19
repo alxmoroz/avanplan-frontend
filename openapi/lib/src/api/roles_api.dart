@@ -10,6 +10,7 @@ import 'package:dio/dio.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/api_util.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
+import 'package:openapi/src/model/member_get.dart';
 import 'package:openapi/src/model/role_get.dart';
 
 class RolesApi {
@@ -35,9 +36,9 @@ class RolesApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [bool] as data
+  /// Returns a [Future] containing a [Response] with a [BuiltList<MemberGet>] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<bool>> assignV1RolesAssignPost({ 
+  Future<Response<BuiltList<MemberGet>>> assignV1RolesAssignPost({ 
     required int taskId,
     required int memberId,
     required int wsId,
@@ -102,10 +103,14 @@ class RolesApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    bool _responseData;
+    BuiltList<MemberGet> _responseData;
 
     try {
-      _responseData = _response.data as bool;
+      const _responseType = FullType(BuiltList, [FullType(MemberGet)]);
+      _responseData = _serializers.deserialize(
+        _response.data!,
+        specifiedType: _responseType,
+      ) as BuiltList<MemberGet>;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -116,7 +121,7 @@ class RolesApi {
       )..stackTrace = stackTrace;
     }
 
-    return Response<bool>(
+    return Response<BuiltList<MemberGet>>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

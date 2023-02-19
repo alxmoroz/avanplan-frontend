@@ -45,7 +45,7 @@ class _TaskViewState extends State<TaskView> {
     _overviewPane = TaskOverview(_controller);
     _tasksPane = TaskListView(_controller);
     _detailsPane = TaskDetails(_task);
-    _teamPane = MemberListView(_task);
+    _teamPane = MemberListView(_controller);
 
     super.initState();
   }

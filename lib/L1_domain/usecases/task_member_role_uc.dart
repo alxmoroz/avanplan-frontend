@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import '../entities/member.dart';
 import '../repositories/abs_member_role_repo.dart';
 
 class TaskMemberRoleUC {
@@ -7,6 +8,6 @@ class TaskMemberRoleUC {
 
   final AbstractTaskMemberRoleRepo repo;
 
-  Future<bool> assignRoles(int wsId, int taskId, int memberId, Iterable<int> rolesIds) async =>
+  Future<Iterable<Member>> assignRoles(int wsId, int taskId, int memberId, Iterable<int> rolesIds) async =>
       await repo.assignRoles(wsId, taskId, memberId, rolesIds);
 }

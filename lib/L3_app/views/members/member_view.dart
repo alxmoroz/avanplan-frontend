@@ -15,7 +15,7 @@ import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/person_presenter.dart';
 import '../../usecases/task_ext_actions.dart';
-import 'member_edit_view.dart';
+import 'member_view_controller.dart';
 
 class MemberViewArgs {
   MemberViewArgs(this.member, this.task);
@@ -23,19 +23,26 @@ class MemberViewArgs {
   final Task task;
 }
 
-class MemberView extends StatelessWidget {
+class MemberView extends StatefulWidget {
   const MemberView(this.args);
   final MemberViewArgs args;
 
   static String get routeName => '/member';
 
-  Member get member => args.member;
-  Task get task => args.task;
+  @override
+  State<MemberView> createState() => _MemberViewState();
+}
 
-  Future _editMember() async {
-    await memberEditDialog(task, member);
-    // TODO: нужен отдельный контроллер для отслеживания состояния списка участников в задаче / проекте,
-    //  либо завязываться на контроллер задачи и там вплоть до рутовой задачи обновлять инфу после сохранения ролей участника
+class _MemberViewState extends State<MemberView> {
+  Task get task => controller.task;
+  Member get member => controller.member ?? widget.args.member;
+
+  late MemberViewController controller;
+
+  @override
+  void initState() {
+    controller = MemberViewController(widget.args.task, widget.args.member);
+    super.initState();
   }
 
   @override
@@ -58,7 +65,7 @@ class MemberView extends StatelessWidget {
                   H4('${loc.roles_in_task_prefix}$task', align: TextAlign.center),
                   MTListTile(
                     middle: NormalText(member.rolesStr),
-                    trailing: task.canEditMembers ? MTButton.icon(const EditIcon(), () => _editMember()) : null,
+                    trailing: task.canEditMembers ? MTButton.icon(const EditIcon(), () => controller.editMember(context)) : null,
                   )
                 ]
               ],

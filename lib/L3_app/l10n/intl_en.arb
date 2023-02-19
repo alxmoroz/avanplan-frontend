@@ -53,6 +53,7 @@
 
   "contact_us_title": "Contact us",
   "contact_us_mail_subject": "Avanplan - feedback",
+  "copied_notification_title": "Copied to clipboard",
 
   "days_count": "{count, plural, one{{count} day} other{{count} days}}",
   "delete_action_title": "Delete",
@@ -86,6 +87,7 @@
   "invitation_active_until_placeholder": "Active Until",
   "invitation_share_action_title": "Share Invitation",
   "invitation_share_subject_prefix": "Invitation to ",
+  "invitation_url_label": "Invitation link",
 
   "legal_privacy_policy_title": "Privacy policy",
   "legal_rules_title": "License agreement",

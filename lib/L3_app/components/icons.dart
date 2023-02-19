@@ -378,6 +378,16 @@ class ShareIcon extends _MTIcon {
       );
 }
 
+class CopyIcon extends _MTIcon {
+  const CopyIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.doc_on_clipboard,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P2,
+      );
+}
+
 class MemberAddIcon extends _MTIcon {
   const MemberAddIcon({super.color, super.size});
 

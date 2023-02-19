@@ -52,6 +52,7 @@
 
   "contact_us_title": "Напишите нам",
   "contact_us_mail_subject": "Аванплан - обратная связь",
+  "copied_notification_title": "Скопировано",
 
   "days_count": "{count, plural, one{{count} день} few{{count} дня} other{{count} дней}}",
   "delete_action_title": "Удалить",
@@ -85,6 +86,7 @@
   "invitation_active_until_placeholder": "Срок годности",
   "invitation_share_action_title": "Отправить приглашение",
   "invitation_share_subject_prefix": "Приглашение в ",
+  "invitation_url_label": "Ссылка-приглашение",
 
   "legal_privacy_policy_title": "Политика конфиденциальности",
   "legal_rules_title": "Пользовательское соглашение",

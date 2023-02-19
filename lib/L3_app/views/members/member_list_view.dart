@@ -25,7 +25,6 @@ class MemberListView extends StatelessWidget {
       ? MemberAddMenu(
           task,
           title: loc.member_new_title,
-          margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
         )
       : null;
 

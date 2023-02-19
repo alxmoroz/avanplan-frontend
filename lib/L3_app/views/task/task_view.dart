@@ -92,6 +92,8 @@ class _TaskViewState extends State<TaskView> {
 
   Widget? get _selectedBottomBar => {
         TaskTabKey.overview: _overviewPane.bottomBar,
+        TaskTabKey.details: _overviewPane.bottomBar,
+        TaskTabKey.subtasks: _overviewPane.bottomBar,
         TaskTabKey.team: _teamPane.bottomBar,
       }[_controller.tabKey];
 

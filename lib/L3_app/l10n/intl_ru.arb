@@ -123,6 +123,9 @@
   "ok": "Ясно",
   "overview": "Обзор",
 
+  "permission_error_description": "Обратитесь к администратору проекта или рабочего пространства",
+  "permission_error_title": "Недостаточно прав для выполнения операции",
+
   "project_count": "{count, plural, zero{Нет проектов} one{{count} проект} few{{count} проекта} other{{count} проектов}}",
   "project_count_dative": "{count, plural, one{{count} проекту} other{{count} проектам}}",
   "project_delete_dialog_title": "Удалить проект?",

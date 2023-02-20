@@ -75,20 +75,23 @@ abstract class _LoaderControllerBase with Store {
             if (path.startsWith('/v1/auth')) {
               // Показываем диалог, если это именно авторизация
               setAuthError();
+            } else if (e.errCode.startsWith('ERR_PERMISSION')) {
+              // Показываем диалог отсутствия прав
+              _setPermissionError();
+            } else if (e.errCode.startsWith('ERR_AUTH_INVITATION_REDEEM_INACTIVE')) {
+              _setRedeemInvitationError();
             } else {
               // в остальных случаях выбрасываем без объяснений
               await authController.signOut();
               await stop();
             }
           } else {
-            // программные ошибки клиента и сервера
+            // программные ошибки сервера
             final errorText = '${code < 500 ? 'HTTP Client' : code < 600 ? 'HTTP Server' : 'Unknown HTTP'} Error $code';
             if (e.errCode == 'ERR_IMPORT_CONNECTION') {
               return handler.next(e);
             } else if (e.errCode.startsWith('ERR_IMPORT')) {
               _setImportError(e.detail, e.detail);
-            } else if (e.errCode.startsWith('ERR_INVITATION_REDEEM_INACTIVE')) {
-              setRedeemInvitationError();
             } else {
               _setHTTPError(errorText, e.detail);
             }
@@ -182,8 +185,15 @@ abstract class _LoaderControllerBase with Store {
         actionText: loc.ok,
       );
 
+  void _setPermissionError([String? description]) => _set(
+        icon: _authIcon,
+        titleText: loc.permission_error_title,
+        descriptionText: description != null ? Intl.message('permission_error_$description') : loc.permission_error_description,
+        actionText: loc.ok,
+      );
+
   void setRedeemInvitation() => _set(titleText: loc.loader_redeem_invitation_title, icon: _authIcon);
-  void setRedeemInvitationError() => _set(
+  void _setRedeemInvitationError() => _set(
         icon: _authIcon,
         titleText: loc.redeem_invitation_error_title,
         descriptionText: loc.redeem_invitation_error_description,

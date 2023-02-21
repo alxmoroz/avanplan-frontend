@@ -36,18 +36,25 @@ class ImportRepo extends AbstractImportRepo {
   }
 
   @override
-  Future<bool> updateTaskSources(int wsId, Iterable<TaskSource> tss) async {
-    final tSchema = tss.map((ts) => (o_api.TaskSourceUpsertBuilder()
-          ..id = ts.id
-          ..sourceId = ts.sourceId
-          ..code = ts.code
-          ..rootCode = ts.rootCode
-          ..keepConnection = ts.keepConnection
-          ..updatedOn = ts.updatedOn
-          ..url = ts.urlString)
-        .build());
+  Future<bool> unlinkTaskSources(int wsId, Iterable<TaskSource> tss) async {
+    if (tss.isNotEmpty) {
+      final tSchema = tss.map((ts) => (o_api.TaskSourceUpsertBuilder()
+            ..id = ts.id
+            ..sourceId = ts.sourceId
+            ..code = ts.code
+            ..rootCode = ts.rootCode
+            ..keepConnection = ts.keepConnection
+            ..updatedOn = ts.updatedOn
+            ..url = ts.urlString)
+          .build());
 
-    final resp = await api.updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost(taskSourceUpsert: BuiltList.from(tSchema), wsId: wsId);
-    return resp.data == true;
+      final resp = await api.unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost(
+        sourceId: tss.first.sourceId,
+        taskSourceUpsert: BuiltList.from(tSchema),
+        wsId: wsId,
+      );
+      return resp.data == true;
+    }
+    return false;
   }
 }

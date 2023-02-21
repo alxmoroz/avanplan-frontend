@@ -20,17 +20,17 @@ void main() {
       // TODO
     });
 
+    // Mark Read Notifications
+    //
+    //Future<bool> markReadNotificationsV1MyNotificationsPost(BuiltList<int> requestBody) async
+    test('test markReadNotificationsV1MyNotificationsPost', () async {
+      // TODO
+    });
+
     // Notifications
     //
     //Future<BuiltList<Notification>> notificationsV1MyNotificationsGet() async
     test('test notificationsV1MyNotificationsGet', () async {
-      // TODO
-    });
-
-    // Read Messages
-    //
-    //Future<bool> readMessagesV1MyMessagesPost(BuiltList<int> requestBody) async
-    test('test readMessagesV1MyMessagesPost', () async {
       // TODO
     });
 

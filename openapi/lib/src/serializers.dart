@@ -95,12 +95,12 @@ Serializers serializers = (_$serializers.toBuilder()
         () => ListBuilder<SourceGet>(),
       )
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(Notification)]),
-        () => ListBuilder<Notification>(),
-      )
-      ..addBuilderFactory(
         const FullType(BuiltList, [FullType(int)]),
         () => ListBuilder<int>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(Notification)]),
+        () => ListBuilder<Notification>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(WorkspaceGet)]),

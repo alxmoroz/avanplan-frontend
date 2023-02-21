@@ -47,7 +47,7 @@ abstract class _NotificationControllerBase with Store {
 
     if (!n.isRead) {
       n.isRead = true;
-      await myUC.readMyMessages([n.messageId]);
+      await myUC.markReadNotifications([n.id!]);
       await fetchData();
     }
   }

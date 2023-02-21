@@ -11,7 +11,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**importTaskSourcesV1IntegrationsTasksImportPost**](IntegrationsTasksApi.md#importtasksourcesv1integrationstasksimportpost) | **POST** /v1/integrations/tasks/import | Import Task Sources
 [**rootTasksV1IntegrationsTasksGet**](IntegrationsTasksApi.md#roottasksv1integrationstasksget) | **GET** /v1/integrations/tasks/ | Root Tasks
-[**updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost**](IntegrationsTasksApi.md#updatetasksourcesv1integrationstasksupdatetasksourcespost) | **POST** /v1/integrations/tasks/update_task_sources | Update Task Sources
+[**unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost**](IntegrationsTasksApi.md#unlinktasksourcesv1integrationstasksunlinktasksourcespost) | **POST** /v1/integrations/tasks/unlink_task_sources | Unlink Task Sources
 
 
 # **importTaskSourcesV1IntegrationsTasksImportPost**
@@ -106,10 +106,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost**
-> bool updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost(wsId, taskSourceUpsert)
+# **unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost**
+> bool unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost(wsId, sourceId, taskSourceUpsert)
 
-Update Task Sources
+Unlink Task Sources
 
 ### Example
 ```dart
@@ -119,13 +119,14 @@ import 'package:openapi/api.dart';
 
 final api = Openapi().getIntegrationsTasksApi();
 final int wsId = 56; // int | 
+final int sourceId = 56; // int | 
 final BuiltList<TaskSourceUpsert> taskSourceUpsert = ; // BuiltList<TaskSourceUpsert> | 
 
 try {
-    final response = api.updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost(wsId, taskSourceUpsert);
+    final response = api.unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost(wsId, sourceId, taskSourceUpsert);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling IntegrationsTasksApi->updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost: $e\n');
+    print('Exception when calling IntegrationsTasksApi->unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost: $e\n');
 }
 ```
 
@@ -134,6 +135,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **wsId** | **int**|  | 
+ **sourceId** | **int**|  | 
  **taskSourceUpsert** | [**BuiltList&lt;TaskSourceUpsert&gt;**](TaskSourceUpsert.md)|  | 
 
 ### Return type

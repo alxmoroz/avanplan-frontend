@@ -96,5 +96,10 @@ void main() {
     test('to test the property `members`', () async {
       // TODO
     });
+
+    // int parentId
+    test('to test the property `parentId`', () async {
+      // TODO
+    });
   });
 }

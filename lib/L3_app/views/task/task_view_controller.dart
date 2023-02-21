@@ -222,7 +222,7 @@ abstract class _TaskViewControllerBase with Store {
       loaderController.start();
       loaderController.setUnlinking();
       try {
-        await importUC.updateTaskSources(task.wsId, task.unlinkTaskTree());
+        await importUC.unlinkTaskSources(task.wsId, task.unlinkTaskTree());
         mainController.updateRootTask();
         res = true;
       } catch (_) {}

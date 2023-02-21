@@ -11,8 +11,8 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**accountV1MyAccountGet**](MyApi.md#accountv1myaccountget) | **GET** /v1/my/account | Account
 [**deleteAccountV1MyAccountDelete**](MyApi.md#deleteaccountv1myaccountdelete) | **DELETE** /v1/my/account | Delete Account
+[**markReadNotificationsV1MyNotificationsPost**](MyApi.md#markreadnotificationsv1mynotificationspost) | **POST** /v1/my/notifications | Mark Read Notifications
 [**notificationsV1MyNotificationsGet**](MyApi.md#notificationsv1mynotificationsget) | **GET** /v1/my/notifications | Notifications
-[**readMessagesV1MyMessagesPost**](MyApi.md#readmessagesv1mymessagespost) | **POST** /v1/my/messages | Read Messages
 [**updateAccountV1MyAccountPost**](MyApi.md#updateaccountv1myaccountpost) | **POST** /v1/my/account | Update Account
 [**updatePushTokenV1MyPushTokenPost**](MyApi.md#updatepushtokenv1mypushtokenpost) | **POST** /v1/my/push_token | Update Push Token
 [**workspacesV1MyWorkspacesGet**](MyApi.md#workspacesv1myworkspacesget) | **GET** /v1/my/workspaces | Workspaces
@@ -96,6 +96,49 @@ This endpoint does not need any parameter.
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **markReadNotificationsV1MyNotificationsPost**
+> bool markReadNotificationsV1MyNotificationsPost(requestBody)
+
+Mark Read Notifications
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
+//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
+
+final api = Openapi().getMyApi();
+final BuiltList<int> requestBody = ; // BuiltList<int> | 
+
+try {
+    final response = api.markReadNotificationsV1MyNotificationsPost(requestBody);
+    print(response);
+} catch on DioError (e) {
+    print('Exception when calling MyApi->markReadNotificationsV1MyNotificationsPost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **requestBody** | [**BuiltList&lt;int&gt;**](int.md)|  | 
+
+### Return type
+
+**bool**
+
+### Authorization
+
+[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **notificationsV1MyNotificationsGet**
 > BuiltList<Notification> notificationsV1MyNotificationsGet()
 
@@ -131,49 +174,6 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **readMessagesV1MyMessagesPost**
-> bool readMessagesV1MyMessagesPost(requestBody)
-
-Read Messages
-
-### Example
-```dart
-import 'package:openapi/api.dart';
-// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
-//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
-
-final api = Openapi().getMyApi();
-final BuiltList<int> requestBody = ; // BuiltList<int> | 
-
-try {
-    final response = api.readMessagesV1MyMessagesPost(requestBody);
-    print(response);
-} catch on DioError (e) {
-    print('Exception when calling MyApi->readMessagesV1MyMessagesPost: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **requestBody** | [**BuiltList&lt;int&gt;**](int.md)|  | 
-
-### Return type
-
-**bool**
-
-### Authorization
-
-[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

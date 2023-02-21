@@ -38,9 +38,8 @@ class MyRepo extends AbstractMyRepo {
   }
 
   @override
-  Future readMyMessages(Iterable<int> messagesIds) async {
-    await api.readMessagesV1MyMessagesPost(requestBody: BuiltList.from(messagesIds));
-  }
+  Future markReadNotifications(Iterable<int> notificationsIds) async =>
+      await api.markReadNotificationsV1MyNotificationsPost(requestBody: BuiltList.from(notificationsIds));
 
   @override
   Future updatePushToken(String token, bool hasPermission) async {

@@ -12,7 +12,7 @@ class MyUC {
 
   Future<Iterable<Workspace>> getWorkspaces() async => await repo.getMyWorkspaces();
   Future<Iterable<MTNotification>> getNotifications() async => await repo.getMyNotifications();
-  Future readMyMessages(Iterable<int> messagesIds) async => await repo.readMyMessages(messagesIds);
+  Future markReadNotifications(Iterable<int> notificationsIds) async => await repo.markReadNotifications(notificationsIds);
   Future<User?> getMyAccount() async => await repo.getMyAccount();
   Future deleteMyAccount() async => await repo.deleteMyAccount();
   Future updatePushToken(String token, bool hasPermission) async => await repo.updatePushToken(token, hasPermission);

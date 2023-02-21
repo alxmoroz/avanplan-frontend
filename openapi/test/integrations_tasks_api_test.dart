@@ -20,10 +20,10 @@ void main() {
       // TODO
     });
 
-    // Update Task Sources
+    // Unlink Task Sources
     //
-    //Future<bool> updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost(int wsId, BuiltList<TaskSourceUpsert> taskSourceUpsert) async
-    test('test updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost',
+    //Future<bool> unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost(int wsId, int sourceId, BuiltList<TaskSourceUpsert> taskSourceUpsert) async
+    test('test unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost',
         () async {
       // TODO
     });

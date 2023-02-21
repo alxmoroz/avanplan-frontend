@@ -214,11 +214,12 @@ class IntegrationsTasksApi {
     );
   }
 
-  /// Update Task Sources
+  /// Unlink Task Sources
   /// 
   ///
   /// Parameters:
   /// * [wsId] 
+  /// * [sourceId] 
   /// * [taskSourceUpsert] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
@@ -229,8 +230,9 @@ class IntegrationsTasksApi {
   ///
   /// Returns a [Future] containing a [Response] with a [bool] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<bool>> updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost({ 
+  Future<Response<bool>> unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost({ 
     required int wsId,
+    required int sourceId,
     required BuiltList<TaskSourceUpsert> taskSourceUpsert,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -239,7 +241,7 @@ class IntegrationsTasksApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/integrations/tasks/update_task_sources';
+    final _path = r'/v1/integrations/tasks/unlink_task_sources';
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -260,6 +262,7 @@ class IntegrationsTasksApi {
 
     final _queryParameters = <String, dynamic>{
       r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
+      r'source_id': encodeQueryParameter(_serializers, sourceId, const FullType(int)),
     };
 
     dynamic _bodyData;

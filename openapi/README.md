@@ -75,13 +75,13 @@ Class | Method | HTTP request | Description
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**upsertV1IntegrationsSourcesPost**](doc/IntegrationsSourcesApi.md#upsertv1integrationssourcespost) | **POST** /v1/integrations/sources/ | Upsert
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**importTaskSourcesV1IntegrationsTasksImportPost**](doc/IntegrationsTasksApi.md#importtasksourcesv1integrationstasksimportpost) | **POST** /v1/integrations/tasks/import | Import Task Sources
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**rootTasksV1IntegrationsTasksGet**](doc/IntegrationsTasksApi.md#roottasksv1integrationstasksget) | **GET** /v1/integrations/tasks/ | Root Tasks
-[*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**updateTaskSourcesV1IntegrationsTasksUpdateTaskSourcesPost**](doc/IntegrationsTasksApi.md#updatetasksourcesv1integrationstasksupdatetasksourcespost) | **POST** /v1/integrations/tasks/update_task_sources | Update Task Sources
+[*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost**](doc/IntegrationsTasksApi.md#unlinktasksourcesv1integrationstasksunlinktasksourcespost) | **POST** /v1/integrations/tasks/unlink_task_sources | Unlink Task Sources
 [*InvitationApi*](doc/InvitationApi.md) | [**createV1InvitationCreatePost**](doc/InvitationApi.md#createv1invitationcreatepost) | **POST** /v1/invitation/create | Create
 [*InvitationApi*](doc/InvitationApi.md) | [**redeemV1InvitationRedeemPost**](doc/InvitationApi.md#redeemv1invitationredeempost) | **POST** /v1/invitation/redeem | Redeem
 [*MyApi*](doc/MyApi.md) | [**accountV1MyAccountGet**](doc/MyApi.md#accountv1myaccountget) | **GET** /v1/my/account | Account
 [*MyApi*](doc/MyApi.md) | [**deleteAccountV1MyAccountDelete**](doc/MyApi.md#deleteaccountv1myaccountdelete) | **DELETE** /v1/my/account | Delete Account
+[*MyApi*](doc/MyApi.md) | [**markReadNotificationsV1MyNotificationsPost**](doc/MyApi.md#markreadnotificationsv1mynotificationspost) | **POST** /v1/my/notifications | Mark Read Notifications
 [*MyApi*](doc/MyApi.md) | [**notificationsV1MyNotificationsGet**](doc/MyApi.md#notificationsv1mynotificationsget) | **GET** /v1/my/notifications | Notifications
-[*MyApi*](doc/MyApi.md) | [**readMessagesV1MyMessagesPost**](doc/MyApi.md#readmessagesv1mymessagespost) | **POST** /v1/my/messages | Read Messages
 [*MyApi*](doc/MyApi.md) | [**updateAccountV1MyAccountPost**](doc/MyApi.md#updateaccountv1myaccountpost) | **POST** /v1/my/account | Update Account
 [*MyApi*](doc/MyApi.md) | [**updatePushTokenV1MyPushTokenPost**](doc/MyApi.md#updatepushtokenv1mypushtokenpost) | **POST** /v1/my/push_token | Update Push Token
 [*MyApi*](doc/MyApi.md) | [**workspacesV1MyWorkspacesGet**](doc/MyApi.md#workspacesv1myworkspacesget) | **GET** /v1/my/workspaces | Workspaces

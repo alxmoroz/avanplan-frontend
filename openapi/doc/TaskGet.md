@@ -26,6 +26,7 @@ Name | Type | Description | Notes
 **taskSource** | [**TaskSourceGet**](TaskSourceGet.md) |  | [optional] 
 **tasks** | [**BuiltList&lt;TaskGet&gt;**](TaskGet.md) |  | [optional] 
 **members** | [**BuiltList&lt;MemberGet&gt;**](MemberGet.md) |  | [optional] 
+**parentId** | **int** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

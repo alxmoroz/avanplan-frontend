@@ -25,7 +25,7 @@ class TaskCard extends StatelessWidget {
   final EdgeInsets? margin;
 
   bool get _hasStatus => task.status != null;
-  bool get _hasAssignee => task.assigneeId != null;
+  bool get _hasAssignee => task.assignee != null;
 
   Widget get title => H4(
         task.title,

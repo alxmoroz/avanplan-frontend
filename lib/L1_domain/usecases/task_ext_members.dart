@@ -11,6 +11,6 @@ extension TaskMembersExtension on Task {
   List<Member> get sortedMembers => projectMembers.sorted((m1, m2) => compareNatural('$m1', '$m2'));
 
   Member? get author => projectMembers.firstWhereOrNull((m) => m.id == authorId);
-  Member? get assignee => projectMembers.firstWhereOrNull((m) => m.id == authorId);
+  Member? get assignee => projectMembers.firstWhereOrNull((m) => m.id == assigneeId);
   List<Member> get activeMembers => sortedMembers.where((m) => m.isActive).toList();
 }

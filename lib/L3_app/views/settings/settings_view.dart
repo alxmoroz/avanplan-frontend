@@ -14,9 +14,10 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/communications_presenter.dart';
+import '../../usecases/ws_ext_actions.dart';
 import '../notification/notification_list_view.dart';
 import '../source/source_list_view.dart';
-import '../workspace/workspace_list_view.dart';
+import '../workspace/workspace_list_tile.dart';
 import 'app_version.dart';
 import 'user_list_tile.dart';
 
@@ -28,7 +29,6 @@ class SettingsView extends StatelessWidget {
     await Navigator.of(context).pushNamed(SourceListView.routeName);
   }
 
-  Future _showWorkspaces(BuildContext context) async => await Navigator.of(context).pushNamed(WorkspaceListView.routeName);
   Future _showMessages(BuildContext context) async => await Navigator.of(context).pushNamed(NotificationListView.routeName);
   User? get _user => accountController.user;
 
@@ -57,20 +57,21 @@ class SettingsView extends StatelessWidget {
                   ]),
                   onTap: () => _showMessages(context),
                 ),
-                if (mainController.canEditAnyWS)
+                if (mainController.canEditAnyWS) ...[
                   MTListTile(
                     leading: const ImportIcon(color: greyColor),
                     titleText: loc.source_list_title,
                     trailing: const ChevronIcon(),
                     onTap: () => _showSources(context),
                   ),
-                if (mainController.workspaces.length > 1)
-                  MTListTile(
-                    leading: const WSIcon(),
-                    titleText: loc.workspaces_title,
-                    trailing: const ChevronIcon(),
-                    onTap: () => _showWorkspaces(context),
+                  H4(
+                    loc.workspaces_title,
+                    padding: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
+                    color: lightGreyColor,
                   ),
+                  for (final ws in mainController.workspaces)
+                    if (ws.canWSView) WorkspaceListTile(ws)
+                ],
                 H4(
                   loc.about_service_title,
                   padding: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),

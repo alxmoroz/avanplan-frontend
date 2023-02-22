@@ -1,4 +1,4 @@
-# openapi.model.WorkspaceGet
+# openapi.model.WSTariffGet
 
 ## Load the model package
 ```dart
@@ -9,10 +9,8 @@ import 'package:openapi/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  | 
-**title** | **String** |  | [optional] 
-**description** | **String** |  | [optional] 
-**users** | [**BuiltList&lt;User&gt;**](User.md) |  | [optional] [default to ListBuilder()]
-**tariffs** | [**BuiltList&lt;WSTariffGet&gt;**](WSTariffGet.md) |  | 
+**expiresOn** | [**DateTime**](DateTime.md) |  | [optional] 
+**tariff** | [**TariffGet**](TariffGet.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

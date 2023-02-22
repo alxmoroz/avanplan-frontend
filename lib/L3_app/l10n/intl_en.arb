@@ -103,6 +103,7 @@
   "loader_unlinking_title": "Breaking the chains...",
   "loader_unwatch_title": "Sending to ignore...",
 
+  "member_list_title": "Members",
   "member_new_title": "New Member",
   "member_source_invitation_title": "Invite",
   "member_source_workspace_title": "Select",
@@ -198,6 +199,17 @@
   "subtask_list_title": "Subtasks",
   "subtask_new_title": "New subtask",
   "subtask_title": "Subtask",
+
+  "tariff_description_free": "- 1 user\nup to 3 projects\n- up to 5k tasks\n- Limited Import projects from external sources",
+  "tariff_description_standard": "- up to 20 users\n- up to 5 projects\n- up to 15k tasks\n- Import projects",
+  "tariff_description_pro": "- up to 50 users\n- до 10 projects\n- up to 75k tasks\n- Import projects",
+  "tariff_description_premium": "- up to 200 users\n- up to 100 projects\n- up to 500k tasks\n- Import projects",
+
+  "tariff_title": "Tariff",
+  "tariff_title_free": "FREE",
+  "tariff_title_standard": "STANDARD",
+  "tariff_title_pro": "PRO",
+  "tariff_title_premium": "PREMIUM",
 
   "task_assignee_nobody": "Nobody",
   "task_assignee_placeholder": "Assigned",

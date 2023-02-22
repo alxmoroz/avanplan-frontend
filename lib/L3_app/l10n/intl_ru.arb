@@ -102,6 +102,7 @@
   "loader_unlinking_title": "Рвём связи...",
   "loader_unwatch_title": "Отправляем в игнор...",
 
+  "member_list_title": "Участники",
   "member_new_title": "Новый участник",
   "member_source_invitation_title": "Пригласить",
   "member_source_workspace_title": "Выбрать",
@@ -147,7 +148,6 @@
   "role_code_guest": "Гость",
   "role_code_member": "Участник",
   "roles_in_task_prefix": "Роли в ",
-
 
   "save_action_title": "Сохранить",
   "save_and_go_action_title": "Сохранить и перейти",
@@ -198,6 +198,17 @@
   "subtask_list_title": "Подзадачи",
   "subtask_new_title": "Новая подзадача",
   "subtask_title": "Подзадача",
+
+  "tariff_description_free": "- 1 пользователь\n- до 3 проектов\n- до 5 тыс. задач\n- ограниченный перенос проектов снаружи",
+  "tariff_description_standard": "- до 20 пользователей\n- до 5 проектов\n- до 15 тыс. задач\n- полноценный импорт проектов",
+  "tariff_description_pro": "- до 50 пользователей\n- до 10 проектов\n- до 75 тыс. задач\n- полноценный импорт проектов",
+  "tariff_description_premium": "- до 200 пользователей\n- до 100 проектов\n- до 500 тыс. задач\n- полноценный импорт проектов",
+
+  "tariff_title": "Тариф",
+  "tariff_title_free": "Бесплатный",
+  "tariff_title_standard": "STANDARD",
+  "tariff_title_pro": "PRO",
+  "tariff_title_premium": "PREMIUM",
 
   "task_assignee_nobody": "Никому",
   "task_assignee_placeholder": "Назначено",

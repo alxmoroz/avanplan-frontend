@@ -105,6 +105,8 @@ Class | Method | HTTP request | Description
  - [EstimateValueGet](doc/EstimateValueGet.md)
  - [HTTPValidationError](doc/HTTPValidationError.md)
  - [Invitation](doc/Invitation.md)
+ - [LimitGet](doc/LimitGet.md)
+ - [LimitTariffGet](doc/LimitTariffGet.md)
  - [LocationInner](doc/LocationInner.md)
  - [MemberGet](doc/MemberGet.md)
  - [Notification](doc/Notification.md)
@@ -116,6 +118,7 @@ Class | Method | HTTP request | Description
  - [SourceGet](doc/SourceGet.md)
  - [SourceUpsert](doc/SourceUpsert.md)
  - [StatusGet](doc/StatusGet.md)
+ - [TariffGet](doc/TariffGet.md)
  - [TaskGet](doc/TaskGet.md)
  - [TaskRemote](doc/TaskRemote.md)
  - [TaskSource](doc/TaskSource.md)
@@ -126,6 +129,7 @@ Class | Method | HTTP request | Description
  - [UNotificationPermissionGet](doc/UNotificationPermissionGet.md)
  - [User](doc/User.md)
  - [ValidationError](doc/ValidationError.md)
+ - [WSTariffGet](doc/WSTariffGet.md)
  - [WorkspaceGet](doc/WorkspaceGet.md)
 
 

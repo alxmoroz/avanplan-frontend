@@ -3,6 +3,7 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:openapi/src/model/ws_tariff_get.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/model/user.dart';
 import 'package:built_value/built_value.dart';
@@ -17,6 +18,7 @@ part 'workspace_get.g.dart';
 /// * [title] 
 /// * [description] 
 /// * [users] 
+/// * [tariffs] 
 @BuiltValue()
 abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -31,12 +33,16 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
   @BuiltValueField(wireName: r'users')
   BuiltList<User>? get users;
 
+  @BuiltValueField(wireName: r'tariffs')
+  BuiltList<WSTariffGet> get tariffs;
+
   WorkspaceGet._();
 
   factory WorkspaceGet([void updates(WorkspaceGetBuilder b)]) = _$WorkspaceGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(WorkspaceGetBuilder b) => b;
+  static void _defaults(WorkspaceGetBuilder b) => b
+      ..users = ListBuilder();
 
   @BuiltValueSerializer(custom: true)
   static Serializer<WorkspaceGet> get serializer => _$WorkspaceGetSerializer();
@@ -80,6 +86,11 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
         specifiedType: const FullType(BuiltList, [FullType(User)]),
       );
     }
+    yield r'tariffs';
+    yield serializers.serialize(
+      object.tariffs,
+      specifiedType: const FullType(BuiltList, [FullType(WSTariffGet)]),
+    );
   }
 
   @override
@@ -130,6 +141,13 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
             specifiedType: const FullType(BuiltList, [FullType(User)]),
           ) as BuiltList<User>;
           result.users.replace(valueDes);
+          break;
+        case r'tariffs':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [FullType(WSTariffGet)]),
+          ) as BuiltList<WSTariffGet>;
+          result.tariffs.replace(valueDes);
           break;
         default:
           unhandled.add(key);

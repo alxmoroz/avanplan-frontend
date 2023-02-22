@@ -22,8 +22,13 @@ void main() {
       // TODO
     });
 
-    // BuiltList<User> users
+    // BuiltList<User> users (default value: ListBuilder())
     test('to test the property `users`', () async {
+      // TODO
+    });
+
+    // BuiltList<WSTariffGet> tariffs
+    test('to test the property `tariffs`', () async {
       // TODO
     });
   });

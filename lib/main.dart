@@ -10,6 +10,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 
+import 'L1_domain/entities/workspace.dart';
 import 'L3_app/components/colors.dart';
 import 'L3_app/extra/services.dart';
 import 'L3_app/l10n/generated/l10n.dart';
@@ -22,7 +23,7 @@ import 'L3_app/views/settings/settings_view.dart';
 import 'L3_app/views/sign_in/sign_in_view.dart';
 import 'L3_app/views/source/source_list_view.dart';
 import 'L3_app/views/task/task_view.dart';
-import 'L3_app/views/workspace/workspace_list_view.dart';
+import 'L3_app/views/workspace/workspace_view.dart';
 
 Future main() async {
   setup();
@@ -99,7 +100,6 @@ class App extends StatelessWidget {
               SourceListView.routeName: (_) => SourceListView(),
               SettingsView.routeName: (_) => SettingsView(),
               AccountView.routeName: (_) => AccountView(),
-              WorkspaceListView.routeName: (_) => WorkspaceListView(),
               NotificationListView.routeName: (_) => NotificationListView(),
             },
             onGenerateRoute: (RouteSettings rs) {
@@ -107,6 +107,8 @@ class App extends StatelessWidget {
                 return CupertinoPageRoute<dynamic>(builder: (_) => TaskView(rs.arguments as int?));
               } else if (rs.name == MemberView.routeName) {
                 return CupertinoPageRoute<dynamic>(builder: (_) => MemberView(rs.arguments as MemberViewArgs));
+              } else if (rs.name == WorkspaceView.routeName) {
+                return CupertinoPageRoute<dynamic>(builder: (_) => WorkspaceView(rs.arguments as Workspace));
               }
               return null;
             },

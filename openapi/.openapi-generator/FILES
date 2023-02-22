@@ -15,6 +15,8 @@ doc/IntegrationsSourcesApi.md
 doc/IntegrationsTasksApi.md
 doc/Invitation.md
 doc/InvitationApi.md
+doc/LimitGet.md
+doc/LimitTariffGet.md
 doc/LocationInner.md
 doc/MemberGet.md
 doc/MyApi.md
@@ -29,6 +31,7 @@ doc/SettingsGet.md
 doc/SourceGet.md
 doc/SourceUpsert.md
 doc/StatusGet.md
+doc/TariffGet.md
 doc/TaskGet.md
 doc/TaskRemote.md
 doc/TaskSource.md
@@ -40,6 +43,7 @@ doc/Token.md
 doc/UNotificationPermissionGet.md
 doc/User.md
 doc/ValidationError.md
+doc/WSTariffGet.md
 doc/WorkspaceGet.md
 lib/openapi.dart
 lib/src/api.dart
@@ -68,6 +72,8 @@ lib/src/model/estimate_unit_get.dart
 lib/src/model/estimate_value_get.dart
 lib/src/model/http_validation_error.dart
 lib/src/model/invitation.dart
+lib/src/model/limit_get.dart
+lib/src/model/limit_tariff_get.dart
 lib/src/model/location_inner.dart
 lib/src/model/member_get.dart
 lib/src/model/notification.dart
@@ -79,6 +85,7 @@ lib/src/model/settings_get.dart
 lib/src/model/source_get.dart
 lib/src/model/source_upsert.dart
 lib/src/model/status_get.dart
+lib/src/model/tariff_get.dart
 lib/src/model/task_get.dart
 lib/src/model/task_remote.dart
 lib/src/model/task_source.dart
@@ -90,6 +97,7 @@ lib/src/model/u_notification_permission_get.dart
 lib/src/model/user.dart
 lib/src/model/validation_error.dart
 lib/src/model/workspace_get.dart
+lib/src/model/ws_tariff_get.dart
 lib/src/serializers.dart
 pubspec.yaml
 test/auth_api_test.dart
@@ -105,6 +113,8 @@ test/integrations_sources_api_test.dart
 test/integrations_tasks_api_test.dart
 test/invitation_api_test.dart
 test/invitation_test.dart
+test/limit_get_test.dart
+test/limit_tariff_get_test.dart
 test/location_inner_test.dart
 test/member_get_test.dart
 test/my_api_test.dart
@@ -119,6 +129,7 @@ test/settings_get_test.dart
 test/source_get_test.dart
 test/source_upsert_test.dart
 test/status_get_test.dart
+test/tariff_get_test.dart
 test/task_get_test.dart
 test/task_remote_test.dart
 test/task_source_get_test.dart
@@ -131,3 +142,4 @@ test/u_notification_permission_get_test.dart
 test/user_test.dart
 test/validation_error_test.dart
 test/workspace_get_test.dart
+test/ws_tariff_get_test.dart

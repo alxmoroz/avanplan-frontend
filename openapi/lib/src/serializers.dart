@@ -23,6 +23,8 @@ import 'package:openapi/src/model/estimate_unit_get.dart';
 import 'package:openapi/src/model/estimate_value_get.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/invitation.dart';
+import 'package:openapi/src/model/limit_get.dart';
+import 'package:openapi/src/model/limit_tariff_get.dart';
 import 'package:openapi/src/model/location_inner.dart';
 import 'package:openapi/src/model/member_get.dart';
 import 'package:openapi/src/model/notification.dart';
@@ -34,6 +36,7 @@ import 'package:openapi/src/model/settings_get.dart';
 import 'package:openapi/src/model/source_get.dart';
 import 'package:openapi/src/model/source_upsert.dart';
 import 'package:openapi/src/model/status_get.dart';
+import 'package:openapi/src/model/tariff_get.dart';
 import 'package:openapi/src/model/task_get.dart';
 import 'package:openapi/src/model/task_remote.dart';
 import 'package:openapi/src/model/task_source.dart';
@@ -44,6 +47,7 @@ import 'package:openapi/src/model/token.dart';
 import 'package:openapi/src/model/u_notification_permission_get.dart';
 import 'package:openapi/src/model/user.dart';
 import 'package:openapi/src/model/validation_error.dart';
+import 'package:openapi/src/model/ws_tariff_get.dart';
 import 'package:openapi/src/model/workspace_get.dart';
 
 part 'serializers.g.dart';
@@ -58,6 +62,8 @@ part 'serializers.g.dart';
   EstimateValueGet,
   HTTPValidationError,
   Invitation,
+  LimitGet,
+  LimitTariffGet,
   LocationInner,
   MemberGet,
   Notification,
@@ -69,6 +75,7 @@ part 'serializers.g.dart';
   SourceGet,
   SourceUpsert,
   StatusGet,
+  TariffGet,
   TaskGet,
   TaskRemote,
   TaskSource,
@@ -79,6 +86,7 @@ part 'serializers.g.dart';
   UNotificationPermissionGet,
   User,
   ValidationError,
+  WSTariffGet,
   WorkspaceGet,
 ])
 Serializers serializers = (_$serializers.toBuilder()

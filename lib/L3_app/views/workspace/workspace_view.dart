@@ -3,9 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../L1_domain/entities/tariff.dart';
 import '../../../L1_domain/entities/workspace.dart';
-import '../../../L1_domain/usecases/ws_ext_tariffs.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/mt_list_tile.dart';
@@ -51,13 +49,10 @@ class _WorkspaceViewState extends State<WorkspaceView> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const SizedBox(height: P),
-          ...[
-            for (WSTariff t in ws.activeTariffs)
-              MTListTile(
-                middle: Column(children: [LightText(loc.tariff_title), H4(t.title)]),
-                subtitle: LightText(t.description),
-              )
-          ],
+          MTListTile(
+            middle: Column(children: [LightText(loc.tariff_title), H4(ws.tariff.title)]),
+            subtitle: LightText(ws.tariff.description),
+          ),
         ],
       );
 

@@ -18,7 +18,7 @@ part 'workspace_get.g.dart';
 /// * [title] 
 /// * [description] 
 /// * [users] 
-/// * [tariffs] 
+/// * [wsTariff] 
 @BuiltValue()
 abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -33,8 +33,8 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
   @BuiltValueField(wireName: r'users')
   BuiltList<User>? get users;
 
-  @BuiltValueField(wireName: r'tariffs')
-  BuiltList<WSTariffGet> get tariffs;
+  @BuiltValueField(wireName: r'ws_tariff')
+  WSTariffGet? get wsTariff;
 
   WorkspaceGet._();
 
@@ -86,11 +86,13 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
         specifiedType: const FullType(BuiltList, [FullType(User)]),
       );
     }
-    yield r'tariffs';
-    yield serializers.serialize(
-      object.tariffs,
-      specifiedType: const FullType(BuiltList, [FullType(WSTariffGet)]),
-    );
+    if (object.wsTariff != null) {
+      yield r'ws_tariff';
+      yield serializers.serialize(
+        object.wsTariff,
+        specifiedType: const FullType(WSTariffGet),
+      );
+    }
   }
 
   @override
@@ -142,12 +144,12 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
           ) as BuiltList<User>;
           result.users.replace(valueDes);
           break;
-        case r'tariffs':
+        case r'ws_tariff':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(BuiltList, [FullType(WSTariffGet)]),
-          ) as BuiltList<WSTariffGet>;
-          result.tariffs.replace(valueDes);
+            specifiedType: const FullType(WSTariffGet),
+          ) as WSTariffGet;
+          result.wsTariff.replace(valueDes);
           break;
         default:
           unhandled.add(key);

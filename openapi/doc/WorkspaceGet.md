@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **title** | **String** |  | [optional] 
 **description** | **String** |  | [optional] 
 **users** | [**BuiltList&lt;User&gt;**](User.md) |  | [optional] [default to ListBuilder()]
-**tariffs** | [**BuiltList&lt;WSTariffGet&gt;**](WSTariffGet.md) |  | 
+**wsTariff** | [**WSTariffGet**](WSTariffGet.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

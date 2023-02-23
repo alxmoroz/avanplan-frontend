@@ -27,8 +27,8 @@ void main() {
       // TODO
     });
 
-    // BuiltList<WSTariffGet> tariffs
-    test('to test the property `tariffs`', () async {
+    // WSTariffGet wsTariff
+    test('to test the property `wsTariff`', () async {
       // TODO
     });
   });

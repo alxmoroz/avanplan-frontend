@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
-import '../../../L1_domain/usecases/ws_ext_tariffs.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -30,7 +29,7 @@ class WorkspaceListTile extends StatelessWidget {
         children: [
           if (ws.description.isNotEmpty) SmallText(ws.description, padding: const EdgeInsets.only(bottom: P_2), maxLines: 2),
           SmallText(ws.me!.rolesStr, color: greyColor),
-          SmallText("${loc.tariff_title}: ${ws.activeTariffs.map((t) => t.title).join(',')}", color: greyColor),
+          SmallText('${loc.tariff_title}: ${ws.tariff.title}', color: greyColor),
         ],
       ),
       trailing: const ChevronIcon(),

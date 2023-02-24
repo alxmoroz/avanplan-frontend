@@ -39,7 +39,7 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
   /// источники импорта, трекеры
 
   @observable
-  ObservableList<Source> sources = ObservableList();
+  List<Source> sources = [];
 
   // TODO: здесь загружаем и проверяем трекеры на старте приложения (загружаем вместе в РП). Что не обязательно делать на старте.
   // Если тут сделать по запросу, тогда в окне импорта нужно будет учесть тоже
@@ -50,12 +50,12 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
     for (Workspace ws in mainController.editableWSs) {
       _sources.addAll(ws.sources);
     }
-    sources = ObservableList.of(_sources);
+    sources = _sources;
     _sortSources();
   }
 
   @action
-  void clearData() => sources.clear();
+  void clearData() => sources = [];
 
   /// выбранный трекер
 
@@ -89,15 +89,15 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
         if (src.id != null) {
           src.state = SrcState.unknown;
           // TODO: нужен способ дергать обсервер без этих хаков
-          sources = sources;
+          sources = [...sources];
 
           connected = await sourceUC.checkConnection(src);
           src.state = connected ? SrcState.connected : SrcState.error;
-          sources = sources;
+          sources = [...sources];
         }
       } on MTImportError {
         src.state = SrcState.error;
-        sources = sources;
+        sources = [...sources];
       }
     }
     return connected;

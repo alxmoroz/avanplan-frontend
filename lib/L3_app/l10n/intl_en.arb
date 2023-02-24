@@ -205,6 +205,9 @@
   "tariff_description_pro": "- up to 50 users\n- до 10 projects\n- up to 75k tasks\n- Import projects",
   "tariff_description_premium": "- up to 200 users\n- up to 100 projects\n- up to 500k tasks\n- Import projects",
 
+  "tariff_limit_error_description": "Please contact the workspace administrator",
+  "tariff_limit_error_title": "The operation is limited in the selected tariff",
+
   "tariff_title": "Tariff",
   "tariff_title_free": "FREE",
   "tariff_title_standard": "STANDARD",

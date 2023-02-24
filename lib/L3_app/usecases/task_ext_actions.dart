@@ -99,16 +99,24 @@ extension TaskActionsExt on Task {
     }
   }
 
-  Iterable<TaskSource> unlinkTaskTree() {
+  Iterable<TaskSource> allTss() {
     final tss = <TaskSource>[];
     for (Task subtask in tasks) {
-      tss.addAll(subtask.unlinkTaskTree());
+      tss.addAll(subtask.allTss());
     }
     if (hasLink) {
-      taskSource?.keepConnection = false;
       tss.add(taskSource!);
     }
     return tss;
+  }
+
+  void unlinkTaskTree() {
+    for (Task subtask in tasks) {
+      subtask.unlinkTaskTree();
+    }
+    if (hasLink) {
+      taskSource?.keepConnection = false;
+    }
   }
 
   void updateParents() {

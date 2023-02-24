@@ -216,19 +216,17 @@ abstract class _TaskViewControllerBase with Store {
     }
   }
 
-  Future<bool> unlink() async {
-    bool res = false;
+  Future unlink() async {
     if (await _unlinkDialog() == true) {
       loaderController.start();
       loaderController.setUnlinking();
       try {
-        await importUC.unlinkTaskSources(task.wsId, task.id!, task.unlinkTaskTree());
+        await importUC.unlinkTaskSources(task.wsId, task.id!, task.allTss());
+        task.unlinkTaskTree();
         mainController.updateRootTask();
-        res = true;
       } catch (_) {}
       await loaderController.stop();
     }
-    return res;
   }
 
   Future unwatch() async {

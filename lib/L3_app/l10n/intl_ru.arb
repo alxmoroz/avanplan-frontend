@@ -204,6 +204,9 @@
   "tariff_description_pro": "- до 50 пользователей\n- до 10 проектов\n- до 75 тыс. задач\n- полноценный импорт проектов",
   "tariff_description_premium": "- до 200 пользователей\n- до 100 проектов\n- до 500 тыс. задач\n- полноценный импорт проектов",
 
+  "tariff_limit_error_description": "Обратитесь к администратору рабочего пространства",
+  "tariff_limit_error_title": "Выполнение операции ограничено в выбранном тарифе",
+
   "tariff_title": "Тариф",
   "tariff_title_free": "Бесплатный",
   "tariff_title_standard": "STANDARD",

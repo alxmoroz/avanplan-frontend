@@ -75,6 +75,9 @@ abstract class _LoaderControllerBase with Store {
             if (path.startsWith('/v1/auth')) {
               // Показываем диалог, если это именно авторизация
               setAuthError();
+            } else if (e.errCode.startsWith('ERR_PERMISSION_LIMIT')) {
+              // Показываем диалог ограничений тарифа
+              _setTariffLimitError();
             } else if (e.errCode.startsWith('ERR_PERMISSION')) {
               // Показываем диалог отсутствия прав
               _setPermissionError();
@@ -189,6 +192,13 @@ abstract class _LoaderControllerBase with Store {
         icon: _authIcon,
         titleText: loc.permission_error_title,
         descriptionText: description != null ? Intl.message('permission_error_$description') : loc.permission_error_description,
+        actionText: loc.ok,
+      );
+
+  void _setTariffLimitError([String? description]) => _set(
+        icon: _authIcon,
+        titleText: loc.tariff_limit_error_title,
+        descriptionText: description != null ? Intl.message('tariff_limit_error_$description') : loc.tariff_limit_error_description,
         actionText: loc.ok,
       );
 

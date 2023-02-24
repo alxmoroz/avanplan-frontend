@@ -36,7 +36,7 @@ class ImportRepo extends AbstractImportRepo {
   }
 
   @override
-  Future<bool> unlinkTaskSources(int wsId, Iterable<TaskSource> tss) async {
+  Future<bool> unlinkTaskSources(int wsId, int taskId, Iterable<TaskSource> tss) async {
     if (tss.isNotEmpty) {
       final tSchema = tss.map((ts) => (o_api.TaskSourceUpsertBuilder()
             ..id = ts.id
@@ -49,9 +49,10 @@ class ImportRepo extends AbstractImportRepo {
           .build());
 
       final resp = await api.unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost(
+        wsId: wsId,
+        taskId: taskId,
         sourceId: tss.first.sourceId,
         taskSourceUpsert: BuiltList.from(tSchema),
-        wsId: wsId,
       );
       return resp.data == true;
     }

@@ -107,7 +107,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost**
-> bool unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost(wsId, sourceId, taskSourceUpsert)
+> bool unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost(wsId, sourceId, taskId, taskSourceUpsert)
 
 Unlink Task Sources
 
@@ -120,10 +120,11 @@ import 'package:openapi/api.dart';
 final api = Openapi().getIntegrationsTasksApi();
 final int wsId = 56; // int | 
 final int sourceId = 56; // int | 
+final int taskId = 56; // int | 
 final BuiltList<TaskSourceUpsert> taskSourceUpsert = ; // BuiltList<TaskSourceUpsert> | 
 
 try {
-    final response = api.unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost(wsId, sourceId, taskSourceUpsert);
+    final response = api.unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost(wsId, sourceId, taskId, taskSourceUpsert);
     print(response);
 } catch on DioError (e) {
     print('Exception when calling IntegrationsTasksApi->unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost: $e\n');
@@ -136,6 +137,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **wsId** | **int**|  | 
  **sourceId** | **int**|  | 
+ **taskId** | **int**|  | 
  **taskSourceUpsert** | [**BuiltList&lt;TaskSourceUpsert&gt;**](TaskSourceUpsert.md)|  | 
 
 ### Return type

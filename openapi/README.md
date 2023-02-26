@@ -86,7 +86,6 @@ Class | Method | HTTP request | Description
 [*MyApi*](doc/MyApi.md) | [**updatePushTokenV1MyPushTokenPost**](doc/MyApi.md#updatepushtokenv1mypushtokenpost) | **POST** /v1/my/push_token | Update Push Token
 [*MyApi*](doc/MyApi.md) | [**workspacesV1MyWorkspacesGet**](doc/MyApi.md#workspacesv1myworkspacesget) | **GET** /v1/my/workspaces | Workspaces
 [*RolesApi*](doc/RolesApi.md) | [**assignV1RolesAssignPost**](doc/RolesApi.md#assignv1rolesassignpost) | **POST** /v1/roles/assign | Assign
-[*RolesApi*](doc/RolesApi.md) | [**getAllV1RolesGet**](doc/RolesApi.md#getallv1rolesget) | **GET** /v1/roles/ | Get All
 [*SettingsApi*](doc/SettingsApi.md) | [**getEstimateValuesV1SettingsEstimateValuesGet**](doc/SettingsApi.md#getestimatevaluesv1settingsestimatevaluesget) | **GET** /v1/settings/estimate_values | Get Estimate Values
 [*SettingsApi*](doc/SettingsApi.md) | [**getSettingsV1SettingsGet**](doc/SettingsApi.md#getsettingsv1settingsget) | **GET** /v1/settings/ | Get Settings
 [*TasksApi*](doc/TasksApi.md) | [**deleteV1TasksTaskIdDelete**](doc/TasksApi.md#deletev1taskstaskiddelete) | **DELETE** /v1/tasks/{task_id} | Delete
@@ -105,8 +104,6 @@ Class | Method | HTTP request | Description
  - [EstimateValueGet](doc/EstimateValueGet.md)
  - [HTTPValidationError](doc/HTTPValidationError.md)
  - [Invitation](doc/Invitation.md)
- - [LimitGet](doc/LimitGet.md)
- - [LimitTariffGet](doc/LimitTariffGet.md)
  - [LocationInner](doc/LocationInner.md)
  - [MemberGet](doc/MemberGet.md)
  - [Notification](doc/Notification.md)
@@ -119,6 +116,7 @@ Class | Method | HTTP request | Description
  - [SourceUpsert](doc/SourceUpsert.md)
  - [StatusGet](doc/StatusGet.md)
  - [TariffGet](doc/TariffGet.md)
+ - [TariffLimitGet](doc/TariffLimitGet.md)
  - [TaskGet](doc/TaskGet.md)
  - [TaskRemote](doc/TaskRemote.md)
  - [TaskSource](doc/TaskSource.md)

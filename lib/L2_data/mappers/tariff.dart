@@ -4,14 +4,10 @@ import 'package:openapi/openapi.dart' as api;
 
 import '../../L1_domain/entities/tariff.dart';
 
-extension LimitMapper on api.LimitGet {
-  Limit get limit => Limit(id: id, code: code);
-}
-
-extension LimitTariffMapper on api.LimitTariffGet {
-  LimitTariff get limitTariff => LimitTariff(
+extension LimitTariffMapper on api.TariffLimitGet {
+  TariffLimit get limitTariff => TariffLimit(
         id: id,
-        limit: limit.limit,
+        code: code,
         value: value,
       );
 }

@@ -220,7 +220,6 @@ class IntegrationsTasksApi {
   /// Parameters:
   /// * [wsId] 
   /// * [sourceId] 
-  /// * [taskId] 
   /// * [taskSourceUpsert] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
@@ -234,7 +233,6 @@ class IntegrationsTasksApi {
   Future<Response<bool>> unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost({ 
     required int wsId,
     required int sourceId,
-    required int taskId,
     required BuiltList<TaskSourceUpsert> taskSourceUpsert,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -265,7 +263,6 @@ class IntegrationsTasksApi {
     final _queryParameters = <String, dynamic>{
       r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
       r'source_id': encodeQueryParameter(_serializers, sourceId, const FullType(int)),
-      r'task_id': encodeQueryParameter(_serializers, taskId, const FullType(int)),
     };
 
     dynamic _bodyData;

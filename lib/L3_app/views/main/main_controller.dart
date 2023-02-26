@@ -53,10 +53,10 @@ abstract class _MainControllerBase with Store {
     rootTask.tasks = [];
     for (Workspace ws in workspaces) {
       final wsId = ws.id!;
+      //TODO: сделать по аналогии с users и roles - формировать на бэке, не делать отдельный запрос тут
       ws.sources = await sourceUC.getAll(wsId);
       ws.estimateValues = await wsSettingsUC.getEstimateValues(wsId);
       ws.settings = await wsSettingsUC.getSettings(wsId);
-      ws.roles = await roleUC.getAll(wsId);
 
       // List<Status> get _sortedStatuses => statuses.map((s) => s.status).sorted((s1, s2) => compareNatural('$s1', '$s2'));
       // List<Priority> get _sortedPriorities => priorities.map((p) => p.priority).sorted((p1, p2) => compareNatural('$p1', '$p2'));

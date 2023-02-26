@@ -6,6 +6,7 @@
 import 'package:openapi/src/model/ws_tariff_get.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/model/user.dart';
+import 'package:openapi/src/model/role_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -18,6 +19,7 @@ part 'workspace_get.g.dart';
 /// * [title] 
 /// * [description] 
 /// * [users] 
+/// * [roles] 
 /// * [wsTariff] 
 @BuiltValue()
 abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> {
@@ -33,6 +35,9 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
   @BuiltValueField(wireName: r'users')
   BuiltList<User>? get users;
 
+  @BuiltValueField(wireName: r'roles')
+  BuiltList<RoleGet>? get roles;
+
   @BuiltValueField(wireName: r'ws_tariff')
   WSTariffGet? get wsTariff;
 
@@ -42,7 +47,8 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(WorkspaceGetBuilder b) => b
-      ..users = ListBuilder();
+      ..users = ListBuilder()
+      ..roles = ListBuilder();
 
   @BuiltValueSerializer(custom: true)
   static Serializer<WorkspaceGet> get serializer => _$WorkspaceGetSerializer();
@@ -84,6 +90,13 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
       yield serializers.serialize(
         object.users,
         specifiedType: const FullType(BuiltList, [FullType(User)]),
+      );
+    }
+    if (object.roles != null) {
+      yield r'roles';
+      yield serializers.serialize(
+        object.roles,
+        specifiedType: const FullType(BuiltList, [FullType(RoleGet)]),
       );
     }
     if (object.wsTariff != null) {
@@ -143,6 +156,13 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
             specifiedType: const FullType(BuiltList, [FullType(User)]),
           ) as BuiltList<User>;
           result.users.replace(valueDes);
+          break;
+        case r'roles':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [FullType(RoleGet)]),
+          ) as BuiltList<RoleGet>;
+          result.roles.replace(valueDes);
           break;
         case r'ws_tariff':
           final valueDes = serializers.deserialize(

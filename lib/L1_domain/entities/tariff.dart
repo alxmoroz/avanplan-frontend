@@ -2,18 +2,13 @@
 
 import 'base_entity.dart';
 
-class Limit extends Codable {
-  Limit({required super.id, required super.code});
-}
-
-class LimitTariff extends RPersistable {
-  LimitTariff({
+class TariffLimit extends Codable {
+  TariffLimit({
     required super.id,
-    required this.limit,
+    required super.code,
     required this.value,
   });
 
-  final Limit limit;
   final int value;
 }
 
@@ -26,7 +21,7 @@ class Tariff extends Codable {
   });
 
   final int priceMonthUser;
-  final Iterable<LimitTariff> limits;
+  final Iterable<TariffLimit> limits;
 }
 
 class WSTariff extends RPersistable {

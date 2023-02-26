@@ -50,7 +50,6 @@ class ImportRepo extends AbstractImportRepo {
 
       final resp = await api.unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost(
         wsId: wsId,
-        taskId: taskId,
         sourceId: tss.first.sourceId,
         taskSourceUpsert: BuiltList.from(tSchema),
       );

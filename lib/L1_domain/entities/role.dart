@@ -6,10 +6,7 @@ class Role extends Codable {
   Role({
     required super.id,
     required super.code,
-    required this.wsId,
   });
-
-  final int wsId;
 
   bool selected = false;
 }

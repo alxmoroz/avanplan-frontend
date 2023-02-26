@@ -14,16 +14,17 @@ class Workspace extends Titleable {
     required super.title,
     required super.description,
     required this.users,
+    required this.roles,
     required this.tariff,
   });
 
   final Iterable<User> users;
+  final Iterable<Role> roles;
   final WSTariff tariff;
 
   Iterable<Source> sources = [];
   Iterable<EstimateValue> estimateValues = [];
   WSettings? settings;
-  Iterable<Role> roles = [];
 
   // List<Status> statuses = [];
   // List<Priority> priorities = [];

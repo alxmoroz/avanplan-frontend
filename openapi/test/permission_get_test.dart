@@ -22,8 +22,13 @@ void main() {
       // TODO
     });
 
-    // String code
-    test('to test the property `code`', () async {
+    // String obj
+    test('to test the property `obj`', () async {
+      // TODO
+    });
+
+    // String action
+    test('to test the property `action`', () async {
       // TODO
     });
   });

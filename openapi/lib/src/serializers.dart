@@ -23,8 +23,6 @@ import 'package:openapi/src/model/estimate_unit_get.dart';
 import 'package:openapi/src/model/estimate_value_get.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/invitation.dart';
-import 'package:openapi/src/model/limit_get.dart';
-import 'package:openapi/src/model/limit_tariff_get.dart';
 import 'package:openapi/src/model/location_inner.dart';
 import 'package:openapi/src/model/member_get.dart';
 import 'package:openapi/src/model/notification.dart';
@@ -37,6 +35,7 @@ import 'package:openapi/src/model/source_get.dart';
 import 'package:openapi/src/model/source_upsert.dart';
 import 'package:openapi/src/model/status_get.dart';
 import 'package:openapi/src/model/tariff_get.dart';
+import 'package:openapi/src/model/tariff_limit_get.dart';
 import 'package:openapi/src/model/task_get.dart';
 import 'package:openapi/src/model/task_remote.dart';
 import 'package:openapi/src/model/task_source.dart';
@@ -62,8 +61,6 @@ part 'serializers.g.dart';
   EstimateValueGet,
   HTTPValidationError,
   Invitation,
-  LimitGet,
-  LimitTariffGet,
   LocationInner,
   MemberGet,
   Notification,
@@ -76,6 +73,7 @@ part 'serializers.g.dart';
   SourceUpsert,
   StatusGet,
   TariffGet,
+  TariffLimitGet,
   TaskGet,
   TaskRemote,
   TaskSource,
@@ -129,10 +127,6 @@ Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskGet)]),
         () => ListBuilder<TaskGet>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(RoleGet)]),
-        () => ListBuilder<RoleGet>(),
       )
       ..add(const OneOfSerializer())
       ..add(const AnyOfSerializer())

@@ -8,15 +8,8 @@ void main() {
   group(RolesApi, () {
     // Assign
     //
-    //Future<BuiltList<MemberGet>> assignV1RolesAssignPost(int taskId, int memberId, int wsId, BuiltList<int> requestBody) async
+    //Future<BuiltList<MemberGet>> assignV1RolesAssignPost(int taskId, int memberId, int wsId, BuiltList<int> requestBody, { int permissionTaskId }) async
     test('test assignV1RolesAssignPost', () async {
-      // TODO
-    });
-
-    // Get All
-    //
-    //Future<BuiltList<RoleGet>> getAllV1RolesGet(int wsId) async
-    test('test getAllV1RolesGet', () async {
       // TODO
     });
   });

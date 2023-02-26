@@ -14,7 +14,8 @@ part 'permission_get.g.dart';
 /// * [id] 
 /// * [title] 
 /// * [description] 
-/// * [code] 
+/// * [obj] 
+/// * [action] 
 @BuiltValue()
 abstract class PermissionGet implements Built<PermissionGet, PermissionGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -26,8 +27,11 @@ abstract class PermissionGet implements Built<PermissionGet, PermissionGetBuilde
   @BuiltValueField(wireName: r'description')
   String? get description;
 
-  @BuiltValueField(wireName: r'code')
-  String get code;
+  @BuiltValueField(wireName: r'obj')
+  String get obj;
+
+  @BuiltValueField(wireName: r'action')
+  String get action;
 
   PermissionGet._();
 
@@ -71,9 +75,14 @@ class _$PermissionGetSerializer implements PrimitiveSerializer<PermissionGet> {
         specifiedType: const FullType(String),
       );
     }
-    yield r'code';
+    yield r'obj';
     yield serializers.serialize(
-      object.code,
+      object.obj,
+      specifiedType: const FullType(String),
+    );
+    yield r'action';
+    yield serializers.serialize(
+      object.action,
       specifiedType: const FullType(String),
     );
   }
@@ -120,12 +129,19 @@ class _$PermissionGetSerializer implements PrimitiveSerializer<PermissionGet> {
           ) as String;
           result.description = valueDes;
           break;
-        case r'code':
+        case r'obj':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.code = valueDes;
+          result.obj = valueDes;
+          break;
+        case r'action':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.action = valueDes;
           break;
         default:
           unhandled.add(key);

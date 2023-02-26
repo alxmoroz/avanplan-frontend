@@ -1,4 +1,4 @@
-# openapi.model.LimitTariffGet
+# openapi.model.TariffLimitGet
 
 ## Load the model package
 ```dart
@@ -9,8 +9,8 @@ import 'package:openapi/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  | 
+**code** | **String** |  | 
 **value** | **int** |  | 
-**limit** | [**LimitGet**](LimitGet.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

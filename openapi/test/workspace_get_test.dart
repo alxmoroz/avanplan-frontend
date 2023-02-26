@@ -27,6 +27,11 @@ void main() {
       // TODO
     });
 
+    // BuiltList<RoleGet> roles (default value: ListBuilder())
+    test('to test the property `roles`', () async {
+      // TODO
+    });
+
     // WSTariffGet wsTariff
     test('to test the property `wsTariff`', () async {
       // TODO

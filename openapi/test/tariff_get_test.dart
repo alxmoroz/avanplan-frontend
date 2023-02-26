@@ -22,7 +22,7 @@ void main() {
       // TODO
     });
 
-    // BuiltList<LimitTariffGet> limits
+    // BuiltList<TariffLimitGet> limits
     test('to test the property `limits`', () async {
       // TODO
     });

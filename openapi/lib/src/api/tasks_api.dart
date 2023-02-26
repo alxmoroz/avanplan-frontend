@@ -27,6 +27,7 @@ class TasksApi {
   /// Parameters:
   /// * [taskId] 
   /// * [wsId] 
+  /// * [permissionTaskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -39,6 +40,7 @@ class TasksApi {
   Future<Response<bool>> deleteV1TasksTaskIdDelete({ 
     required int taskId,
     required int wsId,
+    int? permissionTaskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -66,6 +68,7 @@ class TasksApi {
 
     final _queryParameters = <String, dynamic>{
       r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
+      if (permissionTaskId != null) r'permission_task_id': encodeQueryParameter(_serializers, permissionTaskId, const FullType(int)),
     };
 
     final _response = await _dio.request<Object>(
@@ -193,6 +196,7 @@ class TasksApi {
   /// Parameters:
   /// * [wsId] 
   /// * [taskUpsert] 
+  /// * [permissionTaskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -205,6 +209,7 @@ class TasksApi {
   Future<Response<TaskGet>> upsertV1TasksPost({ 
     required int wsId,
     required TaskUpsert taskUpsert,
+    int? permissionTaskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -233,6 +238,7 @@ class TasksApi {
 
     final _queryParameters = <String, dynamic>{
       r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
+      if (permissionTaskId != null) r'permission_task_id': encodeQueryParameter(_serializers, permissionTaskId, const FullType(int)),
     };
 
     dynamic _bodyData;

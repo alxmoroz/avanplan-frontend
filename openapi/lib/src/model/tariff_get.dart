@@ -4,7 +4,7 @@
 
 // ignore_for_file: unused_element
 import 'package:built_collection/built_collection.dart';
-import 'package:openapi/src/model/limit_tariff_get.dart';
+import 'package:openapi/src/model/tariff_limit_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -29,7 +29,7 @@ abstract class TariffGet implements Built<TariffGet, TariffGetBuilder> {
   int get priceMonthUser;
 
   @BuiltValueField(wireName: r'limits')
-  BuiltList<LimitTariffGet> get limits;
+  BuiltList<TariffLimitGet> get limits;
 
   TariffGet._();
 
@@ -72,7 +72,7 @@ class _$TariffGetSerializer implements PrimitiveSerializer<TariffGet> {
     yield r'limits';
     yield serializers.serialize(
       object.limits,
-      specifiedType: const FullType(BuiltList, [FullType(LimitTariffGet)]),
+      specifiedType: const FullType(BuiltList, [FullType(TariffLimitGet)]),
     );
   }
 
@@ -121,8 +121,8 @@ class _$TariffGetSerializer implements PrimitiveSerializer<TariffGet> {
         case r'limits':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(BuiltList, [FullType(LimitTariffGet)]),
-          ) as BuiltList<LimitTariffGet>;
+            specifiedType: const FullType(BuiltList, [FullType(TariffLimitGet)]),
+          ) as BuiltList<TariffLimitGet>;
           result.limits.replace(valueDes);
           break;
         default:

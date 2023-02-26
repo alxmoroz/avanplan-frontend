@@ -5,8 +5,8 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 
-import '../../L1_domain/entities/base_entity.dart';
 import '../../L1_domain/entities/member.dart';
+import '../../L1_domain/entities/person.dart';
 import '../components/colors.dart';
 import '../components/constants.dart';
 import '../components/icons.dart';

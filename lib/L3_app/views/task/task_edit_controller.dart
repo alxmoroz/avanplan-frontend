@@ -104,7 +104,6 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
     loaderController.setSaving();
     final editedTask = await _saveTask(task, parent);
     if (editedTask != null) {
-      editedTask.ws = selectedWS;
       Navigator.of(context).pop(EditTaskResult(editedTask, proceed));
     }
     await loaderController.stop(300);

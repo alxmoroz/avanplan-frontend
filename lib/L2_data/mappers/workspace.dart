@@ -14,6 +14,7 @@ extension WorkspaceMapper on api.WorkspaceGet {
         description: description?.trim() ?? '',
         users: users?.map((u) => u.user) ?? [],
         tariff: wsTariff!.wsTariff,
+        limitsMap: {for (var l in wsTariff!.wsTariff.tariff.limits) l.code: l.value},
         roles: roles?.map((r) => r.role) ?? [],
       );
 }

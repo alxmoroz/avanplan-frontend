@@ -1,6 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'base_entity.dart';
+import 'person.dart';
 
 class Member extends Person {
   Member({

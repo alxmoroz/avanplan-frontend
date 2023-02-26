@@ -48,7 +48,7 @@ abstract class _TaskViewControllerBase with Store {
             if (_hasOverview) TaskTabKey.overview,
             if (task.hasSubtasks) TaskTabKey.subtasks,
             if (_hasDetails) TaskTabKey.details,
-            if (task.canViewMembers && (task.members.isNotEmpty || task.canEditMembers)) TaskTabKey.team,
+            if (task.canMembersRead && (task.members.isNotEmpty || task.canEditMembers)) TaskTabKey.team,
           ];
   }
 

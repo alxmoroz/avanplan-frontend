@@ -146,6 +146,7 @@
   "role_code_admin": "Администратор",
   "role_code_full": "Полный доступ",
   "role_code_guest": "Гость",
+  "role_code_owner": "Владелец",
   "role_code_member": "Участник",
   "roles_in_task_prefix": "Роли в ",
 

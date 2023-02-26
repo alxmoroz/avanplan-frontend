@@ -11,13 +11,14 @@ import '../../components/mt_constrained.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/source_presenter.dart';
+import '../../usecases/task_ext_actions.dart';
 
 class ImportProjectsActions extends StatelessWidget {
   const ImportProjectsActions(this.task);
   final Task task;
 
   @override
-  Widget build(BuildContext context) => refsController.sourceTypes.isNotEmpty && mainController.canEditAnyWS
+  Widget build(BuildContext context) => refsController.sourceTypes.isNotEmpty && task.canImport
       ? ListView(shrinkWrap: true, children: [
           Center(child: StartIcon(size: MediaQuery.of(context).size.height / 5)),
           const SizedBox(height: P2),

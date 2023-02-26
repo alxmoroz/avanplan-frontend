@@ -293,4 +293,5 @@ extension TaskStats on Task {
   bool get isAhead => riskPeriod != null && -riskPeriod! > _riskThreshold;
 
   bool get hasEstimate => estimate != null;
+  bool get hasLink => taskSource?.keepConnection == true;
 }

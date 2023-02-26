@@ -31,7 +31,7 @@ class TaskOverview extends StatelessWidget {
 
   Task get task => controller.task;
 
-  Widget? get bottomBar => task.isWorkspace && task.actionTypes.isNotEmpty && mainController.canEditAnyWS
+  Widget? get bottomBar => task.canCreate
       ? Row(children: [const Spacer(), TaskAddMenu(controller)])
       : task.shouldAddSubtask
           ? TaskAddButton(controller)

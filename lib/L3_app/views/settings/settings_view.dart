@@ -14,6 +14,7 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/communications_presenter.dart';
+import '../../usecases/task_ext_actions.dart';
 import '../../usecases/ws_ext_actions.dart';
 import '../notification/notification_list_view.dart';
 import '../source/source_list_view.dart';
@@ -57,7 +58,7 @@ class SettingsView extends StatelessWidget {
                   ]),
                   onTap: () => _showMessages(context),
                 ),
-                if (mainController.canEditAnyWS) ...[
+                if (mainController.rootTask.canImport) ...[
                   MTListTile(
                     leading: const ImportIcon(color: greyColor),
                     titleText: loc.source_list_title,
@@ -70,7 +71,7 @@ class SettingsView extends StatelessWidget {
                     color: lightGreyColor,
                   ),
                   for (final ws in mainController.workspaces)
-                    if (ws.canWSView) WorkspaceListTile(ws)
+                    if (ws.hpWSInfoRead) WorkspaceListTile(ws)
                 ],
                 H4(
                   loc.about_service_title,

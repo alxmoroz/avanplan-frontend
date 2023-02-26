@@ -1,7 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import '../entities/task.dart';
-import '../entities/workspace.dart';
 
 extension TaskLevelExtension on Task {
   bool get isWorkspace => level == TaskLevel.workspace;
@@ -18,8 +17,6 @@ extension TaskLevelExtension on Task {
     }
     return null;
   }
-
-  Workspace? get projectWs => project?.ws;
 
   void updateLevel() {
     level = {

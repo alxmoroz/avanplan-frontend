@@ -11,6 +11,7 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/source_presenter.dart';
+import '../../usecases/task_ext_actions.dart';
 import 'source_add_menu.dart';
 import 'source_controller.dart';
 
@@ -39,7 +40,7 @@ class SourceListView extends StatelessWidget {
                   itemCount: _controller.sources.length,
                 ),
         ),
-        bottomBar: mainController.canEditAnyWS
+        bottomBar: mainController.rootTask.canImport
             ? Row(children: [
                 Expanded(
                   child: _controller.sources.isEmpty ? SourceAddMenu(title: loc.source_title_new, margin: const EdgeInsets.all(P)) : const SizedBox(),

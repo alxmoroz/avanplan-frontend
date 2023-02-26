@@ -12,6 +12,7 @@ import '../../components/mt_confirm_dialog.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
 import '../../usecases/task_ext_actions.dart';
+import '../../usecases/ws_ext_actions.dart';
 import '../workspace/workspace_bounded.dart';
 import 'source_edit_view.dart';
 
@@ -47,8 +48,10 @@ abstract class _SourceControllerBase extends WorkspaceBounded with Store {
   @action
   Future fetchData() async {
     final _sources = <Source>[];
-    for (Workspace ws in mainController.editableWSs) {
-      _sources.addAll(ws.sources);
+    for (Workspace ws in mainController.workspaces) {
+      if (ws.hpProjectCreate) {
+        _sources.addAll(ws.sources);
+      }
     }
     sources = _sources;
     _sortSources();

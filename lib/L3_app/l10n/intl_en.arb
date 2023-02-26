@@ -148,6 +148,7 @@
   "role_code_full": "Full access",
   "role_code_guest": "Guest",
   "role_code_member": "Member",
+  "role_code_owner": "Owner",
   "roles_in_task_prefix": "Roles in ",
 
   "save_action_title": "Save",

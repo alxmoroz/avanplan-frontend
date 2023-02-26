@@ -16,6 +16,7 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/person_presenter.dart';
+import '../../usecases/task_ext_actions.dart';
 import '../notification/notification_list_view.dart';
 import '../settings/settings_view.dart';
 import '../task/panes/task_overview.dart';
@@ -87,10 +88,10 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
                 onTap: () => _gotoProjects(context),
               ),
             ),
-            if (mainController.canEditAnyWS) TaskAddMenu(_taskController),
+            if (_task.canCreate) TaskAddMenu(_taskController),
           ],
         )
-      : mainController.canEditAnyWS
+      : _task.canCreate
           ? TaskAddButton(_taskController)
           : null;
 

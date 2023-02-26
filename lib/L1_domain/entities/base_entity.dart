@@ -44,25 +44,6 @@ abstract class CodeTitleable extends Codable {
   final String description;
 }
 
-abstract class Person extends RPersistable {
-  Person({
-    super.id,
-    required this.email,
-    required this.fullName,
-    required this.roles,
-    required this.permissions,
-  });
-
-  final String? fullName;
-  final String email;
-
-  final Iterable<String> roles;
-  final Iterable<String> permissions;
-
-  @override
-  String toString() => '${fullName ?? email}';
-}
-
 abstract class Orderable extends Codable {
   Orderable({
     super.id,

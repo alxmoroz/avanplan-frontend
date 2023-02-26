@@ -9,7 +9,6 @@ import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/usecases/task_ext_state.dart';
 import '../../../main.dart';
 import '../../extra/services.dart';
-import '../../usecases/ws_ext_actions.dart';
 import '../task/task_view.dart';
 
 part 'main_controller.g.dart';
@@ -21,14 +20,7 @@ abstract class _MainControllerBase with Store {
   @observable
   ObservableList<Workspace> workspaces = ObservableList();
 
-  // TODO: уточнить логику, где нужен этот список и для чего. Можно ли заменить на проверку прав
-  @computed
-  List<Workspace> get editableWSs => workspaces.where((ws) => ws.canProjectsEdit).toList();
-
-  /// роли и права доступа к РП
-  // TODO: заменить на конкретные проверки в местах вызова
-  @computed
-  bool get canEditAnyWS => editableWSs.isNotEmpty;
+  Workspace? wsForId(int wsId) => workspaces.firstWhereOrNull((ws) => ws.id == wsId);
 
   /// рутовый объект
   @observable
@@ -64,7 +56,6 @@ abstract class _MainControllerBase with Store {
       final projects = (await taskUC.getRoots(ws.id!)).toList();
       projects.forEach((p) async {
         p.parent = rootTask;
-        p.ws = ws;
       });
 
       rootTask.tasks.addAll(projects);

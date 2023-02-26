@@ -16,11 +16,13 @@ class Workspace extends Titleable {
     required this.users,
     required this.roles,
     required this.tariff,
+    required this.limitsMap,
   });
 
   final Iterable<User> users;
   final Iterable<Role> roles;
   final WSTariff tariff;
+  final Map<String, int> limitsMap;
 
   Iterable<Source> sources = [];
   Iterable<EstimateValue> estimateValues = [];

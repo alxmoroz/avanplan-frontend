@@ -2,10 +2,12 @@
 
 import 'package:collection/collection.dart';
 
+import '../../L1_domain/entities/member.dart';
 import '../../L1_domain/entities/role.dart';
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities/task_source.dart';
 import '../../L1_domain/entities/user.dart';
+import '../../L1_domain/entities/workspace.dart';
 import '../../L1_domain/usecases/task_ext_level.dart';
 import '../../L1_domain/usecases/task_ext_members.dart';
 import '../../L1_domain/usecases/task_ext_state.dart';
@@ -26,42 +28,54 @@ enum TaskActionType {
 }
 
 extension TaskActionsExt on Task {
-  /// разрешения для текущего пользователя для выбранной задачи или проекта
-  User? get _user => accountController.user;
+  User? get _authUser => accountController.user;
+  Workspace? get _ws => mainController.wsForId(wsId);
 
-  bool get _hpProjectsEdit => projectWs?.canProjectsEdit == true;
+  bool get hpWSProjectCreate => mainController.workspaces.any((ws) => ws.hpProjectCreate);
 
-  Iterable<String> get _tP => projectMembers.firstWhereOrNull((m) => m.userId == _user?.id)?.permissions ?? [];
-  bool get _hpMembersView => _tP.contains('MEMBERS_VIEW') || _hpProjectsEdit;
-  bool get _hpMembersEdit => _tP.contains('MEMBERS_EDIT') || _hpProjectsEdit;
-  // bool get _hpView => _tP.contains('TASKS_VIEW') || _hpEditProjects;
-  bool get _hpEdit => _tP.contains('TASKS_EDIT') || _hpProjectsEdit;
-  // bool get _hpRolesEdit => _tP.contains('ROLES_EDIT') || _hpEditProjects;
+  /// разрешения для текущего пользователя для РП, выбранной задачи или проекта
+  Member? get _pm => projectMembers.firstWhereOrNull((m) => m.userId == _authUser?.id);
 
-  bool get hasLink => taskSource?.keepConnection == true;
+  bool get _hpProjectContentUpdate => _ws?.hpProjectContentUpdate == true;
+
+  bool get _hpMemberUpdate => _pm?.hp('MEMBER_UPDATE') == true || _hpProjectContentUpdate;
+  bool get _hpCreate => _pm?.hp('TASK_CREATE') == true || _hpProjectContentUpdate;
+  bool get _hpUpdate => _pm?.hp('TASK_UPDATE') == true || _hpProjectContentUpdate;
+  bool get _hpDelete => _pm?.hp('TASK_DELETE') == true || _hpProjectContentUpdate;
 
   /// доступные действия
+  bool get _isLocal => !hasLink;
+  bool get _isLocalProject => isProject && _isLocal;
+  bool get _isLinkedProject => isProject && hasLink;
 
-  bool get rootCanEditProjects => isWorkspace && mainController.canEditAnyWS;
+  bool get _canProjectCreate => isWorkspace && hpWSProjectCreate;
+  bool get _canProjectUpdate => _isLocalProject && _ws?.hpProjectUpdate == true;
+  bool get _canProjectDelete => _isLocalProject && _ws?.hpProjectDelete == true;
+  bool get _canTaskCreate => !closed && _hpCreate && !hasLink;
+  bool get _canTaskUpdate => _hpUpdate && !hasLink;
+  bool get _canTaskDelete => _hpDelete && !hasLink;
 
-  bool get canAdd => rootCanEditProjects || (!closed && canEdit);
-  bool get canEdit => _hpEdit && !hasLink;
-  bool get canImport => rootCanEditProjects;
+  bool get canCreate => _canProjectCreate || _canTaskCreate;
+  bool get canUpdate => _canProjectUpdate || _canTaskUpdate;
+  bool get canDelete => _canProjectDelete || _canTaskDelete;
+  bool get canImport => _canProjectCreate;
   bool get canRefresh => isWorkspace;
-  bool get canReopen => canEdit && closed && parent?.closed == false;
-  bool get canClose => canEdit && !closed;
-  bool get canViewMembers => isProject && _hpMembersView;
-  bool get canEditMembers => canEdit && _hpMembersEdit;
+  bool get canReopen => closed && canUpdate && parent?.closed == false;
+  bool get canClose => canUpdate && !closed && !hasLink;
+  bool get canUnlink => _isLinkedProject && _ws?.hpProjectUnlink == true;
+  bool get canUnwatch => _isLinkedProject && _ws?.hpProjectDelete == true;
+  bool get canMembersRead => isProject && _ws?.hpWSInfoRead == true;
+  bool get canEditMembers => _hpMemberUpdate && !hasLink;
 
   /// доступные роли для управления
   // TODO: https://redmine.moroz.team/issues/2518
-  Iterable<Role> get allowedRoles => projectWs?.roles ?? [];
+  Iterable<Role> get allowedRoles => _ws?.roles ?? [];
 
   /// рекомендации, быстрые кнопки
-  bool get shouldClose => canEdit && state == TaskState.closable;
+  bool get shouldClose => canUpdate && state == TaskState.closable;
   bool get shouldCloseLeaf => canClose && (isTask || isSubtask) && !hasSubtasks;
   bool get shouldAddSubtask =>
-      canAdd &&
+      canCreate &&
       !hasSubtasks &&
       [
         TaskLevel.project,
@@ -74,15 +88,12 @@ extension TaskActionsExt on Task {
           if (refsController.hasStJira) TaskActionType.import_jira,
           if (refsController.hasStRedmine) TaskActionType.import_redmine,
         ],
-        if (canAdd) TaskActionType.add,
-        if (canEdit) TaskActionType.edit,
+        if (canCreate) TaskActionType.add,
+        if (canUpdate) TaskActionType.edit,
         if (canClose) TaskActionType.close,
         if (canReopen) TaskActionType.reopen,
-        if (isProject && hasLink) ...[
-          // TaskActionType.go2source,
-          TaskActionType.unlink,
-          TaskActionType.unwatch,
-        ]
+        if (canUnlink) TaskActionType.unlink,
+        if (canUnwatch) TaskActionType.unwatch,
       ];
 
   void _updateParentTask() {

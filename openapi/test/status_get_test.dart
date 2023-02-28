@@ -12,13 +12,13 @@ void main() {
       // TODO
     });
 
-    // bool closed
-    test('to test the property `closed`', () async {
+    // String code
+    test('to test the property `code`', () async {
       // TODO
     });
 
-    // String code
-    test('to test the property `code`', () async {
+    // bool closed
+    test('to test the property `closed`', () async {
       // TODO
     });
   });

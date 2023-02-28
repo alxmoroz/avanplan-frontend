@@ -17,8 +17,13 @@ void main() {
       // TODO
     });
 
-    // int priceMonthUser
-    test('to test the property `priceMonthUser`', () async {
+    // int price
+    test('to test the property `price`', () async {
+      // TODO
+    });
+
+    // bool hidden
+    test('to test the property `hidden`', () async {
       // TODO
     });
 

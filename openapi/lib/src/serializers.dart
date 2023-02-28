@@ -19,6 +19,7 @@ import 'package:openapi/src/model/body_auth_google_token.dart';
 import 'package:openapi/src/model/body_redeem_v1_invitation_redeem_post.dart';
 import 'package:openapi/src/model/body_update_account_v1_my_account_post.dart';
 import 'package:openapi/src/model/body_update_push_token_v1_my_push_token_post.dart';
+import 'package:openapi/src/model/contract_get.dart';
 import 'package:openapi/src/model/estimate_unit_get.dart';
 import 'package:openapi/src/model/estimate_value_get.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
@@ -46,7 +47,6 @@ import 'package:openapi/src/model/token.dart';
 import 'package:openapi/src/model/u_notification_permission_get.dart';
 import 'package:openapi/src/model/user.dart';
 import 'package:openapi/src/model/validation_error.dart';
-import 'package:openapi/src/model/ws_tariff_get.dart';
 import 'package:openapi/src/model/workspace_get.dart';
 
 part 'serializers.g.dart';
@@ -57,6 +57,7 @@ part 'serializers.g.dart';
   BodyRedeemV1InvitationRedeemPost,
   BodyUpdateAccountV1MyAccountPost,
   BodyUpdatePushTokenV1MyPushTokenPost,
+  ContractGet,
   EstimateUnitGet,
   EstimateValueGet,
   HTTPValidationError,
@@ -84,7 +85,6 @@ part 'serializers.g.dart';
   UNotificationPermissionGet,
   User,
   ValidationError,
-  WSTariffGet,
   WorkspaceGet,
 ])
 Serializers serializers = (_$serializers.toBuilder()

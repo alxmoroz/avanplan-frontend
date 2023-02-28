@@ -1,4 +1,4 @@
-# openapi.model.WSTariffGet
+# openapi.model.ContractGet
 
 ## Load the model package
 ```dart
@@ -9,8 +9,9 @@ import 'package:openapi/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  | 
+**createdOn** | [**DateTime**](DateTime.md) |  | 
 **expiresOn** | [**DateTime**](DateTime.md) |  | [optional] 
-**tariff** | [**TariffGet**](TariffGet.md) |  | 
+**tariffId** | **int** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

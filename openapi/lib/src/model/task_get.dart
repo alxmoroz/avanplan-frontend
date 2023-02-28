@@ -18,7 +18,6 @@ part 'task_get.g.dart';
 /// Properties:
 /// * [id] 
 /// * [createdOn] 
-/// * [updatedOn] 
 /// * [title] 
 /// * [description] 
 /// * [closed] 
@@ -35,6 +34,7 @@ part 'task_get.g.dart';
 /// * [tasks] 
 /// * [members] 
 /// * [parentId] 
+/// * [updatedOn] 
 @BuiltValue()
 abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -42,9 +42,6 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
 
   @BuiltValueField(wireName: r'created_on')
   DateTime get createdOn;
-
-  @BuiltValueField(wireName: r'updated_on')
-  DateTime get updatedOn;
 
   @BuiltValueField(wireName: r'title')
   String? get title;
@@ -94,6 +91,9 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'parent_id')
   int? get parentId;
 
+  @BuiltValueField(wireName: r'updated_on')
+  DateTime get updatedOn;
+
   TaskGet._();
 
   factory TaskGet([void updates(TaskGetBuilder b)]) = _$TaskGet;
@@ -127,11 +127,6 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
     yield r'created_on';
     yield serializers.serialize(
       object.createdOn,
-      specifiedType: const FullType(DateTime),
-    );
-    yield r'updated_on';
-    yield serializers.serialize(
-      object.updatedOn,
       specifiedType: const FullType(DateTime),
     );
     if (object.title != null) {
@@ -246,6 +241,11 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
         specifiedType: const FullType(int),
       );
     }
+    yield r'updated_on';
+    yield serializers.serialize(
+      object.updatedOn,
+      specifiedType: const FullType(DateTime),
+    );
   }
 
   @override
@@ -282,13 +282,6 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
             specifiedType: const FullType(DateTime),
           ) as DateTime;
           result.createdOn = valueDes;
-          break;
-        case r'updated_on':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
-          result.updatedOn = valueDes;
           break;
         case r'title':
           final valueDes = serializers.deserialize(
@@ -401,6 +394,13 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
             specifiedType: const FullType(int),
           ) as int;
           result.parentId = valueDes;
+          break;
+        case r'updated_on':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.updatedOn = valueDes;
           break;
         default:
           unhandled.add(key);

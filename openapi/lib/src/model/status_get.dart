@@ -12,18 +12,18 @@ part 'status_get.g.dart';
 ///
 /// Properties:
 /// * [id] 
-/// * [closed] 
 /// * [code] 
+/// * [closed] 
 @BuiltValue()
 abstract class StatusGet implements Built<StatusGet, StatusGetBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
 
-  @BuiltValueField(wireName: r'closed')
-  bool get closed;
-
   @BuiltValueField(wireName: r'code')
   String get code;
+
+  @BuiltValueField(wireName: r'closed')
+  bool get closed;
 
   StatusGet._();
 
@@ -53,15 +53,15 @@ class _$StatusGetSerializer implements PrimitiveSerializer<StatusGet> {
       object.id,
       specifiedType: const FullType(int),
     );
-    yield r'closed';
-    yield serializers.serialize(
-      object.closed,
-      specifiedType: const FullType(bool),
-    );
     yield r'code';
     yield serializers.serialize(
       object.code,
       specifiedType: const FullType(String),
+    );
+    yield r'closed';
+    yield serializers.serialize(
+      object.closed,
+      specifiedType: const FullType(bool),
     );
   }
 
@@ -93,19 +93,19 @@ class _$StatusGetSerializer implements PrimitiveSerializer<StatusGet> {
           ) as int;
           result.id = valueDes;
           break;
-        case r'closed':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool;
-          result.closed = valueDes;
-          break;
         case r'code':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
           result.code = valueDes;
+          break;
+        case r'closed':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.closed = valueDes;
           break;
         default:
           unhandled.add(key);

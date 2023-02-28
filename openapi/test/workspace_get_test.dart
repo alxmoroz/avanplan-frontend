@@ -32,8 +32,13 @@ void main() {
       // TODO
     });
 
-    // WSTariffGet wsTariff
-    test('to test the property `wsTariff`', () async {
+    // ContractGet contract
+    test('to test the property `contract`', () async {
+      // TODO
+    });
+
+    // TariffGet tariff
+    test('to test the property `tariff`', () async {
       // TODO
     });
   });

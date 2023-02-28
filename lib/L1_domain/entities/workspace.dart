@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'base_entity.dart';
+import 'contract.dart';
 import 'estimate_value.dart';
 import 'role.dart';
 import 'source.dart';
@@ -15,13 +16,15 @@ class Workspace extends Titleable {
     required super.description,
     required this.users,
     required this.roles,
+    required this.contract,
     required this.tariff,
     required this.limitsMap,
   });
 
   final Iterable<User> users;
   final Iterable<Role> roles;
-  final WSTariff tariff;
+  final Contract contract;
+  final Tariff tariff;
   final Map<String, int> limitsMap;
 
   Iterable<Source> sources = [];

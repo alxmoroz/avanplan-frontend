@@ -100,6 +100,7 @@ Class | Method | HTTP request | Description
  - [BodyRedeemV1InvitationRedeemPost](doc/BodyRedeemV1InvitationRedeemPost.md)
  - [BodyUpdateAccountV1MyAccountPost](doc/BodyUpdateAccountV1MyAccountPost.md)
  - [BodyUpdatePushTokenV1MyPushTokenPost](doc/BodyUpdatePushTokenV1MyPushTokenPost.md)
+ - [ContractGet](doc/ContractGet.md)
  - [EstimateUnitGet](doc/EstimateUnitGet.md)
  - [EstimateValueGet](doc/EstimateValueGet.md)
  - [HTTPValidationError](doc/HTTPValidationError.md)
@@ -127,7 +128,6 @@ Class | Method | HTTP request | Description
  - [UNotificationPermissionGet](doc/UNotificationPermissionGet.md)
  - [User](doc/User.md)
  - [ValidationError](doc/ValidationError.md)
- - [WSTariffGet](doc/WSTariffGet.md)
  - [WorkspaceGet](doc/WorkspaceGet.md)
 
 

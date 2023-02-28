@@ -3,10 +3,11 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:openapi/src/model/ws_tariff_get.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/model/user.dart';
+import 'package:openapi/src/model/contract_get.dart';
 import 'package:openapi/src/model/role_get.dart';
+import 'package:openapi/src/model/tariff_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -20,7 +21,8 @@ part 'workspace_get.g.dart';
 /// * [description] 
 /// * [users] 
 /// * [roles] 
-/// * [wsTariff] 
+/// * [contract] 
+/// * [tariff] 
 @BuiltValue()
 abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -38,8 +40,11 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
   @BuiltValueField(wireName: r'roles')
   BuiltList<RoleGet>? get roles;
 
-  @BuiltValueField(wireName: r'ws_tariff')
-  WSTariffGet? get wsTariff;
+  @BuiltValueField(wireName: r'contract')
+  ContractGet? get contract;
+
+  @BuiltValueField(wireName: r'tariff')
+  TariffGet? get tariff;
 
   WorkspaceGet._();
 
@@ -99,11 +104,18 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
         specifiedType: const FullType(BuiltList, [FullType(RoleGet)]),
       );
     }
-    if (object.wsTariff != null) {
-      yield r'ws_tariff';
+    if (object.contract != null) {
+      yield r'contract';
       yield serializers.serialize(
-        object.wsTariff,
-        specifiedType: const FullType(WSTariffGet),
+        object.contract,
+        specifiedType: const FullType(ContractGet),
+      );
+    }
+    if (object.tariff != null) {
+      yield r'tariff';
+      yield serializers.serialize(
+        object.tariff,
+        specifiedType: const FullType(TariffGet),
       );
     }
   }
@@ -164,12 +176,19 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
           ) as BuiltList<RoleGet>;
           result.roles.replace(valueDes);
           break;
-        case r'ws_tariff':
+        case r'contract':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(WSTariffGet),
-          ) as WSTariffGet;
-          result.wsTariff.replace(valueDes);
+            specifiedType: const FullType(ContractGet),
+          ) as ContractGet;
+          result.contract.replace(valueDes);
+          break;
+        case r'tariff':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(TariffGet),
+          ) as TariffGet;
+          result.tariff.replace(valueDes);
           break;
         default:
           unhandled.add(key);

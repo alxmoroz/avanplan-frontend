@@ -1,14 +1,19 @@
 import 'package:test/test.dart';
 import 'package:openapi/openapi.dart';
 
-// tests for WSTariffGet
+// tests for ContractGet
 void main() {
-  final instance = WSTariffGetBuilder();
+  final instance = ContractGetBuilder();
   // TODO add properties to the builder and call build()
 
-  group(WSTariffGet, () {
+  group(ContractGet, () {
     // int id
     test('to test the property `id`', () async {
+      // TODO
+    });
+
+    // DateTime createdOn
+    test('to test the property `createdOn`', () async {
       // TODO
     });
 
@@ -17,8 +22,8 @@ void main() {
       // TODO
     });
 
-    // TariffGet tariff
-    test('to test the property `tariff`', () async {
+    // int tariffId
+    test('to test the property `tariffId`', () async {
       // TODO
     });
   });

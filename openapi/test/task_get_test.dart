@@ -17,11 +17,6 @@ void main() {
       // TODO
     });
 
-    // DateTime updatedOn
-    test('to test the property `updatedOn`', () async {
-      // TODO
-    });
-
     // String title
     test('to test the property `title`', () async {
       // TODO
@@ -99,6 +94,11 @@ void main() {
 
     // int parentId
     test('to test the property `parentId`', () async {
+      // TODO
+    });
+
+    // DateTime updatedOn
+    test('to test the property `updatedOn`', () async {
       // TODO
     });
   });

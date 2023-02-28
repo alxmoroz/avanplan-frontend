@@ -12,13 +12,13 @@ void main() {
       // TODO
     });
 
-    // int order
-    test('to test the property `order`', () async {
+    // String code
+    test('to test the property `code`', () async {
       // TODO
     });
 
-    // String code
-    test('to test the property `code`', () async {
+    // int order
+    test('to test the property `order`', () async {
       // TODO
     });
   });

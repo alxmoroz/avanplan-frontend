@@ -12,18 +12,18 @@ part 'priority_get.g.dart';
 ///
 /// Properties:
 /// * [id] 
-/// * [order] 
 /// * [code] 
+/// * [order] 
 @BuiltValue()
 abstract class PriorityGet implements Built<PriorityGet, PriorityGetBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
 
-  @BuiltValueField(wireName: r'order')
-  int get order;
-
   @BuiltValueField(wireName: r'code')
   String get code;
+
+  @BuiltValueField(wireName: r'order')
+  int get order;
 
   PriorityGet._();
 
@@ -53,15 +53,15 @@ class _$PriorityGetSerializer implements PrimitiveSerializer<PriorityGet> {
       object.id,
       specifiedType: const FullType(int),
     );
-    yield r'order';
-    yield serializers.serialize(
-      object.order,
-      specifiedType: const FullType(int),
-    );
     yield r'code';
     yield serializers.serialize(
       object.code,
       specifiedType: const FullType(String),
+    );
+    yield r'order';
+    yield serializers.serialize(
+      object.order,
+      specifiedType: const FullType(int),
     );
   }
 
@@ -93,19 +93,19 @@ class _$PriorityGetSerializer implements PrimitiveSerializer<PriorityGet> {
           ) as int;
           result.id = valueDes;
           break;
-        case r'order':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.order = valueDes;
-          break;
         case r'code':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
           result.code = valueDes;
+          break;
+        case r'order':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.order = valueDes;
           break;
         default:
           unhandled.add(key);

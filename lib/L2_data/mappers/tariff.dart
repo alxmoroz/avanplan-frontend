@@ -16,15 +16,7 @@ extension TariffCodeMapper on api.TariffGet {
   Tariff get tariff => Tariff(
         id: id,
         code: code,
-        priceMonthUser: priceMonthUser,
+        price: price,
         limits: limits.map((limit) => limit.limitTariff),
-      );
-}
-
-extension WSTariffMapper on api.WSTariffGet {
-  WSTariff get wsTariff => WSTariff(
-        id: id,
-        tariff: tariff.tariff,
-        expiresOn: expiresOn?.toLocal(),
       );
 }

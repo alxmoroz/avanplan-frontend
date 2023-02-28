@@ -15,7 +15,8 @@ part 'tariff_get.g.dart';
 /// Properties:
 /// * [id] 
 /// * [code] 
-/// * [priceMonthUser] 
+/// * [price] 
+/// * [hidden] 
 /// * [limits] 
 @BuiltValue()
 abstract class TariffGet implements Built<TariffGet, TariffGetBuilder> {
@@ -25,8 +26,11 @@ abstract class TariffGet implements Built<TariffGet, TariffGetBuilder> {
   @BuiltValueField(wireName: r'code')
   String get code;
 
-  @BuiltValueField(wireName: r'price_month_user')
-  int get priceMonthUser;
+  @BuiltValueField(wireName: r'price')
+  int get price;
+
+  @BuiltValueField(wireName: r'hidden')
+  bool get hidden;
 
   @BuiltValueField(wireName: r'limits')
   BuiltList<TariffLimitGet> get limits;
@@ -64,10 +68,15 @@ class _$TariffGetSerializer implements PrimitiveSerializer<TariffGet> {
       object.code,
       specifiedType: const FullType(String),
     );
-    yield r'price_month_user';
+    yield r'price';
     yield serializers.serialize(
-      object.priceMonthUser,
+      object.price,
       specifiedType: const FullType(int),
+    );
+    yield r'hidden';
+    yield serializers.serialize(
+      object.hidden,
+      specifiedType: const FullType(bool),
     );
     yield r'limits';
     yield serializers.serialize(
@@ -111,12 +120,19 @@ class _$TariffGetSerializer implements PrimitiveSerializer<TariffGet> {
           ) as String;
           result.code = valueDes;
           break;
-        case r'price_month_user':
+        case r'price':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(int),
           ) as int;
-          result.priceMonthUser = valueDes;
+          result.price = valueDes;
+          break;
+        case r'hidden':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.hidden = valueDes;
           break;
         case r'limits':
           final valueDes = serializers.deserialize(

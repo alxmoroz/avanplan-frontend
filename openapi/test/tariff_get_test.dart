@@ -17,11 +17,6 @@ void main() {
       // TODO
     });
 
-    // int price
-    test('to test the property `price`', () async {
-      // TODO
-    });
-
     // bool hidden
     test('to test the property `hidden`', () async {
       // TODO
@@ -29,6 +24,11 @@ void main() {
 
     // BuiltList<TariffLimitGet> limits
     test('to test the property `limits`', () async {
+      // TODO
+    });
+
+    // BuiltList<TariffOptionGet> options
+    test('to test the property `options`', () async {
       // TODO
     });
   });

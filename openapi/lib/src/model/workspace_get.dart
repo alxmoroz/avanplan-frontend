@@ -7,7 +7,6 @@ import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/model/user.dart';
 import 'package:openapi/src/model/contract_get.dart';
 import 'package:openapi/src/model/role_get.dart';
-import 'package:openapi/src/model/tariff_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -22,7 +21,6 @@ part 'workspace_get.g.dart';
 /// * [users] 
 /// * [roles] 
 /// * [contract] 
-/// * [tariff] 
 @BuiltValue()
 abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -42,9 +40,6 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
 
   @BuiltValueField(wireName: r'contract')
   ContractGet? get contract;
-
-  @BuiltValueField(wireName: r'tariff')
-  TariffGet? get tariff;
 
   WorkspaceGet._();
 
@@ -111,13 +106,6 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
         specifiedType: const FullType(ContractGet),
       );
     }
-    if (object.tariff != null) {
-      yield r'tariff';
-      yield serializers.serialize(
-        object.tariff,
-        specifiedType: const FullType(TariffGet),
-      );
-    }
   }
 
   @override
@@ -182,13 +170,6 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
             specifiedType: const FullType(ContractGet),
           ) as ContractGet;
           result.contract.replace(valueDes);
-          break;
-        case r'tariff':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(TariffGet),
-          ) as TariffGet;
-          result.tariff.replace(valueDes);
           break;
         default:
           unhandled.add(key);

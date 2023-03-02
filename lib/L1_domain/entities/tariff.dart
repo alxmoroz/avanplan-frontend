@@ -16,10 +16,8 @@ class Tariff extends Codable {
   Tariff({
     required super.id,
     required super.code,
-    required this.price,
     required this.limits,
   });
 
-  final int price;
   final Iterable<TariffLimit> limits;
 }

@@ -1,4 +1,4 @@
-# openapi.model.ContractGet
+# openapi.model.InvoiceDetailGet
 
 ## Load the model package
 ```dart
@@ -9,12 +9,10 @@ import 'package:openapi/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  | 
-**createdOn** | [**DateTime**](DateTime.md) |  | 
-**expiresOn** | [**DateTime**](DateTime.md) |  | [optional] 
-**terminated** | **bool** |  | [optional] [default to false]
-**tariffId** | **int** |  | 
-**tariff** | [**TariffGet**](TariffGet.md) |  | [optional] 
-**invoice** | [**InvoiceGet**](InvoiceGet.md) |  | [optional] 
+**startDate** | [**DateTime**](DateTime.md) |  | 
+**endDate** | [**DateTime**](DateTime.md) |  | [optional] 
+**optionCode** | **String** |  | 
+**amount** | **num** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

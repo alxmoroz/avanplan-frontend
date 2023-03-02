@@ -16,7 +16,6 @@ extension TariffCodeMapper on api.TariffGet {
   Tariff get tariff => Tariff(
         id: id,
         code: code,
-        price: price,
         limits: limits.map((limit) => limit.limitTariff),
       );
 }

@@ -22,8 +22,23 @@ void main() {
       // TODO
     });
 
+    // bool terminated (default value: false)
+    test('to test the property `terminated`', () async {
+      // TODO
+    });
+
     // int tariffId
     test('to test the property `tariffId`', () async {
+      // TODO
+    });
+
+    // TariffGet tariff
+    test('to test the property `tariff`', () async {
+      // TODO
+    });
+
+    // InvoiceGet invoice
+    test('to test the property `invoice`', () async {
       // TODO
     });
   });

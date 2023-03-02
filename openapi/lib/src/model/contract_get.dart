@@ -3,6 +3,8 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:openapi/src/model/invoice_get.dart';
+import 'package:openapi/src/model/tariff_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -14,7 +16,10 @@ part 'contract_get.g.dart';
 /// * [id] 
 /// * [createdOn] 
 /// * [expiresOn] 
+/// * [terminated] 
 /// * [tariffId] 
+/// * [tariff] 
+/// * [invoice] 
 @BuiltValue()
 abstract class ContractGet implements Built<ContractGet, ContractGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -26,15 +31,25 @@ abstract class ContractGet implements Built<ContractGet, ContractGetBuilder> {
   @BuiltValueField(wireName: r'expires_on')
   DateTime? get expiresOn;
 
+  @BuiltValueField(wireName: r'terminated')
+  bool? get terminated;
+
   @BuiltValueField(wireName: r'tariff_id')
   int get tariffId;
+
+  @BuiltValueField(wireName: r'tariff')
+  TariffGet? get tariff;
+
+  @BuiltValueField(wireName: r'invoice')
+  InvoiceGet? get invoice;
 
   ContractGet._();
 
   factory ContractGet([void updates(ContractGetBuilder b)]) = _$ContractGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(ContractGetBuilder b) => b;
+  static void _defaults(ContractGetBuilder b) => b
+      ..terminated = false;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<ContractGet> get serializer => _$ContractGetSerializer();
@@ -69,11 +84,32 @@ class _$ContractGetSerializer implements PrimitiveSerializer<ContractGet> {
         specifiedType: const FullType(DateTime),
       );
     }
+    if (object.terminated != null) {
+      yield r'terminated';
+      yield serializers.serialize(
+        object.terminated,
+        specifiedType: const FullType(bool),
+      );
+    }
     yield r'tariff_id';
     yield serializers.serialize(
       object.tariffId,
       specifiedType: const FullType(int),
     );
+    if (object.tariff != null) {
+      yield r'tariff';
+      yield serializers.serialize(
+        object.tariff,
+        specifiedType: const FullType(TariffGet),
+      );
+    }
+    if (object.invoice != null) {
+      yield r'invoice';
+      yield serializers.serialize(
+        object.invoice,
+        specifiedType: const FullType(InvoiceGet),
+      );
+    }
   }
 
   @override
@@ -118,12 +154,33 @@ class _$ContractGetSerializer implements PrimitiveSerializer<ContractGet> {
           ) as DateTime;
           result.expiresOn = valueDes;
           break;
+        case r'terminated':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.terminated = valueDes;
+          break;
         case r'tariff_id':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(int),
           ) as int;
           result.tariffId = valueDes;
+          break;
+        case r'tariff':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(TariffGet),
+          ) as TariffGet;
+          result.tariff.replace(valueDes);
+          break;
+        case r'invoice':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(InvoiceGet),
+          ) as InvoiceGet;
+          result.invoice.replace(valueDes);
           break;
         default:
           unhandled.add(key);

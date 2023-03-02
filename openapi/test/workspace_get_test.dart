@@ -36,10 +36,5 @@ void main() {
     test('to test the property `contract`', () async {
       // TODO
     });
-
-    // TariffGet tariff
-    test('to test the property `tariff`', () async {
-      // TODO
-    });
   });
 }

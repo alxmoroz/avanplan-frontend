@@ -85,12 +85,14 @@ abstract class _MainControllerBase with Store {
   void clearData() {
     workspaces.clear();
     rootTask.tasks = [];
+    updateRootTask();
     updatedDate = null;
 
     sourceController.clearData();
     importController.clearData();
     refsController.clearData();
     accountController.clearData();
+    notificationController.clearData();
   }
 
   @action

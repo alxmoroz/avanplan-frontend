@@ -3,60 +3,49 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:built_collection/built_collection.dart';
-import 'package:openapi/src/model/tariff_limit_get.dart';
-import 'package:openapi/src/model/tariff_option_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'tariff_get.g.dart';
+part 'tariff_option_get.g.dart';
 
-/// TariffGet
+/// TariffOptionGet
 ///
 /// Properties:
 /// * [id] 
 /// * [code] 
-/// * [hidden] 
-/// * [limits] 
-/// * [options] 
+/// * [price] 
 @BuiltValue()
-abstract class TariffGet implements Built<TariffGet, TariffGetBuilder> {
+abstract class TariffOptionGet implements Built<TariffOptionGet, TariffOptionGetBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
 
   @BuiltValueField(wireName: r'code')
   String get code;
 
-  @BuiltValueField(wireName: r'hidden')
-  bool get hidden;
+  @BuiltValueField(wireName: r'price')
+  num get price;
 
-  @BuiltValueField(wireName: r'limits')
-  BuiltList<TariffLimitGet> get limits;
+  TariffOptionGet._();
 
-  @BuiltValueField(wireName: r'options')
-  BuiltList<TariffOptionGet> get options;
-
-  TariffGet._();
-
-  factory TariffGet([void updates(TariffGetBuilder b)]) = _$TariffGet;
+  factory TariffOptionGet([void updates(TariffOptionGetBuilder b)]) = _$TariffOptionGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(TariffGetBuilder b) => b;
+  static void _defaults(TariffOptionGetBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<TariffGet> get serializer => _$TariffGetSerializer();
+  static Serializer<TariffOptionGet> get serializer => _$TariffOptionGetSerializer();
 }
 
-class _$TariffGetSerializer implements PrimitiveSerializer<TariffGet> {
+class _$TariffOptionGetSerializer implements PrimitiveSerializer<TariffOptionGet> {
   @override
-  final Iterable<Type> types = const [TariffGet, _$TariffGet];
+  final Iterable<Type> types = const [TariffOptionGet, _$TariffOptionGet];
 
   @override
-  final String wireName = r'TariffGet';
+  final String wireName = r'TariffOptionGet';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    TariffGet object, {
+    TariffOptionGet object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'id';
@@ -69,27 +58,17 @@ class _$TariffGetSerializer implements PrimitiveSerializer<TariffGet> {
       object.code,
       specifiedType: const FullType(String),
     );
-    yield r'hidden';
+    yield r'price';
     yield serializers.serialize(
-      object.hidden,
-      specifiedType: const FullType(bool),
-    );
-    yield r'limits';
-    yield serializers.serialize(
-      object.limits,
-      specifiedType: const FullType(BuiltList, [FullType(TariffLimitGet)]),
-    );
-    yield r'options';
-    yield serializers.serialize(
-      object.options,
-      specifiedType: const FullType(BuiltList, [FullType(TariffOptionGet)]),
+      object.price,
+      specifiedType: const FullType(num),
     );
   }
 
   @override
   Object serialize(
     Serializers serializers,
-    TariffGet object, {
+    TariffOptionGet object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -100,7 +79,7 @@ class _$TariffGetSerializer implements PrimitiveSerializer<TariffGet> {
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required TariffGetBuilder result,
+    required TariffOptionGetBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -121,26 +100,12 @@ class _$TariffGetSerializer implements PrimitiveSerializer<TariffGet> {
           ) as String;
           result.code = valueDes;
           break;
-        case r'hidden':
+        case r'price':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(bool),
-          ) as bool;
-          result.hidden = valueDes;
-          break;
-        case r'limits':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BuiltList, [FullType(TariffLimitGet)]),
-          ) as BuiltList<TariffLimitGet>;
-          result.limits.replace(valueDes);
-          break;
-        case r'options':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BuiltList, [FullType(TariffOptionGet)]),
-          ) as BuiltList<TariffOptionGet>;
-          result.options.replace(valueDes);
+            specifiedType: const FullType(num),
+          ) as num;
+          result.price = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -151,12 +116,12 @@ class _$TariffGetSerializer implements PrimitiveSerializer<TariffGet> {
   }
 
   @override
-  TariffGet deserialize(
+  TariffOptionGet deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = TariffGetBuilder();
+    final result = TariffOptionGetBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

@@ -16,6 +16,8 @@ doc/IntegrationsSourcesApi.md
 doc/IntegrationsTasksApi.md
 doc/Invitation.md
 doc/InvitationApi.md
+doc/InvoiceDetailGet.md
+doc/InvoiceGet.md
 doc/LocationInner.md
 doc/MemberGet.md
 doc/MyApi.md
@@ -32,6 +34,7 @@ doc/SourceUpsert.md
 doc/StatusGet.md
 doc/TariffGet.md
 doc/TariffLimitGet.md
+doc/TariffOptionGet.md
 doc/TaskGet.md
 doc/TaskRemote.md
 doc/TaskSource.md
@@ -72,6 +75,8 @@ lib/src/model/estimate_unit_get.dart
 lib/src/model/estimate_value_get.dart
 lib/src/model/http_validation_error.dart
 lib/src/model/invitation.dart
+lib/src/model/invoice_detail_get.dart
+lib/src/model/invoice_get.dart
 lib/src/model/location_inner.dart
 lib/src/model/member_get.dart
 lib/src/model/notification.dart
@@ -85,6 +90,7 @@ lib/src/model/source_upsert.dart
 lib/src/model/status_get.dart
 lib/src/model/tariff_get.dart
 lib/src/model/tariff_limit_get.dart
+lib/src/model/tariff_option_get.dart
 lib/src/model/task_get.dart
 lib/src/model/task_remote.dart
 lib/src/model/task_source.dart
@@ -112,6 +118,8 @@ test/integrations_sources_api_test.dart
 test/integrations_tasks_api_test.dart
 test/invitation_api_test.dart
 test/invitation_test.dart
+test/invoice_detail_get_test.dart
+test/invoice_get_test.dart
 test/location_inner_test.dart
 test/member_get_test.dart
 test/my_api_test.dart
@@ -128,6 +136,7 @@ test/source_upsert_test.dart
 test/status_get_test.dart
 test/tariff_get_test.dart
 test/tariff_limit_get_test.dart
+test/tariff_option_get_test.dart
 test/task_get_test.dart
 test/task_remote_test.dart
 test/task_source_get_test.dart

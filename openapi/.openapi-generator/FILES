@@ -3,6 +3,7 @@
 README.md
 analysis_options.yaml
 doc/AuthApi.md
+doc/BillingApi.md
 doc/BodyAuthAppleToken.md
 doc/BodyAuthGoogleToken.md
 doc/BodyRedeemV1InvitationRedeemPost.md
@@ -50,6 +51,7 @@ doc/WorkspaceGet.md
 lib/openapi.dart
 lib/src/api.dart
 lib/src/api/auth_api.dart
+lib/src/api/billing_api.dart
 lib/src/api/integrations_sources_api.dart
 lib/src/api/integrations_tasks_api.dart
 lib/src/api/invitation_api.dart
@@ -105,6 +107,7 @@ lib/src/model/workspace_get.dart
 lib/src/serializers.dart
 pubspec.yaml
 test/auth_api_test.dart
+test/billing_api_test.dart
 test/body_auth_apple_token_test.dart
 test/body_auth_google_token_test.dart
 test/body_redeem_v1_invitation_redeem_post_test.dart

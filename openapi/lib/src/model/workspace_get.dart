@@ -21,6 +21,7 @@ part 'workspace_get.g.dart';
 /// * [users] 
 /// * [roles] 
 /// * [contract] 
+/// * [balance] 
 @BuiltValue()
 abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -40,6 +41,9 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
 
   @BuiltValueField(wireName: r'contract')
   ContractGet? get contract;
+
+  @BuiltValueField(wireName: r'balance')
+  num? get balance;
 
   WorkspaceGet._();
 
@@ -106,6 +110,13 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
         specifiedType: const FullType(ContractGet),
       );
     }
+    if (object.balance != null) {
+      yield r'balance';
+      yield serializers.serialize(
+        object.balance,
+        specifiedType: const FullType(num),
+      );
+    }
   }
 
   @override
@@ -170,6 +181,13 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
             specifiedType: const FullType(ContractGet),
           ) as ContractGet;
           result.contract.replace(valueDes);
+          break;
+        case r'balance':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
+          result.balance = valueDes;
           break;
         default:
           unhandled.add(key);

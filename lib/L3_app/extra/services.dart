@@ -7,6 +7,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../L1_domain/usecases/app_settings_uc.dart';
 import '../../L1_domain/usecases/auth_uc.dart';
+import '../../L1_domain/usecases/billing_uc.dart';
 import '../../L1_domain/usecases/import_uc.dart';
 import '../../L1_domain/usecases/invitation_uc.dart';
 import '../../L1_domain/usecases/my_uc.dart';
@@ -17,6 +18,7 @@ import '../../L1_domain/usecases/ws_settings_uc.dart';
 import '../../L2_data/repositories/auth_apple_repo.dart';
 import '../../L2_data/repositories/auth_google_repo.dart';
 import '../../L2_data/repositories/auth_password_repo.dart';
+import '../../L2_data/repositories/billing_repo.dart';
 import '../../L2_data/repositories/db_repo.dart';
 import '../../L2_data/repositories/estimate_value_repo.dart';
 import '../../L2_data/repositories/import_repo.dart';
@@ -64,6 +66,7 @@ SourceUC get sourceUC => GetIt.I<SourceUC>();
 ImportUC get importUC => GetIt.I<ImportUC>();
 InvitationUC get invitationUC => GetIt.I<InvitationUC>();
 TaskMemberRoleUC get taskMemberRoleUC => GetIt.I<TaskMemberRoleUC>();
+BillingUC get billingUC => GetIt.I<BillingUC>();
 
 void setup() {
   // device
@@ -104,4 +107,5 @@ void setup() {
   getIt.registerSingleton<WSSettingsUC>(WSSettingsUC(settingsRepo: WSSettingsRepo(), estValueRepo: EstimateValueRepo()));
   getIt.registerSingleton<InvitationUC>(InvitationUC(repo: InvitationRepo()));
   getIt.registerSingleton<TaskMemberRoleUC>(TaskMemberRoleUC(repo: TaskMemberRoleRepo()));
+  getIt.registerSingleton<BillingUC>(BillingUC(repo: BillingRepo()));
 }

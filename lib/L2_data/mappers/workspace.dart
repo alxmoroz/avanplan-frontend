@@ -13,6 +13,7 @@ extension WorkspaceMapper on api.WorkspaceGet {
         title: title?.trim() ?? '',
         description: description?.trim() ?? '',
         users: users?.map((u) => u.user) ?? [],
+        balance: balance ?? 0,
         // contract: contract!.contract,
         tariff: contract!.tariff!.tariff,
         limitsMap: {for (var l in contract!.tariff!.tariff.limits) l.code: l.value},

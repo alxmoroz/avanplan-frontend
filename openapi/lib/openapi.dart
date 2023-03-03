@@ -10,6 +10,7 @@ export 'package:openapi/src/serializers.dart';
 export 'package:openapi/src/model/date.dart';
 
 export 'package:openapi/src/api/auth_api.dart';
+export 'package:openapi/src/api/billing_api.dart';
 export 'package:openapi/src/api/integrations_sources_api.dart';
 export 'package:openapi/src/api/integrations_tasks_api.dart';
 export 'package:openapi/src/api/invitation_api.dart';

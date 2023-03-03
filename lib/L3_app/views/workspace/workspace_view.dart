@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:avanplan/L3_app/components/mt_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -39,6 +40,7 @@ class _WorkspaceViewState extends State<WorkspaceView> {
         padding: const EdgeInsets.symmetric(horizontal: P_2),
         child: Column(
           children: [
+            const SizedBox(height: P_2),
             H3(ws.title, align: TextAlign.center),
             if (ws.description.isNotEmpty) NormalText(ws.description),
           ],
@@ -52,6 +54,52 @@ class _WorkspaceViewState extends State<WorkspaceView> {
           MTListTile(
             middle: Column(children: [LightText(loc.tariff_title), H4(ws.tariff.title)]),
             subtitle: LightText(ws.tariff.description),
+          ),
+        ],
+      );
+
+  Widget _payButton(num amount) => MTButton.outlined(
+        titleText: '+ $amount',
+        onTap: () => controller.ymQuickPayForm(amount),
+        constrained: false,
+        padding: const EdgeInsets.symmetric(horizontal: P),
+      );
+
+  Widget get _billing => Column(
+        children: [
+          const SizedBox(height: P),
+          LightText(loc.balance_amount_title),
+          const SizedBox(height: P_2),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              D1('${controller.balance}',
+                  color: controller.balance < 0
+                      ? dangerColor
+                      : controller.balance > 100
+                          ? greenColor
+                          : greyColor),
+              const SizedBox(width: P_3),
+              const H3('₽', color: lightGreyColor)
+            ],
+          ),
+          const SizedBox(height: P_2),
+          // TODO: if (controller.balance > 0) SmallText('Хватит на 1 мес.', color: greyColor),
+          const SizedBox(height: P),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _payButton(10),
+              const SizedBox(width: P_2),
+              _payButton(100),
+              const SizedBox(width: P_2),
+              _payButton(500),
+              const SizedBox(width: P_2),
+              _payButton(2500),
+              const SizedBox(width: P_2),
+              _payButton(5000),
+            ],
           ),
         ],
       );
@@ -84,6 +132,7 @@ class _WorkspaceViewState extends State<WorkspaceView> {
               _header,
               // TODO: ВКЛАДКИ?
               _tariffs,
+              _billing,
               _users,
             ],
           ),

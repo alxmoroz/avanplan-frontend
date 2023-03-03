@@ -2,12 +2,13 @@
 
 import 'dart:io';
 
+import 'package:avanplan/L3_app/presenters/communications_presenter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mobx/mobx.dart' hide Interceptor;
-import 'package:url_launcher/url_launcher_string.dart';
 
+import '../../../L2_data/repositories/communications_repo.dart';
 import '../../../L2_data/services/api.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../components/colors.dart';
@@ -16,7 +17,6 @@ import '../../components/icons.dart';
 import '../../components/mt_button.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/communications_presenter.dart';
 
 part 'loader_controller.g.dart';
 
@@ -130,12 +130,13 @@ abstract class _LoaderControllerBase with Store {
         onTap: stop,
       );
 
+  // TODO: нужен репозиторий для отправки писем, см. как формируется форма для оплаты
   Widget _reportErrorButton(String errorText) => MTButton.outlined(
         titleColor: darkGreyColor,
         leading: const MailIcon(),
         titleText: loc.report_bug_action_title,
         margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P),
-        onTap: () => launchUrlString('$contactUsMailSample%0D%0A$errorText'),
+        onTap: () => sendMail(mailSubject, appTitle, accountController.user?.id, errorText),
       );
 
   void _setHTTPError(String? errorText, String? errorDetail) {

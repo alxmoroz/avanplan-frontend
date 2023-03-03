@@ -36,5 +36,10 @@ void main() {
     test('to test the property `contract`', () async {
       // TODO
     });
+
+    // num balance
+    test('to test the property `balance`', () async {
+      // TODO
+    });
   });
 }

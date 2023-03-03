@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **users** | [**BuiltList&lt;User&gt;**](User.md) |  | [optional] [default to ListBuilder()]
 **roles** | [**BuiltList&lt;RoleGet&gt;**](RoleGet.md) |  | [optional] [default to ListBuilder()]
 **contract** | [**ContractGet**](ContractGet.md) |  | [optional] 
+**balance** | **num** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

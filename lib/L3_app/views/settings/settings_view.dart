@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../L1_domain/entities/user.dart';
+import '../../../L2_data/repositories/communications_repo.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -82,7 +83,7 @@ class SettingsView extends StatelessWidget {
                   leading: const MailIcon(),
                   titleText: loc.contact_us_title,
                   trailing: const LinkOutIcon(),
-                  onTap: () => launchUrlString(contactUsMailSample),
+                  onTap: () => sendMail(mailSubject, appTitle, accountController.user?.id),
                 ),
                 MTListTile(
                   leading: const RulesIcon(),

@@ -8,7 +8,7 @@ void main() {
   group(BillingApi, () {
     // Ym Payment Notification
     //
-    //Future<JsonObject> ymPaymentNotificationV1BillingYmPaymentNotificationPost({ String notificationType, String operationId, String amount, String withdrawAmount, String currency, String datetime, String sender, String codepro, String sha1Hash, String label, String unaccepted }) async
+    //Future<JsonObject> ymPaymentNotificationV1BillingYmPaymentNotificationPost({ String notificationType, String operationId, String amount, String withdrawAmount, String currency, String datetime, String sender, String codepro, String sha1Hash, String label, bool unaccepted }) async
     test('test ymPaymentNotificationV1BillingYmPaymentNotificationPost',
         () async {
       // TODO

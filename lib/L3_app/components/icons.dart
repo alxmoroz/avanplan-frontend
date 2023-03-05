@@ -399,6 +399,16 @@ class MemberAddIcon extends _MTIcon {
       );
 }
 
+class RoubleIcon extends _MTIcon {
+  const RoubleIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.money_rubl,
+        color: (color ?? lightGreyColor).resolve(context),
+        size: size ?? P3,
+      );
+}
+
 const _sourceIconSize = P2;
 
 Widget redmineIcon() => Image.asset('assets/images/redmine_icon.png', height: _sourceIconSize);

@@ -41,6 +41,7 @@ import '../views/settings/settings_controller.dart';
 import '../views/source/source_controller.dart';
 import 'auth/auth_controller.dart';
 import 'deep_link/deep_link_controller.dart';
+import 'payment/payment_controller.dart';
 
 S get loc => S.current;
 
@@ -56,6 +57,7 @@ AccountController get accountController => GetIt.I<AccountController>();
 AuthController get authController => GetIt.I<AuthController>();
 NotificationController get notificationController => GetIt.I<NotificationController>();
 DeepLinkController get linkController => GetIt.I<DeepLinkController>();
+PaymentController get paymentController => GetIt.I<PaymentController>();
 
 AppSettingsUC get appSettingsUC => GetIt.I<AppSettingsUC>();
 WSSettingsUC get wsSettingsUC => GetIt.I<WSSettingsUC>();
@@ -87,6 +89,7 @@ void setup() {
   getIt.registerSingleton<AccountController>(AccountController());
   getIt.registerSingleton<NotificationController>(NotificationController());
   getIt.registerSingleton<DeepLinkController>(DeepLinkController());
+  getIt.registerSingleton<PaymentController>(PaymentController());
 
   // Openapi
   getIt.registerSingleton<Openapi>(setupApi([loaderController.interceptor]));

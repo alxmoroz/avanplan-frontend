@@ -32,7 +32,7 @@ final String sender = sender_example; // String |
 final String codepro = codepro_example; // String | 
 final String sha1Hash = sha1Hash_example; // String | 
 final String label = label_example; // String | 
-final String unaccepted = unaccepted_example; // String | 
+final bool unaccepted = true; // bool | 
 
 try {
     final response = api.ymPaymentNotificationV1BillingYmPaymentNotificationPost(notificationType, operationId, amount, withdrawAmount, currency, datetime, sender, codepro, sha1Hash, label, unaccepted);
@@ -55,8 +55,8 @@ Name | Type | Description  | Notes
  **sender** | **String**|  | [optional] [default to '']
  **codepro** | **String**|  | [optional] [default to '']
  **sha1Hash** | **String**|  | [optional] [default to '']
- **label** | **String**|  | [optional] [default to '']
- **unaccepted** | **String**|  | [optional] [default to '']
+ **label** | **String**|  | [optional] [default to '0']
+ **unaccepted** | **bool**|  | [optional] [default to false]
 
 ### Return type
 

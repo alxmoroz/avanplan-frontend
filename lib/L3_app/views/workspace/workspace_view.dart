@@ -1,12 +1,13 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:avanplan/L3_app/components/mt_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
+import '../../components/icons.dart';
+import '../../components/mt_button.dart';
 import '../../components/mt_list_tile.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
@@ -60,10 +61,16 @@ class _WorkspaceViewState extends State<WorkspaceView> {
 
   Widget _payButton(num amount) => MTButton.outlined(
         titleText: '+ $amount',
-        onTap: () => controller.ymQuickPayForm(amount),
+        onTap: () => paymentController.ymQuickPayForm(amount, controller.wsId),
         constrained: false,
         padding: const EdgeInsets.symmetric(horizontal: P),
       );
+
+  Color get _balanceColor => controller.balance < 0
+      ? dangerColor
+      : controller.balance > 100
+          ? greenColor
+          : greyColor;
 
   Widget get _billing => Column(
         children: [
@@ -74,14 +81,8 @@ class _WorkspaceViewState extends State<WorkspaceView> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              D1('${controller.balance}',
-                  color: controller.balance < 0
-                      ? dangerColor
-                      : controller.balance > 100
-                          ? greenColor
-                          : greyColor),
-              const SizedBox(width: P_3),
-              const H3('₽', color: lightGreyColor)
+              D1('${controller.balance}', color: _balanceColor),
+              RoubleIcon(color: _balanceColor),
             ],
           ),
           const SizedBox(height: P_2),

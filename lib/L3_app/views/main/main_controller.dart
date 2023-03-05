@@ -103,11 +103,14 @@ abstract class _MainControllerBase with Store {
     updatedDate = DateTime.now();
   }
 
-  // static const _updateDuration = Duration(minutes: 30);
+  // static const _updatePeriod = Duration(minutes: 30);
   static const _updatePeriod = Duration(hours: 1);
   Future requestUpdate() async {
-    if (updatedDate == null || updatedDate!.add(_updatePeriod).isBefore(DateTime.now())) {
+    final hasDeepLinks = await linkController.processDeepLinks();
+    final timeToUpdate = updatedDate == null || updatedDate!.add(_updatePeriod).isBefore(DateTime.now());
+    if (paymentController.waitingPayment || hasDeepLinks || timeToUpdate) {
       await update();
+      paymentController.resetWaiting();
     }
   }
 }

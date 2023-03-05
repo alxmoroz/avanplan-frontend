@@ -54,7 +54,7 @@ class BillingApi {
     String? codepro,
     String? sha1Hash,
     String? label,
-    String? unaccepted,
+    bool? unaccepted,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -90,7 +90,7 @@ class BillingApi {
         if (codepro != null) r'codepro': encodeQueryParameter(_serializers, codepro, const FullType(String)),
         if (sha1Hash != null) r'sha1_hash': encodeQueryParameter(_serializers, sha1Hash, const FullType(String)),
         if (label != null) r'label': encodeQueryParameter(_serializers, label, const FullType(String)),
-        if (unaccepted != null) r'unaccepted': encodeQueryParameter(_serializers, unaccepted, const FullType(String)),
+        if (unaccepted != null) r'unaccepted': encodeQueryParameter(_serializers, unaccepted, const FullType(bool)),
       };
 
     } catch(error, stackTrace) {

@@ -63,12 +63,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
         if (isIOS) {
           await notificationController.initPush();
         }
-        final hasDeepLinks = await linkController.processDeepLinks();
-        if (hasDeepLinks) {
-          await mainController.update();
-        } else {
-          await mainController.requestUpdate();
-        }
+        await mainController.requestUpdate();
       }
     });
   }

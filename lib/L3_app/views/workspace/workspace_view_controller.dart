@@ -3,7 +3,6 @@
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
-import '../../extra/services.dart';
 
 part 'workspace_view_controller.g.dart';
 
@@ -18,7 +17,8 @@ abstract class _MemberViewControllerBase with Store {
   Workspace? ws;
 
   @computed
-  int get balance => ws?.balance.floor() ?? 0;
+  int get wsId => ws?.id ?? 0;
 
-  Future<bool> ymQuickPayForm(num amount) async => await billingUC.ymQuickPayForm(amount, ws!.id!);
+  @computed
+  int get balance => ws?.balance.floor() ?? 0;
 }

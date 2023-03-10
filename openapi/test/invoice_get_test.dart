@@ -17,8 +17,23 @@ void main() {
       // TODO
     });
 
+    // DateTime closedOn
+    test('to test the property `closedOn`', () async {
+      // TODO
+    });
+
     // BuiltList<InvoiceDetailGet> details
     test('to test the property `details`', () async {
+      // TODO
+    });
+
+    // ContractGet contract
+    test('to test the property `contract`', () async {
+      // TODO
+    });
+
+    // TariffGet tariff
+    test('to test the property `tariff`', () async {
       // TODO
     });
   });

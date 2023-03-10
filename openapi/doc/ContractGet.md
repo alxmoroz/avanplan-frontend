@@ -13,8 +13,6 @@ Name | Type | Description | Notes
 **expiresOn** | [**DateTime**](DateTime.md) |  | [optional] 
 **terminated** | **bool** |  | [optional] [default to false]
 **tariffId** | **int** |  | 
-**tariff** | [**TariffGet**](TariffGet.md) |  | [optional] 
-**invoice** | [**InvoiceGet**](InvoiceGet.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

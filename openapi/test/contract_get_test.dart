@@ -31,15 +31,5 @@ void main() {
     test('to test the property `tariffId`', () async {
       // TODO
     });
-
-    // TariffGet tariff
-    test('to test the property `tariff`', () async {
-      // TODO
-    });
-
-    // InvoiceGet invoice
-    test('to test the property `invoice`', () async {
-      // TODO
-    });
   });
 }

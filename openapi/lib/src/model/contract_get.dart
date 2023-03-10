@@ -3,8 +3,6 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:openapi/src/model/invoice_get.dart';
-import 'package:openapi/src/model/tariff_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -18,8 +16,6 @@ part 'contract_get.g.dart';
 /// * [expiresOn] 
 /// * [terminated] 
 /// * [tariffId] 
-/// * [tariff] 
-/// * [invoice] 
 @BuiltValue()
 abstract class ContractGet implements Built<ContractGet, ContractGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -36,12 +32,6 @@ abstract class ContractGet implements Built<ContractGet, ContractGetBuilder> {
 
   @BuiltValueField(wireName: r'tariff_id')
   int get tariffId;
-
-  @BuiltValueField(wireName: r'tariff')
-  TariffGet? get tariff;
-
-  @BuiltValueField(wireName: r'invoice')
-  InvoiceGet? get invoice;
 
   ContractGet._();
 
@@ -96,20 +86,6 @@ class _$ContractGetSerializer implements PrimitiveSerializer<ContractGet> {
       object.tariffId,
       specifiedType: const FullType(int),
     );
-    if (object.tariff != null) {
-      yield r'tariff';
-      yield serializers.serialize(
-        object.tariff,
-        specifiedType: const FullType(TariffGet),
-      );
-    }
-    if (object.invoice != null) {
-      yield r'invoice';
-      yield serializers.serialize(
-        object.invoice,
-        specifiedType: const FullType(InvoiceGet),
-      );
-    }
   }
 
   @override
@@ -167,20 +143,6 @@ class _$ContractGetSerializer implements PrimitiveSerializer<ContractGet> {
             specifiedType: const FullType(int),
           ) as int;
           result.tariffId = valueDes;
-          break;
-        case r'tariff':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(TariffGet),
-          ) as TariffGet;
-          result.tariff.replace(valueDes);
-          break;
-        case r'invoice':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(InvoiceGet),
-          ) as InvoiceGet;
-          result.invoice.replace(valueDes);
           break;
         default:
           unhandled.add(key);

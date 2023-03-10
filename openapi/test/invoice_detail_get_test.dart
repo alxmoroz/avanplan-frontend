@@ -27,8 +27,8 @@ void main() {
       // TODO
     });
 
-    // num amount
-    test('to test the property `amount`', () async {
+    // num serviceAmount
+    test('to test the property `serviceAmount`', () async {
       // TODO
     });
   });

@@ -8,15 +8,18 @@ import 'tariff.dart';
 import 'user.dart';
 
 extension WorkspaceMapper on api.WorkspaceGet {
-  Workspace get workspace => Workspace(
-        id: id,
-        title: title?.trim() ?? '',
-        description: description?.trim() ?? '',
-        users: users?.map((u) => u.user) ?? [],
-        balance: balance ?? 0,
-        // contract: contract!.contract,
-        tariff: contract!.tariff!.tariff,
-        limitsMap: {for (var l in contract!.tariff!.tariff.limits) l.code: l.value},
-        roles: roles?.map((r) => r.role) ?? [],
-      );
+  Workspace get workspace {
+    final tariff = invoice!.tariff!.tariff;
+
+    return Workspace(
+      id: id,
+      title: title?.trim() ?? '',
+      description: description?.trim() ?? '',
+      users: users?.map((u) => u.user) ?? [],
+      balance: balance ?? 0,
+      tariff: tariff,
+      limitsMap: {for (var l in tariff.limits) l.code: l.value},
+      roles: roles?.map((r) => r.role) ?? [],
+    );
+  }
 }

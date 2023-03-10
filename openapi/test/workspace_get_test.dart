@@ -32,8 +32,8 @@ void main() {
       // TODO
     });
 
-    // ContractGet contract
-    test('to test the property `contract`', () async {
+    // InvoiceGet invoice
+    test('to test the property `invoice`', () async {
       // TODO
     });
 

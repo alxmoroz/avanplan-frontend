@@ -4,8 +4,8 @@
 
 // ignore_for_file: unused_element
 import 'package:built_collection/built_collection.dart';
+import 'package:openapi/src/model/invoice_get.dart';
 import 'package:openapi/src/model/user.dart';
-import 'package:openapi/src/model/contract_get.dart';
 import 'package:openapi/src/model/role_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -20,7 +20,7 @@ part 'workspace_get.g.dart';
 /// * [description] 
 /// * [users] 
 /// * [roles] 
-/// * [contract] 
+/// * [invoice] 
 /// * [balance] 
 @BuiltValue()
 abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> {
@@ -39,8 +39,8 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
   @BuiltValueField(wireName: r'roles')
   BuiltList<RoleGet>? get roles;
 
-  @BuiltValueField(wireName: r'contract')
-  ContractGet? get contract;
+  @BuiltValueField(wireName: r'invoice')
+  InvoiceGet? get invoice;
 
   @BuiltValueField(wireName: r'balance')
   num? get balance;
@@ -103,11 +103,11 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
         specifiedType: const FullType(BuiltList, [FullType(RoleGet)]),
       );
     }
-    if (object.contract != null) {
-      yield r'contract';
+    if (object.invoice != null) {
+      yield r'invoice';
       yield serializers.serialize(
-        object.contract,
-        specifiedType: const FullType(ContractGet),
+        object.invoice,
+        specifiedType: const FullType(InvoiceGet),
       );
     }
     if (object.balance != null) {
@@ -175,12 +175,12 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
           ) as BuiltList<RoleGet>;
           result.roles.replace(valueDes);
           break;
-        case r'contract':
+        case r'invoice':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(ContractGet),
-          ) as ContractGet;
-          result.contract.replace(valueDes);
+            specifiedType: const FullType(InvoiceGet),
+          ) as InvoiceGet;
+          result.invoice.replace(valueDes);
           break;
         case r'balance':
           final valueDes = serializers.deserialize(

@@ -164,8 +164,8 @@ abstract class _LoaderControllerBase with Store {
 
   void _setNetworkError(String? errorText) => _set(
         icon: _networkErrorIcon,
-        titleText: loc.network_error_title,
-        descriptionText: loc.network_error_description,
+        titleText: loc.error_network_title,
+        descriptionText: loc.error_network_description,
         action: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -184,30 +184,30 @@ abstract class _LoaderControllerBase with Store {
   void setAuth() => _set(titleText: loc.loader_auth_title, icon: _authIcon);
   void setAuthError([String? description]) => _set(
         icon: _authIcon,
-        titleText: loc.auth_error_title,
-        descriptionText: description != null ? Intl.message('auth_error_$description') : loc.auth_error_description,
+        titleText: loc.error_auth_title,
+        descriptionText: description != null ? Intl.message('error_auth_$description') : loc.error_auth_description,
         actionText: loc.ok,
       );
 
   void _setPermissionError([String? description]) => _set(
         icon: _authIcon,
-        titleText: loc.permission_error_title,
-        descriptionText: description != null ? Intl.message('permission_error_$description') : loc.permission_error_description,
+        titleText: loc.error_permission_title,
+        descriptionText: description != null ? Intl.message('error_permission_$description') : loc.error_permission_description,
         actionText: loc.ok,
       );
 
   void _setTariffLimitError([String? description]) => _set(
         icon: _authIcon,
-        titleText: loc.tariff_limit_error_title,
-        descriptionText: description != null ? Intl.message('tariff_limit_error_$description') : loc.tariff_limit_error_description,
+        titleText: loc.error_tariff_limit_title,
+        descriptionText: description != null ? Intl.message('error_tariff_limit_$description') : loc.error_tariff_limit_description,
         actionText: loc.ok,
       );
 
   void setRedeemInvitation() => _set(titleText: loc.loader_redeem_invitation_title, icon: _authIcon);
   void _setRedeemInvitationError() => _set(
         icon: _authIcon,
-        titleText: loc.redeem_invitation_error_title,
-        descriptionText: loc.redeem_invitation_error_description,
+        titleText: loc.error_redeem_invitation_title,
+        descriptionText: loc.error_redeem_invitation_description,
         actionText: loc.ok,
       );
 
@@ -224,7 +224,7 @@ abstract class _LoaderControllerBase with Store {
         icon: ImportIcon(size: iconSize, color: iconColor),
       );
   void _setImportError(String? descriptionText, String? errorDetail) => _set(
-        titleText: loc.import_error_title,
+        titleText: loc.error_import_title,
         descriptionText: descriptionText,
         icon: ImportIcon(size: iconSize, color: iconColor),
         action: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [

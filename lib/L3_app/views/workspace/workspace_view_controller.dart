@@ -6,13 +6,13 @@ import '../../../L1_domain/entities/workspace.dart';
 
 part 'workspace_view_controller.g.dart';
 
-class WorkspaceViewController extends _MemberViewControllerBase with _$WorkspaceViewController {
+class WorkspaceViewController extends _WorkspaceViewControllerBase with _$WorkspaceViewController {
   WorkspaceViewController(Workspace _ws) {
     ws = _ws;
   }
 }
 
-abstract class _MemberViewControllerBase with Store {
+abstract class _WorkspaceViewControllerBase with Store {
   @observable
   Workspace? ws;
 

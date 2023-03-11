@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../L1_domain/entities/tariff.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
@@ -15,6 +16,7 @@ import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/person_presenter.dart';
 import '../../presenters/tariff_presenter.dart';
+import '../tariff/tariff_view.dart';
 import 'workspace_view_controller.dart';
 
 class WorkspaceView extends StatefulWidget {
@@ -37,6 +39,10 @@ class _WorkspaceViewState extends State<WorkspaceView> {
     super.initState();
   }
 
+  Future _showTariff(BuildContext context, Tariff tariff) async {
+    await Navigator.of(context).pushNamed(TariffView.routeName, arguments: tariff);
+  }
+
   Widget get _header => Padding(
         padding: const EdgeInsets.symmetric(horizontal: P_2),
         child: Column(
@@ -53,9 +59,11 @@ class _WorkspaceViewState extends State<WorkspaceView> {
         children: [
           const SizedBox(height: P),
           MTListTile(
-            middle: Column(children: [LightText(loc.tariff_title), H4(ws.tariff.title)]),
-            subtitle: LightText(ws.tariff.description),
-          ),
+            middle: H4(loc.tariff_title),
+            subtitle: LightText(ws.tariff.title),
+            trailing: const ChevronIcon(),
+            onTap: () => _showTariff(context, ws.tariff),
+          )
         ],
       );
 
@@ -131,9 +139,8 @@ class _WorkspaceViewState extends State<WorkspaceView> {
             // crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               _header,
-              // TODO: ВКЛАДКИ?
-              _tariffs,
               _billing,
+              _tariffs,
               _users,
             ],
           ),

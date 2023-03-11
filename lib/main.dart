@@ -10,6 +10,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 
+import 'L1_domain/entities/tariff.dart';
 import 'L1_domain/entities/workspace.dart';
 import 'L3_app/components/colors.dart';
 import 'L3_app/extra/services.dart';
@@ -22,6 +23,7 @@ import 'L3_app/views/notification/notification_list_view.dart';
 import 'L3_app/views/settings/settings_view.dart';
 import 'L3_app/views/sign_in/sign_in_view.dart';
 import 'L3_app/views/source/source_list_view.dart';
+import 'L3_app/views/tariff/tariff_view.dart';
 import 'L3_app/views/task/task_view.dart';
 import 'L3_app/views/workspace/workspace_view.dart';
 
@@ -109,6 +111,8 @@ class App extends StatelessWidget {
                 return CupertinoPageRoute<dynamic>(builder: (_) => MemberView(rs.arguments as MemberViewArgs));
               } else if (rs.name == WorkspaceView.routeName) {
                 return CupertinoPageRoute<dynamic>(builder: (_) => WorkspaceView(rs.arguments as Workspace));
+              } else if (rs.name == TariffView.routeName) {
+                return CupertinoPageRoute<dynamic>(builder: (_) => TariffView(rs.arguments as Tariff));
               }
               return null;
             },

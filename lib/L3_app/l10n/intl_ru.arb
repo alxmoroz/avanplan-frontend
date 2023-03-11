@@ -9,9 +9,6 @@
 
   "app_title": "Аванплан",
 
-  "auth_error_popup_blocked_by_browser": "Окно аутентификации заблокировано браузером\nОткройте заблокированное окно и перезагрузите страницу",
-  "auth_error_description": "Проверьте правильность указанных данных и повторите попытку",
-  "auth_error_title": "Ошибка авторизации",
   "auth_password_placeholder": "Пароль",
   "auth_sign_in_action_title": "Войти",
   "auth_sign_in_with_apple_btn_title": "Войти с Apple",
@@ -60,6 +57,20 @@
   "delete_dialog_description": "Это действие нельзя будет отменить!",
   "description": "Описание",
 
+  "error_auth_description": "Проверьте правильность указанных данных и повторите попытку",
+  "error_auth_popup_blocked_by_browser": "Окно аутентификации заблокировано браузером\nОткройте заблокированное окно и перезагрузите страницу",
+  "error_auth_title": "Ошибка авторизации",
+  "error_import_connection": "Ошибка подключения\nИсточник импорта недоступен",
+  "error_import_title": "Ошибка импорта",
+  "error_network_description": "Проверьте соединение с интернетом и повторите попытку",
+  "error_network_title": "Ошибка сети\nНет соединения с сервером",
+  "error_permission_description": "Обратитесь к администратору проекта или рабочего пространства",
+  "error_permission_title": "Недостаточно прав для выполнения операции",
+  "error_redeem_invitation_description": "Закончилось количество активаций или истёк срок действия приглашения.\n\nОбратитесь к администратору рабочего пространства / проекта.",
+  "error_redeem_invitation_title": "Ошибка при обработке приглашения",
+  "error_tariff_limit_description": "Обратитесь к администратору рабочего пространства",
+  "error_tariff_limit_title": "Выполнение операции ограничено в выбранном тарифе",
+
   "for_dative": "по",
 
   "goal_count": "{count, plural, zero{Нет целей} one{{count} цель} few{{count} цели} other{{count} целей}}",
@@ -76,8 +87,6 @@
   "import_action_closed_projects_title": "Все проекты закрыты.\n\nЗагрузите из источника импорта или создайте свои",
   "import_action_no_projects_title": "Загрузите проекты из источника импорта или создайте свои",
   "import_action_title": "Импортировать проекты",
-  "import_connection_error": "Ошибка подключения\nИсточник импорта недоступен",
-  "import_error_title": "Ошибка импорта",
   "import_list_empty_title": "Нет доступных для импорта проектов\nПопробуйте выбрать другой источник",
   "import_source_select_hint": "Выберите источник импорта",
   "import_projects_select_hint": "Выберите проекты для импорта",
@@ -110,11 +119,7 @@
   "member_title": "Участник",
 
   "months_count": "{count, plural, one{{count} месяц} few{{count} месяца} other{{count} месяцев}}",
-
-  "network_error_description": "Проверьте соединение с интернетом и повторите попытку",
-  "network_error_title": "Ошибка сети\nНет соединения с сервером",
   "new_title": "Новый",
-
   "no": "Нет",
 
   "notification_list_empty_title": "Уведомлений нет",
@@ -125,9 +130,6 @@
   "ok": "Ясно",
   "overview": "Обзор",
 
-  "permission_error_description": "Обратитесь к администратору проекта или рабочего пространства",
-  "permission_error_title": "Недостаточно прав для выполнения операции",
-
   "project_count": "{count, plural, zero{Нет проектов} one{{count} проект} few{{count} проекта} other{{count} проектов}}",
   "project_count_dative": "{count, plural, one{{count} проекту} other{{count} проектам}}",
   "project_delete_dialog_title": "Удалить проект?",
@@ -137,9 +139,6 @@
 
   "recommendation_add_tasks_title": "Добавить",
   "recommendation_close_tasks_title": "Закрыть задачу в проекте",
-
-  "redeem_invitation_error_description": "Закончилось количество активаций или истёк срок действия приглашения.\n\nОбратитесь к администратору рабочего пространства / проекта.",
-  "redeem_invitation_error_title": "Ошибка при обработке приглашения",
 
   "reload_action_title": "Перезагрузить",
   "report_bug_action_title": "Сообщить о проблеме",
@@ -201,19 +200,15 @@
   "subtask_new_title": "Новая подзадача",
   "subtask_title": "Подзадача",
 
-  "tariff_description_free": "- 1 пользователь\n- до 3 проектов\n- до 5 тыс. задач\n- ограниченный перенос проектов снаружи",
-  "tariff_description_standard": "- до 20 пользователей\n- до 5 проектов\n- до 15 тыс. задач\n- полноценный импорт проектов",
-  "tariff_description_pro": "- до 50 пользователей\n- до 10 проектов\n- до 75 тыс. задач\n- полноценный импорт проектов",
-  "tariff_description_premium": "- до 200 пользователей\n- до 100 проектов\n- до 500 тыс. задач\n- полноценный импорт проектов",
-
-  "tariff_limit_error_description": "Обратитесь к администратору рабочего пространства",
-  "tariff_limit_error_title": "Выполнение операции ограничено в выбранном тарифе",
-
+  "tariff_free_limits_description": "- 1 пользователь\n- до 3 проектов\n- до 5 тыс. задач\n- ограниченный перенос проектов снаружи",
+  "tariff_free_title": "Бесплатный",
+  "tariff_premium_limits_description": "- до 200 пользователей\n- до 100 проектов\n- до 500 тыс. задач\n- полноценный импорт проектов",
+  "tariff_premium_title": "PREMIUM",
+  "tariff_pro_limits_description": "- до 50 пользователей\n- до 10 проектов\n- до 75 тыс. задач\n- полноценный импорт проектов",
+  "tariff_pro_title": "PRO",
+  "tariff_standard_limits_description": "- до 20 пользователей\n- до 5 проектов\n- до 15 тыс. задач\n- полноценный импорт проектов",
+  "tariff_standard_title": "STANDARD",
   "tariff_title": "Тариф",
-  "tariff_title_free": "Бесплатный",
-  "tariff_title_standard": "STANDARD",
-  "tariff_title_pro": "PRO",
-  "tariff_title_premium": "PREMIUM",
 
   "task_assignee_nobody": "Никому",
   "task_assignee_placeholder": "Назначено",

@@ -12,7 +12,7 @@ extension WActionsExt on Workspace {
   bool get hpProjectCreate => me?.hp('PROJECT_CREATE') == true;
   bool get hpProjectUpdate => me?.hp('PROJECT_UPDATE') == true;
   bool get hpProjectDelete => me?.hp('PROJECT_DELETE') == true;
-  bool get hpProjectUnlink => hpProjectUpdate && limitsMap['PROJECTS_UNLINK_ALLOWED'] == 1;
+  bool get hpProjectUnlink => hpProjectUpdate && tariff.limitValue('PROJECTS_UNLINK_ALLOWED') == 1;
   bool get hpProjectContentUpdate => me?.hp('PROJECT_CONTENT_UPDATE') == true;
   bool get hpWSInfoRead => me?.hp('WORKSPACE_INFO_READ') == true;
 }

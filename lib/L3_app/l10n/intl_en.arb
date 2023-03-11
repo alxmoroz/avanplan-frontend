@@ -9,9 +9,6 @@
 
   "app_title": "Avanplan",
 
-  "auth_error_popup_blocked_by_browser": "The authentication window is blocked by the browser\nOpen a blocked window and reload the page",
-  "auth_error_description": "Please check the information provided and try again",
-  "auth_error_title": "Authorisation Error",
   "auth_sign_in_action_title": "Sign in",
   "auth_sign_in_with_apple_btn_title": "Sign in with Apple",
   "auth_sign_in_with_google_btn_title": "Sign in with Google",
@@ -61,6 +58,20 @@
   "delete_dialog_description": "This action cannot be undone!",
   "description": "Description",
 
+  "error_auth_description": "Please check the information provided and try again",
+  "error_auth_popup_blocked_by_browser": "The authentication window is blocked by the browser\nOpen a blocked window and reload the page",
+  "error_auth_title": "Authorisation Error",
+  "error_import_connection": "Connection Error\nThe import source is not available",
+  "error_import_title": "Import Error",
+  "error_network_description": "Please check your internet connection and try again",
+  "error_network_title": "Network Error\nNo connection to server",
+  "error_permission_description": "Please contact the project or workspace administrator",
+  "error_permission_title": "Insufficient permissions to perform the operation",
+  "error_redeem_invitation_description": "The number of invitations has run out or the invitation has expired.\n\nContact your workspace/project administrator.",
+  "error_redeem_invitation_title": "Error while processing invitation",
+  "error_tariff_limit_description": "Please contact the workspace administrator",
+  "error_tariff_limit_title": "The operation is limited in the selected tariff",
+
   "for_dative": "for",
 
   "goal_count": "{count, plural, zero{No goals} one{{count} goal} other{{count} goals}}",
@@ -77,8 +88,6 @@
   "import_action_closed_projects_title": "All projects are closed.\n\nImport from source or create your own",
   "import_action_no_projects_title": "Import projects from source or create your own",
   "import_action_title": "Import tasks",
-  "import_connection_error": "Connection error\nThe import source is not available",
-  "import_error_title": "Import error",
   "import_list_empty_title": "There are no projects available to import\nTry choosing a different source",
   "import_projects_select_hint": "Select projects to import",
   "import_source_select_hint": "Select an import source",
@@ -111,11 +120,7 @@
   "member_title": "Member",
 
   "months_count": "{count, plural, one{{count} month} other{{count} months}}",
-
-  "network_error_description": "Please check your internet connection and try again",
-  "network_error_title": "Network error\nNo connection to server",
   "new_title": "New",
-
   "no": "No",
 
   "notification_list_empty_title": "No notifications",
@@ -126,9 +131,6 @@
   "ok": "Ok",
   "overview": "Overview",
 
-  "permission_error_description": "Please contact the project or workspace administrator",
-  "permission_error_title": "Insufficient permissions to perform the operation",
-
   "project_count": "{count, plural, zero{No projects} one{{count} project} other{{count} projects}}",
   "project_count_dative": "{count, plural, one{{count} project} other{{count} projects}}",
   "project_delete_dialog_title": "Delete project?",
@@ -138,9 +140,6 @@
 
   "recommendation_add_tasks_title": "Add",
   "recommendation_close_tasks_title": "Complete task in project",
-
-  "redeem_invitation_error_description": "The number of invitations has run out or the invitation has expired.\n\nContact your workspace/project administrator.",
-  "redeem_invitation_error_title": "Error while processing invitation",
 
   "reload_action_title": "Reload",
   "report_bug_action_title": "Report a bug",
@@ -202,19 +201,16 @@
   "subtask_new_title": "New subtask",
   "subtask_title": "Subtask",
 
-  "tariff_description_free": "- 1 user\nup to 3 projects\n- up to 5k tasks\n- Limited Import projects from external sources",
-  "tariff_description_standard": "- up to 20 users\n- up to 5 projects\n- up to 15k tasks\n- Import projects",
-  "tariff_description_pro": "- up to 50 users\n- до 10 projects\n- up to 75k tasks\n- Import projects",
-  "tariff_description_premium": "- up to 200 users\n- up to 100 projects\n- up to 500k tasks\n- Import projects",
-
-  "tariff_limit_error_description": "Please contact the workspace administrator",
-  "tariff_limit_error_title": "The operation is limited in the selected tariff",
+  "tariff_free_limits_description": "- 1 user\nup to 3 projects\n- up to 5k tasks\n- Limited Import projects from external sources",
+  "tariff_free_title": "FREE",
+  "tariff_premium_limits_description": "- up to 200 users\n- up to 100 projects\n- up to 500k tasks\n- Import projects",
+  "tariff_premium_title": "PREMIUM",
+  "tariff_pro_limits_description": "- up to 50 users\n- до 10 projects\n- up to 75k tasks\n- Import projects",
+  "tariff_pro_title": "PRO",
+  "tariff_standard_limits_description": "- up to 20 users\n- up to 5 projects\n- up to 15k tasks\n- Import projects",
+  "tariff_standard_title": "STANDARD",
 
   "tariff_title": "Tariff",
-  "tariff_title_free": "FREE",
-  "tariff_title_standard": "STANDARD",
-  "tariff_title_pro": "PRO",
-  "tariff_title_premium": "PREMIUM",
 
   "task_assignee_nobody": "Nobody",
   "task_assignee_placeholder": "Assigned",

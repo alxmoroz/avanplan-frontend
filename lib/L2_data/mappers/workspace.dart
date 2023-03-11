@@ -18,7 +18,6 @@ extension WorkspaceMapper on api.WorkspaceGet {
       users: users?.map((u) => u.user) ?? [],
       balance: balance ?? 0,
       tariff: tariff,
-      limitsMap: {for (var l in tariff.limits) l.code: l.value},
       roles: roles?.map((r) => r.role) ?? [],
     );
   }

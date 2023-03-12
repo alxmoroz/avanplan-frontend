@@ -3,6 +3,7 @@
 import 'package:openapi/openapi.dart' as api;
 
 import '../../L1_domain/entities/workspace.dart';
+import 'invoice.dart';
 import 'role.dart';
 import 'tariff.dart';
 import 'user.dart';
@@ -16,9 +17,9 @@ extension WorkspaceMapper on api.WorkspaceGet {
       title: title?.trim() ?? '',
       description: description?.trim() ?? '',
       users: users?.map((u) => u.user) ?? [],
-      balance: balance ?? 0,
-      tariff: tariff,
       roles: roles?.map((r) => r.role) ?? [],
+      balance: balance ?? 0,
+      invoice: invoice!.invoice,
     );
   }
 }

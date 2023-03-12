@@ -4,7 +4,7 @@ import 'package:openapi/openapi.dart' as api;
 
 import '../../L1_domain/entities/tariff.dart';
 
-extension TariffCodeMapper on api.TariffGet {
+extension TariffMapper on api.TariffGet {
   Tariff get tariff => Tariff(
         id: id,
         code: code,

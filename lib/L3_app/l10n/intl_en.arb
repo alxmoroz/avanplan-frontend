@@ -51,6 +51,9 @@
 
   "contact_us_title": "Contact us",
   "contact_us_mail_subject": "Avanplan - feedback",
+
+  "contract_effective_date_title": "Effective",
+
   "copied_notification_title": "Copied to clipboard",
 
   "days_count": "{count, plural, one{{count} day} other{{count} days}}",
@@ -119,6 +122,8 @@
   "member_source_workspace_title": "Select",
   "member_title": "Member",
 
+  "millions_count_short": "{count, plural, one{{count} million} other{{count} millions}}",
+
   "months_count": "{count, plural, one{{count} month} other{{count} months}}",
   "new_title": "New",
   "no": "No",
@@ -136,6 +141,7 @@
   "project_delete_dialog_title": "Delete project?",
   "project_list_title": "All projects",
   "project_new_title": "New project",
+  "project_plural_genitive": "{count, plural, one{project} other{projects}}",
   "project_title": "Project",
 
   "recommendation_add_tasks_title": "Add",
@@ -201,16 +207,16 @@
   "subtask_new_title": "New subtask",
   "subtask_title": "Subtask",
 
-  "tariff_free_limits_description": "- 1 user\nup to 3 projects\n- up to 5k tasks\n- Limited Import projects from external sources",
-  "tariff_free_title": "FREE",
-  "tariff_premium_limits_description": "- up to 200 users\n- up to 100 projects\n- up to 500k tasks\n- Import projects",
-  "tariff_premium_title": "PREMIUM",
-  "tariff_pro_limits_description": "- up to 50 users\n- до 10 projects\n- up to 75k tasks\n- Import projects",
-  "tariff_pro_title": "PRO",
-  "tariff_standard_limits_description": "- up to 20 users\n- up to 5 projects\n- up to 15k tasks\n- Import projects",
-  "tariff_standard_title": "STANDARD",
-
+  "tariff_limit_billing_period_title": "billing period",
+  "tariff_limit_up_to_prefix": "up to ",
+  "tariff_limit_projects_unlink_allowed_0": "отслеживание внешних проектов",
+  "tariff_limit_projects_unlink_allowed_1": "импорт проектов без ограничений",
   "tariff_title": "Tariff",
+
+  "tariff_type_free_title": "FREE",
+  "tariff_type_premium_title": "PREMIUM",
+  "tariff_type_pro_title": "PRO",
+  "tariff_type_standard_title": "STANDARD",
 
   "task_assignee_nobody": "Nobody",
   "task_assignee_placeholder": "Assigned",
@@ -231,6 +237,7 @@
   "task_filter_opened": "Opened",
   "task_list_title": "Tasks",
   "task_new_title": "New task",
+  "task_plural_genitive": "{count, plural, one{task} other{tasks}}",
   "task_reopen_action_title": "Reopen",
   "task_start_date_placeholder": "Start date",
   "task_status_placeholder": "Status",
@@ -246,11 +253,15 @@
 
   "team_title": "Team",
 
+  "thousands_count_short": "{count, plural, one{{count} thousand} other{{count} thousands}}",
+
   "title": "Title",
   "today_date_label": "Today",
 
   "update_app_recommendation_title": "Update the app to the latest version",
   "update_web_app_recommendation_title": "Refresh the page in your browser or reinstall the web application",
+
+  "user_plural_genitive": "{count, plural, one{user} other{users}}",
 
   "validation_empty_text": "Should not be empty",
 

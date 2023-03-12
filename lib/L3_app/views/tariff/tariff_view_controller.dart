@@ -2,17 +2,17 @@
 
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/entities/tariff.dart';
+import '../../../L1_domain/entities/invoice.dart';
 
 part 'tariff_view_controller.g.dart';
 
 class TariffViewController extends _TariffViewControllerBase with _$TariffViewController {
-  TariffViewController(Tariff t) {
-    tariff = t;
+  TariffViewController(Invoice _invoice) {
+    invoice = _invoice;
   }
 }
 
 abstract class _TariffViewControllerBase with Store {
   @observable
-  Tariff? tariff;
+  Invoice? invoice;
 }

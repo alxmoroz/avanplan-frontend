@@ -42,7 +42,7 @@ abstract class _InvitationControllerBase extends EditController with Store {
   @action
   void setActiveDate(DateTime? _date) {
     activeDate = _date;
-    teControllers['activeDate']?.text = _date != null ? _date.strLong : '';
+    teControllers['activeDate']?.text = _date != null ? _date.strMedium : '';
   }
 
   Future selectDate(BuildContext context) async {

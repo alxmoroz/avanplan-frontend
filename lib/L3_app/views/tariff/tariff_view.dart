@@ -3,17 +3,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../L1_domain/entities/tariff.dart';
+import '../../../L1_domain/entities/invoice.dart';
+import '../../components/colors.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/tariff_presenter.dart';
+import 'tariff_card.dart';
 import 'tariff_view_controller.dart';
 
 class TariffView extends StatefulWidget {
-  const TariffView(this.tariff);
-  final Tariff tariff;
+  const TariffView(this.invoice);
+  final Invoice invoice;
 
   static String get routeName => '/tariff';
   @override
@@ -23,11 +24,11 @@ class TariffView extends StatefulWidget {
 class _TariffViewState extends State<TariffView> {
   late TariffViewController controller;
 
-  Tariff get tariff => controller.tariff ?? widget.tariff;
+  Invoice get invoice => controller.invoice ?? widget.invoice;
 
   @override
   void initState() {
-    controller = TariffViewController(widget.tariff);
+    controller = TariffViewController(widget.invoice);
     super.initState();
   }
 
@@ -35,16 +36,11 @@ class _TariffViewState extends State<TariffView> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        navBar: navBar(context, title: loc.tariff_title),
+        navBar: navBar(context, title: loc.tariff_title, bgColor: backgroundColor),
         body: SafeArea(
           top: false,
           bottom: false,
-          child: ListView(
-            children: [
-              H4(tariff.optionsDescription),
-              H4(tariff.limitsDescription),
-            ],
-          ),
+          child: TariffCard(invoice.tariff),
         ),
         bottomBar: H1("КНОПКА ДЛЯ СМЕНЫ ТАРИФА"),
       ),

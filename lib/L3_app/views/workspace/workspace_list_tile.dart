@@ -29,7 +29,7 @@ class WorkspaceListTile extends StatelessWidget {
         children: [
           if (ws.description.isNotEmpty) SmallText(ws.description, padding: const EdgeInsets.only(bottom: P_2), maxLines: 2),
           SmallText(ws.me!.rolesStr, color: greyColor),
-          SmallText('${loc.tariff_title}: ${ws.tariff.title}', color: greyColor),
+          SmallText('${loc.tariff_title}: ${ws.invoice.tariff.title}', color: greyColor),
         ],
       ),
       trailing: const ChevronIcon(),

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../L1_domain/entities/role.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../components/constants.dart';
-import '../../components/icons.dart';
+import '../../components/icons_workspace.dart';
 import '../../components/material_wrapper.dart';
 import '../../components/mt_constrained.dart';
 import '../../components/mt_menu_shape.dart';

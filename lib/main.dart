@@ -10,7 +10,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 
-import 'L1_domain/entities/tariff.dart';
+import 'L1_domain/entities/invoice.dart';
 import 'L1_domain/entities/workspace.dart';
 import 'L3_app/components/colors.dart';
 import 'L3_app/extra/services.dart';
@@ -112,7 +112,7 @@ class App extends StatelessWidget {
               } else if (rs.name == WorkspaceView.routeName) {
                 return CupertinoPageRoute<dynamic>(builder: (_) => WorkspaceView(rs.arguments as Workspace));
               } else if (rs.name == TariffView.routeName) {
-                return CupertinoPageRoute<dynamic>(builder: (_) => TariffView(rs.arguments as Tariff));
+                return CupertinoPageRoute<dynamic>(builder: (_) => TariffView(rs.arguments as Invoice));
               }
               return null;
             },

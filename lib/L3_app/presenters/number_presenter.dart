@@ -2,6 +2,6 @@
 
 import 'package:intl/intl.dart';
 
-extension NumberFormatter on double {
+extension NumberFormatter on num {
   String get inPercents => '${NumberFormat("#").format(this * 100)}%';
 }

@@ -2,9 +2,9 @@
 
 import 'base_entity.dart';
 import 'estimate_value.dart';
+import 'invoice.dart';
 import 'role.dart';
 import 'source.dart';
-import 'tariff.dart';
 import 'user.dart';
 import 'ws_settings.dart';
 
@@ -15,14 +15,14 @@ class Workspace extends Titleable {
     required super.description,
     required this.users,
     required this.roles,
-    required this.tariff,
+    required this.invoice,
     required this.balance,
   });
 
   final Iterable<User> users;
   final Iterable<Role> roles;
-  final Tariff tariff;
   final num balance;
+  final Invoice invoice;
 
   Iterable<Source> sources = [];
   Iterable<EstimateValue> estimateValues = [];

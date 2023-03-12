@@ -50,6 +50,9 @@
 
   "contact_us_title": "Напишите нам",
   "contact_us_mail_subject": "Аванплан - обратная связь",
+
+  "contract_effective_date_title": "Действует с",
+
   "copied_notification_title": "Скопировано",
 
   "days_count": "{count, plural, one{{count} день} few{{count} дня} other{{count} дней}}",
@@ -118,6 +121,8 @@
   "member_source_workspace_title": "Выбрать",
   "member_title": "Участник",
 
+  "millions_count_short": "{count} млн.",
+
   "months_count": "{count, plural, one{{count} месяц} few{{count} месяца} other{{count} месяцев}}",
   "new_title": "Новый",
   "no": "Нет",
@@ -135,6 +140,7 @@
   "project_delete_dialog_title": "Удалить проект?",
   "project_list_title": "Все проекты",
   "project_new_title": "Новый проект",
+  "project_plural_genitive": "{count, plural, one{проекта} other{проектов}}",
   "project_title": "Проект",
 
   "recommendation_add_tasks_title": "Добавить",
@@ -200,15 +206,16 @@
   "subtask_new_title": "Новая подзадача",
   "subtask_title": "Подзадача",
 
-  "tariff_free_limits_description": "- 1 пользователь\n- до 3 проектов\n- до 5 тыс. задач\n- ограниченный перенос проектов снаружи",
-  "tariff_free_title": "Бесплатный",
-  "tariff_premium_limits_description": "- до 200 пользователей\n- до 100 проектов\n- до 500 тыс. задач\n- полноценный импорт проектов",
-  "tariff_premium_title": "PREMIUM",
-  "tariff_pro_limits_description": "- до 50 пользователей\n- до 10 проектов\n- до 75 тыс. задач\n- полноценный импорт проектов",
-  "tariff_pro_title": "PRO",
-  "tariff_standard_limits_description": "- до 20 пользователей\n- до 5 проектов\n- до 15 тыс. задач\n- полноценный импорт проектов",
-  "tariff_standard_title": "STANDARD",
+  "tariff_limit_billing_period_title": "период тарификации",
+  "tariff_limit_projects_unlink_allowed_0": "отслеживание внешних проектов",
+  "tariff_limit_projects_unlink_allowed_1": "импорт проектов без ограничений",
+  "tariff_limit_up_to_prefix": "до ",
   "tariff_title": "Тариф",
+
+  "tariff_type_free_title": "Бесплатный",
+  "tariff_type_premium_title": "PREMIUM",
+  "tariff_type_pro_title": "PRO",
+  "tariff_type_standard_title": "STANDARD",
 
   "task_assignee_nobody": "Никому",
   "task_assignee_placeholder": "Назначено",
@@ -230,6 +237,7 @@
   "task_list_title": "Задачи",
   "task_new_title": "Новая задача",
   "task_reopen_action_title": "Переоткрыть",
+  "task_plural_genitive": "{count, plural, one{задачи} other{задач}}",
   "task_start_date_placeholder": "Дата начала",
   "task_status_placeholder": "Статус",
   "task_title": "Задача",
@@ -244,11 +252,15 @@
 
   "team_title": "Команда",
 
+  "thousands_count_short": "{count} тыс.",
+
   "title": "Название",
   "today_date_label": "Сегодня",
 
   "update_app_recommendation_title": "Убедитесь, что у вас самая свежая версия приложения.\nПопробуйте ещё раз",
   "update_web_app_recommendation_title": "Обновите страницу в браузере или переустановите веб-приложение",
+
+  "user_plural_genitive": "{count, plural, one{пользователя} other{пользователей}}",
 
   "validation_empty_text": "Нужно заполнить",
 

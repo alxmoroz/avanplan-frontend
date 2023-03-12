@@ -9,343 +9,15 @@ import 'constants.dart';
 import 'mt_circle.dart';
 import 'painters.dart';
 
-abstract class _MTIcon extends StatelessWidget {
-  const _MTIcon({this.color, this.size, this.solid});
+abstract class MTIcon extends StatelessWidget {
+  const MTIcon({this.color, this.size, this.solid});
 
   final Color? color;
   final double? size;
   final bool? solid;
-
-  bool get _solid => solid ?? (size == null || size! < 60);
 }
 
-class ConnectingIcon extends _MTIcon {
-  const ConnectingIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.dot_radiowaves_left_right,
-        color: (color ?? greyColor).resolve(context),
-        size: size ?? P,
-      );
-}
-
-class RefreshIcon extends _MTIcon {
-  const RefreshIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.refresh_thick,
-        color: (color ?? mainColor).resolve(context),
-        size: size ?? 30,
-      );
-}
-
-class ImportIcon extends _MTIcon {
-  const ImportIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.arrow_down_to_line,
-        color: (color ?? mainColor).resolve(context),
-        size: size ?? P * 1.7,
-      );
-}
-
-class WSIcon extends _MTIcon {
-  const WSIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => FaIcon(
-        FontAwesomeIcons.houseUser,
-        color: (color ?? greyColor).resolve(context),
-        size: size ?? P * 1.45,
-      );
-}
-
-class PlusIcon extends _MTIcon {
-  const PlusIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.plus,
-        color: (color ?? mainColor).resolve(context),
-        size: size ?? P2,
-      );
-}
-
-class EditIcon extends _MTIcon {
-  const EditIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => Icon(
-        Icons.edit,
-        color: (color ?? mainColor).resolve(context),
-        size: size ?? P2,
-      );
-}
-
-class DeleteIcon extends _MTIcon {
-  const DeleteIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.delete,
-        color: (color ?? dangerColor).resolve(context),
-        size: size ?? P2,
-      );
-}
-
-class CalendarIcon extends _MTIcon {
-  const CalendarIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.calendar,
-        color: (color ?? mainColor).resolve(context),
-        size: size ?? P2,
-      );
-}
-
-class DoneIcon extends _MTIcon {
-  const DoneIcon(this.done, {super.color, super.size, super.solid});
-  final bool done;
-
-  @override
-  Widget build(BuildContext context) => Icon(
-        done ? (solid == true ? CupertinoIcons.check_mark_circled_solid : CupertinoIcons.check_mark_circled) : CupertinoIcons.circle,
-        color: (color ?? mainColor).resolve(context),
-        size: size ?? P2,
-      );
-}
-
-class DropdownIcon extends _MTIcon {
-  const DropdownIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.chevron_up_chevron_down,
-        color: (color ?? mainColor).resolve(context),
-        size: size ?? P2,
-      );
-}
-
-class ChevronIcon extends _MTIcon {
-  const ChevronIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => FaIcon(
-        FontAwesomeIcons.chevronRight,
-        color: (color ?? mainColor).resolve(context),
-        size: size ?? P * 1.2,
-      );
-}
-
-class LinkIcon extends _MTIcon {
-  const LinkIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.link,
-        color: (color ?? greyColor).resolve(context),
-        size: size ?? P * 1.4,
-      );
-}
-
-class LinkOutIcon extends _MTIcon {
-  const LinkOutIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => FaIcon(
-        FontAwesomeIcons.arrowUpRightFromSquare,
-        color: (color ?? mainColor).resolve(context),
-        size: size ?? P,
-      );
-}
-
-class UnlinkIcon extends _MTIcon {
-  const UnlinkIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => FaIcon(
-        FontAwesomeIcons.linkSlash,
-        color: (color ?? warningColor).resolve(context),
-        size: size ?? P * 1.4,
-      );
-}
-
-class EyeIcon extends _MTIcon {
-  const EyeIcon({this.open = true, super.color, super.size});
-  final bool open;
-  @override
-  Widget build(BuildContext context) => FaIcon(
-        open ? FontAwesomeIcons.eye : FontAwesomeIcons.eyeSlash,
-        color: (color ?? greyColor).resolve(context),
-        size: size ?? P * 1.7,
-      );
-}
-
-class CloseIcon extends _MTIcon {
-  const CloseIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.clear,
-        color: (color ?? mainColor).resolve(context),
-        size: size ?? P2,
-      );
-}
-
-class LogoutIcon extends _MTIcon {
-  const LogoutIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => FaIcon(
-        FontAwesomeIcons.arrowRightFromBracket,
-        color: (color ?? mainColor).resolve(context),
-        size: size ?? P * 1.5,
-      );
-}
-
-class MenuIcon extends _MTIcon {
-  const MenuIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.ellipsis_vertical,
-        color: (color ?? mainColor).resolve(context),
-        size: size,
-      );
-}
-
-class RiskIcon extends _MTIcon {
-  const RiskIcon({super.color, super.size, super.solid});
-
-  @override
-  Widget build(BuildContext context) => Icon(
-        _solid ? CupertinoIcons.tortoise_fill : CupertinoIcons.tortoise,
-        color: (color ?? warningColor).resolve(context),
-        size: size,
-      );
-}
-
-class OkIcon extends _MTIcon {
-  const OkIcon({super.color, super.size, super.solid});
-  @override
-  Widget build(BuildContext context) => Icon(
-        _solid ? CupertinoIcons.rocket_fill : CupertinoIcons.rocket,
-        color: (color ?? greenColor).resolve(context),
-        size: size,
-      );
-}
-
-class NoInfoIcon extends _MTIcon {
-  const NoInfoIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.question_circle,
-        color: (color ?? lightGreyColor).resolve(context),
-        size: size,
-      );
-}
-
-class PauseIcon extends _MTIcon {
-  const PauseIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.pause_circle,
-        color: (color ?? lightGreyColor).resolve(context),
-        size: size,
-      );
-}
-
-class PlayIcon extends _MTIcon {
-  const PlayIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.play_circle,
-        color: (color ?? lightGreyColor).resolve(context),
-        size: size,
-      );
-}
-
-class BacklogIcon extends _MTIcon {
-  const BacklogIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.archivebox,
-        color: (color ?? lightGreyColor).resolve(context),
-        size: size,
-      );
-}
-
-class CaretIcon extends StatelessWidget {
-  const CaretIcon({this.up = false, this.color, required this.size});
-  final bool up;
-  final Size size;
-  final Color? color;
-
-  @override
-  Widget build(BuildContext context) => RotatedBox(
-        quarterTurns: up ? 0 : 2,
-        child: CustomPaint(
-          painter: TrianglePainter(color: (color ?? greyColor).resolve(context)),
-          child: Container(height: size.height, width: size.width),
-        ),
-      );
-}
-
-class TodayIcon extends _MTIcon {
-  const TodayIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => Icon(CupertinoIcons.placemark, size: size);
-}
-
-class MailIcon extends _MTIcon {
-  const MailIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.envelope,
-        color: (color ?? greyColor).resolve(context),
-        size: size ?? P2,
-      );
-}
-
-class RulesIcon extends _MTIcon {
-  const RulesIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.doc_plaintext,
-        color: (color ?? greyColor).resolve(context),
-        size: size ?? P2,
-      );
-}
-
-class PrivacyIcon extends _MTIcon {
-  const PrivacyIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.lock_shield,
-        color: (color ?? greyColor).resolve(context),
-        size: size ?? P2,
-      );
-}
-
-class ServerErrorIcon extends _MTIcon {
-  const ServerErrorIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => FaIcon(
-        FontAwesomeIcons.roadBarrier,
-        color: (color ?? greyColor).resolve(context),
-        size: size ?? P2,
-      );
-}
-
-class NetworkErrorIcon extends _MTIcon {
-  const NetworkErrorIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.wifi_exclamationmark,
-        color: (color ?? greyColor).resolve(context),
-        size: size ?? P2,
-      );
-}
-
-class StartIcon extends _MTIcon {
-  const StartIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => FaIcon(
-        FontAwesomeIcons.planeDeparture,
-        color: (color ?? borderColor).resolve(context),
-        size: size ?? P * 11,
-      );
-}
-
-class BellIcon extends _MTIcon {
+class BellIcon extends MTIcon {
   const BellIcon({super.color, super.size, this.hasUnread = false});
 
   final bool hasUnread;
@@ -368,17 +40,17 @@ class BellIcon extends _MTIcon {
   }
 }
 
-class ShareIcon extends _MTIcon {
-  const ShareIcon({super.color, super.size});
+class ConnectingIcon extends MTIcon {
+  const ConnectingIcon({super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
-        CupertinoIcons.square_arrow_up,
-        color: (color ?? mainColor).resolve(context),
-        size: size ?? P2,
+        CupertinoIcons.dot_radiowaves_left_right,
+        color: (color ?? greyColor).resolve(context),
+        size: size ?? P,
       );
 }
 
-class CopyIcon extends _MTIcon {
+class CopyIcon extends MTIcon {
   const CopyIcon({super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
@@ -388,31 +60,260 @@ class CopyIcon extends _MTIcon {
       );
 }
 
-class MemberAddIcon extends _MTIcon {
-  const MemberAddIcon({super.color, super.size});
-
+class ImportIcon extends MTIcon {
+  const ImportIcon({super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
-        CupertinoIcons.person_add,
+        CupertinoIcons.arrow_down_to_line,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P * 1.7,
+      );
+}
+
+class EditIcon extends MTIcon {
+  const EditIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        Icons.edit,
         color: (color ?? mainColor).resolve(context),
         size: size ?? P2,
       );
 }
 
-class RoubleIcon extends _MTIcon {
-  const RoubleIcon({super.color, super.size});
+class DeleteIcon extends MTIcon {
+  const DeleteIcon({super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
-        CupertinoIcons.money_rubl,
-        color: (color ?? lightGreyColor).resolve(context),
-        size: size ?? P3,
+        CupertinoIcons.delete,
+        color: (color ?? dangerColor).resolve(context),
+        size: size ?? P2,
       );
 }
 
-const _sourceIconSize = P2;
+class CalendarIcon extends MTIcon {
+  const CalendarIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.calendar,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P2,
+      );
+}
 
-Widget redmineIcon() => Image.asset('assets/images/redmine_icon.png', height: _sourceIconSize);
-Widget gitlabIcon() => Image.asset('assets/images/gitlab_icon.png', height: _sourceIconSize);
-Widget jiraIcon() => Image.asset('assets/images/jira_icon.png', height: _sourceIconSize);
+class DoneIcon extends MTIcon {
+  const DoneIcon(this.done, {super.color, super.size, super.solid});
+  final bool done;
+
+  @override
+  Widget build(BuildContext context) => Icon(
+        done ? (solid == true ? CupertinoIcons.check_mark_circled_solid : CupertinoIcons.check_mark_circled) : CupertinoIcons.circle,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P2,
+      );
+}
+
+class DropdownIcon extends MTIcon {
+  const DropdownIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.chevron_up_chevron_down,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P2,
+      );
+}
+
+class ChevronIcon extends MTIcon {
+  const ChevronIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => FaIcon(
+        FontAwesomeIcons.chevronRight,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P * 1.2,
+      );
+}
+
+class LinkIcon extends MTIcon {
+  const LinkIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.link,
+        color: (color ?? greyColor).resolve(context),
+        size: size ?? P * 1.4,
+      );
+}
+
+class LinkOutIcon extends MTIcon {
+  const LinkOutIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => FaIcon(
+        FontAwesomeIcons.arrowUpRightFromSquare,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P,
+      );
+}
+
+class UnlinkIcon extends MTIcon {
+  const UnlinkIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => FaIcon(
+        FontAwesomeIcons.linkSlash,
+        color: (color ?? warningColor).resolve(context),
+        size: size ?? P * 1.4,
+      );
+}
+
+class EyeIcon extends MTIcon {
+  const EyeIcon({this.open = true, super.color, super.size});
+  final bool open;
+  @override
+  Widget build(BuildContext context) => FaIcon(
+        open ? FontAwesomeIcons.eye : FontAwesomeIcons.eyeSlash,
+        color: (color ?? greyColor).resolve(context),
+        size: size ?? P * 1.7,
+      );
+}
+
+class CloseIcon extends MTIcon {
+  const CloseIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.clear,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P2,
+      );
+}
+
+class LogoutIcon extends MTIcon {
+  const LogoutIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => FaIcon(
+        FontAwesomeIcons.arrowRightFromBracket,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P * 1.5,
+      );
+}
+
+class MenuIcon extends MTIcon {
+  const MenuIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.ellipsis_vertical,
+        color: (color ?? mainColor).resolve(context),
+        size: size,
+      );
+}
+
+class CaretIcon extends StatelessWidget {
+  const CaretIcon({this.up = false, this.color, required this.size});
+  final bool up;
+  final Size size;
+  final Color? color;
+
+  @override
+  Widget build(BuildContext context) => RotatedBox(
+        quarterTurns: up ? 0 : 2,
+        child: CustomPaint(
+          painter: TrianglePainter(color: (color ?? greyColor).resolve(context)),
+          child: Container(height: size.height, width: size.width),
+        ),
+      );
+}
+
+class TodayIcon extends MTIcon {
+  const TodayIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(CupertinoIcons.placemark, size: size);
+}
+
+class MailIcon extends MTIcon {
+  const MailIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.envelope,
+        color: (color ?? greyColor).resolve(context),
+        size: size ?? P2,
+      );
+}
+
+class NetworkErrorIcon extends MTIcon {
+  const NetworkErrorIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.wifi_exclamationmark,
+        color: (color ?? greyColor).resolve(context),
+        size: size ?? P2,
+      );
+}
+
+class PlusIcon extends MTIcon {
+  const PlusIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.plus,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P2,
+      );
+}
+
+class PrivacyIcon extends MTIcon {
+  const PrivacyIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.lock_shield,
+        color: (color ?? greyColor).resolve(context),
+        size: size ?? P2,
+      );
+}
+
+class RefreshIcon extends MTIcon {
+  const RefreshIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.refresh_thick,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? 30,
+      );
+}
+
+class RulesIcon extends MTIcon {
+  const RulesIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.doc_plaintext,
+        color: (color ?? greyColor).resolve(context),
+        size: size ?? P2,
+      );
+}
+
+class ServerErrorIcon extends MTIcon {
+  const ServerErrorIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => FaIcon(
+        FontAwesomeIcons.roadBarrier,
+        color: (color ?? greyColor).resolve(context),
+        size: size ?? P2,
+      );
+}
+
+class StartIcon extends MTIcon {
+  const StartIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => FaIcon(
+        FontAwesomeIcons.planeDeparture,
+        color: (color ?? borderColor).resolve(context),
+        size: size ?? P * 11,
+      );
+}
+
+class ShareIcon extends MTIcon {
+  const ShareIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.square_arrow_up,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P2,
+      );
+}
+
 Widget googleIcon({double? size}) => Image.asset('assets/images/google_icon.png', width: size, height: size);
 Widget appIcon({double? size}) => Image.asset('assets/images/app_icon.png', width: size, height: size);

@@ -1,0 +1,15 @@
+// Copyright (c) 2022. Alexandr Moroz
+
+import 'package:openapi/openapi.dart' as api;
+
+import '../../L1_domain/entities/invoice.dart';
+import 'contract.dart';
+import 'tariff.dart';
+
+extension InvoiceMapper on api.InvoiceGet {
+  Invoice get invoice => Invoice(
+        id: id,
+        tariff: tariff!.tariff,
+        contract: contract.contract,
+      );
+}

@@ -9,5 +9,6 @@ extension TariffMapper on api.TariffGet {
         id: id,
         code: code,
         limitsMap: {for (var tl in limits) tl.code: tl.value},
+        optionsMap: {for (var to in options) to.code: to.price},
       );
 }

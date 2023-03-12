@@ -11,6 +11,7 @@ import '../../components/icons.dart';
 import '../../components/icons_workspace.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_list_tile.dart';
+import '../../components/mt_money.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
@@ -81,14 +82,7 @@ class _WorkspaceViewState extends State<WorkspaceView> {
         children: [
           LightText(loc.balance_amount_title),
           const SizedBox(height: P_2),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              D1('${controller.balance}', color: _balanceColor),
-              RoubleIcon(color: _balanceColor),
-            ],
-          ),
+          MTCurrency(controller.balance, _balanceColor),
           const SizedBox(height: P_2),
           // TODO: if (controller.balance > 0) SmallText('Хватит на 1 мес.', color: greyColor),
           const SizedBox(height: P),

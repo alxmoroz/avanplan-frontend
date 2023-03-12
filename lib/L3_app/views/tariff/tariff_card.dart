@@ -7,6 +7,7 @@ import '../../components/constants.dart';
 import '../../components/text_widgets.dart';
 import '../../presenters/tariff_presenter.dart';
 import 'tariff_limit_tile.dart';
+import 'tariff_option_tile.dart';
 
 class TariffCard extends StatelessWidget {
   const TariffCard(this.tariff);
@@ -14,11 +15,14 @@ class TariffCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return Column(
       children: [
         H3(tariff.title, align: TextAlign.center),
         const SizedBox(height: P),
-        for (final code in tariff.limitsMap.keys) TariffLimitTile(tariff: tariff, code: code),
+        for (var code in tariff.limitsMap.keys) TariffLimitTile(tariff: tariff, code: code),
+        const Spacer(),
+        for (var code in tariff.optionsMap.keys) TariffOptionTile(tariff: tariff, code: code),
+        const SizedBox(height: P2),
       ],
     );
   }

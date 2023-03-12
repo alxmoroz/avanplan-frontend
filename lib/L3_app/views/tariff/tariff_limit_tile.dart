@@ -10,6 +10,7 @@ import '../../components/icons.dart';
 import '../../components/icons_workspace.dart';
 import '../../components/mt_list_tile.dart';
 import '../../extra/services.dart';
+import '../../presenters/number_presenter.dart';
 
 class TariffLimitTile extends StatelessWidget {
   const TariffLimitTile({
@@ -25,17 +26,8 @@ class TariffLimitTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final value = tariff.limitValue(code);
 
-    final thousands = value / 1000;
-    final millions = value / 1000000;
-    String hvStr = '$value';
-    num hValue = value;
-    if (millions > 1) {
-      hValue = millions.round();
-      hvStr = loc.millions_count_short(hValue);
-    } else if (thousands > 1) {
-      hValue = thousands.round();
-      hvStr = loc.thousands_count_short(hValue);
-    }
+    String hvStr = value.hvStr;
+    final plural = num.tryParse(hvStr) == null ? 10 : value;
 
     String prefix = loc.tariff_limit_up_to_prefix;
     String suffix = '';
@@ -43,13 +35,13 @@ class TariffLimitTile extends StatelessWidget {
     Widget icon = const SizedBox(width: P2);
     if (code == 'USERS_COUNT') {
       icon = const MembersIcon();
-      suffix = loc.user_plural_genitive(hValue);
+      suffix = loc.user_plural_genitive(plural);
     } else if (code == 'PROJECTS_COUNT') {
       icon = const ProjectsIcon();
-      suffix = loc.project_plural_genitive(hValue);
+      suffix = loc.project_plural_genitive(plural);
     } else if (code == 'TASKS_COUNT') {
       icon = const TasksIcon();
-      suffix = loc.task_plural_genitive(hValue);
+      suffix = loc.task_plural_genitive(plural);
     } else if (code == 'PROJECTS_UNLINK_ALLOWED') {
       icon = const ImportIcon(color: greyColor, size: P2);
       hvStr = '';

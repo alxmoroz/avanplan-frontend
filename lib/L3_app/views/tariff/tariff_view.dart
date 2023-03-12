@@ -38,8 +38,8 @@ class _TariffViewState extends State<TariffView> {
       builder: (_) => MTPage(
         navBar: navBar(context, title: loc.tariff_title, bgColor: backgroundColor),
         body: SafeArea(
-          top: false,
-          bottom: false,
+          // top: false,
+          // bottom: false,
           child: TariffCard(invoice.tariff),
         ),
         bottomBar: H1("КНОПКА ДЛЯ СМЕНЫ ТАРИФА"),

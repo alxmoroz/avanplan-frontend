@@ -1,4 +1,4 @@
-# openapi.api.BillingApi
+# openapi.api.PaymentsApi
 
 ## Load the API package
 ```dart
@@ -9,11 +9,11 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ymPaymentNotificationV1BillingYmPaymentNotificationPost**](BillingApi.md#ympaymentnotificationv1billingympaymentnotificationpost) | **POST** /v1/billing/ym/payment_notification | Ym Payment Notification
+[**ymPaymentNotificationV1PaymentsYmPaymentNotificationPost**](PaymentsApi.md#ympaymentnotificationv1paymentsympaymentnotificationpost) | **POST** /v1/payments/ym/payment_notification | Ym Payment Notification
 
 
-# **ymPaymentNotificationV1BillingYmPaymentNotificationPost**
-> JsonObject ymPaymentNotificationV1BillingYmPaymentNotificationPost(notificationType, operationId, amount, withdrawAmount, currency, datetime, sender, codepro, sha1Hash, label, unaccepted)
+# **ymPaymentNotificationV1PaymentsYmPaymentNotificationPost**
+> JsonObject ymPaymentNotificationV1PaymentsYmPaymentNotificationPost(notificationType, operationId, amount, withdrawAmount, currency, datetime, sender, codepro, sha1Hash, label, unaccepted)
 
 Ym Payment Notification
 
@@ -21,7 +21,7 @@ Ym Payment Notification
 ```dart
 import 'package:openapi/api.dart';
 
-final api = Openapi().getBillingApi();
+final api = Openapi().getPaymentsApi();
 final String notificationType = notificationType_example; // String | 
 final String operationId = operationId_example; // String | 
 final String amount = amount_example; // String | 
@@ -35,10 +35,10 @@ final String label = label_example; // String |
 final bool unaccepted = true; // bool | 
 
 try {
-    final response = api.ymPaymentNotificationV1BillingYmPaymentNotificationPost(notificationType, operationId, amount, withdrawAmount, currency, datetime, sender, codepro, sha1Hash, label, unaccepted);
+    final response = api.ymPaymentNotificationV1PaymentsYmPaymentNotificationPost(notificationType, operationId, amount, withdrawAmount, currency, datetime, sender, codepro, sha1Hash, label, unaccepted);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling BillingApi->ymPaymentNotificationV1BillingYmPaymentNotificationPost: $e\n');
+    print('Exception when calling PaymentsApi->ymPaymentNotificationV1PaymentsYmPaymentNotificationPost: $e\n');
 }
 ```
 

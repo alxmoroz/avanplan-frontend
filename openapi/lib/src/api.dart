@@ -10,13 +10,15 @@ import 'package:openapi/src/auth/basic_auth.dart';
 import 'package:openapi/src/auth/bearer_auth.dart';
 import 'package:openapi/src/auth/oauth.dart';
 import 'package:openapi/src/api/auth_api.dart';
-import 'package:openapi/src/api/billing_api.dart';
+import 'package:openapi/src/api/contracts_api.dart';
 import 'package:openapi/src/api/integrations_sources_api.dart';
 import 'package:openapi/src/api/integrations_tasks_api.dart';
 import 'package:openapi/src/api/invitation_api.dart';
 import 'package:openapi/src/api/my_api.dart';
+import 'package:openapi/src/api/payments_api.dart';
 import 'package:openapi/src/api/roles_api.dart';
 import 'package:openapi/src/api/settings_api.dart';
+import 'package:openapi/src/api/tariffs_api.dart';
 import 'package:openapi/src/api/tasks_api.dart';
 
 class Openapi {
@@ -79,10 +81,10 @@ class Openapi {
     return AuthApi(dio, serializers);
   }
 
-  /// Get BillingApi instance, base route and serializer can be overridden by a given but be careful,
+  /// Get ContractsApi instance, base route and serializer can be overridden by a given but be careful,
   /// by doing that all interceptors will not be executed
-  BillingApi getBillingApi() {
-    return BillingApi(dio, serializers);
+  ContractsApi getContractsApi() {
+    return ContractsApi(dio, serializers);
   }
 
   /// Get IntegrationsSourcesApi instance, base route and serializer can be overridden by a given but be careful,
@@ -109,6 +111,12 @@ class Openapi {
     return MyApi(dio, serializers);
   }
 
+  /// Get PaymentsApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  PaymentsApi getPaymentsApi() {
+    return PaymentsApi(dio, serializers);
+  }
+
   /// Get RolesApi instance, base route and serializer can be overridden by a given but be careful,
   /// by doing that all interceptors will not be executed
   RolesApi getRolesApi() {
@@ -119,6 +127,12 @@ class Openapi {
   /// by doing that all interceptors will not be executed
   SettingsApi getSettingsApi() {
     return SettingsApi(dio, serializers);
+  }
+
+  /// Get TariffsApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  TariffsApi getTariffsApi() {
+    return TariffsApi(dio, serializers);
   }
 
   /// Get TasksApi instance, base route and serializer can be overridden by a given but be careful,

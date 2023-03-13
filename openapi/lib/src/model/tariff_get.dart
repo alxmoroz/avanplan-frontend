@@ -19,6 +19,7 @@ part 'tariff_get.g.dart';
 /// * [hidden] 
 /// * [limits] 
 /// * [options] 
+/// * [estimateChargePerBillingPeriod] 
 @BuiltValue()
 abstract class TariffGet implements Built<TariffGet, TariffGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -36,12 +37,16 @@ abstract class TariffGet implements Built<TariffGet, TariffGetBuilder> {
   @BuiltValueField(wireName: r'options')
   BuiltList<TariffOptionGet> get options;
 
+  @BuiltValueField(wireName: r'estimate_charge_per_billing_period')
+  num? get estimateChargePerBillingPeriod;
+
   TariffGet._();
 
   factory TariffGet([void updates(TariffGetBuilder b)]) = _$TariffGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(TariffGetBuilder b) => b;
+  static void _defaults(TariffGetBuilder b) => b
+      ..estimateChargePerBillingPeriod = 0;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<TariffGet> get serializer => _$TariffGetSerializer();
@@ -84,6 +89,13 @@ class _$TariffGetSerializer implements PrimitiveSerializer<TariffGet> {
       object.options,
       specifiedType: const FullType(BuiltList, [FullType(TariffOptionGet)]),
     );
+    if (object.estimateChargePerBillingPeriod != null) {
+      yield r'estimate_charge_per_billing_period';
+      yield serializers.serialize(
+        object.estimateChargePerBillingPeriod,
+        specifiedType: const FullType(num),
+      );
+    }
   }
 
   @override
@@ -141,6 +153,13 @@ class _$TariffGetSerializer implements PrimitiveSerializer<TariffGet> {
             specifiedType: const FullType(BuiltList, [FullType(TariffOptionGet)]),
           ) as BuiltList<TariffOptionGet>;
           result.options.replace(valueDes);
+          break;
+        case r'estimate_charge_per_billing_period':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
+          result.estimateChargePerBillingPeriod = valueDes;
           break;
         default:
           unhandled.add(key);

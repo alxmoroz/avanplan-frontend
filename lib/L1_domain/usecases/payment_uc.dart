@@ -1,11 +1,11 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../repositories/abs_billing_repo.dart';
+import '../repositories/abs_payment_repo.dart';
 
-class BillingUC {
-  BillingUC({required this.repo});
+class PaymentUC {
+  PaymentUC(this.repo);
 
-  final AbstractBillingRepo repo;
+  final AbstractPaymentRepo repo;
 
   Future<bool> ymQuickPayForm(num amount, int wsId) async => await repo.ymQuickPayForm(amount, wsId);
 }

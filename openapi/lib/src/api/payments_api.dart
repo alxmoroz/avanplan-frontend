@@ -11,13 +11,13 @@ import 'package:built_value/json_object.dart';
 import 'package:openapi/src/api_util.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
 
-class BillingApi {
+class PaymentsApi {
 
   final Dio _dio;
 
   final Serializers _serializers;
 
-  const BillingApi(this._dio, this._serializers);
+  const PaymentsApi(this._dio, this._serializers);
 
   /// Ym Payment Notification
   /// 
@@ -43,7 +43,7 @@ class BillingApi {
   ///
   /// Returns a [Future] containing a [Response] with a [JsonObject] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<JsonObject>> ymPaymentNotificationV1BillingYmPaymentNotificationPost({ 
+  Future<Response<JsonObject>> ymPaymentNotificationV1PaymentsYmPaymentNotificationPost({ 
     String? notificationType,
     String? operationId,
     String? amount,
@@ -62,7 +62,7 @@ class BillingApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/billing/ym/payment_notification';
+    final _path = r'/v1/payments/ym/payment_notification';
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{

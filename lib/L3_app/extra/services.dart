@@ -7,24 +7,28 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../L1_domain/usecases/app_settings_uc.dart';
 import '../../L1_domain/usecases/auth_uc.dart';
-import '../../L1_domain/usecases/billing_uc.dart';
+import '../../L1_domain/usecases/contract_uc.dart';
 import '../../L1_domain/usecases/import_uc.dart';
 import '../../L1_domain/usecases/invitation_uc.dart';
 import '../../L1_domain/usecases/my_uc.dart';
+import '../../L1_domain/usecases/payment_uc.dart';
 import '../../L1_domain/usecases/source_uc.dart';
+import '../../L1_domain/usecases/tariff_uc.dart';
 import '../../L1_domain/usecases/task_member_role_uc.dart';
 import '../../L1_domain/usecases/task_uc.dart';
 import '../../L1_domain/usecases/ws_settings_uc.dart';
 import '../../L2_data/repositories/auth_apple_repo.dart';
 import '../../L2_data/repositories/auth_google_repo.dart';
 import '../../L2_data/repositories/auth_password_repo.dart';
-import '../../L2_data/repositories/billing_repo.dart';
+import '../../L2_data/repositories/contract_repo.dart';
 import '../../L2_data/repositories/db_repo.dart';
 import '../../L2_data/repositories/estimate_value_repo.dart';
 import '../../L2_data/repositories/import_repo.dart';
 import '../../L2_data/repositories/invitation_repo.dart';
 import '../../L2_data/repositories/my_repo.dart';
+import '../../L2_data/repositories/payment_repo.dart';
 import '../../L2_data/repositories/source_repo.dart';
+import '../../L2_data/repositories/tariff_repo.dart';
 import '../../L2_data/repositories/task_member_role_repo.dart';
 import '../../L2_data/repositories/task_repo.dart';
 import '../../L2_data/repositories/ws_settings_repo.dart';
@@ -68,7 +72,9 @@ SourceUC get sourceUC => GetIt.I<SourceUC>();
 ImportUC get importUC => GetIt.I<ImportUC>();
 InvitationUC get invitationUC => GetIt.I<InvitationUC>();
 TaskMemberRoleUC get taskMemberRoleUC => GetIt.I<TaskMemberRoleUC>();
-BillingUC get billingUC => GetIt.I<BillingUC>();
+PaymentUC get paymentUC => GetIt.I<PaymentUC>();
+TariffUC get tariffUC => GetIt.I<TariffUC>();
+ContractUC get contractUC => GetIt.I<ContractUC>();
 
 void setup() {
   // device
@@ -101,14 +107,15 @@ void setup() {
     appleRepo: AuthAppleRepo(),
     localDBAuthRepo: LocalAuthRepo(),
   ));
-  getIt.registerSingleton<AppSettingsUC>(AppSettingsUC(settingsRepo: SettingsRepo()));
-  // getIt.registerSingleton<TaskTypesUC>(TaskTypesUC(repo: TaskTypesRepo()));
-  getIt.registerSingleton<MyUC>(MyUC(repo: MyRepo()));
-  getIt.registerSingleton<TaskUC>(TaskUC(repo: TaskRepo()));
-  getIt.registerSingleton<SourceUC>(SourceUC(repo: SourceRepo()));
-  getIt.registerSingleton<ImportUC>(ImportUC(repo: ImportRepo()));
+  getIt.registerSingleton<AppSettingsUC>(AppSettingsUC(SettingsRepo()));
+  getIt.registerSingleton<MyUC>(MyUC(MyRepo()));
+  getIt.registerSingleton<TaskUC>(TaskUC(TaskRepo()));
+  getIt.registerSingleton<SourceUC>(SourceUC(SourceRepo()));
+  getIt.registerSingleton<ImportUC>(ImportUC(ImportRepo()));
   getIt.registerSingleton<WSSettingsUC>(WSSettingsUC(settingsRepo: WSSettingsRepo(), estValueRepo: EstimateValueRepo()));
-  getIt.registerSingleton<InvitationUC>(InvitationUC(repo: InvitationRepo()));
-  getIt.registerSingleton<TaskMemberRoleUC>(TaskMemberRoleUC(repo: TaskMemberRoleRepo()));
-  getIt.registerSingleton<BillingUC>(BillingUC(repo: BillingRepo()));
+  getIt.registerSingleton<InvitationUC>(InvitationUC(InvitationRepo()));
+  getIt.registerSingleton<TaskMemberRoleUC>(TaskMemberRoleUC(TaskMemberRoleRepo()));
+  getIt.registerSingleton<PaymentUC>(PaymentUC(PaymentRepo()));
+  getIt.registerSingleton<TariffUC>(TariffUC(TariffRepo()));
+  getIt.registerSingleton<ContractUC>(ContractUC(ContractRepo()));
 }

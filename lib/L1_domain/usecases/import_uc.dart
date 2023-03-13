@@ -6,7 +6,7 @@ import '../entities/task_source.dart';
 import '../repositories/abs_import_repo.dart';
 
 class ImportUC {
-  ImportUC({required this.repo});
+  ImportUC(this.repo);
 
   final AbstractImportRepo repo;
 

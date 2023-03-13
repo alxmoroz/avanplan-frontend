@@ -17,7 +17,7 @@ abstract class _PaymentControllerBase with Store {
 
   @action
   Future ymQuickPayForm(num amount, int wsId) async {
-    await billingUC.ymQuickPayForm(amount, wsId);
+    await paymentUC.ymQuickPayForm(amount, wsId);
     waitingPayment = true;
   }
 }

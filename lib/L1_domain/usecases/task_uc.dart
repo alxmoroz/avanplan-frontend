@@ -6,7 +6,7 @@ import '../repositories/abs_ws_repo.dart';
 //TODO: похоже, есть смысл сделать абстрактный общий юзкейс
 
 class TaskUC {
-  TaskUC({required this.repo});
+  TaskUC(this.repo);
 
   final AbstractWSRepo<Task> repo;
 

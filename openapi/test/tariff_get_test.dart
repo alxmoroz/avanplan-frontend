@@ -31,5 +31,10 @@ void main() {
     test('to test the property `options`', () async {
       // TODO
     });
+
+    // num estimateChargePerBillingPeriod (default value: 0)
+    test('to test the property `estimateChargePerBillingPeriod`', () async {
+      // TODO
+    });
   });
 }

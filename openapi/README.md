@@ -69,7 +69,7 @@ Class | Method | HTTP request | Description
 [*AuthApi*](doc/AuthApi.md) | [**authGoogleToken**](doc/AuthApi.md#authgoogletoken) | **POST** /v1/auth/google/token | Google Token
 [*AuthApi*](doc/AuthApi.md) | [**authToken**](doc/AuthApi.md#authtoken) | **POST** /v1/auth/token | Token
 [*AuthApi*](doc/AuthApi.md) | [**refreshToken**](doc/AuthApi.md#refreshtoken) | **POST** /v1/auth/refresh_token | Refresh Token
-[*BillingApi*](doc/BillingApi.md) | [**ymPaymentNotificationV1BillingYmPaymentNotificationPost**](doc/BillingApi.md#ympaymentnotificationv1billingympaymentnotificationpost) | **POST** /v1/billing/ym/payment_notification | Ym Payment Notification
+[*ContractsApi*](doc/ContractsApi.md) | [**signV1ContractsSignPost**](doc/ContractsApi.md#signv1contractssignpost) | **POST** /v1/contracts/sign | Sign
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**checkConnectionV1IntegrationsSourcesCheckConnectionGet**](doc/IntegrationsSourcesApi.md#checkconnectionv1integrationssourcescheckconnectionget) | **GET** /v1/integrations/sources/check_connection | Check Connection
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**deleteV1IntegrationsSourcesSourceIdDelete**](doc/IntegrationsSourcesApi.md#deletev1integrationssourcessourceiddelete) | **DELETE** /v1/integrations/sources/{source_id} | Delete
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**sourcesV1IntegrationsSourcesGet**](doc/IntegrationsSourcesApi.md#sourcesv1integrationssourcesget) | **GET** /v1/integrations/sources/ | Sources
@@ -86,9 +86,11 @@ Class | Method | HTTP request | Description
 [*MyApi*](doc/MyApi.md) | [**updateAccountV1MyAccountPost**](doc/MyApi.md#updateaccountv1myaccountpost) | **POST** /v1/my/account | Update Account
 [*MyApi*](doc/MyApi.md) | [**updatePushTokenV1MyPushTokenPost**](doc/MyApi.md#updatepushtokenv1mypushtokenpost) | **POST** /v1/my/push_token | Update Push Token
 [*MyApi*](doc/MyApi.md) | [**workspacesV1MyWorkspacesGet**](doc/MyApi.md#workspacesv1myworkspacesget) | **GET** /v1/my/workspaces | Workspaces
+[*PaymentsApi*](doc/PaymentsApi.md) | [**ymPaymentNotificationV1PaymentsYmPaymentNotificationPost**](doc/PaymentsApi.md#ympaymentnotificationv1paymentsympaymentnotificationpost) | **POST** /v1/payments/ym/payment_notification | Ym Payment Notification
 [*RolesApi*](doc/RolesApi.md) | [**assignV1RolesAssignPost**](doc/RolesApi.md#assignv1rolesassignpost) | **POST** /v1/roles/assign | Assign
 [*SettingsApi*](doc/SettingsApi.md) | [**getEstimateValuesV1SettingsEstimateValuesGet**](doc/SettingsApi.md#getestimatevaluesv1settingsestimatevaluesget) | **GET** /v1/settings/estimate_values | Get Estimate Values
 [*SettingsApi*](doc/SettingsApi.md) | [**getSettingsV1SettingsGet**](doc/SettingsApi.md#getsettingsv1settingsget) | **GET** /v1/settings/ | Get Settings
+[*TariffsApi*](doc/TariffsApi.md) | [**tariffsV1TariffsGet**](doc/TariffsApi.md#tariffsv1tariffsget) | **GET** /v1/tariffs/ | Tariffs
 [*TasksApi*](doc/TasksApi.md) | [**deleteV1TasksTaskIdDelete**](doc/TasksApi.md#deletev1taskstaskiddelete) | **DELETE** /v1/tasks/{task_id} | Delete
 [*TasksApi*](doc/TasksApi.md) | [**projectsV1TasksGet**](doc/TasksApi.md#projectsv1tasksget) | **GET** /v1/tasks/ | Projects
 [*TasksApi*](doc/TasksApi.md) | [**upsertV1TasksPost**](doc/TasksApi.md#upsertv1taskspost) | **POST** /v1/tasks/ | Upsert

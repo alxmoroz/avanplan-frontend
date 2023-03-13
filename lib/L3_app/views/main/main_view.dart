@@ -107,11 +107,12 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              MTButton.icon(
-                BellIcon(size: P3, hasUnread: notificationController.hasUnread, color: mainColor),
-                () => _gotoMessages(context),
-                margin: const EdgeInsets.only(right: P),
-              ),
+              if (accountController.user != null)
+                MTButton.icon(
+                  BellIcon(size: P3, hasUnread: notificationController.hasUnread, color: mainColor),
+                  () => _gotoMessages(context),
+                  margin: const EdgeInsets.only(right: P),
+                ),
               MTButton.icon(
                 const RefreshIcon(size: P3),
                 mainController.update,

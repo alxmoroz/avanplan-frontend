@@ -22,12 +22,9 @@ class Workspace extends Titleable {
   final Iterable<User> users;
   final Iterable<Role> roles;
   final num balance;
-  final Invoice invoice;
+  Invoice invoice;
 
   Iterable<Source> sources = [];
   Iterable<EstimateValue> estimateValues = [];
   WSettings? settings;
-
-  // List<Status> statuses = [];
-  // List<Priority> priorities = [];
 }

@@ -2,23 +2,8 @@
 
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/entities/workspace.dart';
-
 part 'workspace_view_controller.g.dart';
 
-class WorkspaceViewController extends _WorkspaceViewControllerBase with _$WorkspaceViewController {
-  WorkspaceViewController(Workspace _ws) {
-    ws = _ws;
-  }
-}
+class WorkspaceViewController extends _WorkspaceViewControllerBase with _$WorkspaceViewController {}
 
-abstract class _WorkspaceViewControllerBase with Store {
-  @observable
-  Workspace? ws;
-
-  @computed
-  int get wsId => ws?.id ?? 0;
-
-  @computed
-  int get balance => ws?.balance.floor() ?? 0;
-}
+abstract class _WorkspaceViewControllerBase with Store {}

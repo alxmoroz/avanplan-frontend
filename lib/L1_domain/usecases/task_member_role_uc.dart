@@ -4,7 +4,7 @@ import '../entities/member.dart';
 import '../repositories/abs_member_role_repo.dart';
 
 class TaskMemberRoleUC {
-  TaskMemberRoleUC({required this.repo});
+  TaskMemberRoleUC(this.repo);
 
   final AbstractTaskMemberRoleRepo repo;
 

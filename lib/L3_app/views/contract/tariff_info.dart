@@ -9,8 +9,8 @@ import '../../presenters/tariff_presenter.dart';
 import 'tariff_limit_tile.dart';
 import 'tariff_option_tile.dart';
 
-class TariffCard extends StatelessWidget {
-  const TariffCard(this.tariff);
+class TariffInfo extends StatelessWidget {
+  const TariffInfo(this.tariff);
   final Tariff tariff;
 
   @override
@@ -18,11 +18,17 @@ class TariffCard extends StatelessWidget {
     return Column(
       children: [
         H3(tariff.title, align: TextAlign.center),
-        const SizedBox(height: P),
-        for (var code in tariff.limitsMap.keys) TariffLimitTile(tariff: tariff, code: code),
-        const Spacer(),
+        Expanded(
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              const SizedBox(height: P),
+              for (var code in tariff.limitsMap.keys) TariffLimitTile(tariff: tariff, code: code),
+            ],
+          ),
+        ),
         for (var code in tariff.optionsMap.keys) TariffOptionTile(tariff: tariff, code: code),
-        const SizedBox(height: P2),
+        const SizedBox(height: P),
       ],
     );
   }

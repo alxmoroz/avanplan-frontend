@@ -4,15 +4,15 @@ import '../entities/app_settings.dart';
 import '../repositories/abs_db_repo.dart';
 
 class AppSettingsUC {
-  AppSettingsUC({required this.settingsRepo});
+  AppSettingsUC(this.repo);
 
-  final AbstractDBRepo<AbstractDBModel, AppSettings> settingsRepo;
+  final AbstractDBRepo<AbstractDBModel, AppSettings> repo;
 
   Future updateVersion(String version) async {
     final settings = await getSettings();
     settings.version = version;
-    await settingsRepo.update(settings);
+    await repo.update(settings);
   }
 
-  Future<AppSettings> getSettings() async => await settingsRepo.getOne() ?? AppSettings(firstLaunch: true);
+  Future<AppSettings> getSettings() async => await repo.getOne() ?? AppSettings(firstLaunch: true);
 }

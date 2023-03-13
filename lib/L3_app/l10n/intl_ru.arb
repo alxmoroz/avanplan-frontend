@@ -206,10 +206,12 @@
   "subtask_new_title": "Новая подзадача",
   "subtask_title": "Подзадача",
 
+  "tariff_change_action_title": "Сменить тариф",
   "tariff_limit_billing_period_title": "период тарификации",
   "tariff_limit_projects_unlink_allowed_0": "отслеживание внешних проектов",
   "tariff_limit_projects_unlink_allowed_1": "импорт проектов без ограничений",
   "tariff_limit_up_to_prefix": "до ",
+  "tariff_list_title": "Тарифы",
   "tariff_title": "Тариф",
 
   "tariff_type_free_title": "Бесплатный",

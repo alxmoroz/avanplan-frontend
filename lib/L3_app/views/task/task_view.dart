@@ -29,36 +29,36 @@ class TaskView extends StatefulWidget {
 }
 
 class _TaskViewState extends State<TaskView> {
-  Task get _task => _controller.task;
+  Task get task => controller.task;
 
-  late TaskViewController _controller;
+  late TaskViewController controller;
 
-  late final TaskOverview _overviewPane;
-  late final TaskListView _tasksPane;
-  late final TaskDetails _detailsPane;
+  late final TaskOverview overviewPane;
+  late final TaskListView tasksPane;
+  late final TaskDetails detailsPane;
   late final MemberListView _teamPane;
 
   @override
   void initState() {
-    _controller = TaskViewController(widget.taskId);
+    controller = TaskViewController(widget.taskId);
 
-    _overviewPane = TaskOverview(_controller);
-    _tasksPane = TaskListView(_controller);
-    _detailsPane = TaskDetails(_task);
-    _teamPane = MemberListView(_controller);
+    overviewPane = TaskOverview(controller);
+    tasksPane = TaskListView(controller);
+    detailsPane = TaskDetails(task);
+    _teamPane = MemberListView(controller);
 
     super.initState();
   }
 
   Map<TaskTabKey, Widget> _tabs() {
     final res = <TaskTabKey, Widget>{};
-    _controller.tabKeys.forEach((tk) {
+    controller.tabKeys.forEach((tk) {
       switch (tk) {
         case TaskTabKey.overview:
           res[TaskTabKey.overview] = NormalText(loc.overview);
           break;
         case TaskTabKey.subtasks:
-          res[TaskTabKey.subtasks] = NormalText('${_task.listTitle} (${_task.openedSubtasks.length})');
+          res[TaskTabKey.subtasks] = NormalText('${task.listTitle} (${task.openedSubtasks.length})');
           break;
         case TaskTabKey.details:
           res[TaskTabKey.details] = NormalText(loc.description);
@@ -76,40 +76,40 @@ class _TaskViewState extends State<TaskView> {
         padding: const EdgeInsets.symmetric(horizontal: P),
         child: CupertinoSlidingSegmentedControl<TaskTabKey>(
           children: _tabs(),
-          groupValue: _controller.tabKey,
-          onValueChanged: _controller.selectTab,
+          groupValue: controller.tabKey,
+          onValueChanged: controller.selectTab,
         ),
       );
 
   Widget get _selectedPane =>
       {
-        TaskTabKey.overview: _overviewPane,
-        TaskTabKey.subtasks: _tasksPane,
-        TaskTabKey.details: _detailsPane,
+        TaskTabKey.overview: overviewPane,
+        TaskTabKey.subtasks: tasksPane,
+        TaskTabKey.details: detailsPane,
         TaskTabKey.team: _teamPane,
-      }[_controller.tabKey] ??
-      _tasksPane;
+      }[controller.tabKey] ??
+      tasksPane;
 
   Widget? get _selectedBottomBar => {
-        TaskTabKey.overview: _overviewPane.bottomBar,
-        TaskTabKey.details: _overviewPane.bottomBar,
-        TaskTabKey.subtasks: _overviewPane.bottomBar,
+        TaskTabKey.overview: overviewPane.bottomBar,
+        TaskTabKey.details: overviewPane.bottomBar,
+        TaskTabKey.subtasks: overviewPane.bottomBar,
         TaskTabKey.team: _teamPane.bottomBar,
-      }[_controller.tabKey];
+      }[controller.tabKey];
 
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        navBar: taskNavBar(context, _controller),
+        navBar: taskNavBar(context, controller),
         body: SafeArea(
-          top: !_task.isWorkspace,
+          top: !task.isWorkspace,
           bottom: false,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              if (!_task.isWorkspace) TaskHeader(controller: _controller) else const SizedBox(height: P_2),
-              if (_controller.tabKeys.length > 1) ...[
+              if (!task.isWorkspace) TaskHeader(controller: controller) else const SizedBox(height: P_2),
+              if (controller.tabKeys.length > 1) ...[
                 const SizedBox(height: P_2),
                 _tabPaneSelector(),
               ],

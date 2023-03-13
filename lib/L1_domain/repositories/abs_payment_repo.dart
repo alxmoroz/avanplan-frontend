@@ -1,5 +1,5 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-abstract class AbstractBillingRepo {
+abstract class AbstractPaymentRepo {
   Future<bool> ymQuickPayForm(num amount, int wsId);
 }

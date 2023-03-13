@@ -207,6 +207,8 @@
   "subtask_new_title": "New subtask",
   "subtask_title": "Subtask",
 
+  "tariff_change_action_title": "Change tariff",
+  "tariff_list_title": "Tariffs",
   "tariff_limit_billing_period_title": "billing period",
   "tariff_limit_up_to_prefix": "up to ",
   "tariff_limit_projects_unlink_allowed_0": "отслеживание внешних проектов",

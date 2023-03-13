@@ -4,7 +4,7 @@ import '../entities/invitation.dart';
 import '../repositories/abs_invitation_repo.dart';
 
 class InvitationUC {
-  InvitationUC({required this.repo});
+  InvitationUC(this.repo);
 
   final AbstractInvitationRepo repo;
 

@@ -2,9 +2,9 @@
 
 import 'package:url_launcher/url_launcher_string.dart';
 
-import '../../L1_domain/repositories/abs_billing_repo.dart';
+import '../../L1_domain/repositories/abs_payment_repo.dart';
 
-class BillingRepo extends AbstractBillingRepo {
+class PaymentRepo extends AbstractPaymentRepo {
   static const host_path = 'https://yoomoney.ru/quickpay/confirm.xml';
   static const recipient = '41001777210985';
 

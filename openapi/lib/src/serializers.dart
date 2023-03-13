@@ -119,6 +119,10 @@ Serializers serializers = (_$serializers.toBuilder()
         () => ListBuilder<WorkspaceGet>(),
       )
       ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(TariffGet)]),
+        () => ListBuilder<TariffGet>(),
+      )
+      ..addBuilderFactory(
         const FullType(BuiltList, [FullType(MemberGet)]),
         () => ListBuilder<MemberGet>(),
       )

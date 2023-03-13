@@ -19,7 +19,7 @@ import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';
 import '../../presenters/person_presenter.dart';
 import '../../presenters/tariff_presenter.dart';
-import '../tariff/tariff_view.dart';
+import '../contract/contract_view.dart';
 import 'workspace_view_controller.dart';
 
 class WorkspaceView extends StatefulWidget {
@@ -32,18 +32,19 @@ class WorkspaceView extends StatefulWidget {
 }
 
 class _WorkspaceViewState extends State<WorkspaceView> {
-  late WorkspaceViewController controller;
+  Workspace get ws => widget.ws;
+  int get balance => ws.balance.floor();
 
-  Workspace get ws => controller.ws ?? widget.ws;
+  late WorkspaceViewController controller;
 
   @override
   void initState() {
-    controller = WorkspaceViewController(widget.ws);
+    controller = WorkspaceViewController();
     super.initState();
   }
 
-  Future _showTariff(BuildContext context, Invoice invoice) async {
-    await Navigator.of(context).pushNamed(TariffView.routeName, arguments: invoice);
+  Future _showContract(BuildContext context, Invoice invoice) async {
+    await Navigator.of(context).pushNamed(ContractView.routeName, arguments: ws);
   }
 
   Widget get _header => Padding(
@@ -62,27 +63,27 @@ class _WorkspaceViewState extends State<WorkspaceView> {
         middle: Row(children: [NormalText(loc.tariff_title), const SizedBox(width: P_2), MediumText(ws.invoice.tariff.title)]),
         subtitle: SmallText('${loc.contract_effective_date_title} ${ws.invoice.contract.createdOn.strMedium}', color: greyColor),
         trailing: const ChevronIcon(),
-        onTap: () => _showTariff(context, ws.invoice),
+        onTap: () => _showContract(context, ws.invoice),
       );
 
   Widget _payButton(num amount) => MTButton.outlined(
         titleText: '+ $amount',
-        onTap: () => paymentController.ymQuickPayForm(amount, controller.wsId),
+        onTap: () => paymentController.ymQuickPayForm(amount, ws.id!),
         constrained: false,
         padding: const EdgeInsets.symmetric(horizontal: P),
       );
 
-  Color get _balanceColor => controller.balance < 0
+  Color get _balanceColor => balance < 0
       ? dangerColor
-      : controller.balance > 100
+      : balance > 100
           ? greenColor
           : greyColor;
 
-  Widget get _billing => Column(
+  Widget get _balance => Column(
         children: [
           LightText(loc.balance_amount_title),
           const SizedBox(height: P_2),
-          MTCurrency(controller.balance, _balanceColor),
+          MTCurrency(balance, _balanceColor),
           const SizedBox(height: P_2),
           // TODO: if (controller.balance > 0) SmallText('Хватит на 1 мес.', color: greyColor),
           const SizedBox(height: P),
@@ -129,7 +130,7 @@ class _WorkspaceViewState extends State<WorkspaceView> {
             children: [
               _header,
               const SizedBox(height: P),
-              _billing,
+              _balance,
               const SizedBox(height: P),
               _tariff,
               _users,

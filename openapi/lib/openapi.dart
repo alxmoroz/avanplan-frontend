@@ -10,13 +10,15 @@ export 'package:openapi/src/serializers.dart';
 export 'package:openapi/src/model/date.dart';
 
 export 'package:openapi/src/api/auth_api.dart';
-export 'package:openapi/src/api/billing_api.dart';
+export 'package:openapi/src/api/contracts_api.dart';
 export 'package:openapi/src/api/integrations_sources_api.dart';
 export 'package:openapi/src/api/integrations_tasks_api.dart';
 export 'package:openapi/src/api/invitation_api.dart';
 export 'package:openapi/src/api/my_api.dart';
+export 'package:openapi/src/api/payments_api.dart';
 export 'package:openapi/src/api/roles_api.dart';
 export 'package:openapi/src/api/settings_api.dart';
+export 'package:openapi/src/api/tariffs_api.dart';
 export 'package:openapi/src/api/tasks_api.dart';
 
 export 'package:openapi/src/model/body_auth_apple_token.dart';

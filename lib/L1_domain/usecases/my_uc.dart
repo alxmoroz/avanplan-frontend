@@ -6,7 +6,7 @@ import '../entities/workspace.dart';
 import '../repositories/abs_my_repo.dart';
 
 class MyUC {
-  MyUC({required this.repo});
+  MyUC(this.repo);
 
   final AbstractMyRepo repo;
 

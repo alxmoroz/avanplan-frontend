@@ -6,10 +6,12 @@ class Tariff extends Codable {
   Tariff({
     required super.id,
     required super.code,
+    required this.tier,
     required this.limitsMap,
     required this.optionsMap,
   });
 
+  final int tier;
   final Map<String, num> limitsMap;
   final Map<String, num> optionsMap;
 

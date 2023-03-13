@@ -28,7 +28,6 @@ class TariffInfo extends StatelessWidget {
           ),
         ),
         for (var code in tariff.optionsMap.keys) TariffOptionTile(tariff: tariff, code: code),
-        const SizedBox(height: P),
       ],
     );
   }

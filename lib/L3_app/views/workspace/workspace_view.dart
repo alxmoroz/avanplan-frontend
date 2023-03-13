@@ -68,6 +68,7 @@ class _WorkspaceViewState extends State<WorkspaceView> {
 
   Widget _payButton(num amount) => MTButton.outlined(
         titleText: '+ $amount',
+        titleColor: greenColor,
         onTap: () => paymentController.ymQuickPayForm(amount, ws.id!),
         constrained: false,
         padding: const EdgeInsets.symmetric(horizontal: P),

@@ -29,15 +29,21 @@ class _ContractViewState extends State<ContractView> {
 
   @override
   void initState() {
-    controller = ContractViewController();
+    controller = ContractViewController(ws);
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.clearData();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        navBar: navBar(context, title: loc.tariff_title, bgColor: backgroundColor),
+        navBar: navBar(context, title: loc.tariff_current_title, bgColor: backgroundColor),
         body: SafeArea(
           // top: false,
           // bottom: false,

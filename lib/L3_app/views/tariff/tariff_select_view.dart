@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
-import '../../../L1_domain/entities/workspace.dart';
 import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
@@ -14,65 +13,52 @@ import '../../components/mt_card.dart';
 import '../../components/mt_close_button.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
+import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import 'tariff_info.dart';
-import 'tariff_select_controller.dart';
 
-Future<Tariff?> tariffSelectDialog(Workspace ws) async {
+Future<Tariff?> tariffSelectDialog(List<Tariff> tariffs, int currentIndex, int selectedIndex) async {
   return await showModalBottomSheet<Tariff?>(
     context: rootKey.currentContext!,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    builder: (_) => MTBottomSheet(TariffSelectView(ws)),
+    builder: (_) => MTBottomSheet(TariffSelectView(tariffs, currentIndex, selectedIndex)),
   );
 }
 
-class TariffSelectView extends StatefulWidget {
-  const TariffSelectView(this.ws);
-  final Workspace ws;
+class TariffSelectView extends StatelessWidget {
+  const TariffSelectView(this.tariffs, this.currentIndex, this.selectedIndex);
+  final List<Tariff> tariffs;
+  final int currentIndex;
+  final int selectedIndex;
 
-  @override
-  _TariffSelectViewState createState() => _TariffSelectViewState();
-}
-
-class _TariffSelectViewState extends State<TariffSelectView> {
-  Workspace get ws => widget.ws;
-
-  late final TariffSelectController controller;
-
-  @override
-  void initState() {
-    controller = TariffSelectController(ws.id!);
-
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await controller.fetchData();
-    });
-
-    super.initState();
-  }
-
-  Widget tariffCard(int index) {
-    final tariff = controller.tariffs.elementAt(index);
+  Widget _tariffCard(BuildContext context, int index) {
+    final tariff = tariffs.elementAt(index);
     return MTCard(
       elevation: 3,
       child: Column(children: [
         const SizedBox(height: P),
         Expanded(child: TariffInfo(tariff)),
-        // TODO: условие отображения кнопки и её текста
-        MTButton.outlined(
-          titleText: 'ВЫБРАТЬ',
-          margin: const EdgeInsets.all(P).copyWith(top: 0),
-          onTap: () => Navigator.of(context).pop(tariff),
-        )
+        currentIndex != index
+            ? MTButton.outlined(
+                titleColor: greenColor,
+                titleText: loc.tariff_select_action_title,
+                margin: const EdgeInsets.all(P).copyWith(top: 0),
+                onTap: () => Navigator.of(context).pop(tariff),
+              )
+            : H3(loc.tariff_current_title, padding: const EdgeInsets.only(bottom: P2), color: lightGreyColor)
       ]),
       margin: const EdgeInsets.symmetric(horizontal: P_2, vertical: P_2),
     );
   }
 
-  Widget get tariffPages => PageView.builder(
-        controller: PageController(viewportFraction: 0.8),
-        itemCount: controller.tariffs.length,
-        itemBuilder: (BuildContext context, int index) => tariffCard(index),
+  Widget get _tariffPages => PageView.builder(
+        controller: PageController(
+          viewportFraction: 0.8,
+          initialPage: selectedIndex,
+        ),
+        itemCount: tariffs.length,
+        itemBuilder: _tariffCard,
       );
 
   @override
@@ -85,7 +71,7 @@ class _TariffSelectViewState extends State<TariffSelectView> {
           title: loc.tariff_list_title,
           bgColor: backgroundColor,
         ),
-        body: SafeArea(child: tariffPages),
+        body: SafeArea(child: _tariffPages),
       ),
     );
   }

@@ -1,10 +1,11 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:avanplan/L3_app/components/colors.dart';
-import 'package:avanplan/L3_app/components/mt_money.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
+import '../../components/colors.dart';
+import '../../components/mt_currency.dart';
 import '../../components/mt_list_tile.dart';
 import '../../components/text_widgets.dart';
 
@@ -22,12 +23,8 @@ class TariffOptionTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final value = tariff.optionValue(code);
 
-    String description = '';
+    final description = Intl.message('tariff_option_${code.toLowerCase()}_title');
 
-    if (code == 'TO_USERS_COUNT') {
-      description = code;
-    }
-
-    return MTListTile(middle: MTCurrency(value, greyColor), subtitle: LightText(description), bottomBorder: false);
+    return MTListTile(middle: MTCurrency(value, greyColor), subtitle: LightText(description, align: TextAlign.center), bottomBorder: false);
   }
 }

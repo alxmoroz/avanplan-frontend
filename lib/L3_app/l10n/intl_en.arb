@@ -213,6 +213,9 @@
   "tariff_limit_up_to_prefix": "up to ",
   "tariff_limit_projects_unlink_allowed_0": "отслеживание внешних проектов",
   "tariff_limit_projects_unlink_allowed_1": "импорт проектов без ограничений",
+
+  "tariff_option_users_count_title": "per user per month",
+
   "tariff_title": "Tariff",
 
   "tariff_type_free_title": "FREE",

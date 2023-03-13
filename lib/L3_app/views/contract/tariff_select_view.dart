@@ -56,7 +56,7 @@ class _TariffSelectViewState extends State<TariffSelectView> {
     return MTCard(
       elevation: 3,
       child: Column(children: [
-        const SizedBox(height: P_2),
+        const SizedBox(height: P),
         Expanded(child: TariffInfo(tariff)),
         // TODO: условие отображения кнопки и её текста
         MTButton.outlined(

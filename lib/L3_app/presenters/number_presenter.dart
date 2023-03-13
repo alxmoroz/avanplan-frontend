@@ -5,7 +5,8 @@ import 'package:intl/intl.dart';
 import '../extra/services.dart';
 
 extension NumberFormatter on num {
-  String get inPercents => '${NumberFormat("#").format(this * 100)}%';
+  String get percents => '${NumberFormat("#").format(this * 100)}%';
+  String get currency => NumberFormat('#.#').format(this);
 
   num get _thousands => this / 1000;
   num get _millions => this / 1000000;

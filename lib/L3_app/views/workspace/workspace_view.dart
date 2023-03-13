@@ -10,8 +10,8 @@ import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/icons_workspace.dart';
 import '../../components/mt_button.dart';
+import '../../components/mt_currency.dart';
 import '../../components/mt_list_tile.dart';
-import '../../components/mt_money.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
@@ -33,7 +33,7 @@ class WorkspaceView extends StatefulWidget {
 
 class _WorkspaceViewState extends State<WorkspaceView> {
   Workspace get ws => widget.ws;
-  int get balance => ws.balance.floor();
+  num get balance => ws.balance;
 
   late WorkspaceViewController controller;
 

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../presenters/number_presenter.dart';
 import 'icons_workspace.dart';
 import 'text_widgets.dart';
 
@@ -17,7 +18,7 @@ class MTCurrency extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        D1('$value', color: color),
+        D1(value.currency, color: color),
         RoubleIcon(color: color),
       ],
     );

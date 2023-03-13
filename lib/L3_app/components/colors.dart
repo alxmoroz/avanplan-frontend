@@ -22,6 +22,10 @@ const Color lightGreyColor = CupertinoDynamicColor.withBrightness(
 const Color borderColor = CupertinoColors.systemGrey3;
 const Color darkBackgroundColor = CupertinoColors.systemGrey5;
 const Color backgroundColor = CupertinoColors.systemGrey6;
+const Color lightBackgroundColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, 252, 252, 252),
+  darkColor: Color.fromARGB(255, 12, 12, 12),
+);
 
 const Color dangerColor = CupertinoColors.destructiveRed;
 

@@ -32,8 +32,7 @@ abstract class _ContractViewControllerBase with Store {
   @action
   Future _fetchTariffs() async {
     loaderController.start();
-    // TODO: экран ожидания загрузки тарифов
-    // loaderController.set();
+    loaderController.setRefreshing();
     _tariffs = (await tariffUC.getAll(ws.id!)).sorted((t1, t2) => compareNatural('$t1', '$t2')).sorted((t1, t2) => t1.tier.compareTo(t2.tier));
     await loaderController.stop();
   }
@@ -47,8 +46,7 @@ abstract class _ContractViewControllerBase with Store {
 
     if (tariff != null) {
       loaderController.start();
-      // TODO: экран ожидания смены тарифа
-      // loaderController.set();
+      loaderController.setSaving();
       final signedContractInvoice = await contractUC.sign(tariff.id!, ws.id!);
       if (signedContractInvoice != null) {
         ws.invoice = signedContractInvoice;

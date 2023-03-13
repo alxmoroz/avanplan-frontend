@@ -1,7 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/invoice.dart';
 import '../../../L1_domain/entities/workspace.dart';
@@ -121,22 +120,20 @@ class _WorkspaceViewState extends State<WorkspaceView> {
 
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) => MTPage(
-        navBar: navBar(context, title: loc.workspace_title, bgColor: backgroundColor),
-        body: SafeArea(
-          top: false,
-          bottom: false,
-          child: ListView(
-            children: [
-              _header,
-              const SizedBox(height: P),
-              _balance,
-              const SizedBox(height: P),
-              _tariff,
-              _users,
-            ],
-          ),
+    return MTPage(
+      navBar: navBar(context, title: loc.workspace_title, bgColor: backgroundColor),
+      body: SafeArea(
+        top: false,
+        bottom: false,
+        child: ListView(
+          children: [
+            _header,
+            const SizedBox(height: P),
+            _balance,
+            const SizedBox(height: P),
+            _tariff,
+            _users,
+          ],
         ),
       ),
     );

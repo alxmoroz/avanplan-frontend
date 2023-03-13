@@ -1,7 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/colors.dart';
@@ -41,19 +40,17 @@ class _ContractViewState extends State<ContractView> {
 
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) => MTPage(
-        navBar: navBar(context, title: loc.tariff_current_title, bgColor: backgroundColor),
-        body: SafeArea(
-          // top: false,
-          // bottom: false,
-          child: TariffInfo(ws.invoice.tariff),
-        ),
-        bottomBar: MTButton.outlined(
-          titleText: loc.tariff_change_action_title,
-          onTap: () => controller.changeTariff(context, ws),
-          margin: const EdgeInsets.symmetric(horizontal: P),
-        ),
+    return MTPage(
+      navBar: navBar(context, title: loc.tariff_current_title, bgColor: backgroundColor),
+      body: SafeArea(
+        // top: false,
+        // bottom: false,
+        child: TariffInfo(ws.invoice.tariff),
+      ),
+      bottomBar: MTButton.outlined(
+        titleText: loc.tariff_change_action_title,
+        onTap: () => controller.changeTariff(context, ws),
+        margin: const EdgeInsets.symmetric(horizontal: P),
       ),
     );
   }

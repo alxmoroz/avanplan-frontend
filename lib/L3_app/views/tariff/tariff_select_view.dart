@@ -1,7 +1,6 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
 import '../../../main.dart';
@@ -63,16 +62,14 @@ class TariffSelectView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) => MTPage(
-        navBar: navBar(
-          context,
-          leading: MTCloseButton(),
-          title: loc.tariff_list_title,
-          bgColor: backgroundColor,
-        ),
-        body: SafeArea(child: _tariffPages),
+    return MTPage(
+      navBar: navBar(
+        context,
+        leading: MTCloseButton(),
+        title: loc.tariff_list_title,
+        bgColor: backgroundColor,
       ),
+      body: SafeArea(child: _tariffPages),
     );
   }
 }

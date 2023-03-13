@@ -5,7 +5,7 @@ import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
 import '../../extra/services.dart';
-import 'tariff_select_view.dart';
+import '../tariff/tariff_select_view.dart';
 
 part 'contract_view_controller.g.dart';
 

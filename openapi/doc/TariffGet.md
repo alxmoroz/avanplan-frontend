@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **id** | **int** |  | 
 **code** | **String** |  | 
 **hidden** | **bool** |  | 
+**tier** | **int** |  | 
 **limits** | [**BuiltList&lt;TariffLimitGet&gt;**](TariffLimitGet.md) |  | 
 **options** | [**BuiltList&lt;TariffOptionGet&gt;**](TariffOptionGet.md) |  | 
 **estimateChargePerBillingPeriod** | **num** |  | [optional] [default to 0]

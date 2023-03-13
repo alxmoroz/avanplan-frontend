@@ -10,8 +10,8 @@ import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../extra/services.dart';
+import '../tariff/tariff_info.dart';
 import 'contract_view_controller.dart';
-import 'tariff_info.dart';
 
 class ContractView extends StatefulWidget {
   const ContractView(this.ws);

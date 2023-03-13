@@ -17,6 +17,7 @@ part 'tariff_get.g.dart';
 /// * [id] 
 /// * [code] 
 /// * [hidden] 
+/// * [tier] 
 /// * [limits] 
 /// * [options] 
 /// * [estimateChargePerBillingPeriod] 
@@ -30,6 +31,9 @@ abstract class TariffGet implements Built<TariffGet, TariffGetBuilder> {
 
   @BuiltValueField(wireName: r'hidden')
   bool get hidden;
+
+  @BuiltValueField(wireName: r'tier')
+  int get tier;
 
   @BuiltValueField(wireName: r'limits')
   BuiltList<TariffLimitGet> get limits;
@@ -78,6 +82,11 @@ class _$TariffGetSerializer implements PrimitiveSerializer<TariffGet> {
     yield serializers.serialize(
       object.hidden,
       specifiedType: const FullType(bool),
+    );
+    yield r'tier';
+    yield serializers.serialize(
+      object.tier,
+      specifiedType: const FullType(int),
     );
     yield r'limits';
     yield serializers.serialize(
@@ -139,6 +148,13 @@ class _$TariffGetSerializer implements PrimitiveSerializer<TariffGet> {
             specifiedType: const FullType(bool),
           ) as bool;
           result.hidden = valueDes;
+          break;
+        case r'tier':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.tier = valueDes;
           break;
         case r'limits':
           final valueDes = serializers.deserialize(

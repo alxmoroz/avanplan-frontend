@@ -22,6 +22,11 @@ void main() {
       // TODO
     });
 
+    // int tier
+    test('to test the property `tier`', () async {
+      // TODO
+    });
+
     // BuiltList<TariffLimitGet> limits
     test('to test the property `limits`', () async {
       // TODO

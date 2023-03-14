@@ -42,7 +42,7 @@ abstract class _ContractViewControllerBase with Store {
 
   Future changeTariff(BuildContext context, Workspace ws) async {
     await _fetchTariffs();
-    final tariff = await tariffSelectDialog(_tariffs, _currentTariffIndex, _selectedTariffIndex);
+    final tariff = await tariffSelectDialog(_tariffs, _currentTariffIndex, _selectedTariffIndex, ws);
 
     if (tariff != null) {
       loaderController.start();

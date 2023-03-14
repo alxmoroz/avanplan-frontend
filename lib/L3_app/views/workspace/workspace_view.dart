@@ -92,11 +92,9 @@ class _WorkspaceViewState extends State<WorkspaceView> {
             children: [
               _payButton(10),
               const SizedBox(width: P_2),
-              _payButton(100),
+              _payButton(1000),
               const SizedBox(width: P_2),
-              _payButton(500),
-              const SizedBox(width: P_2),
-              _payButton(2500),
+              _payButton(3000),
               const SizedBox(width: P_2),
               _payButton(5000),
             ],

@@ -7,11 +7,13 @@ class Tariff extends Codable {
     required super.id,
     required super.code,
     required this.tier,
+    required this.estimateChargePerBillingPeriod,
     required this.limitsMap,
     required this.optionsMap,
   });
 
   final int tier;
+  final num estimateChargePerBillingPeriod;
   final Map<String, num> limitsMap;
   final Map<String, num> optionsMap;
 

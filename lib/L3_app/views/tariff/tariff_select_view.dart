@@ -18,21 +18,24 @@ import '../../extra/services.dart';
 import '../../presenters/number_presenter.dart';
 import 'tariff_info.dart';
 
-Future<Tariff?> tariffSelectDialog(List<Tariff> tariffs, int currentIndex, int selectedIndex, Workspace ws) async {
+Future<Tariff?> tariffSelectDialog(List<Tariff> tariffs, int wsId) async {
   return await showModalBottomSheet<Tariff?>(
     context: rootKey.currentContext!,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    builder: (_) => MTBottomSheet(TariffSelectView(tariffs, currentIndex, selectedIndex, ws)),
+    builder: (_) => MTBottomSheet(TariffSelectView(tariffs, wsId)),
   );
 }
 
 class TariffSelectView extends StatelessWidget {
-  const TariffSelectView(this.tariffs, this.currentIndex, this.selectedIndex, this.ws);
+  const TariffSelectView(this.tariffs, this.wsId);
   final List<Tariff> tariffs;
-  final int currentIndex;
-  final int selectedIndex;
-  final Workspace ws;
+
+  final int wsId;
+
+  Workspace get ws => mainController.wsForId(wsId)!;
+  int get currentIndex => tariffs.indexWhere((t) => t.id == ws.invoice.tariff.id);
+  int get selectedIndex => currentIndex < tariffs.length - 1 ? currentIndex + 1 : currentIndex;
 
   Widget _selectButton(BuildContext context, Tariff tariff) => MTButton.outlined(
         titleColor: greenColor,

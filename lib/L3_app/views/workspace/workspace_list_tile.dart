@@ -18,7 +18,7 @@ class WorkspaceListTile extends StatelessWidget {
   const WorkspaceListTile(this.ws);
   final Workspace ws;
 
-  Future _showWorkspace(BuildContext context) async => await Navigator.of(context).pushNamed(WorkspaceView.routeName, arguments: ws);
+  Future _showWorkspace(BuildContext context) async => await Navigator.of(context).pushNamed(WorkspaceView.routeName, arguments: ws.id!);
 
   @override
   Widget build(BuildContext context) {

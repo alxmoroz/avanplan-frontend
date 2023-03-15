@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../L1_domain/entities/invoice.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
@@ -19,31 +18,17 @@ import '../../presenters/date_presenter.dart';
 import '../../presenters/person_presenter.dart';
 import '../../presenters/tariff_presenter.dart';
 import '../contract/contract_view.dart';
-import 'workspace_view_controller.dart';
 
-class WorkspaceView extends StatefulWidget {
-  const WorkspaceView(this.ws);
-  final Workspace ws;
-
+class WorkspaceView extends StatelessWidget {
+  const WorkspaceView(this.wsId);
   static String get routeName => '/workspace';
-  @override
-  State<WorkspaceView> createState() => _WorkspaceViewState();
-}
 
-class _WorkspaceViewState extends State<WorkspaceView> {
-  Workspace get ws => widget.ws;
+  final int wsId;
+  Workspace get ws => mainController.wsForId(wsId)!;
   num get balance => ws.balance;
 
-  late WorkspaceViewController controller;
-
-  @override
-  void initState() {
-    controller = WorkspaceViewController();
-    super.initState();
-  }
-
-  Future _showContract(BuildContext context, Invoice invoice) async {
-    await Navigator.of(context).pushNamed(ContractView.routeName, arguments: ws);
+  Future _showContract(BuildContext context) async {
+    await Navigator.of(context).pushNamed(ContractView.routeName, arguments: wsId);
   }
 
   Widget get _header => Padding(
@@ -57,12 +42,13 @@ class _WorkspaceViewState extends State<WorkspaceView> {
         ),
       );
 
-  Widget get _tariff => MTListTile(
+  Widget _tariff(BuildContext context) => MTListTile(
         leading: Column(children: const [TariffIcon(), SmallText('')]),
         middle: Row(children: [NormalText(loc.tariff_title), const SizedBox(width: P_2), MediumText(ws.invoice.tariff.title)]),
         subtitle: SmallText('${loc.contract_effective_date_title} ${ws.invoice.contract.createdOn.strMedium}', color: greyColor),
+        // TODO: if (controller.balance > 0) SmallText('Хватит на 1 мес.', color: greyColor),
         trailing: const ChevronIcon(),
-        onTap: () => _showContract(context, ws.invoice),
+        onTap: () => _showContract(context),
       );
 
   Widget _payButton(num amount) => MTButton.outlined(
@@ -73,11 +59,7 @@ class _WorkspaceViewState extends State<WorkspaceView> {
         padding: const EdgeInsets.symmetric(horizontal: P),
       );
 
-  Color get _balanceColor => balance < 0
-      ? dangerColor
-      : balance > 100
-          ? greenColor
-          : greyColor;
+  Color get _balanceColor => balance < 0 ? warningColor : greyColor;
 
   Widget get _balance => Column(
         children: [
@@ -85,7 +67,6 @@ class _WorkspaceViewState extends State<WorkspaceView> {
           const SizedBox(height: P_2),
           MTCurrency(balance, _balanceColor),
           const SizedBox(height: P_2),
-          // TODO: if (controller.balance > 0) SmallText('Хватит на 1 мес.', color: greyColor),
           const SizedBox(height: P),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -129,7 +110,7 @@ class _WorkspaceViewState extends State<WorkspaceView> {
             const SizedBox(height: P),
             _balance,
             const SizedBox(height: P),
-            _tariff,
+            _tariff(context),
             _users,
           ],
         ),

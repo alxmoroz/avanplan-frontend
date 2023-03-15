@@ -10,7 +10,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 
-import 'L1_domain/entities/workspace.dart';
 import 'L3_app/components/colors.dart';
 import 'L3_app/extra/services.dart';
 import 'L3_app/l10n/generated/l10n.dart';
@@ -109,9 +108,9 @@ class App extends StatelessWidget {
               } else if (rs.name == MemberView.routeName) {
                 return CupertinoPageRoute<dynamic>(builder: (_) => MemberView(rs.arguments as MemberViewArgs));
               } else if (rs.name == WorkspaceView.routeName) {
-                return CupertinoPageRoute<dynamic>(builder: (_) => WorkspaceView(rs.arguments as Workspace));
+                return CupertinoPageRoute<dynamic>(builder: (_) => WorkspaceView(rs.arguments as int));
               } else if (rs.name == ContractView.routeName) {
-                return CupertinoPageRoute<dynamic>(builder: (_) => ContractView(rs.arguments as Workspace));
+                return CupertinoPageRoute<dynamic>(builder: (_) => ContractView(rs.arguments as int));
               }
               return null;
             },

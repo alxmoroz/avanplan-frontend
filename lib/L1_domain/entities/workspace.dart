@@ -17,14 +17,16 @@ class Workspace extends Titleable {
     required this.roles,
     required this.invoice,
     required this.balance,
+    required this.settings,
+    required this.estimateValues,
   });
 
   final Iterable<User> users;
   final Iterable<Role> roles;
-  final num balance;
   Invoice invoice;
+  final num balance;
+  final WSettings? settings;
+  final Iterable<EstimateValue> estimateValues;
 
   Iterable<Source> sources = [];
-  Iterable<EstimateValue> estimateValues = [];
-  WSettings? settings;
 }

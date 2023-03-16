@@ -41,5 +41,15 @@ void main() {
     test('to test the property `balance`', () async {
       // TODO
     });
+
+    // SettingsGet settings
+    test('to test the property `settings`', () async {
+      // TODO
+    });
+
+    // BuiltList<EstimateValueGet> estimateValues (default value: ListBuilder())
+    test('to test the property `estimateValues`', () async {
+      // TODO
+    });
   });
 }

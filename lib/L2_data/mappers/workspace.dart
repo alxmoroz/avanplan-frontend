@@ -3,9 +3,11 @@
 import 'package:openapi/openapi.dart' as api;
 
 import '../../L1_domain/entities/workspace.dart';
+import 'estimate_value.dart';
 import 'invoice.dart';
 import 'role.dart';
 import 'user.dart';
+import 'w_settings.dart';
 
 extension WorkspaceMapper on api.WorkspaceGet {
   Workspace get workspace {
@@ -17,6 +19,8 @@ extension WorkspaceMapper on api.WorkspaceGet {
       roles: roles?.map((r) => r.role) ?? [],
       balance: balance ?? 0,
       invoice: invoice!.invoice(id),
+      settings: settings?.settings(id),
+      estimateValues: estimateValues?.map((ev) => ev.estimateValue(id)) ?? [],
     );
   }
 }

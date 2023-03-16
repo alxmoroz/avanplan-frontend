@@ -1,7 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../../L1_domain/entities/ws_settings.dart';
+import '../../L1_domain/entities/app_settings.dart';
 
 abstract class AbstractSettingsRepo {
-  Future<WSettings?> getSettings(int wsId);
+  Future<AppSettings?> getSettings();
 }

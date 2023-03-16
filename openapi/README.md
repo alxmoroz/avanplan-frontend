@@ -88,7 +88,6 @@ Class | Method | HTTP request | Description
 [*MyApi*](doc/MyApi.md) | [**workspacesV1MyWorkspacesGet**](doc/MyApi.md#workspacesv1myworkspacesget) | **GET** /v1/my/workspaces | Workspaces
 [*PaymentsApi*](doc/PaymentsApi.md) | [**ymPaymentNotificationV1PaymentsYmPaymentNotificationPost**](doc/PaymentsApi.md#ympaymentnotificationv1paymentsympaymentnotificationpost) | **POST** /v1/payments/ym/payment_notification | Ym Payment Notification
 [*RolesApi*](doc/RolesApi.md) | [**assignV1RolesAssignPost**](doc/RolesApi.md#assignv1rolesassignpost) | **POST** /v1/roles/assign | Assign
-[*SettingsApi*](doc/SettingsApi.md) | [**getEstimateValuesV1SettingsEstimateValuesGet**](doc/SettingsApi.md#getestimatevaluesv1settingsestimatevaluesget) | **GET** /v1/settings/estimate_values | Get Estimate Values
 [*SettingsApi*](doc/SettingsApi.md) | [**getSettingsV1SettingsGet**](doc/SettingsApi.md#getsettingsv1settingsget) | **GET** /v1/settings/ | Get Settings
 [*TariffsApi*](doc/TariffsApi.md) | [**tariffsV1TariffsGet**](doc/TariffsApi.md#tariffsv1tariffsget) | **GET** /v1/tariffs/ | Tariffs
 [*TasksApi*](doc/TasksApi.md) | [**deleteV1TasksTaskIdDelete**](doc/TasksApi.md#deletev1taskstaskiddelete) | **DELETE** /v1/tasks/{task_id} | Delete
@@ -98,6 +97,7 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [AppSettingsGet](doc/AppSettingsGet.md)
  - [BodyAuthAppleToken](doc/BodyAuthAppleToken.md)
  - [BodyAuthGoogleToken](doc/BodyAuthGoogleToken.md)
  - [BodyRedeemV1InvitationRedeemPost](doc/BodyRedeemV1InvitationRedeemPost.md)

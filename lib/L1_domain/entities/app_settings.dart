@@ -2,13 +2,11 @@
 
 import '../entities/base_entity.dart';
 
-class AppSettings extends LocalPersistable {
+class AppSettings extends RPersistable {
   AppSettings({
-    required this.firstLaunch,
-    this.version = '',
-    super.id = 'settings',
+    required super.id,
+    required this.frontendFlags,
   });
 
-  final bool firstLaunch;
-  String version;
+  final String frontendFlags;
 }

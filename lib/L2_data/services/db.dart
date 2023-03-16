@@ -4,11 +4,11 @@ import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../models/app_settings.dart';
 import '../models/local_auth.dart';
+import '../models/local_settings.dart';
 
 class HType {
-  static const AppSettings = 1;
+  static const LocalSettings = 1;
   static const LocalAuth = 2;
 }
 
@@ -23,7 +23,7 @@ class HiveStorage {
       Hive.init('');
     }
 
-    Hive.registerAdapter(AppSettingsHOAdapter());
+    Hive.registerAdapter(LocalSettingsHOAdapter());
     Hive.registerAdapter(LocalAuthHOAdapter());
 
     return this;

@@ -10,19 +10,19 @@ import '../../L1_domain/usecases/auth_uc.dart';
 import '../../L1_domain/usecases/contract_uc.dart';
 import '../../L1_domain/usecases/import_uc.dart';
 import '../../L1_domain/usecases/invitation_uc.dart';
+import '../../L1_domain/usecases/local_settings_uc.dart';
 import '../../L1_domain/usecases/my_uc.dart';
 import '../../L1_domain/usecases/payment_uc.dart';
 import '../../L1_domain/usecases/source_uc.dart';
 import '../../L1_domain/usecases/tariff_uc.dart';
 import '../../L1_domain/usecases/task_member_role_uc.dart';
 import '../../L1_domain/usecases/task_uc.dart';
-import '../../L1_domain/usecases/ws_settings_uc.dart';
+import '../../L2_data/repositories/app_settings_repo.dart';
 import '../../L2_data/repositories/auth_apple_repo.dart';
 import '../../L2_data/repositories/auth_google_repo.dart';
 import '../../L2_data/repositories/auth_password_repo.dart';
 import '../../L2_data/repositories/contract_repo.dart';
 import '../../L2_data/repositories/db_repo.dart';
-import '../../L2_data/repositories/estimate_value_repo.dart';
 import '../../L2_data/repositories/import_repo.dart';
 import '../../L2_data/repositories/invitation_repo.dart';
 import '../../L2_data/repositories/my_repo.dart';
@@ -31,7 +31,6 @@ import '../../L2_data/repositories/source_repo.dart';
 import '../../L2_data/repositories/tariff_repo.dart';
 import '../../L2_data/repositories/task_member_role_repo.dart';
 import '../../L2_data/repositories/task_repo.dart';
-import '../../L2_data/repositories/ws_settings_repo.dart';
 import '../../L2_data/services/api.dart';
 import '../../L2_data/services/db.dart';
 import '../l10n/generated/l10n.dart';
@@ -63,8 +62,8 @@ NotificationController get notificationController => GetIt.I<NotificationControl
 DeepLinkController get linkController => GetIt.I<DeepLinkController>();
 PaymentController get paymentController => GetIt.I<PaymentController>();
 
+LocalSettingsUC get localSettingsUC => GetIt.I<LocalSettingsUC>();
 AppSettingsUC get appSettingsUC => GetIt.I<AppSettingsUC>();
-WSSettingsUC get wsSettingsUC => GetIt.I<WSSettingsUC>();
 AuthUC get authUC => GetIt.I<AuthUC>();
 MyUC get myUC => GetIt.I<MyUC>();
 TaskUC get taskUC => GetIt.I<TaskUC>();
@@ -107,12 +106,12 @@ void setup() {
     appleRepo: AuthAppleRepo(),
     localDBAuthRepo: LocalAuthRepo(),
   ));
-  getIt.registerSingleton<AppSettingsUC>(AppSettingsUC(SettingsRepo()));
+  getIt.registerSingleton<LocalSettingsUC>(LocalSettingsUC(LocalSettingsRepo()));
   getIt.registerSingleton<MyUC>(MyUC(MyRepo()));
   getIt.registerSingleton<TaskUC>(TaskUC(TaskRepo()));
   getIt.registerSingleton<SourceUC>(SourceUC(SourceRepo()));
   getIt.registerSingleton<ImportUC>(ImportUC(ImportRepo()));
-  getIt.registerSingleton<WSSettingsUC>(WSSettingsUC(settingsRepo: WSSettingsRepo(), estValueRepo: EstimateValueRepo()));
+  getIt.registerSingleton<AppSettingsUC>(AppSettingsUC(AppSettingsRepo()));
   getIt.registerSingleton<InvitationUC>(InvitationUC(InvitationRepo()));
   getIt.registerSingleton<TaskMemberRoleUC>(TaskMemberRoleUC(TaskMemberRoleRepo()));
   getIt.registerSingleton<PaymentUC>(PaymentUC(PaymentRepo()));

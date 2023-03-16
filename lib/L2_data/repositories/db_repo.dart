@@ -2,13 +2,13 @@
 
 import 'package:hive/hive.dart';
 
-import '../../../L1_domain/entities/app_settings.dart';
 import '../../../L1_domain/entities/base_entity.dart';
+import '../../../L1_domain/entities/local_settings.dart';
 import '../../../L1_domain/repositories/abs_db_repo.dart';
 import '../../L1_domain/entities/local_auth.dart';
-import '../models/app_settings.dart';
 import '../models/base.dart';
 import '../models/local_auth.dart';
+import '../models/local_settings.dart';
 
 typedef ModelCreator<T> = T Function();
 
@@ -72,8 +72,8 @@ abstract class DBRepo<M extends BaseModel, E extends LocalPersistable> extends A
   }
 }
 
-class SettingsRepo extends DBRepo<AppSettingsHO, AppSettings> {
-  SettingsRepo() : super('AppSettings', () => AppSettingsHO());
+class LocalSettingsRepo extends DBRepo<LocalSettingsHO, LocalSettings> {
+  LocalSettingsRepo() : super('LocalSettings', () => LocalSettingsHO());
 }
 
 class LocalAuthRepo extends DBRepo<LocalAuthHO, LocalAuth> {

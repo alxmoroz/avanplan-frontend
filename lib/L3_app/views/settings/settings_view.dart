@@ -6,6 +6,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../L1_domain/entities/user.dart';
 import '../../../L2_data/repositories/communications_repo.dart';
+import '../../../L2_data/services/platform.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -26,13 +27,45 @@ import 'user_list_tile.dart';
 class SettingsView extends StatelessWidget {
   static String get routeName => '/settings';
 
-  Future _showSources(BuildContext context) async {
-    sourceController.checkSources();
-    await Navigator.of(context).pushNamed(SourceListView.routeName);
-  }
-
-  Future _showMessages(BuildContext context) async => await Navigator.of(context).pushNamed(NotificationListView.routeName);
   User? get _user => accountController.user;
+
+  Widget _sources(BuildContext context) => MTListTile(
+      leading: const ImportIcon(color: greyColor),
+      titleText: loc.source_list_title,
+      trailing: const ChevronIcon(),
+      onTap: () async {
+        sourceController.checkSources();
+        await Navigator.of(context).pushNamed(SourceListView.routeName);
+      });
+
+  Widget _notifications(BuildContext context) => MTListTile(
+        leading: BellIcon(color: greyColor, hasUnread: notificationController.hasUnread),
+        titleText: loc.notification_list_title,
+        trailing: Row(children: [
+          if (notificationController.hasUnread)
+            NormalText(
+              notificationController.unreadCount.toString(),
+              padding: const EdgeInsets.only(right: P_2),
+            ),
+          const ChevronIcon(),
+        ]),
+        onTap: () async => await Navigator.of(context).pushNamed(NotificationListView.routeName),
+      );
+
+  Widget _workspaces(BuildContext context) => Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          H4(
+            loc.workspaces_title,
+            padding: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
+            color: lightGreyColor,
+          ),
+          for (final ws in mainController.workspaces)
+            if (ws.hpWSInfoRead) WorkspaceListTile(ws)
+        ],
+      );
+
+  bool get _canShowWS => !isIOS || !settingsController.frontendFlags.contains('ios_hide_ws');
 
   @override
   Widget build(BuildContext context) => Observer(
@@ -46,34 +79,9 @@ class SettingsView extends StatelessWidget {
                 const SizedBox(height: P_2),
                 if (_user != null) UserListTile(_user!),
                 const SizedBox(height: P_2),
-                MTListTile(
-                  leading: BellIcon(color: greyColor, hasUnread: notificationController.hasUnread),
-                  titleText: loc.notification_list_title,
-                  trailing: Row(children: [
-                    if (notificationController.hasUnread)
-                      NormalText(
-                        notificationController.unreadCount.toString(),
-                        padding: const EdgeInsets.only(right: P_2),
-                      ),
-                    const ChevronIcon(),
-                  ]),
-                  onTap: () => _showMessages(context),
-                ),
-                if (mainController.rootTask.canImport) ...[
-                  MTListTile(
-                    leading: const ImportIcon(color: greyColor),
-                    titleText: loc.source_list_title,
-                    trailing: const ChevronIcon(),
-                    onTap: () => _showSources(context),
-                  ),
-                  H4(
-                    loc.workspaces_title,
-                    padding: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
-                    color: lightGreyColor,
-                  ),
-                  for (final ws in mainController.workspaces)
-                    if (ws.hpWSInfoRead) WorkspaceListTile(ws)
-                ],
+                _notifications(context),
+                if (mainController.rootTask.canImport) _sources(context),
+                if (_canShowWS) _workspaces(context),
                 H4(
                   loc.about_service_title,
                   padding: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),

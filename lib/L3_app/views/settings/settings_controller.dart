@@ -3,6 +3,7 @@
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/app_settings.dart';
+import '../../../L1_domain/entities/local_settings.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../extra/services.dart';
 
@@ -10,27 +11,23 @@ part 'settings_controller.g.dart';
 
 class SettingsController extends _SettingsControllerBase with _$SettingsController {
   Future<SettingsController> init() async {
-    await fetchData();
+    settings = await localSettingsUC.settingsFromLaunch(packageInfo.version);
     return this;
   }
 }
 
 abstract class _SettingsControllerBase with Store {
   @observable
-  AppSettings? settings;
+  LocalSettings settings = LocalSettings();
+
+  @observable
+  AppSettings? appSettings;
 
   @computed
-  bool get isFirstLaunch => settings?.firstLaunch ?? true;
-
-  @computed
-  String get appVersion => settings?.version ?? '';
+  String get frontendFlags => appSettings?.frontendFlags ?? '';
 
   @action
-  Future fetchData() async {
-    await appSettingsUC.updateVersion(packageInfo.version);
-    settings = await appSettingsUC.getSettings();
+  Future fetchAppsettings() async {
+    appSettings = await appSettingsUC.getSettings();
   }
-
-  @action
-  void clearData() => settings = null;
 }

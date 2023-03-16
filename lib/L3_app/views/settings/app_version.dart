@@ -13,7 +13,7 @@ class AppVersion extends StatelessWidget {
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
       LightText(loc.app_title),
       const SizedBox(width: P / 4),
-      NormalText(settingsController.appVersion),
+      NormalText(settingsController.settings.version),
     ]);
   }
 }

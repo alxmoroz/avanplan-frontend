@@ -45,14 +45,7 @@ abstract class _MainControllerBase with Store {
     rootTask.tasks = [];
     for (Workspace ws in workspaces) {
       final wsId = ws.id!;
-      //TODO: сделать по аналогии с users и roles - формировать на бэке, не делать отдельный запрос тут
       ws.sources = await sourceUC.getAll(wsId);
-      ws.estimateValues = await wsSettingsUC.getEstimateValues(wsId);
-      ws.settings = await wsSettingsUC.getSettings(wsId);
-
-      // List<Status> get _sortedStatuses => statuses.map((s) => s.status).sorted((s1, s2) => compareNatural('$s1', '$s2'));
-      // List<Priority> get _sortedPriorities => priorities.map((p) => p.priority).sorted((p1, p2) => compareNatural('$p1', '$p2'));
-
       final projects = (await taskUC.getRoots(ws.id!)).toList();
       projects.forEach((p) async {
         p.parent = rootTask;
@@ -67,6 +60,7 @@ abstract class _MainControllerBase with Store {
   @action
   Future fetchData() async {
     loaderController.setRefreshing();
+    await settingsController.fetchAppsettings();
     // TODO: можно завести при открытии соотв. экранов, если тут это не обязательно данные эти
     await accountController.fetchData();
     await refsController.fetchData();

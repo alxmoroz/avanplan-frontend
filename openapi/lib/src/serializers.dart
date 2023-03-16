@@ -14,6 +14,7 @@ import 'package:built_value/iso_8601_date_time_serializer.dart';
 import 'package:openapi/src/date_serializer.dart';
 import 'package:openapi/src/model/date.dart';
 
+import 'package:openapi/src/model/app_settings_get.dart';
 import 'package:openapi/src/model/body_auth_apple_token.dart';
 import 'package:openapi/src/model/body_auth_google_token.dart';
 import 'package:openapi/src/model/body_redeem_v1_invitation_redeem_post.dart';
@@ -55,6 +56,7 @@ import 'package:openapi/src/model/workspace_get.dart';
 part 'serializers.g.dart';
 
 @SerializersFor([
+  AppSettingsGet,
   BodyAuthAppleToken,
   BodyAuthGoogleToken,
   BodyRedeemV1InvitationRedeemPost,
@@ -129,10 +131,6 @@ Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskSourceUpsert)]),
         () => ListBuilder<TaskSourceUpsert>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(EstimateValueGet)]),
-        () => ListBuilder<EstimateValueGet>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskGet)]),

@@ -71,6 +71,7 @@
   "error_permission_title": "Недостаточно прав для выполнения операции",
   "error_redeem_invitation_description": "Закончилось количество активаций или истёк срок действия приглашения.\n\nОбратитесь к администратору рабочего пространства / проекта.",
   "error_redeem_invitation_title": "Ошибка при обработке приглашения",
+  "error_tariff_insufficient_funds_for_change": "Для смены тарифа на балансе должно быть минимум {value}",
   "error_tariff_limit_description": "Обратитесь к администратору рабочего пространства",
   "error_tariff_limit_title": "Выполнение операции ограничено в выбранном тарифе",
 
@@ -154,7 +155,7 @@
   "role_code_guest": "Гость",
   "role_code_owner": "Владелец",
   "role_code_member": "Участник",
-  "roles_in_task_prefix": "Роли в ",
+  "role_list_title": "Роли",
 
   "save_action_title": "Сохранить",
   "save_and_go_action_title": "Сохранить и перейти",
@@ -265,7 +266,9 @@
   "update_app_recommendation_title": "Убедитесь, что у вас самая свежая версия приложения.\nПопробуйте ещё раз",
   "update_web_app_recommendation_title": "Обновите страницу в браузере или переустановите веб-приложение",
 
+  "user_list_title": "Пользователи",
   "user_plural_genitive": "{count, plural, one{пользователя} other{пользователей}}",
+  "user_title": "Пользователь",
 
   "validation_empty_text": "Нужно заполнить",
 

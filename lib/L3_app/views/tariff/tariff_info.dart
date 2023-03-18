@@ -17,11 +17,12 @@ class TariffInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        H3(tariff.title, align: TextAlign.center),
         Expanded(
           child: ListView(
             shrinkWrap: true,
             children: [
+              const SizedBox(height: P),
+              H3(tariff.title, align: TextAlign.center),
               const SizedBox(height: P),
               for (var code in tariff.limitsMap.keys) TariffLimitTile(tariff: tariff, code: code),
             ],

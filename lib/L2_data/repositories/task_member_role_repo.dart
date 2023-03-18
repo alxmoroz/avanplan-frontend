@@ -20,6 +20,6 @@ class TaskMemberRoleRepo extends AbstractTaskMemberRoleRepo {
       wsId: wsId,
       requestBody: BuiltList.from(rolesIds),
     );
-    return response.data?.map((m) => m.member) ?? [];
+    return response.data?.map((m) => m.member(taskId)) ?? [];
   }
 }

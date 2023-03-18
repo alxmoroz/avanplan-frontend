@@ -14,9 +14,11 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/person_presenter.dart';
+import '../../presenters/task_level_presenter.dart';
 import '../../usecases/task_ext_actions.dart';
 import 'member_view_controller.dart';
 
+// TODO: параметр "задача" не нужен, т.к. есть инфа об айдишнике задачи в участнике
 class MemberViewArgs {
   MemberViewArgs(this.member, this.task);
   final Member member;
@@ -49,7 +51,7 @@ class _MemberViewState extends State<MemberView> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        navBar: navBar(context, title: loc.member_title),
+        navBar: navBar(context, middle: task.subPageTitle(loc.member_title)),
         body: SafeArea(
             top: false,
             child: ListView(
@@ -62,7 +64,7 @@ class _MemberViewState extends State<MemberView> {
                 NormalText(member.email, align: TextAlign.center),
                 if (member.roles.isNotEmpty) ...[
                   const SizedBox(height: P2),
-                  H4('${loc.roles_in_task_prefix}$task', align: TextAlign.center),
+                  MediumText(loc.role_list_title, align: TextAlign.center),
                   MTListTile(
                     middle: NormalText(member.rolesStr),
                     trailing: task.canEditMembers ? MTButton.icon(const EditIcon(), () => controller.editMember(context)) : null,

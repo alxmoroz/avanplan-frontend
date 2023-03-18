@@ -10,6 +10,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 
+import 'L1_domain/entities/user.dart';
 import 'L3_app/components/colors.dart';
 import 'L3_app/extra/services.dart';
 import 'L3_app/l10n/generated/l10n.dart';
@@ -23,6 +24,8 @@ import 'L3_app/views/settings/settings_view.dart';
 import 'L3_app/views/sign_in/sign_in_view.dart';
 import 'L3_app/views/source/source_list_view.dart';
 import 'L3_app/views/task/task_view.dart';
+import 'L3_app/views/user/user_list_view.dart';
+import 'L3_app/views/user/user_view.dart';
 import 'L3_app/views/workspace/workspace_view.dart';
 
 Future main() async {
@@ -103,12 +106,15 @@ class App extends StatelessWidget {
               NotificationListView.routeName: (_) => NotificationListView(),
               WorkspaceView.routeName: (_) => WorkspaceView(),
               ContractView.routeName: (_) => ContractView(),
+              UserListView.routeName: (_) => UserListView(),
             },
             onGenerateRoute: (RouteSettings rs) {
               if (rs.name == TaskView.routeName) {
                 return CupertinoPageRoute<dynamic>(builder: (_) => TaskView(rs.arguments as int?));
               } else if (rs.name == MemberView.routeName) {
                 return CupertinoPageRoute<dynamic>(builder: (_) => MemberView(rs.arguments as MemberViewArgs));
+              } else if (rs.name == UserView.routeName) {
+                return CupertinoPageRoute<dynamic>(builder: (_) => UserView(rs.arguments as User));
               }
               return null;
             },

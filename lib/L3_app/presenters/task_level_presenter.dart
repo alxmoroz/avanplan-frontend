@@ -1,6 +1,9 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:flutter/cupertino.dart';
+
 import '../../L1_domain/entities/task.dart';
+import '../components/text_widgets.dart';
 import '../extra/services.dart';
 
 extension TaskLevelPresenter on Task {
@@ -65,4 +68,11 @@ extension TaskLevelPresenter on Task {
         TaskLevel.goal: loc.subtask_count(count),
       }[level] ??
       loc.subtask_count(count);
+
+  Widget subPageTitle(String pageTitle) => Column(
+        children: [
+          MediumText(pageTitle),
+          LightText('$this'),
+        ],
+      );
 }

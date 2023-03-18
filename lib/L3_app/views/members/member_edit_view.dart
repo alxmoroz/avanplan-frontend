@@ -1,5 +1,6 @@
 // Copyright (c) 2023. Alexandr Moroz
 
+import 'package:avanplan/L3_app/presenters/task_level_presenter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -15,7 +16,6 @@ import '../../components/mt_close_button.dart';
 import '../../components/mt_page.dart';
 import '../../components/mt_text_field.dart';
 import '../../components/navbar.dart';
-import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/role_presenter.dart';
 import 'member_edit_controller.dart';
@@ -63,7 +63,7 @@ class _MemberEditViewState extends State<MemberEditView> {
   Widget get form => Scrollbar(
         child: Column(
           children: [
-            H4('${loc.roles_in_task_prefix}$task'),
+            task.subPageTitle(loc.role_list_title),
             Expanded(
               child: ListView.builder(
                 shrinkWrap: true,

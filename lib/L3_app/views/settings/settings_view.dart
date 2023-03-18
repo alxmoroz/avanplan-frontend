@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import '../../../L1_domain/entities/user.dart';
 import '../../../L2_data/repositories/communications_repo.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../components/colors.dart';
@@ -19,13 +18,11 @@ import '../../extra/services.dart';
 import '../../presenters/communications_presenter.dart';
 import '../notification/notification_list_view.dart';
 import '../workspace/workspace_list_tile.dart';
+import 'account_list_tile.dart';
 import 'app_version.dart';
-import 'user_list_tile.dart';
 
 class SettingsView extends StatelessWidget {
   static String get routeName => '/settings';
-
-  User? get _user => accountController.user;
 
   Widget _notifications(BuildContext context) => MTListTile(
         leading: BellIcon(color: greyColor, hasUnread: notificationController.hasUnread),
@@ -66,7 +63,7 @@ class SettingsView extends StatelessWidget {
             child: ListView(
               children: [
                 const SizedBox(height: P_2),
-                if (_user != null) UserListTile(_user!),
+                AccountListTile(),
                 const SizedBox(height: P_2),
                 _notifications(context),
                 if (_canShowWS) _workspaces(context),

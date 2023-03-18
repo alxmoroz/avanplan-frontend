@@ -30,6 +30,7 @@ class AccountView extends StatelessWidget {
         ),
         body: SafeArea(
           top: false,
+          bottom: false,
           child: _user != null
               ? ListView(
                   children: [

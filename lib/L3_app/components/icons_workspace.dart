@@ -28,8 +28,8 @@ class MemberAddIcon extends MTIcon {
       );
 }
 
-class MembersIcon extends MTIcon {
-  const MembersIcon({super.color, super.size});
+class PeopleIcon extends MTIcon {
+  const PeopleIcon({super.color, super.size});
 
   @override
   Widget build(BuildContext context) => Icon(

@@ -37,7 +37,7 @@ extension TaskMapper on api.TaskGet {
       priority: priority?.priority(wsId),
       authorId: authorId,
       assigneeId: assigneeId,
-      members: members?.map((m) => m.member).toList() ?? [],
+      members: members?.map((m) => m.member(id)).toList() ?? [],
       taskSource: ts,
       parent: parent,
       wsId: wsId,

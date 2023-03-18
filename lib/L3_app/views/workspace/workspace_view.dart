@@ -15,11 +15,11 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';
-import '../../presenters/person_presenter.dart';
 import '../../presenters/tariff_presenter.dart';
 import '../../usecases/ws_ext_sources.dart';
 import '../contract/contract_view.dart';
 import '../source/source_list_view.dart';
+import '../user/user_list_view.dart';
 
 class WorkspaceView extends StatelessWidget {
   static String get routeName => '/workspace';
@@ -79,21 +79,12 @@ class WorkspaceView extends StatelessWidget {
         ],
       );
 
-  Widget get _users => Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const SizedBox(height: P),
-          NormalText(loc.member_list_title, padding: const EdgeInsets.symmetric(horizontal: P)),
-          for (final user in ws.users)
-            MTListTile(
-              leading: user.icon(P2),
-              titleText: '$user',
-              subtitle: LightText(user.rolesStr),
-            )
-        ],
-      );
+  Widget _users(BuildContext context) => MTListTile(
+      leading: const PeopleIcon(),
+      titleText: '${loc.user_list_title} (${ws.users.length})',
+      trailing: const ChevronIcon(),
+      onTap: () async => await Navigator.of(context).pushNamed(UserListView.routeName));
 
-  // TODO: фильтр по РП
   Widget _sources(BuildContext context) => MTListTile(
       leading: const ImportIcon(color: greyColor),
       titleText: loc.source_list_title,
@@ -106,7 +97,7 @@ class WorkspaceView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTPage(
-      navBar: navBar(context, title: loc.workspace_title, bgColor: backgroundColor),
+      navBar: navBar(context, title: loc.workspace_title),
       body: SafeArea(
         top: false,
         bottom: false,
@@ -117,7 +108,7 @@ class WorkspaceView extends StatelessWidget {
             _balance,
             const SizedBox(height: P),
             _tariff(context),
-            _users,
+            _users(context),
             _sources(context),
           ],
         ),

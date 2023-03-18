@@ -72,6 +72,7 @@
   "error_permission_title": "Insufficient permissions to perform the operation",
   "error_redeem_invitation_description": "The number of invitations has run out or the invitation has expired.\n\nContact your workspace/project administrator.",
   "error_redeem_invitation_title": "Error while processing invitation",
+  "error_tariff_insufficient_funds_for_change": "To change the tariff on the balance must be at least {value}",
   "error_tariff_limit_description": "Please contact the workspace administrator",
   "error_tariff_limit_title": "The operation is limited in the selected tariff",
 
@@ -155,7 +156,7 @@
   "role_code_guest": "Guest",
   "role_code_member": "Member",
   "role_code_owner": "Owner",
-  "roles_in_task_prefix": "Roles in ",
+  "role_list_title": "Roles",
 
   "save_action_title": "Save",
   "save_and_go_action_title": "Save & Go",
@@ -266,7 +267,9 @@
   "update_app_recommendation_title": "Update the app to the latest version",
   "update_web_app_recommendation_title": "Refresh the page in your browser or reinstall the web application",
 
+  "user_list_title": "Users",
   "user_plural_genitive": "{count, plural, one{user} other{users}}",
+  "user_title": "User",
 
   "validation_empty_text": "Should not be empty",
 

@@ -34,7 +34,7 @@ class TariffLimitTile extends StatelessWidget {
 
     Widget icon = const SizedBox(width: P2);
     if (code == 'USERS_COUNT') {
-      icon = const MembersIcon();
+      icon = const PeopleIcon();
       suffix = loc.user_plural_genitive(plural);
     } else if (code == 'PROJECTS_COUNT') {
       icon = const ProjectsIcon();

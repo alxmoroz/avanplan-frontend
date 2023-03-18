@@ -11,8 +11,10 @@ class Member extends Person {
     required super.permissions,
     required this.isActive,
     required this.userId,
+    required this.taskId,
   });
 
   final bool isActive;
   final int? userId;
+  final int taskId;
 }

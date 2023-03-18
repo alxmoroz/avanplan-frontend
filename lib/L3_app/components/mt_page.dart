@@ -30,8 +30,8 @@ class MTPage extends StatelessWidget {
         ),
         drawer: drawer,
         backgroundColor: backgroundColor.resolve(context),
-        extendBody: bottomBar != null,
-        extendBodyBehindAppBar: bottomBar != null,
+        extendBody: true,
+        extendBodyBehindAppBar: true,
         bottomNavigationBar: bottomBar != null ? MTToolbar(child: bottomBar!) : null,
       );
 }

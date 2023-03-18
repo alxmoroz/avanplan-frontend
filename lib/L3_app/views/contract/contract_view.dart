@@ -10,6 +10,7 @@ import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../extra/services.dart';
+import '../../presenters/ws_presenter.dart';
 import '../tariff/tariff_info.dart';
 import '../tariff/tariff_select_view.dart';
 
@@ -40,10 +41,12 @@ class ContractView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTPage(
-      navBar: navBar(context, title: loc.tariff_current_title, bgColor: backgroundColor),
+      navBar: navBar(
+        context,
+        middle: ws.subPageTitle(loc.tariff_current_title),
+        bgColor: backgroundColor,
+      ),
       body: SafeArea(
-        // top: false,
-        // bottom: false,
         child: TariffInfo(ws.invoice.tariff),
       ),
       bottomBar: MTButton.outlined(

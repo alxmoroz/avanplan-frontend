@@ -31,7 +31,10 @@ class SourceListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        navBar: navBar(context, title: loc.source_list_title),
+        navBar: navBar(
+          context,
+          middle: ws.subPageTitle(loc.source_list_title),
+        ),
         body: SafeArea(
           top: false,
           bottom: false,

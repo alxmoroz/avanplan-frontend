@@ -9,5 +9,8 @@ class User extends Person {
     required super.fullName,
     required super.roles,
     required super.permissions,
+    required this.wsId,
   });
+
+  final int wsId;
 }

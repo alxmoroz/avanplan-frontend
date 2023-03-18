@@ -19,7 +19,7 @@ class MyRepo extends AbstractMyRepo {
   @override
   Future<User?> getMyAccount() async {
     final response = await api.accountV1MyAccountGet();
-    return response.data?.user;
+    return response.data?.user(-1);
   }
 
   @override

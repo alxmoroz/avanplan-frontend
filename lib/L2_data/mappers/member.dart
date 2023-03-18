@@ -5,7 +5,7 @@ import 'package:openapi/openapi.dart' as api;
 import '../../L1_domain/entities/member.dart';
 
 extension MemberMapper on api.MemberGet {
-  Member get member => Member(
+  Member member(int taskId) => Member(
         id: id,
         email: email,
         fullName: fullName,
@@ -13,5 +13,6 @@ extension MemberMapper on api.MemberGet {
         permissions: permissionCodes ?? [],
         isActive: isActive == true,
         userId: userId,
+        taskId: taskId,
       );
 }

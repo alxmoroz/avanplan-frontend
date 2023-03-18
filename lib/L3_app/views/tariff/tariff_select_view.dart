@@ -52,7 +52,7 @@ class TariffSelectView extends StatelessWidget {
         padding: const EdgeInsets.all(P).copyWith(top: 0),
         child: Column(children: [
           NormalText(
-            'Для смены тарифа на балансе должно быть минимум ${balanceLack.currency} ₽',
+            loc.error_tariff_insufficient_funds_for_change('${balanceLack.currency} ₽'),
             color: warningColor,
             align: TextAlign.center,
           ),

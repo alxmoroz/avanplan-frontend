@@ -12,8 +12,6 @@ class SourceUC {
 
   Future<bool> checkConnection(Source source) async => await repo.checkConnection(source);
 
-  Future<Iterable<Source>> getAll(int wsId) async => await repo.getAll(wsId);
-
   Future<Source?> save(Source source) async {
     Source? s;
     final username = source.username?.trim() ?? '';

@@ -8,9 +8,9 @@ import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities/task_source.dart';
 import '../../L1_domain/entities/user.dart';
 import '../../L1_domain/entities/workspace.dart';
-import '../../L1_domain/usecases/task_ext_level.dart';
-import '../../L1_domain/usecases/task_ext_members.dart';
-import '../../L1_domain/usecases/task_ext_state.dart';
+import '../../L1_domain/entities_extensions/task_level.dart';
+import '../../L1_domain/entities_extensions/task_members.dart';
+import '../../L1_domain/entities_extensions/task_stats.dart';
 import '../extra/services.dart';
 import 'ws_ext_actions.dart';
 
@@ -31,7 +31,7 @@ extension TaskActionsExt on Task {
   User? get _authUser => accountController.user;
   Workspace? get _ws => mainController.wsForId(wsId);
 
-  bool get hpWSProjectCreate => mainController.workspaces.any((ws) => ws.hpProjectCreate);
+  bool get hpWSProjectCreate => mainController.myWorkspaces.any((ws) => ws.hpProjectCreate);
 
   /// разрешения для текущего пользователя для РП, выбранной задачи или проекта
   Member? get _pm => projectMembers.firstWhereOrNull((m) => m.userId == _authUser?.id);
@@ -64,7 +64,7 @@ extension TaskActionsExt on Task {
   bool get canClose => canUpdate && !closed && !hasLink;
   bool get canUnlink => _isLinkedProject && _ws?.hpProjectUnlink == true;
   bool get canUnwatch => _isLinkedProject && _ws?.hpProjectDelete == true;
-  bool get canMembersRead => isProject && _ws?.hpWSInfoRead == true;
+  bool get canMembersRead => isProject;
   bool get canEditMembers => _hpMemberUpdate && !hasLink;
 
   /// доступные роли для управления

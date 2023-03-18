@@ -6,7 +6,7 @@ import '../../L1_domain/entities/user.dart';
 import '../../L1_domain/entities/workspace.dart';
 import '../extra/services.dart';
 
-extension WActionsExt on Workspace {
+extension WSActionsExt on Workspace {
   User? get me => users.firstWhereOrNull((u) => u.id == accountController.user?.id);
 
   bool get hpProjectCreate => me?.hp('PROJECT_CREATE') == true;

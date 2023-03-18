@@ -5,8 +5,8 @@ import 'package:mobx/mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/usecases/task_ext_level.dart';
-import '../../../L1_domain/usecases/task_ext_state.dart';
+import '../../../L1_domain/entities_extensions/task_level.dart';
+import '../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
@@ -17,6 +17,7 @@ import '../../presenters/source_presenter.dart';
 import '../../presenters/state_presenter.dart';
 import '../../presenters/task_filter_presenter.dart';
 import '../../usecases/task_ext_actions.dart';
+import '../import/import_view.dart';
 import 'task_edit_view.dart';
 
 part 'task_view_controller.g.dart';
@@ -257,13 +258,13 @@ abstract class _TaskViewControllerBase with Store {
         await setClosed(false);
         break;
       case TaskActionType.import_gitlab:
-        await importController.importTasks(sType: refsController.stGitlab);
+        await importTasks(sType: refsController.stGitlab);
         break;
       case TaskActionType.import_jira:
-        await importController.importTasks(sType: refsController.stJira);
+        await importTasks(sType: refsController.stJira);
         break;
       case TaskActionType.import_redmine:
-        await importController.importTasks(sType: refsController.stRedmine);
+        await importTasks(sType: refsController.stRedmine);
         break;
       case TaskActionType.go2source:
         await launchUrlString(task.taskSource!.urlString);

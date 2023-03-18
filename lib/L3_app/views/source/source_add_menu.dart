@@ -8,6 +8,7 @@ import '../../components/material_wrapper.dart';
 import '../../components/mt_menu_shape.dart';
 import '../../extra/services.dart';
 import '../../presenters/source_presenter.dart';
+import '../../views/source/source_edit_view.dart';
 
 class SourceAddMenu extends StatelessWidget {
   const SourceAddMenu({this.title, this.onSelected, this.margin});
@@ -24,7 +25,7 @@ class SourceAddMenu extends StatelessWidget {
         child: PopupMenuButton<String>(
           child: MTMenuShape(icon: const PlusIcon(), title: title),
           itemBuilder: (_) => [for (final st in refsController.sourceTypes) PopupMenuItem<String>(value: st, child: iconTitleForSourceType(st))],
-          onSelected: onSelected ?? (st) => sourceController.addSource(sType: st),
+          onSelected: onSelected ?? (st) => addSource(sType: st),
           padding: EdgeInsets.zero,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS)),
         ),

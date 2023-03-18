@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../L1_domain/entities/task.dart';
-import '../../../../L1_domain/usecases/task_ext_members.dart';
+import '../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../components/constants.dart';
 import '../../../components/text_widgets.dart';
 import '../../../presenters/person_presenter.dart';

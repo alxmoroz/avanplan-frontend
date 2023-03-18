@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../../L1_domain/usecases/task_ext_level.dart';
+import '../../../../L1_domain/entities_extensions/task_level.dart';
 import '../../../components/colors.dart';
 import '../../../components/icons.dart';
 import '../../../components/navbar.dart';

@@ -3,7 +3,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/usecases/task_ext_state.dart';
+import '../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_card.dart';
@@ -12,6 +12,7 @@ import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/source_presenter.dart';
 import '../../usecases/task_ext_actions.dart';
+import '../import/import_view.dart';
 
 class ImportProjectsActions extends StatelessWidget {
   const ImportProjectsActions(this.task);
@@ -32,7 +33,7 @@ class ImportProjectsActions extends StatelessWidget {
           for (final st in refsController.sourceTypes)
             MTConstrained(
               MTCardButton(
-                onTap: () => importController.importTasks(sType: st),
+                onTap: () => importTasks(sType: st),
                 child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   iconForSourceType(st),
                   const SizedBox(width: P_2),

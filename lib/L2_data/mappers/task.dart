@@ -11,7 +11,7 @@ import 'task_source.dart';
 
 extension TaskMapper on api.TaskGet {
   Task task({required int wsId, Task? parent}) {
-    final ts = taskSource?.taskSource;
+    final ts = taskSource?.taskSource(wsId);
     String _title = title?.trim() ?? '';
     if (type != null && type?.toLowerCase() == 'backlog') {
       _title = Intl.message(_title);

@@ -21,13 +21,6 @@ void main() {
       // TODO
     });
 
-    // Sources
-    //
-    //Future<BuiltList<SourceGet>> sourcesV1IntegrationsSourcesGet(int wsId) async
-    test('test sourcesV1IntegrationsSourcesGet', () async {
-      // TODO
-    });
-
     // Upsert
     //
     //Future<SourceGet> upsertV1IntegrationsSourcesPost(int wsId, SourceUpsert sourceUpsert) async

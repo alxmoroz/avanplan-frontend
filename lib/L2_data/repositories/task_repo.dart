@@ -3,8 +3,8 @@
 import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/task.dart';
+import '../../L1_domain/entities_extensions/task_level.dart';
 import '../../L1_domain/repositories/abs_ws_repo.dart';
-import '../../L1_domain/usecases/task_ext_level.dart';
 import '../mappers/task.dart';
 import '../services/api.dart';
 

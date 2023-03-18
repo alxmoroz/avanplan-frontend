@@ -3,6 +3,7 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:openapi/src/model/source_get.dart';
 import 'package:openapi/src/model/settings_get.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/model/estimate_value_get.dart';
@@ -26,6 +27,7 @@ part 'workspace_get.g.dart';
 /// * [balance] 
 /// * [settings] 
 /// * [estimateValues] 
+/// * [sources] 
 @BuiltValue()
 abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -55,6 +57,9 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
   @BuiltValueField(wireName: r'estimate_values')
   BuiltList<EstimateValueGet>? get estimateValues;
 
+  @BuiltValueField(wireName: r'sources')
+  BuiltList<SourceGet>? get sources;
+
   WorkspaceGet._();
 
   factory WorkspaceGet([void updates(WorkspaceGetBuilder b)]) = _$WorkspaceGet;
@@ -63,7 +68,8 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
   static void _defaults(WorkspaceGetBuilder b) => b
       ..users = ListBuilder()
       ..roles = ListBuilder()
-      ..estimateValues = ListBuilder();
+      ..estimateValues = ListBuilder()
+      ..sources = ListBuilder();
 
   @BuiltValueSerializer(custom: true)
   static Serializer<WorkspaceGet> get serializer => _$WorkspaceGetSerializer();
@@ -140,6 +146,13 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
       yield serializers.serialize(
         object.estimateValues,
         specifiedType: const FullType(BuiltList, [FullType(EstimateValueGet)]),
+      );
+    }
+    if (object.sources != null) {
+      yield r'sources';
+      yield serializers.serialize(
+        object.sources,
+        specifiedType: const FullType(BuiltList, [FullType(SourceGet)]),
       );
     }
   }
@@ -227,6 +240,13 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
             specifiedType: const FullType(BuiltList, [FullType(EstimateValueGet)]),
           ) as BuiltList<EstimateValueGet>;
           result.estimateValues.replace(valueDes);
+          break;
+        case r'sources':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [FullType(SourceGet)]),
+          ) as BuiltList<SourceGet>;
+          result.sources.replace(valueDes);
           break;
         default:
           unhandled.add(key);

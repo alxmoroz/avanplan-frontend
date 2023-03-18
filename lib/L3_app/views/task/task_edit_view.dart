@@ -6,9 +6,9 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../L1_domain/entities/estimate_value.dart';
 import '../../../L1_domain/entities/member.dart';
 import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/usecases/task_ext_level.dart';
-import '../../../L1_domain/usecases/task_ext_members.dart';
-import '../../../L1_domain/usecases/task_ext_state.dart';
+import '../../../L1_domain/entities_extensions/task_level.dart';
+import '../../../L1_domain/entities_extensions/task_members.dart';
+import '../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
@@ -57,8 +57,6 @@ class _TaskEditViewState extends State<TaskEditView> {
   Task get parent => widget.parent;
   bool get isNew => task == null;
 
-  int? get _savedWsID => task?.wsId ?? parent.wsId;
-
   late TaskEditController controller;
 
   @override
@@ -76,7 +74,6 @@ class _TaskEditViewState extends State<TaskEditView> {
 
     controller.setStartDate(task?.startDate);
     controller.setDueDate(task?.dueDate);
-    controller.selectWS(_savedWsID);
     controller.selectEstimateByValue(task?.estimate);
     controller.setAllowedAssignees([
       Member(fullName: loc.task_assignee_nobody, id: null, email: '', isActive: false, roles: [], permissions: [], userId: null),
@@ -133,8 +130,6 @@ class _TaskEditViewState extends State<TaskEditView> {
     return Scrollbar(
       thumbVisibility: true,
       child: ListView(children: [
-        // TODO: перенос между РП??
-        if (_savedWsID == null) controller.wsDropdown(context),
         for (final code in ['title', 'startDate', 'dueDate', 'description']) textFieldForCode(context, code),
         // ...[statuses],
         if (controller.allowedAssignees.isNotEmpty)

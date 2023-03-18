@@ -1,11 +1,11 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2023. Alexandr Moroz
 
 import 'dart:math';
 
 import 'package:collection/collection.dart';
 
 import '../entities/task.dart';
-import 'task_ext_level.dart';
+import '../entities_extensions/task_level.dart';
 
 extension TaskStats on Task {
   Duration get lowStartThreshold => const Duration(days: 5);

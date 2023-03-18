@@ -19,6 +19,7 @@ class Workspace extends Titleable {
     required this.balance,
     required this.settings,
     required this.estimateValues,
+    required this.sources,
   });
 
   final Iterable<User> users;
@@ -27,6 +28,5 @@ class Workspace extends Titleable {
   final num balance;
   final WSettings? settings;
   final Iterable<EstimateValue> estimateValues;
-
-  Iterable<Source> sources = [];
+  List<Source> sources = [];
 }

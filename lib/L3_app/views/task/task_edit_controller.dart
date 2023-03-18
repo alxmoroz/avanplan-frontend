@@ -11,7 +11,7 @@ import '../../components/mt_confirm_dialog.dart';
 import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';
 import '../../presenters/task_level_presenter.dart';
-import '../workspace/workspace_bounded.dart';
+import '../../views/_base/edit_controller.dart';
 import 'task_edit_view.dart';
 
 part 'task_edit_controller.g.dart';
@@ -20,7 +20,7 @@ const _year = Duration(days: 365);
 
 class TaskEditController = _TaskEditControllerBase with _$TaskEditController;
 
-abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
+abstract class _TaskEditControllerBase extends EditController with Store {
   @observable
   DateTime? selectedDueDate;
 
@@ -72,11 +72,6 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
     }
   }
 
-  /// выбранная задача для редактирования
-
-  @override
-  bool get validated => super.validated && selectedWS != null;
-
   /// действия
   Future<Task?> _saveTask(Task? task, Task parent) async => await taskUC.save(
         Task(
@@ -95,7 +90,7 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
           assigneeId: selectedAssignee?.id,
           authorId: task?.authorId,
           members: task?.members ?? [],
-          wsId: selectedWS!.id!,
+          wsId: mainController.selectedWS!.id!,
         ),
       );
 
@@ -131,7 +126,7 @@ abstract class _TaskEditControllerBase extends WorkspaceBounded with Store {
 
   /// оценки задач
   @computed
-  Iterable<EstimateValue> get estimateValues => selectedWS?.estimateValues ?? [];
+  Iterable<EstimateValue> get estimateValues => mainController.selectedWS?.estimateValues ?? [];
 
   @observable
   int? _selectedEstimateId;

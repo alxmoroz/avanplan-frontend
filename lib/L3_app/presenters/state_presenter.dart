@@ -3,8 +3,8 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/usecases/task_ext_level.dart';
-import '../../L1_domain/usecases/task_ext_state.dart';
+import '../../L1_domain/entities_extensions/task_level.dart';
+import '../../L1_domain/entities_extensions/task_stats.dart';
 import '../components/colors.dart';
 import '../components/icons.dart';
 import '../components/icons_state.dart';

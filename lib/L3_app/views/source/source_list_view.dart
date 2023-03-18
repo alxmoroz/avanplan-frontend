@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../L1_domain/entities/workspace.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/mt_card.dart';
@@ -11,18 +12,19 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/source_presenter.dart';
+import '../../presenters/ws_presenter.dart';
 import '../../usecases/task_ext_actions.dart';
 import 'source_add_menu.dart';
-import 'source_controller.dart';
+import 'source_edit_view.dart';
 
 class SourceListView extends StatelessWidget {
   static String get routeName => '/sources';
 
-  SourceController get _controller => sourceController;
+  Workspace get ws => mainController.selectedWS!;
 
   Widget _sourceBuilder(BuildContext context, int index) {
-    final s = _controller.sources[index];
-    return MTCardButton(child: s.info(context), onTap: () => _controller.editSource(src: s));
+    final s = ws.sortedSources[index];
+    return MTCardButton(child: s.info(context), onTap: () => editSource(src: s));
   }
 
   @override
@@ -33,19 +35,19 @@ class SourceListView extends StatelessWidget {
         body: SafeArea(
           top: false,
           bottom: false,
-          child: _controller.sources.isEmpty
+          child: ws.sources.isEmpty
               ? Center(child: H4(loc.source_list_empty_title, align: TextAlign.center, color: lightGreyColor))
               : ListView.builder(
                   itemBuilder: (_, int index) => _sourceBuilder(context, index),
-                  itemCount: _controller.sources.length,
+                  itemCount: ws.sources.length,
                 ),
         ),
         bottomBar: mainController.rootTask.canImport
             ? Row(children: [
                 Expanded(
-                  child: _controller.sources.isEmpty ? SourceAddMenu(title: loc.source_title_new, margin: const EdgeInsets.all(P)) : const SizedBox(),
+                  child: ws.sources.isEmpty ? SourceAddMenu(title: loc.source_title_new, margin: const EdgeInsets.all(P)) : const SizedBox(),
                 ),
-                if (_controller.sources.isNotEmpty) const SourceAddMenu(margin: EdgeInsets.all(P)),
+                if (ws.sources.isNotEmpty) const SourceAddMenu(margin: EdgeInsets.all(P)),
               ])
             : null,
       ),

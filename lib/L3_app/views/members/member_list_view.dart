@@ -5,7 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/member.dart';
 import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/usecases/task_ext_members.dart';
+import '../../../L1_domain/entities_extensions/task_members.dart';
 import '../../components/constants.dart';
 import '../../extra/services.dart';
 import '../../usecases/task_ext_actions.dart';

@@ -17,62 +17,70 @@ import '../../components/mt_close_button.dart';
 import '../../components/mt_page.dart';
 import '../../components/mt_text_field.dart';
 import '../../components/navbar.dart';
-import '../../components/text_field_annotation.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/source_presenter.dart';
-import 'source_controller.dart';
+import '../../usecases/source_ext.dart';
+import '../../usecases/ws_ext_sources.dart';
+import 'source_edit_controller.dart';
 
-Future<Source?> editSourceDialog() async {
+Future<Source?> addSource({String? sType}) async => await editSource(sType: sType);
+
+Future<Source?> editSource({Source? src, String? sType}) async {
+  final s = await editSourceDialog(src, sType);
+  if (s != null) {
+    await mainController.selectedWS!.updateSourceInList(s);
+    if (!s.deleted) {
+      s.checkConnection();
+    }
+  }
+  return s;
+}
+
+Future<Source?> editSourceDialog(Source? src, String? sType) async {
   return await showModalBottomSheet<Source?>(
     context: rootKey.currentContext!,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    builder: (_) => MTBottomSheet(SourceEditView()),
+    builder: (_) => MTBottomSheet(SourceEditView(src, sType)),
   );
 }
 
 class SourceEditView extends StatefulWidget {
+  const SourceEditView(this.src, this.sType);
+  final Source? src;
+  final String? sType;
+
   @override
   _SourceEditViewState createState() => _SourceEditViewState();
 }
 
 class _SourceEditViewState extends State<SourceEditView> {
-  SourceController get _controller => sourceController;
-  Source? get _source => _controller.selectedSource;
-  bool get _isNew => _source == null;
-  bool get _canSave => _controller.validated;
+  late SourceEditController controller;
 
-  String get _sourceCode => _controller.selectedType != null ? _controller.selectedType!.toLowerCase() : '';
-  bool get _showUsername => _controller.selectedType == 'Jira';
-
-  String get _sourceEditHelperAddress => '$docsPath/import/$_sourceCode';
+  bool get isNew => controller.source == null;
+  bool get canSave => controller.validated;
+  String get sourceCode => controller.selectedType != null ? controller.selectedType!.toLowerCase() : '';
+  String get sourceEditHelperAddress => '$docsPath/import/$sourceCode';
 
   @override
   void initState() {
-    _controller.initState(tfaList: [
-      TFAnnotation('url', label: loc.source_url_placeholder, text: _source?.url ?? ''),
-      TFAnnotation('username', label: loc.auth_user_placeholder, text: _source?.username ?? '', needValidate: _showUsername),
-      TFAnnotation('apiKey', label: loc.source_api_key_placeholder, text: _source?.apiKey ?? ''),
-      // TFAnnotation('password', label: loc.auth_password_placeholder, needValidate: false),
-      TFAnnotation('description', label: loc.description, text: _source?.description ?? '', needValidate: false),
-    ]);
+    controller = SourceEditController(widget.src?.id, widget.sType);
     super.initState();
   }
 
   @override
   void dispose() {
-    _controller.selectType(null);
-    _controller.dispose();
+    controller.dispose();
     super.dispose();
   }
 
   Widget textFieldForCode(String code) {
-    final tfa = _controller.tfAnnoForCode(code);
+    final tfa = controller.tfAnnoForCode(code);
 
     String? helper = tfa.helper;
     if (code == 'apiKey' && helper == null) {
-      helper = _controller.selectedType != null ? Intl.message('source_api_key_helper_' + _sourceCode) : null;
+      helper = controller.selectedType != null ? Intl.message('source_api_key_helper_' + sourceCode) : null;
     }
 
     String? error;
@@ -81,7 +89,7 @@ class _SourceEditViewState extends State<SourceEditView> {
     }
 
     return MTTextField(
-      controller: _controller.teControllers[code],
+      controller: controller.teControllers[code],
       label: tfa.label,
       error: error,
       helper: helper,
@@ -91,14 +99,13 @@ class _SourceEditViewState extends State<SourceEditView> {
     );
   }
 
-  Widget form() {
+  Widget form(BuildContext context) {
     return Scrollbar(
       child: ListView(
         children: [
-          if (_isNew) _controller.wsDropdown(context),
           for (final code in [
             'url',
-            if (_showUsername) 'username',
+            if (controller.showUsername) 'username',
             'apiKey',
             // 'password',
             'description',
@@ -108,12 +115,12 @@ class _SourceEditViewState extends State<SourceEditView> {
             titleText: loc.source_help_edit_action,
             trailing: const LinkOutIcon(size: P * 1.3),
             margin: tfPadding.copyWith(top: P2),
-            onTap: () => launchUrlString(_sourceEditHelperAddress),
+            onTap: () => launchUrlString(sourceEditHelperAddress),
           ),
           MTButton.outlined(
             titleText: loc.save_action_title,
             margin: tfPadding.copyWith(top: P2),
-            onTap: _canSave ? () => _controller.save(context) : null,
+            onTap: canSave ? () => controller.save(context) : null,
           ),
           const SizedBox(height: P2),
         ],
@@ -131,20 +138,20 @@ class _SourceEditViewState extends State<SourceEditView> {
           middle: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              if (_isNew) MediumText(loc.source_title_new, padding: const EdgeInsets.only(right: P_2)),
-              iconTitleForSourceType(_controller.selectedType!),
+              if (isNew) MediumText(loc.source_title_new, padding: const EdgeInsets.only(right: P_2)),
+              iconTitleForSourceType(controller.selectedType!),
             ],
           ),
-          trailing: _controller.canEdit
+          trailing: controller.canEdit
               ? MTButton.icon(
                   const DeleteIcon(),
-                  () => _controller.delete(context),
+                  () => controller.delete(context),
                   margin: const EdgeInsets.only(right: P),
                 )
               : null,
           bgColor: backgroundColor,
         ),
-        body: SafeArea(top: false, bottom: false, child: form()),
+        body: SafeArea(top: false, bottom: false, child: form(context)),
       ),
     );
   }

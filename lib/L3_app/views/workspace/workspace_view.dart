@@ -17,19 +17,15 @@ import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';
 import '../../presenters/person_presenter.dart';
 import '../../presenters/tariff_presenter.dart';
+import '../../usecases/ws_ext_sources.dart';
 import '../contract/contract_view.dart';
+import '../source/source_list_view.dart';
 
 class WorkspaceView extends StatelessWidget {
-  const WorkspaceView(this.wsId);
   static String get routeName => '/workspace';
 
-  final int wsId;
-  Workspace get ws => mainController.wsForId(wsId)!;
+  Workspace get ws => mainController.selectedWS!;
   num get balance => ws.balance;
-
-  Future _showContract(BuildContext context) async {
-    await Navigator.of(context).pushNamed(ContractView.routeName, arguments: wsId);
-  }
 
   Widget get _header => Padding(
         padding: const EdgeInsets.symmetric(horizontal: P_2),
@@ -48,7 +44,7 @@ class WorkspaceView extends StatelessWidget {
         subtitle: SmallText('${loc.contract_effective_date_title} ${ws.invoice.contract.createdOn.strMedium}', color: greyColor),
         // TODO: if (controller.balance > 0) SmallText('Хватит на 1 мес.', color: greyColor),
         trailing: const ChevronIcon(),
-        onTap: () => _showContract(context),
+        onTap: () async => await Navigator.of(context).pushNamed(ContractView.routeName),
       );
 
   Widget _payButton(num amount) => MTButton.outlined(
@@ -97,6 +93,16 @@ class WorkspaceView extends StatelessWidget {
         ],
       );
 
+  // TODO: фильтр по РП
+  Widget _sources(BuildContext context) => MTListTile(
+      leading: const ImportIcon(color: greyColor),
+      titleText: loc.source_list_title,
+      trailing: const ChevronIcon(),
+      onTap: () async {
+        mainController.selectedWS?.checkSources();
+        await Navigator.of(context).pushNamed(SourceListView.routeName);
+      });
+
   @override
   Widget build(BuildContext context) {
     return MTPage(
@@ -112,6 +118,7 @@ class WorkspaceView extends StatelessWidget {
             const SizedBox(height: P),
             _tariff(context),
             _users,
+            _sources(context),
           ],
         ),
       ),

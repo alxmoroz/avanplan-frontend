@@ -6,6 +6,7 @@ enum SrcState {
   connected,
   error,
   unknown,
+  checking,
 }
 
 class Source extends WSBounded {

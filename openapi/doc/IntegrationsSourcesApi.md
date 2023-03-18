@@ -11,7 +11,6 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**checkConnectionV1IntegrationsSourcesCheckConnectionGet**](IntegrationsSourcesApi.md#checkconnectionv1integrationssourcescheckconnectionget) | **GET** /v1/integrations/sources/check_connection | Check Connection
 [**deleteV1IntegrationsSourcesSourceIdDelete**](IntegrationsSourcesApi.md#deletev1integrationssourcessourceiddelete) | **DELETE** /v1/integrations/sources/{source_id} | Delete
-[**sourcesV1IntegrationsSourcesGet**](IntegrationsSourcesApi.md#sourcesv1integrationssourcesget) | **GET** /v1/integrations/sources/ | Sources
 [**upsertV1IntegrationsSourcesPost**](IntegrationsSourcesApi.md#upsertv1integrationssourcespost) | **POST** /v1/integrations/sources/ | Upsert
 
 
@@ -93,49 +92,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 **bool**
-
-### Authorization
-
-[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **sourcesV1IntegrationsSourcesGet**
-> BuiltList<SourceGet> sourcesV1IntegrationsSourcesGet(wsId)
-
-Sources
-
-### Example
-```dart
-import 'package:openapi/api.dart';
-// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
-//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
-
-final api = Openapi().getIntegrationsSourcesApi();
-final int wsId = 56; // int | 
-
-try {
-    final response = api.sourcesV1IntegrationsSourcesGet(wsId);
-    print(response);
-} catch on DioError (e) {
-    print('Exception when calling IntegrationsSourcesApi->sourcesV1IntegrationsSourcesGet: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **wsId** | **int**|  | 
-
-### Return type
-
-[**BuiltList&lt;SourceGet&gt;**](SourceGet.md)
 
 ### Authorization
 

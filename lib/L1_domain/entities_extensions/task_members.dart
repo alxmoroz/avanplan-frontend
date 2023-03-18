@@ -4,7 +4,7 @@ import 'package:collection/collection.dart';
 
 import '../entities/member.dart';
 import '../entities/task.dart';
-import '../usecases/task_ext_level.dart';
+import 'task_level.dart';
 
 extension TaskMembersExtension on Task {
   List<Member> get projectMembers => project?.members ?? [];

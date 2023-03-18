@@ -13,10 +13,7 @@ class SourceRepo extends AbstractSourceRepo {
   o_api.IntegrationsSourcesApi get api => openAPI.getIntegrationsSourcesApi();
 
   @override
-  Future<Iterable<Source>> getAll(int wsId) async {
-    final response = await api.sourcesV1IntegrationsSourcesGet(wsId: wsId);
-    return response.data?.map((s) => s.source(wsId)) ?? [];
-  }
+  Future<Iterable<Source>> getAll(int wsId) => throw UnimplementedError;
 
   @override
   Future<Source?> save(Source data) async {

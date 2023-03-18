@@ -101,16 +101,14 @@ class App extends StatelessWidget {
               SettingsView.routeName: (_) => SettingsView(),
               AccountView.routeName: (_) => AccountView(),
               NotificationListView.routeName: (_) => NotificationListView(),
+              WorkspaceView.routeName: (_) => WorkspaceView(),
+              ContractView.routeName: (_) => ContractView(),
             },
             onGenerateRoute: (RouteSettings rs) {
               if (rs.name == TaskView.routeName) {
                 return CupertinoPageRoute<dynamic>(builder: (_) => TaskView(rs.arguments as int?));
               } else if (rs.name == MemberView.routeName) {
                 return CupertinoPageRoute<dynamic>(builder: (_) => MemberView(rs.arguments as MemberViewArgs));
-              } else if (rs.name == WorkspaceView.routeName) {
-                return CupertinoPageRoute<dynamic>(builder: (_) => WorkspaceView(rs.arguments as int));
-              } else if (rs.name == ContractView.routeName) {
-                return CupertinoPageRoute<dynamic>(builder: (_) => ContractView(rs.arguments as int));
               }
               return null;
             },

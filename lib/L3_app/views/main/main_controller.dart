@@ -6,10 +6,11 @@ import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
-import '../../../L1_domain/usecases/task_ext_state.dart';
+import '../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../main.dart';
 import '../../extra/services.dart';
 import '../task/task_view.dart';
+import '../workspace/workspace_view.dart';
 
 part 'main_controller.g.dart';
 
@@ -18,9 +19,29 @@ class MainController extends _MainControllerBase with _$MainController {}
 abstract class _MainControllerBase with Store {
   /// рабочие пространства
   @observable
-  ObservableList<Workspace> workspaces = ObservableList();
+  List<Workspace> myWorkspaces = [];
 
-  Workspace? wsForId(int wsId) => workspaces.firstWhereOrNull((ws) => ws.id == wsId);
+  Workspace? wsForId(int? wsId) => myWorkspaces.firstWhereOrNull((ws) => ws.id == wsId);
+
+  @observable
+  int? selectedWSId;
+
+  @action
+  void selectWS(int? _wsId) => selectedWSId = _wsId;
+
+  @computed
+  Workspace? get selectedWS => wsForId(selectedWSId);
+
+  Future showWorkspace(int wsId) async {
+    selectWS(wsId);
+    await Navigator.of(rootKey.currentContext!).pushNamed(WorkspaceView.routeName);
+    // TODO: тут надо сбрасывать текущее выбранное РП по идее. Но пока нет явного выбора РП, то оставил без сброса
+    // selectWS(null);
+  }
+
+  @action
+  // TODO: нужен способ дергать обсервер без этих хаков
+  void touchWorkspaces() => mainController.myWorkspaces = [...mainController.myWorkspaces];
 
   /// рутовый объект
   @observable
@@ -40,12 +61,11 @@ abstract class _MainControllerBase with Store {
 
   @action
   Future fetchWorkspaces() async {
-    workspaces = ObservableList.of(await myUC.getWorkspaces());
-    workspaces.sort((w1, w2) => compareNatural(w1.title, w2.title));
+    myWorkspaces = (await myUC.getWorkspaces()).sorted((w1, w2) => compareNatural(w1.title, w2.title));
+    selectedWSId = myWorkspaces.length == 1 ? myWorkspaces.first.id : null;
+
     rootTask.tasks = [];
-    for (Workspace ws in workspaces) {
-      final wsId = ws.id!;
-      ws.sources = await sourceUC.getAll(wsId);
+    for (Workspace ws in myWorkspaces) {
       final projects = (await taskUC.getRoots(ws.id!)).toList();
       projects.forEach((p) async {
         p.parent = rootTask;
@@ -68,7 +88,6 @@ abstract class _MainControllerBase with Store {
 
     await fetchWorkspaces();
 
-    await sourceController.fetchData();
     // TODO: чтобы сохранять положение в навигации внутри приложения, нужно синхронизировать id текущей выбранной задачи на сервер в профиль пользователя
   }
 
@@ -77,13 +96,11 @@ abstract class _MainControllerBase with Store {
 
   @action
   void clearData() {
-    workspaces.clear();
+    myWorkspaces = [];
     rootTask.tasks = [];
     updateRootTask();
     updatedDate = null;
 
-    sourceController.clearData();
-    importController.clearData();
     refsController.clearData();
     accountController.clearData();
     notificationController.clearData();

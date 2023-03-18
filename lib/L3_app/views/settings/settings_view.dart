@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -16,10 +17,7 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/communications_presenter.dart';
-import '../../usecases/task_ext_actions.dart';
-import '../../usecases/ws_ext_actions.dart';
 import '../notification/notification_list_view.dart';
-import '../source/source_list_view.dart';
 import '../workspace/workspace_list_tile.dart';
 import 'app_version.dart';
 import 'user_list_tile.dart';
@@ -28,15 +26,6 @@ class SettingsView extends StatelessWidget {
   static String get routeName => '/settings';
 
   User? get _user => accountController.user;
-
-  Widget _sources(BuildContext context) => MTListTile(
-      leading: const ImportIcon(color: greyColor),
-      titleText: loc.source_list_title,
-      trailing: const ChevronIcon(),
-      onTap: () async {
-        sourceController.checkSources();
-        await Navigator.of(context).pushNamed(SourceListView.routeName);
-      });
 
   Widget _notifications(BuildContext context) => MTListTile(
         leading: BellIcon(color: greyColor, hasUnread: notificationController.hasUnread),
@@ -60,12 +49,12 @@ class SettingsView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
             color: lightGreyColor,
           ),
-          for (final ws in mainController.workspaces)
-            if (ws.hpWSInfoRead) WorkspaceListTile(ws)
+          for (final ws in mainController.myWorkspaces) WorkspaceListTile(ws)
         ],
       );
 
-  bool get _canShowWS => !isIOS || !settingsController.frontendFlags.contains('ios_hide_ws');
+  bool get _canShowWS =>
+      mainController.myWorkspaces.isNotEmpty && (!isIOS || !settingsController.frontendFlags.contains('ios_hide_ws') || !kReleaseMode);
 
   @override
   Widget build(BuildContext context) => Observer(
@@ -80,7 +69,6 @@ class SettingsView extends StatelessWidget {
                 if (_user != null) UserListTile(_user!),
                 const SizedBox(height: P_2),
                 _notifications(context),
-                if (mainController.rootTask.canImport) _sources(context),
                 if (_canShowWS) _workspaces(context),
                 H4(
                   loc.about_service_title,

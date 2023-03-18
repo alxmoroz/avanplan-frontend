@@ -12,13 +12,10 @@ import '../../extra/services.dart';
 import '../../presenters/person_presenter.dart';
 import '../../presenters/tariff_presenter.dart';
 import '../../usecases/ws_ext_actions.dart';
-import 'workspace_view.dart';
 
 class WorkspaceListTile extends StatelessWidget {
   const WorkspaceListTile(this.ws);
   final Workspace ws;
-
-  Future _showWorkspace(BuildContext context) async => await Navigator.of(context).pushNamed(WorkspaceView.routeName, arguments: ws.id!);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +30,7 @@ class WorkspaceListTile extends StatelessWidget {
         ],
       ),
       trailing: const ChevronIcon(),
-      onTap: () => _showWorkspace(context),
+      onTap: () => mainController.showWorkspace(ws.id!),
     );
   }
 }

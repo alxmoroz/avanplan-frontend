@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 
 import '../../../L1_domain/entities/source.dart';
+import '../../../L1_domain/entities/workspace.dart';
 import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
@@ -18,33 +19,47 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/source_presenter.dart';
+import '../../presenters/ws_presenter.dart';
 import '../source/source_add_menu.dart';
 import 'import_controller.dart';
 
-Future<String?> showImportDialog() async {
-  sourceController.checkSources();
-  return await showModalBottomSheet<String?>(
-    context: rootKey.currentContext!,
-    backgroundColor: Colors.transparent,
-    isScrollControlled: true,
-    builder: (_) => MTBottomSheet(ImportView()),
-  );
+// старт сценария по импорту задач
+Future importTasks({bool needAddSource = false, String? sType}) async {
+  final controller = await ImportController().init(needAddSource, sType);
+
+  // если вернулись из диалога с желанием добавить источник импорта, то опять пытаемся добавить источник импорта
+  // диалог с импортом задач
+  final st = await showImportDialog(controller);
+  if (st != null) {
+    await importTasks(needAddSource: true, sType: st);
+  }
 }
 
-class ImportView extends StatelessWidget {
-  ImportController get _controller => importController;
-  bool get _hasProjects => _controller.projects.isNotEmpty;
-  bool get _hasError => _controller.errorCode != null;
-  bool get _validated => _controller.validated;
-  bool get _selectedAll => _controller.selectedAll;
+Future<String?> showImportDialog(ImportController controller) async => await showModalBottomSheet<String?>(
+      context: rootKey.currentContext!,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (_) => MTBottomSheet(ImportView(controller)),
+    );
 
-  List<DropdownMenuItem<Source>> _srcDdItems(Iterable<Source> sources, BuildContext context) =>
-      [for (final s in sources) DropdownMenuItem<Source>(value: s, child: Padding(padding: const EdgeInsets.only(right: P), child: s.info(context)))];
+class ImportView extends StatelessWidget {
+  const ImportView(this.controller);
+  final ImportController controller;
+
+  Workspace get ws => mainController.selectedWS!;
+
+  bool get _hasProjects => controller.projects.isNotEmpty;
+  bool get _hasError => controller.errorCode != null;
+  bool get _validated => controller.validated;
+  bool get _selectedAll => controller.selectedAll;
 
   Widget _sourceDropdown(BuildContext context) => MTDropdown<Source>(
-        onChanged: (s) => _controller.selectSource(s),
-        value: _controller.selectedSource,
-        ddItems: _srcDdItems(sourceController.sources, context),
+        onChanged: (s) => controller.selectSource(s),
+        value: controller.selectedSource,
+        ddItems: [
+          for (final s in ws.sortedSources)
+            DropdownMenuItem<Source>(value: s, child: Padding(padding: const EdgeInsets.only(right: P), child: s.info(context)))
+        ],
         label: loc.source_import_placeholder,
         dense: false,
         margin: const EdgeInsets.symmetric(horizontal: P),
@@ -58,18 +73,18 @@ class ImportView extends StatelessWidget {
             children: [
               Expanded(child: _sourceDropdown(context)),
               SourceAddMenu(
-                onSelected: (st) => _controller.needAddSourceEvent(context, st),
+                onSelected: (st) => controller.needAddSourceEvent(context, st),
                 margin: const EdgeInsets.only(right: P),
               )
             ],
           ),
-          if (_controller.selectedSource != null) ...[
+          if (controller.selectedSource != null) ...[
             if (_hasProjects) ...[
-              if (_controller.projects.length > 1)
-                MTCheckBoxTile(title: loc.select_all_action_title, value: _selectedAll, onChanged: _controller.toggleSelectedAll),
+              if (controller.projects.length > 1)
+                MTCheckBoxTile(title: loc.select_all_action_title, value: _selectedAll, onChanged: controller.toggleSelectedAll),
             ] else
               MediumText(
-                _hasError ? Intl.message(_controller.errorCode!) : loc.import_list_empty_title,
+                _hasError ? Intl.message(controller.errorCode!) : loc.import_list_empty_title,
                 align: TextAlign.center,
                 color: _hasError ? warningColor : lightGreyColor,
                 padding: const EdgeInsets.only(top: P_2),
@@ -79,16 +94,16 @@ class ImportView extends StatelessWidget {
         ],
       );
 
-  Widget _body(BuildContext context) => sourceController.sources.isNotEmpty
+  Widget _body(BuildContext context) => ws.sources.isNotEmpty
       ? Column(
           children: [
             _header(context),
-            if (_controller.selectedSource != null)
+            if (controller.selectedSource != null)
               Expanded(
                 child: ListView.builder(
                   shrinkWrap: true,
                   itemBuilder: _projectItemBuilder,
-                  itemCount: _controller.projects.length,
+                  itemCount: controller.projects.length,
                 ),
               ),
           ],
@@ -96,17 +111,17 @@ class ImportView extends StatelessWidget {
       : Center(child: H4(loc.source_list_empty_title, align: TextAlign.center, color: lightGreyColor));
 
   Widget _projectItemBuilder(BuildContext context, int index) {
-    final project = _controller.projects[index];
+    final project = controller.projects[index];
     final value = project.selected;
     return MTCheckBoxTile(
       title: project.title,
       description: project.description,
       value: value,
-      onChanged: (bool? value) => _controller.selectProject(project, value),
+      onChanged: (bool? value) => controller.selectProject(project, value),
     );
   }
 
-  Widget? _bottomBar(BuildContext context) => _controller.selectedSource != null && _hasProjects
+  Widget? _bottomBar(BuildContext context) => controller.selectedSource != null && _hasProjects
       ? Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           if (!_validated)
             NormalText(
@@ -118,12 +133,12 @@ class ImportView extends StatelessWidget {
           MTButton.outlined(
             titleText: loc.import_action_title,
             margin: const EdgeInsets.symmetric(horizontal: P),
-            onTap: _validated ? () => _controller.startImport(context) : null,
+            onTap: _validated ? () => controller.startImport(context) : null,
           )
         ])
-      : sourceController.sources.isEmpty
+      : ws.sources.isEmpty
           ? SourceAddMenu(
-              onSelected: (st) => _controller.needAddSourceEvent(context, st),
+              onSelected: (st) => controller.needAddSourceEvent(context, st),
               margin: const EdgeInsets.symmetric(horizontal: P),
               title: loc.source_title_new)
           : null;

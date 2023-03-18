@@ -6,15 +6,40 @@ import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/source.dart';
 import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities/workspace.dart';
+import '../../../L1_domain/entities_extensions/ws_ext.dart';
 import '../../extra/services.dart';
+import '../../usecases/source_ext.dart';
 import '../_base/edit_controller.dart';
-import 'import_view.dart';
+import '../source/source_edit_view.dart';
 
 part 'import_controller.g.dart';
 
-class ImportController extends _ImportControllerBase with _$ImportController {}
+class ImportController extends _ImportControllerBase with _$ImportController {
+  Future<ImportController> init(bool needAddSource, String? sType) async {
+    selectedSourceId = ws.sources.length == 1 ? ws.sources.first.id : null;
+    // проверяем наличие выбранного типа источника импорта
+    Source? preselectedSource = sType != null ? ws.sourceForType(sType) : selectedSource;
+    // переходим к созданию источника, если нет источников, либо явный запрос на создание, либо источник выбранного типа отсутствует
+    if (ws.sources.isEmpty || needAddSource || (sType != null && preselectedSource == null)) {
+      preselectedSource = await addSource(sType: sType);
+      // выходим из сценария, если отказались создавать или не получилось
+      // if (preselectedSource == null) {
+      //   return;
+      // }
+    }
+
+    // выбираем источник импорта заранее из созданного только что или существующий выбранного типа
+    if (preselectedSource != null) {
+      await selectSource(preselectedSource);
+    }
+    return this;
+  }
+}
 
 abstract class _ImportControllerBase extends EditController with Store {
+  Workspace get ws => mainController.selectedWS!;
+
   @observable
   List<TaskRemote> projects = [];
 
@@ -54,20 +79,20 @@ abstract class _ImportControllerBase extends EditController with Store {
   /// выбранный источник импорта, трекер
 
   @observable
-  int? selectedSourceId = sourceController.sources.length == 1 ? sourceController.sources.first.id : null;
+  int? selectedSourceId;
 
   @action
   Future selectSource(Source? src) async {
     selectedSourceId = src?.id;
     clearData();
 
-    if (selectedSourceId != null) {
+    if (src != null) {
       final loaderDescription = '$selectedSource\n${selectedSource?.url}';
       loaderController.start();
       bool connected = selectedSource?.state == SrcState.connected;
       if (!connected) {
         loaderController.setCheckConnection(loaderDescription);
-        connected = await sourceController.checkSourceConnection(selectedSourceId);
+        connected = await src.checkConnection();
       }
       if (connected) {
         loaderController.setSourceListing(loaderDescription);
@@ -80,7 +105,7 @@ abstract class _ImportControllerBase extends EditController with Store {
   }
 
   @computed
-  Source? get selectedSource => sourceController.sources.firstWhereOrNull((s) => s.id == selectedSourceId);
+  Source? get selectedSource => ws.sourceForId(selectedSourceId);
 
   @computed
   bool get canEdit => selectedSource != null;
@@ -98,30 +123,4 @@ abstract class _ImportControllerBase extends EditController with Store {
   }
 
   void needAddSourceEvent(BuildContext context, String st) => Navigator.of(context).pop(st);
-
-  // старт сценария по импорту задач
-  Future importTasks({bool needAddSource = false, String? sType}) async {
-    // проверяем наличие выбранного типа источника импорта
-    Source? preselectedSource = sType != null ? sourceController.sources.firstWhereOrNull((s) => s.type == sType) : selectedSource;
-    // переходим к созданию источника, если нет источников, либо явный запрос на создание, либо источник выбранного типа отсутствует
-    if (sourceController.sources.isEmpty || needAddSource || (sType != null && preselectedSource == null)) {
-      preselectedSource = await sourceController.addSource(sType: sType);
-      // выходим из сценария, если отказались создавать или не получилось
-      // if (preselectedSource == null) {
-      //   return;
-      // }
-    }
-
-    // выбираем источник импорта заранее из созданного только что или существующий выбранного типа
-    if (preselectedSource != null) {
-      await selectSource(preselectedSource);
-    }
-
-    // если вернулись из диалога с желанием добавить источник импорта, то опять пытаемся добавить источник импорта
-    // диалог с импортом задач
-    final st = await showImportDialog();
-    if (st != null) {
-      await importTasks(needAddSource: true, sType: st);
-    }
-  }
 }

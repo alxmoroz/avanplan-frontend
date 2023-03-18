@@ -14,12 +14,9 @@ import '../tariff/tariff_info.dart';
 import '../tariff/tariff_select_view.dart';
 
 class ContractView extends StatelessWidget {
-  const ContractView(this.wsId);
-  final int wsId;
-
   static String get routeName => '/contract';
 
-  Workspace get ws => mainController.wsForId(wsId)!;
+  Workspace get ws => mainController.selectedWS!;
 
   Future _changeTariff(BuildContext context) async {
     loaderController.start();

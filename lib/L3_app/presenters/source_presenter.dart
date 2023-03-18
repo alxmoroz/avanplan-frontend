@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../L1_domain/entities/source.dart';
 import '../../L1_domain/entities/task_source.dart';
+import '../../L1_domain/entities_extensions/ws_ext.dart';
 import '../components/colors.dart';
 import '../components/constants.dart';
 import '../components/icons.dart';
@@ -34,7 +35,10 @@ extension SourcePresenter on Source {
   Widget info(BuildContext context) {
     final isUnknown = state == SrcState.unknown;
     final connected = state == SrcState.connected;
-    final textColor = connected ? null : lightGreyColor;
+    final checking = state == SrcState.checking;
+    final error = state == SrcState.error;
+
+    final textColor = (connected || isUnknown) ? null : lightGreyColor;
     return Row(children: [
       iconForSourceType(type),
       const SizedBox(width: P_2),
@@ -44,19 +48,25 @@ extension SourcePresenter on Source {
           SmallText(url, color: textColor),
         ]),
       ),
-      isUnknown
+      checking
           ? SizedBox(
               height: _connectionIndicatorSize,
               width: _connectionIndicatorSize,
               child: CircularProgressIndicator(color: lightGreyColor.resolve(context)),
             )
-          : MTCircle(color: connected ? Colors.green : warningColor, size: _connectionIndicatorSize),
+          : MTCircle(
+              color: connected
+                  ? Colors.green
+                  : error
+                      ? warningColor
+                      : lightGreyColor,
+              size: _connectionIndicatorSize),
     ]);
   }
 }
 
 extension TaskSourcePresenter on TaskSource {
-  String? get _typeForId => sourceController.sourceForId(sourceId)?.type;
+  String? get _typeForId => mainController.wsForId(wsId)?.sourceForId(sourceId)?.type;
   Widget go2SourceTitle({bool showSourceIcon = false}) => Row(
         children: [
           if (showSourceIcon) ...[

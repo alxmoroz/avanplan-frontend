@@ -51,5 +51,10 @@ void main() {
     test('to test the property `estimateValues`', () async {
       // TODO
     });
+
+    // BuiltList<SourceGet> sources (default value: ListBuilder())
+    test('to test the property `sources`', () async {
+      // TODO
+    });
   });
 }

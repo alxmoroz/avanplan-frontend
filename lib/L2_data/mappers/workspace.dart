@@ -6,6 +6,7 @@ import '../../L1_domain/entities/workspace.dart';
 import 'estimate_value.dart';
 import 'invoice.dart';
 import 'role.dart';
+import 'source.dart';
 import 'user.dart';
 import 'w_settings.dart';
 
@@ -21,6 +22,7 @@ extension WorkspaceMapper on api.WorkspaceGet {
       invoice: invoice!.invoice(id),
       settings: settings?.settings(id),
       estimateValues: estimateValues?.map((ev) => ev.estimateValue(id)) ?? [],
+      sources: sources?.map((s) => s.source(id)).toList() ?? [],
     );
   }
 }

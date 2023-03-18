@@ -1,6 +1,5 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'package:avanplan/L3_app/presenters/task_level_presenter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -18,6 +17,7 @@ import '../../components/mt_text_field.dart';
 import '../../components/navbar.dart';
 import '../../extra/services.dart';
 import '../../presenters/role_presenter.dart';
+import '../../presenters/task_level_presenter.dart';
 import 'member_edit_controller.dart';
 
 Future<Iterable<Member>?> memberEditDialog(Task task, Member member) async {

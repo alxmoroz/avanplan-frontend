@@ -25,8 +25,8 @@ class WorkspaceListTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           if (ws.description.isNotEmpty) SmallText(ws.description, padding: const EdgeInsets.only(bottom: P_2), maxLines: 2),
-          SmallText(ws.me!.rolesStr, color: greyColor),
           SmallText('${loc.tariff_title}: ${ws.invoice.tariff.title}', color: greyColor),
+          if (mainController.myWorkspaces.length > 1) SmallText(ws.me!.rolesStr, color: greyColor),
         ],
       ),
       trailing: const ChevronIcon(),

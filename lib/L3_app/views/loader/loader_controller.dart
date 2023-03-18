@@ -2,7 +2,6 @@
 
 import 'dart:io';
 
-import 'package:avanplan/L3_app/presenters/communications_presenter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -17,6 +16,7 @@ import '../../components/icons.dart';
 import '../../components/mt_button.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
+import '../../presenters/communications_presenter.dart';
 
 part 'loader_controller.g.dart';
 

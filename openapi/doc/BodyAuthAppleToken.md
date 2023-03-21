@@ -8,10 +8,11 @@ import 'package:openapi/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**appleToken** | **String** |  | 
+**token** | **String** |  | 
 **platform** | **String** |  | 
-**email** | **String** |  | [optional] 
+**locale** | **String** |  | 
 **name** | **String** |  | [optional] 
+**email** | **String** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

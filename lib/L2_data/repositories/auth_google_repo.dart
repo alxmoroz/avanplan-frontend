@@ -47,10 +47,10 @@ class AuthGoogleRepo extends AuthBaseRepo {
       if (token != null) {
         final Response<Token> response = await authApi.authGoogleToken(
           bodyAuthGoogleToken: (BodyAuthGoogleTokenBuilder()
-                ..googleToken = token
-                ..platform = platformCode)
+                ..token = token
+                ..platform = platformCode
+                ..locale = locale ?? 'ru')
               .build(),
-          locale: locale ?? 'ru',
         );
         return parseTokenResponse(response) ?? '';
       }

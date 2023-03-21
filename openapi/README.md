@@ -47,11 +47,10 @@ import 'package:openapi/openapi.dart';
 
 
 final api = Openapi().getAuthApi();
-final String locale = locale_example; // String | 
 final BodyAuthAppleToken bodyAuthAppleToken = ; // BodyAuthAppleToken | 
 
 try {
-    final response = await api.authAppleToken(locale, bodyAuthAppleToken);
+    final response = await api.authAppleToken(bodyAuthAppleToken);
     print(response);
 } catch on DioError (e) {
     print("Exception when calling AuthApi->authAppleToken: $e\n");
@@ -65,9 +64,9 @@ All URIs are relative to */api*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-[*AuthApi*](doc/AuthApi.md) | [**authAppleToken**](doc/AuthApi.md#authappletoken) | **POST** /v1/auth/apple/token | Apple Token
-[*AuthApi*](doc/AuthApi.md) | [**authGoogleToken**](doc/AuthApi.md#authgoogletoken) | **POST** /v1/auth/google/token | Google Token
-[*AuthApi*](doc/AuthApi.md) | [**authToken**](doc/AuthApi.md#authtoken) | **POST** /v1/auth/token | Token
+[*AuthApi*](doc/AuthApi.md) | [**authAppleToken**](doc/AuthApi.md#authappletoken) | **POST** /v1/auth/apple_token | Apple Token
+[*AuthApi*](doc/AuthApi.md) | [**authGoogleToken**](doc/AuthApi.md#authgoogletoken) | **POST** /v1/auth/google_token | Google Token
+[*AuthApi*](doc/AuthApi.md) | [**authToken**](doc/AuthApi.md#authtoken) | **POST** /v1/auth/password_token | Password Token
 [*AuthApi*](doc/AuthApi.md) | [**refreshToken**](doc/AuthApi.md#refreshtoken) | **POST** /v1/auth/refresh_token | Refresh Token
 [*ContractsApi*](doc/ContractsApi.md) | [**signV1ContractsSignPost**](doc/ContractsApi.md#signv1contractssignpost) | **POST** /v1/contracts/sign | Sign
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**checkConnectionV1IntegrationsSourcesCheckConnectionGet**](doc/IntegrationsSourcesApi.md#checkconnectionv1integrationssourcescheckconnectionget) | **GET** /v1/integrations/sources/check_connection | Check Connection

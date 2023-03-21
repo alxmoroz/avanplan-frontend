@@ -31,5 +31,10 @@ void main() {
     test('to test the property `serviceAmount`', () async {
       // TODO
     });
+
+    // int invoiceId
+    test('to test the property `invoiceId`', () async {
+      // TODO
+    });
   });
 }

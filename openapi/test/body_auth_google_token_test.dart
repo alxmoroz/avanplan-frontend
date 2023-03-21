@@ -7,13 +7,18 @@ void main() {
   // TODO add properties to the builder and call build()
 
   group(BodyAuthGoogleToken, () {
-    // String googleToken
-    test('to test the property `googleToken`', () async {
+    // String token
+    test('to test the property `token`', () async {
       // TODO
     });
 
     // String platform
     test('to test the property `platform`', () async {
+      // TODO
+    });
+
+    // String locale
+    test('to test the property `locale`', () async {
       // TODO
     });
   });

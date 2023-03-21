@@ -11,15 +11,19 @@ part 'body_auth_google_token.g.dart';
 /// BodyAuthGoogleToken
 ///
 /// Properties:
-/// * [googleToken] 
+/// * [token] 
 /// * [platform] 
+/// * [locale] 
 @BuiltValue()
 abstract class BodyAuthGoogleToken implements Built<BodyAuthGoogleToken, BodyAuthGoogleTokenBuilder> {
-  @BuiltValueField(wireName: r'google_token')
-  String get googleToken;
+  @BuiltValueField(wireName: r'token')
+  String get token;
 
   @BuiltValueField(wireName: r'platform')
   String get platform;
+
+  @BuiltValueField(wireName: r'locale')
+  String get locale;
 
   BodyAuthGoogleToken._();
 
@@ -44,14 +48,19 @@ class _$BodyAuthGoogleTokenSerializer implements PrimitiveSerializer<BodyAuthGoo
     BodyAuthGoogleToken object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    yield r'google_token';
+    yield r'token';
     yield serializers.serialize(
-      object.googleToken,
+      object.token,
       specifiedType: const FullType(String),
     );
     yield r'platform';
     yield serializers.serialize(
       object.platform,
+      specifiedType: const FullType(String),
+    );
+    yield r'locale';
+    yield serializers.serialize(
+      object.locale,
       specifiedType: const FullType(String),
     );
   }
@@ -77,12 +86,12 @@ class _$BodyAuthGoogleTokenSerializer implements PrimitiveSerializer<BodyAuthGoo
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'google_token':
+        case r'token':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.googleToken = valueDes;
+          result.token = valueDes;
           break;
         case r'platform':
           final valueDes = serializers.deserialize(
@@ -90,6 +99,13 @@ class _$BodyAuthGoogleTokenSerializer implements PrimitiveSerializer<BodyAuthGoo
             specifiedType: const FullType(String),
           ) as String;
           result.platform = valueDes;
+          break;
+        case r'locale':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.locale = valueDes;
           break;
         default:
           unhandled.add(key);

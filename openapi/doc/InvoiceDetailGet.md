@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **endDate** | [**DateTime**](DateTime.md) |  | [optional] 
 **optionCode** | **String** |  | 
 **serviceAmount** | **num** |  | 
+**invoiceId** | **int** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

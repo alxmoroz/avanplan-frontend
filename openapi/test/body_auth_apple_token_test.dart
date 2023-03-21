@@ -7,8 +7,8 @@ void main() {
   // TODO add properties to the builder and call build()
 
   group(BodyAuthAppleToken, () {
-    // String appleToken
-    test('to test the property `appleToken`', () async {
+    // String token
+    test('to test the property `token`', () async {
       // TODO
     });
 
@@ -17,13 +17,18 @@ void main() {
       // TODO
     });
 
-    // String email
-    test('to test the property `email`', () async {
+    // String locale
+    test('to test the property `locale`', () async {
       // TODO
     });
 
     // String name
     test('to test the property `name`', () async {
+      // TODO
+    });
+
+    // String email
+    test('to test the property `email`', () async {
       // TODO
     });
   });

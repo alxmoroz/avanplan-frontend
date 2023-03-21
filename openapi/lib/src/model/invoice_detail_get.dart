@@ -16,6 +16,7 @@ part 'invoice_detail_get.g.dart';
 /// * [endDate] 
 /// * [optionCode] 
 /// * [serviceAmount] 
+/// * [invoiceId] 
 @BuiltValue()
 abstract class InvoiceDetailGet implements Built<InvoiceDetailGet, InvoiceDetailGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -32,6 +33,9 @@ abstract class InvoiceDetailGet implements Built<InvoiceDetailGet, InvoiceDetail
 
   @BuiltValueField(wireName: r'service_amount')
   num get serviceAmount;
+
+  @BuiltValueField(wireName: r'invoice_id')
+  int get invoiceId;
 
   InvoiceDetailGet._();
 
@@ -82,6 +86,11 @@ class _$InvoiceDetailGetSerializer implements PrimitiveSerializer<InvoiceDetailG
     yield serializers.serialize(
       object.serviceAmount,
       specifiedType: const FullType(num),
+    );
+    yield r'invoice_id';
+    yield serializers.serialize(
+      object.invoiceId,
+      specifiedType: const FullType(int),
     );
   }
 
@@ -140,6 +149,13 @@ class _$InvoiceDetailGetSerializer implements PrimitiveSerializer<InvoiceDetailG
             specifiedType: const FullType(num),
           ) as num;
           result.serviceAmount = valueDes;
+          break;
+        case r'invoice_id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.invoiceId = valueDes;
           break;
         default:
           unhandled.add(key);

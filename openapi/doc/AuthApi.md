@@ -9,14 +9,14 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**authAppleToken**](AuthApi.md#authappletoken) | **POST** /v1/auth/apple/token | Apple Token
-[**authGoogleToken**](AuthApi.md#authgoogletoken) | **POST** /v1/auth/google/token | Google Token
-[**authToken**](AuthApi.md#authtoken) | **POST** /v1/auth/token | Token
+[**authAppleToken**](AuthApi.md#authappletoken) | **POST** /v1/auth/apple_token | Apple Token
+[**authGoogleToken**](AuthApi.md#authgoogletoken) | **POST** /v1/auth/google_token | Google Token
+[**authToken**](AuthApi.md#authtoken) | **POST** /v1/auth/password_token | Password Token
 [**refreshToken**](AuthApi.md#refreshtoken) | **POST** /v1/auth/refresh_token | Refresh Token
 
 
 # **authAppleToken**
-> Token authAppleToken(locale, bodyAuthAppleToken)
+> Token authAppleToken(bodyAuthAppleToken)
 
 Apple Token
 
@@ -25,11 +25,10 @@ Apple Token
 import 'package:openapi/api.dart';
 
 final api = Openapi().getAuthApi();
-final String locale = locale_example; // String | 
 final BodyAuthAppleToken bodyAuthAppleToken = ; // BodyAuthAppleToken | 
 
 try {
-    final response = api.authAppleToken(locale, bodyAuthAppleToken);
+    final response = api.authAppleToken(bodyAuthAppleToken);
     print(response);
 } catch on DioError (e) {
     print('Exception when calling AuthApi->authAppleToken: $e\n');
@@ -40,7 +39,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **locale** | **String**|  | 
  **bodyAuthAppleToken** | [**BodyAuthAppleToken**](BodyAuthAppleToken.md)|  | 
 
 ### Return type
@@ -59,7 +57,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **authGoogleToken**
-> Token authGoogleToken(locale, bodyAuthGoogleToken)
+> Token authGoogleToken(bodyAuthGoogleToken)
 
 Google Token
 
@@ -68,11 +66,10 @@ Google Token
 import 'package:openapi/api.dart';
 
 final api = Openapi().getAuthApi();
-final String locale = locale_example; // String | 
 final BodyAuthGoogleToken bodyAuthGoogleToken = ; // BodyAuthGoogleToken | 
 
 try {
-    final response = api.authGoogleToken(locale, bodyAuthGoogleToken);
+    final response = api.authGoogleToken(bodyAuthGoogleToken);
     print(response);
 } catch on DioError (e) {
     print('Exception when calling AuthApi->authGoogleToken: $e\n');
@@ -83,7 +80,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **locale** | **String**|  | 
  **bodyAuthGoogleToken** | [**BodyAuthGoogleToken**](BodyAuthGoogleToken.md)|  | 
 
 ### Return type
@@ -104,7 +100,7 @@ No authorization required
 # **authToken**
 > Token authToken(username, password, grantType, scope, clientId, clientSecret)
 
-Token
+Password Token
 
 ### Example
 ```dart

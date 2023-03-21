@@ -25,7 +25,6 @@ class AuthApi {
   /// 
   ///
   /// Parameters:
-  /// * [locale] 
   /// * [bodyAuthAppleToken] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
@@ -37,7 +36,6 @@ class AuthApi {
   /// Returns a [Future] containing a [Response] with a [Token] as data
   /// Throws [DioError] if API call or serialization fails
   Future<Response<Token>> authAppleToken({ 
-    required String locale,
     required BodyAuthAppleToken bodyAuthAppleToken,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -46,7 +44,7 @@ class AuthApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/auth/apple/token';
+    final _path = r'/v1/auth/apple_token';
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -60,10 +58,6 @@ class AuthApi {
       validateStatus: validateStatus,
     );
 
-    final _queryParameters = <String, dynamic>{
-      r'locale': encodeQueryParameter(_serializers, locale, const FullType(String)),
-    };
-
     dynamic _bodyData;
 
     try {
@@ -75,7 +69,6 @@ class AuthApi {
          requestOptions: _options.compose(
           _dio.options,
           _path,
-          queryParameters: _queryParameters,
         ),
         type: DioErrorType.other,
         error: error,
@@ -86,7 +79,6 @@ class AuthApi {
       _path,
       data: _bodyData,
       options: _options,
-      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
@@ -126,7 +118,6 @@ class AuthApi {
   /// 
   ///
   /// Parameters:
-  /// * [locale] 
   /// * [bodyAuthGoogleToken] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
@@ -138,7 +129,6 @@ class AuthApi {
   /// Returns a [Future] containing a [Response] with a [Token] as data
   /// Throws [DioError] if API call or serialization fails
   Future<Response<Token>> authGoogleToken({ 
-    required String locale,
     required BodyAuthGoogleToken bodyAuthGoogleToken,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -147,7 +137,7 @@ class AuthApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/auth/google/token';
+    final _path = r'/v1/auth/google_token';
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -161,10 +151,6 @@ class AuthApi {
       validateStatus: validateStatus,
     );
 
-    final _queryParameters = <String, dynamic>{
-      r'locale': encodeQueryParameter(_serializers, locale, const FullType(String)),
-    };
-
     dynamic _bodyData;
 
     try {
@@ -176,7 +162,6 @@ class AuthApi {
          requestOptions: _options.compose(
           _dio.options,
           _path,
-          queryParameters: _queryParameters,
         ),
         type: DioErrorType.other,
         error: error,
@@ -187,7 +172,6 @@ class AuthApi {
       _path,
       data: _bodyData,
       options: _options,
-      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
@@ -223,7 +207,7 @@ class AuthApi {
     );
   }
 
-  /// Token
+  /// Password Token
   /// 
   ///
   /// Parameters:
@@ -256,7 +240,7 @@ class AuthApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/auth/token';
+    final _path = r'/v1/auth/password_token';
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{

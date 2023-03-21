@@ -51,12 +51,12 @@ class AuthAppleRepo extends AuthBaseRepo {
     if (appleToken.isNotEmpty) {
       final Response<Token> response = await authApi.authAppleToken(
         bodyAuthAppleToken: (BodyAuthAppleTokenBuilder()
-              ..appleToken = appleToken
+              ..token = appleToken
               ..platform = platformCode
               ..email = email
-              ..name = name)
+              ..name = name
+              ..locale = locale ?? 'ru')
             .build(),
-        locale: locale ?? 'ru',
       );
       return parseTokenResponse(response) ?? '';
     }

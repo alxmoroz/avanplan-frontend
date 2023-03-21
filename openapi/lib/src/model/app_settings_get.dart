@@ -20,7 +20,7 @@ abstract class AppSettingsGet implements Built<AppSettingsGet, AppSettingsGetBui
   int get id;
 
   @BuiltValueField(wireName: r'frontend_flags')
-  String get frontendFlags;
+  String? get frontendFlags;
 
   @BuiltValueField(wireName: r'ws_owner_role_id')
   int? get wsOwnerRoleId;
@@ -53,11 +53,13 @@ class _$AppSettingsGetSerializer implements PrimitiveSerializer<AppSettingsGet> 
       object.id,
       specifiedType: const FullType(int),
     );
-    yield r'frontend_flags';
-    yield serializers.serialize(
-      object.frontendFlags,
-      specifiedType: const FullType(String),
-    );
+    if (object.frontendFlags != null) {
+      yield r'frontend_flags';
+      yield serializers.serialize(
+        object.frontendFlags,
+        specifiedType: const FullType(String),
+      );
+    }
     if (object.wsOwnerRoleId != null) {
       yield r'ws_owner_role_id';
       yield serializers.serialize(

@@ -11,23 +11,27 @@ part 'body_auth_apple_token.g.dart';
 /// BodyAuthAppleToken
 ///
 /// Properties:
-/// * [appleToken] 
+/// * [token] 
 /// * [platform] 
-/// * [email] 
+/// * [locale] 
 /// * [name] 
+/// * [email] 
 @BuiltValue()
 abstract class BodyAuthAppleToken implements Built<BodyAuthAppleToken, BodyAuthAppleTokenBuilder> {
-  @BuiltValueField(wireName: r'apple_token')
-  String get appleToken;
+  @BuiltValueField(wireName: r'token')
+  String get token;
 
   @BuiltValueField(wireName: r'platform')
   String get platform;
 
-  @BuiltValueField(wireName: r'email')
-  String? get email;
+  @BuiltValueField(wireName: r'locale')
+  String get locale;
 
   @BuiltValueField(wireName: r'name')
   String? get name;
+
+  @BuiltValueField(wireName: r'email')
+  String? get email;
 
   BodyAuthAppleToken._();
 
@@ -52,9 +56,9 @@ class _$BodyAuthAppleTokenSerializer implements PrimitiveSerializer<BodyAuthAppl
     BodyAuthAppleToken object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    yield r'apple_token';
+    yield r'token';
     yield serializers.serialize(
-      object.appleToken,
+      object.token,
       specifiedType: const FullType(String),
     );
     yield r'platform';
@@ -62,17 +66,22 @@ class _$BodyAuthAppleTokenSerializer implements PrimitiveSerializer<BodyAuthAppl
       object.platform,
       specifiedType: const FullType(String),
     );
-    if (object.email != null) {
-      yield r'email';
-      yield serializers.serialize(
-        object.email,
-        specifiedType: const FullType(String),
-      );
-    }
+    yield r'locale';
+    yield serializers.serialize(
+      object.locale,
+      specifiedType: const FullType(String),
+    );
     if (object.name != null) {
       yield r'name';
       yield serializers.serialize(
         object.name,
+        specifiedType: const FullType(String),
+      );
+    }
+    if (object.email != null) {
+      yield r'email';
+      yield serializers.serialize(
+        object.email,
         specifiedType: const FullType(String),
       );
     }
@@ -99,12 +108,12 @@ class _$BodyAuthAppleTokenSerializer implements PrimitiveSerializer<BodyAuthAppl
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'apple_token':
+        case r'token':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.appleToken = valueDes;
+          result.token = valueDes;
           break;
         case r'platform':
           final valueDes = serializers.deserialize(
@@ -113,12 +122,12 @@ class _$BodyAuthAppleTokenSerializer implements PrimitiveSerializer<BodyAuthAppl
           ) as String;
           result.platform = valueDes;
           break;
-        case r'email':
+        case r'locale':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.email = valueDes;
+          result.locale = valueDes;
           break;
         case r'name':
           final valueDes = serializers.deserialize(
@@ -126,6 +135,13 @@ class _$BodyAuthAppleTokenSerializer implements PrimitiveSerializer<BodyAuthAppl
             specifiedType: const FullType(String),
           ) as String;
           result.name = valueDes;
+          break;
+        case r'email':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.email = valueDes;
           break;
         default:
           unhandled.add(key);

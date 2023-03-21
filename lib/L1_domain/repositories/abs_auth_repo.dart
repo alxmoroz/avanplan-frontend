@@ -2,7 +2,7 @@
 
 abstract class AbstractAuthRepo {
   Future<bool> signInIsAvailable();
-  Future<String> signIn({String? login, String? pwd, String? locale});
+  Future<String> signIn({String? login, String? pwd, String? locale, bool? invited});
   Future signOut();
   Future refreshToken();
 }

@@ -34,20 +34,20 @@ class AuthUC {
     return await hasLocalAuth;
   }
 
-  Future<bool> _signIn(AbstractAuthRepo repo, {String? login, String? pwd, String? locale}) async {
+  Future<bool> _signIn(AbstractAuthRepo repo, {String? login, String? pwd, String? locale, bool? invited}) async {
     _currentRepo = repo;
     return await _signInWithToken(
-      await repo.signIn(locale: locale, login: login, pwd: pwd),
+      await repo.signIn(locale: locale, login: login, pwd: pwd, invited: invited),
     );
   }
 
   Future<bool> signInWithPassword({required String login, required String pwd}) async => await _signIn(passwordRepo, login: login, pwd: pwd);
 
   Future<bool> signInWithGoogleIsAvailable() async => await googleRepo.signInIsAvailable();
-  Future<bool> signInWithGoogle(String locale) async => await _signIn(googleRepo, locale: locale);
+  Future<bool> signInWithGoogle(String locale, bool? invited) async => await _signIn(googleRepo, locale: locale, invited: invited);
 
   Future<bool> signInWithAppleIsAvailable() async => await appleRepo.signInIsAvailable();
-  Future<bool> signInWithApple(String locale) async => await _signIn(appleRepo, locale: locale);
+  Future<bool> signInWithApple(String locale, bool? invited) async => await _signIn(appleRepo, locale: locale, invited: invited);
 
   static const _authCheckPeriod = Duration(hours: 12);
   Future<bool> refreshAuth() async {

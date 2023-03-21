@@ -14,6 +14,7 @@ part 'body_auth_google_token.g.dart';
 /// * [token] 
 /// * [platform] 
 /// * [locale] 
+/// * [invited] 
 @BuiltValue()
 abstract class BodyAuthGoogleToken implements Built<BodyAuthGoogleToken, BodyAuthGoogleTokenBuilder> {
   @BuiltValueField(wireName: r'token')
@@ -24,6 +25,9 @@ abstract class BodyAuthGoogleToken implements Built<BodyAuthGoogleToken, BodyAut
 
   @BuiltValueField(wireName: r'locale')
   String get locale;
+
+  @BuiltValueField(wireName: r'invited')
+  bool? get invited;
 
   BodyAuthGoogleToken._();
 
@@ -63,6 +67,13 @@ class _$BodyAuthGoogleTokenSerializer implements PrimitiveSerializer<BodyAuthGoo
       object.locale,
       specifiedType: const FullType(String),
     );
+    if (object.invited != null) {
+      yield r'invited';
+      yield serializers.serialize(
+        object.invited,
+        specifiedType: const FullType(bool),
+      );
+    }
   }
 
   @override
@@ -106,6 +117,13 @@ class _$BodyAuthGoogleTokenSerializer implements PrimitiveSerializer<BodyAuthGoo
             specifiedType: const FullType(String),
           ) as String;
           result.locale = valueDes;
+          break;
+        case r'invited':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.invited = valueDes;
           break;
         default:
           unhandled.add(key);

@@ -83,7 +83,7 @@ class App extends StatelessWidget {
       localizationsDelegates: localizationsDelegates,
       supportedLocales: supportedLocales,
       onGenerateRoute: (RouteSettings rs) {
-        linkController.parseDeepLink(rs.name);
+        deepLinkController.parseDeepLink(rs.name);
         return null;
       },
       home: Observer(

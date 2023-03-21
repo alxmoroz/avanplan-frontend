@@ -28,6 +28,8 @@ abstract class _AuthControllerBase with Store {
   @action
   void setAuthorized(bool _auth) => authorized = _auth;
 
+  bool? get _invited => deepLinkController.invitationToken?.isNotEmpty;
+
   String _langCode(BuildContext context) => Localizations.localeOf(context).languageCode;
 
   Future signInWithPassword(BuildContext context, String login, String pwd) async {
@@ -42,7 +44,7 @@ abstract class _AuthControllerBase with Store {
     loaderController.start();
     loaderController.setAuth();
     try {
-      setAuthorized(await authUC.signInWithGoogle(_langCode(context)));
+      setAuthorized(await authUC.signInWithGoogle(_langCode(context), _invited));
       await loaderController.stop();
     } on MTOAuthError catch (e) {
       loaderController.setAuthError(e.detail);
@@ -53,7 +55,7 @@ abstract class _AuthControllerBase with Store {
     loaderController.start();
     loaderController.setAuth();
     try {
-      setAuthorized(await authUC.signInWithApple(_langCode(context)));
+      setAuthorized(await authUC.signInWithApple(_langCode(context), _invited));
       await loaderController.stop();
     } on MTOAuthError catch (e) {
       loaderController.setAuthError(e.detail);

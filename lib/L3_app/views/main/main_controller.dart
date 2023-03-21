@@ -117,7 +117,7 @@ abstract class _MainControllerBase with Store {
   // static const _updatePeriod = Duration(minutes: 30);
   static const _updatePeriod = Duration(hours: 1);
   Future requestUpdate() async {
-    final hasDeepLinks = await linkController.processDeepLinks();
+    final hasDeepLinks = await deepLinkController.processDeepLinks();
     final timeToUpdate = updatedDate == null || updatedDate!.add(_updatePeriod).isBefore(DateTime.now());
     if (paymentController.waitingPayment || hasDeepLinks || timeToUpdate) {
       await update();

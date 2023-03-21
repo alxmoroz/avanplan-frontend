@@ -55,7 +55,7 @@ ReferencesController get refsController => GetIt.I<ReferencesController>();
 AccountController get accountController => GetIt.I<AccountController>();
 AuthController get authController => GetIt.I<AuthController>();
 NotificationController get notificationController => GetIt.I<NotificationController>();
-DeepLinkController get linkController => GetIt.I<DeepLinkController>();
+DeepLinkController get deepLinkController => GetIt.I<DeepLinkController>();
 PaymentController get paymentController => GetIt.I<PaymentController>();
 
 LocalSettingsUC get localSettingsUC => GetIt.I<LocalSettingsUC>();

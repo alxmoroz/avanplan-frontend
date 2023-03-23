@@ -9,6 +9,7 @@ environment:
 publish_to: none
 
 dependencies:
+  app_settings: any
   cupertino_icons: any
   device_info_plus: ^8.1.0
   flutter:

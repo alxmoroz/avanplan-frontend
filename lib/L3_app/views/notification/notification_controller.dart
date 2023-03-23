@@ -28,7 +28,7 @@ abstract class _NotificationControllerBase with Store {
   bool get hasUnread => unreadCount > 0;
 
   @action
-  void selectNotification(MTNotification? n) => selectedNotificationId = n?.id;
+  void _selectNotification(MTNotification? n) => selectedNotificationId = n?.id;
 
   @computed
   MTNotification? get selectedNotification => notifications.firstWhereOrNull((m) => m.id == selectedNotificationId);
@@ -39,26 +39,35 @@ abstract class _NotificationControllerBase with Store {
   }
 
   @action
-  void clearData() => notifications.clear();
+  void clearData() => notifications = [];
 
   Future showNotification(BuildContext context, {required MTNotification n}) async {
-    selectNotification(n);
+    _selectNotification(n);
     await showNotificationDialog(context);
 
     if (!n.isRead) {
       n.isRead = true;
       await myUC.markReadNotifications([n.id!]);
+      // TODO: ещё один запрос ведь не обязателен тут! можно дернуть notifications = [...notifications]
+      // TODO: либо получить новый набор уведомлений с запроса выше
       await fetchData();
     }
   }
 
+  @observable
+  bool pushDenied = false;
+
+  @action
   Future initPush() async {
     final connector = await getApnsTokenConnector();
     final token = connector.token.value;
-    final hasPermission = await connector.getAuthorizationStatus() == ApnsAuthorizationStatus.authorized;
+    final hasToken = token?.isNotEmpty == true;
+    final authStatus = await connector.getAuthorizationStatus();
+    final pushAuthorized = hasToken && authStatus == ApnsAuthorizationStatus.authorized;
+    pushDenied = authStatus == ApnsAuthorizationStatus.denied;
 
-    if (token != null) {
-      await myUC.updatePushToken(token, hasPermission);
+    if (hasToken) {
+      await myUC.updatePushToken(token!, pushAuthorized);
     }
   }
 }

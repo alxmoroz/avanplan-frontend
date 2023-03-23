@@ -105,7 +105,7 @@ abstract class _TaskEditControllerBase extends EditController with Store {
   }
 
   Future delete(BuildContext context, Task task) async {
-    final confirm = await showMTDialog<bool?>(
+    final confirm = await showMTDialog(
       context,
       title: task.deleteDialogTitle,
       description: '${loc.task_delete_dialog_description}\n${loc.delete_dialog_description}',

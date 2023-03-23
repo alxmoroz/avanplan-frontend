@@ -7,6 +7,7 @@
   "account_delete_dialog_description": "Также будут удалены ваши рабочие пространства вместе с задачами, если в них нет других пользователей\nЭто действие необратимо",
   "account_title": "Учётная запись",
 
+  "app_settings_action_title": "Настройки",
   "app_title": "Аванплан",
 
   "auth_password_placeholder": "Пароль",
@@ -131,6 +132,9 @@
   "notification_list_empty_title": "Уведомлений нет",
   "notification_list_hint_title": "Отображаются уведомления за последние 30 дней",
   "notification_list_title": "Уведомления",
+  "notification_push_ios_denied_btn_title": "Для получения Push-уведомлений\nвключите их в настройках",
+  "notification_push_ios_denied_dialog_description": "В настройках приложения:\nУведомления ->\nДопуск уведомлений",
+  "notification_push_ios_denied_dialog_title": "Включение Push-уведомлений",
   "notification_title": "Уведомление",
 
   "ok": "Ясно",

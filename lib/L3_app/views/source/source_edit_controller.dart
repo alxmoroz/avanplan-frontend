@@ -77,7 +77,7 @@ abstract class _SourceEditControllerBase extends EditController with Store {
 
   Future delete(BuildContext context) async {
     if (canEdit) {
-      final confirm = await showMTDialog<bool?>(
+      final confirm = await showMTDialog(
         context,
         title: loc.source_delete_dialog_title,
         description: '${loc.source_delete_dialog_description}\n\n${loc.delete_dialog_description}',

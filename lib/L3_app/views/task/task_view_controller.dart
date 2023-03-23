@@ -79,14 +79,14 @@ abstract class _TaskViewControllerBase with Store {
     return unlinked;
   }
 
-  MTDialogAction<bool?> _go2SourceDialogAction() => MTDialogAction(
+  MTDialogAction<bool> _go2SourceDialogAction() => MTDialogAction(
         type: MTActionType.isDefault,
         onTap: () => launchUrlString(task.taskSource!.urlString),
         result: false,
         child: task.taskSource!.go2SourceTitle(),
       );
 
-  Future<bool?> _unlinkDialog() async => await showMTDialog<bool?>(
+  Future<bool?> _unlinkDialog() async => await showMTDialog(
         rootKey.currentContext!,
         title: loc.task_unlink_dialog_title,
         description: loc.task_unlink_dialog_description,
@@ -101,7 +101,7 @@ abstract class _TaskViewControllerBase with Store {
         ],
       );
 
-  Future<bool?> _unwatchDialog() async => await showMTDialog<bool?>(
+  Future<bool?> _unwatchDialog() async => await showMTDialog(
         rootKey.currentContext!,
         title: loc.task_unwatch_dialog_title,
         description: loc.task_unwatch_dialog_description,
@@ -116,7 +116,7 @@ abstract class _TaskViewControllerBase with Store {
         ],
       );
 
-  Future<bool?> _closeDialog() async => await showMTDialog<bool?>(
+  Future<bool?> _closeDialog() async => await showMTDialog(
         rootKey.currentContext!,
         title: loc.close_dialog_recursive_title,
         description: loc.close_dialog_recursive_description,

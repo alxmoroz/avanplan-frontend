@@ -7,6 +7,7 @@
   "account_delete_dialog_title": "Delete your account?",
   "account_title": "Account",
 
+  "app_settings_action_title": "Open Settings",
   "app_title": "Avanplan",
 
   "auth_sign_in_action_title": "Sign in",
@@ -132,6 +133,9 @@
   "notification_list_empty_title": "No notifications",
   "notification_list_hint_title": "Shows notifications from the last 30 days",
   "notification_list_title": "Notifications",
+  "notification_push_ios_denied_btn_title": "To receive Push notifications,\nturn them on in settings",
+  "notification_push_ios_denied_dialog_description": "In app settings:\nNotifications ->\nAllow Notifications",
+  "notification_push_ios_denied_dialog_title": "Enable Push notifications",
   "notification_title": "Notification",
 
   "ok": "Ok",

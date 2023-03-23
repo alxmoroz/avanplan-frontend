@@ -31,7 +31,7 @@ abstract class _AccountControllerBase extends EditController with Store {
   }
 
   Future delete(BuildContext context) async {
-    final confirm = await showMTDialog<bool?>(
+    final confirm = await showMTDialog(
       context,
       title: loc.account_delete_dialog_title,
       description: loc.account_delete_dialog_description,

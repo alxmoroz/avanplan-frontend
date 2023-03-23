@@ -1,11 +1,15 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:app_settings/app_settings.dart' as sys_settings;
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
+import '../../components/mt_button.dart';
+import '../../components/mt_confirm_dialog.dart';
 import '../../components/mt_list_tile.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
@@ -47,6 +51,22 @@ class NotificationListView extends StatelessWidget {
     }
   }
 
+  Future _showGotoSystemSettingsDialog() async {
+    final gotoSettings = await showMTDialog(
+      rootKey.currentContext!,
+      title: loc.notification_push_ios_denied_dialog_title,
+      description: loc.notification_push_ios_denied_dialog_description,
+      actions: [
+        MTDialogAction(title: loc.cancel, result: false),
+        MTDialogAction(title: loc.app_settings_action_title, result: true, type: MTActionType.isDefault),
+      ],
+      simple: true,
+    );
+    if (gotoSettings == true) {
+      await sys_settings.AppSettings.openAppSettings();
+    }
+  }
+
   @override
   Widget build(BuildContext context) => Observer(
         builder: (_) => MTPage(
@@ -61,6 +81,16 @@ class NotificationListView extends StatelessWidget {
                     itemCount: _controller.notifications.length + 1,
                   ),
           ),
+          bottomBar: _controller.pushDenied
+              ? MTButton(
+                  leading: const PrivacyIcon(color: mainColor, size: P2),
+                  middle: SmallText(
+                    loc.notification_push_ios_denied_btn_title,
+                    align: TextAlign.center,
+                  ),
+                  onTap: _showGotoSystemSettingsDialog,
+                )
+              : null,
         ),
       );
 }

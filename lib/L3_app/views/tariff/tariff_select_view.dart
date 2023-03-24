@@ -1,5 +1,7 @@
 // Copyright (c) 2023. Alexandr Moroz
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
@@ -45,9 +47,12 @@ class TariffSelectView extends StatelessWidget {
       );
 
   Widget _paymentButton(BuildContext context, num balanceLack) {
-    const snap = 1000;
+    const snap = 100;
+    const minSum = 300;
+    const maxSum = 10000;
     final whole = balanceLack % snap == 0;
-    final paymentSum = ((balanceLack ~/ snap) + (whole ? 0 : 1)) * snap;
+    final snappedSum = ((balanceLack ~/ snap) + (whole ? 0 : 1)) * snap;
+    final paymentSum = min(maxSum, max(minSum, snappedSum));
     return Padding(
         padding: const EdgeInsets.all(P).copyWith(top: 0),
         child: Column(children: [

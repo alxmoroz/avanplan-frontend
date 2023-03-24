@@ -9,8 +9,6 @@ import 'icons.dart';
 import 'mt_constrained.dart';
 import 'text_widgets.dart';
 
-//TODO: решить вопрос в UIKit по кнопкам. После чего добавить сюда все варианты кнопок
-
 enum ButtonType { text, outlined, icon }
 
 class MTButton extends StatelessWidget {

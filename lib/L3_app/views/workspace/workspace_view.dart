@@ -42,7 +42,6 @@ class WorkspaceView extends StatelessWidget {
         leading: Column(children: const [TariffIcon(), SmallText('')]),
         middle: Row(children: [NormalText(loc.tariff_title), const SizedBox(width: P_2), MediumText(ws.invoice.tariff.title)]),
         subtitle: SmallText('${loc.contract_effective_date_title} ${ws.invoice.contract.createdOn.strMedium}', color: greyColor),
-        // TODO: if (controller.balance > 0) SmallText('Хватит на 1 мес.', color: greyColor),
         trailing: const ChevronIcon(),
         onTap: () async => await Navigator.of(context).pushNamed(ContractView.routeName),
       );

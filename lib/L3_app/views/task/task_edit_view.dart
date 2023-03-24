@@ -25,8 +25,6 @@ import '../../extra/services.dart';
 import '../../presenters/task_level_presenter.dart';
 import 'task_edit_controller.dart';
 
-//TODO: подумать над унификацией полей. Возможно, получится избавиться от дуэта MTField и TFAnnotation
-
 class EditTaskResult {
   const EditTaskResult(this.task, [this.proceed]);
   final Task task;

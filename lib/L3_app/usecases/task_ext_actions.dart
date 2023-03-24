@@ -103,7 +103,6 @@ extension TaskActionsExt on Task {
         if (deleted) {
           parent!.tasks.removeAt(index);
         } else {
-          //TODO: проверить необходимость в copy
           parent!.tasks[index] = this;
         }
       }

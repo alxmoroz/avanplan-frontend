@@ -41,13 +41,14 @@ abstract class _MainControllerBase with Store {
 
   @action
   // TODO: нужен способ дергать обсервер без этих хаков
+  // TODO: должно частично решиться https://redmine.moroz.team/issues/2566
   void touchWorkspaces() => mainController.myWorkspaces = [...mainController.myWorkspaces];
 
   /// рутовый объект
   @observable
   Task rootTask = Task(title: '', closed: false, parent: null, tasks: [], members: [], wsId: -1);
 
-  // TODO: пропала уникальность задач по id. Т.к. могут быть из разных БД!!!
+  // TODO: пропала уникальность задач по id. Т.к. могут быть из разных БД (РП)!!!
   @computed
   Map<int, Task> get _tasksMap => {for (var t in rootTask.allTasks) t.id!: t};
 
@@ -81,14 +82,11 @@ abstract class _MainControllerBase with Store {
   Future fetchData() async {
     loaderController.setRefreshing();
     await settingsController.fetchAppsettings();
-    // TODO: можно завести при открытии соотв. экранов, если тут это не обязательно данные эти
     await accountController.fetchData();
     await refsController.fetchData();
     await notificationController.fetchData();
 
     await fetchWorkspaces();
-
-    // TODO: чтобы сохранять положение в навигации внутри приложения, нужно синхронизировать id текущей выбранной задачи на сервер в профиль пользователя
   }
 
   @action

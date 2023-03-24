@@ -61,7 +61,6 @@ class ImportView extends StatelessWidget {
             DropdownMenuItem<Source>(value: s, child: Padding(padding: const EdgeInsets.only(right: P), child: s.info(context)))
         ],
         label: loc.source_import_placeholder,
-        dense: false,
         margin: const EdgeInsets.symmetric(horizontal: P),
       );
 
@@ -123,18 +122,18 @@ class ImportView extends StatelessWidget {
 
   Widget? _bottomBar(BuildContext context) => controller.selectedSource != null && _hasProjects
       ? Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          if (!_validated)
-            NormalText(
-              loc.import_projects_select_hint,
-              color: warningColor,
-              align: TextAlign.center,
-              padding: const EdgeInsets.only(bottom: P_2),
-            ),
-          MTButton.outlined(
-            titleText: loc.import_action_title,
-            margin: const EdgeInsets.symmetric(horizontal: P),
-            onTap: _validated ? () => controller.startImport(context) : null,
-          )
+          _validated
+              ? MTButton.outlined(
+                  titleText: loc.import_action_title,
+                  margin: const EdgeInsets.symmetric(horizontal: P),
+                  onTap: _validated ? () => controller.startImport(context) : null,
+                )
+              : NormalText(
+                  loc.import_projects_select_hint,
+                  color: warningColor,
+                  align: TextAlign.center,
+                  padding: const EdgeInsets.symmetric(vertical: P),
+                )
         ])
       : ws.sources.isEmpty
           ? SourceAddMenu(

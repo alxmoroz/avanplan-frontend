@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:avanplan/L3_app/components/mt_list_tile.dart';
 import 'package:flutter/material.dart';
 
 import '../../L1_domain/entities/source.dart';
@@ -39,16 +40,12 @@ extension SourcePresenter on Source {
     final error = state == SrcState.error;
 
     final textColor = (connected || isUnknown) ? null : lightGreyColor;
-    return Row(children: [
-      iconForSourceType(type),
-      const SizedBox(width: P_2),
-      Expanded(
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          NormalText('$this', color: textColor),
-          SmallText(url, color: textColor),
-        ]),
-      ),
-      checking
+
+    return MTListTile(
+      leading: iconForSourceType(type),
+      middle: NormalText('$this', color: textColor),
+      padding: EdgeInsets.zero,
+      trailing: checking
           ? SizedBox(
               height: _connectionIndicatorSize,
               width: _connectionIndicatorSize,
@@ -61,7 +58,8 @@ extension SourcePresenter on Source {
                       ? warningColor
                       : lightGreyColor,
               size: _connectionIndicatorSize),
-    ]);
+      bottomBorder: false,
+    );
   }
 }
 

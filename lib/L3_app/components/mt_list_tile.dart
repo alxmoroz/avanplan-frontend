@@ -16,6 +16,7 @@ class MTListTile extends StatelessWidget {
     this.trailing,
     this.onTap,
     this.color,
+    this.padding,
     this.topBorder = false,
     this.bottomBorder = true,
   });
@@ -25,9 +26,10 @@ class MTListTile extends StatelessWidget {
   final String? titleText;
   final Widget? trailing;
   final Function()? onTap;
+  final Color? color;
+  final EdgeInsets? padding;
   final bool topBorder;
   final bool bottomBorder;
-  final Color? color;
 
   @override
   Widget build(BuildContext context) => material(
@@ -40,7 +42,7 @@ class MTListTile extends StatelessWidget {
                 bottom: bottomBorder ? BorderSide(width: 1, color: borderColor.resolve(context)) : BorderSide.none,
               ),
             ),
-            padding: const EdgeInsets.all(P),
+            padding: padding ?? const EdgeInsets.all(P),
             child: Row(
               children: [
                 if (leading != null) ...[leading!, const SizedBox(width: P_2)],

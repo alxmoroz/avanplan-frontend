@@ -87,7 +87,7 @@ abstract class _ImportControllerBase extends EditController with Store {
     clearData();
 
     if (src != null) {
-      final loaderDescription = '$selectedSource\n${selectedSource?.url}';
+      final loaderDescription = '$selectedSource';
       loaderController.start();
       bool connected = selectedSource?.state == SrcState.connected;
       if (!connected) {

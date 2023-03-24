@@ -31,5 +31,8 @@ class Source extends WSBounded {
   SrcState state;
 
   @override
-  String toString() => description.isEmpty ? type : description;
+  String toString() {
+    final host = Uri.tryParse(url)?.host;
+    return description.isNotEmpty ? description : host ?? url;
+  }
 }

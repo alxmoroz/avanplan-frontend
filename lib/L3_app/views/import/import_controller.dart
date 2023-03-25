@@ -114,7 +114,7 @@ abstract class _ImportControllerBase extends EditController with Store {
 
   Future startImport(BuildContext context) async {
     loaderController.start();
-    loaderController.setImporting('$selectedSource\n${selectedSource?.url}');
+    loaderController.setImporting('$selectedSource');
     final taskSources = selectedProjects.map((t) => t.taskSource!);
     await importUC.importTaskSources(selectedSource!, taskSources);
     Navigator.of(context).pop();

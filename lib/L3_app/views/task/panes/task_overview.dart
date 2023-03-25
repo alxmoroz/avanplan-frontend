@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_level.dart';
@@ -23,7 +24,6 @@ import '../widgets/charts/velocity_chart.dart';
 import '../widgets/charts/volume_chart.dart';
 import '../widgets/state_title.dart';
 import '../widgets/task_add_button.dart';
-import '../widgets/task_add_menu.dart';
 
 class TaskOverview extends StatelessWidget {
   const TaskOverview(this.controller);
@@ -31,27 +31,25 @@ class TaskOverview extends StatelessWidget {
 
   Task get task => controller.task;
 
-  Widget? get bottomBar => task.canCreate
-      ? Row(children: [const Spacer(), TaskAddMenu(controller)])
-      : task.shouldAddSubtask
-          ? TaskAddButton(controller)
-          : task.canReopen || task.shouldClose || task.shouldCloseLeaf
-              ? Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-                  if (task.shouldClose)
-                    MediumText(
-                      loc.state_closable_hint,
-                      align: TextAlign.center,
-                      color: lightGreyColor,
-                      padding: const EdgeInsets.only(bottom: P_3),
-                    ),
-                  MTButton.outlined(
-                    margin: const EdgeInsets.symmetric(horizontal: P),
-                    titleText: (task.shouldClose || task.shouldCloseLeaf) ? loc.close_action_title : loc.task_reopen_action_title,
-                    leading: DoneIcon(task.shouldClose || task.shouldCloseLeaf),
-                    onTap: () => controller.setClosed(!task.closed),
-                  ),
-                ])
-              : null;
+  Widget? get bottomBar => task.shouldAddSubtask
+      ? TaskAddButton(controller)
+      : task.canReopen || task.shouldClose || task.shouldCloseLeaf
+          ? Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+              if (task.shouldClose)
+                MediumText(
+                  loc.state_closable_hint,
+                  align: TextAlign.center,
+                  color: lightGreyColor,
+                  padding: const EdgeInsets.only(bottom: P_3),
+                ),
+              MTButton.outlined(
+                margin: const EdgeInsets.symmetric(horizontal: P),
+                titleText: (task.shouldClose || task.shouldCloseLeaf) ? loc.close_action_title : loc.task_reopen_action_title,
+                leading: DoneIcon(task.shouldClose || task.shouldCloseLeaf),
+                onTap: () => controller.setClosed(!task.closed),
+              ),
+            ])
+          : null;
 
   Widget _checkRecommendsItem(bool checked, String text) => Row(children: [
         DoneIcon(checked, color: checked ? greenColor : greyColor, size: P * 3, solid: checked),
@@ -71,60 +69,62 @@ class TaskOverview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
-      children: [
-        Padding(
-            padding: const EdgeInsets.all(P).copyWith(bottom: 0),
-            child: Column(children: [
-              if (task.showState)
-                task.isWorkspace
-                    ? GroupStateTitle(task, task.subtasksState, place: StateTitlePlace.workspace)
-                    : task.showRecommendsEta || task.projectLowStart
-                        ? H3('${loc.state_no_info_title}: ${task.stateTitle.toLowerCase()}', align: TextAlign.center)
-                        : TaskStateTitle(task, place: StateTitlePlace.taskOverview),
+    return Observer(
+      builder: (_) => ListView(
+        shrinkWrap: true,
+        children: [
+          Padding(
+              padding: const EdgeInsets.all(P).copyWith(bottom: 0),
+              child: Column(children: [
+                if (task.showState)
+                  task.isWorkspace
+                      ? GroupStateTitle(task, task.subtasksState, place: StateTitlePlace.workspace)
+                      : task.showRecommendsEta || task.projectLowStart
+                          ? H3('${loc.state_no_info_title}: ${task.stateTitle.toLowerCase()}', align: TextAlign.center)
+                          : TaskStateTitle(task, place: StateTitlePlace.taskOverview),
 
-              /// нет прогноза - показываем шаги
-              if (task.showRecommendsEta) ...[
-                const SizedBox(height: P2),
-                task.projectHasProgress ? _rItemProgress : _rItemAddTask,
-                _line(context),
-                task.projectHasProgress ? _rItemAddTask : _rItemProgress,
-              ],
+                /// нет прогноза - показываем шаги
+                if (task.showRecommendsEta) ...[
+                  const SizedBox(height: P2),
+                  task.projectHasProgress ? _rItemProgress : _rItemAddTask,
+                  _line(context),
+                  task.projectHasProgress ? _rItemAddTask : _rItemProgress,
+                ],
 
-              /// объем и скорость
-              if (task.showVelocityVolumeCharts) ...[
-                const SizedBox(height: P2),
-                Row(children: [
-                  Expanded(child: TaskVolumeChart(task)),
-                  const SizedBox(width: P2),
-                  Expanded(child: VelocityChart(task)),
-                ]),
-              ],
+                /// объем и скорость
+                if (task.showVelocityVolumeCharts) ...[
+                  const SizedBox(height: P2),
+                  Row(children: [
+                    Expanded(child: TaskVolumeChart(task)),
+                    const SizedBox(width: P2),
+                    Expanded(child: VelocityChart(task)),
+                  ]),
+                ],
 
-              /// срок
-              if (task.showTimeChart) ...[
-                const SizedBox(height: P),
-                TimingChart(task),
-              ],
+                /// срок
+                if (task.showTimeChart) ...[
+                  const SizedBox(height: P),
+                  TimingChart(task),
+                ],
 
-              if (task.showChartDetails) ...[
-                const SizedBox(height: P),
-                MTButton.outlined(
-                  titleText: loc.chart_details_action_title,
-                  onTap: () => showChartsDetailsDialog(context, task),
-                ),
-              ],
-            ])),
+                if (task.showChartDetails) ...[
+                  const SizedBox(height: P),
+                  MTButton.outlined(
+                    titleText: loc.chart_details_action_title,
+                    onTap: () => showChartsDetailsDialog(context, task),
+                  ),
+                ],
+              ])),
 
-        /// требующие внимания задачи
-        if (task.attentionalTasks.isNotEmpty) ...[
-          const SizedBox(height: P2),
-          if (!task.isWorkspace)
-            H4(task.subtasksStateTitle, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P).copyWith(bottom: P_3)),
-          AttentionalTasks(task),
+          /// требующие внимания задачи
+          if (task.attentionalTasks.isNotEmpty) ...[
+            const SizedBox(height: P2),
+            if (!task.isWorkspace)
+              H4(task.subtasksStateTitle, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P).copyWith(bottom: P_3)),
+            AttentionalTasks(task),
+          ],
         ],
-      ],
+      ),
     );
   }
 }

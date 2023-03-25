@@ -21,14 +21,7 @@ class MemberListView extends StatelessWidget {
 
   List<Member> get _sortedMembers => task.sortedMembers;
 
-  Widget? get bottomBar => task.canEditMembers && task.allowedRoles.isNotEmpty
-      ? Padding(
-          padding: const EdgeInsets.symmetric(horizontal: P),
-          child: MemberAddMenu(
-            task,
-            title: loc.member_new_title,
-          ))
-      : null;
+  Widget? get bottomBar => task.canEditMembers && task.allowedRoles.isNotEmpty ? MemberAddMenu(task, title: loc.member_new_title) : null;
 
   Widget _itemBuilder(BuildContext context, int index) => MemberListTile(_sortedMembers[index], task);
 

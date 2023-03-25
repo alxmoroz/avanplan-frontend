@@ -28,12 +28,15 @@ class MemberAddMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return material(
       MTConstrained(
-        PopupMenuButton<Role>(
-          child: MTMenuShape(icon: const MemberAddIcon(), title: title),
-          itemBuilder: (_) => [for (final r in task.allowedRoles) PopupMenuItem<Role>(value: r, child: NormalText(r.localize))],
-          onSelected: (r) async => await _addMember(r),
-          padding: EdgeInsets.zero,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS)),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: P),
+          child: PopupMenuButton<Role>(
+            child: MTMenuShape(icon: const MemberAddIcon(), title: title),
+            itemBuilder: (_) => [for (final r in task.allowedRoles) PopupMenuItem<Role>(value: r, child: NormalText(r.localize))],
+            onSelected: (r) async => await _addMember(r),
+            padding: EdgeInsets.zero,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS)),
+          ),
         ),
       ),
     );

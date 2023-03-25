@@ -33,24 +33,24 @@ class _TaskViewState extends State<TaskView> {
 
   late TaskViewController controller;
 
-  late final TaskOverview overviewPane;
-  late final TaskListView tasksPane;
-  late final TaskDetails detailsPane;
+  late final TaskOverview _overviewPane;
+  late final TaskListView _tasksPane;
+  late final TaskDetails _detailsPane;
   late final MemberListView _teamPane;
 
   @override
   void initState() {
     controller = TaskViewController(widget.taskId);
 
-    overviewPane = TaskOverview(controller);
-    tasksPane = TaskListView(controller);
-    detailsPane = TaskDetails(task);
+    _overviewPane = TaskOverview(controller);
+    _tasksPane = TaskListView(controller);
+    _detailsPane = TaskDetails(task);
     _teamPane = MemberListView(controller);
 
     super.initState();
   }
 
-  Map<TaskTabKey, Widget> _tabs() {
+  Map<TaskTabKey, Widget> get _tabs {
     final res = <TaskTabKey, Widget>{};
     controller.tabKeys.forEach((tk) {
       switch (tk) {
@@ -75,7 +75,7 @@ class _TaskViewState extends State<TaskView> {
   Widget _tabPaneSelector() => Padding(
         padding: const EdgeInsets.symmetric(horizontal: P),
         child: CupertinoSlidingSegmentedControl<TaskTabKey>(
-          children: _tabs(),
+          children: _tabs,
           groupValue: controller.tabKey,
           onValueChanged: controller.selectTab,
         ),
@@ -83,17 +83,17 @@ class _TaskViewState extends State<TaskView> {
 
   Widget get _selectedPane =>
       {
-        TaskTabKey.overview: overviewPane,
-        TaskTabKey.subtasks: tasksPane,
-        TaskTabKey.details: detailsPane,
+        TaskTabKey.overview: _overviewPane,
+        TaskTabKey.subtasks: _tasksPane,
+        TaskTabKey.details: _detailsPane,
         TaskTabKey.team: _teamPane,
       }[controller.tabKey] ??
-      tasksPane;
+      _tasksPane;
 
   Widget? get _selectedBottomBar => {
-        TaskTabKey.overview: overviewPane.bottomBar,
-        TaskTabKey.details: overviewPane.bottomBar,
-        TaskTabKey.subtasks: overviewPane.bottomBar,
+        TaskTabKey.overview: _overviewPane.bottomBar,
+        TaskTabKey.details: _overviewPane.bottomBar,
+        TaskTabKey.subtasks: _overviewPane.bottomBar,
         TaskTabKey.team: _teamPane.bottomBar,
       }[controller.tabKey];
 

@@ -35,7 +35,7 @@ extension TaskStats on Task {
     allTasks = _setAllTasks;
     openedSubtasks = tasks.where((t) => !t.closed);
     closedSubtasks = tasks.where((t) => t.closed);
-    leafTasks = allTasks.where((t) => !t.hasSubtasks);
+    leafTasks = allTasks.where((t) => t.isLeaf);
     openedLeafTasks = leafTasks.where((t) => !t.closed);
     closedLeafTasks = leafTasks.where((t) => t.closed);
 
@@ -216,7 +216,7 @@ extension TaskStats on Task {
 
     if (closed) {
       s = TaskState.closed;
-    } else if (!hasSubtasks) {
+    } else if (isLeaf) {
       if (!(isTask || isSubtask)) {
         s = TaskState.noSubtasks;
       }
@@ -284,6 +284,7 @@ extension TaskStats on Task {
   bool get hasClosedSubtasks => closedSubtasks.isNotEmpty;
 
   bool get hasSubtasks => tasks.isNotEmpty;
+  bool get isLeaf => !hasSubtasks;
   bool get hasDueDate => dueDate != null;
   bool get hasOverdue => overduePeriod != null && overduePeriod! > _overdueThreshold;
   bool get hasEtaDate => etaDate != null;

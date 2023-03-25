@@ -73,10 +73,17 @@ class _TaskEditViewState extends State<TaskEditView> {
     controller.setStartDate(task?.startDate);
     controller.setDueDate(task?.dueDate);
     controller.selectEstimateByValue(task?.estimate);
-    controller.setAllowedAssignees([
-      Member(fullName: loc.task_assignee_nobody, id: null, email: '', isActive: false, roles: [], permissions: [], userId: null, taskId: -1),
-      ...task?.activeMembers ?? [],
-    ]);
+
+    if (!isNew) {
+      final imAlone = task?.activeMembers.length == 1 && task!.activeMembers[0].userId == accountController.user?.id;
+      if (!imAlone) {
+        controller.setAllowedAssignees([
+          Member(fullName: loc.task_assignee_nobody, id: null, email: '', isActive: false, roles: [], permissions: [], userId: null, taskId: -1),
+          ...task?.activeMembers ?? [],
+        ]);
+      }
+    }
+
     controller.selectAssigneeById(task?.assigneeId);
 
     // controller.selectStatus(task?.status);
@@ -138,7 +145,7 @@ class _TaskEditViewState extends State<TaskEditView> {
             margin: tfPadding,
             label: loc.task_assignee_placeholder,
           ),
-        if (controller.estimateValues.isNotEmpty && (isNew || task?.hasSubtasks == false))
+        if (controller.estimateValues.isNotEmpty && !parent.isWorkspace && (isNew || task!.isLeaf))
           MTDropdown<EstimateValue>(
             onChanged: (est) => controller.selectEstimate(est),
             value: controller.selectedEstimate,

@@ -73,10 +73,10 @@ extension TaskActionsExt on Task {
 
   /// рекомендации, быстрые кнопки
   bool get shouldClose => canUpdate && state == TaskState.closable;
-  bool get shouldCloseLeaf => canClose && (isTask || isSubtask) && !hasSubtasks;
+  bool get shouldCloseLeaf => canClose && (isTask || isSubtask) && isLeaf;
   bool get shouldAddSubtask =>
       canCreate &&
-      !hasSubtasks &&
+      isLeaf &&
       [
         TaskLevel.project,
         TaskLevel.goal,

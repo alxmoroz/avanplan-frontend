@@ -126,7 +126,7 @@ abstract class _TaskEditControllerBase extends EditController with Store {
 
   /// оценки задач
   @computed
-  Iterable<EstimateValue> get estimateValues => mainController.selectedWS?.estimateValues ?? [];
+  List<EstimateValue> get estimateValues => mainController.selectedWS?.estimateValues.toList() ?? [];
 
   @observable
   int? _selectedEstimateId;

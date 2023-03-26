@@ -220,6 +220,8 @@
   "tariff_list_title": "Тарифы",
   "tariff_option_users_count_title": "за пользователя в месяц",
   "tariff_select_action_title": "Выбрать",
+  "tariff_select_limit_unlink_description": "Повысьте тариф, чтобы отвязать проект",
+  "tariff_select_limit_users_description": "Повысьте тариф, чтобы добавить пользователей",
   "tariff_title": "Тариф",
 
   "tariff_type_free_title": "Бесплатный",

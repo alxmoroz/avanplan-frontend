@@ -6,6 +6,7 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
+import '../../../components/icons_workspace.dart';
 import '../../../components/material_wrapper.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
@@ -48,7 +49,11 @@ class TaskPopupMenu extends StatelessWidget {
       case TaskActionType.go2source:
         return task.taskSource!.go2SourceTitle();
       case TaskActionType.unlink:
-        return _tile(title: loc.task_unlink_action_title, color: warningColor);
+        return _tile(
+          title: loc.task_unlink_action_title,
+          color: warningColor,
+          trailing: _task.plUnlink ? null : const RoubleCircleIcon(),
+        );
       case TaskActionType.unwatch:
         return _tile(title: loc.task_unwatch_action_title, color: dangerColor);
       default:

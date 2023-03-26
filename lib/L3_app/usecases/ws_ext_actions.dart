@@ -12,7 +12,10 @@ extension WSActionsExt on Workspace {
   bool get hpProjectCreate => me?.hp('PROJECT_CREATE') == true;
   bool get hpProjectUpdate => me?.hp('PROJECT_UPDATE') == true;
   bool get hpProjectDelete => me?.hp('PROJECT_DELETE') == true;
-  bool get hpProjectUnlink => hpProjectUpdate && invoice.tariff.limitValue('PROJECTS_UNLINK_ALLOWED') == 1;
   bool get hpProjectContentUpdate => me?.hp('PROJECT_CONTENT_UPDATE') == true;
   bool get hpWSInfoRead => me?.hp('WORKSPACE_INFO_READ') == true;
+
+  bool _pl(String code, int value) => invoice.tariff.passLimit(code, value);
+  bool get plUsers => _pl('USERS_COUNT', users.length + 1);
+  bool get plUnlink => _pl('PROJECTS_UNLINK_ALLOWED', 1);
 }

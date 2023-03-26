@@ -18,6 +18,7 @@ import '../../presenters/state_presenter.dart';
 import '../../presenters/task_filter_presenter.dart';
 import '../../usecases/task_ext_actions.dart';
 import '../import/import_view.dart';
+import '../tariff/tariff_select_view.dart';
 import 'task_edit_view.dart';
 
 part 'task_view_controller.g.dart';
@@ -270,7 +271,11 @@ abstract class _TaskViewControllerBase with Store {
         await launchUrlString(task.taskSource!.urlString);
         break;
       case TaskActionType.unlink:
-        await unlink();
+        if (task.plUnlink) {
+          await unlink();
+        } else {
+          await changeTariff(mainController.wsForId(task.wsId)!, reason: 'Повысьте тариф для возможности отвязать проект');
+        }
         break;
       case TaskActionType.unwatch:
         await unwatch();

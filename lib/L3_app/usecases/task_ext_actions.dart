@@ -62,10 +62,13 @@ extension TaskActionsExt on Task {
   bool get canRefresh => isWorkspace;
   bool get canReopen => closed && canUpdate && parent?.closed == false;
   bool get canClose => canUpdate && !closed && !hasLink;
-  bool get canUnlink => _isLinkedProject && _ws?.hpProjectUnlink == true;
+  bool get canUnlink => _isLinkedProject && _ws?.hpProjectUpdate == true;
   bool get canUnwatch => _isLinkedProject && _ws?.hpProjectDelete == true;
   bool get canMembersRead => isProject;
   bool get canEditMembers => _hpMemberUpdate && !hasLink;
+
+  bool get plMembersAdd => _ws?.plUsers == true;
+  bool get plUnlink => _ws?.plUnlink == true;
 
   /// доступные роли для управления
   // TODO: https://redmine.moroz.team/issues/2518

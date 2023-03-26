@@ -2,6 +2,7 @@
 
 import 'dart:math';
 
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
@@ -13,25 +14,46 @@ import '../../components/mt_bottom_sheet.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_card.dart';
 import '../../components/mt_close_button.dart';
+import '../../components/mt_list_tile.dart';
 import '../../components/mt_page.dart';
-import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/number_presenter.dart';
+import '../../presenters/ws_presenter.dart';
 import 'tariff_info.dart';
 
-Future<Tariff?> tariffSelectDialog(List<Tariff> tariffs, int wsId) async {
+Future changeTariff(Workspace ws, {String reason = ''}) async {
+  loaderController.start();
+  loaderController.setRefreshing();
+  final tariffs = (await tariffUC.getAll(ws.id!)).sorted((t1, t2) => compareNatural('$t1', '$t2')).sorted((t1, t2) => t1.tier.compareTo(t2.tier));
+  await loaderController.stop();
+  if (tariffs.isNotEmpty) {
+    final tariff = await tariffSelectDialog(tariffs, ws.id!, description: reason);
+    if (tariff != null) {
+      loaderController.start();
+      loaderController.setSaving();
+      final signedContractInvoice = await contractUC.sign(tariff.id!, ws.id!);
+      if (signedContractInvoice != null) {
+        ws.invoice = signedContractInvoice;
+      }
+      await loaderController.stop();
+    }
+  }
+}
+
+Future<Tariff?> tariffSelectDialog(List<Tariff> tariffs, int wsId, {String description = ''}) async {
   return await showModalBottomSheet<Tariff?>(
     context: rootKey.currentContext!,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    builder: (_) => MTBottomSheet(TariffSelectView(tariffs, wsId)),
+    builder: (_) => MTBottomSheet(TariffSelectView(tariffs, wsId, description: description)),
   );
 }
 
 class TariffSelectView extends StatelessWidget {
-  const TariffSelectView(this.tariffs, this.wsId);
+  const TariffSelectView(this.tariffs, this.wsId, {this.description = ''});
   final List<Tariff> tariffs;
+  final String description;
 
   final int wsId;
 
@@ -104,13 +126,27 @@ class TariffSelectView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTPage(
-      navBar: navBar(
-        context,
-        leading: MTCloseButton(),
-        title: loc.tariff_list_title,
-        bgColor: backgroundColor,
+      // navBar: navBar(
+      //   context,
+      //   leading: MTCloseButton(),
+      //   middle: ws.subPageTitle(loc.tariff_list_title),
+      //   bgColor: backgroundColor,
+      // ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            MTListTile(
+              leading: MTCloseButton(),
+              middle: ws.subPageTitle(loc.tariff_list_title),
+              padding: const EdgeInsets.symmetric(vertical: P_2),
+              bottomBorder: false,
+              trailing: const SizedBox(width: P2 * 2),
+            ),
+            if (description.isNotEmpty) H4(description, align: TextAlign.center, padding: const EdgeInsets.all(P).copyWith(top: P_2)),
+            Expanded(child: _tariffPages),
+          ],
+        ),
       ),
-      body: SafeArea(child: _tariffPages),
     );
   }
 }

@@ -7,7 +7,6 @@ import '../../../L1_domain/entities/member.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities_extensions/task_members.dart';
 import '../../components/constants.dart';
-import '../../extra/services.dart';
 import '../../usecases/task_ext_actions.dart';
 import '../task/task_view_controller.dart';
 import 'member_add_menu.dart';
@@ -21,7 +20,7 @@ class MemberListView extends StatelessWidget {
 
   List<Member> get _sortedMembers => task.sortedMembers;
 
-  Widget? get bottomBar => task.canEditMembers && task.allowedRoles.isNotEmpty ? MemberAddMenu(task, title: loc.member_new_title) : null;
+  Widget? get bottomBar => task.canEditMembers && task.allowedRoles.isNotEmpty ? MemberAddMenu(task) : null;
 
   Widget _itemBuilder(BuildContext context, int index) => MemberListTile(_sortedMembers[index], task);
 

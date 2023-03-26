@@ -220,6 +220,8 @@
   "tariff_limit_projects_unlink_allowed_0": "tracking external projects",
   "tariff_limit_projects_unlink_allowed_1": "import projects without restrictions",
   "tariff_option_users_count_title": "per user per month",
+  "tariff_select_limit_unlink_description": "Raise your tariff to unlink the project",
+  "tariff_select_limit_users_description": "Raise your tariff to add more users",
   "tariff_select_action_title": "Select",
   "tariff_title": "Tariff",
 

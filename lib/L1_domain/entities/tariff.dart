@@ -19,4 +19,6 @@ class Tariff extends Codable {
 
   num limitValue(String code) => limitsMap[code] ?? 0;
   num optionValue(String code) => optionsMap[code] ?? 0;
+
+  bool passLimit(String code, int value) => value <= limitValue(code);
 }

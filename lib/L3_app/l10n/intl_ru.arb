@@ -76,6 +76,9 @@
   "error_tariff_limit_description": "Обратитесь к администратору рабочего пространства",
   "error_tariff_limit_title": "Выполнение операции ограничено в выбранном тарифе",
 
+  "explain_update_details_dialog_description": "Обновили информацию, хранящуюся в Аванплане.\n\nИнформация из внешних источников для импортированных проектов загружается автоматически по ночам.",
+  "explain_update_details_dialog_title": "Особенности обновления",
+
   "for_dative": "по",
 
   "goal_count": "{count, plural, zero{Нет целей} one{{count} цель} few{{count} цели} other{{count} целей}}",

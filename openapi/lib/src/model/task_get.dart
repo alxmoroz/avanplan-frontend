@@ -26,6 +26,7 @@ part 'task_get.g.dart';
 /// * [dueDate] 
 /// * [closedDate] 
 /// * [estimate] 
+/// * [parentId] 
 /// * [assigneeId] 
 /// * [authorId] 
 /// * [priority] 
@@ -33,7 +34,6 @@ part 'task_get.g.dart';
 /// * [taskSource] 
 /// * [tasks] 
 /// * [members] 
-/// * [parentId] 
 /// * [updatedOn] 
 @BuiltValue()
 abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
@@ -67,6 +67,9 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'estimate')
   int? get estimate;
 
+  @BuiltValueField(wireName: r'parent_id')
+  int? get parentId;
+
   @BuiltValueField(wireName: r'assignee_id')
   int? get assigneeId;
 
@@ -87,9 +90,6 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
 
   @BuiltValueField(wireName: r'members')
   BuiltList<MemberGet>? get members;
-
-  @BuiltValueField(wireName: r'parent_id')
-  int? get parentId;
 
   @BuiltValueField(wireName: r'updated_on')
   DateTime get updatedOn;
@@ -185,6 +185,13 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
         specifiedType: const FullType(int),
       );
     }
+    if (object.parentId != null) {
+      yield r'parent_id';
+      yield serializers.serialize(
+        object.parentId,
+        specifiedType: const FullType(int),
+      );
+    }
     if (object.assigneeId != null) {
       yield r'assignee_id';
       yield serializers.serialize(
@@ -232,13 +239,6 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
       yield serializers.serialize(
         object.members,
         specifiedType: const FullType(BuiltList, [FullType(MemberGet)]),
-      );
-    }
-    if (object.parentId != null) {
-      yield r'parent_id';
-      yield serializers.serialize(
-        object.parentId,
-        specifiedType: const FullType(int),
       );
     }
     yield r'updated_on';
@@ -339,6 +339,13 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
           ) as int;
           result.estimate = valueDes;
           break;
+        case r'parent_id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.parentId = valueDes;
+          break;
         case r'assignee_id':
           final valueDes = serializers.deserialize(
             value,
@@ -387,13 +394,6 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
             specifiedType: const FullType(BuiltList, [FullType(MemberGet)]),
           ) as BuiltList<MemberGet>;
           result.members.replace(valueDes);
-          break;
-        case r'parent_id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.parentId = valueDes;
           break;
         case r'updated_on':
           final valueDes = serializers.deserialize(

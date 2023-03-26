@@ -41,7 +41,7 @@ Future<T?> showMTDialog<T>(
   return await showCupertinoDialog<T?>(
     context: context,
     barrierDismissible: true,
-    builder: (_) => MTConfirmDialog(title: title, description: description, actions: actions, simple: simple),
+    builder: (_) => MTDialog(title: title, description: description, actions: actions, simple: simple),
   );
 }
 
@@ -51,8 +51,8 @@ const _actionColors = {
   MTActionType.isDefault: mainColor,
 };
 
-class MTConfirmDialog extends StatelessWidget {
-  const MTConfirmDialog({
+class MTDialog extends StatelessWidget {
+  const MTDialog({
     required this.title,
     required this.actions,
     required this.description,
@@ -105,7 +105,7 @@ class MTConfirmDialog extends StatelessWidget {
       title: H4(title, padding: const EdgeInsets.only(bottom: P), maxLines: 5, color: darkGreyColor),
       content: Column(
         children: [
-          if (description.isNotEmpty) NormalText(description),
+          if (description.isNotEmpty) NormalText(description, maxLines: 12),
           if (!simple)
             for (final a in actions) richButton(a),
         ],

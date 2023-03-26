@@ -20,11 +20,11 @@ part 'task_upsert.g.dart';
 /// * [dueDate] 
 /// * [closedDate] 
 /// * [estimate] 
+/// * [parentId] 
 /// * [assigneeId] 
 /// * [authorId] 
 /// * [priorityId] 
 /// * [statusId] 
-/// * [parentId] 
 /// * [taskSourceId] 
 /// * [createdOn] 
 /// * [updatedOn] 
@@ -57,6 +57,9 @@ abstract class TaskUpsert implements Built<TaskUpsert, TaskUpsertBuilder> {
   @BuiltValueField(wireName: r'estimate')
   int? get estimate;
 
+  @BuiltValueField(wireName: r'parent_id')
+  int? get parentId;
+
   @BuiltValueField(wireName: r'assignee_id')
   int? get assigneeId;
 
@@ -68,9 +71,6 @@ abstract class TaskUpsert implements Built<TaskUpsert, TaskUpsertBuilder> {
 
   @BuiltValueField(wireName: r'status_id')
   int? get statusId;
-
-  @BuiltValueField(wireName: r'parent_id')
-  int? get parentId;
 
   @BuiltValueField(wireName: r'task_source_id')
   int? get taskSourceId;
@@ -169,6 +169,13 @@ class _$TaskUpsertSerializer implements PrimitiveSerializer<TaskUpsert> {
         specifiedType: const FullType(int),
       );
     }
+    if (object.parentId != null) {
+      yield r'parent_id';
+      yield serializers.serialize(
+        object.parentId,
+        specifiedType: const FullType(int),
+      );
+    }
     if (object.assigneeId != null) {
       yield r'assignee_id';
       yield serializers.serialize(
@@ -194,13 +201,6 @@ class _$TaskUpsertSerializer implements PrimitiveSerializer<TaskUpsert> {
       yield r'status_id';
       yield serializers.serialize(
         object.statusId,
-        specifiedType: const FullType(int),
-      );
-    }
-    if (object.parentId != null) {
-      yield r'parent_id';
-      yield serializers.serialize(
-        object.parentId,
         specifiedType: const FullType(int),
       );
     }
@@ -311,6 +311,13 @@ class _$TaskUpsertSerializer implements PrimitiveSerializer<TaskUpsert> {
           ) as int;
           result.estimate = valueDes;
           break;
+        case r'parent_id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.parentId = valueDes;
+          break;
         case r'assignee_id':
           final valueDes = serializers.deserialize(
             value,
@@ -338,13 +345,6 @@ class _$TaskUpsertSerializer implements PrimitiveSerializer<TaskUpsert> {
             specifiedType: const FullType(int),
           ) as int;
           result.statusId = valueDes;
-          break;
-        case r'parent_id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.parentId = valueDes;
           break;
         case r'task_source_id':
           final valueDes = serializers.deserialize(

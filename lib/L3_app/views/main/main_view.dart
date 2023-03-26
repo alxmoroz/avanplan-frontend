@@ -115,7 +115,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
                 ),
               MTButton.icon(
                 const RefreshIcon(size: P3),
-                mainController.update,
+                mainController.manualUpdate,
                 margin: const EdgeInsets.only(right: P),
               ),
             ],

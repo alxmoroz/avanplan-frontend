@@ -8,6 +8,7 @@ import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../main.dart';
+import '../../components/mt_dialog.dart';
 import '../../extra/services.dart';
 import '../task/task_view.dart';
 import '../workspace/workspace_view.dart';
@@ -54,6 +55,9 @@ abstract class _MainControllerBase with Store {
 
   Iterable<Task> wsProjects(int wsId) => rootTask.tasks.where((t) => t.wsId == wsId);
   Iterable<Task> wsTasks(int wsId) => rootTask.allTasks.where((t) => t.wsId == wsId);
+
+  @computed
+  bool get hasLinkedProjects => rootTask.tasks.where((p) => p.hasLink).isNotEmpty;
 
   /// конкретная задача
   Task taskForId(int? id) => _tasksMap[id] ?? rootTask;
@@ -108,11 +112,29 @@ abstract class _MainControllerBase with Store {
   }
 
   @action
-  Future update() async {
+  Future _update() async {
     loaderController.start();
     await fetchData();
     await loaderController.stop();
     updatedDate = DateTime.now();
+  }
+
+  Future _explainUpdateDetails() async {
+    if (hasLinkedProjects && !settingsController.settings.explainUpdateDetailsShown) {
+      await showMTDialog(
+        rootKey.currentContext!,
+        title: loc.explain_update_details_dialog_title,
+        description: loc.explain_update_details_dialog_description,
+        actions: [MTDialogAction(title: loc.ok, type: MTActionType.isDefault, result: true)],
+        simple: true,
+      );
+      await settingsController.setExplainUpdateDetailsShown();
+    }
+  }
+
+  Future manualUpdate() async {
+    await _update();
+    await _explainUpdateDetails();
   }
 
   // static const _updatePeriod = Duration(hours: 1);
@@ -121,7 +143,7 @@ abstract class _MainControllerBase with Store {
     final hasDeepLinks = await deepLinkController.processDeepLinks();
     final timeToUpdate = updatedDate == null || updatedDate!.add(_updatePeriod).isBefore(DateTime.now());
     if (paymentController.waitingPayment || hasDeepLinks || timeToUpdate) {
-      await update();
+      await _update();
       paymentController.resetWaiting();
     }
   }

@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **dueDate** | [**DateTime**](DateTime.md) |  | [optional] 
 **closedDate** | [**DateTime**](DateTime.md) |  | [optional] 
 **estimate** | **int** |  | [optional] 
+**parentId** | **int** |  | [optional] 
 **assigneeId** | **int** |  | [optional] 
 **authorId** | **int** |  | [optional] 
 **priority** | [**PriorityGet**](PriorityGet.md) |  | [optional] 
@@ -25,7 +26,6 @@ Name | Type | Description | Notes
 **taskSource** | [**TaskSourceGet**](TaskSourceGet.md) |  | [optional] 
 **tasks** | [**BuiltList&lt;TaskGet&gt;**](TaskGet.md) |  | [optional] 
 **members** | [**BuiltList&lt;MemberGet&gt;**](MemberGet.md) |  | [optional] 
-**parentId** | **int** |  | [optional] 
 **updatedOn** | [**DateTime**](DateTime.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

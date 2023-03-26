@@ -9,7 +9,7 @@ import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_button.dart';
-import '../../components/mt_confirm_dialog.dart';
+import '../../components/mt_dialog.dart';
 import '../../components/mt_list_tile.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';

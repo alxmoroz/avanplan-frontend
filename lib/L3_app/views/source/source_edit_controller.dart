@@ -7,7 +7,7 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/entities/source.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/ws_ext.dart';
-import '../../components/mt_confirm_dialog.dart';
+import '../../components/mt_dialog.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
 import '../../usecases/task_ext_actions.dart';

@@ -159,7 +159,7 @@ abstract class _LoaderControllerBase with Store {
 
   Future _reload() async {
     await stop();
-    await mainController.update();
+    await mainController.manualUpdate();
   }
 
   void _setNetworkError(String? errorText) => _set(

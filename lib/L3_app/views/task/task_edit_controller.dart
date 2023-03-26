@@ -7,7 +7,7 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/entities/estimate_value.dart';
 import '../../../L1_domain/entities/member.dart';
 import '../../../L1_domain/entities/task.dart';
-import '../../components/mt_confirm_dialog.dart';
+import '../../components/mt_dialog.dart';
 import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';
 import '../../presenters/task_level_presenter.dart';

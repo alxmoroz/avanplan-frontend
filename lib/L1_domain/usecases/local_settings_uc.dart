@@ -9,9 +9,16 @@ class LocalSettingsUC {
   final AbstractDBRepo<AbstractDBModel, LocalSettings> repo;
 
   Future<LocalSettings> settingsFromLaunch(String version) async {
-    final settings = await repo.getOne() ?? LocalSettings();
+    final settings = await repo.getOne() ?? LocalSettings(flags: {});
     settings.version = version;
     settings.launchCount++;
+    await repo.update(settings);
+    return settings;
+  }
+
+  Future<LocalSettings> setExplainUpdateDetailsShown() async {
+    final settings = await repo.getOne() ?? LocalSettings(flags: {});
+    settings.setExplainUpdateDetailsShown(true);
     await repo.update(settings);
     return settings;
   }

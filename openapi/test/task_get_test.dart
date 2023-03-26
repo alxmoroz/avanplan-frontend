@@ -57,6 +57,11 @@ void main() {
       // TODO
     });
 
+    // int parentId
+    test('to test the property `parentId`', () async {
+      // TODO
+    });
+
     // int assigneeId
     test('to test the property `assigneeId`', () async {
       // TODO
@@ -89,11 +94,6 @@ void main() {
 
     // BuiltList<MemberGet> members
     test('to test the property `members`', () async {
-      // TODO
-    });
-
-    // int parentId
-    test('to test the property `parentId`', () async {
       // TODO
     });
 

@@ -18,7 +18,7 @@ class SettingsController extends _SettingsControllerBase with _$SettingsControll
 
 abstract class _SettingsControllerBase with Store {
   @observable
-  LocalSettings settings = LocalSettings();
+  LocalSettings settings = LocalSettings(flags: {});
 
   @observable
   AppSettings? appSettings;
@@ -27,7 +27,8 @@ abstract class _SettingsControllerBase with Store {
   String get frontendFlags => appSettings?.frontendFlags ?? '';
 
   @action
-  Future fetchAppsettings() async {
-    appSettings = await appSettingsUC.getSettings();
-  }
+  Future fetchAppsettings() async => appSettings = await appSettingsUC.getSettings();
+
+  @action
+  Future setExplainUpdateDetailsShown() async => settings = await localSettingsUC.setExplainUpdateDetailsShown();
 }

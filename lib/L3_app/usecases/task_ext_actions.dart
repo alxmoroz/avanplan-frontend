@@ -29,7 +29,8 @@ enum TaskActionType {
 
 extension TaskActionsExt on Task {
   User? get _authUser => accountController.user;
-  Workspace? get _ws => mainController.wsForId(wsId);
+  Workspace? get _ws => mainController.selectedWS;
+  // Workspace? get _ws => mainController.wsForId(wsId);
 
   bool get hpWSProjectCreate => mainController.myWorkspaces.any((ws) => ws.hpProjectCreate);
 
@@ -52,7 +53,7 @@ extension TaskActionsExt on Task {
   bool get _canProjectUpdate => _isLocalProject && _ws?.hpProjectUpdate == true;
   bool get _canProjectDelete => _isLocalProject && _ws?.hpProjectDelete == true;
   bool get _canTaskCreate => !closed && _hpCreate && !hasLink;
-  bool get _canTaskUpdate => _hpUpdate && !hasLink;
+  bool get _canTaskUpdate => !isWorkspace && _hpUpdate && !hasLink;
   bool get _canTaskDelete => _hpDelete && !hasLink;
 
   bool get canCreate => _canProjectCreate || _canTaskCreate;
@@ -69,6 +70,10 @@ extension TaskActionsExt on Task {
 
   bool get plMembersAdd => _ws?.plUsers == true;
   bool get plUnlink => _ws?.plUnlink == true;
+
+  bool get _plProjects => _ws?.plProjects == true;
+  bool get _plTasks => _ws?.plTasks == true;
+  bool get plCreate => isWorkspace ? _plProjects : _plTasks;
 
   /// доступные роли для управления
   // TODO: https://redmine.moroz.team/issues/2518

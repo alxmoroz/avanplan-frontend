@@ -52,6 +52,9 @@ abstract class _MainControllerBase with Store {
   @computed
   Map<int, Task> get _tasksMap => {for (var t in rootTask.allTasks) t.id!: t};
 
+  Iterable<Task> wsProjects(int wsId) => rootTask.tasks.where((t) => t.wsId == wsId);
+  Iterable<Task> wsTasks(int wsId) => rootTask.allTasks.where((t) => t.wsId == wsId);
+
   /// конкретная задача
   Task taskForId(int? id) => _tasksMap[id] ?? rootTask;
 
@@ -112,8 +115,8 @@ abstract class _MainControllerBase with Store {
     updatedDate = DateTime.now();
   }
 
-  // static const _updatePeriod = Duration(minutes: 30);
-  static const _updatePeriod = Duration(hours: 1);
+  // static const _updatePeriod = Duration(hours: 1);
+  static const _updatePeriod = Duration(minutes: 30);
   Future requestUpdate() async {
     final hasDeepLinks = await deepLinkController.processDeepLinks();
     final timeToUpdate = updatedDate == null || updatedDate!.add(_updatePeriod).isBefore(DateTime.now());

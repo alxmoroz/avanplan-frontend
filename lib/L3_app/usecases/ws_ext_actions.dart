@@ -16,6 +16,9 @@ extension WSActionsExt on Workspace {
   bool get hpWSInfoRead => me?.hp('WORKSPACE_INFO_READ') == true;
 
   bool _pl(String code, int value) => invoice.tariff.passLimit(code, value);
+
   bool get plUsers => _pl('USERS_COUNT', users.length + 1);
   bool get plUnlink => _pl('PROJECTS_UNLINK_ALLOWED', 1);
+  bool get plProjects => _pl('PROJECTS_COUNT', mainController.wsProjects(id!).length + 1);
+  bool get plTasks => _pl('TASKS_COUNT', mainController.wsTasks(id!).length + 1);
 }

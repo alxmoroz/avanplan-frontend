@@ -212,6 +212,11 @@
   "subtask_title": "Подзадача",
 
   "tariff_change_action_title": "Сменить тариф",
+  "tariff_change_limit_projects_reason_title": "Повысьте тариф, чтобы добавлять проекты",
+  "tariff_change_limit_tasks_reason_title": "Повысьте тариф, чтобы добавлять задачи",
+  "tariff_change_limit_unlink_reason_title": "Повысьте тариф, чтобы отвязать проект",
+  "tariff_change_limit_users_reason_title": "Повысьте тариф, чтобы добавить пользователей",
+
   "tariff_current_title": "Текущий тариф",
   "tariff_limit_billing_period_title": "период тарификации",
   "tariff_limit_projects_unlink_allowed_0": "отслеживание внешних проектов",
@@ -220,8 +225,7 @@
   "tariff_list_title": "Тарифы",
   "tariff_option_users_count_title": "за пользователя в месяц",
   "tariff_select_action_title": "Выбрать",
-  "tariff_select_limit_unlink_description": "Повысьте тариф, чтобы отвязать проект",
-  "tariff_select_limit_users_description": "Повысьте тариф, чтобы добавить пользователей",
+
   "tariff_title": "Тариф",
 
   "tariff_type_free_title": "Бесплатный",

@@ -75,7 +75,7 @@ class RoubleCircleIcon extends MTIcon {
   const RoubleCircleIcon({super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
-        CupertinoIcons.money_rubl_circle,
+        CupertinoIcons.money_rubl_circle_fill,
         color: (color ?? warningColor).resolve(context),
         size: size ?? P2,
       );

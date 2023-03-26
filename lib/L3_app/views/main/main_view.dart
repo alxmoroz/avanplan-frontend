@@ -79,7 +79,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
             Flexible(
               child: MTButton.outlined(
                 titleText: loc.project_list_title,
-                margin: const EdgeInsets.symmetric(horizontal: P),
+                margin: EdgeInsets.only(left: P, right: _task.canCreate ? 0 : P),
                 onTap: () => _gotoProjects(context),
               ),
             ),

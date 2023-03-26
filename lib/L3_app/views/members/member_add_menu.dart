@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 import '../../../L1_domain/entities/role.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
+import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons_workspace.dart';
 import '../../components/material_wrapper.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_constrained.dart';
+import '../../components/mt_limit_badge.dart';
 import '../../components/mt_menu_shape.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
@@ -27,27 +29,27 @@ class MemberAddMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return material(
-      MTConstrained(
-        task.plMembersAdd
-            ? Padding(
-                padding: const EdgeInsets.symmetric(horizontal: P),
-                child: PopupMenuButton<Role>(
-                  child: MTMenuShape(icon: const MemberAddIcon(), title: _title),
-                  itemBuilder: (_) => [for (final r in task.allowedRoles) PopupMenuItem<Role>(value: r, child: NormalText(r.localize))],
-                  onSelected: (r) async => await memberAddDialog(task, r),
-                  padding: EdgeInsets.zero,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS)),
-                ),
-              )
-            : MTButton.outlined(
-                leading: const MemberAddIcon(),
-                titleText: _title,
-                trailing: const RoubleCircleIcon(),
-                onTap: () => changeTariff(_ws, reason: loc.tariff_select_limit_users_description),
-                margin: const EdgeInsets.symmetric(horizontal: P),
-              ),
-      ),
-    );
+    return task.plMembersAdd
+        ? material(MTConstrained(Padding(
+            padding: const EdgeInsets.symmetric(horizontal: P),
+            child: PopupMenuButton<Role>(
+              child: MTMenuShape(icon: const MemberAddIcon(), title: _title),
+              itemBuilder: (_) => [for (final r in task.allowedRoles) PopupMenuItem<Role>(value: r, child: NormalText(r.localize))],
+              onSelected: (r) async => await memberAddDialog(task, r),
+              padding: EdgeInsets.zero,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS)),
+            ),
+          )))
+        : MTLimitBadge(
+            child: MTButton.outlined(
+              leading: const MemberAddIcon(),
+              titleText: _title,
+              color: backgroundColor,
+              margin: const EdgeInsets.only(left: P2 + P_2, right: P),
+              constrained: true,
+              onTap: () => changeTariff(_ws, reason: loc.tariff_change_limit_users_reason_title),
+            ),
+            showBadge: true,
+          );
   }
 }

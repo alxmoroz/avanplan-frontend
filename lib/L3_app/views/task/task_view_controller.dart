@@ -5,6 +5,7 @@ import 'package:mobx/mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/task_level.dart';
 import '../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../main.dart';
@@ -34,7 +35,9 @@ class TaskViewController extends _TaskViewControllerBase with _$TaskViewControll
 abstract class _TaskViewControllerBase with Store {
   int? taskID;
 
+  // TODO: нужно добавить фильтр по РП
   Task get task => mainController.taskForId(taskID);
+  Workspace get ws => mainController.selectedWS!;
 
   /// вкладки
   bool get _hasDescription => task.description.isNotEmpty;
@@ -71,14 +74,14 @@ abstract class _TaskViewControllerBase with Store {
 
   /// связь с источником импорта
 
-  // TODO: похоже, не используется этот метод вообще сейчас
-  Future<bool> _checkUnlinked() async {
-    bool unlinked = !task.hasLink;
-    if (!unlinked) {
-      unlinked = await unlink();
-    }
-    return unlinked;
-  }
+  // не используется этот метод вообще сейчас
+  // Future<bool> _checkUnlinked() async {
+  //   bool unlinked = !task.hasLink;
+  //   if (!unlinked) {
+  //     unlinked = await unlink();
+  //   }
+  //   return unlinked;
+  // }
 
   MTDialogAction<bool> _go2SourceDialogAction() => MTDialogAction(
         type: MTActionType.isDefault,
@@ -186,7 +189,7 @@ abstract class _TaskViewControllerBase with Store {
   }
 
   Future addSubtask() async {
-    if (await _checkUnlinked()) {
+    if (task.plCreate) {
       final newTaskResult = await editTaskDialog(parent: task);
 
       if (newTaskResult != null) {
@@ -202,32 +205,39 @@ abstract class _TaskViewControllerBase with Store {
         }
         selectTab(TaskTabKey.subtasks);
       }
+    } else {
+      await changeTariff(
+        ws,
+        reason: task.isWorkspace ? loc.tariff_change_limit_projects_reason_title : loc.tariff_change_limit_tasks_reason_title,
+      );
     }
   }
 
   Future edit() async {
-    if (await _checkUnlinked()) {
-      final editTaskResult = await editTaskDialog(parent: task.parent!, task: task);
-      if (editTaskResult != null) {
-        final editedTask = editTaskResult.task;
-        if (editedTask.deleted) {
-          _popDeleted(editedTask);
-        }
-        _updateTaskParents(editedTask);
+    final editTaskResult = await editTaskDialog(parent: task.parent!, task: task);
+    if (editTaskResult != null) {
+      final editedTask = editTaskResult.task;
+      if (editedTask.deleted) {
+        _popDeleted(editedTask);
       }
+      _updateTaskParents(editedTask);
     }
   }
 
   Future unlink() async {
-    if (await _unlinkDialog() == true) {
-      loaderController.start();
-      loaderController.setUnlinking();
-      try {
-        await importUC.unlinkTaskSources(task.wsId, task.id!, task.allTss());
-        task.unlinkTaskTree();
-        mainController.updateRootTask();
-      } catch (_) {}
-      await loaderController.stop();
+    if (task.plUnlink) {
+      if (await _unlinkDialog() == true) {
+        loaderController.start();
+        loaderController.setUnlinking();
+        try {
+          await importUC.unlinkTaskSources(task.wsId, task.id!, task.allTss());
+          task.unlinkTaskTree();
+          mainController.updateRootTask();
+        } catch (_) {}
+        await loaderController.stop();
+      }
+    } else {
+      await changeTariff(mainController.wsForId(task.wsId)!, reason: loc.tariff_change_limit_unlink_reason_title);
     }
   }
 
@@ -271,11 +281,7 @@ abstract class _TaskViewControllerBase with Store {
         await launchUrlString(task.taskSource!.urlString);
         break;
       case TaskActionType.unlink:
-        if (task.plUnlink) {
-          await unlink();
-        } else {
-          await changeTariff(mainController.wsForId(task.wsId)!, reason: 'Повысьте тариф для возможности отвязать проект');
-        }
+        await unlink();
         break;
       case TaskActionType.unwatch:
         await unwatch();

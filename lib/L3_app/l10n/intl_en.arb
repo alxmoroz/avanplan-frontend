@@ -213,6 +213,11 @@
   "subtask_title": "Subtask",
 
   "tariff_change_action_title": "Change tariff",
+  "tariff_change_limit_projects_reason_title": "Raise your tariff to add projects",
+  "tariff_change_limit_tasks_reason_title": "Raise your tariff to add tasks",
+  "tariff_change_limit_unlink_reason_title": "Raise your tariff to unlink the project",
+  "tariff_change_limit_users_reason_title": "Raise your tariff to add more users",
+
   "tariff_current_title": "Current Tariff",
   "tariff_list_title": "Tariffs",
   "tariff_limit_billing_period_title": "billing period",
@@ -220,8 +225,6 @@
   "tariff_limit_projects_unlink_allowed_0": "tracking external projects",
   "tariff_limit_projects_unlink_allowed_1": "import projects without restrictions",
   "tariff_option_users_count_title": "per user per month",
-  "tariff_select_limit_unlink_description": "Raise your tariff to unlink the project",
-  "tariff_select_limit_users_description": "Raise your tariff to add more users",
   "tariff_select_action_title": "Select",
   "tariff_title": "Tariff",
 

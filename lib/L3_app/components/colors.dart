@@ -44,7 +44,8 @@ const Color greenColor = CupertinoDynamicColor.withBrightness(
 // );
 
 const Color mainColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 0, 113, 164),
+  // color: Color.fromARGB(255, 0, 113, 164),
+  color: Color.fromARGB(255, 30, 150, 220),
   darkColor: Color.fromARGB(255, 90, 200, 250),
 );
 

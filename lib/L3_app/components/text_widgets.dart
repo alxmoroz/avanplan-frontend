@@ -183,7 +183,7 @@ class H1 extends _BaseText {
     super.decoration,
   }) : super(
           text,
-          weight: FontWeight.w200,
+          weight: FontWeight.w300,
           sizeScale: 2.45,
           maxLines: maxLines ?? 2,
           height: 1,

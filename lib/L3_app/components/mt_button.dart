@@ -63,13 +63,15 @@ class MTButton extends StatelessWidget {
   Color get _titleColor => onTap != null ? (titleColor ?? mainColor) : lightGreyColor;
   ButtonStyle _style(BuildContext context) => ElevatedButton.styleFrom(
         padding: padding ?? EdgeInsets.zero,
-        backgroundColor: (color ?? Colors.transparent).resolve(context),
+        backgroundColor: (color ?? lightBackgroundColor).resolve(context),
         foregroundColor: _titleColor.resolve(context),
         minimumSize: const Size(MIN_BTN_HEIGHT, MIN_BTN_HEIGHT),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS)),
-        side: type == ButtonType.outlined ? BorderSide(color: _titleColor.resolve(context), width: DEF_BORDER_WIDTH) : null,
+        side: type == ButtonType.outlined ? BorderSide(color: _titleColor.resolve(context), width: 0) : null,
         splashFactory: NoSplash.splashFactory,
         visualDensity: VisualDensity.standard,
+        shadowColor: _titleColor.resolve(context),
+        elevation: 2,
       );
 
   Widget get _middle => middle ?? MediumText(titleText ?? '', color: _titleColor);

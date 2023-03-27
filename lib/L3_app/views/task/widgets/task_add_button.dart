@@ -2,7 +2,6 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/mt_button.dart';
@@ -21,7 +20,6 @@ class TaskAddButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MTLimitBadge(
         child: MTButton.outlined(
-          color: backgroundColor,
           margin: const EdgeInsets.symmetric(horizontal: P).copyWith(left: controller.task.plCreate ? P : P2 + P_2),
           leading: compact ? null : _plusIcon,
           titleText: compact ? null : controller.task.newSubtaskTitle,

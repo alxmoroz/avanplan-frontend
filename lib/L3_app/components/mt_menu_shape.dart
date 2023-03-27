@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'colors.dart';
 import 'constants.dart';
+import 'mt_card.dart';
 import 'text_widgets.dart';
 
 class MTMenuShape extends StatelessWidget {
@@ -13,13 +14,17 @@ class MTMenuShape extends StatelessWidget {
   final String? title;
 
   @override
-  Widget build(BuildContext context) => Container(
-        width: MIN_BTN_HEIGHT,
-        height: MIN_BTN_HEIGHT,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS),
-          border: Border.fromBorderSide(BorderSide(color: mainColor.resolve(context), width: DEF_BORDER_WIDTH)),
-        ),
+  Widget build(BuildContext context) => MTCard(
+        // width: MIN_BTN_HEIGHT,
+        // height: MIN_BTN_HEIGHT,
+        // decoration: BoxDecoration(
+        //   borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS),
+        //   border: Border.fromBorderSide(BorderSide(color: mainColor.resolve(context), width: DEF_BORDER_WIDTH)),
+        // ),
+        borderSide: BorderSide(color: mainColor.resolve(context), width: 0),
+        shadowColor: mainColor,
+        elevation: 2,
+        padding: const EdgeInsets.all(P),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

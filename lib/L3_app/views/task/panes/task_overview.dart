@@ -24,7 +24,6 @@ import '../widgets/charts/velocity_chart.dart';
 import '../widgets/charts/volume_chart.dart';
 import '../widgets/state_title.dart';
 import '../widgets/task_add_button.dart';
-import '../widgets/task_add_menu.dart';
 
 class TaskOverview extends StatelessWidget {
   const TaskOverview(this.controller);
@@ -50,9 +49,7 @@ class TaskOverview extends StatelessWidget {
                 onTap: () => controller.setClosed(!task.closed),
               ),
             ])
-          : task.canCreate
-              ? Row(children: [const Spacer(), task.isWorkspace ? TaskAddMenu(controller) : TaskAddButton(controller, compact: true)])
-              : null;
+          : null;
 
   Widget _checkRecommendsItem(bool checked, String text) => Row(children: [
         DoneIcon(checked, color: checked ? greenColor : greyColor, size: P * 3, solid: checked),

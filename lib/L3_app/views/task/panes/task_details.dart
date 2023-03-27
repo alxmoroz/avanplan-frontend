@@ -17,6 +17,8 @@ class TaskDetails extends StatelessWidget {
 
   Widget description() => LightText(task.description, maxLines: 1000);
 
+  Widget? get bottomBar => null;
+
   @override
   Widget build(BuildContext context) {
     final padding = MediaQuery.of(context).padding;

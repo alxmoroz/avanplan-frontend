@@ -32,6 +32,8 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> with WidgetsBindingObserver {
+  bool _startupActionsInProgress = false;
+
   @override
   void initState() {
     super.initState();
@@ -58,12 +60,16 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
 
   void _startupActions() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await authController.updateAuth(context);
-      if (authController.authorized) {
-        if (isIOS) {
-          await notificationController.initPush();
+      if (!_startupActionsInProgress) {
+        _startupActionsInProgress = true;
+        await authController.updateAuth(context);
+        if (authController.authorized) {
+          if (isIOS) {
+            await notificationController.initPush();
+          }
+          await mainController.requestUpdate();
         }
-        await mainController.requestUpdate();
+        _startupActionsInProgress = false;
       }
     });
   }

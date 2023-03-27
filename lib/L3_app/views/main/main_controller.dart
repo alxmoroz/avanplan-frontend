@@ -67,20 +67,19 @@ abstract class _MainControllerBase with Store {
   DateTime? updatedDate;
 
   @action
-  Future fetchWorkspaces() async {
+  Future _fetchWorkspaces() async {
     myWorkspaces = (await myUC.getWorkspaces()).sorted((w1, w2) => compareNatural(w1.title, w2.title));
     selectedWSId = myWorkspaces.length == 1 ? myWorkspaces.first.id : null;
 
-    rootTask.tasks = [];
+    final projects = <Task>[];
     for (Workspace ws in myWorkspaces) {
-      final projects = (await taskUC.getRoots(ws.id!)).toList();
-      projects.forEach((p) async {
+      final roots = (await taskUC.getRoots(ws.id!)).toList();
+      roots.forEach((p) async {
         p.parent = rootTask;
       });
-
-      rootTask.tasks.addAll(projects);
+      projects.addAll(roots);
     }
-
+    rootTask.tasks = projects;
     updateRootTask();
   }
 
@@ -92,7 +91,7 @@ abstract class _MainControllerBase with Store {
     await refsController.fetchData();
     await notificationController.fetchData();
 
-    await fetchWorkspaces();
+    await _fetchWorkspaces();
   }
 
   @action
@@ -114,8 +113,8 @@ abstract class _MainControllerBase with Store {
   Future _update() async {
     loaderController.start();
     await fetchData();
-    await loaderController.stop();
     updatedDate = DateTime.now();
+    await loaderController.stop();
   }
 
   Future _explainUpdateDetails() async {

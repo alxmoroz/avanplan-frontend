@@ -97,7 +97,7 @@ class _MemberAddViewState extends State<MemberAddView> {
     return Scrollbar(
       thumbVisibility: true,
       child: ListView(children: [
-        // TODO: https://redmine.moroz.team/issues/2520
+        // TODO: https://redmine.moroz.team/issues/2527
         // tabPaneSelector,
         H4(role.localize, align: TextAlign.center),
         selectedPane,

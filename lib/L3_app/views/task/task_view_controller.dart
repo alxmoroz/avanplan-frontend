@@ -35,7 +35,7 @@ class TaskViewController extends _TaskViewControllerBase with _$TaskViewControll
 abstract class _TaskViewControllerBase with Store {
   int? taskID;
 
-  // TODO: нужно добавить фильтр по РП
+  // TODO: нужно добавить фильтр по РП - добавить айдишник РП
   Task get task => mainController.taskForId(taskID);
   Workspace get ws => mainController.selectedWS!;
 

@@ -49,12 +49,11 @@ abstract class _MainControllerBase with Store {
   @observable
   Task rootTask = Task(title: '', closed: false, parent: null, tasks: [], members: [], wsId: -1);
 
-  // TODO: пропала уникальность задач по id. Т.к. могут быть из разных БД (РП)!!!
   @computed
-  Map<int, Task> get _tasksMap => {for (var t in rootTask.allTasks) t.id!: t};
+  Map<int, Task> get _tasksMap => {for (var t in wsTasks(selectedWSId)) t.id!: t};
 
   Iterable<Task> wsProjects(int wsId) => rootTask.tasks.where((t) => t.wsId == wsId);
-  Iterable<Task> wsTasks(int wsId) => rootTask.allTasks.where((t) => t.wsId == wsId);
+  Iterable<Task> wsTasks(int? wsId) => rootTask.allTasks.where((t) => t.wsId == wsId);
 
   @computed
   bool get hasLinkedProjects => rootTask.tasks.where((p) => p.hasLink).isNotEmpty;

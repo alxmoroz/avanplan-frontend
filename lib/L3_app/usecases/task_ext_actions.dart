@@ -76,7 +76,7 @@ extension TaskActionsExt on Task {
   bool get plCreate => isWorkspace ? _plProjects : _plTasks;
 
   /// доступные роли для управления
-  // TODO: https://redmine.moroz.team/issues/2518
+  // https://redmine.moroz.team/issues/2518
   Iterable<Role> get allowedRoles => _ws?.roles ?? [];
 
   /// рекомендации, быстрые кнопки

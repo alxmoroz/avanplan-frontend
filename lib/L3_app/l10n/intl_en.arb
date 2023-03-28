@@ -103,6 +103,7 @@
 
   "invitation_activations_count_placeholder": "Activations Count",
   "invitation_active_until_placeholder": "Active Until",
+  "invitation_create_title": "Invite Member",
   "invitation_share_action_title": "Share Invitation",
   "invitation_share_subject_prefix": "Invitation to ",
   "invitation_url_label": "Invitation link",
@@ -122,7 +123,6 @@
   "loader_unwatch_title": "Sending to ignore...",
 
   "member_list_title": "Members",
-  "member_new_title": "New Member",
   "member_source_invitation_title": "Invite",
   "member_source_workspace_title": "Select",
   "member_title": "Member",

@@ -25,7 +25,7 @@ class MemberAddMenu extends StatelessWidget {
   final Task task;
 
   Workspace get _ws => mainController.selectedWS!;
-  String get _title => loc.member_new_title;
+  String get _title => loc.invitation_create_title;
 
   @override
   Widget build(BuildContext context) {

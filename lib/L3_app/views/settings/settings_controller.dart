@@ -12,7 +12,7 @@ part 'settings_controller.g.dart';
 
 class SettingsController extends _SettingsControllerBase with _$SettingsController {
   Future<SettingsController> init() async {
-    await dotenv.load();
+    await dotenv.load(fileName: 'assets/.env');
     settings = await localSettingsUC.settingsFromLaunch(packageInfo.version);
     return this;
   }

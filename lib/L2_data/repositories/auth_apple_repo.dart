@@ -5,6 +5,7 @@ import 'package:openapi/openapi.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../../L1_domain/system/errors.dart';
+import '../services/environment.dart';
 import '../services/platform.dart';
 import 'auth_base_repo.dart';
 
@@ -24,7 +25,7 @@ class AuthAppleRepo extends AuthBaseRepo {
           AppleIDAuthorizationScopes.fullName,
         ],
         webAuthenticationOptions: WebAuthenticationOptions(
-          redirectUri: Uri.parse('https://avanplan.ru'),
+          redirectUri: Uri.parse(appleAuthRedirectPath ?? 'https://avanplan.ru'),
           clientId: 'team.moroz.avanplan.services',
         ),
       );

@@ -9,7 +9,7 @@ version=$(grep 'version: ' pubspec.yaml | sed "s/^[^0-9]*\(.*[.]\).*/\1$build_nu
 
 bash ./scripts/build_web.sh
 
-git commit -m "Bump version to $version"
+git commit -a -m "Bump version to $version"
 
 git tag "$version"
 git push

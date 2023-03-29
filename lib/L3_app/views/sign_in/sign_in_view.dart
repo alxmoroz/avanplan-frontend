@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
-import '../../../L2_data/services/environment.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
@@ -31,8 +30,6 @@ class SignInView extends StatelessWidget {
               builder: (_, size) => ListView(
                 shrinkWrap: true,
                 children: [
-                  if (visibleApiHost.isNotEmpty) H4(visibleApiHost, align: TextAlign.center, color: warningColor, padding: const EdgeInsets.all(P)),
-
                   SizedBox(height: size.maxHeight / 5, child: FittedBox(child: appIcon())),
                   H1(loc.app_title, align: TextAlign.center, padding: const EdgeInsets.symmetric(vertical: P)),
                   MTButton.outlined(

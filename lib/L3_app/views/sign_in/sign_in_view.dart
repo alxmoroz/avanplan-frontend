@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
@@ -19,6 +20,8 @@ import 'sign_in_with_password_form.dart';
 class SignInView extends StatelessWidget {
   static String get routeName => 'sign-in';
 
+  String? get envApiPath => Uri.tryParse(dotenv.get('API_PATH', fallback: ''))?.host;
+
   @override
   Widget build(BuildContext context) {
     return MTPage(
@@ -30,6 +33,8 @@ class SignInView extends StatelessWidget {
               builder: (_, size) => ListView(
                 shrinkWrap: true,
                 children: [
+                  if (envApiPath != null) H4(envApiPath!, align: TextAlign.center, color: warningColor, padding: const EdgeInsets.all(P)),
+
                   SizedBox(height: size.maxHeight / 5, child: FittedBox(child: appIcon())),
                   H1(loc.app_title, align: TextAlign.center, padding: const EdgeInsets.symmetric(vertical: P)),
                   MTButton.outlined(

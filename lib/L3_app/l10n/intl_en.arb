@@ -77,7 +77,7 @@
   "error_tariff_limit_description": "Please contact the workspace administrator",
   "error_tariff_limit_title": "The operation is limited in the selected tariff",
 
-  "explain_update_details_dialog_description": "Updated the information stored in Avanplan.\n\nInformation from external sources for imported projects is loaded automatically nightly.",
+  "explain_update_details_dialog_description": "Updated projects stored in Avanplan.\n\nImported projects are updated automatically at night once a day.",
   "explain_update_details_dialog_title": "Update nuances",
 
   "for_dative": "for",

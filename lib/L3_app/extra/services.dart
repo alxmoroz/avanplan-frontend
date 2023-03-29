@@ -79,9 +79,36 @@ void setup() {
   // repo / adapters
   getIt.registerSingletonAsync<HiveStorage>(() async => await HiveStorage().init());
 
-  // global state controllers
-  getIt.registerSingletonAsync<AuthController>(() async => AuthController().init(), dependsOn: [HiveStorage]);
   getIt.registerSingletonAsync<SettingsController>(() async => SettingsController().init(), dependsOn: [HiveStorage, PackageInfo]);
+
+  // Openapi
+  getIt.registerSingletonAsync<Openapi>(() async => await setupApi([loaderController.interceptor]), dependsOn: [SettingsController]);
+
+  // use cases
+  getIt.registerSingletonAsync<AuthUC>(
+      () async => await AuthUC(
+            passwordRepo: AuthPasswordRepo(),
+            googleRepo: AuthGoogleRepo(),
+            appleRepo: AuthAppleRepo(),
+            localDBAuthRepo: LocalAuthRepo(),
+          ).init(),
+      dependsOn: [Openapi]);
+
+  getIt.registerSingletonAsync<MyUC>(() async => await MyUC(MyRepo()).init(), dependsOn: [Openapi]);
+  getIt.registerSingletonAsync<TaskUC>(() async => await TaskUC(TaskRepo()).init(), dependsOn: [Openapi]);
+  getIt.registerSingletonAsync<SourceUC>(() async => await SourceUC(SourceRepo()).init(), dependsOn: [Openapi]);
+  getIt.registerSingletonAsync<ImportUC>(() async => await ImportUC(ImportRepo()).init(), dependsOn: [Openapi]);
+  getIt.registerSingletonAsync<AppSettingsUC>(() async => await AppSettingsUC(AppSettingsRepo()).init(), dependsOn: [Openapi]);
+  getIt.registerSingletonAsync<InvitationUC>(() async => await InvitationUC(InvitationRepo()).init(), dependsOn: [Openapi]);
+  getIt.registerSingletonAsync<TaskMemberRoleUC>(() async => await TaskMemberRoleUC(TaskMemberRoleRepo()).init(), dependsOn: [Openapi]);
+  getIt.registerSingletonAsync<PaymentUC>(() async => await PaymentUC(PaymentRepo()).init(), dependsOn: [Openapi]);
+  getIt.registerSingletonAsync<TariffUC>(() async => await TariffUC(TariffRepo()).init(), dependsOn: [Openapi]);
+  getIt.registerSingletonAsync<ContractUC>(() async => await ContractUC(ContractRepo()).init(), dependsOn: [Openapi]);
+
+  getIt.registerSingleton<LocalSettingsUC>(LocalSettingsUC(LocalSettingsRepo()));
+
+  // global state controllers
+  getIt.registerSingletonAsync<AuthController>(() async => AuthController().init(), dependsOn: [HiveStorage, AuthUC]);
   getIt.registerSingleton<ReferencesController>(ReferencesController());
   getIt.registerSingleton<MainController>(MainController());
   getIt.registerSingleton<LoaderController>(LoaderController());
@@ -89,26 +116,4 @@ void setup() {
   getIt.registerSingleton<NotificationController>(NotificationController());
   getIt.registerSingleton<DeepLinkController>(DeepLinkController());
   getIt.registerSingleton<PaymentController>(PaymentController());
-
-  // Openapi
-  getIt.registerSingleton<Openapi>(setupApi([loaderController.interceptor]));
-
-  // use cases
-  getIt.registerSingleton<AuthUC>(AuthUC(
-    passwordRepo: AuthPasswordRepo(),
-    googleRepo: AuthGoogleRepo(),
-    appleRepo: AuthAppleRepo(),
-    localDBAuthRepo: LocalAuthRepo(),
-  ));
-  getIt.registerSingleton<LocalSettingsUC>(LocalSettingsUC(LocalSettingsRepo()));
-  getIt.registerSingleton<MyUC>(MyUC(MyRepo()));
-  getIt.registerSingleton<TaskUC>(TaskUC(TaskRepo()));
-  getIt.registerSingleton<SourceUC>(SourceUC(SourceRepo()));
-  getIt.registerSingleton<ImportUC>(ImportUC(ImportRepo()));
-  getIt.registerSingleton<AppSettingsUC>(AppSettingsUC(AppSettingsRepo()));
-  getIt.registerSingleton<InvitationUC>(InvitationUC(InvitationRepo()));
-  getIt.registerSingleton<TaskMemberRoleUC>(TaskMemberRoleUC(TaskMemberRoleRepo()));
-  getIt.registerSingleton<PaymentUC>(PaymentUC(PaymentRepo()));
-  getIt.registerSingleton<TariffUC>(TariffUC(TariffRepo()));
-  getIt.registerSingleton<ContractUC>(ContractUC(ContractRepo()));
 }

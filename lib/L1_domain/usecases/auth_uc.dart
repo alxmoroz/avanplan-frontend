@@ -7,6 +7,7 @@ import '../repositories/abs_db_repo.dart';
 
 class AuthUC {
   AuthUC({required this.localDBAuthRepo, required this.googleRepo, required this.appleRepo, required this.passwordRepo});
+  Future<AuthUC> init() async => this;
 
   final AbstractAuthRepo googleRepo;
   final AbstractAuthRepo appleRepo;

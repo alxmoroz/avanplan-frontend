@@ -15,6 +15,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_apns_only: any
+  flutter_dotenv: any
   flutter_localizations:
     sdk: flutter
   flutter_mobx: any
@@ -54,6 +55,7 @@ flutter:
     - assets/ca/
     - assets/fonts/
     - assets/images/
+    - .env
   fonts:
     - family: Roboto
       fonts:

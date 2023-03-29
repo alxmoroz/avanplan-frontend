@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/app_settings.dart';
@@ -11,6 +12,7 @@ part 'settings_controller.g.dart';
 
 class SettingsController extends _SettingsControllerBase with _$SettingsController {
   Future<SettingsController> init() async {
+    await dotenv.load();
     settings = await localSettingsUC.settingsFromLaunch(packageInfo.version);
     return this;
   }

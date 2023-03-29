@@ -5,6 +5,7 @@ import '../repositories/abs_ws_repo.dart';
 
 class TariffUC {
   TariffUC(this.repo);
+  Future<TariffUC> init() async => this;
 
   final AbstractWSRepo<Tariff> repo;
 

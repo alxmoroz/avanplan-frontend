@@ -5,6 +5,7 @@ import '../repositories/abs_invitation_repo.dart';
 
 class InvitationUC {
   InvitationUC(this.repo);
+  Future<InvitationUC> init() async => this;
 
   final AbstractInvitationRepo repo;
 

@@ -4,6 +4,7 @@ import '../repositories/abs_payment_repo.dart';
 
 class PaymentUC {
   PaymentUC(this.repo);
+  Future<PaymentUC> init() async => this;
 
   final AbstractPaymentRepo repo;
 

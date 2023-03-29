@@ -5,6 +5,7 @@ import '../repositories/abs_settings_repo.dart';
 
 class AppSettingsUC {
   AppSettingsUC(this.repo);
+  Future<AppSettingsUC> init() async => this;
 
   final AbstractSettingsRepo repo;
 

@@ -6,17 +6,18 @@ import 'colors.dart';
 import 'text_widgets.dart';
 
 class MTCheckBoxTile extends StatelessWidget {
-  const MTCheckBoxTile({required this.title, required this.value, required this.onChanged, this.description});
+  const MTCheckBoxTile({required this.title, required this.value, required this.onChanged, this.description, this.titleColor});
 
   final String title;
   final bool value;
   final String? description;
+  final Color? titleColor;
   final Function(bool?) onChanged;
 
   @override
   Widget build(BuildContext context) => Container(
         child: CheckboxListTile(
-          title: MediumText(title, color: mainColor),
+          title: MediumText(title, color: titleColor),
           subtitle: description != null && description!.isNotEmpty ? SmallText(description!, maxLines: 2) : null,
           value: value,
           onChanged: onChanged,

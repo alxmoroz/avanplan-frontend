@@ -64,6 +64,7 @@ class MTButton extends StatelessWidget {
   ButtonStyle _style(BuildContext context) => ElevatedButton.styleFrom(
         padding: padding ?? EdgeInsets.zero,
         backgroundColor: (color ?? lightBackgroundColor).resolve(context),
+        disabledBackgroundColor: (color ?? lightBackgroundColor).resolve(context),
         foregroundColor: _titleColor.resolve(context),
         minimumSize: const Size(MIN_BTN_HEIGHT, MIN_BTN_HEIGHT),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS)),

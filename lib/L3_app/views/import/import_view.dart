@@ -80,7 +80,11 @@ class ImportView extends StatelessWidget {
           if (controller.selectedSource != null) ...[
             if (_hasProjects) ...[
               if (controller.projects.length > 1)
-                MTCheckBoxTile(title: loc.select_all_action_title, value: _selectedAll, onChanged: controller.toggleSelectedAll),
+                MTCheckBoxTile(
+                    title: '${loc.select_all_action_title} (${controller.projects.length})',
+                    titleColor: mainColor,
+                    value: _selectedAll,
+                    onChanged: controller.toggleSelectedAll),
             ] else
               MediumText(
                 _hasError ? Intl.message(controller.errorCode!) : loc.import_list_empty_title,
@@ -114,7 +118,7 @@ class ImportView extends StatelessWidget {
     final value = project.selected;
     return MTCheckBoxTile(
       title: project.title,
-      description: project.description,
+      // description: project.description,
       value: value,
       onChanged: (bool? value) => controller.selectProject(project, value),
     );
@@ -122,18 +126,18 @@ class ImportView extends StatelessWidget {
 
   Widget? _bottomBar(BuildContext context) => controller.selectedSource != null && _hasProjects
       ? Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          _validated
-              ? MTButton.outlined(
-                  titleText: loc.import_action_title,
-                  margin: const EdgeInsets.symmetric(horizontal: P),
-                  onTap: _validated ? () => controller.startImport(context) : null,
-                )
-              : NormalText(
-                  loc.import_projects_select_hint,
-                  color: warningColor,
-                  align: TextAlign.center,
-                  padding: const EdgeInsets.symmetric(vertical: P),
-                )
+          if (!_validated)
+            NormalText(
+              loc.import_projects_select_hint,
+              color: warningColor,
+              align: TextAlign.center,
+              padding: const EdgeInsets.only(top: P_2),
+            ),
+          MTButton.outlined(
+            titleText: loc.import_action_title,
+            margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P_2),
+            onTap: _validated ? () => controller.startImport(context) : null,
+          ),
         ])
       : ws.sources.isEmpty
           ? SourceAddMenu(

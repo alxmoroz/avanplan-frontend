@@ -11,6 +11,8 @@ class MTLimitBadge extends StatelessWidget {
   final Widget child;
   final bool showBadge;
 
+  static const childLeftMargin = P2 + P;
+
   @override
   Widget build(BuildContext context) {
     return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -20,14 +22,13 @@ class MTLimitBadge extends StatelessWidget {
             top: DEF_BORDER_WIDTH / 2,
             left: P,
             child: Container(
-              width: MIN_BTN_HEIGHT,
+              width: P2 * 2,
               height: MIN_BTN_HEIGHT - DEF_BORDER_WIDTH,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS),
                 color: warningColor.resolve(context),
               ),
-              alignment: Alignment.centerLeft,
-              child: const RoubleIcon(size: P2, color: lightBackgroundColor),
+              child: Row(children: const [SizedBox(width: P_6), RoubleIcon(size: P2, color: lightBackgroundColor)]),
             ),
           ),
           child,

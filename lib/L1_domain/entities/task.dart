@@ -109,7 +109,7 @@ class TaskRemote {
     required this.title,
     required this.description,
     required this.taskSource,
-    this.selected = true,
+    this.selected = false,
   });
 
   final String title;

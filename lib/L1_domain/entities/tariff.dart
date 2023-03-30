@@ -2,6 +2,13 @@
 
 import 'base_entity.dart';
 
+class TLCode {
+  static const USERS_COUNT = 'USERS_COUNT';
+  static const PROJECTS_UNLINK_ALLOWED = 'PROJECTS_UNLINK_ALLOWED';
+  static const PROJECTS_COUNT = 'PROJECTS_COUNT';
+  static const TASKS_COUNT = 'TASKS_COUNT';
+}
+
 class Tariff extends Codable {
   Tariff({
     required super.id,

@@ -10,8 +10,10 @@ import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/ws_ext.dart';
 import '../../extra/services.dart';
 import '../../usecases/source_ext.dart';
+import '../../usecases/ws_ext_actions.dart';
 import '../_base/edit_controller.dart';
 import '../source/source_edit_view.dart';
+import '../tariff/tariff_select_view.dart';
 
 part 'import_controller.g.dart';
 
@@ -46,6 +48,9 @@ abstract class _ImportControllerBase extends EditController with Store {
   @computed
   Iterable<TaskRemote> get selectedProjects => projects.where((t) => t.selected);
 
+  @computed
+  num get selectableCount => ws.availableProjectsCount - selectedProjects.length;
+
   @override
   bool get validated => selectedProjects.isNotEmpty;
 
@@ -58,16 +63,17 @@ abstract class _ImportControllerBase extends EditController with Store {
   @action
   void clearData() {
     projects = [];
-    selectedAll = true;
+    selectedAll = false;
   }
 
   @observable
-  bool selectedAll = true;
+  bool selectedAll = false;
 
   @action
   void toggleSelectedAll(bool? value) {
     selectedAll = !selectedAll;
     projects.forEach((t) => t.selected = selectedAll);
+    projects = [...projects];
   }
 
   @action
@@ -113,13 +119,20 @@ abstract class _ImportControllerBase extends EditController with Store {
   /// действия,  роутер
 
   Future startImport(BuildContext context) async {
-    loaderController.start();
-    loaderController.setImporting('$selectedSource');
-    final taskSources = selectedProjects.map((t) => t.taskSource!);
-    await importUC.importTaskSources(selectedSource!, taskSources);
-    Navigator.of(context).pop();
-    await mainController.fetchData();
-    await loaderController.stop();
+    if (selectableCount >= 0) {
+      loaderController.start();
+      loaderController.setImporting('$selectedSource');
+      final taskSources = selectedProjects.map((t) => t.taskSource!);
+      await importUC.importTaskSources(selectedSource!, taskSources);
+      Navigator.of(context).pop();
+      await mainController.fetchData();
+      await loaderController.stop();
+    } else {
+      await changeTariff(
+        ws,
+        reason: loc.tariff_change_limit_projects_reason_title,
+      );
+    }
   }
 
   void needAddSourceEvent(BuildContext context, String st) => Navigator.of(context).pop(st);

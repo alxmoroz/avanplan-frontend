@@ -14,12 +14,14 @@ import '../../components/mt_button.dart';
 import '../../components/mt_checkbox.dart';
 import '../../components/mt_close_button.dart';
 import '../../components/mt_dropdown.dart';
+import '../../components/mt_limit_badge.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/source_presenter.dart';
 import '../../presenters/ws_presenter.dart';
+import '../../usecases/ws_ext_actions.dart';
 import '../source/source_add_menu.dart';
 import 'import_controller.dart';
 
@@ -79,7 +81,7 @@ class ImportView extends StatelessWidget {
           ),
           if (controller.selectedSource != null) ...[
             if (_hasProjects) ...[
-              if (controller.projects.length > 1)
+              if (controller.projects.length > 2)
                 MTCheckBoxTile(
                     title: '${loc.select_all_action_title} (${controller.projects.length})',
                     titleColor: mainColor,
@@ -124,19 +126,26 @@ class ImportView extends StatelessWidget {
     );
   }
 
+  String get _importBtnCountHint => controller.selectedProjects.isNotEmpty ? ' (${controller.selectedProjects.length})' : '';
+  String get _importActionHint =>
+      '${loc.import_projects_select_available_count_hint(ws.availableProjectsCount)} ${loc.project_plural_genitive(ws.availableProjectsCount)}';
+
   Widget? _bottomBar(BuildContext context) => controller.selectedSource != null && _hasProjects
       ? Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          if (!_validated)
-            NormalText(
-              loc.import_projects_select_hint,
-              color: warningColor,
-              align: TextAlign.center,
-              padding: const EdgeInsets.only(top: P_2),
+          LightText(
+            _importActionHint,
+            color: _validated ? null : warningColor,
+            align: TextAlign.center,
+            padding: const EdgeInsets.only(top: P_2),
+          ),
+          const SizedBox(height: P_2),
+          MTLimitBadge(
+            child: MTButton.outlined(
+              titleText: '${loc.import_action_title}$_importBtnCountHint',
+              margin: EdgeInsets.only(left: controller.selectableCount >= 0 ? P : MTLimitBadge.childLeftMargin, right: P),
+              onTap: _validated ? () => controller.startImport(context) : null,
             ),
-          MTButton.outlined(
-            titleText: loc.import_action_title,
-            margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P_2),
-            onTap: _validated ? () => controller.startImport(context) : null,
+            showBadge: controller.selectableCount < 0,
           ),
         ])
       : ws.sources.isEmpty

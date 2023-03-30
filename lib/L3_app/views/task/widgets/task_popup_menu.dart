@@ -37,11 +37,11 @@ class TaskPopupMenu extends StatelessWidget {
       case TaskActionType.edit:
         return _tile(leading: const EditIcon(), title: loc.task_edit_action_title);
       case TaskActionType.import_gitlab:
-        return _tile(leading: const ImportIcon(), title: loc.import_title, trailing: iconTitleForSourceType(refsController.stGitlab!));
+        return _tile(leading: const ImportIcon(), title: loc.import_menu_action_title, trailing: iconTitleForSourceType(refsController.stGitlab!));
       case TaskActionType.import_jira:
-        return _tile(leading: const ImportIcon(), title: loc.import_title, trailing: iconTitleForSourceType(refsController.stJira!));
+        return _tile(leading: const ImportIcon(), title: loc.import_menu_action_title, trailing: iconTitleForSourceType(refsController.stJira!));
       case TaskActionType.import_redmine:
-        return _tile(leading: const ImportIcon(), title: loc.import_title, trailing: iconTitleForSourceType(refsController.stRedmine!));
+        return _tile(leading: const ImportIcon(), title: loc.import_menu_action_title, trailing: iconTitleForSourceType(refsController.stRedmine!));
       case TaskActionType.close:
         return _tile(leading: const DoneIcon(true), title: loc.close_action_title);
       case TaskActionType.reopen:

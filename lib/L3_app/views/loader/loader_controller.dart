@@ -224,7 +224,7 @@ abstract class _LoaderControllerBase with Store {
         icon: ImportIcon(size: iconSize, color: iconColor),
       );
   void _setImportError(String? descriptionText, String? errorDetail) => _set(
-        titleText: loc.error_import_title,
+        titleText: loc.error_import_menu_action_title,
         descriptionText: descriptionText,
         icon: ImportIcon(size: iconSize, color: iconColor),
         action: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [

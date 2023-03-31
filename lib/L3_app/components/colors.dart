@@ -3,26 +3,35 @@
 import 'package:flutter/cupertino.dart';
 
 const Color darkGreyColor = CupertinoDynamicColor.withBrightness(
-  color: Color(0xFF424242),
-  darkColor: Color(0xFFCCCCCC),
+  color: Color.fromARGB(255, 62, 62, 82),
+  darkColor: Color.fromARGB(255, 204, 204, 204),
 );
 
 const Color greyColor = CupertinoDynamicColor.withBrightness(
-  color: Color(0xFF666666),
-  darkColor: Color(0xFF999999),
+  color: Color.fromARGB(255, 86, 86, 120),
+  darkColor: Color.fromARGB(255, 150, 150, 159),
 );
 
 const Color lightGreyColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(255, 180, 180, 190),
-  darkColor: Color.fromARGB(255, 72, 72, 74),
+  darkColor: Color.fromARGB(255, 76, 76, 84),
 );
 
 const Color borderColor = CupertinoColors.systemGrey3;
-const Color darkBackgroundColor = CupertinoColors.systemGrey5;
-const Color backgroundColor = CupertinoColors.systemGrey6;
+
+const Color darkBackgroundColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, 231, 231, 233),
+  darkColor: Color.fromARGB(255, 45, 42, 42),
+);
+
+const backgroundColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, 252, 251, 251),
+  darkColor: Color.fromARGB(255, 32, 28, 27),
+);
+
 const Color lightBackgroundColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 252, 252, 252),
-  darkColor: Color.fromARGB(255, 12, 12, 12),
+  color: Color.fromARGB(255, 250, 252, 255),
+  darkColor: Color.fromARGB(255, 10, 10, 15),
 );
 
 const Color dangerColor = CupertinoColors.destructiveRed;
@@ -44,7 +53,6 @@ const Color greenColor = CupertinoDynamicColor.withBrightness(
 // );
 
 const Color mainColor = CupertinoDynamicColor.withBrightness(
-  // color: Color.fromARGB(255, 0, 113, 164),
   color: Color.fromARGB(255, 30, 150, 220),
   darkColor: Color.fromARGB(255, 90, 200, 250),
 );

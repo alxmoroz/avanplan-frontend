@@ -7,6 +7,7 @@ import '../../../components/colors.dart';
 import '../../../components/icons.dart';
 import '../../../components/navbar.dart';
 import '../../../extra/services.dart';
+import '../../../presenters/task_colors_presenter.dart';
 import '../../../presenters/task_level_presenter.dart';
 import '../../../usecases/task_ext_actions.dart';
 import '../task_view_controller.dart';
@@ -17,7 +18,7 @@ CupertinoNavigationBar taskNavBar(BuildContext context, TaskViewController contr
 
   return navBar(
     context,
-    bgColor: task.isWorkspace ? navbarDefaultBgColor : backgroundColor,
+    bgColor: task.isWorkspace ? navbarDefaultBgColor : task.bgColor,
     title: task.isWorkspace ? loc.project_list_title : task.viewTitle,
     trailing: !task.isWorkspace && task.actionTypes.isNotEmpty ? TaskPopupMenu(controller, icon: const MenuIcon()) : null,
   );

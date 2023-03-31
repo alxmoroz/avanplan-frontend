@@ -159,7 +159,7 @@ class ImportView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        navBar: navBar(context, leading: MTCloseButton(), title: loc.import_title, bgColor: darkBackgroundColor),
+        navBar: navBar(context, leading: MTCloseButton(), title: loc.import_title, bgColor: backgroundColor),
         body: SafeArea(bottom: false, child: _body(context)),
         bottomBar: _bottomBar(context),
       ),

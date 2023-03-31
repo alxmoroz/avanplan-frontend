@@ -26,14 +26,14 @@ class TaskCard extends StatelessWidget {
   bool get _hasStatus => task.status != null;
   bool get _hasAssignee => task.assignee != null;
 
-  Widget get title => H4(
+  Widget get _title => H4(
         task.title,
         maxLines: 2,
         decoration: task.closed ? TextDecoration.lineThrough : null,
       );
 
-  Widget get header => Row(children: [
-        Expanded(child: title),
+  Widget get _header => Row(children: [
+        Expanded(child: _title),
         // if (task.openedLeafTasksCount > 0) MTBadge('${task.openedLeafTasksCount}'),
         // const SizedBox(width: P / 4),
         const ChevronIcon(),
@@ -42,15 +42,6 @@ class TaskCard extends StatelessWidget {
   bool get _showLink => task.hasLink && task.isProject;
 
   Widget get _estimate => SmallText('${task.estimate} ${loc.task_estimate_unit}', color: greyColor);
-  // List<Widget> get _dueDate => [
-  //       const SizedBox(height: P_3),
-  //       Row(
-  //         children: [
-  //           const CalendarIcon(size: P * 1.5, color: lightGreyColor),
-  //           SmallText('${task.dueDate?.strMedium}', color: darkGreyColor, padding: const EdgeInsets.only(left: P_3)),
-  //         ],
-  //       ),
-  //     ];
 
   @override
   Widget build(BuildContext context) => MTCardButton(
@@ -59,8 +50,7 @@ class TaskCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,
           children: [
-            header,
-            // if (task.hasDueDate) ..._dueDate,
+            _header,
             if (task.showState || _showLink) ...[
               const SizedBox(height: P_3),
               Row(children: [
@@ -68,6 +58,7 @@ class TaskCard extends StatelessWidget {
                 if (_showLink) const LinkIcon(),
               ]),
             ],
+            const SizedBox(height: P_6),
             Row(
               children: [
                 if (!task.closed && _hasStatus) SmallText(task.status!.code, color: greyColor),
@@ -77,7 +68,10 @@ class TaskCard extends StatelessWidget {
                 ]
               ],
             ),
-            if (_hasAssignee) task.assignee!.iconName(),
+            if (_hasAssignee) ...[
+              const SizedBox(height: P_6),
+              task.assignee!.iconName(),
+            ]
           ],
         ),
       );

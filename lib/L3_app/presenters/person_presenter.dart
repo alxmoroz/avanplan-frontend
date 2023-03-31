@@ -24,7 +24,7 @@ class _PersonIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) => CircleAvatar(
         radius: radius,
-        backgroundColor: (borderSide?.color ?? greyColor).resolve(context),
+        backgroundColor: (borderSide?.color ?? lightGreyColor).resolve(context),
         child: CircleAvatar(
           radius: radius - (borderSide?.width ?? 0.5) * 2,
           backgroundColor: lightGreyColor.resolve(context),

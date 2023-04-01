@@ -40,21 +40,21 @@ abstract class _TaskViewControllerBase with Store {
   Workspace get ws => mainController.selectedWS!;
 
   /// вкладки
-  bool get _hasDescription => task.description.isNotEmpty;
-  bool get _hasAuthor => task.authorId != null;
-  bool get _hasOverview => task.showState || task.showTimeChart || task.showVelocityVolumeCharts;
-  bool get _hasDetails => _hasDescription || _hasAuthor;
-
   @computed
   Iterable<TaskTabKey> get tabKeys {
-    return task.isWorkspace
-        ? []
-        : [
-            if (_hasOverview) TaskTabKey.overview,
-            if (task.hasSubtasks) TaskTabKey.subtasks,
-            if (_hasDetails) TaskTabKey.details,
-            if (task.canMembersRead && (task.members.isNotEmpty || task.canEditMembers)) TaskTabKey.team,
-          ];
+    if (task.isWorkspace) {
+      return [];
+    } else {
+      final hasOverview = task.showState || task.showTimeChart || task.showVelocityVolumeCharts;
+      final hasDetails = task.description.isNotEmpty || task.authorId != null;
+      final hasTeam = task.canMembersRead && (task.members.isNotEmpty || task.canEditMembers);
+      return [
+        if (hasOverview) TaskTabKey.overview,
+        if (task.hasSubtasks) TaskTabKey.subtasks,
+        if (hasDetails) TaskTabKey.details,
+        if (hasTeam) TaskTabKey.team,
+      ];
+    }
   }
 
   @observable

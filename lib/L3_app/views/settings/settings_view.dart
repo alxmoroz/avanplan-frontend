@@ -76,7 +76,7 @@ class SettingsView extends StatelessWidget {
                   leading: const MailIcon(),
                   titleText: loc.contact_us_title,
                   trailing: const LinkOutIcon(),
-                  onTap: () => sendMail(mailSubject, appTitle, accountController.user?.id),
+                  onTap: () => sendMail(loc.contact_us_mail_subject, appTitle, accountController.user?.id),
                 ),
                 MTListTile(
                   leading: const RulesIcon(),

@@ -3,8 +3,10 @@
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
+import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/text_widgets.dart';
+import '../../extra/services.dart';
 import '../../presenters/tariff_presenter.dart';
 import 'tariff_limit_tile.dart';
 import 'tariff_option_tile.dart';
@@ -28,7 +30,10 @@ class TariffInfo extends StatelessWidget {
             ],
           ),
         ),
-        for (var code in tariff.optionsMap.keys) TariffOptionTile(tariff: tariff, code: code),
+        if (tariff.optionsMap.keys.isNotEmpty)
+          for (var code in tariff.optionsMap.keys) TariffOptionTile(tariff: tariff, code: code)
+        else
+          H4(loc.tariff_price_free_title, align: TextAlign.center, color: greyColor, padding: const EdgeInsets.all(P)),
       ],
     );
   }

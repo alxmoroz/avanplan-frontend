@@ -136,7 +136,7 @@ abstract class _LoaderControllerBase with Store {
         leading: const MailIcon(),
         titleText: loc.report_bug_action_title,
         margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P),
-        onTap: () => sendMail(mailSubject, appTitle, accountController.user?.id, errorText),
+        onTap: () => sendMail(loc.contact_us_mail_subject, appTitle, accountController.user?.id, errorText),
       );
 
   void _setHTTPError(String? errorText, String? errorDetail) {

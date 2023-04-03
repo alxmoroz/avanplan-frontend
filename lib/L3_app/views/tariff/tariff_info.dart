@@ -33,7 +33,7 @@ class TariffInfo extends StatelessWidget {
         if (tariff.optionsMap.keys.isNotEmpty)
           for (var code in tariff.optionsMap.keys) TariffOptionTile(tariff: tariff, code: code)
         else
-          H4(loc.tariff_price_free_title, align: TextAlign.center, color: greyColor, padding: const EdgeInsets.all(P)),
+          MediumText(loc.tariff_price_free_title, align: TextAlign.center, color: greyColor, padding: const EdgeInsets.all(P)),
       ],
     );
   }

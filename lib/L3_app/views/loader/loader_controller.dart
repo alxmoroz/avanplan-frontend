@@ -170,10 +170,11 @@ abstract class _LoaderControllerBase with Store {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            _stopAction(loc.ok),
             MTButton.outlined(
               leading: const RefreshIcon(),
               titleText: loc.reload_action_title,
-              margin: const EdgeInsets.symmetric(horizontal: P),
+              margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P),
               onTap: _reload,
             ),
             _reportErrorButton(errorText ?? 'LoaderNetworkError'),

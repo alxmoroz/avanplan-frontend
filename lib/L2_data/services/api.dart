@@ -9,7 +9,6 @@ import 'environment.dart';
 Openapi get openAPI => GetIt.I<Openapi>();
 
 Future<Openapi> setupApi(Iterable<Interceptor>? interceptors) async {
-  print(apiKey);
   return Openapi(basePathOverride: apiPath)
     ..dio.options.connectTimeout = const Duration(minutes: 10)
     ..dio.options.receiveTimeout = const Duration(minutes: 10)

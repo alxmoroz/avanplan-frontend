@@ -45,7 +45,14 @@ class SettingsApi {
         ...?headers,
       },
       extra: <String, dynamic>{
-        'secure': <Map<String, String>>[],
+        'secure': <Map<String, String>>[
+          {
+            'type': 'apiKey',
+            'name': 'APIKeyHeader',
+            'keyName': 'Avanplan',
+            'where': 'header',
+          },
+        ],
         ...?extra,
       },
       validateStatus: validateStatus,
@@ -72,9 +79,10 @@ class SettingsApi {
       throw DioError(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.other,
+        type: DioErrorType.unknown,
         error: error,
-      )..stackTrace = stackTrace;
+        stackTrace: stackTrace,
+      );
     }
 
     return Response<AppSettingsGet>(

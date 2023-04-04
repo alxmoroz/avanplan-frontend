@@ -69,7 +69,14 @@ class PaymentsApi {
         ...?headers,
       },
       extra: <String, dynamic>{
-        'secure': <Map<String, String>>[],
+        'secure': <Map<String, String>>[
+          {
+            'type': 'apiKey',
+            'name': 'APIKeyHeader',
+            'keyName': 'Avanplan',
+            'where': 'header',
+          },
+        ],
         ...?extra,
       },
       contentType: 'application/x-www-form-urlencoded',
@@ -99,9 +106,10 @@ class PaymentsApi {
           _dio.options,
           _path,
         ),
-        type: DioErrorType.other,
+        type: DioErrorType.unknown,
         error: error,
-      )..stackTrace = stackTrace;
+        stackTrace: stackTrace,
+      );
     }
 
     final _response = await _dio.request<Object>(
@@ -126,9 +134,10 @@ class PaymentsApi {
       throw DioError(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.other,
+        type: DioErrorType.unknown,
         error: error,
-      )..stackTrace = stackTrace;
+        stackTrace: stackTrace,
+      );
     }
 
     return Response<JsonObject>(

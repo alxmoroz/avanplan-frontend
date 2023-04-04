@@ -51,7 +51,14 @@ class AuthApi {
         ...?headers,
       },
       extra: <String, dynamic>{
-        'secure': <Map<String, String>>[],
+        'secure': <Map<String, String>>[
+          {
+            'type': 'apiKey',
+            'name': 'APIKeyHeader',
+            'keyName': 'Avanplan',
+            'where': 'header',
+          },
+        ],
         ...?extra,
       },
       contentType: 'application/json',
@@ -70,9 +77,10 @@ class AuthApi {
           _dio.options,
           _path,
         ),
-        type: DioErrorType.other,
+        type: DioErrorType.unknown,
         error: error,
-      )..stackTrace = stackTrace;
+        stackTrace: stackTrace,
+      );
     }
 
     final _response = await _dio.request<Object>(
@@ -97,9 +105,10 @@ class AuthApi {
       throw DioError(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.other,
+        type: DioErrorType.unknown,
         error: error,
-      )..stackTrace = stackTrace;
+        stackTrace: stackTrace,
+      );
     }
 
     return Response<Token>(
@@ -144,7 +153,14 @@ class AuthApi {
         ...?headers,
       },
       extra: <String, dynamic>{
-        'secure': <Map<String, String>>[],
+        'secure': <Map<String, String>>[
+          {
+            'type': 'apiKey',
+            'name': 'APIKeyHeader',
+            'keyName': 'Avanplan',
+            'where': 'header',
+          },
+        ],
         ...?extra,
       },
       contentType: 'application/json',
@@ -163,9 +179,10 @@ class AuthApi {
           _dio.options,
           _path,
         ),
-        type: DioErrorType.other,
+        type: DioErrorType.unknown,
         error: error,
-      )..stackTrace = stackTrace;
+        stackTrace: stackTrace,
+      );
     }
 
     final _response = await _dio.request<Object>(
@@ -190,9 +207,10 @@ class AuthApi {
       throw DioError(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.other,
+        type: DioErrorType.unknown,
         error: error,
-      )..stackTrace = stackTrace;
+        stackTrace: stackTrace,
+      );
     }
 
     return Response<Token>(
@@ -247,7 +265,14 @@ class AuthApi {
         ...?headers,
       },
       extra: <String, dynamic>{
-        'secure': <Map<String, String>>[],
+        'secure': <Map<String, String>>[
+          {
+            'type': 'apiKey',
+            'name': 'APIKeyHeader',
+            'keyName': 'Avanplan',
+            'where': 'header',
+          },
+        ],
         ...?extra,
       },
       contentType: 'application/x-www-form-urlencoded',
@@ -272,9 +297,10 @@ class AuthApi {
           _dio.options,
           _path,
         ),
-        type: DioErrorType.other,
+        type: DioErrorType.unknown,
         error: error,
-      )..stackTrace = stackTrace;
+        stackTrace: stackTrace,
+      );
     }
 
     final _response = await _dio.request<Object>(
@@ -299,9 +325,10 @@ class AuthApi {
       throw DioError(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.other,
+        type: DioErrorType.unknown,
         error: error,
-      )..stackTrace = stackTrace;
+        stackTrace: stackTrace,
+      );
     }
 
     return Response<Token>(
@@ -346,6 +373,11 @@ class AuthApi {
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
+            'type': 'apiKey',
+            'name': 'APIKeyHeader',
+            'keyName': 'Avanplan',
+            'where': 'header',
+          },{
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -376,9 +408,10 @@ class AuthApi {
       throw DioError(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.other,
+        type: DioErrorType.unknown,
         error: error,
-      )..stackTrace = stackTrace;
+        stackTrace: stackTrace,
+      );
     }
 
     return Response<Token>(

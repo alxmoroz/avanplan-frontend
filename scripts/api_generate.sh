@@ -2,8 +2,8 @@
 
 # Copyright (c) 2022. Alexandr Moroz
 
-remote_schema="https://test.avanplan.ru/api/v1/openapi.json"
-#remote_schema="http://127.0.0.1:9999/v1/openapi.json"
+#remote_schema="https://test.avanplan.ru/api/v1/openapi.json"
+remote_schema="http://127.0.0.1:9999/api/v1/openapi.json"
 
 api_folder="./openapi"
 
@@ -22,7 +22,7 @@ java -ea                          \
   -Xms512M                        \
   -Xmx1024M                       \
   -server                         \
-  -jar ../scripts/openapi-generator-cli-6.2.1.jar generate -i openapi.json -g dart-dio -o .
+  -jar ../scripts/openapi-generator-cli.jar generate -i openapi.json -g dart-dio -o .
 
 #flutter pub get
 bash ../scripts/build_runner_clean.sh

@@ -23,6 +23,10 @@ Apple Token
 ### Example
 ```dart
 import 'package:openapi/api.dart';
+// TODO Configure API key authorization: APIKeyHeader
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
 
 final api = Openapi().getAuthApi();
 final BodyAuthAppleToken bodyAuthAppleToken = ; // BodyAuthAppleToken | 
@@ -47,7 +51,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -64,6 +68,10 @@ Google Token
 ### Example
 ```dart
 import 'package:openapi/api.dart';
+// TODO Configure API key authorization: APIKeyHeader
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
 
 final api = Openapi().getAuthApi();
 final BodyAuthGoogleToken bodyAuthGoogleToken = ; // BodyAuthGoogleToken | 
@@ -88,7 +96,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -105,6 +113,10 @@ Password Token
 ### Example
 ```dart
 import 'package:openapi/api.dart';
+// TODO Configure API key authorization: APIKeyHeader
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
 
 final api = Openapi().getAuthApi();
 final String username = username_example; // String | 
@@ -139,7 +151,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-No authorization required
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 
@@ -156,6 +168,10 @@ Refresh Token
 ### Example
 ```dart
 import 'package:openapi/api.dart';
+// TODO Configure API key authorization: APIKeyHeader
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
 // TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
 //defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
 
@@ -178,7 +194,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-[OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
 
 ### HTTP request headers
 

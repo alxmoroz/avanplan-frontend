@@ -20,6 +20,10 @@ Get Settings
 ### Example
 ```dart
 import 'package:openapi/api.dart';
+// TODO Configure API key authorization: APIKeyHeader
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
 
 final api = Openapi().getSettingsApi();
 
@@ -40,7 +44,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-No authorization required
+[APIKeyHeader](../README.md#APIKeyHeader)
 
 ### HTTP request headers
 

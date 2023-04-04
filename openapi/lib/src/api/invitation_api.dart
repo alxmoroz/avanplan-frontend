@@ -54,6 +54,11 @@ class InvitationApi {
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
+            'type': 'apiKey',
+            'name': 'APIKeyHeader',
+            'keyName': 'Avanplan',
+            'where': 'header',
+          },{
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -81,9 +86,10 @@ class InvitationApi {
           _path,
           queryParameters: _queryParameters,
         ),
-        type: DioErrorType.other,
+        type: DioErrorType.unknown,
         error: error,
-      )..stackTrace = stackTrace;
+        stackTrace: stackTrace,
+      );
     }
 
     final _response = await _dio.request<Object>(
@@ -105,9 +111,10 @@ class InvitationApi {
       throw DioError(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.other,
+        type: DioErrorType.unknown,
         error: error,
-      )..stackTrace = stackTrace;
+        stackTrace: stackTrace,
+      );
     }
 
     return Response<String>(
@@ -154,6 +161,11 @@ class InvitationApi {
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
+            'type': 'apiKey',
+            'name': 'APIKeyHeader',
+            'keyName': 'Avanplan',
+            'where': 'header',
+          },{
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -176,9 +188,10 @@ class InvitationApi {
           _dio.options,
           _path,
         ),
-        type: DioErrorType.other,
+        type: DioErrorType.unknown,
         error: error,
-      )..stackTrace = stackTrace;
+        stackTrace: stackTrace,
+      );
     }
 
     final _response = await _dio.request<Object>(
@@ -199,9 +212,10 @@ class InvitationApi {
       throw DioError(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.other,
+        type: DioErrorType.unknown,
         error: error,
-      )..stackTrace = stackTrace;
+        stackTrace: stackTrace,
+      );
     }
 
     return Response<bool>(

@@ -48,14 +48,7 @@ class _$LocationInnerSerializer implements PrimitiveSerializer<LocationInner> {
     FullType specifiedType = FullType.unspecified,
   }) {
     final anyOf = object.anyOf;
-    final result = <Object?>[];
-    for (var _valueEntry in anyOf.values.entries) {
-      final _typeIndex = _valueEntry.key;
-      final _type = anyOf.types[_typeIndex];
-      final _value = _valueEntry.value;
-      result.addAll(serializers.serialize(_value, specifiedType: FullType(_type)) as Iterable<Object?>);
-    }
-    return result;
+    return serializers.serialize(anyOf, specifiedType: FullType(AnyOf, anyOf.valueTypes.map((type) => FullType(type)).toList()))!;
   }
 
   @override

@@ -54,6 +54,11 @@ class IntegrationsSourcesApi {
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
+            'type': 'apiKey',
+            'name': 'APIKeyHeader',
+            'keyName': 'Avanplan',
+            'where': 'header',
+          },{
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -86,9 +91,10 @@ class IntegrationsSourcesApi {
       throw DioError(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.other,
+        type: DioErrorType.unknown,
         error: error,
-      )..stackTrace = stackTrace;
+        stackTrace: stackTrace,
+      );
     }
 
     return Response<bool>(
@@ -137,6 +143,11 @@ class IntegrationsSourcesApi {
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
+            'type': 'apiKey',
+            'name': 'APIKeyHeader',
+            'keyName': 'Avanplan',
+            'where': 'header',
+          },{
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -168,9 +179,10 @@ class IntegrationsSourcesApi {
       throw DioError(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.other,
+        type: DioErrorType.unknown,
         error: error,
-      )..stackTrace = stackTrace;
+        stackTrace: stackTrace,
+      );
     }
 
     return Response<bool>(
@@ -219,6 +231,11 @@ class IntegrationsSourcesApi {
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
+            'type': 'apiKey',
+            'name': 'APIKeyHeader',
+            'keyName': 'Avanplan',
+            'where': 'header',
+          },{
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -246,9 +263,10 @@ class IntegrationsSourcesApi {
           _path,
           queryParameters: _queryParameters,
         ),
-        type: DioErrorType.other,
+        type: DioErrorType.unknown,
         error: error,
-      )..stackTrace = stackTrace;
+        stackTrace: stackTrace,
+      );
     }
 
     final _response = await _dio.request<Object>(
@@ -274,9 +292,10 @@ class IntegrationsSourcesApi {
       throw DioError(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.other,
+        type: DioErrorType.unknown,
         error: error,
-      )..stackTrace = stackTrace;
+        stackTrace: stackTrace,
+      );
     }
 
     return Response<SourceGet>(

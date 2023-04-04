@@ -62,11 +62,7 @@ abstract class _LoaderControllerBase with Store {
 
   /// Interceptor
   Interceptor get interceptor => InterceptorsWrapper(onError: (e, handler) async {
-        if (e.type == DioErrorType.other) {
-          if (e.error is SocketException) {
-            _setNetworkError('${e.error}');
-          }
-        } else if (e.type == DioErrorType.response) {
+        if (e.type == DioErrorType.badResponse) {
           final code = e.response?.statusCode ?? 666;
           final path = e.requestOptions.path;
 
@@ -98,6 +94,10 @@ abstract class _LoaderControllerBase with Store {
             } else {
               _setHTTPError(errorText, e.detail);
             }
+          }
+        } else {
+          if (e.error is SocketException) {
+            _setNetworkError('${e.error}');
           }
         }
       });

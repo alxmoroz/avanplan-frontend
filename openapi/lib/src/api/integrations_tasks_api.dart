@@ -58,6 +58,11 @@ class IntegrationsTasksApi {
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
+            'type': 'apiKey',
+            'name': 'APIKeyHeader',
+            'keyName': 'Avanplan',
+            'where': 'header',
+          },{
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -86,9 +91,10 @@ class IntegrationsTasksApi {
           _path,
           queryParameters: _queryParameters,
         ),
-        type: DioErrorType.other,
+        type: DioErrorType.unknown,
         error: error,
-      )..stackTrace = stackTrace;
+        stackTrace: stackTrace,
+      );
     }
 
     final _response = await _dio.request<Object>(
@@ -110,9 +116,10 @@ class IntegrationsTasksApi {
       throw DioError(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.other,
+        type: DioErrorType.unknown,
         error: error,
-      )..stackTrace = stackTrace;
+        stackTrace: stackTrace,
+      );
     }
 
     return Response<bool>(
@@ -161,6 +168,11 @@ class IntegrationsTasksApi {
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
+            'type': 'apiKey',
+            'name': 'APIKeyHeader',
+            'keyName': 'Avanplan',
+            'where': 'header',
+          },{
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -197,9 +209,10 @@ class IntegrationsTasksApi {
       throw DioError(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.other,
+        type: DioErrorType.unknown,
         error: error,
-      )..stackTrace = stackTrace;
+        stackTrace: stackTrace,
+      );
     }
 
     return Response<BuiltList<TaskRemote>>(
@@ -250,6 +263,11 @@ class IntegrationsTasksApi {
       extra: <String, dynamic>{
         'secure': <Map<String, String>>[
           {
+            'type': 'apiKey',
+            'name': 'APIKeyHeader',
+            'keyName': 'Avanplan',
+            'where': 'header',
+          },{
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -278,9 +296,10 @@ class IntegrationsTasksApi {
           _path,
           queryParameters: _queryParameters,
         ),
-        type: DioErrorType.other,
+        type: DioErrorType.unknown,
         error: error,
-      )..stackTrace = stackTrace;
+        stackTrace: stackTrace,
+      );
     }
 
     final _response = await _dio.request<Object>(
@@ -302,9 +321,10 @@ class IntegrationsTasksApi {
       throw DioError(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.other,
+        type: DioErrorType.unknown,
         error: error,
-      )..stackTrace = stackTrace;
+        stackTrace: stackTrace,
+      );
     }
 
     return Response<bool>(

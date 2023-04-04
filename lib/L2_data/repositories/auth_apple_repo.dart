@@ -25,7 +25,7 @@ class AuthAppleRepo extends AuthBaseRepo {
           AppleIDAuthorizationScopes.fullName,
         ],
         webAuthenticationOptions: WebAuthenticationOptions(
-          redirectUri: Uri.parse(appleAuthRedirectPath ?? 'https://avanplan.ru'),
+          redirectUri: Uri.parse(appleAuthRedirectPath),
           clientId: 'team.moroz.avanplan.services',
         ),
       );

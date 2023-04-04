@@ -2,6 +2,11 @@
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-String? get apiPath => dotenv.maybeGet('API_PATH');
-String? get appleAuthRedirectPath => dotenv.maybeGet('APPLE_AUTH_REDIRECT_PATH');
-String get visibleApiHost => Uri.tryParse(apiPath ?? '')?.host ?? '';
+const _STAGE_PROD = 'prod';
+String get _stage => dotenv.maybeGet('STAGE') ?? _STAGE_PROD;
+bool get _isProd => _stage == _STAGE_PROD;
+
+String get _apiHost => dotenv.maybeGet('API_HOST') ?? 'https://avanplan.ru';
+String get apiPath => '$_apiHost/api';
+String get appleAuthRedirectPath => _apiHost;
+String get visibleApiHost => _isProd ? '' : Uri.parse(_apiHost).host;

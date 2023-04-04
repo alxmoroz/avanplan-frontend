@@ -9,7 +9,7 @@ import 'environment.dart';
 Openapi get openAPI => GetIt.I<Openapi>();
 
 Future<Openapi> setupApi(Iterable<Interceptor>? interceptors) async {
-  return Openapi(basePathOverride: apiPath ?? 'https://avanplan.ru/api/')
+  return Openapi(basePathOverride: apiPath)
     ..dio.options.connectTimeout = 600000
     ..dio.options.receiveTimeout = 600000
     ..dio.interceptors.addAll(interceptors ?? []);

@@ -95,6 +95,8 @@ Class | Method | HTTP request | Description
 
 ## Documentation For Models
 
+ - [AccountGet](doc/AccountGet.md)
+ - [AccountOperationGet](doc/AccountOperationGet.md)
  - [AppSettingsGet](doc/AppSettingsGet.md)
  - [BodyAuthAppleToken](doc/BodyAuthAppleToken.md)
  - [BodyAuthGoogleToken](doc/BodyAuthGoogleToken.md)

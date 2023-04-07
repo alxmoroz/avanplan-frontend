@@ -109,6 +109,8 @@
   "invitation_share_subject_prefix": "Invitation to ",
   "invitation_url_label": "Invitation link",
 
+  "later": "Maybe later",
+
   "legal_privacy_policy_title": "Privacy policy",
   "legal_rules_title": "License agreement",
 
@@ -141,6 +143,9 @@
   "notification_push_ios_denied_dialog_description": "In app settings:\nNotifications ->\nAllow Notifications",
   "notification_push_ios_denied_dialog_title": "Enable Push notifications",
   "notification_title": "Notification",
+
+  "onboarding_welcome_gift_dialog_title": "Incoming Gift!",
+  "onboarding_welcome_gift_dialog_description": "Welcoming {count} rubles have been accrued!\n\nThey can (and should) be spent on features of paid plans. You can change the tariff in the workspace settings\n\nThank you for choosing Avanplan!",
 
   "ok": "Ok",
   "overview": "Overview",

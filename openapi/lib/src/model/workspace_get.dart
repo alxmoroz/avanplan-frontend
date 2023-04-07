@@ -3,6 +3,7 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:openapi/src/model/account_get.dart';
 import 'package:openapi/src/model/source_get.dart';
 import 'package:openapi/src/model/settings_get.dart';
 import 'package:built_collection/built_collection.dart';
@@ -25,6 +26,7 @@ part 'workspace_get.g.dart';
 /// * [roles] 
 /// * [invoice] 
 /// * [balance] 
+/// * [mainAccount] 
 /// * [settings] 
 /// * [estimateValues] 
 /// * [sources] 
@@ -50,6 +52,9 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
 
   @BuiltValueField(wireName: r'balance')
   num? get balance;
+
+  @BuiltValueField(wireName: r'main_account')
+  AccountGet? get mainAccount;
 
   @BuiltValueField(wireName: r'settings')
   SettingsGet? get settings;
@@ -132,6 +137,13 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
       yield serializers.serialize(
         object.balance,
         specifiedType: const FullType(num),
+      );
+    }
+    if (object.mainAccount != null) {
+      yield r'main_account';
+      yield serializers.serialize(
+        object.mainAccount,
+        specifiedType: const FullType(AccountGet),
       );
     }
     if (object.settings != null) {
@@ -226,6 +238,13 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
             specifiedType: const FullType(num),
           ) as num;
           result.balance = valueDes;
+          break;
+        case r'main_account':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(AccountGet),
+          ) as AccountGet;
+          result.mainAccount.replace(valueDes);
           break;
         case r'settings':
           final valueDes = serializers.deserialize(

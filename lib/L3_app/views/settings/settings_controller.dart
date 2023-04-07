@@ -32,5 +32,12 @@ abstract class _SettingsControllerBase with Store {
   Future fetchAppsettings() async => appSettings = await appSettingsUC.getSettings();
 
   @action
-  Future setExplainUpdateDetailsShown() async => settings = await localSettingsUC.setExplainUpdateDetailsShown();
+  Future setExplainUpdateDetailsShown() async => settings = await localSettingsUC.setFlag(LocalSettings.EXPLAIN_UPDATE_DETAILS_SHOWN, true);
+  @computed
+  bool get explainUpdateDetailsShown => settings.getFlag(LocalSettings.EXPLAIN_UPDATE_DETAILS_SHOWN);
+
+  @action
+  Future setWelcomeGiftInfoShown() async => settings = await localSettingsUC.setFlag(LocalSettings.WELCOME_GIFT_INFO_SHOWN, true);
+  @computed
+  bool get welcomeGiftInfoShown => settings.getFlag(LocalSettings.WELCOME_GIFT_INFO_SHOWN);
 }

@@ -26,7 +26,7 @@ class TariffLimitTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final value = tariff.limitValue(code);
 
-    String hvStr = value.hvStr;
+    String hvStr = value.humanValueStr;
     final plural = num.tryParse(hvStr) == null ? 10 : value;
 
     String prefix = loc.tariff_limit_up_to_prefix;

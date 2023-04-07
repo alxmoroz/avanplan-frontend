@@ -10,6 +10,7 @@ import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../extra/services.dart';
 import '../../presenters/ws_presenter.dart';
+import '../../usecases/ws_ext_actions.dart';
 import '../tariff/tariff_info.dart';
 import '../tariff/tariff_select_view.dart';
 
@@ -29,11 +30,13 @@ class ContractView extends StatelessWidget {
       body: SafeArea(
         child: TariffInfo(ws.invoice.tariff),
       ),
-      bottomBar: MTButton.outlined(
-        titleText: loc.tariff_change_action_title,
-        onTap: () => changeTariff(ws),
-        margin: const EdgeInsets.symmetric(horizontal: P),
-      ),
+      bottomBar: ws.hpTariffUpdate
+          ? MTButton.outlined(
+              titleText: loc.tariff_change_action_title,
+              onTap: () => changeTariff(ws),
+              margin: const EdgeInsets.symmetric(horizontal: P),
+            )
+          : null,
     );
   }
 }

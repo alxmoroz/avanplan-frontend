@@ -14,6 +14,8 @@ import 'package:built_value/iso_8601_date_time_serializer.dart';
 import 'package:openapi/src/date_serializer.dart';
 import 'package:openapi/src/model/date.dart';
 
+import 'package:openapi/src/model/account_get.dart';
+import 'package:openapi/src/model/account_operation_get.dart';
 import 'package:openapi/src/model/app_settings_get.dart';
 import 'package:openapi/src/model/body_auth_apple_token.dart';
 import 'package:openapi/src/model/body_auth_google_token.dart';
@@ -56,6 +58,8 @@ import 'package:openapi/src/model/workspace_get.dart';
 part 'serializers.g.dart';
 
 @SerializersFor([
+  AccountGet,
+  AccountOperationGet,
   AppSettingsGet,
   BodyAuthAppleToken,
   BodyAuthGoogleToken,

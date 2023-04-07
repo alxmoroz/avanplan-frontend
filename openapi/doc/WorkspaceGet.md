@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **roles** | [**BuiltList&lt;RoleGet&gt;**](RoleGet.md) |  | [optional] [default to ListBuilder()]
 **invoice** | [**InvoiceGet**](InvoiceGet.md) |  | [optional] 
 **balance** | **num** |  | [optional] 
+**mainAccount** | [**AccountGet**](AccountGet.md) |  | [optional] 
 **settings** | [**SettingsGet**](SettingsGet.md) |  | [optional] 
 **estimateValues** | [**BuiltList&lt;EstimateValueGet&gt;**](EstimateValueGet.md) |  | [optional] [default to ListBuilder()]
 **sources** | [**BuiltList&lt;SourceGet&gt;**](SourceGet.md) |  | [optional] [default to ListBuilder()]

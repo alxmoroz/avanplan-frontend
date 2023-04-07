@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:avanplan/L3_app/presenters/number_presenter.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -7,9 +8,12 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/task_stats.dart';
+import '../../../L1_domain/entities_extensions/ws_ext.dart';
 import '../../../main.dart';
 import '../../components/mt_dialog.dart';
 import '../../extra/services.dart';
+import '../../usecases/ws_ext_actions.dart';
+import '../tariff/tariff_select_view.dart';
 import '../task/task_view.dart';
 import '../workspace/workspace_view.dart';
 
@@ -118,7 +122,7 @@ abstract class _MainControllerBase with Store {
   }
 
   Future _explainUpdateDetails() async {
-    if (hasLinkedProjects && !settingsController.settings.explainUpdateDetailsShown) {
+    if (hasLinkedProjects && !settingsController.explainUpdateDetailsShown) {
       await showMTDialog(
         rootKey.currentContext!,
         title: loc.explain_update_details_dialog_title,
@@ -130,19 +134,50 @@ abstract class _MainControllerBase with Store {
     }
   }
 
-  Future manualUpdate() async {
-    await _update();
-    await _explainUpdateDetails();
+  Future _showWelcomeGiftInfo() async {
+    if (selectedWS!.hpTariffUpdate) {
+      final wga = selectedWS!.welcomeGiftAmount;
+      if (wga > 0 && !settingsController.welcomeGiftInfoShown) {
+        final wantChangeTariff = await showMTDialog(
+          rootKey.currentContext!,
+          title: loc.onboarding_welcome_gift_dialog_title,
+          description: loc.onboarding_welcome_gift_dialog_description(wga.currency),
+          actions: [
+            MTDialogAction(title: loc.tariff_change_action_title, type: MTActionType.isDefault, result: true),
+            MTDialogAction(title: loc.later, result: false),
+          ],
+        );
+        await settingsController.setWelcomeGiftInfoShown();
+
+        if (wantChangeTariff == true) {
+          await changeTariff(selectedWS!);
+        }
+      }
+    }
   }
 
   // static const _updatePeriod = Duration(hours: 1);
   static const _updatePeriod = Duration(minutes: 30);
-  Future requestUpdate() async {
+  Future _requestUpdate() async {
     final hasDeepLinks = await deepLinkController.processDeepLinks();
     final timeToUpdate = updatedDate == null || updatedDate!.add(_updatePeriod).isBefore(DateTime.now());
     if (paymentController.waitingPayment || hasDeepLinks || timeToUpdate) {
       await _update();
       paymentController.resetWaiting();
     }
+  }
+
+  Future _showOnboarding() async {
+    await _showWelcomeGiftInfo();
+  }
+
+  Future manualUpdate() async {
+    await _update();
+    await _explainUpdateDetails();
+  }
+
+  Future startupActions() async {
+    await _requestUpdate();
+    await _showOnboarding();
   }
 }

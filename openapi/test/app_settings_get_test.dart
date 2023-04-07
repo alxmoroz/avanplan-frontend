@@ -21,5 +21,10 @@ void main() {
     test('to test the property `wsOwnerRoleId`', () async {
       // TODO
     });
+
+    // int welcomeGiftAmount
+    test('to test the property `welcomeGiftAmount`', () async {
+      // TODO
+    });
   });
 }

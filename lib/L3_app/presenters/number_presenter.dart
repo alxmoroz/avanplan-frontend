@@ -10,7 +10,7 @@ extension NumberFormatter on num {
 
   num get _thousands => this / 1000;
   num get _millions => this / 1000000;
-  String get hvStr => _millions > 1
+  String get humanValueStr => _millions > 1
       ? loc.millions_count_short(_millions.round())
       : _thousands > 1
           ? loc.thousands_count_short(_thousands.round())

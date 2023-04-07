@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'account.dart';
 import 'base_entity.dart';
 import 'estimate_value.dart';
 import 'invoice.dart';
@@ -20,6 +21,7 @@ class Workspace extends Titleable {
     required this.settings,
     required this.estimateValues,
     required this.sources,
+    required this.mainAccount,
   });
 
   final Iterable<User> users;
@@ -29,4 +31,5 @@ class Workspace extends Titleable {
   final WSettings? settings;
   final Iterable<EstimateValue> estimateValues;
   List<Source> sources = [];
+  final Account mainAccount;
 }

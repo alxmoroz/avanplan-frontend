@@ -6,50 +6,54 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'app_settings_get.g.dart';
+part 'account_operation_get.g.dart';
 
-/// AppSettingsGet
+/// AccountOperationGet
 ///
 /// Properties:
 /// * [id] 
-/// * [frontendFlags] 
-/// * [wsOwnerRoleId] 
-/// * [welcomeGiftAmount] 
+/// * [createdOn] 
+/// * [amount] 
+/// * [basis] 
+/// * [description] 
 @BuiltValue()
-abstract class AppSettingsGet implements Built<AppSettingsGet, AppSettingsGetBuilder> {
+abstract class AccountOperationGet implements Built<AccountOperationGet, AccountOperationGetBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
 
-  @BuiltValueField(wireName: r'frontend_flags')
-  String? get frontendFlags;
+  @BuiltValueField(wireName: r'created_on')
+  DateTime get createdOn;
 
-  @BuiltValueField(wireName: r'ws_owner_role_id')
-  int? get wsOwnerRoleId;
+  @BuiltValueField(wireName: r'amount')
+  num get amount;
 
-  @BuiltValueField(wireName: r'welcome_gift_amount')
-  int? get welcomeGiftAmount;
+  @BuiltValueField(wireName: r'basis')
+  String get basis;
 
-  AppSettingsGet._();
+  @BuiltValueField(wireName: r'description')
+  String? get description;
 
-  factory AppSettingsGet([void updates(AppSettingsGetBuilder b)]) = _$AppSettingsGet;
+  AccountOperationGet._();
+
+  factory AccountOperationGet([void updates(AccountOperationGetBuilder b)]) = _$AccountOperationGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(AppSettingsGetBuilder b) => b;
+  static void _defaults(AccountOperationGetBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<AppSettingsGet> get serializer => _$AppSettingsGetSerializer();
+  static Serializer<AccountOperationGet> get serializer => _$AccountOperationGetSerializer();
 }
 
-class _$AppSettingsGetSerializer implements PrimitiveSerializer<AppSettingsGet> {
+class _$AccountOperationGetSerializer implements PrimitiveSerializer<AccountOperationGet> {
   @override
-  final Iterable<Type> types = const [AppSettingsGet, _$AppSettingsGet];
+  final Iterable<Type> types = const [AccountOperationGet, _$AccountOperationGet];
 
   @override
-  final String wireName = r'AppSettingsGet';
+  final String wireName = r'AccountOperationGet';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    AppSettingsGet object, {
+    AccountOperationGet object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'id';
@@ -57,25 +61,26 @@ class _$AppSettingsGetSerializer implements PrimitiveSerializer<AppSettingsGet> 
       object.id,
       specifiedType: const FullType(int),
     );
-    if (object.frontendFlags != null) {
-      yield r'frontend_flags';
+    yield r'created_on';
+    yield serializers.serialize(
+      object.createdOn,
+      specifiedType: const FullType(DateTime),
+    );
+    yield r'amount';
+    yield serializers.serialize(
+      object.amount,
+      specifiedType: const FullType(num),
+    );
+    yield r'basis';
+    yield serializers.serialize(
+      object.basis,
+      specifiedType: const FullType(String),
+    );
+    if (object.description != null) {
+      yield r'description';
       yield serializers.serialize(
-        object.frontendFlags,
+        object.description,
         specifiedType: const FullType(String),
-      );
-    }
-    if (object.wsOwnerRoleId != null) {
-      yield r'ws_owner_role_id';
-      yield serializers.serialize(
-        object.wsOwnerRoleId,
-        specifiedType: const FullType(int),
-      );
-    }
-    if (object.welcomeGiftAmount != null) {
-      yield r'welcome_gift_amount';
-      yield serializers.serialize(
-        object.welcomeGiftAmount,
-        specifiedType: const FullType(int),
       );
     }
   }
@@ -83,7 +88,7 @@ class _$AppSettingsGetSerializer implements PrimitiveSerializer<AppSettingsGet> 
   @override
   Object serialize(
     Serializers serializers,
-    AppSettingsGet object, {
+    AccountOperationGet object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -94,7 +99,7 @@ class _$AppSettingsGetSerializer implements PrimitiveSerializer<AppSettingsGet> 
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required AppSettingsGetBuilder result,
+    required AccountOperationGetBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -108,26 +113,33 @@ class _$AppSettingsGetSerializer implements PrimitiveSerializer<AppSettingsGet> 
           ) as int;
           result.id = valueDes;
           break;
-        case r'frontend_flags':
+        case r'created_on':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.createdOn = valueDes;
+          break;
+        case r'amount':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
+          result.amount = valueDes;
+          break;
+        case r'basis':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.frontendFlags = valueDes;
+          result.basis = valueDes;
           break;
-        case r'ws_owner_role_id':
+        case r'description':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.wsOwnerRoleId = valueDes;
-          break;
-        case r'welcome_gift_amount':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.welcomeGiftAmount = valueDes;
+            specifiedType: const FullType(String),
+          ) as String;
+          result.description = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -138,12 +150,12 @@ class _$AppSettingsGetSerializer implements PrimitiveSerializer<AppSettingsGet> 
   }
 
   @override
-  AppSettingsGet deserialize(
+  AccountOperationGet deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = AppSettingsGetBuilder();
+    final result = AccountOperationGetBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

@@ -21,6 +21,8 @@ export 'package:openapi/src/api/settings_api.dart';
 export 'package:openapi/src/api/tariffs_api.dart';
 export 'package:openapi/src/api/tasks_api.dart';
 
+export 'package:openapi/src/model/account_get.dart';
+export 'package:openapi/src/model/account_operation_get.dart';
 export 'package:openapi/src/model/app_settings_get.dart';
 export 'package:openapi/src/model/body_auth_apple_token.dart';
 export 'package:openapi/src/model/body_auth_google_token.dart';

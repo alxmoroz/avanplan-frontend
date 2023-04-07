@@ -3,53 +3,55 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:openapi/src/model/account_operation_get.dart';
+import 'package:built_collection/built_collection.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'app_settings_get.g.dart';
+part 'account_get.g.dart';
 
-/// AppSettingsGet
+/// AccountGet
 ///
 /// Properties:
 /// * [id] 
-/// * [frontendFlags] 
-/// * [wsOwnerRoleId] 
-/// * [welcomeGiftAmount] 
+/// * [code] 
+/// * [incomingOperations] 
+/// * [outgoingOperations] 
 @BuiltValue()
-abstract class AppSettingsGet implements Built<AppSettingsGet, AppSettingsGetBuilder> {
+abstract class AccountGet implements Built<AccountGet, AccountGetBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
 
-  @BuiltValueField(wireName: r'frontend_flags')
-  String? get frontendFlags;
+  @BuiltValueField(wireName: r'code')
+  String get code;
 
-  @BuiltValueField(wireName: r'ws_owner_role_id')
-  int? get wsOwnerRoleId;
+  @BuiltValueField(wireName: r'incoming_operations')
+  BuiltList<AccountOperationGet> get incomingOperations;
 
-  @BuiltValueField(wireName: r'welcome_gift_amount')
-  int? get welcomeGiftAmount;
+  @BuiltValueField(wireName: r'outgoing_operations')
+  BuiltList<AccountOperationGet> get outgoingOperations;
 
-  AppSettingsGet._();
+  AccountGet._();
 
-  factory AppSettingsGet([void updates(AppSettingsGetBuilder b)]) = _$AppSettingsGet;
+  factory AccountGet([void updates(AccountGetBuilder b)]) = _$AccountGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(AppSettingsGetBuilder b) => b;
+  static void _defaults(AccountGetBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<AppSettingsGet> get serializer => _$AppSettingsGetSerializer();
+  static Serializer<AccountGet> get serializer => _$AccountGetSerializer();
 }
 
-class _$AppSettingsGetSerializer implements PrimitiveSerializer<AppSettingsGet> {
+class _$AccountGetSerializer implements PrimitiveSerializer<AccountGet> {
   @override
-  final Iterable<Type> types = const [AppSettingsGet, _$AppSettingsGet];
+  final Iterable<Type> types = const [AccountGet, _$AccountGet];
 
   @override
-  final String wireName = r'AppSettingsGet';
+  final String wireName = r'AccountGet';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    AppSettingsGet object, {
+    AccountGet object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'id';
@@ -57,33 +59,27 @@ class _$AppSettingsGetSerializer implements PrimitiveSerializer<AppSettingsGet> 
       object.id,
       specifiedType: const FullType(int),
     );
-    if (object.frontendFlags != null) {
-      yield r'frontend_flags';
-      yield serializers.serialize(
-        object.frontendFlags,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.wsOwnerRoleId != null) {
-      yield r'ws_owner_role_id';
-      yield serializers.serialize(
-        object.wsOwnerRoleId,
-        specifiedType: const FullType(int),
-      );
-    }
-    if (object.welcomeGiftAmount != null) {
-      yield r'welcome_gift_amount';
-      yield serializers.serialize(
-        object.welcomeGiftAmount,
-        specifiedType: const FullType(int),
-      );
-    }
+    yield r'code';
+    yield serializers.serialize(
+      object.code,
+      specifiedType: const FullType(String),
+    );
+    yield r'incoming_operations';
+    yield serializers.serialize(
+      object.incomingOperations,
+      specifiedType: const FullType(BuiltList, [FullType(AccountOperationGet)]),
+    );
+    yield r'outgoing_operations';
+    yield serializers.serialize(
+      object.outgoingOperations,
+      specifiedType: const FullType(BuiltList, [FullType(AccountOperationGet)]),
+    );
   }
 
   @override
   Object serialize(
     Serializers serializers,
-    AppSettingsGet object, {
+    AccountGet object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -94,7 +90,7 @@ class _$AppSettingsGetSerializer implements PrimitiveSerializer<AppSettingsGet> 
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required AppSettingsGetBuilder result,
+    required AccountGetBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -108,26 +104,26 @@ class _$AppSettingsGetSerializer implements PrimitiveSerializer<AppSettingsGet> 
           ) as int;
           result.id = valueDes;
           break;
-        case r'frontend_flags':
+        case r'code':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.frontendFlags = valueDes;
+          result.code = valueDes;
           break;
-        case r'ws_owner_role_id':
+        case r'incoming_operations':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.wsOwnerRoleId = valueDes;
+            specifiedType: const FullType(BuiltList, [FullType(AccountOperationGet)]),
+          ) as BuiltList<AccountOperationGet>;
+          result.incomingOperations.replace(valueDes);
           break;
-        case r'welcome_gift_amount':
+        case r'outgoing_operations':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.welcomeGiftAmount = valueDes;
+            specifiedType: const FullType(BuiltList, [FullType(AccountOperationGet)]),
+          ) as BuiltList<AccountOperationGet>;
+          result.outgoingOperations.replace(valueDes);
           break;
         default:
           unhandled.add(key);
@@ -138,12 +134,12 @@ class _$AppSettingsGetSerializer implements PrimitiveSerializer<AppSettingsGet> 
   }
 
   @override
-  AppSettingsGet deserialize(
+  AccountGet deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = AppSettingsGetBuilder();
+    final result = AccountGetBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

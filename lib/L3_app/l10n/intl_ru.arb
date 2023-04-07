@@ -79,7 +79,6 @@
   "explain_update_details_dialog_description": "Обновили проекты, хранящиеся в Аванплане.\n\nИмпортированные проекты обновляются автоматически ночью раз в сутки.",
   "explain_update_details_dialog_title": "Особенности обновления",
 
-
   "for_dative": "по",
 
   "goal_count": "{count, plural, zero{Нет целей} one{{count} цель} few{{count} цели} other{{count} целей}}",
@@ -108,6 +107,8 @@
   "invitation_share_action_title": "Отправить приглашение",
   "invitation_share_subject_prefix": "Приглашение в ",
   "invitation_url_label": "Ссылка-приглашение",
+
+  "later": "Позже",
 
   "legal_privacy_policy_title": "Политика конфиденциальности",
   "legal_rules_title": "Пользовательское соглашение",
@@ -141,6 +142,9 @@
   "notification_push_ios_denied_dialog_description": "В настройках приложения:\nУведомления ->\nДопуск уведомлений",
   "notification_push_ios_denied_dialog_title": "Включение Push-уведомлений",
   "notification_title": "Уведомление",
+
+  "onboarding_welcome_gift_dialog_title": "Вам подарок!",
+  "onboarding_welcome_gift_dialog_description": "Начислены приветственные {count} рублей!\n\nИх можно (и нужно) потратить на функции платных тарифов. Сменить тариф можно в настройках рабочего пространства\n\nСпасибо, что выбрали Аванплан!",
 
   "ok": "Ясно",
   "overview": "Обзор",

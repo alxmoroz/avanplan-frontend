@@ -16,9 +16,9 @@ class LocalSettingsUC {
     return settings;
   }
 
-  Future<LocalSettings> setExplainUpdateDetailsShown() async {
+  Future<LocalSettings> setFlag(String code, bool value) async {
     final settings = await repo.getOne() ?? LocalSettings(flags: {});
-    settings.setExplainUpdateDetailsShown(true);
+    settings.setFlag(code, value);
     await repo.update(settings);
     return settings;
   }

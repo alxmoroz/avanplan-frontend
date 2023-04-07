@@ -14,14 +14,12 @@ class LocalSettings extends LocalPersistable {
   String version;
   Map<String, bool>? flags;
 
-  bool _flagValue(String code) => flags?[code] ?? false;
-  void _setFlagValue(String code, bool value) {
-    flags = {};
+  static const EXPLAIN_UPDATE_DETAILS_SHOWN = 'EXPLAIN_UPDATE_DETAILS_SHOWN';
+  static const WELCOME_GIFT_INFO_SHOWN = 'WELCOME_GIFT_INFO_SHOWN';
+
+  bool getFlag(String code) => flags?[code] ?? false;
+  void setFlag(String code, bool value) {
+    flags ??= {};
     flags![code] = value;
   }
-
-  static const _EXPLAIN_UPDATE_DETAILS_SHOWN_FLAG = 'EXPLAIN_UPDATE_DETAILS_SHOWN_FLAG';
-
-  bool get explainUpdateDetailsShown => _flagValue(_EXPLAIN_UPDATE_DETAILS_SHOWN_FLAG);
-  void setExplainUpdateDetailsShown(bool value) => _setFlagValue(_EXPLAIN_UPDATE_DETAILS_SHOWN_FLAG, value);
 }

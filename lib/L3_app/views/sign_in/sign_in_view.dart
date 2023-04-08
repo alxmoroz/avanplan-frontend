@@ -27,6 +27,7 @@ class SignInView extends StatelessWidget {
         color: const Color(0xFFFFFFFF),
         titleColor: greyColor,
         onTap: onTap,
+        maxWidth: SCR_S_WIDTH * 0.9,
       );
 
   @override
@@ -41,25 +42,30 @@ class SignInView extends StatelessWidget {
                 shrinkWrap: true,
                 children: [
                   SignInHeader(size),
+                  H4(loc.auth_sign_in_title, align: TextAlign.center, color: greyColor),
+                  const SizedBox(height: P2),
                   Observer(
-                    builder: (_) => Row(
+                    builder: (_) => Column(
                       children: [
-                        Expanded(
-                          child: _signInBtn(
-                            googleIcon(size: MIN_BTN_HEIGHT),
-                            loc.auth_sign_in_with_google_btn_title,
-                            () => authController.signInWithGoogle(context),
-                          ),
+                        // Expanded(child:
+                        _signInBtn(
+                          googleIcon(size: MIN_BTN_HEIGHT),
+                          loc.auth_sign_in_with_google_btn_title,
+                          () => authController.signInWithGoogle(context),
                         ),
+
+                        // ),
                         // для Андроида не показываем SignInWithApple
-                        if (authController.signInWithAppleIsAvailable && !isAndroid)
-                          Expanded(
-                            child: _signInBtn(
-                              appleIcon(size: MIN_BTN_HEIGHT),
-                              loc.auth_sign_in_with_apple_btn_title,
-                              () => authController.signInWithApple(context),
-                            ),
+                        if (authController.signInWithAppleIsAvailable && !isAndroid) ...[
+                          SizedBox(height: P),
+                          _signInBtn(
+                            appleIcon(size: MIN_BTN_HEIGHT),
+                            loc.auth_sign_in_with_apple_btn_title,
+                            () => authController.signInWithApple(context),
                           ),
+                        ],
+                        // Expanded( child:
+                        // ),
                       ],
                     ),
                   ),
@@ -69,15 +75,19 @@ class SignInView extends StatelessWidget {
                     trailing: const ChevronIcon(),
                     onTap: () => showSignInPasswordDialog(context),
                   ),
-                  const SizedBox(height: P * 5),
-                  const LegalLinks(),
-                  const SizedBox(height: P2),
-                  const AppVersion()
                 ],
               ),
             ),
           ),
         ),
+      ),
+      bottomBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: const [
+          LegalLinks(),
+          SizedBox(height: P_2),
+          AppVersion(),
+        ],
       ),
     );
   }

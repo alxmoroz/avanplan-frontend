@@ -12,7 +12,7 @@
 
   "auth_password_placeholder": "Пароль",
   "auth_sign_in_action_title": "Войти",
-  "auth_sign_in_title": "Войти в систему",
+  "auth_sign_in_title": "Войти с помощью",
   "auth_sign_in_with_apple_btn_title": "Apple",
   "auth_sign_in_with_google_btn_title": "Google",
   "auth_sign_out_btn_title": "Выйти",

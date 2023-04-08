@@ -2,6 +2,9 @@
 
 # Copyright (c) 2022. Alexandr Moroz
 
+set -e
+set -x
+
 build_number=$(git rev-list --all | wc -l | xargs)
 sed -i.bak "s/^\(version:.*[.]\).*$/\1$build_number+$build_number/" pubspec.yaml
 

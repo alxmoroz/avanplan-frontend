@@ -9,6 +9,7 @@ doc/AuthApi.md
 doc/BodyAuthAppleToken.md
 doc/BodyAuthGoogleToken.md
 doc/BodyRedeemV1InvitationRedeemPost.md
+doc/BodyRegister.md
 doc/BodyUpdateAccountV1MyAccountPost.md
 doc/BodyUpdatePushTokenV1MyPushTokenPost.md
 doc/ContractGet.md
@@ -79,6 +80,7 @@ lib/src/model/app_settings_get.dart
 lib/src/model/body_auth_apple_token.dart
 lib/src/model/body_auth_google_token.dart
 lib/src/model/body_redeem_v1_invitation_redeem_post.dart
+lib/src/model/body_register.dart
 lib/src/model/body_update_account_v1_my_account_post.dart
 lib/src/model/body_update_push_token_v1_my_push_token_post.dart
 lib/src/model/contract_get.dart
@@ -123,6 +125,7 @@ test/auth_api_test.dart
 test/body_auth_apple_token_test.dart
 test/body_auth_google_token_test.dart
 test/body_redeem_v1_invitation_redeem_post_test.dart
+test/body_register_test.dart
 test/body_update_account_v1_my_account_post_test.dart
 test/body_update_push_token_v1_my_push_token_post_test.dart
 test/contract_get_test.dart

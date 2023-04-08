@@ -18,13 +18,13 @@ part 'body_register.g.dart';
 @BuiltValue()
 abstract class BodyRegister implements Built<BodyRegister, BodyRegisterBuilder> {
   @BuiltValueField(wireName: r'name')
-  String? get name;
+  String get name;
 
   @BuiltValueField(wireName: r'email')
-  String? get email;
+  String get email;
 
   @BuiltValueField(wireName: r'password')
-  String? get password;
+  String get password;
 
   @BuiltValueField(wireName: r'locale')
   String get locale;
@@ -52,27 +52,21 @@ class _$BodyRegisterSerializer implements PrimitiveSerializer<BodyRegister> {
     BodyRegister object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.name != null) {
-      yield r'name';
-      yield serializers.serialize(
-        object.name,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.email != null) {
-      yield r'email';
-      yield serializers.serialize(
-        object.email,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.password != null) {
-      yield r'password';
-      yield serializers.serialize(
-        object.password,
-        specifiedType: const FullType(String),
-      );
-    }
+    yield r'name';
+    yield serializers.serialize(
+      object.name,
+      specifiedType: const FullType(String),
+    );
+    yield r'email';
+    yield serializers.serialize(
+      object.email,
+      specifiedType: const FullType(String),
+    );
+    yield r'password';
+    yield serializers.serialize(
+      object.password,
+      specifiedType: const FullType(String),
+    );
     yield r'locale';
     yield serializers.serialize(
       object.locale,

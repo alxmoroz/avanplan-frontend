@@ -13,9 +13,7 @@ import '../../components/mt_text_field.dart';
 import '../../components/navbar.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
-import 'legal_links.dart';
-import 'sign_in_controller.dart';
-import 'sign_in_header.dart';
+import 'sign_in_email_controller.dart';
 
 Future showSignInEmailDialog(BuildContext context) async {
   return await showModalBottomSheet<void>(
@@ -32,11 +30,11 @@ class SignInEmailForm extends StatefulWidget {
 }
 
 class _SignInEmailFormState extends State<SignInEmailForm> {
-  late SignInController _controller;
+  late SignInEmailController _controller;
 
   @override
   void initState() {
-    _controller = SignInController();
+    _controller = SignInEmailController();
     _controller.initState(tfaList: [
       TFAnnotation('email', label: loc.auth_email_placeholder),
       TFAnnotation('password', label: loc.auth_password_placeholder),
@@ -66,7 +64,11 @@ class _SignInEmailFormState extends State<SignInEmailForm> {
 
   @override
   Widget build(BuildContext context) => MTPage(
-        navBar: navBar(context, bgColor: backgroundColor),
+        navBar: navBar(
+          context,
+          title: loc.auth_sign_in_email_dialog_title,
+          bgColor: backgroundColor,
+        ),
         body: SafeArea(
           child: Center(
             child: Container(
@@ -76,16 +78,15 @@ class _SignInEmailFormState extends State<SignInEmailForm> {
                   builder: (_) => ListView(
                     shrinkWrap: true,
                     children: [
-                      SignInHeader(size),
+                      appIcon(size: size.maxHeight / 4),
                       textFieldForCode('email'),
                       textFieldForCode('password'),
                       MTButton.outlined(
                         margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
-                        titleText: loc.auth_sign_in_action_title,
-                        onTap: _controller.validated ? () => _controller.signInEmail(context) : null,
+                        titleText: loc.auth_sign_in_email_action_title,
+                        onTap: _controller.validated ? () => _controller.signIn(context) : null,
                       ),
                       const SizedBox(height: P2),
-                      const LegalLinks(),
                     ],
                   ),
                 ),

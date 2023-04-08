@@ -439,9 +439,9 @@ class AuthApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [Token] as data
+  /// Returns a [Future] containing a [Response] with a [bool] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<Token>> register({ 
+  Future<Response<bool>> register({ 
     required BodyRegister bodyRegister,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -498,14 +498,10 @@ class AuthApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    Token _responseData;
+    bool _responseData;
 
     try {
-      const _responseType = FullType(Token);
-      _responseData = _serializers.deserialize(
-        _response.data!,
-        specifiedType: _responseType,
-      ) as Token;
+      _responseData = _response.data as bool;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -517,7 +513,7 @@ class AuthApi {
       );
     }
 
-    return Response<Token>(
+    return Response<bool>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

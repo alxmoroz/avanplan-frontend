@@ -6,18 +6,18 @@ import 'package:mobx/mobx.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
 
-part 'sign_in_controller.g.dart';
+part 'sign_in_email_controller.g.dart';
 
-class SignInController extends _SignInControllerBase with _$SignInController {}
+class SignInEmailController extends _SignInEmailControllerBase with _$SignInEmailController {}
 
-abstract class _SignInControllerBase extends EditController with Store {
+abstract class _SignInEmailControllerBase extends EditController with Store {
   @observable
   bool showPassword = false;
 
   @action
   void toggleShowPassword() => showPassword = !showPassword;
 
-  Future signInEmail(BuildContext context) async => await authController.signInEmail(
+  Future signIn(BuildContext context) async => await authController.signInEmail(
         context,
         tfAnnoForCode('email').text,
         tfAnnoForCode('password').text,

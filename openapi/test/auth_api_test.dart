@@ -36,7 +36,7 @@ void main() {
 
     // Register
     //
-    //Future<Token> register(BodyRegister bodyRegister) async
+    //Future<bool> register(BodyRegister bodyRegister) async
     test('test register', () async {
       // TODO
     });

@@ -1,10 +1,10 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/system/errors.dart';
-import '../services.dart';
+import '../../extra/services.dart';
 
 part 'auth_controller.g.dart';
 
@@ -31,6 +31,12 @@ abstract class _AuthControllerBase with Store {
   bool? get _invited => deepLinkController.invitationToken?.isNotEmpty;
 
   String _langCode(BuildContext context) => Localizations.localeOf(context).languageCode;
+
+  @observable
+  bool registerMode = false;
+
+  @action
+  void toggleRegisterMode() => registerMode = !registerMode;
 
   Future signInEmail(BuildContext context, String email, String pwd) async {
     loaderController.start();

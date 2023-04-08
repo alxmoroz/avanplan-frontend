@@ -1,5 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:openapi/openapi.dart';
+
 import 'auth_base_repo.dart';
 
 class AuthEmailRepo extends AuthBaseRepo {
@@ -17,4 +19,17 @@ class AuthEmailRepo extends AuthBaseRepo {
 
   @override
   Future signOut() async {}
+
+  @override
+  Future<bool> register({required String name, required String email, required String pwd, required String locale}) async {
+    final response = await authApi.register(
+      bodyRegister: (BodyRegisterBuilder()
+            ..name = name
+            ..email = email
+            ..password = pwd
+            ..locale = locale)
+          .build(),
+    );
+    return response.data == true;
+  }
 }

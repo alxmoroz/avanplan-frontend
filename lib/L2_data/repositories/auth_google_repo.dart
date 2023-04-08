@@ -61,4 +61,7 @@ class AuthGoogleRepo extends AuthBaseRepo {
 
   @override
   Future signOut() async => await _gSI.disconnect();
+
+  @override
+  Future register({String? name, String? email, String? pwd, String? locale}) => throw UnimplementedError();
 }

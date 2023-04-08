@@ -13,8 +13,8 @@ import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../settings/app_version.dart';
 import 'legal_links.dart';
+import 'sign_in_email_form.dart';
 import 'sign_in_header.dart';
-import 'sign_in_password_form.dart';
 
 class SignInView extends StatelessWidget {
   static String get routeName => 'sign-in';
@@ -69,7 +69,7 @@ class SignInView extends StatelessWidget {
                     const MailIcon(color: Color.fromARGB(255, 62, 62, 82)),
                     loc.auth_sign_in_mail_btn_title,
                     P2,
-                    () => showSignInPasswordDialog(context),
+                    () => showSignInEmailDialog(context),
                     titleLeftPadding: P,
                   ),
                 ],

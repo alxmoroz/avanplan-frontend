@@ -17,28 +17,28 @@ import 'legal_links.dart';
 import 'sign_in_controller.dart';
 import 'sign_in_header.dart';
 
-Future showSignInPasswordDialog(BuildContext context) async {
+Future showSignInEmailDialog(BuildContext context) async {
   return await showModalBottomSheet<void>(
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    builder: (_) => MTBottomSheet(SignInPasswordForm()),
+    builder: (_) => MTBottomSheet(SignInEmailForm()),
   );
 }
 
-class SignInPasswordForm extends StatefulWidget {
+class SignInEmailForm extends StatefulWidget {
   @override
-  _SignInPasswordFormState createState() => _SignInPasswordFormState();
+  _SignInEmailFormState createState() => _SignInEmailFormState();
 }
 
-class _SignInPasswordFormState extends State<SignInPasswordForm> {
+class _SignInEmailFormState extends State<SignInEmailForm> {
   late SignInController _controller;
 
   @override
   void initState() {
     _controller = SignInController();
     _controller.initState(tfaList: [
-      TFAnnotation('username', label: loc.auth_email_placeholder),
+      TFAnnotation('email', label: loc.auth_email_placeholder),
       TFAnnotation('password', label: loc.auth_password_placeholder),
     ]);
 
@@ -77,7 +77,7 @@ class _SignInPasswordFormState extends State<SignInPasswordForm> {
                     shrinkWrap: true,
                     children: [
                       SignInHeader(size),
-                      textFieldForCode('username'),
+                      textFieldForCode('email'),
                       textFieldForCode('password'),
                       MTButton.outlined(
                         margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),

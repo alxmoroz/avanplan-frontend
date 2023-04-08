@@ -6,12 +6,12 @@ import '../repositories/abs_auth_repo.dart';
 import '../repositories/abs_db_repo.dart';
 
 class AuthUC {
-  AuthUC({required this.localDBAuthRepo, required this.googleRepo, required this.appleRepo, required this.passwordRepo});
+  AuthUC({required this.localDBAuthRepo, required this.googleRepo, required this.appleRepo, required this.emailRepo});
   Future<AuthUC> init() async => this;
 
   final AbstractAuthRepo googleRepo;
   final AbstractAuthRepo appleRepo;
-  final AbstractAuthRepo passwordRepo;
+  final AbstractAuthRepo emailRepo;
   final AbstractDBRepo<AbstractDBModel, LocalAuth> localDBAuthRepo;
 
   AbstractAuthRepo? _currentRepo;
@@ -42,7 +42,7 @@ class AuthUC {
     );
   }
 
-  Future<bool> signInEmail({required String email, required String pwd}) async => await _signIn(passwordRepo, email: email, pwd: pwd);
+  Future<bool> signInEmail({required String email, required String pwd}) async => await _signIn(emailRepo, email: email, pwd: pwd);
 
   Future<bool> signInGoogleIsAvailable() async => await googleRepo.signInIsAvailable();
   Future<bool> signInGoogle(String locale, bool? invited) async => await _signIn(googleRepo, locale: locale, invited: invited);
@@ -55,7 +55,7 @@ class AuthUC {
     bool res = await hasLocalAuth;
     final signinDate = (await _getLocalAuth()).signinDate;
     if (signinDate == null || signinDate.add(_authCheckPeriod).isBefore(DateTime.now())) {
-      res = await _signInWithToken(await passwordRepo.refreshToken());
+      res = await _signInWithToken(await emailRepo.refreshToken());
     }
     return res;
   }

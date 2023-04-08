@@ -19,7 +19,7 @@ abstract class _SignInControllerBase extends EditController with Store {
 
   Future signInEmail(BuildContext context) async => await authController.signInEmail(
         context,
-        tfAnnoForCode('username').text,
+        tfAnnoForCode('email').text,
         tfAnnoForCode('password').text,
       );
 }

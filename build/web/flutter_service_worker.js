@@ -3,7 +3,7 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
-  "version.json": "d83f80e35bd14bfdb66860a3655f853e",
+  "version.json": "0a6337688d9c8f52e77121842eaa6286",
 "splash/img/light-2x.png": "09416df12af704edeafb38cefaccef1d",
 "splash/img/dark-4x.png": "120942412f8b3eb19360f2a85b074767",
 "splash/img/light-3x.png": "4e7cdf494084e0d7c2d54b687e8eb515",
@@ -14,9 +14,9 @@ const RESOURCES = {
 "splash/img/light-1x.png": "1f3d748c512c8a78359ad5079fd53ec4",
 "splash/splash.js": "123c400b58bea74c1305ca3ac966748d",
 "splash/style.css": "b0640fc6c03fe3a7e6d2f1d2de02349c",
-"index.html": "05a659572b9739021ec99edc90c83f96",
-"/": "05a659572b9739021ec99edc90c83f96",
-"main.dart.js": "a1bc75e476225acbb777aa3a02787594",
+"index.html": "c068306f4b12990ef2f6ece132df2fc5",
+"/": "c068306f4b12990ef2f6ece132df2fc5",
+"main.dart.js": "3035eba13a7729aa10724335c798e323",
 ".well-known/apple-app-site-association": "bda08a6d5ec9db358dab1e697df75298",
 ".well-known/assetlinks.json": "768c5dec63b05d4c684582be06574c1c",
 "flutter.js": "a85fcf6324d3c4d3ae3be1ae4931e9c5",
@@ -24,7 +24,7 @@ const RESOURCES = {
 "icons/Icon-192.png": "9affe4ff3284edb182db2331e3a5cb1c",
 "icons/Icon-512.png": "1b7aba23effbc92dc7c2aad81d5a0648",
 "manifest.json": "829e7bc04aaa2122b0cfd79511ffabdd",
-"assets/AssetManifest.json": "e1e8652db1ce76f5822a1c7293e858f6",
+"assets/AssetManifest.json": "96d6464802813fef544ae91699d5742c",
 "assets/NOTICES": "6f8a722fe955baa275e88f9b88234aac",
 "assets/FontManifest.json": "798aa6e3f3995a8650f228d2c148b3d2",
 "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "6d342eb68f170c97609e9da345464e5e",
@@ -36,6 +36,7 @@ const RESOURCES = {
 "assets/assets/images/gitlab_icon.png": "2d778422344d370c25e7546f7364ea8b",
 "assets/assets/images/app_icon.png": "ec95ad44de8ac0b1900ba6c09e6ca418",
 "assets/assets/images/redmine_icon.png": "9e0456fdab8bcc72506384d00dde6b85",
+"assets/assets/images/apple_icon.png": "6979c65521d2698024cc6ccc55c877a4",
 "assets/assets/images/checkers.png": "4b10aa9787841763944e276def907d79",
 "assets/assets/images/jira_icon.png": "ace43fd305a1388e29dba1f284a69e95",
 "assets/assets/ca/lets-encrypt-r3.pem": "be77e5992c00fcd753d1b9c11d3768f2",

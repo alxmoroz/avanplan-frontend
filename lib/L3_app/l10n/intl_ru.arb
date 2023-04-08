@@ -12,8 +12,9 @@
 
   "auth_password_placeholder": "Пароль",
   "auth_sign_in_action_title": "Войти",
-  "auth_sign_in_with_apple_btn_title": "Войти с Apple",
-  "auth_sign_in_with_google_btn_title": "Войти через Google",
+  "auth_sign_in_title": "Войти в систему",
+  "auth_sign_in_with_apple_btn_title": "Apple",
+  "auth_sign_in_with_google_btn_title": "Google",
   "auth_sign_out_btn_title": "Выйти",
   "auth_show_sign_in_form_action_title": "Войти с паролем",
   "auth_user_placeholder": "Пользователь",

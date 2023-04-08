@@ -12,10 +12,10 @@ import '../../components/mt_page.dart';
 import '../../components/mt_text_field.dart';
 import '../../components/navbar.dart';
 import '../../components/text_field_annotation.dart';
-import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import 'legal_links.dart';
 import 'sign_in_controller.dart';
+import 'sign_in_header.dart';
 
 Future showSignInPasswordDialog(BuildContext context) async {
   return await showModalBottomSheet<void>(
@@ -76,8 +76,7 @@ class _SignInWithPasswordFormState extends State<SignInWithPasswordForm> {
                   builder: (_) => ListView(
                     shrinkWrap: true,
                     children: [
-                      appIcon(size: size.maxHeight / 5),
-                      H1(loc.app_title, align: TextAlign.center, padding: const EdgeInsets.only(bottom: P)),
+                      SignInHeader(size),
                       textFieldForCode('username'),
                       textFieldForCode('password'),
                       MTButton.outlined(

@@ -336,5 +336,6 @@ class UnlinkIcon extends MTIcon {
       );
 }
 
+Widget appleIcon({double? size}) => Image.asset('assets/images/apple_icon.png', width: size, height: size);
 Widget googleIcon({double? size}) => Image.asset('assets/images/google_icon.png', width: size, height: size);
 Widget appIcon({double? size}) => Image.asset('assets/images/app_icon.png', width: size, height: size);

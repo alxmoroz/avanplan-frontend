@@ -47,11 +47,6 @@ const Color greenColor = CupertinoDynamicColor.withBrightness(
   darkColor: Color.fromARGB(255, 52, 165, 89),
 );
 
-// const Color lightGreenColor = CupertinoDynamicColor.withBrightness(
-//   color: Color.fromARGB(100, 28, 120, 52),
-//   darkColor: Color.fromARGB(100, 52, 165, 89),
-// );
-
 const Color mainColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(255, 30, 150, 220),
   darkColor: Color.fromARGB(255, 90, 200, 250),
@@ -64,11 +59,6 @@ const Color transparentAppbarBgColor = CupertinoDynamicColor.withBrightness(
 );
 
 Color get navbarDefaultBgColor => transparentAppbarBgColor;
-
-const Color googleBtnColor = CupertinoDynamicColor.withBrightness(
-  color: Color(0xFFFFFFFF),
-  darkColor: Color(0xFF4285F4),
-);
 
 extension ResolvedColor on Color {
   Color resolve(BuildContext context) => CupertinoDynamicColor.resolve(this, context);

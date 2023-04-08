@@ -11,8 +11,9 @@
   "app_title": "Avanplan",
 
   "auth_sign_in_action_title": "Sign in",
-  "auth_sign_in_with_apple_btn_title": "Sign in with Apple",
-  "auth_sign_in_with_google_btn_title": "Sign in with Google",
+  "auth_sign_in_with_apple_btn_title": "Apple",
+  "auth_sign_in_title": "Sign in",
+  "auth_sign_in_with_google_btn_title": "Google",
   "auth_sign_out_btn_title": "Sign out",
   "auth_password_placeholder": "Password",
   "auth_show_sign_in_form_action_title": "Sign in with password",

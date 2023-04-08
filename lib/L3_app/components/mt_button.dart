@@ -23,6 +23,7 @@ class MTButton extends StatelessWidget {
     this.padding,
     this.margin,
     this.constrained = false,
+    this.maxWidth,
   }) : type = ButtonType.text;
 
   const MTButton.outlined({
@@ -36,6 +37,7 @@ class MTButton extends StatelessWidget {
     this.constrained = true,
     this.padding,
     this.margin,
+    this.maxWidth,
   }) : type = ButtonType.outlined;
 
   const MTButton.icon(Widget icon, this.onTap, {this.margin, this.padding})
@@ -46,6 +48,7 @@ class MTButton extends StatelessWidget {
         leading = null,
         trailing = null,
         titleColor = null,
+        maxWidth = 0,
         constrained = false;
 
   final ButtonType type;
@@ -59,6 +62,7 @@ class MTButton extends StatelessWidget {
   final EdgeInsets? padding;
   final EdgeInsets? margin;
   final bool constrained;
+  final double? maxWidth;
 
   Color get _titleColor => onTap != null ? (titleColor ?? mainColor) : lightGreyColor;
   ButtonStyle _style(BuildContext context) => ElevatedButton.styleFrom(
@@ -68,7 +72,7 @@ class MTButton extends StatelessWidget {
         foregroundColor: _titleColor.resolve(context),
         minimumSize: const Size(MIN_BTN_HEIGHT, MIN_BTN_HEIGHT),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS)),
-        side: type == ButtonType.outlined ? BorderSide(color: _titleColor.resolve(context), width: 0) : null,
+        side: type == ButtonType.outlined ? BorderSide(color: _titleColor.resolve(context), width: 1) : null,
         splashFactory: NoSplash.splashFactory,
         visualDensity: VisualDensity.standard,
         shadowColor: _titleColor.resolve(context),
@@ -81,7 +85,7 @@ class MTButton extends StatelessWidget {
   Widget _button(BuildContext context) {
     switch (type) {
       case ButtonType.outlined:
-        return OutlinedButton(onPressed: onTap, style: _style(context), child: _child);
+        return OutlinedButton(onPressed: onTap, style: _style(context), child: _child, clipBehavior: Clip.antiAlias);
       default:
         return CupertinoButton(onPressed: onTap, child: _child, minSize: 0, padding: padding ?? EdgeInsets.zero, color: color);
     }
@@ -90,7 +94,7 @@ class MTButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final btn = Padding(padding: margin ?? EdgeInsets.zero, child: _button(context));
-    return constrained ? MTConstrained(btn) : btn;
+    return constrained ? MTConstrained(btn, maxWidth: maxWidth) : btn;
   }
 }
 

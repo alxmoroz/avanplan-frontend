@@ -32,10 +32,10 @@ abstract class _AuthControllerBase with Store {
 
   String _langCode(BuildContext context) => Localizations.localeOf(context).languageCode;
 
-  Future signInPassword(BuildContext context, String login, String pwd) async {
+  Future signInEmail(BuildContext context, String email, String pwd) async {
     loaderController.start();
     loaderController.setAuth();
-    setAuthorized(await authUC.signInPassword(login: login, pwd: pwd));
+    setAuthorized(await authUC.signInEmail(email: email, pwd: pwd));
     Navigator.of(context).pop();
     await loaderController.stop();
   }

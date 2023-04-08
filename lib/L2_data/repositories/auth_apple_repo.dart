@@ -14,9 +14,9 @@ class AuthAppleRepo extends AuthBaseRepo {
   Future<bool> signInIsAvailable() async => await SignInWithApple.isAvailable();
 
   @override
-  Future<String> signIn({String? login, String? pwd, String? locale, bool? invited}) async {
+  Future<String> signIn({String? email, String? pwd, String? locale, bool? invited}) async {
     String appleToken = '';
-    String? email;
+    String? appleEmail;
     String name = '';
     try {
       final creds = await SignInWithApple.getAppleIDCredential(
@@ -30,7 +30,7 @@ class AuthAppleRepo extends AuthBaseRepo {
         ),
       );
       appleToken = creds.authorizationCode;
-      email = creds.email;
+      appleEmail = creds.email;
       name = creds.givenName ?? '';
       if (creds.familyName != null) {
         name += name.isNotEmpty ? ' ' : '';
@@ -54,7 +54,7 @@ class AuthAppleRepo extends AuthBaseRepo {
         bodyAuthAppleToken: (BodyAuthAppleTokenBuilder()
               ..token = appleToken
               ..platform = platformCode
-              ..email = email
+              ..email = appleEmail
               ..name = name
               ..locale = locale ?? 'ru'
               ..invited = invited)

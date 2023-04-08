@@ -10,13 +10,14 @@
   "app_settings_action_title": "Настройки",
   "app_title": "Аванплан",
 
+  "auth_email_placeholder": "Почта",
   "auth_password_placeholder": "Пароль",
   "auth_sign_in_action_title": "Войти",
   "auth_sign_in_title": "Войти с помощью",
-  "auth_sign_in_with_apple_btn_title": "Apple",
-  "auth_sign_in_with_google_btn_title": "Google",
+  "auth_sign_in_apple_btn_title": "Apple",
+  "auth_sign_in_google_btn_title": "Google",
   "auth_sign_out_btn_title": "Выйти",
-  "auth_show_sign_in_form_action_title": "Войти с паролем",
+  "auth_sign_in_mail_btn_title": "Почта",
   "auth_user_placeholder": "Пользователь",
 
   "backlog": "Бэклог",

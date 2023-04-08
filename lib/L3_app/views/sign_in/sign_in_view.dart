@@ -19,15 +19,13 @@ import 'sign_in_password_form.dart';
 class SignInView extends StatelessWidget {
   static String get routeName => 'sign-in';
 
-  Widget _signInBtn(Widget leading, String titleText, VoidCallback? onTap) => MTButton.outlined(
-        margin: const EdgeInsets.symmetric(horizontal: P_2),
+  Widget _signInBtn(Widget leading, String titleText, double iconSize, VoidCallback? onTap, {double? titleLeftPadding}) => MTButton.outlined(
         leading: leading,
-        middle: H4(titleText, color: const Color.fromARGB(255, 62, 62, 82)),
-        trailing: const SizedBox(width: MIN_BTN_HEIGHT / 2),
+        middle: H4(titleText, color: const Color.fromARGB(255, 62, 62, 82), padding: EdgeInsets.only(left: titleLeftPadding ?? 0)),
+        trailing: SizedBox(width: iconSize / 2),
         color: const Color(0xFFFFFFFF),
         titleColor: greyColor,
         onTap: onTap,
-        maxWidth: SCR_S_WIDTH * 0.9,
       );
 
   @override
@@ -36,7 +34,7 @@ class SignInView extends StatelessWidget {
       body: SafeArea(
         child: Center(
           child: Container(
-            constraints: const BoxConstraints(maxWidth: SCR_S_WIDTH),
+            constraints: const BoxConstraints(maxWidth: SCR_S_WIDTH * 0.8),
             child: LayoutBuilder(
               builder: (_, size) => ListView(
                 shrinkWrap: true,
@@ -49,7 +47,8 @@ class SignInView extends StatelessWidget {
                       children: [
                         _signInBtn(
                           googleIcon(size: MIN_BTN_HEIGHT),
-                          loc.auth_sign_in_with_google_btn_title,
+                          loc.auth_sign_in_google_btn_title,
+                          MIN_BTN_HEIGHT,
                           () => authController.signInGoogle(context),
                         ),
                         // для Андроида не показываем SignInWithApple
@@ -57,18 +56,21 @@ class SignInView extends StatelessWidget {
                           const SizedBox(height: P),
                           _signInBtn(
                             appleIcon(size: MIN_BTN_HEIGHT),
-                            loc.auth_sign_in_with_apple_btn_title,
+                            loc.auth_sign_in_apple_btn_title,
+                            MIN_BTN_HEIGHT,
                             () => authController.signInApple(context),
                           ),
                         ],
                       ],
                     ),
                   ),
-                  const SizedBox(height: P2),
-                  MTButton(
-                    titleText: loc.auth_show_sign_in_form_action_title,
-                    trailing: const ChevronIcon(),
-                    onTap: () => showSignInPasswordDialog(context),
+                  const SizedBox(height: P),
+                  _signInBtn(
+                    const MailIcon(color: Color.fromARGB(255, 62, 62, 82)),
+                    loc.auth_sign_in_mail_btn_title,
+                    P2,
+                    () => showSignInPasswordDialog(context),
+                    titleLeftPadding: P,
                   ),
                 ],
               ),

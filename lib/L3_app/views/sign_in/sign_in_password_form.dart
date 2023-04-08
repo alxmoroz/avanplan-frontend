@@ -38,7 +38,7 @@ class _SignInPasswordFormState extends State<SignInPasswordForm> {
   void initState() {
     _controller = SignInController();
     _controller.initState(tfaList: [
-      TFAnnotation('username', label: loc.auth_user_placeholder),
+      TFAnnotation('username', label: loc.auth_email_placeholder),
       TFAnnotation('password', label: loc.auth_password_placeholder),
     ]);
 
@@ -82,7 +82,7 @@ class _SignInPasswordFormState extends State<SignInPasswordForm> {
                       MTButton.outlined(
                         margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
                         titleText: loc.auth_sign_in_action_title,
-                        onTap: _controller.validated ? () => _controller.signInPassword(context) : null,
+                        onTap: _controller.validated ? () => _controller.signInEmail(context) : null,
                       ),
                       const SizedBox(height: P2),
                       const LegalLinks(),

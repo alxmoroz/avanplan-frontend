@@ -35,14 +35,14 @@ class AuthUC {
     return await hasLocalAuth;
   }
 
-  Future<bool> _signIn(AbstractAuthRepo repo, {String? login, String? pwd, String? locale, bool? invited}) async {
+  Future<bool> _signIn(AbstractAuthRepo repo, {String? email, String? pwd, String? locale, bool? invited}) async {
     _currentRepo = repo;
     return await _signInWithToken(
-      await repo.signIn(locale: locale, login: login, pwd: pwd, invited: invited),
+      await repo.signIn(locale: locale, email: email, pwd: pwd, invited: invited),
     );
   }
 
-  Future<bool> signInPassword({required String login, required String pwd}) async => await _signIn(passwordRepo, login: login, pwd: pwd);
+  Future<bool> signInEmail({required String email, required String pwd}) async => await _signIn(passwordRepo, email: email, pwd: pwd);
 
   Future<bool> signInGoogleIsAvailable() async => await googleRepo.signInIsAvailable();
   Future<bool> signInGoogle(String locale, bool? invited) async => await _signIn(googleRepo, locale: locale, invited: invited);

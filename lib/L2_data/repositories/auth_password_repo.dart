@@ -4,9 +4,9 @@ import 'auth_base_repo.dart';
 
 class AuthPasswordRepo extends AuthBaseRepo {
   @override
-  Future<String> signIn({String? locale, String? login, String? pwd, bool? invited}) async {
+  Future<String> signIn({String? locale, String? email, String? pwd, bool? invited}) async {
     final response = await authApi.authToken(
-      username: login ?? '',
+      username: email ?? '',
       password: pwd ?? '',
     );
     return parseTokenResponse(response) ?? '';

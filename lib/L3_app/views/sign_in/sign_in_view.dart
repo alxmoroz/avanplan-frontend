@@ -14,7 +14,7 @@ import '../../extra/services.dart';
 import '../settings/app_version.dart';
 import 'legal_links.dart';
 import 'sign_in_header.dart';
-import 'sign_in_with_password_form.dart';
+import 'sign_in_password_form.dart';
 
 class SignInView extends StatelessWidget {
   static String get routeName => 'sign-in';
@@ -47,25 +47,20 @@ class SignInView extends StatelessWidget {
                   Observer(
                     builder: (_) => Column(
                       children: [
-                        // Expanded(child:
                         _signInBtn(
                           googleIcon(size: MIN_BTN_HEIGHT),
                           loc.auth_sign_in_with_google_btn_title,
-                          () => authController.signInWithGoogle(context),
+                          () => authController.signInGoogle(context),
                         ),
-
-                        // ),
                         // для Андроида не показываем SignInWithApple
                         if (authController.signInWithAppleIsAvailable && !isAndroid) ...[
-                          SizedBox(height: P),
+                          const SizedBox(height: P),
                           _signInBtn(
                             appleIcon(size: MIN_BTN_HEIGHT),
                             loc.auth_sign_in_with_apple_btn_title,
-                            () => authController.signInWithApple(context),
+                            () => authController.signInApple(context),
                           ),
                         ],
-                        // Expanded( child:
-                        // ),
                       ],
                     ),
                   ),

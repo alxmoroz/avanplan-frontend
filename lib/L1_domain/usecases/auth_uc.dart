@@ -42,13 +42,13 @@ class AuthUC {
     );
   }
 
-  Future<bool> signInWithPassword({required String login, required String pwd}) async => await _signIn(passwordRepo, login: login, pwd: pwd);
+  Future<bool> signInPassword({required String login, required String pwd}) async => await _signIn(passwordRepo, login: login, pwd: pwd);
 
-  Future<bool> signInWithGoogleIsAvailable() async => await googleRepo.signInIsAvailable();
-  Future<bool> signInWithGoogle(String locale, bool? invited) async => await _signIn(googleRepo, locale: locale, invited: invited);
+  Future<bool> signInGoogleIsAvailable() async => await googleRepo.signInIsAvailable();
+  Future<bool> signInGoogle(String locale, bool? invited) async => await _signIn(googleRepo, locale: locale, invited: invited);
 
-  Future<bool> signInWithAppleIsAvailable() async => await appleRepo.signInIsAvailable();
-  Future<bool> signInWithApple(String locale, bool? invited) async => await _signIn(appleRepo, locale: locale, invited: invited);
+  Future<bool> signInAppleIsAvailable() async => await appleRepo.signInIsAvailable();
+  Future<bool> signInApple(String locale, bool? invited) async => await _signIn(appleRepo, locale: locale, invited: invited);
 
   static const _authCheckPeriod = Duration(hours: 12);
   Future<bool> refreshAuth() async {

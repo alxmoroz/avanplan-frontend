@@ -33,5 +33,12 @@ void main() {
     test('test refreshToken', () async {
       // TODO
     });
+
+    // Register
+    //
+    //Future<Token> register(BodyRegister bodyRegister) async
+    test('test register', () async {
+      // TODO
+    });
   });
 }

@@ -22,16 +22,16 @@ Future showSignInPasswordDialog(BuildContext context) async {
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    builder: (_) => MTBottomSheet(SignInWithPasswordForm()),
+    builder: (_) => MTBottomSheet(SignInPasswordForm()),
   );
 }
 
-class SignInWithPasswordForm extends StatefulWidget {
+class SignInPasswordForm extends StatefulWidget {
   @override
-  _SignInWithPasswordFormState createState() => _SignInWithPasswordFormState();
+  _SignInPasswordFormState createState() => _SignInPasswordFormState();
 }
 
-class _SignInWithPasswordFormState extends State<SignInWithPasswordForm> {
+class _SignInPasswordFormState extends State<SignInPasswordForm> {
   late SignInController _controller;
 
   @override
@@ -82,7 +82,7 @@ class _SignInWithPasswordFormState extends State<SignInWithPasswordForm> {
                       MTButton.outlined(
                         margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
                         titleText: loc.auth_sign_in_action_title,
-                        onTap: _controller.validated ? () => _controller.signInWithPassword(context) : null,
+                        onTap: _controller.validated ? () => _controller.signInPassword(context) : null,
                       ),
                       const SizedBox(height: P2),
                       const LegalLinks(),

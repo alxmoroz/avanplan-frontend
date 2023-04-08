@@ -12,8 +12,8 @@ class AuthController extends _AuthControllerBase with _$AuthController {
   Future<AuthController> init() async {
     await authUC.updateOAuthToken();
     setAuthorized(await authUC.hasLocalAuth);
-    signInWithAppleIsAvailable = await authUC.signInWithAppleIsAvailable();
-    await authUC.signInWithGoogleIsAvailable();
+    signInWithAppleIsAvailable = await authUC.signInAppleIsAvailable();
+    await authUC.signInGoogleIsAvailable();
     return this;
   }
 }
@@ -32,30 +32,30 @@ abstract class _AuthControllerBase with Store {
 
   String _langCode(BuildContext context) => Localizations.localeOf(context).languageCode;
 
-  Future signInWithPassword(BuildContext context, String login, String pwd) async {
+  Future signInPassword(BuildContext context, String login, String pwd) async {
     loaderController.start();
     loaderController.setAuth();
-    setAuthorized(await authUC.signInWithPassword(login: login, pwd: pwd));
+    setAuthorized(await authUC.signInPassword(login: login, pwd: pwd));
     Navigator.of(context).pop();
     await loaderController.stop();
   }
 
-  Future signInWithGoogle(BuildContext context) async {
+  Future signInGoogle(BuildContext context) async {
     loaderController.start();
     loaderController.setAuth();
     try {
-      setAuthorized(await authUC.signInWithGoogle(_langCode(context), _invited));
+      setAuthorized(await authUC.signInGoogle(_langCode(context), _invited));
       await loaderController.stop();
     } on MTOAuthError catch (e) {
       loaderController.setAuthError(e.detail);
     }
   }
 
-  Future signInWithApple(BuildContext context) async {
+  Future signInApple(BuildContext context) async {
     loaderController.start();
     loaderController.setAuth();
     try {
-      setAuthorized(await authUC.signInWithApple(_langCode(context), _invited));
+      setAuthorized(await authUC.signInApple(_langCode(context), _invited));
       await loaderController.stop();
     } on MTOAuthError catch (e) {
       loaderController.setAuthError(e.detail);

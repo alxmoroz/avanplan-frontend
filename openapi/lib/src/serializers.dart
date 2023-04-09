@@ -19,8 +19,9 @@ import 'package:openapi/src/model/account_operation_get.dart';
 import 'package:openapi/src/model/app_settings_get.dart';
 import 'package:openapi/src/model/body_auth_apple_token.dart';
 import 'package:openapi/src/model/body_auth_google_token.dart';
+import 'package:openapi/src/model/body_create_v1_registration_create_post.dart';
 import 'package:openapi/src/model/body_redeem_v1_invitation_redeem_post.dart';
-import 'package:openapi/src/model/body_register.dart';
+import 'package:openapi/src/model/body_redeem_v1_registration_redeem_post.dart';
 import 'package:openapi/src/model/body_update_account_v1_my_account_post.dart';
 import 'package:openapi/src/model/body_update_push_token_v1_my_push_token_post.dart';
 import 'package:openapi/src/model/contract_get.dart';
@@ -36,6 +37,7 @@ import 'package:openapi/src/model/notification.dart';
 import 'package:openapi/src/model/permission_get.dart';
 import 'package:openapi/src/model/permission_role_get.dart';
 import 'package:openapi/src/model/priority_get.dart';
+import 'package:openapi/src/model/registration.dart';
 import 'package:openapi/src/model/role_get.dart';
 import 'package:openapi/src/model/settings_get.dart';
 import 'package:openapi/src/model/source_get.dart';
@@ -64,8 +66,9 @@ part 'serializers.g.dart';
   AppSettingsGet,
   BodyAuthAppleToken,
   BodyAuthGoogleToken,
+  BodyCreateV1RegistrationCreatePost,
   BodyRedeemV1InvitationRedeemPost,
-  BodyRegister,
+  BodyRedeemV1RegistrationRedeemPost,
   BodyUpdateAccountV1MyAccountPost,
   BodyUpdatePushTokenV1MyPushTokenPost,
   ContractGet,
@@ -81,6 +84,7 @@ part 'serializers.g.dart';
   PermissionGet,
   PermissionRoleGet,
   PriorityGet,
+  Registration,
   RoleGet,
   SettingsGet,
   SourceGet,

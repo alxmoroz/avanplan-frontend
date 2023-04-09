@@ -68,7 +68,6 @@ Class | Method | HTTP request | Description
 [*AuthApi*](doc/AuthApi.md) | [**authGoogleToken**](doc/AuthApi.md#authgoogletoken) | **POST** /v1/auth/google_token | Google Token
 [*AuthApi*](doc/AuthApi.md) | [**authToken**](doc/AuthApi.md#authtoken) | **POST** /v1/auth/password_token | Password Token
 [*AuthApi*](doc/AuthApi.md) | [**refreshToken**](doc/AuthApi.md#refreshtoken) | **POST** /v1/auth/refresh_token | Refresh Token
-[*AuthApi*](doc/AuthApi.md) | [**register**](doc/AuthApi.md#register) | **POST** /v1/auth/register | Register
 [*ContractsApi*](doc/ContractsApi.md) | [**signV1ContractsSignPost**](doc/ContractsApi.md#signv1contractssignpost) | **POST** /v1/contracts/sign | Sign
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**checkConnectionV1IntegrationsSourcesCheckConnectionGet**](doc/IntegrationsSourcesApi.md#checkconnectionv1integrationssourcescheckconnectionget) | **GET** /v1/integrations/sources/check_connection | Check Connection
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**deleteV1IntegrationsSourcesSourceIdDelete**](doc/IntegrationsSourcesApi.md#deletev1integrationssourcessourceiddelete) | **DELETE** /v1/integrations/sources/{source_id} | Delete
@@ -86,6 +85,8 @@ Class | Method | HTTP request | Description
 [*MyApi*](doc/MyApi.md) | [**updatePushTokenV1MyPushTokenPost**](doc/MyApi.md#updatepushtokenv1mypushtokenpost) | **POST** /v1/my/push_token | Update Push Token
 [*MyApi*](doc/MyApi.md) | [**workspacesV1MyWorkspacesGet**](doc/MyApi.md#workspacesv1myworkspacesget) | **GET** /v1/my/workspaces | Workspaces
 [*PaymentsApi*](doc/PaymentsApi.md) | [**ymPaymentNotificationV1PaymentsYmPaymentNotificationPost**](doc/PaymentsApi.md#ympaymentnotificationv1paymentsympaymentnotificationpost) | **POST** /v1/payments/ym/payment_notification | Ym Payment Notification
+[*RegistrationApi*](doc/RegistrationApi.md) | [**createV1RegistrationCreatePost**](doc/RegistrationApi.md#createv1registrationcreatepost) | **POST** /v1/registration/create | Create
+[*RegistrationApi*](doc/RegistrationApi.md) | [**redeemV1RegistrationRedeemPost**](doc/RegistrationApi.md#redeemv1registrationredeempost) | **POST** /v1/registration/redeem | Redeem
 [*RolesApi*](doc/RolesApi.md) | [**assignV1RolesAssignPost**](doc/RolesApi.md#assignv1rolesassignpost) | **POST** /v1/roles/assign | Assign
 [*SettingsApi*](doc/SettingsApi.md) | [**getSettingsV1SettingsGet**](doc/SettingsApi.md#getsettingsv1settingsget) | **GET** /v1/settings/ | Get Settings
 [*TariffsApi*](doc/TariffsApi.md) | [**tariffsV1TariffsGet**](doc/TariffsApi.md#tariffsv1tariffsget) | **GET** /v1/tariffs/ | Tariffs
@@ -101,8 +102,9 @@ Class | Method | HTTP request | Description
  - [AppSettingsGet](doc/AppSettingsGet.md)
  - [BodyAuthAppleToken](doc/BodyAuthAppleToken.md)
  - [BodyAuthGoogleToken](doc/BodyAuthGoogleToken.md)
+ - [BodyCreateV1RegistrationCreatePost](doc/BodyCreateV1RegistrationCreatePost.md)
  - [BodyRedeemV1InvitationRedeemPost](doc/BodyRedeemV1InvitationRedeemPost.md)
- - [BodyRegister](doc/BodyRegister.md)
+ - [BodyRedeemV1RegistrationRedeemPost](doc/BodyRedeemV1RegistrationRedeemPost.md)
  - [BodyUpdateAccountV1MyAccountPost](doc/BodyUpdateAccountV1MyAccountPost.md)
  - [BodyUpdatePushTokenV1MyPushTokenPost](doc/BodyUpdatePushTokenV1MyPushTokenPost.md)
  - [ContractGet](doc/ContractGet.md)
@@ -118,6 +120,7 @@ Class | Method | HTTP request | Description
  - [PermissionGet](doc/PermissionGet.md)
  - [PermissionRoleGet](doc/PermissionRoleGet.md)
  - [PriorityGet](doc/PriorityGet.md)
+ - [Registration](doc/Registration.md)
  - [RoleGet](doc/RoleGet.md)
  - [SettingsGet](doc/SettingsGet.md)
  - [SourceGet](doc/SourceGet.md)

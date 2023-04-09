@@ -6,11 +6,11 @@ import 'package:openapi/openapi.dart';
 import '../../L1_domain/repositories/abs_auth_repo.dart';
 import '../services/api.dart';
 
+String? parseTokenResponse(Response<Token> tokenResponse) => tokenResponse.data?.accessToken;
+
 abstract class AuthBaseRepo extends AbstractAuthRepo {
   AuthBaseRepo() : authApi = openAPI.getAuthApi();
   final AuthApi authApi;
-
-  String? parseTokenResponse(Response<Token> tokenResponse) => tokenResponse.data?.accessToken;
 
   @override
   Future<String> refreshToken() async => parseTokenResponse(await authApi.refreshToken()) ?? '';

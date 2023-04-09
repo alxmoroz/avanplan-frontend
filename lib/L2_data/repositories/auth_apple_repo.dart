@@ -67,7 +67,4 @@ class AuthAppleRepo extends AuthBaseRepo {
 
   @override
   Future signOut() async {}
-
-  @override
-  Future register({String? name, String? email, String? pwd, String? locale}) => throw UnimplementedError();
 }

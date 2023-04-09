@@ -5,5 +5,4 @@ abstract class AbstractAuthRepo {
   Future<String> signIn({String? email, String? pwd, String? locale, bool? invited});
   Future signOut();
   Future refreshToken();
-  Future register({required String name, required String email, required String pwd, required String locale});
 }

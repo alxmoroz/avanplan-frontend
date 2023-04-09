@@ -42,14 +42,11 @@ class AuthUC {
     );
   }
 
-  Future<bool> register({
-    required String name,
-    required String email,
-    required String pwd,
-    required String locale,
-  }) async =>
-      await emailRepo.register(name: name, email: email, pwd: pwd, locale: locale);
   Future<bool> signInEmail({required String email, required String pwd}) async => await _signIn(emailRepo, email: email, pwd: pwd);
+  Future<bool> signInEmailRedeem(String token) async {
+    _currentRepo = emailRepo;
+    return await _signInWithToken(token);
+  }
 
   Future<bool> signInGoogleIsAvailable() async => await googleRepo.signInIsAvailable();
   Future<bool> signInGoogle(String locale, bool? invited) async => await _signIn(googleRepo, locale: locale, invited: invited);

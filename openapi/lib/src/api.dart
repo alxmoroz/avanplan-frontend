@@ -16,6 +16,7 @@ import 'package:openapi/src/api/integrations_tasks_api.dart';
 import 'package:openapi/src/api/invitation_api.dart';
 import 'package:openapi/src/api/my_api.dart';
 import 'package:openapi/src/api/payments_api.dart';
+import 'package:openapi/src/api/registration_api.dart';
 import 'package:openapi/src/api/roles_api.dart';
 import 'package:openapi/src/api/settings_api.dart';
 import 'package:openapi/src/api/tariffs_api.dart';
@@ -115,6 +116,12 @@ class Openapi {
   /// by doing that all interceptors will not be executed
   PaymentsApi getPaymentsApi() {
     return PaymentsApi(dio, serializers);
+  }
+
+  /// Get RegistrationApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  RegistrationApi getRegistrationApi() {
+    return RegistrationApi(dio, serializers);
   }
 
   /// Get RolesApi instance, base route and serializer can be overridden by a given but be careful,

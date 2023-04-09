@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../L1_domain/entities/registration.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
 
@@ -24,11 +25,13 @@ abstract class _RegisterControllerBase extends EditController with Store {
   Future register(BuildContext context) async {
     loaderController.start();
     loaderController.setSaving();
-    registerCompleted = await authUC.register(
-      name: tfAnnoForCode('name').text,
-      email: tfAnnoForCode('email').text,
-      pwd: tfAnnoForCode('password').text,
-      locale: Localizations.localeOf(context).languageCode,
+    registerCompleted = await registrationUC.create(
+      Registration(
+        tfAnnoForCode('name').text,
+        tfAnnoForCode('email').text,
+        Localizations.localeOf(context).languageCode,
+      ),
+      tfAnnoForCode('password').text,
     );
     await loaderController.stop();
   }

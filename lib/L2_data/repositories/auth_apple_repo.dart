@@ -4,17 +4,18 @@ import 'package:dio/dio.dart';
 import 'package:openapi/openapi.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
+import '../../L1_domain/repositories/abs_auth_repo.dart';
 import '../../L1_domain/system/errors.dart';
 import '../services/environment.dart';
 import '../services/platform.dart';
 import 'auth_base_repo.dart';
 
-class AuthAppleRepo extends AuthBaseRepo {
+class AuthAppleRepo extends AbstractOAuthRepo with AuthBaseRepo {
   @override
   Future<bool> signInIsAvailable() async => await SignInWithApple.isAvailable();
 
   @override
-  Future<String> signIn({String? email, String? pwd, String? locale, bool? invited}) async {
+  Future<String> signIn({String? locale}) async {
     String appleToken = '';
     String? appleEmail;
     String name = '';

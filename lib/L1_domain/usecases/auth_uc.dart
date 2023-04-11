@@ -6,15 +6,15 @@ import '../repositories/abs_auth_repo.dart';
 import '../repositories/abs_db_repo.dart';
 
 class AuthUC {
-  AuthUC({required this.localDBAuthRepo, required this.googleRepo, required this.appleRepo, required this.emailRepo});
+  AuthUC({required this.localDBAuthRepo, required this.googleRepo, required this.appleRepo, required this.emailRepo}) : _currentRepo = emailRepo;
   Future<AuthUC> init() async => this;
 
-  final AbstractAuthRepo googleRepo;
-  final AbstractAuthRepo appleRepo;
-  final AbstractAuthRepo emailRepo;
+  final AbstractOAuthRepo googleRepo;
+  final AbstractOAuthRepo appleRepo;
+  final AbstractAuthAvanplanRepo emailRepo;
   final AbstractDBRepo<AbstractDBModel, LocalAuth> localDBAuthRepo;
 
-  AbstractAuthRepo? _currentRepo;
+  AbstractAuthRepo _currentRepo;
 
   Future<LocalAuth> _getLocalAuth() async => await localDBAuthRepo.getOne() ?? LocalAuth();
   Future<String> _getToken() async => (await _getLocalAuth()).accessToken;
@@ -29,43 +29,44 @@ class AuthUC {
 
   Future updateOAuthToken() async => openAPI.setOAuthToken('OAuth2PasswordBearer', await _getToken());
 
-  Future<bool> _signInWithToken(String token) async {
+  Future<bool> signInWithToken(String token) async {
     await _setToken(token);
     await updateOAuthToken();
     return await hasLocalAuth;
   }
 
-  Future<bool> _signIn(AbstractAuthRepo repo, {String? email, String? pwd, String? locale, bool? invited}) async {
+  Future<bool> _signInOAuth(AbstractOAuthRepo repo, String? locale) async {
     _currentRepo = repo;
-    return await _signInWithToken(
-      await repo.signIn(locale: locale, email: email, pwd: pwd, invited: invited),
+    return await signInWithToken(
+      await repo.signIn(locale: locale),
     );
   }
 
-  Future<bool> signInEmail({required String email, required String pwd}) async => await _signIn(emailRepo, email: email, pwd: pwd);
-  Future<bool> signInEmailRedeem(String token) async {
+  Future<bool> signInAvanplan(String email, String pwd) async {
     _currentRepo = emailRepo;
-    return await _signInWithToken(token);
+    return await signInWithToken(
+      await emailRepo.signIn(email: email, pwd: pwd),
+    );
   }
 
-  Future<bool> signInGoogleIsAvailable() async => await googleRepo.signInIsAvailable();
-  Future<bool> signInGoogle(String locale) async => await _signIn(googleRepo, locale: locale);
+  Future<bool> googleIsAvailable() async => await googleRepo.signInIsAvailable();
+  Future<bool> signInGoogle(String locale) async => await _signInOAuth(googleRepo, locale);
 
-  Future<bool> signInAppleIsAvailable() async => await appleRepo.signInIsAvailable();
-  Future<bool> signInApple(String locale) async => await _signIn(appleRepo, locale: locale);
+  Future<bool> appleIsAvailable() async => await appleRepo.signInIsAvailable();
+  Future<bool> signInApple(String locale) async => await _signInOAuth(appleRepo, locale);
 
   static const _authCheckPeriod = Duration(hours: 12);
   Future<bool> refreshAuth() async {
     bool res = await hasLocalAuth;
     final signinDate = (await _getLocalAuth()).signinDate;
     if (signinDate == null || signinDate.add(_authCheckPeriod).isBefore(DateTime.now())) {
-      res = await _signInWithToken(await emailRepo.refreshToken());
+      res = await signInWithToken(await emailRepo.refreshToken());
     }
     return res;
   }
 
   Future signOut() async {
-    await _currentRepo?.signOut();
+    await _currentRepo.signOut();
     _setToken('');
     updateOAuthToken();
   }

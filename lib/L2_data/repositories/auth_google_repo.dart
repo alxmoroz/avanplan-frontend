@@ -5,11 +5,12 @@ import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:openapi/openapi.dart';
 
+import '../../L1_domain/repositories/abs_auth_repo.dart';
 import '../../L1_domain/system/errors.dart';
 import '../services/platform.dart';
 import 'auth_base_repo.dart';
 
-class AuthGoogleRepo extends AuthBaseRepo {
+class AuthGoogleRepo extends AbstractOAuthRepo with AuthBaseRepo {
   // для андроида обязательно, если без FireBase и google-services, иначе не отдает id_token
   static String serverClientID = '1039142486698-ki2e3ne2ntjfk2peqfn0r36rs489075o.apps.googleusercontent.com';
 
@@ -29,7 +30,7 @@ class AuthGoogleRepo extends AuthBaseRepo {
   }
 
   @override
-  Future<String> signIn({String? locale, String? email, String? pwd, bool? invited}) async {
+  Future<String> signIn({String? locale}) async {
     GoogleSignInAuthentication? auth;
     try {
       final account = await _gSI.signInSilently() ?? await _gSI.signIn();

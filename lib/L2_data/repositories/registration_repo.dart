@@ -7,7 +7,7 @@ import '../../L1_domain/repositories/abs_registration_repo.dart';
 import '../services/api.dart';
 import 'auth_base_repo.dart';
 
-class RegistrationRepo extends AbstractRegistrationRepo {
+class RegistrationRepo extends AbstractRegistrationRepo with AuthBaseRepo {
   o_api.RegistrationApi get api => openAPI.getRegistrationApi();
 
   @override

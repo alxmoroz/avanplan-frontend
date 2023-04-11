@@ -12,8 +12,8 @@ class AuthController extends _AuthControllerBase with _$AuthController {
   Future<AuthController> init() async {
     await authUC.updateOAuthToken();
     setAuthorized(await authUC.hasLocalAuth);
-    signInWithAppleIsAvailable = await authUC.signInAppleIsAvailable();
-    await authUC.signInGoogleIsAvailable();
+    signInWithAppleIsAvailable = await authUC.appleIsAvailable();
+    await authUC.googleIsAvailable();
     return this;
   }
 }
@@ -39,7 +39,7 @@ abstract class _AuthControllerBase with Store {
   Future signInEmail(BuildContext context, String email, String pwd) async {
     loaderController.start();
     loaderController.setAuth();
-    setAuthorized(await authUC.signInEmail(email: email, pwd: pwd));
+    setAuthorized(await authUC.signInAvanplan(email, pwd));
     Navigator.of(context).pop();
     await loaderController.stop();
   }
@@ -96,7 +96,7 @@ abstract class _AuthControllerBase with Store {
       loaderController.setAuth();
       final authToken = await registrationUC.redeem(deepLinkController.registrationToken!);
       if (authToken.isNotEmpty) {
-        authorized = await authUC.signInEmailRedeem(authToken);
+        authorized = await authUC.signInWithToken(authToken);
       }
       await loaderController.stop();
       deepLinkController.clearRegistration();

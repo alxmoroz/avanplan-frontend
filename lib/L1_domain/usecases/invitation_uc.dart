@@ -10,5 +10,4 @@ class InvitationUC {
   final AbstractInvitationRepo repo;
 
   Future<String> create(Invitation invitation, int wsId) async => await repo.create(invitation, wsId);
-  Future<bool> redeem(String token) async => await repo.redeem(token);
 }

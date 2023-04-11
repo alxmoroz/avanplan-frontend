@@ -2,16 +2,18 @@
 
 import '../../L2_data/services/api.dart';
 import '../entities/local_auth.dart';
+import '../entities/registration.dart';
 import '../repositories/abs_auth_repo.dart';
 import '../repositories/abs_db_repo.dart';
 
 class AuthUC {
-  AuthUC({required this.localDBAuthRepo, required this.googleRepo, required this.appleRepo, required this.emailRepo}) : _currentRepo = emailRepo;
+  AuthUC({required this.localDBAuthRepo, required this.googleRepo, required this.appleRepo, required this.authAvanplanRepo})
+      : _currentRepo = authAvanplanRepo;
   Future<AuthUC> init() async => this;
 
   final AbstractOAuthRepo googleRepo;
   final AbstractOAuthRepo appleRepo;
-  final AbstractAuthAvanplanRepo emailRepo;
+  final AbstractAuthAvanplanRepo authAvanplanRepo;
   final AbstractDBRepo<AbstractDBModel, LocalAuth> localDBAuthRepo;
 
   AbstractAuthRepo _currentRepo;
@@ -29,23 +31,33 @@ class AuthUC {
 
   Future updateOAuthToken() async => openAPI.setOAuthToken('OAuth2PasswordBearer', await _getToken());
 
-  Future<bool> signInWithToken(String token) async {
+  Future<bool> requestRegistration(Registration registration, String password) async =>
+      await authAvanplanRepo.requestRegistration(registration, password);
+
+  Future<bool> _signInWithToken(String token) async {
     await _setToken(token);
     await updateOAuthToken();
     return await hasLocalAuth;
   }
 
-  Future<bool> _signInOAuth(AbstractOAuthRepo repo, String? locale) async {
-    _currentRepo = repo;
-    return await signInWithToken(
-      await repo.signIn(locale: locale),
+  Future<bool> signInWithPassword(String email, String pwd) async {
+    _currentRepo = authAvanplanRepo;
+    return await _signInWithToken(
+      await authAvanplanRepo.signInWithPassword(email: email, pwd: pwd),
     );
   }
 
-  Future<bool> signInAvanplan(String email, String pwd) async {
-    _currentRepo = emailRepo;
-    return await signInWithToken(
-      await emailRepo.signIn(email: email, pwd: pwd),
+  Future<bool> signInWithRegistration(String token) async {
+    _currentRepo = authAvanplanRepo;
+    return await _signInWithToken(
+      await authAvanplanRepo.signInWithRegistration(token),
+    );
+  }
+
+  Future<bool> _signInOAuth(AbstractOAuthRepo repo, String? locale) async {
+    _currentRepo = repo;
+    return await _signInWithToken(
+      await repo.signIn(locale: locale),
     );
   }
 
@@ -60,7 +72,7 @@ class AuthUC {
     bool res = await hasLocalAuth;
     final signinDate = (await _getLocalAuth()).signinDate;
     if (signinDate == null || signinDate.add(_authCheckPeriod).isBefore(DateTime.now())) {
-      res = await signInWithToken(await emailRepo.refreshToken());
+      res = await _signInWithToken(await authAvanplanRepo.refreshToken());
     }
     return res;
   }

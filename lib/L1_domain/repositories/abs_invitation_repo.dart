@@ -4,5 +4,4 @@ import '../entities/invitation.dart';
 
 abstract class AbstractInvitationRepo {
   Future<String> create(Invitation invitation, int wsId);
-  Future<bool> redeem(String token);
 }

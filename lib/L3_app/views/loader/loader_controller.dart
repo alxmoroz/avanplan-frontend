@@ -77,7 +77,7 @@ abstract class _LoaderControllerBase with Store {
             } else if (e.errCode.startsWith('ERR_PERMISSION')) {
               // Показываем диалог отсутствия прав
               _setPermissionError();
-            } else if (e.errCode.startsWith('ERR_AUTH_INVITATION_REDEEM_INACTIVE')) {
+            } else if (e.errCode.startsWith('ERR_AUTH_INVITATION')) {
               _setRedeemInvitationError();
             } else {
               // в остальных случаях выбрасываем без объяснений

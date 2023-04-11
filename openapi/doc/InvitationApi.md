@@ -9,12 +9,11 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createV1InvitationCreatePost**](InvitationApi.md#createv1invitationcreatepost) | **POST** /v1/invitation/create | Create
-[**redeemV1InvitationRedeemPost**](InvitationApi.md#redeemv1invitationredeempost) | **POST** /v1/invitation/redeem | Redeem
+[**createV1InvitationPost**](InvitationApi.md#createv1invitationpost) | **POST** /v1/invitation/ | Create
 
 
-# **createV1InvitationCreatePost**
-> String createV1InvitationCreatePost(wsId, invitation)
+# **createV1InvitationPost**
+> String createV1InvitationPost(wsId, invitation)
 
 Create
 
@@ -33,10 +32,10 @@ final int wsId = 56; // int |
 final Invitation invitation = ; // Invitation | 
 
 try {
-    final response = api.createV1InvitationCreatePost(wsId, invitation);
+    final response = api.createV1InvitationPost(wsId, invitation);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling InvitationApi->createV1InvitationCreatePost: $e\n');
+    print('Exception when calling InvitationApi->createV1InvitationPost: $e\n');
 }
 ```
 
@@ -50,53 +49,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 **String**
-
-### Authorization
-
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **redeemV1InvitationRedeemPost**
-> bool redeemV1InvitationRedeemPost(bodyRedeemV1InvitationRedeemPost)
-
-Redeem
-
-### Example
-```dart
-import 'package:openapi/api.dart';
-// TODO Configure API key authorization: APIKeyHeader
-//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
-// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
-//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
-
-final api = Openapi().getInvitationApi();
-final BodyRedeemV1InvitationRedeemPost bodyRedeemV1InvitationRedeemPost = ; // BodyRedeemV1InvitationRedeemPost | 
-
-try {
-    final response = api.redeemV1InvitationRedeemPost(bodyRedeemV1InvitationRedeemPost);
-    print(response);
-} catch on DioError (e) {
-    print('Exception when calling InvitationApi->redeemV1InvitationRedeemPost: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **bodyRedeemV1InvitationRedeemPost** | [**BodyRedeemV1InvitationRedeemPost**](BodyRedeemV1InvitationRedeemPost.md)|  | 
-
-### Return type
-
-**bool**
 
 ### Authorization
 

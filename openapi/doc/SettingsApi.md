@@ -9,13 +9,13 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getSettingsV1SettingsGet**](SettingsApi.md#getsettingsv1settingsget) | **GET** /v1/settings/ | Get Settings
+[**settingsV1SettingsGet**](SettingsApi.md#settingsv1settingsget) | **GET** /v1/settings/ | Settings
 
 
-# **getSettingsV1SettingsGet**
-> AppSettingsGet getSettingsV1SettingsGet()
+# **settingsV1SettingsGet**
+> AppSettingsGet settingsV1SettingsGet()
 
-Get Settings
+Settings
 
 ### Example
 ```dart
@@ -28,10 +28,10 @@ import 'package:openapi/api.dart';
 final api = Openapi().getSettingsApi();
 
 try {
-    final response = api.getSettingsV1SettingsGet();
+    final response = api.settingsV1SettingsGet();
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling SettingsApi->getSettingsV1SettingsGet: $e\n');
+    print('Exception when calling SettingsApi->settingsV1SettingsGet: $e\n');
 }
 ```
 

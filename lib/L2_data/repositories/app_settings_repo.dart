@@ -12,7 +12,7 @@ class AppSettingsRepo extends AbstractSettingsRepo {
 
   @override
   Future<AppSettings?> getSettings() async {
-    final response = await api.getSettingsV1SettingsGet();
+    final response = await api.settingsV1SettingsGet();
     return response.data?.settings;
   }
 }

@@ -64,31 +64,30 @@ All URIs are relative to */api*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-[*AuthApi*](doc/AuthApi.md) | [**authAppleToken**](doc/AuthApi.md#authappletoken) | **POST** /v1/auth/apple_token | Apple Token
-[*AuthApi*](doc/AuthApi.md) | [**authGoogleToken**](doc/AuthApi.md#authgoogletoken) | **POST** /v1/auth/google_token | Google Token
-[*AuthApi*](doc/AuthApi.md) | [**authToken**](doc/AuthApi.md#authtoken) | **POST** /v1/auth/password_token | Password Token
+[*AuthApi*](doc/AuthApi.md) | [**authAppleToken**](doc/AuthApi.md#authappletoken) | **GET** /v1/auth/apple_token | Apple Token
+[*AuthApi*](doc/AuthApi.md) | [**authGoogleToken**](doc/AuthApi.md#authgoogletoken) | **GET** /v1/auth/google_token | Google Token
+[*AuthApi*](doc/AuthApi.md) | [**passwordToken**](doc/AuthApi.md#passwordtoken) | **GET** /v1/auth/password_token | Password Token
 [*AuthApi*](doc/AuthApi.md) | [**refreshToken**](doc/AuthApi.md#refreshtoken) | **POST** /v1/auth/refresh_token | Refresh Token
-[*ContractsApi*](doc/ContractsApi.md) | [**signV1ContractsSignPost**](doc/ContractsApi.md#signv1contractssignpost) | **POST** /v1/contracts/sign | Sign
+[*AuthApi*](doc/AuthApi.md) | [**registrationToken**](doc/AuthApi.md#registrationtoken) | **GET** /v1/auth/registration_token | Registration Token
+[*AuthApi*](doc/AuthApi.md) | [**requestRegistration**](doc/AuthApi.md#requestregistration) | **POST** /v1/auth/registration | Request Registration
+[*ContractsApi*](doc/ContractsApi.md) | [**signV1ContractsPost**](doc/ContractsApi.md#signv1contractspost) | **POST** /v1/contracts/ | Sign
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**checkConnectionV1IntegrationsSourcesCheckConnectionGet**](doc/IntegrationsSourcesApi.md#checkconnectionv1integrationssourcescheckconnectionget) | **GET** /v1/integrations/sources/check_connection | Check Connection
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**deleteV1IntegrationsSourcesSourceIdDelete**](doc/IntegrationsSourcesApi.md#deletev1integrationssourcessourceiddelete) | **DELETE** /v1/integrations/sources/{source_id} | Delete
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**upsertV1IntegrationsSourcesPost**](doc/IntegrationsSourcesApi.md#upsertv1integrationssourcespost) | **POST** /v1/integrations/sources/ | Upsert
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**importTaskSourcesV1IntegrationsTasksImportPost**](doc/IntegrationsTasksApi.md#importtasksourcesv1integrationstasksimportpost) | **POST** /v1/integrations/tasks/import | Import Task Sources
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**rootTasksV1IntegrationsTasksGet**](doc/IntegrationsTasksApi.md#roottasksv1integrationstasksget) | **GET** /v1/integrations/tasks/ | Root Tasks
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost**](doc/IntegrationsTasksApi.md#unlinktasksourcesv1integrationstasksunlinktasksourcespost) | **POST** /v1/integrations/tasks/unlink_task_sources | Unlink Task Sources
-[*InvitationApi*](doc/InvitationApi.md) | [**createV1InvitationCreatePost**](doc/InvitationApi.md#createv1invitationcreatepost) | **POST** /v1/invitation/create | Create
-[*InvitationApi*](doc/InvitationApi.md) | [**redeemV1InvitationRedeemPost**](doc/InvitationApi.md#redeemv1invitationredeempost) | **POST** /v1/invitation/redeem | Redeem
+[*InvitationApi*](doc/InvitationApi.md) | [**createV1InvitationPost**](doc/InvitationApi.md#createv1invitationpost) | **POST** /v1/invitation/ | Create
 [*MyApi*](doc/MyApi.md) | [**accountV1MyAccountGet**](doc/MyApi.md#accountv1myaccountget) | **GET** /v1/my/account | Account
 [*MyApi*](doc/MyApi.md) | [**deleteAccountV1MyAccountDelete**](doc/MyApi.md#deleteaccountv1myaccountdelete) | **DELETE** /v1/my/account | Delete Account
 [*MyApi*](doc/MyApi.md) | [**markReadNotificationsV1MyNotificationsPost**](doc/MyApi.md#markreadnotificationsv1mynotificationspost) | **POST** /v1/my/notifications | Mark Read Notifications
 [*MyApi*](doc/MyApi.md) | [**notificationsV1MyNotificationsGet**](doc/MyApi.md#notificationsv1mynotificationsget) | **GET** /v1/my/notifications | Notifications
+[*MyApi*](doc/MyApi.md) | [**redeemInvitationV1MyRedeemInvitationPost**](doc/MyApi.md#redeeminvitationv1myredeeminvitationpost) | **POST** /v1/my/redeem_invitation | Redeem Invitation
 [*MyApi*](doc/MyApi.md) | [**updateAccountV1MyAccountPost**](doc/MyApi.md#updateaccountv1myaccountpost) | **POST** /v1/my/account | Update Account
 [*MyApi*](doc/MyApi.md) | [**updatePushTokenV1MyPushTokenPost**](doc/MyApi.md#updatepushtokenv1mypushtokenpost) | **POST** /v1/my/push_token | Update Push Token
 [*MyApi*](doc/MyApi.md) | [**workspacesV1MyWorkspacesGet**](doc/MyApi.md#workspacesv1myworkspacesget) | **GET** /v1/my/workspaces | Workspaces
-[*PaymentsApi*](doc/PaymentsApi.md) | [**ymPaymentNotificationV1PaymentsYmPaymentNotificationPost**](doc/PaymentsApi.md#ympaymentnotificationv1paymentsympaymentnotificationpost) | **POST** /v1/payments/ym/payment_notification | Ym Payment Notification
-[*RegistrationApi*](doc/RegistrationApi.md) | [**createV1RegistrationCreatePost**](doc/RegistrationApi.md#createv1registrationcreatepost) | **POST** /v1/registration/create | Create
-[*RegistrationApi*](doc/RegistrationApi.md) | [**redeemV1RegistrationRedeemPost**](doc/RegistrationApi.md#redeemv1registrationredeempost) | **POST** /v1/registration/redeem | Redeem
-[*RolesApi*](doc/RolesApi.md) | [**assignV1RolesAssignPost**](doc/RolesApi.md#assignv1rolesassignpost) | **POST** /v1/roles/assign | Assign
-[*SettingsApi*](doc/SettingsApi.md) | [**getSettingsV1SettingsGet**](doc/SettingsApi.md#getsettingsv1settingsget) | **GET** /v1/settings/ | Get Settings
+[*RolesApi*](doc/RolesApi.md) | [**assignV1RolesPost**](doc/RolesApi.md#assignv1rolespost) | **POST** /v1/roles/ | Assign
+[*SettingsApi*](doc/SettingsApi.md) | [**settingsV1SettingsGet**](doc/SettingsApi.md#settingsv1settingsget) | **GET** /v1/settings/ | Settings
 [*TariffsApi*](doc/TariffsApi.md) | [**tariffsV1TariffsGet**](doc/TariffsApi.md#tariffsv1tariffsget) | **GET** /v1/tariffs/ | Tariffs
 [*TasksApi*](doc/TasksApi.md) | [**deleteV1TasksTaskIdDelete**](doc/TasksApi.md#deletev1taskstaskiddelete) | **DELETE** /v1/tasks/{task_id} | Delete
 [*TasksApi*](doc/TasksApi.md) | [**projectsV1TasksGet**](doc/TasksApi.md#projectsv1tasksget) | **GET** /v1/tasks/ | Projects
@@ -100,11 +99,12 @@ Class | Method | HTTP request | Description
  - [AccountGet](doc/AccountGet.md)
  - [AccountOperationGet](doc/AccountOperationGet.md)
  - [AppSettingsGet](doc/AppSettingsGet.md)
+ - [AuthToken](doc/AuthToken.md)
  - [BodyAuthAppleToken](doc/BodyAuthAppleToken.md)
  - [BodyAuthGoogleToken](doc/BodyAuthGoogleToken.md)
- - [BodyCreateV1RegistrationCreatePost](doc/BodyCreateV1RegistrationCreatePost.md)
- - [BodyRedeemV1InvitationRedeemPost](doc/BodyRedeemV1InvitationRedeemPost.md)
- - [BodyRedeemV1RegistrationRedeemPost](doc/BodyRedeemV1RegistrationRedeemPost.md)
+ - [BodyRedeemInvitationV1MyRedeemInvitationPost](doc/BodyRedeemInvitationV1MyRedeemInvitationPost.md)
+ - [BodyRegistrationToken](doc/BodyRegistrationToken.md)
+ - [BodyRequestRegistration](doc/BodyRequestRegistration.md)
  - [BodyUpdateAccountV1MyAccountPost](doc/BodyUpdateAccountV1MyAccountPost.md)
  - [BodyUpdatePushTokenV1MyPushTokenPost](doc/BodyUpdatePushTokenV1MyPushTokenPost.md)
  - [ContractGet](doc/ContractGet.md)
@@ -135,7 +135,6 @@ Class | Method | HTTP request | Description
  - [TaskSourceGet](doc/TaskSourceGet.md)
  - [TaskSourceUpsert](doc/TaskSourceUpsert.md)
  - [TaskUpsert](doc/TaskUpsert.md)
- - [Token](doc/Token.md)
  - [UNotificationPermissionGet](doc/UNotificationPermissionGet.md)
  - [User](doc/User.md)
  - [ValidationError](doc/ValidationError.md)

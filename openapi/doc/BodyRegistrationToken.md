@@ -1,4 +1,4 @@
-# openapi.model.BodyRedeemV1RegistrationRedeemPost
+# openapi.model.BodyRegistrationToken
 
 ## Load the model package
 ```dart

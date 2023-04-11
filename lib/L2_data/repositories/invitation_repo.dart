@@ -17,14 +17,7 @@ class InvitationRepo extends AbstractInvitationRepo {
           ..activationsCount = invitation.activationsCount
           ..expiresOn = invitation.expiresOn.toUtc())
         .build();
-    final response = await api.createV1InvitationCreatePost(wsId: wsId, invitation: invitationData);
+    final response = await api.createV1InvitationPost(wsId: wsId, invitation: invitationData);
     return response.data ?? '';
-  }
-
-  @override
-  Future<bool> redeem(String token) async {
-    final body = (o_api.BodyRedeemV1InvitationRedeemPostBuilder()..token = token).build();
-    final response = await api.redeemV1InvitationRedeemPost(bodyRedeemV1InvitationRedeemPost: body);
-    return response.data == true;
   }
 }

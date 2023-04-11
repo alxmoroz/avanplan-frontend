@@ -8,7 +8,6 @@ import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
 import 'package:openapi/src/api_util.dart';
-import 'package:openapi/src/model/body_redeem_v1_invitation_redeem_post.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/invitation.dart';
 
@@ -35,7 +34,7 @@ class InvitationApi {
   ///
   /// Returns a [Future] containing a [Response] with a [String] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<String>> createV1InvitationCreatePost({ 
+  Future<Response<String>> createV1InvitationPost({ 
     required int wsId,
     required Invitation invitation,
     CancelToken? cancelToken,
@@ -45,7 +44,7 @@ class InvitationApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/invitation/create';
+    final _path = r'/v1/invitation/';
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -118,107 +117,6 @@ class InvitationApi {
     }
 
     return Response<String>(
-      data: _responseData,
-      headers: _response.headers,
-      isRedirect: _response.isRedirect,
-      requestOptions: _response.requestOptions,
-      redirects: _response.redirects,
-      statusCode: _response.statusCode,
-      statusMessage: _response.statusMessage,
-      extra: _response.extra,
-    );
-  }
-
-  /// Redeem
-  /// 
-  ///
-  /// Parameters:
-  /// * [bodyRedeemV1InvitationRedeemPost] 
-  /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
-  /// * [headers] - Can be used to add additional headers to the request
-  /// * [extras] - Can be used to add flags to the request
-  /// * [validateStatus] - A [ValidateStatus] callback that can be used to determine request success based on the HTTP status of the response
-  /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
-  /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
-  ///
-  /// Returns a [Future] containing a [Response] with a [bool] as data
-  /// Throws [DioError] if API call or serialization fails
-  Future<Response<bool>> redeemV1InvitationRedeemPost({ 
-    required BodyRedeemV1InvitationRedeemPost bodyRedeemV1InvitationRedeemPost,
-    CancelToken? cancelToken,
-    Map<String, dynamic>? headers,
-    Map<String, dynamic>? extra,
-    ValidateStatus? validateStatus,
-    ProgressCallback? onSendProgress,
-    ProgressCallback? onReceiveProgress,
-  }) async {
-    final _path = r'/v1/invitation/redeem';
-    final _options = Options(
-      method: r'POST',
-      headers: <String, dynamic>{
-        ...?headers,
-      },
-      extra: <String, dynamic>{
-        'secure': <Map<String, String>>[
-          {
-            'type': 'apiKey',
-            'name': 'APIKeyHeader',
-            'keyName': 'Avanplan',
-            'where': 'header',
-          },{
-            'type': 'oauth2',
-            'name': 'OAuth2PasswordBearer',
-          },
-        ],
-        ...?extra,
-      },
-      contentType: 'application/json',
-      validateStatus: validateStatus,
-    );
-
-    dynamic _bodyData;
-
-    try {
-      const _type = FullType(BodyRedeemV1InvitationRedeemPost);
-      _bodyData = _serializers.serialize(bodyRedeemV1InvitationRedeemPost, specifiedType: _type);
-
-    } catch(error, stackTrace) {
-      throw DioError(
-         requestOptions: _options.compose(
-          _dio.options,
-          _path,
-        ),
-        type: DioErrorType.unknown,
-        error: error,
-        stackTrace: stackTrace,
-      );
-    }
-
-    final _response = await _dio.request<Object>(
-      _path,
-      data: _bodyData,
-      options: _options,
-      cancelToken: cancelToken,
-      onSendProgress: onSendProgress,
-      onReceiveProgress: onReceiveProgress,
-    );
-
-    bool _responseData;
-
-    try {
-      _responseData = _response.data as bool;
-
-    } catch (error, stackTrace) {
-      throw DioError(
-        requestOptions: _response.requestOptions,
-        response: _response,
-        type: DioErrorType.unknown,
-        error: error,
-        stackTrace: stackTrace,
-      );
-    }
-
-    return Response<bool>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

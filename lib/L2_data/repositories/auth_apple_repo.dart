@@ -1,7 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:dio/dio.dart';
-import 'package:openapi/openapi.dart';
+import 'package:openapi/openapi.dart' as o_api;
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 import '../../L1_domain/repositories/abs_auth_repo.dart';
@@ -51,8 +51,8 @@ class AuthAppleRepo extends AbstractOAuthRepo with AuthBaseRepo {
     }
 
     if (appleToken.isNotEmpty) {
-      final Response<Token> response = await authApi.authAppleToken(
-        bodyAuthAppleToken: (BodyAuthAppleTokenBuilder()
+      final Response<o_api.AuthToken> response = await authApi.authAppleToken(
+        bodyAuthAppleToken: (o_api.BodyAuthAppleTokenBuilder()
               ..token = appleToken
               ..platform = platformCode
               ..email = appleEmail

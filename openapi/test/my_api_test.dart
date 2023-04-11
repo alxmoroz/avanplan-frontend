@@ -34,6 +34,13 @@ void main() {
       // TODO
     });
 
+    // Redeem Invitation
+    //
+    //Future<bool> redeemInvitationV1MyRedeemInvitationPost({ BodyRedeemInvitationV1MyRedeemInvitationPost bodyRedeemInvitationV1MyRedeemInvitationPost }) async
+    test('test redeemInvitationV1MyRedeemInvitationPost', () async {
+      // TODO
+    });
+
     // Update Account
     //
     //Future<User> updateAccountV1MyAccountPost({ BodyUpdateAccountV1MyAccountPost bodyUpdateAccountV1MyAccountPost }) async

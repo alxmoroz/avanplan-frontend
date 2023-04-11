@@ -8,15 +8,8 @@ void main() {
   group(InvitationApi, () {
     // Create
     //
-    //Future<String> createV1InvitationCreatePost(int wsId, Invitation invitation) async
-    test('test createV1InvitationCreatePost', () async {
-      // TODO
-    });
-
-    // Redeem
-    //
-    //Future<bool> redeemV1InvitationRedeemPost(BodyRedeemV1InvitationRedeemPost bodyRedeemV1InvitationRedeemPost) async
-    test('test redeemV1InvitationRedeemPost', () async {
+    //Future<String> createV1InvitationPost(int wsId, Invitation invitation) async
+    test('test createV1InvitationPost', () async {
       // TODO
     });
   });

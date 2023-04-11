@@ -17,7 +17,7 @@ class SettingsApi {
 
   const SettingsApi(this._dio, this._serializers);
 
-  /// Get Settings
+  /// Settings
   /// 
   ///
   /// Parameters:
@@ -30,7 +30,7 @@ class SettingsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [AppSettingsGet] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<AppSettingsGet>> getSettingsV1SettingsGet({ 
+  Future<Response<AppSettingsGet>> settingsV1SettingsGet({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,

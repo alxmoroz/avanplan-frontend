@@ -50,4 +50,11 @@ class MyRepo extends AbstractMyRepo {
         .build();
     await api.updatePushTokenV1MyPushTokenPost(bodyUpdatePushTokenV1MyPushTokenPost: body);
   }
+
+  @override
+  Future redeemInvitation(String token) async {
+    final body = (o_api.BodyRedeemInvitationV1MyRedeemInvitationPostBuilder()..invitationToken = token).build();
+    final response = await api.redeemInvitationV1MyRedeemInvitationPost(bodyRedeemInvitationV1MyRedeemInvitationPost: body);
+    return response.data == true;
+  }
 }

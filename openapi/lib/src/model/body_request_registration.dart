@@ -3,46 +3,56 @@
 //
 
 // ignore_for_file: unused_element
+import 'package:openapi/src/model/registration.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'body_redeem_v1_registration_redeem_post.g.dart';
+part 'body_request_registration.g.dart';
 
-/// BodyRedeemV1RegistrationRedeemPost
+/// BodyRequestRegistration
 ///
 /// Properties:
-/// * [token] 
+/// * [registration] 
+/// * [password] 
 @BuiltValue()
-abstract class BodyRedeemV1RegistrationRedeemPost implements Built<BodyRedeemV1RegistrationRedeemPost, BodyRedeemV1RegistrationRedeemPostBuilder> {
-  @BuiltValueField(wireName: r'token')
-  String get token;
+abstract class BodyRequestRegistration implements Built<BodyRequestRegistration, BodyRequestRegistrationBuilder> {
+  @BuiltValueField(wireName: r'registration')
+  Registration get registration;
 
-  BodyRedeemV1RegistrationRedeemPost._();
+  @BuiltValueField(wireName: r'password')
+  String get password;
 
-  factory BodyRedeemV1RegistrationRedeemPost([void updates(BodyRedeemV1RegistrationRedeemPostBuilder b)]) = _$BodyRedeemV1RegistrationRedeemPost;
+  BodyRequestRegistration._();
+
+  factory BodyRequestRegistration([void updates(BodyRequestRegistrationBuilder b)]) = _$BodyRequestRegistration;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(BodyRedeemV1RegistrationRedeemPostBuilder b) => b;
+  static void _defaults(BodyRequestRegistrationBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<BodyRedeemV1RegistrationRedeemPost> get serializer => _$BodyRedeemV1RegistrationRedeemPostSerializer();
+  static Serializer<BodyRequestRegistration> get serializer => _$BodyRequestRegistrationSerializer();
 }
 
-class _$BodyRedeemV1RegistrationRedeemPostSerializer implements PrimitiveSerializer<BodyRedeemV1RegistrationRedeemPost> {
+class _$BodyRequestRegistrationSerializer implements PrimitiveSerializer<BodyRequestRegistration> {
   @override
-  final Iterable<Type> types = const [BodyRedeemV1RegistrationRedeemPost, _$BodyRedeemV1RegistrationRedeemPost];
+  final Iterable<Type> types = const [BodyRequestRegistration, _$BodyRequestRegistration];
 
   @override
-  final String wireName = r'BodyRedeemV1RegistrationRedeemPost';
+  final String wireName = r'BodyRequestRegistration';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    BodyRedeemV1RegistrationRedeemPost object, {
+    BodyRequestRegistration object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    yield r'token';
+    yield r'registration';
     yield serializers.serialize(
-      object.token,
+      object.registration,
+      specifiedType: const FullType(Registration),
+    );
+    yield r'password';
+    yield serializers.serialize(
+      object.password,
       specifiedType: const FullType(String),
     );
   }
@@ -50,7 +60,7 @@ class _$BodyRedeemV1RegistrationRedeemPostSerializer implements PrimitiveSeriali
   @override
   Object serialize(
     Serializers serializers,
-    BodyRedeemV1RegistrationRedeemPost object, {
+    BodyRequestRegistration object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -61,19 +71,26 @@ class _$BodyRedeemV1RegistrationRedeemPostSerializer implements PrimitiveSeriali
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required BodyRedeemV1RegistrationRedeemPostBuilder result,
+    required BodyRequestRegistrationBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'token':
+        case r'registration':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(Registration),
+          ) as Registration;
+          result.registration.replace(valueDes);
+          break;
+        case r'password':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.token = valueDes;
+          result.password = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -84,12 +101,12 @@ class _$BodyRedeemV1RegistrationRedeemPostSerializer implements PrimitiveSeriali
   }
 
   @override
-  BodyRedeemV1RegistrationRedeemPost deserialize(
+  BodyRequestRegistration deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = BodyRedeemV1RegistrationRedeemPostBuilder();
+    final result = BodyRequestRegistrationBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

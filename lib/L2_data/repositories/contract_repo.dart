@@ -12,7 +12,7 @@ class ContractRepo extends AbstractContractRepo {
 
   @override
   Future<Invoice?> sign(int tariffId, int wsId) async {
-    final response = await api.signV1ContractsSignPost(tariffId: tariffId, wsId: wsId);
+    final response = await api.signV1ContractsPost(tariffId: tariffId, wsId: wsId);
     return response.data?.invoice(wsId);
   }
 }

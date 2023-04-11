@@ -8,29 +8,43 @@ void main() {
   group(AuthApi, () {
     // Apple Token
     //
-    //Future<Token> authAppleToken(BodyAuthAppleToken bodyAuthAppleToken) async
+    //Future<AuthToken> authAppleToken(BodyAuthAppleToken bodyAuthAppleToken) async
     test('test authAppleToken', () async {
       // TODO
     });
 
     // Google Token
     //
-    //Future<Token> authGoogleToken(BodyAuthGoogleToken bodyAuthGoogleToken) async
+    //Future<AuthToken> authGoogleToken(BodyAuthGoogleToken bodyAuthGoogleToken) async
     test('test authGoogleToken', () async {
       // TODO
     });
 
     // Password Token
     //
-    //Future<Token> authToken(String username, String password, { String grantType, String scope, String clientId, String clientSecret }) async
-    test('test authToken', () async {
+    //Future<AuthToken> passwordToken(String username, String password, { String grantType, String scope, String clientId, String clientSecret }) async
+    test('test passwordToken', () async {
       // TODO
     });
 
     // Refresh Token
     //
-    //Future<Token> refreshToken() async
+    //Future<AuthToken> refreshToken() async
     test('test refreshToken', () async {
+      // TODO
+    });
+
+    // Registration Token
+    //
+    //Future<AuthToken> registrationToken(BodyRegistrationToken bodyRegistrationToken) async
+    test('test registrationToken', () async {
+      // TODO
+    });
+
+    // Request Registration
+    //
+    //Future<bool> requestRegistration(BodyRequestRegistration bodyRequestRegistration) async
+    test('test requestRegistration', () async {
       // TODO
     });
   });

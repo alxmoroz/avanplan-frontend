@@ -9,14 +9,16 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**authAppleToken**](AuthApi.md#authappletoken) | **POST** /v1/auth/apple_token | Apple Token
-[**authGoogleToken**](AuthApi.md#authgoogletoken) | **POST** /v1/auth/google_token | Google Token
-[**authToken**](AuthApi.md#authtoken) | **POST** /v1/auth/password_token | Password Token
+[**authAppleToken**](AuthApi.md#authappletoken) | **GET** /v1/auth/apple_token | Apple Token
+[**authGoogleToken**](AuthApi.md#authgoogletoken) | **GET** /v1/auth/google_token | Google Token
+[**passwordToken**](AuthApi.md#passwordtoken) | **GET** /v1/auth/password_token | Password Token
 [**refreshToken**](AuthApi.md#refreshtoken) | **POST** /v1/auth/refresh_token | Refresh Token
+[**registrationToken**](AuthApi.md#registrationtoken) | **GET** /v1/auth/registration_token | Registration Token
+[**requestRegistration**](AuthApi.md#requestregistration) | **POST** /v1/auth/registration | Request Registration
 
 
 # **authAppleToken**
-> Token authAppleToken(bodyAuthAppleToken)
+> AuthToken authAppleToken(bodyAuthAppleToken)
 
 Apple Token
 
@@ -47,7 +49,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Token**](Token.md)
+[**AuthToken**](AuthToken.md)
 
 ### Authorization
 
@@ -61,7 +63,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **authGoogleToken**
-> Token authGoogleToken(bodyAuthGoogleToken)
+> AuthToken authGoogleToken(bodyAuthGoogleToken)
 
 Google Token
 
@@ -92,7 +94,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Token**](Token.md)
+[**AuthToken**](AuthToken.md)
 
 ### Authorization
 
@@ -105,8 +107,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **authToken**
-> Token authToken(username, password, grantType, scope, clientId, clientSecret)
+# **passwordToken**
+> AuthToken passwordToken(username, password, grantType, scope, clientId, clientSecret)
 
 Password Token
 
@@ -127,10 +129,10 @@ final String clientId = clientId_example; // String |
 final String clientSecret = clientSecret_example; // String | 
 
 try {
-    final response = api.authToken(username, password, grantType, scope, clientId, clientSecret);
+    final response = api.passwordToken(username, password, grantType, scope, clientId, clientSecret);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling AuthApi->authToken: $e\n');
+    print('Exception when calling AuthApi->passwordToken: $e\n');
 }
 ```
 
@@ -147,7 +149,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Token**](Token.md)
+[**AuthToken**](AuthToken.md)
 
 ### Authorization
 
@@ -161,7 +163,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **refreshToken**
-> Token refreshToken()
+> AuthToken refreshToken()
 
 Refresh Token
 
@@ -190,7 +192,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**Token**](Token.md)
+[**AuthToken**](AuthToken.md)
 
 ### Authorization
 
@@ -199,6 +201,96 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **registrationToken**
+> AuthToken registrationToken(bodyRegistrationToken)
+
+Registration Token
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+// TODO Configure API key authorization: APIKeyHeader
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
+
+final api = Openapi().getAuthApi();
+final BodyRegistrationToken bodyRegistrationToken = ; // BodyRegistrationToken | 
+
+try {
+    final response = api.registrationToken(bodyRegistrationToken);
+    print(response);
+} catch on DioError (e) {
+    print('Exception when calling AuthApi->registrationToken: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **bodyRegistrationToken** | [**BodyRegistrationToken**](BodyRegistrationToken.md)|  | 
+
+### Return type
+
+[**AuthToken**](AuthToken.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **requestRegistration**
+> bool requestRegistration(bodyRequestRegistration)
+
+Request Registration
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+// TODO Configure API key authorization: APIKeyHeader
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
+
+final api = Openapi().getAuthApi();
+final BodyRequestRegistration bodyRequestRegistration = ; // BodyRequestRegistration | 
+
+try {
+    final response = api.requestRegistration(bodyRequestRegistration);
+    print(response);
+} catch on DioError (e) {
+    print('Exception when calling AuthApi->requestRegistration: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **bodyRequestRegistration** | [**BodyRequestRegistration**](BodyRequestRegistration.md)|  | 
+
+### Return type
+
+**bool**
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

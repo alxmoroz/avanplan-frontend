@@ -1,4 +1,4 @@
-# openapi.model.Token
+# openapi.model.AuthToken
 
 ## Load the model package
 ```dart

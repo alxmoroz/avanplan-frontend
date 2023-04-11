@@ -25,12 +25,9 @@ abstract class _RegisterControllerBase extends EditController with Store {
   Future register(BuildContext context) async {
     loaderController.start();
     loaderController.setSaving();
-    registerCompleted = await registrationUC.create(
-      Registration(
-        tfAnnoForCode('name').text,
-        tfAnnoForCode('email').text,
-        Localizations.localeOf(context).languageCode,
-      ),
+    registerCompleted = await authUC.requestRegistration(
+      Registration(tfAnnoForCode('name').text, tfAnnoForCode('email').text, Localizations.localeOf(context).languageCode,
+          invitationToken: deepLinkController.invitationToken),
       tfAnnoForCode('password').text,
     );
     await loaderController.stop();

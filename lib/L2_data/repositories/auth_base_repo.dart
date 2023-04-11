@@ -8,7 +8,7 @@ import '../services/api.dart';
 abstract class AuthBaseRepo {
   AuthApi get authApi => openAPI.getAuthApi();
 
-  String? parseTokenResponse(Response<Token> tokenResponse) => tokenResponse.data?.accessToken;
+  String? parseTokenResponse(Response<AuthToken> tokenResponse) => tokenResponse.data?.accessToken;
 
   Future<String> refreshToken() async => parseTokenResponse(await authApi.refreshToken()) ?? '';
 }

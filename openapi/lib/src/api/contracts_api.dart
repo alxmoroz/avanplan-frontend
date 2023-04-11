@@ -34,7 +34,7 @@ class ContractsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [InvoiceGet] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<InvoiceGet>> signV1ContractsSignPost({ 
+  Future<Response<InvoiceGet>> signV1ContractsPost({ 
     required int tariffId,
     required int wsId,
     CancelToken? cancelToken,
@@ -44,7 +44,7 @@ class ContractsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/contracts/sign';
+    final _path = r'/v1/contracts/';
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{

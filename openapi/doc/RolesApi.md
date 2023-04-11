@@ -9,11 +9,11 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**assignV1RolesAssignPost**](RolesApi.md#assignv1rolesassignpost) | **POST** /v1/roles/assign | Assign
+[**assignV1RolesPost**](RolesApi.md#assignv1rolespost) | **POST** /v1/roles/ | Assign
 
 
-# **assignV1RolesAssignPost**
-> BuiltList<MemberGet> assignV1RolesAssignPost(taskId, memberId, wsId, requestBody, permissionTaskId)
+# **assignV1RolesPost**
+> BuiltList<MemberGet> assignV1RolesPost(taskId, memberId, wsId, requestBody, permissionTaskId)
 
 Assign
 
@@ -35,10 +35,10 @@ final BuiltList<int> requestBody = ; // BuiltList<int> |
 final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.assignV1RolesAssignPost(taskId, memberId, wsId, requestBody, permissionTaskId);
+    final response = api.assignV1RolesPost(taskId, memberId, wsId, requestBody, permissionTaskId);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling RolesApi->assignV1RolesAssignPost: $e\n');
+    print('Exception when calling RolesApi->assignV1RolesPost: $e\n');
 }
 ```
 

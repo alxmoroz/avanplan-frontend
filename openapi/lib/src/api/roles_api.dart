@@ -38,7 +38,7 @@ class RolesApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<MemberGet>] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<BuiltList<MemberGet>>> assignV1RolesAssignPost({ 
+  Future<Response<BuiltList<MemberGet>>> assignV1RolesPost({ 
     required int taskId,
     required int memberId,
     required int wsId,
@@ -51,7 +51,7 @@ class RolesApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/roles/assign';
+    final _path = r'/v1/roles/';
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{

@@ -9,11 +9,11 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**signV1ContractsSignPost**](ContractsApi.md#signv1contractssignpost) | **POST** /v1/contracts/sign | Sign
+[**signV1ContractsPost**](ContractsApi.md#signv1contractspost) | **POST** /v1/contracts/ | Sign
 
 
-# **signV1ContractsSignPost**
-> InvoiceGet signV1ContractsSignPost(tariffId, wsId)
+# **signV1ContractsPost**
+> InvoiceGet signV1ContractsPost(tariffId, wsId)
 
 Sign
 
@@ -32,10 +32,10 @@ final int tariffId = 56; // int |
 final int wsId = 56; // int | 
 
 try {
-    final response = api.signV1ContractsSignPost(tariffId, wsId);
+    final response = api.signV1ContractsPost(tariffId, wsId);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling ContractsApi->signV1ContractsSignPost: $e\n');
+    print('Exception when calling ContractsApi->signV1ContractsPost: $e\n');
 }
 ```
 

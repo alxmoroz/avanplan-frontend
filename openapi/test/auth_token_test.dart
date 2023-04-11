@@ -1,12 +1,12 @@
 import 'package:test/test.dart';
 import 'package:openapi/openapi.dart';
 
-// tests for Token
+// tests for AuthToken
 void main() {
-  final instance = TokenBuilder();
+  final instance = AuthTokenBuilder();
   // TODO add properties to the builder and call build()
 
-  group(Token, () {
+  group(AuthToken, () {
     // String accessToken
     test('to test the property `accessToken`', () async {
       // TODO

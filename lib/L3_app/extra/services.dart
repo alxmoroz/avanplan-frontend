@@ -13,7 +13,6 @@ import '../../L1_domain/usecases/invitation_uc.dart';
 import '../../L1_domain/usecases/local_settings_uc.dart';
 import '../../L1_domain/usecases/my_uc.dart';
 import '../../L1_domain/usecases/payment_uc.dart';
-import '../../L1_domain/usecases/registration_uc.dart';
 import '../../L1_domain/usecases/source_uc.dart';
 import '../../L1_domain/usecases/tariff_uc.dart';
 import '../../L1_domain/usecases/task_member_role_uc.dart';
@@ -28,7 +27,6 @@ import '../../L2_data/repositories/import_repo.dart';
 import '../../L2_data/repositories/invitation_repo.dart';
 import '../../L2_data/repositories/my_repo.dart';
 import '../../L2_data/repositories/payment_repo.dart';
-import '../../L2_data/repositories/registration_repo.dart';
 import '../../L2_data/repositories/source_repo.dart';
 import '../../L2_data/repositories/tariff_repo.dart';
 import '../../L2_data/repositories/task_member_role_repo.dart';
@@ -72,7 +70,6 @@ TaskMemberRoleUC get taskMemberRoleUC => GetIt.I<TaskMemberRoleUC>();
 PaymentUC get paymentUC => GetIt.I<PaymentUC>();
 TariffUC get tariffUC => GetIt.I<TariffUC>();
 ContractUC get contractUC => GetIt.I<ContractUC>();
-RegistrationUC get registrationUC => GetIt.I<RegistrationUC>();
 
 void setup() {
   // device
@@ -90,7 +87,7 @@ void setup() {
   // use cases
   getIt.registerSingletonAsync<AuthUC>(
       () async => await AuthUC(
-            emailRepo: AuthEmailRepo(),
+            authAvanplanRepo: AuthAvanplanRepo(),
             googleRepo: AuthGoogleRepo(),
             appleRepo: AuthAppleRepo(),
             localDBAuthRepo: LocalAuthRepo(),
@@ -107,7 +104,6 @@ void setup() {
   getIt.registerSingletonAsync<PaymentUC>(() async => await PaymentUC(PaymentRepo()).init(), dependsOn: [Openapi]);
   getIt.registerSingletonAsync<TariffUC>(() async => await TariffUC(TariffRepo()).init(), dependsOn: [Openapi]);
   getIt.registerSingletonAsync<ContractUC>(() async => await ContractUC(ContractRepo()).init(), dependsOn: [Openapi]);
-  getIt.registerSingletonAsync<RegistrationUC>(() async => await RegistrationUC(RegistrationRepo()).init(), dependsOn: [Openapi]);
 
   getIt.registerSingleton<LocalSettingsUC>(LocalSettingsUC(LocalSettingsRepo()));
 

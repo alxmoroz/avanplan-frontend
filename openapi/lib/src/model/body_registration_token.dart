@@ -6,52 +6,43 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'token.g.dart';
+part 'body_registration_token.g.dart';
 
-/// Token
+/// BodyRegistrationToken
 ///
 /// Properties:
-/// * [accessToken] 
-/// * [tokenType] 
+/// * [token] 
 @BuiltValue()
-abstract class Token implements Built<Token, TokenBuilder> {
-  @BuiltValueField(wireName: r'access_token')
-  String get accessToken;
+abstract class BodyRegistrationToken implements Built<BodyRegistrationToken, BodyRegistrationTokenBuilder> {
+  @BuiltValueField(wireName: r'token')
+  String get token;
 
-  @BuiltValueField(wireName: r'token_type')
-  String get tokenType;
+  BodyRegistrationToken._();
 
-  Token._();
-
-  factory Token([void updates(TokenBuilder b)]) = _$Token;
+  factory BodyRegistrationToken([void updates(BodyRegistrationTokenBuilder b)]) = _$BodyRegistrationToken;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(TokenBuilder b) => b;
+  static void _defaults(BodyRegistrationTokenBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<Token> get serializer => _$TokenSerializer();
+  static Serializer<BodyRegistrationToken> get serializer => _$BodyRegistrationTokenSerializer();
 }
 
-class _$TokenSerializer implements PrimitiveSerializer<Token> {
+class _$BodyRegistrationTokenSerializer implements PrimitiveSerializer<BodyRegistrationToken> {
   @override
-  final Iterable<Type> types = const [Token, _$Token];
+  final Iterable<Type> types = const [BodyRegistrationToken, _$BodyRegistrationToken];
 
   @override
-  final String wireName = r'Token';
+  final String wireName = r'BodyRegistrationToken';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    Token object, {
+    BodyRegistrationToken object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    yield r'access_token';
+    yield r'token';
     yield serializers.serialize(
-      object.accessToken,
-      specifiedType: const FullType(String),
-    );
-    yield r'token_type';
-    yield serializers.serialize(
-      object.tokenType,
+      object.token,
       specifiedType: const FullType(String),
     );
   }
@@ -59,7 +50,7 @@ class _$TokenSerializer implements PrimitiveSerializer<Token> {
   @override
   Object serialize(
     Serializers serializers,
-    Token object, {
+    BodyRegistrationToken object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -70,26 +61,19 @@ class _$TokenSerializer implements PrimitiveSerializer<Token> {
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required TokenBuilder result,
+    required BodyRegistrationTokenBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'access_token':
+        case r'token':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.accessToken = valueDes;
-          break;
-        case r'token_type':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.tokenType = valueDes;
+          result.token = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -100,12 +84,12 @@ class _$TokenSerializer implements PrimitiveSerializer<Token> {
   }
 
   @override
-  Token deserialize(
+  BodyRegistrationToken deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = TokenBuilder();
+    final result = BodyRegistrationTokenBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

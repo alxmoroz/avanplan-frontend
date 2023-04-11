@@ -6,10 +6,10 @@ void main() {
   final instance = Openapi().getSettingsApi();
 
   group(SettingsApi, () {
-    // Get Settings
+    // Settings
     //
-    //Future<AppSettingsGet> getSettingsV1SettingsGet() async
-    test('test getSettingsV1SettingsGet', () async {
+    //Future<AppSettingsGet> settingsV1SettingsGet() async
+    test('test settingsV1SettingsGet', () async {
       // TODO
     });
   });

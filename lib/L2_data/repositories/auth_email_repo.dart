@@ -1,12 +1,15 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:openapi/openapi.dart' as o_api;
+
+import '../../L1_domain/entities/registration.dart';
 import '../../L1_domain/repositories/abs_auth_repo.dart';
 import 'auth_base_repo.dart';
 
-class AuthEmailRepo extends AbstractAuthAvanplanRepo with AuthBaseRepo {
+class AuthAvanplanRepo extends AbstractAuthAvanplanRepo with AuthBaseRepo {
   @override
-  Future<String> signIn({String? email, String? pwd}) async {
-    final response = await authApi.authToken(
+  Future<String> signInWithPassword({String? email, String? pwd}) async {
+    final response = await authApi.passwordToken(
       username: email ?? '',
       password: pwd ?? '',
     );
@@ -18,4 +21,25 @@ class AuthEmailRepo extends AbstractAuthAvanplanRepo with AuthBaseRepo {
 
   @override
   Future<bool> signInIsAvailable() async => true;
+
+  @override
+  Future<bool> requestRegistration(Registration registration, String password) async {
+    final bodyData = (o_api.BodyRequestRegistrationBuilder()
+          ..registration = (o_api.RegistrationBuilder()
+            ..name = registration.name
+            ..email = registration.email
+            ..locale = registration.locale)
+          ..password = password)
+        .build();
+
+    final response = await authApi.requestRegistration(bodyRequestRegistration: bodyData);
+    return response.data == true;
+  }
+
+  @override
+  Future<String> signInWithRegistration(String token) async {
+    final bodyData = (o_api.BodyRegistrationTokenBuilder()..token = token).build();
+    final response = await authApi.registrationToken(bodyRegistrationToken: bodyData);
+    return parseTokenResponse(response) ?? '';
+  }
 }

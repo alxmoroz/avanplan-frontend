@@ -161,8 +161,19 @@ abstract class _MainControllerBase with Store {
     await _showWelcomeGiftInfo();
   }
 
+  Future<bool> _redeemInvitation() async {
+    bool invited = false;
+    if (deepLinkController.hasInvitation) {
+      loaderController.start();
+      loaderController.setRedeemInvitation();
+      invited = await myUC.redeemInvitation(deepLinkController.invitationToken!);
+      await loaderController.stop();
+    }
+    return invited;
+  }
+
   Future _tryUpdate() async {
-    final invited = await authController.redeemInvitation();
+    final invited = await _redeemInvitation();
     final timeToUpdate = updatedDate == null || updatedDate!.add(_updatePeriod).isBefore(DateTime.now());
     if (paymentController.waitingPayment || invited || timeToUpdate) {
       await _update();
@@ -188,9 +199,12 @@ abstract class _MainControllerBase with Store {
   Future startupActions() async {
     if (!_startupActionsInProgress) {
       _startupActionsInProgress = true;
-      if (!await authController.redeemEmailRegistration()) {
+      if (deepLinkController.hasRegistration) {
+        await authController.signInWithRegistration();
+      } else {
         await authController.updateAuth();
       }
+
       if (authController.authorized) {
         await _authorizedStartupActions();
       }

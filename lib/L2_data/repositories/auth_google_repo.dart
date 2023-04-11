@@ -46,7 +46,7 @@ class AuthGoogleRepo extends AbstractOAuthRepo with AuthBaseRepo {
     if (auth != null) {
       final token = auth.idToken;
       if (token != null) {
-        final Response<Token> response = await authApi.authGoogleToken(
+        final Response<AuthToken> response = await authApi.authGoogleToken(
           bodyAuthGoogleToken: (BodyAuthGoogleTokenBuilder()
                 ..token = token
                 ..platform = platformCode

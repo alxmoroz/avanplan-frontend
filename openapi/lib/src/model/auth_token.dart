@@ -3,56 +3,55 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:openapi/src/model/registration.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'body_create_v1_registration_create_post.g.dart';
+part 'auth_token.g.dart';
 
-/// BodyCreateV1RegistrationCreatePost
+/// AuthToken
 ///
 /// Properties:
-/// * [registration] 
-/// * [password] 
+/// * [accessToken] 
+/// * [tokenType] 
 @BuiltValue()
-abstract class BodyCreateV1RegistrationCreatePost implements Built<BodyCreateV1RegistrationCreatePost, BodyCreateV1RegistrationCreatePostBuilder> {
-  @BuiltValueField(wireName: r'registration')
-  Registration get registration;
+abstract class AuthToken implements Built<AuthToken, AuthTokenBuilder> {
+  @BuiltValueField(wireName: r'access_token')
+  String get accessToken;
 
-  @BuiltValueField(wireName: r'password')
-  String get password;
+  @BuiltValueField(wireName: r'token_type')
+  String get tokenType;
 
-  BodyCreateV1RegistrationCreatePost._();
+  AuthToken._();
 
-  factory BodyCreateV1RegistrationCreatePost([void updates(BodyCreateV1RegistrationCreatePostBuilder b)]) = _$BodyCreateV1RegistrationCreatePost;
+  factory AuthToken([void updates(AuthTokenBuilder b)]) = _$AuthToken;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(BodyCreateV1RegistrationCreatePostBuilder b) => b;
+  static void _defaults(AuthTokenBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<BodyCreateV1RegistrationCreatePost> get serializer => _$BodyCreateV1RegistrationCreatePostSerializer();
+  static Serializer<AuthToken> get serializer => _$AuthTokenSerializer();
 }
 
-class _$BodyCreateV1RegistrationCreatePostSerializer implements PrimitiveSerializer<BodyCreateV1RegistrationCreatePost> {
+class _$AuthTokenSerializer implements PrimitiveSerializer<AuthToken> {
   @override
-  final Iterable<Type> types = const [BodyCreateV1RegistrationCreatePost, _$BodyCreateV1RegistrationCreatePost];
+  final Iterable<Type> types = const [AuthToken, _$AuthToken];
 
   @override
-  final String wireName = r'BodyCreateV1RegistrationCreatePost';
+  final String wireName = r'AuthToken';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    BodyCreateV1RegistrationCreatePost object, {
+    AuthToken object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    yield r'registration';
+    yield r'access_token';
     yield serializers.serialize(
-      object.registration,
-      specifiedType: const FullType(Registration),
+      object.accessToken,
+      specifiedType: const FullType(String),
     );
-    yield r'password';
+    yield r'token_type';
     yield serializers.serialize(
-      object.password,
+      object.tokenType,
       specifiedType: const FullType(String),
     );
   }
@@ -60,7 +59,7 @@ class _$BodyCreateV1RegistrationCreatePostSerializer implements PrimitiveSeriali
   @override
   Object serialize(
     Serializers serializers,
-    BodyCreateV1RegistrationCreatePost object, {
+    AuthToken object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -71,26 +70,26 @@ class _$BodyCreateV1RegistrationCreatePostSerializer implements PrimitiveSeriali
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required BodyCreateV1RegistrationCreatePostBuilder result,
+    required AuthTokenBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'registration':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(Registration),
-          ) as Registration;
-          result.registration.replace(valueDes);
-          break;
-        case r'password':
+        case r'access_token':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.password = valueDes;
+          result.accessToken = valueDes;
+          break;
+        case r'token_type':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.tokenType = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -101,12 +100,12 @@ class _$BodyCreateV1RegistrationCreatePostSerializer implements PrimitiveSeriali
   }
 
   @override
-  BodyCreateV1RegistrationCreatePost deserialize(
+  AuthToken deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = BodyCreateV1RegistrationCreatePostBuilder();
+    final result = AuthTokenBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

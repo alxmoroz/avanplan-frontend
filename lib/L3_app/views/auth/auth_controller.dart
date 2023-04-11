@@ -11,7 +11,7 @@ part 'auth_controller.g.dart';
 class AuthController extends _AuthControllerBase with _$AuthController {
   Future<AuthController> init() async {
     await authUC.updateOAuthToken();
-    setAuthorized(await authUC.hasLocalAuth);
+    authorized = await authUC.hasLocalAuth;
     signInWithAppleIsAvailable = await authUC.appleIsAvailable();
     await authUC.googleIsAvailable();
     return this;
@@ -25,9 +25,6 @@ abstract class _AuthControllerBase with Store {
   @observable
   bool authorized = false;
 
-  @action
-  void setAuthorized(bool _auth) => authorized = _auth;
-
   String _langCode(BuildContext context) => Localizations.localeOf(context).languageCode;
 
   @observable
@@ -36,71 +33,61 @@ abstract class _AuthControllerBase with Store {
   @action
   void toggleRegisterMode() => registerMode = !registerMode;
 
-  Future signInEmail(BuildContext context, String email, String pwd) async {
+  @action
+  Future signInWithPassword(BuildContext context, String email, String pwd) async {
     loaderController.start();
     loaderController.setAuth();
-    setAuthorized(await authUC.signInAvanplan(email, pwd));
+    authorized = await authUC.signInWithPassword(email, pwd);
     Navigator.of(context).pop();
     await loaderController.stop();
   }
 
+  @action
+  Future signInWithRegistration() async {
+    if (deepLinkController.hasRegistration) {
+      loaderController.start();
+      loaderController.setAuth();
+      authorized = await authUC.signInWithRegistration(deepLinkController.registrationToken!);
+      deepLinkController.clearRegistration();
+      await loaderController.stop();
+    }
+  }
+
+  @action
   Future signInGoogle(BuildContext context) async {
     loaderController.start();
     loaderController.setAuth();
     try {
-      setAuthorized(await authUC.signInGoogle(_langCode(context)));
+      authorized = await authUC.signInGoogle(_langCode(context));
       await loaderController.stop();
     } on MTOAuthError catch (e) {
       loaderController.setAuthError(e.detail);
     }
   }
 
+  @action
   Future signInApple(BuildContext context) async {
     loaderController.start();
     loaderController.setAuth();
     try {
-      setAuthorized(await authUC.signInApple(_langCode(context)));
+      authorized = await authUC.signInApple(_langCode(context));
       await loaderController.stop();
     } on MTOAuthError catch (e) {
       loaderController.setAuthError(e.detail);
     }
   }
 
+  @action
   Future updateAuth() async {
     loaderController.start();
     loaderController.setAuth();
-    setAuthorized(await authUC.refreshAuth());
+    authorized = await authUC.refreshAuth();
     await loaderController.stop();
   }
 
+  @action
   Future signOut() async {
-    setAuthorized(false);
+    authorized = false;
     await authUC.signOut();
-  }
-
-  Future<bool> redeemInvitation() async {
-    bool invited = false;
-    if (deepLinkController.hasInvitation) {
-      loaderController.start();
-      loaderController.setRedeemInvitation();
-      invited = await invitationUC.redeem(deepLinkController.invitationToken!);
-      await loaderController.stop();
-    }
-    return invited;
-  }
-
-  Future<bool> redeemEmailRegistration() async {
-    bool authorized = false;
-    if (deepLinkController.hasRegistration) {
-      loaderController.start();
-      loaderController.setAuth();
-      final authToken = await registrationUC.redeem(deepLinkController.registrationToken!);
-      if (authToken.isNotEmpty) {
-        authorized = await authUC.signInWithToken(authToken);
-      }
-      await loaderController.stop();
-      deepLinkController.clearRegistration();
-    }
-    return authorized;
   }
 }

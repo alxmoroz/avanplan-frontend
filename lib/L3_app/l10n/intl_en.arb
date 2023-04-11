@@ -117,7 +117,7 @@
   "import_title": "Import projects",
 
   "invitation_activations_count_placeholder": "Activations Count",
-  "invitation_active_until_placeholder": "Active Until",
+  "invitation_expires_placeholder": "Expires",
   "invitation_create_title": "Invite Member",
   "invitation_share_action_title": "Share Invitation",
   "invitation_share_subject_prefix": "Invitation to ",

@@ -16,7 +16,6 @@ part 'body_auth_apple_token.g.dart';
 /// * [locale] 
 /// * [name] 
 /// * [email] 
-/// * [invited] 
 @BuiltValue()
 abstract class BodyAuthAppleToken implements Built<BodyAuthAppleToken, BodyAuthAppleTokenBuilder> {
   @BuiltValueField(wireName: r'token')
@@ -33,9 +32,6 @@ abstract class BodyAuthAppleToken implements Built<BodyAuthAppleToken, BodyAuthA
 
   @BuiltValueField(wireName: r'email')
   String? get email;
-
-  @BuiltValueField(wireName: r'invited')
-  bool? get invited;
 
   BodyAuthAppleToken._();
 
@@ -87,13 +83,6 @@ class _$BodyAuthAppleTokenSerializer implements PrimitiveSerializer<BodyAuthAppl
       yield serializers.serialize(
         object.email,
         specifiedType: const FullType(String),
-      );
-    }
-    if (object.invited != null) {
-      yield r'invited';
-      yield serializers.serialize(
-        object.invited,
-        specifiedType: const FullType(bool),
       );
     }
   }
@@ -153,13 +142,6 @@ class _$BodyAuthAppleTokenSerializer implements PrimitiveSerializer<BodyAuthAppl
             specifiedType: const FullType(String),
           ) as String;
           result.email = valueDes;
-          break;
-        case r'invited':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool;
-          result.invited = valueDes;
           break;
         default:
           unhandled.add(key);

@@ -9,6 +9,7 @@ import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../L1_domain/entities_extensions/ws_ext.dart';
+import '../../../L2_data/services/platform.dart';
 import '../../../main.dart';
 import '../../components/mt_dialog.dart';
 import '../../extra/services.dart';
@@ -156,28 +157,49 @@ abstract class _MainControllerBase with Store {
     }
   }
 
-  // static const _updatePeriod = Duration(hours: 1);
-  static const _updatePeriod = Duration(minutes: 30);
-  Future _requestUpdate() async {
-    final hasDeepLinks = await deepLinkController.processDeepLinks();
+  Future _showOnboarding() async {
+    await _showWelcomeGiftInfo();
+  }
+
+  Future _tryUpdate() async {
+    final invited = await authController.redeemInvitation();
     final timeToUpdate = updatedDate == null || updatedDate!.add(_updatePeriod).isBefore(DateTime.now());
-    if (paymentController.waitingPayment || hasDeepLinks || timeToUpdate) {
+    if (paymentController.waitingPayment || invited || timeToUpdate) {
       await _update();
       paymentController.resetWaiting();
     }
   }
 
-  Future _showOnboarding() async {
-    await _showWelcomeGiftInfo();
+  // static const _updatePeriod = Duration(hours: 1);
+  static const _updatePeriod = Duration(minutes: 30);
+
+  Future _authorizedStartupActions() async {
+    if (isIOS) {
+      await notificationController.initPush();
+    }
+    await _tryUpdate();
+    await _showOnboarding();
+  }
+
+  @observable
+  bool _startupActionsInProgress = false;
+
+  @action
+  Future startupActions() async {
+    if (!_startupActionsInProgress) {
+      _startupActionsInProgress = true;
+      if (!await authController.redeemEmailRegistration()) {
+        await authController.updateAuth();
+      }
+      if (authController.authorized) {
+        await _authorizedStartupActions();
+      }
+      _startupActionsInProgress = false;
+    }
   }
 
   Future manualUpdate() async {
     await _update();
     await _explainUpdateDetails();
-  }
-
-  Future startupActions() async {
-    await _requestUpdate();
-    await _showOnboarding();
   }
 }

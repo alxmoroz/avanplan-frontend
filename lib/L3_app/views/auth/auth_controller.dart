@@ -28,8 +28,6 @@ abstract class _AuthControllerBase with Store {
   @action
   void setAuthorized(bool _auth) => authorized = _auth;
 
-  bool? get _invited => deepLinkController.invitationToken?.isNotEmpty;
-
   String _langCode(BuildContext context) => Localizations.localeOf(context).languageCode;
 
   @observable
@@ -50,7 +48,7 @@ abstract class _AuthControllerBase with Store {
     loaderController.start();
     loaderController.setAuth();
     try {
-      setAuthorized(await authUC.signInGoogle(_langCode(context), _invited));
+      setAuthorized(await authUC.signInGoogle(_langCode(context)));
       await loaderController.stop();
     } on MTOAuthError catch (e) {
       loaderController.setAuthError(e.detail);
@@ -61,14 +59,14 @@ abstract class _AuthControllerBase with Store {
     loaderController.start();
     loaderController.setAuth();
     try {
-      setAuthorized(await authUC.signInApple(_langCode(context), _invited));
+      setAuthorized(await authUC.signInApple(_langCode(context)));
       await loaderController.stop();
     } on MTOAuthError catch (e) {
       loaderController.setAuthError(e.detail);
     }
   }
 
-  Future updateAuth(BuildContext context) async {
+  Future updateAuth() async {
     loaderController.start();
     loaderController.setAuth();
     setAuthorized(await authUC.refreshAuth());
@@ -78,5 +76,31 @@ abstract class _AuthControllerBase with Store {
   Future signOut() async {
     setAuthorized(false);
     await authUC.signOut();
+  }
+
+  Future<bool> redeemInvitation() async {
+    bool invited = false;
+    if (deepLinkController.hasInvitation) {
+      loaderController.start();
+      loaderController.setRedeemInvitation();
+      invited = await invitationUC.redeem(deepLinkController.invitationToken!);
+      await loaderController.stop();
+    }
+    return invited;
+  }
+
+  Future<bool> redeemEmailRegistration() async {
+    bool authorized = false;
+    if (deepLinkController.hasRegistration) {
+      loaderController.start();
+      loaderController.setAuth();
+      final authToken = await registrationUC.redeem(deepLinkController.registrationToken!);
+      if (authToken.isNotEmpty) {
+        authorized = await authUC.signInEmailRedeem(authToken);
+      }
+      await loaderController.stop();
+      deepLinkController.clearRegistration();
+    }
+    return authorized;
   }
 }

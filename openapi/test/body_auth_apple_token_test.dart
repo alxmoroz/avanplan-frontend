@@ -31,10 +31,5 @@ void main() {
     test('to test the property `email`', () async {
       // TODO
     });
-
-    // bool invited
-    test('to test the property `invited`', () async {
-      // TODO
-    });
   });
 }

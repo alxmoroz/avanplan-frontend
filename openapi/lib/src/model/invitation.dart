@@ -11,12 +11,15 @@ part 'invitation.g.dart';
 /// Invitation
 ///
 /// Properties:
+/// * [expiresOn] 
 /// * [taskId] 
 /// * [roleId] 
 /// * [activationsCount] 
-/// * [activeUntil] 
 @BuiltValue()
 abstract class Invitation implements Built<Invitation, InvitationBuilder> {
+  @BuiltValueField(wireName: r'expires_on')
+  DateTime get expiresOn;
+
   @BuiltValueField(wireName: r'task_id')
   int get taskId;
 
@@ -25,9 +28,6 @@ abstract class Invitation implements Built<Invitation, InvitationBuilder> {
 
   @BuiltValueField(wireName: r'activations_count')
   int get activationsCount;
-
-  @BuiltValueField(wireName: r'active_until')
-  DateTime get activeUntil;
 
   Invitation._();
 
@@ -52,6 +52,11 @@ class _$InvitationSerializer implements PrimitiveSerializer<Invitation> {
     Invitation object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
+    yield r'expires_on';
+    yield serializers.serialize(
+      object.expiresOn,
+      specifiedType: const FullType(DateTime),
+    );
     yield r'task_id';
     yield serializers.serialize(
       object.taskId,
@@ -66,11 +71,6 @@ class _$InvitationSerializer implements PrimitiveSerializer<Invitation> {
     yield serializers.serialize(
       object.activationsCount,
       specifiedType: const FullType(int),
-    );
-    yield r'active_until';
-    yield serializers.serialize(
-      object.activeUntil,
-      specifiedType: const FullType(DateTime),
     );
   }
 
@@ -95,6 +95,13 @@ class _$InvitationSerializer implements PrimitiveSerializer<Invitation> {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
+        case r'expires_on':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.expiresOn = valueDes;
+          break;
         case r'task_id':
           final valueDes = serializers.deserialize(
             value,
@@ -115,13 +122,6 @@ class _$InvitationSerializer implements PrimitiveSerializer<Invitation> {
             specifiedType: const FullType(int),
           ) as int;
           result.activationsCount = valueDes;
-          break;
-        case r'active_until':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
-          result.activeUntil = valueDes;
           break;
         default:
           unhandled.add(key);

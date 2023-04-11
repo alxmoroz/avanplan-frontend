@@ -21,5 +21,10 @@ void main() {
     test('to test the property `locale`', () async {
       // TODO
     });
+
+    // String invitationToken
+    test('to test the property `invitationToken`', () async {
+      // TODO
+    });
   });
 }

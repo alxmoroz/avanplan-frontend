@@ -21,10 +21,5 @@ void main() {
     test('to test the property `locale`', () async {
       // TODO
     });
-
-    // bool invited
-    test('to test the property `invited`', () async {
-      // TODO
-    });
   });
 }

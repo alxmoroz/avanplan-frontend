@@ -2,8 +2,6 @@
 
 import 'package:mobx/mobx.dart';
 
-import '../services.dart';
-
 part 'deep_link_controller.g.dart';
 
 class DeepLinkController = _DeepLinkControllerBase with _$DeepLinkController;
@@ -11,38 +9,31 @@ class DeepLinkController = _DeepLinkControllerBase with _$DeepLinkController;
 abstract class _DeepLinkControllerBase with Store {
   @observable
   String? invitationToken;
+  @action
+  void clearInvitation() => invitationToken = null;
+  @computed
+  bool get hasInvitation => invitationToken?.isNotEmpty == true;
+
+  @observable
+  String? registrationToken;
+  @action
+  void clearRegistration() => registrationToken = null;
+  @computed
+  bool get hasRegistration => registrationToken?.isNotEmpty == true;
 
   @action
-  Future parseDeepLink(String? path) async {
-    if (path?.startsWith('/invite') == true) {
-      final params = Uri.dataFromString(path!).queryParameters;
+  void parseDeepLink(String? path) {
+    if (path != null) {
+      final params = Uri.dataFromString(path).queryParameters;
       const key = 't';
       if (params.containsKey(key)) {
-        invitationToken = params[key];
+        final token = params[key] ?? '';
+        if (path.startsWith('/invite') == true) {
+          invitationToken = token;
+        } else if (path.startsWith('/register') == true) {
+          registrationToken = token;
+        }
       }
     }
-  }
-
-  @action
-  Future<bool> _redeemInvite() async {
-    bool res = false;
-    if (invitationToken != null) {
-      loaderController.start();
-      loaderController.setRedeemInvitation();
-      if (await invitationUC.redeem(invitationToken!)) {
-        invitationToken = null;
-        res = true;
-      }
-      await loaderController.stop();
-    }
-    return res;
-  }
-
-  Future<bool> processDeepLinks() async {
-    bool res = false;
-    if (authController.authorized) {
-      res = await _redeemInvite();
-    }
-    return res;
   }
 }

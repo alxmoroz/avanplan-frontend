@@ -55,7 +55,7 @@ class InvitationPane extends StatelessWidget {
   Widget build(BuildContext context) => Observer(
         builder: (_) => Column(
           children: [
-            for (final code in ['activationsCount', 'activeDate']) _tfForCode(context, code),
+            for (final code in ['activationsCount', 'expiresOn']) _tfForCode(context, code),
             isWeb && _hasUrl
                 ? MTTextField.noText(
                     label: loc.invitation_url_label,

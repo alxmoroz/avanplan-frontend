@@ -24,11 +24,11 @@ class InvitationController extends _InvitationControllerBase with _$InvitationCo
     role = _role;
 
     initState(tfaList: [
-      TFAnnotation('activeDate', label: loc.invitation_active_until_placeholder, noText: true),
+      TFAnnotation('expiresOn', label: loc.invitation_expires_placeholder, noText: true),
       TFAnnotation('activationsCount', label: loc.invitation_activations_count_placeholder, text: '10'),
     ]);
 
-    setActiveDate(DateTime.now().add(const Duration(days: 7)));
+    setExpired(DateTime.now().add(const Duration(days: 7)));
   }
 }
 
@@ -37,18 +37,18 @@ abstract class _InvitationControllerBase extends EditController with Store {
   late final Role role;
 
   @observable
-  DateTime? activeDate;
+  DateTime? expiresOn;
 
   @action
-  void setActiveDate(DateTime? _date) {
-    activeDate = _date;
-    teControllers['activeDate']?.text = _date != null ? _date.strMedium : '';
+  void setExpired(DateTime? _date) {
+    expiresOn = _date;
+    teControllers['expiresOn']?.text = _date != null ? _date.strMedium : '';
   }
 
   Future selectDate(BuildContext context) async {
     final today = DateTime.now();
     final lastDate = today.add(const Duration(days: 7));
-    final initialDate = activeDate ?? today;
+    final initialDate = expiresOn ?? today;
     final firstDate = today;
 
     final date = await showDatePicker(
@@ -59,7 +59,7 @@ abstract class _InvitationControllerBase extends EditController with Store {
       lastDate: lastDate,
     );
     if (date != null) {
-      setActiveDate(date);
+      setExpired(date);
     }
   }
 
@@ -77,7 +77,7 @@ abstract class _InvitationControllerBase extends EditController with Store {
             task.id!,
             role.id!,
             activationsCount,
-            activeDate!,
+            expiresOn!,
           ),
           task.wsId);
     }

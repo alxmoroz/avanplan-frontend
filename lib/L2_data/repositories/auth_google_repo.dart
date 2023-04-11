@@ -49,8 +49,7 @@ class AuthGoogleRepo extends AuthBaseRepo {
           bodyAuthGoogleToken: (BodyAuthGoogleTokenBuilder()
                 ..token = token
                 ..platform = platformCode
-                ..locale = locale ?? 'ru'
-                ..invited = invited)
+                ..locale = locale ?? 'ru')
               .build(),
         );
         return parseTokenResponse(response) ?? '';

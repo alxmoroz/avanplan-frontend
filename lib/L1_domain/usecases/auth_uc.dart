@@ -49,10 +49,10 @@ class AuthUC {
   }
 
   Future<bool> signInGoogleIsAvailable() async => await googleRepo.signInIsAvailable();
-  Future<bool> signInGoogle(String locale, bool? invited) async => await _signIn(googleRepo, locale: locale, invited: invited);
+  Future<bool> signInGoogle(String locale) async => await _signIn(googleRepo, locale: locale);
 
   Future<bool> signInAppleIsAvailable() async => await appleRepo.signInIsAvailable();
-  Future<bool> signInApple(String locale, bool? invited) async => await _signIn(appleRepo, locale: locale, invited: invited);
+  Future<bool> signInApple(String locale) async => await _signIn(appleRepo, locale: locale);
 
   static const _authCheckPeriod = Duration(hours: 12);
   Future<bool> refreshAuth() async {

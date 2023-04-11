@@ -6,7 +6,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities_extensions/task_stats.dart';
-import '../../../L2_data/services/platform.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -32,8 +31,6 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> with WidgetsBindingObserver {
-  bool _startupActionsInProgress = false;
-
   @override
   void initState() {
     super.initState();
@@ -59,19 +56,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
   Task get _task => _taskController.task;
 
   void _startupActions() {
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      if (!_startupActionsInProgress) {
-        _startupActionsInProgress = true;
-        await authController.updateAuth(context);
-        if (authController.authorized) {
-          if (isIOS) {
-            await notificationController.initPush();
-          }
-          await mainController.startupActions();
-        }
-        _startupActionsInProgress = false;
-      }
-    });
+    WidgetsBinding.instance.addPostFrameCallback((_) async => await mainController.startupActions());
   }
 
   Future _gotoSettings(BuildContext context) async => await Navigator.of(context).pushNamed(SettingsView.routeName);

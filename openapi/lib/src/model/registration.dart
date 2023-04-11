@@ -14,6 +14,7 @@ part 'registration.g.dart';
 /// * [name] 
 /// * [email] 
 /// * [locale] 
+/// * [invitationToken] 
 @BuiltValue()
 abstract class Registration implements Built<Registration, RegistrationBuilder> {
   @BuiltValueField(wireName: r'name')
@@ -24,6 +25,9 @@ abstract class Registration implements Built<Registration, RegistrationBuilder> 
 
   @BuiltValueField(wireName: r'locale')
   String get locale;
+
+  @BuiltValueField(wireName: r'invitation_token')
+  String? get invitationToken;
 
   Registration._();
 
@@ -63,6 +67,13 @@ class _$RegistrationSerializer implements PrimitiveSerializer<Registration> {
       object.locale,
       specifiedType: const FullType(String),
     );
+    if (object.invitationToken != null) {
+      yield r'invitation_token';
+      yield serializers.serialize(
+        object.invitationToken,
+        specifiedType: const FullType(String),
+      );
+    }
   }
 
   @override
@@ -106,6 +117,13 @@ class _$RegistrationSerializer implements PrimitiveSerializer<Registration> {
             specifiedType: const FullType(String),
           ) as String;
           result.locale = valueDes;
+          break;
+        case r'invitation_token':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.invitationToken = valueDes;
           break;
         default:
           unhandled.add(key);

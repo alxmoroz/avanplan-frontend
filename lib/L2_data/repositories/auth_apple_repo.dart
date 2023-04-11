@@ -56,8 +56,7 @@ class AuthAppleRepo extends AuthBaseRepo {
               ..platform = platformCode
               ..email = appleEmail
               ..name = name
-              ..locale = locale ?? 'ru'
-              ..invited = invited)
+              ..locale = locale ?? 'ru')
             .build(),
       );
       return parseTokenResponse(response) ?? '';

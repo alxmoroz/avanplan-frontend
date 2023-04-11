@@ -116,7 +116,7 @@
   "import_title": "Импорт проектов",
 
   "invitation_activations_count_placeholder": "Число активаций",
-  "invitation_active_until_placeholder": "Срок годности",
+  "invitation_expires_placeholder": "Срок годности",
   "invitation_create_title": "Пригласить участника",
   "invitation_share_action_title": "Отправить приглашение",
   "invitation_share_subject_prefix": "Приглашение в ",

@@ -7,6 +7,11 @@ void main() {
   // TODO add properties to the builder and call build()
 
   group(Invitation, () {
+    // DateTime expiresOn
+    test('to test the property `expiresOn`', () async {
+      // TODO
+    });
+
     // int taskId
     test('to test the property `taskId`', () async {
       // TODO
@@ -19,11 +24,6 @@ void main() {
 
     // int activationsCount
     test('to test the property `activationsCount`', () async {
-      // TODO
-    });
-
-    // DateTime activeUntil
-    test('to test the property `activeUntil`', () async {
       // TODO
     });
   });

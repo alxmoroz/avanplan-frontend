@@ -13,7 +13,7 @@ abstract class AbstractOAuthRepo extends AbstractAuthRepo {
 }
 
 abstract class AbstractAuthAvanplanRepo extends AbstractAuthRepo {
-  Future<bool> requestRegistration(Registration registration, String password);
+  Future<bool> postRegistrationRequest(RegistrationRequest rRequest, String password);
   Future<String> signInWithPassword({String? email, String? pwd});
   Future<String> signInWithRegistration(String token);
 }

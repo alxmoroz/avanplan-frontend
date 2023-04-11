@@ -23,12 +23,13 @@ class AuthAvanplanRepo extends AbstractAuthAvanplanRepo with AuthBaseRepo {
   Future<bool> signInIsAvailable() async => true;
 
   @override
-  Future<bool> requestRegistration(Registration registration, String password) async {
+  Future<bool> postRegistrationRequest(RegistrationRequest rRequest, String password) async {
     final bodyData = (o_api.BodyRequestRegistrationBuilder()
           ..registration = (o_api.RegistrationBuilder()
-            ..name = registration.name
-            ..email = registration.email
-            ..locale = registration.locale)
+            ..name = rRequest.name
+            ..email = rRequest.email
+            ..locale = rRequest.locale
+            ..invitationToken = rRequest.invitationToken)
           ..password = password)
         .build();
 

@@ -19,7 +19,7 @@ import '../../L1_domain/usecases/task_member_role_uc.dart';
 import '../../L1_domain/usecases/task_uc.dart';
 import '../../L2_data/repositories/app_settings_repo.dart';
 import '../../L2_data/repositories/auth_apple_repo.dart';
-import '../../L2_data/repositories/auth_email_repo.dart';
+import '../../L2_data/repositories/auth_avanplan_repo.dart';
 import '../../L2_data/repositories/auth_google_repo.dart';
 import '../../L2_data/repositories/contract_repo.dart';
 import '../../L2_data/repositories/db_repo.dart';

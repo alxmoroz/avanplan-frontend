@@ -16,28 +16,28 @@ import '../../components/text_field_annotation.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/communications_presenter.dart';
-import 'register_controller.dart';
+import 'registration_controller.dart';
 
-Future showRegisterDialog(BuildContext context) async {
+Future showRegistrationDialog(BuildContext context) async {
   return await showModalBottomSheet<void>(
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    builder: (_) => MTBottomSheet(RegisterForm()),
+    builder: (_) => MTBottomSheet(RegistrationForm()),
   );
 }
 
-class RegisterForm extends StatefulWidget {
+class RegistrationForm extends StatefulWidget {
   @override
-  _RegisterFormState createState() => _RegisterFormState();
+  _RegistrationFormState createState() => _RegistrationFormState();
 }
 
-class _RegisterFormState extends State<RegisterForm> {
-  late RegisterController _controller;
+class _RegistrationFormState extends State<RegistrationForm> {
+  late RegistrationController _controller;
 
   @override
   void initState() {
-    _controller = RegisterController();
+    _controller = RegistrationController();
     _controller.initState(tfaList: [
       TFAnnotation('name', label: loc.auth_name_placeholder),
       TFAnnotation('email', label: loc.auth_email_placeholder),
@@ -79,7 +79,7 @@ class _RegisterFormState extends State<RegisterForm> {
               constraints: const BoxConstraints(maxWidth: SCR_S_WIDTH),
               child: LayoutBuilder(
                 builder: (_, size) => Observer(
-                  builder: (_) => _controller.registerCompleted
+                  builder: (_) => _controller.requestCompleted
                       ? ListView(
                           shrinkWrap: true,
                           children: [
@@ -111,7 +111,7 @@ class _RegisterFormState extends State<RegisterForm> {
                             MTButton.outlined(
                               margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
                               titleText: loc.auth_register_action_title,
-                              onTap: _controller.validated ? () => _controller.register(context) : null,
+                              onTap: _controller.validated ? () => _controller.createRequest(context) : null,
                             ),
                             const SizedBox(height: P2),
                           ],

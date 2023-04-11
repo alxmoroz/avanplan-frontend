@@ -1,6 +1,5 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:avanplan/L3_app/presenters/number_presenter.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -13,6 +12,7 @@ import '../../../L2_data/services/platform.dart';
 import '../../../main.dart';
 import '../../components/mt_dialog.dart';
 import '../../extra/services.dart';
+import '../../presenters/number_presenter.dart';
 import '../../usecases/ws_ext_actions.dart';
 import '../tariff/tariff_select_view.dart';
 import '../task/task_view.dart';

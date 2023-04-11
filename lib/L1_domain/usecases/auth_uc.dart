@@ -31,8 +31,8 @@ class AuthUC {
 
   Future updateOAuthToken() async => openAPI.setOAuthToken('OAuth2PasswordBearer', await _getToken());
 
-  Future<bool> requestRegistration(Registration registration, String password) async =>
-      await authAvanplanRepo.requestRegistration(registration, password);
+  Future<bool> requestRegistration(RegistrationRequest registration, String password) async =>
+      await authAvanplanRepo.postRegistrationRequest(registration, password);
 
   Future<bool> _signInWithToken(String token) async {
     await _setToken(token);

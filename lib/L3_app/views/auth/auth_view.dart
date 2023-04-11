@@ -13,7 +13,7 @@ import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../settings/app_version.dart';
 import 'legal_links.dart';
-import 'register_form.dart';
+import 'registration_form.dart';
 import 'sign_in_email_form.dart';
 
 class AuthView extends StatelessWidget {
@@ -69,7 +69,7 @@ class AuthView extends StatelessWidget {
                       const MailIcon(color: Color.fromARGB(255, 62, 62, 82)),
                       loc.auth_sign_in_email_title,
                       P2,
-                      () => authController.registerMode ? showRegisterDialog(context) : showSignInEmailDialog(context),
+                      () => authController.registerMode ? showRegistrationDialog(context) : showSignInEmailDialog(context),
                       titleLeftPadding: P,
                     ),
                     const SizedBox(height: P2),

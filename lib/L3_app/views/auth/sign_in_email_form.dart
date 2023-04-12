@@ -51,10 +51,12 @@ class _SignInEmailFormState extends State<SignInEmailForm> {
 
   Widget textFieldForCode(String code) {
     final isPassword = code == 'password';
+    final isEmail = code == 'email';
     return MTTextField(
       controller: _controller.teControllers[code],
       label: _controller.tfAnnoForCode(code).label,
       error: _controller.tfAnnoForCode(code).errorText,
+      keyboardType: isEmail ? TextInputType.emailAddress : null,
       obscureText: isPassword && _controller.showPassword == false,
       suffixIcon: isPassword ? MTButton.icon(EyeIcon(open: !_controller.showPassword), _controller.toggleShowPassword) : null,
       maxLines: 1,

@@ -55,11 +55,13 @@ class _RegistrationFormState extends State<RegistrationForm> {
 
   Widget textFieldForCode(String code) {
     final isPassword = code == 'password';
+    final isEmail = code == 'email';
     return MTTextField(
       controller: _controller.teControllers[code],
       label: _controller.tfAnnoForCode(code).label,
       error: _controller.tfAnnoForCode(code).errorText,
       obscureText: isPassword && _controller.showPassword == false,
+      keyboardType: isEmail ? TextInputType.emailAddress : null,
       suffixIcon: isPassword ? MTButton.icon(EyeIcon(open: !_controller.showPassword), _controller.toggleShowPassword) : null,
       maxLines: 1,
       capitalization: TextCapitalization.none,

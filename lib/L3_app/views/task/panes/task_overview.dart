@@ -120,7 +120,11 @@ class TaskOverview extends StatelessWidget {
           if (task.attentionalTasks.isNotEmpty) ...[
             const SizedBox(height: P2),
             if (!task.isWorkspace)
-              H4(task.subtasksStateTitle, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P).copyWith(bottom: P_3)),
+              H4(
+                task.subtasksStateTitle,
+                align: TextAlign.center,
+                padding: const EdgeInsets.symmetric(horizontal: P).copyWith(bottom: P_3),
+              ),
             AttentionalTasks(task),
           ],
         ],

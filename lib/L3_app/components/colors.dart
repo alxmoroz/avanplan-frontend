@@ -25,12 +25,12 @@ const Color darkBackgroundColor = CupertinoDynamicColor.withBrightness(
 );
 
 const backgroundColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 252, 251, 251),
+  color: Color.fromARGB(255, 245, 244, 244),
   darkColor: Color.fromARGB(255, 32, 28, 27),
 );
 
 const Color lightBackgroundColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 250, 252, 255),
+  color: Color.fromARGB(255, 253, 254, 255),
   darkColor: Color.fromARGB(255, 10, 10, 15),
 );
 

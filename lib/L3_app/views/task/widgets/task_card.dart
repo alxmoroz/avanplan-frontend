@@ -6,6 +6,7 @@ import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../L1_domain/entities_extensions/task_level.dart';
 import '../../../../L1_domain/entities_extensions/task_members.dart';
+import '../../../../L2_data/services/platform.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
@@ -45,6 +46,7 @@ class TaskCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MTCardButton(
+        elevation: isWeb ? 3 : null,
         onTap: () => mainController.showTask(task.id),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

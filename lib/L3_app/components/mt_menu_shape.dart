@@ -21,7 +21,7 @@ class MTMenuShape extends StatelessWidget {
         //   borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS),
         //   border: Border.fromBorderSide(BorderSide(color: mainColor.resolve(context), width: DEF_BORDER_WIDTH)),
         // ),
-        borderSide: BorderSide(color: mainColor.resolve(context), width: 0),
+        borderSide: BorderSide(color: mainColor.resolve(context), width: 1),
         shadowColor: mainColor,
         elevation: 2,
         padding: const EdgeInsets.all(P),

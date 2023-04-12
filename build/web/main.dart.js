@@ -110126,7 +110126,7 @@ a=t.N
 a0=t.z
 a1=A.x(a,a0)
 a1.n(0,"secure",A.a([A.a9(["type","apiKey","name","APIKeyHeader","keyName","Avanplan","where","header"],a,a)],t.u))
-o=A.e6("application/json",a1,A.x(a,a0),"GET",null)
+o=A.e6("application/json",a1,A.x(a,a0),"POST",null)
 n=null
 try{n=p.b.I(a2,B.RH)}catch(a3){m=A.a4(a3)
 l=A.av(a3)
@@ -110161,7 +110161,7 @@ a=t.N
 a0=t.z
 a1=A.x(a,a0)
 a1.n(0,"secure",A.a([A.a9(["type","apiKey","name","APIKeyHeader","keyName","Avanplan","where","header"],a,a)],t.u))
-o=A.e6("application/json",a1,A.x(a,a0),"GET",null)
+o=A.e6("application/json",a1,A.x(a,a0),"POST",null)
 n=null
 try{n=p.b.I(a2,B.RM)}catch(a3){m=A.a4(a3)
 l=A.av(a3)
@@ -110201,7 +110201,7 @@ a3=t.N
 a4=t.z
 a5=A.x(a3,a4)
 a5.n(0,"secure",A.a([A.a9(["type","apiKey","name","APIKeyHeader","keyName","Avanplan","where","header"],a3,a3)],t.u))
-o=A.e6("application/x-www-form-urlencoded",a5,A.x(a3,a4),"GET",null)
+o=A.e6("application/x-www-form-urlencoded",a5,A.x(a3,a4),"POST",null)
 n=null
 try{m=A.x(a3,a4)
 if(a0!=null)J.e0(m,"grant_type",A.dS(p.b,a0,B.f))
@@ -110271,7 +110271,7 @@ a=t.N
 a0=t.z
 a1=A.x(a,a0)
 a1.n(0,"secure",A.a([A.a9(["type","apiKey","name","APIKeyHeader","keyName","Avanplan","where","header"],a,a)],t.u))
-o=A.e6("application/json",a1,A.x(a,a0),"GET",null)
+o=A.e6("application/json",a1,A.x(a,a0),"POST",null)
 n=null
 try{n=p.b.I(a2,B.Ry)}catch(a3){m=A.a4(a3)
 l=A.av(a3)

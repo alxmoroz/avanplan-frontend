@@ -48,7 +48,7 @@ class AuthApi {
   }) async {
     final _path = r'/v1/auth/apple_token';
     final _options = Options(
-      method: r'GET',
+      method: r'POST',
       headers: <String, dynamic>{
         ...?headers,
       },
@@ -150,7 +150,7 @@ class AuthApi {
   }) async {
     final _path = r'/v1/auth/google_token';
     final _options = Options(
-      method: r'GET',
+      method: r'POST',
       headers: <String, dynamic>{
         ...?headers,
       },
@@ -262,7 +262,7 @@ class AuthApi {
   }) async {
     final _path = r'/v1/auth/password_token';
     final _options = Options(
-      method: r'GET',
+      method: r'POST',
       headers: <String, dynamic>{
         ...?headers,
       },
@@ -453,7 +453,7 @@ class AuthApi {
   }) async {
     final _path = r'/v1/auth/registration_token';
     final _options = Options(
-      method: r'GET',
+      method: r'POST',
       headers: <String, dynamic>{
         ...?headers,
       },

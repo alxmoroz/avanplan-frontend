@@ -9,11 +9,11 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**authAppleToken**](AuthApi.md#authappletoken) | **GET** /v1/auth/apple_token | Apple Token
-[**authGoogleToken**](AuthApi.md#authgoogletoken) | **GET** /v1/auth/google_token | Google Token
-[**passwordToken**](AuthApi.md#passwordtoken) | **GET** /v1/auth/password_token | Password Token
+[**authAppleToken**](AuthApi.md#authappletoken) | **POST** /v1/auth/apple_token | Apple Token
+[**authGoogleToken**](AuthApi.md#authgoogletoken) | **POST** /v1/auth/google_token | Google Token
+[**passwordToken**](AuthApi.md#passwordtoken) | **POST** /v1/auth/password_token | Password Token
 [**refreshToken**](AuthApi.md#refreshtoken) | **POST** /v1/auth/refresh_token | Refresh Token
-[**registrationToken**](AuthApi.md#registrationtoken) | **GET** /v1/auth/registration_token | Registration Token
+[**registrationToken**](AuthApi.md#registrationtoken) | **POST** /v1/auth/registration_token | Registration Token
 [**requestRegistration**](AuthApi.md#requestregistration) | **POST** /v1/auth/registration | Request Registration
 
 

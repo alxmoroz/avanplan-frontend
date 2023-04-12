@@ -25,6 +25,7 @@ class SourceListView extends StatelessWidget {
   Widget _sourceBuilder(BuildContext context, int index) {
     final s = ws.sortedSources[index];
     return MTCardButton(
+      elevation: cardElevation,
       child: s.info(context),
       onTap: () => editSource(src: s),
       padding: const EdgeInsets.symmetric(horizontal: P, vertical: P2),

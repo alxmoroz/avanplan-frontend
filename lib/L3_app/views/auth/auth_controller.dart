@@ -91,10 +91,7 @@ abstract class _AuthControllerBase with Store {
     await authUC.signOut();
   }
 
-  @observable
   bool _startupActionsInProgress = false;
-
-  @action
   Future startupActions() async {
     if (!_startupActionsInProgress) {
       _startupActionsInProgress = true;

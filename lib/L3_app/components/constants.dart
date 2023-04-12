@@ -1,5 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import '../../L2_data/services/platform.dart';
+
 const double P = 12;
 const double P2 = P * 2;
 const double P3 = P * 3;
@@ -15,3 +17,5 @@ const double SCR_S_WIDTH = 380;
 const double SCR_M_WIDTH = 600;
 const double SCR_L_WIDTH = 1280;
 const double SCR_XL_WIDTH = 1600;
+
+double? get cardElevation => isWeb ? 5 : null;

@@ -190,10 +190,8 @@ abstract class _MainControllerBase with Store {
     await _showOnboarding();
   }
 
-  @observable
   bool _startupActionsInProgress = false;
 
-  @action
   Future startupActions() async {
     if (!_startupActionsInProgress) {
       _startupActionsInProgress = true;

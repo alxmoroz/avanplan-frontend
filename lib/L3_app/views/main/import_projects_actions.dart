@@ -4,10 +4,10 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities_extensions/task_stats.dart';
+import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
-import '../../components/mt_card.dart';
-import '../../components/mt_constrained.dart';
+import '../../components/mt_button.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/source_presenter.dart';
@@ -31,16 +31,17 @@ class ImportProjectsActions extends StatelessWidget {
           ),
           const SizedBox(height: P),
           for (final st in refsController.sourceTypes)
-            MTConstrained(
-              MTCardButton(
-                onTap: () => importTasks(sType: st),
-                child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  iconForSourceType(st),
-                  const SizedBox(width: P_2),
-                  H4('$st'),
-                ]),
-              ),
-            )
+            MTButton.outlined(
+              middle: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                iconForSourceType(st),
+                const SizedBox(width: P_2),
+                H4('$st'),
+              ]),
+              titleColor: greyColor,
+              margin: const EdgeInsets.symmetric(vertical: P_2),
+              maxWidth: SCR_S_WIDTH * 0.8,
+              onTap: () => importTasks(sType: st),
+            ),
         ])
       : Center(child: H4(loc.project_count(0)));
 }

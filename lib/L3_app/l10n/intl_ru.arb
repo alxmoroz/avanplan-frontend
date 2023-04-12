@@ -14,7 +14,7 @@
   "auth_name_placeholder": "Имя, фамилия",
   "auth_password_placeholder": "Пароль",
   "auth_register_completed_description": "Проверьте свою почту {email} и перейдите по ссылке из письма для подтверждения учётной записи",
-  "auth_register_completed_title": "Учётная запись создана",
+  "auth_register_completed_title": "Заявка на регистрацию принята",
   "auth_register_troubleshooting_hint": "Нет письма? Проверьте папку \"Спам\" или",
   "auth_register_mode_hint_title": "Нет учётной записи?",
   "auth_register_mode_title": "Создать",

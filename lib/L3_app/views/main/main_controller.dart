@@ -165,6 +165,7 @@ abstract class _MainControllerBase with Store {
     loaderController.start();
     loaderController.setRedeemInvitation();
     final invited = await myUC.redeemInvitation(deepLinkController.invitationToken);
+    deepLinkController.clearInvitation();
     await loaderController.stop();
     return invited;
   }

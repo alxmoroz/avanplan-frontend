@@ -85,7 +85,11 @@ class _RegistrationFormState extends State<RegistrationForm> {
                           children: [
                             H3(loc.auth_register_completed_title, align: TextAlign.center),
                             const SizedBox(height: P2),
-                            H4(loc.auth_register_completed_description(_controller.tfAnnoForCode('email').text), align: TextAlign.center),
+                            H4(
+                              loc.auth_register_completed_description(_controller.tfAnnoForCode('email').text),
+                              maxLines: 7,
+                              align: TextAlign.center,
+                            ),
                             const SizedBox(height: P2),
                             SmallText(loc.auth_register_troubleshooting_hint, align: TextAlign.center),
                             MTButton(

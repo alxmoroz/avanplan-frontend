@@ -14,7 +14,7 @@
   "auth_name_placeholder": "Name",
   "auth_password_placeholder": "Password",
   "auth_register_completed_description": "Check your inbox {email} and follow the link in the email to verify your account",
-  "auth_register_completed_title": "Account created",
+  "auth_register_completed_title": "Application for registration accepted",
   "auth_register_troubleshooting_hint": "No letter? Check your spam folder or",
   "auth_register_action_title": "Register",
   "auth_register_mode_hint_title": "Don't have an account?",

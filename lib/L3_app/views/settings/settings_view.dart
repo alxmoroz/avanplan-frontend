@@ -1,12 +1,10 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../L2_data/repositories/communications_repo.dart';
-import '../../../L2_data/services/platform.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -50,8 +48,7 @@ class SettingsView extends StatelessWidget {
         ],
       );
 
-  bool get _canShowWS =>
-      mainController.myWorkspaces.isNotEmpty && (!isIOS || !settingsController.frontendFlags.contains('ios_hide_ws') || !kReleaseMode);
+  bool get _canShowWS => mainController.myWorkspaces.isNotEmpty && settingsController.passAppleCheat;
 
   @override
   Widget build(BuildContext context) => Observer(

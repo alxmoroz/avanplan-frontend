@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mobx/mobx.dart';
 
@@ -40,4 +41,8 @@ abstract class _SettingsControllerBase with Store {
   Future setWelcomeGiftInfoShown() async => settings = await localSettingsUC.setFlag(LocalSettings.WELCOME_GIFT_INFO_SHOWN, true);
   @computed
   bool get welcomeGiftInfoShown => settings.getFlag(LocalSettings.WELCOME_GIFT_INFO_SHOWN);
+
+  @computed
+  bool get passAppleCheat => !isIOS || !frontendFlags.contains('ios_hide_ws') || !kReleaseMode;
+  // bool get passAppleCheat => !isIOS || !frontendFlags.contains('ios_hide_ws');
 }

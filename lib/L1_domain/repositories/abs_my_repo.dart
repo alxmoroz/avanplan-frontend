@@ -11,5 +11,5 @@ abstract class AbstractMyRepo {
   Future<Iterable<MTNotification>> getMyNotifications();
   Future markReadNotifications(Iterable<int> notificationsIds);
   Future updatePushToken(String token, bool hasPermission);
-  Future redeemInvitation(String token);
+  Future redeemInvitation(String? token);
 }

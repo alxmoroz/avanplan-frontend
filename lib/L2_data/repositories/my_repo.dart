@@ -52,7 +52,7 @@ class MyRepo extends AbstractMyRepo {
   }
 
   @override
-  Future redeemInvitation(String token) async {
+  Future redeemInvitation(String? token) async {
     final body = (o_api.BodyRedeemInvitationV1MyRedeemInvitationPostBuilder()..invitationToken = token).build();
     final response = await api.redeemInvitationV1MyRedeemInvitationPost(bodyRedeemInvitationV1MyRedeemInvitationPost: body);
     return response.data == true;

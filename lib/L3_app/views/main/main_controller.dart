@@ -162,13 +162,10 @@ abstract class _MainControllerBase with Store {
   }
 
   Future<bool> _redeemInvitation() async {
-    bool invited = false;
-    if (deepLinkController.hasInvitation) {
-      loaderController.start();
-      loaderController.setRedeemInvitation();
-      invited = await myUC.redeemInvitation(deepLinkController.invitationToken!);
-      await loaderController.stop();
-    }
+    loaderController.start();
+    loaderController.setRedeemInvitation();
+    final invited = await myUC.redeemInvitation(deepLinkController.invitationToken);
+    await loaderController.stop();
     return invited;
   }
 
@@ -199,12 +196,7 @@ abstract class _MainControllerBase with Store {
   Future startupActions() async {
     if (!_startupActionsInProgress) {
       _startupActionsInProgress = true;
-      if (deepLinkController.hasRegistration) {
-        await authController.signInWithRegistration();
-      } else {
-        await authController.updateAuth();
-      }
-
+      await authController.updateAuth();
       if (authController.authorized) {
         await _authorizedStartupActions();
       }

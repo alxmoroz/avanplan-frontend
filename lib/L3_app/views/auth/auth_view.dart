@@ -16,8 +16,35 @@ import 'legal_links.dart';
 import 'registration_form.dart';
 import 'sign_in_email_form.dart';
 
-class AuthView extends StatelessWidget {
+class AuthView extends StatefulWidget {
   static String get routeName => 'auth';
+
+  @override
+  _AuthViewState createState() => _AuthViewState();
+}
+
+class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
+  void _startupActions() => WidgetsBinding.instance.addPostFrameCallback((_) async => await authController.startupActions());
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    _startupActions();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      _startupActions();
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
 
   Widget _authBtn(Widget leading, String titleText, double iconSize, VoidCallback? onTap, {double? titleLeftPadding}) => MTButton.outlined(
         leading: leading,

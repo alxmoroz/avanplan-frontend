@@ -34,16 +34,7 @@ abstract class _AuthControllerBase with Store {
   void toggleRegisterMode() => registerMode = !registerMode;
 
   @action
-  Future signInWithPassword(BuildContext context, String email, String pwd) async {
-    loaderController.start();
-    loaderController.setAuth();
-    authorized = await authUC.signInWithPassword(email, pwd);
-    Navigator.of(context).pop();
-    await loaderController.stop();
-  }
-
-  @action
-  Future signInWithRegistration() async {
+  Future _signInWithRegistration() async {
     if (deepLinkController.hasRegistration) {
       loaderController.start();
       loaderController.setAuth();
@@ -51,6 +42,15 @@ abstract class _AuthControllerBase with Store {
       deepLinkController.clearRegistration();
       await loaderController.stop();
     }
+  }
+
+  @action
+  Future signInWithPassword(BuildContext context, String email, String pwd) async {
+    loaderController.start();
+    loaderController.setAuth();
+    authorized = await authUC.signInWithPassword(email, pwd);
+    Navigator.of(context).pop();
+    await loaderController.stop();
   }
 
   @action
@@ -89,5 +89,17 @@ abstract class _AuthControllerBase with Store {
   Future signOut() async {
     authorized = false;
     await authUC.signOut();
+  }
+
+  @observable
+  bool _startupActionsInProgress = false;
+
+  @action
+  Future startupActions() async {
+    if (!_startupActionsInProgress) {
+      _startupActionsInProgress = true;
+      await _signInWithRegistration();
+    }
+    _startupActionsInProgress = false;
   }
 }

@@ -31,6 +31,11 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> with WidgetsBindingObserver {
+  TaskViewController get _taskController => TaskViewController(null);
+  Task get _task => _taskController.task;
+
+  void _startupActions() => WidgetsBinding.instance.addPostFrameCallback((_) async => await mainController.startupActions());
+
   @override
   void initState() {
     super.initState();
@@ -50,13 +55,6 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
     mainController.clearData();
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
-  }
-
-  TaskViewController get _taskController => TaskViewController(null);
-  Task get _task => _taskController.task;
-
-  void _startupActions() {
-    WidgetsBinding.instance.addPostFrameCallback((_) async => await mainController.startupActions());
   }
 
   Future _gotoSettings(BuildContext context) async => await Navigator.of(context).pushNamed(SettingsView.routeName);

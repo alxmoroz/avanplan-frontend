@@ -26,6 +26,7 @@ abstract class _DeepLinkControllerBase with Store {
     if (path != null) {
       final params = Uri.dataFromString(path).queryParameters;
       const key = 't';
+
       if (params.containsKey(key)) {
         final token = params[key] ?? '';
         if (path.startsWith('/invite') == true) {

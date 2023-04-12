@@ -3,11 +3,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/entities/member.dart';
-import '../../../L1_domain/entities/role.dart';
-import '../../../L1_domain/entities/task.dart';
-import '../../extra/services.dart';
-import '../../usecases/task_ext_actions.dart';
+import '../../../../../L1_domain/entities/member.dart';
+import '../../../../../L1_domain/entities/role.dart';
+import '../../../../../L1_domain/entities/task.dart';
+import '../../../../extra/services.dart';
+import '../../../../usecases/task_ext_actions.dart';
 
 part 'member_edit_controller.g.dart';
 

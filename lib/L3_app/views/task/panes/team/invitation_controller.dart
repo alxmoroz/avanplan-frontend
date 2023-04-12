@@ -5,16 +5,16 @@ import 'package:flutter/services.dart';
 import 'package:mobx/mobx.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../../../L1_domain/entities/invitation.dart';
-import '../../../../L1_domain/entities/role.dart';
-import '../../../../L1_domain/entities/task.dart';
-import '../../../L2_data/services/platform.dart';
-import '../../components/colors.dart';
-import '../../components/text_field_annotation.dart';
-import '../../components/text_widgets.dart';
-import '../../extra/services.dart';
-import '../../presenters/date_presenter.dart';
-import '../_base/edit_controller.dart';
+import '../../../../../../L1_domain/entities/invitation.dart';
+import '../../../../../../L1_domain/entities/role.dart';
+import '../../../../../../L1_domain/entities/task.dart';
+import '../../../../../L2_data/services/platform.dart';
+import '../../../../components/colors.dart';
+import '../../../../components/text_field_annotation.dart';
+import '../../../../components/text_widgets.dart';
+import '../../../../extra/services.dart';
+import '../../../../presenters/date_presenter.dart';
+import '../../../_base/edit_controller.dart';
 
 part 'invitation_controller.g.dart';
 

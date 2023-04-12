@@ -3,9 +3,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/entities/member.dart';
-import '../../../L1_domain/entities/task.dart';
-import '../../extra/services.dart';
+import '../../../../../L1_domain/entities/member.dart';
+import '../../../../../L1_domain/entities/task.dart';
+import '../../../../extra/services.dart';
 import 'member_edit_view.dart';
 
 part 'member_view_controller.g.dart';

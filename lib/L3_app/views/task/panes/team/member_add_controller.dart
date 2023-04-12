@@ -2,7 +2,7 @@
 
 import 'package:mobx/mobx.dart';
 
-import '../_base/edit_controller.dart';
+import '../../../_base/edit_controller.dart';
 
 part 'member_add_controller.g.dart';
 

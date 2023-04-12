@@ -3,19 +3,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../L1_domain/entities/member.dart';
-import '../../../L1_domain/entities/task.dart';
-import '../../components/constants.dart';
-import '../../components/icons.dart';
-import '../../components/mt_button.dart';
-import '../../components/mt_list_tile.dart';
-import '../../components/mt_page.dart';
-import '../../components/navbar.dart';
-import '../../components/text_widgets.dart';
-import '../../extra/services.dart';
-import '../../presenters/person_presenter.dart';
-import '../../presenters/task_level_presenter.dart';
-import '../../usecases/task_ext_actions.dart';
+import '../../../../../L1_domain/entities/member.dart';
+import '../../../../../L1_domain/entities/task.dart';
+import '../../../../components/constants.dart';
+import '../../../../components/icons.dart';
+import '../../../../components/mt_button.dart';
+import '../../../../components/mt_list_tile.dart';
+import '../../../../components/mt_page.dart';
+import '../../../../components/navbar.dart';
+import '../../../../components/text_widgets.dart';
+import '../../../../extra/services.dart';
+import '../../../../presenters/person_presenter.dart';
+import '../../../../presenters/task_level_presenter.dart';
+import '../../../../usecases/task_ext_actions.dart';
 import 'member_view_controller.dart';
 
 // TODO: параметр "задача" не нужен, т.к. есть инфа об айдишнике задачи в участнике

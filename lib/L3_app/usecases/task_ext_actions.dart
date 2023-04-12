@@ -66,7 +66,7 @@ extension TaskActionsExt on Task {
   bool get canUnlink => _isLinkedProject && _ws?.hpProjectUpdate == true;
   bool get canUnwatch => _isLinkedProject && _ws?.hpProjectDelete == true;
   bool get canMembersRead => isProject;
-  bool get canEditMembers => _hpMemberUpdate && !hasLink;
+  bool get canEditMembers => _hpMemberUpdate;
 
   bool get plMembersAdd => _ws?.plUsers == true;
   bool get plUnlink => _ws?.plUnlink == true;

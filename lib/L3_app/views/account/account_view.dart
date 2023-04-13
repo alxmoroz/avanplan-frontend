@@ -42,10 +42,10 @@ class AccountView extends StatelessWidget {
                     NormalText(_user!.email, align: TextAlign.center),
                     const SizedBox(height: P2),
                     MTButton.outlined(
-                      margin: const EdgeInsets.symmetric(horizontal: P),
                       titleText: loc.auth_sign_out_btn_title,
                       titleColor: greyColor,
                       trailing: const LogoutIcon(color: warningColor),
+                      margin: const EdgeInsets.symmetric(horizontal: P),
                       onTap: () async => await accountController.logout(context),
                     ),
                   ],

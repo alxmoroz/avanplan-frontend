@@ -17,7 +17,7 @@ class MTConstrained extends StatelessWidget {
     return LayoutBuilder(
       builder: (_, size) => UnconstrainedBox(
         child: SizedBox(
-          width: min(maxWidth ?? SCR_S_WIDTH, size.maxWidth),
+          width: min(maxWidth ?? SCR_S_WIDTH * 0.8, size.maxWidth),
           child: child,
         ),
       ),

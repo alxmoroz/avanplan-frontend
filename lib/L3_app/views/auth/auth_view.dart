@@ -62,7 +62,7 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
       body: SafeArea(
         child: Center(
           child: Container(
-            constraints: const BoxConstraints(maxWidth: SCR_S_WIDTH * 0.8),
+            constraints: const BoxConstraints(maxWidth: SCR_S_WIDTH),
             child: LayoutBuilder(
               builder: (_, size) => Observer(
                 builder: (_) => ListView(
@@ -120,10 +120,9 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
       ),
       bottomBar: Column(
         mainAxisSize: MainAxisSize.min,
-        children: const [
-          LegalLinks(),
-          SizedBox(height: P_2),
-          AppVersion(),
+        children: [
+          if (!isIOS) const LegalLinks(),
+          const AppVersion(),
         ],
       ),
     );

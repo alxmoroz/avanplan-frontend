@@ -39,7 +39,6 @@ class ImportProjectsActions extends StatelessWidget {
               ]),
               titleColor: greyColor,
               margin: const EdgeInsets.symmetric(vertical: P_2),
-              maxWidth: SCR_S_WIDTH * 0.8,
               onTap: () => importTasks(sType: st),
             ),
         ])

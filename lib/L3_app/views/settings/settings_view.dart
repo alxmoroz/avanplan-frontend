@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../L2_data/repositories/communications_repo.dart';
+import '../../../L2_data/services/platform.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -75,18 +76,20 @@ class SettingsView extends StatelessWidget {
                   trailing: const LinkOutIcon(),
                   onTap: () => sendMail(loc.contact_us_mail_subject, appTitle, accountController.user?.id),
                 ),
-                MTListTile(
-                  leading: const RulesIcon(),
-                  titleText: loc.legal_rules_title,
-                  trailing: const LinkOutIcon(),
-                  onTap: () => launchUrlString(legalRulesPath),
-                ),
-                MTListTile(
-                  leading: const PrivacyIcon(),
-                  titleText: loc.legal_privacy_policy_title,
-                  trailing: const LinkOutIcon(),
-                  onTap: () => launchUrlString(legalConfidentialPath),
-                ),
+                if (!isIOS)
+                  MTListTile(
+                    leading: const RulesIcon(),
+                    titleText: loc.legal_rules_title,
+                    trailing: const LinkOutIcon(),
+                    onTap: () => launchUrlString(legalRulesPath),
+                  ),
+                if (!isIOS)
+                  MTListTile(
+                    leading: const PrivacyIcon(),
+                    titleText: loc.legal_privacy_policy_title,
+                    trailing: const LinkOutIcon(),
+                    onTap: () => launchUrlString(legalConfidentialPath),
+                  ),
               ],
             ),
           ),

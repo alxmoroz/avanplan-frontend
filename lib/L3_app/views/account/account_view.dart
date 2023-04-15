@@ -46,7 +46,7 @@ class AccountView extends StatelessWidget {
                       titleColor: greyColor,
                       trailing: const LogoutIcon(color: warningColor),
                       margin: const EdgeInsets.symmetric(horizontal: P),
-                      onTap: () async => await accountController.logout(context),
+                      onTap: () async => await authController.signOut(),
                     ),
                   ],
                 )

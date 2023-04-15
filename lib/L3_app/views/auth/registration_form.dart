@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L2_data/repositories/communications_repo.dart';
+import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -18,9 +19,9 @@ import '../../extra/services.dart';
 import '../../presenters/communications_presenter.dart';
 import 'registration_controller.dart';
 
-Future showRegistrationDialog(BuildContext context) async {
+Future showRegistrationDialog() async {
   return await showModalBottomSheet<void>(
-    context: context,
+    context: rootKey.currentContext!,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
     builder: (_) => MTBottomSheet(RegistrationForm()),

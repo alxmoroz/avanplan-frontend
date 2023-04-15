@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -15,9 +16,9 @@ import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
 import 'sign_in_email_controller.dart';
 
-Future showSignInEmailDialog(BuildContext context) async {
+Future showSignInEmailDialog() async {
   return await showModalBottomSheet<void>(
-    context: context,
+    context: rootKey.currentContext!,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
     builder: (_) => MTBottomSheet(SignInEmailForm()),
@@ -86,7 +87,7 @@ class _SignInEmailFormState extends State<SignInEmailForm> {
                       MTButton.outlined(
                         margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
                         titleText: loc.auth_sign_in_email_action_title,
-                        onTap: _controller.validated ? () => _controller.signIn(context) : null,
+                        onTap: _controller.validated ? _controller.signIn : null,
                       ),
                       const SizedBox(height: P2),
                     ],

@@ -1,6 +1,5 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../extra/services.dart';
@@ -17,8 +16,7 @@ abstract class _SignInEmailControllerBase extends EditController with Store {
   @action
   void toggleShowPassword() => showPassword = !showPassword;
 
-  Future signIn(BuildContext context) async => await authController.signInWithPassword(
-        context,
+  Future signIn() async => await authController.signInWithPassword(
         tfAnnoForCode('email').text,
         tfAnnoForCode('password').text,
       );

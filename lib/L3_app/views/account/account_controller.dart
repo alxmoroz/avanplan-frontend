@@ -24,11 +24,6 @@ abstract class _AccountControllerBase extends EditController with Store {
   @action
   void clearData() => user = null;
 
-  Future logout(BuildContext context) async {
-    Navigator.of(context).popUntil((r) => r.navigator?.canPop() == false);
-    await authController.signOut();
-  }
-
   Future delete(BuildContext context) async {
     final confirm = await showMTDialog(
       context,
@@ -45,7 +40,7 @@ abstract class _AccountControllerBase extends EditController with Store {
       loaderController.setDeleting();
 
       await myUC.deleteMyAccount();
-      await logout(context);
+      await authController.signOut();
 
       await loaderController.stop();
     }

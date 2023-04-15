@@ -79,7 +79,7 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
                           googleIcon(size: MIN_BTN_HEIGHT),
                           loc.auth_sign_in_google_title,
                           MIN_BTN_HEIGHT,
-                          () => authController.signInGoogle(context),
+                          authController.signInGoogle,
                         ),
                         // для Андроида не показываем SignInWithApple
                         if (authController.signInWithAppleIsAvailable && !isAndroid) ...[
@@ -87,7 +87,7 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
                             appleIcon(size: MIN_BTN_HEIGHT),
                             loc.auth_sign_in_apple_title,
                             MIN_BTN_HEIGHT,
-                            () => authController.signInApple(context),
+                            authController.signInApple,
                           ),
                         ],
                       ],
@@ -96,7 +96,7 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
                       const MailIcon(color: Color.fromARGB(255, 62, 62, 82)),
                       loc.auth_sign_in_email_title,
                       P2,
-                      () => authController.registerMode ? showRegistrationDialog(context) : showSignInEmailDialog(context),
+                      () => authController.registerMode ? showRegistrationDialog() : showSignInEmailDialog(),
                       titleLeftPadding: P,
                     ),
                     const SizedBox(height: P2),

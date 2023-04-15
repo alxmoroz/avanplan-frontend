@@ -1,5 +1,6 @@
 // Copyright (c) 2023. Alexandr Moroz
 
+import 'package:avanplan/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
@@ -25,7 +26,7 @@ abstract class _AuthControllerBase with Store {
   @observable
   bool authorized = false;
 
-  String _langCode(BuildContext context) => Localizations.localeOf(context).languageCode;
+  String get _langCode => Localizations.localeOf(rootKey.currentContext!).languageCode;
 
   @observable
   bool registerMode = false;
@@ -36,6 +37,7 @@ abstract class _AuthControllerBase with Store {
   @action
   Future _signInWithRegistration() async {
     if (deepLinkController.hasRegistration) {
+      await signOut();
       loaderController.start();
       loaderController.setAuth();
       authorized = await authUC.signInWithRegistration(deepLinkController.registrationToken!);
@@ -45,20 +47,20 @@ abstract class _AuthControllerBase with Store {
   }
 
   @action
-  Future signInWithPassword(BuildContext context, String email, String pwd) async {
+  Future signInWithPassword(String email, String pwd) async {
     loaderController.start();
     loaderController.setAuth();
     authorized = await authUC.signInWithPassword(email, pwd);
-    Navigator.of(context).pop();
+    Navigator.of(rootKey.currentContext!).pop();
     await loaderController.stop();
   }
 
   @action
-  Future signInGoogle(BuildContext context) async {
+  Future signInGoogle() async {
     loaderController.start();
     loaderController.setAuth();
     try {
-      authorized = await authUC.signInGoogle(_langCode(context));
+      authorized = await authUC.signInGoogle(_langCode);
       await loaderController.stop();
     } on MTOAuthError catch (e) {
       loaderController.setAuthError(e.detail);
@@ -66,11 +68,11 @@ abstract class _AuthControllerBase with Store {
   }
 
   @action
-  Future signInApple(BuildContext context) async {
+  Future signInApple() async {
     loaderController.start();
     loaderController.setAuth();
     try {
-      authorized = await authUC.signInApple(_langCode(context));
+      authorized = await authUC.signInApple(_langCode);
       await loaderController.stop();
     } on MTOAuthError catch (e) {
       loaderController.setAuthError(e.detail);
@@ -87,6 +89,7 @@ abstract class _AuthControllerBase with Store {
 
   @action
   Future signOut() async {
+    Navigator.of(rootKey.currentContext!).popUntil((r) => r.navigator?.canPop() == false);
     authorized = false;
     await authUC.signOut();
   }

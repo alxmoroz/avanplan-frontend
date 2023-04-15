@@ -72,6 +72,8 @@ abstract class _InvitationControllerBase extends EditController with Store {
   Future createInvitation() async {
     final activationsCount = int.tryParse(tfAnnoForCode('activationsCount').text) ?? 0;
     if (activationsCount > 0) {
+      loaderController.start();
+      loaderController.setCreateInvitation();
       invitationUrl = await invitationUC.create(
           Invitation(
             task.id!,
@@ -80,6 +82,7 @@ abstract class _InvitationControllerBase extends EditController with Store {
             expiresOn!,
           ),
           task.wsId);
+      await loaderController.stop();
     }
   }
 

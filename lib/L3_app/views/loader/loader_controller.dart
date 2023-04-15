@@ -204,7 +204,8 @@ abstract class _LoaderControllerBase with Store {
         actionText: loc.ok,
       );
 
-  void setRedeemInvitation() => _set(titleText: loc.loader_redeem_invitation_title, icon: _authIcon);
+  void setRedeemInvitation() => _set(titleText: loc.loader_invitation_redeem_title, icon: _authIcon);
+  void setCreateInvitation() => _set(titleText: loc.loader_invitation_create_title, icon: _authIcon);
   void _setRedeemInvitationError() => _set(
         icon: _authIcon,
         titleText: loc.error_redeem_invitation_title,

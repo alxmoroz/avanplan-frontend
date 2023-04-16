@@ -74,7 +74,8 @@ abstract class _MainControllerBase with Store {
   @action
   Future _fetchWorkspaces() async {
     myWorkspaces = (await myUC.getWorkspaces()).sorted((w1, w2) => compareNatural(w1.title, w2.title));
-    selectedWSId = myWorkspaces.length == 1 ? myWorkspaces.first.id : null;
+    // selectedWSId = myWorkspaces.length == 1 ? myWorkspaces.first.id : null;
+    selectedWSId = myWorkspaces.first.id;
 
     final projects = <Task>[];
     for (Workspace ws in myWorkspaces) {

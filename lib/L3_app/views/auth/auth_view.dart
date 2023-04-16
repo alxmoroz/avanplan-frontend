@@ -96,7 +96,7 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
                       const MailIcon(color: Color.fromARGB(255, 62, 62, 82)),
                       loc.auth_sign_in_email_title,
                       P2,
-                      () => authController.registerMode ? showRegistrationDialog() : showSignInEmailDialog(),
+                      authController.registerMode ? showRegistrationDialog : showSignInEmailDialog,
                       titleLeftPadding: P,
                     ),
                     const SizedBox(height: P2),

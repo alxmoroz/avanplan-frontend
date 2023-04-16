@@ -31,6 +31,7 @@ class InvitationPane extends StatelessWidget {
             prefixIcon: isDate ? const CalendarIcon() : null,
           )
         : MTTextField(
+            autofocus: false,
             controller: controller.teControllers[code],
             label: ta.label,
             error: ta.errorText,

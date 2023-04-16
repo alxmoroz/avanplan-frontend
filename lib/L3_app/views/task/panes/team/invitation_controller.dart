@@ -89,6 +89,7 @@ abstract class _InvitationControllerBase extends EditController with Store {
   String get invitationSubject => '${loc.invitation_share_subject_prefix}${loc.app_title} - ${task.title}';
 
   Future shareInvitation(BuildContext context) async {
+    FocusScope.of(context).unfocus();
     if (invitationUrl.isEmpty) {
       await createInvitation();
     }

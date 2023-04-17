@@ -125,7 +125,7 @@ abstract class _ImportControllerBase extends EditController with Store {
       final taskSources = selectedProjects.map((t) => t.taskSource!);
       await importUC.importTaskSources(selectedSource!, taskSources);
       Navigator.of(context).pop();
-      await mainController.fetchData();
+      await mainController.fetchTasks();
       await loaderController.stop();
     } else {
       await changeTariff(

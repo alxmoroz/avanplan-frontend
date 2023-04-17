@@ -48,7 +48,7 @@ abstract class _MainControllerBase with Store {
   @action
   // TODO: нужен способ дергать обсервер без этих хаков
   // TODO: должно частично решиться https://redmine.moroz.team/issues/2566
-  void touchWorkspaces() => mainController.myWorkspaces = [...mainController.myWorkspaces];
+  void touchWorkspaces() => myWorkspaces = [...myWorkspaces];
 
   /// рутовый объект
   @observable
@@ -72,11 +72,15 @@ abstract class _MainControllerBase with Store {
   DateTime? updatedDate;
 
   @action
-  Future _fetchWorkspaces() async {
+  Future fetchWorkspaces() async {
+    loaderController.setRefreshing();
     myWorkspaces = (await myUC.getWorkspaces()).sorted((w1, w2) => compareNatural(w1.title, w2.title));
     // selectedWSId = myWorkspaces.length == 1 ? myWorkspaces.first.id : null;
     selectedWSId = myWorkspaces.first.id;
+  }
 
+  Future fetchTasks() async {
+    loaderController.setRefreshing();
     final projects = <Task>[];
     for (Workspace ws in myWorkspaces) {
       final roots = (await taskUC.getRoots(ws.id!)).toList();
@@ -87,17 +91,6 @@ abstract class _MainControllerBase with Store {
     }
     rootTask.tasks = projects;
     updateRootTask();
-  }
-
-  @action
-  Future fetchData() async {
-    loaderController.setRefreshing();
-    await settingsController.fetchAppsettings();
-    await accountController.fetchData();
-    await refsController.fetchData();
-    await notificationController.fetchData();
-
-    await _fetchWorkspaces();
   }
 
   @action
@@ -118,7 +111,16 @@ abstract class _MainControllerBase with Store {
   @action
   Future _update() async {
     loaderController.start();
-    await fetchData();
+    loaderController.setRefreshing();
+
+    await settingsController.fetchAppsettings();
+    await accountController.fetchData();
+    await refsController.fetchData();
+    await notificationController.fetchData();
+
+    await fetchWorkspaces();
+    await fetchTasks();
+
     updatedDate = DateTime.now();
     await loaderController.stop();
   }
@@ -174,9 +176,13 @@ abstract class _MainControllerBase with Store {
   Future _tryUpdate() async {
     final invited = await _redeemInvitation();
     final timeToUpdate = updatedDate == null || updatedDate!.add(_updatePeriod).isBefore(DateTime.now());
-    if (paymentController.waitingPayment || invited || timeToUpdate) {
+    if (invited || timeToUpdate) {
       await _update();
+    } else if (paymentController.waitingPayment) {
+      loaderController.start();
+      await fetchWorkspaces();
       paymentController.resetWaiting();
+      await loaderController.stop();
     }
   }
 

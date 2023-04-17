@@ -89,7 +89,7 @@ class _MemberEditViewState extends State<MemberEditView> {
         bottomBar: MTButton.outlined(
           titleText: loc.save_action_title,
           margin: tfPadding.copyWith(top: P2),
-          onTap: () => controller.assignRoles(context),
+          onTap: controller.assignRoles,
         ),
       ),
     );

@@ -17,9 +17,7 @@ abstract class _AccountControllerBase extends EditController with Store {
   User? user;
 
   @action
-  Future fetchData() async {
-    user = await myUC.getMyAccount();
-  }
+  Future fetchData() async => user = await myUC.getMyAccount();
 
   @action
   void clearData() => user = null;

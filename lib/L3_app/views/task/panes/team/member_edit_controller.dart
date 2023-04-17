@@ -6,6 +6,7 @@ import 'package:mobx/mobx.dart';
 import '../../../../../L1_domain/entities/member.dart';
 import '../../../../../L1_domain/entities/role.dart';
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../../main.dart';
 import '../../../../extra/services.dart';
 import '../../../../usecases/task_ext_actions.dart';
 
@@ -33,12 +34,13 @@ abstract class _MemberEditControllerBase with Store {
     roles = [...roles];
   }
 
-  Future assignRoles(BuildContext context) async {
+  Future assignRoles() async {
     loaderController.start();
     loaderController.setSaving();
     final rolesIds = roles.where((r) => r.selected).map((r) => r.id!);
     final members = await taskMemberRoleUC.assignRoles(task.wsId, task.id!, member.id!, rolesIds);
-    Navigator.of(context).pop(members);
+    mainController.fetchWorkspaces();
+    Navigator.of(rootKey.currentContext!).pop(members);
     await loaderController.stop(300);
   }
 }

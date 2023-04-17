@@ -9,8 +9,8 @@ class PaymentRepo extends AbstractPaymentRepo {
   static const recipient = '41001777210985';
 
   @override
-  Future<bool> ymQuickPayForm(num amount, int wsId) async {
-    final url = Uri.encodeFull('$host_path?receiver=$recipient&quickpay-form=button&sum=$amount&label=$wsId');
+  Future<bool> ymQuickPayForm(num amount, int wsId, int userId) async {
+    final url = Uri.encodeFull('$host_path?receiver=$recipient&quickpay-form=button&sum=$amount&label=$wsId:$userId');
     return await launchUrlString(url);
   }
 }

@@ -91,7 +91,7 @@ class TariffSelectView extends StatelessWidget {
           MTButton.outlined(
             titleText: '+ ${paymentSum.currency}',
             titleColor: greenColor,
-            onTap: () => paymentController.ymQuickPayForm(paymentSum, ws.id!),
+            onTap: () => paymentController.ymQuickPayForm(paymentSum),
             constrained: false,
             padding: const EdgeInsets.symmetric(horizontal: P2),
           ),

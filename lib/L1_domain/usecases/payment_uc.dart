@@ -8,5 +8,5 @@ class PaymentUC {
 
   final AbstractPaymentRepo repo;
 
-  Future<bool> ymQuickPayForm(num amount, int wsId) async => await repo.ymQuickPayForm(amount, wsId);
+  Future<bool> ymQuickPayForm(num amount, int wsId, int userId) async => await repo.ymQuickPayForm(amount, wsId, userId);
 }

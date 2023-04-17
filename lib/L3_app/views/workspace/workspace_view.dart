@@ -49,7 +49,7 @@ class WorkspaceView extends StatelessWidget {
   Widget _payButton(num amount) => MTButton.outlined(
         titleText: '+ $amount',
         titleColor: greenColor,
-        onTap: () => paymentController.ymQuickPayForm(amount, ws.id!),
+        onTap: () => paymentController.ymQuickPayForm(amount),
         constrained: false,
         padding: const EdgeInsets.symmetric(horizontal: P),
       );

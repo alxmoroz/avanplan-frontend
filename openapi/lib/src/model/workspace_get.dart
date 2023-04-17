@@ -22,6 +22,7 @@ part 'workspace_get.g.dart';
 /// * [id] 
 /// * [title] 
 /// * [description] 
+/// * [code] 
 /// * [users] 
 /// * [roles] 
 /// * [invoice] 
@@ -40,6 +41,9 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
 
   @BuiltValueField(wireName: r'description')
   String? get description;
+
+  @BuiltValueField(wireName: r'code')
+  String get code;
 
   @BuiltValueField(wireName: r'users')
   BuiltList<User>? get users;
@@ -111,6 +115,11 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
         specifiedType: const FullType(String),
       );
     }
+    yield r'code';
+    yield serializers.serialize(
+      object.code,
+      specifiedType: const FullType(String),
+    );
     if (object.users != null) {
       yield r'users';
       yield serializers.serialize(
@@ -210,6 +219,13 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
             specifiedType: const FullType(String),
           ) as String;
           result.description = valueDes;
+          break;
+        case r'code':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.code = valueDes;
           break;
         case r'users':
           final valueDes = serializers.deserialize(

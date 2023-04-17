@@ -22,6 +22,11 @@ void main() {
       // TODO
     });
 
+    // String code
+    test('to test the property `code`', () async {
+      // TODO
+    });
+
     // BuiltList<User> users (default value: ListBuilder())
     test('to test the property `users`', () async {
       // TODO

@@ -57,6 +57,7 @@ import 'package:openapi/src/model/u_notification_permission_get.dart';
 import 'package:openapi/src/model/user.dart';
 import 'package:openapi/src/model/validation_error.dart';
 import 'package:openapi/src/model/workspace_get.dart';
+import 'package:openapi/src/model/workspace_upsert.dart';
 
 part 'serializers.g.dart';
 
@@ -104,6 +105,7 @@ part 'serializers.g.dart';
   User,
   ValidationError,
   WorkspaceGet,
+  WorkspaceUpsert,
 ])
 Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(

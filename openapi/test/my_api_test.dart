@@ -55,6 +55,13 @@ void main() {
       // TODO
     });
 
+    // Update Workspace
+    //
+    //Future<WorkspaceGet> updateWorkspaceV1MyWorkspacePost(int wsId, WorkspaceUpsert workspaceUpsert) async
+    test('test updateWorkspaceV1MyWorkspacePost', () async {
+      // TODO
+    });
+
     // Workspaces
     //
     //Future<BuiltList<WorkspaceGet>> workspacesV1MyWorkspacesGet() async

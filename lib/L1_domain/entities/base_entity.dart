@@ -38,12 +38,6 @@ abstract class Titleable extends RPersistable {
   String toString() => title;
 }
 
-abstract class CodeTitleable extends Codable {
-  CodeTitleable({super.id, required super.code, required this.title, required this.description});
-  final String title;
-  final String description;
-}
-
 abstract class Orderable extends Codable {
   Orderable({
     super.id,

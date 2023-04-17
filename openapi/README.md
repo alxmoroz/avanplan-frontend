@@ -85,6 +85,7 @@ Class | Method | HTTP request | Description
 [*MyApi*](doc/MyApi.md) | [**redeemInvitationV1MyRedeemInvitationPost**](doc/MyApi.md#redeeminvitationv1myredeeminvitationpost) | **POST** /v1/my/redeem_invitation | Redeem Invitation
 [*MyApi*](doc/MyApi.md) | [**updateAccountV1MyAccountPost**](doc/MyApi.md#updateaccountv1myaccountpost) | **POST** /v1/my/account | Update Account
 [*MyApi*](doc/MyApi.md) | [**updatePushTokenV1MyPushTokenPost**](doc/MyApi.md#updatepushtokenv1mypushtokenpost) | **POST** /v1/my/push_token | Update Push Token
+[*MyApi*](doc/MyApi.md) | [**updateWorkspaceV1MyWorkspacePost**](doc/MyApi.md#updateworkspacev1myworkspacepost) | **POST** /v1/my/workspace | Update Workspace
 [*MyApi*](doc/MyApi.md) | [**workspacesV1MyWorkspacesGet**](doc/MyApi.md#workspacesv1myworkspacesget) | **GET** /v1/my/workspaces | Workspaces
 [*RolesApi*](doc/RolesApi.md) | [**assignV1RolesPost**](doc/RolesApi.md#assignv1rolespost) | **POST** /v1/roles/ | Assign
 [*SettingsApi*](doc/SettingsApi.md) | [**settingsV1SettingsGet**](doc/SettingsApi.md#settingsv1settingsget) | **GET** /v1/settings/ | Settings
@@ -139,6 +140,7 @@ Class | Method | HTTP request | Description
  - [User](doc/User.md)
  - [ValidationError](doc/ValidationError.md)
  - [WorkspaceGet](doc/WorkspaceGet.md)
+ - [WorkspaceUpsert](doc/WorkspaceUpsert.md)
 
 
 ## Documentation For Authorization

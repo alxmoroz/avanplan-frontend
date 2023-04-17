@@ -14,6 +14,7 @@ class Workspace extends Titleable {
     required super.id,
     required super.title,
     required super.description,
+    required this.code,
     required this.users,
     required this.roles,
     required this.invoice,
@@ -24,6 +25,7 @@ class Workspace extends Titleable {
     required this.mainAccount,
   });
 
+  final String code;
   final Iterable<User> users;
   final Iterable<Role> roles;
   Invoice invoice;

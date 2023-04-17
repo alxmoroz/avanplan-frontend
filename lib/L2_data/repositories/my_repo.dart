@@ -32,6 +32,18 @@ class MyRepo extends AbstractMyRepo {
   }
 
   @override
+  Future<Workspace?> updateWorkspace(Workspace ws) async {
+    final response = await api.updateWorkspaceV1MyWorkspacePost(
+        wsId: ws.id!,
+        workspaceUpsert: (o_api.WorkspaceUpsertBuilder()
+              ..code = ws.code
+              ..title = ws.title
+              ..description = ws.description)
+            .build());
+    return response.data?.workspace;
+  }
+
+  @override
   Future<Iterable<MTNotification>> getMyNotifications() async {
     final response = await api.notificationsV1MyNotificationsGet();
     return response.data?.map((n) => n.notification) ?? [];

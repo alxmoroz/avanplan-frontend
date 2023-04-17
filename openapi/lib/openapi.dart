@@ -63,3 +63,4 @@ export 'package:openapi/src/model/u_notification_permission_get.dart';
 export 'package:openapi/src/model/user.dart';
 export 'package:openapi/src/model/validation_error.dart';
 export 'package:openapi/src/model/workspace_get.dart';
+export 'package:openapi/src/model/workspace_upsert.dart';

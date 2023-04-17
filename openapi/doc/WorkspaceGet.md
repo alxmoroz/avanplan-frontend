@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **id** | **int** |  | 
 **title** | **String** |  | [optional] 
 **description** | **String** |  | [optional] 
+**code** | **String** |  | 
 **users** | [**BuiltList&lt;User&gt;**](User.md) |  | [optional] [default to ListBuilder()]
 **roles** | [**BuiltList&lt;RoleGet&gt;**](RoleGet.md) |  | [optional] [default to ListBuilder()]
 **invoice** | [**InvoiceGet**](InvoiceGet.md) |  | [optional] 

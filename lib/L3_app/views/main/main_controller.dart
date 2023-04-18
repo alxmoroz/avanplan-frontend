@@ -55,18 +55,21 @@ abstract class _MainControllerBase with Store {
   Task rootTask = Task(title: '', closed: false, parent: null, tasks: [], members: [], wsId: -1);
 
   @computed
-  Map<int, Task> get _tasksMap => {for (var t in wsTasks(selectedWSId)) t.id!: t};
+  Map<int, Map<int, Task>> get _tasksMap => {
+        for (var ws in myWorkspaces) ws.id!: {for (var t in wsTasks(ws.id!)) t.id!: t}
+      };
 
   Iterable<Task> wsProjects(int wsId) => rootTask.tasks.where((t) => t.wsId == wsId);
-  Iterable<Task> wsTasks(int? wsId) => rootTask.allTasks.where((t) => t.wsId == wsId);
+  Iterable<Task> wsTasks(int wsId) => rootTask.allTasks.where((t) => t.wsId == wsId);
 
   @computed
   bool get hasLinkedProjects => rootTask.tasks.where((p) => p.hasLink).isNotEmpty;
 
   /// конкретная задача
-  Task taskForId(int? id) => _tasksMap[id] ?? rootTask;
+  Task taskForId(int wsId, int? id) => wsId > 0 ? _tasksMap[wsId]![id]! : rootTask;
 
-  Future showTask(int? taskId) async => await Navigator.of(rootKey.currentContext!).pushNamed(TaskView.routeName, arguments: taskId);
+  Future showTask(int wsId, int? taskId) async =>
+      await Navigator.of(rootKey.currentContext!).pushNamed(TaskView.routeName, arguments: TaskViewArgs(wsId, taskId));
 
   @observable
   DateTime? updatedDate;

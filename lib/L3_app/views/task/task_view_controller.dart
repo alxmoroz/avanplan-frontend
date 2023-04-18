@@ -27,16 +27,17 @@ part 'task_view_controller.g.dart';
 enum TaskTabKey { overview, subtasks, details, team }
 
 class TaskViewController extends _TaskViewControllerBase with _$TaskViewController {
-  TaskViewController(int? _taskID) {
-    taskID = _taskID;
+  TaskViewController(int _wsId, int? _taskId) {
+    wsId = _wsId;
+    taskId = _taskId;
   }
 }
 
 abstract class _TaskViewControllerBase with Store {
-  int? taskID;
+  late int wsId;
+  int? taskId;
 
-  // TODO: нужно добавить фильтр по РП - добавить айдишник РП
-  Task get task => mainController.taskForId(taskID);
+  Task get task => mainController.taskForId(wsId, taskId);
   Workspace get ws => mainController.selectedWS!;
 
   /// вкладки
@@ -198,7 +199,7 @@ abstract class _TaskViewControllerBase with Store {
         _updateTaskParents(newTask);
         if (newTaskResult.proceed == true) {
           if (task.isProject || task.isWorkspace) {
-            await mainController.showTask(newTask.id);
+            await mainController.showTask(wsId, newTask.id);
           } else {
             await addSubtask();
           }

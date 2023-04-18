@@ -16,10 +16,11 @@ import '../../../extra/services.dart';
 import '../../../presenters/person_presenter.dart';
 import '../../../presenters/source_presenter.dart';
 import '../../../presenters/task_colors_presenter.dart';
+import '../../../presenters/task_level_presenter.dart';
 import '../task_view_controller.dart';
 
 class TaskHeader extends StatelessWidget {
-  const TaskHeader({required this.controller});
+  const TaskHeader(this.controller);
   @protected
   final TaskViewController controller;
 
@@ -34,7 +35,7 @@ class TaskHeader extends StatelessWidget {
         if (task.parent != null) {
           res.addAll(parentsTitles(task.parent!));
         }
-        res.add(task.title);
+        res.add(task.name);
       }
       return res;
     }
@@ -58,7 +59,7 @@ class TaskHeader extends StatelessWidget {
           SmallText(_breadcrumbs),
           const MTDivider(),
         ],
-        H2(_task.title, decoration: _task.closed ? TextDecoration.lineThrough : null),
+        H2(_task.name, decoration: _task.closed ? TextDecoration.lineThrough : null),
         if (_hasStatus || _hasAssignee) ...[
           const SizedBox(height: P),
           Row(

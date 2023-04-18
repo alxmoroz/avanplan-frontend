@@ -14,6 +14,7 @@ import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/person_presenter.dart';
 import '../../../presenters/state_presenter.dart';
+import '../../../presenters/task_level_presenter.dart';
 import 'state_title.dart';
 
 class TaskCard extends StatelessWidget {
@@ -27,7 +28,7 @@ class TaskCard extends StatelessWidget {
   bool get _hasAssignee => task.assignee != null;
 
   Widget get _title => H4(
-        task.title,
+        task.name,
         maxLines: 2,
         decoration: task.closed ? TextDecoration.lineThrough : null,
       );
@@ -46,7 +47,7 @@ class TaskCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MTCardButton(
         elevation: cardElevation,
-        onTap: () => mainController.showTask(task.id),
+        onTap: () => mainController.showTask(task.wsId, task.id),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,

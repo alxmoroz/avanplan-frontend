@@ -31,7 +31,7 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> with WidgetsBindingObserver {
-  TaskViewController get _taskController => TaskViewController(null);
+  TaskViewController get _taskController => TaskViewController(-1, null);
   Task get _task => _taskController.task;
 
   void _startupActions() => WidgetsBinding.instance.addPostFrameCallback((_) async => await mainController.startupActions());
@@ -58,7 +58,8 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
   }
 
   Future _gotoSettings(BuildContext context) async => await Navigator.of(context).pushNamed(SettingsView.routeName);
-  Future _gotoProjects(BuildContext context) async => await Navigator.of(context).pushNamed(TaskView.routeName);
+  Future _gotoProjects(BuildContext context) async =>
+      await Navigator.of(context).pushNamed(TaskView.routeName, arguments: TaskViewArgs(_task.wsId, _task.id));
   Future _gotoMessages(BuildContext context) async => await Navigator.of(context).pushNamed(NotificationListView.routeName);
 
   Widget? _bottomBar(BuildContext context) => _task.hasSubtasks

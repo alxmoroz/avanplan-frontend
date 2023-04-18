@@ -28,8 +28,6 @@ class TaskListView extends StatelessWidget {
         ])
       : null;
 
-  Widget _taskItem(int? taskId) => TaskCard(mainController.taskForId(taskId));
-
   Widget _groupedItemBuilder(BuildContext context, int index) {
     final group = task.subtaskGroups[index];
     return Column(children: [
@@ -38,7 +36,7 @@ class TaskListView extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P),
           child: GroupStateTitle(task, group.key, place: StateTitlePlace.groupHeader),
         ),
-      for (final t in group.value) _taskItem(t.id),
+      for (final t in group.value) TaskCard(mainController.taskForId(t.wsId, t.id)),
     ]);
   }
 

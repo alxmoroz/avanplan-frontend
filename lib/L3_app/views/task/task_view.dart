@@ -18,9 +18,15 @@ import 'task_view_controller.dart';
 import 'widgets/task_header.dart';
 import 'widgets/task_navbar.dart';
 
-class TaskView extends StatefulWidget {
-  const TaskView(this.taskId);
+class TaskViewArgs {
+  TaskViewArgs(this.wsId, this.taskId);
+  final int wsId;
   final int? taskId;
+}
+
+class TaskView extends StatefulWidget {
+  const TaskView(this.args);
+  final TaskViewArgs args;
 
   static String get routeName => 'task';
 
@@ -29,6 +35,9 @@ class TaskView extends StatefulWidget {
 }
 
 class _TaskViewState extends State<TaskView> {
+  int get wsId => widget.args.wsId;
+  int? get taskId => widget.args.taskId;
+
   Task get task => controller.task;
 
   late TaskViewController controller;
@@ -40,7 +49,7 @@ class _TaskViewState extends State<TaskView> {
 
   @override
   void initState() {
-    controller = TaskViewController(widget.taskId);
+    controller = TaskViewController(wsId, taskId);
 
     _overviewPane = TaskOverview(controller);
     _tasksPane = TaskListView(controller);
@@ -109,7 +118,7 @@ class _TaskViewState extends State<TaskView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              if (!task.isWorkspace) TaskHeader(controller: controller) else const SizedBox(height: P_2),
+              if (!task.isWorkspace) TaskHeader(controller) else const SizedBox(height: P_2),
               if (controller.tabKeys.length > 1) ...[
                 const SizedBox(height: P_2),
                 _tabPaneSelector(),

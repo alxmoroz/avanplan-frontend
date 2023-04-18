@@ -16,6 +16,7 @@ import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';
 import '../../presenters/tariff_presenter.dart';
+import '../../usecases/ws_ext_actions.dart';
 import '../../usecases/ws_ext_sources.dart';
 import '../contract/contract_view.dart';
 import '../source/source_list_view.dart';
@@ -99,11 +100,13 @@ class WorkspaceView extends StatelessWidget {
     return MTPage(
       navBar: navBar(context,
           title: loc.workspace_title,
-          trailing: const MTButton.icon(
-            EditIcon(),
-            editWSDialog,
-            margin: EdgeInsets.only(right: P),
-          )),
+          trailing: ws.hpWSInfoUpdate
+              ? const MTButton.icon(
+                  EditIcon(),
+                  editWSDialog,
+                  margin: EdgeInsets.only(right: P),
+                )
+              : null),
       body: SafeArea(
         top: false,
         bottom: false,

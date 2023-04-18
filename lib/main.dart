@@ -110,7 +110,7 @@ class App extends StatelessWidget {
             },
             onGenerateRoute: (RouteSettings rs) {
               if (rs.name == TaskView.routeName) {
-                return CupertinoPageRoute<dynamic>(builder: (_) => TaskView(rs.arguments as int?));
+                return CupertinoPageRoute<dynamic>(builder: (_) => TaskView(rs.arguments as TaskViewArgs));
               } else if (rs.name == MemberView.routeName) {
                 return CupertinoPageRoute<dynamic>(builder: (_) => MemberView(rs.arguments as MemberViewArgs));
               } else if (rs.name == UserView.routeName) {

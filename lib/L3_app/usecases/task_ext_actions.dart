@@ -29,8 +29,10 @@ enum TaskActionType {
 
 extension TaskActionsExt on Task {
   User? get _authUser => accountController.user;
+
+  // TODO: работает ТОЛЬКО для одного РП! Если РП больше, то добавление приведёт к неожиданным результатам
+  // TODO: Workspace? get _ws => mainController.wsForId(wsId);
   Workspace? get _ws => mainController.selectedWS;
-  // Workspace? get _ws => mainController.wsForId(wsId);
 
   bool get hpWSProjectCreate => mainController.myWorkspaces.any((ws) => ws.hpProjectCreate);
 

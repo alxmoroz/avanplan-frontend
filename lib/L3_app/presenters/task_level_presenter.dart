@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../L1_domain/entities/task.dart';
+import '../../L1_domain/entities_extensions/task_level.dart';
 import '../components/text_widgets.dart';
 import '../extra/services.dart';
 
@@ -75,4 +76,6 @@ extension TaskLevelPresenter on Task {
           LightText('$this'),
         ],
       );
+
+  String get name => '${isProject && mainController.myWorkspaces.length > 1 ? '${mainController.wsForId(wsId)?.code}: ' : ''}$title';
 }

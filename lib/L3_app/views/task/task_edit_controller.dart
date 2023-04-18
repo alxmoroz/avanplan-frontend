@@ -90,7 +90,7 @@ abstract class _TaskEditControllerBase extends EditController with Store {
           assigneeId: selectedAssignee?.id,
           authorId: task?.authorId,
           members: task?.members ?? [],
-          wsId: mainController.selectedWS!.id!,
+          wsId: task?.wsId ?? mainController.selectedWSId!,
         ),
       );
 

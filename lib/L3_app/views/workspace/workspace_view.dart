@@ -64,19 +64,21 @@ class WorkspaceView extends StatelessWidget {
           const SizedBox(height: P_2),
           MTCurrency(balance, _balanceColor),
           const SizedBox(height: P_2),
-          const SizedBox(height: P),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _payButton(300),
-              const SizedBox(width: P_2),
-              _payButton(500),
-              const SizedBox(width: P_2),
-              _payButton(1000),
-              const SizedBox(width: P_2),
-              _payButton(2000),
-            ],
-          ),
+          if (ws.hpTariffUpdate) ...[
+            const SizedBox(height: P),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _payButton(300),
+                const SizedBox(width: P_2),
+                _payButton(500),
+                const SizedBox(width: P_2),
+                _payButton(1000),
+                const SizedBox(width: P_2),
+                _payButton(2000),
+              ],
+            ),
+          ],
         ],
       );
 

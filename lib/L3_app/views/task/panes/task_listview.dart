@@ -21,8 +21,12 @@ class TaskListView extends StatelessWidget {
 
   Task get task => controller.task;
 
-  Widget? get bottomBar =>
-      task.canCreate ? Row(children: [const Spacer(), task.isWorkspace ? TaskAddMenu(controller) : TaskAddButton(controller, compact: true)]) : null;
+  Widget? get bottomBar => task.canCreate
+      ? Row(children: [
+          const Spacer(),
+          task.isWorkspace ? TaskAddMenu(controller) : TaskAddButton(controller, compact: true),
+        ])
+      : null;
 
   Widget _taskItem(int? taskId) => TaskCard(mainController.taskForId(taskId));
 

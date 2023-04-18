@@ -75,8 +75,8 @@ class ImportView extends StatelessWidget {
               Expanded(child: _sourceDropdown(context)),
               SourceAddMenu(
                 onSelected: (st) => controller.needAddSourceEvent(context, st),
-                margin: const EdgeInsets.only(right: P),
-              )
+              ),
+              const SizedBox(width: P),
             ],
           ),
           if (controller.selectedSource != null) ...[
@@ -151,8 +151,8 @@ class ImportView extends StatelessWidget {
       : ws.sources.isEmpty
           ? SourceAddMenu(
               onSelected: (st) => controller.needAddSourceEvent(context, st),
-              margin: const EdgeInsets.symmetric(horizontal: P),
-              title: loc.source_title_new)
+              title: loc.source_title_new,
+            )
           : null;
 
   @override

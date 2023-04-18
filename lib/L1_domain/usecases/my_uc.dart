@@ -12,6 +12,7 @@ class MyUC {
   final AbstractMyRepo repo;
 
   Future<Iterable<Workspace>> getWorkspaces() async => await repo.getMyWorkspaces();
+  Future<Workspace?> updateWorkspace(WorkspaceUpsert ws) async => await repo.updateWorkspace(ws);
   Future<Iterable<MTNotification>> getNotifications() async => await repo.getMyNotifications();
   Future markReadNotifications(Iterable<int> notificationsIds) async => await repo.markReadNotifications(notificationsIds);
   Future<User?> getMyAccount() async => await repo.getMyAccount();

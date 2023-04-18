@@ -53,11 +53,9 @@ class SourceListView extends StatelessWidget {
         bottomBar: mainController.rootTask.canImport
             ? Row(children: [
                 Expanded(
-                  child: ws.sources.isEmpty
-                      ? SourceAddMenu(title: loc.source_title_new, margin: const EdgeInsets.symmetric(horizontal: P))
-                      : const SizedBox(),
+                  child: ws.sources.isEmpty ? SourceAddMenu(title: loc.source_title_new) : const SizedBox(),
                 ),
-                if (ws.sources.isNotEmpty) const SourceAddMenu(margin: EdgeInsets.symmetric(horizontal: P)),
+                if (ws.sources.isNotEmpty) const SourceAddMenu(),
               ])
             : null,
       ),

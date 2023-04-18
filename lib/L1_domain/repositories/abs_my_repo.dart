@@ -8,7 +8,7 @@ abstract class AbstractMyRepo {
   Future<User?> getMyAccount();
   Future deleteMyAccount();
   Future<Iterable<Workspace>> getMyWorkspaces();
-  Future<Workspace?> updateWorkspace(Workspace ws);
+  Future<Workspace?> updateWorkspace(WorkspaceUpsert ws);
   Future<Iterable<MTNotification>> getMyNotifications();
   Future markReadNotifications(Iterable<int> notificationsIds);
   Future updatePushToken(String token, bool hasPermission);

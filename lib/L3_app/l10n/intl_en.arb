@@ -39,7 +39,6 @@
 
   "chart_details_action_title": "Details",
   "chart_details_title": "Project Metrics",
-
   "chart_delta_ahead_label": "Ahead",
   "chart_delta_lag_label": "Lag",
 
@@ -63,6 +62,8 @@
   "close_dialog_recursive_description": "All subtasks will be marked completed",
   "close_dialog_recursive_title": "Close with subtasks?",
   "close_w_subtasks": "Close with subtasks",
+
+  "code": "Code",
 
   "contact_us_title": "Contact us",
   "contact_us_mail_subject": "Avanplan - feedback",

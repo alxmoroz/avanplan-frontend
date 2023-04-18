@@ -32,10 +32,11 @@ class MyRepo extends AbstractMyRepo {
   }
 
   @override
-  Future<Workspace?> updateWorkspace(Workspace ws) async {
+  Future<Workspace?> updateWorkspace(WorkspaceUpsert ws) async {
     final response = await api.updateWorkspaceV1MyWorkspacePost(
         wsId: ws.id!,
         workspaceUpsert: (o_api.WorkspaceUpsertBuilder()
+              ..id = ws.id
               ..code = ws.code
               ..title = ws.title
               ..description = ws.description)

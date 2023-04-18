@@ -20,6 +20,7 @@ import '../../usecases/ws_ext_sources.dart';
 import '../contract/contract_view.dart';
 import '../source/source_list_view.dart';
 import '../user/user_list_view.dart';
+import 'workspace_edit_view.dart';
 
 class WorkspaceView extends StatelessWidget {
   static String get routeName => '/workspace';
@@ -96,7 +97,13 @@ class WorkspaceView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTPage(
-      navBar: navBar(context, title: loc.workspace_title),
+      navBar: navBar(context,
+          title: loc.workspace_title,
+          trailing: const MTButton.icon(
+            EditIcon(),
+            editWSDialog,
+            margin: EdgeInsets.only(right: P),
+          )),
       body: SafeArea(
         top: false,
         bottom: false,

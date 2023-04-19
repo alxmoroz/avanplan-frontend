@@ -5,7 +5,6 @@ import 'package:get_it/get_it.dart';
 import 'package:openapi/openapi.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-import '../../L1_domain/usecases/app_settings_uc.dart';
 import '../../L1_domain/usecases/auth_uc.dart';
 import '../../L1_domain/usecases/contract_uc.dart';
 import '../../L1_domain/usecases/import_uc.dart';
@@ -13,11 +12,11 @@ import '../../L1_domain/usecases/invitation_uc.dart';
 import '../../L1_domain/usecases/local_settings_uc.dart';
 import '../../L1_domain/usecases/my_uc.dart';
 import '../../L1_domain/usecases/payment_uc.dart';
+import '../../L1_domain/usecases/service_settings_uc.dart';
 import '../../L1_domain/usecases/source_uc.dart';
 import '../../L1_domain/usecases/tariff_uc.dart';
 import '../../L1_domain/usecases/task_member_role_uc.dart';
 import '../../L1_domain/usecases/task_uc.dart';
-import '../../L2_data/repositories/app_settings_repo.dart';
 import '../../L2_data/repositories/auth_apple_repo.dart';
 import '../../L2_data/repositories/auth_avanplan_repo.dart';
 import '../../L2_data/repositories/auth_google_repo.dart';
@@ -27,6 +26,7 @@ import '../../L2_data/repositories/import_repo.dart';
 import '../../L2_data/repositories/invitation_repo.dart';
 import '../../L2_data/repositories/my_repo.dart';
 import '../../L2_data/repositories/payment_repo.dart';
+import '../../L2_data/repositories/service_settings_repo.dart';
 import '../../L2_data/repositories/source_repo.dart';
 import '../../L2_data/repositories/tariff_repo.dart';
 import '../../L2_data/repositories/task_member_role_repo.dart';
@@ -40,7 +40,8 @@ import '../views/loader/loader_controller.dart';
 import '../views/main/main_controller.dart';
 import '../views/notification/notification_controller.dart';
 import '../views/references/references_controller.dart';
-import '../views/settings/settings_controller.dart';
+import '../views/settings/local_settings_controller.dart';
+import '../views/settings/service_settings_controller.dart';
 import 'deep_link/deep_link_controller.dart';
 import 'payment/payment_controller.dart';
 
@@ -48,7 +49,8 @@ S get loc => S.current;
 
 GetIt getIt = GetIt.instance;
 
-SettingsController get settingsController => GetIt.I<SettingsController>();
+LocalSettingsController get localSettingsController => GetIt.I<LocalSettingsController>();
+ServiceSettingsController get serviceSettingsController => GetIt.I<ServiceSettingsController>();
 MainController get mainController => GetIt.I<MainController>();
 LoaderController get loaderController => GetIt.I<LoaderController>();
 ReferencesController get refsController => GetIt.I<ReferencesController>();
@@ -59,7 +61,7 @@ DeepLinkController get deepLinkController => GetIt.I<DeepLinkController>();
 PaymentController get paymentController => GetIt.I<PaymentController>();
 
 LocalSettingsUC get localSettingsUC => GetIt.I<LocalSettingsUC>();
-AppSettingsUC get appSettingsUC => GetIt.I<AppSettingsUC>();
+ServiceSettingsUC get serviceSettingsUC => GetIt.I<ServiceSettingsUC>();
 AuthUC get authUC => GetIt.I<AuthUC>();
 MyUC get myUC => GetIt.I<MyUC>();
 TaskUC get taskUC => GetIt.I<TaskUC>();
@@ -79,10 +81,10 @@ void setup() {
   // repo / adapters
   getIt.registerSingletonAsync<HiveStorage>(() async => await HiveStorage().init());
 
-  getIt.registerSingletonAsync<SettingsController>(() async => SettingsController().init(), dependsOn: [HiveStorage, PackageInfo]);
+  getIt.registerSingletonAsync<LocalSettingsController>(() async => LocalSettingsController().init(), dependsOn: [HiveStorage, PackageInfo]);
 
   // Openapi
-  getIt.registerSingletonAsync<Openapi>(() async => await setupApi([loaderController.interceptor]), dependsOn: [SettingsController]);
+  getIt.registerSingletonAsync<Openapi>(() async => await setupApi([loaderController.interceptor]), dependsOn: [LocalSettingsController]);
 
   // use cases
   getIt.registerSingletonAsync<AuthUC>(
@@ -94,21 +96,21 @@ void setup() {
           ).init(),
       dependsOn: [Openapi]);
 
+  getIt.registerSingleton<LocalSettingsUC>(LocalSettingsUC(LocalSettingsRepo()));
   getIt.registerSingletonAsync<MyUC>(() async => await MyUC(MyRepo()).init(), dependsOn: [Openapi]);
   getIt.registerSingletonAsync<TaskUC>(() async => await TaskUC(TaskRepo()).init(), dependsOn: [Openapi]);
   getIt.registerSingletonAsync<SourceUC>(() async => await SourceUC(SourceRepo()).init(), dependsOn: [Openapi]);
   getIt.registerSingletonAsync<ImportUC>(() async => await ImportUC(ImportRepo()).init(), dependsOn: [Openapi]);
-  getIt.registerSingletonAsync<AppSettingsUC>(() async => await AppSettingsUC(AppSettingsRepo()).init(), dependsOn: [Openapi]);
+  getIt.registerSingletonAsync<ServiceSettingsUC>(() async => await ServiceSettingsUC(ServiceSettingsRepo()).init(), dependsOn: [Openapi]);
   getIt.registerSingletonAsync<InvitationUC>(() async => await InvitationUC(InvitationRepo()).init(), dependsOn: [Openapi]);
   getIt.registerSingletonAsync<TaskMemberRoleUC>(() async => await TaskMemberRoleUC(TaskMemberRoleRepo()).init(), dependsOn: [Openapi]);
   getIt.registerSingletonAsync<PaymentUC>(() async => await PaymentUC(PaymentRepo()).init(), dependsOn: [Openapi]);
   getIt.registerSingletonAsync<TariffUC>(() async => await TariffUC(TariffRepo()).init(), dependsOn: [Openapi]);
   getIt.registerSingletonAsync<ContractUC>(() async => await ContractUC(ContractRepo()).init(), dependsOn: [Openapi]);
 
-  getIt.registerSingleton<LocalSettingsUC>(LocalSettingsUC(LocalSettingsRepo()));
-
   // global state controllers
-  getIt.registerSingletonAsync<AuthController>(() async => AuthController().init(), dependsOn: [HiveStorage, AuthUC]);
+  getIt.registerSingletonAsync<ServiceSettingsController>(() async => ServiceSettingsController().init(), dependsOn: [ServiceSettingsUC]);
+  getIt.registerSingletonAsync<AuthController>(() async => AuthController().init(), dependsOn: [AuthUC]);
   getIt.registerSingleton<ReferencesController>(ReferencesController());
   getIt.registerSingleton<MainController>(MainController());
   getIt.registerSingleton<LoaderController>(LoaderController());

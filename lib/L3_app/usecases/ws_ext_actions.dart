@@ -16,7 +16,7 @@ extension WSActionsExt on Workspace {
   bool get hpProjectContentUpdate => me?.hp('PROJECT_CONTENT_UPDATE') == true;
   bool get hpWSInfoRead => me?.hp('WORKSPACE_INFO_READ') == true;
   bool get hpWSInfoUpdate => me?.hp('WORKSPACE_INFO_UPDATE') == true;
-  bool get hpTariffUpdate => me?.hp('TARIFF_UPDATE') == true && settingsController.passAppleCheat;
+  bool get hpTariffUpdate => me?.hp('TARIFF_UPDATE') == true && serviceSettingsController.passAppleCheat;
 
   bool _pl(String code, int value) => invoice.tariff.passLimit(code, value);
 

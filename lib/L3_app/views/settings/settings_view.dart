@@ -49,7 +49,7 @@ class SettingsView extends StatelessWidget {
         ],
       );
 
-  bool get _canShowWS => mainController.myWorkspaces.isNotEmpty && settingsController.passAppleCheat;
+  bool get _canShowWS => mainController.myWorkspaces.isNotEmpty && serviceSettingsController.passAppleCheat;
 
   @override
   Widget build(BuildContext context) => Observer(

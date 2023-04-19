@@ -1,36 +1,25 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/entities/app_settings.dart';
 import '../../../L1_domain/entities/local_settings.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../extra/services.dart';
 
-part 'settings_controller.g.dart';
+part 'local_settings_controller.g.dart';
 
-class SettingsController extends _SettingsControllerBase with _$SettingsController {
-  Future<SettingsController> init() async {
+class LocalSettingsController extends _LocalSettingsControllerBase with _$LocalSettingsController {
+  Future<LocalSettingsController> init() async {
     await dotenv.load(fileName: 'assets/.env');
     settings = await localSettingsUC.settingsFromLaunch(packageInfo.version);
     return this;
   }
 }
 
-abstract class _SettingsControllerBase with Store {
+abstract class _LocalSettingsControllerBase with Store {
   @observable
   LocalSettings settings = LocalSettings(flags: {});
-
-  @observable
-  AppSettings? appSettings;
-
-  @computed
-  String get frontendFlags => appSettings?.frontendFlags ?? '';
-
-  @action
-  Future fetchAppsettings() async => appSettings = await appSettingsUC.getSettings();
 
   @action
   Future setExplainUpdateDetailsShown() async => settings = await localSettingsUC.setFlag(LocalSettings.EXPLAIN_UPDATE_DETAILS_SHOWN, true);
@@ -41,8 +30,4 @@ abstract class _SettingsControllerBase with Store {
   Future setWelcomeGiftInfoShown() async => settings = await localSettingsUC.setFlag(LocalSettings.WELCOME_GIFT_INFO_SHOWN, true);
   @computed
   bool get welcomeGiftInfoShown => settings.getFlag(LocalSettings.WELCOME_GIFT_INFO_SHOWN);
-
-  @computed
-  bool get passAppleCheat => !isIOS || !frontendFlags.contains('ios_hide_ws') || !kReleaseMode;
-  // bool get passAppleCheat => !isIOS || !frontendFlags.contains('ios_hide_ws');
 }

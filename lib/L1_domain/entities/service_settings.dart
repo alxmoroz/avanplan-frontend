@@ -2,8 +2,8 @@
 
 import '../entities/base_entity.dart';
 
-class AppSettings extends RPersistable {
-  AppSettings({
+class ServiceSettings extends RPersistable {
+  ServiceSettings({
     required super.id,
     required this.frontendFlags,
   });

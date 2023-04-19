@@ -116,7 +116,6 @@ abstract class _MainControllerBase with Store {
     loaderController.start();
     loaderController.setRefreshing();
 
-    await settingsController.fetchAppsettings();
     await accountController.fetchData();
     await refsController.fetchData();
     await notificationController.fetchData();
@@ -129,7 +128,7 @@ abstract class _MainControllerBase with Store {
   }
 
   Future _explainUpdateDetails() async {
-    if (hasLinkedProjects && !settingsController.explainUpdateDetailsShown) {
+    if (hasLinkedProjects && !localSettingsController.explainUpdateDetailsShown) {
       await showMTDialog(
         rootKey.currentContext!,
         title: loc.explain_update_details_dialog_title,
@@ -137,14 +136,14 @@ abstract class _MainControllerBase with Store {
         actions: [MTDialogAction(title: loc.ok, type: MTActionType.isDefault, result: true)],
         simple: true,
       );
-      await settingsController.setExplainUpdateDetailsShown();
+      await localSettingsController.setExplainUpdateDetailsShown();
     }
   }
 
   Future _showWelcomeGiftInfo() async {
     if (selectedWS!.hpTariffUpdate) {
       final wga = selectedWS!.welcomeGiftAmount;
-      if (wga > 0 && !settingsController.welcomeGiftInfoShown) {
+      if (wga > 0 && !localSettingsController.welcomeGiftInfoShown) {
         final wantChangeTariff = await showMTDialog(
           rootKey.currentContext!,
           title: loc.onboarding_welcome_gift_dialog_title,
@@ -154,7 +153,7 @@ abstract class _MainControllerBase with Store {
             MTDialogAction(title: loc.later, result: false),
           ],
         );
-        await settingsController.setWelcomeGiftInfoShown();
+        await localSettingsController.setWelcomeGiftInfoShown();
 
         if (wantChangeTariff == true) {
           await changeTariff(selectedWS!);
@@ -205,6 +204,7 @@ abstract class _MainControllerBase with Store {
   Future startupActions() async {
     if (!_startupActionsInProgress) {
       _startupActionsInProgress = true;
+      await serviceSettingsController.fetchSettings();
       await authController.updateAuth();
       if (authController.authorized) {
         await _authorizedStartupActions();

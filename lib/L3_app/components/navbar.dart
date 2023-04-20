@@ -17,6 +17,7 @@ CupertinoNavigationBar navBar(
   String? title,
   Widget? trailing,
   Color? bgColor,
+  Border? border,
 }) {
   Widget backButton() => CupertinoNavigationBarBackButton(onPressed: () => Navigator.of(context).canPop() ? Navigator.of(context).pop() : null);
 
@@ -30,5 +31,6 @@ CupertinoNavigationBar navBar(
     trailing: trailing != null ? mQuery(trailing, context) : null,
     padding: const EdgeInsetsDirectional.only(start: 0),
     backgroundColor: bgColor ?? navbarDefaultBgColor,
+    border: border,
   );
 }

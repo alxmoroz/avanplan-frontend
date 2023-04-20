@@ -39,7 +39,7 @@ class _MemberViewState extends State<MemberView> {
   Task get task => controller.task;
   Member get member => controller.member ?? widget.args.member;
 
-  late MemberViewController controller;
+  late final MemberViewController controller;
 
   @override
   void initState() {

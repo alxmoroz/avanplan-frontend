@@ -13,13 +13,12 @@ import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
 import '../../components/mt_text_field.dart';
 import '../../components/navbar.dart';
-import '../../components/text_field_annotation.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/communications_presenter.dart';
 import 'registration_controller.dart';
 
-Future showRegistrationDialog() async {
+Future registrationDialog() async {
   return await showModalBottomSheet<void>(
     context: rootKey.currentContext!,
     backgroundColor: Colors.transparent,
@@ -34,23 +33,17 @@ class RegistrationForm extends StatefulWidget {
 }
 
 class _RegistrationFormState extends State<RegistrationForm> {
-  late RegistrationController _controller;
+  late final RegistrationController controller;
 
   @override
   void initState() {
-    _controller = RegistrationController();
-    _controller.initState(tfaList: [
-      TFAnnotation('name', label: loc.auth_name_placeholder),
-      TFAnnotation('email', label: loc.auth_email_placeholder),
-      TFAnnotation('password', label: loc.auth_password_placeholder),
-    ]);
-
+    controller = RegistrationController();
     super.initState();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -58,12 +51,12 @@ class _RegistrationFormState extends State<RegistrationForm> {
     final isPassword = code == 'password';
     final isEmail = code == 'email';
     return MTTextField(
-      controller: _controller.teControllers[code],
-      label: _controller.tfAnnoForCode(code).label,
-      error: _controller.tfAnnoForCode(code).errorText,
-      obscureText: isPassword && _controller.showPassword == false,
+      controller: controller.teControllers[code],
+      label: controller.tfAnnoForCode(code).label,
+      error: controller.tfAnnoForCode(code).errorText,
+      obscureText: isPassword && controller.showPassword == false,
       keyboardType: isEmail ? TextInputType.emailAddress : null,
-      suffixIcon: isPassword ? MTButton.icon(EyeIcon(open: !_controller.showPassword), _controller.toggleShowPassword) : null,
+      suffixIcon: isPassword ? MTButton.icon(EyeIcon(open: !controller.showPassword), controller.toggleShowPassword) : null,
       maxLines: 1,
       capitalization: TextCapitalization.none,
     );
@@ -82,14 +75,14 @@ class _RegistrationFormState extends State<RegistrationForm> {
               constraints: const BoxConstraints(maxWidth: SCR_S_WIDTH),
               child: LayoutBuilder(
                 builder: (_, size) => Observer(
-                  builder: (_) => _controller.requestCompleted
+                  builder: (_) => controller.requestCompleted
                       ? ListView(
                           shrinkWrap: true,
                           children: [
                             H3(loc.auth_register_completed_title, align: TextAlign.center),
                             const SizedBox(height: P2),
                             H4(
-                              loc.auth_register_completed_description(_controller.tfAnnoForCode('email').text),
+                              loc.auth_register_completed_description(controller.tfAnnoForCode('email').text),
                               maxLines: 7,
                               align: TextAlign.center,
                             ),
@@ -118,7 +111,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                             MTButton.outlined(
                               margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
                               titleText: loc.auth_register_action_title,
-                              onTap: _controller.validated ? () => _controller.createRequest(context) : null,
+                              onTap: controller.validated ? () => controller.createRequest(context) : null,
                             ),
                             const SizedBox(height: P2),
                           ],

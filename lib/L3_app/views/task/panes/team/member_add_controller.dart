@@ -8,9 +8,7 @@ part 'member_add_controller.g.dart';
 
 enum MemberSourceKey { workspace, invitation }
 
-class MemberAddController extends _MemberAddControllerBase with _$MemberAddController {
-  // MemberAddController() {}
-}
+class MemberAddController extends _MemberAddControllerBase with _$MemberAddController {}
 
 abstract class _MemberAddControllerBase extends EditController with Store {
   final tabKeys = [

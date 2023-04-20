@@ -40,7 +40,7 @@ class _TaskViewState extends State<TaskView> {
 
   Task get task => controller.task;
 
-  late TaskViewController controller;
+  late final TaskViewController controller;
 
   late final TaskOverview _overviewPane;
   late final TaskListView _tasksPane;

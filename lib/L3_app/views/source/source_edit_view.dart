@@ -56,7 +56,7 @@ class SourceEditView extends StatefulWidget {
 }
 
 class _SourceEditViewState extends State<SourceEditView> {
-  late SourceEditController controller;
+  late final SourceEditController controller;
 
   bool get isNew => controller.source == null;
   bool get canSave => controller.validated;

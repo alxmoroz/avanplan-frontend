@@ -6,9 +6,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../L1_domain/entities/estimate_value.dart';
 import '../../../L1_domain/entities/member.dart';
 import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/entities_extensions/task_level.dart';
-import '../../../L1_domain/entities_extensions/task_members.dart';
-import '../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
@@ -20,7 +17,6 @@ import '../../components/mt_dropdown.dart';
 import '../../components/mt_page.dart';
 import '../../components/mt_text_field.dart';
 import '../../components/navbar.dart';
-import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_level_presenter.dart';
 import 'task_edit_controller.dart';
@@ -36,7 +32,7 @@ Future<EditTaskResult?> editTaskDialog({required Task parent, Task? task}) async
     context: rootKey.currentContext!,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    builder: (_) => MTBottomSheet(TaskEditView(task: task, parent: parent)),
+    builder: (_) => MTBottomSheet(TaskEditView(parent: parent, task: task)),
   );
 }
 
@@ -51,43 +47,11 @@ class TaskEditView extends StatefulWidget {
 }
 
 class _TaskEditViewState extends State<TaskEditView> {
-  Task? get task => widget.task;
-  Task get parent => widget.parent;
-  bool get isNew => task == null;
-
-  late TaskEditController controller;
+  late final TaskEditController controller;
 
   @override
   void initState() {
-    controller = TaskEditController();
-    // TODO: это всё должно быть в инициализации контроллера!
-    // TODO: Сам контроллер инициализировать по образу TaskViewController — передавать айдишник задачи
-
-    controller.initState(tfaList: [
-      TFAnnotation('title', label: loc.title, text: task?.title ?? ''),
-      TFAnnotation('description', label: loc.description, text: task?.description ?? '', needValidate: false),
-      TFAnnotation('startDate', label: loc.task_start_date_placeholder, noText: true, needValidate: false),
-      TFAnnotation('dueDate', label: loc.task_due_date_placeholder, noText: true, needValidate: false),
-    ]);
-
-    controller.setStartDate(task?.startDate);
-    controller.setDueDate(task?.dueDate);
-    controller.selectEstimateByValue(task?.estimate);
-
-    if (!isNew) {
-      final imAlone = task?.activeMembers.length == 1 && task!.activeMembers[0].userId == accountController.user?.id;
-      if (!imAlone) {
-        controller.setAllowedAssignees([
-          Member(fullName: loc.task_assignee_nobody, id: null, email: '', isActive: false, roles: [], permissions: [], userId: null, taskId: -1),
-          ...task?.activeMembers ?? [],
-        ]);
-      }
-    }
-
-    controller.selectAssigneeById(task?.assigneeId);
-
-    // controller.selectStatus(task?.status);
-    // controller.selectType(task?.type);
+    controller = TaskEditController(widget.parent, widget.task);
     super.initState();
   }
 
@@ -106,7 +70,7 @@ class _TaskEditViewState extends State<TaskEditView> {
             controller: controller.teControllers[code],
             label: ta.label,
             error: ta.errorText,
-            onTap: isDate ? () => controller.selectDate(context, code) : null,
+            onTap: isDate ? () => controller.selectDate(code) : null,
             prefixIcon: isDate ? const CalendarIcon() : null,
             suffixIcon: isDate && ta.text.isNotEmpty
                 ? MTButton(
@@ -145,14 +109,14 @@ class _TaskEditViewState extends State<TaskEditView> {
             margin: tfPadding,
             label: loc.task_assignee_placeholder,
           ),
-        if (controller.estimateValues.isNotEmpty && !parent.isWorkspace && (isNew || task!.isLeaf))
+        if (controller.canEstimate)
           MTDropdown<EstimateValue>(
             onChanged: (est) => controller.selectEstimate(est),
             value: controller.selectedEstimate,
             items: controller.estimateValues.toList(),
             margin: tfPadding,
             label: loc.task_estimate_placeholder,
-            helper: controller.selectedEstimate == null && task?.estimate != null ? '${loc.task_estimate_placeholder}: ${task?.estimate}' : null,
+            helper: controller.estimateHelper,
           ),
         const SizedBox(height: P2),
         Row(
@@ -161,14 +125,14 @@ class _TaskEditViewState extends State<TaskEditView> {
             MTButton.outlined(
               constrained: false,
               titleText: loc.save_action_title,
-              onTap: controller.validated ? () => controller.save(context, task: task, parent: parent) : null,
+              onTap: controller.validated ? controller.save : null,
               padding: const EdgeInsets.symmetric(horizontal: P2),
             ),
-            if (isNew)
+            if (controller.isNew)
               MTButton.outlined(
                 constrained: false,
-                titleText: (parent.isProject || parent.isWorkspace) ? loc.save_and_go_action_title : loc.save_and_repeat_action_title,
-                onTap: controller.validated ? () => controller.save(context, task: task, parent: parent, proceed: true) : null,
+                titleText: controller.saveAndGoBtnTitle,
+                onTap: controller.validated ? () => controller.save(proceed: true) : null,
                 margin: const EdgeInsets.only(left: P),
                 padding: const EdgeInsets.symmetric(horizontal: P),
               ),
@@ -202,11 +166,11 @@ class _TaskEditViewState extends State<TaskEditView> {
         navBar: navBar(
           context,
           leading: MTCloseButton(),
-          title: isNew ? parent.newSubtaskTitle : '',
-          trailing: !isNew
+          title: controller.isNew ? controller.parent.newSubtaskTitle : '',
+          trailing: !controller.isNew
               ? MTButton.icon(
                   const DeleteIcon(),
-                  () => controller.delete(context, task!),
+                  controller.delete,
                   margin: const EdgeInsets.only(right: P),
                 )
               : null,

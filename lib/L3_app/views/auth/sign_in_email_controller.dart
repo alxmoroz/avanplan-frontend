@@ -1,20 +1,47 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../components/icons.dart';
+import '../../components/mt_button.dart';
+import '../../components/mt_text_field.dart';
+import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
 
 part 'sign_in_email_controller.g.dart';
 
-class SignInEmailController extends _SignInEmailControllerBase with _$SignInEmailController {}
+class SignInEmailController extends _SignInEmailControllerBase with _$SignInEmailController {
+  SignInEmailController() {
+    initState(tfaList: [
+      TFAnnotation('email', label: loc.auth_email_placeholder),
+      TFAnnotation('password', label: loc.auth_password_placeholder),
+    ]);
+  }
+}
 
 abstract class _SignInEmailControllerBase extends EditController with Store {
+  Widget tf(String code) {
+    final isPassword = code == 'password';
+    final isEmail = code == 'email';
+    return MTTextField(
+      controller: teControllers[code],
+      label: tfAnnoForCode(code).label,
+      error: tfAnnoForCode(code).errorText,
+      keyboardType: isEmail ? TextInputType.emailAddress : null,
+      obscureText: isPassword && _showPassword == false,
+      suffixIcon: isPassword ? MTButton.icon(EyeIcon(open: !_showPassword), _toggleShowPassword) : null,
+      maxLines: 1,
+      capitalization: TextCapitalization.none,
+    );
+  }
+
   @observable
-  bool showPassword = false;
+  bool _showPassword = false;
 
   @action
-  void toggleShowPassword() => showPassword = !showPassword;
+  void _toggleShowPassword() => _showPassword = !_showPassword;
 
   Future signIn() async => await authController.signInWithPassword(
         tfAnnoForCode('email').text,

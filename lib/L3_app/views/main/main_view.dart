@@ -16,9 +16,11 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/person_presenter.dart';
+import '../../presenters/task_level_presenter.dart';
 import '../notification/notification_list_view.dart';
 import '../settings/settings_view.dart';
 import '../task/panes/task_overview.dart';
+import '../task/project_add_dialog/project_add_dialog.dart';
 import '../task/task_view.dart';
 import '../task/task_view_controller.dart';
 import 'import_projects_actions.dart';
@@ -60,12 +62,10 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
       await Navigator.of(rootKey.currentContext!).pushNamed(TaskView.routeName, arguments: TaskViewArgs(_task.wsId, _task.id));
   Future _gotoMessages() async => await Navigator.of(rootKey.currentContext!).pushNamed(NotificationListView.routeName);
 
-  Widget? get _bottomBar => _task.hasSubtasks
-      ? MTButton.outlined(
-          titleText: loc.project_list_title,
-          onTap: _gotoProjects,
-        )
-      : null;
+  Widget? get _bottomBar => MTButton.outlined(
+        titleText: _task.hasSubtasks ? loc.project_list_title : mainController.rootTask.newSubtaskTitle,
+        onTap: _task.hasSubtasks ? _gotoProjects : addProjectDialog,
+      );
 
   @override
   Widget build(BuildContext context) {

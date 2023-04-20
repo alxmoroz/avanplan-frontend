@@ -6,13 +6,14 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_level.dart';
 import '../../../components/constants.dart';
+import '../../../components/mt_button.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_filter_presenter.dart';
 import '../../../usecases/task_ext_actions.dart';
+import '../project_add_dialog/project_add_dialog.dart';
 import '../task_view_controller.dart';
 import '../widgets/state_title.dart';
 import '../widgets/task_add_button.dart';
-import '../widgets/task_add_menu.dart';
 import '../widgets/task_card.dart';
 
 class TaskListView extends StatelessWidget {
@@ -24,7 +25,7 @@ class TaskListView extends StatelessWidget {
   Widget? get bottomBar => task.canCreate
       ? Row(children: [
           const Spacer(),
-          task.isWorkspace ? TaskAddMenu(controller) : TaskAddButton(controller, compact: true),
+          task.isWorkspace ? const MTPlusButton(addProjectDialog) : TaskAddButton(controller, compact: true),
         ])
       : null;
 

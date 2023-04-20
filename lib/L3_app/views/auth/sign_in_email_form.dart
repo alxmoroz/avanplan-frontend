@@ -10,9 +10,7 @@ import '../../components/icons.dart';
 import '../../components/mt_bottom_sheet.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
-import '../../components/mt_text_field.dart';
 import '../../components/navbar.dart';
-import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
 import 'sign_in_email_controller.dart';
 
@@ -31,38 +29,18 @@ class SignInEmailForm extends StatefulWidget {
 }
 
 class _SignInEmailFormState extends State<SignInEmailForm> {
-  late SignInEmailController _controller;
+  late final SignInEmailController controller;
 
   @override
   void initState() {
-    _controller = SignInEmailController();
-    _controller.initState(tfaList: [
-      TFAnnotation('email', label: loc.auth_email_placeholder),
-      TFAnnotation('password', label: loc.auth_password_placeholder),
-    ]);
-
+    controller = SignInEmailController();
     super.initState();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    controller.dispose();
     super.dispose();
-  }
-
-  Widget textFieldForCode(String code) {
-    final isPassword = code == 'password';
-    final isEmail = code == 'email';
-    return MTTextField(
-      controller: _controller.teControllers[code],
-      label: _controller.tfAnnoForCode(code).label,
-      error: _controller.tfAnnoForCode(code).errorText,
-      keyboardType: isEmail ? TextInputType.emailAddress : null,
-      obscureText: isPassword && _controller.showPassword == false,
-      suffixIcon: isPassword ? MTButton.icon(EyeIcon(open: !_controller.showPassword), _controller.toggleShowPassword) : null,
-      maxLines: 1,
-      capitalization: TextCapitalization.none,
-    );
   }
 
   @override
@@ -82,12 +60,12 @@ class _SignInEmailFormState extends State<SignInEmailForm> {
                     shrinkWrap: true,
                     children: [
                       appIcon(size: size.maxHeight / 4),
-                      textFieldForCode('email'),
-                      textFieldForCode('password'),
+                      controller.tf('email'),
+                      controller.tf('password'),
                       MTButton.outlined(
                         margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
                         titleText: loc.auth_sign_in_email_action_title,
-                        onTap: _controller.validated ? _controller.signIn : null,
+                        onTap: controller.validated ? controller.signIn : null,
                       ),
                       const SizedBox(height: P2),
                     ],

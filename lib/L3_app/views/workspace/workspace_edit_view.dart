@@ -33,7 +33,7 @@ class WSEditView extends StatefulWidget {
 }
 
 class _WSEditViewState extends State<WSEditView> {
-  late WorkspaceEditController controller;
+  late final WorkspaceEditController controller;
 
   bool get canSave => controller.validated;
 

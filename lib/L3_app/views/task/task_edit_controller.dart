@@ -7,7 +7,12 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/entities/estimate_value.dart';
 import '../../../L1_domain/entities/member.dart';
 import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities_extensions/task_level.dart';
+import '../../../L1_domain/entities_extensions/task_members.dart';
+import '../../../L1_domain/entities_extensions/task_stats.dart';
+import '../../../main.dart';
 import '../../components/mt_dialog.dart';
+import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';
 import '../../presenters/task_level_presenter.dart';
@@ -18,9 +23,44 @@ part 'task_edit_controller.g.dart';
 
 const _year = Duration(days: 365);
 
-class TaskEditController = _TaskEditControllerBase with _$TaskEditController;
+class TaskEditController extends _TaskEditControllerBase with _$TaskEditController {
+  TaskEditController(Task _parent, Task? _task) {
+    parent = _parent;
+    task = _task;
+    isNew = task == null;
+
+    initState(tfaList: [
+      TFAnnotation('title', label: loc.title, text: task?.title ?? ''),
+      TFAnnotation('description', label: loc.description, text: task?.description ?? '', needValidate: false),
+      TFAnnotation('startDate', label: loc.task_start_date_placeholder, noText: true, needValidate: false),
+      TFAnnotation('dueDate', label: loc.task_due_date_placeholder, noText: true, needValidate: false),
+    ]);
+
+    setStartDate(task?.startDate);
+    setDueDate(task?.dueDate);
+    selectEstimateByValue(task?.estimate);
+
+    if (!isNew) {
+      final imAlone = task?.activeMembers.length == 1 && task!.activeMembers[0].userId == accountController.user?.id;
+      if (!imAlone) {
+        setAllowedAssignees([
+          Member(fullName: loc.task_assignee_nobody, id: null, email: '', isActive: false, roles: [], permissions: [], userId: null, taskId: -1),
+          ...task?.activeMembers ?? [],
+        ]);
+      }
+    }
+
+    selectAssigneeById(task?.assigneeId);
+    // selectStatus(task?.status);
+    // selectType(task?.type);
+  }
+}
 
 abstract class _TaskEditControllerBase extends EditController with Store {
+  late final Task parent;
+  late final Task? task;
+  late final bool isNew;
+
   @observable
   DateTime? selectedDueDate;
 
@@ -39,7 +79,7 @@ abstract class _TaskEditControllerBase extends EditController with Store {
     teControllers['dueDate']?.text = _date != null ? _date.strLong : '';
   }
 
-  Future selectDate(BuildContext context, String code) async {
+  Future selectDate(String code) async {
     final isStart = code == 'startDate';
 
     final today = DateTime.now();
@@ -49,7 +89,7 @@ abstract class _TaskEditControllerBase extends EditController with Store {
     final firstDate = (isStart ? null : selectedStartDate) ?? (pastDate.isAfter(initialDate) ? initialDate : pastDate);
 
     final date = await showDatePicker(
-      context: context,
+      context: rootKey.currentContext!,
       initialEntryMode: DatePickerEntryMode.calendarOnly,
       initialDate: initialDate,
       firstDate: firstDate,
@@ -73,7 +113,10 @@ abstract class _TaskEditControllerBase extends EditController with Store {
   }
 
   /// действия
-  Future<Task?> _saveTask(Task? task, Task parent) async => await taskUC.save(
+
+  String get saveAndGoBtnTitle => (parent.isProject || parent.isWorkspace) ? loc.save_and_go_action_title : loc.save_and_repeat_action_title;
+
+  Future<Task?> _saveTask() async => await taskUC.save(
         Task(
           id: task?.id,
           parent: parent,
@@ -94,20 +137,20 @@ abstract class _TaskEditControllerBase extends EditController with Store {
         ),
       );
 
-  Future save(BuildContext context, {Task? task, required Task parent, bool proceed = false}) async {
+  Future save({bool proceed = false}) async {
     loaderController.start();
     loaderController.setSaving();
-    final editedTask = await _saveTask(task, parent);
+    final editedTask = await _saveTask();
     if (editedTask != null) {
-      Navigator.of(context).pop(EditTaskResult(editedTask, proceed));
+      Navigator.of(rootKey.currentContext!).pop(EditTaskResult(editedTask, proceed));
     }
     await loaderController.stop(300);
   }
 
-  Future delete(BuildContext context, Task task) async {
+  Future delete() async {
     final confirm = await showMTDialog(
-      context,
-      title: task.deleteDialogTitle,
+      rootKey.currentContext!,
+      title: task!.deleteDialogTitle,
       description: '${loc.task_delete_dialog_description}\n${loc.delete_dialog_description}',
       actions: [
         MTDialogAction(title: loc.yes, type: MTActionType.isDanger, result: true),
@@ -118,14 +161,13 @@ abstract class _TaskEditControllerBase extends EditController with Store {
     if (confirm == true) {
       loaderController.start();
       loaderController.setDeleting();
-      final deletedTask = await taskUC.delete(task);
-      Navigator.of(context).pop(EditTaskResult(deletedTask));
+      final deletedTask = await taskUC.delete(task!);
+      Navigator.of(rootKey.currentContext!).pop(EditTaskResult(deletedTask));
       await loaderController.stop(300);
     }
   }
 
   /// оценки задач
-  @computed
   List<EstimateValue> get estimateValues => mainController.selectedWS?.estimateValues.toList() ?? [];
 
   @observable
@@ -137,6 +179,11 @@ abstract class _TaskEditControllerBase extends EditController with Store {
 
   @computed
   EstimateValue? get selectedEstimate => estimateValues.firstWhereOrNull((e) => e.id == _selectedEstimateId);
+  @computed
+  String? get estimateHelper => selectedEstimate == null && task?.estimate != null ? '${loc.task_estimate_placeholder}: ${task?.estimate}' : null;
+
+  @computed
+  bool get canEstimate => estimateValues.isNotEmpty && !parent.isWorkspace && (isNew || task!.isLeaf);
 
   /// назначенный
   @observable

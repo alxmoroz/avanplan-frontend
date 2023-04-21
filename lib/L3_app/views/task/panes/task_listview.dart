@@ -10,7 +10,7 @@ import '../../../components/mt_button.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_filter_presenter.dart';
 import '../../../usecases/task_ext_actions.dart';
-import '../project_add_dialog/project_add_wizard.dart';
+import '../project_add_wizard/project_add_wizard.dart';
 import '../task_view_controller.dart';
 import '../widgets/state_title.dart';
 import '../widgets/task_add_button.dart';

@@ -21,7 +21,7 @@ import '../../presenters/task_level_presenter.dart';
 import '../notification/notification_list_view.dart';
 import '../settings/settings_view.dart';
 import '../task/panes/task_overview.dart';
-import '../task/project_add_dialog/project_add_wizard.dart';
+import '../task/project_add_wizard/project_add_wizard.dart';
 import '../task/task_view.dart';
 import '../task/task_view_controller.dart';
 

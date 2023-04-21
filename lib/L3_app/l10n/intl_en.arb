@@ -10,6 +10,8 @@
   "app_settings_action_title": "Open Settings",
   "app_title": "Avanplan",
 
+  "are_closed_suffix": "are closed",
+
   "auth_email_placeholder": "Email",
   "auth_name_placeholder": "Name",
   "auth_password_placeholder": "Password",
@@ -108,8 +110,6 @@
 
   "hours_count": "{count, plural, one{{count} hour} other{{count} hours}}",
 
-  "import_action_closed_projects_title": "All projects are closed.\n\nImport from source or create your own",
-  "import_action_no_projects_title": "Import projects from source or create your own",
   "import_action_title": "Import projects",
   "import_list_empty_title": "There are no projects available to import\nTry choosing a different source",
   "import_menu_action_title": "Import from",
@@ -173,6 +173,8 @@
   "project_new_title": "New project",
   "project_plural_genitive": "{count, plural, one{project} other{projects}}",
   "project_title": "Project",
+  "projects_add_hint_title": "Import projects from source or create your own",
+
 
   "recommendation_add_tasks_title": "Add",
   "recommendation_close_tasks_title": "Complete task in project",

@@ -24,7 +24,8 @@ part 'task_edit_controller.g.dart';
 const _year = Duration(days: 365);
 
 class TaskEditController extends _TaskEditControllerBase with _$TaskEditController {
-  TaskEditController(Task _parent, Task? _task) {
+  TaskEditController(int _wsId, Task _parent, Task? _task) {
+    wsId = _wsId;
     parent = _parent;
     task = _task;
     isNew = task == null;
@@ -57,6 +58,7 @@ class TaskEditController extends _TaskEditControllerBase with _$TaskEditControll
 }
 
 abstract class _TaskEditControllerBase extends EditController with Store {
+  late final int wsId;
   late final Task parent;
   late final Task? task;
   late final bool isNew;
@@ -114,7 +116,7 @@ abstract class _TaskEditControllerBase extends EditController with Store {
 
   /// действия
 
-  String get saveAndGoBtnTitle => (parent.isProject || parent.isWorkspace) ? loc.save_and_go_action_title : loc.save_and_repeat_action_title;
+  String get saveAndGoBtnTitle => (parent.isProject || parent.isRoot) ? loc.save_and_go_action_title : loc.save_and_repeat_action_title;
 
   Future<Task?> _saveTask() async => await taskUC.save(
         Task(
@@ -133,7 +135,7 @@ abstract class _TaskEditControllerBase extends EditController with Store {
           assigneeId: selectedAssignee?.id,
           authorId: task?.authorId,
           members: task?.members ?? [],
-          wsId: task?.wsId ?? mainController.selectedWSId!,
+          wsId: wsId,
         ),
       );
 
@@ -168,7 +170,7 @@ abstract class _TaskEditControllerBase extends EditController with Store {
   }
 
   /// оценки задач
-  List<EstimateValue> get estimateValues => mainController.selectedWS?.estimateValues.toList() ?? [];
+  List<EstimateValue> get estimateValues => mainController.wsForId(wsId).estimateValues.toList();
 
   @observable
   int? _selectedEstimateId;
@@ -183,7 +185,7 @@ abstract class _TaskEditControllerBase extends EditController with Store {
   String? get estimateHelper => selectedEstimate == null && task?.estimate != null ? '${loc.task_estimate_placeholder}: ${task?.estimate}' : null;
 
   @computed
-  bool get canEstimate => estimateValues.isNotEmpty && !parent.isWorkspace && (isNew || task!.isLeaf);
+  bool get canEstimate => estimateValues.isNotEmpty && !parent.isRoot && (isNew || task!.isLeaf);
 
   /// назначенный
   @observable

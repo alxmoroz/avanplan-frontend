@@ -31,7 +31,7 @@ class TaskOverview extends StatelessWidget {
 
   Task get task => controller.task;
 
-  Widget? get bottomBar => task.shouldAddSubtask
+  Widget? get bottomBar => !task.isRoot && task.shouldAddSubtask
       ? TaskAddButton(controller)
       : task.canReopen || task.shouldClose || task.shouldCloseLeaf
           ? Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
@@ -77,7 +77,7 @@ class TaskOverview extends StatelessWidget {
               padding: const EdgeInsets.all(P).copyWith(bottom: 0),
               child: Column(children: [
                 if (task.showState)
-                  task.isWorkspace
+                  task.isRoot
                       ? GroupStateTitle(task, task.subtasksState, place: StateTitlePlace.workspace)
                       : task.showRecommendsEta || task.projectLowStart
                           ? H3('${loc.state_no_info_title}: ${task.stateTitle.toLowerCase()}', align: TextAlign.center)
@@ -119,7 +119,7 @@ class TaskOverview extends StatelessWidget {
           /// требующие внимания задачи
           if (task.attentionalTasks.isNotEmpty) ...[
             const SizedBox(height: P2),
-            if (!task.isWorkspace)
+            if (!task.isRoot)
               H4(
                 task.subtasksStateTitle,
                 align: TextAlign.center,

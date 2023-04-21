@@ -10,6 +10,8 @@
   "app_settings_action_title": "Настройки",
   "app_title": "Аванплан",
 
+  "are_closed_suffix": "закрыты",
+
   "auth_email_placeholder": "Почта",
   "auth_name_placeholder": "Имя, фамилия",
   "auth_password_placeholder": "Пароль",
@@ -108,8 +110,6 @@
 
   "hours_count": "{count, plural, one{{count} час} few{{count} часа} other{{count} часов}}",
 
-  "import_action_closed_projects_title": "Все проекты закрыты.\n\nЗагрузите из источника импорта или создайте свои",
-  "import_action_no_projects_title": "Загрузите проекты из источника импорта или создайте свои",
   "import_action_title": "Импортировать проекты",
   "import_list_empty_title": "Нет доступных для импорта проектов\nПопробуйте выбрать другой источник",
   "import_menu_action_title": "Импорт из",
@@ -173,6 +173,7 @@
   "project_new_title": "Новый проект",
   "project_plural_genitive": "{count, plural, one{проекта} other{проектов}}",
   "project_title": "Проект",
+  "projects_add_hint_title": "Загрузите проекты из источника импорта или создайте свои",
 
   "recommendation_add_tasks_title": "Добавить",
   "recommendation_close_tasks_title": "Закрыть задачу в проекте",

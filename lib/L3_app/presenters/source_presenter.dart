@@ -15,7 +15,7 @@ import '../components/mt_circle.dart';
 import '../components/text_widgets.dart';
 import '../extra/services.dart';
 
-Widget iconForSourceType(String? st) {
+Widget _iconForSourceType(String? st) {
   switch (st) {
     case 'Redmine':
       return redmineIcon();
@@ -28,12 +28,17 @@ Widget iconForSourceType(String? st) {
   }
 }
 
-Widget iconTitleForSourceType(String st) => Row(children: [iconForSourceType(st), const SizedBox(width: P_2), NormalText(st)]);
+Widget iconTitleForSourceType(String st) => Row(children: [_iconForSourceType(st), const SizedBox(width: P_2), NormalText(st)]);
 
 double get _connectionIndicatorSize => P;
 
 extension SourcePresenter on Source {
-  Widget info(BuildContext context) {
+  Widget listTile(
+    BuildContext context, {
+    EdgeInsets? padding,
+    VoidCallback? onTap,
+    bool bottomBorder = false,
+  }) {
     final isUnknown = state == SrcState.unknown;
     final connected = state == SrcState.connected;
     final checking = state == SrcState.checking;
@@ -42,9 +47,9 @@ extension SourcePresenter on Source {
     final textColor = (connected || isUnknown) ? null : lightGreyColor;
 
     return MTListTile(
-      leading: iconForSourceType(type),
+      leading: _iconForSourceType(type),
       middle: NormalText('$this', color: textColor),
-      padding: EdgeInsets.zero,
+      padding: padding ?? EdgeInsets.zero,
       trailing: checking
           ? SizedBox(
               height: _connectionIndicatorSize,
@@ -58,17 +63,18 @@ extension SourcePresenter on Source {
                       ? warningColor
                       : lightGreyColor,
               size: _connectionIndicatorSize),
-      bottomBorder: false,
+      bottomBorder: bottomBorder,
+      onTap: onTap,
     );
   }
 }
 
 extension TaskSourcePresenter on TaskSource {
-  String? get _typeForId => mainController.wsForId(wsId)?.sourceForId(sourceId)?.type;
+  String? get _typeForId => mainController.wsForId(wsId).sourceForId(sourceId)?.type;
   Widget go2SourceTitle({bool showSourceIcon = false}) => Row(
         children: [
           if (showSourceIcon) ...[
-            iconForSourceType(_typeForId),
+            _iconForSourceType(_typeForId),
             const SizedBox(width: P_2),
           ],
           NormalText(loc.task_go2source_title, color: mainColor),

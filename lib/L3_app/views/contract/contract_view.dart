@@ -15,9 +15,10 @@ import '../tariff/tariff_info.dart';
 import '../tariff/tariff_select_view.dart';
 
 class ContractView extends StatelessWidget {
-  static String get routeName => '/contract';
+  const ContractView(this.ws);
 
-  Workspace get ws => mainController.selectedWS!;
+  final Workspace ws;
+  static String get routeName => '/contract';
 
   @override
   Widget build(BuildContext context) {

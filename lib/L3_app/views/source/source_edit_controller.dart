@@ -7,6 +7,7 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/entities/source.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/ws_ext.dart';
+import '../../../main.dart';
 import '../../components/mt_dialog.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
@@ -16,7 +17,8 @@ import '../_base/edit_controller.dart';
 part 'source_edit_controller.g.dart';
 
 class SourceEditController extends _SourceEditControllerBase with _$SourceEditController {
-  SourceEditController(int? _srcId, String? sType) {
+  SourceEditController(Workspace _ws, int? _srcId, String? sType) {
+    ws = _ws;
     srcId = _srcId;
     selectType(source?.type ?? sType);
 
@@ -31,9 +33,9 @@ class SourceEditController extends _SourceEditControllerBase with _$SourceEditCo
 }
 
 abstract class _SourceEditControllerBase extends EditController with Store {
-  int? srcId;
+  late final Workspace ws;
+  late final int? srcId;
 
-  Workspace get ws => mainController.selectedWS!;
   Source? get source => ws.sourceForId(srcId);
 
   @computed
@@ -55,7 +57,7 @@ abstract class _SourceEditControllerBase extends EditController with Store {
 
   /// действия
 
-  Future save(BuildContext context) async {
+  Future save() async {
     loaderController.start();
     loaderController.setSaving();
     final editedSource = await sourceUC.save(Source(
@@ -65,12 +67,12 @@ abstract class _SourceEditControllerBase extends EditController with Store {
       username: tfAnnoForCode('username').text,
       // password: tfAnnoForCode('password').text,
       description: tfAnnoForCode('description').text,
-      wsId: mainController.selectedWS!.id!,
+      wsId: ws.id!,
       type: selectedType!,
     ));
 
     if (editedSource != null) {
-      Navigator.of(context).pop(editedSource);
+      Navigator.of(rootKey.currentContext!).pop(editedSource);
       await loaderController.stop(300);
     }
   }

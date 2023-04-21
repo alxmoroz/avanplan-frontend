@@ -31,7 +31,7 @@ class TaskHeader extends StatelessWidget {
   String get _breadcrumbs {
     Iterable<String> parentsTitles(Task? task) {
       final res = <String>[];
-      if (task != null && !task.isWorkspace) {
+      if (task != null && !task.isRoot) {
         if (task.parent != null) {
           res.addAll(parentsTitles(task.parent!));
         }

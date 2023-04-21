@@ -1,11 +1,13 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:avanplan/L3_app/views/source/source_type_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../L1_domain/entities/source.dart';
+import '../../../L1_domain/entities/workspace.dart';
 import '../../../L2_data/repositories/communications_repo.dart';
 import '../../../main.dart';
 import '../../components/colors.dart';
@@ -24,12 +26,24 @@ import '../../usecases/source_ext.dart';
 import '../../usecases/ws_ext_sources.dart';
 import 'source_edit_controller.dart';
 
-Future<Source?> addSource({String? sType}) async => await editSource(sType: sType);
+Future startAddSource(Workspace ws) async {
+  final st = await showModalBottomSheet<String?>(
+    context: rootKey.currentContext!,
+    backgroundColor: Colors.transparent,
+    isScrollControlled: true,
+    builder: (_) => MTBottomSheet(SourceTypeSelector((st) => Navigator.of(rootKey.currentContext!).pop(st))),
+  );
+  if (st != null) {
+    await addSource(ws, sType: st);
+  }
+}
 
-Future<Source?> editSource({Source? src, String? sType}) async {
-  final s = await editSourceDialog(src, sType);
+Future<Source?> addSource(Workspace ws, {String? sType}) async => await editSource(ws, sType: sType);
+
+Future<Source?> editSource(Workspace ws, {Source? src, String? sType}) async {
+  final s = await editSourceDialog(ws, src, sType);
   if (s != null) {
-    await mainController.selectedWS!.updateSourceInList(s);
+    await ws.updateSourceInList(s);
     if (!s.deleted) {
       s.checkConnection();
     }
@@ -37,17 +51,18 @@ Future<Source?> editSource({Source? src, String? sType}) async {
   return s;
 }
 
-Future<Source?> editSourceDialog(Source? src, String? sType) async {
+Future<Source?> editSourceDialog(Workspace ws, Source? src, String? sType) async {
   return await showModalBottomSheet<Source?>(
     context: rootKey.currentContext!,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    builder: (_) => MTBottomSheet(SourceEditView(src, sType)),
+    builder: (_) => MTBottomSheet(SourceEditView(ws, src, sType)),
   );
 }
 
 class SourceEditView extends StatefulWidget {
-  const SourceEditView(this.src, this.sType);
+  const SourceEditView(this.ws, this.src, this.sType);
+  final Workspace ws;
   final Source? src;
   final String? sType;
 
@@ -65,7 +80,7 @@ class _SourceEditViewState extends State<SourceEditView> {
 
   @override
   void initState() {
-    controller = SourceEditController(widget.src?.id, widget.sType);
+    controller = SourceEditController(widget.ws, widget.src?.id, widget.sType);
     super.initState();
   }
 
@@ -117,10 +132,10 @@ class _SourceEditViewState extends State<SourceEditView> {
             margin: tfPadding.copyWith(top: P2),
             onTap: () => launchUrlString(sourceEditHelperAddress),
           ),
+          const SizedBox(height: P2),
           MTButton.outlined(
             titleText: loc.save_action_title,
-            margin: tfPadding.copyWith(top: P2),
-            onTap: canSave ? () => controller.save(context) : null,
+            onTap: canSave ? controller.save : null,
           ),
           const SizedBox(height: P2),
         ],

@@ -15,7 +15,7 @@ extension TaskFilterPresenter on Task {
   }
 
   List<Task> get attentionalTasks => subtaskGroups.isNotEmpty &&
-          (isWorkspace ||
+          (isRoot ||
               [
                 TaskState.overdue,
                 TaskState.risk,

@@ -10,7 +10,7 @@ import '../extra/services.dart';
 extension TaskLevelPresenter on Task {
   String get _levelName =>
       {
-        TaskLevel.workspace: loc.workspace_title,
+        TaskLevel.root: loc.workspace_title,
         TaskLevel.project: loc.project_title,
         TaskLevel.goal: loc.goal_title,
         TaskLevel.task: loc.task_title,
@@ -21,7 +21,7 @@ extension TaskLevelPresenter on Task {
 
   String get listTitle =>
       {
-        TaskLevel.workspace: loc.project_list_title,
+        TaskLevel.root: loc.project_list_title,
         TaskLevel.project: loc.goal_list_title,
         TaskLevel.goal: loc.task_list_title,
       }[level] ??
@@ -29,7 +29,7 @@ extension TaskLevelPresenter on Task {
 
   String get newSubtaskTitle =>
       {
-        TaskLevel.workspace: loc.project_new_title,
+        TaskLevel.root: loc.project_new_title,
         TaskLevel.project: loc.goal_new_title,
         TaskLevel.goal: loc.task_new_title,
       }[level] ??
@@ -37,7 +37,7 @@ extension TaskLevelPresenter on Task {
 
   String get deleteDialogTitle =>
       {
-        TaskLevel.workspace: loc.workspace_delete_dialog_title,
+        TaskLevel.root: loc.workspace_delete_dialog_title,
         TaskLevel.project: loc.project_delete_dialog_title,
         TaskLevel.goal: loc.goal_delete_dialog_title,
         TaskLevel.task: loc.task_delete_dialog_title,
@@ -46,7 +46,7 @@ extension TaskLevelPresenter on Task {
 
   String dativeSubtasksCount(int count) =>
       {
-        TaskLevel.workspace: loc.project_count_dative(count),
+        TaskLevel.root: loc.project_count_dative(count),
         TaskLevel.project: loc.goal_count_dative(count),
         TaskLevel.goal: loc.task_count_dative(count),
         TaskLevel.task: loc.subtask_count_dative(count),
@@ -55,7 +55,7 @@ extension TaskLevelPresenter on Task {
 
   String subtasksCount(int count) =>
       {
-        TaskLevel.workspace: loc.project_count(count),
+        TaskLevel.root: loc.project_count(count),
         TaskLevel.project: loc.goal_count(count),
         TaskLevel.goal: loc.task_count(count),
         TaskLevel.task: loc.subtask_count(count),
@@ -64,7 +64,7 @@ extension TaskLevelPresenter on Task {
 
   String grandchildrenCount(int count) =>
       {
-        TaskLevel.workspace: loc.goal_count(count),
+        TaskLevel.root: loc.goal_count(count),
         TaskLevel.project: loc.task_count(count),
         TaskLevel.goal: loc.subtask_count(count),
       }[level] ??
@@ -77,5 +77,5 @@ extension TaskLevelPresenter on Task {
         ],
       );
 
-  String get name => '${isProject && mainController.myWorkspaces.length > 1 ? '${mainController.wsForId(wsId)?.code}: ' : ''}$title';
+  String get name => '${isProject && mainController.workspaces.length > 1 ? '${mainController.wsForId(wsId).code}: ' : ''}$title';
 }

@@ -58,10 +58,9 @@ class TariffSelectView extends StatelessWidget {
   const TariffSelectView(this.tariffs, this.wsId, {this.description = ''});
   final List<Tariff> tariffs;
   final String description;
-
   final int wsId;
 
-  Workspace get ws => mainController.wsForId(wsId)!;
+  Workspace get ws => mainController.wsForId(wsId);
   int get currentIndex => tariffs.indexWhere((t) => t.id == ws.invoice.tariff.id);
   int get selectedIndex => currentIndex < tariffs.length ? currentIndex + 1 : currentIndex;
 
@@ -91,7 +90,7 @@ class TariffSelectView extends StatelessWidget {
           MTButton.outlined(
             titleText: '+ ${paymentSum.currency}',
             titleColor: greenColor,
-            onTap: () => paymentController.ymQuickPayForm(paymentSum),
+            onTap: () => paymentController.ymQuickPayForm(wsId, paymentSum),
             constrained: false,
             padding: const EdgeInsets.symmetric(horizontal: P2),
           ),

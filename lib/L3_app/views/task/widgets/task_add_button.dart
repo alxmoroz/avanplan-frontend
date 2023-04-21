@@ -2,31 +2,38 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../components/constants.dart';
+import '../../../../main.dart';
 import '../../../components/icons.dart';
 import '../../../components/mt_button.dart';
 import '../../../components/mt_limit_badge.dart';
 import '../../../presenters/task_level_presenter.dart';
-import '../../../usecases/task_ext_actions.dart';
 import '../task_view_controller.dart';
 
 class TaskAddButton extends StatelessWidget {
-  const TaskAddButton(this.controller, {this.compact = false});
+  const TaskAddButton(this.controller, {this.compact = false, this.dismissible = false});
   final TaskViewController controller;
   final bool compact;
+  final bool dismissible;
 
   Widget get _plusIcon => const PlusIcon();
+
+  Future _tap() async {
+    if (dismissible) {
+      Navigator.of(rootKey.currentContext!).pop();
+    }
+    await controller.addSubtask();
+  }
 
   @override
   Widget build(BuildContext context) => MTLimitBadge(
         child: MTButton.outlined(
-          margin: EdgeInsets.only(left: controller.task.plCreate ? P : MTLimitBadge.childLeftMargin, right: P),
+          margin: EdgeInsets.only(left: controller.plCreate ? 0 : MTLimitBadge.childLeftMargin),
           leading: compact ? null : _plusIcon,
           titleText: compact ? null : controller.task.newSubtaskTitle,
           middle: compact ? _plusIcon : null,
           constrained: !compact,
-          onTap: () async => await controller.addSubtask(),
+          onTap: _tap,
         ),
-        showBadge: !controller.task.plCreate,
+        showBadge: !controller.plCreate,
       );
 }

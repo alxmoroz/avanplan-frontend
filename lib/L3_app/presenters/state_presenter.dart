@@ -130,8 +130,8 @@ extension TaskStatePresenter on Task {
   }
 
   bool get showState => !closed && (hasSubtasks || isProject || isGoal);
-  bool get showRecommendsEta => !isWorkspace && [TaskState.noSubtasks, TaskState.noProgress].contains(overallState);
-  bool get showTimeChart => !isWorkspace && showState && (hasDueDate || hasEtaDate);
-  bool get showVelocityVolumeCharts => !isWorkspace && !showRecommendsEta && showState;
+  bool get showRecommendsEta => !isRoot && [TaskState.noSubtasks, TaskState.noProgress].contains(overallState);
+  bool get showTimeChart => !isRoot && showState && (hasDueDate || hasEtaDate);
+  bool get showVelocityVolumeCharts => !isRoot && !showRecommendsEta && showState;
   bool get showChartDetails => showVelocityVolumeCharts || showTimeChart;
 }

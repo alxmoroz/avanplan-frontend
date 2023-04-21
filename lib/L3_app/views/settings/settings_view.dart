@@ -37,7 +37,7 @@ class SettingsView extends StatelessWidget {
         onTap: () async => await Navigator.of(context).pushNamed(NotificationListView.routeName),
       );
 
-  Widget _workspaces(BuildContext context) => Column(
+  Widget get _workspaces => Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           H4(
@@ -45,11 +45,9 @@ class SettingsView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
             color: lightGreyColor,
           ),
-          for (final ws in mainController.myWorkspaces) WorkspaceListTile(ws)
+          for (final ws in mainController.workspaces) WorkspaceListTile(ws)
         ],
       );
-
-  bool get _canShowWS => mainController.myWorkspaces.isNotEmpty && serviceSettingsController.passAppleCheat;
 
   @override
   Widget build(BuildContext context) => Observer(
@@ -64,7 +62,7 @@ class SettingsView extends StatelessWidget {
                 AccountListTile(),
                 const SizedBox(height: P_2),
                 _notifications(context),
-                if (_canShowWS) _workspaces(context),
+                if (mainController.workspaces.isNotEmpty) _workspaces,
                 H4(
                   loc.about_service_title,
                   padding: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),

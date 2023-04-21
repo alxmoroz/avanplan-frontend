@@ -13,6 +13,7 @@ import '../../../extra/services.dart';
 import '../../../presenters/source_presenter.dart';
 import '../../../presenters/task_level_presenter.dart';
 import '../../../usecases/task_ext_actions.dart';
+import '../../../usecases/ws_ext_actions.dart';
 import '../task_view_controller.dart';
 
 class TaskPopupMenu extends StatelessWidget {
@@ -36,12 +37,6 @@ class TaskPopupMenu extends StatelessWidget {
         return _tile(leading: const PlusIcon(), title: task.newSubtaskTitle);
       case TaskActionType.edit:
         return _tile(leading: const EditIcon(), title: loc.task_edit_action_title);
-      case TaskActionType.import_gitlab:
-        return _tile(leading: const ImportIcon(), title: loc.import_menu_action_title, trailing: iconTitleForSourceType(refsController.stGitlab!));
-      case TaskActionType.import_jira:
-        return _tile(leading: const ImportIcon(), title: loc.import_menu_action_title, trailing: iconTitleForSourceType(refsController.stJira!));
-      case TaskActionType.import_redmine:
-        return _tile(leading: const ImportIcon(), title: loc.import_menu_action_title, trailing: iconTitleForSourceType(refsController.stRedmine!));
       case TaskActionType.close:
         return _tile(leading: const DoneIcon(true), title: loc.close_action_title);
       case TaskActionType.reopen:
@@ -52,7 +47,7 @@ class TaskPopupMenu extends StatelessWidget {
         return _tile(
           title: loc.task_unlink_action_title,
           color: warningColor,
-          trailing: _task.plUnlink ? null : const RoubleCircleIcon(),
+          trailing: _task.ws.plUnlink ? null : const RoubleCircleIcon(),
         );
       case TaskActionType.unwatch:
         return _tile(title: loc.task_unwatch_action_title, color: dangerColor);

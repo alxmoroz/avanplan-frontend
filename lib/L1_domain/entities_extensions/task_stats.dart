@@ -103,7 +103,7 @@ extension TaskStats on Task {
       t._updateRisks();
     }
 
-    final pVelocitySP = isWorkspace ? null : project!.velocitySP;
+    final pVelocitySP = isRoot ? null : project!.velocitySP;
     showSP = estimate != null && pVelocitySP != null;
     final leftCapacity = showSP ? estimate! : openedLeafTasksCount;
     if (leftPeriod != null && leftPeriod!.inDays > 0 && !hasOverdue) {
@@ -180,7 +180,7 @@ extension TaskStats on Task {
   /// дата начала
   DateTime get _calculateStartDate {
     DateTime? start;
-    if (parent != null && !parent!.isWorkspace) {
+    if (parent != null && !parent!.isRoot) {
       final siblingsDueDates = parent!.tasks.where((t) => t.hasDueDate).map((t) => t.dueDate!).sorted((d1, d2) => d1.compareTo(d2));
       if (siblingsDueDates.isNotEmpty) {
         if (hasDueDate) {
@@ -202,11 +202,11 @@ extension TaskStats on Task {
     return start;
   }
 
-  double? get projectVelocity => isWorkspace ? 0 : (showSP ? project!.velocitySP : project!.velocityTasks);
+  double? get projectVelocity => isRoot ? 0 : (showSP ? project!.velocitySP : project!.velocityTasks);
 
-  bool get projectLowStart => isWorkspace ? false : project!.isLowStart == true;
-  Duration? get projectStartEtaCalcPeriod => isWorkspace ? null : project!.startDate!.add(lowStartThreshold).difference(_now);
-  bool get projectHasProgress => isWorkspace ? true : project!.closedLeafTasksCount > 0;
+  bool get projectLowStart => isRoot ? false : project!.isLowStart == true;
+  Duration? get projectStartEtaCalcPeriod => isRoot ? null : project!.startDate!.add(lowStartThreshold).difference(_now);
+  bool get projectHasProgress => isRoot ? true : project!.closedLeafTasksCount > 0;
 
   bool _allOpenedSubtasksAre(TaskState state) => openedSubtasks.isNotEmpty && !openedSubtasks.any((t) => t._state != state);
 

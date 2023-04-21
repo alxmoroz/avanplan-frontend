@@ -18,7 +18,7 @@ import '../../presenters/source_presenter.dart';
 import '../../presenters/state_presenter.dart';
 import '../../presenters/task_filter_presenter.dart';
 import '../../usecases/task_ext_actions.dart';
-import '../import/import_view.dart';
+import '../../usecases/ws_ext_actions.dart';
 import '../tariff/tariff_select_view.dart';
 import 'task_edit_view.dart';
 
@@ -34,16 +34,18 @@ class TaskViewController extends _TaskViewControllerBase with _$TaskViewControll
 }
 
 abstract class _TaskViewControllerBase with Store {
-  late int wsId;
-  int? taskId;
+  late final int wsId;
+  late final int? taskId;
 
   Task get task => mainController.taskForId(wsId, taskId);
-  Workspace get ws => mainController.selectedWS!;
+  Workspace get ws => mainController.wsForId(wsId);
+
+  bool get plCreate => task.isRoot ? ws.plProjects : ws.plTasks;
 
   /// вкладки
   @computed
   Iterable<TaskTabKey> get tabKeys {
-    if (task.isWorkspace) {
+    if (task.isRoot) {
       return [];
     } else {
       final hasOverview = task.showState || task.showTimeChart || task.showVelocityVolumeCharts;
@@ -139,7 +141,7 @@ abstract class _TaskViewControllerBase with Store {
   void _popDeleted(Task task) {
     final context = rootKey.currentContext!;
     Navigator.of(context).pop();
-    if (task.parent?.isWorkspace == true && task.parent?.tasks.length == 1 && Navigator.canPop(context)) {
+    if (task.parent?.isRoot == true && task.parent?.tasks.length == 1 && Navigator.canPop(context)) {
       Navigator.of(context).pop();
     }
   }
@@ -190,15 +192,15 @@ abstract class _TaskViewControllerBase with Store {
   }
 
   Future addSubtask() async {
-    if (task.plCreate) {
-      final newTaskResult = await editTaskDialog(parent: task);
+    if (plCreate) {
+      final newTaskResult = await editTaskDialog(wsId, parent: task);
 
       if (newTaskResult != null) {
         final newTask = newTaskResult.task;
         task.tasks.add(newTask);
         _updateTaskParents(newTask);
         if (newTaskResult.proceed == true) {
-          if (task.isProject || task.isWorkspace) {
+          if (task.isProject || task.isRoot) {
             await mainController.showTask(wsId, newTask.id);
           } else {
             await addSubtask();
@@ -208,14 +210,14 @@ abstract class _TaskViewControllerBase with Store {
       }
     } else {
       await changeTariff(
-        ws,
-        reason: task.isWorkspace ? loc.tariff_change_limit_projects_reason_title : loc.tariff_change_limit_tasks_reason_title,
+        mainController.wsForId(wsId),
+        reason: task.isRoot ? loc.tariff_change_limit_projects_reason_title : loc.tariff_change_limit_tasks_reason_title,
       );
     }
   }
 
   Future edit() async {
-    final editTaskResult = await editTaskDialog(parent: task.parent!, task: task);
+    final editTaskResult = await editTaskDialog(wsId, parent: task.parent!, task: task);
     if (editTaskResult != null) {
       final editedTask = editTaskResult.task;
       if (editedTask.deleted) {
@@ -226,7 +228,7 @@ abstract class _TaskViewControllerBase with Store {
   }
 
   Future unlink() async {
-    if (task.plUnlink) {
+    if (task.ws.plUnlink) {
       if (await _unlinkDialog() == true) {
         loaderController.start();
         loaderController.setUnlinking();
@@ -238,7 +240,7 @@ abstract class _TaskViewControllerBase with Store {
         await loaderController.stop();
       }
     } else {
-      await changeTariff(mainController.wsForId(task.wsId)!, reason: loc.tariff_change_limit_unlink_reason_title);
+      await changeTariff(task.ws, reason: loc.tariff_change_limit_unlink_reason_title);
     }
   }
 
@@ -268,15 +270,6 @@ abstract class _TaskViewControllerBase with Store {
         break;
       case TaskActionType.reopen:
         await setClosed(false);
-        break;
-      case TaskActionType.import_gitlab:
-        await importTasks(sType: refsController.stGitlab);
-        break;
-      case TaskActionType.import_jira:
-        await importTasks(sType: refsController.stJira);
-        break;
-      case TaskActionType.import_redmine:
-        await importTasks(sType: refsController.stRedmine);
         break;
       case TaskActionType.go2source:
         await launchUrlString(task.taskSource!.urlString);

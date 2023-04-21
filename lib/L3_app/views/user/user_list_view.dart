@@ -11,9 +11,9 @@ import '../../presenters/ws_presenter.dart';
 import 'user_list_tile.dart';
 
 class UserListView extends StatelessWidget {
+  const UserListView(this.ws);
+  final Workspace ws;
   static String get routeName => '/users';
-
-  Workspace get ws => mainController.selectedWS!;
 
   Widget _itemBuilder(BuildContext context, int index) => UserListTile(ws.sortedUsers[index]);
 

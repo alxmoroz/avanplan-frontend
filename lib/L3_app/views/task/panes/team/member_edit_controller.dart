@@ -16,7 +16,7 @@ class MemberEditController extends _MemberEditControllerBase with _$MemberEditCo
   MemberEditController(Task _task, Member _member) {
     task = _task;
     member = _member;
-    roles = task.allowedRoles.toList();
+    roles = task.ws.roles.toList();
     roles.forEach((r) => r.selected = member.roles.contains(r.code));
   }
 }

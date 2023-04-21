@@ -16,7 +16,6 @@ import '../../presenters/number_presenter.dart';
 import '../../usecases/ws_ext_actions.dart';
 import '../tariff/tariff_select_view.dart';
 import '../task/task_view.dart';
-import '../workspace/workspace_view.dart';
 
 part 'main_controller.g.dart';
 
@@ -25,38 +24,25 @@ class MainController extends _MainControllerBase with _$MainController {}
 abstract class _MainControllerBase with Store {
   /// рабочие пространства
   @observable
-  List<Workspace> myWorkspaces = [];
-
-  Workspace? wsForId(int? wsId) => myWorkspaces.firstWhereOrNull((ws) => ws.id == wsId);
-
-  @observable
-  int? selectedWSId;
-
-  @action
-  void selectWS(int? _wsId) => selectedWSId = _wsId;
+  List<Workspace> workspaces = [];
 
   @computed
-  Workspace? get selectedWS => wsForId(selectedWSId);
+  Iterable<Workspace> get myWSs => workspaces.where((ws) => ws.isMine);
 
-  Future showWorkspace(int wsId) async {
-    selectWS(wsId);
-    await Navigator.of(rootKey.currentContext!).pushNamed(WorkspaceView.routeName);
-    // TODO: тут надо сбрасывать текущее выбранное РП по идее. Но пока нет явного выбора РП, то оставил без сброса
-    // selectWS(null);
-  }
+  Workspace wsForId(int wsId) => workspaces.firstWhere((ws) => ws.id == wsId);
 
   @action
   // TODO: нужен способ дергать обсервер без этих хаков
   // TODO: должно частично решиться https://redmine.moroz.team/issues/2566
-  void touchWorkspaces() => myWorkspaces = [...myWorkspaces];
+  void touchWorkspaces() => workspaces = [...workspaces];
 
   /// рутовый объект
   @observable
-  Task rootTask = Task(title: '', closed: false, parent: null, tasks: [], members: [], wsId: -1);
+  Task rootTask = Task(title: '', closed: false, parent: null, tasks: [], members: [], wsId: 0);
 
   @computed
   Map<int, Map<int, Task>> get _tasksMap => {
-        for (var ws in myWorkspaces) ws.id!: {for (var t in wsTasks(ws.id!)) t.id!: t}
+        for (var ws in workspaces) ws.id!: {for (var t in wsTasks(ws.id!)) t.id!: t}
       };
 
   Iterable<Task> wsProjects(int wsId) => rootTask.tasks.where((t) => t.wsId == wsId);
@@ -66,7 +52,13 @@ abstract class _MainControllerBase with Store {
   bool get hasLinkedProjects => rootTask.tasks.where((p) => p.hasLink).isNotEmpty;
 
   /// конкретная задача
-  Task taskForId(int wsId, int? id) => wsId > 0 ? _tasksMap[wsId]![id]! : rootTask;
+  Task taskForId(int wsId, int? id) {
+    Task? t;
+    if (wsId > 0 && id != null) {
+      t = _tasksMap[wsId]![id];
+    }
+    return t ?? rootTask;
+  }
 
   Future showTask(int wsId, int? taskId) async =>
       await Navigator.of(rootKey.currentContext!).pushNamed(TaskView.routeName, arguments: TaskViewArgs(wsId, taskId));
@@ -77,15 +69,13 @@ abstract class _MainControllerBase with Store {
   @action
   Future fetchWorkspaces() async {
     loaderController.setRefreshing();
-    myWorkspaces = (await myUC.getWorkspaces()).sorted((w1, w2) => compareNatural(w1.title, w2.title));
-    // selectedWSId = myWorkspaces.length == 1 ? myWorkspaces.first.id : null;
-    selectedWSId = myWorkspaces.first.id;
+    workspaces = (await myUC.getWorkspaces()).sorted((w1, w2) => compareNatural(w1.title, w2.title));
   }
 
   Future fetchTasks() async {
     loaderController.setRefreshing();
     final projects = <Task>[];
-    for (Workspace ws in myWorkspaces) {
+    for (Workspace ws in workspaces) {
       final roots = (await taskUC.getRoots(ws.id!)).toList();
       roots.forEach((p) async {
         p.parent = rootTask;
@@ -101,7 +91,7 @@ abstract class _MainControllerBase with Store {
 
   @action
   void clearData() {
-    myWorkspaces = [];
+    workspaces = [];
     rootTask.tasks = [];
     updateRootTask();
     updatedDate = null;
@@ -141,8 +131,10 @@ abstract class _MainControllerBase with Store {
   }
 
   Future _showWelcomeGiftInfo() async {
-    if (selectedWS!.hpTariffUpdate) {
-      final wga = selectedWS!.welcomeGiftAmount;
+    if (myWSs.isNotEmpty) {
+      // TODO: берем первый попавшийся. Нужно изменить триггер для показа инфы о приветственном балансе
+      final myWS = myWSs.first;
+      final wga = myWS.welcomeGiftAmount;
       if (wga > 0 && !localSettingsController.welcomeGiftInfoShown) {
         final wantChangeTariff = await showMTDialog(
           rootKey.currentContext!,
@@ -156,7 +148,7 @@ abstract class _MainControllerBase with Store {
         await localSettingsController.setWelcomeGiftInfoShown();
 
         if (wantChangeTariff == true) {
-          await changeTariff(selectedWS!);
+          await changeTariff(myWS);
         }
       }
     }

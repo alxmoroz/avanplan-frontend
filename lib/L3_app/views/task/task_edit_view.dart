@@ -27,18 +27,19 @@ class EditTaskResult {
   final bool? proceed;
 }
 
-Future<EditTaskResult?> editTaskDialog({required Task parent, Task? task}) async {
+Future<EditTaskResult?> editTaskDialog(int wsId, {required Task parent, Task? task}) async {
   return await showModalBottomSheet<EditTaskResult?>(
     context: rootKey.currentContext!,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    builder: (_) => MTBottomSheet(TaskEditView(parent: parent, task: task)),
+    builder: (_) => MTBottomSheet(TaskEditView(wsId, parent: parent, task: task)),
   );
 }
 
 class TaskEditView extends StatefulWidget {
-  const TaskEditView({required this.parent, this.task});
+  const TaskEditView(this.wsId, {required this.parent, this.task});
 
+  final int wsId;
   final Task parent;
   final Task? task;
 
@@ -51,7 +52,7 @@ class _TaskEditViewState extends State<TaskEditView> {
 
   @override
   void initState() {
-    controller = TaskEditController(widget.parent, widget.task);
+    controller = TaskEditController(widget.wsId, widget.parent, widget.task);
     super.initState();
   }
 

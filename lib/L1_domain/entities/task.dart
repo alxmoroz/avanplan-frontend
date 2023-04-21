@@ -6,7 +6,7 @@ import 'priority.dart';
 import 'status.dart';
 import 'task_source.dart';
 
-enum TaskLevel { workspace, project, goal, task, subtask }
+enum TaskLevel { root, project, goal, task, subtask }
 
 enum TaskState {
   overdue,
@@ -65,7 +65,7 @@ class Task extends Titleable {
 
   List<Member> members;
 
-  TaskLevel level = TaskLevel.workspace;
+  TaskLevel level = TaskLevel.root;
 
   Iterable<Task> allTasks = [];
   Iterable<Task> openedSubtasks = [];

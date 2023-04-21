@@ -16,17 +16,18 @@ import '../../components/navbar.dart';
 import '../../extra/services.dart';
 import 'workspace_edit_controller.dart';
 
-Future<Workspace?> editWSDialog() async {
+Future<Workspace?> editWSDialog(Workspace ws) async {
   return await showModalBottomSheet<Workspace?>(
     context: rootKey.currentContext!,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    builder: (_) => const MTBottomSheet(WSEditView()),
+    builder: (_) => MTBottomSheet(WSEditView(ws)),
   );
 }
 
 class WSEditView extends StatefulWidget {
-  const WSEditView();
+  const WSEditView(this.ws);
+  final Workspace ws;
 
   @override
   _WSEditViewState createState() => _WSEditViewState();
@@ -39,7 +40,7 @@ class _WSEditViewState extends State<WSEditView> {
 
   @override
   void initState() {
-    controller = WorkspaceEditController();
+    controller = WorkspaceEditController(widget.ws);
     super.initState();
   }
 

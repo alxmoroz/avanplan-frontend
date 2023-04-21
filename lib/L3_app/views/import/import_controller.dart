@@ -18,13 +18,14 @@ import '../tariff/tariff_select_view.dart';
 part 'import_controller.g.dart';
 
 class ImportController extends _ImportControllerBase with _$ImportController {
-  Future<ImportController> init(bool needAddSource, String? sType) async {
+  Future<ImportController> init(int _wsId, String? sType) async {
+    wsId = _wsId;
     selectedSourceId = ws.sources.length == 1 ? ws.sources.first.id : null;
-    // проверяем наличие выбранного типа источника импорта
+    // проверяем наличие источника импорта выбранного типа
     Source? preselectedSource = sType != null ? ws.sourceForType(sType) : selectedSource;
-    // переходим к созданию источника, если нет источников, либо явный запрос на создание, либо источник выбранного типа отсутствует
-    if (ws.sources.isEmpty || needAddSource || (sType != null && preselectedSource == null)) {
-      preselectedSource = await addSource(sType: sType);
+    // переходим к созданию источника, если нет источников, либо источник выбранного типа отсутствует
+    if (ws.sources.isEmpty || (sType != null && preselectedSource == null)) {
+      preselectedSource = await addSource(ws, sType: sType);
       // выходим из сценария, если отказались создавать или не получилось
       // if (preselectedSource == null) {
       //   return;
@@ -40,7 +41,9 @@ class ImportController extends _ImportControllerBase with _$ImportController {
 }
 
 abstract class _ImportControllerBase extends EditController with Store {
-  Workspace get ws => mainController.selectedWS!;
+  late final int wsId;
+  Workspace get ws => mainController.wsForId(wsId);
+  int get availableCount => ws.availableProjectsCount;
 
   @observable
   List<TaskRemote> projects = [];
@@ -49,7 +52,7 @@ abstract class _ImportControllerBase extends EditController with Store {
   Iterable<TaskRemote> get selectedProjects => projects.where((t) => t.selected);
 
   @computed
-  num get selectableCount => ws.availableProjectsCount - selectedProjects.length;
+  int get selectableCount => ws.availableProjectsCount - selectedProjects.length;
 
   @override
   bool get validated => selectedProjects.isNotEmpty;
@@ -134,6 +137,4 @@ abstract class _ImportControllerBase extends EditController with Store {
       );
     }
   }
-
-  void needAddSourceEvent(BuildContext context, String st) => Navigator.of(context).pop(st);
 }

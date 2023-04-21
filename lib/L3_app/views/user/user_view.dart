@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/user.dart';
-import '../../../L1_domain/entities/workspace.dart';
 import '../../components/constants.dart';
 import '../../components/mt_list_tile.dart';
 import '../../components/mt_page.dart';
@@ -16,16 +15,15 @@ import '../../presenters/ws_presenter.dart';
 
 class UserView extends StatelessWidget {
   const UserView(this.user);
-  static String get routeName => '/user';
 
+  static String get routeName => '/user';
   final User user;
-  Workspace get ws => mainController.selectedWS!;
 
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        navBar: navBar(context, middle: ws.subPageTitle(loc.user_title)),
+        navBar: navBar(context, middle: mainController.wsForId(user.wsId).subPageTitle(loc.user_title)),
         body: SafeArea(
           top: false,
           bottom: false,

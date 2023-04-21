@@ -5,10 +5,10 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 
 import '../../../L1_domain/entities/source.dart';
-import '../../../L1_domain/entities/workspace.dart';
 import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
+import '../../components/icons.dart';
 import '../../components/mt_bottom_sheet.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_checkbox.dart';
@@ -22,19 +22,15 @@ import '../../extra/services.dart';
 import '../../presenters/source_presenter.dart';
 import '../../presenters/ws_presenter.dart';
 import '../../usecases/ws_ext_actions.dart';
-import '../source/source_add_menu.dart';
+import '../../usecases/ws_ext_sources.dart';
+import '../source/source_edit_view.dart';
 import 'import_controller.dart';
 
 // старт сценария по импорту задач
-Future importTasks({bool needAddSource = false, String? sType}) async {
-  final controller = await ImportController().init(needAddSource, sType);
-
-  // если вернулись из диалога с желанием добавить источник импорта, то опять пытаемся добавить источник импорта
-  // диалог с импортом задач
-  final st = await showImportDialog(controller);
-  if (st != null) {
-    await importTasks(needAddSource: true, sType: st);
-  }
+Future importTasks(int wsId, {String? sType}) async {
+  final controller = await ImportController().init(wsId, sType);
+  controller.ws.checkSources();
+  await showImportDialog(controller);
 }
 
 Future<String?> showImportDialog(ImportController controller) async => await showModalBottomSheet<String?>(
@@ -48,8 +44,6 @@ class ImportView extends StatelessWidget {
   const ImportView(this.controller);
   final ImportController controller;
 
-  Workspace get ws => mainController.selectedWS!;
-
   bool get _hasProjects => controller.projects.isNotEmpty;
   bool get _hasError => controller.errorCode != null;
   bool get _validated => controller.validated;
@@ -59,8 +53,8 @@ class ImportView extends StatelessWidget {
         onChanged: (s) => controller.selectSource(s),
         value: controller.selectedSource,
         ddItems: [
-          for (final s in ws.sortedSources)
-            DropdownMenuItem<Source>(value: s, child: Padding(padding: const EdgeInsets.only(right: P), child: s.info(context)))
+          for (final s in controller.ws.sortedSources)
+            DropdownMenuItem<Source>(value: s, child: Padding(padding: const EdgeInsets.only(right: P), child: s.listTile(context)))
         ],
         label: loc.source_import_placeholder,
         margin: const EdgeInsets.symmetric(horizontal: P),
@@ -73,10 +67,7 @@ class ImportView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(child: _sourceDropdown(context)),
-              SourceAddMenu(
-                onSelected: (st) => controller.needAddSourceEvent(context, st),
-              ),
-              const SizedBox(width: P),
+              MTPlusButton(() => startAddSource(controller.ws)),
             ],
           ),
           if (controller.selectedSource != null) ...[
@@ -99,7 +90,7 @@ class ImportView extends StatelessWidget {
         ],
       );
 
-  Widget _body(BuildContext context) => ws.sources.isNotEmpty
+  Widget _body(BuildContext context) => controller.ws.sources.isNotEmpty
       ? Column(
           children: [
             _header(context),
@@ -128,7 +119,7 @@ class ImportView extends StatelessWidget {
 
   String get _importBtnCountHint => controller.selectedProjects.isNotEmpty ? ' (${controller.selectedProjects.length})' : '';
   String get _importActionHint =>
-      '${loc.import_projects_select_available_count_hint(ws.availableProjectsCount)} ${loc.project_plural_genitive(ws.availableProjectsCount)}';
+      '${loc.import_projects_select_available_count_hint(controller.ws.availableProjectsCount)} ${loc.project_plural_genitive(controller.ws.availableProjectsCount)}';
 
   Widget? _bottomBar(BuildContext context) => controller.selectedSource != null && _hasProjects
       ? Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
@@ -148,10 +139,11 @@ class ImportView extends StatelessWidget {
             showBadge: controller.selectableCount < 0,
           ),
         ])
-      : ws.sources.isEmpty
-          ? SourceAddMenu(
-              onSelected: (st) => controller.needAddSourceEvent(context, st),
-              title: loc.source_title_new,
+      : controller.ws.sources.isEmpty
+          ? MTButton.outlined(
+              leading: const PlusIcon(),
+              titleText: loc.source_title_new,
+              onTap: () => startAddSource(controller.ws),
             )
           : null;
 

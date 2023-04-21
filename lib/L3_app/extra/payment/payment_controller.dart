@@ -16,10 +16,9 @@ abstract class _PaymentControllerBase with Store {
   void resetWaiting() => waitingPayment = false;
 
   @action
-  Future ymQuickPayForm(num amount) async {
-    final wsId = mainController.selectedWSId;
+  Future ymQuickPayForm(int wsId, num amount) async {
     final userId = accountController.user?.id;
-    if (wsId != null && userId != null) {
+    if (userId != null) {
       await paymentUC.ymQuickPayForm(amount, wsId, userId);
       waitingPayment = true;
     }

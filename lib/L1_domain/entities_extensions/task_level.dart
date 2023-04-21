@@ -3,7 +3,7 @@
 import '../entities/task.dart';
 
 extension TaskLevelExtension on Task {
-  bool get isWorkspace => level == TaskLevel.workspace;
+  bool get isRoot => level == TaskLevel.root;
   bool get isProject => level == TaskLevel.project;
   bool get isGoal => level == TaskLevel.goal;
   bool get isTask => level == TaskLevel.task;
@@ -20,7 +20,7 @@ extension TaskLevelExtension on Task {
 
   void updateLevel() {
     level = {
-          1: TaskLevel.workspace,
+          1: TaskLevel.root,
           2: TaskLevel.project,
           3: TaskLevel.goal,
           4: TaskLevel.task,

@@ -1,5 +1,6 @@
 // Copyright (c) 2023. Alexandr Moroz
 
+import 'package:avanplan/L1_domain/entities_extensions/task_level.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -20,7 +21,7 @@ class MemberListView extends StatelessWidget {
 
   List<Member> get _sortedMembers => task.sortedMembers;
 
-  Widget? get bottomBar => task.canEditMembers && task.allowedRoles.isNotEmpty ? MemberAddMenu(task) : null;
+  Widget? get bottomBar => !task.isRoot && task.canEditMembers && task.ws.roles.isNotEmpty ? MemberAddMenu(task) : null;
 
   Widget _itemBuilder(BuildContext context, int index) => MemberListTile(_sortedMembers[index], task);
 

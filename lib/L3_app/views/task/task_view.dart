@@ -42,24 +42,24 @@ class _TaskViewState extends State<TaskView> {
 
   late final TaskViewController controller;
 
-  late final TaskOverview _overviewPane;
-  late final TaskListView _tasksPane;
-  late final TaskDetails _detailsPane;
-  late final MemberListView _teamPane;
+  late final TaskOverview overviewPane;
+  late final TaskListView tasksPane;
+  late final TaskDetails detailsPane;
+  late final MemberListView teamPane;
 
   @override
   void initState() {
     controller = TaskViewController(wsId, taskId);
 
-    _overviewPane = TaskOverview(controller);
-    _tasksPane = TaskListView(controller);
-    _detailsPane = TaskDetails(task);
-    _teamPane = MemberListView(controller);
+    overviewPane = TaskOverview(controller);
+    tasksPane = TaskListView(controller);
+    detailsPane = TaskDetails(task);
+    teamPane = MemberListView(controller);
 
     super.initState();
   }
 
-  Map<TaskTabKey, Widget> get _tabs {
+  Map<TaskTabKey, Widget> get tabs {
     final res = <TaskTabKey, Widget>{};
     controller.tabKeys.forEach((tk) {
       switch (tk) {
@@ -81,53 +81,53 @@ class _TaskViewState extends State<TaskView> {
     return res;
   }
 
-  Widget _tabPaneSelector() => Padding(
+  Widget get tabPaneSelector => Padding(
         padding: const EdgeInsets.symmetric(horizontal: P),
         child: CupertinoSlidingSegmentedControl<TaskTabKey>(
-          children: _tabs,
+          children: tabs,
           groupValue: controller.tabKey,
           onValueChanged: controller.selectTab,
         ),
       );
 
-  Widget get _selectedPane =>
+  Widget get selectedPane =>
       {
-        TaskTabKey.overview: _overviewPane,
-        TaskTabKey.subtasks: _tasksPane,
-        TaskTabKey.details: _detailsPane,
-        TaskTabKey.team: _teamPane,
+        TaskTabKey.overview: overviewPane,
+        TaskTabKey.subtasks: tasksPane,
+        TaskTabKey.details: detailsPane,
+        TaskTabKey.team: teamPane,
       }[controller.tabKey] ??
-      _tasksPane;
+      tasksPane;
 
-  Widget? get _selectedBottomBar => {
-        TaskTabKey.overview: _overviewPane.bottomBar,
+  Widget? get selectedBottomBar => {
+        TaskTabKey.overview: overviewPane.bottomBar,
         // для вкладки Описание показываем тулбар из Обзора, если вкладки обзора нет (это для задач типично). Иначе - родной тулбар
-        TaskTabKey.details: controller.tabKeys.contains(TaskTabKey.overview) ? _detailsPane.bottomBar : _overviewPane.bottomBar,
-        TaskTabKey.subtasks: _tasksPane.bottomBar,
-        TaskTabKey.team: _teamPane.bottomBar,
+        TaskTabKey.details: controller.tabKeys.contains(TaskTabKey.overview) ? detailsPane.bottomBar : overviewPane.bottomBar,
+        TaskTabKey.subtasks: tasksPane.bottomBar,
+        TaskTabKey.team: teamPane.bottomBar,
       }[controller.tabKey];
 
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        navBar: taskNavBar(context, controller),
+        navBar: taskNavBar(controller),
         body: SafeArea(
-          top: !task.isWorkspace,
+          top: !task.isRoot,
           bottom: false,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              if (!task.isWorkspace) TaskHeader(controller) else const SizedBox(height: P_2),
+              if (!task.isRoot) TaskHeader(controller) else const SizedBox(height: P_2),
               if (controller.tabKeys.length > 1) ...[
                 const SizedBox(height: P_2),
-                _tabPaneSelector(),
+                tabPaneSelector,
               ],
-              Expanded(child: _selectedPane),
+              Expanded(child: selectedPane),
             ],
           ),
         ),
-        bottomBar: _selectedBottomBar,
+        bottomBar: selectedBottomBar,
       ),
     );
   }

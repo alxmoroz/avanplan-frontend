@@ -13,8 +13,8 @@ import '../_base/edit_controller.dart';
 part 'workspace_edit_controller.g.dart';
 
 class WorkspaceEditController extends _WorkspaceEditControllerBase with _$WorkspaceEditController {
-  WorkspaceEditController() {
-    final ws = mainController.selectedWS!;
+  WorkspaceEditController(Workspace _ws) {
+    ws = _ws;
     initState(tfaList: [
       TFAnnotation('code', label: loc.code, text: ws.code),
       TFAnnotation('title', label: loc.title, text: ws.title),
@@ -24,9 +24,7 @@ class WorkspaceEditController extends _WorkspaceEditControllerBase with _$Worksp
 }
 
 abstract class _WorkspaceEditControllerBase extends EditController with Store {
-  int? srcId;
-
-  Workspace get ws => mainController.selectedWS!;
+  late Workspace ws;
 
   /// действия
 
@@ -39,8 +37,6 @@ abstract class _WorkspaceEditControllerBase extends EditController with Store {
       title: tfAnnoForCode('title').text,
       description: tfAnnoForCode('description').text,
     ));
-
-    print(editedWS);
 
     if (editedWS != null) {
       ws.code = editedWS.code;

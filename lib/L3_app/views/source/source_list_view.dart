@@ -6,29 +6,31 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/mt_card.dart';
+import '../../components/icons.dart';
+import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/source_presenter.dart';
 import '../../presenters/ws_presenter.dart';
-import '../../usecases/task_ext_actions.dart';
-import 'source_add_menu.dart';
+import '../../usecases/ws_ext_actions.dart';
 import 'source_edit_view.dart';
 
 class SourceListView extends StatelessWidget {
-  static String get routeName => '/sources';
+  const SourceListView(this.wsId);
+  final int wsId;
+  Workspace get ws => mainController.wsForId(wsId);
 
-  Workspace get ws => mainController.selectedWS!;
+  static String get routeName => '/sources';
 
   Widget _sourceBuilder(BuildContext context, int index) {
     final s = ws.sortedSources[index];
-    return MTCardButton(
-      elevation: cardElevation,
-      child: s.info(context),
-      onTap: () => editSource(src: s),
-      padding: const EdgeInsets.symmetric(horizontal: P, vertical: P2),
+    return s.listTile(
+      context,
+      bottomBorder: index < ws.sortedSources.length - 1,
+      padding: const EdgeInsets.all(P),
+      onTap: () => editSource(ws, src: s),
     );
   }
 
@@ -50,13 +52,20 @@ class SourceListView extends StatelessWidget {
                   itemCount: ws.sources.length,
                 ),
         ),
-        bottomBar: mainController.rootTask.canImport
-            ? Row(children: [
-                Expanded(
-                  child: ws.sources.isEmpty ? SourceAddMenu(title: loc.source_title_new) : const SizedBox(),
-                ),
-                if (ws.sources.isNotEmpty) const SourceAddMenu(),
-              ])
+        bottomBar: ws.hpSourceCreate
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (ws.sources.isNotEmpty) const Spacer(),
+                  ws.sources.isEmpty
+                      ? MTButton.outlined(
+                          leading: const PlusIcon(),
+                          titleText: loc.source_title_new,
+                          onTap: () => startAddSource(ws),
+                        )
+                      : MTPlusButton(() => startAddSource(ws))
+                ],
+              )
             : null,
       ),
     );

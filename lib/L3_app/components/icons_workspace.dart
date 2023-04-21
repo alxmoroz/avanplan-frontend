@@ -66,8 +66,8 @@ class RoubleIcon extends MTIcon {
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.money_rubl,
-        color: (color ?? lightGreyColor).resolve(context),
-        size: size ?? P3,
+        color: (color ?? greyColor).resolve(context),
+        size: size ?? P2 * 2,
       );
 }
 

@@ -1,7 +1,6 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/mt_page.dart';
@@ -19,16 +18,14 @@ class UserListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) => MTPage(
-        navBar: navBar(context, middle: ws.subPageTitle(loc.user_list_title)),
-        body: SafeArea(
-          top: false,
-          bottom: false,
-          child: ListView.builder(
-            itemBuilder: _itemBuilder,
-            itemCount: ws.users.length,
-          ),
+    return MTPage(
+      navBar: navBar(context, middle: ws.subPageTitle(loc.user_list_title)),
+      body: SafeArea(
+        top: false,
+        bottom: false,
+        child: ListView.builder(
+          itemBuilder: _itemBuilder,
+          itemCount: ws.users.length,
         ),
       ),
     );

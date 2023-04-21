@@ -28,17 +28,18 @@ class TaskCard extends StatelessWidget {
   bool get _hasAssignee => task.assignee != null;
 
   Widget get _title => H4(
-        task.name,
+        task.title,
         maxLines: 2,
         decoration: task.closed ? TextDecoration.lineThrough : null,
       );
 
-  Widget get _header => Row(children: [
-        Expanded(child: _title),
-        // if (task.openedLeafTasksCount > 0) MTBadge('${task.openedLeafTasksCount}'),
-        // const SizedBox(width: P / 4),
-        const ChevronIcon(),
-      ]);
+  Widget get _header => Row(
+        children: [
+          if (task.wsCode.isNotEmpty) SmallText(task.wsCode, color: lightGreyColor),
+          Expanded(child: _title),
+          const ChevronIcon(),
+        ],
+      );
 
   bool get _showLink => task.hasLink && task.isProject;
 

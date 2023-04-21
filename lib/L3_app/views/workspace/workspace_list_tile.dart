@@ -10,9 +10,7 @@ import '../../components/icons.dart';
 import '../../components/mt_list_tile.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/person_presenter.dart';
 import '../../presenters/tariff_presenter.dart';
-import '../../usecases/ws_ext_actions.dart';
 import 'workspace_view.dart';
 
 class WorkspaceListTile extends StatelessWidget {
@@ -26,13 +24,18 @@ class WorkspaceListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTListTile(
-      middle: NormalText(ws.title),
+      middle: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          SmallText('[${ws.code}] ', color: greyColor),
+          Expanded(child: NormalText(ws.title)),
+        ],
+      ),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           if (ws.description.isNotEmpty) SmallText(ws.description, padding: const EdgeInsets.only(bottom: P_2), maxLines: 2),
           SmallText('${loc.tariff_title}: ${ws.invoice.tariff.title}', color: greyColor),
-          if (mainController.workspaces.length > 1) SmallText(ws.me.rolesStr, color: greyColor),
         ],
       ),
       trailing: const ChevronIcon(),

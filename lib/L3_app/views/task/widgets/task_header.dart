@@ -16,7 +16,6 @@ import '../../../extra/services.dart';
 import '../../../presenters/person_presenter.dart';
 import '../../../presenters/source_presenter.dart';
 import '../../../presenters/task_colors_presenter.dart';
-import '../../../presenters/task_level_presenter.dart';
 import '../task_view_controller.dart';
 
 class TaskHeader extends StatelessWidget {
@@ -35,7 +34,7 @@ class TaskHeader extends StatelessWidget {
         if (task.parent != null) {
           res.addAll(parentsTitles(task.parent!));
         }
-        res.add(task.name);
+        res.add(task.title);
       }
       return res;
     }
@@ -59,7 +58,7 @@ class TaskHeader extends StatelessWidget {
           SmallText(_breadcrumbs),
           const MTDivider(),
         ],
-        H2(_task.name, decoration: _task.closed ? TextDecoration.lineThrough : null),
+        H2(_task.title, decoration: _task.closed ? TextDecoration.lineThrough : null),
         if (_hasStatus || _hasAssignee) ...[
           const SizedBox(height: P),
           Row(

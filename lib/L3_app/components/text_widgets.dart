@@ -167,7 +167,7 @@ class H2 extends _BaseText {
           text,
           color: color ?? greyColor,
           weight: FontWeight.w300,
-          sizeScale: 2.0,
+          sizeScale: 1.9,
           maxLines: maxLines ?? 3,
           height: 1.1,
         );
@@ -190,6 +190,23 @@ class H1 extends _BaseText {
         );
 }
 
+class D2 extends _BaseText {
+  const D2(
+    String text, {
+    int? maxLines,
+    super.color,
+    super.align,
+    super.padding,
+    super.decoration,
+  }) : super(
+          text,
+          weight: FontWeight.w500,
+          sizeScale: 2.5,
+          maxLines: maxLines ?? 1,
+          height: 1,
+        );
+}
+
 class D1 extends _BaseText {
   const D1(
     String text, {
@@ -201,7 +218,7 @@ class D1 extends _BaseText {
   }) : super(
           text,
           weight: FontWeight.w500,
-          sizeScale: 2.5,
+          sizeScale: 3,
           maxLines: maxLines ?? 1,
           height: 1,
         );

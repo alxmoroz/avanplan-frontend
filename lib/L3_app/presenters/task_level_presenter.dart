@@ -6,6 +6,7 @@ import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities_extensions/task_level.dart';
 import '../components/text_widgets.dart';
 import '../extra/services.dart';
+import '../usecases/task_ext_actions.dart';
 
 extension TaskLevelPresenter on Task {
   String get _levelName =>
@@ -77,5 +78,5 @@ extension TaskLevelPresenter on Task {
         ],
       );
 
-  String get name => '${isProject && mainController.workspaces.length > 1 ? '${mainController.wsForId(wsId).code}: ' : ''}$title';
+  String get wsCode => isProject && mainController.workspaces.length > 1 ? '[${ws.code}] ' : '';
 }

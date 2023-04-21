@@ -26,19 +26,23 @@ import 'workspace_edit_view.dart';
 
 class WorkspaceView extends StatelessWidget {
   const WorkspaceView(this.ws);
-
   final Workspace ws;
   static String get routeName => '/workspace';
-
-  num get balance => ws.balance;
 
   Widget get _header => Padding(
         padding: const EdgeInsets.symmetric(horizontal: P_2),
         child: Column(
           children: [
-            const SizedBox(height: P_2),
+            const SizedBox(height: P),
             H3(ws.title, align: TextAlign.center),
-            if (ws.description.isNotEmpty) NormalText(ws.description),
+            const SizedBox(height: P_2),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                LightText('[${ws.code}] '),
+                if (ws.description.isNotEmpty) NormalText(ws.description),
+              ],
+            ),
           ],
         ),
       );
@@ -52,20 +56,23 @@ class WorkspaceView extends StatelessWidget {
       );
 
   Widget _payButton(num amount) => MTButton.outlined(
-        titleText: '+ $amount',
         titleColor: greenColor,
+        middle: Row(children: [
+          MediumText(' + $amount', color: greenColor),
+          const RoubleIcon(size: P * 1.6, color: greenColor),
+        ]),
         onTap: () => paymentController.ymQuickPayForm(ws.id!, amount),
         constrained: false,
-        padding: const EdgeInsets.symmetric(horizontal: P),
+        padding: const EdgeInsets.symmetric(horizontal: P_2),
       );
 
-  Color get _balanceColor => balance < 0 ? warningColor : greyColor;
+  Color get _balanceColor => ws.balance < 0 ? warningColor : greyColor;
 
   Widget get _balance => Column(
         children: [
           LightText(loc.balance_amount_title),
           const SizedBox(height: P_2),
-          MTCurrency(balance, _balanceColor),
+          MTCurrency(ws.balance, _balanceColor),
           const SizedBox(height: P_2),
           if (ws.hpTariffUpdate) ...[
             const SizedBox(height: P),

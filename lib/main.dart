@@ -2,7 +2,6 @@
 
 import 'dart:io';
 
-import 'package:avanplan/L1_domain/entities/workspace.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +11,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 
 import 'L1_domain/entities/user.dart';
+import 'L1_domain/entities/workspace.dart';
 import 'L3_app/components/colors.dart';
 import 'L3_app/extra/services.dart';
 import 'L3_app/l10n/generated/l10n.dart';

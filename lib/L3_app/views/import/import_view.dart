@@ -133,7 +133,7 @@ class ImportView extends StatelessWidget {
           MTLimitBadge(
             child: MTButton.outlined(
               titleText: '${loc.import_action_title}$_importBtnCountHint',
-              onTap: _validated ? () => controller.startImport : null,
+              onTap: _validated ? controller.startImport : null,
             ),
             showBadge: controller.selectableCount < 0,
           ),

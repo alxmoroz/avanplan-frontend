@@ -24,6 +24,7 @@ extension WSPresenter on Workspace {
       );
 
   Widget subPageTitle(String pageTitle) => Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           MediumText(pageTitle),
           if (mainController.workspaces.length > 1) subtitleRow,

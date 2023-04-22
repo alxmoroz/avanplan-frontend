@@ -28,7 +28,7 @@ Widget _iconForSourceType(String? st) {
   }
 }
 
-Widget iconTitleForSourceType(String st) => Row(children: [_iconForSourceType(st), const SizedBox(width: P_2), NormalText(st)]);
+Widget iconTitleForSourceType(String st) => Row(children: [_iconForSourceType(st), const SizedBox(width: P_2), MediumText(st)]);
 
 double get _connectionIndicatorSize => P;
 

@@ -87,13 +87,7 @@ class TariffSelectView extends StatelessWidget {
             align: TextAlign.center,
           ),
           const SizedBox(height: P_2),
-          MTButton.outlined(
-            titleText: '+ ${paymentSum.currency}',
-            titleColor: greenColor,
-            onTap: () => paymentController.ymQuickPayForm(wsId, paymentSum),
-            constrained: false,
-            padding: const EdgeInsets.symmetric(horizontal: P2),
-          ),
+          paymentController.ymPayButton(wsId, paymentSum),
         ]));
   }
 

@@ -1,6 +1,5 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:avanplan/L3_app/views/source/source_type_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
@@ -22,9 +21,11 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/source_presenter.dart';
+import '../../presenters/ws_presenter.dart';
 import '../../usecases/source_ext.dart';
 import '../../usecases/ws_ext_sources.dart';
 import 'source_edit_controller.dart';
+import 'source_type_selector.dart';
 
 Future startAddSource(Workspace ws) async {
   final st = await showModalBottomSheet<String?>(
@@ -150,11 +151,14 @@ class _SourceEditViewState extends State<SourceEditView> {
         navBar: navBar(
           context,
           leading: MTCloseButton(),
-          middle: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          middle: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              if (isNew) MediumText(loc.source_title_new, padding: const EdgeInsets.only(right: P_2)),
-              iconTitleForSourceType(controller.selectedType!),
+              Row(mainAxisSize: MainAxisSize.min, children: [
+                if (isNew) MediumText(loc.source_title_new, padding: const EdgeInsets.only(right: P_2)),
+                iconTitleForSourceType(controller.selectedType!),
+              ]),
+              if (mainController.workspaces.length > 1) controller.ws.subtitleRow
             ],
           ),
           trailing: controller.canEdit

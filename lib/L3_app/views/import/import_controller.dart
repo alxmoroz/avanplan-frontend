@@ -8,6 +8,7 @@ import '../../../L1_domain/entities/source.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/ws_ext.dart';
+import '../../../main.dart';
 import '../../extra/services.dart';
 import '../../usecases/source_ext.dart';
 import '../../usecases/ws_ext_actions.dart';
@@ -121,13 +122,13 @@ abstract class _ImportControllerBase extends EditController with Store {
 
   /// действия,  роутер
 
-  Future startImport(BuildContext context) async {
+  Future startImport() async {
     if (selectableCount >= 0) {
       loaderController.start();
       loaderController.setImporting('$selectedSource');
       final taskSources = selectedProjects.map((t) => t.taskSource!);
       await importUC.importTaskSources(selectedSource!, taskSources);
-      Navigator.of(context).pop();
+      Navigator.of(rootKey.currentContext!).pop();
       await mainController.fetchTasks();
       await loaderController.stop();
     } else {

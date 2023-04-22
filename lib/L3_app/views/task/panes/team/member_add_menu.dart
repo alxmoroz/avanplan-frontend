@@ -44,8 +44,6 @@ class MemberAddMenu extends StatelessWidget {
               leading: const MemberAddIcon(),
               titleText: _title,
               color: backgroundColor,
-              margin: const EdgeInsets.only(left: MTLimitBadge.childLeftMargin, right: P),
-              constrained: true,
               onTap: () => changeTariff(task.ws, reason: loc.tariff_change_limit_users_reason_title),
             ),
             showBadge: true,

@@ -174,7 +174,8 @@
   "project_plural_genitive": "{count, plural, one{project} other{projects}}",
   "project_title": "Project",
   "projects_add_hint_title": "Import projects from source or create your own",
-
+  "projects_add_select_st_title": "Select the import source type",
+  "projects_add_select_ws_title": "Choose a workspace",
 
   "recommendation_add_tasks_title": "Add",
   "recommendation_close_tasks_title": "Complete task in project",

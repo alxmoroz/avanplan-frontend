@@ -19,6 +19,7 @@ import '../../components/mt_text_field.dart';
 import '../../components/navbar.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_level_presenter.dart';
+import '../../presenters/ws_presenter.dart';
 import 'task_edit_controller.dart';
 
 class EditTaskResult {
@@ -167,7 +168,7 @@ class _TaskEditViewState extends State<TaskEditView> {
         navBar: navBar(
           context,
           leading: MTCloseButton(),
-          title: controller.isNew ? controller.parent.newSubtaskTitle : '',
+          middle: controller.isNew ? controller.ws.subPageTitle(controller.parent.newSubtaskTitle) : null,
           trailing: !controller.isNew
               ? MTButton.icon(
                   const DeleteIcon(),

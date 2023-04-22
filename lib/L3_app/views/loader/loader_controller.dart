@@ -126,7 +126,6 @@ abstract class _LoaderControllerBase with Store {
 
   Widget _stopAction(String actionText) => MTButton.outlined(
         titleText: actionText,
-        margin: const EdgeInsets.symmetric(horizontal: P),
         onTap: stop,
       );
 
@@ -135,7 +134,7 @@ abstract class _LoaderControllerBase with Store {
         titleColor: darkGreyColor,
         leading: const MailIcon(),
         titleText: loc.report_bug_action_title,
-        margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P),
+        margin: const EdgeInsets.only(top: P),
         onTap: () => sendMail(loc.contact_us_mail_subject, appTitle, accountController.user?.id, errorText),
       );
 
@@ -174,7 +173,7 @@ abstract class _LoaderControllerBase with Store {
             MTButton.outlined(
               leading: const RefreshIcon(),
               titleText: loc.reload_action_title,
-              margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P),
+              margin: const EdgeInsets.only(top: P),
               onTap: _reload,
             ),
             _reportErrorButton(errorText ?? 'LoaderNetworkError'),

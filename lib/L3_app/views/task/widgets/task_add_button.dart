@@ -27,7 +27,6 @@ class TaskAddButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MTLimitBadge(
         child: MTButton.outlined(
-          margin: EdgeInsets.only(left: controller.plCreate ? 0 : MTLimitBadge.childLeftMargin),
           leading: compact ? null : _plusIcon,
           titleText: compact ? null : controller.task.newSubtaskTitle,
           middle: compact ? _plusIcon : null,

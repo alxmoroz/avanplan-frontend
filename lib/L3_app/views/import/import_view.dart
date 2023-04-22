@@ -133,8 +133,7 @@ class ImportView extends StatelessWidget {
           MTLimitBadge(
             child: MTButton.outlined(
               titleText: '${loc.import_action_title}$_importBtnCountHint',
-              margin: EdgeInsets.only(left: controller.selectableCount >= 0 ? P : MTLimitBadge.childLeftMargin, right: P),
-              onTap: _validated ? () => controller.startImport(context) : null,
+              onTap: _validated ? () => controller.startImport : null,
             ),
             showBadge: controller.selectableCount < 0,
           ),
@@ -151,7 +150,12 @@ class ImportView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        navBar: navBar(context, leading: MTCloseButton(), title: loc.import_title, bgColor: backgroundColor),
+        navBar: navBar(
+          context,
+          leading: MTCloseButton(),
+          middle: controller.ws.subPageTitle(loc.import_title),
+          bgColor: backgroundColor,
+        ),
         body: SafeArea(bottom: false, child: _body(context)),
         bottomBar: _bottomBar(context),
       ),

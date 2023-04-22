@@ -55,16 +55,7 @@ class WorkspaceView extends StatelessWidget {
         onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(ContractView.routeName, arguments: ws),
       );
 
-  Widget _payButton(num amount) => MTButton.outlined(
-        titleColor: greenColor,
-        middle: Row(children: [
-          MediumText(' + $amount', color: greenColor),
-          const RoubleIcon(size: P * 1.6, color: greenColor),
-        ]),
-        onTap: () => paymentController.ymQuickPayForm(ws.id!, amount),
-        constrained: false,
-        padding: const EdgeInsets.symmetric(horizontal: P_2),
-      );
+  Widget _payButton(int amount) => paymentController.ymPayButton(ws.id!, amount);
 
   Color get _balanceColor => ws.balance < 0 ? warningColor : greyColor;
 
@@ -85,7 +76,7 @@ class WorkspaceView extends StatelessWidget {
                 const SizedBox(width: P_2),
                 _payButton(1000),
                 const SizedBox(width: P_2),
-                _payButton(2000),
+                _payButton(5000),
               ],
             ),
           ],

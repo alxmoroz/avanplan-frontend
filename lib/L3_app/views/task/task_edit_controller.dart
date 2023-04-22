@@ -7,6 +7,7 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/entities/estimate_value.dart';
 import '../../../L1_domain/entities/member.dart';
 import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/task_level.dart';
 import '../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../L1_domain/entities_extensions/task_stats.dart';
@@ -169,8 +170,10 @@ abstract class _TaskEditControllerBase extends EditController with Store {
     }
   }
 
+  Workspace get ws => mainController.wsForId(wsId);
+
   /// оценки задач
-  List<EstimateValue> get estimateValues => mainController.wsForId(wsId).estimateValues.toList();
+  List<EstimateValue> get estimateValues => ws.estimateValues.toList();
 
   @observable
   int? _selectedEstimateId;

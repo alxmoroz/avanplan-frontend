@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/colors.dart';
-import '../../components/constants.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
@@ -35,7 +34,6 @@ class ContractView extends StatelessWidget {
           ? MTButton.outlined(
               titleText: loc.tariff_change_action_title,
               onTap: () => changeTariff(ws),
-              margin: const EdgeInsets.symmetric(horizontal: P),
             )
           : null,
     );

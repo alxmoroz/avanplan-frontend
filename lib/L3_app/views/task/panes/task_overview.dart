@@ -43,7 +43,6 @@ class TaskOverview extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: P_3),
                 ),
               MTButton.outlined(
-                margin: const EdgeInsets.symmetric(horizontal: P),
                 titleText: (task.shouldClose || task.shouldCloseLeaf) ? loc.close_action_title : loc.task_reopen_action_title,
                 leading: DoneIcon(task.shouldClose || task.shouldCloseLeaf),
                 onTap: () => controller.setClosed(!task.closed),

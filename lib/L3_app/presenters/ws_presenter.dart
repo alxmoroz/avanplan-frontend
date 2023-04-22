@@ -14,7 +14,7 @@ extension WSPresenter on Workspace {
   List<Source> get sortedSources => sources.sorted((s1, s2) => s1.url.compareTo(s2.url));
   List<User> get sortedUsers => users.sorted((u1, u2) => compareNatural('$u1', '$u2'));
 
-  Widget get _wsSubtitle => Row(
+  Widget get subtitleRow => Row(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
@@ -26,7 +26,7 @@ extension WSPresenter on Workspace {
   Widget subPageTitle(String pageTitle) => Column(
         children: [
           MediumText(pageTitle),
-          if (mainController.workspaces.length > 1) _wsSubtitle,
+          if (mainController.workspaces.length > 1) subtitleRow,
         ],
       );
 }

@@ -32,8 +32,22 @@ class MyRepo extends AbstractMyRepo {
   }
 
   @override
+  Future<Workspace?> createWorkspace({WorkspaceUpsert? ws}) async {
+    o_api.WorkspaceUpsert? wsData;
+    if (ws != null) {
+      wsData = (o_api.WorkspaceUpsertBuilder()
+            ..code = ws.code
+            ..title = ws.title
+            ..description = ws.description)
+          .build();
+    }
+    final response = await api.createWorkspaceV1MyCreateWorkspacePost(workspaceUpsert: wsData);
+    return response.data?.workspace;
+  }
+
+  @override
   Future<Workspace?> updateWorkspace(WorkspaceUpsert ws) async {
-    final response = await api.updateWorkspaceV1MyWorkspacePost(
+    final response = await api.updateWorkspaceV1MyUpdateWorkspacePost(
         wsId: ws.id!,
         workspaceUpsert: (o_api.WorkspaceUpsertBuilder()
               ..id = ws.id

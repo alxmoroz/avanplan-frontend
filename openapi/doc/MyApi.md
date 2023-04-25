@@ -10,13 +10,14 @@ All URIs are relative to */api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**accountV1MyAccountGet**](MyApi.md#accountv1myaccountget) | **GET** /v1/my/account | Account
+[**createWorkspaceV1MyCreateWorkspacePost**](MyApi.md#createworkspacev1mycreateworkspacepost) | **POST** /v1/my/create_workspace | Create Workspace
 [**deleteAccountV1MyAccountDelete**](MyApi.md#deleteaccountv1myaccountdelete) | **DELETE** /v1/my/account | Delete Account
 [**markReadNotificationsV1MyNotificationsPost**](MyApi.md#markreadnotificationsv1mynotificationspost) | **POST** /v1/my/notifications | Mark Read Notifications
 [**notificationsV1MyNotificationsGet**](MyApi.md#notificationsv1mynotificationsget) | **GET** /v1/my/notifications | Notifications
 [**redeemInvitationV1MyRedeemInvitationPost**](MyApi.md#redeeminvitationv1myredeeminvitationpost) | **POST** /v1/my/redeem_invitation | Redeem Invitation
 [**updateAccountV1MyAccountPost**](MyApi.md#updateaccountv1myaccountpost) | **POST** /v1/my/account | Update Account
 [**updatePushTokenV1MyPushTokenPost**](MyApi.md#updatepushtokenv1mypushtokenpost) | **POST** /v1/my/push_token | Update Push Token
-[**updateWorkspaceV1MyWorkspacePost**](MyApi.md#updateworkspacev1myworkspacepost) | **POST** /v1/my/workspace | Update Workspace
+[**updateWorkspaceV1MyUpdateWorkspacePost**](MyApi.md#updateworkspacev1myupdateworkspacepost) | **POST** /v1/my/update_workspace | Update Workspace
 [**workspacesV1MyWorkspacesGet**](MyApi.md#workspacesv1myworkspacesget) | **GET** /v1/my/workspaces | Workspaces
 
 
@@ -59,6 +60,53 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **createWorkspaceV1MyCreateWorkspacePost**
+> WorkspaceGet createWorkspaceV1MyCreateWorkspacePost(workspaceUpsert)
+
+Create Workspace
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+// TODO Configure API key authorization: APIKeyHeader
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
+// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
+//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
+
+final api = Openapi().getMyApi();
+final WorkspaceUpsert workspaceUpsert = ; // WorkspaceUpsert | 
+
+try {
+    final response = api.createWorkspaceV1MyCreateWorkspacePost(workspaceUpsert);
+    print(response);
+} catch on DioError (e) {
+    print('Exception when calling MyApi->createWorkspaceV1MyCreateWorkspacePost: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **workspaceUpsert** | [**WorkspaceUpsert**](WorkspaceUpsert.md)|  | [optional] 
+
+### Return type
+
+[**WorkspaceGet**](WorkspaceGet.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -337,8 +385,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **updateWorkspaceV1MyWorkspacePost**
-> WorkspaceGet updateWorkspaceV1MyWorkspacePost(wsId, workspaceUpsert)
+# **updateWorkspaceV1MyUpdateWorkspacePost**
+> WorkspaceGet updateWorkspaceV1MyUpdateWorkspacePost(wsId, workspaceUpsert)
 
 Update Workspace
 
@@ -357,10 +405,10 @@ final int wsId = 56; // int |
 final WorkspaceUpsert workspaceUpsert = ; // WorkspaceUpsert | 
 
 try {
-    final response = api.updateWorkspaceV1MyWorkspacePost(wsId, workspaceUpsert);
+    final response = api.updateWorkspaceV1MyUpdateWorkspacePost(wsId, workspaceUpsert);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling MyApi->updateWorkspaceV1MyWorkspacePost: $e\n');
+    print('Exception when calling MyApi->updateWorkspaceV1MyUpdateWorkspacePost: $e\n');
 }
 ```
 

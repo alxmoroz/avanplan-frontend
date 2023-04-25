@@ -13,6 +13,13 @@ void main() {
       // TODO
     });
 
+    // Create Workspace
+    //
+    //Future<WorkspaceGet> createWorkspaceV1MyCreateWorkspacePost({ WorkspaceUpsert workspaceUpsert }) async
+    test('test createWorkspaceV1MyCreateWorkspacePost', () async {
+      // TODO
+    });
+
     // Delete Account
     //
     //Future<bool> deleteAccountV1MyAccountDelete() async
@@ -57,8 +64,8 @@ void main() {
 
     // Update Workspace
     //
-    //Future<WorkspaceGet> updateWorkspaceV1MyWorkspacePost(int wsId, WorkspaceUpsert workspaceUpsert) async
-    test('test updateWorkspaceV1MyWorkspacePost', () async {
+    //Future<WorkspaceGet> updateWorkspaceV1MyUpdateWorkspacePost(int wsId, WorkspaceUpsert workspaceUpsert) async
+    test('test updateWorkspaceV1MyUpdateWorkspacePost', () async {
       // TODO
     });
 

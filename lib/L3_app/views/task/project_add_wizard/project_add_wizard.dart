@@ -10,7 +10,6 @@ import '../../../components/icons.dart';
 import '../../../components/mt_bottom_sheet.dart';
 import '../../../components/mt_button.dart';
 import '../../../components/mt_limit_badge.dart';
-import '../../../components/mt_list_tile.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
 import '../../../usecases/ws_ext_actions.dart';
@@ -20,6 +19,7 @@ import '../../tariff/tariff_select_view.dart';
 import '../task_view_controller.dart';
 import '../widgets/task_add_button.dart';
 import 'project_add_wizard_controller.dart';
+import 'ws_selector.dart';
 
 Future projectAddWizard() async {
   return await showModalBottomSheet<void>(
@@ -60,35 +60,6 @@ class _ProjectAddWizardState extends State<ProjectAddWizard> {
     }
   }
 
-  Widget get wsSelector => Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const SizedBox(height: P),
-          NormalText(loc.projects_add_select_ws_title),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: mainController.workspaces.length,
-            itemBuilder: (_, index) {
-              final ws = mainController.workspaces[index];
-              final canSelect = ws.hpProjectCreate;
-              return MTListTile(
-                middle: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    SmallText('[${ws.code}] ', color: canSelect ? greyColor : lightGreyColor),
-                    Expanded(child: MediumText(ws.title, color: canSelect ? darkGreyColor : lightGreyColor)),
-                  ],
-                ),
-                trailing: canSelect ? const ChevronIcon() : const PrivacyIcon(color: lightGreyColor),
-                bottomBorder: index < mainController.workspaces.length - 1,
-                onTap: canSelect ? () => controller.selectWS(ws.id) : null,
-              );
-            },
-          ),
-          const SizedBox(height: P),
-        ],
-      );
-
   Widget get modeSelector => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -123,16 +94,14 @@ class _ProjectAddWizardState extends State<ProjectAddWizard> {
         ],
       );
 
-  Widget get sourceTypeSelector => SourceTypeSelector(startImport);
-
   @override
   Widget build(BuildContext context) => Observer(
         builder: (_) => SafeArea(
             bottom: false,
             child: controller.mustSelectWS
-                ? wsSelector
+                ? WSSelector(controller)
                 : controller.importMode
-                    ? sourceTypeSelector
+                    ? SourceTypeSelector(startImport)
                     : modeSelector),
       );
 }

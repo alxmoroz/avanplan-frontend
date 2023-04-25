@@ -259,6 +259,7 @@
   "tariff_price_request_action_title": "Request an offer",
   "tariff_price_request_mail_subject": "Avanplan - Request a commercial offer for special conditions",
   "tariff_select_action_title": "Select",
+
   "tariff_title": "Tariff",
 
   "tariff_type_business_title": "Business",
@@ -318,6 +319,7 @@
 
   "weeks_count_accusative": "{count, plural, one{{count} week} other{{count} weeks}}",
   "workspace_delete_dialog_title": "Delete workspace?",
+  "workspace_my_title": "My workspace",
   "workspace_title": "Workspace",
   "workspaces_title": "Workspaces",
 

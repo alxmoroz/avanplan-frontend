@@ -79,13 +79,14 @@ Class | Method | HTTP request | Description
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost**](doc/IntegrationsTasksApi.md#unlinktasksourcesv1integrationstasksunlinktasksourcespost) | **POST** /v1/integrations/tasks/unlink_task_sources | Unlink Task Sources
 [*InvitationApi*](doc/InvitationApi.md) | [**createV1InvitationPost**](doc/InvitationApi.md#createv1invitationpost) | **POST** /v1/invitation/ | Create
 [*MyApi*](doc/MyApi.md) | [**accountV1MyAccountGet**](doc/MyApi.md#accountv1myaccountget) | **GET** /v1/my/account | Account
+[*MyApi*](doc/MyApi.md) | [**createWorkspaceV1MyCreateWorkspacePost**](doc/MyApi.md#createworkspacev1mycreateworkspacepost) | **POST** /v1/my/create_workspace | Create Workspace
 [*MyApi*](doc/MyApi.md) | [**deleteAccountV1MyAccountDelete**](doc/MyApi.md#deleteaccountv1myaccountdelete) | **DELETE** /v1/my/account | Delete Account
 [*MyApi*](doc/MyApi.md) | [**markReadNotificationsV1MyNotificationsPost**](doc/MyApi.md#markreadnotificationsv1mynotificationspost) | **POST** /v1/my/notifications | Mark Read Notifications
 [*MyApi*](doc/MyApi.md) | [**notificationsV1MyNotificationsGet**](doc/MyApi.md#notificationsv1mynotificationsget) | **GET** /v1/my/notifications | Notifications
 [*MyApi*](doc/MyApi.md) | [**redeemInvitationV1MyRedeemInvitationPost**](doc/MyApi.md#redeeminvitationv1myredeeminvitationpost) | **POST** /v1/my/redeem_invitation | Redeem Invitation
 [*MyApi*](doc/MyApi.md) | [**updateAccountV1MyAccountPost**](doc/MyApi.md#updateaccountv1myaccountpost) | **POST** /v1/my/account | Update Account
 [*MyApi*](doc/MyApi.md) | [**updatePushTokenV1MyPushTokenPost**](doc/MyApi.md#updatepushtokenv1mypushtokenpost) | **POST** /v1/my/push_token | Update Push Token
-[*MyApi*](doc/MyApi.md) | [**updateWorkspaceV1MyWorkspacePost**](doc/MyApi.md#updateworkspacev1myworkspacepost) | **POST** /v1/my/workspace | Update Workspace
+[*MyApi*](doc/MyApi.md) | [**updateWorkspaceV1MyUpdateWorkspacePost**](doc/MyApi.md#updateworkspacev1myupdateworkspacepost) | **POST** /v1/my/update_workspace | Update Workspace
 [*MyApi*](doc/MyApi.md) | [**workspacesV1MyWorkspacesGet**](doc/MyApi.md#workspacesv1myworkspacesget) | **GET** /v1/my/workspaces | Workspaces
 [*RolesApi*](doc/RolesApi.md) | [**assignV1RolesPost**](doc/RolesApi.md#assignv1rolespost) | **POST** /v1/roles/ | Assign
 [*SettingsApi*](doc/SettingsApi.md) | [**settingsV1SettingsGet**](doc/SettingsApi.md#settingsv1settingsget) | **GET** /v1/settings/ | Settings

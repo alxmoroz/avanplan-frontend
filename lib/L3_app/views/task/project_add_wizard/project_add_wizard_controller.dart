@@ -17,10 +17,12 @@ abstract class _ProjectAddWizardControllerBase with Store {
   @action
   void selectWS(int? _wsId) => selectedWSId = _wsId;
 
+  bool get noMyWss => mainController.myWSs.isEmpty;
+
   @computed
   Workspace? get ws => selectedWSId != null ? mainController.wsForId(selectedWSId!) : null;
   @computed
-  bool get mustSelectWS => selectedWSId == null && (_wss.isNotEmpty && _wss.length > 1) || mainController.myWSs.isEmpty;
+  bool get mustSelectWS => selectedWSId == null && (_wss.isNotEmpty && _wss.length > 1) || noMyWss;
 
   @observable
   bool importMode = false;
@@ -30,5 +32,14 @@ abstract class _ProjectAddWizardControllerBase with Store {
   @computed
   bool get mustSelectST => ws != null && ws!.sources.isEmpty;
 
-  // Future<Workspace?> createWS() async => await myUC.createWS();
+  Future createMyWS() async {
+    loaderController.start();
+    loaderController.setSaving();
+    final newWS = await myUC.createWorkspace();
+    await mainController.fetchWorkspaces();
+    if (newWS != null) {
+      selectWS(newWS.id);
+    }
+    await loaderController.stop();
+  }
 }

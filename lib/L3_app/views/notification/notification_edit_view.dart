@@ -14,7 +14,6 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';
-import 'notification_controller.dart';
 
 Future<Source?> showNotificationDialog(BuildContext context) async {
   return await showModalBottomSheet<Source?>(
@@ -25,42 +24,19 @@ Future<Source?> showNotificationDialog(BuildContext context) async {
   );
 }
 
-class NotificationView extends StatefulWidget {
-  @override
-  _NotificationViewState createState() => _NotificationViewState();
-}
+class NotificationView extends StatelessWidget {
+  MTNotification get nf => notificationController.selectedNotification!;
 
-class _NotificationViewState extends State<NotificationView> {
-  NotificationController get controller => notificationController;
-  MTNotification get nf => controller.selectedNotification!;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    // _controller.dispose();
-    super.dispose();
-  }
-
-  Widget body() {
-    final padding = MediaQuery.of(context).padding;
-    return ListView(
-      padding: padding.add(const EdgeInsets.all(P).copyWith(top: 0, bottom: padding.bottom > 0 ? 0 : P)),
-      children: [
-        // if (msg.event.task?.isProject == false) ...[
-        //   const SizedBox(height: P_2),
-        //   LightText(msg.event.projectTitle),
-        // ],
-        // const SizedBox(height: P_2),
-
-        H3(nf.title),
-        const SizedBox(height: P),
-        H4(nf.description, color: greyColor, maxLines: 1000),
-      ],
-    );
+  Widget get _body {
+    return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: P),
+        child: ListView(
+          children: [
+            H3(nf.title),
+            const SizedBox(height: P),
+            H4(nf.description, color: greyColor, maxLines: 500),
+          ],
+        ));
   }
 
   @override
@@ -74,9 +50,8 @@ class _NotificationViewState extends State<NotificationView> {
           bgColor: backgroundColor,
         ),
         body: SafeArea(
-          top: false,
           bottom: false,
-          child: body(),
+          child: _body,
         ),
       ),
     );

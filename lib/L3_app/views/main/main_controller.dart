@@ -158,17 +158,20 @@ abstract class _MainControllerBase with Store {
     await _showWelcomeGiftInfo();
   }
 
-  Future<bool> _redeemInvitation() async {
-    loaderController.start();
-    loaderController.setRedeemInvitation();
-    final invited = await myUC.redeemInvitation(deepLinkController.invitationToken);
-    deepLinkController.clearInvitation();
-    await loaderController.stop();
+  Future<bool> _tryRedeemInvitation() async {
+    bool invited = false;
+    if (deepLinkController.hasInvitation) {
+      loaderController.start();
+      loaderController.setRedeemInvitation();
+      invited = await myUC.redeemInvitation(deepLinkController.invitationToken);
+      deepLinkController.clearInvitation();
+      await loaderController.stop();
+    }
     return invited;
   }
 
   Future _tryUpdate() async {
-    final invited = await _redeemInvitation();
+    final invited = await _tryRedeemInvitation();
     final timeToUpdate = updatedDate == null || updatedDate!.add(_updatePeriod).isBefore(DateTime.now());
     if (invited || timeToUpdate) {
       await _update();

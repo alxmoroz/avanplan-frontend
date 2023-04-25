@@ -30,7 +30,7 @@ class WSSelector extends StatelessWidget {
             if (index == mainController.workspaces.length) {
               return MTListTile(
                 leading: const PlusIcon(),
-                titleText: 'Моё рабочее пространство',
+                middle: MediumText(loc.workspace_my_title, color: mainColor),
                 trailing: const ChevronIcon(),
                 bottomBorder: false,
                 onTap: controller.createMyWS,

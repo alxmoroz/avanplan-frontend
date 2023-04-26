@@ -76,7 +76,7 @@ flutter_intl:
   arb_dir: lib/L3_app/l10n # Optional. Default: lib/l10n
   output_dir: lib/L3_app/l10n/generated # Optional. Default: lib/generated
 
-#https://pub:dev/packages/flutter_native_splash:
+#https://pub.dev/packages/flutter_native_splash:
 flutter_native_splash:
   color: "#fcfbfb"
   color_dark: "#201c1b"

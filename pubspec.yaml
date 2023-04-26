@@ -80,4 +80,5 @@ flutter_intl:
 flutter_native_splash:
   color: "#fcfbfb"
   color_dark: "#201c1b"
-  image: scripts/launch_image_4x.png
+  image: scripts/launch_image.png
+  image_dark: scripts/launch_image_dark.png

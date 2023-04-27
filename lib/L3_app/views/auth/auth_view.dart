@@ -100,17 +100,18 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
                       titleLeftPadding: P,
                     ),
                     const SizedBox(height: P2),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        NormalText(authController.registerMode ? loc.auth_sign_in_mode_hint_title : loc.auth_register_mode_hint_title),
-                        const SizedBox(width: P_2),
-                        MTButton(
-                          titleText: authController.registerMode ? loc.auth_sign_in_mode_title : loc.auth_register_mode_title,
-                          onTap: authController.toggleRegisterMode,
-                        ),
-                      ],
-                    )
+                    if (serviceSettingsController.passAppleCheat)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          NormalText(authController.registerMode ? loc.auth_sign_in_mode_hint_title : loc.auth_register_mode_hint_title),
+                          const SizedBox(width: P_2),
+                          MTButton(
+                            titleText: authController.registerMode ? loc.auth_sign_in_mode_title : loc.auth_register_mode_title,
+                            onTap: authController.toggleRegisterMode,
+                          ),
+                        ],
+                      )
                   ],
                 ),
               ),

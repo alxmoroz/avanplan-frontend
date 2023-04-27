@@ -131,7 +131,7 @@ abstract class _MainControllerBase with Store {
   }
 
   Future _showWelcomeGiftInfo() async {
-    if (myWSs.isNotEmpty) {
+    if (myWSs.isNotEmpty && serviceSettingsController.passAppleCheat) {
       // TODO: берем первый попавшийся. Нужно изменить триггер для показа инфы о приветственном балансе
       final myWS = myWSs.first;
       final wga = myWS.welcomeGiftAmount;

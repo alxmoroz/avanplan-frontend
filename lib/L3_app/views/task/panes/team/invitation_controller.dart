@@ -87,6 +87,7 @@ abstract class _InvitationControllerBase extends EditController with Store {
   }
 
   String get invitationSubject => '${loc.invitation_share_subject_prefix}${loc.app_title} - ${task.title}';
+  String get invitationText => loc.invitation_share_text('https://moroz.team/avanplan/install', invitationUrl);
 
   Future shareInvitation(BuildContext context) async {
     FocusScope.of(context).unfocus();
@@ -97,15 +98,15 @@ abstract class _InvitationControllerBase extends EditController with Store {
     if (!isWeb) {
       final box = context.findRenderObject() as RenderBox?;
       await Share.shareWithResult(
-        invitationUrl,
+        invitationText,
         subject: invitationSubject,
         sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size,
       );
     }
   }
 
-  void copyUrl(BuildContext context) {
-    Clipboard.setData(ClipboardData(text: invitationUrl));
+  void copyInvitation(BuildContext context) {
+    Clipboard.setData(ClipboardData(text: invitationText));
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: NormalText(loc.copied_notification_title, align: TextAlign.center),

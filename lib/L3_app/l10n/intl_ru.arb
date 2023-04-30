@@ -122,7 +122,8 @@
   "invitation_create_title": "Пригласить участника",
   "invitation_share_action_title": "Отправить приглашение",
   "invitation_share_subject_prefix": "Приглашение в ",
-  "invitation_url_label": "Ссылка-приглашение",
+  "invitation_share_label": "Ссылка-приглашение",
+  "invitation_share_text": "1. Установите приложение:\n{installUrl}\n\n2. Присоединяйтесь к проекту:\n{invitationUrl}",
 
   "later": "Позже",
 

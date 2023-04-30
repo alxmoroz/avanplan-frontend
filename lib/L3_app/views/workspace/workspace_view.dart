@@ -39,7 +39,7 @@ class WorkspaceView extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                LightText('[${ws.code}] '),
+                if (ws.code.isNotEmpty) LightText('[${ws.code}] '),
                 if (ws.description.isNotEmpty) NormalText(ws.description),
               ],
             ),

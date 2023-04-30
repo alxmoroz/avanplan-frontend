@@ -122,7 +122,8 @@
   "invitation_create_title": "Invite Member",
   "invitation_share_action_title": "Share Invitation",
   "invitation_share_subject_prefix": "Invitation to ",
-  "invitation_url_label": "Invitation link",
+  "invitation_share_label": "Invitation link",
+  "invitation_share_text": "1. Install app:\n{installUrl}\n\n2. Join the project:\n{invitationUrl}",
 
   "later": "Maybe later",
 

@@ -27,7 +27,7 @@ class WorkspaceListTile extends StatelessWidget {
       middle: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          SmallText('[${ws.code}] ', color: greyColor),
+          if (ws.code.isNotEmpty) SmallText('[${ws.code}] ', color: greyColor),
           Expanded(child: NormalText(ws.title)),
         ],
       ),

@@ -44,13 +44,13 @@ class InvitationPane extends StatelessWidget {
   Widget _copyButton(BuildContext context) => MTButton(
       middle: Row(
         children: [
-          Container(height: P * 3, width: 1, color: borderColor.resolve(context)),
+          Container(height: P * 12, width: 1, color: borderColor.resolve(context)),
           const SizedBox(width: P),
           const CopyIcon(),
           const SizedBox(width: P),
         ],
       ),
-      onTap: () => controller.copyUrl(context));
+      onTap: () => controller.copyInvitation(context));
 
   @override
   Widget build(BuildContext context) => Observer(
@@ -59,8 +59,9 @@ class InvitationPane extends StatelessWidget {
             for (final code in ['activationsCount', 'expiresOn']) _tfForCode(context, code),
             isWeb && _hasUrl
                 ? MTTextField.noText(
-                    label: loc.invitation_url_label,
-                    controller: TextEditingController(text: controller.invitationUrl),
+                    label: loc.invitation_share_label,
+                    maxLines: 6,
+                    controller: TextEditingController(text: controller.invitationText),
                     suffixIcon: _copyButton(context),
                   )
                 : MTButton.outlined(

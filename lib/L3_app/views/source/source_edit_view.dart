@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../L1_domain/entities/source.dart';
@@ -94,21 +93,10 @@ class _SourceEditViewState extends State<SourceEditView> {
   Widget textFieldForCode(String code) {
     final tfa = controller.tfAnnoForCode(code);
 
-    String? helper = tfa.helper;
-    if (code == 'apiKey' && helper == null) {
-      helper = controller.selectedType != null ? Intl.message('source_api_key_helper_' + sourceCode) : null;
-    }
-
-    String? error;
-    if (tfa.errorText != null) {
-      error = tfa.errorText! + (helper != null ? '\n$helper' : '');
-    }
-
     return MTTextField(
       controller: controller.teControllers[code],
       label: tfa.label,
-      error: error,
-      helper: helper,
+      error: tfa.errorText,
       obscureText: code == 'password',
       maxLines: 1,
       capitalization: TextCapitalization.none,
@@ -116,31 +104,25 @@ class _SourceEditViewState extends State<SourceEditView> {
   }
 
   Widget form(BuildContext context) {
-    return Scrollbar(
-      child: ListView(
-        children: [
-          for (final code in [
-            'url',
-            if (controller.showUsername) 'username',
-            'apiKey',
-            // 'password',
-            'description',
-          ])
-            textFieldForCode(code),
-          MTButton(
-            titleText: loc.source_help_edit_action,
-            trailing: const LinkOutIcon(size: P * 1.3),
-            margin: tfPadding.copyWith(top: P2),
-            onTap: () => launchUrlString(sourceEditHelperAddress),
-          ),
-          const SizedBox(height: P2),
-          MTButton.outlined(
-            titleText: loc.save_action_title,
-            onTap: canSave ? controller.save : null,
-          ),
-          const SizedBox(height: P2),
-        ],
-      ),
+    return ListView(
+      children: [
+        textFieldForCode('url'),
+        if (controller.showUsername) textFieldForCode('username'),
+        textFieldForCode('apiKey'),
+        MTButton(
+          titleText: loc.source_help_edit_action,
+          trailing: const LinkOutIcon(size: P * 1.2),
+          margin: tfPadding.copyWith(top: P_2),
+          onTap: () => launchUrlString(sourceEditHelperAddress),
+        ),
+        textFieldForCode('description'),
+        const SizedBox(height: P2),
+        MTButton.outlined(
+          titleText: loc.save_action_title,
+          onTap: canSave ? controller.save : null,
+        ),
+        const SizedBox(height: P2),
+      ],
     );
   }
 

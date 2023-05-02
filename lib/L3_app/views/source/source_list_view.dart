@@ -24,10 +24,9 @@ class SourceListView extends StatelessWidget {
 
   static String get routeName => '/sources';
 
-  Widget _sourceBuilder(BuildContext context, int index) {
+  Widget _sourceBuilder(BuildContext _, int index) {
     final s = ws.sortedSources[index];
     return s.listTile(
-      context,
       bottomBorder: index < ws.sortedSources.length - 1,
       padding: const EdgeInsets.all(P),
       onTap: () => editSource(ws, src: s),
@@ -48,7 +47,7 @@ class SourceListView extends StatelessWidget {
           child: ws.sources.isEmpty
               ? Center(child: H4(loc.source_list_empty_title, align: TextAlign.center, color: lightGreyColor))
               : ListView.builder(
-                  itemBuilder: (_, int index) => _sourceBuilder(context, index),
+                  itemBuilder: _sourceBuilder,
                   itemCount: ws.sources.length,
                 ),
         ),

@@ -1,17 +1,18 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:avanplan/L3_app/components/mt_list_tile.dart';
 import 'package:flutter/material.dart';
 
 import '../../L1_domain/entities/source.dart';
 import '../../L1_domain/entities/task_source.dart';
 import '../../L1_domain/entities_extensions/ws_ext.dart';
+import '../../main.dart';
 import '../components/colors.dart';
 import '../components/constants.dart';
 import '../components/icons.dart';
 import '../components/icons_import.dart';
 import '../components/icons_state.dart';
 import '../components/mt_circle.dart';
+import '../components/mt_list_tile.dart';
 import '../components/text_widgets.dart';
 import '../extra/services.dart';
 
@@ -33,8 +34,7 @@ Widget iconTitleForSourceType(String st) => Row(children: [_iconForSourceType(st
 double get _connectionIndicatorSize => P;
 
 extension SourcePresenter on Source {
-  Widget listTile(
-    BuildContext context, {
+  Widget listTile({
     EdgeInsets? padding,
     VoidCallback? onTap,
     bool bottomBorder = false,
@@ -54,7 +54,7 @@ extension SourcePresenter on Source {
           ? SizedBox(
               height: _connectionIndicatorSize,
               width: _connectionIndicatorSize,
-              child: CircularProgressIndicator(color: lightGreyColor.resolve(context)),
+              child: CircularProgressIndicator(color: lightGreyColor.resolve(rootKey.currentContext!)),
             )
           : MTCircle(
               color: connected

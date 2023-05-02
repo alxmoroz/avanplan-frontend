@@ -54,7 +54,7 @@ class ImportView extends StatelessWidget {
         value: controller.selectedSource,
         ddItems: [
           for (final s in controller.ws.sortedSources)
-            DropdownMenuItem<Source>(value: s, child: Padding(padding: const EdgeInsets.only(right: P), child: s.listTile(context)))
+            DropdownMenuItem<Source>(value: s, child: Padding(padding: const EdgeInsets.only(right: P), child: s.listTile()))
         ],
         label: loc.source_import_placeholder,
         margin: const EdgeInsets.symmetric(horizontal: P),

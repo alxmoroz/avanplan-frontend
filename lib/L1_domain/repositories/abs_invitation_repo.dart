@@ -3,5 +3,6 @@
 import '../entities/invitation.dart';
 
 abstract class AbstractInvitationRepo {
-  Future<String> create(Invitation invitation, int wsId);
+  Future<Invitation?> create(Invitation invitation, int wsId);
+  Future<Invitation?> getInvitation(int wsId, int taskId, int roleId);
 }

@@ -7,24 +7,28 @@ import 'dart:async';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
+import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/api_util.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
-import 'package:openapi/src/model/invitation.dart';
+import 'package:openapi/src/model/member_get.dart';
 
-class InvitationApi {
+class TasksRolesApi {
 
   final Dio _dio;
 
   final Serializers _serializers;
 
-  const InvitationApi(this._dio, this._serializers);
+  const TasksRolesApi(this._dio, this._serializers);
 
-  /// Create
+  /// Assign
   /// 
   ///
   /// Parameters:
+  /// * [taskId] 
+  /// * [memberId] 
   /// * [wsId] 
-  /// * [invitation] 
+  /// * [requestBody] 
+  /// * [permissionTaskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -32,11 +36,14 @@ class InvitationApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [String] as data
+  /// Returns a [Future] containing a [Response] with a [BuiltList<MemberGet>] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<String>> createV1InvitationPost({ 
+  Future<Response<BuiltList<MemberGet>>> assignV1TasksRolesPost({ 
+    required int taskId,
+    required int memberId,
     required int wsId,
-    required Invitation invitation,
+    required BuiltList<int> requestBody,
+    int? permissionTaskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -44,7 +51,7 @@ class InvitationApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/invitation/';
+    final _path = r'/v1/tasks/roles/';
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -69,14 +76,17 @@ class InvitationApi {
     );
 
     final _queryParameters = <String, dynamic>{
+      r'task_id': encodeQueryParameter(_serializers, taskId, const FullType(int)),
+      r'member_id': encodeQueryParameter(_serializers, memberId, const FullType(int)),
       r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
+      if (permissionTaskId != null) r'permission_task_id': encodeQueryParameter(_serializers, permissionTaskId, const FullType(int)),
     };
 
     dynamic _bodyData;
 
     try {
-      const _type = FullType(Invitation);
-      _bodyData = _serializers.serialize(invitation, specifiedType: _type);
+      const _type = FullType(BuiltList, [FullType(int)]);
+      _bodyData = _serializers.serialize(requestBody, specifiedType: _type);
 
     } catch(error, stackTrace) {
       throw DioError(
@@ -101,10 +111,14 @@ class InvitationApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    String _responseData;
+    BuiltList<MemberGet> _responseData;
 
     try {
-      _responseData = _response.data as String;
+      const _responseType = FullType(BuiltList, [FullType(MemberGet)]);
+      _responseData = _serializers.deserialize(
+        _response.data!,
+        specifiedType: _responseType,
+      ) as BuiltList<MemberGet>;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -116,7 +130,7 @@ class InvitationApi {
       );
     }
 
-    return Response<String>(
+    return Response<BuiltList<MemberGet>>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

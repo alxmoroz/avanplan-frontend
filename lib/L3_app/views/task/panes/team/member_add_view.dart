@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../../L1_domain/entities/member.dart';
 import '../../../../../L1_domain/entities/role.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../main.dart';
@@ -21,48 +20,37 @@ import 'invitation_controller.dart';
 import 'invitation_pane.dart';
 import 'member_add_controller.dart';
 
-class MemberAddResult {
-  const MemberAddResult(this.member, [this.proceed]);
-  final Member member;
-  final bool? proceed;
-}
-
-Future<MemberAddResult?> memberAddDialog(Task task, Role role) async {
-  return await showModalBottomSheet<MemberAddResult?>(
+Future memberAddDialog(Task task, Role role) async {
+  final invitationController = InvitationController(task, role);
+  await invitationController.fetchInvitation();
+  return await showModalBottomSheet<void>(
     context: rootKey.currentContext!,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    builder: (_) => MTBottomSheet(MemberAddView(task, role)),
+    builder: (_) => MTBottomSheet(MemberAddView(invitationController)),
   );
 }
 
 class MemberAddView extends StatefulWidget {
-  const MemberAddView(this.task, this.role);
-  final Task task;
-  final Role role;
+  const MemberAddView(this.invitationController);
+  final InvitationController invitationController;
 
   @override
   _MemberAddViewState createState() => _MemberAddViewState();
 }
 
 class _MemberAddViewState extends State<MemberAddView> {
-  Task get task => widget.task;
-  Role get role => widget.role;
+  InvitationController get invitationController => widget.invitationController;
 
   late final InvitationPane invitationPane;
   // late final WSMembersPane wsMembersPane;
 
   late final MemberAddController controller;
-  late final InvitationController invitationController;
 
   @override
   void initState() {
     controller = MemberAddController();
-    invitationController = InvitationController(task, role);
-
     invitationPane = InvitationPane(invitationController);
-    // wsMembersPane = WSMembersPane();
-
     super.initState();
   }
 
@@ -93,17 +81,14 @@ class _MemberAddViewState extends State<MemberAddView> {
 
   /// общий виджет - форма с полями
 
-  Widget form(BuildContext context) {
-    return Scrollbar(
-      thumbVisibility: true,
-      child: ListView(children: [
-        // TODO: https://redmine.moroz.team/issues/2527
-        // tabPaneSelector,
-        H4(role.localize, align: TextAlign.center),
-        selectedPane,
-      ]),
-    );
-  }
+  Widget get form => ListView(
+        children: [
+          // TODO: https://redmine.moroz.team/issues/2527
+          // tabPaneSelector,
+          H4(invitationController.role.localize, align: TextAlign.center),
+          selectedPane,
+        ],
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +100,7 @@ class _MemberAddViewState extends State<MemberAddView> {
           title: controller.tabKey == MemberSourceKey.invitation ? invitationController.invitationSubject : '',
           bgColor: backgroundColor,
         ),
-        body: SafeArea(top: false, bottom: false, child: form(context)),
+        body: SafeArea(top: false, bottom: false, child: form),
       ),
     );
   }

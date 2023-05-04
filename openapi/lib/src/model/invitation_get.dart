@@ -6,18 +6,23 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'invitation.g.dart';
+part 'invitation_get.g.dart';
 
-/// Invitation
+/// InvitationGet
 ///
 /// Properties:
+/// * [id] 
 /// * [expiresOn] 
 /// * [taskId] 
 /// * [roleId] 
 /// * [activationsCount] 
 /// * [url] 
+/// * [userId] 
 @BuiltValue()
-abstract class Invitation implements Built<Invitation, InvitationBuilder> {
+abstract class InvitationGet implements Built<InvitationGet, InvitationGetBuilder> {
+  @BuiltValueField(wireName: r'id')
+  int get id;
+
   @BuiltValueField(wireName: r'expires_on')
   DateTime get expiresOn;
 
@@ -33,29 +38,37 @@ abstract class Invitation implements Built<Invitation, InvitationBuilder> {
   @BuiltValueField(wireName: r'url')
   String? get url;
 
-  Invitation._();
+  @BuiltValueField(wireName: r'user_id')
+  int get userId;
 
-  factory Invitation([void updates(InvitationBuilder b)]) = _$Invitation;
+  InvitationGet._();
+
+  factory InvitationGet([void updates(InvitationGetBuilder b)]) = _$InvitationGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(InvitationBuilder b) => b;
+  static void _defaults(InvitationGetBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<Invitation> get serializer => _$InvitationSerializer();
+  static Serializer<InvitationGet> get serializer => _$InvitationGetSerializer();
 }
 
-class _$InvitationSerializer implements PrimitiveSerializer<Invitation> {
+class _$InvitationGetSerializer implements PrimitiveSerializer<InvitationGet> {
   @override
-  final Iterable<Type> types = const [Invitation, _$Invitation];
+  final Iterable<Type> types = const [InvitationGet, _$InvitationGet];
 
   @override
-  final String wireName = r'Invitation';
+  final String wireName = r'InvitationGet';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    Invitation object, {
+    InvitationGet object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
+    yield r'id';
+    yield serializers.serialize(
+      object.id,
+      specifiedType: const FullType(int),
+    );
     yield r'expires_on';
     yield serializers.serialize(
       object.expiresOn,
@@ -83,12 +96,17 @@ class _$InvitationSerializer implements PrimitiveSerializer<Invitation> {
         specifiedType: const FullType(String),
       );
     }
+    yield r'user_id';
+    yield serializers.serialize(
+      object.userId,
+      specifiedType: const FullType(int),
+    );
   }
 
   @override
   Object serialize(
     Serializers serializers,
-    Invitation object, {
+    InvitationGet object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -99,13 +117,20 @@ class _$InvitationSerializer implements PrimitiveSerializer<Invitation> {
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required InvitationBuilder result,
+    required InvitationGetBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
+        case r'id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.id = valueDes;
+          break;
         case r'expires_on':
           final valueDes = serializers.deserialize(
             value,
@@ -141,6 +166,13 @@ class _$InvitationSerializer implements PrimitiveSerializer<Invitation> {
           ) as String;
           result.url = valueDes;
           break;
+        case r'user_id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.userId = valueDes;
+          break;
         default:
           unhandled.add(key);
           unhandled.add(value);
@@ -150,12 +182,12 @@ class _$InvitationSerializer implements PrimitiveSerializer<Invitation> {
   }
 
   @override
-  Invitation deserialize(
+  InvitationGet deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = InvitationBuilder();
+    final result = InvitationGetBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

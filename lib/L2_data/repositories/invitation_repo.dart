@@ -4,20 +4,27 @@ import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/invitation.dart';
 import '../../L1_domain/repositories/abs_invitation_repo.dart';
+import '../mappers/task_invitation.dart';
 import '../services/api.dart';
 
 class InvitationRepo extends AbstractInvitationRepo {
-  o_api.InvitationApi get api => openAPI.getInvitationApi();
+  o_api.TasksInvitationsApi get api => openAPI.getTasksInvitationsApi();
 
   @override
-  Future<String> create(Invitation invitation, int wsId) async {
+  Future<Invitation?> create(Invitation invitation, int wsId) async {
     final invitationData = (o_api.InvitationBuilder()
           ..roleId = invitation.roleId
           ..taskId = invitation.taskId
           ..activationsCount = invitation.activationsCount
           ..expiresOn = invitation.expiresOn.toUtc())
         .build();
-    final response = await api.createV1InvitationPost(wsId: wsId, invitation: invitationData);
-    return response.data ?? '';
+    final response = await api.createV1TasksInvitationsPost(wsId: wsId, invitation: invitationData);
+    return response.data?.invitation;
+  }
+
+  @override
+  Future<Invitation?> getInvitation(int wsId, int taskId, int roleId) async {
+    final response = await api.currentInvitationV1TasksInvitationsGet(wsId: wsId, roleId: roleId, taskId: taskId);
+    return response.data?.invitation;
   }
 }

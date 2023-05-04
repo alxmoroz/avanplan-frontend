@@ -18,7 +18,7 @@ class InvitationPane extends StatelessWidget {
 
   bool get _hasUrl => controller.invitationUrl.isNotEmpty;
 
-  Widget _tfForCode(BuildContext context, String code) {
+  Widget _tfForCode(String code) {
     final ta = controller.tfAnnoForCode(code);
     final isDate = code.endsWith('Date');
 
@@ -27,7 +27,7 @@ class InvitationPane extends StatelessWidget {
             controller: controller.teControllers[code],
             label: ta.label,
             error: ta.errorText,
-            onTap: isDate ? () => controller.selectDate(context) : null,
+            onTap: isDate ? () => controller.selectDate() : null,
             prefixIcon: isDate ? const CalendarIcon() : null,
           )
         : MTTextField(
@@ -56,7 +56,7 @@ class InvitationPane extends StatelessWidget {
   Widget build(BuildContext context) => Observer(
         builder: (_) => Column(
           children: [
-            for (final code in ['activationsCount', 'expiresOn']) _tfForCode(context, code),
+            for (final code in ['activationsCount', 'expiresOn']) _tfForCode(code),
             isWeb && _hasUrl
                 ? MTTextField.noText(
                     label: loc.invitation_share_label,

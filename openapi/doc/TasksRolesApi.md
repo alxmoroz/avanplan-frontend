@@ -1,4 +1,4 @@
-# openapi.api.InvitationApi
+# openapi.api.TasksRolesApi
 
 ## Load the API package
 ```dart
@@ -9,13 +9,13 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createV1InvitationPost**](InvitationApi.md#createv1invitationpost) | **POST** /v1/invitation/ | Create
+[**assignV1TasksRolesPost**](TasksRolesApi.md#assignv1tasksrolespost) | **POST** /v1/tasks/roles/ | Assign
 
 
-# **createV1InvitationPost**
-> String createV1InvitationPost(wsId, invitation)
+# **assignV1TasksRolesPost**
+> BuiltList<MemberGet> assignV1TasksRolesPost(taskId, memberId, wsId, requestBody, permissionTaskId)
 
-Create
+Assign
 
 ### Example
 ```dart
@@ -27,15 +27,18 @@ import 'package:openapi/api.dart';
 // TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
 //defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
 
-final api = Openapi().getInvitationApi();
+final api = Openapi().getTasksRolesApi();
+final int taskId = 56; // int | 
+final int memberId = 56; // int | 
 final int wsId = 56; // int | 
-final Invitation invitation = ; // Invitation | 
+final BuiltList<int> requestBody = ; // BuiltList<int> | 
+final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.createV1InvitationPost(wsId, invitation);
+    final response = api.assignV1TasksRolesPost(taskId, memberId, wsId, requestBody, permissionTaskId);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling InvitationApi->createV1InvitationPost: $e\n');
+    print('Exception when calling TasksRolesApi->assignV1TasksRolesPost: $e\n');
 }
 ```
 
@@ -43,12 +46,15 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **taskId** | **int**|  | 
+ **memberId** | **int**|  | 
  **wsId** | **int**|  | 
- **invitation** | [**Invitation**](Invitation.md)|  | 
+ **requestBody** | [**BuiltList&lt;int&gt;**](int.md)|  | 
+ **permissionTaskId** | **int**|  | [optional] 
 
 ### Return type
 
-**String**
+[**BuiltList&lt;MemberGet&gt;**](MemberGet.md)
 
 ### Authorization
 

@@ -9,5 +9,6 @@ class InvitationUC {
 
   final AbstractInvitationRepo repo;
 
-  Future<String> create(Invitation invitation, int wsId) async => await repo.create(invitation, wsId);
+  Future<Invitation?> create(Invitation invitation, int wsId) async => await repo.create(invitation, wsId);
+  Future<Invitation?> getInvitation(int wsId, int taskId, int roleId) async => await repo.getInvitation(wsId, taskId, roleId);
 }

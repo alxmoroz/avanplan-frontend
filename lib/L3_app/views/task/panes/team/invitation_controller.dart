@@ -5,10 +5,11 @@ import 'package:flutter/services.dart';
 import 'package:mobx/mobx.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../../../../../L1_domain/entities/invitation.dart';
-import '../../../../../../L1_domain/entities/role.dart';
-import '../../../../../../L1_domain/entities/task.dart';
+import '../../../../../L1_domain/entities/invitation.dart';
+import '../../../../../L1_domain/entities/role.dart';
+import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L2_data/services/platform.dart';
+import '../../../../../main.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/text_field_annotation.dart';
 import '../../../../components/text_widgets.dart';
@@ -22,13 +23,6 @@ class InvitationController extends _InvitationControllerBase with _$InvitationCo
   InvitationController(Task _task, Role _role) {
     task = _task;
     role = _role;
-
-    initState(tfaList: [
-      TFAnnotation('expiresOn', label: loc.invitation_expires_placeholder, noText: true),
-      TFAnnotation('activationsCount', label: loc.invitation_activations_count_placeholder, text: '10'),
-    ]);
-
-    setExpired(DateTime.now().add(const Duration(days: 7)));
   }
 }
 
@@ -45,14 +39,14 @@ abstract class _InvitationControllerBase extends EditController with Store {
     teControllers['expiresOn']?.text = _date != null ? _date.strMedium : '';
   }
 
-  Future selectDate(BuildContext context) async {
+  Future selectDate() async {
     final today = DateTime.now();
     final lastDate = today.add(const Duration(days: 7));
     final initialDate = expiresOn ?? today;
     final firstDate = today;
 
     final date = await showDatePicker(
-      context: context,
+      context: rootKey.currentContext!,
       initialEntryMode: DatePickerEntryMode.calendarOnly,
       initialDate: initialDate,
       firstDate: firstDate,
@@ -64,9 +58,11 @@ abstract class _InvitationControllerBase extends EditController with Store {
   }
 
   /// приглашение
-
   @observable
-  String invitationUrl = '';
+  Invitation? invitation;
+
+  @computed
+  String get invitationUrl => invitation?.url ?? '';
 
   @action
   Future createInvitation() async {
@@ -74,7 +70,7 @@ abstract class _InvitationControllerBase extends EditController with Store {
     if (activationsCount > 0) {
       loaderController.start();
       loaderController.setCreateInvitation();
-      invitationUrl = await invitationUC.create(
+      invitation = await invitationUC.create(
           Invitation(
             task.id!,
             role.id!,
@@ -84,6 +80,22 @@ abstract class _InvitationControllerBase extends EditController with Store {
           task.wsId);
       await loaderController.stop();
     }
+  }
+
+  @action
+  Future fetchInvitation() async {
+    loaderController.start();
+    loaderController.setRefreshing();
+    invitation = await invitationUC.getInvitation(task.wsId, task.id!, role.id!);
+
+    initState(tfaList: [
+      TFAnnotation('expiresOn', label: loc.invitation_expires_placeholder, noText: true),
+      TFAnnotation('activationsCount', label: loc.invitation_activations_count_placeholder, text: '${invitation?.activationsCount ?? '10'}'),
+    ]);
+
+    setExpired(invitation?.expiresOn ?? DateTime.now().add(const Duration(days: 7)));
+
+    await loaderController.stop();
   }
 
   String get invitationSubject => '${loc.invitation_share_subject_prefix}${loc.app_title} - ${task.title}';

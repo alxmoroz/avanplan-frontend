@@ -11,14 +11,15 @@ import 'package:openapi/src/auth/bearer_auth.dart';
 import 'package:openapi/src/auth/oauth.dart';
 import 'package:openapi/src/api/auth_api.dart';
 import 'package:openapi/src/api/contracts_api.dart';
+import 'package:openapi/src/api/deprecated11_api.dart';
 import 'package:openapi/src/api/integrations_sources_api.dart';
 import 'package:openapi/src/api/integrations_tasks_api.dart';
-import 'package:openapi/src/api/invitation_api.dart';
 import 'package:openapi/src/api/my_api.dart';
-import 'package:openapi/src/api/roles_api.dart';
 import 'package:openapi/src/api/settings_api.dart';
 import 'package:openapi/src/api/tariffs_api.dart';
 import 'package:openapi/src/api/tasks_api.dart';
+import 'package:openapi/src/api/tasks_invitations_api.dart';
+import 'package:openapi/src/api/tasks_roles_api.dart';
 
 class Openapi {
   static const String basePath = r'/api';
@@ -86,6 +87,12 @@ class Openapi {
     return ContractsApi(dio, serializers);
   }
 
+  /// Get Deprecated11Api instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  Deprecated11Api getDeprecated11Api() {
+    return Deprecated11Api(dio, serializers);
+  }
+
   /// Get IntegrationsSourcesApi instance, base route and serializer can be overridden by a given but be careful,
   /// by doing that all interceptors will not be executed
   IntegrationsSourcesApi getIntegrationsSourcesApi() {
@@ -98,22 +105,10 @@ class Openapi {
     return IntegrationsTasksApi(dio, serializers);
   }
 
-  /// Get InvitationApi instance, base route and serializer can be overridden by a given but be careful,
-  /// by doing that all interceptors will not be executed
-  InvitationApi getInvitationApi() {
-    return InvitationApi(dio, serializers);
-  }
-
   /// Get MyApi instance, base route and serializer can be overridden by a given but be careful,
   /// by doing that all interceptors will not be executed
   MyApi getMyApi() {
     return MyApi(dio, serializers);
-  }
-
-  /// Get RolesApi instance, base route and serializer can be overridden by a given but be careful,
-  /// by doing that all interceptors will not be executed
-  RolesApi getRolesApi() {
-    return RolesApi(dio, serializers);
   }
 
   /// Get SettingsApi instance, base route and serializer can be overridden by a given but be careful,
@@ -132,5 +127,17 @@ class Openapi {
   /// by doing that all interceptors will not be executed
   TasksApi getTasksApi() {
     return TasksApi(dio, serializers);
+  }
+
+  /// Get TasksInvitationsApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  TasksInvitationsApi getTasksInvitationsApi() {
+    return TasksInvitationsApi(dio, serializers);
+  }
+
+  /// Get TasksRolesApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  TasksRolesApi getTasksRolesApi() {
+    return TasksRolesApi(dio, serializers);
   }
 }

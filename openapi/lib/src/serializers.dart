@@ -30,6 +30,7 @@ import 'package:openapi/src/model/estimate_unit_get.dart';
 import 'package:openapi/src/model/estimate_value_get.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/invitation.dart';
+import 'package:openapi/src/model/invitation_get.dart';
 import 'package:openapi/src/model/invoice_detail_get.dart';
 import 'package:openapi/src/model/invoice_get.dart';
 import 'package:openapi/src/model/location_inner.dart';
@@ -78,6 +79,7 @@ part 'serializers.g.dart';
   EstimateValueGet,
   HTTPValidationError,
   Invitation,
+  InvitationGet,
   InvoiceDetailGet,
   InvoiceGet,
   LocationInner,

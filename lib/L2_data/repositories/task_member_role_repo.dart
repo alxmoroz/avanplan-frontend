@@ -9,11 +9,11 @@ import '../../L2_data/mappers/member.dart';
 import '../services/api.dart';
 
 class TaskMemberRoleRepo extends AbstractTaskMemberRoleRepo {
-  o_api.RolesApi get api => openAPI.getRolesApi();
+  o_api.TasksRolesApi get api => openAPI.getTasksRolesApi();
 
   @override
   Future<Iterable<Member>> assignRoles(int wsId, int taskId, int memberId, Iterable<int> rolesIds) async {
-    final response = await api.assignV1RolesPost(
+    final response = await api.assignV1TasksRolesPost(
       taskId: taskId,
       permissionTaskId: taskId,
       memberId: memberId,

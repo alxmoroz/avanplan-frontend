@@ -71,13 +71,14 @@ Class | Method | HTTP request | Description
 [*AuthApi*](doc/AuthApi.md) | [**registrationToken**](doc/AuthApi.md#registrationtoken) | **POST** /v1/auth/registration_token | Registration Token
 [*AuthApi*](doc/AuthApi.md) | [**requestRegistration**](doc/AuthApi.md#requestregistration) | **POST** /v1/auth/registration | Request Registration
 [*ContractsApi*](doc/ContractsApi.md) | [**signV1ContractsPost**](doc/ContractsApi.md#signv1contractspost) | **POST** /v1/contracts/ | Sign
+[*Deprecated11Api*](doc/Deprecated11Api.md) | [**deprecatedInvitationCreateV1InvitationPost**](doc/Deprecated11Api.md#deprecatedinvitationcreatev1invitationpost) | **POST** /v1/invitation | Deprecated Invitation Create
+[*Deprecated11Api*](doc/Deprecated11Api.md) | [**deprecatedRolesAssignV1RolesPost**](doc/Deprecated11Api.md#deprecatedrolesassignv1rolespost) | **POST** /v1/roles | Deprecated Roles Assign
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**checkConnectionV1IntegrationsSourcesCheckConnectionGet**](doc/IntegrationsSourcesApi.md#checkconnectionv1integrationssourcescheckconnectionget) | **GET** /v1/integrations/sources/check_connection | Check Connection
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**deleteV1IntegrationsSourcesSourceIdDelete**](doc/IntegrationsSourcesApi.md#deletev1integrationssourcessourceiddelete) | **DELETE** /v1/integrations/sources/{source_id} | Delete
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**upsertV1IntegrationsSourcesPost**](doc/IntegrationsSourcesApi.md#upsertv1integrationssourcespost) | **POST** /v1/integrations/sources/ | Upsert
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**importTaskSourcesV1IntegrationsTasksImportPost**](doc/IntegrationsTasksApi.md#importtasksourcesv1integrationstasksimportpost) | **POST** /v1/integrations/tasks/import | Import Task Sources
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**rootTasksV1IntegrationsTasksGet**](doc/IntegrationsTasksApi.md#roottasksv1integrationstasksget) | **GET** /v1/integrations/tasks/ | Root Tasks
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost**](doc/IntegrationsTasksApi.md#unlinktasksourcesv1integrationstasksunlinktasksourcespost) | **POST** /v1/integrations/tasks/unlink_task_sources | Unlink Task Sources
-[*InvitationApi*](doc/InvitationApi.md) | [**createV1InvitationPost**](doc/InvitationApi.md#createv1invitationpost) | **POST** /v1/invitation/ | Create
 [*MyApi*](doc/MyApi.md) | [**accountV1MyAccountGet**](doc/MyApi.md#accountv1myaccountget) | **GET** /v1/my/account | Account
 [*MyApi*](doc/MyApi.md) | [**createWorkspaceV1MyCreateWorkspacePost**](doc/MyApi.md#createworkspacev1mycreateworkspacepost) | **POST** /v1/my/create_workspace | Create Workspace
 [*MyApi*](doc/MyApi.md) | [**deleteAccountV1MyAccountDelete**](doc/MyApi.md#deleteaccountv1myaccountdelete) | **DELETE** /v1/my/account | Delete Account
@@ -88,12 +89,14 @@ Class | Method | HTTP request | Description
 [*MyApi*](doc/MyApi.md) | [**updatePushTokenV1MyPushTokenPost**](doc/MyApi.md#updatepushtokenv1mypushtokenpost) | **POST** /v1/my/push_token | Update Push Token
 [*MyApi*](doc/MyApi.md) | [**updateWorkspaceV1MyUpdateWorkspacePost**](doc/MyApi.md#updateworkspacev1myupdateworkspacepost) | **POST** /v1/my/update_workspace | Update Workspace
 [*MyApi*](doc/MyApi.md) | [**workspacesV1MyWorkspacesGet**](doc/MyApi.md#workspacesv1myworkspacesget) | **GET** /v1/my/workspaces | Workspaces
-[*RolesApi*](doc/RolesApi.md) | [**assignV1RolesPost**](doc/RolesApi.md#assignv1rolespost) | **POST** /v1/roles/ | Assign
 [*SettingsApi*](doc/SettingsApi.md) | [**settingsV1SettingsGet**](doc/SettingsApi.md#settingsv1settingsget) | **GET** /v1/settings/ | Settings
 [*TariffsApi*](doc/TariffsApi.md) | [**tariffsV1TariffsGet**](doc/TariffsApi.md#tariffsv1tariffsget) | **GET** /v1/tariffs/ | Tariffs
 [*TasksApi*](doc/TasksApi.md) | [**deleteV1TasksTaskIdDelete**](doc/TasksApi.md#deletev1taskstaskiddelete) | **DELETE** /v1/tasks/{task_id} | Delete
 [*TasksApi*](doc/TasksApi.md) | [**projectsV1TasksGet**](doc/TasksApi.md#projectsv1tasksget) | **GET** /v1/tasks/ | Projects
 [*TasksApi*](doc/TasksApi.md) | [**upsertV1TasksPost**](doc/TasksApi.md#upsertv1taskspost) | **POST** /v1/tasks/ | Upsert
+[*TasksInvitationsApi*](doc/TasksInvitationsApi.md) | [**createV1TasksInvitationsPost**](doc/TasksInvitationsApi.md#createv1tasksinvitationspost) | **POST** /v1/tasks/invitations/ | Create
+[*TasksInvitationsApi*](doc/TasksInvitationsApi.md) | [**currentInvitationV1TasksInvitationsGet**](doc/TasksInvitationsApi.md#currentinvitationv1tasksinvitationsget) | **GET** /v1/tasks/invitations/ | Current Invitation
+[*TasksRolesApi*](doc/TasksRolesApi.md) | [**assignV1TasksRolesPost**](doc/TasksRolesApi.md#assignv1tasksrolespost) | **POST** /v1/tasks/roles/ | Assign
 
 
 ## Documentation For Models
@@ -114,6 +117,7 @@ Class | Method | HTTP request | Description
  - [EstimateValueGet](doc/EstimateValueGet.md)
  - [HTTPValidationError](doc/HTTPValidationError.md)
  - [Invitation](doc/Invitation.md)
+ - [InvitationGet](doc/InvitationGet.md)
  - [InvoiceDetailGet](doc/InvoiceDetailGet.md)
  - [InvoiceGet](doc/InvoiceGet.md)
  - [LocationInner](doc/LocationInner.md)

@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../main.dart';
+import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/mt_button.dart';
 import '../../../components/mt_limit_badge.dart';
@@ -32,7 +33,9 @@ class TaskAddButton extends StatelessWidget {
           middle: compact ? _plusIcon : null,
           constrained: !compact,
           onTap: _tap,
+          margin: EdgeInsets.only(right: compact ? P : 0),
         ),
         showBadge: !controller.plCreate,
+        constrained: !compact,
       );
 }

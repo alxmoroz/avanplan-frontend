@@ -8,32 +8,32 @@ import 'icons_workspace.dart';
 import 'mt_constrained.dart';
 
 class MTLimitBadge extends StatelessWidget {
-  const MTLimitBadge({required this.child, required this.showBadge});
+  const MTLimitBadge({required this.child, required this.showBadge, this.constrained = true});
   final Widget child;
   final bool showBadge;
+  final bool constrained;
 
   static const _badgeSize = P2;
 
   @override
   Widget build(BuildContext context) {
-    return MTConstrained(
-      Stack(
-        children: [
-          Positioned(
-            top: DEF_BORDER_WIDTH / 2,
-            child: Container(
-              width: _badgeSize * 2,
-              height: MIN_BTN_HEIGHT - DEF_BORDER_WIDTH,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS),
-                color: warningColor.resolve(context),
-              ),
-              child: Row(children: const [SizedBox(width: P_6), RoubleIcon(size: P2, color: lightBackgroundColor)]),
+    final stack = Stack(
+      children: [
+        Positioned(
+          top: DEF_BORDER_WIDTH / 2,
+          child: Container(
+            width: _badgeSize * 2,
+            height: MIN_BTN_HEIGHT - DEF_BORDER_WIDTH,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS),
+              color: warningColor.resolve(context),
             ),
+            child: Row(children: const [SizedBox(width: P_6), RoubleIcon(size: P2, color: lightBackgroundColor)]),
           ),
-          Padding(padding: EdgeInsets.only(left: showBadge ? _badgeSize : 0), child: child),
-        ],
-      ),
+        ),
+        Padding(padding: EdgeInsets.only(left: showBadge ? _badgeSize : 0), child: child),
+      ],
     );
+    return constrained ? MTConstrained(stack) : stack;
   }
 }

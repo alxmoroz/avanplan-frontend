@@ -24,9 +24,6 @@ java -ea                          \
   -server                         \
   -jar ../scripts/openapi-generator-cli.jar generate -i openapi.json -g dart-dio -o .
 
-#flutter pub get
-bash ../scripts/build_runner_clean.sh
-bash ../scripts/build_runner_build.sh
-dart format ./**/*.dart
-
 cd ../
+
+bash ./scripts/api_build.sh

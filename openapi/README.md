@@ -71,32 +71,37 @@ Class | Method | HTTP request | Description
 [*AuthApi*](doc/AuthApi.md) | [**registrationToken**](doc/AuthApi.md#registrationtoken) | **POST** /v1/auth/registration_token | Registration Token
 [*AuthApi*](doc/AuthApi.md) | [**requestRegistration**](doc/AuthApi.md#requestregistration) | **POST** /v1/auth/registration | Request Registration
 [*ContractsApi*](doc/ContractsApi.md) | [**signV1ContractsPost**](doc/ContractsApi.md#signv1contractspost) | **POST** /v1/contracts/ | Sign
+[*Deprecated11Api*](doc/Deprecated11Api.md) | [**deprecatedCreateWorkspaceV1MyCreateWorkspacePost**](doc/Deprecated11Api.md#deprecatedcreateworkspacev1mycreateworkspacepost) | **POST** /v1/my/create_workspace | Deprecated Create Workspace
 [*Deprecated11Api*](doc/Deprecated11Api.md) | [**deprecatedInvitationCreateV1InvitationPost**](doc/Deprecated11Api.md#deprecatedinvitationcreatev1invitationpost) | **POST** /v1/invitation | Deprecated Invitation Create
+[*Deprecated11Api*](doc/Deprecated11Api.md) | [**deprecatedRedeemInvitationV1MyRedeemInvitationPost**](doc/Deprecated11Api.md#deprecatedredeeminvitationv1myredeeminvitationpost) | **POST** /v1/my/redeem_invitation | Deprecated Redeem Invitation
 [*Deprecated11Api*](doc/Deprecated11Api.md) | [**deprecatedRolesAssignV1RolesPost**](doc/Deprecated11Api.md#deprecatedrolesassignv1rolespost) | **POST** /v1/roles | Deprecated Roles Assign
+[*Deprecated11Api*](doc/Deprecated11Api.md) | [**deprecatedUpdatePushTokenV1MyPushTokenPost**](doc/Deprecated11Api.md#deprecatedupdatepushtokenv1mypushtokenpost) | **POST** /v1/my/push_token | Deprecated Update Push Token
+[*Deprecated11Api*](doc/Deprecated11Api.md) | [**deprecatedUpdateWorkspaceV1MyUpdateWorkspacePost**](doc/Deprecated11Api.md#deprecatedupdateworkspacev1myupdateworkspacepost) | **POST** /v1/my/update_workspace | Deprecated Update Workspace
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**checkConnectionV1IntegrationsSourcesCheckConnectionGet**](doc/IntegrationsSourcesApi.md#checkconnectionv1integrationssourcescheckconnectionget) | **GET** /v1/integrations/sources/check_connection | Check Connection
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**deleteV1IntegrationsSourcesSourceIdDelete**](doc/IntegrationsSourcesApi.md#deletev1integrationssourcessourceiddelete) | **DELETE** /v1/integrations/sources/{source_id} | Delete
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**upsertV1IntegrationsSourcesPost**](doc/IntegrationsSourcesApi.md#upsertv1integrationssourcespost) | **POST** /v1/integrations/sources/ | Upsert
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**importTaskSourcesV1IntegrationsTasksImportPost**](doc/IntegrationsTasksApi.md#importtasksourcesv1integrationstasksimportpost) | **POST** /v1/integrations/tasks/import | Import Task Sources
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**rootTasksV1IntegrationsTasksGet**](doc/IntegrationsTasksApi.md#roottasksv1integrationstasksget) | **GET** /v1/integrations/tasks/ | Root Tasks
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost**](doc/IntegrationsTasksApi.md#unlinktasksourcesv1integrationstasksunlinktasksourcespost) | **POST** /v1/integrations/tasks/unlink_task_sources | Unlink Task Sources
-[*MyApi*](doc/MyApi.md) | [**accountV1MyAccountGet**](doc/MyApi.md#accountv1myaccountget) | **GET** /v1/my/account | Account
-[*MyApi*](doc/MyApi.md) | [**createWorkspaceV1MyCreateWorkspacePost**](doc/MyApi.md#createworkspacev1mycreateworkspacepost) | **POST** /v1/my/create_workspace | Create Workspace
-[*MyApi*](doc/MyApi.md) | [**deleteAccountV1MyAccountDelete**](doc/MyApi.md#deleteaccountv1myaccountdelete) | **DELETE** /v1/my/account | Delete Account
-[*MyApi*](doc/MyApi.md) | [**markReadNotificationsV1MyNotificationsPost**](doc/MyApi.md#markreadnotificationsv1mynotificationspost) | **POST** /v1/my/notifications | Mark Read Notifications
-[*MyApi*](doc/MyApi.md) | [**notificationsV1MyNotificationsGet**](doc/MyApi.md#notificationsv1mynotificationsget) | **GET** /v1/my/notifications | Notifications
-[*MyApi*](doc/MyApi.md) | [**redeemInvitationV1MyRedeemInvitationPost**](doc/MyApi.md#redeeminvitationv1myredeeminvitationpost) | **POST** /v1/my/redeem_invitation | Redeem Invitation
-[*MyApi*](doc/MyApi.md) | [**updateAccountV1MyAccountPost**](doc/MyApi.md#updateaccountv1myaccountpost) | **POST** /v1/my/account | Update Account
-[*MyApi*](doc/MyApi.md) | [**updatePushTokenV1MyPushTokenPost**](doc/MyApi.md#updatepushtokenv1mypushtokenpost) | **POST** /v1/my/push_token | Update Push Token
-[*MyApi*](doc/MyApi.md) | [**updateWorkspaceV1MyUpdateWorkspacePost**](doc/MyApi.md#updateworkspacev1myupdateworkspacepost) | **POST** /v1/my/update_workspace | Update Workspace
-[*MyApi*](doc/MyApi.md) | [**workspacesV1MyWorkspacesGet**](doc/MyApi.md#workspacesv1myworkspacesget) | **GET** /v1/my/workspaces | Workspaces
+[*MyAccountApi*](doc/MyAccountApi.md) | [**accountV1MyAccountGet**](doc/MyAccountApi.md#accountv1myaccountget) | **GET** /v1/my/account | Account
+[*MyAccountApi*](doc/MyAccountApi.md) | [**deleteAccountV1MyAccountDelete**](doc/MyAccountApi.md#deleteaccountv1myaccountdelete) | **DELETE** /v1/my/account | Delete Account
+[*MyAccountApi*](doc/MyAccountApi.md) | [**updateAccountV1MyAccountPost**](doc/MyAccountApi.md#updateaccountv1myaccountpost) | **POST** /v1/my/account | Update Account
+[*MyActivitiesApi*](doc/MyActivitiesApi.md) | [**activitiesV1MyActivitiesGet**](doc/MyActivitiesApi.md#activitiesv1myactivitiesget) | **GET** /v1/my/activities/ | Activities
+[*MyInvitationsApi*](doc/MyInvitationsApi.md) | [**redeemV1MyInvitationsRedeemPost**](doc/MyInvitationsApi.md#redeemv1myinvitationsredeempost) | **POST** /v1/my/invitations/redeem | Redeem
+[*MyNotificationsApi*](doc/MyNotificationsApi.md) | [**markReadNotificationsV1MyNotificationsPost**](doc/MyNotificationsApi.md#markreadnotificationsv1mynotificationspost) | **POST** /v1/my/notifications | Mark Read Notifications
+[*MyNotificationsApi*](doc/MyNotificationsApi.md) | [**notificationsV1MyNotificationsGet**](doc/MyNotificationsApi.md#notificationsv1mynotificationsget) | **GET** /v1/my/notifications | Notifications
+[*MyPushTokensApi*](doc/MyPushTokensApi.md) | [**updatePushTokenV1MyPushTokensUpdatePost**](doc/MyPushTokensApi.md#updatepushtokenv1mypushtokensupdatepost) | **POST** /v1/my/push_tokens/update | Update Push Token
+[*MyWorkspacesApi*](doc/MyWorkspacesApi.md) | [**createWorkspaceV1MyWorkspacesCreatePost**](doc/MyWorkspacesApi.md#createworkspacev1myworkspacescreatepost) | **POST** /v1/my/workspaces/create | Create Workspace
+[*MyWorkspacesApi*](doc/MyWorkspacesApi.md) | [**updateWorkspaceV1MyWorkspacesUpdatePost**](doc/MyWorkspacesApi.md#updateworkspacev1myworkspacesupdatepost) | **POST** /v1/my/workspaces/update | Update Workspace
+[*MyWorkspacesApi*](doc/MyWorkspacesApi.md) | [**workspacesV1MyWorkspacesGet**](doc/MyWorkspacesApi.md#workspacesv1myworkspacesget) | **GET** /v1/my/workspaces | Workspaces
 [*SettingsApi*](doc/SettingsApi.md) | [**settingsV1SettingsGet**](doc/SettingsApi.md#settingsv1settingsget) | **GET** /v1/settings/ | Settings
 [*TariffsApi*](doc/TariffsApi.md) | [**tariffsV1TariffsGet**](doc/TariffsApi.md#tariffsv1tariffsget) | **GET** /v1/tariffs/ | Tariffs
 [*TasksApi*](doc/TasksApi.md) | [**deleteV1TasksTaskIdDelete**](doc/TasksApi.md#deletev1taskstaskiddelete) | **DELETE** /v1/tasks/{task_id} | Delete
 [*TasksApi*](doc/TasksApi.md) | [**projectsV1TasksGet**](doc/TasksApi.md#projectsv1tasksget) | **GET** /v1/tasks/ | Projects
 [*TasksApi*](doc/TasksApi.md) | [**upsertV1TasksPost**](doc/TasksApi.md#upsertv1taskspost) | **POST** /v1/tasks/ | Upsert
-[*TasksInvitationsApi*](doc/TasksInvitationsApi.md) | [**createV1TasksInvitationsPost**](doc/TasksInvitationsApi.md#createv1tasksinvitationspost) | **POST** /v1/tasks/invitations/ | Create
-[*TasksInvitationsApi*](doc/TasksInvitationsApi.md) | [**currentInvitationV1TasksInvitationsGet**](doc/TasksInvitationsApi.md#currentinvitationv1tasksinvitationsget) | **GET** /v1/tasks/invitations/ | Current Invitation
-[*TasksRolesApi*](doc/TasksRolesApi.md) | [**assignV1TasksRolesPost**](doc/TasksRolesApi.md#assignv1tasksrolespost) | **POST** /v1/tasks/roles/ | Assign
+[*TasksInvitationsApi*](doc/TasksInvitationsApi.md) | [**createV1TasksInvitationsPost**](doc/TasksInvitationsApi.md#createv1tasksinvitationspost) | **POST** /v1/tasks/invitations | Create
+[*TasksInvitationsApi*](doc/TasksInvitationsApi.md) | [**currentInvitationV1TasksInvitationsGet**](doc/TasksInvitationsApi.md#currentinvitationv1tasksinvitationsget) | **GET** /v1/tasks/invitations | Current Invitation
+[*TasksRolesApi*](doc/TasksRolesApi.md) | [**assignV1TasksRolesPost**](doc/TasksRolesApi.md#assignv1tasksrolespost) | **POST** /v1/tasks/roles | Assign
 
 
 ## Documentation For Models
@@ -107,11 +112,13 @@ Class | Method | HTTP request | Description
  - [AuthToken](doc/AuthToken.md)
  - [BodyAuthAppleToken](doc/BodyAuthAppleToken.md)
  - [BodyAuthGoogleToken](doc/BodyAuthGoogleToken.md)
- - [BodyRedeemInvitationV1MyRedeemInvitationPost](doc/BodyRedeemInvitationV1MyRedeemInvitationPost.md)
+ - [BodyDeprecatedRedeemInvitationV1MyRedeemInvitationPost](doc/BodyDeprecatedRedeemInvitationV1MyRedeemInvitationPost.md)
+ - [BodyDeprecatedUpdatePushTokenV1MyPushTokenPost](doc/BodyDeprecatedUpdatePushTokenV1MyPushTokenPost.md)
+ - [BodyRedeemV1MyInvitationsRedeemPost](doc/BodyRedeemV1MyInvitationsRedeemPost.md)
  - [BodyRegistrationToken](doc/BodyRegistrationToken.md)
  - [BodyRequestRegistration](doc/BodyRequestRegistration.md)
  - [BodyUpdateAccountV1MyAccountPost](doc/BodyUpdateAccountV1MyAccountPost.md)
- - [BodyUpdatePushTokenV1MyPushTokenPost](doc/BodyUpdatePushTokenV1MyPushTokenPost.md)
+ - [BodyUpdatePushTokenV1MyPushTokensUpdatePost](doc/BodyUpdatePushTokenV1MyPushTokensUpdatePost.md)
  - [ContractGet](doc/ContractGet.md)
  - [EstimateUnitGet](doc/EstimateUnitGet.md)
  - [EstimateValueGet](doc/EstimateValueGet.md)
@@ -141,7 +148,7 @@ Class | Method | HTTP request | Description
  - [TaskSourceGet](doc/TaskSourceGet.md)
  - [TaskSourceUpsert](doc/TaskSourceUpsert.md)
  - [TaskUpsert](doc/TaskUpsert.md)
- - [UNotificationPermissionGet](doc/UNotificationPermissionGet.md)
+ - [UActivityGet](doc/UActivityGet.md)
  - [User](doc/User.md)
  - [ValidationError](doc/ValidationError.md)
  - [WorkspaceGet](doc/WorkspaceGet.md)

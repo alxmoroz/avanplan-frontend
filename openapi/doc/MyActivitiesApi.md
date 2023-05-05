@@ -1,4 +1,4 @@
-# openapi.api.TasksRolesApi
+# openapi.api.MyActivitiesApi
 
 ## Load the API package
 ```dart
@@ -9,13 +9,13 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**assignV1TasksRolesPost**](TasksRolesApi.md#assignv1tasksrolespost) | **POST** /v1/tasks/roles | Assign
+[**activitiesV1MyActivitiesGet**](MyActivitiesApi.md#activitiesv1myactivitiesget) | **GET** /v1/my/activities/ | Activities
 
 
-# **assignV1TasksRolesPost**
-> BuiltList<MemberGet> assignV1TasksRolesPost(taskId, memberId, wsId, requestBody, permissionTaskId)
+# **activitiesV1MyActivitiesGet**
+> BuiltList<UActivityGet> activitiesV1MyActivitiesGet(code)
 
-Assign
+Activities
 
 ### Example
 ```dart
@@ -27,18 +27,14 @@ import 'package:openapi/api.dart';
 // TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
 //defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
 
-final api = Openapi().getTasksRolesApi();
-final int taskId = 56; // int | 
-final int memberId = 56; // int | 
-final int wsId = 56; // int | 
-final BuiltList<int> requestBody = ; // BuiltList<int> | 
-final int permissionTaskId = 56; // int | 
+final api = Openapi().getMyActivitiesApi();
+final String code = code_example; // String | 
 
 try {
-    final response = api.assignV1TasksRolesPost(taskId, memberId, wsId, requestBody, permissionTaskId);
+    final response = api.activitiesV1MyActivitiesGet(code);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling TasksRolesApi->assignV1TasksRolesPost: $e\n');
+    print('Exception when calling MyActivitiesApi->activitiesV1MyActivitiesGet: $e\n');
 }
 ```
 
@@ -46,15 +42,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **taskId** | **int**|  | 
- **memberId** | **int**|  | 
- **wsId** | **int**|  | 
- **requestBody** | [**BuiltList&lt;int&gt;**](int.md)|  | 
- **permissionTaskId** | **int**|  | [optional] 
+ **code** | **String**|  | 
 
 ### Return type
 
-[**BuiltList&lt;MemberGet&gt;**](MemberGet.md)
+[**BuiltList&lt;UActivityGet&gt;**](UActivityGet.md)
 
 ### Authorization
 
@@ -62,7 +54,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

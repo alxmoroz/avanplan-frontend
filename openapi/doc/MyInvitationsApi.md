@@ -1,4 +1,4 @@
-# openapi.api.TasksRolesApi
+# openapi.api.MyInvitationsApi
 
 ## Load the API package
 ```dart
@@ -9,13 +9,13 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**assignV1TasksRolesPost**](TasksRolesApi.md#assignv1tasksrolespost) | **POST** /v1/tasks/roles | Assign
+[**redeemV1MyInvitationsRedeemPost**](MyInvitationsApi.md#redeemv1myinvitationsredeempost) | **POST** /v1/my/invitations/redeem | Redeem
 
 
-# **assignV1TasksRolesPost**
-> BuiltList<MemberGet> assignV1TasksRolesPost(taskId, memberId, wsId, requestBody, permissionTaskId)
+# **redeemV1MyInvitationsRedeemPost**
+> bool redeemV1MyInvitationsRedeemPost(bodyRedeemV1MyInvitationsRedeemPost)
 
-Assign
+Redeem
 
 ### Example
 ```dart
@@ -27,18 +27,14 @@ import 'package:openapi/api.dart';
 // TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
 //defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
 
-final api = Openapi().getTasksRolesApi();
-final int taskId = 56; // int | 
-final int memberId = 56; // int | 
-final int wsId = 56; // int | 
-final BuiltList<int> requestBody = ; // BuiltList<int> | 
-final int permissionTaskId = 56; // int | 
+final api = Openapi().getMyInvitationsApi();
+final BodyRedeemV1MyInvitationsRedeemPost bodyRedeemV1MyInvitationsRedeemPost = ; // BodyRedeemV1MyInvitationsRedeemPost | 
 
 try {
-    final response = api.assignV1TasksRolesPost(taskId, memberId, wsId, requestBody, permissionTaskId);
+    final response = api.redeemV1MyInvitationsRedeemPost(bodyRedeemV1MyInvitationsRedeemPost);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling TasksRolesApi->assignV1TasksRolesPost: $e\n');
+    print('Exception when calling MyInvitationsApi->redeemV1MyInvitationsRedeemPost: $e\n');
 }
 ```
 
@@ -46,15 +42,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **taskId** | **int**|  | 
- **memberId** | **int**|  | 
- **wsId** | **int**|  | 
- **requestBody** | [**BuiltList&lt;int&gt;**](int.md)|  | 
- **permissionTaskId** | **int**|  | [optional] 
+ **bodyRedeemV1MyInvitationsRedeemPost** | [**BodyRedeemV1MyInvitationsRedeemPost**](BodyRedeemV1MyInvitationsRedeemPost.md)|  | [optional] 
 
 ### Return type
 
-[**BuiltList&lt;MemberGet&gt;**](MemberGet.md)
+**bool**
 
 ### Authorization
 

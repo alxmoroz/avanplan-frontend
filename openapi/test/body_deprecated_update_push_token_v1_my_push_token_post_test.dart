@@ -1,12 +1,12 @@
 import 'package:test/test.dart';
 import 'package:openapi/openapi.dart';
 
-// tests for BodyUpdatePushTokenV1MyPushTokenPost
+// tests for BodyDeprecatedUpdatePushTokenV1MyPushTokenPost
 void main() {
-  final instance = BodyUpdatePushTokenV1MyPushTokenPostBuilder();
+  final instance = BodyDeprecatedUpdatePushTokenV1MyPushTokenPostBuilder();
   // TODO add properties to the builder and call build()
 
-  group(BodyUpdatePushTokenV1MyPushTokenPost, () {
+  group(BodyDeprecatedUpdatePushTokenV1MyPushTokenPost, () {
     // String code
     test('to test the property `code`', () async {
       // TODO

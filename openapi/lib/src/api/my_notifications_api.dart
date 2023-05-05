@@ -7,25 +7,23 @@ import 'dart:async';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
-import 'package:openapi/src/api_util.dart';
+import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
-import 'package:openapi/src/model/invitation.dart';
-import 'package:openapi/src/model/invitation_get.dart';
+import 'package:openapi/src/model/notification.dart';
 
-class TasksInvitationsApi {
+class MyNotificationsApi {
 
   final Dio _dio;
 
   final Serializers _serializers;
 
-  const TasksInvitationsApi(this._dio, this._serializers);
+  const MyNotificationsApi(this._dio, this._serializers);
 
-  /// Create
+  /// Mark Read Notifications
   /// 
   ///
   /// Parameters:
-  /// * [wsId] 
-  /// * [invitation] 
+  /// * [requestBody] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -33,11 +31,10 @@ class TasksInvitationsApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [InvitationGet] as data
+  /// Returns a [Future] containing a [Response] with a [bool] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<InvitationGet>> createV1TasksInvitationsPost({ 
-    required int wsId,
-    required Invitation invitation,
+  Future<Response<bool>> markReadNotificationsV1MyNotificationsPost({ 
+    required BuiltList<int> requestBody,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -45,7 +42,7 @@ class TasksInvitationsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/tasks/invitations';
+    final _path = r'/v1/my/notifications';
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -69,22 +66,17 @@ class TasksInvitationsApi {
       validateStatus: validateStatus,
     );
 
-    final _queryParameters = <String, dynamic>{
-      r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
-    };
-
     dynamic _bodyData;
 
     try {
-      const _type = FullType(Invitation);
-      _bodyData = _serializers.serialize(invitation, specifiedType: _type);
+      const _type = FullType(BuiltList, [FullType(int)]);
+      _bodyData = _serializers.serialize(requestBody, specifiedType: _type);
 
     } catch(error, stackTrace) {
       throw DioError(
          requestOptions: _options.compose(
           _dio.options,
           _path,
-          queryParameters: _queryParameters,
         ),
         type: DioErrorType.unknown,
         error: error,
@@ -96,20 +88,15 @@ class TasksInvitationsApi {
       _path,
       data: _bodyData,
       options: _options,
-      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
     );
 
-    InvitationGet _responseData;
+    bool _responseData;
 
     try {
-      const _responseType = FullType(InvitationGet);
-      _responseData = _serializers.deserialize(
-        _response.data!,
-        specifiedType: _responseType,
-      ) as InvitationGet;
+      _responseData = _response.data as bool;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -121,7 +108,7 @@ class TasksInvitationsApi {
       );
     }
 
-    return Response<InvitationGet>(
+    return Response<bool>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -133,14 +120,10 @@ class TasksInvitationsApi {
     );
   }
 
-  /// Current Invitation
+  /// Notifications
   /// 
   ///
   /// Parameters:
-  /// * [taskId] 
-  /// * [roleId] 
-  /// * [wsId] 
-  /// * [permissionTaskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -148,13 +131,9 @@ class TasksInvitationsApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [InvitationGet] as data
+  /// Returns a [Future] containing a [Response] with a [BuiltList<Notification>] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<InvitationGet>> currentInvitationV1TasksInvitationsGet({ 
-    required int taskId,
-    required int roleId,
-    required int wsId,
-    int? permissionTaskId,
+  Future<Response<BuiltList<Notification>>> notificationsV1MyNotificationsGet({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -162,7 +141,7 @@ class TasksInvitationsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/tasks/invitations';
+    final _path = r'/v1/my/notifications';
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
@@ -185,30 +164,22 @@ class TasksInvitationsApi {
       validateStatus: validateStatus,
     );
 
-    final _queryParameters = <String, dynamic>{
-      r'task_id': encodeQueryParameter(_serializers, taskId, const FullType(int)),
-      r'role_id': encodeQueryParameter(_serializers, roleId, const FullType(int)),
-      r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
-      if (permissionTaskId != null) r'permission_task_id': encodeQueryParameter(_serializers, permissionTaskId, const FullType(int)),
-    };
-
     final _response = await _dio.request<Object>(
       _path,
       options: _options,
-      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
     );
 
-    InvitationGet _responseData;
+    BuiltList<Notification> _responseData;
 
     try {
-      const _responseType = FullType(InvitationGet);
+      const _responseType = FullType(BuiltList, [FullType(Notification)]);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as InvitationGet;
+      ) as BuiltList<Notification>;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -220,7 +191,7 @@ class TasksInvitationsApi {
       );
     }
 
-    return Response<InvitationGet>(
+    return Response<BuiltList<Notification>>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

@@ -1,4 +1,4 @@
-# openapi.api.TasksInvitationsApi
+# openapi.api.MyNotificationsApi
 
 ## Load the API package
 ```dart
@@ -9,14 +9,14 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createV1TasksInvitationsPost**](TasksInvitationsApi.md#createv1tasksinvitationspost) | **POST** /v1/tasks/invitations | Create
-[**currentInvitationV1TasksInvitationsGet**](TasksInvitationsApi.md#currentinvitationv1tasksinvitationsget) | **GET** /v1/tasks/invitations | Current Invitation
+[**markReadNotificationsV1MyNotificationsPost**](MyNotificationsApi.md#markreadnotificationsv1mynotificationspost) | **POST** /v1/my/notifications | Mark Read Notifications
+[**notificationsV1MyNotificationsGet**](MyNotificationsApi.md#notificationsv1mynotificationsget) | **GET** /v1/my/notifications | Notifications
 
 
-# **createV1TasksInvitationsPost**
-> InvitationGet createV1TasksInvitationsPost(wsId, invitation)
+# **markReadNotificationsV1MyNotificationsPost**
+> bool markReadNotificationsV1MyNotificationsPost(requestBody)
 
-Create
+Mark Read Notifications
 
 ### Example
 ```dart
@@ -28,15 +28,14 @@ import 'package:openapi/api.dart';
 // TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
 //defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
 
-final api = Openapi().getTasksInvitationsApi();
-final int wsId = 56; // int | 
-final Invitation invitation = ; // Invitation | 
+final api = Openapi().getMyNotificationsApi();
+final BuiltList<int> requestBody = ; // BuiltList<int> | 
 
 try {
-    final response = api.createV1TasksInvitationsPost(wsId, invitation);
+    final response = api.markReadNotificationsV1MyNotificationsPost(requestBody);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling TasksInvitationsApi->createV1TasksInvitationsPost: $e\n');
+    print('Exception when calling MyNotificationsApi->markReadNotificationsV1MyNotificationsPost: $e\n');
 }
 ```
 
@@ -44,12 +43,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **wsId** | **int**|  | 
- **invitation** | [**Invitation**](Invitation.md)|  | 
+ **requestBody** | [**BuiltList&lt;int&gt;**](int.md)|  | 
 
 ### Return type
 
-[**InvitationGet**](InvitationGet.md)
+**bool**
 
 ### Authorization
 
@@ -62,10 +60,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **currentInvitationV1TasksInvitationsGet**
-> InvitationGet currentInvitationV1TasksInvitationsGet(taskId, roleId, wsId, permissionTaskId)
+# **notificationsV1MyNotificationsGet**
+> BuiltList<Notification> notificationsV1MyNotificationsGet()
 
-Current Invitation
+Notifications
 
 ### Example
 ```dart
@@ -77,32 +75,22 @@ import 'package:openapi/api.dart';
 // TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
 //defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
 
-final api = Openapi().getTasksInvitationsApi();
-final int taskId = 56; // int | 
-final int roleId = 56; // int | 
-final int wsId = 56; // int | 
-final int permissionTaskId = 56; // int | 
+final api = Openapi().getMyNotificationsApi();
 
 try {
-    final response = api.currentInvitationV1TasksInvitationsGet(taskId, roleId, wsId, permissionTaskId);
+    final response = api.notificationsV1MyNotificationsGet();
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling TasksInvitationsApi->currentInvitationV1TasksInvitationsGet: $e\n');
+    print('Exception when calling MyNotificationsApi->notificationsV1MyNotificationsGet: $e\n');
 }
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **taskId** | **int**|  | 
- **roleId** | **int**|  | 
- **wsId** | **int**|  | 
- **permissionTaskId** | **int**|  | [optional] 
+This endpoint does not need any parameter.
 
 ### Return type
 
-[**InvitationGet**](InvitationGet.md)
+[**BuiltList&lt;Notification&gt;**](Notification.md)
 
 ### Authorization
 

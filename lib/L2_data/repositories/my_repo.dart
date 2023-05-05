@@ -14,20 +14,20 @@ import '../services/api.dart';
 import '../services/platform.dart';
 
 class MyRepo extends AbstractMyRepo {
-  o_api.MyApi get api => openAPI.getMyApi();
-
+  o_api.MyAccountApi get myAccountApi => openAPI.getMyAccountApi();
   @override
   Future<User?> getMyAccount() async {
-    final response = await api.accountV1MyAccountGet();
+    final response = await myAccountApi.accountV1MyAccountGet();
     return response.data?.user(-1);
   }
 
   @override
-  Future deleteMyAccount() async => await api.deleteAccountV1MyAccountDelete();
+  Future deleteMyAccount() async => await myAccountApi.deleteAccountV1MyAccountDelete();
 
+  o_api.MyWorkspacesApi get myWSApi => openAPI.getMyWorkspacesApi();
   @override
   Future<Iterable<Workspace>> getMyWorkspaces() async {
-    final response = await api.workspacesV1MyWorkspacesGet();
+    final response = await myWSApi.workspacesV1MyWorkspacesGet();
     return response.data?.map((ws) => ws.workspace) ?? [];
   }
 
@@ -41,13 +41,13 @@ class MyRepo extends AbstractMyRepo {
             ..description = ws.description)
           .build();
     }
-    final response = await api.createWorkspaceV1MyCreateWorkspacePost(workspaceUpsert: wsData);
+    final response = await myWSApi.createWorkspaceV1MyWorkspacesCreatePost(workspaceUpsert: wsData);
     return response.data?.workspace;
   }
 
   @override
   Future<Workspace?> updateWorkspace(WorkspaceUpsert ws) async {
-    final response = await api.updateWorkspaceV1MyUpdateWorkspacePost(
+    final response = await myWSApi.updateWorkspaceV1MyWorkspacesUpdatePost(
         wsId: ws.id!,
         workspaceUpsert: (o_api.WorkspaceUpsertBuilder()
               ..id = ws.id
@@ -58,30 +58,33 @@ class MyRepo extends AbstractMyRepo {
     return response.data?.workspace;
   }
 
+  o_api.MyNotificationsApi get myNotificationsApi => openAPI.getMyNotificationsApi();
   @override
   Future<Iterable<MTNotification>> getMyNotifications() async {
-    final response = await api.notificationsV1MyNotificationsGet();
+    final response = await myNotificationsApi.notificationsV1MyNotificationsGet();
     return response.data?.map((n) => n.notification) ?? [];
   }
 
   @override
   Future markReadNotifications(Iterable<int> notificationsIds) async =>
-      await api.markReadNotificationsV1MyNotificationsPost(requestBody: BuiltList.from(notificationsIds));
+      await myNotificationsApi.markReadNotificationsV1MyNotificationsPost(requestBody: BuiltList.from(notificationsIds));
 
+  o_api.MyPushTokensApi get myPushTokensApi => openAPI.getMyPushTokensApi();
   @override
   Future updatePushToken(String token, bool hasPermission) async {
-    final body = (o_api.BodyUpdatePushTokenV1MyPushTokenPostBuilder()
+    final body = (o_api.BodyUpdatePushTokenV1MyPushTokensUpdatePostBuilder()
           ..platform = platformCode
           ..code = token
           ..hasPermission = hasPermission)
         .build();
-    await api.updatePushTokenV1MyPushTokenPost(bodyUpdatePushTokenV1MyPushTokenPost: body);
+    await myPushTokensApi.updatePushTokenV1MyPushTokensUpdatePost(bodyUpdatePushTokenV1MyPushTokensUpdatePost: body);
   }
 
+  o_api.MyInvitationsApi get myInvitationsApi => openAPI.getMyInvitationsApi();
   @override
   Future redeemInvitation(String? token) async {
-    final body = (o_api.BodyRedeemInvitationV1MyRedeemInvitationPostBuilder()..invitationToken = token).build();
-    final response = await api.redeemInvitationV1MyRedeemInvitationPost(bodyRedeemInvitationV1MyRedeemInvitationPost: body);
+    final body = (o_api.BodyRedeemV1MyInvitationsRedeemPostBuilder()..invitationToken = token).build();
+    final response = await myInvitationsApi.redeemV1MyInvitationsRedeemPost(bodyRedeemV1MyInvitationsRedeemPost: body);
     return response.data == true;
   }
 }

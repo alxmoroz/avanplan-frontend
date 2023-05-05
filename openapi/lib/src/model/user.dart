@@ -4,7 +4,6 @@
 
 // ignore_for_file: unused_element
 import 'package:built_collection/built_collection.dart';
-import 'package:openapi/src/model/u_notification_permission_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -18,7 +17,6 @@ part 'user.g.dart';
 /// * [fullName] 
 /// * [nickName] 
 /// * [locale] 
-/// * [notificationPermissions] 
 /// * [roleCodes] 
 /// * [permissionCodes] 
 @BuiltValue()
@@ -37,9 +35,6 @@ abstract class User implements Built<User, UserBuilder> {
 
   @BuiltValueField(wireName: r'locale')
   String? get locale;
-
-  @BuiltValueField(wireName: r'notification_permissions')
-  BuiltList<UNotificationPermissionGet> get notificationPermissions;
 
   @BuiltValueField(wireName: r'role_codes')
   BuiltList<String>? get roleCodes;
@@ -102,11 +97,6 @@ class _$UserSerializer implements PrimitiveSerializer<User> {
         specifiedType: const FullType(String),
       );
     }
-    yield r'notification_permissions';
-    yield serializers.serialize(
-      object.notificationPermissions,
-      specifiedType: const FullType(BuiltList, [FullType(UNotificationPermissionGet)]),
-    );
     if (object.roleCodes != null) {
       yield r'role_codes';
       yield serializers.serialize(
@@ -178,13 +168,6 @@ class _$UserSerializer implements PrimitiveSerializer<User> {
             specifiedType: const FullType(String),
           ) as String;
           result.locale = valueDes;
-          break;
-        case r'notification_permissions':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BuiltList, [FullType(UNotificationPermissionGet)]),
-          ) as BuiltList<UNotificationPermissionGet>;
-          result.notificationPermissions.replace(valueDes);
           break;
         case r'role_codes':
           final valueDes = serializers.deserialize(

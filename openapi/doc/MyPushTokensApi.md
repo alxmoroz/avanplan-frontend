@@ -1,4 +1,4 @@
-# openapi.api.TasksRolesApi
+# openapi.api.MyPushTokensApi
 
 ## Load the API package
 ```dart
@@ -9,13 +9,13 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**assignV1TasksRolesPost**](TasksRolesApi.md#assignv1tasksrolespost) | **POST** /v1/tasks/roles | Assign
+[**updatePushTokenV1MyPushTokensUpdatePost**](MyPushTokensApi.md#updatepushtokenv1mypushtokensupdatepost) | **POST** /v1/my/push_tokens/update | Update Push Token
 
 
-# **assignV1TasksRolesPost**
-> BuiltList<MemberGet> assignV1TasksRolesPost(taskId, memberId, wsId, requestBody, permissionTaskId)
+# **updatePushTokenV1MyPushTokensUpdatePost**
+> bool updatePushTokenV1MyPushTokensUpdatePost(bodyUpdatePushTokenV1MyPushTokensUpdatePost)
 
-Assign
+Update Push Token
 
 ### Example
 ```dart
@@ -27,18 +27,14 @@ import 'package:openapi/api.dart';
 // TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
 //defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
 
-final api = Openapi().getTasksRolesApi();
-final int taskId = 56; // int | 
-final int memberId = 56; // int | 
-final int wsId = 56; // int | 
-final BuiltList<int> requestBody = ; // BuiltList<int> | 
-final int permissionTaskId = 56; // int | 
+final api = Openapi().getMyPushTokensApi();
+final BodyUpdatePushTokenV1MyPushTokensUpdatePost bodyUpdatePushTokenV1MyPushTokensUpdatePost = ; // BodyUpdatePushTokenV1MyPushTokensUpdatePost | 
 
 try {
-    final response = api.assignV1TasksRolesPost(taskId, memberId, wsId, requestBody, permissionTaskId);
+    final response = api.updatePushTokenV1MyPushTokensUpdatePost(bodyUpdatePushTokenV1MyPushTokensUpdatePost);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling TasksRolesApi->assignV1TasksRolesPost: $e\n');
+    print('Exception when calling MyPushTokensApi->updatePushTokenV1MyPushTokensUpdatePost: $e\n');
 }
 ```
 
@@ -46,15 +42,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **taskId** | **int**|  | 
- **memberId** | **int**|  | 
- **wsId** | **int**|  | 
- **requestBody** | [**BuiltList&lt;int&gt;**](int.md)|  | 
- **permissionTaskId** | **int**|  | [optional] 
+ **bodyUpdatePushTokenV1MyPushTokensUpdatePost** | [**BodyUpdatePushTokenV1MyPushTokensUpdatePost**](BodyUpdatePushTokenV1MyPushTokensUpdatePost.md)|  | 
 
 ### Return type
 
-[**BuiltList&lt;MemberGet&gt;**](MemberGet.md)
+**bool**
 
 ### Authorization
 

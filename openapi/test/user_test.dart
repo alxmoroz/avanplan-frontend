@@ -32,11 +32,6 @@ void main() {
       // TODO
     });
 
-    // BuiltList<UNotificationPermissionGet> notificationPermissions
-    test('to test the property `notificationPermissions`', () async {
-      // TODO
-    });
-
     // BuiltList<String> roleCodes
     test('to test the property `roleCodes`', () async {
       // TODO

@@ -1,12 +1,13 @@
 import 'package:test/test.dart';
 import 'package:openapi/openapi.dart';
 
-// tests for BodyRedeemInvitationV1MyRedeemInvitationPost
+// tests for BodyDeprecatedRedeemInvitationV1MyRedeemInvitationPost
 void main() {
-  final instance = BodyRedeemInvitationV1MyRedeemInvitationPostBuilder();
+  final instance =
+      BodyDeprecatedRedeemInvitationV1MyRedeemInvitationPostBuilder();
   // TODO add properties to the builder and call build()
 
-  group(BodyRedeemInvitationV1MyRedeemInvitationPost, () {
+  group(BodyDeprecatedRedeemInvitationV1MyRedeemInvitationPost, () {
     // String invitationToken
     test('to test the property `invitationToken`', () async {
       // TODO

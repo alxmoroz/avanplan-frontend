@@ -1,4 +1,4 @@
-# openapi.model.User
+# openapi.model.UActivityGet
 
 ## Load the model package
 ```dart
@@ -9,12 +9,11 @@ import 'package:openapi/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  | 
-**email** | **String** |  | 
-**fullName** | **String** |  | [optional] 
-**nickName** | **String** |  | [optional] 
-**locale** | **String** |  | [optional] [default to 'ru']
-**roleCodes** | **BuiltList&lt;String&gt;** |  | [optional] 
-**permissionCodes** | **BuiltSet&lt;String&gt;** |  | [optional] 
+**createdOn** | [**DateTime**](DateTime.md) |  | 
+**code** | **String** |  | 
+**userId** | **int** |  | 
+**platform** | **String** |  | 
+**wsId** | **int** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

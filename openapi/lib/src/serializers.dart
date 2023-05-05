@@ -20,11 +20,13 @@ import 'package:openapi/src/model/app_settings_get.dart';
 import 'package:openapi/src/model/auth_token.dart';
 import 'package:openapi/src/model/body_auth_apple_token.dart';
 import 'package:openapi/src/model/body_auth_google_token.dart';
-import 'package:openapi/src/model/body_redeem_invitation_v1_my_redeem_invitation_post.dart';
+import 'package:openapi/src/model/body_deprecated_redeem_invitation_v1_my_redeem_invitation_post.dart';
+import 'package:openapi/src/model/body_deprecated_update_push_token_v1_my_push_token_post.dart';
+import 'package:openapi/src/model/body_redeem_v1_my_invitations_redeem_post.dart';
 import 'package:openapi/src/model/body_registration_token.dart';
 import 'package:openapi/src/model/body_request_registration.dart';
 import 'package:openapi/src/model/body_update_account_v1_my_account_post.dart';
-import 'package:openapi/src/model/body_update_push_token_v1_my_push_token_post.dart';
+import 'package:openapi/src/model/body_update_push_token_v1_my_push_tokens_update_post.dart';
 import 'package:openapi/src/model/contract_get.dart';
 import 'package:openapi/src/model/estimate_unit_get.dart';
 import 'package:openapi/src/model/estimate_value_get.dart';
@@ -54,7 +56,7 @@ import 'package:openapi/src/model/task_source.dart';
 import 'package:openapi/src/model/task_source_get.dart';
 import 'package:openapi/src/model/task_source_upsert.dart';
 import 'package:openapi/src/model/task_upsert.dart';
-import 'package:openapi/src/model/u_notification_permission_get.dart';
+import 'package:openapi/src/model/u_activity_get.dart';
 import 'package:openapi/src/model/user.dart';
 import 'package:openapi/src/model/validation_error.dart';
 import 'package:openapi/src/model/workspace_get.dart';
@@ -69,11 +71,13 @@ part 'serializers.g.dart';
   AuthToken,
   BodyAuthAppleToken,
   BodyAuthGoogleToken,
-  BodyRedeemInvitationV1MyRedeemInvitationPost,
+  BodyDeprecatedRedeemInvitationV1MyRedeemInvitationPost,
+  BodyDeprecatedUpdatePushTokenV1MyPushTokenPost,
+  BodyRedeemV1MyInvitationsRedeemPost,
   BodyRegistrationToken,
   BodyRequestRegistration,
   BodyUpdateAccountV1MyAccountPost,
-  BodyUpdatePushTokenV1MyPushTokenPost,
+  BodyUpdatePushTokenV1MyPushTokensUpdatePost,
   ContractGet,
   EstimateUnitGet,
   EstimateValueGet,
@@ -103,7 +107,7 @@ part 'serializers.g.dart';
   TaskSourceGet,
   TaskSourceUpsert,
   TaskUpsert,
-  UNotificationPermissionGet,
+  UActivityGet,
   User,
   ValidationError,
   WorkspaceGet,
@@ -141,6 +145,10 @@ Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskSourceUpsert)]),
         () => ListBuilder<TaskSourceUpsert>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(UActivityGet)]),
+        () => ListBuilder<UActivityGet>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskGet)]),

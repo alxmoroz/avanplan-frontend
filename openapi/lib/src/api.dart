@@ -14,7 +14,12 @@ import 'package:openapi/src/api/contracts_api.dart';
 import 'package:openapi/src/api/deprecated11_api.dart';
 import 'package:openapi/src/api/integrations_sources_api.dart';
 import 'package:openapi/src/api/integrations_tasks_api.dart';
-import 'package:openapi/src/api/my_api.dart';
+import 'package:openapi/src/api/my_account_api.dart';
+import 'package:openapi/src/api/my_activities_api.dart';
+import 'package:openapi/src/api/my_invitations_api.dart';
+import 'package:openapi/src/api/my_notifications_api.dart';
+import 'package:openapi/src/api/my_push_tokens_api.dart';
+import 'package:openapi/src/api/my_workspaces_api.dart';
 import 'package:openapi/src/api/settings_api.dart';
 import 'package:openapi/src/api/tariffs_api.dart';
 import 'package:openapi/src/api/tasks_api.dart';
@@ -105,10 +110,40 @@ class Openapi {
     return IntegrationsTasksApi(dio, serializers);
   }
 
-  /// Get MyApi instance, base route and serializer can be overridden by a given but be careful,
+  /// Get MyAccountApi instance, base route and serializer can be overridden by a given but be careful,
   /// by doing that all interceptors will not be executed
-  MyApi getMyApi() {
-    return MyApi(dio, serializers);
+  MyAccountApi getMyAccountApi() {
+    return MyAccountApi(dio, serializers);
+  }
+
+  /// Get MyActivitiesApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  MyActivitiesApi getMyActivitiesApi() {
+    return MyActivitiesApi(dio, serializers);
+  }
+
+  /// Get MyInvitationsApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  MyInvitationsApi getMyInvitationsApi() {
+    return MyInvitationsApi(dio, serializers);
+  }
+
+  /// Get MyNotificationsApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  MyNotificationsApi getMyNotificationsApi() {
+    return MyNotificationsApi(dio, serializers);
+  }
+
+  /// Get MyPushTokensApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  MyPushTokensApi getMyPushTokensApi() {
+    return MyPushTokensApi(dio, serializers);
+  }
+
+  /// Get MyWorkspacesApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  MyWorkspacesApi getMyWorkspacesApi() {
+    return MyWorkspacesApi(dio, serializers);
   }
 
   /// Get SettingsApi instance, base route and serializer can be overridden by a given but be careful,

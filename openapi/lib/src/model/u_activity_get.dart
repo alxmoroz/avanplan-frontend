@@ -6,50 +6,58 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'u_notification_permission_get.g.dart';
+part 'u_activity_get.g.dart';
 
-/// UNotificationPermissionGet
+/// UActivityGet
 ///
 /// Properties:
 /// * [id] 
+/// * [createdOn] 
+/// * [code] 
 /// * [userId] 
-/// * [channel] 
-/// * [eventType] 
+/// * [platform] 
+/// * [wsId] 
 @BuiltValue()
-abstract class UNotificationPermissionGet implements Built<UNotificationPermissionGet, UNotificationPermissionGetBuilder> {
+abstract class UActivityGet implements Built<UActivityGet, UActivityGetBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
+
+  @BuiltValueField(wireName: r'created_on')
+  DateTime get createdOn;
+
+  @BuiltValueField(wireName: r'code')
+  String get code;
 
   @BuiltValueField(wireName: r'user_id')
   int get userId;
 
-  @BuiltValueField(wireName: r'channel')
-  String get channel;
+  @BuiltValueField(wireName: r'platform')
+  String get platform;
 
-  @BuiltValueField(wireName: r'event_type')
-  String get eventType;
+  @BuiltValueField(wireName: r'ws_id')
+  int? get wsId;
 
-  UNotificationPermissionGet._();
+  UActivityGet._();
 
-  factory UNotificationPermissionGet([void updates(UNotificationPermissionGetBuilder b)]) = _$UNotificationPermissionGet;
+  factory UActivityGet([void updates(UActivityGetBuilder b)]) = _$UActivityGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(UNotificationPermissionGetBuilder b) => b;
+  static void _defaults(UActivityGetBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<UNotificationPermissionGet> get serializer => _$UNotificationPermissionGetSerializer();
+  static Serializer<UActivityGet> get serializer => _$UActivityGetSerializer();
 }
 
-class _$UNotificationPermissionGetSerializer implements PrimitiveSerializer<UNotificationPermissionGet> {
+class _$UActivityGetSerializer implements PrimitiveSerializer<UActivityGet> {
   @override
-  final Iterable<Type> types = const [UNotificationPermissionGet, _$UNotificationPermissionGet];
+  final Iterable<Type> types = const [UActivityGet, _$UActivityGet];
 
   @override
-  final String wireName = r'UNotificationPermissionGet';
+  final String wireName = r'UActivityGet';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    UNotificationPermissionGet object, {
+    UActivityGet object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'id';
@@ -57,27 +65,39 @@ class _$UNotificationPermissionGetSerializer implements PrimitiveSerializer<UNot
       object.id,
       specifiedType: const FullType(int),
     );
+    yield r'created_on';
+    yield serializers.serialize(
+      object.createdOn,
+      specifiedType: const FullType(DateTime),
+    );
+    yield r'code';
+    yield serializers.serialize(
+      object.code,
+      specifiedType: const FullType(String),
+    );
     yield r'user_id';
     yield serializers.serialize(
       object.userId,
       specifiedType: const FullType(int),
     );
-    yield r'channel';
+    yield r'platform';
     yield serializers.serialize(
-      object.channel,
+      object.platform,
       specifiedType: const FullType(String),
     );
-    yield r'event_type';
-    yield serializers.serialize(
-      object.eventType,
-      specifiedType: const FullType(String),
-    );
+    if (object.wsId != null) {
+      yield r'ws_id';
+      yield serializers.serialize(
+        object.wsId,
+        specifiedType: const FullType(int),
+      );
+    }
   }
 
   @override
   Object serialize(
     Serializers serializers,
-    UNotificationPermissionGet object, {
+    UActivityGet object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -88,7 +108,7 @@ class _$UNotificationPermissionGetSerializer implements PrimitiveSerializer<UNot
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required UNotificationPermissionGetBuilder result,
+    required UActivityGetBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -102,6 +122,20 @@ class _$UNotificationPermissionGetSerializer implements PrimitiveSerializer<UNot
           ) as int;
           result.id = valueDes;
           break;
+        case r'created_on':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.createdOn = valueDes;
+          break;
+        case r'code':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.code = valueDes;
+          break;
         case r'user_id':
           final valueDes = serializers.deserialize(
             value,
@@ -109,19 +143,19 @@ class _$UNotificationPermissionGetSerializer implements PrimitiveSerializer<UNot
           ) as int;
           result.userId = valueDes;
           break;
-        case r'channel':
+        case r'platform':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.channel = valueDes;
+          result.platform = valueDes;
           break;
-        case r'event_type':
+        case r'ws_id':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.eventType = valueDes;
+            specifiedType: const FullType(int),
+          ) as int;
+          result.wsId = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -132,12 +166,12 @@ class _$UNotificationPermissionGetSerializer implements PrimitiveSerializer<UNot
   }
 
   @override
-  UNotificationPermissionGet deserialize(
+  UActivityGet deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = UNotificationPermissionGetBuilder();
+    final result = UActivityGetBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

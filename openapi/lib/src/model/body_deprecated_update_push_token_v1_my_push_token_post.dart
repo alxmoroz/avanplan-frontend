@@ -6,16 +6,16 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'body_update_push_token_v1_my_push_token_post.g.dart';
+part 'body_deprecated_update_push_token_v1_my_push_token_post.g.dart';
 
-/// BodyUpdatePushTokenV1MyPushTokenPost
+/// BodyDeprecatedUpdatePushTokenV1MyPushTokenPost
 ///
 /// Properties:
 /// * [code] 
 /// * [platform] 
 /// * [hasPermission] 
 @BuiltValue()
-abstract class BodyUpdatePushTokenV1MyPushTokenPost implements Built<BodyUpdatePushTokenV1MyPushTokenPost, BodyUpdatePushTokenV1MyPushTokenPostBuilder> {
+abstract class BodyDeprecatedUpdatePushTokenV1MyPushTokenPost implements Built<BodyDeprecatedUpdatePushTokenV1MyPushTokenPost, BodyDeprecatedUpdatePushTokenV1MyPushTokenPostBuilder> {
   @BuiltValueField(wireName: r'code')
   String get code;
 
@@ -25,27 +25,27 @@ abstract class BodyUpdatePushTokenV1MyPushTokenPost implements Built<BodyUpdateP
   @BuiltValueField(wireName: r'has_permission')
   bool get hasPermission;
 
-  BodyUpdatePushTokenV1MyPushTokenPost._();
+  BodyDeprecatedUpdatePushTokenV1MyPushTokenPost._();
 
-  factory BodyUpdatePushTokenV1MyPushTokenPost([void updates(BodyUpdatePushTokenV1MyPushTokenPostBuilder b)]) = _$BodyUpdatePushTokenV1MyPushTokenPost;
+  factory BodyDeprecatedUpdatePushTokenV1MyPushTokenPost([void updates(BodyDeprecatedUpdatePushTokenV1MyPushTokenPostBuilder b)]) = _$BodyDeprecatedUpdatePushTokenV1MyPushTokenPost;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(BodyUpdatePushTokenV1MyPushTokenPostBuilder b) => b;
+  static void _defaults(BodyDeprecatedUpdatePushTokenV1MyPushTokenPostBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<BodyUpdatePushTokenV1MyPushTokenPost> get serializer => _$BodyUpdatePushTokenV1MyPushTokenPostSerializer();
+  static Serializer<BodyDeprecatedUpdatePushTokenV1MyPushTokenPost> get serializer => _$BodyDeprecatedUpdatePushTokenV1MyPushTokenPostSerializer();
 }
 
-class _$BodyUpdatePushTokenV1MyPushTokenPostSerializer implements PrimitiveSerializer<BodyUpdatePushTokenV1MyPushTokenPost> {
+class _$BodyDeprecatedUpdatePushTokenV1MyPushTokenPostSerializer implements PrimitiveSerializer<BodyDeprecatedUpdatePushTokenV1MyPushTokenPost> {
   @override
-  final Iterable<Type> types = const [BodyUpdatePushTokenV1MyPushTokenPost, _$BodyUpdatePushTokenV1MyPushTokenPost];
+  final Iterable<Type> types = const [BodyDeprecatedUpdatePushTokenV1MyPushTokenPost, _$BodyDeprecatedUpdatePushTokenV1MyPushTokenPost];
 
   @override
-  final String wireName = r'BodyUpdatePushTokenV1MyPushTokenPost';
+  final String wireName = r'BodyDeprecatedUpdatePushTokenV1MyPushTokenPost';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    BodyUpdatePushTokenV1MyPushTokenPost object, {
+    BodyDeprecatedUpdatePushTokenV1MyPushTokenPost object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'code';
@@ -68,7 +68,7 @@ class _$BodyUpdatePushTokenV1MyPushTokenPostSerializer implements PrimitiveSeria
   @override
   Object serialize(
     Serializers serializers,
-    BodyUpdatePushTokenV1MyPushTokenPost object, {
+    BodyDeprecatedUpdatePushTokenV1MyPushTokenPost object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -79,7 +79,7 @@ class _$BodyUpdatePushTokenV1MyPushTokenPostSerializer implements PrimitiveSeria
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required BodyUpdatePushTokenV1MyPushTokenPostBuilder result,
+    required BodyDeprecatedUpdatePushTokenV1MyPushTokenPostBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -116,12 +116,12 @@ class _$BodyUpdatePushTokenV1MyPushTokenPostSerializer implements PrimitiveSeria
   }
 
   @override
-  BodyUpdatePushTokenV1MyPushTokenPost deserialize(
+  BodyDeprecatedUpdatePushTokenV1MyPushTokenPost deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = BodyUpdatePushTokenV1MyPushTokenPostBuilder();
+    final result = BodyDeprecatedUpdatePushTokenV1MyPushTokenPostBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

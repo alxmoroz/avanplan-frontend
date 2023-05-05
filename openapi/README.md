@@ -86,11 +86,12 @@ Class | Method | HTTP request | Description
 [*MyAccountApi*](doc/MyAccountApi.md) | [**accountV1MyAccountGet**](doc/MyAccountApi.md#accountv1myaccountget) | **GET** /v1/my/account | Account
 [*MyAccountApi*](doc/MyAccountApi.md) | [**deleteAccountV1MyAccountDelete**](doc/MyAccountApi.md#deleteaccountv1myaccountdelete) | **DELETE** /v1/my/account | Delete Account
 [*MyAccountApi*](doc/MyAccountApi.md) | [**updateAccountV1MyAccountPost**](doc/MyAccountApi.md#updateaccountv1myaccountpost) | **POST** /v1/my/account | Update Account
-[*MyActivitiesApi*](doc/MyActivitiesApi.md) | [**activitiesV1MyActivitiesGet**](doc/MyActivitiesApi.md#activitiesv1myactivitiesget) | **GET** /v1/my/activities/ | Activities
+[*MyActivitiesApi*](doc/MyActivitiesApi.md) | [**activitiesV1MyActivitiesGet**](doc/MyActivitiesApi.md#activitiesv1myactivitiesget) | **GET** /v1/my/activities | Activities
+[*MyActivitiesApi*](doc/MyActivitiesApi.md) | [**registerV1MyActivitiesRegisterPost**](doc/MyActivitiesApi.md#registerv1myactivitiesregisterpost) | **POST** /v1/my/activities/register | Register
 [*MyInvitationsApi*](doc/MyInvitationsApi.md) | [**redeemV1MyInvitationsRedeemPost**](doc/MyInvitationsApi.md#redeemv1myinvitationsredeempost) | **POST** /v1/my/invitations/redeem | Redeem
 [*MyNotificationsApi*](doc/MyNotificationsApi.md) | [**markReadNotificationsV1MyNotificationsPost**](doc/MyNotificationsApi.md#markreadnotificationsv1mynotificationspost) | **POST** /v1/my/notifications | Mark Read Notifications
 [*MyNotificationsApi*](doc/MyNotificationsApi.md) | [**notificationsV1MyNotificationsGet**](doc/MyNotificationsApi.md#notificationsv1mynotificationsget) | **GET** /v1/my/notifications | Notifications
-[*MyPushTokensApi*](doc/MyPushTokensApi.md) | [**updatePushTokenV1MyPushTokensUpdatePost**](doc/MyPushTokensApi.md#updatepushtokenv1mypushtokensupdatepost) | **POST** /v1/my/push_tokens/update | Update Push Token
+[*MyPushTokensApi*](doc/MyPushTokensApi.md) | [**updatePushTokenV1MyPushTokensPost**](doc/MyPushTokensApi.md#updatepushtokenv1mypushtokenspost) | **POST** /v1/my/push_tokens | Update Push Token
 [*MyWorkspacesApi*](doc/MyWorkspacesApi.md) | [**createWorkspaceV1MyWorkspacesCreatePost**](doc/MyWorkspacesApi.md#createworkspacev1myworkspacescreatepost) | **POST** /v1/my/workspaces/create | Create Workspace
 [*MyWorkspacesApi*](doc/MyWorkspacesApi.md) | [**updateWorkspaceV1MyWorkspacesUpdatePost**](doc/MyWorkspacesApi.md#updateworkspacev1myworkspacesupdatepost) | **POST** /v1/my/workspaces/update | Update Workspace
 [*MyWorkspacesApi*](doc/MyWorkspacesApi.md) | [**workspacesV1MyWorkspacesGet**](doc/MyWorkspacesApi.md#workspacesv1myworkspacesget) | **GET** /v1/my/workspaces | Workspaces
@@ -110,15 +111,17 @@ Class | Method | HTTP request | Description
  - [AccountOperationGet](doc/AccountOperationGet.md)
  - [AppSettingsGet](doc/AppSettingsGet.md)
  - [AuthToken](doc/AuthToken.md)
+ - [BodyActivitiesV1MyActivitiesGet](doc/BodyActivitiesV1MyActivitiesGet.md)
  - [BodyAuthAppleToken](doc/BodyAuthAppleToken.md)
  - [BodyAuthGoogleToken](doc/BodyAuthGoogleToken.md)
  - [BodyDeprecatedRedeemInvitationV1MyRedeemInvitationPost](doc/BodyDeprecatedRedeemInvitationV1MyRedeemInvitationPost.md)
  - [BodyDeprecatedUpdatePushTokenV1MyPushTokenPost](doc/BodyDeprecatedUpdatePushTokenV1MyPushTokenPost.md)
  - [BodyRedeemV1MyInvitationsRedeemPost](doc/BodyRedeemV1MyInvitationsRedeemPost.md)
+ - [BodyRegisterV1MyActivitiesRegisterPost](doc/BodyRegisterV1MyActivitiesRegisterPost.md)
  - [BodyRegistrationToken](doc/BodyRegistrationToken.md)
  - [BodyRequestRegistration](doc/BodyRequestRegistration.md)
  - [BodyUpdateAccountV1MyAccountPost](doc/BodyUpdateAccountV1MyAccountPost.md)
- - [BodyUpdatePushTokenV1MyPushTokensUpdatePost](doc/BodyUpdatePushTokenV1MyPushTokensUpdatePost.md)
+ - [BodyUpdatePushTokenV1MyPushTokensPost](doc/BodyUpdatePushTokenV1MyPushTokensPost.md)
  - [ContractGet](doc/ContractGet.md)
  - [EstimateUnitGet](doc/EstimateUnitGet.md)
  - [EstimateValueGet](doc/EstimateValueGet.md)

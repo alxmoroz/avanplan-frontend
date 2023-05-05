@@ -72,12 +72,12 @@ class MyRepo extends AbstractMyRepo {
   o_api.MyPushTokensApi get myPushTokensApi => openAPI.getMyPushTokensApi();
   @override
   Future updatePushToken(String token, bool hasPermission) async {
-    final body = (o_api.BodyUpdatePushTokenV1MyPushTokensUpdatePostBuilder()
+    final body = (o_api.BodyUpdatePushTokenV1MyPushTokensPostBuilder()
           ..platform = platformCode
           ..code = token
           ..hasPermission = hasPermission)
         .build();
-    await myPushTokensApi.updatePushTokenV1MyPushTokensUpdatePost(bodyUpdatePushTokenV1MyPushTokensUpdatePost: body);
+    await myPushTokensApi.updatePushTokenV1MyPushTokensPost(bodyUpdatePushTokenV1MyPushTokensPost: body);
   }
 
   o_api.MyInvitationsApi get myInvitationsApi => openAPI.getMyInvitationsApi();

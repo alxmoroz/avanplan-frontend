@@ -1,4 +1,4 @@
-# openapi.model.BodyUpdatePushTokenV1MyPushTokensUpdatePost
+# openapi.model.BodyActivitiesV1MyActivitiesGet
 
 ## Load the model package
 ```dart
@@ -9,8 +9,6 @@ import 'package:openapi/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **code** | **String** |  | 
-**platform** | **String** |  | 
-**hasPermission** | **bool** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -6,46 +6,42 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'body_update_push_token_v1_my_push_tokens_update_post.g.dart';
+part 'body_register_v1_my_activities_register_post.g.dart';
 
-/// BodyUpdatePushTokenV1MyPushTokensUpdatePost
+/// BodyRegisterV1MyActivitiesRegisterPost
 ///
 /// Properties:
 /// * [code] 
 /// * [platform] 
-/// * [hasPermission] 
 @BuiltValue()
-abstract class BodyUpdatePushTokenV1MyPushTokensUpdatePost implements Built<BodyUpdatePushTokenV1MyPushTokensUpdatePost, BodyUpdatePushTokenV1MyPushTokensUpdatePostBuilder> {
+abstract class BodyRegisterV1MyActivitiesRegisterPost implements Built<BodyRegisterV1MyActivitiesRegisterPost, BodyRegisterV1MyActivitiesRegisterPostBuilder> {
   @BuiltValueField(wireName: r'code')
   String get code;
 
   @BuiltValueField(wireName: r'platform')
   String get platform;
 
-  @BuiltValueField(wireName: r'has_permission')
-  bool get hasPermission;
+  BodyRegisterV1MyActivitiesRegisterPost._();
 
-  BodyUpdatePushTokenV1MyPushTokensUpdatePost._();
-
-  factory BodyUpdatePushTokenV1MyPushTokensUpdatePost([void updates(BodyUpdatePushTokenV1MyPushTokensUpdatePostBuilder b)]) = _$BodyUpdatePushTokenV1MyPushTokensUpdatePost;
+  factory BodyRegisterV1MyActivitiesRegisterPost([void updates(BodyRegisterV1MyActivitiesRegisterPostBuilder b)]) = _$BodyRegisterV1MyActivitiesRegisterPost;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(BodyUpdatePushTokenV1MyPushTokensUpdatePostBuilder b) => b;
+  static void _defaults(BodyRegisterV1MyActivitiesRegisterPostBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<BodyUpdatePushTokenV1MyPushTokensUpdatePost> get serializer => _$BodyUpdatePushTokenV1MyPushTokensUpdatePostSerializer();
+  static Serializer<BodyRegisterV1MyActivitiesRegisterPost> get serializer => _$BodyRegisterV1MyActivitiesRegisterPostSerializer();
 }
 
-class _$BodyUpdatePushTokenV1MyPushTokensUpdatePostSerializer implements PrimitiveSerializer<BodyUpdatePushTokenV1MyPushTokensUpdatePost> {
+class _$BodyRegisterV1MyActivitiesRegisterPostSerializer implements PrimitiveSerializer<BodyRegisterV1MyActivitiesRegisterPost> {
   @override
-  final Iterable<Type> types = const [BodyUpdatePushTokenV1MyPushTokensUpdatePost, _$BodyUpdatePushTokenV1MyPushTokensUpdatePost];
+  final Iterable<Type> types = const [BodyRegisterV1MyActivitiesRegisterPost, _$BodyRegisterV1MyActivitiesRegisterPost];
 
   @override
-  final String wireName = r'BodyUpdatePushTokenV1MyPushTokensUpdatePost';
+  final String wireName = r'BodyRegisterV1MyActivitiesRegisterPost';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    BodyUpdatePushTokenV1MyPushTokensUpdatePost object, {
+    BodyRegisterV1MyActivitiesRegisterPost object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'code';
@@ -58,17 +54,12 @@ class _$BodyUpdatePushTokenV1MyPushTokensUpdatePostSerializer implements Primiti
       object.platform,
       specifiedType: const FullType(String),
     );
-    yield r'has_permission';
-    yield serializers.serialize(
-      object.hasPermission,
-      specifiedType: const FullType(bool),
-    );
   }
 
   @override
   Object serialize(
     Serializers serializers,
-    BodyUpdatePushTokenV1MyPushTokensUpdatePost object, {
+    BodyRegisterV1MyActivitiesRegisterPost object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -79,7 +70,7 @@ class _$BodyUpdatePushTokenV1MyPushTokensUpdatePostSerializer implements Primiti
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required BodyUpdatePushTokenV1MyPushTokensUpdatePostBuilder result,
+    required BodyRegisterV1MyActivitiesRegisterPostBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -100,13 +91,6 @@ class _$BodyUpdatePushTokenV1MyPushTokensUpdatePostSerializer implements Primiti
           ) as String;
           result.platform = valueDes;
           break;
-        case r'has_permission':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool;
-          result.hasPermission = valueDes;
-          break;
         default:
           unhandled.add(key);
           unhandled.add(value);
@@ -116,12 +100,12 @@ class _$BodyUpdatePushTokenV1MyPushTokensUpdatePostSerializer implements Primiti
   }
 
   @override
-  BodyUpdatePushTokenV1MyPushTokensUpdatePost deserialize(
+  BodyRegisterV1MyActivitiesRegisterPost deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = BodyUpdatePushTokenV1MyPushTokensUpdatePostBuilder();
+    final result = BodyRegisterV1MyActivitiesRegisterPostBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

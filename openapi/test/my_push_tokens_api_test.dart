@@ -8,8 +8,8 @@ void main() {
   group(MyPushTokensApi, () {
     // Update Push Token
     //
-    //Future<bool> updatePushTokenV1MyPushTokensUpdatePost(BodyUpdatePushTokenV1MyPushTokensUpdatePost bodyUpdatePushTokenV1MyPushTokensUpdatePost) async
-    test('test updatePushTokenV1MyPushTokensUpdatePost', () async {
+    //Future<bool> updatePushTokenV1MyPushTokensPost(BodyUpdatePushTokenV1MyPushTokensPost bodyUpdatePushTokenV1MyPushTokensPost) async
+    test('test updatePushTokenV1MyPushTokensPost', () async {
       // TODO
     });
   });

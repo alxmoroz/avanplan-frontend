@@ -9,11 +9,11 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**updatePushTokenV1MyPushTokensUpdatePost**](MyPushTokensApi.md#updatepushtokenv1mypushtokensupdatepost) | **POST** /v1/my/push_tokens/update | Update Push Token
+[**updatePushTokenV1MyPushTokensPost**](MyPushTokensApi.md#updatepushtokenv1mypushtokenspost) | **POST** /v1/my/push_tokens | Update Push Token
 
 
-# **updatePushTokenV1MyPushTokensUpdatePost**
-> bool updatePushTokenV1MyPushTokensUpdatePost(bodyUpdatePushTokenV1MyPushTokensUpdatePost)
+# **updatePushTokenV1MyPushTokensPost**
+> bool updatePushTokenV1MyPushTokensPost(bodyUpdatePushTokenV1MyPushTokensPost)
 
 Update Push Token
 
@@ -28,13 +28,13 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
 
 final api = Openapi().getMyPushTokensApi();
-final BodyUpdatePushTokenV1MyPushTokensUpdatePost bodyUpdatePushTokenV1MyPushTokensUpdatePost = ; // BodyUpdatePushTokenV1MyPushTokensUpdatePost | 
+final BodyUpdatePushTokenV1MyPushTokensPost bodyUpdatePushTokenV1MyPushTokensPost = ; // BodyUpdatePushTokenV1MyPushTokensPost | 
 
 try {
-    final response = api.updatePushTokenV1MyPushTokensUpdatePost(bodyUpdatePushTokenV1MyPushTokensUpdatePost);
+    final response = api.updatePushTokenV1MyPushTokensPost(bodyUpdatePushTokenV1MyPushTokensPost);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling MyPushTokensApi->updatePushTokenV1MyPushTokensUpdatePost: $e\n');
+    print('Exception when calling MyPushTokensApi->updatePushTokenV1MyPushTokensPost: $e\n');
 }
 ```
 
@@ -42,7 +42,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **bodyUpdatePushTokenV1MyPushTokensUpdatePost** | [**BodyUpdatePushTokenV1MyPushTokensUpdatePost**](BodyUpdatePushTokenV1MyPushTokensUpdatePost.md)|  | 
+ **bodyUpdatePushTokenV1MyPushTokensPost** | [**BodyUpdatePushTokenV1MyPushTokensPost**](BodyUpdatePushTokenV1MyPushTokensPost.md)|  | 
 
 ### Return type
 

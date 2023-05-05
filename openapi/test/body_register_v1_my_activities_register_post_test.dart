@@ -1,12 +1,12 @@
 import 'package:test/test.dart';
 import 'package:openapi/openapi.dart';
 
-// tests for BodyUpdatePushTokenV1MyPushTokensUpdatePost
+// tests for BodyRegisterV1MyActivitiesRegisterPost
 void main() {
-  final instance = BodyUpdatePushTokenV1MyPushTokensUpdatePostBuilder();
+  final instance = BodyRegisterV1MyActivitiesRegisterPostBuilder();
   // TODO add properties to the builder and call build()
 
-  group(BodyUpdatePushTokenV1MyPushTokensUpdatePost, () {
+  group(BodyRegisterV1MyActivitiesRegisterPost, () {
     // String code
     test('to test the property `code`', () async {
       // TODO
@@ -14,11 +14,6 @@ void main() {
 
     // String platform
     test('to test the property `platform`', () async {
-      // TODO
-    });
-
-    // bool hasPermission
-    test('to test the property `hasPermission`', () async {
       // TODO
     });
   });

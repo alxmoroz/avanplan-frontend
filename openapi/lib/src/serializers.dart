@@ -18,15 +18,17 @@ import 'package:openapi/src/model/account_get.dart';
 import 'package:openapi/src/model/account_operation_get.dart';
 import 'package:openapi/src/model/app_settings_get.dart';
 import 'package:openapi/src/model/auth_token.dart';
+import 'package:openapi/src/model/body_activities_v1_my_activities_get.dart';
 import 'package:openapi/src/model/body_auth_apple_token.dart';
 import 'package:openapi/src/model/body_auth_google_token.dart';
 import 'package:openapi/src/model/body_deprecated_redeem_invitation_v1_my_redeem_invitation_post.dart';
 import 'package:openapi/src/model/body_deprecated_update_push_token_v1_my_push_token_post.dart';
 import 'package:openapi/src/model/body_redeem_v1_my_invitations_redeem_post.dart';
+import 'package:openapi/src/model/body_register_v1_my_activities_register_post.dart';
 import 'package:openapi/src/model/body_registration_token.dart';
 import 'package:openapi/src/model/body_request_registration.dart';
 import 'package:openapi/src/model/body_update_account_v1_my_account_post.dart';
-import 'package:openapi/src/model/body_update_push_token_v1_my_push_tokens_update_post.dart';
+import 'package:openapi/src/model/body_update_push_token_v1_my_push_tokens_post.dart';
 import 'package:openapi/src/model/contract_get.dart';
 import 'package:openapi/src/model/estimate_unit_get.dart';
 import 'package:openapi/src/model/estimate_value_get.dart';
@@ -69,15 +71,17 @@ part 'serializers.g.dart';
   AccountOperationGet,
   AppSettingsGet,
   AuthToken,
+  BodyActivitiesV1MyActivitiesGet,
   BodyAuthAppleToken,
   BodyAuthGoogleToken,
   BodyDeprecatedRedeemInvitationV1MyRedeemInvitationPost,
   BodyDeprecatedUpdatePushTokenV1MyPushTokenPost,
   BodyRedeemV1MyInvitationsRedeemPost,
+  BodyRegisterV1MyActivitiesRegisterPost,
   BodyRegistrationToken,
   BodyRequestRegistration,
   BodyUpdateAccountV1MyAccountPost,
-  BodyUpdatePushTokenV1MyPushTokensUpdatePost,
+  BodyUpdatePushTokenV1MyPushTokensPost,
   ContractGet,
   EstimateUnitGet,
   EstimateValueGet,

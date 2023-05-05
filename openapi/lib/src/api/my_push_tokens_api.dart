@@ -7,7 +7,7 @@ import 'dart:async';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
-import 'package:openapi/src/model/body_update_push_token_v1_my_push_tokens_update_post.dart';
+import 'package:openapi/src/model/body_update_push_token_v1_my_push_tokens_post.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
 
 class MyPushTokensApi {
@@ -22,7 +22,7 @@ class MyPushTokensApi {
   /// 
   ///
   /// Parameters:
-  /// * [bodyUpdatePushTokenV1MyPushTokensUpdatePost] 
+  /// * [bodyUpdatePushTokenV1MyPushTokensPost] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -32,8 +32,8 @@ class MyPushTokensApi {
   ///
   /// Returns a [Future] containing a [Response] with a [bool] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<bool>> updatePushTokenV1MyPushTokensUpdatePost({ 
-    required BodyUpdatePushTokenV1MyPushTokensUpdatePost bodyUpdatePushTokenV1MyPushTokensUpdatePost,
+  Future<Response<bool>> updatePushTokenV1MyPushTokensPost({ 
+    required BodyUpdatePushTokenV1MyPushTokensPost bodyUpdatePushTokenV1MyPushTokensPost,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -41,7 +41,7 @@ class MyPushTokensApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/my/push_tokens/update';
+    final _path = r'/v1/my/push_tokens';
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -68,8 +68,8 @@ class MyPushTokensApi {
     dynamic _bodyData;
 
     try {
-      const _type = FullType(BodyUpdatePushTokenV1MyPushTokensUpdatePost);
-      _bodyData = _serializers.serialize(bodyUpdatePushTokenV1MyPushTokensUpdatePost, specifiedType: _type);
+      const _type = FullType(BodyUpdatePushTokenV1MyPushTokensPost);
+      _bodyData = _serializers.serialize(bodyUpdatePushTokenV1MyPushTokensPost, specifiedType: _type);
 
     } catch(error, stackTrace) {
       throw DioError(

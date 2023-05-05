@@ -16,10 +16,10 @@ class LocalSettingsUC {
     return settings;
   }
 
-  Future<LocalSettings> setFlag(String code, bool value) async {
-    final settings = await repo.getOne() ?? LocalSettings(flags: {});
-    settings.setFlag(code, value);
-    await repo.update(settings);
-    return settings;
-  }
+  // Future<LocalSettings> setFlag(String code, bool value) async {
+  //   final settings = await repo.getOne() ?? LocalSettings(flags: {});
+  //   settings.setFlag(code, value);
+  //   await repo.update(settings);
+  //   return settings;
+  // }
 }

@@ -118,7 +118,7 @@ abstract class _MainControllerBase with Store {
   }
 
   Future _explainUpdateDetails() async {
-    if (hasLinkedProjects && !localSettingsController.explainUpdateDetailsShown) {
+    if (hasLinkedProjects && !accountController.updateDetailsExplanationViewed) {
       await showMTDialog(
         rootKey.currentContext!,
         title: loc.explain_update_details_dialog_title,
@@ -126,7 +126,7 @@ abstract class _MainControllerBase with Store {
         actions: [MTDialogAction(title: loc.ok, type: MTActionType.isDefault, result: true)],
         simple: true,
       );
-      await localSettingsController.setExplainUpdateDetailsShown();
+      await accountController.setUpdateDetailsExplanationViewed();
     }
   }
 
@@ -135,7 +135,8 @@ abstract class _MainControllerBase with Store {
       // TODO: берем первый попавшийся. Нужно изменить триггер для показа инфы о приветственном балансе
       final myWS = myWSs.first;
       final wga = myWS.welcomeGiftAmount;
-      if (wga > 0 && !localSettingsController.welcomeGiftInfoShown) {
+      final wsId = myWS.id;
+      if (wga > 0 && !accountController.welcomeGiftInfoViewed(wsId!)) {
         final wantChangeTariff = await showMTDialog(
           rootKey.currentContext!,
           title: loc.onboarding_welcome_gift_dialog_title,
@@ -145,7 +146,7 @@ abstract class _MainControllerBase with Store {
             MTDialogAction(title: loc.later, result: false),
           ],
         );
-        await localSettingsController.setWelcomeGiftInfoShown();
+        await accountController.setWelcomeGiftInfoViewed(wsId);
 
         if (wantChangeTariff == true) {
           await changeTariff(myWS);

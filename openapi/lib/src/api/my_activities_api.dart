@@ -138,9 +138,9 @@ class MyActivitiesApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [bool] as data
+  /// Returns a [Future] containing a [Response] with a [BuiltList<UActivityGet>] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<bool>> registerV1MyActivitiesRegisterPost({ 
+  Future<Response<BuiltList<UActivityGet>>> registerV1MyActivitiesRegisterPost({ 
     required BodyRegisterV1MyActivitiesRegisterPost bodyRegisterV1MyActivitiesRegisterPost,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -200,10 +200,14 @@ class MyActivitiesApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    bool _responseData;
+    BuiltList<UActivityGet> _responseData;
 
     try {
-      _responseData = _response.data as bool;
+      const _responseType = FullType(BuiltList, [FullType(UActivityGet)]);
+      _responseData = _serializers.deserialize(
+        _response.data!,
+        specifiedType: _responseType,
+      ) as BuiltList<UActivityGet>;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -215,7 +219,7 @@ class MyActivitiesApi {
       );
     }
 
-    return Response<bool>(
+    return Response<BuiltList<UActivityGet>>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

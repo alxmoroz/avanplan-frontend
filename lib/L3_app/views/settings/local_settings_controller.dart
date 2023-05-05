@@ -20,14 +20,4 @@ class LocalSettingsController extends _LocalSettingsControllerBase with _$LocalS
 abstract class _LocalSettingsControllerBase with Store {
   @observable
   LocalSettings settings = LocalSettings(flags: {});
-
-  @action
-  Future setExplainUpdateDetailsShown() async => settings = await localSettingsUC.setFlag(LocalSettings.EXPLAIN_UPDATE_DETAILS_SHOWN, true);
-  @computed
-  bool get explainUpdateDetailsShown => settings.getFlag(LocalSettings.EXPLAIN_UPDATE_DETAILS_SHOWN);
-
-  @action
-  Future setWelcomeGiftInfoShown() async => settings = await localSettingsUC.setFlag(LocalSettings.WELCOME_GIFT_INFO_SHOWN, true);
-  @computed
-  bool get welcomeGiftInfoShown => settings.getFlag(LocalSettings.WELCOME_GIFT_INFO_SHOWN);
 }

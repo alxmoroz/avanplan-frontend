@@ -18,8 +18,8 @@ abstract class _ReferencesControllerBase with Store {
   @action
   Future fetchData() async {
     sourceTypes = ['Jira', 'GitLab', 'Redmine'];
-    // ObservableList.of((await sourceTypesUC.getAll()).sorted((s1, s2) => compareNatural(s1.code, s2.code)));
-    // taskTypes = ObservableList.of(await taskTypesUC.getAll());
+    // (await sourceTypesUC.getAll()).sorted((s1, s2) => compareNatural(s1.code, s2.code));
+    // taskTypes = await taskTypesUC.getAll();
   }
 
   @action

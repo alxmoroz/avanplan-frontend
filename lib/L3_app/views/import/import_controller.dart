@@ -106,7 +106,7 @@ abstract class _ImportControllerBase extends EditController with Store {
       }
       if (connected) {
         loaderController.setSourceListing(loaderDescription);
-        projects = ObservableList.of((await importUC.getRootTasks(selectedSource!)).sorted((p1, p2) => compareNatural(p1.title, p2.title)));
+        projects = (await importUC.getRootTasks(selectedSource!)).sorted((p1, p2) => compareNatural(p1.title, p2.title));
       } else {
         _setErrorCode('error_import_connection');
       }

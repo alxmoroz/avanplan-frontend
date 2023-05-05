@@ -15,7 +15,7 @@ void main() {
 
     // Register
     //
-    //Future<bool> registerV1MyActivitiesRegisterPost(BodyRegisterV1MyActivitiesRegisterPost bodyRegisterV1MyActivitiesRegisterPost) async
+    //Future<BuiltList<UActivityGet>> registerV1MyActivitiesRegisterPost(BodyRegisterV1MyActivitiesRegisterPost bodyRegisterV1MyActivitiesRegisterPost) async
     test('test registerV1MyActivitiesRegisterPost', () async {
       // TODO
     });

@@ -14,9 +14,6 @@ class LocalSettings extends LocalPersistable {
   String version;
   Map<String, bool>? flags;
 
-  static const EXPLAIN_UPDATE_DETAILS_SHOWN = 'EXPLAIN_UPDATE_DETAILS_SHOWN';
-  static const WELCOME_GIFT_INFO_SHOWN = 'WELCOME_GIFT_INFO_SHOWN';
-
   bool getFlag(String code) => flags?[code] ?? false;
   void setFlag(String code, bool value) {
     flags ??= {};

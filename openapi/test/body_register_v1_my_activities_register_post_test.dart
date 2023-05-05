@@ -16,5 +16,10 @@ void main() {
     test('to test the property `platform`', () async {
       // TODO
     });
+
+    // int wsId
+    test('to test the property `wsId`', () async {
+      // TODO
+    });
   });
 }

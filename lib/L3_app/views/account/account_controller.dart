@@ -1,9 +1,11 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/user.dart';
+import '../../../L1_domain/entities/user_activity.dart';
 import '../../components/mt_dialog.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
@@ -16,11 +18,56 @@ abstract class _AccountControllerBase extends EditController with Store {
   @observable
   User? user;
 
-  @action
-  Future fetchData() async => user = await myUC.getMyAccount();
+  @observable
+  Iterable<UActivity> activities = [];
+
+  @computed
+  Map<String, Iterable<UActivity>> get _activitiesMap => groupBy<UActivity, String>(activities, (a) => a.code);
 
   @action
-  void clearData() => user = null;
+  Future _fetchActivities() async {
+    if (user != null) {
+      final _activities = <UActivity>[];
+      for (final code in [
+        UACode.UPDATE_DETAILS_EXPLANATION_VIEWED,
+        UACode.WELCOME_GIFT_INFO_VIEWED,
+      ]) {
+        _activities.addAll(await myUC.getActivities(code));
+      }
+      activities = _activities;
+    }
+  }
+
+  @action
+  Future fetchData() async {
+    user = await myUC.getAccount();
+    _fetchActivities();
+  }
+
+  @action
+  Future _registerActivity(String code, {int? wsId}) async {
+    loaderController.start();
+    loaderController.setRefreshing();
+    activities = await myUC.registerActivity(code, wsId: wsId);
+    await loaderController.stop();
+  }
+
+  bool hasActivity(String code, {int? wsId}) => _activitiesMap[code]?.where((a) => a.wsId == wsId).isNotEmpty == true;
+
+  @action
+  Future setUpdateDetailsExplanationViewed() async => await _registerActivity(UACode.UPDATE_DETAILS_EXPLANATION_VIEWED);
+  @computed
+  bool get updateDetailsExplanationViewed => hasActivity(UACode.UPDATE_DETAILS_EXPLANATION_VIEWED);
+
+  @action
+  Future setWelcomeGiftInfoViewed(int wsId) async => await _registerActivity(UACode.WELCOME_GIFT_INFO_VIEWED, wsId: wsId);
+  bool welcomeGiftInfoViewed(int wsId) => hasActivity(UACode.WELCOME_GIFT_INFO_VIEWED, wsId: wsId);
+
+  @action
+  void clearData() {
+    user = null;
+    activities = [];
+  }
 
   Future delete(BuildContext context) async {
     final confirm = await showMTDialog(
@@ -37,7 +84,7 @@ abstract class _AccountControllerBase extends EditController with Store {
       loaderController.start();
       loaderController.setDeleting();
 
-      await myUC.deleteMyAccount();
+      await myUC.deleteAccount();
       await authController.signOut();
 
       await loaderController.stop();

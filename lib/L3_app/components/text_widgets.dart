@@ -131,7 +131,7 @@ class H4 extends _BaseText {
   }) : super(
           text,
           weight: FontWeight.w400,
-          sizeScale: 1.2,
+          sizeScale: 1.25,
           maxLines: maxLines ?? 3,
           height: 1.2,
         );
@@ -149,7 +149,7 @@ class H3 extends _BaseText {
           text,
           color: color ?? greyColor,
           weight: FontWeight.w400,
-          sizeScale: 1.6,
+          sizeScale: 1.65,
           maxLines: maxLines ?? 3,
           height: 1.1,
         );

@@ -69,7 +69,12 @@ abstract class _MainControllerBase with Store {
 
   @action
   Future fetchWorkspaces() async {
-    loader.setRefreshing();
+    if (iapController.waitingPayment) {
+      loader.set(icon: ldrPurchaseIcon, titleText: loc.loader_purchasing_title);
+    } else {
+      loader.setRefreshing();
+    }
+
     workspaces = (await myUC.getWorkspaces()).sorted((w1, w2) => compareNatural(w1.title, w2.title));
   }
 

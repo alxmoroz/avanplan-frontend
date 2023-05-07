@@ -14,6 +14,7 @@ import '../../components/mt_close_button.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
+import '../../presenters/number_presenter.dart';
 import '../../presenters/ws_presenter.dart';
 
 Future purchaseDialog(int wsId) async {
@@ -37,15 +38,28 @@ class StoreView extends StatelessWidget {
     await iapController.pay(wsId, p);
   }
 
+  Widget _price(IAPProduct p) {
+    final hasPrice = p.price.isNotEmpty;
+    final isRub = p.currencyCode.toLowerCase() == 'rub';
+
+    return Row(
+      children: [
+        if (hasPrice) H4('  ${loc.for_} ${isRub ? p.rawPrice.currency : p.price}', color: greyColor),
+        if (isRub) RoubleIcon(size: P * (hasPrice ? 2 : 2.5), color: hasPrice ? greyColor : greenColor),
+      ],
+    );
+  }
+
   Widget _payButton(BuildContext _, int index) {
     final p = iapController.products[index];
     return MTButton.outlined(
       titleColor: greenColor,
-      middle: Row(children: [
-        H3('+ ${p.value}', color: greenColor),
-        if (p.price.isEmpty) const RoubleIcon(size: P * 2.5, color: greenColor),
-      ]),
-      trailing: p.price.isNotEmpty ? NormalText(' ${loc.for_} ${p.price}') : null,
+      middle: Row(
+        children: [
+          H3('+ ${p.value.currency}', color: greenColor),
+          _price(p),
+        ],
+      ),
       margin: const EdgeInsets.only(top: P),
       onTap: () => _pay(p),
     );

@@ -68,14 +68,13 @@ class AuthUC {
   Future<bool> signInApple(String locale) async => await _signInOAuth(appleRepo, locale);
 
   static const _authCheckPeriod = Duration(hours: 12);
-  Future<bool> refreshAuth() async {
-    bool res = await hasLocalAuth;
+
+  Future<bool> needRefreshAuth() async {
     final signinDate = (await _getLocalAuth()).signinDate;
-    if (signinDate == null || signinDate.add(_authCheckPeriod).isBefore(DateTime.now())) {
-      res = await _signInWithToken(await authAvanplanRepo.refreshToken());
-    }
-    return res;
+    return signinDate == null || signinDate.add(_authCheckPeriod).isBefore(DateTime.now());
   }
+
+  Future<bool> refreshAuth() async => await _signInWithToken(await authAvanplanRepo.refreshToken());
 
   Future signOut() async {
     await _currentRepo.signOut();

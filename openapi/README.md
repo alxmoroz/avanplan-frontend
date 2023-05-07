@@ -95,6 +95,7 @@ Class | Method | HTTP request | Description
 [*MyWorkspacesApi*](doc/MyWorkspacesApi.md) | [**createWorkspaceV1MyWorkspacesCreatePost**](doc/MyWorkspacesApi.md#createworkspacev1myworkspacescreatepost) | **POST** /v1/my/workspaces/create | Create Workspace
 [*MyWorkspacesApi*](doc/MyWorkspacesApi.md) | [**updateWorkspaceV1MyWorkspacesUpdatePost**](doc/MyWorkspacesApi.md#updateworkspacev1myworkspacesupdatepost) | **POST** /v1/my/workspaces/update | Update Workspace
 [*MyWorkspacesApi*](doc/MyWorkspacesApi.md) | [**workspacesV1MyWorkspacesGet**](doc/MyWorkspacesApi.md#workspacesv1myworkspacesget) | **GET** /v1/my/workspaces | Workspaces
+[*PaymentsApi*](doc/PaymentsApi.md) | [**iapNotificationV1PaymentsIapNotificationPost**](doc/PaymentsApi.md#iapnotificationv1paymentsiapnotificationpost) | **POST** /v1/payments/iap/notification | Iap Notification
 [*SettingsApi*](doc/SettingsApi.md) | [**settingsV1SettingsGet**](doc/SettingsApi.md#settingsv1settingsget) | **GET** /v1/settings/ | Settings
 [*TariffsApi*](doc/TariffsApi.md) | [**tariffsV1TariffsGet**](doc/TariffsApi.md#tariffsv1tariffsget) | **GET** /v1/tariffs/ | Tariffs
 [*TasksApi*](doc/TasksApi.md) | [**deleteV1TasksTaskIdDelete**](doc/TasksApi.md#deletev1taskstaskiddelete) | **DELETE** /v1/tasks/{task_id} | Delete
@@ -116,6 +117,7 @@ Class | Method | HTTP request | Description
  - [BodyAuthGoogleToken](doc/BodyAuthGoogleToken.md)
  - [BodyDeprecatedRedeemInvitationV1MyRedeemInvitationPost](doc/BodyDeprecatedRedeemInvitationV1MyRedeemInvitationPost.md)
  - [BodyDeprecatedUpdatePushTokenV1MyPushTokenPost](doc/BodyDeprecatedUpdatePushTokenV1MyPushTokenPost.md)
+ - [BodyIapNotificationV1PaymentsIapNotificationPost](doc/BodyIapNotificationV1PaymentsIapNotificationPost.md)
  - [BodyRedeemV1MyInvitationsRedeemPost](doc/BodyRedeemV1MyInvitationsRedeemPost.md)
  - [BodyRegisterV1MyActivitiesRegisterPost](doc/BodyRegisterV1MyActivitiesRegisterPost.md)
  - [BodyRegistrationToken](doc/BodyRegistrationToken.md)

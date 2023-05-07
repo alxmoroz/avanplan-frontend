@@ -3,10 +3,12 @@
 import 'dart:async';
 
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:openapi/openapi.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../L1_domain/entities/iap_product.dart';
 import '../../L1_domain/repositories/abs_payment_repo.dart';
+import '../services/api.dart';
 import '../services/platform.dart';
 
 class IAPRepo extends AbstractIAPRepo {
@@ -44,68 +46,70 @@ class IAPRepo extends AbstractIAPRepo {
     return products;
   }
 
-  late StreamSubscription<List<PurchaseDetails>> _iapSubscriptionStream;
+  late StreamSubscription<List<PurchaseDetails>> _subscriptionStream;
 
   @override
   Future pay({
     required IAPProduct product,
     required int wsId,
     required int userId,
-    required Function(List<String>) done,
+    required Function({String? error, num? purchasedAmount}) done,
   }) async {
     if (isIOS) {
-      await _iapPay(wsId: wsId, userId: userId, product: product, done: done);
+      await _iosPay(wsId: wsId, product: product, done: done);
     } else {
-      await _ymQuickPay(product.value, wsId, userId);
-      await done([]);
+      await _ymPay(product.value, wsId, userId);
+      await done();
     }
   }
 
-  Future _iapPay({
+  Future<num?> _deliver(int wsId, PurchaseDetails purchase) async {
+    // TODO: IMPORTANT!! Always verify a purchase before delivering the product.
+    // print('localVerificationData: ${purchase.verificationData.localVerificationData}');
+    // print('serverVerificationData: ${purchase.verificationData.serverVerificationData}');
+    // print('source: ${purchase.verificationData.source}');
+
+    // print('delivering ... ${purchase.productID} - ${purchase.purchaseID}');
+    final body = (BodyIapNotificationV1PaymentsIapNotificationPostBuilder()
+          ..amount = IAPProduct.productsValues[purchase.productID]
+          ..operationId = purchase.purchaseID)
+        .build();
+
+    return (await openAPI.getPaymentsApi().iapNotificationV1PaymentsIapNotificationPost(
+              wsId: wsId,
+              bodyIapNotificationV1PaymentsIapNotificationPost: body,
+            ))
+        .data;
+  }
+
+  Future _iosPay({
     required int wsId,
-    required int userId,
     required IAPProduct product,
-    required Function(List<String>) done,
+    required Function({String? error, num? purchasedAmount}) done,
   }) async {
-    bool _verify(PurchaseDetails pd) {
-      // TODO: IMPORTANT!! Always verify a purchase before delivering the product.
-      return product.id == pd.productID;
-    }
-
-    Future _deliver(String? purchaseId) async {
-      print(purchaseId);
-      print(product.value);
-      print(wsId);
-      print('backend payment_notification');
-    }
-
     final iap = InAppPurchase.instance;
-    _iapSubscriptionStream = iap.purchaseStream.listen((pds) async {
-      //TODO: можно использовать список MTErrors
-      final List<String> errors = [];
-      for (final pd in pds) {
-        String error = '';
-        if (pd.status == PurchaseStatus.pending) {
-          return;
-        } else if (pd.status == PurchaseStatus.error) {
-          error = '${pd.error?.details}';
-        } else if (pd.status == PurchaseStatus.purchased) {
-          if (_verify(pd)) {
-            await _deliver(pd.purchaseID);
-          } else {
-            error = 'Not verified: ${pd.productID}';
-          }
+    _subscriptionStream = iap.purchaseStream.listen((purchases) async {
+      //TODO: использовать MTError, чтобы отправлять более вменяемые тексты на интерфейс юзеру
+      String error = '';
+      num purchasedAmount = 0;
+      for (final purchase in purchases) {
+        if (purchase.status == PurchaseStatus.purchased) {
+          purchasedAmount += await _deliver(wsId, purchase) ?? 0;
+        } else if (purchase.status == PurchaseStatus.error) {
+          error += '${purchase.error?.details}';
         }
-        if (error.isEmpty) {
-          if (pd.pendingCompletePurchase) {
-            await iap.completePurchase(pd);
-          }
-        } else {
-          errors.add(error);
+
+        if (purchase.pendingCompletePurchase) {
+          await iap.completePurchase(purchase);
+        }
+
+        // завершаем обработку транзакции
+        if (purchase.status != PurchaseStatus.pending && purchase.productID == product.id) {
+          _subscriptionStream.cancel();
+          await done(error: error, purchasedAmount: purchasedAmount);
+          return;
         }
       }
-      await done(errors);
-      _iapSubscriptionStream.cancel();
     });
 
     await InAppPurchase.instance.buyConsumable(
@@ -122,7 +126,7 @@ class IAPRepo extends AbstractIAPRepo {
     );
   }
 
-  Future<bool> _ymQuickPay(int amount, int wsId, int userId) async {
+  Future<bool> _ymPay(int amount, int wsId, int userId) async {
     const _ym_host_path = 'https://yoomoney.ru/quickpay/confirm.xml';
     const _ymRecipient = '41001777210985';
     final url = Uri.encodeFull('$_ym_host_path?receiver=$_ymRecipient&quickpay-form=button&sum=$amount&label=$wsId:$userId');

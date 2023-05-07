@@ -78,9 +78,12 @@ abstract class _AuthControllerBase with Store {
 
   @action
   Future updateAuth() async {
-    _startLdrAuth();
-    authorized = await authUC.refreshAuth();
-    await loader.stop();
+    authorized = await authUC.hasLocalAuth;
+    if (await authUC.needRefreshAuth()) {
+      _startLdrAuth();
+      authorized = await authUC.refreshAuth();
+      await loader.stop();
+    }
   }
 
   @action

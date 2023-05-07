@@ -20,6 +20,7 @@ import 'package:openapi/src/api/my_invitations_api.dart';
 import 'package:openapi/src/api/my_notifications_api.dart';
 import 'package:openapi/src/api/my_push_tokens_api.dart';
 import 'package:openapi/src/api/my_workspaces_api.dart';
+import 'package:openapi/src/api/payments_api.dart';
 import 'package:openapi/src/api/settings_api.dart';
 import 'package:openapi/src/api/tariffs_api.dart';
 import 'package:openapi/src/api/tasks_api.dart';
@@ -144,6 +145,12 @@ class Openapi {
   /// by doing that all interceptors will not be executed
   MyWorkspacesApi getMyWorkspacesApi() {
     return MyWorkspacesApi(dio, serializers);
+  }
+
+  /// Get PaymentsApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  PaymentsApi getPaymentsApi() {
+    return PaymentsApi(dio, serializers);
   }
 
   /// Get SettingsApi instance, base route and serializer can be overridden by a given but be careful,

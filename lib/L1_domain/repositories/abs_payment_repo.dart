@@ -8,6 +8,6 @@ abstract class AbstractIAPRepo {
     required IAPProduct product,
     required int wsId,
     required int userId,
-    required Function(List<String>) done,
+    required Function({String? error, num? purchasedAmount}) done,
   });
 }

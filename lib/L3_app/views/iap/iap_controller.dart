@@ -40,20 +40,23 @@ abstract class _IAPControllerBase with Store {
     if (userId != null) {
       loader.start();
       loader.set(icon: ldrPurchaseIcon, titleText: loc.loader_purchasing_title);
-      waitingPayment = true;
       await iapUC.pay(
         product: product,
         wsId: wsId,
         userId: userId,
-        done: (errors) {
-          if (errors.isNotEmpty) {
+        done: ({String? error, num? purchasedAmount}) {
+          if (error != null && error.isNotEmpty) {
             loader.set(
               icon: ldrPurchaseIcon,
               titleText: loc.error_purchase_title,
-              descriptionText: errors.join('\n'),
+              descriptionText: error,
               actionText: loc.ok,
             );
           } else {
+            waitingPayment = purchasedAmount == null;
+            if (purchasedAmount != null) {
+              mainController.wsForId(wsId).balance += purchasedAmount;
+            }
             loader.stop();
           }
         },

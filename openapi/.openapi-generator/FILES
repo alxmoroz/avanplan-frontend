@@ -12,6 +12,7 @@ doc/BodyAuthAppleToken.md
 doc/BodyAuthGoogleToken.md
 doc/BodyDeprecatedRedeemInvitationV1MyRedeemInvitationPost.md
 doc/BodyDeprecatedUpdatePushTokenV1MyPushTokenPost.md
+doc/BodyIapNotificationV1PaymentsIapNotificationPost.md
 doc/BodyRedeemV1MyInvitationsRedeemPost.md
 doc/BodyRegisterV1MyActivitiesRegisterPost.md
 doc/BodyRegistrationToken.md
@@ -39,6 +40,7 @@ doc/MyNotificationsApi.md
 doc/MyPushTokensApi.md
 doc/MyWorkspacesApi.md
 doc/Notification.md
+doc/PaymentsApi.md
 doc/PermissionGet.md
 doc/PermissionRoleGet.md
 doc/PriorityGet.md
@@ -80,6 +82,7 @@ lib/src/api/my_invitations_api.dart
 lib/src/api/my_notifications_api.dart
 lib/src/api/my_push_tokens_api.dart
 lib/src/api/my_workspaces_api.dart
+lib/src/api/payments_api.dart
 lib/src/api/settings_api.dart
 lib/src/api/tariffs_api.dart
 lib/src/api/tasks_api.dart
@@ -101,6 +104,7 @@ lib/src/model/body_auth_apple_token.dart
 lib/src/model/body_auth_google_token.dart
 lib/src/model/body_deprecated_redeem_invitation_v1_my_redeem_invitation_post.dart
 lib/src/model/body_deprecated_update_push_token_v1_my_push_token_post.dart
+lib/src/model/body_iap_notification_v1_payments_iap_notification_post.dart
 lib/src/model/body_redeem_v1_my_invitations_redeem_post.dart
 lib/src/model/body_register_v1_my_activities_register_post.dart
 lib/src/model/body_registration_token.dart
@@ -154,6 +158,7 @@ test/body_auth_apple_token_test.dart
 test/body_auth_google_token_test.dart
 test/body_deprecated_redeem_invitation_v1_my_redeem_invitation_post_test.dart
 test/body_deprecated_update_push_token_v1_my_push_token_post_test.dart
+test/body_iap_notification_v1_payments_iap_notification_post_test.dart
 test/body_redeem_v1_my_invitations_redeem_post_test.dart
 test/body_register_v1_my_activities_register_post_test.dart
 test/body_registration_token_test.dart
@@ -181,6 +186,7 @@ test/my_notifications_api_test.dart
 test/my_push_tokens_api_test.dart
 test/my_workspaces_api_test.dart
 test/notification_test.dart
+test/payments_api_test.dart
 test/permission_get_test.dart
 test/permission_role_get_test.dart
 test/priority_get_test.dart

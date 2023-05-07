@@ -14,7 +14,7 @@ class InAppPurchaseUC {
     required int wsId,
     required int userId,
     required IAPProduct product,
-    required Function(List<String>) done,
+    required Function({String? error, num? purchasedAmount}) done,
   }) async =>
       await repo.pay(
         wsId: wsId,

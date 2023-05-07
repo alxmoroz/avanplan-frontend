@@ -111,7 +111,7 @@ class App extends StatelessWidget {
               } else if (rs.name == ContractView.routeName) {
                 return CupertinoPageRoute<dynamic>(builder: (_) => ContractView(rs.arguments as Workspace));
               } else if (rs.name == WorkspaceView.routeName) {
-                return CupertinoPageRoute<dynamic>(builder: (_) => WorkspaceView(rs.arguments as Workspace));
+                return CupertinoPageRoute<dynamic>(builder: (_) => WorkspaceView(rs.arguments as int));
               } else if (rs.name == SourceListView.routeName) {
                 return CupertinoPageRoute<dynamic>(builder: (_) => SourceListView(rs.arguments as int));
               } else if (rs.name == TaskView.routeName) {
@@ -124,7 +124,7 @@ class App extends StatelessWidget {
               return null;
             },
           ),
-          if (loaderController.stack > 0)
+          if (loader.stack > 0)
             CupertinoApp(
               debugShowCheckedModeBanner: _DEBUG_BANNER,
               home: LoaderScreen(),

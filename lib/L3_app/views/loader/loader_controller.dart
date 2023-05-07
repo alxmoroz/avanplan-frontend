@@ -14,9 +14,9 @@ import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_button.dart';
-import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/communications_presenter.dart';
+import '../../presenters/loader_presenter.dart';
 
 part 'loader_controller.g.dart';
 
@@ -42,18 +42,17 @@ abstract class _LoaderControllerBase with Store {
   void start() => stack++;
 
   @action
-  void _set({
+  void set({
     String? titleText,
-    Widget? title,
     String? descriptionText,
     Widget? description,
     Widget? icon,
     String? actionText,
     Widget? action,
   }) {
-    iconWidget = icon ?? _defaultIcon;
-    titleWidget = title ?? (titleText != null ? _title(titleText) : null);
-    descriptionWidget = description ?? (descriptionText != null ? _description(descriptionText) : null);
+    iconWidget = icon ?? ldrDefaultIcon;
+    titleWidget = titleText != null ? ldrTitle(titleText) : null;
+    descriptionWidget = description ?? (descriptionText != null ? ldrDescription(descriptionText) : null);
     actionWidget = action ?? (actionText != null ? _stopAction(actionText) : null);
   }
 
@@ -102,28 +101,6 @@ abstract class _LoaderControllerBase with Store {
         }
       });
 
-  /// UI
-  static double get iconSize => P * 20;
-  static const Color iconColor = darkBackgroundColor;
-
-  Widget get _defaultIcon => appIcon();
-  Widget get _authIcon => PrivacyIcon(size: iconSize, color: iconColor);
-  Widget get _networkErrorIcon => NetworkErrorIcon(size: iconSize, color: iconColor);
-  Widget get _serverErrorIcon => ServerErrorIcon(size: iconSize, color: iconColor);
-
-  Widget _title(String titleText) => H3(
-        titleText,
-        align: TextAlign.center,
-        padding: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P),
-      );
-
-  Widget _description(String descriptionText) => H4(
-        descriptionText,
-        align: TextAlign.center,
-        padding: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P_2),
-        maxLines: 5,
-      );
-
   Widget _stopAction(String actionText) => MTButton.outlined(
         titleText: actionText,
         onTap: stop,
@@ -141,8 +118,8 @@ abstract class _LoaderControllerBase with Store {
   void _setHTTPError(String? errorText, String? errorDetail) {
     errorText ??= 'LoaderHTTPError';
     final mainRecommendationText = isWeb ? loc.update_web_app_recommendation_title : loc.update_app_recommendation_title;
-    _set(
-      icon: _serverErrorIcon,
+    set(
+      icon: ldrServerErrorIcon,
       titleText: errorText,
       descriptionText: mainRecommendationText,
       action: Column(
@@ -161,8 +138,8 @@ abstract class _LoaderControllerBase with Store {
     await mainController.manualUpdate();
   }
 
-  void _setNetworkError(String? errorText) => _set(
-        icon: _networkErrorIcon,
+  void _setNetworkError(String? errorText) => set(
+        icon: ldrNetworkErrorIcon,
         titleText: loc.error_network_title,
         descriptionText: loc.error_network_description,
         action: Column(
@@ -181,65 +158,64 @@ abstract class _LoaderControllerBase with Store {
         ),
       );
 
-  void setAuth() => _set(titleText: loc.loader_auth_title, icon: _authIcon);
-  void setAuthError([String? description]) => _set(
-        icon: _authIcon,
+  void setAuthError([String? description]) => set(
+        icon: ldrAuthIcon,
         titleText: loc.error_auth_title,
         descriptionText: description != null ? Intl.message('error_auth_$description') : loc.error_auth_description,
         actionText: loc.ok,
       );
 
-  void _setPermissionError([String? description]) => _set(
-        icon: _authIcon,
+  void _setPermissionError([String? description]) => set(
+        icon: ldrAuthIcon,
         titleText: loc.error_permission_title,
         descriptionText: description != null ? Intl.message('error_permission_$description') : loc.error_permission_description,
         actionText: loc.ok,
       );
 
-  void _setTariffLimitError([String? description]) => _set(
-        icon: _authIcon,
+  void _setTariffLimitError([String? description]) => set(
+        icon: ldrAuthIcon,
         titleText: loc.error_tariff_limit_title,
         descriptionText: description != null ? Intl.message('error_tariff_limit_$description') : loc.error_tariff_limit_description,
         actionText: loc.ok,
       );
 
-  void setRedeemInvitation() => _set(titleText: loc.loader_invitation_redeem_title, icon: _authIcon);
-  void setCreateInvitation() => _set(titleText: loc.loader_invitation_create_title, icon: _authIcon);
-  void _setRedeemInvitationError() => _set(
-        icon: _authIcon,
+  void _setRedeemInvitationError() => set(
+        icon: ldrAuthIcon,
         titleText: loc.error_redeem_invitation_title,
         descriptionText: loc.error_redeem_invitation_description,
         actionText: loc.ok,
       );
 
-  void setCheckConnection(String descriptionText) => _set(
-        icon: ConnectingIcon(size: iconSize, color: iconColor),
+  // TODO: разнести публичные методы по соотв. вьюхам / контроллерам / презентерам
+
+  void setCheckConnection(String descriptionText) => set(
+        icon: ConnectingIcon(size: ldrIconSize, color: ldrIconColor),
         titleText: loc.loader_check_connection_title,
         descriptionText: descriptionText,
       );
-  void setClosing(bool isClose) => _set(titleText: loc.loader_saving_title, icon: DoneIcon(isClose, size: iconSize, color: iconColor));
-  void setDeleting() => _set(titleText: loc.loader_deleting_title, icon: DeleteIcon(size: iconSize, color: iconColor));
-  void setImporting(String descriptionText) => _set(
+  void setClosing(bool isClose) => set(titleText: loc.loader_saving_title, icon: DoneIcon(isClose, size: ldrIconSize, color: ldrIconColor));
+  void setDeleting() => set(titleText: loc.loader_deleting_title, icon: DeleteIcon(size: ldrIconSize, color: ldrIconColor));
+  void setImporting(String descriptionText) => set(
         titleText: loc.loader_importing_title,
         descriptionText: descriptionText,
-        icon: ImportIcon(size: iconSize, color: iconColor),
+        icon: ldrImportIcon,
       );
-  void _setImportError(String? descriptionText, String? errorDetail) => _set(
+  void _setImportError(String? descriptionText, String? errorDetail) => set(
         titleText: loc.error_import_menu_action_title,
         descriptionText: descriptionText,
-        icon: ImportIcon(size: iconSize, color: iconColor),
+        icon: ldrImportIcon,
         action: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           _stopAction(loc.ok),
           _reportErrorButton('$descriptionText ${errorDetail ?? ''}'),
         ]),
       );
-  void setRefreshing() => _set(titleText: loc.loader_refreshing_title, icon: RefreshIcon(size: iconSize, color: iconColor));
-  void setSaving() => _set(titleText: loc.loader_saving_title, icon: EditIcon(size: iconSize, color: iconColor));
-  void setSourceListing(String descriptionText) => _set(
+  void setRefreshing() => set(titleText: loc.loader_refreshing_title, icon: ldrRefreshIcon);
+  void setSaving() => set(titleText: loc.loader_saving_title, icon: EditIcon(size: ldrIconSize, color: ldrIconColor));
+  void setSourceListing(String descriptionText) => set(
         titleText: loc.loader_source_listing,
         descriptionText: descriptionText,
-        icon: ImportIcon(size: iconSize, color: iconColor),
+        icon: ldrImportIcon,
       );
-  void setUnlinking() => _set(titleText: loc.loader_unlinking_title, icon: UnlinkIcon(size: iconSize, color: iconColor));
-  void setUnwatch() => _set(titleText: loc.loader_unwatch_title, icon: EyeIcon(open: false, size: iconSize, color: iconColor));
+  void setUnlinking() => set(titleText: loc.loader_unlinking_title, icon: UnlinkIcon(size: ldrIconSize, color: ldrIconColor));
+  void setUnwatch() => set(titleText: loc.loader_unwatch_title, icon: EyeIcon(open: false, size: ldrIconSize, color: ldrIconColor));
 }

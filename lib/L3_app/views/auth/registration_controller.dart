@@ -32,8 +32,8 @@ abstract class _RegistrationControllerBase extends EditController with Store {
 
   @action
   Future createRequest(BuildContext context) async {
-    loaderController.start();
-    loaderController.setSaving();
+    loader.start();
+    loader.setSaving();
     final regRequest = RegistrationRequest(
       tfAnnoForCode('name').text,
       tfAnnoForCode('email').text,
@@ -41,6 +41,6 @@ abstract class _RegistrationControllerBase extends EditController with Store {
       invitationToken: deepLinkController.invitationToken,
     );
     requestCompleted = await authUC.requestRegistration(regRequest, tfAnnoForCode('password').text);
-    await loaderController.stop();
+    await loader.stop();
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../main.dart';
+import 'colors.dart';
 import 'constants.dart';
 import 'mt_card.dart';
 
@@ -18,7 +19,7 @@ class MTBottomSheet extends StatelessWidget {
     final mq = MediaQuery.of(rootKey.currentContext ?? context);
     return Container(
       constraints: BoxConstraints(maxHeight: mq.size.height - mq.padding.top - P),
-      child: MTCard(child: bodyWidget, radius: P),
+      child: MTCard(child: bodyWidget, radius: P, color: backgroundColor),
     );
   }
 }

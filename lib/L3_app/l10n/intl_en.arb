@@ -36,6 +36,8 @@
 
   "backlog": "Backlog",
   "balance_amount_title": "Account Balance",
+  "balance_replenish_action_title": "Replenish",
+  "balance_replenish_store_title": "Replenish Balance",
 
   "cancel": "Cancel",
 
@@ -82,12 +84,14 @@
   "error_auth_description": "Please check the information provided and try again",
   "error_auth_popup_blocked_by_browser": "The authentication window is blocked by the browser\nOpen a blocked window and reload the page",
   "error_auth_title": "Authorisation Error",
+  "error_fetch_products_title": "Error getting information about purchases",
   "error_import_connection": "Connection Error\nThe import source is not available",
   "error_import_menu_action_title": "Import Error",
   "error_network_description": "Please check your internet connection and try again",
   "error_network_title": "Network Error\nNo connection to server",
   "error_permission_description": "Please contact the project or workspace administrator",
   "error_permission_title": "Insufficient permissions to perform the operation",
+  "error_purchase_title": "Purchase processing error",
   "error_redeem_invitation_description": "The number of invitations has run out or the invitation has expired.\n\nContact your workspace/project administrator.",
   "error_redeem_invitation_title": "Error while processing invitation",
   "error_tariff_insufficient_funds_for_change": "To change the tariff on the balance must be at least {value}",
@@ -97,6 +101,7 @@
   "explain_update_details_dialog_description": "Updated projects stored in Avanplan.\n\nImported projects are updated automatically at night once a day.",
   "explain_update_details_dialog_title": "Update nuances",
 
+  "for_": "for",
   "for_dative": "for",
 
   "goal_count": "{count, plural, zero{No goals} one{{count} goal} other{{count} goals}}",
@@ -136,6 +141,7 @@
   "loader_importing_title": "Importing...",
   "loader_invitation_create_title": "Making an invitation...",
   "loader_invitation_redeem_title": "Accessing to projects...",
+  "loader_purchasing_title": "Processing payment...",
   "loader_refreshing_title": "Refreshing...",
   "loader_saving_title": "Saving...",
   "loader_source_listing": "Getting a list of projects...",

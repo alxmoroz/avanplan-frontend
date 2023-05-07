@@ -6,6 +6,7 @@ import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/system/errors.dart';
 import '../../extra/services.dart';
+import '../../presenters/loader_presenter.dart';
 
 part 'auth_controller.g.dart';
 
@@ -38,53 +39,48 @@ abstract class _AuthControllerBase with Store {
   Future _signInWithRegistration() async {
     if (deepLinkController.hasRegistration) {
       await signOut();
-      loaderController.start();
-      loaderController.setAuth();
+      _startLdrAuth();
       authorized = await authUC.signInWithRegistration(deepLinkController.registrationToken!);
       deepLinkController.clearRegistration();
-      await loaderController.stop();
+      await loader.stop();
     }
   }
 
   @action
   Future signInWithPassword(String email, String pwd) async {
-    loaderController.start();
-    loaderController.setAuth();
+    _startLdrAuth();
     authorized = await authUC.signInWithPassword(email, pwd);
     Navigator.of(rootKey.currentContext!).pop();
-    await loaderController.stop();
+    await loader.stop();
   }
 
   @action
   Future signInGoogle() async {
-    loaderController.start();
-    loaderController.setAuth();
+    _startLdrAuth();
     try {
       authorized = await authUC.signInGoogle(_langCode);
-      await loaderController.stop();
+      await loader.stop();
     } on MTOAuthError catch (e) {
-      loaderController.setAuthError(e.detail);
+      loader.setAuthError(e.detail);
     }
   }
 
   @action
   Future signInApple() async {
-    loaderController.start();
-    loaderController.setAuth();
+    _startLdrAuth();
     try {
       authorized = await authUC.signInApple(_langCode);
-      await loaderController.stop();
+      await loader.stop();
     } on MTOAuthError catch (e) {
-      loaderController.setAuthError(e.detail);
+      loader.setAuthError(e.detail);
     }
   }
 
   @action
   Future updateAuth() async {
-    loaderController.start();
-    loaderController.setAuth();
+    _startLdrAuth();
     authorized = await authUC.refreshAuth();
-    await loaderController.stop();
+    await loader.stop();
   }
 
   @action
@@ -101,5 +97,10 @@ abstract class _AuthControllerBase with Store {
       await _signInWithRegistration();
     }
     _startupActionsInProgress = false;
+  }
+
+  void _startLdrAuth() {
+    loader.start();
+    loader.set(titleText: loc.loader_auth_title, icon: ldrAuthIcon);
   }
 }

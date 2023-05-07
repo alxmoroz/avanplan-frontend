@@ -20,14 +20,17 @@ import '../../presenters/tariff_presenter.dart';
 import '../../usecases/ws_ext_actions.dart';
 import '../../usecases/ws_ext_sources.dart';
 import '../contract/contract_view.dart';
+import '../iap/iap_view.dart';
 import '../source/source_list_view.dart';
 import '../user/user_list_view.dart';
 import 'workspace_edit_view.dart';
 
 class WorkspaceView extends StatelessWidget {
-  const WorkspaceView(this.ws);
-  final Workspace ws;
+  const WorkspaceView(this.wsId);
   static String get routeName => '/workspace';
+
+  final int wsId;
+  Workspace get ws => mainController.wsForId(wsId);
 
   Widget get _header => Padding(
         padding: const EdgeInsets.symmetric(horizontal: P_2),
@@ -56,8 +59,6 @@ class WorkspaceView extends StatelessWidget {
         onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(ContractView.routeName, arguments: ws),
       );
 
-  Widget _payButton(int amount) => paymentController.ymPayButton(ws.id!, amount);
-
   Color get _balanceColor => ws.balance < 0 ? warningColor : greyColor;
 
   Widget get _balance => Column(
@@ -68,18 +69,11 @@ class WorkspaceView extends StatelessWidget {
           MTCurrency(ws.balance, _balanceColor),
           const SizedBox(height: P_2),
           if (ws.hpTariffUpdate) ...[
-            const SizedBox(height: P),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _payButton(300),
-                const SizedBox(width: P_2),
-                _payButton(500),
-                const SizedBox(width: P_2),
-                _payButton(1000),
-                const SizedBox(width: P_2),
-                _payButton(5000),
-              ],
+            MTButton.outlined(
+              margin: const EdgeInsets.only(top: P),
+              titleText: loc.balance_replenish_action_title,
+              titleColor: greenColor,
+              onTap: () => purchaseDialog(wsId),
             ),
           ],
         ],
@@ -118,10 +112,8 @@ class WorkspaceView extends StatelessWidget {
         child: ListView(
           children: [
             _header,
-            if (serviceSettingsController.passAppleCheat) ...[
-              _balance,
-              _tariff,
-            ],
+            _balance,
+            _tariff,
             _users,
             _sources,
           ],

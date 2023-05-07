@@ -36,6 +36,8 @@
 
   "backlog": "Бэклог",
   "balance_amount_title": "Баланс",
+  "balance_replenish_action_title": "Пополнить",
+  "balance_replenish_store_title": "Пополнить баланс",
 
   "cancel": "Отмена",
 
@@ -82,12 +84,14 @@
   "error_auth_description": "Проверьте правильность указанных данных и повторите попытку",
   "error_auth_popup_blocked_by_browser": "Окно аутентификации заблокировано браузером\nОткройте заблокированное окно и перезагрузите страницу",
   "error_auth_title": "Ошибка авторизации",
+  "error_fetch_products_title": "Ошибка получения информации о покупках",
   "error_import_connection": "Ошибка подключения\nИсточник импорта недоступен",
   "error_import_menu_action_title": "Ошибка импорта",
   "error_network_description": "Проверьте соединение с интернетом и повторите попытку",
   "error_network_title": "Ошибка сети\nНет соединения с сервером",
   "error_permission_description": "Обратитесь к администратору проекта или рабочего пространства",
   "error_permission_title": "Недостаточно прав для выполнения операции",
+  "error_purchase_title": "Ошибка обработки покупки",
   "error_redeem_invitation_description": "Закончилось количество активаций или истёк срок действия приглашения.\n\nОбратитесь к администратору рабочего пространства / проекта.",
   "error_redeem_invitation_title": "Ошибка при обработке приглашения",
   "error_tariff_insufficient_funds_for_change": "Для смены тарифа на балансе должно быть минимум {value}",
@@ -97,6 +101,7 @@
   "explain_update_details_dialog_description": "Обновили проекты, хранящиеся в Аванплане.\n\nИмпортированные проекты обновляются автоматически ночью раз в сутки.",
   "explain_update_details_dialog_title": "Особенности обновления",
 
+  "for_": "за",
   "for_dative": "по",
 
   "goal_count": "{count, plural, zero{Нет целей} one{{count} цель} few{{count} цели} other{{count} целей}}",
@@ -136,6 +141,7 @@
   "loader_importing_title": "Импортируем...",
   "loader_invitation_create_title": "Формируем приглашение...",
   "loader_invitation_redeem_title": "Подключаем к проектам...",
+  "loader_purchasing_title": "Обрабатываем платёж...",
   "loader_refreshing_title": "Обновляем...",
   "loader_saving_title": "Сохраняем...",
   "loader_source_listing": "Получаем список проектов...",

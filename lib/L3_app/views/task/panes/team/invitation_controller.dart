@@ -15,6 +15,7 @@ import '../../../../components/text_field_annotation.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/date_presenter.dart';
+import '../../../../presenters/loader_presenter.dart';
 import '../../../_base/edit_controller.dart';
 
 part 'invitation_controller.g.dart';
@@ -68,8 +69,8 @@ abstract class _InvitationControllerBase extends EditController with Store {
   Future createInvitation() async {
     final activationsCount = int.tryParse(tfAnnoForCode('activationsCount').text) ?? 0;
     if (activationsCount > 0) {
-      loaderController.start();
-      loaderController.setCreateInvitation();
+      loader.start();
+      loader.set(titleText: loc.loader_invitation_create_title, icon: ldrAuthIcon);
       invitation = await invitationUC.create(
           Invitation(
             task.id!,
@@ -78,14 +79,14 @@ abstract class _InvitationControllerBase extends EditController with Store {
             expiresOn!,
           ),
           task.wsId);
-      await loaderController.stop();
+      await loader.stop();
     }
   }
 
   @action
   Future fetchInvitation() async {
-    loaderController.start();
-    loaderController.setRefreshing();
+    loader.start();
+    loader.setRefreshing();
     invitation = await invitationUC.getInvitation(task.wsId, task.id!, role.id!);
 
     initState(tfaList: [
@@ -95,7 +96,7 @@ abstract class _InvitationControllerBase extends EditController with Store {
 
     setExpired(invitation?.expiresOn ?? DateTime.now().add(const Duration(days: 7)));
 
-    await loaderController.stop();
+    await loader.stop();
   }
 
   String get invitationSubject => '${loc.invitation_share_subject_prefix}${loc.app_title} - ${task.title}';

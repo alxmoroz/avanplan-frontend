@@ -178,10 +178,10 @@ abstract class _TaskViewControllerBase with Store {
       recursively = false;
     }
 
-    loaderController.start();
-    loaderController.setClosing(close);
+    loader.start();
+    loader.setClosing(close);
     final editedTask = await _setClosedTaskTree(task, close, recursively);
-    await loaderController.stop();
+    await loader.stop();
 
     if (editedTask != null) {
       if (editedTask.closed) {
@@ -230,14 +230,14 @@ abstract class _TaskViewControllerBase with Store {
   Future unlink() async {
     if (task.ws.plUnlink) {
       if (await _unlinkDialog() == true) {
-        loaderController.start();
-        loaderController.setUnlinking();
+        loader.start();
+        loader.setUnlinking();
         try {
           await importUC.unlinkTaskSources(task.wsId, task.id!, task.allTss());
           task.unlinkTaskTree();
           mainController.updateRootTask();
         } catch (_) {}
-        await loaderController.stop();
+        await loader.stop();
       }
     } else {
       await changeTariff(task.ws, reason: loc.tariff_change_limit_unlink_reason_title);
@@ -246,10 +246,10 @@ abstract class _TaskViewControllerBase with Store {
 
   Future unwatch() async {
     if (await _unwatchDialog() == true) {
-      loaderController.start();
-      loaderController.setUnwatch();
+      loader.start();
+      loader.setUnwatch();
       final deletedTask = await taskUC.delete(task);
-      await loaderController.stop();
+      await loader.stop();
       if (deletedTask.deleted) {
         _popDeleted(deletedTask);
         _updateTaskParents(deletedTask);

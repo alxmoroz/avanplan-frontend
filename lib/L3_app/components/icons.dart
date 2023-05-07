@@ -260,6 +260,16 @@ class PrivacyIcon extends MTIcon {
       );
 }
 
+class PurchaseIcon extends MTIcon {
+  const PurchaseIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.cart,
+        color: (color ?? darkBackgroundColor).resolve(context),
+        size: size ?? P2,
+      );
+}
+
 class RefreshIcon extends MTIcon {
   const RefreshIcon({super.color, super.size});
   @override

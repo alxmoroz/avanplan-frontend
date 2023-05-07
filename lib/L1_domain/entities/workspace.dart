@@ -38,7 +38,7 @@ class Workspace extends WorkspaceUpsert {
   final Iterable<User> users;
   final Iterable<Role> roles;
   Invoice invoice;
-  final num balance;
+  num balance;
   final WSettings? settings;
   final Iterable<EstimateValue> estimateValues;
   List<Source> sources = [];

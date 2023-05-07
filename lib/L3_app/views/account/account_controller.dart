@@ -46,10 +46,10 @@ abstract class _AccountControllerBase extends EditController with Store {
 
   @action
   Future _registerActivity(String code, {int? wsId}) async {
-    loaderController.start();
-    loaderController.setRefreshing();
+    loader.start();
+    loader.setRefreshing();
     activities = await myUC.registerActivity(code, wsId: wsId);
-    await loaderController.stop();
+    await loader.stop();
   }
 
   bool hasActivity(String code, {int? wsId}) => _activitiesMap[code]?.where((a) => a.wsId == wsId).isNotEmpty == true;
@@ -81,13 +81,13 @@ abstract class _AccountControllerBase extends EditController with Store {
       simple: true,
     );
     if (confirm == true) {
-      loaderController.start();
-      loaderController.setDeleting();
+      loader.start();
+      loader.setDeleting();
 
       await myUC.deleteAccount();
       await authController.signOut();
 
-      await loaderController.stop();
+      await loader.stop();
     }
   }
 }

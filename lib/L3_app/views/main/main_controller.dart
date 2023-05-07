@@ -12,6 +12,7 @@ import '../../../L2_data/services/platform.dart';
 import '../../../main.dart';
 import '../../components/mt_dialog.dart';
 import '../../extra/services.dart';
+import '../../presenters/loader_presenter.dart';
 import '../../presenters/number_presenter.dart';
 import '../../usecases/ws_ext_actions.dart';
 import '../tariff/tariff_select_view.dart';
@@ -68,12 +69,12 @@ abstract class _MainControllerBase with Store {
 
   @action
   Future fetchWorkspaces() async {
-    loaderController.setRefreshing();
+    loader.setRefreshing();
     workspaces = (await myUC.getWorkspaces()).sorted((w1, w2) => compareNatural(w1.title, w2.title));
   }
 
   Future fetchTasks() async {
-    loaderController.setRefreshing();
+    loader.setRefreshing();
     final projects = <Task>[];
     for (Workspace ws in workspaces) {
       final roots = (await taskUC.getRoots(ws.id!)).toList();
@@ -103,8 +104,8 @@ abstract class _MainControllerBase with Store {
 
   @action
   Future _update() async {
-    loaderController.start();
-    loaderController.setRefreshing();
+    loader.start();
+    loader.setRefreshing();
 
     await accountController.fetchData();
     await refsController.fetchData();
@@ -114,7 +115,7 @@ abstract class _MainControllerBase with Store {
     await fetchTasks();
 
     updatedDate = DateTime.now();
-    await loaderController.stop();
+    await loader.stop();
   }
 
   Future _explainUpdateDetails() async {
@@ -131,7 +132,7 @@ abstract class _MainControllerBase with Store {
   }
 
   Future _showWelcomeGiftInfo() async {
-    if (myWSs.isNotEmpty && serviceSettingsController.passAppleCheat) {
+    if (myWSs.isNotEmpty) {
       // TODO: берем первый попавшийся. Нужно изменить триггер для показа инфы о приветственном балансе
       final myWS = myWSs.first;
       final wga = myWS.welcomeGiftAmount;
@@ -162,11 +163,11 @@ abstract class _MainControllerBase with Store {
   Future<bool> _tryRedeemInvitation() async {
     bool invited = false;
     if (deepLinkController.hasInvitation) {
-      loaderController.start();
-      loaderController.setRedeemInvitation();
+      loader.start();
+      loader.set(titleText: loc.loader_invitation_redeem_title, icon: ldrAuthIcon);
       invited = await myUC.redeemInvitation(deepLinkController.invitationToken);
       deepLinkController.clearInvitation();
-      await loaderController.stop();
+      await loader.stop();
     }
     return invited;
   }
@@ -176,11 +177,11 @@ abstract class _MainControllerBase with Store {
     final timeToUpdate = updatedDate == null || updatedDate!.add(_updatePeriod).isBefore(DateTime.now());
     if (invited || timeToUpdate) {
       await _update();
-    } else if (paymentController.waitingPayment) {
-      loaderController.start();
+    } else if (iapController.waitingPayment) {
+      loader.start();
       await fetchWorkspaces();
-      paymentController.resetWaiting();
-      await loaderController.stop();
+      iapController.resetWaiting();
+      await loader.stop();
     }
   }
 

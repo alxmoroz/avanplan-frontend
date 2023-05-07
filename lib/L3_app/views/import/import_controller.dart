@@ -98,19 +98,19 @@ abstract class _ImportControllerBase extends EditController with Store {
 
     if (src != null) {
       final loaderDescription = '$selectedSource';
-      loaderController.start();
+      loader.start();
       bool connected = selectedSource?.state == SrcState.connected;
       if (!connected) {
-        loaderController.setCheckConnection(loaderDescription);
+        loader.setCheckConnection(loaderDescription);
         connected = await src.checkConnection();
       }
       if (connected) {
-        loaderController.setSourceListing(loaderDescription);
+        loader.setSourceListing(loaderDescription);
         projects = (await importUC.getRootTasks(selectedSource!)).sorted((p1, p2) => compareNatural(p1.title, p2.title));
       } else {
         _setErrorCode('error_import_connection');
       }
-      await loaderController.stop();
+      await loader.stop();
     }
   }
 
@@ -124,13 +124,13 @@ abstract class _ImportControllerBase extends EditController with Store {
 
   Future startImport() async {
     if (selectableCount >= 0) {
-      loaderController.start();
-      loaderController.setImporting('$selectedSource');
+      loader.start();
+      loader.setImporting('$selectedSource');
       final taskSources = selectedProjects.map((t) => t.taskSource!);
       await importUC.importTaskSources(selectedSource!, taskSources);
       Navigator.of(rootKey.currentContext!).pop();
       await mainController.fetchTasks();
-      await loaderController.stop();
+      await loader.stop();
     } else {
       await changeTariff(
         ws,

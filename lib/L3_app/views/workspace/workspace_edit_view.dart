@@ -62,7 +62,7 @@ class _WSEditViewState extends State<WSEditView> {
     );
   }
 
-  Widget form(BuildContext context) {
+  Widget get form {
     return Scrollbar(
       child: ListView(
         children: [
@@ -87,7 +87,7 @@ class _WSEditViewState extends State<WSEditView> {
           leading: MTCloseButton(),
           bgColor: backgroundColor,
         ),
-        body: SafeArea(top: false, bottom: false, child: form(context)),
+        body: SafeArea(top: false, bottom: false, child: form),
       ),
     );
   }

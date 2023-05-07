@@ -58,8 +58,8 @@ abstract class _SourceEditControllerBase extends EditController with Store {
   /// действия
 
   Future save() async {
-    loaderController.start();
-    loaderController.setSaving();
+    loader.start();
+    loader.setSaving();
     final editedSource = await sourceUC.save(Source(
       id: source?.id,
       url: tfAnnoForCode('url').text,
@@ -73,7 +73,7 @@ abstract class _SourceEditControllerBase extends EditController with Store {
 
     if (editedSource != null) {
       Navigator.of(rootKey.currentContext!).pop(editedSource);
-      await loaderController.stop(300);
+      await loader.stop(300);
     }
   }
 
@@ -90,15 +90,15 @@ abstract class _SourceEditControllerBase extends EditController with Store {
         simple: true,
       );
       if (confirm == true) {
-        loaderController.start();
-        loaderController.setDeleting();
+        loader.start();
+        loader.setDeleting();
         Navigator.of(context).pop(await sourceUC.delete(source!));
 
         // отвязываем задачи
         mainController.rootTask.tasks.where((t) => t.taskSource?.sourceId == source!.id).forEach((t) => t.unlinkTaskTree());
         mainController.updateRootTask();
 
-        await loaderController.stop(300);
+        await loader.stop(300);
       }
     }
   }

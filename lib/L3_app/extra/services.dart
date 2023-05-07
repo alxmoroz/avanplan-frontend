@@ -7,11 +7,11 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../L1_domain/usecases/auth_uc.dart';
 import '../../L1_domain/usecases/contract_uc.dart';
+import '../../L1_domain/usecases/iap_uc.dart';
 import '../../L1_domain/usecases/import_uc.dart';
 import '../../L1_domain/usecases/invitation_uc.dart';
 import '../../L1_domain/usecases/local_settings_uc.dart';
 import '../../L1_domain/usecases/my_uc.dart';
-import '../../L1_domain/usecases/payment_uc.dart';
 import '../../L1_domain/usecases/service_settings_uc.dart';
 import '../../L1_domain/usecases/source_uc.dart';
 import '../../L1_domain/usecases/tariff_uc.dart';
@@ -22,10 +22,10 @@ import '../../L2_data/repositories/auth_avanplan_repo.dart';
 import '../../L2_data/repositories/auth_google_repo.dart';
 import '../../L2_data/repositories/contract_repo.dart';
 import '../../L2_data/repositories/db_repo.dart';
+import '../../L2_data/repositories/iap_repo.dart';
 import '../../L2_data/repositories/import_repo.dart';
 import '../../L2_data/repositories/invitation_repo.dart';
 import '../../L2_data/repositories/my_repo.dart';
-import '../../L2_data/repositories/payment_repo.dart';
 import '../../L2_data/repositories/service_settings_repo.dart';
 import '../../L2_data/repositories/source_repo.dart';
 import '../../L2_data/repositories/tariff_repo.dart';
@@ -36,6 +36,7 @@ import '../../L2_data/services/db.dart';
 import '../l10n/generated/l10n.dart';
 import '../views/account/account_controller.dart';
 import '../views/auth/auth_controller.dart';
+import '../views/iap/iap_controller.dart';
 import '../views/loader/loader_controller.dart';
 import '../views/main/main_controller.dart';
 import '../views/notification/notification_controller.dart';
@@ -43,7 +44,6 @@ import '../views/references/references_controller.dart';
 import '../views/settings/local_settings_controller.dart';
 import '../views/settings/service_settings_controller.dart';
 import 'deep_link/deep_link_controller.dart';
-import 'payment/payment_controller.dart';
 
 S get loc => S.current;
 
@@ -52,13 +52,13 @@ GetIt getIt = GetIt.instance;
 LocalSettingsController get localSettingsController => GetIt.I<LocalSettingsController>();
 ServiceSettingsController get serviceSettingsController => GetIt.I<ServiceSettingsController>();
 MainController get mainController => GetIt.I<MainController>();
-LoaderController get loaderController => GetIt.I<LoaderController>();
+LoaderController get loader => GetIt.I<LoaderController>();
 ReferencesController get refsController => GetIt.I<ReferencesController>();
 AccountController get accountController => GetIt.I<AccountController>();
 AuthController get authController => GetIt.I<AuthController>();
 NotificationController get notificationController => GetIt.I<NotificationController>();
 DeepLinkController get deepLinkController => GetIt.I<DeepLinkController>();
-PaymentController get paymentController => GetIt.I<PaymentController>();
+IAPController get iapController => GetIt.I<IAPController>();
 
 LocalSettingsUC get localSettingsUC => GetIt.I<LocalSettingsUC>();
 ServiceSettingsUC get serviceSettingsUC => GetIt.I<ServiceSettingsUC>();
@@ -69,7 +69,7 @@ SourceUC get sourceUC => GetIt.I<SourceUC>();
 ImportUC get importUC => GetIt.I<ImportUC>();
 InvitationUC get invitationUC => GetIt.I<InvitationUC>();
 TaskMemberRoleUC get taskMemberRoleUC => GetIt.I<TaskMemberRoleUC>();
-PaymentUC get paymentUC => GetIt.I<PaymentUC>();
+InAppPurchaseUC get iapUC => GetIt.I<InAppPurchaseUC>();
 TariffUC get tariffUC => GetIt.I<TariffUC>();
 ContractUC get contractUC => GetIt.I<ContractUC>();
 
@@ -80,11 +80,10 @@ void setup() {
 
   // repo / adapters
   getIt.registerSingletonAsync<HiveStorage>(() async => await HiveStorage().init());
-
   getIt.registerSingletonAsync<LocalSettingsController>(() async => LocalSettingsController().init(), dependsOn: [HiveStorage, PackageInfo]);
 
   // Openapi
-  getIt.registerSingletonAsync<Openapi>(() async => await setupApi([loaderController.interceptor]), dependsOn: [LocalSettingsController]);
+  getIt.registerSingletonAsync<Openapi>(() async => await setupApi([loader.interceptor]), dependsOn: [LocalSettingsController]);
 
   // use cases
   getIt.registerSingletonAsync<AuthUC>(
@@ -104,7 +103,7 @@ void setup() {
   getIt.registerSingletonAsync<ServiceSettingsUC>(() async => await ServiceSettingsUC(ServiceSettingsRepo()).init(), dependsOn: [Openapi]);
   getIt.registerSingletonAsync<InvitationUC>(() async => await InvitationUC(InvitationRepo()).init(), dependsOn: [Openapi]);
   getIt.registerSingletonAsync<TaskMemberRoleUC>(() async => await TaskMemberRoleUC(TaskMemberRoleRepo()).init(), dependsOn: [Openapi]);
-  getIt.registerSingletonAsync<PaymentUC>(() async => await PaymentUC(PaymentRepo()).init(), dependsOn: [Openapi]);
+  getIt.registerSingletonAsync<InAppPurchaseUC>(() async => await InAppPurchaseUC(IAPRepo()).init(), dependsOn: [Openapi]);
   getIt.registerSingletonAsync<TariffUC>(() async => await TariffUC(TariffRepo()).init(), dependsOn: [Openapi]);
   getIt.registerSingletonAsync<ContractUC>(() async => await ContractUC(ContractRepo()).init(), dependsOn: [Openapi]);
 
@@ -117,5 +116,5 @@ void setup() {
   getIt.registerSingleton<AccountController>(AccountController());
   getIt.registerSingleton<NotificationController>(NotificationController());
   getIt.registerSingleton<DeepLinkController>(DeepLinkController());
-  getIt.registerSingleton<PaymentController>(PaymentController());
+  getIt.registerSingleton<IAPController>(IAPController());
 }

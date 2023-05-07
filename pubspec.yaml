@@ -24,6 +24,7 @@ dependencies:
   get_it: any
   google_sign_in: ^5.4.4
   hive: any
+  in_app_purchase: ^3.1.5
   mobx: any
   openapi:
     path: ./openapi

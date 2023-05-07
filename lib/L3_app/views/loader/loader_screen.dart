@@ -25,12 +25,12 @@ class LoaderScreen extends StatelessWidget {
                   builder: (_) => Stack(
                     alignment: Alignment.center,
                     children: [
-                      if (loaderController.iconWidget != null) loaderController.iconWidget!,
+                      if (loader.iconWidget != null) loader.iconWidget!,
                       Column(
                         children: [
-                          if (loaderController.titleWidget != null) loaderController.titleWidget!,
-                          if (loaderController.descriptionWidget != null) loaderController.descriptionWidget!,
-                          if (loaderController.actionWidget == null) ...[
+                          if (loader.titleWidget != null) loader.titleWidget!,
+                          if (loader.descriptionWidget != null) loader.descriptionWidget!,
+                          if (loader.actionWidget == null) ...[
                             const SizedBox(height: 20),
                             Row(children: [
                               const Spacer(),
@@ -47,6 +47,6 @@ class LoaderScreen extends StatelessWidget {
             ),
           ),
         ),
-        bottomBar: Observer(builder: (_) => MTConstrained(loaderController.actionWidget)),
+        bottomBar: Observer(builder: (_) => MTConstrained(loader.actionWidget)),
       );
 }

@@ -29,8 +29,8 @@ abstract class _WorkspaceEditControllerBase extends EditController with Store {
   /// действия
 
   Future save() async {
-    loaderController.start();
-    loaderController.setSaving();
+    loader.start();
+    loader.setSaving();
     final editedWS = await myUC.updateWorkspace(WorkspaceUpsert(
       id: ws.id,
       code: tfAnnoForCode('code').text,
@@ -42,9 +42,10 @@ abstract class _WorkspaceEditControllerBase extends EditController with Store {
       ws.code = editedWS.code;
       ws.title = editedWS.title;
       ws.description = editedWS.description;
+      ws.balance = editedWS.balance;
 
       Navigator.of(rootKey.currentContext!).pop(editedWS);
-      await loaderController.stop(300);
+      await loader.stop(300);
     }
   }
 }

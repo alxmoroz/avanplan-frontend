@@ -23,24 +23,26 @@ import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/number_presenter.dart';
 import '../../presenters/ws_presenter.dart';
+import '../iap/iap_view.dart';
 import 'request_tariff_card.dart';
 import 'tariff_info.dart';
 
 Future changeTariff(Workspace ws, {String reason = ''}) async {
-  loaderController.start();
-  loaderController.setRefreshing();
+  loader.start();
+  loader.setRefreshing();
   final tariffs = (await tariffUC.getAll(ws.id!)).sorted((t1, t2) => compareNatural('$t1', '$t2')).sorted((t1, t2) => t1.tier.compareTo(t2.tier));
-  await loaderController.stop();
+  await loader.stop();
   if (tariffs.isNotEmpty) {
     final tariff = await tariffSelectDialog(tariffs, ws.id!, description: reason);
     if (tariff != null) {
-      loaderController.start();
-      loaderController.setSaving();
+      loader.start();
+      loader.setSaving();
       final signedContractInvoice = await contractUC.sign(tariff.id!, ws.id!);
       if (signedContractInvoice != null) {
+        // TODO: тут может менять не только тариф у РП, но и баланс. Нужно вытаскивать с бэка изменённое РП и дергать обсервер
         ws.invoice = signedContractInvoice;
       }
-      await loaderController.stop();
+      await loader.stop();
     }
   }
 }
@@ -72,12 +74,12 @@ class TariffSelectView extends StatelessWidget {
       );
 
   Widget _paymentButton(BuildContext context, num balanceLack) {
-    const snap = 100;
-    const minSum = 300;
-    const maxSum = 10000;
-    final whole = balanceLack % snap == 0;
-    final snappedSum = ((balanceLack ~/ snap) + (whole ? 0 : 1)) * snap;
-    final paymentSum = min(maxSum, max(minSum, snappedSum));
+    // const snap = 100;
+    // const minSum = 300;
+    // const maxSum = 10000;
+    // final whole = balanceLack % snap == 0;
+    // final snappedSum = ((balanceLack ~/ snap) + (whole ? 0 : 1)) * snap;
+    // final paymentSum = min(maxSum, max(minSum, snappedSum));
     return Padding(
         padding: const EdgeInsets.all(P).copyWith(top: 0),
         child: Column(children: [
@@ -86,8 +88,12 @@ class TariffSelectView extends StatelessWidget {
             color: warningColor,
             align: TextAlign.center,
           ),
-          const SizedBox(height: P_2),
-          paymentController.ymPayButton(wsId, paymentSum),
+          MTButton.outlined(
+            titleText: loc.balance_replenish_action_title,
+            titleColor: greenColor,
+            margin: const EdgeInsets.only(top: P_2),
+            onTap: () => purchaseDialog(wsId),
+          ),
         ]));
   }
 

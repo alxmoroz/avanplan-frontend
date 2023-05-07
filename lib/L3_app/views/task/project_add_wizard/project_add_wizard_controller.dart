@@ -33,13 +33,13 @@ abstract class _ProjectAddWizardControllerBase with Store {
   bool get mustSelectST => ws != null && ws!.sources.isEmpty;
 
   Future createMyWS() async {
-    loaderController.start();
-    loaderController.setSaving();
+    loader.start();
+    loader.setSaving();
     final newWS = await myUC.createWorkspace();
     await mainController.fetchWorkspaces();
     if (newWS != null) {
       selectWS(newWS.id);
     }
-    await loaderController.stop();
+    await loader.stop();
   }
 }

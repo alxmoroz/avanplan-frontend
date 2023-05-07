@@ -141,13 +141,13 @@ abstract class _TaskEditControllerBase extends EditController with Store {
       );
 
   Future save({bool proceed = false}) async {
-    loaderController.start();
-    loaderController.setSaving();
+    loader.start();
+    loader.setSaving();
     final editedTask = await _saveTask();
     if (editedTask != null) {
       Navigator.of(rootKey.currentContext!).pop(EditTaskResult(editedTask, proceed));
     }
-    await loaderController.stop(300);
+    await loader.stop(300);
   }
 
   Future delete() async {
@@ -162,11 +162,11 @@ abstract class _TaskEditControllerBase extends EditController with Store {
       simple: true,
     );
     if (confirm == true) {
-      loaderController.start();
-      loaderController.setDeleting();
+      loader.start();
+      loader.setDeleting();
       final deletedTask = await taskUC.delete(task!);
       Navigator.of(rootKey.currentContext!).pop(EditTaskResult(deletedTask));
-      await loaderController.stop(300);
+      await loader.stop(300);
     }
   }
 

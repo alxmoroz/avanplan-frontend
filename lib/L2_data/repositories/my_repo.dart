@@ -26,7 +26,7 @@ class MyRepo extends AbstractMyRepo {
   @override
   Future<User?> getAccount() async {
     final response = await _accountApi.accountV1MyAccountGet();
-    return response.data?.user(-1);
+    return response.data?.myUser(-1);
   }
 
   @override
@@ -90,13 +90,6 @@ class MyRepo extends AbstractMyRepo {
     final body = (o_api.BodyRedeemV1MyInvitationsRedeemPostBuilder()..invitationToken = token).build();
     final response = await _invitationsApi.redeemV1MyInvitationsRedeemPost(bodyRedeemV1MyInvitationsRedeemPost: body);
     return response.data == true;
-  }
-
-  @override
-  Future<Iterable<UActivity>> getActivities(String code) async {
-    final body = (o_api.BodyActivitiesV1MyActivitiesGetBuilder()..code = code).build();
-    final response = await _activitiesApi.activitiesV1MyActivitiesGet(bodyActivitiesV1MyActivitiesGet: body);
-    return response.data?.map((a) => a.activity) ?? [];
   }
 
   @override

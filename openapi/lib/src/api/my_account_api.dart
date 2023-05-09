@@ -9,7 +9,7 @@ import 'package:dio/dio.dart';
 
 import 'package:openapi/src/model/body_update_account_v1_my_account_post.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
-import 'package:openapi/src/model/user.dart';
+import 'package:openapi/src/model/my_user.dart';
 
 class MyAccountApi {
 
@@ -30,9 +30,9 @@ class MyAccountApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [User] as data
+  /// Returns a [Future] containing a [Response] with a [MyUser] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<User>> accountV1MyAccountGet({ 
+  Future<Response<MyUser>> accountV1MyAccountGet({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -71,14 +71,14 @@ class MyAccountApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    User _responseData;
+    MyUser _responseData;
 
     try {
-      const _responseType = FullType(User);
+      const _responseType = FullType(MyUser);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as User;
+      ) as MyUser;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -90,7 +90,7 @@ class MyAccountApi {
       );
     }
 
-    return Response<User>(
+    return Response<MyUser>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -193,9 +193,9 @@ class MyAccountApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [User] as data
+  /// Returns a [Future] containing a [Response] with a [MyUser] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<User>> updateAccountV1MyAccountPost({ 
+  Future<Response<MyUser>> updateAccountV1MyAccountPost({ 
     BodyUpdateAccountV1MyAccountPost? bodyUpdateAccountV1MyAccountPost,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -255,14 +255,14 @@ class MyAccountApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    User _responseData;
+    MyUser _responseData;
 
     try {
-      const _responseType = FullType(User);
+      const _responseType = FullType(MyUser);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as User;
+      ) as MyUser;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -274,7 +274,7 @@ class MyAccountApi {
       );
     }
 
-    return Response<User>(
+    return Response<MyUser>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

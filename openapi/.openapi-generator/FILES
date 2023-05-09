@@ -7,7 +7,6 @@ doc/AccountOperationGet.md
 doc/AppSettingsGet.md
 doc/AuthApi.md
 doc/AuthToken.md
-doc/BodyActivitiesV1MyActivitiesGet.md
 doc/BodyAuthAppleToken.md
 doc/BodyAuthGoogleToken.md
 doc/BodyDeprecatedRedeemInvitationV1MyRedeemInvitationPost.md
@@ -38,6 +37,7 @@ doc/MyActivitiesApi.md
 doc/MyInvitationsApi.md
 doc/MyNotificationsApi.md
 doc/MyPushTokensApi.md
+doc/MyUser.md
 doc/MyWorkspacesApi.md
 doc/Notification.md
 doc/PaymentsApi.md
@@ -99,7 +99,6 @@ lib/src/model/account_get.dart
 lib/src/model/account_operation_get.dart
 lib/src/model/app_settings_get.dart
 lib/src/model/auth_token.dart
-lib/src/model/body_activities_v1_my_activities_get.dart
 lib/src/model/body_auth_apple_token.dart
 lib/src/model/body_auth_google_token.dart
 lib/src/model/body_deprecated_redeem_invitation_v1_my_redeem_invitation_post.dart
@@ -122,6 +121,7 @@ lib/src/model/invoice_detail_get.dart
 lib/src/model/invoice_get.dart
 lib/src/model/location_inner.dart
 lib/src/model/member_get.dart
+lib/src/model/my_user.dart
 lib/src/model/notification.dart
 lib/src/model/permission_get.dart
 lib/src/model/permission_role_get.dart
@@ -153,7 +153,6 @@ test/account_operation_get_test.dart
 test/app_settings_get_test.dart
 test/auth_api_test.dart
 test/auth_token_test.dart
-test/body_activities_v1_my_activities_get_test.dart
 test/body_auth_apple_token_test.dart
 test/body_auth_google_token_test.dart
 test/body_deprecated_redeem_invitation_v1_my_redeem_invitation_post_test.dart
@@ -184,6 +183,7 @@ test/my_activities_api_test.dart
 test/my_invitations_api_test.dart
 test/my_notifications_api_test.dart
 test/my_push_tokens_api_test.dart
+test/my_user_test.dart
 test/my_workspaces_api_test.dart
 test/notification_test.dart
 test/payments_api_test.dart

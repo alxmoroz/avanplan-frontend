@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'person.dart';
+import 'user_activity.dart';
 
 class User extends Person {
   User({
@@ -10,7 +11,9 @@ class User extends Person {
     required super.roles,
     required super.permissions,
     required this.wsId,
+    required this.activities,
   });
 
   final int wsId;
+  final Iterable<UActivity> activities;
 }

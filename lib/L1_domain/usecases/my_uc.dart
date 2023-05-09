@@ -22,7 +22,6 @@ class MyUC {
   Future<User?> getAccount() async => await repo.getAccount();
   Future deleteAccount() async => await repo.deleteAccount();
 
-  Future<Iterable<UActivity>> getActivities(String code) async => repo.getActivities(code);
   Future<Iterable<UActivity>> registerActivity(String code, {int? wsId}) async => repo.registerActivity(code, wsId: wsId);
 
   Future updatePushToken(String token, bool hasPermission) async => await repo.updatePushToken(token, hasPermission);

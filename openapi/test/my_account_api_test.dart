@@ -8,7 +8,7 @@ void main() {
   group(MyAccountApi, () {
     // Account
     //
-    //Future<User> accountV1MyAccountGet() async
+    //Future<MyUser> accountV1MyAccountGet() async
     test('test accountV1MyAccountGet', () async {
       // TODO
     });
@@ -22,7 +22,7 @@ void main() {
 
     // Update Account
     //
-    //Future<User> updateAccountV1MyAccountPost({ BodyUpdateAccountV1MyAccountPost bodyUpdateAccountV1MyAccountPost }) async
+    //Future<MyUser> updateAccountV1MyAccountPost({ BodyUpdateAccountV1MyAccountPost bodyUpdateAccountV1MyAccountPost }) async
     test('test updateAccountV1MyAccountPost', () async {
       // TODO
     });

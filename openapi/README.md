@@ -86,7 +86,6 @@ Class | Method | HTTP request | Description
 [*MyAccountApi*](doc/MyAccountApi.md) | [**accountV1MyAccountGet**](doc/MyAccountApi.md#accountv1myaccountget) | **GET** /v1/my/account | Account
 [*MyAccountApi*](doc/MyAccountApi.md) | [**deleteAccountV1MyAccountDelete**](doc/MyAccountApi.md#deleteaccountv1myaccountdelete) | **DELETE** /v1/my/account | Delete Account
 [*MyAccountApi*](doc/MyAccountApi.md) | [**updateAccountV1MyAccountPost**](doc/MyAccountApi.md#updateaccountv1myaccountpost) | **POST** /v1/my/account | Update Account
-[*MyActivitiesApi*](doc/MyActivitiesApi.md) | [**activitiesV1MyActivitiesGet**](doc/MyActivitiesApi.md#activitiesv1myactivitiesget) | **GET** /v1/my/activities | Activities
 [*MyActivitiesApi*](doc/MyActivitiesApi.md) | [**registerV1MyActivitiesRegisterPost**](doc/MyActivitiesApi.md#registerv1myactivitiesregisterpost) | **POST** /v1/my/activities/register | Register
 [*MyInvitationsApi*](doc/MyInvitationsApi.md) | [**redeemV1MyInvitationsRedeemPost**](doc/MyInvitationsApi.md#redeemv1myinvitationsredeempost) | **POST** /v1/my/invitations/redeem | Redeem
 [*MyNotificationsApi*](doc/MyNotificationsApi.md) | [**markReadNotificationsV1MyNotificationsPost**](doc/MyNotificationsApi.md#markreadnotificationsv1mynotificationspost) | **POST** /v1/my/notifications | Mark Read Notifications
@@ -112,7 +111,6 @@ Class | Method | HTTP request | Description
  - [AccountOperationGet](doc/AccountOperationGet.md)
  - [AppSettingsGet](doc/AppSettingsGet.md)
  - [AuthToken](doc/AuthToken.md)
- - [BodyActivitiesV1MyActivitiesGet](doc/BodyActivitiesV1MyActivitiesGet.md)
  - [BodyAuthAppleToken](doc/BodyAuthAppleToken.md)
  - [BodyAuthGoogleToken](doc/BodyAuthGoogleToken.md)
  - [BodyDeprecatedRedeemInvitationV1MyRedeemInvitationPost](doc/BodyDeprecatedRedeemInvitationV1MyRedeemInvitationPost.md)
@@ -134,6 +132,7 @@ Class | Method | HTTP request | Description
  - [InvoiceGet](doc/InvoiceGet.md)
  - [LocationInner](doc/LocationInner.md)
  - [MemberGet](doc/MemberGet.md)
+ - [MyUser](doc/MyUser.md)
  - [Notification](doc/Notification.md)
  - [PermissionGet](doc/PermissionGet.md)
  - [PermissionRoleGet](doc/PermissionRoleGet.md)

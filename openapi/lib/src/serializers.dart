@@ -18,7 +18,6 @@ import 'package:openapi/src/model/account_get.dart';
 import 'package:openapi/src/model/account_operation_get.dart';
 import 'package:openapi/src/model/app_settings_get.dart';
 import 'package:openapi/src/model/auth_token.dart';
-import 'package:openapi/src/model/body_activities_v1_my_activities_get.dart';
 import 'package:openapi/src/model/body_auth_apple_token.dart';
 import 'package:openapi/src/model/body_auth_google_token.dart';
 import 'package:openapi/src/model/body_deprecated_redeem_invitation_v1_my_redeem_invitation_post.dart';
@@ -40,6 +39,7 @@ import 'package:openapi/src/model/invoice_detail_get.dart';
 import 'package:openapi/src/model/invoice_get.dart';
 import 'package:openapi/src/model/location_inner.dart';
 import 'package:openapi/src/model/member_get.dart';
+import 'package:openapi/src/model/my_user.dart';
 import 'package:openapi/src/model/notification.dart';
 import 'package:openapi/src/model/permission_get.dart';
 import 'package:openapi/src/model/permission_role_get.dart';
@@ -72,7 +72,6 @@ part 'serializers.g.dart';
   AccountOperationGet,
   AppSettingsGet,
   AuthToken,
-  BodyActivitiesV1MyActivitiesGet,
   BodyAuthAppleToken,
   BodyAuthGoogleToken,
   BodyDeprecatedRedeemInvitationV1MyRedeemInvitationPost,
@@ -94,6 +93,7 @@ part 'serializers.g.dart';
   InvoiceGet,
   LocationInner,
   MemberGet,
+  MyUser,
   Notification,
   PermissionGet,
   PermissionRoleGet,

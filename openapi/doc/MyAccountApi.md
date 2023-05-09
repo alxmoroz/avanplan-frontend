@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 
 # **accountV1MyAccountGet**
-> User accountV1MyAccountGet()
+> MyUser accountV1MyAccountGet()
 
 Account
 
@@ -44,7 +44,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**User**](User.md)
+[**MyUser**](MyUser.md)
 
 ### Authorization
 
@@ -101,7 +101,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **updateAccountV1MyAccountPost**
-> User updateAccountV1MyAccountPost(bodyUpdateAccountV1MyAccountPost)
+> MyUser updateAccountV1MyAccountPost(bodyUpdateAccountV1MyAccountPost)
 
 Update Account
 
@@ -134,7 +134,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**User**](User.md)
+[**MyUser**](MyUser.md)
 
 ### Authorization
 

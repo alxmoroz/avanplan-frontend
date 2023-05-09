@@ -7,7 +7,6 @@ import '../entities/workspace.dart';
 
 abstract class AbstractMyRepo {
   Future<User?> getAccount();
-  Future<Iterable<UActivity>> getActivities(String code);
   Future<Iterable<UActivity>> registerActivity(String code, {int? wsId});
   Future deleteAccount();
   Future<Iterable<Workspace>> getWorkspaces();

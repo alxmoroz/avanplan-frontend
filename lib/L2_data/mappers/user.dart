@@ -3,14 +3,28 @@
 import 'package:openapi/openapi.dart' as api;
 
 import '../../L1_domain/entities/user.dart';
+import 'user_activity.dart';
 
 extension UserMapper on api.User {
   User user(int wsId) => User(
+        wsId: wsId,
         id: id,
         email: email,
         fullName: fullName ?? '',
         roles: roleCodes ?? [],
         permissions: permissionCodes ?? [],
+        activities: [],
+      );
+}
+
+extension MyUserMapper on api.MyUser {
+  User myUser(int wsId) => User(
         wsId: wsId,
+        id: id,
+        email: email,
+        fullName: fullName ?? '',
+        roles: [],
+        permissions: [],
+        activities: activities.map((a) => a.activity),
       );
 }

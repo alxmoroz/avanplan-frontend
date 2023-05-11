@@ -17,6 +17,7 @@ part 'u_activity_get.g.dart';
 /// * [userId] 
 /// * [platform] 
 /// * [wsId] 
+/// * [objectUserId] 
 @BuiltValue()
 abstract class UActivityGet implements Built<UActivityGet, UActivityGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -36,6 +37,9 @@ abstract class UActivityGet implements Built<UActivityGet, UActivityGetBuilder> 
 
   @BuiltValueField(wireName: r'ws_id')
   int? get wsId;
+
+  @BuiltValueField(wireName: r'object_user_id')
+  int? get objectUserId;
 
   UActivityGet._();
 
@@ -89,6 +93,13 @@ class _$UActivityGetSerializer implements PrimitiveSerializer<UActivityGet> {
       yield r'ws_id';
       yield serializers.serialize(
         object.wsId,
+        specifiedType: const FullType(int),
+      );
+    }
+    if (object.objectUserId != null) {
+      yield r'object_user_id';
+      yield serializers.serialize(
+        object.objectUserId,
         specifiedType: const FullType(int),
       );
     }
@@ -156,6 +167,13 @@ class _$UActivityGetSerializer implements PrimitiveSerializer<UActivityGet> {
             specifiedType: const FullType(int),
           ) as int;
           result.wsId = valueDes;
+          break;
+        case r'object_user_id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.objectUserId = valueDes;
           break;
         default:
           unhandled.add(key);

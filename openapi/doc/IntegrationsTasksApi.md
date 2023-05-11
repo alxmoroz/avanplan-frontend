@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 
 # **importTaskSourcesV1IntegrationsTasksImportPost**
-> bool importTaskSourcesV1IntegrationsTasksImportPost(wsId, sourceId, taskSource)
+> bool importTaskSourcesV1IntegrationsTasksImportPost(wsId, sourceId, taskSource, platform)
 
 Import Task Sources
 
@@ -33,9 +33,10 @@ final api = Openapi().getIntegrationsTasksApi();
 final int wsId = 56; // int | 
 final int sourceId = 56; // int | 
 final BuiltList<TaskSource> taskSource = ; // BuiltList<TaskSource> | 
+final String platform = platform_example; // String | 
 
 try {
-    final response = api.importTaskSourcesV1IntegrationsTasksImportPost(wsId, sourceId, taskSource);
+    final response = api.importTaskSourcesV1IntegrationsTasksImportPost(wsId, sourceId, taskSource, platform);
     print(response);
 } catch on DioError (e) {
     print('Exception when calling IntegrationsTasksApi->importTaskSourcesV1IntegrationsTasksImportPost: $e\n');
@@ -49,6 +50,7 @@ Name | Type | Description  | Notes
  **wsId** | **int**|  | 
  **sourceId** | **int**|  | 
  **taskSource** | [**BuiltList&lt;TaskSource&gt;**](TaskSource.md)|  | 
+ **platform** | **String**|  | [optional] 
 
 ### Return type
 

@@ -208,6 +208,7 @@ class TasksApi {
   /// Parameters:
   /// * [wsId] 
   /// * [taskUpsert] 
+  /// * [platform] 
   /// * [permissionTaskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
@@ -221,6 +222,7 @@ class TasksApi {
   Future<Response<TaskGet>> upsertV1TasksPost({ 
     required int wsId,
     required TaskUpsert taskUpsert,
+    String? platform,
     int? permissionTaskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -254,6 +256,7 @@ class TasksApi {
     );
 
     final _queryParameters = <String, dynamic>{
+      if (platform != null) r'platform': encodeQueryParameter(_serializers, platform, const FullType(String)),
       r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
       if (permissionTaskId != null) r'permission_task_id': encodeQueryParameter(_serializers, permissionTaskId, const FullType(int)),
     };

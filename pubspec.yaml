@@ -66,9 +66,12 @@ flutter:
         - asset: assets/fonts/Roboto-M.ttf
           weight: 500
 
+#flutter pub run flutter_launcher_icons
 flutter_icons:
   ios: true
   android: true
+  web:
+    generate: true
   image_path: scripts/ios_icon_raw.png
 
 flutter_intl:

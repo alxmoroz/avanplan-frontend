@@ -12,10 +12,14 @@ part 'body_registration_token.g.dart';
 ///
 /// Properties:
 /// * [token] 
+/// * [platform] 
 @BuiltValue()
 abstract class BodyRegistrationToken implements Built<BodyRegistrationToken, BodyRegistrationTokenBuilder> {
   @BuiltValueField(wireName: r'token')
   String get token;
+
+  @BuiltValueField(wireName: r'platform')
+  String? get platform;
 
   BodyRegistrationToken._();
 
@@ -45,6 +49,13 @@ class _$BodyRegistrationTokenSerializer implements PrimitiveSerializer<BodyRegis
       object.token,
       specifiedType: const FullType(String),
     );
+    if (object.platform != null) {
+      yield r'platform';
+      yield serializers.serialize(
+        object.platform,
+        specifiedType: const FullType(String),
+      );
+    }
   }
 
   @override
@@ -74,6 +85,13 @@ class _$BodyRegistrationTokenSerializer implements PrimitiveSerializer<BodyRegis
             specifiedType: const FullType(String),
           ) as String;
           result.token = valueDes;
+          break;
+        case r'platform':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.platform = valueDes;
           break;
         default:
           unhandled.add(key);

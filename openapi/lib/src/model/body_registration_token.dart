@@ -26,7 +26,8 @@ abstract class BodyRegistrationToken implements Built<BodyRegistrationToken, Bod
   factory BodyRegistrationToken([void updates(BodyRegistrationTokenBuilder b)]) = _$BodyRegistrationToken;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(BodyRegistrationTokenBuilder b) => b;
+  static void _defaults(BodyRegistrationTokenBuilder b) => b
+      ..platform = 'Deprecated Default: 1.1';
 
   @BuiltValueSerializer(custom: true)
   static Serializer<BodyRegistrationToken> get serializer => _$BodyRegistrationTokenSerializer();

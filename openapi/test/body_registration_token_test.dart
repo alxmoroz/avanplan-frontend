@@ -12,7 +12,7 @@ void main() {
       // TODO
     });
 
-    // String platform
+    // String platform (default value: 'Deprecated Default: 1.1')
     test('to test the property `platform`', () async {
       // TODO
     });

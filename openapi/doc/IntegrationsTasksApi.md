@@ -50,7 +50,7 @@ Name | Type | Description  | Notes
  **wsId** | **int**|  | 
  **sourceId** | **int**|  | 
  **taskSource** | [**BuiltList&lt;TaskSource&gt;**](TaskSource.md)|  | 
- **platform** | **String**|  | [optional] 
+ **platform** | **String**|  | [optional] [default to 'Deprecated Default: 1.1']
 
 ### Return type
 

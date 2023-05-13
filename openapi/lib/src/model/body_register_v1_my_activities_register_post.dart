@@ -12,18 +12,18 @@ part 'body_register_v1_my_activities_register_post.g.dart';
 ///
 /// Properties:
 /// * [code] 
-/// * [platform] 
 /// * [wsId] 
+/// * [platform] 
 @BuiltValue()
 abstract class BodyRegisterV1MyActivitiesRegisterPost implements Built<BodyRegisterV1MyActivitiesRegisterPost, BodyRegisterV1MyActivitiesRegisterPostBuilder> {
   @BuiltValueField(wireName: r'code')
   String get code;
 
-  @BuiltValueField(wireName: r'platform')
-  String get platform;
-
   @BuiltValueField(wireName: r'ws_id')
   int? get wsId;
+
+  @BuiltValueField(wireName: r'platform')
+  String? get platform;
 
   BodyRegisterV1MyActivitiesRegisterPost._();
 
@@ -53,16 +53,18 @@ class _$BodyRegisterV1MyActivitiesRegisterPostSerializer implements PrimitiveSer
       object.code,
       specifiedType: const FullType(String),
     );
-    yield r'platform';
-    yield serializers.serialize(
-      object.platform,
-      specifiedType: const FullType(String),
-    );
     if (object.wsId != null) {
       yield r'ws_id';
       yield serializers.serialize(
         object.wsId,
         specifiedType: const FullType(int),
+      );
+    }
+    if (object.platform != null) {
+      yield r'platform';
+      yield serializers.serialize(
+        object.platform,
+        specifiedType: const FullType(String),
       );
     }
   }
@@ -95,19 +97,19 @@ class _$BodyRegisterV1MyActivitiesRegisterPostSerializer implements PrimitiveSer
           ) as String;
           result.code = valueDes;
           break;
-        case r'platform':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.platform = valueDes;
-          break;
         case r'ws_id':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(int),
           ) as int;
           result.wsId = valueDes;
+          break;
+        case r'platform':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.platform = valueDes;
           break;
         default:
           unhandled.add(key);

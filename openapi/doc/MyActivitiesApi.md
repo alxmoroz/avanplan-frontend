@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 
 # **registerV1MyActivitiesRegisterPost**
-> BuiltList<UActivityGet> registerV1MyActivitiesRegisterPost(bodyRegisterV1MyActivitiesRegisterPost)
+> MyUser registerV1MyActivitiesRegisterPost(bodyRegisterV1MyActivitiesRegisterPost)
 
 Register
 
@@ -46,7 +46,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BuiltList&lt;UActivityGet&gt;**](UActivityGet.md)
+[**MyUser**](MyUser.md)
 
 ### Authorization
 

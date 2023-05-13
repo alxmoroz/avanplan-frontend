@@ -2,7 +2,6 @@
 
 import '../entities/notification.dart';
 import '../entities/user.dart';
-import '../entities/user_activity.dart';
 import '../entities/workspace.dart';
 import '../repositories/abs_my_repo.dart';
 
@@ -22,7 +21,7 @@ class MyUC {
   Future<User?> getAccount() async => await repo.getAccount();
   Future deleteAccount() async => await repo.deleteAccount();
 
-  Future<Iterable<UActivity>> registerActivity(String code, {int? wsId}) async => repo.registerActivity(code, wsId: wsId);
+  Future<User?> registerActivity(String code, {int? wsId}) async => repo.registerActivity(code, wsId: wsId);
 
   Future updatePushToken(String token, bool hasPermission) async => await repo.updatePushToken(token, hasPermission);
 

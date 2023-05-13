@@ -147,7 +147,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **wsId** | **int**|  | 
  **taskUpsert** | [**TaskUpsert**](TaskUpsert.md)|  | 
- **platform** | **String**|  | [optional] [default to 'Deprecated Default: 1.1']
+ **platform** | **String**|  | [optional] 
  **permissionTaskId** | **int**|  | [optional] 
 
 ### Return type

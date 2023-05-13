@@ -8,7 +8,7 @@ void main() {
   group(ContractsApi, () {
     // Sign
     //
-    //Future<InvoiceGet> signV1ContractsPost(int tariffId, int wsId) async
+    //Future<InvoiceGet> signV1ContractsPost(int tariffId, int wsId, { String platform }) async
     test('test signV1ContractsPost', () async {
       // TODO
     });

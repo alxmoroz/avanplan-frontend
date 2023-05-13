@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 
 # **signV1ContractsPost**
-> InvoiceGet signV1ContractsPost(tariffId, wsId)
+> InvoiceGet signV1ContractsPost(tariffId, wsId, platform)
 
 Sign
 
@@ -30,9 +30,10 @@ import 'package:openapi/api.dart';
 final api = Openapi().getContractsApi();
 final int tariffId = 56; // int | 
 final int wsId = 56; // int | 
+final String platform = platform_example; // String | 
 
 try {
-    final response = api.signV1ContractsPost(tariffId, wsId);
+    final response = api.signV1ContractsPost(tariffId, wsId, platform);
     print(response);
 } catch on DioError (e) {
     print('Exception when calling ContractsApi->signV1ContractsPost: $e\n');
@@ -45,6 +46,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **tariffId** | **int**|  | 
  **wsId** | **int**|  | 
+ **platform** | **String**|  | [optional] 
 
 ### Return type
 

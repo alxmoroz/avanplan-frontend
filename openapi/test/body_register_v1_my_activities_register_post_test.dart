@@ -12,13 +12,13 @@ void main() {
       // TODO
     });
 
-    // String platform
-    test('to test the property `platform`', () async {
+    // int wsId
+    test('to test the property `wsId`', () async {
       // TODO
     });
 
-    // int wsId
-    test('to test the property `wsId`', () async {
+    // String platform
+    test('to test the property `platform`', () async {
       // TODO
     });
   });

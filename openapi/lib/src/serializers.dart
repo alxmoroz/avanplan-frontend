@@ -153,10 +153,6 @@ Serializers serializers = (_$serializers.toBuilder()
         () => ListBuilder<TaskSourceUpsert>(),
       )
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(UActivityGet)]),
-        () => ListBuilder<UActivityGet>(),
-      )
-      ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskGet)]),
         () => ListBuilder<TaskGet>(),
       )

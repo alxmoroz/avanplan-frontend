@@ -222,7 +222,7 @@ class TasksApi {
   Future<Response<TaskGet>> upsertV1TasksPost({ 
     required int wsId,
     required TaskUpsert taskUpsert,
-    String? platform = 'Deprecated Default: 1.1',
+    String? platform,
     int? permissionTaskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,

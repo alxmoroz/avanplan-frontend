@@ -5,12 +5,10 @@ import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/notification.dart';
 import '../../L1_domain/entities/user.dart';
-import '../../L1_domain/entities/user_activity.dart';
 import '../../L1_domain/entities/workspace.dart';
 import '../../L1_domain/repositories/abs_my_repo.dart';
 import '../mappers/notification.dart';
 import '../mappers/user.dart';
-import '../mappers/user_activity.dart';
 import '../mappers/workspace.dart';
 import '../services/api.dart';
 import '../services/platform.dart';
@@ -93,13 +91,13 @@ class MyRepo extends AbstractMyRepo {
   }
 
   @override
-  Future<Iterable<UActivity>> registerActivity(String code, {int? wsId}) async {
+  Future<User?> registerActivity(String code, {int? wsId}) async {
     final body = (o_api.BodyRegisterV1MyActivitiesRegisterPostBuilder()
           ..code = code
           ..platform = platformCode
           ..wsId = wsId)
         .build();
     final response = await _activitiesApi.registerV1MyActivitiesRegisterPost(bodyRegisterV1MyActivitiesRegisterPost: body);
-    return response.data?.map((a) => a.activity) ?? [];
+    return response.data?.myUser(-1);
   }
 }

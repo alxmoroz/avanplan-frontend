@@ -8,7 +8,7 @@ void main() {
   group(MyActivitiesApi, () {
     // Register
     //
-    //Future<BuiltList<UActivityGet>> registerV1MyActivitiesRegisterPost(BodyRegisterV1MyActivitiesRegisterPost bodyRegisterV1MyActivitiesRegisterPost) async
+    //Future<MyUser> registerV1MyActivitiesRegisterPost(BodyRegisterV1MyActivitiesRegisterPost bodyRegisterV1MyActivitiesRegisterPost) async
     test('test registerV1MyActivitiesRegisterPost', () async {
       // TODO
     });

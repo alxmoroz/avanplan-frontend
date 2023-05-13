@@ -43,7 +43,7 @@ class IntegrationsTasksApi {
     required int wsId,
     required int sourceId,
     required BuiltList<TaskSource> taskSource,
-    String? platform = 'Deprecated Default: 1.1',
+    String? platform,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,

@@ -7,10 +7,9 @@ import 'dart:async';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
-import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/model/body_register_v1_my_activities_register_post.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
-import 'package:openapi/src/model/u_activity_get.dart';
+import 'package:openapi/src/model/my_user.dart';
 
 class MyActivitiesApi {
 
@@ -32,9 +31,9 @@ class MyActivitiesApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [BuiltList<UActivityGet>] as data
+  /// Returns a [Future] containing a [Response] with a [MyUser] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<BuiltList<UActivityGet>>> registerV1MyActivitiesRegisterPost({ 
+  Future<Response<MyUser>> registerV1MyActivitiesRegisterPost({ 
     required BodyRegisterV1MyActivitiesRegisterPost bodyRegisterV1MyActivitiesRegisterPost,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -94,14 +93,14 @@ class MyActivitiesApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltList<UActivityGet> _responseData;
+    MyUser _responseData;
 
     try {
-      const _responseType = FullType(BuiltList, [FullType(UActivityGet)]);
+      const _responseType = FullType(MyUser);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as BuiltList<UActivityGet>;
+      ) as MyUser;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -113,7 +112,7 @@ class MyActivitiesApi {
       );
     }
 
-    return Response<BuiltList<UActivityGet>>(
+    return Response<MyUser>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

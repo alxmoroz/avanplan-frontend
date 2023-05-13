@@ -7,6 +7,7 @@ import '../../L1_domain/entities_extensions/task_level.dart';
 import '../../L1_domain/repositories/abs_ws_repo.dart';
 import '../mappers/task.dart';
 import '../services/api.dart';
+import '../services/platform.dart';
 
 class TaskRepo extends AbstractWSRepo<Task> {
   o_api.TasksApi get api => openAPI.getTasksApi();
@@ -38,6 +39,7 @@ class TaskRepo extends AbstractWSRepo<Task> {
     final response = await api.upsertV1TasksPost(
       taskUpsert: qBuilder.build(),
       wsId: wsId,
+      platform: platformCode,
       permissionTaskId: data.project?.id,
     );
     return response.data?.task(wsId: wsId, parent: data.parent);

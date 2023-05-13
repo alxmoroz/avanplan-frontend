@@ -4,6 +4,7 @@ import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/registration.dart';
 import '../../L1_domain/repositories/abs_auth_repo.dart';
+import '../services/platform.dart';
 import 'auth_base_repo.dart';
 
 class AuthAvanplanRepo extends AbstractAuthAvanplanRepo with AuthBaseRepo {
@@ -39,7 +40,10 @@ class AuthAvanplanRepo extends AbstractAuthAvanplanRepo with AuthBaseRepo {
 
   @override
   Future<String> signInWithRegistration(String token) async {
-    final bodyData = (o_api.BodyRegistrationTokenBuilder()..token = token).build();
+    final bodyData = (o_api.BodyRegistrationTokenBuilder()
+          ..token = token
+          ..platform = platformCode)
+        .build();
     final response = await authApi.registrationToken(bodyRegistrationToken: bodyData);
     return parseTokenResponse(response) ?? '';
   }

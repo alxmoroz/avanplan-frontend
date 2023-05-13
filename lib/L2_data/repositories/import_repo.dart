@@ -9,6 +9,7 @@ import '../../L1_domain/entities/task_source.dart';
 import '../../L1_domain/repositories/abs_import_repo.dart';
 import '../mappers/task.dart';
 import '../services/api.dart';
+import '../services/platform.dart';
 
 class ImportRepo extends AbstractImportRepo {
   o_api.IntegrationsTasksApi get api => openAPI.getIntegrationsTasksApi();
@@ -31,6 +32,7 @@ class ImportRepo extends AbstractImportRepo {
       sourceId: source.id!,
       taskSource: BuiltList.from(tSchema),
       wsId: source.wsId,
+      platform: platformCode,
     );
     return resp.data == true;
   }

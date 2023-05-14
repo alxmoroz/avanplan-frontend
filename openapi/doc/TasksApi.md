@@ -113,7 +113,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **upsertV1TasksPost**
-> TaskGet upsertV1TasksPost(wsId, taskUpsert, platform, permissionTaskId)
+> TaskGet upsertV1TasksPost(wsId, taskUpsert, permissionTaskId)
 
 Upsert
 
@@ -130,11 +130,10 @@ import 'package:openapi/api.dart';
 final api = Openapi().getTasksApi();
 final int wsId = 56; // int | 
 final TaskUpsert taskUpsert = ; // TaskUpsert | 
-final String platform = platform_example; // String | 
 final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.upsertV1TasksPost(wsId, taskUpsert, platform, permissionTaskId);
+    final response = api.upsertV1TasksPost(wsId, taskUpsert, permissionTaskId);
     print(response);
 } catch on DioError (e) {
     print('Exception when calling TasksApi->upsertV1TasksPost: $e\n');
@@ -147,7 +146,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **wsId** | **int**|  | 
  **taskUpsert** | [**TaskUpsert**](TaskUpsert.md)|  | 
- **platform** | **String**|  | [optional] 
  **permissionTaskId** | **int**|  | [optional] 
 
 ### Return type

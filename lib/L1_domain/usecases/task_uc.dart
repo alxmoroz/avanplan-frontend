@@ -7,7 +7,6 @@ import '../repositories/abs_ws_repo.dart';
 
 class TaskUC {
   TaskUC(this.repo);
-  Future<TaskUC> init() async => this;
 
   final AbstractWSRepo<Task> repo;
 

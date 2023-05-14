@@ -5,7 +5,6 @@ import '../repositories/abs_member_role_repo.dart';
 
 class TaskMemberRoleUC {
   TaskMemberRoleUC(this.repo);
-  Future<TaskMemberRoleUC> init() async => this;
 
   final AbstractTaskMemberRoleRepo repo;
 

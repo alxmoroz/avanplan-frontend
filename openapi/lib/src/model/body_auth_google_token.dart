@@ -12,18 +12,10 @@ part 'body_auth_google_token.g.dart';
 ///
 /// Properties:
 /// * [token] 
-/// * [platform] 
-/// * [locale] 
 @BuiltValue()
 abstract class BodyAuthGoogleToken implements Built<BodyAuthGoogleToken, BodyAuthGoogleTokenBuilder> {
   @BuiltValueField(wireName: r'token')
   String get token;
-
-  @BuiltValueField(wireName: r'platform')
-  String get platform;
-
-  @BuiltValueField(wireName: r'locale')
-  String get locale;
 
   BodyAuthGoogleToken._();
 
@@ -51,16 +43,6 @@ class _$BodyAuthGoogleTokenSerializer implements PrimitiveSerializer<BodyAuthGoo
     yield r'token';
     yield serializers.serialize(
       object.token,
-      specifiedType: const FullType(String),
-    );
-    yield r'platform';
-    yield serializers.serialize(
-      object.platform,
-      specifiedType: const FullType(String),
-    );
-    yield r'locale';
-    yield serializers.serialize(
-      object.locale,
       specifiedType: const FullType(String),
     );
   }
@@ -92,20 +74,6 @@ class _$BodyAuthGoogleTokenSerializer implements PrimitiveSerializer<BodyAuthGoo
             specifiedType: const FullType(String),
           ) as String;
           result.token = valueDes;
-          break;
-        case r'platform':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.platform = valueDes;
-          break;
-        case r'locale':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.locale = valueDes;
           break;
         default:
           unhandled.add(key);

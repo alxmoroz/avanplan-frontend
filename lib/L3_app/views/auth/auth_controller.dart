@@ -27,8 +27,6 @@ abstract class _AuthControllerBase with Store {
   @observable
   bool authorized = false;
 
-  String get _langCode => Localizations.localeOf(rootKey.currentContext!).languageCode;
-
   @observable
   bool registerMode = false;
 
@@ -58,7 +56,7 @@ abstract class _AuthControllerBase with Store {
   Future signInGoogle() async {
     _startLdrAuth();
     try {
-      authorized = await authUC.signInGoogle(_langCode);
+      authorized = await authUC.signInGoogle();
       await loader.stop();
     } on MTOAuthError catch (e) {
       loader.setAuthError(e.detail);
@@ -69,7 +67,7 @@ abstract class _AuthControllerBase with Store {
   Future signInApple() async {
     _startLdrAuth();
     try {
-      authorized = await authUC.signInApple(_langCode);
+      authorized = await authUC.signInApple();
       await loader.stop();
     } on MTOAuthError catch (e) {
       loader.setAuthError(e.detail);

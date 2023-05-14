@@ -37,7 +37,6 @@ abstract class _RegistrationControllerBase extends EditController with Store {
     final regRequest = RegistrationRequest(
       tfAnnoForCode('name').text,
       tfAnnoForCode('email').text,
-      Localizations.localeOf(context).languageCode,
       invitationToken: deepLinkController.invitationToken,
     );
     requestCompleted = await authUC.requestRegistration(regRequest, tfAnnoForCode('password').text);

@@ -5,7 +5,6 @@ import '../repositories/abs_contract_repo.dart';
 
 class ContractUC {
   ContractUC(this.repo);
-  Future<ContractUC> init() async => this;
 
   final AbstractContractRepo repo;
 

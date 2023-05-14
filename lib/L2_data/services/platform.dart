@@ -1,5 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'dart:io' show Platform;
+
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -53,3 +55,5 @@ bool get isTablet {
   }
   return _tablet;
 }
+
+String languageCode = Platform.localeName.split('_')[0];

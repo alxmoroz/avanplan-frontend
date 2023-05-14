@@ -9,7 +9,6 @@ import '../repositories/abs_db_repo.dart';
 class AuthUC {
   AuthUC({required this.localDBAuthRepo, required this.googleRepo, required this.appleRepo, required this.authAvanplanRepo})
       : _currentRepo = authAvanplanRepo;
-  Future<AuthUC> init() async => this;
 
   final AbstractOAuthRepo googleRepo;
   final AbstractOAuthRepo appleRepo;
@@ -54,18 +53,18 @@ class AuthUC {
     );
   }
 
-  Future<bool> _signInOAuth(AbstractOAuthRepo repo, String? locale) async {
+  Future<bool> _signInOAuth(AbstractOAuthRepo repo) async {
     _currentRepo = repo;
     return await _signInWithToken(
-      await repo.signIn(locale: locale),
+      await repo.signIn(),
     );
   }
 
   Future<bool> googleIsAvailable() async => await googleRepo.signInIsAvailable();
-  Future<bool> signInGoogle(String locale) async => await _signInOAuth(googleRepo, locale);
+  Future<bool> signInGoogle() async => await _signInOAuth(googleRepo);
 
   Future<bool> appleIsAvailable() async => await appleRepo.signInIsAvailable();
-  Future<bool> signInApple(String locale) async => await _signInOAuth(appleRepo, locale);
+  Future<bool> signInApple() async => await _signInOAuth(appleRepo);
 
   static const _authCheckPeriod = Duration(hours: 12);
 

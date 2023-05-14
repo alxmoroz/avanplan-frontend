@@ -7,7 +7,6 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import '../../L1_domain/repositories/abs_auth_repo.dart';
 import '../../L1_domain/system/errors.dart';
 import '../services/environment.dart';
-import '../services/platform.dart';
 import 'auth_base_repo.dart';
 
 class AuthAppleRepo extends AbstractOAuthRepo with AuthBaseRepo {
@@ -15,7 +14,7 @@ class AuthAppleRepo extends AbstractOAuthRepo with AuthBaseRepo {
   Future<bool> signInIsAvailable() async => await SignInWithApple.isAvailable();
 
   @override
-  Future<String> signIn({String? locale}) async {
+  Future<String> signIn() async {
     String appleToken = '';
     String? appleEmail;
     String name = '';
@@ -54,10 +53,8 @@ class AuthAppleRepo extends AbstractOAuthRepo with AuthBaseRepo {
       final Response<o_api.AuthToken> response = await authApi.authAppleToken(
         bodyAuthAppleToken: (o_api.BodyAuthAppleTokenBuilder()
               ..token = appleToken
-              ..platform = platformCode
               ..email = appleEmail
-              ..name = name
-              ..locale = locale ?? 'ru')
+              ..name = name)
             .build(),
       );
       return parseTokenResponse(response) ?? '';

@@ -11,15 +11,5 @@ void main() {
     test('to test the property `token`', () async {
       // TODO
     });
-
-    // String platform
-    test('to test the property `platform`', () async {
-      // TODO
-    });
-
-    // String locale
-    test('to test the property `locale`', () async {
-      // TODO
-    });
   });
 }

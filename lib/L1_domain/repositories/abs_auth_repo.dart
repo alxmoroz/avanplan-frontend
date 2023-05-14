@@ -9,7 +9,7 @@ abstract class AbstractAuthRepo {
 }
 
 abstract class AbstractOAuthRepo extends AbstractAuthRepo {
-  Future<String> signIn({String? locale});
+  Future<String> signIn();
 }
 
 abstract class AbstractAuthAvanplanRepo extends AbstractAuthRepo {

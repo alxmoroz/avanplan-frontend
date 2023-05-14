@@ -12,20 +12,12 @@ part 'body_auth_apple_token.g.dart';
 ///
 /// Properties:
 /// * [token] 
-/// * [platform] 
-/// * [locale] 
 /// * [name] 
 /// * [email] 
 @BuiltValue()
 abstract class BodyAuthAppleToken implements Built<BodyAuthAppleToken, BodyAuthAppleTokenBuilder> {
   @BuiltValueField(wireName: r'token')
   String get token;
-
-  @BuiltValueField(wireName: r'platform')
-  String get platform;
-
-  @BuiltValueField(wireName: r'locale')
-  String get locale;
 
   @BuiltValueField(wireName: r'name')
   String? get name;
@@ -59,16 +51,6 @@ class _$BodyAuthAppleTokenSerializer implements PrimitiveSerializer<BodyAuthAppl
     yield r'token';
     yield serializers.serialize(
       object.token,
-      specifiedType: const FullType(String),
-    );
-    yield r'platform';
-    yield serializers.serialize(
-      object.platform,
-      specifiedType: const FullType(String),
-    );
-    yield r'locale';
-    yield serializers.serialize(
-      object.locale,
       specifiedType: const FullType(String),
     );
     if (object.name != null) {
@@ -114,20 +96,6 @@ class _$BodyAuthAppleTokenSerializer implements PrimitiveSerializer<BodyAuthAppl
             specifiedType: const FullType(String),
           ) as String;
           result.token = valueDes;
-          break;
-        case r'platform':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.platform = valueDes;
-          break;
-        case r'locale':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.locale = valueDes;
           break;
         case r'name':
           final valueDes = serializers.deserialize(

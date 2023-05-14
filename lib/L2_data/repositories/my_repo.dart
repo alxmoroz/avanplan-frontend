@@ -94,7 +94,6 @@ class MyRepo extends AbstractMyRepo {
   Future<User?> registerActivity(String code, {int? wsId}) async {
     final body = (o_api.BodyRegisterV1MyActivitiesRegisterPostBuilder()
           ..code = code
-          ..platform = platformCode
           ..wsId = wsId)
         .build();
     final response = await _activitiesApi.registerV1MyActivitiesRegisterPost(bodyRegisterV1MyActivitiesRegisterPost: body);

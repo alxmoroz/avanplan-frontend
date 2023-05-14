@@ -6,14 +6,13 @@ import '../../L1_domain/entities/invoice.dart';
 import '../../L1_domain/repositories/abs_contract_repo.dart';
 import '../mappers/invoice.dart';
 import '../services/api.dart';
-import '../services/platform.dart';
 
 class ContractRepo extends AbstractContractRepo {
   o_api.ContractsApi get api => openAPI.getContractsApi();
 
   @override
   Future<Invoice?> sign(int tariffId, int wsId) async {
-    final response = await api.signV1ContractsPost(tariffId: tariffId, wsId: wsId, platform: platformCode);
+    final response = await api.signV1ContractsPost(tariffId: tariffId, wsId: wsId);
     return response.data?.invoice(wsId);
   }
 }

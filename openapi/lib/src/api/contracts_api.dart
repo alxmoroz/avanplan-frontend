@@ -25,7 +25,6 @@ class ContractsApi {
   /// Parameters:
   /// * [tariffId] 
   /// * [wsId] 
-  /// * [platform] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -38,7 +37,6 @@ class ContractsApi {
   Future<Response<InvoiceGet>> signV1ContractsPost({ 
     required int tariffId,
     required int wsId,
-    String? platform,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -71,7 +69,6 @@ class ContractsApi {
 
     final _queryParameters = <String, dynamic>{
       r'tariff_id': encodeQueryParameter(_serializers, tariffId, const FullType(int)),
-      if (platform != null) r'platform': encodeQueryParameter(_serializers, platform, const FullType(String)),
       r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
     };
 

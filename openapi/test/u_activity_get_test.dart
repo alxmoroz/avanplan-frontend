@@ -32,6 +32,11 @@ void main() {
       // TODO
     });
 
+    // String version
+    test('to test the property `version`', () async {
+      // TODO
+    });
+
     // int wsId
     test('to test the property `wsId`', () async {
       // TODO

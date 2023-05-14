@@ -5,7 +5,6 @@ import '../repositories/abs_payment_repo.dart';
 
 class InAppPurchaseUC {
   InAppPurchaseUC(this.repo);
-  Future<InAppPurchaseUC> init() async => this;
 
   final AbstractIAPRepo repo;
 

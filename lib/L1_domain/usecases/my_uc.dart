@@ -7,7 +7,6 @@ import '../repositories/abs_my_repo.dart';
 
 class MyUC {
   MyUC(this.repo);
-  Future<MyUC> init() async => this;
 
   final AbstractMyRepo repo;
 

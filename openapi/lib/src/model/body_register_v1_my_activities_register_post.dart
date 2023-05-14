@@ -13,7 +13,6 @@ part 'body_register_v1_my_activities_register_post.g.dart';
 /// Properties:
 /// * [code] 
 /// * [wsId] 
-/// * [platform] 
 @BuiltValue()
 abstract class BodyRegisterV1MyActivitiesRegisterPost implements Built<BodyRegisterV1MyActivitiesRegisterPost, BodyRegisterV1MyActivitiesRegisterPostBuilder> {
   @BuiltValueField(wireName: r'code')
@@ -21,9 +20,6 @@ abstract class BodyRegisterV1MyActivitiesRegisterPost implements Built<BodyRegis
 
   @BuiltValueField(wireName: r'ws_id')
   int? get wsId;
-
-  @BuiltValueField(wireName: r'platform')
-  String? get platform;
 
   BodyRegisterV1MyActivitiesRegisterPost._();
 
@@ -58,13 +54,6 @@ class _$BodyRegisterV1MyActivitiesRegisterPostSerializer implements PrimitiveSer
       yield serializers.serialize(
         object.wsId,
         specifiedType: const FullType(int),
-      );
-    }
-    if (object.platform != null) {
-      yield r'platform';
-      yield serializers.serialize(
-        object.platform,
-        specifiedType: const FullType(String),
       );
     }
   }
@@ -103,13 +92,6 @@ class _$BodyRegisterV1MyActivitiesRegisterPostSerializer implements PrimitiveSer
             specifiedType: const FullType(int),
           ) as int;
           result.wsId = valueDes;
-          break;
-        case r'platform':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.platform = valueDes;
           break;
         default:
           unhandled.add(key);

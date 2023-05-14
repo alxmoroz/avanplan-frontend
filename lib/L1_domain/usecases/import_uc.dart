@@ -7,7 +7,6 @@ import '../repositories/abs_import_repo.dart';
 
 class ImportUC {
   ImportUC(this.repo);
-  Future<ImportUC> init() async => this;
 
   final AbstractImportRepo repo;
 

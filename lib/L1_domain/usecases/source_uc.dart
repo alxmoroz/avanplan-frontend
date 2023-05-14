@@ -7,7 +7,6 @@ import '../repositories/abs_source_repo.dart';
 
 class SourceUC {
   SourceUC(this.repo);
-  Future<SourceUC> init() async => this;
 
   final AbstractSourceRepo repo;
 

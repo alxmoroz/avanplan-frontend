@@ -29,7 +29,6 @@ class IntegrationsTasksApi {
   /// * [wsId] 
   /// * [sourceId] 
   /// * [taskSource] 
-  /// * [platform] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -43,7 +42,6 @@ class IntegrationsTasksApi {
     required int wsId,
     required int sourceId,
     required BuiltList<TaskSource> taskSource,
-    String? platform,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -76,7 +74,6 @@ class IntegrationsTasksApi {
     );
 
     final _queryParameters = <String, dynamic>{
-      if (platform != null) r'platform': encodeQueryParameter(_serializers, platform, const FullType(String)),
       r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
       r'source_id': encodeQueryParameter(_serializers, sourceId, const FullType(int)),
     };

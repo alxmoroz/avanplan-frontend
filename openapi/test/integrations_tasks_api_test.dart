@@ -8,7 +8,7 @@ void main() {
   group(IntegrationsTasksApi, () {
     // Import Task Sources
     //
-    //Future<bool> importTaskSourcesV1IntegrationsTasksImportPost(int wsId, int sourceId, BuiltList<TaskSource> taskSource, { String platform }) async
+    //Future<bool> importTaskSourcesV1IntegrationsTasksImportPost(int wsId, int sourceId, BuiltList<TaskSource> taskSource) async
     test('test importTaskSourcesV1IntegrationsTasksImportPost', () async {
       // TODO
     });

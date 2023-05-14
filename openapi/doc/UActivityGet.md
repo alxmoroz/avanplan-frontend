@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **code** | **String** |  | 
 **userId** | **int** |  | 
 **platform** | **String** |  | 
+**version** | **String** |  | 
 **wsId** | **int** |  | [optional] 
 **objectUserId** | **int** |  | [optional] 
 

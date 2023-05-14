@@ -12,16 +12,6 @@ void main() {
       // TODO
     });
 
-    // String platform
-    test('to test the property `platform`', () async {
-      // TODO
-    });
-
-    // String locale
-    test('to test the property `locale`', () async {
-      // TODO
-    });
-
     // String name
     test('to test the property `name`', () async {
       // TODO

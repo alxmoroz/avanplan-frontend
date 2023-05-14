@@ -30,7 +30,7 @@ class AuthGoogleRepo extends AbstractOAuthRepo with AuthBaseRepo {
   }
 
   @override
-  Future<String> signIn({String? locale}) async {
+  Future<String> signIn() async {
     GoogleSignInAuthentication? auth;
     try {
       final account = await _gSI.signInSilently() ?? await _gSI.signIn();
@@ -47,11 +47,7 @@ class AuthGoogleRepo extends AbstractOAuthRepo with AuthBaseRepo {
       final token = auth.idToken;
       if (token != null) {
         final Response<AuthToken> response = await authApi.authGoogleToken(
-          bodyAuthGoogleToken: (BodyAuthGoogleTokenBuilder()
-                ..token = token
-                ..platform = platformCode
-                ..locale = locale ?? 'ru')
-              .build(),
+          bodyAuthGoogleToken: (BodyAuthGoogleTokenBuilder()..token = token).build(),
         );
         return parseTokenResponse(response) ?? '';
       }

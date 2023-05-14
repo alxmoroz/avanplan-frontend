@@ -80,36 +80,38 @@ void setup() {
 
   // repo / adapters
   getIt.registerSingletonAsync<HiveStorage>(() async => await HiveStorage().init());
+
   getIt.registerSingletonAsync<LocalSettingsController>(() async => LocalSettingsController().init(), dependsOn: [HiveStorage, PackageInfo]);
 
   // Openapi
-  getIt.registerSingletonAsync<Openapi>(() async => await setupApi([loader.interceptor]), dependsOn: [LocalSettingsController]);
+  getIt.registerSingletonAsync<Openapi>(
+    () async => await setupApi([loader.interceptor], localSettingsController.settings),
+    dependsOn: [LocalSettingsController],
+  );
 
   // use cases
-  getIt.registerSingletonAsync<AuthUC>(
-      () async => await AuthUC(
-            authAvanplanRepo: AuthAvanplanRepo(),
-            googleRepo: AuthGoogleRepo(),
-            appleRepo: AuthAppleRepo(),
-            localDBAuthRepo: LocalAuthRepo(),
-          ).init(),
-      dependsOn: [Openapi]);
-
+  getIt.registerSingleton<AuthUC>(AuthUC(
+    authAvanplanRepo: AuthAvanplanRepo(),
+    googleRepo: AuthGoogleRepo(),
+    appleRepo: AuthAppleRepo(),
+    localDBAuthRepo: LocalAuthRepo(),
+  ));
   getIt.registerSingleton<LocalSettingsUC>(LocalSettingsUC(LocalSettingsRepo()));
-  getIt.registerSingletonAsync<MyUC>(() async => await MyUC(MyRepo()).init(), dependsOn: [Openapi]);
-  getIt.registerSingletonAsync<TaskUC>(() async => await TaskUC(TaskRepo()).init(), dependsOn: [Openapi]);
-  getIt.registerSingletonAsync<SourceUC>(() async => await SourceUC(SourceRepo()).init(), dependsOn: [Openapi]);
-  getIt.registerSingletonAsync<ImportUC>(() async => await ImportUC(ImportRepo()).init(), dependsOn: [Openapi]);
-  getIt.registerSingletonAsync<ServiceSettingsUC>(() async => await ServiceSettingsUC(ServiceSettingsRepo()).init(), dependsOn: [Openapi]);
-  getIt.registerSingletonAsync<InvitationUC>(() async => await InvitationUC(InvitationRepo()).init(), dependsOn: [Openapi]);
-  getIt.registerSingletonAsync<TaskMemberRoleUC>(() async => await TaskMemberRoleUC(TaskMemberRoleRepo()).init(), dependsOn: [Openapi]);
-  getIt.registerSingletonAsync<InAppPurchaseUC>(() async => await InAppPurchaseUC(IAPRepo()).init(), dependsOn: [Openapi]);
-  getIt.registerSingletonAsync<TariffUC>(() async => await TariffUC(TariffRepo()).init(), dependsOn: [Openapi]);
-  getIt.registerSingletonAsync<ContractUC>(() async => await ContractUC(ContractRepo()).init(), dependsOn: [Openapi]);
+  getIt.registerSingleton<MyUC>(MyUC(MyRepo()));
+  getIt.registerSingleton<TaskUC>(TaskUC(TaskRepo()));
+  getIt.registerSingleton<SourceUC>(SourceUC(SourceRepo()));
+  getIt.registerSingleton<ImportUC>(ImportUC(ImportRepo()));
+  getIt.registerSingleton<ServiceSettingsUC>(ServiceSettingsUC(ServiceSettingsRepo()));
+  getIt.registerSingleton<InvitationUC>(InvitationUC(InvitationRepo()));
+  getIt.registerSingleton<TaskMemberRoleUC>(TaskMemberRoleUC(TaskMemberRoleRepo()));
+  getIt.registerSingleton<InAppPurchaseUC>(InAppPurchaseUC(IAPRepo()));
+  getIt.registerSingleton<TariffUC>(TariffUC(TariffRepo()));
+  getIt.registerSingleton<ContractUC>(ContractUC(ContractRepo()));
 
   // global state controllers
-  getIt.registerSingletonAsync<ServiceSettingsController>(() async => ServiceSettingsController().init(), dependsOn: [ServiceSettingsUC]);
-  getIt.registerSingletonAsync<AuthController>(() async => AuthController().init(), dependsOn: [AuthUC]);
+  getIt.registerSingletonAsync<ServiceSettingsController>(() async => ServiceSettingsController().init(), dependsOn: [Openapi]);
+  getIt.registerSingletonAsync<AuthController>(() async => AuthController().init(), dependsOn: [Openapi]);
+
   getIt.registerSingleton<ReferencesController>(ReferencesController());
   getIt.registerSingleton<MainController>(MainController());
   getIt.registerSingleton<LoaderController>(LoaderController());

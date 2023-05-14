@@ -16,10 +16,5 @@ void main() {
     test('to test the property `wsId`', () async {
       // TODO
     });
-
-    // String platform
-    test('to test the property `platform`', () async {
-      // TODO
-    });
   });
 }

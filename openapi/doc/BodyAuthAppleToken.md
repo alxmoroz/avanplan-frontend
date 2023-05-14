@@ -9,8 +9,6 @@ import 'package:openapi/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **token** | **String** |  | 
-**platform** | **String** |  | 
-**locale** | **String** |  | 
 **name** | **String** |  | [optional] 
 **email** | **String** |  | [optional] 
 

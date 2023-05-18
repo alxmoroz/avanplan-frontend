@@ -8,7 +8,9 @@ class LocalSettingsUC {
 
   final AbstractDBRepo<AbstractDBModel, LocalSettings> repo;
 
-  Future<LocalSettings> settingsFromLaunch(String version) async {
+  Future<LocalSettings> settings() async => await repo.getOne() ?? LocalSettings(flags: {});
+
+  Future<LocalSettings> updateSettingsFromLaunch(String version) async {
     final settings = await repo.getOne() ?? LocalSettings(flags: {});
     settings.version = version;
     settings.launchCount++;

@@ -12,7 +12,11 @@ part 'local_settings_controller.g.dart';
 class LocalSettingsController extends _LocalSettingsControllerBase with _$LocalSettingsController {
   Future<LocalSettingsController> init() async {
     await dotenv.load(fileName: 'assets/.env');
-    settings = await localSettingsUC.settingsFromLaunch(packageInfo.version);
+
+    settings = await localSettingsUC.settings();
+    oldVersion = settings.version;
+    settings = await localSettingsUC.updateSettingsFromLaunch(packageInfo.version);
+
     return this;
   }
 }
@@ -20,4 +24,15 @@ class LocalSettingsController extends _LocalSettingsControllerBase with _$LocalS
 abstract class _LocalSettingsControllerBase with Store {
   @observable
   LocalSettings settings = LocalSettings(flags: {});
+
+  @observable
+  String oldVersion = '';
+
+  @computed
+  bool get isFirstLaunch => oldVersion.isEmpty;
+
+  @action
+  void clearData() {
+    oldVersion = '';
+  }
 }

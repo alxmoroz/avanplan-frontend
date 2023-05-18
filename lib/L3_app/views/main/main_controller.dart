@@ -105,6 +105,7 @@ abstract class _MainControllerBase with Store {
     refsController.clearData();
     accountController.clearData();
     notificationController.clearData();
+    localSettingsController.clearData();
   }
 
   @action
@@ -190,6 +191,27 @@ abstract class _MainControllerBase with Store {
     }
   }
 
+  Future _checkAppUpgrade() async {
+    if (!localSettingsController.isFirstLaunch) {
+      // новая версия
+      final oldVersion = localSettingsController.oldVersion;
+      final settings = localSettingsController.settings;
+      if (oldVersion != settings.version) {
+        // обновление с 1.0 на более новую
+        if (oldVersion.startsWith('1.0')) {
+          if (settings.getFlag('EXPLAIN_UPDATE_DETAILS_SHOWN')) {
+            await accountController.setUpdateDetailsExplanationViewed();
+          }
+          if (settings.getFlag('WELCOME_GIFT_INFO_SHOWN')) {
+            for (final ws in mainController.myWSs) {
+              await accountController.setWelcomeGiftInfoViewed(ws.id!);
+            }
+          }
+        }
+      }
+    }
+  }
+
   // static const _updatePeriod = Duration(hours: 1);
   static const _updatePeriod = Duration(minutes: 30);
 
@@ -198,6 +220,7 @@ abstract class _MainControllerBase with Store {
       await notificationController.initPush();
     }
     await _tryUpdate();
+    await _checkAppUpgrade();
     await _showOnboarding();
   }
 

@@ -50,11 +50,11 @@ class ImportView extends StatelessWidget {
   bool get _selectedAll => controller.selectedAll;
 
   Widget _sourceDropdown(BuildContext context) => MTDropdown<Source>(
-        onChanged: (s) => controller.selectSource(s),
-        value: controller.selectedSource,
+        onChanged: controller.selectSourceId,
+        value: controller.selectedSourceId,
         ddItems: [
           for (final s in controller.ws.sortedSources)
-            DropdownMenuItem<Source>(value: s, child: Padding(padding: const EdgeInsets.only(right: P), child: s.listTile()))
+            DropdownMenuItem<int>(value: s.id, child: Padding(padding: const EdgeInsets.only(right: P), child: s.listTile()))
         ],
         label: loc.source_import_placeholder,
         margin: const EdgeInsets.symmetric(horizontal: P),

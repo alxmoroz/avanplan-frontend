@@ -2,12 +2,13 @@
 
 import 'package:flutter/material.dart';
 
+import '../../L1_domain/entities/base_entity.dart';
 import 'constants.dart';
 import 'icons.dart';
 import 'mt_text_field.dart';
 import 'text_widgets.dart';
 
-class MTDropdown<T> extends StatelessWidget {
+class MTDropdown<T extends RPersistable> extends StatelessWidget {
   const MTDropdown({
     required this.label,
     this.helper,
@@ -19,21 +20,21 @@ class MTDropdown<T> extends StatelessWidget {
     this.dense = true,
   }) : assert((ddItems == null && items != null) || (ddItems != null && items == null));
 
-  final void Function(T?)? onChanged;
-  final T? value;
+  final void Function(int?)? onChanged;
+  final int? value;
   final List<T>? items;
-  final List<DropdownMenuItem<T>>? ddItems;
+  final List<DropdownMenuItem<int>>? ddItems;
   final String label;
   final String? helper;
   final bool dense;
   final EdgeInsets? margin;
 
-  List<DropdownMenuItem<T>> get _ddItems =>
+  List<DropdownMenuItem<int>> get _ddItems =>
       ddItems ??
       [
         for (final item in items!)
-          DropdownMenuItem<T>(
-            value: item,
+          DropdownMenuItem<int>(
+            value: item.id,
             child: NormalText('$item'),
           ),
       ];
@@ -42,7 +43,7 @@ class MTDropdown<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: margin ?? EdgeInsets.zero,
-      child: DropdownButtonFormField<T>(
+      child: DropdownButtonFormField<int>(
         isDense: dense,
         decoration: tfDecoration(context, label: label, helper: helper, readOnly: true),
         icon: const DropdownIcon(),

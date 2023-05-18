@@ -105,17 +105,17 @@ class _TaskEditViewState extends State<TaskEditView> {
         // ...[statuses],
         if (controller.allowedAssignees.isNotEmpty)
           MTDropdown<Member>(
-            onChanged: (m) => controller.selectAssignee(m),
-            value: controller.selectedAssignee,
+            onChanged: controller.selectAssigneeId,
+            value: controller.selectedAssigneeId,
             items: controller.allowedAssignees,
             margin: tfPadding,
             label: loc.task_assignee_placeholder,
           ),
         if (controller.canEstimate)
           MTDropdown<EstimateValue>(
-            onChanged: (est) => controller.selectEstimate(est),
-            value: controller.selectedEstimate,
-            items: controller.estimateValues.toList(),
+            onChanged: controller.selectEstimateId,
+            value: controller.selectedEstimateId,
+            items: controller.estimateValues,
             margin: tfPadding,
             label: loc.task_estimate_placeholder,
             helper: controller.estimateHelper,
@@ -144,22 +144,6 @@ class _TaskEditViewState extends State<TaskEditView> {
       ]),
     );
   }
-
-  // List<Widget> get statuses => [
-  //   if (controller.statuses.isNotEmpty)
-  //     MTDropdown<Status>(
-  //       onChanged: (status) => controller.selectStatus(status),
-  //       value: controller.selectedStatus,
-  //       items: controller.statuses,
-  //       label: loc.task_status_placeholder,
-  //     ),
-  //   MTButton(
-  //     leading: doneIcon(context, controller.closed),
-  //     titleString: loc.state_closed,
-  //     margin: tfPadding,
-  //     onTap: () => controller.setClosed(!controller.closed),
-  //   ),
-  // ];
 
   @override
   Widget build(BuildContext context) {

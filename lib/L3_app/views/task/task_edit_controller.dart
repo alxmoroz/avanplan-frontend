@@ -52,9 +52,7 @@ class TaskEditController extends _TaskEditControllerBase with _$TaskEditControll
       }
     }
 
-    selectAssigneeById(task?.assigneeId);
-    // selectStatus(task?.status);
-    // selectType(task?.type);
+    selectAssigneeId(task?.assigneeId);
   }
 }
 
@@ -176,14 +174,14 @@ abstract class _TaskEditControllerBase extends EditController with Store {
   List<EstimateValue> get estimateValues => ws.estimateValues.toList();
 
   @observable
-  int? _selectedEstimateId;
+  int? selectedEstimateId;
 
   @action
-  void selectEstimate(EstimateValue? _est) => _selectedEstimateId = _est?.id;
-  void selectEstimateByValue(int? value) => selectEstimate(estimateValues.firstWhereOrNull((e) => e.value == value));
+  void selectEstimateId(int? id) => selectedEstimateId = id;
+  void selectEstimateByValue(int? value) => selectEstimateId(estimateValues.firstWhereOrNull((e) => e.value == value)?.id);
 
   @computed
-  EstimateValue? get selectedEstimate => estimateValues.firstWhereOrNull((e) => e.id == _selectedEstimateId);
+  EstimateValue? get selectedEstimate => estimateValues.firstWhereOrNull((e) => e.id == selectedEstimateId);
   @computed
   String? get estimateHelper => selectedEstimate == null && task?.estimate != null ? '${loc.task_estimate_placeholder}: ${task?.estimate}' : null;
 
@@ -198,11 +196,13 @@ abstract class _TaskEditControllerBase extends EditController with Store {
   void setAllowedAssignees(List<Member> assignees) => allowedAssignees = assignees;
 
   @observable
-  Member? selectedAssignee;
+  int? selectedAssigneeId;
+
+  @computed
+  Member? get selectedAssignee => allowedAssignees.firstWhereOrNull((a) => a.id == selectedAssigneeId);
 
   @action
-  void selectAssignee(Member? ass) => selectedAssignee = ass;
-  void selectAssigneeById(int? id) => selectAssignee(allowedAssignees.firstWhereOrNull((m) => m.id == id));
+  void selectAssigneeId(int? id) => selectedAssigneeId = id;
 
   /// статусы задач
 

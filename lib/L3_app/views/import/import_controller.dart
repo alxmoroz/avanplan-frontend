@@ -35,7 +35,7 @@ class ImportController extends _ImportControllerBase with _$ImportController {
 
     // выбираем источник импорта заранее из созданного только что или существующий выбранного типа
     if (preselectedSource != null) {
-      await selectSource(preselectedSource);
+      await selectSourceId(preselectedSource.id);
     }
     return this;
   }
@@ -92,17 +92,17 @@ abstract class _ImportControllerBase extends EditController with Store {
   int? selectedSourceId;
 
   @action
-  Future selectSource(Source? src) async {
-    selectedSourceId = src?.id;
+  Future selectSourceId(int? id) async {
+    selectedSourceId = id;
     clearData();
 
-    if (src != null) {
+    if (selectedSource != null) {
       final loaderDescription = '$selectedSource';
       loader.start();
       bool connected = selectedSource?.state == SrcState.connected;
       if (!connected) {
         loader.setCheckConnection(loaderDescription);
-        connected = await src.checkConnection();
+        connected = await selectedSource!.checkConnection();
       }
       if (connected) {
         loader.setSourceListing(loaderDescription);

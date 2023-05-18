@@ -192,9 +192,9 @@
 
   "role_code_admin": "Администратор",
   "role_code_full": "Полный доступ",
-  "role_code_guest": "Гость",
+  "role_code_guest": "Наблюдатель",
   "role_code_owner": "Владелец",
-  "role_code_member": "Участник",
+  "role_code_member": "Исполнитель",
   "role_list_title": "Роли",
 
   "save_action_title": "Сохранить",

@@ -56,4 +56,5 @@ bool get isTablet {
   return _tablet;
 }
 
-String languageCode = Platform.localeName.split('_')[0];
+String _locale = isWeb ? _webDevInfo.language ?? 'en' : Platform.localeName;
+String languageCode = _locale.split(RegExp(r'[_-]'))[0];

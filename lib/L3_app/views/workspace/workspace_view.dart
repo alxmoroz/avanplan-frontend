@@ -51,7 +51,6 @@ class WorkspaceView extends StatelessWidget {
       );
 
   Widget get _tariff => MTListTile(
-        padding: const EdgeInsets.all(P).copyWith(top: P2),
         leading: Column(children: const [TariffIcon(), SmallText('')]),
         middle: Row(children: [NormalText(loc.tariff_title), const SizedBox(width: P_2), MediumText(ws.invoice.tariff.title)]),
         subtitle: SmallText('${loc.contract_effective_date_title} ${ws.invoice.contract.createdOn.strMedium}', color: greyColor),
@@ -112,6 +111,7 @@ class WorkspaceView extends StatelessWidget {
           children: [
             _header,
             _balance,
+            const SizedBox(height: P),
             _tariff,
             _users,
             _sources,

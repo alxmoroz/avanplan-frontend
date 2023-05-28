@@ -6,6 +6,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../L2_data/repositories/communications_repo.dart';
 import '../../../L2_data/services/platform.dart';
+import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -23,7 +24,7 @@ import 'app_version.dart';
 class SettingsView extends StatelessWidget {
   static String get routeName => '/settings';
 
-  Widget _notifications(BuildContext context) => MTListTile(
+  Widget get _notifications => MTListTile(
         leading: BellIcon(color: greyColor, hasUnread: notificationController.hasUnread),
         titleText: loc.notification_list_title,
         trailing: Row(children: [
@@ -34,7 +35,7 @@ class SettingsView extends StatelessWidget {
             ),
           const ChevronIcon(),
         ]),
-        onTap: () async => await Navigator.of(context).pushNamed(NotificationListView.routeName),
+        onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(NotificationListView.routeName),
       );
 
   Widget get _workspaces => Column(
@@ -42,10 +43,41 @@ class SettingsView extends StatelessWidget {
         children: [
           H4(
             loc.workspaces_title,
-            padding: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
+            padding: const EdgeInsets.symmetric(horizontal: P2).copyWith(top: P3),
             color: lightGreyColor,
           ),
           for (final ws in mainController.workspaces) WorkspaceListTile(ws)
+        ],
+      );
+
+  Widget get _about => Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          H4(
+            loc.about_service_title,
+            padding: const EdgeInsets.symmetric(horizontal: P2).copyWith(top: P3),
+            color: lightGreyColor,
+          ),
+          MTListTile(
+            leading: const MailIcon(),
+            titleText: loc.contact_us_title,
+            trailing: const LinkOutIcon(),
+            onTap: () => sendMail(loc.contact_us_mail_subject, appTitle, accountController.user?.id),
+          ),
+          if (!isIOS)
+            MTListTile(
+              leading: const RulesIcon(),
+              titleText: loc.legal_rules_title,
+              trailing: const LinkOutIcon(),
+              onTap: () => launchUrlString(legalRulesPath),
+            ),
+          if (!isIOS)
+            MTListTile(
+              leading: const PrivacyIcon(),
+              titleText: loc.legal_privacy_policy_title,
+              trailing: const LinkOutIcon(),
+              onTap: () => launchUrlString(legalConfidentialPath),
+            ),
         ],
       );
 
@@ -61,33 +93,9 @@ class SettingsView extends StatelessWidget {
                 const SizedBox(height: P_2),
                 AccountListTile(),
                 const SizedBox(height: P_2),
-                _notifications(context),
+                _notifications,
                 if (mainController.workspaces.isNotEmpty) _workspaces,
-                H4(
-                  loc.about_service_title,
-                  padding: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
-                  color: lightGreyColor,
-                ),
-                MTListTile(
-                  leading: const MailIcon(),
-                  titleText: loc.contact_us_title,
-                  trailing: const LinkOutIcon(),
-                  onTap: () => sendMail(loc.contact_us_mail_subject, appTitle, accountController.user?.id),
-                ),
-                if (!isIOS)
-                  MTListTile(
-                    leading: const RulesIcon(),
-                    titleText: loc.legal_rules_title,
-                    trailing: const LinkOutIcon(),
-                    onTap: () => launchUrlString(legalRulesPath),
-                  ),
-                if (!isIOS)
-                  MTListTile(
-                    leading: const PrivacyIcon(),
-                    titleText: loc.legal_privacy_policy_title,
-                    trailing: const LinkOutIcon(),
-                    onTap: () => launchUrlString(legalConfidentialPath),
-                  ),
+                _about,
               ],
             ),
           ),

@@ -6,16 +6,20 @@ import 'colors.dart';
 import 'constants.dart';
 
 class MTDivider extends StatelessWidget {
-  const MTDivider({this.color, this.height});
+  const MTDivider({this.color, this.height, this.indent, this.endIndent});
 
   final Color? color;
   final double? height;
+  final double? indent;
+  final double? endIndent;
 
   @override
   Widget build(BuildContext context) {
     return Divider(
       color: (color ?? greyColor).resolve(context),
       thickness: 0.2,
+      indent: indent ?? 0,
+      endIndent: indent ?? 0,
       height: height ?? P,
     );
   }

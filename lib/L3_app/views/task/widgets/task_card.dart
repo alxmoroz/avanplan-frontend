@@ -9,7 +9,7 @@ import '../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
-import '../../../components/mt_card.dart';
+import '../../../components/mt_list_tile.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/person_presenter.dart';
@@ -46,10 +46,10 @@ class TaskCard extends StatelessWidget {
   Widget get _estimate => SmallText('${task.estimate} ${loc.task_estimate_unit}', color: greyColor);
 
   @override
-  Widget build(BuildContext context) => MTCardButton(
-        elevation: cardElevation,
+  Widget build(BuildContext context) => MTListTile(
+        // elevation: cardElevation,
         onTap: () => mainController.showTask(task.wsId, task.id),
-        child: Column(
+        middle: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,
           children: [

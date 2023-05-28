@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'colors.dart';
 import 'constants.dart';
 import 'material_wrapper.dart';
+import 'mt_divider.dart';
 import 'text_widgets.dart';
 
 class MTListTile extends StatelessWidget {
@@ -31,35 +32,36 @@ class MTListTile extends StatelessWidget {
   final bool topBorder;
   final bool bottomBorder;
 
+  Widget get _border => MTDivider(height: 0, indent: padding?.left ?? P2, endIndent: padding?.right ?? P2);
+
   @override
   Widget build(BuildContext context) => material(
         InkWell(
-          onTap: onTap,
-          child: Container(
-            decoration: BoxDecoration(
-              border: Border(
-                top: topBorder ? BorderSide(width: 1, color: borderColor.resolve(context)) : BorderSide.none,
-                bottom: bottomBorder ? BorderSide(width: 1, color: borderColor.resolve(context)) : BorderSide.none,
-              ),
-            ),
-            padding: padding ?? const EdgeInsets.all(P),
-            child: Row(
+            onTap: onTap,
+            child: Column(
               children: [
-                if (leading != null) ...[leading!, const SizedBox(width: P_2)],
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                if (topBorder) _border,
+                Padding(
+                  padding: padding ?? const EdgeInsets.symmetric(horizontal: P2, vertical: P),
+                  child: Row(
                     children: [
-                      if (middle != null || titleText != null) middle ?? (titleText != null ? NormalText(titleText!) : Container()),
-                      if (subtitle != null) subtitle!,
+                      if (leading != null) ...[leading!, const SizedBox(width: P_2)],
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            if (middle != null || titleText != null) middle ?? (titleText != null ? NormalText(titleText!) : Container()),
+                            if (subtitle != null) subtitle!,
+                          ],
+                        ),
+                      ),
+                      if (trailing != null) trailing!,
                     ],
                   ),
                 ),
-                if (trailing != null) trailing!,
+                if (bottomBorder) _border,
               ],
-            ),
-          ),
-        ),
+            )),
         color: color?.resolve(context),
       );
 }

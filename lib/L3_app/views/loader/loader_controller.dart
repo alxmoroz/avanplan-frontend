@@ -101,15 +101,14 @@ abstract class _LoaderControllerBase with Store {
         }
       });
 
-  Widget _stopAction(String actionText) => MTButton.outlined(
+  Widget _stopAction(String actionText) => MTButton.main(
         titleText: actionText,
         onTap: stop,
       );
 
   // TODO: нужен репозиторий для отправки писем, см. как формируется форма для оплаты
-  Widget _reportErrorButton(String errorText) => MTButton.outlined(
-        titleColor: darkGreyColor,
-        leading: const MailIcon(),
+  Widget _reportErrorButton(String errorText) => MTButton.secondary(
+        leading: const MailIcon(color: mainColor),
         titleText: loc.report_bug_action_title,
         margin: const EdgeInsets.only(top: P),
         onTap: () => sendMail(loc.contact_us_mail_subject, appTitle, accountController.user?.id, errorText),
@@ -147,8 +146,8 @@ abstract class _LoaderControllerBase with Store {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             _stopAction(loc.ok),
-            MTButton.outlined(
-              leading: const RefreshIcon(),
+            MTButton.secondary(
+              leading: const RefreshIcon(color: mainColor),
               titleText: loc.reload_action_title,
               margin: const EdgeInsets.only(top: P),
               onTap: _reload,

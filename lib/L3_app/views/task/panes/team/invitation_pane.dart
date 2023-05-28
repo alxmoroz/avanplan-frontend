@@ -64,7 +64,7 @@ class InvitationPane extends StatelessWidget {
                     controller: TextEditingController(text: controller.invitationText),
                     suffixIcon: _copyButton(context),
                   )
-                : MTButton.outlined(
+                : MTButton.main(
                     leading: ShareIcon(size: P2, color: _canShare ? mainColor : lightGreyColor),
                     titleText: loc.invitation_share_action_title,
                     onTap: _canShare ? () => controller.shareInvitation(context) : null,

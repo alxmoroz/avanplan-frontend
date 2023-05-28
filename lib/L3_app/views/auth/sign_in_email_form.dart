@@ -62,7 +62,7 @@ class _SignInEmailFormState extends State<SignInEmailForm> {
                       appIcon(size: size.maxHeight / 4),
                       controller.tf('email'),
                       controller.tf('password'),
-                      MTButton.outlined(
+                      MTButton.main(
                         margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
                         titleText: loc.auth_sign_in_email_action_title,
                         onTap: controller.validated ? controller.signIn : null,

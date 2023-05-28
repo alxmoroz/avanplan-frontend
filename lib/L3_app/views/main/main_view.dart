@@ -90,16 +90,19 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
     );
   }
 
-  Widget? get bottomBar => rootTask.hasOpenedSubtasks
-      ? MTButton.outlined(
-          titleText: loc.project_list_title,
-          onTap: toProjects,
-        )
-      : MTButton.outlined(
-          leading: const PlusIcon(),
-          titleText: rootTask.newSubtaskTitle,
-          onTap: projectAddWizard,
-        );
+  Widget? get _bottomBar => Padding(
+        padding: const EdgeInsets.only(bottom: P),
+        child: rootTask.hasOpenedSubtasks
+            ? MTButton.main(
+                titleText: loc.project_list_title,
+                onTap: toProjects,
+              )
+            : MTButton.main(
+                leading: const PlusIcon(color: lightBackgroundColor),
+                titleText: rootTask.newSubtaskTitle,
+                onTap: projectAddWizard,
+              ),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +142,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
             child: rootTask.hasOpenedSubtasks ? TaskOverview(rootTaskController) : noOpenedProjects,
           ),
         ),
-        bottomBar: bottomBar,
+        bottomBar: _bottomBar,
       ),
     );
   }

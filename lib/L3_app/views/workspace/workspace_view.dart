@@ -69,10 +69,9 @@ class WorkspaceView extends StatelessWidget {
           MTCurrency(ws.balance, _balanceColor),
           const SizedBox(height: P_2),
           if (ws.hpTariffUpdate) ...[
-            MTButton.outlined(
+            MTButton.main(
               margin: const EdgeInsets.only(top: P),
               titleText: loc.balance_replenish_action_title,
-              titleColor: greenColor,
               onTap: () => purchaseDialog(wsId),
             ),
           ],

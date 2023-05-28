@@ -117,7 +117,7 @@ class _SourceEditViewState extends State<SourceEditView> {
         ),
         textFieldForCode('description'),
         const SizedBox(height: P2),
-        MTButton.outlined(
+        MTButton.main(
           titleText: loc.save_action_title,
           onTap: canSave ? controller.save : null,
         ),

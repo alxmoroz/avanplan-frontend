@@ -127,7 +127,7 @@ class _TaskViewState extends State<TaskView> {
             ],
           ),
         ),
-        bottomBar: selectedBottomBar,
+        bottomBar: selectedBottomBar != null ? Padding(padding: const EdgeInsets.only(bottom: P), child: selectedBottomBar) : null,
       ),
     );
   }

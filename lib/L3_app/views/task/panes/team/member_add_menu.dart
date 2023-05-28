@@ -32,18 +32,20 @@ class MemberAddMenu extends StatelessWidget {
         ? material(MTConstrained(Padding(
             padding: const EdgeInsets.symmetric(horizontal: P),
             child: PopupMenuButton<Role>(
-              child: MTMenuShape(icon: const MemberAddIcon(), title: _title),
+              child: MTMenuShape(icon: const MemberAddIcon(color: lightBackgroundColor), title: _title),
               itemBuilder: (_) => [for (final r in task.ws.roles) PopupMenuItem<Role>(value: r, child: NormalText(r.localize))],
               onSelected: (r) async => await memberAddDialog(task, r),
               padding: EdgeInsets.zero,
+              surfaceTintColor: lightBackgroundColor.resolve(context),
+              color: lightBackgroundColor.resolve(context),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS)),
             ),
           )))
         : MTLimitBadge(
-            child: MTButton.outlined(
-              leading: const MemberAddIcon(),
+            child: MTButton.main(
+              leading: const MemberAddIcon(color: lightBackgroundColor),
               titleText: _title,
-              color: backgroundColor,
+              // color: backgroundColor,
               onTap: () => changeTariff(task.ws, reason: loc.tariff_change_limit_users_reason_title),
             ),
             showBadge: true,

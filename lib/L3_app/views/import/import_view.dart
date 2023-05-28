@@ -131,7 +131,7 @@ class ImportView extends StatelessWidget {
           ),
           const SizedBox(height: P_2),
           MTLimitBadge(
-            child: MTButton.outlined(
+            child: MTButton.main(
               titleText: '${loc.import_action_title}$_importBtnCountHint',
               onTap: _validated ? controller.startImport : null,
             ),
@@ -139,8 +139,8 @@ class ImportView extends StatelessWidget {
           ),
         ])
       : controller.ws.sources.isEmpty
-          ? MTButton.outlined(
-              leading: const PlusIcon(),
+          ? MTButton.main(
+              leading: const PlusIcon(color: lightBackgroundColor),
               titleText: loc.source_title_new,
               onTap: () => startAddSource(controller.ws),
             )

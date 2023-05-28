@@ -9,7 +9,7 @@ import 'icons.dart';
 import 'mt_constrained.dart';
 import 'text_widgets.dart';
 
-enum ButtonType { text, outlined, icon }
+enum ButtonType { text, main, secondary, icon }
 
 class MTButton extends StatelessWidget {
   const MTButton({
@@ -26,7 +26,7 @@ class MTButton extends StatelessWidget {
     this.maxWidth,
   }) : type = ButtonType.text;
 
-  const MTButton.outlined({
+  const MTButton.main({
     this.titleText,
     this.onTap,
     this.leading,
@@ -38,7 +38,21 @@ class MTButton extends StatelessWidget {
     this.padding,
     this.margin,
     this.maxWidth,
-  }) : type = ButtonType.outlined;
+  }) : type = ButtonType.main;
+
+  const MTButton.secondary({
+    this.titleText,
+    this.onTap,
+    this.leading,
+    this.middle,
+    this.trailing,
+    this.color,
+    this.titleColor,
+    this.constrained = true,
+    this.padding,
+    this.margin,
+    this.maxWidth,
+  }) : type = ButtonType.secondary;
 
   const MTButton.icon(Widget icon, this.onTap, {this.margin, this.padding})
       : type = ButtonType.icon,
@@ -64,18 +78,19 @@ class MTButton extends StatelessWidget {
   final bool constrained;
   final double? maxWidth;
 
-  Color get _titleColor => onTap != null ? (titleColor ?? mainColor) : lightGreyColor;
+  Color get _titleColor => onTap != null ? (titleColor ?? (type == ButtonType.main ? lightBackgroundColor : mainColor)) : lightGreyColor;
+  Color get _btnColor => onTap != null ? (color ?? (type == ButtonType.main ? mainColor : lightBackgroundColor)) : darkBackgroundColor;
   ButtonStyle _style(BuildContext context) => ElevatedButton.styleFrom(
         padding: padding ?? EdgeInsets.zero,
-        backgroundColor: (color ?? lightBackgroundColor).resolve(context),
-        disabledBackgroundColor: (color ?? lightBackgroundColor).resolve(context),
+        backgroundColor: _btnColor.resolve(context),
+        disabledBackgroundColor: _btnColor.resolve(context),
         foregroundColor: _titleColor.resolve(context),
         minimumSize: const Size(MIN_BTN_HEIGHT, MIN_BTN_HEIGHT),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS)),
-        side: type == ButtonType.outlined ? BorderSide(color: _titleColor.resolve(context), width: 1) : null,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DEF_BTN_BORDER_RADIUS)),
+        side: type == ButtonType.secondary ? BorderSide(color: _titleColor.resolve(context), width: 1) : BorderSide.none,
         splashFactory: NoSplash.splashFactory,
         visualDensity: VisualDensity.standard,
-        shadowColor: _titleColor.resolve(context),
+        shadowColor: (type == ButtonType.main ? _btnColor : _titleColor).resolve(context),
         elevation: 2,
       );
 
@@ -84,7 +99,8 @@ class MTButton extends StatelessWidget {
 
   Widget _button(BuildContext context) {
     switch (type) {
-      case ButtonType.outlined:
+      case ButtonType.main:
+      case ButtonType.secondary:
         return OutlinedButton(onPressed: onTap, style: _style(context), child: _child, clipBehavior: Clip.antiAlias);
       default:
         return CupertinoButton(onPressed: onTap, child: _child, minSize: 0, padding: padding ?? EdgeInsets.zero, color: color);
@@ -129,9 +145,9 @@ class MTPlusButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MTButton.outlined(
+    return MTButton.main(
       constrained: false,
-      middle: const PlusIcon(),
+      middle: const PlusIcon(color: lightBackgroundColor),
       margin: const EdgeInsets.only(right: P),
       onTap: onTap,
     );

@@ -46,7 +46,7 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
     super.dispose();
   }
 
-  Widget _authBtn(Widget leading, String titleText, double iconSize, VoidCallback? onTap, {double? titleLeftPadding}) => MTButton.outlined(
+  Widget _authBtn(Widget leading, String titleText, double iconSize, VoidCallback? onTap, {double? titleLeftPadding}) => MTButton.main(
         leading: leading,
         middle: H4(titleText, color: const Color.fromARGB(255, 62, 62, 82), padding: EdgeInsets.only(left: titleLeftPadding ?? 0)),
         trailing: SizedBox(width: iconSize / 2),

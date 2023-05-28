@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../main.dart';
+import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/mt_button.dart';
@@ -16,7 +17,7 @@ class TaskAddButton extends StatelessWidget {
   final bool compact;
   final bool dismissible;
 
-  Widget get _plusIcon => const PlusIcon();
+  Widget get _plusIcon => const PlusIcon(color: lightBackgroundColor);
 
   Future _tap() async {
     if (dismissible) {
@@ -27,7 +28,7 @@ class TaskAddButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MTLimitBadge(
-        child: MTButton.outlined(
+        child: MTButton.main(
           leading: compact ? null : _plusIcon,
           titleText: compact ? null : controller.task.newSubtaskTitle,
           middle: compact ? _plusIcon : null,

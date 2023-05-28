@@ -68,7 +68,7 @@ class _WSEditViewState extends State<WSEditView> {
         children: [
           for (final code in ['code', 'title', 'description']) textFieldForCode(code),
           const SizedBox(height: P2),
-          MTButton.outlined(
+          MTButton.main(
             titleText: loc.save_action_title,
             onTap: canSave ? controller.save : null,
           ),

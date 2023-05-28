@@ -92,7 +92,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                               middle: SmallText(loc.contact_us_title.toLowerCase(), color: mainColor),
                               onTap: () => sendMail(loc.contact_us_mail_subject, appTitle, accountController.user?.id),
                             ),
-                            MTButton.outlined(
+                            MTButton.main(
                               margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
                               titleColor: greyColor,
                               titleText: loc.ok,
@@ -108,7 +108,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                             textFieldForCode('name'),
                             textFieldForCode('email'),
                             textFieldForCode('password'),
-                            MTButton.outlined(
+                            MTButton.main(
                               margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
                               titleText: loc.auth_register_action_title,
                               onTap: controller.validated ? () => controller.createRequest(context) : null,

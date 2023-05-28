@@ -31,7 +31,7 @@ class ContractView extends StatelessWidget {
         child: TariffInfo(ws.invoice.tariff),
       ),
       bottomBar: ws.hpTariffUpdate
-          ? MTButton.outlined(
+          ? MTButton.main(
               titleText: loc.tariff_change_action_title,
               onTap: () => changeTariff(ws),
             )

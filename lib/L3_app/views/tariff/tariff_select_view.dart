@@ -66,8 +66,7 @@ class TariffSelectView extends StatelessWidget {
   int get currentIndex => tariffs.indexWhere((t) => t.id == ws.invoice.tariff.id);
   int get selectedIndex => currentIndex < tariffs.length ? currentIndex + 1 : currentIndex;
 
-  Widget _selectButton(BuildContext context, Tariff tariff) => MTButton.outlined(
-        titleColor: greenColor,
+  Widget _selectButton(BuildContext context, Tariff tariff) => MTButton.main(
         titleText: loc.tariff_select_action_title,
         margin: const EdgeInsets.all(P).copyWith(top: 0),
         onTap: () => Navigator.of(context).pop(tariff),
@@ -88,9 +87,8 @@ class TariffSelectView extends StatelessWidget {
             color: warningColor,
             align: TextAlign.center,
           ),
-          MTButton.outlined(
+          MTButton.main(
             titleText: loc.balance_replenish_action_title,
-            titleColor: greenColor,
             margin: const EdgeInsets.only(top: P_2),
             onTap: () => purchaseDialog(wsId),
           ),

@@ -45,18 +45,17 @@ class StoreView extends StatelessWidget {
     return Row(
       children: [
         if (hasPrice) H4('  ${loc.for_} ${isRub ? p.rawPrice.currency : p.price}', color: greyColor),
-        if (isRub) RoubleIcon(size: P * (hasPrice ? 2 : 2.5), color: hasPrice ? greyColor : greenColor),
+        if (isRub) RoubleIcon(size: P * (hasPrice ? 2 : 2.5), color: hasPrice ? greyColor : mainColor),
       ],
     );
   }
 
   Widget _payButton(BuildContext _, int index) {
     final p = iapController.products[index];
-    return MTButton.outlined(
-      titleColor: greenColor,
+    return MTButton.secondary(
       middle: Row(
         children: [
-          H3('+ ${p.value.currency}', color: greenColor),
+          H3('+ ${p.value.currency}', color: mainColor),
           _price(p),
         ],
       ),

@@ -57,7 +57,7 @@ class SourceListView extends StatelessWidget {
                 children: [
                   if (ws.sources.isNotEmpty) const Spacer(),
                   ws.sources.isEmpty
-                      ? MTButton.outlined(
+                      ? MTButton.main(
                           leading: const PlusIcon(),
                           titleText: loc.source_title_new,
                           onTap: () => startAddSource(ws),

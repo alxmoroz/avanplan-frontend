@@ -42,9 +42,9 @@ class TaskOverview extends StatelessWidget {
                   color: lightGreyColor,
                   padding: const EdgeInsets.only(bottom: P_3),
                 ),
-              MTButton.outlined(
+              MTButton.main(
                 titleText: (task.shouldClose || task.shouldCloseLeaf) ? loc.close_action_title : loc.task_reopen_action_title,
-                leading: DoneIcon(task.shouldClose || task.shouldCloseLeaf),
+                leading: DoneIcon(task.shouldClose || task.shouldCloseLeaf, color: lightBackgroundColor),
                 onTap: () => controller.setClosed(!task.closed),
               ),
             ])
@@ -108,7 +108,7 @@ class TaskOverview extends StatelessWidget {
 
                 if (task.showChartDetails) ...[
                   const SizedBox(height: P),
-                  MTButton.outlined(
+                  MTButton.secondary(
                     titleText: loc.chart_details_action_title,
                     onTap: () => showChartsDetailsDialog(context, task),
                   ),

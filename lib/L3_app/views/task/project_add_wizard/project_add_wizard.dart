@@ -80,8 +80,8 @@ class _ProjectAddWizardState extends State<ProjectAddWizard> {
             children: [
               MTLimitBadge(
                 showBadge: !controller.ws!.plProjects,
-                child: MTButton.outlined(
-                  leading: const ImportIcon(),
+                child: MTButton.main(
+                  leading: const ImportIcon(color: lightBackgroundColor),
                   titleText: loc.import_action_title,
                   onTap: () => startImport(null),
                 ),

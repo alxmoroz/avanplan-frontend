@@ -314,8 +314,8 @@ class StarIcon extends MTIcon {
   const StarIcon({super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
-        CupertinoIcons.star,
-        color: (color ?? warningColor).resolve(context),
+        CupertinoIcons.star_fill,
+        color: (color ?? goldColor).resolve(context),
         size: size ?? P2,
       );
 }

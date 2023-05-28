@@ -36,6 +36,8 @@ const Color lightBackgroundColor = CupertinoDynamicColor.withBrightness(
 
 const Color dangerColor = CupertinoColors.destructiveRed;
 
+const Color goldColor = CupertinoColors.systemYellow;
+
 const Color warningColor = CupertinoColors.activeOrange;
 const Color lightWarningColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(60, 255, 202, 120),

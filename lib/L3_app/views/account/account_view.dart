@@ -41,7 +41,7 @@ class AccountView extends StatelessWidget {
                     const SizedBox(height: P_2),
                     NormalText(_user!.email, align: TextAlign.center),
                     const SizedBox(height: P2),
-                    MTButton.outlined(
+                    MTButton.secondary(
                       titleText: loc.auth_sign_out_btn_title,
                       titleColor: warningColor,
                       trailing: const LogoutIcon(color: warningColor),

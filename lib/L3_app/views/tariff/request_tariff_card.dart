@@ -33,8 +33,7 @@ class RequestTariffCard extends StatelessWidget {
             ),
           ),
           MediumText(loc.tariff_price_request_action_hint, align: TextAlign.center, color: greyColor, padding: const EdgeInsets.all(P)),
-          MTButton.outlined(
-            titleColor: greenColor,
+          MTButton.secondary(
             titleText: loc.tariff_price_request_action_title,
             margin: const EdgeInsets.all(P).copyWith(top: 0),
             onTap: () => sendMail(loc.tariff_price_request_mail_subject, appTitle, accountController.user?.id),

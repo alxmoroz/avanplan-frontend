@@ -86,7 +86,7 @@ class _MemberEditViewState extends State<MemberEditView> {
           bgColor: backgroundColor,
         ),
         body: SafeArea(bottom: false, child: form),
-        bottomBar: MTButton.outlined(
+        bottomBar: MTButton.main(
           titleText: loc.save_action_title,
           margin: tfPadding.copyWith(top: P2),
           onTap: controller.assignRoles,

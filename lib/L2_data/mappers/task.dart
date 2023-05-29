@@ -5,8 +5,6 @@ import 'package:openapi/openapi.dart' as api;
 
 import '../../L1_domain/entities/task.dart';
 import 'member.dart';
-import 'priority.dart';
-import 'status.dart';
 import 'task_source.dart';
 
 extension TaskMapper on api.TaskGet {
@@ -31,10 +29,10 @@ extension TaskMapper on api.TaskGet {
       closedDate: closedDate?.toLocal(),
       dueDate: dueDate?.toLocal(),
       closed: closed ?? false,
-      status: status?.status(wsId),
+      statusId: statusId,
       estimate: estimate,
       tasks: [],
-      priority: priority?.priority(wsId),
+      priorityId: priorityId,
       authorId: authorId,
       assigneeId: assigneeId,
       members: members?.map((m) => m.member(id)).toList() ?? [],

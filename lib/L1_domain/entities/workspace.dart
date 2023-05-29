@@ -4,8 +4,10 @@ import 'account.dart';
 import 'base_entity.dart';
 import 'estimate_value.dart';
 import 'invoice.dart';
+import 'priority.dart';
 import 'role.dart';
 import 'source.dart';
+import 'status.dart';
 import 'user.dart';
 import 'ws_settings.dart';
 
@@ -32,6 +34,8 @@ class Workspace extends WorkspaceUpsert {
     required this.settings,
     required this.estimateValues,
     required this.sources,
+    required this.statuses,
+    required this.priorities,
     required this.mainAccount,
   });
 
@@ -39,8 +43,13 @@ class Workspace extends WorkspaceUpsert {
   final Iterable<Role> roles;
   Invoice invoice;
   num balance;
+
   final WSettings? settings;
-  final Iterable<EstimateValue> estimateValues;
-  List<Source> sources = [];
   final Account mainAccount;
+
+  // редактируемые поля
+  List<EstimateValue> estimateValues = [];
+  List<Status> statuses = [];
+  List<Source> sources = [];
+  List<Priority> priorities = [];
 }

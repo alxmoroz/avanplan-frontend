@@ -72,13 +72,13 @@ void main() {
       // TODO
     });
 
-    // PriorityGet priority
-    test('to test the property `priority`', () async {
+    // int priorityId
+    test('to test the property `priorityId`', () async {
       // TODO
     });
 
-    // StatusGet status
-    test('to test the property `status`', () async {
+    // int statusId
+    test('to test the property `statusId`', () async {
       // TODO
     });
 

@@ -20,6 +20,8 @@ Name | Type | Description | Notes
 **settings** | [**SettingsGet**](SettingsGet.md) |  | [optional] 
 **estimateValues** | [**BuiltList&lt;EstimateValueGet&gt;**](EstimateValueGet.md) |  | [optional] [default to ListBuilder()]
 **sources** | [**BuiltList&lt;SourceGet&gt;**](SourceGet.md) |  | [optional] [default to ListBuilder()]
+**statuses** | [**BuiltList&lt;StatusGet&gt;**](StatusGet.md) |  | [optional] [default to ListBuilder()]
+**priorities** | [**BuiltList&lt;PriorityGet&gt;**](PriorityGet.md) |  | [optional] [default to ListBuilder()]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

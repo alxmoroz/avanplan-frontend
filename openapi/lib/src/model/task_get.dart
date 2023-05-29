@@ -3,11 +3,9 @@
 //
 
 // ignore_for_file: unused_element
-import 'package:openapi/src/model/priority_get.dart';
 import 'package:openapi/src/model/member_get.dart';
 import 'package:openapi/src/model/task_source_get.dart';
 import 'package:built_collection/built_collection.dart';
-import 'package:openapi/src/model/status_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -29,8 +27,8 @@ part 'task_get.g.dart';
 /// * [parentId] 
 /// * [assigneeId] 
 /// * [authorId] 
-/// * [priority] 
-/// * [status] 
+/// * [priorityId] 
+/// * [statusId] 
 /// * [taskSource] 
 /// * [tasks] 
 /// * [members] 
@@ -76,11 +74,11 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'author_id')
   int? get authorId;
 
-  @BuiltValueField(wireName: r'priority')
-  PriorityGet? get priority;
+  @BuiltValueField(wireName: r'priority_id')
+  int? get priorityId;
 
-  @BuiltValueField(wireName: r'status')
-  StatusGet? get status;
+  @BuiltValueField(wireName: r'status_id')
+  int? get statusId;
 
   @BuiltValueField(wireName: r'task_source')
   TaskSourceGet? get taskSource;
@@ -206,18 +204,18 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
         specifiedType: const FullType(int),
       );
     }
-    if (object.priority != null) {
-      yield r'priority';
+    if (object.priorityId != null) {
+      yield r'priority_id';
       yield serializers.serialize(
-        object.priority,
-        specifiedType: const FullType(PriorityGet),
+        object.priorityId,
+        specifiedType: const FullType(int),
       );
     }
-    if (object.status != null) {
-      yield r'status';
+    if (object.statusId != null) {
+      yield r'status_id';
       yield serializers.serialize(
-        object.status,
-        specifiedType: const FullType(StatusGet),
+        object.statusId,
+        specifiedType: const FullType(int),
       );
     }
     if (object.taskSource != null) {
@@ -360,19 +358,19 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
           ) as int;
           result.authorId = valueDes;
           break;
-        case r'priority':
+        case r'priority_id':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(PriorityGet),
-          ) as PriorityGet;
-          result.priority.replace(valueDes);
+            specifiedType: const FullType(int),
+          ) as int;
+          result.priorityId = valueDes;
           break;
-        case r'status':
+        case r'status_id':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(StatusGet),
-          ) as StatusGet;
-          result.status.replace(valueDes);
+            specifiedType: const FullType(int),
+          ) as int;
+          result.statusId = valueDes;
           break;
         case r'task_source':
           final valueDes = serializers.deserialize(

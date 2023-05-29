@@ -6,6 +6,7 @@ import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/estimate_value.dart';
 import '../../../L1_domain/entities/member.dart';
+import '../../../L1_domain/entities/status.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/task_level.dart';
@@ -53,6 +54,7 @@ class TaskEditController extends _TaskEditControllerBase with _$TaskEditControll
     }
 
     selectAssigneeId(task?.assigneeId);
+    selectStatusId(task?.statusId);
   }
 }
 
@@ -124,8 +126,8 @@ abstract class _TaskEditControllerBase extends EditController with Store {
           title: tfAnnoForCode('title').text,
           description: tfAnnoForCode('description').text,
           closed: task?.closed == true,
-          status: task?.status,
-          priority: task?.priority,
+          statusId: selectedStatusId,
+          priorityId: task?.priorityId,
           estimate: selectedEstimate?.value,
           startDate: selectedStartDate,
           dueDate: selectedDueDate,
@@ -206,49 +208,33 @@ abstract class _TaskEditControllerBase extends EditController with Store {
 
   /// статусы задач
 
-  // @observable
-  // bool closed = false;
-  //
-  // @action
-  // void setClosed(bool? _closed) {
-  //   closed = _closed ?? false;
-  //   if (!closed && selectedStatus != null && selectedStatus!.closed) {
-  //     _selectedStatusId = null; // не трогать
-  //   }
-  // }
+  @computed
+  bool get canSetStatus => ws.statuses.isNotEmpty && (parent.isGoal || parent.isTask || parent.isSubtask);
 
-  // @computed
-  // List<Status> get statuses => selectedWS?.statuses ?? [];
-  //
-  // @observable
-  // int? _selectedStatusId;
-  //
-  // @action
-  // void selectStatus(Status? _status) {
-  //   _selectedStatusId = _status?.id;
-  //   if (_status != null && _status.closed) {
-  //     closed = true;
-  //   }
-  // }
+  @observable
+  int? selectedStatusId;
 
-  // @computed
-  // Status? get selectedStatus => statuses.firstWhereOrNull((s) => s.id == _selectedStatusId);
+  @computed
+  Status? get selectedStatus => ws.statuses.firstWhereOrNull((s) => s.id == selectedStatusId);
 
-  /// тип задачи
-  // @observable
-  // int? selectedTypeId;
+  @action
+  void selectStatusId(int? id) {
+    selectedStatusId = id;
+    if (selectedStatus?.closed == true) {
+      closed = true;
+    }
+  }
 
-  // @action
-  // void selectType(TaskType? _type) => selectedTypeId = _type?.id;
+  // TODO: перенести элемент управления статусами в просмотр задачи и редактировать статус вместе с функцией закрытия из контроллера задачи
 
-  // @computed
-  // TaskType? get selectedType => referencesController.taskTypes.firstWhereOrNull((t) => t.id == selectedTypeId);
+  @observable
+  bool closed = false;
 
-  // @computed
-  // bool get isBacklog => selectedType?.title == 'backlog';
-
-  // void toggleBacklog() {
-  //   final type = referencesController.taskTypes.firstWhereOrNull((t) => t.title == (isBacklog ? 'goal' : 'backlog'));
-  //   selectType(type);
-  // }
+// @action
+// void setClosed(bool? _closed) {
+//   closed = _closed ?? false;
+//   if (!closed && selectedStatus != null && selectedStatus!.closed) {
+//     selectedStatusId = null; // не трогать
+//   }
+// }
 }

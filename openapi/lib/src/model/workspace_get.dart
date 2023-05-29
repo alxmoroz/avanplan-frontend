@@ -4,6 +4,7 @@
 
 // ignore_for_file: unused_element
 import 'package:openapi/src/model/account_get.dart';
+import 'package:openapi/src/model/priority_get.dart';
 import 'package:openapi/src/model/source_get.dart';
 import 'package:openapi/src/model/settings_get.dart';
 import 'package:built_collection/built_collection.dart';
@@ -11,6 +12,7 @@ import 'package:openapi/src/model/estimate_value_get.dart';
 import 'package:openapi/src/model/invoice_get.dart';
 import 'package:openapi/src/model/user.dart';
 import 'package:openapi/src/model/role_get.dart';
+import 'package:openapi/src/model/status_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -31,6 +33,8 @@ part 'workspace_get.g.dart';
 /// * [settings] 
 /// * [estimateValues] 
 /// * [sources] 
+/// * [statuses] 
+/// * [priorities] 
 @BuiltValue()
 abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -69,6 +73,12 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
   @BuiltValueField(wireName: r'sources')
   BuiltList<SourceGet>? get sources;
 
+  @BuiltValueField(wireName: r'statuses')
+  BuiltList<StatusGet>? get statuses;
+
+  @BuiltValueField(wireName: r'priorities')
+  BuiltList<PriorityGet>? get priorities;
+
   WorkspaceGet._();
 
   factory WorkspaceGet([void updates(WorkspaceGetBuilder b)]) = _$WorkspaceGet;
@@ -78,7 +88,9 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
       ..users = ListBuilder()
       ..roles = ListBuilder()
       ..estimateValues = ListBuilder()
-      ..sources = ListBuilder();
+      ..sources = ListBuilder()
+      ..statuses = ListBuilder()
+      ..priorities = ListBuilder();
 
   @BuiltValueSerializer(custom: true)
   static Serializer<WorkspaceGet> get serializer => _$WorkspaceGetSerializer();
@@ -174,6 +186,20 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
       yield serializers.serialize(
         object.sources,
         specifiedType: const FullType(BuiltList, [FullType(SourceGet)]),
+      );
+    }
+    if (object.statuses != null) {
+      yield r'statuses';
+      yield serializers.serialize(
+        object.statuses,
+        specifiedType: const FullType(BuiltList, [FullType(StatusGet)]),
+      );
+    }
+    if (object.priorities != null) {
+      yield r'priorities';
+      yield serializers.serialize(
+        object.priorities,
+        specifiedType: const FullType(BuiltList, [FullType(PriorityGet)]),
       );
     }
   }
@@ -282,6 +308,20 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
             specifiedType: const FullType(BuiltList, [FullType(SourceGet)]),
           ) as BuiltList<SourceGet>;
           result.sources.replace(valueDes);
+          break;
+        case r'statuses':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [FullType(StatusGet)]),
+          ) as BuiltList<StatusGet>;
+          result.statuses.replace(valueDes);
+          break;
+        case r'priorities':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [FullType(PriorityGet)]),
+          ) as BuiltList<PriorityGet>;
+          result.priorities.replace(valueDes);
           break;
         default:
           unhandled.add(key);

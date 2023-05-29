@@ -2,8 +2,6 @@
 
 import 'base_entity.dart';
 import 'member.dart';
-import 'priority.dart';
-import 'status.dart';
 import 'task_source.dart';
 
 enum TaskLevel { root, project, goal, task, subtask }
@@ -37,8 +35,8 @@ class Task extends Titleable {
     this.dueDate,
     this.startDate,
     this.closedDate,
-    this.status,
-    this.priority,
+    this.statusId,
+    this.priorityId,
     this.authorId,
     this.assigneeId,
     this.taskSource,
@@ -53,8 +51,8 @@ class Task extends Titleable {
   DateTime? closedDate;
   final DateTime? dueDate;
   final int wsId;
-  final Status? status;
-  final Priority? priority;
+  final int? statusId;
+  final int? priorityId;
   final int? authorId;
   final int? assigneeId;
   final TaskSource? taskSource;

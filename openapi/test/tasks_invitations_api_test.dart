@@ -13,10 +13,10 @@ void main() {
       // TODO
     });
 
-    // Current Invitation
+    // Invitations
     //
-    //Future<InvitationGet> currentInvitationV1TasksInvitationsGet(int taskId, int roleId, int wsId, { int permissionTaskId }) async
-    test('test currentInvitationV1TasksInvitationsGet', () async {
+    //Future<BuiltList<InvitationGet>> invitationsV1TasksInvitationsGet(int taskId, int roleId, int wsId, { int permissionTaskId }) async
+    test('test invitationsV1TasksInvitationsGet', () async {
       // TODO
     });
   });

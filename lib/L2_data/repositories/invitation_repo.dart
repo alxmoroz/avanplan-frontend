@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:collection/collection.dart';
 import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/invitation.dart';
@@ -24,7 +25,7 @@ class InvitationRepo extends AbstractInvitationRepo {
 
   @override
   Future<Invitation?> getInvitation(int wsId, int taskId, int roleId) async {
-    final response = await api.currentInvitationV1TasksInvitationsGet(wsId: wsId, roleId: roleId, taskId: taskId);
-    return response.data?.invitation;
+    final response = await api.invitationsV1TasksInvitationsGet(wsId: wsId, roleId: roleId, taskId: taskId);
+    return response.data?.map((inv) => inv.invitation).firstOrNull;
   }
 }

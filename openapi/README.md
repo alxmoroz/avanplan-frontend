@@ -101,7 +101,7 @@ Class | Method | HTTP request | Description
 [*TasksApi*](doc/TasksApi.md) | [**projectsV1TasksGet**](doc/TasksApi.md#projectsv1tasksget) | **GET** /v1/tasks/ | Projects
 [*TasksApi*](doc/TasksApi.md) | [**upsertV1TasksPost**](doc/TasksApi.md#upsertv1taskspost) | **POST** /v1/tasks/ | Upsert
 [*TasksInvitationsApi*](doc/TasksInvitationsApi.md) | [**createV1TasksInvitationsPost**](doc/TasksInvitationsApi.md#createv1tasksinvitationspost) | **POST** /v1/tasks/invitations | Create
-[*TasksInvitationsApi*](doc/TasksInvitationsApi.md) | [**currentInvitationV1TasksInvitationsGet**](doc/TasksInvitationsApi.md#currentinvitationv1tasksinvitationsget) | **GET** /v1/tasks/invitations | Current Invitation
+[*TasksInvitationsApi*](doc/TasksInvitationsApi.md) | [**invitationsV1TasksInvitationsGet**](doc/TasksInvitationsApi.md#invitationsv1tasksinvitationsget) | **GET** /v1/tasks/invitations | Invitations
 [*TasksRolesApi*](doc/TasksRolesApi.md) | [**assignV1TasksRolesPost**](doc/TasksRolesApi.md#assignv1tasksrolespost) | **POST** /v1/tasks/roles | Assign
 
 

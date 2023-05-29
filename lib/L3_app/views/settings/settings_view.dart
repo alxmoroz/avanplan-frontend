@@ -10,6 +10,7 @@ import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
+import '../../components/mt_button.dart';
 import '../../components/mt_list_tile.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
@@ -92,10 +93,17 @@ class SettingsView extends StatelessWidget {
               children: [
                 const SizedBox(height: P_2),
                 AccountListTile(),
-                const SizedBox(height: P_2),
+                const SizedBox(height: P2),
                 _notifications,
                 if (mainController.workspaces.isNotEmpty) _workspaces,
                 _about,
+                MTButton.secondary(
+                  margin: const EdgeInsets.only(top: P3, bottom: P2),
+                  titleText: loc.auth_sign_out_btn_title,
+                  titleColor: warningColor,
+                  trailing: const LogoutIcon(color: warningColor),
+                  onTap: () async => await authController.signOut(),
+                ),
               ],
             ),
           ),

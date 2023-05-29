@@ -153,6 +153,10 @@ Serializers serializers = (_$serializers.toBuilder()
         () => ListBuilder<TaskSourceUpsert>(),
       )
       ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(InvitationGet)]),
+        () => ListBuilder<InvitationGet>(),
+      )
+      ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskGet)]),
         () => ListBuilder<TaskGet>(),
       )

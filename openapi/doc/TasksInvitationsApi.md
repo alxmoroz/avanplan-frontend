@@ -10,7 +10,7 @@ All URIs are relative to */api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createV1TasksInvitationsPost**](TasksInvitationsApi.md#createv1tasksinvitationspost) | **POST** /v1/tasks/invitations | Create
-[**currentInvitationV1TasksInvitationsGet**](TasksInvitationsApi.md#currentinvitationv1tasksinvitationsget) | **GET** /v1/tasks/invitations | Current Invitation
+[**invitationsV1TasksInvitationsGet**](TasksInvitationsApi.md#invitationsv1tasksinvitationsget) | **GET** /v1/tasks/invitations | Invitations
 
 
 # **createV1TasksInvitationsPost**
@@ -62,10 +62,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **currentInvitationV1TasksInvitationsGet**
-> InvitationGet currentInvitationV1TasksInvitationsGet(taskId, roleId, wsId, permissionTaskId)
+# **invitationsV1TasksInvitationsGet**
+> BuiltList<InvitationGet> invitationsV1TasksInvitationsGet(taskId, roleId, wsId, permissionTaskId)
 
-Current Invitation
+Invitations
 
 ### Example
 ```dart
@@ -84,10 +84,10 @@ final int wsId = 56; // int |
 final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.currentInvitationV1TasksInvitationsGet(taskId, roleId, wsId, permissionTaskId);
+    final response = api.invitationsV1TasksInvitationsGet(taskId, roleId, wsId, permissionTaskId);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling TasksInvitationsApi->currentInvitationV1TasksInvitationsGet: $e\n');
+    print('Exception when calling TasksInvitationsApi->invitationsV1TasksInvitationsGet: $e\n');
 }
 ```
 
@@ -102,7 +102,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InvitationGet**](InvitationGet.md)
+[**BuiltList&lt;InvitationGet&gt;**](InvitationGet.md)
 
 ### Authorization
 

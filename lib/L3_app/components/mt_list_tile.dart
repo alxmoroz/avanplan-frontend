@@ -42,7 +42,7 @@ class MTListTile extends StatelessWidget {
               children: [
                 if (topBorder) _border,
                 Padding(
-                  padding: padding ?? const EdgeInsets.symmetric(horizontal: P2, vertical: P),
+                  padding: (padding ?? const EdgeInsets.symmetric(horizontal: P2, vertical: P)).add(const EdgeInsets.symmetric(horizontal: P_6)),
                   child: Row(
                     children: [
                       if (leading != null) ...[leading!, const SizedBox(width: P_2)],

@@ -65,7 +65,7 @@ class InvitationPane extends StatelessWidget {
                     suffixIcon: _copyButton(context),
                   )
                 : MTButton.main(
-                    leading: ShareIcon(size: P2, color: _canShare ? mainColor : lightGreyColor),
+                    leading: ShareIcon(size: P2, color: _canShare ? lightBackgroundColor : lightGreyColor),
                     titleText: loc.invitation_share_action_title,
                     onTap: _canShare ? () => controller.shareInvitation(context) : null,
                     margin: const EdgeInsets.only(top: P2),

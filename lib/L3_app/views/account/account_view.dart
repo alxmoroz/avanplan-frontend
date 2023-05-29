@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/user.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_button.dart';
@@ -40,13 +39,6 @@ class AccountView extends StatelessWidget {
                     H3('$_user', align: TextAlign.center),
                     const SizedBox(height: P_2),
                     NormalText(_user!.email, align: TextAlign.center),
-                    const SizedBox(height: P2),
-                    MTButton.secondary(
-                      titleText: loc.auth_sign_out_btn_title,
-                      titleColor: warningColor,
-                      trailing: const LogoutIcon(color: warningColor),
-                      onTap: () async => await authController.signOut(),
-                    ),
                   ],
                 )
               : Container(),

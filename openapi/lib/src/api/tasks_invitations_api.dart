@@ -7,6 +7,7 @@ import 'dart:async';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
 
+import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/api_util.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/invitation.dart';
@@ -133,7 +134,7 @@ class TasksInvitationsApi {
     );
   }
 
-  /// Current Invitation
+  /// Invitations
   /// 
   ///
   /// Parameters:
@@ -148,9 +149,9 @@ class TasksInvitationsApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [InvitationGet] as data
+  /// Returns a [Future] containing a [Response] with a [BuiltList<InvitationGet>] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<InvitationGet>> currentInvitationV1TasksInvitationsGet({ 
+  Future<Response<BuiltList<InvitationGet>>> invitationsV1TasksInvitationsGet({ 
     required int taskId,
     required int roleId,
     required int wsId,
@@ -201,14 +202,14 @@ class TasksInvitationsApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    InvitationGet _responseData;
+    BuiltList<InvitationGet> _responseData;
 
     try {
-      const _responseType = FullType(InvitationGet);
+      const _responseType = FullType(BuiltList, [FullType(InvitationGet)]);
       _responseData = _serializers.deserialize(
         _response.data!,
         specifiedType: _responseType,
-      ) as InvitationGet;
+      ) as BuiltList<InvitationGet>;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -220,7 +221,7 @@ class TasksInvitationsApi {
       );
     }
 
-    return Response<InvitationGet>(
+    return Response<BuiltList<InvitationGet>>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

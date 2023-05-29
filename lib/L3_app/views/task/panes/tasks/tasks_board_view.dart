@@ -7,7 +7,6 @@ import 'package:flutter/cupertino.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities/workspace.dart';
 import '../../../../../L2_data/services/platform.dart';
-import '../../../../../main.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/mt_button.dart';
@@ -49,14 +48,12 @@ class TasksBoardView extends StatelessWidget {
     );
   }
 
-  double get _viewportFraction {
-    final w = MediaQuery.of(rootKey.currentContext!).size.width;
-    return (min(w, SCR_M_WIDTH) * 0.8) / w;
-  }
+  @override
+  Widget build(BuildContext context) {
+    final w = MediaQuery.of(context).size.width;
 
-  Widget get _board {
     final controller = PageController(
-      viewportFraction: _viewportFraction,
+      viewportFraction: (min(w, SCR_M_WIDTH) * 0.8) / w,
       initialPage: 0,
     );
     return Stack(alignment: Alignment.center, children: [
@@ -81,10 +78,5 @@ class TasksBoardView extends StatelessWidget {
           ),
         ]),
     ]);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return _board;
   }
 }

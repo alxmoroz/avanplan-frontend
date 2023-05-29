@@ -8,6 +8,7 @@ import 'task_comparators.dart';
 
 extension TaskFilterPresenter on Task {
   List<Task> get sortedSubtasks => tasks.sorted(sortByDateAsc);
+  List<Task> get sortedLeafTasks => leafTasks.sorted(sortByDateAsc);
 
   List<MapEntry<TaskState, List<Task>>> get subtaskGroups {
     final groupedTasks = groupBy<Task, TaskState>(sortedSubtasks, (t) => t.overallState);

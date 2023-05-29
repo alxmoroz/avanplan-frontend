@@ -11,8 +11,8 @@ import '../../../components/constants.dart';
 import '../../../components/text_widgets.dart';
 import '../../../presenters/person_presenter.dart';
 
-class TaskDetails extends StatelessWidget {
-  const TaskDetails(this.task);
+class DetailsPane extends StatelessWidget {
+  const DetailsPane(this.task);
   final Task task;
 
   bool get hasDescription => task.description.isNotEmpty;

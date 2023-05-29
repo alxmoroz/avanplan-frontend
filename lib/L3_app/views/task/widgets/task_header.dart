@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../L1_domain/entities/task.dart';
-import '../../../../L1_domain/entities_extensions/task_level.dart';
 import '../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../components/colors.dart';
@@ -16,6 +15,7 @@ import '../../../extra/services.dart';
 import '../../../presenters/person_presenter.dart';
 import '../../../presenters/source_presenter.dart';
 import '../../../presenters/task_colors_presenter.dart';
+import '../../../presenters/task_level_presenter.dart';
 import '../../../usecases/task_ext_refs.dart';
 import '../task_view_controller.dart';
 
@@ -28,20 +28,7 @@ class TaskHeader extends StatelessWidget {
   bool get _hasStatus => _task.status != null;
   bool get _hasAssignee => _task.assigneeId != null;
 
-  String get _breadcrumbs {
-    Iterable<String> parentsTitles(Task? task) {
-      final res = <String>[];
-      if (task != null && !task.isRoot) {
-        if (task.parent != null) {
-          res.addAll(parentsTitles(task.parent!));
-        }
-        res.add(task.title);
-      }
-      return res;
-    }
-
-    return parentsTitles(_task.parent).join(' > ');
-  }
+  String get _breadcrumbs => _task.parent!.parentsTitles.join(' > ');
 
   @override
   Widget build(BuildContext context) {

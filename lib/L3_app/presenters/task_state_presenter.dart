@@ -129,9 +129,6 @@ extension TaskStatePresenter on Task {
     }
   }
 
-  bool get showState => !closed && (hasSubtasks || isProject || isGoal);
-  bool get showRecommendsEta => !isRoot && [TaskState.noSubtasks, TaskState.noProgress].contains(overallState);
-  bool get showTimeChart => !isRoot && showState && (hasDueDate || hasEtaDate);
-  bool get showVelocityVolumeCharts => !isRoot && !showRecommendsEta && showState;
-  bool get showChartDetails => showVelocityVolumeCharts || showTimeChart;
+  bool get canShowState => !closed && (hasSubtasks || isProject || isGoal);
+  bool get canShowRecommendsEta => !isRoot && [TaskState.noSubtasks, TaskState.noProgress].contains(overallState);
 }

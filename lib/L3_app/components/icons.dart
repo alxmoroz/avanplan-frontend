@@ -40,6 +40,17 @@ class BellIcon extends MTIcon {
   }
 }
 
+class BoardIcon extends MTIcon {
+  const BoardIcon({super.color, super.size, this.active = false});
+  final bool active;
+  @override
+  Widget build(BuildContext context) => Icon(
+        active ? CupertinoIcons.rectangle_split_3x1_fill : CupertinoIcons.rectangle_split_3x1,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P2 * (active ? 0.8 : 1),
+      );
+}
+
 class CalendarIcon extends MTIcon {
   const CalendarIcon({super.color, super.size});
   @override
@@ -198,6 +209,19 @@ class LinkOutIcon extends MTIcon {
         color: (color ?? mainColor).resolve(context),
         size: size ?? P,
       );
+}
+
+class ListIcon extends MTIcon {
+  const ListIcon({super.color, super.size, this.active = false});
+  final bool active;
+  @override
+  Widget build(BuildContext context) => RotatedBox(
+      quarterTurns: 1,
+      child: Icon(
+        active ? CupertinoIcons.rectangle_split_3x1_fill : CupertinoIcons.rectangle_split_3x1,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P2 * (active ? 0.8 : 1),
+      ));
 }
 
 class LogoutIcon extends MTIcon {

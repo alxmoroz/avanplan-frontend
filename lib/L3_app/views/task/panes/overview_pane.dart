@@ -12,9 +12,10 @@ import '../../../components/icons.dart';
 import '../../../components/mt_button.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/state_presenter.dart';
 import '../../../presenters/task_filter_presenter.dart';
 import '../../../presenters/task_level_presenter.dart';
+import '../../../presenters/task_state_presenter.dart';
+import '../../../presenters/task_view_presenter.dart';
 import '../../../usecases/task_ext_actions.dart';
 import '../task_view_controller.dart';
 import '../widgets/attentional_tasks.dart';
@@ -25,8 +26,8 @@ import '../widgets/charts/volume_chart.dart';
 import '../widgets/state_title.dart';
 import '../widgets/task_add_button.dart';
 
-class TaskOverview extends StatelessWidget {
-  const TaskOverview(this.controller);
+class OverviewPane extends StatelessWidget {
+  const OverviewPane(this.controller);
   final TaskViewController controller;
 
   Task get task => controller.task;
@@ -75,15 +76,15 @@ class TaskOverview extends StatelessWidget {
           Padding(
               padding: const EdgeInsets.all(P).copyWith(bottom: 0),
               child: Column(children: [
-                if (task.showState)
+                if (task.canShowState)
                   task.isRoot
                       ? GroupStateTitle(task, task.subtasksState, place: StateTitlePlace.workspace)
-                      : task.showRecommendsEta || task.projectLowStart
+                      : task.canShowRecommendsEta || task.projectLowStart
                           ? H3('${loc.state_no_info_title}: ${task.stateTitle.toLowerCase()}', align: TextAlign.center)
                           : TaskStateTitle(task, place: StateTitlePlace.taskOverview),
 
                 /// нет прогноза - показываем шаги
-                if (task.showRecommendsEta) ...[
+                if (task.canShowRecommendsEta) ...[
                   const SizedBox(height: P2),
                   task.projectHasProgress ? _rItemProgress : _rItemAddTask,
                   _line(context),
@@ -91,7 +92,7 @@ class TaskOverview extends StatelessWidget {
                 ],
 
                 /// объем и скорость
-                if (task.showVelocityVolumeCharts) ...[
+                if (task.canShowVelocityVolumeCharts) ...[
                   const SizedBox(height: P2),
                   Row(children: [
                     Expanded(child: TaskVolumeChart(task)),
@@ -101,12 +102,12 @@ class TaskOverview extends StatelessWidget {
                 ],
 
                 /// срок
-                if (task.showTimeChart) ...[
+                if (task.canShowTimeChart) ...[
                   const SizedBox(height: P),
                   TimingChart(task),
                 ],
 
-                if (task.showChartDetails) ...[
+                if (task.canShowChartDetails) ...[
                   const SizedBox(height: P),
                   MTButton.secondary(
                     titleText: loc.chart_details_action_title,

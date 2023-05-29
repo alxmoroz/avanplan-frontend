@@ -15,8 +15,8 @@ import '../../components/icons.dart';
 import '../../components/mt_dialog.dart';
 import '../../extra/services.dart';
 import '../../presenters/source_presenter.dart';
-import '../../presenters/state_presenter.dart';
-import '../../presenters/task_filter_presenter.dart';
+import '../../presenters/task_state_presenter.dart';
+import '../../presenters/task_view_presenter.dart';
 import '../../usecases/task_ext_actions.dart';
 import '../../usecases/ws_ext_actions.dart';
 import '../tariff/tariff_select_view.dart';
@@ -48,7 +48,7 @@ abstract class _TaskViewControllerBase with Store {
     if (task.isRoot) {
       return [];
     } else {
-      final hasOverview = task.showState || task.showTimeChart || task.showVelocityVolumeCharts;
+      final hasOverview = task.canShowState || task.canShowTimeChart || task.canShowVelocityVolumeCharts;
       final hasDetails = task.description.isNotEmpty || task.authorId != null;
       final hasTeam = task.canMembersRead && (task.members.isNotEmpty || task.canEditMembers);
       return [
@@ -67,13 +67,6 @@ abstract class _TaskViewControllerBase with Store {
 
   @computed
   TaskTabKey get tabKey => (tabKeys.contains(_tabKey) ? _tabKey : null) ?? (tabKeys.isNotEmpty ? tabKeys.first : TaskTabKey.subtasks);
-
-  /// фильтры и сортировка
-  @observable
-  bool? _showGroupTitles;
-
-  @computed
-  bool get showGroupTitles => _showGroupTitles ?? task.subtaskGroups.length > 1 && task.tasks.length > 4;
 
   /// связь с источником импорта
 

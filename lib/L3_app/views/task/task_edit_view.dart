@@ -132,11 +132,12 @@ class _TaskEditViewState extends State<TaskEditView> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            MTButton.secondary(
+            MTButton(
               constrained: false,
               titleText: loc.save_action_title,
               onTap: controller.validated ? controller.save : null,
               padding: const EdgeInsets.symmetric(horizontal: P2),
+              type: controller.isNew ? ButtonType.secondary : ButtonType.main,
             ),
             if (controller.isNew)
               MTButton.main(

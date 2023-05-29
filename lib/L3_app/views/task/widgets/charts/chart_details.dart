@@ -13,7 +13,8 @@ import '../../../../components/navbar.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/duration_presenter.dart';
-import '../../../../presenters/state_presenter.dart';
+import '../../../../presenters/task_state_presenter.dart';
+import '../../../../presenters/task_view_presenter.dart';
 import 'timing_chart.dart';
 import 'velocity_chart.dart';
 import 'volume_chart.dart';
@@ -61,7 +62,7 @@ class TaskChartDetails extends StatelessWidget {
         bottom: false,
         // top: false,
         child: ListView(padding: padding.add(const EdgeInsets.all(P)), children: [
-          if (task.showVelocityVolumeCharts) ...[
+          if (task.canShowVelocityVolumeCharts) ...[
             /// объем
             H3(loc.chart_volume_title, padding: const EdgeInsets.only(bottom: P)),
             Row(children: [
@@ -110,7 +111,7 @@ class TaskChartDetails extends StatelessWidget {
           ],
 
           /// срок
-          if (task.showTimeChart) ...[
+          if (task.canShowTimeChart) ...[
             H3(loc.chart_timing_title, padding: const EdgeInsets.symmetric(vertical: P)),
             TimingChart(task),
             const SizedBox(height: P_2),

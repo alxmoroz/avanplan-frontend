@@ -20,7 +20,7 @@ import '../../presenters/person_presenter.dart';
 import '../../presenters/task_level_presenter.dart';
 import '../notification/notification_list_view.dart';
 import '../settings/settings_view.dart';
-import '../task/panes/task_overview.dart';
+import '../task/panes/overview_pane.dart';
 import '../task/project_add_wizard/project_add_wizard.dart';
 import '../task/task_view.dart';
 import '../task/task_view_controller.dart';
@@ -139,7 +139,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
           top: false,
           bottom: false,
           child: Center(
-            child: rootTask.hasOpenedSubtasks ? TaskOverview(rootTaskController) : noOpenedProjects,
+            child: rootTask.hasOpenedSubtasks ? OverviewPane(rootTaskController) : noOpenedProjects,
           ),
         ),
         bottomBar: _bottomBar,

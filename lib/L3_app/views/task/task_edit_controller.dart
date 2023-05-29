@@ -54,7 +54,7 @@ class TaskEditController extends _TaskEditControllerBase with _$TaskEditControll
     }
 
     selectAssigneeId(task?.assigneeId);
-    selectStatusId(task?.statusId);
+    selectStatusId(task?.statusId ?? ws.statuses.firstOrNull?.id);
   }
 }
 

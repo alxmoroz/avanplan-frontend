@@ -24,7 +24,8 @@ class MTButton extends StatelessWidget {
     this.margin,
     this.constrained = false,
     this.maxWidth,
-  }) : type = ButtonType.text;
+    this.type = ButtonType.text,
+  });
 
   const MTButton.main({
     this.titleText,

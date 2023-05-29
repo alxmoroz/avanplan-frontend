@@ -10,10 +10,11 @@ import '../../components/mt_page.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_level_presenter.dart';
-import 'panes/task_details.dart';
-import 'panes/task_listview.dart';
-import 'panes/task_overview.dart';
-import 'panes/task_team.dart';
+import 'panes/details_pane.dart';
+import 'panes/overview_pane.dart';
+import 'panes/tasks/tasks_pane.dart';
+import 'panes/tasks/tasks_pane_controller.dart';
+import 'panes/team/team_pane.dart';
 import 'task_view_controller.dart';
 import 'widgets/task_header.dart';
 import 'widgets/task_navbar.dart';
@@ -42,19 +43,18 @@ class _TaskViewState extends State<TaskView> {
 
   late final TaskViewController controller;
 
-  late final TaskOverview overviewPane;
-  late final TaskListView tasksPane;
-  late final TaskDetails detailsPane;
-  late final MemberListView teamPane;
+  late final OverviewPane overviewPane;
+  late final TasksPane tasksPane;
+  late final DetailsPane detailsPane;
+  late final TeamPane teamPane;
 
   @override
   void initState() {
     controller = TaskViewController(wsId, taskId);
-
-    overviewPane = TaskOverview(controller);
-    tasksPane = TaskListView(controller);
-    detailsPane = TaskDetails(task);
-    teamPane = MemberListView(controller);
+    overviewPane = OverviewPane(controller);
+    tasksPane = TasksPane(controller, TasksPaneController(task));
+    detailsPane = DetailsPane(task);
+    teamPane = TeamPane(controller);
 
     super.initState();
   }

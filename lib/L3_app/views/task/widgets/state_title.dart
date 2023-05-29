@@ -6,7 +6,7 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/text_widgets.dart';
-import '../../../presenters/state_presenter.dart';
+import '../../../presenters/task_state_presenter.dart';
 
 enum StateTitlePlace { workspace, taskOverview, groupHeader, card }
 

@@ -54,7 +54,9 @@ class TaskEditController extends _TaskEditControllerBase with _$TaskEditControll
     }
 
     selectAssigneeId(task?.assigneeId);
-    selectStatusId(task?.statusId ?? ws.statuses.firstOrNull?.id);
+    if (canSetStatus) {
+      selectStatusId(task?.statusId ?? ws.statuses.firstOrNull?.id);
+    }
   }
 }
 
@@ -209,7 +211,7 @@ abstract class _TaskEditControllerBase extends EditController with Store {
   /// статусы задач
 
   @computed
-  bool get canSetStatus => ws.statuses.isNotEmpty && (parent.isGoal || parent.isTask || parent.isSubtask);
+  bool get canSetStatus => ws.statuses.isNotEmpty && (parent.isGoal || parent.isTask || parent.isSubtask) && (isNew || !task!.hasSubtasks);
 
   @observable
   int? selectedStatusId;

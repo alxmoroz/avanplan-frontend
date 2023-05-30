@@ -36,11 +36,11 @@ class UserView extends StatelessWidget {
               const SizedBox(height: P_2),
               NormalText(user.email, align: TextAlign.center),
               if (user.roles.isNotEmpty) ...[
-                const SizedBox(height: P2),
-                MediumText(loc.role_list_title, align: TextAlign.center),
+                MTListSection(loc.role_list_title),
                 MTListTile(
-                  middle: NormalText(user.rolesStr),
+                  titleText: user.rolesStr,
                   // trailing: ws.canEditUsers ? MTButton.icon(const EditIcon(), () => controller.editUser(context)) : null,
+                  bottomBorder: false,
                 )
               ]
             ],

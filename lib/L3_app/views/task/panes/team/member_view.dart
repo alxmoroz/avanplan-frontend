@@ -63,8 +63,7 @@ class _MemberViewState extends State<MemberView> {
                 const SizedBox(height: P_2),
                 NormalText(member.email, align: TextAlign.center),
                 if (member.roles.isNotEmpty) ...[
-                  const SizedBox(height: P2),
-                  MediumText(loc.role_list_title, align: TextAlign.center),
+                  MTListSection(loc.role_list_title),
                   MTListTile(
                     middle: NormalText(member.rolesStr),
                     trailing: task.canEditMembers ? MTButton.icon(const EditIcon(), () => controller.editMember(context)) : null,

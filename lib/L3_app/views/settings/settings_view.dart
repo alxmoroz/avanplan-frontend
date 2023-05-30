@@ -36,33 +36,35 @@ class SettingsView extends StatelessWidget {
             ),
           const ChevronIcon(),
         ]),
+        bottomBorder: false,
         onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(NotificationListView.routeName),
       );
 
   Widget get _workspaces => Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          H4(
-            loc.workspaces_title,
-            padding: const EdgeInsets.symmetric(horizontal: P2).copyWith(top: P3),
-            color: lightGreyColor,
+          MTListSection(loc.workspaces_title),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: mainController.workspaces.length,
+            itemBuilder: (_, index) {
+              final ws = mainController.workspaces[index];
+              return WorkspaceListTile(ws, bottomBorder: index < mainController.workspaces.length - 1);
+            },
           ),
-          for (final ws in mainController.workspaces) WorkspaceListTile(ws)
         ],
       );
 
   Widget get _about => Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          H4(
-            loc.about_service_title,
-            padding: const EdgeInsets.symmetric(horizontal: P2).copyWith(top: P3),
-            color: lightGreyColor,
-          ),
+          MTListSection(loc.about_service_title),
           MTListTile(
             leading: const MailIcon(),
             titleText: loc.contact_us_title,
             trailing: const LinkOutIcon(),
+            bottomBorder: !isIOS,
             onTap: () => sendMail(loc.contact_us_mail_subject, appTitle, accountController.user?.id),
           ),
           if (!isIOS)
@@ -77,6 +79,7 @@ class SettingsView extends StatelessWidget {
               leading: const PrivacyIcon(),
               titleText: loc.legal_privacy_policy_title,
               trailing: const LinkOutIcon(),
+              bottomBorder: false,
               onTap: () => launchUrlString(legalConfidentialPath),
             ),
         ],

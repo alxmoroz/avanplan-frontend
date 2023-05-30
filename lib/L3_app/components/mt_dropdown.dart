@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../../L1_domain/entities/base_entity.dart';
+import 'colors.dart';
 import 'constants.dart';
 import 'icons.dart';
 import 'mt_text_field.dart';
@@ -44,6 +45,8 @@ class MTDropdown<T extends RPersistable> extends StatelessWidget {
     return Padding(
       padding: margin ?? EdgeInsets.zero,
       child: DropdownButtonFormField<int>(
+        dropdownColor: lightBackgroundColor.resolve(context),
+        focusColor: lightBackgroundColor.resolve(context),
         isDense: dense,
         decoration: tfDecoration(context, label: label, helper: helper, readOnly: true),
         icon: const DropdownIcon(),

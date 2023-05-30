@@ -14,8 +14,9 @@ import '../../presenters/tariff_presenter.dart';
 import 'workspace_view.dart';
 
 class WorkspaceListTile extends StatelessWidget {
-  const WorkspaceListTile(this.ws);
+  const WorkspaceListTile(this.ws, {required this.bottomBorder});
   final Workspace ws;
+  final bool bottomBorder;
 
   Future _showWorkspace() async {
     await Navigator.of(rootKey.currentContext!).pushNamed(WorkspaceView.routeName, arguments: ws.id);
@@ -39,6 +40,7 @@ class WorkspaceListTile extends StatelessWidget {
         ],
       ),
       trailing: const ChevronIcon(),
+      bottomBorder: bottomBorder,
       onTap: _showWorkspace,
     );
   }

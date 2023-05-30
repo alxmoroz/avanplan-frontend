@@ -25,7 +25,7 @@ class RequestTariffCard extends StatelessWidget {
               children: [
                 const SizedBox(height: P),
                 H3(loc.tariff_type_request_title, align: TextAlign.center),
-                const SizedBox(height: P2),
+                const SizedBox(height: P),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: const [StarIcon(), StarIcon(), StarIcon()]),
                 const SizedBox(height: P_2),
                 NormalText(loc.tariff_limit_special_conditions_title, align: TextAlign.center, padding: const EdgeInsets.all(P)),

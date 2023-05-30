@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -9,8 +9,10 @@ import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/icons_workspace.dart';
 import '../../components/mt_list_tile.dart';
+import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/number_presenter.dart';
+import '../../presenters/tariff_presenter.dart';
 
 class TariffLimitTile extends StatelessWidget {
   const TariffLimitTile({
@@ -53,5 +55,20 @@ class TariffLimitTile extends StatelessWidget {
     }
 
     return MTListTile(leading: icon, titleText: '$prefix$hvStr $suffix', bottomBorder: false);
+  }
+}
+
+class TariffLimits extends StatelessWidget {
+  const TariffLimits(this.tariff);
+  final Tariff tariff;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: [
+        H3(tariff.title, align: TextAlign.center, padding: const EdgeInsets.all(P)),
+        for (var code in tariff.limitsMap.keys) TariffLimitTile(tariff: tariff, code: code),
+      ],
+    );
   }
 }

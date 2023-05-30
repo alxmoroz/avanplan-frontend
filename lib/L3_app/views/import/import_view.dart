@@ -49,25 +49,34 @@ class ImportView extends StatelessWidget {
   bool get _validated => controller.validated;
   bool get _selectedAll => controller.selectedAll;
 
-  Widget _sourceDropdown(BuildContext context) => MTDropdown<Source>(
+  Widget get _sourceDropdown => MTDropdown<Source>(
         onChanged: controller.selectSourceId,
         value: controller.selectedSourceId,
         ddItems: [
           for (final s in controller.ws.sortedSources)
-            DropdownMenuItem<int>(value: s.id, child: Padding(padding: const EdgeInsets.only(right: P), child: s.listTile()))
+            DropdownMenuItem<int>(
+              value: s.id,
+              child: Padding(
+                padding: const EdgeInsets.only(right: P),
+                child: s.listTile(
+                  padding: EdgeInsets.zero,
+                  standAlone: false,
+                ),
+              ),
+            )
         ],
         label: loc.source_import_placeholder,
         margin: const EdgeInsets.symmetric(horizontal: P),
       );
 
-  Widget _header(BuildContext context) => Column(
+  Widget get _header => Column(
         children: [
           const SizedBox(height: P2),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Expanded(child: _sourceDropdown(context)),
-              MTPlusButton(() => startAddSource(controller.ws)),
+              Expanded(child: _sourceDropdown),
+              MTPlusButton(() => startAddSource(controller.ws), type: ButtonType.secondary),
             ],
           ),
           if (controller.selectedSource != null) ...[
@@ -90,10 +99,10 @@ class ImportView extends StatelessWidget {
         ],
       );
 
-  Widget _body(BuildContext context) => controller.ws.sources.isNotEmpty
+  Widget get _body => controller.ws.sources.isNotEmpty
       ? Column(
           children: [
-            _header(context),
+            _header,
             if (controller.selectedSource != null)
               Expanded(
                 child: ListView.builder(
@@ -121,7 +130,7 @@ class ImportView extends StatelessWidget {
   String get _importActionHint =>
       '${loc.import_projects_select_available_count_hint(controller.ws.availableProjectsCount)} ${loc.project_plural_genitive(controller.ws.availableProjectsCount)}';
 
-  Widget? _bottomBar(BuildContext context) => controller.selectedSource != null && _hasProjects
+  Widget? get _bottomBar => controller.selectedSource != null && _hasProjects
       ? Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           LightText(
             _importActionHint,
@@ -156,8 +165,8 @@ class ImportView extends StatelessWidget {
           middle: controller.ws.subPageTitle(loc.import_title),
           bgColor: backgroundColor,
         ),
-        body: SafeArea(bottom: false, child: _body(context)),
-        bottomBar: _bottomBar(context),
+        body: SafeArea(bottom: false, child: _body),
+        bottomBar: _bottomBar,
       ),
     );
   }

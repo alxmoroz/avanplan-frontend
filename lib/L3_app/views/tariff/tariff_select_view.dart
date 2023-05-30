@@ -25,7 +25,8 @@ import '../../presenters/number_presenter.dart';
 import '../../presenters/ws_presenter.dart';
 import '../iap/iap_view.dart';
 import 'request_tariff_card.dart';
-import 'tariff_info.dart';
+import 'tariff_limits.dart';
+import 'tariff_options.dart';
 
 Future changeTariff(Workspace ws, {String reason = ''}) async {
   loader.start();
@@ -104,7 +105,8 @@ class TariffSelectView extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: P),
-            Expanded(child: TariffInfo(tariff)),
+            Expanded(child: TariffLimits(tariff)),
+            TariffOptions(tariff),
             currentIndex != index
                 ? balanceLack <= 0
                     ? _selectButton(context, tariff)
@@ -165,6 +167,7 @@ class TariffSelectView extends StatelessWidget {
               middle: ws.subPageTitle(loc.tariff_list_title),
               padding: const EdgeInsets.symmetric(vertical: P_2),
               bottomBorder: false,
+              color: backgroundColor,
               trailing: const SizedBox(width: P2 * 2),
             ),
             if (description.isNotEmpty) H4(description, align: TextAlign.center, padding: const EdgeInsets.all(P).copyWith(top: P_2)),

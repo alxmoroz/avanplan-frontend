@@ -11,5 +11,15 @@ class AttentionalTasks extends StatelessWidget {
   final Task task;
 
   @override
-  Widget build(BuildContext context) => Column(children: [for (final wt in task.attentionalTasks) TaskCard(wt)]);
+  Widget build(BuildContext context) {
+    final tasks = task.attentionalTasks;
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: tasks.length,
+      itemBuilder: (BuildContext _, int index) {
+        final t = tasks[index];
+        return TaskCard(t, bottomBorder: index < tasks.length - 1);
+      },
+    );
+  }
 }

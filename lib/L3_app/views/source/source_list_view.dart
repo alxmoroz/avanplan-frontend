@@ -5,7 +5,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/colors.dart';
-import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
@@ -28,7 +27,6 @@ class SourceListView extends StatelessWidget {
     final s = ws.sortedSources[index];
     return s.listTile(
       bottomBorder: index < ws.sortedSources.length - 1,
-      padding: const EdgeInsets.all(P),
       onTap: () => editSource(ws, src: s),
     );
   }

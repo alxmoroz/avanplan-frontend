@@ -23,6 +23,7 @@ class WSSelector extends StatelessWidget {
       children: [
         const SizedBox(height: P),
         NormalText(loc.projects_add_select_ws_title),
+        const SizedBox(height: P),
         ListView.builder(
           shrinkWrap: true,
           itemCount: mainController.workspaces.length + (controller.noMyWss ? 1 : 0),

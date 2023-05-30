@@ -35,7 +35,7 @@ class MTCard extends StatelessWidget {
     return Card(
       clipBehavior: Clip.antiAlias,
       margin: margin ?? EdgeInsets.zero,
-      elevation: elevation ?? 0,
+      elevation: elevation ?? 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius), side: borderSide ?? BorderSide.none),
       child: Padding(child: child, padding: padding ?? EdgeInsets.zero),
       surfaceTintColor: _color,

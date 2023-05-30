@@ -43,6 +43,8 @@ InputDecoration tfDecoration(
     prefixIcon: prefixIcon,
     suffixIcon: suffixIcon,
     enabled: enabled,
+    filled: true,
+    fillColor: lightBackgroundColor.resolve(context),
   );
 }
 

@@ -19,9 +19,9 @@ import '../../presenters/date_presenter.dart';
 import '../../presenters/tariff_presenter.dart';
 import '../../usecases/ws_ext_actions.dart';
 import '../../usecases/ws_ext_sources.dart';
-import '../contract/contract_view.dart';
 import '../iap/iap_view.dart';
 import '../source/source_list_view.dart';
+import '../tariff/active_contract_view.dart';
 import '../user/user_list_view.dart';
 import 'workspace_edit_view.dart';
 
@@ -50,14 +50,6 @@ class WorkspaceView extends StatelessWidget {
         ),
       );
 
-  Widget get _tariff => MTListTile(
-        leading: Column(children: const [TariffIcon(), SmallText('')]),
-        middle: Row(children: [NormalText(loc.tariff_title), const SizedBox(width: P_2), MediumText(ws.invoice.tariff.title)]),
-        subtitle: SmallText('${loc.contract_effective_date_title} ${ws.invoice.contract.createdOn.strMedium}', color: greyColor),
-        trailing: const ChevronIcon(),
-        onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(ContractView.routeName, arguments: ws),
-      );
-
   Color get _balanceColor => ws.balance < 0 ? warningColor : greyColor;
 
   Widget get _balance => Column(
@@ -77,6 +69,14 @@ class WorkspaceView extends StatelessWidget {
         ],
       );
 
+  Widget get _tariff => MTListTile(
+        leading: Column(children: const [TariffIcon(), SmallText('')]),
+        middle: Row(children: [NormalText(loc.tariff_title), const SizedBox(width: P_2), MediumText(ws.invoice.tariff.title)]),
+        subtitle: SmallText('${loc.contract_effective_date_title} ${ws.invoice.contract.createdOn.strMedium}', color: greyColor),
+        trailing: const ChevronIcon(),
+        onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(ActiveContractView.routeName, arguments: ws),
+      );
+
   Widget get _users => MTListTile(
       leading: const PeopleIcon(),
       titleText: '${loc.user_list_title} (${ws.users.length})',
@@ -87,6 +87,7 @@ class WorkspaceView extends StatelessWidget {
       leading: const ImportIcon(color: greyColor),
       titleText: loc.source_list_title,
       trailing: const ChevronIcon(),
+      bottomBorder: false,
       onTap: () async {
         ws.checkSources();
         await Navigator.of(rootKey.currentContext!).pushNamed(SourceListView.routeName, arguments: ws.id);
@@ -111,7 +112,7 @@ class WorkspaceView extends StatelessWidget {
           children: [
             _header,
             _balance,
-            const SizedBox(height: P),
+            const SizedBox(height: P2),
             _tariff,
             _users,
             _sources,

@@ -19,6 +19,7 @@ class SourceTypeSelector extends StatelessWidget {
         children: [
           const SizedBox(height: P),
           NormalText(loc.projects_add_select_st_title),
+          const SizedBox(height: P),
           ListView.builder(
             shrinkWrap: true,
             itemCount: refsController.sourceTypes.length,

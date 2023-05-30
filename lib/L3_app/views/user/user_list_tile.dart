@@ -12,8 +12,9 @@ import '../../presenters/person_presenter.dart';
 import 'user_view.dart';
 
 class UserListTile extends StatelessWidget {
-  const UserListTile(this.user);
+  const UserListTile(this.user, {required this.bottomBorder});
   final User user;
+  final bool bottomBorder;
 
   Future _showUser(BuildContext context) async => Navigator.of(context).pushNamed(
         UserView.routeName,
@@ -30,7 +31,7 @@ class UserListTile extends StatelessWidget {
       middle: NormalText('$user'),
       subtitle: SmallText(user.rolesStr, color: greyColor),
       trailing: const ChevronIcon(),
-      bottomBorder: false,
+      bottomBorder: bottomBorder,
       onTap: () => _showUser(context),
     );
   }

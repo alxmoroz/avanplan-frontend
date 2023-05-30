@@ -38,6 +38,7 @@ extension SourcePresenter on Source {
     EdgeInsets? padding,
     VoidCallback? onTap,
     bool bottomBorder = false,
+    bool standAlone = true,
   }) {
     final isUnknown = state == SrcState.unknown;
     final connected = state == SrcState.connected;
@@ -49,7 +50,7 @@ extension SourcePresenter on Source {
     return MTListTile(
       leading: _iconForSourceType(type),
       middle: NormalText('$this', color: textColor),
-      padding: padding ?? EdgeInsets.zero,
+      padding: padding,
       trailing: checking
           ? SizedBox(
               height: _connectionIndicatorSize,
@@ -65,6 +66,7 @@ extension SourcePresenter on Source {
               size: _connectionIndicatorSize),
       bottomBorder: bottomBorder,
       onTap: onTap,
+      color: standAlone ? null : Colors.transparent,
     );
   }
 }

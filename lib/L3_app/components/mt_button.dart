@@ -141,14 +141,16 @@ class _MTBaseLayout extends StatelessWidget {
 }
 
 class MTPlusButton extends StatelessWidget {
-  const MTPlusButton(this.onTap);
+  const MTPlusButton(this.onTap, {this.type = ButtonType.main});
   final VoidCallback? onTap;
+  final ButtonType type;
 
   @override
   Widget build(BuildContext context) {
-    return MTButton.main(
+    return MTButton(
+      type: type,
       constrained: false,
-      middle: const PlusIcon(color: lightBackgroundColor),
+      middle: PlusIcon(color: type == ButtonType.main ? lightBackgroundColor : mainColor),
       margin: const EdgeInsets.only(right: P),
       onTap: onTap,
     );

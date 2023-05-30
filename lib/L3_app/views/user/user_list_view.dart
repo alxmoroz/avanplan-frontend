@@ -14,7 +14,10 @@ class UserListView extends StatelessWidget {
   final Workspace ws;
   static String get routeName => '/users';
 
-  Widget _itemBuilder(BuildContext context, int index) => UserListTile(ws.sortedUsers[index]);
+  Widget _itemBuilder(BuildContext context, int index) => UserListTile(
+        ws.sortedUsers[index],
+        bottomBorder: index < ws.sortedUsers.length - 1,
+      );
 
   @override
   Widget build(BuildContext context) {

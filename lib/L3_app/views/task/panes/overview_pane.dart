@@ -108,10 +108,10 @@ class OverviewPane extends StatelessWidget {
                 ],
 
                 if (task.canShowChartDetails) ...[
-                  const SizedBox(height: P),
+                  const SizedBox(height: P2),
                   MTButton.secondary(
                     titleText: loc.chart_details_action_title,
-                    onTap: () => showChartsDetailsDialog(context, task),
+                    onTap: () => showChartsDetailsDialog(task),
                   ),
                 ],
               ])),

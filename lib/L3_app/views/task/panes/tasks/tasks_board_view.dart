@@ -3,6 +3,7 @@
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities/workspace.dart';
@@ -21,7 +22,7 @@ class TasksBoardView extends StatelessWidget {
   const TasksBoardView(this.controller);
 
   final TasksPaneController controller;
-  Task get task => controller.task;
+  Task get task => mainController.taskForId(controller.task.wsId, controller.task.id);
   Workspace get ws => mainController.wsForId(task.wsId);
 
   Widget _taskBuilder(Task t) => TaskCard(mainController.taskForId(t.wsId, t.id), board: true, showBreadcrumbs: task.id != t.parent?.id);
@@ -56,27 +57,29 @@ class TasksBoardView extends StatelessWidget {
       viewportFraction: (min(w, SCR_M_WIDTH) * 0.8) / w,
       initialPage: 0,
     );
-    return Stack(alignment: Alignment.center, children: [
-      PageView.builder(
-        allowImplicitScrolling: true,
-        controller: controller,
-        itemCount: ws.statuses.length,
-        itemBuilder: _columnBuilder,
-      ),
-      if (isWeb)
-        Row(children: [
-          MTButton.icon(
-            const ChevronCircleIcon(left: true),
-            margin: const EdgeInsets.all(P),
-            () => controller.previousPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut),
-          ),
-          const Spacer(),
-          MTButton.icon(
-            const ChevronCircleIcon(left: false),
-            margin: const EdgeInsets.all(P),
-            () => controller.nextPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut),
-          ),
-        ]),
-    ]);
+    return Observer(
+      builder: (_) => Stack(alignment: Alignment.center, children: [
+        PageView.builder(
+          allowImplicitScrolling: true,
+          controller: controller,
+          itemCount: ws.statuses.length,
+          itemBuilder: _columnBuilder,
+        ),
+        if (isWeb)
+          Row(children: [
+            MTButton.icon(
+              const ChevronCircleIcon(left: true),
+              margin: const EdgeInsets.all(P),
+              () => controller.previousPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut),
+            ),
+            const Spacer(),
+            MTButton.icon(
+              const ChevronCircleIcon(left: false),
+              margin: const EdgeInsets.all(P),
+              () => controller.nextPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut),
+            ),
+          ]),
+      ]),
+    );
   }
 }

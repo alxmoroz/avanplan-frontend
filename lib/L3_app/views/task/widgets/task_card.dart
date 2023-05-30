@@ -20,13 +20,13 @@ import '../../../usecases/task_ext_refs.dart';
 import 'state_title.dart';
 
 class TaskCard extends StatelessWidget {
-  const TaskCard(this.task, {this.margin, this.board = false, this.showBreadcrumbs = false});
+  const TaskCard(this.task, {this.board = false, this.showBreadcrumbs = false, this.bottomBorder = false});
 
   @protected
   final Task task;
-  final EdgeInsets? margin;
   final bool board;
   final bool showBreadcrumbs;
+  final bool bottomBorder;
 
   bool get _showStatus => !board && task.status != null;
   bool get _hasAssignee => task.assignee != null;
@@ -53,7 +53,7 @@ class TaskCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (showBreadcrumbs && task.parent != null) SmallText(task.parent!.parentsTitles.sublist(1).join(' > '), color: lightGreyColor),
+          if (showBreadcrumbs && task.parent != null) SmallText(task.parent!.title, color: lightGreyColor),
           _header,
           if (task.canShowState || _showLink) ...[
             const SizedBox(height: P_3),
@@ -91,6 +91,7 @@ class TaskCard extends StatelessWidget {
         )
       : MTListTile(
           middle: _taskContent,
+          bottomBorder: bottomBorder,
           onTap: _tap,
         );
 }

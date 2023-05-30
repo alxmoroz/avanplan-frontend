@@ -17,12 +17,12 @@ import 'L3_app/extra/services.dart';
 import 'L3_app/l10n/generated/l10n.dart';
 import 'L3_app/views/account/account_view.dart';
 import 'L3_app/views/auth/auth_view.dart';
-import 'L3_app/views/contract/contract_view.dart';
 import 'L3_app/views/loader/loader_screen.dart';
 import 'L3_app/views/main/main_view.dart';
 import 'L3_app/views/notification/notification_list_view.dart';
 import 'L3_app/views/settings/settings_view.dart';
 import 'L3_app/views/source/source_list_view.dart';
+import 'L3_app/views/tariff/active_contract_view.dart';
 import 'L3_app/views/task/panes/team/member_view.dart';
 import 'L3_app/views/task/task_view.dart';
 import 'L3_app/views/user/user_list_view.dart';
@@ -108,8 +108,8 @@ class App extends StatelessWidget {
             onGenerateRoute: (RouteSettings rs) {
               if (rs.name == UserListView.routeName) {
                 return CupertinoPageRoute<dynamic>(builder: (_) => UserListView(rs.arguments as Workspace));
-              } else if (rs.name == ContractView.routeName) {
-                return CupertinoPageRoute<dynamic>(builder: (_) => ContractView(rs.arguments as Workspace));
+              } else if (rs.name == ActiveContractView.routeName) {
+                return CupertinoPageRoute<dynamic>(builder: (_) => ActiveContractView(rs.arguments as Workspace));
               } else if (rs.name == WorkspaceView.routeName) {
                 return CupertinoPageRoute<dynamic>(builder: (_) => WorkspaceView(rs.arguments as int));
               } else if (rs.name == SourceListView.routeName) {

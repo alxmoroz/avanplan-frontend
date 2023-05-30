@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_stats.dart';
+import '../../../../../main.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/mt_bottom_sheet.dart';
@@ -19,9 +20,9 @@ import 'timing_chart.dart';
 import 'velocity_chart.dart';
 import 'volume_chart.dart';
 
-Future showChartsDetailsDialog(BuildContext context, Task task) async {
+Future showChartsDetailsDialog(Task task) async {
   return await showModalBottomSheet<void>(
-    context: context,
+    context: rootKey.currentContext!,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
     builder: (_) => MTBottomSheet(TaskChartDetails(task)),

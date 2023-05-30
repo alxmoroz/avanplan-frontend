@@ -42,7 +42,7 @@ class MTListTile extends StatelessWidget {
               children: [
                 if (topBorder) _border,
                 Padding(
-                  padding: (padding ?? const EdgeInsets.symmetric(horizontal: P2, vertical: P)).add(const EdgeInsets.symmetric(horizontal: P_6)),
+                  padding: padding ?? const EdgeInsets.symmetric(horizontal: P2, vertical: P),
                   child: Row(
                     children: [
                       if (leading != null) ...[leading!, const SizedBox(width: P_2)],
@@ -62,6 +62,21 @@ class MTListTile extends StatelessWidget {
                 if (bottomBorder) _border,
               ],
             )),
-        color: color?.resolve(context),
+        color: (color ?? lightBackgroundColor).resolve(context),
       );
+}
+
+class MTListSection extends StatelessWidget {
+  const MTListSection(this.title);
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return H4(
+      title,
+      padding: const EdgeInsets.symmetric(horizontal: P2).copyWith(top: P2, bottom: P_2),
+      color: lightGreyColor,
+    );
+  }
 }

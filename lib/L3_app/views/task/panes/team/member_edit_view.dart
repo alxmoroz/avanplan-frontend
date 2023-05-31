@@ -13,7 +13,7 @@ import '../../../../components/mt_button.dart';
 import '../../../../components/mt_checkbox.dart';
 import '../../../../components/mt_close_button.dart';
 import '../../../../components/mt_page.dart';
-import '../../../../components/mt_text_field.dart';
+import '../../../../components/mt_toolbar.dart';
 import '../../../../components/navbar.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/role_presenter.dart';
@@ -61,34 +61,32 @@ class _MemberEditViewState extends State<MemberEditView> {
     );
   }
 
-  Widget get form => Column(
-        children: [
-          task.subPageTitle(loc.role_list_title),
-          const SizedBox(height: P_2),
-          Expanded(
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemBuilder: _roleItem,
-              itemCount: controller.roles.length,
-            ),
-          ),
-        ],
-      );
-
   @override
   Widget build(BuildContext context) {
+    final bottomPadding = MTToolbar.minHeight(context) + MIN_BTN_HEIGHT + P;
     return Observer(
-      builder: (_) => MTPage(
-        navBar: navBar(
-          context,
-          leading: MTCloseButton(),
-          title: '$member',
-          bgColor: backgroundColor,
+      builder: (_) => MTPageSimple(
+        body: SafeArea(
+          bottom: false,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              navBar(context, title: '$member', leading: MTCloseButton(), bgColor: backgroundColor),
+              task.subPageTitle(loc.role_list_title),
+              const SizedBox(height: P),
+              Flexible(
+                child: ListView.builder(
+                  padding: EdgeInsets.only(bottom: bottomPadding),
+                  shrinkWrap: true,
+                  itemBuilder: _roleItem,
+                  itemCount: controller.roles.length,
+                ),
+              ),
+            ],
+          ),
         ),
-        body: SafeArea(bottom: false, child: form),
         bottomBar: MTButton.main(
           titleText: loc.save_action_title,
-          margin: tfPadding.copyWith(top: P2),
           onTap: controller.assignRoles,
         ),
       ),

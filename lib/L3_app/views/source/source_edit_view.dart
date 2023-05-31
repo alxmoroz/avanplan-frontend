@@ -103,28 +103,26 @@ class _SourceEditViewState extends State<SourceEditView> {
     );
   }
 
-  Widget form(BuildContext context) {
-    return ListView(
-      children: [
-        textFieldForCode('url'),
-        if (controller.showUsername) textFieldForCode('username'),
-        textFieldForCode('apiKey'),
-        MTButton(
-          titleText: loc.source_help_edit_action,
-          trailing: const LinkOutIcon(size: P * 1.2),
-          margin: tfPadding.copyWith(top: P_2),
-          onTap: () => launchUrlString(sourceEditHelperAddress),
-        ),
-        textFieldForCode('description'),
-        const SizedBox(height: P2),
-        MTButton.main(
-          titleText: loc.save_action_title,
-          onTap: canSave ? controller.save : null,
-        ),
-        const SizedBox(height: P2),
-      ],
-    );
-  }
+  Widget get _form => ListView(
+        children: [
+          textFieldForCode('url'),
+          if (controller.showUsername) textFieldForCode('username'),
+          textFieldForCode('apiKey'),
+          MTButton(
+            titleText: loc.source_help_edit_action,
+            trailing: const LinkOutIcon(size: P * 1.2),
+            margin: tfPadding.copyWith(top: P_2),
+            onTap: () => launchUrlString(sourceEditHelperAddress),
+          ),
+          textFieldForCode('description'),
+          const SizedBox(height: P2),
+          MTButton.main(
+            titleText: loc.save_action_title,
+            onTap: canSave ? controller.save : null,
+          ),
+          const SizedBox(height: P2),
+        ],
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -152,7 +150,7 @@ class _SourceEditViewState extends State<SourceEditView> {
               : null,
           bgColor: backgroundColor,
         ),
-        body: SafeArea(top: false, bottom: false, child: form(context)),
+        body: SafeArea(top: false, bottom: false, child: _form),
       ),
     );
   }

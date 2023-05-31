@@ -27,11 +27,9 @@ class TeamPane extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final padding = MediaQuery.of(context).padding;
     return Observer(
       builder: (_) => MTShadowed(
         child: ListView.builder(
-          // shrinkWrap: true,
           itemBuilder: _itemBuilder,
           itemCount: _sortedMembers.length,
         ),

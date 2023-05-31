@@ -23,8 +23,4 @@ abstract class _ServiceSettingsControllerBase with Store {
 
   @action
   Future fetchSettings() async => settings = await serviceSettingsUC.getSettings();
-
-  // @computed
-  // bool get passAppleCheat => !isIOS || !frontendFlags.contains('ios_hide_ws');
-  // bool get passAppleCheat => !isIOS || !frontendFlags.contains('ios_hide_ws') || !kReleaseMode;
 }

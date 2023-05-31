@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -12,17 +13,19 @@ class MTToolbar extends StatelessWidget {
   final Widget child;
   final Color? color;
 
+  static const double _topPadding = P;
+  static double _bottomPadding(BuildContext context) => max(MediaQuery.of(context).padding.bottom, P2);
+  static double minHeight(BuildContext context) => _bottomPadding(context) + _topPadding;
+
   @override
-  Widget build(BuildContext context) {
-    return ClipRect(
-      child: Container(
-        padding: const EdgeInsets.only(top: P_2, bottom: P2),
-        color: (color ?? navbarDefaultBgColor).resolve(context),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-          child: child,
+  Widget build(BuildContext context) => ClipRect(
+        child: Container(
+          padding: EdgeInsets.only(top: _topPadding, bottom: _bottomPadding(context)),
+          color: (color ?? navbarDefaultBgColor).resolve(context),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: child,
+          ),
         ),
-      ),
-    );
-  }
+      );
 }

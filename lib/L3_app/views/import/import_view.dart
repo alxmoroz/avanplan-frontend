@@ -142,7 +142,6 @@ class ImportView extends StatelessWidget {
             _importActionHint,
             color: _validated ? null : warningColor,
             align: TextAlign.center,
-            padding: const EdgeInsets.only(top: P_2),
           ),
           const SizedBox(height: P_2),
           MTLimitBadge(

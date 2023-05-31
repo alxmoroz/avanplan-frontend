@@ -18,7 +18,7 @@ import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/person_presenter.dart';
 import '../../presenters/task_level_presenter.dart';
-import '../notification/notification_list_view.dart';
+import '../notification/notifications_view.dart';
 import '../settings/settings_view.dart';
 import '../task/panes/overview_pane.dart';
 import '../task/project_add_wizard/project_add_wizard.dart';
@@ -61,7 +61,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
   Future toSettings() async => await Navigator.of(rootKey.currentContext!).pushNamed(SettingsView.routeName);
   Future toProjects() async =>
       await Navigator.of(rootKey.currentContext!).pushNamed(TaskView.routeName, arguments: TaskViewArgs(rootTask.wsId, null));
-  Future toMessages() async => await Navigator.of(rootKey.currentContext!).pushNamed(NotificationListView.routeName);
+  Future toMessages() async => await Navigator.of(rootKey.currentContext!).pushNamed(NotificationsView.routeName);
 
   Widget get noOpenedProjects {
     final iconSize = MediaQuery.of(context).size.height / 5;
@@ -90,19 +90,16 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
     );
   }
 
-  Widget? get _bottomBar => Padding(
-        padding: const EdgeInsets.only(bottom: P),
-        child: rootTask.hasOpenedSubtasks
-            ? MTButton.main(
-                titleText: loc.project_list_title,
-                onTap: toProjects,
-              )
-            : MTButton.main(
-                leading: const PlusIcon(color: lightBackgroundColor),
-                titleText: rootTask.newSubtaskTitle,
-                onTap: projectAddWizard,
-              ),
-      );
+  Widget? get _bottomBar => rootTask.hasOpenedSubtasks
+      ? MTButton.main(
+          titleText: loc.project_list_title,
+          onTap: toProjects,
+        )
+      : MTButton.main(
+          leading: const PlusIcon(color: lightBackgroundColor),
+          titleText: rootTask.newSubtaskTitle,
+          onTap: projectAddWizard,
+        );
 
   @override
   Widget build(BuildContext context) {

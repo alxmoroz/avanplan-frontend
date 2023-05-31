@@ -35,35 +35,42 @@ class MTListTile extends StatelessWidget {
   Widget get _border => MTDivider(height: 0, indent: padding?.left ?? P2, endIndent: padding?.right ?? P2);
 
   @override
-  Widget build(BuildContext context) => material(
-        InkWell(
-            onTap: onTap,
-            child: Column(
-              children: [
-                if (topBorder) _border,
-                Padding(
-                  padding: padding ?? const EdgeInsets.symmetric(horizontal: P2, vertical: P),
-                  child: Row(
-                    children: [
-                      if (leading != null) ...[leading!, const SizedBox(width: P_2)],
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            if (middle != null || titleText != null) middle ?? (titleText != null ? NormalText(titleText!) : Container()),
-                            if (subtitle != null) subtitle!,
-                          ],
-                        ),
+  Widget build(BuildContext context) {
+    final _hoverColor = mainColor.withAlpha(10).resolve(context);
+    final _splashColor = mainColor.withAlpha(10).resolve(context);
+    return material(
+      InkWell(
+          onTap: onTap,
+          hoverColor: _hoverColor,
+          highlightColor: _splashColor,
+          splashColor: _splashColor,
+          child: Column(
+            children: [
+              if (topBorder) _border,
+              Padding(
+                padding: padding ?? const EdgeInsets.symmetric(horizontal: P2, vertical: P),
+                child: Row(
+                  children: [
+                    if (leading != null) ...[leading!, const SizedBox(width: P_2)],
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          if (middle != null || titleText != null) middle ?? (titleText != null ? NormalText(titleText!) : Container()),
+                          if (subtitle != null) subtitle!,
+                        ],
                       ),
-                      if (trailing != null) trailing!,
-                    ],
-                  ),
+                    ),
+                    if (trailing != null) trailing!,
+                  ],
                 ),
-                if (bottomBorder) _border,
-              ],
-            )),
-        color: (color ?? lightBackgroundColor).resolve(context),
-      );
+              ),
+              if (bottomBorder) _border,
+            ],
+          )),
+      color: (color ?? lightBackgroundColor).resolve(context),
+    );
+  }
 }
 
 class MTListSection extends StatelessWidget {

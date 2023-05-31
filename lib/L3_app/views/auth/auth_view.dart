@@ -46,12 +46,22 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
     super.dispose();
   }
 
-  Widget _authBtn(Widget leading, String titleText, double iconSize, VoidCallback? onTap, {double? titleLeftPadding}) => MTButton.main(
+  static const Color _greyColor = Color.fromARGB(255, 62, 62, 82);
+  static const Color _whiteColor = Color(0xFFFFFFFF);
+
+  Widget _authBtn(
+    Widget leading,
+    String titleText,
+    double iconSize,
+    VoidCallback? onTap, {
+    double? titleLeftPadding,
+  }) =>
+      MTButton.main(
         leading: leading,
-        middle: H4(titleText, color: const Color.fromARGB(255, 62, 62, 82), padding: EdgeInsets.only(left: titleLeftPadding ?? 0)),
+        middle: H4(titleText, color: _greyColor, padding: EdgeInsets.only(left: titleLeftPadding ?? 0)),
         trailing: SizedBox(width: iconSize / 2),
-        color: const Color(0xFFFFFFFF),
-        titleColor: greyColor,
+        color: _whiteColor,
+        titleColor: _whiteColor,
         onTap: onTap,
         margin: const EdgeInsets.only(top: P),
       );
@@ -68,7 +78,8 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
                 builder: (_) => ListView(
                   shrinkWrap: true,
                   children: [
-                    H1(loc.app_title, align: TextAlign.center, padding: const EdgeInsets.symmetric(vertical: P2)),
+                    H1(loc.app_title, align: TextAlign.center),
+                    const SizedBox(height: P2),
                     appIcon(size: size.maxHeight / 4),
                     H4(authController.registerMode ? loc.auth_register_with_title : loc.auth_sign_in_with_title,
                         align: TextAlign.center, color: greyColor),
@@ -76,24 +87,23 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
                     Column(
                       children: [
                         _authBtn(
-                          googleIcon(size: MIN_BTN_HEIGHT),
+                          googleIcon,
                           loc.auth_sign_in_google_title,
                           MIN_BTN_HEIGHT,
                           authController.signInGoogle,
                         ),
                         // для Андроида не показываем SignInWithApple
-                        if (authController.signInWithAppleIsAvailable && !isAndroid) ...[
+                        if (authController.signInWithAppleIsAvailable && !isAndroid)
                           _authBtn(
-                            appleIcon(size: MIN_BTN_HEIGHT),
+                            appleIcon,
                             loc.auth_sign_in_apple_title,
                             MIN_BTN_HEIGHT,
                             authController.signInApple,
                           ),
-                        ],
                       ],
                     ),
                     _authBtn(
-                      const MailIcon(color: Color.fromARGB(255, 62, 62, 82)),
+                      const MailIcon(color: _greyColor),
                       loc.auth_sign_in_email_title,
                       P2,
                       authController.registerMode ? registrationDialog : showSignInEmailDialog,

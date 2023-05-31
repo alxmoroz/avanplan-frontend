@@ -370,6 +370,6 @@ class UnlinkIcon extends MTIcon {
       );
 }
 
-Widget appleIcon({double? size}) => Image.asset('assets/images/apple_icon.png', width: size, height: size);
-Widget googleIcon({double? size}) => Image.asset('assets/images/google_icon.png', width: size, height: size);
+Widget get appleIcon => Image.asset('assets/images/apple_icon.png', width: MIN_BTN_HEIGHT, height: MIN_BTN_HEIGHT);
+Widget get googleIcon => Image.asset('assets/images/google_icon.png', width: MIN_BTN_HEIGHT, height: MIN_BTN_HEIGHT);
 Widget appIcon({double? size}) => Image.asset('assets/images/app_icon.png', width: size, height: size);

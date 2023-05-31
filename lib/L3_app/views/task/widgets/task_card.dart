@@ -31,7 +31,7 @@ class TaskCard extends StatelessWidget {
   bool get _showStatus => !board && task.status != null;
   bool get _hasAssignee => task.assignee != null;
 
-  Widget get _title => H4(
+  Widget get _title => NormalText(
         task.title,
         maxLines: 2,
         decoration: task.closed && !board ? TextDecoration.lineThrough : null,
@@ -53,7 +53,7 @@ class TaskCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (showBreadcrumbs && task.parent != null) SmallText(task.parent!.title, color: lightGreyColor),
+          if (showBreadcrumbs && task.parent != null) LightText(task.parent!.title, sizeScale: 0.8, color: lightGreyColor),
           _header,
           if (task.canShowState || _showLink) ...[
             const SizedBox(height: P_3),
@@ -66,13 +66,14 @@ class TaskCard extends StatelessWidget {
           Row(
             children: [
               if (!task.closed && _showStatus) SmallText(task.status!.code, color: greyColor),
-              if (task.hasEstimate && !task.canShowState) ...[
+              if (!task.closed && task.hasEstimate && !task.canShowState) ...[
+                if (!_showStatus && _hasAssignee) task.assignee!.iconName(),
                 const Spacer(),
                 _estimate,
               ]
             ],
           ),
-          if (_hasAssignee) ...[
+          if (_showStatus && _hasAssignee) ...[
             const SizedBox(height: P_6),
             task.assignee!.iconName(),
           ]
@@ -84,8 +85,9 @@ class TaskCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) => board
       ? MTCardButton(
-          color: backgroundColor,
           elevation: cardElevation,
+          margin: const EdgeInsets.symmetric(horizontal: P, vertical: P_3),
+          padding: const EdgeInsets.symmetric(horizontal: P, vertical: P_2),
           child: _taskContent,
           onTap: _tap,
         )

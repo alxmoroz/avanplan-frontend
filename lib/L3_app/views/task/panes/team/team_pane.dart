@@ -7,7 +7,7 @@ import '../../../../../L1_domain/entities/member.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_level.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
-import '../../../../components/constants.dart';
+import '../../../../components/mt_shadowed.dart';
 import '../../../../usecases/task_ext_actions.dart';
 import '../../task_view_controller.dart';
 import 'member_add_menu.dart';
@@ -29,11 +29,12 @@ class TeamPane extends StatelessWidget {
   Widget build(BuildContext context) {
     final padding = MediaQuery.of(context).padding;
     return Observer(
-      builder: (_) => ListView.builder(
-        shrinkWrap: true,
-        padding: padding.add(EdgeInsets.only(bottom: padding.bottom > 0 ? 0 : P, top: P_2)),
-        itemBuilder: _itemBuilder,
-        itemCount: _sortedMembers.length,
+      builder: (_) => MTShadowed(
+        child: ListView.builder(
+          // shrinkWrap: true,
+          itemBuilder: _itemBuilder,
+          itemCount: _sortedMembers.length,
+        ),
       ),
     );
   }

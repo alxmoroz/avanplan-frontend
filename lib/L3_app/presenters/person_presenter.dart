@@ -42,6 +42,6 @@ extension MemberPresenter on Member {
   Widget iconName({double radius = P, BorderSide? borderSide}) => Row(children: [
         isActive ? _PersonIcon(this, radius, borderSide: borderSide) : const UnlinkIcon(color: lightGreyColor, size: P),
         const SizedBox(width: P_3),
-        SmallText('$this', color: isActive ? null : lightGreyColor),
+        SmallText('$this', color: isActive ? greyColor : lightGreyColor),
       ]);
 }

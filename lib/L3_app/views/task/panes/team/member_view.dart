@@ -7,7 +7,6 @@ import '../../../../../L1_domain/entities/member.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
-import '../../../../components/mt_button.dart';
 import '../../../../components/mt_list_tile.dart';
 import '../../../../components/mt_page.dart';
 import '../../../../components/navbar.dart';
@@ -66,7 +65,9 @@ class _MemberViewState extends State<MemberView> {
                   MTListSection(loc.role_list_title),
                   MTListTile(
                     middle: NormalText(member.rolesStr),
-                    trailing: task.canEditMembers ? MTButton.icon(const EditIcon(), () => controller.editMember(context)) : null,
+                    trailing: task.canEditMembers ? const EditIcon() : null,
+                    bottomBorder: false,
+                    onTap: () => task.canEditMembers ? controller.editMember(context) : null,
                   )
                 ]
               ],

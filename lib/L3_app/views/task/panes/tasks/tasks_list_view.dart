@@ -1,10 +1,12 @@
 // Copyright (c) 2023. Alexandr Moroz
 
+import 'package:avanplan/L1_domain/entities_extensions/task_level.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/constants.dart';
+import '../../../../components/mt_shadowed.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_filter_presenter.dart';
 import '../../widgets/state_title.dart';
@@ -33,8 +35,10 @@ class TasksListView extends StatelessWidget {
           itemCount: tasks.length,
           itemBuilder: (BuildContext _, int index) {
             final t = tasks[index];
-            return TaskCard(mainController.taskForId(t.wsId, t.id),
-                bottomBorder: index < tasks.length - 1 || (!controller.showGroupTitles && groupIndex < groups.length - 1));
+            return TaskCard(
+              mainController.taskForId(t.wsId, t.id),
+              bottomBorder: index < tasks.length - 1 || (!controller.showGroupTitles && groupIndex < groups.length - 1),
+            );
           },
         ),
       ],
@@ -47,11 +51,13 @@ class TasksListView extends StatelessWidget {
     return Observer(builder: (_) {
       final parent = mainController.taskForId(controller.task.wsId, controller.task.id);
       final groups = parent.subtaskGroups;
-      return ListView.builder(
-        shrinkWrap: true,
-        padding: padding.add(EdgeInsets.only(bottom: padding.bottom > 0 ? 0 : P, top: P_2)),
-        itemBuilder: (_, index) => _groupedItemBuilder(parent, groups, index),
-        itemCount: groups.length,
+      //
+      return MTShadowed(
+        child: ListView.builder(
+          padding: padding.add(EdgeInsets.only(top: parent.isRoot ? P : 0)),
+          itemBuilder: (_, index) => _groupedItemBuilder(parent, groups, index),
+          itemCount: groups.length,
+        ),
       );
     });
   }

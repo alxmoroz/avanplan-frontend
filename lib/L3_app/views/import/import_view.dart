@@ -16,6 +16,7 @@ import '../../components/mt_close_button.dart';
 import '../../components/mt_dropdown.dart';
 import '../../components/mt_limit_badge.dart';
 import '../../components/mt_page.dart';
+import '../../components/mt_shadowed.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
@@ -80,13 +81,16 @@ class ImportView extends StatelessWidget {
             ],
           ),
           if (controller.selectedSource != null) ...[
+            const SizedBox(height: P),
             if (_hasProjects) ...[
-              if (controller.projects.length > 2)
+              if (controller.projects.length > 2) ...[
                 MTCheckBoxTile(
-                    title: '${loc.select_all_action_title} (${controller.projects.length})',
-                    titleColor: mainColor,
-                    value: _selectedAll,
-                    onChanged: controller.toggleSelectedAll),
+                  title: '${loc.select_all_action_title} (${controller.projects.length})',
+                  titleColor: mainColor,
+                  value: _selectedAll,
+                  onChanged: controller.toggleSelectedAll,
+                ),
+              ],
             ] else
               MediumText(
                 _hasError ? Intl.message(controller.errorCode!) : loc.import_list_empty_title,
@@ -105,10 +109,12 @@ class ImportView extends StatelessWidget {
             _header,
             if (controller.selectedSource != null)
               Expanded(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemBuilder: _projectItemBuilder,
-                  itemCount: controller.projects.length,
+                child: MTShadowed(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemBuilder: _projectItemBuilder,
+                    itemCount: controller.projects.length,
+                  ),
                 ),
               ),
           ],
@@ -120,8 +126,8 @@ class ImportView extends StatelessWidget {
     final value = project.selected;
     return MTCheckBoxTile(
       title: project.title,
-      // description: project.description,
       value: value,
+      bottomBorder: index < controller.projects.length - 1,
       onChanged: (bool? value) => controller.selectProject(project, value),
     );
   }

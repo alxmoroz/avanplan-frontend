@@ -2,6 +2,7 @@
 
 import 'dart:math';
 
+import 'package:avanplan/L3_app/components/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -25,7 +26,11 @@ class TasksBoardView extends StatelessWidget {
   Task get task => mainController.taskForId(controller.task.wsId, controller.task.id);
   Workspace get ws => mainController.wsForId(task.wsId);
 
-  Widget _taskBuilder(Task t) => TaskCard(mainController.taskForId(t.wsId, t.id), board: true, showBreadcrumbs: task.id != t.parent?.id);
+  Widget _taskBuilder(Task t) => TaskCard(
+        mainController.taskForId(t.wsId, t.id),
+        board: true,
+        showBreadcrumbs: task.id != t.parent?.id,
+      );
 
   List<Task> _tasksByStatus(int statusId) => task.sortedLeafTasks.where((t) => t.statusId == statusId).toList();
 
@@ -34,10 +39,11 @@ class TasksBoardView extends StatelessWidget {
     final tasks = _tasksByStatus(status.id!);
     return MTCard(
       elevation: cardElevation,
+      color: darkBackgroundColor,
       margin: const EdgeInsets.symmetric(horizontal: P_2, vertical: P),
       child: Column(
         children: [
-          H4('$status', padding: const EdgeInsets.all(P)),
+          NormalText('$status', padding: const EdgeInsets.all(P_2)),
           Expanded(
             child: ListView.builder(
               itemBuilder: (_, index) => _taskBuilder(tasks[index]),

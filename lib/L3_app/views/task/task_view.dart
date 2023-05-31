@@ -109,6 +109,7 @@ class _TaskViewState extends State<TaskView> {
 
   @override
   Widget build(BuildContext context) {
+    final smallHeight = MediaQuery.of(context).size.height < SCR_S_HEIGHT;
     return Observer(
       builder: (_) => MTPage(
         navBar: taskNavBar(controller),
@@ -118,7 +119,7 @@ class _TaskViewState extends State<TaskView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              if (!task.isRoot) TaskHeader(controller) else const SizedBox(height: P_2),
+              if (!smallHeight && !task.isRoot) TaskHeader(controller),
               if (controller.tabKeys.length > 1) ...[
                 const SizedBox(height: P_2),
                 tabPaneSelector,
@@ -127,7 +128,7 @@ class _TaskViewState extends State<TaskView> {
             ],
           ),
         ),
-        bottomBar: selectedBottomBar != null ? Padding(padding: const EdgeInsets.only(bottom: P), child: selectedBottomBar) : null,
+        bottomBar: !smallHeight && selectedBottomBar != null ? Padding(padding: const EdgeInsets.only(bottom: P), child: selectedBottomBar) : null,
       ),
     );
   }

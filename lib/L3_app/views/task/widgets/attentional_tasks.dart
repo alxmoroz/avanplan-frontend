@@ -15,6 +15,7 @@ class AttentionalTasks extends StatelessWidget {
     final tasks = task.attentionalTasks;
     return ListView.builder(
       shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       itemCount: tasks.length,
       itemBuilder: (BuildContext _, int index) {
         final t = tasks[index];

@@ -41,7 +41,7 @@ class TasksPane extends StatelessWidget {
       ? Row(children: [
           if (task.canShowBoard)
             MTButton.secondary(
-              color: darkBackgroundColor,
+              color: borderColor,
               middle: Row(children: [
                 _switchPart(ListIcon(active: !paneController.showBoard), !paneController.showBoard),
                 _switchPart(BoardIcon(active: paneController.showBoard), paneController.showBoard),

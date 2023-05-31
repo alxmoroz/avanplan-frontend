@@ -50,29 +50,29 @@ class _MemberEditViewState extends State<MemberEditView> {
     super.initState();
   }
 
-  Widget roleItem(BuildContext context, int index) {
+  Widget _roleItem(BuildContext context, int index) {
     final role = controller.roles[index];
     final value = role.selected;
     return MTCheckBoxTile(
       title: role.localize,
       value: value,
+      bottomBorder: index < controller.roles.length - 1,
       onChanged: (bool? value) => controller.selectRole(role, value),
     );
   }
 
-  Widget get form => Scrollbar(
-        child: Column(
-          children: [
-            task.subPageTitle(loc.role_list_title),
-            Expanded(
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemBuilder: roleItem,
-                itemCount: controller.roles.length,
-              ),
+  Widget get form => Column(
+        children: [
+          task.subPageTitle(loc.role_list_title),
+          const SizedBox(height: P_2),
+          Expanded(
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemBuilder: _roleItem,
+              itemCount: controller.roles.length,
             ),
-          ],
-        ),
+          ),
+        ],
       );
 
   @override

@@ -80,7 +80,7 @@ class MTButton extends StatelessWidget {
   final double? maxWidth;
 
   Color get _titleColor => onTap != null ? (titleColor ?? (type == ButtonType.main ? lightBackgroundColor : mainColor)) : lightGreyColor;
-  Color get _btnColor => onTap != null ? (color ?? (type == ButtonType.main ? mainColor : lightBackgroundColor)) : darkBackgroundColor;
+  Color get _btnColor => onTap != null ? (color ?? (type == ButtonType.main ? mainColor : lightBackgroundColor)) : borderColor;
   ButtonStyle _style(BuildContext context) => ElevatedButton.styleFrom(
         padding: padding ?? EdgeInsets.zero,
         backgroundColor: _btnColor.resolve(context),

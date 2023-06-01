@@ -15,7 +15,6 @@ import '../../components/mt_bottom_sheet.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_close_button.dart';
 import '../../components/mt_dropdown.dart';
-import '../../components/mt_page.dart';
 import '../../components/mt_text_field.dart';
 import '../../components/navbar.dart';
 import '../../extra/services.dart';
@@ -32,9 +31,8 @@ class EditTaskResult {
 Future<EditTaskResult?> editTaskDialog(int wsId, {required Task parent, Task? task}) async {
   return await showModalBottomSheet<EditTaskResult?>(
     context: rootKey.currentContext!,
-    backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    builder: (_) => MTBottomSheet(TaskEditView(wsId, parent: parent, task: task)),
+    builder: (_) => TaskEditView(wsId, parent: parent, task: task),
   );
 }
 
@@ -99,9 +97,9 @@ class _TaskEditViewState extends State<TaskEditView> {
   /// общий виджет - форма с полями для задач и целей
 
   Widget form(BuildContext context) {
-    return Scrollbar(
-      thumbVisibility: true,
-      child: ListView(children: [
+    return ListView(
+      shrinkWrap: true,
+      children: [
         for (final code in ['title', 'startDate', 'dueDate', 'description']) textFieldForCode(context, code),
         if (controller.canSetStatus)
           MTDropdown<Status>(
@@ -149,16 +147,15 @@ class _TaskEditViewState extends State<TaskEditView> {
               ),
           ],
         ),
-        const SizedBox(height: P2),
-      ]),
+      ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => MTPage(
-        navBar: navBar(
+      builder: (_) => MTBottomSheet(
+        topBar: navBar(
           context,
           leading: MTCloseButton(),
           middle: controller.isNew ? controller.ws.subPageTitle(controller.parent.newSubtaskTitle) : null,
@@ -171,7 +168,10 @@ class _TaskEditViewState extends State<TaskEditView> {
               : null,
           bgColor: backgroundColor,
         ),
-        body: SafeArea(top: false, bottom: false, child: form(context)),
+        body: SafeArea(
+          bottom: false,
+          child: form(context),
+        ),
       ),
     );
   }

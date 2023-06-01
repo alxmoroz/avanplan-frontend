@@ -15,7 +15,6 @@ import '../../components/mt_checkbox.dart';
 import '../../components/mt_close_button.dart';
 import '../../components/mt_dropdown.dart';
 import '../../components/mt_limit_badge.dart';
-import '../../components/mt_page.dart';
 import '../../components/mt_shadowed.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
@@ -36,9 +35,8 @@ Future importTasks(int wsId, {String? sType}) async {
 
 Future<String?> showImportDialog(ImportController controller) async => await showModalBottomSheet<String?>(
       context: rootKey.currentContext!,
-      backgroundColor: Colors.transparent,
       isScrollControlled: true,
-      builder: (_) => MTBottomSheet(ImportView(controller)),
+      builder: (_) => ImportView(controller),
     );
 
 class ImportView extends StatelessWidget {
@@ -71,6 +69,7 @@ class ImportView extends StatelessWidget {
       );
 
   Widget get _header => Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           const SizedBox(height: P2),
           Row(
@@ -96,19 +95,25 @@ class ImportView extends StatelessWidget {
                 _hasError ? Intl.message(controller.errorCode!) : loc.import_list_empty_title,
                 align: TextAlign.center,
                 color: _hasError ? warningColor : lightGreyColor,
-                padding: const EdgeInsets.only(top: P_2),
+                padding: const EdgeInsets.only(top: P_2, bottom: P3),
               ),
           ] else
-            NormalText(loc.import_source_select_hint, color: warningColor, align: TextAlign.center, padding: const EdgeInsets.only(top: P)),
+            NormalText(
+              loc.import_source_select_hint,
+              color: warningColor,
+              align: TextAlign.center,
+              padding: const EdgeInsets.only(top: P, bottom: P3),
+            ),
         ],
       );
 
   Widget get _body => controller.ws.sources.isNotEmpty
       ? Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             _header,
             if (controller.selectedSource != null)
-              Expanded(
+              Flexible(
                 child: MTShadowed(
                   child: ListView.builder(
                     shrinkWrap: true,
@@ -119,7 +124,10 @@ class ImportView extends StatelessWidget {
               ),
           ],
         )
-      : Center(child: H4(loc.source_list_empty_title, align: TextAlign.center, color: lightGreyColor));
+      : ListView(
+          shrinkWrap: true,
+          children: [H4(loc.source_list_empty_title, align: TextAlign.center, color: lightGreyColor)],
+        );
 
   Widget _projectItemBuilder(BuildContext context, int index) {
     final project = controller.projects[index];
@@ -163,15 +171,19 @@ class ImportView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => MTPage(
-        navBar: navBar(
+      builder: (_) => MTBottomSheet(
+        topBar: navBar(
           context,
           leading: MTCloseButton(),
           middle: controller.ws.subPageTitle(loc.import_title),
           bgColor: backgroundColor,
         ),
-        body: SafeArea(bottom: false, child: _body),
+        body: SafeArea(
+          bottom: false,
+          child: _body,
+        ),
         bottomBar: _bottomBar,
+        bottomBarHeight: controller.ws.sources.isNotEmpty ? P * 11 : null,
       ),
     );
   }

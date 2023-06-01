@@ -55,6 +55,7 @@ class InvitationPane extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Observer(
         builder: (_) => Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             for (final code in ['activationsCount', 'expiresOn']) _tfForCode(code),
             isWeb && _hasUrl

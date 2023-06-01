@@ -14,7 +14,6 @@ import '../../components/icons.dart';
 import '../../components/mt_bottom_sheet.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_close_button.dart';
-import '../../components/mt_page.dart';
 import '../../components/mt_text_field.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
@@ -27,11 +26,11 @@ import 'source_edit_controller.dart';
 import 'source_type_selector.dart';
 
 Future startAddSource(Workspace ws) async {
+  final ctx = rootKey.currentContext!;
   final st = await showModalBottomSheet<String?>(
-    context: rootKey.currentContext!,
-    backgroundColor: Colors.transparent,
+    context: ctx,
     isScrollControlled: true,
-    builder: (_) => MTBottomSheet(SourceTypeSelector((st) => Navigator.of(rootKey.currentContext!).pop(st))),
+    builder: (_) => SourceTypeSelector((st) => Navigator.of(rootKey.currentContext!).pop(st)),
   );
   if (st != null) {
     await addSource(ws, sType: st);
@@ -52,11 +51,11 @@ Future<Source?> editSource(Workspace ws, {Source? src, String? sType}) async {
 }
 
 Future<Source?> editSourceDialog(Workspace ws, Source? src, String? sType) async {
+  // final ctx = rootKey.currentContext!;
   return await showModalBottomSheet<Source?>(
     context: rootKey.currentContext!,
-    backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    builder: (_) => MTBottomSheet(SourceEditView(ws, src, sType)),
+    builder: (_) => SourceEditView(ws, src, sType),
   );
 }
 
@@ -104,6 +103,7 @@ class _SourceEditViewState extends State<SourceEditView> {
   }
 
   Widget get _form => ListView(
+        shrinkWrap: true,
         children: [
           textFieldForCode('url'),
           if (controller.showUsername) textFieldForCode('username'),
@@ -120,15 +120,14 @@ class _SourceEditViewState extends State<SourceEditView> {
             titleText: loc.save_action_title,
             onTap: canSave ? controller.save : null,
           ),
-          const SizedBox(height: P2),
         ],
       );
 
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => MTPage(
-        navBar: navBar(
+      builder: (_) => MTBottomSheet(
+        topBar: navBar(
           context,
           leading: MTCloseButton(),
           middle: Column(
@@ -150,7 +149,10 @@ class _SourceEditViewState extends State<SourceEditView> {
               : null,
           bgColor: backgroundColor,
         ),
-        body: SafeArea(top: false, bottom: false, child: _form),
+        body: SafeArea(
+          bottom: false,
+          child: _form,
+        ),
       ),
     );
   }

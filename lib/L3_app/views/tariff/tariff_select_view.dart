@@ -18,7 +18,6 @@ import '../../components/mt_button.dart';
 import '../../components/mt_card.dart';
 import '../../components/mt_close_button.dart';
 import '../../components/mt_list_tile.dart';
-import '../../components/mt_page.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/number_presenter.dart';
@@ -51,9 +50,8 @@ Future changeTariff(Workspace ws, {String reason = ''}) async {
 Future<Tariff?> tariffSelectDialog(List<Tariff> tariffs, int wsId, {String description = ''}) async {
   return await showModalBottomSheet<Tariff?>(
     context: rootKey.currentContext!,
-    backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    builder: (_) => MTBottomSheet(TariffSelectView(tariffs, wsId, description: description)),
+    builder: (_) => TariffSelectView(tariffs, wsId, description: description),
   );
 }
 
@@ -152,7 +150,7 @@ class TariffSelectView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MTPage(
+    return MTBottomSheet(
       body: SafeArea(
         child: Column(
           children: [

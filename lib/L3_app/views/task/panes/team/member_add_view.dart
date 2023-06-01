@@ -11,7 +11,6 @@ import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/mt_bottom_sheet.dart';
 import '../../../../components/mt_close_button.dart';
-import '../../../../components/mt_page.dart';
 import '../../../../components/navbar.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
@@ -25,9 +24,8 @@ Future memberAddDialog(Task task, Role role) async {
   await invitationController.fetchInvitation();
   return await showModalBottomSheet<void>(
     context: rootKey.currentContext!,
-    backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    builder: (_) => MTBottomSheet(MemberAddView(invitationController)),
+    builder: (_) => MemberAddView(invitationController),
   );
 }
 
@@ -82,6 +80,7 @@ class _MemberAddViewState extends State<MemberAddView> {
   /// общий виджет - форма с полями
 
   Widget get form => ListView(
+        shrinkWrap: true,
         children: [
           // TODO: https://redmine.moroz.team/issues/2527
           // tabPaneSelector,
@@ -93,14 +92,17 @@ class _MemberAddViewState extends State<MemberAddView> {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => MTPage(
-        navBar: navBar(
+      builder: (_) => MTBottomSheet(
+        topBar: navBar(
           context,
           leading: MTCloseButton(),
           title: controller.tabKey == MemberSourceKey.invitation ? invitationController.invitationSubject : '',
           bgColor: backgroundColor,
         ),
-        body: SafeArea(top: false, bottom: false, child: form),
+        body: SafeArea(
+          bottom: false,
+          child: form,
+        ),
       ),
     );
   }

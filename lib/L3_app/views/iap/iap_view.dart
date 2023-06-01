@@ -21,9 +21,8 @@ Future purchaseDialog(int wsId) async {
   await iapController.fetchProducts();
   return await showModalBottomSheet<void>(
     context: rootKey.currentContext!,
-    backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    builder: (_) => MTBottomSheet(StoreView(wsId)),
+    builder: (_) => StoreView(wsId),
   );
 }
 
@@ -66,9 +65,8 @@ class StoreView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: backgroundColor.resolve(context),
-      child: SafeArea(
+    return MTBottomSheet(
+      body: SafeArea(
         bottom: false,
         child: Column(
           mainAxisSize: MainAxisSize.min,

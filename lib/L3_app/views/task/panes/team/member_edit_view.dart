@@ -12,8 +12,6 @@ import '../../../../components/mt_bottom_sheet.dart';
 import '../../../../components/mt_button.dart';
 import '../../../../components/mt_checkbox.dart';
 import '../../../../components/mt_close_button.dart';
-import '../../../../components/mt_page.dart';
-import '../../../../components/mt_toolbar.dart';
 import '../../../../components/navbar.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/role_presenter.dart';
@@ -23,9 +21,8 @@ import 'member_edit_controller.dart';
 Future<Iterable<Member>?> memberEditDialog(Task task, Member member) async {
   return await showModalBottomSheet<Iterable<Member>?>(
     context: rootKey.currentContext!,
-    backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    builder: (_) => MTBottomSheet(MemberEditView(task, member)),
+    builder: (_) => MemberEditView(task, member),
   );
 }
 
@@ -63,9 +60,8 @@ class _MemberEditViewState extends State<MemberEditView> {
 
   @override
   Widget build(BuildContext context) {
-    final bottomPadding = MTToolbar.minHeight(context) + MIN_BTN_HEIGHT + P;
     return Observer(
-      builder: (_) => MTPageSimple(
+      builder: (_) => MTBottomSheet(
         body: SafeArea(
           bottom: false,
           child: Column(
@@ -76,7 +72,6 @@ class _MemberEditViewState extends State<MemberEditView> {
               const SizedBox(height: P),
               Flexible(
                 child: ListView.builder(
-                  padding: EdgeInsets.only(bottom: bottomPadding),
                   shrinkWrap: true,
                   itemBuilder: _roleItem,
                   itemCount: controller.roles.length,

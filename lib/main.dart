@@ -75,9 +75,11 @@ class App extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: _DEBUG_BANNER,
       theme: ThemeData(
-        // brightness: WidgetsBinding.instance.window.platformBrightness,
-        // colorSchemeSeed: mainColor.resolve(context),
-        colorScheme: ColorScheme.fromSeed(seedColor: mainColor.resolve(context), brightness: WidgetsBinding.instance.window.platformBrightness),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: mainColor.resolve(context),
+          brightness: WidgetsBinding.instance.window.platformBrightness,
+          background: backgroundColor.resolve(context),
+        ),
         fontFamily: fontFamily,
         useMaterial3: true,
       ),

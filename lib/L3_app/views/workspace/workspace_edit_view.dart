@@ -10,7 +10,6 @@ import '../../components/constants.dart';
 import '../../components/mt_bottom_sheet.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_close_button.dart';
-import '../../components/mt_page.dart';
 import '../../components/mt_text_field.dart';
 import '../../components/navbar.dart';
 import '../../extra/services.dart';
@@ -19,9 +18,9 @@ import 'workspace_edit_controller.dart';
 Future<Workspace?> editWSDialog(Workspace ws) async {
   return await showModalBottomSheet<Workspace?>(
     context: rootKey.currentContext!,
-    backgroundColor: Colors.transparent,
+    // backgroundColor: backgroundColor.resolve(context),
     isScrollControlled: true,
-    builder: (_) => MTBottomSheet(WSEditView(ws)),
+    builder: (_) => WSEditView(ws),
   );
 }
 
@@ -62,9 +61,8 @@ class _WSEditViewState extends State<WSEditView> {
     );
   }
 
-  Widget get form {
-    return Scrollbar(
-      child: ListView(
+  Widget get form => ListView(
+        shrinkWrap: true,
         children: [
           for (final code in ['code', 'title', 'description']) textFieldForCode(code),
           const SizedBox(height: P2),
@@ -74,20 +72,21 @@ class _WSEditViewState extends State<WSEditView> {
           ),
           const SizedBox(height: P2),
         ],
-      ),
-    );
-  }
+      );
 
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) => MTPage(
-        navBar: navBar(
-          context,
-          leading: MTCloseButton(),
-          bgColor: backgroundColor,
+    return MTBottomSheet(
+      topBar: navBar(
+        context,
+        leading: MTCloseButton(),
+        bgColor: backgroundColor,
+      ),
+      body: SafeArea(
+        top: false,
+        child: Observer(
+          builder: (_) => form,
         ),
-        body: SafeArea(top: false, bottom: false, child: form),
       ),
     );
   }

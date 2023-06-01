@@ -1,5 +1,6 @@
 // Copyright (c) 2023. Alexandr Moroz
 
+import 'package:avanplan/L3_app/components/mt_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -7,9 +8,8 @@ import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
-import '../../components/mt_bottom_sheet.dart';
 import '../../components/mt_button.dart';
-import '../../components/mt_page.dart';
+import '../../components/mt_close_button.dart';
 import '../../components/mt_text_field.dart';
 import '../../components/navbar.dart';
 import '../../extra/services.dart';
@@ -19,9 +19,8 @@ import 'registration_controller.dart';
 Future registrationDialog() async {
   return await showModalBottomSheet<void>(
     context: rootKey.currentContext!,
-    backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    builder: (_) => MTBottomSheet(RegistrationForm()),
+    builder: (_) => RegistrationForm(),
   );
 }
 
@@ -61,39 +60,29 @@ class _RegistrationFormState extends State<RegistrationForm> {
   }
 
   @override
-  Widget build(BuildContext context) => MTPage(
-        navBar: navBar(
+  Widget build(BuildContext context) => MTBottomSheet(
+        topBar: navBar(
           context,
+          leading: MTCloseButton(),
           title: loc.auth_register_title,
           bgColor: backgroundColor,
         ),
-        body: SafeArea(
-          child: Center(
-            child: Container(
-              constraints: const BoxConstraints(maxWidth: SCR_S_WIDTH),
-              child: LayoutBuilder(
-                builder: (_, size) => Observer(
-                  builder: (_) => controller.requestCompleted
-                      ? RegistrationCompletedMessage(controller: controller)
-                      : ListView(
-                          shrinkWrap: true,
-                          children: [
-                            appIcon(size: size.maxHeight / 4),
-                            textFieldForCode('name'),
-                            textFieldForCode('email'),
-                            textFieldForCode('password'),
-                            const SizedBox(height: P2),
-                            MTButton.main(
-                              titleText: loc.auth_register_action_title,
-                              onTap: controller.validated ? () => controller.createRequest(context) : null,
-                            ),
-                            const SizedBox(height: P2),
-                          ],
-                        ),
+        body: Observer(
+          builder: (_) => controller.requestCompleted
+              ? RegistrationCompletedMessage(controller: controller)
+              : ListView(
+                  shrinkWrap: true,
+                  children: [
+                    textFieldForCode('name'),
+                    textFieldForCode('email'),
+                    textFieldForCode('password'),
+                    const SizedBox(height: P2),
+                    MTButton.main(
+                      titleText: loc.auth_register_action_title,
+                      onTap: controller.validated ? () => controller.createRequest(context) : null,
+                    ),
+                  ],
                 ),
-              ),
-            ),
-          ),
         ),
       );
 }

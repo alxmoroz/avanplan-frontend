@@ -24,9 +24,8 @@ import 'ws_selector.dart';
 Future projectAddWizard() async {
   return await showModalBottomSheet<void>(
     context: rootKey.currentContext!,
-    backgroundColor: Colors.transparent,
     isScrollControlled: true,
-    builder: (_) => MTBottomSheet(ProjectAddWizard()),
+    builder: (_) => ProjectAddWizard(),
   );
 }
 
@@ -90,18 +89,19 @@ class _ProjectAddWizardState extends State<ProjectAddWizard> {
               TaskAddButton(TaskViewController(controller.selectedWSId!, null), dismissible: true),
             ],
           ),
-          const SizedBox(height: P),
         ],
       );
 
   @override
-  Widget build(BuildContext context) => Observer(
-        builder: (_) => SafeArea(
-            bottom: false,
-            child: controller.mustSelectWS
-                ? WSSelector(controller)
-                : controller.importMode
-                    ? SourceTypeSelector(startImport)
-                    : modeSelector),
+  Widget build(BuildContext context) => MTBottomSheet(
+        body: SafeArea(
+          bottom: false,
+          child: Observer(
+              builder: (_) => controller.mustSelectWS
+                  ? WSSelector(controller)
+                  : controller.importMode
+                      ? SourceTypeSelector(startImport)
+                      : modeSelector),
+        ),
       );
 }

@@ -149,7 +149,7 @@ class H3 extends _BaseText {
           text,
           color: color ?? greyColor,
           weight: FontWeight.w400,
-          sizeScale: 1.65,
+          sizeScale: 1.75,
           maxLines: maxLines ?? 3,
           height: 1.1,
         );

@@ -2,42 +2,83 @@
 
 import 'package:flutter/cupertino.dart';
 
+import '../../../main.dart';
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities_extensions/task_level.dart';
 import '../../L1_domain/entities_extensions/task_stats.dart';
 import '../components/colors.dart';
-import '../components/icons.dart';
-import '../components/icons_state.dart';
+import '../components/constants.dart';
+import '../components/images.dart';
+import '../components/mt_circle.dart';
 import '../extra/services.dart';
 import '../presenters/duration_presenter.dart';
 import '../presenters/task_level_presenter.dart';
 
-Widget iconForState(TaskState state, {double? size}) {
+Color stateColor(TaskState state) {
   switch (state) {
     case TaskState.overdue:
-      return RiskIcon(size: size, color: dangerColor);
+      return dangerColor;
     case TaskState.risk:
-      return RiskIcon(size: size, color: warningColor);
+      return warningColor;
     case TaskState.closable:
     case TaskState.ok:
-      return OkIcon(size: size, color: greenColor);
-    case TaskState.closed:
-      return DoneIcon(true, size: size, color: lightGreyColor);
-    case TaskState.opened:
-    case TaskState.eta:
-      return PlayIcon(size: size, color: lightGreyColor);
-    case TaskState.future:
-      return PauseIcon(size: size, color: lightGreyColor);
-    case TaskState.noSubtasks:
-    case TaskState.noProgress:
-    case TaskState.noInfo:
-      return NoInfoIcon(size: size, color: lightGreyColor);
+      return greenColor;
+    default:
+      return lightGreyColor;
   }
 }
 
-extension TaskStatePresenter on Task {
-  Widget stateIcon({double? size}) => iconForState(state, size: size);
+Widget imageForState(TaskState state, {double? size}) {
+  String name = ImageNames.noInfo;
+  switch (state) {
+    case TaskState.overdue:
+      name = ImageNames.overdue;
+      break;
+    case TaskState.risk:
+      name = ImageNames.risk;
+      break;
+    case TaskState.closable:
+    case TaskState.ok:
+      name = ImageNames.ok;
+      break;
+    case TaskState.closed:
+      name = ImageNames.done;
+      break;
+    default:
+  }
+  return MTImage(name, size: size);
+}
 
+LinearGradient stateGradient(TaskState state) {
+  final color = stateColor(state).resolve(rootKey.currentContext!);
+  return LinearGradient(
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+    stops: const [0, 0.2, 1],
+    colors: [color, color.withAlpha(75), color.withAlpha(0)],
+  );
+}
+
+Widget stateIconGroup(TaskState state) => SizedBox(
+      height: P2,
+      width: P,
+      child: Stack(
+        children: [
+          MTCircle(size: P, color: stateColor(state)),
+          Positioned(
+            left: P_2,
+            top: P_2,
+            child: Container(
+              decoration: BoxDecoration(gradient: stateGradient(state)),
+              width: P_2,
+              height: P + P_2,
+            ),
+          ),
+        ],
+      ),
+    );
+
+extension TaskStatePresenter on Task {
   String _subjects(int count, {bool dative = true}) {
     String res = '';
     if (count > 0) {

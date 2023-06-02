@@ -10,9 +10,9 @@ import '../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../L1_domain/entities_extensions/ws_ext.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../../main.dart';
+import '../../components/images.dart';
 import '../../components/mt_dialog.dart';
 import '../../extra/services.dart';
-import '../../presenters/loader_presenter.dart';
 import '../../presenters/number_presenter.dart';
 import '../../usecases/ws_ext_actions.dart';
 import '../tariff/tariff_select_view.dart';
@@ -70,16 +70,16 @@ abstract class _MainControllerBase with Store {
   @action
   Future fetchWorkspaces() async {
     if (iapController.waitingPayment) {
-      loader.set(icon: ldrPurchaseIcon, titleText: loc.loader_purchasing_title);
+      loader.set(imageName: 'purchase', titleText: loc.loader_purchasing_title);
     } else {
-      loader.setRefreshing();
+      loader.setLoading();
     }
 
     workspaces = (await myUC.getWorkspaces()).sorted((w1, w2) => compareNatural(w1.title, w2.title));
   }
 
   Future fetchTasks() async {
-    loader.setRefreshing();
+    loader.setLoading();
     final projects = <Task>[];
     for (Workspace ws in workspaces) {
       final roots = (await taskUC.getRoots(ws.id!)).toList();
@@ -111,7 +111,7 @@ abstract class _MainControllerBase with Store {
   @action
   Future _update() async {
     loader.start();
-    loader.setRefreshing();
+    loader.setLoading();
 
     await accountController.fetchData();
     await refsController.fetchData();
@@ -170,7 +170,7 @@ abstract class _MainControllerBase with Store {
     bool invited = false;
     if (deepLinkController.hasInvitation) {
       loader.start();
-      loader.set(titleText: loc.loader_invitation_redeem_title, icon: ldrAuthIcon);
+      loader.set(titleText: loc.loader_invitation_redeem_title, imageName: ImageNames.privacy);
       invited = await myUC.redeemInvitation(deepLinkController.invitationToken);
       deepLinkController.clearInvitation();
       await loader.stop();

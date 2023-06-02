@@ -5,8 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/system/errors.dart';
+import '../../components/images.dart';
 import '../../extra/services.dart';
-import '../../presenters/loader_presenter.dart';
 
 part 'auth_controller.g.dart';
 
@@ -102,6 +102,6 @@ abstract class _AuthControllerBase with Store {
 
   void _startLdrAuth() {
     loader.start();
-    loader.set(titleText: loc.loader_auth_title, icon: ldrAuthIcon);
+    loader.set(imageName: ImageNames.privacy, titleText: loc.loader_auth_title);
   }
 }

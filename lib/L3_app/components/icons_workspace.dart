@@ -1,7 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'colors.dart';
 import 'constants.dart';
@@ -88,15 +87,5 @@ class TariffIcon extends MTIcon {
         CupertinoIcons.creditcard,
         color: (color ?? greyColor).resolve(context),
         size: size ?? P2,
-      );
-}
-
-class WSIcon extends MTIcon {
-  const WSIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => FaIcon(
-        FontAwesomeIcons.houseUser,
-        color: (color ?? greyColor).resolve(context),
-        size: size ?? P * 1.45,
       );
 }

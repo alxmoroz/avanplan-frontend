@@ -29,7 +29,7 @@ import 'tariff_options.dart';
 
 Future changeTariff(Workspace ws, {String reason = ''}) async {
   loader.start();
-  loader.setRefreshing();
+  loader.setLoading();
   final tariffs = (await tariffUC.getAll(ws.id!)).sorted((t1, t2) => compareNatural('$t1', '$t2')).sorted((t1, t2) => t1.tier.compareTo(t2.tier));
   await loader.stop();
   if (tariffs.isNotEmpty) {

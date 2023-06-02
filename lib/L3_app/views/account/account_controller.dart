@@ -27,7 +27,7 @@ abstract class _AccountControllerBase extends EditController with Store {
   @action
   Future _registerActivity(String code, {int? wsId}) async {
     loader.start();
-    loader.setRefreshing();
+    loader.setLoading();
     user = await myUC.registerActivity(code, wsId: wsId);
     await loader.stop();
   }

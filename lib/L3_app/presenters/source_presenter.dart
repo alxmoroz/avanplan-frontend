@@ -9,8 +9,7 @@ import '../../main.dart';
 import '../components/colors.dart';
 import '../components/constants.dart';
 import '../components/icons.dart';
-import '../components/icons_import.dart';
-import '../components/icons_state.dart';
+import '../components/icons_sources.dart';
 import '../components/mt_circle.dart';
 import '../components/mt_list_tile.dart';
 import '../components/text_widgets.dart';
@@ -25,7 +24,7 @@ Widget _iconForSourceType(String? st) {
     case 'Jira':
       return jiraIcon();
     default:
-      return const NoInfoIcon();
+      return const MTCircle(size: P2, color: dangerColor);
   }
 }
 

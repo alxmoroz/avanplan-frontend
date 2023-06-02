@@ -8,7 +8,7 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/entities/notification.dart';
 import '../../../L2_data/services/push_service.dart';
 import '../../extra/services.dart';
-import 'notification_edit_view.dart';
+import 'notification_view.dart';
 
 part 'notification_controller.g.dart';
 

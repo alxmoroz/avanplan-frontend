@@ -31,9 +31,9 @@ class NotificationView extends StatelessWidget {
         child: ListView(
           shrinkWrap: true,
           children: [
-            H3(nf.title),
+            H4(nf.title, maxLines: 5),
             const SizedBox(height: P),
-            H4(nf.description, color: greyColor, maxLines: 500),
+            NormalText(nf.description, maxLines: 500),
             const SizedBox(height: P3),
           ],
         ));

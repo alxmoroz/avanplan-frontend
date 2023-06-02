@@ -108,16 +108,6 @@ class CloseIcon extends MTIcon {
       );
 }
 
-class ConnectingIcon extends MTIcon {
-  const ConnectingIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.dot_radiowaves_left_right,
-        color: (color ?? greyColor).resolve(context),
-        size: size ?? P,
-      );
-}
-
 class CopyIcon extends MTIcon {
   const CopyIcon({super.color, super.size});
   @override
@@ -254,16 +244,6 @@ class MailIcon extends MTIcon {
       );
 }
 
-class NetworkErrorIcon extends MTIcon {
-  const NetworkErrorIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.wifi_exclamationmark,
-        color: (color ?? greyColor).resolve(context),
-        size: size ?? P2,
-      );
-}
-
 class PlusIcon extends MTIcon {
   const PlusIcon({super.color, super.size});
   @override
@@ -284,16 +264,6 @@ class PrivacyIcon extends MTIcon {
       );
 }
 
-class PurchaseIcon extends MTIcon {
-  const PurchaseIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.cart,
-        color: (color ?? darkBackgroundColor).resolve(context),
-        size: size ?? P2,
-      );
-}
-
 class RefreshIcon extends MTIcon {
   const RefreshIcon({super.color, super.size});
   @override
@@ -309,16 +279,6 @@ class RulesIcon extends MTIcon {
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.doc_plaintext,
-        color: (color ?? greyColor).resolve(context),
-        size: size ?? P2,
-      );
-}
-
-class ServerErrorIcon extends MTIcon {
-  const ServerErrorIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => FaIcon(
-        FontAwesomeIcons.roadBarrier,
         color: (color ?? greyColor).resolve(context),
         size: size ?? P2,
       );
@@ -344,16 +304,6 @@ class StarIcon extends MTIcon {
       );
 }
 
-class StartIcon extends MTIcon {
-  const StartIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => FaIcon(
-        FontAwesomeIcons.planeDeparture,
-        color: (color ?? borderColor).resolve(context),
-        size: size ?? P * 11,
-      );
-}
-
 class TodayIcon extends MTIcon {
   const TodayIcon({super.color, super.size});
   @override
@@ -370,6 +320,6 @@ class UnlinkIcon extends MTIcon {
       );
 }
 
-Widget get appleIcon => Image.asset('assets/images/apple_icon.png', width: MIN_BTN_HEIGHT, height: MIN_BTN_HEIGHT);
-Widget get googleIcon => Image.asset('assets/images/google_icon.png', width: MIN_BTN_HEIGHT, height: MIN_BTN_HEIGHT);
-Widget appIcon({double? size}) => Image.asset('assets/images/app_icon.png', width: size, height: size);
+Widget get appleIcon => Image.asset('assets/icons/apple_icon.png', width: MIN_BTN_HEIGHT, height: MIN_BTN_HEIGHT);
+Widget get googleIcon => Image.asset('assets/icons/google_icon.png', width: MIN_BTN_HEIGHT, height: MIN_BTN_HEIGHT);
+Widget appIcon({double? size}) => Image.asset('assets/icons/app_icon.png', width: size, height: size);

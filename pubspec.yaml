@@ -52,6 +52,7 @@ flutter:
     - assets/
     - assets/ca/
     - assets/fonts/
+    - assets/icons/
     - assets/images/
     - assets/.env
   fonts:

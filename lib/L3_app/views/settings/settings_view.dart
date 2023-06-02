@@ -17,7 +17,7 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/communications_presenter.dart';
-import '../notification/notifications_view.dart';
+import '../notification/notification_list_view.dart';
 import '../workspace/workspace_list_tile.dart';
 import 'account_list_tile.dart';
 import 'app_version.dart';
@@ -37,7 +37,7 @@ class SettingsView extends StatelessWidget {
           const ChevronIcon(),
         ]),
         bottomBorder: false,
-        onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(NotificationsView.routeName),
+        onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(NotificationListView.routeName),
       );
 
   Widget get _workspaces => Column(

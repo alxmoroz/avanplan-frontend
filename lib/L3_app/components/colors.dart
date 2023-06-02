@@ -3,23 +3,23 @@
 import 'package:flutter/cupertino.dart';
 
 const Color darkGreyColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 56, 56, 66),
+  color: Color.fromARGB(255, 52, 52, 64),
   darkColor: Color.fromARGB(255, 204, 204, 208),
 );
 
 const Color greyColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 104, 104, 128),
-  darkColor: Color.fromARGB(255, 142, 142, 154),
+  color: Color.fromARGB(255, 92, 92, 96),
+  darkColor: Color.fromARGB(255, 152, 152, 164),
 );
 
 const Color lightGreyColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(255, 178, 178, 196),
-  darkColor: Color.fromARGB(255, 76, 76, 84),
+  darkColor: Color.fromARGB(255, 80, 80, 84),
 );
 
 const Color borderColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(255, 220, 220, 224),
-  darkColor: Color.fromARGB(255, 72, 72, 74),
+  darkColor: Color.fromARGB(255, 70, 70, 72),
 );
 
 const Color darkBackgroundColor = CupertinoDynamicColor.withBrightness(

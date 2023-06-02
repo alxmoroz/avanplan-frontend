@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../L1_domain/entities/task.dart';
+import '../../../../L1_domain/entities_extensions/task_level.dart';
 import '../../../presenters/task_filter_presenter.dart';
 import 'task_card.dart';
 
@@ -19,7 +20,11 @@ class AttentionalTasks extends StatelessWidget {
       itemCount: tasks.length,
       itemBuilder: (BuildContext _, int index) {
         final t = tasks[index];
-        return TaskCard(t, bottomBorder: index < tasks.length - 1);
+        return TaskCard(
+          t,
+          showStateMark: !task.isRoot,
+          bottomBorder: index < tasks.length - 1,
+        );
       },
     );
   }

@@ -119,12 +119,7 @@ class OverviewPane extends StatelessWidget {
           /// требующие внимания задачи
           if (task.attentionalTasks.isNotEmpty) ...[
             const SizedBox(height: P2),
-            if (!task.isRoot)
-              H4(
-                task.subtasksStateTitle,
-                align: TextAlign.center,
-                padding: const EdgeInsets.symmetric(horizontal: P).copyWith(bottom: P_3),
-              ),
+            if (!task.isRoot) GroupStateTitle(task, task.subtasksState, place: StateTitlePlace.groupHeader),
             AttentionalTasks(task),
           ],
         ],

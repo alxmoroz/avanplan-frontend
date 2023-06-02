@@ -4,49 +4,62 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../components/colors.dart';
+import '../../components/constants.dart';
+import '../../components/images.dart';
 import '../../components/mt_constrained.dart';
 import '../../components/mt_page.dart';
-import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 
 class LoaderScreen extends StatelessWidget {
+  static const double _ldrIconSize = P * 16;
+
+  Widget get _title => H3(
+        loader.titleText!,
+        align: TextAlign.center,
+        padding: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
+      );
+
+  Widget get _description => H4(
+        loader.descriptionText!,
+        align: TextAlign.center,
+        padding: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P),
+        maxLines: 5,
+      );
+
+  Widget get _image => MTImage(loader.imageName!, size: _ldrIconSize);
+
   @override
-  Widget build(BuildContext context) => MTPage(
-        navBar: navBar(context, leading: const SizedBox(), middle: H2(loc.app_title)),
-        body: SafeArea(
-          top: false,
-          bottom: false,
-          child: Center(
-            child: ListView(
-              shrinkWrap: true,
-              children: [
-                Observer(
-                  builder: (_) => Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      if (loader.iconWidget != null) loader.iconWidget!,
-                      Column(
-                        children: [
-                          if (loader.titleWidget != null) loader.titleWidget!,
-                          if (loader.descriptionWidget != null) loader.descriptionWidget!,
-                          if (loader.actionWidget == null) ...[
-                            const SizedBox(height: 20),
-                            Row(children: [
-                              const Spacer(),
-                              CircularProgressIndicator(color: greyColor.resolve(context)),
-                              const Spacer(),
-                            ]),
-                          ],
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+  Widget build(BuildContext context) => Observer(
+        builder: (_) => MTPage(
+          body: SafeArea(
+            top: false,
+            bottom: false,
+            child: Center(
+              child: ListView(
+                shrinkWrap: true,
+                children: [
+                  if (loader.imageName != null) _image,
+                  if (loader.titleText != null) _title,
+                  if (loader.descriptionText != null) _description,
+                  if (loader.actionWidget == null) ...[
+                    const SizedBox(height: P3),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: P * 5,
+                          width: P * 5,
+                          child: CircularProgressIndicator(color: mainColor.resolve(context)),
+                        ),
+                      ],
+                    ),
+                  ],
+                ],
+              ),
             ),
           ),
+          bottomBar: MTConstrained(loader.actionWidget),
         ),
-        bottomBar: Observer(builder: (_) => MTConstrained(loader.actionWidget)),
       );
 }

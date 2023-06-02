@@ -10,7 +10,7 @@ import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
-import '../../components/icons_state.dart';
+import '../../components/images.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
@@ -18,7 +18,7 @@ import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/person_presenter.dart';
 import '../../presenters/task_level_presenter.dart';
-import '../notification/notifications_view.dart';
+import '../notification/notification_list_view.dart';
 import '../settings/settings_view.dart';
 import '../task/panes/overview_pane.dart';
 import '../task/project_add_wizard/project_add_wizard.dart';
@@ -61,16 +61,16 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
   Future toSettings() async => await Navigator.of(rootKey.currentContext!).pushNamed(SettingsView.routeName);
   Future toProjects() async =>
       await Navigator.of(rootKey.currentContext!).pushNamed(TaskView.routeName, arguments: TaskViewArgs(rootTask.wsId, null));
-  Future toMessages() async => await Navigator.of(rootKey.currentContext!).pushNamed(NotificationsView.routeName);
+  Future toMessages() async => await Navigator.of(rootKey.currentContext!).pushNamed(NotificationListView.routeName);
 
   Widget get noOpenedProjects {
-    final iconSize = MediaQuery.of(context).size.height / 5;
+    final iconSize = MediaQuery.of(context).size.height / 4;
     final allClosed = rootTask.hasSubtasks;
     return ListView(
       shrinkWrap: true,
       children: [
         const SizedBox(height: P2),
-        Center(child: allClosed ? OkIcon(size: iconSize) : StartIcon(size: iconSize)),
+        Center(child: MTImage(allClosed ? ImageNames.ok : ImageNames.start, size: iconSize)),
         const SizedBox(height: P2),
         if (allClosed)
           MTButton(
@@ -79,7 +79,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
             onTap: toProjects,
           ),
         const SizedBox(height: P),
-        H3(
+        H4(
           loc.projects_add_hint_title,
           align: TextAlign.center,
           padding: const EdgeInsets.symmetric(horizontal: P2),

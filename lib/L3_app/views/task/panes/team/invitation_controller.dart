@@ -11,11 +11,11 @@ import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L2_data/services/platform.dart';
 import '../../../../../main.dart';
 import '../../../../components/colors.dart';
+import '../../../../components/images.dart';
 import '../../../../components/text_field_annotation.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/date_presenter.dart';
-import '../../../../presenters/loader_presenter.dart';
 import '../../../_base/edit_controller.dart';
 
 part 'invitation_controller.g.dart';
@@ -70,7 +70,7 @@ abstract class _InvitationControllerBase extends EditController with Store {
     final activationsCount = int.tryParse(tfAnnoForCode('activationsCount').text) ?? 0;
     if (activationsCount > 0) {
       loader.start();
-      loader.set(titleText: loc.loader_invitation_create_title, icon: ldrAuthIcon);
+      loader.set(titleText: loc.loader_invitation_create_title, imageName: ImageNames.privacy);
       invitation = await invitationUC.create(
           Invitation(
             task.id!,
@@ -86,7 +86,7 @@ abstract class _InvitationControllerBase extends EditController with Store {
   @action
   Future fetchInvitation() async {
     loader.start();
-    loader.setRefreshing();
+    loader.setLoading();
     invitation = await invitationUC.getInvitation(task.wsId, task.id!, role.id!);
 
     initState(tfaList: [

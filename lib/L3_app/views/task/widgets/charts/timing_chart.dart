@@ -80,7 +80,7 @@ class TimingChart extends StatelessWidget {
               alignment: Alignment.center,
               children: [
                 MTCircle(size: _barHeight, color: darkBackgroundColor, border: Border.all(color: task.hasOverdue ? warningColor : _barColor)),
-                task.stateIcon(size: _barHeight * 0.7),
+                MTCircle(size: _barHeight * 0.7, color: stateColor(task.state))
               ],
             ),
             size: Size(_barHeight, 0),
@@ -155,7 +155,7 @@ class TimingChart extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   height: _barHeight,
                   width: _suffixWidth,
-                  child: Image.asset('assets/images/checkers.png'),
+                  child: Image.asset('assets/icons/checkers.png'),
                 ),
               ],
             ),

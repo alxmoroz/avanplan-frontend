@@ -126,7 +126,7 @@ class App extends StatelessWidget {
               return null;
             },
           ),
-          if (loader.stack > 0)
+          if (loader.loading)
             CupertinoApp(
               debugShowCheckedModeBanner: _DEBUG_BANNER,
               home: LoaderScreen(),

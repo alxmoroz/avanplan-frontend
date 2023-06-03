@@ -11,4 +11,8 @@ class LocalAuth extends LocalPersistable {
 
   String accessToken;
   DateTime? signinDate;
+
+  static const _authCheckPeriod = Duration(hours: 12);
+  bool get needRefresh => signinDate == null || signinDate!.add(_authCheckPeriod).isBefore(DateTime.now());
+  bool get hasToken => accessToken.isNotEmpty;
 }

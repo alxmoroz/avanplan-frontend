@@ -31,23 +31,27 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> with WidgetsBindingObserver {
-  // TODO: немного странно тут. Возможно, дело в возможности передачи id задачи дальше в подвиджеты
   TaskViewController get rootTaskController => TaskViewController(-1, null);
   Task get rootTask => mainController.rootTask;
 
-  void startupActions() => WidgetsBinding.instance.addPostFrameCallback((_) async => await mainController.startupActions());
+  void _startupActions() => WidgetsBinding.instance.addPostFrameCallback((_) async {
+        await mainController.startupActions();
+        if (loader.loading && loader.actionWidget == null) {
+          await loader.stop();
+        }
+      });
 
   @override
   void initState() {
-    super.initState();
+    _startupActions();
     WidgetsBinding.instance.addObserver(this);
-    startupActions();
+    super.initState();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      startupActions();
+      _startupActions();
     }
   }
 

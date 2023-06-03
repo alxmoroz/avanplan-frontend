@@ -17,47 +17,43 @@ class AuthUC {
 
   AbstractAuthRepo _currentRepo;
 
-  Future<LocalAuth> _getLocalAuth() async => await localDBAuthRepo.getOne() ?? LocalAuth();
-  Future<String> _getToken() async => (await _getLocalAuth()).accessToken;
-  Future _setToken(String token) async {
-    final la = await _getLocalAuth();
+  void _updateOAuth(String token) => openAPI.setOAuthToken('OAuth2PasswordBearer', token);
+
+  Future<bool> _setToken(String token) async {
+    final la = await getLocalAuth();
     la.accessToken = token;
     la.signinDate = token.isNotEmpty ? DateTime.now() : null;
     await localDBAuthRepo.update(la);
+    _updateOAuth(token);
+    return token.isNotEmpty;
   }
 
-  Future<bool> get hasLocalAuth async => (await _getToken()).isNotEmpty;
+  Future<bool> refreshToken() async => await _setToken(await authAvanplanRepo.refreshToken());
 
-  Future updateOAuthToken() async => openAPI.setOAuthToken('OAuth2PasswordBearer', await _getToken());
+  Future<LocalAuth> getLocalAuth() async {
+    final la = await localDBAuthRepo.getOne() ?? LocalAuth();
+    _updateOAuth(la.accessToken);
+    return la;
+  }
 
   Future<bool> requestRegistration(RegistrationRequest registration, String password) async =>
       await authAvanplanRepo.postRegistrationRequest(registration, password);
 
-  Future<bool> _signInWithToken(String token) async {
-    await _setToken(token);
-    await updateOAuthToken();
-    return await hasLocalAuth;
-  }
-
   Future<bool> signInWithPassword(String email, String pwd) async {
     _currentRepo = authAvanplanRepo;
-    return await _signInWithToken(
+    return await _setToken(
       await authAvanplanRepo.signInWithPassword(email: email, pwd: pwd),
     );
   }
 
   Future<bool> signInWithRegistration(String token) async {
     _currentRepo = authAvanplanRepo;
-    return await _signInWithToken(
-      await authAvanplanRepo.signInWithRegistration(token),
-    );
+    return await _setToken(await authAvanplanRepo.signInWithRegistration(token));
   }
 
   Future<bool> _signInOAuth(AbstractOAuthRepo repo) async {
     _currentRepo = repo;
-    return await _signInWithToken(
-      await repo.signIn(),
-    );
+    return await _setToken(await repo.signIn());
   }
 
   Future<bool> googleIsAvailable() async => await googleRepo.signInIsAvailable();
@@ -66,18 +62,8 @@ class AuthUC {
   Future<bool> appleIsAvailable() async => await appleRepo.signInIsAvailable();
   Future<bool> signInApple() async => await _signInOAuth(appleRepo);
 
-  static const _authCheckPeriod = Duration(hours: 12);
-
-  Future<bool> needRefreshAuth() async {
-    final signinDate = (await _getLocalAuth()).signinDate;
-    return signinDate == null || signinDate.add(_authCheckPeriod).isBefore(DateTime.now());
-  }
-
-  Future<bool> refreshAuth() async => await _signInWithToken(await authAvanplanRepo.refreshToken());
-
   Future signOut() async {
     await _currentRepo.signOut();
     _setToken('');
-    updateOAuthToken();
   }
 }

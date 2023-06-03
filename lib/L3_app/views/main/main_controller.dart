@@ -224,17 +224,12 @@ abstract class _MainControllerBase with Store {
     await _showOnboarding();
   }
 
-  bool _startupActionsInProgress = false;
-
+  @action
   Future startupActions() async {
-    if (!_startupActionsInProgress) {
-      _startupActionsInProgress = true;
-      await serviceSettingsController.fetchSettings();
-      await authController.updateAuth();
-      if (authController.authorized) {
-        await _authorizedStartupActions();
-      }
-      _startupActionsInProgress = false;
+    await serviceSettingsController.fetchSettings();
+    await authController.checkLocalAuth();
+    if (authController.authorized) {
+      await _authorizedStartupActions();
     }
   }
 

@@ -36,10 +36,13 @@ abstract class _LoaderControllerBase with Store {
   Widget? actionWidget;
 
   @observable
-  int stack = 0;
+  int _stack = 0;
+
+  @computed
+  bool get loading => _stack > 0;
 
   @action
-  void start() => stack++;
+  void start() => _stack++;
 
   @action
   void set({
@@ -56,7 +59,7 @@ abstract class _LoaderControllerBase with Store {
   }
 
   @action
-  Future stop([int? milliseconds]) async => await Future<void>.delayed(Duration(milliseconds: milliseconds ?? 0), () => --stack);
+  Future stop([int? milliseconds]) async => await Future<void>.delayed(Duration(milliseconds: milliseconds ?? 0), () => --_stack);
 
   /// Interceptor
   Interceptor get interceptor => InterceptorsWrapper(onError: (e, handler) async {

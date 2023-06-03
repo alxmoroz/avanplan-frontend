@@ -12,10 +12,16 @@ part 'auth_controller.g.dart';
 
 class AuthController extends _AuthControllerBase with _$AuthController {
   Future<AuthController> init() async {
-    await authUC.updateOAuthToken();
-    authorized = await authUC.hasLocalAuth;
     signInWithAppleIsAvailable = await authUC.appleIsAvailable();
     await authUC.googleIsAvailable();
+
+    await checkLocalAuth();
+    if (authorized) {
+      // !!! лоадер на перёд для MainView !!!
+      // TODO: можно перенести в init в MainController, но только если всем контроллерам добавить init и Маin будет зависеть от них всех
+      loader.start();
+    }
+
     return this;
   }
 }
@@ -40,7 +46,7 @@ abstract class _AuthControllerBase with Store {
       _startLdrAuth();
       authorized = await authUC.signInWithRegistration(deepLinkController.registrationToken!);
       deepLinkController.clearRegistration();
-      await loader.stop();
+      await loader.stop(300);
     }
   }
 
@@ -49,7 +55,7 @@ abstract class _AuthControllerBase with Store {
     _startLdrAuth();
     authorized = await authUC.signInWithPassword(email, pwd);
     Navigator.of(rootKey.currentContext!).pop();
-    await loader.stop();
+    await loader.stop(300);
   }
 
   @action
@@ -57,7 +63,7 @@ abstract class _AuthControllerBase with Store {
     _startLdrAuth();
     try {
       authorized = await authUC.signInGoogle();
-      await loader.stop();
+      await loader.stop(300);
     } on MTOAuthError catch (e) {
       loader.setAuthError(e.detail);
     }
@@ -68,20 +74,22 @@ abstract class _AuthControllerBase with Store {
     _startLdrAuth();
     try {
       authorized = await authUC.signInApple();
-      await loader.stop();
+      await loader.stop(300);
     } on MTOAuthError catch (e) {
       loader.setAuthError(e.detail);
     }
   }
 
   @action
-  Future updateAuth() async {
-    authorized = await authUC.hasLocalAuth;
-    if (await authUC.needRefreshAuth()) {
+  Future checkLocalAuth() async {
+    final _localAuth = await authUC.getLocalAuth();
+    bool _hasToken = _localAuth.hasToken;
+    if (_hasToken && _localAuth.needRefresh) {
       _startLdrAuth();
-      authorized = await authUC.refreshAuth();
+      _hasToken = await authUC.refreshToken();
       await loader.stop();
     }
+    authorized = _hasToken;
   }
 
   @action
@@ -91,13 +99,9 @@ abstract class _AuthControllerBase with Store {
     await authUC.signOut();
   }
 
-  bool _startupActionsInProgress = false;
+  @action
   Future startupActions() async {
-    if (!_startupActionsInProgress) {
-      _startupActionsInProgress = true;
-      await _signInWithRegistration();
-    }
-    _startupActionsInProgress = false;
+    await _signInWithRegistration();
   }
 
   void _startLdrAuth() {

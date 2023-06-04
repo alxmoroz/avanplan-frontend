@@ -52,8 +52,8 @@ class _TaskViewState extends State<TaskView> {
   void initState() {
     controller = TaskViewController(wsId, taskId);
     overviewPane = OverviewPane(controller);
-    tasksPane = TasksPane(controller, TasksPaneController(task));
-    detailsPane = DetailsPane(task);
+    tasksPane = TasksPane(controller, TasksPaneController(controller));
+    detailsPane = DetailsPane(controller);
     teamPane = TeamPane(controller);
 
     super.initState();

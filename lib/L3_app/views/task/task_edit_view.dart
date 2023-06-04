@@ -28,39 +28,25 @@ class EditTaskResult {
   final bool? proceed;
 }
 
-Future<EditTaskResult?> editTaskDialog(int wsId, {required Task parent, Task? task}) async {
+Future<EditTaskResult?> editTaskDialog(TaskEditController controller) async {
   return await showModalBottomSheet<EditTaskResult?>(
     context: rootKey.currentContext!,
     isScrollControlled: true,
-    builder: (_) => TaskEditView(wsId, parent: parent, task: task),
+    builder: (_) => TaskEditView(controller),
   );
 }
 
 class TaskEditView extends StatefulWidget {
-  const TaskEditView(this.wsId, {required this.parent, this.task});
+  const TaskEditView(this.controller);
 
-  final int wsId;
-  final Task parent;
-  final Task? task;
+  final TaskEditController controller;
 
   @override
   _TaskEditViewState createState() => _TaskEditViewState();
 }
 
 class _TaskEditViewState extends State<TaskEditView> {
-  late final TaskEditController controller;
-
-  @override
-  void initState() {
-    controller = TaskEditController(widget.wsId, widget.parent, widget.task);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
+  TaskEditController get controller => widget.controller;
 
   Widget textFieldForCode(BuildContext context, String code) {
     final ta = controller.tfAnnoForCode(code);

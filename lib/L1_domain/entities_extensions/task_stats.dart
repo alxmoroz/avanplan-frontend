@@ -295,4 +295,10 @@ extension TaskStats on Task {
 
   bool get hasEstimate => estimate != null;
   bool get hasLink => taskSource?.keepConnection == true;
+
+  bool get hasStatus => statusId != null;
+  bool get hasAssignee => assigneeId != null;
+
+  bool get hasDescription => description.isNotEmpty;
+  bool get hasAuthor => authorId != null;
 }

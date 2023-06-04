@@ -4,17 +4,20 @@ import 'package:mobx/mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../presenters/task_filter_presenter.dart';
+import '../../task_view_controller.dart';
 
 part 'tasks_pane_controller.g.dart';
 
 class TasksPaneController extends _TasksPaneControllerBase with _$TasksPaneController {
-  TasksPaneController(Task _task) {
-    task = _task;
+  TasksPaneController(TaskViewController _taskController) {
+    taskController = _taskController;
   }
 }
 
 abstract class _TasksPaneControllerBase with Store {
-  late final Task task;
+  late final TaskViewController taskController;
+
+  Task get task => taskController.task;
 
   /// фильтры и сортировка
   @observable

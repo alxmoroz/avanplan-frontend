@@ -20,6 +20,7 @@ import '../../presenters/task_view_presenter.dart';
 import '../../usecases/task_ext_actions.dart';
 import '../../usecases/ws_ext_actions.dart';
 import '../tariff/tariff_select_view.dart';
+import 'task_edit_controller.dart';
 import 'task_edit_view.dart';
 
 part 'task_view_controller.g.dart';
@@ -69,15 +70,6 @@ abstract class _TaskViewControllerBase with Store {
   TaskTabKey get tabKey => (tabKeys.contains(_tabKey) ? _tabKey : null) ?? (tabKeys.isNotEmpty ? tabKeys.first : TaskTabKey.subtasks);
 
   /// связь с источником импорта
-
-  // не используется этот метод вообще сейчас
-  // Future<bool> _checkUnlinked() async {
-  //   bool unlinked = !task.hasLink;
-  //   if (!unlinked) {
-  //     unlinked = await unlink();
-  //   }
-  //   return unlinked;
-  // }
 
   MTDialogAction<bool> _go2SourceDialogAction() => MTDialogAction(
         type: MTActionType.isDefault,
@@ -186,7 +178,7 @@ abstract class _TaskViewControllerBase with Store {
 
   Future addSubtask() async {
     if (plCreate) {
-      final newTaskResult = await editTaskDialog(wsId, parent: task);
+      final newTaskResult = await editTaskDialog(TaskEditController(wsId, parent: task));
 
       if (newTaskResult != null) {
         final newTask = newTaskResult.task;
@@ -210,7 +202,7 @@ abstract class _TaskViewControllerBase with Store {
   }
 
   Future edit() async {
-    final editTaskResult = await editTaskDialog(wsId, parent: task.parent!, task: task);
+    final editTaskResult = await editTaskDialog(TaskEditController(wsId, task: task, parent: task.parent!));
     if (editTaskResult != null) {
       final editedTask = editTaskResult.task;
       if (editedTask.deleted) {

@@ -26,10 +26,10 @@ part 'task_edit_controller.g.dart';
 const _year = Duration(days: 365);
 
 class TaskEditController extends _TaskEditControllerBase with _$TaskEditController {
-  TaskEditController(int _wsId, Task _parent, Task? _task) {
+  TaskEditController(int _wsId, {required Task parent, Task? task}) {
     wsId = _wsId;
-    parent = _parent;
-    task = _task;
+    this.parent = parent;
+    this.task = task;
     isNew = task == null;
 
     initState(tfaList: [

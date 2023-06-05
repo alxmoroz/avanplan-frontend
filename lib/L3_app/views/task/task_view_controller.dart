@@ -8,6 +8,7 @@ import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/task_level.dart';
 import '../../../L1_domain/entities_extensions/task_stats.dart';
+import '../../../L1_domain/entities_extensions/ws_ext.dart';
 import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
@@ -22,6 +23,7 @@ import '../../usecases/ws_ext_actions.dart';
 import '../tariff/tariff_select_view.dart';
 import 'task_edit_controller.dart';
 import 'task_edit_view.dart';
+import 'widgets/status_select_dialog.dart';
 
 part 'task_view_controller.g.dart';
 
@@ -39,9 +41,8 @@ abstract class _TaskViewControllerBase with Store {
   late final int? taskId;
 
   Task get task => mainController.taskForId(wsId, taskId);
-  Workspace get ws => mainController.wsForId(wsId);
-
-  bool get plCreate => task.isRoot ? ws.plProjects : ws.plTasks;
+  Workspace get _ws => mainController.wsForId(wsId);
+  bool get plCreate => task.isRoot ? _ws.plProjects : _ws.plTasks;
 
   /// вкладки
   @computed
@@ -50,12 +51,11 @@ abstract class _TaskViewControllerBase with Store {
       return [];
     } else {
       final hasOverview = task.canShowState || task.canShowTimeChart || task.canShowVelocityVolumeCharts;
-      final hasDetails = task.description.isNotEmpty || task.authorId != null;
       final hasTeam = task.canMembersRead && (task.members.isNotEmpty || task.canEditMembers);
       return [
         if (hasOverview) TaskTabKey.overview,
         if (task.hasSubtasks) TaskTabKey.subtasks,
-        if (hasDetails) TaskTabKey.details,
+        TaskTabKey.details,
         if (hasTeam) TaskTabKey.team,
       ];
     }
@@ -131,48 +131,70 @@ abstract class _TaskViewControllerBase with Store {
     }
   }
 
-  /// роутер
-
-  Future<Task?> _setClosedTask(Task t, bool close) async {
-    t.closed = close;
-    if (close) {
-      t.closedDate = DateTime.now();
+  Future<Task?> _setStatus(Task t, {int? statusId, bool? close}) async {
+    if (t.canSetStatus) {
+      t.statusId = statusId;
     }
+
+    if (close != null) {
+      t.closed = close;
+      if (close) {
+        t.closedDate = DateTime.now();
+      }
+    }
+
     return await taskUC.save(t);
   }
 
-  Future<Task?> _setClosedTaskTree(Task _task, bool close, bool _recursively) async {
-    if (_recursively) {
+  Future<Task?> _setStatusTaskTree(
+    Task _task, {
+    int? statusId,
+    bool? close,
+    bool recursively = false,
+  }) async {
+    if (recursively) {
       for (final t in _task.allTasks.where((t) => t.closed != close)) {
-        await _setClosedTask(t, close);
+        await _setStatus(t, statusId: statusId, close: close);
       }
     }
-    return await _setClosedTask(_task, close);
+    return await _setStatus(_task, statusId: statusId, close: close);
   }
 
-  Future setClosed(bool close) async {
-    bool recursively = false;
-    if (close) {
-      if (task.hasOpenedSubtasks) {
+  Future selectStatus() async {
+    final selectedStatusId = await statusSelectDialog(_ws, task.statusId);
+
+    if (selectedStatusId != null) {
+      await setStatus(statusId: selectedStatusId);
+    }
+  }
+
+  Future setStatus({int? statusId, bool? close}) async {
+    if (statusId != null || close != null) {
+      bool recursively = false;
+
+      statusId ??= close == true ? _ws.firstClosedStatusId : _ws.firstOpenedStatusId;
+      close ??= _ws.statusForId(statusId)?.closed;
+
+      if (close == true && task.hasOpenedSubtasks) {
         recursively = await _closeDialog() == true;
         if (!recursively) {
           return;
         }
       }
-    } else {
-      recursively = false;
-    }
 
-    loader.start();
-    loader.setClosing(close);
-    final editedTask = await _setClosedTaskTree(task, close, recursively);
-    await loader.stop();
+      loader.start();
+      loader.setSaving();
 
-    if (editedTask != null) {
-      if (editedTask.closed) {
-        Navigator.of(rootKey.currentContext!).pop(editedTask);
+      final editedTask = await _setStatusTaskTree(task, statusId: statusId, close: close, recursively: recursively);
+      await loader.stop();
+
+      if (editedTask != null) {
+        //TODO: может неожиданно для пользователя вываливаться в случае редактирования статуса закрытой задачи
+        if (editedTask.closed) {
+          Navigator.of(rootKey.currentContext!).pop(editedTask);
+        }
+        _updateTaskParents(editedTask);
       }
-      _updateTaskParents(editedTask);
     }
   }
 
@@ -213,7 +235,7 @@ abstract class _TaskViewControllerBase with Store {
   }
 
   Future unlink() async {
-    if (task.ws.plUnlink) {
+    if (task.canUnlink) {
       if (await _unlinkDialog() == true) {
         loader.start();
         loader.setUnlinking();
@@ -251,10 +273,10 @@ abstract class _TaskViewControllerBase with Store {
         await edit();
         break;
       case TaskActionType.close:
-        await setClosed(true);
+        await setStatus(close: true);
         break;
       case TaskActionType.reopen:
-        await setClosed(false);
+        await setStatus(close: false);
         break;
       case TaskActionType.go2source:
         await launchUrlString(task.taskSource!.urlString);

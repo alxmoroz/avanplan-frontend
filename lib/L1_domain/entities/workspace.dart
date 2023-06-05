@@ -4,7 +4,6 @@ import 'account.dart';
 import 'base_entity.dart';
 import 'estimate_value.dart';
 import 'invoice.dart';
-import 'priority.dart';
 import 'role.dart';
 import 'source.dart';
 import 'status.dart';
@@ -35,7 +34,6 @@ class Workspace extends WorkspaceUpsert {
     required this.estimateValues,
     required this.sources,
     required this.statuses,
-    required this.priorities,
     required this.mainAccount,
   });
 
@@ -51,5 +49,4 @@ class Workspace extends WorkspaceUpsert {
   List<EstimateValue> estimateValues = [];
   List<Status> statuses = [];
   List<Source> sources = [];
-  List<Priority> priorities = [];
 }

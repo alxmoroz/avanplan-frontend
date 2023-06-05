@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:avanplan/L3_app/usecases/task_ext_actions.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -55,7 +56,7 @@ class TaskEditController extends _TaskEditControllerBase with _$TaskEditControll
 
     selectAssigneeId(task?.assigneeId);
     if (canSetStatus) {
-      selectStatusId(task?.statusId ?? ws.statuses.firstOrNull?.id);
+      selectedStatusId = task?.statusId ?? ws.statuses.firstOrNull?.id;
     }
   }
 }
@@ -129,7 +130,6 @@ abstract class _TaskEditControllerBase extends EditController with Store {
           description: tfAnnoForCode('description').text,
           closed: task?.closed == true,
           statusId: selectedStatusId,
-          priorityId: task?.priorityId,
           estimate: selectedEstimate?.value,
           startDate: selectedStartDate,
           dueDate: selectedDueDate,
@@ -211,32 +211,11 @@ abstract class _TaskEditControllerBase extends EditController with Store {
   /// статусы задач
 
   @computed
-  bool get canSetStatus => ws.statuses.isNotEmpty && (parent.isGoal || parent.isTask || parent.isSubtask) && (isNew || !task!.hasSubtasks);
+  bool get canSetStatus => ws.statuses.isNotEmpty && (parent.isGoal || parent.isTask || parent.isSubtask) && (isNew || task!.isTrueLeaf);
 
   @observable
   int? selectedStatusId;
 
   @computed
   Status? get selectedStatus => ws.statuses.firstWhereOrNull((s) => s.id == selectedStatusId);
-
-  @action
-  void selectStatusId(int? id) {
-    selectedStatusId = id;
-    if (selectedStatus?.closed == true) {
-      closed = true;
-    }
-  }
-
-  // TODO: перенести элемент управления статусами в просмотр задачи и редактировать статус вместе с функцией закрытия из контроллера задачи
-
-  @observable
-  bool closed = false;
-
-// @action
-// void setClosed(bool? _closed) {
-//   closed = _closed ?? false;
-//   if (!closed && selectedStatus != null && selectedStatus!.closed) {
-//     selectedStatusId = null; // не трогать
-//   }
-// }
 }

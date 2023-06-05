@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 
 class ImageNames {
   static const delete = 'delete';
-  static const done = 'done';
   static const import = 'import';
   static const loading = 'loading';
   static const networkError = 'network_error';

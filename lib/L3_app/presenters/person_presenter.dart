@@ -39,9 +39,9 @@ extension PersonPresenter on Person {
 }
 
 extension MemberPresenter on Member {
-  Widget iconName({double radius = P, BorderSide? borderSide}) => Row(children: [
+  Widget iconName({double radius = P, BorderSide? borderSide, bool card = false}) => Row(children: [
         isActive ? _PersonIcon(this, radius, borderSide: borderSide) : const UnlinkIcon(color: lightGreyColor, size: P),
         const SizedBox(width: P_3),
-        SmallText('$this', color: isActive ? greyColor : lightGreyColor),
+        card ? SmallText('$this', color: greyColor) : NormalText('$this', color: greyColor),
       ]);
 }

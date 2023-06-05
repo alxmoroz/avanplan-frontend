@@ -32,23 +32,29 @@ class OverviewPane extends StatelessWidget {
 
   Task get task => controller.task;
 
+  //TODO: кнопки "Закрыть" и "Переоткрыть" остаются тут?
+
   Widget? get bottomBar => !task.isRoot && task.shouldAddSubtask
       ? TaskAddButton(controller)
-      : task.canReopen || task.shouldClose || task.shouldCloseLeaf
-          ? Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-              if (task.shouldClose)
-                MediumText(
-                  loc.state_closable_hint,
-                  align: TextAlign.center,
-                  color: lightGreyColor,
-                  padding: const EdgeInsets.only(bottom: P_3),
+      : task.canReopen || task.canCloseGroup
+          ? Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                if (task.canCloseGroup)
+                  MediumText(
+                    loc.state_closable_hint,
+                    align: TextAlign.center,
+                    color: lightGreyColor,
+                    padding: const EdgeInsets.only(bottom: P_3),
+                  ),
+                MTButton.main(
+                  titleText: task.canCloseGroup ? loc.close_action_title : loc.task_reopen_action_title,
+                  leading: DoneIcon(task.canCloseGroup, color: lightBackgroundColor),
+                  onTap: () => controller.setStatus(close: !task.closed),
                 ),
-              MTButton.main(
-                titleText: (task.shouldClose || task.shouldCloseLeaf) ? loc.close_action_title : loc.task_reopen_action_title,
-                leading: DoneIcon(task.shouldClose || task.shouldCloseLeaf, color: lightBackgroundColor),
-                onTap: () => controller.setClosed(!task.closed),
-              ),
-            ])
+              ],
+            )
           : null;
 
   Widget _checkRecommendsItem(bool checked, String text) => Row(children: [

@@ -274,6 +274,7 @@
 
   "task_assignee_nobody": "Никому",
   "task_assignee_placeholder": "Назначено",
+  "task_author_title": "Владелец",
 
   "task_count": "{count, plural, zero{Нет задач} one{{count} задача} few{{count} задачи} other{{count} задач}}",
   "task_count_dative": "{count, plural, one{{count} задаче} other{{count} задачам}}",
@@ -294,7 +295,7 @@
   "task_reopen_action_title": "Переоткрыть",
   "task_plural_genitive": "{count, plural, one{задачи} other{задач}}",
   "task_start_date_placeholder": "Дата начала",
-  "task_status_placeholder": "Статус",
+  "task_status_placeholder": "Выберите статус",
   "task_title": "Задача",
 
   "task_unlink_action_title": "Удалить связь",

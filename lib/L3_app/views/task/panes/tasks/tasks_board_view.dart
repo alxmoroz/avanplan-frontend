@@ -43,7 +43,13 @@ class TasksBoardView extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: P_2, vertical: P),
       child: Column(
         children: [
-          NormalText('$status', padding: const EdgeInsets.all(P_2)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (status.closed) const DoneIcon(true, color: greyColor),
+              NormalText('$status', padding: const EdgeInsets.all(P_2)),
+            ],
+          ),
           Expanded(
             child: ListView.builder(
               itemBuilder: (_, index) => _taskBuilder(tasks[index]),

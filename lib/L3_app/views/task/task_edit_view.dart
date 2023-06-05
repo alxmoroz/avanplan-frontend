@@ -5,7 +5,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/estimate_value.dart';
 import '../../../L1_domain/entities/member.dart';
-import '../../../L1_domain/entities/status.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../main.dart';
 import '../../components/colors.dart';
@@ -87,14 +86,6 @@ class _TaskEditViewState extends State<TaskEditView> {
       shrinkWrap: true,
       children: [
         for (final code in ['title', 'startDate', 'dueDate', 'description']) textFieldForCode(context, code),
-        if (controller.canSetStatus)
-          MTDropdown<Status>(
-            onChanged: controller.selectStatusId,
-            value: controller.selectedStatusId,
-            items: controller.ws.statuses,
-            margin: tfPadding,
-            label: loc.task_status_placeholder,
-          ),
         if (controller.allowedAssignees.isNotEmpty)
           MTDropdown<Member>(
             onChanged: controller.selectAssigneeId,

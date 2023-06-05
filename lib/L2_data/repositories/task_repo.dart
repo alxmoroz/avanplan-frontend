@@ -25,7 +25,6 @@ class TaskRepo extends AbstractWSRepo<Task> {
       ..assigneeId = data.assigneeId
       ..authorId = data.authorId
       ..statusId = data.statusId
-      ..priorityId = data.priorityId
       ..estimate = data.estimate
       ..parentId = data.parent?.id
       ..title = data.title

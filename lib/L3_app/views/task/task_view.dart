@@ -5,7 +5,12 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities_extensions/task_level.dart';
+import '../../components/colors.dart';
 import '../../components/constants.dart';
+import '../../components/icons.dart';
+import '../../components/icons_workspace.dart';
+import '../../components/mt_constrained.dart';
+import '../../components/mt_divider.dart';
 import '../../components/mt_page.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
@@ -59,21 +64,24 @@ class _TaskViewState extends State<TaskView> {
     super.initState();
   }
 
-  Map<TaskTabKey, Widget> get tabs {
+  Widget _tab(bool selected, Widget icon, Widget title) => selected ? title : icon;
+
+  Map<TaskTabKey, Widget> get _tabs {
     final res = <TaskTabKey, Widget>{};
     controller.tabKeys.forEach((tk) {
+      final selected = controller.tabKey == tk;
       switch (tk) {
         case TaskTabKey.overview:
-          res[TaskTabKey.overview] = NormalText(loc.overview);
+          res[TaskTabKey.overview] = _tab(selected, const EyeIcon(), NormalText(loc.overview));
           break;
         case TaskTabKey.subtasks:
-          res[TaskTabKey.subtasks] = NormalText('${task.listTitle} (${task.openedSubtasks.length})');
+          res[TaskTabKey.subtasks] = _tab(selected, const DoneIcon(true, color: greyColor), NormalText('${task.listTitle}'));
           break;
         case TaskTabKey.details:
-          res[TaskTabKey.details] = NormalText(loc.description);
+          res[TaskTabKey.details] = _tab(selected, const RulesIcon(), NormalText(loc.description));
           break;
         case TaskTabKey.team:
-          res[TaskTabKey.team] = NormalText(loc.team_title);
+          res[TaskTabKey.team] = _tab(selected, const PeopleIcon(), NormalText(loc.team_title));
           break;
       }
     });
@@ -81,16 +89,16 @@ class _TaskViewState extends State<TaskView> {
     return res;
   }
 
-  Widget get tabPaneSelector => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: P),
-        child: CupertinoSlidingSegmentedControl<TaskTabKey>(
-          children: tabs,
+  Widget get _tabPaneSelector => MTConstrained(
+        CupertinoSlidingSegmentedControl<TaskTabKey>(
+          children: _tabs,
           groupValue: controller.tabKey,
           onValueChanged: controller.selectTab,
         ),
+        maxWidth: SCR_M_WIDTH,
       );
 
-  Widget get selectedPane =>
+  Widget get _selectedPane =>
       {
         TaskTabKey.overview: overviewPane,
         TaskTabKey.subtasks: tasksPane,
@@ -99,10 +107,9 @@ class _TaskViewState extends State<TaskView> {
       }[controller.tabKey] ??
       tasksPane;
 
-  Widget? get selectedBottomBar => {
+  Widget? get _selectedBottomBar => {
         TaskTabKey.overview: overviewPane.bottomBar,
-        // для вкладки Описание показываем тулбар из Обзора, если вкладки обзора нет (это для задач типично). Иначе - родной тулбар
-        TaskTabKey.details: controller.tabKeys.contains(TaskTabKey.overview) ? detailsPane.bottomBar : overviewPane.bottomBar,
+        TaskTabKey.details: detailsPane.bottomBar,
         TaskTabKey.subtasks: tasksPane.bottomBar,
         TaskTabKey.team: teamPane.bottomBar,
       }[controller.tabKey];
@@ -120,15 +127,19 @@ class _TaskViewState extends State<TaskView> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               if (!smallHeight && !task.isRoot) TaskHeader(controller),
-              if (controller.tabKeys.length > 1) ...[
-                const SizedBox(height: P_2),
-                tabPaneSelector,
-              ],
-              Expanded(child: selectedPane),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: P),
+                child: controller.tabKeys.length > 1
+                    ? _tabPaneSelector
+                    : smallHeight
+                        ? null
+                        : const MTDivider(height: P_2),
+              ),
+              Expanded(child: _selectedPane),
             ],
           ),
         ),
-        bottomBar: !smallHeight && selectedBottomBar != null ? selectedBottomBar : null,
+        bottomBar: !smallHeight && _selectedBottomBar != null ? _selectedBottomBar : null,
       ),
     );
   }

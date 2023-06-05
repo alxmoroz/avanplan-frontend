@@ -41,28 +41,30 @@ extension TaskActionsExt on Task {
   /// доступные действия
   bool get _isLocal => !hasLink;
   bool get _isLocalProject => isProject && _isLocal;
-  bool get _isLinkedProject => isProject && hasLink;
+  bool get _isLinkedProject => isProject && !_isLocal;
 
   bool get _canProjectUpdate => _isLocalProject && ws.hpProjectUpdate == true;
   bool get _canProjectDelete => _isLocalProject && ws.hpProjectDelete == true;
-  bool get _canTaskCreate => !closed && _hpCreate && !hasLink;
-  bool get _canTaskUpdate => !isRoot && _hpUpdate && !hasLink;
-  bool get _canTaskDelete => _hpDelete && !hasLink;
+  bool get _canTaskCreate => !closed && _hpCreate && _isLocal;
+  bool get _canTaskUpdate => !isRoot && _hpUpdate && _isLocal;
+  bool get _canTaskDelete => _hpDelete && _isLocal;
 
   bool get canCreate => _canTaskCreate;
   bool get canUpdate => _canProjectUpdate || _canTaskUpdate;
   bool get canDelete => _canProjectDelete || _canTaskDelete;
   bool get canRefresh => isRoot;
   bool get canReopen => closed && canUpdate && parent?.closed == false;
-  bool get canClose => canUpdate && !closed && !hasLink;
+  bool get canClose => canUpdate && !closed;
   bool get canUnlink => _isLinkedProject && ws.hpProjectUpdate == true;
   bool get canUnwatch => _isLinkedProject && ws.hpProjectDelete == true;
   bool get canMembersRead => isProject;
   bool get canEditMembers => _hpMemberUpdate;
+  bool get isTrueLeaf => (isTask || isSubtask) && isLeaf;
+  bool get canSetStatus => ws.statuses.isNotEmpty && canUpdate && isTrueLeaf;
+  bool get canCloseGroup => canClose && state == TaskState.closable;
+  bool get canCloseLeaf => canClose && isTrueLeaf;
 
   /// рекомендации, быстрые кнопки
-  bool get shouldClose => canUpdate && state == TaskState.closable;
-  bool get shouldCloseLeaf => canClose && (isTask || isSubtask) && isLeaf;
   bool get shouldAddSubtask =>
       canCreate &&
       isLeaf &&

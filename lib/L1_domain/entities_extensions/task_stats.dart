@@ -150,7 +150,6 @@ extension TaskStats on Task {
       startDate: startDate,
       closedDate: closedDate,
       statusId: statusId,
-      priorityId: priorityId,
       authorId: authorId,
       assigneeId: assigneeId,
       taskSource: taskSource,

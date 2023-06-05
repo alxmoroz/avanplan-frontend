@@ -194,7 +194,6 @@ abstract class _LoaderControllerBase with Store {
         titleText: loc.loader_check_connection_title,
         descriptionText: descriptionText,
       );
-  void setClosing(bool isClose) => set(titleText: loc.loader_saving_title, imageName: ImageNames.done);
   void setDeleting() => set(titleText: loc.loader_deleting_title, imageName: ImageNames.delete);
   void setImporting(String descriptionText) => set(
         titleText: loc.loader_importing_title,

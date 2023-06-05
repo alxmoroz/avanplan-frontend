@@ -39,10 +39,8 @@ Widget imageForState(TaskState state, {double? size}) {
       break;
     case TaskState.closable:
     case TaskState.ok:
-      name = ImageNames.ok;
-      break;
     case TaskState.closed:
-      name = ImageNames.done;
+      name = ImageNames.ok;
       break;
     default:
   }

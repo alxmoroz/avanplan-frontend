@@ -11,8 +11,8 @@ import 'colors.dart';
 import 'constants.dart';
 import 'mt_toolbar.dart';
 
-class MTConstrainedBox extends StatelessWidget {
-  const MTConstrainedBox(this.child);
+class _MTConstrainedBox extends StatelessWidget {
+  const _MTConstrainedBox(this.child);
   final Widget child;
 
   @override
@@ -46,7 +46,7 @@ class MTBottomSheet extends StatelessWidget {
     final double bbHeight =
         bottomBar != null ? (bottomBarHeight ?? MTToolbar.topPadding + MTToolbar.bottomPadding + P + MIN_BTN_HEIGHT) : max(P2, mq.padding.bottom);
     final double tbHeight = topBar != null ? (topBarHeight ?? P2 * 2) : 0;
-    return MTConstrainedBox(
+    return _MTConstrainedBox(
       GestureDetector(
         onTap: FocusScope.of(context).unfocus,
         child: Padding(

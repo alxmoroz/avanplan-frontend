@@ -73,7 +73,7 @@ class TaskCard extends StatelessWidget {
             children: [
               if (!task.closed && _showStatus) SmallText(task.status!.code, color: greyColor),
               if (!task.closed && task.hasEstimate && !task.canShowState) ...[
-                if (!_showStatus && _hasAssignee) task.assignee!.iconName(),
+                if (!_showStatus && _hasAssignee) task.assignee!.iconName(card: true),
                 const Spacer(),
                 _estimate,
               ]
@@ -81,7 +81,7 @@ class TaskCard extends StatelessWidget {
           ),
           if (_showStatus && _hasAssignee) ...[
             const SizedBox(height: P_6),
-            task.assignee!.iconName(),
+            task.assignee!.iconName(card: true),
           ]
         ],
       );

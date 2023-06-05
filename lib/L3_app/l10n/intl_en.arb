@@ -274,6 +274,7 @@
 
   "task_assignee_nobody": "Nobody",
   "task_assignee_placeholder": "Assigned",
+  "task_author_title": "Creator",
 
   "task_count": "{count, plural, zero{No tasks} one{{count} task} other{{count} tasks}}",
   "task_count_dative": "{count, plural, one{{count} task} other{{count} tasks}}",
@@ -294,7 +295,7 @@
   "task_plural_genitive": "{count, plural, one{task} other{tasks}}",
   "task_reopen_action_title": "Reopen",
   "task_start_date_placeholder": "Start date",
-  "task_status_placeholder": "Status",
+  "task_status_placeholder": "Select Status",
   "task_title": "Task",
 
   "task_unlink_action_title": "Delete link",

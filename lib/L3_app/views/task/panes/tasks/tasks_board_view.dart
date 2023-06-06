@@ -66,7 +66,7 @@ class TasksBoardView extends StatelessWidget {
     final w = MediaQuery.of(context).size.width;
 
     final controller = PageController(
-      viewportFraction: (min(w, SCR_S_WIDTH) * 0.85) / w,
+      viewportFraction: min(SCR_S_WIDTH / w, 0.8),
       initialPage: 0,
     );
     return Observer(
@@ -74,7 +74,6 @@ class TasksBoardView extends StatelessWidget {
         alignment: Alignment.center,
         children: [
           PageView.builder(
-            allowImplicitScrolling: true,
             controller: controller,
             itemCount: ws.statuses.length,
             itemBuilder: _columnBuilder,

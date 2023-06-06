@@ -3,13 +3,11 @@
 import 'dart:math';
 
 import 'package:collection/collection.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L2_data/services/platform.dart';
-import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -105,39 +103,37 @@ class TariffSelectView extends StatelessWidget {
     }
   }
 
-  double get _viewportFraction {
-    final w = MediaQuery.of(rootKey.currentContext!).size.width;
-    return (min(w, SCR_M_WIDTH) * 0.8) / w;
-  }
-
-  Widget get _tariffPages {
-    final controller = PageController(
-      viewportFraction: _viewportFraction,
-      initialPage: selectedIndex,
+  Widget _tariffPages(BuildContext context) {
+    //TODO: сделать так же для доски задач и для шторки!
+    return LayoutBuilder(
+      builder: (_, size) {
+        final controller = PageController(
+          viewportFraction: min(SCR_S_WIDTH / size.maxWidth, 0.8),
+          initialPage: selectedIndex,
+        );
+        return Stack(alignment: Alignment.center, children: [
+          PageView.builder(
+            controller: controller,
+            itemCount: tariffs.length + 1,
+            itemBuilder: _tariffCard,
+          ),
+          if (isWeb)
+            Row(children: [
+              MTButton.icon(
+                const ChevronCircleIcon(left: true),
+                margin: const EdgeInsets.all(P),
+                () => controller.previousPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut),
+              ),
+              const Spacer(),
+              MTButton.icon(
+                const ChevronCircleIcon(left: false),
+                margin: const EdgeInsets.all(P),
+                () => controller.nextPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut),
+              ),
+            ]),
+        ]);
+      },
     );
-    return Stack(alignment: Alignment.center, children: [
-      PageView.builder(
-        dragStartBehavior: DragStartBehavior.down,
-        allowImplicitScrolling: true,
-        controller: controller,
-        itemCount: tariffs.length + 1,
-        itemBuilder: _tariffCard,
-      ),
-      if (isWeb)
-        Row(children: [
-          MTButton.icon(
-            const ChevronCircleIcon(left: true),
-            margin: const EdgeInsets.all(P),
-            () => controller.previousPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut),
-          ),
-          const Spacer(),
-          MTButton.icon(
-            const ChevronCircleIcon(left: false),
-            margin: const EdgeInsets.all(P),
-            () => controller.nextPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut),
-          ),
-        ]),
-    ]);
   }
 
   @override
@@ -154,9 +150,8 @@ class TariffSelectView extends StatelessWidget {
               color: backgroundColor,
               trailing: const SizedBox(width: P2 * 2),
             ),
-            if (description.isNotEmpty) H4(description, align: TextAlign.center, padding: const EdgeInsets.all(P).copyWith(top: P_2)),
-            Expanded(child: _tariffPages),
-            const SizedBox(height: P_2),
+            if (description.isNotEmpty) H4(description, align: TextAlign.center, padding: const EdgeInsets.all(P).copyWith(top: 0)),
+            Expanded(child: _tariffPages(context)),
           ],
         ),
       ),

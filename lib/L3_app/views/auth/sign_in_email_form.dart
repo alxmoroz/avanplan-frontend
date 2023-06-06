@@ -4,7 +4,6 @@ import 'package:avanplan/L3_app/components/mt_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/mt_button.dart';
@@ -13,13 +12,7 @@ import '../../components/navbar.dart';
 import '../../extra/services.dart';
 import 'sign_in_email_controller.dart';
 
-Future showSignInEmailDialog() async {
-  return await showModalBottomSheet<void>(
-    context: rootKey.currentContext!,
-    isScrollControlled: true,
-    builder: (_) => SignInEmailForm(),
-  );
-}
+Future showSignInEmailDialog() async => await showMTBottomSheet<void>(SignInEmailForm());
 
 class SignInEmailForm extends StatefulWidget {
   @override

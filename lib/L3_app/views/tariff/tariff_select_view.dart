@@ -33,7 +33,7 @@ Future changeTariff(Workspace ws, {String reason = ''}) async {
   final tariffs = (await tariffUC.getAll(ws.id!)).sorted((t1, t2) => compareNatural('$t1', '$t2')).sorted((t1, t2) => t1.tier.compareTo(t2.tier));
   await loader.stop();
   if (tariffs.isNotEmpty) {
-    final tariff = await tariffSelectDialog(tariffs, ws.id!, description: reason);
+    final tariff = await showMTBottomSheet<Tariff?>(TariffSelectView(tariffs, ws.id!, description: reason));
     if (tariff != null) {
       loader.start();
       loader.setSaving();
@@ -45,14 +45,6 @@ Future changeTariff(Workspace ws, {String reason = ''}) async {
       await loader.stop();
     }
   }
-}
-
-Future<Tariff?> tariffSelectDialog(List<Tariff> tariffs, int wsId, {String description = ''}) async {
-  return await showModalBottomSheet<Tariff?>(
-    context: rootKey.currentContext!,
-    isScrollControlled: true,
-    builder: (_) => TariffSelectView(tariffs, wsId, description: description),
-  );
 }
 
 class TariffSelectView extends StatelessWidget {

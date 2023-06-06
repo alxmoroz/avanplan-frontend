@@ -72,9 +72,9 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
     final allClosed = rootTask.hasSubtasks;
     return ListView(
       shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       children: [
-        const SizedBox(height: P2),
-        Center(child: MTImage(allClosed ? ImageNames.ok : ImageNames.start, size: iconSize)),
+        MTImage(allClosed ? ImageNames.ok : ImageNames.start, size: iconSize),
         const SizedBox(height: P2),
         if (allClosed)
           MTButton(
@@ -139,9 +139,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
         body: SafeArea(
           top: false,
           bottom: false,
-          child: Center(
-            child: rootTask.hasOpenedSubtasks ? OverviewPane(rootTaskController) : noOpenedProjects,
-          ),
+          child: Center(child: rootTask.hasOpenedSubtasks ? OverviewPane(rootTaskController) : noOpenedProjects),
         ),
         bottomBar: _bottomBar,
       ),

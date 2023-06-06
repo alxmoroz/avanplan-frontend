@@ -1,12 +1,10 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/role.dart';
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../../main.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/mt_bottom_sheet.dart';
@@ -22,11 +20,7 @@ import 'member_add_controller.dart';
 Future memberAddDialog(Task task, Role role) async {
   final invitationController = InvitationController(task, role);
   await invitationController.fetchInvitation();
-  return await showModalBottomSheet<void>(
-    context: rootKey.currentContext!,
-    isScrollControlled: true,
-    builder: (_) => MemberAddView(invitationController),
-  );
+  return await showMTBottomSheet<void>(MemberAddView(invitationController));
 }
 
 class MemberAddView extends StatefulWidget {

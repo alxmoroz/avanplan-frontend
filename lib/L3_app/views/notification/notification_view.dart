@@ -14,13 +14,7 @@ import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';
 
-Future<Source?> showNotificationDialog(BuildContext context) async {
-  return await showModalBottomSheet<Source?>(
-    context: context,
-    isScrollControlled: true,
-    builder: (_) => NotificationView(),
-  );
-}
+Future<Source?> showNotificationDialog(BuildContext context) async => await showMTBottomSheet<Source?>(NotificationView());
 
 class NotificationView extends StatelessWidget {
   MTNotification get nf => notificationController.selectedNotification!;

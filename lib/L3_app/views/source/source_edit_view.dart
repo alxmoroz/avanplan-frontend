@@ -26,12 +26,7 @@ import 'source_edit_controller.dart';
 import 'source_type_selector.dart';
 
 Future startAddSource(Workspace ws) async {
-  final ctx = rootKey.currentContext!;
-  final st = await showModalBottomSheet<String?>(
-    context: ctx,
-    isScrollControlled: true,
-    builder: (_) => SourceTypeSelector((st) => Navigator.of(rootKey.currentContext!).pop(st)),
-  );
+  final st = await showMTBottomSheet<String?>(SourceTypeSelector((st) => Navigator.of(rootKey.currentContext!).pop(st)));
   if (st != null) {
     await addSource(ws, sType: st);
   }
@@ -50,14 +45,7 @@ Future<Source?> editSource(Workspace ws, {Source? src, String? sType}) async {
   return s;
 }
 
-Future<Source?> editSourceDialog(Workspace ws, Source? src, String? sType) async {
-  // final ctx = rootKey.currentContext!;
-  return await showModalBottomSheet<Source?>(
-    context: rootKey.currentContext!,
-    isScrollControlled: true,
-    builder: (_) => SourceEditView(ws, src, sType),
-  );
-}
+Future<Source?> editSourceDialog(Workspace ws, Source? src, String? sType) async => await showMTBottomSheet<Source?>(SourceEditView(ws, src, sType));
 
 class SourceEditView extends StatefulWidget {
   const SourceEditView(this.ws, this.src, this.sType);

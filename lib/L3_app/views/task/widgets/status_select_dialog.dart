@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../../L1_domain/entities/workspace.dart';
-import '../../../../main.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/mt_bottom_sheet.dart';
@@ -13,13 +12,7 @@ import '../../../components/mt_list_tile.dart';
 import '../../../components/navbar.dart';
 import '../../../extra/services.dart';
 
-Future<int?> statusSelectDialog(Workspace ws, int? selectedId) async {
-  return await showModalBottomSheet<int?>(
-    context: rootKey.currentContext!,
-    isScrollControlled: true,
-    builder: (_) => StatusSelectView(ws, selectedId),
-  );
-}
+Future<int?> statusSelectDialog(Workspace ws, int? selectedId) async => await showMTBottomSheet<int?>(StatusSelectView(ws, selectedId));
 
 class StatusSelectView extends StatelessWidget {
   const StatusSelectView(this.ws, this.selectedId);

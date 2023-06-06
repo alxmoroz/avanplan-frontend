@@ -5,7 +5,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/member.dart';
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../../main.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/mt_bottom_sheet.dart';
@@ -18,13 +17,8 @@ import '../../../../presenters/role_presenter.dart';
 import '../../../../presenters/task_level_presenter.dart';
 import 'member_edit_controller.dart';
 
-Future<Iterable<Member>?> memberEditDialog(Task task, Member member) async {
-  return await showModalBottomSheet<Iterable<Member>?>(
-    context: rootKey.currentContext!,
-    isScrollControlled: true,
-    builder: (_) => MemberEditView(task, member),
-  );
-}
+Future<Iterable<Member>?> memberEditDialog(Task task, Member member) async =>
+    await showMTBottomSheet<Iterable<Member>?>(MemberEditView(task, member));
 
 class MemberEditView extends StatefulWidget {
   const MemberEditView(this.task, this.member);

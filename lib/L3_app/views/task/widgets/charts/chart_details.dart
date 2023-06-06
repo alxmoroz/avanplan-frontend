@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_stats.dart';
-import '../../../../../main.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/mt_bottom_sheet.dart';
@@ -19,13 +18,7 @@ import 'timing_chart.dart';
 import 'velocity_chart.dart';
 import 'volume_chart.dart';
 
-Future showChartsDetailsDialog(Task task) async {
-  return await showModalBottomSheet<void>(
-    context: rootKey.currentContext!,
-    isScrollControlled: true,
-    builder: (_) => TaskChartDetails(task),
-  );
-}
+Future showChartsDetailsDialog(Task task) async => await showMTBottomSheet<void>(TaskChartDetails(task));
 
 class TaskChartDetails extends StatelessWidget {
   const TaskChartDetails(this.task);

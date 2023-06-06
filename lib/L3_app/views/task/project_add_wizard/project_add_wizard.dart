@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../main.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
@@ -21,13 +20,7 @@ import '../widgets/task_add_button.dart';
 import 'project_add_wizard_controller.dart';
 import 'ws_selector.dart';
 
-Future projectAddWizard() async {
-  return await showModalBottomSheet<void>(
-    context: rootKey.currentContext!,
-    isScrollControlled: true,
-    builder: (_) => ProjectAddWizard(),
-  );
-}
+Future projectAddWizard() async => await showMTBottomSheet<void>(ProjectAddWizard());
 
 class ProjectAddWizard extends StatefulWidget {
   @override

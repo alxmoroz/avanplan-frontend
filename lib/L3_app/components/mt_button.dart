@@ -23,7 +23,6 @@ class MTButton extends StatelessWidget {
     this.padding,
     this.margin,
     this.constrained = false,
-    this.maxWidth,
     this.type = ButtonType.text,
   });
 
@@ -38,7 +37,6 @@ class MTButton extends StatelessWidget {
     this.constrained = true,
     this.padding,
     this.margin,
-    this.maxWidth,
   }) : type = ButtonType.main;
 
   const MTButton.secondary({
@@ -52,7 +50,6 @@ class MTButton extends StatelessWidget {
     this.constrained = true,
     this.padding,
     this.margin,
-    this.maxWidth,
   }) : type = ButtonType.secondary;
 
   const MTButton.icon(Widget icon, this.onTap, {this.margin, this.padding})
@@ -63,7 +60,6 @@ class MTButton extends StatelessWidget {
         leading = null,
         trailing = null,
         titleColor = null,
-        maxWidth = 0,
         constrained = false;
 
   final ButtonType type;
@@ -77,7 +73,6 @@ class MTButton extends StatelessWidget {
   final EdgeInsets? padding;
   final EdgeInsets? margin;
   final bool constrained;
-  final double? maxWidth;
 
   Color get _titleColor => onTap != null ? (titleColor ?? (type == ButtonType.main ? lightBackgroundColor : mainColor)) : greyColor;
   Color get _btnColor => onTap != null ? (color ?? (type == ButtonType.main ? mainColor : lightBackgroundColor)) : borderColor;
@@ -111,7 +106,7 @@ class MTButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final btn = Padding(padding: margin ?? EdgeInsets.zero, child: _button(context));
-    return constrained ? MTConstrained(btn, maxWidth: maxWidth) : btn;
+    return type == ButtonType.icon || !constrained ? btn : MTAdaptive.S(btn);
   }
 }
 
@@ -149,7 +144,6 @@ class MTPlusButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTButton(
       type: type,
-      constrained: false,
       middle: PlusIcon(color: type == ButtonType.main ? lightBackgroundColor : mainColor),
       margin: const EdgeInsets.only(right: P),
       onTap: onTap,

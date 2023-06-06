@@ -4,7 +4,6 @@ import 'package:avanplan/L3_app/components/mt_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -16,13 +15,7 @@ import '../../extra/services.dart';
 import 'registration_completed_message.dart';
 import 'registration_controller.dart';
 
-Future registrationDialog() async {
-  return await showModalBottomSheet<void>(
-    context: rootKey.currentContext!,
-    isScrollControlled: true,
-    builder: (_) => RegistrationForm(),
-  );
-}
+Future registrationDialog() async => await showMTBottomSheet<void>(RegistrationForm());
 
 class RegistrationForm extends StatefulWidget {
   @override

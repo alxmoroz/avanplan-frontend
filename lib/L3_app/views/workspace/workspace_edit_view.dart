@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
-import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/mt_bottom_sheet.dart';
@@ -15,14 +14,7 @@ import '../../components/navbar.dart';
 import '../../extra/services.dart';
 import 'workspace_edit_controller.dart';
 
-Future<Workspace?> editWSDialog(Workspace ws) async {
-  return await showModalBottomSheet<Workspace?>(
-    context: rootKey.currentContext!,
-    // backgroundColor: backgroundColor.resolve(context),
-    isScrollControlled: true,
-    builder: (_) => WSEditView(ws),
-  );
-}
+Future<Workspace?> editWSDialog(Workspace ws) async => await showMTBottomSheet<Workspace?>(WSEditView(ws));
 
 class WSEditView extends StatefulWidget {
   const WSEditView(this.ws);

@@ -19,11 +19,7 @@ import '../../presenters/ws_presenter.dart';
 
 Future purchaseDialog(int wsId) async {
   await iapController.fetchProducts();
-  return await showModalBottomSheet<void>(
-    context: rootKey.currentContext!,
-    isScrollControlled: true,
-    builder: (_) => StoreView(wsId),
-  );
+  return await showMTBottomSheet<void>(StoreView(wsId));
 }
 
 class StoreView extends StatelessWidget {

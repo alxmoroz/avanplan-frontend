@@ -5,7 +5,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 
 import '../../../L1_domain/entities/source.dart';
-import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -33,11 +32,7 @@ Future importTasks(int wsId, {String? sType}) async {
   await showImportDialog(controller);
 }
 
-Future<String?> showImportDialog(ImportController controller) async => await showModalBottomSheet<String?>(
-      context: rootKey.currentContext!,
-      isScrollControlled: true,
-      builder: (_) => ImportView(controller),
-    );
+Future<String?> showImportDialog(ImportController controller) async => await showMTBottomSheet<String?>(ImportView(controller));
 
 class ImportView extends StatelessWidget {
   const ImportView(this.controller);

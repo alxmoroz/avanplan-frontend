@@ -34,13 +34,13 @@ class TasksBoardView extends StatelessWidget {
 
   List<Task> _tasksByStatus(int statusId) => task.sortedLeafTasks.where((t) => t.statusId == statusId).toList();
 
-  Widget _columnBuilder(BuildContext context, int index) {
-    final status = ws.statuses[index];
+  Widget _columnBuilder(BuildContext context, int columnIndex) {
+    final status = ws.statuses[columnIndex];
     final tasks = _tasksByStatus(status.id!);
     return MTCard(
       elevation: cardElevation,
       color: darkBackgroundColor,
-      margin: const EdgeInsets.symmetric(horizontal: P_2, vertical: P),
+      margin: EdgeInsets.only(left: columnIndex == 0 ? P2 : P, top: P, bottom: 0, right: columnIndex == ws.statuses.length - 1 ? P2 : P_2),
       child: Column(
         children: [
           Row(
@@ -52,7 +52,7 @@ class TasksBoardView extends StatelessWidget {
           ),
           Expanded(
             child: ListView.builder(
-              itemBuilder: (_, index) => _taskBuilder(tasks[index]),
+              itemBuilder: (_, taskIndex) => _taskBuilder(tasks[taskIndex]),
               itemCount: tasks.length,
             ),
           ),
@@ -66,32 +66,38 @@ class TasksBoardView extends StatelessWidget {
     final w = MediaQuery.of(context).size.width;
 
     final controller = PageController(
-      viewportFraction: (min(w, SCR_M_WIDTH) * 0.8) / w,
+      viewportFraction: (min(w, SCR_S_WIDTH) * 0.85) / w,
       initialPage: 0,
     );
     return Observer(
-      builder: (_) => Stack(alignment: Alignment.center, children: [
-        PageView.builder(
-          allowImplicitScrolling: true,
-          controller: controller,
-          itemCount: ws.statuses.length,
-          itemBuilder: _columnBuilder,
-        ),
-        if (isWeb)
-          Row(children: [
-            MTButton.icon(
-              const ChevronCircleIcon(left: true),
-              margin: const EdgeInsets.all(P),
-              () => controller.previousPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut),
+      builder: (_) => Stack(
+        alignment: Alignment.center,
+        children: [
+          PageView.builder(
+            allowImplicitScrolling: true,
+            controller: controller,
+            itemCount: ws.statuses.length,
+            itemBuilder: _columnBuilder,
+            padEnds: false,
+          ),
+          if (isWeb)
+            Row(
+              children: [
+                MTButton.icon(
+                  const ChevronCircleIcon(left: true),
+                  margin: const EdgeInsets.all(P),
+                  () => controller.previousPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut),
+                ),
+                const Spacer(),
+                MTButton.icon(
+                  const ChevronCircleIcon(left: false),
+                  margin: const EdgeInsets.all(P),
+                  () => controller.nextPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut),
+                ),
+              ],
             ),
-            const Spacer(),
-            MTButton.icon(
-              const ChevronCircleIcon(left: false),
-              margin: const EdgeInsets.all(P),
-              () => controller.nextPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut),
-            ),
-          ]),
-      ]),
+        ],
+      ),
     );
   }
 }

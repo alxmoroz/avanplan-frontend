@@ -35,6 +35,6 @@ class MTLimitBadge extends StatelessWidget {
         Padding(padding: EdgeInsets.only(left: showBadge ? _badgeSize : 0), child: child),
       ],
     );
-    return constrained ? MTConstrained(stack) : stack;
+    return constrained ? MTAdaptive(stack) : stack;
   }
 }

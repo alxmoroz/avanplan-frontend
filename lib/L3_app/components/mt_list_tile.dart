@@ -34,6 +34,8 @@ class MTListTile extends StatelessWidget {
 
   Widget get _border => MTDivider(height: 0, indent: padding?.left ?? P2, endIndent: padding?.right ?? P2);
 
+  static const EdgeInsets defaultPadding = EdgeInsets.symmetric(horizontal: P2, vertical: P);
+
   @override
   Widget build(BuildContext context) {
     final _hoverColor = mainColor.withAlpha(10).resolve(context);
@@ -48,7 +50,7 @@ class MTListTile extends StatelessWidget {
             children: [
               if (topBorder) _border,
               Padding(
-                padding: padding ?? const EdgeInsets.symmetric(horizontal: P2, vertical: P),
+                padding: padding ?? defaultPadding,
                 child: Row(
                   children: [
                     if (leading != null) ...[leading!, const SizedBox(width: P_2)],

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
-import '../../../components/mt_constrained.dart';
+import '../../../components/mt_adaptive.dart';
 import '../../../components/mt_divider.dart';
 import '../../../components/text_widgets.dart';
 import '../../../presenters/task_colors_presenter.dart';

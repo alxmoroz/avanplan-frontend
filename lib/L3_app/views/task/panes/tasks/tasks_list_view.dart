@@ -6,7 +6,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_level.dart';
 import '../../../../components/constants.dart';
-import '../../../../components/mt_constrained.dart';
+import '../../../../components/mt_adaptive.dart';
 import '../../../../components/mt_shadowed.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_filter_presenter.dart';

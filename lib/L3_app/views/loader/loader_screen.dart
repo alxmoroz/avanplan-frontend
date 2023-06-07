@@ -6,7 +6,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/images.dart';
-import '../../components/mt_constrained.dart';
+import '../../components/mt_adaptive.dart';
 import '../../components/mt_page.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';

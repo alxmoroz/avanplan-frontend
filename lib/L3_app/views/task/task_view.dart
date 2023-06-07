@@ -9,7 +9,7 @@ import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/icons_workspace.dart';
-import '../../components/mt_constrained.dart';
+import '../../components/mt_adaptive.dart';
 import '../../components/mt_page.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';

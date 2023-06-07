@@ -7,7 +7,7 @@ import '../../../../../L1_domain/entities/member.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
-import '../../../../components/mt_constrained.dart';
+import '../../../../components/mt_adaptive.dart';
 import '../../../../components/mt_list_tile.dart';
 import '../../../../components/mt_page.dart';
 import '../../../../components/navbar.dart';

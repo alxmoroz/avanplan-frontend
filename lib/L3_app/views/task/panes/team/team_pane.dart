@@ -10,7 +10,7 @@ import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
-import '../../../../components/mt_constrained.dart';
+import '../../../../components/mt_adaptive.dart';
 import '../../../../components/mt_list_tile.dart';
 import '../../../../components/mt_shadowed.dart';
 import '../../../../components/text_widgets.dart';

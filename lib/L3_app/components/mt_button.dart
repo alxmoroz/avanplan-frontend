@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'colors.dart';
 import 'constants.dart';
 import 'icons.dart';
-import 'mt_constrained.dart';
+import 'mt_adaptive.dart';
 import 'text_widgets.dart';
 
 enum ButtonType { text, main, secondary, icon }

@@ -11,9 +11,8 @@ import '../../components/mt_list_tile.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 
-class TariffOptionTile extends StatelessWidget {
-  const TariffOptionTile({
-    super.key,
+class _TariffOptionTile extends StatelessWidget {
+  const _TariffOptionTile({
     required this.tariff,
     required this.code,
   });
@@ -42,9 +41,10 @@ class TariffOptions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         if (tariff.optionsMap.keys.isNotEmpty)
-          for (var code in tariff.optionsMap.keys) TariffOptionTile(tariff: tariff, code: code)
+          for (var code in tariff.optionsMap.keys) _TariffOptionTile(tariff: tariff, code: code)
         else
           MediumText(loc.tariff_price_free_title, align: TextAlign.center, color: greyColor, padding: const EdgeInsets.all(P)),
       ],

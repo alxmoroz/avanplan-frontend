@@ -43,7 +43,6 @@ class MTShadowed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      alignment: Alignment.topCenter,
       children: [
         child,
         if (topShadow) _shadow(context, true),

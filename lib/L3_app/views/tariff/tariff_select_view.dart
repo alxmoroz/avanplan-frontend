@@ -57,25 +57,22 @@ class TariffSelectView extends StatelessWidget {
 
   Widget _selectButton(BuildContext context, Tariff tariff) => MTButton.main(
         titleText: loc.tariff_select_action_title,
-        margin: const EdgeInsets.all(P).copyWith(top: 0),
         onTap: () => Navigator.of(context).pop(tariff),
       );
 
   Widget _paymentButton(BuildContext context, num balanceLack) {
-    return Padding(
-        padding: const EdgeInsets.all(P).copyWith(top: 0),
-        child: Column(children: [
-          NormalText(
-            loc.error_tariff_insufficient_funds_for_change('${balanceLack.currency} ₽'),
-            color: warningColor,
-            align: TextAlign.center,
-          ),
-          MTButton.main(
-            titleText: loc.balance_replenish_action_title,
-            margin: const EdgeInsets.only(top: P_2),
-            onTap: () => purchaseDialog(wsId),
-          ),
-        ]));
+    return Column(children: [
+      NormalText(
+        loc.error_tariff_insufficient_funds_for_change('${balanceLack.currency} ₽'),
+        color: warningColor,
+        align: TextAlign.center,
+      ),
+      MTButton.main(
+        titleText: loc.balance_replenish_action_title,
+        margin: const EdgeInsets.only(top: P_2),
+        onTap: () => purchaseDialog(wsId),
+      ),
+    ]);
   }
 
   Widget _tariffCard(BuildContext context, int index) {
@@ -86,17 +83,17 @@ class TariffSelectView extends StatelessWidget {
         elevation: cardElevation,
         child: Column(
           children: [
-            const SizedBox(height: P),
             Expanded(child: TariffLimits(tariff)),
             TariffOptions(tariff),
             currentIndex != index
                 ? balanceLack <= 0
                     ? _selectButton(context, tariff)
                     : _paymentButton(context, balanceLack)
-                : H3(loc.tariff_current_title, padding: const EdgeInsets.only(bottom: P2), color: lightGreyColor)
+                : H3(loc.tariff_current_title, color: lightGreyColor),
+            const SizedBox(height: P2),
           ],
         ),
-        margin: const EdgeInsets.symmetric(horizontal: P_2, vertical: P_2),
+        margin: const EdgeInsets.symmetric(horizontal: P_2).copyWith(bottom: P_2),
       );
     } else {
       return RequestTariffCard();
@@ -104,34 +101,39 @@ class TariffSelectView extends StatelessWidget {
   }
 
   Widget _tariffPages(BuildContext context) {
-    //TODO: сделать так же для доски задач и для шторки!
+    //TODO: сделать так же для доски задач (ширина) и для шторки (высота)!
     return LayoutBuilder(
       builder: (_, size) {
         final controller = PageController(
           viewportFraction: min(SCR_S_WIDTH / size.maxWidth, 0.8),
           initialPage: selectedIndex,
         );
-        return Stack(alignment: Alignment.center, children: [
-          PageView.builder(
-            controller: controller,
-            itemCount: tariffs.length + 1,
-            itemBuilder: _tariffCard,
-          ),
-          if (isWeb)
-            Row(children: [
-              MTButton.icon(
-                const ChevronCircleIcon(left: true),
-                margin: const EdgeInsets.all(P),
-                () => controller.previousPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut),
+        return Stack(
+          alignment: Alignment.center,
+          children: [
+            PageView.builder(
+              controller: controller,
+              itemCount: tariffs.length + 1,
+              itemBuilder: _tariffCard,
+            ),
+            if (isWeb)
+              Row(
+                children: [
+                  MTButton.icon(
+                    const ChevronCircleIcon(left: true),
+                    margin: const EdgeInsets.all(P),
+                    () => controller.previousPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut),
+                  ),
+                  const Spacer(),
+                  MTButton.icon(
+                    const ChevronCircleIcon(left: false),
+                    margin: const EdgeInsets.all(P),
+                    () => controller.nextPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut),
+                  ),
+                ],
               ),
-              const Spacer(),
-              MTButton.icon(
-                const ChevronCircleIcon(left: false),
-                margin: const EdgeInsets.all(P),
-                () => controller.nextPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut),
-              ),
-            ]),
-        ]);
+          ],
+        );
       },
     );
   }
@@ -145,7 +147,7 @@ class TariffSelectView extends StatelessWidget {
             MTListTile(
               leading: MTCloseButton(),
               middle: ws.subPageTitle(loc.tariff_list_title),
-              padding: const EdgeInsets.symmetric(vertical: P_2),
+              padding: EdgeInsets.zero,
               bottomBorder: false,
               color: backgroundColor,
               trailing: const SizedBox(width: P2 * 2),

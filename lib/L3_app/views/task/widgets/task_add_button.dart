@@ -34,7 +34,7 @@ class TaskAddButton extends StatelessWidget {
         leading: compact ? null : _plusIcon,
         titleText: compact ? null : controller.task.newSubtaskTitle,
         middle: compact ? _plusIcon : null,
-        constrained: !compact,
+        constrained: false,
         onTap: _tap,
         margin: EdgeInsets.only(right: compact ? P : 0),
       ),

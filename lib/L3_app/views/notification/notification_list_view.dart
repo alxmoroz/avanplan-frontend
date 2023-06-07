@@ -9,6 +9,7 @@ import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_button.dart';
+import '../../components/mt_constrained.dart';
 import '../../components/mt_dialog.dart';
 import '../../components/mt_list_tile.dart';
 import '../../components/mt_page.dart';
@@ -76,9 +77,11 @@ class NotificationListView extends StatelessWidget {
             bottom: false,
             child: _controller.notifications.isEmpty
                 ? Center(child: H4(loc.notification_list_empty_title, align: TextAlign.center, color: lightGreyColor))
-                : ListView.builder(
-                    itemBuilder: (_, int index) => _itemBuilder(context, index),
-                    itemCount: _controller.notifications.length + 1,
+                : MTAdaptive(
+                    ListView.builder(
+                      itemBuilder: (_, int index) => _itemBuilder(context, index),
+                      itemCount: _controller.notifications.length + 1,
+                    ),
                   ),
           ),
           bottomBar: _controller.pushDenied

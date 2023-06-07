@@ -10,6 +10,7 @@ import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/mt_button.dart';
+import '../../../components/mt_constrained.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_filter_presenter.dart';
@@ -77,11 +78,14 @@ class OverviewPane extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => ListView(
-        shrinkWrap: true,
+        shrinkWrap: task.isRoot,
         children: [
-          Padding(
-              padding: const EdgeInsets.all(P).copyWith(bottom: 0),
-              child: Column(children: [
+          MTAdaptive(
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const SizedBox(height: P),
                 if (task.canShowState)
                   task.isRoot
                       ? GroupStateTitle(task, task.subtasksState, place: StateTitlePlace.workspace)
@@ -120,13 +124,19 @@ class OverviewPane extends StatelessWidget {
                     onTap: () => showChartsDetailsDialog(task),
                   ),
                 ],
-              ])),
+              ],
+            ),
+            force: true,
+          ),
 
           /// требующие внимания задачи
           if (task.attentionalTasks.isNotEmpty) ...[
             const SizedBox(height: P2),
-            if (!task.isRoot) GroupStateTitle(task, task.subtasksState, place: StateTitlePlace.groupHeader),
-            AttentionalTasks(task),
+            if (!task.isRoot) MTAdaptive(GroupStateTitle(task, task.subtasksState, place: StateTitlePlace.groupHeader), force: true),
+            MTAdaptive(
+              AttentionalTasks(task),
+              force: true,
+            ),
           ],
         ],
       ),

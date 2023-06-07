@@ -10,7 +10,6 @@ import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/icons_workspace.dart';
 import '../../components/mt_constrained.dart';
-import '../../components/mt_divider.dart';
 import '../../components/mt_page.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
@@ -89,29 +88,29 @@ class _TaskViewState extends State<TaskView> {
     return res;
   }
 
-  Widget get _tabPaneSelector => MTConstrained(
+  Widget get _tabPaneSelector => MTAdaptive(
         CupertinoSlidingSegmentedControl<TaskTabKey>(
           children: _tabs,
           groupValue: controller.tabKey,
           onValueChanged: controller.selectTab,
         ),
-        maxWidth: SCR_M_WIDTH,
+        force: true,
       );
 
   Widget get _selectedPane =>
       {
         TaskTabKey.overview: overviewPane,
         TaskTabKey.subtasks: tasksPane,
-        TaskTabKey.details: detailsPane,
         TaskTabKey.team: teamPane,
+        TaskTabKey.details: detailsPane,
       }[controller.tabKey] ??
       tasksPane;
 
   Widget? get _selectedBottomBar => {
         TaskTabKey.overview: overviewPane.bottomBar,
-        TaskTabKey.details: detailsPane.bottomBar,
         TaskTabKey.subtasks: tasksPane.bottomBar,
         TaskTabKey.team: teamPane.bottomBar,
+        TaskTabKey.details: detailsPane.bottomBar,
       }[controller.tabKey];
 
   @override
@@ -127,14 +126,7 @@ class _TaskViewState extends State<TaskView> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               if (!smallHeight && !task.isRoot) TaskHeader(controller),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: P),
-                child: controller.tabKeys.length > 1
-                    ? _tabPaneSelector
-                    : smallHeight
-                        ? null
-                        : const MTDivider(height: P_2),
-              ),
+              if (controller.tabKeys.length > 1) _tabPaneSelector,
               Expanded(child: _selectedPane),
             ],
           ),

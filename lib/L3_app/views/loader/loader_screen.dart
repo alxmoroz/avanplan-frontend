@@ -59,7 +59,7 @@ class LoaderScreen extends StatelessWidget {
               ),
             ),
           ),
-          bottomBar: MTAdaptive(loader.actionWidget),
+          bottomBar: MTAdaptive.S(loader.actionWidget),
         ),
       );
 }

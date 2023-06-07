@@ -16,7 +16,6 @@ import '../../components/icons.dart';
 import '../../components/mt_dialog.dart';
 import '../../extra/services.dart';
 import '../../presenters/source_presenter.dart';
-import '../../presenters/task_state_presenter.dart';
 import '../../presenters/task_view_presenter.dart';
 import '../../usecases/task_ext_actions.dart';
 import '../../usecases/ws_ext_actions.dart';
@@ -47,18 +46,14 @@ abstract class _TaskViewControllerBase with Store {
   /// вкладки
   @computed
   Iterable<TaskTabKey> get tabKeys {
-    if (task.isRoot) {
-      return [];
-    } else {
-      final hasOverview = task.canShowState || task.canShowTimeChart || task.canShowVelocityVolumeCharts;
-      final hasTeam = task.canMembersRead && (task.members.isNotEmpty || task.canEditMembers);
-      return [
-        if (hasOverview) TaskTabKey.overview,
-        if (task.hasSubtasks) TaskTabKey.subtasks,
-        TaskTabKey.details,
-        if (hasTeam) TaskTabKey.team,
-      ];
-    }
+    return task.isRoot
+        ? []
+        : [
+            if (task.hasOverviewPane) TaskTabKey.overview,
+            if (task.hasSubtasks) TaskTabKey.subtasks,
+            if (task.hasTeamPane) TaskTabKey.team,
+            TaskTabKey.details,
+          ];
   }
 
   @observable

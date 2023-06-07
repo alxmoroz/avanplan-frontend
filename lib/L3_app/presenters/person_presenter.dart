@@ -9,7 +9,6 @@ import '../../L1_domain/entities/member.dart';
 import '../../L1_domain/entities/person.dart';
 import '../components/colors.dart';
 import '../components/constants.dart';
-import '../components/icons.dart';
 import '../components/text_widgets.dart';
 import 'role_presenter.dart';
 
@@ -39,9 +38,16 @@ extension PersonPresenter on Person {
 }
 
 extension MemberPresenter on Member {
-  Widget iconName({double radius = P, BorderSide? borderSide, bool card = false}) => Row(children: [
-        isActive ? _PersonIcon(this, radius, borderSide: borderSide) : const UnlinkIcon(color: lightGreyColor, size: P),
-        const SizedBox(width: P_3),
-        card ? SmallText('$this', color: greyColor) : NormalText('$this', color: greyColor),
-      ]);
+  Widget iconName({double radius = P, BorderSide? borderSide, bool card = false}) {
+    final textColor = isActive ? greyColor : lightGreyColor;
+    return Row(
+      children: [
+        if (isActive) ...[
+          _PersonIcon(this, radius, borderSide: borderSide),
+          const SizedBox(width: P_2),
+        ],
+        card ? SmallText('$this', color: textColor) : NormalText('$this', color: textColor),
+      ],
+    );
+  }
 }

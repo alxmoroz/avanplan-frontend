@@ -74,7 +74,7 @@ class _ProjectAddWizardState extends State<ProjectAddWizard> {
             children: [
               MTAdaptive.S(
                 MTLimitBadge(
-                  showBadge: true, // !controller.ws!.plProjects,
+                  showBadge: !controller.ws!.plProjects,
                   child: MTButton.main(
                     leading: const ImportIcon(color: lightBackgroundColor),
                     constrained: false,

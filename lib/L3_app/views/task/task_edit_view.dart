@@ -6,7 +6,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../L1_domain/entities/estimate_value.dart';
 import '../../../L1_domain/entities/member.dart';
 import '../../../L1_domain/entities/task.dart';
-import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -27,13 +26,7 @@ class EditTaskResult {
   final bool? proceed;
 }
 
-Future<EditTaskResult?> editTaskDialog(TaskEditController controller) async {
-  return await showModalBottomSheet<EditTaskResult?>(
-    context: rootKey.currentContext!,
-    isScrollControlled: true,
-    builder: (_) => TaskEditView(controller),
-  );
-}
+Future<EditTaskResult?> editTaskDialog(TaskEditController controller) async => await showMTBottomSheet<EditTaskResult?>(TaskEditView(controller));
 
 class TaskEditView extends StatefulWidget {
   const TaskEditView(this.controller);
@@ -108,7 +101,7 @@ class _TaskEditViewState extends State<TaskEditView> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             MTButton(
-              constrained: false,
+              constrained: !controller.isNew,
               titleText: loc.save_action_title,
               onTap: controller.validated ? controller.save : null,
               padding: const EdgeInsets.symmetric(horizontal: P2),
@@ -120,7 +113,7 @@ class _TaskEditViewState extends State<TaskEditView> {
                 titleText: controller.saveAndGoBtnTitle,
                 onTap: controller.validated ? () => controller.save(proceed: true) : null,
                 margin: const EdgeInsets.only(left: P),
-                padding: const EdgeInsets.symmetric(horizontal: P),
+                padding: const EdgeInsets.symmetric(horizontal: P2),
               ),
           ],
         ),

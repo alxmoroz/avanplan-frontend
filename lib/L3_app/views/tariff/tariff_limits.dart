@@ -14,9 +14,8 @@ import '../../extra/services.dart';
 import '../../presenters/number_presenter.dart';
 import '../../presenters/tariff_presenter.dart';
 
-class TariffLimitTile extends StatelessWidget {
-  const TariffLimitTile({
-    super.key,
+class _TariffLimitTile extends StatelessWidget {
+  const _TariffLimitTile({
     required this.tariff,
     required this.code,
   });
@@ -65,9 +64,11 @@ class TariffLimits extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       children: [
-        H3(tariff.title, align: TextAlign.center, padding: const EdgeInsets.all(P)),
-        for (var code in tariff.limitsMap.keys) TariffLimitTile(tariff: tariff, code: code),
+        H4(tariff.title, align: TextAlign.center, padding: const EdgeInsets.all(P)),
+        for (var code in tariff.limitsMap.keys) _TariffLimitTile(tariff: tariff, code: code),
       ],
     );
   }

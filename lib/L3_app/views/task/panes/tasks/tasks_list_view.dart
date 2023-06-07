@@ -6,6 +6,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_level.dart';
 import '../../../../components/constants.dart';
+import '../../../../components/mt_constrained.dart';
 import '../../../../components/mt_shadowed.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_filter_presenter.dart';
@@ -51,10 +52,12 @@ class TasksListView extends StatelessWidget {
       final groups = parent.subtaskGroups;
       //
       return MTShadowed(
-        child: ListView.builder(
-          padding: padding.add(EdgeInsets.only(top: parent.isRoot ? P : 0)),
-          itemBuilder: (_, index) => _groupedItemBuilder(parent, groups, index),
-          itemCount: groups.length,
+        child: MTAdaptive(
+          ListView.builder(
+            padding: padding.add(EdgeInsets.only(top: parent.isRoot ? P : 0)),
+            itemBuilder: (_, index) => _groupedItemBuilder(parent, groups, index),
+            itemCount: groups.length,
+          ),
         ),
       );
     });

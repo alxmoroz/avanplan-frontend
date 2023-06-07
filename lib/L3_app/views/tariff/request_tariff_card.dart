@@ -19,12 +19,10 @@ class RequestTariffCard extends StatelessWidget {
       elevation: cardElevation,
       child: Column(
         children: [
-          const SizedBox(height: P),
           Expanded(
             child: Column(
               children: [
-                const SizedBox(height: P),
-                H3(loc.tariff_type_request_title, align: TextAlign.center),
+                H4(loc.tariff_type_request_title, align: TextAlign.center, padding: EdgeInsets.all(P)),
                 const SizedBox(height: P),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: const [StarIcon(), StarIcon(), StarIcon()]),
                 const SizedBox(height: P_2),
@@ -35,12 +33,12 @@ class RequestTariffCard extends StatelessWidget {
           MediumText(loc.tariff_price_request_action_hint, align: TextAlign.center, color: greyColor, padding: const EdgeInsets.all(P)),
           MTButton.secondary(
             titleText: loc.tariff_price_request_action_title,
-            margin: const EdgeInsets.all(P).copyWith(top: 0),
             onTap: () => sendMail(loc.tariff_price_request_mail_subject, appTitle, accountController.user?.id),
           ),
+          const SizedBox(height: P2),
         ],
       ),
-      margin: const EdgeInsets.symmetric(horizontal: P_2, vertical: P_2),
+      margin: const EdgeInsets.symmetric(horizontal: P_2).copyWith(bottom: P_2),
     );
   }
 }

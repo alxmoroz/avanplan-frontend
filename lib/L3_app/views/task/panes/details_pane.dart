@@ -12,6 +12,7 @@ import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/mt_button.dart';
+import '../../../components/mt_constrained.dart';
 import '../../../components/mt_list_tile.dart';
 import '../../../components/mt_shadowed.dart';
 import '../../../components/text_widgets.dart';
@@ -55,51 +56,53 @@ class DetailsPane extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTShadowed(
-        child: ListView(
-          children: [
-            if (_task.hasStatus || _closable) ...[
-              const SizedBox(height: P),
-              Row(
-                children: [
-                  if (_task.hasStatus)
-                    MTButton.main(
-                      titleText: '${_task.status}',
-                      constrained: false,
-                      padding: const EdgeInsets.symmetric(horizontal: P2),
-                      margin: const EdgeInsets.only(left: P),
-                      onTap: _task.canSetStatus ? controller.selectStatus : null,
-                    ),
-                  if (_closable)
-                    MTButton(
-                      titleColor: greenColor,
-                      titleText: loc.close_action_title,
-                      leading: const DoneIcon(true, color: greenColor),
-                      margin: const EdgeInsets.only(left: P),
-                      onTap: () => controller.setStatus(close: true),
-                    ),
-                ],
-              ),
-              const SizedBox(height: P),
+        child: MTAdaptive(
+          ListView(
+            children: [
+              if (_task.hasStatus || _closable) ...[
+                const SizedBox(height: P),
+                Row(
+                  children: [
+                    if (_task.hasStatus)
+                      MTButton.main(
+                        titleText: '${_task.status}',
+                        constrained: false,
+                        padding: const EdgeInsets.symmetric(horizontal: P2),
+                        margin: const EdgeInsets.only(left: P),
+                        onTap: _task.canSetStatus ? controller.selectStatus : null,
+                      ),
+                    if (_closable)
+                      MTButton(
+                        titleColor: greenColor,
+                        titleText: loc.close_action_title,
+                        leading: const DoneIcon(true, color: greenColor),
+                        margin: const EdgeInsets.only(left: P),
+                        onTap: () => controller.setStatus(close: true),
+                      ),
+                  ],
+                ),
+                const SizedBox(height: P),
+              ],
+              if (_task.hasAssignee) ...[
+                _task.canUpdate ? MTButton.secondary(middle: _assignee) : MTListTile(middle: _assignee),
+              ],
+              if (_task.hasDescription) ...[
+                _description(context),
+              ],
+              if (_task.hasEstimate) ...[
+                MTListTile(
+                  leading: LightText('${loc.task_estimate_placeholder}', color: lightGreyColor),
+                  middle: NormalText('${_task.estimate} ${loc.task_estimate_unit}'),
+                ),
+              ],
+              if (_task.hasAuthor) ...[
+                MTListTile(
+                  leading: LightText(loc.task_author_title, color: lightGreyColor),
+                  middle: _author,
+                ),
+              ],
             ],
-            if (_task.hasAssignee) ...[
-              _task.canUpdate ? MTButton.secondary(middle: _assignee) : MTListTile(middle: _assignee),
-            ],
-            if (_task.hasDescription) ...[
-              _description(context),
-            ],
-            if (_task.hasEstimate) ...[
-              MTListTile(
-                leading: SmallText('${loc.task_estimate_placeholder}', color: lightGreyColor),
-                middle: SmallText(' ${_task.estimate} ${loc.task_estimate_unit}'),
-              ),
-            ],
-            if (_task.hasAuthor) ...[
-              MTListTile(
-                leading: SmallText(loc.task_author_title, color: lightGreyColor),
-                middle: _author,
-              ),
-            ],
-          ],
+          ),
         ),
       ),
     );

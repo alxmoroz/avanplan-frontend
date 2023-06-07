@@ -7,6 +7,7 @@ import '../../../../../L1_domain/entities/member.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
+import '../../../../components/mt_constrained.dart';
 import '../../../../components/mt_list_tile.dart';
 import '../../../../components/mt_page.dart';
 import '../../../../components/navbar.dart';
@@ -52,8 +53,9 @@ class _MemberViewState extends State<MemberView> {
       builder: (_) => MTPage(
         navBar: navBar(context, middle: task.subPageTitle(loc.member_title)),
         body: SafeArea(
-            top: false,
-            child: ListView(
+          top: false,
+          child: MTAdaptive(
+            ListView(
               children: [
                 const SizedBox(height: P),
                 member.icon(P3),
@@ -71,7 +73,9 @@ class _MemberViewState extends State<MemberView> {
                   )
                 ]
               ],
-            )),
+            ),
+          ),
+        ),
       ),
     );
   }

@@ -17,28 +17,39 @@ class MTAdaptive extends StatelessWidget {
   final _AdaptiveSize size;
 
   Widget get _constrained {
-    double _maxW = SCR_S_WIDTH * 0.8;
-    double _minW = SCR_S_WIDTH * 0.8;
+    double W = SCR_S_WIDTH * 0.8;
+    // double _maxW = SCR_S_WIDTH * 0.8;
+    // double _minW = SCR_S_WIDTH * 0.8;
 
     switch (size) {
       case _AdaptiveSize.S:
         break;
       case _AdaptiveSize.M:
-        _minW = SCR_M_WIDTH;
-        _maxW = SCR_M_WIDTH;
+        W = SCR_M_WIDTH;
+        // _minW = SCR_M_WIDTH;
+        // _maxW = SCR_M_WIDTH;
         break;
       case _AdaptiveSize.L:
-        _minW = SCR_L_WIDTH;
-        _maxW = SCR_L_WIDTH;
+        W = SCR_L_WIDTH;
+        // _minW = SCR_L_WIDTH;
+        // _maxW = SCR_L_WIDTH;
         break;
     }
 
-    return ConstrainedBox(
-      constraints: BoxConstraints(
-        minWidth: _minW,
-        maxWidth: _maxW,
+    // return ConstrainedBox(
+    //   constraints: BoxConstraints(
+    //     minWidth: _minW,
+    //     maxWidth: _maxW,
+    //   ),
+    //   child: child,
+    // );
+
+    return Container(
+      alignment: Alignment.topCenter,
+      child: SizedBox(
+        width: W,
+        child: child,
       ),
-      child: child,
     );
   }
 

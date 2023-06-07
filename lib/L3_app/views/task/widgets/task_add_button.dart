@@ -7,6 +7,7 @@ import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/mt_button.dart';
+import '../../../components/mt_constrained.dart';
 import '../../../components/mt_limit_badge.dart';
 import '../../../presenters/task_level_presenter.dart';
 import '../task_view_controller.dart';
@@ -27,16 +28,19 @@ class TaskAddButton extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => MTLimitBadge(
-        child: MTButton.main(
-          leading: compact ? null : _plusIcon,
-          titleText: compact ? null : controller.task.newSubtaskTitle,
-          middle: compact ? _plusIcon : null,
-          constrained: !compact,
-          onTap: _tap,
-          margin: EdgeInsets.only(right: compact ? P : 0),
-        ),
-        showBadge: !controller.plCreate,
+  Widget build(BuildContext context) {
+    final badge = MTLimitBadge(
+      child: MTButton.main(
+        leading: compact ? null : _plusIcon,
+        titleText: compact ? null : controller.task.newSubtaskTitle,
+        middle: compact ? _plusIcon : null,
         constrained: !compact,
-      );
+        onTap: _tap,
+        margin: EdgeInsets.only(right: compact ? P : 0),
+      ),
+      showBadge: !controller.plCreate,
+    );
+
+    return compact ? badge : MTAdaptive.S(badge);
+  }
 }

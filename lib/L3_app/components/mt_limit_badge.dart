@@ -5,36 +5,38 @@ import 'package:flutter/cupertino.dart';
 import 'colors.dart';
 import 'constants.dart';
 import 'icons_workspace.dart';
-import 'mt_constrained.dart';
 
 class MTLimitBadge extends StatelessWidget {
-  const MTLimitBadge({required this.child, required this.showBadge, this.constrained = true});
+  const MTLimitBadge({required this.child, required this.showBadge});
   final Widget child;
   final bool showBadge;
-  final bool constrained;
 
   static const _badgeSize = P2;
 
   @override
   Widget build(BuildContext context) {
-    final stack = Stack(
-      children: [
-        if (showBadge)
-          Positioned(
-            top: DEF_BORDER_WIDTH / 2,
-            child: Container(
-              width: _badgeSize * 3,
-              height: MIN_BTN_HEIGHT - DEF_BORDER_WIDTH,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(DEF_BTN_BORDER_RADIUS),
-                color: warningColor.resolve(context),
+    return showBadge
+        ? Stack(
+            alignment: Alignment.centerLeft,
+            children: [
+              Container(
+                height: MIN_BTN_HEIGHT - DEF_BORDER_WIDTH,
+                width: _badgeSize * 3,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(DEF_BTN_BORDER_RADIUS),
+                  color: warningColor.resolve(context),
+                ),
+                child: Row(children: const [
+                  SizedBox(width: P_6),
+                  RoubleIcon(size: P2, color: lightBackgroundColor),
+                ]),
               ),
-              child: Row(children: const [SizedBox(width: P_6), RoubleIcon(size: P2, color: lightBackgroundColor)]),
-            ),
-          ),
-        Padding(padding: EdgeInsets.only(left: showBadge ? _badgeSize : 0), child: child),
-      ],
-    );
-    return constrained ? MTAdaptive(stack) : stack;
+              Padding(
+                padding: const EdgeInsets.only(left: _badgeSize),
+                child: SizedBox(child: child, width: double.infinity),
+              ),
+            ],
+          )
+        : child;
   }
 }

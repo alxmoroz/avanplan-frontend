@@ -12,6 +12,7 @@ import '../../components/mt_bottom_sheet.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_checkbox.dart';
 import '../../components/mt_close_button.dart';
+import '../../components/mt_constrained.dart';
 import '../../components/mt_dropdown.dart';
 import '../../components/mt_limit_badge.dart';
 import '../../components/mt_shadowed.dart';
@@ -147,12 +148,15 @@ class ImportView extends StatelessWidget {
             align: TextAlign.center,
           ),
           const SizedBox(height: P_2),
-          MTLimitBadge(
-            child: MTButton.main(
-              titleText: '${loc.import_action_title}$_importBtnCountHint',
-              onTap: _validated ? controller.startImport : null,
+          MTAdaptive.S(
+            MTLimitBadge(
+              child: MTButton.main(
+                constrained: false,
+                titleText: '${loc.import_action_title}$_importBtnCountHint',
+                onTap: _validated ? controller.startImport : null,
+              ),
+              showBadge: controller.selectableCount < 0,
             ),
-            showBadge: controller.selectableCount < 0,
           ),
         ])
       : controller.ws.sources.isEmpty

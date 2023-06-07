@@ -8,6 +8,7 @@ import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/mt_bottom_sheet.dart';
 import '../../../components/mt_button.dart';
+import '../../../components/mt_constrained.dart';
 import '../../../components/mt_limit_badge.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
@@ -55,8 +56,8 @@ class _ProjectAddWizardState extends State<ProjectAddWizard> {
   Widget get modeSelector => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const SizedBox(height: P),
-          if (mainController.workspaces.length > 1)
+          if (mainController.workspaces.length > 1) ...[
+            const SizedBox(height: P),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -65,17 +66,21 @@ class _ProjectAddWizardState extends State<ProjectAddWizard> {
                 MediumText(controller.ws!.title),
               ],
             ),
+          ],
           const SizedBox(height: P),
           ListView(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             children: [
-              MTLimitBadge(
-                showBadge: !controller.ws!.plProjects,
-                child: MTButton.main(
-                  leading: const ImportIcon(color: lightBackgroundColor),
-                  titleText: loc.import_action_title,
-                  onTap: () => startImport(null),
+              MTAdaptive.S(
+                MTLimitBadge(
+                  showBadge: true, // !controller.ws!.plProjects,
+                  child: MTButton.main(
+                    leading: const ImportIcon(color: lightBackgroundColor),
+                    constrained: false,
+                    titleText: loc.import_action_title,
+                    onTap: () => startImport(null),
+                  ),
                 ),
               ),
               const SizedBox(height: P),

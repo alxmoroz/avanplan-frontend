@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
 import '../../../L1_domain/entities/workspace.dart';
-import '../../components/constants.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
@@ -42,7 +41,6 @@ class ActiveContractView extends StatelessWidget {
                 TariffOptions(tariff),
                 MTButton.main(
                   titleText: loc.tariff_change_action_title,
-                  margin: const EdgeInsets.only(bottom: P),
                   onTap: () => changeTariff(ws),
                 )
               ],

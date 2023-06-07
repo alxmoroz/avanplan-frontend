@@ -20,19 +20,24 @@ class RequestTariffCard extends StatelessWidget {
       child: Column(
         children: [
           Expanded(
-            child: Column(
+            child: ListView(
               children: [
-                H4(loc.tariff_type_request_title, align: TextAlign.center, padding: EdgeInsets.all(P)),
-                const SizedBox(height: P),
+                H4(loc.tariff_type_request_title, align: TextAlign.center, padding: const EdgeInsets.all(P)),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: const [StarIcon(), StarIcon(), StarIcon()]),
                 const SizedBox(height: P_2),
                 NormalText(loc.tariff_limit_special_conditions_title, align: TextAlign.center, padding: const EdgeInsets.all(P)),
               ],
             ),
           ),
-          MediumText(loc.tariff_price_request_action_hint, align: TextAlign.center, color: greyColor, padding: const EdgeInsets.all(P)),
+          MediumText(
+            loc.tariff_price_request_action_hint,
+            align: TextAlign.center,
+            color: greyColor,
+            padding: const EdgeInsets.all(P_2),
+          ),
           MTButton.secondary(
             titleText: loc.tariff_price_request_action_title,
+            margin: const EdgeInsets.symmetric(horizontal: P),
             onTap: () => sendMail(loc.tariff_price_request_mail_subject, appTitle, accountController.user?.id),
           ),
           const SizedBox(height: P2),

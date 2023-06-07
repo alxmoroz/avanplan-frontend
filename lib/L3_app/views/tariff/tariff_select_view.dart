@@ -57,6 +57,7 @@ class TariffSelectView extends StatelessWidget {
 
   Widget _selectButton(BuildContext context, Tariff tariff) => MTButton.main(
         titleText: loc.tariff_select_action_title,
+        margin: const EdgeInsets.symmetric(horizontal: P),
         onTap: () => Navigator.of(context).pop(tariff),
       );
 

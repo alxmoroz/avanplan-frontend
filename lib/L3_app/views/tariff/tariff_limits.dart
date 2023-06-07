@@ -53,7 +53,12 @@ class _TariffLimitTile extends StatelessWidget {
       suffix = loc.days_count(value);
     }
 
-    return MTListTile(leading: icon, titleText: '$prefix$hvStr $suffix', bottomBorder: false);
+    return MTListTile(
+      leading: icon,
+      titleText: '$prefix$hvStr $suffix',
+      padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
+      bottomBorder: false,
+    );
   }
 }
 
@@ -64,8 +69,6 @@ class TariffLimits extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
       children: [
         H4(tariff.title, align: TextAlign.center, padding: const EdgeInsets.all(P)),
         for (var code in tariff.limitsMap.keys) _TariffLimitTile(tariff: tariff, code: code),

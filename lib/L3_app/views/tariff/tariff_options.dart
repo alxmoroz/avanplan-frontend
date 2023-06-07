@@ -28,6 +28,7 @@ class _TariffOptionTile extends StatelessWidget {
     return MTListTile(
       middle: MTCurrency(value, greyColor),
       subtitle: LightText(description, align: TextAlign.center),
+      padding: const EdgeInsets.symmetric(horizontal: P).copyWith(bottom: P_2),
       color: Colors.transparent,
       bottomBorder: false,
     );
@@ -46,7 +47,12 @@ class TariffOptions extends StatelessWidget {
         if (tariff.optionsMap.keys.isNotEmpty)
           for (var code in tariff.optionsMap.keys) _TariffOptionTile(tariff: tariff, code: code)
         else
-          MediumText(loc.tariff_price_free_title, align: TextAlign.center, color: greyColor, padding: const EdgeInsets.all(P)),
+          MediumText(
+            loc.tariff_price_free_title,
+            align: TextAlign.center,
+            color: greyColor,
+            padding: const EdgeInsets.all(P_2),
+          ),
       ],
     );
   }

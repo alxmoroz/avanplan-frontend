@@ -15,9 +15,11 @@ const double DEF_BORDER_WIDTH = 2;
 const double MIN_BTN_HEIGHT = P * 4;
 
 const double SCR_S_HEIGHT = 480;
+const double SCR_M_HEIGHT = 540;
+const double SCR_L_HEIGHT = 920;
+
 const double SCR_S_WIDTH = 360;
 const double SCR_M_WIDTH = 700;
 const double SCR_L_WIDTH = 860;
-// const double SCR_XL_WIDTH = 1600;
 
 double? get cardElevation => isWeb ? 5 : null;

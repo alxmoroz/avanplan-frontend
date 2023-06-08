@@ -33,7 +33,7 @@ class _BaseText extends StatelessWidget {
     return cupertinoTS.copyWith(
       color: CupertinoDynamicColor.maybeResolve(color ?? darkGreyColor, context),
       fontWeight: weight ?? FontWeight.w400,
-      fontSize: (cupertinoTS.fontSize ?? (isTablet ? 24 : 17)) * (sizeScale ?? 1),
+      fontSize: (cupertinoTS.fontSize ?? (isTablet ? 24 : 16)) * (sizeScale ?? 1),
       inherit: true,
       decoration: decoration,
       height: height ?? cupertinoTS.height,

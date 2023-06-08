@@ -13,8 +13,8 @@ enum MTActionType {
   isDefault,
 }
 
-class MTDialogAction<T> {
-  MTDialogAction({
+class MTADialogAction<T> {
+  MTADialogAction({
     required this.result,
     this.title,
     this.child,
@@ -31,17 +31,17 @@ class MTDialogAction<T> {
   final Widget? child;
 }
 
-Future<T?> showMTDialog<T>(
+Future<T?> showMTAlertDialog<T>(
   BuildContext context, {
   required String title,
-  required List<MTDialogAction<T>> actions,
+  required List<MTADialogAction<T>> actions,
   String description = '',
   bool simple = false,
 }) async {
   return await showCupertinoDialog<T?>(
     context: context,
     barrierDismissible: true,
-    builder: (_) => MTDialog(title: title, description: description, actions: actions, simple: simple),
+    builder: (_) => MTAlertDialog(title: title, description: description, actions: actions, simple: simple),
   );
 }
 
@@ -51,8 +51,8 @@ const _actionColors = {
   MTActionType.isDefault: mainColor,
 };
 
-class MTDialog extends StatelessWidget {
-  const MTDialog({
+class MTAlertDialog extends StatelessWidget {
+  const MTAlertDialog({
     required this.title,
     required this.actions,
     required this.description,
@@ -60,15 +60,15 @@ class MTDialog extends StatelessWidget {
   });
 
   final String title;
-  final List<MTDialogAction> actions;
+  final List<MTADialogAction> actions;
   final String description;
   final bool simple;
 
-  Widget _actionText(MTDialogAction a) => a.type == MTActionType.isDefault
+  Widget _actionText(MTADialogAction a) => a.type == MTActionType.isDefault
       ? MediumText(a.title ?? '', color: _actionColors[a.type], align: TextAlign.center)
       : NormalText(a.title ?? '', color: _actionColors[a.type], align: TextAlign.center);
 
-  Widget _actionRow(MTDialogAction a) => Row(
+  Widget _actionRow(MTADialogAction a) => Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: a.child != null
           ? [a.child!]
@@ -82,14 +82,14 @@ class MTDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Future action(MTDialogAction a) async {
+    Future action(MTADialogAction a) async {
       if (a.onTap != null) {
         a.onTap!();
       }
       Navigator.of(context).pop(a.result);
     }
 
-    Widget richButton(MTDialogAction a) => Column(
+    Widget richButton(MTADialogAction a) => Column(
           children: [
             const MTDivider(height: P2),
             CupertinoButton(

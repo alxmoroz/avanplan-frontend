@@ -53,13 +53,13 @@ class NotificationListView extends StatelessWidget {
   }
 
   Future _showGotoSystemSettingsDialog() async {
-    final gotoSettings = await showMTDialog(
+    final gotoSettings = await showMTAlertDialog(
       rootKey.currentContext!,
       title: loc.notification_push_ios_denied_dialog_title,
       description: loc.notification_push_ios_denied_dialog_description,
       actions: [
-        MTDialogAction(title: loc.cancel, result: false),
-        MTDialogAction(title: loc.app_settings_action_title, result: true, type: MTActionType.isDefault),
+        MTADialogAction(title: loc.cancel, result: false),
+        MTADialogAction(title: loc.app_settings_action_title, result: true, type: MTActionType.isDefault),
       ],
       simple: true,
     );

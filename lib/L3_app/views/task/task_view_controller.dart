@@ -66,19 +66,19 @@ abstract class _TaskViewControllerBase with Store {
 
   /// связь с источником импорта
 
-  MTDialogAction<bool> _go2SourceDialogAction() => MTDialogAction(
+  MTADialogAction<bool> _go2SourceDialogAction() => MTADialogAction(
         type: MTActionType.isDefault,
         onTap: () => launchUrlString(task.taskSource!.urlString),
         result: false,
         child: task.taskSource!.go2SourceTitle(),
       );
 
-  Future<bool?> _unlinkDialog() async => await showMTDialog(
+  Future<bool?> _unlinkDialog() async => await showMTAlertDialog(
         rootKey.currentContext!,
         title: loc.task_unlink_dialog_title,
         description: loc.task_unlink_dialog_description,
         actions: [
-          MTDialogAction(
+          MTADialogAction(
             title: loc.task_unlink_action_title,
             type: MTActionType.isWarning,
             result: true,
@@ -88,12 +88,12 @@ abstract class _TaskViewControllerBase with Store {
         ],
       );
 
-  Future<bool?> _unwatchDialog() async => await showMTDialog(
+  Future<bool?> _unwatchDialog() async => await showMTAlertDialog(
         rootKey.currentContext!,
         title: loc.task_unwatch_dialog_title,
         description: loc.task_unwatch_dialog_description,
         actions: [
-          MTDialogAction(
+          MTADialogAction(
             title: loc.task_unwatch_action_title,
             type: MTActionType.isDanger,
             result: true,
@@ -103,13 +103,13 @@ abstract class _TaskViewControllerBase with Store {
         ],
       );
 
-  Future<bool?> _closeDialog() async => await showMTDialog(
+  Future<bool?> _closeDialog() async => await showMTAlertDialog(
         rootKey.currentContext!,
         title: loc.close_dialog_recursive_title,
         description: loc.close_dialog_recursive_description,
         actions: [
-          MTDialogAction(title: loc.close_w_subtasks, type: MTActionType.isWarning, result: true),
-          MTDialogAction(title: loc.cancel, type: MTActionType.isDefault, result: false),
+          MTADialogAction(title: loc.close_w_subtasks, type: MTActionType.isWarning, result: true),
+          MTADialogAction(title: loc.cancel, type: MTActionType.isDefault, result: false),
         ],
       );
 

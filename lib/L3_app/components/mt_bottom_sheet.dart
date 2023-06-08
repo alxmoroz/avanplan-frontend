@@ -7,20 +7,34 @@ import 'package:flutter/material.dart';
 import '../../main.dart';
 import 'colors.dart';
 import 'constants.dart';
+import 'mt_adaptive.dart';
 import 'mt_toolbar.dart';
 
 Future<T?> showMTBottomSheet<T>(Widget child) async {
   final ctx = rootKey.currentContext!;
   final mq = MediaQuery.of(ctx);
-  return await showModalBottomSheet<T?>(
-    context: ctx,
-    isScrollControlled: true,
-    constraints: BoxConstraints(
-      maxWidth: SCR_L_WIDTH,
-      maxHeight: mq.size.height > SCR_S_HEIGHT ? mq.size.height - mq.padding.top - P : double.infinity,
-    ),
-    builder: (_) => child,
-  );
+  final mqH = mq.size.height;
+  final mqW = mq.size.width;
+
+  final bigScreen = mqH > SCR_M_HEIGHT && mqW > SCR_M_WIDTH;
+
+  return bigScreen
+      ? await showDialog(
+          context: ctx,
+          builder: (_) {
+            final body = Center(child: child);
+            return mqW > SCR_L_WIDTH ? MTAdaptive.L(body) : MTAdaptive(child: body);
+          },
+        )
+      : await showModalBottomSheet<T?>(
+          context: ctx,
+          isScrollControlled: true,
+          constraints: BoxConstraints(
+            maxWidth: SCR_L_WIDTH,
+            maxHeight: mqH > SCR_S_HEIGHT ? mqH - mq.padding.top - P : double.infinity,
+          ),
+          builder: (_) => child,
+        );
 }
 
 class MTBottomSheet extends StatelessWidget {
@@ -52,7 +66,10 @@ class MTBottomSheet extends StatelessWidget {
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
             color: backgroundColor.resolve(context),
-            borderRadius: const BorderRadius.only(topLeft: Radius.circular(DEF_BORDER_RADIUS), topRight: Radius.circular(DEF_BORDER_RADIUS)),
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(DEF_BORDER_RADIUS),
+              topRight: Radius.circular(DEF_BORDER_RADIUS),
+            ),
           ),
           child: Stack(
             children: [

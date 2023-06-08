@@ -4,7 +4,6 @@ import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../../L1_domain/entities/status.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities/workspace.dart';
 import '../../../../../L2_data/services/platform.dart';
@@ -45,7 +44,8 @@ class TasksBoardView extends StatelessWidget {
         canDrag: t.canSetStatus,
       );
 
-  DragAndDropList _columnBuilder(Status status) {
+  DragAndDropList _columnBuilder(int index) {
+    final status = _ws.statuses[index];
     final tasks = _task.sortedLeafTasksForStatus(status.id!);
     return DragAndDropList(
       header: Row(
@@ -57,34 +57,50 @@ class TasksBoardView extends StatelessWidget {
       ),
       children: [for (final t in tasks) _taskBuilder(t)],
       canDrag: false,
-      contentsWhenEmpty: const SizedBox(height: 0),
-      lastTarget: const SizedBox(height: P2),
+      contentsWhenEmpty: Container(),
+      lastTarget: tasks.isEmpty ? _ItemTarget() : null,
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final mq = MediaQuery.of(context);
     return Observer(
       builder: (_) => Stack(
         alignment: Alignment.center,
         children: [
           DragAndDropLists(
-            children: [for (final status in _ws.statuses) _columnBuilder(status)],
+            children: [for (var i = 0; i < _ws.statuses.length; i++) _columnBuilder(i)],
             onItemReorder: _setStatus,
             onListReorder: (int oldListIndex, int newListIndex) {},
             axis: Axis.horizontal,
             listWidth: SCR_S_WIDTH * 0.8,
-            listPadding: const EdgeInsets.symmetric(horizontal: P_2).copyWith(top: P),
-            // itemGhost: const SizedBox(height: P2),
+            listPadding: const EdgeInsets.symmetric(horizontal: P_2).copyWith(top: P, bottom: mq.padding.bottom + P),
+            itemGhost: const SizedBox(height: MIN_BTN_HEIGHT),
+            lastListTargetSize: 0,
             listDecoration: BoxDecoration(
               color: darkBackgroundColor.resolve(rootKey.currentContext!),
               borderRadius: const BorderRadius.all(Radius.circular(DEF_BORDER_RADIUS)),
             ),
             contentsWhenEmpty: const SizedBox(height: P3),
-            lastItemTargetHeight: 0,
+            lastItemTargetHeight: P,
             listDragOnLongPress: !isWeb,
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _ItemTarget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: MIN_BTN_HEIGHT * 1.5,
+      margin: const EdgeInsets.all(P).copyWith(top: 0),
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(DEF_BORDER_RADIUS)),
+        border: Border.all(width: 1, color: backgroundColor.resolve(context)),
       ),
     );
   }

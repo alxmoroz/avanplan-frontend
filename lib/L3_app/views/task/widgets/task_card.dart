@@ -34,14 +34,7 @@ class TaskCard extends StatelessWidget {
   final bool bottomBorder;
   final bool showStateMark;
 
-  bool get _showStatus => !board && task.status != null;
-  bool get _hasAssignee => task.assignee != null;
-
-  Widget get _title => NormalText(
-        task.title,
-        maxLines: 2,
-        decoration: task.closed && !board ? TextDecoration.lineThrough : null,
-      );
+  Widget get _title => NormalText(task.title, maxLines: 2, color: task.closed ? lightGreyColor : null);
 
   Widget get _header => Row(
         children: [
@@ -52,14 +45,14 @@ class TaskCard extends StatelessWidget {
       );
 
   bool get _showLink => task.hasLink && task.isProject;
-
-  Widget get _estimate => SmallText('${task.estimate} ${loc.task_estimate_unit}', color: greyColor);
+  Widget get _estimate => SmallText('${task.estimate} ${loc.task_estimate_unit}', color: task.closed ? lightGreyColor : greyColor);
+  Widget get _assignee => task.assignee!.iconName(card: true, color: task.closed ? lightGreyColor : null);
 
   Widget get _taskContent => Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (showBreadcrumbs && task.parent != null) LightText(task.parent!.title, sizeScale: 0.8, color: lightGreyColor),
+          if (showBreadcrumbs && task.parent != null) SmallText(task.parent!.title, color: lightGreyColor),
           _header,
           if (task.canShowState || _showLink) ...[
             const SizedBox(height: P_3),
@@ -67,22 +60,25 @@ class TaskCard extends StatelessWidget {
               if (task.canShowState) Expanded(child: TaskStateTitle(task)),
               if (_showLink) const LinkIcon(),
             ]),
-          ],
-          const SizedBox(height: P_6),
-          Row(
-            children: [
-              if (!task.closed && _showStatus) SmallText(task.status!.code, color: greyColor),
-              if (!task.closed && task.hasEstimate && !task.canShowState) ...[
-                if (!_showStatus && _hasAssignee) task.assignee!.iconName(card: true),
-                const Spacer(),
-                _estimate,
-              ]
-            ],
-          ),
-          if (_showStatus && _hasAssignee) ...[
+          ] else if (!task.canShowState) ...[
             const SizedBox(height: P_6),
-            task.assignee!.iconName(card: true),
-          ]
+            if (task.hasStatus)
+              Row(
+                children: [
+                  SmallText(task.status!.code, color: task.closed ? lightGreyColor : greyColor),
+                  if (task.hasEstimate) ...[const Spacer(), _estimate],
+                ],
+              ),
+            if (task.hasAssignee) ...[
+              const SizedBox(height: P_6),
+              Row(
+                children: [
+                  _assignee,
+                  if (!task.hasStatus && task.hasEstimate) ...[const Spacer(), _estimate],
+                ],
+              ),
+            ],
+          ],
         ],
       );
 

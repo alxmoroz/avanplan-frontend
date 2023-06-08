@@ -11,7 +11,7 @@ publish_to: none
 dependencies:
   app_settings: any
   cupertino_icons: any
-  device_info_plus: ^8.1.0
+  device_info_plus: ^9.0.2
   flutter:
     sdk: flutter
   flutter_apns_only: any
@@ -30,7 +30,7 @@ dependencies:
     path: ./openapi
   package_info_plus: any
   path_provider: any
-  share_plus: ^6.3.1
+  share_plus: ^7.0.2
   sign_in_with_apple: any
   url_launcher: any
 

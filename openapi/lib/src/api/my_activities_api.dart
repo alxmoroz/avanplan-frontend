@@ -93,13 +93,13 @@ class MyActivitiesApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    MyUser _responseData;
+    MyUser? _responseData;
 
     try {
-      const _responseType = FullType(MyUser);
-      _responseData = _serializers.deserialize(
-        _response.data!,
-        specifiedType: _responseType,
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(MyUser),
       ) as MyUser;
 
     } catch (error, stackTrace) {

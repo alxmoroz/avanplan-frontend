@@ -94,13 +94,13 @@ class AuthApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    AuthToken _responseData;
+    AuthToken? _responseData;
 
     try {
-      const _responseType = FullType(AuthToken);
-      _responseData = _serializers.deserialize(
-        _response.data!,
-        specifiedType: _responseType,
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(AuthToken),
       ) as AuthToken;
 
     } catch (error, stackTrace) {
@@ -196,13 +196,13 @@ class AuthApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    AuthToken _responseData;
+    AuthToken? _responseData;
 
     try {
-      const _responseType = FullType(AuthToken);
-      _responseData = _serializers.deserialize(
-        _response.data!,
-        specifiedType: _responseType,
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(AuthToken),
       ) as AuthToken;
 
     } catch (error, stackTrace) {
@@ -314,13 +314,13 @@ class AuthApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    AuthToken _responseData;
+    AuthToken? _responseData;
 
     try {
-      const _responseType = FullType(AuthToken);
-      _responseData = _serializers.deserialize(
-        _response.data!,
-        specifiedType: _responseType,
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(AuthToken),
       ) as AuthToken;
 
     } catch (error, stackTrace) {
@@ -397,13 +397,13 @@ class AuthApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    AuthToken _responseData;
+    AuthToken? _responseData;
 
     try {
-      const _responseType = FullType(AuthToken);
-      _responseData = _serializers.deserialize(
-        _response.data!,
-        specifiedType: _responseType,
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(AuthToken),
       ) as AuthToken;
 
     } catch (error, stackTrace) {
@@ -499,13 +499,13 @@ class AuthApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    AuthToken _responseData;
+    AuthToken? _responseData;
 
     try {
-      const _responseType = FullType(AuthToken);
-      _responseData = _serializers.deserialize(
-        _response.data!,
-        specifiedType: _responseType,
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(AuthToken),
       ) as AuthToken;
 
     } catch (error, stackTrace) {
@@ -601,10 +601,11 @@ class AuthApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    bool _responseData;
+    bool? _responseData;
 
     try {
-      _responseData = _response.data as bool;
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : rawResponse as bool;
 
     } catch (error, stackTrace) {
       throw DioError(

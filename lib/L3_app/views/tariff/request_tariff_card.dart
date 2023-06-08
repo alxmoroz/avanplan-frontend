@@ -23,7 +23,7 @@ class RequestTariffCard extends StatelessWidget {
             child: ListView(
               children: [
                 H4(loc.tariff_type_request_title, align: TextAlign.center, padding: const EdgeInsets.all(P)),
-                Row(mainAxisAlignment: MainAxisAlignment.center, children: const [StarIcon(), StarIcon(), StarIcon()]),
+                const Row(mainAxisAlignment: MainAxisAlignment.center, children: [StarIcon(), StarIcon(), StarIcon()]),
                 const SizedBox(height: P_2),
                 NormalText(loc.tariff_limit_special_conditions_title, align: TextAlign.center, padding: const EdgeInsets.all(P)),
               ],

@@ -111,13 +111,13 @@ class TasksRolesApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltList<MemberGet> _responseData;
+    BuiltList<MemberGet>? _responseData;
 
     try {
-      const _responseType = FullType(BuiltList, [FullType(MemberGet)]);
-      _responseData = _serializers.deserialize(
-        _response.data!,
-        specifiedType: _responseType,
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(BuiltList, [FullType(MemberGet)]),
       ) as BuiltList<MemberGet>;
 
     } catch (error, stackTrace) {

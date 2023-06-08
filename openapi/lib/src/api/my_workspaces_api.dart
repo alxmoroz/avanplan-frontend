@@ -95,13 +95,13 @@ class MyWorkspacesApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    WorkspaceGet _responseData;
+    WorkspaceGet? _responseData;
 
     try {
-      const _responseType = FullType(WorkspaceGet);
-      _responseData = _serializers.deserialize(
-        _response.data!,
-        specifiedType: _responseType,
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(WorkspaceGet),
       ) as WorkspaceGet;
 
     } catch (error, stackTrace) {
@@ -208,13 +208,13 @@ class MyWorkspacesApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    WorkspaceGet _responseData;
+    WorkspaceGet? _responseData;
 
     try {
-      const _responseType = FullType(WorkspaceGet);
-      _responseData = _serializers.deserialize(
-        _response.data!,
-        specifiedType: _responseType,
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(WorkspaceGet),
       ) as WorkspaceGet;
 
     } catch (error, stackTrace) {
@@ -291,13 +291,13 @@ class MyWorkspacesApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltList<WorkspaceGet> _responseData;
+    BuiltList<WorkspaceGet>? _responseData;
 
     try {
-      const _responseType = FullType(BuiltList, [FullType(WorkspaceGet)]);
-      _responseData = _serializers.deserialize(
-        _response.data!,
-        specifiedType: _responseType,
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(BuiltList, [FullType(WorkspaceGet)]),
       ) as BuiltList<WorkspaceGet>;
 
     } catch (error, stackTrace) {

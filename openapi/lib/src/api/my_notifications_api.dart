@@ -93,10 +93,11 @@ class MyNotificationsApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    bool _responseData;
+    bool? _responseData;
 
     try {
-      _responseData = _response.data as bool;
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : rawResponse as bool;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -172,13 +173,13 @@ class MyNotificationsApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltList<Notification> _responseData;
+    BuiltList<Notification>? _responseData;
 
     try {
-      const _responseType = FullType(BuiltList, [FullType(Notification)]);
-      _responseData = _serializers.deserialize(
-        _response.data!,
-        specifiedType: _responseType,
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(BuiltList, [FullType(Notification)]),
       ) as BuiltList<Notification>;
 
     } catch (error, stackTrace) {

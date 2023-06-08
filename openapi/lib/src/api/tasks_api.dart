@@ -85,10 +85,11 @@ class TasksApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    bool _responseData;
+    bool? _responseData;
 
     try {
-      _responseData = _response.data as bool;
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : rawResponse as bool;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -171,13 +172,13 @@ class TasksApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltList<TaskGet> _responseData;
+    BuiltList<TaskGet>? _responseData;
 
     try {
-      const _responseType = FullType(BuiltList, [FullType(TaskGet)]);
-      _responseData = _serializers.deserialize(
-        _response.data!,
-        specifiedType: _responseType,
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(BuiltList, [FullType(TaskGet)]),
       ) as BuiltList<TaskGet>;
 
     } catch (error, stackTrace) {
@@ -287,13 +288,13 @@ class TasksApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    TaskGet _responseData;
+    TaskGet? _responseData;
 
     try {
-      const _responseType = FullType(TaskGet);
-      _responseData = _serializers.deserialize(
-        _response.data!,
-        specifiedType: _responseType,
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(TaskGet),
       ) as TaskGet;
 
     } catch (error, stackTrace) {

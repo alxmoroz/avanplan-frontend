@@ -100,13 +100,13 @@ class Deprecated11Api {
       onReceiveProgress: onReceiveProgress,
     );
 
-    WorkspaceGet _responseData;
+    WorkspaceGet? _responseData;
 
     try {
-      const _responseType = FullType(WorkspaceGet);
-      _responseData = _serializers.deserialize(
-        _response.data!,
-        specifiedType: _responseType,
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(WorkspaceGet),
       ) as WorkspaceGet;
 
     } catch (error, stackTrace) {
@@ -214,10 +214,11 @@ class Deprecated11Api {
       onReceiveProgress: onReceiveProgress,
     );
 
-    String _responseData;
+    String? _responseData;
 
     try {
-      _responseData = _response.data as String;
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : rawResponse as String;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -316,10 +317,11 @@ class Deprecated11Api {
       onReceiveProgress: onReceiveProgress,
     );
 
-    bool _responseData;
+    bool? _responseData;
 
     try {
-      _responseData = _response.data as bool;
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : rawResponse as bool;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -435,13 +437,13 @@ class Deprecated11Api {
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltList<MemberGet> _responseData;
+    BuiltList<MemberGet>? _responseData;
 
     try {
-      const _responseType = FullType(BuiltList, [FullType(MemberGet)]);
-      _responseData = _serializers.deserialize(
-        _response.data!,
-        specifiedType: _responseType,
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(BuiltList, [FullType(MemberGet)]),
       ) as BuiltList<MemberGet>;
 
     } catch (error, stackTrace) {
@@ -541,10 +543,11 @@ class Deprecated11Api {
       onReceiveProgress: onReceiveProgress,
     );
 
-    bool _responseData;
+    bool? _responseData;
 
     try {
-      _responseData = _response.data as bool;
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : rawResponse as bool;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -651,13 +654,13 @@ class Deprecated11Api {
       onReceiveProgress: onReceiveProgress,
     );
 
-    WorkspaceGet _responseData;
+    WorkspaceGet? _responseData;
 
     try {
-      const _responseType = FullType(WorkspaceGet);
-      _responseData = _serializers.deserialize(
-        _response.data!,
-        specifiedType: _responseType,
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(WorkspaceGet),
       ) as WorkspaceGet;
 
     } catch (error, stackTrace) {

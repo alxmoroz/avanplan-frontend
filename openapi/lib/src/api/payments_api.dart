@@ -101,10 +101,11 @@ class PaymentsApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    num _responseData;
+    num? _responseData;
 
     try {
-      _responseData = _response.data as num;
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : rawResponse as num;
 
     } catch (error, stackTrace) {
       throw DioError(

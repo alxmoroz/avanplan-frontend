@@ -77,8 +77,9 @@ class App extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: mainColor.resolve(context),
-          brightness: WidgetsBinding.instance.window.platformBrightness,
+          brightness: View.of(context).platformDispatcher.platformBrightness,
           background: backgroundColor.resolve(context),
+          surfaceTint: backgroundColor.resolve(context),
         ),
         fontFamily: fontFamily,
         useMaterial3: true,

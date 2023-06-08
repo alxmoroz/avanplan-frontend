@@ -15,7 +15,6 @@ Future<T?> showMTBottomSheet<T>(Widget child) async {
   return await showModalBottomSheet<T?>(
     context: ctx,
     isScrollControlled: true,
-    backgroundColor: backgroundColor.resolve(ctx),
     constraints: BoxConstraints(
       maxWidth: SCR_L_WIDTH,
       maxHeight: mq.size.height > SCR_S_HEIGHT ? mq.size.height - mq.padding.top - P : double.infinity,

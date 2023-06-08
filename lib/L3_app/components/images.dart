@@ -25,11 +25,11 @@ class MTImage extends StatelessWidget {
   final String name;
   final double? size;
 
-  bool get _dark => WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
-  String _assetPath(String name) => 'assets/images/$name${_dark ? '_dark' : ''}.png';
-
   @override
   Widget build(BuildContext context) {
+    final _dark = View.of(context).platformDispatcher.platformBrightness == Brightness.dark;
+    String _assetPath(String name) => 'assets/images/$name${_dark ? '_dark' : ''}.png';
+
     return Image.asset(
       _assetPath(name),
       width: size,

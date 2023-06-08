@@ -103,13 +103,13 @@ class TasksInvitationsApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    InvitationGet _responseData;
+    InvitationGet? _responseData;
 
     try {
-      const _responseType = FullType(InvitationGet);
-      _responseData = _serializers.deserialize(
-        _response.data!,
-        specifiedType: _responseType,
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(InvitationGet),
       ) as InvitationGet;
 
     } catch (error, stackTrace) {
@@ -202,13 +202,13 @@ class TasksInvitationsApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltList<InvitationGet> _responseData;
+    BuiltList<InvitationGet>? _responseData;
 
     try {
-      const _responseType = FullType(BuiltList, [FullType(InvitationGet)]);
-      _responseData = _serializers.deserialize(
-        _response.data!,
-        specifiedType: _responseType,
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(BuiltList, [FullType(InvitationGet)]),
       ) as BuiltList<InvitationGet>;
 
     } catch (error, stackTrace) {

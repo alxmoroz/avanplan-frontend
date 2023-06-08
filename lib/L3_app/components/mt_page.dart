@@ -3,7 +3,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'colors.dart';
 import 'mt_toolbar.dart';
 
 // TODO: оставить один MTPage без Scaffold => нужно сделать MTToolbar для верхней части
@@ -27,7 +26,6 @@ class MTPage extends StatelessWidget {
           key: key,
           appBar: navBar,
           body: body,
-          backgroundColor: backgroundColor.resolve(context),
           extendBody: true,
           extendBodyBehindAppBar: true,
           bottomNavigationBar: bottomBar != null ? MTToolbar(child: bottomBar!) : null,

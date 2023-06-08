@@ -162,13 +162,14 @@ Class | Method | HTTP request | Description
 ## Documentation For Authorization
 
 
-## APIKeyHeader
+Authentication schemes defined for the API:
+### APIKeyHeader
 
 - **Type**: API key
 - **API key parameter name**: Avanplan
 - **Location**: HTTP header
 
-## OAuth2PasswordBearer
+### OAuth2PasswordBearer
 
 - **Type**: OAuth
 - **Flow**: password

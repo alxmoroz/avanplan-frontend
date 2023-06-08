@@ -28,7 +28,7 @@ WebBrowserInfo get _webDevInfo => deviceInfo as WebBrowserInfo;
 String get deviceModelName {
   String res = '';
   if (isIOS) {
-    res = _iosDevInfo.name ?? 'iOS device';
+    res = _iosDevInfo.name;
   } else if (isAndroid) {
     res = _androidDevInfo.model;
   } else if (isWeb) {
@@ -40,7 +40,7 @@ String get deviceModelName {
 String get deviceSystemInfo {
   String res = '';
   if (isIOS) {
-    res = '${_iosDevInfo.systemName ?? 'Apple OS'} ${_iosDevInfo.systemVersion ?? ''}';
+    res = '${_iosDevInfo.systemName} ${_iosDevInfo.systemVersion}';
   } else if (isAndroid) {
     final osVersion = _androidDevInfo.version;
     res = '${osVersion.baseOS ?? 'Android'} ${osVersion.codename}';

@@ -11,8 +11,8 @@ class WSMembersPane extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Observer(
-        builder: (_) => Column(
-          children: const [],
+        builder: (_) => const Column(
+          children: [],
         ),
       );
 }

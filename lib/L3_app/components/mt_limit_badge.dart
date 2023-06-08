@@ -26,7 +26,7 @@ class MTLimitBadge extends StatelessWidget {
                   borderRadius: BorderRadius.circular(DEF_BTN_BORDER_RADIUS),
                   color: warningColor.resolve(context),
                 ),
-                child: Row(children: const [
+                child: const Row(children: [
                   SizedBox(width: P_6),
                   RoubleIcon(size: P2, color: lightBackgroundColor),
                 ]),

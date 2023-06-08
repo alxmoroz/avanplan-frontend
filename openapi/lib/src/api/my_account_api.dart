@@ -71,13 +71,13 @@ class MyAccountApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    MyUser _responseData;
+    MyUser? _responseData;
 
     try {
-      const _responseType = FullType(MyUser);
-      _responseData = _serializers.deserialize(
-        _response.data!,
-        specifiedType: _responseType,
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(MyUser),
       ) as MyUser;
 
     } catch (error, stackTrace) {
@@ -154,10 +154,11 @@ class MyAccountApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    bool _responseData;
+    bool? _responseData;
 
     try {
-      _responseData = _response.data as bool;
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : rawResponse as bool;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -255,13 +256,13 @@ class MyAccountApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    MyUser _responseData;
+    MyUser? _responseData;
 
     try {
-      const _responseType = FullType(MyUser);
-      _responseData = _serializers.deserialize(
-        _response.data!,
-        specifiedType: _responseType,
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(MyUser),
       ) as MyUser;
 
     } catch (error, stackTrace) {

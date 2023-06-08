@@ -79,13 +79,13 @@ class TariffsApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltList<TariffGet> _responseData;
+    BuiltList<TariffGet>? _responseData;
 
     try {
-      const _responseType = FullType(BuiltList, [FullType(TariffGet)]);
-      _responseData = _serializers.deserialize(
-        _response.data!,
-        specifiedType: _responseType,
+      final rawResponse = _response.data;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(BuiltList, [FullType(TariffGet)]),
       ) as BuiltList<TariffGet>;
 
     } catch (error, stackTrace) {

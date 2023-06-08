@@ -34,6 +34,7 @@ Future<T?> showMTDialog<T>(Widget child) async {
       ? await showDialog(
           context: ctx,
           barrierColor: barrierColor,
+          useRootNavigator: false,
           builder: (_) => UnconstrainedBox(
             child: ConstrainedBox(
               child: material(child),

@@ -77,7 +77,7 @@ class DetailsPane extends StatelessWidget {
                         titleText: loc.close_action_title,
                         leading: const DoneIcon(true, color: greenColor),
                         margin: const EdgeInsets.only(left: P),
-                        onTap: () => controller.setStatus(close: true),
+                        onTap: () => controller.setStatus(_task, close: true),
                       ),
                   ],
                 ),

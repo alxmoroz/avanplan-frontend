@@ -31,18 +31,18 @@ class OverviewPane extends StatelessWidget {
   const OverviewPane(this.controller);
   final TaskViewController controller;
 
-  Task get task => controller.task;
+  Task get _task => controller.task;
 
   //TODO: кнопки "Закрыть" и "Переоткрыть" остаются тут?
 
-  Widget? get bottomBar => !task.isRoot && task.shouldAddSubtask
+  Widget? get bottomBar => !_task.isRoot && _task.shouldAddSubtask
       ? TaskAddButton(controller)
-      : task.canReopen || task.canCloseGroup
+      : _task.canReopen || _task.canCloseGroup
           ? Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                if (task.canCloseGroup)
+                if (_task.canCloseGroup)
                   MediumText(
                     loc.state_closable_hint,
                     align: TextAlign.center,
@@ -50,9 +50,9 @@ class OverviewPane extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: P_3),
                   ),
                 MTButton.main(
-                  titleText: task.canCloseGroup ? loc.close_action_title : loc.task_reopen_action_title,
-                  leading: DoneIcon(task.canCloseGroup, color: lightBackgroundColor),
-                  onTap: () => controller.setStatus(close: !task.closed),
+                  titleText: _task.canCloseGroup ? loc.close_action_title : loc.task_reopen_action_title,
+                  leading: DoneIcon(_task.canCloseGroup, color: lightBackgroundColor),
+                  onTap: () => controller.setStatus(_task, close: !_task.closed),
                 ),
               ],
             )
@@ -65,11 +65,11 @@ class OverviewPane extends StatelessWidget {
       ]);
 
   Widget get _rItemAddTask => _checkRecommendsItem(
-        task.overallState != TaskState.noSubtasks,
-        '${loc.recommendation_add_tasks_title} ${task.listTitle.toLowerCase()}',
+        _task.overallState != TaskState.noSubtasks,
+        '${loc.recommendation_add_tasks_title} ${_task.listTitle.toLowerCase()}',
       );
 
-  Widget get _rItemProgress => _checkRecommendsItem(task.projectHasProgress, loc.recommendation_close_tasks_title);
+  Widget get _rItemProgress => _checkRecommendsItem(_task.projectHasProgress, loc.recommendation_close_tasks_title);
 
   Widget _line(BuildContext context) =>
       Row(children: [const SizedBox(width: P * 1.4), Container(height: P * 1.5, width: 2, color: greyColor.resolve(context))]);
@@ -78,7 +78,7 @@ class OverviewPane extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => ListView(
-        shrinkWrap: task.isRoot,
+        shrinkWrap: _task.isRoot,
         children: [
           MTAdaptive(
             force: true,
@@ -88,42 +88,42 @@ class OverviewPane extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: P),
-                if (task.canShowState)
-                  task.isRoot
-                      ? GroupStateTitle(task, task.subtasksState, place: StateTitlePlace.workspace)
-                      : task.canShowRecommendsEta || task.projectLowStart
-                          ? H3('${loc.state_no_info_title}: ${task.stateTitle.toLowerCase()}', align: TextAlign.center)
-                          : TaskStateTitle(task, place: StateTitlePlace.taskOverview),
+                if (_task.canShowState)
+                  _task.isRoot
+                      ? GroupStateTitle(_task, _task.subtasksState, place: StateTitlePlace.workspace)
+                      : _task.canShowRecommendsEta || _task.projectLowStart
+                          ? H3('${loc.state_no_info_title}: ${_task.stateTitle.toLowerCase()}', align: TextAlign.center)
+                          : TaskStateTitle(_task, place: StateTitlePlace.taskOverview),
 
                 /// нет прогноза - показываем шаги
-                if (task.canShowRecommendsEta) ...[
+                if (_task.canShowRecommendsEta) ...[
                   const SizedBox(height: P2),
-                  task.projectHasProgress ? _rItemProgress : _rItemAddTask,
+                  _task.projectHasProgress ? _rItemProgress : _rItemAddTask,
                   _line(context),
-                  task.projectHasProgress ? _rItemAddTask : _rItemProgress,
+                  _task.projectHasProgress ? _rItemAddTask : _rItemProgress,
                 ],
 
                 /// объем и скорость
-                if (task.canShowVelocityVolumeCharts) ...[
+                if (_task.canShowVelocityVolumeCharts) ...[
                   const SizedBox(height: P2),
                   Row(children: [
-                    Expanded(child: TaskVolumeChart(task)),
+                    Expanded(child: TaskVolumeChart(_task)),
                     const SizedBox(width: P2),
-                    Expanded(child: VelocityChart(task)),
+                    Expanded(child: VelocityChart(_task)),
                   ]),
                 ],
 
                 /// срок
-                if (task.canShowTimeChart) ...[
+                if (_task.canShowTimeChart) ...[
                   const SizedBox(height: P),
-                  TimingChart(task),
+                  TimingChart(_task),
                 ],
 
-                if (task.canShowChartDetails) ...[
+                if (_task.canShowChartDetails) ...[
                   const SizedBox(height: P2),
                   MTButton.secondary(
                     titleText: loc.chart_details_action_title,
-                    onTap: () => showChartsDetailsDialog(task),
+                    onTap: () => showChartsDetailsDialog(_task),
                   ),
                 ],
               ],
@@ -131,16 +131,16 @@ class OverviewPane extends StatelessWidget {
           ),
 
           /// требующие внимания задачи
-          if (task.attentionalTasks.isNotEmpty) ...[
+          if (_task.attentionalTasks.isNotEmpty) ...[
             const SizedBox(height: P2),
-            if (!task.isRoot)
+            if (!_task.isRoot)
               MTAdaptive(
                 force: true,
-                child: GroupStateTitle(task, task.subtasksState, place: StateTitlePlace.groupHeader),
+                child: GroupStateTitle(_task, _task.subtasksState, place: StateTitlePlace.groupHeader),
               ),
             MTAdaptive(
               force: true,
-              child: AttentionalTasks(task),
+              child: AttentionalTasks(_task),
             ),
           ],
         ],

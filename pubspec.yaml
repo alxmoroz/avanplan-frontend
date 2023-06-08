@@ -12,6 +12,7 @@ dependencies:
   app_settings: any
   cupertino_icons: any
   device_info_plus: ^9.0.2
+  drag_and_drop_lists: any
   flutter:
     sdk: flutter
   flutter_apns_only: any

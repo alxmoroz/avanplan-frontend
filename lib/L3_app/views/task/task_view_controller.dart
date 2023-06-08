@@ -159,18 +159,18 @@ abstract class _TaskViewControllerBase with Store {
     final selectedStatusId = await statusSelectDialog(_ws, task.statusId);
 
     if (selectedStatusId != null) {
-      await setStatus(statusId: selectedStatusId);
+      await setStatus(task, statusId: selectedStatusId);
     }
   }
 
-  Future setStatus({int? statusId, bool? close}) async {
+  Future setStatus(Task _task, {int? statusId, bool? close}) async {
     if (statusId != null || close != null) {
       bool recursively = false;
 
       statusId ??= close == true ? _ws.firstClosedStatusId : _ws.firstOpenedStatusId;
       close ??= _ws.statusForId(statusId)?.closed;
 
-      if (close == true && task.hasOpenedSubtasks) {
+      if (close == true && _task.hasOpenedSubtasks) {
         recursively = await _closeDialog() == true;
         if (!recursively) {
           return;
@@ -180,12 +180,12 @@ abstract class _TaskViewControllerBase with Store {
       loader.start();
       loader.setSaving();
 
-      final editedTask = await _setStatusTaskTree(task, statusId: statusId, close: close, recursively: recursively);
+      final editedTask = await _setStatusTaskTree(_task, statusId: statusId, close: close, recursively: recursively);
       await loader.stop();
 
       if (editedTask != null) {
         //TODO: может неожиданно для пользователя вываливаться в случае редактирования статуса закрытой задачи
-        if (editedTask.closed) {
+        if (editedTask.closed && _task.id == task.id) {
           Navigator.of(rootKey.currentContext!).pop(editedTask);
         }
         _updateTaskParents(editedTask);
@@ -268,10 +268,10 @@ abstract class _TaskViewControllerBase with Store {
         await edit();
         break;
       case TaskActionType.close:
-        await setStatus(close: true);
+        await setStatus(task, close: true);
         break;
       case TaskActionType.reopen:
-        await setStatus(close: false);
+        await setStatus(task, close: false);
         break;
       case TaskActionType.go2source:
         await launchUrlString(task.taskSource!.urlString);

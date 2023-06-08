@@ -3,7 +3,7 @@
 import 'package:flutter/cupertino.dart';
 
 const Color darkGreyColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 52, 52, 64),
+  color: Color.fromARGB(255, 52, 52, 56),
   darkColor: Color.fromARGB(255, 204, 204, 208),
 );
 

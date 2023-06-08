@@ -7,14 +7,14 @@ import '../../../L1_domain/entities/notification.dart';
 import '../../../L1_domain/entities/source.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/mt_bottom_sheet.dart';
 import '../../components/mt_close_button.dart';
+import '../../components/mt_dialog.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';
 
-Future<Source?> showNotificationDialog(BuildContext context) async => await showMTBottomSheet<Source?>(NotificationView());
+Future<Source?> showNotificationDialog(BuildContext context) async => await showMTDialog<Source?>(NotificationView());
 
 class NotificationView extends StatelessWidget {
   MTNotification get nf => notificationController.selectedNotification!;
@@ -36,7 +36,7 @@ class NotificationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => MTBottomSheet(
+      builder: (_) => MTDialog(
         topBar: navBar(
           context,
           leading: MTCloseButton(),

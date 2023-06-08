@@ -1,6 +1,5 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'package:avanplan/L3_app/components/mt_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -9,13 +8,14 @@ import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_close_button.dart';
+import '../../components/mt_dialog.dart';
 import '../../components/mt_text_field.dart';
 import '../../components/navbar.dart';
 import '../../extra/services.dart';
 import 'registration_completed_message.dart';
 import 'registration_controller.dart';
 
-Future registrationDialog() async => await showMTBottomSheet<void>(RegistrationForm());
+Future registrationDialog() async => await showMTDialog<void>(RegistrationForm());
 
 class RegistrationForm extends StatefulWidget {
   @override
@@ -53,7 +53,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
   }
 
   @override
-  Widget build(BuildContext context) => MTBottomSheet(
+  Widget build(BuildContext context) => MTDialog(
         topBar: navBar(
           context,
           leading: MTCloseButton(),

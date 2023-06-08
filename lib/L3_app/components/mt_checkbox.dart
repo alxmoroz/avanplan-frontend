@@ -13,6 +13,7 @@ class MTCheckBoxTile extends StatelessWidget {
     required this.onChanged,
     this.description,
     this.titleColor,
+    this.color,
     this.bottomBorder = false,
   });
 
@@ -20,6 +21,7 @@ class MTCheckBoxTile extends StatelessWidget {
   final bool value;
   final String? description;
   final Color? titleColor;
+  final Color? color;
   final Function(bool?) onChanged;
   final bool bottomBorder;
 
@@ -28,6 +30,7 @@ class MTCheckBoxTile extends StatelessWidget {
         middle: NormalText(title, color: titleColor),
         subtitle: description != null && description!.isNotEmpty ? SmallText(description!, maxLines: 2) : null,
         trailing: DoneIcon(value, solid: value),
+        color: color,
         bottomBorder: bottomBorder,
         onTap: () => onChanged(!value),
       );

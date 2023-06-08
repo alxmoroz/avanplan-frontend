@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../components/constants.dart';
 import '../../components/icons.dart';
-import '../../components/mt_bottom_sheet.dart';
+import '../../components/mt_dialog.dart';
 import '../../components/mt_list_tile.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
@@ -15,7 +15,7 @@ class SourceTypeSelector extends StatelessWidget {
   final void Function(String) onTap;
 
   @override
-  Widget build(BuildContext context) => MTBottomSheet(
+  Widget build(BuildContext context) => MTDialog(
         body: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

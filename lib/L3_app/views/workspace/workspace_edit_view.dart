@@ -6,15 +6,15 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/mt_bottom_sheet.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_close_button.dart';
+import '../../components/mt_dialog.dart';
 import '../../components/mt_text_field.dart';
 import '../../components/navbar.dart';
 import '../../extra/services.dart';
 import 'workspace_edit_controller.dart';
 
-Future<Workspace?> editWSDialog(Workspace ws) async => await showMTBottomSheet<Workspace?>(WSEditView(ws));
+Future<Workspace?> editWSDialog(Workspace ws) async => await showMTDialog<Workspace?>(WSEditView(ws));
 
 class WSEditView extends StatefulWidget {
   const WSEditView(this.ws);
@@ -68,7 +68,7 @@ class _WSEditViewState extends State<WSEditView> {
 
   @override
   Widget build(BuildContext context) {
-    return MTBottomSheet(
+    return MTDialog(
       topBar: navBar(
         context,
         leading: MTCloseButton(),

@@ -14,7 +14,7 @@ import '../../../L1_domain/entities_extensions/task_level.dart';
 import '../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../main.dart';
-import '../../components/mt_dialog.dart';
+import '../../components/mt_alert_dialog.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';

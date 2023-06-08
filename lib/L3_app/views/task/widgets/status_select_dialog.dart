@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import '../../../../L1_domain/entities/workspace.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
-import '../../../components/mt_bottom_sheet.dart';
 import '../../../components/mt_circle.dart';
 import '../../../components/mt_close_button.dart';
+import '../../../components/mt_dialog.dart';
 import '../../../components/mt_list_tile.dart';
 import '../../../components/navbar.dart';
 import '../../../extra/services.dart';
 
-Future<int?> statusSelectDialog(Workspace ws, int? selectedId) async => await showMTBottomSheet<int?>(StatusSelectView(ws, selectedId));
+Future<int?> statusSelectDialog(Workspace ws, int? selectedId) async => await showMTDialog<int?>(StatusSelectView(ws, selectedId));
 
 class StatusSelectView extends StatelessWidget {
   const StatusSelectView(this.ws, this.selectedId);
@@ -22,7 +22,7 @@ class StatusSelectView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final selectedIndex = ws.statuses.indexWhere((s) => s.id == selectedId);
-    return MTBottomSheet(
+    return MTDialog(
       body: SafeArea(
         bottom: false,
         child: Column(

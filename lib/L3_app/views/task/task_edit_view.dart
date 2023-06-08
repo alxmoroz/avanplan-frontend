@@ -9,9 +9,9 @@ import '../../../L1_domain/entities/task.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
-import '../../components/mt_bottom_sheet.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_close_button.dart';
+import '../../components/mt_dialog.dart';
 import '../../components/mt_dropdown.dart';
 import '../../components/mt_text_field.dart';
 import '../../components/navbar.dart';
@@ -26,7 +26,7 @@ class EditTaskResult {
   final bool? proceed;
 }
 
-Future<EditTaskResult?> editTaskDialog(TaskEditController controller) async => await showMTBottomSheet<EditTaskResult?>(TaskEditView(controller));
+Future<EditTaskResult?> editTaskDialog(TaskEditController controller) async => await showMTDialog<EditTaskResult?>(TaskEditView(controller));
 
 class TaskEditView extends StatefulWidget {
   const TaskEditView(this.controller);
@@ -124,7 +124,7 @@ class _TaskEditViewState extends State<TaskEditView> {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => MTBottomSheet(
+      builder: (_) => MTDialog(
         topBar: navBar(
           context,
           leading: MTCloseButton(),

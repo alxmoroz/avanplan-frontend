@@ -11,9 +11,9 @@ import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
-import '../../components/mt_bottom_sheet.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_close_button.dart';
+import '../../components/mt_dialog.dart';
 import '../../components/mt_text_field.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
@@ -26,7 +26,7 @@ import 'source_edit_controller.dart';
 import 'source_type_selector.dart';
 
 Future startAddSource(Workspace ws) async {
-  final st = await showMTBottomSheet<String?>(SourceTypeSelector((st) => Navigator.of(rootKey.currentContext!).pop(st)));
+  final st = await showMTDialog<String?>(SourceTypeSelector((st) => Navigator.of(rootKey.currentContext!).pop(st)));
   if (st != null) {
     await addSource(ws, sType: st);
   }
@@ -45,7 +45,7 @@ Future<Source?> editSource(Workspace ws, {Source? src, String? sType}) async {
   return s;
 }
 
-Future<Source?> editSourceDialog(Workspace ws, Source? src, String? sType) async => await showMTBottomSheet<Source?>(SourceEditView(ws, src, sType));
+Future<Source?> editSourceDialog(Workspace ws, Source? src, String? sType) async => await showMTDialog<Source?>(SourceEditView(ws, src, sType));
 
 class SourceEditView extends StatefulWidget {
   const SourceEditView(this.ws, this.src, this.sType);
@@ -114,7 +114,7 @@ class _SourceEditViewState extends State<SourceEditView> {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => MTBottomSheet(
+      builder: (_) => MTDialog(
         topBar: navBar(
           context,
           leading: MTCloseButton(),

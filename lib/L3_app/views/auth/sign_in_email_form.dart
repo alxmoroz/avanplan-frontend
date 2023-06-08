@@ -1,6 +1,5 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:avanplan/L3_app/components/mt_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -8,11 +7,12 @@ import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_close_button.dart';
+import '../../components/mt_dialog.dart';
 import '../../components/navbar.dart';
 import '../../extra/services.dart';
 import 'sign_in_email_controller.dart';
 
-Future showSignInEmailDialog() async => await showMTBottomSheet<void>(SignInEmailForm());
+Future showSignInEmailDialog() async => await showMTDialog<void>(SignInEmailForm());
 
 class SignInEmailForm extends StatefulWidget {
   @override
@@ -35,7 +35,7 @@ class _SignInEmailFormState extends State<SignInEmailForm> {
   }
 
   @override
-  Widget build(BuildContext context) => MTBottomSheet(
+  Widget build(BuildContext context) => MTDialog(
         topBar: navBar(
           context,
           leading: MTCloseButton(),

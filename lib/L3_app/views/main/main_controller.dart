@@ -11,7 +11,7 @@ import '../../../L1_domain/entities_extensions/ws_ext.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../../main.dart';
 import '../../components/images.dart';
-import '../../components/mt_dialog.dart';
+import '../../components/mt_alert_dialog.dart';
 import '../../extra/services.dart';
 import '../../presenters/number_presenter.dart';
 import '../../usecases/ws_ext_actions.dart';

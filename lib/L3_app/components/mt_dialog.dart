@@ -1,116 +1,119 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
+import 'dart:math';
 
+import 'package:flutter/material.dart';
+
+import '../../main.dart';
 import 'colors.dart';
 import 'constants.dart';
-import 'mt_divider.dart';
-import 'text_widgets.dart';
+import 'material_wrapper.dart';
+import 'mt_toolbar.dart';
 
-enum MTActionType {
-  isDanger,
-  isWarning,
-  isDefault,
+bool _bigScreen(BuildContext context) {
+  final mq = MediaQuery.of(context);
+  final mqH = mq.size.height;
+  final mqW = mq.size.width;
+  return mqH > SCR_M_HEIGHT && mqW > SCR_M_WIDTH;
 }
 
-class MTADialogAction<T> {
-  MTADialogAction({
-    required this.result,
-    this.title,
-    this.child,
-    this.icon,
-    this.type,
-    this.onTap,
-  });
+Future<T?> showMTDialog<T>(Widget child) async {
+  final ctx = rootKey.currentContext!;
+  final mq = MediaQuery.of(ctx);
+  final mqH = mq.size.height;
+  final mqW = mq.size.width;
 
-  final String? title;
-  final T result;
-  VoidCallback? onTap;
-  final MTActionType? type;
-  final Widget? icon;
-  final Widget? child;
-}
-
-Future<T?> showMTAlertDialog<T>(
-  BuildContext context, {
-  required String title,
-  required List<MTADialogAction<T>> actions,
-  String description = '',
-  bool simple = false,
-}) async {
-  return await showCupertinoDialog<T?>(
-    context: context,
-    barrierDismissible: true,
-    builder: (_) => MTAlertDialog(title: title, description: description, actions: actions, simple: simple),
+  final constrains = BoxConstraints(
+    maxWidth: mqW > SCR_L_WIDTH ? SCR_L_WIDTH : SCR_M_WIDTH,
+    maxHeight: mqH > SCR_S_HEIGHT ? mqH - mq.padding.top - P2 : double.infinity,
   );
+
+  final barrierColor = darkGreyColor.withAlpha(230).resolve(ctx);
+
+  return _bigScreen(ctx)
+      ? await showDialog(
+          context: ctx,
+          barrierColor: barrierColor,
+          builder: (_) => UnconstrainedBox(
+            child: ConstrainedBox(
+              child: material(child),
+              constraints: constrains,
+            ),
+          ),
+        )
+      : await showModalBottomSheet<T?>(
+          context: ctx,
+          barrierColor: barrierColor,
+          isScrollControlled: true,
+          constraints: constrains,
+          builder: (_) => child,
+        );
 }
 
-const _actionColors = {
-  MTActionType.isDanger: dangerColor,
-  MTActionType.isWarning: warningColor,
-  MTActionType.isDefault: mainColor,
-};
-
-class MTAlertDialog extends StatelessWidget {
-  const MTAlertDialog({
-    required this.title,
-    required this.actions,
-    required this.description,
-    required this.simple,
+class MTDialog extends StatelessWidget {
+  const MTDialog({
+    required this.body,
+    this.topBar,
+    this.topBarHeight,
+    this.bottomBar,
+    this.bottomBarHeight,
   });
 
-  final String title;
-  final List<MTADialogAction> actions;
-  final String description;
-  final bool simple;
-
-  Widget _actionText(MTADialogAction a) => a.type == MTActionType.isDefault
-      ? MediumText(a.title ?? '', color: _actionColors[a.type], align: TextAlign.center)
-      : NormalText(a.title ?? '', color: _actionColors[a.type], align: TextAlign.center);
-
-  Widget _actionRow(MTADialogAction a) => Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: a.child != null
-          ? [a.child!]
-          : [
-              if (a.icon != null) ...[
-                a.icon!,
-                const SizedBox(width: P_3),
-              ],
-              Expanded(child: _actionText(a)),
-            ]);
+  final Widget body;
+  final Widget? topBar;
+  final Widget? bottomBar;
+  final double? topBarHeight;
+  final double? bottomBarHeight;
 
   @override
   Widget build(BuildContext context) {
-    Future action(MTADialogAction a) async {
-      if (a.onTap != null) {
-        a.onTap!();
-      }
-      Navigator.of(context).pop(a.result);
-    }
-
-    Widget richButton(MTADialogAction a) => Column(
-          children: [
-            const MTDivider(height: P2),
-            CupertinoButton(
-              minSize: 0,
-              padding: EdgeInsets.zero,
-              onPressed: () => action(a),
-              child: _actionRow(a),
-            )
-          ],
-        );
-
-    return CupertinoAlertDialog(
-      title: H4(title, padding: const EdgeInsets.only(bottom: P), maxLines: 5, color: darkGreyColor),
-      content: Column(
-        children: [
-          if (description.isNotEmpty) NormalText(description, maxLines: 12),
-          if (!simple)
-            for (final a in actions) richButton(a),
-        ],
+    final mq = MediaQuery.of(context);
+    final double bbHeight =
+        bottomBar != null ? (bottomBarHeight ?? MTToolbar.topPadding + MTToolbar.bottomPadding + P + MIN_BTN_HEIGHT) : max(P2, mq.padding.bottom);
+    final double tbHeight = topBar != null ? (topBarHeight ?? P2 * 2) : 0;
+    const radius = Radius.circular(DEF_BORDER_RADIUS);
+    final big = _bigScreen(context);
+    return GestureDetector(
+      onTap: FocusScope.of(context).unfocus,
+      child: Padding(
+        padding: EdgeInsets.only(bottom: mq.viewInsets.bottom),
+        child: Container(
+          clipBehavior: Clip.hardEdge,
+          decoration: BoxDecoration(
+            color: backgroundColor.resolve(context),
+            borderRadius: BorderRadius.only(
+              topLeft: radius,
+              topRight: radius,
+              bottomLeft: big ? radius : Radius.zero,
+              bottomRight: big ? radius : Radius.zero,
+            ),
+          ),
+          child: Stack(
+            children: [
+              MediaQuery(
+                data: mq.copyWith(
+                  padding: mq.padding.copyWith(
+                    top: 0,
+                    bottom: bbHeight,
+                  ),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.only(top: tbHeight),
+                  child: body,
+                ),
+              ),
+              if (topBar != null) topBar!,
+              if (bottomBar != null)
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: MTToolbar(child: bottomBar!),
+                ),
+            ],
+          ),
+        ),
       ),
-      actions: !simple ? [] : [for (final a in actions) CupertinoDialogAction(child: _actionText(a), onPressed: () => action(a))],
     );
   }
 }

@@ -7,8 +7,8 @@ import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/mt_adaptive.dart';
-import '../../../components/mt_bottom_sheet.dart';
 import '../../../components/mt_button.dart';
+import '../../../components/mt_dialog.dart';
 import '../../../components/mt_limit_badge.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
@@ -21,7 +21,7 @@ import '../widgets/task_add_button.dart';
 import 'project_add_wizard_controller.dart';
 import 'ws_selector.dart';
 
-Future projectAddWizard() async => await showMTBottomSheet<void>(ProjectAddWizard());
+Future projectAddWizard() async => await showMTDialog<void>(ProjectAddWizard());
 
 class ProjectAddWizard extends StatefulWidget {
   @override
@@ -46,6 +46,7 @@ class _ProjectAddWizardState extends State<ProjectAddWizard> {
         await importTasks(controller.selectedWSId!, sType: sType);
       }
     } else {
+      Navigator.of(context).pop();
       await changeTariff(
         controller.ws!,
         reason: loc.tariff_change_limit_projects_reason_title,
@@ -84,22 +85,26 @@ class _ProjectAddWizardState extends State<ProjectAddWizard> {
                 ),
               ),
               const SizedBox(height: P),
-              TaskAddButton(TaskViewController(controller.selectedWSId!, null), dismissible: true),
+              TaskAddButton(
+                TaskViewController(controller.selectedWSId!, null),
+                dismissible: true,
+              ),
             ],
           ),
         ],
       );
 
   @override
-  Widget build(BuildContext context) => MTBottomSheet(
+  Widget build(BuildContext context) => MTDialog(
         body: SafeArea(
           bottom: false,
           child: Observer(
-              builder: (_) => controller.mustSelectWS
-                  ? WSSelector(controller)
-                  : controller.importMode
-                      ? SourceTypeSelector(startImport)
-                      : modeSelector),
+            builder: (_) => controller.mustSelectWS
+                ? WSSelector(controller)
+                : controller.importMode
+                    ? SourceTypeSelector(startImport)
+                    : modeSelector,
+          ),
         ),
       );
 }

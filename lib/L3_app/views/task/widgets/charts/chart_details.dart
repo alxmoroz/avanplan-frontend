@@ -6,8 +6,8 @@ import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
-import '../../../../components/mt_bottom_sheet.dart';
 import '../../../../components/mt_close_button.dart';
+import '../../../../components/mt_dialog.dart';
 import '../../../../components/navbar.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
@@ -18,7 +18,7 @@ import 'timing_chart.dart';
 import 'velocity_chart.dart';
 import 'volume_chart.dart';
 
-Future showChartsDetailsDialog(Task task) async => await showMTBottomSheet<void>(TaskChartDetails(task));
+Future showChartsDetailsDialog(Task task) async => await showMTDialog<void>(TaskChartDetails(task));
 
 class TaskChartDetails extends StatelessWidget {
   const TaskChartDetails(this.task);
@@ -38,15 +38,17 @@ class TaskChartDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final padding = MediaQuery.of(context).padding;
-    return MTBottomSheet(
+    return MTDialog(
       topBar: navBar(
         context,
         leading: MTCloseButton(),
-        middle: Column(children: [
-          const SizedBox(height: P_6),
-          LightText(loc.chart_details_title),
-          MediumText(task.title, maxLines: 1),
-        ]),
+        middle: Column(
+          children: [
+            const SizedBox(height: P_6),
+            LightText(loc.chart_details_title),
+            MediumText(task.title, maxLines: 1),
+          ],
+        ),
         trailing: const SizedBox(width: P * 4),
         bgColor: backgroundColor,
       ),
@@ -54,7 +56,7 @@ class TaskChartDetails extends StatelessWidget {
         bottom: false,
         child: ListView(
           shrinkWrap: true,
-          padding: padding.copyWith(left: P, right: P),
+          padding: padding.add(const EdgeInsets.only(left: P, right: P, bottom: P)),
           children: [
             if (task.canShowVelocityVolumeCharts) ...[
               /// объем

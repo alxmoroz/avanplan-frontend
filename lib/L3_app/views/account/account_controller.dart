@@ -6,7 +6,7 @@ import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/user.dart';
 import '../../../L1_domain/entities/user_activity.dart';
-import '../../components/mt_dialog.dart';
+import '../../components/mt_alert_dialog.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
 

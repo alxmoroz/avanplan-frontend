@@ -8,9 +8,9 @@ import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons_workspace.dart';
-import '../../components/mt_bottom_sheet.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_close_button.dart';
+import '../../components/mt_dialog.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
@@ -19,7 +19,7 @@ import '../../presenters/ws_presenter.dart';
 
 Future purchaseDialog(int wsId) async {
   await iapController.fetchProducts();
-  return await showMTBottomSheet<void>(StoreView(wsId));
+  return await showMTDialog<void>(StoreView(wsId));
 }
 
 class StoreView extends StatelessWidget {
@@ -61,7 +61,7 @@ class StoreView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MTBottomSheet(
+    return MTDialog(
       body: SafeArea(
         bottom: false,
         child: Column(

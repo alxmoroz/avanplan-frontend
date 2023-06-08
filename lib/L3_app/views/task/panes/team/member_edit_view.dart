@@ -7,18 +7,17 @@ import '../../../../../L1_domain/entities/member.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
-import '../../../../components/mt_bottom_sheet.dart';
 import '../../../../components/mt_button.dart';
 import '../../../../components/mt_checkbox.dart';
 import '../../../../components/mt_close_button.dart';
+import '../../../../components/mt_dialog.dart';
 import '../../../../components/navbar.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/role_presenter.dart';
 import '../../../../presenters/task_level_presenter.dart';
 import 'member_edit_controller.dart';
 
-Future<Iterable<Member>?> memberEditDialog(Task task, Member member) async =>
-    await showMTBottomSheet<Iterable<Member>?>(MemberEditView(task, member));
+Future<Iterable<Member>?> memberEditDialog(Task task, Member member) async => await showMTDialog<Iterable<Member>?>(MemberEditView(task, member));
 
 class MemberEditView extends StatefulWidget {
   const MemberEditView(this.task, this.member);
@@ -55,7 +54,7 @@ class _MemberEditViewState extends State<MemberEditView> {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => MTBottomSheet(
+      builder: (_) => MTDialog(
         body: SafeArea(
           bottom: false,
           child: Column(

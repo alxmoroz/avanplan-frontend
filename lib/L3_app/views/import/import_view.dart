@@ -9,10 +9,10 @@ import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_adaptive.dart';
-import '../../components/mt_bottom_sheet.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_checkbox.dart';
 import '../../components/mt_close_button.dart';
+import '../../components/mt_dialog.dart';
 import '../../components/mt_dropdown.dart';
 import '../../components/mt_limit_badge.dart';
 import '../../components/mt_shadowed.dart';
@@ -33,7 +33,7 @@ Future importTasks(int wsId, {String? sType}) async {
   await showImportDialog(controller);
 }
 
-Future<String?> showImportDialog(ImportController controller) async => await showMTBottomSheet<String?>(ImportView(controller));
+Future<String?> showImportDialog(ImportController controller) async => await showMTDialog<String?>(ImportView(controller));
 
 class ImportView extends StatelessWidget {
   const ImportView(this.controller);
@@ -82,6 +82,8 @@ class ImportView extends StatelessWidget {
                 MTCheckBoxTile(
                   title: '${loc.select_all_action_title} (${controller.projects.length})',
                   titleColor: mainColor,
+                  color: backgroundColor,
+                  bottomBorder: true,
                   value: _selectedAll,
                   onChanged: controller.toggleSelectedAll,
                 ),
@@ -170,7 +172,7 @@ class ImportView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => MTBottomSheet(
+      builder: (_) => MTDialog(
         topBar: navBar(
           context,
           leading: MTCloseButton(),

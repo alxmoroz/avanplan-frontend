@@ -13,7 +13,7 @@ import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
-import '../../components/mt_dialog.dart';
+import '../../components/mt_alert_dialog.dart';
 import '../../extra/services.dart';
 import '../../presenters/source_presenter.dart';
 import '../../presenters/task_view_presenter.dart';

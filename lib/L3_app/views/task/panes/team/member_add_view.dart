@@ -7,8 +7,8 @@ import '../../../../../L1_domain/entities/role.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
-import '../../../../components/mt_bottom_sheet.dart';
 import '../../../../components/mt_close_button.dart';
+import '../../../../components/mt_dialog.dart';
 import '../../../../components/navbar.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
@@ -20,7 +20,7 @@ import 'member_add_controller.dart';
 Future memberAddDialog(Task task, Role role) async {
   final invitationController = InvitationController(task, role);
   await invitationController.fetchInvitation();
-  return await showMTBottomSheet<void>(MemberAddView(invitationController));
+  return await showMTDialog<void>(MemberAddView(invitationController));
 }
 
 class MemberAddView extends StatefulWidget {
@@ -86,7 +86,7 @@ class _MemberAddViewState extends State<MemberAddView> {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => MTBottomSheet(
+      builder: (_) => MTDialog(
         topBar: navBar(
           context,
           leading: MTCloseButton(),

@@ -11,10 +11,10 @@ import '../../../L2_data/services/platform.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
-import '../../components/mt_bottom_sheet.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_card.dart';
 import '../../components/mt_close_button.dart';
+import '../../components/mt_dialog.dart';
 import '../../components/mt_list_tile.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
@@ -31,7 +31,7 @@ Future changeTariff(Workspace ws, {String reason = ''}) async {
   final tariffs = (await tariffUC.getAll(ws.id!)).sorted((t1, t2) => compareNatural('$t1', '$t2')).sorted((t1, t2) => t1.tier.compareTo(t2.tier));
   await loader.stop();
   if (tariffs.isNotEmpty) {
-    final tariff = await showMTBottomSheet<Tariff?>(TariffSelectView(tariffs, ws.id!, description: reason));
+    final tariff = await showMTDialog<Tariff?>(TariffSelectView(tariffs, ws.id!, description: reason));
     if (tariff != null) {
       loader.start();
       loader.setSaving();
@@ -141,7 +141,7 @@ class TariffSelectView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MTBottomSheet(
+    return MTDialog(
       body: SafeArea(
         child: Column(
           children: [

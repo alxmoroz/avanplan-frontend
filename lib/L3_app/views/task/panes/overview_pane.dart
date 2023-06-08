@@ -81,7 +81,9 @@ class OverviewPane extends StatelessWidget {
         shrinkWrap: task.isRoot,
         children: [
           MTAdaptive(
-            Column(
+            force: true,
+            padding: const EdgeInsets.symmetric(horizontal: P),
+            child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -126,16 +128,19 @@ class OverviewPane extends StatelessWidget {
                 ],
               ],
             ),
-            force: true,
           ),
 
           /// требующие внимания задачи
           if (task.attentionalTasks.isNotEmpty) ...[
             const SizedBox(height: P2),
-            if (!task.isRoot) MTAdaptive(GroupStateTitle(task, task.subtasksState, place: StateTitlePlace.groupHeader), force: true),
+            if (!task.isRoot)
+              MTAdaptive(
+                force: true,
+                child: GroupStateTitle(task, task.subtasksState, place: StateTitlePlace.groupHeader),
+              ),
             MTAdaptive(
-              AttentionalTasks(task),
               force: true,
+              child: AttentionalTasks(task),
             ),
           ],
         ],

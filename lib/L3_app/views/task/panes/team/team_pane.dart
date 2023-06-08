@@ -54,7 +54,7 @@ class TeamPane extends StatelessWidget {
     return Observer(
       builder: (_) => MTShadowed(
         child: MTAdaptive(
-          ListView.builder(
+          child: ListView.builder(
             itemBuilder: _itemBuilder,
             itemCount: _sortedMembers.length,
           ),

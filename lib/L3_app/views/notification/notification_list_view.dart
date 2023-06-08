@@ -78,7 +78,7 @@ class NotificationListView extends StatelessWidget {
             child: _controller.notifications.isEmpty
                 ? Center(child: H4(loc.notification_list_empty_title, align: TextAlign.center, color: lightGreyColor))
                 : MTAdaptive(
-                    ListView.builder(
+                    child: ListView.builder(
                       itemBuilder: (_, int index) => _itemBuilder(context, index),
                       itemCount: _controller.notifications.length + 1,
                     ),

@@ -55,7 +55,7 @@ class _MemberViewState extends State<MemberView> {
         body: SafeArea(
           top: false,
           child: MTAdaptive(
-            ListView(
+            child: ListView(
               children: [
                 const SizedBox(height: P),
                 member.icon(P3),

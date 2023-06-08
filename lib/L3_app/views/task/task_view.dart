@@ -89,12 +89,13 @@ class _TaskViewState extends State<TaskView> {
   }
 
   Widget get _tabPaneSelector => MTAdaptive(
-        CupertinoSlidingSegmentedControl<TaskTabKey>(
+        force: true,
+        padding: const EdgeInsets.symmetric(horizontal: P),
+        child: CupertinoSlidingSegmentedControl<TaskTabKey>(
           children: _tabs,
           groupValue: controller.tabKey,
           onValueChanged: controller.selectTab,
         ),
-        force: true,
       );
 
   Widget get _selectedPane =>

@@ -57,7 +57,7 @@ class DetailsPane extends StatelessWidget {
     return Observer(
       builder: (_) => MTShadowed(
         child: MTAdaptive(
-          ListView(
+          child: ListView(
             children: [
               if (_task.hasStatus || _closable) ...[
                 const SizedBox(height: P),

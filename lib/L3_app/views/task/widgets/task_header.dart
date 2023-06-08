@@ -22,7 +22,8 @@ class TaskHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTAdaptive(
-      Container(
+      force: true,
+      child: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
@@ -43,7 +44,6 @@ class TaskHeader extends StatelessWidget {
           ],
         ),
       ),
-      force: true,
     );
   }
 }

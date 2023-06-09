@@ -26,6 +26,7 @@ class TaskCard extends StatelessWidget {
     this.board = false,
     this.showBreadcrumbs = false,
     this.bottomBorder = false,
+    this.dragging = false,
   });
 
   final Task task;
@@ -33,6 +34,7 @@ class TaskCard extends StatelessWidget {
   final bool showBreadcrumbs;
   final bool bottomBorder;
   final bool showStateMark;
+  final bool dragging;
 
   Widget get _title => NormalText(task.title, maxLines: 2, color: task.closed ? lightGreyColor : null);
 
@@ -87,8 +89,8 @@ class TaskCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) => board
       ? MTCardButton(
-          elevation: cardElevation,
-          margin: const EdgeInsets.symmetric(horizontal: P, vertical: P_3),
+          elevation: dragging ? 3 : cardElevation,
+          margin: const EdgeInsets.symmetric(horizontal: P_2, vertical: P_2),
           padding: const EdgeInsets.symmetric(horizontal: P, vertical: P_2),
           child: _taskContent,
           onTap: _tap,

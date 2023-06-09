@@ -61,30 +61,30 @@ class DetailsPane extends StatelessWidget {
             children: [
               if (_task.hasStatus || _closable) ...[
                 const SizedBox(height: P),
-                Row(
-                  children: [
-                    if (_task.hasStatus)
-                      MTButton.main(
-                        titleText: '${_task.status}',
-                        constrained: false,
-                        padding: const EdgeInsets.symmetric(horizontal: P2),
-                        margin: const EdgeInsets.only(left: P),
-                        onTap: _task.canSetStatus ? controller.selectStatus : null,
-                      ),
-                    if (_closable)
-                      MTButton(
-                        titleColor: greenColor,
-                        titleText: loc.close_action_title,
-                        leading: const DoneIcon(true, color: greenColor),
-                        margin: const EdgeInsets.only(left: P),
-                        onTap: () => controller.setStatus(_task, close: true),
-                      ),
-                  ],
+                MTListTile(
+                  leading: _task.hasStatus
+                      ? MTButton.main(
+                          titleText: '${_task.status}',
+                          constrained: false,
+                          padding: const EdgeInsets.symmetric(horizontal: P2),
+                          // margin: const EdgeInsets.only(left: P),
+                          onTap: _task.canSetStatus ? controller.selectStatus : null,
+                        )
+                      : null,
+                  trailing: _closable
+                      ? MTButton(
+                          titleColor: greenColor,
+                          titleText: loc.close_action_title,
+                          leading: const DoneIcon(true, color: greenColor),
+                          // margin: const EdgeInsets.only(left: P),
+                          onTap: () => controller.setStatus(_task, close: true),
+                        )
+                      : null,
                 ),
-                const SizedBox(height: P),
               ],
               if (_task.hasAssignee) ...[
-                _task.canUpdate ? MTButton.secondary(middle: _assignee) : MTListTile(middle: _assignee),
+                // _task.canUpdate ? MTButton.secondary(middle: _assignee) :
+                MTListTile(leading: LightText(loc.task_assignee_placeholder, color: lightGreyColor), middle: _assignee),
               ],
               if (_task.hasDescription) ...[
                 _description(context),

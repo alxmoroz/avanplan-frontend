@@ -7,7 +7,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities/workspace.dart';
 import '../../../../../L2_data/services/platform.dart';
-import '../../../../../main.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
@@ -41,6 +40,15 @@ class TasksBoardView extends StatelessWidget {
           board: true,
           showBreadcrumbs: _task.id != t.parent?.id,
         ),
+        feedbackWidget: Transform(
+          transform: Matrix4.rotationZ(0.03),
+          child: TaskCard(
+            mainController.taskForId(t.wsId, t.id),
+            board: true,
+            showBreadcrumbs: _task.id != t.parent?.id,
+            dragging: true,
+          ),
+        ),
         canDrag: t.canSetStatus,
       );
 
@@ -52,7 +60,10 @@ class TasksBoardView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (status.closed) const DoneIcon(true, color: greyColor),
-          NormalText('$status', padding: const EdgeInsets.all(P_2)),
+          NormalText(
+            '$status',
+            // padding: const EdgeInsets.all(P_2),
+          ),
         ],
       ),
       children: [for (final t in tasks) _taskBuilder(t)],
@@ -74,14 +85,14 @@ class TasksBoardView extends StatelessWidget {
             onItemReorder: _setStatus,
             onListReorder: (int oldListIndex, int newListIndex) {},
             axis: Axis.horizontal,
-            listWidth: SCR_S_WIDTH * 0.8,
-            listPadding: const EdgeInsets.symmetric(horizontal: P_2).copyWith(top: P, bottom: mq.padding.bottom + P),
+            listWidth: SCR_S_WIDTH * 0.9,
+            listPadding: EdgeInsets.only(top: P, bottom: mq.padding.bottom + P),
             itemGhost: const SizedBox(height: MIN_BTN_HEIGHT),
             lastListTargetSize: 0,
-            listDecoration: BoxDecoration(
-              color: darkBackgroundColor.resolve(rootKey.currentContext!),
-              borderRadius: const BorderRadius.all(Radius.circular(DEF_BORDER_RADIUS)),
-            ),
+            // listDecoration: BoxDecoration(
+            //   color: darkBackgroundColor.resolve(rootKey.currentContext!),
+            //   borderRadius: const BorderRadius.all(Radius.circular(DEF_BORDER_RADIUS)),
+            // ),
             contentsWhenEmpty: const SizedBox(height: P3),
             lastItemTargetHeight: P,
             listDragOnLongPress: !isWeb,

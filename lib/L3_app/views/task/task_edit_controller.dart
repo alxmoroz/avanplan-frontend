@@ -135,7 +135,7 @@ abstract class _TaskEditControllerBase extends EditController with Store {
           dueDate: selectedDueDate,
           tasks: task?.tasks ?? [],
           type: task?.type,
-          assigneeId: selectedAssignee?.id,
+          assigneeId: selectedAssigneeId,
           authorId: task?.authorId,
           members: task?.members ?? [],
           wsId: wsId,

@@ -36,14 +36,14 @@ class TasksBoardView extends StatelessWidget {
 
   DragAndDropItem _taskBuilder(Task t) => DragAndDropItem(
         child: TaskCard(
-          mainController.taskForId(t.wsId, t.id),
+          t,
           board: true,
           showBreadcrumbs: _task.id != t.parent?.id,
         ),
         feedbackWidget: Transform(
-          transform: Matrix4.rotationZ(0.03),
+          transform: Matrix4.rotationZ(-0.03),
           child: TaskCard(
-            mainController.taskForId(t.wsId, t.id),
+            t,
             board: true,
             showBreadcrumbs: _task.id != t.parent?.id,
             dragging: true,
@@ -62,7 +62,7 @@ class TasksBoardView extends StatelessWidget {
           if (status.closed) const DoneIcon(true, color: greyColor),
           NormalText(
             '$status',
-            // padding: const EdgeInsets.all(P_2),
+            padding: const EdgeInsets.all(P_2),
           ),
         ],
       ),
@@ -77,27 +77,21 @@ class TasksBoardView extends StatelessWidget {
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context);
     return Observer(
-      builder: (_) => Stack(
-        alignment: Alignment.center,
-        children: [
-          DragAndDropLists(
-            children: [for (var i = 0; i < _ws.statuses.length; i++) _columnBuilder(i)],
-            onItemReorder: _setStatus,
-            onListReorder: (int oldListIndex, int newListIndex) {},
-            axis: Axis.horizontal,
-            listWidth: SCR_S_WIDTH * 0.9,
-            listPadding: EdgeInsets.only(top: P, bottom: mq.padding.bottom + P),
-            itemGhost: const SizedBox(height: MIN_BTN_HEIGHT),
-            lastListTargetSize: 0,
-            // listDecoration: BoxDecoration(
-            //   color: darkBackgroundColor.resolve(rootKey.currentContext!),
-            //   borderRadius: const BorderRadius.all(Radius.circular(DEF_BORDER_RADIUS)),
-            // ),
-            contentsWhenEmpty: const SizedBox(height: P3),
-            lastItemTargetHeight: P,
-            listDragOnLongPress: !isWeb,
-          ),
-        ],
+      builder: (_) => DragAndDropLists(
+        children: [for (var i = 0; i < _ws.statuses.length; i++) _columnBuilder(i)],
+        onItemReorder: _setStatus,
+        onListReorder: (int oldListIndex, int newListIndex) {},
+        axis: Axis.horizontal,
+        listWidth: SCR_S_WIDTH * 0.9,
+        listPadding: EdgeInsets.only(top: P, bottom: mq.padding.bottom + P, left: P),
+        itemGhost: const SizedBox(height: MIN_BTN_HEIGHT),
+        lastListTargetSize: 0,
+        listDecoration: BoxDecoration(
+          color: darkBackgroundColor.resolve(context),
+          borderRadius: const BorderRadius.all(Radius.circular(DEF_BORDER_RADIUS)),
+        ),
+        lastItemTargetHeight: P,
+        listDragOnLongPress: !isWeb,
       ),
     );
   }
@@ -107,7 +101,7 @@ class _ItemTarget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MIN_BTN_HEIGHT * 1.5,
+      height: MIN_BTN_HEIGHT * 1,
       margin: const EdgeInsets.all(P).copyWith(top: 0),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(DEF_BORDER_RADIUS)),

@@ -63,20 +63,23 @@ class TaskCard extends StatelessWidget {
               if (_showLink) const LinkIcon(),
             ]),
           ] else if (!task.canShowState) ...[
-            const SizedBox(height: P_6),
-            if (task.hasStatus)
-              Row(
-                children: [
-                  SmallText(task.status!.code, color: task.closed ? lightGreyColor : greyColor),
-                  if (task.hasEstimate) ...[const Spacer(), _estimate],
-                ],
-              ),
-            if (task.hasAssignee) ...[
+            if (!board) ...[
+              if (task.hasStatus) ...[
+                const SizedBox(height: P_6),
+                Row(
+                  children: [
+                    SmallText('${task.status}', color: task.closed ? lightGreyColor : greyColor),
+                    if (task.hasEstimate) ...[const Spacer(), _estimate],
+                  ],
+                ),
+              ],
+            ],
+            if (task.hasAssignee || task.hasEstimate) ...[
               const SizedBox(height: P_6),
               Row(
                 children: [
-                  _assignee,
-                  if (!task.hasStatus && task.hasEstimate) ...[const Spacer(), _estimate],
+                  if (task.hasAssignee) _assignee,
+                  if (board && task.hasEstimate) ...[const Spacer(), _estimate],
                 ],
               ),
             ],
@@ -90,7 +93,7 @@ class TaskCard extends StatelessWidget {
   Widget build(BuildContext context) => board
       ? MTCardButton(
           elevation: dragging ? 3 : cardElevation,
-          margin: const EdgeInsets.symmetric(horizontal: P_2, vertical: P_2),
+          margin: const EdgeInsets.symmetric(horizontal: P, vertical: P_2),
           padding: const EdgeInsets.symmetric(horizontal: P, vertical: P_2),
           child: _taskContent,
           onTap: _tap,

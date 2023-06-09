@@ -62,24 +62,26 @@ class DetailsPane extends StatelessWidget {
               if (_task.hasStatus || _closable) ...[
                 const SizedBox(height: P),
                 MTListTile(
-                  leading: _task.hasStatus
-                      ? MTButton.main(
+                  middle: Row(
+                    children: [
+                      if (_task.hasStatus)
+                        MTButton.main(
                           titleText: '${_task.status}',
                           constrained: false,
                           padding: const EdgeInsets.symmetric(horizontal: P2),
                           // margin: const EdgeInsets.only(left: P),
                           onTap: _task.canSetStatus ? controller.selectStatus : null,
-                        )
-                      : null,
-                  trailing: _closable
-                      ? MTButton(
+                        ),
+                      if (_closable)
+                        MTButton(
                           titleColor: greenColor,
                           titleText: loc.close_action_title,
                           leading: const DoneIcon(true, color: greenColor),
-                          // margin: const EdgeInsets.only(left: P),
+                          margin: const EdgeInsets.only(left: P2),
                           onTap: () => controller.setStatus(_task, close: true),
                         )
-                      : null,
+                    ],
+                  ),
                 ),
               ],
               if (_task.hasAssignee) ...[

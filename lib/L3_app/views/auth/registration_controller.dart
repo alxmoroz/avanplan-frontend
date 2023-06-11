@@ -35,11 +35,11 @@ abstract class _RegistrationControllerBase extends EditController with Store {
     loader.start();
     loader.setSaving();
     final regRequest = RegistrationRequest(
-      tfAnnoForCode('name').text,
-      tfAnnoForCode('email').text,
+      tfa('name').text,
+      tfa('email').text,
       invitationToken: deepLinkController.invitationToken,
     );
-    requestCompleted = await authUC.requestRegistration(regRequest, tfAnnoForCode('password').text);
+    requestCompleted = await authUC.requestRegistration(regRequest, tfa('password').text);
     await loader.stop();
   }
 }

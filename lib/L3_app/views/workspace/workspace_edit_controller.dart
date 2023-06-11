@@ -33,9 +33,9 @@ abstract class _WorkspaceEditControllerBase extends EditController with Store {
     loader.setSaving();
     final editedWS = await myUC.updateWorkspace(WorkspaceUpsert(
       id: ws.id,
-      code: tfAnnoForCode('code').text,
-      title: tfAnnoForCode('title').text,
-      description: tfAnnoForCode('description').text,
+      code: tfa('code').text,
+      title: tfa('title').text,
+      description: tfa('description').text,
     ));
 
     if (editedWS != null) {

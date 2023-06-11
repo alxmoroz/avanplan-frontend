@@ -67,7 +67,7 @@ abstract class _InvitationControllerBase extends EditController with Store {
 
   @action
   Future createInvitation() async {
-    final activationsCount = int.tryParse(tfAnnoForCode('activationsCount').text) ?? 0;
+    final activationsCount = int.tryParse(tfa('activationsCount').text) ?? 0;
     if (activationsCount > 0) {
       loader.start();
       loader.set(titleText: loc.loader_invitation_create_title, imageName: ImageNames.privacy);

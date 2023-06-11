@@ -48,7 +48,7 @@ class Task extends Titleable {
   final DateTime? updatedOn;
   DateTime? startDate;
   DateTime? closedDate;
-  final DateTime? dueDate;
+  DateTime? dueDate;
   final int wsId;
   int? statusId;
   final int? authorId;

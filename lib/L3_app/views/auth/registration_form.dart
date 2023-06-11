@@ -42,8 +42,8 @@ class _RegistrationFormState extends State<RegistrationForm> {
     final isEmail = code == 'email';
     return MTTextField(
       controller: controller.teControllers[code],
-      label: controller.tfAnnoForCode(code).label,
-      error: controller.tfAnnoForCode(code).errorText,
+      label: controller.tfa(code).label,
+      error: controller.tfa(code).errorText,
       obscureText: isPassword && controller.showPassword == false,
       keyboardType: isEmail ? TextInputType.emailAddress : null,
       suffixIcon: isPassword ? MTButton.icon(EyeIcon(open: !controller.showPassword), controller.toggleShowPassword) : null,

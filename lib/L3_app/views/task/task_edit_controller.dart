@@ -1,6 +1,5 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:avanplan/L3_app/usecases/task_ext_actions.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -17,14 +16,12 @@ import '../../../main.dart';
 import '../../components/mt_alert_dialog.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
-import '../../presenters/date_presenter.dart';
 import '../../presenters/task_level_presenter.dart';
+import '../../usecases/task_ext_actions.dart';
 import '../../views/_base/edit_controller.dart';
 import 'task_edit_view.dart';
 
 part 'task_edit_controller.g.dart';
-
-const _year = Duration(days: 365);
 
 class TaskEditController extends _TaskEditControllerBase with _$TaskEditController {
   TaskEditController(int _wsId, {required Task parent, Task? task}) {
@@ -36,12 +33,8 @@ class TaskEditController extends _TaskEditControllerBase with _$TaskEditControll
     initState(tfaList: [
       TFAnnotation('title', label: loc.title, text: task?.title ?? ''),
       TFAnnotation('description', label: loc.description, text: task?.description ?? '', needValidate: false),
-      TFAnnotation('startDate', label: loc.task_start_date_placeholder, noText: true, needValidate: false),
-      TFAnnotation('dueDate', label: loc.task_due_date_placeholder, noText: true, needValidate: false),
     ]);
 
-    setStartDate(task?.startDate);
-    setDueDate(task?.dueDate);
     selectEstimateByValue(task?.estimate);
 
     if (!isNew) {
@@ -67,57 +60,6 @@ abstract class _TaskEditControllerBase extends EditController with Store {
   late final Task? task;
   late final bool isNew;
 
-  @observable
-  DateTime? selectedDueDate;
-
-  @observable
-  DateTime? selectedStartDate;
-
-  @action
-  void setStartDate(DateTime? _date) {
-    selectedStartDate = _date;
-    teControllers['startDate']?.text = _date != null ? _date.strLong : '';
-  }
-
-  @action
-  void setDueDate(DateTime? _date) {
-    selectedDueDate = _date;
-    teControllers['dueDate']?.text = _date != null ? _date.strLong : '';
-  }
-
-  Future selectDate(String code) async {
-    final isStart = code == 'startDate';
-
-    final today = DateTime.now();
-    final pastDate = today.subtract(_year);
-    final lastDate = (isStart ? selectedDueDate?.subtract(const Duration(days: 1)) : null) ?? today.add(_year * 100);
-    final initialDate = (isStart ? selectedStartDate : selectedDueDate) ?? (today.isAfter(lastDate) ? lastDate : today);
-    final firstDate = (isStart ? null : selectedStartDate) ?? (pastDate.isAfter(initialDate) ? initialDate : pastDate);
-
-    final date = await showDatePicker(
-      context: rootKey.currentContext!,
-      initialEntryMode: DatePickerEntryMode.calendarOnly,
-      initialDate: initialDate,
-      firstDate: firstDate,
-      lastDate: lastDate,
-    );
-    if (date != null) {
-      if (isStart) {
-        setStartDate(date);
-      } else {
-        setDueDate(date);
-      }
-    }
-  }
-
-  void resetDate(String code) {
-    if (code == 'startDate') {
-      setStartDate(null);
-    } else if (code == 'dueDate') {
-      setDueDate(null);
-    }
-  }
-
   /// действия
 
   String get saveAndGoBtnTitle => (parent.isProject || parent.isRoot) ? loc.save_and_go_action_title : loc.save_and_repeat_action_title;
@@ -126,13 +68,13 @@ abstract class _TaskEditControllerBase extends EditController with Store {
         Task(
           id: task?.id,
           parent: parent,
-          title: tfAnnoForCode('title').text,
-          description: tfAnnoForCode('description').text,
+          title: tfa('title').text,
+          description: tfa('description').text,
           closed: task?.closed == true,
           statusId: selectedStatusId,
           estimate: selectedEstimate?.value,
-          startDate: selectedStartDate,
-          dueDate: selectedDueDate,
+          startDate: task?.startDate,
+          dueDate: task?.dueDate,
           tasks: task?.tasks ?? [],
           type: task?.type,
           assigneeId: selectedAssigneeId,

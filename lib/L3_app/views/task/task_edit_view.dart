@@ -41,29 +41,13 @@ class _TaskEditViewState extends State<TaskEditView> {
   TaskEditController get controller => widget.controller;
 
   Widget textFieldForCode(BuildContext context, String code) {
-    final ta = controller.tfAnnoForCode(code);
-    final isDate = code.endsWith('Date');
+    final ta = controller.tfa(code);
 
     return ta.noText
         ? MTTextField.noText(
             controller: controller.teControllers[code],
             label: ta.label,
             error: ta.errorText,
-            onTap: isDate ? () => controller.selectDate(code) : null,
-            prefixIcon: isDate ? const CalendarIcon() : null,
-            suffixIcon: isDate && ta.text.isNotEmpty
-                ? MTButton(
-                    middle: Row(
-                      children: [
-                        Container(height: P * 3, width: 1, color: borderColor.resolve(context)),
-                        const SizedBox(width: P),
-                        const CloseIcon(color: dangerColor),
-                        const SizedBox(width: P),
-                      ],
-                    ),
-                    onTap: () => controller.resetDate(code),
-                  )
-                : null,
           )
         : MTTextField(
             controller: controller.teControllers[code],
@@ -78,7 +62,7 @@ class _TaskEditViewState extends State<TaskEditView> {
     return ListView(
       shrinkWrap: true,
       children: [
-        for (final code in ['title', 'startDate', 'dueDate', 'description']) textFieldForCode(context, code),
+        for (final code in ['title', 'description']) textFieldForCode(context, code),
         if (controller.allowedAssignees.isNotEmpty)
           MTDropdown<Member>(
             onChanged: controller.selectAssigneeId,

@@ -29,9 +29,9 @@ abstract class _EditControllerBase with Store {
   ObservableMap<String, TFAnnotation> tfAnnotations = ObservableMap();
 
   TextEditingController _makeTEController(String code) {
-    final teController = TextEditingController(text: '${tfAnnoForCode(code)}');
+    final teController = TextEditingController(text: '${tfa(code)}');
     teController.addListener(() {
-      final ta = tfAnnoForCode(code);
+      final ta = tfa(code);
       if (ta.text != teController.text) {
         tfAnnotations[ta.code] = ta.copyWith(text: teController.text);
       }
@@ -51,5 +51,11 @@ abstract class _EditControllerBase with Store {
   @computed
   bool get validated => filled && !_validatableTA.any((ta) => ta.errorText != null);
 
-  TFAnnotation tfAnnoForCode(String code) => tfAnnotations[code]!;
+  TFAnnotation tfa(String code) => tfAnnotations[code]!;
+
+  @action
+  void updateTFA(String code, {bool? loading}) {
+    final ta = tfa(code);
+    tfAnnotations[code] = ta.copyWith(loading: loading);
+  }
 }

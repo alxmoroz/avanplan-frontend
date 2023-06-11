@@ -13,6 +13,7 @@ class TFAnnotation {
     this.validator,
     this.needValidate = true,
     this.noText = false,
+    this.loading = false,
   });
 
   final String code;
@@ -22,12 +23,14 @@ class TFAnnotation {
   final bool needValidate;
   final bool noText;
 
-  String text;
+  final bool loading;
+  final String text;
   bool edited = false;
 
-  TFAnnotation copyWith({required String text}) => TFAnnotation(
+  TFAnnotation copyWith({String? text, bool? loading}) => TFAnnotation(
         code,
-        text: text,
+        text: text ?? this.text,
+        loading: loading ?? this.loading,
         label: label,
         helper: helper,
         validator: validator,

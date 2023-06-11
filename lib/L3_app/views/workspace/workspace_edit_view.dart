@@ -42,7 +42,7 @@ class _WSEditViewState extends State<WSEditView> {
   }
 
   Widget textFieldForCode(String code) {
-    final tfa = controller.tfAnnoForCode(code);
+    final tfa = controller.tfa(code);
 
     return MTTextField(
       controller: controller.teControllers[code],

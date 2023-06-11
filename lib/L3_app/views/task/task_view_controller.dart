@@ -1,6 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -14,11 +14,16 @@ import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_alert_dialog.dart';
+import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
+import '../../presenters/date_presenter.dart';
+import '../../presenters/duration_presenter.dart';
 import '../../presenters/source_presenter.dart';
+import '../../presenters/task_date_presenter.dart';
 import '../../presenters/task_view_presenter.dart';
 import '../../usecases/task_ext_actions.dart';
 import '../../usecases/ws_ext_actions.dart';
+import '../../views/_base/edit_controller.dart';
 import '../tariff/tariff_select_view.dart';
 import 'task_edit_controller.dart';
 import 'task_edit_view.dart';
@@ -32,16 +37,95 @@ class TaskViewController extends _TaskViewControllerBase with _$TaskViewControll
   TaskViewController(int _wsId, int? _taskId) {
     wsId = _wsId;
     taskId = _taskId;
+    final task = mainController.taskForId(wsId, taskId);
+    initState(tfaList: [
+      TFAnnotation(
+        'startDate',
+        label: loc.task_start_date_placeholder,
+        noText: true,
+        needValidate: false,
+        text: task.startDate != null ? task.startDate!.strLong : '',
+      ),
+      TFAnnotation(
+        'dueDate',
+        label: loc.task_due_date_placeholder,
+        noText: true,
+        needValidate: false,
+        text: task.dueDate != null ? task.dueDate!.strLong : '',
+      ),
+    ]);
   }
 }
 
-abstract class _TaskViewControllerBase with Store {
+abstract class _TaskViewControllerBase extends EditController with Store {
   late final int wsId;
   late final int? taskId;
 
   Task get task => mainController.taskForId(wsId, taskId);
   Workspace get _ws => mainController.wsForId(wsId);
   bool get plCreate => task.isRoot ? _ws.plProjects : _ws.plTasks;
+
+  /// даты
+
+  @action
+  Future setStartDate(DateTime? _date) async {
+    updateTFA('startDate', loading: true);
+    teControllers['startDate']?.text = '';
+    task.startDate = _date;
+    final editedTask = await taskUC.save(task);
+    if (editedTask != null) {
+      task.startDate = editedTask.startDate;
+      teControllers['startDate']?.text = task.startDateStrLong;
+    }
+    updateTFA('startDate', loading: false);
+  }
+
+  @action
+  Future setDueDate(DateTime? _date) async {
+    updateTFA('dueDate', loading: true);
+    teControllers['dueDate']?.text = '';
+    task.dueDate = _date;
+    final editedTask = await taskUC.save(task);
+    if (editedTask != null) {
+      task.dueDate = editedTask.dueDate;
+      teControllers['dueDate']?.text = task.dueDateStrLong;
+    }
+    updateTFA('dueDate', loading: false);
+  }
+
+  Future selectDate(String code) async {
+    final isStart = code == 'startDate';
+
+    final today = DateTime.now();
+    final pastDate = today.subtract(year);
+
+    final lastDate = (isStart ? task.dueDate : null) ?? today.add(year * 100);
+    final initialDate = (isStart ? task.startDate : task.dueDate) ?? (today.isAfter(lastDate) ? lastDate : today);
+    final firstDate = (isStart ? null : task.startDate) ?? (pastDate.isAfter(initialDate) ? initialDate : pastDate);
+
+    final date = await showDatePicker(
+      context: rootKey.currentContext!,
+      initialEntryMode: DatePickerEntryMode.calendarOnly,
+      initialDate: initialDate,
+      firstDate: firstDate,
+      lastDate: lastDate,
+    );
+    if (date != null) {
+      if (isStart) {
+        setStartDate(date);
+      } else {
+        setDueDate(date);
+      }
+    }
+  }
+
+  void resetDate(String code) {
+    if (code == 'startDate') {
+      setStartDate(null);
+    } else if (code == 'dueDate') {
+      setDueDate(null);
+    }
+  }
 
   /// вкладки
   @computed

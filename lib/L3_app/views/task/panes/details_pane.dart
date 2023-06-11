@@ -15,6 +15,7 @@ import '../../../components/mt_adaptive.dart';
 import '../../../components/mt_button.dart';
 import '../../../components/mt_list_tile.dart';
 import '../../../components/mt_shadowed.dart';
+import '../../../components/mt_text_field.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/person_presenter.dart';
@@ -51,6 +52,59 @@ class DetailsPane extends StatelessWidget {
 
   Widget get _assignee => _task.assignee!.iconName();
   Widget get _author => _task.author!.iconName();
+
+  Widget _tf(BuildContext context, String code, {EdgeInsets? margin}) {
+    final ta = controller.tfa(code);
+    final isDate = code.endsWith('Date');
+    final teController = controller.teControllers[code];
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        ta.noText
+            ? MTTextField.noText(
+                controller: teController,
+                enabled: !ta.loading,
+                label: ta.label,
+                error: ta.errorText,
+                margin: margin,
+                onTap: isDate ? () => controller.selectDate(code) : null,
+                prefixIcon: isDate ? const CalendarIcon() : null,
+                suffixIcon: isDate && ta.text.isNotEmpty
+                    ? MTButton(
+                        middle: Row(
+                          children: [
+                            Container(height: P * 3, width: 1, color: borderColor.resolve(context)),
+                            const SizedBox(width: P),
+                            const CloseIcon(color: dangerColor),
+                            const SizedBox(width: P),
+                          ],
+                        ),
+                        onTap: () => controller.resetDate(code),
+                      )
+                    : null,
+              )
+            : MTTextField(
+                controller: teController,
+                enabled: !ta.loading,
+                label: ta.label,
+                error: ta.errorText,
+                margin: margin,
+              ),
+        if (ta.loading) ...[
+          Positioned(
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0,
+            child: Container(
+              color: backgroundColor.resolve(context).withAlpha(150),
+            ),
+          ),
+          CircularProgressIndicator(color: mainColor.resolve(context)),
+        ]
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,6 +145,23 @@ class DetailsPane extends StatelessWidget {
               if (_task.hasDescription) ...[
                 _description(context),
               ],
+              MTListTile(
+                padding: MTListTile.defaultPadding.copyWith(top: P2),
+                middle: _tf(context, 'startDate', margin: EdgeInsets.zero),
+                bottomBorder: false,
+              ),
+              MTListTile(
+                middle: _tf(context, 'dueDate', margin: EdgeInsets.zero),
+                bottomBorder: false,
+              ),
+              // MTListTile(
+              //   middle: Row(
+              //     children: [
+              //       Flexible(child: _tf(context, 'startDate', margin: EdgeInsets.zero)),
+              //       Flexible(child: _tf(context, 'dueDate', margin: EdgeInsets.only(left: P))),
+              //     ],
+              //   ),
+              // ),
               if (_task.hasEstimate) ...[
                 MTListTile(
                   leading: LightText('${loc.task_estimate_placeholder}', color: lightGreyColor),
@@ -101,6 +172,7 @@ class DetailsPane extends StatelessWidget {
                 MTListTile(
                   leading: LightText(loc.task_author_title, color: lightGreyColor),
                   middle: _author,
+                  bottomBorder: false,
                 ),
               ],
             ],

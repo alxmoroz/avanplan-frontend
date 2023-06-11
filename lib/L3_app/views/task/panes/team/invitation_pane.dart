@@ -19,7 +19,7 @@ class InvitationPane extends StatelessWidget {
   bool get _hasUrl => controller.invitationUrl.isNotEmpty;
 
   Widget _tfForCode(String code) {
-    final ta = controller.tfAnnoForCode(code);
+    final ta = controller.tfa(code);
     final isDate = code.endsWith('Date');
 
     return ta.noText

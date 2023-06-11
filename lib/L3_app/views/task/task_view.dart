@@ -63,6 +63,12 @@ class _TaskViewState extends State<TaskView> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   Widget _tab(bool selected, Widget icon, Widget title) => selected ? title : icon;
 
   Map<TaskTabKey, Widget> get _tabs {

@@ -2,6 +2,8 @@
 
 import '../extra/services.dart';
 
+const year = Duration(days: 365);
+
 const daysPerMonth = 30.41666;
 const _daysPerYear = 365.0;
 const _daysPerWeek = 7.0;

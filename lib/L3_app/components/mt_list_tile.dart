@@ -32,9 +32,11 @@ class MTListTile extends StatelessWidget {
   final bool topBorder;
   final bool bottomBorder;
 
-  Widget get _border => MTDivider(height: 0, indent: padding?.left ?? P2, endIndent: padding?.right ?? P2);
+  static const _indent = P2;
 
-  static const EdgeInsets defaultPadding = EdgeInsets.symmetric(horizontal: P2, vertical: P);
+  Widget get _border => MTDivider(height: 0, indent: padding?.left ?? _indent, endIndent: padding?.right ?? _indent);
+
+  static const EdgeInsets defaultPadding = EdgeInsets.symmetric(horizontal: _indent, vertical: P);
 
   @override
   Widget build(BuildContext context) {

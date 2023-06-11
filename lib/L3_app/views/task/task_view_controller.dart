@@ -16,7 +16,6 @@ import '../../components/icons.dart';
 import '../../components/mt_alert_dialog.dart';
 import '../../components/text_field_annotation.dart';
 import '../../extra/services.dart';
-import '../../presenters/date_presenter.dart';
 import '../../presenters/duration_presenter.dart';
 import '../../presenters/source_presenter.dart';
 import '../../presenters/task_date_presenter.dart';
@@ -44,14 +43,14 @@ class TaskViewController extends _TaskViewControllerBase with _$TaskViewControll
         label: loc.task_start_date_placeholder,
         noText: true,
         needValidate: false,
-        text: task.startDate != null ? task.startDate!.strLong : '',
+        text: task.startDateStr,
       ),
       TFAnnotation(
         'dueDate',
         label: loc.task_due_date_placeholder,
         noText: true,
         needValidate: false,
-        text: task.dueDate != null ? task.dueDate!.strLong : '',
+        text: task.dueDateStr,
       ),
     ]);
   }
@@ -75,7 +74,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     final editedTask = await taskUC.save(task);
     if (editedTask != null) {
       task.startDate = editedTask.startDate;
-      teControllers['startDate']?.text = task.startDateStrLong;
+      teControllers['startDate']?.text = task.startDateStr;
     }
     updateTFA('startDate', loading: false);
   }
@@ -88,7 +87,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     final editedTask = await taskUC.save(task);
     if (editedTask != null) {
       task.dueDate = editedTask.dueDate;
-      teControllers['dueDate']?.text = task.dueDateStrLong;
+      teControllers['dueDate']?.text = task.dueDateStr;
     }
     updateTFA('dueDate', loading: false);
   }

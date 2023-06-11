@@ -52,10 +52,15 @@ abstract class _LoaderControllerBase with Store {
     String? actionText,
     Widget? action,
   }) {
+    action ??= actionText != null ? _stopAction(actionText) : null;
+    if (action != null && _stack < 1) {
+      _stack++;
+    }
+
     this.imageName = imageName;
     this.titleText = titleText;
     this.descriptionText = descriptionText;
-    actionWidget = action ?? (actionText != null ? _stopAction(actionText) : null);
+    actionWidget = action;
   }
 
   @action
@@ -63,7 +68,7 @@ abstract class _LoaderControllerBase with Store {
 
   /// Interceptor
   Interceptor get interceptor => InterceptorsWrapper(onError: (e, handler) async {
-        if (e.type == DioErrorType.badResponse) {
+        if (e.type == DioExceptionType.badResponse) {
           final code = e.response?.statusCode ?? 666;
           final path = e.requestOptions.path;
 

@@ -14,6 +14,7 @@ InputDecoration tfDecoration(
   String? error,
   Widget? prefixIcon,
   Widget? suffixIcon,
+  EdgeInsets? padding,
   bool enabled = true,
   bool readOnly = false,
 }) {
@@ -25,13 +26,15 @@ InputDecoration tfDecoration(
 
   return InputDecoration(
     labelText: label,
-    labelStyle: const NormalText('', color: greyColor).style(context),
+    // floatingLabelStyle: const LightText('', color: greyColor).style(context),
+    labelStyle: const LightText('', color: greyColor).style(context),
     helperText: helper,
     helperStyle: const SmallText('').style(context),
     helperMaxLines: 15,
     errorText: error,
     errorStyle: const SmallText('', color: warningColor).style(context),
     errorMaxLines: 15,
+    contentPadding: padding,
     floatingLabelBehavior: FloatingLabelBehavior.auto,
     isDense: true,
     border: _border,
@@ -60,6 +63,7 @@ class MTTextField extends StatelessWidget {
     this.maxLines,
     this.autofocus = true,
     this.margin,
+    this.padding,
     this.obscureText = false,
     this.capitalization,
     this.autocorrect = false,
@@ -77,6 +81,7 @@ class MTTextField extends StatelessWidget {
     this.helper,
     this.error,
     this.margin,
+    this.padding,
     this.prefixIcon,
     this.suffixIcon,
     this.onTap,
@@ -97,7 +102,8 @@ class MTTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final int? maxLines;
   final bool autofocus;
-  final EdgeInsetsGeometry? margin;
+  final EdgeInsets? margin;
+  final EdgeInsets? padding;
   final bool obscureText;
   final TextCapitalization? capitalization;
   final bool autocorrect;
@@ -113,7 +119,7 @@ class MTTextField extends StatelessWidget {
     return material(Padding(
       padding: margin ?? tfPadding,
       child: TextField(
-        style: const MediumText('').style(context),
+        style: const NormalText('').style(context),
         decoration: tfDecoration(
           context,
           label: label,
@@ -123,6 +129,7 @@ class MTTextField extends StatelessWidget {
           suffixIcon: suffixIcon,
           enabled: enabled,
           readOnly: readOnly,
+          padding: padding,
         ),
         cursorColor: mainColor.resolve(context),
         autofocus: autofocus,

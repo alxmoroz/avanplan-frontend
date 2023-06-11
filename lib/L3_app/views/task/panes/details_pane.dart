@@ -67,16 +67,15 @@ class DetailsPane extends StatelessWidget {
                 label: ta.label,
                 error: ta.errorText,
                 margin: margin,
+                padding: const EdgeInsets.symmetric(horizontal: P_2),
                 onTap: isDate ? () => controller.selectDate(code) : null,
                 prefixIcon: isDate ? const CalendarIcon() : null,
                 suffixIcon: isDate && ta.text.isNotEmpty
                     ? MTButton(
-                        middle: Row(
+                        middle: const Row(
                           children: [
-                            Container(height: P * 3, width: 1, color: borderColor.resolve(context)),
-                            const SizedBox(width: P),
-                            const CloseIcon(color: dangerColor),
-                            const SizedBox(width: P),
+                            SizedBox(width: P_2),
+                            CloseIcon(color: lightGreyColor),
                           ],
                         ),
                         onTap: () => controller.resetDate(code),
@@ -97,7 +96,7 @@ class DetailsPane extends StatelessWidget {
             top: 0,
             bottom: 0,
             child: Container(
-              color: backgroundColor.resolve(context).withAlpha(150),
+              color: backgroundColor.resolve(context).withAlpha(120),
             ),
           ),
           CircularProgressIndicator(color: mainColor.resolve(context)),
@@ -154,14 +153,6 @@ class DetailsPane extends StatelessWidget {
                 middle: _tf(context, 'dueDate', margin: EdgeInsets.zero),
                 bottomBorder: false,
               ),
-              // MTListTile(
-              //   middle: Row(
-              //     children: [
-              //       Flexible(child: _tf(context, 'startDate', margin: EdgeInsets.zero)),
-              //       Flexible(child: _tf(context, 'dueDate', margin: EdgeInsets.only(left: P))),
-              //     ],
-              //   ),
-              // ),
               if (_task.hasEstimate) ...[
                 MTListTile(
                   leading: LightText('${loc.task_estimate_placeholder}', color: lightGreyColor),

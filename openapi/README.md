@@ -71,12 +71,6 @@ Class | Method | HTTP request | Description
 [*AuthApi*](doc/AuthApi.md) | [**registrationToken**](doc/AuthApi.md#registrationtoken) | **POST** /v1/auth/registration_token | Registration Token
 [*AuthApi*](doc/AuthApi.md) | [**requestRegistration**](doc/AuthApi.md#requestregistration) | **POST** /v1/auth/registration | Request Registration
 [*ContractsApi*](doc/ContractsApi.md) | [**signV1ContractsPost**](doc/ContractsApi.md#signv1contractspost) | **POST** /v1/contracts/ | Sign
-[*Deprecated11Api*](doc/Deprecated11Api.md) | [**deprecatedCreateWorkspaceV1MyCreateWorkspacePost**](doc/Deprecated11Api.md#deprecatedcreateworkspacev1mycreateworkspacepost) | **POST** /v1/my/create_workspace | Deprecated Create Workspace
-[*Deprecated11Api*](doc/Deprecated11Api.md) | [**deprecatedInvitationCreateV1InvitationPost**](doc/Deprecated11Api.md#deprecatedinvitationcreatev1invitationpost) | **POST** /v1/invitation | Deprecated Invitation Create
-[*Deprecated11Api*](doc/Deprecated11Api.md) | [**deprecatedRedeemInvitationV1MyRedeemInvitationPost**](doc/Deprecated11Api.md#deprecatedredeeminvitationv1myredeeminvitationpost) | **POST** /v1/my/redeem_invitation | Deprecated Redeem Invitation
-[*Deprecated11Api*](doc/Deprecated11Api.md) | [**deprecatedRolesAssignV1RolesPost**](doc/Deprecated11Api.md#deprecatedrolesassignv1rolespost) | **POST** /v1/roles | Deprecated Roles Assign
-[*Deprecated11Api*](doc/Deprecated11Api.md) | [**deprecatedUpdatePushTokenV1MyPushTokenPost**](doc/Deprecated11Api.md#deprecatedupdatepushtokenv1mypushtokenpost) | **POST** /v1/my/push_token | Deprecated Update Push Token
-[*Deprecated11Api*](doc/Deprecated11Api.md) | [**deprecatedUpdateWorkspaceV1MyUpdateWorkspacePost**](doc/Deprecated11Api.md#deprecatedupdateworkspacev1myupdateworkspacepost) | **POST** /v1/my/update_workspace | Deprecated Update Workspace
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**checkConnectionV1IntegrationsSourcesCheckConnectionGet**](doc/IntegrationsSourcesApi.md#checkconnectionv1integrationssourcescheckconnectionget) | **GET** /v1/integrations/sources/check_connection | Check Connection
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**deleteV1IntegrationsSourcesSourceIdDelete**](doc/IntegrationsSourcesApi.md#deletev1integrationssourcessourceiddelete) | **DELETE** /v1/integrations/sources/{source_id} | Delete
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**upsertV1IntegrationsSourcesPost**](doc/IntegrationsSourcesApi.md#upsertv1integrationssourcespost) | **POST** /v1/integrations/sources/ | Upsert
@@ -113,8 +107,6 @@ Class | Method | HTTP request | Description
  - [AuthToken](doc/AuthToken.md)
  - [BodyAuthAppleToken](doc/BodyAuthAppleToken.md)
  - [BodyAuthGoogleToken](doc/BodyAuthGoogleToken.md)
- - [BodyDeprecatedRedeemInvitationV1MyRedeemInvitationPost](doc/BodyDeprecatedRedeemInvitationV1MyRedeemInvitationPost.md)
- - [BodyDeprecatedUpdatePushTokenV1MyPushTokenPost](doc/BodyDeprecatedUpdatePushTokenV1MyPushTokenPost.md)
  - [BodyIapNotificationV1PaymentsIapNotificationPost](doc/BodyIapNotificationV1PaymentsIapNotificationPost.md)
  - [BodyRedeemV1MyInvitationsRedeemPost](doc/BodyRedeemV1MyInvitationsRedeemPost.md)
  - [BodyRegisterV1MyActivitiesRegisterPost](doc/BodyRegisterV1MyActivitiesRegisterPost.md)

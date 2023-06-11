@@ -11,7 +11,6 @@ import 'package:openapi/src/auth/bearer_auth.dart';
 import 'package:openapi/src/auth/oauth.dart';
 import 'package:openapi/src/api/auth_api.dart';
 import 'package:openapi/src/api/contracts_api.dart';
-import 'package:openapi/src/api/deprecated11_api.dart';
 import 'package:openapi/src/api/integrations_sources_api.dart';
 import 'package:openapi/src/api/integrations_tasks_api.dart';
 import 'package:openapi/src/api/my_account_api.dart';
@@ -91,12 +90,6 @@ class Openapi {
   /// by doing that all interceptors will not be executed
   ContractsApi getContractsApi() {
     return ContractsApi(dio, serializers);
-  }
-
-  /// Get Deprecated11Api instance, base route and serializer can be overridden by a given but be careful,
-  /// by doing that all interceptors will not be executed
-  Deprecated11Api getDeprecated11Api() {
-    return Deprecated11Api(dio, serializers);
   }
 
   /// Get IntegrationsSourcesApi instance, base route and serializer can be overridden by a given but be careful,

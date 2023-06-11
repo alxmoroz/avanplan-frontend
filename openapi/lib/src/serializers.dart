@@ -20,8 +20,6 @@ import 'package:openapi/src/model/app_settings_get.dart';
 import 'package:openapi/src/model/auth_token.dart';
 import 'package:openapi/src/model/body_auth_apple_token.dart';
 import 'package:openapi/src/model/body_auth_google_token.dart';
-import 'package:openapi/src/model/body_deprecated_redeem_invitation_v1_my_redeem_invitation_post.dart';
-import 'package:openapi/src/model/body_deprecated_update_push_token_v1_my_push_token_post.dart';
 import 'package:openapi/src/model/body_iap_notification_v1_payments_iap_notification_post.dart';
 import 'package:openapi/src/model/body_redeem_v1_my_invitations_redeem_post.dart';
 import 'package:openapi/src/model/body_register_v1_my_activities_register_post.dart';
@@ -74,8 +72,6 @@ part 'serializers.g.dart';
   AuthToken,
   BodyAuthAppleToken,
   BodyAuthGoogleToken,
-  BodyDeprecatedRedeemInvitationV1MyRedeemInvitationPost,
-  BodyDeprecatedUpdatePushTokenV1MyPushTokenPost,
   BodyIapNotificationV1PaymentsIapNotificationPost,
   BodyRedeemV1MyInvitationsRedeemPost,
   BodyRegisterV1MyActivitiesRegisterPost,

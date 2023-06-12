@@ -14,11 +14,10 @@ import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_alert_dialog.dart';
-import '../../components/text_field_annotation.dart';
+import '../../components/mt_field_data.dart';
 import '../../extra/services.dart';
 import '../../presenters/duration_presenter.dart';
 import '../../presenters/source_presenter.dart';
-import '../../presenters/task_date_presenter.dart';
 import '../../presenters/task_view_presenter.dart';
 import '../../usecases/task_ext_actions.dart';
 import '../../usecases/ws_ext_actions.dart';
@@ -36,21 +35,21 @@ class TaskViewController extends _TaskViewControllerBase with _$TaskViewControll
   TaskViewController(int _wsId, int? _taskId) {
     wsId = _wsId;
     taskId = _taskId;
-    final task = mainController.taskForId(wsId, taskId);
-    initState(tfaList: [
-      TFAnnotation(
+    // final task = mainController.taskForId(wsId, taskId);
+    initState(fds: [
+      MTFieldData(
         'startDate',
-        label: loc.task_start_date_placeholder,
+        label: loc.task_start_date_label,
+        placeholder: loc.task_start_date_placeholder,
         noText: true,
         needValidate: false,
-        text: task.startDateStr,
       ),
-      TFAnnotation(
+      MTFieldData(
         'dueDate',
-        label: loc.task_due_date_placeholder,
+        label: loc.task_due_date_label,
+        placeholder: loc.task_due_date_placeholder,
         noText: true,
         needValidate: false,
-        text: task.dueDateStr,
       ),
     ]);
   }
@@ -68,28 +67,24 @@ abstract class _TaskViewControllerBase extends EditController with Store {
 
   @action
   Future setStartDate(DateTime? _date) async {
-    updateTFA('startDate', loading: true);
-    teControllers['startDate']?.text = '';
+    updateField('startDate', loading: true);
     task.startDate = _date;
     final editedTask = await taskUC.save(task);
     if (editedTask != null) {
       task.startDate = editedTask.startDate;
-      teControllers['startDate']?.text = task.startDateStr;
     }
-    updateTFA('startDate', loading: false);
+    updateField('startDate', loading: false);
   }
 
   @action
   Future setDueDate(DateTime? _date) async {
-    updateTFA('dueDate', loading: true);
-    teControllers['dueDate']?.text = '';
+    updateField('dueDate', loading: true);
     task.dueDate = _date;
     final editedTask = await taskUC.save(task);
     if (editedTask != null) {
       task.dueDate = editedTask.dueDate;
-      teControllers['dueDate']?.text = task.dueDateStr;
     }
-    updateTFA('dueDate', loading: false);
+    updateField('dueDate', loading: false);
   }
 
   Future selectDate(String code) async {

@@ -65,7 +65,7 @@ abstract class _MainControllerBase with Store {
       await Navigator.of(rootKey.currentContext!).pushNamed(TaskView.routeName, arguments: TaskViewArgs(wsId, taskId));
 
   @observable
-  DateTime? updatedDate;
+  DateTime? _updatedDate;
 
   @action
   Future fetchWorkspaces() async {
@@ -100,7 +100,7 @@ abstract class _MainControllerBase with Store {
     workspaces = [];
     rootTask.tasks = [];
     updateRootTask();
-    updatedDate = null;
+    _updatedDate = null;
 
     refsController.clearData();
     accountController.clearData();
@@ -120,7 +120,7 @@ abstract class _MainControllerBase with Store {
     await fetchWorkspaces();
     await fetchTasks();
 
-    updatedDate = DateTime.now();
+    _updatedDate = DateTime.now();
     await loader.stop();
   }
 
@@ -180,7 +180,7 @@ abstract class _MainControllerBase with Store {
 
   Future _tryUpdate() async {
     final invited = await _tryRedeemInvitation();
-    final timeToUpdate = updatedDate == null || updatedDate!.add(_updatePeriod).isBefore(DateTime.now());
+    final timeToUpdate = _updatedDate == null || _updatedDate!.add(_updatePeriod).isBefore(DateTime.now());
     if (invited || timeToUpdate) {
       await _update();
     } else if (iapController.waitingPayment) {
@@ -224,7 +224,6 @@ abstract class _MainControllerBase with Store {
     await _showOnboarding();
   }
 
-  @action
   Future startupActions() async {
     await serviceSettingsController.fetchSettings();
     await authController.checkLocalAuth();

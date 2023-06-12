@@ -40,7 +40,7 @@ class WorkspaceListTile extends StatelessWidget {
         ],
       ),
       trailing: const ChevronIcon(),
-      bottomBorder: bottomBorder,
+      bottomDivider: bottomBorder,
       onTap: _showWorkspace,
     );
   }

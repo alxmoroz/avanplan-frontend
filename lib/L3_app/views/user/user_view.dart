@@ -40,7 +40,7 @@ class UserView extends StatelessWidget {
                 MTListTile(
                   titleText: user.rolesStr,
                   // trailing: ws.canEditUsers ? MTButton.icon(const EditIcon(), () => controller.editUser(context)) : null,
-                  bottomBorder: false,
+                  bottomDivider: false,
                 )
               ]
             ],

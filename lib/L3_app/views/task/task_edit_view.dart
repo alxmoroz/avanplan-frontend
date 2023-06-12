@@ -41,7 +41,7 @@ class _TaskEditViewState extends State<TaskEditView> {
   TaskEditController get controller => widget.controller;
 
   Widget textFieldForCode(BuildContext context, String code) {
-    final ta = controller.tfa(code);
+    final ta = controller.fData(code);
 
     return ta.noText
         ? MTTextField.noText(

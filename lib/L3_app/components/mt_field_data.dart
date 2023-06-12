@@ -1,14 +1,13 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2023. Alexandr Moroz
 
 import '../extra/services.dart';
 
-// TODO: почему нельзя использовать MTTextField для этих целей? Или убрать эту прослойку или объяснить зачем она
-
-class TFAnnotation {
-  TFAnnotation(
+class MTFieldData {
+  MTFieldData(
     this.code, {
     this.text = '',
     this.label = '',
+    this.placeholder = '',
     this.helper,
     this.validator,
     this.needValidate = true,
@@ -18,6 +17,7 @@ class TFAnnotation {
 
   final String code;
   final String label;
+  final String placeholder;
   final String? helper;
   final String? Function(String)? validator;
   final bool needValidate;
@@ -27,11 +27,12 @@ class TFAnnotation {
   final String text;
   bool edited = false;
 
-  TFAnnotation copyWith({String? text, bool? loading}) => TFAnnotation(
+  MTFieldData copyWith({String? text, bool? loading}) => MTFieldData(
         code,
         text: text ?? this.text,
         loading: loading ?? this.loading,
         label: label,
+        placeholder: placeholder,
         helper: helper,
         validator: validator,
         needValidate: needValidate,

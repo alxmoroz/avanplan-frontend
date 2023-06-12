@@ -149,7 +149,7 @@ class TariffSelectView extends StatelessWidget {
               leading: MTCloseButton(),
               middle: ws.subPageTitle(loc.tariff_list_title),
               padding: EdgeInsets.zero,
-              bottomBorder: false,
+              bottomDivider: false,
               color: backgroundColor,
               trailing: const SizedBox(width: P2 * 2),
             ),

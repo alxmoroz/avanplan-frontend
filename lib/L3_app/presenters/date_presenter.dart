@@ -6,5 +6,5 @@ extension DateFormatter on DateTime {
   bool get thisYear => year == DateTime.now().year;
   String get strShortWTime => (thisYear ? DateFormat.Md() : DateFormat.yMd()).add_Hm().format(this);
   String get strShort => thisYear ? DateFormat.Md().format(this) : DateFormat.yMd().format(this);
-  String get strMedium => thisYear ? DateFormat.MMMMEEEEd().format(this) : DateFormat.yMMMMEEEEd().format(this);
+  String get strMedium => thisYear ? DateFormat.MMMMd().format(this) : DateFormat.yMMMMd().format(this);
 }

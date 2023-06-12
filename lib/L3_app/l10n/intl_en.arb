@@ -294,6 +294,7 @@
   "task_new_title": "New task",
   "task_plural_genitive": "{count, plural, one{task} other{tasks}}",
   "task_reopen_action_title": "Reopen",
+  "task_start_date_label": "Start",
   "task_start_date_placeholder": "Start date",
   "task_status_placeholder": "Select Status",
   "task_title": "Task",

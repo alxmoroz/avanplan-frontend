@@ -3,7 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../components/text_field_annotation.dart';
+import '../../components/mt_field_data.dart';
 
 part 'edit_controller.g.dart';
 
@@ -13,9 +13,9 @@ abstract class _EditControllerBase with Store {
   Map<String, TextEditingController> teControllers = {};
 
   @mustCallSuper
-  void initState({List<TFAnnotation>? tfaList}) {
-    tfAnnotations = ObservableMap.of({for (var tfa in tfaList ?? <TFAnnotation>[]) tfa.code: tfa});
-    teControllers = {for (var tfa in tfAnnotations.values) tfa.code: _makeTEController(tfa.code)};
+  void initState({List<MTFieldData>? fds}) {
+    _fdMap = ObservableMap.of({for (var fd in fds ?? <MTFieldData>[]) fd.code: fd});
+    teControllers = {for (var fd in _fdMap.values) fd.code: _makeTEController(fd.code)};
   }
 
   @mustCallSuper
@@ -26,36 +26,36 @@ abstract class _EditControllerBase with Store {
   }
 
   @observable
-  ObservableMap<String, TFAnnotation> tfAnnotations = ObservableMap();
+  ObservableMap<String, MTFieldData> _fdMap = ObservableMap();
 
   TextEditingController _makeTEController(String code) {
-    final teController = TextEditingController(text: '${tfa(code)}');
+    final _f = fData(code);
+    final teController = TextEditingController(text: '$_f');
     teController.addListener(() {
-      final ta = tfa(code);
-      if (ta.text != teController.text) {
-        tfAnnotations[ta.code] = ta.copyWith(text: teController.text);
+      if (_f.text != teController.text) {
+        _fdMap[_f.code] = _f.copyWith(text: teController.text);
       }
     });
     return teController;
   }
 
   @computed
-  Iterable<TFAnnotation> get _allTA => tfAnnotations.values;
+  Iterable<MTFieldData> get _fds => _fdMap.values;
 
   @computed
-  Iterable<TFAnnotation> get _validatableTA => _allTA.where((ta) => ta.needValidate);
+  Iterable<MTFieldData> get _validatableFD => _fds.where((fd) => fd.needValidate);
 
   @computed
-  bool get filled => _validatableTA.every((ta) => ta.text.isNotEmpty);
+  bool get filled => _validatableFD.every((fd) => fd.text.isNotEmpty);
 
   @computed
-  bool get validated => filled && !_validatableTA.any((ta) => ta.errorText != null);
+  bool get validated => filled && !_validatableFD.any((fd) => fd.errorText != null);
 
-  TFAnnotation tfa(String code) => tfAnnotations[code]!;
+  MTFieldData fData(String code) => _fdMap[code]!;
 
   @action
-  void updateTFA(String code, {bool? loading}) {
-    final ta = tfa(code);
-    tfAnnotations[code] = ta.copyWith(loading: loading);
+  void updateField(String code, {bool? loading}) {
+    final fd = fData(code);
+    _fdMap[code] = fd.copyWith(loading: loading);
   }
 }

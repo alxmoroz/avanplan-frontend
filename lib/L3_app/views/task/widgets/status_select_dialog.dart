@@ -42,7 +42,7 @@ class StatusSelectView extends StatelessWidget {
                 return MTListTile(
                   titleText: '$s',
                   trailing: selectedIndex == index ? const MTCircle(size: P, color: mainColor) : null,
-                  bottomBorder: index < ws.statuses.length - 1,
+                  bottomDivider: index < ws.statuses.length - 1,
                   onTap: () => Navigator.of(context).pop(s.id),
                 );
               },

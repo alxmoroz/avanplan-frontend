@@ -1,10 +1,10 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'package:avanplan/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/system/errors.dart';
+import '../../../main.dart';
 import '../../components/images.dart';
 import '../../extra/services.dart';
 

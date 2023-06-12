@@ -30,7 +30,7 @@ class AccountListTile extends StatelessWidget {
             middle: H3(_title),
             subtitle: _subtitle != _title ? LightText(_subtitle) : null,
             trailing: const ChevronIcon(),
-            bottomBorder: false,
+            bottomDivider: false,
             color: backgroundColor,
             onTap: () => _showAccount(context),
           )

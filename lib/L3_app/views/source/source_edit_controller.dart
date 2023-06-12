@@ -9,7 +9,7 @@ import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/ws_ext.dart';
 import '../../../main.dart';
 import '../../components/mt_alert_dialog.dart';
-import '../../components/text_field_annotation.dart';
+import '../../components/mt_field_data.dart';
 import '../../extra/services.dart';
 import '../../usecases/task_ext_actions.dart';
 import '../_base/edit_controller.dart';
@@ -22,12 +22,12 @@ class SourceEditController extends _SourceEditControllerBase with _$SourceEditCo
     srcId = _srcId;
     selectType(source?.type ?? sType);
 
-    initState(tfaList: [
-      TFAnnotation('url', label: loc.source_url_placeholder, text: source?.url ?? ''),
-      TFAnnotation('username', label: loc.auth_user_placeholder, text: source?.username ?? '', needValidate: showUsername),
-      TFAnnotation('apiKey', label: loc.source_api_key_placeholder, text: source?.apiKey ?? ''),
+    initState(fds: [
+      MTFieldData('url', label: loc.source_url_placeholder, text: source?.url ?? ''),
+      MTFieldData('username', label: loc.auth_user_placeholder, text: source?.username ?? '', needValidate: showUsername),
+      MTFieldData('apiKey', label: loc.source_api_key_placeholder, text: source?.apiKey ?? ''),
       // TFAnnotation('password', label: loc.auth_password_placeholder, needValidate: false),
-      TFAnnotation('description', label: loc.description, text: source?.description ?? '', needValidate: false),
+      MTFieldData('description', label: loc.description, text: source?.description ?? '', needValidate: false),
     ]);
   }
 }
@@ -62,11 +62,11 @@ abstract class _SourceEditControllerBase extends EditController with Store {
     loader.setSaving();
     final editedSource = await sourceUC.save(Source(
       id: source?.id,
-      url: tfa('url').text,
-      apiKey: tfa('apiKey').text,
-      username: tfa('username').text,
+      url: fData('url').text,
+      apiKey: fData('apiKey').text,
+      username: fData('username').text,
       // password: tfAnnoForCode('password').text,
-      description: tfa('description').text,
+      description: fData('description').text,
       wsId: ws.id!,
       type: selectedType!,
     ));

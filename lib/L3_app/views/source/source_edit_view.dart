@@ -78,7 +78,7 @@ class _SourceEditViewState extends State<SourceEditView> {
   }
 
   Widget textFieldForCode(String code) {
-    final tfa = controller.tfa(code);
+    final tfa = controller.fData(code);
 
     return MTTextField(
       controller: controller.teControllers[code],

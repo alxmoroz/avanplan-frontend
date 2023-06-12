@@ -87,7 +87,7 @@ class WorkspaceView extends StatelessWidget {
       leading: const ImportIcon(color: greyColor),
       titleText: loc.source_list_title,
       trailing: const ChevronIcon(),
-      bottomBorder: false,
+      bottomDivider: false,
       onTap: () async {
         ws.checkSources();
         await Navigator.of(rootKey.currentContext!).pushNamed(SourceListView.routeName, arguments: ws.id);

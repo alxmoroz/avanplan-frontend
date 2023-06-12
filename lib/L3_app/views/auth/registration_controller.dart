@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/registration.dart';
-import '../../components/text_field_annotation.dart';
+import '../../components/mt_field_data.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
 
@@ -12,10 +12,10 @@ part 'registration_controller.g.dart';
 
 class RegistrationController extends _RegistrationControllerBase with _$RegistrationController {
   RegistrationController() {
-    initState(tfaList: [
-      TFAnnotation('name', label: loc.auth_name_placeholder),
-      TFAnnotation('email', label: loc.auth_email_placeholder),
-      TFAnnotation('password', label: loc.auth_password_placeholder),
+    initState(fds: [
+      MTFieldData('name', label: loc.auth_name_placeholder),
+      MTFieldData('email', label: loc.auth_email_placeholder),
+      MTFieldData('password', label: loc.auth_password_placeholder),
     ]);
   }
 }
@@ -35,11 +35,11 @@ abstract class _RegistrationControllerBase extends EditController with Store {
     loader.start();
     loader.setSaving();
     final regRequest = RegistrationRequest(
-      tfa('name').text,
-      tfa('email').text,
+      fData('name').text,
+      fData('email').text,
       invitationToken: deepLinkController.invitationToken,
     );
-    requestCompleted = await authUC.requestRegistration(regRequest, tfa('password').text);
+    requestCompleted = await authUC.requestRegistration(regRequest, fData('password').text);
     await loader.stop();
   }
 }

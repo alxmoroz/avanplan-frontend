@@ -57,7 +57,7 @@ class _TariffLimitTile extends StatelessWidget {
       leading: icon,
       titleText: '$prefix$hvStr $suffix',
       padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
-      bottomBorder: false,
+      bottomDivider: false,
     );
   }
 }

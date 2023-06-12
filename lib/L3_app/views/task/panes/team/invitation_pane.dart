@@ -17,24 +17,24 @@ class InvitationPane extends StatelessWidget {
   final InvitationController controller;
 
   bool get _hasUrl => controller.invitationUrl.isNotEmpty;
-
-  Widget _tfForCode(String code) {
-    final ta = controller.tfa(code);
+  // TODO: редактор даты как в задачах?
+  Widget _field(String code) {
+    final fd = controller.fData(code);
     final isDate = code.endsWith('Date');
 
-    return ta.noText
+    return fd.noText
         ? MTTextField.noText(
             controller: controller.teControllers[code],
-            label: ta.label,
-            error: ta.errorText,
+            label: fd.label,
+            error: fd.errorText,
             onTap: isDate ? () => controller.selectDate() : null,
             prefixIcon: isDate ? const CalendarIcon() : null,
           )
         : MTTextField(
             autofocus: false,
             controller: controller.teControllers[code],
-            label: ta.label,
-            error: ta.errorText,
+            label: fd.label,
+            error: fd.errorText,
             keyboardType: code == 'activationsCount' ? TextInputType.number : null,
           );
   }
@@ -57,7 +57,7 @@ class InvitationPane extends StatelessWidget {
         builder: (_) => Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            for (final code in ['activationsCount', 'expiresOn']) _tfForCode(code),
+            for (final code in ['activationsCount', 'expiresOn']) _field(code),
             isWeb && _hasUrl
                 ? MTTextField.noText(
                     label: loc.invitation_share_label,

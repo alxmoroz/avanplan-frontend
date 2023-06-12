@@ -19,7 +19,7 @@ class MTDivider extends StatelessWidget {
       color: (color ?? greyColor).resolve(context),
       thickness: 0.2,
       indent: indent ?? 0,
-      endIndent: indent ?? 0,
+      endIndent: endIndent ?? 0,
       height: height ?? P,
     );
   }

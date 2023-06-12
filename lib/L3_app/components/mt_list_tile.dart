@@ -18,8 +18,9 @@ class MTListTile extends StatelessWidget {
     this.onTap,
     this.color,
     this.padding,
-    this.topBorder = false,
-    this.bottomBorder = true,
+    this.dividerStartIndent,
+    this.topDivider = false,
+    this.bottomDivider = true,
   });
   final Widget? leading;
   final Widget? middle;
@@ -29,14 +30,19 @@ class MTListTile extends StatelessWidget {
   final Function()? onTap;
   final Color? color;
   final EdgeInsets? padding;
-  final bool topBorder;
-  final bool bottomBorder;
+  final double? dividerStartIndent;
+  final bool topDivider;
+  final bool bottomDivider;
 
-  static const _indent = P2;
+  static const _defaultIndent = P2;
 
-  Widget get _border => MTDivider(height: 0, indent: padding?.left ?? _indent, endIndent: padding?.right ?? _indent);
+  Widget get _border => MTDivider(
+        height: 0,
+        indent: dividerStartIndent ?? padding?.left ?? _defaultIndent,
+        endIndent: padding?.right ?? _defaultIndent,
+      );
 
-  static const EdgeInsets defaultPadding = EdgeInsets.symmetric(horizontal: _indent, vertical: P);
+  static EdgeInsets defaultPadding = const EdgeInsets.symmetric(horizontal: _defaultIndent, vertical: P);
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +56,7 @@ class MTListTile extends StatelessWidget {
           splashColor: _splashColor,
           child: Column(
             children: [
-              if (topBorder) _border,
+              if (topDivider) _border,
               Padding(
                 padding: padding ?? defaultPadding,
                 child: Row(
@@ -69,7 +75,7 @@ class MTListTile extends StatelessWidget {
                   ],
                 ),
               ),
-              if (bottomBorder) _border,
+              if (bottomDivider) _border,
             ],
           )),
       color: (color ?? lightBackgroundColor).resolve(context),

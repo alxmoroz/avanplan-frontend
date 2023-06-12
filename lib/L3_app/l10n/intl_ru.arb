@@ -294,6 +294,7 @@
   "task_new_title": "Новая задача",
   "task_reopen_action_title": "Переоткрыть",
   "task_plural_genitive": "{count, plural, one{задачи} other{задач}}",
+  "task_start_date_label": "Начало",
   "task_start_date_placeholder": "Дата начала",
   "task_status_placeholder": "Выберите статус",
   "task_title": "Задача",

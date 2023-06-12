@@ -12,7 +12,7 @@ import '../../../../../L2_data/services/platform.dart';
 import '../../../../../main.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/images.dart';
-import '../../../../components/text_field_annotation.dart';
+import '../../../../components/mt_field_data.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/date_presenter.dart';
@@ -67,7 +67,7 @@ abstract class _InvitationControllerBase extends EditController with Store {
 
   @action
   Future createInvitation() async {
-    final activationsCount = int.tryParse(tfa('activationsCount').text) ?? 0;
+    final activationsCount = int.tryParse(fData('activationsCount').text) ?? 0;
     if (activationsCount > 0) {
       loader.start();
       loader.set(titleText: loc.loader_invitation_create_title, imageName: ImageNames.privacy);
@@ -89,9 +89,9 @@ abstract class _InvitationControllerBase extends EditController with Store {
     loader.setLoading();
     invitation = await invitationUC.getInvitation(task.wsId, task.id!, role.id!);
 
-    initState(tfaList: [
-      TFAnnotation('expiresOn', label: loc.invitation_expires_placeholder, noText: true),
-      TFAnnotation('activationsCount', label: loc.invitation_activations_count_placeholder, text: '${invitation?.activationsCount ?? '10'}'),
+    initState(fds: [
+      MTFieldData('expiresOn', label: loc.invitation_expires_placeholder, noText: true),
+      MTFieldData('activationsCount', label: loc.invitation_activations_count_placeholder, text: '${invitation?.activationsCount ?? '10'}'),
     ]);
 
     setExpired(invitation?.expiresOn ?? DateTime.now().add(const Duration(days: 7)));

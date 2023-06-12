@@ -43,7 +43,7 @@ class SourceRepo extends AbstractSourceRepo {
     try {
       final response = await api.checkConnectionV1IntegrationsSourcesCheckConnectionGet(sourceId: s.id!, wsId: s.wsId);
       res = response.data == true;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (['ERR_IMPORT_CONNECTION'].contains(e.errCode)) {
         throw MTImportError();
       }

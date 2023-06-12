@@ -63,7 +63,7 @@ extension SourcePresenter on Source {
                       ? warningColor
                       : lightGreyColor,
               size: _connectionIndicatorSize),
-      bottomBorder: bottomBorder,
+      bottomDivider: bottomBorder,
       onTap: onTap,
       color: standAlone ? null : Colors.transparent,
     );

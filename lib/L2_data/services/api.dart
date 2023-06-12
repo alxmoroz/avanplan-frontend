@@ -27,7 +27,7 @@ Future<Openapi> setupApi(Iterable<Interceptor>? interceptors, LocalSettings sett
     ..setApiKey('APIKeyHeader', apiKey);
 }
 
-extension DioErrorExt on DioError {
+extension DioErrorExt on DioException {
   String get errCode => response?.headers['err_code']?.first ?? '';
   String get detail {
     final dynamic resp = response?.data;

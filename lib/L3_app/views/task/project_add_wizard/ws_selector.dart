@@ -33,7 +33,7 @@ class WSSelector extends StatelessWidget {
                 leading: const PlusIcon(),
                 middle: MediumText(loc.workspace_my_title, color: mainColor),
                 trailing: const ChevronIcon(),
-                bottomBorder: false,
+                bottomDivider: false,
                 onTap: controller.createMyWS,
                 padding: const EdgeInsets.all(P).copyWith(right: P + P_2),
               );
@@ -49,7 +49,7 @@ class WSSelector extends StatelessWidget {
                   ],
                 ),
                 trailing: canSelect ? const ChevronIcon() : const PrivacyIcon(color: lightGreyColor),
-                bottomBorder: index < mainController.workspaces.length - 1,
+                bottomDivider: index < mainController.workspaces.length - 1,
                 onTap: canSelect ? () => controller.selectWS(ws.id) : null,
                 padding: const EdgeInsets.all(P).copyWith(right: canSelect ? P + P_2 : P),
               );

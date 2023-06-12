@@ -81,6 +81,7 @@ void setup() {
   // repo / adapters
   getIt.registerSingletonAsync<HiveStorage>(() async => await HiveStorage().init());
 
+  // первый контроллер
   getIt.registerSingletonAsync<LocalSettingsController>(() async => LocalSettingsController().init(), dependsOn: [HiveStorage, PackageInfo]);
 
   // Openapi

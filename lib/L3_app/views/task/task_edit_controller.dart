@@ -14,7 +14,7 @@ import '../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../main.dart';
 import '../../components/mt_alert_dialog.dart';
-import '../../components/text_field_annotation.dart';
+import '../../components/mt_field_data.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_level_presenter.dart';
 import '../../usecases/task_ext_actions.dart';
@@ -30,9 +30,9 @@ class TaskEditController extends _TaskEditControllerBase with _$TaskEditControll
     this.task = task;
     isNew = task == null;
 
-    initState(tfaList: [
-      TFAnnotation('title', label: loc.title, text: task?.title ?? ''),
-      TFAnnotation('description', label: loc.description, text: task?.description ?? '', needValidate: false),
+    initState(fds: [
+      MTFieldData('title', label: loc.title, text: task?.title ?? ''),
+      MTFieldData('description', label: loc.description, text: task?.description ?? '', needValidate: false),
     ]);
 
     selectEstimateByValue(task?.estimate);
@@ -68,8 +68,8 @@ abstract class _TaskEditControllerBase extends EditController with Store {
         Task(
           id: task?.id,
           parent: parent,
-          title: tfa('title').text,
-          description: tfa('description').text,
+          title: fData('title').text,
+          description: fData('description').text,
           closed: task?.closed == true,
           statusId: selectedStatusId,
           estimate: selectedEstimate?.value,

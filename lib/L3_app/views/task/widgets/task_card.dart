@@ -103,7 +103,7 @@ class TaskCard extends StatelessWidget {
             MTListTile(
               leading: showStateMark ? const SizedBox(width: P_2) : null,
               middle: _taskContent,
-              bottomBorder: bottomBorder,
+              bottomDivider: bottomBorder,
               onTap: _tap,
             ),
             if (showStateMark)

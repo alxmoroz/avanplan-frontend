@@ -30,7 +30,7 @@ class _TariffOptionTile extends StatelessWidget {
       subtitle: LightText(description, align: TextAlign.center),
       padding: const EdgeInsets.symmetric(horizontal: P).copyWith(bottom: P_2),
       color: Colors.transparent,
-      bottomBorder: false,
+      bottomDivider: false,
     );
   }
 }

@@ -31,7 +31,7 @@ class MTCheckBoxTile extends StatelessWidget {
         subtitle: description != null && description!.isNotEmpty ? SmallText(description!, maxLines: 2) : null,
         trailing: DoneIcon(value, solid: value),
         color: color,
-        bottomBorder: bottomBorder,
+        bottomDivider: bottomBorder,
         onTap: () => onChanged(!value),
       );
 }

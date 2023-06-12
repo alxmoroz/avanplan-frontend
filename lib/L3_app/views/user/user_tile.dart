@@ -11,8 +11,8 @@ import '../../components/text_widgets.dart';
 import '../../presenters/person_presenter.dart';
 import 'user_view.dart';
 
-class UserListTile extends StatelessWidget {
-  const UserListTile(this.user, {required this.bottomBorder});
+class UserTile extends StatelessWidget {
+  const UserTile(this.user, {required this.bottomBorder});
   final User user;
   final bool bottomBorder;
 
@@ -31,7 +31,7 @@ class UserListTile extends StatelessWidget {
       middle: NormalText('$user'),
       subtitle: SmallText(user.rolesStr, color: greyColor),
       trailing: const ChevronIcon(),
-      bottomBorder: bottomBorder,
+      bottomDivider: bottomBorder,
       onTap: () => _showUser(context),
     );
   }

@@ -36,7 +36,7 @@ class SettingsView extends StatelessWidget {
             ),
           const ChevronIcon(),
         ]),
-        bottomBorder: false,
+        bottomDivider: false,
         onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(NotificationListView.routeName),
       );
 
@@ -64,7 +64,7 @@ class SettingsView extends StatelessWidget {
             leading: const MailIcon(),
             titleText: loc.contact_us_title,
             trailing: const LinkOutIcon(),
-            bottomBorder: !isIOS,
+            bottomDivider: !isIOS,
             onTap: () => sendMail(loc.contact_us_mail_subject, appTitle, accountController.user?.id),
           ),
           if (!isIOS)
@@ -79,7 +79,7 @@ class SettingsView extends StatelessWidget {
               leading: const PrivacyIcon(),
               titleText: loc.legal_privacy_policy_title,
               trailing: const LinkOutIcon(),
-              bottomBorder: false,
+              bottomDivider: false,
               onTap: () => launchUrlString(legalConfidentialPath),
             ),
         ],

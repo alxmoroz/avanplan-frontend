@@ -68,7 +68,7 @@ class _MemberViewState extends State<MemberView> {
                   MTListTile(
                     middle: NormalText(member.rolesStr),
                     trailing: task.canEditMembers ? const EditIcon() : null,
-                    bottomBorder: false,
+                    bottomDivider: false,
                     onTap: () => task.canEditMembers ? controller.editMember(context) : null,
                   )
                 ]

@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../L1_domain/entities/task.dart';
@@ -13,11 +14,12 @@ import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/mt_adaptive.dart';
 import '../../../components/mt_button.dart';
+import '../../../components/mt_field.dart';
 import '../../../components/mt_list_tile.dart';
 import '../../../components/mt_shadowed.dart';
-import '../../../components/mt_text_field.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
+import '../../../presenters/date_presenter.dart';
 import '../../../presenters/person_presenter.dart';
 import '../../../presenters/source_presenter.dart';
 import '../../../usecases/task_ext_actions.dart';
@@ -53,57 +55,47 @@ class DetailsPane extends StatelessWidget {
   Widget get _assignee => _task.assignee!.iconName();
   Widget get _author => _task.author!.iconName();
 
-  Widget _tf(BuildContext context, String code, {EdgeInsets? margin}) {
-    final ta = controller.tfa(code);
-    final isDate = code.endsWith('Date');
-    final teController = controller.teControllers[code];
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        ta.noText
-            ? MTTextField.noText(
-                controller: teController,
-                enabled: !ta.loading,
-                label: ta.label,
-                error: ta.errorText,
-                margin: margin,
-                padding: const EdgeInsets.symmetric(horizontal: P_2),
-                onTap: isDate ? () => controller.selectDate(code) : null,
-                prefixIcon: isDate ? const CalendarIcon() : null,
-                suffixIcon: isDate && ta.text.isNotEmpty
-                    ? MTButton(
-                        middle: const Row(
-                          children: [
-                            SizedBox(width: P_2),
-                            CloseIcon(color: lightGreyColor),
-                          ],
-                        ),
-                        onTap: () => controller.resetDate(code),
-                      )
-                    : null,
-              )
-            : MTTextField(
-                controller: teController,
-                enabled: !ta.loading,
-                label: ta.label,
-                error: ta.errorText,
-                margin: margin,
+  Widget _dateField(BuildContext context, String code) {
+    final isStart = code == 'startDate';
+    final date = isStart ? _task.startDate : _task.dueDate;
+    final isEmpty = date == null;
+    return MTField(
+      controller.fData(code),
+      leading: isStart ? const Row(children: [CalendarIcon(size: P3), SizedBox(width: P_3)]) : const SizedBox(width: P3 + P_3),
+      value: !isEmpty
+          ? Row(children: [
+              NormalText(date.strMedium, padding: const EdgeInsets.only(right: P_2)),
+              LightText(DateFormat.E().format(date), color: greyColor),
+            ])
+          : null,
+      trailing: !isEmpty
+          ? MTButton(
+              middle: const Row(
+                children: [
+                  SizedBox(width: P_2),
+                  CloseIcon(color: lightGreyColor),
+                ],
               ),
-        if (ta.loading) ...[
-          Positioned(
-            left: 0,
-            right: 0,
-            top: 0,
-            bottom: 0,
-            child: Container(
-              color: backgroundColor.resolve(context).withAlpha(120),
-            ),
-          ),
-          CircularProgressIndicator(color: mainColor.resolve(context)),
-        ]
-      ],
+              onTap: () => controller.resetDate(code),
+            )
+          : null,
+      onTap: () => controller.selectDate(code),
+      bottomDivider: isStart,
+      dividerStartIndent: isStart ? P * 6 - P_3 : null,
     );
   }
+
+  // Widget _field(BuildContext context, String code, {EdgeInsets? padding}) {
+  //   final ta = controller.tfa(code);
+  //   final teController = controller.teControllers[code];
+  //   final tf = MTTextField(
+  //           controller: teController,
+  //           enabled: !ta.loading,
+  //           label: ta.label,
+  //           error: ta.errorText,
+  //         );
+  //   return _loadable(context, tf, ta.loading);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -115,6 +107,8 @@ class DetailsPane extends StatelessWidget {
               if (_task.hasStatus || _closable) ...[
                 const SizedBox(height: P),
                 MTListTile(
+                  color: backgroundColor,
+                  bottomDivider: false,
                   middle: Row(
                     children: [
                       if (_task.hasStatus)
@@ -138,32 +132,31 @@ class DetailsPane extends StatelessWidget {
                 ),
               ],
               if (_task.hasAssignee) ...[
+                const SizedBox(height: P),
                 // _task.canUpdate ? MTButton.secondary(middle: _assignee) :
                 MTListTile(leading: LightText(loc.task_assignee_placeholder, color: lightGreyColor), middle: _assignee),
               ],
               if (_task.hasDescription) ...[
+                const SizedBox(height: P),
                 _description(context),
               ],
-              MTListTile(
-                padding: MTListTile.defaultPadding.copyWith(top: P2),
-                middle: _tf(context, 'startDate', margin: EdgeInsets.zero),
-                bottomBorder: false,
-              ),
-              MTListTile(
-                middle: _tf(context, 'dueDate', margin: EdgeInsets.zero),
-                bottomBorder: false,
-              ),
+              const SizedBox(height: P),
+              _dateField(context, 'startDate'),
+              _dateField(context, 'dueDate'),
               if (_task.hasEstimate) ...[
+                const SizedBox(height: P),
                 MTListTile(
                   leading: LightText('${loc.task_estimate_placeholder}', color: lightGreyColor),
                   middle: NormalText('${_task.estimate} ${loc.task_estimate_unit}'),
+                  bottomDivider: false,
                 ),
               ],
               if (_task.hasAuthor) ...[
+                const SizedBox(height: P),
                 MTListTile(
                   leading: LightText(loc.task_author_title, color: lightGreyColor),
                   middle: _author,
-                  bottomBorder: false,
+                  bottomDivider: false,
                 ),
               ],
             ],

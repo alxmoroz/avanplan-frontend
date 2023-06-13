@@ -59,6 +59,13 @@ class TaskViewController extends _TaskViewControllerBase with _$TaskViewControll
         noText: true,
         needValidate: false,
       ),
+      MTFieldData(
+        'author',
+        label: loc.task_author_title,
+        placeholder: loc.task_author_title,
+        noText: true,
+        needValidate: false,
+      ),
     ]);
   }
 }

@@ -17,6 +17,17 @@ abstract class MTIcon extends StatelessWidget {
   final bool? solid;
 }
 
+class AuthorIcon extends MTIcon {
+  const AuthorIcon({super.color, super.size});
+
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.person,
+        color: (color ?? greyColor).resolve(context),
+        size: size ?? P2,
+      );
+}
+
 class BellIcon extends MTIcon {
   const BellIcon({super.color, super.size, this.hasUnread = false});
 
@@ -157,6 +168,19 @@ class EditIcon extends MTIcon {
         Icons.edit,
         color: (color ?? mainColor).resolve(context),
         size: size ?? P2,
+      );
+}
+
+class EstimateIcon extends MTIcon {
+  const EstimateIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => RotatedBox(
+        quarterTurns: -1,
+        child: Icon(
+          CupertinoIcons.rectangle_on_rectangle_angled,
+          color: (color ?? mainColor).resolve(context),
+          size: size ?? P2,
+        ),
       );
 }
 

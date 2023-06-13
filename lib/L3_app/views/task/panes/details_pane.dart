@@ -32,17 +32,6 @@ class DetailsPane extends StatelessWidget {
 
   Task get _task => controller.task;
 
-  Widget _description(BuildContext context) {
-    return MTListTile(
-      middle: SelectableLinkify(
-        text: _task.description,
-        style: const LightText('').style(context),
-        linkStyle: const NormalText('', color: mainColor).style(context),
-        onOpen: (link) async => await launchUrlString(link.url),
-      ),
-    );
-  }
-
   Widget? get bottomBar => _task.hasLink
       ? MTButton(
           middle: _task.taskSource!.go2SourceTitle(showSourceIcon: true),
@@ -53,7 +42,18 @@ class DetailsPane extends StatelessWidget {
   bool get _closable => _task.canCloseGroup || _task.canCloseLeaf;
 
   Widget get _assignee => _task.assignee!.iconName();
-  Widget get _author => _task.author!.iconName();
+
+  Widget _description(BuildContext context) {
+    return MTListTile(
+      middle: SelectableLinkify(
+        text: _task.description,
+        style: const LightText('').style(context),
+        linkStyle: const NormalText('', color: mainColor).style(context),
+        onOpen: (link) async => await launchUrlString(link.url),
+      ),
+      bottomDivider: false,
+    );
+  }
 
   Widget _dateField(BuildContext context, String code) {
     final isStart = code == 'startDate';
@@ -71,7 +71,7 @@ class DetailsPane extends StatelessWidget {
       onSelect: () => controller.selectDate(code),
       onReset: () => controller.resetDate(code),
       bottomDivider: isStart,
-      dividerStartIndent: isStart ? P * 6 - P_3 : null,
+      dividerStartIndent: isStart ? P * 6 : null,
     );
   }
 
@@ -111,7 +111,10 @@ class DetailsPane extends StatelessWidget {
               if (_task.hasAssignee) ...[
                 const SizedBox(height: P),
                 // _task.canUpdate ? MTButton.secondary(middle: _assignee) :
-                MTListTile(leading: LightText(loc.task_assignee_placeholder, color: lightGreyColor), middle: _assignee),
+                MTListTile(
+                  leading: LightText(loc.task_assignee_placeholder, color: lightGreyColor),
+                  middle: _assignee,
+                ),
               ],
               if (_task.hasDescription) ...[
                 const SizedBox(height: P),
@@ -124,7 +127,7 @@ class DetailsPane extends StatelessWidget {
                 const SizedBox(height: P),
                 MTField(
                   controller.fData('estimate'),
-                  leading: CopyIcon(size: P3, color: _task.canEstimate ? mainColor : lightGreyColor),
+                  leading: EstimateIcon(size: P3, color: _task.canEstimate ? mainColor : lightGreyColor),
                   value: _task.hasEstimate ? NormalText('${_task.estimate} ${loc.task_estimate_unit}') : null,
                   onSelect: _task.canEstimate ? controller.selectEstimate : null,
                   onReset: _task.canEstimate ? controller.resetEstimate : null,
@@ -132,10 +135,11 @@ class DetailsPane extends StatelessWidget {
               ],
               if (_task.hasAuthor) ...[
                 const SizedBox(height: P),
-                MTListTile(
-                  leading: LightText(loc.task_author_title, color: lightGreyColor),
-                  middle: _author,
-                  bottomDivider: false,
+                MTField(
+                  controller.fData('author'),
+                  leading: _task.author!.icon(P * 1.5),
+                  value: NormalText('${_task.author}'),
+                  onSelect: null,
                 ),
               ],
             ],

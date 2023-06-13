@@ -273,7 +273,8 @@
   "tariff_type_request_title": "Специальные\nусловия",
 
   "task_assignee_nobody": "Никому",
-  "task_assignee_placeholder": "Назначено",
+  "task_assignee_label": "Назначено",
+  "task_assignee_placeholder": "Назначить ответственного",
   "task_author_title": "Владелец",
 
   "task_count": "{count, plural, zero{Нет задач} one{{count} задача} few{{count} задачи} other{{count} задач}}",

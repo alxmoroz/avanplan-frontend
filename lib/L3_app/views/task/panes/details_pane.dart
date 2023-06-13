@@ -41,8 +41,6 @@ class DetailsPane extends StatelessWidget {
 
   bool get _closable => _task.canCloseGroup || _task.canCloseLeaf;
 
-  Widget get _assignee => _task.assignee!.iconName();
-
   Widget _description(BuildContext context) {
     return MTListTile(
       middle: SelectableLinkify(
@@ -83,7 +81,6 @@ class DetailsPane extends StatelessWidget {
           child: ListView(
             children: [
               if (_task.hasStatus || _closable) ...[
-                const SizedBox(height: P),
                 MTListTile(
                   color: backgroundColor,
                   bottomDivider: false,
@@ -108,12 +105,19 @@ class DetailsPane extends StatelessWidget {
                   ),
                 ),
               ],
-              if (_task.hasAssignee) ...[
+              if (_task.hasAssignee || _task.canAssign) ...[
                 const SizedBox(height: P),
-                // _task.canUpdate ? MTButton.secondary(middle: _assignee) :
-                MTListTile(
-                  leading: LightText(loc.task_assignee_placeholder, color: lightGreyColor),
-                  middle: _assignee,
+                MTField(
+                  controller.fData('assignee'),
+                  leading: _task.hasAssignee
+                      ? _task.assignee!.icon(P * 1.5)
+                      : PersonIcon(
+                          size: P3,
+                          color: _task.canAssign ? mainColor : lightGreyColor,
+                        ),
+                  value: _task.hasAssignee ? NormalText('${_task.assignee}', color: _task.canAssign ? null : lightGreyColor) : null,
+                  onSelect: _task.canAssign ? () {} : null,
+                  onReset: _task.canAssign ? () {} : null,
                 ),
               ],
               if (_task.hasDescription) ...[
@@ -138,7 +142,7 @@ class DetailsPane extends StatelessWidget {
                 MTField(
                   controller.fData('author'),
                   leading: _task.author!.icon(P * 1.5),
-                  value: NormalText('${_task.author}'),
+                  value: NormalText('${_task.author}', color: lightGreyColor),
                   onSelect: null,
                 ),
               ],

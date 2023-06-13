@@ -273,7 +273,8 @@
   "tariff_type_request_title": "Special",
 
   "task_assignee_nobody": "Nobody",
-  "task_assignee_placeholder": "Assigned",
+  "task_assignee_label": "Assigned",
+  "task_assignee_placeholder": "Assign",
   "task_author_title": "Creator",
 
   "task_count": "{count, plural, zero{No tasks} one{{count} task} other{{count} tasks}}",

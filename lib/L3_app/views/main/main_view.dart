@@ -116,6 +116,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
                   accountController.user!.icon(20, borderSide: const BorderSide(color: mainColor)),
                   toSettings,
                   margin: const EdgeInsets.only(left: P),
+                  color: backgroundColor,
                 )
               : null,
           middle: H2(loc.app_title),
@@ -126,12 +127,15 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
                 MTButton.icon(
                   BellIcon(size: P3, hasUnread: notificationController.hasUnread, color: mainColor),
                   toMessages,
-                  margin: const EdgeInsets.only(right: P),
+                  padding: const EdgeInsets.all(P_2),
+                  color: backgroundColor,
                 ),
               MTButton.icon(
                 const RefreshIcon(size: P3),
                 mainController.manualUpdate,
-                margin: const EdgeInsets.only(right: P),
+                padding: const EdgeInsets.all(P_2),
+                margin: const EdgeInsets.only(right: P_2),
+                color: backgroundColor,
               ),
             ],
           ),

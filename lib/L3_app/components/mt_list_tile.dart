@@ -36,7 +36,7 @@ class MTListTile extends StatelessWidget {
   final bool topDivider;
   final bool bottomDivider;
 
-  static const _defaultIndent = P2;
+  static const _defaultIndent = P * 1.5;
 
   Widget get _border => MTDivider(
         height: 0,

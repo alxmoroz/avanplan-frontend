@@ -59,17 +59,17 @@ class DetailsPane extends StatelessWidget {
     final isEmpty = date == null;
     return MTField(
       controller.fData(code),
-      leading: isStart ? const CalendarIcon(size: P3) : null,
+      leading: isStart ? CalendarIcon(size: P3, color: _task.canUpdate ? mainColor : lightGreyColor) : null,
       value: !isEmpty
           ? Row(children: [
               NormalText(date.strMedium, padding: const EdgeInsets.only(right: P_2)),
               LightText(DateFormat.E().format(date), color: greyColor),
             ])
           : null,
-      onSelect: () => controller.selectDate(code),
-      onReset: () => controller.resetDate(code),
-      bottomDivider: isStart,
-      dividerStartIndent: isStart ? P * 6 : null,
+      onSelect: _task.canUpdate ? () => controller.selectDate(code) : null,
+      onReset: _task.canUpdate ? () => controller.resetDate(code) : null,
+      bottomDivider: isStart && (_task.hasDueDate || _task.canUpdate),
+      dividerStartIndent: isStart ? P * 5.5 : null,
     );
   }
 
@@ -106,7 +106,6 @@ class DetailsPane extends StatelessWidget {
                 ),
               ],
               if (_task.hasAssignee || _task.canAssign) ...[
-                const SizedBox(height: P),
                 MTField(
                   controller.fData('assignee'),
                   leading: _task.hasAssignee
@@ -126,7 +125,7 @@ class DetailsPane extends StatelessWidget {
               ],
               const SizedBox(height: P),
               _dateField(context, 'startDate'),
-              _dateField(context, 'dueDate'),
+              if (_task.hasDueDate || _task.canUpdate) _dateField(context, 'dueDate'),
               if (_task.hasEstimate || _task.canEstimate) ...[
                 const SizedBox(height: P),
                 MTField(

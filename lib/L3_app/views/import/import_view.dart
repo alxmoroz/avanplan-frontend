@@ -11,7 +11,7 @@ import '../../components/icons.dart';
 import '../../components/mt_adaptive.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_checkbox.dart';
-import '../../components/mt_close_button.dart';
+import '../../components/mt_close_dialog_button.dart';
 import '../../components/mt_dialog.dart';
 import '../../components/mt_dropdown.dart';
 import '../../components/mt_limit_badge.dart';
@@ -175,7 +175,7 @@ class ImportView extends StatelessWidget {
       builder: (_) => MTDialog(
         topBar: navBar(
           context,
-          leading: MTCloseButton(),
+          leading: MTCloseDialogButton(),
           middle: controller.ws.subPageTitle(loc.import_title),
           bgColor: backgroundColor,
         ),

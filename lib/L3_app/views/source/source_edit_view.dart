@@ -12,7 +12,7 @@ import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_button.dart';
-import '../../components/mt_close_button.dart';
+import '../../components/mt_close_dialog_button.dart';
 import '../../components/mt_dialog.dart';
 import '../../components/mt_text_field.dart';
 import '../../components/navbar.dart';
@@ -117,7 +117,7 @@ class _SourceEditViewState extends State<SourceEditView> {
       builder: (_) => MTDialog(
         topBar: navBar(
           context,
-          leading: MTCloseButton(),
+          leading: MTCloseDialogButton(),
           middle: Column(
             mainAxisSize: MainAxisSize.min,
             children: [

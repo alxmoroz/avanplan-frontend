@@ -4,20 +4,16 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/entities/estimate_value.dart';
 import '../../../L1_domain/entities/member.dart';
-import '../../../L1_domain/entities/status.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/task_level.dart';
 import '../../../L1_domain/entities_extensions/task_members.dart';
-import '../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../main.dart';
 import '../../components/mt_alert_dialog.dart';
 import '../../components/mt_field_data.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_level_presenter.dart';
-import '../../usecases/task_ext_actions.dart';
 import '../../views/_base/edit_controller.dart';
 import 'task_edit_view.dart';
 
@@ -35,8 +31,6 @@ class TaskEditController extends _TaskEditControllerBase with _$TaskEditControll
       MTFieldData('description', label: loc.description, text: task?.description ?? '', needValidate: false),
     ]);
 
-    selectEstimateByValue(task?.estimate);
-
     if (!isNew) {
       final imAlone = task?.activeMembers.length == 1 && task!.activeMembers[0].userId == accountController.user?.id;
       if (!imAlone) {
@@ -48,9 +42,6 @@ class TaskEditController extends _TaskEditControllerBase with _$TaskEditControll
     }
 
     selectAssigneeId(task?.assigneeId);
-    if (canSetStatus) {
-      selectedStatusId = task?.statusId ?? ws.statuses.firstOrNull?.id;
-    }
   }
 }
 
@@ -71,8 +62,8 @@ abstract class _TaskEditControllerBase extends EditController with Store {
           title: fData('title').text,
           description: fData('description').text,
           closed: task?.closed == true,
-          statusId: selectedStatusId,
-          estimate: selectedEstimate?.value,
+          statusId: isNew ? ws.statuses.firstOrNull?.id : task!.statusId,
+          estimate: task?.estimate,
           startDate: task?.startDate,
           dueDate: task?.dueDate,
           tasks: task?.tasks ?? [],
@@ -116,24 +107,6 @@ abstract class _TaskEditControllerBase extends EditController with Store {
 
   Workspace get ws => mainController.wsForId(wsId);
 
-  /// оценки задач
-  List<EstimateValue> get estimateValues => ws.estimateValues.toList();
-
-  @observable
-  int? selectedEstimateId;
-
-  @action
-  void selectEstimateId(int? id) => selectedEstimateId = id;
-  void selectEstimateByValue(int? value) => selectEstimateId(estimateValues.firstWhereOrNull((e) => e.value == value)?.id);
-
-  @computed
-  EstimateValue? get selectedEstimate => estimateValues.firstWhereOrNull((e) => e.id == selectedEstimateId);
-  @computed
-  String? get estimateHelper => selectedEstimate == null && task?.estimate != null ? '${loc.task_estimate_placeholder}: ${task?.estimate}' : null;
-
-  @computed
-  bool get canEstimate => estimateValues.isNotEmpty && !parent.isRoot && (isNew || task!.isLeaf);
-
   /// назначенный
   @observable
   List<Member> allowedAssignees = [];
@@ -149,15 +122,4 @@ abstract class _TaskEditControllerBase extends EditController with Store {
 
   @action
   void selectAssigneeId(int? id) => selectedAssigneeId = id;
-
-  /// статусы задач
-
-  @computed
-  bool get canSetStatus => ws.statuses.isNotEmpty && (parent.isGoal || parent.isTask || parent.isSubtask) && (isNew || task!.isTrueLeaf);
-
-  @observable
-  int? selectedStatusId;
-
-  @computed
-  Status? get selectedStatus => ws.statuses.firstWhereOrNull((s) => s.id == selectedStatusId);
 }

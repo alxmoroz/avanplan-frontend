@@ -52,14 +52,13 @@ class MTButton extends StatelessWidget {
     this.margin,
   }) : type = ButtonType.secondary;
 
-  const MTButton.icon(Widget icon, this.onTap, {this.margin, this.padding})
+  const MTButton.icon(Widget icon, this.onTap, {this.margin, this.padding, this.color})
       : type = ButtonType.icon,
         middle = icon,
         titleText = null,
-        color = null,
         leading = null,
         trailing = null,
-        titleColor = null,
+        titleColor = color,
         constrained = false;
 
   final ButtonType type;
@@ -81,13 +80,14 @@ class MTButton extends StatelessWidget {
         backgroundColor: _btnColor.resolve(context),
         disabledBackgroundColor: _btnColor.resolve(context),
         foregroundColor: _titleColor.resolve(context),
-        minimumSize: const Size(MIN_BTN_HEIGHT, MIN_BTN_HEIGHT),
+        minimumSize: type == ButtonType.icon ? const Size(0, 0) : const Size(MIN_BTN_HEIGHT, MIN_BTN_HEIGHT),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DEF_BTN_BORDER_RADIUS)),
         side: type == ButtonType.secondary ? BorderSide(color: _titleColor.resolve(context), width: 1) : BorderSide.none,
         splashFactory: NoSplash.splashFactory,
         visualDensity: VisualDensity.standard,
-        shadowColor: (type == ButtonType.main ? _btnColor : _titleColor).resolve(context),
-        elevation: 2,
+        shadowColor: type == ButtonType.icon ? null : (type == ButtonType.main ? _btnColor : _titleColor).resolve(context),
+        elevation: type == ButtonType.icon ? 0 : 2,
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       );
 
   Widget get _middle => middle ?? MediumText(titleText ?? '', color: _titleColor);
@@ -97,7 +97,8 @@ class MTButton extends StatelessWidget {
     switch (type) {
       case ButtonType.main:
       case ButtonType.secondary:
-        return OutlinedButton(onPressed: onTap, style: _style(context), child: _child, clipBehavior: Clip.antiAlias);
+      case ButtonType.icon:
+        return OutlinedButton(onPressed: onTap, style: _style(context), child: _child, clipBehavior: Clip.hardEdge);
       default:
         return CupertinoButton(onPressed: onTap, child: _child, minSize: 0, padding: padding ?? EdgeInsets.zero, color: color);
     }

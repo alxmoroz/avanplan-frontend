@@ -33,7 +33,7 @@ class TeamPane extends StatelessWidget {
   Widget _itemBuilder(BuildContext context, int index) {
     final member = _sortedMembers[index];
     return MTListTile(
-      padding: MTListTile.defaultPadding.copyWith(top: MTListTile.defaultPadding.top + (index == 0 ? P_2 : 0)),
+      topIndent: index == 0 ? P_2 : 0,
       leading: Padding(
         padding: const EdgeInsets.only(right: P_2),
         child: member.isActive ? member.icon(P2) : const UnlinkIcon(color: greyColor),

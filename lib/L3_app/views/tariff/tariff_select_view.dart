@@ -13,7 +13,7 @@ import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_card.dart';
-import '../../components/mt_close_button.dart';
+import '../../components/mt_close_dialog_button.dart';
 import '../../components/mt_dialog.dart';
 import '../../components/mt_list_tile.dart';
 import '../../components/text_widgets.dart';
@@ -146,7 +146,7 @@ class TariffSelectView extends StatelessWidget {
         child: Column(
           children: [
             MTListTile(
-              leading: MTCloseButton(),
+              leading: MTCloseDialogButton(),
               middle: ws.subPageTitle(loc.tariff_list_title),
               padding: EdgeInsets.zero,
               bottomDivider: false,

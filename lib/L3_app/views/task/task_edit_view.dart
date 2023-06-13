@@ -3,14 +3,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../L1_domain/entities/estimate_value.dart';
 import '../../../L1_domain/entities/member.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_button.dart';
-import '../../components/mt_close_button.dart';
+import '../../components/mt_close_dialog_button.dart';
 import '../../components/mt_dialog.dart';
 import '../../components/mt_dropdown.dart';
 import '../../components/mt_text_field.dart';
@@ -71,15 +70,6 @@ class _TaskEditViewState extends State<TaskEditView> {
             margin: tfPadding,
             label: loc.task_assignee_placeholder,
           ),
-        if (controller.canEstimate)
-          MTDropdown<EstimateValue>(
-            onChanged: controller.selectEstimateId,
-            value: controller.selectedEstimateId,
-            items: controller.estimateValues,
-            margin: tfPadding,
-            label: loc.task_estimate_placeholder,
-            helper: controller.estimateHelper,
-          ),
         const SizedBox(height: P2),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -111,7 +101,7 @@ class _TaskEditViewState extends State<TaskEditView> {
       builder: (_) => MTDialog(
         topBar: navBar(
           context,
-          leading: MTCloseButton(),
+          leading: MTCloseDialogButton(),
           middle: controller.isNew ? controller.ws.subPageTitle(controller.parent.newSubtaskTitle) : null,
           trailing: !controller.isNew
               ? MTButton.icon(

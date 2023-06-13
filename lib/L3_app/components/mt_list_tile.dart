@@ -18,6 +18,7 @@ class MTListTile extends StatelessWidget {
     this.onTap,
     this.color,
     this.padding,
+    this.topIndent = 0,
     this.dividerStartIndent,
     this.topDivider = false,
     this.bottomDivider = true,
@@ -29,6 +30,7 @@ class MTListTile extends StatelessWidget {
   final Widget? trailing;
   final Function()? onTap;
   final Color? color;
+  final double topIndent;
   final EdgeInsets? padding;
   final double? dividerStartIndent;
   final bool topDivider;
@@ -42,7 +44,7 @@ class MTListTile extends StatelessWidget {
         endIndent: padding?.right ?? _defaultIndent,
       );
 
-  static EdgeInsets defaultPadding = const EdgeInsets.symmetric(horizontal: _defaultIndent, vertical: P);
+  EdgeInsets get defaultPadding => const EdgeInsets.symmetric(horizontal: _defaultIndent).copyWith(top: P + topIndent, bottom: P);
 
   @override
   Widget build(BuildContext context) {

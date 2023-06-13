@@ -25,6 +25,7 @@ import '../../views/_base/edit_controller.dart';
 import '../tariff/tariff_select_view.dart';
 import 'task_edit_controller.dart';
 import 'task_edit_view.dart';
+import 'widgets/estimate_select_dialog.dart';
 import 'widgets/status_select_dialog.dart';
 
 part 'task_view_controller.g.dart';
@@ -51,6 +52,13 @@ class TaskViewController extends _TaskViewControllerBase with _$TaskViewControll
         noText: true,
         needValidate: false,
       ),
+      MTFieldData(
+        'estimate',
+        label: loc.task_estimate_label,
+        placeholder: loc.task_estimate_placeholder,
+        noText: true,
+        needValidate: false,
+      ),
     ]);
   }
 }
@@ -63,28 +71,36 @@ abstract class _TaskViewControllerBase extends EditController with Store {
   Workspace get _ws => mainController.wsForId(wsId);
   bool get plCreate => task.isRoot ? _ws.plProjects : _ws.plTasks;
 
-  /// даты
+  @observable
+  bool isNew = false;
 
-  @action
-  Future setStartDate(DateTime? _date) async {
-    updateField('startDate', loading: true);
-    task.startDate = _date;
+  Future<bool> _saveField(String code) async {
+    updateField(code, loading: true);
     final editedTask = await taskUC.save(task);
-    if (editedTask != null) {
-      task.startDate = editedTask.startDate;
+    final saved = editedTask != null;
+    if (saved) {
+      _updateTaskParents(editedTask);
     }
-    updateField('startDate', loading: false);
+    updateField(code, loading: false);
+    return saved;
   }
 
-  @action
-  Future setDueDate(DateTime? _date) async {
-    updateField('dueDate', loading: true);
-    task.dueDate = _date;
-    final editedTask = await taskUC.save(task);
-    if (editedTask != null) {
-      task.dueDate = editedTask.dueDate;
+  /// даты
+
+  Future _setStartDate(DateTime? _date) async {
+    final oldValue = task.startDate;
+    task.startDate = _date;
+    if (!(await _saveField('startDate'))) {
+      task.startDate = oldValue;
     }
-    updateField('dueDate', loading: false);
+  }
+
+  Future _setDueDate(DateTime? _date) async {
+    final oldValue = task.dueDate;
+    task.dueDate = _date;
+    if (!(await _saveField('dueDate'))) {
+      task.dueDate = oldValue;
+    }
   }
 
   Future selectDate(String code) async {
@@ -106,18 +122,111 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     );
     if (date != null) {
       if (isStart) {
-        setStartDate(date);
+        _setStartDate(date);
       } else {
-        setDueDate(date);
+        _setDueDate(date);
       }
     }
   }
 
   void resetDate(String code) {
     if (code == 'startDate') {
-      setStartDate(null);
+      _setStartDate(null);
     } else if (code == 'dueDate') {
-      setDueDate(null);
+      _setDueDate(null);
+    }
+  }
+
+  /// статусы
+
+  Future<Task?> _setStatus(Task t, {int? statusId, bool? close}) async {
+    if (t.canSetStatus) {
+      t.statusId = statusId;
+    }
+
+    if (close != null) {
+      t.closed = close;
+      if (close) {
+        t.closedDate = DateTime.now();
+      }
+    }
+
+    return await taskUC.save(t);
+  }
+
+  Future<Task?> _setStatusTaskTree(
+    Task _task, {
+    int? statusId,
+    bool? close,
+    bool recursively = false,
+  }) async {
+    if (recursively) {
+      for (final t in _task.allTasks.where((t) => t.closed != close)) {
+        await _setStatus(t, statusId: statusId, close: close);
+      }
+    }
+    return await _setStatus(_task, statusId: statusId, close: close);
+  }
+
+  Future selectStatus() async {
+    final selectedStatusId = await statusSelectDialog(_ws, task.statusId);
+
+    if (selectedStatusId != null) {
+      await setStatus(task, statusId: selectedStatusId);
+    }
+  }
+
+  Future setStatus(Task _task, {int? statusId, bool? close}) async {
+    if (statusId != null || close != null) {
+      bool recursively = false;
+
+      statusId ??= close == true ? _ws.firstClosedStatusId : _ws.firstOpenedStatusId;
+      close ??= _ws.statusForId(statusId)?.closed;
+
+      if (close == true && _task.hasOpenedSubtasks) {
+        recursively = await _closeDialog() == true;
+        if (!recursively) {
+          return;
+        }
+      }
+
+      // TODO: сделать лоадер над строкой со статусом только
+
+      loader.start();
+      loader.setSaving();
+
+      final editedTask = await _setStatusTaskTree(_task, statusId: statusId, close: close, recursively: recursively);
+      await loader.stop();
+
+      if (editedTask != null) {
+        //TODO: может неожиданно для пользователя вываливаться в случае редактирования статуса закрытой задачи
+        if (editedTask.closed && _task.id == task.id) {
+          Navigator.of(rootKey.currentContext!).pop(editedTask);
+        }
+        _updateTaskParents(editedTask);
+      }
+    }
+  }
+
+  /// оценка
+
+  Future resetEstimate() async {
+    final oldValue = task.estimate;
+    task.estimate = null;
+    if (!(await _saveField('estimate'))) {
+      task.estimate = oldValue;
+    }
+  }
+
+  Future selectEstimate() async {
+    final selectedEstimate = await estimateSelectDialog(_ws, task.estimate);
+
+    if (selectedEstimate != null) {
+      final oldValue = task.estimate;
+      task.estimate = selectedEstimate;
+      if (!(await _saveField('estimate'))) {
+        task.estimate = oldValue;
+      }
     }
   }
 
@@ -201,73 +310,6 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     Navigator.of(context).pop();
     if (task.parent?.isRoot == true && task.parent?.tasks.length == 1 && Navigator.canPop(context)) {
       Navigator.of(context).pop();
-    }
-  }
-
-  Future<Task?> _setStatus(Task t, {int? statusId, bool? close}) async {
-    if (t.canSetStatus) {
-      t.statusId = statusId;
-    }
-
-    if (close != null) {
-      t.closed = close;
-      if (close) {
-        t.closedDate = DateTime.now();
-      }
-    }
-
-    return await taskUC.save(t);
-  }
-
-  Future<Task?> _setStatusTaskTree(
-    Task _task, {
-    int? statusId,
-    bool? close,
-    bool recursively = false,
-  }) async {
-    if (recursively) {
-      for (final t in _task.allTasks.where((t) => t.closed != close)) {
-        await _setStatus(t, statusId: statusId, close: close);
-      }
-    }
-    return await _setStatus(_task, statusId: statusId, close: close);
-  }
-
-  Future selectStatus() async {
-    final selectedStatusId = await statusSelectDialog(_ws, task.statusId);
-
-    if (selectedStatusId != null) {
-      await setStatus(task, statusId: selectedStatusId);
-    }
-  }
-
-  Future setStatus(Task _task, {int? statusId, bool? close}) async {
-    if (statusId != null || close != null) {
-      bool recursively = false;
-
-      statusId ??= close == true ? _ws.firstClosedStatusId : _ws.firstOpenedStatusId;
-      close ??= _ws.statusForId(statusId)?.closed;
-
-      if (close == true && _task.hasOpenedSubtasks) {
-        recursively = await _closeDialog() == true;
-        if (!recursively) {
-          return;
-        }
-      }
-
-      loader.start();
-      loader.setSaving();
-
-      final editedTask = await _setStatusTaskTree(_task, statusId: statusId, close: close, recursively: recursively);
-      await loader.stop();
-
-      if (editedTask != null) {
-        //TODO: может неожиданно для пользователя вываливаться в случае редактирования статуса закрытой задачи
-        if (editedTask.closed && _task.id == task.id) {
-          Navigator.of(rootKey.currentContext!).pop(editedTask);
-        }
-        _updateTaskParents(editedTask);
-      }
     }
   }
 

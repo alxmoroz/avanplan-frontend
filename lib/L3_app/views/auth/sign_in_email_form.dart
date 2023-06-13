@@ -6,7 +6,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/mt_button.dart';
-import '../../components/mt_close_button.dart';
+import '../../components/mt_close_dialog_button.dart';
 import '../../components/mt_dialog.dart';
 import '../../components/navbar.dart';
 import '../../extra/services.dart';
@@ -38,7 +38,7 @@ class _SignInEmailFormState extends State<SignInEmailForm> {
   Widget build(BuildContext context) => MTDialog(
         topBar: navBar(
           context,
-          leading: MTCloseButton(),
+          leading: MTCloseDialogButton(),
           title: loc.auth_sign_in_email_dialog_title,
           bgColor: backgroundColor,
         ),

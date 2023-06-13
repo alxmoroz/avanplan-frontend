@@ -61,41 +61,19 @@ class DetailsPane extends StatelessWidget {
     final isEmpty = date == null;
     return MTField(
       controller.fData(code),
-      leading: isStart ? const Row(children: [CalendarIcon(size: P3), SizedBox(width: P_3)]) : const SizedBox(width: P3 + P_3),
+      leading: isStart ? const CalendarIcon(size: P3) : null,
       value: !isEmpty
           ? Row(children: [
               NormalText(date.strMedium, padding: const EdgeInsets.only(right: P_2)),
               LightText(DateFormat.E().format(date), color: greyColor),
             ])
           : null,
-      trailing: !isEmpty
-          ? MTButton(
-              middle: const Row(
-                children: [
-                  SizedBox(width: P_2),
-                  CloseIcon(color: lightGreyColor),
-                ],
-              ),
-              onTap: () => controller.resetDate(code),
-            )
-          : null,
-      onTap: () => controller.selectDate(code),
+      onSelect: () => controller.selectDate(code),
+      onReset: () => controller.resetDate(code),
       bottomDivider: isStart,
       dividerStartIndent: isStart ? P * 6 - P_3 : null,
     );
   }
-
-  // Widget _field(BuildContext context, String code, {EdgeInsets? padding}) {
-  //   final ta = controller.tfa(code);
-  //   final teController = controller.teControllers[code];
-  //   final tf = MTTextField(
-  //           controller: teController,
-  //           enabled: !ta.loading,
-  //           label: ta.label,
-  //           error: ta.errorText,
-  //         );
-  //   return _loadable(context, tf, ta.loading);
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -111,12 +89,11 @@ class DetailsPane extends StatelessWidget {
                   bottomDivider: false,
                   middle: Row(
                     children: [
-                      if (_task.hasStatus)
+                      if (_task.hasStatus || _task.canSetStatus)
                         MTButton.main(
                           titleText: '${_task.status}',
                           constrained: false,
                           padding: const EdgeInsets.symmetric(horizontal: P2),
-                          // margin: const EdgeInsets.only(left: P),
                           onTap: _task.canSetStatus ? controller.selectStatus : null,
                         ),
                       if (_closable)
@@ -143,12 +120,14 @@ class DetailsPane extends StatelessWidget {
               const SizedBox(height: P),
               _dateField(context, 'startDate'),
               _dateField(context, 'dueDate'),
-              if (_task.hasEstimate) ...[
+              if (_task.hasEstimate || _task.canEstimate) ...[
                 const SizedBox(height: P),
-                MTListTile(
-                  leading: LightText('${loc.task_estimate_placeholder}', color: lightGreyColor),
-                  middle: NormalText('${_task.estimate} ${loc.task_estimate_unit}'),
-                  bottomDivider: false,
+                MTField(
+                  controller.fData('estimate'),
+                  leading: CopyIcon(size: P3, color: _task.canEstimate ? mainColor : lightGreyColor),
+                  value: _task.hasEstimate ? NormalText('${_task.estimate} ${loc.task_estimate_unit}') : null,
+                  onSelect: _task.canEstimate ? controller.selectEstimate : null,
+                  onReset: _task.canEstimate ? controller.resetEstimate : null,
                 ),
               ],
               if (_task.hasAuthor) ...[

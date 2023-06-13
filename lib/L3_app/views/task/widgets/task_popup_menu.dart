@@ -17,11 +17,10 @@ import '../../../usecases/ws_ext_actions.dart';
 import '../task_view_controller.dart';
 
 class TaskPopupMenu extends StatelessWidget {
-  const TaskPopupMenu(this.controller, {this.icon, this.child, this.margin});
+  const TaskPopupMenu(this.controller, {this.icon, this.child});
   final TaskViewController controller;
   final Widget? icon;
   final Widget? child;
-  final EdgeInsets? margin;
 
   Task get _task => controller.task;
 
@@ -59,18 +58,14 @@ class TaskPopupMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return material(
-      Padding(
-        padding: margin ?? EdgeInsets.zero,
-        child: PopupMenuButton<TaskActionType>(
-          child: child,
-          icon: icon,
-          itemBuilder: (_) => [for (final at in _task.actionTypes) PopupMenuItem<TaskActionType>(value: at, child: _atWidget(_task, at))],
-          onSelected: (at) => controller.taskAction(at),
-          padding: EdgeInsets.zero,
-          surfaceTintColor: lightBackgroundColor.resolve(context),
-          color: lightBackgroundColor.resolve(context),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS)),
-        ),
+      PopupMenuButton<TaskActionType>(
+        icon: Padding(padding: const EdgeInsets.symmetric(horizontal: P), child: icon),
+        itemBuilder: (_) => [for (final at in _task.actionTypes) PopupMenuItem<TaskActionType>(value: at, child: _atWidget(_task, at))],
+        onSelected: (at) => controller.taskAction(at),
+        padding: EdgeInsets.zero,
+        surfaceTintColor: lightBackgroundColor.resolve(context),
+        color: lightBackgroundColor.resolve(context),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS)),
       ),
     );
   }

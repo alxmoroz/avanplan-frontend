@@ -12,16 +12,18 @@ import '../../../components/mt_list_tile.dart';
 import '../../../components/navbar.dart';
 import '../../../extra/services.dart';
 
-Future<int?> statusSelectDialog(Workspace ws, int? selectedId) async => await showMTDialog<int?>(StatusSelectView(ws, selectedId));
+Future<int?> estimateSelectDialog(Workspace ws, int? selectedEstimate) async => await showMTDialog<int?>(EstimateSelectView(ws, selectedEstimate));
 
-class StatusSelectView extends StatelessWidget {
-  const StatusSelectView(this.ws, this.selectedId);
+// TODO: сделать универсальный элемент для выбора значения — см. другие подобные диалоги
+
+class EstimateSelectView extends StatelessWidget {
+  const EstimateSelectView(this.ws, this.selectedEstimate);
   final Workspace ws;
-  final int? selectedId;
+  final int? selectedEstimate;
 
   @override
   Widget build(BuildContext context) {
-    final selectedIndex = ws.statuses.indexWhere((s) => s.id == selectedId);
+    final selectedIndex = ws.estimateValues.indexWhere((e) => e.value == selectedEstimate);
     return MTDialog(
       body: SafeArea(
         bottom: false,
@@ -30,20 +32,20 @@ class StatusSelectView extends StatelessWidget {
           children: [
             navBar(
               context,
-              title: loc.task_status_placeholder,
+              title: loc.task_estimate_placeholder,
               leading: MTCloseDialogButton(),
               bgColor: backgroundColor,
             ),
             ListView.builder(
               shrinkWrap: true,
-              itemCount: ws.statuses.length,
+              itemCount: ws.estimateValues.length,
               itemBuilder: (_, int index) {
-                final s = ws.statuses[index];
+                final ev = ws.estimateValues[index];
                 return MTListTile(
-                  titleText: '$s',
+                  titleText: '$ev',
                   trailing: selectedIndex == index ? const MTCircle(size: P, color: mainColor) : null,
-                  bottomDivider: index < ws.statuses.length - 1,
-                  onTap: () => Navigator.of(context).pop(s.id),
+                  bottomDivider: index < ws.estimateValues.length - 1,
+                  onTap: () => Navigator.of(context).pop(ev.value),
                 );
               },
             ),

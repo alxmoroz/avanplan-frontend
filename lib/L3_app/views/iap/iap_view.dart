@@ -9,7 +9,7 @@ import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons_workspace.dart';
 import '../../components/mt_button.dart';
-import '../../components/mt_close_button.dart';
+import '../../components/mt_close_dialog_button.dart';
 import '../../components/mt_dialog.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
@@ -70,7 +70,7 @@ class StoreView extends StatelessWidget {
             navBar(
               context,
               middle: ws.subPageTitle(loc.balance_replenish_store_title),
-              leading: MTCloseButton(),
+              leading: MTCloseDialogButton(),
               bgColor: backgroundColor,
             ),
             ListView.builder(

@@ -9,7 +9,7 @@ import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/mt_button.dart';
 import '../../../../components/mt_checkbox.dart';
-import '../../../../components/mt_close_button.dart';
+import '../../../../components/mt_close_dialog_button.dart';
 import '../../../../components/mt_dialog.dart';
 import '../../../../components/navbar.dart';
 import '../../../../extra/services.dart';
@@ -60,7 +60,7 @@ class _MemberEditViewState extends State<MemberEditView> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              navBar(context, title: '$member', leading: MTCloseButton(), bgColor: backgroundColor),
+              navBar(context, title: '$member', leading: MTCloseDialogButton(), bgColor: backgroundColor),
               task.subPageTitle(loc.role_list_title),
               const SizedBox(height: P),
               Flexible(

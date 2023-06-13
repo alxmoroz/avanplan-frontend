@@ -7,7 +7,7 @@ import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_button.dart';
-import '../../components/mt_close_button.dart';
+import '../../components/mt_close_dialog_button.dart';
 import '../../components/mt_dialog.dart';
 import '../../components/mt_text_field.dart';
 import '../../components/navbar.dart';
@@ -56,7 +56,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
   Widget build(BuildContext context) => MTDialog(
         topBar: navBar(
           context,
-          leading: MTCloseButton(),
+          leading: MTCloseDialogButton(),
           title: loc.auth_register_title,
           bgColor: backgroundColor,
         ),

@@ -7,7 +7,7 @@ import '../../../L1_domain/entities/notification.dart';
 import '../../../L1_domain/entities/source.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/mt_close_button.dart';
+import '../../components/mt_close_dialog_button.dart';
 import '../../components/mt_dialog.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
@@ -39,7 +39,7 @@ class NotificationView extends StatelessWidget {
       builder: (_) => MTDialog(
         topBar: navBar(
           context,
-          leading: MTCloseButton(),
+          leading: MTCloseDialogButton(),
           middle: LightText('${loc.notification_title}  ${nf.scheduledDate.strShortWTime}'),
           bgColor: backgroundColor,
         ),

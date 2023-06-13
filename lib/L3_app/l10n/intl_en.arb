@@ -284,6 +284,7 @@
   "task_due_date_label": "Deadline",
   "task_due_date_placeholder": "Deadline date",
   "task_edit_action_title": "Edit",
+  "task_estimate_label": "Estimation",
   "task_estimate_placeholder": "Estimate",
   "task_estimate_unit": "sp",
   "task_eta_date_label": "Predicted",

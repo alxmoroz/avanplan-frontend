@@ -7,7 +7,7 @@ import '../../../../../L1_domain/entities/role.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
-import '../../../../components/mt_close_button.dart';
+import '../../../../components/mt_close_dialog_button.dart';
 import '../../../../components/mt_dialog.dart';
 import '../../../../components/navbar.dart';
 import '../../../../components/text_widgets.dart';
@@ -89,7 +89,7 @@ class _MemberAddViewState extends State<MemberAddView> {
       builder: (_) => MTDialog(
         topBar: navBar(
           context,
-          leading: MTCloseButton(),
+          leading: MTCloseDialogButton(),
           title: controller.tabKey == MemberSourceKey.invitation ? invitationController.invitationSubject : '',
           bgColor: backgroundColor,
         ),

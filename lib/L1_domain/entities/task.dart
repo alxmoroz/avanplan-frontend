@@ -52,7 +52,7 @@ class Task extends Titleable {
   final int wsId;
   int? statusId;
   final int? authorId;
-  final int? assigneeId;
+  int? assigneeId;
   final TaskSource? taskSource;
   final String? type;
   int? estimate;

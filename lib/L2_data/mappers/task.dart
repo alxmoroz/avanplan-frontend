@@ -15,9 +15,6 @@ extension TaskMapper on api.TaskGet {
       _title = Intl.message(_title);
     }
 
-    // TODO: для снижения трафика и нагрузки на чтение из БД можно не тащить полный объект справочников, а забирать на фронте по необходимости. А тут хранить айдишники только
-    // TODO: речь про статусы и приоритеты
-
     final _t = Task(
       id: id,
       createdOn: createdOn.toLocal(),

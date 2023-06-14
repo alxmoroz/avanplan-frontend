@@ -2,6 +2,7 @@
 
 import 'package:collection/collection.dart';
 
+import '../entities/estimate_value.dart';
 import '../entities/source.dart';
 import '../entities/status.dart';
 import '../entities/workspace.dart';
@@ -19,4 +20,6 @@ extension WSExtension on Workspace {
   int? get firstOpenedStatusId => _openedStatusIds.firstOrNull;
 
   Status? statusForId(int? id) => statuses.firstWhereOrNull((s) => s.id == id);
+  EstimateValue? estimateValueForId(int? id) => estimateValues.firstWhereOrNull((ev) => ev.id == id);
+  EstimateValue? estimateValueForValue(int? value) => estimateValues.firstWhereOrNull((ev) => ev.value == value);
 }

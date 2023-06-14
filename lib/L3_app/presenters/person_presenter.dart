@@ -39,7 +39,7 @@ extension PersonPresenter on Person {
 
 extension MemberPresenter on Member {
   Widget iconName({double radius = P, BorderSide? borderSide, bool card = false, Color? color}) {
-    final textColor = color ?? (isActive ? greyColor : lightGreyColor);
+    final textColor = color ?? (isActive ? null : lightGreyColor);
     return Row(
       children: [
         if (isActive) ...[

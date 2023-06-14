@@ -1,9 +1,14 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:avanplan/L1_domain/entities_extensions/task_members.dart';
+import 'package:avanplan/L3_app/presenters/person_presenter.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import '../../../L1_domain/entities/estimate_value.dart';
+import '../../../L1_domain/entities/member.dart';
+import '../../../L1_domain/entities/status.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/task_level.dart';
@@ -15,6 +20,7 @@ import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_alert_dialog.dart';
 import '../../components/mt_field_data.dart';
+import '../../components/mt_select_dialog.dart';
 import '../../extra/services.dart';
 import '../../presenters/duration_presenter.dart';
 import '../../presenters/source_presenter.dart';
@@ -25,8 +31,6 @@ import '../../views/_base/edit_controller.dart';
 import '../tariff/tariff_select_view.dart';
 import 'task_edit_controller.dart';
 import 'task_edit_view.dart';
-import 'widgets/select_dialogs/estimate_select_dialog.dart';
-import 'widgets/select_dialogs/status_select_dialog.dart';
 
 part 'task_view_controller.g.dart';
 
@@ -97,6 +101,32 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     }
     updateField(code, loading: false);
     return saved;
+  }
+
+  /// назначенный
+
+  Future resetAssignee() async {
+    final oldValue = task.assigneeId;
+    task.assigneeId = null;
+    if (!(await _saveField('assignee'))) {
+      task.assigneeId = oldValue;
+    }
+  }
+
+  Future assignPerson() async {
+    final selectedId = await showMTSelectDialog<Member>(
+      task.activeMembers,
+      task.assigneeId,
+      loc.task_assignee_placeholder,
+      valueBuilder: (_, member) => member.iconName(radius: P * 1.5),
+    );
+    if (selectedId != null) {
+      final oldValue = task.assigneeId;
+      task.assigneeId = selectedId;
+      if (!(await _saveField('assignee'))) {
+        task.assigneeId = oldValue;
+      }
+    }
   }
 
   /// даты
@@ -183,7 +213,11 @@ abstract class _TaskViewControllerBase extends EditController with Store {
   }
 
   Future selectStatus() async {
-    final selectedStatusId = await statusSelectDialog(_ws, task.statusId);
+    final selectedStatusId = await showMTSelectDialog<Status>(
+      _ws.statuses,
+      task.statusId,
+      loc.task_status_placeholder,
+    );
 
     if (selectedStatusId != null) {
       await setStatus(task, statusId: selectedStatusId);
@@ -233,11 +267,15 @@ abstract class _TaskViewControllerBase extends EditController with Store {
   }
 
   Future selectEstimate() async {
-    final selectedEstimate = await estimateSelectDialog(_ws, task.estimate);
+    final selectedEstimateId = await showMTSelectDialog<EstimateValue>(
+      _ws.estimateValues,
+      _ws.estimateValueForValue(task.estimate)?.id,
+      loc.task_estimate_placeholder,
+    );
 
-    if (selectedEstimate != null) {
+    if (selectedEstimateId != null) {
       final oldValue = task.estimate;
-      task.estimate = selectedEstimate;
+      task.estimate = _ws.estimateValueForId(selectedEstimateId)?.value;
       if (!(await _saveField('estimate'))) {
         task.estimate = oldValue;
       }

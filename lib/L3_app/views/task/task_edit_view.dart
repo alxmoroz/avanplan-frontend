@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../L1_domain/entities/member.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
@@ -11,7 +10,6 @@ import '../../components/icons.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_close_dialog_button.dart';
 import '../../components/mt_dialog.dart';
-import '../../components/mt_dropdown.dart';
 import '../../components/mt_text_field.dart';
 import '../../components/navbar.dart';
 import '../../extra/services.dart';
@@ -62,14 +60,6 @@ class _TaskEditViewState extends State<TaskEditView> {
       shrinkWrap: true,
       children: [
         for (final code in ['title', 'description']) textFieldForCode(context, code),
-        if (controller.allowedAssignees.isNotEmpty)
-          MTDropdown<Member>(
-            onChanged: controller.selectAssigneeId,
-            value: controller.selectedAssigneeId,
-            items: controller.allowedAssignees,
-            margin: tfPadding,
-            label: loc.task_assignee_placeholder,
-          ),
         const SizedBox(height: P2),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

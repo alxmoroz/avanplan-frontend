@@ -2,15 +2,15 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../../L1_domain/entities/workspace.dart';
-import '../../../components/colors.dart';
-import '../../../components/constants.dart';
-import '../../../components/mt_circle.dart';
-import '../../../components/mt_close_dialog_button.dart';
-import '../../../components/mt_dialog.dart';
-import '../../../components/mt_list_tile.dart';
-import '../../../components/navbar.dart';
-import '../../../extra/services.dart';
+import '../../../../../L1_domain/entities/workspace.dart';
+import '../../../../components/colors.dart';
+import '../../../../components/constants.dart';
+import '../../../../components/mt_circle.dart';
+import '../../../../components/mt_close_dialog_button.dart';
+import '../../../../components/mt_dialog.dart';
+import '../../../../components/mt_list_tile.dart';
+import '../../../../components/navbar.dart';
+import '../../../../extra/services.dart';
 
 Future<int?> estimateSelectDialog(Workspace ws, int? selectedEstimate) async => await showMTDialog<int?>(EstimateSelectView(ws, selectedEstimate));
 

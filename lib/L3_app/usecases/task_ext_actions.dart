@@ -64,7 +64,7 @@ extension TaskActionsExt on Task {
   bool get canCloseGroup => canClose && state == TaskState.closable;
   bool get canCloseLeaf => canClose && isTrueLeaf;
   bool get canEstimate => canUpdate && ws.estimateValues.isNotEmpty && !isProject && isLeaf;
-  bool get canAssign => canUpdate && !isProject;
+  bool get canAssign => canUpdate && activeMembers.isNotEmpty;
 
   /// рекомендации, быстрые кнопки
   bool get shouldAddSubtask =>

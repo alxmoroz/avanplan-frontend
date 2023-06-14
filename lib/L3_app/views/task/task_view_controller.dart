@@ -25,8 +25,8 @@ import '../../views/_base/edit_controller.dart';
 import '../tariff/tariff_select_view.dart';
 import 'task_edit_controller.dart';
 import 'task_edit_view.dart';
-import 'widgets/estimate_select_dialog.dart';
-import 'widgets/status_select_dialog.dart';
+import 'widgets/select_dialogs/estimate_select_dialog.dart';
+import 'widgets/select_dialogs/status_select_dialog.dart';
 
 part 'task_view_controller.g.dart';
 

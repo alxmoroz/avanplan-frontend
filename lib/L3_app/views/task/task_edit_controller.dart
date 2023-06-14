@@ -4,11 +4,9 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/entities/member.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/task_level.dart';
-import '../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../main.dart';
 import '../../components/mt_alert_dialog.dart';
 import '../../components/mt_field_data.dart';
@@ -30,18 +28,6 @@ class TaskEditController extends _TaskEditControllerBase with _$TaskEditControll
       MTFieldData('title', label: loc.title, text: task?.title ?? ''),
       MTFieldData('description', label: loc.description, text: task?.description ?? '', needValidate: false),
     ]);
-
-    if (!isNew) {
-      final imAlone = task?.activeMembers.length == 1 && task!.activeMembers[0].userId == accountController.user?.id;
-      if (!imAlone) {
-        setAllowedAssignees([
-          Member(fullName: loc.task_assignee_nobody, id: null, email: '', isActive: false, roles: [], permissions: [], userId: null, taskId: -1),
-          ...task?.activeMembers ?? [],
-        ]);
-      }
-    }
-
-    selectAssigneeId(task?.assigneeId);
   }
 }
 
@@ -68,7 +54,7 @@ abstract class _TaskEditControllerBase extends EditController with Store {
           dueDate: task?.dueDate,
           tasks: task?.tasks ?? [],
           type: task?.type,
-          assigneeId: selectedAssigneeId,
+          assigneeId: task?.assigneeId,
           authorId: task?.authorId,
           members: task?.members ?? [],
           wsId: wsId,
@@ -106,20 +92,4 @@ abstract class _TaskEditControllerBase extends EditController with Store {
   }
 
   Workspace get ws => mainController.wsForId(wsId);
-
-  /// назначенный
-  @observable
-  List<Member> allowedAssignees = [];
-
-  @action
-  void setAllowedAssignees(List<Member> assignees) => allowedAssignees = assignees;
-
-  @observable
-  int? selectedAssigneeId;
-
-  @computed
-  Member? get selectedAssignee => allowedAssignees.firstWhereOrNull((a) => a.id == selectedAssigneeId);
-
-  @action
-  void selectAssigneeId(int? id) => selectedAssigneeId = id;
 }

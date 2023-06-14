@@ -2,7 +2,6 @@
 
 import 'package:flutter/cupertino.dart';
 
-import 'colors.dart';
 import 'constants.dart';
 import 'icons.dart';
 import 'mt_button.dart';
@@ -13,6 +12,5 @@ class MTCloseDialogButton extends StatelessWidget {
         const CloseIcon(),
         () => Navigator.of(context).pop(),
         padding: const EdgeInsets.all(P),
-        color: backgroundColor,
       );
 }

@@ -58,7 +58,7 @@ class MTButton extends StatelessWidget {
         titleText = null,
         leading = null,
         trailing = null,
-        titleColor = color,
+        titleColor = null,
         constrained = false;
 
   final ButtonType type;
@@ -74,31 +74,42 @@ class MTButton extends StatelessWidget {
   final bool constrained;
 
   Color get _titleColor => onTap != null ? (titleColor ?? (type == ButtonType.main ? lightBackgroundColor : mainColor)) : greyColor;
-  Color get _btnColor => onTap != null ? (color ?? (type == ButtonType.main ? mainColor : lightBackgroundColor)) : borderColor;
-  ButtonStyle _style(BuildContext context) => ElevatedButton.styleFrom(
-        padding: padding ?? EdgeInsets.zero,
-        backgroundColor: _btnColor.resolve(context),
-        disabledBackgroundColor: _btnColor.resolve(context),
-        foregroundColor: _titleColor.resolve(context),
-        minimumSize: type == ButtonType.icon ? const Size(0, 0) : const Size(MIN_BTN_HEIGHT, MIN_BTN_HEIGHT),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DEF_BTN_BORDER_RADIUS)),
-        side: type == ButtonType.secondary ? BorderSide(color: _titleColor.resolve(context), width: 1) : BorderSide.none,
-        splashFactory: NoSplash.splashFactory,
-        visualDensity: VisualDensity.standard,
-        shadowColor: type == ButtonType.icon ? null : (type == ButtonType.main ? _btnColor : _titleColor).resolve(context),
-        elevation: type == ButtonType.icon ? 0 : 2,
-        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-      );
 
-  Widget get _middle => middle ?? MediumText(titleText ?? '', color: _titleColor);
-  Widget get _child => _MTBaseLayout(leading: leading, middle: _middle, trailing: trailing);
+  ButtonStyle _style(BuildContext context) {
+    final _btnColor = (onTap != null ? (color ?? (type == ButtonType.main ? mainColor : lightBackgroundColor)) : borderColor).resolve(context);
+
+    return ElevatedButton.styleFrom(
+      padding: padding ?? EdgeInsets.zero,
+      foregroundColor: _titleColor.resolve(context),
+      backgroundColor: _btnColor,
+      disabledForegroundColor: _btnColor,
+      disabledBackgroundColor: _btnColor,
+      minimumSize: const Size(MIN_BTN_HEIGHT, MIN_BTN_HEIGHT),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DEF_BTN_BORDER_RADIUS)),
+      side: type == ButtonType.secondary ? BorderSide(color: _titleColor.resolve(context), width: 1) : BorderSide.none,
+      splashFactory: NoSplash.splashFactory,
+      visualDensity: VisualDensity.standard,
+      shadowColor: (type == ButtonType.main ? _btnColor : _titleColor).resolve(context),
+      elevation: buttonElevation,
+      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+    );
+  }
 
   Widget _button(BuildContext context) {
+    final _child = Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (leading != null) ...[leading!, const SizedBox(width: P_3)],
+        middle ?? (titleText != null ? MediumText(titleText!, color: _titleColor) : Container()),
+        if (trailing != null) ...[const SizedBox(width: P_3), trailing!],
+      ],
+    );
+
     switch (type) {
       case ButtonType.main:
       case ButtonType.secondary:
-      case ButtonType.icon:
-        return OutlinedButton(onPressed: onTap, style: _style(context), child: _child, clipBehavior: Clip.hardEdge);
+        return OutlinedButton(onPressed: onTap, child: _child, style: _style(context), clipBehavior: Clip.hardEdge);
       default:
         return CupertinoButton(onPressed: onTap, child: _child, minSize: 0, padding: padding ?? EdgeInsets.zero, color: color);
     }
@@ -108,31 +119,6 @@ class MTButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final btn = Padding(padding: margin ?? EdgeInsets.zero, child: _button(context));
     return type == ButtonType.icon || !constrained ? btn : MTAdaptive.S(btn);
-  }
-}
-
-class _MTBaseLayout extends StatelessWidget {
-  const _MTBaseLayout({
-    required this.middle,
-    this.leading,
-    this.trailing,
-  });
-
-  final Widget middle;
-  final Widget? leading;
-  final Widget? trailing;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        if (leading != null) ...[leading!, const SizedBox(width: P_3)],
-        middle,
-        if (trailing != null) ...[const SizedBox(width: P_3), trailing!],
-      ],
-    );
   }
 }
 

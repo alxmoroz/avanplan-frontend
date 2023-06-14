@@ -35,7 +35,6 @@ class MTField extends StatelessWidget {
       ? MTButton.icon(
           const CloseIcon(color: lightGreyColor),
           onReset,
-          color: lightBackgroundColor,
           padding: const EdgeInsets.symmetric(vertical: P_2).copyWith(left: P, right: 0),
         )
       : null;

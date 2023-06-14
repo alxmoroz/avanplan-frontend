@@ -23,3 +23,4 @@ const double SCR_M_WIDTH = 700;
 const double SCR_L_WIDTH = 860;
 
 double get cardElevation => isWeb ? 5 : 1;
+double get buttonElevation => isWeb ? 5 : 2;

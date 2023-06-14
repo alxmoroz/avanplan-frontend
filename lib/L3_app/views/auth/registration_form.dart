@@ -46,14 +46,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
       error: controller.fData(code).errorText,
       obscureText: isPassword && controller.showPassword == false,
       keyboardType: isEmail ? TextInputType.emailAddress : null,
-      suffixIcon: isPassword
-          ? MTButton.icon(
-              EyeIcon(open: !controller.showPassword),
-              controller.toggleShowPassword,
-              margin: const EdgeInsets.only(right: P_2),
-              color: lightBackgroundColor,
-            )
-          : null,
+      suffixIcon: isPassword ? MTButton.icon(EyeIcon(open: !controller.showPassword), controller.toggleShowPassword) : null,
       maxLines: 1,
       capitalization: TextCapitalization.none,
     );

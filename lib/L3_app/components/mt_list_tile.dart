@@ -63,6 +63,7 @@ class MTListTile extends StatelessWidget {
               Padding(
                 padding: padding ?? defaultPadding,
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     if (leading != null) ...[leading!, const SizedBox(width: P_2)],
                     Expanded(

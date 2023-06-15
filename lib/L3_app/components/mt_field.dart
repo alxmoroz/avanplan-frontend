@@ -49,7 +49,13 @@ class MTField extends StatelessWidget {
         MTListTile(
           leading: SizedBox(width: P3 + P_2, child: Center(child: leading)),
           middle: _hasValue ? LightText(fd.label, color: lightGreyColor, sizeScale: 0.85, height: 1) : null,
-          subtitle: _hasValue ? child : LightText(fd.placeholder, color: lightGreyColor),
+          subtitle: _hasValue
+              ? child
+              : LightText(
+                  fd.placeholder,
+                  color: lightGreyColor,
+                  padding: const EdgeInsets.symmetric(vertical: P_2),
+                ),
           trailing: _resetBtn,
           bottomDivider: bottomDivider,
           dividerStartIndent: dividerStartIndent,

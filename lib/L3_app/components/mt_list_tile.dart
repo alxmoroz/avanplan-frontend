@@ -22,6 +22,7 @@ class MTListTile extends StatelessWidget {
     this.dividerStartIndent,
     this.topDivider = false,
     this.bottomDivider = true,
+    this.crossAxisAlignment,
   });
   final Widget? leading;
   final Widget? middle;
@@ -35,6 +36,7 @@ class MTListTile extends StatelessWidget {
   final double? dividerStartIndent;
   final bool topDivider;
   final bool bottomDivider;
+  final CrossAxisAlignment? crossAxisAlignment;
 
   static const _defaultIndent = P * 1.5;
 
@@ -63,7 +65,7 @@ class MTListTile extends StatelessWidget {
               Padding(
                 padding: padding ?? defaultPadding,
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
                   children: [
                     if (leading != null) ...[leading!, const SizedBox(width: P_2)],
                     Expanded(

@@ -60,6 +60,7 @@ class MTField extends StatelessWidget {
           bottomDivider: bottomDivider,
           dividerStartIndent: dividerStartIndent,
           onTap: onSelect,
+          crossAxisAlignment: CrossAxisAlignment.start,
         ),
         if (fd.loading) ...[
           Positioned(

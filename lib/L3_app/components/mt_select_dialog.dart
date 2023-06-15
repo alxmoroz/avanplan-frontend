@@ -6,10 +6,9 @@ import '../../L1_domain/entities/base_entity.dart';
 import 'colors.dart';
 import 'constants.dart';
 import 'mt_circle.dart';
-import 'mt_close_dialog_button.dart';
 import 'mt_dialog.dart';
 import 'mt_list_tile.dart';
-import 'navbar.dart';
+import 'mt_toolbar.dart';
 import 'text_widgets.dart';
 
 Future<int?> showMTSelectDialog<T extends RPersistable>(
@@ -49,24 +48,11 @@ class _MTSelectDialog<T extends RPersistable> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MTDialog(
-        body: SafeArea(
-          bottom: false,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              navBar(
-                context,
-                title: titleText,
-                leading: MTCloseDialogButton(),
-                bgColor: backgroundColor,
-              ),
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: itemCount,
-                itemBuilder: itemBuilder,
-              ),
-            ],
-          ),
+        topBar: MTTopBar(titleText: titleText),
+        body: ListView.builder(
+          shrinkWrap: true,
+          itemCount: itemCount,
+          itemBuilder: itemBuilder,
         ),
       );
 }

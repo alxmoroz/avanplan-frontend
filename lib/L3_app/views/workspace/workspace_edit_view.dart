@@ -1,16 +1,13 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:avanplan/L3_app/components/mt_toolbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/mt_button.dart';
-import '../../components/mt_close_dialog_button.dart';
 import '../../components/mt_dialog.dart';
 import '../../components/mt_text_field.dart';
-import '../../components/navbar.dart';
 import '../../extra/services.dart';
 import 'workspace_edit_controller.dart';
 
@@ -41,45 +38,34 @@ class _WSEditViewState extends State<WSEditView> {
     super.dispose();
   }
 
-  Widget textFieldForCode(String code) {
-    final tfa = controller.fData(code);
+  Widget _tf(String code) {
+    final fd = controller.fData(code);
 
     return MTTextField(
       controller: controller.teControllers[code],
-      label: tfa.label,
-      obscureText: code == 'password',
-      maxLines: 1,
-      capitalization: TextCapitalization.none,
+      label: fd.label,
+      margin: tfPadding.copyWith(top: code == 'code' ? P_2 : tfPadding.top),
     );
   }
 
-  Widget get form => ListView(
+  Widget get _form => ListView(
         shrinkWrap: true,
         children: [
-          for (final code in ['code', 'title', 'description']) textFieldForCode(code),
+          for (final code in ['code', 'title', 'description']) _tf(code),
           const SizedBox(height: P2),
           MTButton.main(
             titleText: loc.save_action_title,
             onTap: canSave ? controller.save : null,
           ),
-          const SizedBox(height: P2),
+          const SizedBox(height: P),
         ],
       );
 
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: navBar(
-        context,
-        leading: MTCloseDialogButton(),
-        bgColor: backgroundColor,
-      ),
-      body: SafeArea(
-        top: false,
-        child: Observer(
-          builder: (_) => form,
-        ),
-      ),
+      topBar: MTTopBar(titleText: loc.workspace_title),
+      body: _form,
     );
   }
 }

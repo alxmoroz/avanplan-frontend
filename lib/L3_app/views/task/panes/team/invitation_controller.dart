@@ -99,7 +99,7 @@ abstract class _InvitationControllerBase extends EditController with Store {
     await loader.stop();
   }
 
-  String get invitationSubject => '${loc.invitation_share_subject_prefix}${loc.app_title} - ${task.title}';
+  String get invitationSubject => '${loc.invitation_share_subject_prefix}${loc.app_title} - $task';
   String get invitationText => loc.invitation_share_text('https://moroz.team/avanplan/install', invitationUrl);
 
   Future shareInvitation(BuildContext context) async {

@@ -2,6 +2,7 @@
 
 import 'dart:math';
 
+import 'package:avanplan/L3_app/components/mt_toolbar.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
@@ -13,9 +14,7 @@ import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_card.dart';
-import '../../components/mt_close_dialog_button.dart';
 import '../../components/mt_dialog.dart';
-import '../../components/mt_list_tile.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/number_presenter.dart';
@@ -142,21 +141,20 @@ class TariffSelectView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      body: SafeArea(
-        child: Column(
+      topBar: MTTopBar(
+        middle: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            MTListTile(
-              leading: MTCloseDialogButton(),
-              middle: ws.subPageTitle(loc.tariff_list_title),
-              padding: EdgeInsets.zero,
-              bottomDivider: false,
-              color: backgroundColor,
-              trailing: const SizedBox(width: P2 * 2),
-            ),
+            ws.subPageTitle(loc.tariff_list_title),
             if (description.isNotEmpty) H4(description, align: TextAlign.center, padding: const EdgeInsets.all(P).copyWith(top: 0)),
-            Expanded(child: _tariffPages(context)),
           ],
         ),
+      ),
+      topBarHeight: description.isNotEmpty ? P * 6 : null,
+      body: SafeArea(
+        left: false,
+        right: false,
+        child: _tariffPages(context),
       ),
     );
   }

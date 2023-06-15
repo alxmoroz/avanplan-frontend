@@ -57,8 +57,8 @@ class _ProjectAddWizardState extends State<ProjectAddWizard> {
   Widget get modeSelector => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          const SizedBox(height: P),
           if (mainController.workspaces.length > 1) ...[
-            const SizedBox(height: P),
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -96,15 +96,12 @@ class _ProjectAddWizardState extends State<ProjectAddWizard> {
 
   @override
   Widget build(BuildContext context) => MTDialog(
-        body: SafeArea(
-          bottom: false,
-          child: Observer(
-            builder: (_) => controller.mustSelectWS
-                ? WSSelector(controller)
-                : controller.importMode
-                    ? SourceTypeSelector(startImport)
-                    : modeSelector,
-          ),
+        body: Observer(
+          builder: (_) => controller.mustSelectWS
+              ? WSSelector(controller)
+              : controller.importMode
+                  ? SourceTypeSelector(startImport)
+                  : modeSelector,
         ),
       );
 }

@@ -57,6 +57,7 @@ class MTListTile extends StatelessWidget {
           highlightColor: _splashColor,
           splashColor: _splashColor,
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               if (topDivider) _border,
               Padding(

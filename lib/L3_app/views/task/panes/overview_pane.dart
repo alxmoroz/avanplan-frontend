@@ -61,7 +61,7 @@ class OverviewPane extends StatelessWidget {
   Widget _checkRecommendsItem(bool checked, String text) => Row(children: [
         DoneIcon(checked, color: checked ? greenColor : greyColor, size: P * 3, solid: checked),
         const SizedBox(width: P_3),
-        H4(text),
+        H4(text, color: checked ? lightGreyColor : null),
       ]);
 
   Widget get _rItemAddTask => _checkRecommendsItem(

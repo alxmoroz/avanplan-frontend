@@ -2,11 +2,10 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_dialog.dart';
 import '../../components/mt_list_tile.dart';
-import '../../components/text_widgets.dart';
+import '../../components/mt_toolbar.dart';
 import '../../extra/services.dart';
 import '../../presenters/source_presenter.dart';
 
@@ -16,27 +15,19 @@ class SourceTypeSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MTDialog(
-        body: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(height: P),
-            NormalText(loc.projects_add_select_st_title),
-            const SizedBox(height: P),
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: refsController.sourceTypes.length,
-              itemBuilder: (_, index) {
-                final st = refsController.sourceTypes[index];
-                return MTListTile(
-                  middle: iconTitleForSourceType(st),
-                  trailing: const ChevronIcon(),
-                  bottomDivider: index < refsController.sourceTypes.length - 1,
-                  onTap: () => onTap(st),
-                );
-              },
-            ),
-            const SizedBox(height: P),
-          ],
+        topBar: MTTopBar(titleText: loc.projects_add_select_st_title),
+        body: ListView.builder(
+          shrinkWrap: true,
+          itemCount: refsController.sourceTypes.length,
+          itemBuilder: (_, index) {
+            final st = refsController.sourceTypes[index];
+            return MTListTile(
+              middle: iconTitleForSourceType(st),
+              trailing: const ChevronIcon(),
+              bottomDivider: index < refsController.sourceTypes.length - 1,
+              onTap: () => onTap(st),
+            );
+          },
         ),
       );
 }

@@ -8,14 +8,12 @@ import '../../../L1_domain/entities/source.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L2_data/repositories/communications_repo.dart';
 import '../../../main.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_button.dart';
-import '../../components/mt_close_dialog_button.dart';
 import '../../components/mt_dialog.dart';
 import '../../components/mt_text_field.dart';
-import '../../components/navbar.dart';
+import '../../components/mt_toolbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/source_presenter.dart';
@@ -77,23 +75,23 @@ class _SourceEditViewState extends State<SourceEditView> {
     super.dispose();
   }
 
-  Widget textFieldForCode(String code) {
-    final tfa = controller.fData(code);
-
+  Widget textFieldForCode(String code, {bool first = false}) {
+    final fd = controller.fData(code);
     return MTTextField(
       controller: controller.teControllers[code],
-      label: tfa.label,
-      error: tfa.errorText,
+      label: fd.label,
+      error: fd.errorText,
       obscureText: code == 'password',
       maxLines: 1,
       capitalization: TextCapitalization.none,
+      margin: tfPadding.copyWith(top: first ? P_2 : tfPadding.top),
     );
   }
 
   Widget get _form => ListView(
         shrinkWrap: true,
         children: [
-          textFieldForCode('url'),
+          textFieldForCode('url', first: true),
           if (controller.showUsername) textFieldForCode('username'),
           textFieldForCode('apiKey'),
           MTButton(
@@ -103,7 +101,7 @@ class _SourceEditViewState extends State<SourceEditView> {
             onTap: () => launchUrlString(sourceEditHelperAddress),
           ),
           textFieldForCode('description'),
-          const SizedBox(height: P2),
+          const SizedBox(height: P),
           MTButton.main(
             titleText: loc.save_action_title,
             onTap: canSave ? controller.save : null,
@@ -115,9 +113,7 @@ class _SourceEditViewState extends State<SourceEditView> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTDialog(
-        topBar: navBar(
-          context,
-          leading: MTCloseDialogButton(),
+        topBar: MTTopBar(
           middle: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -135,12 +131,8 @@ class _SourceEditViewState extends State<SourceEditView> {
                   margin: const EdgeInsets.only(right: P),
                 )
               : null,
-          bgColor: backgroundColor,
         ),
-        body: SafeArea(
-          bottom: false,
-          child: _form,
-        ),
+        body: _form,
       ),
     );
   }

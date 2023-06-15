@@ -128,6 +128,16 @@ class DeleteIcon extends MTIcon {
       );
 }
 
+class DescriptionIcon extends MTIcon {
+  const DescriptionIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.text_justifyleft,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P2,
+      );
+}
+
 class DoneIcon extends MTIcon {
   const DoneIcon(this.done, {super.color, super.size, super.solid});
   final bool done;

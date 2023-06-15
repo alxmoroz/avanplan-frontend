@@ -1,14 +1,12 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:avanplan/L3_app/components/mt_toolbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/mt_button.dart';
-import '../../components/mt_close_dialog_button.dart';
 import '../../components/mt_dialog.dart';
-import '../../components/navbar.dart';
 import '../../extra/services.dart';
 import 'sign_in_email_controller.dart';
 
@@ -36,17 +34,12 @@ class _SignInEmailFormState extends State<SignInEmailForm> {
 
   @override
   Widget build(BuildContext context) => MTDialog(
-        topBar: navBar(
-          context,
-          leading: MTCloseDialogButton(),
-          title: loc.auth_sign_in_email_dialog_title,
-          bgColor: backgroundColor,
-        ),
+        topBar: MTTopBar(titleText: loc.auth_sign_in_email_dialog_title),
         body: Observer(
           builder: (_) => ListView(
             shrinkWrap: true,
             children: [
-              controller.tf('email'),
+              controller.tf('email', first: true),
               controller.tf('password'),
               const SizedBox(height: P2),
               MTButton.main(

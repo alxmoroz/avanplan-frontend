@@ -4,14 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_button.dart';
-import '../../components/mt_close_dialog_button.dart';
 import '../../components/mt_dialog.dart';
 import '../../components/mt_text_field.dart';
-import '../../components/navbar.dart';
+import '../../components/mt_toolbar.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_level_presenter.dart';
 import '../../presenters/ws_presenter.dart';
@@ -37,29 +35,19 @@ class TaskEditView extends StatefulWidget {
 class _TaskEditViewState extends State<TaskEditView> {
   TaskEditController get controller => widget.controller;
 
-  Widget textFieldForCode(BuildContext context, String code) {
-    final ta = controller.fData(code);
-
-    return ta.noText
-        ? MTTextField.noText(
-            controller: controller.teControllers[code],
-            label: ta.label,
-            error: ta.errorText,
-          )
-        : MTTextField(
-            controller: controller.teControllers[code],
-            label: ta.label,
-            error: ta.errorText,
-          );
-  }
-
   /// общий виджет - форма с полями для задач и целей
 
   Widget form(BuildContext context) {
+    final fd = controller.fData('title');
     return ListView(
       shrinkWrap: true,
       children: [
-        for (final code in ['title', 'description']) textFieldForCode(context, code),
+        MTTextField(
+          controller: controller.teControllers['title'],
+          label: fd.label,
+          error: fd.errorText,
+          margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P_2),
+        ),
         const SizedBox(height: P2),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -89,9 +77,7 @@ class _TaskEditViewState extends State<TaskEditView> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTDialog(
-        topBar: navBar(
-          context,
-          leading: MTCloseDialogButton(),
+        topBar: MTTopBar(
           middle: controller.isNew ? controller.ws.subPageTitle(controller.parent.newSubtaskTitle) : null,
           trailing: !controller.isNew
               ? MTButton.icon(
@@ -100,12 +86,8 @@ class _TaskEditViewState extends State<TaskEditView> {
                   margin: const EdgeInsets.only(right: P),
                 )
               : null,
-          bgColor: backgroundColor,
         ),
-        body: SafeArea(
-          bottom: false,
-          child: form(context),
-        ),
+        body: form(context),
       ),
     );
   }

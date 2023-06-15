@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:avanplan/L3_app/components/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +29,7 @@ class MTPage extends StatelessWidget {
           body: body,
           extendBody: true,
           extendBodyBehindAppBar: true,
-          bottomNavigationBar: bottomBar != null ? MTToolbar(child: bottomBar!) : null,
+          bottomNavigationBar: bottomBar != null ? MTToolbar(child: bottomBar!, color: navbarDefaultBgColor) : null,
         ),
       );
 }

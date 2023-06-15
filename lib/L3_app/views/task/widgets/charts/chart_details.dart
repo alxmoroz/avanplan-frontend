@@ -6,12 +6,12 @@ import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
-import '../../../../components/mt_close_dialog_button.dart';
 import '../../../../components/mt_dialog.dart';
-import '../../../../components/navbar.dart';
+import '../../../../components/mt_toolbar.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/duration_presenter.dart';
+import '../../../../presenters/task_level_presenter.dart';
 import '../../../../presenters/task_state_presenter.dart';
 import '../../../../presenters/task_view_presenter.dart';
 import 'timing_chart.dart';
@@ -37,26 +37,12 @@ class TaskChartDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final padding = MediaQuery.of(context).padding;
     return MTDialog(
-      topBar: navBar(
-        context,
-        leading: MTCloseDialogButton(),
-        middle: Column(
-          children: [
-            const SizedBox(height: P_6),
-            LightText(loc.chart_details_title),
-            MediumText(task.title, maxLines: 1),
-          ],
-        ),
-        trailing: const SizedBox(width: P * 4),
-        bgColor: backgroundColor,
-      ),
-      body: SafeArea(
-        bottom: false,
+      topBar: MTTopBar(middle: task.subPageTitle(loc.chart_details_title)),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: P),
         child: ListView(
           shrinkWrap: true,
-          padding: padding.add(const EdgeInsets.only(left: P, right: P, bottom: P)),
           children: [
             if (task.canShowVelocityVolumeCharts) ...[
               /// объем

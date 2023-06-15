@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:avanplan/L3_app/components/mt_toolbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
@@ -11,12 +12,10 @@ import '../../components/icons.dart';
 import '../../components/mt_adaptive.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_checkbox.dart';
-import '../../components/mt_close_dialog_button.dart';
 import '../../components/mt_dialog.dart';
 import '../../components/mt_dropdown.dart';
 import '../../components/mt_limit_badge.dart';
 import '../../components/mt_shadowed.dart';
-import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/source_presenter.dart';
@@ -43,6 +42,7 @@ class ImportView extends StatelessWidget {
   bool get _hasError => controller.errorCode != null;
   bool get _validated => controller.validated;
   bool get _selectedAll => controller.selectedAll;
+  bool get _hasSources => controller.ws.sources.isNotEmpty;
 
   Widget get _sourceDropdown => MTDropdown<Source>(
         onChanged: controller.selectSourceId,
@@ -105,26 +105,18 @@ class ImportView extends StatelessWidget {
         ],
       );
 
-  Widget get _body => controller.ws.sources.isNotEmpty
-      ? Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _header,
-            if (controller.selectedSource != null)
-              Flexible(
-                child: MTShadowed(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemBuilder: _projectItemBuilder,
-                    itemCount: controller.projects.length,
-                  ),
-                ),
+  Widget get _body => _hasSources
+      ? controller.selectedSource != null
+          ? MTShadowed(
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemBuilder: _projectItemBuilder,
+                itemCount: controller.projects.length,
               ),
-          ],
-        )
-      : ListView(
-          shrinkWrap: true,
-          children: [H4(loc.source_list_empty_title, align: TextAlign.center, color: lightGreyColor)],
+            )
+          : Container()
+      : Center(
+          child: H4(loc.source_list_empty_title, align: TextAlign.center, color: lightGreyColor),
         );
 
   Widget _projectItemBuilder(BuildContext context, int index) {
@@ -173,18 +165,19 @@ class ImportView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTDialog(
-        topBar: navBar(
-          context,
-          leading: MTCloseDialogButton(),
-          middle: controller.ws.subPageTitle(loc.import_title),
-          bgColor: backgroundColor,
+        topBar: MTTopBar(
+          middle: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              controller.ws.subPageTitle(loc.import_title),
+              if (_hasSources) _header,
+            ],
+          ),
         ),
-        body: SafeArea(
-          bottom: false,
-          child: _body,
-        ),
+        topBarHeight: _hasSources ? P * (controller.projects.length > 2 ? 14 : 12) : null,
+        body: _body,
         bottomBar: _bottomBar,
-        bottomBarHeight: controller.ws.sources.isNotEmpty ? P * 11 : null,
+        bottomBarHeight: _hasSources ? P * 11 : null,
       ),
     );
   }

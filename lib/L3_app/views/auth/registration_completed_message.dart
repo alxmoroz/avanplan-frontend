@@ -41,7 +41,7 @@ class RegistrationCompletedMessage extends StatelessWidget {
           titleText: loc.ok,
           onTap: () => Navigator.of(context).pop(),
         ),
-        const SizedBox(height: P2),
+        const SizedBox(height: P),
       ],
     );
   }

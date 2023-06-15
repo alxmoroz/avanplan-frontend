@@ -1,7 +1,5 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:avanplan/L1_domain/entities_extensions/task_members.dart';
-import 'package:avanplan/L3_app/presenters/person_presenter.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -12,6 +10,7 @@ import '../../../L1_domain/entities/status.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/task_level.dart';
+import '../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../L1_domain/entities_extensions/ws_ext.dart';
 import '../../../main.dart';
@@ -19,10 +18,12 @@ import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_alert_dialog.dart';
+import '../../components/mt_dialog.dart';
 import '../../components/mt_field_data.dart';
 import '../../components/mt_select_dialog.dart';
 import '../../extra/services.dart';
 import '../../presenters/duration_presenter.dart';
+import '../../presenters/person_presenter.dart';
 import '../../presenters/source_presenter.dart';
 import '../../presenters/task_view_presenter.dart';
 import '../../usecases/task_ext_actions.dart';
@@ -31,6 +32,7 @@ import '../../views/_base/edit_controller.dart';
 import '../tariff/tariff_select_view.dart';
 import 'task_edit_controller.dart';
 import 'task_edit_view.dart';
+import 'widgets/task_description_dialog.dart';
 
 part 'task_view_controller.g.dart';
 
@@ -40,8 +42,15 @@ class TaskViewController extends _TaskViewControllerBase with _$TaskViewControll
   TaskViewController(int _wsId, int? _taskId) {
     wsId = _wsId;
     taskId = _taskId;
-    // final task = mainController.taskForId(wsId, taskId);
+    final task = mainController.taskForId(wsId, taskId);
     initState(fds: [
+      MTFieldData(
+        'description',
+        text: task.description,
+        label: loc.description,
+        placeholder: loc.description,
+        needValidate: false,
+      ),
       MTFieldData(
         'startDate',
         label: loc.task_start_date_label,
@@ -101,6 +110,20 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     }
     updateField(code, loading: false);
     return saved;
+  }
+
+  /// описание
+
+  Future editDescription() async {
+    final teController = teControllers['description'];
+    if (teController != null) {
+      await showMTDialog<void>(TaskDescriptionDialog(teController));
+      final oldValue = task.description;
+      task.description = teController.text;
+      if (!(await _saveField('description'))) {
+        task.description = oldValue;
+      }
+    }
   }
 
   /// назначенный

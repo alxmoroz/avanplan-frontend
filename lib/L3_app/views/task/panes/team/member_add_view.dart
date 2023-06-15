@@ -5,11 +5,9 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/role.dart';
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
-import '../../../../components/mt_close_dialog_button.dart';
 import '../../../../components/mt_dialog.dart';
-import '../../../../components/navbar.dart';
+import '../../../../components/mt_toolbar.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/role_presenter.dart';
@@ -32,23 +30,23 @@ class MemberAddView extends StatefulWidget {
 }
 
 class _MemberAddViewState extends State<MemberAddView> {
-  InvitationController get invitationController => widget.invitationController;
+  InvitationController get _invitationController => widget.invitationController;
 
-  late final InvitationPane invitationPane;
+  late final InvitationPane _invitationPane;
   // late final WSMembersPane wsMembersPane;
 
-  late final MemberAddController controller;
+  late final MemberAddController _controller;
 
   @override
   void initState() {
-    controller = MemberAddController();
-    invitationPane = InvitationPane(invitationController);
+    _controller = MemberAddController();
+    _invitationPane = InvitationPane(_invitationController);
     super.initState();
   }
 
   @override
   void dispose() {
-    invitationController.dispose();
+    _invitationController.dispose();
     super.dispose();
   }
 
@@ -59,43 +57,32 @@ class _MemberAddViewState extends State<MemberAddView> {
             MemberSourceKey.invitation: NormalText(loc.member_source_invitation_title),
             MemberSourceKey.workspace: NormalText(loc.member_source_workspace_title),
           },
-          groupValue: controller.tabKey,
-          onValueChanged: controller.selectTab,
+          groupValue: _controller.tabKey,
+          onValueChanged: _controller.selectTab,
         ),
       );
 
-  Widget get selectedPane =>
+  Widget get _selectedPane =>
       {
         // MemberSourceKey.workspace: wsMembersPane,
-        MemberSourceKey.invitation: invitationPane,
-      }[controller.tabKey] ??
-      invitationPane;
-
-  /// общий виджет - форма с полями
-
-  Widget get form => ListView(
-        shrinkWrap: true,
-        children: [
-          // TODO: https://redmine.moroz.team/issues/2527
-          // tabPaneSelector,
-          H4(invitationController.role.localize, align: TextAlign.center),
-          selectedPane,
-        ],
-      );
+        MemberSourceKey.invitation: _invitationPane,
+      }[_controller.tabKey] ??
+      _invitationPane;
 
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTDialog(
-        topBar: navBar(
-          context,
-          leading: MTCloseDialogButton(),
-          title: controller.tabKey == MemberSourceKey.invitation ? invitationController.invitationSubject : '',
-          bgColor: backgroundColor,
-        ),
-        body: SafeArea(
-          bottom: false,
-          child: form,
+        topBar: MTTopBar(titleText: _controller.tabKey == MemberSourceKey.invitation ? '${loc.invitation_share_subject_prefix}${loc.app_title}' : ''),
+        body: ListView(
+          shrinkWrap: true,
+          children: [
+            // TODO: https://redmine.moroz.team/issues/2527
+            // tabPaneSelector,
+            NormalText('${_invitationController.task}:', align: TextAlign.center, maxLines: 3),
+            NormalText(_invitationController.role.localize, align: TextAlign.center),
+            _selectedPane,
+          ],
         ),
       ),
     );

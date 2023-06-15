@@ -28,7 +28,7 @@ Future<T?> showMTDialog<T>(Widget child) async {
     maxHeight: mqH > SCR_S_HEIGHT ? mqH - mq.padding.top - P2 : double.infinity,
   );
 
-  final barrierColor = darkGreyColor.withAlpha(230).resolve(ctx);
+  final barrierColor = darkGreyColor.withAlpha(220).resolve(ctx);
 
   return _bigScreen(ctx)
       ? await showDialog(
@@ -56,21 +56,26 @@ class MTDialog extends StatelessWidget {
     required this.body,
     this.topBar,
     this.topBarHeight,
+    this.topBarColor,
     this.bottomBar,
     this.bottomBarHeight,
+    this.bottomBarColor,
   });
 
   final Widget body;
+
   final Widget? topBar;
-  final Widget? bottomBar;
   final double? topBarHeight;
+  final Color? topBarColor;
+
+  final Widget? bottomBar;
   final double? bottomBarHeight;
+  final Color? bottomBarColor;
 
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context);
-    final double bbHeight =
-        bottomBar != null ? (bottomBarHeight ?? MTToolbar.topPadding + MTToolbar.bottomPadding + P + MIN_BTN_HEIGHT) : max(P2, mq.padding.bottom);
+    final double bbHeight = bottomBar != null ? (bottomBarHeight ?? P * 4 + MIN_BTN_HEIGHT) : max(P2, mq.padding.bottom);
     final double tbHeight = topBar != null ? (topBarHeight ?? P2 * 2) : 0;
     const radius = Radius.circular(DEF_BORDER_RADIUS);
     final big = _bigScreen(context);
@@ -94,22 +99,25 @@ class MTDialog extends StatelessWidget {
               MediaQuery(
                 data: mq.copyWith(
                   padding: mq.padding.copyWith(
-                    top: 0,
+                    top: tbHeight,
                     bottom: bbHeight,
                   ),
                 ),
-                child: Padding(
-                  padding: EdgeInsets.only(top: tbHeight),
-                  child: body,
-                ),
+                child: body,
               ),
-              if (topBar != null) topBar!,
+              if (topBar != null)
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  child: MTToolbar.top(child: topBar!, color: topBarColor ?? backgroundColor),
+                ),
               if (bottomBar != null)
                 Positioned(
                   left: 0,
                   right: 0,
                   bottom: 0,
-                  child: MTToolbar(child: bottomBar!),
+                  child: MTToolbar(child: bottomBar!, color: bottomBarColor ?? navbarDefaultBgColor),
                 ),
             ],
           ),

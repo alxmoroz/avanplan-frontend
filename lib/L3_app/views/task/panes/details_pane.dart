@@ -41,18 +41,6 @@ class DetailsPane extends StatelessWidget {
 
   bool get _closable => _task.canCloseGroup || _task.canCloseLeaf;
 
-  Widget _description(BuildContext context) {
-    return MTListTile(
-      middle: SelectableLinkify(
-        text: _task.description,
-        style: const LightText('').style(context),
-        linkStyle: const NormalText('', color: mainColor).style(context),
-        onOpen: (link) async => await launchUrlString(link.url),
-      ),
-      bottomDivider: false,
-    );
-  }
-
   Widget _dateField(BuildContext context, String code) {
     final isStart = code == 'startDate';
     final date = isStart ? _task.startDate : _task.dueDate;
@@ -119,9 +107,21 @@ class DetailsPane extends StatelessWidget {
                   onReset: _task.canAssign ? controller.resetAssignee : null,
                 ),
               ],
-              if (_task.hasDescription) ...[
+              if (_task.hasDescription || _task.canUpdate) ...[
                 const SizedBox(height: P),
-                _description(context),
+                MTField(
+                  controller.fData('description'),
+                  leading: DescriptionIcon(size: P3, color: _task.canUpdate ? mainColor : lightGreyColor),
+                  value: _task.hasDescription
+                      ? SelectableLinkify(
+                          text: _task.description,
+                          style: const LightText('').style(context),
+                          linkStyle: const NormalText('', color: mainColor).style(context),
+                          onOpen: (link) async => await launchUrlString(link.url),
+                        )
+                      : null,
+                  onSelect: _task.canUpdate ? controller.editDescription : null,
+                ),
               ],
               const SizedBox(height: P),
               _dateField(context, 'startDate'),

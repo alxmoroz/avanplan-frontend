@@ -1,15 +1,12 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:avanplan/L3_app/components/mt_toolbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/notification.dart';
 import '../../../L1_domain/entities/source.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/mt_close_dialog_button.dart';
 import '../../components/mt_dialog.dart';
-import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';
@@ -35,19 +32,9 @@ class NotificationView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) => MTDialog(
-        topBar: navBar(
-          context,
-          leading: MTCloseDialogButton(),
-          middle: LightText('${loc.notification_title}  ${nf.scheduledDate.strShortWTime}'),
-          bgColor: backgroundColor,
-        ),
-        body: SafeArea(
-          bottom: false,
-          child: _body,
-        ),
-      ),
+    return MTDialog(
+      topBar: MTTopBar(middle: LightText('${loc.notification_title}  ${nf.scheduledDate.strShortWTime}')),
+      body: _body,
     );
   }
 }

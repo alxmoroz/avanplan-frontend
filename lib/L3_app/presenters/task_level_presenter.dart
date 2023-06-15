@@ -72,6 +72,7 @@ extension TaskLevelPresenter on Task {
       loc.subtask_count(count);
 
   Widget subPageTitle(String pageTitle) => Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           MediumText(pageTitle),
           LightText('$this'),

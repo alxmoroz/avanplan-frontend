@@ -9,9 +9,8 @@ import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons_workspace.dart';
 import '../../components/mt_button.dart';
-import '../../components/mt_close_dialog_button.dart';
 import '../../components/mt_dialog.dart';
-import '../../components/navbar.dart';
+import '../../components/mt_toolbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/number_presenter.dart';
@@ -62,24 +61,11 @@ class StoreView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      body: SafeArea(
-        bottom: false,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            navBar(
-              context,
-              middle: ws.subPageTitle(loc.balance_replenish_store_title),
-              leading: MTCloseDialogButton(),
-              bgColor: backgroundColor,
-            ),
-            ListView.builder(
-              shrinkWrap: true,
-              itemBuilder: _payButton,
-              itemCount: iapController.products.length,
-            )
-          ],
-        ),
+      topBar: MTTopBar(middle: ws.subPageTitle(loc.balance_replenish_store_title)),
+      body: ListView.builder(
+        shrinkWrap: true,
+        itemBuilder: _payButton,
+        itemCount: iapController.products.length,
       ),
     );
   }

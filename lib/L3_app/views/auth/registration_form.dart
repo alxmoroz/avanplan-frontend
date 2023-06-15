@@ -1,16 +1,12 @@
 // Copyright (c) 2023. Alexandr Moroz
 
+import 'package:avanplan/L3_app/components/mt_toolbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/icons.dart';
 import '../../components/mt_button.dart';
-import '../../components/mt_close_dialog_button.dart';
 import '../../components/mt_dialog.dart';
-import '../../components/mt_text_field.dart';
-import '../../components/navbar.dart';
 import '../../extra/services.dart';
 import 'registration_completed_message.dart';
 import 'registration_controller.dart';
@@ -37,38 +33,18 @@ class _RegistrationFormState extends State<RegistrationForm> {
     super.dispose();
   }
 
-  Widget textFieldForCode(String code) {
-    final isPassword = code == 'password';
-    final isEmail = code == 'email';
-    return MTTextField(
-      controller: controller.teControllers[code],
-      label: controller.fData(code).label,
-      error: controller.fData(code).errorText,
-      obscureText: isPassword && controller.showPassword == false,
-      keyboardType: isEmail ? TextInputType.emailAddress : null,
-      suffixIcon: isPassword ? MTButton.icon(EyeIcon(open: !controller.showPassword), controller.toggleShowPassword) : null,
-      maxLines: 1,
-      capitalization: TextCapitalization.none,
-    );
-  }
-
   @override
   Widget build(BuildContext context) => MTDialog(
-        topBar: navBar(
-          context,
-          leading: MTCloseDialogButton(),
-          title: loc.auth_register_title,
-          bgColor: backgroundColor,
-        ),
+        topBar: MTTopBar(titleText: loc.auth_register_title),
         body: Observer(
           builder: (_) => controller.requestCompleted
               ? RegistrationCompletedMessage(controller: controller)
               : ListView(
                   shrinkWrap: true,
                   children: [
-                    textFieldForCode('name'),
-                    textFieldForCode('email'),
-                    textFieldForCode('password'),
+                    controller.tf('name', first: true),
+                    controller.tf('email'),
+                    controller.tf('password'),
                     const SizedBox(height: P2),
                     MTButton.main(
                       titleText: loc.auth_register_action_title,

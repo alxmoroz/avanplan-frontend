@@ -1,17 +1,16 @@
 // Copyright (c) 2023. Alexandr Moroz
 
+import 'package:avanplan/L3_app/components/text_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/member.dart';
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/mt_button.dart';
 import '../../../../components/mt_checkbox.dart';
-import '../../../../components/mt_close_dialog_button.dart';
 import '../../../../components/mt_dialog.dart';
-import '../../../../components/navbar.dart';
+import '../../../../components/mt_toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/role_presenter.dart';
 import '../../../../presenters/task_level_presenter.dart';
@@ -55,23 +54,21 @@ class _MemberEditViewState extends State<MemberEditView> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTDialog(
-        body: SafeArea(
-          bottom: false,
-          child: Column(
+        topBar: MTTopBar(
+          middle: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              navBar(context, title: '$member', leading: MTCloseDialogButton(), bgColor: backgroundColor),
+              MediumText('$member'),
               task.subPageTitle(loc.role_list_title),
               const SizedBox(height: P),
-              Flexible(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemBuilder: _roleItem,
-                  itemCount: controller.roles.length,
-                ),
-              ),
             ],
           ),
+        ),
+        topBarHeight: P * 7,
+        body: ListView.builder(
+          shrinkWrap: true,
+          itemBuilder: _roleItem,
+          itemCount: controller.roles.length,
         ),
         bottomBar: MTButton.main(
           titleText: loc.save_action_title,

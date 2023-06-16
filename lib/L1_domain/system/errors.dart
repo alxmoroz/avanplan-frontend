@@ -1,6 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-abstract class MTError {
+class MTError {
   MTError({this.code, this.detail});
   final String? code;
   final String? detail;

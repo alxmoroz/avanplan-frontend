@@ -104,11 +104,16 @@ abstract class _TaskViewControllerBase extends EditController with Store {
   bool isNew = false;
 
   Future<bool> _saveField(TaskFCode code) async {
+    bool saved = false;
     updateField(code.index, loading: true);
-    final editedTask = await taskUC.save(task);
-    final saved = editedTask != null;
-    if (saved) {
-      _updateTaskParents(editedTask);
+    try {
+      final editedTask = await taskUC.save(task);
+      saved = editedTask != null;
+      if (saved) {
+        _updateTaskParents(editedTask);
+      }
+    } catch (e) {
+      loader.start();
     }
     updateField(code.index, loading: false);
     return saved;

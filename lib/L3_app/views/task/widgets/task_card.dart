@@ -47,7 +47,7 @@ class TaskCard extends StatelessWidget {
       );
 
   bool get _showLink => task.hasLink && task.isProject;
-  Widget get _estimate => SmallText('${task.estimate} ${loc.task_estimate_unit}', color: task.closed ? lightGreyColor : greyColor);
+  Widget get _estimate => SmallText('${task.sumEstimate} ${loc.task_estimate_unit}', color: task.closed ? lightGreyColor : greyColor);
   Widget get _assignee => task.assignee!.iconName(card: true, color: task.closed ? lightGreyColor : null);
 
   Widget get _taskContent => Column(

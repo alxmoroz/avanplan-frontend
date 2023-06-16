@@ -53,10 +53,6 @@ abstract class _LoaderControllerBase with Store {
     Widget? action,
   }) {
     action ??= actionText != null ? _stopAction(actionText) : null;
-    if (action != null && _stack < 1) {
-      _stack++;
-    }
-
     this.imageName = imageName;
     this.titleText = titleText;
     this.descriptionText = descriptionText;
@@ -94,7 +90,7 @@ abstract class _LoaderControllerBase with Store {
             // программные ошибки сервера
             final errorText = '${code < 500 ? 'HTTP Client' : code < 600 ? 'HTTP Server' : 'Unknown HTTP'} Error $code';
             if (e.errCode == 'ERR_IMPORT_CONNECTION') {
-              return handler.next(e);
+              // return handler.next(e);
             } else if (e.errCode.startsWith('ERR_IMPORT')) {
               _setImportError(e.detail, e.detail);
             } else {
@@ -105,6 +101,9 @@ abstract class _LoaderControllerBase with Store {
           if (e.error is SocketException) {
             _setNetworkError('${e.error}');
           }
+        }
+        if (!loading) {
+          return handler.next(e);
         }
       });
 
@@ -139,11 +138,6 @@ abstract class _LoaderControllerBase with Store {
     );
   }
 
-  Future _reload() async {
-    await stop();
-    await mainController.manualUpdate();
-  }
-
   void _setNetworkError(String? errorText) => set(
         imageName: ImageNames.networkError,
         titleText: loc.error_network_title,
@@ -153,12 +147,6 @@ abstract class _LoaderControllerBase with Store {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             _stopAction(loc.ok),
-            MTButton.secondary(
-              leading: const RefreshIcon(color: mainColor),
-              titleText: loc.reload_action_title,
-              margin: const EdgeInsets.only(top: P),
-              onTap: _reload,
-            ),
             _reportErrorButton(errorText ?? 'LoaderNetworkError'),
           ],
         ),

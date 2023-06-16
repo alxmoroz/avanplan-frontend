@@ -39,9 +39,6 @@ extension TaskStats on Task {
     openedLeafTasks = leafTasks.where((t) => !t.closed);
     closedLeafTasks = leafTasks.where((t) => t.closed);
 
-    // суммарная оценка в приоритете над локальной
-    estimate = _sumEstimate(openedLeafTasks) ?? estimate;
-
     isFuture = startDate!.isAfter(_now);
     beforeStartPeriod = startDate!.difference(_now);
 
@@ -55,7 +52,9 @@ extension TaskStats on Task {
     planVolume = !isFuture && _planPeriod != null ? min(leafTasksCount.toDouble(), leafTasksCount * elapsedPeriod.inDays / _planPeriod.inDays) : null;
   }
 
-  static int? _sumEstimate(Iterable<Task> tasks) {
+  // суммарная оценка в приоритете над локальной
+
+  int? _sumEstimate(Iterable<Task> tasks) {
     int? res;
     final count = tasks.length;
     if (count > 0) {
@@ -69,6 +68,8 @@ extension TaskStats on Task {
     }
     return res;
   }
+
+  int? get sumEstimate => _sumEstimate(openedLeafTasks) ?? estimate;
 
   /// скорость проекта
   int? get _closedDays => closedPeriod?.inDays;
@@ -104,8 +105,8 @@ extension TaskStats on Task {
     }
 
     final pVelocitySP = isRoot ? null : project!.velocitySP;
-    showSP = estimate != null && pVelocitySP != null;
-    final leftCapacity = showSP ? estimate! : openedLeafTasksCount;
+    showSP = sumEstimate != null && pVelocitySP != null;
+    final leftCapacity = showSP ? sumEstimate! : openedLeafTasksCount;
     if (leftPeriod != null && leftPeriod!.inDays > 0 && !hasOverdue) {
       targetVelocity = leftCapacity / leftPeriod!.inDays;
     }
@@ -292,7 +293,7 @@ extension TaskStats on Task {
   bool get isOk => riskPeriod != null && riskPeriod! <= _riskThreshold;
   bool get isAhead => riskPeriod != null && -riskPeriod! > _riskThreshold;
 
-  bool get hasEstimate => estimate != null;
+  bool get hasEstimate => sumEstimate != null;
   bool get hasLink => taskSource?.keepConnection == true;
 
   bool get hasStatus => statusId != null;

@@ -7,7 +7,6 @@ import '../../../L1_domain/entities/workspace.dart';
 import '../../components/constants.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_dialog.dart';
-import '../../components/mt_text_field.dart';
 import '../../extra/services.dart';
 import 'workspace_edit_controller.dart';
 
@@ -38,20 +37,10 @@ class _WSEditViewState extends State<WSEditView> {
     super.dispose();
   }
 
-  Widget _tf(String code) {
-    final fd = controller.fData(code);
-
-    return MTTextField(
-      controller: controller.teControllers[code],
-      label: fd.label,
-      margin: tfPadding.copyWith(top: code == 'code' ? P_2 : tfPadding.top),
-    );
-  }
-
   Widget get _form => ListView(
         shrinkWrap: true,
         children: [
-          for (final code in ['code', 'title', 'description']) _tf(code),
+          for (final code in [WSFCode.code, WSFCode.title, WSFCode.description]) controller.tf(code),
           const SizedBox(height: P2),
           MTButton.main(
             titleText: loc.save_action_title,

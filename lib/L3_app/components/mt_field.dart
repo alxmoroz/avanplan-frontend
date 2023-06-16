@@ -48,7 +48,7 @@ class MTField extends StatelessWidget {
       children: [
         MTListTile(
           leading: SizedBox(width: P3 + P_2, child: Center(child: leading)),
-          middle: _hasValue ? LightText(fd.label, color: lightGreyColor, sizeScale: 0.85, height: 1) : null,
+          middle: _hasValue ? NormalText(fd.label, color: lightGreyColor, height: 1, sizeScale: 0.9) : null,
           subtitle: _hasValue
               ? child
               : LightText(

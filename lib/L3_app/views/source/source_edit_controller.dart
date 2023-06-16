@@ -8,13 +8,17 @@ import '../../../L1_domain/entities/source.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/ws_ext.dart';
 import '../../../main.dart';
+import '../../components/constants.dart';
 import '../../components/mt_alert_dialog.dart';
 import '../../components/mt_field_data.dart';
+import '../../components/mt_text_field.dart';
 import '../../extra/services.dart';
 import '../../usecases/task_ext_actions.dart';
 import '../_base/edit_controller.dart';
 
 part 'source_edit_controller.g.dart';
+
+enum SourceFCode { url, username, apiKey, password, description }
 
 class SourceEditController extends _SourceEditControllerBase with _$SourceEditController {
   SourceEditController(Workspace _ws, int? _srcId, String? sType) {
@@ -23,11 +27,11 @@ class SourceEditController extends _SourceEditControllerBase with _$SourceEditCo
     selectType(source?.type ?? sType);
 
     initState(fds: [
-      MTFieldData('url', label: loc.source_url_placeholder, text: source?.url ?? ''),
-      MTFieldData('username', label: loc.auth_user_placeholder, text: source?.username ?? '', needValidate: showUsername),
-      MTFieldData('apiKey', label: loc.source_api_key_placeholder, text: source?.apiKey ?? ''),
-      // TFAnnotation('password', label: loc.auth_password_placeholder, needValidate: false),
-      MTFieldData('description', label: loc.description, text: source?.description ?? '', needValidate: false),
+      MTFieldData(SourceFCode.url.index, label: loc.source_url_placeholder, text: source?.url ?? ''),
+      MTFieldData(SourceFCode.username.index, label: loc.auth_user_placeholder, text: source?.username ?? '', needValidate: showUsername),
+      MTFieldData(SourceFCode.apiKey.index, label: loc.source_api_key_placeholder, text: source?.apiKey ?? ''),
+      // TFAnnotation(SourceFCode.password.index, label: loc.auth_password_placeholder, needValidate: false),
+      MTFieldData(SourceFCode.description.index, label: loc.description, text: source?.description ?? '', needValidate: false),
     ]);
   }
 }
@@ -62,11 +66,11 @@ abstract class _SourceEditControllerBase extends EditController with Store {
     loader.setSaving();
     final editedSource = await sourceUC.save(Source(
       id: source?.id,
-      url: fData('url').text,
-      apiKey: fData('apiKey').text,
-      username: fData('username').text,
-      // password: tfAnnoForCode('password').text,
-      description: fData('description').text,
+      url: fData(SourceFCode.url.index).text,
+      apiKey: fData(SourceFCode.apiKey.index).text,
+      username: fData(SourceFCode.username.index).text,
+      // password: tfAnnoForCode(SourceFCode.password.index).text,
+      description: fData(SourceFCode.description.index).text,
       wsId: ws.id!,
       type: selectedType!,
     ));
@@ -101,5 +105,18 @@ abstract class _SourceEditControllerBase extends EditController with Store {
         await loader.stop(300);
       }
     }
+  }
+
+  Widget tf(SourceFCode code, {bool first = false}) {
+    final fd = fData(code.index);
+    return MTTextField(
+      controller: teController(code.index),
+      label: fd.label,
+      error: fd.errorText,
+      obscureText: code == SourceFCode.password,
+      maxLines: 1,
+      capitalization: TextCapitalization.none,
+      margin: tfPadding.copyWith(top: first ? P_2 : tfPadding.top),
+    );
   }
 }

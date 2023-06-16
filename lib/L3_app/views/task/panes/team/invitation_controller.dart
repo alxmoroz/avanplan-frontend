@@ -11,14 +11,18 @@ import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L2_data/services/platform.dart';
 import '../../../../../main.dart';
 import '../../../../components/colors.dart';
+import '../../../../components/icons.dart';
 import '../../../../components/images.dart';
 import '../../../../components/mt_field_data.dart';
+import '../../../../components/mt_text_field.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/date_presenter.dart';
 import '../../../_base/edit_controller.dart';
 
 part 'invitation_controller.g.dart';
+
+enum InvitationFCode { expiresOn, activationsCount }
 
 class InvitationController extends _InvitationControllerBase with _$InvitationController {
   InvitationController(Task _task, Role _role) {
@@ -37,7 +41,7 @@ abstract class _InvitationControllerBase extends EditController with Store {
   @action
   void setExpired(DateTime? _date) {
     expiresOn = _date;
-    teControllers['expiresOn']?.text = _date != null ? _date.strMedium : '';
+    teController(InvitationFCode.expiresOn.index)?.text = _date != null ? _date.strMedium : '';
   }
 
   Future selectDate() async {
@@ -67,7 +71,7 @@ abstract class _InvitationControllerBase extends EditController with Store {
 
   @action
   Future createInvitation() async {
-    final activationsCount = int.tryParse(fData('activationsCount').text) ?? 0;
+    final activationsCount = int.tryParse(fData(InvitationFCode.activationsCount.index).text) ?? 0;
     if (activationsCount > 0) {
       loader.start();
       loader.set(titleText: loc.loader_invitation_create_title, imageName: ImageNames.privacy);
@@ -90,8 +94,9 @@ abstract class _InvitationControllerBase extends EditController with Store {
     invitation = await invitationUC.getInvitation(task.wsId, task.id!, role.id!);
 
     initState(fds: [
-      MTFieldData('expiresOn', label: loc.invitation_expires_placeholder, noText: true),
-      MTFieldData('activationsCount', label: loc.invitation_activations_count_placeholder, text: '${invitation?.activationsCount ?? '10'}'),
+      MTFieldData(InvitationFCode.expiresOn.index, label: loc.invitation_expires_placeholder, noText: true),
+      MTFieldData(InvitationFCode.activationsCount.index,
+          label: loc.invitation_activations_count_placeholder, text: '${invitation?.activationsCount ?? '10'}'),
     ]);
 
     setExpired(invitation?.expiresOn ?? DateTime.now().add(const Duration(days: 7)));
@@ -127,5 +132,27 @@ abstract class _InvitationControllerBase extends EditController with Store {
         duration: const Duration(milliseconds: 1234),
       ),
     );
+  }
+
+  // TODO: редактор даты как в задачах?
+  Widget tf(InvitationFCode code) {
+    final fd = fData(code.index);
+    final isDate = code.name.endsWith('Date');
+    final tc = teController(code.index);
+    return fd.noText
+        ? MTTextField.noText(
+            controller: tc,
+            label: fd.label,
+            error: fd.errorText,
+            onTap: isDate ? selectDate : null,
+            prefixIcon: isDate ? const CalendarIcon() : null,
+          )
+        : MTTextField(
+            autofocus: false,
+            controller: tc,
+            label: fd.label,
+            error: fd.errorText,
+            keyboardType: code == InvitationFCode.activationsCount ? TextInputType.number : null,
+          );
   }
 }

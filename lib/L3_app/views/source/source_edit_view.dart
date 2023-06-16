@@ -75,32 +75,19 @@ class _SourceEditViewState extends State<SourceEditView> {
     super.dispose();
   }
 
-  Widget textFieldForCode(String code, {bool first = false}) {
-    final fd = controller.fData(code);
-    return MTTextField(
-      controller: controller.teControllers[code],
-      label: fd.label,
-      error: fd.errorText,
-      obscureText: code == 'password',
-      maxLines: 1,
-      capitalization: TextCapitalization.none,
-      margin: tfPadding.copyWith(top: first ? P_2 : tfPadding.top),
-    );
-  }
-
   Widget get _form => ListView(
         shrinkWrap: true,
         children: [
-          textFieldForCode('url', first: true),
-          if (controller.showUsername) textFieldForCode('username'),
-          textFieldForCode('apiKey'),
+          controller.tf(SourceFCode.url, first: true),
+          if (controller.showUsername) controller.tf(SourceFCode.username),
+          controller.tf(SourceFCode.apiKey),
           MTButton(
             titleText: loc.source_help_edit_action,
             trailing: const LinkOutIcon(size: P * 1.2),
             margin: tfPadding.copyWith(top: P_2),
             onTap: () => launchUrlString(sourceEditHelperAddress),
           ),
-          textFieldForCode('description'),
+          controller.tf(SourceFCode.description),
           const SizedBox(height: P),
           MTButton.main(
             titleText: loc.save_action_title,

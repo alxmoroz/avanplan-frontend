@@ -285,6 +285,7 @@
   "task_due_date_label": "Срок",
   "task_due_date_placeholder": "Срок завершения",
   "task_edit_action_title": "Редактировать",
+  "task_estimate_group_label": "Общая оценка по подзадачам",
   "task_estimate_label": "Оценка",
   "task_estimate_placeholder": "Выбрать оценку",
   "task_estimate_unit": "sp",

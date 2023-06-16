@@ -15,7 +15,7 @@ class MTFieldData {
     this.loading = false,
   });
 
-  final String code;
+  final int code;
   final String label;
   final String placeholder;
   final String? helper;

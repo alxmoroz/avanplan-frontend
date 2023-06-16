@@ -6,19 +6,23 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
+import '../../components/constants.dart';
 import '../../components/mt_field_data.dart';
+import '../../components/mt_text_field.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
 
 part 'workspace_edit_controller.g.dart';
 
+enum WSFCode { code, title, description }
+
 class WorkspaceEditController extends _WorkspaceEditControllerBase with _$WorkspaceEditController {
   WorkspaceEditController(Workspace _ws) {
     ws = _ws;
     initState(fds: [
-      MTFieldData('code', label: loc.code, text: ws.code),
-      MTFieldData('title', label: loc.title, text: ws.title),
-      MTFieldData('description', label: loc.description, text: ws.description, needValidate: false),
+      MTFieldData(WSFCode.code.index, label: loc.code, text: ws.code),
+      MTFieldData(WSFCode.title.index, label: loc.title, text: ws.title),
+      MTFieldData(WSFCode.description.index, label: loc.description, text: ws.description, needValidate: false),
     ]);
   }
 }
@@ -33,9 +37,9 @@ abstract class _WorkspaceEditControllerBase extends EditController with Store {
     loader.setSaving();
     final editedWS = await myUC.updateWorkspace(WorkspaceUpsert(
       id: ws.id,
-      code: fData('code').text,
-      title: fData('title').text,
-      description: fData('description').text,
+      code: fData(WSFCode.code.index).text,
+      title: fData(WSFCode.title.index).text,
+      description: fData(WSFCode.description.index).text,
     ));
 
     if (editedWS != null) {
@@ -47,5 +51,15 @@ abstract class _WorkspaceEditControllerBase extends EditController with Store {
       Navigator.of(rootKey.currentContext!).pop(editedWS);
       await loader.stop(300);
     }
+  }
+
+  Widget tf(WSFCode code) {
+    final fd = fData(code.index);
+
+    return MTTextField(
+      controller: teController(code.index),
+      label: fd.label,
+      margin: tfPadding.copyWith(top: code == WSFCode.code ? P_2 : tfPadding.top),
+    );
   }
 }

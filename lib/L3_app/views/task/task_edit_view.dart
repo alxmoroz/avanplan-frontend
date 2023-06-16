@@ -14,6 +14,7 @@ import '../../extra/services.dart';
 import '../../presenters/task_level_presenter.dart';
 import '../../presenters/ws_presenter.dart';
 import 'task_edit_controller.dart';
+import 'task_view_controller.dart';
 
 class EditTaskResult {
   const EditTaskResult(this.task, [this.proceed]);
@@ -38,12 +39,12 @@ class _TaskEditViewState extends State<TaskEditView> {
   /// общий виджет - форма с полями для задач и целей
 
   Widget form(BuildContext context) {
-    final fd = controller.fData('title');
+    final fd = controller.fData(TaskFCode.title.index);
     return ListView(
       shrinkWrap: true,
       children: [
         MTTextField(
-          controller: controller.teControllers['title'],
+          controller: controller.teController(TaskFCode.title.index),
           label: fd.label,
           error: fd.errorText,
           margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P_2),

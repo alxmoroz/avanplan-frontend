@@ -14,6 +14,7 @@ import '../../extra/services.dart';
 import '../../presenters/task_level_presenter.dart';
 import '../../views/_base/edit_controller.dart';
 import 'task_edit_view.dart';
+import 'task_view_controller.dart';
 
 part 'task_edit_controller.g.dart';
 
@@ -25,8 +26,7 @@ class TaskEditController extends _TaskEditControllerBase with _$TaskEditControll
     isNew = task == null;
 
     initState(fds: [
-      MTFieldData('title', label: loc.title, text: task?.title ?? ''),
-      MTFieldData('description', label: loc.description, text: task?.description ?? '', needValidate: false),
+      MTFieldData(TaskFCode.title.index, label: loc.title, text: task?.title ?? ''),
     ]);
   }
 }
@@ -45,8 +45,8 @@ abstract class _TaskEditControllerBase extends EditController with Store {
         Task(
           id: task?.id,
           parent: parent,
-          title: fData('title').text,
-          description: fData('description').text,
+          title: fData(TaskFCode.title.index).text,
+          description: task?.description ?? '',
           closed: task?.closed == true,
           statusId: isNew ? ws.statuses.firstOrNull?.id : task!.statusId,
           estimate: task?.estimate,

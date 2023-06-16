@@ -38,6 +38,8 @@ part 'task_view_controller.g.dart';
 
 enum TaskTabKey { overview, subtasks, details, team }
 
+enum TaskFCode { title, description, startDate, dueDate, estimate, assignee, author }
+
 class TaskViewController extends _TaskViewControllerBase with _$TaskViewController {
   TaskViewController(int _wsId, int? _taskId) {
     wsId = _wsId;
@@ -45,42 +47,42 @@ class TaskViewController extends _TaskViewControllerBase with _$TaskViewControll
     final task = mainController.taskForId(wsId, taskId);
     initState(fds: [
       MTFieldData(
-        'description',
+        TaskFCode.description.index,
         text: task.description,
         label: loc.description,
         placeholder: loc.description,
         needValidate: false,
       ),
       MTFieldData(
-        'startDate',
+        TaskFCode.startDate.index,
         label: loc.task_start_date_label,
         placeholder: loc.task_start_date_placeholder,
         noText: true,
         needValidate: false,
       ),
       MTFieldData(
-        'dueDate',
+        TaskFCode.dueDate.index,
         label: loc.task_due_date_label,
         placeholder: loc.task_due_date_placeholder,
         noText: true,
         needValidate: false,
       ),
       MTFieldData(
-        'estimate',
-        label: loc.task_estimate_label,
+        TaskFCode.estimate.index,
+        label: !task.isProject && task.isLeaf ? loc.task_estimate_label : loc.task_estimate_group_label,
         placeholder: loc.task_estimate_placeholder,
         noText: true,
         needValidate: false,
       ),
       MTFieldData(
-        'assignee',
+        TaskFCode.assignee.index,
         label: loc.task_assignee_label,
         placeholder: loc.task_assignee_placeholder,
         noText: true,
         needValidate: false,
       ),
       MTFieldData(
-        'author',
+        TaskFCode.author.index,
         label: loc.task_author_title,
         placeholder: loc.task_author_title,
         noText: true,
@@ -101,27 +103,30 @@ abstract class _TaskViewControllerBase extends EditController with Store {
   @observable
   bool isNew = false;
 
-  Future<bool> _saveField(String code) async {
-    updateField(code, loading: true);
+  Future<bool> _saveField(TaskFCode code) async {
+    updateField(code.index, loading: true);
     final editedTask = await taskUC.save(task);
     final saved = editedTask != null;
     if (saved) {
       _updateTaskParents(editedTask);
     }
-    updateField(code, loading: false);
+    updateField(code.index, loading: false);
     return saved;
   }
 
   /// описание
 
   Future editDescription() async {
-    final teController = teControllers['description'];
-    if (teController != null) {
-      await showMTDialog<void>(TaskDescriptionDialog(teController));
-      final oldValue = task.description;
-      task.description = teController.text;
-      if (!(await _saveField('description'))) {
-        task.description = oldValue;
+    final tc = teController(TaskFCode.description.index);
+    if (tc != null) {
+      await showMTDialog<void>(TaskDescriptionDialog(tc));
+      final newValue = tc.text;
+      if (task.description != newValue) {
+        final oldValue = task.description;
+        task.description = newValue;
+        if (!(await _saveField(TaskFCode.description))) {
+          task.description = oldValue;
+        }
       }
     }
   }
@@ -131,7 +136,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
   Future resetAssignee() async {
     final oldValue = task.assigneeId;
     task.assigneeId = null;
-    if (!(await _saveField('assignee'))) {
+    if (!(await _saveField(TaskFCode.assignee))) {
       task.assigneeId = oldValue;
     }
   }
@@ -146,7 +151,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     if (selectedId != null) {
       final oldValue = task.assigneeId;
       task.assigneeId = selectedId;
-      if (!(await _saveField('assignee'))) {
+      if (!(await _saveField(TaskFCode.assignee))) {
         task.assigneeId = oldValue;
       }
     }
@@ -156,22 +161,26 @@ abstract class _TaskViewControllerBase extends EditController with Store {
 
   Future _setStartDate(DateTime? _date) async {
     final oldValue = task.startDate;
-    task.startDate = _date;
-    if (!(await _saveField('startDate'))) {
-      task.startDate = oldValue;
+    if (task.startDate != _date) {
+      task.startDate = _date;
+      if (!(await _saveField(TaskFCode.startDate))) {
+        task.startDate = oldValue;
+      }
     }
   }
 
   Future _setDueDate(DateTime? _date) async {
     final oldValue = task.dueDate;
-    task.dueDate = _date;
-    if (!(await _saveField('dueDate'))) {
-      task.dueDate = oldValue;
+    if (task.dueDate != _date) {
+      task.dueDate = _date;
+      if (!(await _saveField(TaskFCode.dueDate))) {
+        task.dueDate = oldValue;
+      }
     }
   }
 
-  Future selectDate(String code) async {
-    final isStart = code == 'startDate';
+  Future selectDate(TaskFCode code) async {
+    final isStart = code == TaskFCode.startDate;
 
     final today = DateTime.now();
     final pastDate = today.subtract(year);
@@ -196,10 +205,10 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     }
   }
 
-  void resetDate(String code) {
-    if (code == 'startDate') {
+  void resetDate(TaskFCode code) {
+    if (code == TaskFCode.startDate) {
       _setStartDate(null);
-    } else if (code == 'dueDate') {
+    } else if (code == TaskFCode.dueDate) {
       _setDueDate(null);
     }
   }
@@ -284,7 +293,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
   Future resetEstimate() async {
     final oldValue = task.estimate;
     task.estimate = null;
-    if (!(await _saveField('estimate'))) {
+    if (!(await _saveField(TaskFCode.estimate))) {
       task.estimate = oldValue;
     }
   }
@@ -299,7 +308,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     if (selectedEstimateId != null) {
       final oldValue = task.estimate;
       task.estimate = _ws.estimateValueForId(selectedEstimateId)?.value;
-      if (!(await _saveField('estimate'))) {
+      if (!(await _saveField(TaskFCode.estimate))) {
         task.estimate = oldValue;
       }
     }

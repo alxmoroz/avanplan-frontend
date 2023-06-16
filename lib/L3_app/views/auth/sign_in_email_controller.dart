@@ -13,22 +13,24 @@ import '../_base/edit_controller.dart';
 
 part 'sign_in_email_controller.g.dart';
 
+enum SigninFCode { name, email, password }
+
 class SignInEmailController extends _SignInEmailControllerBase with _$SignInEmailController {
   SignInEmailController() {
     initState(fds: [
-      MTFieldData('email', label: loc.auth_email_placeholder),
-      MTFieldData('password', label: loc.auth_password_placeholder),
+      MTFieldData(SigninFCode.email.index, label: loc.auth_email_placeholder),
+      MTFieldData(SigninFCode.password.index, label: loc.auth_password_placeholder),
     ]);
   }
 }
 
 abstract class _SignInEmailControllerBase extends EditController with Store {
-  Widget tf(String code, {bool first = false}) {
-    final fd = fData(code);
-    final isPassword = code == 'password';
-    final isEmail = code == 'email';
+  Widget tf(SigninFCode code, {bool first = false}) {
+    final fd = fData(code.index);
+    final isPassword = code == SigninFCode.password;
+    final isEmail = code == SigninFCode.email;
     return MTTextField(
-      controller: teControllers[code],
+      controller: teController(code.index),
       label: fd.label,
       error: fd.errorText,
       keyboardType: isEmail ? TextInputType.emailAddress : null,
@@ -47,7 +49,7 @@ abstract class _SignInEmailControllerBase extends EditController with Store {
   void _toggleShowPassword() => _showPassword = !_showPassword;
 
   Future signIn() async => await authController.signInWithPassword(
-        fData('email').text,
-        fData('password').text,
+        fData(SigninFCode.email.index).text,
+        fData(SigninFCode.password.index).text,
       );
 }

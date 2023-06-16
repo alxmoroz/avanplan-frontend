@@ -92,6 +92,7 @@ class NormalText extends _BaseText {
   const NormalText(
     String text, {
     int? maxLines,
+    double? height,
     super.sizeScale,
     super.color,
     super.align,
@@ -101,6 +102,7 @@ class NormalText extends _BaseText {
           text,
           weight: FontWeight.w400,
           maxLines: maxLines ?? 7,
+          height: height,
         );
 }
 

@@ -41,12 +41,12 @@ class DetailsPane extends StatelessWidget {
 
   bool get _closable => _task.canCloseGroup || _task.canCloseLeaf;
 
-  Widget _dateField(BuildContext context, String code) {
-    final isStart = code == 'startDate';
+  Widget _dateField(BuildContext context, TaskFCode code) {
+    final isStart = code == TaskFCode.startDate;
     final date = isStart ? _task.startDate : _task.dueDate;
     final isEmpty = date == null;
     return MTField(
-      controller.fData(code),
+      controller.fData(code.index),
       leading: isStart ? CalendarIcon(size: P3, color: _task.canUpdate ? mainColor : lightGreyColor) : null,
       value: !isEmpty
           ? Row(children: [
@@ -95,7 +95,7 @@ class DetailsPane extends StatelessWidget {
               ],
               if (_task.hasAssignee || _task.canAssign) ...[
                 MTField(
-                  controller.fData('assignee'),
+                  controller.fData(TaskFCode.assignee.index),
                   leading: _task.hasAssignee
                       ? _task.assignee!.icon(P * 1.5)
                       : PersonIcon(
@@ -110,7 +110,7 @@ class DetailsPane extends StatelessWidget {
               if (_task.hasDescription || _task.canUpdate) ...[
                 const SizedBox(height: P),
                 MTField(
-                  controller.fData('description'),
+                  controller.fData(TaskFCode.description.index),
                   leading: DescriptionIcon(size: P3, color: _task.canUpdate ? mainColor : lightGreyColor),
                   value: _task.hasDescription
                       ? SelectableLinkify(
@@ -124,12 +124,12 @@ class DetailsPane extends StatelessWidget {
                 ),
               ],
               const SizedBox(height: P),
-              _dateField(context, 'startDate'),
-              if (_task.hasDueDate || _task.canUpdate) _dateField(context, 'dueDate'),
+              _dateField(context, TaskFCode.startDate),
+              if (_task.hasDueDate || _task.canUpdate) _dateField(context, TaskFCode.dueDate),
               if (_task.hasEstimate || _task.canEstimate) ...[
                 const SizedBox(height: P),
                 MTField(
-                  controller.fData('estimate'),
+                  controller.fData(TaskFCode.estimate.index),
                   leading: EstimateIcon(size: P3, color: _task.canEstimate ? mainColor : lightGreyColor),
                   value: _task.hasEstimate ? NormalText('${_task.estimate} ${loc.task_estimate_unit}') : null,
                   onSelect: _task.canEstimate ? controller.selectEstimate : null,
@@ -139,7 +139,7 @@ class DetailsPane extends StatelessWidget {
               if (_task.hasAuthor) ...[
                 const SizedBox(height: P),
                 MTField(
-                  controller.fData('author'),
+                  controller.fData(TaskFCode.author.index),
                   leading: _task.author!.icon(P * 1.5),
                   value: NormalText('${_task.author}', color: lightGreyColor),
                   onSelect: null,

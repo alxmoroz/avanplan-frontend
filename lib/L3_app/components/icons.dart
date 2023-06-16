@@ -83,7 +83,7 @@ class ChevronIcon extends MTIcon {
   Widget build(BuildContext context) => FaIcon(
         FontAwesomeIcons.chevronRight,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? P * 1.2,
+        size: size ?? P * 1,
       );
 }
 

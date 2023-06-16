@@ -26,7 +26,7 @@ class RegistrationCompletedMessage extends StatelessWidget {
         H3(loc.auth_register_completed_title, align: TextAlign.center),
         const SizedBox(height: P2),
         H4(
-          loc.auth_register_completed_description(controller.fData('email').text),
+          loc.auth_register_completed_description(controller.fData(RegistrationFCode.email.index).text),
           maxLines: 7,
           align: TextAlign.center,
         ),

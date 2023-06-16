@@ -39,8 +39,8 @@ class _SignInEmailFormState extends State<SignInEmailForm> {
           builder: (_) => ListView(
             shrinkWrap: true,
             children: [
-              controller.tf('email', first: true),
-              controller.tf('password'),
+              controller.tf(SigninFCode.email, first: true),
+              controller.tf(SigninFCode.password),
               const SizedBox(height: P2),
               MTButton.main(
                 titleText: loc.auth_sign_in_email_action_title,

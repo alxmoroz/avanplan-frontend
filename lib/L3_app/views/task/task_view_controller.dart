@@ -139,7 +139,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
 
   /// назначенный
 
-  Future resetAssignee() async {
+  Future _resetAssignee() async {
     final oldValue = task.assigneeId;
     task.assigneeId = null;
     if (!(await _saveField(TaskFCode.assignee))) {
@@ -153,6 +153,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
       task.assigneeId,
       loc.task_assignee_placeholder,
       valueBuilder: (_, member) => member.iconName(radius: P * 1.5),
+      onReset: task.canAssign ? _resetAssignee : null,
     );
     if (selectedId != null) {
       final oldValue = task.assigneeId;
@@ -182,6 +183,14 @@ abstract class _TaskViewControllerBase extends EditController with Store {
       if (!(await _saveField(TaskFCode.dueDate))) {
         task.dueDate = oldValue;
       }
+    }
+  }
+
+  void _resetDate(TaskFCode code) {
+    if (code == TaskFCode.startDate) {
+      _setStartDate(null);
+    } else if (code == TaskFCode.dueDate) {
+      _setDueDate(null);
     }
   }
 
@@ -225,7 +234,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
                       middle: MediumText(loc.clear_action_title, color: warningColor, sizeScale: 0.9),
                       onTap: () {
                         Navigator.of(ctx).pop();
-                        resetDate(code);
+                        _resetDate(code);
                       }),
                 ),
             ],
@@ -240,14 +249,6 @@ abstract class _TaskViewControllerBase extends EditController with Store {
       } else {
         _setDueDate(date);
       }
-    }
-  }
-
-  void resetDate(TaskFCode code) {
-    if (code == TaskFCode.startDate) {
-      _setStartDate(null);
-    } else if (code == TaskFCode.dueDate) {
-      _setDueDate(null);
     }
   }
 
@@ -328,7 +329,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
 
   /// оценка
 
-  Future resetEstimate() async {
+  Future _resetEstimate() async {
     final oldValue = task.estimate;
     task.estimate = null;
     if (!(await _saveField(TaskFCode.estimate))) {
@@ -341,6 +342,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
       _ws.estimateValues,
       _ws.estimateValueForValue(task.estimate)?.id,
       loc.task_estimate_placeholder,
+      onReset: _resetEstimate,
     );
 
     if (selectedEstimateId != null) {

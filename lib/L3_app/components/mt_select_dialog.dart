@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import '../../L1_domain/entities/base_entity.dart';
 import 'colors.dart';
 import 'constants.dart';
+import 'icons.dart';
+import 'mt_button.dart';
 import 'mt_circle.dart';
 import 'mt_dialog.dart';
 import 'mt_list_tile.dart';
@@ -16,22 +18,25 @@ Future<int?> showMTSelectDialog<T extends RPersistable>(
   int? selectedId,
   String? titleText, {
   Widget Function(BuildContext, T)? valueBuilder,
+  final VoidCallback? onReset,
 }) async =>
     await showMTDialog<int?>(
       _MTSelectDialog<T>(
         items,
         selectedId,
         titleText,
-        valueBuilder,
+        valueBuilder: valueBuilder,
+        onReset: onReset,
       ),
     );
 
 class _MTSelectDialog<T extends RPersistable> extends StatelessWidget {
-  const _MTSelectDialog(this.items, this.selectedId, this.titleText, this.valueBuilder);
+  const _MTSelectDialog(this.items, this.selectedId, this.titleText, {this.valueBuilder, this.onReset});
   final List<T> items;
   final int? selectedId;
   final String? titleText;
   final Widget Function(BuildContext, T)? valueBuilder;
+  final VoidCallback? onReset;
 
   int get selectedIndex => items.indexWhere((i) => i.id == selectedId);
   int get itemCount => items.length;
@@ -48,7 +53,19 @@ class _MTSelectDialog<T extends RPersistable> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MTDialog(
-        topBar: MTTopBar(titleText: titleText),
+        topBar: MTTopBar(
+          titleText: titleText,
+          trailing: onReset != null && selectedId != null
+              ? MTButton.icon(
+                  const DeleteIcon(),
+                  () {
+                    onReset!();
+                    Navigator.of(context).pop();
+                  },
+                  padding: const EdgeInsets.all(P),
+                )
+              : null,
+        ),
         body: ListView.builder(
           shrinkWrap: true,
           itemCount: itemCount,

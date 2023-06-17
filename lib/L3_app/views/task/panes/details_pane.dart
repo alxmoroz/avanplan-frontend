@@ -104,7 +104,6 @@ class DetailsPane extends StatelessWidget {
                         ),
                   value: _task.hasAssignee ? NormalText('${_task.assignee}', color: _task.canAssign ? null : lightGreyColor) : null,
                   onSelect: _task.canAssign ? controller.assignPerson : null,
-                  onReset: _task.canAssign ? controller.resetAssignee : null,
                 ),
               ],
               if (_task.hasDescription || _task.canUpdate) ...[
@@ -133,7 +132,6 @@ class DetailsPane extends StatelessWidget {
                   leading: EstimateIcon(size: P3, color: _task.canEstimate ? mainColor : lightGreyColor),
                   value: _task.hasEstimate ? NormalText('${_task.sumEstimate} ${loc.task_estimate_unit}') : null,
                   onSelect: _task.canEstimate ? controller.selectEstimate : null,
-                  onReset: _task.canEstimate ? controller.resetEstimate : null,
                 ),
               ],
               if (_task.hasAuthor) ...[

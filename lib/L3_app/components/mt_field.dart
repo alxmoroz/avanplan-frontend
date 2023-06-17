@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 
 import 'colors.dart';
 import 'constants.dart';
-import 'icons.dart';
-import 'mt_button.dart';
 import 'mt_field_data.dart';
 import 'mt_list_tile.dart';
 import 'text_widgets.dart';
@@ -14,7 +12,6 @@ class MTField extends StatelessWidget {
   const MTField(
     this.fd, {
     required this.onSelect,
-    this.onReset,
     this.leading,
     this.value,
     this.bottomDivider = false,
@@ -25,19 +22,11 @@ class MTField extends StatelessWidget {
   final Widget? leading;
   final Widget? value;
   final VoidCallback? onSelect;
-  final VoidCallback? onReset;
+
   final bool bottomDivider;
   final double? dividerStartIndent;
 
   bool get _hasValue => value != null || fd.text.isNotEmpty;
-
-  Widget? get _resetBtn => onReset != null && _hasValue
-      ? MTButton.icon(
-          const CloseIcon(color: lightGreyColor),
-          onReset,
-          padding: const EdgeInsets.symmetric(vertical: P_2).copyWith(left: P, right: 0),
-        )
-      : null;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +45,6 @@ class MTField extends StatelessWidget {
                   color: lightGreyColor,
                   padding: const EdgeInsets.symmetric(vertical: P_2),
                 ),
-          trailing: _resetBtn,
           bottomDivider: bottomDivider,
           dividerStartIndent: dividerStartIndent,
           onTap: onSelect,

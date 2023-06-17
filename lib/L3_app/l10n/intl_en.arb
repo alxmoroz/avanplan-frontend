@@ -62,6 +62,7 @@
   "chart_volume_total_label": "Total",
   "chart_volume_unit": "completed",
 
+  "clear_action_title": "Clear",
   "close_action_title": "Close",
   "close_dialog_recursive_description": "All subtasks will be marked completed",
   "close_dialog_recursive_title": "Close with subtasks?",
@@ -315,7 +316,6 @@
   "thousands_count_short": "{count, plural, one{{count} thousand} other{{count} thousands}}",
 
   "title": "Title",
-  "today_date_label": "Today",
 
   "update_app_recommendation_title": "Update the app to the latest version",
   "update_web_app_recommendation_title": "Refresh the page in your browser or reinstall the web application",

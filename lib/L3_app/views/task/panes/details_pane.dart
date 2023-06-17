@@ -45,8 +45,9 @@ class DetailsPane extends StatelessWidget {
     final isStart = code == TaskFCode.startDate;
     final date = isStart ? _task.startDate : _task.dueDate;
     final isEmpty = date == null;
+    final fd = controller.fData(code.index);
     return MTField(
-      controller.fData(code.index),
+      fd,
       leading: isStart ? CalendarIcon(size: P3, color: _task.canUpdate ? mainColor : lightGreyColor) : null,
       value: !isEmpty
           ? Row(children: [
@@ -54,8 +55,7 @@ class DetailsPane extends StatelessWidget {
               LightText(DateFormat.E().format(date), color: greyColor),
             ])
           : null,
-      onSelect: _task.canUpdate ? () => controller.selectDate(code) : null,
-      onReset: _task.canUpdate ? () => controller.resetDate(code) : null,
+      onSelect: _task.canUpdate ? () => controller.selectDate(context, code) : null,
       bottomDivider: isStart && (_task.hasDueDate || _task.canUpdate),
       dividerStartIndent: isStart ? P * 5.5 : null,
     );

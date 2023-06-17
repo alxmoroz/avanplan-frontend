@@ -18,9 +18,11 @@ import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_alert_dialog.dart';
+import '../../components/mt_button.dart';
 import '../../components/mt_dialog.dart';
 import '../../components/mt_field_data.dart';
 import '../../components/mt_select_dialog.dart';
+import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/duration_presenter.dart';
 import '../../presenters/person_presenter.dart';
@@ -35,6 +37,8 @@ import 'task_edit_view.dart';
 import 'widgets/task_description_dialog.dart';
 
 part 'task_view_controller.g.dart';
+
+// TODO: уменьшить размер файла, разнести по отдельным контроллерам. Например, отдельно редактирование и просмотр
 
 enum TaskTabKey { overview, subtasks, details, team }
 
@@ -99,9 +103,6 @@ abstract class _TaskViewControllerBase extends EditController with Store {
   Task get task => mainController.taskForId(wsId, taskId);
   Workspace get _ws => mainController.wsForId(wsId);
   bool get plCreate => task.isRoot ? _ws.plProjects : _ws.plTasks;
-
-  @observable
-  bool isNew = false;
 
   Future<bool> _saveField(TaskFCode code) async {
     bool saved = false;
@@ -184,23 +185,55 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     }
   }
 
-  Future selectDate(TaskFCode code) async {
+  Future selectDate(BuildContext context, TaskFCode code) async {
+    final today = DateTime.now();
+
     final isStart = code == TaskFCode.startDate;
 
-    final today = DateTime.now();
-    final pastDate = today.subtract(year);
+    final hasFutureStart = task.startDate != null && task.startDate!.isAfter(today);
+    final selectedDate = isStart ? task.startDate : task.dueDate;
 
-    final lastDate = (isStart ? task.dueDate : null) ?? today.add(year * 100);
-    final initialDate = (isStart ? task.startDate : task.dueDate) ?? (today.isAfter(lastDate) ? lastDate : today);
-    final firstDate = (isStart ? null : task.startDate) ?? (pastDate.isAfter(initialDate) ? initialDate : pastDate);
+    final pastDate = today.subtract(year);
+    final futureDate = today.add(year * 100);
+
+    final initialDate = selectedDate ?? (hasFutureStart ? task.startDate! : today);
+    final firstDate = isStart ? pastDate : task.startDate ?? today;
+    final lastDate = (isStart ? task.dueDate : null) ?? futureDate;
+
+    // !! Нельзя давать менять способ ввода - поплывёт кнопка "Сбросить".
+    // Если нужен ввод с клавиатуры, то нужно доработать позиционирование кнопки "Сбросить"
+    // final entryMode = isWeb ? DatePickerEntryMode.input : DatePickerEntryMode.calendar;
+    const entryMode = DatePickerEntryMode.calendarOnly;
 
     final date = await showDatePicker(
-      context: rootKey.currentContext!,
-      initialEntryMode: DatePickerEntryMode.calendarOnly,
+      context: context,
+      initialEntryMode: entryMode,
       initialDate: initialDate,
       firstDate: firstDate,
       lastDate: lastDate,
+      builder: (_, child) => LayoutBuilder(
+        builder: (ctx, size) {
+          final isPortrait = size.maxHeight > size.maxWidth;
+          return Stack(
+            children: [
+              child!,
+              if (selectedDate != null)
+                Positioned(
+                  left: size.maxWidth / 2 - (isPortrait ? 140 : 60),
+                  top: size.maxHeight / 2 + (isPortrait ? 220 : 126),
+                  child: MTButton(
+                      middle: MediumText(loc.clear_action_title, color: warningColor, sizeScale: 0.9),
+                      onTap: () {
+                        Navigator.of(ctx).pop();
+                        resetDate(code);
+                      }),
+                ),
+            ],
+          );
+        },
+      ),
     );
+
     if (date != null) {
       if (isStart) {
         _setStartDate(date);

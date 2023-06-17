@@ -62,6 +62,7 @@
   "chart_volume_total_label": "Всего задач",
   "chart_volume_unit": "выполнено",
 
+  "clear_action_title": "Сбросить",
   "close_action_title": "Завершить",
   "close_dialog_recursive_description": "Все открытые подзадачи будут отмечены выполненными",
   "close_dialog_recursive_title": "Завершить вместе с подзадачами?",
@@ -315,7 +316,6 @@
   "thousands_count_short": "{count} тыс.",
 
   "title": "Название",
-  "today_date_label": "Сегодня",
 
   "update_app_recommendation_title": "Убедитесь, что у вас самая свежая версия приложения.\nПопробуйте ещё раз",
   "update_web_app_recommendation_title": "Обновите страницу в браузере или переустановите веб-приложение",

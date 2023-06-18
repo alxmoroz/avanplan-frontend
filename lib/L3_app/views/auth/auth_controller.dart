@@ -99,7 +99,6 @@ abstract class _AuthControllerBase with Store {
     await authUC.signOut();
   }
 
-  @action
   Future startupActions() async {
     await _signInWithRegistration();
   }

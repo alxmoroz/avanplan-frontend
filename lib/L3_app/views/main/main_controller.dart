@@ -216,14 +216,15 @@ abstract class _MainControllerBase with Store {
   static const _updatePeriod = Duration(minutes: 30);
 
   Future _authorizedStartupActions() async {
-    if (isIOS) {
-      await notificationController.initPush();
-    }
     await _tryUpdate();
     await _checkAppUpgrade();
     await _showOnboarding();
+    if (isIOS) {
+      await notificationController.initPush();
+    }
   }
 
+  // TODO: пригодится блокировка от возможного повторного запуска в том же потоке
   Future startupActions() async {
     await serviceSettingsController.fetchSettings();
     await authController.checkLocalAuth();

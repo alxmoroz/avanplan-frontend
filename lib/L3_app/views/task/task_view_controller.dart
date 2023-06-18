@@ -1,5 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -27,13 +29,12 @@ import '../../extra/services.dart';
 import '../../presenters/duration_presenter.dart';
 import '../../presenters/person_presenter.dart';
 import '../../presenters/source_presenter.dart';
+import '../../presenters/task_level_presenter.dart';
 import '../../presenters/task_view_presenter.dart';
 import '../../usecases/task_ext_actions.dart';
 import '../../usecases/ws_ext_actions.dart';
 import '../../views/_base/edit_controller.dart';
 import '../tariff/tariff_select_view.dart';
-import 'task_edit_controller.dart';
-import 'task_edit_view.dart';
 import 'widgets/task_description_dialog.dart';
 
 part 'task_view_controller.g.dart';
@@ -44,12 +45,26 @@ enum TaskTabKey { overview, subtasks, details, team }
 
 enum TaskFCode { title, description, startDate, dueDate, estimate, assignee, author }
 
+class TaskParams {
+  TaskParams(this.wsId, {this.taskId, this.isNew = false});
+  final int wsId;
+  final int? taskId;
+  final bool isNew;
+}
+
 class TaskViewController extends _TaskViewControllerBase with _$TaskViewController {
-  TaskViewController(int _wsId, int? _taskId) {
-    wsId = _wsId;
-    taskId = _taskId;
+  TaskViewController([TaskParams? tp]) {
+    wsId = tp?.wsId ?? -1;
+    taskId = tp?.taskId;
+    isNew = tp?.isNew ?? false;
+
     final task = mainController.taskForId(wsId, taskId);
     initState(fds: [
+      MTFieldData(
+        TaskFCode.title.index,
+        text: task.title,
+        needValidate: false,
+      ),
       MTFieldData(
         TaskFCode.description.index,
         text: task.description,
@@ -99,6 +114,7 @@ class TaskViewController extends _TaskViewControllerBase with _$TaskViewControll
 abstract class _TaskViewControllerBase extends EditController with Store {
   late final int wsId;
   late final int? taskId;
+  late final bool isNew;
 
   Task get task => mainController.taskForId(wsId, taskId);
   Workspace get _ws => mainController.wsForId(wsId);
@@ -118,6 +134,30 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     }
     updateField(code.index, loading: false);
     return saved;
+  }
+
+  /// название
+
+  Future _setTitle(String str) async {
+    if (task.title != str) {
+      if (str.isEmpty) {
+        teController(TaskFCode.title.index)!.text = str = task.viewTitle;
+      }
+      final oldValue = task.title;
+      task.title = str;
+      if (!(await _saveField(TaskFCode.title))) {
+        task.title = oldValue;
+      }
+    }
+  }
+
+  Timer? _titleEditTimer;
+
+  Future editTitle(String str) async {
+    if (_titleEditTimer != null) {
+      _titleEditTimer!.cancel();
+    }
+    _titleEditTimer = Timer(const Duration(milliseconds: 500), () async => await _setTitle(str));
   }
 
   /// описание
@@ -399,21 +439,6 @@ abstract class _TaskViewControllerBase extends EditController with Store {
         ],
       );
 
-  Future<bool?> _unwatchDialog() async => await showMTAlertDialog(
-        rootKey.currentContext!,
-        title: loc.task_unwatch_dialog_title,
-        description: loc.task_unwatch_dialog_description,
-        actions: [
-          MTADialogAction(
-            title: loc.task_unwatch_action_title,
-            type: MTActionType.isDanger,
-            result: true,
-            icon: const EyeIcon(open: false, color: dangerColor, size: P * 1.4),
-          ),
-          _go2SourceDialogAction(),
-        ],
-      );
-
   Future<bool?> _closeDialog() async => await showMTAlertDialog(
         rootKey.currentContext!,
         title: loc.close_dialog_recursive_title,
@@ -439,37 +464,29 @@ abstract class _TaskViewControllerBase extends EditController with Store {
 
   Future addSubtask() async {
     if (plCreate) {
-      final newTaskResult = await editTaskDialog(TaskEditController(wsId, parent: task));
-
-      if (newTaskResult != null) {
-        final newTask = newTaskResult.task;
+      loader.start();
+      loader.setSaving();
+      final newTask = await taskUC.save(Task(
+        title: task.newSubtaskTitle,
+        statusId: _ws.statuses.firstOrNull?.id,
+        closed: false,
+        parent: task,
+        tasks: [],
+        wsId: wsId,
+        members: [],
+      ));
+      loader.stop();
+      if (newTask != null) {
         task.tasks.add(newTask);
         _updateTaskParents(newTask);
-        if (newTaskResult.proceed == true) {
-          if (task.isProject || task.isRoot) {
-            await mainController.showTask(wsId, newTask.id);
-          } else {
-            await addSubtask();
-          }
-        }
         selectTab(TaskTabKey.subtasks);
+        await mainController.showTask(TaskParams(wsId, taskId: newTask.id, isNew: true));
       }
     } else {
       await changeTariff(
         mainController.wsForId(wsId),
         reason: task.isRoot ? loc.tariff_change_limit_projects_reason_title : loc.tariff_change_limit_tasks_reason_title,
       );
-    }
-  }
-
-  Future edit() async {
-    final editTaskResult = await editTaskDialog(TaskEditController(wsId, task: task, parent: task.parent!));
-    if (editTaskResult != null) {
-      final editedTask = editTaskResult.task;
-      if (editedTask.deleted) {
-        _popDeleted(editedTask);
-      }
-      _updateTaskParents(editedTask);
     }
   }
 
@@ -490,10 +507,20 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     }
   }
 
-  Future unwatch() async {
-    if (await _unwatchDialog() == true) {
+  Future delete() async {
+    final confirm = await showMTAlertDialog(
+      rootKey.currentContext!,
+      title: task.deleteDialogTitle,
+      description: '${loc.task_delete_dialog_description}\n${loc.delete_dialog_description}',
+      actions: [
+        MTADialogAction(title: loc.yes, type: MTActionType.isDanger, result: true),
+        MTADialogAction(title: loc.no, type: MTActionType.isDefault, result: false),
+      ],
+      simple: true,
+    );
+    if (confirm == true) {
       loader.start();
-      loader.setUnwatch();
+      loader.setDeleting();
       final deletedTask = await taskUC.delete(task);
       await loader.stop();
       if (deletedTask.deleted) {
@@ -505,26 +532,17 @@ abstract class _TaskViewControllerBase extends EditController with Store {
 
   Future taskAction(TaskActionType? actionType) async {
     switch (actionType) {
-      case TaskActionType.add:
-        await addSubtask();
-        break;
-      case TaskActionType.edit:
-        await edit();
-        break;
       case TaskActionType.close:
         await setStatus(task, close: true);
         break;
       case TaskActionType.reopen:
         await setStatus(task, close: false);
         break;
-      case TaskActionType.go2source:
-        await launchUrlString(task.taskSource!.urlString);
-        break;
       case TaskActionType.unlink:
         await unlink();
         break;
-      case TaskActionType.unwatch:
-        await unwatch();
+      case TaskActionType.delete:
+        await delete();
         break;
       default:
     }

@@ -17,6 +17,7 @@ import '../../presenters/number_presenter.dart';
 import '../../usecases/ws_ext_actions.dart';
 import '../tariff/tariff_select_view.dart';
 import '../task/task_view.dart';
+import '../task/task_view_controller.dart';
 
 part 'main_controller.g.dart';
 
@@ -61,8 +62,7 @@ abstract class _MainControllerBase with Store {
     return t ?? rootTask;
   }
 
-  Future showTask(int wsId, int? taskId) async =>
-      await Navigator.of(rootKey.currentContext!).pushNamed(TaskView.routeName, arguments: TaskViewArgs(wsId, taskId));
+  Future showTask(TaskParams tp) async => await Navigator.of(rootKey.currentContext!).pushNamed(TaskView.routeName, arguments: tp);
 
   @observable
   DateTime? _updatedDate;

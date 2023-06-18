@@ -147,7 +147,6 @@
   "loader_saving_title": "Сохраняем...",
   "loader_source_listing": "Получаем список проектов...",
   "loader_unlinking_title": "Рвём связи...",
-  "loader_unwatch_title": "Отправляем в игнор...",
 
   "member_list_title": "Участники",
   "member_source_invitation_title": "Пригласить",
@@ -199,9 +198,6 @@
   "role_list_title": "Роли",
 
   "save_action_title": "Сохранить",
-  "save_and_go_action_title": "Сохранить и перейти",
-  "save_and_repeat_action_title": "Сохранить и повторить",
-
   "select_all_action_title": "Выбрать все",
 
   "state_ahead_duration": "Можем закончить на {duration} раньше",
@@ -306,10 +302,6 @@
   "task_unlink_action_title": "Удалить связь",
   "task_unlink_dialog_description": "Вы не сможете загружать обновления. Изменения не попадут в источник",
   "task_unlink_dialog_title": "Удалить связь с источником?",
-
-  "task_unwatch_action_title": "Прекратить отслеживать",
-  "task_unwatch_dialog_description": "Задачи будут удалены из Аванплана, но останутся в источнике",
-  "task_unwatch_dialog_title": "Прекратить отслеживать?",
 
   "team_title": "Команда",
 

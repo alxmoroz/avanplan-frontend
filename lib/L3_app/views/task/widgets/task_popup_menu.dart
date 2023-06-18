@@ -10,8 +10,6 @@ import '../../../components/icons_workspace.dart';
 import '../../../components/material_wrapper.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/source_presenter.dart';
-import '../../../presenters/task_level_presenter.dart';
 import '../../../usecases/task_ext_actions.dart';
 import '../../../usecases/ws_ext_actions.dart';
 import '../task_view_controller.dart';
@@ -32,24 +30,18 @@ class TaskPopupMenu extends StatelessWidget {
 
   Widget _atWidget(Task task, TaskActionType at) {
     switch (at) {
-      case TaskActionType.add:
-        return _tile(leading: const PlusIcon(), title: task.newSubtaskTitle);
-      case TaskActionType.edit:
-        return _tile(leading: const EditIcon(), title: loc.task_edit_action_title);
       case TaskActionType.close:
         return _tile(leading: const DoneIcon(true), title: loc.close_action_title);
       case TaskActionType.reopen:
         return _tile(leading: const DoneIcon(false), title: loc.task_reopen_action_title);
-      case TaskActionType.go2source:
-        return task.taskSource!.go2SourceTitle();
       case TaskActionType.unlink:
         return _tile(
           title: loc.task_unlink_action_title,
           color: warningColor,
           trailing: _task.ws.plUnlink ? null : const RoubleCircleIcon(),
         );
-      case TaskActionType.unwatch:
-        return _tile(title: loc.task_unwatch_action_title, color: dangerColor);
+      case TaskActionType.delete:
+        return _tile(leading: const DeleteIcon(), title: loc.delete_action_title, color: dangerColor);
       default:
         return NormalText('$at');
     }

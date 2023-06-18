@@ -17,6 +17,7 @@ import '../../../presenters/person_presenter.dart';
 import '../../../presenters/task_level_presenter.dart';
 import '../../../presenters/task_state_presenter.dart';
 import '../../../usecases/task_ext_refs.dart';
+import '../task_view_controller.dart';
 import 'state_title.dart';
 
 class TaskCard extends StatelessWidget {
@@ -87,7 +88,7 @@ class TaskCard extends StatelessWidget {
         ],
       );
 
-  Future _tap() async => await mainController.showTask(task.wsId, task.id);
+  Future _tap() async => await mainController.showTask(TaskParams(task.wsId, taskId: task.id));
 
   @override
   Widget build(BuildContext context) => board

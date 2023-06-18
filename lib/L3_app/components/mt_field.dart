@@ -11,11 +11,13 @@ import 'text_widgets.dart';
 class MTField extends StatelessWidget {
   const MTField(
     this.fd, {
-    required this.onSelect,
+    this.onSelect,
     this.leading,
     this.value,
     this.bottomDivider = false,
     this.dividerStartIndent,
+    this.padding,
+    this.color,
   });
 
   final MTFieldData fd;
@@ -25,6 +27,8 @@ class MTField extends StatelessWidget {
 
   final bool bottomDivider;
   final double? dividerStartIndent;
+  final EdgeInsets? padding;
+  final Color? color;
 
   bool get _hasValue => value != null || fd.text.isNotEmpty;
 
@@ -36,8 +40,8 @@ class MTField extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         MTListTile(
-          leading: SizedBox(width: P3 + P_2, child: Center(child: leading)),
-          middle: _hasValue ? NormalText(fd.label, color: lightGreyColor, height: 1, sizeScale: 0.9) : null,
+          leading: leading != null ? SizedBox(width: P3 + P_2, child: Center(child: leading)) : null,
+          middle: _hasValue && fd.label.isNotEmpty ? NormalText(fd.label, color: lightGreyColor, height: 1, sizeScale: 0.9) : null,
           subtitle: _hasValue
               ? child
               : LightText(
@@ -49,6 +53,8 @@ class MTField extends StatelessWidget {
           dividerStartIndent: dividerStartIndent,
           onTap: onSelect,
           crossAxisAlignment: CrossAxisAlignment.start,
+          padding: padding,
+          color: color,
         ),
         if (fd.loading) ...[
           Positioned(

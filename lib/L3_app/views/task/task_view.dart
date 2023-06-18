@@ -23,15 +23,9 @@ import 'task_view_controller.dart';
 import 'widgets/task_header.dart';
 import 'widgets/task_navbar.dart';
 
-class TaskViewArgs {
-  TaskViewArgs(this.wsId, this.taskId);
-  final int wsId;
-  final int? taskId;
-}
-
 class TaskView extends StatefulWidget {
-  const TaskView(this.args);
-  final TaskViewArgs args;
+  const TaskView(this.tp);
+  final TaskParams tp;
 
   static String get routeName => 'task';
 
@@ -40,9 +34,6 @@ class TaskView extends StatefulWidget {
 }
 
 class _TaskViewState extends State<TaskView> {
-  int get wsId => widget.args.wsId;
-  int? get taskId => widget.args.taskId;
-
   Task get task => controller.task;
 
   late final TaskViewController controller;
@@ -54,7 +45,7 @@ class _TaskViewState extends State<TaskView> {
 
   @override
   void initState() {
-    controller = TaskViewController(wsId, taskId);
+    controller = TaskViewController(widget.tp);
     overviewPane = OverviewPane(controller);
     tasksPane = TasksPane(controller, TasksPaneController(controller));
     detailsPane = DetailsPane(controller);

@@ -25,6 +25,7 @@ import 'L3_app/views/source/source_list_view.dart';
 import 'L3_app/views/tariff/active_contract_view.dart';
 import 'L3_app/views/task/panes/team/member_view.dart';
 import 'L3_app/views/task/task_view.dart';
+import 'L3_app/views/task/task_view_controller.dart';
 import 'L3_app/views/user/user_list_view.dart';
 import 'L3_app/views/user/user_view.dart';
 import 'L3_app/views/workspace/workspace_view.dart';
@@ -118,7 +119,7 @@ class App extends StatelessWidget {
               } else if (rs.name == SourceListView.routeName) {
                 return CupertinoPageRoute<dynamic>(builder: (_) => SourceListView(rs.arguments as int));
               } else if (rs.name == TaskView.routeName) {
-                return CupertinoPageRoute<dynamic>(builder: (_) => TaskView(rs.arguments as TaskViewArgs));
+                return CupertinoPageRoute<dynamic>(builder: (_) => TaskView(rs.arguments as TaskParams));
               } else if (rs.name == MemberView.routeName) {
                 return CupertinoPageRoute<dynamic>(builder: (_) => MemberView(rs.arguments as MemberViewArgs));
               } else if (rs.name == UserView.routeName) {

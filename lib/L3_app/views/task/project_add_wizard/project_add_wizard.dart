@@ -86,7 +86,7 @@ class _ProjectAddWizardState extends State<ProjectAddWizard> {
               ),
               const SizedBox(height: P),
               TaskAddButton(
-                TaskViewController(controller.selectedWSId!, null),
+                TaskViewController(TaskParams(controller.selectedWSId!)),
                 dismissible: true,
               ),
             ],

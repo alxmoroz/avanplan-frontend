@@ -48,7 +48,7 @@ class DetailsPane extends StatelessWidget {
     final fd = controller.fData(code.index);
     return MTField(
       fd,
-      leading: isStart ? CalendarIcon(size: P3, color: _task.canUpdate ? mainColor : lightGreyColor) : null,
+      leading: isStart ? CalendarIcon(size: P3, color: _task.canUpdate ? mainColor : lightGreyColor) : Container(),
       value: !isEmpty
           ? Row(children: [
               NormalText(date.strMedium, padding: const EdgeInsets.only(right: P_2)),

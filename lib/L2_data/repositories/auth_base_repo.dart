@@ -5,7 +5,7 @@ import 'package:openapi/openapi.dart';
 
 import '../services/api.dart';
 
-abstract class AuthBaseRepo {
+mixin AuthMixin {
   AuthApi get authApi => openAPI.getAuthApi();
 
   String? parseTokenResponse(Response<AuthToken> tokenResponse) => tokenResponse.data?.accessToken;

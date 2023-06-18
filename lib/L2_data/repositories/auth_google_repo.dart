@@ -10,7 +10,7 @@ import '../../L1_domain/system/errors.dart';
 import '../services/platform.dart';
 import 'auth_base_repo.dart';
 
-class AuthGoogleRepo extends AbstractOAuthRepo with AuthBaseRepo {
+class AuthGoogleRepo extends AbstractOAuthRepo with AuthMixin {
   // для андроида обязательно, если без FireBase и google-services, иначе не отдает id_token
   static String serverClientID = '1039142486698-ki2e3ne2ntjfk2peqfn0r36rs489075o.apps.googleusercontent.com';
 

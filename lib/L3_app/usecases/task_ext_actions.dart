@@ -14,13 +14,10 @@ import '../extra/services.dart';
 import 'ws_ext_actions.dart';
 
 enum TaskActionType {
-  add,
-  edit,
   close,
   reopen,
-  go2source,
   unlink,
-  unwatch,
+  delete,
 }
 
 extension TaskActionsExt on Task {
@@ -56,7 +53,6 @@ extension TaskActionsExt on Task {
   bool get canReopen => closed && canUpdate && parent?.closed == false;
   bool get canClose => canUpdate && !closed;
   bool get canUnlink => _isLinkedProject && ws.hpProjectUpdate == true;
-  bool get canUnwatch => _isLinkedProject && ws.hpProjectDelete == true;
   bool get canMembersRead => isProject;
   bool get canEditMembers => _hpMemberUpdate;
   bool get isTrueLeaf => (isTask || isSubtask) && isLeaf;
@@ -76,12 +72,10 @@ extension TaskActionsExt on Task {
       ].contains(level);
 
   Iterable<TaskActionType> get actionTypes => [
-        if (canCreate) TaskActionType.add,
-        if (canUpdate) TaskActionType.edit,
         if (canClose) TaskActionType.close,
         if (canReopen) TaskActionType.reopen,
         if (canUnlink) TaskActionType.unlink,
-        if (canUnwatch) TaskActionType.unwatch,
+        if (canDelete) TaskActionType.delete,
       ];
 
   void _updateParentTask() {

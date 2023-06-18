@@ -210,5 +210,4 @@ abstract class _LoaderControllerBase with Store {
         imageName: ImageNames.import,
       );
   void setUnlinking() => set(titleText: loc.loader_unlinking_title, imageName: ImageNames.transfer);
-  void setUnwatch() => set(titleText: loc.loader_unwatch_title, imageName: ImageNames.delete);
 }

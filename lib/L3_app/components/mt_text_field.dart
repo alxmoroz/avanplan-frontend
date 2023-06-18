@@ -26,7 +26,6 @@ InputDecoration tfDecoration(
 
   return InputDecoration(
     labelText: label,
-    // floatingLabelStyle: const LightText('', color: greyColor).style(context),
     labelStyle: const LightText('', color: greyColor).style(context),
     helperText: helper,
     helperStyle: const SmallText('').style(context),
@@ -72,6 +71,9 @@ class MTTextField extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.onTap,
+    this.onChanged,
+    this.style,
+    this.decoration,
     this.enabled = true,
   });
 
@@ -85,6 +87,7 @@ class MTTextField extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.onTap,
+    this.decoration,
     this.maxLines = 1,
     this.enabled = true,
   })  : autofocus = false,
@@ -93,6 +96,8 @@ class MTTextField extends StatelessWidget {
         autocorrect = false,
         suggestions = false,
         keyboardType = null,
+        onChanged = null,
+        style = null,
         readOnly = true;
 
   final TextEditingController? controller;
@@ -112,37 +117,44 @@ class MTTextField extends StatelessWidget {
   final bool enabled;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
+  final InputDecoration? decoration;
+  final TextStyle? style;
   final VoidCallback? onTap;
+  final Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
-    return material(Padding(
-      padding: margin ?? tfPadding,
-      child: TextField(
-        style: const NormalText('').style(context),
-        decoration: tfDecoration(
-          context,
-          label: label,
-          helper: helper,
-          error: error,
-          prefixIcon: prefixIcon,
-          suffixIcon: suffixIcon,
-          enabled: enabled,
+    return material(
+      Padding(
+        padding: margin ?? tfPadding,
+        child: TextField(
+          style: style ?? const NormalText('').style(context),
+          decoration: decoration ??
+              tfDecoration(
+                context,
+                label: label,
+                helper: helper,
+                error: error,
+                prefixIcon: prefixIcon,
+                suffixIcon: suffixIcon,
+                enabled: enabled,
+                readOnly: readOnly,
+                padding: padding,
+              ),
+          cursorColor: mainColor.resolve(context),
+          autofocus: autofocus,
+          maxLines: maxLines,
+          controller: controller,
+          keyboardType: keyboardType,
+          textCapitalization: capitalization ?? TextCapitalization.sentences,
+          obscureText: obscureText,
+          autocorrect: autocorrect,
+          enableSuggestions: suggestions,
           readOnly: readOnly,
-          padding: padding,
+          onTap: onTap,
+          onChanged: onChanged,
         ),
-        cursorColor: mainColor.resolve(context),
-        autofocus: autofocus,
-        maxLines: maxLines,
-        controller: controller,
-        keyboardType: keyboardType,
-        textCapitalization: capitalization ?? TextCapitalization.sentences,
-        obscureText: obscureText,
-        autocorrect: autocorrect,
-        enableSuggestions: suggestions,
-        readOnly: readOnly,
-        onTap: onTap,
       ),
-    ));
+    );
   }
 }

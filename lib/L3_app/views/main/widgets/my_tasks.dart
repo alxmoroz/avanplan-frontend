@@ -16,17 +16,18 @@ class MyTasks extends StatelessWidget {
   Widget build(BuildContext context) {
     final rootTask = mainController.rootTask;
     final myTasksCount = mainController.myUpcomingTasksCount;
+
     return DashboardWrapper(
       Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           NormalText(loc.task_list_my_title, align: TextAlign.center, color: lightGreyColor),
           Expanded(
-            child: myTasksCount > 0 ? D1('$myTasksCount', align: TextAlign.center, color: mainColor) : const MTImage(ImageNames.empty_tasks),
+            child: myTasksCount > 0 ? D1('$myTasksCount', align: TextAlign.center, color: mainColor) : MTImage(ImageNames.empty_tasks.toString()),
           ),
           H3(myTasksCount > 0 ? mainController.myUpcomingTasksTitle : loc.task_list_empty_title, align: TextAlign.center),
           const SizedBox(height: P),
-          if (myTasksCount < 1) NormalText(loc.task_list_empty_hint, align: TextAlign.center),
+          if (myTasksCount < 1) NormalText(loc.task_list_empty_hint, align: TextAlign.center, height: 1.2),
         ],
       ),
       onTap: () async => await Navigator.of(context).pushNamed(TaskView.routeName, arguments: TaskParams(rootTask.wsId, myTasks: true)),

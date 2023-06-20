@@ -1,9 +1,16 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
+
+import 'constants.dart';
 
 class ImageNames {
   static const delete = 'delete';
+  static const empty_sources = 'empty_sources';
+  static const empty_tasks = 'empty_tasks';
+  static const empty_team = 'empty_team';
   static const import = 'import';
   static const loading = 'loading';
   static const networkError = 'network_error';
@@ -29,15 +36,16 @@ class MTImage extends StatelessWidget {
   Widget build(BuildContext context) {
     final _dark = View.of(context).platformDispatcher.platformBrightness == Brightness.dark;
     String _assetPath(String name) => 'assets/images/$name${_dark ? '_dark' : ''}.png';
+    final _size = size ?? min(P * 17, MediaQuery.of(context).size.height / 2.5);
 
     return Image.asset(
       _assetPath(name),
-      width: size,
-      height: size,
+      width: _size,
+      height: _size,
       errorBuilder: (_, __, ___) => Image.asset(
         _assetPath('no_info'),
-        width: size,
-        height: size,
+        width: _size,
+        height: _size,
       ),
     );
   }

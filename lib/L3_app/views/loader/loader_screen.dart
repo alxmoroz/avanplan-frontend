@@ -12,22 +12,20 @@ import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 
 class LoaderScreen extends StatelessWidget {
-  static const double _ldrIconSize = P * 16;
-
-  Widget get _title => H2(
+  Widget get _title => H3(
         loader.titleText!,
         align: TextAlign.center,
-        padding: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
+        padding: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P),
       );
 
-  Widget get _description => H3(
+  Widget get _description => NormalText(
         loader.descriptionText!,
         align: TextAlign.center,
         padding: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P),
         maxLines: 5,
       );
 
-  Widget get _image => MTImage(loader.imageName!, size: _ldrIconSize);
+  Widget get _image => MTImage(loader.imageName!);
 
   @override
   Widget build(BuildContext context) => Observer(
@@ -59,7 +57,7 @@ class LoaderScreen extends StatelessWidget {
               ),
             ),
           ),
-          bottomBar: MTAdaptive.S(loader.actionWidget),
+          bottomBar: loader.actionWidget != null ? MTAdaptive.S(loader.actionWidget) : null,
         ),
       );
 }

@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:avanplan/L3_app/components/mt_toolbar.dart';
+import 'package:avanplan/L3_app/views/source/no_sources.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
@@ -115,12 +116,7 @@ class ImportView extends StatelessWidget {
               ),
             )
           : Container()
-      : ListView(
-          shrinkWrap: true,
-          children: [
-            H3(loc.source_list_empty_title, align: TextAlign.center, color: lightGreyColor),
-          ],
-        );
+      : NoSources();
 
   Widget _projectItemBuilder(BuildContext context, int index) {
     final project = controller.projects[index];

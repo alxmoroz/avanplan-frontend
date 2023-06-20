@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:avanplan/L3_app/views/source/no_sources.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -9,7 +10,6 @@ import '../../components/icons.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
-import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/source_presenter.dart';
 import '../../presenters/ws_presenter.dart';
@@ -43,7 +43,7 @@ class SourceListView extends StatelessWidget {
           top: false,
           bottom: false,
           child: ws.sources.isEmpty
-              ? Center(child: H3(loc.source_list_empty_title, align: TextAlign.center, color: lightGreyColor))
+              ? Center(child: NoSources())
               : ListView.builder(
                   itemBuilder: _sourceBuilder,
                   itemCount: ws.sources.length,

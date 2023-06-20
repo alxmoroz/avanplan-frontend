@@ -15,7 +15,6 @@ import '../../task/task_view_controller.dart';
 class NoProjects extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final iconSize = MediaQuery.of(context).size.height / 4;
     final rootTask = mainController.rootTask;
     final allClosed = rootTask.hasSubtasks;
     return Center(
@@ -23,7 +22,7 @@ class NoProjects extends StatelessWidget {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         children: [
-          MTImage(allClosed ? ImageNames.ok : ImageNames.start, size: iconSize),
+          MTImage(allClosed ? ImageNames.ok : ImageNames.start),
           const SizedBox(height: P),
           if (allClosed)
             MTButton(
@@ -33,8 +32,8 @@ class NoProjects extends StatelessWidget {
             )
           else
             H2(loc.state_no_projects_hint, align: TextAlign.center),
-          const SizedBox(height: P),
-          H3(
+          const SizedBox(height: P2),
+          NormalText(
             loc.projects_add_hint_title,
             align: TextAlign.center,
             padding: const EdgeInsets.symmetric(horizontal: P2),

@@ -20,10 +20,10 @@ class TaskHeader extends StatelessWidget {
   final TaskViewController controller;
 
   Task get _task => controller.task;
-  String get _breadcrumbs => _task.parent!.parentsTitles.join(' > ');
 
   @override
   Widget build(BuildContext context) {
+    final _breadcrumbs = _task.parent!.parentsTitles.join(' > ');
     return Observer(
       builder: (_) => MTAdaptive(
         force: true,

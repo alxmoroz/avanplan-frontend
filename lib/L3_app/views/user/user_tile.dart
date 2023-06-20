@@ -16,11 +16,6 @@ class UserTile extends StatelessWidget {
   final User user;
   final bool bottomBorder;
 
-  Future _showUser(BuildContext context) async => Navigator.of(context).pushNamed(
-        UserView.routeName,
-        arguments: user,
-      );
-
   @override
   Widget build(BuildContext context) {
     return MTListTile(
@@ -32,7 +27,10 @@ class UserTile extends StatelessWidget {
       subtitle: SmallText(user.rolesStr, color: greyColor),
       trailing: const ChevronIcon(),
       bottomDivider: bottomBorder,
-      onTap: () => _showUser(context),
+      onTap: () async => await Navigator.of(context).pushNamed(
+        UserView.routeName,
+        arguments: user,
+      ),
     );
   }
 }

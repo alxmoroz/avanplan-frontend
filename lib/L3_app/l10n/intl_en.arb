@@ -292,6 +292,8 @@
   "task_go2source_title": "Go to source",
   "task_filter_all": "All",
   "task_filter_opened": "Opened",
+  "task_list_empty_hint": "Assign yourself tasks from projects or add new ones",
+  "task_list_empty_title": "Taking a break from tasks",
   "task_list_my_title": "My tasks",
   "task_list_my_future_title": "Assigned to me",
   "task_list_my_today_title": "Today",

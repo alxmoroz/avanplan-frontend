@@ -133,7 +133,7 @@ class H3 extends _BaseText {
   }) : super(
           text,
           weight: FontWeight.w400,
-          sizeScale: 1.25,
+          sizeScale: 1.35,
           maxLines: maxLines ?? 3,
           height: 1.2,
         );

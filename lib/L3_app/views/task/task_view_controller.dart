@@ -47,10 +47,11 @@ enum TaskTabKey { overview, subtasks, details, team }
 enum TaskFCode { title, description, startDate, dueDate, estimate, assignee, author }
 
 class TaskParams {
-  TaskParams(this.wsId, {this.taskId, this.isNew = false});
+  TaskParams(this.wsId, {this.taskId, this.isNew = false, this.myTasks = false});
   final int wsId;
   final int? taskId;
   final bool isNew;
+  final bool myTasks;
 }
 
 class TaskViewController extends _TaskViewControllerBase with _$TaskViewController {
@@ -521,11 +522,11 @@ abstract class _TaskViewControllerBase extends EditController with Store {
       loader.start();
       loader.setDeleting();
       final deletedTask = await taskUC.delete(task);
-      await loader.stop();
       if (deletedTask.deleted) {
         _popDeleted(deletedTask);
         _updateTaskParents(deletedTask);
       }
+      await loader.stop(300);
     }
   }
 

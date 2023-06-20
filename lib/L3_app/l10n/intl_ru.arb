@@ -292,6 +292,8 @@
   "task_go2source_title": "Перейти к источнику",
   "task_filter_all": "Все",
   "task_filter_opened": "Открытые",
+  "task_list_empty_hint": "Назначьте себе задачи из проектов или добавьте новые",
+  "task_list_empty_title": "Отдыхаем от задач",
   "task_list_my_title": "Мои задачи",
   "task_list_my_future_title": "Назначены мне",
   "task_list_my_today_title": "Сегодня",

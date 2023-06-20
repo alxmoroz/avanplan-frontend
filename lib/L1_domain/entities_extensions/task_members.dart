@@ -7,7 +7,7 @@ import '../entities/task.dart';
 import 'task_level.dart';
 
 extension TaskMembersExtension on Task {
-  List<Member> get projectMembers => project?.members ?? [];
+  Iterable<Member> get projectMembers => project?.members ?? [];
   List<Member> get sortedMembers => projectMembers.sorted((m1, m2) => compareNatural('$m1', '$m2'));
 
   Member? get author => projectMembers.firstWhereOrNull((m) => m.id == authorId);

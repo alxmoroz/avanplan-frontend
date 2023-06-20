@@ -39,7 +39,6 @@ abstract class _MemberEditControllerBase with Store {
     loader.setSaving();
     final rolesIds = roles.where((r) => r.selected).map((r) => r.id!);
     final members = await taskMemberRoleUC.assignRoles(task.wsId, task.id!, member.id!, rolesIds);
-    mainController.fetchWorkspaces();
     Navigator.of(rootKey.currentContext!).pop(members);
     await loader.stop(300);
   }

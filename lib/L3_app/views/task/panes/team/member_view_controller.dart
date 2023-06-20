@@ -23,17 +23,28 @@ abstract class _MemberViewControllerBase with Store {
   @observable
   Member? member;
 
+  @computed
+  int? get memberId => member?.id;
+
+  @action
   Future editMember(BuildContext context) async {
     final members = await memberEditDialog(task, member!);
     if (members != null) {
-      task.members = members.toList();
-      mainController.updateRootTask();
-
-      try {
-        member = members.firstWhere((m) => m.id == member?.id);
-      } catch (_) {
+      task.members = members;
+      final deleted = !members.map((m) => m.id).contains(memberId);
+      if (deleted) {
+        if (task.assigneeId == memberId) {
+          task.assigneeId = null;
+        }
+        if (task.authorId == memberId) {
+          task.authorId = null;
+        }
         Navigator.of(context).pop();
+      } else {
+        member = members.firstWhere((m) => m.id == memberId);
       }
+
+      mainController.updateRootTask();
     }
   }
 }

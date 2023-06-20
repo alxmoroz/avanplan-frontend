@@ -60,11 +60,11 @@ class _MemberEditViewState extends State<MemberEditView> {
             children: [
               MediumText('$member'),
               task.subPageTitle(loc.role_list_title),
-              const SizedBox(height: P),
+              const SizedBox(height: P_2),
             ],
           ),
         ),
-        topBarHeight: P * 7,
+        topBarHeight: P * 7.5,
         body: ListView.builder(
           shrinkWrap: true,
           itemBuilder: _roleItem,

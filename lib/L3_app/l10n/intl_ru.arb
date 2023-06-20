@@ -148,7 +148,6 @@
   "loader_source_listing": "Получаем список проектов...",
   "loader_unlinking_title": "Рвём связи...",
 
-  "member_list_title": "Участники",
   "member_source_invitation_title": "Пригласить",
   "member_source_workspace_title": "Выбрать",
   "member_title": "Участник",
@@ -299,7 +298,6 @@
   "task_list_my_future_title": "Назначены мне",
   "task_list_my_today_title": "Сегодня",
   "task_list_my_week_title": "На этой неделе",
-
   "task_list_title": "Задачи",
   "task_new_title": "Новая задача",
   "task_reopen_action_title": "Переоткрыть",
@@ -313,7 +311,9 @@
   "task_unlink_dialog_description": "Вы не сможете загружать обновления. Изменения не попадут в источник",
   "task_unlink_dialog_title": "Удалить связь с источником?",
 
-  "team_title": "Команда",
+  "team_list_empty_hint": "Пригласите участников для эффективной совместной работы",
+  "team_list_empty_title": "Команда ждёт приглашения",
+  "team_list_title": "Команда",
 
   "thousands_count_short": "{count} тыс.",
 

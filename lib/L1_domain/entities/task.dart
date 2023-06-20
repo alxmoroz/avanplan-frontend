@@ -51,7 +51,7 @@ class Task extends Titleable {
   DateTime? dueDate;
   final int wsId;
   int? statusId;
-  final int? authorId;
+  int? authorId;
   int? assigneeId;
   final TaskSource? taskSource;
   final String? type;
@@ -59,7 +59,7 @@ class Task extends Titleable {
   Task? parent;
   bool closed;
 
-  List<Member> members;
+  Iterable<Member> members;
 
   TaskLevel level = TaskLevel.root;
 

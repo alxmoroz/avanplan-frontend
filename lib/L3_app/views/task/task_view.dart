@@ -76,7 +76,7 @@ class _TaskViewState extends State<TaskView> {
           res[TaskTabKey.details] = _tab(selected, const RulesIcon(), NormalText(loc.description));
           break;
         case TaskTabKey.team:
-          res[TaskTabKey.team] = _tab(selected, const PeopleIcon(), NormalText(loc.team_title));
+          res[TaskTabKey.team] = _tab(selected, const PeopleIcon(), NormalText(loc.team_list_title));
           break;
       }
     });

@@ -148,7 +148,6 @@
   "loader_source_listing": "Getting a list of projects...",
   "loader_unlinking_title": "Breaking the chains...",
 
-  "member_list_title": "Members",
   "member_source_invitation_title": "Invite",
   "member_source_workspace_title": "Select",
   "member_title": "Member",
@@ -312,7 +311,9 @@
   "task_unlink_dialog_description": "You will not be able to download updates. Changes will not be upload to the source",
   "task_unlink_dialog_title": "Unlink a source?",
 
-  "team_title": "Team",
+  "team_list_empty_hint": "Invite members to collaborate effectively",
+  "team_list_empty_title": "The team is waiting for an invitation",
+  "team_list_title": "Team",
 
   "thousands_count_short": "{count, plural, one{{count} thousand} other{{count} thousands}}",
 

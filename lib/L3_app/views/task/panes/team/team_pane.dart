@@ -19,6 +19,7 @@ import '../../../../usecases/task_ext_actions.dart';
 import '../../task_view_controller.dart';
 import 'member_add_menu.dart';
 import 'member_view.dart';
+import 'no_members.dart';
 
 class TeamPane extends StatelessWidget {
   const TeamPane(this.controller);
@@ -30,7 +31,7 @@ class TeamPane extends StatelessWidget {
 
   Widget? get bottomBar => !task.isRoot && task.canEditMembers && task.ws.roles.isNotEmpty ? MemberAddMenu(task) : null;
 
-  Widget _itemBuilder(BuildContext context, int index) {
+  Widget _memberBuilder(BuildContext context, int index) {
     final member = _sortedMembers[index];
     return MTListTile(
       topIndent: index == 0 ? P_2 : 0,
@@ -54,10 +55,12 @@ class TeamPane extends StatelessWidget {
     return Observer(
       builder: (_) => MTShadowed(
         child: MTAdaptive(
-          child: ListView.builder(
-            itemBuilder: _itemBuilder,
-            itemCount: _sortedMembers.length,
-          ),
+          child: _sortedMembers.isNotEmpty
+              ? ListView.builder(
+                  itemBuilder: _memberBuilder,
+                  itemCount: _sortedMembers.length,
+                )
+              : Center(child: NoMembers()),
         ),
       ),
     );

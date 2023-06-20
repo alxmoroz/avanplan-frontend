@@ -8,7 +8,7 @@ const Color darkGreyColor = CupertinoDynamicColor.withBrightness(
 );
 
 const Color greyColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 92, 92, 96),
+  color: Color.fromARGB(255, 82, 82, 90),
   darkColor: Color.fromARGB(255, 152, 152, 164),
 );
 

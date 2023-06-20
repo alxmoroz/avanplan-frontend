@@ -177,7 +177,7 @@ class TimingChart extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             LightText('$label ', sizeScale: 1.1, color: color),
-            H4('${date.strShort}', color: color),
+            H3('${date.strShort}', color: color),
           ],
         ));
   }

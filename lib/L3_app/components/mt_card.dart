@@ -64,7 +64,7 @@ class MTCardButton extends StatelessWidget {
       onPressed: onTap,
       child: MTCard(
         child: child,
-        margin: margin ?? const EdgeInsets.symmetric(horizontal: P, vertical: P_2),
+        margin: margin ?? EdgeInsets.zero,
         elevation: elevation,
         radius: radius,
         padding: padding ?? const EdgeInsets.all(P),

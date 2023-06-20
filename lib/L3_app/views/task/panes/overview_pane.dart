@@ -33,8 +33,6 @@ class OverviewPane extends StatelessWidget {
 
   Task get _task => controller.task;
 
-  //TODO: кнопки "Закрыть" и "Переоткрыть" остаются тут?
-
   Widget? get bottomBar => !_task.isRoot && _task.shouldAddSubtask
       ? TaskAddButton(controller)
       : _task.canReopen || _task.canCloseGroup
@@ -61,7 +59,7 @@ class OverviewPane extends StatelessWidget {
   Widget _checkRecommendsItem(bool checked, String text) => Row(children: [
         DoneIcon(checked, color: checked ? greenColor : greyColor, size: P * 3, solid: checked),
         const SizedBox(width: P_3),
-        H4(text, color: checked ? lightGreyColor : null),
+        H3(text, color: checked ? lightGreyColor : null),
       ]);
 
   Widget get _rItemAddTask => _checkRecommendsItem(
@@ -78,7 +76,6 @@ class OverviewPane extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => ListView(
-        shrinkWrap: _task.isRoot,
         children: [
           MTAdaptive(
             force: true,
@@ -89,11 +86,9 @@ class OverviewPane extends StatelessWidget {
               children: [
                 const SizedBox(height: P),
                 if (_task.canShowState)
-                  _task.isRoot
-                      ? GroupStateTitle(_task, _task.subtasksState, place: StateTitlePlace.workspace)
-                      : _task.canShowRecommendsEta || _task.projectLowStart
-                          ? H3('${loc.state_no_info_title}: ${_task.stateTitle.toLowerCase()}', align: TextAlign.center)
-                          : TaskStateTitle(_task, place: StateTitlePlace.taskOverview),
+                  _task.canShowRecommendsEta || _task.projectLowStart
+                      ? H2('${loc.state_no_info_title}: ${_task.stateTitle.toLowerCase()}', align: TextAlign.center)
+                      : TaskStateTitle(_task, place: StateTitlePlace.taskOverview),
 
                 /// нет прогноза - показываем шаги
                 if (_task.canShowRecommendsEta) ...[
@@ -133,11 +128,10 @@ class OverviewPane extends StatelessWidget {
           /// требующие внимания задачи
           if (_task.attentionalTasks.isNotEmpty) ...[
             const SizedBox(height: P2),
-            if (!_task.isRoot)
-              MTAdaptive(
-                force: true,
-                child: GroupStateTitle(_task, _task.subtasksState, place: StateTitlePlace.groupHeader),
-              ),
+            MTAdaptive(
+              force: true,
+              child: GroupStateTitle(_task, _task.subtasksState, place: StateTitlePlace.groupHeader),
+            ),
             MTAdaptive(
               force: true,
               child: AttentionalTasks(_task),

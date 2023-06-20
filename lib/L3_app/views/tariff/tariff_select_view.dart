@@ -89,7 +89,7 @@ class TariffSelectView extends StatelessWidget {
                 ? balanceLack <= 0
                     ? _selectButton(context, tariff)
                     : _paymentButton(context, balanceLack)
-                : H3(loc.tariff_current_title, color: lightGreyColor),
+                : H2(loc.tariff_current_title, color: lightGreyColor),
             const SizedBox(height: P2),
           ],
         ),
@@ -146,7 +146,7 @@ class TariffSelectView extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             ws.subPageTitle(loc.tariff_list_title),
-            if (description.isNotEmpty) H4(description, align: TextAlign.center, padding: const EdgeInsets.all(P).copyWith(top: 0)),
+            if (description.isNotEmpty) H3(description, align: TextAlign.center, padding: const EdgeInsets.all(P).copyWith(top: 0)),
           ],
         ),
       ),

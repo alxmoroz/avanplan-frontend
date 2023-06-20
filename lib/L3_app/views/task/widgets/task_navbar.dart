@@ -22,7 +22,7 @@ CupertinoNavigationBar taskNavBar(TaskViewController controller) {
   return navBar(
     rootKey.currentContext!,
     bgColor: task.isRoot ? navbarDefaultBgColor : task.bgColor,
-    middle: task.isRoot ? MediumText(loc.project_list_title) : task.ws.subPageTitle(task.viewTitle),
+    middle: task.isRoot ? MediumText(loc.project_list_all_title) : task.ws.subPageTitle(task.viewTitle),
     trailing: !task.isRoot && task.actionTypes.isNotEmpty ? TaskPopupMenu(controller, icon: const MenuIcon()) : null,
   );
 }

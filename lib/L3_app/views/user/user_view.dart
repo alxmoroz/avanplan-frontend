@@ -32,7 +32,7 @@ class UserView extends StatelessWidget {
               const SizedBox(height: P),
               user.icon(P3),
               const SizedBox(height: P_2),
-              H3('$user', align: TextAlign.center),
+              H2('$user', align: TextAlign.center),
               const SizedBox(height: P_2),
               NormalText(user.email, align: TextAlign.center),
               if (user.roles.isNotEmpty) ...[

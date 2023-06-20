@@ -22,7 +22,7 @@ class NotificationView extends StatelessWidget {
         child: ListView(
           shrinkWrap: true,
           children: [
-            H4(nf.title, maxLines: 5),
+            H3(nf.title, maxLines: 5),
             const SizedBox(height: P),
             NormalText(nf.description, maxLines: 500),
             const SizedBox(height: P3),

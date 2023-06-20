@@ -78,7 +78,7 @@ class VelocityChart extends StatelessWidget {
           ],
         ),
         if (!task.projectLowStart) ...[
-          D2('$_displayText', color: _pointerColor, padding: const EdgeInsets.only(bottom: P_2)),
+          D3('$_displayText', color: _pointerColor, padding: const EdgeInsets.only(bottom: P_2)),
           SmallText(task.showSP ? loc.chart_velocity_unit_sp_mo : loc.chart_velocity_unit_t_mo,
               padding: EdgeInsets.only(top: _radius / 2 + P_2), color: lightGreyColor),
           Container(
@@ -93,7 +93,7 @@ class VelocityChart extends StatelessWidget {
           ),
         ],
         if (task.projectLowStart)
-          H4(
+          H3(
             loc.state_low_start_before_calc_duration(task.projectStartEtaCalcPeriod!.localizedString),
             align: TextAlign.center,
             maxLines: 5,

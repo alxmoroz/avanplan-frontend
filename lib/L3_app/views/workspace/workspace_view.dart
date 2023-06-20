@@ -37,7 +37,7 @@ class WorkspaceView extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: P),
-            H3(ws.title, align: TextAlign.center),
+            H2(ws.title, align: TextAlign.center),
             const SizedBox(height: P_2),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

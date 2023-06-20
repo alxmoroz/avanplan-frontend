@@ -22,7 +22,7 @@ extension TaskLevelPresenter on Task {
 
   String get listTitle =>
       {
-        TaskLevel.root: loc.project_list_title,
+        TaskLevel.root: loc.project_list_all_title,
         TaskLevel.project: loc.goal_list_title,
         TaskLevel.goal: loc.task_list_title,
       }[level] ??

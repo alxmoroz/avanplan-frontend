@@ -60,7 +60,7 @@ class _MemberViewState extends State<MemberView> {
                 const SizedBox(height: P),
                 member.icon(P3),
                 const SizedBox(height: P_2),
-                H3('$member', align: TextAlign.center),
+                H2('$member', align: TextAlign.center),
                 const SizedBox(height: P_2),
                 NormalText(member.email, align: TextAlign.center),
                 if (member.roles.isNotEmpty) ...[

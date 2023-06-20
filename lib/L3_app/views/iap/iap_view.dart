@@ -38,7 +38,7 @@ class StoreView extends StatelessWidget {
 
     return Row(
       children: [
-        if (hasPrice) H4('  ${loc.for_} ${isRub ? p.rawPrice.currency : p.price}', color: greyColor),
+        if (hasPrice) H3('  ${loc.for_} ${isRub ? p.rawPrice.currency : p.price}', color: greyColor),
         if (isRub) RoubleIcon(size: P * (hasPrice ? 2 : 2.5), color: hasPrice ? greyColor : mainColor),
       ],
     );
@@ -49,7 +49,7 @@ class StoreView extends StatelessWidget {
     return MTButton.secondary(
       middle: Row(
         children: [
-          H3('+ ${p.value.currency}', color: mainColor),
+          H2('+ ${p.value.currency}', color: mainColor),
           _price(p),
         ],
       ),

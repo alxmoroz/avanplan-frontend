@@ -39,7 +39,7 @@ class DetailsPane extends StatelessWidget {
         )
       : null;
 
-  bool get _closable => _task.canCloseGroup || _task.canCloseLeaf;
+  bool get _closable => _task.canClose;
 
   Widget _dateField(BuildContext context, TaskFCode code) {
     final isStart = code == TaskFCode.startDate;

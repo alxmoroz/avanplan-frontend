@@ -23,9 +23,9 @@ class RegistrationCompletedMessage extends StatelessWidget {
     return ListView(
       shrinkWrap: true,
       children: [
-        H3(loc.auth_register_completed_title, align: TextAlign.center),
+        H2(loc.auth_register_completed_title, align: TextAlign.center),
         const SizedBox(height: P2),
-        H4(
+        H3(
           loc.auth_register_completed_description(controller.fData(RegistrationFCode.email.index).text),
           maxLines: 7,
           align: TextAlign.center,

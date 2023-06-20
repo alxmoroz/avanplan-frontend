@@ -55,17 +55,14 @@ extension TaskActionsExt on Task {
   bool get canUnlink => _isLinkedProject && ws.hpProjectUpdate == true;
   bool get canMembersRead => isProject;
   bool get canEditMembers => _hpMemberUpdate;
-  bool get isTrueLeaf => (isTask || isSubtask) && isLeaf;
-  bool get canSetStatus => ws.statuses.isNotEmpty && canUpdate && isTrueLeaf;
+  bool get canSetStatus => ws.statuses.isNotEmpty && canUpdate && isLeaf;
   bool get canCloseGroup => canClose && state == TaskState.closable;
-  bool get canCloseLeaf => canClose && isTrueLeaf;
-  bool get canEstimate => canUpdate && ws.estimateValues.isNotEmpty && !isProject && isLeaf;
+  bool get canEstimate => canUpdate && ws.estimateValues.isNotEmpty && isLeaf;
   bool get canAssign => canUpdate && activeMembers.isNotEmpty;
 
   /// рекомендации, быстрые кнопки
   bool get shouldAddSubtask =>
       canCreate &&
-      isLeaf &&
       [
         TaskLevel.project,
         TaskLevel.goal,

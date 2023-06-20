@@ -36,7 +36,7 @@ class AccountView extends StatelessWidget {
                     const SizedBox(height: P2),
                     _user!.icon(P2 * 3),
                     const SizedBox(height: P),
-                    H3('$_user', align: TextAlign.center),
+                    H2('$_user', align: TextAlign.center),
                     const SizedBox(height: P_2),
                     NormalText(_user!.email, align: TextAlign.center),
                   ],

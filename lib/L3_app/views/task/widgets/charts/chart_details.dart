@@ -27,7 +27,7 @@ class TaskChartDetails extends StatelessWidget {
 
   Widget _textRow(String t1, String t2, {Color? color}) => Row(children: [
         Expanded(child: LightText(t1, height: 1.1, sizeScale: 1.1)),
-        H4(t2, color: color, padding: const EdgeInsets.only(top: P / 6, bottom: P / 6))
+        H3(t2, color: color, padding: const EdgeInsets.only(top: P / 6, bottom: P / 6))
       ]);
 
   int get _volumeDelta => task.planVolume != null ? (task.closedLeafTasksCount - task.planVolume!.round()) : 0;
@@ -47,7 +47,7 @@ class TaskChartDetails extends StatelessWidget {
           children: [
             if (task.canShowVelocityVolumeCharts) ...[
               /// объем
-              H4(loc.chart_volume_title),
+              H3(loc.chart_volume_title),
               const SizedBox(height: P),
               Row(
                 children: [
@@ -78,7 +78,7 @@ class TaskChartDetails extends StatelessWidget {
 
               /// скорость
               const SizedBox(height: P2),
-              H4(loc.chart_velocity_title),
+              H3(loc.chart_velocity_title),
               const SizedBox(height: P),
               Row(children: [
                 Flexible(child: VelocityChart(task)),
@@ -102,7 +102,7 @@ class TaskChartDetails extends StatelessWidget {
 
             /// срок
             if (task.canShowTimeChart) ...[
-              H4(loc.chart_timing_title),
+              H3(loc.chart_timing_title),
               const SizedBox(height: P),
               TimingChart(task),
               const SizedBox(height: P_2),
@@ -114,7 +114,7 @@ class TaskChartDetails extends StatelessWidget {
                   color: _timeDelta > 0 ? null : warningColor,
                 ),
               if (task.etaPeriod != null) _textRow(loc.chart_timing_eta_label, '${loc.days_count(task.etaPeriod!.inDays)}'),
-              if (task.riskPeriod != null) H4(task.stateTitle, padding: const EdgeInsets.only(top: P_2)),
+              if (task.riskPeriod != null) H3(task.stateTitle, padding: const EdgeInsets.only(top: P_2)),
             ],
           ],
         ),

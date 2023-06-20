@@ -18,7 +18,7 @@ class MTCurrency extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        D1(value.currency, color: color),
+        D2(value.currency, color: color),
         RoubleIcon(color: color),
       ],
     );

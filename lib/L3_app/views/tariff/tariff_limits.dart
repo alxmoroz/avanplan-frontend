@@ -70,7 +70,7 @@ class TariffLimits extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        H4(tariff.title, align: TextAlign.center, padding: const EdgeInsets.all(P)),
+        H3(tariff.title, align: TextAlign.center, padding: const EdgeInsets.all(P)),
         for (var code in tariff.limitsMap.keys) _TariffLimitTile(tariff: tariff, code: code),
       ],
     );

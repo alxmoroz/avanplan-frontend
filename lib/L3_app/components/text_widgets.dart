@@ -118,12 +118,12 @@ class MediumText extends _BaseText {
   }) : super(
           text,
           weight: FontWeight.w500,
-          maxLines: maxLines ?? 5,
+          maxLines: maxLines ?? 7,
         );
 }
 
-class H4 extends _BaseText {
-  const H4(
+class H3 extends _BaseText {
+  const H3(
     String text, {
     int? maxLines,
     super.color,
@@ -139,24 +139,6 @@ class H4 extends _BaseText {
         );
 }
 
-class H3 extends _BaseText {
-  const H3(
-    String text, {
-    Color? color,
-    int? maxLines,
-    super.align,
-    super.padding,
-    super.decoration,
-  }) : super(
-          text,
-          color: color ?? greyColor,
-          weight: FontWeight.w400,
-          sizeScale: 1.75,
-          maxLines: maxLines ?? 3,
-          height: 1.1,
-        );
-}
-
 class H2 extends _BaseText {
   const H2(
     String text, {
@@ -168,8 +150,8 @@ class H2 extends _BaseText {
   }) : super(
           text,
           color: color ?? greyColor,
-          weight: FontWeight.w300,
-          sizeScale: 1.9,
+          weight: FontWeight.w400,
+          sizeScale: 1.7,
           maxLines: maxLines ?? 3,
           height: 1.1,
         );
@@ -178,22 +160,23 @@ class H2 extends _BaseText {
 class H1 extends _BaseText {
   const H1(
     String text, {
+    Color? color,
     int? maxLines,
-    super.color,
     super.align,
     super.padding,
     super.decoration,
   }) : super(
           text,
+          color: color ?? greyColor,
           weight: FontWeight.w300,
-          sizeScale: 2.45,
-          maxLines: maxLines ?? 2,
-          height: 1,
+          sizeScale: 2.0,
+          maxLines: maxLines ?? 3,
+          height: 1.1,
         );
 }
 
-class D2 extends _BaseText {
-  const D2(
+class D3 extends _BaseText {
+  const D3(
     String text, {
     int? maxLines,
     super.color,
@@ -209,8 +192,8 @@ class D2 extends _BaseText {
         );
 }
 
-class D1 extends _BaseText {
-  const D1(
+class D2 extends _BaseText {
+  const D2(
     String text, {
     int? maxLines,
     super.color,
@@ -220,8 +203,24 @@ class D1 extends _BaseText {
   }) : super(
           text,
           weight: FontWeight.w500,
-          sizeScale: 3,
+          sizeScale: 3.2,
           maxLines: maxLines ?? 1,
+          height: 1,
+        );
+}
+
+class D1 extends _BaseText {
+  const D1(
+    String text, {
+    super.color,
+    super.align,
+    super.padding,
+    super.decoration,
+  }) : super(
+          text,
+          weight: FontWeight.w400,
+          sizeScale: 9,
+          maxLines: 1,
           height: 1,
         );
 }

@@ -14,13 +14,13 @@ import '../../extra/services.dart';
 class LoaderScreen extends StatelessWidget {
   static const double _ldrIconSize = P * 16;
 
-  Widget get _title => H3(
+  Widget get _title => H2(
         loader.titleText!,
         align: TextAlign.center,
         padding: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
       );
 
-  Widget get _description => H4(
+  Widget get _description => H3(
         loader.descriptionText!,
         align: TextAlign.center,
         padding: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P),

@@ -8,7 +8,7 @@ import '../../../components/constants.dart';
 import '../../../components/text_widgets.dart';
 import '../../../presenters/task_state_presenter.dart';
 
-enum StateTitlePlace { workspace, taskOverview, groupHeader, card }
+enum StateTitlePlace { taskOverview, groupHeader, card }
 
 class _StateTitle extends StatelessWidget {
   const _StateTitle(this.state, this.text, {this.place});
@@ -18,29 +18,23 @@ class _StateTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return place == StateTitlePlace.workspace
-        ? Column(children: [
-            imageForState(state, size: MediaQuery.of(context).size.height / 4),
-            const SizedBox(height: P2),
-            H3(text, align: TextAlign.center),
-          ])
-        : place == StateTitlePlace.groupHeader
-            ? Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  stateIconGroup(state),
-                  const SizedBox(width: P),
-                  Expanded(
-                    child: NormalText(
-                      text,
-                      padding: const EdgeInsets.only(bottom: P_2),
-                    ),
-                  ),
-                ],
-              )
-            : place == StateTitlePlace.taskOverview
-                ? H4(text, align: TextAlign.center)
-                : SmallText(text, color: greyColor);
+    return place == StateTitlePlace.groupHeader
+        ? Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              stateIconGroup(state),
+              const SizedBox(width: P),
+              Expanded(
+                child: NormalText(
+                  text,
+                  padding: const EdgeInsets.only(bottom: P_2),
+                ),
+              ),
+            ],
+          )
+        : place == StateTitlePlace.taskOverview
+            ? H3(text, align: TextAlign.center)
+            : SmallText(text, color: greyColor);
   }
 }
 

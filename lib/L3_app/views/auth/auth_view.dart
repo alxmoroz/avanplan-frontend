@@ -58,7 +58,7 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
   }) =>
       MTButton.main(
         leading: leading,
-        middle: H4(titleText, color: _greyColor, padding: EdgeInsets.only(left: titleLeftPadding ?? 0)),
+        middle: H3(titleText, color: _greyColor, padding: EdgeInsets.only(left: titleLeftPadding ?? 0)),
         trailing: SizedBox(width: iconSize / 2),
         color: _whiteColor,
         titleColor: _whiteColor,
@@ -81,7 +81,7 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
                     H1(loc.app_title, align: TextAlign.center),
                     const SizedBox(height: P2),
                     appIcon(size: size.maxHeight / 4),
-                    H4(authController.registerMode ? loc.auth_register_with_title : loc.auth_sign_in_with_title,
+                    H3(authController.registerMode ? loc.auth_register_with_title : loc.auth_sign_in_with_title,
                         align: TextAlign.center, color: greyColor),
                     const SizedBox(height: P),
                     Column(

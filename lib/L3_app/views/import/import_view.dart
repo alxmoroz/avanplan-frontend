@@ -115,8 +115,11 @@ class ImportView extends StatelessWidget {
               ),
             )
           : Container()
-      : Center(
-          child: H4(loc.source_list_empty_title, align: TextAlign.center, color: lightGreyColor),
+      : ListView(
+          shrinkWrap: true,
+          children: [
+            H3(loc.source_list_empty_title, align: TextAlign.center, color: lightGreyColor),
+          ],
         );
 
   Widget _projectItemBuilder(BuildContext context, int index) {

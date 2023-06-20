@@ -43,7 +43,7 @@ class SourceListView extends StatelessWidget {
           top: false,
           bottom: false,
           child: ws.sources.isEmpty
-              ? Center(child: H4(loc.source_list_empty_title, align: TextAlign.center, color: lightGreyColor))
+              ? Center(child: H3(loc.source_list_empty_title, align: TextAlign.center, color: lightGreyColor))
               : ListView.builder(
                   itemBuilder: _sourceBuilder,
                   itemCount: ws.sources.length,

@@ -165,8 +165,9 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
                           children: [
                             NormalText(loc.task_list_my_title, align: TextAlign.center, color: lightGreyColor),
                             const Spacer(),
-                            D1('${rootTask.openedAssignedLeafTasks.length}', align: TextAlign.center, color: mainColor),
+                            D1('${mainController.myUpcomingTasksCount}', align: TextAlign.center, color: mainColor),
                             const Spacer(),
+                            H2(mainController.myUpcomingTasksTitle, align: TextAlign.center),
                             const SizedBox(height: P),
                           ],
                         ),

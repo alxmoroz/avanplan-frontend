@@ -6,6 +6,7 @@ import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
+import '../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../L1_domain/entities_extensions/ws_ext.dart';
 import '../../../L2_data/services/platform.dart';
@@ -13,7 +14,9 @@ import '../../../main.dart';
 import '../../components/images.dart';
 import '../../components/mt_alert_dialog.dart';
 import '../../extra/services.dart';
+import '../../presenters/date_presenter.dart';
 import '../../presenters/number_presenter.dart';
+import '../../presenters/task_comparators.dart';
 import '../../usecases/ws_ext_actions.dart';
 import '../tariff/tariff_select_view.dart';
 import '../task/task_view.dart';
@@ -41,6 +44,29 @@ abstract class _MainControllerBase with Store {
   /// рутовый объект
   @observable
   Task rootTask = Task(title: '', closed: false, parent: null, tasks: [], members: [], wsId: 0);
+
+  @computed
+  List<Task> get myTasks => rootTask.openedAssignedLeafTasks.where((t) => t.assignee!.userId == accountController.user!.id).sorted(sortByDateAsc);
+  @computed
+  Iterable<Task> get myDueTasks => myTasks.where((t) => t.hasDueDate);
+  @computed
+  Iterable<Task> get myDueTasksToday => myDueTasks.where((t) => t.dueDate!.isBefore(tomorrow));
+  @computed
+  Iterable<Task> get myDueTasksWeek => myDueTasks.where((t) => t.dueDate!.isBefore(nextWeek));
+
+  @computed
+  int get myUpcomingTasksCount => myDueTasksToday.isNotEmpty
+      ? myDueTasksToday.length
+      : myDueTasksWeek.isNotEmpty
+          ? myDueTasksWeek.length
+          : myTasks.length;
+
+  @computed
+  String get myUpcomingTasksTitle => myDueTasksToday.isNotEmpty
+      ? loc.task_list_my_today_title
+      : myDueTasksWeek.isNotEmpty
+          ? loc.task_list_my_week_title
+          : loc.task_list_my_future_title;
 
   @computed
   Map<int, Map<int, Task>> get _tasksMap => {

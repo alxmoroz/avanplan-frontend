@@ -293,6 +293,10 @@
   "task_filter_all": "Все",
   "task_filter_opened": "Открытые",
   "task_list_my_title": "Мои задачи",
+  "task_list_my_future_title": "Назначены мне",
+  "task_list_my_today_title": "Сегодня",
+  "task_list_my_week_title": "На этой неделе",
+
   "task_list_title": "Задачи",
   "task_new_title": "Новая задача",
   "task_reopen_action_title": "Переоткрыть",

@@ -45,8 +45,7 @@ abstract class _InvitationControllerBase extends EditController with Store {
   }
 
   Future selectDate() async {
-    final today = DateTime.now();
-    final lastDate = today.add(const Duration(days: 7));
+    final lastDate = nextWeek;
     final initialDate = expiresOn ?? today;
     final firstDate = today;
 

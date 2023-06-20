@@ -2,6 +2,11 @@
 
 import 'package:intl/intl.dart';
 
+DateTime get _now => DateTime.now();
+DateTime get today => DateTime(_now.year, _now.month, _now.day);
+DateTime get tomorrow => DateTime(_now.year, _now.month, _now.day + 1);
+DateTime get nextWeek => DateTime(_now.year, _now.month, _now.day + 7);
+
 extension DateFormatter on DateTime {
   bool get thisYear => year == DateTime.now().year;
   String get strShortWTime => (thisYear ? DateFormat.Md() : DateFormat.yMd()).add_Hm().format(this);

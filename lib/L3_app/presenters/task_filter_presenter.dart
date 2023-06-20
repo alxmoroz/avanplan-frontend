@@ -4,14 +4,11 @@ import 'package:collection/collection.dart';
 
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities_extensions/task_level.dart';
-import '../../L1_domain/entities_extensions/task_members.dart';
-import '../extra/services.dart';
 import 'task_comparators.dart';
 
 extension TaskFilterPresenter on Task {
   List<Task> get sortedSubtasks => tasks.sorted(sortByDateAsc);
   List<Task> get sortedLeafTasks => leafTasks.sorted(sortByDateAsc);
-  List<Task> get sortedMyTasks => openedAssignedLeafTasks.where((t) => t.assignee!.userId == accountController.user!.id).sorted(sortByDateAsc);
 
   List<Task> sortedLeafTasksForStatus(int statusId) => sortedLeafTasks.where((t) => t.statusId == statusId).toList();
 

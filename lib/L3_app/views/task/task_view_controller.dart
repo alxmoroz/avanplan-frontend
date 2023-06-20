@@ -26,6 +26,7 @@ import '../../components/mt_field_data.dart';
 import '../../components/mt_select_dialog.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
+import '../../presenters/date_presenter.dart';
 import '../../presenters/duration_presenter.dart';
 import '../../presenters/person_presenter.dart';
 import '../../presenters/source_presenter.dart';
@@ -235,8 +236,6 @@ abstract class _TaskViewControllerBase extends EditController with Store {
   }
 
   Future selectDate(BuildContext context, TaskFCode code) async {
-    final today = DateTime.now();
-
     final isStart = code == TaskFCode.startDate;
 
     final hasFutureStart = task.startDate != null && task.startDate!.isAfter(today);

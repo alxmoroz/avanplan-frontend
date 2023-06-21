@@ -16,10 +16,10 @@ class TaskVolumeChart extends StatelessWidget {
   final Task task;
 
   double get _radius => P * 6.5;
-  double get _factValue => task.closedLeafTasksCount.toDouble();
+  double get _factValue => task.closedLeavesCount.toDouble();
   double get _delta => (task.planVolume ?? _factValue) - _factValue;
   double get _firstValue => _delta >= 0 ? _factValue : _factValue + _delta;
-  double get _maxValue => (task.leafTasksCount > 0 ? task.leafTasksCount : 1).toDouble();
+  double get _maxValue => (task.leavesCount > 0 ? task.leavesCount : 1).toDouble();
   double get _degreeValue => _maxValue / 360;
 
   double get _gaugeWidth => P * 1.5;
@@ -44,7 +44,7 @@ class TaskVolumeChart extends StatelessWidget {
   MTPieChartData get _deltaPointer =>
       MTPieChartData(_deltaPointerWidthValue, start: _deltaPointerStartValue, color: _pointerColor, strokeWidth: _barWidth);
 
-  String get _chartText => '${(_factValue / (task.leafTasksCount > 0 ? task.leafTasksCount : 1)).percents}';
+  String get _chartText => '${(_factValue / (task.leavesCount > 0 ? task.leavesCount : 1)).percents}';
 
   @override
   Widget build(BuildContext context) {

@@ -11,13 +11,17 @@ enum TaskState {
   risk,
   ok,
   closable,
-  future,
+  futureStart,
   eta,
   noSubtasks,
   noProgress,
   noInfo,
   opened,
   closed,
+  today,
+  thisWeek,
+  futureDue,
+  noDue,
 }
 
 class Task extends Titleable {
@@ -66,10 +70,10 @@ class Task extends Titleable {
   Iterable<Task> allTasks = [];
   Iterable<Task> openedSubtasks = [];
   Iterable<Task> closedSubtasks = [];
-  Iterable<Task> leafTasks = [];
-  Iterable<Task> openedLeafTasks = [];
-  Iterable<Task> openedAssignedLeafTasks = [];
-  Iterable<Task> closedLeafTasks = [];
+  Iterable<Task> leaves = [];
+  Iterable<Task> openedLeaves = [];
+  Iterable<Task> openedAssignedLeaves = [];
+  Iterable<Task> closedLeaves = [];
   Iterable<Task> overdueSubtasks = [];
   Iterable<Task> riskySubtasks = [];
   Iterable<Task> okSubtasks = [];
@@ -79,7 +83,6 @@ class Task extends Titleable {
   bool isFuture = false;
   late Duration elapsedPeriod;
   bool? isLowStart;
-  Duration? overduePeriod;
   Duration? etaPeriod;
   DateTime? etaDate;
   Duration? closedPeriod;

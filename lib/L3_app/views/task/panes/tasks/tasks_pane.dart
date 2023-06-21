@@ -10,6 +10,7 @@ import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/mt_button.dart';
+import '../../../../presenters/task_filter_presenter.dart';
 import '../../../../presenters/task_view_presenter.dart';
 import '../../../../usecases/task_ext_actions.dart';
 import '../../project_add_wizard/project_add_wizard.dart';
@@ -37,7 +38,7 @@ class TasksPane extends StatelessWidget {
         child: icon,
       );
 
-  Widget? get bottomBar => task.isRoot || task.canCreate || task.canShowBoard
+  Widget? get bottomBar => !taskController.isMyTasks && (task.isRoot || task.canCreate || task.canShowBoard)
       ? Row(children: [
           if (task.canShowBoard)
             MTButton.secondary(
@@ -60,7 +61,12 @@ class TasksPane extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => paneController.showBoard ? TasksBoardView(paneController) : TasksListView(paneController),
+      builder: (_) => paneController.showBoard
+          ? TasksBoardView(paneController)
+          : TasksListView(
+              taskController.isMyTasks ? task.myTasksGroups : task.subtaskGroups,
+              task,
+            ),
     );
   }
 }

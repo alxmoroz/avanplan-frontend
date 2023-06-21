@@ -155,6 +155,14 @@
   "millions_count_short": "{count} млн.",
 
   "months_count": "{count, plural, one{{count} месяц} few{{count} месяца} other{{count} месяцев}}",
+
+  "my_tasks_all_title": "Назначены мне",
+  "my_tasks_future_title": "Будущие",
+  "my_tasks_no_due_title": "Без срока",
+  "my_tasks_this_week_title": "На этой неделе",
+  "my_tasks_title": "Мои задачи",
+  "my_tasks_today_title": "Сегодня",
+
   "new_title": "Новый",
   "no": "Нет",
 
@@ -207,11 +215,10 @@
   "state_closable_title": "Можно закрыть",
   "state_eta_duration": "Закончим через {duration}",
   "state_eta_title": "Есть прогноз",
-  "state_future_duration": "Приступим через {duration}",
+  "state_future_start_duration": "Приступим через {duration}",
   "state_future_title": "Скоро начнём",
   "state_low_start_duration": "Прошло менее {duration} со старта",
   "state_low_start_before_calc_duration": "Прогноз и скорость покажем через {duration}",
-  "state_no_due_details": "Не назначен срок",
   "state_no_info_title": "Нет прогноза",
   "state_no_projects_hint": "Начнём работу!",
   "state_no_progress_details": "Нет прогресса",
@@ -294,10 +301,6 @@
   "task_filter_opened": "Открытые",
   "task_list_empty_hint": "Назначьте себе задачи из проектов или добавьте новые",
   "task_list_empty_title": "Отдыхаем от задач",
-  "task_list_my_title": "Мои задачи",
-  "task_list_my_future_title": "Назначены мне",
-  "task_list_my_today_title": "Сегодня",
-  "task_list_my_week_title": "На этой неделе",
   "task_list_title": "Задачи",
   "task_new_title": "Новая задача",
   "task_reopen_action_title": "Переоткрыть",

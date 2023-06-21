@@ -39,24 +39,21 @@ class _StateTitle extends StatelessWidget {
 }
 
 class GroupStateTitle extends StatelessWidget {
-  const GroupStateTitle(this.task, this.subtasksState, {this.place, this.padding});
+  const GroupStateTitle(this.task, this.groupState, {this.place});
   final Task task;
-  final TaskState subtasksState;
+  final TaskState groupState;
   final StateTitlePlace? place;
-  final EdgeInsets? padding;
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: padding ?? (place == StateTitlePlace.groupHeader ? const EdgeInsets.symmetric(horizontal: P).copyWith(top: P) : EdgeInsets.zero),
-        child: _StateTitle(subtasksState, task.groupStateTitle(subtasksState), place: place),
+        padding: (place == StateTitlePlace.groupHeader ? const EdgeInsets.symmetric(horizontal: P).copyWith(top: P) : EdgeInsets.zero),
+        child: _StateTitle(groupState, task.groupStateTitle(groupState), place: place),
       );
 }
 
 class TaskStateTitle extends StatelessWidget {
   const TaskStateTitle(this.task, {this.place});
-  @protected
   final Task task;
-  @protected
   final StateTitlePlace? place;
 
   @override

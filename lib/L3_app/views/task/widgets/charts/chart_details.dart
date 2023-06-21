@@ -30,7 +30,7 @@ class TaskChartDetails extends StatelessWidget {
         H3(t2, color: color, padding: const EdgeInsets.only(top: P / 6, bottom: P / 6))
       ]);
 
-  int get _volumeDelta => task.planVolume != null ? (task.closedLeafTasksCount - task.planVolume!.round()) : 0;
+  int get _volumeDelta => task.planVolume != null ? (task.closedLeavesCount - task.planVolume!.round()) : 0;
   double get _velocity => task.projectVelocity ?? 0;
   int get _velocityDelta => task.targetVelocity != null && _velocity > 0 ? ((_velocity - task.targetVelocity!) * daysPerMonth).round() : 0;
   int get _timeDelta => task.leftPeriod!.inDays;
@@ -57,9 +57,9 @@ class TaskChartDetails extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        _textRow(loc.chart_volume_total_label, '${task.leafTasksCount}'),
-                        _textRow(loc.state_opened, '${task.openedLeafTasksCount}'),
-                        _textRow(loc.state_closed, '${task.closedLeafTasksCount}'),
+                        _textRow(loc.chart_volume_total_label, '${task.leavesCount}'),
+                        _textRow(loc.state_opened, '${task.openedLeavesCount}'),
+                        _textRow(loc.state_closed, '${task.closedLeavesCount}'),
                         if (task.planVolume != null) ...[
                           const SizedBox(height: P),
                           _textRow(loc.chart_volume_plan_label, '${task.planVolume!.round()}'),

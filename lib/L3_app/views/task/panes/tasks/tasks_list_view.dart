@@ -1,23 +1,25 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_level.dart';
 import '../../../../components/constants.dart';
+import '../../../../components/images.dart';
 import '../../../../components/mt_adaptive.dart';
 import '../../../../components/mt_shadowed.dart';
+import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/task_filter_presenter.dart';
 import '../../widgets/state_title.dart';
 import '../../widgets/task_card.dart';
-import 'tasks_pane_controller.dart';
 
 class TasksListView extends StatelessWidget {
-  const TasksListView(this.controller);
+  const TasksListView(this.groups, this.parent);
 
-  final TasksPaneController controller;
+  final List<MapEntry<TaskState, List<Task>>> groups;
+  final Task parent;
+
+  bool get _showGroupTitles => groups.length > 1;
 
   Widget _groupedItemBuilder(Task parent, List<MapEntry<TaskState, List<Task>>> groups, int groupIndex) {
     final group = groups[groupIndex];
@@ -25,7 +27,7 @@ class TasksListView extends StatelessWidget {
     final state = group.key;
     return Column(
       children: [
-        if (controller.showGroupTitles) GroupStateTitle(parent, state, place: StateTitlePlace.groupHeader),
+        if (_showGroupTitles) GroupStateTitle(parent, state, place: StateTitlePlace.groupHeader),
         ListView.builder(
           shrinkWrap: true,
           padding: EdgeInsets.zero,
@@ -36,7 +38,7 @@ class TasksListView extends StatelessWidget {
             return TaskCard(
               mainController.taskForId(t.wsId, t.id),
               showStateMark: true,
-              bottomBorder: index < tasks.length - 1 || (!controller.showGroupTitles && groupIndex < groups.length - 1),
+              bottomBorder: index < tasks.length - 1 || (!_showGroupTitles && groupIndex < groups.length - 1),
             );
           },
         ),
@@ -47,19 +49,29 @@ class TasksListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final padding = MediaQuery.of(context).padding;
-    return Observer(builder: (_) {
-      final parent = mainController.taskForId(controller.task.wsId, controller.task.id);
-      final groups = parent.subtaskGroups;
-      //
-      return MTShadowed(
-        child: MTAdaptive(
-          child: ListView.builder(
-            padding: padding.add(EdgeInsets.only(top: parent.isRoot ? P : 0)),
-            itemBuilder: (_, index) => _groupedItemBuilder(parent, groups, index),
-            itemCount: groups.length,
-          ),
-        ),
-      );
-    });
+    return MTShadowed(
+      child: MTAdaptive(
+        child: groups.isNotEmpty
+            ? ListView.builder(
+                padding: padding.add(EdgeInsets.only(top: parent.isRoot ? P : 0)),
+                itemBuilder: (_, index) => _groupedItemBuilder(parent, groups, index),
+                itemCount: groups.length,
+              )
+            : Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: P),
+                  child: ListView(
+                    shrinkWrap: true,
+                    children: [
+                      MTImage(ImageNames.empty_tasks.toString()),
+                      H3(loc.task_list_empty_title, align: TextAlign.center),
+                      const SizedBox(height: P),
+                      NormalText(loc.task_list_empty_hint, align: TextAlign.center, height: 1.2),
+                    ],
+                  ),
+                ),
+              ),
+      ),
+    );
   }
 }

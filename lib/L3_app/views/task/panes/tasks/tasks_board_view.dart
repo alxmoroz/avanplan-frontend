@@ -17,6 +17,20 @@ import '../../../../usecases/task_ext_actions.dart';
 import '../../widgets/task_card.dart';
 import 'tasks_pane_controller.dart';
 
+class _ItemTarget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: MIN_BTN_HEIGHT * 1,
+      margin: const EdgeInsets.all(P).copyWith(top: 0),
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(DEF_BORDER_RADIUS)),
+        border: Border.all(width: 1, color: backgroundColor.resolve(context)),
+      ),
+    );
+  }
+}
+
 class TasksBoardView extends StatelessWidget {
   const TasksBoardView(this.controller);
 
@@ -29,7 +43,7 @@ class TasksBoardView extends StatelessWidget {
       final oldStatusId = _ws.statuses[oldStatusIndex].id!;
       final newStatusId = _ws.statuses[newStatusIndex].id!;
 
-      final task = _task.sortedLeafTasksForStatus(oldStatusId)[oldTaskIndex];
+      final task = _task.leavesForStatus(oldStatusId)[oldTaskIndex];
       await controller.taskController.setStatus(task, statusId: newStatusId);
     }
   }
@@ -54,7 +68,7 @@ class TasksBoardView extends StatelessWidget {
 
   DragAndDropList _columnBuilder(int index) {
     final status = _ws.statuses[index];
-    final tasks = _task.sortedLeafTasksForStatus(status.id!);
+    final tasks = _task.leavesForStatus(status.id!);
     return DragAndDropList(
       header: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -92,20 +106,6 @@ class TasksBoardView extends StatelessWidget {
         ),
         lastItemTargetHeight: P,
         listDragOnLongPress: !isWeb,
-      ),
-    );
-  }
-}
-
-class _ItemTarget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: MIN_BTN_HEIGHT * 1,
-      margin: const EdgeInsets.all(P).copyWith(top: 0),
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(DEF_BORDER_RADIUS)),
-        border: Border.all(width: 1, color: backgroundColor.resolve(context)),
       ),
     );
   }

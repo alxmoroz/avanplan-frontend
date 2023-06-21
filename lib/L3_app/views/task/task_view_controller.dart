@@ -47,11 +47,11 @@ enum TaskTabKey { overview, subtasks, details, team }
 enum TaskFCode { title, description, startDate, dueDate, estimate, assignee, author }
 
 class TaskParams {
-  TaskParams(this.wsId, {this.taskId, this.isNew = false, this.myTasks = false});
+  TaskParams(this.wsId, {this.taskId, this.isNew = false, this.isMyTasks = false});
   final int wsId;
   final int? taskId;
   final bool isNew;
-  final bool myTasks;
+  final bool isMyTasks;
 }
 
 class TaskViewController extends _TaskViewControllerBase with _$TaskViewController {
@@ -59,6 +59,7 @@ class TaskViewController extends _TaskViewControllerBase with _$TaskViewControll
     wsId = tp?.wsId ?? -1;
     taskId = tp?.taskId;
     isNew = tp?.isNew ?? false;
+    isMyTasks = tp?.isMyTasks ?? false;
 
     final task = mainController.taskForId(wsId, taskId);
     initState(fds: [
@@ -117,6 +118,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
   late final int wsId;
   late final int? taskId;
   late final bool isNew;
+  late final bool isMyTasks;
 
   Task get task => mainController.taskForId(wsId, taskId);
   Workspace get _ws => mainController.wsForId(wsId);

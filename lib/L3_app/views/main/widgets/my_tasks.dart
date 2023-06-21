@@ -21,16 +21,16 @@ class MyTasks extends StatelessWidget {
       Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          NormalText(loc.task_list_my_title, align: TextAlign.center, color: lightGreyColor),
+          NormalText(loc.my_tasks_title, align: TextAlign.center, color: lightGreyColor),
           Expanded(
-            child: myTasksCount > 0 ? D1('$myTasksCount', align: TextAlign.center, color: mainColor) : MTImage(ImageNames.empty_tasks.toString()),
+            child: myTasksCount > 0 ? Center(child: D1('$myTasksCount', color: mainColor)) : MTImage(ImageNames.empty_tasks.toString()),
           ),
           H3(myTasksCount > 0 ? mainController.myUpcomingTasksTitle : loc.task_list_empty_title, align: TextAlign.center),
           const SizedBox(height: P),
           if (myTasksCount < 1) NormalText(loc.task_list_empty_hint, align: TextAlign.center, height: 1.2),
         ],
       ),
-      onTap: () async => await Navigator.of(context).pushNamed(TaskView.routeName, arguments: TaskParams(rootTask.wsId, myTasks: true)),
+      onTap: () async => await Navigator.of(context).pushNamed(TaskView.routeName, arguments: TaskParams(rootTask.wsId, isMyTasks: true)),
     );
   }
 }

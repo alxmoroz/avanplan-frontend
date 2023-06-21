@@ -4,12 +4,12 @@ import 'dart:math';
 
 import 'package:collection/collection.dart';
 
+import '../../L3_app/presenters/date_presenter.dart';
 import '../entities/task.dart';
 import '../entities_extensions/task_level.dart';
 
 extension TaskStats on Task {
   Duration get lowStartThreshold => const Duration(days: 5);
-  static const Duration _overdueThreshold = Duration(days: 1);
   static const Duration _riskThreshold = Duration(days: 1);
 
   DateTime get _now => DateTime.now();
@@ -35,22 +35,21 @@ extension TaskStats on Task {
     allTasks = _setAllTasks;
     openedSubtasks = tasks.where((t) => !t.closed);
     closedSubtasks = tasks.where((t) => t.closed);
-    leafTasks = allTasks.where((t) => t.isLeaf);
-    openedLeafTasks = leafTasks.where((t) => !t.closed);
-    openedAssignedLeafTasks = openedLeafTasks.where((t) => t.assigneeId != null);
-    closedLeafTasks = leafTasks.where((t) => t.closed);
+    leaves = allTasks.where((t) => t.isLeaf);
+    openedLeaves = leaves.where((t) => !t.closed);
+    openedAssignedLeaves = openedLeaves.where((t) => t.assigneeId != null);
+    closedLeaves = leaves.where((t) => t.closed);
 
-    isFuture = startDate!.isAfter(_now);
+    isFuture = startDate!.isAfter(tomorrow);
     beforeStartPeriod = startDate!.difference(_now);
 
     closedDate ??= closed && hasDueDate ? dueDate : null;
     closedPeriod = closedDate != null ? _now.difference(closedDate!) : null;
     elapsedPeriod = (closedDate ?? _now).difference(startDate!);
-    leftPeriod = hasDueDate && !isFuture ? dueDate!.add(_overdueThreshold).difference(_now) : null;
-    overduePeriod = hasDueDate ? _now.difference(dueDate!) : null;
+    leftPeriod = hasDueDate && !isFuture ? dueDate!.difference(tomorrow) : null;
 
     final _planPeriod = hasDueDate ? dueDate!.difference(startDate!) : null;
-    planVolume = !isFuture && _planPeriod != null ? min(leafTasksCount.toDouble(), leafTasksCount * elapsedPeriod.inDays / _planPeriod.inDays) : null;
+    planVolume = !isFuture && _planPeriod != null ? min(leavesCount.toDouble(), leavesCount * elapsedPeriod.inDays / _planPeriod.inDays) : null;
   }
 
   // суммарная оценка в приоритете над локальной
@@ -70,7 +69,7 @@ extension TaskStats on Task {
     return res;
   }
 
-  int? get sumEstimate => _sumEstimate(openedLeafTasks) ?? estimate;
+  int? get sumEstimate => _sumEstimate(openedLeaves) ?? estimate;
 
   /// скорость проекта
   int? get _closedDays => closedPeriod?.inDays;
@@ -85,12 +84,12 @@ extension TaskStats on Task {
         const velocityFrameInDays = 42;
         final elapsedDays = elapsedPeriod.inDays;
         // средняя скорость по проекту без учёта закрытых задач или скоростей целей в пределах окна
-        velocityTasks = closedLeafTasksCount / elapsedDays;
-        final closedEstimate = _sumEstimate(closedLeafTasks);
+        velocityTasks = closedLeavesCount / elapsedDays;
+        final closedEstimate = _sumEstimate(closedLeaves);
         velocitySP = closedEstimate != null ? closedEstimate / elapsedDays : null;
 
         // ищем закрытые задачи с датой закрытия в пределах окна
-        final closedTasks = leafTasks.where((t) => t.closed && t.hasClosedDate && t._closedDays! < velocityFrameInDays);
+        final closedTasks = leaves.where((t) => t.closed && t.hasClosedDate && t._closedDays! < velocityFrameInDays);
         if (closedTasks.isNotEmpty) {
           final closedEstimate = _sumEstimate(closedTasks);
           velocityTasks = closedTasks.length / min(elapsedDays, velocityFrameInDays);
@@ -107,7 +106,7 @@ extension TaskStats on Task {
 
     final pVelocitySP = isRoot ? null : project!.velocitySP;
     showSP = sumEstimate != null && pVelocitySP != null;
-    final leftCapacity = showSP ? sumEstimate! : openedLeafTasksCount;
+    final leftCapacity = showSP ? sumEstimate! : openedLeavesCount;
     if (leftPeriod != null && leftPeriod!.inDays > 0 && !hasOverdue) {
       targetVelocity = leftCapacity / leftPeriod!.inDays;
     }
@@ -198,7 +197,7 @@ extension TaskStats on Task {
 
     // на случай, если выставили срок раньше, чем дату начала, добавляем один день хотя бы
     if (hasDueDate && start.isAfter(dueDate!)) {
-      start = dueDate!.subtract(_overdueThreshold);
+      start = dueDate!.subtract(const Duration(days: 1));
     }
     return start;
   }
@@ -207,7 +206,7 @@ extension TaskStats on Task {
 
   bool get projectLowStart => isRoot ? false : project!.isLowStart == true;
   Duration? get projectStartEtaCalcPeriod => isRoot ? null : project!.startDate!.add(lowStartThreshold).difference(_now);
-  bool get projectHasProgress => isRoot ? true : project!.closedLeafTasksCount > 0;
+  bool get projectHasProgress => isRoot ? true : project!.closedLeavesCount > 0;
 
   bool _allOpenedSubtasksAre(TaskState state) => openedSubtasks.isNotEmpty && !openedSubtasks.any((t) => t._state != state);
 
@@ -220,6 +219,18 @@ extension TaskStats on Task {
     } else if (!hasSubtasks) {
       if (!(isTask || isSubtask)) {
         s = TaskState.noSubtasks;
+      } else if (hasDueDate) {
+        if (hasOverdue) {
+          s = TaskState.overdue;
+        } else if (dueDate!.isAfter(yesterday) && dueDate!.isBefore(tomorrow)) {
+          s = TaskState.today;
+        } else if (dueDate!.isAfter(tomorrow) && dueDate!.isBefore(nextWeek)) {
+          s = TaskState.thisWeek;
+        } else if (dueDate!.isAfter(nextWeek)) {
+          s = TaskState.futureDue;
+        } else {
+          s = TaskState.noDue;
+        }
       }
     }
     // есть подзадачи
@@ -227,7 +238,7 @@ extension TaskStats on Task {
       if (!hasOpenedSubtasks || _allOpenedSubtasksAre(TaskState.closable)) {
         s = TaskState.closable;
       } else if (isFuture) {
-        s = TaskState.future;
+        s = TaskState.futureStart;
       } else if (!projectHasProgress) {
         s = TaskState.noProgress;
       } else if (hasDueDate) {
@@ -275,9 +286,9 @@ extension TaskStats on Task {
             : st;
   }
 
-  int get leafTasksCount => leafTasks.length;
-  int get openedLeafTasksCount => openedLeafTasks.length;
-  int get closedLeafTasksCount => closedLeafTasks.length;
+  int get leavesCount => leaves.length;
+  int get openedLeavesCount => openedLeaves.length;
+  int get closedLeavesCount => closedLeaves.length;
 
   bool get hasOpenedSubtasks => openedSubtasks.isNotEmpty;
   bool get hasClosedSubtasks => closedSubtasks.isNotEmpty;
@@ -285,7 +296,7 @@ extension TaskStats on Task {
   bool get hasSubtasks => tasks.isNotEmpty;
   bool get isLeaf => (isTask || isSubtask) && !hasSubtasks;
   bool get hasDueDate => dueDate != null;
-  bool get hasOverdue => overduePeriod != null && overduePeriod! > _overdueThreshold;
+  bool get hasOverdue => hasDueDate && dueDate!.isBefore(today);
   bool get hasEtaDate => etaDate != null;
   bool get hasClosedDate => closedDate != null;
   bool get hasRisk => riskPeriod != null && riskPeriod! > _riskThreshold;

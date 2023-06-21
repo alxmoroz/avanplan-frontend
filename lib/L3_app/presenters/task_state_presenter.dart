@@ -19,9 +19,11 @@ Color stateColor(TaskState state) {
     case TaskState.overdue:
       return dangerColor;
     case TaskState.risk:
+    case TaskState.today:
       return warningColor;
     case TaskState.closable:
     case TaskState.ok:
+    case TaskState.thisWeek:
       return greenColor;
     default:
       return lightGreyColor;
@@ -103,14 +105,16 @@ extension TaskStatePresenter on Task {
         return subtasksCount(0);
       case TaskState.noProgress:
         return loc.state_no_progress_details;
-      case TaskState.future:
-        return loc.state_future_duration(beforeStartPeriod.localizedString);
+      case TaskState.futureStart:
+        return loc.state_future_start_duration(beforeStartPeriod.localizedString);
       case TaskState.opened:
         return loc.state_opened;
       case TaskState.noInfo:
         return projectLowStart ? loc.state_low_start_duration(lowStartThreshold.localizedString) : loc.state_no_info_title;
       case TaskState.closed:
         return loc.state_closed;
+      default:
+        return loc.state_no_info_title;
     }
   }
 
@@ -142,30 +146,23 @@ extension TaskStatePresenter on Task {
   }
 
   String groupStateTitle(TaskState groupState) {
-    switch (groupState) {
-      case TaskState.overdue:
-        return loc.state_overdue_title;
-      case TaskState.risk:
-        return loc.state_risk_title;
-      case TaskState.ok:
-        return loc.state_ok_title;
-      case TaskState.eta:
-        return loc.state_eta_title;
-      case TaskState.closable:
-        return loc.state_closable_title;
-      case TaskState.noSubtasks:
-        return grandchildrenCount(0);
-      case TaskState.noProgress:
-        return loc.state_no_progress_details;
-      case TaskState.closed:
-        return loc.state_closed;
-      case TaskState.future:
-        return loc.state_future_title;
-      case TaskState.opened:
-        return loc.state_opened;
-      case TaskState.noInfo:
-        return loc.state_no_info_title;
-    }
+    return switch (groupState) {
+      TaskState.overdue => loc.state_overdue_title,
+      TaskState.risk => loc.state_risk_title,
+      TaskState.ok => loc.state_ok_title,
+      TaskState.eta => loc.state_eta_title,
+      TaskState.closable => loc.state_closable_title,
+      TaskState.noSubtasks => grandchildrenCount(0),
+      TaskState.noProgress => loc.state_no_progress_details,
+      TaskState.closed => loc.state_closed,
+      TaskState.futureStart => loc.state_future_title,
+      TaskState.opened => loc.state_opened,
+      TaskState.noInfo => loc.state_no_info_title,
+      TaskState.today => loc.my_tasks_today_title,
+      TaskState.thisWeek => loc.my_tasks_this_week_title,
+      TaskState.futureDue => loc.my_tasks_future_title,
+      TaskState.noDue => loc.my_tasks_no_due_title,
+    };
   }
 
   bool get canShowState => !closed && (hasSubtasks || isProject || isGoal);

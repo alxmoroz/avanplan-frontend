@@ -3,7 +3,6 @@
 import 'package:mobx/mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../presenters/task_filter_presenter.dart';
 import '../../task_view_controller.dart';
 
 part 'tasks_pane_controller.g.dart';
@@ -18,13 +17,6 @@ abstract class _TasksPaneControllerBase with Store {
   late final TaskViewController taskController;
 
   Task get task => taskController.task;
-
-  /// фильтры и сортировка
-  @observable
-  bool? _showGroupTitles;
-
-  @computed
-  bool get showGroupTitles => _showGroupTitles ?? task.subtaskGroups.length > 1 && task.tasks.length > 4;
 
   @observable
   bool showBoard = false;

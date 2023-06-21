@@ -10,7 +10,7 @@ extension TaskViewPresenter on Task {
   bool get canShowTimeChart => !isRoot && canShowState && (hasDueDate || hasEtaDate);
   bool get canShowVelocityVolumeCharts => !isRoot && !canShowRecommendsEta && canShowState;
   bool get canShowChartDetails => canShowVelocityVolumeCharts || canShowTimeChart;
-  bool get canShowBoard => !isRoot && openedLeafTasksCount > 0;
+  bool get canShowBoard => !isRoot && openedLeavesCount > 0;
 
   bool get hasOverviewPane => canShowState || canShowTimeChart || canShowVelocityVolumeCharts;
   bool get hasTeamPane => canMembersRead && (members.isNotEmpty || canEditMembers);

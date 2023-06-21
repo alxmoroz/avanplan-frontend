@@ -4,17 +4,19 @@ import 'package:collection/collection.dart';
 
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities_extensions/task_level.dart';
+import '../../L1_domain/entities_extensions/task_members.dart';
+import '../extra/services.dart';
 import 'task_comparators.dart';
 
 extension TaskFilterPresenter on Task {
   List<Task> get sortedSubtasks => tasks.sorted(sortByDateAsc);
-  List<Task> get sortedLeafTasks => leafTasks.sorted(sortByDateAsc);
+  List<Task> get sortedLeaves => leaves.sorted(sortByDateAsc);
 
-  List<Task> sortedLeafTasksForStatus(int statusId) => sortedLeafTasks.where((t) => t.statusId == statusId).toList();
+  List<Task> leavesForStatus(int statusId) => sortedLeaves.where((t) => t.statusId == statusId).toList();
 
   List<MapEntry<TaskState, List<Task>>> get subtaskGroups {
-    final groupedTasks = groupBy<Task, TaskState>(sortedSubtasks, (t) => t.overallState);
-    return groupedTasks.entries.sorted((g1, g2) => g1.key.index.compareTo(g2.key.index));
+    final gt = groupBy<Task, TaskState>(sortedSubtasks, (t) => t.overallState);
+    return gt.entries.sorted((g1, g2) => g1.key.index.compareTo(g2.key.index));
   }
 
   List<Task> get attentionalTasks => subtaskGroups.isNotEmpty &&
@@ -26,4 +28,10 @@ extension TaskFilterPresenter on Task {
               ].contains(subtaskGroups.first.key))
       ? subtaskGroups.first.value
       : [];
+
+  List<Task> get myTasks => openedAssignedLeaves.where((t) => t.assignee!.userId == accountController.user!.id).sorted(sortByDateAsc);
+  List<MapEntry<TaskState, List<Task>>> get myTasksGroups {
+    final gt = groupBy<Task, TaskState>(myTasks, (t) => t.state);
+    return gt.entries.sorted((g1, g2) => g1.key.index.compareTo(g2.key.index));
+  }
 }

@@ -155,6 +155,14 @@
   "millions_count_short": "{count, plural, one{{count} million} other{{count} millions}}",
 
   "months_count": "{count, plural, one{{count} month} other{{count} months}}",
+
+  "my_tasks_all_title": "Assigned to me",
+  "my_tasks_future_title": "Future",
+  "my_tasks_no_due_title": "No due date",
+  "my_tasks_this_week_title": "This week",
+  "my_tasks_title": "My Tasks",
+  "my_tasks_today_title": "Today",
+
   "new_title": "New",
   "no": "No",
 
@@ -207,11 +215,10 @@
   "state_closable_title": "Can be closed",
   "state_eta_duration": "We will finish in {duration}",
   "state_eta_title": "There is estimation",
-  "state_future_duration": "We will start in {duration}",
+  "state_future_start_duration": "We will start in {duration}",
   "state_future_title": "Starting soon",
   "state_low_start_duration": "It's been less than {duration} since launch",
   "state_low_start_before_calc_duration": "Estimation and velocity will be shown in {duration}",
-  "state_no_due_details": "No due date",
   "state_no_info_title": "No estimate",
   "state_no_projects_hint": "Let's get started!",
   "state_no_progress_details": "No progress",
@@ -294,10 +301,6 @@
   "task_filter_opened": "Opened",
   "task_list_empty_hint": "Assign yourself tasks from projects or add new ones",
   "task_list_empty_title": "Taking a break from tasks",
-  "task_list_my_title": "My tasks",
-  "task_list_my_future_title": "Assigned to me",
-  "task_list_my_today_title": "Today",
-  "task_list_my_week_title": "This week",
   "task_list_title": "Tasks",
   "task_new_title": "New task",
   "task_plural_genitive": "{count, plural, one{task} other{tasks}}",

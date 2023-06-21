@@ -6,7 +6,6 @@ import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
-import '../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../L1_domain/entities_extensions/ws_ext.dart';
 import '../../../L2_data/services/platform.dart';
@@ -14,9 +13,8 @@ import '../../../main.dart';
 import '../../components/images.dart';
 import '../../components/mt_alert_dialog.dart';
 import '../../extra/services.dart';
-import '../../presenters/date_presenter.dart';
 import '../../presenters/number_presenter.dart';
-import '../../presenters/task_comparators.dart';
+import '../../presenters/task_filter_presenter.dart';
 import '../../usecases/ws_ext_actions.dart';
 import '../tariff/tariff_select_view.dart';
 import '../task/task_view.dart';
@@ -46,27 +44,27 @@ abstract class _MainControllerBase with Store {
   Task rootTask = Task(title: '', closed: false, parent: null, tasks: [], members: [], wsId: 0);
 
   @computed
-  List<Task> get myTasks => rootTask.openedAssignedLeafTasks.where((t) => t.assignee!.userId == accountController.user!.id).sorted(sortByDateAsc);
+  Iterable<Task> get _myDT => rootTask.myTasks.where((t) => t.hasDueDate);
   @computed
-  Iterable<Task> get myDueTasks => myTasks.where((t) => t.hasDueDate);
+  Iterable<Task> get _myOverdueTasks => _myDT.where((t) => t.hasOverdue);
   @computed
-  Iterable<Task> get myDueTasksToday => myDueTasks.where((t) => t.dueDate!.isBefore(tomorrow));
+  Iterable<Task> get _myTodayTasks => _myDT.where((t) => t.state == TaskState.today);
   @computed
-  Iterable<Task> get myDueTasksWeek => myDueTasks.where((t) => t.dueDate!.isBefore(nextWeek));
-
+  Iterable<Task> get _myThisWeekTasks => _myDT.where((t) => t.state == TaskState.thisWeek);
   @computed
-  int get myUpcomingTasksCount => myDueTasksToday.isNotEmpty
-      ? myDueTasksToday.length
-      : myDueTasksWeek.isNotEmpty
-          ? myDueTasksWeek.length
-          : myTasks.length;
-
+  int get _todayCount => _myOverdueTasks.length + _myTodayTasks.length;
   @computed
-  String get myUpcomingTasksTitle => myDueTasksToday.isNotEmpty
-      ? loc.task_list_my_today_title
-      : myDueTasksWeek.isNotEmpty
-          ? loc.task_list_my_week_title
-          : loc.task_list_my_future_title;
+  int get myUpcomingTasksCount => _todayCount > 0
+      ? _todayCount
+      : _myThisWeekTasks.isNotEmpty
+          ? _myThisWeekTasks.length
+          : rootTask.myTasks.length;
+  @computed
+  String get myUpcomingTasksTitle => _myTodayTasks.isNotEmpty
+      ? loc.my_tasks_today_title
+      : _myThisWeekTasks.isNotEmpty
+          ? loc.my_tasks_this_week_title
+          : loc.my_tasks_all_title;
 
   @computed
   Map<int, Map<int, Task>> get _tasksMap => {

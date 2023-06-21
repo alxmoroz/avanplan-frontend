@@ -31,13 +31,13 @@ class TimingChart extends StatelessWidget {
   double get _suffixWidth => _barHeight / 2;
   double get _borderWidth => 1.0;
   Color get _barColor => lightGreyColor;
-  Color get _planMarkColor => task.hasOverdue ? dangerColor : greyColor;
+  Color get _planMarkColor => task.hasOverdue ? dangerColor : greyTextColor;
 
   Color get _etaMarkColor => task.hasRisk
       ? warningColor
       : task.isOk
           ? greenColor
-          : darkGreyColor;
+          : darkTextColor;
 
   Size get _markSize => const Size(P * 0.7, P * 0.9);
 
@@ -117,7 +117,7 @@ class TimingChart extends StatelessWidget {
                           value: ratio,
                           color: dbd.color,
                           mark: dbd.mark,
-                          border: Border(right: BorderSide(color: (dbd.mark?.color ?? greyColor).resolve(context))),
+                          border: Border(right: BorderSide(color: (dbd.mark?.color ?? greyTextColor).resolve(context))),
                         )
                       : const SizedBox();
                 })
@@ -139,6 +139,7 @@ class TimingChart extends StatelessWidget {
         alignment: Alignment.center,
         children: [
           MTCard(
+            elevation: 0,
             color: backgroundColor,
             borderSide: BorderSide(color: lightGreyColor.resolve(context), width: _borderWidth),
             child: Row(
@@ -148,7 +149,7 @@ class TimingChart extends StatelessWidget {
                   color: task.isFuture ? null : _barColor.resolve(context),
                   width: prefixWidth,
                   padding: const EdgeInsets.symmetric(horizontal: P),
-                  child: CalendarIcon(size: _barHeight * 0.7, color: darkGreyColor),
+                  child: CalendarIcon(size: _barHeight * 0.8, color: darkTextColor),
                 ),
                 const Spacer(),
                 Container(
@@ -176,7 +177,7 @@ class TimingChart extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            LightText('$label ', sizeScale: 1.1, color: color),
+            LightText('$label ', sizeScale: 1.2, color: color),
             H3('${date.strShort}', color: color),
           ],
         ));

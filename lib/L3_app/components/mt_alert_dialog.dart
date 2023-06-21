@@ -102,7 +102,7 @@ class MTAlertDialog extends StatelessWidget {
         );
 
     return CupertinoAlertDialog(
-      title: H3(title, padding: const EdgeInsets.only(bottom: P), maxLines: 5, color: darkGreyColor),
+      title: H3(title, padding: const EdgeInsets.only(bottom: P), maxLines: 5),
       content: Column(
         children: [
           if (description.isNotEmpty) NormalText(description, maxLines: 12),

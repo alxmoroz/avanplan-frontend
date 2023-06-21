@@ -16,7 +16,6 @@ class RequestTariffCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTCard(
-      elevation: cardElevation,
       child: Column(
         children: [
           Expanded(

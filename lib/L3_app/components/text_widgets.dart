@@ -31,7 +31,7 @@ class _BaseText extends StatelessWidget {
   TextStyle style(BuildContext context) {
     final cupertinoTS = CupertinoTheme.of(context).textTheme.textStyle;
     return cupertinoTS.copyWith(
-      color: CupertinoDynamicColor.maybeResolve(color ?? darkGreyColor, context),
+      color: CupertinoDynamicColor.maybeResolve(color ?? darkTextColor, context),
       fontWeight: weight ?? FontWeight.w400,
       fontSize: (cupertinoTS.fontSize ?? (isTablet ? 24 : 16)) * (sizeScale ?? 1),
       inherit: true,
@@ -100,7 +100,6 @@ class NormalText extends _BaseText {
     super.decoration,
   }) : super(
           text,
-          weight: FontWeight.w400,
           maxLines: maxLines ?? 7,
           height: height,
         );
@@ -132,9 +131,8 @@ class H3 extends _BaseText {
     super.decoration,
   }) : super(
           text,
-          weight: FontWeight.w400,
-          sizeScale: 1.35,
-          maxLines: maxLines ?? 3,
+          sizeScale: 1.3,
+          maxLines: maxLines ?? 5,
           height: 1.2,
         );
 }
@@ -149,9 +147,9 @@ class H2 extends _BaseText {
     super.decoration,
   }) : super(
           text,
-          color: color ?? greyColor,
-          weight: FontWeight.w400,
-          sizeScale: 1.7,
+          color: color ?? greyTextColor,
+          weight: FontWeight.w300,
+          sizeScale: 1.75,
           maxLines: maxLines ?? 3,
           height: 1.1,
         );
@@ -167,10 +165,10 @@ class H1 extends _BaseText {
     super.decoration,
   }) : super(
           text,
-          color: color ?? greyColor,
+          color: color ?? greyTextColor,
           weight: FontWeight.w300,
           sizeScale: 2.0,
-          maxLines: maxLines ?? 3,
+          maxLines: maxLines ?? 2,
           height: 1.1,
         );
 }
@@ -218,7 +216,6 @@ class D1 extends _BaseText {
     super.decoration,
   }) : super(
           text,
-          weight: FontWeight.w400,
           sizeScale: 9,
           maxLines: 1,
           height: 1,

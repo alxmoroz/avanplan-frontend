@@ -45,7 +45,7 @@ class WSSelector extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     SmallText('[${ws.code}] ', color: canSelect ? greyColor : lightGreyColor),
-                    Expanded(child: MediumText(ws.title, color: canSelect ? darkGreyColor : lightGreyColor)),
+                    Expanded(child: MediumText(ws.title, color: canSelect ? null : lightGreyColor)),
                   ],
                 ),
                 trailing: canSelect ? const ChevronIcon() : const PrivacyIcon(color: lightGreyColor),

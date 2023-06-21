@@ -2,7 +2,6 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../components/constants.dart';
 import '../../../components/mt_card.dart';
 
 class DashboardWrapper extends StatelessWidget {
@@ -15,7 +14,6 @@ class DashboardWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTCardButton(
       child: child,
-      elevation: cardElevation,
       onTap: onTap,
     );
   }

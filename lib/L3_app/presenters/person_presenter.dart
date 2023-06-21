@@ -38,7 +38,7 @@ extension PersonPresenter on Person {
 }
 
 extension MemberPresenter on Member {
-  Widget iconName({double radius = P, BorderSide? borderSide, bool card = false, Color? color}) {
+  Widget iconName({double radius = P, BorderSide? borderSide, Color? color}) {
     final textColor = color ?? (isActive ? null : lightGreyColor);
     return Row(
       children: [
@@ -46,7 +46,7 @@ extension MemberPresenter on Member {
           _PersonIcon(this, radius, borderSide: borderSide),
           const SizedBox(width: P_2),
         ],
-        card ? SmallText('$this', color: textColor) : NormalText('$this', color: textColor),
+        NormalText('$this', color: textColor),
       ],
     );
   }

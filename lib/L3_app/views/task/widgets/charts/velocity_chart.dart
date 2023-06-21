@@ -36,7 +36,7 @@ class VelocityChart extends StatelessWidget {
   Color get _deltaBarColor => _delta > 0 ? lightWarningColor : _barColor;
 
   Color get _pointerColor => _delta == 0
-      ? greyColor
+      ? greyTextColor
       : _delta > 0
           ? warningColor
           : greenColor;

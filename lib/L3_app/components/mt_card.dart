@@ -35,7 +35,7 @@ class MTCard extends StatelessWidget {
     return Card(
       clipBehavior: Clip.antiAlias,
       margin: margin ?? EdgeInsets.zero,
-      elevation: elevation ?? 1,
+      elevation: elevation ?? cardElevation,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(borderRadius), side: borderSide ?? BorderSide.none),
       child: Padding(child: child, padding: padding ?? EdgeInsets.zero),
       surfaceTintColor: _color,
@@ -46,13 +46,13 @@ class MTCard extends StatelessWidget {
 }
 
 class MTCardButton extends StatelessWidget {
-  const MTCardButton({required this.child, this.margin, this.onTap, required this.elevation, this.radius, this.padding, this.color});
+  const MTCardButton({required this.child, this.margin, this.onTap, this.elevation, this.radius, this.padding, this.color});
 
   final Widget child;
   final EdgeInsets? margin;
   final EdgeInsets? padding;
   final VoidCallback? onTap;
-  final double elevation;
+  final double? elevation;
   final double? radius;
   final Color? color;
 

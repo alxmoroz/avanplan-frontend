@@ -38,7 +38,7 @@ extension TaskActionsExt on Task {
   /// доступные действия
   bool get _isLocal => !hasLink;
   bool get _isLocalProject => isProject && _isLocal;
-  bool get _isLinkedProject => isProject && !_isLocal;
+  bool get isLinkedProject => isProject && !_isLocal;
 
   bool get _canProjectUpdate => _isLocalProject && ws.hpProjectUpdate == true;
   bool get _canProjectDelete => _isLocalProject && ws.hpProjectDelete == true;
@@ -52,7 +52,7 @@ extension TaskActionsExt on Task {
   bool get canRefresh => isRoot;
   bool get canReopen => closed && canUpdate && parent?.closed == false;
   bool get canClose => canUpdate && !closed;
-  bool get canUnlink => _isLinkedProject && ws.hpProjectUpdate == true;
+  bool get canUnlink => isLinkedProject && ws.hpProjectUpdate == true;
   bool get canMembersRead => isProject;
   bool get canEditMembers => _hpMemberUpdate;
   bool get canSetStatus => ws.statuses.isNotEmpty && canUpdate && isLeaf;

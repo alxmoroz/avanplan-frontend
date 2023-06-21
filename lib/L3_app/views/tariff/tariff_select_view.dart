@@ -80,7 +80,6 @@ class TariffSelectView extends StatelessWidget {
       final tariff = tariffs.elementAt(index);
       final balanceLack = tariff.estimateChargePerBillingPeriod - ws.balance;
       return MTCard(
-        elevation: cardElevation,
         child: Column(
           children: [
             Expanded(child: TariffLimits(tariff)),

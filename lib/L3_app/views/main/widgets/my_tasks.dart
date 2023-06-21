@@ -21,7 +21,7 @@ class MyTasks extends StatelessWidget {
       Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          NormalText(loc.my_tasks_title, align: TextAlign.center, color: lightGreyColor),
+          NormalText(loc.my_tasks_title, align: TextAlign.center, color: greyColor),
           Expanded(
             child: myTasksCount > 0 ? Center(child: D1('$myTasksCount', color: mainColor)) : MTImage(ImageNames.empty_tasks.toString()),
           ),

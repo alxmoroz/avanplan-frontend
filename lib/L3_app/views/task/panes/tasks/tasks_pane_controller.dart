@@ -2,7 +2,6 @@
 
 import 'package:mobx/mobx.dart';
 
-import '../../../../../L1_domain/entities/task.dart';
 import '../../task_view_controller.dart';
 
 part 'tasks_pane_controller.g.dart';
@@ -15,8 +14,6 @@ class TasksPaneController extends _TasksPaneControllerBase with _$TasksPaneContr
 
 abstract class _TasksPaneControllerBase with Store {
   late final TaskViewController taskController;
-
-  Task get task => taskController.task;
 
   @observable
   bool showBoard = false;

@@ -10,16 +10,18 @@ import '../../../../components/mt_adaptive.dart';
 import '../../../../components/mt_shadowed.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
+import '../../../../presenters/task_filter_presenter.dart';
+import '../../task_view_controller.dart';
 import '../../widgets/state_title.dart';
 import '../../widgets/task_card.dart';
 
 class TasksListView extends StatelessWidget {
-  const TasksListView(this.groups, this.parent);
+  const TasksListView(this.controller);
+  final TaskViewController controller;
 
-  final List<MapEntry<TaskState, List<Task>>> groups;
-  final Task parent;
-
-  bool get _showGroupTitles => groups.length > 1;
+  Task get _task => controller.task;
+  List<MapEntry<TaskState, List<Task>>> get _groups => controller.isMyTasks ? _task.myTasksGroups : _task.subtaskGroups;
+  bool get _showGroupTitles => _groups.length > 1;
 
   Widget _groupedItemBuilder(Task parent, List<MapEntry<TaskState, List<Task>>> groups, int groupIndex) {
     final group = groups[groupIndex];
@@ -51,11 +53,11 @@ class TasksListView extends StatelessWidget {
     final padding = MediaQuery.of(context).padding;
     return MTShadowed(
       child: MTAdaptive(
-        child: groups.isNotEmpty
+        child: _groups.isNotEmpty
             ? ListView.builder(
-                padding: padding.add(EdgeInsets.only(top: parent.isRoot ? P : 0)),
-                itemBuilder: (_, index) => _groupedItemBuilder(parent, groups, index),
-                itemCount: groups.length,
+                padding: padding.add(EdgeInsets.only(top: _task.isRoot ? P : 0)),
+                itemBuilder: (_, index) => _groupedItemBuilder(_task, _groups, index),
+                itemCount: _groups.length,
               )
             : Center(
                 child: Padding(

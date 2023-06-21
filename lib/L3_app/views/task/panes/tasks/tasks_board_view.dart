@@ -11,7 +11,6 @@ import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/text_widgets.dart';
-import '../../../../extra/services.dart';
 import '../../../../presenters/task_filter_presenter.dart';
 import '../../../../usecases/task_ext_actions.dart';
 import '../../widgets/task_card.dart';
@@ -33,10 +32,10 @@ class _ItemTarget extends StatelessWidget {
 
 class TasksBoardView extends StatelessWidget {
   const TasksBoardView(this.controller);
-
   final TasksPaneController controller;
-  Task get _task => mainController.taskForId(controller.task.wsId, controller.task.id);
-  Workspace get _ws => mainController.wsForId(_task.wsId);
+
+  Task get _task => controller.taskController.task;
+  Workspace get _ws => controller.taskController.ws;
 
   Future _setStatus(int oldTaskIndex, int oldStatusIndex, int newTaskIndex, int newStatusIndex) async {
     if (oldStatusIndex != newStatusIndex) {

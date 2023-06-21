@@ -10,7 +10,6 @@ import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/mt_button.dart';
-import '../../../../presenters/task_filter_presenter.dart';
 import '../../../../presenters/task_view_presenter.dart';
 import '../../../../usecases/task_ext_actions.dart';
 import '../../project_add_wizard/project_add_wizard.dart';
@@ -61,12 +60,7 @@ class TasksPane extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => paneController.showBoard
-          ? TasksBoardView(paneController)
-          : TasksListView(
-              taskController.isMyTasks ? task.myTasksGroups : task.subtaskGroups,
-              task,
-            ),
+      builder: (_) => paneController.showBoard ? TasksBoardView(paneController) : TasksListView(taskController),
     );
   }
 }

@@ -46,12 +46,14 @@ enum TaskTabKey { overview, subtasks, details, team }
 
 enum TaskFCode { title, description, startDate, dueDate, estimate, assignee, author }
 
+enum TasksFilter { my }
+
 class TaskParams {
-  TaskParams(this.wsId, {this.taskId, this.isNew = false, this.isMyTasks = false});
+  TaskParams(this.wsId, {this.taskId, this.isNew = false, this.filters});
   final int wsId;
   final int? taskId;
   final bool isNew;
-  final bool isMyTasks;
+  final Set<TasksFilter>? filters;
 }
 
 class TaskViewController extends _TaskViewControllerBase with _$TaskViewController {
@@ -59,7 +61,7 @@ class TaskViewController extends _TaskViewControllerBase with _$TaskViewControll
     wsId = tp?.wsId ?? -1;
     taskId = tp?.taskId;
     isNew = tp?.isNew ?? false;
-    isMyTasks = tp?.isMyTasks ?? false;
+    filters = tp?.filters ?? {};
 
     final task = mainController.taskForId(wsId, taskId);
     initState(fds: [
@@ -118,11 +120,13 @@ abstract class _TaskViewControllerBase extends EditController with Store {
   late final int wsId;
   late final int? taskId;
   late final bool isNew;
-  late final bool isMyTasks;
+  late final Set<TasksFilter> filters;
+
+  bool get isMyTasks => filters.contains(TasksFilter.my);
 
   Task get task => mainController.taskForId(wsId, taskId);
-  Workspace get _ws => mainController.wsForId(wsId);
-  bool get plCreate => task.isRoot ? _ws.plProjects : _ws.plTasks;
+  Workspace get ws => mainController.wsForId(wsId);
+  bool get plCreate => task.isRoot ? ws.plProjects : ws.plTasks;
 
   Future<bool> _saveField(TaskFCode code) async {
     bool saved = false;
@@ -327,7 +331,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
 
   Future selectStatus() async {
     final selectedStatusId = await showMTSelectDialog<Status>(
-      _ws.statuses,
+      ws.statuses,
       task.statusId,
       loc.task_status_placeholder,
     );
@@ -341,8 +345,8 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     if (statusId != null || close != null) {
       bool recursively = false;
 
-      statusId ??= close == true ? _ws.firstClosedStatusId : _ws.firstOpenedStatusId;
-      close ??= _ws.statusForId(statusId)?.closed;
+      statusId ??= close == true ? ws.firstClosedStatusId : ws.firstOpenedStatusId;
+      close ??= ws.statusForId(statusId)?.closed;
 
       if (close == true && _task.hasOpenedSubtasks) {
         recursively = await _closeDialog() == true;
@@ -381,15 +385,15 @@ abstract class _TaskViewControllerBase extends EditController with Store {
 
   Future selectEstimate() async {
     final selectedEstimateId = await showMTSelectDialog<EstimateValue>(
-      _ws.estimateValues,
-      _ws.estimateValueForValue(task.estimate)?.id,
+      ws.estimateValues,
+      ws.estimateValueForValue(task.estimate)?.id,
       loc.task_estimate_placeholder,
       onReset: _resetEstimate,
     );
 
     if (selectedEstimateId != null) {
       final oldValue = task.estimate;
-      task.estimate = _ws.estimateValueForId(selectedEstimateId)?.value;
+      task.estimate = ws.estimateValueForId(selectedEstimateId)?.value;
       if (!(await _saveField(TaskFCode.estimate))) {
         task.estimate = oldValue;
       }
@@ -470,7 +474,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
       loader.setSaving();
       final newTask = await taskUC.save(Task(
         title: task.newSubtaskTitle,
-        statusId: _ws.statuses.firstOrNull?.id,
+        statusId: ws.statuses.firstOrNull?.id,
         closed: false,
         parent: task,
         tasks: [],

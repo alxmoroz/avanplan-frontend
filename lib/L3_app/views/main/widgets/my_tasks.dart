@@ -30,7 +30,7 @@ class MyTasks extends StatelessWidget {
           if (myTasksCount < 1) NormalText(loc.task_list_empty_hint, align: TextAlign.center, height: 1.2),
         ],
       ),
-      onTap: () async => await Navigator.of(context).pushNamed(TaskView.routeName, arguments: TaskParams(rootTask.wsId, isMyTasks: true)),
+      onTap: () async => await Navigator.of(context).pushNamed(TaskView.routeName, arguments: TaskParams(rootTask.wsId, filters: {TasksFilter.my})),
     );
   }
 }

@@ -25,7 +25,7 @@ class MyTasks extends StatelessWidget {
           Expanded(
             child: myTasksCount > 0 ? Center(child: D1('$myTasksCount', color: mainColor)) : MTImage(ImageNames.empty_tasks.toString()),
           ),
-          H3(myTasksCount > 0 ? mainController.myUpcomingTasksTitle : loc.task_list_empty_title, align: TextAlign.center),
+          H2(myTasksCount > 0 ? mainController.myUpcomingTasksTitle : loc.task_list_empty_title, align: TextAlign.center, color: darkTextColor),
           const SizedBox(height: P),
           if (myTasksCount < 1) NormalText(loc.task_list_empty_hint, align: TextAlign.center, height: 1.2),
         ],

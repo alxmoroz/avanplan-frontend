@@ -20,8 +20,9 @@ class MyProjects extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           NormalText(loc.project_list_my_title, align: TextAlign.center, color: greyColor),
+          const SizedBox(height: P),
           Expanded(child: imageForState(rootTask.overallState)),
-          H3(rootTask.groupStateTitle(rootTask.subtasksState), align: TextAlign.center),
+          H2(rootTask.groupStateTitle(rootTask.subtasksState), align: TextAlign.center, color: darkTextColor),
           const SizedBox(height: P),
         ],
       ),

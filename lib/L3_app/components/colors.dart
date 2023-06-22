@@ -13,13 +13,13 @@ const Color greyTextColor = CupertinoDynamicColor.withBrightness(
 );
 
 const Color greyColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 132, 132, 140),
-  darkColor: Color.fromARGB(255, 162, 162, 170),
+  color: Color.fromARGB(255, 142, 142, 152),
+  darkColor: Color.fromARGB(255, 142, 142, 152),
 );
 
 const Color lightGreyColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(255, 182, 182, 190),
-  darkColor: Color.fromARGB(255, 80, 80, 84),
+  darkColor: Color.fromARGB(255, 100, 100, 110),
 );
 
 const Color borderColor = CupertinoDynamicColor.withBrightness(
@@ -29,7 +29,7 @@ const Color borderColor = CupertinoDynamicColor.withBrightness(
 
 const Color darkBackgroundColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(255, 231, 231, 233),
-  darkColor: Color.fromARGB(255, 42, 42, 45),
+  darkColor: Color.fromARGB(255, 52, 52, 60),
 );
 
 const backgroundColor = CupertinoDynamicColor.withBrightness(

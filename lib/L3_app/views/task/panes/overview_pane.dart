@@ -11,6 +11,7 @@ import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/mt_adaptive.dart';
 import '../../../components/mt_button.dart';
+import '../../../components/mt_card.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_filter_presenter.dart';
@@ -98,29 +99,31 @@ class OverviewPane extends StatelessWidget {
                   _task.projectHasProgress ? _rItemAddTask : _rItemProgress,
                 ],
 
-                /// объем и скорость
-                if (_task.canShowVelocityVolumeCharts) ...[
-                  const SizedBox(height: P2),
-                  Row(children: [
-                    Expanded(child: TaskVolumeChart(_task)),
-                    const SizedBox(width: P2),
-                    Expanded(child: VelocityChart(_task)),
-                  ]),
-                ],
+                if (_task.canShowVelocityVolumeCharts || _task.canShowTimeChart)
+                  MTCardButton(
+                    margin: const EdgeInsets.only(top: P),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        /// объем и скорость
+                        if (_task.canShowVelocityVolumeCharts) ...[
+                          const SizedBox(height: P),
+                          Row(children: [
+                            Expanded(child: TaskVolumeChart(_task)),
+                            const SizedBox(width: P2),
+                            Expanded(child: VelocityChart(_task)),
+                          ]),
+                        ],
 
-                /// срок
-                if (_task.canShowTimeChart) ...[
-                  const SizedBox(height: P),
-                  TimingChart(_task),
-                ],
-
-                if (_task.canShowChartDetails) ...[
-                  const SizedBox(height: P2),
-                  MTButton.secondary(
-                    titleText: loc.chart_details_action_title,
+                        /// срок
+                        if (_task.canShowTimeChart) ...[
+                          SizedBox(height: _task.hasDueDate ? 0 : P2),
+                          TimingChart(_task),
+                        ],
+                      ],
+                    ),
                     onTap: () => showChartsDetailsDialog(_task),
                   ),
-                ],
               ],
             ),
           ),

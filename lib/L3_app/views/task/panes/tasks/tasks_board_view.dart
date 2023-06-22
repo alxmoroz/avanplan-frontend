@@ -51,14 +51,14 @@ class TasksBoardView extends StatelessWidget {
         child: TaskCard(
           t,
           board: true,
-          showBreadcrumbs: _task.id != t.parent?.id,
+          showParent: _task.id != t.parent?.id,
         ),
         feedbackWidget: Transform(
           transform: Matrix4.rotationZ(-0.03),
           child: TaskCard(
             t,
             board: true,
-            showBreadcrumbs: _task.id != t.parent?.id,
+            showParent: _task.id != t.parent?.id,
             dragging: true,
           ),
         ),

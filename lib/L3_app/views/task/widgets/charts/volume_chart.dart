@@ -26,13 +26,13 @@ class TaskVolumeChart extends StatelessWidget {
   double get _barWidth => _gaugeWidth;
 
   Color get _pointerColor => _delta == 0
-      ? greyTextColor
+      ? mainColor
       : _delta > 0
           ? warningColor
           : greenColor;
 
-  Color get _barColor => lightGreyColor;
-  Color get _deltaBarColor => _delta > 0 ? lightWarningColor : _barColor;
+  Color get _barColor => _pointerColor.withAlpha(140);
+  Color get _deltaBarColor => _delta > 0 ? warningColor.withAlpha(100) : _barColor;
 
   MTPieChartData get _gaugeBar => MTPieChartData(_maxValue, strokeWidth: _gaugeWidth);
   MTPieChartData get _mainBar => MTPieChartData(_firstValue, start: 0, color: _barColor, strokeWidth: _barWidth);

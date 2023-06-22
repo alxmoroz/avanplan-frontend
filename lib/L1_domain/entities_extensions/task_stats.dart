@@ -212,7 +212,7 @@ extension TaskStats on Task {
 
   /// интегральный статус
   TaskState get _state {
-    TaskState s = TaskState.opened;
+    TaskState s = TaskState.noInfo;
 
     if (closed) {
       s = TaskState.closed;
@@ -224,13 +224,15 @@ extension TaskStats on Task {
           s = TaskState.overdue;
         } else if (dueDate!.isAfter(yesterday) && dueDate!.isBefore(tomorrow)) {
           s = TaskState.today;
-        } else if (dueDate!.isAfter(tomorrow) && dueDate!.isBefore(nextWeek)) {
+        } else if (dueDate!.isAfter(today) && dueDate!.isBefore(nextWeek)) {
           s = TaskState.thisWeek;
         } else if (dueDate!.isAfter(nextWeek)) {
           s = TaskState.futureDue;
         } else {
-          s = TaskState.noDue;
+          s = TaskState.opened;
         }
+      } else {
+        s = TaskState.noDue;
       }
     }
     // есть подзадачи
@@ -251,8 +253,6 @@ extension TaskStats on Task {
         }
       } else if (hasEtaDate) {
         s = TaskState.eta;
-      } else if ((isProject || isGoal) && projectLowStart) {
-        s = TaskState.noInfo;
       }
     }
 

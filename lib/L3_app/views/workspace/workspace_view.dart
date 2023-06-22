@@ -72,7 +72,7 @@ class WorkspaceView extends StatelessWidget {
   Widget get _tariff => MTListTile(
         leading: const Column(children: [TariffIcon(), SmallText('')]),
         middle: Row(children: [NormalText(loc.tariff_title), const SizedBox(width: P_2), MediumText(ws.invoice.tariff.title)]),
-        subtitle: SmallText('${loc.contract_effective_date_title} ${ws.invoice.contract.createdOn.strMedium}', color: greyColor),
+        subtitle: SmallText('${loc.contract_effective_date_title} ${ws.invoice.contract.createdOn.strMedium}'),
         trailing: const ChevronIcon(),
         onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(ActiveContractView.routeName, arguments: ws),
       );

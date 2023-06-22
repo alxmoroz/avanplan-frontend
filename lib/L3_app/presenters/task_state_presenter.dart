@@ -165,6 +165,6 @@ extension TaskStatePresenter on Task {
     };
   }
 
-  bool get canShowState => !closed && (hasSubtasks || isProject || isGoal);
+  bool get canShowState => !closed && !isLeaf;
   bool get canShowRecommendsEta => !isRoot && [TaskState.noSubtasks, TaskState.noProgress].contains(overallState);
 }

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../main.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_list_tile.dart';
@@ -28,7 +27,7 @@ class WorkspaceListTile extends StatelessWidget {
       middle: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          if (ws.code.isNotEmpty) SmallText('[${ws.code}] ', color: greyColor),
+          if (ws.code.isNotEmpty) SmallText('[${ws.code}] '),
           Expanded(child: NormalText(ws.title)),
         ],
       ),
@@ -36,7 +35,7 @@ class WorkspaceListTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           if (ws.description.isNotEmpty) SmallText(ws.description, padding: const EdgeInsets.only(bottom: P_2), maxLines: 2),
-          SmallText('${loc.tariff_title}: ${ws.invoice.tariff.title}', color: greyColor),
+          SmallText('${loc.tariff_title}: ${ws.invoice.tariff.title}'),
         ],
       ),
       trailing: const ChevronIcon(),

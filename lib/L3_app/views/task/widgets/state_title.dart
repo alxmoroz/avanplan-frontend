@@ -3,7 +3,6 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../L1_domain/entities/task.dart';
-import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/text_widgets.dart';
 import '../../../presenters/task_state_presenter.dart';
@@ -34,7 +33,7 @@ class _StateTitle extends StatelessWidget {
           )
         : place == StateTitlePlace.taskOverview
             ? H3(text, align: TextAlign.center)
-            : SmallText(text, color: greyColor);
+            : SmallText(text);
   }
 }
 

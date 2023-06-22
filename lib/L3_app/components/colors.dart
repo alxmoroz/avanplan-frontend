@@ -42,24 +42,23 @@ const Color lightBackgroundColor = CupertinoDynamicColor.withBrightness(
   darkColor: Color.fromARGB(255, 8, 8, 12),
 );
 
-const Color dangerColor = CupertinoColors.destructiveRed;
+const Color dangerColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, 255, 120, 95),
+  darkColor: Color.fromARGB(255, 255, 140, 100),
+);
 
 const Color goldColor = CupertinoColors.systemYellow;
 
 const Color warningColor = CupertinoColors.activeOrange;
-const Color lightWarningColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(60, 255, 202, 120),
-  darkColor: Color.fromARGB(60, 115, 70, 0),
-);
 
 const Color greenColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 64, 170, 94),
-  darkColor: Color.fromARGB(255, 52, 165, 89),
+  color: Color.fromARGB(255, 42, 184, 168),
+  darkColor: Color.fromARGB(255, 52, 204, 195),
 );
 
 const Color mainColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 30, 150, 220),
-  darkColor: Color.fromARGB(255, 90, 200, 250),
+  color: Color.fromARGB(255, 56, 130, 220),
+  darkColor: Color.fromARGB(255, 90, 180, 255),
 );
 
 // цвет для "прозрачного" апп-бара

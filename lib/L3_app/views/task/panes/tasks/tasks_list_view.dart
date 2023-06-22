@@ -43,6 +43,7 @@ class TasksListView extends StatelessWidget {
               showStateMark: true,
               bottomBorder: index < tasks.length - 1 || (!_showGroupTitles && groupIndex < groups.length - 1),
               filters: controller.filters,
+              showParent: controller.isMyTasks,
             );
           },
         ),

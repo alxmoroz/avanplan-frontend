@@ -18,7 +18,7 @@ extension WSPresenter on Workspace {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          SmallText('[$code] ', color: lightGreyColor),
+          LightText('[$code] ', color: lightGreyColor),
           LightText('$this'),
         ],
       );

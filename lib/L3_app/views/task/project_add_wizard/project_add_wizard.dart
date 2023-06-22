@@ -63,7 +63,7 @@ class _ProjectAddWizardState extends State<ProjectAddWizard> {
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SmallText('[${controller.ws!.code}] ', color: greyColor),
+                SmallText('[${controller.ws!.code}] '),
                 MediumText(controller.ws!.title),
               ],
             ),

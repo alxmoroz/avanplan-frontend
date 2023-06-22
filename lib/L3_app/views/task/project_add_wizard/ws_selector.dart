@@ -44,7 +44,7 @@ class WSSelector extends StatelessWidget {
                 middle: Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    SmallText('[${ws.code}] ', color: canSelect ? greyColor : lightGreyColor),
+                    SmallText('[${ws.code}] ', color: canSelect ? null : lightGreyColor),
                     Expanded(child: MediumText(ws.title, color: canSelect ? null : lightGreyColor)),
                   ],
                 ),

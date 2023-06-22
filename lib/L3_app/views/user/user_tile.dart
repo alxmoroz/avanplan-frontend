@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/user.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_list_tile.dart';
@@ -24,7 +23,7 @@ class UserTile extends StatelessWidget {
         child: user.icon(P2),
       ),
       middle: NormalText('$user'),
-      subtitle: SmallText(user.rolesStr, color: greyColor),
+      subtitle: SmallText(user.rolesStr),
       trailing: const ChevronIcon(),
       bottomDivider: bottomBorder,
       onTap: () async => await Navigator.of(context).pushNamed(

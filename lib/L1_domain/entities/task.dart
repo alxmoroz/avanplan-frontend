@@ -15,13 +15,13 @@ enum TaskState {
   eta,
   noSubtasks,
   noProgress,
-  noInfo,
-  opened,
-  closed,
   today,
   thisWeek,
   futureDue,
   noDue,
+  noInfo,
+  opened,
+  closed,
 }
 
 class Task extends Titleable {

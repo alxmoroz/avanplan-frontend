@@ -59,12 +59,13 @@ class SmallText extends _BaseText {
   const SmallText(
     String text, {
     int? maxLines,
-    super.color,
+    Color? color,
     super.align,
     super.padding,
     super.decoration,
   }) : super(
           text,
+          color: color ?? greyColor,
           sizeScale: 0.85,
           maxLines: maxLines ?? 9,
         );

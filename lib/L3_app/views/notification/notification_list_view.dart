@@ -47,7 +47,6 @@ class NotificationListView extends StatelessWidget {
         loc.notification_list_hint_title,
         align: TextAlign.center,
         padding: const EdgeInsets.symmetric(horizontal: P, vertical: P2),
-        color: greyColor,
       );
     }
   }

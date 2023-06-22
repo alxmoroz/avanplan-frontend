@@ -11,7 +11,7 @@ class BillingPeriodIcon extends MTIcon {
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.arrow_2_circlepath_circle,
-        color: (color ?? lightGreyColor).resolve(context),
+        color: (color ?? greyTextColor).resolve(context),
         size: size ?? P3,
       );
 }

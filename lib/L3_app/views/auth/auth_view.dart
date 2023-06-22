@@ -82,7 +82,7 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
                     const SizedBox(height: P2),
                     appIcon(size: size.maxHeight / 4),
                     H3(authController.registerMode ? loc.auth_register_with_title : loc.auth_sign_in_with_title,
-                        align: TextAlign.center, color: greyColor),
+                        align: TextAlign.center, color: greyTextColor),
                     const SizedBox(height: P),
                     Column(
                       children: [

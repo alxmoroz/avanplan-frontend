@@ -58,7 +58,7 @@ class OverviewPane extends StatelessWidget {
           : null;
 
   Widget _checkRecommendsItem(bool checked, String text) => Row(children: [
-        DoneIcon(checked, color: checked ? greenColor : greyColor, size: P * 3, solid: checked),
+        DoneIcon(checked, color: checked ? greenColor : greyTextColor, size: P * 3, solid: checked),
         const SizedBox(width: P_3),
         H3(text, color: checked ? lightGreyColor : null),
       ]);
@@ -71,7 +71,7 @@ class OverviewPane extends StatelessWidget {
   Widget get _rItemProgress => _checkRecommendsItem(_task.projectHasProgress, loc.recommendation_close_tasks_title);
 
   Widget _line(BuildContext context) =>
-      Row(children: [const SizedBox(width: P * 1.4), Container(height: P * 1.5, width: 2, color: greyColor.resolve(context))]);
+      Row(children: [const SizedBox(width: P * 1.4), Container(height: P * 1.5, width: 2, color: greyTextColor.resolve(context))]);
 
   @override
   Widget build(BuildContext context) {

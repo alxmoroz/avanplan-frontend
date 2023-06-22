@@ -72,11 +72,8 @@ class TasksBoardView extends StatelessWidget {
       header: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          if (status.closed) const DoneIcon(true, color: greyColor),
-          NormalText(
-            '$status',
-            padding: const EdgeInsets.all(P_2),
-          ),
+          if (status.closed) const DoneIcon(true, color: greyTextColor),
+          NormalText('$status', padding: const EdgeInsets.all(P_2)),
         ],
       ),
       children: [for (final t in tasks) _taskBuilder(t)],

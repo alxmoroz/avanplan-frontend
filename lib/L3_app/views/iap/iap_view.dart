@@ -38,8 +38,8 @@ class StoreView extends StatelessWidget {
 
     return Row(
       children: [
-        if (hasPrice) H3('  ${loc.for_} ${isRub ? p.rawPrice.currency : p.price}', color: greyColor),
-        if (isRub) RoubleIcon(size: P * (hasPrice ? 2 : 2.5), color: hasPrice ? greyColor : mainColor),
+        if (hasPrice) H3('  ${loc.for_} ${isRub ? p.rawPrice.currency : p.price}', color: greyTextColor),
+        if (isRub) RoubleIcon(size: P * (hasPrice ? 2 : 2.5), color: hasPrice ? greyTextColor : mainColor),
       ],
     );
   }

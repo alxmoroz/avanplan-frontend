@@ -52,7 +52,7 @@ class DetailsPane extends StatelessWidget {
       value: !isEmpty
           ? Row(children: [
               NormalText(date.strMedium, padding: const EdgeInsets.only(right: P_2)),
-              LightText(DateFormat.E().format(date), color: greyColor),
+              LightText(DateFormat.E().format(date), color: greyTextColor),
             ])
           : null,
       onSelect: _task.canUpdate ? () => controller.selectDate(context, code) : null,

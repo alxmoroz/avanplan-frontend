@@ -34,7 +34,6 @@ class NotificationListView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             SmallText(date),
-            // if (m.event.task?.isProject == false) SmallText(m.event.projectTitle, color: greyColor),
             n.isRead ? NormalText(title) : MediumText(title),
           ],
         ),

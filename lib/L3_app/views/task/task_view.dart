@@ -70,7 +70,7 @@ class _TaskViewState extends State<TaskView> {
           res[TaskTabKey.overview] = _tab(selected, const EyeIcon(), NormalText(loc.overview));
           break;
         case TaskTabKey.subtasks:
-          res[TaskTabKey.subtasks] = _tab(selected, const DoneIcon(true, color: greyColor), NormalText('${task.listTitle}'));
+          res[TaskTabKey.subtasks] = _tab(selected, const DoneIcon(true, color: greyTextColor), NormalText('${task.listTitle}'));
           break;
         case TaskTabKey.details:
           res[TaskTabKey.details] = _tab(selected, const RulesIcon(), NormalText(loc.description));

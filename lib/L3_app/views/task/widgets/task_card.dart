@@ -59,23 +59,27 @@ class TaskCard extends StatelessWidget {
       );
 
   bool get _showDate => task.hasDueDate && task.isLeaf;
-  Widget get _date => Row(children: [
-        CalendarIcon(color: stateColor(task.state)),
-        const SizedBox(width: P_3),
-        SmallText(task.dueDate!.strMedium, color: _textColor ?? stateColor(task.state)),
-      ]);
+  Color get _dateColor => task.dueDate!.isBefore(tomorrow) ? stateColor(task.state) : _textColor ?? greyColor;
+  Widget get _date => Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CalendarIcon(color: _dateColor, size: P * 1.6),
+          const SizedBox(width: P_3),
+          SmallText(task.dueDate!.strMedium, color: _dateColor, height: 1),
+        ],
+      );
 
-  bool get _showStatus => task.hasStatus && !board;
+  bool get _showStatus => task.hasStatus && !board && !task.closed;
   Widget get _status => SmallText('${task.status}', color: _textColor);
 
   bool get _showAssignee => task.hasAssignee && filters?.contains(TasksFilter.my) != true;
-  Widget get _assignee => task.assignee!.icon(P * (board ? 1 : 1.3));
+  Widget get _assignee => task.assignee!.icon(P * (board ? 1 : 1.35));
 
-  bool get _showEstimate => task.hasEstimate;
+  bool get _showEstimate => task.hasEstimate && !task.closed;
   Widget get _estimate => SmallText('${task.sumEstimate} ${loc.task_estimate_unit}', color: _textColor);
 
   Widget get _divider => const Padding(
-        padding: EdgeInsets.symmetric(horizontal: P),
+        padding: EdgeInsets.symmetric(horizontal: P_2),
         child: MTCircle(size: P_3, color: lightGreyColor),
       );
 
@@ -102,7 +106,7 @@ class TaskCard extends StatelessWidget {
                   const Spacer(),
                   if (_showEstimate) ...[_estimate],
                   if (_showStatus) ...[if (_showEstimate) _divider, _status],
-                  if (_showAssignee) ...[const SizedBox(width: P), _assignee],
+                  if (_showAssignee) ...[const SizedBox(width: P_2), _assignee],
                 ],
               ),
             ],

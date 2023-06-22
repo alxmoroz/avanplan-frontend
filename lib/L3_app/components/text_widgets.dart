@@ -59,6 +59,7 @@ class SmallText extends _BaseText {
   const SmallText(
     String text, {
     int? maxLines,
+    double? height,
     Color? color,
     super.align,
     super.padding,
@@ -68,6 +69,7 @@ class SmallText extends _BaseText {
           color: color ?? greyColor,
           sizeScale: 0.85,
           maxLines: maxLines ?? 9,
+          height: height,
         );
 }
 

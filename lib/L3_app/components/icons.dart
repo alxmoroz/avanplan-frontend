@@ -25,7 +25,7 @@ class BellIcon extends MTIcon {
   @override
   Widget build(BuildContext context) {
     final _size = size ?? P2;
-    final _color = color ?? greyColor;
+    final _color = color ?? greyTextColor;
     return Stack(
       alignment: Alignment.topRight,
       children: [
@@ -71,7 +71,7 @@ class CaretIcon extends StatelessWidget {
   Widget build(BuildContext context) => RotatedBox(
         quarterTurns: up ? 0 : 2,
         child: CustomPaint(
-          painter: TrianglePainter(color: (color ?? greyColor).resolve(context)),
+          painter: TrianglePainter(color: (color ?? greyTextColor).resolve(context)),
           child: Container(height: size.height, width: size.width),
         ),
       );
@@ -189,7 +189,7 @@ class EyeIcon extends MTIcon {
   @override
   Widget build(BuildContext context) => FaIcon(
         open ? FontAwesomeIcons.eye : FontAwesomeIcons.eyeSlash,
-        color: (color ?? greyColor).resolve(context),
+        color: (color ?? greyTextColor).resolve(context),
         size: size ?? P * 1.7,
       );
 }
@@ -209,7 +209,7 @@ class LinkIcon extends MTIcon {
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.link,
-        color: (color ?? greyColor).resolve(context),
+        color: (color ?? greyTextColor).resolve(context),
         size: size ?? P * 1.4,
       );
 }
@@ -262,7 +262,7 @@ class MailIcon extends MTIcon {
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.envelope,
-        color: (color ?? greyColor).resolve(context),
+        color: (color ?? greyTextColor).resolve(context),
         size: size ?? P2,
       );
 }
@@ -273,7 +273,7 @@ class PersonIcon extends MTIcon {
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.person,
-        color: (color ?? greyColor).resolve(context),
+        color: (color ?? greyTextColor).resolve(context),
         size: size ?? P2,
       );
 }
@@ -293,7 +293,7 @@ class PrivacyIcon extends MTIcon {
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.lock_shield,
-        color: (color ?? greyColor).resolve(context),
+        color: (color ?? greyTextColor).resolve(context),
         size: size ?? P2,
       );
 }
@@ -313,7 +313,7 @@ class RulesIcon extends MTIcon {
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.doc_plaintext,
-        color: (color ?? greyColor).resolve(context),
+        color: (color ?? greyTextColor).resolve(context),
         size: size ?? P2,
       );
 }

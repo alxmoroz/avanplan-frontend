@@ -73,7 +73,7 @@ class MTButton extends StatelessWidget {
   final EdgeInsets? margin;
   final bool constrained;
 
-  Color get _titleColor => onTap != null ? (titleColor ?? (type == ButtonType.main ? lightBackgroundColor : mainColor)) : greyColor;
+  Color get _titleColor => onTap != null ? (titleColor ?? (type == ButtonType.main ? lightBackgroundColor : mainColor)) : greyTextColor;
 
   ButtonStyle _style(BuildContext context) {
     final _btnColor = (onTap != null ? (color ?? (type == ButtonType.main ? mainColor : lightBackgroundColor)) : borderColor).resolve(context);

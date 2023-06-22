@@ -322,6 +322,9 @@
 
   "title": "Title",
 
+  "today_date_title": "today",
+  "tomorrow_date_title": "tomorrow",
+
   "update_app_recommendation_title": "Update the app to the latest version",
   "update_web_app_recommendation_title": "Refresh the page in your browser or reinstall the web application",
 
@@ -338,5 +341,7 @@
   "workspaces_title": "Workspaces",
 
   "years_count": "{count, plural, one{{count} year} other{{count} years}}",
-  "yes": "Yes"
+  "yes": "Yes",
+
+  "yesterday_date_title": "yesterday"
 }

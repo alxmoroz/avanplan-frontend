@@ -322,6 +322,9 @@
 
   "title": "Название",
 
+  "today_date_title": "сегодня",
+  "tomorrow_date_title": "завтра",
+
   "update_app_recommendation_title": "Убедитесь, что у вас самая свежая версия приложения.\nПопробуйте ещё раз",
   "update_web_app_recommendation_title": "Обновите страницу в браузере или переустановите веб-приложение",
 
@@ -338,5 +341,7 @@
   "workspaces_title": "Рабочие пространства",
 
   "years_count": "{count, plural, one{{count} год} few{{count} года} other{{count} лет}}",
-  "yes": "Да"
+  "yes": "Да",
+
+  "yesterday_date_title": "вчера"
 }

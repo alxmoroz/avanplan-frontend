@@ -9,7 +9,7 @@ flutter clean
 
 bash ./scripts/api_rebuild.sh
 bash ./scripts/build_runner_clean.sh
-flutter pub run intl_utils:generate
+dart run intl_utils:generate
 bash ./scripts/build_runner_build.sh
 
 #bash ./scripts/test.sh || exit

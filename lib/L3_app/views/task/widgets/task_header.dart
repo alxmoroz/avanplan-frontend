@@ -50,7 +50,12 @@ class TaskHeader extends StatelessWidget {
                   controller: controller.teController(TaskFCode.title.index),
                   autofocus: controller.isNew,
                   margin: EdgeInsets.zero,
-                  decoration: const InputDecoration(border: InputBorder.none, contentPadding: EdgeInsets.zero),
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.zero,
+                    hintText: controller.titlePlaceholder,
+                    hintStyle: const H1('', color: lightGreyColor).style(context),
+                  ),
                   style: const H1('').style(context),
                   onChanged: controller.editTitle,
                 ),

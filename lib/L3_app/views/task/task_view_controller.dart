@@ -67,7 +67,7 @@ class TaskViewController extends _TaskViewControllerBase with _$TaskViewControll
     initState(fds: [
       MTFieldData(
         TaskFCode.title.index,
-        text: task.title,
+        text: isNew ? '' : task.title,
         needValidate: false,
       ),
       MTFieldData(
@@ -146,10 +146,12 @@ abstract class _TaskViewControllerBase extends EditController with Store {
 
   /// название
 
+  String get titlePlaceholder => task.parent!.newSubtaskTitle;
+
   Future _setTitle(String str) async {
     if (task.title != str) {
-      if (str.isEmpty) {
-        teController(TaskFCode.title.index)!.text = str = task.viewTitle;
+      if (str.trim().isEmpty) {
+        str = titlePlaceholder;
       }
       final oldValue = task.title;
       task.title = str;
@@ -401,6 +403,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
   }
 
   /// вкладки
+
   @computed
   Iterable<TaskTabKey> get tabKeys {
     return task.isRoot

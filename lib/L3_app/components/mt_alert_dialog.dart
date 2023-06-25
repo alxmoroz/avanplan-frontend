@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 
+import '../../main.dart';
 import 'colors.dart';
 import 'constants.dart';
 import 'mt_divider.dart';
@@ -32,16 +33,15 @@ class MTADialogAction<T> {
 }
 
 Future<T?> showMTAlertDialog<T>(
-  BuildContext context, {
-  required String title,
+  String title, {
   required List<MTADialogAction<T>> actions,
   String description = '',
   bool simple = false,
 }) async {
   return await showCupertinoDialog<T?>(
-    context: context,
+    context: rootKey.currentContext!,
     barrierDismissible: true,
-    builder: (_) => MTAlertDialog(title: title, description: description, actions: actions, simple: simple),
+    builder: (_) => _MTAlertDialog(title: title, description: description, actions: actions, simple: simple),
   );
 }
 
@@ -51,8 +51,8 @@ const _actionColors = {
   MTActionType.isDefault: mainColor,
 };
 
-class MTAlertDialog extends StatelessWidget {
-  const MTAlertDialog({
+class _MTAlertDialog extends StatelessWidget {
+  const _MTAlertDialog({
     required this.title,
     required this.actions,
     required this.description,

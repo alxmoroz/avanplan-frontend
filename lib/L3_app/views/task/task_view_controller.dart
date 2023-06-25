@@ -434,8 +434,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
       );
 
   Future<bool?> _unlinkDialog() async => await showMTAlertDialog(
-        rootKey.currentContext!,
-        title: loc.task_unlink_dialog_title,
+        loc.task_unlink_dialog_title,
         description: loc.task_unlink_dialog_description,
         actions: [
           MTADialogAction(
@@ -449,8 +448,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
       );
 
   Future<bool?> _closeDialog() async => await showMTAlertDialog(
-        rootKey.currentContext!,
-        title: loc.close_dialog_recursive_title,
+        loc.close_dialog_recursive_title,
         description: loc.close_dialog_recursive_description,
         actions: [
           MTADialogAction(title: loc.close_w_subtasks, type: MTActionType.isWarning, result: true),
@@ -518,8 +516,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
 
   Future delete() async {
     final confirm = await showMTAlertDialog(
-      rootKey.currentContext!,
-      title: task.deleteDialogTitle,
+      task.deleteDialogTitle,
       description: '${loc.task_delete_dialog_description}\n${loc.delete_dialog_description}',
       actions: [
         MTADialogAction(title: loc.yes, type: MTActionType.isDanger, result: true),

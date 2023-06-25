@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/source.dart';
+import '../../../L1_domain/entities/source_type.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/ws_ext.dart';
@@ -19,14 +20,14 @@ import '../tariff/tariff_select_view.dart';
 part 'import_controller.g.dart';
 
 class ImportController extends _ImportControllerBase with _$ImportController {
-  Future<ImportController> init(int _wsId, String? sType) async {
+  Future<ImportController> init(int _wsId, SourceType? sType) async {
     wsId = _wsId;
     selectedSourceId = ws.sources.length == 1 ? ws.sources.first.id : null;
     // проверяем наличие источника импорта выбранного типа
     Source? preselectedSource = sType != null ? ws.sourceForType(sType) : selectedSource;
     // переходим к созданию источника, если нет источников, либо источник выбранного типа отсутствует
     if (ws.sources.isEmpty || (sType != null && preselectedSource == null)) {
-      preselectedSource = await addSource(ws, sType: sType);
+      preselectedSource = await addSource(ws, sType: sType!);
       // выходим из сценария, если отказались создавать или не получилось
       // if (preselectedSource == null) {
       //   return;

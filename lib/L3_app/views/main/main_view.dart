@@ -15,7 +15,6 @@ import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/person_presenter.dart';
-import '../../presenters/task_level_presenter.dart';
 import '../notification/notification_list_view.dart';
 import '../settings/settings_view.dart';
 import '../task/project_add_wizard/project_add_wizard.dart';
@@ -61,8 +60,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
 
   Widget? get _bottomBar => !rootTask.hasOpenedSubtasks
       ? MTButton.main(
-          leading: const PlusIcon(color: lightBackgroundColor),
-          titleText: rootTask.newSubtaskTitle,
+          titleText: loc.state_no_projects_action_title,
           onTap: projectAddWizard,
         )
       : null;

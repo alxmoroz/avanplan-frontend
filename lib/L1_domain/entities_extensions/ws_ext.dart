@@ -4,12 +4,13 @@ import 'package:collection/collection.dart';
 
 import '../entities/estimate_value.dart';
 import '../entities/source.dart';
+import '../entities/source_type.dart';
 import '../entities/status.dart';
 import '../entities/workspace.dart';
 
 extension WSExtension on Workspace {
   Source? sourceForId(int? id) => sources.firstWhereOrNull((s) => s.id == id);
-  Source? sourceForType(String? type) => sources.firstWhereOrNull((s) => s.type == type);
+  Source? sourceForType(SourceType? type) => sources.firstWhereOrNull((s) => s.type.code == type?.code);
 
   num get welcomeGiftAmount => mainAccount.incomingOperations.firstWhereOrNull((op) => op.basis == 'WELCOME_GIFT')?.amount ?? 0;
 

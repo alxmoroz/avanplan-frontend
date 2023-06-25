@@ -220,6 +220,7 @@
   "state_low_start_duration": "Прошло менее {duration} со старта",
   "state_low_start_before_calc_duration": "Прогноз и скорость покажем через {duration}",
   "state_no_info_title": "Нет прогноза",
+  "state_no_projects_action_title": "Начать",
   "state_no_projects_hint": "Начнём работу!",
   "state_no_progress_details": "Нет прогресса",
   "state_on_time_title": "Успеваем в срок",
@@ -239,6 +240,8 @@
   "source_list_empty_title": "Источники ждут, когда их подключат",
   "source_list_title": "Источники импорта задач",
   "source_title_new": "Новый источник импорта",
+  "source_type_unavailable_title": "{type} не доступен для добавления",
+  "source_type_unavailable_hint": "Мы сразу же сообщим вам, как только появится такая возможность",
   "source_type_placeholder": "Тип источника",
   "source_url_placeholder": "Адрес сервера (URL)",
 

@@ -220,6 +220,7 @@
   "state_low_start_duration": "It's been less than {duration} since launch",
   "state_low_start_before_calc_duration": "Estimation and velocity will be shown in {duration}",
   "state_no_info_title": "No estimate",
+  "state_no_projects_action_title": "Start",
   "state_no_projects_hint": "Let's get started!",
   "state_no_progress_details": "No progress",
   "state_ok_title": "All according to plan",
@@ -239,6 +240,8 @@
   "source_list_empty_title": "Sources are waiting to be connected",
   "source_list_title": "Remote import sources",
   "source_title_new": "New import source",
+  "source_type_unavailable_title": "{type} is not available for adding",
+  "source_type_unavailable_hint": "We will notify you as soon as it becomes available",
   "source_type_placeholder": "Import sources type",
   "source_url_placeholder": "URL",
 

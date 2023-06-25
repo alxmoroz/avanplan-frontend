@@ -4,7 +4,6 @@ import 'package:app_settings/app_settings.dart' as sys_settings;
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -52,8 +51,7 @@ class NotificationListView extends StatelessWidget {
 
   Future _showGotoSystemSettingsDialog() async {
     final gotoSettings = await showMTAlertDialog(
-      rootKey.currentContext!,
-      title: loc.notification_push_ios_denied_dialog_title,
+      loc.notification_push_ios_denied_dialog_title,
       description: loc.notification_push_ios_denied_dialog_description,
       actions: [
         MTADialogAction(title: loc.cancel, result: false),

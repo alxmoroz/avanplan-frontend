@@ -7,6 +7,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 
 import '../../../L1_domain/entities/source.dart';
+import '../../../L1_domain/entities/source_type.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -27,7 +28,7 @@ import '../source/source_edit_view.dart';
 import 'import_controller.dart';
 
 // старт сценария по импорту задач
-Future importTasks(int wsId, {String? sType}) async {
+Future importTasks(int wsId, {SourceType? sType}) async {
   final controller = await ImportController().init(wsId, sType);
   controller.ws.checkSources();
   await showImportDialog(controller);

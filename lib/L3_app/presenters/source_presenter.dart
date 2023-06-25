@@ -3,32 +3,22 @@
 import 'package:flutter/material.dart';
 
 import '../../L1_domain/entities/source.dart';
+import '../../L1_domain/entities/source_type.dart';
 import '../../L1_domain/entities/task_source.dart';
 import '../../L1_domain/entities_extensions/ws_ext.dart';
 import '../../main.dart';
 import '../components/colors.dart';
 import '../components/constants.dart';
 import '../components/icons.dart';
-import '../components/icons_sources.dart';
 import '../components/mt_circle.dart';
 import '../components/mt_list_tile.dart';
 import '../components/text_widgets.dart';
 import '../extra/services.dart';
 
-Widget _iconForSourceType(String? st) {
-  switch (st) {
-    case 'Redmine':
-      return redmineIcon();
-    case 'GitLab':
-      return gitlabIcon();
-    case 'Jira':
-      return jiraIcon();
-    default:
-      return const MTCircle(size: P2, color: dangerColor);
-  }
-}
+Widget _iconForSourceType(SourceType? st) =>
+    st != null && st.active ? Image.asset('assets/icons/${st.code}_icon.png', height: P2) : const MTCircle(size: P2, color: borderColor);
 
-Widget iconTitleForSourceType(String st) => Row(children: [_iconForSourceType(st), const SizedBox(width: P_2), MediumText(st)]);
+Widget iconTitleForSourceType(SourceType st) => Row(children: [_iconForSourceType(st), const SizedBox(width: P_2), MediumText('$st')]);
 
 double get _connectionIndicatorSize => P;
 
@@ -71,7 +61,7 @@ extension SourcePresenter on Source {
 }
 
 extension TaskSourcePresenter on TaskSource {
-  String? get _typeForId => mainController.wsForId(wsId).sourceForId(sourceId)?.type;
+  SourceType? get _typeForId => mainController.wsForId(wsId).sourceForId(sourceId)?.type;
   Widget go2SourceTitle({bool showSourceIcon = false}) => Row(
         children: [
           if (showSourceIcon) ...[

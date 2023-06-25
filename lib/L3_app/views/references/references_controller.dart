@@ -2,6 +2,8 @@
 
 import 'package:mobx/mobx.dart';
 
+import '../../../L1_domain/entities/source_type.dart';
+
 part 'references_controller.g.dart';
 
 class ReferencesController extends _ReferencesControllerBase with _$ReferencesController {}
@@ -9,22 +11,19 @@ class ReferencesController extends _ReferencesControllerBase with _$ReferencesCo
 abstract class _ReferencesControllerBase with Store {
   /// тип источника импорта
   @observable
-  List<String> sourceTypes = [];
-
-  /// тип задачи
-  // @observable
-  // List<TaskType> taskTypes = [];
+  List<SourceType> sourceTypes = [];
 
   @action
   Future fetchData() async {
-    sourceTypes = ['Jira', 'GitLab', 'Redmine'];
-    // (await sourceTypesUC.getAll()).sorted((s1, s2) => compareNatural(s1.code, s2.code));
-    // taskTypes = await taskTypesUC.getAll();
+    sourceTypes = [
+      for (final st in ['Jira', 'GitLab', 'Redmine']) SourceType(title: st, code: st.toLowerCase()),
+      for (final st in ['Trello', 'Notion', 'GitHub']) SourceType(title: st, code: st.toLowerCase(), active: false),
+      SourceType(title: 'Яндекс.Трекер', code: 'yandex_tracker', active: false),
+    ];
   }
 
   @action
   void clearData() {
     sourceTypes = [];
-    // taskTypes = [];
   }
 }

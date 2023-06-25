@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/source.dart';
+import '../../../L1_domain/entities/source_type.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/ws_ext.dart';
 import '../../../main.dart';
@@ -21,7 +22,7 @@ part 'source_edit_controller.g.dart';
 enum SourceFCode { url, username, apiKey, password, description }
 
 class SourceEditController extends _SourceEditControllerBase with _$SourceEditController {
-  SourceEditController(Workspace _ws, int? _srcId, String? sType) {
+  SourceEditController(Workspace _ws, int? _srcId, SourceType? sType) {
     ws = _ws;
     srcId = _srcId;
     selectType(source?.type ?? sType);
@@ -48,13 +49,13 @@ abstract class _SourceEditControllerBase extends EditController with Store {
   /// тип источника
 
   @observable
-  String? selectedType;
+  SourceType? selectedType;
 
   @action
-  void selectType(String? _type) => selectedType = _type;
+  void selectType(SourceType? _type) => selectedType = _type;
 
   @computed
-  bool get showUsername => selectedType == 'Jira';
+  bool get showUsername => selectedType?.code == 'jira';
 
   @override
   bool get validated => super.validated && selectedType != null;
@@ -84,8 +85,7 @@ abstract class _SourceEditControllerBase extends EditController with Store {
   Future delete(BuildContext context) async {
     if (canEdit) {
       final confirm = await showMTAlertDialog(
-        context,
-        title: loc.source_delete_dialog_title,
+        loc.source_delete_dialog_title,
         description: '${loc.source_delete_dialog_description}\n\n${loc.delete_dialog_description}',
         actions: [
           MTADialogAction(title: loc.yes, type: MTActionType.isDanger, result: true),

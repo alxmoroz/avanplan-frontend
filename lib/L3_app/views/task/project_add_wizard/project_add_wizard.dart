@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../../L1_domain/entities/source_type.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
@@ -37,7 +38,7 @@ class _ProjectAddWizardState extends State<ProjectAddWizard> {
     super.initState();
   }
 
-  Future startImport(String? sType) async {
+  Future startImport(SourceType? sType) async {
     if (controller.ws!.plProjects) {
       if (controller.mustSelectST && sType == null) {
         controller.selectImportMode();

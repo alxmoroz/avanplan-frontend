@@ -1,7 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:collection/collection.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/user.dart';
@@ -46,10 +45,9 @@ abstract class _AccountControllerBase extends EditController with Store {
   @action
   void clearData() => user = null;
 
-  Future delete(BuildContext context) async {
+  Future delete() async {
     final confirm = await showMTAlertDialog(
-      context,
-      title: loc.account_delete_dialog_title,
+      loc.account_delete_dialog_title,
       description: loc.account_delete_dialog_description,
       actions: [
         MTADialogAction(title: loc.yes, type: MTActionType.isDanger, result: true),

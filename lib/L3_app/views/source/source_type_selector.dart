@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 
+import '../../../L1_domain/entities/source_type.dart';
 import '../../components/icons.dart';
 import '../../components/mt_dialog.dart';
 import '../../components/mt_list_tile.dart';
@@ -11,7 +12,7 @@ import '../../presenters/source_presenter.dart';
 
 class SourceTypeSelector extends StatelessWidget {
   const SourceTypeSelector(this.onTap);
-  final void Function(String) onTap;
+  final void Function(SourceType) onTap;
 
   @override
   Widget build(BuildContext context) => MTDialog(

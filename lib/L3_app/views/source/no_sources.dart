@@ -15,11 +15,13 @@ class NoSources extends StatelessWidget {
       child: ListView(
         shrinkWrap: true,
         children: [
+          const SizedBox(height: P),
           MTImage(ImageNames.empty_sources.toString()),
           const SizedBox(height: P),
           H3(loc.source_list_empty_title, align: TextAlign.center),
           const SizedBox(height: P),
           NormalText(loc.source_list_empty_hint, align: TextAlign.center),
+          const SizedBox(height: P),
         ],
       ),
     );

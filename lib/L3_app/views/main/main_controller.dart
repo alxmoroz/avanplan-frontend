@@ -151,8 +151,7 @@ abstract class _MainControllerBase with Store {
   Future _explainUpdateDetails() async {
     if (hasLinkedProjects && !accountController.updateDetailsExplanationViewed) {
       await showMTAlertDialog(
-        rootKey.currentContext!,
-        title: loc.explain_update_details_dialog_title,
+        loc.explain_update_details_dialog_title,
         description: loc.explain_update_details_dialog_description,
         actions: [MTADialogAction(title: loc.ok, type: MTActionType.isDefault, result: true)],
         simple: true,
@@ -169,8 +168,7 @@ abstract class _MainControllerBase with Store {
       final wsId = myWS.id;
       if (wga > 0 && !accountController.welcomeGiftInfoViewed(wsId!)) {
         final wantChangeTariff = await showMTAlertDialog(
-          rootKey.currentContext!,
-          title: loc.onboarding_welcome_gift_dialog_title,
+          loc.onboarding_welcome_gift_dialog_title,
           description: loc.onboarding_welcome_gift_dialog_description(wga.currency),
           actions: [
             MTADialogAction(title: loc.tariff_change_action_title, type: MTActionType.isDefault, result: true),

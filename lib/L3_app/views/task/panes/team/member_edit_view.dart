@@ -60,7 +60,6 @@ class _MemberEditViewState extends State<MemberEditView> {
             children: [
               MediumText('$member'),
               task.subPageTitle(loc.role_list_title),
-              const SizedBox(height: P_2),
             ],
           ),
         ),

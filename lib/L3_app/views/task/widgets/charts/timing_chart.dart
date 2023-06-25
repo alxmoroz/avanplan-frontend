@@ -13,7 +13,6 @@ import '../../../../components/mt_progress.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/date_presenter.dart';
-import '../../../../presenters/task_state_presenter.dart';
 
 class _DateBarData {
   _DateBarData({required this.date, this.color, this.mark});
@@ -29,8 +28,18 @@ class TimingChart extends StatelessWidget {
 
   static double get _barHeight => P2;
   double get _suffixWidth => _barHeight / 2;
-  double get _borderWidth => 1.0;
-  Color get _barColor => lightGreyColor;
+  double get _borderWidth => 0.0;
+
+  Color get _pointerColor => task.hasRisk
+      ? warningColor
+      : task.hasOverdue
+          ? dangerColor
+          : task.isOk
+              ? greenColor
+              : mainColor;
+
+  Color get _barColor => _pointerColor.withAlpha(120);
+
   Color get _planMarkColor => task.hasOverdue ? dangerColor : greyTextColor;
 
   Color get _etaMarkColor => task.hasRisk
@@ -51,7 +60,6 @@ class TimingChart extends StatelessWidget {
       if (task.hasDueDate)
         _DateBarData(
           date: task.dueDate!,
-          color: task.hasOverdue ? _barColor : null,
           mark: MTProgressMark(
             child: CaretIcon(color: _planMarkColor, size: _markSize),
             size: Size(_markSize.width, -_markSize.height),
@@ -79,8 +87,8 @@ class TimingChart extends StatelessWidget {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                MTCircle(size: _barHeight, color: darkBackgroundColor, border: Border.all(color: task.hasOverdue ? warningColor : _barColor)),
-                MTCircle(size: _barHeight * 0.7, color: stateColor(task.state))
+                MTCircle(size: _barHeight, color: darkBackgroundColor, border: Border.all(color: _barColor)),
+                MTCircle(size: _barHeight * 0.7, color: _pointerColor)
               ],
             ),
             size: Size(_barHeight, 0),
@@ -141,7 +149,7 @@ class TimingChart extends StatelessWidget {
           MTCard(
             elevation: 0,
             color: backgroundColor,
-            borderSide: BorderSide(color: lightGreyColor.resolve(context), width: _borderWidth),
+            // borderSide: BorderSide(color: _barColor.resolve(context), width: _borderWidth),
             child: Row(
               children: [
                 Container(

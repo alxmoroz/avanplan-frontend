@@ -39,9 +39,10 @@ class TaskChartDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTDialog(
       topBar: MTTopBar(middle: task.subPageTitle(loc.chart_details_title)),
-      topBarHeight: P * 5,
-      body: Padding(
+      topBarHeight: P * 6,
+      body: Container(
         padding: const EdgeInsets.symmetric(horizontal: P),
+        color: lightBackgroundColor.resolve(context),
         child: ListView(
           shrinkWrap: true,
           children: [

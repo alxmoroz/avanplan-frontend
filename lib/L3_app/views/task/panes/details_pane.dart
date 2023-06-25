@@ -79,6 +79,7 @@ class DetailsPane extends StatelessWidget {
                           titleText: '${_task.status}',
                           constrained: false,
                           padding: const EdgeInsets.symmetric(horizontal: P2),
+                          margin: const EdgeInsets.only(right: P2),
                           onTap: _task.canSetStatus ? controller.selectStatus : null,
                         ),
                       if (_closable)
@@ -86,7 +87,6 @@ class DetailsPane extends StatelessWidget {
                           titleColor: greenColor,
                           titleText: loc.close_action_title,
                           leading: const DoneIcon(true, color: greenColor),
-                          margin: const EdgeInsets.only(left: P2),
                           onTap: () => controller.setStatus(_task, close: true),
                         )
                     ],

@@ -58,6 +58,7 @@ class MTListTile extends StatelessWidget {
           hoverColor: _hoverColor,
           highlightColor: _splashColor,
           splashColor: _splashColor,
+          canRequestFocus: false,
           focusColor: Colors.transparent,
           child: Column(
             mainAxisSize: MainAxisSize.min,

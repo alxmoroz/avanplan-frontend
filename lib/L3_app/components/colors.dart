@@ -52,13 +52,13 @@ const Color goldColor = CupertinoColors.systemYellow;
 const Color warningColor = CupertinoColors.activeOrange;
 
 const Color greenColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 42, 184, 168),
-  darkColor: Color.fromARGB(255, 52, 204, 195),
+  color: Color.fromARGB(255, 42, 182, 150),
+  darkColor: Color.fromARGB(255, 52, 202, 185),
 );
 
 const Color mainColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 56, 130, 220),
-  darkColor: Color.fromARGB(255, 90, 180, 255),
+  color: Color.fromARGB(255, 52, 150, 225),
+  darkColor: Color.fromARGB(255, 80, 170, 255),
 );
 
 // цвет для "прозрачного" апп-бара

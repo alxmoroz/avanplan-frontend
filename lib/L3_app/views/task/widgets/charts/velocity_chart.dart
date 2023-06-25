@@ -38,7 +38,7 @@ class VelocityChart extends StatelessWidget {
           ? warningColor
           : greenColor;
 
-  Color get _barColor => _pointerColor.withAlpha(164);
+  Color get _barColor => _pointerColor.withAlpha(120);
   Color get _deltaBarColor => _delta > 0 ? warningColor.withAlpha(50) : _barColor;
 
   MTPieChartData get _gaugeBar => MTPieChartData(_maxValue, strokeWidth: _gaugeWidth);

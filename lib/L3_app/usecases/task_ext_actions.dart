@@ -41,7 +41,7 @@ extension TaskActionsExt on Task {
   bool get isLinkedProject => isProject && !_isLocal;
 
   bool get _canProjectUpdate => _isLocalProject && ws.hpProjectUpdate == true;
-  bool get _canProjectDelete => _isLocalProject && ws.hpProjectDelete == true;
+  bool get _canProjectDelete => ws.hpProjectDelete == true;
   bool get _canTaskCreate => !closed && _hpCreate && _isLocal;
   bool get _canTaskUpdate => !isRoot && _hpUpdate && _isLocal;
   bool get _canTaskDelete => _hpDelete && _isLocal;

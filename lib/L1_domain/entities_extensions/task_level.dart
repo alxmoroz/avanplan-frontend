@@ -9,6 +9,9 @@ extension TaskLevelExtension on Task {
   bool get isTask => level == TaskLevel.task;
   bool get isSubtask => level == TaskLevel.subtask;
 
+  bool get hasSubtasks => tasks.isNotEmpty;
+  bool get isLeaf => (isTask || isSubtask) && !hasSubtasks;
+
   Task? get project {
     if (isProject) {
       return this;

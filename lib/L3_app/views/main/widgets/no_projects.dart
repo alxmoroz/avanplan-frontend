@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../../L1_domain/entities_extensions/task_stats.dart';
+import '../../../../L1_domain/entities_extensions/task_level.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/images.dart';

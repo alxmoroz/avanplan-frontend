@@ -293,8 +293,6 @@ extension TaskStats on Task {
   bool get hasOpenedSubtasks => openedSubtasks.isNotEmpty;
   bool get hasClosedSubtasks => closedSubtasks.isNotEmpty;
 
-  bool get hasSubtasks => tasks.isNotEmpty;
-  bool get isLeaf => (isTask || isSubtask) && !hasSubtasks;
   bool get hasDueDate => dueDate != null;
   bool get hasOverdue => hasDueDate && dueDate!.isBefore(today);
   bool get hasEtaDate => etaDate != null;

@@ -475,7 +475,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
       loader.setSaving();
       final newTask = await taskUC.save(Task(
         title: task.newSubtaskTitle,
-        statusId: ws.statuses.firstOrNull?.id,
+        statusId: (task.isRoot || task.isProject) ? null : ws.statuses.firstOrNull?.id,
         closed: false,
         parent: task,
         tasks: [],

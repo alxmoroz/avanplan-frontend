@@ -37,6 +37,7 @@ export 'package:openapi/src/model/body_redeem_v1_my_invitations_redeem_post.dart
 export 'package:openapi/src/model/body_register_v1_my_activities_register_post.dart';
 export 'package:openapi/src/model/body_registration_token.dart';
 export 'package:openapi/src/model/body_request_registration.dart';
+export 'package:openapi/src/model/body_request_source_type.dart';
 export 'package:openapi/src/model/body_update_account_v1_my_account_post.dart';
 export 'package:openapi/src/model/body_update_push_token_v1_my_push_tokens_post.dart';
 export 'package:openapi/src/model/contract_get.dart';
@@ -53,7 +54,6 @@ export 'package:openapi/src/model/my_user.dart';
 export 'package:openapi/src/model/notification.dart';
 export 'package:openapi/src/model/permission_get.dart';
 export 'package:openapi/src/model/permission_role_get.dart';
-export 'package:openapi/src/model/priority_get.dart';
 export 'package:openapi/src/model/registration.dart';
 export 'package:openapi/src/model/role_get.dart';
 export 'package:openapi/src/model/settings_get.dart';

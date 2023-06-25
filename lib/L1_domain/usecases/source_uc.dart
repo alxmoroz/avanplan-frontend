@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import '../entities/source.dart';
+import '../entities/source_type.dart';
 import '../repositories/abs_source_repo.dart';
 
 //TODO: похоже, есть смысл сделать абстрактный общий юзкейс
@@ -11,6 +12,7 @@ class SourceUC {
   final AbstractSourceRepo repo;
 
   Future<bool> checkConnection(Source source) async => await repo.checkConnection(source);
+  Future<bool> requestSourceType(SourceType st) async => await repo.requestSourceType(st);
 
   Future<Source?> save(Source source) async {
     Source? s;

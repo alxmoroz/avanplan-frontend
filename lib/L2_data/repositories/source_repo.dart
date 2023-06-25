@@ -1,16 +1,17 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:dio/dio.dart';
-import 'package:openapi/openapi.dart' as o_api;
+import 'package:openapi/openapi.dart';
 
 import '../../L1_domain/entities/source.dart';
+import '../../L1_domain/entities/source_type.dart';
 import '../../L1_domain/repositories/abs_source_repo.dart';
 import '../../L1_domain/system/errors.dart';
 import '../mappers/source.dart';
 import '../services/api.dart';
 
 class SourceRepo extends AbstractSourceRepo {
-  o_api.IntegrationsSourcesApi get api => openAPI.getIntegrationsSourcesApi();
+  IntegrationsSourcesApi get api => openAPI.getIntegrationsSourcesApi();
 
   @override
   Future<Iterable<Source>> getAll(int wsId) => throw UnimplementedError;
@@ -18,7 +19,7 @@ class SourceRepo extends AbstractSourceRepo {
   @override
   Future<Source?> save(Source data) async {
     final wsId = data.wsId;
-    final builder = o_api.SourceUpsertBuilder()
+    final builder = SourceUpsertBuilder()
       ..id = data.id
       ..type = data.type.code
       ..url = data.url
@@ -27,13 +28,13 @@ class SourceRepo extends AbstractSourceRepo {
       ..password = data.password
       ..description = data.description;
 
-    final response = await api.upsertV1IntegrationsSourcesPost(sourceUpsert: builder.build(), wsId: wsId);
+    final response = await api.sourcesUpsert(sourceUpsert: builder.build(), wsId: wsId);
     return response.data?.source(wsId);
   }
 
   @override
   Future<bool> delete(Source data) async {
-    final response = await api.deleteV1IntegrationsSourcesSourceIdDelete(sourceId: data.id!, wsId: data.wsId);
+    final response = await api.sourcesDelete(sourceId: data.id!, wsId: data.wsId);
     return response.data == true;
   }
 
@@ -41,7 +42,7 @@ class SourceRepo extends AbstractSourceRepo {
   Future<bool> checkConnection(Source s) async {
     bool res = false;
     try {
-      final response = await api.checkConnectionV1IntegrationsSourcesCheckConnectionGet(sourceId: s.id!, wsId: s.wsId);
+      final response = await api.sourcesCheckConnection(sourceId: s.id!, wsId: s.wsId);
       res = response.data == true;
     } on DioException catch (e) {
       if (['ERR_IMPORT_CONNECTION'].contains(e.errCode)) {
@@ -49,5 +50,11 @@ class SourceRepo extends AbstractSourceRepo {
       }
     }
     return res;
+  }
+
+  @override
+  Future<bool> requestSourceType(SourceType st) async {
+    final response = await api.requestSourceType(bodyRequestSourceType: (BodyRequestSourceTypeBuilder()..code = st.code).build());
+    return response.data == true;
   }
 }

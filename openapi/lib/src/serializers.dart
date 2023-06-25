@@ -25,6 +25,7 @@ import 'package:openapi/src/model/body_redeem_v1_my_invitations_redeem_post.dart
 import 'package:openapi/src/model/body_register_v1_my_activities_register_post.dart';
 import 'package:openapi/src/model/body_registration_token.dart';
 import 'package:openapi/src/model/body_request_registration.dart';
+import 'package:openapi/src/model/body_request_source_type.dart';
 import 'package:openapi/src/model/body_update_account_v1_my_account_post.dart';
 import 'package:openapi/src/model/body_update_push_token_v1_my_push_tokens_post.dart';
 import 'package:openapi/src/model/contract_get.dart';
@@ -41,7 +42,6 @@ import 'package:openapi/src/model/my_user.dart';
 import 'package:openapi/src/model/notification.dart';
 import 'package:openapi/src/model/permission_get.dart';
 import 'package:openapi/src/model/permission_role_get.dart';
-import 'package:openapi/src/model/priority_get.dart';
 import 'package:openapi/src/model/registration.dart';
 import 'package:openapi/src/model/role_get.dart';
 import 'package:openapi/src/model/settings_get.dart';
@@ -77,6 +77,7 @@ part 'serializers.g.dart';
   BodyRegisterV1MyActivitiesRegisterPost,
   BodyRegistrationToken,
   BodyRequestRegistration,
+  BodyRequestSourceType,
   BodyUpdateAccountV1MyAccountPost,
   BodyUpdatePushTokenV1MyPushTokensPost,
   ContractGet,
@@ -93,7 +94,6 @@ part 'serializers.g.dart';
   Notification,
   PermissionGet,
   PermissionRoleGet,
-  PriorityGet,
   Registration,
   RoleGet,
   SettingsGet,

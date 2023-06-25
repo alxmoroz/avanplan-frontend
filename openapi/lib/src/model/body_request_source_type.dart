@@ -6,69 +6,51 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'priority_get.g.dart';
+part 'body_request_source_type.g.dart';
 
-/// PriorityGet
+/// BodyRequestSourceType
 ///
 /// Properties:
-/// * [id] 
 /// * [code] 
-/// * [order] 
 @BuiltValue()
-abstract class PriorityGet implements Built<PriorityGet, PriorityGetBuilder> {
-  @BuiltValueField(wireName: r'id')
-  int get id;
-
+abstract class BodyRequestSourceType implements Built<BodyRequestSourceType, BodyRequestSourceTypeBuilder> {
   @BuiltValueField(wireName: r'code')
   String get code;
 
-  @BuiltValueField(wireName: r'order')
-  int get order;
+  BodyRequestSourceType._();
 
-  PriorityGet._();
-
-  factory PriorityGet([void updates(PriorityGetBuilder b)]) = _$PriorityGet;
+  factory BodyRequestSourceType([void updates(BodyRequestSourceTypeBuilder b)]) = _$BodyRequestSourceType;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(PriorityGetBuilder b) => b;
+  static void _defaults(BodyRequestSourceTypeBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<PriorityGet> get serializer => _$PriorityGetSerializer();
+  static Serializer<BodyRequestSourceType> get serializer => _$BodyRequestSourceTypeSerializer();
 }
 
-class _$PriorityGetSerializer implements PrimitiveSerializer<PriorityGet> {
+class _$BodyRequestSourceTypeSerializer implements PrimitiveSerializer<BodyRequestSourceType> {
   @override
-  final Iterable<Type> types = const [PriorityGet, _$PriorityGet];
+  final Iterable<Type> types = const [BodyRequestSourceType, _$BodyRequestSourceType];
 
   @override
-  final String wireName = r'PriorityGet';
+  final String wireName = r'BodyRequestSourceType';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    PriorityGet object, {
+    BodyRequestSourceType object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    yield r'id';
-    yield serializers.serialize(
-      object.id,
-      specifiedType: const FullType(int),
-    );
     yield r'code';
     yield serializers.serialize(
       object.code,
       specifiedType: const FullType(String),
-    );
-    yield r'order';
-    yield serializers.serialize(
-      object.order,
-      specifiedType: const FullType(int),
     );
   }
 
   @override
   Object serialize(
     Serializers serializers,
-    PriorityGet object, {
+    BodyRequestSourceType object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -79,33 +61,19 @@ class _$PriorityGetSerializer implements PrimitiveSerializer<PriorityGet> {
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required PriorityGetBuilder result,
+    required BodyRequestSourceTypeBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.id = valueDes;
-          break;
         case r'code':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
           result.code = valueDes;
-          break;
-        case r'order':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.order = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -116,12 +84,12 @@ class _$PriorityGetSerializer implements PrimitiveSerializer<PriorityGet> {
   }
 
   @override
-  PriorityGet deserialize(
+  BodyRequestSourceType deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = PriorityGetBuilder();
+    final result = BodyRequestSourceTypeBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

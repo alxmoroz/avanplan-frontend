@@ -14,6 +14,7 @@ doc/BodyRedeemV1MyInvitationsRedeemPost.md
 doc/BodyRegisterV1MyActivitiesRegisterPost.md
 doc/BodyRegistrationToken.md
 doc/BodyRequestRegistration.md
+doc/BodyRequestSourceType.md
 doc/BodyUpdateAccountV1MyAccountPost.md
 doc/BodyUpdatePushTokenV1MyPushTokensPost.md
 doc/ContractGet.md
@@ -40,7 +41,6 @@ doc/Notification.md
 doc/PaymentsApi.md
 doc/PermissionGet.md
 doc/PermissionRoleGet.md
-doc/PriorityGet.md
 doc/Registration.md
 doc/RoleGet.md
 doc/SettingsApi.md
@@ -102,6 +102,7 @@ lib/src/model/body_redeem_v1_my_invitations_redeem_post.dart
 lib/src/model/body_register_v1_my_activities_register_post.dart
 lib/src/model/body_registration_token.dart
 lib/src/model/body_request_registration.dart
+lib/src/model/body_request_source_type.dart
 lib/src/model/body_update_account_v1_my_account_post.dart
 lib/src/model/body_update_push_token_v1_my_push_tokens_post.dart
 lib/src/model/contract_get.dart
@@ -119,7 +120,6 @@ lib/src/model/my_user.dart
 lib/src/model/notification.dart
 lib/src/model/permission_get.dart
 lib/src/model/permission_role_get.dart
-lib/src/model/priority_get.dart
 lib/src/model/registration.dart
 lib/src/model/role_get.dart
 lib/src/model/settings_get.dart
@@ -154,6 +154,7 @@ test/body_redeem_v1_my_invitations_redeem_post_test.dart
 test/body_register_v1_my_activities_register_post_test.dart
 test/body_registration_token_test.dart
 test/body_request_registration_test.dart
+test/body_request_source_type_test.dart
 test/body_update_account_v1_my_account_post_test.dart
 test/body_update_push_token_v1_my_push_tokens_post_test.dart
 test/contract_get_test.dart
@@ -180,7 +181,6 @@ test/notification_test.dart
 test/payments_api_test.dart
 test/permission_get_test.dart
 test/permission_role_get_test.dart
-test/priority_get_test.dart
 test/registration_test.dart
 test/role_get_test.dart
 test/settings_api_test.dart

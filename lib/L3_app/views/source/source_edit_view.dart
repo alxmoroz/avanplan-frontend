@@ -37,6 +37,7 @@ Future<Source?> addSource(Workspace ws, {required SourceType sType}) async {
   if (sType.active) {
     s = await editSource(ws, sType: sType);
   } else {
+    sourceUC.requestSourceType(sType);
     await showMTAlertDialog(
       loc.source_type_unavailable_title('$sType'),
       description: loc.source_type_unavailable_hint,

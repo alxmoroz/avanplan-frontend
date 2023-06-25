@@ -71,9 +71,10 @@ Class | Method | HTTP request | Description
 [*AuthApi*](doc/AuthApi.md) | [**registrationToken**](doc/AuthApi.md#registrationtoken) | **POST** /v1/auth/registration_token | Registration Token
 [*AuthApi*](doc/AuthApi.md) | [**requestRegistration**](doc/AuthApi.md#requestregistration) | **POST** /v1/auth/registration | Request Registration
 [*ContractsApi*](doc/ContractsApi.md) | [**signV1ContractsPost**](doc/ContractsApi.md#signv1contractspost) | **POST** /v1/contracts/ | Sign
-[*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**checkConnectionV1IntegrationsSourcesCheckConnectionGet**](doc/IntegrationsSourcesApi.md#checkconnectionv1integrationssourcescheckconnectionget) | **GET** /v1/integrations/sources/check_connection | Check Connection
-[*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**deleteV1IntegrationsSourcesSourceIdDelete**](doc/IntegrationsSourcesApi.md#deletev1integrationssourcessourceiddelete) | **DELETE** /v1/integrations/sources/{source_id} | Delete
-[*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**upsertV1IntegrationsSourcesPost**](doc/IntegrationsSourcesApi.md#upsertv1integrationssourcespost) | **POST** /v1/integrations/sources/ | Upsert
+[*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**requestSourceType**](doc/IntegrationsSourcesApi.md#requestsourcetype) | **POST** /v1/integrations/sources/request_source_type | Request Source Type
+[*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**sourcesCheckConnection**](doc/IntegrationsSourcesApi.md#sourcescheckconnection) | **GET** /v1/integrations/sources/check_connection | Check Connection
+[*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**sourcesDelete**](doc/IntegrationsSourcesApi.md#sourcesdelete) | **DELETE** /v1/integrations/sources/{source_id} | Delete
+[*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**sourcesUpsert**](doc/IntegrationsSourcesApi.md#sourcesupsert) | **POST** /v1/integrations/sources/ | Upsert
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**importTaskSourcesV1IntegrationsTasksImportPost**](doc/IntegrationsTasksApi.md#importtasksourcesv1integrationstasksimportpost) | **POST** /v1/integrations/tasks/import | Import Task Sources
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**rootTasksV1IntegrationsTasksGet**](doc/IntegrationsTasksApi.md#roottasksv1integrationstasksget) | **GET** /v1/integrations/tasks/ | Root Tasks
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost**](doc/IntegrationsTasksApi.md#unlinktasksourcesv1integrationstasksunlinktasksourcespost) | **POST** /v1/integrations/tasks/unlink_task_sources | Unlink Task Sources
@@ -112,6 +113,7 @@ Class | Method | HTTP request | Description
  - [BodyRegisterV1MyActivitiesRegisterPost](doc/BodyRegisterV1MyActivitiesRegisterPost.md)
  - [BodyRegistrationToken](doc/BodyRegistrationToken.md)
  - [BodyRequestRegistration](doc/BodyRequestRegistration.md)
+ - [BodyRequestSourceType](doc/BodyRequestSourceType.md)
  - [BodyUpdateAccountV1MyAccountPost](doc/BodyUpdateAccountV1MyAccountPost.md)
  - [BodyUpdatePushTokenV1MyPushTokensPost](doc/BodyUpdatePushTokenV1MyPushTokensPost.md)
  - [ContractGet](doc/ContractGet.md)
@@ -128,7 +130,6 @@ Class | Method | HTTP request | Description
  - [Notification](doc/Notification.md)
  - [PermissionGet](doc/PermissionGet.md)
  - [PermissionRoleGet](doc/PermissionRoleGet.md)
- - [PriorityGet](doc/PriorityGet.md)
  - [Registration](doc/Registration.md)
  - [RoleGet](doc/RoleGet.md)
  - [SettingsGet](doc/SettingsGet.md)

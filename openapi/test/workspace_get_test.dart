@@ -71,10 +71,5 @@ void main() {
     test('to test the property `statuses`', () async {
       // TODO
     });
-
-    // BuiltList<PriorityGet> priorities (default value: ListBuilder())
-    test('to test the property `priorities`', () async {
-      // TODO
-    });
   });
 }

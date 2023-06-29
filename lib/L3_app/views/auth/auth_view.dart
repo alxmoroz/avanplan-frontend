@@ -72,7 +72,7 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
       body: SafeArea(
         child: Center(
           child: Container(
-            constraints: const BoxConstraints(maxWidth: SCR_S_WIDTH),
+            constraints: const BoxConstraints(maxWidth: SCR_XS_WIDTH),
             child: LayoutBuilder(
               builder: (_, size) => Observer(
                 builder: (_) => ListView(

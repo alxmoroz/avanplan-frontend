@@ -6,12 +6,13 @@ import 'package:flutter/cupertino.dart';
 
 import 'constants.dart';
 
-enum _AdaptiveSize { S, M, L }
+enum _AdaptiveSize { XS, S, M, L }
 
 class MTAdaptive extends StatelessWidget {
-  const MTAdaptive({required this.child, this.padding, this.size = _AdaptiveSize.M, this.force = false});
+  const MTAdaptive({required this.child, this.padding, this.force = false}) : size = _AdaptiveSize.M;
 
-  const MTAdaptive.S(this.child, {this.padding, this.force = true}) : size = _AdaptiveSize.S;
+  const MTAdaptive.XS(this.child, {this.padding, this.force = true}) : size = _AdaptiveSize.XS;
+  const MTAdaptive.S(this.child, {this.padding, this.force = false}) : size = _AdaptiveSize.S;
   const MTAdaptive.L(this.child, {this.padding, this.force = false}) : size = _AdaptiveSize.L;
 
   final Widget? child;
@@ -22,10 +23,13 @@ class MTAdaptive extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget _constrained() {
-      double W = SCR_S_WIDTH * 0.8;
+      double W = SCR_XS_WIDTH;
 
       switch (size) {
+        case _AdaptiveSize.XS:
+          break;
         case _AdaptiveSize.S:
+          W = SCR_S_WIDTH;
           break;
         case _AdaptiveSize.M:
           W = SCR_M_WIDTH;
@@ -51,3 +55,5 @@ class MTAdaptive extends StatelessWidget {
     return force ? UnconstrainedBox(child: _constrained()) : _constrained();
   }
 }
+
+double dashboardImageSize(BuildContext context) => min(P * 17, MediaQuery.of(context).size.height / 2.5);

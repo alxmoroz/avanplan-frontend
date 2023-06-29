@@ -28,7 +28,7 @@ class MemberAddMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MTAdaptive.S(
+    return MTAdaptive.XS(
       task.ws.plUsers
           ? material(
               PopupMenuButton<Role>(

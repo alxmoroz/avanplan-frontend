@@ -74,7 +74,7 @@ class _ProjectAddWizardState extends State<ProjectAddWizard> {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             children: [
-              MTAdaptive.S(
+              MTAdaptive.XS(
                 MTLimitBadge(
                   showBadge: !controller.ws!.plProjects,
                   child: MTButton.main(

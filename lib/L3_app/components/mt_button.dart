@@ -118,7 +118,7 @@ class MTButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final btn = Padding(padding: margin ?? EdgeInsets.zero, child: _button(context));
-    return type == ButtonType.icon || !constrained ? btn : MTAdaptive.S(btn);
+    return type == ButtonType.icon || !constrained ? btn : MTAdaptive.XS(btn);
   }
 }
 

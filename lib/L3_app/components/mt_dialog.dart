@@ -14,7 +14,7 @@ bool _bigScreen(BuildContext context) {
   final mq = MediaQuery.of(context);
   final mqH = mq.size.height;
   final mqW = mq.size.width;
-  return mqH > SCR_M_HEIGHT && mqW > SCR_M_WIDTH;
+  return mqH > SCR_S_HEIGHT && mqW > SCR_M_WIDTH;
 }
 
 Future<T?> showMTDialog<T>(Widget child) async {
@@ -25,7 +25,7 @@ Future<T?> showMTDialog<T>(Widget child) async {
 
   final constrains = BoxConstraints(
     maxWidth: mqW > SCR_L_WIDTH ? SCR_L_WIDTH : SCR_M_WIDTH,
-    maxHeight: mqH > SCR_S_HEIGHT ? mqH - mq.padding.top - P2 : double.infinity,
+    maxHeight: mqH > SCR_XS_HEIGHT ? mqH - mq.padding.top - P2 : double.infinity,
   );
 
   final barrierColor = darkTextColor.withAlpha(220).resolve(ctx);

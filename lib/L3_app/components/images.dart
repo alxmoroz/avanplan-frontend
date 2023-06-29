@@ -1,10 +1,8 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 
-import 'constants.dart';
+import 'mt_adaptive.dart';
 
 class ImageNames {
   static const delete = 'delete';
@@ -36,7 +34,7 @@ class MTImage extends StatelessWidget {
   Widget build(BuildContext context) {
     final _dark = View.of(context).platformDispatcher.platformBrightness == Brightness.dark;
     String _assetPath(String name) => 'assets/images/$name${_dark ? '_dark' : ''}.png';
-    final _size = size ?? min(P * 17, MediaQuery.of(context).size.height / 2.5);
+    final _size = size ?? dashboardImageSize(context);
 
     return Image.asset(
       _assetPath(name),

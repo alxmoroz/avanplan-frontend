@@ -40,6 +40,6 @@ class TaskAddButton extends StatelessWidget {
       showBadge: !controller.plCreate,
     );
 
-    return compact ? badge : MTAdaptive.S(badge);
+    return compact ? badge : MTAdaptive.XS(badge);
   }
 }

@@ -104,7 +104,7 @@ class TariffSelectView extends StatelessWidget {
     return LayoutBuilder(
       builder: (_, size) {
         final controller = PageController(
-          viewportFraction: min(SCR_S_WIDTH / size.maxWidth, 0.8),
+          viewportFraction: min(SCR_XS_WIDTH / size.maxWidth, 0.8),
           initialPage: selectedIndex,
         );
         return Stack(

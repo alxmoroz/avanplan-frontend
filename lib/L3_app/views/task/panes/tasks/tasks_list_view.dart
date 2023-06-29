@@ -14,7 +14,7 @@ import '../../../../extra/services.dart';
 import '../../../../presenters/task_filter_presenter.dart';
 import '../../task_view_controller.dart';
 import '../../widgets/state_title.dart';
-import '../../widgets/task_card.dart';
+import '../../widgets/tasks_group.dart';
 
 class TasksListView extends StatelessWidget {
   const TasksListView(this.controller);
@@ -28,25 +28,11 @@ class TasksListView extends StatelessWidget {
     final group = groups[groupIndex];
     final tasks = group.value;
     final state = group.key;
+    final groupBorder = !_showGroupTitles && groupIndex < groups.length - 1;
     return Column(
       children: [
         if (_showGroupTitles) GroupStateTitle(parent, state, place: StateTitlePlace.groupHeader),
-        ListView.builder(
-          shrinkWrap: true,
-          padding: EdgeInsets.zero,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: tasks.length,
-          itemBuilder: (BuildContext _, int index) {
-            final t = tasks[index];
-            return TaskCard(
-              mainController.taskForId(t.wsId, t.id),
-              showStateMark: true,
-              bottomBorder: index < tasks.length - 1 || (!_showGroupTitles && groupIndex < groups.length - 1),
-              filters: controller.filters,
-              showParent: controller.isMyTasks,
-            );
-          },
-        ),
+        TasksGroup(tasks, isMine: controller.isMyTasks, groupBorder: groupBorder, standalone: false),
       ],
     );
   }

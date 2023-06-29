@@ -20,13 +20,13 @@ import '../../../presenters/task_state_presenter.dart';
 import '../../../presenters/task_view_presenter.dart';
 import '../../../usecases/task_ext_actions.dart';
 import '../task_view_controller.dart';
-import '../widgets/attentional_tasks.dart';
 import '../widgets/charts/chart_details.dart';
 import '../widgets/charts/timing_chart.dart';
 import '../widgets/charts/velocity_chart.dart';
 import '../widgets/charts/volume_chart.dart';
 import '../widgets/state_title.dart';
 import '../widgets/task_add_button.dart';
+import '../widgets/tasks_group.dart';
 
 class OverviewPane extends StatelessWidget {
   const OverviewPane(this.controller);
@@ -137,7 +137,7 @@ class OverviewPane extends StatelessWidget {
             ),
             MTAdaptive(
               force: true,
-              child: AttentionalTasks(_task),
+              child: TasksGroup(_task.attentionalTasks),
             ),
           ],
         ],

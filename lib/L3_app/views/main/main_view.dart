@@ -9,6 +9,7 @@ import '../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
+import '../../components/mt_adaptive.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
@@ -69,7 +70,8 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    final mq = MediaQuery.of(context);
+    final _mq = MediaQuery.of(context);
+    final _bigScreen = _mq.size.width > SCR_L_WIDTH && _mq.size.height > SCR_S_HEIGHT;
     return Observer(
       builder: (_) => MTPage(
         navBar: navBar(
@@ -100,19 +102,31 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
           ),
         ),
         body: SafeArea(
-          top: false,
-          bottom: false,
+          top: _bigScreen,
+          bottom: _bigScreen,
           child: rootTask.hasOpenedSubtasks
               ? Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: mq.orientation == Orientation.portrait ? P2 : P_2),
-                  child: GridView(
-                    gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: SCR_S_WIDTH,
-                      mainAxisSpacing: P2,
-                      crossAxisSpacing: P2,
-                    ),
-                    children: [MyTasks(), MyProjects()],
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: P3, vertical: _mq.orientation == Orientation.portrait ? P2 : P_2),
+                  child: _bigScreen
+                      ? const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            MTAdaptive.S(MyTasks()),
+                            SizedBox(width: P3),
+                            MTAdaptive.S(MyProjects()),
+                          ],
+                        )
+                      : GridView(
+                          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                            maxCrossAxisExtent: SCR_S_WIDTH,
+                            mainAxisSpacing: P2,
+                            crossAxisSpacing: P2,
+                          ),
+                          children: const [
+                            MyTasks(card: true),
+                            MyProjects(card: true),
+                          ],
+                        ),
                 )
               : NoProjects(),
         ),

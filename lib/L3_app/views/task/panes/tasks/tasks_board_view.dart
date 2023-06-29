@@ -92,7 +92,7 @@ class TasksBoardView extends StatelessWidget {
         onItemReorder: _setStatus,
         onListReorder: (int oldListIndex, int newListIndex) {},
         axis: Axis.horizontal,
-        listWidth: SCR_S_WIDTH * 0.9,
+        listWidth: SCR_XS_WIDTH,
         listPadding: EdgeInsets.only(top: P, bottom: mq.padding.bottom + P, left: P),
         itemGhost: const SizedBox(height: MIN_BTN_HEIGHT),
         lastListTargetSize: 0,

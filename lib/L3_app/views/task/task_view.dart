@@ -112,7 +112,7 @@ class _TaskViewState extends State<TaskView> {
 
   @override
   Widget build(BuildContext context) {
-    final smallHeight = MediaQuery.of(context).size.height < SCR_S_HEIGHT;
+    final smallHeight = MediaQuery.of(context).size.height < SCR_XS_HEIGHT;
     return Observer(
       builder: (_) => MTPage(
         navBar: taskNavBar(controller),

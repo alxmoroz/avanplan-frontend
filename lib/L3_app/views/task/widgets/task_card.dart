@@ -31,7 +31,7 @@ class TaskCard extends StatelessWidget {
     this.showParent = false,
     this.bottomBorder = false,
     this.dragging = false,
-    this.filters,
+    this.isMine = false,
   });
 
   final Task task;
@@ -40,7 +40,7 @@ class TaskCard extends StatelessWidget {
   final bool bottomBorder;
   final bool showStateMark;
   final bool dragging;
-  final Set<TasksFilter>? filters;
+  final bool isMine;
 
   Color? get _textColor => task.closed ? lightGreyColor : null;
 
@@ -72,7 +72,7 @@ class TaskCard extends StatelessWidget {
   bool get _showStatus => task.hasStatus && !board && !task.closed;
   Widget get _status => SmallText('${task.status}', color: _textColor);
 
-  bool get _showAssignee => task.hasAssignee && filters?.contains(TasksFilter.my) != true;
+  bool get _showAssignee => task.hasAssignee && !isMine;
   Widget get _assignee => task.assignee!.icon(P * (board ? 1 : 1.35));
 
   bool get _showEstimate => task.hasEstimate && !task.closed;

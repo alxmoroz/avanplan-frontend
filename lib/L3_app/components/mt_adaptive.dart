@@ -23,7 +23,7 @@ class MTAdaptive extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget _constrained() {
-      double W = SCR_XS_WIDTH;
+      double W = SCR_XS_WIDTH * 0.9;
 
       switch (size) {
         case _AdaptiveSize.XS:

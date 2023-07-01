@@ -32,39 +32,39 @@ class MyTasks extends StatelessWidget {
       ? SizedBox(height: dashboardImageSize(context), child: Center(child: D1('$_myTasksCount', color: mainColor)))
       : MTImage(ImageNames.empty_tasks.toString());
 
-  Widget _contents(BuildContext context) => Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          NormalText(loc.my_tasks_title, align: TextAlign.center, color: greyColor),
-          const SizedBox(height: P),
-          _mainInfo(context),
-          H2(_myTasksCount > 0 ? mainController.myUpcomingTasksTitle : loc.task_list_empty_title, align: TextAlign.center, color: darkTextColor),
-          const SizedBox(height: P),
-        ],
+  Widget _contents(BuildContext context) => MTCardButton(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            NormalText(loc.my_tasks_title, align: TextAlign.center, color: greyColor),
+            const SizedBox(height: P),
+            compact ? Expanded(child: _mainInfo(context)) : _mainInfo(context),
+            H2(_myTasksCount > 0 ? mainController.myUpcomingTasksTitle : loc.task_list_empty_title, align: TextAlign.center, color: darkTextColor),
+            const SizedBox(height: P),
+          ],
+        ),
+        onTap: _goToTasks,
       );
 
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => Column(
-        children: [
-          MTCardButton(
-            child: _contents(context),
-            onTap: _goToTasks,
-          ),
-          if (!compact) ...[
-            const SizedBox(height: P),
-            _myTasksCount > 0
-                ? Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: P_2),
-                      child: MTShadowed(child: TasksGroup(_rootTask.myTasksGroups.first.value, isMine: true)),
-                    ),
-                  )
-                : H3(loc.task_list_empty_hint, align: TextAlign.center),
-          ],
-        ],
-      ),
+      builder: (_) => compact
+          ? _contents(context)
+          : Column(
+              children: [
+                _contents(context),
+                const SizedBox(height: P),
+                _myTasksCount > 0
+                    ? Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: P_2),
+                          child: MTShadowed(child: TasksGroup(_rootTask.myTasksGroups.first.value, isMine: true)),
+                        ),
+                      )
+                    : H3(loc.task_list_empty_hint, align: TextAlign.center),
+              ],
+            ),
     );
   }
 }

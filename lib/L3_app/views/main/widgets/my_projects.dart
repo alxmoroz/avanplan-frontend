@@ -25,39 +25,39 @@ class MyProjects extends StatelessWidget {
 
   Future _goToProjects() async => await Navigator.of(rootKey.currentContext!).pushNamed(TaskView.routeName, arguments: TaskParams(_rootTask.wsId));
 
-  Widget get _contents => Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          NormalText(loc.project_list_my_title, align: TextAlign.center, color: greyColor),
-          const SizedBox(height: P),
-          imageForState(_rootTask.overallState),
-          H2(_rootTask.groupStateTitle(_rootTask.subtasksState), align: TextAlign.center, color: darkTextColor),
-          const SizedBox(height: P),
-        ],
+  Widget get _contents => MTCardButton(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            NormalText(loc.project_list_my_title, align: TextAlign.center, color: greyColor),
+            const SizedBox(height: P),
+            compact ? Expanded(child: imageForState(_rootTask.overallState)) : imageForState(_rootTask.overallState),
+            H2(_rootTask.groupStateTitle(_rootTask.subtasksState), align: TextAlign.center, color: darkTextColor),
+            const SizedBox(height: P),
+          ],
+        ),
+        onTap: _goToProjects,
       );
 
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => Column(
-        children: [
-          MTCardButton(
-            child: _contents,
-            onTap: _goToProjects,
-          ),
-          if (!compact) ...[
-            const SizedBox(height: P),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: P_2),
-                child: MTShadowed(
-                  child: TasksGroup(_rootTask.attentionalTasks),
+      builder: (_) => compact
+          ? _contents
+          : Column(
+              children: [
+                _contents,
+                const SizedBox(height: P),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: P_2),
+                    child: MTShadowed(
+                      child: TasksGroup(_rootTask.attentionalTasks),
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ],
-      ),
     );
   }
 }

@@ -1,5 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -103,35 +105,48 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
         ),
         body: SafeArea(
           top: _bigScreen,
-          bottom: _bigScreen,
-          child: rootTask.hasOpenedSubtasks
-              ? Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: P3,
-                    vertical: _mq.orientation == Orientation.portrait || _bigScreen ? P2 : P_2,
-                  ),
-                  child: _bigScreen
-                      ? const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            MTAdaptive.S(MyTasks(compact: false)),
-                            SizedBox(width: P3),
-                            MTAdaptive.S(MyProjects(compact: false)),
-                          ],
-                        )
-                      : GridView(
-                          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                            maxCrossAxisExtent: SCR_S_WIDTH,
-                            mainAxisSpacing: P2,
-                            crossAxisSpacing: P2,
-                          ),
-                          children: const [MyTasks(), MyProjects()],
-                        ),
-                )
-              : NoProjects(),
+          bottom: false,
+          child: rootTask.hasOpenedSubtasks ? _MainDashboard(bigScreen: _bigScreen) : NoProjects(),
         ),
         bottomBar: _bottomBar,
       ),
     );
+  }
+}
+
+class _MainDashboard extends StatelessWidget {
+  const _MainDashboard({
+    required bool bigScreen,
+  }) : _bigScreen = bigScreen;
+
+  final bool _bigScreen;
+
+  @override
+  Widget build(BuildContext context) {
+    final _mq = MediaQuery.of(context);
+    final _isPortrait = _mq.orientation == Orientation.portrait;
+    return _bigScreen
+        ? Padding(
+            padding: const EdgeInsets.symmetric(horizontal: P2).copyWith(top: P2),
+            child: const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                MTAdaptive.S(MyTasks(compact: false)),
+                SizedBox(width: P3),
+                MTAdaptive.S(MyProjects(compact: false)),
+              ],
+            ),
+          )
+        : GridView(
+            padding: _mq.padding.add(EdgeInsets.symmetric(vertical: _isPortrait ? P2 : P_2, horizontal: P2)),
+            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: SCR_S_WIDTH,
+              crossAxisSpacing: P2,
+              mainAxisExtent:
+                  min(SCR_XS_WIDTH, (_mq.size.height - _mq.padding.top - _mq.padding.bottom - (_isPortrait ? P2 : P_2) * 2) / (_isPortrait ? 2 : 1)),
+              mainAxisSpacing: P2,
+            ),
+            children: const [MyTasks(), MyProjects()],
+          );
   }
 }

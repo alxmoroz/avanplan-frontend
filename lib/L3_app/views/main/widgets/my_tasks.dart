@@ -9,18 +9,18 @@ import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/images.dart';
 import '../../../components/mt_adaptive.dart';
-import '../../../components/mt_button.dart';
+import '../../../components/mt_card.dart';
+import '../../../components/mt_shadowed.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_filter_presenter.dart';
 import '../../task/task_view.dart';
 import '../../task/task_view_controller.dart';
 import '../../task/widgets/tasks_group.dart';
-import 'dashboard_wrapper.dart';
 
 class MyTasks extends StatelessWidget {
-  const MyTasks({this.card = false});
-  final bool card;
+  const MyTasks({this.compact = true});
+  final bool compact;
 
   Task get _rootTask => mainController.rootTask;
   int get _myTasksCount => mainController.myUpcomingTasksCount;
@@ -37,30 +37,34 @@ class MyTasks extends StatelessWidget {
         children: [
           NormalText(loc.my_tasks_title, align: TextAlign.center, color: greyColor),
           const SizedBox(height: P),
-          card ? Expanded(child: _mainInfo(context)) : _mainInfo(context),
+          _mainInfo(context),
           H2(_myTasksCount > 0 ? mainController.myUpcomingTasksTitle : loc.task_list_empty_title, align: TextAlign.center, color: darkTextColor),
           const SizedBox(height: P),
-          if (!card) ...[
-            const SizedBox(height: P),
-            Expanded(
-              child: _myTasksCount > 0
-                  ? TasksGroup(_rootTask.myTasksGroups.first.value, isMine: true)
-                  : H3(loc.task_list_empty_hint, align: TextAlign.center),
-            ),
-            MTButton.main(titleText: loc.my_tasks_all_title, onTap: _goToTasks),
-          ],
         ],
       );
 
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => card
-          ? DashboardWrapper(
-              _contents(context),
-              onTap: _goToTasks,
-            )
-          : _contents(context),
+      builder: (_) => Column(
+        children: [
+          MTCardButton(
+            child: _contents(context),
+            onTap: _goToTasks,
+          ),
+          if (!compact) ...[
+            const SizedBox(height: P),
+            _myTasksCount > 0
+                ? Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: P_2),
+                      child: MTShadowed(child: TasksGroup(_rootTask.myTasksGroups.first.value, isMine: true)),
+                    ),
+                  )
+                : H3(loc.task_list_empty_hint, align: TextAlign.center),
+          ],
+        ],
+      ),
     );
   }
 }

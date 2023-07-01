@@ -106,14 +106,17 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
           bottom: _bigScreen,
           child: rootTask.hasOpenedSubtasks
               ? Padding(
-                  padding: EdgeInsets.symmetric(horizontal: P3, vertical: _mq.orientation == Orientation.portrait ? P2 : P_2),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: P3,
+                    vertical: _mq.orientation == Orientation.portrait || _bigScreen ? P2 : P_2,
+                  ),
                   child: _bigScreen
                       ? const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            MTAdaptive.S(MyTasks()),
+                            MTAdaptive.S(MyTasks(compact: false)),
                             SizedBox(width: P3),
-                            MTAdaptive.S(MyProjects()),
+                            MTAdaptive.S(MyProjects(compact: false)),
                           ],
                         )
                       : GridView(
@@ -122,10 +125,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
                             mainAxisSpacing: P2,
                             crossAxisSpacing: P2,
                           ),
-                          children: const [
-                            MyTasks(card: true),
-                            MyProjects(card: true),
-                          ],
+                          children: const [MyTasks(), MyProjects()],
                         ),
                 )
               : NoProjects(),

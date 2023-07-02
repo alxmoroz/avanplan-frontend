@@ -1,7 +1,5 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -11,7 +9,6 @@ import '../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
-import '../../components/mt_adaptive.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
@@ -21,8 +18,7 @@ import '../../presenters/person_presenter.dart';
 import '../notification/notification_list_view.dart';
 import '../settings/settings_view.dart';
 import '../task/project_add_wizard/project_add_wizard.dart';
-import 'widgets/my_projects.dart';
-import 'widgets/my_tasks.dart';
+import 'widgets/main_dashboard.dart';
 import 'widgets/no_projects.dart';
 
 class MainView extends StatefulWidget {
@@ -104,49 +100,12 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
           ),
         ),
         body: SafeArea(
-          top: _bigScreen,
+          top: dashboardBigScreen(context),
           bottom: false,
-          child: rootTask.hasOpenedSubtasks ? _MainDashboard(bigScreen: _bigScreen) : NoProjects(),
+          child: rootTask.hasOpenedSubtasks ? MainDashboard() : NoProjects(),
         ),
         bottomBar: _bottomBar,
       ),
     );
-  }
-}
-
-class _MainDashboard extends StatelessWidget {
-  const _MainDashboard({
-    required bool bigScreen,
-  }) : _bigScreen = bigScreen;
-
-  final bool _bigScreen;
-
-  @override
-  Widget build(BuildContext context) {
-    final _mq = MediaQuery.of(context);
-    final _isPortrait = _mq.orientation == Orientation.portrait;
-    return _bigScreen
-        ? Padding(
-            padding: const EdgeInsets.symmetric(horizontal: P2).copyWith(top: P2),
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                MTAdaptive.S(MyTasks(compact: false)),
-                SizedBox(width: P3),
-                MTAdaptive.S(MyProjects(compact: false)),
-              ],
-            ),
-          )
-        : GridView(
-            padding: _mq.padding.add(EdgeInsets.symmetric(vertical: _isPortrait ? P2 : P_2, horizontal: P2)),
-            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: SCR_S_WIDTH,
-              crossAxisSpacing: P2,
-              mainAxisExtent:
-                  min(SCR_XS_WIDTH, (_mq.size.height - _mq.padding.top - _mq.padding.bottom - (_isPortrait ? P2 : P_2) * 2) / (_isPortrait ? 2 : 1)),
-              mainAxisSpacing: P2,
-            ),
-            children: const [MyTasks(), MyProjects()],
-          );
   }
 }

@@ -58,7 +58,7 @@ class MainDashboard extends StatelessWidget {
               mainAxisExtent: _mainAxisExtent(),
               mainAxisSpacing: _spacing,
             ),
-            children: const [MTAdaptive.XS(MyTasks(), force: false), MyProjects()],
+            children: const [MyTasks(), MyProjects()],
           );
   }
 }

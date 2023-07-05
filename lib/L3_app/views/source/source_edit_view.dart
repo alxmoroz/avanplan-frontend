@@ -94,9 +94,9 @@ class _SourceEditViewState extends State<SourceEditView> {
   Widget get _form => ListView(
         shrinkWrap: true,
         children: [
-          controller.tf(SourceFCode.url, first: true),
-          if (controller.showUsername) controller.tf(SourceFCode.username),
-          controller.tf(SourceFCode.apiKey),
+          if (controller.showUrl) controller.tf(SourceFCode.url, first: true),
+          if (controller.showUsername) controller.tf(SourceFCode.username, first: !controller.showUrl),
+          controller.tf(SourceFCode.apiKey, first: !controller.showUrl && !controller.showUsername),
           MTButton(
             titleText: loc.source_help_edit_action,
             trailing: const LinkOutIcon(size: P * 1.2),

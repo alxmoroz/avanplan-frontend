@@ -27,12 +27,23 @@ class SourceEditController extends _SourceEditControllerBase with _$SourceEditCo
     srcId = _srcId;
     selectType(source?.type ?? sType);
 
+    final isTrello = selectedType?.isTrello == true;
+
     initState(fds: [
-      MTFieldData(SourceFCode.url.index, label: loc.source_url_placeholder, text: source?.url ?? ''),
+      MTFieldData(
+        SourceFCode.url.index,
+        label: loc.source_url_placeholder,
+        text: source?.url ?? (isTrello ? 'https://api.trello.com' : ''),
+      ),
       MTFieldData(SourceFCode.username.index, label: loc.auth_user_placeholder, text: source?.username ?? '', needValidate: showUsername),
       MTFieldData(SourceFCode.apiKey.index, label: loc.source_api_key_placeholder, text: source?.apiKey ?? ''),
       // TFAnnotation(SourceFCode.password.index, label: loc.auth_password_placeholder, needValidate: false),
-      MTFieldData(SourceFCode.description.index, label: loc.description, text: source?.description ?? '', needValidate: false),
+      MTFieldData(
+        SourceFCode.description.index,
+        label: loc.description,
+        text: source?.description ?? (isTrello ? 'Trello' : ''),
+        needValidate: false,
+      ),
     ]);
   }
 }
@@ -55,7 +66,10 @@ abstract class _SourceEditControllerBase extends EditController with Store {
   void selectType(SourceType? _type) => selectedType = _type;
 
   @computed
-  bool get showUsername => selectedType?.code == 'jira';
+  bool get showUsername => selectedType?.isJira == true;
+
+  @computed
+  bool get showUrl => selectedType?.isTrello == false;
 
   @override
   bool get validated => super.validated && selectedType != null;

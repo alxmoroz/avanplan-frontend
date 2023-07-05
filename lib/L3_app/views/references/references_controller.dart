@@ -16,8 +16,8 @@ abstract class _ReferencesControllerBase with Store {
   @action
   Future fetchData() async {
     sourceTypes = [
-      for (final st in ['Jira', 'GitLab', 'Redmine']) SourceType(title: st, code: st.toLowerCase()),
-      for (final st in ['Trello', 'Notion', 'GitHub']) SourceType(title: st, code: st.toLowerCase(), active: false),
+      for (final st in ['Trello', 'Jira', 'GitLab', 'Redmine']) SourceType(title: st, code: st.toLowerCase()),
+      for (final st in ['Notion', 'GitHub']) SourceType(title: st, code: st.toLowerCase(), active: false),
       SourceType(title: 'Яндекс.Трекер', code: 'yandex_tracker', active: false),
     ];
   }

@@ -12,4 +12,7 @@ class SourceType extends Titleable {
 
   final String code;
   final bool active;
+
+  bool get isJira => code == 'jira';
+  bool get isTrello => code == 'trello';
 }

@@ -21,7 +21,7 @@ class MTAdaptive extends StatelessWidget {
   final EdgeInsets? padding;
 
   Widget _constrained(BuildContext context) {
-    double W = SCR_XS_WIDTH * 0.9;
+    double W = SCR_XS_WIDTH * 0.8;
 
     switch (size) {
       case _AdaptiveSize.XS:

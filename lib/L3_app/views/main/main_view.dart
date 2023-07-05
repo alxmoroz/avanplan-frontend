@@ -68,8 +68,6 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    final _mq = MediaQuery.of(context);
-    final _bigScreen = _mq.size.width > SCR_L_WIDTH && _mq.size.height > SCR_S_HEIGHT;
     return Observer(
       builder: (_) => MTPage(
         navBar: navBar(

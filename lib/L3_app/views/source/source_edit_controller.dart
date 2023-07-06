@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../L1_domain/entities/source.dart';
 import '../../../L1_domain/entities/source_type.dart';
@@ -132,5 +133,10 @@ abstract class _SourceEditControllerBase extends EditController with Store {
       capitalization: TextCapitalization.none,
       margin: tfPadding.copyWith(top: first ? P_2 : tfPadding.top),
     );
+  }
+
+  Future getTrelloToken() async {
+    await launchUrlString(
+        'https://trello.com/1/authorize?expiration=never&scope=account,read&response_type=token&key=5cbcf3719f220514a730154ebf5084ae');
   }
 }

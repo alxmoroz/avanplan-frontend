@@ -14,7 +14,6 @@ import '../../components/icons.dart';
 import '../../components/mt_alert_dialog.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_dialog.dart';
-import '../../components/mt_text_field.dart';
 import '../../components/mt_toolbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
@@ -96,13 +95,20 @@ class _SourceEditViewState extends State<SourceEditView> {
         children: [
           if (controller.showUrl) controller.tf(SourceFCode.url, first: true),
           if (controller.showUsername) controller.tf(SourceFCode.username, first: !controller.showUrl),
+          controller.selectedType?.isTrello == true
+              ? MTButton.secondary(
+                  margin: const EdgeInsets.symmetric(vertical: P),
+                  titleText: loc.source_get_token_action,
+                  trailing: const LinkOutIcon(size: P),
+                  onTap: controller.getTrelloToken,
+                )
+              : MTButton(
+                  titleText: loc.source_get_token_help_action,
+                  trailing: const LinkOutIcon(size: P),
+                  margin: const EdgeInsets.symmetric(vertical: P),
+                  onTap: () => launchUrlString(_sourceEditHelperAddress),
+                ),
           controller.tf(SourceFCode.apiKey, first: !controller.showUrl && !controller.showUsername),
-          MTButton(
-            titleText: loc.source_help_edit_action,
-            trailing: const LinkOutIcon(size: P * 1.2),
-            margin: tfPadding.copyWith(top: P_2),
-            onTap: () => launchUrlString(_sourceEditHelperAddress),
-          ),
           controller.tf(SourceFCode.description),
           const SizedBox(height: P),
           MTButton.main(

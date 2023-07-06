@@ -130,6 +130,7 @@ abstract class _ImportControllerBase extends EditController with Store {
       final taskSources = selectedProjects.map((t) => t.taskSource!);
       await importUC.importTaskSources(selectedSource!, taskSources);
       Navigator.of(rootKey.currentContext!).pop();
+      await mainController.fetchWorkspaces();
       await mainController.fetchTasks();
       await loader.stop();
     } else {

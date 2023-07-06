@@ -23,7 +23,7 @@ class SourceTypeSelector extends StatelessWidget {
           itemBuilder: (_, index) {
             final st = refsController.sourceTypes[index];
             return MTListTile(
-              middle: iconTitleForSourceType(st),
+              middle: st.iconTitle,
               trailing: const ChevronIcon(),
               bottomDivider: index < refsController.sourceTypes.length - 1,
               onTap: () => onTap(st),

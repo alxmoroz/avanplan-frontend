@@ -21,7 +21,7 @@ class SourceRepo extends AbstractSourceRepo {
     final wsId = data.wsId;
     final builder = SourceUpsertBuilder()
       ..id = data.id
-      ..type = data.type.code
+      ..type = data.typeCode
       ..url = data.url
       ..apiKey = data.apiKey
       ..username = data.username

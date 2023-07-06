@@ -26,4 +26,6 @@ abstract class _ReferencesControllerBase with Store {
   void clearData() {
     sourceTypes = [];
   }
+
+  SourceType typeForCode(String code) => sourceTypes.firstWhere((st) => st.code == code);
 }

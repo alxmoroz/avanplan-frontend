@@ -15,14 +15,16 @@ import '../components/mt_list_tile.dart';
 import '../components/text_widgets.dart';
 import '../extra/services.dart';
 
-Widget _iconForSourceType(SourceType? st) =>
-    st != null && st.active ? Image.asset('assets/icons/${st.code}_icon.png', height: P2) : const MTCircle(size: P2, color: borderColor);
-
-Widget iconTitleForSourceType(SourceType st) => Row(children: [_iconForSourceType(st), const SizedBox(width: P_2), MediumText('$st')]);
-
 double get _connectionIndicatorSize => P;
 
+extension SourceTypePresenter on SourceType {
+  Widget get icon => active ? Image.asset('assets/icons/${code}_icon.png', height: P2) : const MTCircle(size: P2, color: borderColor);
+  Widget get iconTitle => Row(children: [icon, const SizedBox(width: P_2), MediumText('$this')]);
+}
+
 extension SourcePresenter on Source {
+  SourceType get type => refsController.typeForCode(typeCode);
+
   Widget listTile({
     EdgeInsets? padding,
     VoidCallback? onTap,
@@ -37,7 +39,7 @@ extension SourcePresenter on Source {
     final textColor = (connected || isUnknown) ? null : lightGreyColor;
 
     return MTListTile(
-      leading: _iconForSourceType(type),
+      leading: type.icon,
       middle: NormalText('$this', color: textColor),
       padding: padding,
       trailing: checking
@@ -61,15 +63,14 @@ extension SourcePresenter on Source {
 }
 
 extension TaskSourcePresenter on TaskSource {
-  SourceType? get _typeForId => mainController.wsForId(wsId).sourceForId(sourceId)?.type;
+  Source? get _source => mainController.wsForId(wsId).sourceForId(sourceId);
   Widget go2SourceTitle({bool showSourceIcon = false}) => Row(
         children: [
-          if (showSourceIcon) ...[
-            _iconForSourceType(_typeForId),
+          if (showSourceIcon && _source != null) ...[
+            _source!.type.icon,
             const SizedBox(width: P_2),
           ],
           NormalText(loc.task_go2source_title, color: mainColor),
-          // const NormalText(' >', color: mainColor),
           const SizedBox(width: P_2),
           const LinkOutIcon(),
         ],

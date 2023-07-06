@@ -95,20 +95,19 @@ class _SourceEditViewState extends State<SourceEditView> {
         children: [
           if (controller.showUrl) controller.tf(SourceFCode.url, first: true),
           if (controller.showUsername) controller.tf(SourceFCode.username, first: !controller.showUrl),
+          if (controller.showUrl || controller.showUsername) const SizedBox(height: P2),
           controller.selectedType?.isTrello == true
               ? MTButton.secondary(
-                  margin: const EdgeInsets.symmetric(vertical: P),
                   titleText: loc.source_get_token_action,
                   trailing: const LinkOutIcon(size: P),
                   onTap: controller.getTrelloToken,
                 )
-              : MTButton(
+              : MTButton.secondary(
                   titleText: loc.source_get_token_help_action,
                   trailing: const LinkOutIcon(size: P),
-                  margin: const EdgeInsets.symmetric(vertical: P),
                   onTap: () => launchUrlString(_sourceEditHelperAddress),
                 ),
-          controller.tf(SourceFCode.apiKey, first: !controller.showUrl && !controller.showUsername),
+          controller.tf(SourceFCode.apiKey),
           controller.tf(SourceFCode.description),
           const SizedBox(height: P),
           MTButton.main(
@@ -128,7 +127,7 @@ class _SourceEditViewState extends State<SourceEditView> {
             children: [
               Row(mainAxisSize: MainAxisSize.min, children: [
                 if (_isNew) MediumText(loc.source_title_new, padding: const EdgeInsets.only(right: P_2)),
-                iconTitleForSourceType(controller.selectedType!),
+                controller.selectedType!.iconTitle,
               ]),
               if (mainController.workspaces.length > 1) controller.ws.subtitleRow
             ],
@@ -141,6 +140,7 @@ class _SourceEditViewState extends State<SourceEditView> {
                 )
               : null,
         ),
+        topBarHeight: P2 * 2 + (mainController.workspaces.length > 1 ? P2 : 0),
         body: _form,
       ),
     );

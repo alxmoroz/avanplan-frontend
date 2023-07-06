@@ -10,7 +10,7 @@ import '../entities/workspace.dart';
 
 extension WSExtension on Workspace {
   Source? sourceForId(int? id) => sources.firstWhereOrNull((s) => s.id == id);
-  Source? sourceForType(SourceType? type) => sources.firstWhereOrNull((s) => s.type.code == type?.code);
+  Source? sourceForType(SourceType? type) => sources.firstWhereOrNull((s) => s.typeCode == type?.code);
 
   num get welcomeGiftAmount => mainAccount.incomingOperations.firstWhereOrNull((op) => op.basis == 'WELCOME_GIFT')?.amount ?? 0;
 

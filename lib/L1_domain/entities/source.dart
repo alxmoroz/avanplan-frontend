@@ -1,7 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'base_entity.dart';
-import 'source_type.dart';
 
 enum SrcState {
   connected,
@@ -14,7 +13,7 @@ class Source extends WSBounded {
   Source({
     super.id,
     required super.wsId,
-    required this.type,
+    required this.typeCode,
     required this.url,
     this.apiKey,
     this.username,
@@ -23,7 +22,7 @@ class Source extends WSBounded {
     this.state = SrcState.unknown,
   });
 
-  final SourceType type;
+  final String typeCode;
   final String url;
   final String? apiKey;
   final String? username;

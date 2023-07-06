@@ -15,6 +15,7 @@ import '../../components/mt_alert_dialog.dart';
 import '../../components/mt_field_data.dart';
 import '../../components/mt_text_field.dart';
 import '../../extra/services.dart';
+import '../../presenters/source_presenter.dart';
 import '../../usecases/task_ext_actions.dart';
 import '../_base/edit_controller.dart';
 
@@ -88,7 +89,7 @@ abstract class _SourceEditControllerBase extends EditController with Store {
       // password: tfAnnoForCode(SourceFCode.password.index).text,
       description: fData(SourceFCode.description.index).text,
       wsId: ws.id!,
-      type: selectedType!,
+      typeCode: selectedType!.code,
     ));
 
     if (editedSource != null) {

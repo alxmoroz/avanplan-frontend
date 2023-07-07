@@ -7,11 +7,6 @@ void main() {
   // TODO add properties to the builder and call build()
 
   group(User, () {
-    // int id
-    test('to test the property `id`', () async {
-      // TODO
-    });
-
     // String email
     test('to test the property `email`', () async {
       // TODO
@@ -29,6 +24,11 @@ void main() {
 
     // String locale (default value: 'ru')
     test('to test the property `locale`', () async {
+      // TODO
+    });
+
+    // int id
+    test('to test the property `id`', () async {
       // TODO
     });
 

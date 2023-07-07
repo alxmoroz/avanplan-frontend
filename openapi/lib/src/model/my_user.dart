@@ -13,19 +13,16 @@ part 'my_user.g.dart';
 /// MyUser
 ///
 /// Properties:
-/// * [id] 
 /// * [email] 
 /// * [fullName] 
 /// * [nickName] 
 /// * [locale] 
+/// * [id] 
 /// * [roleCodes] 
 /// * [permissionCodes] 
 /// * [activities] 
 @BuiltValue()
 abstract class MyUser implements Built<MyUser, MyUserBuilder> {
-  @BuiltValueField(wireName: r'id')
-  int get id;
-
   @BuiltValueField(wireName: r'email')
   String get email;
 
@@ -37,6 +34,9 @@ abstract class MyUser implements Built<MyUser, MyUserBuilder> {
 
   @BuiltValueField(wireName: r'locale')
   String? get locale;
+
+  @BuiltValueField(wireName: r'id')
+  int get id;
 
   @BuiltValueField(wireName: r'role_codes')
   BuiltList<String>? get roleCodes;
@@ -71,11 +71,6 @@ class _$MyUserSerializer implements PrimitiveSerializer<MyUser> {
     MyUser object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    yield r'id';
-    yield serializers.serialize(
-      object.id,
-      specifiedType: const FullType(int),
-    );
     yield r'email';
     yield serializers.serialize(
       object.email,
@@ -102,6 +97,11 @@ class _$MyUserSerializer implements PrimitiveSerializer<MyUser> {
         specifiedType: const FullType(String),
       );
     }
+    yield r'id';
+    yield serializers.serialize(
+      object.id,
+      specifiedType: const FullType(int),
+    );
     if (object.roleCodes != null) {
       yield r'role_codes';
       yield serializers.serialize(
@@ -144,13 +144,6 @@ class _$MyUserSerializer implements PrimitiveSerializer<MyUser> {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
-        case r'id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.id = valueDes;
-          break;
         case r'email':
           final valueDes = serializers.deserialize(
             value,
@@ -178,6 +171,13 @@ class _$MyUserSerializer implements PrimitiveSerializer<MyUser> {
             specifiedType: const FullType(String),
           ) as String;
           result.locale = valueDes;
+          break;
+        case r'id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.id = valueDes;
           break;
         case r'role_codes':
           final valueDes = serializers.deserialize(

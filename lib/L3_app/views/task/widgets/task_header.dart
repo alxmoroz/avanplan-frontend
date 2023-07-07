@@ -13,6 +13,7 @@ import '../../../components/mt_text_field.dart';
 import '../../../components/text_widgets.dart';
 import '../../../presenters/task_colors_presenter.dart';
 import '../../../presenters/task_level_presenter.dart';
+import '../../../usecases/task_ext_actions.dart';
 import '../task_view_controller.dart';
 
 class TaskHeader extends StatelessWidget {
@@ -49,6 +50,7 @@ class TaskHeader extends StatelessWidget {
                 controller.fData(TaskFCode.title.index),
                 value: MTTextField(
                   controller: controller.teController(TaskFCode.title.index),
+                  readOnly: !_task.canUpdate,
                   autofocus: controller.isNew,
                   margin: EdgeInsets.zero,
                   decoration: InputDecoration(

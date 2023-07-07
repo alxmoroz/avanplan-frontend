@@ -15,7 +15,6 @@ InputDecoration tfDecoration(
   Widget? prefixIcon,
   Widget? suffixIcon,
   EdgeInsets? padding,
-  bool enabled = true,
   bool readOnly = false,
 }) {
   final _rWarningColor = warningColor.resolve(context);
@@ -44,7 +43,6 @@ InputDecoration tfDecoration(
     focusedErrorBorder: _warningBorder,
     prefixIcon: prefixIcon,
     suffixIcon: suffixIcon,
-    enabled: enabled,
     filled: true,
     fillColor: lightBackgroundColor.resolve(context),
   );
@@ -74,7 +72,6 @@ class MTTextField extends StatelessWidget {
     this.onChanged,
     this.style,
     this.decoration,
-    this.enabled = true,
   });
 
   const MTTextField.noText({
@@ -89,7 +86,6 @@ class MTTextField extends StatelessWidget {
     this.onTap,
     this.decoration,
     this.maxLines = 1,
-    this.enabled = true,
   })  : autofocus = false,
         obscureText = false,
         capitalization = null,
@@ -114,7 +110,6 @@ class MTTextField extends StatelessWidget {
   final bool autocorrect;
   final bool suggestions;
   final bool readOnly;
-  final bool enabled;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final InputDecoration? decoration;
@@ -137,7 +132,6 @@ class MTTextField extends StatelessWidget {
                 error: error,
                 prefixIcon: prefixIcon,
                 suffixIcon: suffixIcon,
-                enabled: enabled,
                 readOnly: readOnly,
                 padding: padding,
               ),

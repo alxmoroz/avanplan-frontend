@@ -28,26 +28,23 @@ extension TaskActionsExt on Task {
   bool get hpWSProjectCreate => mainController.workspaces.any((ws) => ws.hpProjectCreate);
 
   /// разрешения для текущего пользователя для РП, выбранной задачи или проекта
-  Member? get _pm => projectMembers.firstWhereOrNull((m) => m.userId == _authUser?.id);
+  Member? get _m => projectMembers.firstWhereOrNull((m) => m.userId == _authUser?.id);
 
-  bool get _hpMemberUpdate => _pm?.hp('MEMBER_UPDATE') == true || ws.hpProjectContentUpdate;
-  bool get _hpCreate => _pm?.hp('TASK_CREATE') == true || ws.hpProjectContentUpdate;
-  bool get _hpUpdate => _pm?.hp('TASK_UPDATE') == true || ws.hpProjectContentUpdate;
-  bool get _hpDelete => _pm?.hp('TASK_DELETE') == true || ws.hpProjectContentUpdate;
+  bool get _hpMemberUpdate => _m?.hp('MEMBER_UPDATE') == true || ws.hpProjectContentUpdate;
+  bool get _hpCreate => _m?.hp('TASK_CREATE') == true || ws.hpProjectContentUpdate;
+  bool get _hpUpdate => _m?.hp('TASK_UPDATE') == true || ws.hpProjectContentUpdate;
+  bool get _hpDelete => _m?.hp('TASK_DELETE') == true || ws.hpProjectContentUpdate;
 
   /// доступные действия
   bool get _isLocal => !hasLink;
-  bool get _isLocalProject => isProject && _isLocal;
   bool get isLinkedProject => isProject && !_isLocal;
 
-  bool get _canProjectUpdate => _isLocalProject && ws.hpProjectUpdate == true;
-  bool get _canProjectDelete => ws.hpProjectDelete == true;
+  bool get _canProjectDelete => isProject && ws.hpProjectDelete == true;
   bool get _canTaskCreate => !closed && _hpCreate && _isLocal;
-  bool get _canTaskUpdate => !isRoot && _hpUpdate && _isLocal;
-  bool get _canTaskDelete => _hpDelete && _isLocal;
+  bool get _canTaskDelete => !isProject && _hpDelete && _isLocal;
 
   bool get canCreate => _canTaskCreate;
-  bool get canUpdate => _canProjectUpdate || _canTaskUpdate;
+  bool get canUpdate => _isLocal && ((isProject && ws.hpProjectUpdate == true) || (!isRoot && !isProject && _hpUpdate));
   bool get canDelete => _canProjectDelete || _canTaskDelete;
   bool get canRefresh => isRoot;
   bool get canReopen => closed && canUpdate && parent?.closed == false;

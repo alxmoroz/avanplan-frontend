@@ -32,9 +32,9 @@ class DetailsPane extends StatelessWidget {
 
   Task get _task => controller.task;
 
-  Widget? get bottomBar => _task.hasLink
+  Widget? get bottomBar => _task.linked
       ? MTButton(
-          middle: _task.taskSource!.go2SourceTitle(showSourceIcon: true),
+          middle: _task.taskSource!.go2SourceTitle,
           onTap: () => launchUrlString(_task.taskSource!.urlString),
         )
       : null;

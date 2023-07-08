@@ -44,7 +44,7 @@ class _TariffLimitTile extends StatelessWidget {
       icon = const TasksIcon();
       suffix = loc.task_plural_genitive(plural);
     } else if (code == 'PROJECTS_UNLINK_ALLOWED') {
-      icon = const ImportIcon(color: greyTextColor, size: P2);
+      icon = const ImportIcon(color: greyTextColor);
       hvStr = '';
       prefix = Intl.message('tariff_limit_projects_unlink_allowed_$value');
     } else if (code == 'BILLING_PERIOD_DAYS') {

@@ -63,16 +63,18 @@ extension SourcePresenter on Source {
 }
 
 extension TaskSourcePresenter on TaskSource {
-  Source? get _source => mainController.wsForId(wsId).sourceForId(sourceId);
-  Widget go2SourceTitle({bool showSourceIcon = false}) => Row(
-        children: [
-          if (showSourceIcon && _source != null) ...[
-            _source!.type.icon,
-            const SizedBox(width: P_2),
-          ],
-          NormalText(loc.task_go2source_title, color: mainColor),
-          const SizedBox(width: P_2),
-          const LinkOutIcon(),
+  Widget get go2SourceTitle {
+    final _source = mainController.wsForId(wsId).sourceForId(sourceId);
+    return Row(
+      children: [
+        const LinkIcon(),
+        const SizedBox(width: P_3),
+        NormalText(loc.task_go2source_title, color: mainColor),
+        if (_source != null) ...[
+          const SizedBox(width: P_3),
+          _source.type.icon,
         ],
-      );
+      ],
+    );
+  }
 }

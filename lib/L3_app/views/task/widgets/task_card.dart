@@ -94,7 +94,7 @@ class TaskCard extends StatelessWidget {
             const SizedBox(height: P_6),
             Row(children: [
               if (task.canShowState) Expanded(child: TaskStateTitle(task)),
-              if (task.isLinkedProject) const LinkIcon(),
+              if (task.isLinkedProject) const LinkIcon(color: lightGreyColor),
             ]),
             // не проекты, не цели и не группы задач
           ] else if (!task.canShowState) ...[

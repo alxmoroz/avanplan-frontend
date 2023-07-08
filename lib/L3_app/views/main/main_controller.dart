@@ -75,7 +75,7 @@ abstract class _MainControllerBase with Store {
   Iterable<Task> wsTasks(int wsId) => rootTask.allTasks.where((t) => t.wsId == wsId);
 
   @computed
-  bool get hasLinkedProjects => rootTask.tasks.where((p) => p.hasLink).isNotEmpty;
+  bool get hasLinkedProjects => rootTask.tasks.where((p) => p.linked).isNotEmpty;
 
   /// конкретная задача
   Task taskForId(int wsId, int? id) {

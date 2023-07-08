@@ -99,12 +99,12 @@ class _SourceEditViewState extends State<SourceEditView> {
           controller.selectedType?.isTrello == true
               ? MTButton.secondary(
                   titleText: loc.source_get_token_action,
-                  trailing: const LinkOutIcon(size: P),
+                  trailing: const LinkOutIcon(),
                   onTap: controller.getTrelloToken,
                 )
               : MTButton.secondary(
                   titleText: loc.source_get_token_help_action,
-                  trailing: const LinkOutIcon(size: P),
+                  trailing: const LinkOutIcon(),
                   onTap: () => launchUrlString(_sourceEditHelperAddress),
                 ),
           controller.tf(SourceFCode.apiKey),

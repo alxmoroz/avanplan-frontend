@@ -250,7 +250,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     final hasFutureStart = task.startDate != null && task.startDate!.isAfter(today);
     final selectedDate = isStart ? task.startDate : task.dueDate;
 
-    final pastDate = today.subtract(year);
+    final pastDate = today.subtract(year * 100);
     final futureDate = today.add(year * 100);
 
     final initialDate = selectedDate ?? (hasFutureStart ? task.startDate! : today);
@@ -424,29 +424,6 @@ abstract class _TaskViewControllerBase extends EditController with Store {
   @computed
   TaskTabKey get tabKey => (tabKeys.contains(_tabKey) ? _tabKey : null) ?? (tabKeys.isNotEmpty ? tabKeys.first : TaskTabKey.subtasks);
 
-  /// связь с источником импорта
-
-  MTADialogAction<bool> _go2SourceDialogAction() => MTADialogAction(
-        type: MTActionType.isDefault,
-        onTap: () => launchUrlString(task.taskSource!.urlString),
-        result: false,
-        child: task.taskSource!.go2SourceTitle(),
-      );
-
-  Future<bool?> _unlinkDialog() async => await showMTAlertDialog(
-        loc.task_unlink_dialog_title,
-        description: loc.task_unlink_dialog_description,
-        actions: [
-          MTADialogAction(
-            title: loc.task_unlink_action_title,
-            type: MTActionType.isWarning,
-            result: true,
-            icon: const UnlinkIcon(),
-          ),
-          _go2SourceDialogAction(),
-        ],
-      );
-
   Future<bool?> _closeDialog() async => await showMTAlertDialog(
         loc.close_dialog_recursive_title,
         description: loc.close_dialog_recursive_description,
@@ -497,6 +474,27 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     }
   }
 
+  /// связь с источником импорта
+
+  Future<bool?> _unlinkDialog() async => await showMTAlertDialog(
+        loc.task_unlink_dialog_title,
+        description: loc.task_unlink_dialog_description,
+        actions: [
+          MTADialogAction(
+            title: loc.task_unlink_action_title,
+            type: MTActionType.isWarning,
+            result: true,
+            icon: const LinkBreakIcon(),
+          ),
+          MTADialogAction(
+            type: MTActionType.isDefault,
+            onTap: go2source,
+            result: false,
+            child: task.taskSource!.go2SourceTitle,
+          ),
+        ],
+      );
+
   Future unlink() async {
     if (task.canUnlink) {
       if (await _unlinkDialog() == true) {
@@ -513,6 +511,8 @@ abstract class _TaskViewControllerBase extends EditController with Store {
       await changeTariff(task.ws, reason: loc.tariff_change_limit_unlink_reason_title);
     }
   }
+
+  Future go2source() async => await launchUrlString(task.taskSource!.urlString);
 
   Future delete() async {
     final confirm = await showMTAlertDialog(
@@ -543,6 +543,9 @@ abstract class _TaskViewControllerBase extends EditController with Store {
         break;
       case TaskActionType.reopen:
         await setStatus(task, close: false);
+        break;
+      case TaskActionType.go2source:
+        await go2source();
         break;
       case TaskActionType.unlink:
         await unlink();

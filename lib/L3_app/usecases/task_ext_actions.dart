@@ -16,6 +16,7 @@ import 'ws_ext_actions.dart';
 enum TaskActionType {
   close,
   reopen,
+  go2source,
   unlink,
   delete,
 }
@@ -36,7 +37,7 @@ extension TaskActionsExt on Task {
   bool get _hpDelete => _m?.hp('TASK_DELETE') == true || ws.hpProjectContentUpdate;
 
   /// доступные действия
-  bool get _isLocal => !hasLink;
+  bool get _isLocal => !linked;
   bool get isLinkedProject => isProject && !_isLocal;
 
   bool get _canProjectDelete => isProject && ws.hpProjectDelete == true;
@@ -68,6 +69,7 @@ extension TaskActionsExt on Task {
   Iterable<TaskActionType> get actionTypes => [
         if (canClose) TaskActionType.close,
         if (canReopen) TaskActionType.reopen,
+        if (wasImported && !linked) TaskActionType.go2source,
         if (canUnlink) TaskActionType.unlink,
         if (canDelete) TaskActionType.delete,
       ];
@@ -90,7 +92,7 @@ extension TaskActionsExt on Task {
     for (Task subtask in tasks) {
       tss.addAll(subtask.allTss());
     }
-    if (hasLink) {
+    if (linked) {
       tss.add(taskSource!);
     }
     return tss;
@@ -100,7 +102,7 @@ extension TaskActionsExt on Task {
     for (Task subtask in tasks) {
       subtask.unlinkTaskTree();
     }
-    if (hasLink) {
+    if (linked) {
       taskSource?.keepConnection = false;
     }
   }

@@ -45,6 +45,7 @@ class ImportView extends StatelessWidget {
   bool get _validated => controller.validated;
   bool get _selectedAll => controller.selectedAll;
   bool get _hasSources => controller.ws.sources.isNotEmpty;
+  bool get _showSelectAll => controller.projects.length > 2;
 
   Widget get _sourceDropdown => MTDropdown<Source>(
         onChanged: controller.selectSourceId,
@@ -80,7 +81,7 @@ class ImportView extends StatelessWidget {
           if (controller.selectedSource != null) ...[
             const SizedBox(height: P),
             if (_hasProjects) ...[
-              if (controller.projects.length > 2) ...[
+              if (_showSelectAll)
                 MTCheckBoxTile(
                   title: '${loc.select_all_action_title} (${controller.projects.length})',
                   titleColor: mainColor,
@@ -89,7 +90,6 @@ class ImportView extends StatelessWidget {
                   value: _selectedAll,
                   onChanged: controller.toggleSelectedAll,
                 ),
-              ],
             ] else
               MediumText(
                 _hasError ? Intl.message(controller.errorCode!) : loc.import_list_empty_title,
@@ -174,8 +174,7 @@ class ImportView extends StatelessWidget {
             ],
           ),
         ),
-        topBarHeight:
-            P2 * 2 + (_hasSources ? P * (controller.projects.length > 2 ? 10.5 : 8.5) : 0) + (mainController.workspaces.length > 1 ? P2 : 0),
+        topBarHeight: P2 * 2 + (_hasSources ? P * (_showSelectAll ? 10.5 : 8.5) : 0) + (mainController.workspaces.length > 1 ? P2 : 0),
         body: _body,
         bottomBar: _bottomBar,
         bottomBarHeight: _hasSources ? P * 11 : null,

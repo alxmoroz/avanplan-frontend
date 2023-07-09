@@ -57,14 +57,16 @@ extension TaskActionsExt on Task {
   bool get canCloseGroup => canClose && state == TaskState.closable;
   bool get canEstimate => canUpdate && ws.estimateValues.isNotEmpty && isLeaf;
   bool get canAssign => canUpdate && activeMembers.isNotEmpty;
+  bool get canLocalImport => isGoal && canCreate && hasOpenedFilledSiblings;
 
   /// рекомендации, быстрые кнопки
   bool get shouldAddSubtask =>
-      canCreate &&
       [
         TaskLevel.project,
         TaskLevel.goal,
-      ].contains(level);
+      ].contains(level) &&
+      canCreate &&
+      !hasOpenedSubtasks;
 
   Iterable<TaskActionType> get actionTypes => [
         if (canClose) TaskActionType.close,

@@ -13,7 +13,6 @@ import '../../../main.dart';
 import '../../extra/services.dart';
 import '../../usecases/source_ext.dart';
 import '../../usecases/ws_ext_actions.dart';
-import '../_base/edit_controller.dart';
 import '../source/source_edit_view.dart';
 import '../tariff/tariff_select_view.dart';
 
@@ -42,7 +41,7 @@ class ImportController extends _ImportControllerBase with _$ImportController {
   }
 }
 
-abstract class _ImportControllerBase extends EditController with Store {
+abstract class _ImportControllerBase with Store {
   late final int wsId;
   Workspace get ws => mainController.wsForId(wsId);
   int get availableCount => ws.availableProjectsCount;
@@ -56,7 +55,7 @@ abstract class _ImportControllerBase extends EditController with Store {
   @computed
   int get selectableCount => ws.availableProjectsCount - selectedProjects.length;
 
-  @override
+  @computed
   bool get validated => selectedProjects.isNotEmpty;
 
   @observable

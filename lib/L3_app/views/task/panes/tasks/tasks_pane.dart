@@ -12,9 +12,10 @@ import '../../../../components/icons.dart';
 import '../../../../components/mt_button.dart';
 import '../../../../presenters/task_view_presenter.dart';
 import '../../../../usecases/task_ext_actions.dart';
-import '../../project_add_wizard/project_add_wizard.dart';
 import '../../task_view_controller.dart';
+import '../../widgets/project_add_wizard/project_add_wizard.dart';
 import '../../widgets/task_add_button.dart';
+import '../../widgets/transfer/transfer_dialog.dart';
 import 'tasks_board_view.dart';
 import 'tasks_list_view.dart';
 import 'tasks_pane_controller.dart';
@@ -50,8 +51,15 @@ class TasksPane extends StatelessWidget {
               margin: const EdgeInsets.only(left: P),
               constrained: false,
             ),
+          const Spacer(),
+          if (task.canLocalImport)
+            MTButton.secondary(
+              middle: const TransferIcon(),
+              constrained: false,
+              onTap: () => transferDialog(taskController),
+            ),
           if (task.isRoot || task.canCreate) ...[
-            const Spacer(),
+            const SizedBox(width: P),
             task.isRoot ? const MTPlusButton(projectAddWizard) : TaskAddButton(taskController, compact: true),
           ]
         ])

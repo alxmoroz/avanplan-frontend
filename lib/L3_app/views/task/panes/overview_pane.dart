@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../L1_domain/entities/task.dart';
-import '../../../../L1_domain/entities_extensions/task_level.dart';
 import '../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
@@ -27,6 +26,7 @@ import '../widgets/charts/volume_chart.dart';
 import '../widgets/state_title.dart';
 import '../widgets/task_add_button.dart';
 import '../widgets/tasks_group.dart';
+import '../widgets/transfer/transfer_dialog.dart';
 
 class OverviewPane extends StatelessWidget {
   const OverviewPane(this.controller);
@@ -34,10 +34,24 @@ class OverviewPane extends StatelessWidget {
 
   Task get _task => controller.task;
 
-  Widget? get bottomBar => !_task.isRoot && _task.shouldAddSubtask
-      ? TaskAddButton(controller)
-      : _task.canReopen || _task.canCloseGroup
+  bool get _showBottomBar => _task.shouldAddSubtask || _task.canReopen || _task.canCloseGroup;
+
+  Widget? get bottomBar => _showBottomBar
+      ? _task.shouldAddSubtask
           ? Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (_task.canLocalImport)
+                  MTButton.secondary(
+                    leading: const TransferIcon(),
+                    titleText: loc.task_transfer_action_title,
+                    margin: const EdgeInsets.only(bottom: P),
+                    onTap: () => transferDialog(controller),
+                  ),
+                TaskAddButton(controller),
+              ],
+            )
+          : Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -55,7 +69,7 @@ class OverviewPane extends StatelessWidget {
                 ),
               ],
             )
-          : null;
+      : null;
 
   Widget _checkRecommendsItem(bool checked, String text) => Row(children: [
         DoneIcon(checked, color: checked ? greenColor : greyTextColor, size: P * 3, solid: checked),
@@ -137,7 +151,7 @@ class OverviewPane extends StatelessWidget {
             ),
             MTAdaptive(
               force: true,
-              child: TasksGroup(_task.attentionalTasks),
+              child: TasksGroup(_task.attentionalTasks, standalone: false),
             ),
           ],
         ],

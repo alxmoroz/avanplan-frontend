@@ -120,8 +120,8 @@
   "import_list_empty_title": "There are no projects available to import\nTry choosing a different source",
   "import_menu_action_title": "Import from",
   "import_projects_select_available_count_hint": "Select up to {count}",
-  "import_source_select_hint": "Select an import source",
-  "import_title": "Import projects",
+  "import_source_select_hint": "Select source",
+  "import_title": "Import",
 
   "invitation_activations_count_placeholder": "Activations Count",
   "invitation_expires_placeholder": "Expires",
@@ -313,6 +313,13 @@
   "task_start_date_placeholder": "Start date",
   "task_status_placeholder": "Select Status",
   "task_title": "Task",
+
+  "task_transfer_action_title": "Transfer tasks",
+  "task_transfer_confirm_action_title": "Transfer",
+  "task_transfer_destination_label": "To:",
+  "task_transfer_source_label": "From:",
+  "task_transfer_source_hint": "Select source",
+  "task_transfer_title": "Transfer Tasks",
 
   "task_unlink_action_title": "Delete link",
   "task_unlink_dialog_description": "You will not be able to download updates. Changes will not be upload to the source",

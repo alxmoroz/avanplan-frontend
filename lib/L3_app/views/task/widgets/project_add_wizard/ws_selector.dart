@@ -2,13 +2,13 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../components/colors.dart';
-import '../../../components/constants.dart';
-import '../../../components/icons.dart';
-import '../../../components/mt_list_tile.dart';
-import '../../../components/text_widgets.dart';
-import '../../../extra/services.dart';
-import '../../../usecases/ws_ext_actions.dart';
+import '../../../../components/colors.dart';
+import '../../../../components/constants.dart';
+import '../../../../components/icons.dart';
+import '../../../../components/mt_list_tile.dart';
+import '../../../../components/text_widgets.dart';
+import '../../../../extra/services.dart';
+import '../../../../usecases/ws_ext_actions.dart';
 import 'project_add_wizard_controller.dart';
 
 class WSSelector extends StatelessWidget {

@@ -476,6 +476,8 @@ abstract class _TaskViewControllerBase extends EditController with Store {
 
   /// связь с источником импорта
 
+  Future go2source() async => await launchUrlString(task.taskSource!.urlString);
+
   Future<bool?> _unlinkDialog() async => await showMTAlertDialog(
         loc.task_unlink_dialog_title,
         description: loc.task_unlink_dialog_description,
@@ -511,8 +513,6 @@ abstract class _TaskViewControllerBase extends EditController with Store {
       await changeTariff(task.ws, reason: loc.tariff_change_limit_unlink_reason_title);
     }
   }
-
-  Future go2source() async => await launchUrlString(task.taskSource!.urlString);
 
   Future delete() async {
     final confirm = await showMTAlertDialog(

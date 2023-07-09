@@ -190,7 +190,7 @@ class EyeIcon extends MTIcon {
   Widget build(BuildContext context) => FaIcon(
         open ? FontAwesomeIcons.eye : FontAwesomeIcons.eyeSlash,
         color: (color ?? greyTextColor).resolve(context),
-        size: size ?? P2,
+        size: size ?? P * 1.8,
       );
 }
 
@@ -227,10 +227,10 @@ class LinkBreakIcon extends MTIcon {
 class LinkOutIcon extends MTIcon {
   const LinkOutIcon({super.color, super.size});
   @override
-  Widget build(BuildContext context) => FaIcon(
-        FontAwesomeIcons.arrowUpRightFromSquare,
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.arrow_up_right,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? P * 1.4,
+        size: size ?? P2,
       );
 }
 
@@ -245,16 +245,6 @@ class ListIcon extends MTIcon {
         color: (color ?? mainColor).resolve(context),
         size: size ?? P2 * (active ? 0.8 : 1),
       ));
-}
-
-class LogoutIcon extends MTIcon {
-  const LogoutIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => FaIcon(
-        FontAwesomeIcons.arrowRightFromBracket,
-        color: (color ?? mainColor).resolve(context),
-        size: size ?? P * 1.4,
-      );
 }
 
 class MenuIcon extends MTIcon {
@@ -344,6 +334,16 @@ class StarIcon extends MTIcon {
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.star_fill,
         color: (color ?? goldColor).resolve(context),
+        size: size ?? P2,
+      );
+}
+
+class TransferIcon extends MTIcon {
+  const TransferIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.arrow_down,
+        color: (color ?? mainColor).resolve(context),
         size: size ?? P2,
       );
 }

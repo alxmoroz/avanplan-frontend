@@ -2,8 +2,8 @@
 
 import 'package:mobx/mobx.dart';
 
-import '../../../../L1_domain/entities/workspace.dart';
-import '../../../extra/services.dart';
+import '../../../../../L1_domain/entities/workspace.dart';
+import '../../../../extra/services.dart';
 
 part 'project_add_wizard_controller.g.dart';
 

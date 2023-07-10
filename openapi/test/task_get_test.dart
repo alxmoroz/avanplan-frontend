@@ -82,6 +82,11 @@ void main() {
       // TODO
     });
 
+    // DateTime updatedOn
+    test('to test the property `updatedOn`', () async {
+      // TODO
+    });
+
     // TaskSourceGet taskSource
     test('to test the property `taskSource`', () async {
       // TODO
@@ -97,8 +102,8 @@ void main() {
       // TODO
     });
 
-    // DateTime updatedOn
-    test('to test the property `updatedOn`', () async {
+    // BuiltList<NoteGet> notes
+    test('to test the property `notes`', () async {
       // TODO
     });
   });

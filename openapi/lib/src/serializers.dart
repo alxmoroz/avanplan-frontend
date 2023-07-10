@@ -39,6 +39,7 @@ import 'package:openapi/src/model/invoice_get.dart';
 import 'package:openapi/src/model/location_inner.dart';
 import 'package:openapi/src/model/member_get.dart';
 import 'package:openapi/src/model/my_user.dart';
+import 'package:openapi/src/model/note_get.dart';
 import 'package:openapi/src/model/notification.dart';
 import 'package:openapi/src/model/permission_get.dart';
 import 'package:openapi/src/model/permission_role_get.dart';
@@ -91,6 +92,7 @@ part 'serializers.g.dart';
   LocationInner,
   MemberGet,
   MyUser,
+  NoteGet,
   Notification,
   PermissionGet,
   PermissionRoleGet,

@@ -23,10 +23,11 @@ Name | Type | Description | Notes
 **authorId** | **int** |  | [optional] 
 **priorityId** | **int** |  | [optional] 
 **statusId** | **int** |  | [optional] 
+**updatedOn** | [**DateTime**](DateTime.md) |  | 
 **taskSource** | [**TaskSourceGet**](TaskSourceGet.md) |  | [optional] 
 **tasks** | [**BuiltList&lt;TaskGet&gt;**](TaskGet.md) |  | [optional] 
 **members** | [**BuiltList&lt;MemberGet&gt;**](MemberGet.md) |  | [optional] 
-**updatedOn** | [**DateTime**](DateTime.md) |  | 
+**notes** | [**BuiltList&lt;NoteGet&gt;**](NoteGet.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

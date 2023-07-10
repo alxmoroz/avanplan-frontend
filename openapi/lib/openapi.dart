@@ -51,6 +51,7 @@ export 'package:openapi/src/model/invoice_get.dart';
 export 'package:openapi/src/model/location_inner.dart';
 export 'package:openapi/src/model/member_get.dart';
 export 'package:openapi/src/model/my_user.dart';
+export 'package:openapi/src/model/note_get.dart';
 export 'package:openapi/src/model/notification.dart';
 export 'package:openapi/src/model/permission_get.dart';
 export 'package:openapi/src/model/permission_role_get.dart';

@@ -6,6 +6,7 @@
 import 'package:openapi/src/model/member_get.dart';
 import 'package:openapi/src/model/task_source_get.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:openapi/src/model/note_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -29,10 +30,11 @@ part 'task_get.g.dart';
 /// * [authorId] 
 /// * [priorityId] 
 /// * [statusId] 
+/// * [updatedOn] 
 /// * [taskSource] 
 /// * [tasks] 
 /// * [members] 
-/// * [updatedOn] 
+/// * [notes] 
 @BuiltValue()
 abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -80,6 +82,9 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'status_id')
   int? get statusId;
 
+  @BuiltValueField(wireName: r'updated_on')
+  DateTime get updatedOn;
+
   @BuiltValueField(wireName: r'task_source')
   TaskSourceGet? get taskSource;
 
@@ -89,8 +94,8 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'members')
   BuiltList<MemberGet>? get members;
 
-  @BuiltValueField(wireName: r'updated_on')
-  DateTime get updatedOn;
+  @BuiltValueField(wireName: r'notes')
+  BuiltList<NoteGet>? get notes;
 
   TaskGet._();
 
@@ -218,6 +223,11 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
         specifiedType: const FullType(int),
       );
     }
+    yield r'updated_on';
+    yield serializers.serialize(
+      object.updatedOn,
+      specifiedType: const FullType(DateTime),
+    );
     if (object.taskSource != null) {
       yield r'task_source';
       yield serializers.serialize(
@@ -239,11 +249,13 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
         specifiedType: const FullType(BuiltList, [FullType(MemberGet)]),
       );
     }
-    yield r'updated_on';
-    yield serializers.serialize(
-      object.updatedOn,
-      specifiedType: const FullType(DateTime),
-    );
+    if (object.notes != null) {
+      yield r'notes';
+      yield serializers.serialize(
+        object.notes,
+        specifiedType: const FullType(BuiltList, [FullType(NoteGet)]),
+      );
+    }
   }
 
   @override
@@ -372,6 +384,13 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
           ) as int;
           result.statusId = valueDes;
           break;
+        case r'updated_on':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.updatedOn = valueDes;
+          break;
         case r'task_source':
           final valueDes = serializers.deserialize(
             value,
@@ -393,12 +412,12 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
           ) as BuiltList<MemberGet>;
           result.members.replace(valueDes);
           break;
-        case r'updated_on':
+        case r'notes':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
-          result.updatedOn = valueDes;
+            specifiedType: const FullType(BuiltList, [FullType(NoteGet)]),
+          ) as BuiltList<NoteGet>;
+          result.notes.replace(valueDes);
           break;
         default:
           unhandled.add(key);

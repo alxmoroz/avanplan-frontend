@@ -127,6 +127,7 @@ Class | Method | HTTP request | Description
  - [LocationInner](doc/LocationInner.md)
  - [MemberGet](doc/MemberGet.md)
  - [MyUser](doc/MyUser.md)
+ - [NoteGet](doc/NoteGet.md)
  - [Notification](doc/Notification.md)
  - [PermissionGet](doc/PermissionGet.md)
  - [PermissionRoleGet](doc/PermissionRoleGet.md)

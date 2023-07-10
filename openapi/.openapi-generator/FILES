@@ -37,6 +37,7 @@ doc/MyNotificationsApi.md
 doc/MyPushTokensApi.md
 doc/MyUser.md
 doc/MyWorkspacesApi.md
+doc/NoteGet.md
 doc/Notification.md
 doc/PaymentsApi.md
 doc/PermissionGet.md
@@ -117,6 +118,7 @@ lib/src/model/invoice_get.dart
 lib/src/model/location_inner.dart
 lib/src/model/member_get.dart
 lib/src/model/my_user.dart
+lib/src/model/note_get.dart
 lib/src/model/notification.dart
 lib/src/model/permission_get.dart
 lib/src/model/permission_role_get.dart
@@ -177,6 +179,7 @@ test/my_notifications_api_test.dart
 test/my_push_tokens_api_test.dart
 test/my_user_test.dart
 test/my_workspaces_api_test.dart
+test/note_get_test.dart
 test/notification_test.dart
 test/payments_api_test.dart
 test/permission_get_test.dart

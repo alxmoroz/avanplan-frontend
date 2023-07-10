@@ -318,7 +318,7 @@
   "task_transfer_confirm_action_title": "Transfer",
   "task_transfer_destination_label": "To:",
   "task_transfer_source_label": "From:",
-  "task_transfer_source_hint": "Select source",
+  "task_transfer_source_hint": "Choose where to transfer from",
   "task_transfer_title": "Transfer Tasks",
 
   "task_unlink_action_title": "Delete link",

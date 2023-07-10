@@ -35,13 +35,12 @@ abstract class _TransferControllerBase with Store {
   @computed
   bool get validated => checks.contains(true);
 
-  @observable
-  bool selectedAll = false;
+  @computed
+  bool get selectedAll => !checks.contains(false);
 
   @action
   void toggleSelectedAll(bool? value) {
-    selectedAll = !selectedAll;
-    checks = [for (var _ in srcTasks) selectedAll];
+    checks = [for (var _ in srcTasks) value == true];
   }
 
   @action

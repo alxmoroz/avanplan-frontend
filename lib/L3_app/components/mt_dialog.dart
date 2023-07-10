@@ -24,7 +24,7 @@ Future<T?> showMTDialog<T>(Widget child) async {
   final mqW = mq.size.width;
 
   final constrains = BoxConstraints(
-    minHeight: mqH / 4,
+    // minHeight: mqH / 4,
     maxWidth: mqW > SCR_L_WIDTH ? SCR_L_WIDTH : SCR_M_WIDTH,
     maxHeight: mqH > SCR_XS_HEIGHT ? mqH - mq.padding.top - P2 : double.infinity,
   );

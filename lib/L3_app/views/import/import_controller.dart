@@ -67,16 +67,14 @@ abstract class _ImportControllerBase with Store {
   @action
   void clearData() {
     projects = [];
-    selectedAll = false;
   }
 
-  @observable
-  bool selectedAll = false;
+  @computed
+  bool get selectedAll => projects.every((p) => p.selected);
 
   @action
   void toggleSelectedAll(bool? value) {
-    selectedAll = !selectedAll;
-    projects.forEach((t) => t.selected = selectedAll);
+    projects.forEach((p) => p.selected = value == true);
     projects = [...projects];
   }
 

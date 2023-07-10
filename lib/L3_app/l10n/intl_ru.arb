@@ -318,7 +318,7 @@
   "task_transfer_confirm_action_title": "Перенести",
   "task_transfer_destination_label": "Куда:",
   "task_transfer_source_label": "Откуда:",
-  "task_transfer_source_hint": "Выберите источник",
+  "task_transfer_source_hint": "Выберите, откуда перенести",
   "task_transfer_title": "Перенос задач",
 
   "task_unlink_action_title": "Удалить связь",

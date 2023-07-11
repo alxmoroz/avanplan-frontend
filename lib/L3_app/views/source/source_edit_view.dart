@@ -52,7 +52,7 @@ Future<Source?> editSource(Workspace ws, {Source? src, SourceType? sType}) async
   if (s != null) {
     await ws.updateSourceInList(s);
     if (!s.deleted) {
-      s.checkConnection();
+      s.checkConnection(ws);
     }
   }
   return s;

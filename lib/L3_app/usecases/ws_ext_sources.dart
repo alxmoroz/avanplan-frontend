@@ -6,7 +6,7 @@ import '../extra/services.dart';
 import 'source_ext.dart';
 
 extension WSourcesExt on Workspace {
-  void checkSources() => sources.forEach((src) => src.checkConnection());
+  void checkSources() => sources.forEach((src) => src.checkConnection(this));
 
   Future updateSourceInList(Source? _s) async {
     if (_s != null) {

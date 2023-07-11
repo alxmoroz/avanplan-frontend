@@ -38,7 +38,7 @@ Future transferDialog(TaskViewController taskController) async {
     await showMTDialog<void>(
       TasksMovingDialog(
         TransferController(
-          mainController.taskForId(destinationGoal.wsId, sourceGoalId),
+          mainController.taskForId(destinationGoal.ws.id!, sourceGoalId),
           taskController,
         ),
       ),

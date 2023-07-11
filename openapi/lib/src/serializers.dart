@@ -43,6 +43,7 @@ import 'package:openapi/src/model/note_get.dart';
 import 'package:openapi/src/model/notification.dart';
 import 'package:openapi/src/model/permission_get.dart';
 import 'package:openapi/src/model/permission_role_get.dart';
+import 'package:openapi/src/model/project_status_get.dart';
 import 'package:openapi/src/model/registration.dart';
 import 'package:openapi/src/model/role_get.dart';
 import 'package:openapi/src/model/settings_get.dart';
@@ -96,6 +97,7 @@ part 'serializers.g.dart';
   Notification,
   PermissionGet,
   PermissionRoleGet,
+  ProjectStatusGet,
   Registration,
   RoleGet,
   SettingsGet,

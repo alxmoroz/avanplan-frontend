@@ -28,7 +28,7 @@ class NoProjects extends StatelessWidget {
             MTButton(
               leading: H2(loc.project_list_all_title, color: mainColor),
               middle: H2(loc.are_closed_suffix),
-              onTap: () async => await Navigator.of(context).pushNamed(TaskView.routeName, arguments: TaskParams(rootTask.wsId)),
+              onTap: () async => await Navigator.of(context).pushNamed(TaskView.routeName, arguments: TaskParams(rootTask.ws)),
             )
           else
             H2(loc.state_no_projects_hint, align: TextAlign.center),

@@ -8,11 +8,9 @@ class EstimateUnit extends Titleable {
     required super.title,
     required super.description,
     required this.code,
-    required this.wsId,
   });
 
   final String code;
-  final int wsId;
 
   @override
   String toString() => code;

@@ -8,7 +8,6 @@ import '../../../../../L1_domain/entities/role.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../main.dart';
 import '../../../../extra/services.dart';
-import '../../../../usecases/task_ext_actions.dart';
 
 part 'member_edit_controller.g.dart';
 
@@ -38,7 +37,7 @@ abstract class _MemberEditControllerBase with Store {
     loader.start();
     loader.setSaving();
     final rolesIds = roles.where((r) => r.selected).map((r) => r.id!);
-    final members = await taskMemberRoleUC.assignRoles(task.wsId, task.id!, member.id!, rolesIds);
+    final members = await taskMemberRoleUC.assignRoles(task.ws.id!, task.id!, member.id!, rolesIds);
     Navigator.of(rootKey.currentContext!).pop(members);
     await loader.stop(300);
   }

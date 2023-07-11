@@ -49,4 +49,20 @@ class Workspace extends WorkspaceUpsert {
   List<EstimateValue> estimateValues = [];
   List<Status> statuses = [];
   List<Source> sources = [];
+
+  static Workspace get dummy => Workspace(
+        id: 0,
+        title: '',
+        description: '',
+        code: '',
+        users: [],
+        roles: [],
+        invoice: Invoice.dummy,
+        balance: 0,
+        settings: null,
+        estimateValues: [],
+        sources: [],
+        statuses: [],
+        mainAccount: Account.dummy,
+      );
 }

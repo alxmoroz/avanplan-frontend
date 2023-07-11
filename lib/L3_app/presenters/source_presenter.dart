@@ -64,7 +64,7 @@ extension SourcePresenter on Source {
 
 extension TaskSourcePresenter on TaskSource {
   Widget get go2SourceTitle {
-    final _source = mainController.wsForId(wsId).sourceForId(sourceId);
+    final _source = ws.sourceForId(sourceId);
     return Row(
       children: [
         const LinkIcon(),

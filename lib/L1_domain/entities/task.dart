@@ -2,7 +2,9 @@
 
 import 'base_entity.dart';
 import 'member.dart';
+import 'project_status.dart';
 import 'task_source.dart';
+import 'workspace.dart';
 
 enum TaskLevel { root, project, goal, task, subtask }
 
@@ -32,8 +34,9 @@ class Task extends Titleable {
     required this.closed,
     required this.parent,
     required this.tasks,
-    required this.wsId,
+    required this.ws,
     required this.members,
+    required this.projectStatuses,
     this.createdOn,
     this.updatedOn,
     this.dueDate,
@@ -47,13 +50,15 @@ class Task extends Titleable {
     this.estimate,
   });
 
+  List<ProjectStatus> projectStatuses;
+
   List<Task> tasks;
   final DateTime? createdOn;
   final DateTime? updatedOn;
   DateTime? startDate;
   DateTime? closedDate;
   DateTime? dueDate;
-  final int wsId;
+  final Workspace ws;
   int? statusId;
   int? authorId;
   int? assigneeId;
@@ -101,6 +106,8 @@ class Task extends Titleable {
   late TaskState state;
   late TaskState subtasksState;
   late TaskState overallState;
+
+  static Task get dummy => Task(title: '', closed: false, parent: null, tasks: [], members: [], projectStatuses: [], ws: Workspace.dummy);
 }
 
 class TaskRemote {

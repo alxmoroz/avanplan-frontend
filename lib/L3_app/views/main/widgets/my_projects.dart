@@ -23,7 +23,7 @@ class MyProjects extends StatelessWidget {
 
   Task get _rootTask => mainController.rootTask;
 
-  Future _goToProjects() async => await Navigator.of(rootKey.currentContext!).pushNamed(TaskView.routeName, arguments: TaskParams(_rootTask.wsId));
+  Future _goToProjects() async => await Navigator.of(rootKey.currentContext!).pushNamed(TaskView.routeName, arguments: TaskParams(_rootTask.ws));
 
   Widget get _contents => MTCardButton(
         child: Column(

@@ -42,6 +42,7 @@ doc/Notification.md
 doc/PaymentsApi.md
 doc/PermissionGet.md
 doc/PermissionRoleGet.md
+doc/ProjectStatusGet.md
 doc/Registration.md
 doc/RoleGet.md
 doc/SettingsApi.md
@@ -122,6 +123,7 @@ lib/src/model/note_get.dart
 lib/src/model/notification.dart
 lib/src/model/permission_get.dart
 lib/src/model/permission_role_get.dart
+lib/src/model/project_status_get.dart
 lib/src/model/registration.dart
 lib/src/model/role_get.dart
 lib/src/model/settings_get.dart
@@ -184,6 +186,7 @@ test/notification_test.dart
 test/payments_api_test.dart
 test/permission_get_test.dart
 test/permission_role_get_test.dart
+test/project_status_get_test.dart
 test/registration_test.dart
 test/role_get_test.dart
 test/settings_api_test.dart

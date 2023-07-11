@@ -22,12 +22,12 @@ extension WorkspaceMapper on api.WorkspaceGet {
       users: users?.map((u) => u.user(id)) ?? [],
       roles: roles?.map((r) => r.role) ?? [],
       balance: balance ?? 0,
-      invoice: invoice!.invoice(id),
-      settings: settings?.settings(id),
+      invoice: invoice!.invoice,
+      settings: settings?.settings,
       estimateValues: estimateValues?.map((ev) => ev.estimateValue(id)).toList() ?? [],
-      sources: sources?.map((s) => s.source(id)).toList() ?? [],
-      statuses: statuses?.map((st) => st.status(id)).toList() ?? [],
-      mainAccount: mainAccount!.account(id),
+      sources: sources?.map((s) => s.source).toList() ?? [],
+      statuses: statuses?.map((st) => st.status).toList() ?? [],
+      mainAccount: mainAccount!.account,
     );
   }
 }

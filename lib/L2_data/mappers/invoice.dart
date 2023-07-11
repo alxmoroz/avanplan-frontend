@@ -7,10 +7,9 @@ import 'contract.dart';
 import 'tariff.dart';
 
 extension InvoiceMapper on api.InvoiceGet {
-  Invoice invoice(int wsId) => Invoice(
+  Invoice get invoice => Invoice(
         id: id,
         tariff: tariff!.tariff,
         contract: contract.contract,
-        wsId: wsId,
       );
 }

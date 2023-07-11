@@ -6,10 +6,10 @@ import '../../L1_domain/entities/member.dart';
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities/task_source.dart';
 import '../../L1_domain/entities/user.dart';
-import '../../L1_domain/entities/workspace.dart';
 import '../../L1_domain/entities_extensions/task_level.dart';
 import '../../L1_domain/entities_extensions/task_members.dart';
 import '../../L1_domain/entities_extensions/task_stats.dart';
+import '../../L1_domain/entities_extensions/task_status_ext.dart';
 import '../extra/services.dart';
 import 'ws_ext_actions.dart';
 
@@ -23,8 +23,6 @@ enum TaskActionType {
 
 extension TaskActionsExt on Task {
   User? get _authUser => accountController.user;
-
-  Workspace get ws => mainController.wsForId(wsId);
 
   bool get hpWSProjectCreate => mainController.workspaces.any((ws) => ws.hpProjectCreate);
 
@@ -53,7 +51,7 @@ extension TaskActionsExt on Task {
   bool get canUnlink => isLinkedProject && ws.hpProjectUpdate == true;
   bool get canMembersRead => isProject;
   bool get canEditMembers => _hpMemberUpdate;
-  bool get canSetStatus => ws.statuses.isNotEmpty && canUpdate && isLeaf;
+  bool get canSetStatus => statuses.isNotEmpty && canUpdate && isLeaf;
   bool get canCloseGroup => canClose && state == TaskState.closable;
   bool get canEstimate => canUpdate && ws.estimateValues.isNotEmpty && isLeaf;
   bool get canAssign => canUpdate && activeMembers.isNotEmpty;

@@ -58,7 +58,7 @@ abstract class _TransferControllerBase with Store {
       if (checks[index]) {
         final t = srcTasks[index];
         t.parent = destinationGoal;
-        if (await taskUC.save(t) != null) {
+        if (await taskUC.save(destinationGoal.ws, t) != null) {
           sourceGoal.tasks.removeWhere((srcT) => srcT.id == t.id);
           destinationGoal.tasks.add(t);
           moved++;

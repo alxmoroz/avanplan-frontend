@@ -31,7 +31,7 @@ class TasksGroup extends StatelessWidget {
       itemBuilder: (BuildContext _, int index) {
         final t = tasks[index];
         return TaskCard(
-          mainController.taskForId(t.wsId, t.id),
+          mainController.taskForId(t.ws.id!, t.id),
           showStateMark: true,
           bottomBorder: index < tasks.length - 1 || groupBorder,
           isMine: isMine,

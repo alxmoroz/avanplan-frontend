@@ -106,5 +106,10 @@ void main() {
     test('to test the property `notes`', () async {
       // TODO
     });
+
+    // BuiltList<ProjectStatusGet> projectStatuses
+    test('to test the property `projectStatuses`', () async {
+      // TODO
+    });
   });
 }

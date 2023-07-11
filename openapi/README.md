@@ -131,6 +131,7 @@ Class | Method | HTTP request | Description
  - [Notification](doc/Notification.md)
  - [PermissionGet](doc/PermissionGet.md)
  - [PermissionRoleGet](doc/PermissionRoleGet.md)
+ - [ProjectStatusGet](doc/ProjectStatusGet.md)
  - [Registration](doc/Registration.md)
  - [RoleGet](doc/RoleGet.md)
  - [SettingsGet](doc/SettingsGet.md)

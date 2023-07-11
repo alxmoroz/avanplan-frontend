@@ -137,27 +137,8 @@ extension TaskStats on Task {
   }
 
   Task updateRoot() {
-    final t = Task(
-      id: id,
-      description: description,
-      title: title,
-      closed: closed,
-      parent: parent,
-      tasks: tasks,
-      wsId: wsId,
-      members: members,
-      createdOn: createdOn,
-      updatedOn: updatedOn,
-      dueDate: dueDate,
-      startDate: startDate,
-      closedDate: closedDate,
-      statusId: statusId,
-      authorId: authorId,
-      assigneeId: assigneeId,
-      taskSource: taskSource,
-      type: type,
-      estimate: estimate,
-    );
+    final t = Task.dummy;
+    t.tasks = tasks;
 
     t._updateLevels();
     t._updateStartDate();

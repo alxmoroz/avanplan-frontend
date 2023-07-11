@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:avanplan/L1_domain/entities_extensions/task_status_ext.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
@@ -19,7 +20,6 @@ import '../../../presenters/person_presenter.dart';
 import '../../../presenters/task_level_presenter.dart';
 import '../../../presenters/task_state_presenter.dart';
 import '../../../usecases/task_ext_actions.dart';
-import '../../../usecases/task_ext_refs.dart';
 import '../task_view_controller.dart';
 import 'state_title.dart';
 
@@ -114,7 +114,7 @@ class TaskCard extends StatelessWidget {
         ],
       );
 
-  Future _tap() async => await mainController.showTask(TaskParams(task.wsId, taskId: task.id));
+  Future _tap() async => await mainController.showTask(TaskParams(task.ws, taskId: task.id));
 
   @override
   Widget build(BuildContext context) => board

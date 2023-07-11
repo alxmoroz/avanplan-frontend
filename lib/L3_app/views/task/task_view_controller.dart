@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:avanplan/L1_domain/entities_extensions/task_status_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -49,21 +50,21 @@ enum TaskFCode { title, description, startDate, dueDate, estimate, assignee, aut
 enum TasksFilter { my }
 
 class TaskParams {
-  TaskParams(this.wsId, {this.taskId, this.isNew = false, this.filters});
-  final int wsId;
+  TaskParams(this.ws, {this.taskId, this.isNew = false, this.filters});
+  final Workspace ws;
   final int? taskId;
   final bool isNew;
   final Set<TasksFilter>? filters;
 }
 
 class TaskViewController extends _TaskViewControllerBase with _$TaskViewController {
-  TaskViewController([TaskParams? tp]) {
-    wsId = tp?.wsId ?? -1;
-    taskId = tp?.taskId;
-    isNew = tp?.isNew ?? false;
-    filters = tp?.filters ?? {};
+  TaskViewController(TaskParams tp) {
+    ws = tp.ws;
+    taskId = tp.taskId;
+    isNew = tp.isNew;
+    filters = tp.filters ?? {};
 
-    final task = mainController.taskForId(wsId, taskId);
+    final task = mainController.taskForId(ws.id!, taskId);
     initState(fds: [
       MTFieldData(
         TaskFCode.title.index,
@@ -117,22 +118,21 @@ class TaskViewController extends _TaskViewControllerBase with _$TaskViewControll
 }
 
 abstract class _TaskViewControllerBase extends EditController with Store {
-  late final int wsId;
+  late final Workspace ws;
   late final int? taskId;
   late final bool isNew;
   late final Set<TasksFilter> filters;
 
   bool get isMyTasks => filters.contains(TasksFilter.my);
 
-  Task get task => mainController.taskForId(wsId, taskId);
-  Workspace get ws => mainController.wsForId(wsId);
+  Task get task => mainController.taskForId(ws.id!, taskId);
   bool get plCreate => task.isRoot ? ws.plProjects : ws.plTasks;
 
   Future<bool> _saveField(TaskFCode code) async {
     bool saved = false;
     updateField(code.index, loading: true);
     try {
-      final editedTask = await taskUC.save(task);
+      final editedTask = await taskUC.save(ws, task);
       saved = editedTask != null;
       if (saved) {
         _updateTaskParents(editedTask);
@@ -314,7 +314,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
       }
     }
 
-    return await taskUC.save(t);
+    return await taskUC.save(ws, t);
   }
 
   Future<Task?> _setStatusTaskTree(
@@ -333,7 +333,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
 
   Future selectStatus() async {
     final selectedStatusId = await showMTSelectDialog<Status>(
-      ws.statuses,
+      task.statuses,
       task.statusId,
       loc.task_status_placeholder,
     );
@@ -347,8 +347,8 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     if (statusId != null || close != null) {
       bool recursively = false;
 
-      statusId ??= close == true ? ws.firstClosedStatusId : ws.firstOpenedStatusId;
-      close ??= ws.statusForId(statusId)?.closed;
+      statusId ??= close == true ? _task.firstClosedStatusId : _task.firstOpenedStatusId;
+      close ??= _task.statusForId(statusId)?.closed;
 
       if (close == true && _task.hasOpenedSubtasks) {
         recursively = await _closeDialog() == true;
@@ -450,25 +450,28 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     if (plCreate) {
       loader.start();
       loader.setSaving();
-      final newTask = await taskUC.save(Task(
-        title: task.newSubtaskTitle,
-        statusId: (task.isRoot || task.isProject) ? null : ws.statuses.firstOrNull?.id,
-        closed: false,
-        parent: task,
-        tasks: [],
-        wsId: wsId,
-        members: [],
-      ));
+      final newTask = await taskUC.save(
+          ws,
+          Task(
+            title: task.newSubtaskTitle,
+            statusId: (task.isRoot || task.isProject) ? null : task.statuses.firstOrNull?.id,
+            closed: false,
+            parent: task,
+            tasks: [],
+            members: [],
+            projectStatuses: [],
+            ws: ws,
+          ));
       loader.stop();
       if (newTask != null) {
         task.tasks.add(newTask);
         _updateTaskParents(newTask);
         selectTab(TaskTabKey.subtasks);
-        await mainController.showTask(TaskParams(wsId, taskId: newTask.id, isNew: true));
+        await mainController.showTask(TaskParams(ws, taskId: newTask.id, isNew: true));
       }
     } else {
       await changeTariff(
-        mainController.wsForId(wsId),
+        ws,
         reason: task.isRoot ? loc.tariff_change_limit_projects_reason_title : loc.tariff_change_limit_tasks_reason_title,
       );
     }
@@ -503,7 +506,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
         loader.start();
         loader.setUnlinking();
         try {
-          await importUC.unlinkTaskSources(task.wsId, task.id!, task.allTss());
+          await importUC.unlinkTaskSources(task.ws, task.id!, task.allTss());
           task.unlinkTaskTree();
           mainController.updateRootTask();
         } catch (_) {}
@@ -527,7 +530,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     if (confirm == true) {
       loader.start();
       loader.setDeleting();
-      final deletedTask = await taskUC.delete(task);
+      final deletedTask = await taskUC.delete(ws, task);
       if (deletedTask.deleted) {
         _popDeleted(deletedTask);
         _updateTaskParents(deletedTask);

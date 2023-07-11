@@ -8,5 +8,7 @@ class Contract extends RPersistable {
     required this.createdOn,
   });
 
+  static Contract get dummy => Contract(id: null, createdOn: DateTime.now());
+
   final DateTime createdOn;
 }

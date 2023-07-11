@@ -1,12 +1,13 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import '../entities/tariff.dart';
-import '../repositories/abs_ws_repo.dart';
+import '../entities/workspace.dart';
+import '../repositories/abs_tariff_repo.dart';
 
 class TariffUC {
   TariffUC(this.repo);
 
-  final AbstractWSRepo<Tariff> repo;
+  final AbstractTariffRepo repo;
 
-  Future<Iterable<Tariff>> getAll(int wsId) async => await repo.getAll(wsId);
+  Future<Iterable<Tariff>> getAll(Workspace ws) async => await repo.getAll(ws);
 }

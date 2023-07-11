@@ -2,6 +2,7 @@
 
 import '../entities/source.dart';
 import '../entities/source_type.dart';
+import '../entities/workspace.dart';
 import '../repositories/abs_source_repo.dart';
 
 //TODO: похоже, есть смысл сделать абстрактный общий юзкейс
@@ -11,22 +12,22 @@ class SourceUC {
 
   final AbstractSourceRepo repo;
 
-  Future<bool> checkConnection(Source source) async => await repo.checkConnection(source);
+  Future<bool> checkConnection(Workspace ws, Source source) async => await repo.checkConnection(ws, source);
   Future<bool> requestSourceType(SourceType st) async => await repo.requestSourceType(st);
 
-  Future<Source?> save(Source source) async {
+  Future<Source?> save(Workspace ws, Source source) async {
     Source? s;
     final username = source.username?.trim() ?? '';
     final apiKey = source.apiKey?.trim() ?? '';
     if (source.url.trim().isNotEmpty && (username.isNotEmpty || apiKey.isNotEmpty)) {
-      s = await repo.save(source);
+      s = await repo.save(ws, source);
     }
     return s;
   }
 
-  Future<Source?> delete(Source s) async {
+  Future<Source?> delete(Workspace ws, Source s) async {
     if (s.id != null) {
-      final deletedRows = await repo.delete(s);
+      final deletedRows = await repo.delete(ws, s);
       if (deletedRows) {
         s.deleted = true;
       }

@@ -9,10 +9,9 @@ enum SrcState {
   checking,
 }
 
-class Source extends WSBounded {
+class Source extends RPersistable {
   Source({
     super.id,
-    required super.wsId,
     required this.typeCode,
     required this.url,
     this.apiKey,

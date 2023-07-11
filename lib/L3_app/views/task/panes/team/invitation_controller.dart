@@ -81,7 +81,7 @@ abstract class _InvitationControllerBase extends EditController with Store {
             activationsCount,
             expiresOn!,
           ),
-          task.wsId);
+          task.ws.id!);
       await loader.stop();
     }
   }
@@ -90,7 +90,7 @@ abstract class _InvitationControllerBase extends EditController with Store {
   Future fetchInvitation() async {
     loader.start();
     loader.setLoading();
-    invitation = await invitationUC.getInvitation(task.wsId, task.id!, role.id!);
+    invitation = await invitationUC.getInvitation(task.ws.id!, task.id!, role.id!);
 
     initState(fds: [
       MTFieldData(InvitationFCode.expiresOn.index, label: loc.invitation_expires_placeholder, noText: true),

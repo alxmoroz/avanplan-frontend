@@ -19,6 +19,8 @@ class Tariff extends Codable {
     required this.optionsMap,
   });
 
+  static Tariff get dummy => Tariff(id: null, code: '', tier: 0, estimateChargePerBillingPeriod: 0, limitsMap: {}, optionsMap: {});
+
   final int tier;
   final num estimateChargePerBillingPeriod;
   final Map<String, num> limitsMap;

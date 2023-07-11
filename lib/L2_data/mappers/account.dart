@@ -14,9 +14,8 @@ extension AccountOperationMapper on api.AccountOperationGet {
 }
 
 extension AccountMapper on api.AccountGet {
-  Account account(int wsId) => Account(
+  Account get account => Account(
         id: id,
-        wsId: wsId,
         incomingOperations: incomingOperations.map((op) => op.accountOperation),
       );
 }

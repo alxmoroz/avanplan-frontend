@@ -3,9 +3,10 @@
 import 'package:openapi/openapi.dart' as api;
 
 import '../../L1_domain/entities/task_source.dart';
+import '../../L1_domain/entities/workspace.dart';
 
 extension TaskSourceMapper on api.TaskSourceGet {
-  TaskSource taskSource(int wsId) => TaskSource(
+  TaskSource taskSource(Workspace ws) => TaskSource(
         id: id,
         code: code,
         rootCode: rootCode,
@@ -13,7 +14,7 @@ extension TaskSourceMapper on api.TaskSourceGet {
         sourceId: sourceId,
         urlString: url,
         updatedOn: updatedOn,
-        wsId: wsId,
+        ws: ws,
       );
 }
 

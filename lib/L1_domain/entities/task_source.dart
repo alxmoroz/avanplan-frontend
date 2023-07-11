@@ -5,7 +5,7 @@ import 'base_entity.dart';
 class TaskSource extends WSBounded {
   TaskSource({
     required super.id,
-    required super.wsId,
+    required super.ws,
     required this.code,
     required this.rootCode,
     required this.sourceId,

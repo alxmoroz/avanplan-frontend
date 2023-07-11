@@ -3,6 +3,7 @@
 import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/task.dart';
+import '../../L1_domain/entities/workspace.dart';
 import '../../L1_domain/entities_extensions/task_level.dart';
 import '../../L1_domain/repositories/abs_ws_repo.dart';
 import '../mappers/task.dart';
@@ -12,14 +13,13 @@ class TaskRepo extends AbstractWSRepo<Task> {
   o_api.TasksApi get api => openAPI.getTasksApi();
 
   @override
-  Future<Iterable<Task>> getAll(int wsId) async {
-    final response = await api.projectsV1TasksGet(wsId: wsId);
-    return response.data?.map((t) => t.task(wsId: wsId)) ?? [];
+  Future<Iterable<Task>> getAll(Workspace ws) async {
+    final response = await api.projectsV1TasksGet(wsId: ws.id!);
+    return response.data?.map((t) => t.task(ws: ws)) ?? [];
   }
 
   @override
-  Future<Task?> save(Task data) async {
-    final wsId = data.wsId;
+  Future<Task?> save(Workspace ws, Task data) async {
     final qBuilder = o_api.TaskUpsertBuilder()
       ..id = data.id
       ..assigneeId = data.assigneeId
@@ -37,17 +37,17 @@ class TaskRepo extends AbstractWSRepo<Task> {
 
     final response = await api.upsertV1TasksPost(
       taskUpsert: qBuilder.build(),
-      wsId: wsId,
+      wsId: ws.id!,
       permissionTaskId: data.project?.id,
     );
-    return response.data?.task(wsId: wsId, parent: data.parent);
+    return response.data?.task(ws: ws, parent: data.parent);
   }
 
   @override
-  Future<bool> delete(Task data) async {
+  Future<bool> delete(Workspace ws, Task data) async {
     final response = await api.deleteV1TasksTaskIdDelete(
       taskId: data.id!,
-      wsId: data.wsId,
+      wsId: ws.id!,
       permissionTaskId: data.project?.id,
     );
     return response.data == true;

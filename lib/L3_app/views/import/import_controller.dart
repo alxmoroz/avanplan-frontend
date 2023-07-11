@@ -100,11 +100,11 @@ abstract class _ImportControllerBase with Store {
       bool connected = selectedSource?.state == SrcState.connected;
       if (!connected) {
         loader.setCheckConnection(loaderDescription);
-        connected = await selectedSource!.checkConnection();
+        connected = await selectedSource!.checkConnection(ws);
       }
       if (connected) {
         loader.setSourceListing(loaderDescription);
-        projects = (await importUC.getRootTasks(selectedSource!)).sorted((p1, p2) => compareNatural(p1.title, p2.title));
+        projects = (await importUC.getRootTasks(ws, selectedSource!)).sorted((p1, p2) => compareNatural(p1.title, p2.title));
       } else {
         _setErrorCode('error_import_connection');
       }
@@ -125,7 +125,7 @@ abstract class _ImportControllerBase with Store {
       loader.start();
       loader.setImporting('$selectedSource');
       final taskSources = selectedProjects.map((t) => t.taskSource!);
-      await importUC.importTaskSources(selectedSource!, taskSources);
+      await importUC.importTaskSources(ws, selectedSource!, taskSources);
       Navigator.of(rootKey.currentContext!).pop();
       await mainController.fetchWorkspaces();
       await mainController.fetchTasks();

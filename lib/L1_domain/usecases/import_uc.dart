@@ -3,6 +3,7 @@
 import '../entities/source.dart';
 import '../entities/task.dart';
 import '../entities/task_source.dart';
+import '../entities/workspace.dart';
 import '../repositories/abs_import_repo.dart';
 
 class ImportUC {
@@ -10,7 +11,7 @@ class ImportUC {
 
   final AbstractImportRepo repo;
 
-  Future<List<TaskRemote>> getRootTasks(Source source) async => await repo.getRootTaskSources(source);
-  Future<bool> importTaskSources(Source source, Iterable<TaskSourceImport> tss) async => await repo.importTaskSources(source, tss);
-  Future<bool> unlinkTaskSources(int wsId, int taskId, Iterable<TaskSource> tss) async => await repo.unlinkTaskSources(wsId, taskId, tss);
+  Future<List<TaskRemote>> getRootTasks(Workspace ws, Source source) async => await repo.getRootTaskSources(ws, source);
+  Future<bool> importTaskSources(Workspace ws, Source source, Iterable<TaskSourceImport> tss) async => await repo.importTaskSources(ws, source, tss);
+  Future<bool> unlinkTaskSources(Workspace ws, int taskId, Iterable<TaskSource> tss) async => await repo.unlinkTaskSources(ws, taskId, tss);
 }

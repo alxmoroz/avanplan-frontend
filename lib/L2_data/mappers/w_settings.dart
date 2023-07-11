@@ -6,9 +6,8 @@ import '../../L1_domain/entities/ws_settings.dart';
 import 'estimate_unit.dart';
 
 extension WSettingsMapper on SettingsGet {
-  WSettings settings(int wsId) => WSettings(
+  WSettings get settings => WSettings(
         id: id,
-        estimateUnit: estimateUnit?.unit(wsId),
-        wsId: wsId,
+        estimateUnit: estimateUnit?.unit,
       );
 }

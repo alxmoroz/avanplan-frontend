@@ -41,7 +41,7 @@ abstract class _MainControllerBase with Store {
 
   /// рутовый объект
   @observable
-  Task rootTask = Task(title: '', closed: false, parent: null, tasks: [], members: [], wsId: 0);
+  Task rootTask = Task.dummy;
 
   @computed
   Iterable<Task> get _myDT => rootTask.myTasks.where((t) => t.hasDueDate);
@@ -71,8 +71,8 @@ abstract class _MainControllerBase with Store {
         for (var ws in workspaces) ws.id!: {for (var t in wsTasks(ws.id!)) t.id!: t}
       };
 
-  Iterable<Task> wsProjects(int wsId) => rootTask.tasks.where((t) => t.wsId == wsId);
-  Iterable<Task> wsTasks(int wsId) => rootTask.allTasks.where((t) => t.wsId == wsId);
+  Iterable<Task> wsProjects(int wsId) => rootTask.tasks.where((t) => t.ws.id == wsId);
+  Iterable<Task> wsTasks(int wsId) => rootTask.allTasks.where((t) => t.ws.id == wsId);
 
   @computed
   bool get hasLinkedProjects => rootTask.tasks.where((p) => p.linked).isNotEmpty;
@@ -106,7 +106,7 @@ abstract class _MainControllerBase with Store {
     loader.setLoading();
     final projects = <Task>[];
     for (Workspace ws in workspaces) {
-      final roots = (await taskUC.getRoots(ws.id!)).toList();
+      final roots = (await taskUC.getRoots(ws)).toList();
       roots.forEach((p) async {
         p.parent = rootTask;
       });

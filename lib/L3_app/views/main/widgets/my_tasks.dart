@@ -26,7 +26,7 @@ class MyTasks extends StatelessWidget {
   int get _myTasksCount => mainController.myUpcomingTasksCount;
 
   Future _goToTasks() async =>
-      await Navigator.of(rootKey.currentContext!).pushNamed(TaskView.routeName, arguments: TaskParams(_rootTask.wsId, filters: {TasksFilter.my}));
+      await Navigator.of(rootKey.currentContext!).pushNamed(TaskView.routeName, arguments: TaskParams(_rootTask.ws, filters: {TasksFilter.my}));
 
   Widget _mainInfo(BuildContext context) => _myTasksCount > 0
       ? SizedBox(height: dashboardImageSize(context), child: Center(child: D1('$_myTasksCount', color: mainColor)))

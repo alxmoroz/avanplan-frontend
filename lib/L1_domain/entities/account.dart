@@ -15,12 +15,13 @@ class AccountOperation extends RPersistable {
   final String basis;
 }
 
-class Account extends WSBounded {
+class Account extends RPersistable {
   Account({
     required super.id,
-    required super.wsId,
     required this.incomingOperations,
   });
+
+  static Account get dummy => Account(id: null, incomingOperations: []);
 
   final Iterable<AccountOperation> incomingOperations;
 }

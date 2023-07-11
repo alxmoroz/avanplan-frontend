@@ -55,6 +55,7 @@ export 'package:openapi/src/model/note_get.dart';
 export 'package:openapi/src/model/notification.dart';
 export 'package:openapi/src/model/permission_get.dart';
 export 'package:openapi/src/model/permission_role_get.dart';
+export 'package:openapi/src/model/project_status_get.dart';
 export 'package:openapi/src/model/registration.dart';
 export 'package:openapi/src/model/role_get.dart';
 export 'package:openapi/src/model/settings_get.dart';

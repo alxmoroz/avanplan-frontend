@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../../L1_domain/entities/workspace.dart';
+import '../../../../../L1_domain/entities_extensions/task_status_ext.dart';
 import '../../../../../L2_data/services/platform.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
@@ -35,12 +35,11 @@ class TasksBoardView extends StatelessWidget {
   final TasksPaneController controller;
 
   Task get _task => controller.taskController.task;
-  Workspace get _ws => controller.taskController.ws;
 
   Future _setStatus(int oldTaskIndex, int oldStatusIndex, int newTaskIndex, int newStatusIndex) async {
     if (oldStatusIndex != newStatusIndex) {
-      final oldStatusId = _ws.statuses[oldStatusIndex].id!;
-      final newStatusId = _ws.statuses[newStatusIndex].id!;
+      final oldStatusId = _task.statuses[oldStatusIndex].id!;
+      final newStatusId = _task.statuses[newStatusIndex].id!;
 
       final task = _task.leavesForStatus(oldStatusId)[oldTaskIndex];
       await controller.taskController.setStatus(task, statusId: newStatusId);
@@ -66,7 +65,7 @@ class TasksBoardView extends StatelessWidget {
       );
 
   DragAndDropList _columnBuilder(int index) {
-    final status = _ws.statuses[index];
+    final status = _task.statuses[index];
     final tasks = _task.leavesForStatus(status.id!);
     return DragAndDropList(
       header: Row(
@@ -88,7 +87,7 @@ class TasksBoardView extends StatelessWidget {
     final mq = MediaQuery.of(context);
     return Observer(
       builder: (_) => DragAndDropLists(
-        children: [for (var i = 0; i < _ws.statuses.length; i++) _columnBuilder(i)],
+        children: [for (var i = 0; i < _task.statuses.length; i++) _columnBuilder(i)],
         onItemReorder: _setStatus,
         onListReorder: (int oldListIndex, int newListIndex) {},
         axis: Axis.horizontal,

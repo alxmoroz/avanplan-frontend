@@ -6,6 +6,7 @@
 import 'package:openapi/src/model/member_get.dart';
 import 'package:openapi/src/model/task_source_get.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:openapi/src/model/project_status_get.dart';
 import 'package:openapi/src/model/note_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -35,6 +36,7 @@ part 'task_get.g.dart';
 /// * [tasks] 
 /// * [members] 
 /// * [notes] 
+/// * [projectStatuses] 
 @BuiltValue()
 abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -96,6 +98,9 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
 
   @BuiltValueField(wireName: r'notes')
   BuiltList<NoteGet>? get notes;
+
+  @BuiltValueField(wireName: r'project_statuses')
+  BuiltList<ProjectStatusGet>? get projectStatuses;
 
   TaskGet._();
 
@@ -254,6 +259,13 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
       yield serializers.serialize(
         object.notes,
         specifiedType: const FullType(BuiltList, [FullType(NoteGet)]),
+      );
+    }
+    if (object.projectStatuses != null) {
+      yield r'project_statuses';
+      yield serializers.serialize(
+        object.projectStatuses,
+        specifiedType: const FullType(BuiltList, [FullType(ProjectStatusGet)]),
       );
     }
   }
@@ -418,6 +430,13 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
             specifiedType: const FullType(BuiltList, [FullType(NoteGet)]),
           ) as BuiltList<NoteGet>;
           result.notes.replace(valueDes);
+          break;
+        case r'project_statuses':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [FullType(ProjectStatusGet)]),
+          ) as BuiltList<ProjectStatusGet>;
+          result.projectStatuses.replace(valueDes);
           break;
         default:
           unhandled.add(key);

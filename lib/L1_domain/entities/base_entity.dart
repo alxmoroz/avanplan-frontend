@@ -11,7 +11,7 @@ abstract class LocalPersistable {
 abstract class RPersistable {
   RPersistable({this.id});
 
-  final int? id;
+  int? id;
   bool deleted = false;
 }
 

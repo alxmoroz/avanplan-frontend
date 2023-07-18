@@ -133,14 +133,16 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     updateField(code.index, loading: true);
     try {
       final editedTask = await taskUC.save(ws, task);
+      updateField(code.index, loading: false);
       saved = editedTask != null;
       if (saved) {
         _updateTaskParents(editedTask);
       }
     } catch (e) {
+      updateField(code.index, loading: false);
       loader.start();
     }
-    updateField(code.index, loading: false);
+
     return saved;
   }
 
@@ -167,7 +169,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     if (_titleEditTimer != null) {
       _titleEditTimer!.cancel();
     }
-    _titleEditTimer = Timer(const Duration(milliseconds: 500), () async => await _setTitle(str));
+    _titleEditTimer = Timer(const Duration(milliseconds: 750), () async => await _setTitle(str));
   }
 
   /// описание

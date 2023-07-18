@@ -24,8 +24,6 @@ enum TaskActionType {
 extension TaskActionsExt on Task {
   User? get _authUser => accountController.user;
 
-  bool get hpWSProjectCreate => mainController.workspaces.any((ws) => ws.hpProjectCreate);
-
   /// разрешения для текущего пользователя для РП, выбранной задачи или проекта
   Member? get _m => projectMembers.firstWhereOrNull((m) => m.userId == _authUser?.id);
 

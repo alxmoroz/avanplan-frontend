@@ -22,6 +22,7 @@ class TaskRepo extends AbstractWSRepo<Task> {
   Future<Task?> save(Workspace ws, Task data) async {
     final qBuilder = o_api.TaskUpsertBuilder()
       ..id = data.id
+      ..taskSourceId = data.taskSource?.id
       ..assigneeId = data.assigneeId
       ..authorId = data.authorId
       ..statusId = data.statusId
@@ -40,7 +41,16 @@ class TaskRepo extends AbstractWSRepo<Task> {
       wsId: ws.id!,
       permissionTaskId: data.project?.id,
     );
-    return response.data?.task(ws: ws, parent: data.parent);
+
+    final resData = response.data;
+    if (resData != null) {
+      if (data.id == null) {
+        data = resData.task(ws: ws, parent: data.parent);
+      }
+      return data;
+    } else {
+      return null;
+    }
   }
 
   @override

@@ -16,6 +16,7 @@ part 'invoice_get.g.dart';
 ///
 /// Properties:
 /// * [id] 
+/// * [createdOn] 
 /// * [billedOn] 
 /// * [closedOn] 
 /// * [details] 
@@ -25,6 +26,9 @@ part 'invoice_get.g.dart';
 abstract class InvoiceGet implements Built<InvoiceGet, InvoiceGetBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
+
+  @BuiltValueField(wireName: r'created_on')
+  DateTime get createdOn;
 
   @BuiltValueField(wireName: r'billed_on')
   DateTime? get billedOn;
@@ -68,6 +72,11 @@ class _$InvoiceGetSerializer implements PrimitiveSerializer<InvoiceGet> {
     yield serializers.serialize(
       object.id,
       specifiedType: const FullType(int),
+    );
+    yield r'created_on';
+    yield serializers.serialize(
+      object.createdOn,
+      specifiedType: const FullType(DateTime),
     );
     if (object.billedOn != null) {
       yield r'billed_on';
@@ -129,6 +138,13 @@ class _$InvoiceGetSerializer implements PrimitiveSerializer<InvoiceGet> {
             specifiedType: const FullType(int),
           ) as int;
           result.id = valueDes;
+          break;
+        case r'created_on':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.createdOn = valueDes;
           break;
         case r'billed_on':
           final valueDes = serializers.deserialize(

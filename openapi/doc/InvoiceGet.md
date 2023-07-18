@@ -9,6 +9,7 @@ import 'package:openapi/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  | 
+**createdOn** | [**DateTime**](DateTime.md) |  | 
 **billedOn** | [**DateTime**](DateTime.md) |  | [optional] 
 **closedOn** | [**DateTime**](DateTime.md) |  | [optional] 
 **details** | [**BuiltList&lt;InvoiceDetailGet&gt;**](InvoiceDetailGet.md) |  | 

@@ -71,5 +71,10 @@ void main() {
     test('to test the property `statuses`', () async {
       // TODO
     });
+
+    // int tasksCount (default value: 0)
+    test('to test the property `tasksCount`', () async {
+      // TODO
+    });
   });
 }

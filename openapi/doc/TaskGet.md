@@ -23,6 +23,7 @@ Name | Type | Description | Notes
 **authorId** | **int** |  | [optional] 
 **priorityId** | **int** |  | [optional] 
 **statusId** | **int** |  | [optional] 
+**taskSourceId** | **int** |  | [optional] 
 **updatedOn** | [**DateTime**](DateTime.md) |  | 
 **taskSource** | [**TaskSourceGet**](TaskSourceGet.md) |  | [optional] 
 **tasks** | [**BuiltList&lt;TaskGet&gt;**](TaskGet.md) |  | [optional] 

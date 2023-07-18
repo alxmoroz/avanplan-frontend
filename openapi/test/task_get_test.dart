@@ -82,6 +82,11 @@ void main() {
       // TODO
     });
 
+    // int taskSourceId
+    test('to test the property `taskSourceId`', () async {
+      // TODO
+    });
+
     // DateTime updatedOn
     test('to test the property `updatedOn`', () async {
       // TODO

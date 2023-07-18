@@ -12,6 +12,11 @@ void main() {
       // TODO
     });
 
+    // DateTime createdOn
+    test('to test the property `createdOn`', () async {
+      // TODO
+    });
+
     // DateTime billedOn
     test('to test the property `billedOn`', () async {
       // TODO

@@ -31,6 +31,7 @@ part 'task_get.g.dart';
 /// * [authorId] 
 /// * [priorityId] 
 /// * [statusId] 
+/// * [taskSourceId] 
 /// * [updatedOn] 
 /// * [taskSource] 
 /// * [tasks] 
@@ -83,6 +84,9 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
 
   @BuiltValueField(wireName: r'status_id')
   int? get statusId;
+
+  @BuiltValueField(wireName: r'task_source_id')
+  int? get taskSourceId;
 
   @BuiltValueField(wireName: r'updated_on')
   DateTime get updatedOn;
@@ -225,6 +229,13 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
       yield r'status_id';
       yield serializers.serialize(
         object.statusId,
+        specifiedType: const FullType(int),
+      );
+    }
+    if (object.taskSourceId != null) {
+      yield r'task_source_id';
+      yield serializers.serialize(
+        object.taskSourceId,
         specifiedType: const FullType(int),
       );
     }
@@ -395,6 +406,13 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
             specifiedType: const FullType(int),
           ) as int;
           result.statusId = valueDes;
+          break;
+        case r'task_source_id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.taskSourceId = valueDes;
           break;
         case r'updated_on':
           final valueDes = serializers.deserialize(

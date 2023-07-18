@@ -33,6 +33,7 @@ part 'workspace_get.g.dart';
 /// * [estimateValues] 
 /// * [sources] 
 /// * [statuses] 
+/// * [tasksCount] 
 @BuiltValue()
 abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -74,6 +75,9 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
   @BuiltValueField(wireName: r'statuses')
   BuiltList<StatusGet>? get statuses;
 
+  @BuiltValueField(wireName: r'tasks_count')
+  int? get tasksCount;
+
   WorkspaceGet._();
 
   factory WorkspaceGet([void updates(WorkspaceGetBuilder b)]) = _$WorkspaceGet;
@@ -84,7 +88,8 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
       ..roles = ListBuilder()
       ..estimateValues = ListBuilder()
       ..sources = ListBuilder()
-      ..statuses = ListBuilder();
+      ..statuses = ListBuilder()
+      ..tasksCount = 0;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<WorkspaceGet> get serializer => _$WorkspaceGetSerializer();
@@ -187,6 +192,13 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
       yield serializers.serialize(
         object.statuses,
         specifiedType: const FullType(BuiltList, [FullType(StatusGet)]),
+      );
+    }
+    if (object.tasksCount != null) {
+      yield r'tasks_count';
+      yield serializers.serialize(
+        object.tasksCount,
+        specifiedType: const FullType(int),
       );
     }
   }
@@ -302,6 +314,13 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
             specifiedType: const FullType(BuiltList, [FullType(StatusGet)]),
           ) as BuiltList<StatusGet>;
           result.statuses.replace(valueDes);
+          break;
+        case r'tasks_count':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.tasksCount = valueDes;
           break;
         default:
           unhandled.add(key);

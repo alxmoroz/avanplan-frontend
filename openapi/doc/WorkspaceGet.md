@@ -21,6 +21,7 @@ Name | Type | Description | Notes
 **estimateValues** | [**BuiltList&lt;EstimateValueGet&gt;**](EstimateValueGet.md) |  | [optional] [default to ListBuilder()]
 **sources** | [**BuiltList&lt;SourceGet&gt;**](SourceGet.md) |  | [optional] [default to ListBuilder()]
 **statuses** | [**BuiltList&lt;StatusGet&gt;**](StatusGet.md) |  | [optional] [default to ListBuilder()]
+**tasksCount** | **int** |  | [optional] [default to 0]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

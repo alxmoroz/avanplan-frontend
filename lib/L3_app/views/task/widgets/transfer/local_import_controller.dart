@@ -11,10 +11,10 @@ import '../../../../presenters/task_comparators.dart';
 import '../../../../usecases/task_ext_actions.dart';
 import '../../task_view_controller.dart';
 
-part 'transfer_controller.g.dart';
+part 'local_import_controller.g.dart';
 
-class TransferController extends _TransferControllerBase with _$TransferController {
-  TransferController(Task _sourceGoal, TaskViewController _taskController) {
+class LocalImportController extends _LocalImportControllerBase with _$LocalImportController {
+  LocalImportController(Task _sourceGoal, TaskViewController _taskController) {
     taskController = _taskController;
     sourceGoal = _sourceGoal;
     srcTasks = sourceGoal.openedSubtasks.sorted(sortByDateAsc);
@@ -22,7 +22,7 @@ class TransferController extends _TransferControllerBase with _$TransferControll
   }
 }
 
-abstract class _TransferControllerBase with Store {
+abstract class _LocalImportControllerBase with Store {
   late final TaskViewController taskController;
   late final Task sourceGoal;
   late final List<Task> srcTasks;
@@ -39,9 +39,7 @@ abstract class _TransferControllerBase with Store {
   bool get selectedAll => !checks.contains(false);
 
   @action
-  void toggleSelectedAll(bool? value) {
-    checks = [for (var _ in srcTasks) value == true];
-  }
+  void toggleSelectedAll(bool? value) => checks = [for (var _ in srcTasks) value == true];
 
   @action
   void selectTask(int index, bool? selected) {

@@ -15,7 +15,7 @@ import '../../../../usecases/task_ext_actions.dart';
 import '../../task_view_controller.dart';
 import '../../widgets/project_add_wizard/project_add_wizard.dart';
 import '../../widgets/task_add_button.dart';
-import '../../widgets/transfer/transfer_dialog.dart';
+import '../../widgets/transfer/local_import_dialog.dart';
 import 'tasks_board_view.dart';
 import 'tasks_list_view.dart';
 import 'tasks_pane_controller.dart';
@@ -56,7 +56,7 @@ class TasksPane extends StatelessWidget {
             MTButton.secondary(
               middle: const TransferIcon(),
               constrained: false,
-              onTap: () => transferDialog(taskController),
+              onTap: () => localImportDialog(taskController),
             ),
           if (task.isRoot || task.canCreate) ...[
             const SizedBox(width: P),

@@ -1,5 +1,6 @@
 // Copyright (c) 2023. Alexandr Moroz
 
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -16,13 +17,14 @@ import '../../../../components/mt_shadowed.dart';
 import '../../../../components/mt_toolbar.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
+import '../../../../presenters/task_comparators.dart';
 import '../../task_view_controller.dart';
-import 'transfer_controller.dart';
+import 'local_import_controller.dart';
 
-Future transferDialog(TaskViewController taskController) async {
+Future localImportDialog(TaskViewController taskController) async {
   final destinationGoal = taskController.task;
   final sourceGoalId = await showMTSelectDialog<Task>(
-    destinationGoal.openedFilledSiblings.toList(),
+    destinationGoal.openedFilledSiblings.sorted(sortByDateAsc),
     null,
     loc.task_transfer_source_hint,
     valueBuilder: (_, t) => Column(
@@ -36,8 +38,8 @@ Future transferDialog(TaskViewController taskController) async {
 
   if (sourceGoalId != null) {
     await showMTDialog<void>(
-      TasksMovingDialog(
-        TransferController(
+      TasksLocalImportDialog(
+        LocalImportController(
           mainController.taskForId(destinationGoal.ws.id!, sourceGoalId),
           taskController,
         ),
@@ -46,9 +48,9 @@ Future transferDialog(TaskViewController taskController) async {
   }
 }
 
-class TasksMovingDialog extends StatelessWidget {
-  const TasksMovingDialog(this.controller);
-  final TransferController controller;
+class TasksLocalImportDialog extends StatelessWidget {
+  const TasksLocalImportDialog(this.controller);
+  final LocalImportController controller;
 
   Task get _srcGoal => controller.sourceGoal;
   Task get _dstGoal => controller.destinationGoal;

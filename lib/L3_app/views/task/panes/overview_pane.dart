@@ -26,7 +26,7 @@ import '../widgets/charts/volume_chart.dart';
 import '../widgets/state_title.dart';
 import '../widgets/task_add_button.dart';
 import '../widgets/tasks_group.dart';
-import '../widgets/transfer/transfer_dialog.dart';
+import '../widgets/transfer/local_import_dialog.dart';
 
 class OverviewPane extends StatelessWidget {
   const OverviewPane(this.controller);
@@ -46,7 +46,7 @@ class OverviewPane extends StatelessWidget {
                     leading: const TransferIcon(),
                     titleText: loc.task_transfer_action_title,
                     margin: const EdgeInsets.only(bottom: P),
-                    onTap: () => transferDialog(controller),
+                    onTap: () => localImportDialog(controller),
                   ),
                 TaskAddButton(controller),
               ],

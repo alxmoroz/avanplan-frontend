@@ -43,8 +43,8 @@ class OverviewPane extends StatelessWidget {
               children: [
                 if (_task.canLocalImport)
                   MTButton.secondary(
-                    leading: const TransferIcon(),
-                    titleText: loc.task_transfer_action_title,
+                    leading: const LocalImportIcon(),
+                    titleText: loc.task_transfer_import_action_title,
                     margin: const EdgeInsets.only(bottom: P),
                     onTap: () => localImportDialog(controller),
                   ),

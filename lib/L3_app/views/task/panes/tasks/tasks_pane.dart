@@ -54,7 +54,7 @@ class TasksPane extends StatelessWidget {
           const Spacer(),
           if (task.canLocalImport)
             MTButton.secondary(
-              middle: const TransferIcon(),
+              middle: const LocalImportIcon(),
               constrained: false,
               onTap: () => localImportDialog(taskController),
             ),

@@ -247,6 +247,26 @@ class ListIcon extends MTIcon {
       ));
 }
 
+class LocalExportIcon extends MTIcon {
+  const LocalExportIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.arrow_up,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P2,
+      );
+}
+
+class LocalImportIcon extends MTIcon {
+  const LocalImportIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.arrow_down,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P2,
+      );
+}
+
 class MenuIcon extends MTIcon {
   const MenuIcon({super.color, super.size});
   @override
@@ -334,16 +354,6 @@ class StarIcon extends MTIcon {
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.star_fill,
         color: (color ?? goldColor).resolve(context),
-        size: size ?? P2,
-      );
-}
-
-class TransferIcon extends MTIcon {
-  const TransferIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.arrow_down,
-        color: (color ?? mainColor).resolve(context),
         size: size ?? P2,
       );
 }

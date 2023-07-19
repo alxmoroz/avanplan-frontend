@@ -24,7 +24,7 @@ import 'local_import_controller.dart';
 Future localImportDialog(TaskViewController taskController) async {
   final destinationGoal = taskController.task;
   final sourceGoalId = await showMTSelectDialog<Task>(
-    destinationGoal.openedFilledSiblings.sorted(sortByDateAsc),
+    destinationGoal.goalsForLocalImport.sorted(sortByDateAsc),
     null,
     loc.task_transfer_source_hint,
     valueBuilder: (_, t) => Column(
@@ -110,8 +110,8 @@ class TasksLocalImportDialog extends StatelessWidget {
             ),
           ),
           bottomBar: MTButton.main(
-            leading: TransferIcon(color: controller.validated ? lightBackgroundColor : greyTextColor),
-            titleText: loc.task_transfer_confirm_action_title,
+            leading: LocalImportIcon(color: controller.validated ? lightBackgroundColor : greyTextColor),
+            titleText: loc.task_transfer_import_confirm_action_title,
             onTap: controller.validated ? controller.moveTasks : null,
           ),
         ),

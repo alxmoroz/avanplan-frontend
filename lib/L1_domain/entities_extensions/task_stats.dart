@@ -124,7 +124,8 @@ extension TaskStats on Task {
     riskySubtasks = openedSubtasks.where((t) => t._overallState == TaskState.risk);
     okSubtasks = openedSubtasks.where((t) => t._overallState == TaskState.ok);
     etaSubtasks = openedSubtasks.where((t) => t._state == TaskState.eta);
-    openedFilledSiblings = parent != null ? parent!.openedSubtasks.where((t) => t.id != id && t.hasOpenedSubtasks) : [];
+    goalsForLocalExport = isTask ? project!.openedSubtasks.where((g) => g.id != parent!.id) : [];
+    goalsForLocalImport = isGoal ? project!.openedSubtasks.where((g) => g.id != id && g.hasOpenedSubtasks) : [];
   }
 
   void _updateState() {
@@ -273,7 +274,6 @@ extension TaskStats on Task {
   int get closedLeavesCount => closedLeaves.length;
 
   bool get hasOpenedSubtasks => openedSubtasks.isNotEmpty;
-  bool get hasOpenedFilledSiblings => openedFilledSiblings.isNotEmpty;
   bool get hasClosedSubtasks => closedSubtasks.isNotEmpty;
 
   bool get hasDueDate => dueDate != null;

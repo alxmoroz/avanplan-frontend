@@ -16,6 +16,7 @@ import 'ws_ext_actions.dart';
 enum TaskActionType {
   close,
   reopen,
+  localExport,
   go2source,
   unlink,
   delete,
@@ -53,7 +54,8 @@ extension TaskActionsExt on Task {
   bool get canCloseGroup => canClose && state == TaskState.closable;
   bool get canEstimate => canUpdate && ws.estimateValues.isNotEmpty && isLeaf;
   bool get canAssign => canUpdate && activeMembers.isNotEmpty;
-  bool get canLocalImport => isGoal && canCreate && hasOpenedFilledSiblings;
+  bool get canLocalExport => canUpdate && goalsForLocalExport.isNotEmpty;
+  bool get canLocalImport => canUpdate && goalsForLocalImport.isNotEmpty;
 
   /// рекомендации, быстрые кнопки
   bool get shouldAddSubtask =>
@@ -67,6 +69,7 @@ extension TaskActionsExt on Task {
   Iterable<TaskActionType> get actionTypes => [
         if (canClose) TaskActionType.close,
         if (canReopen) TaskActionType.reopen,
+        if (canLocalExport) TaskActionType.localExport,
         if (wasImported && !linked) TaskActionType.go2source,
         if (canUnlink) TaskActionType.unlink,
         if (canDelete) TaskActionType.delete,

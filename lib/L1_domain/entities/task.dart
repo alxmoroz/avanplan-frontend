@@ -74,7 +74,8 @@ class Task extends Titleable {
 
   Iterable<Task> allTasks = [];
   Iterable<Task> openedSubtasks = [];
-  Iterable<Task> openedFilledSiblings = [];
+  Iterable<Task> goalsForLocalExport = [];
+  Iterable<Task> goalsForLocalImport = [];
   Iterable<Task> closedSubtasks = [];
   Iterable<Task> leaves = [];
   Iterable<Task> openedLeaves = [];

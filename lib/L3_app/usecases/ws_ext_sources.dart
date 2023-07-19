@@ -12,7 +12,7 @@ extension WSourcesExt on Workspace {
     if (_s != null) {
       final index = sources.indexWhere((s) => s.id == _s.id);
       if (index >= 0) {
-        if (_s.deleted) {
+        if (_s.removed) {
           sources.remove(_s);
         } else {
           sources[index] = _s;

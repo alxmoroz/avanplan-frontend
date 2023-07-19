@@ -81,15 +81,4 @@ extension TaskLevelPresenter on Task {
       );
 
   String get wsCode => isProject && mainController.workspaces.length > 1 ? '[${ws.code}] ' : '';
-
-  List<String> get parentsTitles {
-    final res = <String>[];
-    if (!isRoot) {
-      if (parent != null) {
-        res.addAll(parent!.parentsTitles);
-      }
-      res.add(title);
-    }
-    return res;
-  }
 }

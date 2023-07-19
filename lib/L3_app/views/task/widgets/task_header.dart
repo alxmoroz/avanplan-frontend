@@ -4,15 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../L1_domain/entities/task.dart';
+import '../../../../L1_domain/entities_extensions/task_level.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/mt_adaptive.dart';
-import '../../../components/mt_divider.dart';
 import '../../../components/mt_field.dart';
 import '../../../components/mt_text_field.dart';
 import '../../../components/text_widgets.dart';
 import '../../../presenters/task_colors_presenter.dart';
-import '../../../presenters/task_level_presenter.dart';
 import '../../../usecases/task_ext_actions.dart';
 import '../task_view_controller.dart';
 
@@ -24,7 +23,6 @@ class TaskHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _breadcrumbs = _task.parent!.parentsTitles.join(' > ');
     final _titlePlaceholder = controller.titlePlaceholder;
     return Observer(
       builder: (_) => MTAdaptive(
@@ -42,10 +40,13 @@ class TaskHeader extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (_breadcrumbs.isNotEmpty) ...[
-                SmallText(_breadcrumbs),
-                const MTDivider(),
-              ],
+              if (_task.parent?.isRoot == false)
+                MTField(
+                  controller.fData(TaskFCode.parent.index),
+                  value: NormalText(_task.parent!.title),
+                  padding: const EdgeInsets.symmetric(vertical: P_2),
+                  color: backgroundColor,
+                ),
               MTField(
                 controller.fData(TaskFCode.title.index),
                 value: MTTextField(

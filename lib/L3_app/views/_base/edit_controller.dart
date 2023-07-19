@@ -56,8 +56,5 @@ abstract class _EditControllerBase with Store {
   MTFieldData fData(int code) => _fdMap[code]!;
 
   @action
-  void updateField(int code, {bool? loading}) {
-    final fd = fData(code);
-    _fdMap[code] = fd.copyWith(loading: loading);
-  }
+  void updateField(int code, {bool? loading}) => _fdMap[code] = fData(code).copyWith(loading: loading);
 }

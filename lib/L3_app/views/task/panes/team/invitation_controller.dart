@@ -136,7 +136,7 @@ abstract class _InvitationControllerBase extends EditController with Store {
   // TODO: редактор даты как в задачах?
   Widget tf(InvitationFCode code) {
     final fd = fData(code.index);
-    final isDate = code.name.endsWith('Date');
+    final isDate = code == InvitationFCode.expiresOn;
     final tc = teController(code.index);
     return fd.noText
         ? MTTextField.noText(

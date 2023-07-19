@@ -23,33 +23,62 @@ class TaskPopupMenu extends StatelessWidget {
 
   Task get _task => controller.task;
 
-  Widget _tile({Widget? leading, String? title, Widget? trailing, Color? color}) => Row(children: [
+  bool _enabled(TaskActionType at) {
+    return at != TaskActionType.localExport || !controller.fData(TaskFCode.parent.index).loading;
+  }
+
+  Widget _tile(TaskActionType at, {Widget? leading, String? title, Widget? trailing, Color? color}) => Row(children: [
         if (leading != null) ...[leading, const SizedBox(width: P_3)],
-        title != null ? NormalText(title, color: color ?? mainColor) : const SizedBox(),
+        title != null ? NormalText(title, color: (color ?? mainColor).withAlpha(_enabled(at) ? 255 : 110)) : const SizedBox(),
         if (trailing != null) ...[const SizedBox(width: P_3), trailing],
       ]);
 
   Widget _atWidget(TaskActionType at) {
     switch (at) {
       case TaskActionType.close:
-        return _tile(leading: const DoneIcon(true), title: loc.close_action_title);
+        return _tile(at, leading: const DoneIcon(true), title: loc.close_action_title);
       case TaskActionType.reopen:
-        return _tile(leading: const DoneIcon(false), title: loc.task_reopen_action_title);
+        return _tile(at, leading: const DoneIcon(false), title: loc.task_reopen_action_title);
       case TaskActionType.localExport:
-        return _tile(leading: const LocalExportIcon(), title: loc.task_transfer_export_action_title);
+        return _tile(at, leading: const LocalExportIcon(), title: loc.task_transfer_export_action_title);
       case TaskActionType.go2source:
         return _task.taskSource!.go2SourceTitle;
       case TaskActionType.unlink:
         return _tile(
+          at,
           leading: const LinkBreakIcon(),
           title: loc.task_unlink_action_title,
           color: warningColor,
           trailing: _task.ws.plUnlink ? null : const RoubleCircleIcon(),
         );
       case TaskActionType.delete:
-        return _tile(leading: const DeleteIcon(), title: loc.delete_action_title, color: dangerColor);
+        return _tile(at, leading: const DeleteIcon(), title: loc.delete_action_title, color: dangerColor);
       default:
         return NormalText('$at');
+    }
+  }
+
+  Future _taskAction(TaskActionType? actionType) async {
+    switch (actionType) {
+      case TaskActionType.close:
+        await controller.setStatus(_task, close: true);
+        break;
+      case TaskActionType.reopen:
+        await controller.setStatus(_task, close: false);
+        break;
+      case TaskActionType.localExport:
+        await controller.localExport();
+        break;
+      case TaskActionType.go2source:
+        await controller.go2source();
+        break;
+      case TaskActionType.unlink:
+        await controller.unlink();
+        break;
+      case TaskActionType.delete:
+        await controller.delete();
+        break;
+      default:
     }
   }
 
@@ -58,8 +87,15 @@ class TaskPopupMenu extends StatelessWidget {
     return material(
       PopupMenuButton<TaskActionType>(
         icon: Padding(padding: const EdgeInsets.symmetric(horizontal: P), child: icon),
-        itemBuilder: (_) => [for (final at in _task.actionTypes) PopupMenuItem<TaskActionType>(value: at, child: _atWidget(at))],
-        onSelected: controller.taskAction,
+        itemBuilder: (_) => [
+          for (final at in _task.actionTypes)
+            PopupMenuItem<TaskActionType>(
+              value: at,
+              child: _atWidget(at),
+              enabled: _enabled(at),
+            )
+        ],
+        onSelected: _taskAction,
         padding: EdgeInsets.zero,
         surfaceTintColor: lightBackgroundColor.resolve(context),
         color: lightBackgroundColor.resolve(context),

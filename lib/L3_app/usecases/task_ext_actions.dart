@@ -79,7 +79,7 @@ extension TaskActionsExt on Task {
     if (parent != null) {
       final index = parent!.tasks.indexWhere((t) => t.id == id);
       if (index >= 0) {
-        if (deleted) {
+        if (removed) {
           parent!.tasks.removeAt(index);
         } else {
           parent!.tasks[index] = this;

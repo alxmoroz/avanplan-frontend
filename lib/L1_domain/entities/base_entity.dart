@@ -12,7 +12,7 @@ abstract class RPersistable {
   RPersistable({this.id});
 
   int? id;
-  bool deleted = false;
+  bool removed = false;
 }
 
 abstract class WSBounded extends RPersistable {

@@ -51,7 +51,7 @@ Future<Source?> editSource(Workspace ws, {Source? src, SourceType? sType}) async
   final s = await editSourceDialog(ws, src, sType);
   if (s != null) {
     await ws.updateSourceInList(s);
-    if (!s.deleted) {
+    if (!s.removed) {
       s.checkConnection(ws);
     }
   }

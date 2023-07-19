@@ -62,9 +62,7 @@ class MTField extends StatelessWidget {
             right: 0,
             top: 0,
             bottom: 0,
-            child: Container(
-              color: backgroundColor.resolve(context).withAlpha(120),
-            ),
+            child: Container(color: backgroundColor.resolve(context).withAlpha(170)),
           ),
           CircularProgressIndicator(color: mainColor.resolve(context)),
         ]

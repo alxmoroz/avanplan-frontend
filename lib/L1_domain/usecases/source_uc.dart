@@ -29,7 +29,7 @@ class SourceUC {
     if (s.id != null) {
       final deletedRows = await repo.delete(ws, s);
       if (deletedRows) {
-        s.deleted = true;
+        s.removed = true;
       }
     }
     return s;

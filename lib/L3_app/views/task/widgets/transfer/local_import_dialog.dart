@@ -12,7 +12,6 @@ import '../../../../components/mt_button.dart';
 import '../../../../components/mt_checkbox.dart';
 import '../../../../components/mt_dialog.dart';
 import '../../../../components/mt_list_tile.dart';
-import '../../../../components/mt_select_dialog.dart';
 import '../../../../components/mt_shadowed.dart';
 import '../../../../components/mt_toolbar.dart';
 import '../../../../components/text_widgets.dart';
@@ -20,21 +19,11 @@ import '../../../../extra/services.dart';
 import '../../../../presenters/task_comparators.dart';
 import '../../task_view_controller.dart';
 import 'local_import_controller.dart';
+import 'select_task_dialog.dart';
 
 Future localImportDialog(TaskViewController taskController) async {
   final destinationGoal = taskController.task;
-  final sourceGoalId = await showMTSelectDialog<Task>(
-    destinationGoal.goalsForLocalImport.sorted(sortByDateAsc),
-    null,
-    loc.task_transfer_source_hint,
-    valueBuilder: (_, t) => Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        NormalText(t.title, maxLines: 2),
-        if (t.description.isNotEmpty) SmallText(t.description, maxLines: 1),
-      ],
-    ),
-  );
+  final sourceGoalId = await selectTaskDialog(destinationGoal.goalsForLocalImport.sorted(sortByDateAsc), loc.task_transfer_source_hint);
 
   if (sourceGoalId != null) {
     await showMTDialog<void>(

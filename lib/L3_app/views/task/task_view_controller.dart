@@ -2,7 +2,7 @@
 
 import 'dart:async';
 
-import 'package:avanplan/L1_domain/entities_extensions/task_status_ext.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -15,6 +15,7 @@ import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/task_level.dart';
 import '../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../L1_domain/entities_extensions/task_stats.dart';
+import '../../../L1_domain/entities_extensions/task_status_ext.dart';
 import '../../../L1_domain/entities_extensions/ws_ext.dart';
 import '../../../main.dart';
 import '../../components/colors.dart';
@@ -31,6 +32,7 @@ import '../../presenters/date_presenter.dart';
 import '../../presenters/duration_presenter.dart';
 import '../../presenters/person_presenter.dart';
 import '../../presenters/source_presenter.dart';
+import '../../presenters/task_comparators.dart';
 import '../../presenters/task_level_presenter.dart';
 import '../../presenters/task_view_presenter.dart';
 import '../../usecases/task_ext_actions.dart';
@@ -38,6 +40,7 @@ import '../../usecases/ws_ext_actions.dart';
 import '../../views/_base/edit_controller.dart';
 import '../tariff/tariff_select_view.dart';
 import 'widgets/task_description_dialog.dart';
+import 'widgets/transfer/select_task_dialog.dart';
 
 part 'task_view_controller.g.dart';
 
@@ -45,7 +48,7 @@ part 'task_view_controller.g.dart';
 
 enum TaskTabKey { overview, subtasks, details, team }
 
-enum TaskFCode { title, description, startDate, dueDate, estimate, assignee, author }
+enum TaskFCode { title, description, startDate, dueDate, estimate, assignee, author, parent }
 
 enum TasksFilter { my }
 
@@ -66,6 +69,7 @@ class TaskViewController extends _TaskViewControllerBase with _$TaskViewControll
 
     final task = mainController.taskForId(ws.id!, taskId);
     initState(fds: [
+      MTFieldData(TaskFCode.parent.index, needValidate: false),
       MTFieldData(
         TaskFCode.title.index,
         text: isNew ? '' : task.title,
@@ -82,35 +86,30 @@ class TaskViewController extends _TaskViewControllerBase with _$TaskViewControll
         TaskFCode.startDate.index,
         label: loc.task_start_date_label,
         placeholder: loc.task_start_date_placeholder,
-        noText: true,
         needValidate: false,
       ),
       MTFieldData(
         TaskFCode.dueDate.index,
         label: loc.task_due_date_label,
         placeholder: loc.task_due_date_placeholder,
-        noText: true,
         needValidate: false,
       ),
       MTFieldData(
         TaskFCode.estimate.index,
         label: !task.isProject && task.isLeaf ? loc.task_estimate_label : loc.task_estimate_group_label,
         placeholder: loc.task_estimate_placeholder,
-        noText: true,
         needValidate: false,
       ),
       MTFieldData(
         TaskFCode.assignee.index,
         label: loc.task_assignee_label,
         placeholder: loc.task_assignee_placeholder,
-        noText: true,
         needValidate: false,
       ),
       MTFieldData(
         TaskFCode.author.index,
         label: loc.task_author_title,
         placeholder: loc.task_author_title,
-        noText: true,
         needValidate: false,
       ),
     ]);
@@ -127,6 +126,11 @@ abstract class _TaskViewControllerBase extends EditController with Store {
 
   Task get task => mainController.taskForId(ws.id!, taskId);
   bool get plCreate => task.isRoot ? ws.plProjects : ws.plTasks;
+
+  void _updateTaskParents(Task task) {
+    task.updateParents();
+    mainController.updateRootTask();
+  }
 
   Future<bool> _saveField(TaskFCode code) async {
     bool saved = false;
@@ -345,6 +349,15 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     }
   }
 
+  Future<bool?> _closeDialog() async => await showMTAlertDialog(
+        loc.close_dialog_recursive_title,
+        description: loc.close_dialog_recursive_description,
+        actions: [
+          MTADialogAction(title: loc.close_w_subtasks, type: MTActionType.isWarning, result: true),
+          MTADialogAction(title: loc.cancel, type: MTActionType.isDefault, result: false),
+        ],
+      );
+
   Future setStatus(Task _task, {int? statusId, bool? close}) async {
     if (statusId != null || close != null) {
       bool recursively = false;
@@ -426,27 +439,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
   @computed
   TaskTabKey get tabKey => (tabKeys.contains(_tabKey) ? _tabKey : null) ?? (tabKeys.isNotEmpty ? tabKeys.first : TaskTabKey.subtasks);
 
-  Future<bool?> _closeDialog() async => await showMTAlertDialog(
-        loc.close_dialog_recursive_title,
-        description: loc.close_dialog_recursive_description,
-        actions: [
-          MTADialogAction(title: loc.close_w_subtasks, type: MTActionType.isWarning, result: true),
-          MTADialogAction(title: loc.cancel, type: MTActionType.isDefault, result: false),
-        ],
-      );
-
-  void _updateTaskParents(Task task) {
-    task.updateParents();
-    mainController.updateRootTask();
-  }
-
-  void _popDeleted(Task task) {
-    final context = rootKey.currentContext!;
-    Navigator.of(context).pop();
-    if (task.parent?.isRoot == true && task.parent?.tasks.length == 1 && Navigator.canPop(context)) {
-      Navigator.of(context).pop();
-    }
-  }
+  ///
 
   Future addSubtask() async {
     if (plCreate) {
@@ -476,6 +469,28 @@ abstract class _TaskViewControllerBase extends EditController with Store {
         ws,
         reason: task.isRoot ? loc.tariff_change_limit_projects_reason_title : loc.tariff_change_limit_tasks_reason_title,
       );
+    }
+  }
+
+  /// перенос с другую цель
+
+  Future localExport() async {
+    final sourceGoal = task.parent!;
+    final destinationGoalId = await selectTaskDialog(
+      task.goalsForLocalExport.sorted(sortByDateAsc),
+      loc.task_transfer_destination_hint,
+    );
+
+    if (destinationGoalId != null) {
+      final destinationGoal = mainController.taskForId(ws.id!, destinationGoalId);
+      task.parent = destinationGoal;
+      if (!(await _saveField(TaskFCode.parent))) {
+        task.parent = sourceGoal;
+      } else {
+        sourceGoal.tasks.removeWhere((t) => t.id == task.id);
+        destinationGoal.tasks.add(task);
+        mainController.updateRootTask();
+      }
     }
   }
 
@@ -519,6 +534,16 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     }
   }
 
+  /// удаление
+
+  void _popDeleted(Task task) {
+    final context = rootKey.currentContext!;
+    Navigator.of(context).pop();
+    if (task.parent?.isRoot == true && task.parent?.tasks.length == 1 && Navigator.canPop(context)) {
+      Navigator.of(context).pop();
+    }
+  }
+
   Future delete() async {
     final confirm = await showMTAlertDialog(
       task.deleteDialogTitle,
@@ -533,32 +558,11 @@ abstract class _TaskViewControllerBase extends EditController with Store {
       loader.start();
       loader.setDeleting();
       final deletedTask = await taskUC.delete(ws, task);
-      if (deletedTask.deleted) {
+      if (deletedTask.removed) {
         _popDeleted(deletedTask);
         _updateTaskParents(deletedTask);
       }
       await loader.stop(300);
-    }
-  }
-
-  Future taskAction(TaskActionType? actionType) async {
-    switch (actionType) {
-      case TaskActionType.close:
-        await setStatus(task, close: true);
-        break;
-      case TaskActionType.reopen:
-        await setStatus(task, close: false);
-        break;
-      case TaskActionType.go2source:
-        await go2source();
-        break;
-      case TaskActionType.unlink:
-        await unlink();
-        break;
-      case TaskActionType.delete:
-        await delete();
-        break;
-      default:
     }
   }
 }

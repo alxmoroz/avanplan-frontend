@@ -20,7 +20,7 @@ class TaskUC {
       final deletedRows = await repo.delete(ws, t);
       // TODO: внутр. exception?
       if (deletedRows) {
-        t.deleted = true;
+        t.removed = true;
       }
     }
     return t;

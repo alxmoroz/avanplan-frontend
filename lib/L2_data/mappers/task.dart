@@ -6,12 +6,13 @@ import 'package:openapi/openapi.dart' as api;
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities/workspace.dart';
 import 'member.dart';
+import 'note.dart';
 import 'project_status.dart';
 import 'task_source.dart';
 
 extension TaskMapper on api.TaskGet {
   Task task({required Workspace ws, Task? parent}) {
-    final ts = taskSource?.taskSource(ws);
+    final ts = taskSource?.taskSource;
     String _title = title?.trim() ?? '';
     if (type != null && type?.toLowerCase() == 'backlog') {
       _title = Intl.message(_title);
@@ -31,6 +32,7 @@ extension TaskMapper on api.TaskGet {
       statusId: statusId,
       estimate: estimate,
       tasks: [],
+      notes: notes?.map((n) => n.note) ?? [],
       authorId: authorId,
       assigneeId: assigneeId,
       members: members?.map((m) => m.member(id)).toList() ?? [],

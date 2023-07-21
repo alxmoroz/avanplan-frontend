@@ -42,7 +42,7 @@ class TaskPopupMenu extends StatelessWidget {
       case TaskActionType.localExport:
         return _tile(at, leading: const LocalExportIcon(), title: loc.task_transfer_export_action_title);
       case TaskActionType.go2source:
-        return _task.taskSource!.go2SourceTitle;
+        return _task.go2SourceTitle;
       case TaskActionType.unlink:
         return _tile(
           at,

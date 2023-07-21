@@ -9,6 +9,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../L1_domain/entities/estimate_value.dart';
 import '../../../L1_domain/entities/member.dart';
+import '../../../L1_domain/entities/note.dart';
 import '../../../L1_domain/entities/status.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
@@ -48,7 +49,7 @@ part 'task_view_controller.g.dart';
 
 enum TaskTabKey { overview, subtasks, details, team }
 
-enum TaskFCode { title, description, startDate, dueDate, estimate, assignee, author, parent }
+enum TaskFCode { title, description, startDate, dueDate, estimate, assignee, author, parent, note }
 
 enum TasksFilter { my }
 
@@ -112,6 +113,7 @@ class TaskViewController extends _TaskViewControllerBase with _$TaskViewControll
         placeholder: loc.task_author_title,
         needValidate: false,
       ),
+      MTFieldData(TaskFCode.note.index, placeholder: loc.task_note_placeholder, needValidate: false),
     ]);
   }
 }
@@ -417,6 +419,14 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     }
   }
 
+  /// комментарии
+  @computed
+  List<Note> get _sortedNotes => task.notes.sorted((n1, n2) => n2.createdOn!.compareTo(n1.createdOn!));
+  @computed
+  Map<DateTime, List<Note>> get notesGroups => _sortedNotes.groupListsBy((n) => n.createdOn!.date);
+  @computed
+  List<DateTime> get sortedNotesDates => notesGroups.keys.sorted((d1, d2) => d2.compareTo(d1));
+
   /// вкладки
 
   @computed
@@ -454,6 +464,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
             parent: task,
             tasks: [],
             members: [],
+            notes: [],
             projectStatuses: [],
             ws: ws,
           ));
@@ -512,7 +523,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
             type: MTActionType.isDefault,
             onTap: go2source,
             result: false,
-            child: task.taskSource!.go2SourceTitle,
+            child: task.go2SourceTitle,
           ),
         ],
       );

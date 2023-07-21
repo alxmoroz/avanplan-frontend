@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../L1_domain/entities/source.dart';
 import '../../L1_domain/entities/source_type.dart';
-import '../../L1_domain/entities/task_source.dart';
+import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities_extensions/ws_ext.dart';
 import '../../main.dart';
 import '../components/colors.dart';
@@ -62,9 +62,9 @@ extension SourcePresenter on Source {
   }
 }
 
-extension TaskSourcePresenter on TaskSource {
+extension TaskSourcePresenter on Task {
   Widget get go2SourceTitle {
-    final _source = ws.sourceForId(sourceId);
+    final _source = ws.sourceForId(taskSource?.sourceId);
     return Row(
       children: [
         const LinkIcon(),

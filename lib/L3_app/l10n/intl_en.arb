@@ -307,6 +307,9 @@
   "task_list_empty_title": "Taking a break from tasks",
   "task_list_title": "Tasks",
   "task_new_title": "New task",
+
+  "task_note_placeholder": "Leave a comment",
+
   "task_plural_genitive": "{count, plural, one{task} other{tasks}}",
   "task_reopen_action_title": "Reopen",
   "task_start_date_label": "Start",

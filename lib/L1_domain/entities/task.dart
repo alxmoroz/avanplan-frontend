@@ -2,6 +2,7 @@
 
 import 'base_entity.dart';
 import 'member.dart';
+import 'note.dart';
 import 'project_status.dart';
 import 'task_source.dart';
 import 'workspace.dart';
@@ -34,9 +35,10 @@ class Task extends Titleable {
     required this.closed,
     required this.parent,
     required this.tasks,
-    required this.ws,
+    required this.notes,
     required this.members,
     required this.projectStatuses,
+    required this.ws,
     this.createdOn,
     this.updatedOn,
     this.dueDate,
@@ -50,25 +52,29 @@ class Task extends Titleable {
     this.estimate,
   });
 
-  List<ProjectStatus> projectStatuses;
+  Task? parent;
 
   List<Task> tasks;
+  Iterable<Note> notes;
+  Iterable<Member> members;
+  Iterable<ProjectStatus> projectStatuses;
+  int? statusId;
+  bool closed;
+
   final DateTime? createdOn;
   final DateTime? updatedOn;
   DateTime? startDate;
   DateTime? closedDate;
   DateTime? dueDate;
+
   final Workspace ws;
-  int? statusId;
+
   int? authorId;
   int? assigneeId;
+
   final TaskSource? taskSource;
   final String? type;
   int? estimate;
-  Task? parent;
-  bool closed;
-
-  Iterable<Member> members;
 
   TaskLevel level = TaskLevel.root;
 
@@ -108,7 +114,7 @@ class Task extends Titleable {
   late TaskState subtasksState;
   late TaskState overallState;
 
-  static Task get dummy => Task(title: '', closed: false, parent: null, tasks: [], members: [], projectStatuses: [], ws: Workspace.dummy);
+  static Task get dummy => Task(title: '', closed: false, parent: null, tasks: [], members: [], notes: [], projectStatuses: [], ws: Workspace.dummy);
 }
 
 class TaskRemote {

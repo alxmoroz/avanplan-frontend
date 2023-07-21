@@ -15,6 +15,7 @@ import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/mt_adaptive.dart';
 import '../../../components/mt_button.dart';
+import '../../../components/mt_card.dart';
 import '../../../components/mt_field.dart';
 import '../../../components/mt_list_tile.dart';
 import '../../../components/mt_shadowed.dart';
@@ -34,7 +35,7 @@ class DetailsPane extends StatelessWidget {
 
   Widget? get bottomBar => _task.linked
       ? MTButton(
-          middle: _task.taskSource!.go2SourceTitle,
+          middle: _task.go2SourceTitle,
           onTap: () => launchUrlString(_task.taskSource!.urlString),
         )
       : null;
@@ -110,7 +111,7 @@ class DetailsPane extends StatelessWidget {
                 const SizedBox(height: P),
                 MTField(
                   controller.fData(TaskFCode.description.index),
-                  leading: DescriptionIcon(size: P3, color: _task.canUpdate ? mainColor : lightGreyColor),
+                  leading: DescriptionIcon(color: _task.canUpdate ? mainColor : lightGreyColor),
                   value: _task.hasDescription
                       ? SelectableLinkify(
                           text: _task.description,
@@ -129,7 +130,7 @@ class DetailsPane extends StatelessWidget {
                 const SizedBox(height: P),
                 MTField(
                   controller.fData(TaskFCode.estimate.index),
-                  leading: EstimateIcon(size: P3, color: _task.canEstimate ? mainColor : lightGreyColor),
+                  leading: EstimateIcon(color: _task.canEstimate ? mainColor : lightGreyColor),
                   value: _task.hasEstimate ? NormalText('${_task.sumEstimate} ${loc.task_estimate_unit}') : null,
                   onSelect: _task.canEstimate ? controller.selectEstimate : null,
                 ),
@@ -141,6 +142,72 @@ class DetailsPane extends StatelessWidget {
                   leading: _task.author!.icon(P * 1.5),
                   value: NormalText('${_task.author}', color: lightGreyColor),
                   onSelect: null,
+                ),
+              ],
+              if (_task.canUpdate) ...[
+                const SizedBox(height: P),
+                MTField(
+                  controller.fData(TaskFCode.note.index),
+                  leading: const NoteIcon(),
+                ),
+              ],
+              if (controller.sortedNotesDates.isNotEmpty) ...[
+                const SizedBox(height: P),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: P + P_2),
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: controller.sortedNotesDates.length,
+                    itemBuilder: (_, index) {
+                      final gDate = controller.sortedNotesDates[index];
+                      final ng = controller.notesGroups[gDate]!;
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SmallText(gDate.strMedium, padding: const EdgeInsets.only(right: P_3), color: greyColor),
+                              SmallText(DateFormat.E().format(gDate), color: greyColor),
+                            ],
+                          ),
+                          const SizedBox(height: P),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: ng.length,
+                            itemBuilder: (_, index) {
+                              final n = ng[index];
+                              final author = _task.memberForId(n.authorId);
+                              final mine = author?.userId == accountController.user?.id;
+                              return Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  if (!mine) ...[author!.icon(P * 1.5), const SizedBox(width: P_2)],
+                                  Expanded(
+                                    child: MTCard(
+                                      //elevation: 0,
+                                      margin: EdgeInsets.only(left: mine ? P3 + P3 : 0, right: mine ? 0 : P2, bottom: P),
+                                      padding: const EdgeInsets.symmetric(vertical: P_2, horizontal: P),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                                        children: [
+                                          if (!mine) MediumText('$author'),
+                                          NormalText(n.text, maxLines: 42, sizeScale: 1),
+                                          SmallText(n.createdOn!.strTime, align: TextAlign.right),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  ),
                 ),
               ],
             ],

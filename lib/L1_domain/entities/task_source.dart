@@ -2,10 +2,9 @@
 
 import 'base_entity.dart';
 
-class TaskSource extends WSBounded {
+class TaskSource extends RPersistable {
   TaskSource({
     required super.id,
-    required super.ws,
     required this.code,
     required this.rootCode,
     required this.sourceId,

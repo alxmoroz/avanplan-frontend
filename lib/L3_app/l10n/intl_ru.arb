@@ -307,6 +307,9 @@
   "task_list_empty_title": "Отдыхаем от задач",
   "task_list_title": "Задачи",
   "task_new_title": "Новая задача",
+
+  "task_note_placeholder": "Оставить комментарий",
+
   "task_reopen_action_title": "Переоткрыть",
   "task_plural_genitive": "{count, plural, one{задачи} other{задач}}",
   "task_start_date_label": "Начало",

@@ -134,7 +134,7 @@ class DescriptionIcon extends MTIcon {
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.text_justifyleft,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? P2,
+        size: size ?? P3,
       );
 }
 
@@ -178,7 +178,7 @@ class EstimateIcon extends MTIcon {
         child: Icon(
           CupertinoIcons.rectangle_on_rectangle_angled,
           color: (color ?? mainColor).resolve(context),
-          size: size ?? P2,
+          size: size ?? P3,
         ),
       );
 }
@@ -284,6 +284,16 @@ class MailIcon extends MTIcon {
         CupertinoIcons.envelope,
         color: (color ?? greyTextColor).resolve(context),
         size: size ?? P2,
+      );
+}
+
+class NoteIcon extends MTIcon {
+  const NoteIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.bubble_left_bubble_right,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P3,
       );
 }
 

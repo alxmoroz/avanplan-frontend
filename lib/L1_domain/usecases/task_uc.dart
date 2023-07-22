@@ -15,14 +15,5 @@ class TaskUC {
 
   Future<Task?> save(Workspace ws, Task t) async => await repo.save(ws, t);
 
-  Future<Task> delete(Workspace ws, Task t) async {
-    if (t.id != null) {
-      final deletedRows = await repo.delete(ws, t);
-      // TODO: внутр. exception?
-      if (deletedRows) {
-        t.removed = true;
-      }
-    }
-    return t;
-  }
+  Future<bool> delete(Workspace ws, Task t) async => await repo.delete(ws, t);
 }

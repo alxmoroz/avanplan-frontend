@@ -7,14 +7,16 @@ import 'colors.dart';
 import 'constants.dart';
 import 'icons.dart';
 import 'mt_adaptive.dart';
+import 'mt_card.dart';
 import 'text_widgets.dart';
 
-enum ButtonType { text, main, secondary, icon }
+enum ButtonType { text, main, secondary, icon, card }
 
 class MTButton extends StatelessWidget {
   const MTButton({
     this.titleText,
     this.onTap,
+    this.onLongPress,
     this.leading,
     this.middle,
     this.trailing,
@@ -29,6 +31,7 @@ class MTButton extends StatelessWidget {
   const MTButton.main({
     this.titleText,
     this.onTap,
+    this.onLongPress,
     this.leading,
     this.middle,
     this.trailing,
@@ -42,6 +45,7 @@ class MTButton extends StatelessWidget {
   const MTButton.secondary({
     this.titleText,
     this.onTap,
+    this.onLongPress,
     this.leading,
     this.middle,
     this.trailing,
@@ -52,7 +56,7 @@ class MTButton extends StatelessWidget {
     this.margin,
   }) : type = ButtonType.secondary;
 
-  const MTButton.icon(Widget icon, this.onTap, {this.margin, this.padding, this.color})
+  const MTButton.icon(Widget icon, this.onTap, {this.margin, this.padding, this.color, this.onLongPress})
       : type = ButtonType.icon,
         middle = icon,
         titleText = null,
@@ -64,6 +68,7 @@ class MTButton extends StatelessWidget {
   final ButtonType type;
   final String? titleText;
   final VoidCallback? onTap;
+  final VoidCallback? onLongPress;
   final Widget? leading;
   final Widget? middle;
   final Widget? trailing;
@@ -85,11 +90,11 @@ class MTButton extends StatelessWidget {
       disabledForegroundColor: _btnColor,
       disabledBackgroundColor: _btnColor,
       minimumSize: const Size(MIN_BTN_HEIGHT, MIN_BTN_HEIGHT),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DEF_BTN_BORDER_RADIUS)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(type == ButtonType.card ? DEF_BORDER_RADIUS : DEF_BTN_BORDER_RADIUS)),
       side: type == ButtonType.secondary ? BorderSide(color: _titleColor.resolve(context), width: 1) : BorderSide.none,
       splashFactory: NoSplash.splashFactory,
       visualDensity: VisualDensity.standard,
-      shadowColor: (type == ButtonType.main ? _btnColor : _titleColor).resolve(context),
+      shadowColor: (type == ButtonType.secondary ? _titleColor : _btnColor).resolve(context),
       elevation: buttonElevation,
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
     );
@@ -109,7 +114,14 @@ class MTButton extends StatelessWidget {
     switch (type) {
       case ButtonType.main:
       case ButtonType.secondary:
-        return OutlinedButton(onPressed: onTap, child: _child, style: _style(context), clipBehavior: Clip.hardEdge);
+      case ButtonType.card:
+        return OutlinedButton(
+          onPressed: onTap,
+          onLongPress: onLongPress,
+          child: _child,
+          style: _style(context),
+          clipBehavior: Clip.hardEdge,
+        );
       default:
         return CupertinoButton(onPressed: onTap, child: _child, minSize: 0, padding: padding ?? EdgeInsets.zero, color: color);
     }
@@ -134,6 +146,39 @@ class MTPlusButton extends StatelessWidget {
       middle: PlusIcon(color: type == ButtonType.main ? lightBackgroundColor : mainColor),
       margin: const EdgeInsets.only(right: P),
       onTap: onTap,
+    );
+  }
+}
+
+class MTCardButton extends StatelessWidget {
+  const MTCardButton({required this.child, this.margin, this.onTap, this.onLongPress, this.elevation, this.radius, this.padding, this.color});
+
+  final Widget child;
+  final EdgeInsets? margin;
+  final EdgeInsets? padding;
+  final VoidCallback? onTap;
+  final VoidCallback? onLongPress;
+  final double? elevation;
+  final double? radius;
+  final Color? color;
+
+  @override
+  Widget build(BuildContext context) {
+    return MTButton(
+      type: ButtonType.card,
+      constrained: false,
+      margin: margin ?? EdgeInsets.zero,
+      onTap: onTap,
+      onLongPress: onLongPress,
+      middle: Expanded(
+        child: MTCard(
+          child: child,
+          elevation: elevation,
+          radius: radius,
+          padding: padding ?? const EdgeInsets.all(P),
+          color: color,
+        ),
+      ),
     );
   }
 }

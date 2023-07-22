@@ -1,11 +1,11 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:avanplan/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
+import '../../../main.dart';
 import '../../components/constants.dart';
 import '../../components/mt_field_data.dart';
 import '../../components/mt_text_field.dart';

@@ -1,6 +1,5 @@
 // Copyright (c) 2021. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
@@ -41,35 +40,6 @@ class MTCard extends StatelessWidget {
       surfaceTintColor: _color,
       color: _color,
       shadowColor: _shadowColor,
-    );
-  }
-}
-
-class MTCardButton extends StatelessWidget {
-  const MTCardButton({required this.child, this.margin, this.onTap, this.elevation, this.radius, this.padding, this.color});
-
-  final Widget child;
-  final EdgeInsets? margin;
-  final EdgeInsets? padding;
-  final VoidCallback? onTap;
-  final double? elevation;
-  final double? radius;
-  final Color? color;
-
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoButton(
-      minSize: 0,
-      padding: EdgeInsets.zero,
-      onPressed: onTap,
-      child: MTCard(
-        child: child,
-        margin: margin ?? EdgeInsets.zero,
-        elevation: elevation,
-        radius: radius,
-        padding: padding ?? const EdgeInsets.all(P),
-        color: color,
-      ),
     );
   }
 }

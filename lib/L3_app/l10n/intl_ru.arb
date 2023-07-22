@@ -82,6 +82,7 @@
   "delete_dialog_description": "Это действие нельзя будет отменить!",
   "description": "Описание",
 
+  "edit_action_title": "Редактировать",
   "error_auth_description": "Проверьте правильность указанных данных и повторите попытку",
   "error_auth_popup_blocked_by_browser": "Окно аутентификации заблокировано браузером\nОткройте заблокированное окно и перезагрузите страницу",
   "error_auth_title": "Ошибка авторизации",
@@ -294,7 +295,6 @@
   "task_delete_dialog_description": "Все подзадачи также будут удалены",
   "task_due_date_label": "Срок",
   "task_due_date_placeholder": "Срок завершения",
-  "task_edit_action_title": "Редактировать",
   "task_estimate_group_label": "Общая оценка по подзадачам",
   "task_estimate_label": "Оценка",
   "task_estimate_placeholder": "Выбрать оценку",
@@ -309,6 +309,7 @@
   "task_new_title": "Новая задача",
 
   "task_note_placeholder": "Оставить комментарий",
+  "task_note_title": "Комментарий",
 
   "task_reopen_action_title": "Переоткрыть",
   "task_plural_genitive": "{count, plural, one{задачи} other{задач}}",

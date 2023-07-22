@@ -1,12 +1,12 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:avanplan/L3_app/components/mt_toolbar.dart';
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/constants.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_dialog.dart';
+import '../../components/mt_toolbar.dart';
 import '../../extra/services.dart';
 import 'workspace_edit_controller.dart';
 

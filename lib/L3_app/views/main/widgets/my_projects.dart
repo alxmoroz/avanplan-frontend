@@ -7,7 +7,7 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../../main.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
-import '../../../components/mt_card.dart';
+import '../../../components/mt_button.dart';
 import '../../../components/mt_shadowed.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';

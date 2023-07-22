@@ -32,7 +32,7 @@ extension TaskMapper on api.TaskGet {
       statusId: statusId,
       estimate: estimate,
       tasks: [],
-      notes: notes?.map((n) => n.note) ?? [],
+      notes: notes?.map((n) => n.note).toList() ?? [],
       authorId: authorId,
       assigneeId: assigneeId,
       members: members?.map((m) => m.member(id)).toList() ?? [],

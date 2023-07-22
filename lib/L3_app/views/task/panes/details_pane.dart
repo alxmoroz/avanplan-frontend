@@ -15,7 +15,6 @@ import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/mt_adaptive.dart';
 import '../../../components/mt_button.dart';
-import '../../../components/mt_card.dart';
 import '../../../components/mt_field.dart';
 import '../../../components/mt_list_tile.dart';
 import '../../../components/mt_shadowed.dart';
@@ -26,6 +25,7 @@ import '../../../presenters/person_presenter.dart';
 import '../../../presenters/source_presenter.dart';
 import '../../../usecases/task_ext_actions.dart';
 import '../task_view_controller.dart';
+import '../widgets/notes/task_notes.dart';
 
 class DetailsPane extends StatelessWidget {
   const DetailsPane(this.controller);
@@ -144,71 +144,22 @@ class DetailsPane extends StatelessWidget {
                   onSelect: null,
                 ),
               ],
-              if (_task.canUpdate) ...[
+              if (_task.canComment) ...[
                 const SizedBox(height: P),
                 MTField(
                   controller.fData(TaskFCode.note.index),
+                  value: LightText(
+                    controller.fData(TaskFCode.note.index).placeholder,
+                    color: lightGreyColor,
+                    padding: const EdgeInsets.symmetric(vertical: P_2),
+                  ),
                   leading: const NoteIcon(),
+                  onSelect: controller.addNote,
                 ),
               ],
               if (controller.sortedNotesDates.isNotEmpty) ...[
                 const SizedBox(height: P),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: P + P_2),
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: controller.sortedNotesDates.length,
-                    itemBuilder: (_, index) {
-                      final gDate = controller.sortedNotesDates[index];
-                      final ng = controller.notesGroups[gDate]!;
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SmallText(gDate.strMedium, padding: const EdgeInsets.only(right: P_3), color: greyColor),
-                              SmallText(DateFormat.E().format(gDate), color: greyColor),
-                            ],
-                          ),
-                          const SizedBox(height: P),
-                          ListView.builder(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: ng.length,
-                            itemBuilder: (_, index) {
-                              final n = ng[index];
-                              final author = _task.memberForId(n.authorId);
-                              final mine = author?.userId == accountController.user?.id;
-                              return Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  if (!mine) ...[author!.icon(P * 1.5), const SizedBox(width: P_2)],
-                                  Expanded(
-                                    child: MTCard(
-                                      //elevation: 0,
-                                      margin: EdgeInsets.only(left: mine ? P3 + P3 : 0, right: mine ? 0 : P2, bottom: P),
-                                      padding: const EdgeInsets.symmetric(vertical: P_2, horizontal: P),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                                        children: [
-                                          if (!mine) MediumText('$author'),
-                                          NormalText(n.text, maxLines: 42, sizeScale: 1),
-                                          SmallText(n.createdOn!.strTime, align: TextAlign.right),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                ),
+                TaskNotes(controller),
               ],
             ],
           ),

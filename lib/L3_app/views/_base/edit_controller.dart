@@ -30,14 +30,17 @@ abstract class _EditControllerBase with Store {
   @observable
   ObservableMap<int, MTFieldData> _fdMap = ObservableMap();
 
+  @action
+  void _updateData(MTFieldData fd, TextEditingController te) {
+    if (fd.text != te.text) {
+      _fdMap[fd.code] = fd.copyWith(text: te.text);
+    }
+  }
+
   TextEditingController _makeTEController(int code) {
-    final _f = fData(code);
-    final teController = TextEditingController(text: '$_f');
-    teController.addListener(() {
-      if (_f.text != teController.text) {
-        _fdMap[_f.code] = _f.copyWith(text: teController.text);
-      }
-    });
+    final _fd = fData(code);
+    final teController = TextEditingController(text: '$_fd');
+    teController.addListener(() => _updateData(_fd, teController));
     return teController;
   }
 

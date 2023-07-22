@@ -55,7 +55,7 @@ class Task extends Titleable {
   Task? parent;
 
   List<Task> tasks;
-  Iterable<Note> notes;
+  List<Note> notes;
   Iterable<Member> members;
   Iterable<ProjectStatus> projectStatuses;
   int? statusId;

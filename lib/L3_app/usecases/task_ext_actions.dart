@@ -26,24 +26,20 @@ extension TaskActionsExt on Task {
   User? get _authUser => accountController.user;
 
   /// разрешения для текущего пользователя для РП, выбранной задачи или проекта
-  Member? get _m => projectMembers.firstWhereOrNull((m) => m.userId == _authUser?.id);
+  Member? get me => projectMembers.firstWhereOrNull((m) => m.userId == _authUser?.id);
 
-  bool get _hpMemberUpdate => _m?.hp('MEMBER_UPDATE') == true || ws.hpProjectContentUpdate;
-  bool get _hpCreate => _m?.hp('TASK_CREATE') == true || ws.hpProjectContentUpdate;
-  bool get _hpUpdate => _m?.hp('TASK_UPDATE') == true || ws.hpProjectContentUpdate;
-  bool get _hpDelete => _m?.hp('TASK_DELETE') == true || ws.hpProjectContentUpdate;
+  bool get _hpMemberUpdate => me?.hp('MEMBER_UPDATE') == true || ws.hpProjectContentUpdate;
+  bool get _hpCreate => me?.hp('TASK_CREATE') == true || ws.hpProjectContentUpdate;
+  bool get _hpUpdate => me?.hp('TASK_UPDATE') == true || ws.hpProjectContentUpdate;
+  bool get _hpDelete => me?.hp('TASK_DELETE') == true || ws.hpProjectContentUpdate;
 
   /// доступные действия
   bool get _isLocal => !linked;
   bool get isLinkedProject => isProject && !_isLocal;
 
-  bool get _canProjectDelete => isProject && ws.hpProjectDelete == true;
-  bool get _canTaskCreate => !closed && _hpCreate && _isLocal;
-  bool get _canTaskDelete => !isProject && _hpDelete && _isLocal;
-
-  bool get canCreate => _canTaskCreate;
-  bool get canUpdate => _isLocal && ((isProject && ws.hpProjectUpdate == true) || (!isRoot && !isProject && _hpUpdate));
-  bool get canDelete => _canProjectDelete || _canTaskDelete;
+  bool get canCreate => _isLocal && !closed && _hpCreate;
+  bool get canUpdate => !isRoot && _isLocal && ((isProject && ws.hpProjectUpdate == true) || _hpUpdate);
+  bool get canDelete => (isProject && ws.hpProjectDelete == true) || (_isLocal && _hpDelete);
   bool get canRefresh => isRoot;
   bool get canReopen => closed && canUpdate && parent?.closed == false;
   bool get canClose => canUpdate && !closed;
@@ -56,6 +52,7 @@ extension TaskActionsExt on Task {
   bool get canAssign => canUpdate && activeMembers.isNotEmpty;
   bool get canLocalExport => canUpdate && goalsForLocalExport.isNotEmpty;
   bool get canLocalImport => canUpdate && goalsForLocalImport.isNotEmpty;
+  bool get canComment => !isProject && canUpdate;
 
   /// рекомендации, быстрые кнопки
   bool get shouldAddSubtask =>

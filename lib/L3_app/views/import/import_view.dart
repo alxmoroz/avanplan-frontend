@@ -1,7 +1,5 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:avanplan/L3_app/components/mt_toolbar.dart';
-import 'package:avanplan/L3_app/views/source/no_sources.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
@@ -18,12 +16,14 @@ import '../../components/mt_dialog.dart';
 import '../../components/mt_dropdown.dart';
 import '../../components/mt_limit_badge.dart';
 import '../../components/mt_shadowed.dart';
+import '../../components/mt_toolbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/source_presenter.dart';
 import '../../presenters/ws_presenter.dart';
 import '../../usecases/ws_ext_actions.dart';
 import '../../usecases/ws_ext_sources.dart';
+import '../source/no_sources.dart';
 import '../source/source_edit_view.dart';
 import 'import_controller.dart';
 

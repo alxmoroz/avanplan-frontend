@@ -97,6 +97,8 @@ Class | Method | HTTP request | Description
 [*TasksApi*](doc/TasksApi.md) | [**upsertV1TasksPost**](doc/TasksApi.md#upsertv1taskspost) | **POST** /v1/tasks/ | Upsert
 [*TasksInvitationsApi*](doc/TasksInvitationsApi.md) | [**createV1TasksInvitationsPost**](doc/TasksInvitationsApi.md#createv1tasksinvitationspost) | **POST** /v1/tasks/invitations | Create
 [*TasksInvitationsApi*](doc/TasksInvitationsApi.md) | [**invitationsV1TasksInvitationsGet**](doc/TasksInvitationsApi.md#invitationsv1tasksinvitationsget) | **GET** /v1/tasks/invitations | Invitations
+[*TasksNotesApi*](doc/TasksNotesApi.md) | [**deleteV1TasksNotesNoteIdDelete**](doc/TasksNotesApi.md#deletev1tasksnotesnoteiddelete) | **DELETE** /v1/tasks/notes/{note_id} | Delete
+[*TasksNotesApi*](doc/TasksNotesApi.md) | [**upsertV1TasksNotesPost**](doc/TasksNotesApi.md#upsertv1tasksnotespost) | **POST** /v1/tasks/notes | Upsert
 [*TasksRolesApi*](doc/TasksRolesApi.md) | [**assignV1TasksRolesPost**](doc/TasksRolesApi.md#assignv1tasksrolespost) | **POST** /v1/tasks/roles | Assign
 
 
@@ -128,6 +130,7 @@ Class | Method | HTTP request | Description
  - [MemberGet](doc/MemberGet.md)
  - [MyUser](doc/MyUser.md)
  - [NoteGet](doc/NoteGet.md)
+ - [NoteUpsert](doc/NoteUpsert.md)
  - [Notification](doc/Notification.md)
  - [PermissionGet](doc/PermissionGet.md)
  - [PermissionRoleGet](doc/PermissionRoleGet.md)

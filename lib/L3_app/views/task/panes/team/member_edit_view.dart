@@ -1,6 +1,5 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'package:avanplan/L3_app/components/text_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -11,6 +10,7 @@ import '../../../../components/mt_button.dart';
 import '../../../../components/mt_checkbox.dart';
 import '../../../../components/mt_dialog.dart';
 import '../../../../components/mt_toolbar.dart';
+import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/role_presenter.dart';
 import '../../../../presenters/task_level_presenter.dart';

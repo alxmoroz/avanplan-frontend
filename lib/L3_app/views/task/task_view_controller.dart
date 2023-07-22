@@ -41,6 +41,7 @@ import '../../usecases/ws_ext_actions.dart';
 import '../../views/_base/edit_controller.dart';
 import '../tariff/tariff_select_view.dart';
 import 'widgets/task_description_dialog.dart';
+import 'widgets/task_note_dialog.dart';
 import 'widgets/transfer/select_task_dialog.dart';
 
 part 'task_view_controller.g.dart';
@@ -129,11 +130,6 @@ abstract class _TaskViewControllerBase extends EditController with Store {
   Task get task => mainController.taskForId(ws.id!, taskId);
   bool get plCreate => task.isRoot ? ws.plProjects : ws.plTasks;
 
-  void _updateTaskParents(Task task) {
-    task.updateParents();
-    mainController.updateRootTask();
-  }
-
   Future<bool> _saveField(TaskFCode code) async {
     bool saved = false;
     updateField(code.index, loading: true);
@@ -142,7 +138,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
       updateField(code.index, loading: false);
       saved = editedTask != null;
       if (saved) {
-        _updateTaskParents(editedTask);
+        mainController.updateRootTask();
       }
     } catch (e) {
       updateField(code.index, loading: false);
@@ -181,16 +177,14 @@ abstract class _TaskViewControllerBase extends EditController with Store {
   /// описание
 
   Future editDescription() async {
-    final tc = teController(TaskFCode.description.index);
-    if (tc != null) {
-      await showMTDialog<void>(TaskDescriptionDialog(tc));
-      final newValue = tc.text;
-      if (task.description != newValue) {
-        final oldValue = task.description;
-        task.description = newValue;
-        if (!(await _saveField(TaskFCode.description))) {
-          task.description = oldValue;
-        }
+    final tc = teController(TaskFCode.description.index)!;
+    await showMTDialog<void>(TaskDescriptionDialog(tc));
+    final newValue = tc.text;
+    if (task.description != newValue) {
+      final oldValue = task.description;
+      task.description = newValue;
+      if (!(await _saveField(TaskFCode.description))) {
+        task.description = oldValue;
       }
     }
   }
@@ -387,7 +381,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
         if (editedTask.closed && _task.id == task.id) {
           Navigator.of(rootKey.currentContext!).pop(editedTask);
         }
-        _updateTaskParents(editedTask);
+        mainController.updateRootTask();
       }
     }
   }
@@ -420,6 +414,42 @@ abstract class _TaskViewControllerBase extends EditController with Store {
   }
 
   /// комментарии
+
+  Future editNote(Note note) async {
+    final tc = teController(TaskFCode.note.index)!;
+    tc.text = note.text;
+    await showMTDialog<void>(TaskNoteDialog(note, tc));
+
+    final fIndex = TaskFCode.note.index;
+
+    // добавление или редактирование
+    final newValue = tc.text;
+    final oldValue = note.text;
+    if (note.text != newValue) {
+      updateField(fIndex, loading: true);
+      note.text = newValue;
+      final editedNote = await noteUC.save(ws, note);
+      if (editedNote != null) {
+        if (note.id == null) {
+          task.notes.add(editedNote);
+        }
+        mainController.updateRootTask();
+      } else {
+        note.text = oldValue;
+      }
+      updateField(fIndex, loading: false);
+    }
+  }
+
+  Future addNote() async => await editNote(Note(text: '', authorId: task.me?.id, taskId: taskId));
+
+  Future deleteNote(Note note) async {
+    if (await noteUC.delete(ws, note)) {
+      task.notes.remove(note);
+      mainController.updateRootTask();
+    }
+  }
+
   @computed
   List<Note> get _sortedNotes => task.notes.sorted((n1, n2) => n2.createdOn!.compareTo(n1.createdOn!));
   @computed
@@ -449,7 +479,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
   @computed
   TaskTabKey get tabKey => (tabKeys.contains(_tabKey) ? _tabKey : null) ?? (tabKeys.isNotEmpty ? tabKeys.first : TaskTabKey.subtasks);
 
-  ///
+  /// добавление подзадачи
 
   Future addSubtask() async {
     if (plCreate) {
@@ -471,7 +501,8 @@ abstract class _TaskViewControllerBase extends EditController with Store {
       loader.stop();
       if (newTask != null) {
         task.tasks.add(newTask);
-        _updateTaskParents(newTask);
+        mainController.updateRootTask();
+
         selectTab(TaskTabKey.subtasks);
         await mainController.showTask(TaskParams(ws, taskId: newTask.id, isNew: true));
       }
@@ -545,7 +576,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     }
   }
 
-  /// удаление
+  /// удаление задачи
 
   void _popDeleted(Task task) {
     final context = rootKey.currentContext!;
@@ -568,10 +599,12 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     if (confirm == true) {
       loader.start();
       loader.setDeleting();
-      final deletedTask = await taskUC.delete(ws, task);
-      if (deletedTask.removed) {
-        _popDeleted(deletedTask);
-        _updateTaskParents(deletedTask);
+      if (await taskUC.delete(ws, task)) {
+        _popDeleted(task);
+        if (task.parent != null) {
+          task.parent!.tasks.remove(task);
+          mainController.updateRootTask();
+        }
       }
       await loader.stop(300);
     }

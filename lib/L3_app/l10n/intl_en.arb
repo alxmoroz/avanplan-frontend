@@ -82,6 +82,7 @@
   "delete_dialog_description": "This action cannot be undone!",
   "description": "Description",
 
+  "edit_action_title": "Edit",
   "error_auth_description": "Please check the information provided and try again",
   "error_auth_popup_blocked_by_browser": "The authentication window is blocked by the browser\nOpen a blocked window and reload the page",
   "error_auth_title": "Authorisation Error",
@@ -294,7 +295,6 @@
   "task_delete_dialog_description": "All subtasks will be deleted",
   "task_due_date_label": "Deadline",
   "task_due_date_placeholder": "Deadline date",
-  "task_edit_action_title": "Edit",
   "task_estimate_group_label": "Overall estimation for subtasks",
   "task_estimate_label": "Estimation",
   "task_estimate_placeholder": "Estimate",
@@ -309,6 +309,7 @@
   "task_new_title": "New task",
 
   "task_note_placeholder": "Leave a comment",
+  "task_note_title": "Comment",
 
   "task_plural_genitive": "{count, plural, one{task} other{tasks}}",
   "task_reopen_action_title": "Reopen",

@@ -4,15 +4,21 @@ import 'base_entity.dart';
 
 class Note extends RPersistable {
   Note({
-    required super.id,
+    super.id,
     required this.text,
     required this.authorId,
+    required this.taskId,
+    this.parent,
+    this.type,
     this.createdOn,
     this.updatedOn,
   });
 
-  final String text;
+  String text;
   final int? authorId;
+  final int? taskId;
+  final Note? parent;
+  String? type;
   final DateTime? createdOn;
   final DateTime? updatedOn;
 }

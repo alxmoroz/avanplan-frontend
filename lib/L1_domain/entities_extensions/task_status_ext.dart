@@ -1,10 +1,10 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'package:avanplan/L1_domain/entities_extensions/task_level.dart';
 import 'package:collection/collection.dart';
 
 import '../entities/status.dart';
 import '../entities/task.dart';
+import '../entities_extensions/task_level.dart';
 
 extension TaskStatusExtension on Task {
   List<Status> get statuses {

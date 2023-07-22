@@ -9,6 +9,8 @@ extension NoteMapper on NoteGet {
         id: id,
         text: text,
         authorId: authorId,
+        taskId: taskId,
+        type: type,
         createdOn: createdOn.toLocal(),
         updatedOn: updatedOn.toLocal(),
       );

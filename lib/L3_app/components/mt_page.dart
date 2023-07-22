@@ -1,9 +1,9 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:avanplan/L3_app/components/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'colors.dart';
 import 'mt_toolbar.dart';
 
 // TODO: оставить один MTPage без Scaffold => нужно сделать MTToolbar для верхней части

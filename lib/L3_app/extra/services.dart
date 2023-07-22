@@ -12,6 +12,7 @@ import '../../L1_domain/usecases/import_uc.dart';
 import '../../L1_domain/usecases/invitation_uc.dart';
 import '../../L1_domain/usecases/local_settings_uc.dart';
 import '../../L1_domain/usecases/my_uc.dart';
+import '../../L1_domain/usecases/note_uc.dart';
 import '../../L1_domain/usecases/service_settings_uc.dart';
 import '../../L1_domain/usecases/source_uc.dart';
 import '../../L1_domain/usecases/tariff_uc.dart';
@@ -26,6 +27,7 @@ import '../../L2_data/repositories/iap_repo.dart';
 import '../../L2_data/repositories/import_repo.dart';
 import '../../L2_data/repositories/invitation_repo.dart';
 import '../../L2_data/repositories/my_repo.dart';
+import '../../L2_data/repositories/note_repo.dart';
 import '../../L2_data/repositories/service_settings_repo.dart';
 import '../../L2_data/repositories/source_repo.dart';
 import '../../L2_data/repositories/tariff_repo.dart';
@@ -72,6 +74,7 @@ TaskMemberRoleUC get taskMemberRoleUC => GetIt.I<TaskMemberRoleUC>();
 InAppPurchaseUC get iapUC => GetIt.I<InAppPurchaseUC>();
 TariffUC get tariffUC => GetIt.I<TariffUC>();
 ContractUC get contractUC => GetIt.I<ContractUC>();
+NoteUC get noteUC => GetIt.I<NoteUC>();
 
 void setup() {
   // device
@@ -108,6 +111,7 @@ void setup() {
   getIt.registerSingleton<InAppPurchaseUC>(InAppPurchaseUC(IAPRepo()));
   getIt.registerSingleton<TariffUC>(TariffUC(TariffRepo()));
   getIt.registerSingleton<ContractUC>(ContractUC(ContractRepo()));
+  getIt.registerSingleton<NoteUC>(NoteUC(NoteRepo()));
 
   // global state controllers
   getIt.registerSingletonAsync<ServiceSettingsController>(() async => ServiceSettingsController().init(), dependsOn: [Openapi]);

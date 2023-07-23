@@ -30,7 +30,7 @@ class MTField extends StatelessWidget {
   final EdgeInsets? padding;
   final Color? color;
 
-  bool get _hasValue => value != null || fd.text.isNotEmpty;
+  bool get _hasValue => value != null;
 
   @override
   Widget build(BuildContext context) {

@@ -44,6 +44,7 @@ class ImportView extends StatelessWidget {
   bool get _hasError => controller.errorCode != null;
   bool get _validated => controller.validated;
   bool get _selectedAll => controller.selectedAll;
+  bool get _sourceSelected => controller.selectedSource != null;
   bool get _hasSources => controller.ws.sources.isNotEmpty;
   bool get _showSelectAll => controller.projects.length > 2;
 
@@ -75,10 +76,10 @@ class ImportView extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(child: _sourceDropdown),
-              MTPlusButton(() => startAddSource(controller.ws), type: ButtonType.secondary),
+              MTPlusButton(() async => await startAddSource(controller.ws), type: ButtonType.secondary),
             ],
           ),
-          if (controller.selectedSource != null) ...[
+          if (_sourceSelected) ...[
             const SizedBox(height: P),
             if (_hasProjects) ...[
               if (_showSelectAll)
@@ -90,25 +91,23 @@ class ImportView extends StatelessWidget {
                   value: _selectedAll,
                   onChanged: controller.toggleSelectedAll,
                 ),
-            ] else
-              MediumText(
-                _hasError ? Intl.message(controller.errorCode!) : loc.import_list_empty_title,
-                align: TextAlign.center,
-                color: _hasError ? warningColor : lightGreyColor,
-                padding: const EdgeInsets.only(top: P_2, bottom: P3),
-              ),
-          ] else
-            NormalText(
-              loc.import_source_select_hint,
-              color: warningColor,
-              align: TextAlign.center,
-              padding: const EdgeInsets.only(top: P, bottom: P3),
-            ),
+            ]
+          ]
         ],
       );
 
-  Widget get _body => _hasSources
-      ? controller.selectedSource != null
+  Widget get _body => _hasError
+      ? ListView(
+          shrinkWrap: true,
+          children: [
+            MediumText(
+              _hasError ? Intl.message(controller.errorCode!) : loc.import_list_empty_title,
+              align: TextAlign.center,
+              color: _hasError ? warningColor : lightGreyColor,
+            ),
+          ],
+        )
+      : _hasSources
           ? MTShadowed(
               child: ListView.builder(
                 shrinkWrap: true,
@@ -116,8 +115,7 @@ class ImportView extends StatelessWidget {
                 itemCount: controller.projects.length,
               ),
             )
-          : Container()
-      : NoSources();
+          : NoSources();
 
   Widget _projectItemBuilder(BuildContext context, int index) {
     final project = controller.projects[index];
@@ -134,7 +132,7 @@ class ImportView extends StatelessWidget {
   String get _importActionHint =>
       '${loc.import_projects_select_available_count_hint(controller.ws.availableProjectsCount)} ${loc.project_plural_genitive(controller.ws.availableProjectsCount)}';
 
-  Widget? get _bottomBar => controller.selectedSource != null && _hasProjects
+  Widget? get _bottomBar => _hasProjects
       ? Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           LightText(
             _importActionHint,
@@ -153,11 +151,11 @@ class ImportView extends StatelessWidget {
             ),
           ),
         ])
-      : controller.ws.sources.isEmpty
+      : !_hasSources
           ? MTButton.main(
               leading: const PlusIcon(color: lightBackgroundColor),
               titleText: loc.source_title_new,
-              onTap: () => startAddSource(controller.ws),
+              onTap: () async => await startAddSource(controller.ws),
             )
           : null;
 
@@ -174,10 +172,10 @@ class ImportView extends StatelessWidget {
             ],
           ),
         ),
-        topBarHeight: P2 * 2 + (_hasSources ? P * (_showSelectAll ? 10.5 : 8.5) : 0) + (mainController.workspaces.length > 1 ? P2 : 0),
+        topBarHeight: P2 * 2 + (_hasSources ? P * (6.5 + (_showSelectAll ? 4 : 0)) : 0) + (mainController.workspaces.length > 1 ? P2 : 0),
         body: _body,
         bottomBar: _bottomBar,
-        bottomBarHeight: _hasSources ? P * 11 : null,
+        bottomBarHeight: _hasProjects ? P * 11 : null,
       ),
     );
   }

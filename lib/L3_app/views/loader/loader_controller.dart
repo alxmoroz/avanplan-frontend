@@ -90,7 +90,7 @@ abstract class _LoaderControllerBase with Store {
             // программные ошибки сервера
             final errorText = '${code < 500 ? 'HTTP Client' : code < 600 ? 'HTTP Server' : 'Unknown HTTP'} Error $code';
             if (e.errCode == 'ERR_IMPORT_CONNECTION') {
-              // return handler.next(e);
+              return handler.next(e);
             } else if (e.errCode.startsWith('ERR_IMPORT')) {
               _setImportError(e.detail, e.detail);
             } else {

@@ -2,13 +2,12 @@
 
 import '../../L1_domain/entities/source.dart';
 import '../../L1_domain/entities/workspace.dart';
-import '../extra/services.dart';
 import 'source_ext.dart';
 
 extension WSourcesExt on Workspace {
   void checkSources() => sources.forEach((src) => src.checkConnection(this));
 
-  Future updateSourceInList(Source? _s) async {
+  void updateSourceInList(Source? _s) {
     if (_s != null) {
       final index = sources.indexWhere((s) => s.id == _s.id);
       if (index >= 0) {
@@ -20,7 +19,6 @@ extension WSourcesExt on Workspace {
       } else {
         sources.add(_s);
       }
-      mainController.touchWorkspaces();
     }
   }
 }

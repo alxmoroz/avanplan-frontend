@@ -9,7 +9,3 @@ class MTError {
 class MTOAuthError extends MTError {
   MTOAuthError({super.code, super.detail});
 }
-
-class MTImportError extends MTError {
-  MTImportError({super.code, super.detail});
-}

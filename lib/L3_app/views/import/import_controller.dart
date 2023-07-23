@@ -62,10 +62,8 @@ abstract class _ImportControllerBase with Store {
   String? errorCode;
 
   @action
-  void _setErrorCode(String? eCode) => errorCode = eCode;
-
-  @action
   void clearData() {
+    errorCode = null;
     projects = [];
   }
 
@@ -93,7 +91,6 @@ abstract class _ImportControllerBase with Store {
   Future selectSourceId(int? id) async {
     selectedSourceId = id;
     clearData();
-
     if (selectedSource != null) {
       final loaderDescription = '$selectedSource';
       loader.start();
@@ -106,8 +103,9 @@ abstract class _ImportControllerBase with Store {
         loader.setSourceListing(loaderDescription);
         projects = (await importUC.getRootTasks(ws, selectedSource!)).sorted((p1, p2) => compareNatural(p1.title, p2.title));
       } else {
-        _setErrorCode('error_import_connection');
+        errorCode = 'error_import_connection';
       }
+      mainController.touchWorkspaces();
       await loader.stop();
     }
   }

@@ -7,7 +7,6 @@ import '../../L1_domain/entities/source.dart';
 import '../../L1_domain/entities/source_type.dart';
 import '../../L1_domain/entities/workspace.dart';
 import '../../L1_domain/repositories/abs_source_repo.dart';
-import '../../L1_domain/system/errors.dart';
 import '../mappers/source.dart';
 import '../services/api.dart';
 
@@ -45,8 +44,8 @@ class SourceRepo extends AbstractSourceRepo {
       final response = await api.sourcesCheckConnection(sourceId: s.id!, wsId: ws.id!);
       res = response.data == true;
     } on DioException catch (e) {
-      if (['ERR_IMPORT_CONNECTION'].contains(e.errCode)) {
-        throw MTImportError();
+      if (!['ERR_IMPORT_CONNECTION'].contains(e.errCode)) {
+        print(e);
       }
     }
     return res;

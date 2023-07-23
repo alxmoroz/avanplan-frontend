@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:avanplan/L3_app/usecases/source_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -19,7 +20,6 @@ import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/source_presenter.dart';
 import '../../presenters/ws_presenter.dart';
-import '../../usecases/source_ext.dart';
 import '../../usecases/ws_ext_sources.dart';
 import 'source_edit_controller.dart';
 import 'source_type_selector.dart';
@@ -50,10 +50,11 @@ Future<Source?> addSource(Workspace ws, {required SourceType sType}) async {
 Future<Source?> editSource(Workspace ws, {Source? src, SourceType? sType}) async {
   final s = await editSourceDialog(ws, src, sType);
   if (s != null) {
-    await ws.updateSourceInList(s);
+    ws.updateSourceInList(s);
     if (!s.removed) {
-      s.checkConnection(ws);
+      await s.checkConnection(ws);
     }
+    mainController.touchWorkspaces();
   }
   return s;
 }

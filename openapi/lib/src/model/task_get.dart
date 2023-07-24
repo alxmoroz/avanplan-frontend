@@ -34,10 +34,22 @@ part 'task_get.g.dart';
 /// * [taskSourceId] 
 /// * [updatedOn] 
 /// * [taskSource] 
-/// * [tasks] 
 /// * [members] 
 /// * [notes] 
 /// * [projectStatuses] 
+/// * [tasks] 
+/// * [state] 
+/// * [leavesCount] 
+/// * [openedLeavesCount] 
+/// * [closedLeavesCount] 
+/// * [leftPeriod] 
+/// * [elapsedPeriod] 
+/// * [etaPeriod] 
+/// * [riskPeriod] 
+/// * [isFuture] 
+/// * [etaDate] 
+/// * [showSp] 
+/// * [targetVelocity] 
 @BuiltValue()
 abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -94,9 +106,6 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'task_source')
   TaskSourceGet? get taskSource;
 
-  @BuiltValueField(wireName: r'tasks')
-  BuiltList<TaskGet>? get tasks;
-
   @BuiltValueField(wireName: r'members')
   BuiltList<MemberGet>? get members;
 
@@ -105,6 +114,45 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
 
   @BuiltValueField(wireName: r'project_statuses')
   BuiltList<ProjectStatusGet>? get projectStatuses;
+
+  @BuiltValueField(wireName: r'tasks')
+  BuiltList<TaskGet>? get tasks;
+
+  @BuiltValueField(wireName: r'state')
+  String? get state;
+
+  @BuiltValueField(wireName: r'leaves_count')
+  int? get leavesCount;
+
+  @BuiltValueField(wireName: r'opened_leaves_count')
+  int? get openedLeavesCount;
+
+  @BuiltValueField(wireName: r'closed_leaves_count')
+  int? get closedLeavesCount;
+
+  @BuiltValueField(wireName: r'left_period')
+  num? get leftPeriod;
+
+  @BuiltValueField(wireName: r'elapsed_period')
+  num? get elapsedPeriod;
+
+  @BuiltValueField(wireName: r'eta_period')
+  num? get etaPeriod;
+
+  @BuiltValueField(wireName: r'risk_period')
+  num? get riskPeriod;
+
+  @BuiltValueField(wireName: r'is_future')
+  bool? get isFuture;
+
+  @BuiltValueField(wireName: r'eta_date')
+  DateTime? get etaDate;
+
+  @BuiltValueField(wireName: r'show_sp')
+  bool? get showSp;
+
+  @BuiltValueField(wireName: r'target_velocity')
+  num? get targetVelocity;
 
   TaskGet._();
 
@@ -251,13 +299,6 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
         specifiedType: const FullType(TaskSourceGet),
       );
     }
-    if (object.tasks != null) {
-      yield r'tasks';
-      yield serializers.serialize(
-        object.tasks,
-        specifiedType: const FullType(BuiltList, [FullType(TaskGet)]),
-      );
-    }
     if (object.members != null) {
       yield r'members';
       yield serializers.serialize(
@@ -277,6 +318,97 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
       yield serializers.serialize(
         object.projectStatuses,
         specifiedType: const FullType(BuiltList, [FullType(ProjectStatusGet)]),
+      );
+    }
+    if (object.tasks != null) {
+      yield r'tasks';
+      yield serializers.serialize(
+        object.tasks,
+        specifiedType: const FullType(BuiltList, [FullType(TaskGet)]),
+      );
+    }
+    if (object.state != null) {
+      yield r'state';
+      yield serializers.serialize(
+        object.state,
+        specifiedType: const FullType(String),
+      );
+    }
+    if (object.leavesCount != null) {
+      yield r'leaves_count';
+      yield serializers.serialize(
+        object.leavesCount,
+        specifiedType: const FullType(int),
+      );
+    }
+    if (object.openedLeavesCount != null) {
+      yield r'opened_leaves_count';
+      yield serializers.serialize(
+        object.openedLeavesCount,
+        specifiedType: const FullType(int),
+      );
+    }
+    if (object.closedLeavesCount != null) {
+      yield r'closed_leaves_count';
+      yield serializers.serialize(
+        object.closedLeavesCount,
+        specifiedType: const FullType(int),
+      );
+    }
+    if (object.leftPeriod != null) {
+      yield r'left_period';
+      yield serializers.serialize(
+        object.leftPeriod,
+        specifiedType: const FullType(num),
+      );
+    }
+    if (object.elapsedPeriod != null) {
+      yield r'elapsed_period';
+      yield serializers.serialize(
+        object.elapsedPeriod,
+        specifiedType: const FullType(num),
+      );
+    }
+    if (object.etaPeriod != null) {
+      yield r'eta_period';
+      yield serializers.serialize(
+        object.etaPeriod,
+        specifiedType: const FullType(num),
+      );
+    }
+    if (object.riskPeriod != null) {
+      yield r'risk_period';
+      yield serializers.serialize(
+        object.riskPeriod,
+        specifiedType: const FullType(num),
+      );
+    }
+    if (object.isFuture != null) {
+      yield r'is_future';
+      yield serializers.serialize(
+        object.isFuture,
+        specifiedType: const FullType(bool),
+      );
+    }
+    if (object.etaDate != null) {
+      yield r'eta_date';
+      yield serializers.serialize(
+        object.etaDate,
+        specifiedType: const FullType(DateTime),
+      );
+    }
+    if (object.showSp != null) {
+      yield r'show_sp';
+      yield serializers.serialize(
+        object.showSp,
+        specifiedType: const FullType(bool),
+      );
+    }
+    if (object.targetVelocity != null) {
+      yield r'target_velocity';
+      yield serializers.serialize(
+        object.targetVelocity,
+        specifiedType: const FullType(num),
       );
     }
   }
@@ -428,13 +560,6 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
           ) as TaskSourceGet;
           result.taskSource.replace(valueDes);
           break;
-        case r'tasks':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BuiltList, [FullType(TaskGet)]),
-          ) as BuiltList<TaskGet>;
-          result.tasks.replace(valueDes);
-          break;
         case r'members':
           final valueDes = serializers.deserialize(
             value,
@@ -455,6 +580,97 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
             specifiedType: const FullType(BuiltList, [FullType(ProjectStatusGet)]),
           ) as BuiltList<ProjectStatusGet>;
           result.projectStatuses.replace(valueDes);
+          break;
+        case r'tasks':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [FullType(TaskGet)]),
+          ) as BuiltList<TaskGet>;
+          result.tasks.replace(valueDes);
+          break;
+        case r'state':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.state = valueDes;
+          break;
+        case r'leaves_count':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.leavesCount = valueDes;
+          break;
+        case r'opened_leaves_count':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.openedLeavesCount = valueDes;
+          break;
+        case r'closed_leaves_count':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.closedLeavesCount = valueDes;
+          break;
+        case r'left_period':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
+          result.leftPeriod = valueDes;
+          break;
+        case r'elapsed_period':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
+          result.elapsedPeriod = valueDes;
+          break;
+        case r'eta_period':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
+          result.etaPeriod = valueDes;
+          break;
+        case r'risk_period':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
+          result.riskPeriod = valueDes;
+          break;
+        case r'is_future':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.isFuture = valueDes;
+          break;
+        case r'eta_date':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.etaDate = valueDes;
+          break;
+        case r'show_sp':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.showSp = valueDes;
+          break;
+        case r'target_velocity':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
+          result.targetVelocity = valueDes;
           break;
         default:
           unhandled.add(key);

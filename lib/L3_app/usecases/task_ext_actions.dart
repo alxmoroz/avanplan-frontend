@@ -47,7 +47,7 @@ extension TaskActionsExt on Task {
   bool get canMembersRead => isProject;
   bool get canEditMembers => _hpMemberUpdate;
   bool get canSetStatus => statuses.isNotEmpty && canUpdate && isLeaf;
-  bool get canCloseGroup => canClose && state == TaskState.closable;
+  bool get canCloseGroup => canClose && state == TaskState.CLOSABLE;
   bool get canEstimate => canUpdate && ws.estimateValues.isNotEmpty && isLeaf;
   bool get canAssign => canUpdate && activeMembers.isNotEmpty;
   bool get canLocalExport => canUpdate && goalsForLocalExport.isNotEmpty;

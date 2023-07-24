@@ -48,9 +48,9 @@ abstract class _MainControllerBase with Store {
   @computed
   Iterable<Task> get _myOverdueTasks => _myDT.where((t) => t.hasOverdue);
   @computed
-  Iterable<Task> get _myTodayTasks => _myDT.where((t) => t.state == TaskState.today);
+  Iterable<Task> get _myTodayTasks => _myDT.where((t) => t.state == TaskState.TODAY);
   @computed
-  Iterable<Task> get _myThisWeekTasks => _myDT.where((t) => t.state == TaskState.thisWeek);
+  Iterable<Task> get _myThisWeekTasks => _myDT.where((t) => t.state == TaskState.THIS_WEEK);
   @computed
   int get _todayCount => _myOverdueTasks.length + _myTodayTasks.length;
   @computed

@@ -131,7 +131,7 @@ class DetailsPane extends StatelessWidget {
                 MTField(
                   controller.fData(TaskFCode.estimate.index),
                   leading: EstimateIcon(color: _task.canEstimate ? mainColor : lightGreyColor),
-                  value: _task.hasEstimate ? NormalText('${_task.sumEstimate} ${loc.task_estimate_unit}') : null,
+                  value: _task.hasEstimate ? NormalText('${_task.estimate} ${loc.task_estimate_unit}') : null,
                   onSelect: _task.canEstimate ? controller.selectEstimate : null,
                 ),
               ],

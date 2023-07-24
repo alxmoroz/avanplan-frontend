@@ -77,7 +77,7 @@ class OverviewPane extends StatelessWidget {
       ]);
 
   Widget get _rItemAddTask => _checkRecommendsItem(
-        _task.overallState != TaskState.noSubtasks,
+        _task.overallState != TaskState.NO_SUBTASKS,
         '${loc.recommendation_add_tasks_title} ${_task.listTitle.toLowerCase()}',
       );
 

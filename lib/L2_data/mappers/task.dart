@@ -40,6 +40,14 @@ extension TaskMapper on api.TaskGet {
       taskSource: ts,
       parent: parent,
       ws: ws,
+      state: state ?? '',
+      elapsedPeriod: Duration(seconds: elapsedPeriod?.toInt() ?? 0),
+      etaPeriod: Duration(seconds: etaPeriod?.toInt() ?? 0),
+      riskPeriod: Duration(seconds: riskPeriod?.toInt() ?? 0),
+      isFuture: isFuture ?? false,
+      etaDate: etaDate?.toLocal(),
+      showSP: showSp ?? false,
+      targetVelocity: targetVelocity?.toDouble(),
     );
     _t.tasks = tasks?.map((t) => t.task(ws: ws, parent: _t)).toList() ?? [];
     return _t;

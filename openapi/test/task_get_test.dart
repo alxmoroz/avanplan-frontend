@@ -97,11 +97,6 @@ void main() {
       // TODO
     });
 
-    // BuiltList<TaskGet> tasks
-    test('to test the property `tasks`', () async {
-      // TODO
-    });
-
     // BuiltList<MemberGet> members
     test('to test the property `members`', () async {
       // TODO
@@ -114,6 +109,71 @@ void main() {
 
     // BuiltList<ProjectStatusGet> projectStatuses
     test('to test the property `projectStatuses`', () async {
+      // TODO
+    });
+
+    // BuiltList<TaskGet> tasks
+    test('to test the property `tasks`', () async {
+      // TODO
+    });
+
+    // String state
+    test('to test the property `state`', () async {
+      // TODO
+    });
+
+    // int leavesCount
+    test('to test the property `leavesCount`', () async {
+      // TODO
+    });
+
+    // int openedLeavesCount
+    test('to test the property `openedLeavesCount`', () async {
+      // TODO
+    });
+
+    // int closedLeavesCount
+    test('to test the property `closedLeavesCount`', () async {
+      // TODO
+    });
+
+    // num leftPeriod
+    test('to test the property `leftPeriod`', () async {
+      // TODO
+    });
+
+    // num elapsedPeriod
+    test('to test the property `elapsedPeriod`', () async {
+      // TODO
+    });
+
+    // num etaPeriod
+    test('to test the property `etaPeriod`', () async {
+      // TODO
+    });
+
+    // num riskPeriod
+    test('to test the property `riskPeriod`', () async {
+      // TODO
+    });
+
+    // bool isFuture
+    test('to test the property `isFuture`', () async {
+      // TODO
+    });
+
+    // DateTime etaDate
+    test('to test the property `etaDate`', () async {
+      // TODO
+    });
+
+    // bool showSp
+    test('to test the property `showSp`', () async {
+      // TODO
+    });
+
+    // num targetVelocity
+    test('to test the property `targetVelocity`', () async {
       // TODO
     });
   });

@@ -486,18 +486,22 @@ abstract class _TaskViewControllerBase extends EditController with Store {
       loader.start();
       loader.setSaving();
       final newTask = await taskUC.save(
-          ws,
-          Task(
-            title: task.newSubtaskTitle,
-            statusId: (task.isRoot || task.isProject) ? null : task.statuses.firstOrNull?.id,
-            closed: false,
-            parent: task,
-            tasks: [],
-            members: [],
-            notes: [],
-            projectStatuses: [],
-            ws: ws,
-          ));
+        ws,
+        Task(
+          title: task.newSubtaskTitle,
+          statusId: (task.isRoot || task.isProject) ? null : task.statuses.firstOrNull?.id,
+          closed: false,
+          parent: task,
+          tasks: [],
+          members: [],
+          notes: [],
+          projectStatuses: [],
+          ws: ws,
+          state: '',
+          startDate: null,
+          elapsedPeriod: const Duration(seconds: 0),
+        ),
+      );
       loader.stop();
       if (newTask != null) {
         task.tasks.add(newTask);

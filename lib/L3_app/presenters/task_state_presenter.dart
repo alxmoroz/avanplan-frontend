@@ -14,34 +14,35 @@ import '../extra/services.dart';
 import '../presenters/duration_presenter.dart';
 import '../presenters/task_level_presenter.dart';
 
-Color stateColor(TaskState state) {
+Color stateColor(String state) {
   switch (state) {
-    case TaskState.overdue:
+    case TaskState.OVERDUE:
       return dangerColor;
-    case TaskState.risk:
-    case TaskState.today:
+    case TaskState.RISK:
+    case TaskState.TODAY:
       return warningColor;
-    case TaskState.closable:
-    case TaskState.ok:
-    case TaskState.thisWeek:
+    case TaskState.CLOSABLE:
+    case TaskState.OK:
+    case TaskState.THIS_WEEK:
       return greenColor;
     default:
       return lightGreyColor;
   }
 }
 
-Widget imageForState(TaskState state, {double? size}) {
+Widget imageForState(String state, {double? size}) {
   String name = ImageNames.noInfo;
   switch (state) {
-    case TaskState.overdue:
+    case TaskState.OVERDUE:
       name = ImageNames.overdue;
       break;
-    case TaskState.risk:
+    case TaskState.RISK:
       name = ImageNames.risk;
       break;
-    case TaskState.closable:
-    case TaskState.ok:
-    case TaskState.closed:
+    case TaskState.CLOSABLE:
+    case TaskState.OK:
+    case TaskState.AHEAD:
+    case TaskState.CLOSED:
       name = ImageNames.ok;
       break;
     default:
@@ -49,7 +50,7 @@ Widget imageForState(TaskState state, {double? size}) {
   return MTImage(name, size: size);
 }
 
-LinearGradient stateGradient(TaskState state) {
+LinearGradient stateGradient(String state) {
   final color = stateColor(state).resolve(rootKey.currentContext!);
   return LinearGradient(
     begin: Alignment.centerLeft,
@@ -59,7 +60,7 @@ LinearGradient stateGradient(TaskState state) {
   );
 }
 
-Widget stateIconGroup(TaskState state) => SizedBox(
+Widget stateIconGroup(String state) => SizedBox(
       height: P2,
       width: P,
       child: Stack(
@@ -91,27 +92,29 @@ extension TaskStatePresenter on Task {
 
   String get stateTitle {
     switch (state) {
-      case TaskState.overdue:
+      case TaskState.OVERDUE:
         return '${loc.state_overdue_title}${etaPeriod != null ? '. $_etaDetails' : ''}';
-      case TaskState.risk:
+      case TaskState.RISK:
         return '${loc.state_risk_duration(riskPeriod!.localizedString)}';
-      case TaskState.ok:
-        return isAhead ? loc.state_ahead_duration((-riskPeriod!).localizedString) : loc.state_on_time_title;
-      case TaskState.eta:
+      case TaskState.OK:
+        return loc.state_on_time_title;
+      case TaskState.AHEAD:
+        return loc.state_ahead_duration((-riskPeriod!).localizedString);
+      case TaskState.ETA:
         return _etaDetails;
-      case TaskState.closable:
+      case TaskState.CLOSABLE:
         return loc.state_closable_title;
-      case TaskState.noSubtasks:
+      case TaskState.NO_SUBTASKS:
         return subtasksCount(0);
-      case TaskState.noProgress:
+      case TaskState.NO_PROGRESS:
         return loc.state_no_progress_details;
-      case TaskState.futureStart:
+      case TaskState.FUTURE_START:
         return loc.state_future_start_duration(beforeStartPeriod.localizedString);
-      case TaskState.opened:
+      case TaskState.OPENED:
         return loc.state_opened;
-      case TaskState.noInfo:
+      case TaskState.NO_INFO:
         return projectLowStart ? loc.state_low_start_duration(lowStartThreshold.localizedString) : loc.state_no_info_title;
-      case TaskState.closed:
+      case TaskState.CLOSED:
         return loc.state_closed;
       default:
         return loc.state_no_info_title;
@@ -120,13 +123,13 @@ extension TaskStatePresenter on Task {
 
   String get subtasksStateTitle {
     switch (subtasksState) {
-      case TaskState.overdue:
+      case TaskState.OVERDUE:
         return '${loc.state_overdue_title}${_subjects(overdueSubtasks.length)}';
-      case TaskState.risk:
+      case TaskState.RISK:
         return '${loc.state_risk_title}${_subjects(riskySubtasks.length)}';
-      case TaskState.ok:
+      case TaskState.OK:
         return '${loc.state_on_time_title}${_subjects(okSubtasks.length)}';
-      case TaskState.eta:
+      case TaskState.ETA:
         return _etaDetails;
       default:
         return '${loc.state_no_info_title}${_subjects(openedSubtasks.length)}';
@@ -138,33 +141,52 @@ extension TaskStatePresenter on Task {
     final subSt = subtasksState;
     final stTitle = stateTitle;
 
-    return ![TaskState.noInfo, TaskState.eta].contains(st)
+    return ![TaskState.NO_INFO, TaskState.ETA].contains(st)
         ? stTitle
-        : subSt != TaskState.noInfo
+        : subSt != TaskState.NO_INFO
             ? subtasksStateTitle
             : stTitle;
   }
 
-  String groupStateTitle(TaskState groupState) {
-    return switch (groupState) {
-      TaskState.overdue => loc.state_overdue_title,
-      TaskState.risk => loc.state_risk_title,
-      TaskState.ok => loc.state_ok_title,
-      TaskState.eta => loc.state_eta_title,
-      TaskState.closable => loc.state_closable_title,
-      TaskState.noSubtasks => grandchildrenCount(0),
-      TaskState.noProgress => loc.state_no_progress_details,
-      TaskState.closed => loc.state_closed,
-      TaskState.futureStart => loc.state_future_title,
-      TaskState.opened => loc.state_opened,
-      TaskState.noInfo => loc.state_no_info_title,
-      TaskState.today => loc.my_tasks_today_title,
-      TaskState.thisWeek => loc.my_tasks_this_week_title,
-      TaskState.futureDue => loc.my_tasks_future_title,
-      TaskState.noDue => loc.my_tasks_no_due_title,
-    };
+  String groupStateTitle(String groupState) {
+    switch (groupState) {
+      case TaskState.OVERDUE:
+        return loc.state_overdue_title;
+      case TaskState.RISK:
+        return loc.state_risk_title;
+      case TaskState.OK:
+        return loc.state_ok_title;
+      case TaskState.AHEAD:
+        return loc.state_ok_title;
+      case TaskState.ETA:
+        return loc.state_eta_title;
+      case TaskState.CLOSABLE:
+        return loc.state_closable_title;
+      case TaskState.NO_SUBTASKS:
+        return grandchildrenCount(0);
+      case TaskState.NO_PROGRESS:
+        return loc.state_no_progress_details;
+      case TaskState.CLOSED:
+        return loc.state_closed;
+      case TaskState.FUTURE_START:
+        return loc.state_future_title;
+      case TaskState.OPENED:
+        return loc.state_opened;
+      case TaskState.NO_INFO:
+        return loc.state_no_info_title;
+      case TaskState.TODAY:
+        return loc.my_tasks_today_title;
+      case TaskState.THIS_WEEK:
+        return loc.my_tasks_this_week_title;
+      case TaskState.FUTURE_DUE:
+        return loc.my_tasks_future_title;
+      case TaskState.NO_DUE:
+        return loc.my_tasks_no_due_title;
+      default:
+        return '';
+    }
   }
 
   bool get canShowState => !closed && !isLeaf;
-  bool get canShowRecommendsEta => !isRoot && [TaskState.noSubtasks, TaskState.noProgress].contains(overallState);
+  bool get canShowRecommendsEta => !isRoot && [TaskState.NO_SUBTASKS, TaskState.NO_PROGRESS].contains(overallState);
 }

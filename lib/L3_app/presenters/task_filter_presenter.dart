@@ -14,24 +14,24 @@ extension TaskFilterPresenter on Task {
 
   List<Task> leavesForStatus(int statusId) => sortedLeaves.where((t) => t.statusId == statusId).toList();
 
-  List<MapEntry<TaskState, List<Task>>> get subtaskGroups {
-    final gt = groupBy<Task, TaskState>(sortedSubtasks, (t) => t.overallState);
-    return gt.entries.sorted((g1, g2) => g1.key.index.compareTo(g2.key.index));
+  List<MapEntry<String, List<Task>>> get subtaskGroups {
+    final gt = groupBy<Task, String>(sortedSubtasks, (t) => t.overallState);
+    return gt.entries.sorted((g1, g2) => g1.key.compareTo(g2.key));
   }
 
   List<Task> get attentionalTasks => subtaskGroups.isNotEmpty &&
           (isRoot ||
               [
-                TaskState.overdue,
-                TaskState.risk,
-                TaskState.ok,
+                TaskState.OVERDUE,
+                TaskState.RISK,
+                TaskState.OK,
               ].contains(subtaskGroups.first.key))
       ? subtaskGroups.first.value
       : [];
 
   List<Task> get myTasks => openedAssignedLeaves.where((t) => t.assignee!.userId == accountController.user!.id).sorted(sortByDateAsc);
-  List<MapEntry<TaskState, List<Task>>> get myTasksGroups {
-    final gt = groupBy<Task, TaskState>(myTasks, (t) => t.state);
-    return gt.entries.sorted((g1, g2) => g1.key.index.compareTo(g2.key.index));
+  List<MapEntry<String, List<Task>>> get myTasksGroups {
+    final gt = groupBy<Task, String>(myTasks, (t) => t.state);
+    return gt.entries.sorted((g1, g2) => g1.key.compareTo(g2.key));
   }
 }

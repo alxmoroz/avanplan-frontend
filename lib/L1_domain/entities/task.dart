@@ -9,22 +9,23 @@ import 'workspace.dart';
 
 enum TaskLevel { root, project, goal, task, subtask }
 
-enum TaskState {
-  overdue,
-  risk,
-  ok,
-  closable,
-  futureStart,
-  eta,
-  noSubtasks,
-  noProgress,
-  today,
-  thisWeek,
-  futureDue,
-  noDue,
-  noInfo,
-  opened,
-  closed,
+class TaskState {
+  static const String OVERDUE = 'OVERDUE';
+  static const String RISK = 'RISK';
+  static const String OK = 'OK';
+  static const String AHEAD = 'AHEAD';
+  static const String CLOSABLE = 'CLOSABLE';
+  static const String FUTURE_START = 'FUTURE_START';
+  static const String ETA = 'ETA';
+  static const String NO_SUBTASKS = 'NO_SUBTASKS';
+  static const String NO_PROGRESS = 'NO_PROGRESS';
+  static const String TODAY = 'TODAY';
+  static const String THIS_WEEK = 'THIS_WEEK';
+  static const String FUTURE_DUE = 'FUTURE_DUE';
+  static const String NO_DUE = 'NO_DUE';
+  static const String NO_INFO = 'NO_INFO';
+  static const String OPENED = 'OPENED';
+  static const String CLOSED = 'CLOSED';
 }
 
 class Task extends Titleable {
@@ -39,10 +40,11 @@ class Task extends Titleable {
     required this.members,
     required this.projectStatuses,
     required this.ws,
+    required this.state,
+    required this.startDate,
     this.createdOn,
     this.updatedOn,
     this.dueDate,
-    this.startDate,
     this.closedDate,
     this.statusId,
     this.authorId,
@@ -50,6 +52,13 @@ class Task extends Titleable {
     this.taskSource,
     this.type,
     this.estimate,
+    required this.elapsedPeriod,
+    this.etaPeriod,
+    this.riskPeriod,
+    this.isFuture = false,
+    this.etaDate,
+    this.showSP = false,
+    this.targetVelocity,
   });
 
   Task? parent;
@@ -86,15 +95,16 @@ class Task extends Titleable {
   Iterable<Task> leaves = [];
   Iterable<Task> openedLeaves = [];
   Iterable<Task> openedAssignedLeaves = [];
-  Iterable<Task> closedLeaves = [];
+  // Iterable<Task> closedLeaves;
+  int closedLeavesCount;
   Iterable<Task> overdueSubtasks = [];
   Iterable<Task> riskySubtasks = [];
   Iterable<Task> okSubtasks = [];
   Iterable<Task> etaSubtasks = [];
 
   late Duration beforeStartPeriod;
-  bool isFuture = false;
-  late Duration elapsedPeriod;
+  bool isFuture;
+  Duration elapsedPeriod;
   bool? isLowStart;
   Duration? etaPeriod;
   DateTime? etaDate;
@@ -110,11 +120,24 @@ class Task extends Titleable {
 
   double? planVolume;
 
-  late TaskState state;
-  late TaskState subtasksState;
-  late TaskState overallState;
+  final String state;
+  late String subtasksState;
+  late String overallState;
 
-  static Task get dummy => Task(title: '', closed: false, parent: null, tasks: [], members: [], notes: [], projectStatuses: [], ws: Workspace.dummy);
+  static Task get dummy => Task(
+      title: '',
+      closed: false,
+      parent: null,
+      tasks: [],
+      members: [],
+      notes: [],
+      projectStatuses: [],
+      ws: Workspace.dummy,
+      state: '',
+      showSP: false,
+      startDate: null,
+      elapsedPeriod: const Duration(seconds: 0),
+      isFuture: false);
 }
 
 class TaskRemote {

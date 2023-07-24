@@ -11,7 +11,7 @@ enum StateTitlePlace { taskOverview, groupHeader, card }
 
 class _StateTitle extends StatelessWidget {
   const _StateTitle(this.state, this.text, {this.place});
-  final TaskState state;
+  final String state;
   final String text;
   final StateTitlePlace? place;
 
@@ -40,7 +40,7 @@ class _StateTitle extends StatelessWidget {
 class GroupStateTitle extends StatelessWidget {
   const GroupStateTitle(this.task, this.groupState, {this.place});
   final Task task;
-  final TaskState groupState;
+  final String groupState;
   final StateTitlePlace? place;
 
   @override

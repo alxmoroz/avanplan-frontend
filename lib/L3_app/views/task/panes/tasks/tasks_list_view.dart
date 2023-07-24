@@ -21,10 +21,10 @@ class TasksListView extends StatelessWidget {
   final TaskViewController controller;
 
   Task get _task => controller.task;
-  List<MapEntry<TaskState, List<Task>>> get _groups => controller.isMyTasks ? _task.myTasksGroups : _task.subtaskGroups;
+  List<MapEntry<String, List<Task>>> get _groups => controller.isMyTasks ? _task.myTasksGroups : _task.subtaskGroups;
   bool get _showGroupTitles => _groups.length > 1;
 
-  Widget _groupedItemBuilder(Task parent, List<MapEntry<TaskState, List<Task>>> groups, int groupIndex) {
+  Widget _groupedItemBuilder(Task parent, List<MapEntry<String, List<Task>>> groups, int groupIndex) {
     final group = groups[groupIndex];
     final tasks = group.value;
     final state = group.key;

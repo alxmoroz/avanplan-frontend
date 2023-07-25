@@ -198,7 +198,7 @@ class ImportIcon extends MTIcon {
   const ImportIcon({super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
-        CupertinoIcons.arrow_down_to_line,
+        CupertinoIcons.cloud_download,
         color: (color ?? mainColor).resolve(context),
         size: size ?? P2,
       );

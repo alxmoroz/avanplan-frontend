@@ -81,6 +81,12 @@ class DetailsPane extends StatelessWidget {
                           constrained: false,
                           padding: const EdgeInsets.symmetric(horizontal: P2),
                           margin: const EdgeInsets.only(right: P2),
+                          trailing: _task.canSetStatus
+                              ? const Padding(
+                                  padding: EdgeInsets.only(left: P_3, top: P_6),
+                                  child: CaretIcon(size: Size(P * 0.8, P * 0.75), color: darkBackgroundColor),
+                                )
+                              : null,
                           onTap: _task.canSetStatus ? controller.selectStatus : null,
                         ),
                       if (_closable)

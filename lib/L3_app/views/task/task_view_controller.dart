@@ -398,7 +398,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
 
   Future selectEstimate() async {
     final selectedEstimateId = await showMTSelectDialog<EstimateValue>(
-      ws.estimateValues,
+      ws.estimateValues.sortedBy<num>((e) => e.value),
       ws.estimateValueForValue(task.estimate)?.id,
       loc.task_estimate_placeholder,
       onReset: _resetEstimate,

@@ -29,12 +29,7 @@ class MainView extends StatefulWidget {
 class _MainViewState extends State<MainView> with WidgetsBindingObserver {
   Task get rootTask => mainController.rootTask;
 
-  void _startupActions() => WidgetsBinding.instance.addPostFrameCallback((_) async {
-        await mainController.startupActions();
-        if (loader.loading && loader.actionWidget == null) {
-          await loader.stop();
-        }
-      });
+  void _startupActions() => WidgetsBinding.instance.addPostFrameCallback((_) async => await mainController.startupActions());
 
   @override
   void initState() {

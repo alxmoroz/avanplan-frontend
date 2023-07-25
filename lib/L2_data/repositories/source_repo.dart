@@ -1,6 +1,5 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:dio/dio.dart';
 import 'package:openapi/openapi.dart';
 
 import '../../L1_domain/entities/source.dart';
@@ -39,16 +38,8 @@ class SourceRepo extends AbstractSourceRepo {
 
   @override
   Future<bool> checkConnection(Workspace ws, Source s) async {
-    bool res = false;
-    try {
-      final response = await api.sourcesCheckConnection(sourceId: s.id!, wsId: ws.id!);
-      res = response.data == true;
-    } on DioException catch (e) {
-      if (!['ERR_IMPORT_CONNECTION'].contains(e.errCode)) {
-        print(e);
-      }
-    }
-    return res;
+    final response = await api.sourcesCheckConnection(sourceId: s.id!, wsId: ws.id!);
+    return response.data == true;
   }
 
   @override

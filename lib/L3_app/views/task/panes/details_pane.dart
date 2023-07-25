@@ -153,7 +153,7 @@ class DetailsPane extends StatelessWidget {
                     color: lightGreyColor,
                     padding: const EdgeInsets.symmetric(vertical: P_2),
                   ),
-                  leading: const NoteIcon(),
+                  leading: const NoteAddIcon(),
                   onSelect: controller.addNote,
                 ),
               ],

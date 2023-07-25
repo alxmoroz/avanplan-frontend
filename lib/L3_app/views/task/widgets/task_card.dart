@@ -18,6 +18,7 @@ import '../../../extra/services.dart';
 import '../../../presenters/date_presenter.dart';
 import '../../../presenters/person_presenter.dart';
 import '../../../presenters/task_level_presenter.dart';
+import '../../../presenters/task_note_presenter.dart';
 import '../../../presenters/task_state_presenter.dart';
 import '../../../usecases/task_ext_actions.dart';
 import '../task_view_controller.dart';
@@ -75,6 +76,17 @@ class TaskCard extends StatelessWidget {
   bool get _showAssignee => task.hasAssignee && !isMine;
   Widget get _assignee => task.assignee!.icon(P * (board ? 1 : 1.35));
 
+  bool get _showNotesMark => !task.closed && task.notes.isNotEmpty;
+  Widget get _notesMark => Row(
+        children: [
+          if (task.notes.length > 1) SmallText('${task.notes.length} ', color: greyColor),
+          NoteMarkIcon(
+            mine: task.notes.any((n) => n.isMine(task)),
+            theirs: task.notes.any((n) => !n.isMine(task)),
+          ),
+        ],
+      );
+
   bool get _showEstimate => task.hasEstimate && !task.closed;
   Widget get _estimate => SmallText('${task.sumEstimate} ${loc.task_estimate_unit}', color: _textColor);
 
@@ -94,7 +106,8 @@ class TaskCard extends StatelessWidget {
             const SizedBox(height: P_6),
             Row(children: [
               if (task.canShowState) Expanded(child: TaskStateTitle(task)),
-              if (task.isLinkedProject) const LinkIcon(color: lightGreyColor),
+              if (_showNotesMark) ...[_notesMark],
+              if (task.isLinkedProject) ...[if (_showNotesMark) _divider, const LinkIcon(color: lightGreyColor)]
             ]),
             // не проекты, не цели и не группы задач
           ] else if (!task.canShowState) ...[
@@ -104,7 +117,8 @@ class TaskCard extends StatelessWidget {
                 children: [
                   if (_showDate) _date,
                   const Spacer(),
-                  if (_showEstimate) ...[_estimate],
+                  if (_showNotesMark) ...[_notesMark],
+                  if (_showEstimate) ...[if (_showNotesMark) _divider, _estimate],
                   if (_showStatus) ...[if (_showEstimate) _divider, _status],
                   if (_showAssignee) ...[const SizedBox(width: P_2), _assignee],
                 ],

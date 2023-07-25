@@ -101,7 +101,7 @@ class WorkspaceView extends StatelessWidget {
           trailing: ws.hpInfoUpdate
               ? MTButton.icon(
                   const EditIcon(),
-                  () => editWSDialog(ws),
+                  onTap: () => editWSDialog(ws),
                   margin: const EdgeInsets.only(right: P),
                 )
               : null),

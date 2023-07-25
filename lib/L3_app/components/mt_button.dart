@@ -7,7 +7,6 @@ import 'colors.dart';
 import 'constants.dart';
 import 'icons.dart';
 import 'mt_adaptive.dart';
-import 'mt_card.dart';
 import 'text_widgets.dart';
 
 enum ButtonType { text, main, secondary, icon, card }
@@ -25,6 +24,7 @@ class MTButton extends StatelessWidget {
     this.padding,
     this.margin,
     this.constrained = false,
+    this.elevation,
     this.type = ButtonType.text,
   });
 
@@ -40,6 +40,7 @@ class MTButton extends StatelessWidget {
     this.constrained = true,
     this.padding,
     this.margin,
+    this.elevation,
   }) : type = ButtonType.main;
 
   const MTButton.secondary({
@@ -54,9 +55,10 @@ class MTButton extends StatelessWidget {
     this.constrained = true,
     this.padding,
     this.margin,
+    this.elevation,
   }) : type = ButtonType.secondary;
 
-  const MTButton.icon(Widget icon, this.onTap, {this.margin, this.padding, this.color, this.onLongPress})
+  const MTButton.icon(Widget icon, {this.margin, this.padding, this.color, this.elevation, this.onTap, this.onLongPress})
       : type = ButtonType.icon,
         middle = icon,
         titleText = null,
@@ -77,11 +79,14 @@ class MTButton extends StatelessWidget {
   final EdgeInsets? padding;
   final EdgeInsets? margin;
   final bool constrained;
+  final double? elevation;
 
-  Color get _titleColor => onTap != null ? (titleColor ?? (type == ButtonType.main ? lightBackgroundColor : mainColor)) : greyTextColor;
+  bool get _enabled => onTap != null || onLongPress != null;
+  bool get _isCard => type == ButtonType.card;
+  Color get _titleColor => _enabled || _isCard ? (titleColor ?? (type == ButtonType.main ? lightBackgroundColor : mainColor)) : greyTextColor;
 
   ButtonStyle _style(BuildContext context) {
-    final _btnColor = (onTap != null ? (color ?? (type == ButtonType.main ? mainColor : lightBackgroundColor)) : borderColor).resolve(context);
+    final _btnColor = (_enabled || _isCard ? (color ?? (type == ButtonType.main ? mainColor : lightBackgroundColor)) : borderColor).resolve(context);
 
     return ElevatedButton.styleFrom(
       padding: padding ?? EdgeInsets.zero,
@@ -94,7 +99,7 @@ class MTButton extends StatelessWidget {
       side: type == ButtonType.secondary ? BorderSide(color: _titleColor.resolve(context), width: 1) : BorderSide.none,
       splashFactory: NoSplash.splashFactory,
       visualDensity: VisualDensity.standard,
-      shadowColor: (type == ButtonType.secondary ? _titleColor : _btnColor).resolve(context),
+      shadowColor: (type == ButtonType.main ? _titleColor : _btnColor).resolve(context),
       elevation: buttonElevation,
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
     );
@@ -151,7 +156,15 @@ class MTPlusButton extends StatelessWidget {
 }
 
 class MTCardButton extends StatelessWidget {
-  const MTCardButton({required this.child, this.margin, this.onTap, this.onLongPress, this.elevation, this.radius, this.padding, this.color});
+  const MTCardButton({
+    required this.child,
+    this.margin,
+    this.onTap,
+    this.onLongPress,
+    this.elevation,
+    this.radius,
+    this.padding,
+  });
 
   final Widget child;
   final EdgeInsets? margin;
@@ -160,25 +173,18 @@ class MTCardButton extends StatelessWidget {
   final VoidCallback? onLongPress;
   final double? elevation;
   final double? radius;
-  final Color? color;
 
   @override
   Widget build(BuildContext context) {
     return MTButton(
+      elevation: elevation,
       type: ButtonType.card,
+      middle: Expanded(child: child),
       constrained: false,
       margin: margin ?? EdgeInsets.zero,
+      padding: padding ?? const EdgeInsets.all(P),
       onTap: onTap,
       onLongPress: onLongPress,
-      middle: Expanded(
-        child: MTCard(
-          child: child,
-          elevation: elevation,
-          radius: radius,
-          padding: padding ?? const EdgeInsets.all(P),
-          color: color,
-        ),
-      ),
     );
   }
 }

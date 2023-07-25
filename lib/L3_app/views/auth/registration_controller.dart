@@ -37,7 +37,7 @@ abstract class _RegistrationControllerBase extends EditController with Store {
       error: fd.errorText,
       obscureText: isPassword && _showPassword == false,
       keyboardType: isEmail ? TextInputType.emailAddress : null,
-      suffixIcon: isPassword ? MTButton.icon(EyeIcon(open: !_showPassword), _toggleShowPassword) : null,
+      suffixIcon: isPassword ? MTButton.icon(EyeIcon(open: !_showPassword), onTap: _toggleShowPassword) : null,
       maxLines: 1,
       capitalization: TextCapitalization.none,
       margin: tfPadding.copyWith(top: first ? P_2 : tfPadding.top),

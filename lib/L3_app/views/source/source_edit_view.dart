@@ -136,7 +136,7 @@ class _SourceEditViewState extends State<SourceEditView> {
           trailing: controller.canEdit
               ? MTButton.icon(
                   const DeleteIcon(),
-                  () => controller.delete(context),
+                  onTap: () => controller.delete(context),
                   margin: const EdgeInsets.only(right: P),
                 )
               : null,

@@ -10,7 +10,7 @@ class MTCloseDialogButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MTButton.icon(
         const CloseIcon(),
-        () => Navigator.of(context).pop(),
+        onTap: () => Navigator.of(context).pop(),
         padding: const EdgeInsets.all(P),
       );
 }

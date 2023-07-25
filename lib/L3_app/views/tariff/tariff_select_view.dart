@@ -121,13 +121,13 @@ class TariffSelectView extends StatelessWidget {
                   MTButton.icon(
                     const ChevronCircleIcon(left: true),
                     margin: const EdgeInsets.all(P),
-                    () => controller.previousPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut),
+                    onTap: () => controller.previousPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut),
                   ),
                   const Spacer(),
                   MTButton.icon(
                     const ChevronCircleIcon(left: false),
                     margin: const EdgeInsets.all(P),
-                    () => controller.nextPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut),
+                    onTap: () => controller.nextPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut),
                   ),
                 ],
               ),

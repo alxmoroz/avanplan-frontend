@@ -80,7 +80,7 @@ class TaskCard extends StatelessWidget {
   bool get _showNotesMark => !task.closed && task.notes.isNotEmpty;
   Widget get _notesMark => Row(
         children: [
-          if (task.notes.length > 1) SmallText('${task.notes.length} ', color: greyColor),
+          SmallText('${task.notes.length} ', color: greyColor),
           NoteMarkIcon(
             mine: task.notes.any((n) => n.isMine(task)),
             theirs: task.notes.any((n) => !n.isMine(task)),
@@ -112,7 +112,7 @@ class TaskCard extends StatelessWidget {
             ]),
             // не проекты, не цели и не группы задач
           ] else if (!task.canShowState) ...[
-            if (_showDate || _showStatus || _showAssignee || task.hasEstimate) ...[
+            if (_showDate || _showNotesMark || _showStatus || _showAssignee || task.hasEstimate) ...[
               const SizedBox(height: P_6),
               Row(
                 children: [
@@ -120,7 +120,7 @@ class TaskCard extends StatelessWidget {
                   const Spacer(),
                   if (_showNotesMark) ...[_notesMark],
                   if (_showEstimate) ...[if (_showNotesMark) _divider, _estimate],
-                  if (_showStatus) ...[if (_showEstimate) _divider, _status],
+                  if (_showStatus) ...[if (_showNotesMark || _showEstimate) _divider, _status],
                   if (_showAssignee) ...[const SizedBox(width: P_2), _assignee],
                 ],
               ),

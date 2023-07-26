@@ -23,6 +23,7 @@ import '../../../extra/services.dart';
 import '../../../presenters/date_presenter.dart';
 import '../../../presenters/person_presenter.dart';
 import '../../../presenters/source_presenter.dart';
+import '../../../presenters/ws_presenter.dart';
 import '../../../usecases/task_ext_actions.dart';
 import '../task_view_controller.dart';
 import '../widgets/notes/task_notes.dart';
@@ -137,7 +138,7 @@ class DetailsPane extends StatelessWidget {
                 MTField(
                   controller.fData(TaskFCode.estimate.index),
                   leading: EstimateIcon(color: _task.canEstimate ? mainColor : lightGreyColor),
-                  value: _task.hasEstimate ? NormalText('${_task.sumEstimate} ${loc.task_estimate_unit}') : null,
+                  value: _task.hasEstimate ? NormalText('${_task.sumEstimate} ${_task.ws.estimateUnitCode}') : null,
                   onSelect: _task.canEstimate ? controller.selectEstimate : null,
                 ),
               ],

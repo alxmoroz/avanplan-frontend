@@ -54,8 +54,7 @@
   "chart_velocity_project_label": "Current",
   "chart_velocity_target_label": "Expected",
   "chart_velocity_title": "Velocity",
-  "chart_velocity_unit_sp_mo": "sp / month",
-  "chart_velocity_unit_t_mo": "tasks / month",
+  "chart_velocity_unit_mo": "{unit} / month",
 
   "chart_volume_plan_label": "Expected closed",
   "chart_volume_title": "Scope of work",
@@ -295,27 +294,34 @@
   "task_delete_dialog_description": "All subtasks will be deleted",
   "task_due_date_label": "Deadline",
   "task_due_date_placeholder": "Deadline date",
+
   "task_estimate_group_label": "Overall estimation for subtasks",
   "task_estimate_label": "Estimation",
   "task_estimate_placeholder": "Estimate",
-  "task_estimate_unit": "sp",
   "task_eta_date_label": "Predicted",
+
   "task_go2source_title": "Go to source",
+
   "task_filter_all": "All",
   "task_filter_opened": "Opened",
+
   "task_list_empty_hint": "Assign yourself tasks from projects or add new ones",
   "task_list_empty_title": "Taking a break from tasks",
   "task_list_title": "Tasks",
-  "task_new_title": "New task",
 
+  "task_new_title": "New task",
   "task_note_placeholder": "Leave a comment",
   "task_note_title": "Comment",
 
+  "task_plural": "{count, plural, one{task} other{tasks}}",
   "task_plural_genitive": "{count, plural, one{task} other{tasks}}",
+
   "task_reopen_action_title": "Reopen",
+
   "task_start_date_label": "Start",
   "task_start_date_placeholder": "Start date",
   "task_status_placeholder": "Select Status",
+
   "task_title": "Task",
 
   "task_transfer_destination_label": "To:",

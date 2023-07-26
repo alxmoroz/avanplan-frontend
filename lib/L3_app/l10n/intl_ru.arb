@@ -54,8 +54,7 @@
   "chart_velocity_project_label": "Текущая",
   "chart_velocity_target_label": "Ожидаемая",
   "chart_velocity_title": "Скорость",
-  "chart_velocity_unit_sp_mo": "sp / месяц",
-  "chart_velocity_unit_t_mo": "задач / месяц",
+  "chart_velocity_unit_mo": "{unit} / месяц",
 
   "chart_volume_plan_label": "Должно быть выполнено",
   "chart_volume_title": "Объём",
@@ -295,27 +294,34 @@
   "task_delete_dialog_description": "Все подзадачи также будут удалены",
   "task_due_date_label": "Срок",
   "task_due_date_placeholder": "Срок завершения",
+
   "task_estimate_group_label": "Общая оценка по подзадачам",
   "task_estimate_label": "Оценка",
   "task_estimate_placeholder": "Выбрать оценку",
-  "task_estimate_unit": "sp",
   "task_eta_date_label": "Прогноз",
+
   "task_go2source_title": "Перейти к источнику",
+
   "task_filter_all": "Все",
   "task_filter_opened": "Открытые",
+
   "task_list_empty_hint": "Назначьте себе задачи из проектов или добавьте новые",
   "task_list_empty_title": "Отдыхаем от задач",
   "task_list_title": "Задачи",
-  "task_new_title": "Новая задача",
 
+  "task_new_title": "Новая задача",
   "task_note_placeholder": "Оставить комментарий",
   "task_note_title": "Комментарий",
 
-  "task_reopen_action_title": "Переоткрыть",
+  "task_plural": "{count, plural, one{задача} few{задачи} other{задач}}",
   "task_plural_genitive": "{count, plural, one{задачи} other{задач}}",
+
+  "task_reopen_action_title": "Переоткрыть",
+
   "task_start_date_label": "Начало",
   "task_start_date_placeholder": "Дата начала",
   "task_status_placeholder": "Выберите статус",
+
   "task_title": "Задача",
 
   "task_transfer_destination_label": "Куда:",

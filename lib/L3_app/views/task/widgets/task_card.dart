@@ -20,6 +20,7 @@ import '../../../presenters/person_presenter.dart';
 import '../../../presenters/task_level_presenter.dart';
 import '../../../presenters/task_note_presenter.dart';
 import '../../../presenters/task_state_presenter.dart';
+import '../../../presenters/ws_presenter.dart';
 import '../../../usecases/task_ext_actions.dart';
 import '../task_view_controller.dart';
 import 'state_title.dart';
@@ -88,7 +89,7 @@ class TaskCard extends StatelessWidget {
       );
 
   bool get _showEstimate => task.hasEstimate && !task.closed;
-  Widget get _estimate => SmallText('${task.sumEstimate} ${loc.task_estimate_unit}', color: _textColor);
+  Widget get _estimate => SmallText('${task.sumEstimate} ${task.ws.estimateUnitCode}', color: _textColor);
 
   Widget get _divider => const Padding(
         padding: EdgeInsets.symmetric(horizontal: P_2),

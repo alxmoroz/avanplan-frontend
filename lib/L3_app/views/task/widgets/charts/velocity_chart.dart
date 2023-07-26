@@ -12,6 +12,7 @@ import '../../../../components/mt_pie_chart.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/duration_presenter.dart';
+import '../../../../presenters/ws_presenter.dart';
 
 class VelocityChart extends StatelessWidget {
   const VelocityChart(this.task);
@@ -30,7 +31,8 @@ class VelocityChart extends StatelessWidget {
   double get _maxValue => max(_velocity, task.targetVelocity ?? 1 / daysPerMonth) * 1.3;
   double get _degreeValue => _maxValue / _sweepAngle;
 
-  String get _displayText => '${(_velocity * daysPerMonth).round()}';
+  num get _hVelocity => (_velocity * daysPerMonth).round();
+  String get _displayText => '$_hVelocity';
 
   Color get _pointerColor => _delta == 0
       ? mainColor
@@ -79,7 +81,7 @@ class VelocityChart extends StatelessWidget {
         ),
         if (!task.projectLowStart) ...[
           D3('$_displayText', color: _pointerColor, padding: const EdgeInsets.only(bottom: P_2)),
-          SmallText(task.showSP ? loc.chart_velocity_unit_sp_mo : loc.chart_velocity_unit_t_mo,
+          SmallText(loc.chart_velocity_unit_mo(task.showSP ? task.ws.estimateUnitCode : loc.task_plural(_hVelocity)),
               padding: EdgeInsets.only(top: _radius / 2 + P_2), color: lightGreyColor),
           Container(
             width: _radius * 2 - P * 5,

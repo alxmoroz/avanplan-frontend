@@ -25,7 +25,7 @@ class AccountView extends StatelessWidget {
         navBar: navBar(
           context,
           title: loc.account_title,
-          trailing: MTButton.icon(const DeleteIcon(), accountController.delete, margin: const EdgeInsets.only(right: P)),
+          trailing: MTButton.icon(const DeleteIcon(), onTap: accountController.delete, margin: const EdgeInsets.only(right: P)),
         ),
         body: SafeArea(
           top: false,

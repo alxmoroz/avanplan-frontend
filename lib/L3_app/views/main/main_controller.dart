@@ -253,6 +253,8 @@ abstract class _MainControllerBase with Store {
     if (authController.authorized) {
       await _authorizedStartupActions();
     }
+
+    loader.stopInit();
   }
 
   Future manualUpdate() async {

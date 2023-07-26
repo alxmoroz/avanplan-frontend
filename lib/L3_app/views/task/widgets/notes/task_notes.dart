@@ -1,8 +1,10 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/material.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../L1_domain/entities/note.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
@@ -27,22 +29,20 @@ class TaskNotes extends StatelessWidget {
   final TaskViewController controller;
   bool get _canEditTask => controller.task.canComment;
 
-  Future _noteMenu(BuildContext context, Note note, bool isMine) async {
-    await showMTDialog<void>(
-      MTDialog(
-        topBar: MTTopBar(titleText: loc.task_note_title),
-        body: ListView(
-          shrinkWrap: true,
-          children: [
-            MTListTile(
-              leading: const EditIcon(),
-              middle: NormalText(loc.edit_action_title, color: mainColor),
-              onTap: () async {
-                Navigator.of(context).pop();
-                await controller.editNote(note);
-              },
-            ),
-            if (isMine)
+  Future _noteMenu(BuildContext context, Note note) async => await showMTDialog<void>(
+        MTDialog(
+          topBar: MTTopBar(titleText: loc.task_note_title),
+          body: ListView(
+            shrinkWrap: true,
+            children: [
+              MTListTile(
+                leading: const EditIcon(),
+                middle: NormalText(loc.edit_action_title, color: mainColor),
+                onTap: () async {
+                  Navigator.of(context).pop();
+                  await controller.editNote(note);
+                },
+              ),
               MTListTile(
                 leading: const DeleteIcon(),
                 middle: NormalText(loc.delete_action_title, color: dangerColor),
@@ -51,11 +51,10 @@ class TaskNotes extends StatelessWidget {
                   await controller.deleteNote(note);
                 },
               ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
-  }
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -94,18 +93,22 @@ class TaskNotes extends StatelessWidget {
                         if (!mine) ...[author!.icon(P * 1.5), const SizedBox(width: P_2)],
                         Expanded(
                           child: MTCardButton(
-                            elevation: _canEditTask && mine ? null : 0,
                             margin: EdgeInsets.only(left: mine ? P3 + P3 : 0, right: mine ? 0 : P2, bottom: P),
                             padding: const EdgeInsets.symmetric(vertical: P_2, horizontal: P),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 if (!mine) MediumText('$author'),
-                                NormalText(n.text, maxLines: 42, sizeScale: 1),
+                                Linkify(
+                                  text: n.text,
+                                  style: const NormalText('', maxLines: 42).style(context),
+                                  linkStyle: const NormalText('', color: mainColor).style(context),
+                                  onOpen: (link) async => await launchUrlString(link.url),
+                                ),
                                 SmallText(n.createdOn!.strTime, align: TextAlign.right),
                               ],
                             ),
-                            onLongPress: _canEditTask && mine ? () => _noteMenu(context, n, mine) : null,
+                            onLongPress: _canEditTask && mine ? () => _noteMenu(context, n) : null,
                           ),
                         ),
                       ],

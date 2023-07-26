@@ -15,12 +15,7 @@ class AuthController extends _AuthControllerBase with _$AuthController {
     signInWithAppleIsAvailable = await authUC.appleIsAvailable();
     await authUC.googleIsAvailable();
 
-    await checkLocalAuth();
-    if (authorized) {
-      // !!! лоадер на перёд для MainView !!!
-      // TODO: можно перенести в init в MainController, но только если всем контроллерам добавить init и Маin будет зависеть от них всех
-      loader.start();
-    }
+    authorized = (await authUC.getLocalAuth()).hasToken;
 
     return this;
   }
@@ -101,6 +96,7 @@ abstract class _AuthControllerBase with Store {
 
   Future startupActions() async {
     await _signInWithRegistration();
+    loader.stopInit();
   }
 
   void _startLdrAuth() {

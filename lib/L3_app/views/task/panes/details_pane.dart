@@ -23,6 +23,7 @@ import '../../../extra/services.dart';
 import '../../../presenters/date_presenter.dart';
 import '../../../presenters/person_presenter.dart';
 import '../../../presenters/source_presenter.dart';
+import '../../../presenters/ws_presenter.dart';
 import '../../../usecases/task_ext_actions.dart';
 import '../task_view_controller.dart';
 import '../widgets/notes/task_notes.dart';
@@ -81,6 +82,12 @@ class DetailsPane extends StatelessWidget {
                           constrained: false,
                           padding: const EdgeInsets.symmetric(horizontal: P2),
                           margin: const EdgeInsets.only(right: P2),
+                          trailing: _task.canSetStatus
+                              ? const Padding(
+                                  padding: EdgeInsets.only(left: P_3, top: P_6),
+                                  child: CaretIcon(size: Size(P * 0.8, P * 0.75), color: darkBackgroundColor),
+                                )
+                              : null,
                           onTap: _task.canSetStatus ? controller.selectStatus : null,
                         ),
                       if (_closable)
@@ -115,9 +122,10 @@ class DetailsPane extends StatelessWidget {
                   value: _task.hasDescription
                       ? SelectableLinkify(
                           text: _task.description,
-                          style: const LightText('').style(context),
+                          style: const NormalText('').style(context),
                           linkStyle: const NormalText('', color: mainColor).style(context),
                           onOpen: (link) async => await launchUrlString(link.url),
+                          // onTap: _task.canUpdate ? controller.editDescription : null,
                         )
                       : null,
                   onSelect: _task.canUpdate ? controller.editDescription : null,
@@ -131,7 +139,7 @@ class DetailsPane extends StatelessWidget {
                 MTField(
                   controller.fData(TaskFCode.estimate.index),
                   leading: EstimateIcon(color: _task.canEstimate ? mainColor : lightGreyColor),
-                  value: _task.hasEstimate ? NormalText('${_task.estimate} ${loc.task_estimate_unit}') : null,
+                  value: _task.hasEstimate ? NormalText('${_task.estimate} ${_task.ws.estimateUnitCode}') : null,
                   onSelect: _task.canEstimate ? controller.selectEstimate : null,
                 ),
               ],
@@ -153,7 +161,7 @@ class DetailsPane extends StatelessWidget {
                     color: lightGreyColor,
                     padding: const EdgeInsets.symmetric(vertical: P_2),
                   ),
-                  leading: const NoteIcon(),
+                  leading: const NoteAddIcon(),
                   onSelect: controller.addNote,
                 ),
               ],

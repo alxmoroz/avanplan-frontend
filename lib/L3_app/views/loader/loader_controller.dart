@@ -38,8 +38,11 @@ abstract class _LoaderControllerBase with Store {
   @observable
   int _stack = 0;
 
+  @observable
+  bool _init = true;
+
   @computed
-  bool get loading => _stack > 0;
+  bool get loading => _stack > 0 || _init;
 
   @action
   void start() => _stack++;
@@ -62,6 +65,12 @@ abstract class _LoaderControllerBase with Store {
   @action
   Future stop([int? milliseconds]) async => await Future<void>.delayed(Duration(milliseconds: milliseconds ?? 0), () => --_stack);
 
+  @action
+  void _reset() => _stack = 0;
+
+  @action
+  void stopInit() => _init = false;
+
   /// Interceptor
   Interceptor get interceptor => InterceptorsWrapper(onError: (e, handler) async {
         if (e.type == DioExceptionType.badResponse) {
@@ -70,7 +79,7 @@ abstract class _LoaderControllerBase with Store {
 
           if ([401, 403, 407].contains(code)) {
             // ошибки авторизации
-            if (path.startsWith('/v1/auth')) {
+            if (path.startsWith('/v1/auth/password_token')) {
               // Показываем диалог, если это именно авторизация
               setAuthError();
             } else if (e.errCode.startsWith('ERR_PERMISSION_LIMIT')) {
@@ -84,13 +93,12 @@ abstract class _LoaderControllerBase with Store {
             } else {
               // в остальных случаях выбрасываем без объяснений
               await authController.signOut();
-              await stop();
+              _reset();
             }
           } else {
             // программные ошибки сервера
             final errorText = '${code < 500 ? 'HTTP Client' : code < 600 ? 'HTTP Server' : 'Unknown HTTP'} Error $code';
             if (e.errCode == 'ERR_IMPORT_CONNECTION') {
-              return handler.next(e);
             } else if (e.errCode.startsWith('ERR_IMPORT')) {
               _setImportError(e.detail, e.detail);
             } else {
@@ -100,10 +108,10 @@ abstract class _LoaderControllerBase with Store {
         } else {
           if (e.error is SocketException) {
             _setNetworkError('${e.error}');
+          } else {
+            // Остальные неизвестные и необработанные выше ошибки
+            return handler.next(e);
           }
-        }
-        if (!loading) {
-          return handler.next(e);
         }
       });
 

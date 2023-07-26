@@ -58,7 +58,7 @@ class _MTSelectDialog<T extends RPersistable> extends StatelessWidget {
           trailing: onReset != null && selectedId != null
               ? MTButton.icon(
                   const DeleteIcon(),
-                  () {
+                  onTap: () {
                     onReset!();
                     Navigator.of(context).pop();
                   },

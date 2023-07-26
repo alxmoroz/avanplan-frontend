@@ -198,7 +198,7 @@ class ImportIcon extends MTIcon {
   const ImportIcon({super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
-        CupertinoIcons.arrow_down_to_line,
+        CupertinoIcons.cloud_download,
         color: (color ?? mainColor).resolve(context),
         size: size ?? P2,
       );
@@ -287,13 +287,29 @@ class MailIcon extends MTIcon {
       );
 }
 
-class NoteIcon extends MTIcon {
-  const NoteIcon({super.color, super.size});
+class NoteAddIcon extends MTIcon {
+  const NoteAddIcon({super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
-        CupertinoIcons.bubble_left_bubble_right,
+        CupertinoIcons.plus_bubble,
         color: (color ?? mainColor).resolve(context),
         size: size ?? P3,
+      );
+}
+
+class NoteMarkIcon extends MTIcon {
+  const NoteMarkIcon({this.mine = true, this.theirs = true, super.color, super.size});
+  final bool mine;
+  final bool theirs;
+  @override
+  Widget build(BuildContext context) => Icon(
+        mine && theirs
+            ? CupertinoIcons.bubble_left_bubble_right
+            : mine
+                ? CupertinoIcons.bubble_right
+                : CupertinoIcons.bubble_left,
+        color: (color ?? greyColor).resolve(context),
+        size: size ?? P * 1.5,
       );
 }
 

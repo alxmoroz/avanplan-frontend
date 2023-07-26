@@ -99,7 +99,7 @@ class App extends StatelessWidget {
             home: FutureBuilder(
               future: getIt.allReady(),
               builder: (_, snapshot) =>
-                  snapshot.hasData ? Observer(builder: (_) => authController.authorized ? MainView() : AuthView()) : LoaderScreen(),
+                  snapshot.hasData ? Observer(builder: (_) => authController.authorized ? MainView() : AuthView()) : Container(),
             ),
             localizationsDelegates: localizationsDelegates,
             supportedLocales: supportedLocales,

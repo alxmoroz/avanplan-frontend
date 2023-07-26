@@ -36,6 +36,7 @@ import '../../presenters/source_presenter.dart';
 import '../../presenters/task_comparators.dart';
 import '../../presenters/task_level_presenter.dart';
 import '../../presenters/task_view_presenter.dart';
+import '../../presenters/ws_presenter.dart';
 import '../../usecases/task_ext_actions.dart';
 import '../../usecases/ws_ext_actions.dart';
 import '../../views/_base/edit_controller.dart';
@@ -397,10 +398,23 @@ abstract class _TaskViewControllerBase extends EditController with Store {
   }
 
   Future selectEstimate() async {
+    final currentId = ws.estimateValueForValue(task.estimate)?.id;
     final selectedEstimateId = await showMTSelectDialog<EstimateValue>(
-      ws.estimateValues,
-      ws.estimateValueForValue(task.estimate)?.id,
+      ws.sortedEstimateValues,
+      currentId,
       loc.task_estimate_placeholder,
+      valueBuilder: (_, e) {
+        final selected = currentId == e.id;
+        final text = '${e.value}';
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (selected) const SizedBox(width: P),
+            selected ? H3(text) : NormalText(text),
+            LightText(' ${ws.estimateUnitCode}'),
+          ],
+        );
+      },
       onReset: _resetEstimate,
     );
 

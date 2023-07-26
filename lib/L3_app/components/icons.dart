@@ -291,7 +291,7 @@ class NoteAddIcon extends MTIcon {
   const NoteAddIcon({super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
-        CupertinoIcons.plus_bubble,
+        CupertinoIcons.bubble_left_bubble_right,
         color: (color ?? mainColor).resolve(context),
         size: size ?? P3,
       );

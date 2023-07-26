@@ -1,8 +1,10 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/material.dart';
+import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../L1_domain/entities/note.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
@@ -97,7 +99,12 @@ class TaskNotes extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 if (!mine) MediumText('$author'),
-                                NormalText(n.text, maxLines: 42),
+                                Linkify(
+                                  text: n.text,
+                                  style: const NormalText('', maxLines: 42).style(context),
+                                  linkStyle: const NormalText('', color: mainColor).style(context),
+                                  onOpen: (link) async => await launchUrlString(link.url),
+                                ),
                                 SmallText(n.createdOn!.strTime, align: TextAlign.right),
                               ],
                             ),

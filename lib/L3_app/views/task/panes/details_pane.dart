@@ -122,9 +122,10 @@ class DetailsPane extends StatelessWidget {
                   value: _task.hasDescription
                       ? SelectableLinkify(
                           text: _task.description,
-                          style: const LightText('').style(context),
+                          style: const NormalText('').style(context),
                           linkStyle: const NormalText('', color: mainColor).style(context),
                           onOpen: (link) async => await launchUrlString(link.url),
+                          // onTap: _task.canUpdate ? controller.editDescription : null,
                         )
                       : null,
                   onSelect: _task.canUpdate ? controller.editDescription : null,

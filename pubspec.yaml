@@ -1,7 +1,7 @@
 name: avanplan
 description: Avanplan
 
-version: 1.5.1469+1469
+version: 1.5.1472+1472
 
 environment:
   sdk: ">=3.0.0 <4.0.0"

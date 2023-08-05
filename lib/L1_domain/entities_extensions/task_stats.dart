@@ -28,7 +28,7 @@ extension TaskStats on Task {
   Duration? get riskPeriod => (hasDueDate && hasEtaDate) ? etaDate!.difference(dueDate!) : null;
 
   // TODO: запрос на бэк
-  Iterable<Task> get goalsForLocalExport => isTask ? project!.openedSubtasks.where((g) => g.id != parent!.id) : [];
+  Iterable<Task> get goalsForLocalExport => isTask ? project!.openedSubtasks.where((g) => g.id != parent?.id) : [];
   Iterable<Task> get goalsForLocalImport => isGoal ? project!.openedSubtasks.where((g) => g.id != id && g.hasOpenedSubtasks) : [];
   DateTime get calculatedStartDate => startDate ?? createdOn!;
   Duration get beforeStartPeriod => calculatedStartDate.difference(_now);

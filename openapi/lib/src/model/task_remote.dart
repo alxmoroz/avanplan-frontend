@@ -45,7 +45,7 @@ abstract class TaskRemote implements Built<TaskRemote, TaskRemoteBuilder> {
   DateTime? get closedDate;
 
   @BuiltValueField(wireName: r'estimate')
-  int? get estimate;
+  num? get estimate;
 
   @BuiltValueField(wireName: r'task_source')
   TaskSource? get taskSource;
@@ -128,7 +128,7 @@ class _$TaskRemoteSerializer implements PrimitiveSerializer<TaskRemote> {
       yield r'estimate';
       yield serializers.serialize(
         object.estimate,
-        specifiedType: const FullType(int),
+        specifiedType: const FullType(num),
       );
     }
     if (object.taskSource != null) {
@@ -213,8 +213,8 @@ class _$TaskRemoteSerializer implements PrimitiveSerializer<TaskRemote> {
         case r'estimate':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(int),
-          ) as int;
+            specifiedType: const FullType(num),
+          ) as num;
           result.estimate = valueDes;
           break;
         case r'task_source':

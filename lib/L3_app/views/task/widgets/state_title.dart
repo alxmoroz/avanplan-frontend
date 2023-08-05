@@ -11,7 +11,7 @@ enum StateTitlePlace { taskOverview, groupHeader, card }
 
 class _StateTitle extends StatelessWidget {
   const _StateTitle(this.state, this.text, {this.place});
-  final String state;
+  final TaskState state;
   final String text;
   final StateTitlePlace? place;
 
@@ -38,15 +38,15 @@ class _StateTitle extends StatelessWidget {
 }
 
 class GroupStateTitle extends StatelessWidget {
-  const GroupStateTitle(this.task, this.groupState, {this.place});
-  final Task task;
-  final String groupState;
+  const GroupStateTitle(this.parentType, this.groupState, {this.place});
+  final String parentType;
+  final TaskState groupState;
   final StateTitlePlace? place;
 
   @override
   Widget build(BuildContext context) => Padding(
         padding: (place == StateTitlePlace.groupHeader ? const EdgeInsets.symmetric(horizontal: P).copyWith(top: P) : EdgeInsets.zero),
-        child: _StateTitle(groupState, task.groupStateTitle(groupState), place: place),
+        child: _StateTitle(groupState, groupStateTitle(groupState, parentType), place: place),
       );
 }
 
@@ -57,7 +57,8 @@ class TaskStateTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = place == StateTitlePlace.taskOverview ? task.state : task.overallState;
+    // final state = place == StateTitlePlace.taskOverview ? task.state : task.overallState;
+    final state = task.state;
     final text = place == StateTitlePlace.taskOverview ? task.stateTitle : task.overallStateTitle;
     return _StateTitle(state, text, place: place);
   }

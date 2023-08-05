@@ -11,9 +11,6 @@ class TaskUC {
 
   final AbstractWSRepo<Task> repo;
 
-  Future<Iterable<Task>> getRoots(Workspace ws) async => await repo.getAll(ws);
-
   Future<Task?> save(Workspace ws, Task t) async => await repo.save(ws, t);
-
   Future<bool> delete(Workspace ws, Task t) async => await repo.delete(ws, t);
 }

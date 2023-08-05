@@ -19,7 +19,7 @@ abstract class _ServiceSettingsControllerBase with Store {
   ServiceSettings? settings;
 
   @computed
-  String get frontendFlags => settings?.frontendFlags ?? '';
+  Duration get lowStartThreshold => Duration(days: settings?.lowStartThresholdDays ?? 0);
 
   @action
   Future fetchSettings() async => settings = await serviceSettingsUC.getSettings();

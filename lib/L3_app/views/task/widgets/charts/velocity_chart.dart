@@ -5,12 +5,14 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/mt_pie_chart.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/duration_presenter.dart';
+import '../../../../presenters/task_state_presenter.dart';
 import '../../../../presenters/ws_presenter.dart';
 
 class VelocityChart extends StatelessWidget {
@@ -25,9 +27,9 @@ class VelocityChart extends StatelessWidget {
   double get _barWidth => _gaugeWidth / 2;
   double get _radius => P * 6.5;
   double get _velocity => task.projectVelocity ?? 0;
-  double get _delta => (task.targetVelocity ?? _velocity) - _velocity;
+  double get _delta => (task.requiredVelocity ?? _velocity) - _velocity;
   double get _firstValue => _delta >= 0 ? _velocity : _velocity + _delta;
-  double get _maxValue => max(_velocity, task.targetVelocity ?? 1 / daysPerMonth) * 1.3;
+  double get _maxValue => max(_velocity, task.requiredVelocity ?? 1 / daysPerMonth) * 1.3;
   double get _degreeValue => _maxValue / _sweepAngle;
 
   num get _hVelocity => (_velocity * daysPerMonth).round();
@@ -62,6 +64,8 @@ class VelocityChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // print(task.state);
+
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -80,8 +84,7 @@ class VelocityChart extends StatelessWidget {
         ),
         if (!task.projectLowStart) ...[
           D3('$_displayText', color: _pointerColor, padding: const EdgeInsets.only(bottom: P_2)),
-          SmallText(loc.chart_velocity_unit_mo(task.showSP ? task.ws.estimateUnitCode : loc.task_plural(_hVelocity)),
-              padding: EdgeInsets.only(top: _radius / 2 + P_2), color: lightGreyColor),
+          SmallText(loc.chart_velocity_unit_mo(task.ws.estimateUnitCode), padding: EdgeInsets.only(top: _radius / 2 + P), color: lightGreyColor),
           Container(
             width: _radius * 2 - P * 5,
             height: _radius * 2 - P * 4,
@@ -92,8 +95,7 @@ class VelocityChart extends StatelessWidget {
               if (_maxValue > 0) MediumText('${(_maxValue * daysPerMonth).round()}', color: greyColor),
             ]),
           ),
-        ],
-        if (task.projectLowStart)
+        ] else
           H3(
             loc.state_low_start_before_calc_duration(task.projectStartEtaCalcPeriod!.localizedString),
             align: TextAlign.center,

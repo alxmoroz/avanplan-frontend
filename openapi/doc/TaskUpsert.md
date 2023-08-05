@@ -16,15 +16,15 @@ Name | Type | Description | Notes
 **startDate** | [**DateTime**](DateTime.md) |  | [optional] 
 **dueDate** | [**DateTime**](DateTime.md) |  | [optional] 
 **closedDate** | [**DateTime**](DateTime.md) |  | [optional] 
-**estimate** | **int** |  | [optional] 
+**estimate** | **num** |  | [optional] 
+**createdOn** | [**DateTime**](DateTime.md) |  | [optional] 
+**updatedOn** | [**DateTime**](DateTime.md) |  | [optional] 
 **parentId** | **int** |  | [optional] 
 **assigneeId** | **int** |  | [optional] 
 **authorId** | **int** |  | [optional] 
 **priorityId** | **int** |  | [optional] 
 **statusId** | **int** |  | [optional] 
 **taskSourceId** | **int** |  | [optional] 
-**createdOn** | [**DateTime**](DateTime.md) |  | [optional] 
-**updatedOn** | [**DateTime**](DateTime.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -13,10 +13,10 @@ import '../../../components/mt_button.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_filter_presenter.dart';
-import '../../../presenters/task_level_presenter.dart';
 import '../../../presenters/task_state_presenter.dart';
 import '../../../presenters/task_view_presenter.dart';
 import '../../../usecases/task_ext_actions.dart';
+import '../task_add_controller.dart';
 import '../task_view_controller.dart';
 import '../widgets/charts/chart_details.dart';
 import '../widgets/charts/timing_chart.dart';
@@ -47,7 +47,7 @@ class OverviewPane extends StatelessWidget {
                     margin: const EdgeInsets.only(bottom: P),
                     onTap: () => localImportDialog(controller),
                   ),
-                TaskAddButton(controller),
+                TaskAddButton(TaskAddController(_task.ws, _task)),
               ],
             )
           : Column(
@@ -76,12 +76,15 @@ class OverviewPane extends StatelessWidget {
         H3(text, color: checked ? lightGreyColor : null),
       ]);
 
-  Widget get _rItemAddTask => _checkRecommendsItem(
-        _task.overallState != TaskState.NO_SUBTASKS,
-        '${loc.recommendation_add_tasks_title} ${_task.listTitle.toLowerCase()}',
+  Widget get _requiredAddTask => _checkRecommendsItem(
+        _task.state != TaskState.NO_SUBTASKS,
+        '${loc.recommendation_add_tasks_title} ${loc.task_list_title.toLowerCase()}',
       );
 
-  Widget get _rItemProgress => _checkRecommendsItem(_task.projectHasProgress, loc.recommendation_close_tasks_title);
+  Widget get _requiredProgress => _checkRecommendsItem(
+        _task.projectHasProgress,
+        loc.recommendation_close_tasks_title,
+      );
 
   Widget _line(BuildContext context) =>
       Row(children: [const SizedBox(width: P * 1.4), Container(height: P * 1.5, width: 2, color: greyTextColor.resolve(context))]);
@@ -107,9 +110,9 @@ class OverviewPane extends StatelessWidget {
                 /// нет прогноза - показываем шаги
                 if (_task.canShowRecommendsEta) ...[
                   const SizedBox(height: P2),
-                  _task.projectHasProgress ? _rItemProgress : _rItemAddTask,
+                  _task.projectHasProgress ? _requiredProgress : _requiredAddTask,
                   _line(context),
-                  _task.projectHasProgress ? _rItemAddTask : _rItemProgress,
+                  _task.projectHasProgress ? _requiredAddTask : _requiredProgress,
                 ],
 
                 if (_task.canShowVelocityVolumeCharts || _task.canShowTimeChart)
@@ -142,15 +145,15 @@ class OverviewPane extends StatelessWidget {
           ),
 
           /// требующие внимания задачи
-          if (_task.attentionalTasks.isNotEmpty) ...[
+          if (_task.attentionalSubtasks.isNotEmpty) ...[
             const SizedBox(height: P2),
             MTAdaptive(
               force: true,
-              child: GroupStateTitle(_task, _task.subtasksState, place: StateTitlePlace.groupHeader),
+              child: GroupStateTitle(_task.type!, _task.subtasksState, place: StateTitlePlace.groupHeader),
             ),
             MTAdaptive(
               force: true,
-              child: TasksGroup(_task.attentionalTasks, standalone: false),
+              child: TasksGroup(_task.attentionalSubtasks, standalone: false),
             ),
           ],
         ],

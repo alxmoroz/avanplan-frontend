@@ -3,11 +3,10 @@
 import '../entities/task.dart';
 
 extension TaskLevelExtension on Task {
-  bool get isRoot => level == TaskLevel.root;
-  bool get isProject => level == TaskLevel.project;
-  bool get isGoal => level == TaskLevel.goal;
-  bool get isTask => level == TaskLevel.task;
-  bool get isSubtask => level == TaskLevel.subtask;
+  bool get isProject => type == TType.PROJECT || parent == null;
+  bool get isGoal => type == TType.GOAL;
+  bool get isTask => type == TType.TASK;
+  bool get isSubtask => type == TType.SUBTASK;
 
   bool get hasSubtasks => tasks.isNotEmpty;
   bool get isLeaf => (isTask || isSubtask) && !hasSubtasks;
@@ -21,20 +20,11 @@ extension TaskLevelExtension on Task {
     return null;
   }
 
-  void updateLevel() {
-    level = {
-          1: TaskLevel.root,
-          2: TaskLevel.project,
-          3: TaskLevel.goal,
-          4: TaskLevel.task,
-        }[_numLevel] ??
-        TaskLevel.subtask;
-  }
-
-  int get _numLevel {
-    int res = 1;
-    if (parent != null) {
-      res += parent?._numLevel ?? 1;
+  Iterable<Task> get allTasks {
+    final res = <Task>[];
+    for (Task t in tasks) {
+      res.addAll(t.allTasks);
+      res.add(t);
     }
     return res;
   }

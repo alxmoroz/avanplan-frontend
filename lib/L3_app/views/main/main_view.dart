@@ -4,8 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -27,8 +25,6 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> with WidgetsBindingObserver {
-  Task get rootTask => mainController.rootTask;
-
   void _startupActions() => WidgetsBinding.instance.addPostFrameCallback((_) async => await mainController.startupActions());
 
   @override
@@ -52,7 +48,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
     super.dispose();
   }
 
-  Widget? get _bottomBar => !rootTask.hasOpenedSubtasks
+  Widget? get _bottomBar => !mainController.hasOpenedProjects
       ? MTButton.main(
           titleText: loc.state_no_projects_action_title,
           onTap: projectAddWizard,
@@ -95,7 +91,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
         body: SafeArea(
           top: dashboardBigScreen(context),
           bottom: false,
-          child: rootTask.hasOpenedSubtasks ? MainDashboard() : NoProjects(),
+          child: mainController.hasOpenedProjects ? MainDashboard() : NoProjects(),
         ),
         bottomBar: _bottomBar,
       ),

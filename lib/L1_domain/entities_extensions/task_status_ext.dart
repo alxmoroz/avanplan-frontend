@@ -9,13 +9,12 @@ import '../entities_extensions/task_level.dart';
 extension TaskStatusExtension on Task {
   List<Status> get statuses {
     List<Status> res = [];
-    if (!isRoot) {
-      final pStatuses = project!.projectStatuses;
-      if (pStatuses.isNotEmpty) {
-        res = pStatuses.map((ps) => ws.statuses.firstWhere((s) => s.id == ps.statusId)).toList();
-      } else {
-        res = ws.statuses;
-      }
+
+    final pStatuses = project?.projectStatuses ?? [];
+    if (pStatuses.isNotEmpty) {
+      res = pStatuses.map((ps) => ws.statuses.firstWhere((s) => s.id == ps.statusId)).toList();
+    } else {
+      res = ws.statuses;
     }
 
     return res;

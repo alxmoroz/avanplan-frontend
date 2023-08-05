@@ -14,5 +14,5 @@ extension WSExtension on Workspace {
   num get welcomeGiftAmount => mainAccount.incomingOperations.firstWhereOrNull((op) => op.basis == 'WELCOME_GIFT')?.amount ?? 0;
 
   EstimateValue? estimateValueForId(int? id) => estimateValues.firstWhereOrNull((ev) => ev.id == id);
-  EstimateValue? estimateValueForValue(int? value) => estimateValues.firstWhereOrNull((ev) => ev.value == value);
+  EstimateValue? estimateValueForValue(num? value) => estimateValues.firstWhereOrNull((ev) => ev.value == value);
 }

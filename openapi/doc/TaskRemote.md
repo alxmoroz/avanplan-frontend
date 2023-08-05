@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **startDate** | [**DateTime**](DateTime.md) |  | [optional] 
 **dueDate** | [**DateTime**](DateTime.md) |  | [optional] 
 **closedDate** | [**DateTime**](DateTime.md) |  | [optional] 
-**estimate** | **int** |  | [optional] 
+**estimate** | **num** |  | [optional] 
 **taskSource** | [**TaskSource**](TaskSource.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

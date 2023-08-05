@@ -29,10 +29,11 @@ extension WSActionsExt on Workspace {
   bool get plUsers => _pl(TLCode.USERS_COUNT, users.length + 1);
   bool get plUnlink => _pl(TLCode.PROJECTS_UNLINK_ALLOWED, 1);
 
-  int get _projectsCount => mainController.wsProjects(id!).length;
+  int get _projectsCount => mainController.projects.where((t) => t.ws.id == id).length;
   int get maxProjects => invoice.tariff.limitValue(TLCode.PROJECTS_COUNT).toInt();
   int get availableProjectsCount => maxProjects - _projectsCount;
   bool get plProjects => availableProjectsCount > 0;
 
-  bool get plTasks => _pl(TLCode.TASKS_COUNT, mainController.wsTasks(id!).length + 1);
+  // TODO: при добавлении и удалении задач нужно уточнять tasksCount, а лучше делать запросы на бэк дополнительные всё же и обновлять инфу о WS
+  bool get plTasks => _pl(TLCode.TASKS_COUNT, tasksCount + 1);
 }

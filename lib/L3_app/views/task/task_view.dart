@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/entities_extensions/task_level.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -13,7 +12,7 @@ import '../../components/mt_adaptive.dart';
 import '../../components/mt_page.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/task_level_presenter.dart';
+import '../../presenters/task_type_presenter.dart';
 import 'panes/details_pane.dart';
 import 'panes/overview_pane.dart';
 import 'panes/tasks/tasks_pane.dart';
@@ -117,12 +116,11 @@ class _TaskViewState extends State<TaskView> {
       builder: (_) => MTPage(
         navBar: taskNavBar(controller),
         body: SafeArea(
-          top: !task.isRoot,
           bottom: false,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              if (!smallHeight && !task.isRoot) TaskHeader(controller),
+              if (!smallHeight) TaskHeader(controller),
               if (controller.tabKeys.length > 1) _tabPaneSelector,
               Expanded(child: _selectedPane),
             ],

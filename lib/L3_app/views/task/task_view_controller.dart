@@ -18,6 +18,7 @@ import '../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../L1_domain/entities_extensions/task_status_ext.dart';
 import '../../../L1_domain/entities_extensions/ws_ext.dart';
+import '../../../L1_domain/usecases/task_comparators.dart';
 import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
@@ -33,12 +34,10 @@ import '../../presenters/date_presenter.dart';
 import '../../presenters/duration_presenter.dart';
 import '../../presenters/person_presenter.dart';
 import '../../presenters/source_presenter.dart';
-import '../../presenters/task_comparators.dart';
-import '../../presenters/task_level_presenter.dart';
+import '../../presenters/task_type_presenter.dart';
 import '../../presenters/task_view_presenter.dart';
 import '../../presenters/ws_presenter.dart';
 import '../../usecases/task_ext_actions.dart';
-import '../../usecases/ws_ext_actions.dart';
 import '../../views/_base/edit_controller.dart';
 import '../tariff/tariff_select_view.dart';
 import 'widgets/task_description_dialog.dart';
@@ -56,11 +55,10 @@ enum TaskFCode { title, description, startDate, dueDate, estimate, assignee, aut
 enum TasksFilter { my }
 
 class TaskParams {
-  TaskParams(this.ws, {this.taskId, this.isNew = false, this.filters});
+  TaskParams({required this.ws, required this.taskId, this.isNew = false});
   final Workspace ws;
-  final int? taskId;
+  final int taskId;
   final bool isNew;
-  final Set<TasksFilter>? filters;
 }
 
 class TaskViewController extends _TaskViewControllerBase with _$TaskViewController {
@@ -68,9 +66,7 @@ class TaskViewController extends _TaskViewControllerBase with _$TaskViewControll
     ws = tp.ws;
     taskId = tp.taskId;
     isNew = tp.isNew;
-    filters = tp.filters ?? {};
 
-    final task = mainController.taskForId(ws.id!, taskId);
     initState(fds: [
       MTFieldData(TaskFCode.parent.index, needValidate: false),
       MTFieldData(
@@ -99,7 +95,7 @@ class TaskViewController extends _TaskViewControllerBase with _$TaskViewControll
       ),
       MTFieldData(
         TaskFCode.estimate.index,
-        label: !task.isProject && task.isLeaf ? loc.task_estimate_label : loc.task_estimate_group_label,
+        label: task.estimate != null ? loc.task_estimate_label : loc.task_estimate_group_label,
         placeholder: loc.task_estimate_placeholder,
         needValidate: false,
       ),
@@ -122,14 +118,10 @@ class TaskViewController extends _TaskViewControllerBase with _$TaskViewControll
 
 abstract class _TaskViewControllerBase extends EditController with Store {
   late final Workspace ws;
-  late final int? taskId;
+  late final int taskId;
   late final bool isNew;
-  late final Set<TasksFilter> filters;
-
-  bool get isMyTasks => filters.contains(TasksFilter.my);
 
   Task get task => mainController.taskForId(ws.id!, taskId);
-  bool get plCreate => task.isRoot ? ws.plProjects : ws.plTasks;
 
   Future<bool> _saveField(TaskFCode code) async {
     bool saved = false;
@@ -139,7 +131,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
       updateField(code.index, loading: false);
       saved = editedTask != null;
       if (saved) {
-        mainController.updateRootTask();
+        mainController.updateRoots();
       }
     } catch (e) {
       updateField(code.index, loading: false);
@@ -151,7 +143,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
 
   /// название
 
-  String get titlePlaceholder => task.parent!.newSubtaskTitle;
+  String get titlePlaceholder => newSubtaskTitle(task.parent?.type ?? TType.ROOT);
 
   Future _setTitle(String str) async {
     if (task.title != str) {
@@ -327,7 +319,8 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     bool recursively = false,
   }) async {
     if (recursively) {
-      for (final t in _task.allTasks.where((t) => t.closed != close)) {
+      // TODO: перенести на бэк?
+      for (final t in _task.tasks.where((t) => t.closed != close)) {
         await _setStatus(t, statusId: statusId, close: close);
       }
     }
@@ -382,7 +375,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
         if (editedTask.closed && _task.id == task.id) {
           Navigator.of(rootKey.currentContext!).pop(editedTask);
         }
-        mainController.updateRootTask();
+        mainController.updateRoots();
       }
     }
   }
@@ -447,7 +440,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
         if (note.id == null) {
           task.notes.add(editedNote);
         }
-        mainController.updateRootTask();
+        mainController.updateRoots();
       } else {
         note.text = oldValue;
       }
@@ -455,12 +448,12 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     }
   }
 
-  Future addNote() async => await editNote(Note(text: '', authorId: task.me?.id, taskId: taskId));
+  Future addNote() async => await editNote(Note(text: '', authorId: task.me?.id, taskId: task.id));
 
   Future deleteNote(Note note) async {
     if (await noteUC.delete(ws, note)) {
       task.notes.remove(note);
-      mainController.updateRootTask();
+      mainController.updateRoots();
     }
   }
 
@@ -475,14 +468,12 @@ abstract class _TaskViewControllerBase extends EditController with Store {
 
   @computed
   Iterable<TaskTabKey> get tabKeys {
-    return task.isRoot
-        ? []
-        : [
-            if (task.hasOverviewPane) TaskTabKey.overview,
-            if (task.hasSubtasks) TaskTabKey.subtasks,
-            if (task.hasTeamPane) TaskTabKey.team,
-            TaskTabKey.details,
-          ];
+    return [
+      if (task.hasOverviewPane) TaskTabKey.overview,
+      if (task.hasSubtasks) TaskTabKey.subtasks,
+      if (task.hasTeamPane) TaskTabKey.team,
+      TaskTabKey.details,
+    ];
   }
 
   @observable
@@ -492,45 +483,6 @@ abstract class _TaskViewControllerBase extends EditController with Store {
 
   @computed
   TaskTabKey get tabKey => (tabKeys.contains(_tabKey) ? _tabKey : null) ?? (tabKeys.isNotEmpty ? tabKeys.first : TaskTabKey.subtasks);
-
-  /// добавление подзадачи
-
-  Future addSubtask() async {
-    if (plCreate) {
-      loader.start();
-      loader.setSaving();
-      final newTask = await taskUC.save(
-        ws,
-        Task(
-          title: task.newSubtaskTitle,
-          statusId: (task.isRoot || task.isProject) ? null : task.statuses.firstOrNull?.id,
-          closed: false,
-          parent: task,
-          tasks: [],
-          members: [],
-          notes: [],
-          projectStatuses: [],
-          ws: ws,
-          state: '',
-          startDate: null,
-          elapsedPeriod: const Duration(seconds: 0),
-        ),
-      );
-      loader.stop();
-      if (newTask != null) {
-        task.tasks.add(newTask);
-        mainController.updateRootTask();
-
-        selectTab(TaskTabKey.subtasks);
-        await mainController.showTask(TaskParams(ws, taskId: newTask.id, isNew: true));
-      }
-    } else {
-      await changeTariff(
-        ws,
-        reason: task.isRoot ? loc.tariff_change_limit_projects_reason_title : loc.tariff_change_limit_tasks_reason_title,
-      );
-    }
-  }
 
   /// перенос с другую цель
 
@@ -542,14 +494,14 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     );
 
     if (destinationGoalId != null) {
-      final destinationGoal = mainController.taskForId(ws.id!, destinationGoalId);
+      final destinationGoal = task.goalsForLocalExport.firstWhere((g) => g.id == destinationGoalId);
       task.parent = destinationGoal;
       if (!(await _saveField(TaskFCode.parent))) {
         task.parent = sourceGoal;
       } else {
         sourceGoal.tasks.removeWhere((t) => t.id == task.id);
         destinationGoal.tasks.add(task);
-        mainController.updateRootTask();
+        mainController.updateRoots();
       }
     }
   }
@@ -585,46 +537,12 @@ abstract class _TaskViewControllerBase extends EditController with Store {
         try {
           await importUC.unlinkTaskSources(task.ws, task.id!, task.allTss());
           task.unlinkTaskTree();
-          mainController.updateRootTask();
+          mainController.updateRoots();
         } catch (_) {}
         await loader.stop();
       }
     } else {
       await changeTariff(task.ws, reason: loc.tariff_change_limit_unlink_reason_title);
-    }
-  }
-
-  /// удаление задачи
-
-  void _popDeleted(Task task) {
-    final context = rootKey.currentContext!;
-    Navigator.of(context).pop();
-    if (task.parent?.isRoot == true && task.parent?.tasks.length == 1 && Navigator.canPop(context)) {
-      Navigator.of(context).pop();
-    }
-  }
-
-  Future delete() async {
-    final confirm = await showMTAlertDialog(
-      task.deleteDialogTitle,
-      description: '${loc.task_delete_dialog_description}\n${loc.delete_dialog_description}',
-      actions: [
-        MTADialogAction(title: loc.yes, type: MTActionType.isDanger, result: true),
-        MTADialogAction(title: loc.no, type: MTActionType.isDefault, result: false),
-      ],
-      simple: true,
-    );
-    if (confirm == true) {
-      loader.start();
-      loader.setDeleting();
-      if (await taskUC.delete(ws, task)) {
-        _popDeleted(task);
-        if (task.parent != null) {
-          task.parent!.tasks.remove(task);
-          mainController.updateRootTask();
-        }
-      }
-      await loader.stop(300);
     }
   }
 }

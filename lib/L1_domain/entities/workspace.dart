@@ -35,12 +35,14 @@ class Workspace extends WorkspaceUpsert {
     required this.sources,
     required this.statuses,
     required this.mainAccount,
+    required this.tasksCount,
   });
 
   final Iterable<User> users;
   final Iterable<Role> roles;
   Invoice invoice;
   num balance;
+  int tasksCount;
 
   final WSettings? settings;
   final Account mainAccount;
@@ -49,20 +51,4 @@ class Workspace extends WorkspaceUpsert {
   List<EstimateValue> estimateValues = [];
   List<Status> statuses = [];
   List<Source> sources = [];
-
-  static Workspace get dummy => Workspace(
-        id: 0,
-        title: '',
-        description: '',
-        code: '',
-        users: [],
-        roles: [],
-        invoice: Invoice.dummy,
-        balance: 0,
-        settings: null,
-        estimateValues: [],
-        sources: [],
-        statuses: [],
-        mainAccount: Account.dummy,
-      );
 }

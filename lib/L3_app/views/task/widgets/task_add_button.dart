@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:avanplan/L1_domain/entities/task.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../components/colors.dart';
@@ -8,12 +9,12 @@ import '../../../components/icons.dart';
 import '../../../components/mt_adaptive.dart';
 import '../../../components/mt_button.dart';
 import '../../../components/mt_limit_badge.dart';
-import '../../../presenters/task_level_presenter.dart';
-import '../task_view_controller.dart';
+import '../../../presenters/task_type_presenter.dart';
+import '../task_add_controller.dart';
 
 class TaskAddButton extends StatelessWidget {
   const TaskAddButton(this.controller, {this.compact = false, this.dismissible = false});
-  final TaskViewController controller;
+  final TaskAddController controller;
   final bool compact;
   final bool dismissible;
 
@@ -31,7 +32,7 @@ class TaskAddButton extends StatelessWidget {
     final badge = MTLimitBadge(
       child: MTButton.main(
         leading: compact ? null : _plusIcon,
-        titleText: compact ? null : controller.task.newSubtaskTitle,
+        titleText: compact ? null : newSubtaskTitle(controller.parent?.type ?? TType.ROOT),
         middle: compact ? _plusIcon : null,
         constrained: false,
         onTap: _tap,

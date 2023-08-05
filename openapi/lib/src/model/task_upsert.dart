@@ -20,14 +20,14 @@ part 'task_upsert.g.dart';
 /// * [dueDate] 
 /// * [closedDate] 
 /// * [estimate] 
+/// * [createdOn] 
+/// * [updatedOn] 
 /// * [parentId] 
 /// * [assigneeId] 
 /// * [authorId] 
 /// * [priorityId] 
 /// * [statusId] 
 /// * [taskSourceId] 
-/// * [createdOn] 
-/// * [updatedOn] 
 @BuiltValue()
 abstract class TaskUpsert implements Built<TaskUpsert, TaskUpsertBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -55,7 +55,13 @@ abstract class TaskUpsert implements Built<TaskUpsert, TaskUpsertBuilder> {
   DateTime? get closedDate;
 
   @BuiltValueField(wireName: r'estimate')
-  int? get estimate;
+  num? get estimate;
+
+  @BuiltValueField(wireName: r'created_on')
+  DateTime? get createdOn;
+
+  @BuiltValueField(wireName: r'updated_on')
+  DateTime? get updatedOn;
 
   @BuiltValueField(wireName: r'parent_id')
   int? get parentId;
@@ -74,12 +80,6 @@ abstract class TaskUpsert implements Built<TaskUpsert, TaskUpsertBuilder> {
 
   @BuiltValueField(wireName: r'task_source_id')
   int? get taskSourceId;
-
-  @BuiltValueField(wireName: r'created_on')
-  DateTime? get createdOn;
-
-  @BuiltValueField(wireName: r'updated_on')
-  DateTime? get updatedOn;
 
   TaskUpsert._();
 
@@ -166,7 +166,21 @@ class _$TaskUpsertSerializer implements PrimitiveSerializer<TaskUpsert> {
       yield r'estimate';
       yield serializers.serialize(
         object.estimate,
-        specifiedType: const FullType(int),
+        specifiedType: const FullType(num),
+      );
+    }
+    if (object.createdOn != null) {
+      yield r'created_on';
+      yield serializers.serialize(
+        object.createdOn,
+        specifiedType: const FullType(DateTime),
+      );
+    }
+    if (object.updatedOn != null) {
+      yield r'updated_on';
+      yield serializers.serialize(
+        object.updatedOn,
+        specifiedType: const FullType(DateTime),
       );
     }
     if (object.parentId != null) {
@@ -209,20 +223,6 @@ class _$TaskUpsertSerializer implements PrimitiveSerializer<TaskUpsert> {
       yield serializers.serialize(
         object.taskSourceId,
         specifiedType: const FullType(int),
-      );
-    }
-    if (object.createdOn != null) {
-      yield r'created_on';
-      yield serializers.serialize(
-        object.createdOn,
-        specifiedType: const FullType(DateTime),
-      );
-    }
-    if (object.updatedOn != null) {
-      yield r'updated_on';
-      yield serializers.serialize(
-        object.updatedOn,
-        specifiedType: const FullType(DateTime),
       );
     }
   }
@@ -307,9 +307,23 @@ class _$TaskUpsertSerializer implements PrimitiveSerializer<TaskUpsert> {
         case r'estimate':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(int),
-          ) as int;
+            specifiedType: const FullType(num),
+          ) as num;
           result.estimate = valueDes;
+          break;
+        case r'created_on':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.createdOn = valueDes;
+          break;
+        case r'updated_on':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.updatedOn = valueDes;
           break;
         case r'parent_id':
           final valueDes = serializers.deserialize(
@@ -352,20 +366,6 @@ class _$TaskUpsertSerializer implements PrimitiveSerializer<TaskUpsert> {
             specifiedType: const FullType(int),
           ) as int;
           result.taskSourceId = valueDes;
-          break;
-        case r'created_on':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
-          result.createdOn = valueDes;
-          break;
-        case r'updated_on':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
-          result.updatedOn = valueDes;
           break;
         default:
           unhandled.add(key);

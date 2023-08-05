@@ -2,15 +2,11 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../../L1_domain/entities_extensions/task_level.dart';
 import '../../../../main.dart';
-import '../../../components/colors.dart';
 import '../../../components/icons.dart';
 import '../../../components/navbar.dart';
-import '../../../components/text_widgets.dart';
-import '../../../extra/services.dart';
 import '../../../presenters/task_colors_presenter.dart';
-import '../../../presenters/task_level_presenter.dart';
+import '../../../presenters/task_type_presenter.dart';
 import '../../../presenters/ws_presenter.dart';
 import '../../../usecases/task_ext_actions.dart';
 import '../task_view_controller.dart';
@@ -21,8 +17,8 @@ CupertinoNavigationBar taskNavBar(TaskViewController controller) {
 
   return navBar(
     rootKey.currentContext!,
-    bgColor: task.isRoot ? navbarDefaultBgColor : task.bgColor,
-    middle: task.isRoot ? MediumText(controller.isMyTasks ? loc.my_tasks_title : loc.project_list_all_title) : task.ws.subPageTitle(task.viewTitle),
-    trailing: !task.isRoot && task.actionTypes.isNotEmpty ? TaskPopupMenu(controller, icon: const MenuIcon()) : null,
+    bgColor: task.bgColor,
+    middle: task.ws.subPageTitle(task.viewTitle),
+    trailing: task.actionTypes.isNotEmpty ? TaskPopupMenu(controller, icon: const MenuIcon()) : null,
   );
 }

@@ -13,15 +13,10 @@ class TaskRepo extends AbstractWSRepo<Task> {
   o_api.TasksApi get api => openAPI.getTasksApi();
 
   @override
-  Future<Iterable<Task>> getAll(Workspace ws) async {
-    final response = await api.projectsV1TasksGet(wsId: ws.id!);
-    return response.data?.map((t) => t.task(ws: ws)) ?? [];
-  }
-
-  @override
   Future<Task?> save(Workspace ws, Task data) async {
     final qBuilder = o_api.TaskUpsertBuilder()
       ..id = data.id
+      ..createdOn = data.createdOn?.toUtc()
       ..taskSourceId = data.taskSource?.id
       ..assigneeId = data.assigneeId
       ..authorId = data.authorId
@@ -36,21 +31,15 @@ class TaskRepo extends AbstractWSRepo<Task> {
       ..dueDate = data.dueDate?.toUtc()
       ..type = data.type;
 
-    final response = await api.upsertV1TasksPost(
+    final t = (await api.taskUpsertV1TasksPost(
       taskUpsert: qBuilder.build(),
       wsId: ws.id!,
       permissionTaskId: data.project?.id,
-    );
+    ))
+        .data
+        ?.task(ws: ws, parent: data.parent);
 
-    final resData = response.data;
-    if (resData != null) {
-      if (data.id == null) {
-        data = resData.task(ws: ws, parent: data.parent);
-      }
-      return data;
-    } else {
-      return null;
-    }
+    return t;
   }
 
   @override

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../L1_domain/entities/task.dart';
-import '../../../../L1_domain/entities_extensions/task_level.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/mt_adaptive.dart';
@@ -40,7 +39,7 @@ class TaskHeader extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (_task.parent?.isRoot == false)
+              if (_task.parent != null)
                 MTField(
                   controller.fData(TaskFCode.parent.index),
                   value: NormalText(_task.parent!.title),

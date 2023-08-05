@@ -4,10 +4,12 @@ import 'package:built_collection/built_collection.dart';
 import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/notification.dart';
+import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities/user.dart';
 import '../../L1_domain/entities/workspace.dart';
 import '../../L1_domain/repositories/abs_my_repo.dart';
 import '../mappers/notification.dart';
+import '../mappers/task.dart';
 import '../mappers/user.dart';
 import '../mappers/workspace.dart';
 import '../services/api.dart';
@@ -20,6 +22,7 @@ class MyRepo extends AbstractMyRepo {
   o_api.MyWorkspacesApi get _wsApi => openAPI.getMyWorkspacesApi();
   o_api.MyNotificationsApi get _notificationsApi => openAPI.getMyNotificationsApi();
   o_api.MyPushTokensApi get _pushTokensApi => openAPI.getMyPushTokensApi();
+  o_api.MyTasksApi get _tasksApi => openAPI.getMyTasksApi();
 
   @override
   Future<User?> getAccount() async {
@@ -34,6 +37,12 @@ class MyRepo extends AbstractMyRepo {
   Future<Iterable<Workspace>> getWorkspaces() async {
     final response = await _wsApi.workspacesV1MyWorkspacesGet();
     return response.data?.map((ws) => ws.workspace) ?? [];
+  }
+
+  @override
+  Future<Iterable<Task>> getTasks(Workspace ws) async {
+    final response = await _tasksApi.myTasksV1MyTasksGet(wsId: ws.id!);
+    return response.data?.map((t) => t.task(ws: ws)) ?? [];
   }
 
   @override
@@ -65,7 +74,7 @@ class MyRepo extends AbstractMyRepo {
 
   @override
   Future<Iterable<MTNotification>> getNotifications() async {
-    final response = await _notificationsApi.notificationsV1MyNotificationsGet();
+    final response = await _notificationsApi.myNotificationsV1MyNotificationsGet();
     return response.data?.map((n) => n.notification) ?? [];
   }
 

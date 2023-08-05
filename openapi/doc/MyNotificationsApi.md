@@ -10,7 +10,7 @@ All URIs are relative to */api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**markReadNotificationsV1MyNotificationsPost**](MyNotificationsApi.md#markreadnotificationsv1mynotificationspost) | **POST** /v1/my/notifications | Mark Read Notifications
-[**notificationsV1MyNotificationsGet**](MyNotificationsApi.md#notificationsv1mynotificationsget) | **GET** /v1/my/notifications | Notifications
+[**myNotificationsV1MyNotificationsGet**](MyNotificationsApi.md#mynotificationsv1mynotificationsget) | **GET** /v1/my/notifications | My Notifications
 
 
 # **markReadNotificationsV1MyNotificationsPost**
@@ -60,10 +60,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **notificationsV1MyNotificationsGet**
-> BuiltList<Notification> notificationsV1MyNotificationsGet()
+# **myNotificationsV1MyNotificationsGet**
+> BuiltList<Notification> myNotificationsV1MyNotificationsGet()
 
-Notifications
+My Notifications
 
 ### Example
 ```dart
@@ -78,10 +78,10 @@ import 'package:openapi/api.dart';
 final api = Openapi().getMyNotificationsApi();
 
 try {
-    final response = api.notificationsV1MyNotificationsGet();
+    final response = api.myNotificationsV1MyNotificationsGet();
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling MyNotificationsApi->notificationsV1MyNotificationsGet: $e\n');
+    print('Exception when calling MyNotificationsApi->myNotificationsV1MyNotificationsGet: $e\n');
 }
 ```
 

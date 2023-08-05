@@ -8,5 +8,8 @@ extension ServiceSettingsMapper on AppSettingsGet {
   ServiceSettings get settings => ServiceSettings(
         id: id,
         frontendFlags: frontendFlags ?? '',
+        lowStartThresholdDays: lowStartThresholdDays,
+        riskThresholdDays: riskThresholdDays,
+        estimateReliabilityDays: estimateReliabilityDays,
       );
 }

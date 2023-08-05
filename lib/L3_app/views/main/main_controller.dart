@@ -6,8 +6,11 @@ import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
+import '../../../L1_domain/entities_extensions/task_level.dart';
+import '../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../L1_domain/entities_extensions/ws_ext.dart';
+import '../../../L1_domain/usecases/task_comparators.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../../main.dart';
 import '../../components/images.dart';
@@ -39,12 +42,44 @@ abstract class _MainControllerBase with Store {
   // TODO: должно частично решиться https://redmine.moroz.team/issues/2566
   void touchWorkspaces() => workspaces = [...workspaces];
 
-  /// рутовый объект
+  /// проекты и или задачи
+
   @observable
-  Task rootTask = Task.dummy;
+  List<Task> rootTasks = [];
 
   @computed
-  Iterable<Task> get _myDT => rootTask.myTasks.where((t) => t.hasDueDate);
+  List<Task> get allTasks {
+    final res = <Task>[];
+    for (var r in rootTasks) {
+      res.addAll(r.allTasks);
+      res.add(r);
+    }
+    return res.sorted(sortByDateAsc);
+  }
+
+  /// проекты
+
+  @computed
+  Iterable<Task> get projects => allTasks.where((r) => r.isProject || r.parent == null);
+  @computed
+  bool get hasLinkedProjects => projects.where((p) => p.linked).isNotEmpty;
+  @computed
+  List<MapEntry<TaskState, List<Task>>> get projectsGroups => groups(projects);
+  @computed
+  List<Task> get attentionalProjects => attentionalTasks(projectsGroups);
+  @computed
+  TaskState get projectsState => attentionalState(projectsGroups);
+  @computed
+  bool get hasOpenedProjects => projects.where((p) => !p.closed).isNotEmpty;
+
+  /// задачи
+
+  @computed
+  Iterable<Task> get myTasks => allTasks.where((t) => t.hasAssignee && t.assignee!.userId == accountController.user!.id && t.isLeaf);
+  @computed
+  List<MapEntry<TaskState, List<Task>>> get myTasksGroups => groups(myTasks);
+  @computed
+  Iterable<Task> get _myDT => myTasks.where((t) => t.hasDueDate);
   @computed
   Iterable<Task> get _myOverdueTasks => _myDT.where((t) => t.hasOverdue);
   @computed
@@ -58,7 +93,7 @@ abstract class _MainControllerBase with Store {
       ? _todayCount
       : _myThisWeekTasks.isNotEmpty
           ? _myThisWeekTasks.length
-          : rootTask.myTasks.length;
+          : myTasks.length;
   @computed
   String get myUpcomingTasksTitle => _myTodayTasks.isNotEmpty
       ? loc.my_tasks_today_title
@@ -68,23 +103,13 @@ abstract class _MainControllerBase with Store {
 
   @computed
   Map<int, Map<int, Task>> get _tasksMap => {
-        for (var ws in workspaces) ws.id!: {for (var t in wsTasks(ws.id!)) t.id!: t}
+        for (var ws in workspaces) ws.id!: {for (var t in _wsTasks(ws.id!)) t.id!: t}
       };
 
-  Iterable<Task> wsProjects(int wsId) => rootTask.tasks.where((t) => t.ws.id == wsId);
-  Iterable<Task> wsTasks(int wsId) => rootTask.allTasks.where((t) => t.ws.id == wsId);
-
-  @computed
-  bool get hasLinkedProjects => rootTask.tasks.where((p) => p.linked).isNotEmpty;
+  Iterable<Task> _wsTasks(int wsId) => allTasks.where((t) => t.ws.id == wsId);
 
   /// конкретная задача
-  Task taskForId(int wsId, int? id) {
-    Task? t;
-    if (wsId > 0 && id != null) {
-      t = _tasksMap[wsId]![id];
-    }
-    return t ?? rootTask;
-  }
+  Task taskForId(int wsId, int id) => _tasksMap[wsId]![id]!;
 
   Future showTask(TaskParams tp) async => await Navigator.of(rootKey.currentContext!).pushNamed(TaskView.routeName, arguments: tp);
 
@@ -102,28 +127,23 @@ abstract class _MainControllerBase with Store {
     workspaces = (await myUC.getWorkspaces()).sorted((w1, w2) => compareNatural(w1.title, w2.title));
   }
 
+  @action
   Future fetchTasks() async {
     loader.setLoading();
-    final projects = <Task>[];
+    final _roots = <Task>[];
     for (Workspace ws in workspaces) {
-      final roots = (await taskUC.getRoots(ws)).toList();
-      roots.forEach((p) async {
-        p.parent = rootTask;
-      });
-      projects.addAll(roots);
+      _roots.addAll(await myUC.getTasks(ws));
     }
-    rootTask.tasks = projects;
-    updateRootTask();
+    rootTasks = _roots;
   }
 
   @action
-  void updateRootTask() => rootTask = rootTask.updateRoot();
+  void updateRoots() => rootTasks = [...rootTasks];
 
   @action
   void clearData() {
     workspaces = [];
-    rootTask.tasks = [];
-    updateRootTask();
+    rootTasks = [];
     _updatedDate = null;
 
     refsController.clearData();

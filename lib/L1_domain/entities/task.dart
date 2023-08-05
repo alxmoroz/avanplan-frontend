@@ -7,25 +7,35 @@ import 'project_status.dart';
 import 'task_source.dart';
 import 'workspace.dart';
 
-enum TaskLevel { root, project, goal, task, subtask }
+class TType {
+  static const String ROOT = 'ROOT';
+  static const String PROJECT = 'PROJECT';
+  static const String GOAL = 'GOAL';
+  static const String GROUP = 'GROUP';
+  static const String BACKLOG = 'BACKLOG';
 
-class TaskState {
-  static const String OVERDUE = 'OVERDUE';
-  static const String RISK = 'RISK';
-  static const String OK = 'OK';
-  static const String AHEAD = 'AHEAD';
-  static const String CLOSABLE = 'CLOSABLE';
-  static const String FUTURE_START = 'FUTURE_START';
-  static const String ETA = 'ETA';
-  static const String NO_SUBTASKS = 'NO_SUBTASKS';
-  static const String NO_PROGRESS = 'NO_PROGRESS';
-  static const String TODAY = 'TODAY';
-  static const String THIS_WEEK = 'THIS_WEEK';
-  static const String FUTURE_DUE = 'FUTURE_DUE';
-  static const String NO_DUE = 'NO_DUE';
-  static const String NO_INFO = 'NO_INFO';
-  static const String OPENED = 'OPENED';
-  static const String CLOSED = 'CLOSED';
+  static const String TASK = 'TASK';
+  static const String SUBTASK = 'SUBTASK';
+}
+
+enum TaskState {
+  OVERDUE,
+  RISK,
+  OK,
+  AHEAD,
+  CLOSABLE,
+  FUTURE_START,
+  LOW_START,
+  ETA,
+  NO_SUBTASKS,
+  NO_PROGRESS,
+  TODAY,
+  THIS_WEEK,
+  FUTURE_DUE,
+  NO_DUE,
+  NO_INFO,
+  OPENED,
+  CLOSED,
 }
 
 class Task extends Titleable {
@@ -33,6 +43,7 @@ class Task extends Titleable {
     super.id,
     super.description,
     super.title,
+    required this.startDate,
     required this.closed,
     required this.parent,
     required this.tasks,
@@ -40,8 +51,7 @@ class Task extends Titleable {
     required this.members,
     required this.projectStatuses,
     required this.ws,
-    required this.state,
-    required this.startDate,
+    this.taskSource,
     this.createdOn,
     this.updatedOn,
     this.dueDate,
@@ -49,95 +59,42 @@ class Task extends Titleable {
     this.statusId,
     this.authorId,
     this.assigneeId,
-    this.taskSource,
     this.type,
+    this.openedVolume,
     this.estimate,
-    required this.elapsedPeriod,
-    this.etaPeriod,
-    this.riskPeriod,
-    this.isFuture = false,
+    this.state = TaskState.NO_INFO,
+    this.velocity = 0,
+    this.requiredVelocity,
+    this.progress = 0,
     this.etaDate,
-    this.showSP = false,
-    this.targetVelocity,
   });
 
+  DateTime? startDate;
+  bool closed;
   Task? parent;
-
   List<Task> tasks;
   List<Note> notes;
   Iterable<Member> members;
   Iterable<ProjectStatus> projectStatuses;
-  int? statusId;
-  bool closed;
-
+  final Workspace ws;
+  final TaskSource? taskSource;
   final DateTime? createdOn;
   final DateTime? updatedOn;
-  DateTime? startDate;
-  DateTime? closedDate;
   DateTime? dueDate;
-
-  final Workspace ws;
-
+  DateTime? closedDate;
+  int? statusId;
   int? authorId;
   int? assigneeId;
-
-  final TaskSource? taskSource;
   final String? type;
-  int? estimate;
 
-  TaskLevel level = TaskLevel.root;
+  num? openedVolume;
 
-  Iterable<Task> allTasks = [];
-  Iterable<Task> openedSubtasks = [];
-  Iterable<Task> goalsForLocalExport = [];
-  Iterable<Task> goalsForLocalImport = [];
-  Iterable<Task> closedSubtasks = [];
-  Iterable<Task> leaves = [];
-  Iterable<Task> openedLeaves = [];
-  Iterable<Task> openedAssignedLeaves = [];
-  // Iterable<Task> closedLeaves;
-  int closedLeavesCount;
-  Iterable<Task> overdueSubtasks = [];
-  Iterable<Task> riskySubtasks = [];
-  Iterable<Task> okSubtasks = [];
-  Iterable<Task> etaSubtasks = [];
-
-  late Duration beforeStartPeriod;
-  bool isFuture;
-  Duration elapsedPeriod;
-  bool? isLowStart;
-  Duration? etaPeriod;
-  DateTime? etaDate;
-  Duration? closedPeriod;
-
-  Duration? leftPeriod;
-  Duration? riskPeriod;
-
-  double? velocityTasks;
-  double? velocitySP;
-  double? targetVelocity;
-  bool showSP = false;
-
-  double? planVolume;
-
-  final String state;
-  late String subtasksState;
-  late String overallState;
-
-  static Task get dummy => Task(
-      title: '',
-      closed: false,
-      parent: null,
-      tasks: [],
-      members: [],
-      notes: [],
-      projectStatuses: [],
-      ws: Workspace.dummy,
-      state: '',
-      showSP: false,
-      startDate: null,
-      elapsedPeriod: const Duration(seconds: 0),
-      isFuture: false);
+  num? estimate;
+  final TaskState state;
+  final double velocity;
+  final double? requiredVelocity;
+  final double progress;
+  final DateTime? etaDate;
 }
 
 class TaskRemote {

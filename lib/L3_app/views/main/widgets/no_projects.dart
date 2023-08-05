@@ -2,21 +2,18 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../../L1_domain/entities_extensions/task_level.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/images.dart';
 import '../../../components/mt_button.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
-import '../../task/task_view.dart';
-import '../../task/task_view_controller.dart';
+import '../../../views/my_projects/my_projects_view.dart';
 
 class NoProjects extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final rootTask = mainController.rootTask;
-    final allClosed = rootTask.hasSubtasks;
+    final allClosed = !mainController.hasOpenedProjects;
     return Center(
       child: ListView(
         shrinkWrap: true,
@@ -28,7 +25,7 @@ class NoProjects extends StatelessWidget {
             MTButton(
               leading: H2(loc.project_list_all_title, color: mainColor),
               middle: H2(loc.are_closed_suffix),
-              onTap: () async => await Navigator.of(context).pushNamed(TaskView.routeName, arguments: TaskParams(rootTask.ws)),
+              onTap: () async => await Navigator.of(context).pushNamed(MyProjectsView.routeName),
             )
           else
             H2(loc.state_no_projects_hint, align: TextAlign.center),

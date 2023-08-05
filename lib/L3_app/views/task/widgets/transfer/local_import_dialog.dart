@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../../L1_domain/entities_extensions/task_stats.dart';
+import '../../../../../L1_domain/usecases/task_comparators.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
@@ -16,7 +18,6 @@ import '../../../../components/mt_shadowed.dart';
 import '../../../../components/mt_toolbar.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/task_comparators.dart';
 import '../../task_view_controller.dart';
 import 'local_import_controller.dart';
 import 'select_task_dialog.dart';
@@ -26,10 +27,12 @@ Future localImportDialog(TaskViewController taskController) async {
   final sourceGoalId = await selectTaskDialog(destinationGoal.goalsForLocalImport.sorted(sortByDateAsc), loc.task_transfer_source_hint);
 
   if (sourceGoalId != null) {
+    final sourceGoal = destinationGoal.goalsForLocalImport.firstWhere((g) => g.id == sourceGoalId);
+
     await showMTDialog<void>(
       TasksLocalImportDialog(
         LocalImportController(
-          mainController.taskForId(destinationGoal.ws.id!, sourceGoalId),
+          sourceGoal,
           taskController,
         ),
       ),

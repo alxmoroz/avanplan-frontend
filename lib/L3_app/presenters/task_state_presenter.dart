@@ -12,9 +12,10 @@ import '../components/images.dart';
 import '../components/mt_circle.dart';
 import '../extra/services.dart';
 import '../presenters/duration_presenter.dart';
-import '../presenters/task_level_presenter.dart';
+import '../presenters/task_filter_presenter.dart';
+import '../presenters/task_type_presenter.dart';
 
-Color stateColor(String state) {
+Color stateColor(TaskState state) {
   switch (state) {
     case TaskState.OVERDUE:
       return dangerColor;
@@ -23,6 +24,7 @@ Color stateColor(String state) {
       return warningColor;
     case TaskState.CLOSABLE:
     case TaskState.OK:
+    case TaskState.AHEAD:
     case TaskState.THIS_WEEK:
       return greenColor;
     default:
@@ -30,7 +32,7 @@ Color stateColor(String state) {
   }
 }
 
-Widget imageForState(String state, {double? size}) {
+Widget imageForState(TaskState state, {double? size}) {
   String name = ImageNames.noInfo;
   switch (state) {
     case TaskState.OVERDUE:
@@ -50,7 +52,7 @@ Widget imageForState(String state, {double? size}) {
   return MTImage(name, size: size);
 }
 
-LinearGradient stateGradient(String state) {
+LinearGradient stateGradient(TaskState state) {
   final color = stateColor(state).resolve(rootKey.currentContext!);
   return LinearGradient(
     begin: Alignment.centerLeft,
@@ -60,7 +62,7 @@ LinearGradient stateGradient(String state) {
   );
 }
 
-Widget stateIconGroup(String state) => SizedBox(
+Widget stateIconGroup(TaskState state) => SizedBox(
       height: P2,
       width: P,
       child: Stack(
@@ -78,6 +80,45 @@ Widget stateIconGroup(String state) => SizedBox(
         ],
       ),
     );
+
+String groupStateTitle(TaskState groupState, String type) {
+  switch (groupState) {
+    case TaskState.OVERDUE:
+      return loc.state_overdue_title;
+    case TaskState.RISK:
+      return loc.state_risk_title;
+    case TaskState.OK:
+      return loc.state_ok_title;
+    case TaskState.AHEAD:
+      return loc.state_ok_title;
+    case TaskState.ETA:
+      return loc.state_eta_title;
+    case TaskState.CLOSABLE:
+      return loc.state_closable_title;
+    case TaskState.NO_SUBTASKS:
+      return grandchildrenCount(0, type);
+    case TaskState.NO_PROGRESS:
+      return loc.state_no_progress_details;
+    case TaskState.CLOSED:
+      return loc.state_closed;
+    case TaskState.FUTURE_START:
+      return loc.state_future_title;
+    case TaskState.OPENED:
+      return loc.state_opened;
+    case TaskState.NO_INFO:
+      return loc.state_no_info_title;
+    case TaskState.TODAY:
+      return loc.my_tasks_today_title;
+    case TaskState.THIS_WEEK:
+      return loc.my_tasks_this_week_title;
+    case TaskState.FUTURE_DUE:
+      return loc.my_tasks_future_title;
+    case TaskState.NO_DUE:
+      return loc.my_tasks_no_due_title;
+    default:
+      return '';
+  }
+}
 
 extension TaskStatePresenter on Task {
   String _subjects(int count, {bool dative = true}) {
@@ -112,8 +153,10 @@ extension TaskStatePresenter on Task {
         return loc.state_future_start_duration(beforeStartPeriod.localizedString);
       case TaskState.OPENED:
         return loc.state_opened;
+      case TaskState.LOW_START:
+        return loc.state_low_start_duration(serviceSettingsController.lowStartThreshold.localizedString);
       case TaskState.NO_INFO:
-        return projectLowStart ? loc.state_low_start_duration(lowStartThreshold.localizedString) : loc.state_no_info_title;
+        return loc.state_no_info_title;
       case TaskState.CLOSED:
         return loc.state_closed;
       default:
@@ -122,13 +165,14 @@ extension TaskStatePresenter on Task {
   }
 
   String get subtasksStateTitle {
+    final count = subtaskGroups.isNotEmpty ? subtaskGroups.first.value.length : 0;
     switch (subtasksState) {
       case TaskState.OVERDUE:
-        return '${loc.state_overdue_title}${_subjects(overdueSubtasks.length)}';
+        return '${loc.state_overdue_title}${_subjects(count)}';
       case TaskState.RISK:
-        return '${loc.state_risk_title}${_subjects(riskySubtasks.length)}';
+        return '${loc.state_risk_title}${_subjects(count)}';
       case TaskState.OK:
-        return '${loc.state_on_time_title}${_subjects(okSubtasks.length)}';
+        return '${loc.state_on_time_title}${_subjects(count)}';
       case TaskState.ETA:
         return _etaDetails;
       default:
@@ -138,55 +182,16 @@ extension TaskStatePresenter on Task {
 
   String get overallStateTitle {
     final st = state;
-    final subSt = subtasksState;
     final stTitle = stateTitle;
 
-    return ![TaskState.NO_INFO, TaskState.ETA].contains(st)
+    return ![TaskState.NO_INFO].contains(st)
         ? stTitle
-        : subSt != TaskState.NO_INFO
+        : subtasksState != TaskState.NO_INFO
             ? subtasksStateTitle
             : stTitle;
   }
 
-  String groupStateTitle(String groupState) {
-    switch (groupState) {
-      case TaskState.OVERDUE:
-        return loc.state_overdue_title;
-      case TaskState.RISK:
-        return loc.state_risk_title;
-      case TaskState.OK:
-        return loc.state_ok_title;
-      case TaskState.AHEAD:
-        return loc.state_ok_title;
-      case TaskState.ETA:
-        return loc.state_eta_title;
-      case TaskState.CLOSABLE:
-        return loc.state_closable_title;
-      case TaskState.NO_SUBTASKS:
-        return grandchildrenCount(0);
-      case TaskState.NO_PROGRESS:
-        return loc.state_no_progress_details;
-      case TaskState.CLOSED:
-        return loc.state_closed;
-      case TaskState.FUTURE_START:
-        return loc.state_future_title;
-      case TaskState.OPENED:
-        return loc.state_opened;
-      case TaskState.NO_INFO:
-        return loc.state_no_info_title;
-      case TaskState.TODAY:
-        return loc.my_tasks_today_title;
-      case TaskState.THIS_WEEK:
-        return loc.my_tasks_this_week_title;
-      case TaskState.FUTURE_DUE:
-        return loc.my_tasks_future_title;
-      case TaskState.NO_DUE:
-        return loc.my_tasks_no_due_title;
-      default:
-        return '';
-    }
-  }
-
   bool get canShowState => !closed && !isLeaf;
-  bool get canShowRecommendsEta => !isRoot && [TaskState.NO_SUBTASKS, TaskState.NO_PROGRESS].contains(overallState);
+  bool get canShowRecommendsEta => [TaskState.NO_SUBTASKS, TaskState.NO_PROGRESS].contains(state);
+  Duration? get projectStartEtaCalcPeriod => project!.calculatedStartDate.add(serviceSettingsController.lowStartThreshold).difference(DateTime.now());
 }

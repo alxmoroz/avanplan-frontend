@@ -17,7 +17,7 @@ import '../../../../usecases/ws_ext_actions.dart';
 import '../../../import/import_view.dart';
 import '../../../source/source_type_selector.dart';
 import '../../../tariff/tariff_select_view.dart';
-import '../../task_view_controller.dart';
+import '../../task_add_controller.dart';
 import '../task_add_button.dart';
 import 'project_add_wizard_controller.dart';
 import 'ws_selector.dart';
@@ -87,7 +87,7 @@ class _ProjectAddWizardState extends State<ProjectAddWizard> {
               ),
               const SizedBox(height: P),
               TaskAddButton(
-                TaskViewController(TaskParams(controller.ws!)),
+                TaskAddController(controller.ws!, null),
                 dismissible: true,
               ),
             ],

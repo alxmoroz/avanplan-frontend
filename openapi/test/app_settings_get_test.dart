@@ -26,5 +26,31 @@ void main() {
     test('to test the property `welcomeGiftAmount`', () async {
       // TODO
     });
+
+    // int lowStartThresholdDays
+    test('to test the property `lowStartThresholdDays`', () async {
+      // TODO
+    });
+
+    // int riskThresholdDays
+    test('to test the property `riskThresholdDays`', () async {
+      // TODO
+    });
+
+    // int estimateReliabilityDays
+    test('to test the property `estimateReliabilityDays`', () async {
+      // TODO
+    });
+
+    // num estimateReliabilityClosedRatioThreshold
+    test('to test the property `estimateReliabilityClosedRatioThreshold`',
+        () async {
+      // TODO
+    });
+
+    // num estimateAvgDefault
+    test('to test the property `estimateAvgDefault`', () async {
+      // TODO
+    });
   });
 }

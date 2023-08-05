@@ -18,6 +18,7 @@ export 'package:openapi/src/api/my_activities_api.dart';
 export 'package:openapi/src/api/my_invitations_api.dart';
 export 'package:openapi/src/api/my_notifications_api.dart';
 export 'package:openapi/src/api/my_push_tokens_api.dart';
+export 'package:openapi/src/api/my_tasks_api.dart';
 export 'package:openapi/src/api/my_workspaces_api.dart';
 export 'package:openapi/src/api/payments_api.dart';
 export 'package:openapi/src/api/settings_api.dart';

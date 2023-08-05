@@ -121,7 +121,7 @@ class MyNotificationsApi {
     );
   }
 
-  /// Notifications
+  /// My Notifications
   /// 
   ///
   /// Parameters:
@@ -134,7 +134,7 @@ class MyNotificationsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<Notification>] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<BuiltList<Notification>>> notificationsV1MyNotificationsGet({ 
+  Future<Response<BuiltList<Notification>>> myNotificationsV1MyNotificationsGet({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,

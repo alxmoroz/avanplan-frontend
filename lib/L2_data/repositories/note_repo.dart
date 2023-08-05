@@ -12,9 +12,6 @@ class NoteRepo extends AbstractWSRepo<Note> {
   o_api.TasksNotesApi get api => openAPI.getTasksNotesApi();
 
   @override
-  Future<Iterable<Note>> getAll(Workspace ws) async => throw UnimplementedError;
-
-  @override
   Future<Note?> save(Workspace ws, Note data) async {
     final b = o_api.NoteUpsertBuilder()
       ..id = data.id

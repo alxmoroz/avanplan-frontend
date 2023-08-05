@@ -38,9 +38,9 @@ extension TaskActionsExt on Task {
   bool get isLinkedProject => isProject && !_isLocal;
 
   bool get canCreate => _isLocal && !closed && _hpCreate;
-  bool get canUpdate => !isRoot && _isLocal && ((isProject && ws.hpProjectUpdate == true) || _hpUpdate);
+  bool get canUpdate => _isLocal && ((isProject && ws.hpProjectUpdate == true) || _hpUpdate);
   bool get canDelete => (isProject && ws.hpProjectDelete == true) || (_isLocal && _hpDelete);
-  bool get canRefresh => isRoot;
+  // bool get canRefresh => isRoot;
   bool get canReopen => closed && canUpdate && parent?.closed == false;
   bool get canClose => canUpdate && !closed;
   bool get canUnlink => isLinkedProject && ws.hpProjectUpdate == true;
@@ -57,9 +57,9 @@ extension TaskActionsExt on Task {
   /// рекомендации, быстрые кнопки
   bool get shouldAddSubtask =>
       [
-        TaskLevel.project,
-        TaskLevel.goal,
-      ].contains(level) &&
+        TType.PROJECT,
+        TType.GOAL,
+      ].contains(type) &&
       canCreate &&
       !hasOpenedSubtasks;
 
@@ -71,19 +71,6 @@ extension TaskActionsExt on Task {
         if (canUnlink) TaskActionType.unlink,
         if (canDelete) TaskActionType.delete,
       ];
-
-  void _updateParentTask() {
-    if (parent != null) {
-      final index = parent!.tasks.indexWhere((t) => t.id == id);
-      if (index >= 0) {
-        if (removed) {
-          parent!.tasks.removeAt(index);
-        } else {
-          parent!.tasks[index] = this;
-        }
-      }
-    }
-  }
 
   Iterable<TaskSource> allTss() {
     final tss = <TaskSource>[];
@@ -103,12 +90,5 @@ extension TaskActionsExt on Task {
     if (linked) {
       taskSource?.keepConnection = false;
     }
-  }
-
-  void updateParents() {
-    if (parent != null) {
-      parent!.updateParents();
-    }
-    _updateParentTask();
   }
 }

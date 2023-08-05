@@ -2,8 +2,8 @@
 
 import 'package:collection/collection.dart';
 
-import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/entities_extensions/task_stats.dart';
+import '../entities/task.dart';
+import '../entities_extensions/task_stats.dart';
 
 // TODO: найти подходящее место
 int sortByDateAsc(Task t1, Task t2) {

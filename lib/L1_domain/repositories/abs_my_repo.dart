@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import '../entities/notification.dart';
+import '../entities/task.dart';
 import '../entities/user.dart';
 import '../entities/workspace.dart';
 
@@ -9,6 +10,7 @@ abstract class AbstractMyRepo {
   Future<User?> registerActivity(String code, {int? wsId});
   Future deleteAccount();
   Future<Iterable<Workspace>> getWorkspaces();
+  Future<Iterable<Task>> getTasks(Workspace ws);
   Future<Workspace?> createWorkspace({WorkspaceUpsert? ws});
   Future<Workspace?> updateWorkspace(WorkspaceUpsert ws);
   Future<Iterable<MTNotification>> getNotifications();

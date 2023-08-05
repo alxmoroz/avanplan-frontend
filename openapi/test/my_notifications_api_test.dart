@@ -13,10 +13,10 @@ void main() {
       // TODO
     });
 
-    // Notifications
+    // My Notifications
     //
-    //Future<BuiltList<Notification>> notificationsV1MyNotificationsGet() async
-    test('test notificationsV1MyNotificationsGet', () async {
+    //Future<BuiltList<Notification>> myNotificationsV1MyNotificationsGet() async
+    test('test myNotificationsV1MyNotificationsGet', () async {
       // TODO
     });
   });

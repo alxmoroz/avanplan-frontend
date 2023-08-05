@@ -13,6 +13,7 @@ import '../../../extra/services.dart';
 import '../../../presenters/source_presenter.dart';
 import '../../../usecases/task_ext_actions.dart';
 import '../../../usecases/ws_ext_actions.dart';
+import '../task_delete_controller.dart';
 import '../task_view_controller.dart';
 
 class TaskPopupMenu extends StatelessWidget {
@@ -76,7 +77,8 @@ class TaskPopupMenu extends StatelessWidget {
         await controller.unlink();
         break;
       case TaskActionType.delete:
-        await controller.delete();
+        await TaskDeleteController().delete(_task);
+        mainController.updateRoots();
         break;
       default:
     }

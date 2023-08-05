@@ -17,7 +17,6 @@ part 'task_get.g.dart';
 ///
 /// Properties:
 /// * [id] 
-/// * [createdOn] 
 /// * [title] 
 /// * [description] 
 /// * [closed] 
@@ -26,37 +25,30 @@ part 'task_get.g.dart';
 /// * [dueDate] 
 /// * [closedDate] 
 /// * [estimate] 
+/// * [createdOn] 
+/// * [updatedOn] 
 /// * [parentId] 
 /// * [assigneeId] 
 /// * [authorId] 
 /// * [priorityId] 
 /// * [statusId] 
 /// * [taskSourceId] 
-/// * [updatedOn] 
+/// * [state] 
+/// * [velocity] 
+/// * [requiredVelocity] 
+/// * [progress] 
+/// * [etaDate] 
+/// * [openedVolume] 
+/// * [closedVolume] 
 /// * [taskSource] 
 /// * [members] 
 /// * [notes] 
-/// * [projectStatuses] 
 /// * [tasks] 
-/// * [state] 
-/// * [leavesCount] 
-/// * [openedLeavesCount] 
-/// * [closedLeavesCount] 
-/// * [leftPeriod] 
-/// * [elapsedPeriod] 
-/// * [etaPeriod] 
-/// * [riskPeriod] 
-/// * [isFuture] 
-/// * [etaDate] 
-/// * [showSp] 
-/// * [targetVelocity] 
+/// * [projectStatuses] 
 @BuiltValue()
 abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
-
-  @BuiltValueField(wireName: r'created_on')
-  DateTime get createdOn;
 
   @BuiltValueField(wireName: r'title')
   String? get title;
@@ -80,7 +72,13 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   DateTime? get closedDate;
 
   @BuiltValueField(wireName: r'estimate')
-  int? get estimate;
+  num? get estimate;
+
+  @BuiltValueField(wireName: r'created_on')
+  DateTime get createdOn;
+
+  @BuiltValueField(wireName: r'updated_on')
+  DateTime get updatedOn;
 
   @BuiltValueField(wireName: r'parent_id')
   int? get parentId;
@@ -100,8 +98,26 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'task_source_id')
   int? get taskSourceId;
 
-  @BuiltValueField(wireName: r'updated_on')
-  DateTime get updatedOn;
+  @BuiltValueField(wireName: r'state')
+  String? get state;
+
+  @BuiltValueField(wireName: r'velocity')
+  num? get velocity;
+
+  @BuiltValueField(wireName: r'required_velocity')
+  num? get requiredVelocity;
+
+  @BuiltValueField(wireName: r'progress')
+  num? get progress;
+
+  @BuiltValueField(wireName: r'eta_date')
+  DateTime? get etaDate;
+
+  @BuiltValueField(wireName: r'opened_volume')
+  num? get openedVolume;
+
+  @BuiltValueField(wireName: r'closed_volume')
+  num? get closedVolume;
 
   @BuiltValueField(wireName: r'task_source')
   TaskSourceGet? get taskSource;
@@ -112,47 +128,11 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'notes')
   BuiltList<NoteGet>? get notes;
 
-  @BuiltValueField(wireName: r'project_statuses')
-  BuiltList<ProjectStatusGet>? get projectStatuses;
-
   @BuiltValueField(wireName: r'tasks')
   BuiltList<TaskGet>? get tasks;
 
-  @BuiltValueField(wireName: r'state')
-  String? get state;
-
-  @BuiltValueField(wireName: r'leaves_count')
-  int? get leavesCount;
-
-  @BuiltValueField(wireName: r'opened_leaves_count')
-  int? get openedLeavesCount;
-
-  @BuiltValueField(wireName: r'closed_leaves_count')
-  int? get closedLeavesCount;
-
-  @BuiltValueField(wireName: r'left_period')
-  num? get leftPeriod;
-
-  @BuiltValueField(wireName: r'elapsed_period')
-  num? get elapsedPeriod;
-
-  @BuiltValueField(wireName: r'eta_period')
-  num? get etaPeriod;
-
-  @BuiltValueField(wireName: r'risk_period')
-  num? get riskPeriod;
-
-  @BuiltValueField(wireName: r'is_future')
-  bool? get isFuture;
-
-  @BuiltValueField(wireName: r'eta_date')
-  DateTime? get etaDate;
-
-  @BuiltValueField(wireName: r'show_sp')
-  bool? get showSp;
-
-  @BuiltValueField(wireName: r'target_velocity')
-  num? get targetVelocity;
+  @BuiltValueField(wireName: r'project_statuses')
+  BuiltList<ProjectStatusGet>? get projectStatuses;
 
   TaskGet._();
 
@@ -183,11 +163,6 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
     yield serializers.serialize(
       object.id,
       specifiedType: const FullType(int),
-    );
-    yield r'created_on';
-    yield serializers.serialize(
-      object.createdOn,
-      specifiedType: const FullType(DateTime),
     );
     if (object.title != null) {
       yield r'title';
@@ -242,9 +217,19 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
       yield r'estimate';
       yield serializers.serialize(
         object.estimate,
-        specifiedType: const FullType(int),
+        specifiedType: const FullType(num),
       );
     }
+    yield r'created_on';
+    yield serializers.serialize(
+      object.createdOn,
+      specifiedType: const FullType(DateTime),
+    );
+    yield r'updated_on';
+    yield serializers.serialize(
+      object.updatedOn,
+      specifiedType: const FullType(DateTime),
+    );
     if (object.parentId != null) {
       yield r'parent_id';
       yield serializers.serialize(
@@ -287,11 +272,55 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
         specifiedType: const FullType(int),
       );
     }
-    yield r'updated_on';
-    yield serializers.serialize(
-      object.updatedOn,
-      specifiedType: const FullType(DateTime),
-    );
+    if (object.state != null) {
+      yield r'state';
+      yield serializers.serialize(
+        object.state,
+        specifiedType: const FullType(String),
+      );
+    }
+    if (object.velocity != null) {
+      yield r'velocity';
+      yield serializers.serialize(
+        object.velocity,
+        specifiedType: const FullType(num),
+      );
+    }
+    if (object.requiredVelocity != null) {
+      yield r'required_velocity';
+      yield serializers.serialize(
+        object.requiredVelocity,
+        specifiedType: const FullType(num),
+      );
+    }
+    if (object.progress != null) {
+      yield r'progress';
+      yield serializers.serialize(
+        object.progress,
+        specifiedType: const FullType(num),
+      );
+    }
+    if (object.etaDate != null) {
+      yield r'eta_date';
+      yield serializers.serialize(
+        object.etaDate,
+        specifiedType: const FullType(DateTime),
+      );
+    }
+    if (object.openedVolume != null) {
+      yield r'opened_volume';
+      yield serializers.serialize(
+        object.openedVolume,
+        specifiedType: const FullType(num),
+      );
+    }
+    if (object.closedVolume != null) {
+      yield r'closed_volume';
+      yield serializers.serialize(
+        object.closedVolume,
+        specifiedType: const FullType(num),
+      );
+    }
     if (object.taskSource != null) {
       yield r'task_source';
       yield serializers.serialize(
@@ -313,13 +342,6 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
         specifiedType: const FullType(BuiltList, [FullType(NoteGet)]),
       );
     }
-    if (object.projectStatuses != null) {
-      yield r'project_statuses';
-      yield serializers.serialize(
-        object.projectStatuses,
-        specifiedType: const FullType(BuiltList, [FullType(ProjectStatusGet)]),
-      );
-    }
     if (object.tasks != null) {
       yield r'tasks';
       yield serializers.serialize(
@@ -327,88 +349,11 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
         specifiedType: const FullType(BuiltList, [FullType(TaskGet)]),
       );
     }
-    if (object.state != null) {
-      yield r'state';
+    if (object.projectStatuses != null) {
+      yield r'project_statuses';
       yield serializers.serialize(
-        object.state,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.leavesCount != null) {
-      yield r'leaves_count';
-      yield serializers.serialize(
-        object.leavesCount,
-        specifiedType: const FullType(int),
-      );
-    }
-    if (object.openedLeavesCount != null) {
-      yield r'opened_leaves_count';
-      yield serializers.serialize(
-        object.openedLeavesCount,
-        specifiedType: const FullType(int),
-      );
-    }
-    if (object.closedLeavesCount != null) {
-      yield r'closed_leaves_count';
-      yield serializers.serialize(
-        object.closedLeavesCount,
-        specifiedType: const FullType(int),
-      );
-    }
-    if (object.leftPeriod != null) {
-      yield r'left_period';
-      yield serializers.serialize(
-        object.leftPeriod,
-        specifiedType: const FullType(num),
-      );
-    }
-    if (object.elapsedPeriod != null) {
-      yield r'elapsed_period';
-      yield serializers.serialize(
-        object.elapsedPeriod,
-        specifiedType: const FullType(num),
-      );
-    }
-    if (object.etaPeriod != null) {
-      yield r'eta_period';
-      yield serializers.serialize(
-        object.etaPeriod,
-        specifiedType: const FullType(num),
-      );
-    }
-    if (object.riskPeriod != null) {
-      yield r'risk_period';
-      yield serializers.serialize(
-        object.riskPeriod,
-        specifiedType: const FullType(num),
-      );
-    }
-    if (object.isFuture != null) {
-      yield r'is_future';
-      yield serializers.serialize(
-        object.isFuture,
-        specifiedType: const FullType(bool),
-      );
-    }
-    if (object.etaDate != null) {
-      yield r'eta_date';
-      yield serializers.serialize(
-        object.etaDate,
-        specifiedType: const FullType(DateTime),
-      );
-    }
-    if (object.showSp != null) {
-      yield r'show_sp';
-      yield serializers.serialize(
-        object.showSp,
-        specifiedType: const FullType(bool),
-      );
-    }
-    if (object.targetVelocity != null) {
-      yield r'target_velocity';
-      yield serializers.serialize(
-        object.targetVelocity,
-        specifiedType: const FullType(num),
+        object.projectStatuses,
+        specifiedType: const FullType(BuiltList, [FullType(ProjectStatusGet)]),
       );
     }
   }
@@ -440,13 +385,6 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
             specifiedType: const FullType(int),
           ) as int;
           result.id = valueDes;
-          break;
-        case r'created_on':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
-          result.createdOn = valueDes;
           break;
         case r'title':
           final valueDes = serializers.deserialize(
@@ -500,9 +438,23 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
         case r'estimate':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(int),
-          ) as int;
+            specifiedType: const FullType(num),
+          ) as num;
           result.estimate = valueDes;
+          break;
+        case r'created_on':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.createdOn = valueDes;
+          break;
+        case r'updated_on':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(DateTime),
+          ) as DateTime;
+          result.updatedOn = valueDes;
           break;
         case r'parent_id':
           final valueDes = serializers.deserialize(
@@ -546,12 +498,54 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
           ) as int;
           result.taskSourceId = valueDes;
           break;
-        case r'updated_on':
+        case r'state':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.state = valueDes;
+          break;
+        case r'velocity':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
+          result.velocity = valueDes;
+          break;
+        case r'required_velocity':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
+          result.requiredVelocity = valueDes;
+          break;
+        case r'progress':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
+          result.progress = valueDes;
+          break;
+        case r'eta_date':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(DateTime),
           ) as DateTime;
-          result.updatedOn = valueDes;
+          result.etaDate = valueDes;
+          break;
+        case r'opened_volume':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
+          result.openedVolume = valueDes;
+          break;
+        case r'closed_volume':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
+          result.closedVolume = valueDes;
           break;
         case r'task_source':
           final valueDes = serializers.deserialize(
@@ -574,13 +568,6 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
           ) as BuiltList<NoteGet>;
           result.notes.replace(valueDes);
           break;
-        case r'project_statuses':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(BuiltList, [FullType(ProjectStatusGet)]),
-          ) as BuiltList<ProjectStatusGet>;
-          result.projectStatuses.replace(valueDes);
-          break;
         case r'tasks':
           final valueDes = serializers.deserialize(
             value,
@@ -588,89 +575,12 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
           ) as BuiltList<TaskGet>;
           result.tasks.replace(valueDes);
           break;
-        case r'state':
+        case r'project_statuses':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.state = valueDes;
-          break;
-        case r'leaves_count':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.leavesCount = valueDes;
-          break;
-        case r'opened_leaves_count':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.openedLeavesCount = valueDes;
-          break;
-        case r'closed_leaves_count':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.closedLeavesCount = valueDes;
-          break;
-        case r'left_period':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(num),
-          ) as num;
-          result.leftPeriod = valueDes;
-          break;
-        case r'elapsed_period':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(num),
-          ) as num;
-          result.elapsedPeriod = valueDes;
-          break;
-        case r'eta_period':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(num),
-          ) as num;
-          result.etaPeriod = valueDes;
-          break;
-        case r'risk_period':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(num),
-          ) as num;
-          result.riskPeriod = valueDes;
-          break;
-        case r'is_future':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool;
-          result.isFuture = valueDes;
-          break;
-        case r'eta_date':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
-          result.etaDate = valueDes;
-          break;
-        case r'show_sp':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool;
-          result.showSp = valueDes;
-          break;
-        case r'target_velocity':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(num),
-          ) as num;
-          result.targetVelocity = valueDes;
+            specifiedType: const FullType(BuiltList, [FullType(ProjectStatusGet)]),
+          ) as BuiltList<ProjectStatusGet>;
+          result.projectStatuses.replace(valueDes);
           break;
         default:
           unhandled.add(key);

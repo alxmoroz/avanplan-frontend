@@ -84,8 +84,9 @@ Class | Method | HTTP request | Description
 [*MyActivitiesApi*](doc/MyActivitiesApi.md) | [**registerV1MyActivitiesRegisterPost**](doc/MyActivitiesApi.md#registerv1myactivitiesregisterpost) | **POST** /v1/my/activities/register | Register
 [*MyInvitationsApi*](doc/MyInvitationsApi.md) | [**redeemV1MyInvitationsRedeemPost**](doc/MyInvitationsApi.md#redeemv1myinvitationsredeempost) | **POST** /v1/my/invitations/redeem | Redeem
 [*MyNotificationsApi*](doc/MyNotificationsApi.md) | [**markReadNotificationsV1MyNotificationsPost**](doc/MyNotificationsApi.md#markreadnotificationsv1mynotificationspost) | **POST** /v1/my/notifications | Mark Read Notifications
-[*MyNotificationsApi*](doc/MyNotificationsApi.md) | [**notificationsV1MyNotificationsGet**](doc/MyNotificationsApi.md#notificationsv1mynotificationsget) | **GET** /v1/my/notifications | Notifications
+[*MyNotificationsApi*](doc/MyNotificationsApi.md) | [**myNotificationsV1MyNotificationsGet**](doc/MyNotificationsApi.md#mynotificationsv1mynotificationsget) | **GET** /v1/my/notifications | My Notifications
 [*MyPushTokensApi*](doc/MyPushTokensApi.md) | [**updatePushTokenV1MyPushTokensPost**](doc/MyPushTokensApi.md#updatepushtokenv1mypushtokenspost) | **POST** /v1/my/push_tokens | Update Push Token
+[*MyTasksApi*](doc/MyTasksApi.md) | [**myTasksV1MyTasksGet**](doc/MyTasksApi.md#mytasksv1mytasksget) | **GET** /v1/my/tasks | My Tasks
 [*MyWorkspacesApi*](doc/MyWorkspacesApi.md) | [**createWorkspaceV1MyWorkspacesCreatePost**](doc/MyWorkspacesApi.md#createworkspacev1myworkspacescreatepost) | **POST** /v1/my/workspaces/create | Create Workspace
 [*MyWorkspacesApi*](doc/MyWorkspacesApi.md) | [**updateWorkspaceV1MyWorkspacesUpdatePost**](doc/MyWorkspacesApi.md#updateworkspacev1myworkspacesupdatepost) | **POST** /v1/my/workspaces/update | Update Workspace
 [*MyWorkspacesApi*](doc/MyWorkspacesApi.md) | [**workspacesV1MyWorkspacesGet**](doc/MyWorkspacesApi.md#workspacesv1myworkspacesget) | **GET** /v1/my/workspaces | Workspaces
@@ -93,8 +94,7 @@ Class | Method | HTTP request | Description
 [*SettingsApi*](doc/SettingsApi.md) | [**settingsV1SettingsGet**](doc/SettingsApi.md#settingsv1settingsget) | **GET** /v1/settings/ | Settings
 [*TariffsApi*](doc/TariffsApi.md) | [**tariffsV1TariffsGet**](doc/TariffsApi.md#tariffsv1tariffsget) | **GET** /v1/tariffs/ | Tariffs
 [*TasksApi*](doc/TasksApi.md) | [**deleteV1TasksTaskIdDelete**](doc/TasksApi.md#deletev1taskstaskiddelete) | **DELETE** /v1/tasks/{task_id} | Delete
-[*TasksApi*](doc/TasksApi.md) | [**projectsV1TasksGet**](doc/TasksApi.md#projectsv1tasksget) | **GET** /v1/tasks/ | Projects
-[*TasksApi*](doc/TasksApi.md) | [**upsertV1TasksPost**](doc/TasksApi.md#upsertv1taskspost) | **POST** /v1/tasks/ | Upsert
+[*TasksApi*](doc/TasksApi.md) | [**taskUpsertV1TasksPost**](doc/TasksApi.md#taskupsertv1taskspost) | **POST** /v1/tasks/ | Task Upsert
 [*TasksInvitationsApi*](doc/TasksInvitationsApi.md) | [**createV1TasksInvitationsPost**](doc/TasksInvitationsApi.md#createv1tasksinvitationspost) | **POST** /v1/tasks/invitations | Create
 [*TasksInvitationsApi*](doc/TasksInvitationsApi.md) | [**invitationsV1TasksInvitationsGet**](doc/TasksInvitationsApi.md#invitationsv1tasksinvitationsget) | **GET** /v1/tasks/invitations | Invitations
 [*TasksNotesApi*](doc/TasksNotesApi.md) | [**deleteV1TasksNotesNoteIdDelete**](doc/TasksNotesApi.md#deletev1tasksnotesnoteiddelete) | **DELETE** /v1/tasks/notes/{note_id} | Delete

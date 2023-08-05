@@ -3,7 +3,6 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../L1_domain/entities/task.dart';
-import '../../../extra/services.dart';
 import 'task_card.dart';
 
 // TODO: добавить опциональный заголовок для группы
@@ -31,7 +30,7 @@ class TasksGroup extends StatelessWidget {
       itemBuilder: (BuildContext _, int index) {
         final t = tasks[index];
         return TaskCard(
-          mainController.taskForId(t.ws.id!, t.id),
+          t,
           showStateMark: true,
           bottomBorder: index < tasks.length - 1 || groupBorder,
           isMine: isMine,

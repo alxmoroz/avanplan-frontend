@@ -5,6 +5,7 @@ import 'package:openapi/openapi.dart' as api;
 
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities/workspace.dart';
+import '../../L1_domain/entities_extensions/task_stats.dart';
 import 'member.dart';
 import 'note.dart';
 import 'project_status.dart';
@@ -40,14 +41,12 @@ extension TaskMapper on api.TaskGet {
       taskSource: ts,
       parent: parent,
       ws: ws,
-      state: state ?? '',
-      elapsedPeriod: Duration(seconds: elapsedPeriod?.toInt() ?? 0),
-      etaPeriod: Duration(seconds: etaPeriod?.toInt() ?? 0),
-      riskPeriod: Duration(seconds: riskPeriod?.toInt() ?? 0),
-      isFuture: isFuture ?? false,
+      openedVolume: openedVolume,
+      state: stateFromStr(state ?? ''),
+      velocity: velocity?.toDouble() ?? 0,
+      requiredVelocity: requiredVelocity?.toDouble(),
+      progress: progress?.toDouble() ?? 0,
       etaDate: etaDate?.toLocal(),
-      showSP: showSp ?? false,
-      targetVelocity: targetVelocity?.toDouble(),
     );
     _t.tasks = tasks?.map((t) => t.task(ws: ws, parent: _t)).toList() ?? [];
     return _t;

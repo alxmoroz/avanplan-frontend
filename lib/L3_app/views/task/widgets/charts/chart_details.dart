@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../../L1_domain/entities_extensions/task_level.dart';
 import '../../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
@@ -11,8 +12,8 @@ import '../../../../components/mt_toolbar.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/duration_presenter.dart';
-import '../../../../presenters/task_level_presenter.dart';
 import '../../../../presenters/task_state_presenter.dart';
+import '../../../../presenters/task_type_presenter.dart';
 import '../../../../presenters/task_view_presenter.dart';
 import 'timing_chart.dart';
 import 'velocity_chart.dart';
@@ -30,9 +31,6 @@ class TaskChartDetails extends StatelessWidget {
         H3(t2, color: color, padding: const EdgeInsets.only(top: P / 6, bottom: P / 6))
       ]);
 
-  int get _volumeDelta => task.planVolume != null ? (task.closedLeavesCount - task.planVolume!.round()) : 0;
-  double get _velocity => task.projectVelocity ?? 0;
-  int get _velocityDelta => task.targetVelocity != null && _velocity > 0 ? ((_velocity - task.targetVelocity!) * daysPerMonth).round() : 0;
   int get _timeDelta => task.leftPeriod!.inDays;
 
   @override
@@ -54,23 +52,13 @@ class TaskChartDetails extends StatelessWidget {
                 children: [
                   Flexible(child: TaskVolumeChart(task)),
                   const SizedBox(width: P),
-                  Flexible(
+                  const Flexible(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        _textRow(loc.chart_volume_total_label, '${task.leavesCount}'),
-                        _textRow(loc.state_opened, '${task.openedLeavesCount}'),
-                        _textRow(loc.state_closed, '${task.closedLeavesCount}'),
-                        if (task.planVolume != null) ...[
-                          const SizedBox(height: P),
-                          _textRow(loc.chart_volume_plan_label, '${task.planVolume!.round()}'),
-                          if (_volumeDelta != 0)
-                            _textRow(
-                              _volumeDelta > 0 ? loc.chart_delta_ahead_label : loc.chart_delta_lag_label,
-                              '${_volumeDelta.abs()}',
-                              color: _volumeDelta > 0 ? greenColor : warningColor,
-                            ),
-                        ],
+                        // _textRow(loc.chart_volume_total_label, '${task.leavesCount}'),
+                        // _textRow(loc.state_opened, '${task.openedLeavesCount}'),
+                        // _textRow(loc.state_closed, '${task.closedLeavesCount}'),
                       ],
                     ),
                   ),
@@ -83,18 +71,13 @@ class TaskChartDetails extends StatelessWidget {
               const SizedBox(height: P),
               Row(children: [
                 Flexible(child: VelocityChart(task)),
-                if (!task.projectLowStart) ...[
+                if (task.state != TaskState.LOW_START) ...[
                   const SizedBox(width: P),
                   Flexible(
                     child: Column(children: [
-                      _textRow(loc.chart_velocity_project_label, '${(_velocity * daysPerMonth).round()}'),
-                      if (task.targetVelocity != null) _textRow(loc.chart_velocity_target_label, '${(task.targetVelocity! * daysPerMonth).round()}'),
-                      if (_velocityDelta != 0)
-                        _textRow(
-                          _velocityDelta > 0 ? loc.chart_delta_ahead_label : loc.chart_delta_lag_label,
-                          '${_velocityDelta.abs()}',
-                          color: _velocityDelta > 0 ? greenColor : warningColor,
-                        ),
+                      _textRow(loc.chart_velocity_project_label, '${(task.project!.velocity * daysPerMonth).round()}'),
+                      if (task.requiredVelocity != null)
+                        _textRow(loc.chart_velocity_target_label, '${(task.requiredVelocity! * daysPerMonth).round()}'),
                     ]),
                   ),
                 ],
@@ -107,7 +90,7 @@ class TaskChartDetails extends StatelessWidget {
               const SizedBox(height: P),
               TimingChart(task),
               const SizedBox(height: P_2),
-              if (!task.isFuture) _textRow(loc.chart_timing_elapsed_label, '${loc.days_count(task.elapsedPeriod.inDays)}'),
+              if (!task.isFuture) _textRow(loc.chart_timing_elapsed_label, '${loc.days_count(task.elapsedPeriod?.inDays ?? 0)}'),
               if (task.leftPeriod != null)
                 _textRow(
                   _timeDelta >= 0 ? loc.chart_timing_left_label : loc.state_overdue_title,

@@ -41,7 +41,7 @@ class TasksBoardView extends StatelessWidget {
       final oldStatusId = _task.statuses[oldStatusIndex].id!;
       final newStatusId = _task.statuses[newStatusIndex].id!;
 
-      final task = _task.leavesForStatus(oldStatusId)[oldTaskIndex];
+      final task = _task.subtasksForStatus(oldStatusId)[oldTaskIndex];
       await controller.taskController.setStatus(task, statusId: newStatusId);
     }
   }
@@ -66,7 +66,7 @@ class TasksBoardView extends StatelessWidget {
 
   DragAndDropList _columnBuilder(int index) {
     final status = _task.statuses[index];
-    final tasks = _task.leavesForStatus(status.id!);
+    final tasks = _task.subtasksForStatus(status.id!);
     return DragAndDropList(
       header: Row(
         mainAxisAlignment: MainAxisAlignment.center,

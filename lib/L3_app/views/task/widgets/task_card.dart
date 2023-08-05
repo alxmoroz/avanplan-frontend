@@ -17,9 +17,9 @@ import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/date_presenter.dart';
 import '../../../presenters/person_presenter.dart';
-import '../../../presenters/task_level_presenter.dart';
 import '../../../presenters/task_note_presenter.dart';
 import '../../../presenters/task_state_presenter.dart';
+import '../../../presenters/task_type_presenter.dart';
 import '../../../presenters/ws_presenter.dart';
 import '../../../usecases/task_ext_actions.dart';
 import '../task_view_controller.dart';
@@ -89,7 +89,7 @@ class TaskCard extends StatelessWidget {
       );
 
   bool get _showEstimate => task.hasEstimate && !task.closed;
-  Widget get _estimate => SmallText('${task.estimate} ${task.ws.estimateUnitCode}', color: _textColor);
+  Widget get _estimate => SmallText('${(task.openedVolume ?? task.estimate)?.round()} ${task.ws.estimateUnitCode}', color: _textColor);
 
   Widget get _divider => const Padding(
         padding: EdgeInsets.symmetric(horizontal: P_2),
@@ -129,7 +129,7 @@ class TaskCard extends StatelessWidget {
         ],
       );
 
-  Future _tap() async => await mainController.showTask(TaskParams(task.ws, taskId: task.id));
+  Future _tap() async => await mainController.showTask(TaskParams(ws: task.ws, taskId: task.id!));
 
   @override
   Widget build(BuildContext context) => board
@@ -155,7 +155,7 @@ class TaskCard extends StatelessWidget {
                 bottom: 0,
                 child: Container(
                   decoration: BoxDecoration(
-                    gradient: stateGradient(task.overallState),
+                    gradient: stateGradient(task.state),
                   ),
                   width: P_2,
                 ),

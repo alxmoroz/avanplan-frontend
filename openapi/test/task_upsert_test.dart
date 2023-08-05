@@ -47,8 +47,18 @@ void main() {
       // TODO
     });
 
-    // int estimate
+    // num estimate
     test('to test the property `estimate`', () async {
+      // TODO
+    });
+
+    // DateTime createdOn
+    test('to test the property `createdOn`', () async {
+      // TODO
+    });
+
+    // DateTime updatedOn
+    test('to test the property `updatedOn`', () async {
       // TODO
     });
 
@@ -79,16 +89,6 @@ void main() {
 
     // int taskSourceId
     test('to test the property `taskSourceId`', () async {
-      // TODO
-    });
-
-    // DateTime createdOn
-    test('to test the property `createdOn`', () async {
-      // TODO
-    });
-
-    // DateTime updatedOn
-    test('to test the property `updatedOn`', () async {
       // TODO
     });
   });

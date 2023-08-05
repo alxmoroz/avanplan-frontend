@@ -54,7 +54,7 @@ class TimingChart extends StatelessWidget {
     final _now = DateTime.now();
     final res = <_DateBarData>[
       /// старт
-      _DateBarData(date: task.startDate!),
+      _DateBarData(date: task.calculatedStartDate),
 
       /// план
       if (task.hasDueDate)

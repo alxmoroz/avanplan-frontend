@@ -28,6 +28,7 @@ extension WorkspaceMapper on api.WorkspaceGet {
       sources: sources?.map((s) => s.source).toList() ?? [],
       statuses: statuses?.map((st) => st.status).toList() ?? [],
       mainAccount: mainAccount!.account,
+      tasksCount: tasksCount ?? 0,
     );
   }
 }

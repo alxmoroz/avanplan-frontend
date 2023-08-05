@@ -13,9 +13,6 @@ class SourceRepo extends AbstractSourceRepo {
   IntegrationsSourcesApi get api => openAPI.getIntegrationsSourcesApi();
 
   @override
-  Future<Iterable<Source>> getAll(Workspace ws) => throw UnimplementedError;
-
-  @override
   Future<Source?> save(Workspace ws, Source data) async {
     final builder = SourceUpsertBuilder()
       ..id = data.id

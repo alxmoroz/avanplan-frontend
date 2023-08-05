@@ -13,17 +13,10 @@ void main() {
       // TODO
     });
 
-    // Projects
+    // Task Upsert
     //
-    //Future<BuiltList<TaskGet>> projectsV1TasksGet(int wsId) async
-    test('test projectsV1TasksGet', () async {
-      // TODO
-    });
-
-    // Upsert
-    //
-    //Future<TaskGet> upsertV1TasksPost(int wsId, TaskUpsert taskUpsert, { int permissionTaskId }) async
-    test('test upsertV1TasksPost', () async {
+    //Future<TaskGet> taskUpsertV1TasksPost(int wsId, TaskUpsert taskUpsert, { int permissionTaskId }) async
+    test('test taskUpsertV1TasksPost', () async {
       // TODO
     });
   });

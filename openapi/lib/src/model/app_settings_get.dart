@@ -15,6 +15,11 @@ part 'app_settings_get.g.dart';
 /// * [frontendFlags] 
 /// * [wsOwnerRoleId] 
 /// * [welcomeGiftAmount] 
+/// * [lowStartThresholdDays] 
+/// * [riskThresholdDays] 
+/// * [estimateReliabilityDays] 
+/// * [estimateReliabilityClosedRatioThreshold] 
+/// * [estimateAvgDefault] 
 @BuiltValue()
 abstract class AppSettingsGet implements Built<AppSettingsGet, AppSettingsGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -28,6 +33,21 @@ abstract class AppSettingsGet implements Built<AppSettingsGet, AppSettingsGetBui
 
   @BuiltValueField(wireName: r'welcome_gift_amount')
   int? get welcomeGiftAmount;
+
+  @BuiltValueField(wireName: r'low_start_threshold_days')
+  int? get lowStartThresholdDays;
+
+  @BuiltValueField(wireName: r'risk_threshold_days')
+  int? get riskThresholdDays;
+
+  @BuiltValueField(wireName: r'estimate_reliability_days')
+  int? get estimateReliabilityDays;
+
+  @BuiltValueField(wireName: r'estimate_reliability_closed_ratio_threshold')
+  num? get estimateReliabilityClosedRatioThreshold;
+
+  @BuiltValueField(wireName: r'estimate_avg_default')
+  num? get estimateAvgDefault;
 
   AppSettingsGet._();
 
@@ -76,6 +96,41 @@ class _$AppSettingsGetSerializer implements PrimitiveSerializer<AppSettingsGet> 
       yield serializers.serialize(
         object.welcomeGiftAmount,
         specifiedType: const FullType(int),
+      );
+    }
+    if (object.lowStartThresholdDays != null) {
+      yield r'low_start_threshold_days';
+      yield serializers.serialize(
+        object.lowStartThresholdDays,
+        specifiedType: const FullType(int),
+      );
+    }
+    if (object.riskThresholdDays != null) {
+      yield r'risk_threshold_days';
+      yield serializers.serialize(
+        object.riskThresholdDays,
+        specifiedType: const FullType(int),
+      );
+    }
+    if (object.estimateReliabilityDays != null) {
+      yield r'estimate_reliability_days';
+      yield serializers.serialize(
+        object.estimateReliabilityDays,
+        specifiedType: const FullType(int),
+      );
+    }
+    if (object.estimateReliabilityClosedRatioThreshold != null) {
+      yield r'estimate_reliability_closed_ratio_threshold';
+      yield serializers.serialize(
+        object.estimateReliabilityClosedRatioThreshold,
+        specifiedType: const FullType(num),
+      );
+    }
+    if (object.estimateAvgDefault != null) {
+      yield r'estimate_avg_default';
+      yield serializers.serialize(
+        object.estimateAvgDefault,
+        specifiedType: const FullType(num),
       );
     }
   }
@@ -128,6 +183,41 @@ class _$AppSettingsGetSerializer implements PrimitiveSerializer<AppSettingsGet> 
             specifiedType: const FullType(int),
           ) as int;
           result.welcomeGiftAmount = valueDes;
+          break;
+        case r'low_start_threshold_days':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.lowStartThresholdDays = valueDes;
+          break;
+        case r'risk_threshold_days':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.riskThresholdDays = valueDes;
+          break;
+        case r'estimate_reliability_days':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.estimateReliabilityDays = valueDes;
+          break;
+        case r'estimate_reliability_closed_ratio_threshold':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
+          result.estimateReliabilityClosedRatioThreshold = valueDes;
+          break;
+        case r'estimate_avg_default':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(num),
+          ) as num;
+          result.estimateAvgDefault = valueDes;
           break;
         default:
           unhandled.add(key);

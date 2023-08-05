@@ -42,7 +42,7 @@ void main() {
       // TODO
     });
 
-    // int estimate
+    // num estimate
     test('to test the property `estimate`', () async {
       // TODO
     });

@@ -19,6 +19,8 @@ import 'L3_app/views/account/account_view.dart';
 import 'L3_app/views/auth/auth_view.dart';
 import 'L3_app/views/loader/loader_screen.dart';
 import 'L3_app/views/main/main_view.dart';
+import 'L3_app/views/my_projects/my_projects_view.dart';
+import 'L3_app/views/my_tasks/my_tasks_view.dart';
 import 'L3_app/views/notification/notification_list_view.dart';
 import 'L3_app/views/settings/settings_view.dart';
 import 'L3_app/views/source/source_list_view.dart';
@@ -105,9 +107,11 @@ class App extends StatelessWidget {
             supportedLocales: supportedLocales,
             theme: cupertinoTheme,
             routes: {
-              SettingsView.routeName: (_) => SettingsView(),
               AccountView.routeName: (_) => AccountView(),
               NotificationListView.routeName: (_) => NotificationListView(),
+              MyProjectsView.routeName: (_) => MyProjectsView(),
+              MyTasksView.routeName: (_) => MyTasksView(),
+              SettingsView.routeName: (_) => SettingsView(),
             },
             onGenerateRoute: (RouteSettings rs) {
               if (rs.name == UserListView.routeName) {

@@ -5,7 +5,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/member.dart';
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../../L1_domain/entities_extensions/task_level.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
@@ -29,7 +28,7 @@ class TeamPane extends StatelessWidget {
 
   List<Member> get _sortedMembers => task.sortedMembers;
 
-  Widget? get bottomBar => !task.isRoot && task.canEditMembers && task.ws.roles.isNotEmpty ? MemberAddMenu(task) : null;
+  Widget? get bottomBar => task.canEditMembers && task.ws.roles.isNotEmpty ? MemberAddMenu(task) : null;
 
   Widget _memberBuilder(BuildContext context, int index) {
     final member = _sortedMembers[index];

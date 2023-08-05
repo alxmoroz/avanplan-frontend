@@ -12,6 +12,11 @@ Name | Type | Description | Notes
 **frontendFlags** | **String** |  | [optional] 
 **wsOwnerRoleId** | **int** |  | [optional] 
 **welcomeGiftAmount** | **int** |  | [optional] 
+**lowStartThresholdDays** | **int** |  | [optional] 
+**riskThresholdDays** | **int** |  | [optional] 
+**estimateReliabilityDays** | **int** |  | [optional] 
+**estimateReliabilityClosedRatioThreshold** | **num** |  | [optional] 
+**estimateAvgDefault** | **num** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

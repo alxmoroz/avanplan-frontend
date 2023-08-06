@@ -67,7 +67,7 @@ abstract class _LocalImportControllerBase with Store {
     if (moved > 0) {
       // destinationGoal.updateParents();
       // sourceGoal.updateParents();
-      mainController.updateRoots();
+      mainController.refresh();
       taskController.selectTab(TaskTabKey.subtasks);
     }
 

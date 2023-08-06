@@ -58,10 +58,8 @@ class TaskAddController {
       if (newTask != null) {
         if (parent != null) {
           parent!.tasks.add(newTask);
-        } else {
-          mainController.rootTasks.add(newTask);
         }
-        mainController.updateRoots();
+        mainController.allTasks.add(newTask);
         loader.stop();
 
         // TODO:

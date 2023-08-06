@@ -131,7 +131,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
       updateField(code.index, loading: false);
       saved = editedTask != null;
       if (saved) {
-        mainController.updateRoots();
+        mainController.refreshTask(editedTask);
       }
     } catch (e) {
       updateField(code.index, loading: false);
@@ -375,7 +375,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
         if (editedTask.closed && _task.id == task.id) {
           Navigator.of(rootKey.currentContext!).pop(editedTask);
         }
-        mainController.updateRoots();
+        mainController.refresh();
       }
     }
   }
@@ -440,7 +440,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
         if (note.id == null) {
           task.notes.add(editedNote);
         }
-        mainController.updateRoots();
+        mainController.refresh();
       } else {
         note.text = oldValue;
       }
@@ -453,7 +453,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
   Future deleteNote(Note note) async {
     if (await noteUC.delete(ws, note)) {
       task.notes.remove(note);
-      mainController.updateRoots();
+      mainController.refresh();
     }
   }
 
@@ -501,7 +501,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
       } else {
         sourceGoal.tasks.removeWhere((t) => t.id == task.id);
         destinationGoal.tasks.add(task);
-        mainController.updateRoots();
+        mainController.refresh();
       }
     }
   }
@@ -537,7 +537,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
         try {
           await importUC.unlinkTaskSources(task.ws, task.id!, task.allTss());
           task.unlinkTaskTree();
-          mainController.updateRoots();
+          mainController.refresh();
         } catch (_) {}
         await loader.stop();
       }

@@ -45,17 +45,7 @@ abstract class _MainControllerBase with Store {
   /// проекты и или задачи
 
   @observable
-  List<Task> rootTasks = [];
-
-  @computed
-  List<Task> get allTasks {
-    final res = <Task>[];
-    for (var r in rootTasks) {
-      res.addAll(r.allTasks);
-      res.add(r);
-    }
-    return res.sorted(sortByDateAsc);
-  }
+  ObservableList<Task> allTasks = ObservableList();
 
   /// проекты
 
@@ -113,6 +103,14 @@ abstract class _MainControllerBase with Store {
 
   Future showTask(TaskParams tp) async => await Navigator.of(rootKey.currentContext!).pushNamed(TaskView.routeName, arguments: tp);
 
+  @action
+  void refreshTask(Task edited) {
+    final index = allTasks.indexOf(taskForId(edited.ws.id!, edited.id!));
+    if (index > -1) {
+      allTasks[index] = edited;
+    }
+  }
+
   @observable
   DateTime? _updatedDate;
 
@@ -134,16 +132,22 @@ abstract class _MainControllerBase with Store {
     for (Workspace ws in workspaces) {
       _roots.addAll(await myUC.getTasks(ws));
     }
-    rootTasks = _roots;
+
+    final res = <Task>[];
+    for (var r in _roots) {
+      res.addAll(r.allTasks);
+      res.add(r);
+    }
+    allTasks = ObservableList.of(res.sorted(sortByDateAsc));
   }
 
   @action
-  void updateRoots() => rootTasks = [...rootTasks];
+  void refresh() => allTasks = ObservableList.of(allTasks);
 
   @action
   void clearData() {
     workspaces = [];
-    rootTasks = [];
+    allTasks.clear();
     _updatedDate = null;
 
     refsController.clearData();

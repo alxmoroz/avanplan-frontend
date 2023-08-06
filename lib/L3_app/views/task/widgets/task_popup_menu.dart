@@ -78,7 +78,7 @@ class TaskPopupMenu extends StatelessWidget {
         break;
       case TaskActionType.delete:
         await TaskDeleteController().delete(_task);
-        mainController.updateRoots();
+        mainController.refresh();
         break;
       default:
     }

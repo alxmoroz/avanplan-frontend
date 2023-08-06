@@ -39,10 +39,8 @@ class TaskDeleteController {
         _popDeleted(task);
         if (task.parent != null) {
           task.parent!.tasks.remove(task);
-        } else {
-          mainController.rootTasks.remove(task);
         }
-        // mainController.updateRoots();
+        mainController.allTasks.remove(task);
       }
       await loader.stop(300);
     }

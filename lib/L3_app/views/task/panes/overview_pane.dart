@@ -104,12 +104,12 @@ class OverviewPane extends StatelessWidget {
                 const SizedBox(height: P),
                 if (_task.canShowState)
                   _task.canShowRecommendsEta || _task.projectLowStart
-                      ? H2('${loc.state_no_info_title}: ${_task.stateTitle.toLowerCase()}', align: TextAlign.center)
+                      ? H3('${loc.state_no_info_title}: ${_task.stateTitle.toLowerCase()}', align: TextAlign.center)
                       : TaskStateTitle(_task, place: StateTitlePlace.taskOverview),
 
                 /// нет прогноза - показываем шаги
                 if (_task.canShowRecommendsEta) ...[
-                  const SizedBox(height: P2),
+                  const SizedBox(height: P),
                   _task.projectHasProgress ? _requiredProgress : _requiredAddTask,
                   _line(context),
                   _task.projectHasProgress ? _requiredAddTask : _requiredProgress,

@@ -57,3 +57,5 @@ class MTAdaptive extends StatelessWidget {
 }
 
 double dashboardImageSize(BuildContext context) => min(P * 17, MediaQuery.of(context).size.height / 2.5);
+
+double bottomPadding(BuildContext context) => max(MediaQuery.of(context).padding.bottom, P2);

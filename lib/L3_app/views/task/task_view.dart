@@ -9,6 +9,7 @@ import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/icons_workspace.dart';
 import '../../components/mt_adaptive.dart';
+import '../../components/mt_error_sheet.dart';
 import '../../components/mt_page.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
@@ -113,20 +114,30 @@ class _TaskViewState extends State<TaskView> {
   Widget build(BuildContext context) {
     final smallHeight = MediaQuery.of(context).size.height < SCR_XS_HEIGHT;
     return Observer(
-      builder: (_) => MTPage(
-        navBar: taskNavBar(controller),
-        body: SafeArea(
-          bottom: false,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              if (!smallHeight) TaskHeader(controller),
-              if (controller.tabKeys.length > 1) _tabPaneSelector,
-              Expanded(child: _selectedPane),
-            ],
+      builder: (_) => Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          MTPage(
+            navBar: taskNavBar(controller),
+            body: SafeArea(
+              bottom: false,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  if (!smallHeight) TaskHeader(controller),
+                  if (controller.tabKeys.length > 1) _tabPaneSelector,
+                  Expanded(child: _selectedPane),
+                ],
+              ),
+            ),
+            bottomBar: !smallHeight && _selectedBottomBar != null ? _selectedBottomBar : null,
           ),
-        ),
-        bottomBar: !smallHeight && _selectedBottomBar != null ? _selectedBottomBar : null,
+          if (task.error != null)
+            MTErrorSheet(task.error!, onClose: () {
+              task.error = null;
+              mainController.refresh();
+            }),
+        ],
       ),
     );
   }

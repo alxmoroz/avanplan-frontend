@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'colors.dart';
 import 'mt_toolbar.dart';
 
-// TODO: оставить один MTPage без Scaffold => нужно сделать MTToolbar для верхней части
-
 class MTPage extends StatelessWidget {
   const MTPage({
     required this.body,

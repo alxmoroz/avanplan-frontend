@@ -61,6 +61,7 @@ class MTDialog extends StatelessWidget {
     this.bottomBar,
     this.bottomBarHeight,
     this.bottomBarColor,
+    this.bgColor,
   });
 
   final Widget body;
@@ -72,6 +73,7 @@ class MTDialog extends StatelessWidget {
   final Widget? bottomBar;
   final double? bottomBarHeight;
   final Color? bottomBarColor;
+  final Color? bgColor;
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +89,7 @@ class MTDialog extends StatelessWidget {
         child: Container(
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
-            color: backgroundColor.resolve(context),
+            color: (bgColor ?? backgroundColor).resolve(context),
             borderRadius: BorderRadius.only(
               topLeft: radius,
               topRight: radius,

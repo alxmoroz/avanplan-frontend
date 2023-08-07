@@ -94,6 +94,7 @@ abstract class _LoaderControllerBase with Store {
               // в остальных случаях выбрасываем без объяснений
               await authController.signOut();
               _reset();
+              return;
             }
           } else {
             // программные ошибки сервера
@@ -108,10 +109,10 @@ abstract class _LoaderControllerBase with Store {
         } else {
           if (e.error is SocketException) {
             _setNetworkError('${e.error}');
-          } else {
-            // Остальные неизвестные и необработанные выше ошибки
-            return handler.next(e);
           }
+        }
+        if (!loading) {
+          return handler.next(e);
         }
       });
 

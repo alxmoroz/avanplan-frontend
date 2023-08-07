@@ -38,15 +38,15 @@ class AuthAppleRepo extends AbstractOAuthRepo with AuthMixin {
       }
     } on SignInWithAppleAuthorizationException catch (e) {
       if (e.code != AuthorizationErrorCode.canceled) {
-        throw MTOAuthError(code: 'apple AuthorizationException', detail: e.code.toString());
+        throw MTOAuthError('apple AuthorizationException', detail: e.code.toString());
       }
     } on SignInWithAppleCredentialsException catch (e) {
       if (!e.message.contains('popup_closed_by_user')) {
-        throw MTOAuthError(code: 'apple CredentialsException', detail: e.message);
+        throw MTOAuthError('apple CredentialsException', detail: e.message);
       }
     } catch (e) {
       print(e);
-      throw MTOAuthError(code: 'apple', detail: e.toString());
+      throw MTOAuthError('apple', detail: e.toString());
     }
 
     if (appleToken.isNotEmpty) {

@@ -58,7 +58,7 @@
 
   "chart_volume_plan_label": "Должно быть выполнено",
   "chart_volume_title": "Объём",
-  "chart_volume_total_label": "Всего задач",
+  "chart_volume_total_label": "Всего",
   "chart_volume_unit": "выполнено",
 
   "clear_action_title": "Сбросить",
@@ -98,6 +98,7 @@
   "error_tariff_insufficient_funds_for_change": "Для смены тарифа на балансе должно быть минимум {value}",
   "error_tariff_limit_description": "Обратитесь к администратору рабочего пространства",
   "error_tariff_limit_title": "Выполнение операции ограничено в выбранном тарифе",
+  "error_title": "Ошибка",
 
   "explain_update_details_dialog_description": "Обновили проекты, хранящиеся в Аванплане.\n\nИмпортированные проекты обновляются автоматически ночью раз в сутки.",
   "explain_update_details_dialog_title": "Особенности обновления",

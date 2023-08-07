@@ -41,12 +41,13 @@ extension TaskMapper on api.TaskGet {
       taskSource: ts,
       parent: parent,
       ws: ws,
-      openedVolume: openedVolume,
       state: stateFromStr(state ?? ''),
       velocity: velocity?.toDouble() ?? 0,
       requiredVelocity: requiredVelocity?.toDouble(),
       progress: progress?.toDouble() ?? 0,
       etaDate: etaDate?.toLocal(),
+      openedVolume: openedVolume,
+      closedVolume: closedVolume,
     );
     _t.tasks = tasks?.map((t) => t.task(ws: ws, parent: _t)).toList() ?? [];
     return _t;

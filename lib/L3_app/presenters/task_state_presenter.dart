@@ -192,6 +192,6 @@ extension TaskStatePresenter on Task {
   }
 
   bool get canShowState => !closed && !isLeaf;
-  bool get canShowRecommendsEta => [TaskState.NO_SUBTASKS, TaskState.NO_PROGRESS].contains(state);
+  bool get canShowRecommendsEta => project!.state == TaskState.NO_PROGRESS || state == TaskState.NO_SUBTASKS;
   Duration? get projectStartEtaCalcPeriod => project!.calculatedStartDate.add(serviceSettingsController.lowStartThreshold).difference(DateTime.now());
 }

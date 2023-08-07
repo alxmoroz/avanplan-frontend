@@ -98,6 +98,7 @@
   "error_tariff_insufficient_funds_for_change": "To change the tariff on the balance must be at least {value}",
   "error_tariff_limit_description": "Please contact the workspace administrator",
   "error_tariff_limit_title": "The operation is limited in the selected tariff",
+  "error_title": "Error",
 
   "explain_update_details_dialog_description": "Updated projects stored in Avanplan.\n\nImported projects are updated automatically at night once a day.",
   "explain_update_details_dialog_title": "Update nuances",

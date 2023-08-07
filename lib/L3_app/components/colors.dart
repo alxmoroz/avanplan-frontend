@@ -43,13 +43,18 @@ const Color lightBackgroundColor = CupertinoDynamicColor.withBrightness(
 );
 
 const Color dangerColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 255, 120, 95),
+  color: Color.fromARGB(255, 255, 120, 75),
   darkColor: Color.fromARGB(255, 255, 140, 100),
 );
 
 const Color goldColor = CupertinoColors.systemYellow;
 
 const Color warningColor = CupertinoColors.activeOrange;
+
+const Color warningBgColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, 255, 200, 120),
+  darkColor: Color.fromARGB(255, 150, 90, 30),
+);
 
 const Color greenColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(255, 42, 182, 150),

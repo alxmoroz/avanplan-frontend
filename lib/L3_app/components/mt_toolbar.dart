@@ -1,12 +1,12 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
 import 'constants.dart';
+import 'mt_adaptive.dart';
 import 'mt_close_dialog_button.dart';
 import 'text_widgets.dart';
 
@@ -17,12 +17,14 @@ class MTTopBar extends StatelessWidget {
     this.middle,
     this.trailing,
     this.showCloseButton = true,
+    this.onClose,
   });
   final String? titleText;
   final Widget? leading;
   final Widget? middle;
   final Widget? trailing;
   final bool showCloseButton;
+  final VoidCallback? onClose;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class MTTopBar extends StatelessWidget {
         if (middle != null || titleText != null)
           Padding(padding: const EdgeInsets.only(top: P), child: middle ?? MediumText(titleText!, align: TextAlign.center)),
         Row(children: [
-          if (leading != null || showCloseButton) leading ?? MTCloseDialogButton(),
+          if (leading != null || showCloseButton) leading ?? MTCloseDialogButton(onTap: onClose),
           const Spacer(),
           if (trailing != null) trailing!,
         ]),
@@ -51,13 +53,13 @@ class MTToolbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bottomPadding = top ? 0.0 : max(MediaQuery.of(context).padding.bottom, P2);
+    final bPadding = top ? 0.0 : bottomPadding(context);
     final topPadding = top ? 0.0 : P;
 
     final inner = Padding(
       padding: EdgeInsets.only(
         top: topPadding,
-        bottom: bottomPadding,
+        bottom: bPadding,
       ),
       child: child,
     );

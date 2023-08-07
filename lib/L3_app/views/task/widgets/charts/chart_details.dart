@@ -13,8 +13,8 @@ import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/duration_presenter.dart';
 import '../../../../presenters/task_state_presenter.dart';
-import '../../../../presenters/task_type_presenter.dart';
 import '../../../../presenters/task_view_presenter.dart';
+import '../../../../presenters/ws_presenter.dart';
 import 'timing_chart.dart';
 import 'velocity_chart.dart';
 import 'volume_chart.dart';
@@ -36,8 +36,7 @@ class TaskChartDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTTopBar(middle: task.subPageTitle(loc.chart_details_title)),
-      topBarHeight: P * 6,
+      topBar: MTTopBar(titleText: loc.chart_details_title),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: P),
         color: lightBackgroundColor.resolve(context),
@@ -46,19 +45,19 @@ class TaskChartDetails extends StatelessWidget {
           children: [
             if (task.canShowVelocityVolumeCharts) ...[
               /// объем
-              H3(loc.chart_volume_title),
+              H3('${loc.chart_volume_title}, ${task.ws.estimateUnitCode}'),
               const SizedBox(height: P),
               Row(
                 children: [
                   Flexible(child: TaskVolumeChart(task)),
                   const SizedBox(width: P),
-                  const Flexible(
+                  Flexible(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        // _textRow(loc.chart_volume_total_label, '${task.leavesCount}'),
-                        // _textRow(loc.state_opened, '${task.openedLeavesCount}'),
-                        // _textRow(loc.state_closed, '${task.closedLeavesCount}'),
+                        _textRow(loc.chart_volume_total_label, '${task.totalVolume.round()}'),
+                        _textRow(loc.state_closed, '${(task.closedVolume ?? 0).round()}'),
+                        _textRow(loc.state_opened, '${(task.openedVolume ?? 0).round()}'),
                       ],
                     ),
                   ),

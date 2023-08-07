@@ -18,15 +18,15 @@ extension TaskStats on Task {
   double? get projectRequiredVelocity => project!.requiredVelocity;
   bool get projectHasProgress => project!.progress > 0;
 
-  // TODO: нужен признак с бэка. Сейчас работает только для рута - мы его прописываем отдельно
-  Iterable<Task> get openedSubtasks => tasks.where((t) => !t.closed);
-  bool get hasOpenedSubtasks => openedSubtasks.isNotEmpty;
-
   Duration? get closedPeriod => closedDate != null ? _now.difference(closedDate!) : null;
   Duration? get leftPeriod => hasDueDate && !isFuture ? dueDate!.difference(tomorrow) : null;
   Duration? get etaPeriod => etaDate?.difference(_now);
   Duration? get riskPeriod => (hasDueDate && hasEtaDate) ? etaDate!.difference(dueDate!) : null;
 
+  num get totalVolume => (openedVolume ?? 0) + (closedVolume ?? 0);
+
+  // TODO: нужен признак с бэка. Сейчас работает только для рута - мы его прописываем отдельно
+  Iterable<Task> get openedSubtasks => tasks.where((t) => !t.closed);
   // TODO: запрос на бэк
   Iterable<Task> get goalsForLocalExport => isTask ? project!.openedSubtasks.where((g) => g.id != parent?.id) : [];
   Iterable<Task> get goalsForLocalImport => isGoal ? project!.openedSubtasks.where((g) => g.id != id && g.hasOpenedSubtasks) : [];
@@ -51,4 +51,7 @@ extension TaskStats on Task {
 
   bool get hasDescription => description.isNotEmpty;
   bool get hasAuthor => authorId != null;
+
+  // TODO: скорректировать на основе существующих данных
+  bool get hasOpenedSubtasks => openedSubtasks.isNotEmpty;
 }

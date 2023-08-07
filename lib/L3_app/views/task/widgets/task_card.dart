@@ -50,6 +50,8 @@ class TaskCard extends StatelessWidget {
         '${task.project?.wsCode}${task.parent!.title}',
         color: _textColor,
         sizeScale: 0.85,
+        height: 1,
+        maxLines: 1,
       );
 
   Widget get _title => Row(
@@ -59,6 +61,12 @@ class TaskCard extends StatelessWidget {
           if (!board) const ChevronIcon(),
         ],
       );
+
+  Widget get _error => Row(children: [
+        const ErrorIcon(),
+        const SizedBox(width: P_3),
+        SmallText(task.error!.code, color: _textColor, height: 1, maxLines: 1),
+      ]);
 
   bool get _showDate => task.hasDueDate && !task.closed && task.isLeaf;
   Color get _dateColor => task.dueDate!.isBefore(tomorrow) ? stateColor(task.state) : _textColor ?? greyColor;
@@ -72,7 +80,7 @@ class TaskCard extends StatelessWidget {
       );
 
   bool get _showStatus => task.hasStatus && !board && !task.closed;
-  Widget get _status => SmallText('${task.status}', color: _textColor);
+  Widget get _status => SmallText('${task.status}', color: _textColor, height: 1);
 
   bool get _showAssignee => task.hasAssignee && !isMine;
   Widget get _assignee => task.assignee!.icon(P * (board ? 1 : 1.35));
@@ -80,7 +88,7 @@ class TaskCard extends StatelessWidget {
   bool get _showNotesMark => !task.closed && task.notes.isNotEmpty;
   Widget get _notesMark => Row(
         children: [
-          SmallText('${task.notes.length} ', color: greyColor),
+          SmallText('${task.notes.length} ', color: greyColor, height: 1),
           NoteMarkIcon(
             mine: task.notes.any((n) => n.isMine(task)),
             theirs: task.notes.any((n) => !n.isMine(task)),
@@ -89,7 +97,7 @@ class TaskCard extends StatelessWidget {
       );
 
   bool get _showEstimate => task.hasEstimate && !task.closed;
-  Widget get _estimate => SmallText('${(task.openedVolume ?? task.estimate)?.round()} ${task.ws.estimateUnitCode}', color: _textColor);
+  Widget get _estimate => SmallText('${(task.openedVolume ?? task.estimate)?.round()} ${task.ws.estimateUnitCode}', color: _textColor, height: 1);
 
   Widget get _divider => const Padding(
         padding: EdgeInsets.symmetric(horizontal: P_2),
@@ -102,15 +110,18 @@ class TaskCard extends StatelessWidget {
         children: [
           if (showParent && task.parent != null) _parentTitle,
           _title,
-          // проекты, цели или группы задач
-          if (task.canShowState || task.isLinkedProject) ...[
+          // ошибка
+          if (task.error != null)
+            _error
+          // проекты, цели или группы задач - интегральная оценка, метка связанного проекта и комментариев
+          else if (task.canShowState || task.isLinkedProject) ...[
             const SizedBox(height: P_6),
             Row(children: [
               if (task.canShowState) Expanded(child: TaskStateTitle(task)),
               if (_showNotesMark) ...[_notesMark],
               if (task.isLinkedProject) ...[if (_showNotesMark) _divider, const LinkIcon(color: lightGreyColor)]
             ]),
-            // не проекты, не цели и не группы задач
+            // листья - срок, метка комментов, оценка, статус, назначено
           ] else if (!task.canShowState) ...[
             if (_showDate || _showNotesMark || _showStatus || _showAssignee || task.hasEstimate) ...[
               const SizedBox(height: P_6),

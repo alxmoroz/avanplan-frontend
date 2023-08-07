@@ -37,10 +37,10 @@ class AuthGoogleRepo extends AbstractOAuthRepo with AuthMixin {
       auth = await account?.authentication;
     } on PlatformException catch (e) {
       if (e.code != 'popup_closed_by_user') {
-        throw MTOAuthError(code: 'google', detail: e.code);
+        throw MTOAuthError('google', detail: e.code);
       }
     } catch (e) {
-      throw MTOAuthError(code: 'google', detail: e.toString());
+      throw MTOAuthError('google', detail: e.toString());
     }
 
     if (auth != null) {

@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import '../system/errors.dart';
 import 'base_entity.dart';
 import 'member.dart';
 import 'note.dart';
@@ -60,13 +61,14 @@ class Task extends Titleable {
     this.authorId,
     this.assigneeId,
     this.type,
-    this.openedVolume,
     this.estimate,
     this.state = TaskState.NO_INFO,
     this.velocity = 0,
     this.requiredVelocity,
     this.progress = 0,
     this.etaDate,
+    this.openedVolume,
+    this.closedVolume,
   });
 
   DateTime? startDate;
@@ -87,14 +89,17 @@ class Task extends Titleable {
   int? assigneeId;
   final String? type;
 
-  num? openedVolume;
-
   num? estimate;
   final TaskState state;
   final double velocity;
   final double? requiredVelocity;
   final double progress;
   final DateTime? etaDate;
+
+  final num? openedVolume;
+  final num? closedVolume;
+
+  MTError? error;
 }
 
 class TaskRemote {
@@ -109,14 +114,4 @@ class TaskRemote {
   final String description;
   TaskSourceImport? taskSource;
   bool selected;
-}
-
-class TaskQuery {
-  TaskQuery({
-    required this.wsId,
-    this.parentId,
-  });
-
-  final int wsId;
-  final int? parentId;
 }

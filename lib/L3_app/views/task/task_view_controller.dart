@@ -18,6 +18,7 @@ import '../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../L1_domain/entities_extensions/task_status_ext.dart';
 import '../../../L1_domain/entities_extensions/ws_ext.dart';
+import '../../../L1_domain/system/errors.dart';
 import '../../../L1_domain/usecases/task_comparators.dart';
 import '../../../main.dart';
 import '../../components/colors.dart';
@@ -134,9 +135,10 @@ abstract class _TaskViewControllerBase extends EditController with Store {
         mainController.refreshTask(editedTask);
       }
     } catch (e) {
-      updateField(code.index, loading: false);
-      loader.start();
+      task.error = MTError(loader.titleText ?? '', detail: loader.descriptionText);
+      mainController.refresh();
     }
+    updateField(code.index, loading: false);
 
     return saved;
   }

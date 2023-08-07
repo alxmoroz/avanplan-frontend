@@ -170,6 +170,16 @@ class EditIcon extends MTIcon {
       );
 }
 
+class ErrorIcon extends MTIcon {
+  const ErrorIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.exclamationmark_circle,
+        color: (color ?? dangerColor).resolve(context),
+        size: size ?? P * 1.5,
+      );
+}
+
 class EstimateIcon extends MTIcon {
   const EstimateIcon({super.color, super.size});
   @override

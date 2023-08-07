@@ -7,10 +7,13 @@ import 'icons.dart';
 import 'mt_button.dart';
 
 class MTCloseDialogButton extends StatelessWidget {
+  const MTCloseDialogButton({this.onTap});
+  final VoidCallback? onTap;
+
   @override
   Widget build(BuildContext context) => MTButton.icon(
         const CloseIcon(),
-        onTap: () => Navigator.of(context).pop(),
+        onTap: onTap ?? () => Navigator.of(context).pop(),
         padding: const EdgeInsets.all(P),
       );
 }

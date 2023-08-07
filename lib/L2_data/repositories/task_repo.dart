@@ -39,6 +39,21 @@ class TaskRepo extends AbstractWSRepo<Task> {
         .data
         ?.task(ws: ws, parent: data.parent);
 
+    if (t != null) {
+      if (t.tasks.isEmpty) {
+        t.tasks = data.tasks;
+      }
+      if (t.members.isEmpty) {
+        t.members = data.members;
+      }
+      if (t.projectStatuses.isEmpty) {
+        t.projectStatuses = data.projectStatuses;
+      }
+      if (t.notes.isEmpty) {
+        t.notes = data.notes;
+      }
+    }
+
     return t;
   }
 

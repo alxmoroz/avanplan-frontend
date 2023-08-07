@@ -106,6 +106,7 @@ String groupStateTitle(TaskState groupState, String type) {
     case TaskState.OPENED:
       return loc.state_opened;
     case TaskState.NO_INFO:
+    case TaskState.LOW_START:
       return loc.state_no_info_title;
     case TaskState.TODAY:
       return loc.my_tasks_today_title;
@@ -115,8 +116,6 @@ String groupStateTitle(TaskState groupState, String type) {
       return loc.my_tasks_future_title;
     case TaskState.NO_DUE:
       return loc.my_tasks_no_due_title;
-    default:
-      return '';
   }
 }
 
@@ -146,7 +145,7 @@ extension TaskStatePresenter on Task {
       case TaskState.CLOSABLE:
         return loc.state_closable_title;
       case TaskState.NO_SUBTASKS:
-        return subtasksCount(0);
+        return loc.task_count(0);
       case TaskState.NO_PROGRESS:
         return loc.state_no_progress_details;
       case TaskState.FUTURE_START:

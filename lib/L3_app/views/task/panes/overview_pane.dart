@@ -47,7 +47,7 @@ class OverviewPane extends StatelessWidget {
                     margin: const EdgeInsets.only(bottom: P),
                     onTap: () => localImportDialog(controller),
                   ),
-                TaskAddButton(TaskAddController(_task.ws, _task)),
+                TaskAddButton(TaskAddController(_task.ws, controller)),
               ],
             )
           : Column(
@@ -103,7 +103,7 @@ class OverviewPane extends StatelessWidget {
               children: [
                 const SizedBox(height: P),
                 if (_task.canShowState)
-                  _task.canShowRecommendsEta || _task.projectLowStart
+                  !_task.canCloseGroup && (_task.canShowRecommendsEta || _task.projectLowStart)
                       ? H3('${loc.state_no_info_title}: ${_task.stateTitle.toLowerCase()}', align: TextAlign.center)
                       : TaskStateTitle(_task, place: StateTitlePlace.taskOverview),
 

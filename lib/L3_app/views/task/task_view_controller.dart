@@ -55,24 +55,16 @@ enum TaskFCode { title, description, startDate, dueDate, estimate, assignee, aut
 
 enum TasksFilter { my }
 
-class TaskParams {
-  TaskParams({required this.ws, required this.taskId, this.isNew = false});
-  final Workspace ws;
-  final int taskId;
-  final bool isNew;
-}
-
 class TaskViewController extends _TaskViewControllerBase with _$TaskViewController {
-  TaskViewController(TaskParams tp) {
-    ws = tp.ws;
-    taskId = tp.taskId;
-    isNew = tp.isNew;
+  TaskViewController(Task taskIn) {
+    _taskIn = taskIn;
 
+    final _isNew = taskIn.id == null;
     initState(fds: [
       MTFieldData(TaskFCode.parent.index, needValidate: false),
       MTFieldData(
         TaskFCode.title.index,
-        text: isNew ? '' : task.title,
+        text: _isNew ? '' : task.title,
         needValidate: false,
       ),
       MTFieldData(
@@ -114,25 +106,46 @@ class TaskViewController extends _TaskViewControllerBase with _$TaskViewControll
       ),
       MTFieldData(TaskFCode.note.index, placeholder: loc.task_note_placeholder, needValidate: false),
     ]);
+
+    _startupActions();
   }
 }
 
 abstract class _TaskViewControllerBase extends EditController with Store {
-  late final Workspace ws;
-  late final int taskId;
-  late final bool isNew;
+  @observable
+  Task? _taskIn;
 
-  Task get task => mainController.taskForId(ws.id!, taskId);
+  @computed
+  bool get isNew => _taskIn?.id == null;
 
+  @computed
+  Task get task => isNew ? _taskIn! : mainController.task(_taskIn!.ws.id!, _taskIn!.id!);
+
+  @computed
+  Workspace get _ws => task.ws;
+
+  Future _startupActions() async {
+    if (isNew) {
+      await _saveField(TaskFCode.title);
+    }
+  }
+
+  @action
   Future<bool> _saveField(TaskFCode code) async {
     bool saved = false;
     updateField(code.index, loading: true);
     try {
-      final editedTask = await taskUC.save(ws, task);
-      updateField(code.index, loading: false);
+      final editedTask = await taskUC.save(_ws, task);
       saved = editedTask != null;
       if (saved) {
-        mainController.refreshTask(editedTask);
+        if (isNew) {
+          if (task.parent != null) {
+            task.parent!.tasks.add(editedTask);
+          }
+          mainController.allTasks.add(editedTask);
+          _taskIn = editedTask;
+        } else
+          mainController.refreshTask(editedTask);
       }
     } catch (e) {
       task.error = MTError(loader.titleText ?? '', detail: loader.descriptionText);
@@ -166,7 +179,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     if (_titleEditTimer != null) {
       _titleEditTimer!.cancel();
     }
-    _titleEditTimer = Timer(const Duration(milliseconds: 750), () async => await _setTitle(str));
+    _titleEditTimer = Timer(const Duration(milliseconds: 800), () async => await _setTitle(str));
   }
 
   /// описание
@@ -311,7 +324,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
       }
     }
 
-    return await taskUC.save(ws, t);
+    return await taskUC.save(_ws, t);
   }
 
   Future<Task?> _setStatusTaskTree(
@@ -393,9 +406,9 @@ abstract class _TaskViewControllerBase extends EditController with Store {
   }
 
   Future selectEstimate() async {
-    final currentId = ws.estimateValueForValue(task.estimate)?.id;
+    final currentId = _ws.estimateValueForValue(task.estimate)?.id;
     final selectedEstimateId = await showMTSelectDialog<EstimateValue>(
-      ws.sortedEstimateValues,
+      _ws.sortedEstimateValues,
       currentId,
       loc.task_estimate_placeholder,
       valueBuilder: (_, e) {
@@ -406,7 +419,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
           children: [
             if (selected) const SizedBox(width: P),
             selected ? H3(text) : NormalText(text),
-            LightText(' ${ws.estimateUnitCode}'),
+            LightText(' ${_ws.estimateUnitCode}'),
           ],
         );
       },
@@ -415,7 +428,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
 
     if (selectedEstimateId != null) {
       final oldValue = task.estimate;
-      task.estimate = ws.estimateValueForId(selectedEstimateId)?.value;
+      task.estimate = _ws.estimateValueForId(selectedEstimateId)?.value;
       if (!(await _saveField(TaskFCode.estimate))) {
         task.estimate = oldValue;
       }
@@ -437,7 +450,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     if (note.text != newValue) {
       updateField(fIndex, loading: true);
       note.text = newValue;
-      final editedNote = await noteUC.save(ws, note);
+      final editedNote = await noteUC.save(_ws, note);
       if (editedNote != null) {
         if (note.id == null) {
           task.notes.add(editedNote);
@@ -453,7 +466,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
   Future addNote() async => await editNote(Note(text: '', authorId: task.me?.id, taskId: task.id));
 
   Future deleteNote(Note note) async {
-    if (await noteUC.delete(ws, note)) {
+    if (await noteUC.delete(_ws, note)) {
       task.notes.remove(note);
       mainController.refresh();
     }
@@ -471,9 +484,9 @@ abstract class _TaskViewControllerBase extends EditController with Store {
   @computed
   Iterable<TaskTabKey> get tabKeys {
     return [
-      if (task.hasOverviewPane) TaskTabKey.overview,
-      if (task.hasSubtasks) TaskTabKey.subtasks,
-      if (task.hasTeamPane) TaskTabKey.team,
+      if (!isNew && task.hasOverviewPane) TaskTabKey.overview,
+      if (!isNew && task.hasSubtasks) TaskTabKey.subtasks,
+      if (!isNew && task.hasTeamPane) TaskTabKey.team,
       TaskTabKey.details,
     ];
   }

@@ -15,10 +15,11 @@ import '../tariff/tariff_select_view.dart';
 import 'task_view_controller.dart';
 
 class TaskAddController {
-  TaskAddController(this.ws, this.parent);
+  TaskAddController(this.ws, this.parentTaskController);
   final Workspace ws;
-  final Task? parent;
+  final TaskViewController? parentTaskController;
 
+  Task? get parent => parentTaskController?.task;
   bool get newProject => parent == null;
   bool get newGoal => parent!.isProject;
 
@@ -27,41 +28,30 @@ class TaskAddController {
 
   Future addSubtask() async {
     if (plCreate) {
-      loader.start();
-      loader.setSaving();
-      final newTask = await taskUC.save(
-        ws,
-        Task(
-          title: titlePlaceholder,
-          statusId: (newProject || newGoal) ? null : parent!.statuses.firstOrNull?.id,
-          closed: false,
-          parent: parent,
-          tasks: [],
-          members: [],
-          notes: [],
-          projectStatuses: [],
-          ws: ws,
-          startDate: DateTime.now(),
-          createdOn: DateTime.now(),
-          type: newProject
-              ? TType.PROJECT
-              : newGoal
-                  ? TType.GOAL
-                  : parent!.isGoal
-                      ? TType.TASK
-                      : TType.SUBTASK,
-        ),
+      final newTaskData = Task(
+        title: titlePlaceholder,
+        statusId: (newProject || newGoal) ? null : parent!.statuses.firstOrNull?.id,
+        closed: false,
+        parent: parent,
+        tasks: [],
+        members: [],
+        notes: [],
+        projectStatuses: [],
+        ws: ws,
+        startDate: DateTime.now(),
+        createdOn: DateTime.now(),
+        type: newProject
+            ? TType.PROJECT
+            : newGoal
+                ? TType.GOAL
+                : parent!.isGoal
+                    ? TType.TASK
+                    : TType.SUBTASK,
       );
-      if (newTask != null) {
-        if (parent != null) {
-          parent!.tasks.add(newTask);
-        }
-        mainController.allTasks.add(newTask);
-        loader.stop();
 
-        // TODO:
-        // selectTab(TaskTabKey.subtasks);
-        await mainController.showTask(TaskParams(ws: ws, taskId: newTask.id!, isNew: true));
+      await mainController.showTask(newTaskData);
+      if (parentTaskController != null) {
+        parentTaskController!.selectTab(TaskTabKey.subtasks);
       }
     } else {
       await changeTariff(

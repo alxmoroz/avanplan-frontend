@@ -21,7 +21,6 @@ import '../../presenters/task_filter_presenter.dart';
 import '../../usecases/ws_ext_actions.dart';
 import '../tariff/tariff_select_view.dart';
 import '../task/task_view.dart';
-import '../task/task_view_controller.dart';
 
 part 'main_controller.g.dart';
 
@@ -98,14 +97,14 @@ abstract class _MainControllerBase with Store {
 
   Iterable<Task> _wsTasks(int wsId) => allTasks.where((t) => t.ws.id == wsId);
 
-  /// конкретная задача
-  Task taskForId(int wsId, int id) => _tasksMap[wsId]![id]!;
+  /// задача из списка
+  Task task(int wsId, int id) => _tasksMap[wsId]![id]!;
 
-  Future showTask(TaskParams tp) async => await Navigator.of(rootKey.currentContext!).pushNamed(TaskView.routeName, arguments: tp);
+  Future showTask(Task t) async => await Navigator.of(rootKey.currentContext!).pushNamed(TaskView.routeName, arguments: t);
 
   @action
   void refreshTask(Task edited) {
-    final index = allTasks.indexOf(taskForId(edited.ws.id!, edited.id!));
+    final index = allTasks.indexOf(task(edited.ws.id!, edited.id!));
     if (index > -1) {
       allTasks[index] = edited;
     }

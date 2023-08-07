@@ -61,7 +61,8 @@ extension TaskActionsExt on Task {
         TType.GOAL,
       ].contains(type) &&
       canCreate &&
-      !hasOpenedSubtasks;
+      !hasOpenedSubtasks &&
+      !canCloseGroup;
 
   Iterable<TaskActionType> get actionTypes => [
         if (canClose) TaskActionType.close,

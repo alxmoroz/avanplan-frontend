@@ -19,14 +19,11 @@ class TaskAddController {
   final Workspace ws;
   final Task? parent;
 
-  bool get parentIsRoot => parent == null;
-
-  /// название
+  bool get newProject => parent == null;
+  bool get newGoal => parent!.isProject;
 
   String get titlePlaceholder => newSubtaskTitle(parent?.type ?? TType.ROOT);
-
-  /// добавление подзадачи
-  bool get plCreate => parentIsRoot ? ws.plProjects : ws.plTasks;
+  bool get plCreate => newProject ? ws.plProjects : ws.plTasks;
 
   Future addSubtask() async {
     if (plCreate) {
@@ -36,7 +33,7 @@ class TaskAddController {
         ws,
         Task(
           title: titlePlaceholder,
-          statusId: (parentIsRoot || parent!.isProject) ? null : parent!.statuses.firstOrNull?.id,
+          statusId: (newProject || newGoal) ? null : parent!.statuses.firstOrNull?.id,
           closed: false,
           parent: parent,
           tasks: [],
@@ -46,9 +43,9 @@ class TaskAddController {
           ws: ws,
           startDate: DateTime.now(),
           createdOn: DateTime.now(),
-          type: parentIsRoot
+          type: newProject
               ? TType.PROJECT
-              : parent!.isProject
+              : newGoal
                   ? TType.GOAL
                   : parent!.isGoal
                       ? TType.TASK
@@ -69,7 +66,7 @@ class TaskAddController {
     } else {
       await changeTariff(
         ws,
-        reason: parentIsRoot ? loc.tariff_change_limit_projects_reason_title : loc.tariff_change_limit_tasks_reason_title,
+        reason: newProject ? loc.tariff_change_limit_projects_reason_title : loc.tariff_change_limit_tasks_reason_title,
       );
     }
   }

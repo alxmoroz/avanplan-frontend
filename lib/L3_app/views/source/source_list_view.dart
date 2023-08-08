@@ -12,7 +12,7 @@ import '../../components/navbar.dart';
 import '../../extra/services.dart';
 import '../../presenters/source_presenter.dart';
 import '../../presenters/ws_presenter.dart';
-import '../../usecases/ws_ext_actions.dart';
+import '../../usecases/ws_available_actions.dart';
 import 'no_sources.dart';
 import 'source_edit_view.dart';
 

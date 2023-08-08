@@ -18,7 +18,7 @@ import '../../components/mt_alert_dialog.dart';
 import '../../extra/services.dart';
 import '../../presenters/number_presenter.dart';
 import '../../presenters/task_filter_presenter.dart';
-import '../../usecases/ws_ext_actions.dart';
+import '../../usecases/ws_available_actions.dart';
 import '../tariff/tariff_select_view.dart';
 import '../task/task_view.dart';
 

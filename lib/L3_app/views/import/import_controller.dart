@@ -12,7 +12,7 @@ import '../../../L1_domain/entities_extensions/ws_ext.dart';
 import '../../../main.dart';
 import '../../extra/services.dart';
 import '../../usecases/source_ext.dart';
-import '../../usecases/ws_ext_actions.dart';
+import '../../usecases/ws_available_actions.dart';
 import '../source/source_edit_view.dart';
 import '../tariff/tariff_select_view.dart';
 

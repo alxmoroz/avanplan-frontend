@@ -10,7 +10,7 @@ import '../../../L1_domain/entities_extensions/task_level.dart';
 import '../../../L1_domain/entities_extensions/task_status_ext.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_type_presenter.dart';
-import '../../usecases/ws_ext_actions.dart';
+import '../../usecases/ws_available_actions.dart';
 import '../tariff/tariff_select_view.dart';
 import 'task_view_controller.dart';
 

@@ -15,4 +15,19 @@ extension WSExtension on Workspace {
 
   EstimateValue? estimateValueForId(int? id) => estimateValues.firstWhereOrNull((ev) => ev.id == id);
   EstimateValue? estimateValueForValue(num? value) => estimateValues.firstWhereOrNull((ev) => ev.value == value);
+
+  void updateSourceInList(Source? _s) {
+    if (_s != null) {
+      final index = sources.indexWhere((s) => s.id == _s.id);
+      if (index >= 0) {
+        if (_s.removed) {
+          sources.remove(_s);
+        } else {
+          sources[index] = _s;
+        }
+      } else {
+        sources.add(_s);
+      }
+    }
+  }
 }

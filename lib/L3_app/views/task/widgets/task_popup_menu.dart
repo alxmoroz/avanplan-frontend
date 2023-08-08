@@ -13,7 +13,7 @@ import '../../../extra/services.dart';
 import '../../../presenters/source_presenter.dart';
 import '../../../usecases/task_available_actions.dart';
 import '../../../usecases/task_link.dart';
-import '../../../usecases/ws_ext_actions.dart';
+import '../../../usecases/ws_available_actions.dart';
 import '../task_delete_controller.dart';
 import '../task_view_controller.dart';
 

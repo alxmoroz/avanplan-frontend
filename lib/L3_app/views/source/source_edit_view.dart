@@ -1,6 +1,5 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:avanplan/L3_app/usecases/source_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -8,6 +7,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 import '../../../L1_domain/entities/source.dart';
 import '../../../L1_domain/entities/source_type.dart';
 import '../../../L1_domain/entities/workspace.dart';
+import '../../../L1_domain/entities_extensions/ws_ext.dart';
 import '../../../L2_data/repositories/communications_repo.dart';
 import '../../../main.dart';
 import '../../components/constants.dart';
@@ -20,7 +20,7 @@ import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/source_presenter.dart';
 import '../../presenters/ws_presenter.dart';
-import '../../usecases/ws_ext_sources.dart';
+import '../../usecases/source_ext.dart';
 import 'source_edit_controller.dart';
 import 'source_type_selector.dart';
 

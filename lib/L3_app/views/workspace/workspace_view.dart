@@ -17,7 +17,7 @@ import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';
 import '../../presenters/tariff_presenter.dart';
-import '../../usecases/ws_ext_actions.dart';
+import '../../usecases/ws_available_actions.dart';
 import '../../usecases/ws_ext_sources.dart';
 import '../iap/iap_view.dart';
 import '../source/source_list_view.dart';

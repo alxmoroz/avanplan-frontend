@@ -10,7 +10,7 @@ import '../../L1_domain/entities_extensions/task_members.dart';
 import '../../L1_domain/entities_extensions/task_stats.dart';
 import '../../L1_domain/entities_extensions/task_status_ext.dart';
 import '../extra/services.dart';
-import 'ws_ext_actions.dart';
+import 'ws_available_actions.dart';
 
 enum TaskActionType {
   close,

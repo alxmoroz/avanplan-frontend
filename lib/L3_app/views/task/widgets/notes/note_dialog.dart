@@ -2,15 +2,15 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../../L1_domain/entities/note.dart';
-import '../../../components/constants.dart';
-import '../../../components/mt_dialog.dart';
-import '../../../components/mt_text_field.dart';
-import '../../../components/mt_toolbar.dart';
-import '../../../extra/services.dart';
+import '../../../../../L1_domain/entities/note.dart';
+import '../../../../components/constants.dart';
+import '../../../../components/mt_dialog.dart';
+import '../../../../components/mt_text_field.dart';
+import '../../../../components/mt_toolbar.dart';
+import '../../../../extra/services.dart';
 
-class TaskNoteDialog extends StatelessWidget {
-  const TaskNoteDialog(this.note, this.teController);
+class NoteDialog extends StatelessWidget {
+  const NoteDialog(this.note, this.teController);
   final TextEditingController teController;
   final Note note;
 

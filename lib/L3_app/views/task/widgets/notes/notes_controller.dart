@@ -12,18 +12,18 @@ import '../../../../extra/services.dart';
 import '../../../../presenters/date_presenter.dart';
 import '../../../../usecases/task_available_actions.dart';
 import '../../task_view_controller.dart';
-import '../task_note_dialog.dart';
+import 'note_dialog.dart';
 
-part 'task_notes_controller.g.dart';
+part 'notes_controller.g.dart';
 
-class TaskNotesController extends _TaskNotesControllerBase with _$TaskNotesController {
-  TaskNotesController(TaskViewController _taskController) {
+class NotesController extends _NotesControllerBase with _$NotesController {
+  NotesController(TaskViewController _taskController) {
     taskController = _taskController;
     _setNotes(_taskController.task.notes);
   }
 }
 
-abstract class _TaskNotesControllerBase with Store {
+abstract class _NotesControllerBase with Store {
   late final TaskViewController taskController;
 
   Task get task => taskController.task;
@@ -45,7 +45,7 @@ abstract class _TaskNotesControllerBase with Store {
   Future editNote(Note note) async {
     final tc = taskController.teController(TaskFCode.note.index)!;
     tc.text = note.text;
-    await showMTDialog<void>(TaskNoteDialog(note, tc));
+    await showMTDialog<void>(NoteDialog(note, tc));
 
     final fIndex = TaskFCode.note.index;
 

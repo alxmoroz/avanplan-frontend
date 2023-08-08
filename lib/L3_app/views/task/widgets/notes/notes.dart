@@ -22,11 +22,11 @@ import '../../../../presenters/date_presenter.dart';
 import '../../../../presenters/person_presenter.dart';
 import '../../../../presenters/task_note_presenter.dart';
 import '../../../../usecases/task_available_actions.dart';
-import 'task_notes_controller.dart';
+import 'notes_controller.dart';
 
-class TaskNotes extends StatelessWidget {
-  const TaskNotes(this.controller);
-  final TaskNotesController controller;
+class Notes extends StatelessWidget {
+  const Notes(this.controller);
+  final NotesController controller;
 
   Task get _task => controller.task;
   bool get _canEditTask => _task.canComment;

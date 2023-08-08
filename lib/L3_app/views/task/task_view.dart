@@ -20,7 +20,7 @@ import 'panes/tasks/tasks_pane.dart';
 import 'panes/tasks/tasks_pane_controller.dart';
 import 'panes/team/team_pane.dart';
 import 'task_view_controller.dart';
-import 'widgets/notes/task_notes_controller.dart';
+import 'widgets/notes/notes_controller.dart';
 import 'widgets/task_header.dart';
 import 'widgets/task_navbar.dart';
 
@@ -48,7 +48,7 @@ class _TaskViewState extends State<TaskView> {
     controller = TaskViewController(widget.taskIn);
     overviewPane = OverviewPane(controller);
     tasksPane = TasksPane(TasksPaneController(controller));
-    detailsPane = DetailsPane(controller, TaskNotesController(controller));
+    detailsPane = DetailsPane(controller, NotesController(controller));
     teamPane = TeamPane(controller);
 
     super.initState();

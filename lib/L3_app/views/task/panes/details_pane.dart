@@ -26,13 +26,13 @@ import '../../../presenters/source_presenter.dart';
 import '../../../presenters/ws_presenter.dart';
 import '../../../usecases/task_available_actions.dart';
 import '../task_view_controller.dart';
-import '../widgets/notes/task_notes.dart';
-import '../widgets/notes/task_notes_controller.dart';
+import '../widgets/notes/notes.dart';
+import '../widgets/notes/notes_controller.dart';
 
 class DetailsPane extends StatelessWidget {
   const DetailsPane(this.controller, this.notesController);
   final TaskViewController controller;
-  final TaskNotesController notesController;
+  final NotesController notesController;
 
   Task get _task => controller.task;
 
@@ -169,7 +169,7 @@ class DetailsPane extends StatelessWidget {
               ],
               if (notesController.sortedNotesDates.isNotEmpty) ...[
                 const SizedBox(height: P),
-                TaskNotes(notesController),
+                Notes(notesController),
               ],
             ],
           ),

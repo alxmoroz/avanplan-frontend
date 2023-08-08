@@ -30,18 +30,15 @@ Future localImportDialog(TaskViewController taskController) async {
     final sourceGoal = destinationGoal.goalsForLocalImport.firstWhere((g) => g.id == sourceGoalId);
 
     await showMTDialog<void>(
-      TasksLocalImportDialog(
-        LocalImportController(
-          sourceGoal,
-          taskController,
-        ),
+      LocalImportDialog(
+        LocalImportController(sourceGoal, taskController),
       ),
     );
   }
 }
 
-class TasksLocalImportDialog extends StatelessWidget {
-  const TasksLocalImportDialog(this.controller);
+class LocalImportDialog extends StatelessWidget {
+  const LocalImportDialog(this.controller);
   final LocalImportController controller;
 
   Task get _srcGoal => controller.sourceGoal;

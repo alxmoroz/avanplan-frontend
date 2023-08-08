@@ -32,20 +32,11 @@ class SourceEditController extends _SourceEditControllerBase with _$SourceEditCo
     final isTrello = selectedType?.isTrello == true;
 
     initState(fds: [
-      MTFieldData(
-        SourceFCode.url.index,
-        label: loc.source_url_placeholder,
-        text: source?.url ?? (isTrello ? 'https://api.trello.com' : ''),
-      ),
-      MTFieldData(SourceFCode.username.index, label: loc.auth_user_placeholder, text: source?.username ?? '', needValidate: showUsername),
-      MTFieldData(SourceFCode.apiKey.index, label: loc.source_api_key_placeholder, text: source?.apiKey ?? ''),
-      // TFAnnotation(SourceFCode.password.index, label: loc.auth_password_placeholder, needValidate: false),
-      MTFieldData(
-        SourceFCode.description.index,
-        label: loc.description,
-        text: source?.description ?? (isTrello ? 'Trello' : ''),
-        needValidate: false,
-      ),
+      MTFieldData(SourceFCode.url.index, label: loc.source_url_placeholder, text: source?.url ?? (isTrello ? 'https://api.trello.com' : '')),
+      MTFieldData(SourceFCode.username.index, label: loc.auth_user_placeholder, text: source?.username ?? '', validate: showUsername),
+      MTFieldData(SourceFCode.apiKey.index, label: loc.source_api_key_placeholder, text: source?.apiKey ?? '', validate: true),
+      // MTFieldData(SourceFCode.password.index, label: loc.auth_password_placeholder),
+      MTFieldData(SourceFCode.description.index, label: loc.description, text: source?.description ?? (isTrello ? 'Trello' : '')),
     ]);
   }
 }

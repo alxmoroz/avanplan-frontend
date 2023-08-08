@@ -4,17 +4,17 @@ import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../../L1_domain/entities/task.dart';
-import '../../../../../L1_domain/entities_extensions/task_status_ext.dart';
-import '../../../../../L2_data/services/platform.dart';
-import '../../../../components/colors.dart';
-import '../../../../components/constants.dart';
-import '../../../../components/icons.dart';
-import '../../../../components/text_widgets.dart';
-import '../../../../presenters/task_filter_presenter.dart';
-import '../../../../usecases/task_available_actions.dart';
-import '../../controllers/status_controller.dart';
-import '../../widgets/task_card.dart';
+import '../../../../L1_domain/entities/task.dart';
+import '../../../../L1_domain/entities_extensions/task_status_ext.dart';
+import '../../../../L2_data/services/platform.dart';
+import '../../../components/colors.dart';
+import '../../../components/constants.dart';
+import '../../../components/icons.dart';
+import '../../../components/text_widgets.dart';
+import '../../../presenters/task_filter_presenter.dart';
+import '../../../usecases/task_available_actions.dart';
+import '../controllers/status_controller.dart';
+import 'task_card.dart';
 
 class _ItemTarget extends StatelessWidget {
   @override
@@ -30,8 +30,8 @@ class _ItemTarget extends StatelessWidget {
   }
 }
 
-class TasksBoardView extends StatelessWidget {
-  const TasksBoardView(this.controller);
+class TasksBoard extends StatelessWidget {
+  const TasksBoard(this.controller);
   final StatusController controller;
 
   Task get _task => controller.task;

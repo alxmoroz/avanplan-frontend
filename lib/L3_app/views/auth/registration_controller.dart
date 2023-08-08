@@ -19,9 +19,9 @@ enum RegistrationFCode { name, email, password }
 class RegistrationController extends _RegistrationControllerBase with _$RegistrationController {
   RegistrationController() {
     initState(fds: [
-      MTFieldData(RegistrationFCode.name.index, label: loc.auth_name_placeholder),
-      MTFieldData(RegistrationFCode.email.index, label: loc.auth_email_placeholder),
-      MTFieldData(RegistrationFCode.password.index, label: loc.auth_password_placeholder),
+      MTFieldData(RegistrationFCode.name.index, label: loc.auth_name_placeholder, validate: true),
+      MTFieldData(RegistrationFCode.email.index, label: loc.auth_email_placeholder, validate: true),
+      MTFieldData(RegistrationFCode.password.index, label: loc.auth_password_placeholder, validate: true),
     ]);
   }
 }

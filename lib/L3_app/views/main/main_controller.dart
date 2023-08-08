@@ -104,10 +104,10 @@ abstract class _MainControllerBase with Store {
   Future showTask(Task t) async => await Navigator.of(rootKey.currentContext!).pushNamed(TaskView.routeName, arguments: t);
 
   @action
-  void refreshTask(Task edited) {
-    final index = allTasks.indexOf(task(edited.ws.id!, edited.id!));
+  void setTask(Task et) {
+    final index = allTasks.indexWhere((t) => t.ws.id == et.ws.id && t.id == et.id);
     if (index > -1) {
-      allTasks[index] = edited;
+      allTasks[index] = et;
     }
   }
 

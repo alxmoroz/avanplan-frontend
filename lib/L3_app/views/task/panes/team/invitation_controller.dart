@@ -93,9 +93,13 @@ abstract class _InvitationControllerBase extends EditController with Store {
     invitation = await invitationUC.getInvitation(task.ws.id!, task.id!, role.id!);
 
     initState(fds: [
-      MTFieldData(InvitationFCode.expiresOn.index, label: loc.invitation_expires_placeholder, noText: true),
-      MTFieldData(InvitationFCode.activationsCount.index,
-          label: loc.invitation_activations_count_placeholder, text: '${invitation?.activationsCount ?? '10'}'),
+      MTFieldData(InvitationFCode.expiresOn.index, label: loc.invitation_expires_placeholder, noText: true, validate: true),
+      MTFieldData(
+        InvitationFCode.activationsCount.index,
+        label: loc.invitation_activations_count_placeholder,
+        text: '${invitation?.activationsCount ?? '10'}',
+        validate: true,
+      ),
     ]);
 
     setExpired(invitation?.expiresOn ?? DateTime.now().add(const Duration(days: 7)));

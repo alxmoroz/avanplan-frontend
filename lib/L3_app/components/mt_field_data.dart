@@ -10,7 +10,7 @@ class MTFieldData {
     this.placeholder = '',
     this.helper,
     this.validator,
-    this.needValidate = true,
+    this.validate = false,
     this.noText = false,
     this.loading = false,
   });
@@ -20,7 +20,7 @@ class MTFieldData {
   final String placeholder;
   final String? helper;
   final String? Function(String)? validator;
-  final bool needValidate;
+  final bool validate;
   final bool noText;
 
   final bool loading;
@@ -35,7 +35,7 @@ class MTFieldData {
         placeholder: placeholder,
         helper: helper,
         validator: validator,
-        needValidate: needValidate,
+        validate: validate,
         noText: noText,
       )..edited = true;
 
@@ -47,7 +47,7 @@ class MTFieldData {
   }
 
   String? get errorText {
-    if (!edited || !needValidate) {
+    if (!edited || !validate) {
       return null;
     }
 

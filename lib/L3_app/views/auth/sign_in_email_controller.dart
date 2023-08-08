@@ -18,8 +18,8 @@ enum SigninFCode { name, email, password }
 class SignInEmailController extends _SignInEmailControllerBase with _$SignInEmailController {
   SignInEmailController() {
     initState(fds: [
-      MTFieldData(SigninFCode.email.index, label: loc.auth_email_placeholder),
-      MTFieldData(SigninFCode.password.index, label: loc.auth_password_placeholder),
+      MTFieldData(SigninFCode.email.index, label: loc.auth_email_placeholder, validate: true),
+      MTFieldData(SigninFCode.password.index, label: loc.auth_password_placeholder, validate: true),
     ]);
   }
 }

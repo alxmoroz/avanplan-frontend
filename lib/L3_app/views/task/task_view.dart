@@ -15,10 +15,9 @@ import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_type_presenter.dart';
 import 'controllers/task_controller.dart';
-import 'panes/details/details_pane.dart';
+import 'panes/details_pane.dart';
 import 'panes/overview_pane.dart';
-import 'panes/tasks/tasks_pane.dart';
-import 'panes/tasks/tasks_pane_controller.dart';
+import 'panes/tasks_pane.dart';
 import 'panes/team/team_pane.dart';
 import 'widgets/task_header.dart';
 import 'widgets/task_navbar.dart';
@@ -46,7 +45,7 @@ class _TaskViewState extends State<TaskView> {
   void initState() {
     controller = TaskController(widget.taskIn);
     overviewPane = OverviewPane(controller);
-    tasksPane = TasksPane(TasksPaneController(controller));
+    tasksPane = TasksPane(controller);
     detailsPane = DetailsPane(controller);
     teamPane = TeamPane(controller);
 

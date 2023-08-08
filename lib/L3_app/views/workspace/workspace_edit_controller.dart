@@ -20,9 +20,9 @@ class WorkspaceEditController extends _WorkspaceEditControllerBase with _$Worksp
   WorkspaceEditController(Workspace _ws) {
     ws = _ws;
     initState(fds: [
-      MTFieldData(WSFCode.code.index, label: loc.code, text: ws.code),
-      MTFieldData(WSFCode.title.index, label: loc.title, text: ws.title),
-      MTFieldData(WSFCode.description.index, label: loc.description, text: ws.description, needValidate: false),
+      MTFieldData(WSFCode.code.index, label: loc.code, text: ws.code, validate: true),
+      MTFieldData(WSFCode.title.index, label: loc.title, text: ws.title, validate: true),
+      MTFieldData(WSFCode.description.index, label: loc.description, text: ws.description),
     ]);
   }
 }

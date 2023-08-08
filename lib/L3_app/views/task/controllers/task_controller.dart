@@ -44,7 +44,7 @@ part 'task_controller.g.dart';
 
 enum TaskTabKey { overview, subtasks, details, team }
 
-enum TaskFCode { title, description, startDate, dueDate, estimate, assignee, author, parent, note }
+enum TaskFCode { parent, title, status, assignee, description, startDate, dueDate, estimate, author, note }
 
 enum TasksFilter { my }
 
@@ -52,55 +52,24 @@ class TaskController extends _TaskControllerBase with _$TaskController {
   TaskController(Task taskIn) {
     _setTask(taskIn);
 
-    statusController = StatusController(this);
     addController = AddController(taskIn.ws, this);
+    statusController = StatusController(this);
     notesController = NotesController(this);
 
     initState(fds: [
-      MTFieldData(TaskFCode.parent.index, needValidate: false),
-      MTFieldData(
-        TaskFCode.title.index,
-        text: isNew ? '' : task.title,
-        needValidate: false,
-      ),
-      MTFieldData(
-        TaskFCode.description.index,
-        text: task.description,
-        label: loc.description,
-        placeholder: loc.description,
-        needValidate: false,
-      ),
-      MTFieldData(
-        TaskFCode.startDate.index,
-        label: loc.task_start_date_label,
-        placeholder: loc.task_start_date_placeholder,
-        needValidate: false,
-      ),
-      MTFieldData(
-        TaskFCode.dueDate.index,
-        label: loc.task_due_date_label,
-        placeholder: loc.task_due_date_placeholder,
-        needValidate: false,
-      ),
+      MTFieldData(TaskFCode.parent.index),
+      MTFieldData(TaskFCode.title.index, text: isNew ? '' : task.title),
+      MTFieldData(TaskFCode.assignee.index, label: loc.task_assignee_label, placeholder: loc.task_assignee_placeholder),
+      MTFieldData(TaskFCode.description.index, text: task.description, label: loc.description, placeholder: loc.description),
+      MTFieldData(TaskFCode.startDate.index, label: loc.task_start_date_label, placeholder: loc.task_start_date_placeholder),
+      MTFieldData(TaskFCode.dueDate.index, label: loc.task_due_date_label, placeholder: loc.task_due_date_placeholder),
       MTFieldData(
         TaskFCode.estimate.index,
         label: task.estimate != null ? loc.task_estimate_label : loc.task_estimate_group_label,
         placeholder: loc.task_estimate_placeholder,
-        needValidate: false,
       ),
-      MTFieldData(
-        TaskFCode.assignee.index,
-        label: loc.task_assignee_label,
-        placeholder: loc.task_assignee_placeholder,
-        needValidate: false,
-      ),
-      MTFieldData(
-        TaskFCode.author.index,
-        label: loc.task_author_title,
-        placeholder: loc.task_author_title,
-        needValidate: false,
-      ),
-      MTFieldData(TaskFCode.note.index, placeholder: loc.task_note_placeholder, needValidate: false),
+      MTFieldData(TaskFCode.author.index, label: loc.task_author_title, placeholder: loc.task_author_title),
+      MTFieldData(TaskFCode.note.index, placeholder: loc.task_note_placeholder),
     ]);
 
     _startupActions();
@@ -147,12 +116,12 @@ abstract class _TaskControllerBase extends EditController with Store {
           mainController.allTasks.add(editedTask);
           _setTask(editedTask);
         } else
-          mainController.refreshTask(editedTask);
+          mainController.setTask(editedTask);
       }
     } catch (e) {
       task.error = MTError(loader.titleText ?? '', detail: loader.descriptionText);
-      mainController.refresh();
     }
+    mainController.refresh();
     updateField(code.index, loading: false);
 
     return saved;
@@ -184,21 +153,6 @@ abstract class _TaskControllerBase extends EditController with Store {
     _titleEditTimer = Timer(const Duration(milliseconds: 800), () async => await _setTitle(str));
   }
 
-  /// описание
-
-  Future editDescription() async {
-    final tc = teController(TaskFCode.description.index)!;
-    await showMTDialog<void>(TaskDescriptionDialog(tc));
-    final newValue = tc.text;
-    if (task.description != newValue) {
-      final oldValue = task.description;
-      task.description = newValue;
-      if (!(await _saveField(TaskFCode.description))) {
-        task.description = oldValue;
-      }
-    }
-  }
-
   /// назначенный
 
   Future _resetAssignee() async {
@@ -222,6 +176,21 @@ abstract class _TaskControllerBase extends EditController with Store {
       task.assigneeId = selectedId;
       if (!(await _saveField(TaskFCode.assignee))) {
         task.assigneeId = oldValue;
+      }
+    }
+  }
+
+  /// описание
+
+  Future editDescription() async {
+    final tc = teController(TaskFCode.description.index)!;
+    await showMTDialog<void>(TaskDescriptionDialog(tc));
+    final newValue = tc.text;
+    if (task.description != newValue) {
+      final oldValue = task.description;
+      task.description = newValue;
+      if (!(await _saveField(TaskFCode.description))) {
+        task.description = oldValue;
       }
     }
   }
@@ -393,4 +362,12 @@ abstract class _TaskControllerBase extends EditController with Store {
 
   @computed
   TaskTabKey get tabKey => (tabKeys.contains(_tabKey) ? _tabKey : null) ?? (tabKeys.isNotEmpty ? tabKeys.first : TaskTabKey.subtasks);
+
+  /// режим Доска / Список
+
+  @observable
+  bool showBoard = false;
+
+  @action
+  void toggleMode() => showBoard = !showBoard;
 }

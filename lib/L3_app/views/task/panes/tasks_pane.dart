@@ -3,28 +3,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../../L1_domain/entities/task.dart';
-import '../../../../../L1_domain/entities_extensions/task_stats.dart';
-import '../../../../../main.dart';
-import '../../../../components/colors.dart';
-import '../../../../components/constants.dart';
-import '../../../../components/icons.dart';
-import '../../../../components/mt_button.dart';
-import '../../../../presenters/task_filter_presenter.dart';
-import '../../../../usecases/task_available_actions.dart';
-import '../../controllers/task_controller.dart';
-import '../../widgets/task_add_button.dart';
-import '../../widgets/tasks_list_view.dart';
-import '../../widgets/transfer/local_import_dialog.dart';
-import 'tasks_board_view.dart';
-import 'tasks_pane_controller.dart';
+import '../../../../L1_domain/entities/task.dart';
+import '../../../../L1_domain/entities_extensions/task_stats.dart';
+import '../../../../main.dart';
+import '../../../components/colors.dart';
+import '../../../components/constants.dart';
+import '../../../components/icons.dart';
+import '../../../components/mt_button.dart';
+import '../../../presenters/task_filter_presenter.dart';
+import '../../../usecases/task_available_actions.dart';
+import '../controllers/task_controller.dart';
+import '../widgets/task_add_button.dart';
+import '../widgets/tasks_board.dart';
+import '../widgets/tasks_list_view.dart';
+import '../widgets/transfer/local_import_dialog.dart';
 
 class TasksPane extends StatelessWidget {
   const TasksPane(this.controller);
-  final TasksPaneController controller;
+  final TaskController controller;
 
   Task get _task => controller.task;
-  TaskController get _taskController => controller.taskController;
 
   Widget _switchPart(Widget icon, bool active) => Container(
         decoration: active
@@ -56,11 +54,11 @@ class TasksPane extends StatelessWidget {
             MTButton.secondary(
               middle: const LocalImportIcon(),
               constrained: false,
-              onTap: () => localImportDialog(_taskController),
+              onTap: () => localImportDialog(controller),
             ),
           if (_task.canCreate) ...[
             const SizedBox(width: P),
-            TaskAddButton(_taskController.addController, compact: true),
+            TaskAddButton(controller.addController, compact: true),
           ]
         ])
       : null;
@@ -68,7 +66,7 @@ class TasksPane extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => controller.showBoard ? TasksBoardView(_taskController.statusController) : TasksListView(_task.subtaskGroups, _task.type!),
+      builder: (_) => controller.showBoard ? TasksBoard(controller.statusController) : TasksListView(_task.subtaskGroups, _task.type!),
     );
   }
 }

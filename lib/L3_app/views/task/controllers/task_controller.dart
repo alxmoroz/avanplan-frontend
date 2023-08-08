@@ -40,7 +40,7 @@ import 'status_controller.dart';
 
 part 'task_controller.g.dart';
 
-// TODO: уменьшить размер файла, разнести по отдельным контроллерам. Например, отдельно редактирование и просмотр
+// TODO: уменьшить размер файла, разнести по отдельным контроллерам
 
 enum TaskTabKey { overview, subtasks, details, team }
 
@@ -50,11 +50,11 @@ enum TasksFilter { my }
 
 class TaskController extends _TaskControllerBase with _$TaskController {
   TaskController(Task taskIn) {
+    _setTask(taskIn);
+
     statusController = StatusController(this);
     addController = AddController(taskIn.ws, this);
     notesController = NotesController(this);
-
-    _setTask(taskIn);
 
     initState(fds: [
       MTFieldData(TaskFCode.parent.index, needValidate: false),

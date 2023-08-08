@@ -34,17 +34,7 @@ class TasksBoardView extends StatelessWidget {
   const TasksBoardView(this.controller);
   final TasksPaneController controller;
 
-  Task get _task => controller.taskController.task;
-
-  Future _setStatus(int oldTaskIndex, int oldStatusIndex, int newTaskIndex, int newStatusIndex) async {
-    if (oldStatusIndex != newStatusIndex) {
-      final oldStatusId = _task.statuses[oldStatusIndex].id!;
-      final newStatusId = _task.statuses[newStatusIndex].id!;
-
-      final task = _task.subtasksForStatus(oldStatusId)[oldTaskIndex];
-      await controller.taskController.setStatus(task, statusId: newStatusId);
-    }
-  }
+  Task get _task => controller.task;
 
   DragAndDropItem _taskBuilder(Task t) => DragAndDropItem(
         child: TaskCard(
@@ -88,7 +78,7 @@ class TasksBoardView extends StatelessWidget {
     return Observer(
       builder: (_) => DragAndDropLists(
         children: [for (var i = 0; i < _task.statuses.length; i++) _columnBuilder(i)],
-        onItemReorder: _setStatus,
+        onItemReorder: controller.moveTask,
         onListReorder: (int oldListIndex, int newListIndex) {},
         axis: Axis.horizontal,
         listWidth: SCR_XS_WIDTH,

@@ -14,8 +14,8 @@ import '../../../presenters/source_presenter.dart';
 import '../../../usecases/task_available_actions.dart';
 import '../../../usecases/task_link.dart';
 import '../../../usecases/ws_available_actions.dart';
+import '../controllers/delete_controller.dart';
 import '../controllers/task_controller.dart';
-import '../controllers/task_delete_controller.dart';
 
 class TaskPopupMenu extends StatelessWidget {
   const TaskPopupMenu(this.controller, {this.icon, this.child});

@@ -16,8 +16,7 @@ import '../../../presenters/task_filter_presenter.dart';
 import '../../../presenters/task_state_presenter.dart';
 import '../../../presenters/task_view_presenter.dart';
 import '../../../usecases/task_available_actions.dart';
-import '../task_add_controller.dart';
-import '../task_view_controller.dart';
+import '../controllers/task_controller.dart';
 import '../widgets/charts/chart_details.dart';
 import '../widgets/charts/timing_chart.dart';
 import '../widgets/charts/velocity_chart.dart';
@@ -29,7 +28,7 @@ import '../widgets/transfer/local_import_dialog.dart';
 
 class OverviewPane extends StatelessWidget {
   const OverviewPane(this.controller);
-  final TaskViewController controller;
+  final TaskController controller;
 
   Task get _task => controller.task;
 
@@ -47,7 +46,7 @@ class OverviewPane extends StatelessWidget {
                     margin: const EdgeInsets.only(bottom: P),
                     onTap: () => localImportDialog(controller),
                   ),
-                TaskAddButton(TaskAddController(_task.ws, controller)),
+                TaskAddButton(controller.addController),
               ],
             )
           : Column(
@@ -64,7 +63,7 @@ class OverviewPane extends StatelessWidget {
                 MTButton.main(
                   titleText: _task.canCloseGroup ? loc.close_action_title : loc.task_reopen_action_title,
                   leading: DoneIcon(_task.canCloseGroup, color: lightBackgroundColor),
-                  onTap: () => controller.setStatus(_task, close: !_task.closed),
+                  onTap: () => controller.statusController.setStatus(_task, close: !_task.closed),
                 ),
               ],
             )

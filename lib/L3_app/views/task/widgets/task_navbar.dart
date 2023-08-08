@@ -9,10 +9,10 @@ import '../../../presenters/task_colors_presenter.dart';
 import '../../../presenters/task_type_presenter.dart';
 import '../../../presenters/ws_presenter.dart';
 import '../../../usecases/task_available_actions.dart';
-import '../task_view_controller.dart';
+import '../controllers/task_controller.dart';
 import 'task_popup_menu.dart';
 
-CupertinoNavigationBar taskNavBar(TaskViewController controller) {
+CupertinoNavigationBar taskNavBar(TaskController controller) {
   final task = controller.task;
 
   return navBar(

@@ -14,12 +14,12 @@ import '../../../presenters/source_presenter.dart';
 import '../../../usecases/task_available_actions.dart';
 import '../../../usecases/task_link.dart';
 import '../../../usecases/ws_available_actions.dart';
-import '../task_delete_controller.dart';
-import '../task_view_controller.dart';
+import '../controllers/task_controller.dart';
+import '../controllers/task_delete_controller.dart';
 
 class TaskPopupMenu extends StatelessWidget {
   const TaskPopupMenu(this.controller, {this.icon, this.child});
-  final TaskViewController controller;
+  final TaskController controller;
   final Widget? icon;
   final Widget? child;
 
@@ -63,10 +63,10 @@ class TaskPopupMenu extends StatelessWidget {
   Future _taskAction(TaskActionType? actionType) async {
     switch (actionType) {
       case TaskActionType.close:
-        await controller.setStatus(_task, close: true);
+        await controller.statusController.setStatus(_task, close: true);
         break;
       case TaskActionType.reopen:
-        await controller.setStatus(_task, close: false);
+        await controller.statusController.setStatus(_task, close: false);
         break;
       case TaskActionType.localExport:
         await controller.localExport();
@@ -78,7 +78,7 @@ class TaskPopupMenu extends StatelessWidget {
         await _task.unlink();
         break;
       case TaskActionType.delete:
-        await TaskDeleteController().delete(_task);
+        await DeleteController().delete(_task);
         mainController.refresh();
         break;
       default:

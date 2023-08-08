@@ -1,23 +1,23 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2023. Alexandr Moroz
 
 import 'dart:async';
 
 import 'package:collection/collection.dart';
 
-import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/entities/workspace.dart';
-import '../../../L1_domain/entities_extensions/task_level.dart';
-import '../../../L1_domain/entities_extensions/task_status_ext.dart';
-import '../../extra/services.dart';
-import '../../presenters/task_type_presenter.dart';
-import '../../usecases/ws_available_actions.dart';
-import '../tariff/tariff_select_view.dart';
-import 'task_view_controller.dart';
+import '../../../../L1_domain/entities/task.dart';
+import '../../../../L1_domain/entities/workspace.dart';
+import '../../../../L1_domain/entities_extensions/task_level.dart';
+import '../../../../L1_domain/entities_extensions/task_status_ext.dart';
+import '../../../extra/services.dart';
+import '../../../presenters/task_type_presenter.dart';
+import '../../../usecases/ws_available_actions.dart';
+import '../../tariff/tariff_select_view.dart';
+import 'task_controller.dart';
 
-class TaskAddController {
-  TaskAddController(this.ws, this.parentTaskController);
+class AddController {
+  AddController(this.ws, this.parentTaskController);
   final Workspace ws;
-  final TaskViewController? parentTaskController;
+  final TaskController? parentTaskController;
 
   Task? get parent => parentTaskController?.task;
   bool get newProject => parent == null;

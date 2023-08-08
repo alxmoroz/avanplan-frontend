@@ -13,8 +13,8 @@ import '../../../../components/icons.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../presenters/task_filter_presenter.dart';
 import '../../../../usecases/task_available_actions.dart';
+import '../../controllers/status_controller.dart';
 import '../../widgets/task_card.dart';
-import 'tasks_pane_controller.dart';
 
 class _ItemTarget extends StatelessWidget {
   @override
@@ -32,7 +32,7 @@ class _ItemTarget extends StatelessWidget {
 
 class TasksBoardView extends StatelessWidget {
   const TasksBoardView(this.controller);
-  final TasksPaneController controller;
+  final StatusController controller;
 
   Task get _task => controller.task;
 

@@ -1,19 +1,17 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2023. Alexandr Moroz
 
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/entities_extensions/task_level.dart';
-import '../../../main.dart';
-import '../../components/mt_alert_dialog.dart';
-import '../../extra/services.dart';
-import '../../presenters/task_type_presenter.dart';
+import '../../../../L1_domain/entities/task.dart';
+import '../../../../L1_domain/entities_extensions/task_level.dart';
+import '../../../../main.dart';
+import '../../../components/mt_alert_dialog.dart';
+import '../../../extra/services.dart';
+import '../../../presenters/task_type_presenter.dart';
 
-class TaskDeleteController {
-  /// удаление задачи
-
+class DeleteController {
   void _popDeleted(Task task) {
     final context = rootKey.currentContext!;
     Navigator.of(context).pop();

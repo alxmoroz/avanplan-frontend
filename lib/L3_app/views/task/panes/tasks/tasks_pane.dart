@@ -12,7 +12,7 @@ import '../../../../components/icons.dart';
 import '../../../../components/mt_button.dart';
 import '../../../../presenters/task_filter_presenter.dart';
 import '../../../../usecases/task_available_actions.dart';
-import '../../task_add_controller.dart';
+import '../../controllers/task_controller.dart';
 import '../../widgets/task_add_button.dart';
 import '../../widgets/tasks_list_view.dart';
 import '../../widgets/transfer/local_import_dialog.dart';
@@ -24,6 +24,7 @@ class TasksPane extends StatelessWidget {
   final TasksPaneController controller;
 
   Task get _task => controller.task;
+  TaskController get _taskController => controller.taskController;
 
   Widget _switchPart(Widget icon, bool active) => Container(
         decoration: active
@@ -55,11 +56,11 @@ class TasksPane extends StatelessWidget {
             MTButton.secondary(
               middle: const LocalImportIcon(),
               constrained: false,
-              onTap: () => localImportDialog(controller.taskController),
+              onTap: () => localImportDialog(_taskController),
             ),
           if (_task.canCreate) ...[
             const SizedBox(width: P),
-            TaskAddButton(TaskAddController(_task.ws, controller.taskController), compact: true),
+            TaskAddButton(_taskController.addController, compact: true),
           ]
         ])
       : null;
@@ -67,7 +68,7 @@ class TasksPane extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => controller.showBoard ? TasksBoardView(controller) : TasksListView(_task.subtaskGroups, _task.type!),
+      builder: (_) => controller.showBoard ? TasksBoardView(_taskController.statusController) : TasksListView(_task.subtaskGroups, _task.type!),
     );
   }
 }

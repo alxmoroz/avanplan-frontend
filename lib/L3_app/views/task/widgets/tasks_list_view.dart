@@ -9,7 +9,7 @@ import '../../../components/mt_adaptive.dart';
 import '../../../components/mt_shadowed.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
-import '../task_view_controller.dart';
+import '../controllers/task_controller.dart';
 import 'state_title.dart';
 import 'tasks_group.dart';
 

@@ -14,13 +14,12 @@ import '../../components/mt_page.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_type_presenter.dart';
-import 'panes/details_pane.dart';
+import 'controllers/task_controller.dart';
+import 'panes/details/details_pane.dart';
 import 'panes/overview_pane.dart';
 import 'panes/tasks/tasks_pane.dart';
 import 'panes/tasks/tasks_pane_controller.dart';
 import 'panes/team/team_pane.dart';
-import 'task_view_controller.dart';
-import 'widgets/notes/notes_controller.dart';
 import 'widgets/task_header.dart';
 import 'widgets/task_navbar.dart';
 
@@ -37,7 +36,7 @@ class TaskView extends StatefulWidget {
 class _TaskViewState extends State<TaskView> {
   Task get task => controller.task;
 
-  late final TaskViewController controller;
+  late final TaskController controller;
   late final OverviewPane overviewPane;
   late final TasksPane tasksPane;
   late final DetailsPane detailsPane;
@@ -45,10 +44,10 @@ class _TaskViewState extends State<TaskView> {
 
   @override
   void initState() {
-    controller = TaskViewController(widget.taskIn);
+    controller = TaskController(widget.taskIn);
     overviewPane = OverviewPane(controller);
     tasksPane = TasksPane(TasksPaneController(controller));
-    detailsPane = DetailsPane(controller, NotesController(controller));
+    detailsPane = DetailsPane(controller);
     teamPane = TeamPane(controller);
 
     super.initState();

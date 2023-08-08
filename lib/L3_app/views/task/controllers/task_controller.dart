@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2023. Alexandr Moroz
 
 import 'dart:async';
 
@@ -6,40 +6,39 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/entities/estimate_value.dart';
-import '../../../L1_domain/entities/member.dart';
-import '../../../L1_domain/entities/status.dart';
-import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/entities/workspace.dart';
-import '../../../L1_domain/entities_extensions/task_level.dart';
-import '../../../L1_domain/entities_extensions/task_members.dart';
-import '../../../L1_domain/entities_extensions/task_stats.dart';
-import '../../../L1_domain/entities_extensions/task_status_ext.dart';
-import '../../../L1_domain/entities_extensions/ws_ext.dart';
-import '../../../L1_domain/system/errors.dart';
-import '../../../L1_domain/usecases/task_comparators.dart';
-import '../../../main.dart';
-import '../../components/colors.dart';
-import '../../components/constants.dart';
-import '../../components/mt_alert_dialog.dart';
-import '../../components/mt_button.dart';
-import '../../components/mt_dialog.dart';
-import '../../components/mt_field_data.dart';
-import '../../components/mt_select_dialog.dart';
-import '../../components/text_widgets.dart';
-import '../../extra/services.dart';
-import '../../presenters/date_presenter.dart';
-import '../../presenters/duration_presenter.dart';
-import '../../presenters/person_presenter.dart';
-import '../../presenters/task_type_presenter.dart';
-import '../../presenters/task_view_presenter.dart';
-import '../../presenters/ws_presenter.dart';
-import '../../usecases/task_available_actions.dart';
-import '../../views/_base/edit_controller.dart';
-import 'widgets/task_description_dialog.dart';
-import 'widgets/transfer/select_task_dialog.dart';
+import '../../../../L1_domain/entities/estimate_value.dart';
+import '../../../../L1_domain/entities/member.dart';
+import '../../../../L1_domain/entities/task.dart';
+import '../../../../L1_domain/entities/workspace.dart';
+import '../../../../L1_domain/entities_extensions/task_level.dart';
+import '../../../../L1_domain/entities_extensions/task_members.dart';
+import '../../../../L1_domain/entities_extensions/task_stats.dart';
+import '../../../../L1_domain/entities_extensions/ws_ext.dart';
+import '../../../../L1_domain/system/errors.dart';
+import '../../../../L1_domain/usecases/task_comparators.dart';
+import '../../../components/colors.dart';
+import '../../../components/constants.dart';
+import '../../../components/mt_button.dart';
+import '../../../components/mt_dialog.dart';
+import '../../../components/mt_field_data.dart';
+import '../../../components/mt_select_dialog.dart';
+import '../../../components/text_widgets.dart';
+import '../../../extra/services.dart';
+import '../../../presenters/date_presenter.dart';
+import '../../../presenters/duration_presenter.dart';
+import '../../../presenters/person_presenter.dart';
+import '../../../presenters/task_type_presenter.dart';
+import '../../../presenters/task_view_presenter.dart';
+import '../../../presenters/ws_presenter.dart';
+import '../../../usecases/task_available_actions.dart';
+import '../../../views/_base/edit_controller.dart';
+import '../widgets/task_description_dialog.dart';
+import '../widgets/transfer/select_task_dialog.dart';
+import 'add_controller.dart';
+import 'notes_controller.dart';
+import 'status_controller.dart';
 
-part 'task_view_controller.g.dart';
+part 'task_controller.g.dart';
 
 // TODO: уменьшить размер файла, разнести по отдельным контроллерам. Например, отдельно редактирование и просмотр
 
@@ -49,8 +48,12 @@ enum TaskFCode { title, description, startDate, dueDate, estimate, assignee, aut
 
 enum TasksFilter { my }
 
-class TaskViewController extends _TaskViewControllerBase with _$TaskViewController {
-  TaskViewController(Task taskIn) {
+class TaskController extends _TaskControllerBase with _$TaskController {
+  TaskController(Task taskIn) {
+    statusController = StatusController(this);
+    addController = AddController(taskIn.ws, this);
+    notesController = NotesController(this);
+
     _setTask(taskIn);
 
     initState(fds: [
@@ -104,9 +107,13 @@ class TaskViewController extends _TaskViewControllerBase with _$TaskViewControll
   }
 }
 
-abstract class _TaskViewControllerBase extends EditController with Store {
+abstract class _TaskControllerBase extends EditController with Store {
   Task get task => isNew ? _taskIn! : mainController.task(_taskIn!.ws.id!, _taskIn!.id!);
   Workspace get _ws => task.ws;
+
+  late final StatusController statusController;
+  late final AddController addController;
+  late final NotesController notesController;
 
   Future _startupActions() async {
     if (isNew) {
@@ -305,91 +312,6 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     }
   }
 
-  /// статусы
-
-  Future<Task?> _setStatus(Task t, {int? statusId, bool? close}) async {
-    if (t.canSetStatus) {
-      t.statusId = statusId;
-    }
-
-    if (close != null) {
-      t.closed = close;
-      if (close) {
-        t.closedDate = DateTime.now();
-      }
-    }
-
-    return await taskUC.save(_ws, t);
-  }
-
-  Future<Task?> _setStatusTaskTree(
-    Task _task, {
-    int? statusId,
-    bool? close,
-    bool recursively = false,
-  }) async {
-    if (recursively) {
-      // TODO: перенести на бэк?
-      for (final t in _task.tasks.where((t) => t.closed != close)) {
-        await _setStatus(t, statusId: statusId, close: close);
-      }
-    }
-    return await _setStatus(_task, statusId: statusId, close: close);
-  }
-
-  Future selectStatus() async {
-    final selectedStatusId = await showMTSelectDialog<Status>(
-      task.statuses,
-      task.statusId,
-      loc.task_status_placeholder,
-    );
-
-    if (selectedStatusId != null) {
-      await setStatus(task, statusId: selectedStatusId);
-    }
-  }
-
-  Future<bool?> _closeDialog() async => await showMTAlertDialog(
-        loc.close_dialog_recursive_title,
-        description: loc.close_dialog_recursive_description,
-        actions: [
-          MTADialogAction(title: loc.close_w_subtasks, type: MTActionType.isWarning, result: true),
-          MTADialogAction(title: loc.cancel, type: MTActionType.isDefault, result: false),
-        ],
-      );
-
-  Future setStatus(Task _task, {int? statusId, bool? close}) async {
-    if (statusId != null || close != null) {
-      bool recursively = false;
-
-      statusId ??= close == true ? _task.firstClosedStatusId : _task.firstOpenedStatusId;
-      close ??= _task.statusForId(statusId)?.closed;
-
-      if (close == true && _task.hasOpenedSubtasks) {
-        recursively = await _closeDialog() == true;
-        if (!recursively) {
-          return;
-        }
-      }
-
-      // TODO: сделать лоадер над строкой со статусом только
-
-      loader.start();
-      loader.setSaving();
-
-      final editedTask = await _setStatusTaskTree(_task, statusId: statusId, close: close, recursively: recursively);
-      await loader.stop();
-
-      if (editedTask != null) {
-        //TODO: может неожиданно для пользователя вываливаться в случае редактирования статуса закрытой задачи
-        if (editedTask.closed && _task.id == task.id) {
-          Navigator.of(rootKey.currentContext!).pop(editedTask);
-        }
-        mainController.refresh();
-      }
-    }
-  }
-
   /// оценка
 
   Future _resetEstimate() async {
@@ -430,26 +352,6 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     }
   }
 
-  /// вкладки
-
-  @computed
-  Iterable<TaskTabKey> get tabKeys {
-    return [
-      if (!isNew && task.hasOverviewPane) TaskTabKey.overview,
-      if (!isNew && task.hasSubtasks) TaskTabKey.subtasks,
-      if (!isNew && task.hasTeamPane) TaskTabKey.team,
-      TaskTabKey.details,
-    ];
-  }
-
-  @observable
-  TaskTabKey? _tabKey;
-  @action
-  void selectTab(TaskTabKey? tk) => _tabKey = tk;
-
-  @computed
-  TaskTabKey get tabKey => (tabKeys.contains(_tabKey) ? _tabKey : null) ?? (tabKeys.isNotEmpty ? tabKeys.first : TaskTabKey.subtasks);
-
   /// перенос с другую цель
 
   Future localExport() async {
@@ -471,4 +373,24 @@ abstract class _TaskViewControllerBase extends EditController with Store {
       }
     }
   }
+
+  /// вкладки
+
+  @computed
+  Iterable<TaskTabKey> get tabKeys {
+    return [
+      if (!isNew && task.hasOverviewPane) TaskTabKey.overview,
+      if (!isNew && task.hasSubtasks) TaskTabKey.subtasks,
+      if (!isNew && task.hasTeamPane) TaskTabKey.team,
+      TaskTabKey.details,
+    ];
+  }
+
+  @observable
+  TaskTabKey? _tabKey;
+  @action
+  void selectTab(TaskTabKey? tk) => _tabKey = tk;
+
+  @computed
+  TaskTabKey get tabKey => (tabKeys.contains(_tabKey) ? _tabKey : null) ?? (tabKeys.isNotEmpty ? tabKeys.first : TaskTabKey.subtasks);
 }

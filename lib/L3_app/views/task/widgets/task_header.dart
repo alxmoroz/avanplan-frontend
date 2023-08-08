@@ -12,11 +12,11 @@ import '../../../components/mt_text_field.dart';
 import '../../../components/text_widgets.dart';
 import '../../../presenters/task_colors_presenter.dart';
 import '../../../usecases/task_available_actions.dart';
-import '../task_view_controller.dart';
+import '../controllers/task_controller.dart';
 
 class TaskHeader extends StatelessWidget {
   const TaskHeader(this.controller);
-  final TaskViewController controller;
+  final TaskController controller;
 
   Task get _task => controller.task;
 

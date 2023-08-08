@@ -18,11 +18,11 @@ import '../../../../components/mt_shadowed.dart';
 import '../../../../components/mt_toolbar.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
-import '../../task_view_controller.dart';
+import '../../controllers/task_controller.dart';
 import 'local_import_controller.dart';
 import 'select_task_dialog.dart';
 
-Future localImportDialog(TaskViewController taskController) async {
+Future localImportDialog(TaskController taskController) async {
   final destinationGoal = taskController.task;
   final sourceGoalId = await selectTaskDialog(destinationGoal.goalsForLocalImport.sorted(sortByDateAsc), loc.task_transfer_source_hint);
 

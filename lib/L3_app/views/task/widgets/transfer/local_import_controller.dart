@@ -9,12 +9,12 @@ import '../../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../../L1_domain/usecases/task_comparators.dart';
 import '../../../../../main.dart';
 import '../../../../extra/services.dart';
-import '../../task_view_controller.dart';
+import '../../controllers/task_controller.dart';
 
 part 'local_import_controller.g.dart';
 
 class LocalImportController extends _LocalImportControllerBase with _$LocalImportController {
-  LocalImportController(Task _sourceGoal, TaskViewController _taskController) {
+  LocalImportController(Task _sourceGoal, TaskController _taskController) {
     taskController = _taskController;
     sourceGoal = _sourceGoal;
     srcTasks = sourceGoal.openedSubtasks.sorted(sortByDateAsc);
@@ -23,7 +23,7 @@ class LocalImportController extends _LocalImportControllerBase with _$LocalImpor
 }
 
 abstract class _LocalImportControllerBase with Store {
-  late final TaskViewController taskController;
+  late final TaskController taskController;
   late final Task sourceGoal;
   late final List<Task> srcTasks;
 

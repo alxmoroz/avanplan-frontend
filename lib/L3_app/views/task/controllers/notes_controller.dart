@@ -1,30 +1,30 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2023. Alexandr Moroz
 
 import 'dart:async';
 
 import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../../../L1_domain/entities/note.dart';
-import '../../../../../L1_domain/entities/task.dart';
-import '../../../../components/mt_dialog.dart';
-import '../../../../extra/services.dart';
-import '../../../../presenters/date_presenter.dart';
-import '../../../../usecases/task_available_actions.dart';
-import '../../task_view_controller.dart';
-import 'note_dialog.dart';
+import '../../../../L1_domain/entities/note.dart';
+import '../../../../L1_domain/entities/task.dart';
+import '../../../components/mt_dialog.dart';
+import '../../../extra/services.dart';
+import '../../../presenters/date_presenter.dart';
+import '../../../usecases/task_available_actions.dart';
+import '../widgets/notes/note_dialog.dart';
+import 'task_controller.dart';
 
 part 'notes_controller.g.dart';
 
 class NotesController extends _NotesControllerBase with _$NotesController {
-  NotesController(TaskViewController _taskController) {
+  NotesController(TaskController _taskController) {
     taskController = _taskController;
     _setNotes(_taskController.task.notes);
   }
 }
 
 abstract class _NotesControllerBase with Store {
-  late final TaskViewController taskController;
+  late final TaskController taskController;
 
   Task get task => taskController.task;
 

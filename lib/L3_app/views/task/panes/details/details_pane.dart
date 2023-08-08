@@ -1,4 +1,4 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
@@ -6,33 +6,31 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-import '../../../../L1_domain/entities/task.dart';
-import '../../../../L1_domain/entities_extensions/task_members.dart';
-import '../../../../L1_domain/entities_extensions/task_stats.dart';
-import '../../../../L1_domain/entities_extensions/task_status_ext.dart';
-import '../../../components/colors.dart';
-import '../../../components/constants.dart';
-import '../../../components/icons.dart';
-import '../../../components/mt_adaptive.dart';
-import '../../../components/mt_button.dart';
-import '../../../components/mt_field.dart';
-import '../../../components/mt_list_tile.dart';
-import '../../../components/mt_shadowed.dart';
-import '../../../components/text_widgets.dart';
-import '../../../extra/services.dart';
-import '../../../presenters/date_presenter.dart';
-import '../../../presenters/person_presenter.dart';
-import '../../../presenters/source_presenter.dart';
-import '../../../presenters/ws_presenter.dart';
-import '../../../usecases/task_available_actions.dart';
-import '../task_view_controller.dart';
-import '../widgets/notes/notes.dart';
-import '../widgets/notes/notes_controller.dart';
+import '../../../../../L1_domain/entities/task.dart';
+import '../../../../../L1_domain/entities_extensions/task_members.dart';
+import '../../../../../L1_domain/entities_extensions/task_stats.dart';
+import '../../../../../L1_domain/entities_extensions/task_status_ext.dart';
+import '../../../../components/colors.dart';
+import '../../../../components/constants.dart';
+import '../../../../components/icons.dart';
+import '../../../../components/mt_adaptive.dart';
+import '../../../../components/mt_button.dart';
+import '../../../../components/mt_field.dart';
+import '../../../../components/mt_list_tile.dart';
+import '../../../../components/mt_shadowed.dart';
+import '../../../../components/text_widgets.dart';
+import '../../../../extra/services.dart';
+import '../../../../presenters/date_presenter.dart';
+import '../../../../presenters/person_presenter.dart';
+import '../../../../presenters/source_presenter.dart';
+import '../../../../presenters/ws_presenter.dart';
+import '../../../../usecases/task_available_actions.dart';
+import '../../controllers/task_controller.dart';
+import '../../widgets/notes/notes.dart';
 
 class DetailsPane extends StatelessWidget {
-  const DetailsPane(this.controller, this.notesController);
-  final TaskViewController controller;
-  final NotesController notesController;
+  const DetailsPane(this.controller);
+  final TaskController controller;
 
   Task get _task => controller.task;
 
@@ -90,14 +88,14 @@ class DetailsPane extends StatelessWidget {
                                   child: CaretIcon(size: Size(P * 0.8, P * 0.75), color: darkBackgroundColor),
                                 )
                               : null,
-                          onTap: _task.canSetStatus ? controller.selectStatus : null,
+                          onTap: _task.canSetStatus ? controller.statusController.selectStatus : null,
                         ),
                       if (_closable)
                         MTButton(
                           titleColor: greenColor,
                           titleText: loc.close_action_title,
                           leading: const DoneIcon(true, color: greenColor),
-                          onTap: () => controller.setStatus(_task, close: true),
+                          onTap: () => controller.statusController.setStatus(_task, close: true),
                         )
                     ],
                   ),
@@ -164,12 +162,12 @@ class DetailsPane extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: P_2),
                   ),
                   leading: const NoteAddIcon(),
-                  onSelect: notesController.addNote,
+                  onSelect: controller.notesController.addNote,
                 ),
               ],
-              if (notesController.sortedNotesDates.isNotEmpty) ...[
+              if (controller.notesController.sortedNotesDates.isNotEmpty) ...[
                 const SizedBox(height: P),
-                Notes(notesController),
+                Notes(controller.notesController),
               ],
             ],
           ),

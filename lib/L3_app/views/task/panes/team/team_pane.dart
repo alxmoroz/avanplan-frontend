@@ -15,14 +15,14 @@ import '../../../../components/mt_shadowed.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../presenters/person_presenter.dart';
 import '../../../../usecases/task_available_actions.dart';
-import '../../task_view_controller.dart';
+import '../../controllers/task_controller.dart';
 import 'member_add_menu.dart';
 import 'member_view.dart';
 import 'no_members.dart';
 
 class TeamPane extends StatelessWidget {
   const TeamPane(this.controller);
-  final TaskViewController controller;
+  final TaskController controller;
 
   Task get task => controller.task;
 

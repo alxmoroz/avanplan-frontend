@@ -10,11 +10,11 @@ import '../../../components/mt_adaptive.dart';
 import '../../../components/mt_button.dart';
 import '../../../components/mt_limit_badge.dart';
 import '../../../presenters/task_type_presenter.dart';
-import '../task_add_controller.dart';
+import '../controllers/add_controller.dart';
 
 class TaskAddButton extends StatelessWidget {
   const TaskAddButton(this.controller, {this.compact = false, this.dismissible = false});
-  final TaskAddController controller;
+  final AddController controller;
   final bool compact;
   final bool dismissible;
 

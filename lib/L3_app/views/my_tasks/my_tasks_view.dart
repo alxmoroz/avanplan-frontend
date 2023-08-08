@@ -8,7 +8,7 @@ import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../task/task_view_controller.dart';
+import '../task/controllers/task_controller.dart';
 import '../task/widgets/tasks_list_view.dart';
 
 class MyTasksView extends StatelessWidget {

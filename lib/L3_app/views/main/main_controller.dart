@@ -98,6 +98,7 @@ abstract class _MainControllerBase with Store {
   Iterable<Task> _wsTasks(int wsId) => allTasks.where((t) => t.ws.id == wsId);
 
   /// задача из списка
+
   Task task(int wsId, int id) => _tasksMap[wsId]![id]!;
 
   Future showTask(Task t) async => await Navigator.of(rootKey.currentContext!).pushNamed(TaskView.routeName, arguments: t);

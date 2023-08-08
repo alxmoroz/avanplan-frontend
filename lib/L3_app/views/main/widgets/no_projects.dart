@@ -13,7 +13,7 @@ import '../../../views/my_projects/my_projects_view.dart';
 class NoProjects extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final allClosed = !mainController.hasOpenedProjects;
+    final allClosed = mainController.allTasks.isNotEmpty;
     return Center(
       child: ListView(
         shrinkWrap: true,

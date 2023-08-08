@@ -27,10 +27,12 @@ import '../../../presenters/ws_presenter.dart';
 import '../../../usecases/task_available_actions.dart';
 import '../task_view_controller.dart';
 import '../widgets/notes/task_notes.dart';
+import '../widgets/notes/task_notes_controller.dart';
 
 class DetailsPane extends StatelessWidget {
-  const DetailsPane(this.controller);
+  const DetailsPane(this.controller, this.notesController);
   final TaskViewController controller;
+  final TaskNotesController notesController;
 
   Task get _task => controller.task;
 
@@ -162,12 +164,12 @@ class DetailsPane extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: P_2),
                   ),
                   leading: const NoteAddIcon(),
-                  onSelect: controller.addNote,
+                  onSelect: notesController.addNote,
                 ),
               ],
-              if (controller.sortedNotesDates.isNotEmpty) ...[
+              if (notesController.sortedNotesDates.isNotEmpty) ...[
                 const SizedBox(height: P),
-                TaskNotes(controller),
+                TaskNotes(notesController),
               ],
             ],
           ),

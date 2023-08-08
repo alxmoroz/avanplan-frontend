@@ -1,8 +1,8 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:avanplan/L1_domain/entities/task.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../../../L1_domain/entities/task.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';

@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../L1_domain/entities/note.dart';
+import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
@@ -21,13 +22,14 @@ import '../../../../presenters/date_presenter.dart';
 import '../../../../presenters/person_presenter.dart';
 import '../../../../presenters/task_note_presenter.dart';
 import '../../../../usecases/task_available_actions.dart';
-import '../../task_view_controller.dart';
+import 'task_notes_controller.dart';
 
 class TaskNotes extends StatelessWidget {
   const TaskNotes(this.controller);
+  final TaskNotesController controller;
 
-  final TaskViewController controller;
-  bool get _canEditTask => controller.task.canComment;
+  Task get _task => controller.task;
+  bool get _canEditTask => _task.canComment;
 
   Future _noteMenu(BuildContext context, Note note) async => await showMTDialog<void>(
         MTDialog(
@@ -85,8 +87,8 @@ class TaskNotes extends StatelessWidget {
                   itemCount: ng.length,
                   itemBuilder: (_, index) {
                     final n = ng[index];
-                    final author = controller.task.memberForId(n.authorId);
-                    final mine = n.isMine(controller.task);
+                    final author = _task.memberForId(n.authorId);
+                    final mine = n.isMine(_task);
                     return Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

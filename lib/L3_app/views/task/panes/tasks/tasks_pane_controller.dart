@@ -10,14 +10,14 @@ import '../../task_view_controller.dart';
 part 'tasks_pane_controller.g.dart';
 
 class TasksPaneController extends _TasksPaneControllerBase with _$TasksPaneController {
-  TasksPaneController(TaskViewController taskController) {
-    _taskController = taskController;
+  TasksPaneController(TaskViewController _taskController) {
+    taskController = _taskController;
   }
 }
 
 abstract class _TasksPaneControllerBase with Store {
-  late final TaskViewController _taskController;
-  Task get task => _taskController.task;
+  late final TaskViewController taskController;
+  Task get task => taskController.task;
 
   @observable
   bool showBoard = false;
@@ -31,7 +31,7 @@ abstract class _TasksPaneControllerBase with Store {
       final newStatusId = task.statuses[newStatusIndex].id!;
 
       final t = task.subtasksForStatus(oldStatusId)[oldTaskIndex];
-      await _taskController.setStatus(t, statusId: newStatusId);
+      await taskController.setStatus(t, statusId: newStatusId);
     }
   }
 }

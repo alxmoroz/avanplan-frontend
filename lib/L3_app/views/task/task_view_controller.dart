@@ -8,7 +8,6 @@ import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/estimate_value.dart';
 import '../../../L1_domain/entities/member.dart';
-import '../../../L1_domain/entities/note.dart';
 import '../../../L1_domain/entities/status.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
@@ -38,7 +37,6 @@ import '../../presenters/ws_presenter.dart';
 import '../../usecases/task_available_actions.dart';
 import '../../views/_base/edit_controller.dart';
 import 'widgets/task_description_dialog.dart';
-import 'widgets/task_note_dialog.dart';
 import 'widgets/transfer/select_task_dialog.dart';
 
 part 'task_view_controller.g.dart';
@@ -54,7 +52,6 @@ enum TasksFilter { my }
 class TaskViewController extends _TaskViewControllerBase with _$TaskViewController {
   TaskViewController(Task taskIn) {
     _setTask(taskIn);
-    _setNotes(taskIn.notes);
 
     initState(fds: [
       MTFieldData(TaskFCode.parent.index, needValidate: false),
@@ -433,59 +430,6 @@ abstract class _TaskViewControllerBase extends EditController with Store {
     }
   }
 
-  /// комментарии
-  @observable
-  ObservableList<Note> _notes = ObservableList();
-
-  @action
-  void _setNotes(Iterable<Note> notes) => _notes = ObservableList.of(notes);
-
-  @computed
-  List<Note> get _sortedNotes => _notes.sorted((n1, n2) => n2.createdOn!.compareTo(n1.createdOn!));
-  @computed
-  Map<DateTime, List<Note>> get notesGroups => _sortedNotes.groupListsBy((n) => n.createdOn!.date);
-  @computed
-  List<DateTime> get sortedNotesDates => notesGroups.keys.sorted((d1, d2) => d2.compareTo(d1));
-
-  @action
-  Future editNote(Note note) async {
-    final tc = teController(TaskFCode.note.index)!;
-    tc.text = note.text;
-    await showMTDialog<void>(TaskNoteDialog(note, tc));
-
-    final fIndex = TaskFCode.note.index;
-
-    // добавление или редактирование
-    final newValue = tc.text;
-    final oldValue = note.text;
-    if (note.text != newValue) {
-      updateField(fIndex, loading: true);
-      note.text = newValue;
-      final editedNote = await noteUC.save(_ws, note);
-      if (editedNote != null) {
-        if (note.id == null) {
-          task.notes.add(editedNote);
-          _notes.add(editedNote);
-        }
-        mainController.refresh();
-      } else {
-        note.text = oldValue;
-      }
-      updateField(fIndex, loading: false);
-    }
-  }
-
-  Future addNote() async => await editNote(Note(text: '', authorId: task.me?.id, taskId: task.id));
-
-  @action
-  Future deleteNote(Note note) async {
-    if (await noteUC.delete(_ws, note)) {
-      task.notes.remove(note);
-      _notes.remove(note);
-      mainController.refresh();
-    }
-  }
-
   /// вкладки
 
   @computed
@@ -527,6 +471,4 @@ abstract class _TaskViewControllerBase extends EditController with Store {
       }
     }
   }
-
-  /// связь с источником импорта
 }

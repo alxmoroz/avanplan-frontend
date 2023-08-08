@@ -53,14 +53,14 @@ enum TasksFilter { my }
 
 class TaskViewController extends _TaskViewControllerBase with _$TaskViewController {
   TaskViewController(Task taskIn) {
-    _taskIn = taskIn;
+    _setTask(taskIn);
+    _setNotes(taskIn.notes);
 
-    final _isNew = taskIn.id == null;
     initState(fds: [
       MTFieldData(TaskFCode.parent.index, needValidate: false),
       MTFieldData(
         TaskFCode.title.index,
-        text: _isNew ? '' : task.title,
+        text: isNew ? '' : task.title,
         needValidate: false,
       ),
       MTFieldData(
@@ -108,16 +108,7 @@ class TaskViewController extends _TaskViewControllerBase with _$TaskViewControll
 }
 
 abstract class _TaskViewControllerBase extends EditController with Store {
-  @observable
-  Task? _taskIn;
-
-  @computed
-  bool get isNew => _taskIn?.id == null;
-
-  @computed
   Task get task => isNew ? _taskIn! : mainController.task(_taskIn!.ws.id!, _taskIn!.id!);
-
-  @computed
   Workspace get _ws => task.ws;
 
   Future _startupActions() async {
@@ -125,6 +116,17 @@ abstract class _TaskViewControllerBase extends EditController with Store {
       await _saveField(TaskFCode.title);
     }
   }
+
+  @observable
+  Task? _taskIn;
+
+  @action
+  void _setTask(Task task) {
+    _taskIn = task;
+  }
+
+  @computed
+  bool get isNew => _taskIn?.id == null;
 
   @action
   Future<bool> _saveField(TaskFCode code) async {
@@ -139,7 +141,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
             task.parent!.tasks.add(editedTask);
           }
           mainController.allTasks.add(editedTask);
-          _taskIn = editedTask;
+          _setTask(editedTask);
         } else
           mainController.refreshTask(editedTask);
       }
@@ -432,7 +434,20 @@ abstract class _TaskViewControllerBase extends EditController with Store {
   }
 
   /// комментарии
+  @observable
+  ObservableList<Note> _notes = ObservableList();
 
+  @action
+  void _setNotes(Iterable<Note> notes) => _notes = ObservableList.of(notes);
+
+  @computed
+  List<Note> get _sortedNotes => _notes.sorted((n1, n2) => n2.createdOn!.compareTo(n1.createdOn!));
+  @computed
+  Map<DateTime, List<Note>> get notesGroups => _sortedNotes.groupListsBy((n) => n.createdOn!.date);
+  @computed
+  List<DateTime> get sortedNotesDates => notesGroups.keys.sorted((d1, d2) => d2.compareTo(d1));
+
+  @action
   Future editNote(Note note) async {
     final tc = teController(TaskFCode.note.index)!;
     tc.text = note.text;
@@ -450,6 +465,7 @@ abstract class _TaskViewControllerBase extends EditController with Store {
       if (editedNote != null) {
         if (note.id == null) {
           task.notes.add(editedNote);
+          _notes.add(editedNote);
         }
         mainController.refresh();
       } else {
@@ -461,19 +477,14 @@ abstract class _TaskViewControllerBase extends EditController with Store {
 
   Future addNote() async => await editNote(Note(text: '', authorId: task.me?.id, taskId: task.id));
 
+  @action
   Future deleteNote(Note note) async {
     if (await noteUC.delete(_ws, note)) {
       task.notes.remove(note);
+      _notes.remove(note);
       mainController.refresh();
     }
   }
-
-  @computed
-  List<Note> get _sortedNotes => task.notes.sorted((n1, n2) => n2.createdOn!.compareTo(n1.createdOn!));
-  @computed
-  Map<DateTime, List<Note>> get notesGroups => _sortedNotes.groupListsBy((n) => n.createdOn!.date);
-  @computed
-  List<DateTime> get sortedNotesDates => notesGroups.keys.sorted((d1, d2) => d2.compareTo(d1));
 
   /// вкладки
 

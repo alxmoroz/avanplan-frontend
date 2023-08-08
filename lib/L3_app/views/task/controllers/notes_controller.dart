@@ -49,6 +49,8 @@ abstract class _NotesControllerBase with Store {
 
     final fIndex = TaskFCode.note.index;
 
+    // TODO: переделать на логику saveField — с обработкой ошибок
+
     // добавление или редактирование
     final newValue = tc.text;
     final oldValue = note.text;

@@ -16,7 +16,6 @@ import '../../../components/icons.dart';
 import '../../../components/mt_adaptive.dart';
 import '../../../components/mt_button.dart';
 import '../../../components/mt_field.dart';
-import '../../../components/mt_list_tile.dart';
 import '../../../components/mt_shadowed.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
@@ -71,10 +70,10 @@ class DetailsPane extends StatelessWidget {
           child: ListView(
             children: [
               if (_task.hasStatus || _closable) ...[
-                MTListTile(
+                MTField(
+                  controller.fData(TaskFCode.status.index),
                   color: backgroundColor,
-                  bottomDivider: false,
-                  middle: Row(
+                  value: Row(
                     children: [
                       if (_task.hasStatus || _task.canSetStatus)
                         MTButton.main(

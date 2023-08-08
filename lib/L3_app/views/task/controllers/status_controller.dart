@@ -30,36 +30,6 @@ abstract class _StatusControllerBase with Store {
 
   Task get task => taskController.task;
 
-  Future<Task?> _setStatus(Task t, {int? statusId, bool? close}) async {
-    if (t.canSetStatus) {
-      t.statusId = statusId;
-    }
-
-    if (close != null) {
-      t.closed = close;
-      if (close) {
-        t.closedDate = DateTime.now();
-      }
-    }
-
-    return await taskUC.save(task.ws, t);
-  }
-
-  Future<Task?> _setStatusTaskTree(
-    Task _task, {
-    int? statusId,
-    bool? close,
-    bool recursively = false,
-  }) async {
-    if (recursively) {
-      // TODO: перенести на бэк?
-      for (final t in _task.tasks.where((t) => t.closed != close)) {
-        await _setStatus(t, statusId: statusId, close: close);
-      }
-    }
-    return await _setStatus(_task, statusId: statusId, close: close);
-  }
-
   Future<bool?> _closeDialog() async => await showMTAlertDialog(
         loc.close_dialog_recursive_title,
         description: loc.close_dialog_recursive_description,
@@ -70,31 +40,41 @@ abstract class _StatusControllerBase with Store {
       );
 
   Future setStatus(Task _task, {int? statusId, bool? close}) async {
-    if (statusId != null || close != null) {
-      bool recursively = false;
-
+    if (_task.canSetStatus && (statusId != null || close != null)) {
       statusId ??= close == true ? _task.firstClosedStatusId : _task.firstOpenedStatusId;
       close ??= _task.statusForId(statusId)?.closed;
 
       if (close == true && _task.hasOpenedSubtasks) {
-        recursively = await _closeDialog() == true;
-        if (!recursively) {
+        if (await _closeDialog() == true) {
+          // TODO: перенести на бэк (есть задача такая)
+          for (var t in _task.tasks.where((t) => t.closed != close)) {
+            t.statusId = _task.statusId;
+            t.setClosed(close);
+            await taskUC.save(task.ws, t);
+          }
+        } else {
           return;
         }
       }
 
-      loader.start();
-      loader.setSaving();
+      final oldStId = _task.statusId;
+      final oldClosed = _task.closed;
+      final oldClosedDate = _task.closedDate;
 
-      final editedTask = await _setStatusTaskTree(_task, statusId: statusId, close: close, recursively: recursively);
-      await loader.stop();
+      _task.statusId = statusId;
+      _task.setClosed(close);
+      mainController.setTask(_task);
+      mainController.refresh();
 
-      if (editedTask != null) {
+      if (!(await taskController.saveField(TaskFCode.status))) {
+        _task.statusId = oldStId;
+        _task.closed = oldClosed;
+        _task.closedDate = oldClosedDate;
+      } else {
         //TODO: может неожиданно для пользователя вываливаться в случае редактирования статуса закрытой задачи
-        if (editedTask.closed && _task.id == task.id) {
-          Navigator.of(rootKey.currentContext!).pop(editedTask);
+        if (_task.closed && _task.id == task.id) {
+          Navigator.of(rootKey.currentContext!).pop();
         }
-        mainController.refresh();
       }
     }
   }

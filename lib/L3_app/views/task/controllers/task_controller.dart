@@ -58,6 +58,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
 
     initState(fds: [
       MTFieldData(TaskFCode.parent.index),
+      MTFieldData(TaskFCode.status.index),
       MTFieldData(TaskFCode.title.index, text: isNew ? '' : task.title),
       MTFieldData(TaskFCode.assignee.index, label: loc.task_assignee_label, placeholder: loc.task_assignee_placeholder),
       MTFieldData(TaskFCode.description.index, text: task.description, label: loc.description, placeholder: loc.description),
@@ -86,7 +87,7 @@ abstract class _TaskControllerBase extends EditController with Store {
 
   Future _startupActions() async {
     if (isNew) {
-      await _saveField(TaskFCode.title);
+      await saveField(TaskFCode.title);
     }
   }
 
@@ -102,21 +103,19 @@ abstract class _TaskControllerBase extends EditController with Store {
   bool get isNew => _taskIn?.id == null;
 
   @action
-  Future<bool> _saveField(TaskFCode code) async {
+  Future<bool> saveField(TaskFCode code) async {
     bool saved = false;
     updateField(code.index, loading: true);
     try {
-      final editedTask = await taskUC.save(_ws, task);
-      saved = editedTask != null;
+      final et = await taskUC.save(_ws, task);
+      saved = et != null;
       if (saved) {
         if (isNew) {
-          if (task.parent != null) {
-            task.parent!.tasks.add(editedTask);
-          }
-          mainController.allTasks.add(editedTask);
-          _setTask(editedTask);
-        } else
-          mainController.setTask(editedTask);
+          mainController.allTasks.add(et);
+          _setTask(et);
+        } else {
+          mainController.setTask(et);
+        }
       }
     } catch (e) {
       task.error = MTError(loader.titleText ?? '', detail: loader.descriptionText);
@@ -138,7 +137,7 @@ abstract class _TaskControllerBase extends EditController with Store {
       }
       final oldValue = task.title;
       task.title = str;
-      if (!(await _saveField(TaskFCode.title))) {
+      if (!(await saveField(TaskFCode.title))) {
         task.title = oldValue;
       }
     }
@@ -158,7 +157,7 @@ abstract class _TaskControllerBase extends EditController with Store {
   Future _resetAssignee() async {
     final oldValue = task.assigneeId;
     task.assigneeId = null;
-    if (!(await _saveField(TaskFCode.assignee))) {
+    if (!(await saveField(TaskFCode.assignee))) {
       task.assigneeId = oldValue;
     }
   }
@@ -174,7 +173,7 @@ abstract class _TaskControllerBase extends EditController with Store {
     if (selectedId != null) {
       final oldValue = task.assigneeId;
       task.assigneeId = selectedId;
-      if (!(await _saveField(TaskFCode.assignee))) {
+      if (!(await saveField(TaskFCode.assignee))) {
         task.assigneeId = oldValue;
       }
     }
@@ -189,7 +188,7 @@ abstract class _TaskControllerBase extends EditController with Store {
     if (task.description != newValue) {
       final oldValue = task.description;
       task.description = newValue;
-      if (!(await _saveField(TaskFCode.description))) {
+      if (!(await saveField(TaskFCode.description))) {
         task.description = oldValue;
       }
     }
@@ -201,7 +200,7 @@ abstract class _TaskControllerBase extends EditController with Store {
     final oldValue = task.startDate;
     if (task.startDate != _date) {
       task.startDate = _date;
-      if (!(await _saveField(TaskFCode.startDate))) {
+      if (!(await saveField(TaskFCode.startDate))) {
         task.startDate = oldValue;
       }
     }
@@ -211,7 +210,7 @@ abstract class _TaskControllerBase extends EditController with Store {
     final oldValue = task.dueDate;
     if (task.dueDate != _date) {
       task.dueDate = _date;
-      if (!(await _saveField(TaskFCode.dueDate))) {
+      if (!(await saveField(TaskFCode.dueDate))) {
         task.dueDate = oldValue;
       }
     }
@@ -286,7 +285,7 @@ abstract class _TaskControllerBase extends EditController with Store {
   Future _resetEstimate() async {
     final oldValue = task.estimate;
     task.estimate = null;
-    if (!(await _saveField(TaskFCode.estimate))) {
+    if (!(await saveField(TaskFCode.estimate))) {
       task.estimate = oldValue;
     }
   }
@@ -315,7 +314,7 @@ abstract class _TaskControllerBase extends EditController with Store {
     if (selectedEstimateId != null) {
       final oldValue = task.estimate;
       task.estimate = _ws.estimateValueForId(selectedEstimateId)?.value;
-      if (!(await _saveField(TaskFCode.estimate))) {
+      if (!(await saveField(TaskFCode.estimate))) {
         task.estimate = oldValue;
       }
     }
@@ -333,7 +332,7 @@ abstract class _TaskControllerBase extends EditController with Store {
     if (destinationGoalId != null) {
       final destinationGoal = task.goalsForLocalExport.firstWhere((g) => g.id == destinationGoalId);
       task.parent = destinationGoal;
-      if (!(await _saveField(TaskFCode.parent))) {
+      if (!(await saveField(TaskFCode.parent))) {
         task.parent = sourceGoal;
       } else {
         sourceGoal.tasks.removeWhere((t) => t.id == task.id);

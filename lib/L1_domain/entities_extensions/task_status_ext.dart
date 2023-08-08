@@ -29,4 +29,15 @@ extension TaskStatusExtension on Task {
   Status? statusForId(int? id) => statuses.firstWhereOrNull((s) => s.id == id);
 
   Status? get status => statusForId(statusId);
+
+  void setClosed(bool? close) {
+    if (close != null) {
+      closed = close;
+      // TODO: на бэке нужна эта обработка, чтобы не было косяков из-за неправильно настроенных часов у клиента.
+      // TODO: проверить выставление времени на фронте вообще. Не должно быть такого
+      if (close) {
+        closedDate = DateTime.now();
+      }
+    }
+  }
 }

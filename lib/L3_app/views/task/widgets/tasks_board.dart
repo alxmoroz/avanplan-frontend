@@ -1,7 +1,8 @@
 // Copyright (c) 2023. Alexandr Moroz
 
+import 'package:avanplan/L3_app/components/mt_field.dart';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../L1_domain/entities/task.dart';
@@ -14,6 +15,7 @@ import '../../../components/text_widgets.dart';
 import '../../../presenters/task_filter_presenter.dart';
 import '../../../usecases/task_available_actions.dart';
 import '../controllers/status_controller.dart';
+import '../controllers/task_controller.dart';
 import 'task_card.dart';
 
 class _ItemTarget extends StatelessWidget {
@@ -36,20 +38,25 @@ class TasksBoard extends StatelessWidget {
 
   Task get _task => controller.task;
 
+  Widget _taskItem(Task t, {bool dragging = false}) {
+    return MTField(
+      controller.taskController.fData(TaskFCode.status.index),
+      padding: EdgeInsets.zero,
+      color: Colors.transparent,
+      value: TaskCard(
+        t,
+        board: true,
+        showParent: _task.id != t.parent?.id,
+        dragging: dragging,
+      ),
+    );
+  }
+
   DragAndDropItem _taskBuilder(Task t) => DragAndDropItem(
-        child: TaskCard(
-          t,
-          board: true,
-          showParent: _task.id != t.parent?.id,
-        ),
+        child: _taskItem(t),
         feedbackWidget: Transform(
           transform: Matrix4.rotationZ(-0.03),
-          child: TaskCard(
-            t,
-            board: true,
-            showParent: _task.id != t.parent?.id,
-            dragging: true,
-          ),
+          child: _taskItem(t, dragging: true),
         ),
         canDrag: t.canSetStatus,
       );

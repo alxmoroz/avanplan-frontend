@@ -54,6 +54,17 @@ class TaskRepo extends AbstractWSRepo<Task> {
       }
     }
 
+    if (t != null && data.parent != null) {
+      if (data.id == null) {
+        data.parent!.tasks.add(t);
+      } else {
+        final index = data.parent!.tasks.indexWhere((t) => t.ws.id == t.ws.id && t.id == t.id);
+        if (index > -1) {
+          data.parent!.tasks[index] = t;
+        }
+      }
+    }
+
     return t;
   }
 

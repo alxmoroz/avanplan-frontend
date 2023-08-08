@@ -5,7 +5,6 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../L1_domain/entities/estimate_value.dart';
 import '../../../L1_domain/entities/member.dart';
@@ -23,7 +22,6 @@ import '../../../L1_domain/usecases/task_comparators.dart';
 import '../../../main.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/icons.dart';
 import '../../components/mt_alert_dialog.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_dialog.dart';
@@ -34,13 +32,11 @@ import '../../extra/services.dart';
 import '../../presenters/date_presenter.dart';
 import '../../presenters/duration_presenter.dart';
 import '../../presenters/person_presenter.dart';
-import '../../presenters/source_presenter.dart';
 import '../../presenters/task_type_presenter.dart';
 import '../../presenters/task_view_presenter.dart';
 import '../../presenters/ws_presenter.dart';
-import '../../usecases/task_ext_actions.dart';
+import '../../usecases/task_available_actions.dart';
 import '../../views/_base/edit_controller.dart';
-import '../tariff/tariff_select_view.dart';
 import 'widgets/task_description_dialog.dart';
 import 'widgets/task_note_dialog.dart';
 import 'widgets/transfer/select_task_dialog.dart';
@@ -522,42 +518,4 @@ abstract class _TaskViewControllerBase extends EditController with Store {
   }
 
   /// связь с источником импорта
-
-  Future go2source() async => await launchUrlString(task.taskSource!.urlString);
-
-  Future<bool?> _unlinkDialog() async => await showMTAlertDialog(
-        loc.task_unlink_dialog_title,
-        description: loc.task_unlink_dialog_description,
-        actions: [
-          MTADialogAction(
-            title: loc.task_unlink_action_title,
-            type: MTActionType.isWarning,
-            result: true,
-            icon: const LinkBreakIcon(),
-          ),
-          MTADialogAction(
-            type: MTActionType.isDefault,
-            onTap: go2source,
-            result: false,
-            child: task.go2SourceTitle,
-          ),
-        ],
-      );
-
-  Future unlink() async {
-    if (task.canUnlink) {
-      if (await _unlinkDialog() == true) {
-        loader.start();
-        loader.setUnlinking();
-        try {
-          await importUC.unlinkTaskSources(task.ws, task.id!, task.allTss());
-          task.unlinkTaskTree();
-          mainController.refresh();
-        } catch (_) {}
-        await loader.stop();
-      }
-    } else {
-      await changeTariff(task.ws, reason: loc.tariff_change_limit_unlink_reason_title);
-    }
-  }
 }

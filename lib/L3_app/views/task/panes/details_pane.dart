@@ -24,7 +24,7 @@ import '../../../presenters/date_presenter.dart';
 import '../../../presenters/person_presenter.dart';
 import '../../../presenters/source_presenter.dart';
 import '../../../presenters/ws_presenter.dart';
-import '../../../usecases/task_ext_actions.dart';
+import '../../../usecases/task_available_actions.dart';
 import '../task_view_controller.dart';
 import '../widgets/notes/task_notes.dart';
 

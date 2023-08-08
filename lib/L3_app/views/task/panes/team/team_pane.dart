@@ -14,7 +14,7 @@ import '../../../../components/mt_list_tile.dart';
 import '../../../../components/mt_shadowed.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../presenters/person_presenter.dart';
-import '../../../../usecases/task_ext_actions.dart';
+import '../../../../usecases/task_available_actions.dart';
 import '../../task_view_controller.dart';
 import 'member_add_menu.dart';
 import 'member_view.dart';

@@ -12,7 +12,7 @@ import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../presenters/task_filter_presenter.dart';
-import '../../../../usecases/task_ext_actions.dart';
+import '../../../../usecases/task_available_actions.dart';
 import '../../widgets/task_card.dart';
 import 'tasks_pane_controller.dart';
 

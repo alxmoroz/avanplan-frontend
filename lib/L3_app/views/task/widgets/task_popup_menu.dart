@@ -11,7 +11,8 @@ import '../../../components/material_wrapper.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/source_presenter.dart';
-import '../../../usecases/task_ext_actions.dart';
+import '../../../usecases/task_available_actions.dart';
+import '../../../usecases/task_link.dart';
 import '../../../usecases/ws_ext_actions.dart';
 import '../task_delete_controller.dart';
 import '../task_view_controller.dart';
@@ -71,10 +72,10 @@ class TaskPopupMenu extends StatelessWidget {
         await controller.localExport();
         break;
       case TaskActionType.go2source:
-        await controller.go2source();
+        await _task.go2source();
         break;
       case TaskActionType.unlink:
-        await controller.unlink();
+        await _task.unlink();
         break;
       case TaskActionType.delete:
         await TaskDeleteController().delete(_task);

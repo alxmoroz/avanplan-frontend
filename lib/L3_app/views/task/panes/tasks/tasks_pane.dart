@@ -12,7 +12,7 @@ import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/mt_button.dart';
-import '../../../../usecases/task_ext_actions.dart';
+import '../../../../usecases/task_available_actions.dart';
 import '../../task_view_controller.dart';
 import '../../widgets/task_add_button.dart';
 import '../../widgets/tasks_list_view.dart';

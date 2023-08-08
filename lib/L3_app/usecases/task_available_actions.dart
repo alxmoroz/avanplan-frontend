@@ -4,7 +4,6 @@ import 'package:collection/collection.dart';
 
 import '../../L1_domain/entities/member.dart';
 import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/entities/task_source.dart';
 import '../../L1_domain/entities/user.dart';
 import '../../L1_domain/entities_extensions/task_level.dart';
 import '../../L1_domain/entities_extensions/task_members.dart';
@@ -40,7 +39,6 @@ extension TaskActionsExt on Task {
   bool get canCreate => _isLocal && !closed && _hpCreate;
   bool get canUpdate => _isLocal && ((isProject && ws.hpProjectUpdate == true) || _hpUpdate);
   bool get canDelete => (isProject && ws.hpProjectDelete == true) || (_isLocal && _hpDelete);
-  // bool get canRefresh => isRoot;
   bool get canReopen => closed && canUpdate && parent?.closed == false;
   bool get canClose => canUpdate && !closed;
   bool get canUnlink => isLinkedProject && ws.hpProjectUpdate == true;
@@ -72,24 +70,4 @@ extension TaskActionsExt on Task {
         if (canUnlink) TaskActionType.unlink,
         if (canDelete) TaskActionType.delete,
       ];
-
-  Iterable<TaskSource> allTss() {
-    final tss = <TaskSource>[];
-    for (Task subtask in tasks) {
-      tss.addAll(subtask.allTss());
-    }
-    if (linked) {
-      tss.add(taskSource!);
-    }
-    return tss;
-  }
-
-  void unlinkTaskTree() {
-    for (Task subtask in tasks) {
-      subtask.unlinkTaskTree();
-    }
-    if (linked) {
-      taskSource?.keepConnection = false;
-    }
-  }
 }

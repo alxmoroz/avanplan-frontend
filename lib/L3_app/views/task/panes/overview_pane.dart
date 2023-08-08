@@ -15,7 +15,7 @@ import '../../../extra/services.dart';
 import '../../../presenters/task_filter_presenter.dart';
 import '../../../presenters/task_state_presenter.dart';
 import '../../../presenters/task_view_presenter.dart';
-import '../../../usecases/task_ext_actions.dart';
+import '../../../usecases/task_available_actions.dart';
 import '../task_add_controller.dart';
 import '../task_view_controller.dart';
 import '../widgets/charts/chart_details.dart';

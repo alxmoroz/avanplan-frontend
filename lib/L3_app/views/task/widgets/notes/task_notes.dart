@@ -20,7 +20,7 @@ import '../../../../extra/services.dart';
 import '../../../../presenters/date_presenter.dart';
 import '../../../../presenters/person_presenter.dart';
 import '../../../../presenters/task_note_presenter.dart';
-import '../../../../usecases/task_ext_actions.dart';
+import '../../../../usecases/task_available_actions.dart';
 import '../../task_view_controller.dart';
 
 class TaskNotes extends StatelessWidget {

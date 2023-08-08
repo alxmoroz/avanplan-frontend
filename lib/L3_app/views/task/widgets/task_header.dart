@@ -11,7 +11,7 @@ import '../../../components/mt_field.dart';
 import '../../../components/mt_text_field.dart';
 import '../../../components/text_widgets.dart';
 import '../../../presenters/task_colors_presenter.dart';
-import '../../../usecases/task_ext_actions.dart';
+import '../../../usecases/task_available_actions.dart';
 import '../task_view_controller.dart';
 
 class TaskHeader extends StatelessWidget {

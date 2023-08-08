@@ -2,7 +2,7 @@
 
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities_extensions/task_stats.dart';
-import '../usecases/task_ext_actions.dart';
+import '../usecases/task_available_actions.dart';
 import 'task_state_presenter.dart';
 
 extension TaskViewPresenter on Task {

@@ -8,7 +8,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 import '../../../L1_domain/entities/source.dart';
 import '../../../L1_domain/entities/source_type.dart';
 import '../../../L1_domain/entities/workspace.dart';
-import '../../../L1_domain/entities_extensions/ws_ext.dart';
+import '../../../L1_domain/entities_extensions/ws_sources.dart';
 import '../../../main.dart';
 import '../../components/constants.dart';
 import '../../components/mt_alert_dialog.dart';

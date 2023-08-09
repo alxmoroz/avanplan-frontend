@@ -7,6 +7,7 @@ import 'colors.dart';
 import 'constants.dart';
 import 'icons.dart';
 import 'mt_adaptive.dart';
+import 'mt_loader.dart';
 import 'text_widgets.dart';
 
 enum ButtonType { text, main, secondary, icon, card }
@@ -25,6 +26,7 @@ class MTButton extends StatelessWidget {
     this.margin,
     this.constrained = false,
     this.elevation,
+    this.loading,
     this.type = ButtonType.text,
   });
 
@@ -41,6 +43,7 @@ class MTButton extends StatelessWidget {
     this.padding,
     this.margin,
     this.elevation,
+    this.loading,
   }) : type = ButtonType.main;
 
   const MTButton.secondary({
@@ -56,9 +59,10 @@ class MTButton extends StatelessWidget {
     this.padding,
     this.margin,
     this.elevation,
+    this.loading,
   }) : type = ButtonType.secondary;
 
-  const MTButton.icon(Widget icon, {this.margin, this.padding, this.color, this.elevation, this.onTap, this.onLongPress})
+  const MTButton.icon(Widget icon, {this.margin, this.padding, this.color, this.elevation, this.loading, this.onTap, this.onLongPress})
       : type = ButtonType.icon,
         middle = icon,
         titleText = null,
@@ -80,10 +84,12 @@ class MTButton extends StatelessWidget {
   final EdgeInsets? margin;
   final bool constrained;
   final double? elevation;
+  final bool? loading;
 
-  bool get _enabled => onTap != null || onLongPress != null;
+  bool get _enabled => loading != true && (onTap != null || onLongPress != null);
   bool get _isCard => type == ButtonType.card;
   Color get _titleColor => _enabled || _isCard ? (titleColor ?? (type == ButtonType.main ? lightBackgroundColor : mainColor)) : greyTextColor;
+  double get _radius => type == ButtonType.card ? DEF_BORDER_RADIUS : DEF_BTN_BORDER_RADIUS;
 
   ButtonStyle _style(BuildContext context) {
     final _btnColor = (_enabled || _isCard ? (color ?? (type == ButtonType.main ? mainColor : lightBackgroundColor)) : borderColor).resolve(context);
@@ -95,7 +101,7 @@ class MTButton extends StatelessWidget {
       disabledForegroundColor: _btnColor,
       disabledBackgroundColor: _btnColor,
       minimumSize: const Size(MIN_BTN_HEIGHT, MIN_BTN_HEIGHT),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(type == ButtonType.card ? DEF_BORDER_RADIUS : DEF_BTN_BORDER_RADIUS)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(_radius)),
       side: type == ButtonType.secondary ? BorderSide(color: _titleColor.resolve(context), width: 1) : BorderSide.none,
       splashFactory: NoSplash.splashFactory,
       visualDensity: VisualDensity.standard,
@@ -134,7 +140,16 @@ class MTButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final btn = Padding(padding: margin ?? EdgeInsets.zero, child: _button(context));
+    final btn = Padding(
+      padding: margin ?? EdgeInsets.zero,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          _button(context),
+          if (loading == true) MTLoader(radius: _radius),
+        ],
+      ),
+    );
     return type == ButtonType.icon || !constrained ? btn : MTAdaptive.XS(btn);
   }
 }
@@ -164,6 +179,7 @@ class MTCardButton extends StatelessWidget {
     this.elevation,
     this.radius,
     this.padding,
+    this.loading,
   });
 
   final Widget child;
@@ -173,6 +189,7 @@ class MTCardButton extends StatelessWidget {
   final VoidCallback? onLongPress;
   final double? elevation;
   final double? radius;
+  final bool? loading;
 
   @override
   Widget build(BuildContext context) {
@@ -183,6 +200,7 @@ class MTCardButton extends StatelessWidget {
       constrained: false,
       margin: margin ?? EdgeInsets.zero,
       padding: padding ?? const EdgeInsets.all(P),
+      loading: loading,
       onTap: onTap,
       onLongPress: onLongPress,
     );

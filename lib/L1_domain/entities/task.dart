@@ -100,6 +100,7 @@ class Task extends Titleable {
   final num? closedVolume;
 
   MTError? error;
+  bool? loading = false;
 }
 
 class TaskRemote {

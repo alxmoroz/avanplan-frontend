@@ -4,7 +4,7 @@ import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities/workspace.dart';
-import '../../L1_domain/entities_extensions/task_level.dart';
+import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../../L1_domain/repositories/abs_ws_repo.dart';
 import '../mappers/task.dart';
 import '../services/api.dart';
@@ -31,7 +31,7 @@ class TaskRepo extends AbstractWSRepo<Task> {
       ..dueDate = data.dueDate?.toUtc()
       ..type = data.type;
 
-    final t = (await api.taskUpsertV1TasksPost(
+    final et = (await api.taskUpsertV1TasksPost(
       taskUpsert: qBuilder.build(),
       wsId: ws.id!,
       permissionTaskId: data.project?.id,
@@ -39,33 +39,7 @@ class TaskRepo extends AbstractWSRepo<Task> {
         .data
         ?.task(ws: ws, parent: data.parent);
 
-    if (t != null) {
-      if (t.tasks.isEmpty) {
-        t.tasks = data.tasks;
-      }
-      if (t.members.isEmpty) {
-        t.members = data.members;
-      }
-      if (t.projectStatuses.isEmpty) {
-        t.projectStatuses = data.projectStatuses;
-      }
-      if (t.notes.isEmpty) {
-        t.notes = data.notes;
-      }
-    }
-
-    if (t != null && data.parent != null) {
-      if (data.id == null) {
-        data.parent!.tasks.add(t);
-      } else {
-        final index = data.parent!.tasks.indexWhere((t) => t.ws.id == t.ws.id && t.id == t.id);
-        if (index > -1) {
-          data.parent!.tasks[index] = t;
-        }
-      }
-    }
-
-    return t;
+    return et;
   }
 
   @override

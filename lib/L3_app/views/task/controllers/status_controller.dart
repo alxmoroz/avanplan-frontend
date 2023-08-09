@@ -8,13 +8,14 @@ import 'package:mobx/mobx.dart';
 import '../../../../L1_domain/entities/status.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_stats.dart';
-import '../../../../L1_domain/entities_extensions/task_status_ext.dart';
+import '../../../../L1_domain/entities_extensions/task_status.dart';
 import '../../../../main.dart';
 import '../../../components/mt_alert_dialog.dart';
 import '../../../components/mt_select_dialog.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_filter_presenter.dart';
 import '../../../usecases/task_available_actions.dart';
+import '../../../usecases/task_saving.dart';
 import 'task_controller.dart';
 
 part 'status_controller.g.dart';
@@ -63,16 +64,18 @@ abstract class _StatusControllerBase with Store {
 
       _task.statusId = statusId;
       _task.setClosed(close);
-      mainController.setTask(_task);
-      mainController.refresh();
 
-      if (!(await taskController.saveField(TaskFCode.status))) {
+      final sameTask = _task == task;
+      final saved = sameTask ? await taskController.saveField(TaskFCode.status) : (await _task.save() != null);
+
+      if (!saved) {
         _task.statusId = oldStId;
         _task.closed = oldClosed;
         _task.closedDate = oldClosedDate;
+        mainController.refresh();
       } else {
         //TODO: может неожиданно для пользователя вываливаться в случае редактирования статуса закрытой задачи
-        if (_task.closed && _task.id == task.id) {
+        if (sameTask && _task.closed) {
           Navigator.of(rootKey.currentContext!).pop();
         }
       }
@@ -80,11 +83,7 @@ abstract class _StatusControllerBase with Store {
   }
 
   Future selectStatus() async {
-    final selectedStatusId = await showMTSelectDialog<Status>(
-      task.statuses,
-      task.statusId,
-      loc.task_status_placeholder,
-    );
+    final selectedStatusId = await showMTSelectDialog<Status>(task.statuses, task.statusId, loc.task_status_placeholder);
 
     if (selectedStatusId != null) {
       await setStatus(task, statusId: selectedStatusId);

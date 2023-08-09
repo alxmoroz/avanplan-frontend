@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../L1_domain/entities/source.dart';
 import '../../L1_domain/entities/source_type.dart';
 import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/entities_extensions/ws_ext.dart';
+import '../../L1_domain/entities_extensions/ws_sources.dart';
 import '../../main.dart';
 import '../components/colors.dart';
 import '../components/constants.dart';

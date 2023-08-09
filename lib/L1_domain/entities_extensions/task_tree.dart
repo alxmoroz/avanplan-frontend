@@ -4,7 +4,7 @@ import '../entities/task.dart';
 import '../entities/task_source.dart';
 import 'task_stats.dart';
 
-extension TaskLevelExtension on Task {
+extension TaskTree on Task {
   bool get isProject => type == TType.PROJECT || parent == null;
   bool get isGoal => type == TType.GOAL;
   bool get isTask => type == TType.TASK;

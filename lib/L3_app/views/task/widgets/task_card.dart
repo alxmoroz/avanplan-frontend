@@ -1,11 +1,12 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../../L1_domain/entities_extensions/task_level.dart';
 import '../../../../../L1_domain/entities_extensions/task_stats.dart';
-import '../../../../../L1_domain/entities_extensions/task_status_ext.dart';
+import '../../../../../L1_domain/entities_extensions/task_status.dart';
+import '../../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
@@ -13,6 +14,7 @@ import '../../../components/icons.dart';
 import '../../../components/mt_button.dart';
 import '../../../components/mt_circle.dart';
 import '../../../components/mt_list_tile.dart';
+import '../../../components/mt_loader.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/date_presenter.dart';
@@ -147,6 +149,7 @@ class TaskCard extends StatelessWidget {
           elevation: dragging ? 3 : null,
           margin: const EdgeInsets.symmetric(horizontal: P, vertical: P_2),
           padding: const EdgeInsets.symmetric(horizontal: P, vertical: P_2),
+          loading: task.loading,
           child: _taskContent,
           onTap: _tap,
         )
@@ -158,6 +161,7 @@ class TaskCard extends StatelessWidget {
               bottomDivider: bottomBorder,
               onTap: _tap,
             ),
+            if (task.loading == true) const MTLoader(),
             if (showStateMark)
               Positioned(
                 left: P + P_2,

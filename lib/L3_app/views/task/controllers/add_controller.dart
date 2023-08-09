@@ -6,8 +6,8 @@ import 'package:collection/collection.dart';
 
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities/workspace.dart';
-import '../../../../L1_domain/entities_extensions/task_level.dart';
-import '../../../../L1_domain/entities_extensions/task_status_ext.dart';
+import '../../../../L1_domain/entities_extensions/task_status.dart';
+import '../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_type_presenter.dart';
 import '../../../usecases/ws_available_actions.dart';

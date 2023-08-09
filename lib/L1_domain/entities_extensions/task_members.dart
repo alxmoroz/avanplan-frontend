@@ -4,7 +4,7 @@ import 'package:collection/collection.dart';
 
 import '../entities/member.dart';
 import '../entities/task.dart';
-import 'task_level.dart';
+import 'task_tree.dart';
 
 extension TaskMembersExtension on Task {
   Member? memberForId(int? id) => projectMembers.firstWhereOrNull((m) => m.id == id);

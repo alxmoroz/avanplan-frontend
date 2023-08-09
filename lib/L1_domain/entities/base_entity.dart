@@ -13,6 +13,8 @@ abstract class RPersistable {
 
   int? id;
   bool removed = false;
+
+  bool get isNew => id == null;
 }
 
 abstract class WSBounded extends RPersistable {

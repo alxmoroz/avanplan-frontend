@@ -1,12 +1,11 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'package:avanplan/L3_app/components/mt_field.dart';
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../L1_domain/entities/task.dart';
-import '../../../../L1_domain/entities_extensions/task_status_ext.dart';
+import '../../../../L1_domain/entities_extensions/task_status.dart';
 import '../../../../L2_data/services/platform.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
@@ -15,7 +14,6 @@ import '../../../components/text_widgets.dart';
 import '../../../presenters/task_filter_presenter.dart';
 import '../../../usecases/task_available_actions.dart';
 import '../controllers/status_controller.dart';
-import '../controllers/task_controller.dart';
 import 'task_card.dart';
 
 class _ItemTarget extends StatelessWidget {
@@ -39,16 +37,11 @@ class TasksBoard extends StatelessWidget {
   Task get _task => controller.task;
 
   Widget _taskItem(Task t, {bool dragging = false}) {
-    return MTField(
-      controller.taskController.fData(TaskFCode.status.index),
-      padding: EdgeInsets.zero,
-      color: Colors.transparent,
-      value: TaskCard(
-        t,
-        board: true,
-        showParent: _task.id != t.parent?.id,
-        dragging: dragging,
-      ),
+    return TaskCard(
+      t,
+      board: true,
+      showParent: _task.id != t.parent?.id,
+      dragging: dragging,
     );
   }
 

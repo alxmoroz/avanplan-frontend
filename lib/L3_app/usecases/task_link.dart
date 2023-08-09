@@ -3,8 +3,8 @@
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/entities_extensions/task_level.dart';
 import '../../L1_domain/entities_extensions/task_stats.dart';
+import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../components/icons.dart';
 import '../components/mt_alert_dialog.dart';
 import '../extra/services.dart';

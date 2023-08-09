@@ -9,7 +9,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../L1_domain/entities_extensions/task_stats.dart';
-import '../../../../L1_domain/entities_extensions/task_status_ext.dart';
+import '../../../../L1_domain/entities_extensions/task_status.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';

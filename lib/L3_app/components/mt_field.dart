@@ -6,6 +6,7 @@ import 'colors.dart';
 import 'constants.dart';
 import 'mt_field_data.dart';
 import 'mt_list_tile.dart';
+import 'mt_loader.dart';
 import 'text_widgets.dart';
 
 class MTField extends StatelessWidget {
@@ -56,16 +57,7 @@ class MTField extends StatelessWidget {
           padding: padding,
           color: color,
         ),
-        if (fd.loading) ...[
-          Positioned(
-            left: 0,
-            right: 0,
-            top: 0,
-            bottom: 0,
-            child: Container(color: backgroundColor.resolve(context).withAlpha(170)),
-          ),
-          CircularProgressIndicator(color: mainColor.resolve(context)),
-        ]
+        if (fd.loading) const MTLoader(),
       ],
     );
   }

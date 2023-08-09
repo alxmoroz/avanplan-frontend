@@ -4,9 +4,9 @@ import 'package:collection/collection.dart';
 
 import '../entities/status.dart';
 import '../entities/task.dart';
-import '../entities_extensions/task_level.dart';
+import '../entities_extensions/task_tree.dart';
 
-extension TaskStatusExtension on Task {
+extension TaskStatus on Task {
   List<Status> get statuses {
     List<Status> res = [];
 

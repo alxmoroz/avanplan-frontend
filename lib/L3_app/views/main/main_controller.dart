@@ -6,10 +6,10 @@ import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
-import '../../../L1_domain/entities_extensions/task_level.dart';
 import '../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../L1_domain/entities_extensions/task_stats.dart';
-import '../../../L1_domain/entities_extensions/ws_ext.dart';
+import '../../../L1_domain/entities_extensions/task_tree.dart';
+import '../../../L1_domain/entities_extensions/ws_accounts.dart';
 import '../../../L1_domain/usecases/task_comparators.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../../main.dart';
@@ -99,7 +99,7 @@ abstract class _MainControllerBase with Store {
 
   /// задача из списка
 
-  Task task(int wsId, int id) => _tasksMap[wsId]![id]!;
+  Task? task(int wsId, int? id) => _tasksMap[wsId]![id];
 
   Future showTask(Task t) async => await Navigator.of(rootKey.currentContext!).pushNamed(TaskView.routeName, arguments: t);
 

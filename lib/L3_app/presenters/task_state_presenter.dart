@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../main.dart';
 import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/entities_extensions/task_level.dart';
 import '../../L1_domain/entities_extensions/task_stats.dart';
+import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../components/colors.dart';
 import '../components/constants.dart';
 import '../components/images.dart';

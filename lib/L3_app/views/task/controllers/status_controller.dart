@@ -15,7 +15,7 @@ import '../../../components/mt_select_dialog.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_filter_presenter.dart';
 import '../../../usecases/task_available_actions.dart';
-import '../../../usecases/task_saving.dart';
+import '../../../usecases/task_edit.dart';
 import 'task_controller.dart';
 
 part 'status_controller.g.dart';

@@ -42,7 +42,7 @@ class Notes extends StatelessWidget {
                 middle: NormalText(loc.edit_action_title, color: mainColor),
                 onTap: () async {
                   Navigator.of(context).pop();
-                  await controller.editNote(note);
+                  await controller.edit(note);
                 },
               ),
               MTListTile(
@@ -50,7 +50,7 @@ class Notes extends StatelessWidget {
                 middle: NormalText(loc.delete_action_title, color: dangerColor),
                 onTap: () async {
                   Navigator.of(context).pop();
-                  await controller.deleteNote(note);
+                  await controller.delete(note);
                 },
               ),
             ],

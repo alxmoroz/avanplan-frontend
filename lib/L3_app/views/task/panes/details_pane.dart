@@ -161,7 +161,7 @@ class DetailsPane extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: P_2),
                   ),
                   leading: const NoteAddIcon(),
-                  onSelect: controller.notesController.addNote,
+                  onSelect: controller.notesController.create,
                 ),
               ],
               if (controller.notesController.sortedNotesDates.isNotEmpty) ...[

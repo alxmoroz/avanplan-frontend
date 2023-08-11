@@ -2,14 +2,12 @@
 
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
-
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_tree.dart';
-import '../../../../main.dart';
 import '../../../components/mt_alert_dialog.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_type_presenter.dart';
+import '../../../usecases/task_edit.dart';
 
 class DeleteController {
   Future delete(Task task) async {
@@ -23,19 +21,7 @@ class DeleteController {
       simple: true,
     );
     if (confirm == true) {
-      task.loading = true;
-      mainController.refresh();
-
-      Navigator.of(rootKey.currentContext!).pop();
-      if (await taskUC.delete(task.ws, task)) {
-        if (task.parent != null) {
-          task.parent!.tasks.remove(task);
-        }
-        mainController.allTasks.remove(task);
-      }
-
-      task.loading = false;
-      mainController.refresh();
+      await task.delete();
     }
   }
 }

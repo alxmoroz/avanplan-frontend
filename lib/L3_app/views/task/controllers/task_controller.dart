@@ -30,7 +30,7 @@ import '../../../presenters/task_type_presenter.dart';
 import '../../../presenters/task_view_presenter.dart';
 import '../../../presenters/ws_presenter.dart';
 import '../../../usecases/task_available_actions.dart';
-import '../../../usecases/task_saving.dart';
+import '../../../usecases/task_edit.dart';
 import '../../../views/_base/edit_controller.dart';
 import '../widgets/task_description_dialog.dart';
 import '../widgets/transfer/select_task_dialog.dart';
@@ -50,12 +50,6 @@ enum TasksFilter { my }
 
 class TaskController extends _TaskControllerBase with _$TaskController {
   TaskController(Task taskIn) {
-    _init(taskIn);
-
-    addController = AddController(taskIn.ws, this);
-    statusController = StatusController(this);
-    notesController = NotesController(this);
-
     initState(fds: [
       MTFieldData(TaskFCode.parent.index),
       MTFieldData(TaskFCode.status.index),
@@ -72,6 +66,12 @@ class TaskController extends _TaskControllerBase with _$TaskController {
       MTFieldData(TaskFCode.author.index, label: loc.task_author_title, placeholder: loc.task_author_title),
       MTFieldData(TaskFCode.note.index, placeholder: loc.task_note_placeholder),
     ]);
+
+    _init(taskIn);
+
+    addController = AddController(taskIn.ws, this);
+    statusController = StatusController(this);
+    notesController = NotesController(this);
   }
 }
 

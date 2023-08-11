@@ -8,9 +8,8 @@ import 'package:mobx/mobx.dart';
 import '../../../../L1_domain/entities/note.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../components/mt_dialog.dart';
-import '../../../extra/services.dart';
 import '../../../presenters/date_presenter.dart';
-import '../../../usecases/note_saving.dart';
+import '../../../usecases/note_edit.dart';
 import '../../../usecases/task_available_actions.dart';
 import '../widgets/notes/note_dialog.dart';
 import 'task_controller.dart';
@@ -42,8 +41,7 @@ abstract class _NotesControllerBase with Store {
   @computed
   List<DateTime> get sortedNotesDates => notesGroups.keys.sorted((d1, d2) => d2.compareTo(d1));
 
-  @action
-  Future editNote(Note note) async {
+  Future edit(Note note) async {
     final tc = taskController.teController(TaskFCode.note.index)!;
     tc.text = note.text;
     await showMTDialog<void>(NoteDialog(note, tc));
@@ -66,14 +64,10 @@ abstract class _NotesControllerBase with Store {
     }
   }
 
-  Future addNote() async => await editNote(Note(text: '', authorId: task.me?.id, taskId: task.id));
+  Future create() async => await edit(Note(text: '', authorId: task.me?.id, taskId: task.id));
 
-  @action
-  Future deleteNote(Note note) async {
-    if (await noteUC.delete(task.ws, note)) {
-      task.notes.remove(note);
-      _notes.remove(note);
-      mainController.refresh();
-    }
+  Future delete(Note note) async {
+    await note.delete(task);
+    _setNotes(task.notes);
   }
 }

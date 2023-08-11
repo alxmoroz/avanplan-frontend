@@ -7,12 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mobx/mobx.dart' hide Interceptor;
 
-import '../../../L2_data/repositories/communications_repo.dart';
 import '../../../L2_data/services/api.dart';
 import '../../../L2_data/services/platform.dart';
-import '../../components/colors.dart';
-import '../../components/constants.dart';
-import '../../components/icons.dart';
 import '../../components/images.dart';
 import '../../components/mt_button.dart';
 import '../../extra/services.dart';
@@ -121,14 +117,6 @@ abstract class _LoaderControllerBase with Store {
         onTap: stop,
       );
 
-  // TODO: нужен репозиторий для отправки писем, см. как формируется форма для оплаты
-  Widget _reportErrorButton(String errorText) => MTButton.secondary(
-        leading: const MailIcon(color: mainColor),
-        titleText: loc.report_bug_action_title,
-        margin: const EdgeInsets.only(top: P),
-        onTap: () => sendMail(loc.contact_us_mail_subject, appTitle, accountController.user?.id, errorText),
-      );
-
   void _setHTTPError(String? errorText, String? errorDetail) {
     errorText ??= 'LoaderHTTPError';
     final mainRecommendationText = isWeb ? loc.update_web_app_recommendation_title : loc.update_app_recommendation_title;
@@ -141,7 +129,7 @@ abstract class _LoaderControllerBase with Store {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           _stopAction(loc.ok),
-          _reportErrorButton('$errorText ${errorDetail ?? ''}'),
+          ReportErrorButton('$errorText ${errorDetail ?? ''}'),
         ],
       ),
     );
@@ -156,7 +144,7 @@ abstract class _LoaderControllerBase with Store {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             _stopAction(loc.ok),
-            _reportErrorButton(errorText ?? 'LoaderNetworkError'),
+            ReportErrorButton(errorText ?? 'LoaderNetworkError'),
           ],
         ),
       );
@@ -208,7 +196,7 @@ abstract class _LoaderControllerBase with Store {
         imageName: ImageNames.import,
         action: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           _stopAction(loc.ok),
-          _reportErrorButton('$descriptionText ${errorDetail ?? ''}'),
+          ReportErrorButton('$descriptionText ${errorDetail ?? ''}'),
         ]),
       );
   void setLoading() => set(titleText: loc.loader_refreshing_title, imageName: ImageNames.loading);

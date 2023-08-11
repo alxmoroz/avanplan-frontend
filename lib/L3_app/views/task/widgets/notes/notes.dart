@@ -97,6 +97,7 @@ class Notes extends StatelessWidget {
                           child: MTCardButton(
                             margin: EdgeInsets.only(left: mine ? P3 + P3 : 0, right: mine ? 0 : P2, bottom: P),
                             padding: const EdgeInsets.symmetric(vertical: P_2, horizontal: P),
+                            loading: n.loading,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [

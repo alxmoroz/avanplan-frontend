@@ -10,6 +10,7 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../components/mt_dialog.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/date_presenter.dart';
+import '../../../usecases/note_saving.dart';
 import '../../../usecases/task_available_actions.dart';
 import '../widgets/notes/note_dialog.dart';
 import 'task_controller.dart';
@@ -49,24 +50,18 @@ abstract class _NotesControllerBase with Store {
 
     final fIndex = TaskFCode.note.index;
 
-    // TODO: переделать на логику saveField — с обработкой ошибок
-
     // добавление или редактирование
     final newValue = tc.text;
     final oldValue = note.text;
     if (note.text != newValue) {
       taskController.updateField(fIndex, loading: true);
       note.text = newValue;
-      final editedNote = await noteUC.save(task.ws, note);
-      if (editedNote != null) {
-        if (note.id == null) {
-          task.notes.add(editedNote);
-          _notes.add(editedNote);
-        }
-        mainController.refresh();
-      } else {
+
+      if (await note.save(task) == null) {
         note.text = oldValue;
       }
+
+      _setNotes(task.notes);
       taskController.updateField(fIndex, loading: false);
     }
   }

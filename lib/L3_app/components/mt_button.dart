@@ -144,6 +144,7 @@ class MTButton extends StatelessWidget {
       padding: margin ?? EdgeInsets.zero,
       child: Stack(
         alignment: Alignment.center,
+        fit: StackFit.passthrough,
         children: [
           _button(context),
           if (loading == true) MTLoader(radius: _radius),

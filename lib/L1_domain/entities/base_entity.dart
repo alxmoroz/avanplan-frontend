@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import '../system/errors.dart';
 import 'workspace.dart';
 
 abstract class LocalPersistable {
@@ -13,6 +14,9 @@ abstract class RPersistable {
 
   int? id;
   bool removed = false;
+
+  MTError? error;
+  bool? loading = false;
 
   bool get isNew => id == null;
 }

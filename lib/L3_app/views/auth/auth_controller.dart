@@ -60,7 +60,7 @@ abstract class _AuthControllerBase with Store {
       authorized = await authUC.signInGoogle();
       await loader.stop(300);
     } on MTOAuthError catch (e) {
-      loader.setAuthError(e.detail);
+      loader.setAuthError(e.description);
     }
   }
 
@@ -71,7 +71,7 @@ abstract class _AuthControllerBase with Store {
       authorized = await authUC.signInApple();
       await loader.stop(300);
     } on MTOAuthError catch (e) {
-      loader.setAuthError(e.detail);
+      loader.setAuthError(e.description);
     }
   }
 

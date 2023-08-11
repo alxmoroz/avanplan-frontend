@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../../L1_domain/system/errors.dart';
-import '../extra/services.dart';
+import '../presenters/communications_presenter.dart';
 import 'colors.dart';
 import 'constants.dart';
 import 'mt_adaptive.dart';
@@ -22,23 +22,34 @@ class MTErrorSheet extends StatelessWidget {
     return MTAdaptive(
       force: true,
       child: MTDialog(
-        topBar: MTTopBar(titleText: loc.error_title, onClose: onClose),
-        topBarColor: warningBgColor.resolve(context),
-        bgColor: warningBgColor.resolve(context).withAlpha(235),
-        body: Container(
-          padding: const EdgeInsets.symmetric(horizontal: P),
-          child: ListView(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            children: [
-              const SizedBox(height: P),
-              MediumText(error.code),
-              if (error.detail?.isNotEmpty == true) ...[
-                const SizedBox(height: P_2),
-                NormalText(error.detail!),
-              ]
-            ],
+        topBar: MTTopBar(
+          middle: MediumText(
+            error.title,
+            maxLines: 2,
+            padding: const EdgeInsets.symmetric(horizontal: P2 * 2),
           ),
+          onClose: onClose,
+        ),
+        topBarColor: warningDarkColor,
+        bgColor: warningLightColor,
+        body: ListView(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          children: [
+            if (error.description?.isNotEmpty == true) ...[
+              const SizedBox(height: P_2),
+              NormalText(
+                error.description!,
+                padding: const EdgeInsets.symmetric(horizontal: P),
+              ),
+            ],
+            const SizedBox(height: P_2),
+            ReportErrorButton(
+              error.detail ?? error.description ?? error.title,
+              color: warningLightColor,
+              titleColor: warningColor,
+            ),
+          ],
         ),
       ),
     );

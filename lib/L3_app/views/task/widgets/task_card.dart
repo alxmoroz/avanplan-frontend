@@ -66,7 +66,7 @@ class TaskCard extends StatelessWidget {
   Widget get _error => Row(children: [
         const ErrorIcon(),
         const SizedBox(width: P_3),
-        SmallText(task.error!.code, color: _textColor, height: 1, maxLines: 1),
+        SmallText(task.error!.title, color: _textColor, height: 1, maxLines: 1),
       ]);
 
   bool get _showDate => task.hasDueDate && !task.closed && task.isLeaf;

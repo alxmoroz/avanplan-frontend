@@ -1,7 +1,10 @@
 // Copyright (c) 2023. Alexandr Moroz
 
+import 'package:dio/dio.dart';
+
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/system/errors.dart';
+import '../../L2_data/services/api.dart';
 import '../extra/services.dart';
 
 extension TaskSaving on Task {
@@ -43,8 +46,8 @@ extension TaskSaving on Task {
           mainController.setTask(et);
         }
       }
-    } catch (e) {
-      error = MTError(loader.titleText ?? '', detail: loader.descriptionText);
+    } on DioException catch (e) {
+      error = MTError(loader.titleText ?? '', description: loader.descriptionText, detail: e.detail);
     }
     loading = false;
     mainController.refresh();

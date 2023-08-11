@@ -1,6 +1,5 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../system/errors.dart';
 import 'base_entity.dart';
 import 'member.dart';
 import 'note.dart';
@@ -98,9 +97,6 @@ class Task extends Titleable {
 
   final num? openedVolume;
   final num? closedVolume;
-
-  MTError? error;
-  bool? loading = false;
 }
 
 class TaskRemote {

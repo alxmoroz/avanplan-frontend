@@ -12,6 +12,5 @@ class NoteUC {
   final AbstractWSRepo<Note> repo;
 
   Future<Note?> save(Workspace ws, Note n) async => await repo.save(ws, n);
-
   Future<bool> delete(Workspace ws, Note n) async => await repo.delete(ws, n);
 }

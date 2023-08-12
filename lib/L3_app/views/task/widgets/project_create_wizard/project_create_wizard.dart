@@ -17,24 +17,24 @@ import '../../../../usecases/ws_available_actions.dart';
 import '../../../import/import_view.dart';
 import '../../../source/source_type_selector.dart';
 import '../../../tariff/tariff_select_view.dart';
-import '../../controllers/add_controller.dart';
-import '../task_add_button.dart';
-import 'project_add_wizard_controller.dart';
+import '../../controllers/create_controller.dart';
+import '../task_create_button.dart';
+import 'project_create_wizard_controller.dart';
 import 'ws_selector.dart';
 
-Future projectAddWizard() async => await showMTDialog<void>(ProjectAddWizard());
+Future projectCreateWizard() async => await showMTDialog<void>(ProjectCreateWizard());
 
-class ProjectAddWizard extends StatefulWidget {
+class ProjectCreateWizard extends StatefulWidget {
   @override
-  _ProjectAddWizardState createState() => _ProjectAddWizardState();
+  _ProjectCreateWizardState createState() => _ProjectCreateWizardState();
 }
 
-class _ProjectAddWizardState extends State<ProjectAddWizard> {
-  late final ProjectAddWizardController controller;
+class _ProjectCreateWizardState extends State<ProjectCreateWizard> {
+  late final ProjectCreateWizardController controller;
 
   @override
   void initState() {
-    controller = ProjectAddWizardController();
+    controller = ProjectCreateWizardController();
     super.initState();
   }
 
@@ -86,7 +86,7 @@ class _ProjectAddWizardState extends State<ProjectAddWizard> {
                 ),
               ),
               const SizedBox(height: P),
-              TaskAddButton(AddController(controller.ws!, null), dismissible: true),
+              TaskCreateButton(CreateController(controller.ws!, null), dismissible: true),
             ],
           ),
         ],

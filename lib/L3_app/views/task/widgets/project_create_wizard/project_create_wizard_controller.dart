@@ -5,13 +5,13 @@ import 'package:mobx/mobx.dart';
 import '../../../../../L1_domain/entities/workspace.dart';
 import '../../../../extra/services.dart';
 
-part 'project_add_wizard_controller.g.dart';
+part 'project_create_wizard_controller.g.dart';
 
-class ProjectAddWizardController extends _ProjectAddWizardControllerBase with _$ProjectAddWizardController {}
+class ProjectCreateWizardController extends _ProjectCreateWizardControllerBase with _$ProjectCreateWizardController {}
 
 List<Workspace> get _wss => mainController.workspaces;
 
-abstract class _ProjectAddWizardControllerBase with Store {
+abstract class _ProjectCreateWizardControllerBase with Store {
   @observable
   int? selectedWSId = _wss.length == 1 ? _wss.first.id : null;
   @action

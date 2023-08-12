@@ -69,7 +69,7 @@ class TaskPopupMenu extends StatelessWidget {
         await controller.statusController.setStatus(_task, close: false);
         break;
       case TaskActionType.localExport:
-        await controller.localExport();
+        await controller.transferController.localExport();
         break;
       case TaskActionType.go2source:
         await _task.go2source();

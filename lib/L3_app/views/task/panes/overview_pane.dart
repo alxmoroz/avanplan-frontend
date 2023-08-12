@@ -22,7 +22,7 @@ import '../widgets/charts/timing_chart.dart';
 import '../widgets/charts/velocity_chart.dart';
 import '../widgets/charts/volume_chart.dart';
 import '../widgets/state_title.dart';
-import '../widgets/task_add_button.dart';
+import '../widgets/task_create_button.dart';
 import '../widgets/tasks_group.dart';
 import '../widgets/transfer/local_import_dialog.dart';
 
@@ -46,7 +46,7 @@ class OverviewPane extends StatelessWidget {
                     margin: const EdgeInsets.only(bottom: P),
                     onTap: () => localImportDialog(controller),
                   ),
-                TaskAddButton(controller.addController),
+                TaskCreateButton(controller.createController),
               ],
             )
           : Column(

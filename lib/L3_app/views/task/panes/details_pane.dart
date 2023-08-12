@@ -88,7 +88,7 @@ class DetailsPane extends StatelessWidget {
                           color: _task.canAssign ? mainColor : lightGreyColor,
                         ),
                   value: _task.hasAssignee ? NormalText('${_task.assignee}', color: _task.canAssign ? null : lightGreyColor) : null,
-                  onSelect: _task.canAssign ? controller.assignPerson : null,
+                  onSelect: _task.canAssign ? controller.assigneeController.assign : null,
                 ),
               ],
               if (_task.hasDescription || _task.canUpdate) ...[
@@ -105,7 +105,7 @@ class DetailsPane extends StatelessWidget {
                           // onTap: _task.canUpdate ? controller.editDescription : null,
                         )
                       : null,
-                  onSelect: _task.canUpdate ? controller.editDescription : null,
+                  onSelect: _task.canUpdate ? controller.titleController.editDescription : null,
                 ),
               ],
               const SizedBox(height: P),
@@ -117,7 +117,7 @@ class DetailsPane extends StatelessWidget {
                   controller.fData(TaskFCode.estimate.index),
                   leading: EstimateIcon(color: _task.canEstimate ? mainColor : lightGreyColor),
                   value: _task.hasEstimate ? NormalText('${(_task.openedVolume ?? _task.estimate)?.round()} ${_task.ws.estimateUnitCode}') : null,
-                  onSelect: _task.canEstimate ? controller.selectEstimate : null,
+                  onSelect: _task.canEstimate ? controller.estimateController.select : null,
                 ),
               ],
               if (_task.hasAuthor) ...[

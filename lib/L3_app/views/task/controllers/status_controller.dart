@@ -3,7 +3,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/status.dart';
 import '../../../../L1_domain/entities/task.dart';
@@ -18,18 +17,11 @@ import '../../../usecases/task_available_actions.dart';
 import '../../../usecases/task_edit.dart';
 import 'task_controller.dart';
 
-part 'status_controller.g.dart';
+class StatusController {
+  StatusController(this._taskController);
+  final TaskController _taskController;
 
-class StatusController extends _StatusControllerBase with _$StatusController {
-  StatusController(TaskController _taskController) {
-    taskController = _taskController;
-  }
-}
-
-abstract class _StatusControllerBase with Store {
-  late final TaskController taskController;
-
-  Task get task => taskController.task;
+  Task get task => _taskController.task;
 
   Future<bool?> _closeDialog() async => await showMTAlertDialog(
         loc.close_dialog_recursive_title,
@@ -66,7 +58,7 @@ abstract class _StatusControllerBase with Store {
       _task.setClosed(close);
 
       final sameTask = _task == task;
-      final saved = sameTask ? await taskController.saveField(TaskFCode.status) : (await _task.save() != null);
+      final saved = sameTask ? await _taskController.saveField(TaskFCode.status) : (await _task.save() != null);
 
       if (!saved) {
         _task.statusId = oldStId;

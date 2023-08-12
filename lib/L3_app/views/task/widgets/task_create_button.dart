@@ -10,11 +10,11 @@ import '../../../components/mt_adaptive.dart';
 import '../../../components/mt_button.dart';
 import '../../../components/mt_limit_badge.dart';
 import '../../../presenters/task_type_presenter.dart';
-import '../controllers/add_controller.dart';
+import '../controllers/create_controller.dart';
 
-class TaskAddButton extends StatelessWidget {
-  const TaskAddButton(this.controller, {this.compact = false, this.dismissible = false});
-  final AddController controller;
+class TaskCreateButton extends StatelessWidget {
+  const TaskCreateButton(this.controller, {this.compact = false, this.dismissible = false});
+  final CreateController controller;
   final bool compact;
   final bool dismissible;
 
@@ -26,7 +26,7 @@ class TaskAddButton extends StatelessWidget {
       if (dismissible && Navigator.of(context).canPop()) {
         Navigator.of(context).pop();
       }
-      await controller.addSubtask();
+      await controller.create();
     }
 
     final badge = MTLimitBadge(

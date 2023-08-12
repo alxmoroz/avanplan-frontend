@@ -4,7 +4,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_stats.dart';
@@ -20,24 +19,17 @@ import '../../../presenters/duration_presenter.dart';
 import '../../../usecases/task_available_actions.dart';
 import 'task_controller.dart';
 
-part 'dates_controller.g.dart';
+class DatesController {
+  DatesController(this._taskController);
+  final TaskController _taskController;
 
-class DatesController extends _DatesControllerBase with _$DatesController {
-  DatesController(TaskController _taskController) {
-    taskController = _taskController;
-  }
-}
-
-abstract class _DatesControllerBase with Store {
-  late final TaskController taskController;
-
-  Task get task => taskController.task;
+  Task get task => _taskController.task;
 
   Future _setStartDate(DateTime? _date) async {
     final oldValue = task.startDate;
     if (task.startDate != _date) {
       task.startDate = _date;
-      if (!(await taskController.saveField(TaskFCode.startDate))) {
+      if (!(await _taskController.saveField(TaskFCode.startDate))) {
         task.startDate = oldValue;
       }
     }
@@ -47,13 +39,13 @@ abstract class _DatesControllerBase with Store {
     final oldValue = task.dueDate;
     if (task.dueDate != _date) {
       task.dueDate = _date;
-      if (!(await taskController.saveField(TaskFCode.dueDate))) {
+      if (!(await _taskController.saveField(TaskFCode.dueDate))) {
         task.dueDate = oldValue;
       }
     }
   }
 
-  void _resetDate(TaskFCode code) {
+  void _reset(TaskFCode code) {
     if (code == TaskFCode.startDate) {
       _setStartDate(null);
     } else if (code == TaskFCode.dueDate) {
@@ -99,7 +91,7 @@ abstract class _DatesControllerBase with Store {
                       middle: MediumText(loc.clear_action_title, color: warningColor, sizeScale: 0.9),
                       onTap: () {
                         Navigator.of(ctx).pop();
-                        _resetDate(code);
+                        _reset(code);
                       }),
                 ),
             ],
@@ -121,7 +113,7 @@ abstract class _DatesControllerBase with Store {
     final isStart = code == TaskFCode.startDate;
     final date = isStart ? task.startDate : task.dueDate;
     final isEmpty = date == null;
-    final fd = taskController.fData(code.index);
+    final fd = _taskController.fData(code.index);
     return MTField(
       fd,
       leading: isStart ? CalendarIcon(size: P3, color: task.canUpdate ? mainColor : lightGreyColor) : Container(),

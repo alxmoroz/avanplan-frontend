@@ -13,7 +13,7 @@ import '../../../components/mt_button.dart';
 import '../../../presenters/task_filter_presenter.dart';
 import '../../../usecases/task_available_actions.dart';
 import '../controllers/task_controller.dart';
-import '../widgets/task_add_button.dart';
+import '../widgets/task_create_button.dart';
 import '../widgets/tasks_board.dart';
 import '../widgets/tasks_list_view.dart';
 import '../widgets/transfer/local_import_dialog.dart';
@@ -58,7 +58,7 @@ class TasksPane extends StatelessWidget {
             ),
           if (_task.canCreate) ...[
             const SizedBox(width: P),
-            TaskAddButton(controller.addController, compact: true),
+            TaskCreateButton(controller.createController, compact: true),
           ]
         ])
       : null;

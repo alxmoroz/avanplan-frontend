@@ -15,7 +15,7 @@ import '../../extra/services.dart';
 import '../../presenters/person_presenter.dart';
 import '../notification/notification_list_view.dart';
 import '../settings/settings_view.dart';
-import '../task/widgets/project_add_wizard/project_add_wizard.dart';
+import '../task/widgets/project_create_wizard/project_create_wizard.dart';
 import 'widgets/main_dashboard.dart';
 import 'widgets/no_projects.dart';
 
@@ -51,7 +51,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
   Widget? get _bottomBar => !mainController.hasOpenedProjects
       ? MTButton.main(
           titleText: loc.state_no_projects_action_title,
-          onTap: projectAddWizard,
+          onTap: projectCreateWizard,
         )
       : null;
 

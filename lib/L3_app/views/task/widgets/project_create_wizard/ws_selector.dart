@@ -9,12 +9,12 @@ import '../../../../components/mt_list_tile.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
 import '../../../../usecases/ws_available_actions.dart';
-import 'project_add_wizard_controller.dart';
+import 'project_create_wizard_controller.dart';
 
 class WSSelector extends StatelessWidget {
   const WSSelector(this.controller);
 
-  final ProjectAddWizardController controller;
+  final ProjectCreateWizardController controller;
 
   @override
   Widget build(BuildContext context) {

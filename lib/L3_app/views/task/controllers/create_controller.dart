@@ -14,35 +14,34 @@ import '../../../usecases/ws_available_actions.dart';
 import '../../tariff/tariff_select_view.dart';
 import 'task_controller.dart';
 
-class AddController {
-  AddController(this.ws, this.parentTaskController);
-  final Workspace ws;
-  final TaskController? parentTaskController;
+class CreateController {
+  CreateController(this._ws, this._parentTaskController);
+  final Workspace _ws;
+  final TaskController? _parentTaskController;
 
-  Task? get parent => parentTaskController?.task;
-  bool get newProject => parent == null;
-  bool get newGoal => parent!.isProject;
+  Task? get parent => _parentTaskController?.task;
+  bool get _newProject => parent == null;
+  bool get _newGoal => parent!.isProject;
 
-  String get titlePlaceholder => newSubtaskTitle(parent?.type ?? TType.ROOT);
-  bool get plCreate => newProject ? ws.plProjects : ws.plTasks;
+  bool get plCreate => _newProject ? _ws.plProjects : _ws.plTasks;
 
-  Future addSubtask() async {
+  Future create() async {
     if (plCreate) {
       final newTaskData = Task(
-        title: titlePlaceholder,
-        statusId: (newProject || newGoal) ? null : parent!.statuses.firstOrNull?.id,
+        title: newSubtaskTitle(parent?.type ?? TType.ROOT),
+        statusId: (_newProject || _newGoal) ? null : parent!.statuses.firstOrNull?.id,
         closed: false,
         parent: parent,
         tasks: [],
         members: [],
         notes: [],
         projectStatuses: [],
-        ws: ws,
+        ws: _ws,
         startDate: DateTime.now(),
         createdOn: DateTime.now(),
-        type: newProject
+        type: _newProject
             ? TType.PROJECT
-            : newGoal
+            : _newGoal
                 ? TType.GOAL
                 : parent!.isGoal
                     ? TType.TASK
@@ -50,13 +49,13 @@ class AddController {
       );
 
       await mainController.showTask(newTaskData);
-      if (parentTaskController != null) {
-        parentTaskController!.selectTab(TaskTabKey.subtasks);
+      if (_parentTaskController != null) {
+        _parentTaskController!.selectTab(TaskTabKey.subtasks);
       }
     } else {
       await changeTariff(
-        ws,
-        reason: newProject ? loc.tariff_change_limit_projects_reason_title : loc.tariff_change_limit_tasks_reason_title,
+        _ws,
+        reason: _newProject ? loc.tariff_change_limit_projects_reason_title : loc.tariff_change_limit_tasks_reason_title,
       );
     }
   }

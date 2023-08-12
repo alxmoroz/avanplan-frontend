@@ -22,7 +22,7 @@ class TaskHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _titlePlaceholder = controller.titlePlaceholder;
+    final _titlePlaceholder = controller.titleController.titlePlaceholder;
     return Observer(
       builder: (_) => MTAdaptive(
         force: true,
@@ -60,7 +60,7 @@ class TaskHeader extends StatelessWidget {
                     hintStyle: const H1('', color: lightGreyColor).style(context),
                   ),
                   style: const H1('').style(context),
-                  onChanged: controller.editTitle,
+                  onChanged: controller.titleController.editTitle,
                 ),
                 padding: EdgeInsets.zero,
                 color: backgroundColor,

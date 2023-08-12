@@ -9,7 +9,7 @@ import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../task/widgets/project_add_wizard/project_add_wizard.dart';
+import '../task/widgets/project_create_wizard/project_create_wizard.dart';
 import '../task/widgets/tasks_list_view.dart';
 
 class MyProjectsView extends StatelessWidget {
@@ -27,7 +27,7 @@ class MyProjectsView extends StatelessWidget {
         ),
         bottomBar: const Row(children: [
           Spacer(),
-          MTPlusButton(projectAddWizard),
+          MTPlusButton(projectCreateWizard),
         ]),
       ),
     );

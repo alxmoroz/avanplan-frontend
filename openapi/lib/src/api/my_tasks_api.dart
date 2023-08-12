@@ -25,6 +25,8 @@ class MyTasksApi {
   ///
   /// Parameters:
   /// * [wsId] 
+  /// * [parentId] 
+  /// * [closed] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -36,6 +38,8 @@ class MyTasksApi {
   /// Throws [DioError] if API call or serialization fails
   Future<Response<BuiltList<TaskGet>>> myTasksV1MyTasksGet({ 
     required int wsId,
+    int? parentId,
+    bool? closed = false,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -67,6 +71,8 @@ class MyTasksApi {
     );
 
     final _queryParameters = <String, dynamic>{
+      if (parentId != null) r'parent_id': encodeQueryParameter(_serializers, parentId, const FullType(int)),
+      if (closed != null) r'closed': encodeQueryParameter(_serializers, closed, const FullType(bool)),
       r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
     };
 

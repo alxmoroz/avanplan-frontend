@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 
 # **myTasksV1MyTasksGet**
-> BuiltList<TaskGet> myTasksV1MyTasksGet(wsId)
+> BuiltList<TaskGet> myTasksV1MyTasksGet(wsId, parentId, closed)
 
 My Tasks
 
@@ -29,9 +29,11 @@ import 'package:openapi/api.dart';
 
 final api = Openapi().getMyTasksApi();
 final int wsId = 56; // int | 
+final int parentId = 56; // int | 
+final bool closed = true; // bool | 
 
 try {
-    final response = api.myTasksV1MyTasksGet(wsId);
+    final response = api.myTasksV1MyTasksGet(wsId, parentId, closed);
     print(response);
 } catch on DioError (e) {
     print('Exception when calling MyTasksApi->myTasksV1MyTasksGet: $e\n');
@@ -43,6 +45,8 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **wsId** | **int**|  | 
+ **parentId** | **int**|  | [optional] 
+ **closed** | **bool**|  | [optional] [default to false]
 
 ### Return type
 

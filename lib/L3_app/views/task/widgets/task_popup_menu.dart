@@ -38,7 +38,7 @@ class TaskPopupMenu extends StatelessWidget {
   Widget _atWidget(TaskActionType at) {
     switch (at) {
       case TaskActionType.close:
-        return _tile(at, leading: const DoneIcon(true), title: loc.close_action_title);
+        return _tile(at, leading: const DoneIcon(true, color: greenColor), title: loc.close_action_title, color: greenColor);
       case TaskActionType.reopen:
         return _tile(at, leading: const DoneIcon(false), title: loc.task_reopen_action_title);
       case TaskActionType.localExport:

@@ -8,7 +8,7 @@ void main() {
   group(MyTasksApi, () {
     // My Tasks
     //
-    //Future<BuiltList<TaskGet>> myTasksV1MyTasksGet(int wsId) async
+    //Future<BuiltList<TaskGet>> myTasksV1MyTasksGet(int wsId, { int parentId, bool closed }) async
     test('test myTasksV1MyTasksGet', () async {
       // TODO
     });

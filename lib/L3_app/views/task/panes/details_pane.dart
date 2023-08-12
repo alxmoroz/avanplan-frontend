@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../L1_domain/entities/task.dart';
@@ -19,7 +18,6 @@ import '../../../components/mt_field.dart';
 import '../../../components/mt_shadowed.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/date_presenter.dart';
 import '../../../presenters/person_presenter.dart';
 import '../../../presenters/source_presenter.dart';
 import '../../../presenters/ws_presenter.dart';
@@ -41,26 +39,6 @@ class DetailsPane extends StatelessWidget {
       : null;
 
   bool get _closable => _task.canClose;
-
-  Widget _dateField(BuildContext context, TaskFCode code) {
-    final isStart = code == TaskFCode.startDate;
-    final date = isStart ? _task.startDate : _task.dueDate;
-    final isEmpty = date == null;
-    final fd = controller.fData(code.index);
-    return MTField(
-      fd,
-      leading: isStart ? CalendarIcon(size: P3, color: _task.canUpdate ? mainColor : lightGreyColor) : Container(),
-      value: !isEmpty
-          ? Row(children: [
-              NormalText(date.strMedium, padding: const EdgeInsets.only(right: P_2)),
-              LightText(DateFormat.E().format(date), color: greyTextColor),
-            ])
-          : null,
-      onSelect: _task.canUpdate ? () => controller.selectDate(context, code) : null,
-      bottomDivider: isStart && (_task.hasDueDate || _task.canUpdate),
-      dividerStartIndent: isStart ? P * 5.5 : null,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -131,8 +109,8 @@ class DetailsPane extends StatelessWidget {
                 ),
               ],
               const SizedBox(height: P),
-              _dateField(context, TaskFCode.startDate),
-              if (_task.hasDueDate || _task.canUpdate) _dateField(context, TaskFCode.dueDate),
+              controller.datesController.dateField(context, TaskFCode.startDate),
+              if (_task.hasDueDate || _task.canUpdate) controller.datesController.dateField(context, TaskFCode.dueDate),
               if (_task.hasEstimate || _task.canEstimate) ...[
                 const SizedBox(height: P),
                 MTField(

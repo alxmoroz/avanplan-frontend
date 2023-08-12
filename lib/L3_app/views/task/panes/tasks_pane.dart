@@ -36,9 +36,9 @@ class TasksPane extends StatelessWidget {
         child: icon,
       );
 
-  Widget? get bottomBar => (_task.canCreate || _task.hasOpenedSubtasks)
+  Widget? get bottomBar => (_task.canCreate || _task.totalVolume > 0)
       ? Row(children: [
-          if (_task.hasOpenedSubtasks)
+          if (_task.totalVolume > 0)
             MTButton.secondary(
               color: borderColor,
               middle: Row(children: [

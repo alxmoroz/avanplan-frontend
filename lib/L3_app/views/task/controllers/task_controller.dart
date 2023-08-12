@@ -15,16 +15,12 @@ import '../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../L1_domain/entities_extensions/ws_estimates.dart';
 import '../../../../L1_domain/usecases/task_comparators.dart';
-import '../../../components/colors.dart';
 import '../../../components/constants.dart';
-import '../../../components/mt_button.dart';
 import '../../../components/mt_dialog.dart';
 import '../../../components/mt_field_data.dart';
 import '../../../components/mt_select_dialog.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/date_presenter.dart';
-import '../../../presenters/duration_presenter.dart';
 import '../../../presenters/person_presenter.dart';
 import '../../../presenters/task_type_presenter.dart';
 import '../../../presenters/task_view_presenter.dart';
@@ -35,6 +31,7 @@ import '../../../views/_base/edit_controller.dart';
 import '../widgets/task_description_dialog.dart';
 import '../widgets/transfer/select_task_dialog.dart';
 import 'add_controller.dart';
+import 'dates_controller.dart';
 import 'notes_controller.dart';
 import 'status_controller.dart';
 
@@ -71,6 +68,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
 
     addController = AddController(taskIn.ws, this);
     statusController = StatusController(this);
+    datesController = DatesController(this);
     notesController = NotesController(this);
   }
 }
@@ -79,8 +77,9 @@ abstract class _TaskControllerBase extends EditController with Store {
   Task get task => mainController.task(_task!.ws.id!, _task!.id) ?? _task!;
   Workspace get _ws => task.ws;
 
-  late final StatusController statusController;
   late final AddController addController;
+  late final StatusController statusController;
+  late final DatesController datesController;
   late final NotesController notesController;
 
   @observable
@@ -174,92 +173,6 @@ abstract class _TaskControllerBase extends EditController with Store {
       task.description = newValue;
       if (!(await saveField(TaskFCode.description))) {
         task.description = oldValue;
-      }
-    }
-  }
-
-  /// даты
-
-  Future _setStartDate(DateTime? _date) async {
-    final oldValue = task.startDate;
-    if (task.startDate != _date) {
-      task.startDate = _date;
-      if (!(await saveField(TaskFCode.startDate))) {
-        task.startDate = oldValue;
-      }
-    }
-  }
-
-  Future _setDueDate(DateTime? _date) async {
-    final oldValue = task.dueDate;
-    if (task.dueDate != _date) {
-      task.dueDate = _date;
-      if (!(await saveField(TaskFCode.dueDate))) {
-        task.dueDate = oldValue;
-      }
-    }
-  }
-
-  void _resetDate(TaskFCode code) {
-    if (code == TaskFCode.startDate) {
-      _setStartDate(null);
-    } else if (code == TaskFCode.dueDate) {
-      _setDueDate(null);
-    }
-  }
-
-  Future selectDate(BuildContext context, TaskFCode code) async {
-    final isStart = code == TaskFCode.startDate;
-
-    final hasFutureStart = task.startDate != null && task.startDate!.isAfter(today);
-    final selectedDate = isStart ? task.startDate : task.dueDate;
-
-    final pastDate = today.subtract(year * 100);
-    final futureDate = today.add(year * 100);
-
-    final initialDate = selectedDate ?? (hasFutureStart ? task.startDate! : today);
-    final firstDate = isStart ? pastDate : task.startDate ?? today;
-    final lastDate = (isStart ? task.dueDate : null) ?? futureDate;
-
-    // !! Нельзя давать менять способ ввода - поплывёт кнопка "Сбросить".
-    // Если нужен ввод с клавиатуры, то нужно доработать позиционирование кнопки "Сбросить"
-    // final entryMode = isWeb ? DatePickerEntryMode.input : DatePickerEntryMode.calendar;
-    const entryMode = DatePickerEntryMode.calendarOnly;
-
-    final date = await showDatePicker(
-      context: context,
-      initialEntryMode: entryMode,
-      initialDate: initialDate,
-      firstDate: firstDate,
-      lastDate: lastDate,
-      builder: (_, child) => LayoutBuilder(
-        builder: (ctx, size) {
-          final isPortrait = size.maxHeight > size.maxWidth;
-          return Stack(
-            children: [
-              child!,
-              if (selectedDate != null)
-                Positioned(
-                  left: size.maxWidth / 2 - (isPortrait ? 140 : 60),
-                  top: size.maxHeight / 2 + (isPortrait ? 220 : 126),
-                  child: MTButton(
-                      middle: MediumText(loc.clear_action_title, color: warningColor, sizeScale: 0.9),
-                      onTap: () {
-                        Navigator.of(ctx).pop();
-                        _resetDate(code);
-                      }),
-                ),
-            ],
-          );
-        },
-      ),
-    );
-
-    if (date != null) {
-      if (isStart) {
-        _setStartDate(date);
-      } else {
-        _setDueDate(date);
       }
     }
   }

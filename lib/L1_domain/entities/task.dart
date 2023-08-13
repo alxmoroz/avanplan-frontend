@@ -59,7 +59,7 @@ class Task extends Titleable {
     this.statusId,
     this.authorId,
     this.assigneeId,
-    this.type,
+    this.type = 'TASK',
     this.estimate,
     this.state = TaskState.NO_INFO,
     this.velocity = 0,
@@ -68,6 +68,7 @@ class Task extends Titleable {
     this.etaDate,
     this.openedVolume,
     this.closedVolume,
+    this.closedSubtasksCount,
   });
 
   DateTime? startDate;
@@ -86,7 +87,7 @@ class Task extends Titleable {
   int? statusId;
   int? authorId;
   int? assigneeId;
-  final String? type;
+  final String type;
 
   num? estimate;
   final TaskState state;
@@ -97,6 +98,7 @@ class Task extends Titleable {
 
   final num? openedVolume;
   final num? closedVolume;
+  final int? closedSubtasksCount;
 }
 
 class TaskRemote {

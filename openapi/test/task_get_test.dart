@@ -151,5 +151,10 @@ void main() {
     test('to test the property `projectStatuses`', () async {
       // TODO
     });
+
+    // int closedSubtasksCount
+    test('to test the property `closedSubtasksCount`', () async {
+      // TODO
+    });
   });
 }

@@ -10,7 +10,7 @@ extension TaskTree on Task {
   bool get isTask => type == TType.TASK;
   bool get isSubtask => type == TType.SUBTASK;
 
-  bool get hasSubtasks => totalVolume > 0;
+  bool get hasSubtasks => (closedSubtasksCount ?? 0) > 0 || openedSubtasks.isNotEmpty;
   bool get isLeaf => (isTask || isSubtask) && !hasSubtasks;
 
   Task? get project {

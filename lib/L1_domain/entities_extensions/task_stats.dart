@@ -25,8 +25,8 @@ extension TaskStats on Task {
 
   num get totalVolume => (openedVolume ?? 0) + (closedVolume ?? 0);
 
-  // TODO: нужен признак с бэка. Сейчас работает только для рута - мы его прописываем отдельно
   Iterable<Task> get openedSubtasks => tasks.where((t) => !t.closed);
+  Iterable<Task> get closedSubtasks => tasks.where((t) => t.closed);
   // TODO: запрос на бэк
   Iterable<Task> get goalsForLocalExport => isTask ? project!.openedSubtasks.where((g) => g.id != parent?.id) : [];
   Iterable<Task> get goalsForLocalImport => isGoal ? project!.openedSubtasks.where((g) => g.id != id && g.hasOpenedSubtasks) : [];

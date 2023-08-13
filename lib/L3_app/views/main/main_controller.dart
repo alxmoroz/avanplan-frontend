@@ -44,12 +44,12 @@ abstract class _MainControllerBase with Store {
   /// проекты и или задачи
 
   @observable
-  ObservableList<Task> allTasks = ObservableList();
+  ObservableList<Task> _allTasks = ObservableList();
 
   /// проекты
 
   @computed
-  Iterable<Task> get projects => allTasks.where((r) => r.isProject || r.parent == null);
+  Iterable<Task> get projects => _allTasks.where((r) => r.isProject || r.parent == null);
   @computed
   bool get hasLinkedProjects => projects.where((p) => p.linked).isNotEmpty;
   @computed
@@ -64,7 +64,7 @@ abstract class _MainControllerBase with Store {
   /// задачи
 
   @computed
-  Iterable<Task> get myTasks => allTasks.where((t) => t.hasAssignee && t.assignee!.userId == accountController.user!.id && t.isLeaf);
+  Iterable<Task> get myTasks => _allTasks.where((t) => t.hasAssignee && t.assignee!.userId == accountController.user!.id && t.isLeaf);
   @computed
   List<MapEntry<TaskState, List<Task>>> get myTasksGroups => groups(myTasks);
   @computed
@@ -95,7 +95,7 @@ abstract class _MainControllerBase with Store {
         for (var ws in workspaces) ws.id!: {for (var t in _wsTasks(ws.id!)) t.id!: t}
       };
 
-  Iterable<Task> _wsTasks(int wsId) => allTasks.where((t) => t.ws.id == wsId);
+  Iterable<Task> _wsTasks(int wsId) => _allTasks.where((t) => t.ws.id == wsId);
 
   /// задача из списка
 
@@ -104,12 +104,22 @@ abstract class _MainControllerBase with Store {
   Future showTask(Task t) async => await Navigator.of(rootKey.currentContext!).pushNamed(TaskView.routeName, arguments: t);
 
   @action
+  void addTasks(Iterable<Task> tasks) {
+    _allTasks.addAll(tasks);
+    _allTasks.sort(sortByDateAsc);
+  }
+
+  @action
   void setTask(Task et) {
-    final index = allTasks.indexWhere((t) => t.ws.id == et.ws.id && t.id == et.id);
+    final index = _allTasks.indexWhere((t) => t.ws.id == et.ws.id && t.id == et.id);
     if (index > -1) {
-      allTasks[index] = et;
+      _allTasks[index] = et;
+      _allTasks.sort(sortByDateAsc);
     }
   }
+
+  @action
+  void removeTask(Task task) => _allTasks.remove(task);
 
   @observable
   DateTime? _updatedDate;
@@ -138,16 +148,16 @@ abstract class _MainControllerBase with Store {
       res.addAll(r.allTasks);
       res.add(r);
     }
-    allTasks = ObservableList.of(res.sorted(sortByDateAsc));
+    _allTasks = ObservableList.of(res.sorted(sortByDateAsc));
   }
 
   @action
-  void refresh() => allTasks = ObservableList.of(allTasks);
+  void refresh() => _allTasks = ObservableList.of(_allTasks);
 
   @action
   void clearData() {
     workspaces = [];
-    allTasks.clear();
+    _allTasks.clear();
     _updatedDate = null;
 
     refsController.clearData();

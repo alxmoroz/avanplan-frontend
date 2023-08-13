@@ -2,7 +2,6 @@
 
 import 'dart:async';
 
-import 'package:avanplan/L3_app/views/task/controllers/title_controller.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/task.dart';
@@ -18,6 +17,8 @@ import 'dates_controller.dart';
 import 'estimate_controller.dart';
 import 'notes_controller.dart';
 import 'status_controller.dart';
+import 'subtasks_controller.dart';
+import 'title_controller.dart';
 import 'transfer_controller.dart';
 
 part 'task_controller.g.dart';
@@ -59,6 +60,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     estimateController = EstimateController(this);
     notesController = NotesController(this);
     transferController = TransferController(this);
+    subtasksController = SubtasksController(this);
   }
 }
 
@@ -73,6 +75,7 @@ abstract class _TaskControllerBase extends EditController with Store {
   late final EstimateController estimateController;
   late final NotesController notesController;
   late final TransferController transferController;
+  late final SubtasksController subtasksController;
 
   @observable
   Task? _task;
@@ -91,7 +94,7 @@ abstract class _TaskControllerBase extends EditController with Store {
   @action
   Future<bool> saveField(TaskFCode code) async {
     updateField(code.index, loading: true);
-    final et = await _task?.save();
+    final et = await task.save();
     final saved = et != null;
     if (saved) {
       _task = et;

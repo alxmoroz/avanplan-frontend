@@ -24,7 +24,7 @@ extension TaskMapper on api.TaskGet {
       createdOn: createdOn.toLocal(),
       updatedOn: updatedOn.toLocal(),
       title: _title,
-      type: type,
+      type: type ?? 'TASK',
       description: description?.trim() ?? '',
       startDate: startDate?.toLocal(),
       closedDate: closedDate?.toLocal(),
@@ -48,6 +48,7 @@ extension TaskMapper on api.TaskGet {
       etaDate: etaDate?.toLocal(),
       openedVolume: openedVolume,
       closedVolume: closedVolume,
+      closedSubtasksCount: closedSubtasksCount,
     );
     _t.tasks = tasks?.map((t) => t.task(ws: ws, parent: _t)).toList() ?? [];
     return _t;

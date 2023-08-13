@@ -33,8 +33,8 @@ class StatusController {
       );
 
   Future setStatus(Task _task, {int? statusId, bool? close}) async {
-    if (_task.canSetStatus && (statusId != null || close != null)) {
-      statusId ??= close == true ? _task.firstClosedStatusId : _task.firstOpenedStatusId;
+    if (statusId != null || close != null) {
+      statusId ??= _task.canSetStatus ? (close == true ? _task.firstClosedStatusId : _task.firstOpenedStatusId) : null;
       close ??= _task.statusForId(statusId)?.closed;
 
       if (close == true && _task.hasOpenedSubtasks) {

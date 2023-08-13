@@ -38,7 +38,7 @@ extension TaskTypePresenter on Task {
 
   String get listTitle =>
       {
-        TType.ROOT: loc.project_list_all_title,
+        TType.ROOT: loc.project_list_title,
         TType.PROJECT: loc.goal_list_title,
         TType.GOAL: loc.task_list_title,
       }[type] ??

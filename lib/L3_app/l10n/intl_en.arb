@@ -7,7 +7,7 @@
   "account_delete_dialog_title": "Delete your account?",
   "account_title": "Account",
 
-  "app_settings_action_title": "Open Settings",
+  "app_settings_action_title": "Open settings",
   "app_title": "Avanplan",
 
   "are_closed_suffix": "are closed",
@@ -37,7 +37,7 @@
   "backlog": "Backlog",
   "balance_amount_title": "Account Balance",
   "balance_replenish_action_title": "Replenish",
-  "balance_replenish_store_title": "Replenish Balance",
+  "balance_replenish_store_title": "Replenish balance",
 
   "cancel": "Cancel",
 
@@ -112,7 +112,7 @@
   "goal_delete_dialog_title": "Delete goal?",
   "goal_for_orphaned_tasks": "Tasks without goals",
   "goal_list_title": "Goals",
-  "goal_new_title": "New goal",
+  "goal_new_title": "New Goal",
   "goal_title": "Goal",
 
   "hours_count": "{count, plural, one{{count} hour} other{{count} hours}}",
@@ -126,16 +126,16 @@
 
   "invitation_activations_count_placeholder": "Activations Count",
   "invitation_expires_placeholder": "Expires",
-  "invitation_create_title": "Invite Member",
-  "invitation_share_action_title": "Share Invitation",
+  "invitation_create_title": "Invite member",
+  "invitation_share_action_title": "Share invitation",
   "invitation_share_subject_prefix": "Invitation to ",
-  "invitation_share_label": "Invitation link",
+  "invitation_share_label": "Invitation Link",
   "invitation_share_text": "1. Install app:\n{installUrl}\n\n2. Join the project:\n{invitationUrl}",
 
   "later": "Maybe later",
 
-  "legal_privacy_policy_title": "Privacy policy",
-  "legal_rules_title": "License agreement",
+  "legal_privacy_policy_title": "Privacy Policy",
+  "legal_rules_title": "License Agreement",
 
   "loader_auth_title": "Checking access...",
   "loader_check_connection_title": "Checking connection...",
@@ -167,7 +167,7 @@
   "new_title": "New",
   "no": "No",
 
-  "notification_list_empty_title": "No notifications",
+  "notification_list_empty_title": "No Notifications",
   "notification_list_hint_title": "Shows notifications from the last 30 days",
   "notification_list_title": "Notifications",
   "notification_push_ios_denied_btn_title": "To receive Push notifications,\nturn them on in settings",
@@ -184,9 +184,8 @@
   "project_count": "{count, plural, zero{No projects} one{{count} project} other{{count} projects}}",
   "project_count_dative": "{count, plural, one{{count} project} other{{count} projects}}",
   "project_delete_dialog_title": "Delete project?",
-  "project_list_all_title": "All projects",
-  "project_list_my_title": "My projects",
-  "project_new_title": "New project",
+  "project_list_title": "Projects",
+  "project_new_title": "New Project",
   "project_plural_genitive": "{count, plural, one{project} other{projects}}",
   "project_title": "Project",
   "projects_add_hint_title": "Import projects from source or create your own",
@@ -208,6 +207,7 @@
 
   "save_action_title": "Save",
   "select_all_action_title": "Select all",
+  "show_closed_action_title": "Show closed",
 
   "state_ahead_duration": "We can finish {duration} early",
   "state_ahead_title": "We can finish early",
@@ -235,7 +235,7 @@
   "source_api_key_placeholder": "API key / Token",
   "source_delete_dialog_title": "Delete import source connection?",
   "source_delete_dialog_description": "Imported tasks of this source will lose their connection with it",
-  "source_get_token_action": "Get Token",
+  "source_get_token_action": "Get token",
   "source_get_token_help_action": "How to get a token",
   "source_import_placeholder": "Source for importing tasks",
   "source_list_empty_hint": "Keep track of all projects and tasks in a single space",
@@ -252,7 +252,7 @@
 
   "subtask_delete_dialog_title": "Delete subtask?",
   "subtask_list_title": "Subtasks",
-  "subtask_new_title": "New subtask",
+  "subtask_new_title": "New Subtask",
   "subtask_title": "Subtask",
 
   "tariff_change_action_title": "Change tariff",
@@ -294,7 +294,7 @@
   "task_delete_dialog_title": "Delete task?",
   "task_delete_dialog_description": "All subtasks will be deleted",
   "task_due_date_label": "Deadline",
-  "task_due_date_placeholder": "Deadline date",
+  "task_due_date_placeholder": "Deadline Date",
 
   "task_estimate_group_label": "Overall estimation for subtasks",
   "task_estimate_label": "Estimation",
@@ -303,14 +303,11 @@
 
   "task_go2source_title": "Go to source",
 
-  "task_filter_all": "All",
-  "task_filter_opened": "Opened",
-
   "task_list_empty_hint": "Assign yourself tasks from projects or add new ones",
   "task_list_empty_title": "Taking a break from tasks",
   "task_list_title": "Tasks",
 
-  "task_new_title": "New task",
+  "task_new_title": "New Task",
   "task_note_placeholder": "Leave a comment",
   "task_note_title": "Comment",
 
@@ -320,8 +317,8 @@
   "task_reopen_action_title": "Reopen",
 
   "task_start_date_label": "Start",
-  "task_start_date_placeholder": "Start date",
-  "task_status_placeholder": "Select Status",
+  "task_start_date_placeholder": "Start Date",
+  "task_status_placeholder": "Select status",
 
   "task_title": "Task",
 
@@ -332,7 +329,7 @@
   "task_transfer_import_confirm_action_title": "Transfer",
   "task_transfer_source_label": "From:",
   "task_transfer_source_hint": "Select where to transfer from",
-  "task_transfer_title": "Transfer Tasks",
+  "task_transfer_title": "Transfer tasks",
 
   "task_unlink_action_title": "Delete link",
   "task_unlink_dialog_description": "You will not be able to download updates. Changes will not be upload to the source",

@@ -13,7 +13,7 @@ import '../../../views/my_projects/my_projects_view.dart';
 class NoProjects extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final allClosed = mainController.allTasks.isNotEmpty;
+    final allClosed = mainController.projects.isNotEmpty;
     return Center(
       child: ListView(
         shrinkWrap: true,
@@ -23,7 +23,7 @@ class NoProjects extends StatelessWidget {
           const SizedBox(height: P),
           if (allClosed)
             MTButton(
-              leading: H2(loc.project_list_all_title, color: mainColor),
+              leading: H2(loc.project_list_title, color: mainColor),
               middle: H2(loc.are_closed_suffix),
               onTap: () async => await Navigator.of(context).pushNamed(MyProjectsView.routeName),
             )

@@ -54,7 +54,7 @@ extension TaskSaving on Task {
             }
           }
           if (isNew) {
-            mainController.allTasks.add(et);
+            mainController.addTasks([et]);
           } else {
             mainController.setTask(et);
           }
@@ -68,7 +68,7 @@ extension TaskSaving on Task {
           if (parent != null) {
             parent!.tasks.remove(this);
           }
-          mainController.allTasks.remove(this);
+          mainController.removeTask(this);
         }
         return null;
       });

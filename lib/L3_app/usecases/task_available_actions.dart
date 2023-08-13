@@ -39,7 +39,7 @@ extension TaskActionsExt on Task {
   bool get canCreate => _isLocal && !closed && _hpCreate;
   bool get canUpdate => _isLocal && ((isProject && ws.hpProjectUpdate == true) || _hpUpdate);
   bool get canDelete => (isProject && ws.hpProjectDelete == true) || (_isLocal && _hpDelete);
-  bool get canReopen => closed && canUpdate && parent?.closed == false;
+  bool get canReopen => closed && canUpdate && (isProject || parent?.closed == false);
   bool get canClose => canUpdate && !closed;
   bool get canUnlink => isLinkedProject && ws.hpProjectUpdate == true;
   bool get canMembersRead => isProject;

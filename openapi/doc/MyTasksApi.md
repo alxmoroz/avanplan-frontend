@@ -46,7 +46,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **wsId** | **int**|  | 
  **parentId** | **int**|  | [optional] 
- **closed** | **bool**|  | [optional] [default to false]
+ **closed** | **bool**|  | [optional] 
 
 ### Return type
 

@@ -39,7 +39,7 @@ class MyTasksApi {
   Future<Response<BuiltList<TaskGet>>> myTasksV1MyTasksGet({ 
     required int wsId,
     int? parentId,
-    bool? closed = false,
+    bool? closed,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,

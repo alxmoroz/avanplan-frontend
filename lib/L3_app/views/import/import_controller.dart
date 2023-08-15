@@ -13,8 +13,8 @@ import '../../../main.dart';
 import '../../extra/services.dart';
 import '../../usecases/source_ext.dart';
 import '../../usecases/ws_available_actions.dart';
+import '../../usecases/ws_tariff.dart';
 import '../source/source_edit_view.dart';
-import '../tariff/tariff_select_view.dart';
 
 part 'import_controller.g.dart';
 
@@ -129,8 +129,7 @@ abstract class _ImportControllerBase with Store {
       await mainController.fetchTasks();
       await loader.stop();
     } else {
-      await changeTariff(
-        ws,
+      await ws.changeTariff(
         reason: loc.tariff_change_limit_projects_reason_title,
       );
     }

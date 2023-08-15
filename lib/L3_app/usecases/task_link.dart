@@ -9,7 +9,7 @@ import '../components/icons.dart';
 import '../components/mt_alert_dialog.dart';
 import '../extra/services.dart';
 import '../presenters/source_presenter.dart';
-import '../views/tariff/tariff_select_view.dart';
+import '../usecases/ws_tariff.dart';
 import 'task_available_actions.dart';
 
 extension TaskLink on Task {
@@ -56,7 +56,7 @@ extension TaskLink on Task {
         await loader.stop();
       }
     } else {
-      await changeTariff(ws, reason: loc.tariff_change_limit_unlink_reason_title);
+      await ws.changeTariff(reason: loc.tariff_change_limit_unlink_reason_title);
     }
   }
 }

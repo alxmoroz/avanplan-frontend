@@ -10,9 +10,9 @@ import '../../components/navbar.dart';
 import '../../extra/services.dart';
 import '../../presenters/ws_presenter.dart';
 import '../../usecases/ws_available_actions.dart';
+import '../../usecases/ws_tariff.dart';
 import 'tariff_limits.dart';
 import 'tariff_options.dart';
-import 'tariff_select_view.dart';
 
 class ActiveContractView extends StatelessWidget {
   const ActiveContractView(this.ws);
@@ -41,7 +41,7 @@ class ActiveContractView extends StatelessWidget {
                 TariffOptions(tariff),
                 MTButton.main(
                   titleText: loc.tariff_change_action_title,
-                  onTap: () => changeTariff(ws),
+                  onTap: () => ws.changeTariff(),
                 )
               ],
             )

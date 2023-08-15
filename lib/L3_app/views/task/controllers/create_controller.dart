@@ -11,7 +11,7 @@ import '../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_type_presenter.dart';
 import '../../../usecases/ws_available_actions.dart';
-import '../../tariff/tariff_select_view.dart';
+import '../../../usecases/ws_tariff.dart';
 import 'task_controller.dart';
 
 class CreateController {
@@ -53,8 +53,7 @@ class CreateController {
         _parentTaskController!.selectTab(TaskTabKey.subtasks);
       }
     } else {
-      await changeTariff(
-        _ws,
+      await _ws.changeTariff(
         reason: _newProject ? loc.tariff_change_limit_projects_reason_title : loc.tariff_change_limit_tasks_reason_title,
       );
     }

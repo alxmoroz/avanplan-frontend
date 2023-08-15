@@ -2,7 +2,6 @@
 
 import 'dart:math';
 
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
@@ -18,31 +17,10 @@ import '../../components/mt_toolbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
 import '../../presenters/number_presenter.dart';
-import '../../presenters/ws_presenter.dart';
 import '../iap/iap_view.dart';
 import 'request_tariff_card.dart';
 import 'tariff_limits.dart';
 import 'tariff_options.dart';
-
-Future changeTariff(Workspace ws, {String reason = ''}) async {
-  loader.start();
-  loader.setLoading();
-  final tariffs = (await tariffUC.getAll(ws)).sorted((t1, t2) => compareNatural('$t1', '$t2')).sorted((t1, t2) => t1.tier.compareTo(t2.tier));
-  await loader.stop();
-  if (tariffs.isNotEmpty) {
-    final tariff = await showMTDialog<Tariff?>(TariffSelectView(tariffs, ws.id!, description: reason));
-    if (tariff != null) {
-      loader.start();
-      loader.setSaving();
-      final signedContractInvoice = await contractUC.sign(tariff.id!, ws.id!);
-      if (signedContractInvoice != null) {
-        // TODO: тут может менять не только тариф у РП, но и баланс. Нужно вытаскивать с бэка изменённое РП и дергать обсервер
-        ws.invoice = signedContractInvoice;
-      }
-      await loader.stop();
-    }
-  }
-}
 
 class TariffSelectView extends StatelessWidget {
   const TariffSelectView(this.tariffs, this.wsId, {this.description = ''});
@@ -141,13 +119,9 @@ class TariffSelectView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTDialog(
       topBar: MTTopBar(
-        middle: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ws.subPageTitle(loc.tariff_list_title),
-            if (description.isNotEmpty) H3(description, align: TextAlign.center, padding: const EdgeInsets.all(P).copyWith(top: 0)),
-          ],
-        ),
+        middle: description.isNotEmpty
+            ? H3(description, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P3))
+            : MediumText(loc.tariff_list_title),
       ),
       topBarHeight: description.isNotEmpty ? P * 6 : null,
       body: SafeArea(

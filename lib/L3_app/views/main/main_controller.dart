@@ -19,7 +19,7 @@ import '../../extra/services.dart';
 import '../../presenters/number_presenter.dart';
 import '../../presenters/task_filter_presenter.dart';
 import '../../usecases/ws_available_actions.dart';
-import '../tariff/tariff_select_view.dart';
+import '../../usecases/ws_tariff.dart';
 import '../task/task_view.dart';
 
 part 'main_controller.g.dart';
@@ -212,7 +212,7 @@ abstract class _MainControllerBase with Store {
         await accountController.setWelcomeGiftInfoViewed(wsId);
 
         if (wantChangeTariff == true) {
-          await changeTariff(myWS);
+          await myWS.changeTariff();
         }
       }
     }

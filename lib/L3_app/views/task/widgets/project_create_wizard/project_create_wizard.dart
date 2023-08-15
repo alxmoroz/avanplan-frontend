@@ -14,9 +14,9 @@ import '../../../../components/mt_limit_badge.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
 import '../../../../usecases/ws_available_actions.dart';
+import '../../../../usecases/ws_tariff.dart';
 import '../../../import/import_view.dart';
 import '../../../source/source_type_selector.dart';
-import '../../../tariff/tariff_select_view.dart';
 import '../../controllers/create_controller.dart';
 import '../task_create_button.dart';
 import 'project_create_wizard_controller.dart';
@@ -48,8 +48,7 @@ class _ProjectCreateWizardState extends State<ProjectCreateWizard> {
       }
     } else {
       Navigator.of(context).pop();
-      await changeTariff(
-        controller.ws!,
+      await controller.ws?.changeTariff(
         reason: loc.tariff_change_limit_projects_reason_title,
       );
     }

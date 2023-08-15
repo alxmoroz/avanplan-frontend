@@ -16,7 +16,7 @@ import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/role_presenter.dart';
 import '../../../../usecases/ws_available_actions.dart';
-import '../../../tariff/tariff_select_view.dart';
+import '../../../../usecases/ws_tariff.dart';
 import 'member_add_view.dart';
 
 class MemberAddMenu extends StatelessWidget {
@@ -45,7 +45,7 @@ class MemberAddMenu extends StatelessWidget {
                 leading: const MemberAddIcon(color: lightBackgroundColor),
                 titleText: _title,
                 constrained: false,
-                onTap: () => changeTariff(task.ws, reason: loc.tariff_change_limit_users_reason_title),
+                onTap: () => task.ws.changeTariff(reason: loc.tariff_change_limit_users_reason_title),
               ),
               showBadge: true,
             ),

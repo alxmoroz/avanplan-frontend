@@ -63,6 +63,7 @@ doc/TaskSourceGet.md
 doc/TaskSourceUpsert.md
 doc/TaskUpsert.md
 doc/TasksApi.md
+doc/TasksChanges.md
 doc/TasksInvitationsApi.md
 doc/TasksNotesApi.md
 doc/TasksRolesApi.md
@@ -145,6 +146,7 @@ lib/src/model/task_source.dart
 lib/src/model/task_source_get.dart
 lib/src/model/task_source_upsert.dart
 lib/src/model/task_upsert.dart
+lib/src/model/tasks_changes.dart
 lib/src/model/u_activity_get.dart
 lib/src/model/user.dart
 lib/src/model/validation_error.dart
@@ -213,6 +215,7 @@ test/task_source_test.dart
 test/task_source_upsert_test.dart
 test/task_upsert_test.dart
 test/tasks_api_test.dart
+test/tasks_changes_test.dart
 test/tasks_invitations_api_test.dart
 test/tasks_notes_api_test.dart
 test/tasks_roles_api_test.dart

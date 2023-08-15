@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 
 # **deleteV1TasksTaskIdDelete**
-> bool deleteV1TasksTaskIdDelete(taskId, wsId, permissionTaskId)
+> TasksChanges deleteV1TasksTaskIdDelete(taskId, wsId, permissionTaskId)
 
 Delete
 
@@ -51,7 +51,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**bool**
+[**TasksChanges**](TasksChanges.md)
 
 ### Authorization
 
@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **taskUpsertV1TasksPost**
-> TaskGet taskUpsertV1TasksPost(wsId, taskUpsert, permissionTaskId)
+> TasksChanges taskUpsertV1TasksPost(wsId, taskUpsert, permissionTaskId)
 
 Task Upsert
 
@@ -102,7 +102,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TaskGet**](TaskGet.md)
+[**TasksChanges**](TasksChanges.md)
 
 ### Authorization
 

@@ -74,6 +74,7 @@ export 'package:openapi/src/model/task_source.dart';
 export 'package:openapi/src/model/task_source_get.dart';
 export 'package:openapi/src/model/task_source_upsert.dart';
 export 'package:openapi/src/model/task_upsert.dart';
+export 'package:openapi/src/model/tasks_changes.dart';
 export 'package:openapi/src/model/u_activity_get.dart';
 export 'package:openapi/src/model/user.dart';
 export 'package:openapi/src/model/validation_error.dart';

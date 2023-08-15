@@ -150,6 +150,7 @@ Class | Method | HTTP request | Description
  - [TaskSourceGet](doc/TaskSourceGet.md)
  - [TaskSourceUpsert](doc/TaskSourceUpsert.md)
  - [TaskUpsert](doc/TaskUpsert.md)
+ - [TasksChanges](doc/TasksChanges.md)
  - [UActivityGet](doc/UActivityGet.md)
  - [User](doc/User.md)
  - [ValidationError](doc/ValidationError.md)

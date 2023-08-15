@@ -60,6 +60,7 @@ import 'package:openapi/src/model/task_source.dart';
 import 'package:openapi/src/model/task_source_get.dart';
 import 'package:openapi/src/model/task_source_upsert.dart';
 import 'package:openapi/src/model/task_upsert.dart';
+import 'package:openapi/src/model/tasks_changes.dart';
 import 'package:openapi/src/model/u_activity_get.dart';
 import 'package:openapi/src/model/user.dart';
 import 'package:openapi/src/model/validation_error.dart';
@@ -115,6 +116,7 @@ part 'serializers.g.dart';
   TaskSourceGet,
   TaskSourceUpsert,
   TaskUpsert,
+  TasksChanges,
   UActivityGet,
   User,
   ValidationError,

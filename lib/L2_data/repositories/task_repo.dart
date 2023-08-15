@@ -30,24 +30,28 @@ class TaskRepo extends AbstractApiRepo<Task> {
       ..dueDate = data.dueDate?.toUtc()
       ..type = data.type;
 
-    final et = (await api.taskUpsertV1TasksPost(
+    final changes = (await api.taskUpsertV1TasksPost(
       taskUpsert: qBuilder.build(),
       wsId: data.ws.id!,
       permissionTaskId: data.project?.id,
     ))
-        .data
-        ?.task(data.ws, parent: data.parent);
+        .data;
+
+    final et = changes?.updatedTask.task(data.ws, parent: data.parent);
+    final affected = changes?.affectedTasks.map((t) => t.task(data.ws));
 
     return et;
   }
 
   @override
   Future<bool> delete(Task data) async {
-    final response = await api.deleteV1TasksTaskIdDelete(
+    final changes = (await api.deleteV1TasksTaskIdDelete(
       taskId: data.id!,
       wsId: data.ws.id!,
       permissionTaskId: data.project?.id,
-    );
-    return response.data == true;
+    ))
+        .data;
+    final affected = changes?.affectedTasks.map((t) => t.task(data.ws));
+    return changes != null;
   }
 }

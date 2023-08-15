@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/system/errors.dart';
+import '../../L1_domain/usecases/task_comparators.dart';
 import '../../L2_data/services/api.dart';
 import '../../main.dart';
 import '../extra/services.dart';
@@ -25,41 +26,47 @@ extension TaskSaving on Task {
     return et;
   }
 
-  Future<Task?> save() async => await _edit(() async {
-        final et = await taskUC.save(this);
-        if (et != null) {
-          // вложенности
-          if (et.tasks.isEmpty) {
-            et.tasks = tasks;
-          }
-          if (et.members.isEmpty) {
-            et.members = members;
-          }
-          if (et.projectStatuses.isEmpty) {
-            et.projectStatuses = projectStatuses;
-          }
-          if (et.notes.isEmpty) {
-            et.notes = notes;
-          }
+  Task _update(Task? et) {
+    if (et != null) {
+      // вложенности
+      if (et.tasks.isEmpty) {
+        et.tasks = tasks;
+      }
+      if (et.members.isEmpty) {
+        et.members = members;
+      }
+      if (et.projectStatuses.isEmpty) {
+        et.projectStatuses = projectStatuses;
+      }
+      if (et.notes.isEmpty) {
+        et.notes = notes;
+      }
 
-          // структура
-          if (parent != null) {
-            if (isNew) {
-              parent!.tasks.add(et);
-            } else {
-              final index = parent!.tasks.indexWhere((t) => et.ws.id == t.ws.id && et.id == t.id);
-              if (index > -1) {
-                parent!.tasks[index] = et;
-              }
-            }
-          }
-          if (isNew) {
-            mainController.addTasks([et]);
-          } else {
-            mainController.setTask(et);
+      // структура
+      if (parent != null) {
+        if (isNew) {
+          parent!.tasks.add(et);
+        } else {
+          final index = parent!.tasks.indexWhere((t) => et.ws.id == t.ws.id && et.id == t.id);
+          if (index > -1) {
+            parent!.tasks[index] = et;
           }
         }
-        return et;
+        parent!.tasks.sort(sortByDateAsc);
+      }
+      if (isNew) {
+        mainController.addTasks([et]);
+      } else {
+        mainController.setTask(et);
+      }
+      return et;
+    }
+    return this;
+  }
+
+  Future<Task?> save() async => await _edit(() async {
+        final et = await taskUC.save(this);
+        return _update(et);
       });
 
   Future delete() async => await _edit(() async {

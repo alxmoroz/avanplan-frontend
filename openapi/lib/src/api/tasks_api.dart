@@ -9,8 +9,8 @@ import 'package:dio/dio.dart';
 
 import 'package:openapi/src/api_util.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
-import 'package:openapi/src/model/task_get.dart';
 import 'package:openapi/src/model/task_upsert.dart';
+import 'package:openapi/src/model/tasks_changes.dart';
 
 class TasksApi {
 
@@ -34,9 +34,9 @@ class TasksApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [bool] as data
+  /// Returns a [Future] containing a [Response] with a [TasksChanges] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<bool>> deleteV1TasksTaskIdDelete({ 
+  Future<Response<TasksChanges>> deleteV1TasksTaskIdDelete({ 
     required int taskId,
     required int wsId,
     int? permissionTaskId,
@@ -84,11 +84,14 @@ class TasksApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    bool? _responseData;
+    TasksChanges? _responseData;
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : rawResponse as bool;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(TasksChanges),
+      ) as TasksChanges;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -100,7 +103,7 @@ class TasksApi {
       );
     }
 
-    return Response<bool>(
+    return Response<TasksChanges>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,
@@ -126,9 +129,9 @@ class TasksApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [TaskGet] as data
+  /// Returns a [Future] containing a [Response] with a [TasksChanges] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<TaskGet>> taskUpsertV1TasksPost({ 
+  Future<Response<TasksChanges>> taskUpsertV1TasksPost({ 
     required int wsId,
     required TaskUpsert taskUpsert,
     int? permissionTaskId,
@@ -197,14 +200,14 @@ class TasksApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    TaskGet? _responseData;
+    TasksChanges? _responseData;
 
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : _serializers.deserialize(
         rawResponse,
-        specifiedType: const FullType(TaskGet),
-      ) as TaskGet;
+        specifiedType: const FullType(TasksChanges),
+      ) as TasksChanges;
 
     } catch (error, stackTrace) {
       throw DioError(
@@ -216,7 +219,7 @@ class TasksApi {
       );
     }
 
-    return Response<TaskGet>(
+    return Response<TasksChanges>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

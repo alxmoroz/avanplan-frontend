@@ -25,7 +25,7 @@ extension NoteSaving on Note {
   }
 
   Future<Note?> save(Task task) async => await _edit(task, () async {
-        final en = await noteUC.save(task.ws, this);
+        final en = await noteUC.save(this);
         if (en != null) {
           // TODO: вложенности
           // if (en.notes.isEmpty) {
@@ -57,7 +57,7 @@ extension NoteSaving on Note {
       });
 
   Future delete(Task task) async => await _edit(task, () async {
-        if (await noteUC.delete(task.ws, this)) {
+        if (await noteUC.delete(this)) {
           task.notes.remove(this);
         }
         return null;

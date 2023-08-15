@@ -3,17 +3,16 @@
 import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/entities/workspace.dart';
 import '../../L1_domain/entities_extensions/task_tree.dart';
-import '../../L1_domain/repositories/abs_ws_repo.dart';
+import '../../L1_domain/repositories/abs_api_repo.dart';
 import '../mappers/task.dart';
 import '../services/api.dart';
 
-class TaskRepo extends AbstractWSRepo<Task> {
+class TaskRepo extends AbstractApiRepo<Task> {
   o_api.TasksApi get api => openAPI.getTasksApi();
 
   @override
-  Future<Task?> save(Workspace ws, Task data) async {
+  Future<Task?> save(Task data) async {
     final qBuilder = o_api.TaskUpsertBuilder()
       ..id = data.id
       ..createdOn = data.createdOn?.toUtc()
@@ -33,20 +32,20 @@ class TaskRepo extends AbstractWSRepo<Task> {
 
     final et = (await api.taskUpsertV1TasksPost(
       taskUpsert: qBuilder.build(),
-      wsId: ws.id!,
+      wsId: data.ws.id!,
       permissionTaskId: data.project?.id,
     ))
         .data
-        ?.task(ws: ws, parent: data.parent);
+        ?.task(data.ws, parent: data.parent);
 
     return et;
   }
 
   @override
-  Future<bool> delete(Workspace ws, Task data) async {
+  Future<bool> delete(Task data) async {
     final response = await api.deleteV1TasksTaskIdDelete(
       taskId: data.id!,
-      wsId: ws.id!,
+      wsId: data.ws.id!,
       permissionTaskId: data.project?.id,
     );
     return response.data == true;

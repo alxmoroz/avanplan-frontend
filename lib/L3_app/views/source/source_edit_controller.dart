@@ -72,17 +72,15 @@ abstract class _SourceEditControllerBase extends EditController with Store {
   Future save() async {
     loader.start();
     loader.setSaving();
-    final editedSource = await sourceUC.save(
-        ws,
-        Source(
-          id: source?.id,
-          url: fData(SourceFCode.url.index).text,
-          apiKey: fData(SourceFCode.apiKey.index).text,
-          username: fData(SourceFCode.username.index).text,
-          // password: tfAnnoForCode(SourceFCode.password.index).text,
-          description: fData(SourceFCode.description.index).text,
-          typeCode: selectedType!.code,
-        ));
+    final editedSource = await sourceUC.save(Source(
+      id: source?.id,
+      url: fData(SourceFCode.url.index).text,
+      apiKey: fData(SourceFCode.apiKey.index).text,
+      username: fData(SourceFCode.username.index).text,
+      // password: tfAnnoForCode(SourceFCode.password.index).text,
+      description: fData(SourceFCode.description.index).text,
+      typeCode: selectedType!.code, ws: ws,
+    ));
 
     if (editedSource != null) {
       Navigator.of(rootKey.currentContext!).pop(editedSource);
@@ -104,7 +102,7 @@ abstract class _SourceEditControllerBase extends EditController with Store {
       if (confirm == true) {
         loader.start();
         loader.setDeleting();
-        Navigator.of(context).pop(await sourceUC.delete(ws, source!));
+        Navigator.of(context).pop(await sourceUC.delete(source!));
 
         // отвязываем задачи
         mainController.projects.where((p) => p.taskSource?.sourceId == source!.id).forEach((p) => p.unlinkTaskTree());

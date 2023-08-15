@@ -26,7 +26,7 @@ extension TaskSaving on Task {
   }
 
   Future<Task?> save() async => await _edit(() async {
-        final et = await taskUC.save(ws, this);
+        final et = await taskUC.save(this);
         if (et != null) {
           // вложенности
           if (et.tasks.isEmpty) {
@@ -64,7 +64,7 @@ extension TaskSaving on Task {
 
   Future delete() async => await _edit(() async {
         Navigator.of(rootKey.currentContext!).pop();
-        if (await taskUC.delete(ws, this)) {
+        if (await taskUC.delete(this)) {
           if (parent != null) {
             parent!.tasks.remove(this);
           }

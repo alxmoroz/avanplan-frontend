@@ -43,7 +43,7 @@ class StatusController {
           for (var t in _task.tasks.where((t) => t.closed != close)) {
             t.statusId = _task.statusId;
             t.setClosed(close);
-            await taskUC.save(task.ws, t);
+            await taskUC.save(t);
           }
         } else {
           return;

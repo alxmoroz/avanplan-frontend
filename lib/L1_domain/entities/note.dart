@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'base_entity.dart';
+import 'workspace.dart';
 
 class Note extends RPersistable {
   Note({
@@ -8,6 +9,7 @@ class Note extends RPersistable {
     required this.text,
     required this.authorId,
     required this.taskId,
+    required this.ws,
     this.parent,
     this.type,
     this.createdOn,
@@ -21,4 +23,5 @@ class Note extends RPersistable {
   String? type;
   final DateTime? createdOn;
   final DateTime? updatedOn;
+  final Workspace ws;
 }

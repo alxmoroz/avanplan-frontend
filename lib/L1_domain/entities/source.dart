@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'base_entity.dart';
+import 'workspace.dart';
 
 enum SrcState {
   connected,
@@ -14,6 +15,7 @@ class Source extends RPersistable {
     super.id,
     required this.typeCode,
     required this.url,
+    required this.ws,
     this.apiKey,
     this.username,
     this.password,
@@ -27,6 +29,7 @@ class Source extends RPersistable {
   final String? username;
   final String? password;
   final String description;
+  final Workspace ws;
   SrcState state;
 
   @override

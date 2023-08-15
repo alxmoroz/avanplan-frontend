@@ -52,7 +52,7 @@ Future<Source?> editSource(Workspace ws, {Source? src, SourceType? sType}) async
   if (s != null) {
     ws.updateSourceInList(s);
     if (!s.removed) {
-      await s.checkConnection(ws);
+      await s.checkConnection();
     }
     mainController.touchWorkspaces();
   }

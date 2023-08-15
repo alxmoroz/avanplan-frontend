@@ -4,7 +4,6 @@ import 'package:openapi/openapi.dart';
 
 import '../../L1_domain/entities/source.dart';
 import '../../L1_domain/entities/source_type.dart';
-import '../../L1_domain/entities/workspace.dart';
 import '../../L1_domain/repositories/abs_source_repo.dart';
 import '../mappers/source.dart';
 import '../services/api.dart';
@@ -13,7 +12,7 @@ class SourceRepo extends AbstractSourceRepo {
   IntegrationsSourcesApi get api => openAPI.getIntegrationsSourcesApi();
 
   @override
-  Future<Source?> save(Workspace ws, Source data) async {
+  Future<Source?> save(Source data) async {
     final builder = SourceUpsertBuilder()
       ..id = data.id
       ..type = data.typeCode
@@ -23,19 +22,19 @@ class SourceRepo extends AbstractSourceRepo {
       ..password = data.password
       ..description = data.description;
 
-    final response = await api.sourcesUpsert(sourceUpsert: builder.build(), wsId: ws.id!);
-    return response.data?.source;
+    final response = await api.sourcesUpsert(sourceUpsert: builder.build(), wsId: data.ws.id!);
+    return response.data?.source(data.ws);
   }
 
   @override
-  Future<bool> delete(Workspace ws, Source data) async {
-    final response = await api.sourcesDelete(sourceId: data.id!, wsId: ws.id!);
+  Future<bool> delete(Source data) async {
+    final response = await api.sourcesDelete(sourceId: data.id!, wsId: data.ws.id!);
     return response.data == true;
   }
 
   @override
-  Future<bool> checkConnection(Workspace ws, Source s) async {
-    final response = await api.sourcesCheckConnection(sourceId: s.id!, wsId: ws.id!);
+  Future<bool> checkConnection(Source s) async {
+    final response = await api.sourcesCheckConnection(sourceId: s.id!, wsId: s.ws.id!);
     return response.data == true;
   }
 

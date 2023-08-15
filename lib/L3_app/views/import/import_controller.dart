@@ -97,7 +97,7 @@ abstract class _ImportControllerBase with Store {
       bool connected = selectedSource?.state == SrcState.connected;
       if (!connected) {
         loader.setCheckConnection(loaderDescription);
-        connected = await selectedSource!.checkConnection(ws);
+        connected = await selectedSource!.checkConnection();
       }
       if (connected) {
         loader.setSourceListing(loaderDescription);

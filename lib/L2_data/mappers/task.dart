@@ -12,7 +12,7 @@ import 'project_status.dart';
 import 'task_source.dart';
 
 extension TaskMapper on api.TaskGet {
-  Task task({required Workspace ws, Task? parent}) {
+  Task task(Workspace ws, {Task? parent}) {
     final ts = taskSource?.taskSource;
     String _title = title?.trim() ?? '';
     if (type != null && type?.toLowerCase() == 'backlog') {
@@ -33,7 +33,7 @@ extension TaskMapper on api.TaskGet {
       statusId: statusId,
       estimate: estimate,
       tasks: [],
-      notes: notes?.map((n) => n.note).toList() ?? [],
+      notes: notes?.map((n) => n.note(ws)).toList() ?? [],
       authorId: authorId,
       assigneeId: assigneeId,
       members: members?.map((m) => m.member(id)).toList() ?? [],
@@ -50,7 +50,7 @@ extension TaskMapper on api.TaskGet {
       closedVolume: closedVolume,
       closedSubtasksCount: closedSubtasksCount,
     );
-    _t.tasks = tasks?.map((t) => t.task(ws: ws, parent: _t)).toList() ?? [];
+    _t.tasks = tasks?.map((t) => t.task(ws, parent: _t)).toList() ?? [];
     return _t;
   }
 }

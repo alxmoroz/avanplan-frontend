@@ -14,7 +14,7 @@ import 'w_settings.dart';
 
 extension WorkspaceMapper on api.WorkspaceGet {
   Workspace get workspace {
-    return Workspace(
+    final ws = Workspace(
       id: id,
       code: code,
       title: title?.trim() ?? '',
@@ -25,10 +25,12 @@ extension WorkspaceMapper on api.WorkspaceGet {
       invoice: invoice!.invoice,
       settings: settings?.settings,
       estimateValues: estimateValues?.map((ev) => ev.estimateValue(id)).toList() ?? [],
-      sources: sources?.map((s) => s.source).toList() ?? [],
       statuses: statuses?.map((st) => st.status).toList() ?? [],
       mainAccount: mainAccount!.account,
       tasksCount: tasksCount ?? 0,
+      sources: [],
     );
+    ws.sources = sources?.map((s) => s.source(ws)).toList() ?? [];
+    return ws;
   }
 }

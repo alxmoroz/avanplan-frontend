@@ -1,16 +1,15 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import '../entities/task.dart';
-import '../entities/workspace.dart';
-import '../repositories/abs_ws_repo.dart';
+import '../repositories/abs_api_repo.dart';
 
 //TODO: похоже, есть смысл сделать абстрактный общий юзкейс
 
 class TaskUC {
   TaskUC(this.repo);
 
-  final AbstractWSRepo<Task> repo;
+  final AbstractApiRepo<Task> repo;
 
-  Future<Task?> save(Workspace ws, Task t) async => await repo.save(ws, t);
-  Future<bool> delete(Workspace ws, Task t) async => await repo.delete(ws, t);
+  Future<Task?> save(Task t) async => await repo.save(t);
+  Future<bool> delete(Task t) async => await repo.delete(t);
 }

@@ -42,7 +42,7 @@ class MyRepo extends AbstractMyRepo {
   @override
   Future<Iterable<Task>> getTasks(Workspace ws, {Task? parent, bool? closed}) async {
     final response = await _tasksApi.myTasksV1MyTasksGet(wsId: ws.id!, parentId: parent?.id, closed: closed);
-    return response.data?.map((t) => t.task(ws: ws, parent: parent)) ?? [];
+    return response.data?.map((t) => t.task(ws, parent: parent)) ?? [];
   }
 
   @override

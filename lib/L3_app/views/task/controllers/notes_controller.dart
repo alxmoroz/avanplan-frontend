@@ -64,7 +64,7 @@ abstract class _NotesControllerBase with Store {
     }
   }
 
-  Future create() async => await edit(Note(text: '', authorId: task.me?.id, taskId: task.id));
+  Future create() async => await edit(Note(text: '', authorId: task.me?.id, taskId: task.id, ws: task.ws));
 
   Future delete(Note note) async {
     await note.delete(task);

@@ -8,14 +8,6 @@ import '../components/constants.dart';
 import '../components/text_widgets.dart';
 import '../extra/services.dart';
 
-String grandchildrenCount(int count, String type) =>
-    {
-      TType.ROOT: loc.goal_count(count),
-      TType.PROJECT: loc.task_count(count),
-      TType.GOAL: loc.subtask_count(count),
-    }[type] ??
-    loc.subtask_count(count);
-
 String newSubtaskTitle(String type) =>
     {
       TType.ROOT: loc.project_new_title,

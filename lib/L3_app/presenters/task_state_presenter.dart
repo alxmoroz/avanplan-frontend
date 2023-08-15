@@ -81,7 +81,7 @@ Widget stateIconGroup(TaskState state) => SizedBox(
       ),
     );
 
-String groupStateTitle(TaskState groupState, String type) {
+String groupStateTitle(TaskState groupState) {
   switch (groupState) {
     case TaskState.OVERDUE:
       return loc.state_overdue_title;
@@ -95,18 +95,13 @@ String groupStateTitle(TaskState groupState, String type) {
       return loc.state_eta_title;
     case TaskState.CLOSABLE:
       return loc.state_closable_title;
-    case TaskState.NO_SUBTASKS:
-      return grandchildrenCount(0, type);
-    case TaskState.NO_PROGRESS:
-      return loc.state_no_progress_details;
     case TaskState.CLOSED:
       return loc.state_closed;
     case TaskState.FUTURE_START:
-      return loc.state_future_title;
-    case TaskState.OPENED:
-      return loc.state_opened;
     case TaskState.NO_INFO:
     case TaskState.LOW_START:
+    case TaskState.NO_SUBTASKS:
+    case TaskState.NO_PROGRESS:
       return loc.state_no_info_title;
     case TaskState.TODAY:
       return loc.my_tasks_today_title;
@@ -130,6 +125,25 @@ extension TaskStatePresenter on Task {
 
   String get _etaDetails => '${loc.state_eta_duration(etaPeriod!.localizedString)}';
 
+  String get _lowStartDetails => loc.state_low_start_duration(serviceSettingsController.lowStartThreshold.localizedString);
+  String get _noProgressDetails => loc.state_no_progress_details;
+
+  String get _subtasksStateTitle {
+    final count = subtaskGroups.isNotEmpty ? subtaskGroups.first.value.length : 0;
+    switch (subtasksState) {
+      case TaskState.OVERDUE:
+        return '${loc.state_overdue_title}${_subjects(count)}';
+      case TaskState.RISK:
+        return '${loc.state_risk_title}${_subjects(count)}';
+      case TaskState.OK:
+        return '${loc.state_on_time_title}${_subjects(count)}';
+      case TaskState.ETA:
+        return _etaDetails;
+      default:
+        return loc.state_no_info_title;
+    }
+  }
+
   String get stateTitle {
     switch (state) {
       case TaskState.OVERDUE:
@@ -147,47 +161,22 @@ extension TaskStatePresenter on Task {
       case TaskState.NO_SUBTASKS:
         return loc.task_count(0);
       case TaskState.NO_PROGRESS:
-        return loc.state_no_progress_details;
+        return _noProgressDetails;
       case TaskState.FUTURE_START:
         return loc.state_future_start_duration(beforeStartPeriod.localizedString);
-      case TaskState.OPENED:
-        return loc.state_opened;
       case TaskState.LOW_START:
-        return loc.state_low_start_duration(serviceSettingsController.lowStartThreshold.localizedString);
+        return _lowStartDetails;
       case TaskState.NO_INFO:
-        return loc.state_no_info_title;
+        return project!.state == TaskState.NO_PROGRESS
+            ? _noProgressDetails
+            : project!.state == TaskState.LOW_START
+                ? _lowStartDetails
+                : _subtasksStateTitle;
       case TaskState.CLOSED:
         return loc.state_closed;
       default:
         return loc.state_no_info_title;
     }
-  }
-
-  String get subtasksStateTitle {
-    final count = subtaskGroups.isNotEmpty ? subtaskGroups.first.value.length : 0;
-    switch (subtasksState) {
-      case TaskState.OVERDUE:
-        return '${loc.state_overdue_title}${_subjects(count)}';
-      case TaskState.RISK:
-        return '${loc.state_risk_title}${_subjects(count)}';
-      case TaskState.OK:
-        return '${loc.state_on_time_title}${_subjects(count)}';
-      case TaskState.ETA:
-        return _etaDetails;
-      default:
-        return '${loc.state_no_info_title}${_subjects(openedSubtasks.length)}';
-    }
-  }
-
-  String get overallStateTitle {
-    final st = state;
-    final stTitle = stateTitle;
-
-    return ![TaskState.NO_INFO].contains(st)
-        ? stTitle
-        : subtasksState != TaskState.NO_INFO
-            ? subtasksStateTitle
-            : stTitle;
   }
 
   bool get canShowState => !closed && !isLeaf;

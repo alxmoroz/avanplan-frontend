@@ -218,7 +218,7 @@
   "state_eta_title": "Есть прогноз",
   "state_future_start_duration": "Приступим через {duration}",
   "state_future_title": "Скоро начнём",
-  "state_low_start_duration": "Прошло менее {duration} со старта",
+  "state_low_start_duration": "Прошло менее {duration} со старта проекта",
   "state_low_start_before_calc_duration": "Прогноз и скорость покажем через {duration}",
   "state_no_info_title": "Нет прогноза",
   "state_no_projects_action_title": "Начать работу",

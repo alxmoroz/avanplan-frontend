@@ -70,7 +70,6 @@ class TasksPane extends StatelessWidget {
           ? TasksBoard(controller.statusController)
           : TasksListView(
               _task.subtaskGroups,
-              _task.type,
               extra: controller.subtasksController.loadClosedButton,
             ),
     );

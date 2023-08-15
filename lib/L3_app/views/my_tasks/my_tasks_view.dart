@@ -3,7 +3,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../L1_domain/entities/task.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
@@ -24,7 +23,6 @@ class MyTasksView extends StatelessWidget {
           bottom: false,
           child: TasksListView(
             mainController.myTasksGroups,
-            TType.ROOT,
             filters: const {TasksFilter.my},
           ),
         ),

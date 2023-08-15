@@ -3,7 +3,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../L1_domain/entities/task.dart';
 import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
@@ -23,7 +22,7 @@ class MyProjectsView extends StatelessWidget {
         body: SafeArea(
           top: false,
           bottom: false,
-          child: TasksListView(mainController.projectsGroups, TType.ROOT),
+          child: TasksListView(mainController.projectsGroups),
         ),
         bottomBar: const Row(children: [
           Spacer(),

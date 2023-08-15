@@ -38,15 +38,14 @@ class _StateTitle extends StatelessWidget {
 }
 
 class GroupStateTitle extends StatelessWidget {
-  const GroupStateTitle(this.parentType, this.groupState, {this.place});
-  final String parentType;
+  const GroupStateTitle(this.groupState, {this.place});
   final TaskState groupState;
   final StateTitlePlace? place;
 
   @override
   Widget build(BuildContext context) => Padding(
         padding: (place == StateTitlePlace.groupHeader ? const EdgeInsets.symmetric(horizontal: P).copyWith(top: P) : EdgeInsets.zero),
-        child: _StateTitle(groupState, groupStateTitle(groupState, parentType), place: place),
+        child: _StateTitle(groupState, groupStateTitle(groupState), place: place),
       );
 }
 
@@ -57,9 +56,6 @@ class TaskStateTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final state = place == StateTitlePlace.taskOverview ? task.state : task.overallState;
-    final state = task.state;
-    final text = place == StateTitlePlace.taskOverview ? task.stateTitle : task.overallStateTitle;
-    return _StateTitle(state, text, place: place);
+    return _StateTitle(task.state, task.stateTitle, place: place);
   }
 }

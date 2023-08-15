@@ -14,9 +14,8 @@ import 'state_title.dart';
 import 'tasks_group.dart';
 
 class TasksListView extends StatelessWidget {
-  const TasksListView(this.groups, this.parentType, {this.filters, this.extra});
+  const TasksListView(this.groups, {this.filters, this.extra});
   final List<MapEntry<TaskState, List<Task>>> groups;
-  final String parentType;
   final Set<TasksFilter>? filters;
   final Widget? extra;
 
@@ -34,7 +33,7 @@ class TasksListView extends StatelessWidget {
       final groupBorder = !_showGroupTitles && groupIndex < groups.length - 1;
       return Column(
         children: [
-          if (_showGroupTitles) GroupStateTitle(parentType, state, place: StateTitlePlace.groupHeader),
+          if (_showGroupTitles) GroupStateTitle(state, place: StateTitlePlace.groupHeader),
           TasksGroup(tasks, isMine: _isMyTasks, groupBorder: groupBorder, standalone: false),
         ],
       );

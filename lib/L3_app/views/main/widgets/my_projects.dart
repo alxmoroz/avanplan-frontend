@@ -3,7 +3,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../L1_domain/entities/task.dart';
 import '../../../../main.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
@@ -28,7 +27,7 @@ class MyProjects extends StatelessWidget {
             NormalText(loc.project_list_title, align: TextAlign.center, color: greyColor),
             const SizedBox(height: P),
             compact ? Expanded(child: imageForState(mainController.projectsState)) : imageForState(mainController.projectsState),
-            H2(groupStateTitle(mainController.projectsState, TType.ROOT), align: TextAlign.center, color: darkTextColor),
+            H2(groupStateTitle(mainController.projectsState), align: TextAlign.center, color: darkTextColor),
             const SizedBox(height: P),
           ],
         ),

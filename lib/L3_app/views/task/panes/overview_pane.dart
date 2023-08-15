@@ -148,7 +148,7 @@ class OverviewPane extends StatelessWidget {
             const SizedBox(height: P2),
             MTAdaptive(
               force: true,
-              child: GroupStateTitle(_task.type, _task.subtasksState, place: StateTitlePlace.groupHeader),
+              child: GroupStateTitle(_task.subtasksState, place: StateTitlePlace.groupHeader),
             ),
             MTAdaptive(
               force: true,

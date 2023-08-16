@@ -21,7 +21,5 @@ class Account extends RPersistable {
     required this.incomingOperations,
   });
 
-  static Account get dummy => Account(id: null, incomingOperations: []);
-
   final Iterable<AccountOperation> incomingOperations;
 }

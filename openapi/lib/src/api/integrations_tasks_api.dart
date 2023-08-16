@@ -12,7 +12,6 @@ import 'package:openapi/src/api_util.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/task_remote.dart';
 import 'package:openapi/src/model/task_source.dart';
-import 'package:openapi/src/model/task_source_upsert.dart';
 
 class IntegrationsTasksApi {
 
@@ -228,13 +227,12 @@ class IntegrationsTasksApi {
     );
   }
 
-  /// Unlink Task Sources
+  /// Unlink
   /// 
   ///
   /// Parameters:
+  /// * [taskId] 
   /// * [wsId] 
-  /// * [sourceId] 
-  /// * [taskSourceUpsert] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -244,10 +242,9 @@ class IntegrationsTasksApi {
   ///
   /// Returns a [Future] containing a [Response] with a [bool] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<bool>> unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost({ 
+  Future<Response<bool>> unlinkV1IntegrationsTasksUnlinkPost({ 
+    required int taskId,
     required int wsId,
-    required int sourceId,
-    required BuiltList<TaskSourceUpsert> taskSourceUpsert,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -255,7 +252,7 @@ class IntegrationsTasksApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/integrations/tasks/unlink_task_sources';
+    final _path = r'/v1/integrations/tasks/unlink';
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -275,37 +272,16 @@ class IntegrationsTasksApi {
         ],
         ...?extra,
       },
-      contentType: 'application/json',
       validateStatus: validateStatus,
     );
 
     final _queryParameters = <String, dynamic>{
+      r'task_id': encodeQueryParameter(_serializers, taskId, const FullType(int)),
       r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
-      r'source_id': encodeQueryParameter(_serializers, sourceId, const FullType(int)),
     };
-
-    dynamic _bodyData;
-
-    try {
-      const _type = FullType(BuiltList, [FullType(TaskSourceUpsert)]);
-      _bodyData = _serializers.serialize(taskSourceUpsert, specifiedType: _type);
-
-    } catch(error, stackTrace) {
-      throw DioError(
-         requestOptions: _options.compose(
-          _dio.options,
-          _path,
-          queryParameters: _queryParameters,
-        ),
-        type: DioErrorType.unknown,
-        error: error,
-        stackTrace: stackTrace,
-      );
-    }
 
     final _response = await _dio.request<Object>(
       _path,
-      data: _bodyData,
       options: _options,
       queryParameters: _queryParameters,
       cancelToken: cancelToken,

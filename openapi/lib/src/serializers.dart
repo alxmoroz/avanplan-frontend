@@ -58,7 +58,6 @@ import 'package:openapi/src/model/task_get.dart';
 import 'package:openapi/src/model/task_remote.dart';
 import 'package:openapi/src/model/task_source.dart';
 import 'package:openapi/src/model/task_source_get.dart';
-import 'package:openapi/src/model/task_source_upsert.dart';
 import 'package:openapi/src/model/task_upsert.dart';
 import 'package:openapi/src/model/tasks_changes.dart';
 import 'package:openapi/src/model/u_activity_get.dart';
@@ -114,7 +113,6 @@ part 'serializers.g.dart';
   TaskRemote,
   TaskSource,
   TaskSourceGet,
-  TaskSourceUpsert,
   TaskUpsert,
   TasksChanges,
   UActivityGet,
@@ -151,10 +149,6 @@ Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(MemberGet)]),
         () => ListBuilder<MemberGet>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(TaskSourceUpsert)]),
-        () => ListBuilder<TaskSourceUpsert>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(InvitationGet)]),

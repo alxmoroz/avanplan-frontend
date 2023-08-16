@@ -15,7 +15,7 @@ class ImportRepo extends AbstractImportRepo {
   o_api.IntegrationsTasksApi get api => openAPI.getIntegrationsTasksApi();
 
   @override
-  Future<List<TaskRemote>> getRootTaskSources(Workspace ws, Source source) async {
+  Future<List<TaskRemote>> getRootTasks(Workspace ws, Source source) async {
     final response = await api.rootTasksV1IntegrationsTasksGet(sourceId: source.id!, wsId: ws.id!);
     return response.data?.map((t) => t.taskImport).toList() ?? [];
   }
@@ -37,25 +37,11 @@ class ImportRepo extends AbstractImportRepo {
   }
 
   @override
-  Future<bool> unlinkTaskSources(Workspace ws, int taskId, Iterable<TaskSource> tss) async {
-    if (tss.isNotEmpty) {
-      final tSchema = tss.map((ts) => (o_api.TaskSourceUpsertBuilder()
-            ..id = ts.id
-            ..sourceId = ts.sourceId
-            ..code = ts.code
-            ..rootCode = ts.rootCode
-            ..keepConnection = ts.keepConnection
-            ..updatedOn = ts.updatedOn
-            ..url = ts.urlString)
-          .build());
-
-      final resp = await api.unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost(
-        wsId: ws.id!,
-        sourceId: tss.first.sourceId,
-        taskSourceUpsert: BuiltList.from(tSchema),
-      );
-      return resp.data == true;
-    }
-    return false;
+  Future<bool> unlinkProject(Task project) async {
+    final resp = await api.unlinkV1IntegrationsTasksUnlinkPost(
+      wsId: project.ws.id!,
+      taskId: project.id!,
+    );
+    return resp.data == true;
   }
 }

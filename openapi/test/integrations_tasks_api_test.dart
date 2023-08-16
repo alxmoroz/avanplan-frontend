@@ -20,11 +20,10 @@ void main() {
       // TODO
     });
 
-    // Unlink Task Sources
+    // Unlink
     //
-    //Future<bool> unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost(int wsId, int sourceId, BuiltList<TaskSourceUpsert> taskSourceUpsert) async
-    test('test unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost',
-        () async {
+    //Future<bool> unlinkV1IntegrationsTasksUnlinkPost(int taskId, int wsId) async
+    test('test unlinkV1IntegrationsTasksUnlinkPost', () async {
       // TODO
     });
   });

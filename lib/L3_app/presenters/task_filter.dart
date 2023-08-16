@@ -3,8 +3,6 @@
 import 'package:collection/collection.dart';
 
 import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/entities/task_source.dart';
-import 'task_stats.dart';
 import 'task_tree.dart';
 
 List<MapEntry<TaskState, List<Task>>> groups(Iterable<Task> tasks) {
@@ -28,15 +26,4 @@ extension TaskFilterPresenter on Task {
   List<MapEntry<TaskState, List<Task>>> get subtaskGroups => groups(subtasks);
   List<Task> get attentionalSubtasks => attentionalTasks(subtaskGroups);
   TaskState get subtasksState => attentionalState(subtaskGroups);
-
-  Iterable<TaskSource> allTaskSources() {
-    final tss = <TaskSource>[];
-    for (Task subtask in subtasks) {
-      tss.addAll(subtask.allTaskSources());
-    }
-    if (linked) {
-      tss.add(taskSource!);
-    }
-    return tss;
-  }
 }

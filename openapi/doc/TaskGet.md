@@ -32,11 +32,11 @@ Name | Type | Description | Notes
 **etaDate** | [**DateTime**](DateTime.md) |  | [optional] 
 **openedVolume** | **num** |  | [optional] 
 **closedVolume** | **num** |  | [optional] 
+**closedSubtasksCount** | **int** |  | [optional] 
 **taskSource** | [**TaskSourceGet**](TaskSourceGet.md) |  | [optional] 
 **members** | [**BuiltList&lt;MemberGet&gt;**](MemberGet.md) |  | [optional] 
 **notes** | [**BuiltList&lt;NoteGet&gt;**](NoteGet.md) |  | [optional] 
 **projectStatuses** | [**BuiltList&lt;ProjectStatusGet&gt;**](ProjectStatusGet.md) |  | [optional] 
-**closedSubtasksCount** | **int** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

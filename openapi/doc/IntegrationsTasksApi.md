@@ -11,7 +11,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**importTaskSourcesV1IntegrationsTasksImportPost**](IntegrationsTasksApi.md#importtasksourcesv1integrationstasksimportpost) | **POST** /v1/integrations/tasks/import | Import Task Sources
 [**rootTasksV1IntegrationsTasksGet**](IntegrationsTasksApi.md#roottasksv1integrationstasksget) | **GET** /v1/integrations/tasks/ | Root Tasks
-[**unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost**](IntegrationsTasksApi.md#unlinktasksourcesv1integrationstasksunlinktasksourcespost) | **POST** /v1/integrations/tasks/unlink_task_sources | Unlink Task Sources
+[**unlinkV1IntegrationsTasksUnlinkPost**](IntegrationsTasksApi.md#unlinkv1integrationstasksunlinkpost) | **POST** /v1/integrations/tasks/unlink | Unlink
 
 
 # **importTaskSourcesV1IntegrationsTasksImportPost**
@@ -114,10 +114,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost**
-> bool unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost(wsId, sourceId, taskSourceUpsert)
+# **unlinkV1IntegrationsTasksUnlinkPost**
+> bool unlinkV1IntegrationsTasksUnlinkPost(taskId, wsId)
 
-Unlink Task Sources
+Unlink
 
 ### Example
 ```dart
@@ -130,15 +130,14 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
 
 final api = Openapi().getIntegrationsTasksApi();
+final int taskId = 56; // int | 
 final int wsId = 56; // int | 
-final int sourceId = 56; // int | 
-final BuiltList<TaskSourceUpsert> taskSourceUpsert = ; // BuiltList<TaskSourceUpsert> | 
 
 try {
-    final response = api.unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost(wsId, sourceId, taskSourceUpsert);
+    final response = api.unlinkV1IntegrationsTasksUnlinkPost(taskId, wsId);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling IntegrationsTasksApi->unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost: $e\n');
+    print('Exception when calling IntegrationsTasksApi->unlinkV1IntegrationsTasksUnlinkPost: $e\n');
 }
 ```
 
@@ -146,9 +145,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **taskId** | **int**|  | 
  **wsId** | **int**|  | 
- **sourceId** | **int**|  | 
- **taskSourceUpsert** | [**BuiltList&lt;TaskSourceUpsert&gt;**](TaskSourceUpsert.md)|  | 
 
 ### Return type
 
@@ -160,7 +158,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

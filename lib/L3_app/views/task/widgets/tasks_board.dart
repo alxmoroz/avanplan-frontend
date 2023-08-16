@@ -32,8 +32,9 @@ class _ItemTarget extends StatelessWidget {
 }
 
 class TasksBoard extends StatelessWidget {
-  const TasksBoard(this.controller);
+  const TasksBoard(this.controller, {this.extra});
   final StatusController controller;
+  final Widget? extra;
 
   Task get _task => controller.task;
 
@@ -70,6 +71,7 @@ class TasksBoard extends StatelessWidget {
       canDrag: false,
       contentsWhenEmpty: Container(),
       lastTarget: tasks.isEmpty ? _ItemTarget() : null,
+      footer: status.closed && extra != null ? Center(child: extra) : null,
     );
   }
 

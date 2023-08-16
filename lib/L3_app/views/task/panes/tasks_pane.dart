@@ -67,7 +67,10 @@ class TasksPane extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => controller.showBoard
-          ? TasksBoard(controller.statusController)
+          ? TasksBoard(
+              controller.statusController,
+              extra: controller.subtasksController.loadClosedButton,
+            )
           : TasksListView(
               _task.subtaskGroups,
               extra: controller.subtasksController.loadClosedButton,

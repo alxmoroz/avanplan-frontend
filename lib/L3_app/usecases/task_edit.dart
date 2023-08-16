@@ -10,7 +10,7 @@ import '../../main.dart';
 import '../extra/services.dart';
 
 extension TaskSaving on Task {
-  Future<Task?> _edit(Future<Task?> function()) async {
+  Future<Task?> edit(Future<Task?> function()) async {
     loading = true;
     mainController.refresh();
     Task? et;
@@ -44,7 +44,7 @@ extension TaskSaving on Task {
     return et;
   }
 
-  Future<Task?> save() async => await _edit(() async {
+  Future<Task?> save() async => await edit(() async {
         final changes = await taskUC.save(this);
         final et = changes?.updated;
         if (et != null) {
@@ -56,7 +56,7 @@ extension TaskSaving on Task {
         return null;
       });
 
-  Future delete() async => await _edit(() async {
+  Future delete() async => await edit(() async {
         Navigator.of(rootKey.currentContext!).pop();
         final changes = await taskUC.delete(this);
         if (changes?.updated != null) {

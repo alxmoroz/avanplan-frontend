@@ -59,7 +59,7 @@ class LocalImportDialog extends StatelessWidget {
 
   Widget _addressLine(String label, String title) => MTListTile(
         leading: LightText(label, color: lightGreyColor),
-        titleText: title,
+        middle: NormalText(title, maxLines: 1),
         color: backgroundColor,
         bottomDivider: false,
         padding: const EdgeInsets.symmetric(horizontal: P + P_2),

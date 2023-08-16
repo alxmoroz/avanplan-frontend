@@ -26,8 +26,8 @@ extension TaskTree on Task {
   // TODO: попробовать вынести в computed в один из контроллеров
   Iterable<Task> get subtasks => mainController.allTasks.where((t) => t.parentId == id);
 
-  Iterable<Task> get openedSubtasks => subtasks.where((t) => t.parentId == id);
-  Iterable<Task> get closedSubtasks => subtasks.where((t) => t.parentId == id);
+  Iterable<Task> get openedSubtasks => subtasks.where((t) => !t.closed);
+  Iterable<Task> get closedSubtasks => subtasks.where((t) => t.closed);
 
   bool get hasOpenedSubtasks => openedSubtasks.isNotEmpty;
 }

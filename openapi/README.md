@@ -77,7 +77,7 @@ Class | Method | HTTP request | Description
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**sourcesUpsert**](doc/IntegrationsSourcesApi.md#sourcesupsert) | **POST** /v1/integrations/sources/ | Upsert
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**importTaskSourcesV1IntegrationsTasksImportPost**](doc/IntegrationsTasksApi.md#importtasksourcesv1integrationstasksimportpost) | **POST** /v1/integrations/tasks/import | Import Task Sources
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**rootTasksV1IntegrationsTasksGet**](doc/IntegrationsTasksApi.md#roottasksv1integrationstasksget) | **GET** /v1/integrations/tasks/ | Root Tasks
-[*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**unlinkTaskSourcesV1IntegrationsTasksUnlinkTaskSourcesPost**](doc/IntegrationsTasksApi.md#unlinktasksourcesv1integrationstasksunlinktasksourcespost) | **POST** /v1/integrations/tasks/unlink_task_sources | Unlink Task Sources
+[*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**unlinkV1IntegrationsTasksUnlinkPost**](doc/IntegrationsTasksApi.md#unlinkv1integrationstasksunlinkpost) | **POST** /v1/integrations/tasks/unlink | Unlink
 [*MyAccountApi*](doc/MyAccountApi.md) | [**accountV1MyAccountGet**](doc/MyAccountApi.md#accountv1myaccountget) | **GET** /v1/my/account | Account
 [*MyAccountApi*](doc/MyAccountApi.md) | [**deleteAccountV1MyAccountDelete**](doc/MyAccountApi.md#deleteaccountv1myaccountdelete) | **DELETE** /v1/my/account | Delete Account
 [*MyAccountApi*](doc/MyAccountApi.md) | [**updateAccountV1MyAccountPost**](doc/MyAccountApi.md#updateaccountv1myaccountpost) | **POST** /v1/my/account | Update Account
@@ -148,7 +148,6 @@ Class | Method | HTTP request | Description
  - [TaskRemote](doc/TaskRemote.md)
  - [TaskSource](doc/TaskSource.md)
  - [TaskSourceGet](doc/TaskSourceGet.md)
- - [TaskSourceUpsert](doc/TaskSourceUpsert.md)
  - [TaskUpsert](doc/TaskUpsert.md)
  - [TasksChanges](doc/TasksChanges.md)
  - [UActivityGet](doc/UActivityGet.md)

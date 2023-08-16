@@ -127,6 +127,11 @@ void main() {
       // TODO
     });
 
+    // int closedSubtasksCount
+    test('to test the property `closedSubtasksCount`', () async {
+      // TODO
+    });
+
     // TaskSourceGet taskSource
     test('to test the property `taskSource`', () async {
       // TODO
@@ -144,11 +149,6 @@ void main() {
 
     // BuiltList<ProjectStatusGet> projectStatuses
     test('to test the property `projectStatuses`', () async {
-      // TODO
-    });
-
-    // int closedSubtasksCount
-    test('to test the property `closedSubtasksCount`', () async {
       // TODO
     });
   });

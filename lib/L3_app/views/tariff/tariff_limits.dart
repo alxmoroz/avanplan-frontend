@@ -24,7 +24,7 @@ class _TariffLimitTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final value = tariff.limitValue(code);
 
-    String hvStr = value.humanValueStr;
+    final String hvStr = value.humanValueStr;
     final plural = num.tryParse(hvStr) == null ? 10 : value;
 
     String prefix = loc.tariff_limit_up_to_prefix;
@@ -48,7 +48,17 @@ class _TariffLimitTile extends StatelessWidget {
 
     return MTListTile(
       leading: icon,
-      titleText: '$prefix$hvStr $suffix',
+      middle: Row(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          const SizedBox(width: P_2),
+          LightText(prefix),
+          const SizedBox(width: P_2),
+          H3(hvStr),
+          const SizedBox(width: P_2),
+          NormalText(suffix),
+        ],
+      ),
       padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
       bottomDivider: false,
     );

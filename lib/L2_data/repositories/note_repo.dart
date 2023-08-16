@@ -7,7 +7,7 @@ import '../../L1_domain/repositories/abs_api_repo.dart';
 import '../mappers/note.dart';
 import '../services/api.dart';
 
-class NoteRepo extends AbstractApiRepo<Note> {
+class NoteRepo extends AbstractApiRepo<Note, Note> {
   o_api.TasksNotesApi get api => openAPI.getTasksNotesApi();
 
   @override
@@ -37,11 +37,14 @@ class NoteRepo extends AbstractApiRepo<Note> {
   }
 
   @override
-  Future<bool> delete(Note data) async {
+  Future<Note?> delete(Note data) async {
     final response = await api.deleteV1TasksNotesNoteIdDelete(
       noteId: data.id!,
       wsId: data.ws.id!,
     );
-    return response.data == true;
+    if (response.data == true) {
+      return data;
+    }
+    return null;
   }
 }

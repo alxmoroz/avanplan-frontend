@@ -57,7 +57,7 @@ extension NoteSaving on Note {
       });
 
   Future delete(Task task) async => await _edit(task, () async {
-        if (await noteUC.delete(this)) {
+        if (await noteUC.delete(this) != null) {
           task.notes.remove(this);
         }
         return null;

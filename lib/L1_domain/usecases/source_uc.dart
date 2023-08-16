@@ -24,8 +24,7 @@ class SourceUC {
 
   Future<Source?> delete(Source s) async {
     if (s.id != null) {
-      final deletedRows = await repo.delete(s);
-      if (deletedRows) {
+      if (await repo.delete(s) != null) {
         s.removed = true;
       }
     }

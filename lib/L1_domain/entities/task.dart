@@ -111,3 +111,9 @@ class TaskRemote {
   TaskSourceImport? taskSource;
   bool selected;
 }
+
+class TasksChanges {
+  TasksChanges(this.updated, this.affected);
+  final Task? updated;
+  final Iterable<Task> affected;
+}

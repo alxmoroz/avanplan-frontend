@@ -27,9 +27,12 @@ class SourceRepo extends AbstractSourceRepo {
   }
 
   @override
-  Future<bool> delete(Source data) async {
+  Future<Source?> delete(Source data) async {
     final response = await api.sourcesDelete(sourceId: data.id!, wsId: data.ws.id!);
-    return response.data == true;
+    if (response.data == true) {
+      return data;
+    }
+    return null;
   }
 
   @override

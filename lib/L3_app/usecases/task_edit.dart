@@ -25,37 +25,45 @@ extension TaskSaving on Task {
     return et;
   }
 
-  Task _update(Task? et) {
-    if (et != null) {
-      // вложенности
-      if (et.members.isEmpty) {
-        et.members = members;
-      }
-      if (et.projectStatuses.isEmpty) {
-        et.projectStatuses = projectStatuses;
-      }
-      if (et.notes.isEmpty) {
-        et.notes = notes;
-      }
-      if (isNew) {
-        mainController.addTasks([et]);
-      } else {
-        mainController.setTask(et);
-      }
-      return et;
+  Task _update(Task et) {
+    // вложенности
+    if (et.members.isEmpty) {
+      et.members = members;
     }
-    return this;
+    if (et.projectStatuses.isEmpty) {
+      et.projectStatuses = projectStatuses;
+    }
+    if (et.notes.isEmpty) {
+      et.notes = notes;
+    }
+    if (isNew) {
+      mainController.addTasks([et]);
+    } else {
+      mainController.setTask(et);
+    }
+    return et;
   }
 
   Future<Task?> save() async => await _edit(() async {
-        final et = await taskUC.save(this);
-        return _update(et);
+        final changes = await taskUC.save(this);
+        final et = changes?.updated;
+        if (et != null) {
+          for (Task at in changes?.affected ?? []) {
+            mainController.task(at.ws.id!, at.id)?._update(at);
+          }
+          return _update(et);
+        }
+        return null;
       });
 
   Future delete() async => await _edit(() async {
         Navigator.of(rootKey.currentContext!).pop();
-        if (await taskUC.delete(this)) {
+        final changes = await taskUC.delete(this);
+        if (changes?.updated != null) {
           mainController.removeTask(this);
+          for (Task at in changes?.affected ?? []) {
+            mainController.task(at.ws.id!, at.id)?._update(at);
+          }
         }
         return null;
       });

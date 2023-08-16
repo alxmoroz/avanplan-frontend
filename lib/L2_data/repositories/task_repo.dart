@@ -8,11 +8,11 @@ import '../../L3_app/presenters/task_tree.dart';
 import '../mappers/task.dart';
 import '../services/api.dart';
 
-class TaskRepo extends AbstractApiRepo<Task> {
+class TaskRepo extends AbstractApiRepo<Task, TasksChanges> {
   o_api.TasksApi get api => openAPI.getTasksApi();
 
   @override
-  Future<Task?> save(Task data) async {
+  Future<TasksChanges> save(Task data) async {
     final qBuilder = o_api.TaskUpsertBuilder()
       ..id = data.id
       ..createdOn = data.createdOn?.toUtc()
@@ -37,21 +37,23 @@ class TaskRepo extends AbstractApiRepo<Task> {
     ))
         .data;
 
-    final et = changes?.updatedTask.task(data.ws);
-    final affected = changes?.affectedTasks.map((t) => t.task(data.ws));
-
-    return et;
+    return TasksChanges(
+      changes?.updatedTask.task(data.ws),
+      changes?.affectedTasks.map((t) => t.task(data.ws)) ?? [],
+    );
   }
 
   @override
-  Future<bool> delete(Task data) async {
+  Future<TasksChanges> delete(Task data) async {
     final changes = (await api.deleteV1TasksTaskIdDelete(
       taskId: data.id!,
       wsId: data.ws.id!,
       permissionTaskId: data.project?.id,
     ))
         .data;
-    final affected = changes?.affectedTasks.map((t) => t.task(data.ws));
-    return changes != null;
+    return TasksChanges(
+      changes?.updatedTask.task(data.ws),
+      changes?.affectedTasks.map((t) => t.task(data.ws)) ?? [],
+    );
   }
 }

@@ -63,7 +63,7 @@ abstract class _MainControllerBase with Store {
   /// задачи
 
   @computed
-  Iterable<Task> get myTasks => allTasks.where((t) => t.hasAssignee && t.assignee!.userId == accountController.user!.id && t.isLeaf);
+  Iterable<Task> get myTasks => allTasks.where((t) => !t.closed && t.hasAssignee && t.assignee!.userId == accountController.user!.id && t.isLeaf);
   @computed
   List<MapEntry<TaskState, List<Task>>> get myTasksGroups => groups(myTasks);
   @computed

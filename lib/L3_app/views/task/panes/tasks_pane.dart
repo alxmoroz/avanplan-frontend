@@ -11,6 +11,7 @@ import '../../../components/icons.dart';
 import '../../../components/mt_button.dart';
 import '../../../presenters/task_filter.dart';
 import '../../../presenters/task_stats.dart';
+import '../../../presenters/task_tree.dart';
 import '../../../usecases/task_available_actions.dart';
 import '../controllers/task_controller.dart';
 import '../widgets/task_create_button.dart';
@@ -38,7 +39,7 @@ class TasksPane extends StatelessWidget {
 
   Widget? get bottomBar => (_task.canCreate || _task.totalVolume > 0)
       ? Row(children: [
-          if (_task.totalVolume > 0)
+          if (_task.totalVolume > 0 && !_task.isProject)
             MTButton.secondary(
               color: borderColor,
               middle: Row(children: [

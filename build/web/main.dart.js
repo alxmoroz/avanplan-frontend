@@ -60787,13 +60787,14 @@ A.aS8.prototype={
 $1(a){return!a.Q},
 $S:12}
 A.aS9.prototype={
-$1(a){var s,r,q=a.fx
-if(q!=null){q=A.wL(a,q).at
-s=$.U().$1$0(t.W)
-r=s.gf3()
-r.a.F(r)
-q=q==s.c.a&&a.fy==="TASK"}else q=!1
-return q},
+$1(a){var s,r,q
+if(!a.Q){s=a.fx
+if(s!=null){s=A.wL(a,s).at
+r=$.U().$1$0(t.W)
+q=r.gf3()
+q.a.F(q)
+s=s==r.c.a&&a.fy==="TASK"}else s=!1}else s=!1
+return s},
 $S:12}
 A.aS1.prototype={
 $1(a){return a.db!=null},
@@ -63227,7 +63228,9 @@ return A.bd(r,a,B.m,r,r,s,r,48,r,r,r,r,r,48)},
 gA4(){var s,r,q,p,o=this,n=null,m=o.c,l=m.gO()
 if(!A.nG(l)&&!l.Q&&A.b3l(l)||A.b3u(m.gO())>0){l=t.p
 s=A.a([],l)
-if(A.b3u(m.gO())>0){r=m.gpn()
+if(A.b3u(m.gO())>0){r=m.gO()
+r=!(r.fy==="PROJECT"||r.as==null)}else r=!1
+if(r){r=m.gpn()
 r.a.F(r)
 r=m.at
 q=m.gpn()

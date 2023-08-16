@@ -42,9 +42,7 @@ class CreateController {
             ? TType.PROJECT
             : _newGoal
                 ? TType.GOAL
-                : parent!.isGoal
-                    ? TType.TASK
-                    : TType.SUBTASK,
+                : TType.TASK,
       );
 
       await mainController.showTask(newTaskData);

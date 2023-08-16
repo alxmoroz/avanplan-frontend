@@ -13,9 +13,7 @@ class TType {
   static const String GOAL = 'GOAL';
   static const String GROUP = 'GROUP';
   static const String BACKLOG = 'BACKLOG';
-
   static const String TASK = 'TASK';
-  static const String SUBTASK = 'SUBTASK';
 }
 
 enum TaskState {

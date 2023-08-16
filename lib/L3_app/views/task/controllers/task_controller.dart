@@ -43,7 +43,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
       MTFieldData(TaskFCode.dueDate.index, label: loc.task_due_date_label, placeholder: loc.task_due_date_placeholder),
       MTFieldData(
         TaskFCode.estimate.index,
-        label: taskIn.estimate != null ? loc.task_estimate_label : loc.task_estimate_group_label,
+        label: taskIn.openedVolume != null ? loc.task_estimate_group_label : loc.task_estimate_label,
         placeholder: loc.task_estimate_placeholder,
       ),
       MTFieldData(TaskFCode.author.index, label: loc.task_author_title, placeholder: loc.task_author_title),
@@ -109,7 +109,7 @@ abstract class _TaskControllerBase extends EditController with Store {
   Iterable<TaskTabKey> get tabKeys {
     return [
       if (!isNew && task.hasOverviewPane) TaskTabKey.overview,
-      if (!isNew && task.hasSubtasks) TaskTabKey.subtasks,
+      if (!isNew && !task.isLeaf) TaskTabKey.subtasks,
       if (!isNew && task.hasTeamPane) TaskTabKey.team,
       TaskTabKey.details,
     ];

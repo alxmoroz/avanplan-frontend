@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/system/errors.dart';
-import '../../L1_domain/usecases/task_comparators.dart';
 import '../../L2_data/services/api.dart';
 import '../../main.dart';
 import '../extra/services.dart';
@@ -29,9 +28,6 @@ extension TaskSaving on Task {
   Task _update(Task? et) {
     if (et != null) {
       // вложенности
-      if (et.tasks.isEmpty) {
-        et.tasks = tasks;
-      }
       if (et.members.isEmpty) {
         et.members = members;
       }
@@ -40,19 +36,6 @@ extension TaskSaving on Task {
       }
       if (et.notes.isEmpty) {
         et.notes = notes;
-      }
-
-      // структура
-      if (parent != null) {
-        if (isNew) {
-          parent!.tasks.add(et);
-        } else {
-          final index = parent!.tasks.indexWhere((t) => et.ws.id == t.ws.id && et.id == t.id);
-          if (index > -1) {
-            parent!.tasks[index] = et;
-          }
-        }
-        parent!.tasks.sort(sortByDateAsc);
       }
       if (isNew) {
         mainController.addTasks([et]);
@@ -72,9 +55,6 @@ extension TaskSaving on Task {
   Future delete() async => await _edit(() async {
         Navigator.of(rootKey.currentContext!).pop();
         if (await taskUC.delete(this)) {
-          if (parent != null) {
-            parent!.tasks.remove(this);
-          }
           mainController.removeTask(this);
         }
         return null;

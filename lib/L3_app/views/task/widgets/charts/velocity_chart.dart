@@ -5,14 +5,14 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/mt_pie_chart.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/duration_presenter.dart';
-import '../../../../presenters/task_state_presenter.dart';
+import '../../../../presenters/task_state.dart';
+import '../../../../presenters/task_stats.dart';
 import '../../../../presenters/ws_presenter.dart';
 
 class VelocityChart extends StatelessWidget {

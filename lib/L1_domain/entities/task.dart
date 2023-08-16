@@ -44,8 +44,7 @@ class Task extends Titleable {
     super.title,
     required this.startDate,
     required this.closed,
-    required this.parent,
-    required this.tasks,
+    required this.parentId,
     required this.notes,
     required this.members,
     required this.projectStatuses,
@@ -72,8 +71,7 @@ class Task extends Titleable {
 
   DateTime? startDate;
   bool closed;
-  Task? parent;
-  List<Task> tasks;
+  int? parentId;
   List<Note> notes;
   Iterable<Member> members;
   Iterable<ProjectStatus> projectStatuses;

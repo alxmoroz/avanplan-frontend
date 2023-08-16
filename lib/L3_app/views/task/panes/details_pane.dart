@@ -7,7 +7,6 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_members.dart';
-import '../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../L1_domain/entities_extensions/task_status.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
@@ -20,6 +19,7 @@ import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/person_presenter.dart';
 import '../../../presenters/source_presenter.dart';
+import '../../../presenters/task_stats.dart';
 import '../../../presenters/ws_presenter.dart';
 import '../../../usecases/task_available_actions.dart';
 import '../controllers/task_controller.dart';

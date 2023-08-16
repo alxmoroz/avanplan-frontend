@@ -3,10 +3,10 @@
 import 'dart:async';
 
 import '../../../../L1_domain/entities/task.dart';
-import '../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../components/mt_alert_dialog.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/task_type_presenter.dart';
+import '../../../presenters/task_tree.dart';
+import '../../../presenters/task_type.dart';
 import '../../../usecases/task_edit.dart';
 
 class DeleteController {

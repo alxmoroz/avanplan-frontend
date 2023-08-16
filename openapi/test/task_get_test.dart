@@ -142,11 +142,6 @@ void main() {
       // TODO
     });
 
-    // BuiltList<TaskGet> tasks
-    test('to test the property `tasks`', () async {
-      // TODO
-    });
-
     // BuiltList<ProjectStatusGet> projectStatuses
     test('to test the property `projectStatuses`', () async {
       // TODO

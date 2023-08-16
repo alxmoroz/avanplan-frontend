@@ -4,16 +4,16 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../main.dart';
 import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/entities_extensions/task_stats.dart';
-import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../components/colors.dart';
 import '../components/constants.dart';
 import '../components/images.dart';
 import '../components/mt_circle.dart';
 import '../extra/services.dart';
 import '../presenters/duration_presenter.dart';
-import '../presenters/task_filter_presenter.dart';
-import '../presenters/task_type_presenter.dart';
+import '../presenters/task_filter.dart';
+import '../presenters/task_type.dart';
+import 'task_stats.dart';
+import 'task_tree.dart';
 
 Color stateColor(TaskState state) {
   switch (state) {

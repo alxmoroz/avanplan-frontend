@@ -7,9 +7,9 @@ import 'package:collection/collection.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities/workspace.dart';
 import '../../../../L1_domain/entities_extensions/task_status.dart';
-import '../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/task_type_presenter.dart';
+import '../../../presenters/task_tree.dart';
+import '../../../presenters/task_type.dart';
 import '../../../usecases/ws_available_actions.dart';
 import '../../../usecases/ws_tariff.dart';
 import 'task_controller.dart';
@@ -31,8 +31,7 @@ class CreateController {
         title: newSubtaskTitle(parent?.type ?? TType.ROOT),
         statusId: (_newProject || _newGoal) ? null : parent!.statuses.firstOrNull?.id,
         closed: false,
-        parent: parent,
-        tasks: [],
+        parentId: parent?.id,
         members: [],
         notes: [],
         projectStatuses: [],

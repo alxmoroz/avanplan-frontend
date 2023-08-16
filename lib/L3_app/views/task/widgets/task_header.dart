@@ -10,7 +10,8 @@ import '../../../components/mt_adaptive.dart';
 import '../../../components/mt_field.dart';
 import '../../../components/mt_text_field.dart';
 import '../../../components/text_widgets.dart';
-import '../../../presenters/task_colors_presenter.dart';
+import '../../../presenters/task_tree.dart';
+import '../../../presenters/task_view.dart';
 import '../../../usecases/task_available_actions.dart';
 import '../controllers/task_controller.dart';
 

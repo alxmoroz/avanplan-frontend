@@ -5,21 +5,21 @@ import 'package:openapi/openapi.dart' as api;
 
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities/workspace.dart';
-import '../../L1_domain/entities_extensions/task_stats.dart';
+import '../../L3_app/presenters/task_stats.dart';
 import 'member.dart';
 import 'note.dart';
 import 'project_status.dart';
 import 'task_source.dart';
 
 extension TaskMapper on api.TaskGet {
-  Task task(Workspace ws, {Task? parent}) {
+  Task task(Workspace ws) {
     final ts = taskSource?.taskSource;
     String _title = title?.trim() ?? '';
     if (type != null && type?.toLowerCase() == 'backlog') {
       _title = Intl.message(_title);
     }
 
-    final _t = Task(
+    return Task(
       id: id,
       createdOn: createdOn.toLocal(),
       updatedOn: updatedOn.toLocal(),
@@ -32,14 +32,13 @@ extension TaskMapper on api.TaskGet {
       closed: closed ?? false,
       statusId: statusId,
       estimate: estimate,
-      tasks: [],
       notes: notes?.map((n) => n.note(ws)).toList() ?? [],
       authorId: authorId,
       assigneeId: assigneeId,
       members: members?.map((m) => m.member(id)).toList() ?? [],
       projectStatuses: projectStatuses?.map((ps) => ps.projectStatus).toList() ?? [],
       taskSource: ts,
-      parent: parent,
+      parentId: parentId,
       ws: ws,
       state: stateFromStr(state ?? ''),
       velocity: velocity?.toDouble() ?? 0,
@@ -50,8 +49,6 @@ extension TaskMapper on api.TaskGet {
       closedVolume: closedVolume,
       closedSubtasksCount: closedSubtasksCount,
     );
-    _t.tasks = tasks?.map((t) => t.task(ws, parent: _t)).toList() ?? [];
-    return _t;
   }
 }
 

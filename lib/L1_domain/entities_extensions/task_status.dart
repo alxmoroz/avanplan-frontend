@@ -2,9 +2,9 @@
 
 import 'package:collection/collection.dart';
 
+import '../../L3_app/presenters/task_tree.dart';
 import '../entities/status.dart';
 import '../entities/task.dart';
-import '../entities_extensions/task_tree.dart';
 
 extension TaskStatus on Task {
   List<Status> get statuses {

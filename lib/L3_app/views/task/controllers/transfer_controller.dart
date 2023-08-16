@@ -5,9 +5,9 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '../../../../L1_domain/entities/task.dart';
-import '../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../L1_domain/usecases/task_comparators.dart';
 import '../../../extra/services.dart';
+import '../../../presenters/task_transfer.dart';
 import '../widgets/transfer/select_task_dialog.dart';
 import 'task_controller.dart';
 
@@ -20,20 +20,17 @@ class TransferController {
   /// перенос с другую цель
 
   Future localExport() async {
-    final sourceGoal = task.parent!;
+    final sourceGoalId = task.parentId;
     final destinationGoalId = await selectTaskDialog(
       task.goalsForLocalExport.sorted(sortByDateAsc),
       loc.task_transfer_destination_hint,
     );
 
     if (destinationGoalId != null) {
-      final destinationGoal = task.goalsForLocalExport.firstWhere((g) => g.id == destinationGoalId);
-      task.parent = destinationGoal;
+      task.parentId = destinationGoalId;
       if (!(await _taskController.saveField(TaskFCode.parent))) {
-        task.parent = sourceGoal;
+        task.parentId = sourceGoalId;
       } else {
-        sourceGoal.tasks.removeWhere((t) => t.id == task.id);
-        destinationGoal.tasks.add(task);
         mainController.refresh();
       }
     }

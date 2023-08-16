@@ -3,20 +3,22 @@
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/entities_extensions/task_stats.dart';
-import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../components/icons.dart';
 import '../components/mt_alert_dialog.dart';
 import '../extra/services.dart';
 import '../presenters/source_presenter.dart';
+import '../presenters/task_filter.dart';
+import '../presenters/task_stats.dart';
+import '../presenters/task_tree.dart';
 import '../usecases/ws_tariff.dart';
 import 'task_available_actions.dart';
 
 extension TaskLink on Task {
   Future go2source() async => await launchUrlString(taskSource!.urlString);
 
+  // TODO: нужно делать на бэке
   void unlinkTaskTree() {
-    for (Task t in tasks) {
+    for (Task t in subtasks) {
       t.unlinkTaskTree();
     }
     if (linked) {

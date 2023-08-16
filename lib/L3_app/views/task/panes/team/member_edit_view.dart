@@ -13,7 +13,7 @@ import '../../../../components/mt_toolbar.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/role_presenter.dart';
-import '../../../../presenters/task_type_presenter.dart';
+import '../../../../presenters/task_type.dart';
 import 'member_edit_controller.dart';
 
 Future<Iterable<Member>?> memberEditDialog(Task task, Member member) async => await showMTDialog<Iterable<Member>?>(MemberEditView(task, member));

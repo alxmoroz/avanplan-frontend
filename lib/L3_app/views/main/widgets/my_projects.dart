@@ -10,7 +10,7 @@ import '../../../components/mt_button.dart';
 import '../../../components/mt_shadowed.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/task_state_presenter.dart';
+import '../../../presenters/task_state.dart';
 import '../../my_projects/my_projects_view.dart';
 import '../../task/widgets/tasks_group.dart';
 

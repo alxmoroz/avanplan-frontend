@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
@@ -13,6 +12,7 @@ import '../../../../components/mt_progress.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/date_presenter.dart';
+import '../../../../presenters/task_stats.dart';
 
 class _DateBarData {
   _DateBarData({required this.date, this.color, this.mark});

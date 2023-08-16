@@ -13,7 +13,7 @@ import '../../components/mt_error_sheet.dart';
 import '../../components/mt_page.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/task_type_presenter.dart';
+import '../../presenters/task_type.dart';
 import 'controllers/task_controller.dart';
 import 'panes/details_pane.dart';
 import 'panes/overview_pane.dart';

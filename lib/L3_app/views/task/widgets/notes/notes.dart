@@ -20,7 +20,7 @@ import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/date_presenter.dart';
 import '../../../../presenters/person_presenter.dart';
-import '../../../../presenters/task_note_presenter.dart';
+import '../../../../presenters/task_note.dart';
 import '../../../../usecases/task_available_actions.dart';
 import '../../controllers/notes_controller.dart';
 

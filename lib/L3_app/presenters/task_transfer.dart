@@ -1,0 +1,10 @@
+// Copyright (c) 2023. Alexandr Moroz
+
+import '../../L1_domain/entities/task.dart';
+import 'task_tree.dart';
+
+extension TaskTransfer on Task {
+  // TODO: запрос на бэк
+  Iterable<Task> get goalsForLocalExport => isTask ? project!.openedSubtasks.where((g) => g.id != parentId) : [];
+  Iterable<Task> get goalsForLocalImport => isGoal ? project!.openedSubtasks.where((g) => g.id != id && g.hasOpenedSubtasks) : [];
+}

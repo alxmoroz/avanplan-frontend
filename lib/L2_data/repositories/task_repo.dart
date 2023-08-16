@@ -3,8 +3,8 @@
 import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../../L1_domain/repositories/abs_api_repo.dart';
+import '../../L3_app/presenters/task_tree.dart';
 import '../mappers/task.dart';
 import '../services/api.dart';
 
@@ -21,7 +21,7 @@ class TaskRepo extends AbstractApiRepo<Task> {
       ..authorId = data.authorId
       ..statusId = data.statusId
       ..estimate = data.estimate
-      ..parentId = data.parent?.id
+      ..parentId = data.parentId
       ..title = data.title
       ..description = data.description
       ..closed = data.closed
@@ -37,7 +37,7 @@ class TaskRepo extends AbstractApiRepo<Task> {
     ))
         .data;
 
-    final et = changes?.updatedTask.task(data.ws, parent: data.parent);
+    final et = changes?.updatedTask.task(data.ws);
     final affected = changes?.affectedTasks.map((t) => t.task(data.ws));
 
     return et;

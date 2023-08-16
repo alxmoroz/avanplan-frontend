@@ -9,7 +9,7 @@ import '../../../components/icons.dart';
 import '../../../components/mt_adaptive.dart';
 import '../../../components/mt_button.dart';
 import '../../../components/mt_limit_badge.dart';
-import '../../../presenters/task_type_presenter.dart';
+import '../../../presenters/task_type.dart';
 import '../controllers/create_controller.dart';
 
 class TaskCreateButton extends StatelessWidget {

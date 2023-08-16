@@ -6,13 +6,13 @@ import 'package:flutter/material.dart';
 
 import '../../../../L1_domain/entities/status.dart';
 import '../../../../L1_domain/entities/task.dart';
-import '../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../L1_domain/entities_extensions/task_status.dart';
 import '../../../../main.dart';
 import '../../../components/mt_alert_dialog.dart';
 import '../../../components/mt_select_dialog.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/task_filter_presenter.dart';
+import '../../../presenters/task_filter.dart';
+import '../../../presenters/task_tree.dart';
 import '../../../usecases/task_available_actions.dart';
 import '../../../usecases/task_edit.dart';
 import 'task_controller.dart';
@@ -40,7 +40,7 @@ class StatusController {
       if (close == true && _task.hasOpenedSubtasks) {
         if (await _closeDialog() == true) {
           // TODO: перенести на бэк (есть задача такая)
-          for (var t in _task.tasks.where((t) => t.closed != close)) {
+          for (var t in _task.subtasks.where((t) => t.closed != close)) {
             t.statusId = _task.statusId;
             t.setClosed(close);
             await taskUC.save(t);

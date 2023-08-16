@@ -6,10 +6,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/task.dart';
-import '../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../components/constants.dart';
 import '../../../components/mt_button.dart';
 import '../../../extra/services.dart';
+import '../../../presenters/task_tree.dart';
 import 'task_controller.dart';
 
 part 'subtasks_controller.g.dart';
@@ -33,7 +33,6 @@ abstract class _SubtasksControllerBase with Store {
     _loading = true;
     final tasks = await myUC.getTasks(task.ws, parent: task, closed: true);
     if (tasks.isNotEmpty) {
-      task.tasks.addAll(tasks);
       mainController.addTasks(tasks);
     }
     _loading = false;

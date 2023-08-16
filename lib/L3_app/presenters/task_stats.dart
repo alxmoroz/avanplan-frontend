@@ -2,8 +2,8 @@
 
 import 'package:collection/collection.dart';
 
-import '../../L3_app/presenters/date_presenter.dart';
-import '../entities/task.dart';
+import '../../L1_domain/entities/task.dart';
+import 'date_presenter.dart';
 import 'task_tree.dart';
 
 TaskState stateFromStr(String strState) => TaskState.values.firstWhereOrNull((s) => s.name == strState) ?? TaskState.NO_INFO;
@@ -25,11 +25,6 @@ extension TaskStats on Task {
 
   num get totalVolume => (openedVolume ?? 0) + (closedVolume ?? 0);
 
-  Iterable<Task> get openedSubtasks => tasks.where((t) => !t.closed);
-  Iterable<Task> get closedSubtasks => tasks.where((t) => t.closed);
-  // TODO: запрос на бэк
-  Iterable<Task> get goalsForLocalExport => isTask ? project!.openedSubtasks.where((g) => g.id != parent?.id) : [];
-  Iterable<Task> get goalsForLocalImport => isGoal ? project!.openedSubtasks.where((g) => g.id != id && g.hasOpenedSubtasks) : [];
   DateTime get calculatedStartDate => startDate ?? createdOn!;
   Duration get beforeStartPeriod => calculatedStartDate.difference(_now);
 
@@ -51,7 +46,4 @@ extension TaskStats on Task {
 
   bool get hasDescription => description.isNotEmpty;
   bool get hasAuthor => authorId != null;
-
-  // TODO: скорректировать на основе существующих данных
-  bool get hasOpenedSubtasks => openedSubtasks.isNotEmpty;
 }

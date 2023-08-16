@@ -5,10 +5,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../../L1_domain/usecases/task_comparators.dart';
 import '../../../../../main.dart';
 import '../../../../extra/services.dart';
+import '../../../../presenters/task_tree.dart';
 import '../../controllers/task_controller.dart';
 
 part 'local_import_controller.g.dart';
@@ -55,18 +55,14 @@ abstract class _LocalImportControllerBase with Store {
     for (int index = 0; index < checks.length; index++) {
       if (checks[index]) {
         final t = srcTasks[index];
-        t.parent = destinationGoal;
+        t.parentId = destinationGoal.id;
         if (await taskUC.save(t) != null) {
-          sourceGoal.tasks.removeWhere((srcT) => srcT.id == t.id);
-          destinationGoal.tasks.add(t);
           moved++;
         }
       }
     }
 
     if (moved > 0) {
-      // destinationGoal.updateParents();
-      // sourceGoal.updateParents();
       mainController.refresh();
       taskController.selectTab(TaskTabKey.subtasks);
     }

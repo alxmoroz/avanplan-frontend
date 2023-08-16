@@ -7,8 +7,6 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/task_members.dart';
-import '../../../L1_domain/entities_extensions/task_stats.dart';
-import '../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../L1_domain/entities_extensions/ws_accounts.dart';
 import '../../../L1_domain/usecases/task_comparators.dart';
 import '../../../L2_data/services/platform.dart';
@@ -17,7 +15,9 @@ import '../../components/images.dart';
 import '../../components/mt_alert_dialog.dart';
 import '../../extra/services.dart';
 import '../../presenters/number_presenter.dart';
-import '../../presenters/task_filter_presenter.dart';
+import '../../presenters/task_filter.dart';
+import '../../presenters/task_stats.dart';
+import '../../presenters/task_tree.dart';
 import '../../usecases/ws_available_actions.dart';
 import '../../usecases/ws_tariff.dart';
 import '../task/task_view.dart';
@@ -38,18 +38,17 @@ abstract class _MainControllerBase with Store {
 
   @action
   // TODO: нужен способ дергать обсервер без этих хаков
-  // TODO: должно частично решиться https://redmine.moroz.team/issues/2566
   void touchWorkspaces() => workspaces = [...workspaces];
 
   /// проекты и или задачи
 
   @observable
-  ObservableList<Task> _allTasks = ObservableList();
+  ObservableList<Task> allTasks = ObservableList();
 
   /// проекты
 
   @computed
-  Iterable<Task> get projects => _allTasks.where((r) => r.isProject || r.parent == null);
+  Iterable<Task> get projects => allTasks.where((r) => r.isProject || r.parentId == null);
   @computed
   bool get hasLinkedProjects => projects.where((p) => p.linked).isNotEmpty;
   @computed
@@ -64,7 +63,7 @@ abstract class _MainControllerBase with Store {
   /// задачи
 
   @computed
-  Iterable<Task> get myTasks => _allTasks.where((t) => t.hasAssignee && t.assignee!.userId == accountController.user!.id && t.isLeaf);
+  Iterable<Task> get myTasks => allTasks.where((t) => t.hasAssignee && t.assignee!.userId == accountController.user!.id && t.isLeaf);
   @computed
   List<MapEntry<TaskState, List<Task>>> get myTasksGroups => groups(myTasks);
   @computed
@@ -95,9 +94,9 @@ abstract class _MainControllerBase with Store {
         for (var ws in workspaces) ws.id!: {for (var t in _wsTasks(ws.id!)) t.id!: t}
       };
 
-  Iterable<Task> _wsTasks(int wsId) => _allTasks.where((t) => t.ws.id == wsId);
+  Iterable<Task> _wsTasks(int wsId) => allTasks.where((t) => t.ws.id == wsId);
 
-  /// задача из списка
+  /// задачи из списка
 
   Task? task(int wsId, int? id) => _tasksMap[wsId]![id];
 
@@ -105,21 +104,21 @@ abstract class _MainControllerBase with Store {
 
   @action
   void addTasks(Iterable<Task> tasks) {
-    _allTasks.addAll(tasks);
-    _allTasks.sort(sortByDateAsc);
+    allTasks.addAll(tasks);
+    allTasks.sort(sortByDateAsc);
   }
 
   @action
   void setTask(Task et) {
-    final index = _allTasks.indexWhere((t) => t.ws.id == et.ws.id && t.id == et.id);
+    final index = allTasks.indexWhere((t) => t.ws.id == et.ws.id && t.id == et.id);
     if (index > -1) {
-      _allTasks[index] = et;
-      _allTasks.sort(sortByDateAsc);
+      allTasks[index] = et;
+      allTasks.sort(sortByDateAsc);
     }
   }
 
   @action
-  void removeTask(Task task) => _allTasks.remove(task);
+  void removeTask(Task task) => allTasks.remove(task);
 
   @observable
   DateTime? _updatedDate;
@@ -142,22 +141,16 @@ abstract class _MainControllerBase with Store {
     for (Workspace ws in workspaces) {
       _roots.addAll(await myUC.getTasks(ws));
     }
-
-    final res = <Task>[];
-    for (var r in _roots) {
-      res.addAll(r.allTasks);
-      res.add(r);
-    }
-    _allTasks = ObservableList.of(res.sorted(sortByDateAsc));
+    allTasks = ObservableList.of(_roots.sorted(sortByDateAsc));
   }
 
   @action
-  void refresh() => _allTasks = ObservableList.of(_allTasks);
+  void refresh() => allTasks = ObservableList.of(allTasks);
 
   @action
   void clearData() {
     workspaces = [];
-    _allTasks.clear();
+    allTasks.clear();
     _updatedDate = null;
 
     refsController.clearData();

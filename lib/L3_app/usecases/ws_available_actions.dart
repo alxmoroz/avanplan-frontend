@@ -27,7 +27,6 @@ extension WSActionsExt on Workspace {
   bool _pl(String code, int value) => invoice.tariff.passLimit(code, value);
 
   bool get plUsers => _pl(TLCode.USERS_COUNT, users.length + 1);
-  bool get plUnlink => _pl(TLCode.PROJECTS_UNLINK_ALLOWED, 1);
 
   int get _projectsCount => mainController.projects.where((t) => t.ws.id == id).length;
   int get maxProjects => invoice.tariff.limitValue(TLCode.PROJECTS_COUNT).toInt();

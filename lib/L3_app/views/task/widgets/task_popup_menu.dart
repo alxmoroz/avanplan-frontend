@@ -6,14 +6,12 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
-import '../../../components/icons_workspace.dart';
 import '../../../components/material_wrapper.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/source_presenter.dart';
 import '../../../usecases/task_available_actions.dart';
 import '../../../usecases/task_link.dart';
-import '../../../usecases/ws_available_actions.dart';
 import '../controllers/delete_controller.dart';
 import '../controllers/task_controller.dart';
 
@@ -51,7 +49,6 @@ class TaskPopupMenu extends StatelessWidget {
           leading: const LinkBreakIcon(),
           title: loc.task_unlink_action_title,
           color: warningColor,
-          trailing: _task.ws.plUnlink ? null : const RoubleCircleIcon(),
         );
       case TaskActionType.delete:
         return _tile(at, leading: const DeleteIcon(), title: loc.delete_action_title, color: dangerColor);

@@ -26,7 +26,7 @@ class TaskSourceImport {
     required this.code,
     required this.rootCode,
     required this.updatedOn,
-    this.keepConnection = true,
+    this.keepConnection = false,
   });
 
   final String code;

@@ -10,8 +10,6 @@ import '../components/mt_alert_dialog.dart';
 import '../extra/services.dart';
 import '../presenters/source_presenter.dart';
 import '../presenters/task_tree.dart';
-import '../usecases/ws_tariff.dart';
-import 'task_available_actions.dart';
 import 'task_edit.dart';
 
 extension TaskLink on Task {
@@ -44,19 +42,15 @@ extension TaskLink on Task {
       );
 
   Future unlink() async {
-    if (canUnlink) {
-      if (await _unlinkDialog() == true) {
-        Navigator.of(rootKey.currentContext!).pop();
+    if (await _unlinkDialog() == true) {
+      Navigator.of(rootKey.currentContext!).pop();
 
-        await edit(() async {
-          if (await importUC.unlinkProject(this)) {
-            unlinkTaskTree();
-          }
-          return this;
-        });
-      }
-    } else {
-      await ws.changeTariff(reason: loc.tariff_change_limit_unlink_reason_title);
+      await edit(() async {
+        if (await importUC.unlinkProject(this)) {
+          unlinkTaskTree();
+        }
+        return this;
+      });
     }
   }
 }

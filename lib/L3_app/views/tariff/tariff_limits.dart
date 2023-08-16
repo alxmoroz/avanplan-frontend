@@ -1,12 +1,9 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/icons.dart';
 import '../../components/icons_workspace.dart';
 import '../../components/mt_list_tile.dart';
 import '../../components/text_widgets.dart';
@@ -43,10 +40,6 @@ class _TariffLimitTile extends StatelessWidget {
     } else if (code == 'TASKS_COUNT') {
       icon = const TasksIcon();
       suffix = loc.task_plural_genitive(plural);
-    } else if (code == 'PROJECTS_UNLINK_ALLOWED') {
-      icon = const ImportIcon(color: greyTextColor);
-      hvStr = '';
-      prefix = Intl.message('tariff_limit_projects_unlink_allowed_$value');
     } else if (code == 'BILLING_PERIOD_DAYS') {
       icon = const BillingPeriodIcon();
       prefix = loc.tariff_limit_billing_period_title;

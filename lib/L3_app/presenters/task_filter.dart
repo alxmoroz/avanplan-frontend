@@ -4,7 +4,6 @@ import 'package:collection/collection.dart';
 
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities/task_source.dart';
-import '../../L1_domain/usecases/task_comparators.dart';
 import 'task_stats.dart';
 import 'task_tree.dart';
 
@@ -25,9 +24,8 @@ List<Task> attentionalTasks(List<MapEntry<TaskState, List<Task>>> groups) => gro
 TaskState attentionalState(List<MapEntry<TaskState, List<Task>>> groups) => groups.isNotEmpty ? groups.first.key : TaskState.NO_SUBTASKS;
 
 extension TaskFilterPresenter on Task {
-  List<Task> get sortedSubtasks => subtasks.sorted(sortByDateAsc);
-  List<Task> subtasksForStatus(int statusId) => sortedSubtasks.where((t) => t.statusId == statusId).toList();
-  List<MapEntry<TaskState, List<Task>>> get subtaskGroups => groups(sortedSubtasks);
+  List<Task> subtasksForStatus(int statusId) => subtasks.where((t) => t.statusId == statusId).toList();
+  List<MapEntry<TaskState, List<Task>>> get subtaskGroups => groups(subtasks);
   List<Task> get attentionalSubtasks => attentionalTasks(subtaskGroups);
   TaskState get subtasksState => attentionalState(subtaskGroups);
 

@@ -4,12 +4,12 @@ import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../../../L1_domain/entities/task.dart';
-import '../../../../../L1_domain/usecases/task_comparators.dart';
-import '../../../../../main.dart';
-import '../../../../extra/services.dart';
-import '../../../../presenters/task_tree.dart';
-import '../../controllers/task_controller.dart';
+import '../../../../L1_domain/entities/task.dart';
+import '../../../../L1_domain/usecases/task_comparators.dart';
+import '../../../../main.dart';
+import '../../../presenters/task_tree.dart';
+import '../../../usecases/task_edit.dart';
+import 'task_controller.dart';
 
 part 'local_import_controller.g.dart';
 
@@ -48,26 +48,18 @@ abstract class _LocalImportControllerBase with Store {
   }
 
   Future moveTasks() async {
-    loader.start();
-    loader.setSaving();
-
-    int moved = 0;
+    Navigator.of(rootKey.currentContext!).pop();
+    final dstParentId = destinationGoal.id;
     for (int index = 0; index < checks.length; index++) {
       if (checks[index]) {
         final t = srcTasks[index];
-        t.parentId = destinationGoal.id;
-        if (await taskUC.save(t) != null) {
-          moved++;
+        t.parentId = dstParentId;
+        final et = await t.save();
+
+        if (et != null && taskController.tabKey != TaskTabKey.subtasks) {
+          taskController.selectTab(TaskTabKey.subtasks);
         }
       }
     }
-
-    if (moved > 0) {
-      mainController.refresh();
-      taskController.selectTab(TaskTabKey.subtasks);
-    }
-
-    Navigator.of(rootKey.currentContext!).pop();
-    await loader.stop(300);
   }
 }

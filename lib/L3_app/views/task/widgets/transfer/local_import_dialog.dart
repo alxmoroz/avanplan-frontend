@@ -18,8 +18,8 @@ import '../../../../components/mt_toolbar.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_transfer.dart';
+import '../../controllers/local_import_controller.dart';
 import '../../controllers/task_controller.dart';
-import 'local_import_controller.dart';
 import 'select_task_dialog.dart';
 
 Future localImportDialog(TaskController taskController) async {

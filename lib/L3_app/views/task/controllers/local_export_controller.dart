@@ -11,13 +11,13 @@ import '../../../presenters/task_transfer.dart';
 import '../widgets/transfer/select_task_dialog.dart';
 import 'task_controller.dart';
 
-class TransferController {
-  TransferController(this._taskController);
+class LocalExportController {
+  LocalExportController(this._taskController);
   final TaskController _taskController;
 
   Task get task => _taskController.task;
 
-  /// перенос с другую цель
+  /// перенос в другую цель
 
   Future localExport() async {
     final sourceGoalId = task.parentId;

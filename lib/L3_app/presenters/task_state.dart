@@ -12,6 +12,7 @@ import '../extra/services.dart';
 import '../presenters/duration_presenter.dart';
 import '../presenters/task_filter.dart';
 import '../presenters/task_type.dart';
+import 'date_presenter.dart';
 import 'task_stats.dart';
 import 'task_tree.dart';
 
@@ -128,6 +129,24 @@ extension TaskStatePresenter on Task {
   String get _lowStartDetails => loc.state_low_start_duration(serviceSettingsController.lowStartThreshold.localizedString);
   String get _noProgressDetails => loc.state_no_progress_details;
 
+  TaskState get dateState {
+    TaskState st = TaskState.NO_DUE;
+    if (hasDueDate) {
+      final due = dueDate!.date;
+      st = hasOverdue
+          ? TaskState.OVERDUE
+          : yesterday.isBefore(due) && due.isBefore(tomorrow)
+              ? TaskState.TODAY
+              : today.isBefore(due) && due.isBefore(nextWeek)
+                  ? TaskState.THIS_WEEK
+                  : TaskState.FUTURE_DUE;
+    }
+
+    return st;
+  }
+
+  TaskState get overallState => isLeaf ? dateState : state;
+
   String get _subtasksStateTitle {
     final count = subtaskGroups.isNotEmpty ? subtaskGroups.first.value.length : 0;
     switch (subtasksState) {
@@ -175,7 +194,7 @@ extension TaskStatePresenter on Task {
       case TaskState.CLOSED:
         return loc.state_closed;
       default:
-        return loc.state_no_info_title;
+        return '???';
     }
   }
 

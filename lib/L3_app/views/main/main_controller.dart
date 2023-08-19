@@ -16,6 +16,7 @@ import '../../components/mt_alert_dialog.dart';
 import '../../extra/services.dart';
 import '../../presenters/number_presenter.dart';
 import '../../presenters/task_filter.dart';
+import '../../presenters/task_state.dart';
 import '../../presenters/task_stats.dart';
 import '../../presenters/task_tree.dart';
 import '../../usecases/ws_available_actions.dart';
@@ -71,9 +72,9 @@ abstract class _MainControllerBase with Store {
   @computed
   Iterable<Task> get _myOverdueTasks => _myDT.where((t) => t.hasOverdue);
   @computed
-  Iterable<Task> get _myTodayTasks => _myDT.where((t) => t.state == TaskState.TODAY);
+  Iterable<Task> get _myTodayTasks => _myDT.where((t) => t.dateState == TaskState.TODAY);
   @computed
-  Iterable<Task> get _myThisWeekTasks => _myDT.where((t) => t.state == TaskState.THIS_WEEK);
+  Iterable<Task> get _myThisWeekTasks => _myDT.where((t) => t.dateState == TaskState.THIS_WEEK);
   @computed
   int get _todayCount => _myOverdueTasks.length + _myTodayTasks.length;
   @computed

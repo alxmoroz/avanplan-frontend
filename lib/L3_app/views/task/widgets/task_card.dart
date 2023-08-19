@@ -70,7 +70,7 @@ class TaskCard extends StatelessWidget {
       ]);
 
   bool get _showDate => task.hasDueDate && !task.closed && task.isLeaf;
-  Color get _dateColor => task.dueDate!.isBefore(tomorrow) ? stateColor(task.state) : _textColor ?? greyColor;
+  Color get _dateColor => task.dueDate!.isBefore(tomorrow) ? stateColor(task.dateState) : _textColor ?? greyColor;
   Widget get _date => Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -169,7 +169,7 @@ class TaskCard extends StatelessWidget {
                 bottom: 0,
                 child: Container(
                   decoration: BoxDecoration(
-                    gradient: stateGradient(task.state),
+                    gradient: stateGradient(task.overallState),
                   ),
                   width: P_2,
                 ),

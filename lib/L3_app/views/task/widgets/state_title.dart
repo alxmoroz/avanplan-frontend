@@ -56,6 +56,6 @@ class TaskStateTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _StateTitle(task.state, task.stateTitle, place: place);
+    return _StateTitle(task.overallState, task.stateTitle, place: place);
   }
 }

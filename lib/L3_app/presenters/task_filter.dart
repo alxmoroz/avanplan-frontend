@@ -3,10 +3,11 @@
 import 'package:collection/collection.dart';
 
 import '../../L1_domain/entities/task.dart';
+import 'task_state.dart';
 import 'task_tree.dart';
 
 List<MapEntry<TaskState, List<Task>>> groups(Iterable<Task> tasks) {
-  final gt = groupBy<Task, TaskState>(tasks, (t) => t.state);
+  final gt = groupBy<Task, TaskState>(tasks, (t) => t.overallState);
   return gt.entries.sortedBy<num>((g) => g.key.index);
 }
 
@@ -15,6 +16,7 @@ List<Task> attentionalTasks(List<MapEntry<TaskState, List<Task>>> groups) => gro
           TaskState.OVERDUE,
           TaskState.RISK,
           TaskState.OK,
+          TaskState.AHEAD,
         ].contains(groups.first.key)
     ? groups.first.value
     : [];

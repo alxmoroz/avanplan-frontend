@@ -1,5 +1,6 @@
 // Copyright (c) 2023. Alexandr Moroz
 
+import 'package:avanplan/L3_app/components/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
@@ -37,7 +38,7 @@ abstract class _RegistrationControllerBase extends EditController with Store {
       error: fd.errorText,
       obscureText: isPassword && _showPassword == false,
       keyboardType: isEmail ? TextInputType.emailAddress : null,
-      suffixIcon: isPassword ? MTButton.icon(EyeIcon(open: !_showPassword), onTap: _toggleShowPassword) : null,
+      suffixIcon: isPassword ? MTButton.icon(EyeIcon(open: !_showPassword, color: mainColor), onTap: _toggleShowPassword) : null,
       maxLines: 1,
       capitalization: TextCapitalization.none,
       margin: tfPadding.copyWith(top: first ? P_2 : tfPadding.top),

@@ -2,7 +2,6 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'colors.dart';
 import 'constants.dart';
@@ -80,10 +79,10 @@ class CaretIcon extends StatelessWidget {
 class ChevronIcon extends MTIcon {
   const ChevronIcon({super.color, super.size});
   @override
-  Widget build(BuildContext context) => FaIcon(
-        FontAwesomeIcons.chevronRight,
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.chevron_right,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? P,
+        size: size ?? P * 1.6,
       );
 }
 
@@ -197,10 +196,10 @@ class EyeIcon extends MTIcon {
   const EyeIcon({this.open = true, super.color, super.size});
   final bool open;
   @override
-  Widget build(BuildContext context) => FaIcon(
-        open ? FontAwesomeIcons.eye : FontAwesomeIcons.eyeSlash,
+  Widget build(BuildContext context) => Icon(
+        open ? CupertinoIcons.eye : CupertinoIcons.eye_slash,
         color: (color ?? greyTextColor).resolve(context),
-        size: size ?? P * 1.8,
+        size: size ?? P2,
       );
 }
 
@@ -217,8 +216,8 @@ class ImportIcon extends MTIcon {
 class LinkIcon extends MTIcon {
   const LinkIcon({super.color, super.size});
   @override
-  Widget build(BuildContext context) => FaIcon(
-        FontAwesomeIcons.link,
+  Widget build(BuildContext context) => Icon(
+        Icons.link,
         color: (color ?? mainColor).resolve(context),
         size: size ?? P * 1.4,
       );
@@ -227,8 +226,8 @@ class LinkIcon extends MTIcon {
 class LinkBreakIcon extends MTIcon {
   const LinkBreakIcon({super.color, super.size});
   @override
-  Widget build(BuildContext context) => FaIcon(
-        FontAwesomeIcons.linkSlash,
+  Widget build(BuildContext context) => Icon(
+        Icons.link_off,
         color: (color ?? warningColor).resolve(context),
         size: size ?? P * 1.4,
       );

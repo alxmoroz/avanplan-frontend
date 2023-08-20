@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_button.dart';
@@ -35,7 +36,7 @@ abstract class _SignInEmailControllerBase extends EditController with Store {
       error: fd.errorText,
       keyboardType: isEmail ? TextInputType.emailAddress : null,
       obscureText: isPassword && _showPassword == false,
-      suffixIcon: isPassword ? MTButton.icon(EyeIcon(open: !_showPassword), onTap: _toggleShowPassword) : null,
+      suffixIcon: isPassword ? MTButton.icon(EyeIcon(open: !_showPassword, color: mainColor), onTap: _toggleShowPassword) : null,
       maxLines: 1,
       capitalization: TextCapitalization.none,
       margin: tfPadding.copyWith(top: first ? P_2 : tfPadding.top),

@@ -22,6 +22,7 @@ InputDecoration tfDecoration(
 
   final OutlineInputBorder _warningBorder = OutlineInputBorder(borderSide: BorderSide(color: _rWarningColor));
   final OutlineInputBorder _border = OutlineInputBorder(borderSide: BorderSide(color: _rBorderColor));
+  final OutlineInputBorder _focusedBorder = OutlineInputBorder(borderSide: BorderSide(width: 2, color: mainColor.resolve(context)));
 
   return InputDecoration(
     labelText: label,
@@ -36,7 +37,7 @@ InputDecoration tfDecoration(
     floatingLabelBehavior: FloatingLabelBehavior.auto,
     isDense: true,
     border: _border,
-    focusedBorder: readOnly ? _border : null,
+    focusedBorder: readOnly ? _border : _focusedBorder,
     enabledBorder: _border,
     disabledBorder: _border,
     errorBorder: _warningBorder,

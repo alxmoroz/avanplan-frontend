@@ -147,7 +147,7 @@ extension TaskStatePresenter on Task {
     return st;
   }
 
-  TaskState get overallState => isLeaf ? leafState : state;
+  TaskState get overallState => isTask ? leafState : state;
 
   String get _subtasksStateTitle {
     final count = subtaskGroups.isNotEmpty ? subtaskGroups.first.value.length : 0;
@@ -200,7 +200,6 @@ extension TaskStatePresenter on Task {
     }
   }
 
-  bool get canShowState => !closed && !isLeaf;
   bool get canShowRecommendsEta => project!.state == TaskState.NO_PROGRESS || state == TaskState.NO_SUBTASKS;
   Duration? get projectStartEtaCalcPeriod => project!.calculatedStartDate.add(serviceSettingsController.lowStartThreshold).difference(DateTime.now());
 }

@@ -82,7 +82,7 @@ class ChevronIcon extends MTIcon {
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.chevron_right,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? P * 1.6,
+        size: size ?? P * 1.2,
       );
 }
 

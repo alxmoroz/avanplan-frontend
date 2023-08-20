@@ -14,6 +14,7 @@ import '../../../extra/services.dart';
 import '../../../presenters/task_filter.dart';
 import '../../../presenters/task_state.dart';
 import '../../../presenters/task_stats.dart';
+import '../../../presenters/task_tree.dart';
 import '../../../presenters/task_view.dart';
 import '../../../usecases/task_available_actions.dart';
 import '../controllers/task_controller.dart';
@@ -101,7 +102,7 @@ class OverviewPane extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: P),
-                if (_task.canShowState)
+                if (_task.isOpenedGroup)
                   !_task.canCloseGroup && (_task.canShowRecommendsEta || _task.projectLowStart)
                       ? H3('${loc.state_no_info_title}: ${_task.stateTitle.toLowerCase()}', align: TextAlign.center)
                       : TaskStateTitle(_task, place: StateTitlePlace.taskOverview),

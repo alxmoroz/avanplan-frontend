@@ -109,7 +109,7 @@ abstract class _TaskControllerBase extends EditController with Store {
   Iterable<TaskTabKey> get tabKeys {
     return [
       if (!isNew && task.hasOverviewPane) TaskTabKey.overview,
-      if (!isNew && !task.isLeaf) TaskTabKey.subtasks,
+      if (!isNew && !task.isTask) TaskTabKey.subtasks,
       if (!isNew && task.hasTeamPane) TaskTabKey.team,
       TaskTabKey.details,
     ];

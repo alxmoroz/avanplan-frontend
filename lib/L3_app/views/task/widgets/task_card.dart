@@ -69,7 +69,7 @@ class TaskCard extends StatelessWidget {
         SmallText(task.error!.title, color: _textColor, height: 1, maxLines: 1),
       ]);
 
-  bool get _showDate => task.hasDueDate && !task.closed && task.isLeaf;
+  bool get _showDate => task.hasDueDate && !task.closed && task.isTask;
   Color get _dateColor => task.dueDate!.isBefore(tomorrow) ? stateColor(task.leafState) : _textColor ?? greyColor;
   Widget get _date => Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -115,15 +115,15 @@ class TaskCard extends StatelessWidget {
           if (task.error != null)
             _error
           // проекты, цели или группы задач - интегральная оценка, метка связанного проекта и комментариев
-          else if (task.canShowState || task.isLinkedProject) ...[
+          else if (task.isOpenedGroup) ...[
             const SizedBox(height: P_6),
             Row(children: [
-              if (task.canShowState) Expanded(child: TaskStateTitle(task)),
+              Expanded(child: TaskStateTitle(task)),
               if (_showNotesMark) ...[_notesMark],
               if (task.isLinkedProject) ...[if (_showNotesMark) _divider, const LinkIcon(color: lightGreyColor)]
             ]),
             // листья - срок, метка комментов, оценка, статус, назначено
-          ] else if (!task.canShowState) ...[
+          ] else ...[
             if (_showDate || _showNotesMark || _showStatus || _showAssignee || task.hasEstimate) ...[
               const SizedBox(height: P_6),
               Row(

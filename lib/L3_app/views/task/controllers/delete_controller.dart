@@ -13,7 +13,7 @@ class DeleteController {
   Future delete(Task task) async {
     final confirm = await showMTAlertDialog(
       task.deleteDialogTitle,
-      description: '${task.isLeaf ? '' : '${loc.task_delete_dialog_description}\n'}${loc.delete_dialog_description}',
+      description: '${task.isTask ? '' : '${loc.task_delete_dialog_description}\n'}${loc.delete_dialog_description}',
       actions: [
         MTADialogAction(title: loc.yes, type: MTActionType.isDanger, result: true),
         MTADialogAction(title: loc.no, type: MTActionType.isDefault, result: false),

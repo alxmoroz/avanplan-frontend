@@ -9,7 +9,7 @@ import '../../components/icons.dart';
 import '../../components/mt_list_tile.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/tariff_presenter.dart';
+import '../../presenters/tariff.dart';
 import 'workspace_view.dart';
 
 class WorkspaceListTile extends StatelessWidget {

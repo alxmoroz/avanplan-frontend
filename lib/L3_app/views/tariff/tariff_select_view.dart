@@ -16,7 +16,7 @@ import '../../components/mt_dialog.dart';
 import '../../components/mt_toolbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/number_presenter.dart';
+import '../../presenters/number.dart';
 import '../iap/iap_view.dart';
 import 'request_tariff_card.dart';
 import 'tariff_limits.dart';

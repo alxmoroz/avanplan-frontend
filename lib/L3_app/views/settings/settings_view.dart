@@ -16,7 +16,7 @@ import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/communications_presenter.dart';
+import '../../presenters/communications.dart';
 import '../notification/notification_list_view.dart';
 import '../workspace/workspace_list_tile.dart';
 import 'account_list_tile.dart';

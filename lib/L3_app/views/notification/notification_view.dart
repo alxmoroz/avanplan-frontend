@@ -8,7 +8,7 @@ import '../../components/mt_dialog.dart';
 import '../../components/mt_toolbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/date_presenter.dart';
+import '../../presenters/date.dart';
 
 Future showNotificationDialog(BuildContext context) async => await showMTDialog<void>(NotificationView());
 

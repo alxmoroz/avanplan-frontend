@@ -15,7 +15,7 @@ import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/date_presenter.dart';
+import '../../presenters/date.dart';
 import 'notification_controller.dart';
 
 class NotificationListView extends StatelessWidget {

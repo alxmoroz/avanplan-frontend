@@ -10,8 +10,8 @@ import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/person_presenter.dart';
-import '../../presenters/ws_presenter.dart';
+import '../../presenters/person.dart';
+import '../../presenters/workspace.dart';
 
 class UserView extends StatelessWidget {
   const UserView(this.user);

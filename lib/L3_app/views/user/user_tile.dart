@@ -7,7 +7,7 @@ import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_list_tile.dart';
 import '../../components/text_widgets.dart';
-import '../../presenters/person_presenter.dart';
+import '../../presenters/person.dart';
 import 'user_view.dart';
 
 class UserTile extends StatelessWidget {

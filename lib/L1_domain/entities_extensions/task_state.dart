@@ -1,9 +1,13 @@
 // Copyright (c) 2023. Alexandr Moroz
 
+import 'package:collection/collection.dart';
+
 import '../entities/task.dart';
 import '../utils/dates.dart';
 import 'task_stats.dart';
 import 'task_tree.dart';
+
+TaskState stateFromStr(String strState) => TaskState.values.firstWhereOrNull((s) => s.name == strState) ?? TaskState.NO_INFO;
 
 extension TaskStateExtension on Task {
   TaskState get leafState {

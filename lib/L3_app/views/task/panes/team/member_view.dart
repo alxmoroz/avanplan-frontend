@@ -13,7 +13,7 @@ import '../../../../components/mt_page.dart';
 import '../../../../components/navbar.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/person_presenter.dart';
+import '../../../../presenters/person.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../../usecases/task_available_actions.dart';
 import 'member_view_controller.dart';

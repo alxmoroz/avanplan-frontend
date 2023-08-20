@@ -8,7 +8,7 @@ import '../../components/mt_dialog.dart';
 import '../../components/mt_list_tile.dart';
 import '../../components/mt_toolbar.dart';
 import '../../extra/services.dart';
-import '../../presenters/source_presenter.dart';
+import '../../presenters/source.dart';
 
 class SourceTypeSelector extends StatelessWidget {
   const SourceTypeSelector(this.onTap);

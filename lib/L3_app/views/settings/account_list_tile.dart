@@ -9,7 +9,7 @@ import '../../components/icons.dart';
 import '../../components/mt_list_tile.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/person_presenter.dart';
+import '../../presenters/person.dart';
 import '../account/account_view.dart';
 
 class AccountListTile extends StatelessWidget {

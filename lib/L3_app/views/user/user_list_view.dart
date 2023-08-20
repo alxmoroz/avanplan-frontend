@@ -6,7 +6,7 @@ import '../../../L1_domain/entities/workspace.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../extra/services.dart';
-import '../../presenters/ws_presenter.dart';
+import '../../presenters/workspace.dart';
 import 'user_tile.dart';
 
 class UserListView extends StatelessWidget {

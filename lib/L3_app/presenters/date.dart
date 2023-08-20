@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import '../../L1_domain/utils/dates.dart';
 import '../extra/services.dart';
 
-extension DateFormatter on DateTime {
+extension DateFormatterPresenter on DateTime {
   String get strTime => DateFormat.Hm().format(this);
   String get strShortWTime => (thisYear ? DateFormat.Md() : DateFormat.yMd()).add_Hm().format(this);
   String get strShort => thisYear ? DateFormat.Md().format(this) : DateFormat.yMd().format(this);

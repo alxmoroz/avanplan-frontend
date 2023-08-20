@@ -10,7 +10,7 @@ import '../../components/mt_button.dart';
 import '../../components/mt_card.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/communications_presenter.dart';
+import '../../presenters/communications.dart';
 
 class RequestTariffCard extends StatelessWidget {
   @override

@@ -8,7 +8,7 @@ import '../../../../components/constants.dart';
 import '../../../../components/mt_pie_chart.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/number_presenter.dart';
+import '../../../../presenters/number.dart';
 
 class TaskVolumeChart extends StatelessWidget {
   const TaskVolumeChart(this.task);

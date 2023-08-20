@@ -5,15 +5,12 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 
-import '../../L1_domain/entities/member.dart';
 import '../../L1_domain/entities/person.dart';
 import '../components/colors.dart';
-import '../components/constants.dart';
-import '../components/text_widgets.dart';
-import 'role_presenter.dart';
+import 'role.dart';
 
-class _PersonIcon extends StatelessWidget {
-  const _PersonIcon(this.person, this.radius, {this.borderSide});
+class PersonAvatar extends StatelessWidget {
+  const PersonAvatar(this.person, this.radius, {this.borderSide});
   final Person person;
   final double radius;
   final BorderSide? borderSide;
@@ -34,20 +31,5 @@ class _PersonIcon extends StatelessWidget {
 
 extension PersonPresenter on Person {
   String get rolesStr => roles.map((rCode) => localizedRoleCode(rCode)).join(', ');
-  Widget icon(double radius, {BorderSide? borderSide}) => _PersonIcon(this, radius, borderSide: borderSide);
-}
-
-extension MemberPresenter on Member {
-  Widget iconName({double radius = P, BorderSide? borderSide, Color? color}) {
-    final textColor = color ?? (isActive ? null : lightGreyColor);
-    return Row(
-      children: [
-        if (isActive) ...[
-          _PersonIcon(this, radius, borderSide: borderSide),
-          const SizedBox(width: P_2),
-        ],
-        NormalText('$this', color: textColor),
-      ],
-    );
-  }
+  Widget icon(double radius, {BorderSide? borderSide}) => PersonAvatar(this, radius, borderSide: borderSide);
 }

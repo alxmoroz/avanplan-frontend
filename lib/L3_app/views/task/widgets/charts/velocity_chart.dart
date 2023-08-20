@@ -10,10 +10,10 @@ import '../../../../components/constants.dart';
 import '../../../../components/mt_pie_chart.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/duration_presenter.dart';
+import '../../../../presenters/duration.dart';
 import '../../../../presenters/task_state.dart';
 import '../../../../presenters/task_stats.dart';
-import '../../../../presenters/ws_presenter.dart';
+import '../../../../presenters/workspace.dart';
 
 class VelocityChart extends StatelessWidget {
   const VelocityChart(this.task);

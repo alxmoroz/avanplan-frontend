@@ -19,13 +19,13 @@ import '../../../components/mt_list_tile.dart';
 import '../../../components/mt_loader.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/date_presenter.dart';
-import '../../../presenters/person_presenter.dart';
-import '../../../presenters/task_note.dart';
+import '../../../presenters/date.dart';
+import '../../../presenters/note.dart';
+import '../../../presenters/person.dart';
 import '../../../presenters/task_state.dart';
 import '../../../presenters/task_tree.dart';
 import '../../../presenters/task_type.dart';
-import '../../../presenters/ws_presenter.dart';
+import '../../../presenters/workspace.dart';
 import '../../../usecases/task_available_actions.dart';
 import 'state_title.dart';
 

@@ -8,7 +8,7 @@ import '../../components/constants.dart';
 import '../../components/mt_button.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/communications_presenter.dart';
+import '../../presenters/communications.dart';
 import 'registration_controller.dart';
 
 class RegistrationCompletedMessage extends StatelessWidget {

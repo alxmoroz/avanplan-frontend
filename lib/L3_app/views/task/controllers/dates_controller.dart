@@ -15,8 +15,8 @@ import '../../../components/mt_button.dart';
 import '../../../components/mt_field.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/date_presenter.dart';
-import '../../../presenters/duration_presenter.dart';
+import '../../../presenters/date.dart';
+import '../../../presenters/duration.dart';
 import '../../../usecases/task_available_actions.dart';
 import 'task_controller.dart';
 

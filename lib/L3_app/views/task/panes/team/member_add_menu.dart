@@ -14,7 +14,7 @@ import '../../../../components/mt_limit_badge.dart';
 import '../../../../components/mt_menu_shape.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/role_presenter.dart';
+import '../../../../presenters/role.dart';
 import '../../../../usecases/ws_available_actions.dart';
 import '../../../../usecases/ws_tariff.dart';
 import 'member_add_view.dart';

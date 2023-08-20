@@ -18,7 +18,7 @@ import '../../../../components/mt_field_data.dart';
 import '../../../../components/mt_text_field.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/date_presenter.dart';
+import '../../../../presenters/date.dart';
 import '../../../_base/edit_controller.dart';
 
 part 'invitation_controller.g.dart';

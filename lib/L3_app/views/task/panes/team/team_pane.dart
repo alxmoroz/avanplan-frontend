@@ -13,7 +13,7 @@ import '../../../../components/mt_adaptive.dart';
 import '../../../../components/mt_list_tile.dart';
 import '../../../../components/mt_shadowed.dart';
 import '../../../../components/text_widgets.dart';
-import '../../../../presenters/person_presenter.dart';
+import '../../../../presenters/person.dart';
 import '../../../../usecases/task_available_actions.dart';
 import '../../controllers/task_controller.dart';
 import 'member_add_menu.dart';

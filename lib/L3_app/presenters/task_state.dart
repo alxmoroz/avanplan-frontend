@@ -10,7 +10,7 @@ import '../components/constants.dart';
 import '../components/images.dart';
 import '../components/mt_circle.dart';
 import '../extra/services.dart';
-import '../presenters/duration_presenter.dart';
+import '../presenters/duration.dart';
 import '../presenters/task_filter.dart';
 import '../presenters/task_type.dart';
 import 'task_tree.dart';

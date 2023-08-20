@@ -12,7 +12,7 @@ import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/person_presenter.dart';
+import '../../presenters/person.dart';
 import '../notification/notification_list_view.dart';
 import '../settings/settings_view.dart';
 import '../task/widgets/project_create_wizard/project_create_wizard.dart';

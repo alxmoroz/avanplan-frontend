@@ -8,8 +8,8 @@ import '../../components/icons_workspace.dart';
 import '../../components/mt_list_tile.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
-import '../../presenters/number_presenter.dart';
-import '../../presenters/tariff_presenter.dart';
+import '../../presenters/number.dart';
+import '../../presenters/tariff.dart';
 
 class _TariffLimitTile extends StatelessWidget {
   const _TariffLimitTile({

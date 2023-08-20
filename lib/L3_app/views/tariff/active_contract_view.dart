@@ -8,7 +8,7 @@ import '../../components/mt_button.dart';
 import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
 import '../../extra/services.dart';
-import '../../presenters/ws_presenter.dart';
+import '../../presenters/workspace.dart';
 import '../../usecases/ws_available_actions.dart';
 import '../../usecases/ws_tariff.dart';
 import 'tariff_limits.dart';

@@ -8,7 +8,7 @@ import '../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../components/constants.dart';
 import '../../../components/mt_select_dialog.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/person_presenter.dart';
+import '../../../presenters/member.dart';
 import '../../../usecases/task_available_actions.dart';
 import 'task_controller.dart';
 

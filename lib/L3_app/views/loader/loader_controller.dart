@@ -12,7 +12,7 @@ import '../../../L2_data/services/platform.dart';
 import '../../components/images.dart';
 import '../../components/mt_button.dart';
 import '../../extra/services.dart';
-import '../../presenters/communications_presenter.dart';
+import '../../presenters/communications.dart';
 
 part 'loader_controller.g.dart';
 

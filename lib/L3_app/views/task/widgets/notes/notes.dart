@@ -18,9 +18,9 @@ import '../../../../components/mt_list_tile.dart';
 import '../../../../components/mt_toolbar.dart';
 import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/date_presenter.dart';
-import '../../../../presenters/person_presenter.dart';
-import '../../../../presenters/task_note.dart';
+import '../../../../presenters/date.dart';
+import '../../../../presenters/note.dart';
+import '../../../../presenters/person.dart';
 import '../../../../usecases/task_available_actions.dart';
 import '../../controllers/notes_controller.dart';
 

@@ -7,7 +7,7 @@ import '../../../components/icons.dart';
 import '../../../components/navbar.dart';
 import '../../../presenters/task_type.dart';
 import '../../../presenters/task_view.dart';
-import '../../../presenters/ws_presenter.dart';
+import '../../../presenters/workspace.dart';
 import '../../../usecases/task_available_actions.dart';
 import '../controllers/task_controller.dart';
 import 'task_popup_menu.dart';

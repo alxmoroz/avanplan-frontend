@@ -5,7 +5,7 @@ import 'package:openapi/openapi.dart' as api;
 
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities/workspace.dart';
-import '../../L3_app/presenters/task_stats.dart';
+import '../../L1_domain/entities_extensions/task_state.dart';
 import 'member.dart';
 import 'note.dart';
 import 'project_status.dart';

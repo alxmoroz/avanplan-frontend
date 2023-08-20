@@ -121,7 +121,7 @@ class TaskCard extends StatelessWidget {
           else if (task.isOpenedGroup) ...[
             const SizedBox(height: P_6),
             Row(children: [
-              Expanded(child: TaskStateTitle(task)),
+              Expanded(child: TaskStateTitle(task, place: StateTitlePlace.card)),
               if (_showNotesMark) ...[_notesMark],
               if (task.isLinkedProject) ...[if (_showNotesMark) _divider, const LinkIcon(color: lightGreyColor)]
             ]),

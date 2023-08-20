@@ -4,7 +4,9 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../main.dart';
 import '../../L1_domain/entities/task.dart';
+import '../../L1_domain/entities_extensions/task_state.dart';
 import '../../L1_domain/entities_extensions/task_stats.dart';
+import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../components/colors.dart';
 import '../components/constants.dart';
 import '../components/images.dart';
@@ -12,8 +14,8 @@ import '../components/mt_circle.dart';
 import '../extra/services.dart';
 import '../presenters/duration.dart';
 import '../presenters/task_filter.dart';
+import '../presenters/task_tree.dart';
 import '../presenters/task_type.dart';
-import 'task_tree.dart';
 
 Color stateColor(TaskState state) {
   switch (state) {
@@ -114,7 +116,21 @@ String groupStateTitle(TaskState groupState) {
   }
 }
 
+TaskState attentionalState(List<MapEntry<TaskState, List<Task>>> groups) => groups.isNotEmpty ? groups.first.key : TaskState.NO_SUBTASKS;
+List<Task> attentionalTasks(List<MapEntry<TaskState, List<Task>>> groups) => groups.isNotEmpty &&
+        [
+          TaskState.OVERDUE,
+          TaskState.RISK,
+          TaskState.OK,
+          TaskState.AHEAD,
+        ].contains(groups.first.key)
+    ? groups.first.value
+    : [];
+
 extension TaskStatePresenter on Task {
+  List<Task> get attentionalSubtasks => attentionalTasks(subtaskGroups);
+  TaskState get subtasksState => attentionalState(subtaskGroups);
+
   String _subjects(int count, {bool dative = true}) {
     String res = '';
     if (count > 0) {
@@ -170,7 +186,7 @@ extension TaskStatePresenter on Task {
             ? _noProgressDetails
             : project!.state == TaskState.LOW_START
                 ? _lowStartDetails
-                : _subtasksStateTitle;
+                : loc.state_no_info_title;
       case TaskState.CLOSED:
         return loc.state_closed;
       default:
@@ -178,6 +194,14 @@ extension TaskStatePresenter on Task {
     }
   }
 
+  String get overallStateTitle => isTask || attentionalSubtasks.isEmpty ? stateTitle : _subtasksStateTitle;
+
   bool get canShowRecommendsEta => project!.state == TaskState.NO_PROGRESS || state == TaskState.NO_SUBTASKS;
   Duration? get projectStartEtaCalcPeriod => project!.calculatedStartDate.add(serviceSettingsController.lowStartThreshold).difference(DateTime.now());
+
+  TaskState get overallState => isTask
+      ? leafState
+      : attentionalSubtasks.isNotEmpty
+          ? subtasksState
+          : state;
 }

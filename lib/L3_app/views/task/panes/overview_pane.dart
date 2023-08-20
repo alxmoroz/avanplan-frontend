@@ -13,7 +13,6 @@ import '../../../components/mt_adaptive.dart';
 import '../../../components/mt_button.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/task_filter.dart';
 import '../../../presenters/task_state.dart';
 import '../../../presenters/task_stats.dart';
 import '../../../presenters/task_view.dart';

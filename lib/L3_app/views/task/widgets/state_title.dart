@@ -3,7 +3,6 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../L1_domain/entities/task.dart';
-import '../../../../L1_domain/entities_extensions/task_state.dart';
 import '../../../components/constants.dart';
 import '../../../components/text_widgets.dart';
 import '../../../presenters/task_state.dart';
@@ -57,6 +56,6 @@ class TaskStateTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _StateTitle(task.overallState, task.stateTitle, place: place);
+    return _StateTitle(task.overallState, place == StateTitlePlace.card ? task.overallStateTitle : task.stateTitle, place: place);
   }
 }

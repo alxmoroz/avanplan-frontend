@@ -38,8 +38,6 @@ class DetailsPane extends StatelessWidget {
         )
       : null;
 
-  bool get _closable => _task.canClose;
-
   @override
   Widget build(BuildContext context) {
     return Observer(
@@ -47,7 +45,7 @@ class DetailsPane extends StatelessWidget {
         child: MTAdaptive(
           child: ListView(
             children: [
-              if (_task.hasStatus || _closable) ...[
+              if (_task.hasStatus) ...[
                 MTField(
                   controller.fData(TaskFCode.status.index),
                   color: backgroundColor,
@@ -67,7 +65,7 @@ class DetailsPane extends StatelessWidget {
                               : null,
                           onTap: _task.canSetStatus ? controller.statusController.selectStatus : null,
                         ),
-                      if (_closable)
+                      if (_task.canClose)
                         MTButton(
                           titleColor: greenColor,
                           titleText: loc.close_action_title,

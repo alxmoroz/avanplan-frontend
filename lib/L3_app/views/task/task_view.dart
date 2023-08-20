@@ -58,24 +58,26 @@ class _TaskViewState extends State<TaskView> {
     super.dispose();
   }
 
-  Widget _tab(bool selected, Widget icon, Widget title) => selected ? title : icon;
+  Widget _tab(TaskTabKey tk, Widget icon, Widget title) => GestureDetector(
+        onTap: () => controller.selectTab(tk),
+        child: controller.tabKey == tk ? title : icon,
+      );
 
   Map<TaskTabKey, Widget> get _tabs {
     final res = <TaskTabKey, Widget>{};
     controller.tabKeys.forEach((tk) {
-      final selected = controller.tabKey == tk;
       switch (tk) {
         case TaskTabKey.overview:
-          res[TaskTabKey.overview] = _tab(selected, const EyeIcon(), NormalText(loc.overview));
+          res[TaskTabKey.overview] = _tab(tk, const EyeIcon(), NormalText(loc.overview));
           break;
         case TaskTabKey.subtasks:
-          res[TaskTabKey.subtasks] = _tab(selected, const DoneIcon(true, color: greyTextColor), NormalText('${task.listTitle}'));
+          res[TaskTabKey.subtasks] = _tab(tk, const DoneIcon(true, color: greyTextColor), NormalText('${task.listTitle}'));
           break;
         case TaskTabKey.details:
-          res[TaskTabKey.details] = _tab(selected, const RulesIcon(), NormalText(loc.description));
+          res[TaskTabKey.details] = _tab(tk, const RulesIcon(), NormalText(loc.description));
           break;
         case TaskTabKey.team:
-          res[TaskTabKey.team] = _tab(selected, const PeopleIcon(), NormalText(loc.team_list_title));
+          res[TaskTabKey.team] = _tab(tk, const PeopleIcon(), NormalText(loc.team_list_title));
           break;
       }
     });

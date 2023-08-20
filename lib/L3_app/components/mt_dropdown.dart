@@ -21,7 +21,7 @@ class MTDropdown<T extends RPersistable> extends StatelessWidget {
     this.dense = true,
   }) : assert((ddItems == null && items != null) || (ddItems != null && items == null));
 
-  final void Function(int?)? onChanged;
+  final Function(int?)? onChanged;
   final int? value;
   final List<T>? items;
   final List<DropdownMenuItem<int>>? ddItems;

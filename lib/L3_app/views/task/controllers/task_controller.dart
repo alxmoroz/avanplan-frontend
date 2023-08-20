@@ -2,6 +2,8 @@
 
 import 'dart:async';
 
+import 'package:avanplan/main.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/task.dart';
@@ -118,7 +120,11 @@ abstract class _TaskControllerBase extends EditController with Store {
   @observable
   TaskTabKey? _tabKey;
   @action
-  void selectTab(TaskTabKey? tk) => _tabKey = tk;
+  void selectTab(TaskTabKey? tk) {
+    _tabKey = tk;
+    FocusScope.of(rootKey.currentContext!).unfocus();
+  }
+
   @computed
   TaskTabKey get tabKey => (tabKeys.contains(_tabKey) ? _tabKey : null) ?? (tabKeys.isNotEmpty ? tabKeys.first : TaskTabKey.subtasks);
 

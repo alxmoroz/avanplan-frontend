@@ -7,6 +7,7 @@ import '../../../components/colors.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/material_wrapper.dart';
+import '../../../components/mt_button.dart';
 import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_source.dart';
@@ -15,7 +16,7 @@ import '../../../usecases/task_link.dart';
 import '../controllers/delete_controller.dart';
 import '../controllers/task_controller.dart';
 
-class TaskPopupMenu extends StatelessWidget {
+class TaskPopupMenu extends StatelessWidget with FocusManaging {
   const TaskPopupMenu(this.controller, {this.icon, this.child});
   final TaskController controller;
   final Widget? icon;
@@ -94,6 +95,7 @@ class TaskPopupMenu extends StatelessWidget {
               enabled: _enabled(at),
             )
         ],
+        onOpened: () => unfocus(context),
         onSelected: _taskAction,
         padding: EdgeInsets.zero,
         surfaceTintColor: lightBackgroundColor.resolve(context),

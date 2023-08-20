@@ -5,10 +5,11 @@ import 'package:flutter/material.dart';
 import 'colors.dart';
 import 'constants.dart';
 import 'material_wrapper.dart';
+import 'mt_button.dart';
 import 'mt_divider.dart';
 import 'text_widgets.dart';
 
-class MTListTile extends StatelessWidget {
+class MTListTile extends StatelessWidget with FocusManaging {
   const MTListTile({
     this.leading,
     this.middle,
@@ -23,6 +24,7 @@ class MTListTile extends StatelessWidget {
     this.topDivider = false,
     this.bottomDivider = true,
     this.crossAxisAlignment,
+    this.uf = true,
   });
   final Widget? leading;
   final Widget? middle;
@@ -37,6 +39,7 @@ class MTListTile extends StatelessWidget {
   final bool topDivider;
   final bool bottomDivider;
   final CrossAxisAlignment? crossAxisAlignment;
+  final bool uf;
 
   static const _defaultIndent = P * 1.5;
 
@@ -52,9 +55,12 @@ class MTListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final _hoverColor = mainColor.withAlpha(10).resolve(context);
     final _splashColor = mainColor.withAlpha(10).resolve(context);
+
+    final _onPressed = onTap != null ? () => actionWithUF(context, uf, onTap!) : null;
+
     return material(
       InkWell(
-          onTap: onTap,
+          onTap: _onPressed,
           hoverColor: _hoverColor,
           highlightColor: _splashColor,
           splashColor: _splashColor,

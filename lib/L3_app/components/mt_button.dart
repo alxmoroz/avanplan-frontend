@@ -12,7 +12,23 @@ import 'text_widgets.dart';
 
 enum ButtonType { text, main, secondary, icon, card }
 
-class MTButton extends StatelessWidget {
+mixin FocusManaging {
+  void unfocus(BuildContext context) {
+    final fs = FocusScope.of(context);
+    if (fs.hasFocus) {
+      fs.unfocus();
+    }
+  }
+
+  Future actionWithUF(BuildContext context, bool uf, Function callback) async {
+    if (uf) {
+      unfocus(context);
+    }
+    await callback();
+  }
+}
+
+class MTButton extends StatelessWidget with FocusManaging {
   const MTButton({
     this.titleText,
     this.onTap,
@@ -28,6 +44,7 @@ class MTButton extends StatelessWidget {
     this.elevation,
     this.loading,
     this.type = ButtonType.text,
+    this.uf = true,
   });
 
   const MTButton.main({
@@ -44,6 +61,7 @@ class MTButton extends StatelessWidget {
     this.margin,
     this.elevation,
     this.loading,
+    this.uf = true,
   }) : type = ButtonType.main;
 
   const MTButton.secondary({
@@ -60,10 +78,20 @@ class MTButton extends StatelessWidget {
     this.margin,
     this.elevation,
     this.loading,
+    this.uf = true,
   }) : type = ButtonType.secondary;
 
-  const MTButton.icon(Widget icon, {this.margin, this.padding, this.color, this.elevation, this.loading, this.onTap, this.onLongPress})
-      : type = ButtonType.icon,
+  const MTButton.icon(
+    Widget icon, {
+    this.margin,
+    this.padding,
+    this.color,
+    this.elevation,
+    this.loading,
+    this.onTap,
+    this.onLongPress,
+    this.uf = true,
+  })  : type = ButtonType.icon,
         middle = icon,
         titleText = null,
         leading = null,
@@ -73,8 +101,8 @@ class MTButton extends StatelessWidget {
 
   final ButtonType type;
   final String? titleText;
-  final VoidCallback? onTap;
-  final VoidCallback? onLongPress;
+  final Function? onTap;
+  final Function? onLongPress;
   final Widget? leading;
   final Widget? middle;
   final Widget? trailing;
@@ -85,6 +113,7 @@ class MTButton extends StatelessWidget {
   final bool constrained;
   final double? elevation;
   final bool? loading;
+  final bool uf;
 
   bool get _enabled => loading != true && (onTap != null || onLongPress != null);
   bool get _isCard => type == ButtonType.card;
@@ -112,6 +141,9 @@ class MTButton extends StatelessWidget {
   }
 
   Widget _button(BuildContext context) {
+    final _onPressed = onTap != null ? () => actionWithUF(context, uf, onTap!) : null;
+    final _onLongPress = onLongPress != null ? () => actionWithUF(context, uf, onLongPress!) : null;
+
     final _child = Row(
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
@@ -127,14 +159,14 @@ class MTButton extends StatelessWidget {
       case ButtonType.secondary:
       case ButtonType.card:
         return OutlinedButton(
-          onPressed: onTap,
-          onLongPress: onLongPress,
+          onPressed: _onPressed,
+          onLongPress: _onLongPress,
           child: _child,
           style: _style(context),
           clipBehavior: Clip.hardEdge,
         );
       default:
-        return CupertinoButton(onPressed: onTap, child: _child, minSize: 0, padding: padding ?? EdgeInsets.zero, color: color);
+        return CupertinoButton(onPressed: _onPressed, child: _child, minSize: 0, padding: padding ?? EdgeInsets.zero, color: color);
     }
   }
 

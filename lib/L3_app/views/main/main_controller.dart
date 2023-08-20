@@ -72,9 +72,9 @@ abstract class _MainControllerBase with Store {
   @computed
   Iterable<Task> get _myOverdueTasks => _myDT.where((t) => t.hasOverdue);
   @computed
-  Iterable<Task> get _myTodayTasks => _myDT.where((t) => t.dateState == TaskState.TODAY);
+  Iterable<Task> get _myTodayTasks => _myDT.where((t) => t.leafState == TaskState.TODAY);
   @computed
-  Iterable<Task> get _myThisWeekTasks => _myDT.where((t) => t.dateState == TaskState.THIS_WEEK);
+  Iterable<Task> get _myThisWeekTasks => _myDT.where((t) => t.leafState == TaskState.THIS_WEEK);
   @computed
   int get _todayCount => _myOverdueTasks.length + _myTodayTasks.length;
   @computed
@@ -120,6 +120,9 @@ abstract class _MainControllerBase with Store {
 
   @action
   void removeTask(Task task) => allTasks.remove(task);
+
+  @action
+  void removeClosed(Task parent) => allTasks.removeWhere((t) => t.closed && t.parentId == parent.id);
 
   @observable
   DateTime? _updatedDate;

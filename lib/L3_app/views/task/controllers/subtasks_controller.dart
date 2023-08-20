@@ -32,6 +32,7 @@ abstract class _SubtasksControllerBase with Store {
   Future _loadClosed() async {
     _loading = true;
     final tasks = await myUC.getTasks(task.ws, parent: task, closed: true);
+    mainController.removeClosed(task);
     if (tasks.isNotEmpty) {
       mainController.addTasks(tasks);
     }

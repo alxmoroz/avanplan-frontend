@@ -129,9 +129,11 @@ extension TaskStatePresenter on Task {
   String get _lowStartDetails => loc.state_low_start_duration(serviceSettingsController.lowStartThreshold.localizedString);
   String get _noProgressDetails => loc.state_no_progress_details;
 
-  TaskState get dateState {
+  TaskState get leafState {
     TaskState st = TaskState.NO_DUE;
-    if (hasDueDate) {
+    if (closed) {
+      st = TaskState.CLOSED;
+    } else if (hasDueDate) {
       final due = dueDate!.date;
       st = hasOverdue
           ? TaskState.OVERDUE
@@ -145,7 +147,7 @@ extension TaskStatePresenter on Task {
     return st;
   }
 
-  TaskState get overallState => isLeaf ? dateState : state;
+  TaskState get overallState => isLeaf ? leafState : state;
 
   String get _subtasksStateTitle {
     final count = subtaskGroups.isNotEmpty ? subtaskGroups.first.value.length : 0;

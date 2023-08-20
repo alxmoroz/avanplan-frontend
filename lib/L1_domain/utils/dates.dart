@@ -5,3 +5,8 @@ DateTime get yesterday => DateTime(now.year, now.month, now.day - 1);
 DateTime get today => DateTime(now.year, now.month, now.day);
 DateTime get tomorrow => DateTime(now.year, now.month, now.day + 1);
 DateTime get nextWeek => DateTime(now.year, now.month, now.day + 7);
+
+extension DateUtils on DateTime {
+  DateTime get date => DateTime(year, month, day);
+  bool get thisYear => year == now.year;
+}

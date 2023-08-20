@@ -7,8 +7,8 @@ import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/note.dart';
 import '../../../../L1_domain/entities/task.dart';
+import '../../../../L1_domain/utils/dates.dart';
 import '../../../components/mt_dialog.dart';
-import '../../../presenters/date_presenter.dart';
 import '../../../usecases/note_edit.dart';
 import '../../../usecases/task_available_actions.dart';
 import '../widgets/notes/note_dialog.dart';

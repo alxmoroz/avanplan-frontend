@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../L1_domain/entities/task.dart';
+import '../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../L1_domain/utils/dates.dart';
 import '../../../components/colors.dart';
 import '../../../components/constants.dart';
@@ -16,7 +17,6 @@ import '../../../components/text_widgets.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/date_presenter.dart';
 import '../../../presenters/duration_presenter.dart';
-import '../../../presenters/task_stats.dart';
 import '../../../usecases/task_available_actions.dart';
 import 'task_controller.dart';
 

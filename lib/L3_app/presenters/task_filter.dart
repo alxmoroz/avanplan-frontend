@@ -3,7 +3,7 @@
 import 'package:collection/collection.dart';
 
 import '../../L1_domain/entities/task.dart';
-import 'task_state.dart';
+import '../../L1_domain/entities_extensions/task_state.dart';
 import 'task_tree.dart';
 
 List<MapEntry<TaskState, List<Task>>> groups(Iterable<Task> tasks) {

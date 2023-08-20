@@ -3,11 +3,11 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../L1_domain/entities/task.dart';
+import '../../L1_domain/entities_extensions/task_stats.dart';
+import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../components/colors.dart';
-import '../presenters/task_tree.dart';
 import '../usecases/task_available_actions.dart';
 import 'task_state.dart';
-import 'task_stats.dart';
 
 extension TaskViewPresenter on Task {
   Color get bgColor => backgroundColor;

@@ -3,10 +3,10 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../L1_domain/entities/task.dart';
+import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../components/constants.dart';
 import '../components/text_widgets.dart';
 import '../extra/services.dart';
-import 'task_tree.dart';
 
 String newSubtaskTitle(String type) =>
     {

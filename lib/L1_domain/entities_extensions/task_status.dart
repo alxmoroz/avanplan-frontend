@@ -5,6 +5,7 @@ import 'package:collection/collection.dart';
 import '../../L3_app/presenters/task_tree.dart';
 import '../entities/status.dart';
 import '../entities/task.dart';
+import '../utils/dates.dart';
 
 extension TaskStatus on Task {
   List<Status> get statuses {
@@ -36,7 +37,7 @@ extension TaskStatus on Task {
       // TODO: на бэке нужна эта обработка, чтобы не было косяков из-за неправильно настроенных часов у клиента.
       // TODO: проверить выставление времени на фронте вообще. Не должно быть такого
       if (close) {
-        closedDate = DateTime.now();
+        closedDate = now;
       }
     }
   }

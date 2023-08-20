@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../L1_domain/entities/task.dart';
+import '../../../../L1_domain/entities_extensions/task_state.dart';
 import '../../../components/constants.dart';
 import '../../../components/text_widgets.dart';
 import '../../../presenters/task_state.dart';

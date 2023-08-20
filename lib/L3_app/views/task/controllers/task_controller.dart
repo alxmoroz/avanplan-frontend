@@ -5,9 +5,9 @@ import 'dart:async';
 import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/task.dart';
+import '../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../components/mt_field_data.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/task_tree.dart';
 import '../../../presenters/task_view.dart';
 import '../../../usecases/task_edit.dart';
 import '../../../views/_base/edit_controller.dart';

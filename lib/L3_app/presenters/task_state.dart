@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../main.dart';
 import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/utils/dates.dart';
+import '../../L1_domain/entities_extensions/task_stats.dart';
 import '../components/colors.dart';
 import '../components/constants.dart';
 import '../components/images.dart';
@@ -13,8 +13,6 @@ import '../extra/services.dart';
 import '../presenters/duration_presenter.dart';
 import '../presenters/task_filter.dart';
 import '../presenters/task_type.dart';
-import 'date_presenter.dart';
-import 'task_stats.dart';
 import 'task_tree.dart';
 
 Color stateColor(TaskState state) {
@@ -126,29 +124,8 @@ extension TaskStatePresenter on Task {
   }
 
   String get _etaDetails => '${loc.state_eta_duration(etaPeriod!.localizedString)}';
-
   String get _lowStartDetails => loc.state_low_start_duration(serviceSettingsController.lowStartThreshold.localizedString);
   String get _noProgressDetails => loc.state_no_progress_details;
-
-  TaskState get leafState {
-    TaskState st = TaskState.NO_DUE;
-    if (closed) {
-      st = TaskState.CLOSED;
-    } else if (hasDueDate) {
-      final due = dueDate!.date;
-      st = hasOverdue
-          ? TaskState.OVERDUE
-          : yesterday.isBefore(due) && due.isBefore(tomorrow)
-              ? TaskState.TODAY
-              : today.isBefore(due) && due.isBefore(nextWeek)
-                  ? TaskState.THIS_WEEK
-                  : TaskState.FUTURE_DUE;
-    }
-
-    return st;
-  }
-
-  TaskState get overallState => isTask ? leafState : state;
 
   String get _subtasksStateTitle {
     final count = subtaskGroups.isNotEmpty ? subtaskGroups.first.value.length : 0;

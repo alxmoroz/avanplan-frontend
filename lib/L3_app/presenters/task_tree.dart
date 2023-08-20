@@ -3,16 +3,10 @@
 import 'package:collection/collection.dart';
 
 import '../../L1_domain/entities/task.dart';
+import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../extra/services.dart';
 
-extension TaskTree on Task {
-  bool get isProject => type == TType.PROJECT || parentId == null;
-  bool get isGoal => type == TType.GOAL;
-  bool get isTaskGroup => type == TType.GROUP;
-  bool get isBacklog => type == TType.BACKLOG;
-  bool get isTask => type == TType.TASK;
-  bool get isOpenedGroup => !isTask && !closed;
-
+extension TaskTreePresenter on Task {
   Task? get parent => mainController.allTasks.firstWhereOrNull((t) => t.id == parentId);
 
   Task? get project {

@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/mt_dialog.dart';
@@ -11,7 +12,6 @@ import '../../../../components/text_widgets.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/duration_presenter.dart';
 import '../../../../presenters/task_state.dart';
-import '../../../../presenters/task_stats.dart';
 import '../../../../presenters/task_tree.dart';
 import '../../../../presenters/task_view.dart';
 import '../../../../presenters/ws_presenter.dart';

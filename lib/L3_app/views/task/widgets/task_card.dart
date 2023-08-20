@@ -4,7 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../../L1_domain/entities_extensions/task_state.dart';
+import '../../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../../L1_domain/entities_extensions/task_status.dart';
+import '../../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../L1_domain/utils/dates.dart';
 import '../../../components/colors.dart';
@@ -20,7 +23,6 @@ import '../../../presenters/date_presenter.dart';
 import '../../../presenters/person_presenter.dart';
 import '../../../presenters/task_note.dart';
 import '../../../presenters/task_state.dart';
-import '../../../presenters/task_stats.dart';
 import '../../../presenters/task_tree.dart';
 import '../../../presenters/task_type.dart';
 import '../../../presenters/ws_presenter.dart';

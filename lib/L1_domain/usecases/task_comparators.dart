@@ -2,8 +2,8 @@
 
 import 'package:collection/collection.dart';
 
-import '../../L3_app/presenters/task_stats.dart';
 import '../entities/task.dart';
+import '../entities_extensions/task_stats.dart';
 
 int sortByDateAsc(Task t1, Task t2) {
   int res = 0;

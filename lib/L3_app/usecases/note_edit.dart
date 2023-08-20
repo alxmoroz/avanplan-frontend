@@ -2,9 +2,9 @@
 
 import 'package:dio/dio.dart';
 
+import '../../L1_domain/entities/errors.dart';
 import '../../L1_domain/entities/note.dart';
 import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/system/errors.dart';
 import '../../L2_data/services/api.dart';
 import '../extra/services.dart';
 

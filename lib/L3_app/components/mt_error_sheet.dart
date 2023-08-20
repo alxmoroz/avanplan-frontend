@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../../L1_domain/system/errors.dart';
+import '../../L1_domain/entities/errors.dart';
 import '../presenters/communications_presenter.dart';
 import 'colors.dart';
 import 'constants.dart';

@@ -5,8 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:openapi/openapi.dart';
 
+import '../../L1_domain/entities/errors.dart';
 import '../../L1_domain/repositories/abs_auth_repo.dart';
-import '../../L1_domain/system/errors.dart';
 import '../services/platform.dart';
 import 'auth_base_repo.dart';
 

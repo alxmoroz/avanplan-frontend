@@ -3,7 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../L1_domain/system/errors.dart';
+import '../../../L1_domain/entities/errors.dart';
 import '../../../main.dart';
 import '../../components/images.dart';
 import '../../extra/services.dart';

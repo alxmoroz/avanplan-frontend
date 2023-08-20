@@ -1,6 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import '../system/errors.dart';
+import 'errors.dart';
 import 'workspace.dart';
 
 abstract class LocalPersistable {

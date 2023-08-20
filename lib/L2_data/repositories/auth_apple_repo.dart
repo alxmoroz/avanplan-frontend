@@ -4,8 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:openapi/openapi.dart' as o_api;
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
+import '../../L1_domain/entities/errors.dart';
 import '../../L1_domain/repositories/abs_auth_repo.dart';
-import '../../L1_domain/system/errors.dart';
 import '../services/environment.dart';
 import 'auth_base_repo.dart';
 

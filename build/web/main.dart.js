@@ -36225,7 +36225,7 @@ return A.y("Closed",p,"state_closed",A.a([],t.f),p)
 default:return"???"}},
 b3Z(a){var s
 if(a.fy==="TASK")s=A.aHH(a)
-else if(J.e1(A.akp(A.mw(A.jQ(a))))){s=A.mw(A.jQ(a))
+else if(J.e1(A.akp(A.mw(A.jQ(a))))&&a.db==null){s=A.mw(A.jQ(a))
 s=B.b.gc5(s)?B.b.gS(s).a:B.cu}else s=a.id
 return s},
 b5N(a){var s,r,q,p,o=null
@@ -65569,7 +65569,7 @@ A(a){var s=this.d,r=s===B.lo?B.b3.mA(12):B.ad,q=this.c
 return new A.bj(r,new A.Qe(q,A.bfg(q),s,null),null)}}
 A.Lp.prototype={
 A(a){var s=this.c,r=A.b3Z(s),q=this.d
-if(q===B.KI)s=s.fy==="TASK"||J.hP(A.akp(A.mw(A.jQ(s))))?A.aHI(s):A.brH(s)
+if(q===B.KI)s=s.fy==="TASK"||J.hP(A.akp(A.mw(A.jQ(s))))||s.db!=null?A.aHI(s):A.brH(s)
 else s=A.aHI(s)
 return new A.Qe(r,s,q,null)}}
 A.pz.prototype={

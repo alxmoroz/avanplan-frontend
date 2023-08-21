@@ -194,14 +194,14 @@ extension TaskStatePresenter on Task {
     }
   }
 
-  String get overallStateTitle => isTask || attentionalSubtasks.isEmpty ? stateTitle : _subtasksStateTitle;
+  String get overallStateTitle => isTask || (attentionalSubtasks.isEmpty || hasDueDate) ? stateTitle : _subtasksStateTitle;
 
   bool get canShowRecommendsEta => project!.state == TaskState.NO_PROGRESS || state == TaskState.NO_SUBTASKS;
   Duration? get projectStartEtaCalcPeriod => project!.calculatedStartDate.add(serviceSettingsController.lowStartThreshold).difference(DateTime.now());
 
   TaskState get overallState => isTask
       ? leafState
-      : attentionalSubtasks.isNotEmpty
+      : attentionalSubtasks.isNotEmpty && !hasDueDate
           ? subtasksState
           : state;
 }

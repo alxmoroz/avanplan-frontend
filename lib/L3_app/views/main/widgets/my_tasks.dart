@@ -57,7 +57,7 @@ class MyTasks extends StatelessWidget {
                           child: MTShadowed(child: TasksGroup(mainController.myTasksGroups.first.value, isMine: true)),
                         ),
                       )
-                    : H3(loc.task_list_empty_hint, align: TextAlign.center),
+                    : H3(loc.my_tasks_empty_hint, align: TextAlign.center),
               ],
             ),
     );

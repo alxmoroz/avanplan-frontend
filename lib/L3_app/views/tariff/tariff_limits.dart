@@ -40,10 +40,6 @@ class _TariffLimitTile extends StatelessWidget {
     } else if (code == 'TASKS_COUNT') {
       icon = const TasksIcon();
       suffix = loc.task_plural_genitive(plural);
-    } else if (code == 'BILLING_PERIOD_DAYS') {
-      icon = const BillingPeriodIcon();
-      prefix = loc.tariff_limit_billing_period_title;
-      suffix = loc.days_count(value);
     }
 
     return MTListTile(

@@ -6,16 +6,6 @@ import 'colors.dart';
 import 'constants.dart';
 import 'icons.dart';
 
-class BillingPeriodIcon extends MTIcon {
-  const BillingPeriodIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.arrow_2_circlepath_circle,
-        color: (color ?? greyTextColor).resolve(context),
-        size: size ?? P3,
-      );
-}
-
 class MemberAddIcon extends MTIcon {
   const MemberAddIcon({super.color, super.size});
 

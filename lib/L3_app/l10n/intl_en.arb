@@ -158,6 +158,7 @@
   "months_count": "{count, plural, one{{count} month} other{{count} months}}",
 
   "my_tasks_all_title": "Assigned to me",
+  "my_tasks_empty_hint": "Assign yourself tasks from projects or add new ones",
   "my_tasks_future_title": "Future",
   "my_tasks_no_due_title": "No due date",
   "my_tasks_this_week_title": "This week",
@@ -262,7 +263,6 @@
 
   "tariff_current_title": "Current Tariff",
   "tariff_list_title": "Tariffs",
-  "tariff_limit_billing_period_title": "billing period",
   "tariff_limit_special_conditions_title": "We will develop and configure a unique solution that perfectly matches the needs of your business",
   "tariff_limit_up_to_prefix": "up to",
   "tariff_option_users_count_title": "per user per month",
@@ -293,14 +293,14 @@
   "task_due_date_label": "Deadline",
   "task_due_date_placeholder": "Deadline Date",
 
-  "task_estimate_group_label": "Overall estimation for subtasks",
+  "task_estimate_group_label": "Overall Estimation for Subtasks",
   "task_estimate_label": "Estimation",
   "task_estimate_placeholder": "Estimate",
   "task_eta_date_label": "Predicted",
 
-  "task_go2source_title": "Go to source",
+  "task_go2source_title": "Go to Source",
 
-  "task_list_empty_hint": "Assign yourself tasks from projects or add new ones",
+  "task_list_empty_hint": "Add tasks to get started",
   "task_list_empty_title": "Taking a break from tasks",
   "task_list_title": "Tasks",
 
@@ -354,7 +354,7 @@
 
   "weeks_count_accusative": "{count, plural, one{{count} week} other{{count} weeks}}",
   "workspace_delete_dialog_title": "Delete workspace?",
-  "workspace_my_title": "My workspace",
+  "workspace_my_title": "My Workspace",
   "workspace_title": "Workspace",
   "workspaces_title": "Workspaces",
 

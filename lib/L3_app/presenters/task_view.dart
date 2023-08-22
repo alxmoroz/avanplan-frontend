@@ -10,7 +10,7 @@ import '../usecases/task_available_actions.dart';
 import 'task_state.dart';
 
 extension TaskViewPresenter on Task {
-  Color get bgColor => backgroundColor;
+  Color get bgColor => bgL2Color;
 
   bool get canShowTimeChart => isOpenedGroup && (hasDueDate || hasEtaDate);
   bool get canShowVelocityVolumeCharts => !canShowRecommendsEta && isOpenedGroup;

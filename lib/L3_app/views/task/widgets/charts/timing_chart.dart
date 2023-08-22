@@ -40,13 +40,13 @@ class TimingChart extends StatelessWidget {
 
   Color get _barColor => _pointerColor.withAlpha(120);
 
-  Color get _planMarkColor => task.hasOverdue ? dangerColor : greyTextColor;
+  Color get _planMarkColor => task.hasOverdue ? dangerColor : fgL4Color;
 
   Color get _etaMarkColor => task.hasRisk
       ? warningColor
       : task.isOk
           ? greenColor
-          : darkTextColor;
+          : fgL5Color;
 
   Size get _markSize => const Size(P * 0.7, P * 0.9);
 
@@ -87,7 +87,7 @@ class TimingChart extends StatelessWidget {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                MTCircle(size: _barHeight, color: darkBackgroundColor, border: Border.all(color: _barColor)),
+                MTCircle(size: _barHeight, color: bgL1Color, border: Border.all(color: _barColor)),
                 MTCircle(size: _barHeight * 0.7, color: _pointerColor)
               ],
             ),
@@ -125,7 +125,7 @@ class TimingChart extends StatelessWidget {
                           value: ratio,
                           color: dbd.color,
                           mark: dbd.mark,
-                          border: Border(right: BorderSide(color: (dbd.mark?.color ?? greyTextColor).resolve(context))),
+                          border: Border(right: BorderSide(color: (dbd.mark?.color ?? fgL4Color).resolve(context))),
                         )
                       : const SizedBox();
                 })
@@ -148,7 +148,7 @@ class TimingChart extends StatelessWidget {
         children: [
           MTCard(
             elevation: 0,
-            color: backgroundColor,
+            color: bgL2Color,
             // borderSide: BorderSide(color: _barColor.resolve(context), width: _borderWidth),
             child: Row(
               children: [
@@ -157,7 +157,7 @@ class TimingChart extends StatelessWidget {
                   color: task.isFuture ? null : _barColor.resolve(context),
                   width: prefixWidth,
                   padding: const EdgeInsets.symmetric(horizontal: P),
-                  child: CalendarIcon(size: _barHeight * 0.8, color: darkTextColor),
+                  child: CalendarIcon(size: _barHeight * 0.8, color: fgL5Color),
                 ),
                 const Spacer(),
                 Container(

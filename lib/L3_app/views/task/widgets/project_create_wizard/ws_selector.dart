@@ -44,11 +44,11 @@ class WSSelector extends StatelessWidget {
                 middle: Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    SmallText('[${ws.code}] ', color: canSelect ? null : lightGreyColor),
-                    Expanded(child: MediumText(ws.title, color: canSelect ? null : lightGreyColor)),
+                    SmallText('[${ws.code}] ', color: canSelect ? null : fgL2Color),
+                    Expanded(child: MediumText(ws.title, color: canSelect ? null : fgL2Color)),
                   ],
                 ),
-                trailing: canSelect ? const ChevronIcon() : const PrivacyIcon(color: lightGreyColor),
+                trailing: canSelect ? const ChevronIcon() : const PrivacyIcon(color: fgL2Color),
                 bottomDivider: index < mainController.workspaces.length - 1,
                 onTap: canSelect ? () => controller.selectWS(ws.id) : null,
                 padding: const EdgeInsets.all(P).copyWith(right: canSelect ? P + P_2 : P),

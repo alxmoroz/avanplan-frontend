@@ -10,7 +10,7 @@ import 'person.dart';
 
 extension MemberPresenter on Member {
   Widget iconName({double radius = P, BorderSide? borderSide, Color? color}) {
-    final textColor = color ?? (isActive ? null : lightGreyColor);
+    final textColor = color ?? (isActive ? null : fgL2Color);
     return Row(
       children: [
         if (isActive) ...[

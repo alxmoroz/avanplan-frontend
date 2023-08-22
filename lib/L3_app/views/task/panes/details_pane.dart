@@ -48,7 +48,7 @@ class DetailsPane extends StatelessWidget {
               if (_task.hasStatus) ...[
                 MTField(
                   controller.fData(TaskFCode.status.index),
-                  color: backgroundColor,
+                  color: bgL2Color,
                   value: Row(
                     children: [
                       if (_task.hasStatus || _task.canSetStatus)
@@ -60,7 +60,7 @@ class DetailsPane extends StatelessWidget {
                           trailing: _task.canSetStatus
                               ? const Padding(
                                   padding: EdgeInsets.only(left: P_3, top: P_6),
-                                  child: CaretIcon(size: Size(P * 0.8, P * 0.75), color: darkBackgroundColor),
+                                  child: CaretIcon(size: Size(P * 0.8, P * 0.75), color: bgL1Color),
                                 )
                               : null,
                           onTap: _task.canSetStatus ? controller.statusController.selectStatus : null,
@@ -83,9 +83,9 @@ class DetailsPane extends StatelessWidget {
                       ? _task.assignee!.icon(P * 1.5)
                       : PersonIcon(
                           size: P3,
-                          color: _task.canAssign ? mainColor : lightGreyColor,
+                          color: _task.canAssign ? mainColor : fgL2Color,
                         ),
-                  value: _task.hasAssignee ? NormalText('${_task.assignee}', color: _task.canAssign ? null : lightGreyColor) : null,
+                  value: _task.hasAssignee ? NormalText('${_task.assignee}', color: _task.canAssign ? null : fgL2Color) : null,
                   onSelect: _task.canAssign ? controller.assigneeController.assign : null,
                 ),
               ],
@@ -93,7 +93,7 @@ class DetailsPane extends StatelessWidget {
                 const SizedBox(height: P),
                 MTField(
                   controller.fData(TaskFCode.description.index),
-                  leading: DescriptionIcon(color: _task.canUpdate ? mainColor : lightGreyColor),
+                  leading: DescriptionIcon(color: _task.canUpdate ? mainColor : fgL2Color),
                   value: _task.hasDescription
                       ? SelectableLinkify(
                           text: _task.description,
@@ -113,7 +113,7 @@ class DetailsPane extends StatelessWidget {
                 const SizedBox(height: P),
                 MTField(
                   controller.fData(TaskFCode.estimate.index),
-                  leading: EstimateIcon(color: _task.canEstimate ? mainColor : lightGreyColor),
+                  leading: EstimateIcon(color: _task.canEstimate ? mainColor : fgL2Color),
                   value: _task.hasEstimate ? NormalText('${(_task.openedVolume ?? _task.estimate)?.round()} ${_task.ws.estimateUnitCode}') : null,
                   onSelect: _task.canEstimate ? controller.estimateController.select : null,
                 ),
@@ -123,7 +123,7 @@ class DetailsPane extends StatelessWidget {
                 MTField(
                   controller.fData(TaskFCode.author.index),
                   leading: _task.author!.icon(P * 1.5),
-                  value: NormalText('${_task.author}', color: lightGreyColor),
+                  value: NormalText('${_task.author}', color: fgL2Color),
                   onSelect: null,
                 ),
               ],
@@ -133,7 +133,7 @@ class DetailsPane extends StatelessWidget {
                   controller.fData(TaskFCode.note.index),
                   value: LightText(
                     controller.fData(TaskFCode.note.index).placeholder,
-                    color: lightGreyColor,
+                    color: fgL2Color,
                     padding: const EdgeInsets.symmetric(vertical: P_2),
                   ),
                   leading: const NoteAddIcon(),

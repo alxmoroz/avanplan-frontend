@@ -29,7 +29,7 @@ Future<T?> showMTDialog<T>(Widget child) async {
     maxHeight: mqH > SCR_XS_HEIGHT ? mqH - mq.padding.top - P2 : double.infinity,
   );
 
-  final barrierColor = darkTextColor.withAlpha(220).resolve(ctx);
+  final barrierColor = fgL5Color.withAlpha(220).resolve(ctx);
 
   return _bigScreen(ctx)
       ? await showDialog(
@@ -89,7 +89,7 @@ class MTDialog extends StatelessWidget {
         child: Container(
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
-            color: (bgColor ?? backgroundColor).resolve(context),
+            color: (bgColor ?? bgL2Color).resolve(context),
             borderRadius: BorderRadius.only(
               topLeft: radius,
               topRight: radius,
@@ -113,7 +113,7 @@ class MTDialog extends StatelessWidget {
                   top: 0,
                   left: 0,
                   right: 0,
-                  child: MTToolbar.top(child: topBar!, color: topBarColor ?? backgroundColor),
+                  child: MTToolbar.top(child: topBar!, color: topBarColor ?? bgL2Color),
                 ),
               if (bottomBar != null)
                 Positioned(

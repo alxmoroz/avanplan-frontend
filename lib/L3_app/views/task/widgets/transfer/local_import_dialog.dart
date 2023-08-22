@@ -58,9 +58,9 @@ class LocalImportDialog extends StatelessWidget {
   }
 
   Widget _addressLine(String label, String title) => MTListTile(
-        leading: LightText(label, color: lightGreyColor),
+        leading: LightText(label, color: fgL2Color),
         middle: NormalText(title, maxLines: 1),
-        color: backgroundColor,
+        color: bgL2Color,
         bottomDivider: false,
         padding: const EdgeInsets.symmetric(horizontal: P + P_2),
       );
@@ -80,7 +80,7 @@ class LocalImportDialog extends StatelessWidget {
                   MTCheckBoxTile(
                     title: '${loc.select_all_action_title} (${controller.checks.length})',
                     titleColor: mainColor,
-                    color: backgroundColor,
+                    color: bgL2Color,
                     bottomBorder: true,
                     value: controller.selectedAll,
                     onChanged: controller.toggleSelectedAll,
@@ -99,7 +99,7 @@ class LocalImportDialog extends StatelessWidget {
             ),
           ),
           bottomBar: MTButton.main(
-            leading: LocalImportIcon(color: controller.validated ? lightBackgroundColor : greyTextColor),
+            leading: LocalImportIcon(color: controller.validated ? bgL3Color : fgL4Color),
             titleText: loc.task_transfer_import_confirm_action_title,
             onTap: controller.validated ? controller.moveTasks : null,
           ),

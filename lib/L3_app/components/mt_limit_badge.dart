@@ -28,7 +28,7 @@ class MTLimitBadge extends StatelessWidget {
                 ),
                 child: const Row(children: [
                   SizedBox(width: P_6),
-                  RoubleIcon(size: P2, color: lightBackgroundColor),
+                  RoubleIcon(size: P2, color: bgL3Color),
                 ]),
               ),
               Padding(

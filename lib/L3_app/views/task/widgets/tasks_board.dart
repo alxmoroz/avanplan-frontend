@@ -25,7 +25,7 @@ class _ItemTarget extends StatelessWidget {
       margin: const EdgeInsets.all(P).copyWith(top: 0),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(DEF_BORDER_RADIUS)),
-        border: Border.all(width: 1, color: backgroundColor.resolve(context)),
+        border: Border.all(width: 1, color: bgL2Color.resolve(context)),
       ),
     );
   }
@@ -63,7 +63,7 @@ class TasksBoard extends StatelessWidget {
       header: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          if (status.closed) const DoneIcon(true, color: greyTextColor),
+          if (status.closed) const DoneIcon(true, color: fgL4Color),
           NormalText('$status', padding: const EdgeInsets.all(P_2)),
         ],
       ),
@@ -89,7 +89,7 @@ class TasksBoard extends StatelessWidget {
         itemGhost: const SizedBox(height: MIN_BTN_HEIGHT),
         lastListTargetSize: 0,
         listDecoration: BoxDecoration(
-          color: darkBackgroundColor.resolve(context),
+          color: bgL1Color.resolve(context),
           borderRadius: const BorderRadius.all(Radius.circular(DEF_BORDER_RADIUS)),
         ),
         lastItemTargetHeight: P,

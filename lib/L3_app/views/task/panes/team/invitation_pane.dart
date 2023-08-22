@@ -23,7 +23,7 @@ class InvitationPane extends StatelessWidget {
   Widget _copyButton(BuildContext context) => MTButton(
       middle: Row(
         children: [
-          Container(height: P * 12, width: 1, color: borderColor.resolve(context)),
+          Container(height: P * 12, width: 1, color: fgL1Color.resolve(context)),
           const SizedBox(width: P),
           const CopyIcon(),
           const SizedBox(width: P),
@@ -46,7 +46,7 @@ class InvitationPane extends StatelessWidget {
                     suffixIcon: _copyButton(context),
                   )
                 : MTButton.main(
-                    leading: ShareIcon(size: P2, color: _canShare ? lightBackgroundColor : lightGreyColor),
+                    leading: ShareIcon(size: P2, color: _canShare ? bgL3Color : fgL2Color),
                     titleText: loc.invitation_share_action_title,
                     onTap: _canShare ? () => controller.shareInvitation(context) : null,
                     margin: const EdgeInsets.only(top: P2),

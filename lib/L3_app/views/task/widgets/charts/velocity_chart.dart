@@ -87,7 +87,7 @@ class VelocityChart extends StatelessWidget {
           SmallText(
             loc.chart_velocity_unit_mo(task.ws.estimateUnitCode),
             padding: EdgeInsets.only(top: _radius / 2 + P),
-            color: lightGreyColor,
+            color: fgL2Color,
             height: 1,
           ),
           Container(
@@ -95,9 +95,9 @@ class VelocityChart extends StatelessWidget {
             height: _radius * 2 - P * 4,
             alignment: Alignment.bottomCenter,
             child: Row(children: [
-              if (_maxValue > 0) const MediumText('0', color: greyColor),
+              if (_maxValue > 0) const MediumText('0', color: fgL3Color),
               const Spacer(),
-              if (_maxValue > 0) MediumText('${(_maxValue * daysPerMonth).round()}', color: greyColor),
+              if (_maxValue > 0) MediumText('${(_maxValue * daysPerMonth).round()}', color: fgL3Color),
             ]),
           ),
         ] else

@@ -66,7 +66,7 @@ class TariffSelectView extends StatelessWidget {
                 ? balanceLack <= 0
                     ? _selectButton(context, tariff)
                     : _paymentButton(context, balanceLack)
-                : H2(loc.tariff_current_title, color: lightGreyColor),
+                : H2(loc.tariff_current_title, color: fgL2Color),
             const SizedBox(height: P2),
           ],
         ),

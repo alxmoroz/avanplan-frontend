@@ -18,7 +18,7 @@ InputDecoration tfDecoration(
   bool readOnly = false,
 }) {
   final _rWarningColor = warningColor.resolve(context);
-  final _rBorderColor = borderColor.resolve(context);
+  final _rBorderColor = fgL1Color.resolve(context);
 
   final OutlineInputBorder _warningBorder = OutlineInputBorder(borderSide: BorderSide(color: _rWarningColor));
   final OutlineInputBorder _border = OutlineInputBorder(borderSide: BorderSide(color: _rBorderColor));
@@ -26,7 +26,7 @@ InputDecoration tfDecoration(
 
   return InputDecoration(
     labelText: label,
-    labelStyle: const LightText('', color: greyTextColor).style(context),
+    labelStyle: const LightText('', color: fgL4Color).style(context),
     helperText: helper,
     helperStyle: const SmallText('').style(context),
     helperMaxLines: 15,
@@ -45,7 +45,7 @@ InputDecoration tfDecoration(
     prefixIcon: prefixIcon,
     suffixIcon: suffixIcon,
     filled: true,
-    fillColor: lightBackgroundColor.resolve(context),
+    fillColor: bgL3Color.resolve(context),
   );
 }
 

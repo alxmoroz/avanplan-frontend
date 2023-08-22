@@ -45,8 +45,8 @@ class MTDropdown<T extends RPersistable> extends StatelessWidget {
     return Padding(
       padding: margin ?? EdgeInsets.zero,
       child: DropdownButtonFormField<int>(
-        dropdownColor: lightBackgroundColor.resolve(context),
-        focusColor: lightBackgroundColor.resolve(context),
+        dropdownColor: bgL3Color.resolve(context),
+        focusColor: bgL3Color.resolve(context),
         isDense: dense,
         decoration: tfDecoration(context, label: label, helper: helper, readOnly: true),
         icon: const DropdownIcon(),

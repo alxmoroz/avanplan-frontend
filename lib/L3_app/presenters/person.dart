@@ -20,10 +20,10 @@ class PersonAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) => CircleAvatar(
         radius: radius,
-        backgroundColor: (borderSide?.color ?? lightGreyColor).resolve(context),
+        backgroundColor: (borderSide?.color ?? fgL2Color).resolve(context),
         child: CircleAvatar(
           radius: radius - (borderSide?.width ?? 0.5) * 2,
-          backgroundColor: darkBackgroundColor.resolve(context),
+          backgroundColor: bgL1Color.resolve(context),
           backgroundImage: NetworkImage('https://www.gravatar.com/avatar/$_hash?s=${radius * 6}&d=identicon'),
         ),
       );

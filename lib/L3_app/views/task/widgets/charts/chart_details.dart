@@ -39,7 +39,7 @@ class TaskChartDetails extends StatelessWidget {
       topBar: MTTopBar(titleText: loc.chart_details_title),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: P),
-        color: lightBackgroundColor.resolve(context),
+        color: bgL3Color.resolve(context),
         child: ListView(
           shrinkWrap: true,
           children: [

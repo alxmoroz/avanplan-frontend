@@ -31,7 +31,7 @@ class _BaseText extends StatelessWidget {
   TextStyle style(BuildContext context) {
     final cupertinoTS = CupertinoTheme.of(context).textTheme.textStyle;
     return cupertinoTS.copyWith(
-      color: CupertinoDynamicColor.maybeResolve(color ?? darkTextColor, context),
+      color: CupertinoDynamicColor.maybeResolve(color ?? fgL5Color, context),
       fontWeight: weight ?? FontWeight.w400,
       fontSize: (cupertinoTS.fontSize ?? (isTablet ? 24 : 16)) * (sizeScale ?? 1),
       inherit: true,
@@ -66,7 +66,7 @@ class SmallText extends _BaseText {
     super.decoration,
   }) : super(
           text,
-          color: color ?? greyColor,
+          color: color ?? fgL3Color,
           sizeScale: 0.85,
           maxLines: maxLines ?? 9,
           height: height,
@@ -150,7 +150,7 @@ class H2 extends _BaseText {
     super.decoration,
   }) : super(
           text,
-          color: color ?? greyTextColor,
+          color: color ?? fgL4Color,
           weight: FontWeight.w300,
           sizeScale: 1.55,
           maxLines: maxLines ?? 3,
@@ -168,7 +168,7 @@ class H1 extends _BaseText {
     super.decoration,
   }) : super(
           text,
-          color: color ?? greyTextColor,
+          color: color ?? fgL4Color,
           weight: FontWeight.w300,
           sizeScale: 1.8,
           maxLines: maxLines ?? 2,

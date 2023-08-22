@@ -29,7 +29,7 @@ class TasksPane extends StatelessWidget {
         decoration: active
             ? BoxDecoration(
                 shape: BoxShape.circle,
-                color: lightBackgroundColor.resolve(rootKey.currentContext!),
+                color: bgL3Color.resolve(rootKey.currentContext!),
               )
             : null,
         width: P2 * 2,
@@ -41,7 +41,7 @@ class TasksPane extends StatelessWidget {
       ? Row(children: [
           if (_task.totalVolume > 0 && !_task.isProject)
             MTButton.secondary(
-              color: borderColor,
+              color: fgL1Color,
               middle: Row(children: [
                 _switchPart(ListIcon(active: !controller.showBoard), !controller.showBoard),
                 _switchPart(BoardIcon(active: controller.showBoard), controller.showBoard),

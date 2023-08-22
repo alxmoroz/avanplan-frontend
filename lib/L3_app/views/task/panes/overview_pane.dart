@@ -58,12 +58,12 @@ class OverviewPane extends StatelessWidget {
                   MediumText(
                     loc.state_closable_hint,
                     align: TextAlign.center,
-                    color: lightGreyColor,
+                    color: fgL2Color,
                     padding: const EdgeInsets.only(bottom: P_3),
                   ),
                 MTButton.main(
                   titleText: _task.canCloseGroup ? loc.close_action_title : loc.task_reopen_action_title,
-                  leading: DoneIcon(_task.canCloseGroup, color: lightBackgroundColor),
+                  leading: DoneIcon(_task.canCloseGroup, color: bgL3Color),
                   onTap: () => controller.statusController.setStatus(_task, close: !_task.closed),
                 ),
               ],
@@ -71,9 +71,9 @@ class OverviewPane extends StatelessWidget {
       : null;
 
   Widget _checkRecommendsItem(bool checked, String text) => Row(children: [
-        DoneIcon(checked, color: checked ? greenColor : greyTextColor, size: P * 3, solid: checked),
+        DoneIcon(checked, color: checked ? greenColor : fgL4Color, size: P * 3, solid: checked),
         const SizedBox(width: P_3),
-        H3(text, color: checked ? lightGreyColor : null),
+        H3(text, color: checked ? fgL2Color : null),
       ]);
 
   Widget get _requiredAddTask => _checkRecommendsItem(
@@ -87,7 +87,7 @@ class OverviewPane extends StatelessWidget {
       );
 
   Widget _line(BuildContext context) =>
-      Row(children: [const SizedBox(width: P * 1.4), Container(height: P * 1.5, width: 2, color: greyTextColor.resolve(context))]);
+      Row(children: [const SizedBox(width: P * 1.4), Container(height: P * 1.5, width: 2, color: fgL4Color.resolve(context))]);
 
   @override
   Widget build(BuildContext context) {

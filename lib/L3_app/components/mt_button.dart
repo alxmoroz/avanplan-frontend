@@ -117,11 +117,11 @@ class MTButton extends StatelessWidget with FocusManaging {
 
   bool get _enabled => loading != true && (onTap != null || onLongPress != null);
   bool get _isCard => type == ButtonType.card;
-  Color get _titleColor => _enabled || _isCard ? (titleColor ?? (type == ButtonType.main ? lightBackgroundColor : mainColor)) : greyTextColor;
+  Color get _titleColor => _enabled || _isCard ? (titleColor ?? (type == ButtonType.main ? bgL3Color : mainColor)) : fgL4Color;
   double get _radius => type == ButtonType.card ? DEF_BORDER_RADIUS : DEF_BTN_BORDER_RADIUS;
 
   ButtonStyle _style(BuildContext context) {
-    final _btnColor = (_enabled || _isCard ? (color ?? (type == ButtonType.main ? mainColor : lightBackgroundColor)) : borderColor).resolve(context);
+    final _btnColor = (_enabled || _isCard ? (color ?? (type == ButtonType.main ? mainColor : bgL3Color)) : fgL1Color).resolve(context);
 
     return ElevatedButton.styleFrom(
       padding: padding ?? EdgeInsets.zero,
@@ -196,7 +196,7 @@ class MTPlusButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTButton(
       type: type,
-      middle: PlusIcon(color: type == ButtonType.main ? lightBackgroundColor : mainColor),
+      middle: PlusIcon(color: type == ButtonType.main ? bgL3Color : mainColor),
       margin: const EdgeInsets.only(right: P),
       onTap: onTap,
     );

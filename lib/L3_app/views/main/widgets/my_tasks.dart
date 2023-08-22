@@ -31,10 +31,10 @@ class MyTasks extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            NormalText(loc.my_tasks_title, align: TextAlign.center, color: greyColor),
+            NormalText(loc.my_tasks_title, align: TextAlign.center, color: fgL3Color),
             const SizedBox(height: P),
             compact ? Expanded(child: _mainInfo(context)) : _mainInfo(context),
-            H2(_myTasksCount > 0 ? mainController.myUpcomingTasksTitle : loc.task_list_empty_title, align: TextAlign.center, color: darkTextColor),
+            H2(_myTasksCount > 0 ? mainController.myUpcomingTasksTitle : loc.task_list_empty_title, align: TextAlign.center, color: fgL5Color),
             const SizedBox(height: P),
           ],
         ),

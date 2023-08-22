@@ -29,8 +29,8 @@ class MTCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final borderRadius = radius ?? DEF_BORDER_RADIUS;
-    final _color = (color ?? lightBackgroundColor).resolve(context);
-    final _shadowColor = (shadowColor ?? lightGreyColor).resolve(context);
+    final _color = (color ?? bgL3Color).resolve(context);
+    final _shadowColor = (shadowColor ?? fgL2Color).resolve(context);
     return Card(
       clipBehavior: Clip.antiAlias,
       margin: margin ?? EdgeInsets.zero,

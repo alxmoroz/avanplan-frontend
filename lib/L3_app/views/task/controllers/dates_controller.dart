@@ -117,11 +117,11 @@ class DatesController {
     final fd = _taskController.fData(code.index);
     return MTField(
       fd,
-      leading: isStart ? CalendarIcon(size: P3, color: task.canUpdate ? mainColor : lightGreyColor) : Container(),
+      leading: isStart ? CalendarIcon(size: P3, color: task.canUpdate ? mainColor : fgL2Color) : Container(),
       value: !isEmpty
           ? Row(children: [
               NormalText(date.strMedium, padding: const EdgeInsets.only(right: P_2)),
-              LightText(DateFormat.E().format(date), color: greyTextColor),
+              LightText(DateFormat.E().format(date), color: fgL4Color),
             ])
           : null,
       onSelect: task.canUpdate ? () => selectDate(context, code) : null,

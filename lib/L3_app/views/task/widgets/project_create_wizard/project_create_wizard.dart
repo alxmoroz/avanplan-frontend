@@ -77,7 +77,7 @@ class _ProjectCreateWizardState extends State<ProjectCreateWizard> {
                 MTLimitBadge(
                   showBadge: !controller.ws!.plProjects,
                   child: MTButton.main(
-                    leading: const ImportIcon(color: lightBackgroundColor),
+                    leading: const ImportIcon(color: bgL3Color),
                     constrained: false,
                     titleText: loc.import_action_title,
                     onTap: () => startImport(null),

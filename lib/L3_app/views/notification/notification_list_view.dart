@@ -72,7 +72,7 @@ class NotificationListView extends StatelessWidget {
             top: false,
             bottom: false,
             child: _controller.notifications.isEmpty
-                ? Center(child: H3(loc.notification_list_empty_title, align: TextAlign.center, color: lightGreyColor))
+                ? Center(child: H3(loc.notification_list_empty_title, align: TextAlign.center, color: fgL2Color))
                 : MTAdaptive(
                     child: ListView.builder(
                       itemBuilder: (_, int index) => _itemBuilder(context, index),

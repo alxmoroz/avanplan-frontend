@@ -30,7 +30,7 @@ Color stateColor(TaskState state) {
     case TaskState.THIS_WEEK:
       return greenColor;
     default:
-      return lightGreyColor;
+      return fgL2Color;
   }
 }
 

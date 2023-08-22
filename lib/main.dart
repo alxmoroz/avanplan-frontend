@@ -65,7 +65,7 @@ class App extends StatelessWidget {
 
     final supportedLocales = S.delegate.supportedLocales;
     final cupertinoTheme = CupertinoThemeData(
-      scaffoldBackgroundColor: backgroundColor,
+      scaffoldBackgroundColor: bgL2Color,
       primaryColor: mainColor,
       textTheme: cupertinoTextTheme.copyWith(
         primaryColor: mainColor,
@@ -81,8 +81,8 @@ class App extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(
           seedColor: mainColor.resolve(context),
           brightness: View.of(context).platformDispatcher.platformBrightness,
-          background: backgroundColor.resolve(context),
-          surfaceTint: backgroundColor.resolve(context),
+          background: bgL2Color.resolve(context),
+          surfaceTint: bgL2Color.resolve(context),
         ),
         fontFamily: fontFamily,
         useMaterial3: true,

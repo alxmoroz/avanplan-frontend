@@ -26,7 +26,7 @@ class _TariffOptionTile extends StatelessWidget {
     final description = Intl.message('tariff_option_${code.toLowerCase()}_title');
 
     return MTListTile(
-      middle: MTCurrency(value, greyTextColor),
+      middle: MTCurrency(value, fgL4Color),
       subtitle: LightText(description, align: TextAlign.center),
       padding: const EdgeInsets.symmetric(horizontal: P).copyWith(bottom: P_2),
       color: Colors.transparent,
@@ -50,7 +50,7 @@ class TariffOptions extends StatelessWidget {
           MediumText(
             loc.tariff_price_free_title,
             align: TextAlign.center,
-            color: greyTextColor,
+            color: fgL4Color,
             padding: const EdgeInsets.all(P_2),
           ),
       ],

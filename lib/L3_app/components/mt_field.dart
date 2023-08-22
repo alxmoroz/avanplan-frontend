@@ -42,12 +42,12 @@ class MTField extends StatelessWidget {
       children: [
         MTListTile(
           leading: leading != null ? SizedBox(width: P3 + P_2, child: Center(child: leading)) : null,
-          middle: _hasValue && fd.label.isNotEmpty ? NormalText(fd.label, color: lightGreyColor, height: 1, sizeScale: 0.9) : null,
+          middle: _hasValue && fd.label.isNotEmpty ? NormalText(fd.label, color: fgL2Color, height: 1, sizeScale: 0.9) : null,
           subtitle: _hasValue
               ? child
               : LightText(
                   fd.placeholder,
-                  color: lightGreyColor,
+                  color: fgL2Color,
                   padding: const EdgeInsets.symmetric(vertical: P_2),
                 ),
           bottomDivider: bottomDivider,

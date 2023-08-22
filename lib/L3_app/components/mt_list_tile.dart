@@ -92,7 +92,7 @@ class MTListTile extends StatelessWidget with FocusManaging {
               if (bottomDivider) _border,
             ],
           )),
-      color: (color ?? lightBackgroundColor).resolve(context),
+      color: (color ?? bgL3Color).resolve(context),
     );
   }
 }
@@ -107,7 +107,7 @@ class MTListSection extends StatelessWidget {
     return H3(
       title,
       padding: const EdgeInsets.symmetric(horizontal: P2).copyWith(top: P2, bottom: P_2),
-      color: lightGreyColor,
+      color: fgL2Color,
     );
   }
 }

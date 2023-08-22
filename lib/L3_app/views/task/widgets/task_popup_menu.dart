@@ -98,8 +98,8 @@ class TaskPopupMenu extends StatelessWidget with FocusManaging {
         onOpened: () => unfocus(context),
         onSelected: _taskAction,
         padding: EdgeInsets.zero,
-        surfaceTintColor: lightBackgroundColor.resolve(context),
-        color: lightBackgroundColor.resolve(context),
+        surfaceTintColor: bgL3Color.resolve(context),
+        color: bgL3Color.resolve(context),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS)),
       ),
     );

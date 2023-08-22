@@ -18,7 +18,7 @@ class TaskCreateButton extends StatelessWidget {
   final bool compact;
   final bool dismissible;
 
-  Widget get _plusIcon => const PlusIcon(color: lightBackgroundColor);
+  Widget get _plusIcon => const PlusIcon(color: bgL3Color);
 
   @override
   Widget build(BuildContext context) {

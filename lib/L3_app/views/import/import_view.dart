@@ -86,7 +86,7 @@ class ImportView extends StatelessWidget {
                 MTCheckBoxTile(
                   title: '${loc.select_all_action_title} (${controller.projects.length})',
                   titleColor: mainColor,
-                  color: backgroundColor,
+                  color: bgL2Color,
                   bottomBorder: true,
                   value: _selectedAll,
                   onChanged: controller.toggleSelectedAll,
@@ -103,7 +103,7 @@ class ImportView extends StatelessWidget {
             MediumText(
               _hasError ? Intl.message(controller.errorCode!) : loc.import_list_empty_title,
               align: TextAlign.center,
-              color: _hasError ? warningColor : lightGreyColor,
+              color: _hasError ? warningColor : fgL2Color,
             ),
           ],
         )
@@ -153,7 +153,7 @@ class ImportView extends StatelessWidget {
         ])
       : !_hasSources
           ? MTButton.main(
-              leading: const PlusIcon(color: lightBackgroundColor),
+              leading: const PlusIcon(color: bgL3Color),
               titleText: loc.source_title_new,
               onTap: () async => await startAddSource(controller.ws),
             )

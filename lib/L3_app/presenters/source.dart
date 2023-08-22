@@ -13,7 +13,7 @@ import '../components/text_widgets.dart';
 import '../extra/services.dart';
 
 extension SourceTypePresenter on SourceType {
-  Widget get icon => active ? Image.asset('assets/icons/${code}_icon.png', height: P2) : const MTCircle(size: P2, color: borderColor);
+  Widget get icon => active ? Image.asset('assets/icons/${code}_icon.png', height: P2) : const MTCircle(size: P2, color: fgL1Color);
   Widget get iconTitle => Row(children: [icon, const SizedBox(width: P_2), MediumText('$this')]);
 }
 
@@ -32,7 +32,7 @@ extension SourcePresenter on Source {
     final checking = state == SrcState.checking;
     final error = state == SrcState.error;
 
-    final textColor = (connected || isUnknown) ? null : lightGreyColor;
+    final textColor = (connected || isUnknown) ? null : fgL2Color;
 
     return MTListTile(
       leading: type.icon,
@@ -42,14 +42,14 @@ extension SourcePresenter on Source {
           ? SizedBox(
               height: _connectionIndicatorSize,
               width: _connectionIndicatorSize,
-              child: CircularProgressIndicator(color: lightGreyColor.resolve(rootKey.currentContext!)),
+              child: CircularProgressIndicator(color: fgL2Color.resolve(rootKey.currentContext!)),
             )
           : MTCircle(
               color: connected
                   ? Colors.green
                   : error
                       ? warningColor
-                      : lightGreyColor,
+                      : fgL2Color,
               size: _connectionIndicatorSize),
       bottomDivider: bottomBorder,
       onTap: onTap,

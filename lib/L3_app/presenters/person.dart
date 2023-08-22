@@ -23,7 +23,7 @@ class PersonAvatar extends StatelessWidget {
         backgroundColor: (borderSide?.color ?? fgL2Color).resolve(context),
         child: CircleAvatar(
           radius: radius - (borderSide?.width ?? 0.5) * 2,
-          backgroundColor: bgL1Color.resolve(context),
+          backgroundColor: bgL2Color.resolve(context),
           backgroundImage: NetworkImage('https://www.gravatar.com/avatar/$_hash?s=${radius * 6}&d=identicon'),
         ),
       );

@@ -3,6 +3,7 @@
 import '../../L2_data/services/platform.dart';
 
 const double P = 12;
+const double P18 = 18;
 const double P2 = P * 2;
 const double P3 = P * 3;
 const double P_2 = P / 2;

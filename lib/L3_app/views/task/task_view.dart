@@ -92,6 +92,8 @@ class _TaskViewState extends State<TaskView> {
           children: _tabs,
           groupValue: controller.tabKey,
           onValueChanged: controller.selectTab,
+          backgroundColor: bgL1Color,
+          thumbColor: bgL3Color,
         ),
       );
 

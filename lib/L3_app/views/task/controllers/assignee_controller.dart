@@ -31,7 +31,7 @@ class AssigneeController {
       task.activeMembers,
       task.assigneeId,
       loc.task_assignee_placeholder,
-      valueBuilder: (_, member) => member.iconName(radius: P * 1.5),
+      valueBuilder: (_, member) => member.iconName(radius: P18),
       onReset: task.canAssign ? _reset : null,
     );
     if (selectedId != null) {

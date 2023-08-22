@@ -41,7 +41,7 @@ class MTListTile extends StatelessWidget with FocusManaging {
   final CrossAxisAlignment? crossAxisAlignment;
   final bool uf;
 
-  static const _defaultIndent = P * 1.5;
+  static const _defaultIndent = P18;
 
   Widget get _border => MTDivider(
         height: 0,

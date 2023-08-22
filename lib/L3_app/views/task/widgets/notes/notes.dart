@@ -92,7 +92,7 @@ class Notes extends StatelessWidget {
                     return Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if (!mine) ...[author!.icon(P * 1.5), const SizedBox(width: P_2)],
+                        if (!mine) ...[author!.icon(P18), const SizedBox(width: P_2)],
                         Expanded(
                           child: MTCardButton(
                             margin: EdgeInsets.only(left: mine ? P3 + P3 : 0, right: mine ? 0 : P2, bottom: P),

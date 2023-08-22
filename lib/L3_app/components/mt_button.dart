@@ -121,7 +121,7 @@ class MTButton extends StatelessWidget with FocusManaging {
   double get _radius => type == ButtonType.card ? DEF_BORDER_RADIUS : DEF_BTN_BORDER_RADIUS;
 
   ButtonStyle _style(BuildContext context) {
-    final _btnColor = (_enabled || _isCard ? (color ?? (type == ButtonType.main ? mainColor : bgL3Color)) : fgL1Color).resolve(context);
+    final _btnColor = (_enabled || _isCard ? (color ?? (type == ButtonType.main ? mainColor : bgL3Color)) : bgL1Color).resolve(context);
 
     return ElevatedButton.styleFrom(
       padding: padding ?? EdgeInsets.zero,

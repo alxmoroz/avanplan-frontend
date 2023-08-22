@@ -87,7 +87,7 @@ class OverviewPane extends StatelessWidget {
       );
 
   Widget _line(BuildContext context) =>
-      Row(children: [const SizedBox(width: P * 1.4), Container(height: P * 1.5, width: 2, color: fgL4Color.resolve(context))]);
+      Row(children: [const SizedBox(width: P * 1.4), Container(height: P18, width: 2, color: fgL4Color.resolve(context))]);
 
   @override
   Widget build(BuildContext context) {

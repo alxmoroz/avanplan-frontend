@@ -87,7 +87,7 @@ class TimingChart extends StatelessWidget {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                MTCircle(size: _barHeight, color: bgL1Color, border: Border.all(color: _barColor)),
+                MTCircle(size: _barHeight, color: bgL2Color, border: Border.all(color: _barColor)),
                 MTCircle(size: _barHeight * 0.7, color: _pointerColor)
               ],
             ),

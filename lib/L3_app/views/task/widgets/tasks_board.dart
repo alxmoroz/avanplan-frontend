@@ -56,7 +56,7 @@ class TasksBoard extends StatelessWidget {
         canDrag: t.canSetStatus,
       );
 
-  DragAndDropList _columnBuilder(int index) {
+  DragAndDropList _columnBuilder(BuildContext context, int index) {
     final status = _task.statuses[index];
     final tasks = _task.subtasksForStatus(status.id!);
     return DragAndDropList(
@@ -72,6 +72,7 @@ class TasksBoard extends StatelessWidget {
       contentsWhenEmpty: Container(),
       lastTarget: tasks.isEmpty ? _ItemTarget() : null,
       footer: status.closed && extra != null ? Center(child: extra) : null,
+      // decoration: BoxDecoration(border: Border.all(color: fgL3Color.resolve(context))),
     );
   }
 
@@ -80,7 +81,7 @@ class TasksBoard extends StatelessWidget {
     final mq = MediaQuery.of(context);
     return Observer(
       builder: (_) => DragAndDropLists(
-        children: [for (var i = 0; i < _task.statuses.length; i++) _columnBuilder(i)],
+        children: [for (var i = 0; i < _task.statuses.length; i++) _columnBuilder(context, i)],
         onItemReorder: controller.moveTask,
         onListReorder: (int oldListIndex, int newListIndex) {},
         axis: Axis.horizontal,
@@ -91,6 +92,7 @@ class TasksBoard extends StatelessWidget {
         listDecoration: BoxDecoration(
           color: bgL1Color.resolve(context),
           borderRadius: const BorderRadius.all(Radius.circular(DEF_BORDER_RADIUS)),
+          border: Border.all(color: fgL1Color.resolve(context)),
         ),
         lastItemTargetHeight: P,
         listDragOnLongPress: !isWeb,

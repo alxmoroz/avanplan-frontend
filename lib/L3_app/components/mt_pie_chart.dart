@@ -47,7 +47,7 @@ class _PieChartPainter extends CustomPainter {
       final _strokeWidth = arcData.strokeWidth ?? strokeWidth ?? P;
 
       final _paint = Paint()
-        ..color = (arcData.color ?? bgL1Color).resolve(context)
+        ..color = (arcData.color ?? bgL2Color).resolve(context)
         ..strokeWidth = _strokeWidth
         ..style = PaintingStyle.stroke;
 

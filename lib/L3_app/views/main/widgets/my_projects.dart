@@ -27,7 +27,7 @@ class MyProjects extends StatelessWidget {
             NormalText(loc.project_list_title, align: TextAlign.center, color: fgL2Color),
             const SizedBox(height: P),
             compact ? Expanded(child: imageForState(mainController.projectsState)) : imageForState(mainController.projectsState),
-            H2(groupStateTitle(mainController.projectsState), align: TextAlign.center, color: fgL3Color),
+            H2(groupStateTitle(mainController.projectsState), align: TextAlign.center),
             const SizedBox(height: P),
           ],
         ),

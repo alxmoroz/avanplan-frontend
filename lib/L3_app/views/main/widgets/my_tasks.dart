@@ -34,7 +34,7 @@ class MyTasks extends StatelessWidget {
             NormalText(loc.my_tasks_title, align: TextAlign.center, color: fgL2Color),
             const SizedBox(height: P),
             compact ? Expanded(child: _mainInfo(context)) : _mainInfo(context),
-            H2(_myTasksCount > 0 ? mainController.myUpcomingTasksTitle : loc.task_list_empty_title, align: TextAlign.center, color: fgL3Color),
+            H2(_myTasksCount > 0 ? mainController.myUpcomingTasksTitle : loc.task_list_empty_title, align: TextAlign.center),
             const SizedBox(height: P),
           ],
         ),

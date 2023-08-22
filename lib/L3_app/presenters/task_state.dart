@@ -2,7 +2,6 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../main.dart';
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities_extensions/task_state.dart';
 import '../../L1_domain/entities_extensions/task_stats.dart';
@@ -54,8 +53,8 @@ Widget imageForState(TaskState state, {double? size}) {
   return MTImage(name, size: size);
 }
 
-LinearGradient stateGradient(TaskState state) {
-  final color = stateColor(state).resolve(rootKey.currentContext!);
+LinearGradient stateGradient(BuildContext context, TaskState state) {
+  final color = stateColor(state).resolve(context);
   return LinearGradient(
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
@@ -64,7 +63,7 @@ LinearGradient stateGradient(TaskState state) {
   );
 }
 
-Widget stateIconGroup(TaskState state) => SizedBox(
+Widget stateIconGroup(BuildContext context, TaskState state) => SizedBox(
       height: P2,
       width: P,
       child: Stack(
@@ -74,7 +73,7 @@ Widget stateIconGroup(TaskState state) => SizedBox(
             left: P_2,
             top: P_2,
             child: Container(
-              decoration: BoxDecoration(gradient: stateGradient(state)),
+              decoration: BoxDecoration(gradient: stateGradient(context, state)),
               width: P_2,
               height: P + P_2,
             ),

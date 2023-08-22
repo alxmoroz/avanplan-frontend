@@ -63,7 +63,7 @@ class OverviewPane extends StatelessWidget {
                   ),
                 MTButton.main(
                   titleText: _task.canCloseGroup ? loc.close_action_title : loc.task_reopen_action_title,
-                  leading: DoneIcon(_task.canCloseGroup, color: bgL3Color),
+                  leading: DoneIcon(_task.canCloseGroup, color: mainBtnTitleColor),
                   onTap: () => controller.statusController.setStatus(_task, close: !_task.closed),
                 ),
               ],

@@ -150,8 +150,7 @@ class H2 extends _BaseText {
     super.decoration,
   }) : super(
           text,
-          color: color ?? fgL3Color,
-          weight: FontWeight.w300,
+          color: color,
           sizeScale: 1.55,
           maxLines: maxLines ?? 3,
           height: 1.1,
@@ -168,7 +167,7 @@ class H1 extends _BaseText {
     super.decoration,
   }) : super(
           text,
-          color: color ?? fgL3Color,
+          color: color,
           weight: FontWeight.w300,
           sizeScale: 1.8,
           maxLines: maxLines ?? 2,

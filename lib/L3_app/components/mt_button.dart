@@ -117,7 +117,7 @@ class MTButton extends StatelessWidget with FocusManaging {
 
   bool get _enabled => loading != true && (onTap != null || onLongPress != null);
   bool get _isCard => type == ButtonType.card;
-  Color get _titleColor => _enabled || _isCard ? (titleColor ?? (type == ButtonType.main ? bgL3Color : mainColor)) : fgL2Color;
+  Color get _titleColor => _enabled || _isCard ? (titleColor ?? (type == ButtonType.main ? mainBtnTitleColor : mainColor)) : fgL2Color;
   double get _radius => type == ButtonType.card ? DEF_BORDER_RADIUS : DEF_BTN_BORDER_RADIUS;
 
   ButtonStyle _style(BuildContext context) {
@@ -134,7 +134,7 @@ class MTButton extends StatelessWidget with FocusManaging {
       side: type == ButtonType.secondary ? BorderSide(color: _titleColor.resolve(context), width: 1) : BorderSide.none,
       splashFactory: NoSplash.splashFactory,
       visualDensity: VisualDensity.standard,
-      shadowColor: (type == ButtonType.main ? _titleColor : _btnColor).resolve(context),
+      shadowColor: (type == ButtonType.main ? mainColor : _btnColor).resolve(context),
       elevation: buttonElevation,
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
     );
@@ -196,7 +196,7 @@ class MTPlusButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTButton(
       type: type,
-      middle: PlusIcon(color: type == ButtonType.main ? bgL3Color : mainColor),
+      middle: PlusIcon(color: type == ButtonType.main ? mainBtnTitleColor : mainColor),
       margin: const EdgeInsets.only(right: P),
       onTap: onTap,
     );

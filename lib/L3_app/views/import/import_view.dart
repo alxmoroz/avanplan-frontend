@@ -153,7 +153,7 @@ class ImportView extends StatelessWidget {
         ])
       : !_hasSources
           ? MTButton.main(
-              leading: const PlusIcon(color: bgL3Color),
+              leading: const PlusIcon(color: mainBtnTitleColor),
               titleText: loc.source_title_new,
               onTap: () async => await startAddSource(controller.ws),
             )

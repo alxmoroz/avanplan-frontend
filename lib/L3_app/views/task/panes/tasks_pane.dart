@@ -41,7 +41,7 @@ class TasksPane extends StatelessWidget {
       ? Row(children: [
           if (_task.totalVolume > 0 && !_task.isProject)
             MTButton.secondary(
-              color: fgL1Color,
+              color: bgL1Color,
               middle: Row(children: [
                 _switchPart(ListIcon(active: !controller.showBoard), !controller.showBoard),
                 _switchPart(BoardIcon(active: controller.showBoard), controller.showBoard),

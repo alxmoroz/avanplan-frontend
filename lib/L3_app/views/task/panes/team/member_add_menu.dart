@@ -31,7 +31,7 @@ class MemberAddMenu extends StatelessWidget {
       task.ws.plUsers
           ? material(
               PopupMenuButton<Role>(
-                child: MTMenuShape(icon: const MemberAddIcon(color: bgL3Color), title: _title),
+                child: MTMenuShape(icon: const MemberAddIcon(color: mainBtnTitleColor), title: _title),
                 itemBuilder: (_) => [for (final r in task.ws.roles) PopupMenuItem<Role>(value: r, child: NormalText(r.localize))],
                 onSelected: (r) async => await memberAddDialog(task, r),
                 padding: EdgeInsets.zero,
@@ -42,7 +42,7 @@ class MemberAddMenu extends StatelessWidget {
             )
           : MTLimitBadge(
               child: MTButton.main(
-                leading: const MemberAddIcon(color: bgL3Color),
+                leading: const MemberAddIcon(color: mainBtnTitleColor),
                 titleText: _title,
                 constrained: false,
                 onTap: () => task.ws.changeTariff(reason: loc.tariff_change_limit_users_reason_title),

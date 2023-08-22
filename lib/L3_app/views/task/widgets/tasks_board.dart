@@ -92,7 +92,7 @@ class TasksBoard extends StatelessWidget {
         listDecoration: BoxDecoration(
           color: bgL1Color.resolve(context),
           borderRadius: const BorderRadius.all(Radius.circular(DEF_BORDER_RADIUS)),
-          border: Border.all(color: fgL1Color.resolve(context)),
+          border: Border.all(color: fgL1Color.withAlpha(64).resolve(context)),
         ),
         lastItemTargetHeight: P,
         listDragOnLongPress: !isWeb,

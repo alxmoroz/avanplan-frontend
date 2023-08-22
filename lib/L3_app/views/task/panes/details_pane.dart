@@ -132,7 +132,7 @@ class DetailsPane extends StatelessWidget {
                 const SizedBox(height: P18),
                 MTField(
                   controller.fData(TaskFCode.note.index),
-                  value: LightText(
+                  value: NormalText(
                     controller.fData(TaskFCode.note.index).placeholder,
                     color: fgL2Color,
                     padding: const EdgeInsets.symmetric(vertical: P_2),

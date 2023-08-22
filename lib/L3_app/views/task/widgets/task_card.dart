@@ -172,7 +172,7 @@ class TaskCard extends StatelessWidget {
                 bottom: 0,
                 child: Container(
                   decoration: BoxDecoration(
-                    gradient: stateGradient(task.overallState),
+                    gradient: stateGradient(context, task.overallState),
                   ),
                   width: P_2,
                 ),

@@ -21,7 +21,7 @@ class _StateTitle extends StatelessWidget {
         ? Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              stateIconGroup(state),
+              stateIconGroup(context, state),
               const SizedBox(width: P),
               Expanded(
                 child: NormalText(

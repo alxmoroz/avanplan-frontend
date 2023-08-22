@@ -6,30 +6,35 @@ const bgL1Color = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(255, 230, 230, 232),
   darkColor: Color.fromARGB(255, 18, 18, 22),
 );
-
 const fgL1Color = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 220, 220, 224),
-  darkColor: Color.fromARGB(255, 68, 68, 72),
+  color: Color.fromARGB(255, 189, 189, 192),
+  darkColor: Color.fromARGB(255, 82, 82, 86),
 );
 
 const bgL2Color = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(255, 239, 239, 239),
   darkColor: Color.fromARGB(255, 26, 26, 30),
 );
-
 const fgL2Color = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 182, 182, 192),
-  darkColor: Color.fromARGB(255, 100, 100, 110),
+  color: Color.fromARGB(255, 142, 142, 146),
+  darkColor: Color.fromARGB(255, 153, 153, 157),
+);
+
+const _whiteLightColor = Color.fromARGB(255, 253, 253, 253);
+const _whiteDarkColor = Color.fromARGB(255, 235, 235, 239);
+
+const mainBtnTitleColor = CupertinoDynamicColor.withBrightness(
+  color: _whiteLightColor,
+  darkColor: _whiteDarkColor,
 );
 
 const bgL3Color = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 253, 253, 253),
+  color: _whiteLightColor,
   darkColor: Color.fromARGB(255, 42, 42, 46),
 );
-
 const fgL3Color = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 52, 52, 60),
-  darkColor: Color.fromARGB(255, 210, 210, 212),
+  color: Color.fromARGB(255, 55, 55, 60),
+  darkColor: _whiteDarkColor,
 );
 
 const dangerColor = CupertinoDynamicColor.withBrightness(
@@ -57,8 +62,8 @@ const greenColor = CupertinoDynamicColor.withBrightness(
 );
 
 const mainColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 52, 150, 225),
-  darkColor: Color.fromARGB(255, 80, 170, 255),
+  color: Color.fromARGB(255, 90, 111, 228),
+  darkColor: Color.fromARGB(255, 90, 111, 228),
 );
 
 // цвет для "прозрачного" апп-бара

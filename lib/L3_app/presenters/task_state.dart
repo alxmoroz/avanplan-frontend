@@ -92,7 +92,7 @@ String groupStateTitle(TaskState groupState) {
     case TaskState.OK:
       return loc.state_ok_title;
     case TaskState.AHEAD:
-      return loc.state_ok_title;
+      return loc.state_ahead_title;
     case TaskState.ETA:
       return loc.state_eta_title;
     case TaskState.CLOSABLE:
@@ -144,7 +144,7 @@ extension TaskStatePresenter on Task {
   String get _noProgressDetails => loc.state_no_progress_details;
 
   String get _subtasksStateTitle {
-    final count = subtaskGroups.isNotEmpty ? subtaskGroups.first.value.length : 0;
+    final count = attentionalSubtasks.isNotEmpty ? attentionalSubtasks.length : 0;
     switch (subtasksState) {
       case TaskState.OVERDUE:
         return '${loc.state_overdue_title}${_subjects(count)}';
@@ -152,6 +152,8 @@ extension TaskStatePresenter on Task {
         return '${loc.state_risk_title}${_subjects(count)}';
       case TaskState.OK:
         return '${loc.state_on_time_title}${_subjects(count)}';
+      case TaskState.AHEAD:
+        return '${loc.state_ahead_title}${_subjects(count)}';
       case TaskState.ETA:
         return _etaDetails;
       default:
@@ -194,8 +196,6 @@ extension TaskStatePresenter on Task {
     }
   }
 
-  String get overallStateTitle => isTask || (attentionalSubtasks.isEmpty || hasDueDate) ? stateTitle : _subtasksStateTitle;
-
   bool get canShowRecommendsEta => project!.state == TaskState.NO_PROGRESS || state == TaskState.NO_SUBTASKS;
   Duration? get projectStartEtaCalcPeriod => project!.calculatedStartDate.add(serviceSettingsController.lowStartThreshold).difference(DateTime.now());
 
@@ -204,4 +204,6 @@ extension TaskStatePresenter on Task {
       : attentionalSubtasks.isNotEmpty && !hasDueDate
           ? subtasksState
           : state;
+
+  String get overallStateTitle => isTask || (attentionalSubtasks.isEmpty || hasDueDate) ? stateTitle : _subtasksStateTitle;
 }

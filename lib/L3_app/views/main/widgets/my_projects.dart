@@ -24,10 +24,10 @@ class MyProjects extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            NormalText(loc.project_list_title, align: TextAlign.center, color: fgL3Color),
+            NormalText(loc.project_list_title, align: TextAlign.center, color: fgL2Color),
             const SizedBox(height: P),
             compact ? Expanded(child: imageForState(mainController.projectsState)) : imageForState(mainController.projectsState),
-            H2(groupStateTitle(mainController.projectsState), align: TextAlign.center, color: fgL5Color),
+            H2(groupStateTitle(mainController.projectsState), align: TextAlign.center, color: fgL3Color),
             const SizedBox(height: P),
           ],
         ),

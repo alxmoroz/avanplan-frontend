@@ -50,7 +50,7 @@ class WorkspaceView extends StatelessWidget {
         ),
       );
 
-  Color get _balanceColor => ws.balance < 0 ? warningColor : fgL4Color;
+  Color get _balanceColor => ws.balance < 0 ? warningColor : fgL2Color;
 
   Widget get _balance => Column(
         children: [
@@ -84,7 +84,7 @@ class WorkspaceView extends StatelessWidget {
       onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(UserListView.routeName, arguments: ws));
 
   Widget get _sources => MTListTile(
-      leading: const ImportIcon(color: fgL4Color),
+      leading: const ImportIcon(color: fgL2Color),
       titleText: loc.source_list_title,
       trailing: const ChevronIcon(),
       bottomDivider: false,

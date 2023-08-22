@@ -63,7 +63,7 @@ class TasksBoard extends StatelessWidget {
       header: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          if (status.closed) const DoneIcon(true, color: fgL4Color),
+          if (status.closed) const DoneIcon(true, color: fgL2Color),
           NormalText('$status', padding: const EdgeInsets.all(P_2)),
         ],
       ),

@@ -31,7 +31,7 @@ class RequestTariffCard extends StatelessWidget {
           MediumText(
             loc.tariff_price_request_action_hint,
             align: TextAlign.center,
-            color: fgL4Color,
+            color: fgL2Color,
             padding: const EdgeInsets.all(P_2),
           ),
           MTButton.secondary(

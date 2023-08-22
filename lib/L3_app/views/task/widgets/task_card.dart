@@ -73,7 +73,7 @@ class TaskCard extends StatelessWidget {
       ]);
 
   bool get _showDate => task.hasDueDate && !task.closed && task.isTask;
-  Color get _dateColor => task.dueDate!.isBefore(tomorrow) ? stateColor(task.leafState) : _textColor ?? fgL3Color;
+  Color get _dateColor => task.dueDate!.isBefore(tomorrow) ? stateColor(task.leafState) : _textColor ?? fgL2Color;
   Widget get _date => Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -92,7 +92,7 @@ class TaskCard extends StatelessWidget {
   bool get _showNotesMark => !task.closed && task.notes.isNotEmpty;
   Widget get _notesMark => Row(
         children: [
-          SmallText('${task.notes.length} ', color: fgL3Color, height: 1),
+          SmallText('${task.notes.length} ', color: fgL2Color, height: 1),
           NoteMarkIcon(
             mine: task.notes.any((n) => n.isMine(task)),
             theirs: task.notes.any((n) => !n.isMine(task)),

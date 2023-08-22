@@ -2,26 +2,9 @@
 
 import 'package:flutter/cupertino.dart';
 
-// Цвет элементов, текста: L1 — это самый светлый, L3 - самый темный
-// темный = 255 - светлый
-const fgL5Color = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 52, 52, 60),
-  darkColor: Color.fromARGB(255, 210, 210, 212),
-);
-
-const fgL4Color = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 90, 90, 98),
-  darkColor: Color.fromARGB(255, 172, 172, 178),
-);
-
-const fgL3Color = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 142, 142, 152),
-  darkColor: Color.fromARGB(255, 142, 142, 152),
-);
-
-const fgL2Color = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 182, 182, 192),
-  darkColor: Color.fromARGB(255, 100, 100, 110),
+const bgL1Color = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, 230, 230, 232),
+  darkColor: Color.fromARGB(255, 18, 18, 22),
 );
 
 const fgL1Color = CupertinoDynamicColor.withBrightness(
@@ -29,20 +12,24 @@ const fgL1Color = CupertinoDynamicColor.withBrightness(
   darkColor: Color.fromARGB(255, 68, 68, 72),
 );
 
-// Фон: L1 — это самый темный, L3 - самый светлый (темный = светлый - 200)
-const bgL1Color = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 230, 230, 232),
-  darkColor: Color.fromARGB(255, 18, 18, 22),
-);
-
 const bgL2Color = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(255, 239, 239, 239),
   darkColor: Color.fromARGB(255, 26, 26, 30),
 );
 
+const fgL2Color = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, 182, 182, 192),
+  darkColor: Color.fromARGB(255, 100, 100, 110),
+);
+
 const bgL3Color = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(255, 253, 253, 253),
   darkColor: Color.fromARGB(255, 42, 42, 46),
+);
+
+const fgL3Color = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, 52, 52, 60),
+  darkColor: Color.fromARGB(255, 210, 210, 212),
 );
 
 const dangerColor = CupertinoDynamicColor.withBrightness(

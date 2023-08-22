@@ -23,7 +23,7 @@ class PeopleIcon extends MTIcon {
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.person_2,
-        color: (color ?? fgL4Color).resolve(context),
+        color: (color ?? fgL2Color).resolve(context),
         size: size ?? P2,
       );
 }
@@ -34,7 +34,7 @@ class ProjectsIcon extends MTIcon {
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.briefcase,
-        color: (color ?? fgL4Color).resolve(context),
+        color: (color ?? fgL2Color).resolve(context),
         size: size ?? P2,
       );
 }
@@ -45,7 +45,7 @@ class TasksIcon extends MTIcon {
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.text_badge_checkmark,
-        color: (color ?? fgL4Color).resolve(context),
+        color: (color ?? fgL2Color).resolve(context),
         size: size ?? P2,
       );
 }
@@ -55,7 +55,7 @@ class RoubleIcon extends MTIcon {
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.money_rubl,
-        color: (color ?? fgL4Color).resolve(context),
+        color: (color ?? fgL2Color).resolve(context),
         size: size ?? P2 * 2,
       );
 }
@@ -75,7 +75,7 @@ class TariffIcon extends MTIcon {
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.creditcard,
-        color: (color ?? fgL4Color).resolve(context),
+        color: (color ?? fgL2Color).resolve(context),
         size: size ?? P2,
       );
 }

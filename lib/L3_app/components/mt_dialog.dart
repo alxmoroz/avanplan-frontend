@@ -29,7 +29,7 @@ Future<T?> showMTDialog<T>(Widget child) async {
     maxHeight: mqH > SCR_XS_HEIGHT ? mqH - mq.padding.top - P2 : double.infinity,
   );
 
-  final barrierColor = fgL5Color.withAlpha(220).resolve(ctx);
+  final barrierColor = fgL3Color.withAlpha(220).resolve(ctx);
 
   return _bigScreen(ctx)
       ? await showDialog(

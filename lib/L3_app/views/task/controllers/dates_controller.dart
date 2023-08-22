@@ -121,7 +121,7 @@ class DatesController {
       value: !isEmpty
           ? Row(children: [
               NormalText(date.strMedium, padding: const EdgeInsets.only(right: P_2)),
-              LightText(DateFormat.E().format(date), color: fgL4Color),
+              LightText(DateFormat.E().format(date), color: fgL2Color),
             ])
           : null,
       onSelect: task.canUpdate ? () => selectDate(context, code) : null,

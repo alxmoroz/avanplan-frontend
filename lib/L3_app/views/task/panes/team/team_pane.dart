@@ -36,9 +36,9 @@ class TeamPane extends StatelessWidget {
       topIndent: index == 0 ? P_2 : 0,
       leading: Padding(
         padding: const EdgeInsets.only(right: P_2),
-        child: member.isActive ? member.icon(P2) : const LinkBreakIcon(color: fgL4Color),
+        child: member.isActive ? member.icon(P2) : const LinkBreakIcon(color: fgL2Color),
       ),
-      middle: NormalText('$member', color: member.isActive ? null : fgL4Color),
+      middle: NormalText('$member', color: member.isActive ? null : fgL2Color),
       subtitle: member.isActive ? SmallText(member.rolesStr) : null,
       trailing: const ChevronIcon(),
       bottomDivider: index < _sortedMembers.length - 1,

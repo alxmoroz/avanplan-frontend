@@ -40,13 +40,13 @@ class TimingChart extends StatelessWidget {
 
   Color get _barColor => _pointerColor.withAlpha(120);
 
-  Color get _planMarkColor => task.hasOverdue ? dangerColor : fgL4Color;
+  Color get _planMarkColor => task.hasOverdue ? dangerColor : fgL2Color;
 
   Color get _etaMarkColor => task.hasRisk
       ? warningColor
       : task.isOk
           ? greenColor
-          : fgL5Color;
+          : fgL3Color;
 
   Size get _markSize => const Size(P * 0.7, P * 0.9);
 
@@ -125,7 +125,7 @@ class TimingChart extends StatelessWidget {
                           value: ratio,
                           color: dbd.color,
                           mark: dbd.mark,
-                          border: Border(right: BorderSide(color: (dbd.mark?.color ?? fgL4Color).resolve(context))),
+                          border: Border(right: BorderSide(color: (dbd.mark?.color ?? fgL2Color).resolve(context))),
                         )
                       : const SizedBox();
                 })
@@ -157,7 +157,7 @@ class TimingChart extends StatelessWidget {
                   color: task.isFuture ? null : _barColor.resolve(context),
                   width: prefixWidth,
                   padding: const EdgeInsets.symmetric(horizontal: P),
-                  child: CalendarIcon(size: _barHeight * 0.8, color: fgL5Color),
+                  child: CalendarIcon(size: _barHeight * 0.8, color: fgL3Color),
                 ),
                 const Spacer(),
                 Container(

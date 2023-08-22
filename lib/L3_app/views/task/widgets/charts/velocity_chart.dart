@@ -95,9 +95,9 @@ class VelocityChart extends StatelessWidget {
             height: _radius * 2 - P * 4,
             alignment: Alignment.bottomCenter,
             child: Row(children: [
-              if (_maxValue > 0) const MediumText('0', color: fgL3Color),
+              if (_maxValue > 0) const MediumText('0', color: fgL2Color),
               const Spacer(),
-              if (_maxValue > 0) MediumText('${(_maxValue * daysPerMonth).round()}', color: fgL3Color),
+              if (_maxValue > 0) MediumText('${(_maxValue * daysPerMonth).round()}', color: fgL2Color),
             ]),
           ),
         ] else

@@ -71,7 +71,7 @@ class OverviewPane extends StatelessWidget {
       : null;
 
   Widget _checkRecommendsItem(bool checked, String text) => Row(children: [
-        DoneIcon(checked, color: checked ? greenColor : fgL4Color, size: P * 3, solid: checked),
+        DoneIcon(checked, color: checked ? greenColor : fgL2Color, size: P * 3, solid: checked),
         const SizedBox(width: P_3),
         H3(text, color: checked ? fgL2Color : null),
       ]);
@@ -87,7 +87,7 @@ class OverviewPane extends StatelessWidget {
       );
 
   Widget _line(BuildContext context) =>
-      Row(children: [const SizedBox(width: P * 1.4), Container(height: P18, width: 2, color: fgL4Color.resolve(context))]);
+      Row(children: [const SizedBox(width: P * 1.4), Container(height: P18, width: 2, color: fgL2Color.resolve(context))]);
 
   @override
   Widget build(BuildContext context) {

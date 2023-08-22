@@ -18,7 +18,7 @@ class MTCircle extends StatelessWidget {
       width: size ?? P,
       height: size ?? P,
       decoration: BoxDecoration(
-        color: (color ?? fgL4Color).resolve(context),
+        color: (color ?? fgL2Color).resolve(context),
         shape: BoxShape.circle,
         border: border ?? const Border(),
       ),

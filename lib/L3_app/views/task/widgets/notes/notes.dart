@@ -76,8 +76,8 @@ class Notes extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SmallText(gDate.strMedium, padding: const EdgeInsets.only(right: P_3), color: fgL3Color),
-                    SmallText(DateFormat.E().format(gDate), color: fgL3Color),
+                    SmallText(gDate.strMedium, padding: const EdgeInsets.only(right: P_3), color: fgL2Color),
+                    SmallText(DateFormat.E().format(gDate), color: fgL2Color),
                   ],
                 ),
                 const SizedBox(height: P),

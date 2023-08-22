@@ -26,7 +26,7 @@ class SettingsView extends StatelessWidget {
   static String get routeName => '/settings';
 
   Widget get _notifications => MTListTile(
-        leading: BellIcon(color: fgL4Color, hasUnread: notificationController.hasUnread),
+        leading: BellIcon(color: fgL2Color, hasUnread: notificationController.hasUnread),
         titleText: loc.notification_list_title,
         trailing: Row(children: [
           if (notificationController.hasUnread)

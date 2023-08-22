@@ -117,7 +117,7 @@ class MTButton extends StatelessWidget with FocusManaging {
 
   bool get _enabled => loading != true && (onTap != null || onLongPress != null);
   bool get _isCard => type == ButtonType.card;
-  Color get _titleColor => _enabled || _isCard ? (titleColor ?? (type == ButtonType.main ? bgL3Color : mainColor)) : fgL4Color;
+  Color get _titleColor => _enabled || _isCard ? (titleColor ?? (type == ButtonType.main ? bgL3Color : mainColor)) : fgL2Color;
   double get _radius => type == ButtonType.card ? DEF_BORDER_RADIUS : DEF_BTN_BORDER_RADIUS;
 
   ButtonStyle _style(BuildContext context) {

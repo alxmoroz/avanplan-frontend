@@ -83,7 +83,7 @@ class WorkspaceView extends StatelessWidget {
       onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(UserListView.routeName, arguments: ws));
 
   Widget get _sources => MTListTile(
-      leading: const ImportIcon(color: f2Color),
+      leading: const ImportIcon(),
       titleText: loc.source_list_title,
       trailing: const ChevronIcon(),
       bottomDivider: false,

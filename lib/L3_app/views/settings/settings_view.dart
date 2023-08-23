@@ -8,7 +8,6 @@ import '../../../L2_data/repositories/communications_repo.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../../main.dart';
 import '../../components/colors.dart';
-import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_button.dart';
@@ -27,7 +26,7 @@ class SettingsView extends StatelessWidget {
   static String get routeName => '/settings';
 
   Widget get _notifications => MTListTile(
-        leading: BellIcon(color: f2Color, hasUnread: notificationController.hasUnread),
+        leading: BellIcon(hasUnread: notificationController.hasUnread),
         titleText: loc.notification_list_title,
         trailing: Row(children: [
           if (notificationController.hasUnread)

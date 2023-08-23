@@ -4,7 +4,6 @@ import 'package:app_settings/app_settings.dart' as sys_settings;
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../components/colors.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -83,7 +82,7 @@ class NotificationListView extends StatelessWidget {
           ),
           bottomBar: _controller.pushDenied
               ? MTButton(
-                  leading: const PrivacyIcon(color: mainColor, size: P2),
+                  leading: const PrivacyIcon(size: P2),
                   middle: SmallText(
                     loc.notification_push_ios_denied_btn_title,
                     align: TextAlign.center,

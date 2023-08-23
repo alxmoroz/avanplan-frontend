@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 
 import '../../L2_data/repositories/communications_repo.dart';
 import '../../L3_app/extra/services.dart';
-import '../components/colors.dart';
 import '../components/constants.dart';
 import '../components/icons.dart';
 import '../components/mt_button.dart';
@@ -20,7 +19,7 @@ class ReportErrorButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTButton.secondary(
-      leading: MailIcon(color: titleColor ?? mainColor),
+      leading: MailIcon(color: titleColor),
       titleText: loc.report_bug_action_title,
       titleColor: titleColor,
       color: color,

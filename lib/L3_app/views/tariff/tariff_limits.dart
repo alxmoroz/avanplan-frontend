@@ -1,5 +1,6 @@
 // Copyright (c) 2023. Alexandr Moroz
 
+import 'package:avanplan/L3_app/components/colors_base.dart';
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
@@ -27,18 +28,18 @@ class _TariffLimitTile extends StatelessWidget {
     final String hvStr = value.humanValueStr;
     final plural = num.tryParse(hvStr) == null ? 10 : value;
 
-    String prefix = loc.tariff_limit_up_to_prefix;
+    final prefix = loc.tariff_limit_up_to_prefix;
     String suffix = '';
 
     Widget icon = const SizedBox(width: P2);
     if (code == 'USERS_COUNT') {
-      icon = const PeopleIcon();
+      icon = const PeopleIcon(color: f2Color);
       suffix = loc.user_plural_genitive(plural);
     } else if (code == 'PROJECTS_COUNT') {
-      icon = const ProjectsIcon();
+      icon = const ProjectsIcon(color: f2Color);
       suffix = loc.project_plural_genitive(plural);
     } else if (code == 'TASKS_COUNT') {
-      icon = const TasksIcon();
+      icon = const TasksIcon(color: f2Color);
       suffix = loc.task_plural_genitive(plural);
     }
 

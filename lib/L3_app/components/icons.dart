@@ -292,7 +292,7 @@ class MailIcon extends MTIcon {
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.envelope,
-        color: (color ?? f2Color).resolve(context),
+        color: (color ?? mainColor).resolve(context),
         size: size ?? P2,
       );
 }
@@ -329,7 +329,7 @@ class PersonIcon extends MTIcon {
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.person,
-        color: (color ?? f2Color).resolve(context),
+        color: (color ?? mainColor).resolve(context),
         size: size ?? P2,
       );
 }
@@ -349,7 +349,7 @@ class PrivacyIcon extends MTIcon {
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.lock_shield,
-        color: (color ?? f2Color).resolve(context),
+        color: (color ?? mainColor).resolve(context),
         size: size ?? P2,
       );
 }
@@ -369,7 +369,7 @@ class RulesIcon extends MTIcon {
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.doc_plaintext,
-        color: (color ?? f2Color).resolve(context),
+        color: (color ?? mainColor).resolve(context),
         size: size ?? P2,
       );
 }

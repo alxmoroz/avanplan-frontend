@@ -24,7 +24,7 @@ class PeopleIcon extends MTIcon {
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.person_2,
-        color: (color ?? f2Color).resolve(context),
+        color: (color ?? mainColor).resolve(context),
         size: size ?? P2,
       );
 }
@@ -76,7 +76,7 @@ class TariffIcon extends MTIcon {
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.creditcard,
-        color: (color ?? f2Color).resolve(context),
+        color: (color ?? mainColor).resolve(context),
         size: size ?? P2,
       );
 }

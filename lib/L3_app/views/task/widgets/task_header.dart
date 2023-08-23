@@ -59,7 +59,7 @@ class TaskHeader extends StatelessWidget {
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.zero,
                     hintText: _titlePlaceholder,
-                    hintStyle: const H1('').style(context),
+                    hintStyle: const H1('', color: f2Color).style(context),
                   ),
                   style: const H1('').style(context),
                   onChanged: controller.titleController.editTitle,

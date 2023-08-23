@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
-import '../../components/colors.dart';
+import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/icons_workspace.dart';
@@ -71,7 +71,7 @@ class _TaskViewState extends State<TaskView> {
           res[TaskTabKey.overview] = _tab(tk, const EyeIcon(), NormalText(loc.overview));
           break;
         case TaskTabKey.subtasks:
-          res[TaskTabKey.subtasks] = _tab(tk, const DoneIcon(true, color: fgL2Color), NormalText('${task.listTitle}'));
+          res[TaskTabKey.subtasks] = _tab(tk, const DoneIcon(true, color: f2Color), NormalText('${task.listTitle}'));
           break;
         case TaskTabKey.details:
           res[TaskTabKey.details] = _tab(tk, const RulesIcon(), NormalText(loc.description));
@@ -92,8 +92,8 @@ class _TaskViewState extends State<TaskView> {
           children: _tabs,
           groupValue: controller.tabKey,
           onValueChanged: controller.selectTab,
-          backgroundColor: bgL1Color,
-          thumbColor: bgL3Color,
+          backgroundColor: b1Color,
+          thumbColor: b3Color,
         ),
       );
 

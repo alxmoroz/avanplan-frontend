@@ -14,6 +14,7 @@ import 'L1_domain/entities/task.dart';
 import 'L1_domain/entities/user.dart';
 import 'L1_domain/entities/workspace.dart';
 import 'L3_app/components/colors.dart';
+import 'L3_app/components/colors_base.dart';
 import 'L3_app/extra/services.dart';
 import 'L3_app/l10n/generated/l10n.dart';
 import 'L3_app/views/account/account_view.dart';
@@ -65,7 +66,7 @@ class App extends StatelessWidget {
 
     final supportedLocales = S.delegate.supportedLocales;
     final cupertinoTheme = CupertinoThemeData(
-      scaffoldBackgroundColor: bgL2Color,
+      scaffoldBackgroundColor: b2Color,
       primaryColor: mainColor,
       textTheme: cupertinoTextTheme.copyWith(
         primaryColor: mainColor,
@@ -81,8 +82,8 @@ class App extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(
           seedColor: mainColor.resolve(context),
           brightness: View.of(context).platformDispatcher.platformBrightness,
-          background: bgL2Color.resolve(context),
-          surfaceTint: bgL2Color.resolve(context),
+          background: b2Color.resolve(context),
+          surfaceTint: b2Color.resolve(context),
         ),
         fontFamily: fontFamily,
         useMaterial3: true,

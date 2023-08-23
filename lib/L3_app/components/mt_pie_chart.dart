@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 
 import 'colors.dart';
+import 'colors_base.dart';
 import 'constants.dart';
 
 class MTPieChartData {
@@ -47,7 +48,7 @@ class _PieChartPainter extends CustomPainter {
       final _strokeWidth = arcData.strokeWidth ?? strokeWidth ?? P;
 
       final _paint = Paint()
-        ..color = (arcData.color ?? bgL2Color).resolve(context)
+        ..color = (arcData.color ?? b2Color).resolve(context)
         ..strokeWidth = _strokeWidth
         ..style = PaintingStyle.stroke;
 

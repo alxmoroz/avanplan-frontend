@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../main.dart';
 import '../../components/colors.dart';
+import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/icons_workspace.dart';
@@ -50,7 +51,7 @@ class WorkspaceView extends StatelessWidget {
         ),
       );
 
-  Color get _balanceColor => ws.balance < 0 ? warningColor : fgL2Color;
+  Color get _balanceColor => ws.balance < 0 ? warningColor : f2Color;
 
   Widget get _balance => Column(
         children: [
@@ -84,7 +85,7 @@ class WorkspaceView extends StatelessWidget {
       onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(UserListView.routeName, arguments: ws));
 
   Widget get _sources => MTListTile(
-      leading: const ImportIcon(color: fgL2Color),
+      leading: const ImportIcon(color: f2Color),
       titleText: loc.source_list_title,
       trailing: const ChevronIcon(),
       bottomDivider: false,

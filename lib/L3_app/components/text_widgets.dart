@@ -3,7 +3,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../L2_data/services/platform.dart';
-import 'colors.dart';
+import 'colors_base.dart';
 
 class _BaseText extends StatelessWidget {
   const _BaseText(
@@ -31,7 +31,7 @@ class _BaseText extends StatelessWidget {
   TextStyle style(BuildContext context) {
     final cupertinoTS = CupertinoTheme.of(context).textTheme.textStyle;
     return cupertinoTS.copyWith(
-      color: CupertinoDynamicColor.maybeResolve(color ?? fgL3Color, context),
+      color: CupertinoDynamicColor.maybeResolve(color ?? f1Color, context),
       fontWeight: weight ?? FontWeight.w400,
       fontSize: (cupertinoTS.fontSize ?? (isTablet ? 24 : 16)) * (sizeScale ?? 1),
       inherit: true,
@@ -66,7 +66,7 @@ class SmallText extends _BaseText {
     super.decoration,
   }) : super(
           text,
-          color: color ?? fgL2Color,
+          color: color ?? f2Color,
           sizeScale: 0.85,
           maxLines: maxLines ?? 9,
           height: height,

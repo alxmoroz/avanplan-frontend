@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
+import 'colors_base.dart';
 import 'constants.dart';
 
 class MTDivider extends StatelessWidget {
@@ -16,7 +17,7 @@ class MTDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Divider(
-      color: (color ?? fgL2Color).resolve(context),
+      color: (color ?? f2Color).resolve(context),
       thickness: 0.2,
       indent: indent ?? 0,
       endIndent: endIndent ?? 0,

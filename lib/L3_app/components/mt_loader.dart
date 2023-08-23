@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
+import 'colors_base.dart';
 
 class MTLoader extends StatelessWidget {
   const MTLoader({this.radius});
@@ -20,7 +21,7 @@ class MTLoader extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: bgL2Color.resolve(context).withAlpha(170),
+              color: b2Color.resolve(context).withAlpha(170),
               borderRadius: BorderRadius.circular(radius ?? 0),
             ),
           ),

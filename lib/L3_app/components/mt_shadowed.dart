@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
+import 'colors_base.dart';
 import 'constants.dart';
 
 class MTShadowed extends StatelessWidget {
@@ -20,7 +21,7 @@ class MTShadowed extends StatelessWidget {
 
   Widget _shadow(BuildContext context, bool top) {
     final padding = MediaQuery.of(context).padding;
-    final startColor = (shadowColor ?? bgL2Color).resolve(context);
+    final startColor = (shadowColor ?? b2Color).resolve(context);
     final endColor = startColor.withAlpha(0);
     return Positioned(
       left: 0,

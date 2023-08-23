@@ -8,6 +8,7 @@ import '../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../main.dart';
 import '../../../components/colors.dart';
+import '../../../components/colors_base.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/mt_button.dart';
@@ -29,7 +30,7 @@ class TasksPane extends StatelessWidget {
         decoration: active
             ? BoxDecoration(
                 shape: BoxShape.circle,
-                color: bgL3Color.resolve(rootKey.currentContext!),
+                color: b3Color.resolve(rootKey.currentContext!),
               )
             : null,
         width: P2 * 2,
@@ -41,7 +42,7 @@ class TasksPane extends StatelessWidget {
       ? Row(children: [
           if (_task.totalVolume > 0 && !_task.isProject)
             MTButton.secondary(
-              color: bgL1Color,
+              color: b1Color,
               middle: Row(children: [
                 _switchPart(ListIcon(active: !controller.showBoard), !controller.showBoard),
                 _switchPart(BoardIcon(active: controller.showBoard), controller.showBoard),

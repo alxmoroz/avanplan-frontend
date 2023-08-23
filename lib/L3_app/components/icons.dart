@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
+import 'colors_base.dart';
 import 'constants.dart';
 import 'mt_circle.dart';
 import 'painters.dart';
@@ -70,7 +71,7 @@ class CaretIcon extends StatelessWidget {
   Widget build(BuildContext context) => RotatedBox(
         quarterTurns: up ? 0 : 2,
         child: CustomPaint(
-          painter: TrianglePainter(color: (color ?? fgL2Color).resolve(context)),
+          painter: TrianglePainter(color: (color ?? f2Color).resolve(context)),
           child: Container(height: size.height, width: size.width),
         ),
       );
@@ -198,7 +199,7 @@ class EyeIcon extends MTIcon {
   @override
   Widget build(BuildContext context) => Icon(
         open ? CupertinoIcons.eye : CupertinoIcons.eye_slash,
-        color: (color ?? fgL2Color).resolve(context),
+        color: (color ?? f2Color).resolve(context),
         size: size ?? P2,
       );
 }
@@ -291,7 +292,7 @@ class MailIcon extends MTIcon {
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.envelope,
-        color: (color ?? fgL2Color).resolve(context),
+        color: (color ?? f2Color).resolve(context),
         size: size ?? P2,
       );
 }
@@ -317,7 +318,7 @@ class NoteMarkIcon extends MTIcon {
             : mine
                 ? CupertinoIcons.bubble_right
                 : CupertinoIcons.bubble_left,
-        color: (color ?? fgL2Color).resolve(context),
+        color: (color ?? f2Color).resolve(context),
         size: size ?? P * 1.5,
       );
 }
@@ -328,7 +329,7 @@ class PersonIcon extends MTIcon {
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.person,
-        color: (color ?? fgL2Color).resolve(context),
+        color: (color ?? f2Color).resolve(context),
         size: size ?? P2,
       );
 }
@@ -348,7 +349,7 @@ class PrivacyIcon extends MTIcon {
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.lock_shield,
-        color: (color ?? fgL2Color).resolve(context),
+        color: (color ?? f2Color).resolve(context),
         size: size ?? P2,
       );
 }
@@ -368,7 +369,7 @@ class RulesIcon extends MTIcon {
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.doc_plaintext,
-        color: (color ?? fgL2Color).resolve(context),
+        color: (color ?? f2Color).resolve(context),
         size: size ?? P2,
       );
 }

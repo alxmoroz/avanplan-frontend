@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../../main.dart';
 import 'colors.dart';
+import 'colors_base.dart';
 import 'constants.dart';
 import 'material_wrapper.dart';
 import 'mt_toolbar.dart';
@@ -29,7 +30,7 @@ Future<T?> showMTDialog<T>(Widget child) async {
     maxHeight: mqH > SCR_XS_HEIGHT ? mqH - mq.padding.top - P2 : double.infinity,
   );
 
-  final barrierColor = fgL3Color.withAlpha(220).resolve(ctx);
+  final barrierColor = f1Color.withAlpha(220).resolve(ctx);
 
   return _bigScreen(ctx)
       ? await showDialog(
@@ -89,7 +90,7 @@ class MTDialog extends StatelessWidget {
         child: Container(
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
-            color: (bgColor ?? bgL2Color).resolve(context),
+            color: (bgColor ?? b2Color).resolve(context),
             borderRadius: BorderRadius.only(
               topLeft: radius,
               topRight: radius,
@@ -113,7 +114,7 @@ class MTDialog extends StatelessWidget {
                   top: 0,
                   left: 0,
                   right: 0,
-                  child: MTToolbar.top(child: topBar!, color: topBarColor ?? bgL2Color),
+                  child: MTToolbar.top(child: topBar!, color: topBarColor ?? b2Color),
                 ),
               if (bottomBar != null)
                 Positioned(

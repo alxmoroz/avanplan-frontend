@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
+import 'colors_base.dart';
 import 'constants.dart';
 import 'material_wrapper.dart';
 import 'text_widgets.dart';
@@ -18,7 +19,7 @@ InputDecoration tfDecoration(
   bool readOnly = false,
 }) {
   final _rWarningColor = warningColor.resolve(context);
-  final _rBorderColor = fgL1Color.resolve(context);
+  final _rBorderColor = f3Color.resolve(context);
 
   final OutlineInputBorder _warningBorder = OutlineInputBorder(borderSide: BorderSide(color: _rWarningColor));
   final OutlineInputBorder _border = OutlineInputBorder(borderSide: BorderSide(color: _rBorderColor));
@@ -26,7 +27,7 @@ InputDecoration tfDecoration(
 
   return InputDecoration(
     labelText: label,
-    labelStyle: const LightText('', color: fgL2Color).style(context),
+    labelStyle: const LightText('', color: f2Color).style(context),
     helperText: helper,
     helperStyle: const SmallText('').style(context),
     helperMaxLines: 15,
@@ -45,7 +46,7 @@ InputDecoration tfDecoration(
     prefixIcon: prefixIcon,
     suffixIcon: suffixIcon,
     filled: true,
-    fillColor: bgL3Color.resolve(context),
+    fillColor: b3Color.resolve(context),
   );
 }
 

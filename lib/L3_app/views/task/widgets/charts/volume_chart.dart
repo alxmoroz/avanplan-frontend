@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/colors.dart';
+import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/mt_pie_chart.dart';
 import '../../../../components/text_widgets.dart';
@@ -43,7 +44,7 @@ class TaskVolumeChart extends StatelessWidget {
           ],
         ),
         D3(_chartText, color: _pointerColor, padding: const EdgeInsets.only(bottom: P_2)),
-        SmallText(loc.chart_volume_unit, padding: EdgeInsets.only(top: _radius / 2 + P), color: fgL2Color),
+        SmallText(loc.chart_volume_unit, padding: EdgeInsets.only(top: _radius / 2 + P), color: f2Color),
       ],
     );
   }

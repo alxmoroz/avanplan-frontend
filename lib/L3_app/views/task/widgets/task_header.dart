@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../L1_domain/entities/task.dart';
 import '../../../components/colors.dart';
+import '../../../components/colors_base.dart';
 import '../../../components/constants.dart';
 import '../../../components/mt_adaptive.dart';
 import '../../../components/mt_field.dart';
@@ -32,7 +33,7 @@ class TaskHeader extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [_task.bgColor.resolve(context), bgL2Color.resolve(context)],
+              colors: [_task.bgColor.resolve(context), b2Color.resolve(context)],
             ),
           ),
           padding: const EdgeInsets.symmetric(horizontal: P),
@@ -45,7 +46,7 @@ class TaskHeader extends StatelessWidget {
                   controller.fData(TaskFCode.parent.index),
                   value: NormalText(_task.parent!.title),
                   padding: const EdgeInsets.symmetric(vertical: P_2),
-                  color: bgL2Color,
+                  color: b2Color,
                 ),
               MTField(
                 controller.fData(TaskFCode.title.index),
@@ -64,7 +65,7 @@ class TaskHeader extends StatelessWidget {
                   onChanged: controller.titleController.editTitle,
                 ),
                 padding: EdgeInsets.zero,
-                color: bgL2Color,
+                color: b2Color,
               ),
               const SizedBox(height: P_2),
             ],

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../../../L1_domain/entities/role.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/colors.dart';
+import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons_workspace.dart';
 import '../../../../components/material_wrapper.dart';
@@ -35,8 +36,8 @@ class MemberAddMenu extends StatelessWidget {
                 itemBuilder: (_) => [for (final r in task.ws.roles) PopupMenuItem<Role>(value: r, child: NormalText(r.localize))],
                 onSelected: (r) async => await memberAddDialog(task, r),
                 padding: EdgeInsets.zero,
-                surfaceTintColor: bgL3Color.resolve(context),
-                color: bgL3Color.resolve(context),
+                surfaceTintColor: b3Color.resolve(context),
+                color: b3Color.resolve(context),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS)),
               ),
             )

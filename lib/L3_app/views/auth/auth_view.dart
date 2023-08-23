@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L2_data/services/platform.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_button.dart';
@@ -63,7 +62,7 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
         color: _whiteColor,
         titleColor: _whiteColor,
         onTap: onTap,
-        margin: const EdgeInsets.only(top: P),
+        margin: const EdgeInsets.only(top: P18),
       );
 
   @override
@@ -78,11 +77,11 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
                 builder: (_) => ListView(
                   shrinkWrap: true,
                   children: [
+                    // MTColorsDemo(),
                     H1(loc.app_title, align: TextAlign.center),
                     const SizedBox(height: P2),
                     appIcon(size: size.maxHeight / 4),
-                    H3(authController.registerMode ? loc.auth_register_with_title : loc.auth_sign_in_with_title,
-                        align: TextAlign.center, color: fgL2Color),
+                    H3(authController.registerMode ? loc.auth_register_with_title : loc.auth_sign_in_with_title, align: TextAlign.center),
                     const SizedBox(height: P),
                     Column(
                       children: [

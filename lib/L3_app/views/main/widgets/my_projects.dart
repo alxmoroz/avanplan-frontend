@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../main.dart';
-import '../../../components/colors.dart';
+import '../../../components/colors_base.dart';
 import '../../../components/constants.dart';
 import '../../../components/mt_button.dart';
 import '../../../components/mt_shadowed.dart';
@@ -24,7 +24,7 @@ class MyProjects extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            NormalText(loc.project_list_title, align: TextAlign.center, color: fgL2Color),
+            NormalText(loc.project_list_title, align: TextAlign.center, color: f2Color),
             const SizedBox(height: P),
             compact ? Expanded(child: imageForState(mainController.projectsState)) : imageForState(mainController.projectsState),
             H2(groupStateTitle(mainController.projectsState), align: TextAlign.center),

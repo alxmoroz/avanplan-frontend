@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
+import 'colors_base.dart';
 import 'constants.dart';
 import 'material_wrapper.dart';
 import 'mt_button.dart';
@@ -92,7 +93,7 @@ class MTListTile extends StatelessWidget with FocusManaging {
               if (bottomDivider) _border,
             ],
           )),
-      color: (color ?? bgL3Color).resolve(context),
+      color: (color ?? b3Color).resolve(context),
     );
   }
 }
@@ -107,7 +108,7 @@ class MTListSection extends StatelessWidget {
     return H3(
       title,
       padding: const EdgeInsets.symmetric(horizontal: P2).copyWith(top: P2, bottom: P_2),
-      color: fgL2Color,
+      color: f2Color,
     );
   }
 }

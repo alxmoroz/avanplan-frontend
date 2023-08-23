@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../components/colors.dart';
+import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/mt_card.dart';
@@ -40,13 +41,13 @@ class TimingChart extends StatelessWidget {
 
   Color get _barColor => _pointerColor.withAlpha(120);
 
-  Color get _planMarkColor => task.hasOverdue ? dangerColor : fgL2Color;
+  Color get _planMarkColor => task.hasOverdue ? dangerColor : f2Color;
 
   Color get _etaMarkColor => task.hasRisk
       ? warningColor
       : task.isOk
           ? greenColor
-          : fgL3Color;
+          : f1Color;
 
   Size get _markSize => const Size(P * 0.7, P * 0.9);
 
@@ -87,7 +88,7 @@ class TimingChart extends StatelessWidget {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                MTCircle(size: _barHeight, color: bgL2Color, border: Border.all(color: _barColor)),
+                MTCircle(size: _barHeight, color: b2Color, border: Border.all(color: _barColor)),
                 MTCircle(size: _barHeight * 0.7, color: _pointerColor)
               ],
             ),
@@ -125,7 +126,7 @@ class TimingChart extends StatelessWidget {
                           value: ratio,
                           color: dbd.color,
                           mark: dbd.mark,
-                          border: Border(right: BorderSide(color: (dbd.mark?.color ?? fgL2Color).resolve(context))),
+                          border: Border(right: BorderSide(color: (dbd.mark?.color ?? f2Color).resolve(context))),
                         )
                       : const SizedBox();
                 })
@@ -148,7 +149,7 @@ class TimingChart extends StatelessWidget {
         children: [
           MTCard(
             elevation: 0,
-            color: bgL2Color,
+            color: b2Color,
             // borderSide: BorderSide(color: _barColor.resolve(context), width: _borderWidth),
             child: Row(
               children: [
@@ -157,7 +158,7 @@ class TimingChart extends StatelessWidget {
                   color: task.isFuture ? null : _barColor.resolve(context),
                   width: prefixWidth,
                   padding: const EdgeInsets.symmetric(horizontal: P),
-                  child: CalendarIcon(size: _barHeight * 0.8, color: fgL3Color),
+                  child: CalendarIcon(size: _barHeight * 0.8, color: f1Color),
                 ),
                 const Spacer(),
                 Container(

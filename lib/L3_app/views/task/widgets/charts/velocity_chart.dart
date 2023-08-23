@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/colors.dart';
+import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/mt_pie_chart.dart';
 import '../../../../components/text_widgets.dart';
@@ -87,7 +88,7 @@ class VelocityChart extends StatelessWidget {
           SmallText(
             loc.chart_velocity_unit_mo(task.ws.estimateUnitCode),
             padding: EdgeInsets.only(top: _radius / 2 + P),
-            color: fgL2Color,
+            color: f2Color,
             height: 1,
           ),
           Container(
@@ -95,9 +96,9 @@ class VelocityChart extends StatelessWidget {
             height: _radius * 2 - P * 4,
             alignment: Alignment.bottomCenter,
             child: Row(children: [
-              if (_maxValue > 0) const MediumText('0', color: fgL2Color),
+              if (_maxValue > 0) const MediumText('0', color: f2Color),
               const Spacer(),
-              if (_maxValue > 0) MediumText('${(_maxValue * daysPerMonth).round()}', color: fgL2Color),
+              if (_maxValue > 0) MediumText('${(_maxValue * daysPerMonth).round()}', color: f2Color),
             ]),
           ),
         ] else

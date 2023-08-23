@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../components/colors.dart';
+import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_adaptive.dart';
@@ -72,7 +73,7 @@ class NotificationListView extends StatelessWidget {
             top: false,
             bottom: false,
             child: _controller.notifications.isEmpty
-                ? Center(child: H3(loc.notification_list_empty_title, align: TextAlign.center, color: fgL2Color))
+                ? Center(child: H3(loc.notification_list_empty_title, align: TextAlign.center, color: f2Color))
                 : MTAdaptive(
                     child: ListView.builder(
                       itemBuilder: (_, int index) => _itemBuilder(context, index),

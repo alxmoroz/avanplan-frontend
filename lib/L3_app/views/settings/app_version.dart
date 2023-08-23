@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../L2_data/services/environment.dart';
 import '../../components/colors.dart';
+import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/text_widgets.dart';
 import '../../extra/services.dart';
@@ -16,8 +17,8 @@ class AppVersion extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          SmallText(localSettingsController.settings.version, color: fgL2Color),
-          if (visibleApiHost.isNotEmpty) SmallText(visibleApiHost, color: warningColor, padding: const EdgeInsets.only(left: P_2)),
+          LightText(localSettingsController.settings.version, color: f2Color),
+          if (visibleApiHost.isNotEmpty) NormalText(visibleApiHost, color: warningColor, padding: const EdgeInsets.only(left: P_2)),
         ]),
       ],
     );

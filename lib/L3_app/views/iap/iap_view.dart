@@ -6,6 +6,7 @@ import '../../../L1_domain/entities/iap_product.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../main.dart';
 import '../../components/colors.dart';
+import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/icons_workspace.dart';
 import '../../components/mt_button.dart';
@@ -38,8 +39,8 @@ class StoreView extends StatelessWidget {
 
     return Row(
       children: [
-        if (hasPrice) H3('  ${loc.for_} ${isRub ? p.rawPrice.currency : p.price}', color: fgL2Color),
-        if (isRub) RoubleIcon(size: P * (hasPrice ? 2 : 2.5), color: hasPrice ? fgL2Color : mainColor),
+        if (hasPrice) H3('  ${loc.for_} ${isRub ? p.rawPrice.currency : p.price}', color: f2Color),
+        if (isRub) RoubleIcon(size: P * (hasPrice ? 2 : 2.5), color: hasPrice ? f2Color : mainColor),
       ],
     );
   }

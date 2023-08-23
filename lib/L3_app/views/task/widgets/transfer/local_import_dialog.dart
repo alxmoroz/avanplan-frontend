@@ -7,6 +7,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/usecases/task_comparators.dart';
 import '../../../../components/colors.dart';
+import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/mt_button.dart';
@@ -58,9 +59,9 @@ class LocalImportDialog extends StatelessWidget {
   }
 
   Widget _addressLine(String label, String title) => MTListTile(
-        leading: LightText(label, color: fgL2Color),
+        leading: LightText(label, color: f2Color),
         middle: NormalText(title, maxLines: 1),
-        color: bgL2Color,
+        color: b2Color,
         bottomDivider: false,
         padding: const EdgeInsets.symmetric(horizontal: P + P_2),
       );
@@ -80,7 +81,7 @@ class LocalImportDialog extends StatelessWidget {
                   MTCheckBoxTile(
                     title: '${loc.select_all_action_title} (${controller.checks.length})',
                     titleColor: mainColor,
-                    color: bgL2Color,
+                    color: b2Color,
                     bottomBorder: true,
                     value: controller.selectedAll,
                     onChanged: controller.toggleSelectedAll,
@@ -99,7 +100,7 @@ class LocalImportDialog extends StatelessWidget {
             ),
           ),
           bottomBar: MTButton.main(
-            leading: LocalImportIcon(color: controller.validated ? mainBtnTitleColor : fgL2Color),
+            leading: LocalImportIcon(color: controller.validated ? mainBtnTitleColor : f2Color),
             titleText: loc.task_transfer_import_confirm_action_title,
             onTap: controller.validated ? controller.moveTasks : null,
           ),

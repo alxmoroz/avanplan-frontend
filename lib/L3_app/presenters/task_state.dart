@@ -7,6 +7,7 @@ import '../../L1_domain/entities_extensions/task_state.dart';
 import '../../L1_domain/entities_extensions/task_stats.dart';
 import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../components/colors.dart';
+import '../components/colors_base.dart';
 import '../components/constants.dart';
 import '../components/images.dart';
 import '../components/mt_circle.dart';
@@ -29,7 +30,7 @@ Color stateColor(TaskState state) {
     case TaskState.THIS_WEEK:
       return greenColor;
     default:
-      return fgL2Color;
+      return f2Color;
   }
 }
 

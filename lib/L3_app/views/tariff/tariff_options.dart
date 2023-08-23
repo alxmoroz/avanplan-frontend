@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
-import '../../components/colors.dart';
+import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/mt_currency.dart';
 import '../../components/mt_list_tile.dart';
@@ -26,7 +26,7 @@ class _TariffOptionTile extends StatelessWidget {
     final description = Intl.message('tariff_option_${code.toLowerCase()}_title');
 
     return MTListTile(
-      middle: MTCurrency(value, fgL2Color),
+      middle: MTCurrency(value, f2Color),
       subtitle: LightText(description, align: TextAlign.center),
       padding: const EdgeInsets.symmetric(horizontal: P).copyWith(bottom: P_2),
       color: Colors.transparent,
@@ -50,7 +50,7 @@ class TariffOptions extends StatelessWidget {
           MediumText(
             loc.tariff_price_free_title,
             align: TextAlign.center,
-            color: fgL2Color,
+            color: f2Color,
             padding: const EdgeInsets.all(P_2),
           ),
       ],

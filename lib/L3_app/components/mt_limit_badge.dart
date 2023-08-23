@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 
 import 'colors.dart';
+import 'colors_base.dart';
 import 'constants.dart';
 import 'icons_workspace.dart';
 
@@ -28,7 +29,7 @@ class MTLimitBadge extends StatelessWidget {
                 ),
                 child: const Row(children: [
                   SizedBox(width: P_6),
-                  RoubleIcon(size: P2, color: bgL3Color),
+                  RoubleIcon(size: P2, color: b3Color),
                 ]),
               ),
               Padding(

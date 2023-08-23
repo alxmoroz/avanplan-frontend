@@ -10,6 +10,7 @@ import '../../../../../L1_domain/entities/note.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../components/colors.dart';
+import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/mt_button.dart';
@@ -76,8 +77,8 @@ class Notes extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SmallText(gDate.strMedium, padding: const EdgeInsets.only(right: P_3), color: fgL2Color),
-                    SmallText(DateFormat.E().format(gDate), color: fgL2Color),
+                    SmallText(gDate.strMedium, padding: const EdgeInsets.only(right: P_3), color: f2Color),
+                    SmallText(DateFormat.E().format(gDate), color: f2Color),
                   ],
                 ),
                 const SizedBox(height: P),

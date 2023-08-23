@@ -7,6 +7,7 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../components/colors.dart';
+import '../../../components/colors_base.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/mt_adaptive.dart';
@@ -58,7 +59,7 @@ class OverviewPane extends StatelessWidget {
                   MediumText(
                     loc.state_closable_hint,
                     align: TextAlign.center,
-                    color: fgL2Color,
+                    color: f2Color,
                     padding: const EdgeInsets.only(bottom: P_3),
                   ),
                 MTButton.main(
@@ -71,9 +72,9 @@ class OverviewPane extends StatelessWidget {
       : null;
 
   Widget _checkRecommendsItem(bool checked, String text) => Row(children: [
-        DoneIcon(checked, color: checked ? greenColor : fgL2Color, size: P * 3, solid: checked),
+        DoneIcon(checked, color: checked ? greenColor : f2Color, size: P * 3, solid: checked),
         const SizedBox(width: P_3),
-        H3(text, color: checked ? fgL2Color : null),
+        H3(text, color: checked ? f2Color : null),
       ]);
 
   Widget get _requiredAddTask => _checkRecommendsItem(
@@ -87,7 +88,7 @@ class OverviewPane extends StatelessWidget {
       );
 
   Widget _line(BuildContext context) =>
-      Row(children: [const SizedBox(width: P * 1.4), Container(height: P18, width: 2, color: fgL2Color.resolve(context))]);
+      Row(children: [const SizedBox(width: P * 1.4), Container(height: P18, width: 2, color: f2Color.resolve(context))]);
 
   @override
   Widget build(BuildContext context) {

@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../main.dart';
 import '../../../components/colors.dart';
+import '../../../components/colors_base.dart';
 import '../../../components/constants.dart';
 import '../../../components/images.dart';
 import '../../../components/mt_adaptive.dart';
@@ -31,7 +32,7 @@ class MyTasks extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            NormalText(loc.my_tasks_title, align: TextAlign.center, color: fgL2Color),
+            NormalText(loc.my_tasks_title, align: TextAlign.center, color: f2Color),
             const SizedBox(height: P),
             compact ? Expanded(child: _mainInfo(context)) : _mainInfo(context),
             H2(_myTasksCount > 0 ? mainController.myUpcomingTasksTitle : loc.task_list_empty_title, align: TextAlign.center),

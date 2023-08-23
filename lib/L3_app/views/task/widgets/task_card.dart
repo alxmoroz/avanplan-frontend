@@ -10,7 +10,7 @@ import '../../../../../L1_domain/entities_extensions/task_status.dart';
 import '../../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../L1_domain/utils/dates.dart';
-import '../../../components/colors.dart';
+import '../../../components/colors_base.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/mt_button.dart';
@@ -48,7 +48,7 @@ class TaskCard extends StatelessWidget {
   final bool dragging;
   final bool isMine;
 
-  Color? get _textColor => task.closed ? fgL2Color : null;
+  Color? get _textColor => task.closed ? f2Color : null;
 
   Widget get _parentTitle => LightText(
         '${task.project?.wsCode}${task.parent!.title}',
@@ -60,7 +60,7 @@ class TaskCard extends StatelessWidget {
 
   Widget get _title => Row(
         children: [
-          if (task.wsCode.isNotEmpty) LightText(task.wsCode, color: fgL2Color),
+          if (task.wsCode.isNotEmpty) LightText(task.wsCode, color: f2Color),
           Expanded(child: NormalText(task.title, maxLines: 2, color: _textColor)),
           if (!board) const ChevronIcon(),
         ],
@@ -73,7 +73,7 @@ class TaskCard extends StatelessWidget {
       ]);
 
   bool get _showDate => task.hasDueDate && !task.closed && task.isTask;
-  Color get _dateColor => task.dueDate!.isBefore(tomorrow) ? stateColor(task.leafState) : _textColor ?? fgL2Color;
+  Color get _dateColor => task.dueDate!.isBefore(tomorrow) ? stateColor(task.leafState) : _textColor ?? f2Color;
   Widget get _date => Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -92,7 +92,7 @@ class TaskCard extends StatelessWidget {
   bool get _showNotesMark => !task.closed && task.notes.isNotEmpty;
   Widget get _notesMark => Row(
         children: [
-          SmallText('${task.notes.length} ', color: fgL2Color, height: 1),
+          SmallText('${task.notes.length} ', color: f2Color, height: 1),
           NoteMarkIcon(
             mine: task.notes.any((n) => n.isMine(task)),
             theirs: task.notes.any((n) => !n.isMine(task)),
@@ -105,7 +105,7 @@ class TaskCard extends StatelessWidget {
 
   Widget get _divider => const Padding(
         padding: EdgeInsets.symmetric(horizontal: P_2),
-        child: MTCircle(size: P_3, color: fgL2Color),
+        child: MTCircle(size: P_3, color: f2Color),
       );
 
   Widget get _taskContent => Column(
@@ -123,7 +123,7 @@ class TaskCard extends StatelessWidget {
             Row(children: [
               Expanded(child: TaskStateTitle(task, place: StateTitlePlace.card)),
               if (_showNotesMark) ...[_notesMark],
-              if (task.isLinkedProject) ...[if (_showNotesMark) _divider, const LinkIcon(color: fgL2Color)]
+              if (task.isLinkedProject) ...[if (_showNotesMark) _divider, const LinkIcon(color: f2Color)]
             ]),
             // листья - срок, метка комментов, оценка, статус, назначено
           ] else ...[

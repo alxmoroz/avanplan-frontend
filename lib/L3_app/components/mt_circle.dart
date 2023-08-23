@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
+import 'colors_base.dart';
 import 'constants.dart';
 
 class MTCircle extends StatelessWidget {
@@ -18,7 +19,7 @@ class MTCircle extends StatelessWidget {
       width: size ?? P,
       height: size ?? P,
       decoration: BoxDecoration(
-        color: (color ?? fgL2Color).resolve(context),
+        color: (color ?? f2Color).resolve(context),
         shape: BoxShape.circle,
         border: border ?? const Border(),
       ),

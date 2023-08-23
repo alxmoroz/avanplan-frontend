@@ -2,12 +2,12 @@
 
 import 'dart:async';
 
-import 'package:avanplan/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_tree.dart';
+import '../../../../main.dart';
 import '../../../components/mt_field_data.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_view.dart';

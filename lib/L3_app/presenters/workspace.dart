@@ -7,7 +7,7 @@ import '../../L1_domain/entities/estimate_value.dart';
 import '../../L1_domain/entities/source.dart';
 import '../../L1_domain/entities/user.dart';
 import '../../L1_domain/entities/workspace.dart';
-import '../components/colors.dart';
+import '../components/colors_base.dart';
 import '../components/text_widgets.dart';
 import '../extra/services.dart';
 
@@ -20,7 +20,7 @@ extension WSPresenter on Workspace {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          LightText('[$code] ', color: fgL2Color),
+          LightText('[$code] ', color: f2Color),
           LightText('$this'),
         ],
       );

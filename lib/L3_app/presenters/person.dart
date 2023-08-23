@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 import '../../L1_domain/entities/person.dart';
 import '../components/colors.dart';
+import '../components/colors_base.dart';
 import 'role.dart';
 
 class PersonAvatar extends StatelessWidget {
@@ -20,10 +21,10 @@ class PersonAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) => CircleAvatar(
         radius: radius,
-        backgroundColor: (borderSide?.color ?? fgL2Color).resolve(context),
+        backgroundColor: (borderSide?.color ?? f2Color).resolve(context),
         child: CircleAvatar(
           radius: radius - (borderSide?.width ?? 0.5) * 2,
-          backgroundColor: bgL2Color.resolve(context),
+          backgroundColor: b2Color.resolve(context),
           backgroundImage: NetworkImage('https://www.gravatar.com/avatar/$_hash?s=${radius * 6}&d=identicon'),
         ),
       );

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
+import 'colors_base.dart';
 import 'constants.dart';
 import 'icons.dart';
 import 'mt_adaptive.dart';
@@ -117,11 +118,11 @@ class MTButton extends StatelessWidget with FocusManaging {
 
   bool get _enabled => loading != true && (onTap != null || onLongPress != null);
   bool get _isCard => type == ButtonType.card;
-  Color get _titleColor => _enabled || _isCard ? (titleColor ?? (type == ButtonType.main ? mainBtnTitleColor : mainColor)) : fgL2Color;
+  Color get _titleColor => _enabled || _isCard ? (titleColor ?? (type == ButtonType.main ? mainBtnTitleColor : mainColor)) : f2Color;
   double get _radius => type == ButtonType.card ? DEF_BORDER_RADIUS : DEF_BTN_BORDER_RADIUS;
 
   ButtonStyle _style(BuildContext context) {
-    final _btnColor = (_enabled || _isCard ? (color ?? (type == ButtonType.main ? mainColor : bgL3Color)) : bgL1Color).resolve(context);
+    final _btnColor = (_enabled || _isCard ? (color ?? (type == ButtonType.main ? mainColor : b3Color)) : b1Color).resolve(context);
 
     return ElevatedButton.styleFrom(
       padding: padding ?? EdgeInsets.zero,
@@ -134,7 +135,7 @@ class MTButton extends StatelessWidget with FocusManaging {
       side: type == ButtonType.secondary ? BorderSide(color: _titleColor.resolve(context), width: 1) : BorderSide.none,
       splashFactory: NoSplash.splashFactory,
       visualDensity: VisualDensity.standard,
-      shadowColor: (type == ButtonType.main ? mainColor : _btnColor).resolve(context),
+      shadowColor: btnShadowColor.resolve(context),
       elevation: buttonElevation,
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
     );

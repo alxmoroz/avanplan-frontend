@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../components/colors.dart';
+import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/mt_dialog.dart';
 import '../../../../components/mt_toolbar.dart';
@@ -39,7 +40,7 @@ class TaskChartDetails extends StatelessWidget {
       topBar: MTTopBar(titleText: loc.chart_details_title),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: P),
-        color: bgL3Color.resolve(context),
+        color: b3Color.resolve(context),
         child: ListView(
           shrinkWrap: true,
           children: [

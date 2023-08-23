@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
+import 'colors_base.dart';
 import 'constants.dart';
 
 class MTCard extends StatelessWidget {
@@ -29,8 +30,8 @@ class MTCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final borderRadius = radius ?? DEF_BORDER_RADIUS;
-    final _color = (color ?? bgL3Color).resolve(context);
-    final _shadowColor = (shadowColor ?? fgL2Color).resolve(context);
+    final _color = (color ?? b3Color).resolve(context);
+    final _shadowColor = (shadowColor ?? f2Color).resolve(context);
     return Card(
       clipBehavior: Clip.antiAlias,
       margin: margin ?? EdgeInsets.zero,

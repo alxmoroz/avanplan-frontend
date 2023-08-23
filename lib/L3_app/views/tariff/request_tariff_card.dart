@@ -3,7 +3,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../L2_data/repositories/communications_repo.dart';
-import '../../components/colors.dart';
+import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_button.dart';
@@ -31,7 +31,7 @@ class RequestTariffCard extends StatelessWidget {
           MediumText(
             loc.tariff_price_request_action_hint,
             align: TextAlign.center,
-            color: fgL2Color,
+            color: f2Color,
             padding: const EdgeInsets.all(P_2),
           ),
           MTButton.secondary(

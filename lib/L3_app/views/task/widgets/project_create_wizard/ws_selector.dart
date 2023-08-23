@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../components/colors.dart';
+import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/mt_list_tile.dart';
@@ -44,11 +45,11 @@ class WSSelector extends StatelessWidget {
                 middle: Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    SmallText('[${ws.code}] ', color: canSelect ? null : fgL2Color),
-                    Expanded(child: MediumText(ws.title, color: canSelect ? null : fgL2Color)),
+                    SmallText('[${ws.code}] ', color: canSelect ? null : f2Color),
+                    Expanded(child: MediumText(ws.title, color: canSelect ? null : f2Color)),
                   ],
                 ),
-                trailing: canSelect ? const ChevronIcon() : const PrivacyIcon(color: fgL2Color),
+                trailing: canSelect ? const ChevronIcon() : const PrivacyIcon(color: f2Color),
                 bottomDivider: index < mainController.workspaces.length - 1,
                 onTap: canSelect ? () => controller.selectWS(ws.id) : null,
                 padding: const EdgeInsets.all(P).copyWith(right: canSelect ? P + P_2 : P),

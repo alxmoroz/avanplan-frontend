@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import 'colors.dart';
+import 'colors_base.dart';
 import 'constants.dart';
 import 'mt_field_data.dart';
 import 'mt_list_tile.dart';
@@ -42,12 +42,12 @@ class MTField extends StatelessWidget {
       children: [
         MTListTile(
           leading: leading != null ? SizedBox(width: P3 + P_2, child: Center(child: leading)) : null,
-          middle: _hasValue && fd.label.isNotEmpty ? NormalText(fd.label, color: fgL1Color, height: 1, sizeScale: 0.9) : null,
+          middle: _hasValue && fd.label.isNotEmpty ? NormalText(fd.label, color: f3Color, height: 1, sizeScale: 0.9) : null,
           subtitle: _hasValue
               ? child
               : NormalText(
                   fd.placeholder,
-                  color: fgL2Color,
+                  color: f2Color,
                   padding: const EdgeInsets.symmetric(vertical: P_2),
                 ),
           bottomDivider: bottomDivider,

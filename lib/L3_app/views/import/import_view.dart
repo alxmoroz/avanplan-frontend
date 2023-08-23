@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import '../../../L1_domain/entities/source.dart';
 import '../../../L1_domain/entities/source_type.dart';
 import '../../components/colors.dart';
+import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/mt_adaptive.dart';
@@ -86,7 +87,7 @@ class ImportView extends StatelessWidget {
                 MTCheckBoxTile(
                   title: '${loc.select_all_action_title} (${controller.projects.length})',
                   titleColor: mainColor,
-                  color: bgL2Color,
+                  color: b2Color,
                   bottomBorder: true,
                   value: _selectedAll,
                   onChanged: controller.toggleSelectedAll,
@@ -103,7 +104,7 @@ class ImportView extends StatelessWidget {
             MediumText(
               _hasError ? Intl.message(controller.errorCode!) : loc.import_list_empty_title,
               align: TextAlign.center,
-              color: _hasError ? warningColor : fgL2Color,
+              color: _hasError ? warningColor : f2Color,
             ),
           ],
         )

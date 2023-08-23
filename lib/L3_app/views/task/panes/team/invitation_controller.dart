@@ -12,6 +12,7 @@ import '../../../../../L1_domain/utils/dates.dart';
 import '../../../../../L2_data/services/platform.dart';
 import '../../../../../main.dart';
 import '../../../../components/colors.dart';
+import '../../../../components/colors_base.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/images.dart';
 import '../../../../components/mt_field_data.dart';
@@ -132,7 +133,7 @@ abstract class _InvitationControllerBase extends EditController with Store {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: NormalText(loc.copied_notification_title, align: TextAlign.center),
-        backgroundColor: bgL2Color.resolve(context),
+        backgroundColor: b2Color.resolve(context),
         duration: const Duration(milliseconds: 1234),
       ),
     );

@@ -8,6 +8,7 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_status.dart';
 import '../../../../L2_data/services/platform.dart';
 import '../../../components/colors.dart';
+import '../../../components/colors_base.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/text_widgets.dart';
@@ -25,7 +26,7 @@ class _ItemTarget extends StatelessWidget {
       margin: const EdgeInsets.all(P).copyWith(top: 0),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(DEF_BORDER_RADIUS)),
-        border: Border.all(width: 1, color: bgL2Color.resolve(context)),
+        border: Border.all(width: 1, color: b2Color.resolve(context)),
       ),
     );
   }
@@ -63,7 +64,7 @@ class TasksBoard extends StatelessWidget {
       header: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          if (status.closed) const DoneIcon(true, color: fgL2Color),
+          if (status.closed) const DoneIcon(true, color: f2Color),
           NormalText('$status', padding: const EdgeInsets.all(P_2)),
         ],
       ),
@@ -90,9 +91,9 @@ class TasksBoard extends StatelessWidget {
         itemGhost: const SizedBox(height: MIN_BTN_HEIGHT),
         lastListTargetSize: 0,
         listDecoration: BoxDecoration(
-          color: bgL1Color.resolve(context),
+          color: b1Color.resolve(context),
           borderRadius: const BorderRadius.all(Radius.circular(DEF_BORDER_RADIUS)),
-          border: Border.all(color: fgL1Color.withAlpha(64).resolve(context)),
+          border: Border.all(color: f3Color.withAlpha(64).resolve(context)),
         ),
         lastItemTargetHeight: P,
         listDragOnLongPress: !isWeb,

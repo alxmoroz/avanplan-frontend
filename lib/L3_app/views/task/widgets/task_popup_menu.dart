@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../L1_domain/entities/task.dart';
 import '../../../components/colors.dart';
+import '../../../components/colors_base.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/material_wrapper.dart';
@@ -98,8 +99,8 @@ class TaskPopupMenu extends StatelessWidget with FocusManaging {
         onOpened: () => unfocus(context),
         onSelected: _taskAction,
         padding: EdgeInsets.zero,
-        surfaceTintColor: bgL3Color.resolve(context),
-        color: bgL3Color.resolve(context),
+        surfaceTintColor: b3Color.resolve(context),
+        color: b3Color.resolve(context),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(DEF_BORDER_RADIUS)),
       ),
     );

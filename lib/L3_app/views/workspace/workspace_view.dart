@@ -51,14 +51,12 @@ class WorkspaceView extends StatelessWidget {
         ),
       );
 
-  Color get _balanceColor => ws.balance < 0 ? warningColor : f2Color;
-
   Widget get _balance => Column(
         children: [
           const SizedBox(height: P),
           LightText(loc.balance_amount_title),
           const SizedBox(height: P_2),
-          MTCurrency(ws.balance, _balanceColor),
+          MTCurrency(ws.balance, color: ws.balance < 0 ? warningColor : f1Color),
           const SizedBox(height: P_2),
           if (ws.hpTariffUpdate) ...[
             MTButton.main(

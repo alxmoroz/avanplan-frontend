@@ -7,10 +7,10 @@ import 'icons_workspace.dart';
 import 'text_widgets.dart';
 
 class MTCurrency extends StatelessWidget {
-  const MTCurrency(this.value, this.color);
+  const MTCurrency(this.value, {this.color});
 
   final num value;
-  final Color color;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {

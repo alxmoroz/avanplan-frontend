@@ -18,7 +18,7 @@ const _b1 = Color.fromARGB(255, _b1r, _b1g, _b1b);
 
 const _b1dr = 24;
 const _b1dg = _b1dr;
-const _b1db = _b1dr + 6;
+const _b1db = _b1dr + 8;
 const _b1Dark = Color.fromARGB(255, _b1dr, _b1dg, _b1db);
 const _b2dr = _b1dr + _bDC;
 const _b2dg = _b1dg + _bDC;
@@ -29,10 +29,12 @@ const _b3dg = _b2dg + _bDC;
 const _b3db = _b2db + _bDC;
 const _b3Dark = Color.fromARGB(255, _b3dr, _b3dg, _b3db);
 
+const _d_f_b = 30;
+
 const _fDC = 70;
-const _f3r = _b1r - _bDC;
+const _f3r = _b1r - _d_f_b;
 const _f3g = _f3r;
-const _f3b = _f3r + 6;
+const _f3b = _f3r + 8;
 const _f3 = Color.fromARGB(255, _f3r, _f3g, _f3b);
 const _f2r = _f3r - _fDC;
 const _f2g = _f3g - _fDC;
@@ -43,7 +45,7 @@ const _f1g = _f2g - _fDC;
 const _f1b = _f2b - _fDC;
 const _f1 = Color.fromARGB(255, _f1r, _f1g, _f1b);
 
-const _f3dr = _b3dr + _bDC;
+const _f3dr = _b3dr + _d_f_b;
 const _f3dg = _f3dr;
 const _f3db = _f3dr;
 const _f3Dark = Color.fromARGB(255, _f3dr, _f3dg, _f3db);

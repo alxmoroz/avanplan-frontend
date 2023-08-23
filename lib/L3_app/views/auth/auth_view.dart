@@ -45,7 +45,7 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
     super.dispose();
   }
 
-  static const Color _greyColor = Color.fromARGB(255, 62, 62, 82);
+  static const Color _greyColor = Color.fromARGB(255, 50, 50, 58);
   static const Color _whiteColor = Color(0xFFFFFFFF);
 
   Widget _authBtn(

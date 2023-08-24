@@ -17,21 +17,21 @@ class TType {
 }
 
 enum TaskState {
-  NO_SUBTASKS,
-  FUTURE_START,
-  NO_PROGRESS,
-  CLOSABLE,
   OVERDUE,
   RISK,
-  OK,
   AHEAD,
-  LOW_START,
+  OK,
+  CLOSABLE,
+  FUTURE_START,
   ETA,
+  NO_SUBTASKS,
+  NO_PROGRESS,
+  LOW_START,
+  NO_INFO,
   TODAY,
   THIS_WEEK,
   FUTURE_DUE,
   NO_DUE,
-  NO_INFO,
   CLOSED,
 }
 

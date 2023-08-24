@@ -84,6 +84,7 @@ class App extends StatelessWidget {
           brightness: View.of(context).platformDispatcher.platformBrightness,
           background: b2Color.resolve(context),
           surfaceTint: b2Color.resolve(context),
+          surface: b3Color.resolve(context),
         ),
         fontFamily: fontFamily,
         useMaterial3: true,

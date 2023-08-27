@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import '../../L1_domain/entities/source.dart';
 import '../../L1_domain/entities/source_type.dart';
 import '../../main.dart';
+import '../components/circle.dart';
 import '../components/colors.dart';
 import '../components/colors_base.dart';
 import '../components/constants.dart';
-import '../components/mt_circle.dart';
-import '../components/mt_list_tile.dart';
-import '../components/text_widgets.dart';
+import '../components/list_tile.dart';
+import '../components/text.dart';
 import '../extra/services.dart';
 
 extension SourceTypePresenter on SourceType {

@@ -8,8 +8,8 @@ import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
-import '../../../../components/mt_button.dart';
-import '../../../../components/mt_text_field.dart';
+import '../../../../components/button.dart';
+import '../../../../components/text_field.dart';
 import '../../../../extra/services.dart';
 import 'invitation_controller.dart';
 

@@ -3,10 +3,10 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../L1_domain/entities/source_type.dart';
+import '../../components/dialog.dart';
 import '../../components/icons.dart';
-import '../../components/mt_dialog.dart';
-import '../../components/mt_list_tile.dart';
-import '../../components/mt_toolbar.dart';
+import '../../components/list_tile.dart';
+import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import '../../presenters/source.dart';
 

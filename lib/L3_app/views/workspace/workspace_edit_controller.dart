@@ -7,8 +7,8 @@ import 'package:mobx/mobx.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../main.dart';
 import '../../components/constants.dart';
-import '../../components/mt_field_data.dart';
-import '../../components/mt_text_field.dart';
+import '../../components/field_data.dart';
+import '../../components/text_field.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
 

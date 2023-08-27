@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 
 import 'colors_base.dart';
 import 'constants.dart';
-import 'mt_field_data.dart';
-import 'mt_list_tile.dart';
-import 'mt_loader.dart';
-import 'text_widgets.dart';
+import 'field_data.dart';
+import 'list_tile.dart';
+import 'loader.dart';
+import 'text.dart';
 
 class MTField extends StatelessWidget {
   const MTField(

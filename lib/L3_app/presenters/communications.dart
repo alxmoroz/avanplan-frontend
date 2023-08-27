@@ -4,9 +4,9 @@ import 'package:flutter/cupertino.dart';
 
 import '../../L2_data/repositories/communications_repo.dart';
 import '../../L3_app/extra/services.dart';
+import '../components/button.dart';
 import '../components/constants.dart';
 import '../components/icons.dart';
-import '../components/mt_button.dart';
 
 String get appTitle => '${loc.app_title} ${localSettingsController.settings.version}';
 

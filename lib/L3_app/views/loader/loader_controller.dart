@@ -9,8 +9,8 @@ import 'package:mobx/mobx.dart' hide Interceptor;
 
 import '../../../L2_data/services/api.dart';
 import '../../../L2_data/services/platform.dart';
+import '../../components/button.dart';
 import '../../components/images.dart';
-import '../../components/mt_button.dart';
 import '../../extra/services.dart';
 import '../../presenters/communications.dart';
 

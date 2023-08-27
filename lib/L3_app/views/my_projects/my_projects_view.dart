@@ -3,10 +3,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../components/mt_button.dart';
-import '../../components/mt_page.dart';
+import '../../components/button.dart';
 import '../../components/navbar.dart';
-import '../../components/text_widgets.dart';
+import '../../components/page.dart';
+import '../../components/text.dart';
 import '../../extra/services.dart';
 import '../task/widgets/project_create_wizard/project_create_wizard.dart';
 import '../task/widgets/tasks_list_view.dart';

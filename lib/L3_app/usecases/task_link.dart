@@ -5,8 +5,8 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../L1_domain/entities/task.dart';
 import '../../main.dart';
+import '../components/alert_dialog.dart';
 import '../components/icons.dart';
-import '../components/mt_alert_dialog.dart';
 import '../extra/services.dart';
 import '../presenters/task_source.dart';
 import '../presenters/task_tree.dart';

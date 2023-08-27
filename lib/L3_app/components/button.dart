@@ -3,13 +3,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'adaptive.dart';
 import 'colors.dart';
 import 'colors_base.dart';
 import 'constants.dart';
 import 'icons.dart';
-import 'mt_adaptive.dart';
-import 'mt_loader.dart';
-import 'text_widgets.dart';
+import 'loader.dart';
+import 'text.dart';
 
 enum ButtonType { text, main, secondary, icon, card }
 

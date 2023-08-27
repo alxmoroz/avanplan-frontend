@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 
-import 'mt_adaptive.dart';
+import 'adaptive.dart';
 
 class ImageNames {
   static const delete = 'delete';

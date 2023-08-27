@@ -4,7 +4,7 @@ import 'package:collection/collection.dart';
 
 import '../../L1_domain/entities/tariff.dart';
 import '../../L1_domain/entities/workspace.dart';
-import '../components/mt_dialog.dart';
+import '../components/dialog.dart';
 import '../extra/services.dart';
 import '../views/tariff/tariff_select_view.dart';
 

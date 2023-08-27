@@ -3,13 +3,13 @@
 import 'package:flutter/material.dart';
 
 import '../../../../L1_domain/entities/task.dart';
+import '../../../components/button.dart';
 import '../../../components/colors.dart';
 import '../../../components/colors_base.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../components/material_wrapper.dart';
-import '../../../components/mt_button.dart';
-import '../../../components/text_widgets.dart';
+import '../../../components/text.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_source.dart';
 import '../../../usecases/task_available_actions.dart';

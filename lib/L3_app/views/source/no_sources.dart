@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../components/constants.dart';
 import '../../components/images.dart';
-import '../../components/text_widgets.dart';
+import '../../components/text.dart';
 import '../../extra/services.dart';
 
 class NoSources extends StatelessWidget {

@@ -2,11 +2,11 @@
 
 import 'package:flutter/cupertino.dart';
 
+import 'card.dart';
 import 'colors.dart';
 import 'colors_base.dart';
 import 'constants.dart';
-import 'mt_card.dart';
-import 'text_widgets.dart';
+import 'text.dart';
 
 // TODO: используется только в одном месте: добавление участника в проект
 

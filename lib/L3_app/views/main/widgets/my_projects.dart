@@ -4,11 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../main.dart';
+import '../../../components/button.dart';
 import '../../../components/colors_base.dart';
 import '../../../components/constants.dart';
-import '../../../components/mt_button.dart';
-import '../../../components/mt_shadowed.dart';
-import '../../../components/text_widgets.dart';
+import '../../../components/shadowed.dart';
+import '../../../components/text.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_state.dart';
 import '../../my_projects/my_projects_view.dart';

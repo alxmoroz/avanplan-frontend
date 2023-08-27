@@ -3,9 +3,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
-import '../../components/text_widgets.dart';
+import '../../components/page.dart';
+import '../../components/text.dart';
 import '../../extra/services.dart';
 import '../task/controllers/task_controller.dart';
 import '../task/widgets/tasks_list_view.dart';

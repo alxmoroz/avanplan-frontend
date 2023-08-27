@@ -11,7 +11,7 @@ import '../../../components/colors.dart';
 import '../../../components/colors_base.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
-import '../../../components/text_widgets.dart';
+import '../../../components/text.dart';
 import '../../../presenters/task_filter.dart';
 import '../../../presenters/task_tree.dart';
 import '../../../usecases/task_available_actions.dart';

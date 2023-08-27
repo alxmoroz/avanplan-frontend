@@ -3,11 +3,11 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../L1_domain/entities/task.dart';
+import '../../../components/adaptive.dart';
 import '../../../components/constants.dart';
 import '../../../components/images.dart';
-import '../../../components/mt_adaptive.dart';
-import '../../../components/mt_shadowed.dart';
-import '../../../components/text_widgets.dart';
+import '../../../components/shadowed.dart';
+import '../../../components/text.dart';
 import '../../../extra/services.dart';
 import '../controllers/task_controller.dart';
 import 'state_title.dart';

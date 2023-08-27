@@ -3,12 +3,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../components/button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
+import '../../components/field_data.dart';
 import '../../components/icons.dart';
-import '../../components/mt_button.dart';
-import '../../components/mt_field_data.dart';
-import '../../components/mt_text_field.dart';
+import '../../components/text_field.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
 

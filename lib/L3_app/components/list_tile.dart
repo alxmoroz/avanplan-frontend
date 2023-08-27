@@ -2,13 +2,13 @@
 
 import 'package:flutter/material.dart';
 
+import 'button.dart';
 import 'colors.dart';
 import 'colors_base.dart';
 import 'constants.dart';
+import 'divider.dart';
 import 'material_wrapper.dart';
-import 'mt_button.dart';
-import 'mt_divider.dart';
-import 'text_widgets.dart';
+import 'text.dart';
 
 class MTListTile extends StatelessWidget with FocusManaging {
   const MTListTile({

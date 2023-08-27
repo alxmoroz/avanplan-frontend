@@ -3,7 +3,7 @@
 import 'dart:async';
 
 import '../../../../L1_domain/entities/task.dart';
-import '../../../components/mt_dialog.dart';
+import '../../../components/dialog.dart';
 import '../../../presenters/task_tree.dart';
 import '../../../presenters/task_type.dart';
 import '../widgets/task_description_dialog.dart';

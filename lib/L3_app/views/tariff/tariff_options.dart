@@ -6,9 +6,9 @@ import 'package:intl/intl.dart';
 import '../../../L1_domain/entities/tariff.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
-import '../../components/mt_currency.dart';
-import '../../components/mt_list_tile.dart';
-import '../../components/text_widgets.dart';
+import '../../components/currency.dart';
+import '../../components/list_tile.dart';
+import '../../components/text.dart';
 import '../../extra/services.dart';
 
 class _TariffOptionTile extends StatelessWidget {

@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/notification.dart';
 import '../../components/constants.dart';
-import '../../components/mt_dialog.dart';
-import '../../components/mt_toolbar.dart';
-import '../../components/text_widgets.dart';
+import '../../components/dialog.dart';
+import '../../components/text.dart';
+import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import '../../presenters/date.dart';
 

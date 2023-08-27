@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../L1_domain/entities/member.dart';
 import '../components/colors_base.dart';
 import '../components/constants.dart';
-import '../components/text_widgets.dart';
+import '../components/text.dart';
 import 'person.dart';
 
 extension MemberPresenter on Member {

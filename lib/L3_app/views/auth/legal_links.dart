@@ -4,11 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../L2_data/repositories/communications_repo.dart';
+import '../../components/button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
-import '../../components/mt_button.dart';
-import '../../components/text_widgets.dart';
+import '../../components/text.dart';
 import '../../extra/services.dart';
 
 class LegalLinks extends StatelessWidget {

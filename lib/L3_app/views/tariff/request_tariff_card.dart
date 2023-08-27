@@ -3,12 +3,12 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../L2_data/repositories/communications_repo.dart';
+import '../../components/button.dart';
+import '../../components/card.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
-import '../../components/mt_button.dart';
-import '../../components/mt_card.dart';
-import '../../components/text_widgets.dart';
+import '../../components/text.dart';
 import '../../extra/services.dart';
 import '../../presenters/communications.dart';
 

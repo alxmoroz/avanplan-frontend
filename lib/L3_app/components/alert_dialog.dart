@@ -5,8 +5,8 @@ import 'package:flutter/cupertino.dart';
 import '../../main.dart';
 import 'colors.dart';
 import 'constants.dart';
-import 'mt_divider.dart';
-import 'text_widgets.dart';
+import 'divider.dart';
+import 'text.dart';
 
 enum MTActionType {
   isDanger,

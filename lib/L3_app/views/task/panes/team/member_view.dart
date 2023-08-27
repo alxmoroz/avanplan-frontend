@@ -5,13 +5,13 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/member.dart';
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../components/adaptive.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
-import '../../../../components/mt_adaptive.dart';
-import '../../../../components/mt_list_tile.dart';
-import '../../../../components/mt_page.dart';
+import '../../../../components/list_tile.dart';
 import '../../../../components/navbar.dart';
-import '../../../../components/text_widgets.dart';
+import '../../../../components/page.dart';
+import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/person.dart';
 import '../../../../presenters/task_type.dart';

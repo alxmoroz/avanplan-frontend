@@ -4,15 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
-import '../../components/colors.dart';
+import '../../components/adaptive.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
+import '../../components/error_sheet.dart';
 import '../../components/icons.dart';
 import '../../components/icons_workspace.dart';
-import '../../components/mt_adaptive.dart';
-import '../../components/mt_error_sheet.dart';
-import '../../components/mt_page.dart';
-import '../../components/text_widgets.dart';
+import '../../components/page.dart';
+import '../../components/text.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_type.dart';
 import 'controllers/task_controller.dart';
@@ -69,16 +68,16 @@ class _TaskViewState extends State<TaskView> {
     controller.tabKeys.forEach((tk) {
       switch (tk) {
         case TaskTabKey.overview:
-          res[TaskTabKey.overview] = _tab(tk, const EyeIcon(color: mainColor), NormalText(loc.overview));
+          res[TaskTabKey.overview] = _tab(tk, const EyeIcon(color: f2Color), NormalText(loc.overview));
           break;
         case TaskTabKey.subtasks:
-          res[TaskTabKey.subtasks] = _tab(tk, const DoneIcon(true, color: mainColor), NormalText('${task.listTitle}'));
+          res[TaskTabKey.subtasks] = _tab(tk, const DoneIcon(true, color: f2Color), NormalText('${task.listTitle}'));
           break;
         case TaskTabKey.details:
-          res[TaskTabKey.details] = _tab(tk, const RulesIcon(), NormalText(loc.description));
+          res[TaskTabKey.details] = _tab(tk, const RulesIcon(color: f2Color), NormalText(loc.description));
           break;
         case TaskTabKey.team:
-          res[TaskTabKey.team] = _tab(tk, const PeopleIcon(color: mainColor), NormalText(loc.team_list_title));
+          res[TaskTabKey.team] = _tab(tk, const PeopleIcon(color: f2Color), NormalText(loc.team_list_title));
           break;
       }
     });

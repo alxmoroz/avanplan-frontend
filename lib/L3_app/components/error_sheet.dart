@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 
 import '../../L1_domain/entities/errors.dart';
 import '../presenters/communications.dart';
+import 'adaptive.dart';
 import 'colors.dart';
 import 'constants.dart';
-import 'mt_adaptive.dart';
-import 'mt_dialog.dart';
-import 'mt_toolbar.dart';
-import 'text_widgets.dart';
+import 'dialog.dart';
+import 'text.dart';
+import 'toolbar.dart';
 
 class MTErrorSheet extends StatelessWidget {
   const MTErrorSheet(this.error, {this.onClose});

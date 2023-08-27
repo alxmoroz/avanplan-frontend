@@ -3,10 +3,10 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../L2_data/repositories/communications_repo.dart';
+import '../../components/button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/mt_button.dart';
-import '../../components/text_widgets.dart';
+import '../../components/text.dart';
 import '../../extra/services.dart';
 import '../../presenters/communications.dart';
 import 'registration_controller.dart';

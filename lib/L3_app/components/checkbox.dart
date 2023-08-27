@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 
 import 'icons.dart';
-import 'mt_list_tile.dart';
-import 'text_widgets.dart';
+import 'list_tile.dart';
+import 'text.dart';
 
 class MTCheckBoxTile extends StatelessWidget {
   const MTCheckBoxTile({

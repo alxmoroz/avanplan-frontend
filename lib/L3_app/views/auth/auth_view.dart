@@ -4,11 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L2_data/services/platform.dart';
+import '../../components/button.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
-import '../../components/mt_button.dart';
-import '../../components/mt_page.dart';
-import '../../components/text_widgets.dart';
+import '../../components/page.dart';
+import '../../components/text.dart';
 import '../../extra/services.dart';
 import '../settings/app_version.dart';
 import 'legal_links.dart';

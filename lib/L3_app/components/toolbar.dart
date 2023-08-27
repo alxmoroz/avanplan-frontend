@@ -4,11 +4,11 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+import 'adaptive.dart';
+import 'close_dialog_button.dart';
 import 'colors.dart';
 import 'constants.dart';
-import 'mt_adaptive.dart';
-import 'mt_close_dialog_button.dart';
-import 'text_widgets.dart';
+import 'text.dart';
 
 class MTTopBar extends StatelessWidget {
   const MTTopBar({

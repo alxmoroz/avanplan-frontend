@@ -7,15 +7,15 @@ import 'package:flutter/material.dart';
 import '../../../L1_domain/entities/tariff.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L2_data/services/platform.dart';
+import '../../components/button.dart';
+import '../../components/card.dart';
 import '../../components/colors.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
+import '../../components/dialog.dart';
 import '../../components/icons.dart';
-import '../../components/mt_button.dart';
-import '../../components/mt_card.dart';
-import '../../components/mt_dialog.dart';
-import '../../components/mt_toolbar.dart';
-import '../../components/text_widgets.dart';
+import '../../components/text.dart';
+import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import '../../presenters/number.dart';
 import '../iap/iap_view.dart';
@@ -30,10 +30,8 @@ class TariffSelectView extends StatelessWidget {
   final int wsId;
 
   Workspace get ws => mainController.wsForId(wsId);
-  int get currentIndex =>
-      tariffs.indexWhere((t) => t.id == ws.invoice.tariff.id);
-  int get selectedIndex =>
-      currentIndex < tariffs.length ? currentIndex + 1 : currentIndex;
+  int get currentIndex => tariffs.indexWhere((t) => t.id == ws.invoice.tariff.id);
+  int get selectedIndex => currentIndex < tariffs.length ? currentIndex + 1 : currentIndex;
 
   Widget _selectButton(BuildContext context, Tariff tariff) => MTButton.main(
         titleText: loc.tariff_select_action_title,
@@ -44,8 +42,7 @@ class TariffSelectView extends StatelessWidget {
   Widget _paymentButton(BuildContext context, num balanceLack) {
     return Column(children: [
       NormalText(
-        loc.error_tariff_insufficient_funds_for_change(
-            '${balanceLack.currency} ₽'),
+        loc.error_tariff_insufficient_funds_for_change('${balanceLack.currency} ₽'),
         color: warningColor,
         align: TextAlign.center,
       ),
@@ -74,8 +71,7 @@ class TariffSelectView extends StatelessWidget {
             const SizedBox(height: P2),
           ],
         ),
-        margin:
-            const EdgeInsets.symmetric(horizontal: P_2).copyWith(bottom: P_2),
+        margin: const EdgeInsets.symmetric(horizontal: P_2).copyWith(bottom: P_2),
       );
     } else {
       return RequestTariffCard();
@@ -104,17 +100,13 @@ class TariffSelectView extends StatelessWidget {
                   MTButton.icon(
                     const ChevronCircleIcon(left: true),
                     margin: const EdgeInsets.all(P),
-                    onTap: () => controller.previousPage(
-                        duration: const Duration(milliseconds: 400),
-                        curve: Curves.easeInOut),
+                    onTap: () => controller.previousPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut),
                   ),
                   const Spacer(),
                   MTButton.icon(
                     const ChevronCircleIcon(left: false),
                     margin: const EdgeInsets.all(P),
-                    onTap: () => controller.nextPage(
-                        duration: const Duration(milliseconds: 400),
-                        curve: Curves.easeInOut),
+                    onTap: () => controller.nextPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut),
                   ),
                 ],
               ),
@@ -129,9 +121,7 @@ class TariffSelectView extends StatelessWidget {
     return MTDialog(
       topBar: MTTopBar(
         middle: description.isNotEmpty
-            ? H3(description,
-                align: TextAlign.center,
-                padding: const EdgeInsets.symmetric(horizontal: P3))
+            ? H3(description, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P3))
             : MediumText(loc.tariff_list_title),
       ),
       topBarHeight: description.isNotEmpty ? P * 6 : null,

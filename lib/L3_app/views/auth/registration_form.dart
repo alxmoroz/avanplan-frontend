@@ -3,10 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../components/button.dart';
 import '../../components/constants.dart';
-import '../../components/mt_button.dart';
-import '../../components/mt_dialog.dart';
-import '../../components/mt_toolbar.dart';
+import '../../components/dialog.dart';
+import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import 'registration_completed_message.dart';
 import 'registration_controller.dart';

@@ -4,8 +4,8 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 
+import '../../../components/adaptive.dart';
 import '../../../components/constants.dart';
-import '../../../components/mt_adaptive.dart';
 import 'my_projects.dart';
 import 'my_tasks.dart';
 

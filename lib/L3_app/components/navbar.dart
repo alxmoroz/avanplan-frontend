@@ -3,7 +3,7 @@
 import 'package:flutter/cupertino.dart';
 
 import 'colors.dart';
-import 'text_widgets.dart';
+import 'text.dart';
 
 MediaQuery mQuery(Widget child, BuildContext ctx) => MediaQuery(
       data: MediaQuery.of(ctx),

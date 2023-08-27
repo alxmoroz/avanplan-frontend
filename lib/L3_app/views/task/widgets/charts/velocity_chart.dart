@@ -9,7 +9,7 @@ import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/mt_pie_chart.dart';
-import '../../../../components/text_widgets.dart';
+import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/duration.dart';
 import '../../../../presenters/task_state.dart';

@@ -28,7 +28,7 @@ const greenColor = CupertinoDynamicColor.withBrightness(
 
 const mainColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(255, 90, 111, 228),
-  darkColor: Color.fromARGB(255, 90, 111, 228),
+  darkColor: Color.fromARGB(255, 100, 170, 255),
 );
 
 // цвет для "прозрачного" апп-бара

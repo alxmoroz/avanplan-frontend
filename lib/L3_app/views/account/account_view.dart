@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/user.dart';
+import '../../components/button.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
-import '../../components/mt_button.dart';
-import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
-import '../../components/text_widgets.dart';
+import '../../components/page.dart';
+import '../../components/text.dart';
 import '../../extra/services.dart';
 import '../../presenters/person.dart';
 

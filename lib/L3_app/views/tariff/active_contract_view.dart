@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
 import '../../../L1_domain/entities/workspace.dart';
-import '../../components/mt_button.dart';
-import '../../components/mt_page.dart';
+import '../../components/button.dart';
 import '../../components/navbar.dart';
+import '../../components/page.dart';
 import '../../extra/services.dart';
 import '../../presenters/workspace.dart';
 import '../../usecases/ws_available_actions.dart';

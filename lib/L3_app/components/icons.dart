@@ -3,10 +3,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'circle.dart';
 import 'colors.dart';
 import 'colors_base.dart';
 import 'constants.dart';
-import 'mt_circle.dart';
 import 'painters.dart';
 
 abstract class MTIcon extends StatelessWidget {

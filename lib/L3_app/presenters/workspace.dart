@@ -8,7 +8,7 @@ import '../../L1_domain/entities/source.dart';
 import '../../L1_domain/entities/user.dart';
 import '../../L1_domain/entities/workspace.dart';
 import '../components/colors_base.dart';
-import '../components/text_widgets.dart';
+import '../components/text.dart';
 import '../extra/services.dart';
 
 extension WSPresenter on Workspace {

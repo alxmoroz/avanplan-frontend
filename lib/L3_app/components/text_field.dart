@@ -6,7 +6,7 @@ import 'colors.dart';
 import 'colors_base.dart';
 import 'constants.dart';
 import 'material_wrapper.dart';
-import 'text_widgets.dart';
+import 'text.dart';
 
 InputDecoration tfDecoration(
   BuildContext context, {

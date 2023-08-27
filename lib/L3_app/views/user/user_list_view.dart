@@ -3,8 +3,8 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
-import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
+import '../../components/page.dart';
 import '../../extra/services.dart';
 import '../../presenters/workspace.dart';
 import 'user_tile.dart';

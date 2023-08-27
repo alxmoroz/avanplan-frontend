@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
+import '../../components/button.dart';
 import '../../components/colors_base.dart';
 import '../../components/icons.dart';
-import '../../components/mt_button.dart';
-import '../../components/mt_page.dart';
 import '../../components/navbar.dart';
+import '../../components/page.dart';
 import '../../extra/services.dart';
 import '../../presenters/source.dart';
 import '../../presenters/workspace.dart';

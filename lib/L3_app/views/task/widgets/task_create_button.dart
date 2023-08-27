@@ -3,12 +3,12 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../L1_domain/entities/task.dart';
+import '../../../components/adaptive.dart';
+import '../../../components/button.dart';
 import '../../../components/colors_base.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
-import '../../../components/mt_adaptive.dart';
-import '../../../components/mt_button.dart';
-import '../../../components/mt_limit_badge.dart';
+import '../../../components/limit_badge.dart';
 import '../../../presenters/task_type.dart';
 import '../controllers/create_controller.dart';
 

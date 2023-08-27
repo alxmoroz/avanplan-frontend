@@ -3,7 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../components/mt_field_data.dart';
+import '../../components/field_data.dart';
 
 part 'edit_controller.g.dart';
 

@@ -7,8 +7,8 @@ import 'colors.dart';
 import 'colors_base.dart';
 import 'constants.dart';
 import 'icons.dart';
-import 'mt_text_field.dart';
-import 'text_widgets.dart';
+import 'text.dart';
+import 'text_field.dart';
 
 class MTDropdown<T extends RPersistable> extends StatelessWidget {
   const MTDropdown({

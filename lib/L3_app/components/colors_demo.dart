@@ -4,10 +4,14 @@ import 'package:flutter/cupertino.dart';
 
 import 'colors.dart';
 import 'colors_base.dart';
-import 'text_widgets.dart';
+import 'text.dart';
 
 class MTColorsDemo extends StatelessWidget {
-  String _printColor(dynamic color) => '  ${color.color.red}..${color.color.blue}\n  ${color.darkColor.red}..${color.darkColor.blue}';
+  String _printColor(CupertinoDynamicColor cdColor) {
+    final color = cdColor.color;
+    final darkColor = cdColor.darkColor;
+    return '  ${color.red}.${color.green}.${color.blue}\n  ${darkColor.red}.${darkColor.green}.${darkColor.blue}';
+  }
 
   Widget get _fp1 => SmallText(_printColor(f1Color));
   Widget get _fp2 => SmallText(_printColor(f2Color));

@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import '../../../L1_domain/entities/user.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
-import '../../components/mt_list_tile.dart';
-import '../../components/text_widgets.dart';
+import '../../components/list_tile.dart';
+import '../../components/text.dart';
 import '../../presenters/person.dart';
 import 'user_view.dart';
 

@@ -2,9 +2,9 @@
 
 import 'package:flutter/cupertino.dart';
 
+import 'button.dart';
 import 'constants.dart';
 import 'icons.dart';
-import 'mt_button.dart';
 
 class MTCloseDialogButton extends StatelessWidget {
   const MTCloseDialogButton({this.onTap});

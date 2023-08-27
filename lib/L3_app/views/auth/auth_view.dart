@@ -77,7 +77,8 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
                 builder: (_) => ListView(
                   shrinkWrap: true,
                   children: [
-                    // MTColorsDemo(),
+                    // ColorsDemo(),
+                    // TextDemo(),
                     H1(loc.app_title, align: TextAlign.center),
                     const SizedBox(height: P2),
                     appIcon(size: size.maxHeight / 4),

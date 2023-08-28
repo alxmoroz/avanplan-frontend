@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../main.dart';
+import '../../components/adaptive.dart';
 import '../../components/button.dart';
 import '../../components/colors.dart';
 import '../../components/colors_base.dart';
@@ -51,22 +52,19 @@ class WorkspaceView extends StatelessWidget {
         ),
       );
 
-  Widget get _balance => Column(
-        children: [
-          const SizedBox(height: P),
-          LightText(loc.balance_amount_title),
-          const SizedBox(height: P_2),
-          MTCurrency(ws.balance, color: ws.balance < 0 ? warningColor : f1Color),
-          const SizedBox(height: P_2),
-          if (ws.hpTariffUpdate) ...[
-            MTButton.main(
-              margin: const EdgeInsets.only(top: P),
-              titleText: loc.balance_replenish_action_title,
-              onTap: () => purchaseDialog(wsId),
-            ),
+  Widget get _balance => MTAdaptive.XS(MTCardButton(
+        margin: const EdgeInsets.all(P2),
+        child: Column(
+          children: [
+            NormalText(loc.balance_amount_title, color: f2Color),
+            const SizedBox(height: P_2),
+            MTCurrency(ws.balance, color: ws.balance < 0 ? warningColor : mainColor),
+            const SizedBox(height: P_2),
+            if (ws.hpTariffUpdate) MediumText(loc.balance_replenish_action_title, color: mainColor),
           ],
-        ],
-      );
+        ),
+        onTap: ws.hpTariffUpdate ? () => purchaseDialog(wsId) : null,
+      ));
 
   Widget get _tariff => MTListTile(
         leading: const Column(children: [TariffIcon(), SmallText('')]),
@@ -111,7 +109,6 @@ class WorkspaceView extends StatelessWidget {
           children: [
             _header,
             _balance,
-            const SizedBox(height: P2),
             _tariff,
             _users,
             if (ws.hpSourceCreate) _sources,

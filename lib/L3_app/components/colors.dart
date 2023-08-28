@@ -2,6 +2,8 @@
 
 import 'package:flutter/cupertino.dart';
 
+import 'colors_base.dart';
+
 const dangerColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(255, 255, 120, 75),
   darkColor: Color.fromARGB(255, 255, 140, 100),
@@ -29,6 +31,15 @@ const greenColor = CupertinoDynamicColor.withBrightness(
 const mainColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(255, 90, 111, 228),
   darkColor: Color.fromARGB(255, 100, 170, 255),
+);
+
+// цвет текста на основной кнопке
+const mainBtnTitleColor = b2Color;
+
+// цвет тени на кнопке
+const btnShadowColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, 255, 255, 255),
+  darkColor: Color.fromARGB(255, 0, 0, 0),
 );
 
 // цвет для "прозрачного" апп-бара

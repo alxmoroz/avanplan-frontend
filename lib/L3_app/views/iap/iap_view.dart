@@ -10,7 +10,6 @@ import '../../components/colors.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
-import '../../components/icons_workspace.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
@@ -33,25 +32,14 @@ class StoreView extends StatelessWidget {
     await iapController.pay(wsId, p);
   }
 
-  Widget _price(IAPProduct p) {
-    final hasPrice = p.price.isNotEmpty;
-    final isRub = p.currencyCode.toLowerCase() == 'rub';
-
-    return Row(
-      children: [
-        if (hasPrice) H3('  ${loc.for_} ${isRub ? p.rawPrice.currency : p.price}', color: f2Color),
-        if (isRub) RoubleIcon(size: P * (hasPrice ? 2 : 2.5), color: hasPrice ? f2Color : mainColor),
-      ],
-    );
-  }
-
   Widget _payButton(BuildContext _, int index) {
     final p = iapController.products[index];
+    final hasPrice = p.price.isNotEmpty;
     return MTButton.secondary(
       middle: Row(
         children: [
-          H2('+ ${p.value.currency}', color: mainColor),
-          _price(p),
+          D4.medium('+ ${p.value.currency}${hasPrice ? '' : '₽'}', color: mainColor),
+          if (hasPrice) D4(' ${loc.for_} ${p.price}', color: f2Color),
         ],
       ),
       margin: const EdgeInsets.only(top: P),

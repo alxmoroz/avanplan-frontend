@@ -24,7 +24,7 @@ class NotificationView extends StatelessWidget {
             H3(nf.title, maxLines: 5),
             const SizedBox(height: P),
             NormalText(nf.description, maxLines: 500),
-            const SizedBox(height: P3),
+            const SizedBox(height: P2),
           ],
         ));
   }
@@ -32,7 +32,7 @@ class NotificationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTTopBar(middle: LightText('${loc.notification_title}  ${nf.scheduledDate.strShortWTime}')),
+      topBar: MTTopBar(titleText: '${loc.notification_title}  ${nf.scheduledDate.strShortWTime}'),
       body: _body,
     );
   }

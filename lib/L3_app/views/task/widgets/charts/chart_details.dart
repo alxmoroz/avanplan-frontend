@@ -27,10 +27,12 @@ class TaskChartDetails extends StatelessWidget {
   @protected
   final Task task;
 
-  Widget _textRow(String t1, String t2, {Color? color}) => Row(children: [
-        Expanded(child: LightText(t1, height: 1.1, sizeScale: 1.1)),
-        H3(t2, color: color, padding: const EdgeInsets.only(top: P / 6, bottom: P / 6))
-      ]);
+  Widget _textRow(String t1, String t2, {Color? color}) => Row(
+        children: [
+          Expanded(child: NormalText.f2(t1)),
+          H3(t2, color: color, padding: const EdgeInsets.only(top: P_3)),
+        ],
+      );
 
   int get _timeDelta => task.leftPeriod!.inDays;
 
@@ -44,10 +46,10 @@ class TaskChartDetails extends StatelessWidget {
         child: ListView(
           shrinkWrap: true,
           children: [
+            const SizedBox(height: P_2),
             if (task.canShowVelocityVolumeCharts) ...[
               /// объем
-              H3('${loc.chart_volume_title}, ${task.ws.estimateUnitCode}'),
-              const SizedBox(height: P),
+              H3('${loc.chart_volume_title}, ${task.ws.estimateUnitCode}', align: TextAlign.center),
               Row(
                 children: [
                   Flexible(child: TaskVolumeChart(task)),
@@ -67,8 +69,7 @@ class TaskChartDetails extends StatelessWidget {
 
               /// скорость
               const SizedBox(height: P2),
-              H3(loc.chart_velocity_title),
-              const SizedBox(height: P),
+              H3(loc.chart_velocity_title, align: TextAlign.center),
               Row(children: [
                 Flexible(child: VelocityChart(task)),
                 if (task.state != TaskState.LOW_START) ...[
@@ -84,9 +85,9 @@ class TaskChartDetails extends StatelessWidget {
               ]),
             ],
 
-            /// срок
+            /// срок, время
             if (task.canShowTimeChart) ...[
-              H3(loc.chart_timing_title),
+              H3(loc.chart_timing_title, align: TextAlign.center),
               const SizedBox(height: P),
               TimingChart(task),
               const SizedBox(height: P_2),

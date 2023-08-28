@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import '../../L2_data/services/platform.dart';
 import 'colors_base.dart';
 
-class BaseText extends StatelessWidget {
+abstract class BaseText extends StatelessWidget {
   const BaseText(
     this.text, {
     this.sizeScale,
@@ -14,9 +14,28 @@ class BaseText extends StatelessWidget {
     this.maxLines,
     this.align,
     this.padding,
-    this.decoration,
     this.height,
   });
+
+  const BaseText.f2(
+    this.text, {
+    this.sizeScale,
+    this.weight,
+    this.maxLines,
+    this.align,
+    this.padding,
+    this.height,
+  }) : color = f2Color;
+
+  const BaseText.f3(
+    this.text, {
+    this.sizeScale,
+    this.weight,
+    this.maxLines,
+    this.align,
+    this.padding,
+    this.height,
+  }) : color = f3Color;
 
   final String text;
   final double? sizeScale;
@@ -25,7 +44,6 @@ class BaseText extends StatelessWidget {
   final int? maxLines;
   final TextAlign? align;
   final EdgeInsets? padding;
-  final TextDecoration? decoration;
   final double? height;
 
   TextStyle style(BuildContext context) {
@@ -35,7 +53,6 @@ class BaseText extends StatelessWidget {
       fontWeight: weight ?? FontWeight.w400,
       fontSize: (cupertinoTS.fontSize ?? (isTablet ? 24 : 16)) * (sizeScale ?? 1),
       inherit: true,
-      decoration: decoration,
       height: height ?? cupertinoTS.height,
     );
   }
@@ -63,11 +80,10 @@ class SmallText extends BaseText {
     Color? color,
     super.align,
     super.padding,
-    super.decoration,
   }) : super(
           text,
           color: color ?? f2Color,
-          sizeScale: 0.85,
+          sizeScale: 0.9,
           maxLines: maxLines ?? 9,
           height: height,
         );
@@ -78,11 +94,9 @@ class LightText extends BaseText {
     String text, {
     int? maxLines,
     double? height,
-    super.sizeScale,
     super.color,
     super.align,
     super.padding,
-    super.decoration,
   }) : super(
           text,
           weight: FontWeight.w300,
@@ -96,12 +110,34 @@ class NormalText extends BaseText {
     String text, {
     int? maxLines,
     double? height,
-    super.sizeScale,
     super.color,
     super.align,
     super.padding,
-    super.decoration,
   }) : super(
+          text,
+          maxLines: maxLines ?? 7,
+          height: height,
+        );
+
+  const NormalText.f2(
+    String text, {
+    int? maxLines,
+    double? height,
+    super.align,
+    super.padding,
+  }) : super.f2(
+          text,
+          maxLines: maxLines ?? 7,
+          height: height,
+        );
+
+  const NormalText.f3(
+    String text, {
+    int? maxLines,
+    double? height,
+    super.align,
+    super.padding,
+  }) : super.f3(
           text,
           maxLines: maxLines ?? 7,
           height: height,
@@ -112,11 +148,9 @@ class MediumText extends BaseText {
   const MediumText(
     String text, {
     int? maxLines,
-    super.sizeScale,
     super.color,
     super.align,
     super.padding,
-    super.decoration,
   }) : super(
           text,
           weight: FontWeight.w500,
@@ -131,7 +165,6 @@ class H3 extends BaseText {
     super.color,
     super.align,
     super.padding,
-    super.decoration,
   }) : super(
           text,
           sizeScale: 1.25,
@@ -147,7 +180,6 @@ class H2 extends BaseText {
     int? maxLines,
     super.align,
     super.padding,
-    super.decoration,
   }) : super(
           text,
           color: color,
@@ -164,7 +196,6 @@ class H1 extends BaseText {
     int? maxLines,
     super.align,
     super.padding,
-    super.decoration,
   }) : super(
           text,
           color: color,
@@ -175,51 +206,63 @@ class H1 extends BaseText {
         );
 }
 
-class D3 extends BaseText {
+abstract class _BaseDText extends BaseText {
+  const _BaseDText(super.text, {super.color, super.align, super.sizeScale, super.height, super.weight});
+  @override
+  TextStyle style(BuildContext context) => super.style(context).copyWith(fontFamily: 'Montserrat');
+}
+
+class D4 extends _BaseDText {
+  const D4(
+    String text, {
+    super.color,
+  }) : super(
+          text,
+          sizeScale: 1.25,
+        );
+
+  const D4.medium(
+    String text, {
+    super.color,
+  }) : super(
+          text,
+          sizeScale: 1.5,
+          weight: FontWeight.w500,
+        );
+}
+
+class D3 extends _BaseDText {
   const D3(
     String text, {
-    int? maxLines,
     super.color,
-    super.align,
-    super.padding,
-    super.decoration,
   }) : super(
           text,
           weight: FontWeight.w500,
           sizeScale: 2.5,
-          maxLines: maxLines ?? 1,
           height: 1,
         );
 }
 
-class D2 extends BaseText {
+class D2 extends _BaseDText {
   const D2(
     String text, {
-    int? maxLines,
     super.color,
-    super.align,
-    super.padding,
-    super.decoration,
   }) : super(
           text,
           weight: FontWeight.w500,
           sizeScale: 3.2,
-          maxLines: maxLines ?? 1,
           height: 1,
         );
 }
 
-class D1 extends BaseText {
+class D1 extends _BaseDText {
   const D1(
     String text, {
     super.color,
     super.align,
-    super.padding,
-    super.decoration,
   }) : super(
           text,
           sizeScale: 9,
-          maxLines: 1,
           height: 1,
         );
 }

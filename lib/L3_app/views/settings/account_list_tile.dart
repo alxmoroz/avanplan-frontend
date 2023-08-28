@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/user.dart';
-import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
@@ -27,11 +26,10 @@ class AccountListTile extends StatelessWidget {
               padding: const EdgeInsets.only(right: P_2),
               child: user!.icon(P3),
             ),
-            middle: H2(_title),
-            subtitle: _subtitle != _title ? LightText(_subtitle) : null,
+            middle: H3(_title),
+            subtitle: _subtitle != _title ? NormalText.f2(_subtitle) : null,
             trailing: const ChevronIcon(),
             bottomDivider: false,
-            color: b2Color,
             onTap: () => _showAccount(context),
           )
         : Container();

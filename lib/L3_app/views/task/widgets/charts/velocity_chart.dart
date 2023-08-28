@@ -84,10 +84,10 @@ class VelocityChart extends StatelessWidget {
           ],
         ),
         if (!task.projectLowStart) ...[
-          D3('$_displayText', color: _pointerColor, padding: const EdgeInsets.only(bottom: P_2)),
+          D3('$_displayText', color: _pointerColor),
           SmallText(
             loc.chart_velocity_unit_mo(task.ws.estimateUnitCode),
-            padding: EdgeInsets.only(top: _radius / 2 + P),
+            padding: EdgeInsets.only(top: _radius / 2 + P + P_2),
             color: f2Color,
             height: 1,
           ),

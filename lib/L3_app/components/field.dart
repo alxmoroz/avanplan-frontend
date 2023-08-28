@@ -42,16 +42,15 @@ class MTField extends StatelessWidget {
       children: [
         MTListTile(
           leading: leading != null ? SizedBox(width: P3 + P_2, child: Center(child: leading)) : null,
-          middle: _hasValue && fd.label.isNotEmpty ? NormalText(fd.label, color: f3Color, height: 1, sizeScale: 0.9) : null,
+          middle: _hasValue && fd.label.isNotEmpty ? SmallText(fd.label, color: f3Color, height: 1) : null,
           subtitle: _hasValue
               ? child
-              : NormalText(
+              : NormalText.f3(
                   fd.placeholder,
-                  color: f2Color,
                   padding: const EdgeInsets.symmetric(vertical: P_2),
                 ),
           bottomDivider: bottomDivider,
-          dividerStartIndent: dividerStartIndent,
+          dividerLeftIndent: dividerStartIndent,
           onTap: onSelect,
           crossAxisAlignment: CrossAxisAlignment.start,
           padding: padding,

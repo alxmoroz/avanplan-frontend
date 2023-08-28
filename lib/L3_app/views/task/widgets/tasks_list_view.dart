@@ -56,9 +56,9 @@ class TasksListView extends StatelessWidget {
                     shrinkWrap: true,
                     children: [
                       MTImage(ImageNames.empty_tasks.toString()),
-                      H3(loc.task_list_empty_title, align: TextAlign.center),
+                      H2(loc.task_list_empty_title, align: TextAlign.center),
                       const SizedBox(height: P),
-                      NormalText(loc.task_list_empty_hint, align: TextAlign.center, height: 1.2),
+                      H3(loc.task_list_empty_hint, align: TextAlign.center),
                     ],
                   ),
                 ),

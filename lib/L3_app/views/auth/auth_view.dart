@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L2_data/services/platform.dart';
 import '../../components/button.dart';
+import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/page.dart';
@@ -45,8 +46,8 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
     super.dispose();
   }
 
-  static const Color _greyColor = Color.fromARGB(255, 50, 50, 58);
-  static const Color _whiteColor = Color(0xFFFFFFFF);
+  static final Color _titleColor = f1Color.color;
+  static const Color _btnColor = Color(0xFFFFFFFF);
 
   Widget _authBtn(
     Widget leading,
@@ -57,10 +58,10 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
   }) =>
       MTButton.main(
         leading: leading,
-        middle: H3(titleText, color: _greyColor, padding: EdgeInsets.only(left: titleLeftPadding ?? 0)),
+        middle: H3(titleText, color: _titleColor, padding: EdgeInsets.only(left: titleLeftPadding ?? 0)),
         trailing: SizedBox(width: iconSize / 2),
-        color: _whiteColor,
-        titleColor: _whiteColor,
+        color: _btnColor,
+        titleColor: _btnColor,
         onTap: onTap,
         margin: const EdgeInsets.only(top: P18),
       );
@@ -103,7 +104,7 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
                       ],
                     ),
                     _authBtn(
-                      const MailIcon(color: _greyColor),
+                      MailIcon(color: _titleColor),
                       loc.auth_sign_in_email_title,
                       P2,
                       authController.registerMode ? registrationDialog : showSignInEmailDialog,

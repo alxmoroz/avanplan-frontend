@@ -5,7 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/button.dart';
-import '../../components/colors_base.dart';
+import '../../components/colors.dart';
 import '../../components/icons.dart';
 import '../../components/navbar.dart';
 import '../../components/page.dart';

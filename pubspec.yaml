@@ -55,10 +55,14 @@ flutter:
     - assets/icons/
     - assets/images/
   fonts:
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat-R.ttf
+          weight: 400
+        - asset: assets/fonts/Montserrat-M.ttf
+          weight: 500
     - family: Roboto
       fonts:
-        - asset: assets/fonts/Roboto-T.ttf
-          weight: 200
         - asset: assets/fonts/Roboto-L.ttf
           weight: 300
         - asset: assets/fonts/Roboto-R.ttf

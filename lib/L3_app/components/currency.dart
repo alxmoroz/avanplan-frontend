@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 
 import '../presenters/number.dart';
-import 'icons_workspace.dart';
 import 'text.dart';
 
 class MTCurrency extends StatelessWidget {
@@ -14,13 +13,6 @@ class MTCurrency extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        D2(value.currency, color: color),
-        RoubleIcon(color: color),
-      ],
-    );
+    return D2('${value.currency}₽', color: color);
   }
 }

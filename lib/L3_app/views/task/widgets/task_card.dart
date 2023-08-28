@@ -35,7 +35,7 @@ class TaskCard extends StatelessWidget {
     this.showStateMark = false,
     this.board = false,
     this.showParent = false,
-    this.bottomBorder = false,
+    this.bottomDivider = false,
     this.dragging = false,
     this.isMine = false,
   });
@@ -43,24 +43,22 @@ class TaskCard extends StatelessWidget {
   final Task task;
   final bool board;
   final bool showParent;
-  final bool bottomBorder;
+  final bool bottomDivider;
   final bool showStateMark;
   final bool dragging;
   final bool isMine;
 
   Color? get _textColor => task.closed ? f2Color : null;
 
-  Widget get _parentTitle => LightText(
+  Widget get _parentTitle => SmallText(
         '${task.project?.wsCode}${task.parent!.title}',
-        color: _textColor,
-        sizeScale: 0.85,
         height: 1,
         maxLines: 1,
       );
 
   Widget get _title => Row(
         children: [
-          if (task.wsCode.isNotEmpty) LightText(task.wsCode, color: f2Color),
+          if (task.wsCode.isNotEmpty) NormalText.f2(task.wsCode),
           Expanded(child: NormalText(task.title, maxLines: 2, color: _textColor)),
           if (!board) const ChevronIcon(),
         ],
@@ -161,13 +159,14 @@ class TaskCard extends StatelessWidget {
             MTListTile(
               leading: showStateMark ? const SizedBox(width: P_2) : null,
               middle: _taskContent,
-              bottomDivider: bottomBorder,
+              dividerLeftIndent: showStateMark ? P18 + P : 0,
+              bottomDivider: bottomDivider,
               onTap: _tap,
             ),
             if (task.loading == true) const MTLoader(),
             if (showStateMark)
               Positioned(
-                left: P + P_2,
+                left: P18,
                 top: 0,
                 bottom: 0,
                 child: Container(

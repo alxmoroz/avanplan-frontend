@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 
 import 'card.dart';
 import 'colors.dart';
-import 'colors_base.dart';
 import 'constants.dart';
 import 'text.dart';
 

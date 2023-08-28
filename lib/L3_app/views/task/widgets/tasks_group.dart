@@ -32,7 +32,7 @@ class TasksGroup extends StatelessWidget {
         return TaskCard(
           t,
           showStateMark: true,
-          bottomBorder: index < tasks.length - 1 || groupBorder,
+          bottomDivider: index < tasks.length - 1 || groupBorder,
           isMine: isMine,
           showParent: isMine,
         );

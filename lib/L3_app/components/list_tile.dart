@@ -21,7 +21,7 @@ class MTListTile extends StatelessWidget with FocusManaging {
     this.color,
     this.padding,
     this.topIndent = 0,
-    this.dividerStartIndent,
+    this.dividerLeftIndent,
     this.topDivider = false,
     this.bottomDivider = true,
     this.crossAxisAlignment,
@@ -36,7 +36,7 @@ class MTListTile extends StatelessWidget with FocusManaging {
   final Color? color;
   final double topIndent;
   final EdgeInsets? padding;
-  final double? dividerStartIndent;
+  final double? dividerLeftIndent;
   final bool topDivider;
   final bool bottomDivider;
   final CrossAxisAlignment? crossAxisAlignment;
@@ -44,13 +44,18 @@ class MTListTile extends StatelessWidget with FocusManaging {
 
   static const _defaultIndent = P18;
 
-  Widget get _border => MTDivider(
+  Widget get _divider => MTDivider(
         height: 0,
-        indent: dividerStartIndent ?? padding?.left ?? _defaultIndent,
+        indent: dividerLeftIndent ?? padding?.left ?? _defaultIndent,
         endIndent: padding?.right ?? _defaultIndent,
       );
 
-  EdgeInsets get defaultPadding => const EdgeInsets.symmetric(horizontal: _defaultIndent).copyWith(top: P + topIndent, bottom: P);
+  EdgeInsets get _defaultPadding => EdgeInsets.only(
+        left: _defaultIndent,
+        top: P + topIndent,
+        right: _defaultIndent,
+        bottom: P,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -70,9 +75,9 @@ class MTListTile extends StatelessWidget with FocusManaging {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (topDivider) _border,
+              if (topDivider) _divider,
               Padding(
-                padding: padding ?? defaultPadding,
+                padding: padding ?? _defaultPadding,
                 child: Row(
                   crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
                   children: [
@@ -90,7 +95,7 @@ class MTListTile extends StatelessWidget with FocusManaging {
                   ],
                 ),
               ),
-              if (bottomDivider) _border,
+              if (bottomDivider) _divider,
             ],
           )),
       color: (color ?? b3Color).resolve(context),

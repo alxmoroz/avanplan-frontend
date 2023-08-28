@@ -100,6 +100,7 @@ String groupStateTitle(TaskState groupState) {
     case TaskState.CLOSED:
       return loc.state_closed;
     case TaskState.FUTURE_START:
+      return loc.state_future_title;
     case TaskState.NO_INFO:
     case TaskState.LOW_START:
     case TaskState.NO_SUBTASKS:

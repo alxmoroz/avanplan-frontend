@@ -31,7 +31,7 @@ class TaskPopupMenu extends StatelessWidget with FocusManaging {
 
   Widget _tile(TaskActionType at, {Widget? leading, String? title, Widget? trailing, Color? color}) => Row(children: [
         if (leading != null) ...[leading, const SizedBox(width: P_2)],
-        title != null ? NormalText(title, color: (color ?? mainColor).withAlpha(_enabled(at) ? 255 : 110)) : const SizedBox(),
+        title != null ? BaseText(title, color: (color ?? mainColor).withAlpha(_enabled(at) ? 255 : 110)) : const SizedBox(),
         if (trailing != null) ...[const SizedBox(width: P_2), trailing],
       ]);
 
@@ -55,7 +55,7 @@ class TaskPopupMenu extends StatelessWidget with FocusManaging {
       case TaskActionType.delete:
         return _tile(at, leading: const DeleteIcon(), title: loc.delete_action_title, color: dangerColor);
       default:
-        return NormalText('$at');
+        return BaseText('$at');
     }
   }
 

@@ -18,7 +18,7 @@ class MyProjectsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        navBar: navBar(context, middle: MediumText(loc.project_list_title)),
+        navBar: navBar(context, middle: BaseText.medium(loc.project_list_title)),
         body: SafeArea(
           top: false,
           bottom: false,

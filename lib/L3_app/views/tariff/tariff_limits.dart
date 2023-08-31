@@ -50,11 +50,11 @@ class _TariffLimitTile extends StatelessWidget {
       middle: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          NormalText.f2(prefix),
+          BaseText.f2(prefix),
           const SizedBox(width: P),
           H3(hvStr),
           const SizedBox(width: P),
-          NormalText(suffix),
+          BaseText(suffix),
         ],
       ),
       bottomDivider: false,

@@ -29,7 +29,7 @@ class TaskChartDetails extends StatelessWidget {
 
   Widget _textRow(String t1, String t2, {Color? color}) => Row(
         children: [
-          Expanded(child: NormalText.f2(t1)),
+          Expanded(child: BaseText.f2(t1)),
           H3(t2, color: color, padding: const EdgeInsets.only(top: P)),
         ],
       );

@@ -38,7 +38,7 @@ class AccountView extends StatelessWidget {
                     _user!.icon(P10, borderColor: mainColor),
                     const SizedBox(height: P3),
                     H3('$_user', align: TextAlign.center),
-                    NormalText(_user!.email, align: TextAlign.center),
+                    BaseText(_user!.email, align: TextAlign.center),
                   ],
                 )
               : Container(),

@@ -58,8 +58,8 @@ class TaskCard extends StatelessWidget {
 
   Widget get _title => Row(
         children: [
-          if (task.wsCode.isNotEmpty) NormalText.f2(task.wsCode),
-          Expanded(child: NormalText(task.title, maxLines: 2, color: _textColor)),
+          if (task.wsCode.isNotEmpty) BaseText.f2(task.wsCode),
+          Expanded(child: BaseText(task.title, maxLines: 2, color: _textColor)),
           if (!board) const ChevronIcon(),
         ],
       );

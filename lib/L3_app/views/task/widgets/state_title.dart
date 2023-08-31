@@ -24,7 +24,7 @@ class _StateTitle extends StatelessWidget {
               stateIconGroup(context, state),
               const SizedBox(width: P2),
               Expanded(
-                child: NormalText(
+                child: BaseText(
                   text,
                   padding: const EdgeInsets.only(bottom: P),
                 ),

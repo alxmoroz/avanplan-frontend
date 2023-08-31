@@ -6,7 +6,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../../L1_domain/entities/member.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/adaptive.dart';
-import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
@@ -62,11 +61,11 @@ class _MemberViewState extends State<MemberView> {
                 member.icon(P10),
                 const SizedBox(height: P3),
                 H3('$member', align: TextAlign.center),
-                NormalText(member.email, align: TextAlign.center),
+                BaseText(member.email, align: TextAlign.center),
                 if (member.roles.isNotEmpty) ...[
                   MTListSection(loc.role_list_title),
                   MTListTile(
-                    middle: NormalText(member.rolesStr),
+                    middle: BaseText(member.rolesStr),
                     trailing: task.canEditMembers ? const EditIcon() : null,
                     bottomDivider: false,
                     onTap: () => task.canEditMembers ? controller.editMember(context) : null,

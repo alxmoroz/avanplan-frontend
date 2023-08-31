@@ -34,7 +34,7 @@ class MTTopBar extends StatelessWidget {
         if (middle != null || titleText != null)
           Padding(
             padding: const EdgeInsets.only(top: P2),
-            child: middle ?? MediumText(titleText!, align: TextAlign.center),
+            child: middle ?? BaseText.medium(titleText!, align: TextAlign.center),
           ),
         Row(children: [
           if (leading != null || showCloseButton) leading ?? MTCloseDialogButton(onTap: onClose),

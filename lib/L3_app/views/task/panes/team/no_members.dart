@@ -21,7 +21,7 @@ class NoMembers extends StatelessWidget {
           const SizedBox(height: P2),
           H2(loc.team_list_empty_title, align: TextAlign.center),
           const SizedBox(height: P),
-          NormalText(loc.team_list_empty_hint, align: TextAlign.center),
+          BaseText(loc.team_list_empty_hint, align: TextAlign.center),
         ],
       ),
     );

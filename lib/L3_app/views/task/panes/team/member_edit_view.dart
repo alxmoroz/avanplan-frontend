@@ -59,7 +59,7 @@ class _MemberEditViewState extends State<MemberEditView> {
           middle: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              MediumText('$member'),
+              BaseText.medium('$member'),
               task.subPageTitle(loc.role_list_title),
             ],
           ),

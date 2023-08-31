@@ -65,8 +65,8 @@ class _MTAlertDialog extends StatelessWidget {
   final bool simple;
 
   Widget _actionText(MTADialogAction a) => a.type == MTActionType.isDefault
-      ? MediumText(a.title ?? '', color: _actionColors[a.type], align: TextAlign.center)
-      : NormalText(a.title ?? '', color: _actionColors[a.type], align: TextAlign.center);
+      ? BaseText.medium(a.title ?? '', color: _actionColors[a.type], align: TextAlign.center)
+      : BaseText(a.title ?? '', color: _actionColors[a.type], align: TextAlign.center);
 
   Widget _actionRow(MTADialogAction a) => Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -105,7 +105,7 @@ class _MTAlertDialog extends StatelessWidget {
       title: H3(title, padding: const EdgeInsets.only(bottom: P), maxLines: 5),
       content: Column(
         children: [
-          if (description.isNotEmpty) NormalText(description, maxLines: 12),
+          if (description.isNotEmpty) BaseText(description, maxLines: 12),
           if (!simple)
             for (final a in actions) richButton(a),
         ],

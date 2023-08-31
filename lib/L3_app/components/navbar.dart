@@ -26,7 +26,7 @@ CupertinoNavigationBar navBar(
     middle: middle != null
         ? mQuery(middle, context)
         : title != null
-            ? mQuery(MediumText(title, align: TextAlign.center), context)
+            ? mQuery(BaseText.medium(title, align: TextAlign.center), context)
             : null,
     trailing: trailing != null ? mQuery(trailing, context) : null,
     padding: const EdgeInsetsDirectional.only(start: 0),

@@ -66,8 +66,8 @@ class _ProjectCreateWizardState extends State<ProjectCreateWizard> {
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                NormalText.f2('[${ws.code}] '),
-                MediumText(ws.title),
+                BaseText.f2('[${ws.code}] '),
+                BaseText.medium(ws.title),
               ],
             ),
           ],

@@ -19,15 +19,15 @@ extension WSPresenter on Workspace {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          NormalText.f3('[$code] '),
-          NormalText.f2('$this'),
+          BaseText.f3('[$code] '),
+          BaseText.f2('$this'),
         ],
       );
 
   Widget subPageTitle(String pageTitle) => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          MediumText(pageTitle),
+          BaseText.medium(pageTitle),
           if (mainController.workspaces.length > 1) subtitleRow,
         ],
       );

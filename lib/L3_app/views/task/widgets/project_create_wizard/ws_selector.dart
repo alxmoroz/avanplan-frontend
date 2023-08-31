@@ -23,7 +23,7 @@ class WSSelector extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         const SizedBox(height: P2),
-        NormalText(loc.projects_add_select_ws_title),
+        BaseText(loc.projects_add_select_ws_title),
         const SizedBox(height: P2),
         ListView.builder(
           shrinkWrap: true,
@@ -32,7 +32,7 @@ class WSSelector extends StatelessWidget {
             if (index == mainController.workspaces.length) {
               return MTListTile(
                 leading: const PlusIcon(),
-                middle: MediumText(loc.workspace_my_title, color: mainColor),
+                middle: BaseText.medium(loc.workspace_my_title, color: mainColor),
                 trailing: const ChevronIcon(),
                 bottomDivider: false,
                 onTap: controller.createMyWS,
@@ -46,7 +46,7 @@ class WSSelector extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     SmallText('[${ws.code}] ', color: canSelect ? null : f2Color),
-                    Expanded(child: MediumText(ws.title, color: canSelect ? null : f2Color)),
+                    Expanded(child: BaseText.medium(ws.title, color: canSelect ? null : f2Color)),
                   ],
                 ),
                 trailing: canSelect ? const ChevronIcon() : const PrivacyIcon(),

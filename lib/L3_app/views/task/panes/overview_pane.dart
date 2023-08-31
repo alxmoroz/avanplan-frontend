@@ -57,7 +57,7 @@ class OverviewPane extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 if (_task.canCloseGroup)
-                  MediumText(
+                  BaseText.medium(
                     loc.state_closable_hint,
                     align: TextAlign.center,
                     color: f2Color,

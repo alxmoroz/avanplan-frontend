@@ -36,7 +36,7 @@ class UserView extends StatelessWidget {
               user.icon(P10),
               const SizedBox(height: P3),
               H2('$user', align: TextAlign.center),
-              NormalText(user.email, align: TextAlign.center),
+              BaseText(user.email, align: TextAlign.center),
               if (user.roles.isNotEmpty) ...[
                 MTListSection(loc.role_list_title),
                 MTListTile(

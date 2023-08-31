@@ -34,7 +34,7 @@ class NotificationListView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             SmallText(date),
-            n.isRead ? NormalText(title) : MediumText(title),
+            n.isRead ? BaseText(title) : BaseText.medium(title),
           ],
         ),
         // subtitle: description.isNotEmpty && !m.isRead ? LightText(description, maxLines: 2) : null,

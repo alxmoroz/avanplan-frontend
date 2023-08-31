@@ -23,7 +23,7 @@ class MTErrorSheet extends StatelessWidget {
       force: true,
       child: MTDialog(
         topBar: MTTopBar(
-          middle: MediumText(
+          middle: BaseText.medium(
             error.title,
             maxLines: 2,
             padding: const EdgeInsets.symmetric(horizontal: P8),
@@ -38,7 +38,7 @@ class MTErrorSheet extends StatelessWidget {
           children: [
             if (error.description?.isNotEmpty == true) ...[
               const SizedBox(height: P),
-              NormalText(
+              BaseText(
                 error.description!,
                 padding: const EdgeInsets.symmetric(horizontal: P2),
               ),

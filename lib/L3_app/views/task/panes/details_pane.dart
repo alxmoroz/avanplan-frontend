@@ -87,7 +87,7 @@ class DetailsPane extends StatelessWidget {
                       : PersonIcon(
                           color: _task.canAssign ? mainColor : f2Color,
                         ),
-                  value: _task.hasAssignee ? NormalText('${_task.assignee}', color: _task.canAssign ? null : f2Color) : null,
+                  value: _task.hasAssignee ? BaseText('${_task.assignee}', color: _task.canAssign ? null : f2Color) : null,
                   onSelect: _task.canAssign ? controller.assigneeController.assign : null,
                 ),
               ],
@@ -99,8 +99,8 @@ class DetailsPane extends StatelessWidget {
                   value: _task.hasDescription
                       ? SelectableLinkify(
                           text: _task.description,
-                          style: const NormalText('').style(context),
-                          linkStyle: const NormalText('', color: mainColor).style(context),
+                          style: const BaseText('').style(context),
+                          linkStyle: const BaseText('', color: mainColor).style(context),
                           onOpen: (link) async => await launchUrlString(link.url),
                           // onTap: _task.canUpdate ? controller.editDescription : null,
                         )
@@ -116,7 +116,7 @@ class DetailsPane extends StatelessWidget {
                 MTField(
                   controller.fData(TaskFCode.estimate.index),
                   leading: EstimateIcon(color: _task.canEstimate ? mainColor : f2Color),
-                  value: _task.hasEstimate ? NormalText('${(_task.openedVolume ?? _task.estimate)?.round()} ${_task.ws.estimateUnitCode}') : null,
+                  value: _task.hasEstimate ? BaseText('${(_task.openedVolume ?? _task.estimate)?.round()} ${_task.ws.estimateUnitCode}') : null,
                   onSelect: _task.canEstimate ? controller.estimateController.select : null,
                 ),
               ],
@@ -125,7 +125,7 @@ class DetailsPane extends StatelessWidget {
                 MTField(
                   controller.fData(TaskFCode.author.index),
                   leading: _task.author!.icon(P3),
-                  value: NormalText('${_task.author}', color: f2Color),
+                  value: BaseText('${_task.author}', color: f2Color),
                   onSelect: null,
                 ),
               ],
@@ -133,7 +133,7 @@ class DetailsPane extends StatelessWidget {
                 const SizedBox(height: P3),
                 MTField(
                   controller.fData(TaskFCode.note.index),
-                  value: NormalText(
+                  value: BaseText(
                     controller.fData(TaskFCode.note.index).placeholder,
                     color: f2Color,
                     padding: const EdgeInsets.symmetric(vertical: P),

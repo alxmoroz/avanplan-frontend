@@ -59,8 +59,8 @@ class LocalImportDialog extends StatelessWidget {
   }
 
   Widget _addressLine(String label, String title) => MTListTile(
-        leading: NormalText.f2(label),
-        middle: NormalText(title, maxLines: 1),
+        leading: BaseText.f2(label),
+        middle: BaseText(title, maxLines: 1),
         color: b2Color,
         bottomDivider: false,
         padding: const EdgeInsets.symmetric(horizontal: P3),
@@ -73,7 +73,7 @@ class LocalImportDialog extends StatelessWidget {
             middle: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                MediumText(loc.task_transfer_title),
+                BaseText.medium(loc.task_transfer_title),
                 const SizedBox(height: P),
                 _addressLine(loc.task_transfer_source_label, '$_srcGoal'),
                 _addressLine(loc.task_transfer_destination_label, '$_dstGoal'),

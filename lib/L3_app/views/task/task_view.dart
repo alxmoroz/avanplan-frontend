@@ -68,16 +68,16 @@ class _TaskViewState extends State<TaskView> {
     controller.tabKeys.forEach((tk) {
       switch (tk) {
         case TaskTabKey.overview:
-          res[TaskTabKey.overview] = _tab(tk, const EyeIcon(color: f2Color), NormalText(loc.overview));
+          res[TaskTabKey.overview] = _tab(tk, const EyeIcon(color: f2Color), BaseText(loc.overview));
           break;
         case TaskTabKey.subtasks:
-          res[TaskTabKey.subtasks] = _tab(tk, const DoneIcon(true, color: f2Color), NormalText('${task.listTitle}'));
+          res[TaskTabKey.subtasks] = _tab(tk, const DoneIcon(true, color: f2Color), BaseText('${task.listTitle}'));
           break;
         case TaskTabKey.details:
-          res[TaskTabKey.details] = _tab(tk, const RulesIcon(size: P4, color: f2Color), NormalText(loc.description));
+          res[TaskTabKey.details] = _tab(tk, const RulesIcon(size: P4, color: f2Color), BaseText(loc.description));
           break;
         case TaskTabKey.team:
-          res[TaskTabKey.team] = _tab(tk, const PeopleIcon(color: f2Color), NormalText(loc.team_list_title));
+          res[TaskTabKey.team] = _tab(tk, const PeopleIcon(color: f2Color), BaseText(loc.team_list_title));
           break;
       }
     });

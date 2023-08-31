@@ -27,8 +27,8 @@ class WorkspaceListTile extends StatelessWidget {
       middle: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          if (ws.code.isNotEmpty) NormalText.f2('[${ws.code}] '),
-          Expanded(child: NormalText(ws.title)),
+          if (ws.code.isNotEmpty) BaseText.f2('[${ws.code}] '),
+          Expanded(child: BaseText(ws.title)),
         ],
       ),
       subtitle: Column(

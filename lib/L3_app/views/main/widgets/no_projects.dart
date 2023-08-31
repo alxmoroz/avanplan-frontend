@@ -30,7 +30,7 @@ class NoProjects extends StatelessWidget {
           else
             H2(loc.state_no_projects_hint, align: TextAlign.center),
           const SizedBox(height: P4),
-          NormalText(
+          BaseText(
             loc.projects_add_hint_title,
             align: TextAlign.center,
             padding: const EdgeInsets.symmetric(horizontal: P3),

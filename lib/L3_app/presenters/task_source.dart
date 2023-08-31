@@ -18,7 +18,7 @@ extension TaskSourcePresenter on Task {
       children: [
         const LinkIcon(),
         const SizedBox(width: P_2),
-        NormalText(loc.task_go2source_title, color: mainColor),
+        BaseText(loc.task_go2source_title, color: mainColor),
         if (_source != null) ...[
           const SizedBox(width: P_2),
           _source.type.icon,

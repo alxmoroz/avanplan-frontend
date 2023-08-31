@@ -18,7 +18,7 @@ class LoaderScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P3),
       );
 
-  Widget get _description => NormalText(
+  Widget get _description => BaseText(
         loader.descriptionText!,
         align: TextAlign.center,
         padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P3),

@@ -27,7 +27,7 @@ InputDecoration tfDecoration(
 
   return InputDecoration(
     labelText: label,
-    labelStyle: const NormalText.f3('').style(context),
+    labelStyle: const BaseText.f3('').style(context),
     helperText: helper,
     helperStyle: const SmallText('').style(context),
     helperMaxLines: 15,
@@ -125,7 +125,7 @@ class MTTextField extends StatelessWidget {
       Padding(
         padding: margin ?? tfPadding,
         child: TextField(
-          style: style ?? const NormalText('').style(context),
+          style: style ?? const BaseText('').style(context),
           decoration: decoration ??
               tfDecoration(
                 context,

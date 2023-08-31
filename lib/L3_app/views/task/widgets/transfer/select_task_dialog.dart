@@ -13,7 +13,7 @@ Future<int?> selectTaskDialog(List<Task> taskList, String title) async => await 
       valueBuilder: (_, t) => Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          NormalText(t.title, maxLines: 2),
+          BaseText(t.title, maxLines: 2),
           if (t.description.isNotEmpty) SmallText(t.description, maxLines: 1),
         ],
       ),

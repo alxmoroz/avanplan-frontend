@@ -28,7 +28,7 @@ class AccountListTile extends StatelessWidget {
               Expanded(child: H3(_title)),
               const ChevronIcon(),
             ]),
-            subtitle: _subtitle != _title ? NormalText.f2(_subtitle) : null,
+            subtitle: _subtitle != _title ? BaseText.f2(_subtitle) : null,
             bottomDivider: false,
             onTap: () => _showAccount(context),
           )

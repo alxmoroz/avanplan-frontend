@@ -20,7 +20,7 @@ class UserTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTListTile(
       leading: user.icon(P4, borderColor: mainColor),
-      middle: NormalText('$user'),
+      middle: BaseText('$user'),
       subtitle: SmallText(user.rolesStr),
       trailing: const ChevronIcon(),
       bottomDivider: bottomBorder,

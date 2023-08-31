@@ -23,7 +23,7 @@ class MyProjects extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            NormalText.f2(loc.project_list_title, align: TextAlign.center),
+            BaseText.f2(loc.project_list_title, align: TextAlign.center),
             const SizedBox(height: P3),
             compact ? Expanded(child: imageForState(mainController.projectsState)) : imageForState(mainController.projectsState),
             H2(groupStateTitle(mainController.projectsState), align: TextAlign.center),

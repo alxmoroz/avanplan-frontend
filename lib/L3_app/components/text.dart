@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import '../../L2_data/services/platform.dart';
 import 'colors_base.dart';
 
-abstract class BaseText extends StatelessWidget {
+class BaseText extends StatelessWidget {
   const BaseText(
     this.text, {
     this.sizeScale,
@@ -36,6 +36,26 @@ abstract class BaseText extends StatelessWidget {
     this.padding,
     this.height,
   }) : color = f3Color;
+
+  const BaseText.light(
+    this.text, {
+    this.sizeScale,
+    this.maxLines,
+    this.align,
+    this.padding,
+    this.height,
+    this.color,
+  }) : weight = FontWeight.w300;
+
+  const BaseText.medium(
+    this.text, {
+    this.sizeScale,
+    this.maxLines,
+    this.align,
+    this.padding,
+    this.height,
+    this.color,
+  }) : weight = FontWeight.w500;
 
   final String text;
   final double? sizeScale;
@@ -86,75 +106,6 @@ class SmallText extends BaseText {
           sizeScale: 0.9,
           maxLines: maxLines ?? 9,
           height: height,
-        );
-}
-
-class LightText extends BaseText {
-  const LightText(
-    String text, {
-    int? maxLines,
-    double? height,
-    super.color,
-    super.align,
-    super.padding,
-  }) : super(
-          text,
-          weight: FontWeight.w300,
-          maxLines: maxLines ?? 7,
-          height: height,
-        );
-}
-
-class NormalText extends BaseText {
-  const NormalText(
-    String text, {
-    int? maxLines,
-    double? height,
-    super.color,
-    super.align,
-    super.padding,
-  }) : super(
-          text,
-          maxLines: maxLines ?? 7,
-          height: height,
-        );
-
-  const NormalText.f2(
-    String text, {
-    int? maxLines,
-    double? height,
-    super.align,
-    super.padding,
-  }) : super.f2(
-          text,
-          maxLines: maxLines ?? 7,
-          height: height,
-        );
-
-  const NormalText.f3(
-    String text, {
-    int? maxLines,
-    double? height,
-    super.align,
-    super.padding,
-  }) : super.f3(
-          text,
-          maxLines: maxLines ?? 7,
-          height: height,
-        );
-}
-
-class MediumText extends BaseText {
-  const MediumText(
-    String text, {
-    int? maxLines,
-    super.color,
-    super.align,
-    super.padding,
-  }) : super(
-          text,
-          weight: FontWeight.w500,
-          maxLines: maxLines ?? 7,
         );
 }
 

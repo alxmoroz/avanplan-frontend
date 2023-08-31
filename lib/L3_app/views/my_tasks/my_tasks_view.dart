@@ -17,7 +17,7 @@ class MyTasksView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        navBar: navBar(context, middle: MediumText(loc.my_tasks_title)),
+        navBar: navBar(context, middle: BaseText.medium(loc.my_tasks_title)),
         body: SafeArea(
           top: false,
           bottom: false,

@@ -41,7 +41,7 @@ class TariffSelectView extends StatelessWidget {
 
   Widget _paymentButton(BuildContext context, num balanceLack) {
     return Column(children: [
-      NormalText(
+      BaseText(
         loc.error_tariff_insufficient_funds_for_change('${balanceLack.currency} ₽'),
         color: warningColor,
         align: TextAlign.center,
@@ -122,7 +122,7 @@ class TariffSelectView extends StatelessWidget {
       topBar: MTTopBar(
         middle: description.isNotEmpty
             ? H3(description, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P3))
-            : MediumText(loc.tariff_list_title),
+            : BaseText.medium(loc.tariff_list_title),
       ),
       topBarHeight: description.isNotEmpty ? P * 6 : null,
       body: SafeArea(

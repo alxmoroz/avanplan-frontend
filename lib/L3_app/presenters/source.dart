@@ -15,7 +15,7 @@ import '../extra/services.dart';
 
 extension SourceTypePresenter on SourceType {
   Widget get icon => active ? Image.asset('assets/icons/${code}_icon.png', height: P4) : const MTCircle(size: P4, color: b1Color);
-  Widget get iconTitle => Row(children: [icon, const SizedBox(width: P), MediumText('$this')]);
+  Widget get iconTitle => Row(children: [icon, const SizedBox(width: P), BaseText.medium('$this')]);
 }
 
 extension SourcePresenter on Source {
@@ -37,7 +37,7 @@ extension SourcePresenter on Source {
 
     return MTListTile(
       leading: type.icon,
-      middle: NormalText('$this', color: textColor),
+      middle: BaseText('$this', color: textColor),
       padding: padding,
       trailing: checking
           ? SizedBox(

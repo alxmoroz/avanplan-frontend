@@ -111,7 +111,7 @@ class ImportView extends StatelessWidget {
       ? ListView(
           shrinkWrap: true,
           children: [
-            MediumText(
+            BaseText.medium(
               _hasError ? Intl.message(controller.errorCode!) : loc.import_list_empty_title,
               align: TextAlign.center,
               color: _hasError ? warningColor : f2Color,

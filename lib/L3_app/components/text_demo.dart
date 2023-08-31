@@ -14,7 +14,7 @@ class TextDemo extends StatelessWidget {
           children: [
             text,
             const Spacer(),
-            NormalText('size: ${style.fontSize?.round()}  weight: ${style.fontWeight?.value}'),
+            BaseText('size: ${style.fontSize?.round()}  weight: ${style.fontWeight?.value}'),
           ],
         ),
         const SizedBox(height: P3),
@@ -34,9 +34,9 @@ class TextDemo extends StatelessWidget {
         _t(const H1('H1'), context),
         _t(const H2('H2'), context),
         _t(const H3('H3'), context),
-        _t(const MediumText('Medium'), context),
-        _t(const NormalText('Normal'), context),
-        _t(const LightText('LightText'), context),
+        _t(const BaseText.medium('BaseText Medium'), context),
+        _t(const BaseText('BaseText Regular'), context),
+        _t(const BaseText.light('BaseText Light'), context),
         _t(const SmallText('SmallText'), context),
       ],
     );

@@ -53,8 +53,8 @@ class _MemberAddViewState extends State<MemberAddView> {
   //       padding: const EdgeInsets.symmetric(horizontal: P3),
   //       child: CupertinoSlidingSegmentedControl<MemberSourceKey>(
   //         children: {
-  //           MemberSourceKey.invitation: NormalText(loc.member_source_invitation_title),
-  //           MemberSourceKey.workspace: NormalText(loc.member_source_workspace_title),
+  //           MemberSourceKey.invitation: BaseText(loc.member_source_invitation_title),
+  //           MemberSourceKey.workspace: BaseText(loc.member_source_workspace_title),
   //         },
   //         groupValue: _controller.tabKey,
   //         onValueChanged: _controller.selectTab,
@@ -78,8 +78,8 @@ class _MemberAddViewState extends State<MemberAddView> {
           children: [
             // TODO: https://redmine.moroz.team/issues/2527
             // tabPaneSelector,
-            NormalText('${_invitationController.task}:', align: TextAlign.center, maxLines: 1),
-            NormalText(_invitationController.role.localize, align: TextAlign.center),
+            BaseText('${_invitationController.task}:', align: TextAlign.center, maxLines: 1),
+            BaseText(_invitationController.role.localize, align: TextAlign.center),
             _selectedPane,
           ],
         ),

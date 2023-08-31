@@ -37,7 +37,7 @@ class MTDropdown<T extends RPersistable> extends StatelessWidget {
         for (final item in items!)
           DropdownMenuItem<int>(
             value: item.id,
-            child: NormalText('$item'),
+            child: BaseText('$item'),
           ),
       ];
 

@@ -46,7 +46,7 @@ class WorkspaceView extends StatelessWidget {
                 Flexible(child: H2(ws.title, maxLines: 1), flex: 6),
               ],
             ),
-            if (ws.description.isNotEmpty) NormalText(ws.description),
+            if (ws.description.isNotEmpty) BaseText(ws.description),
           ],
         ),
       );
@@ -56,11 +56,11 @@ class WorkspaceView extends StatelessWidget {
           margin: const EdgeInsets.symmetric(vertical: P3),
           child: Column(
             children: [
-              NormalText(loc.balance_amount_title, color: f2Color),
+              BaseText(loc.balance_amount_title, color: f2Color),
               const SizedBox(height: P2),
               MTCurrency(ws.balance, color: ws.balance < 0 ? warningColor : mainColor),
               const SizedBox(height: P2),
-              if (ws.hpTariffUpdate) MediumText(loc.balance_replenish_action_title, color: mainColor),
+              if (ws.hpTariffUpdate) BaseText.medium(loc.balance_replenish_action_title, color: mainColor),
             ],
           ),
           onTap: ws.hpTariffUpdate ? () => purchaseDialog(wsId) : null,
@@ -69,7 +69,7 @@ class WorkspaceView extends StatelessWidget {
 
   Widget get _tariff => MTListTile(
         leading: const TariffIcon(),
-        middle: Row(children: [NormalText(loc.tariff_title), const SizedBox(width: P), MediumText(ws.invoice.tariff.title)]),
+        middle: Row(children: [BaseText(loc.tariff_title), const SizedBox(width: P), BaseText.medium(ws.invoice.tariff.title)]),
         subtitle: SmallText('${loc.contract_effective_date_title} ${ws.invoice.contract.createdOn.strMedium}'),
         trailing: const ChevronIcon(),
         bottomDivider: false,

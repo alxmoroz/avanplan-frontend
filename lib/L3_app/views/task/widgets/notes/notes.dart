@@ -40,7 +40,7 @@ class Notes extends StatelessWidget {
             children: [
               MTListTile(
                 leading: const EditIcon(),
-                middle: NormalText(loc.edit_action_title, color: mainColor),
+                middle: BaseText(loc.edit_action_title, color: mainColor),
                 onTap: () async {
                   Navigator.of(context).pop();
                   await controller.edit(note);
@@ -48,7 +48,7 @@ class Notes extends StatelessWidget {
               ),
               MTListTile(
                 leading: const DeleteIcon(),
-                middle: NormalText(loc.delete_action_title, color: dangerColor),
+                middle: BaseText(loc.delete_action_title, color: dangerColor),
                 onTap: () async {
                   Navigator.of(context).pop();
                   await controller.delete(note);
@@ -96,11 +96,11 @@ class Notes extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                if (!mine) MediumText('$author'),
+                                if (!mine) BaseText.medium('$author'),
                                 Linkify(
                                   text: n.text,
-                                  style: const NormalText('', maxLines: 42).style(context),
-                                  linkStyle: const NormalText('', color: mainColor).style(context),
+                                  style: const BaseText('', maxLines: 42).style(context),
+                                  linkStyle: const BaseText('', color: mainColor).style(context),
                                   onOpen: (link) async => await launchUrlString(link.url),
                                 ),
                                 SmallText(n.createdOn!.strTime, align: TextAlign.right),

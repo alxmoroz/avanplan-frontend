@@ -35,7 +35,7 @@ class MTField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Widget child = value ?? NormalText(fd.text);
+    final Widget child = value ?? BaseText(fd.text);
 
     return Stack(
       alignment: Alignment.center,
@@ -43,7 +43,7 @@ class MTField extends StatelessWidget {
         MTListTile(
           leading: leading != null ? SizedBox(width: P6, child: Center(child: leading)) : null,
           middle: _hasValue && fd.label.isNotEmpty ? SmallText(fd.label, color: f3Color, height: 1) : null,
-          subtitle: _hasValue ? child : NormalText.f3(fd.placeholder, padding: const EdgeInsets.symmetric(vertical: P)),
+          subtitle: _hasValue ? child : BaseText.f3(fd.placeholder, padding: const EdgeInsets.symmetric(vertical: P)),
           bottomDivider: bottomDivider,
           dividerLeftIndent: dividerStartIndent,
           onTap: onSelect,

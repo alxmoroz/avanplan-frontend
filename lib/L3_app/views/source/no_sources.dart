@@ -20,7 +20,7 @@ class NoSources extends StatelessWidget {
           const SizedBox(height: P),
           H3(loc.source_list_empty_title, align: TextAlign.center),
           const SizedBox(height: P),
-          NormalText(loc.source_list_empty_hint, align: TextAlign.center),
+          BaseText(loc.source_list_empty_hint, align: TextAlign.center),
           const SizedBox(height: P),
         ],
       ),

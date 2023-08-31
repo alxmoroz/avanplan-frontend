@@ -21,7 +21,7 @@ class NoTasks extends StatelessWidget {
           const SizedBox(height: P2),
           H2(loc.task_list_empty_title, align: TextAlign.center),
           const SizedBox(height: P),
-          NormalText(loc.task_list_empty_hint, align: TextAlign.center),
+          BaseText(loc.task_list_empty_hint, align: TextAlign.center),
         ],
       ),
     );

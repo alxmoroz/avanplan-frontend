@@ -65,8 +65,8 @@ extension TaskTypePresenter on Task {
   Widget subPageTitle(String pageTitle) => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          MediumText(pageTitle),
-          NormalText('$this'),
+          BaseText.medium(pageTitle),
+          BaseText('$this'),
         ],
       );
 

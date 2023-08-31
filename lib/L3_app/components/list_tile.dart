@@ -78,7 +78,7 @@ class MTListTile extends StatelessWidget with FocusManaging {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          if (middle != null || titleText != null) middle ?? (titleText != null ? NormalText(titleText!) : Container()),
+                          if (middle != null || titleText != null) middle ?? (titleText != null ? BaseText(titleText!) : Container()),
                           if (subtitle != null) subtitle!,
                         ],
                       ),
@@ -102,7 +102,7 @@ class MTListSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NormalText.f2(
+    return BaseText.f2(
       title,
       padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P3, bottom: P2),
     );

@@ -26,7 +26,7 @@ class MTMenuShape extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (icon != null) icon!,
-            if (title != null) MediumText(title!, color: mainBtnTitleColor, padding: const EdgeInsets.symmetric(horizontal: P2)),
+            if (title != null) BaseText.medium(title!, color: mainBtnTitleColor, padding: const EdgeInsets.symmetric(horizontal: P2)),
           ],
         ),
       );

@@ -30,7 +30,7 @@ class SettingsView extends StatelessWidget {
         titleText: loc.notification_list_title,
         trailing: Row(children: [
           if (notificationController.hasUnread)
-            NormalText(
+            BaseText(
               '${notificationController.unreadCount}',
               padding: const EdgeInsets.only(right: P),
             ),
@@ -103,7 +103,7 @@ class SettingsView extends StatelessWidget {
                   const SizedBox(height: P3),
                   MTListTile(
                     leading: const ExitIcon(color: warningColor),
-                    middle: NormalText(loc.auth_sign_out_btn_title, color: warningColor),
+                    middle: BaseText(loc.auth_sign_out_btn_title, color: warningColor),
                     bottomDivider: false,
                     onTap: authController.signOut,
                   ),

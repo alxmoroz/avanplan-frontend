@@ -23,11 +23,11 @@ class RequestTariffCard extends StatelessWidget {
                 H3(loc.tariff_type_request_title, align: TextAlign.center, padding: const EdgeInsets.all(P3)),
                 const Row(mainAxisAlignment: MainAxisAlignment.center, children: [StarIcon(), StarIcon(), StarIcon()]),
                 const SizedBox(height: P),
-                NormalText(loc.tariff_limit_special_conditions_title, align: TextAlign.center, padding: const EdgeInsets.all(P3)),
+                BaseText(loc.tariff_limit_special_conditions_title, align: TextAlign.center, padding: const EdgeInsets.all(P3)),
               ],
             ),
           ),
-          NormalText.f2(
+          BaseText.f2(
             loc.tariff_price_request_action_hint,
             align: TextAlign.center,
             padding: const EdgeInsets.all(P2),

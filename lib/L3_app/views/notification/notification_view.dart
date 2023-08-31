@@ -23,7 +23,7 @@ class NotificationView extends StatelessWidget {
           children: [
             H3(nf.title, maxLines: 5),
             const SizedBox(height: P2),
-            NormalText(nf.description, maxLines: 100),
+            BaseText(nf.description, maxLines: 100),
             const SizedBox(height: P3),
           ],
         ));

@@ -133,7 +133,7 @@ abstract class _InvitationControllerBase extends EditController with Store {
     Clipboard.setData(ClipboardData(text: invitationText));
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: NormalText(loc.copied_notification_title, align: TextAlign.center),
+        content: BaseText(loc.copied_notification_title, align: TextAlign.center),
         backgroundColor: b2Color.resolve(context),
         duration: const Duration(milliseconds: 1234),
       ),

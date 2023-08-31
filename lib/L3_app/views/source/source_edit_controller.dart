@@ -122,7 +122,7 @@ abstract class _SourceEditControllerBase extends EditController with Store {
       obscureText: code == SourceFCode.password,
       maxLines: 1,
       capitalization: TextCapitalization.none,
-      margin: tfPadding.copyWith(top: first ? P_2 : tfPadding.top),
+      margin: tfPadding.copyWith(top: first ? P : tfPadding.top),
     );
   }
 

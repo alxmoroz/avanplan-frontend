@@ -23,17 +23,19 @@ class UserView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        navBar: navBar(context, middle: mainController.wsForId(user.wsId).subPageTitle(loc.user_title)),
+        navBar: navBar(
+          context,
+          middle: mainController.wsForId(user.wsId).subPageTitle(loc.user_title),
+        ),
         body: SafeArea(
           top: false,
           bottom: false,
           child: ListView(
             children: [
-              const SizedBox(height: P),
-              user.icon(P3),
-              const SizedBox(height: P_2),
+              const SizedBox(height: P3),
+              user.icon(P10),
+              const SizedBox(height: P3),
               H2('$user', align: TextAlign.center),
-              const SizedBox(height: P_2),
               NormalText(user.email, align: TextAlign.center),
               if (user.roles.isNotEmpty) ...[
                 MTListSection(loc.role_list_title),

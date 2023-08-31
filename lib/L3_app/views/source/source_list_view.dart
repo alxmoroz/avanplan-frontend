@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
+import '../../components/adaptive.dart';
 import '../../components/button.dart';
 import '../../components/colors.dart';
 import '../../components/icons.dart';
 import '../../components/navbar.dart';
 import '../../components/page.dart';
+import '../../components/shadowed.dart';
 import '../../extra/services.dart';
 import '../../presenters/source.dart';
 import '../../presenters/workspace.dart';
@@ -44,9 +46,13 @@ class SourceListView extends StatelessWidget {
           bottom: false,
           child: ws.sources.isEmpty
               ? Center(child: NoSources())
-              : ListView.builder(
-                  itemBuilder: _sourceBuilder,
-                  itemCount: ws.sources.length,
+              : MTShadowed(
+                  child: MTAdaptive(
+                    child: ListView.builder(
+                      itemBuilder: _sourceBuilder,
+                      itemCount: ws.sources.length,
+                    ),
+                  ),
                 ),
         ),
         bottomBar: ws.hpSourceCreate

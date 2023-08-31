@@ -66,7 +66,7 @@ class TaskCard extends StatelessWidget {
 
   Widget get _error => Row(children: [
         const ErrorIcon(),
-        const SizedBox(width: P_3),
+        const SizedBox(width: P_2),
         SmallText(task.error!.title, color: _textColor, height: 1, maxLines: 1),
       ]);
 
@@ -75,8 +75,8 @@ class TaskCard extends StatelessWidget {
   Widget get _date => Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          CalendarIcon(color: _dateColor, size: P * 1.6),
-          const SizedBox(width: P_3),
+          CalendarIcon(color: _dateColor, size: P3),
+          const SizedBox(width: P_2),
           SmallText(task.dueDate!.strMedium, color: _dateColor, height: 1),
         ],
       );
@@ -102,8 +102,8 @@ class TaskCard extends StatelessWidget {
   Widget get _estimate => SmallText('${(task.openedVolume ?? task.estimate)?.round()} ${task.ws.estimateUnitCode}', color: _textColor, height: 1);
 
   Widget get _divider => const Padding(
-        padding: EdgeInsets.symmetric(horizontal: P_2),
-        child: MTCircle(size: P_3, color: f2Color),
+        padding: EdgeInsets.symmetric(horizontal: P),
+        child: MTCircle(size: 4, color: f2Color),
       );
 
   Widget get _taskContent => Column(
@@ -117,7 +117,7 @@ class TaskCard extends StatelessWidget {
             _error
           // проекты, цели или группы задач - интегральная оценка, метка связанного проекта и комментариев
           else if (task.isOpenedGroup) ...[
-            const SizedBox(height: P_6),
+            const SizedBox(height: P_2),
             Row(children: [
               Expanded(child: TaskStateTitle(task, place: StateTitlePlace.card)),
               if (_showNotesMark) ...[_notesMark],
@@ -126,7 +126,7 @@ class TaskCard extends StatelessWidget {
             // листья - срок, метка комментов, оценка, статус, назначено
           ] else ...[
             if (_showDate || _showNotesMark || _showStatus || _showAssignee || task.hasEstimate) ...[
-              const SizedBox(height: P_6),
+              const SizedBox(height: P_2),
               Row(
                 children: [
                   if (_showDate) _date,
@@ -134,7 +134,7 @@ class TaskCard extends StatelessWidget {
                   if (_showNotesMark) ...[_notesMark],
                   if (_showEstimate) ...[if (_showNotesMark) _divider, _estimate],
                   if (_showStatus) ...[if (_showNotesMark || _showEstimate) _divider, _status],
-                  if (_showAssignee) ...[const SizedBox(width: P_2), _assignee],
+                  if (_showAssignee) ...[const SizedBox(width: P), _assignee],
                 ],
               ),
             ],
@@ -148,8 +148,8 @@ class TaskCard extends StatelessWidget {
   Widget build(BuildContext context) => board
       ? MTCardButton(
           elevation: dragging ? 3 : null,
-          margin: const EdgeInsets.symmetric(horizontal: P, vertical: P_2),
-          padding: const EdgeInsets.symmetric(horizontal: P, vertical: P_2),
+          margin: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
+          padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
           loading: task.loading,
           child: _taskContent,
           onTap: _tap,
@@ -157,23 +157,21 @@ class TaskCard extends StatelessWidget {
       : Stack(
           children: [
             MTListTile(
-              leading: showStateMark ? const SizedBox(width: P_2) : null,
+              leading: showStateMark ? const SizedBox(width: P) : null,
               middle: _taskContent,
-              dividerLeftIndent: showStateMark ? P18 + P : 0,
+              dividerLeftIndent: showStateMark ? P6 : 0,
               bottomDivider: bottomDivider,
               onTap: _tap,
             ),
             if (task.loading == true) const MTLoader(),
             if (showStateMark)
               Positioned(
-                left: P18,
+                left: P3,
                 top: 0,
                 bottom: 0,
                 child: Container(
-                  decoration: BoxDecoration(
-                    gradient: stateGradient(context, task.overallState),
-                  ),
-                  width: P_2,
+                  decoration: BoxDecoration(gradient: stateGradient(context, task.overallState)),
+                  width: P,
                 ),
               ),
           ],

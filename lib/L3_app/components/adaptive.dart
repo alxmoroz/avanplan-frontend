@@ -11,9 +11,9 @@ enum _AdaptiveSize { XS, S, M, L }
 class MTAdaptive extends StatelessWidget {
   const MTAdaptive({required this.child, this.padding, this.force = false}) : size = _AdaptiveSize.M;
 
-  const MTAdaptive.XS(this.child, {this.padding, this.force = true}) : size = _AdaptiveSize.XS;
-  const MTAdaptive.S(this.child, {this.padding, this.force = false}) : size = _AdaptiveSize.S;
-  const MTAdaptive.L(this.child, {this.padding, this.force = false}) : size = _AdaptiveSize.L;
+  const MTAdaptive.XS({required this.child, this.padding, this.force = true}) : size = _AdaptiveSize.XS;
+  const MTAdaptive.S({required this.child, this.padding, this.force = false}) : size = _AdaptiveSize.S;
+  const MTAdaptive.L({required this.child, this.padding, this.force = false}) : size = _AdaptiveSize.L;
 
   final Widget? child;
   final bool force;
@@ -56,6 +56,6 @@ class MTAdaptive extends StatelessWidget {
   }
 }
 
-double dashboardImageSize(BuildContext context) => min(P * 17, MediaQuery.of(context).size.height / 2.5);
+double dashboardImageSize(BuildContext context) => min(P * 34, MediaQuery.of(context).size.height / 2.5);
 
-double bottomPadding(BuildContext context) => max(MediaQuery.of(context).padding.bottom, P2);
+double bottomPadding(BuildContext context) => max(MediaQuery.paddingOf(context).bottom, P6);

@@ -13,6 +13,7 @@ import '../../../../../L2_data/services/platform.dart';
 import '../../../../../main.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
+import '../../../../components/constants.dart';
 import '../../../../components/field_data.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/images.dart';
@@ -150,7 +151,7 @@ abstract class _InvitationControllerBase extends EditController with Store {
             label: fd.label,
             error: fd.errorText,
             onTap: isDate ? selectDate : null,
-            prefixIcon: isDate ? const CalendarIcon() : null,
+            prefixIcon: isDate ? const CalendarIcon(size: P4) : null,
           )
         : MTTextField(
             autofocus: false,

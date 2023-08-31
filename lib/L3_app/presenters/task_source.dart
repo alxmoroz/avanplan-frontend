@@ -17,10 +17,10 @@ extension TaskSourcePresenter on Task {
     return Row(
       children: [
         const LinkIcon(),
-        const SizedBox(width: P_3),
+        const SizedBox(width: P_2),
         NormalText(loc.task_go2source_title, color: mainColor),
         if (_source != null) ...[
-          const SizedBox(width: P_3),
+          const SizedBox(width: P_2),
           _source.type.icon,
         ],
       ],

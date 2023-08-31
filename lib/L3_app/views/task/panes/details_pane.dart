@@ -43,6 +43,7 @@ class DetailsPane extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTShadowed(
+        topPaddingIndent: 0,
         child: MTAdaptive(
           child: ListView(
             children: [
@@ -56,12 +57,12 @@ class DetailsPane extends StatelessWidget {
                         MTButton.main(
                           titleText: '${_task.status}',
                           constrained: false,
-                          padding: const EdgeInsets.symmetric(horizontal: P2),
-                          margin: const EdgeInsets.only(right: P2),
+                          padding: const EdgeInsets.symmetric(horizontal: P4),
+                          margin: const EdgeInsets.only(right: P3),
                           trailing: _task.canSetStatus
                               ? const Padding(
-                                  padding: EdgeInsets.only(left: P_3, top: P_6),
-                                  child: CaretIcon(size: Size(P * 0.8, P * 0.75), color: mainBtnTitleColor),
+                                  padding: EdgeInsets.only(left: P_2, top: P_2),
+                                  child: CaretIcon(size: Size(P2 * 0.8, P2 * 0.75), color: mainBtnTitleColor),
                                 )
                               : null,
                           onTap: _task.canSetStatus ? controller.statusController.selectStatus : null,
@@ -78,13 +79,12 @@ class DetailsPane extends StatelessWidget {
                 ),
               ],
               if (_task.hasAssignee || _task.canAssign) ...[
-                const SizedBox(height: P_2),
+                SizedBox(height: _task.hasStatus ? P : P3),
                 MTField(
                   controller.fData(TaskFCode.assignee.index),
                   leading: _task.hasAssignee
-                      ? _task.assignee!.icon(P18)
+                      ? _task.assignee!.icon(P3, borderColor: mainColor)
                       : PersonIcon(
-                          size: P3,
                           color: _task.canAssign ? mainColor : f2Color,
                         ),
                   value: _task.hasAssignee ? NormalText('${_task.assignee}', color: _task.canAssign ? null : f2Color) : null,
@@ -92,7 +92,7 @@ class DetailsPane extends StatelessWidget {
                 ),
               ],
               if (_task.hasDescription || _task.canUpdate) ...[
-                const SizedBox(height: P18),
+                const SizedBox(height: P3),
                 MTField(
                   controller.fData(TaskFCode.description.index),
                   leading: DescriptionIcon(color: _task.canUpdate ? mainColor : f2Color),
@@ -108,11 +108,11 @@ class DetailsPane extends StatelessWidget {
                   onSelect: _task.canUpdate ? controller.titleController.editDescription : null,
                 ),
               ],
-              const SizedBox(height: P18),
+              const SizedBox(height: P3),
               controller.datesController.dateField(context, TaskFCode.startDate),
               if (_task.hasDueDate || _task.canUpdate) controller.datesController.dateField(context, TaskFCode.dueDate),
               if (_task.hasEstimate || _task.canEstimate) ...[
-                const SizedBox(height: P18),
+                const SizedBox(height: P3),
                 MTField(
                   controller.fData(TaskFCode.estimate.index),
                   leading: EstimateIcon(color: _task.canEstimate ? mainColor : f2Color),
@@ -121,29 +121,29 @@ class DetailsPane extends StatelessWidget {
                 ),
               ],
               if (_task.hasAuthor) ...[
-                const SizedBox(height: P18),
+                const SizedBox(height: P3),
                 MTField(
                   controller.fData(TaskFCode.author.index),
-                  leading: _task.author!.icon(P18),
+                  leading: _task.author!.icon(P3),
                   value: NormalText('${_task.author}', color: f2Color),
                   onSelect: null,
                 ),
               ],
               if (_task.canComment) ...[
-                const SizedBox(height: P18),
+                const SizedBox(height: P3),
                 MTField(
                   controller.fData(TaskFCode.note.index),
                   value: NormalText(
                     controller.fData(TaskFCode.note.index).placeholder,
                     color: f2Color,
-                    padding: const EdgeInsets.symmetric(vertical: P_2),
+                    padding: const EdgeInsets.symmetric(vertical: P),
                   ),
                   leading: const NoteAddIcon(),
                   onSelect: controller.notesController.create,
                 ),
               ],
               if (controller.notesController.sortedNotesDates.isNotEmpty) ...[
-                const SizedBox(height: P18),
+                const SizedBox(height: P3),
                 Notes(controller.notesController),
               ],
             ],

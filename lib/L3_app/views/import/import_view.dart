@@ -57,7 +57,7 @@ class ImportView extends StatelessWidget {
             DropdownMenuItem<int>(
               value: s.id,
               child: Padding(
-                padding: const EdgeInsets.only(right: P),
+                padding: const EdgeInsets.only(right: P2),
                 child: s.listTile(
                   padding: EdgeInsets.zero,
                   standAlone: false,
@@ -66,22 +66,21 @@ class ImportView extends StatelessWidget {
             )
         ],
         label: loc.source_import_placeholder,
-        margin: const EdgeInsets.symmetric(horizontal: P),
+        margin: const EdgeInsets.symmetric(horizontal: P3),
       );
 
   Widget get _header => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const SizedBox(height: P2),
+          const SizedBox(height: P4),
           Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(child: _sourceDropdown),
               MTPlusButton(() async => await startAddSource(controller.ws), type: ButtonType.secondary),
             ],
           ),
           if (_sourceSelected) ...[
-            const SizedBox(height: P),
+            const SizedBox(height: P2),
             if (_hasProjects) ...[
               if (_showSelectAll)
                 MTCheckBoxTile(
@@ -97,7 +96,18 @@ class ImportView extends StatelessWidget {
         ],
       );
 
-  Widget get _body => _hasError
+  Widget _projectItemBuilder(BuildContext context, int index) {
+    final project = controller.projects[index];
+    final value = project.selected;
+    return MTCheckBoxTile(
+      title: project.title,
+      value: value,
+      bottomBorder: index < controller.projects.length - 1,
+      onChanged: (bool? value) => controller.selectProject(project, value),
+    );
+  }
+
+  Widget _body(BuildContext context) => _hasError
       ? ListView(
           shrinkWrap: true,
           children: [
@@ -115,19 +125,9 @@ class ImportView extends StatelessWidget {
                 itemBuilder: _projectItemBuilder,
                 itemCount: controller.projects.length,
               ),
+              bottomShadow: true,
             )
           : NoSources();
-
-  Widget _projectItemBuilder(BuildContext context, int index) {
-    final project = controller.projects[index];
-    final value = project.selected;
-    return MTCheckBoxTile(
-      title: project.title,
-      value: value,
-      bottomBorder: index < controller.projects.length - 1,
-      onChanged: (bool? value) => controller.selectProject(project, value),
-    );
-  }
 
   String get _importBtnCountHint => controller.selectedProjects.isNotEmpty ? ' (${controller.selectedProjects.length})' : '';
   String get _importActionHint =>
@@ -135,14 +135,15 @@ class ImportView extends StatelessWidget {
 
   Widget? get _bottomBar => _hasProjects
       ? Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          LightText(
+          SmallText(
             _importActionHint,
-            color: _validated ? null : warningColor,
+            height: 1,
+            color: _validated ? f2Color : warningColor,
             align: TextAlign.center,
           ),
-          const SizedBox(height: P_2),
+          const SizedBox(height: P),
           MTAdaptive.XS(
-            MTLimitBadge(
+            child: MTLimitBadge(
               child: MTButton.main(
                 constrained: false,
                 titleText: '${loc.import_action_title}$_importBtnCountHint',
@@ -173,10 +174,10 @@ class ImportView extends StatelessWidget {
             ],
           ),
         ),
-        topBarHeight: P2 * 2 + (_hasSources ? P * (6.5 + (_showSelectAll ? 4 : 0)) : 0) + (mainController.workspaces.length > 1 ? P2 : 0),
-        body: _body,
+        topBarHeight: P8 + (_hasSources ? P * (13 + (_showSelectAll ? 8 : 0)) : 0) + (mainController.workspaces.length > 1 ? P4 : 0),
+        body: _body(context),
         bottomBar: _bottomBar,
-        bottomBarHeight: _hasProjects ? P * 11 : null,
+        bottomBarHeight: _hasProjects ? P * 19 : null,
       ),
     );
   }

@@ -9,6 +9,7 @@ import '../../../../components/button.dart';
 import '../../../../components/checkbox.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
+import '../../../../components/shadowed.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
@@ -63,11 +64,14 @@ class _MemberEditViewState extends State<MemberEditView> {
             ],
           ),
         ),
-        topBarHeight: P * 7.5,
-        body: ListView.builder(
-          shrinkWrap: true,
-          itemBuilder: _roleItem,
-          itemCount: controller.roles.length,
+        topBarHeight: P * 14,
+        body: MTShadowed(
+          bottomShadow: true,
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemBuilder: _roleItem,
+            itemCount: controller.roles.length,
+          ),
         ),
         bottomBar: MTButton.main(
           titleText: loc.save_action_title,

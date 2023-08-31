@@ -50,7 +50,7 @@ InputDecoration tfDecoration(
   );
 }
 
-EdgeInsets get tfPadding => const EdgeInsets.fromLTRB(P, P2, P, 0);
+EdgeInsets get tfPadding => const EdgeInsets.fromLTRB(P2, P3, P2, 0);
 
 class MTTextField extends StatelessWidget {
   const MTTextField({

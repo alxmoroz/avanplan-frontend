@@ -4,14 +4,25 @@ import 'package:flutter/cupertino.dart';
 
 import 'colors_base.dart';
 
-const dangerColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 255, 120, 75),
-  darkColor: Color.fromARGB(255, 255, 140, 100),
+const mainColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, 90, 111, 228),
+  darkColor: Color.fromARGB(255, 100, 170, 255),
 );
 
-const goldColor = CupertinoColors.systemYellow;
+const greenColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, 31, 188, 180),
+  darkColor: Color.fromARGB(255, 44, 197, 189),
+);
 
-const warningColor = CupertinoColors.activeOrange;
+const dangerColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, 255, 140, 80),
+  darkColor: Color.fromARGB(255, 255, 142, 90),
+);
+
+const warningColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, 255, 192, 8),
+  darkColor: Color.fromARGB(255, 255, 200, 20),
+);
 
 const warningDarkColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(255, 255, 210, 130),
@@ -21,16 +32,6 @@ const warningDarkColor = CupertinoDynamicColor.withBrightness(
 const warningLightColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(255, 255, 242, 190),
   darkColor: Color.fromARGB(255, 115, 65, 10),
-);
-
-const greenColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 42, 182, 150),
-  darkColor: Color.fromARGB(255, 52, 202, 185),
-);
-
-const mainColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 90, 111, 228),
-  darkColor: Color.fromARGB(255, 100, 170, 255),
 );
 
 // цвет текста на основной кнопке

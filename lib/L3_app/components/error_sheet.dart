@@ -26,7 +26,7 @@ class MTErrorSheet extends StatelessWidget {
           middle: MediumText(
             error.title,
             maxLines: 2,
-            padding: const EdgeInsets.symmetric(horizontal: P2 * 2),
+            padding: const EdgeInsets.symmetric(horizontal: P8),
           ),
           onClose: onClose,
         ),
@@ -37,13 +37,13 @@ class MTErrorSheet extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           children: [
             if (error.description?.isNotEmpty == true) ...[
-              const SizedBox(height: P_2),
+              const SizedBox(height: P),
               NormalText(
                 error.description!,
-                padding: const EdgeInsets.symmetric(horizontal: P),
+                padding: const EdgeInsets.symmetric(horizontal: P2),
               ),
             ],
-            const SizedBox(height: P_2),
+            const SizedBox(height: P),
             ReportErrorButton(
               error.detail ?? error.description ?? error.title,
               color: warningLightColor,

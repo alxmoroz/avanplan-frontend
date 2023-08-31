@@ -7,13 +7,13 @@ import 'package:url_launcher/url_launcher_string.dart';
 import '../../../L2_data/repositories/communications_repo.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../../main.dart';
-import '../../components/button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
 import '../../components/navbar.dart';
 import '../../components/page.dart';
+import '../../components/shadowed.dart';
 import '../../components/text.dart';
 import '../../extra/services.dart';
 import '../../presenters/communications.dart';
@@ -31,8 +31,8 @@ class SettingsView extends StatelessWidget {
         trailing: Row(children: [
           if (notificationController.hasUnread)
             NormalText(
-              notificationController.unreadCount.toString(),
-              padding: const EdgeInsets.only(right: P_2),
+              '${notificationController.unreadCount}',
+              padding: const EdgeInsets.only(right: P),
             ),
           const ChevronIcon(),
         ]),
@@ -92,21 +92,23 @@ class SettingsView extends StatelessWidget {
           body: SafeArea(
             top: false,
             bottom: false,
-            child: ListView(
-              children: [
-                const SizedBox(height: P_2),
-                AccountListTile(),
-                const SizedBox(height: P2),
-                _notifications,
-                if (mainController.workspaces.isNotEmpty) _workspaces,
-                _about,
-                MTButton.secondary(
-                  margin: const EdgeInsets.only(top: P3, bottom: P2),
-                  titleText: loc.auth_sign_out_btn_title,
-                  titleColor: warningColor,
-                  onTap: authController.signOut,
-                ),
-              ],
+            child: MTShadowed(
+              child: ListView(
+                children: [
+                  AccountListTile(),
+                  const SizedBox(height: P3),
+                  _notifications,
+                  if (mainController.workspaces.isNotEmpty) _workspaces,
+                  _about,
+                  const SizedBox(height: P3),
+                  MTListTile(
+                    leading: const ExitIcon(color: warningColor),
+                    middle: NormalText(loc.auth_sign_out_btn_title, color: warningColor),
+                    bottomDivider: false,
+                    onTap: authController.signOut,
+                  ),
+                ],
+              ),
             ),
           ),
 

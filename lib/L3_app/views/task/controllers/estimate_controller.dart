@@ -42,9 +42,9 @@ class EstimateController {
         return Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (selected) const SizedBox(width: P),
+            if (selected) const SizedBox(width: P2),
             selected ? H3(text) : NormalText(text),
-            LightText(' ${task.ws.estimateUnitCode}'),
+            NormalText.f2(' ${task.ws.estimateUnitCode}'),
           ],
         );
       },

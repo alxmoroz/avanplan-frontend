@@ -30,9 +30,9 @@ class TaskPopupMenu extends StatelessWidget with FocusManaging {
   }
 
   Widget _tile(TaskActionType at, {Widget? leading, String? title, Widget? trailing, Color? color}) => Row(children: [
-        if (leading != null) ...[leading, const SizedBox(width: P_3)],
+        if (leading != null) ...[leading, const SizedBox(width: P_2)],
         title != null ? NormalText(title, color: (color ?? mainColor).withAlpha(_enabled(at) ? 255 : 110)) : const SizedBox(),
-        if (trailing != null) ...[const SizedBox(width: P_3), trailing],
+        if (trailing != null) ...[const SizedBox(width: P_2), trailing],
       ]);
 
   Widget _atWidget(TaskActionType at) {
@@ -87,7 +87,7 @@ class TaskPopupMenu extends StatelessWidget with FocusManaging {
   Widget build(BuildContext context) {
     return material(
       PopupMenuButton<TaskActionType>(
-        icon: Padding(padding: const EdgeInsets.symmetric(horizontal: P), child: icon),
+        icon: Padding(padding: const EdgeInsets.symmetric(horizontal: P2), child: icon),
         itemBuilder: (_) => [
           for (final at in _task.actionTypes)
             PopupMenuItem<TaskActionType>(

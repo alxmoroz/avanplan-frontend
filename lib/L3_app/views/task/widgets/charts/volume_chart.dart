@@ -15,9 +15,9 @@ class TaskVolumeChart extends StatelessWidget {
   const TaskVolumeChart(this.task);
   final Task task;
 
-  double get _radius => P * 6.5;
+  double get _radius => P * 13;
   double get _maxValue => 1;
-  double get _gaugeWidth => P18;
+  double get _gaugeWidth => P3;
   double get _barWidth => _gaugeWidth;
 
   Color get _pointerColor => mainColor;
@@ -44,7 +44,7 @@ class TaskVolumeChart extends StatelessWidget {
           ],
         ),
         D3(_chartText, color: _pointerColor),
-        SmallText(loc.chart_volume_unit, padding: EdgeInsets.only(top: _radius / 2 + P + P_2), color: f2Color),
+        SmallText(loc.chart_volume_unit, padding: EdgeInsets.only(top: _radius / 2 + P3), color: f2Color),
       ],
     );
   }

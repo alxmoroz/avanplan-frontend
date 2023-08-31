@@ -9,22 +9,22 @@ import '../../../components/constants.dart';
 import 'my_projects.dart';
 import 'my_tasks.dart';
 
-const double _BIG_WIDTH = (SCR_S_WIDTH + P2) * 2 + P2;
+const double _BIG_WIDTH = (SCR_S_WIDTH + P4) * 2 + P4;
 const double _BIG_HEIGHT = SCR_S_HEIGHT;
 const _MIN_HEIGHT = 240.0;
 
 bool dashboardBigScreen(BuildContext context) {
-  final _mq = MediaQuery.of(context);
-  return _mq.size.width > _BIG_WIDTH && _mq.size.height > _BIG_HEIGHT;
+  final _size = MediaQuery.sizeOf(context);
+  return _size.width > _BIG_WIDTH && _size.height > _BIG_HEIGHT;
 }
 
 class MainDashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _mq = MediaQuery.of(context);
-    final _topInnerPadding = (_mq.size.height > _BIG_HEIGHT ? P2 : P_2);
-    final _bottomPadding = max(_mq.padding.bottom, P2);
-    const _spacing = P2;
+    final _topInnerPadding = (_mq.size.height > _BIG_HEIGHT ? P4 : P);
+    final _bottomPadding = max(_mq.padding.bottom, P4);
+    const _spacing = P4;
 
     double _mainAxisExtent() {
       final _mq = MediaQuery.of(context);
@@ -40,18 +40,18 @@ class MainDashboard extends StatelessWidget {
 
     return dashboardBigScreen(context)
         ? Padding(
-            padding: const EdgeInsets.symmetric(horizontal: P2).copyWith(top: _topInnerPadding),
+            padding: const EdgeInsets.symmetric(horizontal: P4).copyWith(top: _topInnerPadding),
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                MTAdaptive.S(MyTasks(compact: false)),
+                MTAdaptive.S(child: MyTasks(compact: false)),
                 SizedBox(width: _spacing),
-                MTAdaptive.S(MyProjects(compact: false)),
+                MTAdaptive.S(child: MyProjects(compact: false)),
               ],
             ),
           )
         : GridView(
-            padding: _mq.padding.add(EdgeInsets.symmetric(vertical: _topInnerPadding, horizontal: P2).copyWith(bottom: _bottomPadding)),
+            padding: _mq.padding.add(EdgeInsets.symmetric(vertical: _topInnerPadding, horizontal: P4).copyWith(bottom: _bottomPadding)),
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: SCR_S_WIDTH,
               crossAxisSpacing: _spacing,

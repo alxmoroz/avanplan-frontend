@@ -75,7 +75,7 @@ class _MTAlertDialog extends StatelessWidget {
           : [
               if (a.icon != null) ...[
                 a.icon!,
-                const SizedBox(width: P_3),
+                const SizedBox(width: P),
               ],
               Expanded(child: _actionText(a)),
             ]);

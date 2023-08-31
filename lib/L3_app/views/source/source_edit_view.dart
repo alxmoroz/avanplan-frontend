@@ -96,7 +96,7 @@ class _SourceEditViewState extends State<SourceEditView> {
         children: [
           if (controller.showUrl) controller.tf(SourceFCode.url, first: true),
           if (controller.showUsername) controller.tf(SourceFCode.username, first: !controller.showUrl),
-          if (controller.showUrl || controller.showUsername) const SizedBox(height: P2),
+          if (controller.showUrl || controller.showUsername) const SizedBox(height: P3),
           controller.selectedType?.isTrello == true
               ? MTButton.secondary(
                   titleText: loc.source_get_token_action,
@@ -110,7 +110,7 @@ class _SourceEditViewState extends State<SourceEditView> {
                 ),
           controller.tf(SourceFCode.apiKey),
           controller.tf(SourceFCode.description),
-          const SizedBox(height: P),
+          const SizedBox(height: P3),
           MTButton.main(
             titleText: loc.save_action_title,
             onTap: _canSave ? controller.save : null,
@@ -127,7 +127,7 @@ class _SourceEditViewState extends State<SourceEditView> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Row(mainAxisSize: MainAxisSize.min, children: [
-                if (_isNew) MediumText(loc.source_title_new, padding: const EdgeInsets.only(right: P_2)),
+                if (_isNew) MediumText(loc.source_title_new, padding: const EdgeInsets.only(right: P2)),
                 controller.selectedType!.iconTitle,
               ]),
               if (mainController.workspaces.length > 1) controller.ws.subtitleRow
@@ -137,11 +137,11 @@ class _SourceEditViewState extends State<SourceEditView> {
               ? MTButton.icon(
                   const DeleteIcon(),
                   onTap: () => controller.delete(context),
-                  margin: const EdgeInsets.only(right: P),
+                  padding: const EdgeInsets.all(P2),
                 )
               : null,
         ),
-        topBarHeight: P2 * 2 + (mainController.workspaces.length > 1 ? P2 : 0),
+        topBarHeight: P8 + (mainController.workspaces.length > 1 ? P4 : 0),
         body: _form,
       ),
     );

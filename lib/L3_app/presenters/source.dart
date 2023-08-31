@@ -14,13 +14,13 @@ import '../components/text.dart';
 import '../extra/services.dart';
 
 extension SourceTypePresenter on SourceType {
-  Widget get icon => active ? Image.asset('assets/icons/${code}_icon.png', height: P2) : const MTCircle(size: P2, color: f3Color);
-  Widget get iconTitle => Row(children: [icon, const SizedBox(width: P_2), MediumText('$this')]);
+  Widget get icon => active ? Image.asset('assets/icons/${code}_icon.png', height: P4) : const MTCircle(size: P4, color: b1Color);
+  Widget get iconTitle => Row(children: [icon, const SizedBox(width: P), MediumText('$this')]);
 }
 
 extension SourcePresenter on Source {
   SourceType get type => refsController.typeForCode(typeCode);
-  double get _connectionIndicatorSize => P;
+  double get _connectionIndicatorSize => P2;
 
   Widget listTile({
     EdgeInsets? padding,

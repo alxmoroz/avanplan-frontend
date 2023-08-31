@@ -22,9 +22,9 @@ class WSSelector extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const SizedBox(height: P),
+        const SizedBox(height: P2),
         NormalText(loc.projects_add_select_ws_title),
-        const SizedBox(height: P),
+        const SizedBox(height: P2),
         ListView.builder(
           shrinkWrap: true,
           itemCount: mainController.workspaces.length + (controller.noMyWss ? 1 : 0),
@@ -36,7 +36,7 @@ class WSSelector extends StatelessWidget {
                 trailing: const ChevronIcon(),
                 bottomDivider: false,
                 onTap: controller.createMyWS,
-                padding: const EdgeInsets.all(P).copyWith(right: P + P_2),
+                padding: const EdgeInsets.all(P).copyWith(right: P3),
               );
             } else {
               final ws = mainController.workspaces[index];
@@ -52,12 +52,12 @@ class WSSelector extends StatelessWidget {
                 trailing: canSelect ? const ChevronIcon() : const PrivacyIcon(),
                 bottomDivider: index < mainController.workspaces.length - 1,
                 onTap: canSelect ? () => controller.selectWS(ws.id) : null,
-                padding: const EdgeInsets.all(P).copyWith(right: canSelect ? P + P_2 : P),
+                padding: const EdgeInsets.all(P2).copyWith(right: canSelect ? P3 : P2),
               );
             }
           },
         ),
-        const SizedBox(height: P),
+        const SizedBox(height: P3),
       ],
     );
   }

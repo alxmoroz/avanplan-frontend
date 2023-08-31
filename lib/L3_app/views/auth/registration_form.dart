@@ -45,7 +45,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
                     controller.tf(RegistrationFCode.name, first: true),
                     controller.tf(RegistrationFCode.email),
                     controller.tf(RegistrationFCode.password),
-                    const SizedBox(height: P2),
+                    const SizedBox(height: P4),
                     MTButton.main(
                       titleText: loc.auth_register_action_title,
                       onTap: controller.validated ? () => controller.createRequest(context) : null,

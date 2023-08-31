@@ -5,7 +5,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../main.dart';
 import '../../../components/button.dart';
-import '../../../components/colors_base.dart';
 import '../../../components/constants.dart';
 import '../../../components/shadowed.dart';
 import '../../../components/text.dart';
@@ -24,11 +23,11 @@ class MyProjects extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            NormalText(loc.project_list_title, align: TextAlign.center, color: f2Color),
-            const SizedBox(height: P),
+            NormalText.f2(loc.project_list_title, align: TextAlign.center),
+            const SizedBox(height: P3),
             compact ? Expanded(child: imageForState(mainController.projectsState)) : imageForState(mainController.projectsState),
             H2(groupStateTitle(mainController.projectsState), align: TextAlign.center),
-            const SizedBox(height: P),
+            const SizedBox(height: P3),
           ],
         ),
         onTap: _goToProjects,
@@ -42,10 +41,10 @@ class MyProjects extends StatelessWidget {
           : Column(
               children: [
                 _contents,
-                const SizedBox(height: P),
+                const SizedBox(height: P3),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: P_2),
+                    padding: const EdgeInsets.symmetric(horizontal: P),
                     child: MTShadowed(
                       child: TasksGroup(mainController.attentionalProjects),
                     ),

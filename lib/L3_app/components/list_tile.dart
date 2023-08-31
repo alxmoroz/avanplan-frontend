@@ -20,7 +20,6 @@ class MTListTile extends StatelessWidget with FocusManaging {
     this.onTap,
     this.color,
     this.padding,
-    this.topIndent = 0,
     this.dividerLeftIndent,
     this.topDivider = false,
     this.bottomDivider = true,
@@ -34,7 +33,6 @@ class MTListTile extends StatelessWidget with FocusManaging {
   final Widget? trailing;
   final Function()? onTap;
   final Color? color;
-  final double topIndent;
   final EdgeInsets? padding;
   final double? dividerLeftIndent;
   final bool topDivider;
@@ -42,20 +40,14 @@ class MTListTile extends StatelessWidget with FocusManaging {
   final CrossAxisAlignment? crossAxisAlignment;
   final bool uf;
 
-  static const _defaultIndent = P18;
+  static const _defaultIndent = P3;
 
   Widget get _divider => MTDivider(
-        height: 0,
         indent: dividerLeftIndent ?? padding?.left ?? _defaultIndent,
         endIndent: padding?.right ?? _defaultIndent,
       );
 
-  EdgeInsets get _defaultPadding => EdgeInsets.only(
-        left: _defaultIndent,
-        top: P + topIndent,
-        right: _defaultIndent,
-        bottom: P,
-      );
+  EdgeInsets get _defaultPadding => const EdgeInsets.symmetric(horizontal: _defaultIndent, vertical: P2);
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +73,7 @@ class MTListTile extends StatelessWidget with FocusManaging {
                 child: Row(
                   crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
                   children: [
-                    if (leading != null) ...[leading!, const SizedBox(width: P_2)],
+                    if (leading != null) ...[leading!, const SizedBox(width: P2)],
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -110,10 +102,9 @@ class MTListSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return H3(
+    return NormalText.f2(
       title,
-      padding: const EdgeInsets.symmetric(horizontal: P2).copyWith(top: P2, bottom: P_2),
-      color: f2Color,
+      padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P3, bottom: P2),
     );
   }
 }

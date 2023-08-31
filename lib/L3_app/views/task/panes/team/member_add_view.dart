@@ -5,7 +5,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/role.dart';
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
@@ -50,17 +49,17 @@ class _MemberAddViewState extends State<MemberAddView> {
     super.dispose();
   }
 
-  Widget get tabPaneSelector => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: P),
-        child: CupertinoSlidingSegmentedControl<MemberSourceKey>(
-          children: {
-            MemberSourceKey.invitation: NormalText(loc.member_source_invitation_title),
-            MemberSourceKey.workspace: NormalText(loc.member_source_workspace_title),
-          },
-          groupValue: _controller.tabKey,
-          onValueChanged: _controller.selectTab,
-        ),
-      );
+  // Widget get _tabPaneSelector => Padding(
+  //       padding: const EdgeInsets.symmetric(horizontal: P3),
+  //       child: CupertinoSlidingSegmentedControl<MemberSourceKey>(
+  //         children: {
+  //           MemberSourceKey.invitation: NormalText(loc.member_source_invitation_title),
+  //           MemberSourceKey.workspace: NormalText(loc.member_source_workspace_title),
+  //         },
+  //         groupValue: _controller.tabKey,
+  //         onValueChanged: _controller.selectTab,
+  //       ),
+  //     );
 
   Widget get _selectedPane =>
       {
@@ -79,7 +78,7 @@ class _MemberAddViewState extends State<MemberAddView> {
           children: [
             // TODO: https://redmine.moroz.team/issues/2527
             // tabPaneSelector,
-            NormalText('${_invitationController.task}:', align: TextAlign.center, maxLines: 3),
+            NormalText('${_invitationController.task}:', align: TextAlign.center, maxLines: 1),
             NormalText(_invitationController.role.localize, align: TextAlign.center),
             _selectedPane,
           ],

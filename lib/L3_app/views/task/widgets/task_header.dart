@@ -36,7 +36,6 @@ class TaskHeader extends StatelessWidget {
               colors: [_task.bgColor.resolve(context), b2Color.resolve(context)],
             ),
           ),
-          padding: const EdgeInsets.symmetric(horizontal: P),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,7 +44,7 @@ class TaskHeader extends StatelessWidget {
                 MTField(
                   controller.fData(TaskFCode.parent.index),
                   value: NormalText(_task.parent!.title),
-                  padding: const EdgeInsets.symmetric(vertical: P_2),
+                  padding: const EdgeInsets.symmetric(vertical: P, horizontal: P3),
                   color: b2Color,
                 ),
               MTField(
@@ -64,10 +63,10 @@ class TaskHeader extends StatelessWidget {
                   style: const H1('').style(context),
                   onChanged: controller.titleController.editTitle,
                 ),
-                padding: EdgeInsets.zero,
+                padding: const EdgeInsets.symmetric(vertical: 0, horizontal: P3),
                 color: b2Color,
               ),
-              const SizedBox(height: P_2),
+              const SizedBox(height: P),
             ],
           ),
         ),

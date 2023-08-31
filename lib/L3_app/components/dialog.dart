@@ -79,8 +79,8 @@ class MTDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context);
-    final double bbHeight = bottomBar != null ? (bottomBarHeight ?? P * 4 + MIN_BTN_HEIGHT) : max(P2, mq.padding.bottom);
-    final double tbHeight = topBar != null ? (topBarHeight ?? P2 * 2) : 0;
+    final double bbHeight = bottomBar != null ? (bottomBarHeight ?? P8 + MIN_BTN_HEIGHT) : max(P6, mq.padding.bottom);
+    final double tbHeight = topBar != null ? (topBarHeight ?? P8) : 0;
     const radius = Radius.circular(DEF_BORDER_RADIUS);
     final big = _bigScreen(context);
     return GestureDetector(

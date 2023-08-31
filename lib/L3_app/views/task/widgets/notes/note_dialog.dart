@@ -23,14 +23,13 @@ class NoteDialog extends StatelessWidget {
         children: [
           MTTextField(
             controller: teController,
-            margin: const EdgeInsets.symmetric(horizontal: P),
+            margin: const EdgeInsets.symmetric(horizontal: P2),
           ),
 
           // MTButton.main(
           //   titleText: loc.save_action_title,
           //   onTap: teController.text.trim().isNotEmpty ? () => Navigator.of(context).pop(teController.text) : null,
           // ),
-          const SizedBox(height: P),
         ],
       ),
     );

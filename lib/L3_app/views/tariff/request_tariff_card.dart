@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import '../../../L2_data/repositories/communications_repo.dart';
 import '../../components/button.dart';
 import '../../components/card.dart';
-import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/text.dart';
@@ -21,28 +20,27 @@ class RequestTariffCard extends StatelessWidget {
           Expanded(
             child: ListView(
               children: [
-                H3(loc.tariff_type_request_title, align: TextAlign.center, padding: const EdgeInsets.all(P)),
+                H3(loc.tariff_type_request_title, align: TextAlign.center, padding: const EdgeInsets.all(P3)),
                 const Row(mainAxisAlignment: MainAxisAlignment.center, children: [StarIcon(), StarIcon(), StarIcon()]),
-                const SizedBox(height: P_2),
-                NormalText(loc.tariff_limit_special_conditions_title, align: TextAlign.center, padding: const EdgeInsets.all(P)),
+                const SizedBox(height: P),
+                NormalText(loc.tariff_limit_special_conditions_title, align: TextAlign.center, padding: const EdgeInsets.all(P3)),
               ],
             ),
           ),
-          MediumText(
+          NormalText.f2(
             loc.tariff_price_request_action_hint,
             align: TextAlign.center,
-            color: f2Color,
-            padding: const EdgeInsets.all(P_2),
+            padding: const EdgeInsets.all(P2),
           ),
           MTButton.secondary(
             titleText: loc.tariff_price_request_action_title,
-            margin: const EdgeInsets.symmetric(horizontal: P),
+            margin: const EdgeInsets.symmetric(horizontal: P3),
             onTap: () => sendMail(loc.tariff_price_request_mail_subject, appTitle, accountController.user?.id),
           ),
-          const SizedBox(height: P2),
+          const SizedBox(height: P4),
         ],
       ),
-      margin: const EdgeInsets.symmetric(horizontal: P_2).copyWith(bottom: P_2),
+      margin: const EdgeInsets.symmetric(horizontal: P2).copyWith(bottom: P2),
     );
   }
 }

@@ -32,7 +32,10 @@ class MTTopBar extends StatelessWidget {
       alignment: Alignment.topCenter,
       children: [
         if (middle != null || titleText != null)
-          Padding(padding: const EdgeInsets.only(top: P), child: middle ?? MediumText(titleText!, align: TextAlign.center)),
+          Padding(
+            padding: const EdgeInsets.only(top: P2),
+            child: middle ?? MediumText(titleText!, align: TextAlign.center),
+          ),
         Row(children: [
           if (leading != null || showCloseButton) leading ?? MTCloseDialogButton(onTap: onClose),
           const Spacer(),
@@ -54,7 +57,7 @@ class MTToolbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bPadding = top ? 0.0 : bottomPadding(context);
-    final topPadding = top ? 0.0 : P;
+    final topPadding = top ? 0.0 : P2;
 
     final inner = Padding(
       padding: EdgeInsets.only(

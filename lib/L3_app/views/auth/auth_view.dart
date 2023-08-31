@@ -63,7 +63,7 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
         color: _btnColor,
         titleColor: _btnColor,
         onTap: onTap,
-        margin: const EdgeInsets.only(top: P18),
+        margin: const EdgeInsets.only(top: P3),
       );
 
   @override
@@ -84,7 +84,6 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
                     const SizedBox(height: P2),
                     appIcon(size: size.maxHeight / 4),
                     H3(authController.registerMode ? loc.auth_register_with_title : loc.auth_sign_in_with_title, align: TextAlign.center),
-                    const SizedBox(height: P),
                     Column(
                       children: [
                         _authBtn(
@@ -104,18 +103,18 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
                       ],
                     ),
                     _authBtn(
-                      MailIcon(color: _titleColor),
+                      MailIcon(color: _titleColor, size: P4),
                       loc.auth_sign_in_email_title,
-                      P2,
+                      P4,
                       authController.registerMode ? registrationDialog : showSignInEmailDialog,
-                      titleLeftPadding: P,
+                      titleLeftPadding: P2,
                     ),
-                    const SizedBox(height: P2),
+                    const SizedBox(height: P3),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         NormalText(authController.registerMode ? loc.auth_sign_in_mode_hint_title : loc.auth_register_mode_hint_title),
-                        const SizedBox(width: P_2),
+                        const SizedBox(width: P),
                         MTButton(
                           titleText: authController.registerMode ? loc.auth_sign_in_mode_title : loc.auth_register_mode_title,
                           onTap: authController.toggleRegisterMode,
@@ -132,7 +131,10 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
       bottomBar: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (!isIOS) const LegalLinks(),
+          if (!isIOS) ...[
+            const LegalLinks(),
+            const SizedBox(height: P2),
+          ],
           const AppVersion(),
         ],
       ),

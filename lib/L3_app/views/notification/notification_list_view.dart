@@ -13,6 +13,7 @@ import '../../components/icons.dart';
 import '../../components/list_tile.dart';
 import '../../components/navbar.dart';
 import '../../components/page.dart';
+import '../../components/shadowed.dart';
 import '../../components/text.dart';
 import '../../extra/services.dart';
 import '../../presenters/date.dart';
@@ -38,13 +39,14 @@ class NotificationListView extends StatelessWidget {
         ),
         // subtitle: description.isNotEmpty && !m.isRead ? LightText(description, maxLines: 2) : null,
         trailing: const ChevronIcon(),
+        bottomDivider: index < _controller.notifications.length - 1,
         onTap: () => _controller.showNotification(context, n: n),
       );
     } else {
       return SmallText(
         loc.notification_list_hint_title,
         align: TextAlign.center,
-        padding: const EdgeInsets.symmetric(horizontal: P, vertical: P2),
+        padding: const EdgeInsets.all(P3),
       );
     }
   }
@@ -73,20 +75,25 @@ class NotificationListView extends StatelessWidget {
             bottom: false,
             child: _controller.notifications.isEmpty
                 ? Center(child: H3(loc.notification_list_empty_title, align: TextAlign.center, color: f2Color))
-                : MTAdaptive(
-                    child: ListView.builder(
-                      itemBuilder: (_, int index) => _itemBuilder(context, index),
-                      itemCount: _controller.notifications.length + 1,
+                : MTShadowed(
+                    bottomShadow: _controller.pushDenied,
+                    child: MTAdaptive(
+                      child: ListView.builder(
+                        itemBuilder: (_, int index) => _itemBuilder(context, index),
+                        itemCount: _controller.notifications.length + 1,
+                      ),
                     ),
                   ),
           ),
-          bottomBar: _controller.pushDenied
+          bottomBar: !_controller.pushDenied
               ? MTButton(
-                  leading: const PrivacyIcon(size: P2),
+                  leading: const PrivacyIcon(),
                   middle: SmallText(
                     loc.notification_push_ios_denied_btn_title,
                     align: TextAlign.center,
+                    height: 1,
                   ),
+                  trailing: const LinkOutIcon(),
                   onTap: _showGotoSystemSettingsDialog,
                 )
               : null,

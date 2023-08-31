@@ -27,7 +27,7 @@ class TimingChart extends StatelessWidget {
   @protected
   final Task task;
 
-  static double get _barHeight => P2;
+  static double get _barHeight => P4;
   double get _suffixWidth => _barHeight / 2;
   double get _borderWidth => 0.0;
 
@@ -49,7 +49,7 @@ class TimingChart extends StatelessWidget {
           ? greenColor
           : f1Color;
 
-  Size get _markSize => const Size(P * 0.7, P * 0.9);
+  Size get _markSize => const Size(P2 * 0.7, P2);
 
   Iterable<_DateBarData> get _dateBarData {
     final _now = DateTime.now();
@@ -140,7 +140,7 @@ class TimingChart extends StatelessWidget {
   }
 
   Widget _timeChart(BuildContext context) {
-    final prefixWidth = _barHeight * 0.7 + P2;
+    final prefixWidth = _barHeight * 0.7 + P4;
 
     return SizedBox(
       height: _barHeight + _borderWidth * 2,
@@ -150,14 +150,13 @@ class TimingChart extends StatelessWidget {
           MTCard(
             elevation: 0,
             color: b2Color,
-            // borderSide: BorderSide(color: _barColor.resolve(context), width: _borderWidth),
             child: Row(
               children: [
                 Container(
                   alignment: Alignment.center,
                   color: task.isFuture ? null : _barColor.resolve(context),
                   width: prefixWidth,
-                  padding: const EdgeInsets.symmetric(horizontal: P),
+                  padding: const EdgeInsets.symmetric(horizontal: P2),
                   child: CalendarIcon(size: _barHeight * 0.8, color: f1Color),
                 ),
                 const Spacer(),

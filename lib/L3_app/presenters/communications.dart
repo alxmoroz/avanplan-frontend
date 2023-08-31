@@ -23,7 +23,7 @@ class ReportErrorButton extends StatelessWidget {
       titleText: loc.report_bug_action_title,
       titleColor: titleColor,
       color: color,
-      margin: const EdgeInsets.only(top: P),
+      margin: const EdgeInsets.only(top: P3),
       onTap: () => sendMail(loc.contact_us_mail_subject, appTitle, accountController.user?.id, errorText),
     );
   }

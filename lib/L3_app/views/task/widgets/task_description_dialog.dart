@@ -22,9 +22,8 @@ class TaskDescriptionDialog extends StatelessWidget {
         children: [
           MTTextField(
             controller: teController,
-            margin: const EdgeInsets.symmetric(horizontal: P),
+            margin: const EdgeInsets.symmetric(horizontal: P2),
           ),
-          const SizedBox(height: P),
         ],
       ),
     );

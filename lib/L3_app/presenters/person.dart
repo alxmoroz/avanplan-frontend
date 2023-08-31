@@ -10,27 +10,31 @@ import '../components/colors.dart';
 import '../components/colors_base.dart';
 import 'role.dart';
 
-class PersonAvatar extends StatelessWidget {
-  const PersonAvatar(this.person, this.radius, {this.borderSide});
+class _PersonIcon extends StatelessWidget {
+  const _PersonIcon(this.person, this.radius, {this.borderColor});
   final Person person;
   final double radius;
-  final BorderSide? borderSide;
+  final Color? borderColor;
 
   String get _hash => md5.convert(utf8.encode(person.email)).toString();
 
   @override
   Widget build(BuildContext context) => CircleAvatar(
         radius: radius,
-        backgroundColor: (borderSide?.color ?? f2Color).resolve(context),
+        backgroundColor: (borderColor ?? f3Color).resolve(context),
         child: CircleAvatar(
-          radius: radius - (borderSide?.width ?? 0.5) * 2,
-          backgroundColor: b2Color.resolve(context),
-          backgroundImage: NetworkImage('https://www.gravatar.com/avatar/$_hash?s=${radius * 6}&d=identicon'),
+          radius: radius - 2,
+          backgroundColor: b3Color.resolve(context),
+          child: CircleAvatar(
+            radius: radius - 3,
+            backgroundColor: b2Color.resolve(context),
+            backgroundImage: NetworkImage('https://www.gravatar.com/avatar/$_hash?s=${radius * 6}&d=identicon'),
+          ),
         ),
       );
 }
 
 extension PersonPresenter on Person {
   String get rolesStr => roles.map((rCode) => localizedRoleCode(rCode)).join(', ');
-  Widget icon(double radius, {BorderSide? borderSide}) => PersonAvatar(this, radius, borderSide: borderSide);
+  Widget icon(double radius, {Color? borderColor}) => _PersonIcon(this, radius, borderColor: borderColor);
 }

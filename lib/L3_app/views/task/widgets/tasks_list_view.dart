@@ -4,12 +4,9 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../../L1_domain/entities/task.dart';
 import '../../../components/adaptive.dart';
-import '../../../components/constants.dart';
-import '../../../components/images.dart';
 import '../../../components/shadowed.dart';
-import '../../../components/text.dart';
-import '../../../extra/services.dart';
 import '../controllers/task_controller.dart';
+import 'no_tasks.dart';
 import 'state_title.dart';
 import 'tasks_group.dart';
 
@@ -49,20 +46,7 @@ class TasksListView extends StatelessWidget {
                 itemBuilder: (_, index) => _groupedItemBuilder(index),
                 itemCount: groups.length + (_hasExtra ? 1 : 0),
               )
-            : Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: P),
-                  child: ListView(
-                    shrinkWrap: true,
-                    children: [
-                      MTImage(ImageNames.empty_tasks.toString()),
-                      H2(loc.task_list_empty_title, align: TextAlign.center),
-                      const SizedBox(height: P),
-                      H3(loc.task_list_empty_hint, align: TextAlign.center),
-                    ],
-                  ),
-                ),
-              ),
+            : Center(child: NoTasks()),
       ),
     );
   }

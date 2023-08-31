@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/user.dart';
+import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
@@ -22,13 +23,12 @@ class AccountListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return user != null
         ? MTListTile(
-            leading: Padding(
-              padding: const EdgeInsets.only(right: P_2),
-              child: user!.icon(P3),
-            ),
-            middle: H3(_title),
+            leading: user!.icon(P6, borderColor: mainColor),
+            middle: Row(children: [
+              Expanded(child: H3(_title)),
+              const ChevronIcon(),
+            ]),
             subtitle: _subtitle != _title ? NormalText.f2(_subtitle) : null,
-            trailing: const ChevronIcon(),
             bottomDivider: false,
             onTap: () => _showAccount(context),
           )

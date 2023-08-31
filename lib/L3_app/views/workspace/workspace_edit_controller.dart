@@ -59,7 +59,7 @@ abstract class _WorkspaceEditControllerBase extends EditController with Store {
     return MTTextField(
       controller: teController(code.index),
       label: fd.label,
-      margin: tfPadding.copyWith(top: code == WSFCode.code ? P_2 : tfPadding.top),
+      margin: tfPadding.copyWith(top: code == WSFCode.code ? P : tfPadding.top),
     );
   }
 }

@@ -33,10 +33,10 @@ class MyTasks extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             NormalText(loc.my_tasks_title, align: TextAlign.center, color: f2Color),
-            const SizedBox(height: P),
+            const SizedBox(height: P3),
             compact ? Expanded(child: _mainInfo(context)) : _mainInfo(context),
             H2(_myTasksCount > 0 ? mainController.myUpcomingTasksTitle : loc.task_list_empty_title, align: TextAlign.center),
-            const SizedBox(height: P),
+            const SizedBox(height: P3),
           ],
         ),
         onTap: _goToTasks,
@@ -50,11 +50,11 @@ class MyTasks extends StatelessWidget {
           : Column(
               children: [
                 _contents(context),
-                const SizedBox(height: P),
+                const SizedBox(height: P3),
                 _myTasksCount > 0
                     ? Expanded(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: P_2),
+                          padding: const EdgeInsets.symmetric(horizontal: P),
                           child: MTShadowed(child: TasksGroup(mainController.myTasksGroups.first.value, isMine: true)),
                         ),
                       )

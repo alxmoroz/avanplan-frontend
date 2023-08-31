@@ -7,6 +7,7 @@ import '../../../../../L1_domain/entities/member.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../components/adaptive.dart';
+import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
@@ -33,11 +34,7 @@ class TeamPane extends StatelessWidget {
   Widget _memberBuilder(BuildContext context, int index) {
     final member = _sortedMembers[index];
     return MTListTile(
-      topIndent: index == 0 ? P_2 : 0,
-      leading: Padding(
-        padding: const EdgeInsets.only(right: P_2),
-        child: member.isActive ? member.icon(P2) : const LinkBreakIcon(color: f2Color),
-      ),
+      leading: member.isActive ? member.icon(P4, borderColor: mainColor) : const LinkBreakIcon(color: f2Color),
       middle: NormalText('$member', color: member.isActive ? null : f2Color),
       subtitle: member.isActive ? SmallText(member.rolesStr) : null,
       trailing: const ChevronIcon(),

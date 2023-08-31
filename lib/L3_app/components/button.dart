@@ -149,9 +149,9 @@ class MTButton extends StatelessWidget with FocusManaging {
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (leading != null) ...[leading!, const SizedBox(width: P_3)],
+        if (leading != null) ...[leading!, const SizedBox(width: P)],
         middle ?? (titleText != null ? MediumText(titleText!, color: _titleColor) : Container()),
-        if (trailing != null) ...[const SizedBox(width: P_3), trailing!],
+        if (trailing != null) ...[const SizedBox(width: P), trailing!],
       ],
     );
 
@@ -184,7 +184,7 @@ class MTButton extends StatelessWidget with FocusManaging {
         ],
       ),
     );
-    return type == ButtonType.icon || !constrained ? btn : MTAdaptive.XS(btn);
+    return type == ButtonType.icon || !constrained ? btn : MTAdaptive.XS(child: btn);
   }
 }
 
@@ -198,7 +198,7 @@ class MTPlusButton extends StatelessWidget {
     return MTButton(
       type: type,
       middle: PlusIcon(color: type == ButtonType.main ? mainBtnTitleColor : mainColor),
-      margin: const EdgeInsets.only(right: P),
+      margin: const EdgeInsets.only(right: P3),
       onTap: onTap,
     );
   }
@@ -233,7 +233,7 @@ class MTCardButton extends StatelessWidget {
       middle: Expanded(child: child),
       constrained: false,
       margin: margin ?? EdgeInsets.zero,
-      padding: padding ?? const EdgeInsets.all(P),
+      padding: padding ?? const EdgeInsets.all(P3),
       loading: loading,
       onTap: onTap,
       onLongPress: onLongPress,

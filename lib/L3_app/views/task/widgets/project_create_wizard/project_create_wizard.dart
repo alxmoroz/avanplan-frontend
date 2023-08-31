@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/source_type.dart';
+import '../../../../../L1_domain/entities/workspace.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
@@ -32,6 +33,8 @@ class ProjectCreateWizard extends StatefulWidget {
 class _ProjectCreateWizardState extends State<ProjectCreateWizard> {
   late final ProjectCreateWizardController controller;
 
+  Workspace get ws => controller.ws!;
+
   @override
   void initState() {
     controller = ProjectCreateWizardController();
@@ -39,7 +42,7 @@ class _ProjectCreateWizardState extends State<ProjectCreateWizard> {
   }
 
   Future startImport(SourceType? sType) async {
-    if (controller.ws!.plProjects) {
+    if (ws.plProjects) {
       if (controller.mustSelectST && sType == null) {
         controller.selectImportMode();
       } else {
@@ -48,7 +51,7 @@ class _ProjectCreateWizardState extends State<ProjectCreateWizard> {
       }
     } else {
       Navigator.of(context).pop();
-      await controller.ws?.changeTariff(
+      await ws.changeTariff(
         reason: loc.tariff_change_limit_projects_reason_title,
       );
     }
@@ -57,35 +60,35 @@ class _ProjectCreateWizardState extends State<ProjectCreateWizard> {
   Widget get modeSelector => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const SizedBox(height: P),
+          const SizedBox(height: P2),
           if (mainController.workspaces.length > 1) ...[
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SmallText('[${controller.ws!.code}] '),
-                MediumText(controller.ws!.title),
+                NormalText.f2('[${ws.code}] '),
+                MediumText(ws.title),
               ],
             ),
           ],
-          const SizedBox(height: P),
+          const SizedBox(height: P2),
           ListView(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             children: [
               MTAdaptive.XS(
-                MTLimitBadge(
-                  showBadge: !controller.ws!.plProjects,
+                child: MTLimitBadge(
+                  showBadge: !ws.plProjects,
                   child: MTButton.main(
-                    leading: const ImportIcon(color: mainBtnTitleColor),
+                    leading: const ImportIcon(color: mainBtnTitleColor, size: P4),
                     constrained: false,
                     titleText: loc.import_action_title,
                     onTap: () => startImport(null),
                   ),
                 ),
               ),
-              const SizedBox(height: P),
-              TaskCreateButton(CreateController(controller.ws!, null), dismissible: true),
+              const SizedBox(height: P2),
+              TaskCreateButton(CreateController(ws, null), dismissible: true),
             ],
           ),
         ],

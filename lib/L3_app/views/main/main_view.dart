@@ -55,7 +55,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
         )
       : null;
 
-  static const _iconSize = P3;
+  static const _iconSize = P6;
 
   @override
   Widget build(BuildContext context) {
@@ -65,9 +65,9 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
           context,
           leading: accountController.user != null
               ? MTButton.icon(
-                  accountController.user!.icon(_iconSize / 2, borderSide: const BorderSide(color: mainColor)),
+                  accountController.user!.icon(_iconSize / 2, borderColor: mainColor),
                   onTap: () async => await Navigator.of(context).pushNamed(SettingsView.routeName),
-                  padding: const EdgeInsets.only(left: P2, right: P),
+                  padding: const EdgeInsets.only(left: P3),
                 )
               : null,
           middle: H1(loc.app_title),
@@ -78,12 +78,11 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
                 MTButton.icon(
                   BellIcon(size: _iconSize, hasUnread: notificationController.hasUnread, color: mainColor),
                   onTap: () async => await Navigator.of(context).pushNamed(NotificationListView.routeName),
-                  padding: const EdgeInsets.only(left: P, right: P_2),
                 ),
               MTButton.icon(
                 const RefreshIcon(size: _iconSize),
                 onTap: mainController.manualUpdate,
-                padding: const EdgeInsets.only(left: P_2, right: P2),
+                padding: const EdgeInsets.only(left: P, right: P3),
               ),
             ],
           ),

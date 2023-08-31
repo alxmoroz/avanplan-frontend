@@ -23,7 +23,7 @@ class _ItemTarget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: MIN_BTN_HEIGHT * 1,
-      margin: const EdgeInsets.all(P).copyWith(top: 0),
+      margin: const EdgeInsets.all(P2).copyWith(top: 0),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(DEF_BORDER_RADIUS)),
         border: Border.all(width: 1, color: b2Color.resolve(context)),
@@ -65,7 +65,7 @@ class TasksBoard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (status.closed) const DoneIcon(true, color: f2Color),
-          NormalText('$status', padding: const EdgeInsets.all(P_2)),
+          NormalText('$status', padding: const EdgeInsets.all(P)),
         ],
       ),
       children: [for (final t in tasks) _taskBuilder(t)],
@@ -87,14 +87,14 @@ class TasksBoard extends StatelessWidget {
         onListReorder: (int oldListIndex, int newListIndex) {},
         axis: Axis.horizontal,
         listWidth: SCR_XS_WIDTH,
-        listPadding: EdgeInsets.only(top: P, bottom: mq.padding.bottom + P, left: P),
+        listPadding: EdgeInsets.only(top: P2, bottom: mq.padding.bottom + P2, left: P3),
         itemGhost: const SizedBox(height: MIN_BTN_HEIGHT),
         lastListTargetSize: 0,
         listDecoration: BoxDecoration(
           color: b1Color.resolve(context),
           borderRadius: const BorderRadius.all(Radius.circular(DEF_BORDER_RADIUS)),
         ),
-        lastItemTargetHeight: P,
+        lastItemTargetHeight: P2,
         listDragOnLongPress: !isWeb,
       ),
     );

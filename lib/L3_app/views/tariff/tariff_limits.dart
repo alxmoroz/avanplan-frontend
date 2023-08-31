@@ -21,6 +21,8 @@ class _TariffLimitTile extends StatelessWidget {
   final Tariff tariff;
   final String code;
 
+  static const iconSize = P5;
+
   @override
   Widget build(BuildContext context) {
     final value = tariff.limitValue(code);
@@ -31,15 +33,15 @@ class _TariffLimitTile extends StatelessWidget {
     final prefix = loc.tariff_limit_up_to_prefix;
     String suffix = '';
 
-    Widget icon = const SizedBox(width: P2);
+    Widget icon = const SizedBox(width: iconSize);
     if (code == 'USERS_COUNT') {
-      icon = const PeopleIcon(color: f2Color);
+      icon = const PeopleIcon(size: iconSize, color: f2Color);
       suffix = loc.user_plural_genitive(plural);
     } else if (code == 'PROJECTS_COUNT') {
-      icon = const ProjectsIcon(color: f2Color);
+      icon = const ProjectsIcon(size: iconSize, color: f2Color);
       suffix = loc.project_plural_genitive(plural);
     } else if (code == 'TASKS_COUNT') {
-      icon = const TasksIcon(color: f2Color);
+      icon = const TasksIcon(size: iconSize, color: f2Color);
       suffix = loc.task_plural_genitive(plural);
     }
 
@@ -48,15 +50,13 @@ class _TariffLimitTile extends StatelessWidget {
       middle: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          const SizedBox(width: P_2),
-          LightText(prefix),
-          const SizedBox(width: P_2),
+          NormalText.f2(prefix),
+          const SizedBox(width: P),
           H3(hvStr),
-          const SizedBox(width: P_2),
+          const SizedBox(width: P),
           NormalText(suffix),
         ],
       ),
-      padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
       bottomDivider: false,
     );
   }
@@ -70,7 +70,7 @@ class TariffLimits extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        H3(tariff.title, align: TextAlign.center, padding: const EdgeInsets.all(P)),
+        H3(tariff.title, align: TextAlign.center, padding: const EdgeInsets.all(P3)),
         for (var code in tariff.limitsMap.keys) _TariffLimitTile(tariff: tariff, code: code),
       ],
     );

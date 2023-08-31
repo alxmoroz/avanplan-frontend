@@ -59,11 +59,11 @@ class LocalImportDialog extends StatelessWidget {
   }
 
   Widget _addressLine(String label, String title) => MTListTile(
-        leading: LightText(label, color: f2Color),
+        leading: NormalText.f2(label),
         middle: NormalText(title, maxLines: 1),
         color: b2Color,
         bottomDivider: false,
-        padding: const EdgeInsets.symmetric(horizontal: P + P_2),
+        padding: const EdgeInsets.symmetric(horizontal: P3),
       );
 
   @override
@@ -87,12 +87,13 @@ class LocalImportDialog extends StatelessWidget {
                     onChanged: controller.toggleSelectedAll,
                   )
                 else
-                  const SizedBox(height: P),
+                  const SizedBox(height: P2),
               ],
             ),
           ),
-          topBarHeight: P * 9 + (P * (_showSelectAll ? 3 : 0)),
+          topBarHeight: P * 17 + (P2 * (_showSelectAll ? 3 : 0)),
           body: MTShadowed(
+            bottomShadow: true,
             child: ListView.builder(
               shrinkWrap: true,
               itemBuilder: _taskItem,

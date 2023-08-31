@@ -22,11 +22,11 @@ class _StateTitle extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               stateIconGroup(context, state),
-              const SizedBox(width: P),
+              const SizedBox(width: P2),
               Expanded(
                 child: NormalText(
                   text,
-                  padding: const EdgeInsets.only(bottom: P_2),
+                  padding: const EdgeInsets.only(bottom: P),
                 ),
               ),
             ],
@@ -44,7 +44,7 @@ class GroupStateTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: (place == StateTitlePlace.groupHeader ? const EdgeInsets.symmetric(horizontal: P).copyWith(top: P) : EdgeInsets.zero),
+        padding: (place == StateTitlePlace.groupHeader ? const EdgeInsets.symmetric(horizontal: P2).copyWith(top: P2) : EdgeInsets.zero),
         child: _StateTitle(groupState, groupStateTitle(groupState), place: place),
       );
 }

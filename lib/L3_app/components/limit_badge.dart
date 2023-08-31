@@ -8,36 +8,45 @@ import 'constants.dart';
 import 'icons_workspace.dart';
 
 class MTLimitBadge extends StatelessWidget {
-  const MTLimitBadge({required this.child, required this.showBadge});
+  const MTLimitBadge({
+    required this.child,
+    required this.showBadge,
+    this.margin,
+  });
+
   final Widget child;
   final bool showBadge;
+  final EdgeInsets? margin;
 
-  static const _badgeSize = P2;
+  static const _iconSize = P5;
+  static const _badgeSize = MIN_BTN_HEIGHT + _iconSize;
 
   @override
   Widget build(BuildContext context) {
-    return showBadge
-        ? Stack(
-            alignment: Alignment.centerLeft,
-            children: [
-              Container(
-                height: MIN_BTN_HEIGHT - DEF_BORDER_WIDTH,
-                width: _badgeSize * 3,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(DEF_BTN_BORDER_RADIUS),
-                  color: warningColor.resolve(context),
-                ),
-                child: const Row(children: [
-                  SizedBox(width: P_6),
-                  RoubleIcon(size: P2, color: b3Color),
-                ]),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: _badgeSize),
-                child: SizedBox(child: child, width: double.infinity),
-              ),
-            ],
-          )
-        : child;
+    return Padding(
+        padding: margin ?? EdgeInsets.zero,
+        child: showBadge
+            ? Stack(
+                fit: StackFit.passthrough,
+                alignment: Alignment.centerLeft,
+                children: [
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    height: MIN_BTN_HEIGHT - DEF_BORDER_WIDTH,
+                    width: _badgeSize,
+                    padding: const EdgeInsets.only(left: MIN_BTN_HEIGHT / 4 - P_2),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(DEF_BTN_BORDER_RADIUS),
+                      color: warningColor.resolve(context),
+                    ),
+                    child: const RoubleIcon(size: _iconSize, color: b3Color),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: _badgeSize / 2),
+                    child: child,
+                  ),
+                ],
+              )
+            : child);
   }
 }

@@ -41,7 +41,7 @@ class _WSEditViewState extends State<WSEditView> {
         shrinkWrap: true,
         children: [
           for (final code in [WSFCode.code, WSFCode.title, WSFCode.description]) controller.tf(code),
-          const SizedBox(height: P2),
+          const SizedBox(height: P3),
           MTButton.main(
             titleText: loc.save_action_title,
             onTap: canSave ? controller.save : null,

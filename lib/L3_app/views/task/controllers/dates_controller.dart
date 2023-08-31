@@ -118,16 +118,16 @@ class DatesController {
     final fd = _taskController.fData(code.index);
     return MTField(
       fd,
-      leading: isStart ? CalendarIcon(size: P3, color: task.canUpdate ? mainColor : f2Color) : Container(),
+      leading: isStart ? CalendarIcon(color: task.canUpdate ? mainColor : f2Color) : Container(),
       value: !isEmpty
           ? Row(children: [
-              NormalText(date.strMedium, padding: const EdgeInsets.only(right: P_2)),
-              LightText(DateFormat.E().format(date), color: f2Color),
+              NormalText(date.strMedium, padding: const EdgeInsets.only(right: P)),
+              NormalText.f2(DateFormat.EEEE().format(date)),
             ])
           : null,
       onSelect: task.canUpdate ? () => selectDate(context, code) : null,
       bottomDivider: isStart && (task.hasDueDate || task.canUpdate),
-      dividerStartIndent: isStart ? P * 5.5 : null,
+      dividerStartIndent: isStart ? P * 11 : null,
     );
   }
 }

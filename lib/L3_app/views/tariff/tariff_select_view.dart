@@ -35,7 +35,7 @@ class TariffSelectView extends StatelessWidget {
 
   Widget _selectButton(BuildContext context, Tariff tariff) => MTButton.main(
         titleText: loc.tariff_select_action_title,
-        margin: const EdgeInsets.symmetric(horizontal: P),
+        margin: const EdgeInsets.symmetric(horizontal: P3),
         onTap: () => Navigator.of(context).pop(tariff),
       );
 
@@ -48,7 +48,7 @@ class TariffSelectView extends StatelessWidget {
       ),
       MTButton.main(
         titleText: loc.balance_replenish_action_title,
-        margin: const EdgeInsets.only(top: P_2),
+        margin: const EdgeInsets.only(top: P),
         onTap: () => purchaseDialog(wsId),
       ),
     ]);
@@ -68,10 +68,10 @@ class TariffSelectView extends StatelessWidget {
                     ? _selectButton(context, tariff)
                     : _paymentButton(context, balanceLack)
                 : H2(loc.tariff_current_title, color: f2Color),
-            const SizedBox(height: P2),
+            const SizedBox(height: P4),
           ],
         ),
-        margin: const EdgeInsets.symmetric(horizontal: P_2).copyWith(bottom: P_2),
+        margin: const EdgeInsets.symmetric(horizontal: P2).copyWith(bottom: P2),
       );
     } else {
       return RequestTariffCard();
@@ -99,13 +99,13 @@ class TariffSelectView extends StatelessWidget {
                 children: [
                   MTButton.icon(
                     const ChevronCircleIcon(left: true),
-                    margin: const EdgeInsets.all(P),
+                    margin: const EdgeInsets.all(P2),
                     onTap: () => controller.previousPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut),
                   ),
                   const Spacer(),
                   MTButton.icon(
                     const ChevronCircleIcon(left: false),
-                    margin: const EdgeInsets.all(P),
+                    margin: const EdgeInsets.all(P2),
                     onTap: () => controller.nextPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut),
                   ),
                 ],

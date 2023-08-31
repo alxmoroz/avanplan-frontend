@@ -45,7 +45,7 @@ class _MTSelectDialog<T extends RPersistable> extends StatelessWidget {
     final item = items[index];
     return MTListTile(
       middle: valueBuilder != null ? valueBuilder!(context, item) : NormalText('$item'),
-      trailing: selectedIndex == index ? const MTCircle(size: P, color: mainColor) : null,
+      trailing: selectedIndex == index ? const MTCircle(size: P2, color: mainColor) : null,
       bottomDivider: index < itemCount - 1,
       onTap: () => Navigator.of(context).pop(item.id),
     );
@@ -62,7 +62,7 @@ class _MTSelectDialog<T extends RPersistable> extends StatelessWidget {
                     onReset!();
                     Navigator.of(context).pop();
                   },
-                  padding: const EdgeInsets.all(P),
+                  padding: const EdgeInsets.all(P2),
                 )
               : null,
         ),

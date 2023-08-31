@@ -16,8 +16,8 @@ class MTCircle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: size ?? P,
-      height: size ?? P,
+      width: size ?? P2,
+      height: size ?? P2,
       decoration: BoxDecoration(
         color: (color ?? f2Color).resolve(context),
         shape: BoxShape.circle,

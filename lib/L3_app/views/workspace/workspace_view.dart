@@ -35,47 +35,49 @@ class WorkspaceView extends StatelessWidget {
   Workspace get ws => mainController.wsForId(wsId);
 
   Widget get _header => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: P_2),
+        padding: const EdgeInsets.symmetric(horizontal: P3),
         child: Column(
           children: [
             const SizedBox(height: P),
-            H2(ws.title, align: TextAlign.center),
-            const SizedBox(height: P_2),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (ws.code.isNotEmpty) LightText('[${ws.code}] '),
-                if (ws.description.isNotEmpty) NormalText(ws.description),
+                if (ws.code.isNotEmpty) Flexible(child: H3('[${ws.code}] ', color: f3Color), flex: 1),
+                Flexible(child: H2(ws.title, maxLines: 1), flex: 6),
               ],
             ),
+            if (ws.description.isNotEmpty) NormalText(ws.description),
           ],
         ),
       );
 
-  Widget get _balance => MTAdaptive.XS(MTCardButton(
-        margin: const EdgeInsets.all(P2),
-        child: Column(
-          children: [
-            NormalText(loc.balance_amount_title, color: f2Color),
-            const SizedBox(height: P_2),
-            MTCurrency(ws.balance, color: ws.balance < 0 ? warningColor : mainColor),
-            const SizedBox(height: P_2),
-            if (ws.hpTariffUpdate) MediumText(loc.balance_replenish_action_title, color: mainColor),
-          ],
+  Widget get _balance => MTAdaptive.XS(
+        child: MTCardButton(
+          margin: const EdgeInsets.symmetric(vertical: P3),
+          child: Column(
+            children: [
+              NormalText(loc.balance_amount_title, color: f2Color),
+              const SizedBox(height: P2),
+              MTCurrency(ws.balance, color: ws.balance < 0 ? warningColor : mainColor),
+              const SizedBox(height: P2),
+              if (ws.hpTariffUpdate) MediumText(loc.balance_replenish_action_title, color: mainColor),
+            ],
+          ),
+          onTap: ws.hpTariffUpdate ? () => purchaseDialog(wsId) : null,
         ),
-        onTap: ws.hpTariffUpdate ? () => purchaseDialog(wsId) : null,
-      ));
+      );
 
   Widget get _tariff => MTListTile(
-        leading: const Column(children: [TariffIcon(), SmallText('')]),
-        middle: Row(children: [NormalText(loc.tariff_title), const SizedBox(width: P_2), MediumText(ws.invoice.tariff.title)]),
+        leading: const TariffIcon(),
+        middle: Row(children: [NormalText(loc.tariff_title), const SizedBox(width: P), MediumText(ws.invoice.tariff.title)]),
         subtitle: SmallText('${loc.contract_effective_date_title} ${ws.invoice.contract.createdOn.strMedium}'),
         trailing: const ChevronIcon(),
+        bottomDivider: false,
         onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(ActiveContractView.routeName, arguments: ws),
       );
 
   Widget get _users => MTListTile(
-      leading: const PeopleIcon(),
+      leading: const PeopleIcon(size: P6),
       titleText: '${loc.user_list_title} (${ws.users.length})',
       trailing: const ChevronIcon(),
       onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(UserListView.routeName, arguments: ws));
@@ -99,7 +101,7 @@ class WorkspaceView extends StatelessWidget {
               ? MTButton.icon(
                   const EditIcon(),
                   onTap: () => editWSDialog(ws),
-                  margin: const EdgeInsets.only(right: P),
+                  margin: const EdgeInsets.only(right: P2),
                 )
               : null),
       body: SafeArea(
@@ -110,6 +112,7 @@ class WorkspaceView extends StatelessWidget {
             _header,
             _balance,
             _tariff,
+            const SizedBox(height: P3),
             _users,
             if (ws.hpSourceCreate) _sources,
           ],

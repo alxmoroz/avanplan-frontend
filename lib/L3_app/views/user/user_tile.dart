@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/user.dart';
+import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
@@ -18,10 +19,7 @@ class UserTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTListTile(
-      leading: Padding(
-        padding: const EdgeInsets.only(right: P_2),
-        child: user.icon(P2),
-      ),
+      leading: user.icon(P4, borderColor: mainColor),
       middle: NormalText('$user'),
       subtitle: SmallText(user.rolesStr),
       trailing: const ChevronIcon(),

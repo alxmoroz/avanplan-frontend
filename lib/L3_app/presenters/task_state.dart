@@ -65,18 +65,18 @@ LinearGradient stateGradient(BuildContext context, TaskState state) {
 }
 
 Widget stateIconGroup(BuildContext context, TaskState state) => SizedBox(
-      height: P2,
-      width: P,
+      height: P4,
+      width: P2,
       child: Stack(
         children: [
-          MTCircle(size: P, color: stateColor(state)),
+          MTCircle(size: P2, color: stateColor(state)),
           Positioned(
-            left: P_2,
-            top: P_2,
+            left: P,
+            top: P,
             child: Container(
               decoration: BoxDecoration(gradient: stateGradient(context, state)),
-              width: P_2,
-              height: P + P_2,
+              width: P,
+              height: P3,
             ),
           ),
         ],

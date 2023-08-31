@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/navbar.dart';
 import '../../components/page.dart';
+import '../../components/shadowed.dart';
 import '../../extra/services.dart';
 import '../../presenters/workspace.dart';
 import 'user_tile.dart';
@@ -26,9 +27,11 @@ class UserListView extends StatelessWidget {
       body: SafeArea(
         top: false,
         bottom: false,
-        child: ListView.builder(
-          itemBuilder: _itemBuilder,
-          itemCount: ws.users.length,
+        child: MTShadowed(
+          child: ListView.builder(
+            itemBuilder: _itemBuilder,
+            itemCount: ws.users.length,
+          ),
         ),
       ),
     );

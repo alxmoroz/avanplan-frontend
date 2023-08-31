@@ -27,14 +27,14 @@ class WorkspaceListTile extends StatelessWidget {
       middle: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          if (ws.code.isNotEmpty) SmallText('[${ws.code}] '),
+          if (ws.code.isNotEmpty) NormalText.f2('[${ws.code}] '),
           Expanded(child: NormalText(ws.title)),
         ],
       ),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          if (ws.description.isNotEmpty) SmallText(ws.description, padding: const EdgeInsets.only(bottom: P_2), maxLines: 2),
+          if (ws.description.isNotEmpty) SmallText(ws.description, padding: const EdgeInsets.only(bottom: P), maxLines: 2),
           SmallText('${loc.tariff_title}: ${ws.invoice.tariff.title}'),
         ],
       ),

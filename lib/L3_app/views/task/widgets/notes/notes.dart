@@ -63,7 +63,7 @@ class Notes extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: P + P_2),
+        padding: const EdgeInsets.symmetric(horizontal: P3),
         child: ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
@@ -74,14 +74,8 @@ class Notes extends StatelessWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SmallText(gDate.strMedium, padding: const EdgeInsets.only(right: P_3), color: f2Color),
-                    SmallText(DateFormat.E().format(gDate), color: f2Color),
-                  ],
-                ),
-                const SizedBox(height: P),
+                SmallText('${gDate.strMedium}, ${DateFormat.EEEE().format(gDate)}', color: f2Color, align: TextAlign.center),
+                const SizedBox(height: P2),
                 ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -93,11 +87,11 @@ class Notes extends StatelessWidget {
                     return Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if (!mine) ...[author!.icon(P18), const SizedBox(width: P_2)],
+                        if (!mine) ...[author!.icon(P3), const SizedBox(width: P)],
                         Expanded(
                           child: MTCardButton(
-                            margin: EdgeInsets.only(left: mine ? P3 + P3 : 0, right: mine ? 0 : P2, bottom: P),
-                            padding: const EdgeInsets.symmetric(vertical: P_2, horizontal: P),
+                            margin: EdgeInsets.only(left: mine ? P6 + P6 : 0, right: mine ? 0 : P4, bottom: P2),
+                            padding: const EdgeInsets.symmetric(vertical: P, horizontal: P2),
                             loading: n.loading,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,

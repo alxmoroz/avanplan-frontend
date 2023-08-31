@@ -15,13 +15,13 @@ class LoaderScreen extends StatelessWidget {
   Widget get _title => H3(
         loader.titleText!,
         align: TextAlign.center,
-        padding: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P),
+        padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P3),
       );
 
   Widget get _description => NormalText(
         loader.descriptionText!,
         align: TextAlign.center,
-        padding: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P),
+        padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P3),
         maxLines: 5,
       );
 
@@ -41,13 +41,13 @@ class LoaderScreen extends StatelessWidget {
                   if (loader.titleText != null) _title,
                   if (loader.descriptionText != null) _description,
                   if (loader.actionWidget == null) ...[
-                    const SizedBox(height: P3),
+                    const SizedBox(height: P6),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          height: P * 5,
-                          width: P * 5,
+                          height: P10,
+                          width: P10,
                           child: CircularProgressIndicator(color: mainColor.resolve(context)),
                         ),
                       ],
@@ -57,7 +57,7 @@ class LoaderScreen extends StatelessWidget {
               ),
             ),
           ),
-          bottomBar: loader.actionWidget != null ? MTAdaptive.XS(loader.actionWidget) : null,
+          bottomBar: loader.actionWidget != null ? MTAdaptive.XS(child: loader.actionWidget) : null,
         ),
       );
 }

@@ -9,13 +9,13 @@ import '../components/text.dart';
 import 'person.dart';
 
 extension MemberPresenter on Member {
-  Widget iconName({double radius = P, BorderSide? borderSide, Color? color}) {
+  Widget iconName({double radius = P2, Color? borderColor, Color? color}) {
     final textColor = color ?? (isActive ? null : f2Color);
     return Row(
       children: [
         if (isActive) ...[
-          PersonAvatar(this, radius, borderSide: borderSide),
-          const SizedBox(width: P_2),
+          icon(radius, borderColor: borderColor),
+          const SizedBox(width: P),
         ],
         NormalText('$this', color: textColor),
       ],

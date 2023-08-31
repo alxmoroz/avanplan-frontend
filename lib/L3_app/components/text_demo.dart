@@ -17,7 +17,7 @@ class TextDemo extends StatelessWidget {
             NormalText('size: ${style.fontSize?.round()}  weight: ${style.fontWeight?.value}'),
           ],
         ),
-        const SizedBox(height: P2),
+        const SizedBox(height: P3),
       ],
     );
   }

@@ -30,7 +30,7 @@ class TaskChartDetails extends StatelessWidget {
   Widget _textRow(String t1, String t2, {Color? color}) => Row(
         children: [
           Expanded(child: NormalText.f2(t1)),
-          H3(t2, color: color, padding: const EdgeInsets.only(top: P_3)),
+          H3(t2, color: color, padding: const EdgeInsets.only(top: P)),
         ],
       );
 
@@ -41,19 +41,19 @@ class TaskChartDetails extends StatelessWidget {
     return MTDialog(
       topBar: MTTopBar(titleText: loc.chart_details_title),
       body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: P),
+        padding: const EdgeInsets.symmetric(horizontal: P3),
         color: b3Color.resolve(context),
         child: ListView(
           shrinkWrap: true,
           children: [
-            const SizedBox(height: P_2),
+            const SizedBox(height: P),
             if (task.canShowVelocityVolumeCharts) ...[
               /// объем
               H3('${loc.chart_volume_title}, ${task.ws.estimateUnitCode}', align: TextAlign.center),
               Row(
                 children: [
                   Flexible(child: TaskVolumeChart(task)),
-                  const SizedBox(width: P),
+                  const SizedBox(width: P3),
                   Flexible(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -68,12 +68,12 @@ class TaskChartDetails extends StatelessWidget {
               ),
 
               /// скорость
-              const SizedBox(height: P2),
+              const SizedBox(height: P3),
               H3(loc.chart_velocity_title, align: TextAlign.center),
               Row(children: [
                 Flexible(child: VelocityChart(task)),
                 if (task.state != TaskState.LOW_START) ...[
-                  const SizedBox(width: P),
+                  const SizedBox(width: P3),
                   Flexible(
                     child: Column(children: [
                       _textRow(loc.chart_velocity_project_label, '${(task.project!.velocity * daysPerMonth).round()}'),
@@ -88,9 +88,9 @@ class TaskChartDetails extends StatelessWidget {
             /// срок, время
             if (task.canShowTimeChart) ...[
               H3(loc.chart_timing_title, align: TextAlign.center),
-              const SizedBox(height: P),
+              const SizedBox(height: P3),
               TimingChart(task),
-              const SizedBox(height: P_2),
+              const SizedBox(height: P2),
               if (!task.isFuture) _textRow(loc.chart_timing_elapsed_label, '${loc.days_count(task.elapsedPeriod?.inDays ?? 0)}'),
               if (task.leftPeriod != null)
                 _textRow(
@@ -99,7 +99,7 @@ class TaskChartDetails extends StatelessWidget {
                   color: _timeDelta > 0 ? null : warningColor,
                 ),
               if (task.etaPeriod != null) _textRow(loc.chart_timing_eta_label, '${loc.days_count(task.etaPeriod!.inDays)}'),
-              if (task.riskPeriod != null) H3(task.stateTitle, padding: const EdgeInsets.only(top: P_2)),
+              if (task.riskPeriod != null) H3(task.stateTitle, padding: const EdgeInsets.only(top: P)),
             ],
           ],
         ),

@@ -29,7 +29,7 @@ class MemberAddMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTAdaptive.XS(
-      task.ws.plUsers
+      child: task.ws.plUsers
           ? material(
               PopupMenuButton<Role>(
                 child: MTMenuShape(icon: const MemberAddIcon(color: mainBtnTitleColor), title: _title),

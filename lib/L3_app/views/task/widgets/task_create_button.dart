@@ -30,17 +30,17 @@ class TaskCreateButton extends StatelessWidget {
     }
 
     final badge = MTLimitBadge(
+      margin: EdgeInsets.only(right: compact ? P3 : 0),
+      showBadge: !controller.plCreate,
       child: MTButton.main(
         leading: compact ? null : _plusIcon,
         titleText: compact ? null : newSubtaskTitle(controller.parent?.type ?? TType.ROOT),
         middle: compact ? _plusIcon : null,
         constrained: false,
         onTap: _tap,
-        margin: EdgeInsets.only(right: compact ? P : 0),
       ),
-      showBadge: !controller.plCreate,
     );
 
-    return compact ? badge : MTAdaptive.XS(badge);
+    return compact ? badge : MTAdaptive.XS(child: badge);
   }
 }

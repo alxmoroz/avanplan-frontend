@@ -41,7 +41,7 @@ class _SignInEmailFormState extends State<SignInEmailForm> {
             children: [
               controller.tf(SigninFCode.email, first: true),
               controller.tf(SigninFCode.password),
-              const SizedBox(height: P2),
+              const SizedBox(height: P4),
               MTButton.main(
                 titleText: loc.auth_sign_in_email_action_title,
                 onTap: controller.validated ? controller.signIn : null,

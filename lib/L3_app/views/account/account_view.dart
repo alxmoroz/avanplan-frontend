@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/user.dart';
 import '../../components/button.dart';
+import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/navbar.dart';
@@ -25,7 +26,7 @@ class AccountView extends StatelessWidget {
         navBar: navBar(
           context,
           title: loc.account_title,
-          trailing: MTButton.icon(const DeleteIcon(), onTap: accountController.delete, margin: const EdgeInsets.only(right: P)),
+          trailing: MTButton.icon(const DeleteIcon(), onTap: accountController.delete, padding: const EdgeInsets.symmetric(horizontal: P2)),
         ),
         body: SafeArea(
           top: false,
@@ -33,11 +34,10 @@ class AccountView extends StatelessWidget {
           child: _user != null
               ? ListView(
                   children: [
-                    const SizedBox(height: P2),
-                    _user!.icon(P2 * 3),
-                    const SizedBox(height: P),
-                    H2('$_user', align: TextAlign.center),
-                    const SizedBox(height: P_2),
+                    const SizedBox(height: P3),
+                    _user!.icon(P10, borderColor: mainColor),
+                    const SizedBox(height: P3),
+                    H3('$_user', align: TextAlign.center),
                     NormalText(_user!.email, align: TextAlign.center),
                   ],
                 )

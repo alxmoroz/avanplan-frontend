@@ -17,10 +17,10 @@ class NoProjects extends StatelessWidget {
     return Center(
       child: ListView(
         shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
         children: [
-          MTImage(allClosed ? ImageNames.ok : ImageNames.start),
           const SizedBox(height: P),
+          MTImage(allClosed ? ImageNames.ok : ImageNames.start),
+          const SizedBox(height: P3),
           if (allClosed)
             MTButton(
               leading: H2(loc.project_list_title, color: mainColor),
@@ -29,14 +29,14 @@ class NoProjects extends StatelessWidget {
             )
           else
             H2(loc.state_no_projects_hint, align: TextAlign.center),
-          const SizedBox(height: P2),
+          const SizedBox(height: P4),
           NormalText(
             loc.projects_add_hint_title,
             align: TextAlign.center,
-            padding: const EdgeInsets.symmetric(horizontal: P2),
+            padding: const EdgeInsets.symmetric(horizontal: P3),
             maxLines: 5,
           ),
-          const SizedBox(height: P),
+          const SizedBox(height: P2),
         ],
       ),
     );

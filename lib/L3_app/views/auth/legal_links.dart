@@ -22,7 +22,7 @@ class LegalLinks extends StatelessWidget {
             trailing: const LinkOutIcon(),
             onTap: () => launchUrlString(legalRulesPath),
           ),
-          const SizedBox(height: P_2),
+          const SizedBox(height: P),
           MTButton(
             middle: SmallText(loc.legal_privacy_policy_title, color: mainColor),
             trailing: const LinkOutIcon(),

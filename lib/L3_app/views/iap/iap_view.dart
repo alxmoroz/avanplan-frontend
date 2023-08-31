@@ -42,7 +42,7 @@ class StoreView extends StatelessWidget {
           if (hasPrice) D4(' ${loc.for_} ${p.price}', color: f2Color),
         ],
       ),
-      margin: const EdgeInsets.only(top: P),
+      margin: EdgeInsets.only(top: index == 0 ? P : P3),
       onTap: () => _pay(p),
     );
   }

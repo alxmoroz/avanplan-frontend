@@ -7,11 +7,11 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../main.dart';
+import '../../../components/button.dart';
 import '../../../components/colors.dart';
 import '../../../components/colors_base.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
-import '../../../components/button.dart';
 import '../../../presenters/task_filter.dart';
 import '../../../usecases/task_available_actions.dart';
 import '../controllers/task_controller.dart';
@@ -33,7 +33,7 @@ class TasksPane extends StatelessWidget {
                 color: b3Color.resolve(rootKey.currentContext!),
               )
             : null,
-        width: P2 * 2,
+        width: P8,
         height: MIN_BTN_HEIGHT,
         child: icon,
       );
@@ -48,7 +48,7 @@ class TasksPane extends StatelessWidget {
                 _switchPart(BoardIcon(active: controller.showBoard), controller.showBoard),
               ]),
               onTap: controller.toggleMode,
-              margin: const EdgeInsets.only(left: P),
+              margin: const EdgeInsets.only(left: P3),
               constrained: false,
             ),
           const Spacer(),

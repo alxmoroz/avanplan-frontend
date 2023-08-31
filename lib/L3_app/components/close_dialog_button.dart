@@ -14,6 +14,6 @@ class MTCloseDialogButton extends StatelessWidget {
   Widget build(BuildContext context) => MTButton.icon(
         const CloseIcon(),
         onTap: onTap ?? () => Navigator.of(context).pop(),
-        padding: const EdgeInsets.all(P),
+        padding: const EdgeInsets.all(P2),
       );
 }

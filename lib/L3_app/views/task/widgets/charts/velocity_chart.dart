@@ -24,9 +24,9 @@ class VelocityChart extends StatelessWidget {
   static const _startAngle = 90 + _bottomGaugeAngle / 2;
   static const _sweepAngle = 360 - _bottomGaugeAngle;
 
-  double get _gaugeWidth => P * 1.5;
+  double get _gaugeWidth => P3;
   double get _barWidth => _gaugeWidth / 2;
-  double get _radius => P * 6.5;
+  double get _radius => P2 * 6.5;
   double get _velocity => task.projectVelocity ?? 0;
   double get _delta => (task.requiredVelocity ?? _velocity) - _velocity;
   double get _firstValue => _delta >= 0 ? _velocity : _velocity + _delta;
@@ -87,13 +87,13 @@ class VelocityChart extends StatelessWidget {
           D3('$_displayText', color: _pointerColor),
           SmallText(
             loc.chart_velocity_unit_mo(task.ws.estimateUnitCode),
-            padding: EdgeInsets.only(top: _radius / 2 + P + P_2),
+            padding: EdgeInsets.only(top: _radius / 2 + P3),
             color: f2Color,
             height: 1,
           ),
           Container(
-            width: _radius * 2 - P * 5,
-            height: _radius * 2 - P * 4,
+            width: _radius * 2 - P10,
+            height: _radius * 2 - P7,
             alignment: Alignment.bottomCenter,
             child: Row(children: [
               if (_maxValue > 0) const MediumText('0', color: f2Color),

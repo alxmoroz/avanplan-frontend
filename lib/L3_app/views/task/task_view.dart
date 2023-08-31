@@ -74,7 +74,7 @@ class _TaskViewState extends State<TaskView> {
           res[TaskTabKey.subtasks] = _tab(tk, const DoneIcon(true, color: f2Color), NormalText('${task.listTitle}'));
           break;
         case TaskTabKey.details:
-          res[TaskTabKey.details] = _tab(tk, const RulesIcon(color: f2Color), NormalText(loc.description));
+          res[TaskTabKey.details] = _tab(tk, const RulesIcon(size: P4, color: f2Color), NormalText(loc.description));
           break;
         case TaskTabKey.team:
           res[TaskTabKey.team] = _tab(tk, const PeopleIcon(color: f2Color), NormalText(loc.team_list_title));
@@ -87,7 +87,7 @@ class _TaskViewState extends State<TaskView> {
 
   Widget get _tabPaneSelector => MTAdaptive(
         force: true,
-        padding: const EdgeInsets.symmetric(horizontal: P),
+        padding: const EdgeInsets.symmetric(horizontal: P3),
         child: CupertinoSlidingSegmentedControl<TaskTabKey>(
           children: _tabs,
           groupValue: controller.tabKey,
@@ -115,7 +115,7 @@ class _TaskViewState extends State<TaskView> {
 
   @override
   Widget build(BuildContext context) {
-    final smallHeight = MediaQuery.of(context).size.height < SCR_XS_HEIGHT;
+    final smallHeight = MediaQuery.sizeOf(context).height < SCR_XS_HEIGHT;
     return Observer(
       builder: (_) => Stack(
         alignment: Alignment.bottomCenter,

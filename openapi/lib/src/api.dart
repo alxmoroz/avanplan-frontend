@@ -11,6 +11,7 @@ import 'package:openapi/src/auth/bearer_auth.dart';
 import 'package:openapi/src/auth/oauth.dart';
 import 'package:openapi/src/api/auth_api.dart';
 import 'package:openapi/src/api/contracts_api.dart';
+import 'package:openapi/src/api/feature_sets_api.dart';
 import 'package:openapi/src/api/integrations_sources_api.dart';
 import 'package:openapi/src/api/integrations_tasks_api.dart';
 import 'package:openapi/src/api/my_account_api.dart';
@@ -92,6 +93,12 @@ class Openapi {
   /// by doing that all interceptors will not be executed
   ContractsApi getContractsApi() {
     return ContractsApi(dio, serializers);
+  }
+
+  /// Get FeatureSetsApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  FeatureSetsApi getFeatureSetsApi() {
+    return FeatureSetsApi(dio, serializers);
   }
 
   /// Get IntegrationsSourcesApi instance, base route and serializer can be overridden by a given but be careful,

@@ -21,6 +21,8 @@ doc/ContractGet.md
 doc/ContractsApi.md
 doc/EstimateUnitGet.md
 doc/EstimateValueGet.md
+doc/FeatureSetGet.md
+doc/FeatureSetsApi.md
 doc/HTTPValidationError.md
 doc/IntegrationsSourcesApi.md
 doc/IntegrationsTasksApi.md
@@ -44,6 +46,7 @@ doc/Notification.md
 doc/PaymentsApi.md
 doc/PermissionGet.md
 doc/PermissionRoleGet.md
+doc/ProjectFeatureSetGet.md
 doc/ProjectStatusGet.md
 doc/Registration.md
 doc/RoleGet.md
@@ -75,6 +78,7 @@ lib/openapi.dart
 lib/src/api.dart
 lib/src/api/auth_api.dart
 lib/src/api/contracts_api.dart
+lib/src/api/feature_sets_api.dart
 lib/src/api/integrations_sources_api.dart
 lib/src/api/integrations_tasks_api.dart
 lib/src/api/my_account_api.dart
@@ -116,6 +120,7 @@ lib/src/model/contract_get.dart
 lib/src/model/date.dart
 lib/src/model/estimate_unit_get.dart
 lib/src/model/estimate_value_get.dart
+lib/src/model/feature_set_get.dart
 lib/src/model/http_validation_error.dart
 lib/src/model/invitation.dart
 lib/src/model/invitation_get.dart
@@ -129,6 +134,7 @@ lib/src/model/note_upsert.dart
 lib/src/model/notification.dart
 lib/src/model/permission_get.dart
 lib/src/model/permission_role_get.dart
+lib/src/model/project_feature_set_get.dart
 lib/src/model/project_status_get.dart
 lib/src/model/registration.dart
 lib/src/model/role_get.dart
@@ -171,6 +177,8 @@ test/contract_get_test.dart
 test/contracts_api_test.dart
 test/estimate_unit_get_test.dart
 test/estimate_value_get_test.dart
+test/feature_set_get_test.dart
+test/feature_sets_api_test.dart
 test/http_validation_error_test.dart
 test/integrations_sources_api_test.dart
 test/integrations_tasks_api_test.dart
@@ -194,6 +202,7 @@ test/notification_test.dart
 test/payments_api_test.dart
 test/permission_get_test.dart
 test/permission_role_get_test.dart
+test/project_feature_set_get_test.dart
 test/project_status_get_test.dart
 test/registration_test.dart
 test/role_get_test.dart

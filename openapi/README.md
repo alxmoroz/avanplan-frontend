@@ -71,6 +71,7 @@ Class | Method | HTTP request | Description
 [*AuthApi*](doc/AuthApi.md) | [**registrationToken**](doc/AuthApi.md#registrationtoken) | **POST** /v1/auth/registration_token | Registration Token
 [*AuthApi*](doc/AuthApi.md) | [**requestRegistration**](doc/AuthApi.md#requestregistration) | **POST** /v1/auth/registration | Request Registration
 [*ContractsApi*](doc/ContractsApi.md) | [**signV1ContractsPost**](doc/ContractsApi.md#signv1contractspost) | **POST** /v1/contracts/ | Sign
+[*FeatureSetsApi*](doc/FeatureSetsApi.md) | [**featureSetsV1FeatureSetsGet**](doc/FeatureSetsApi.md#featuresetsv1featuresetsget) | **GET** /v1/feature_sets/ | Feature Sets
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**requestSourceType**](doc/IntegrationsSourcesApi.md#requestsourcetype) | **POST** /v1/integrations/sources/request_source_type | Request Source Type
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**sourcesCheckConnection**](doc/IntegrationsSourcesApi.md#sourcescheckconnection) | **GET** /v1/integrations/sources/check_connection | Check Connection
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**sourcesDelete**](doc/IntegrationsSourcesApi.md#sourcesdelete) | **DELETE** /v1/integrations/sources/{source_id} | Delete
@@ -121,6 +122,7 @@ Class | Method | HTTP request | Description
  - [ContractGet](doc/ContractGet.md)
  - [EstimateUnitGet](doc/EstimateUnitGet.md)
  - [EstimateValueGet](doc/EstimateValueGet.md)
+ - [FeatureSetGet](doc/FeatureSetGet.md)
  - [HTTPValidationError](doc/HTTPValidationError.md)
  - [Invitation](doc/Invitation.md)
  - [InvitationGet](doc/InvitationGet.md)
@@ -134,6 +136,7 @@ Class | Method | HTTP request | Description
  - [Notification](doc/Notification.md)
  - [PermissionGet](doc/PermissionGet.md)
  - [PermissionRoleGet](doc/PermissionRoleGet.md)
+ - [ProjectFeatureSetGet](doc/ProjectFeatureSetGet.md)
  - [ProjectStatusGet](doc/ProjectStatusGet.md)
  - [Registration](doc/Registration.md)
  - [RoleGet](doc/RoleGet.md)

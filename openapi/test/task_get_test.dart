@@ -151,5 +151,10 @@ void main() {
     test('to test the property `projectStatuses`', () async {
       // TODO
     });
+
+    // BuiltList<ProjectFeatureSetGet> projectFeatureSets
+    test('to test the property `projectFeatureSets`', () async {
+      // TODO
+    });
   });
 }

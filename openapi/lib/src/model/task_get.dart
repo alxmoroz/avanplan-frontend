@@ -7,6 +7,7 @@ import 'package:openapi/src/model/member_get.dart';
 import 'package:openapi/src/model/task_source_get.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/model/project_status_get.dart';
+import 'package:openapi/src/model/project_feature_set_get.dart';
 import 'package:openapi/src/model/note_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
@@ -45,6 +46,7 @@ part 'task_get.g.dart';
 /// * [members] 
 /// * [notes] 
 /// * [projectStatuses] 
+/// * [projectFeatureSets] 
 @BuiltValue()
 abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
   @BuiltValueField(wireName: r'id')
@@ -133,6 +135,9 @@ abstract class TaskGet implements Built<TaskGet, TaskGetBuilder> {
 
   @BuiltValueField(wireName: r'project_statuses')
   BuiltList<ProjectStatusGet>? get projectStatuses;
+
+  @BuiltValueField(wireName: r'project_feature_sets')
+  BuiltList<ProjectFeatureSetGet>? get projectFeatureSets;
 
   TaskGet._();
 
@@ -354,6 +359,13 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
       yield serializers.serialize(
         object.projectStatuses,
         specifiedType: const FullType(BuiltList, [FullType(ProjectStatusGet)]),
+      );
+    }
+    if (object.projectFeatureSets != null) {
+      yield r'project_feature_sets';
+      yield serializers.serialize(
+        object.projectFeatureSets,
+        specifiedType: const FullType(BuiltList, [FullType(ProjectFeatureSetGet)]),
       );
     }
   }
@@ -581,6 +593,13 @@ class _$TaskGetSerializer implements PrimitiveSerializer<TaskGet> {
             specifiedType: const FullType(BuiltList, [FullType(ProjectStatusGet)]),
           ) as BuiltList<ProjectStatusGet>;
           result.projectStatuses.replace(valueDes);
+          break;
+        case r'project_feature_sets':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [FullType(ProjectFeatureSetGet)]),
+          ) as BuiltList<ProjectFeatureSetGet>;
+          result.projectFeatureSets.replace(valueDes);
           break;
         default:
           unhandled.add(key);

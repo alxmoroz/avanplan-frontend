@@ -37,6 +37,7 @@ Name | Type | Description | Notes
 **members** | [**BuiltList&lt;MemberGet&gt;**](MemberGet.md) |  | [optional] 
 **notes** | [**BuiltList&lt;NoteGet&gt;**](NoteGet.md) |  | [optional] 
 **projectStatuses** | [**BuiltList&lt;ProjectStatusGet&gt;**](ProjectStatusGet.md) |  | [optional] 
+**projectFeatureSets** | [**BuiltList&lt;ProjectFeatureSetGet&gt;**](ProjectFeatureSetGet.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

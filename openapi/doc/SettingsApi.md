@@ -9,7 +9,7 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**settingsV1SettingsGet**](SettingsApi.md#settingsv1settingsget) | **GET** /v1/settings/ | Settings
+[**settingsV1SettingsGet**](SettingsApi.md#settingsv1settingsget) | **GET** /v1/settings | Settings
 
 
 # **settingsV1SettingsGet**

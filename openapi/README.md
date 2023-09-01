@@ -70,14 +70,14 @@ Class | Method | HTTP request | Description
 [*AuthApi*](doc/AuthApi.md) | [**refreshToken**](doc/AuthApi.md#refreshtoken) | **POST** /v1/auth/refresh_token | Refresh Token
 [*AuthApi*](doc/AuthApi.md) | [**registrationToken**](doc/AuthApi.md#registrationtoken) | **POST** /v1/auth/registration_token | Registration Token
 [*AuthApi*](doc/AuthApi.md) | [**requestRegistration**](doc/AuthApi.md#requestregistration) | **POST** /v1/auth/registration | Request Registration
-[*ContractsApi*](doc/ContractsApi.md) | [**signV1ContractsPost**](doc/ContractsApi.md#signv1contractspost) | **POST** /v1/contracts/ | Sign
-[*FeatureSetsApi*](doc/FeatureSetsApi.md) | [**featureSetsV1FeatureSetsGet**](doc/FeatureSetsApi.md#featuresetsv1featuresetsget) | **GET** /v1/feature_sets/ | Feature Sets
+[*ContractsApi*](doc/ContractsApi.md) | [**signV1ContractsPost**](doc/ContractsApi.md#signv1contractspost) | **POST** /v1/contracts | Sign
+[*FeatureSetsApi*](doc/FeatureSetsApi.md) | [**featureSetsV1FeatureSetsGet**](doc/FeatureSetsApi.md#featuresetsv1featuresetsget) | **GET** /v1/feature_sets | Feature Sets
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**requestSourceType**](doc/IntegrationsSourcesApi.md#requestsourcetype) | **POST** /v1/integrations/sources/request_source_type | Request Source Type
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**sourcesCheckConnection**](doc/IntegrationsSourcesApi.md#sourcescheckconnection) | **GET** /v1/integrations/sources/check_connection | Check Connection
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**sourcesDelete**](doc/IntegrationsSourcesApi.md#sourcesdelete) | **DELETE** /v1/integrations/sources/{source_id} | Delete
-[*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**sourcesUpsert**](doc/IntegrationsSourcesApi.md#sourcesupsert) | **POST** /v1/integrations/sources/ | Upsert
+[*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**sourcesUpsert**](doc/IntegrationsSourcesApi.md#sourcesupsert) | **POST** /v1/integrations/sources | Upsert
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**importTaskSourcesV1IntegrationsTasksImportPost**](doc/IntegrationsTasksApi.md#importtasksourcesv1integrationstasksimportpost) | **POST** /v1/integrations/tasks/import | Import Task Sources
-[*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**rootTasksV1IntegrationsTasksGet**](doc/IntegrationsTasksApi.md#roottasksv1integrationstasksget) | **GET** /v1/integrations/tasks/ | Root Tasks
+[*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**rootTasksV1IntegrationsTasksGet**](doc/IntegrationsTasksApi.md#roottasksv1integrationstasksget) | **GET** /v1/integrations/tasks | Root Tasks
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**unlinkV1IntegrationsTasksUnlinkPost**](doc/IntegrationsTasksApi.md#unlinkv1integrationstasksunlinkpost) | **POST** /v1/integrations/tasks/unlink | Unlink
 [*MyAccountApi*](doc/MyAccountApi.md) | [**accountV1MyAccountGet**](doc/MyAccountApi.md#accountv1myaccountget) | **GET** /v1/my/account | Account
 [*MyAccountApi*](doc/MyAccountApi.md) | [**deleteAccountV1MyAccountDelete**](doc/MyAccountApi.md#deleteaccountv1myaccountdelete) | **DELETE** /v1/my/account | Delete Account
@@ -92,10 +92,15 @@ Class | Method | HTTP request | Description
 [*MyWorkspacesApi*](doc/MyWorkspacesApi.md) | [**updateWorkspaceV1MyWorkspacesUpdatePost**](doc/MyWorkspacesApi.md#updateworkspacev1myworkspacesupdatepost) | **POST** /v1/my/workspaces/update | Update Workspace
 [*MyWorkspacesApi*](doc/MyWorkspacesApi.md) | [**workspacesV1MyWorkspacesGet**](doc/MyWorkspacesApi.md#workspacesv1myworkspacesget) | **GET** /v1/my/workspaces | Workspaces
 [*PaymentsApi*](doc/PaymentsApi.md) | [**iapNotificationV1PaymentsIapNotificationPost**](doc/PaymentsApi.md#iapnotificationv1paymentsiapnotificationpost) | **POST** /v1/payments/iap/notification | Iap Notification
-[*SettingsApi*](doc/SettingsApi.md) | [**settingsV1SettingsGet**](doc/SettingsApi.md#settingsv1settingsget) | **GET** /v1/settings/ | Settings
-[*TariffsApi*](doc/TariffsApi.md) | [**tariffsV1TariffsGet**](doc/TariffsApi.md#tariffsv1tariffsget) | **GET** /v1/tariffs/ | Tariffs
+[*SettingsApi*](doc/SettingsApi.md) | [**settingsV1SettingsGet**](doc/SettingsApi.md#settingsv1settingsget) | **GET** /v1/settings | Settings
+[*TariffsApi*](doc/TariffsApi.md) | [**tariffsV1TariffsGet**](doc/TariffsApi.md#tariffsv1tariffsget) | **GET** /v1/tariffs | Tariffs
+[*TasksApi*](doc/TasksApi.md) | [**assignV1TasksRolesPost**](doc/TasksApi.md#assignv1tasksrolespost) | **POST** /v1/tasks/roles | Assign
+[*TasksApi*](doc/TasksApi.md) | [**createV1TasksInvitationsPost**](doc/TasksApi.md#createv1tasksinvitationspost) | **POST** /v1/tasks/invitations | Create
+[*TasksApi*](doc/TasksApi.md) | [**deleteV1TasksNotesNoteIdDelete**](doc/TasksApi.md#deletev1tasksnotesnoteiddelete) | **DELETE** /v1/tasks/notes/{note_id} | Delete
 [*TasksApi*](doc/TasksApi.md) | [**deleteV1TasksTaskIdDelete**](doc/TasksApi.md#deletev1taskstaskiddelete) | **DELETE** /v1/tasks/{task_id} | Delete
-[*TasksApi*](doc/TasksApi.md) | [**taskUpsertV1TasksPost**](doc/TasksApi.md#taskupsertv1taskspost) | **POST** /v1/tasks/ | Task Upsert
+[*TasksApi*](doc/TasksApi.md) | [**invitationsV1TasksInvitationsGet**](doc/TasksApi.md#invitationsv1tasksinvitationsget) | **GET** /v1/tasks/invitations | Invitations
+[*TasksApi*](doc/TasksApi.md) | [**taskUpsertV1TasksPost**](doc/TasksApi.md#taskupsertv1taskspost) | **POST** /v1/tasks | Task Upsert
+[*TasksApi*](doc/TasksApi.md) | [**upsertV1TasksNotesPost**](doc/TasksApi.md#upsertv1tasksnotespost) | **POST** /v1/tasks/notes | Upsert
 [*TasksInvitationsApi*](doc/TasksInvitationsApi.md) | [**createV1TasksInvitationsPost**](doc/TasksInvitationsApi.md#createv1tasksinvitationspost) | **POST** /v1/tasks/invitations | Create
 [*TasksInvitationsApi*](doc/TasksInvitationsApi.md) | [**invitationsV1TasksInvitationsGet**](doc/TasksInvitationsApi.md#invitationsv1tasksinvitationsget) | **GET** /v1/tasks/invitations | Invitations
 [*TasksNotesApi*](doc/TasksNotesApi.md) | [**deleteV1TasksNotesNoteIdDelete**](doc/TasksNotesApi.md#deletev1tasksnotesnoteiddelete) | **DELETE** /v1/tasks/notes/{note_id} | Delete

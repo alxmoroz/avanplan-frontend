@@ -43,7 +43,7 @@ class TariffsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/tariffs/';
+    final _path = r'/v1/tariffs';
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{

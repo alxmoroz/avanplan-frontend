@@ -7,6 +7,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../L1_domain/usecases/auth_uc.dart';
 import '../../L1_domain/usecases/contract_uc.dart';
+import '../../L1_domain/usecases/feature_set_uc.dart';
 import '../../L1_domain/usecases/iap_uc.dart';
 import '../../L1_domain/usecases/import_uc.dart';
 import '../../L1_domain/usecases/invitation_uc.dart';
@@ -23,6 +24,7 @@ import '../../L2_data/repositories/auth_avanplan_repo.dart';
 import '../../L2_data/repositories/auth_google_repo.dart';
 import '../../L2_data/repositories/contract_repo.dart';
 import '../../L2_data/repositories/db_repo.dart';
+import '../../L2_data/repositories/feature_set_repo.dart';
 import '../../L2_data/repositories/iap_repo.dart';
 import '../../L2_data/repositories/import_repo.dart';
 import '../../L2_data/repositories/invitation_repo.dart';
@@ -75,6 +77,7 @@ InAppPurchaseUC get iapUC => GetIt.I<InAppPurchaseUC>();
 TariffUC get tariffUC => GetIt.I<TariffUC>();
 ContractUC get contractUC => GetIt.I<ContractUC>();
 NoteUC get noteUC => GetIt.I<NoteUC>();
+FeatureSetUC get featureSetUC => GetIt.I<FeatureSetUC>();
 
 void setup() {
   // device
@@ -112,6 +115,7 @@ void setup() {
   getIt.registerSingleton<TariffUC>(TariffUC(TariffRepo()));
   getIt.registerSingleton<ContractUC>(ContractUC(ContractRepo()));
   getIt.registerSingleton<NoteUC>(NoteUC(NoteRepo()));
+  getIt.registerSingleton<FeatureSetUC>(FeatureSetUC(FeatureSetRepo()));
 
   // global state controllers
   getIt.registerSingletonAsync<ServiceSettingsController>(() async => ServiceSettingsController().init(), dependsOn: [Openapi]);

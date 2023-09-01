@@ -44,7 +44,7 @@ class ContractsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/contracts/';
+    final _path = r'/v1/contracts';
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{

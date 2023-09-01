@@ -38,7 +38,7 @@ class SettingsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/settings/';
+    final _path = r'/v1/settings';
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{

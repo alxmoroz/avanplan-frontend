@@ -10,7 +10,7 @@ All URIs are relative to */api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**importTaskSourcesV1IntegrationsTasksImportPost**](IntegrationsTasksApi.md#importtasksourcesv1integrationstasksimportpost) | **POST** /v1/integrations/tasks/import | Import Task Sources
-[**rootTasksV1IntegrationsTasksGet**](IntegrationsTasksApi.md#roottasksv1integrationstasksget) | **GET** /v1/integrations/tasks/ | Root Tasks
+[**rootTasksV1IntegrationsTasksGet**](IntegrationsTasksApi.md#roottasksv1integrationstasksget) | **GET** /v1/integrations/tasks | Root Tasks
 [**unlinkV1IntegrationsTasksUnlinkPost**](IntegrationsTasksApi.md#unlinkv1integrationstasksunlinkpost) | **POST** /v1/integrations/tasks/unlink | Unlink
 
 

@@ -39,7 +39,7 @@ class FeatureSetsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/feature_sets/';
+    final _path = r'/v1/feature_sets';
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{

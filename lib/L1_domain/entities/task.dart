@@ -3,6 +3,7 @@
 import 'base_entity.dart';
 import 'member.dart';
 import 'note.dart';
+import 'project_feature_set.dart';
 import 'project_status.dart';
 import 'task_source.dart';
 import 'workspace.dart';
@@ -46,6 +47,7 @@ class Task extends Titleable {
     required this.notes,
     required this.members,
     required this.projectStatuses,
+    required this.projectFeatureSets,
     required this.ws,
     this.taskSource,
     this.createdOn,
@@ -73,6 +75,7 @@ class Task extends Titleable {
   List<Note> notes;
   Iterable<Member> members;
   Iterable<ProjectStatus> projectStatuses;
+  Iterable<ProjectFeatureSet> projectFeatureSets;
   final Workspace ws;
   final TaskSource? taskSource;
   final DateTime? createdOn;

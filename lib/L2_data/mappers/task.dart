@@ -8,6 +8,7 @@ import '../../L1_domain/entities/workspace.dart';
 import '../../L1_domain/entities_extensions/task_state.dart';
 import 'member.dart';
 import 'note.dart';
+import 'project_feature_set.dart';
 import 'project_status.dart';
 import 'task_source.dart';
 
@@ -37,6 +38,7 @@ extension TaskMapper on api.TaskGet {
       assigneeId: assigneeId,
       members: members?.map((m) => m.member(id)).toList() ?? [],
       projectStatuses: projectStatuses?.map((ps) => ps.projectStatus).toList() ?? [],
+      projectFeatureSets: projectFeatureSets?.map((pfs) => pfs.projectFeatureSet).toList() ?? [],
       taskSource: ts,
       parentId: parentId,
       ws: ws,

@@ -9,7 +9,7 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**featureSetsV1FeatureSetsGet**](FeatureSetsApi.md#featuresetsv1featuresetsget) | **GET** /v1/feature_sets/ | Feature Sets
+[**featureSetsV1FeatureSetsGet**](FeatureSetsApi.md#featuresetsv1featuresetsget) | **GET** /v1/feature_sets | Feature Sets
 
 
 # **featureSetsV1FeatureSetsGet**

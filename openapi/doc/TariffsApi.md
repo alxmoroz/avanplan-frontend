@@ -9,7 +9,7 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**tariffsV1TariffsGet**](TariffsApi.md#tariffsv1tariffsget) | **GET** /v1/tariffs/ | Tariffs
+[**tariffsV1TariffsGet**](TariffsApi.md#tariffsv1tariffsget) | **GET** /v1/tariffs | Tariffs
 
 
 # **tariffsV1TariffsGet**

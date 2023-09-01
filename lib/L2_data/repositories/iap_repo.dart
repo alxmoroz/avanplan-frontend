@@ -7,7 +7,7 @@ import 'package:openapi/openapi.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../L1_domain/entities/iap_product.dart';
-import '../../L1_domain/repositories/abs_payment_repo.dart';
+import '../../L1_domain/repositories/abs_iap_repo.dart';
 import '../services/api.dart';
 import '../services/platform.dart';
 

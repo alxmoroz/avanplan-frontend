@@ -1,7 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import '../entities/iap_product.dart';
-import '../repositories/abs_payment_repo.dart';
+import '../repositories/abs_iap_repo.dart';
 
 class InAppPurchaseUC {
   InAppPurchaseUC(this.repo);

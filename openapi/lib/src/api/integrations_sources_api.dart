@@ -327,7 +327,7 @@ class IntegrationsSourcesApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/integrations/sources/';
+    final _path = r'/v1/integrations/sources';
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{

@@ -9,7 +9,7 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**signV1ContractsPost**](ContractsApi.md#signv1contractspost) | **POST** /v1/contracts/ | Sign
+[**signV1ContractsPost**](ContractsApi.md#signv1contractspost) | **POST** /v1/contracts | Sign
 
 
 # **signV1ContractsPost**

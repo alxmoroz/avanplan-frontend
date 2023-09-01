@@ -12,7 +12,7 @@ Method | HTTP request | Description
 [**requestSourceType**](IntegrationsSourcesApi.md#requestsourcetype) | **POST** /v1/integrations/sources/request_source_type | Request Source Type
 [**sourcesCheckConnection**](IntegrationsSourcesApi.md#sourcescheckconnection) | **GET** /v1/integrations/sources/check_connection | Check Connection
 [**sourcesDelete**](IntegrationsSourcesApi.md#sourcesdelete) | **DELETE** /v1/integrations/sources/{source_id} | Delete
-[**sourcesUpsert**](IntegrationsSourcesApi.md#sourcesupsert) | **POST** /v1/integrations/sources/ | Upsert
+[**sourcesUpsert**](IntegrationsSourcesApi.md#sourcesupsert) | **POST** /v1/integrations/sources | Upsert
 
 
 # **requestSourceType**

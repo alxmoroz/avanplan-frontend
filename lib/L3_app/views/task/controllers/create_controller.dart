@@ -10,7 +10,6 @@ import '../../../../L1_domain/entities_extensions/task_status.dart';
 import '../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_type.dart';
-import '../../../usecases/task_feature_sets.dart';
 import '../../../usecases/ws_available_actions.dart';
 import '../../../usecases/ws_tariff.dart';
 import 'task_controller.dart';
@@ -22,7 +21,7 @@ class CreateController {
 
   Task? get parent => _parentTaskController?.task;
   bool get _newProject => parent == null;
-  bool get _newGoal => parent!.isProject && parent!.hfsGoals;
+  bool get _newGoal => parent!.isProject; // && parent!.hfsGoals;
 
   bool get plCreate => _newProject ? _ws.plProjects : _ws.plTasks;
 

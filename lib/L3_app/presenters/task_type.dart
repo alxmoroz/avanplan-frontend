@@ -6,12 +6,12 @@ import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../components/text.dart';
 import '../extra/services.dart';
-import '../usecases/task_feature_sets.dart';
 
 String newSubtaskTitle(Task? parent) =>
     {
       TType.ROOT: loc.project_new_title,
-      TType.PROJECT: parent?.hfsGoals == true ? loc.goal_new_title : loc.task_new_title,
+      // TType.PROJECT: parent?.hfsGoals == true ? loc.goal_new_title : loc.task_new_title,
+      TType.PROJECT: loc.goal_new_title,
       TType.GOAL: loc.task_new_title,
     }[parent?.type ?? TType.ROOT] ??
     loc.subtask_new_title;
@@ -31,7 +31,8 @@ extension TaskTypePresenter on Task {
   String get listTitle =>
       {
         TType.ROOT: loc.project_list_title,
-        TType.PROJECT: hfsGoals ? loc.goal_list_title : loc.task_list_title,
+        // TType.PROJECT: hfsGoals ? loc.goal_list_title : loc.task_list_title,
+        TType.PROJECT: loc.goal_list_title,
         TType.GOAL: loc.task_list_title,
       }[type] ??
       loc.subtask_list_title;

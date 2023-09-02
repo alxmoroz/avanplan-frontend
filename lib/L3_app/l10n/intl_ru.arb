@@ -199,7 +199,7 @@
   "project_count_dative": "{count, plural, one{{count} проекту} other{{count} проектам}}",
   "project_delete_dialog_title": "Удалить проект?",
   "project_feature_sets_label": "Подключенные модули",
-  "project_feature_sets_placeholder": "Подключите дополнительные модули",
+  "project_feature_sets_title": "Модули проекта",
   "project_list_title": "Проекты",
   "project_new_title": "Новый проект",
   "project_plural_genitive": "{count, plural, one{проекта} other{проектов}}",

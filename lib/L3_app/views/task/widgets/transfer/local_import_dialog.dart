@@ -53,7 +53,7 @@ class LocalImportDialog extends StatelessWidget {
       title: _t.title,
       description: _t.description,
       value: controller.checks[index] == true,
-      bottomBorder: index < controller.checks.length - 1,
+      bottomDivider: index < controller.checks.length - 1,
       onChanged: (bool? value) => controller.selectTask(index, value),
     );
   }
@@ -82,7 +82,6 @@ class LocalImportDialog extends StatelessWidget {
                     title: '${loc.select_all_action_title} (${controller.checks.length})',
                     titleColor: mainColor,
                     color: b2Color,
-                    bottomBorder: true,
                     value: controller.selectedAll,
                     onChanged: controller.toggleSelectedAll,
                   )

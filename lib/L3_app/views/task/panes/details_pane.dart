@@ -26,6 +26,7 @@ import '../../../presenters/workspace.dart';
 import '../../../usecases/task_actions.dart';
 import '../../../usecases/task_feature_sets.dart';
 import '../controllers/task_controller.dart';
+import '../widgets/feature_sets.dart';
 import '../widgets/notes/notes.dart';
 
 class DetailsPane extends StatelessWidget {
@@ -137,7 +138,7 @@ class DetailsPane extends StatelessWidget {
                   controller.fData(TaskFCode.features.index),
                   leading: SettingsIcon(color: _task.canEditFeatureSets ? null : f3Color),
                   value: BaseText(_task.localizedFeatureSets, maxLines: 1),
-                  onSelect: _task.canEditFeatureSets ? () => print('canFeatureSetsUpdate') : null,
+                  onSelect: _task.canEditFeatureSets ? () => showFeatureSetsDialog(_task) : null,
                 ),
               ],
               if (_task.canComment) ...[

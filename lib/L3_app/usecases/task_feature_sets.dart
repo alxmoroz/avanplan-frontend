@@ -10,11 +10,11 @@ extension TaskFeatureSetsExt on Task {
 
   Set<String> get _fsCodes => featureSets.map((fs) => fs.code).toSet();
 
-  bool _hfs(String code) => _fsCodes.contains(code);
+  bool hfs(String code) => _fsCodes.contains(code);
 
-  bool get hfsAnalytics => _hfs('ANALYTICS');
-  bool get hfsTeam => _hfs('TEAM');
-  // bool get hfsGoals => _hfs('GOALS');
-  bool get hfsTaskboard => _hfs('TASKBOARD');
-  bool get hfsEstimates => _hfs('ESTIMATES');
+  bool get hfsAnalytics => hfs('ANALYTICS');
+  bool get hfsTeam => hfs('TEAM');
+  bool get hfsGoals => hfs('GOALS');
+  bool get hfsTaskboard => hfs('TASKBOARD');
+  bool get hfsEstimates => hfs('ESTIMATES');
 }

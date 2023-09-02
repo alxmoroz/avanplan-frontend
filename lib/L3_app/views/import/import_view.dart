@@ -35,7 +35,7 @@ Future importTasks(int wsId, {SourceType? sType}) async {
   await showImportDialog(controller);
 }
 
-Future<String?> showImportDialog(ImportController controller) async => await showMTDialog<String?>(ImportView(controller));
+Future showImportDialog(ImportController controller) async => await showMTDialog<void>(ImportView(controller));
 
 class ImportView extends StatelessWidget {
   const ImportView(this.controller);
@@ -87,7 +87,6 @@ class ImportView extends StatelessWidget {
                   title: '${loc.select_all_action_title} (${controller.projects.length})',
                   titleColor: mainColor,
                   color: b2Color,
-                  bottomBorder: true,
                   value: _selectedAll,
                   onChanged: controller.toggleSelectedAll,
                 ),
@@ -102,7 +101,7 @@ class ImportView extends StatelessWidget {
     return MTCheckBoxTile(
       title: project.title,
       value: value,
-      bottomBorder: index < controller.projects.length - 1,
+      bottomDivider: index < controller.projects.length - 1,
       onChanged: (bool? value) => controller.selectProject(project, value),
     );
   }

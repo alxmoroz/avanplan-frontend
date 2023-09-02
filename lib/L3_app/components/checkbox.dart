@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 
+import 'colors_base.dart';
+import 'constants.dart';
 import 'icons.dart';
 import 'list_tile.dart';
 import 'text.dart';
@@ -10,11 +12,12 @@ class MTCheckBoxTile extends StatelessWidget {
   const MTCheckBoxTile({
     required this.title,
     required this.value,
-    required this.onChanged,
+    this.onChanged,
     this.description,
     this.titleColor,
     this.color,
-    this.bottomBorder = false,
+    this.leading,
+    this.bottomDivider = true,
   });
 
   final String title;
@@ -22,16 +25,20 @@ class MTCheckBoxTile extends StatelessWidget {
   final String? description;
   final Color? titleColor;
   final Color? color;
-  final Function(bool?) onChanged;
-  final bool bottomBorder;
+  final Widget? leading;
+  final Function(bool?)? onChanged;
+  final bool bottomDivider;
+
+  bool get _disabled => onChanged == null;
 
   @override
   Widget build(BuildContext context) => MTListTile(
-        middle: BaseText(title, color: titleColor, maxLines: 2),
-        subtitle: description != null && description!.isNotEmpty ? SmallText(description!, maxLines: 1) : null,
-        trailing: DoneIcon(value, solid: value),
+        leading: leading,
+        middle: BaseText.medium(title, color: _disabled ? f2Color : titleColor, maxLines: 2),
+        subtitle: description != null && description!.isNotEmpty ? SmallText(description!, color: _disabled ? f3Color : null, maxLines: 1) : null,
+        trailing: DoneIcon(value, solid: value, size: P5, color: _disabled ? f3Color : null),
         color: color,
-        bottomDivider: bottomBorder,
-        onTap: () => onChanged(!value),
+        bottomDivider: bottomDivider,
+        onTap: onChanged != null ? () => onChanged!(!value) : null,
       );
 }

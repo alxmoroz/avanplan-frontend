@@ -103,6 +103,19 @@
   "explain_update_details_dialog_description": "Обновили проекты, хранящиеся в Аванплане.\n\nИмпортированные проекты обновляются автоматически ночью раз в сутки.",
   "explain_update_details_dialog_title": "Особенности обновления",
 
+  "feature_set_analytics_title": "Аналитика",
+  "feature_set_analytics_description": "Прогноз срока, статистика, дашборды",
+  "feature_set_estimates_title": "Оценки",
+  "feature_set_estimates_description": "Оценка сложности задач",
+  "feature_set_goals_title": "Цели",
+  "feature_set_goals_description": "Практики целеполагания, группировка задач по целям",
+  "feature_set_taskboard_title": "Доска задач",
+  "feature_set_taskboard_description": "Работа с задачами на Agile или Kanban досках",
+  "feature_set_tasklist_title": "Список задач",
+  "feature_set_tasklist_description": "Основные функции для ведения задач",
+  "feature_set_team_title": "Команда",
+  "feature_set_team_description": "Коллективная работа над проектами",
+
   "for_": "за",
   "for_dative": "по",
 
@@ -185,6 +198,8 @@
   "project_count": "{count, plural, zero{Нет проектов} one{{count} проект} few{{count} проекта} other{{count} проектов}}",
   "project_count_dative": "{count, plural, one{{count} проекту} other{{count} проектам}}",
   "project_delete_dialog_title": "Удалить проект?",
+  "project_feature_sets_label": "Подключенные модули",
+  "project_feature_sets_placeholder": "Подключите дополнительные модули",
   "project_list_title": "Проекты",
   "project_new_title": "Новый проект",
   "project_plural_genitive": "{count, plural, one{проекта} other{проектов}}",

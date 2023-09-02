@@ -44,7 +44,7 @@ class _MemberEditViewState extends State<MemberEditView> {
     final role = controller.roles[index];
     final value = role.selected;
     return MTCheckBoxTile(
-      title: role.localize,
+      title: role.localized,
       value: value,
       bottomBorder: index < controller.roles.length - 1,
       onChanged: (bool? value) => controller.selectRole(role, value),

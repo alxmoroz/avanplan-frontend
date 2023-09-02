@@ -10,7 +10,7 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/utils/dates.dart';
 import '../../../components/dialog.dart';
 import '../../../usecases/note_edit.dart';
-import '../../../usecases/task_available_actions.dart';
+import '../../../usecases/task_actions.dart';
 import '../widgets/notes/note_dialog.dart';
 import 'task_controller.dart';
 

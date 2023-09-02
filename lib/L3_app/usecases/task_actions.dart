@@ -30,29 +30,34 @@ extension TaskActionsExt on Task {
   Member? get me => projectMembers.firstWhereOrNull((m) => m.userId == _authUser?.id);
 
   bool get _hpMemberUpdate => me?.hp('MEMBER_UPDATE') == true || ws.hpProjectContentUpdate;
+  bool get _hpMemberRead => me?.hp('MEMBER_READ') == true || ws.hpProjectContentUpdate;
   bool get _hpCreate => me?.hp('TASK_CREATE') == true || ws.hpProjectContentUpdate;
   bool get _hpUpdate => me?.hp('TASK_UPDATE') == true || ws.hpProjectContentUpdate;
   bool get _hpDelete => me?.hp('TASK_DELETE') == true || ws.hpProjectContentUpdate;
+  bool get _hpProjectInfoRead => me?.hp('PROJECT_INFO_READ') == true || ws.hpProjectContentUpdate;
+  bool get _hpProjectInfoUpdate => me?.hp('PROJECT_INFO_UPDATE') == true || ws.hpProjectContentUpdate;
 
   /// доступные действия
   bool get _isLocal => !linked;
   bool get isLinkedProject => isProject && !_isLocal;
 
   bool get canCreate => _isLocal && !closed && _hpCreate;
-  bool get canUpdate => _isLocal && ((isProject && ws.hpProjectUpdate == true) || _hpUpdate);
+  bool get canEdit => _isLocal && ((isProject && ws.hpProjectUpdate == true) || _hpUpdate);
   bool get canDelete => (isProject && ws.hpProjectDelete == true) || (_isLocal && _hpDelete);
-  bool get canReopen => closed && canUpdate && (isProject || parent?.closed == false);
-  bool get canClose => canUpdate && !closed;
+  bool get canReopen => closed && canEdit && (isProject || parent?.closed == false);
+  bool get canClose => canEdit && !closed;
   bool get canUnlink => isLinkedProject && ws.hpProjectUpdate == true;
-  bool get canMembersRead => isProject;
-  bool get canEditMembers => _hpMemberUpdate;
-  bool get canSetStatus => statuses.isNotEmpty && canUpdate && isTask;
+  bool get canViewMembers => isProject && _hpMemberRead;
+  bool get canEditMembers => isProject && _hpMemberUpdate;
+  bool get canSetStatus => statuses.isNotEmpty && canEdit && isTask;
   bool get canCloseGroup => canClose && state == TaskState.CLOSABLE;
-  bool get canEstimate => canUpdate && ws.estimateValues.isNotEmpty && isTask;
-  bool get canAssign => canUpdate && activeMembers.isNotEmpty;
-  bool get canLocalExport => canUpdate && goalsForLocalExport.isNotEmpty;
-  bool get canLocalImport => canUpdate && goalsForLocalImport.isNotEmpty;
-  bool get canComment => !isProject && canUpdate;
+  bool get canEstimate => canEdit && ws.estimateValues.isNotEmpty && isTask;
+  bool get canAssign => canEdit && activeMembers.isNotEmpty;
+  bool get canLocalExport => canEdit && goalsForLocalExport.isNotEmpty;
+  bool get canLocalImport => canEdit && goalsForLocalImport.isNotEmpty;
+  bool get canComment => !isProject && canEdit;
+  bool get canViewFeatureSets => isProject && _hpProjectInfoRead;
+  bool get canEditFeatureSets => isProject && _hpProjectInfoUpdate;
 
   /// рекомендации, быстрые кнопки
   bool get shouldAddSubtask =>

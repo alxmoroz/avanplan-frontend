@@ -9,7 +9,7 @@ import '../../../components/constants.dart';
 import '../../../components/select_dialog.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/member.dart';
-import '../../../usecases/task_available_actions.dart';
+import '../../../usecases/task_actions.dart';
 import 'task_controller.dart';
 
 class AssigneeController {

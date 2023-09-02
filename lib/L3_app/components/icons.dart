@@ -387,6 +387,16 @@ class RulesIcon extends MTIcon {
       );
 }
 
+class SettingsIcon extends MTIcon {
+  const SettingsIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.settings,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P6,
+      );
+}
+
 class ShareIcon extends MTIcon {
   const ShareIcon({super.color, super.size});
   @override

@@ -12,7 +12,7 @@ import '../../../components/material_wrapper.dart';
 import '../../../components/text.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_source.dart';
-import '../../../usecases/task_available_actions.dart';
+import '../../../usecases/task_actions.dart';
 import '../../../usecases/task_link.dart';
 import '../controllers/delete_controller.dart';
 import '../controllers/task_controller.dart';

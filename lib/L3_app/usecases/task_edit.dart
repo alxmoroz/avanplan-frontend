@@ -33,6 +33,9 @@ extension TaskSaving on Task {
     if (et.projectStatuses.isEmpty) {
       et.projectStatuses = projectStatuses;
     }
+    if (et.projectFeatureSets.isEmpty) {
+      et.projectFeatureSets = projectFeatureSets;
+    }
     if (et.notes.isEmpty) {
       et.notes = notes;
     }

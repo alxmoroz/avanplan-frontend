@@ -13,7 +13,10 @@ class ReferencesController extends _ReferencesControllerBase with _$ReferencesCo
 abstract class _ReferencesControllerBase with Store {
   /// настройки наборов функций (модулей) проектов
   @observable
-  Iterable<FeatureSet> featureSets = [];
+  Iterable<FeatureSet> _featureSets = [];
+
+  @computed
+  Map<int, FeatureSet> get featureSetsMap => {for (var fs in _featureSets) fs.id!: fs};
 
   /// тип источника импорта
   @observable
@@ -27,13 +30,13 @@ abstract class _ReferencesControllerBase with Store {
       SourceType(title: 'Яндекс.Трекер', code: 'yandex_tracker', active: false),
     ];
 
-    featureSets = await featureSetUC.getAll();
+    _featureSets = await featureSetUC.getAll();
   }
 
   @action
   void clearData() {
     sourceTypes = [];
-    featureSets = [];
+    _featureSets = [];
   }
 
   SourceType typeForCode(String code) => sourceTypes.firstWhere((st) => st.code == code);

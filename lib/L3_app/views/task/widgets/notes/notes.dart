@@ -22,7 +22,7 @@ import '../../../../extra/services.dart';
 import '../../../../presenters/date.dart';
 import '../../../../presenters/note.dart';
 import '../../../../presenters/person.dart';
-import '../../../../usecases/task_available_actions.dart';
+import '../../../../usecases/task_actions.dart';
 import '../../controllers/notes_controller.dart';
 
 class Notes extends StatelessWidget {

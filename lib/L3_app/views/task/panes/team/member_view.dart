@@ -15,7 +15,7 @@ import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/person.dart';
 import '../../../../presenters/task_type.dart';
-import '../../../../usecases/task_available_actions.dart';
+import '../../../../usecases/task_actions.dart';
 import 'member_view_controller.dart';
 
 // TODO: параметр "задача" не нужен, т.к. есть инфа об айдишнике задачи в участнике

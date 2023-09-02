@@ -18,7 +18,7 @@ import '../../../extra/services.dart';
 import '../../../presenters/task_state.dart';
 import '../../../presenters/task_stats.dart';
 import '../../../presenters/task_view.dart';
-import '../../../usecases/task_available_actions.dart';
+import '../../../usecases/task_actions.dart';
 import '../controllers/task_controller.dart';
 import '../widgets/charts/chart_details.dart';
 import '../widgets/charts/timing_chart.dart';

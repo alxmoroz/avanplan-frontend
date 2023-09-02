@@ -33,7 +33,7 @@ class MemberAddMenu extends StatelessWidget {
           ? material(
               PopupMenuButton<Role>(
                 child: MTMenuShape(icon: const MemberAddIcon(color: mainBtnTitleColor), title: _title),
-                itemBuilder: (_) => [for (final r in task.ws.roles) PopupMenuItem<Role>(value: r, child: BaseText(r.localize))],
+                itemBuilder: (_) => [for (final r in task.ws.roles) PopupMenuItem<Role>(value: r, child: BaseText(r.localized))],
                 onSelected: (r) async => await memberAddDialog(task, r),
                 padding: EdgeInsets.zero,
                 surfaceTintColor: b3Color.resolve(context),

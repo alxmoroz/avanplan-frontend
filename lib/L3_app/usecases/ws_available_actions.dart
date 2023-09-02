@@ -8,7 +8,7 @@ import '../extra/services.dart';
 extension WSActionsExt on Workspace {
   User get me => users.firstWhere((u) => u.id == accountController.user?.id);
 
-  bool get hpInfoRead => me.hp('INFO_READ');
+  // bool get hpInfoRead => me.hp('INFO_READ');
   bool get hpInfoUpdate => me.hp('INFO_UPDATE');
 
   bool get hpProjectCreate => me.hp('PROJECT_CREATE');

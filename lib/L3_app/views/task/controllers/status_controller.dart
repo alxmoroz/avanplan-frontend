@@ -13,7 +13,7 @@ import '../../../components/select_dialog.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_filter.dart';
 import '../../../presenters/task_tree.dart';
-import '../../../usecases/task_available_actions.dart';
+import '../../../usecases/task_actions.dart';
 import '../../../usecases/task_edit.dart';
 import 'task_controller.dart';
 

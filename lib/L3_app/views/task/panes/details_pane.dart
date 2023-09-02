@@ -1,5 +1,6 @@
 // Copyright (c) 2023. Alexandr Moroz
 
+import 'package:avanplan/L3_app/presenters/project_feature_set.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -22,7 +23,7 @@ import '../../../extra/services.dart';
 import '../../../presenters/person.dart';
 import '../../../presenters/task_source.dart';
 import '../../../presenters/workspace.dart';
-import '../../../usecases/task_available_actions.dart';
+import '../../../usecases/task_actions.dart';
 import '../controllers/task_controller.dart';
 import '../widgets/notes/notes.dart';
 
@@ -91,11 +92,11 @@ class DetailsPane extends StatelessWidget {
                   onSelect: _task.canAssign ? controller.assigneeController.assign : null,
                 ),
               ],
-              if (_task.hasDescription || _task.canUpdate) ...[
+              if (_task.hasDescription || _task.canEdit) ...[
                 const SizedBox(height: P3),
                 MTField(
                   controller.fData(TaskFCode.description.index),
-                  leading: DescriptionIcon(color: _task.canUpdate ? mainColor : f2Color),
+                  leading: DescriptionIcon(color: _task.canEdit ? mainColor : f2Color),
                   value: _task.hasDescription
                       ? SelectableLinkify(
                           text: _task.description,
@@ -105,17 +106,17 @@ class DetailsPane extends StatelessWidget {
                           // onTap: _task.canUpdate ? controller.editDescription : null,
                         )
                       : null,
-                  onSelect: _task.canUpdate ? controller.titleController.editDescription : null,
+                  onSelect: _task.canEdit ? controller.titleController.editDescription : null,
                 ),
               ],
               const SizedBox(height: P3),
               controller.datesController.dateField(context, TaskFCode.startDate),
-              if (_task.hasDueDate || _task.canUpdate) controller.datesController.dateField(context, TaskFCode.dueDate),
+              if (_task.hasDueDate || _task.canEdit) controller.datesController.dateField(context, TaskFCode.dueDate),
               if (_task.hasEstimate || _task.canEstimate) ...[
                 const SizedBox(height: P3),
                 MTField(
                   controller.fData(TaskFCode.estimate.index),
-                  leading: EstimateIcon(color: _task.canEstimate ? mainColor : f2Color),
+                  leading: EstimateIcon(color: _task.canEstimate ? mainColor : f3Color),
                   value: _task.hasEstimate ? BaseText('${(_task.openedVolume ?? _task.estimate)?.round()} ${_task.ws.estimateUnitCode}') : null,
                   onSelect: _task.canEstimate ? controller.estimateController.select : null,
                 ),
@@ -124,9 +125,18 @@ class DetailsPane extends StatelessWidget {
                 const SizedBox(height: P3),
                 MTField(
                   controller.fData(TaskFCode.author.index),
-                  leading: _task.author!.icon(P3),
+                  leading: _task.author!.icon(P3, borderColor: f3Color),
                   value: BaseText('${_task.author}', color: f2Color),
                   onSelect: null,
+                ),
+              ],
+              if (_task.canViewFeatureSets) ...[
+                const SizedBox(height: P3),
+                MTField(
+                  controller.fData(TaskFCode.features.index),
+                  leading: SettingsIcon(color: _task.canEditFeatureSets ? null : f3Color),
+                  value: BaseText(_task.localizedFeatureSets, maxLines: 1),
+                  onSelect: _task.canEditFeatureSets ? () => print('canFeatureSetsUpdate') : null,
                 ),
               ],
               if (_task.canComment) ...[

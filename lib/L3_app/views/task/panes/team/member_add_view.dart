@@ -79,7 +79,7 @@ class _MemberAddViewState extends State<MemberAddView> {
             // TODO: https://redmine.moroz.team/issues/2527
             // tabPaneSelector,
             BaseText('${_invitationController.task}:', align: TextAlign.center, maxLines: 1),
-            BaseText(_invitationController.role.localize, align: TextAlign.center),
+            BaseText(_invitationController.role.localized, align: TextAlign.center),
             _selectedPane,
           ],
         ),

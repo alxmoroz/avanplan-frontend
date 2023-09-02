@@ -18,7 +18,7 @@ import '../../../components/text.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/date.dart';
 import '../../../presenters/duration.dart';
-import '../../../usecases/task_available_actions.dart';
+import '../../../usecases/task_actions.dart';
 import 'task_controller.dart';
 
 class DatesController {
@@ -118,15 +118,15 @@ class DatesController {
     final fd = _taskController.fData(code.index);
     return MTField(
       fd,
-      leading: isStart ? CalendarIcon(color: task.canUpdate ? mainColor : f2Color) : Container(),
+      leading: isStart ? CalendarIcon(color: task.canEdit ? mainColor : f2Color) : Container(),
       value: !isEmpty
           ? Row(children: [
               BaseText(date.strMedium, padding: const EdgeInsets.only(right: P)),
               BaseText.f2(DateFormat.EEEE().format(date)),
             ])
           : null,
-      onSelect: task.canUpdate ? () => selectDate(context, code) : null,
-      bottomDivider: isStart && (task.hasDueDate || task.canUpdate),
+      onSelect: task.canEdit ? () => selectDate(context, code) : null,
+      bottomDivider: isStart && (task.hasDueDate || task.canEdit),
       dividerStartIndent: isStart ? P * 11 : null,
     );
   }

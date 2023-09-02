@@ -1,21 +1,9 @@
-// Copyright (c) 2023. Alexandr Moroz
+// Copyright (c) 2022. Alexandr Moroz
 
 import '../../L1_domain/entities/feature_set.dart';
 import '../../L1_domain/entities/task.dart';
-import '../extra/services.dart';
-import 'task_tree.dart';
+import '../usecases/task_feature_sets.dart';
 
-extension ProjectFeatureSet on Task {
-  List<FeatureSet> get featureSets {
-    List<FeatureSet> res = [];
-
-    final pFeatureSets = project?.projectFeatureSets ?? [];
-    if (pFeatureSets.isNotEmpty) {
-      res = pFeatureSets.map((pfs) => refsController.featureSets.firstWhere((fs) => fs.id == pfs.featureSetId)).toList();
-    }
-
-    return res;
-  }
-
-  // FeatureSet? featureSetForId(int? id) => featureSets.firstWhereOrNull((fs) => fs.id == id);
+extension ProjectFeatureSetPresenter on Task {
+  String get localizedFeatureSets => [...featureSets, FeatureSet(code: 'TASKLIST', id: null)].map((fs) => fs.title).join(', ');
 }

@@ -13,7 +13,7 @@ import '../../../components/colors_base.dart';
 import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../presenters/task_filter.dart';
-import '../../../usecases/task_available_actions.dart';
+import '../../../usecases/task_actions.dart';
 import '../controllers/task_controller.dart';
 import '../widgets/task_create_button.dart';
 import '../widgets/tasks_board.dart';

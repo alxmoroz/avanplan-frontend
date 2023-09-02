@@ -15,7 +15,7 @@ import '../../../../components/list_tile.dart';
 import '../../../../components/shadowed.dart';
 import '../../../../components/text.dart';
 import '../../../../presenters/person.dart';
-import '../../../../usecases/task_available_actions.dart';
+import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
 import 'member_add_menu.dart';
 import 'member_view.dart';

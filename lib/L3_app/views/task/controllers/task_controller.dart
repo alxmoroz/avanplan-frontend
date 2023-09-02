@@ -29,7 +29,7 @@ part 'task_controller.g.dart';
 
 enum TaskTabKey { overview, subtasks, details, team }
 
-enum TaskFCode { parent, title, status, assignee, description, startDate, dueDate, estimate, author, note }
+enum TaskFCode { parent, title, status, assignee, description, startDate, dueDate, estimate, author, features, note }
 
 enum TasksFilter { my }
 
@@ -49,6 +49,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
         placeholder: loc.task_estimate_placeholder,
       ),
       MTFieldData(TaskFCode.author.index, label: loc.task_author_title, placeholder: loc.task_author_title),
+      MTFieldData(TaskFCode.features.index, label: loc.project_feature_sets_label, placeholder: loc.project_feature_sets_placeholder),
       MTFieldData(TaskFCode.note.index, placeholder: loc.task_note_placeholder),
     ]);
 

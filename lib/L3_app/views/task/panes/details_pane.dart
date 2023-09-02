@@ -1,6 +1,5 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'package:avanplan/L3_app/presenters/project_feature_set.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -21,9 +20,11 @@ import '../../../components/shadowed.dart';
 import '../../../components/text.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/person.dart';
+import '../../../presenters/project_feature_set.dart';
 import '../../../presenters/task_source.dart';
 import '../../../presenters/workspace.dart';
 import '../../../usecases/task_actions.dart';
+import '../../../usecases/task_feature_sets.dart';
 import '../controllers/task_controller.dart';
 import '../widgets/notes/notes.dart';
 
@@ -79,7 +80,7 @@ class DetailsPane extends StatelessWidget {
                   ),
                 ),
               ],
-              if (_task.hasAssignee || _task.canAssign) ...[
+              if (_task.hfsTeam && (_task.hasAssignee || _task.canAssign)) ...[
                 SizedBox(height: _task.hasStatus ? P : P3),
                 MTField(
                   controller.fData(TaskFCode.assignee.index),
@@ -121,7 +122,7 @@ class DetailsPane extends StatelessWidget {
                   onSelect: _task.canEstimate ? controller.estimateController.select : null,
                 ),
               ],
-              if (_task.hasAuthor) ...[
+              if (_task.hfsTeam && _task.hasAuthor) ...[
                 const SizedBox(height: P3),
                 MTField(
                   controller.fData(TaskFCode.author.index),

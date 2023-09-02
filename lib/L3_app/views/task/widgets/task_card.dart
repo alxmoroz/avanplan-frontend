@@ -27,6 +27,7 @@ import '../../../presenters/task_tree.dart';
 import '../../../presenters/task_type.dart';
 import '../../../presenters/workspace.dart';
 import '../../../usecases/task_actions.dart';
+import '../../../usecases/task_feature_sets.dart';
 import 'state_title.dart';
 
 class TaskCard extends StatelessWidget {
@@ -84,8 +85,8 @@ class TaskCard extends StatelessWidget {
   bool get _showStatus => task.hasStatus && !board && !task.closed;
   Widget get _status => SmallText('${task.status}', color: _textColor, height: 1);
 
-  bool get _showAssignee => task.hasAssignee && !isMine;
-  Widget get _assignee => task.assignee!.icon(P * (board ? 1 : 1.35));
+  bool get _showAssignee => task.hfsTeam && task.hasAssignee && !isMine;
+  Widget get _assignee => task.assignee!.icon(P * (board ? 2 : 2.7));
 
   bool get _showNotesMark => !task.closed && task.notes.isNotEmpty;
   Widget get _notesMark => Row(

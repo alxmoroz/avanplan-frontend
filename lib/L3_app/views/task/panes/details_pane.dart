@@ -113,7 +113,7 @@ class DetailsPane extends StatelessWidget {
               const SizedBox(height: P3),
               controller.datesController.dateField(context, TaskFCode.startDate),
               if (_task.hasDueDate || _task.canEdit) controller.datesController.dateField(context, TaskFCode.dueDate),
-              if (_task.hasEstimate || _task.canEstimate) ...[
+              if (_task.hfsEstimates && (_task.hasEstimate || _task.canEstimate)) ...[
                 const SizedBox(height: P3),
                 MTField(
                   controller.fData(TaskFCode.estimate.index),

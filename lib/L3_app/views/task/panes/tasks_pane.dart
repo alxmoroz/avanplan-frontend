@@ -1,5 +1,6 @@
 // Copyright (c) 2023. Alexandr Moroz
 
+import 'package:avanplan/L3_app/usecases/task_feature_sets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -40,7 +41,7 @@ class TasksPane extends StatelessWidget {
 
   Widget? get bottomBar => (_task.canCreate || _task.totalVolume > 0)
       ? Row(children: [
-          if (_task.totalVolume > 0 && !_task.isProject)
+          if (_task.hfsTaskboard && _task.totalVolume > 0 && !_task.isProject)
             MTButton.secondary(
               color: b1Color,
               middle: Row(children: [

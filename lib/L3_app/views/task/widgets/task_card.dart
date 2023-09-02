@@ -99,7 +99,7 @@ class TaskCard extends StatelessWidget {
         ],
       );
 
-  bool get _showEstimate => task.hasEstimate && !task.closed;
+  bool get _showEstimate => task.hfsEstimates && task.hasEstimate && !task.closed;
   Widget get _estimate => SmallText('${(task.openedVolume ?? task.estimate)?.round()} ${task.ws.estimateUnitCode}', color: _textColor, height: 1);
 
   Widget get _divider => const Padding(

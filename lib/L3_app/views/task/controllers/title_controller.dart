@@ -16,7 +16,7 @@ class TitleController {
   Task get task => _taskController.task;
 
   /// название
-  String get titlePlaceholder => newSubtaskTitle(task.parent?.type ?? TType.ROOT);
+  String get titlePlaceholder => newSubtaskTitle(task.parent);
 
   Future _setTitle(String str) async {
     if (task.title != str) {

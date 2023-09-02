@@ -2,7 +2,6 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../../L1_domain/entities/task.dart';
 import '../../../components/adaptive.dart';
 import '../../../components/button.dart';
 import '../../../components/colors.dart';
@@ -34,7 +33,7 @@ class TaskCreateButton extends StatelessWidget {
       showBadge: !controller.plCreate,
       child: MTButton.main(
         leading: compact ? null : _plusIcon,
-        titleText: compact ? null : newSubtaskTitle(controller.parent?.type ?? TType.ROOT),
+        titleText: compact ? null : newSubtaskTitle(controller.parent),
         middle: compact ? _plusIcon : null,
         constrained: false,
         onTap: _tap,

@@ -16,7 +16,7 @@ import 'member_add_controller.dart';
 Future memberAddDialog(Task task, Role role) async {
   final invitationController = InvitationController(task, role);
   await invitationController.fetchInvitation();
-  return await showMTDialog<void>(MemberAddView(invitationController));
+  await showMTDialog<void>(MemberAddView(invitationController));
 }
 
 class MemberAddView extends StatefulWidget {

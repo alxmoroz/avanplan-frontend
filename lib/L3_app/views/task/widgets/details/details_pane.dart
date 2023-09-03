@@ -9,6 +9,7 @@ import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../../L1_domain/entities_extensions/task_status.dart';
+import '../../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
@@ -34,6 +35,7 @@ class DetailsPane extends StatelessWidget {
   final TaskController controller;
 
   Task get _task => controller.task;
+  bool get _onboarding => controller.onbController.onboarding;
 
   Widget? get bottomBar => _task.linked
       ? MTButton(
@@ -81,7 +83,7 @@ class DetailsPane extends StatelessWidget {
                   ),
                 ),
               ],
-              if (_task.hfsTeam && (_task.hasAssignee || _task.canAssign)) ...[
+              if (!_onboarding && _task.hfsTeam && (_task.hasAssignee || _task.canAssign)) ...[
                 SizedBox(height: _task.hasStatus ? P : P3),
                 MTField(
                   controller.fData(TaskFCode.assignee.index),
@@ -123,7 +125,7 @@ class DetailsPane extends StatelessWidget {
                   onSelect: _task.canEstimate ? controller.estimateController.select : null,
                 ),
               ],
-              if (_task.hfsTeam && _task.hasAuthor) ...[
+              if (!_onboarding && _task.hfsTeam && _task.hasAuthor) ...[
                 const SizedBox(height: P3),
                 MTField(
                   controller.fData(TaskFCode.author.index),
@@ -132,13 +134,18 @@ class DetailsPane extends StatelessWidget {
                   onSelect: null,
                 ),
               ],
-              if (controller.onbController.onboarding)
-                MTButton.main(
-                  titleText: loc.project_feature_sets_select_action_title,
-                  margin: const EdgeInsets.symmetric(vertical: P3),
-                  onTap: () => showFeatureSetsDialog(controller),
-                )
-              else if (_task.canViewFeatureSets) ...[
+              if (_onboarding) ...[
+                _task.isProject
+                    ? MTButton.main(
+                        titleText: loc.project_feature_sets_select_action_title,
+                        margin: const EdgeInsets.symmetric(vertical: P3),
+                        onTap: () => showFeatureSetsDialog(controller),
+                      )
+                    : MTButton.main(
+                        titleText: loc.onboarding_proceed_action_title,
+                        margin: const EdgeInsets.symmetric(vertical: P3),
+                      )
+              ] else if (_task.canViewFeatureSets) ...[
                 const SizedBox(height: P3),
                 MTField(
                   controller.fData(TaskFCode.features.index),
@@ -147,7 +154,7 @@ class DetailsPane extends StatelessWidget {
                   onSelect: _task.canEditFeatureSets ? () => showFeatureSetsDialog(controller) : null,
                 ),
               ],
-              if (_task.canComment) ...[
+              if (!_onboarding && _task.canComment) ...[
                 const SizedBox(height: P3),
                 MTField(
                   controller.fData(TaskFCode.note.index),
@@ -160,7 +167,7 @@ class DetailsPane extends StatelessWidget {
                   onSelect: controller.notesController.create,
                 ),
               ],
-              if (controller.notesController.sortedNotesDates.isNotEmpty) ...[
+              if (!_onboarding && controller.notesController.sortedNotesDates.isNotEmpty) ...[
                 const SizedBox(height: P3),
                 Notes(controller.notesController),
               ],

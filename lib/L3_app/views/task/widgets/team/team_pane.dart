@@ -17,7 +17,7 @@ import '../../../../components/text.dart';
 import '../../../../presenters/person.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
-import 'member_add_menu.dart';
+import 'invitation_button.dart';
 import 'member_view.dart';
 import 'no_members.dart';
 
@@ -29,7 +29,7 @@ class TeamPane extends StatelessWidget {
 
   List<Member> get _sortedMembers => task.sortedMembers;
 
-  Widget? get bottomBar => task.canEditMembers && task.ws.roles.isNotEmpty ? MemberAddMenu(task) : null;
+  Widget? get bottomBar => task.canEditMembers && task.ws.roles.isNotEmpty ? InvitationButton(task) : null;
 
   Widget _memberBuilder(BuildContext context, int index) {
     final member = _sortedMembers[index];

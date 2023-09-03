@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities_extensions/task_tree.dart';
+import '../components/constants.dart';
 import '../components/text.dart';
 import '../extra/services.dart';
 
@@ -68,7 +69,7 @@ extension TaskTypePresenter on Task {
         mainAxisSize: MainAxisSize.min,
         children: [
           BaseText.medium(pageTitle),
-          BaseText('$this'),
+          BaseText('$this', maxLines: 1, padding: const EdgeInsets.symmetric(horizontal: P2), height: 1),
         ],
       );
 

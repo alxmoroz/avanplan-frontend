@@ -225,12 +225,12 @@
   "role_full_description": "Project and members management",
   "role_guest_title": "Guest",
   "role_guest_description": "View Only",
+  "role_list_title": "Roles",
   "role_member_title": "Member",
   "role_member_description": "Work with Tasks",
   "role_owner_title": "Owner",
   "role_owner_description": "Full Access",
-
-  "role_list_title": "Roles",
+  "role_select_action_title": "Select role",
 
   "save_action_title": "Save",
   "select_all_action_title": "Select all",

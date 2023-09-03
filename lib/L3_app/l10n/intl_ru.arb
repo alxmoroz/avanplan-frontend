@@ -225,12 +225,12 @@
   "role_full_description": "Управление проектом и участниками",
   "role_guest_title": "Наблюдатель",
   "role_guest_description": "Только просмотр",
+  "role_list_title": "Роли",
   "role_member_title": "Исполнитель",
   "role_member_description": "Работа с задачами",
   "role_owner_title": "Владелец",
   "role_owner_description": "Полный доступ",
-
-  "role_list_title": "Роли",
+  "role_select_action_title": "Выберите роль",
 
   "save_action_title": "Сохранить",
   "select_all_action_title": "Выбрать все",

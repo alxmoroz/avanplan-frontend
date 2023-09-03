@@ -16,10 +16,10 @@ import '../../../../presenters/task_filter.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_feature_sets.dart';
 import '../../controllers/task_controller.dart';
-import '../../widgets/task_create_button.dart';
-import '../../widgets/tasks_list_view.dart';
 import '../../widgets/transfer/local_import_dialog.dart';
+import '../create/task_create_button.dart';
 import 'tasks_board.dart';
+import 'tasks_list_view.dart';
 
 class TasksPane extends StatelessWidget {
   const TasksPane(this.controller);

@@ -11,7 +11,7 @@ import '../../../components/text.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_state.dart';
 import '../../my_projects/my_projects_view.dart';
-import '../../task/widgets/tasks_group.dart';
+import '../../task/widgets/tasks/tasks_group.dart';
 
 class MyProjects extends StatelessWidget {
   const MyProjects({this.compact = true});

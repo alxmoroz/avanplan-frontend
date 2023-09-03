@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../../L1_domain/entities/task.dart';
+import '../../../../../L1_domain/entities/task.dart';
 import 'task_card.dart';
 
 // TODO: добавить опциональный заголовок для группы

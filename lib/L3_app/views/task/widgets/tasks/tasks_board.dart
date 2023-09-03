@@ -16,7 +16,7 @@ import '../../../../presenters/task_filter.dart';
 import '../../../../presenters/task_tree.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../controllers/status_controller.dart';
-import '../../widgets/task_card.dart';
+import 'task_card.dart';
 
 class _ItemTarget extends StatelessWidget {
   @override

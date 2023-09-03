@@ -27,7 +27,7 @@ import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_feature_sets.dart';
 import '../../controllers/task_controller.dart';
 import 'feature_sets.dart';
-import 'notes/notes.dart';
+import 'notes.dart';
 
 class DetailsPane extends StatelessWidget {
   const DetailsPane(this.controller);

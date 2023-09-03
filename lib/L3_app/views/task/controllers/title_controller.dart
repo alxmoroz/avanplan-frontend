@@ -6,7 +6,7 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../components/dialog.dart';
 import '../../../presenters/task_tree.dart';
 import '../../../presenters/task_type.dart';
-import '../widgets/task_description_dialog.dart';
+import '../widgets/header/task_description_dialog.dart';
 import 'task_controller.dart';
 
 class TitleController {

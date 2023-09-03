@@ -8,7 +8,7 @@ import '../../components/page.dart';
 import '../../components/text.dart';
 import '../../extra/services.dart';
 import '../task/controllers/task_controller.dart';
-import '../task/widgets/tasks_list_view.dart';
+import '../task/widgets/tasks/tasks_list_view.dart';
 
 class MyTasksView extends StatelessWidget {
   static String get routeName => 'my_tasks';

@@ -14,7 +14,7 @@ import '../../../components/shadowed.dart';
 import '../../../components/text.dart';
 import '../../../extra/services.dart';
 import '../../my_tasks/my_tasks_view.dart';
-import '../../task/widgets/tasks_group.dart';
+import '../../task/widgets/tasks/tasks_group.dart';
 
 class MyTasks extends StatelessWidget {
   const MyTasks({this.compact = true});

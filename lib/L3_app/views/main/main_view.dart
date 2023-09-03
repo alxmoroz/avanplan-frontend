@@ -15,7 +15,7 @@ import '../../extra/services.dart';
 import '../../presenters/person.dart';
 import '../notification/notification_list_view.dart';
 import '../settings/settings_view.dart';
-import '../task/widgets/project_create_wizard/project_create_wizard.dart';
+import '../task/widgets/create/project_create_wizard.dart';
 import 'widgets/main_dashboard.dart';
 import 'widgets/no_projects.dart';
 

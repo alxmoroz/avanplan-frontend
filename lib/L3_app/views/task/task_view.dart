@@ -15,12 +15,12 @@ import '../../components/text.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_type.dart';
 import 'controllers/task_controller.dart';
-import 'panes/details/details_pane.dart';
-import 'panes/overview/overview_pane.dart';
-import 'panes/tasks/tasks_pane.dart';
-import 'panes/team/team_pane.dart';
-import 'widgets/task_header.dart';
-import 'widgets/task_navbar.dart';
+import 'widgets/details/details_pane.dart';
+import 'widgets/header/task_header.dart';
+import 'widgets/header/task_navbar.dart';
+import 'widgets/overview/overview_pane.dart';
+import 'widgets/tasks/tasks_pane.dart';
+import 'widgets/team/team_pane.dart';
 
 class TaskView extends StatefulWidget {
   const TaskView(this.taskIn);

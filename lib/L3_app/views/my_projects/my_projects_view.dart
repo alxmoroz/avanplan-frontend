@@ -8,8 +8,8 @@ import '../../components/navbar.dart';
 import '../../components/page.dart';
 import '../../components/text.dart';
 import '../../extra/services.dart';
-import '../task/widgets/project_create_wizard/project_create_wizard.dart';
-import '../task/widgets/tasks_list_view.dart';
+import '../task/widgets/create/project_create_wizard.dart';
+import '../task/widgets/tasks/tasks_list_view.dart';
 
 class MyProjectsView extends StatelessWidget {
   static String get routeName => 'my_projects';

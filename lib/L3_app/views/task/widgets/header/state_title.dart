@@ -2,10 +2,10 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../../L1_domain/entities/task.dart';
-import '../../../components/constants.dart';
-import '../../../components/text.dart';
-import '../../../presenters/task_state.dart';
+import '../../../../../L1_domain/entities/task.dart';
+import '../../../../components/constants.dart';
+import '../../../../components/text.dart';
+import '../../../../presenters/task_state.dart';
 
 enum StateTitlePlace { taskOverview, groupHeader, card }
 

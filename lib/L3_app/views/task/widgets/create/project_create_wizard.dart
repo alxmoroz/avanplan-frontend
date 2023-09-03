@@ -18,8 +18,8 @@ import '../../../../usecases/ws_available_actions.dart';
 import '../../../../usecases/ws_tariff.dart';
 import '../../../import/import_view.dart';
 import '../../../source/source_type_selector.dart';
-import '../task_create_button.dart';
 import 'project_create_wizard_controller.dart';
+import 'task_create_button.dart';
 import 'ws_selector.dart';
 
 Future projectCreateWizard() async => await showMTDialog<void>(ProjectCreateWizard());

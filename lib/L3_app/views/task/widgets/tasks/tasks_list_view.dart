@@ -2,12 +2,12 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../../L1_domain/entities/task.dart';
-import '../../../components/adaptive.dart';
-import '../../../components/shadowed.dart';
-import '../controllers/task_controller.dart';
-import '../panes/tasks/no_tasks.dart';
-import 'state_title.dart';
+import '../../../../../L1_domain/entities/task.dart';
+import '../../../../components/adaptive.dart';
+import '../../../../components/shadowed.dart';
+import '../../controllers/task_controller.dart';
+import '../header/state_title.dart';
+import 'no_tasks.dart';
 import 'tasks_group.dart';
 
 class TasksListView extends StatelessWidget {

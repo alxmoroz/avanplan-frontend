@@ -9,7 +9,6 @@ import '../../../../components/dialog.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/role.dart';
 import 'invitation_controller.dart';
 import 'invitation_pane.dart';
 import 'member_add_controller.dart';
@@ -79,7 +78,7 @@ class _MemberAddViewState extends State<MemberAddView> {
             // TODO: https://redmine.moroz.team/issues/2527
             // tabPaneSelector,
             BaseText('${_invitationController.task}:', align: TextAlign.center, maxLines: 1),
-            BaseText(_invitationController.role.localized, align: TextAlign.center),
+            BaseText(_invitationController.role.title, align: TextAlign.center),
             _selectedPane,
           ],
         ),

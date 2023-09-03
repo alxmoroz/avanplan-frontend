@@ -13,7 +13,6 @@ import '../../../../components/shadowed.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/role.dart';
 import '../../../../presenters/task_type.dart';
 import 'member_edit_controller.dart';
 
@@ -44,7 +43,8 @@ class _MemberEditViewState extends State<MemberEditView> {
     final role = controller.roles[index];
     final value = role.selected;
     return MTCheckBoxTile(
-      title: role.localized,
+      title: role.title,
+      description: role.description,
       value: value,
       bottomDivider: index < controller.roles.length - 1,
       onChanged: (bool? value) => controller.selectRole(role, value),

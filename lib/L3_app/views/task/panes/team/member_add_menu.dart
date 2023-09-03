@@ -15,7 +15,6 @@ import '../../../../components/material_wrapper.dart';
 import '../../../../components/menu_shape.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/role.dart';
 import '../../../../usecases/ws_available_actions.dart';
 import '../../../../usecases/ws_tariff.dart';
 import 'member_add_view.dart';
@@ -33,7 +32,7 @@ class MemberAddMenu extends StatelessWidget {
           ? material(
               PopupMenuButton<Role>(
                 child: MTMenuShape(icon: const MemberAddIcon(color: mainBtnTitleColor), title: _title),
-                itemBuilder: (_) => [for (final r in task.ws.roles) PopupMenuItem<Role>(value: r, child: BaseText(r.localized))],
+                itemBuilder: (_) => [for (final r in task.ws.roles) PopupMenuItem<Role>(value: r, child: BaseText(r.title))],
                 onSelected: (r) async => await memberAddDialog(task, r),
                 padding: EdgeInsets.zero,
                 surfaceTintColor: b3Color.resolve(context),

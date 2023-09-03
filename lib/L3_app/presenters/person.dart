@@ -6,9 +6,9 @@ import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 
 import '../../L1_domain/entities/person.dart';
+import '../../L1_domain/entities/role.dart';
 import '../components/colors.dart';
 import '../components/colors_base.dart';
-import 'role.dart';
 
 class _PersonIcon extends StatelessWidget {
   const _PersonIcon(this.person, this.radius, {this.borderColor});
@@ -35,6 +35,6 @@ class _PersonIcon extends StatelessWidget {
 }
 
 extension PersonPresenter on Person {
-  String get rolesStr => roles.map((rCode) => localizedRoleCode(rCode)).join(', ');
+  String get rolesStr => roles.map((rCode) => Role(code: rCode, id: null).title).join(', ');
   Widget icon(double radius, {Color? borderColor}) => _PersonIcon(this, radius, borderColor: borderColor);
 }

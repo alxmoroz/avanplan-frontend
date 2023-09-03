@@ -219,11 +219,17 @@
   "reload_action_title": "Перезагрузить",
   "report_bug_action_title": "Сообщить о проблеме",
 
-  "role_code_admin": "Администратор",
-  "role_code_full": "Полный доступ",
-  "role_code_guest": "Наблюдатель",
-  "role_code_owner": "Владелец",
-  "role_code_member": "Исполнитель",
+  "role_admin_title": "Администратор",
+  "role_admin_description": "",
+  "role_full_title": "Полный доступ",
+  "role_full_description": "Управление проектом и участниками",
+  "role_guest_title": "Наблюдатель",
+  "role_guest_description": "Только просмотр",
+  "role_member_title": "Исполнитель",
+  "role_member_description": "Работа с задачами",
+  "role_owner_title": "Владелец",
+  "role_owner_description": "Полный доступ",
+
   "role_list_title": "Роли",
 
   "save_action_title": "Сохранить",

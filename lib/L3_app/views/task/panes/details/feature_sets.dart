@@ -3,15 +3,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../L1_domain/entities/task.dart';
-import '../../../components/button.dart';
-import '../../../components/checkbox.dart';
-import '../../../components/constants.dart';
-import '../../../components/dialog.dart';
-import '../../../components/toolbar.dart';
-import '../../../extra/services.dart';
-import '../../../usecases/task_feature_sets.dart';
-import '../controllers/task_controller.dart';
+import '../../../../../L1_domain/entities/task.dart';
+import '../../../../components/button.dart';
+import '../../../../components/checkbox.dart';
+import '../../../../components/constants.dart';
+import '../../../../components/dialog.dart';
+import '../../../../components/toolbar.dart';
+import '../../../../extra/services.dart';
+import '../../../../usecases/task_feature_sets.dart';
+import '../../controllers/task_controller.dart';
 
 Future showFeatureSetsDialog(TaskController controller) async => await showMTDialog<void>(FeatureSets(controller));
 

@@ -1,33 +1,33 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../L1_domain/entities/task.dart';
-import '../../../../L1_domain/entities_extensions/task_stats.dart';
-import '../../../../L1_domain/entities_extensions/task_tree.dart';
-import '../../../components/adaptive.dart';
-import '../../../components/button.dart';
-import '../../../components/colors.dart';
-import '../../../components/colors_base.dart';
-import '../../../components/constants.dart';
-import '../../../components/icons.dart';
-import '../../../components/list_tile.dart';
-import '../../../components/text.dart';
-import '../../../extra/services.dart';
-import '../../../presenters/task_state.dart';
-import '../../../presenters/task_stats.dart';
-import '../../../presenters/task_view.dart';
-import '../../../usecases/task_actions.dart';
-import '../controllers/task_controller.dart';
-import '../widgets/charts/chart_details.dart';
-import '../widgets/charts/timing_chart.dart';
-import '../widgets/charts/velocity_chart.dart';
-import '../widgets/charts/volume_chart.dart';
-import '../widgets/state_title.dart';
-import '../widgets/task_create_button.dart';
-import '../widgets/tasks_group.dart';
-import '../widgets/transfer/local_import_dialog.dart';
+import '../../../../../L1_domain/entities/task.dart';
+import '../../../../../L1_domain/entities_extensions/task_stats.dart';
+import '../../../../../L1_domain/entities_extensions/task_tree.dart';
+import '../../../../components/adaptive.dart';
+import '../../../../components/button.dart';
+import '../../../../components/colors.dart';
+import '../../../../components/colors_base.dart';
+import '../../../../components/constants.dart';
+import '../../../../components/icons.dart';
+import '../../../../components/list_tile.dart';
+import '../../../../components/text.dart';
+import '../../../../extra/services.dart';
+import '../../../../presenters/task_state.dart';
+import '../../../../presenters/task_stats.dart';
+import '../../../../presenters/task_view.dart';
+import '../../../../usecases/task_actions.dart';
+import '../../controllers/task_controller.dart';
+import '../../widgets/state_title.dart';
+import '../../widgets/task_create_button.dart';
+import '../../widgets/tasks_group.dart';
+import '../../widgets/transfer/local_import_dialog.dart';
+import 'charts/chart_details.dart';
+import 'charts/timing_chart.dart';
+import 'charts/velocity_chart.dart';
+import 'charts/volume_chart.dart';
 
 class OverviewPane extends StatelessWidget {
   const OverviewPane(this.controller);

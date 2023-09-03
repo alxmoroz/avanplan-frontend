@@ -4,17 +4,17 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../../../L1_domain/entities/task.dart';
-import '../../../../components/colors.dart';
-import '../../../../components/colors_base.dart';
-import '../../../../components/constants.dart';
-import '../../../../components/mt_pie_chart.dart';
-import '../../../../components/text.dart';
-import '../../../../extra/services.dart';
-import '../../../../presenters/duration.dart';
-import '../../../../presenters/task_state.dart';
-import '../../../../presenters/task_stats.dart';
-import '../../../../presenters/workspace.dart';
+import '../../../../../../L1_domain/entities/task.dart';
+import '../../../../../components/colors.dart';
+import '../../../../../components/colors_base.dart';
+import '../../../../../components/constants.dart';
+import '../../../../../components/mt_pie_chart.dart';
+import '../../../../../components/text.dart';
+import '../../../../../extra/services.dart';
+import '../../../../../presenters/duration.dart';
+import '../../../../../presenters/task_state.dart';
+import '../../../../../presenters/task_stats.dart';
+import '../../../../../presenters/workspace.dart';
 
 class VelocityChart extends StatelessWidget {
   const VelocityChart(this.task);

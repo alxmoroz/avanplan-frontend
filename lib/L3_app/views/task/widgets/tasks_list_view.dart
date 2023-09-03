@@ -6,7 +6,7 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../components/adaptive.dart';
 import '../../../components/shadowed.dart';
 import '../controllers/task_controller.dart';
-import 'no_tasks.dart';
+import '../panes/tasks/no_tasks.dart';
 import 'state_title.dart';
 import 'tasks_group.dart';
 

@@ -2,20 +2,20 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../../../L1_domain/entities/task.dart';
-import '../../../../../L1_domain/entities_extensions/task_stats.dart';
-import '../../../../components/colors.dart';
-import '../../../../components/colors_base.dart';
-import '../../../../components/constants.dart';
-import '../../../../components/dialog.dart';
-import '../../../../components/text.dart';
-import '../../../../components/toolbar.dart';
-import '../../../../extra/services.dart';
-import '../../../../presenters/duration.dart';
-import '../../../../presenters/task_state.dart';
-import '../../../../presenters/task_tree.dart';
-import '../../../../presenters/task_view.dart';
-import '../../../../presenters/workspace.dart';
+import '../../../../../../L1_domain/entities/task.dart';
+import '../../../../../../L1_domain/entities_extensions/task_stats.dart';
+import '../../../../../components/colors.dart';
+import '../../../../../components/colors_base.dart';
+import '../../../../../components/constants.dart';
+import '../../../../../components/dialog.dart';
+import '../../../../../components/text.dart';
+import '../../../../../components/toolbar.dart';
+import '../../../../../extra/services.dart';
+import '../../../../../presenters/duration.dart';
+import '../../../../../presenters/task_state.dart';
+import '../../../../../presenters/task_tree.dart';
+import '../../../../../presenters/task_view.dart';
+import '../../../../../presenters/workspace.dart';
 import 'timing_chart.dart';
 import 'velocity_chart.dart';
 import 'volume_chart.dart';

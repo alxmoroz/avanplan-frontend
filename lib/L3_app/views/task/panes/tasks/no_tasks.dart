@@ -2,11 +2,11 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../components/adaptive.dart';
-import '../../../components/constants.dart';
-import '../../../components/images.dart';
-import '../../../components/text.dart';
-import '../../../extra/services.dart';
+import '../../../../components/adaptive.dart';
+import '../../../../components/constants.dart';
+import '../../../../components/images.dart';
+import '../../../../components/text.dart';
+import '../../../../extra/services.dart';
 
 class NoTasks extends StatelessWidget {
   @override

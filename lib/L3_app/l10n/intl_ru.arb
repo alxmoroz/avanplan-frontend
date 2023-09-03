@@ -189,6 +189,10 @@
   "notification_push_ios_denied_dialog_title": "Включение Push-уведомлений",
   "notification_title": "Уведомление",
 
+  "onboarding_back_action_title": "Назад",
+  "onboarding_proceed_action_title": "Продолжить",
+  "onboarding_skip_action_title": "Пропустить",
+
   "onboarding_welcome_gift_dialog_title": "Вам подарок!",
   "onboarding_welcome_gift_dialog_description": "Начислены приветственные {count} рублей!\n\nИх можно (и нужно) потратить на функции платных тарифов. Сменить тариф можно в настройках рабочего пространства\n\nСпасибо, что выбрали Аванплан!",
 
@@ -199,6 +203,7 @@
   "project_count_dative": "{count, plural, one{{count} проекту} other{{count} проектам}}",
   "project_delete_dialog_title": "Удалить проект?",
   "project_feature_sets_label": "Подключенные модули",
+  "project_feature_sets_select_action_title": "Настроить модули",
   "project_feature_sets_title": "Модули проекта",
   "project_list_title": "Проекты",
   "project_new_title": "Новый проект",

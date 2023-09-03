@@ -14,7 +14,8 @@ extension TaskFeatureSetsExt on Task {
 
   bool get hfsAnalytics => hfs('ANALYTICS');
   bool get hfsTeam => hfs('TEAM');
-  bool get hfsGoals => hfs('GOALS');
+  // TODO: цели
+  bool get hfsGoals => true; //hfs('GOALS');
   bool get hfsTaskboard => hfs('TASKBOARD');
   bool get hfsEstimates => hfs('ESTIMATES');
 }

@@ -1,6 +1,5 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'package:avanplan/L3_app/usecases/task_feature_sets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -15,6 +14,7 @@ import '../../../components/constants.dart';
 import '../../../components/icons.dart';
 import '../../../presenters/task_filter.dart';
 import '../../../usecases/task_actions.dart';
+import '../../../usecases/task_feature_sets.dart';
 import '../controllers/task_controller.dart';
 import '../widgets/task_create_button.dart';
 import '../widgets/tasks_board.dart';
@@ -61,7 +61,7 @@ class TasksPane extends StatelessWidget {
             ),
           if (_task.canCreate) ...[
             const SizedBox(width: P),
-            TaskCreateButton(controller.createController, compact: true),
+            TaskCreateButton(_task.ws, parentTaskController: controller, compact: true),
           ]
         ])
       : null;

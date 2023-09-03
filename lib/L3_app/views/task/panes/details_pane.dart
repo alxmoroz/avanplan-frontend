@@ -132,13 +132,19 @@ class DetailsPane extends StatelessWidget {
                   onSelect: null,
                 ),
               ],
-              if (_task.canViewFeatureSets) ...[
+              if (controller.onbController.onboarding)
+                MTButton.main(
+                  titleText: loc.project_feature_sets_select_action_title,
+                  margin: const EdgeInsets.symmetric(vertical: P3),
+                  onTap: () => showFeatureSetsDialog(controller),
+                )
+              else if (_task.canViewFeatureSets) ...[
                 const SizedBox(height: P3),
                 MTField(
                   controller.fData(TaskFCode.features.index),
                   leading: SettingsIcon(color: _task.canEditFeatureSets ? null : f3Color),
                   value: BaseText(_task.localizedFeatureSets, maxLines: 1),
-                  onSelect: _task.canEditFeatureSets ? () => showFeatureSetsDialog(_task) : null,
+                  onSelect: _task.canEditFeatureSets ? () => showFeatureSetsDialog(controller) : null,
                 ),
               ],
               if (_task.canComment) ...[

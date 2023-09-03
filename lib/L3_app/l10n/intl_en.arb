@@ -189,6 +189,10 @@
   "notification_push_ios_denied_dialog_title": "Enable Push notifications",
   "notification_title": "Notification",
 
+  "onboarding_back_action_title": "Back",
+  "onboarding_proceed_action_title": "Next",
+  "onboarding_skip_action_title": "Skip",
+
   "onboarding_welcome_gift_dialog_title": "Incoming Gift!",
   "onboarding_welcome_gift_dialog_description": "Welcoming {count} rubles have been accrued!\n\nThey can (and should) be spent on features of paid plans. You can change the tariff in the workspace settings\n\nThank you for choosing Avanplan!",
 
@@ -199,6 +203,7 @@
   "project_count_dative": "{count, plural, one{{count} project} other{{count} projects}}",
   "project_delete_dialog_title": "Delete project?",
   "project_feature_sets_label": "Active Modules",
+  "project_feature_sets_select_action_title": "Select modules",
   "project_feature_sets_title": "Project Modules",
   "project_list_title": "Projects",
   "project_new_title": "New Project",

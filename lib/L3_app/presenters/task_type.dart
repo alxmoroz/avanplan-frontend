@@ -26,7 +26,7 @@ extension TaskTypePresenter on Task {
       }[type] ??
       loc.subtask_title;
 
-  String get viewTitle => '$_typeName #$id';
+  String get viewTitle => '$_typeName ${isNew ? '' : '#$id'}';
 
   String get listTitle =>
       {

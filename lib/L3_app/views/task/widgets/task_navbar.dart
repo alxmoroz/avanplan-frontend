@@ -18,7 +18,7 @@ CupertinoNavigationBar taskNavBar(TaskController controller) {
   return navBar(
     rootKey.currentContext!,
     bgColor: task.bgColor,
-    middle: task.ws.subPageTitle(controller.isNew ? '' : task.viewTitle),
+    middle: task.ws.subPageTitle(task.viewTitle),
     trailing: task.actionTypes.isNotEmpty ? TaskPopupMenu(controller, icon: const MenuIcon()) : null,
   );
 }

@@ -35,7 +35,6 @@ class CreateController {
         members: [],
         notes: [],
         projectStatuses: [],
-        // TODO: здесь редактируем включенные модули
         projectFeatureSets: [],
         ws: _ws,
         startDate: DateTime.now(),

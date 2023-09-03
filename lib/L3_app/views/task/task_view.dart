@@ -104,7 +104,7 @@ class _TaskViewState extends State<TaskView> {
         TaskTabKey.team: teamPane,
         TaskTabKey.details: detailsPane,
       }[controller.tabKey] ??
-      tasksPane;
+      detailsPane;
 
   Widget? get _selectedBottomBar => {
         TaskTabKey.overview: overviewPane.bottomBar,
@@ -128,7 +128,7 @@ class _TaskViewState extends State<TaskView> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   if (!smallHeight) TaskHeader(controller),
-                  if (controller.tabKeys.length > 1) _tabPaneSelector,
+                  if (!controller.onbController.onboarding && controller.tabKeys.length > 1) _tabPaneSelector,
                   Expanded(child: _selectedPane),
                 ],
               ),

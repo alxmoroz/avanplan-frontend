@@ -14,11 +14,11 @@ import '../../../presenters/task_view.dart';
 import '../../../usecases/task_edit.dart';
 import '../../../views/_base/edit_controller.dart';
 import 'assignee_controller.dart';
-import 'create_controller.dart';
 import 'dates_controller.dart';
 import 'estimate_controller.dart';
 import 'local_export_controller.dart';
 import 'notes_controller.dart';
+import 'onboarding_controller.dart';
 import 'status_controller.dart';
 import 'subtasks_controller.dart';
 import 'title_controller.dart';
@@ -55,7 +55,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
 
     _init(taskIn);
 
-    createController = CreateController(taskIn.ws, this);
+    onbController = OnboardingController(this);
     titleController = TitleController(this);
     assigneeController = AssigneeController(this);
     statusController = StatusController(this);
@@ -70,7 +70,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
 abstract class _TaskControllerBase extends EditController with Store {
   Task get task => mainController.task(_task!.ws.id!, _task!.id) ?? _task!;
 
-  late final CreateController createController;
+  late final OnboardingController onbController;
   late final TitleController titleController;
   late final AssigneeController assigneeController;
   late final StatusController statusController;
@@ -86,13 +86,10 @@ abstract class _TaskControllerBase extends EditController with Store {
   @action
   Future _init(Task _taskIn) async {
     _task = _taskIn;
-    if (isNew) {
+    if (_task?.isNew == true) {
       await saveField(TaskFCode.title);
     }
   }
-
-  @computed
-  bool get isNew => _task?.isNew == true;
 
   @action
   Future<bool> saveField(TaskFCode code) async {
@@ -111,9 +108,9 @@ abstract class _TaskControllerBase extends EditController with Store {
   @computed
   Iterable<TaskTabKey> get tabKeys {
     return [
-      if (!isNew && task.hasOverviewPane) TaskTabKey.overview,
-      if (!isNew && !task.isTask) TaskTabKey.subtasks,
-      if (!isNew && task.hasTeamPane) TaskTabKey.team,
+      if (!onbController.onboarding && task.hasOverviewPane) TaskTabKey.overview,
+      if (!onbController.onboarding && !task.isTask) TaskTabKey.subtasks,
+      if (!onbController.onboarding && task.hasTeamPane) TaskTabKey.team,
       TaskTabKey.details,
     ];
   }

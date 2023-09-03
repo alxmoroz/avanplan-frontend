@@ -49,7 +49,7 @@ class OverviewPane extends StatelessWidget {
                     margin: const EdgeInsets.only(bottom: P3),
                     onTap: () => localImportDialog(controller),
                   ),
-                TaskCreateButton(controller.createController),
+                TaskCreateButton(_task.ws, parentTaskController: controller),
               ],
             )
           : Column(

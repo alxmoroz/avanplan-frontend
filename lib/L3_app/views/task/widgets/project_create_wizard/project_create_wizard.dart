@@ -18,7 +18,6 @@ import '../../../../usecases/ws_available_actions.dart';
 import '../../../../usecases/ws_tariff.dart';
 import '../../../import/import_view.dart';
 import '../../../source/source_type_selector.dart';
-import '../../controllers/create_controller.dart';
 import '../task_create_button.dart';
 import 'project_create_wizard_controller.dart';
 import 'ws_selector.dart';
@@ -88,7 +87,7 @@ class _ProjectCreateWizardState extends State<ProjectCreateWizard> {
                 ),
               ),
               const SizedBox(height: P2),
-              TaskCreateButton(CreateController(ws, null), dismissible: true),
+              TaskCreateButton(ws, dismissible: true),
             ],
           ),
         ],

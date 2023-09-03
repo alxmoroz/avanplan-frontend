@@ -4,19 +4,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../L1_domain/entities/task.dart';
+import '../../../components/button.dart';
 import '../../../components/checkbox.dart';
 import '../../../components/constants.dart';
 import '../../../components/dialog.dart';
 import '../../../components/toolbar.dart';
 import '../../../extra/services.dart';
 import '../../../usecases/task_feature_sets.dart';
+import '../controllers/task_controller.dart';
 
-Future showFeatureSetsDialog(Task project) async => await showMTDialog<void>(FeatureSets(project));
+Future showFeatureSetsDialog(TaskController controller) async => await showMTDialog<void>(FeatureSets(controller));
 
 class FeatureSets extends StatelessWidget {
-  const FeatureSets(this.project);
+  const FeatureSets(this.controller);
 
-  final Task project;
+  final TaskController controller;
+  Task get project => controller.task;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +40,10 @@ class FeatureSets extends StatelessWidget {
             MTCheckBoxTile(title: loc.feature_set_tasklist_title, description: loc.feature_set_tasklist_description, value: true),
           ],
         ),
-        // bottomBar: MTButton.main(titleText: 'SAVE'),
+        bottomBar: MTButton.main(
+          titleText: controller.onbController.onboarding ? loc.onboarding_proceed_action_title : loc.save_action_title,
+          // onTap: controller,
+        ),
       ),
     );
   }

@@ -16,7 +16,6 @@ import '../../../views/_base/edit_controller.dart';
 import 'assignee_controller.dart';
 import 'dates_controller.dart';
 import 'estimate_controller.dart';
-import 'feature_sets_controller.dart';
 import 'local_export_controller.dart';
 import 'notes_controller.dart';
 import 'onboarding_controller.dart';
@@ -57,7 +56,6 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     _init(taskIn);
 
     onbController = OnboardingController(this);
-    fsController = FeatureSetsController(this);
     titleController = TitleController(this);
     assigneeController = AssigneeController(this);
     statusController = StatusController(this);
@@ -73,7 +71,6 @@ abstract class _TaskControllerBase extends EditController with Store {
   Task get task => mainController.task(_task!.ws.id!, _task!.id) ?? _task!;
 
   late final OnboardingController onbController;
-  late final FeatureSetsController fsController;
   late final TitleController titleController;
   late final AssigneeController assigneeController;
   late final StatusController statusController;
@@ -111,9 +108,9 @@ abstract class _TaskControllerBase extends EditController with Store {
   @computed
   Iterable<TaskTabKey> get tabKeys {
     return [
-      if (!onbController.onboarding && task.hasOverviewPane) TaskTabKey.overview,
+      if (task.hasOverviewPane) TaskTabKey.overview,
       if (!onbController.onboarding && !task.isTask) TaskTabKey.subtasks,
-      if (!onbController.onboarding && task.hasTeamPane) TaskTabKey.team,
+      if (task.hasTeamPane) TaskTabKey.team,
       TaskTabKey.details,
     ];
   }

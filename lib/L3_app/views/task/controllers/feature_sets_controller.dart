@@ -14,6 +14,7 @@ part 'feature_sets_controller.g.dart';
 class FeatureSetsController extends _FeatureSetsControllerBase with _$FeatureSetsController {
   FeatureSetsController(TaskController _taskController) {
     taskController = _taskController;
+    checks = [for (var fs in refsController.featureSets) project.hfs(fs.code)];
   }
 }
 
@@ -24,9 +25,6 @@ abstract class _FeatureSetsControllerBase with Store {
 
   @observable
   List<bool> checks = [];
-
-  @action
-  void setChecks() => checks = [for (var fs in refsController.featureSets) project.hfs(fs.code)];
 
   @computed
   bool get validated => checks.contains(true);

@@ -116,6 +116,8 @@ class DetailsPane extends StatelessWidget {
               const SizedBox(height: P3),
               controller.datesController.dateField(context, TaskFCode.startDate),
               if (_task.hasDueDate || _task.canEdit) controller.datesController.dateField(context, TaskFCode.dueDate),
+
+              /// Оценки
               if (_task.hfsEstimates && (_task.hasEstimate || _task.canEstimate)) ...[
                 const SizedBox(height: P3),
                 MTField(
@@ -125,6 +127,8 @@ class DetailsPane extends StatelessWidget {
                   onSelect: _task.canEstimate ? controller.estimateController.select : null,
                 ),
               ],
+
+              /// Author
               if (!_onboarding && _task.hfsTeam && _task.hasAuthor) ...[
                 const SizedBox(height: P3),
                 MTField(
@@ -134,12 +138,14 @@ class DetailsPane extends StatelessWidget {
                   onSelect: null,
                 ),
               ],
+
+              /// FeatureSets
               if (_onboarding) ...[
                 _task.isProject
                     ? MTButton.main(
                         titleText: loc.project_feature_sets_select_action_title,
                         margin: const EdgeInsets.symmetric(vertical: P3),
-                        onTap: () => showFeatureSetsDialog(controller.fsController),
+                        onTap: () => showFeatureSetsOnboardingPage(context, controller),
                       )
                     : MTButton.main(
                         titleText: loc.onboarding_proceed_action_title,
@@ -151,9 +157,11 @@ class DetailsPane extends StatelessWidget {
                   controller.fData(TaskFCode.features.index),
                   leading: SettingsIcon(color: _task.canEditFeatureSets ? null : f3Color),
                   value: BaseText(_task.localizedFeatureSets, maxLines: 1),
-                  onSelect: _task.canEditFeatureSets ? () => showFeatureSetsDialog(controller.fsController) : null,
+                  onSelect: _task.canEditFeatureSets ? () => showFeatureSetsDialog(controller) : null,
                 ),
               ],
+
+              /// Notes
               if (!_onboarding && _task.canComment) ...[
                 const SizedBox(height: P3),
                 MTField(
@@ -167,6 +175,7 @@ class DetailsPane extends StatelessWidget {
                   onSelect: controller.notesController.create,
                 ),
               ],
+
               if (!_onboarding && controller.notesController.sortedNotesDates.isNotEmpty) ...[
                 const SizedBox(height: P3),
                 Notes(controller.notesController),

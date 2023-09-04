@@ -27,7 +27,9 @@ import 'L3_app/views/notification/notification_list_view.dart';
 import 'L3_app/views/settings/settings_view.dart';
 import 'L3_app/views/source/source_list_view.dart';
 import 'L3_app/views/tariff/active_contract_view.dart';
+import 'L3_app/views/task/controllers/feature_sets_controller.dart';
 import 'L3_app/views/task/task_view.dart';
+import 'L3_app/views/task/widgets/details/feature_sets.dart';
 import 'L3_app/views/task/widgets/team/member_view.dart';
 import 'L3_app/views/user/user_list_view.dart';
 import 'L3_app/views/user/user_view.dart';
@@ -125,11 +127,14 @@ class App extends StatelessWidget {
               } else if (rs.name == SourceListView.routeName) {
                 return CupertinoPageRoute<dynamic>(builder: (_) => SourceListView(rs.arguments as int));
               } else if (rs.name == TaskView.routeName) {
-                return CupertinoPageRoute<dynamic>(builder: (_) => TaskView(rs.arguments as Task));
+                final task = rs.arguments as Task;
+                return CupertinoPageRoute<dynamic>(builder: (_) => TaskView(task), settings: rs);
               } else if (rs.name == MemberView.routeName) {
                 return CupertinoPageRoute<dynamic>(builder: (_) => MemberView(rs.arguments as MemberViewArgs));
               } else if (rs.name == UserView.routeName) {
                 return CupertinoPageRoute<dynamic>(builder: (_) => UserView(rs.arguments as User));
+              } else if (rs.name == FeatureSetsOnboardingPage.routeName) {
+                return CupertinoPageRoute<dynamic>(builder: (_) => FeatureSetsOnboardingPage(rs.arguments as FeatureSetsController));
               }
               return null;
             },

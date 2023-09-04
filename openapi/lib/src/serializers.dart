@@ -135,6 +135,10 @@ Serializers serializers = (_$serializers.toBuilder()
         () => ListBuilder<TaskSource>(),
       )
       ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(ProjectFeatureSetGet)]),
+        () => ListBuilder<ProjectFeatureSetGet>(),
+      )
+      ..addBuilderFactory(
         const FullType(BuiltList, [FullType(int)]),
         () => ListBuilder<int>(),
       )

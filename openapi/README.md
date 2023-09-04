@@ -92,6 +92,7 @@ Class | Method | HTTP request | Description
 [*MyWorkspacesApi*](doc/MyWorkspacesApi.md) | [**updateWorkspaceV1MyWorkspacesUpdatePost**](doc/MyWorkspacesApi.md#updateworkspacev1myworkspacesupdatepost) | **POST** /v1/my/workspaces/update | Update Workspace
 [*MyWorkspacesApi*](doc/MyWorkspacesApi.md) | [**workspacesV1MyWorkspacesGet**](doc/MyWorkspacesApi.md#workspacesv1myworkspacesget) | **GET** /v1/my/workspaces | Workspaces
 [*PaymentsApi*](doc/PaymentsApi.md) | [**iapNotificationV1PaymentsIapNotificationPost**](doc/PaymentsApi.md#iapnotificationv1paymentsiapnotificationpost) | **POST** /v1/payments/iap/notification | Iap Notification
+[*ProjectFeatureSetsApi*](doc/ProjectFeatureSetsApi.md) | [**setupFeatureSetsV1TasksFeatureSetsPost**](doc/ProjectFeatureSetsApi.md#setupfeaturesetsv1tasksfeaturesetspost) | **POST** /v1/tasks/feature_sets | Setup Feature Sets
 [*SettingsApi*](doc/SettingsApi.md) | [**settingsV1SettingsGet**](doc/SettingsApi.md#settingsv1settingsget) | **GET** /v1/settings | Settings
 [*TariffsApi*](doc/TariffsApi.md) | [**tariffsV1TariffsGet**](doc/TariffsApi.md#tariffsv1tariffsget) | **GET** /v1/tariffs | Tariffs
 [*TasksApi*](doc/TasksApi.md) | [**assignV1TasksRolesPost**](doc/TasksApi.md#assignv1tasksrolespost) | **POST** /v1/tasks/roles | Assign
@@ -99,6 +100,7 @@ Class | Method | HTTP request | Description
 [*TasksApi*](doc/TasksApi.md) | [**deleteV1TasksNotesNoteIdDelete**](doc/TasksApi.md#deletev1tasksnotesnoteiddelete) | **DELETE** /v1/tasks/notes/{note_id} | Delete
 [*TasksApi*](doc/TasksApi.md) | [**deleteV1TasksTaskIdDelete**](doc/TasksApi.md#deletev1taskstaskiddelete) | **DELETE** /v1/tasks/{task_id} | Delete
 [*TasksApi*](doc/TasksApi.md) | [**invitationsV1TasksInvitationsGet**](doc/TasksApi.md#invitationsv1tasksinvitationsget) | **GET** /v1/tasks/invitations | Invitations
+[*TasksApi*](doc/TasksApi.md) | [**setupFeatureSetsV1TasksFeatureSetsPost**](doc/TasksApi.md#setupfeaturesetsv1tasksfeaturesetspost) | **POST** /v1/tasks/feature_sets | Setup Feature Sets
 [*TasksApi*](doc/TasksApi.md) | [**taskUpsertV1TasksPost**](doc/TasksApi.md#taskupsertv1taskspost) | **POST** /v1/tasks | Task Upsert
 [*TasksApi*](doc/TasksApi.md) | [**upsertV1TasksNotesPost**](doc/TasksApi.md#upsertv1tasksnotespost) | **POST** /v1/tasks/notes | Upsert
 [*TasksInvitationsApi*](doc/TasksInvitationsApi.md) | [**createV1TasksInvitationsPost**](doc/TasksInvitationsApi.md#createv1tasksinvitationspost) | **POST** /v1/tasks/invitations | Create

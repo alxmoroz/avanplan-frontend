@@ -9,7 +9,7 @@ import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
-import '../../../../usecases/ws_available_actions.dart';
+import '../../../../usecases/ws_actions.dart';
 import 'project_create_wizard_controller.dart';
 
 class WSSelector extends StatelessWidget {

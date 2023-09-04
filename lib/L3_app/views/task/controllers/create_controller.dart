@@ -10,7 +10,7 @@ import '../../../../L1_domain/entities_extensions/task_status.dart';
 import '../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_type.dart';
-import '../../../usecases/ws_available_actions.dart';
+import '../../../usecases/ws_actions.dart';
 import '../../../usecases/ws_tariff.dart';
 import 'task_controller.dart';
 

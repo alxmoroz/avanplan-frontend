@@ -14,7 +14,7 @@ import '../../components/shadowed.dart';
 import '../../extra/services.dart';
 import '../../presenters/source.dart';
 import '../../presenters/workspace.dart';
-import '../../usecases/ws_available_actions.dart';
+import '../../usecases/ws_actions.dart';
 import 'no_sources.dart';
 import 'source_edit_view.dart';
 

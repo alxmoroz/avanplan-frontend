@@ -22,6 +22,7 @@ import 'package:openapi/src/api/my_push_tokens_api.dart';
 import 'package:openapi/src/api/my_tasks_api.dart';
 import 'package:openapi/src/api/my_workspaces_api.dart';
 import 'package:openapi/src/api/payments_api.dart';
+import 'package:openapi/src/api/project_feature_sets_api.dart';
 import 'package:openapi/src/api/settings_api.dart';
 import 'package:openapi/src/api/tariffs_api.dart';
 import 'package:openapi/src/api/tasks_api.dart';
@@ -159,6 +160,12 @@ class Openapi {
   /// by doing that all interceptors will not be executed
   PaymentsApi getPaymentsApi() {
     return PaymentsApi(dio, serializers);
+  }
+
+  /// Get ProjectFeatureSetsApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  ProjectFeatureSetsApi getProjectFeatureSetsApi() {
+    return ProjectFeatureSetsApi(dio, serializers);
   }
 
   /// Get SettingsApi instance, base route and serializer can be overridden by a given but be careful,

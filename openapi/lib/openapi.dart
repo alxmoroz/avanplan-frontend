@@ -22,6 +22,7 @@ export 'package:openapi/src/api/my_push_tokens_api.dart';
 export 'package:openapi/src/api/my_tasks_api.dart';
 export 'package:openapi/src/api/my_workspaces_api.dart';
 export 'package:openapi/src/api/payments_api.dart';
+export 'package:openapi/src/api/project_feature_sets_api.dart';
 export 'package:openapi/src/api/settings_api.dart';
 export 'package:openapi/src/api/tariffs_api.dart';
 export 'package:openapi/src/api/tasks_api.dart';

@@ -42,11 +42,11 @@ abstract class _NotesControllerBase with Store {
   List<DateTime> get sortedNotesDates => notesGroups.keys.sorted((d1, d2) => d2.compareTo(d1));
 
   Future edit(Note note) async {
-    final tc = taskController.teController(TaskFCode.note.index)!;
+    final fIndex = TaskFCode.note.index;
+
+    final tc = taskController.teController(fIndex)!;
     tc.text = note.text;
     await showMTDialog<void>(NoteDialog(note, tc));
-
-    final fIndex = TaskFCode.note.index;
 
     // добавление или редактирование
     final newValue = tc.text;

@@ -9,7 +9,7 @@ import '../../../../components/colors.dart';
 import '../../../../components/icons_workspace.dart';
 import '../../../../components/limit_badge.dart';
 import '../../../../extra/services.dart';
-import '../../../../usecases/ws_available_actions.dart';
+import '../../../../usecases/ws_actions.dart';
 import '../../../../usecases/ws_tariff.dart';
 import 'invitation_dialog.dart';
 

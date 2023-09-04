@@ -41,6 +41,13 @@ void main() {
       // TODO
     });
 
+    // Setup Feature Sets
+    //
+    //Future<BuiltList<ProjectFeatureSetGet>> setupFeatureSetsV1TasksFeatureSetsPost(int projectId, int wsId, BuiltList<int> requestBody, { int permissionTaskId }) async
+    test('test setupFeatureSetsV1TasksFeatureSetsPost', () async {
+      // TODO
+    });
+
     // Task Upsert
     //
     //Future<TasksChanges> taskUpsertV1TasksPost(int wsId, TaskUpsert taskUpsert, { int permissionTaskId }) async

@@ -9,7 +9,7 @@ import '../../components/navbar.dart';
 import '../../components/page.dart';
 import '../../extra/services.dart';
 import '../../presenters/workspace.dart';
-import '../../usecases/ws_available_actions.dart';
+import '../../usecases/ws_actions.dart';
 import '../../usecases/ws_tariff.dart';
 import 'tariff_limits.dart';
 import 'tariff_options.dart';

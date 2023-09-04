@@ -22,7 +22,7 @@ import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import '../../presenters/source.dart';
 import '../../presenters/workspace.dart';
-import '../../usecases/ws_available_actions.dart';
+import '../../usecases/ws_actions.dart';
 import '../../usecases/ws_ext_sources.dart';
 import '../source/no_sources.dart';
 import '../source/source_edit_view.dart';

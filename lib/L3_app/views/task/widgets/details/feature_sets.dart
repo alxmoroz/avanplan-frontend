@@ -10,16 +10,18 @@ import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
-import '../../../../usecases/task_feature_sets.dart';
-import '../../controllers/task_controller.dart';
+import '../../controllers/feature_sets_controller.dart';
 
-Future showFeatureSetsDialog(TaskController controller) async => await showMTDialog<void>(FeatureSets(controller));
+Future showFeatureSetsDialog(FeatureSetsController controller) async {
+  controller.setChecks();
+  await showMTDialog<void>(FeatureSets(controller));
+}
 
 class FeatureSets extends StatelessWidget {
   const FeatureSets(this.controller);
 
-  final TaskController controller;
-  Task get project => controller.task;
+  final FeatureSetsController controller;
+  Task get project => controller.project;
 
   @override
   Widget build(BuildContext context) {
@@ -29,20 +31,27 @@ class FeatureSets extends StatelessWidget {
         body: ListView(
           shrinkWrap: true,
           children: [
-            for (var fs in refsController.featureSetsMap.values)
-              MTCheckBoxTile(
-                title: fs.title,
-                description: fs.description,
-                value: project.hfs(fs.code),
-                onChanged: (v) => print(v),
-              ),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: controller.checks.length,
+              itemBuilder: (_, index) {
+                final fs = refsController.featureSets.elementAt(index);
+                return MTCheckBoxTile(
+                  title: fs.title,
+                  description: fs.description,
+                  value: controller.checks[index],
+                  onChanged: (bool? value) => controller.selectFeatureSet(index, value),
+                );
+              },
+            ),
             const SizedBox(height: P3),
             MTCheckBoxTile(title: loc.feature_set_tasklist_title, description: loc.feature_set_tasklist_description, value: true),
           ],
         ),
         bottomBar: MTButton.main(
-          titleText: controller.onbController.onboarding ? loc.onboarding_proceed_action_title : loc.save_action_title,
-          // onTap: controller,
+          titleText: controller.taskController.onbController.onboarding ? loc.onboarding_proceed_action_title : loc.save_action_title,
+          onTap: controller.setupFeatureSets,
         ),
       ),
     );

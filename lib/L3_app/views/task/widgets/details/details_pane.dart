@@ -20,8 +20,8 @@ import '../../../../components/icons.dart';
 import '../../../../components/shadowed.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
+import '../../../../presenters/feature_set.dart';
 import '../../../../presenters/person.dart';
-import '../../../../presenters/project_feature_set.dart';
 import '../../../../presenters/task_source.dart';
 import '../../../../presenters/workspace.dart';
 import '../../../../usecases/task_actions.dart';
@@ -76,7 +76,7 @@ class DetailsPane extends StatelessWidget {
                         MTButton(
                           titleColor: greenColor,
                           titleText: loc.close_action_title,
-                          leading: const DoneIcon(true, color: greenColor),
+                          leading: const CheckboxIcon(true, color: greenColor),
                           onTap: () => controller.statusController.setStatus(_task, close: true),
                         )
                     ],
@@ -139,7 +139,7 @@ class DetailsPane extends StatelessWidget {
                     ? MTButton.main(
                         titleText: loc.project_feature_sets_select_action_title,
                         margin: const EdgeInsets.symmetric(vertical: P3),
-                        onTap: () => showFeatureSetsDialog(controller),
+                        onTap: () => showFeatureSetsDialog(controller.fsController),
                       )
                     : MTButton.main(
                         titleText: loc.onboarding_proceed_action_title,
@@ -151,7 +151,7 @@ class DetailsPane extends StatelessWidget {
                   controller.fData(TaskFCode.features.index),
                   leading: SettingsIcon(color: _task.canEditFeatureSets ? null : f3Color),
                   value: BaseText(_task.localizedFeatureSets, maxLines: 1),
-                  onSelect: _task.canEditFeatureSets ? () => showFeatureSetsDialog(controller) : null,
+                  onSelect: _task.canEditFeatureSets ? () => showFeatureSetsDialog(controller.fsController) : null,
                 ),
               ],
               if (!_onboarding && _task.canComment) ...[

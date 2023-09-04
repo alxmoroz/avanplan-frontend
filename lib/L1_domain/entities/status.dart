@@ -9,3 +9,14 @@ class Status extends Statusable {
     required super.closed,
   });
 }
+
+class ProjectStatus extends RPersistable {
+  ProjectStatus({
+    required super.id,
+    required this.statusId,
+    required this.position,
+  });
+
+  final int position;
+  final int statusId;
+}

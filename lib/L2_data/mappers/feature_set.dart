@@ -10,3 +10,10 @@ extension FeatureSetMapper on FeatureSetGet {
         code: code,
       );
 }
+
+extension ProjectFeatureSetMapper on ProjectFeatureSetGet {
+  ProjectFeatureSet get projectFeatureSet => ProjectFeatureSet(
+        id: id,
+        featureSetId: featureSetId,
+      );
+}

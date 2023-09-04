@@ -13,3 +13,12 @@ class FeatureSet extends Codable {
   String get title => Intl.message('feature_set_${code.toLowerCase()}_title');
   String get description => Intl.message('feature_set_${code.toLowerCase()}_description');
 }
+
+class ProjectFeatureSet extends RPersistable {
+  ProjectFeatureSet({
+    required super.id,
+    required this.featureSetId,
+  });
+
+  final int featureSetId;
+}

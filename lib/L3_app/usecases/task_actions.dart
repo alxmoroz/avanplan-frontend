@@ -12,7 +12,7 @@ import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../extra/services.dart';
 import '../presenters/task_transfer.dart';
 import '../presenters/task_tree.dart';
-import 'ws_available_actions.dart';
+import 'ws_actions.dart';
 
 enum TaskActionType {
   close,

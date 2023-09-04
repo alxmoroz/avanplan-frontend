@@ -1,10 +1,10 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'base_entity.dart';
+import 'feature_set.dart';
 import 'member.dart';
 import 'note.dart';
-import 'project_feature_set.dart';
-import 'project_status.dart';
+import 'status.dart';
 import 'task_source.dart';
 import 'workspace.dart';
 

@@ -77,6 +77,18 @@ class CaretIcon extends StatelessWidget {
       );
 }
 
+class CheckboxIcon extends MTIcon {
+  const CheckboxIcon(this.checked, {super.color, super.size, super.solid});
+  final bool checked;
+
+  @override
+  Widget build(BuildContext context) => Icon(
+        checked ? (solid == true ? CupertinoIcons.checkmark_square_fill : CupertinoIcons.checkmark_square) : CupertinoIcons.square,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P5,
+      );
+}
+
 class ChevronIcon extends MTIcon {
   const ChevronIcon({super.color, super.size});
   @override

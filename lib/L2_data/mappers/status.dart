@@ -11,3 +11,11 @@ extension StatusMapper on StatusGet {
         closed: closed,
       );
 }
+
+extension ProjectStatusMapper on ProjectStatusGet {
+  ProjectStatus get projectStatus => ProjectStatus(
+        id: id,
+        statusId: statusId,
+        position: position,
+      );
+}

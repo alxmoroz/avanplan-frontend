@@ -47,6 +47,7 @@ doc/PaymentsApi.md
 doc/PermissionGet.md
 doc/PermissionRoleGet.md
 doc/ProjectFeatureSetGet.md
+doc/ProjectFeatureSetsApi.md
 doc/ProjectStatusGet.md
 doc/Registration.md
 doc/RoleGet.md
@@ -89,6 +90,7 @@ lib/src/api/my_push_tokens_api.dart
 lib/src/api/my_tasks_api.dart
 lib/src/api/my_workspaces_api.dart
 lib/src/api/payments_api.dart
+lib/src/api/project_feature_sets_api.dart
 lib/src/api/settings_api.dart
 lib/src/api/tariffs_api.dart
 lib/src/api/tasks_api.dart
@@ -203,6 +205,7 @@ test/payments_api_test.dart
 test/permission_get_test.dart
 test/permission_role_get_test.dart
 test/project_feature_set_get_test.dart
+test/project_feature_sets_api_test.dart
 test/project_status_get_test.dart
 test/registration_test.dart
 test/role_get_test.dart

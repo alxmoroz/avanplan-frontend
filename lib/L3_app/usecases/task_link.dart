@@ -12,7 +12,7 @@ import '../presenters/task_source.dart';
 import '../presenters/task_tree.dart';
 import 'task_edit.dart';
 
-extension TaskLink on Task {
+extension TaskLinkUC on Task {
   Future go2source() async => await launchUrlString(taskSource!.urlString);
 
   void unlinkTaskTree() {

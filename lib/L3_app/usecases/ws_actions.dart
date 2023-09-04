@@ -5,7 +5,7 @@ import '../../L1_domain/entities/user.dart';
 import '../../L1_domain/entities/workspace.dart';
 import '../extra/services.dart';
 
-extension WSActionsExt on Workspace {
+extension WSActionsUC on Workspace {
   User get me => users.firstWhere((u) => u.id == accountController.user?.id);
 
   // bool get hpInfoRead => me.hp('INFO_READ');

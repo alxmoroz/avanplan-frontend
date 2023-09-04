@@ -42,15 +42,15 @@ abstract class _FeatureSetsControllerBase with Store {
 
     final fIndex = TaskFCode.features.index;
     taskController.updateField(fIndex, loading: true);
+
     final fsIds = <int>[];
     for (int index = 0; index < checks.length; index++) {
       if (checks[index]) {
         fsIds.add(refsController.featureSets.elementAt(index).id!);
       }
     }
-    project.projectFeatureSets = await featureSetUC.setup(project, fsIds);
-    taskController.updateField(fIndex, loading: false);
+    await project.setupFeatureSets(fsIds);
 
-    mainController.refresh();
+    taskController.updateField(fIndex, loading: false);
   }
 }

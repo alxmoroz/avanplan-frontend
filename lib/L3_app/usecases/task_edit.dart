@@ -9,7 +9,7 @@ import '../../L2_data/services/api.dart';
 import '../../main.dart';
 import '../extra/services.dart';
 
-extension TaskSaving on Task {
+extension TaskEditUC on Task {
   Future<Task?> edit(Future<Task?> function()) async {
     loading = true;
     mainController.refresh();

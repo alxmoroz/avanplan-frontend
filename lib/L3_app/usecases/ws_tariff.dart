@@ -8,7 +8,7 @@ import '../components/dialog.dart';
 import '../extra/services.dart';
 import '../views/tariff/tariff_select_view.dart';
 
-extension WSActionsExt on Workspace {
+extension WSTariffUC on Workspace {
   Future changeTariff({String reason = ''}) async {
     loader.start();
     loader.setLoading();

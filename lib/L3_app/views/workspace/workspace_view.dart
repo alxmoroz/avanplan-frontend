@@ -20,7 +20,7 @@ import '../../extra/services.dart';
 import '../../presenters/date.dart';
 import '../../presenters/tariff.dart';
 import '../../usecases/ws_actions.dart';
-import '../../usecases/ws_ext_sources.dart';
+import '../../usecases/ws_sources.dart';
 import '../iap/iap_view.dart';
 import '../source/source_list_view.dart';
 import '../tariff/active_contract_view.dart';

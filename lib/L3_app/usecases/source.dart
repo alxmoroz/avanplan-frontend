@@ -3,7 +3,7 @@
 import '../../L1_domain/entities/source.dart';
 import '../extra/services.dart';
 
-extension SourceExt on Source {
+extension SourceUC on Source {
   Future<bool> checkConnection() async {
     bool connected = false;
     state = SrcState.checking;

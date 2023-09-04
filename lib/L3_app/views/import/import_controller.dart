@@ -11,7 +11,7 @@ import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/ws_sources.dart';
 import '../../../main.dart';
 import '../../extra/services.dart';
-import '../../usecases/source_ext.dart';
+import '../../usecases/source.dart';
 import '../../usecases/ws_actions.dart';
 import '../../usecases/ws_tariff.dart';
 import '../source/source_edit_view.dart';

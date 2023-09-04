@@ -23,7 +23,7 @@ enum TaskActionType {
   delete,
 }
 
-extension TaskActionsExt on Task {
+extension TaskActionsUC on Task {
   User? get _authUser => accountController.user;
 
   /// разрешения для текущего пользователя для РП, выбранной задачи или проекта

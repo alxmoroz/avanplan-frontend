@@ -8,7 +8,7 @@ import '../../L1_domain/entities/task.dart';
 import '../../L2_data/services/api.dart';
 import '../extra/services.dart';
 
-extension NoteSaving on Note {
+extension NoteEditUC on Note {
   Future<Note?> _edit(Task task, Future<Note?> function()) async {
     loading = true;
     mainController.refresh();

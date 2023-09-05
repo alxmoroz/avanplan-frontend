@@ -9,11 +9,11 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**featureSetsV1FeatureSetsGet**](FeatureSetsApi.md#featuresetsv1featuresetsget) | **GET** /v1/feature_sets | Feature Sets
+[**featureSetsV1RefsFeatureSetsGet**](FeatureSetsApi.md#featuresetsv1refsfeaturesetsget) | **GET** /v1/refs/feature_sets | Feature Sets
 
 
-# **featureSetsV1FeatureSetsGet**
-> BuiltList<FeatureSetGet> featureSetsV1FeatureSetsGet()
+# **featureSetsV1RefsFeatureSetsGet**
+> BuiltList<FeatureSetGet> featureSetsV1RefsFeatureSetsGet()
 
 Feature Sets
 
@@ -28,10 +28,10 @@ import 'package:openapi/api.dart';
 final api = Openapi().getFeatureSetsApi();
 
 try {
-    final response = api.featureSetsV1FeatureSetsGet();
+    final response = api.featureSetsV1RefsFeatureSetsGet();
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling FeatureSetsApi->featureSetsV1FeatureSetsGet: $e\n');
+    print('Exception when calling FeatureSetsApi->featureSetsV1RefsFeatureSetsGet: $e\n');
 }
 ```
 

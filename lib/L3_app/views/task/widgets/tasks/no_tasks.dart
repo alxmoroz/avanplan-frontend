@@ -17,7 +17,7 @@ class NoTasks extends StatelessWidget {
       child: ListView(
         shrinkWrap: true,
         children: [
-          MTImage(ImageNames.empty_tasks.toString()),
+          MTImage(ImageNames.emptyTasks.toString()),
           const SizedBox(height: P2),
           H2(loc.task_list_empty_title, align: TextAlign.center),
           const SizedBox(height: P),

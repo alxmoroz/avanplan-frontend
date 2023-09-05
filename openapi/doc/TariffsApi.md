@@ -9,11 +9,11 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**tariffsV1TariffsGet**](TariffsApi.md#tariffsv1tariffsget) | **GET** /v1/tariffs | Tariffs
+[**tariffsV1RefsTariffsGet**](TariffsApi.md#tariffsv1refstariffsget) | **GET** /v1/refs/tariffs | Tariffs
 
 
-# **tariffsV1TariffsGet**
-> BuiltList<TariffGet> tariffsV1TariffsGet(wsId)
+# **tariffsV1RefsTariffsGet**
+> BuiltList<TariffGet> tariffsV1RefsTariffsGet(wsId)
 
 Tariffs
 
@@ -31,10 +31,10 @@ final api = Openapi().getTariffsApi();
 final int wsId = 56; // int | 
 
 try {
-    final response = api.tariffsV1TariffsGet(wsId);
+    final response = api.tariffsV1RefsTariffsGet(wsId);
     print(response);
 } catch on DioError (e) {
-    print('Exception when calling TariffsApi->tariffsV1TariffsGet: $e\n');
+    print('Exception when calling TariffsApi->tariffsV1RefsTariffsGet: $e\n');
 }
 ```
 

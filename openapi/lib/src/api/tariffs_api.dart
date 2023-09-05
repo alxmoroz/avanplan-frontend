@@ -34,7 +34,7 @@ class TariffsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<TariffGet>] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<BuiltList<TariffGet>>> tariffsV1TariffsGet({ 
+  Future<Response<BuiltList<TariffGet>>> tariffsV1RefsTariffsGet({ 
     required int wsId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -43,7 +43,7 @@ class TariffsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/tariffs';
+    final _path = r'/v1/refs/tariffs';
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{

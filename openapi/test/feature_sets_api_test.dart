@@ -8,8 +8,8 @@ void main() {
   group(FeatureSetsApi, () {
     // Feature Sets
     //
-    //Future<BuiltList<FeatureSetGet>> featureSetsV1FeatureSetsGet() async
-    test('test featureSetsV1FeatureSetsGet', () async {
+    //Future<BuiltList<FeatureSetGet>> featureSetsV1RefsFeatureSetsGet() async
+    test('test featureSetsV1RefsFeatureSetsGet', () async {
       // TODO
     });
   });

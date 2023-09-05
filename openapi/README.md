@@ -71,7 +71,7 @@ Class | Method | HTTP request | Description
 [*AuthApi*](doc/AuthApi.md) | [**registrationToken**](doc/AuthApi.md#registrationtoken) | **POST** /v1/auth/registration_token | Registration Token
 [*AuthApi*](doc/AuthApi.md) | [**requestRegistration**](doc/AuthApi.md#requestregistration) | **POST** /v1/auth/registration | Request Registration
 [*ContractsApi*](doc/ContractsApi.md) | [**signV1ContractsPost**](doc/ContractsApi.md#signv1contractspost) | **POST** /v1/contracts | Sign
-[*FeatureSetsApi*](doc/FeatureSetsApi.md) | [**featureSetsV1FeatureSetsGet**](doc/FeatureSetsApi.md#featuresetsv1featuresetsget) | **GET** /v1/feature_sets | Feature Sets
+[*FeatureSetsApi*](doc/FeatureSetsApi.md) | [**featureSetsV1RefsFeatureSetsGet**](doc/FeatureSetsApi.md#featuresetsv1refsfeaturesetsget) | **GET** /v1/refs/feature_sets | Feature Sets
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**requestSourceType**](doc/IntegrationsSourcesApi.md#requestsourcetype) | **POST** /v1/integrations/sources/request_source_type | Request Source Type
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**sourcesCheckConnection**](doc/IntegrationsSourcesApi.md#sourcescheckconnection) | **GET** /v1/integrations/sources/check_connection | Check Connection
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**sourcesDelete**](doc/IntegrationsSourcesApi.md#sourcesdelete) | **DELETE** /v1/integrations/sources/{source_id} | Delete
@@ -94,7 +94,7 @@ Class | Method | HTTP request | Description
 [*PaymentsApi*](doc/PaymentsApi.md) | [**iapNotificationV1PaymentsIapNotificationPost**](doc/PaymentsApi.md#iapnotificationv1paymentsiapnotificationpost) | **POST** /v1/payments/iap/notification | Iap Notification
 [*ProjectFeatureSetsApi*](doc/ProjectFeatureSetsApi.md) | [**setupFeatureSetsV1TasksFeatureSetsPost**](doc/ProjectFeatureSetsApi.md#setupfeaturesetsv1tasksfeaturesetspost) | **POST** /v1/tasks/feature_sets | Setup Feature Sets
 [*SettingsApi*](doc/SettingsApi.md) | [**settingsV1SettingsGet**](doc/SettingsApi.md#settingsv1settingsget) | **GET** /v1/settings | Settings
-[*TariffsApi*](doc/TariffsApi.md) | [**tariffsV1TariffsGet**](doc/TariffsApi.md#tariffsv1tariffsget) | **GET** /v1/tariffs | Tariffs
+[*TariffsApi*](doc/TariffsApi.md) | [**tariffsV1RefsTariffsGet**](doc/TariffsApi.md#tariffsv1refstariffsget) | **GET** /v1/refs/tariffs | Tariffs
 [*TasksApi*](doc/TasksApi.md) | [**assignV1TasksRolesPost**](doc/TasksApi.md#assignv1tasksrolespost) | **POST** /v1/tasks/roles | Assign
 [*TasksApi*](doc/TasksApi.md) | [**createV1TasksInvitationsPost**](doc/TasksApi.md#createv1tasksinvitationspost) | **POST** /v1/tasks/invitations | Create
 [*TasksApi*](doc/TasksApi.md) | [**deleteV1TasksNotesNoteIdDelete**](doc/TasksApi.md#deletev1tasksnotesnoteiddelete) | **DELETE** /v1/tasks/notes/{note_id} | Delete

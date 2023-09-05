@@ -13,7 +13,7 @@ class TariffRepo extends AbstractTariffRepo {
 
   @override
   Future<Iterable<Tariff>> getAll(Workspace ws) async {
-    final response = await api.tariffsV1TariffsGet(wsId: ws.id!);
+    final response = await api.tariffsV1RefsTariffsGet(wsId: ws.id!);
     return response.data?.map((t) => t.tariff) ?? [];
   }
 }

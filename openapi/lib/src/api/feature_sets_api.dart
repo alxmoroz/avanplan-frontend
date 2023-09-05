@@ -31,7 +31,7 @@ class FeatureSetsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<FeatureSetGet>] as data
   /// Throws [DioError] if API call or serialization fails
-  Future<Response<BuiltList<FeatureSetGet>>> featureSetsV1FeatureSetsGet({ 
+  Future<Response<BuiltList<FeatureSetGet>>> featureSetsV1RefsFeatureSetsGet({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -39,7 +39,7 @@ class FeatureSetsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/feature_sets';
+    final _path = r'/v1/refs/feature_sets';
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{

@@ -15,7 +15,7 @@ class FeatureSetRepo extends AbstractFeatureSetRepo {
 
   @override
   Future<Iterable<FeatureSet>> getAll() async {
-    final response = await api.featureSetsV1FeatureSetsGet();
+    final response = await api.featureSetsV1RefsFeatureSetsGet();
     return response.data?.map((fs) => fs.featureSet) ?? [];
   }
 

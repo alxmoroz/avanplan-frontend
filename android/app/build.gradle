@@ -43,7 +43,7 @@ android {
 
     defaultConfig {
         applicationId "team.moroz.avanplan"
-        minSdkVersion 20
+        minSdkVersion 31
         targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

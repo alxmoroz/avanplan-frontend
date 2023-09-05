@@ -8,6 +8,7 @@ import '../../../../components/button.dart';
 import '../../../../components/checkbox.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
+import '../../../../components/images.dart';
 import '../../../../components/navbar.dart';
 import '../../../../components/page.dart';
 import '../../../../components/shadowed.dart';
@@ -21,29 +22,47 @@ class _FSBody extends StatelessWidget {
   const _FSBody(FeatureSetsController controller) : _controller = controller;
   final FeatureSetsController _controller;
 
+  Widget _icon(int index) => MTImage(
+      [
+        ImageNames.fsAnalytics,
+        ImageNames.fsTeam,
+        ImageNames.fsGoals,
+        ImageNames.fsTaskBoard,
+        ImageNames.fsEstimates,
+      ][index],
+      size: P7);
+
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => ListView(
-        shrinkWrap: true,
-        children: [
-          ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: _controller.checks.length,
-            itemBuilder: (_, index) {
-              final fs = refsController.featureSets.elementAt(index);
-              return MTCheckBoxTile(
-                title: fs.title,
-                description: fs.description,
-                value: _controller.checks[index],
-                onChanged: (bool? value) => _controller.selectFeatureSet(index, value),
-              );
-            },
-          ),
-          const SizedBox(height: P3),
-          MTCheckBoxTile(title: loc.feature_set_tasklist_title, description: loc.feature_set_tasklist_description, value: true),
-        ],
+      builder: (_) => MTShadowed(
+        bottomShadow: true,
+        child: ListView(
+          shrinkWrap: true,
+          children: [
+            MTCheckBoxTile(
+                leading: const MTImage(ImageNames.fsTaskList, size: P7),
+                title: loc.feature_set_tasklist_title,
+                description: loc.feature_set_tasklist_description,
+                value: true),
+            const SizedBox(height: P3),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: _controller.checks.length,
+              itemBuilder: (_, index) {
+                final fs = refsController.featureSets.elementAt(index);
+                return MTCheckBoxTile(
+                  leading: _icon(index),
+                  title: fs.title,
+                  description: fs.description,
+                  value: _controller.checks[index],
+                  onChanged: (bool? value) => _controller.selectFeatureSet(index, value),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -63,14 +82,14 @@ class FeatureSetsOnboardingPage extends StatelessWidget {
         middle: _controller.project.subPageTitle(loc.project_feature_sets_title),
         trailing: MTButton(
           titleText: loc.onboarding_skip_action_title,
-          padding: EdgeInsets.only(right: P2),
+          padding: const EdgeInsets.only(right: P2),
           onTap: () => _controller.taskController.onbController.skip(context),
         ),
       ),
       body: SafeArea(
         top: false,
         bottom: false,
-        child: MTAdaptive(child: MTShadowed(child: _FSBody(_controller))),
+        child: MTAdaptive(child: _FSBody(_controller)),
       ),
       bottomBar: MTButton.main(
         titleText: loc.onboarding_proceed_action_title,

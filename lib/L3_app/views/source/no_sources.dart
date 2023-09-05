@@ -16,7 +16,7 @@ class NoSources extends StatelessWidget {
         shrinkWrap: true,
         children: [
           const SizedBox(height: P),
-          MTImage(ImageNames.empty_sources.toString()),
+          MTImage(ImageNames.emptySources.toString()),
           const SizedBox(height: P),
           H3(loc.source_list_empty_title, align: TextAlign.center),
           const SizedBox(height: P),

@@ -6,9 +6,15 @@ import 'adaptive.dart';
 
 class ImageNames {
   static const delete = 'delete';
-  static const empty_sources = 'empty_sources';
-  static const empty_tasks = 'empty_tasks';
-  static const empty_team = 'empty_team';
+  static const emptySources = 'empty_sources';
+  static const emptyTasks = 'empty_tasks';
+  static const emptyTeam = 'empty_team';
+  static const fsAnalytics = 'fs_analytics';
+  static const fsEstimates = 'fs_estimates';
+  static const fsGoals = 'fs_goals';
+  static const fsTaskBoard = 'fs_task_board';
+  static const fsTaskList = 'fs_task_list';
+  static const fsTeam = 'fs_team';
   static const import = 'import';
   static const loading = 'loading';
   static const networkError = 'network_error';

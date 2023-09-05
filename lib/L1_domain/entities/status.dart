@@ -2,12 +2,14 @@
 
 import 'base_entity.dart';
 
-class Status extends Statusable {
+class Status extends Codable {
   Status({
     required super.id,
     required super.code,
-    required super.closed,
+    required this.closed,
   });
+
+  bool closed;
 }
 
 class ProjectStatus extends RPersistable {

@@ -45,23 +45,3 @@ abstract class Titleable extends RPersistable {
   @override
   String toString() => title;
 }
-
-abstract class Orderable extends Codable {
-  Orderable({
-    super.id,
-    required super.code,
-    required this.order,
-  });
-
-  final int order;
-}
-
-abstract class Statusable extends Codable {
-  Statusable({
-    super.id,
-    required super.code,
-    required this.closed,
-  });
-
-  bool closed;
-}

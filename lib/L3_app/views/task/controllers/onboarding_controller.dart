@@ -3,7 +3,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../task_view.dart';
 import 'task_controller.dart';
@@ -19,8 +18,6 @@ class OnboardingController extends _OnboardingControllerBase with _$OnboardingCo
 
 abstract class _OnboardingControllerBase with Store {
   late final TaskController taskController;
-
-  Task get task => taskController.task;
 
   @observable
   bool onboarding = false;

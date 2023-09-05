@@ -35,12 +35,7 @@ abstract class _FeatureSetsControllerBase with Store {
     checks = [...checks];
   }
 
-  Future setupFeatureSets() async {
-    Navigator.of(rootKey.currentContext!).pop();
-
-    final fIndex = TaskFCode.features.index;
-    taskController.updateField(fIndex, loading: true);
-
+  Future _setup() async {
     final fsIds = <int>[];
     for (int index = 0; index < checks.length; index++) {
       if (checks[index]) {
@@ -48,7 +43,19 @@ abstract class _FeatureSetsControllerBase with Store {
       }
     }
     await project.setupFeatureSets(fsIds);
+  }
 
+  Future save() async {
+    Navigator.of(rootKey.currentContext!).pop();
+
+    final fIndex = TaskFCode.features.index;
+    taskController.updateField(fIndex, loading: true);
+    await _setup();
     taskController.updateField(fIndex, loading: false);
+  }
+
+  Future startOnboarding(BuildContext context) async {
+    await _setup();
+    taskController.onbController.next(context);
   }
 }

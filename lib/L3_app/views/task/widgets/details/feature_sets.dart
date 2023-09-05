@@ -9,17 +9,16 @@ import '../../../../components/checkbox.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/images.dart';
-import '../../../../components/navbar.dart';
 import '../../../../components/page.dart';
 import '../../../../components/shadowed.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/task_type.dart';
 import '../../controllers/feature_sets_controller.dart';
 import '../../controllers/task_controller.dart';
+import '../onboarding/header.dart';
 
 class _FSBody extends StatelessWidget {
-  const _FSBody(FeatureSetsController controller) : _controller = controller;
+  const _FSBody(this._controller);
   final FeatureSetsController _controller;
 
   Widget _icon(int index) => MTImage(
@@ -69,31 +68,26 @@ class _FSBody extends StatelessWidget {
 }
 
 class FeatureSetsOnboardingPage extends StatelessWidget {
-  const FeatureSetsOnboardingPage(FeatureSetsController controller) : _controller = controller;
+  const FeatureSetsOnboardingPage(this._controller);
   final FeatureSetsController _controller;
 
   static String get routeName => '/project_feature_sets';
 
   @override
   Widget build(BuildContext context) {
-    return MTPage(
-      navBar: navBar(
-        context,
-        middle: _controller.project.subPageTitle(loc.project_feature_sets_title),
-        trailing: MTButton(
-          titleText: loc.onboarding_skip_action_title,
-          padding: const EdgeInsets.only(right: P2),
-          onTap: () => _controller.taskController.onbController.skip(context),
+    return Observer(
+      builder: (_) => MTPage(
+        navBar: OnboardingHeader(_controller.taskController.onbController).build(context),
+        body: SafeArea(
+          top: false,
+          bottom: false,
+          child: MTAdaptive(child: _FSBody(_controller)),
         ),
-      ),
-      body: SafeArea(
-        top: false,
-        bottom: false,
-        child: MTAdaptive(child: _FSBody(_controller)),
-      ),
-      bottomBar: MTButton.main(
-        titleText: loc.onboarding_proceed_action_title,
-        onTap: _controller.setupFeatureSets,
+        bottomBar: MTButton.main(
+          titleText: loc.onboarding_proceed_action_title,
+          loading: _controller.project.loading,
+          onTap: () => _controller.startOnboarding(context),
+        ),
       ),
     );
   }
@@ -110,7 +104,7 @@ class FeatureSetsDialog extends StatelessWidget {
       body: _FSBody(_controller),
       bottomBar: MTButton.main(
         titleText: loc.save_action_title,
-        onTap: _controller.setupFeatureSets,
+        onTap: _controller.save,
       ),
     );
   }

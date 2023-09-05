@@ -47,10 +47,12 @@ class CreateController {
       );
 
       await mainController.showTask(newTaskData);
+      // TODO: забота онбординга скорее тут
       if (_parentTaskController != null) {
         _parentTaskController!.selectTab(TaskTabKey.subtasks);
       }
     } else {
+      // TODO: как будет происходить предложение смены тарифа во время онбординга?
       await _ws.changeTariff(
         reason: _newProject ? loc.tariff_change_limit_projects_reason_title : loc.tariff_change_limit_tasks_reason_title,
       );

@@ -12,20 +12,52 @@ import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
+import '../../../../components/page.dart';
 import '../../../../components/shadowed.dart';
 import '../../../../components/text.dart';
 import '../../../../presenters/person.dart';
 import '../../../../usecases/task_actions.dart';
+import '../../controllers/onboarding_controller.dart';
 import '../../controllers/task_controller.dart';
+import '../onboarding/header.dart';
+import '../onboarding/next_button.dart';
 import 'invitation_button.dart';
 import 'member_view.dart';
 import 'no_members.dart';
 
-class TeamPane extends StatelessWidget {
-  const TeamPane(this.controller);
-  final TaskController controller;
+class TeamInvitationOnboardingPage extends StatelessWidget {
+  const TeamInvitationOnboardingPage(this._controller);
+  final OnboardingController _controller;
 
-  Task get task => controller.task;
+  static String get routeName => '/task/team_invitation';
+
+  @override
+  Widget build(BuildContext context) {
+    final teamPane = TeamPane(_controller.taskController);
+    return Observer(
+      builder: (_) => MTPage(
+        navBar: OnboardingHeader(_controller).build(context),
+        body: SafeArea(
+          top: false,
+          bottom: false,
+          child: TeamPane(_controller.taskController),
+        ),
+        bottomBar: Column(mainAxisSize: MainAxisSize.min, children: [
+          //TODO: права на редактирование участников
+          teamPane.bottomBar!,
+          const SizedBox(height: P3),
+          OnboardingNextButton(_controller),
+        ]),
+      ),
+    );
+  }
+}
+
+class TeamPane extends StatelessWidget {
+  const TeamPane(this._controller);
+  final TaskController _controller;
+
+  Task get task => _controller.task;
 
   List<Member> get _sortedMembers => task.sortedMembers;
 

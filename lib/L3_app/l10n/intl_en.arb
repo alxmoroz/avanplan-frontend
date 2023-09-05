@@ -190,6 +190,7 @@
   "notification_title": "Notification",
 
   "onboarding_back_action_title": "Back",
+  "onboarding_finish_action_title": "Finish",
   "onboarding_proceed_action_title": "Next",
   "onboarding_skip_action_title": "Skip",
 

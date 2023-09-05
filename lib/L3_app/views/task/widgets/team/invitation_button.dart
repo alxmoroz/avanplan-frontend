@@ -17,8 +17,6 @@ class InvitationButton extends StatelessWidget {
   const InvitationButton(this.task);
   final Task task;
 
-  String get _title => loc.invitation_create_title;
-
   @override
   Widget build(BuildContext context) {
     return MTAdaptive.XS(
@@ -26,7 +24,7 @@ class InvitationButton extends StatelessWidget {
         showBadge: !task.ws.plUsers,
         child: MTButton.main(
           leading: const MemberAddIcon(color: mainBtnTitleColor),
-          titleText: _title,
+          titleText: loc.invitation_create_title,
           constrained: false,
           onTap: task.ws.plUsers ? () => invitationDialog(task) : () => task.ws.changeTariff(reason: loc.tariff_change_limit_users_reason_title),
         ),

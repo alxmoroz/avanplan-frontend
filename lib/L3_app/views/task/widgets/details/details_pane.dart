@@ -9,7 +9,6 @@ import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../../L1_domain/entities_extensions/task_status.dart';
-import '../../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
@@ -140,26 +139,22 @@ class DetailsPane extends StatelessWidget {
               ],
 
               /// FeatureSets
-              if (_onboarding) ...[
-                _task.isProject
-                    ? MTButton.main(
-                        titleText: loc.project_feature_sets_select_action_title,
-                        margin: const EdgeInsets.symmetric(vertical: P3),
-                        onTap: () => showFeatureSetsOnboardingPage(context, controller),
-                      )
-                    : MTButton.main(
-                        titleText: loc.onboarding_proceed_action_title,
-                        margin: const EdgeInsets.symmetric(vertical: P3),
-                      )
-              ] else if (_task.canViewFeatureSets) ...[
-                const SizedBox(height: P3),
-                MTField(
-                  controller.fData(TaskFCode.features.index),
-                  leading: SettingsIcon(color: _task.canEditFeatureSets ? null : f3Color),
-                  value: BaseText(_task.localizedFeatureSets, maxLines: 1),
-                  onSelect: _task.canEditFeatureSets ? () => showFeatureSetsDialog(controller) : null,
-                ),
-              ],
+              if (_task.canViewFeatureSets)
+                if (_onboarding)
+                  MTButton.main(
+                    titleText: loc.onboarding_next_action_title,
+                    margin: const EdgeInsets.symmetric(vertical: P3),
+                    onTap: () => showFeatureSetsOnboardingPage(context, controller),
+                  )
+                else ...[
+                  const SizedBox(height: P3),
+                  MTField(
+                    controller.fData(TaskFCode.features.index),
+                    leading: SettingsIcon(color: _task.canEditFeatureSets ? null : f3Color),
+                    value: BaseText(_task.localizedFeatureSets, maxLines: 1),
+                    onSelect: _task.canEditFeatureSets ? () => showFeatureSetsDialog(controller) : null,
+                  ),
+                ],
 
               /// Notes
               if (!_onboarding && _task.canComment) ...[

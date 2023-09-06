@@ -403,7 +403,7 @@ class SettingsIcon extends MTIcon {
   const SettingsIcon({super.color, super.size});
   @override
   Widget build(BuildContext context) => Icon(
-        CupertinoIcons.settings,
+        CupertinoIcons.slider_horizontal_3,
         color: (color ?? mainColor).resolve(context),
         size: size ?? P6,
       );

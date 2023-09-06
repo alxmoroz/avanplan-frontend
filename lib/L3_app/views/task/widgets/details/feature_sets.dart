@@ -9,6 +9,7 @@ import '../../../../components/checkbox.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/images.dart';
+import '../../../../components/list_tile.dart';
 import '../../../../components/page.dart';
 import '../../../../components/shadowed.dart';
 import '../../../../components/toolbar.dart';
@@ -22,29 +23,35 @@ class _FSBody extends StatelessWidget {
   final FeatureSetsController _controller;
 
   Widget _icon(int index) => MTImage(
-      [
-        ImageNames.fsAnalytics,
-        ImageNames.fsTeam,
-        ImageNames.fsGoals,
-        ImageNames.fsTaskBoard,
-        ImageNames.fsEstimates,
-      ][index],
-      size: P7);
+        [
+          ImageNames.fsAnalytics,
+          ImageNames.fsTeam,
+          ImageNames.fsGoals,
+          ImageNames.fsTaskBoard,
+          ImageNames.fsEstimates,
+        ][index],
+        width: P8,
+        height: P7,
+      );
 
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTShadowed(
+        topPaddingIndent: 0,
         bottomShadow: true,
         child: ListView(
           shrinkWrap: true,
           children: [
+            MTListSection(loc.project_feature_sets_always_on_label),
             MTCheckBoxTile(
-                leading: const MTImage(ImageNames.fsTaskList, size: P7),
-                title: loc.feature_set_tasklist_title,
-                description: loc.feature_set_tasklist_description,
-                value: true),
-            const SizedBox(height: P3),
+              leading: const MTImage(ImageNames.fsTaskList, width: P8, height: P7),
+              title: loc.feature_set_tasklist_title,
+              description: loc.feature_set_tasklist_description,
+              value: true,
+              bottomDivider: false,
+            ),
+            MTListSection(loc.project_feature_sets_available_label),
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -56,6 +63,7 @@ class _FSBody extends StatelessWidget {
                   title: fs.title,
                   description: fs.description,
                   value: _controller.checks[index],
+                  bottomDivider: index < _controller.checks.length - 1,
                   onChanged: (bool? value) => _controller.selectFeatureSet(index, value),
                 );
               },
@@ -84,7 +92,7 @@ class FeatureSetsOnboardingPage extends StatelessWidget {
           child: MTAdaptive(child: _FSBody(_controller)),
         ),
         bottomBar: MTButton.main(
-          titleText: loc.onboarding_proceed_action_title,
+          titleText: loc.onboarding_next_action_title,
           loading: _controller.project.loading,
           onTap: () => _controller.startOnboarding(context),
         ),

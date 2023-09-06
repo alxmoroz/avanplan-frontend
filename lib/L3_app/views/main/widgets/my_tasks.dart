@@ -25,7 +25,7 @@ class MyTasks extends StatelessWidget {
   Future _goToTasks() async => await Navigator.of(rootKey.currentContext!).pushNamed(MyTasksView.routeName);
 
   Widget _mainInfo(BuildContext context) => _myTasksCount > 0
-      ? SizedBox(height: dashboardImageSize(context), child: Center(child: D1('$_myTasksCount', color: mainColor)))
+      ? SizedBox(height: dashboardImageHeight(context), child: Center(child: D1('$_myTasksCount', color: mainColor)))
       : MTImage(ImageNames.emptyTasks.toString());
 
   Widget _contents(BuildContext context) => MTCardButton(

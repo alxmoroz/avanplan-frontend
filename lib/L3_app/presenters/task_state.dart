@@ -51,7 +51,7 @@ Widget imageForState(TaskState state, {double? size}) {
       break;
     default:
   }
-  return MTImage(name, size: size);
+  return MTImage(name, height: size);
 }
 
 LinearGradient stateGradient(BuildContext context, TaskState state) {

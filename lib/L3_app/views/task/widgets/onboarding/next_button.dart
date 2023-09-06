@@ -13,7 +13,7 @@ class OnboardingNextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTButton.main(
-      titleText: _controller.lastStep ? loc.onboarding_finish_action_title : loc.onboarding_proceed_action_title,
+      titleText: _controller.lastStep ? loc.onboarding_finish_action_title : loc.onboarding_next_action_title,
       onTap: () => _controller.lastStep ? _controller.finish(context) : _controller.next(context),
     );
   }

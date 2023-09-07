@@ -66,7 +66,7 @@ class _FSBody extends StatelessWidget {
                   description: fs.description,
                   value: _controller.checks[index],
                   bottomDivider: index < _controller.checks.length - 1,
-                  onChanged: (bool? value) => _controller.selectFeatureSet(index, value),
+                  onChanged: _controller.project.loading == true ? null : (bool? value) => _controller.selectFeatureSet(index, value),
                 );
               },
             ),

@@ -7,6 +7,7 @@ import '../../../../../L1_domain/entities/member.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../components/adaptive.dart';
+import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
@@ -42,9 +43,11 @@ class TeamInvitationOnboardingPage extends StatelessWidget {
           child: teamPane,
         ),
         bottomBar: Column(mainAxisSize: MainAxisSize.min, children: [
-          //TODO: права на редактирование участников
-          teamPane.bottomBar!,
-          OnboardingNextButton(_controller.onbController),
+          if (_controller.task.canInviteMembers) ...[
+            InvitationButton(_controller.task, type: ButtonType.secondary),
+            const SizedBox(height: P3),
+          ],
+          OnboardingNextButton(_controller.onbController, margin: EdgeInsets.zero),
         ]),
       ),
     );
@@ -59,7 +62,7 @@ class TeamPane extends StatelessWidget {
 
   List<Member> get _sortedMembers => task.sortedMembers;
 
-  Widget? get bottomBar => task.canEditMembers && task.ws.roles.isNotEmpty ? InvitationButton(task) : null;
+  Widget? get bottomBar => task.canInviteMembers ? InvitationButton(task) : null;
 
   Widget _memberBuilder(BuildContext context, int index) {
     final member = _sortedMembers[index];

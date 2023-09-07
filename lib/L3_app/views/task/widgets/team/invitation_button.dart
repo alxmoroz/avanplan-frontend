@@ -14,16 +14,18 @@ import '../../../../usecases/ws_tariff.dart';
 import 'invitation_dialog.dart';
 
 class InvitationButton extends StatelessWidget {
-  const InvitationButton(this.task);
+  const InvitationButton(this.task, {this.type});
   final Task task;
+  final ButtonType? type;
 
   @override
   Widget build(BuildContext context) {
     return MTAdaptive.XS(
       child: MTLimitBadge(
         showBadge: !task.ws.plUsers,
-        child: MTButton.main(
-          leading: const MemberAddIcon(color: mainBtnTitleColor),
+        child: MTButton(
+          type: type ?? ButtonType.main,
+          leading: MemberAddIcon(color: type == ButtonType.main ? mainBtnTitleColor : mainColor),
           titleText: loc.invitation_create_title,
           constrained: false,
           onTap: task.ws.plUsers ? () => invitationDialog(task) : () => task.ws.changeTariff(reason: loc.tariff_change_limit_users_reason_title),

@@ -7,7 +7,6 @@ import '../../../../L1_domain/entities/feature_set.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../extra/services.dart';
-import '../../../usecases/task_feature_sets.dart';
 import '../task_view.dart';
 import '../widgets/details/feature_sets.dart';
 import '../widgets/team/team_pane.dart';
@@ -42,10 +41,8 @@ abstract class _OnboardingControllerBase with Store {
   Iterable<_Step> get _steps => [
         _Step(_StepCode.projectSetup, '', loc.next_action_title),
         _Step(_StepCode.featureSets, loc.feature_sets_onboarding_title, loc.next_action_title),
-        if (project.hfsTeam || _fsController?.hasChecked(FSCode.TEAM) == true)
-          _Step(_StepCode.team, loc.team_onboarding_title, loc.next_action_title),
-        if (project.hfsGoals || _fsController?.hasChecked(FSCode.GOALS) == true)
-          _Step(_StepCode.goals, loc.goal_onboarding_title, loc.next_action_title),
+        if (_fsController?.hasChecked(FSCode.TEAM) == true) _Step(_StepCode.team, loc.team_onboarding_title, loc.next_action_title),
+        if (_fsController?.hasChecked(FSCode.GOALS) == true) _Step(_StepCode.goals, loc.goal_onboarding_title, loc.next_action_title),
         _Step(_StepCode.tasks, loc.task_onboarding_title, loc.finish_action_title),
       ];
 
@@ -67,7 +64,7 @@ abstract class _OnboardingControllerBase with Store {
   String get stepTitle => _step.title;
 
   @computed
-  String get nextBtnTitle => _step.nextButtonTitle;
+  String get nextBtnTitle => onboarding ? _step.nextButtonTitle : '';
 
   @action
   Future _pushNext(BuildContext context) async {
@@ -105,8 +102,8 @@ abstract class _OnboardingControllerBase with Store {
   @action
   void finish(BuildContext context) {
     // TODO: учесть с какого шага и куда
-    Navigator.of(context).popUntil((r) => r.navigator?.canPop() == true && r.settings.name == TaskView.routeName);
     onboarding = false;
+    Navigator.of(context).popUntil((r) => r.navigator?.canPop() == true && r.settings.name == TaskView.routeName);
     stepIndex = 0;
   }
 }

@@ -49,6 +49,7 @@ extension TaskActionsUC on Task {
   bool get canUnlink => isLinkedProject && ws.hpProjectUpdate == true;
   bool get canViewMembers => isProject && _hpMemberRead;
   bool get canEditMembers => isProject && _hpMemberUpdate;
+  bool get canInviteMembers => canEditMembers && ws.roles.isNotEmpty;
   bool get canSetStatus => statuses.isNotEmpty && canEdit && isTask;
   bool get canCloseGroup => canClose && state == TaskState.CLOSABLE;
   bool get canEstimate => canEdit && ws.estimateValues.isNotEmpty && isTask;

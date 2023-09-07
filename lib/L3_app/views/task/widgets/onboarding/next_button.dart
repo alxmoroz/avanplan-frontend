@@ -1,6 +1,7 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../components/button.dart';
 import '../../../../components/constants.dart';
@@ -13,11 +14,13 @@ class OnboardingNextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MTButton.main(
-      titleText: _controller.nextBtnTitle,
-      margin: margin ?? const EdgeInsets.symmetric(vertical: P3),
-      loading: _controller.project.loading,
-      onTap: () => _controller.next(context),
+    return Observer(
+      builder: (_) => MTButton.main(
+        titleText: _controller.nextBtnTitle,
+        margin: margin ?? const EdgeInsets.symmetric(vertical: P3),
+        loading: _controller.project.loading,
+        onTap: () => _controller.next(context),
+      ),
     );
   }
 }

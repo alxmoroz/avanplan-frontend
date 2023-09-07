@@ -163,27 +163,39 @@ abstract class _BaseDText extends BaseText {
     super.text, {
     super.color,
     super.sizeScale,
-    super.height,
-    super.weight,
-  }) : super(align: TextAlign.center);
+    FontWeight? weight,
+  }) : super(align: TextAlign.center, weight: weight ?? FontWeight.w500, height: 1);
+
+  const _BaseDText.bold(
+    super.text, {
+    super.color,
+    super.sizeScale,
+  }) : super(align: TextAlign.center, weight: FontWeight.w700, height: 1);
 
   @override
   TextStyle style(BuildContext context) => super.style(context).copyWith(fontFamily: 'Montserrat');
 }
 
+class D6 extends _BaseDText {
+  const D6(String text, {super.color}) : super.bold(text, sizeScale: 0.9);
+}
+
+class D5 extends _BaseDText {
+  const D5(String text, {super.color}) : super(text, sizeScale: 1.15);
+}
+
 class D4 extends _BaseDText {
-  const D4(String text, {super.color}) : super(text, sizeScale: 1.25);
-  const D4.medium(String text, {super.color}) : super(text, sizeScale: 1.5, weight: FontWeight.w500);
+  const D4(String text, {super.color}) : super(text, sizeScale: 1.55);
 }
 
 class D3 extends _BaseDText {
-  const D3(String text, {super.color}) : super(text, weight: FontWeight.w500, sizeScale: 2.5, height: 1);
+  const D3(String text, {super.color}) : super(text, sizeScale: 2.5);
 }
 
 class D2 extends _BaseDText {
-  const D2(String text, {super.color}) : super(text, weight: FontWeight.w500, sizeScale: 3.2, height: 1);
+  const D2(String text, {super.color}) : super(text, sizeScale: 3.2);
 }
 
 class D1 extends _BaseDText {
-  const D1(String text, {super.color}) : super(text, sizeScale: 9, height: 1);
+  const D1(String text, {super.color}) : super(text, sizeScale: 9);
 }

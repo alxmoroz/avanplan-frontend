@@ -13,10 +13,11 @@ const double P8 = P * 8; // 48
 const double P10 = P * 10; // 60
 
 const double P_2 = P / 2; // 3
+const double P_3 = P / 3; // 2
 
 const double DEF_BORDER_RADIUS = P2;
 const double DEF_BTN_BORDER_RADIUS = P6;
-const double DEF_BORDER_WIDTH = 2;
+const double DEF_BORDER_WIDTH = P_3;
 const double MIN_BTN_HEIGHT = P8;
 
 const double SCR_XS_WIDTH = 360;

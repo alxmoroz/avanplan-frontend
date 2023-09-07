@@ -17,7 +17,6 @@ import '../../../../components/shadowed.dart';
 import '../../../../components/text.dart';
 import '../../../../presenters/person.dart';
 import '../../../../usecases/task_actions.dart';
-import '../../controllers/onboarding_controller.dart';
 import '../../controllers/task_controller.dart';
 import '../onboarding/header.dart';
 import '../onboarding/next_button.dart';
@@ -27,26 +26,25 @@ import 'no_members.dart';
 
 class TeamInvitationOnboardingPage extends StatelessWidget {
   const TeamInvitationOnboardingPage(this._controller);
-  final OnboardingController _controller;
+  final TaskController _controller;
 
   static String get routeName => '/task/team_invitation';
 
   @override
   Widget build(BuildContext context) {
-    final teamPane = TeamPane(_controller.taskController);
+    final teamPane = TeamPane(_controller);
     return Observer(
       builder: (_) => MTPage(
-        navBar: OnboardingHeader(_controller).build(context),
+        appBar: onboardingHeader(context, _controller.onbController),
         body: SafeArea(
           top: false,
           bottom: false,
-          child: TeamPane(_controller.taskController),
+          child: teamPane,
         ),
         bottomBar: Column(mainAxisSize: MainAxisSize.min, children: [
           //TODO: права на редактирование участников
           teamPane.bottomBar!,
-          const SizedBox(height: P3),
-          OnboardingNextButton(_controller),
+          OnboardingNextButton(_controller.onbController),
         ]),
       ),
     );

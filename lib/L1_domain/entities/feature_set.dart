@@ -4,6 +4,14 @@ import 'package:intl/intl.dart';
 
 import 'base_entity.dart';
 
+class FSCode {
+  static const ANALYTICS = 'ANALYTICS';
+  static const TEAM = 'TEAM';
+  static const GOALS = 'GOALS';
+  static const TASKBOARD = 'TASKBOARD';
+  static const ESTIMATES = 'ESTIMATES';
+}
+
 class FeatureSet extends Codable {
   FeatureSet({
     required super.id,

@@ -1,6 +1,5 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'colors.dart';
@@ -9,12 +8,12 @@ import 'toolbar.dart';
 class MTPage extends StatelessWidget {
   const MTPage({
     required this.body,
-    this.navBar,
+    this.appBar,
     this.bottomBar,
     super.key,
   });
 
-  final CupertinoNavigationBar? navBar;
+  final PreferredSizeWidget? appBar;
   final Widget body;
   final Widget? bottomBar;
 
@@ -23,7 +22,7 @@ class MTPage extends StatelessWidget {
         onTap: FocusScope.of(context).unfocus,
         child: Scaffold(
           key: key,
-          appBar: navBar,
+          appBar: appBar,
           body: body,
           extendBody: true,
           extendBodyBehindAppBar: true,

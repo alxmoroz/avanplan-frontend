@@ -104,7 +104,7 @@ class MTListSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return BaseText.f2(
       title,
-      padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P3, bottom: P2),
+      padding: const EdgeInsets.all(P3).copyWith(bottom: P2),
     );
   }
 }

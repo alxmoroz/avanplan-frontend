@@ -28,7 +28,7 @@ import 'L3_app/views/settings/settings_view.dart';
 import 'L3_app/views/source/source_list_view.dart';
 import 'L3_app/views/tariff/active_contract_view.dart';
 import 'L3_app/views/task/controllers/feature_sets_controller.dart';
-import 'L3_app/views/task/controllers/onboarding_controller.dart';
+import 'L3_app/views/task/controllers/task_controller.dart';
 import 'L3_app/views/task/task_view.dart';
 import 'L3_app/views/task/widgets/details/feature_sets.dart';
 import 'L3_app/views/task/widgets/team/member_view.dart';
@@ -138,7 +138,7 @@ class App extends StatelessWidget {
               } else if (rs.name == FeatureSetsOnboardingPage.routeName) {
                 return CupertinoPageRoute<dynamic>(builder: (_) => FeatureSetsOnboardingPage(rs.arguments as FeatureSetsController));
               } else if (rs.name == TeamInvitationOnboardingPage.routeName) {
-                return CupertinoPageRoute<dynamic>(builder: (_) => TeamInvitationOnboardingPage(rs.arguments as OnboardingController));
+                return CupertinoPageRoute<dynamic>(builder: (_) => TeamInvitationOnboardingPage(rs.arguments as TaskController));
               }
               return null;
             },

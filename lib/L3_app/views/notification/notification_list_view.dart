@@ -6,12 +6,12 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../components/adaptive.dart';
 import '../../components/alert_dialog.dart';
+import '../../components/appbar.dart';
 import '../../components/button.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
-import '../../components/navbar.dart';
 import '../../components/page.dart';
 import '../../components/shadowed.dart';
 import '../../components/text.dart';
@@ -69,7 +69,7 @@ class NotificationListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Observer(
         builder: (_) => MTPage(
-          navBar: navBar(context, title: loc.notification_list_title),
+          appBar: appBar(context, title: loc.notification_list_title),
           body: SafeArea(
             top: false,
             bottom: false,

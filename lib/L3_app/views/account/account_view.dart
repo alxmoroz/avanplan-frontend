@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/user.dart';
+import '../../components/appbar.dart';
 import '../../components/button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
-import '../../components/navbar.dart';
 import '../../components/page.dart';
 import '../../components/text.dart';
 import '../../extra/services.dart';
@@ -23,7 +23,7 @@ class AccountView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        navBar: navBar(
+        appBar: appBar(
           context,
           title: loc.account_title,
           trailing: MTButton.icon(const DeleteIcon(), onTap: accountController.delete, padding: const EdgeInsets.symmetric(horizontal: P2)),

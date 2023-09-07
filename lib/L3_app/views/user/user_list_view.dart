@@ -3,7 +3,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
-import '../../components/navbar.dart';
+import '../../components/appbar.dart';
 import '../../components/page.dart';
 import '../../components/shadowed.dart';
 import '../../extra/services.dart';
@@ -23,7 +23,7 @@ class UserListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTPage(
-      navBar: navBar(context, middle: ws.subPageTitle(loc.user_list_title)),
+      appBar: appBar(context, middle: ws.subPageTitle(loc.user_list_title)),
       body: SafeArea(
         top: false,
         bottom: false,

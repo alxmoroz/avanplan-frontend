@@ -11,13 +11,13 @@ class TasksGroup extends StatelessWidget {
   const TasksGroup(
     this.tasks, {
     this.isMine = false,
-    this.groupBorder = false,
+    this.bottomDivider = false,
     this.standalone = true,
   });
 
   final List<Task> tasks;
   final bool isMine;
-  final bool groupBorder;
+  final bool bottomDivider;
   final bool standalone;
 
   @override
@@ -32,7 +32,7 @@ class TasksGroup extends StatelessWidget {
         return TaskCard(
           t,
           showStateMark: true,
-          bottomDivider: index < tasks.length - 1 || groupBorder,
+          bottomDivider: index < tasks.length - 1 || bottomDivider,
           isMine: isMine,
           showParent: isMine,
         );

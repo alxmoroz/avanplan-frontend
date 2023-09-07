@@ -26,6 +26,7 @@ import '../../../../presenters/workspace.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_feature_sets.dart';
 import '../../controllers/task_controller.dart';
+import '../onboarding/next_button.dart';
 import 'feature_sets.dart';
 import 'notes.dart';
 
@@ -117,7 +118,7 @@ class DetailsPane extends StatelessWidget {
               if (_task.hasDueDate || _task.canEdit) controller.datesController.dateField(context, TaskFCode.dueDate),
 
               /// Оценки
-              if (_task.hfsEstimates && (_task.hasEstimate || _task.canEstimate)) ...[
+              if (!_onboarding && _task.hfsEstimates && (_task.hasEstimate || _task.canEstimate)) ...[
                 const SizedBox(height: P3),
                 MTField(
                   controller.fData(TaskFCode.estimate.index),
@@ -141,11 +142,7 @@ class DetailsPane extends StatelessWidget {
               /// FeatureSets
               if (_task.canViewFeatureSets)
                 if (_onboarding)
-                  MTButton.main(
-                    titleText: loc.onboarding_next_action_title,
-                    margin: const EdgeInsets.symmetric(vertical: P3),
-                    onTap: () => showFeatureSetsOnboardingPage(context, controller),
-                  )
+                  _task.loading == false ? OnboardingNextButton(controller.onbController) : const SizedBox(height: MIN_BTN_HEIGHT + P6)
                 else ...[
                   const SizedBox(height: P3),
                   MTField(

@@ -30,8 +30,13 @@ class TasksListView extends StatelessWidget {
       final groupBorder = !_showGroupTitles && groupIndex < groups.length - 1;
       return Column(
         children: [
-          if (_showGroupTitles) GroupStateTitle(state, place: StateTitlePlace.groupHeader),
-          TasksGroup(tasks, isMine: _isMyTasks, groupBorder: groupBorder, standalone: false),
+          if (_showGroupTitles)
+            GroupStateTitle(
+              state,
+              place: StateTitlePlace.groupHeader,
+              topPadding: groupIndex == 0 ? 0 : null,
+            ),
+          TasksGroup(tasks, isMine: _isMyTasks, bottomDivider: groupBorder, standalone: false),
         ],
       );
     }

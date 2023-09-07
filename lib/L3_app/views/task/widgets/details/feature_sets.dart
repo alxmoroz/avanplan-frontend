@@ -17,10 +17,12 @@ import '../../../../extra/services.dart';
 import '../../controllers/feature_sets_controller.dart';
 import '../../controllers/task_controller.dart';
 import '../onboarding/header.dart';
+import '../onboarding/next_button.dart';
 
 class _FSBody extends StatelessWidget {
-  const _FSBody(this._controller);
+  const _FSBody(this._controller, {this.shrinkWrap = true});
   final FeatureSetsController _controller;
+  final bool shrinkWrap;
 
   Widget _icon(int index) => MTImage(
         [
@@ -41,9 +43,9 @@ class _FSBody extends StatelessWidget {
         topPaddingIndent: 0,
         bottomShadow: true,
         child: ListView(
-          shrinkWrap: true,
+          shrinkWrap: shrinkWrap,
           children: [
-            MTListSection(loc.project_feature_sets_always_on_label),
+            MTListSection(loc.feature_sets_always_on_label),
             MTCheckBoxTile(
               leading: const MTImage(ImageNames.fsTaskList, width: P8, height: P7),
               title: loc.feature_set_tasklist_title,
@@ -51,7 +53,7 @@ class _FSBody extends StatelessWidget {
               value: true,
               bottomDivider: false,
             ),
-            MTListSection(loc.project_feature_sets_available_label),
+            MTListSection(loc.feature_sets_available_label),
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -85,17 +87,13 @@ class FeatureSetsOnboardingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        navBar: OnboardingHeader(_controller.taskController.onbController).build(context),
+        appBar: onboardingHeader(context, _controller.taskController.onbController),
         body: SafeArea(
           top: false,
           bottom: false,
-          child: MTAdaptive(child: _FSBody(_controller)),
+          child: MTAdaptive(child: _FSBody(_controller, shrinkWrap: false)),
         ),
-        bottomBar: MTButton.main(
-          titleText: loc.onboarding_next_action_title,
-          loading: _controller.project.loading,
-          onTap: () => _controller.startOnboarding(context),
-        ),
+        bottomBar: OnboardingNextButton(_controller.taskController.onbController, margin: EdgeInsets.zero),
       ),
     );
   }
@@ -108,7 +106,7 @@ class FeatureSetsDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTTopBar(titleText: loc.project_feature_sets_title),
+      topBar: MTTopBar(titleText: loc.feature_sets_title),
       body: _FSBody(_controller),
       bottomBar: MTButton.main(
         titleText: loc.save_action_title,
@@ -116,10 +114,6 @@ class FeatureSetsDialog extends StatelessWidget {
       ),
     );
   }
-}
-
-Future showFeatureSetsOnboardingPage(BuildContext context, TaskController controller) async {
-  await Navigator.of(context).pushNamed(FeatureSetsOnboardingPage.routeName, arguments: FeatureSetsController(controller));
 }
 
 Future showFeatureSetsDialog(TaskController controller) async {

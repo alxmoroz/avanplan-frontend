@@ -7,11 +7,11 @@ import 'package:url_launcher/url_launcher_string.dart';
 import '../../../L2_data/repositories/communications_repo.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../../main.dart';
+import '../../components/appbar.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
-import '../../components/navbar.dart';
 import '../../components/page.dart';
 import '../../components/shadowed.dart';
 import '../../components/text.dart';
@@ -88,7 +88,7 @@ class SettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Observer(
         builder: (_) => MTPage(
-          navBar: navBar(context),
+          appBar: appBar(context),
           body: SafeArea(
             top: false,
             bottom: false,

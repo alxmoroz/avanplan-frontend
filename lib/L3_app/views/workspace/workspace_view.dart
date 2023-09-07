@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../main.dart';
 import '../../components/adaptive.dart';
+import '../../components/appbar.dart';
 import '../../components/button.dart';
 import '../../components/colors.dart';
 import '../../components/colors_base.dart';
@@ -13,7 +14,6 @@ import '../../components/currency.dart';
 import '../../components/icons.dart';
 import '../../components/icons_workspace.dart';
 import '../../components/list_tile.dart';
-import '../../components/navbar.dart';
 import '../../components/page.dart';
 import '../../components/text.dart';
 import '../../extra/services.dart';
@@ -95,7 +95,7 @@ class WorkspaceView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTPage(
-      navBar: navBar(context,
+      appBar: appBar(context,
           title: loc.workspace_title,
           trailing: ws.hpInfoUpdate
               ? MTButton.icon(

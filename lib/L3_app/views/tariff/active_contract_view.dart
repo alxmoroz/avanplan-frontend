@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
 import '../../../L1_domain/entities/workspace.dart';
+import '../../components/appbar.dart';
 import '../../components/button.dart';
-import '../../components/navbar.dart';
 import '../../components/page.dart';
 import '../../extra/services.dart';
 import '../../presenters/workspace.dart';
@@ -25,7 +25,7 @@ class ActiveContractView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTPage(
-      navBar: navBar(
+      appBar: appBar(
         context,
         middle: ws.subPageTitle(loc.tariff_current_title),
       ),

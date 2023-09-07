@@ -19,9 +19,9 @@ class NoMembers extends StatelessWidget {
         children: [
           MTImage(ImageNames.emptyTeam.toString()),
           const SizedBox(height: P2),
-          H2(loc.team_list_empty_title, align: TextAlign.center),
+          H2(loc.team_empty_title, align: TextAlign.center),
           const SizedBox(height: P),
-          BaseText(loc.team_list_empty_hint, align: TextAlign.center),
+          BaseText(loc.team_empty_hint, align: TextAlign.center),
         ],
       ),
     );

@@ -6,10 +6,10 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../../L1_domain/entities/member.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/adaptive.dart';
+import '../../../../components/appbar.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
-import '../../../../components/navbar.dart';
 import '../../../../components/page.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
@@ -51,7 +51,7 @@ class _MemberViewState extends State<MemberView> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        navBar: navBar(context, middle: task.subPageTitle(loc.member_title)),
+        appBar: appBar(context, middle: task.subPageTitle(loc.member_title)),
         body: SafeArea(
           top: false,
           child: MTAdaptive(

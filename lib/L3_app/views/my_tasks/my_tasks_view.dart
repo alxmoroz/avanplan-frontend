@@ -3,7 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../components/navbar.dart';
+import '../../components/appbar.dart';
 import '../../components/page.dart';
 import '../../components/text.dart';
 import '../../extra/services.dart';
@@ -17,7 +17,7 @@ class MyTasksView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        navBar: navBar(context, middle: BaseText.medium(loc.my_tasks_title)),
+        appBar: appBar(context, middle: BaseText.medium(loc.my_tasks_title)),
         body: SafeArea(
           top: false,
           bottom: false,

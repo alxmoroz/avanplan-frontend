@@ -153,7 +153,6 @@ class OverviewPane extends StatelessWidget {
 
           /// требующие внимания задачи
           if (_task.attentionalSubtasks.isNotEmpty) ...[
-            const SizedBox(height: P3),
             MTAdaptive(
               force: true,
               child: GroupStateTitle(_task.subtasksState, place: StateTitlePlace.groupHeader),

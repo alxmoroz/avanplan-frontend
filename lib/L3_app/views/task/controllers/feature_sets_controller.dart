@@ -29,13 +29,22 @@ abstract class _FeatureSetsControllerBase with Store {
   @computed
   bool get validated => checks.contains(true);
 
+  bool hasChecked(String code) {
+    for (int index = 0; index < checks.length; index++) {
+      if (refsController.featureSets.elementAt(index).code == code && checks[index]) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   @action
   void selectFeatureSet(int index, bool? selected) {
     checks[index] = selected == true;
     checks = [...checks];
   }
 
-  Future _setup() async {
+  Future setup() async {
     final fsIds = <int>[];
     for (int index = 0; index < checks.length; index++) {
       if (checks[index]) {
@@ -50,12 +59,7 @@ abstract class _FeatureSetsControllerBase with Store {
 
     final fIndex = TaskFCode.features.index;
     taskController.updateField(fIndex, loading: true);
-    await _setup();
+    await setup();
     taskController.updateField(fIndex, loading: false);
-  }
-
-  Future startOnboarding(BuildContext context) async {
-    await _setup();
-    taskController.onbController.next(context);
   }
 }

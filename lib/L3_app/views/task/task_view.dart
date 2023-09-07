@@ -77,7 +77,7 @@ class _TaskViewState extends State<TaskView> {
           res[TaskTabKey.details] = _tab(tk, const RulesIcon(size: P4, color: f2Color), BaseText(loc.description));
           break;
         case TaskTabKey.team:
-          res[TaskTabKey.team] = _tab(tk, const PeopleIcon(color: f2Color), BaseText(loc.team_list_title));
+          res[TaskTabKey.team] = _tab(tk, const PeopleIcon(color: f2Color), BaseText(loc.team_title));
           break;
       }
     });
@@ -121,7 +121,7 @@ class _TaskViewState extends State<TaskView> {
         alignment: Alignment.bottomCenter,
         children: [
           MTPage(
-            navBar: taskNavBar(controller),
+            appBar: taskNavBar(controller),
             body: SafeArea(
               bottom: false,
               child: Column(

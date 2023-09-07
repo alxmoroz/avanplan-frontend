@@ -5,10 +5,10 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/adaptive.dart';
+import '../../components/appbar.dart';
 import '../../components/button.dart';
 import '../../components/colors.dart';
 import '../../components/icons.dart';
-import '../../components/navbar.dart';
 import '../../components/page.dart';
 import '../../components/shadowed.dart';
 import '../../extra/services.dart';
@@ -37,7 +37,7 @@ class SourceListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        navBar: navBar(
+        appBar: appBar(
           context,
           middle: ws.subPageTitle(loc.source_list_title),
         ),

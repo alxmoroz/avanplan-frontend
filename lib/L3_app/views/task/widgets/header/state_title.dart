@@ -24,10 +24,7 @@ class _StateTitle extends StatelessWidget {
               stateIconGroup(context, state),
               const SizedBox(width: P2),
               Expanded(
-                child: BaseText(
-                  text,
-                  padding: const EdgeInsets.only(bottom: P),
-                ),
+                child: BaseText(text, padding: const EdgeInsets.only(bottom: P)),
               ),
             ],
           )
@@ -38,13 +35,15 @@ class _StateTitle extends StatelessWidget {
 }
 
 class GroupStateTitle extends StatelessWidget {
-  const GroupStateTitle(this.groupState, {this.place});
+  const GroupStateTitle(this.groupState, {this.place, this.topPadding});
   final TaskState groupState;
   final StateTitlePlace? place;
+  final double? topPadding;
 
   @override
   Widget build(BuildContext context) => Padding(
-        padding: (place == StateTitlePlace.groupHeader ? const EdgeInsets.symmetric(horizontal: P2).copyWith(top: P2) : EdgeInsets.zero),
+        padding:
+            (place == StateTitlePlace.groupHeader ? const EdgeInsets.symmetric(horizontal: P2).copyWith(top: topPadding ?? P3) : EdgeInsets.zero),
         child: _StateTitle(groupState, groupStateTitle(groupState), place: place),
       );
 }

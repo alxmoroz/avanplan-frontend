@@ -1,10 +1,10 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../../../../../main.dart';
+import '../../../../components/appbar.dart';
 import '../../../../components/icons.dart';
-import '../../../../components/navbar.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../../presenters/task_view.dart';
 import '../../../../presenters/workspace.dart';
@@ -12,10 +12,10 @@ import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
 import 'task_popup_menu.dart';
 
-CupertinoNavigationBar taskNavBar(TaskController controller) {
+AppBar taskNavBar(TaskController controller) {
   final task = controller.task;
 
-  return navBar(
+  return appBar(
     rootKey.currentContext!,
     bgColor: task.bgColor,
     middle: task.ws.subPageTitle(task.viewTitle),

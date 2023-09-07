@@ -9,12 +9,12 @@ import 'task_source.dart';
 import 'workspace.dart';
 
 class TType {
-  static const String ROOT = 'ROOT';
-  static const String PROJECT = 'PROJECT';
-  static const String GOAL = 'GOAL';
-  static const String GROUP = 'GROUP';
-  static const String BACKLOG = 'BACKLOG';
-  static const String TASK = 'TASK';
+  static const ROOT = 'ROOT';
+  static const PROJECT = 'PROJECT';
+  static const GOAL = 'GOAL';
+  static const GROUP = 'GROUP';
+  static const BACKLOG = 'BACKLOG';
+  static const TASK = 'TASK';
 }
 
 enum TaskState {

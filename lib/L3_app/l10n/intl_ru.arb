@@ -34,6 +34,7 @@
   "auth_sign_out_btn_title": "Выйти",
   "auth_user_placeholder": "Пользователь",
 
+  "back_action_title": "Назад",
   "backlog": "Бэклог",
   "balance_amount_title": "Баланс",
   "balance_replenish_action_title": "Пополнить",
@@ -116,16 +117,24 @@
   "feature_set_team_title": "Команда",
   "feature_set_team_description": "Совместная работа над задачами",
 
+  "feature_sets_always_on_label": "Подключены всегда",
+  "feature_sets_available_label": "Доступны на вашем тарифе",
+  "feature_sets_label": "Подключенные модули",
+  "feature_sets_onboarding_title": "Выберите модули проекта",
+  "feature_sets_title": "Модули проекта",
+
+  "finish_action_title": "Готово",
+
   "for_": "за",
   "for_dative": "по",
 
   "goal_count": "{count, plural, zero{Нет целей} one{{count} цель} few{{count} цели} other{{count} целей}}",
   "goal_count_dative": "{count, plural, one{{count} цели} other{{count} целям}}",
-
   "goal_delete_dialog_title": "Удалить цель?",
   "goal_for_orphaned_tasks": "Задачи без целей",
   "goal_list_title": "Цели",
   "goal_new_title": "Новая цель",
+  "goal_onboarding_title": "Поставьте цель",
   "goal_title": "Цель",
 
   "hours_count": "{count, plural, one{{count} час} few{{count} часа} other{{count} часов}}",
@@ -178,6 +187,7 @@
   "my_tasks_title": "Мои задачи",
   "my_tasks_today_title": "Сегодня",
 
+  "next_action_title": "Продолжить",
   "new_title": "Новый",
   "no": "Нет",
 
@@ -189,11 +199,6 @@
   "notification_push_ios_denied_dialog_title": "Включение Push-уведомлений",
   "notification_title": "Уведомление",
 
-  "onboarding_back_action_title": "Назад",
-  "onboarding_finish_action_title": "Готово",
-  "onboarding_next_action_title": "Продолжить",
-  "onboarding_skip_action_title": "Пропустить",
-
   "onboarding_welcome_gift_dialog_title": "Вам подарок!",
   "onboarding_welcome_gift_dialog_description": "Начислены приветственные {count} рублей!\n\nИх можно (и нужно) потратить на функции платных тарифов. Сменить тариф можно в настройках рабочего пространства\n\nСпасибо, что выбрали Аванплан!",
 
@@ -203,10 +208,6 @@
   "project_count": "{count, plural, zero{Нет проектов} one{{count} проект} few{{count} проекта} other{{count} проектов}}",
   "project_count_dative": "{count, plural, one{{count} проекту} other{{count} проектам}}",
   "project_delete_dialog_title": "Удалить проект?",
-  "project_feature_sets_always_on_label": "Подключены всегда",
-  "project_feature_sets_available_label": "Доступны на вашем тарифе",
-  "project_feature_sets_label": "Подключенные модули",
-  "project_feature_sets_title": "Модули проекта",
   "project_list_title": "Проекты",
   "project_new_title": "Новый проект",
   "project_plural_genitive": "{count, plural, one{проекта} other{проектов}}",
@@ -237,6 +238,8 @@
   "save_action_title": "Сохранить",
   "select_all_action_title": "Выбрать все",
   "show_closed_action_title": "Показать выполненные",
+
+  "skip_action_title": "Пропустить",
 
   "state_ahead_duration": "Можем закончить на {duration} раньше",
   "state_ahead_title": "Можем закончить раньше",
@@ -336,6 +339,8 @@
   "task_note_placeholder": "Оставить комментарий",
   "task_note_title": "Комментарий",
 
+  "task_onboarding_title": "Добавьте задачи",
+
   "task_plural": "{count, plural, one{задача} few{задачи} other{задач}}",
   "task_plural_genitive": "{count, plural, one{задачи} other{задач}}",
 
@@ -360,9 +365,10 @@
   "task_unlink_dialog_description": "Вы не сможете загружать обновления. Изменения не попадут в источник",
   "task_unlink_dialog_title": "Удалить связь с источником?",
 
-  "team_list_empty_hint": "Пригласите участников для эффективной совместной работы",
-  "team_list_empty_title": "Команда ждёт приглашения",
-  "team_list_title": "Команда",
+  "team_empty_hint": "Пригласите участников для эффективной совместной работы",
+  "team_empty_title": "Команда ждёт приглашения",
+  "team_onboarding_title": "Пригласите участников",
+  "team_title": "Команда",
 
   "thousands_count_short": "{count} тыс.",
 

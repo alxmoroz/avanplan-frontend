@@ -34,6 +34,7 @@
   "auth_sign_out_btn_title": "Sign out",
   "auth_user_placeholder": "User",
 
+  "back_action_title": "Back",
   "backlog": "Backlog",
   "balance_amount_title": "Account Balance",
   "balance_replenish_action_title": "Replenish",
@@ -116,16 +117,24 @@
   "feature_set_team_title": "Team",
   "feature_set_team_description": "Collaborate on tasks",
 
+  "feature_sets_always_on_label": "Always On",
+  "feature_sets_available_label": "Available on your tariff plan",
+  "feature_sets_label": "Active Modules",
+  "feature_sets_onboarding_title": "Select project modules",
+  "feature_sets_title": "Project Modules",
+
+  "finish_action_title": "Finish",
+
   "for_": "for",
   "for_dative": "for",
 
   "goal_count": "{count, plural, zero{No goals} one{{count} goal} other{{count} goals}}",
   "goal_count_dative": "{count, plural, one{{count} goal} other{{count} goals}}",
-
   "goal_delete_dialog_title": "Delete goal?",
   "goal_for_orphaned_tasks": "Tasks without goals",
   "goal_list_title": "Goals",
   "goal_new_title": "New Goal",
+  "goal_onboarding_title": "Set a goal",
   "goal_title": "Goal",
 
   "hours_count": "{count, plural, one{{count} hour} other{{count} hours}}",
@@ -178,6 +187,7 @@
   "my_tasks_title": "My Tasks",
   "my_tasks_today_title": "Today",
 
+  "next_action_title": "Next",
   "new_title": "New",
   "no": "No",
 
@@ -189,11 +199,6 @@
   "notification_push_ios_denied_dialog_title": "Enable Push notifications",
   "notification_title": "Notification",
 
-  "onboarding_back_action_title": "Back",
-  "onboarding_finish_action_title": "Finish",
-  "onboarding_next_action_title": "Next",
-  "onboarding_skip_action_title": "Skip",
-
   "onboarding_welcome_gift_dialog_title": "Incoming Gift!",
   "onboarding_welcome_gift_dialog_description": "Welcoming {count} rubles have been accrued!\n\nThey can (and should) be spent on features of paid plans. You can change the tariff in the workspace settings\n\nThank you for choosing Avanplan!",
 
@@ -203,10 +208,6 @@
   "project_count": "{count, plural, zero{No projects} one{{count} project} other{{count} projects}}",
   "project_count_dative": "{count, plural, one{{count} project} other{{count} projects}}",
   "project_delete_dialog_title": "Delete project?",
-  "project_feature_sets_always_on_label": "Always On",
-  "project_feature_sets_available_label": "Available on your tariff plan",
-  "project_feature_sets_label": "Active Modules",
-  "project_feature_sets_title": "Project Modules",
   "project_list_title": "Projects",
   "project_new_title": "New Project",
   "project_plural_genitive": "{count, plural, one{project} other{projects}}",
@@ -237,6 +238,8 @@
   "save_action_title": "Save",
   "select_all_action_title": "Select all",
   "show_closed_action_title": "Show closed",
+
+  "skip_action_title": "Skip",
 
   "state_ahead_duration": "We can finish {duration} early",
   "state_ahead_title": "We can finish early",
@@ -336,6 +339,8 @@
   "task_note_placeholder": "Leave a comment",
   "task_note_title": "Comment",
 
+  "task_onboarding_title": "Add tasks",
+
   "task_plural": "{count, plural, one{task} other{tasks}}",
   "task_plural_genitive": "{count, plural, one{task} other{tasks}}",
 
@@ -360,9 +365,10 @@
   "task_unlink_dialog_description": "You will not be able to download updates. Changes will not be upload to the source",
   "task_unlink_dialog_title": "Unlink a source?",
 
-  "team_list_empty_hint": "Invite members to collaborate effectively",
-  "team_list_empty_title": "The team is waiting for an invitation",
-  "team_list_title": "Team",
+  "team_empty_hint": "Invite members to collaborate effectively",
+  "team_empty_title": "The team is waiting for an invitation",
+  "team_onboarding_title": "Invite members",
+  "team_title": "Team",
 
   "thousands_count_short": "{count, plural, one{{count} thousand} other{{count} thousands}}",
 

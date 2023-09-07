@@ -16,12 +16,12 @@ extension FeatureSetsUC on Task {
 
   bool hfs(String code) => _fsCodes.contains(code);
 
-  bool get hfsAnalytics => hfs('ANALYTICS');
-  bool get hfsTeam => hfs('TEAM');
+  bool get hfsAnalytics => hfs(FSCode.ANALYTICS);
+  bool get hfsTeam => hfs(FSCode.TEAM);
   // TODO: цели
-  bool get hfsGoals => true; //hfs('GOALS');
-  bool get hfsTaskboard => hfs('TASKBOARD');
-  bool get hfsEstimates => hfs('ESTIMATES');
+  bool get hfsGoals => true; //hfs(FSCode.GOALS);
+  bool get hfsTaskboard => hfs(FSCode.TASKBOARD);
+  bool get hfsEstimates => hfs(FSCode.ESTIMATES);
 
   Future setupFeatureSets(Iterable<int> fsIds) async {
     loading = true;

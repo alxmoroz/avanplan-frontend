@@ -3,31 +3,50 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../../L1_domain/entities/feature_set.dart';
+import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_tree.dart';
+import '../../../extra/services.dart';
 import '../../../usecases/task_feature_sets.dart';
 import '../task_view.dart';
+import '../widgets/details/feature_sets.dart';
 import '../widgets/team/team_pane.dart';
+import 'feature_sets_controller.dart';
 import 'task_controller.dart';
 
 part 'onboarding_controller.g.dart';
 
-enum _TaskOnboardingStep { team, goals, tasks }
+enum _StepCode { projectSetup, featureSets, team, goals, tasks }
+
+class _Step {
+  _Step(this.code, this.title, this.nextButtonTitle);
+  final _StepCode code;
+  final String title;
+  final String nextButtonTitle;
+}
 
 class OnboardingController extends _OnboardingControllerBase with _$OnboardingController {
-  OnboardingController(TaskController _taskController) {
-    taskController = _taskController;
-    // TODO: хранить инфу о режиме онбординга в проекте (добавить поле на фронте)
-    onboarding = taskController.task.isNew && taskController.task.isProject;
+  OnboardingController(TaskController taskController) {
+    _taskController = taskController;
+    onboarding = project.isProject && project.isNew;
   }
 }
 
 abstract class _OnboardingControllerBase with Store {
-  late final TaskController taskController;
+  late final TaskController _taskController;
 
-  Iterable<_TaskOnboardingStep> get _steps => [
-        if (taskController.task.hfsTeam) _TaskOnboardingStep.team,
-        if (taskController.task.hfsGoals) _TaskOnboardingStep.goals,
-        _TaskOnboardingStep.tasks,
+  FeatureSetsController? _fsController;
+
+  Task get project => _taskController.task;
+
+  Iterable<_Step> get _steps => [
+        _Step(_StepCode.projectSetup, '', loc.next_action_title),
+        _Step(_StepCode.featureSets, loc.feature_sets_onboarding_title, loc.next_action_title),
+        if (project.hfsTeam || _fsController?.hasChecked(FSCode.TEAM) == true)
+          _Step(_StepCode.team, loc.team_onboarding_title, loc.next_action_title),
+        if (project.hfsGoals || _fsController?.hasChecked(FSCode.GOALS) == true)
+          _Step(_StepCode.goals, loc.goal_onboarding_title, loc.next_action_title),
+        _Step(_StepCode.tasks, loc.task_onboarding_title, loc.finish_action_title),
       ];
 
   int get stepsCount => _steps.length;
@@ -36,32 +55,51 @@ abstract class _OnboardingControllerBase with Store {
   bool onboarding = false;
 
   @observable
-  int stepIndex = -1;
+  int stepIndex = 0;
 
   @computed
-  _TaskOnboardingStep get _step => _steps.elementAt(stepIndex);
+  _Step get _step => _steps.elementAt(stepIndex);
 
   @computed
-  bool get lastStep => stepIndex == stepsCount - 1;
+  bool get _lastStep => stepIndex == stepsCount - 1;
+
+  @computed
+  String get stepTitle => _step.title;
+
+  @computed
+  String get nextBtnTitle => _step.nextButtonTitle;
 
   @action
-  Future next(BuildContext context) async {
+  Future _pushNext(BuildContext context) async {
     stepIndex++;
-    if (_step == _TaskOnboardingStep.team) {
-      await Navigator.of(context).pushNamed(TeamInvitationOnboardingPage.routeName, arguments: this);
-      stepIndex--;
-    } else if (_step == _TaskOnboardingStep.goals) {
+    if (_step.code == _StepCode.featureSets) {
+      _fsController ??= FeatureSetsController(_taskController);
+      await Navigator.of(context).pushNamed(FeatureSetsOnboardingPage.routeName, arguments: _fsController);
+    } else if (_step.code == _StepCode.team) {
+      await Navigator.of(context).pushNamed(TeamInvitationOnboardingPage.routeName, arguments: _taskController);
+    } else if (_step.code == _StepCode.goals) {
       // TODO: разнести создание и обработку возврата из пуша (может и не понадобится, если мы будем брать признак онбординга из проекта
       // TODO: в любом случае заголовок будет отличаться и добавляется кнопка там же, где настройка модулей в проекте, но для цели это бдует продолжить.
       // TODO: либо эту кнопку вынести в футер? - тогда надо, чтобы футер поднимался выше клавиатуры...
 
       // await CreateController(taskController.task.ws, taskController).create();
       print('GOALS');
-      stepIndex--;
-    } else if (_step == _TaskOnboardingStep.tasks) {
+    } else if (_step.code == _StepCode.tasks) {
       print('TASKS');
-      stepIndex--;
     }
+    stepIndex--;
+  }
+
+  @action
+  Future next(BuildContext context) async {
+    if (_lastStep) {
+      finish(context);
+      return;
+    }
+    if (_step.code == _StepCode.featureSets) {
+      await _fsController?.setup();
+    }
+    await _pushNext(context);
   }
 
   @action
@@ -69,6 +107,6 @@ abstract class _OnboardingControllerBase with Store {
     // TODO: учесть с какого шага и куда
     Navigator.of(context).popUntil((r) => r.navigator?.canPop() == true && r.settings.name == TaskView.routeName);
     onboarding = false;
-    stepIndex = -1;
+    stepIndex = 0;
   }
 }

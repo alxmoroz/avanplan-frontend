@@ -18,7 +18,6 @@ import '../../../../presenters/task_type.dart';
 import '../../../../usecases/task_actions.dart';
 import 'member_view_controller.dart';
 
-// TODO: параметр "задача" не нужен, т.к. есть инфа об айдишнике задачи в участнике
 class MemberViewArgs {
   MemberViewArgs(this.member, this.task);
   final Member member;
@@ -26,10 +25,11 @@ class MemberViewArgs {
 }
 
 class MemberView extends StatefulWidget {
-  const MemberView(this.args);
-  final MemberViewArgs args;
+  const MemberView(this._args);
+  final MemberViewArgs _args;
 
   static String get routeName => '/member';
+  static String title(MemberViewArgs _args) => '${_args.task} - ${_args.member}';
 
   @override
   State<MemberView> createState() => _MemberViewState();
@@ -37,13 +37,13 @@ class MemberView extends StatefulWidget {
 
 class _MemberViewState extends State<MemberView> {
   Task get task => controller.task;
-  Member get member => controller.member ?? widget.args.member;
+  Member get member => controller.member ?? widget._args.member;
 
   late final MemberViewController controller;
 
   @override
   void initState() {
-    controller = MemberViewController(widget.args.task, widget.args.member);
+    controller = MemberViewController(widget._args.task, widget._args.member);
     super.initState();
   }
 

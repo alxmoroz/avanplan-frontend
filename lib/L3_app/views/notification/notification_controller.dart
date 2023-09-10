@@ -55,7 +55,7 @@ abstract class _NotificationControllerBase with Store {
   }
 
   @observable
-  bool pushDenied = false;
+  bool pushDenied = true;
 
   @action
   Future initPush() async {

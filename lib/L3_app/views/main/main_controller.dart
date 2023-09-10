@@ -1,7 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:collection/collection.dart';
-import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
@@ -13,7 +12,6 @@ import '../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../L1_domain/entities_extensions/ws_accounts.dart';
 import '../../../L1_domain/usecases/task_comparators.dart';
 import '../../../L2_data/services/platform.dart';
-import '../../../main.dart';
 import '../../components/alert_dialog.dart';
 import '../../components/images.dart';
 import '../../extra/services.dart';
@@ -22,7 +20,6 @@ import '../../presenters/task_filter.dart';
 import '../../presenters/task_state.dart';
 import '../../usecases/ws_actions.dart';
 import '../../usecases/ws_tariff.dart';
-import '../task/task_view.dart';
 
 part 'main_controller.g.dart';
 
@@ -65,7 +62,8 @@ abstract class _MainControllerBase with Store {
   /// задачи
 
   @computed
-  Iterable<Task> get myTasks => allTasks.where((t) => !t.closed && t.hasAssignee && t.assignee!.userId == accountController.user!.id && t.isTask);
+  Iterable<Task> get myTasks =>
+      allTasks.where((t) => !t.closed && t.assignee != null && t.assignee!.userId == accountController.user!.id && t.isTask);
   @computed
   List<MapEntry<TaskState, List<Task>>> get myTasksGroups => groups(myTasks);
   @computed
@@ -101,8 +99,6 @@ abstract class _MainControllerBase with Store {
   /// задачи из списка
 
   Task? task(int wsId, int? id) => _tasksMap[wsId]![id];
-
-  Future showTask(Task t) async => await Navigator.of(rootKey.currentContext!).pushNamed(TaskView.routeName, arguments: t);
 
   @action
   void addTasks(Iterable<Task> tasks) {

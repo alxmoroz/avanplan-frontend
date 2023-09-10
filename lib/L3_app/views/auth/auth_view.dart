@@ -17,7 +17,7 @@ import 'registration_form.dart';
 import 'sign_in_email_form.dart';
 
 class AuthView extends StatefulWidget {
-  static String get routeName => 'auth';
+  static String get routeName => '/auth';
 
   @override
   _AuthViewState createState() => _AuthViewState();

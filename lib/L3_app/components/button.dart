@@ -142,8 +142,8 @@ class MTButton extends StatelessWidget with FocusManaging {
   }
 
   Widget _button(BuildContext context) {
-    final _onPressed = onTap != null ? () => actionWithUF(context, uf, onTap!) : null;
-    final _onLongPress = onLongPress != null ? () => actionWithUF(context, uf, onLongPress!) : null;
+    final _onPressed = _enabled && onTap != null ? () => actionWithUF(context, uf, onTap!) : null;
+    final _onLongPress = _enabled && onLongPress != null ? () => actionWithUF(context, uf, onLongPress!) : null;
 
     final _child = Row(
       mainAxisAlignment: MainAxisAlignment.center,

@@ -1,9 +1,15 @@
 // Copyright (c) 2023. Alexandr Moroz
 
+import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../../../L1_domain/entities/source_type.dart';
 import '../../../../../L1_domain/entities/workspace.dart';
+import '../../../../../main.dart';
 import '../../../../extra/services.dart';
+import '../../../../usecases/ws_actions.dart';
+import '../../../../usecases/ws_tariff.dart';
+import '../../../import/import_view.dart';
 
 part 'project_create_wizard_controller.g.dart';
 
@@ -27,10 +33,10 @@ abstract class _ProjectCreateWizardControllerBase with Store {
   @observable
   bool importMode = false;
   @action
-  void selectImportMode() => importMode = true;
+  void _selectImportMode() => importMode = true;
 
   @computed
-  bool get mustSelectST => ws != null && ws!.sources.isEmpty;
+  bool get _mustSelectST => ws != null && ws!.sources.isEmpty;
 
   Future createMyWS() async {
     loader.start();
@@ -41,5 +47,21 @@ abstract class _ProjectCreateWizardControllerBase with Store {
       selectWS(newWS.id);
     }
     await loader.stop();
+  }
+
+  Future startImport(SourceType? sourceType) async {
+    if (ws!.plProjects) {
+      if (_mustSelectST && sourceType == null) {
+        _selectImportMode();
+      } else {
+        Navigator.of(rootKey.currentContext!).pop();
+        await importTasks(selectedWSId!, sType: sourceType);
+      }
+    } else {
+      Navigator.of(rootKey.currentContext!).pop();
+      await ws!.changeTariff(
+        reason: loc.tariff_change_limit_projects_reason_title,
+      );
+    }
   }
 }

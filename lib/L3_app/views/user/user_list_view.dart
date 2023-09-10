@@ -11,26 +11,28 @@ import '../../presenters/workspace.dart';
 import 'user_tile.dart';
 
 class UserListView extends StatelessWidget {
-  const UserListView(this.ws);
-  final Workspace ws;
+  const UserListView(this._ws);
+  final Workspace _ws;
+
   static String get routeName => '/users';
+  static String title(Workspace ws) => '$ws - ${loc.user_list_title}';
 
   Widget _itemBuilder(BuildContext context, int index) => UserTile(
-        ws.sortedUsers[index],
-        bottomBorder: index < ws.sortedUsers.length - 1,
+        _ws.sortedUsers[index],
+        bottomBorder: index < _ws.sortedUsers.length - 1,
       );
 
   @override
   Widget build(BuildContext context) {
     return MTPage(
-      appBar: appBar(context, middle: ws.subPageTitle(loc.user_list_title)),
+      appBar: appBar(context, middle: _ws.subPageTitle(loc.user_list_title)),
       body: SafeArea(
         top: false,
         bottom: false,
         child: MTShadowed(
           child: ListView.builder(
             itemBuilder: _itemBuilder,
-            itemCount: ws.users.length,
+            itemCount: _ws.users.length,
           ),
         ),
       ),

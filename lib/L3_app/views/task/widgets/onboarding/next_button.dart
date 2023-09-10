@@ -8,9 +8,11 @@ import '../../../../components/constants.dart';
 import '../../controllers/onboarding_controller.dart';
 
 class OnboardingNextButton extends StatelessWidget {
-  const OnboardingNextButton(this._controller, {this.margin});
+  const OnboardingNextButton(this._controller, {this.margin, this.loading, this.disabled});
   final OnboardingController _controller;
   final EdgeInsets? margin;
+  final bool? loading;
+  final bool? disabled;
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +20,8 @@ class OnboardingNextButton extends StatelessWidget {
       builder: (_) => MTButton.main(
         titleText: _controller.nextBtnTitle,
         margin: margin ?? const EdgeInsets.symmetric(vertical: P3),
-        loading: _controller.project.loading,
-        onTap: () => _controller.next(context),
+        loading: loading,
+        onTap: disabled == true ? null : () => _controller.next(context),
       ),
     );
   }

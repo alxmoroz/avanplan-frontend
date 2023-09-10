@@ -13,6 +13,8 @@ import '../../../extra/services.dart';
 import '../../../presenters/task_view.dart';
 import '../../../usecases/task_edit.dart';
 import '../../../views/_base/edit_controller.dart';
+import '../task_onboarding_view.dart';
+import '../task_view.dart';
 import 'assignee_controller.dart';
 import 'dates_controller.dart';
 import 'estimate_controller.dart';
@@ -34,7 +36,7 @@ enum TaskFCode { parent, title, status, assignee, description, startDate, dueDat
 enum TasksFilter { my }
 
 class TaskController extends _TaskControllerBase with _$TaskController {
-  TaskController(Task taskIn) {
+  TaskController(Task taskIn, {bool? allowDisposeFromView}) {
     initState(fds: [
       MTFieldData(TaskFCode.parent.index),
       MTFieldData(TaskFCode.status.index),
@@ -55,7 +57,6 @@ class TaskController extends _TaskControllerBase with _$TaskController {
 
     _init(taskIn);
 
-    onbController = OnboardingController(this);
     titleController = TitleController(this);
     assigneeController = AssigneeController(this);
     statusController = StatusController(this);
@@ -64,13 +65,25 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     notesController = NotesController(this);
     transferController = LocalExportController(this);
     subtasksController = SubtasksController(this);
+
+    setAllowDisposeFromView(allowDisposeFromView);
+  }
+
+  Future showOnboardingTask(String path, BuildContext context, OnboardingController onbController) async {
+    await Navigator.of(context).pushNamed(
+      path,
+      arguments: TaskOnboardingArgs(this, onbController),
+    );
+  }
+
+  Future showTask() async {
+    await Navigator.of(rootKey.currentContext!).pushNamed(TaskView.routeName, arguments: this);
   }
 }
 
 abstract class _TaskControllerBase extends EditController with Store {
   Task get task => mainController.task(_task!.ws.id!, _task!.id) ?? _task!;
 
-  late final OnboardingController onbController;
   late final TitleController titleController;
   late final AssigneeController assigneeController;
   late final StatusController statusController;
@@ -108,9 +121,9 @@ abstract class _TaskControllerBase extends EditController with Store {
   @computed
   Iterable<TaskTabKey> get tabKeys {
     return [
-      if (!onbController.onboarding && task.hasOverviewPane) TaskTabKey.overview,
-      if (!onbController.onboarding && !task.isTask) TaskTabKey.subtasks,
-      if (!onbController.onboarding && task.hasTeamPane) TaskTabKey.team,
+      if (task.hasOverviewPane) TaskTabKey.overview,
+      if (!task.isTask) TaskTabKey.subtasks,
+      if (task.hasTeamPane) TaskTabKey.team,
       TaskTabKey.details,
     ];
   }

@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import '../../L1_domain/entities/tariff.dart';
+import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities/user.dart';
 import '../../L1_domain/entities/workspace.dart';
 import '../extra/services.dart';
@@ -34,5 +35,7 @@ extension WSActionsUC on Workspace {
   bool get plProjects => availableProjectsCount > 0;
 
   // TODO: при добавлении и удалении задач нужно уточнять tasksCount, а лучше делать запросы на бэк дополнительные всё же и обновлять инфу о WS
-  bool get plTasks => _pl(TLCode.TASKS_COUNT, tasksCount + 1);
+  bool get _plTasks => _pl(TLCode.TASKS_COUNT, tasksCount + 1);
+
+  bool plCreate(Task? _parent) => _parent == null ? plProjects : _plTasks;
 }

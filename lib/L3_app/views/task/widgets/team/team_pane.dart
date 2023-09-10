@@ -7,52 +7,19 @@ import '../../../../../L1_domain/entities/member.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../components/adaptive.dart';
-import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
-import '../../../../components/page.dart';
 import '../../../../components/shadowed.dart';
 import '../../../../components/text.dart';
 import '../../../../presenters/person.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
-import '../onboarding/header.dart';
-import '../onboarding/next_button.dart';
 import 'invitation_button.dart';
 import 'member_view.dart';
 import 'no_members.dart';
-
-class TeamInvitationOnboardingPage extends StatelessWidget {
-  const TeamInvitationOnboardingPage(this._controller);
-  final TaskController _controller;
-
-  static String get routeName => '/task/team_invitation';
-
-  @override
-  Widget build(BuildContext context) {
-    final teamPane = TeamPane(_controller);
-    return Observer(
-      builder: (_) => MTPage(
-        appBar: onboardingHeader(context, _controller.onbController),
-        body: SafeArea(
-          top: false,
-          bottom: false,
-          child: teamPane,
-        ),
-        bottomBar: Column(mainAxisSize: MainAxisSize.min, children: [
-          if (_controller.task.canInviteMembers) ...[
-            InvitationButton(_controller.task, type: ButtonType.secondary),
-            const SizedBox(height: P3),
-          ],
-          OnboardingNextButton(_controller.onbController, margin: EdgeInsets.zero),
-        ]),
-      ),
-    );
-  }
-}
 
 class TeamPane extends StatelessWidget {
   const TeamPane(this._controller);

@@ -15,33 +15,31 @@ import 'tariff_limits.dart';
 import 'tariff_options.dart';
 
 class ActiveContractView extends StatelessWidget {
-  const ActiveContractView(this.ws);
+  const ActiveContractView(this._ws);
+  final Workspace _ws;
 
-  final Workspace ws;
   static String get routeName => '/active_contract';
+  static String title(Workspace ws) => '$ws - ${loc.tariff_current_title}';
 
-  Tariff get tariff => ws.invoice.tariff;
+  Tariff get tariff => _ws.invoice.tariff;
 
   @override
   Widget build(BuildContext context) {
     return MTPage(
-      appBar: appBar(
-        context,
-        middle: ws.subPageTitle(loc.tariff_current_title),
-      ),
+      appBar: appBar(context, middle: _ws.subPageTitle(loc.tariff_current_title)),
       body: SafeArea(
         top: false,
         bottom: false,
         child: TariffLimits(tariff),
       ),
-      bottomBar: ws.hpTariffUpdate
+      bottomBar: _ws.hpTariffUpdate
           ? Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 TariffOptions(tariff),
                 MTButton.main(
                   titleText: loc.tariff_change_action_title,
-                  onTap: () => ws.changeTariff(),
+                  onTap: () => _ws.changeTariff(),
                 )
               ],
             )

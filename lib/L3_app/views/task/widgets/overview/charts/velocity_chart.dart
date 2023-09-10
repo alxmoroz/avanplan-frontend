@@ -65,8 +65,6 @@ class VelocityChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // print(task.state);
-
     return Stack(
       alignment: Alignment.center,
       children: [

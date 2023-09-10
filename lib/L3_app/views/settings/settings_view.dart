@@ -24,6 +24,7 @@ import 'app_version.dart';
 
 class SettingsView extends StatelessWidget {
   static String get routeName => '/settings';
+  static String get title => '';
 
   Widget get _notifications => MTListTile(
         leading: BellIcon(hasUnread: notificationController.hasUnread),

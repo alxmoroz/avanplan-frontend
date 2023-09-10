@@ -7,9 +7,11 @@ import '../../../../L1_domain/entities/feature_set.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../extra/services.dart';
+import '../../../usecases/ws_tasks.dart';
+import '../task_onboarding_view.dart';
 import '../task_view.dart';
 import '../widgets/details/feature_sets.dart';
-import '../widgets/team/team_pane.dart';
+import '../widgets/team/team_invitation_view.dart';
 import 'feature_sets_controller.dart';
 import 'task_controller.dart';
 
@@ -29,12 +31,28 @@ class OnboardingController extends _OnboardingControllerBase with _$OnboardingCo
     _taskController = taskController;
     onboarding = project.isProject && project.isNew;
   }
+
+  Future back(BuildContext context) async {
+    await _popBack(context);
+  }
+
+  Future next(BuildContext context) async {
+    if (_lastStep) {
+      finish(context);
+      return;
+    }
+    if (_step.code == _StepCode.featureSets) {
+      await _fsController?.setup();
+    }
+    await _pushNext(context, this);
+  }
 }
 
 abstract class _OnboardingControllerBase with Store {
   late final TaskController _taskController;
 
   FeatureSetsController? _fsController;
+  TaskController? _goalController;
 
   Task get project => _taskController.task;
 
@@ -67,20 +85,29 @@ abstract class _OnboardingControllerBase with Store {
   String get nextBtnTitle => onboarding ? _step.nextButtonTitle : '';
 
   @action
-  Future _pushNext(BuildContext context) async {
+  Future _popBack(BuildContext context) async {
+    if (stepIndex == 0) {
+      _goalController?.dispose();
+    }
+    Navigator.of(context).pop();
+  }
+
+  @action
+  Future _pushNext(BuildContext context, OnboardingController onbController) async {
     stepIndex++;
     if (_step.code == _StepCode.featureSets) {
       _fsController ??= FeatureSetsController(_taskController);
-      await Navigator.of(context).pushNamed(FeatureSetsOnboardingPage.routeName, arguments: _fsController);
+      await Navigator.of(context).pushNamed(FeatureSetsOnboardingView.routeName, arguments: FSOnboardingArgs(_fsController!, onbController));
     } else if (_step.code == _StepCode.team) {
-      await Navigator.of(context).pushNamed(TeamInvitationOnboardingPage.routeName, arguments: _taskController);
+      await Navigator.of(context).pushNamed(TeamInvitationOnboardingView.routeName, arguments: TIOnboardingArgs(_taskController, onbController));
     } else if (_step.code == _StepCode.goals) {
-      // TODO: разнести создание и обработку возврата из пуша (может и не понадобится, если мы будем брать признак онбординга из проекта
-      // TODO: в любом случае заголовок будет отличаться и добавляется кнопка там же, где настройка модулей в проекте, но для цели это бдует продолжить.
-      // TODO: либо эту кнопку вынести в футер? - тогда надо, чтобы футер поднимался выше клавиатуры...
-
-      // await CreateController(taskController.task.ws, taskController).create();
-      print('GOALS');
+      if (_goalController == null) {
+        final goal = await project.ws.createTask(project);
+        if (goal != null) {
+          _goalController = TaskController(goal, allowDisposeFromView: false);
+        }
+      }
+      await _goalController?.showOnboardingTask(TaskOnboardingView.routeNameGoal, context, onbController);
     } else if (_step.code == _StepCode.tasks) {
       print('TASKS');
     }
@@ -88,22 +115,13 @@ abstract class _OnboardingControllerBase with Store {
   }
 
   @action
-  Future next(BuildContext context) async {
-    if (_lastStep) {
-      finish(context);
-      return;
-    }
-    if (_step.code == _StepCode.featureSets) {
-      await _fsController?.setup();
-    }
-    await _pushNext(context);
-  }
-
-  @action
-  void finish(BuildContext context) {
-    // TODO: учесть с какого шага и куда
+  Future finish(BuildContext context) async {
+    _goalController?.dispose();
     onboarding = false;
-    Navigator.of(context).popUntil((r) => r.navigator?.canPop() == true && r.settings.name == TaskView.routeName);
     stepIndex = 0;
+
+    // TODO: учесть с какого шага и куда
+    Navigator.of(context).popUntil((r) => r.settings.name == TaskOnboardingView.routeNameProject || r.navigator?.canPop() != true);
+    Navigator.of(context).pushReplacementNamed(TaskView.routeName, arguments: TaskController(_taskController.task));
   }
 }

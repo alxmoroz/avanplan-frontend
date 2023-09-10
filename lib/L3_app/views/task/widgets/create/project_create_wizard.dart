@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../../L1_domain/entities/source_type.dart';
 import '../../../../../L1_domain/entities/workspace.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
@@ -15,46 +14,18 @@ import '../../../../components/limit_badge.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
 import '../../../../usecases/ws_actions.dart';
-import '../../../../usecases/ws_tariff.dart';
-import '../../../import/import_view.dart';
 import '../../../source/source_type_selector.dart';
 import 'project_create_wizard_controller.dart';
 import 'task_create_button.dart';
 import 'ws_selector.dart';
 
-Future projectCreateWizard() async => await showMTDialog<void>(ProjectCreateWizard());
+Future projectCreateWizard() async => await showMTDialog<void>(ProjectCreateWizard(ProjectCreateWizardController()));
 
-class ProjectCreateWizard extends StatefulWidget {
-  @override
-  _ProjectCreateWizardState createState() => _ProjectCreateWizardState();
-}
+class ProjectCreateWizard extends StatelessWidget {
+  const ProjectCreateWizard(this._controller);
+  final ProjectCreateWizardController _controller;
 
-class _ProjectCreateWizardState extends State<ProjectCreateWizard> {
-  late final ProjectCreateWizardController controller;
-
-  Workspace get ws => controller.ws!;
-
-  @override
-  void initState() {
-    controller = ProjectCreateWizardController();
-    super.initState();
-  }
-
-  Future startImport(SourceType? sType) async {
-    if (ws.plProjects) {
-      if (controller.mustSelectST && sType == null) {
-        controller.selectImportMode();
-      } else {
-        Navigator.of(context).pop();
-        await importTasks(controller.selectedWSId!, sType: sType);
-      }
-    } else {
-      Navigator.of(context).pop();
-      await ws.changeTariff(
-        reason: loc.tariff_change_limit_projects_reason_title,
-      );
-    }
-  }
+  Workspace get ws => _controller.ws!;
 
   Widget get modeSelector => Column(
         mainAxisSize: MainAxisSize.min,
@@ -82,7 +53,7 @@ class _ProjectCreateWizardState extends State<ProjectCreateWizard> {
                     leading: const ImportIcon(color: mainBtnTitleColor, size: P4),
                     constrained: false,
                     titleText: loc.import_action_title,
-                    onTap: () => startImport(null),
+                    onTap: _controller.startImport,
                   ),
                 ),
               ),
@@ -96,10 +67,10 @@ class _ProjectCreateWizardState extends State<ProjectCreateWizard> {
   @override
   Widget build(BuildContext context) => MTDialog(
         body: Observer(
-          builder: (_) => controller.mustSelectWS
-              ? WSSelector(controller)
-              : controller.importMode
-                  ? SourceTypeSelector(startImport)
+          builder: (_) => _controller.mustSelectWS
+              ? WSSelector(_controller)
+              : _controller.importMode
+                  ? SourceTypeSelector(_controller.startImport)
                   : modeSelector,
         ),
       );

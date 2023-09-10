@@ -16,6 +16,7 @@ import '../../presenters/person.dart';
 
 class AccountView extends StatelessWidget {
   static String get routeName => '/account';
+  static String get title => loc.account_title;
 
   User? get _user => accountController.user;
 
@@ -25,7 +26,7 @@ class AccountView extends StatelessWidget {
       builder: (_) => MTPage(
         appBar: appBar(
           context,
-          title: loc.account_title,
+          title: title,
           trailing: MTButton.icon(const DeleteIcon(), onTap: accountController.delete, padding: const EdgeInsets.symmetric(horizontal: P2)),
         ),
         body: SafeArea(

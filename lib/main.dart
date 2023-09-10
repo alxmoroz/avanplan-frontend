@@ -10,32 +10,14 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 
-import 'L1_domain/entities/task.dart';
-import 'L1_domain/entities/user.dart';
-import 'L1_domain/entities/workspace.dart';
 import 'L3_app/components/colors.dart';
 import 'L3_app/components/colors_base.dart';
+import 'L3_app/extra/navigator.dart';
 import 'L3_app/extra/services.dart';
 import 'L3_app/l10n/generated/l10n.dart';
-import 'L3_app/views/account/account_view.dart';
 import 'L3_app/views/auth/auth_view.dart';
 import 'L3_app/views/loader/loader_screen.dart';
 import 'L3_app/views/main/main_view.dart';
-import 'L3_app/views/my_projects/my_projects_view.dart';
-import 'L3_app/views/my_tasks/my_tasks_view.dart';
-import 'L3_app/views/notification/notification_list_view.dart';
-import 'L3_app/views/settings/settings_view.dart';
-import 'L3_app/views/source/source_list_view.dart';
-import 'L3_app/views/tariff/active_contract_view.dart';
-import 'L3_app/views/task/controllers/feature_sets_controller.dart';
-import 'L3_app/views/task/controllers/task_controller.dart';
-import 'L3_app/views/task/task_view.dart';
-import 'L3_app/views/task/widgets/details/feature_sets.dart';
-import 'L3_app/views/task/widgets/team/member_view.dart';
-import 'L3_app/views/task/widgets/team/team_pane.dart';
-import 'L3_app/views/user/user_list_view.dart';
-import 'L3_app/views/user/user_view.dart';
-import 'L3_app/views/workspace/workspace_view.dart';
 
 Future main() async {
   setup();
@@ -112,36 +94,9 @@ class App extends StatelessWidget {
             localizationsDelegates: localizationsDelegates,
             supportedLocales: supportedLocales,
             theme: cupertinoTheme,
-            routes: {
-              AccountView.routeName: (_) => AccountView(),
-              NotificationListView.routeName: (_) => NotificationListView(),
-              MyProjectsView.routeName: (_) => MyProjectsView(),
-              MyTasksView.routeName: (_) => MyTasksView(),
-              SettingsView.routeName: (_) => SettingsView(),
-            },
-            onGenerateRoute: (RouteSettings rs) {
-              if (rs.name == UserListView.routeName) {
-                return CupertinoPageRoute<dynamic>(builder: (_) => UserListView(rs.arguments as Workspace));
-              } else if (rs.name == ActiveContractView.routeName) {
-                return CupertinoPageRoute<dynamic>(builder: (_) => ActiveContractView(rs.arguments as Workspace));
-              } else if (rs.name == WorkspaceView.routeName) {
-                return CupertinoPageRoute<dynamic>(builder: (_) => WorkspaceView(rs.arguments as int));
-              } else if (rs.name == SourceListView.routeName) {
-                return CupertinoPageRoute<dynamic>(builder: (_) => SourceListView(rs.arguments as int));
-              } else if (rs.name == TaskView.routeName) {
-                final task = rs.arguments as Task;
-                return CupertinoPageRoute<dynamic>(builder: (_) => TaskView(task), settings: rs);
-              } else if (rs.name == MemberView.routeName) {
-                return CupertinoPageRoute<dynamic>(builder: (_) => MemberView(rs.arguments as MemberViewArgs));
-              } else if (rs.name == UserView.routeName) {
-                return CupertinoPageRoute<dynamic>(builder: (_) => UserView(rs.arguments as User));
-              } else if (rs.name == FeatureSetsOnboardingPage.routeName) {
-                return CupertinoPageRoute<dynamic>(builder: (_) => FeatureSetsOnboardingPage(rs.arguments as FeatureSetsController));
-              } else if (rs.name == TeamInvitationOnboardingPage.routeName) {
-                return CupertinoPageRoute<dynamic>(builder: (_) => TeamInvitationOnboardingPage(rs.arguments as TaskController));
-              }
-              return null;
-            },
+            title: loc.app_title,
+            onGenerateRoute: cupertinoPageRoute,
+            navigatorObservers: [MTRouteObserver()],
           ),
           if (loader.loading)
             CupertinoApp(
@@ -150,6 +105,7 @@ class App extends StatelessWidget {
               localizationsDelegates: localizationsDelegates,
               supportedLocales: supportedLocales,
               theme: cupertinoTheme,
+              title: loc.app_title,
             )
         ]),
       ),

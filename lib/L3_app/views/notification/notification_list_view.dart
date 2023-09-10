@@ -21,6 +21,7 @@ import 'notification_controller.dart';
 
 class NotificationListView extends StatelessWidget {
   static String get routeName => '/notifications';
+  static String get title => loc.notification_list_title;
 
   NotificationController get _controller => notificationController;
 
@@ -69,7 +70,7 @@ class NotificationListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Observer(
         builder: (_) => MTPage(
-          appBar: appBar(context, title: loc.notification_list_title),
+          appBar: appBar(context, title: title),
           body: SafeArea(
             top: false,
             bottom: false,

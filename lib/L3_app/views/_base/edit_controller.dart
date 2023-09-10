@@ -28,6 +28,13 @@ abstract class _EditControllerBase with Store {
   }
 
   @observable
+  bool? _allowDisposeFromView;
+  @action
+  void setAllowDisposeFromView(bool? ad) => _allowDisposeFromView = ad;
+  @computed
+  bool get allowDisposeFromView => _allowDisposeFromView ?? true;
+
+  @observable
   ObservableMap<int, MTFieldData> _fdMap = ObservableMap();
 
   @action

@@ -14,10 +14,11 @@ import '../../presenters/person.dart';
 import '../../presenters/workspace.dart';
 
 class UserView extends StatelessWidget {
-  const UserView(this.user);
+  const UserView(this._user);
+  final User _user;
 
   static String get routeName => '/user';
-  final User user;
+  static String title(User user) => '$user';
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class UserView extends StatelessWidget {
       builder: (_) => MTPage(
         appBar: appBar(
           context,
-          middle: mainController.wsForId(user.wsId).subPageTitle(loc.user_title),
+          middle: mainController.wsForId(_user.wsId).subPageTitle(loc.user_title),
         ),
         body: SafeArea(
           top: false,
@@ -33,14 +34,14 @@ class UserView extends StatelessWidget {
           child: ListView(
             children: [
               const SizedBox(height: P3),
-              user.icon(P10),
+              _user.icon(P10),
               const SizedBox(height: P3),
-              H2('$user', align: TextAlign.center),
-              BaseText(user.email, align: TextAlign.center),
-              if (user.roles.isNotEmpty) ...[
+              H2('$_user', align: TextAlign.center),
+              BaseText(_user.email, align: TextAlign.center),
+              if (_user.roles.isNotEmpty) ...[
                 MTListSection(loc.role_list_title),
                 MTListTile(
-                  titleText: user.rolesStr,
+                  titleText: _user.rolesStr,
                   // trailing: ws.canEditUsers ? MTButton.icon(const EditIcon(), () => controller.editUser(context)) : null,
                   bottomDivider: false,
                 )

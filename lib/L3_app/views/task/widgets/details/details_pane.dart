@@ -25,17 +25,19 @@ import '../../../../presenters/task_source.dart';
 import '../../../../presenters/workspace.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_feature_sets.dart';
+import '../../controllers/onboarding_controller.dart';
 import '../../controllers/task_controller.dart';
 import '../onboarding/next_button.dart';
 import 'feature_sets.dart';
 import 'notes.dart';
 
 class DetailsPane extends StatelessWidget {
-  const DetailsPane(this.controller);
+  const DetailsPane(this.controller, {this.onbController});
   final TaskController controller;
+  final OnboardingController? onbController;
 
   Task get _task => controller.task;
-  bool get _onboarding => controller.onbController.onboarding;
+  bool get _onboarding => onbController?.onboarding == true;
 
   Widget? get bottomBar => _task.linked
       ? MTButton(
@@ -97,7 +99,7 @@ class DetailsPane extends StatelessWidget {
                 ),
               ],
               if (_task.hasDescription || _task.canEdit) ...[
-                const SizedBox(height: P3),
+                SizedBox(height: _onboarding ? P : P3),
                 MTField(
                   controller.fData(TaskFCode.description.index),
                   leading: DescriptionIcon(color: _task.canEdit ? mainColor : f2Color),
@@ -140,18 +142,18 @@ class DetailsPane extends StatelessWidget {
               ],
 
               /// FeatureSets
-              if (_task.canViewFeatureSets)
-                if (_onboarding)
-                  _task.loading == false ? OnboardingNextButton(controller.onbController) : const SizedBox(height: MIN_BTN_HEIGHT + P6)
-                else ...[
-                  const SizedBox(height: P3),
-                  MTField(
-                    controller.fData(TaskFCode.features.index),
-                    leading: SettingsIcon(color: _task.canEditFeatureSets ? null : f3Color),
-                    value: BaseText(_task.localizedFeatureSets, maxLines: 1),
-                    onSelect: _task.canEditFeatureSets ? () => showFeatureSetsDialog(controller) : null,
-                  ),
-                ],
+              if (!_onboarding && _task.canViewFeatureSets) ...[
+                const SizedBox(height: P3),
+                MTField(
+                  controller.fData(TaskFCode.features.index),
+                  leading: SettingsIcon(color: _task.canEditFeatureSets ? null : f3Color),
+                  value: BaseText(_task.localizedFeatureSets, maxLines: 1),
+                  onSelect: _task.canEditFeatureSets ? () => showFeatureSetsDialog(controller) : null,
+                ),
+              ],
+
+              /// Onboarding
+              if (_onboarding) OnboardingNextButton(onbController!, disabled: _task.loading),
 
               /// Notes
               if (!_onboarding && _task.canComment) ...[

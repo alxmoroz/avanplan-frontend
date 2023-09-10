@@ -23,19 +23,20 @@ import 'widgets/tasks/tasks_pane.dart';
 import 'widgets/team/team_pane.dart';
 
 class TaskView extends StatefulWidget {
-  const TaskView(this.taskIn);
-  final Task taskIn;
+  const TaskView(this._controller);
+  final TaskController _controller;
 
-  static String get routeName => 'task';
+  static String get routeName => '/task';
+  static String title(TaskController _controller) => '${_controller.task.viewTitle}';
 
   @override
-  State<TaskView> createState() => _TaskViewState();
+  State<TaskView> createState() => TaskViewState();
 }
 
-class _TaskViewState extends State<TaskView> {
+class TaskViewState<T extends TaskView> extends State<T> {
+  TaskController get controller => widget._controller;
   Task get task => controller.task;
 
-  late final TaskController controller;
   late final OverviewPane overviewPane;
   late final TasksPane tasksPane;
   late final DetailsPane detailsPane;
@@ -43,7 +44,6 @@ class _TaskViewState extends State<TaskView> {
 
   @override
   void initState() {
-    controller = TaskController(widget.taskIn);
     overviewPane = OverviewPane(controller);
     tasksPane = TasksPane(controller);
     detailsPane = DetailsPane(controller);
@@ -54,7 +54,9 @@ class _TaskViewState extends State<TaskView> {
 
   @override
   void dispose() {
-    controller.dispose();
+    if (controller.allowDisposeFromView) {
+      controller.dispose();
+    }
     super.dispose();
   }
 
@@ -128,7 +130,7 @@ class _TaskViewState extends State<TaskView> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   if (!smallHeight) TaskHeader(controller),
-                  if (!controller.onbController.onboarding && controller.tabKeys.length > 1) _tabPaneSelector,
+                  if (controller.tabKeys.length > 1) _tabPaneSelector,
                   Expanded(child: _selectedPane),
                 ],
               ),

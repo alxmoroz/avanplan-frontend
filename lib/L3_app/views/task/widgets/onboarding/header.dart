@@ -35,7 +35,7 @@ AppBar onboardingHeader(BuildContext context, OnboardingController _controller) 
     leading: MTButton(
       titleText: loc.back_action_title,
       padding: const EdgeInsets.only(left: P2),
-      onTap: () => Navigator.of(context).pop(),
+      onTap: () => _controller.back(context),
     ),
     middle: _controller.onboarding
         ? Row(

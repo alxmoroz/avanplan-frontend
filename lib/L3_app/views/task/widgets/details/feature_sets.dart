@@ -14,7 +14,9 @@ import '../../../../components/page.dart';
 import '../../../../components/shadowed.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
+import '../../../../presenters/task_type.dart';
 import '../../controllers/feature_sets_controller.dart';
+import '../../controllers/onboarding_controller.dart';
 import '../../controllers/task_controller.dart';
 import '../onboarding/header.dart';
 import '../onboarding/next_button.dart';
@@ -77,23 +79,37 @@ class _FSBody extends StatelessWidget {
   }
 }
 
-class FeatureSetsOnboardingPage extends StatelessWidget {
-  const FeatureSetsOnboardingPage(this._controller);
+class FSOnboardingArgs {
+  FSOnboardingArgs(this._controller, this._onbController);
   final FeatureSetsController _controller;
+  final OnboardingController _onbController;
+}
 
-  static String get routeName => '/project_feature_sets';
+class FeatureSetsOnboardingView extends StatelessWidget {
+  const FeatureSetsOnboardingView(this._args);
+  final FSOnboardingArgs _args;
+
+  static String get routeName => '/feature_sets';
+  static String title(FSOnboardingArgs _args) => '${_args._controller.project.viewTitle} - ${loc.feature_sets_title}';
+
+  FeatureSetsController get _controller => _args._controller;
+  OnboardingController get _onbController => _args._onbController;
 
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        appBar: onboardingHeader(context, _controller.taskController.onbController),
+        appBar: onboardingHeader(context, _onbController),
         body: SafeArea(
           top: false,
           bottom: false,
           child: MTAdaptive(child: _FSBody(_controller, shrinkWrap: false)),
         ),
-        bottomBar: OnboardingNextButton(_controller.taskController.onbController, margin: EdgeInsets.zero),
+        bottomBar: OnboardingNextButton(
+          _onbController,
+          loading: _controller.project.loading,
+          margin: EdgeInsets.zero,
+        ),
       ),
     );
   }

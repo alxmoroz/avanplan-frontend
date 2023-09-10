@@ -28,11 +28,13 @@ import '../user/user_list_view.dart';
 import 'workspace_edit_view.dart';
 
 class WorkspaceView extends StatelessWidget {
-  const WorkspaceView(this.wsId);
-  static String get routeName => '/workspace';
+  const WorkspaceView(this._wsId);
+  final int _wsId;
 
-  final int wsId;
-  Workspace get ws => mainController.wsForId(wsId);
+  static String get routeName => '/workspace';
+  static String title(int wsId) => '${loc.workspace_title}: ${mainController.wsForId(wsId)}';
+
+  Workspace get ws => mainController.wsForId(_wsId);
 
   Widget get _header => Padding(
         padding: const EdgeInsets.symmetric(horizontal: P3),
@@ -63,7 +65,7 @@ class WorkspaceView extends StatelessWidget {
               if (ws.hpTariffUpdate) BaseText.medium(loc.balance_replenish_action_title, color: mainColor),
             ],
           ),
-          onTap: ws.hpTariffUpdate ? () => purchaseDialog(wsId) : null,
+          onTap: ws.hpTariffUpdate ? () => purchaseDialog(_wsId) : null,
         ),
       );
 

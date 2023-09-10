@@ -19,17 +19,19 @@ import 'no_sources.dart';
 import 'source_edit_view.dart';
 
 class SourceListView extends StatelessWidget {
-  const SourceListView(this.wsId);
-  final int wsId;
-  Workspace get ws => mainController.wsForId(wsId);
+  const SourceListView(this._wsId);
+  final int _wsId;
 
   static String get routeName => '/sources';
+  static String title(int wsId) => '${mainController.wsForId(wsId)} - ${loc.source_list_title}';
+
+  Workspace get _ws => mainController.wsForId(_wsId);
 
   Widget _sourceBuilder(BuildContext _, int index) {
-    final s = ws.sortedSources[index];
+    final s = _ws.sortedSources[index];
     return s.listTile(
-      bottomBorder: index < ws.sortedSources.length - 1,
-      onTap: () => editSource(ws, src: s),
+      bottomBorder: index < _ws.sortedSources.length - 1,
+      onTap: () => editSource(_ws, src: s),
     );
   }
 
@@ -37,36 +39,33 @@ class SourceListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        appBar: appBar(
-          context,
-          middle: ws.subPageTitle(loc.source_list_title),
-        ),
+        appBar: appBar(context, middle: _ws.subPageTitle(loc.source_list_title)),
         body: SafeArea(
           top: false,
           bottom: false,
-          child: ws.sources.isEmpty
+          child: _ws.sources.isEmpty
               ? Center(child: NoSources())
               : MTShadowed(
                   child: MTAdaptive(
                     child: ListView.builder(
                       itemBuilder: _sourceBuilder,
-                      itemCount: ws.sources.length,
+                      itemCount: _ws.sources.length,
                     ),
                   ),
                 ),
         ),
-        bottomBar: ws.hpSourceCreate
+        bottomBar: _ws.hpSourceCreate
             ? Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  if (ws.sources.isNotEmpty) const Spacer(),
-                  ws.sources.isEmpty
+                  if (_ws.sources.isNotEmpty) const Spacer(),
+                  _ws.sources.isEmpty
                       ? MTButton.main(
                           leading: const PlusIcon(color: mainBtnTitleColor),
                           titleText: loc.source_title_new,
-                          onTap: () => startAddSource(ws),
+                          onTap: () => startAddSource(_ws),
                         )
-                      : MTPlusButton(() => startAddSource(ws))
+                      : MTPlusButton(() => startAddSource(_ws))
                 ],
               )
             : null,

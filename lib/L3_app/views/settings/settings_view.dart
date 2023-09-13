@@ -89,7 +89,7 @@ class SettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Observer(
         builder: (_) => MTPage(
-          appBar: appBar(context),
+          appBar: MTAppBar(context),
           body: SafeArea(
             top: false,
             bottom: false,

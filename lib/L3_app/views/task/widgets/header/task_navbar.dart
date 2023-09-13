@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../../../main.dart';
 import '../../../../components/appbar.dart';
 import '../../../../components/icons.dart';
 import '../../../../presenters/task_type.dart';
@@ -12,11 +11,11 @@ import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
 import 'task_popup_menu.dart';
 
-AppBar taskNavBar(TaskController controller) {
+AppBar taskNavBar(BuildContext context, TaskController controller) {
   final task = controller.task;
 
-  return appBar(
-    rootKey.currentContext!,
+  return MTAppBar(
+    context,
     bgColor: task.bgColor,
     middle: task.ws.subPageTitle(task.viewTitle),
     trailing: task.actionTypes.isNotEmpty ? TaskPopupMenu(controller, icon: const MenuIcon()) : null,

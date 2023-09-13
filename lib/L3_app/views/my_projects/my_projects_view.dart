@@ -18,7 +18,7 @@ class MyProjectsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        appBar: appBar(context, title: title),
+        appBar: MTAppBar(context, title: title),
         body: SafeArea(
           top: false,
           bottom: false,

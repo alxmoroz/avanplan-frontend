@@ -12,7 +12,7 @@ extension TaskTreePresenter on Task {
   Task? get project {
     if (isProject) {
       return this;
-    } else if (parentId != null) {
+    } else if (parentId != null && parent != null) {
       return parent!.project;
     }
     return null;

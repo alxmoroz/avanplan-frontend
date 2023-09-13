@@ -10,21 +10,27 @@ part 'edit_controller.g.dart';
 abstract class EditController = _EditControllerBase with _$EditController;
 
 abstract class _EditControllerBase with Store {
-  Map<int, TextEditingController> _teControllers = {};
+  @observable
+  ObservableMap<int, TextEditingController> _teControllers = ObservableMap();
+  @observable
+  ObservableMap<int, MTFieldData> _fdMap = ObservableMap();
 
   TextEditingController? teController(int code) => _teControllers[code];
 
   @mustCallSuper
+  @action
   void initState({List<MTFieldData>? fds}) {
     _fdMap = ObservableMap.of({for (var fd in fds ?? <MTFieldData>[]) fd.code: fd});
-    _teControllers = {for (var fd in _fdMap.values) fd.code: _makeTEController(fd.code)};
+    _teControllers = ObservableMap.of({for (var fd in _fdMap.values) fd.code: _makeTEController(fd.code)});
   }
 
   @mustCallSuper
+  @action
   void dispose() {
     for (var c in _teControllers.values) {
       c.dispose();
     }
+    _teControllers.clear();
   }
 
   @observable
@@ -33,9 +39,6 @@ abstract class _EditControllerBase with Store {
   void setAllowDisposeFromView(bool? ad) => _allowDisposeFromView = ad;
   @computed
   bool get allowDisposeFromView => _allowDisposeFromView ?? true;
-
-  @observable
-  ObservableMap<int, MTFieldData> _fdMap = ObservableMap();
 
   @action
   void _updateData(MTFieldData fd, TextEditingController te) {

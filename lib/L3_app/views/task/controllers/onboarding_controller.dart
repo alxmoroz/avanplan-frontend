@@ -17,7 +17,7 @@ import 'task_controller.dart';
 
 part 'onboarding_controller.g.dart';
 
-enum _StepCode { projectSetup, featureSets, team, goals, tasks }
+enum _StepCode { projectSetup, featureSets, team, goals }
 
 class _Step {
   _Step(this.code, this.title, this.nextButtonTitle);
@@ -41,6 +41,7 @@ class OnboardingController extends _OnboardingControllerBase with _$OnboardingCo
       finish(context);
       return;
     }
+
     if (_step.code == _StepCode.featureSets) {
       await _fsController?.setup();
     }
@@ -56,12 +57,13 @@ abstract class _OnboardingControllerBase with Store {
 
   Task get project => _taskController.task;
 
+  bool get _hasTeam => _fsController?.hasChecked(FSCode.TEAM) == true;
+  bool get _hasGoals => _fsController?.hasChecked(FSCode.GOALS) == true;
   Iterable<_Step> get _steps => [
         _Step(_StepCode.projectSetup, '', loc.next_action_title),
         _Step(_StepCode.featureSets, loc.feature_sets_onboarding_title, loc.next_action_title),
-        if (_fsController?.hasChecked(FSCode.TEAM) == true) _Step(_StepCode.team, loc.team_onboarding_title, loc.next_action_title),
-        if (_fsController?.hasChecked(FSCode.GOALS) == true) _Step(_StepCode.goals, loc.goal_onboarding_title, loc.next_action_title),
-        _Step(_StepCode.tasks, loc.task_onboarding_title, loc.finish_action_title),
+        if (_hasTeam) _Step(_StepCode.team, loc.team_onboarding_title, loc.next_action_title),
+        if (_hasGoals) _Step(_StepCode.goals, loc.goal_onboarding_title, loc.next_action_title),
       ];
 
   int get stepsCount => _steps.length;
@@ -82,11 +84,12 @@ abstract class _OnboardingControllerBase with Store {
   String get stepTitle => _step.title;
 
   @computed
-  String get nextBtnTitle => onboarding ? _step.nextButtonTitle : '';
+  String get nextBtnTitle => onboarding ? (_lastStep ? loc.lets_go_action_title : _step.nextButtonTitle) : '';
 
   @action
   Future _popBack(BuildContext context) async {
     if (stepIndex == 0) {
+      onboarding = false;
       _goalController?.dispose();
     }
     Navigator.of(context).pop();
@@ -108,20 +111,20 @@ abstract class _OnboardingControllerBase with Store {
         }
       }
       await _goalController?.showOnboardingTask(TaskOnboardingView.routeNameGoal, context, onbController);
-    } else if (_step.code == _StepCode.tasks) {
-      print('TASKS');
     }
-    stepIndex--;
+    if (onboarding) {
+      stepIndex--;
+    }
   }
 
   @action
-  Future finish(BuildContext context) async {
-    _goalController?.dispose();
+  void finish(BuildContext context) {
     onboarding = false;
     stepIndex = 0;
 
-    // TODO: учесть с какого шага и куда
     Navigator.of(context).popUntil((r) => r.settings.name == TaskOnboardingView.routeNameProject || r.navigator?.canPop() != true);
-    Navigator.of(context).pushReplacementNamed(TaskView.routeName, arguments: TaskController(_taskController.task));
+    Navigator.of(context).pushReplacementNamed(TaskView.routeName, arguments: TaskController(project));
+
+    _goalController?.dispose();
   }
 }

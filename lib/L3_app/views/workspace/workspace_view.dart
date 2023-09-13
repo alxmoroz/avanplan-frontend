@@ -97,7 +97,7 @@ class WorkspaceView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTPage(
-      appBar: appBar(context,
+      appBar: MTAppBar(context,
           title: loc.workspace_title,
           trailing: ws.hpInfoUpdate
               ? MTButton.icon(

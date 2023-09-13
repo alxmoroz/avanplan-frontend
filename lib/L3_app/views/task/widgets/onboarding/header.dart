@@ -30,7 +30,7 @@ AppBar onboardingHeader(BuildContext context, OnboardingController _controller) 
     );
   }
 
-  return appBar(
+  return MTAppBar(
     context,
     leading: MTButton(
       titleText: loc.back_action_title,

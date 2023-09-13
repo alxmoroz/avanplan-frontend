@@ -25,7 +25,7 @@ class UserListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTPage(
-      appBar: appBar(context, middle: _ws.subPageTitle(loc.user_list_title)),
+      appBar: MTAppBar(context, middle: _ws.subPageTitle(loc.user_list_title)),
       body: SafeArea(
         top: false,
         bottom: false,

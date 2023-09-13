@@ -123,8 +123,6 @@
   "feature_sets_onboarding_title": "Выберите модули проекта",
   "feature_sets_title": "Модули проекта",
 
-  "finish_action_title": "Готово",
-
   "for_": "за",
   "for_dative": "по",
 
@@ -158,6 +156,8 @@
 
   "legal_privacy_policy_title": "Политика конфиденциальности",
   "legal_rules_title": "Пользовательское соглашение",
+
+  "lets_go_action_title": "Поехали",
 
   "loader_auth_title": "Проверяем доступ...",
   "loader_check_connection_title": "Проверка соединения...",

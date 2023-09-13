@@ -51,7 +51,7 @@ class _MemberViewState extends State<MemberView> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        appBar: appBar(context, middle: task.subPageTitle(loc.member_title)),
+        appBar: MTAppBar(context, middle: task.subPageTitle(loc.member_title)),
         body: SafeArea(
           top: false,
           child: MTAdaptive(

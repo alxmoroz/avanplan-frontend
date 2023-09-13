@@ -26,7 +26,7 @@ class ActiveContractView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTPage(
-      appBar: appBar(context, middle: _ws.subPageTitle(loc.tariff_current_title)),
+      appBar: MTAppBar(context, middle: _ws.subPageTitle(loc.tariff_current_title)),
       body: SafeArea(
         top: false,
         bottom: false,

@@ -15,18 +15,18 @@ import 'widgets/header/task_header.dart';
 import 'widgets/onboarding/header.dart';
 
 class TaskOnboardingArgs {
-  TaskOnboardingArgs(this.controller, this._onbController);
-  final TaskController controller;
+  TaskOnboardingArgs(this._controller, this._onbController);
+  final TaskController _controller;
   final OnboardingController _onbController;
 }
 
 class TaskOnboardingView extends TaskView {
-  TaskOnboardingView(this._args) : super(_args.controller);
+  TaskOnboardingView(this._args) : super(_args._controller);
   final TaskOnboardingArgs _args;
 
   static String get routeNameGoal => '/goal';
   static String get routeNameProject => '/project_onboarding';
-  static String title(TaskOnboardingArgs _args) => '${_args.controller.task.viewTitle}';
+  static String title(TaskOnboardingArgs _args) => '${_args._controller.task.viewTitle}';
 
   @override
   State<TaskOnboardingView> createState() => GoalOnboardingViewState();

@@ -123,8 +123,6 @@
   "feature_sets_onboarding_title": "Select project modules",
   "feature_sets_title": "Project Modules",
 
-  "finish_action_title": "Finish",
-
   "for_": "for",
   "for_dative": "for",
 
@@ -158,6 +156,8 @@
 
   "legal_privacy_policy_title": "Privacy Policy",
   "legal_rules_title": "License Agreement",
+
+  "lets_go_action_title": "Let's get started!",
 
   "loader_auth_title": "Checking access...",
   "loader_check_connection_title": "Checking connection...",

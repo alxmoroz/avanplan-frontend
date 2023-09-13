@@ -62,8 +62,9 @@ abstract class _MainControllerBase with Store {
   /// задачи
 
   @computed
-  Iterable<Task> get myTasks =>
-      allTasks.where((t) => !t.closed && t.assignee != null && t.assignee!.userId == accountController.user!.id && t.isTask);
+  Iterable<Task> get myTasks => allTasks.where(
+        (t) => !t.closed && t.assignee != null && t.assignee!.userId == accountController.user!.id && t.isTask,
+      );
   @computed
   List<MapEntry<TaskState, List<Task>>> get myTasksGroups => groups(myTasks);
   @computed
@@ -77,11 +78,16 @@ abstract class _MainControllerBase with Store {
   @computed
   int get _todayCount => _myOverdueTasks.length + _myTodayTasks.length;
   @computed
-  int get myUpcomingTasksCount => _todayCount > 0
-      ? _todayCount
-      : _myThisWeekTasks.isNotEmpty
-          ? _myThisWeekTasks.length
-          : myTasks.length;
+  int get myUpcomingTasksCount {
+    // print(_openedLeafs);
+    //
+    return _todayCount > 0
+        ? _todayCount
+        : _myThisWeekTasks.isNotEmpty
+            ? _myThisWeekTasks.length
+            : myTasks.length;
+  }
+
   @computed
   String get myUpcomingTasksTitle => _myTodayTasks.isNotEmpty
       ? loc.my_tasks_today_title

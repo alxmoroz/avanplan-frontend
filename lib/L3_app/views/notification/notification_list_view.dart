@@ -70,7 +70,7 @@ class NotificationListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Observer(
         builder: (_) => MTPage(
-          appBar: appBar(context, title: title),
+          appBar: MTAppBar(context, title: title),
           body: SafeArea(
             top: false,
             bottom: false,

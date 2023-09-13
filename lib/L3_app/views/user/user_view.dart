@@ -24,7 +24,7 @@ class UserView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        appBar: appBar(
+        appBar: MTAppBar(
           context,
           middle: mainController.wsForId(_user.wsId).subPageTitle(loc.user_title),
         ),

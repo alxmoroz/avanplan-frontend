@@ -61,7 +61,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        appBar: appBar(
+        appBar: MTAppBar(
           context,
           leading: accountController.user != null
               ? MTButton.icon(

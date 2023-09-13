@@ -43,14 +43,16 @@ class TitleController {
   /// описание
 
   Future editDescription() async {
-    final tc = _taskController.teController(TaskFCode.description.index)!;
-    await showMTDialog<void>(TaskDescriptionDialog(tc));
-    final newValue = tc.text;
-    if (task.description != newValue) {
-      final oldValue = task.description;
-      task.description = newValue;
-      if (!(await _taskController.saveField(TaskFCode.description))) {
-        task.description = oldValue;
+    final tc = _taskController.teController(TaskFCode.description.index);
+    if (tc != null) {
+      await showMTDialog<void>(TaskDescriptionDialog(tc));
+      final newValue = tc.text;
+      if (task.description != newValue) {
+        final oldValue = task.description;
+        task.description = newValue;
+        if (!(await _taskController.saveField(TaskFCode.description))) {
+          task.description = oldValue;
+        }
       }
     }
   }

@@ -8,6 +8,8 @@ import 'constants.dart';
 import 'divider.dart';
 import 'text.dart';
 
+// TODO: переделать для использования нашего диалога
+
 enum MTActionType {
   isDanger,
   isWarning,

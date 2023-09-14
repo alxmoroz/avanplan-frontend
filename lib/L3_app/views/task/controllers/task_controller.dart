@@ -142,7 +142,7 @@ abstract class _TaskControllerBase extends EditController with Store {
   /// режим Доска / Список
 
   @observable
-  bool showBoard = false;
+  bool showBoard = true;
   @action
   void toggleMode() => showBoard = !showBoard;
 }

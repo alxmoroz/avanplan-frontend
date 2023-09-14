@@ -12,6 +12,7 @@ import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../extra/services.dart';
 import '../presenters/task_transfer.dart';
 import '../presenters/task_tree.dart';
+import 'task_feature_sets.dart';
 import 'ws_actions.dart';
 
 enum TaskActionType {
@@ -59,6 +60,7 @@ extension TaskActionsUC on Task {
   bool get canComment => !isProject && canEdit;
   bool get canViewFeatureSets => isProject && _hpProjectInfoRead;
   bool get canEditFeatureSets => isProject && _hpProjectInfoUpdate;
+  bool get canShowBoard => hfsTaskboard && totalVolume > 0 && !isProject;
 
   /// рекомендации, быстрые кнопки
   bool get shouldAddSubtask =>

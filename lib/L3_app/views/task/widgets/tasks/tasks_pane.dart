@@ -5,7 +5,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_stats.dart';
-import '../../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../../main.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
@@ -14,7 +13,6 @@ import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../presenters/task_filter.dart';
 import '../../../../usecases/task_actions.dart';
-import '../../../../usecases/task_feature_sets.dart';
 import '../../controllers/task_controller.dart';
 import '../../widgets/transfer/local_import_dialog.dart';
 import '../create/task_create_button.dart';
@@ -41,7 +39,7 @@ class TasksPane extends StatelessWidget {
 
   Widget? get bottomBar => (_task.canCreate || _task.totalVolume > 0)
       ? Row(children: [
-          if (_task.hfsTaskboard && _task.totalVolume > 0 && !_task.isProject)
+          if (_task.canShowBoard)
             MTButton.secondary(
               color: b1Color,
               middle: Row(children: [
@@ -69,7 +67,7 @@ class TasksPane extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => controller.showBoard
+      builder: (_) => _task.canShowBoard && controller.showBoard
           ? TasksBoard(
               controller.statusController,
               extra: controller.subtasksController.loadClosedButton,

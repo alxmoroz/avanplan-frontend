@@ -35,19 +35,19 @@ Color stateColor(TaskState state) {
 }
 
 Widget imageForState(TaskState state, {double? size}) {
-  String name = ImageNames.noInfo;
+  String name = ImageName.noInfo;
   switch (state) {
     case TaskState.OVERDUE:
-      name = ImageNames.overdue;
+      name = ImageName.overdue;
       break;
     case TaskState.RISK:
-      name = ImageNames.risk;
+      name = ImageName.risk;
       break;
     case TaskState.CLOSABLE:
     case TaskState.OK:
     case TaskState.AHEAD:
     case TaskState.CLOSED:
-      name = ImageNames.ok;
+      name = ImageName.ok;
       break;
     default:
   }

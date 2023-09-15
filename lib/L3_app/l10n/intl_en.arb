@@ -20,7 +20,7 @@
   "auth_register_troubleshooting_hint": "No letter? Check your spam folder or",
   "auth_register_action_title": "Register",
   "auth_register_mode_hint_title": "Don't have an account?",
-  "auth_register_mode_title": "Register",
+  "auth_register_mode_title": "Create account",
   "auth_register_title": "Register",
   "auth_register_with_title": "Register with",
   "auth_sign_in_apple_title": "Apple",

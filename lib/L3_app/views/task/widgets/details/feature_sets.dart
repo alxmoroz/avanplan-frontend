@@ -28,11 +28,11 @@ class _FSBody extends StatelessWidget {
 
   Widget _icon(int index) => MTImage(
         [
-          ImageNames.fsAnalytics,
-          ImageNames.fsTeam,
-          ImageNames.fsGoals,
-          ImageNames.fsTaskBoard,
-          ImageNames.fsEstimates,
+          ImageName.fsAnalytics,
+          ImageName.fsTeam,
+          ImageName.fsGoals,
+          ImageName.fsTaskBoard,
+          ImageName.fsEstimates,
         ][index],
         width: P8,
         height: P7,
@@ -49,7 +49,7 @@ class _FSBody extends StatelessWidget {
           children: [
             MTListSection(loc.feature_sets_always_on_label),
             MTCheckBoxTile(
-              leading: const MTImage(ImageNames.fsTaskList, width: P8, height: P7),
+              leading: const MTImage(ImageName.fsTaskList, width: P8, height: P7),
               title: loc.feature_set_tasklist_title,
               description: loc.feature_set_tasklist_description,
               value: true,

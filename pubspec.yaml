@@ -70,8 +70,8 @@ flutter:
         - asset: assets/fonts/Roboto-M.ttf
           weight: 500
 
-#dart run flutter_launcher_icons
-flutter_icons:
+# dart run flutter_launcher_icons
+flutter_launcher_icons:
   ios: true
   android: true
   web:
@@ -84,9 +84,12 @@ flutter_intl:
   arb_dir: lib/L3_app/l10n # Optional. Default: lib/l10n
   output_dir: lib/L3_app/l10n/generated # Optional. Default: lib/generated
 
-#https://pub.dev/packages/flutter_native_splash:
+# https://pub.dev/packages/flutter_native_splash:
+# dart run flutter_native_splash:create
+# Исходная картинка должна быть @4x
+# после запуска команды вручную заменить все измененные изображения, т.к. очень плохо ресайзит, размер больших больше, а мелкие - лесенкой все
 flutter_native_splash:
-  color: "#fcfbfb"
-  color_dark: "#201c1b"
+  color: "#ECEBEA"
+  color_dark: "#2C2C34"
   image: scripts/launch_image.png
   image_dark: scripts/launch_image_dark.png

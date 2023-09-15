@@ -32,6 +32,7 @@ AppBar onboardingHeader(BuildContext context, OnboardingController _controller) 
 
   return MTAppBar(
     context,
+    leadingWidth: P10,
     leading: MTButton(
       titleText: loc.back_action_title,
       padding: const EdgeInsets.only(left: P2),

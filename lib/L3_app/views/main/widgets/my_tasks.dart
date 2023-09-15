@@ -26,7 +26,7 @@ class MyTasks extends StatelessWidget {
 
   Widget _mainInfo(BuildContext context) => _myTasksCount > 0
       ? SizedBox(height: dashboardImageHeight(context), child: Center(child: D1('$_myTasksCount', color: mainColor)))
-      : MTImage(ImageNames.emptyTasks.toString());
+      : MTImage(ImageName.emptyTasks.toString());
 
   Widget _contents(BuildContext context) => MTCardButton(
         child: Column(

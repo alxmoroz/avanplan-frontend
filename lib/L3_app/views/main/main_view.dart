@@ -9,11 +9,10 @@ import '../../components/button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
+import '../../components/images.dart';
 import '../../components/page.dart';
-import '../../components/text.dart';
 import '../../extra/services.dart';
 import '../../presenters/person.dart';
-import '../notification/notification_list_view.dart';
 import '../settings/settings_view.dart';
 import '../task/widgets/create/project_create_wizard.dart';
 import 'widgets/main_dashboard.dart';
@@ -55,7 +54,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
         )
       : null;
 
-  static const _iconSize = P6;
+  static const _iconSize = MIN_BTN_HEIGHT;
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +62,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
       builder: (_) => MTPage(
         appBar: MTAppBar(
           context,
+          leadingWidth: _iconSize + P3,
           leading: accountController.user != null
               ? MTButton.icon(
                   accountController.user!.icon(_iconSize / 2, borderColor: mainColor),
@@ -70,21 +70,11 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
                   padding: const EdgeInsets.only(left: P3),
                 )
               : null,
-          middle: H1(loc.app_title),
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (accountController.user != null)
-                MTButton.icon(
-                  BellIcon(size: _iconSize, hasUnread: notificationController.hasUnread, color: mainColor),
-                  onTap: () async => await Navigator.of(context).pushNamed(NotificationListView.routeName),
-                ),
-              MTButton.icon(
-                const RefreshIcon(size: _iconSize),
-                onTap: mainController.manualUpdate,
-                padding: const EdgeInsets.only(left: P, right: P3),
-              ),
-            ],
+          middle: appTitleImage,
+          trailing: MTButton.icon(
+            const RefreshIcon(size: _iconSize),
+            onTap: mainController.manualUpdate,
+            padding: const EdgeInsets.symmetric(horizontal: P3),
           ),
         ),
         body: SafeArea(

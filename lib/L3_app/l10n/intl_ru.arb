@@ -19,7 +19,7 @@
   "auth_register_completed_title": "Заявка на регистрацию принята",
   "auth_register_troubleshooting_hint": "Нет письма? Проверьте папку \"Спам\" или",
   "auth_register_mode_hint_title": "Нет учётной записи?",
-  "auth_register_mode_title": "Создать",
+  "auth_register_mode_title": "Создать учётную запись",
   "auth_register_action_title": "Зарегистрироваться",
   "auth_register_title": "Регистрация",
   "auth_register_with_title": "Зарегистрироваться с помощью",

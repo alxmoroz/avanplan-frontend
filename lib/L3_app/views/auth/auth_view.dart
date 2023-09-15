@@ -4,10 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L2_data/services/platform.dart';
+import '../../components/appbar.dart';
 import '../../components/button.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
+import '../../components/images.dart';
 import '../../components/page.dart';
 import '../../components/text.dart';
 import '../../extra/services.dart';
@@ -69,6 +71,7 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return MTPage(
+      appBar: MTAppBar(context, middle: appTitleImage),
       body: SafeArea(
         child: Center(
           child: Container(
@@ -80,10 +83,12 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
                   children: [
                     // ColorsDemo(),
                     // TextDemo(),
-                    H1(loc.app_title, align: TextAlign.center),
-                    const SizedBox(height: P2),
-                    appIcon(size: size.maxHeight / 4),
-                    H3(authController.registerMode ? loc.auth_register_with_title : loc.auth_sign_in_with_title, align: TextAlign.center),
+                    const MTImage(ImageName.hello),
+                    H2(
+                      authController.registerMode ? loc.auth_register_with_title : loc.auth_sign_in_with_title,
+                      align: TextAlign.center,
+                      padding: const EdgeInsets.only(top: P3),
+                    ),
                     Column(
                       children: [
                         _authBtn(
@@ -113,7 +118,7 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        BaseText(authController.registerMode ? loc.auth_sign_in_mode_hint_title : loc.auth_register_mode_hint_title),
+                        BaseText(authController.registerMode ? loc.auth_sign_in_mode_hint_title : ''),
                         const SizedBox(width: P),
                         MTButton(
                           titleText: authController.registerMode ? loc.auth_sign_in_mode_title : loc.auth_register_mode_title,

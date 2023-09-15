@@ -2,9 +2,11 @@
 
 import 'package:flutter/cupertino.dart';
 
+import '../../L2_data/services/platform.dart';
 import 'adaptive.dart';
 
-class ImageNames {
+class ImageName {
+  static const appTitle = 'app_title';
   static const delete = 'delete';
   static const emptySources = 'empty_sources';
   static const emptyTasks = 'empty_tasks';
@@ -15,6 +17,7 @@ class ImageNames {
   static const fsTaskBoard = 'fs_task_board';
   static const fsTaskList = 'fs_task_list';
   static const fsTeam = 'fs_team';
+  static const hello = 'hello';
   static const import = 'import';
   static const loading = 'loading';
   static const networkError = 'network_error';
@@ -59,3 +62,5 @@ class MTImage extends StatelessWidget {
     );
   }
 }
+
+Widget get appTitleImage => MTImage('${ImageName.appTitle}_$languageCode', height: 48, width: 190);

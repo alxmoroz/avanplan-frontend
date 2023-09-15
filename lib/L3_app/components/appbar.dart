@@ -22,9 +22,10 @@ class MTAppBar extends AppBar {
     String? title,
     Widget? trailing,
     Color? bgColor,
+    double? leadingWidth,
   }) : super(
           leading: leading != null || Navigator.of(context).canPop() ? leading ?? _backButton(context) : null,
-          leadingWidth: P10,
+          leadingWidth: leadingWidth ?? P8,
           automaticallyImplyLeading: false,
           flexibleSpace: ClipRect(
             child: BackdropFilter(

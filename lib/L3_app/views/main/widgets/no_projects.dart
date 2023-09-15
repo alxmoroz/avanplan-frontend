@@ -19,7 +19,7 @@ class NoProjects extends StatelessWidget {
         shrinkWrap: true,
         children: [
           const SizedBox(height: P),
-          MTImage(allClosed ? ImageNames.ok : ImageNames.start),
+          MTImage(allClosed ? ImageName.ok : ImageName.start),
           const SizedBox(height: P3),
           if (allClosed)
             MTButton(

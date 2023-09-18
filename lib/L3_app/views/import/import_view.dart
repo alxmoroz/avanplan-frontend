@@ -140,7 +140,7 @@ class ImportView extends StatelessWidget {
             color: _validated ? f2Color : warningColor,
             align: TextAlign.center,
           ),
-          const SizedBox(height: P),
+          const SizedBox(height: P2),
           MTAdaptive.XS(
             child: MTLimitBadge(
               child: MTButton.main(
@@ -173,10 +173,10 @@ class ImportView extends StatelessWidget {
             ],
           ),
         ),
-        topBarHeight: P8 + (_hasSources ? P * (13 + (_showSelectAll ? 8 : 0)) : 0) + (mainController.workspaces.length > 1 ? P4 : 0),
+        topBarHeight: P8 + (_hasSources ? P * (14.5 + (_showSelectAll ? 8 : 0)) : 0) + (mainController.workspaces.length > 1 ? P4 : 0),
         body: _body(context),
         bottomBar: _bottomBar,
-        bottomBarHeight: _hasProjects ? P * 19 : null,
+        bottomBarHeight: _hasProjects ? P * 20.5 : null,
       ),
     );
   }

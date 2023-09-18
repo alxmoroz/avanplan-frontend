@@ -53,7 +53,7 @@ class ProjectCreateWizard extends StatelessWidget {
                     leading: const ImportIcon(color: mainBtnTitleColor, size: P4),
                     constrained: false,
                     titleText: loc.import_action_title,
-                    onTap: _controller.startImport,
+                    onTap: () => _controller.startImport(null),
                   ),
                 ),
               ),

@@ -63,4 +63,4 @@ class MTImage extends StatelessWidget {
   }
 }
 
-Widget get appTitleImage => MTImage('${ImageName.appTitle}_$languageCode', height: 48, width: 190);
+Widget get appTitleImage => MTImage('${ImageName.appTitle}_$languageCode', width: 180, height: 42);

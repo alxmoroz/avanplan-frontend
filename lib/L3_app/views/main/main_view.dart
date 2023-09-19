@@ -54,7 +54,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
         )
       : null;
 
-  static const _iconSize = MIN_BTN_HEIGHT;
+  static const _iconSize = P7;
 
   @override
   Widget build(BuildContext context) {

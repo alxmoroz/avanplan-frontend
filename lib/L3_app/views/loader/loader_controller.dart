@@ -121,7 +121,7 @@ abstract class _LoaderControllerBase with Store {
     errorText ??= 'LoaderHTTPError';
     final mainRecommendationText = isWeb ? loc.update_web_app_recommendation_title : loc.update_app_recommendation_title;
     set(
-      imageName: ImageName.serverError,
+      imageName: ImageName.server_error.name,
       titleText: errorText,
       descriptionText: mainRecommendationText,
       action: Column(
@@ -136,7 +136,7 @@ abstract class _LoaderControllerBase with Store {
   }
 
   void _setNetworkError(String? errorText) => set(
-        imageName: ImageName.networkError,
+        imageName: ImageName.network_error.name,
         titleText: loc.error_network_title,
         descriptionText: loc.error_network_description,
         action: Column(
@@ -150,28 +150,28 @@ abstract class _LoaderControllerBase with Store {
       );
 
   void setAuthError([String? description]) => set(
-        imageName: ImageName.privacy,
+        imageName: ImageName.privacy.name,
         titleText: loc.error_auth_title,
         descriptionText: description != null ? Intl.message('error_auth_$description') : loc.error_auth_description,
         actionText: loc.ok,
       );
 
   void _setPermissionError([String? description]) => set(
-        imageName: ImageName.privacy,
+        imageName: ImageName.privacy.name,
         titleText: loc.error_permission_title,
         descriptionText: description != null ? Intl.message('error_permission_$description') : loc.error_permission_description,
         actionText: loc.ok,
       );
 
   void _setTariffLimitError([String? description]) => set(
-        imageName: ImageName.privacy,
+        imageName: ImageName.privacy.name,
         titleText: loc.error_tariff_limit_title,
         descriptionText: description != null ? Intl.message('error_tariff_limit_$description') : loc.error_tariff_limit_description,
         actionText: loc.ok,
       );
 
   void _setRedeemInvitationError() => set(
-        imageName: ImageName.privacy,
+        imageName: ImageName.privacy.name,
         titleText: loc.error_redeem_invitation_title,
         descriptionText: loc.error_redeem_invitation_description,
         actionText: loc.ok,
@@ -180,31 +180,31 @@ abstract class _LoaderControllerBase with Store {
   // TODO: разнести публичные методы по соотв. вьюхам / контроллерам / презентерам
 
   void setCheckConnection(String descriptionText) => set(
-        imageName: ImageName.sync,
+        imageName: ImageName.sync.name,
         titleText: loc.loader_check_connection_title,
         descriptionText: descriptionText,
       );
-  void setDeleting() => set(titleText: loc.loader_deleting_title, imageName: ImageName.delete);
+  void setDeleting() => set(titleText: loc.loader_deleting_title, imageName: ImageName.delete.name);
   void setImporting(String descriptionText) => set(
         titleText: loc.loader_importing_title,
         descriptionText: descriptionText,
-        imageName: ImageName.import,
+        imageName: ImageName.import.name,
       );
   void _setImportError(String? descriptionText, String? errorDetail) => set(
         titleText: loc.error_import_menu_action_title,
         descriptionText: descriptionText,
-        imageName: ImageName.import,
+        imageName: ImageName.import.name,
         action: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           _stopAction(loc.ok),
           ReportErrorButton('$descriptionText ${errorDetail ?? ''}'),
         ]),
       );
-  void setLoading() => set(titleText: loc.loader_refreshing_title, imageName: ImageName.loading);
-  void setSaving() => set(titleText: loc.loader_saving_title, imageName: ImageName.save);
+  void setLoading() => set(titleText: loc.loader_refreshing_title, imageName: ImageName.loading.name);
+  void setSaving() => set(titleText: loc.loader_saving_title, imageName: ImageName.save.name);
   void setSourceListing(String descriptionText) => set(
         titleText: loc.loader_source_listing,
         descriptionText: descriptionText,
-        imageName: ImageName.import,
+        imageName: ImageName.import.name,
       );
-  void setUnlinking() => set(titleText: loc.loader_unlinking_title, imageName: ImageName.transfer);
+  void setUnlinking() => set(titleText: loc.loader_unlinking_title, imageName: ImageName.transfer.name);
 }

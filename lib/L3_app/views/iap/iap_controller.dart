@@ -21,10 +21,10 @@ abstract class _IAPControllerBase with Store {
   @action
   Future fetchProducts() async {
     loader.start();
-    loader.set(imageName: ImageName.purchase, titleText: loc.loader_refreshing_title);
+    loader.set(imageName: ImageName.purchase.name, titleText: loc.loader_refreshing_title);
     products = (await iapUC.products(
       (errorText) => loader.set(
-        imageName: ImageName.purchase,
+        imageName: ImageName.purchase.name,
         titleText: loc.error_fetch_products_title,
         descriptionText: errorText,
         actionText: loc.ok,
@@ -39,7 +39,7 @@ abstract class _IAPControllerBase with Store {
     final userId = accountController.user?.id;
     if (userId != null) {
       loader.start();
-      loader.set(imageName: ImageName.purchase, titleText: loc.loader_purchasing_title);
+      loader.set(imageName: ImageName.purchase.name, titleText: loc.loader_purchasing_title);
       await iapUC.pay(
         product: product,
         wsId: wsId,
@@ -47,7 +47,7 @@ abstract class _IAPControllerBase with Store {
         done: ({String? error, num? purchasedAmount}) {
           if (error != null && error.isNotEmpty) {
             loader.set(
-              imageName: ImageName.purchase,
+              imageName: ImageName.purchase.name,
               titleText: loc.error_purchase_title,
               descriptionText: error,
               actionText: loc.ok,

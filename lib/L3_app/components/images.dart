@@ -2,36 +2,35 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../L2_data/services/platform.dart';
 import 'adaptive.dart';
 
-class ImageName {
-  static const appTitle = 'app_title';
-  static const delete = 'delete';
-  static const emptySources = 'empty_sources';
-  static const emptyTasks = 'empty_tasks';
-  static const emptyTeam = 'empty_team';
-  static const fsAnalytics = 'fs_analytics';
-  static const fsEstimates = 'fs_estimates';
-  static const fsGoals = 'fs_goals';
-  static const fsTaskBoard = 'fs_task_board';
-  static const fsTaskList = 'fs_task_list';
-  static const fsTeam = 'fs_team';
-  static const hello = 'hello';
-  static const import = 'import';
-  static const loading = 'loading';
-  static const networkError = 'network_error';
-  static const noInfo = 'no_info';
-  static const ok = 'ok';
-  static const overdue = 'overdue';
-  static const privacy = 'privacy';
-  static const purchase = 'purchase';
-  static const risk = 'risk';
-  static const save = 'save';
-  static const serverError = 'server_error';
-  static const start = 'start';
-  static const sync = 'sync';
-  static const transfer = 'transfer';
+enum ImageName {
+  app_icon,
+  delete,
+  empty_sources,
+  empty_tasks,
+  empty_team,
+  fs_analytics,
+  fs_estimates,
+  fs_goals,
+  fs_task_board,
+  fs_task_list,
+  fs_team,
+  hello,
+  import,
+  loading,
+  network_error,
+  no_info,
+  ok,
+  overdue,
+  privacy,
+  purchase,
+  risk,
+  save,
+  server_error,
+  start,
+  sync,
+  transfer,
 }
 
 class MTImage extends StatelessWidget {
@@ -62,5 +61,3 @@ class MTImage extends StatelessWidget {
     );
   }
 }
-
-Widget get appTitleImage => MTImage('${ImageName.appTitle}_$languageCode', width: 180, height: 42);

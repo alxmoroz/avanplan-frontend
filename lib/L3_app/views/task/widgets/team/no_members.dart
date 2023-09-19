@@ -17,7 +17,7 @@ class NoMembers extends StatelessWidget {
       child: ListView(
         shrinkWrap: true,
         children: [
-          MTImage(ImageName.emptyTeam.toString()),
+          MTImage(ImageName.empty_team.name),
           const SizedBox(height: P2),
           H2(loc.team_empty_title, align: TextAlign.center),
           const SizedBox(height: P),

@@ -9,12 +9,12 @@ import '../../components/button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
-import '../../components/images.dart';
 import '../../components/page.dart';
 import '../../extra/services.dart';
 import '../../presenters/person.dart';
 import '../settings/settings_view.dart';
 import '../task/widgets/create/project_create_wizard.dart';
+import 'widgets/app_title.dart';
 import 'widgets/main_dashboard.dart';
 import 'widgets/no_projects.dart';
 
@@ -70,7 +70,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
                   padding: const EdgeInsets.only(left: P3),
                 )
               : null,
-          middle: appTitleImage,
+          middle: AppTitle(),
           trailing: MTButton.icon(
             const RefreshIcon(size: _iconSize),
             onTap: mainController.manualUpdate,

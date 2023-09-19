@@ -199,3 +199,22 @@ class D2 extends _BaseDText {
 class D1 extends _BaseDText {
   const D1(String text, {super.color}) : super(text, sizeScale: 9);
 }
+
+/// Декоративный стиль
+abstract class _BaseDecorText extends BaseText {
+  const _BaseDecorText(
+    super.text, {
+    super.color,
+    super.sizeScale,
+    super.padding,
+    FontWeight? weight,
+  }) : super(align: TextAlign.center, weight: weight ?? FontWeight.w600, height: 1);
+
+  @override
+  TextStyle style(BuildContext context) => super.style(context).copyWith(fontFamily: 'Comfortaa');
+}
+
+// название приложения
+class DecorAppTitle extends _BaseDecorText {
+  const DecorAppTitle(String text, {super.color, super.padding}) : super(text, sizeScale: 1.64);
+}

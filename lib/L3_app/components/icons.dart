@@ -431,4 +431,3 @@ class StarIcon extends MTIcon {
 
 Widget get appleIcon => Image.asset('assets/icons/apple_icon.png', width: MIN_BTN_HEIGHT, height: MIN_BTN_HEIGHT);
 Widget get googleIcon => Image.asset('assets/icons/google_icon.png', width: MIN_BTN_HEIGHT, height: MIN_BTN_HEIGHT);
-Widget appIcon({double? size}) => Image.asset('assets/icons/app_icon.png', width: size, height: size);

@@ -226,7 +226,7 @@ abstract class _MainControllerBase with Store {
     bool invited = false;
     if (deepLinkController.hasInvitation) {
       loader.start();
-      loader.set(titleText: loc.loader_invitation_redeem_title, imageName: ImageName.privacy);
+      loader.set(titleText: loc.loader_invitation_redeem_title, imageName: ImageName.privacy.name);
       invited = await myUC.redeemInvitation(deepLinkController.invitationToken);
       deepLinkController.clearInvitation();
       await loader.stop();

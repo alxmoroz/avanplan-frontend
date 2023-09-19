@@ -13,6 +13,7 @@ import '../../components/images.dart';
 import '../../components/page.dart';
 import '../../components/text.dart';
 import '../../extra/services.dart';
+import '../main/widgets/app_title.dart';
 import '../settings/app_version.dart';
 import 'legal_links.dart';
 import 'registration_form.dart';
@@ -71,7 +72,7 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return MTPage(
-      appBar: MTAppBar(context, middle: appTitleImage),
+      appBar: MTAppBar(context, middle: AppTitle()),
       body: SafeArea(
         child: Center(
           child: Container(
@@ -83,8 +84,8 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
                   children: [
                     // ColorsDemo(),
                     // TextDemo(),
-                    const MTImage(ImageName.hello),
-                    H2(
+                    MTImage(ImageName.hello.name),
+                    H3(
                       authController.registerMode ? loc.auth_register_with_title : loc.auth_sign_in_with_title,
                       align: TextAlign.center,
                       padding: const EdgeInsets.only(top: P3),

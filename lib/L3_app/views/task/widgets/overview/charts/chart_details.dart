@@ -16,6 +16,7 @@ import '../../../../../presenters/task_state.dart';
 import '../../../../../presenters/task_tree.dart';
 import '../../../../../presenters/task_view.dart';
 import '../../../../../presenters/workspace.dart';
+import '../../../../../usecases/task_feature_sets.dart';
 import 'timing_chart.dart';
 import 'velocity_chart.dart';
 import 'volume_chart.dart';
@@ -30,7 +31,7 @@ class TaskChartDetails extends StatelessWidget {
   Widget _textRow(String t1, String t2, {Color? color}) => Row(
         children: [
           Expanded(child: BaseText.f2(t1)),
-          H3(t2, color: color, padding: const EdgeInsets.only(top: P)),
+          H3(t2, color: color, padding: const EdgeInsets.symmetric(vertical: P_2)),
         ],
       );
 
@@ -49,7 +50,7 @@ class TaskChartDetails extends StatelessWidget {
             const SizedBox(height: P),
             if (task.canShowVelocityVolumeCharts) ...[
               /// объем
-              H3('${loc.chart_volume_title}, ${task.ws.estimateUnitCode}', align: TextAlign.center),
+              H3('${loc.chart_volume_title}${task.hfsEstimates ? ', ${task.ws.estimateUnitCode}' : ''}', align: TextAlign.center),
               Row(
                 children: [
                   Flexible(child: TaskVolumeChart(task)),

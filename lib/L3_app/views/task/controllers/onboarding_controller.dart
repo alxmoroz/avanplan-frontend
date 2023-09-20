@@ -37,15 +37,15 @@ class OnboardingController extends _OnboardingControllerBase with _$OnboardingCo
   }
 
   Future next(BuildContext context) async {
-    if (_lastStep) {
-      finish(context);
-      return;
-    }
-
     if (_step.code == _StepCode.featureSets) {
       await _fsController?.setup();
     }
-    await _pushNext(context, this);
+
+    if (_lastStep) {
+      finish(context);
+    } else {
+      await _pushNext(context, this);
+    }
   }
 }
 

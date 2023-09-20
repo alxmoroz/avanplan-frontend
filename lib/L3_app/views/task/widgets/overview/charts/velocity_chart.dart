@@ -15,6 +15,7 @@ import '../../../../../presenters/duration.dart';
 import '../../../../../presenters/task_state.dart';
 import '../../../../../presenters/task_stats.dart';
 import '../../../../../presenters/workspace.dart';
+import '../../../../../usecases/task_feature_sets.dart';
 
 class VelocityChart extends StatelessWidget {
   const VelocityChart(this.task);
@@ -84,14 +85,14 @@ class VelocityChart extends StatelessWidget {
         if (!task.projectLowStart) ...[
           D3('$_displayText', color: _pointerColor),
           SmallText(
-            loc.chart_velocity_unit_mo(task.ws.estimateUnitCode),
+            loc.chart_velocity_unit_mo(task.hfsEstimates ? task.ws.estimateUnitCode : loc.task_plural(_hVelocity)),
             padding: EdgeInsets.only(top: _radius / 2 + P3),
             color: f2Color,
             height: 1,
           ),
           Container(
-            width: _radius * 2 - P10,
-            height: _radius * 2 - P7,
+            width: _radius * 2 - P10 - P,
+            height: _radius * 2 - P6,
             alignment: Alignment.bottomCenter,
             child: Row(children: [
               if (_maxValue > 0) const BaseText.medium('0', color: f2Color),

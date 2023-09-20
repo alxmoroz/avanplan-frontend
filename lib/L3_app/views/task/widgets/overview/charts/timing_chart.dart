@@ -184,8 +184,10 @@ class TimingChart extends StatelessWidget {
         ) as Alignment,
         child: Row(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            BaseText('$label ', color: color),
+            BaseText(label, color: color),
+            const SizedBox(width: P),
             H3('${date.strShort}', color: color),
           ],
         ));

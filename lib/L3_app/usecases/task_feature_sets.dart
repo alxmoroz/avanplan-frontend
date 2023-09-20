@@ -10,7 +10,8 @@ import '../extra/services.dart';
 import '../presenters/task_tree.dart';
 
 extension FeatureSetsUC on Task {
-  Set<FeatureSet> get featureSets => project!.projectFeatureSets.map((pfs) => refsController.featureSetsMap[pfs.featureSetId]!).toSet();
+  Set<FeatureSet> get featureSets =>
+      project != null ? project!.projectFeatureSets.map((pfs) => refsController.featureSetsMap[pfs.featureSetId]!).toSet() : <FeatureSet>{};
 
   Set<String> get _fsCodes => featureSets.map((fs) => fs.code).toSet();
 

@@ -9,6 +9,7 @@ import '../extra/services.dart';
 extension TaskTreePresenter on Task {
   Task? get parent => mainController.allTasks.firstWhereOrNull((t) => t.id == parentId);
 
+  // TODO: что за ситуация такая, когда нет проекта?
   Task? get project {
     if (isProject) {
       return this;

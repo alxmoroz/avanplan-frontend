@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../components/adaptive.dart';
-import '../../../../components/button.dart';
 import '../../../../components/checkbox.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
@@ -22,9 +21,10 @@ import '../onboarding/header.dart';
 import '../onboarding/next_button.dart';
 
 class _FSBody extends StatelessWidget {
-  const _FSBody(this._controller, {this.shrinkWrap = true});
+  const _FSBody(this._controller, {this.shrinkWrap = true, this.onboarding = false});
   final FeatureSetsController _controller;
   final bool shrinkWrap;
+  final bool onboarding;
 
   Widget _icon(int index) => MTImage(
         [
@@ -44,7 +44,7 @@ class _FSBody extends StatelessWidget {
     return Observer(
       builder: (_) => MTShadowed(
         topPaddingIndent: 0,
-        bottomShadow: true,
+        bottomShadow: onboarding,
         child: ListView(
           shrinkWrap: shrinkWrap,
           children: [
@@ -56,7 +56,7 @@ class _FSBody extends StatelessWidget {
               value: true,
               bottomDivider: false,
             ),
-            MTListSection(loc.feature_sets_available_label),
+            MTListSection(onboarding ? loc.feature_sets_available_label : loc.feature_sets_label),
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -69,7 +69,7 @@ class _FSBody extends StatelessWidget {
                   description: fs.description,
                   value: _controller.checks[index],
                   bottomDivider: index < _controller.checks.length - 1,
-                  onChanged: _controller.project.loading == true ? null : (bool? value) => _controller.selectFeatureSet(index, value),
+                  onChanged: !onboarding || _controller.project.loading == true ? null : (bool? value) => _controller.selectFeatureSet(index, value),
                 );
               },
             ),
@@ -104,7 +104,7 @@ class FeatureSetsOnboardingView extends StatelessWidget {
         body: SafeArea(
           top: false,
           bottom: false,
-          child: MTAdaptive(child: _FSBody(_controller, shrinkWrap: false)),
+          child: MTAdaptive(child: _FSBody(_controller, shrinkWrap: false, onboarding: true)),
         ),
         bottomBar: OnboardingNextButton(
           _onbController,
@@ -125,10 +125,6 @@ class FeatureSetsDialog extends StatelessWidget {
     return MTDialog(
       topBar: MTTopBar(titleText: loc.feature_sets_title),
       body: _FSBody(_controller),
-      bottomBar: MTButton.main(
-        titleText: loc.save_action_title,
-        onTap: _controller.save,
-      ),
     );
   }
 }

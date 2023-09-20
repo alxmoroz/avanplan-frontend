@@ -8,13 +8,14 @@ import '../../L1_domain/entities_extensions/task_status.dart';
 import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../extra/services.dart';
 import '../presenters/task_type.dart';
+import 'task_feature_sets.dart';
 import 'ws_actions.dart';
 import 'ws_tariff.dart';
 
 extension WSTasksUC on Workspace {
   Future<Task?> createTask(Task? _parent) async {
     final _newProject = _parent == null;
-    final _newGoal = _parent != null && _parent.isProject; // && parent!.hfsGoals;
+    final _newGoal = _parent != null && _parent.isProject && _parent.hfsGoals;
 
     if (!plCreate(_parent)) {
       // TODO: как будет происходить предложение смены тарифа во время онбординга?

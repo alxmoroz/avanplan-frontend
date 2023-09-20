@@ -18,8 +18,7 @@ extension FeatureSetsUC on Task {
 
   bool get hfsAnalytics => hfs(FSCode.ANALYTICS);
   bool get hfsTeam => hfs(FSCode.TEAM);
-  // TODO: цели
-  bool get hfsGoals => true; //hfs(FSCode.GOALS);
+  bool get hfsGoals => hfs(FSCode.GOALS);
   bool get hfsTaskboard => hfs(FSCode.TASKBOARD);
   bool get hfsEstimates => hfs(FSCode.ESTIMATES);
 

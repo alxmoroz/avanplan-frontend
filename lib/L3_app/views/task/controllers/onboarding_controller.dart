@@ -10,7 +10,7 @@ import '../../../extra/services.dart';
 import '../../../usecases/ws_tasks.dart';
 import '../task_onboarding_view.dart';
 import '../task_view.dart';
-import '../widgets/details/feature_sets.dart';
+import '../widgets/feature_sets/feature_sets.dart';
 import '../widgets/team/team_invitation_view.dart';
 import 'feature_sets_controller.dart';
 import 'task_controller.dart';

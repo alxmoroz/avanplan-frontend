@@ -27,8 +27,8 @@ import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_feature_sets.dart';
 import '../../controllers/onboarding_controller.dart';
 import '../../controllers/task_controller.dart';
+import '../feature_sets/feature_sets.dart';
 import '../onboarding/next_button.dart';
-import 'feature_sets.dart';
 import 'notes.dart';
 
 class DetailsPane extends StatelessWidget {

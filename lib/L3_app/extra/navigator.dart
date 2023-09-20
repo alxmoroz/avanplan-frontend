@@ -18,7 +18,7 @@ import '../views/tariff/active_contract_view.dart';
 import '../views/task/controllers/task_controller.dart';
 import '../views/task/task_onboarding_view.dart';
 import '../views/task/task_view.dart';
-import '../views/task/widgets/details/feature_sets.dart';
+import '../views/task/widgets/feature_sets/feature_sets.dart';
 import '../views/task/widgets/team/member_view.dart';
 import '../views/task/widgets/team/team_invitation_view.dart';
 import '../views/user/user_list_view.dart';

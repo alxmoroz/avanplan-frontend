@@ -144,11 +144,11 @@ abstract class _MainControllerBase with Store {
   @action
   Future fetchTasks() async {
     loader.setLoading();
-    final _roots = <Task>[];
+    final _allTasks = <Task>[];
     for (Workspace ws in workspaces) {
-      _roots.addAll(await myUC.getTasks(ws));
+      _allTasks.addAll(await myUC.getTasks(ws));
     }
-    allTasks = ObservableList.of(_roots.sorted(sortByDateAsc));
+    allTasks = ObservableList.of(_allTasks.sorted(sortByDateAsc));
   }
 
   @action

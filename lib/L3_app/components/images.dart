@@ -7,6 +7,7 @@ import 'adaptive.dart';
 enum ImageName {
   app_icon,
   delete,
+  done,
   empty_sources,
   empty_tasks,
   empty_team,
@@ -21,6 +22,7 @@ enum ImageName {
   loading,
   network_error,
   no_info,
+  notifications,
   ok,
   overdue,
   privacy,

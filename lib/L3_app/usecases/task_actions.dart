@@ -60,7 +60,7 @@ extension TaskActionsUC on Task {
   bool get canComment => !isProject && canEdit;
   bool get canViewFeatureSets => isProject && _hpProjectInfoRead;
   bool get canEditFeatureSets => isProject && _hpProjectInfoUpdate;
-  bool get canShowBoard => hfsTaskboard && totalVolume > 0 && !isProject;
+  bool get canShowBoard => hfsTaskboard && totalVolume > 0 && (!isProject || !hfsGoals);
 
   /// рекомендации, быстрые кнопки
   bool get shouldAddSubtask =>

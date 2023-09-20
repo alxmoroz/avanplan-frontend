@@ -255,7 +255,7 @@ class LinkBreakIcon extends MTIcon {
   Widget build(BuildContext context) => Icon(
         Icons.link_off,
         color: (color ?? warningColor).resolve(context),
-        size: size ?? P3,
+        size: size ?? P4,
       );
 }
 

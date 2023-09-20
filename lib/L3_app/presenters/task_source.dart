@@ -16,13 +16,13 @@ extension TaskSourcePresenter on Task {
     final _source = ws.sourceForId(taskSource?.sourceId);
     return Row(
       children: [
-        const LinkIcon(),
-        const SizedBox(width: P_2),
-        BaseText(loc.task_go2source_title, color: mainColor),
         if (_source != null) ...[
-          const SizedBox(width: P_2),
           _source.type.icon,
+          const SizedBox(width: P_2),
         ],
+        BaseText(loc.task_go2source_title, color: mainColor),
+        const SizedBox(width: P_2),
+        const LinkOutIcon(),
       ],
     );
   }

@@ -20,12 +20,14 @@ class InvitationButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _type = type ?? ButtonType.main;
+
     return MTAdaptive.XS(
       child: MTLimitBadge(
         showBadge: !task.ws.plUsers,
         child: MTButton(
-          type: type ?? ButtonType.main,
-          leading: MemberAddIcon(color: type == ButtonType.main ? mainBtnTitleColor : mainColor),
+          type: _type,
+          leading: MemberAddIcon(color: _type == ButtonType.main ? mainBtnTitleColor : mainColor),
           titleText: loc.invitation_create_title,
           constrained: false,
           onTap: task.ws.plUsers ? () => invitationDialog(task) : () => task.ws.changeTariff(reason: loc.tariff_change_limit_users_reason_title),

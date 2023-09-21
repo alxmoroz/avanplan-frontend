@@ -17,7 +17,7 @@ class UserListView extends StatelessWidget {
   static String get routeName => '/users';
   static String title(Workspace ws) => '$ws - ${loc.user_list_title}';
 
-  Widget _itemBuilder(BuildContext context, int index) => UserTile(
+  Widget _userBuilder(BuildContext context, int index) => UserTile(
         _ws.sortedUsers[index],
         bottomBorder: index < _ws.sortedUsers.length - 1,
       );
@@ -31,7 +31,7 @@ class UserListView extends StatelessWidget {
         bottom: false,
         child: MTShadowed(
           child: ListView.builder(
-            itemBuilder: _itemBuilder,
+            itemBuilder: _userBuilder,
             itemCount: _ws.users.length,
           ),
         ),

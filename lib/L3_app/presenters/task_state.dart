@@ -114,6 +114,8 @@ String groupStateTitle(TaskState groupState) {
       return loc.my_tasks_future_title;
     case TaskState.NO_DUE:
       return loc.my_tasks_no_due_title;
+    case TaskState.BACKLOG:
+      return loc.backlog;
   }
 }
 
@@ -192,6 +194,8 @@ extension TaskStatePresenter on Task {
                 : loc.state_no_info_title;
       case TaskState.CLOSED:
         return loc.state_closed;
+      case TaskState.BACKLOG:
+        return loc.backlog;
       default:
         return '???';
     }
@@ -204,7 +208,9 @@ extension TaskStatePresenter on Task {
       ? leafState
       : attentionalSubtasks.isNotEmpty && !hasDueDate
           ? subtasksState
-          : state;
+          : isBacklog
+              ? TaskState.BACKLOG
+              : state;
 
   String get overallStateTitle => isTask || (attentionalSubtasks.isEmpty || hasDueDate) ? stateTitle : _subtasksStateTitle;
 }

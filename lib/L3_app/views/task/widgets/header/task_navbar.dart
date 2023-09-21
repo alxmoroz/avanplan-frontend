@@ -18,6 +18,6 @@ AppBar taskNavBar(BuildContext context, TaskController controller) {
     context,
     bgColor: task.bgColor,
     middle: task.ws.subPageTitle(task.viewTitle),
-    trailing: task.actionTypes.isNotEmpty ? TaskPopupMenu(controller, icon: const MenuIcon()) : null,
+    trailing: task.loading != true && task.actionTypes.isNotEmpty ? TaskPopupMenu(controller, icon: const MenuIcon()) : null,
   );
 }

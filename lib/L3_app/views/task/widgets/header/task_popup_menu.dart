@@ -25,13 +25,9 @@ class TaskPopupMenu extends StatelessWidget with FocusManaging {
 
   Task get _task => controller.task;
 
-  bool _enabled(TaskActionType at) {
-    return at != TaskActionType.localExport || !controller.fData(TaskFCode.parent.index).loading;
-  }
-
   Widget _tile(TaskActionType at, {Widget? leading, String? title, Widget? trailing, Color? color}) => Row(children: [
         if (leading != null) ...[leading, const SizedBox(width: P)],
-        title != null ? BaseText(title, color: (color ?? mainColor).withAlpha(_enabled(at) ? 255 : 110)) : const SizedBox(),
+        title != null ? BaseText(title, color: color ?? mainColor) : const SizedBox(),
         if (trailing != null) ...[const SizedBox(width: P_2), trailing],
       ]);
 
@@ -88,14 +84,7 @@ class TaskPopupMenu extends StatelessWidget with FocusManaging {
     return material(
       PopupMenuButton<TaskActionType>(
         icon: Padding(padding: const EdgeInsets.symmetric(horizontal: P2), child: icon),
-        itemBuilder: (_) => [
-          for (final at in _task.actionTypes)
-            PopupMenuItem<TaskActionType>(
-              value: at,
-              child: _atWidget(at),
-              enabled: _enabled(at),
-            )
-        ],
+        itemBuilder: (_) => [for (final at in _task.actionTypes) PopupMenuItem<TaskActionType>(value: at, child: _atWidget(at))],
         onOpened: () => unfocus(context),
         onSelected: _taskAction,
         padding: EdgeInsets.zero,

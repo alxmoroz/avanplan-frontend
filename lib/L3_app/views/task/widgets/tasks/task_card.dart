@@ -125,8 +125,8 @@ class TaskCard extends StatelessWidget {
               if (task.isLinkedProject) ...[if (_showNotesMark) _divider, const LinkIcon(color: f2Color)]
             ]),
             // листья - срок, метка комментов, оценка, статус, назначено
-          ] else ...[
-            if (_showDate || _showNotesMark || _showStatus || _showAssignee || task.hasEstimate) ...[
+          ] else if (!task.isBacklog) ...[
+            if (_showDate || _showNotesMark || _showStatus || _showAssignee || _showEstimate) ...[
               const SizedBox(height: P_2),
               Row(
                 children: [

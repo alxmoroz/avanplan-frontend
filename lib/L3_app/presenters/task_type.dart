@@ -49,7 +49,7 @@ extension TaskTypePresenter on Task {
   String dativeSubtasksCount(int count) =>
       {
         TType.ROOT: loc.project_count_dative(count),
-        TType.PROJECT: loc.goal_count_dative(count),
+        TType.PROJECT: hfsGoals ? loc.goal_count_dative(count) : loc.task_count_dative(count),
         TType.GOAL: loc.task_count_dative(count),
         TType.TASK: loc.subtask_count_dative(count),
       }[type] ??
@@ -58,7 +58,7 @@ extension TaskTypePresenter on Task {
   String subtasksCount(int count) =>
       {
         TType.ROOT: loc.project_count(count),
-        TType.PROJECT: loc.goal_count(count),
+        TType.PROJECT: hfsGoals ? loc.goal_count(count) : loc.task_count(count),
         TType.GOAL: loc.task_count(count),
         TType.TASK: loc.subtask_count(count),
       }[type] ??

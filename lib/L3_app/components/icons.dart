@@ -348,6 +348,17 @@ class NoteMarkIcon extends MTIcon {
       );
 }
 
+class PersonCircleIcon extends MTIcon {
+  const PersonCircleIcon({super.color, super.size});
+
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.person_crop_circle,
+        color: (color ?? f3Color).resolve(context),
+        size: size ?? P8,
+      );
+}
+
 class PersonIcon extends MTIcon {
   const PersonIcon({super.color, super.size});
 

@@ -33,6 +33,7 @@ enum TaskState {
   THIS_WEEK,
   FUTURE_DUE,
   NO_DUE,
+  BACKLOG,
   CLOSED,
 }
 

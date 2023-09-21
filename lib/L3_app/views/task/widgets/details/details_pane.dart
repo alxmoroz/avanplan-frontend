@@ -78,7 +78,7 @@ class DetailsPane extends StatelessWidget {
                         MTButton(
                           titleColor: greenColor,
                           titleText: loc.close_action_title,
-                          leading: const CheckboxIcon(true, color: greenColor),
+                          leading: const DoneIcon(true, color: greenColor),
                           onTap: () => controller.statusController.setStatus(_task, close: true),
                         )
                     ],

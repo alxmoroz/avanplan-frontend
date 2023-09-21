@@ -128,7 +128,7 @@ class _SourceEditViewState extends State<SourceEditView> {
             children: [
               Row(mainAxisSize: MainAxisSize.min, children: [
                 if (_isNew) BaseText.medium(loc.source_title_new, padding: const EdgeInsets.only(right: P2)),
-                controller.selectedType!.iconTitle,
+                controller.selectedType!.iconTitle(size: P4),
               ]),
               if (mainController.workspaces.length > 1) controller.ws.subtitleRow
             ],

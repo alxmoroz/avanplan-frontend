@@ -8,5 +8,5 @@ extension TaskTreeExt on Task {
   bool get isTaskGroup => type == TType.GROUP;
   bool get isBacklog => type == TType.BACKLOG;
   bool get isTask => type == TType.TASK;
-  bool get isOpenedGroup => !isTask && !closed;
+  bool get isOpenedGroup => !isTask && !isBacklog && !closed;
 }

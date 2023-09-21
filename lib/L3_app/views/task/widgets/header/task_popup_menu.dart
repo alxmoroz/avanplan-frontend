@@ -30,7 +30,7 @@ class TaskPopupMenu extends StatelessWidget with FocusManaging {
   }
 
   Widget _tile(TaskActionType at, {Widget? leading, String? title, Widget? trailing, Color? color}) => Row(children: [
-        if (leading != null) ...[leading, const SizedBox(width: P_2)],
+        if (leading != null) ...[leading, const SizedBox(width: P)],
         title != null ? BaseText(title, color: (color ?? mainColor).withAlpha(_enabled(at) ? 255 : 110)) : const SizedBox(),
         if (trailing != null) ...[const SizedBox(width: P_2), trailing],
       ]);

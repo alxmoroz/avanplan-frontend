@@ -17,8 +17,8 @@ extension TaskSourcePresenter on Task {
     return Row(
       children: [
         if (_source != null) ...[
-          _source.type.icon,
-          const SizedBox(width: P_2),
+          _source.type.icon(),
+          const SizedBox(width: P),
         ],
         BaseText(loc.task_go2source_title, color: mainColor),
         const SizedBox(width: P_2),

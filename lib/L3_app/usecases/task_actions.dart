@@ -48,19 +48,19 @@ extension TaskActionsUC on Task {
   bool get canReopen => closed && canEdit && (isProject || parent?.closed == false);
   bool get canClose => canEdit && !closed;
   bool get canUnlink => isLinkedProject && ws.hpProjectUpdate == true;
-  bool get canViewMembers => isProject && _hpMemberRead;
-  bool get canEditMembers => isProject && _hpMemberUpdate;
+  bool get canViewMembers => isProject && hfsTeam && _hpMemberRead;
+  bool get canEditMembers => isProject && hfsTeam && _hpMemberUpdate;
   bool get canInviteMembers => canEditMembers && ws.roles.isNotEmpty;
   bool get canSetStatus => statuses.isNotEmpty && canEdit && isTask;
   bool get canCloseGroup => canClose && state == TaskState.CLOSABLE;
-  bool get canEstimate => canEdit && ws.estimateValues.isNotEmpty && isTask;
-  bool get canAssign => canEdit && activeMembers.isNotEmpty;
-  bool get canLocalExport => canEdit && goalsForLocalExport.isNotEmpty;
-  bool get canLocalImport => canEdit && goalsForLocalImport.isNotEmpty;
+  bool get canEstimate => canEdit && hfsEstimates && ws.estimateValues.isNotEmpty && isTask;
+  bool get canAssign => canEdit && hfsTeam && activeMembers.isNotEmpty;
+  bool get canLocalExport => canEdit && hfsGoals && goalsForLocalExport.isNotEmpty;
+  bool get canLocalImport => canEdit && hfsGoals && goalsForLocalImport.isNotEmpty;
   bool get canComment => !isProject && canEdit;
   bool get canViewFeatureSets => isProject && _hpProjectInfoRead;
   bool get canEditFeatureSets => isProject && _hpProjectInfoUpdate;
-  bool get canShowBoard => hfsTaskboard && totalVolume > 0 && (!isProject || !hfsGoals);
+  bool get canShowBoard => hfsTaskboard && totalVolume > 0 && ((!isProject && !isBacklog) || !hfsGoals);
 
   /// рекомендации, быстрые кнопки
   bool get shouldAddSubtask =>

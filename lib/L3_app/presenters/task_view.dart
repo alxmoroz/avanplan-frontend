@@ -13,10 +13,10 @@ import 'task_state.dart';
 extension TaskViewPresenter on Task {
   Color get bgColor => b2Color;
 
-  bool get canShowTimeChart => isOpenedGroup && (hasDueDate || hasEtaDate);
-  bool get canShowVelocityVolumeCharts => !canShowRecommendsEta && isOpenedGroup;
+  bool get canShowTimeChart => hfsAnalytics && isOpenedGroup && (hasDueDate || hasEtaDate);
+  bool get canShowVelocityVolumeCharts => hfsAnalytics && !canShowRecommendsEta && isOpenedGroup;
   bool get canShowChartDetails => canShowVelocityVolumeCharts || canShowTimeChart;
 
-  bool get hasOverviewPane => hfsAnalytics && (isOpenedGroup || canShowTimeChart || canShowVelocityVolumeCharts);
-  bool get hasTeamPane => hfsTeam && canViewMembers && (members.isNotEmpty || canEditMembers);
+  bool get hasOverviewPane => canShowChartDetails;
+  bool get hasTeamPane => canViewMembers && (members.isNotEmpty || canEditMembers);
 }

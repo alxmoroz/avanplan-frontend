@@ -14,8 +14,8 @@ import '../components/text.dart';
 import '../extra/services.dart';
 
 extension SourceTypePresenter on SourceType {
-  Widget get icon => active ? Image.asset('assets/icons/${code}_icon.png', height: P4) : const MTCircle(size: P4, color: b1Color);
-  Widget get iconTitle => Row(children: [icon, const SizedBox(width: P), BaseText.medium('$this')]);
+  Widget icon({double? size}) => Image.asset('assets/icons/${code}_icon.png', height: size ?? P4);
+  Widget iconTitle({double? size}) => Row(children: [icon(size: size), const SizedBox(width: P), BaseText('$this')]);
 }
 
 extension SourcePresenter on Source {
@@ -25,6 +25,7 @@ extension SourcePresenter on Source {
   Widget listTile({
     EdgeInsets? padding,
     VoidCallback? onTap,
+    double? iconSize,
     bool bottomBorder = false,
     bool standAlone = true,
   }) {
@@ -36,8 +37,9 @@ extension SourcePresenter on Source {
     final textColor = (connected || isUnknown) ? null : f2Color;
 
     return MTListTile(
-      leading: type.icon,
+      leading: type.icon(size: iconSize),
       middle: BaseText('$this', color: textColor),
+      // subtitle: SmallText(''),
       padding: padding,
       trailing: checking
           ? SizedBox(

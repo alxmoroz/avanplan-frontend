@@ -3,9 +3,11 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../L1_domain/entities/source_type.dart';
+import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
+import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import '../../presenters/source.dart';
@@ -23,7 +25,8 @@ class SourceTypeSelector extends StatelessWidget {
           itemBuilder: (_, index) {
             final st = refsController.sourceTypes[index];
             return MTListTile(
-              middle: st.iconTitle,
+              leading: st.icon(size: P5),
+              middle: BaseText(st.title),
               trailing: const ChevronIcon(),
               bottomDivider: index < refsController.sourceTypes.length - 1,
               onTap: () => onTap(st),

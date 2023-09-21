@@ -8,6 +8,7 @@ import '../../components/adaptive.dart';
 import '../../components/appbar.dart';
 import '../../components/button.dart';
 import '../../components/colors.dart';
+import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/page.dart';
 import '../../components/shadowed.dart';
@@ -30,6 +31,7 @@ class SourceListView extends StatelessWidget {
   Widget _sourceBuilder(BuildContext _, int index) {
     final s = _ws.sortedSources[index];
     return s.listTile(
+      iconSize: P7,
       bottomBorder: index < _ws.sortedSources.length - 1,
       onTap: () => editSource(_ws, src: s),
     );

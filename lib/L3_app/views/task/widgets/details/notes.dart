@@ -83,11 +83,13 @@ class Notes extends StatelessWidget {
                   itemBuilder: (_, index) {
                     final n = ng[index];
                     final author = _task.memberForId(n.authorId);
+                    final authorIcon = author != null ? author.icon(P3) : const PersonCircleIcon(size: P6);
+                    final authorName = author != null ? '$author' : 'Deleted member';
                     final mine = n.isMine(_task);
                     return Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if (!mine) ...[author!.icon(P3), const SizedBox(width: P)],
+                        if (!mine) ...[authorIcon, const SizedBox(width: P)],
                         Expanded(
                           child: MTCardButton(
                             margin: EdgeInsets.only(left: mine ? P6 + P6 : 0, right: mine ? 0 : P4, bottom: P2),
@@ -96,7 +98,7 @@ class Notes extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                if (!mine) BaseText.medium('$author'),
+                                if (!mine) BaseText.medium(authorName),
                                 Linkify(
                                   text: n.text,
                                   style: const BaseText('', maxLines: 42).style(context),

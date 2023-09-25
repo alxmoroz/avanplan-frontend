@@ -30,7 +30,6 @@ doc/Invitation.md
 doc/InvitationGet.md
 doc/InvoiceDetailGet.md
 doc/InvoiceGet.md
-doc/LocationInner.md
 doc/MemberGet.md
 doc/MyAccountApi.md
 doc/MyActivitiesApi.md
@@ -73,6 +72,7 @@ doc/TasksRolesApi.md
 doc/UActivityGet.md
 doc/User.md
 doc/ValidationError.md
+doc/ValidationErrorLocInner.md
 doc/WorkspaceGet.md
 doc/WorkspaceUpsert.md
 lib/openapi.dart
@@ -128,7 +128,6 @@ lib/src/model/invitation.dart
 lib/src/model/invitation_get.dart
 lib/src/model/invoice_detail_get.dart
 lib/src/model/invoice_get.dart
-lib/src/model/location_inner.dart
 lib/src/model/member_get.dart
 lib/src/model/my_user.dart
 lib/src/model/note_get.dart
@@ -156,6 +155,7 @@ lib/src/model/tasks_changes.dart
 lib/src/model/u_activity_get.dart
 lib/src/model/user.dart
 lib/src/model/validation_error.dart
+lib/src/model/validation_error_loc_inner.dart
 lib/src/model/workspace_get.dart
 lib/src/model/workspace_upsert.dart
 lib/src/serializers.dart
@@ -188,7 +188,6 @@ test/invitation_get_test.dart
 test/invitation_test.dart
 test/invoice_detail_get_test.dart
 test/invoice_get_test.dart
-test/location_inner_test.dart
 test/member_get_test.dart
 test/my_account_api_test.dart
 test/my_activities_api_test.dart
@@ -230,6 +229,7 @@ test/tasks_notes_api_test.dart
 test/tasks_roles_api_test.dart
 test/u_activity_get_test.dart
 test/user_test.dart
+test/validation_error_loc_inner_test.dart
 test/validation_error_test.dart
 test/workspace_get_test.dart
 test/workspace_upsert_test.dart

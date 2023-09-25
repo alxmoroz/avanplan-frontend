@@ -1,4 +1,4 @@
-# openapi.model.LocationInner
+# openapi.model.ValidationErrorLocInner
 
 ## Load the model package
 ```dart

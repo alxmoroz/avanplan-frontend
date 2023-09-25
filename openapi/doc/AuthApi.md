@@ -36,7 +36,7 @@ final BodyAuthAppleToken bodyAuthAppleToken = ; // BodyAuthAppleToken |
 try {
     final response = api.authAppleToken(bodyAuthAppleToken);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling AuthApi->authAppleToken: $e\n');
 }
 ```
@@ -81,7 +81,7 @@ final BodyAuthGoogleToken bodyAuthGoogleToken = ; // BodyAuthGoogleToken |
 try {
     final response = api.authGoogleToken(bodyAuthGoogleToken);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling AuthApi->authGoogleToken: $e\n');
 }
 ```
@@ -131,7 +131,7 @@ final String clientSecret = clientSecret_example; // String |
 try {
     final response = api.passwordToken(username, password, grantType, scope, clientId, clientSecret);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling AuthApi->passwordToken: $e\n');
 }
 ```
@@ -182,7 +182,7 @@ final api = Openapi().getAuthApi();
 try {
     final response = api.refreshToken();
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling AuthApi->refreshToken: $e\n');
 }
 ```
@@ -224,7 +224,7 @@ final BodyRegistrationToken bodyRegistrationToken = ; // BodyRegistrationToken |
 try {
     final response = api.registrationToken(bodyRegistrationToken);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling AuthApi->registrationToken: $e\n');
 }
 ```
@@ -269,7 +269,7 @@ final BodyRequestRegistration bodyRequestRegistration = ; // BodyRequestRegistra
 try {
     final response = api.requestRegistration(bodyRequestRegistration);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling AuthApi->requestRegistration: $e\n');
 }
 ```

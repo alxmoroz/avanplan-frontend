@@ -37,7 +37,7 @@ final int permissionTaskId = 56; // int |
 try {
     final response = api.assignV1TasksRolesPost(taskId, memberId, wsId, requestBody, permissionTaskId);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling TasksRolesApi->assignV1TasksRolesPost: $e\n');
 }
 ```

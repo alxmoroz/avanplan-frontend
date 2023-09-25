@@ -33,7 +33,7 @@ final BodyRegisterV1MyActivitiesRegisterPost bodyRegisterV1MyActivitiesRegisterP
 try {
     final response = api.registerV1MyActivitiesRegisterPost(bodyRegisterV1MyActivitiesRegisterPost);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling MyActivitiesApi->registerV1MyActivitiesRegisterPost: $e\n');
 }
 ```

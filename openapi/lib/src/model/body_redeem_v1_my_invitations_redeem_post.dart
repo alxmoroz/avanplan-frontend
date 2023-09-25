@@ -15,7 +15,7 @@ part 'body_redeem_v1_my_invitations_redeem_post.g.dart';
 @BuiltValue()
 abstract class BodyRedeemV1MyInvitationsRedeemPost implements Built<BodyRedeemV1MyInvitationsRedeemPost, BodyRedeemV1MyInvitationsRedeemPostBuilder> {
   @BuiltValueField(wireName: r'invitation_token')
-  String? get invitationToken;
+  String get invitationToken;
 
   BodyRedeemV1MyInvitationsRedeemPost._();
 
@@ -40,13 +40,11 @@ class _$BodyRedeemV1MyInvitationsRedeemPostSerializer implements PrimitiveSerial
     BodyRedeemV1MyInvitationsRedeemPost object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.invitationToken != null) {
-      yield r'invitation_token';
-      yield serializers.serialize(
-        object.invitationToken,
-        specifiedType: const FullType(String),
-      );
-    }
+    yield r'invitation_token';
+    yield serializers.serialize(
+      object.invitationToken,
+      specifiedType: const FullType(String),
+    );
   }
 
   @override

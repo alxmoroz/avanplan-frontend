@@ -12,15 +12,15 @@ Name | Type | Description | Notes
 **title** | **String** |  | [optional] 
 **description** | **String** |  | [optional] 
 **code** | **String** |  | 
-**users** | [**BuiltList&lt;User&gt;**](User.md) |  | [optional] [default to ListBuilder()]
-**roles** | [**BuiltList&lt;RoleGet&gt;**](RoleGet.md) |  | [optional] [default to ListBuilder()]
+**users** | [**BuiltList&lt;User&gt;**](User.md) |  | [optional] 
+**roles** | [**BuiltList&lt;RoleGet&gt;**](RoleGet.md) |  | [optional] 
 **invoice** | [**InvoiceGet**](InvoiceGet.md) |  | [optional] 
 **balance** | **num** |  | [optional] 
 **mainAccount** | [**AccountGet**](AccountGet.md) |  | [optional] 
 **settings** | [**SettingsGet**](SettingsGet.md) |  | [optional] 
-**estimateValues** | [**BuiltList&lt;EstimateValueGet&gt;**](EstimateValueGet.md) |  | [optional] [default to ListBuilder()]
-**sources** | [**BuiltList&lt;SourceGet&gt;**](SourceGet.md) |  | [optional] [default to ListBuilder()]
-**statuses** | [**BuiltList&lt;StatusGet&gt;**](StatusGet.md) |  | [optional] [default to ListBuilder()]
+**estimateValues** | [**BuiltList&lt;EstimateValueGet&gt;**](EstimateValueGet.md) |  | [optional] 
+**sources** | [**BuiltList&lt;SourceGet&gt;**](SourceGet.md) |  | [optional] 
+**statuses** | [**BuiltList&lt;StatusGet&gt;**](StatusGet.md) |  | [optional] 
 **tasksCount** | **int** |  | [optional] [default to 0]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

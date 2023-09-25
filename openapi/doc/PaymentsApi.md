@@ -34,7 +34,7 @@ final BodyIapNotificationV1PaymentsIapNotificationPost bodyIapNotificationV1Paym
 try {
     final response = api.iapNotificationV1PaymentsIapNotificationPost(wsId, bodyIapNotificationV1PaymentsIapNotificationPost);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling PaymentsApi->iapNotificationV1PaymentsIapNotificationPost: $e\n');
 }
 ```

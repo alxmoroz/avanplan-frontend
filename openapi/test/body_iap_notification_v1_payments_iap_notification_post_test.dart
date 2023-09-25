@@ -12,13 +12,13 @@ void main() {
       // TODO
     });
 
-    // String psystemCode (default value: 'APPLE_IAP')
-    test('to test the property `psystemCode`', () async {
+    // String operationId
+    test('to test the property `operationId`', () async {
       // TODO
     });
 
-    // String operationId
-    test('to test the property `operationId`', () async {
+    // String psystemCode (default value: 'APPLE_IAP')
+    test('to test the property `psystemCode`', () async {
       // TODO
     });
   });

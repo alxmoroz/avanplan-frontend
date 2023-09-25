@@ -33,7 +33,7 @@ class TariffsApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<TariffGet>] as data
-  /// Throws [DioError] if API call or serialization fails
+  /// Throws [DioException] if API call or serialization fails
   Future<Response<BuiltList<TariffGet>>> tariffsV1RefsTariffsGet({ 
     required int wsId,
     CancelToken? cancelToken,
@@ -89,10 +89,10 @@ class TariffsApi {
       ) as BuiltList<TariffGet>;
 
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );

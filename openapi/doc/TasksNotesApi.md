@@ -36,7 +36,7 @@ final int permissionTaskId = 56; // int |
 try {
     final response = api.deleteV1TasksNotesNoteIdDelete(noteId, wsId, permissionTaskId);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling TasksNotesApi->deleteV1TasksNotesNoteIdDelete: $e\n');
 }
 ```
@@ -87,7 +87,7 @@ final int permissionTaskId = 56; // int |
 try {
     final response = api.upsertV1TasksNotesPost(wsId, noteUpsert, permissionTaskId);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling TasksNotesApi->upsertV1TasksNotesPost: $e\n');
 }
 ```

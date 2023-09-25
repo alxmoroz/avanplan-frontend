@@ -34,7 +34,7 @@ class IntegrationsSourcesApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [bool] as data
-  /// Throws [DioError] if API call or serialization fails
+  /// Throws [DioException] if API call or serialization fails
   Future<Response<bool>> requestSourceType({ 
     required BodyRequestSourceType bodyRequestSourceType,
     CancelToken? cancelToken,
@@ -75,12 +75,12 @@ class IntegrationsSourcesApi {
       _bodyData = _serializers.serialize(bodyRequestSourceType, specifiedType: _type);
 
     } catch(error, stackTrace) {
-      throw DioError(
+      throw DioException(
          requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -102,10 +102,10 @@ class IntegrationsSourcesApi {
       _responseData = rawResponse == null ? null : rawResponse as bool;
 
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -137,7 +137,7 @@ class IntegrationsSourcesApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [bool] as data
-  /// Throws [DioError] if API call or serialization fails
+  /// Throws [DioException] if API call or serialization fails
   Future<Response<bool>> sourcesCheckConnection({ 
     required int wsId,
     required int sourceId,
@@ -192,10 +192,10 @@ class IntegrationsSourcesApi {
       _responseData = rawResponse == null ? null : rawResponse as bool;
 
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -227,7 +227,7 @@ class IntegrationsSourcesApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [bool] as data
-  /// Throws [DioError] if API call or serialization fails
+  /// Throws [DioException] if API call or serialization fails
   Future<Response<bool>> sourcesDelete({ 
     required int sourceId,
     required int wsId,
@@ -238,7 +238,7 @@ class IntegrationsSourcesApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/integrations/sources/{source_id}'.replaceAll('{' r'source_id' '}', sourceId.toString());
+    final _path = r'/v1/integrations/sources/{source_id}'.replaceAll('{' r'source_id' '}', encodeQueryParameter(_serializers, sourceId, const FullType(int)).toString());
     final _options = Options(
       method: r'DELETE',
       headers: <String, dynamic>{
@@ -281,10 +281,10 @@ class IntegrationsSourcesApi {
       _responseData = rawResponse == null ? null : rawResponse as bool;
 
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -316,7 +316,7 @@ class IntegrationsSourcesApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [SourceGet] as data
-  /// Throws [DioError] if API call or serialization fails
+  /// Throws [DioException] if API call or serialization fails
   Future<Response<SourceGet>> sourcesUpsert({ 
     required int wsId,
     required SourceUpsert sourceUpsert,
@@ -362,13 +362,13 @@ class IntegrationsSourcesApi {
       _bodyData = _serializers.serialize(sourceUpsert, specifiedType: _type);
 
     } catch(error, stackTrace) {
-      throw DioError(
+      throw DioException(
          requestOptions: _options.compose(
           _dio.options,
           _path,
           queryParameters: _queryParameters,
         ),
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -394,10 +394,10 @@ class IntegrationsSourcesApi {
       ) as SourceGet;
 
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );

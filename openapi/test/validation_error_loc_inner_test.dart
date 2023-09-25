@@ -1,10 +1,10 @@
 import 'package:test/test.dart';
 import 'package:openapi/openapi.dart';
 
-// tests for LocationInner
+// tests for ValidationErrorLocInner
 void main() {
-  final instance = LocationInnerBuilder();
+  final instance = ValidationErrorLocInnerBuilder();
   // TODO add properties to the builder and call build()
 
-  group(LocationInner, () {});
+  group(ValidationErrorLocInner, () {});
 }

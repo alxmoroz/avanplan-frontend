@@ -35,7 +35,7 @@ final Invitation invitation = ; // Invitation |
 try {
     final response = api.createV1TasksInvitationsPost(wsId, invitation);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling TasksInvitationsApi->createV1TasksInvitationsPost: $e\n');
 }
 ```
@@ -86,7 +86,7 @@ final int permissionTaskId = 56; // int |
 try {
     final response = api.invitationsV1TasksInvitationsGet(taskId, roleId, wsId, permissionTaskId);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling TasksInvitationsApi->invitationsV1TasksInvitationsGet: $e\n');
 }
 ```

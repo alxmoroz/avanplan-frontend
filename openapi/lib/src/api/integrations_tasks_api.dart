@@ -36,7 +36,7 @@ class IntegrationsTasksApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [bool] as data
-  /// Throws [DioError] if API call or serialization fails
+  /// Throws [DioException] if API call or serialization fails
   Future<Response<bool>> importTaskSourcesV1IntegrationsTasksImportPost({ 
     required int wsId,
     required int sourceId,
@@ -84,13 +84,13 @@ class IntegrationsTasksApi {
       _bodyData = _serializers.serialize(taskSource, specifiedType: _type);
 
     } catch(error, stackTrace) {
-      throw DioError(
+      throw DioException(
          requestOptions: _options.compose(
           _dio.options,
           _path,
           queryParameters: _queryParameters,
         ),
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -113,10 +113,10 @@ class IntegrationsTasksApi {
       _responseData = rawResponse == null ? null : rawResponse as bool;
 
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -148,7 +148,7 @@ class IntegrationsTasksApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<TaskRemote>] as data
-  /// Throws [DioError] if API call or serialization fails
+  /// Throws [DioException] if API call or serialization fails
   Future<Response<BuiltList<TaskRemote>>> rootTasksV1IntegrationsTasksGet({ 
     required int wsId,
     required int sourceId,
@@ -206,10 +206,10 @@ class IntegrationsTasksApi {
       ) as BuiltList<TaskRemote>;
 
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -241,7 +241,7 @@ class IntegrationsTasksApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [bool] as data
-  /// Throws [DioError] if API call or serialization fails
+  /// Throws [DioException] if API call or serialization fails
   Future<Response<bool>> unlinkV1IntegrationsTasksUnlinkPost({ 
     required int taskId,
     required int wsId,
@@ -296,10 +296,10 @@ class IntegrationsTasksApi {
       _responseData = rawResponse == null ? null : rawResponse as bool;
 
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );

@@ -34,7 +34,7 @@ final int wsId = 56; // int |
 try {
     final response = api.signV1ContractsPost(tariffId, wsId);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling ContractsApi->signV1ContractsPost: $e\n');
 }
 ```

@@ -34,7 +34,7 @@ final BuiltList<int> requestBody = ; // BuiltList<int> |
 try {
     final response = api.markReadNotificationsV1MyNotificationsPost(requestBody);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling MyNotificationsApi->markReadNotificationsV1MyNotificationsPost: $e\n');
 }
 ```
@@ -80,7 +80,7 @@ final api = Openapi().getMyNotificationsApi();
 try {
     final response = api.myNotificationsV1MyNotificationsGet();
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling MyNotificationsApi->myNotificationsV1MyNotificationsGet: $e\n');
 }
 ```

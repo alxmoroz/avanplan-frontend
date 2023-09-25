@@ -34,7 +34,7 @@ final api = Openapi().getMyAccountApi();
 try {
     final response = api.accountV1MyAccountGet();
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling MyAccountApi->accountV1MyAccountGet: $e\n');
 }
 ```
@@ -77,7 +77,7 @@ final api = Openapi().getMyAccountApi();
 try {
     final response = api.deleteAccountV1MyAccountDelete();
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling MyAccountApi->deleteAccountV1MyAccountDelete: $e\n');
 }
 ```
@@ -121,7 +121,7 @@ final BodyUpdateAccountV1MyAccountPost bodyUpdateAccountV1MyAccountPost = ; // B
 try {
     final response = api.updateAccountV1MyAccountPost(bodyUpdateAccountV1MyAccountPost);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling MyAccountApi->updateAccountV1MyAccountPost: $e\n');
 }
 ```

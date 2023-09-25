@@ -37,7 +37,7 @@ final BuiltList<TaskSource> taskSource = ; // BuiltList<TaskSource> |
 try {
     final response = api.importTaskSourcesV1IntegrationsTasksImportPost(wsId, sourceId, taskSource);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling IntegrationsTasksApi->importTaskSourcesV1IntegrationsTasksImportPost: $e\n');
 }
 ```
@@ -87,7 +87,7 @@ final int sourceId = 56; // int |
 try {
     final response = api.rootTasksV1IntegrationsTasksGet(wsId, sourceId);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling IntegrationsTasksApi->rootTasksV1IntegrationsTasksGet: $e\n');
 }
 ```
@@ -136,7 +136,7 @@ final int wsId = 56; // int |
 try {
     final response = api.unlinkV1IntegrationsTasksUnlinkPost(taskId, wsId);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling IntegrationsTasksApi->unlinkV1IntegrationsTasksUnlinkPost: $e\n');
 }
 ```

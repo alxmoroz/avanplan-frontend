@@ -34,7 +34,7 @@ class MyWorkspacesApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [WorkspaceGet] as data
-  /// Throws [DioError] if API call or serialization fails
+  /// Throws [DioException] if API call or serialization fails
   Future<Response<WorkspaceGet>> createWorkspaceV1MyWorkspacesCreatePost({ 
     WorkspaceUpsert? workspaceUpsert,
     CancelToken? cancelToken,
@@ -75,12 +75,12 @@ class MyWorkspacesApi {
       _bodyData = workspaceUpsert == null ? null : _serializers.serialize(workspaceUpsert, specifiedType: _type);
 
     } catch(error, stackTrace) {
-      throw DioError(
+      throw DioException(
          requestOptions: _options.compose(
           _dio.options,
           _path,
         ),
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -105,10 +105,10 @@ class MyWorkspacesApi {
       ) as WorkspaceGet;
 
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -140,7 +140,7 @@ class MyWorkspacesApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [WorkspaceGet] as data
-  /// Throws [DioError] if API call or serialization fails
+  /// Throws [DioException] if API call or serialization fails
   Future<Response<WorkspaceGet>> updateWorkspaceV1MyWorkspacesUpdatePost({ 
     required int wsId,
     required WorkspaceUpsert workspaceUpsert,
@@ -186,13 +186,13 @@ class MyWorkspacesApi {
       _bodyData = _serializers.serialize(workspaceUpsert, specifiedType: _type);
 
     } catch(error, stackTrace) {
-      throw DioError(
+      throw DioException(
          requestOptions: _options.compose(
           _dio.options,
           _path,
           queryParameters: _queryParameters,
         ),
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -218,10 +218,10 @@ class MyWorkspacesApi {
       ) as WorkspaceGet;
 
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -251,7 +251,7 @@ class MyWorkspacesApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<WorkspaceGet>] as data
-  /// Throws [DioError] if API call or serialization fails
+  /// Throws [DioException] if API call or serialization fails
   Future<Response<BuiltList<WorkspaceGet>>> workspacesV1MyWorkspacesGet({ 
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -301,10 +301,10 @@ class MyWorkspacesApi {
       ) as BuiltList<WorkspaceGet>;
 
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );

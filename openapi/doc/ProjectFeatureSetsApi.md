@@ -36,7 +36,7 @@ final int permissionTaskId = 56; // int |
 try {
     final response = api.setupFeatureSetsV1TasksFeatureSetsPost(projectId, wsId, requestBody, permissionTaskId);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling ProjectFeatureSetsApi->setupFeatureSetsV1TasksFeatureSetsPost: $e\n');
 }
 ```

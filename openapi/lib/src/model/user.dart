@@ -40,7 +40,7 @@ abstract class User implements Built<User, UserBuilder> {
   BuiltList<String>? get roleCodes;
 
   @BuiltValueField(wireName: r'permission_codes')
-  BuiltSet<String>? get permissionCodes;
+  BuiltList<String>? get permissionCodes;
 
   User._();
 
@@ -108,7 +108,7 @@ class _$UserSerializer implements PrimitiveSerializer<User> {
       yield r'permission_codes';
       yield serializers.serialize(
         object.permissionCodes,
-        specifiedType: const FullType(BuiltSet, [FullType(String)]),
+        specifiedType: const FullType(BuiltList, [FullType(String)]),
       );
     }
   }
@@ -179,8 +179,8 @@ class _$UserSerializer implements PrimitiveSerializer<User> {
         case r'permission_codes':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(BuiltSet, [FullType(String)]),
-          ) as BuiltSet<String>;
+            specifiedType: const FullType(BuiltList, [FullType(String)]),
+          ) as BuiltList<String>;
           result.permissionCodes.replace(valueDes);
           break;
         default:

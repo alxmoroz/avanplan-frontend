@@ -35,7 +35,7 @@ final WorkspaceUpsert workspaceUpsert = ; // WorkspaceUpsert |
 try {
     final response = api.createWorkspaceV1MyWorkspacesCreatePost(workspaceUpsert);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling MyWorkspacesApi->createWorkspaceV1MyWorkspacesCreatePost: $e\n');
 }
 ```
@@ -83,7 +83,7 @@ final WorkspaceUpsert workspaceUpsert = ; // WorkspaceUpsert |
 try {
     final response = api.updateWorkspaceV1MyWorkspacesUpdatePost(wsId, workspaceUpsert);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling MyWorkspacesApi->updateWorkspaceV1MyWorkspacesUpdatePost: $e\n');
 }
 ```
@@ -130,7 +130,7 @@ final api = Openapi().getMyWorkspacesApi();
 try {
     final response = api.workspacesV1MyWorkspacesGet();
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling MyWorkspacesApi->workspacesV1MyWorkspacesGet: $e\n');
 }
 ```

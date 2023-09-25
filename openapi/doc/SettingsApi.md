@@ -30,7 +30,7 @@ final api = Openapi().getSettingsApi();
 try {
     final response = api.settingsV1SettingsGet();
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling SettingsApi->settingsV1SettingsGet: $e\n');
 }
 ```

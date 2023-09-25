@@ -37,7 +37,6 @@ import 'package:openapi/src/model/invitation.dart';
 import 'package:openapi/src/model/invitation_get.dart';
 import 'package:openapi/src/model/invoice_detail_get.dart';
 import 'package:openapi/src/model/invoice_get.dart';
-import 'package:openapi/src/model/location_inner.dart';
 import 'package:openapi/src/model/member_get.dart';
 import 'package:openapi/src/model/my_user.dart';
 import 'package:openapi/src/model/note_get.dart';
@@ -65,6 +64,7 @@ import 'package:openapi/src/model/tasks_changes.dart';
 import 'package:openapi/src/model/u_activity_get.dart';
 import 'package:openapi/src/model/user.dart';
 import 'package:openapi/src/model/validation_error.dart';
+import 'package:openapi/src/model/validation_error_loc_inner.dart';
 import 'package:openapi/src/model/workspace_get.dart';
 import 'package:openapi/src/model/workspace_upsert.dart';
 
@@ -94,7 +94,6 @@ part 'serializers.g.dart';
   InvitationGet,
   InvoiceDetailGet,
   InvoiceGet,
-  LocationInner,
   MemberGet,
   MyUser,
   NoteGet,
@@ -122,6 +121,7 @@ part 'serializers.g.dart';
   UActivityGet,
   User,
   ValidationError,
+  ValidationErrorLocInner,
   WorkspaceGet,
   WorkspaceUpsert,
 ])

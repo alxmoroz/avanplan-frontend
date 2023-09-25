@@ -52,7 +52,7 @@ final BodyAuthAppleToken bodyAuthAppleToken = ; // BodyAuthAppleToken |
 try {
     final response = await api.authAppleToken(bodyAuthAppleToken);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print("Exception when calling AuthApi->authAppleToken: $e\n");
 }
 
@@ -135,7 +135,6 @@ Class | Method | HTTP request | Description
  - [InvitationGet](doc/InvitationGet.md)
  - [InvoiceDetailGet](doc/InvoiceDetailGet.md)
  - [InvoiceGet](doc/InvoiceGet.md)
- - [LocationInner](doc/LocationInner.md)
  - [MemberGet](doc/MemberGet.md)
  - [MyUser](doc/MyUser.md)
  - [NoteGet](doc/NoteGet.md)
@@ -163,6 +162,7 @@ Class | Method | HTTP request | Description
  - [UActivityGet](doc/UActivityGet.md)
  - [User](doc/User.md)
  - [ValidationError](doc/ValidationError.md)
+ - [ValidationErrorLocInner](doc/ValidationErrorLocInner.md)
  - [WorkspaceGet](doc/WorkspaceGet.md)
  - [WorkspaceUpsert](doc/WorkspaceUpsert.md)
 

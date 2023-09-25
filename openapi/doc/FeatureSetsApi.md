@@ -30,7 +30,7 @@ final api = Openapi().getFeatureSetsApi();
 try {
     final response = api.featureSetsV1RefsFeatureSetsGet();
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling FeatureSetsApi->featureSetsV1RefsFeatureSetsGet: $e\n');
 }
 ```

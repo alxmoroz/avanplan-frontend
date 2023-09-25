@@ -8,35 +8,35 @@ import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:one_of/any_of.dart';
 
-part 'location_inner.g.dart';
+part 'validation_error_loc_inner.g.dart';
 
-/// LocationInner
+/// ValidationErrorLocInner
 @BuiltValue()
-abstract class LocationInner implements Built<LocationInner, LocationInnerBuilder> {
+abstract class ValidationErrorLocInner implements Built<ValidationErrorLocInner, ValidationErrorLocInnerBuilder> {
   /// Any Of [String], [int]
   AnyOf get anyOf;
 
-  LocationInner._();
+  ValidationErrorLocInner._();
 
-  factory LocationInner([void updates(LocationInnerBuilder b)]) = _$LocationInner;
+  factory ValidationErrorLocInner([void updates(ValidationErrorLocInnerBuilder b)]) = _$ValidationErrorLocInner;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(LocationInnerBuilder b) => b;
+  static void _defaults(ValidationErrorLocInnerBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<LocationInner> get serializer => _$LocationInnerSerializer();
+  static Serializer<ValidationErrorLocInner> get serializer => _$ValidationErrorLocInnerSerializer();
 }
 
-class _$LocationInnerSerializer implements PrimitiveSerializer<LocationInner> {
+class _$ValidationErrorLocInnerSerializer implements PrimitiveSerializer<ValidationErrorLocInner> {
   @override
-  final Iterable<Type> types = const [LocationInner, _$LocationInner];
+  final Iterable<Type> types = const [ValidationErrorLocInner, _$ValidationErrorLocInner];
 
   @override
-  final String wireName = r'LocationInner';
+  final String wireName = r'ValidationErrorLocInner';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    LocationInner object, {
+    ValidationErrorLocInner object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
   }
@@ -44,7 +44,7 @@ class _$LocationInnerSerializer implements PrimitiveSerializer<LocationInner> {
   @override
   Object serialize(
     Serializers serializers,
-    LocationInner object, {
+    ValidationErrorLocInner object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     final anyOf = object.anyOf;
@@ -52,12 +52,12 @@ class _$LocationInnerSerializer implements PrimitiveSerializer<LocationInner> {
   }
 
   @override
-  LocationInner deserialize(
+  ValidationErrorLocInner deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = LocationInnerBuilder();
+    final result = ValidationErrorLocInnerBuilder();
     Object? anyOfDataSrc;
     final targetType = const FullType(AnyOf, [FullType(String), FullType(int), ]);
     anyOfDataSrc = serialized;

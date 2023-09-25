@@ -33,7 +33,7 @@ final BodyUpdatePushTokenV1MyPushTokensPost bodyUpdatePushTokenV1MyPushTokensPos
 try {
     final response = api.updatePushTokenV1MyPushTokensPost(bodyUpdatePushTokenV1MyPushTokensPost);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling MyPushTokensApi->updatePushTokenV1MyPushTokensPost: $e\n');
 }
 ```

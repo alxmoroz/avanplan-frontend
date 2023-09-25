@@ -12,18 +12,18 @@ part 'body_iap_notification_v1_payments_iap_notification_post.g.dart';
 ///
 /// Properties:
 /// * [amount] 
-/// * [psystemCode] 
 /// * [operationId] 
+/// * [psystemCode] 
 @BuiltValue()
 abstract class BodyIapNotificationV1PaymentsIapNotificationPost implements Built<BodyIapNotificationV1PaymentsIapNotificationPost, BodyIapNotificationV1PaymentsIapNotificationPostBuilder> {
   @BuiltValueField(wireName: r'amount')
   int get amount;
 
-  @BuiltValueField(wireName: r'psystem_code')
-  String? get psystemCode;
-
   @BuiltValueField(wireName: r'operation_id')
   String get operationId;
+
+  @BuiltValueField(wireName: r'psystem_code')
+  String? get psystemCode;
 
   BodyIapNotificationV1PaymentsIapNotificationPost._();
 
@@ -54,6 +54,11 @@ class _$BodyIapNotificationV1PaymentsIapNotificationPostSerializer implements Pr
       object.amount,
       specifiedType: const FullType(int),
     );
+    yield r'operation_id';
+    yield serializers.serialize(
+      object.operationId,
+      specifiedType: const FullType(String),
+    );
     if (object.psystemCode != null) {
       yield r'psystem_code';
       yield serializers.serialize(
@@ -61,11 +66,6 @@ class _$BodyIapNotificationV1PaymentsIapNotificationPostSerializer implements Pr
         specifiedType: const FullType(String),
       );
     }
-    yield r'operation_id';
-    yield serializers.serialize(
-      object.operationId,
-      specifiedType: const FullType(String),
-    );
   }
 
   @override
@@ -96,19 +96,19 @@ class _$BodyIapNotificationV1PaymentsIapNotificationPostSerializer implements Pr
           ) as int;
           result.amount = valueDes;
           break;
-        case r'psystem_code':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.psystemCode = valueDes;
-          break;
         case r'operation_id':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
           result.operationId = valueDes;
+          break;
+        case r'psystem_code':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.psystemCode = valueDes;
           break;
         default:
           unhandled.add(key);

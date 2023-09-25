@@ -33,7 +33,7 @@ final int wsId = 56; // int |
 try {
     final response = api.tariffsV1RefsTariffsGet(wsId);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling TariffsApi->tariffsV1RefsTariffsGet: $e\n');
 }
 ```

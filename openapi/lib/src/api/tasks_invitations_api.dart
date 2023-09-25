@@ -35,7 +35,7 @@ class TasksInvitationsApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [InvitationGet] as data
-  /// Throws [DioError] if API call or serialization fails
+  /// Throws [DioException] if API call or serialization fails
   Future<Response<InvitationGet>> createV1TasksInvitationsPost({ 
     required int wsId,
     required Invitation invitation,
@@ -81,13 +81,13 @@ class TasksInvitationsApi {
       _bodyData = _serializers.serialize(invitation, specifiedType: _type);
 
     } catch(error, stackTrace) {
-      throw DioError(
+      throw DioException(
          requestOptions: _options.compose(
           _dio.options,
           _path,
           queryParameters: _queryParameters,
         ),
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -113,10 +113,10 @@ class TasksInvitationsApi {
       ) as InvitationGet;
 
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );
@@ -150,7 +150,7 @@ class TasksInvitationsApi {
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<InvitationGet>] as data
-  /// Throws [DioError] if API call or serialization fails
+  /// Throws [DioException] if API call or serialization fails
   Future<Response<BuiltList<InvitationGet>>> invitationsV1TasksInvitationsGet({ 
     required int taskId,
     required int roleId,
@@ -189,8 +189,8 @@ class TasksInvitationsApi {
     final _queryParameters = <String, dynamic>{
       r'task_id': encodeQueryParameter(_serializers, taskId, const FullType(int)),
       r'role_id': encodeQueryParameter(_serializers, roleId, const FullType(int)),
-      r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
       if (permissionTaskId != null) r'permission_task_id': encodeQueryParameter(_serializers, permissionTaskId, const FullType(int)),
+      r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
     };
 
     final _response = await _dio.request<Object>(
@@ -212,10 +212,10 @@ class TasksInvitationsApi {
       ) as BuiltList<InvitationGet>;
 
     } catch (error, stackTrace) {
-      throw DioError(
+      throw DioException(
         requestOptions: _response.requestOptions,
         response: _response,
-        type: DioErrorType.unknown,
+        type: DioExceptionType.unknown,
         error: error,
         stackTrace: stackTrace,
       );

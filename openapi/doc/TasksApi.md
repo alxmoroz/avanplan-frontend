@@ -44,7 +44,7 @@ final int permissionTaskId = 56; // int |
 try {
     final response = api.assignV1TasksRolesPost(taskId, memberId, wsId, requestBody, permissionTaskId);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling TasksApi->assignV1TasksRolesPost: $e\n');
 }
 ```
@@ -96,7 +96,7 @@ final Invitation invitation = ; // Invitation |
 try {
     final response = api.createV1TasksInvitationsPost(wsId, invitation);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling TasksApi->createV1TasksInvitationsPost: $e\n');
 }
 ```
@@ -146,7 +146,7 @@ final int permissionTaskId = 56; // int |
 try {
     final response = api.deleteV1TasksNotesNoteIdDelete(noteId, wsId, permissionTaskId);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling TasksApi->deleteV1TasksNotesNoteIdDelete: $e\n');
 }
 ```
@@ -197,7 +197,7 @@ final int permissionTaskId = 56; // int |
 try {
     final response = api.deleteV1TasksTaskIdDelete(taskId, wsId, permissionTaskId);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling TasksApi->deleteV1TasksTaskIdDelete: $e\n');
 }
 ```
@@ -249,7 +249,7 @@ final int permissionTaskId = 56; // int |
 try {
     final response = api.invitationsV1TasksInvitationsGet(taskId, roleId, wsId, permissionTaskId);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling TasksApi->invitationsV1TasksInvitationsGet: $e\n');
 }
 ```
@@ -302,7 +302,7 @@ final int permissionTaskId = 56; // int |
 try {
     final response = api.setupFeatureSetsV1TasksFeatureSetsPost(projectId, wsId, requestBody, permissionTaskId);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling TasksApi->setupFeatureSetsV1TasksFeatureSetsPost: $e\n');
 }
 ```
@@ -354,7 +354,7 @@ final int permissionTaskId = 56; // int |
 try {
     final response = api.taskUpsertV1TasksPost(wsId, taskUpsert, permissionTaskId);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling TasksApi->taskUpsertV1TasksPost: $e\n');
 }
 ```
@@ -405,7 +405,7 @@ final int permissionTaskId = 56; // int |
 try {
     final response = api.upsertV1TasksNotesPost(wsId, noteUpsert, permissionTaskId);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling TasksApi->upsertV1TasksNotesPost: $e\n');
 }
 ```

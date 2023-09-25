@@ -8,7 +8,7 @@ void main() {
   group(MyInvitationsApi, () {
     // Redeem
     //
-    //Future<bool> redeemV1MyInvitationsRedeemPost({ BodyRedeemV1MyInvitationsRedeemPost bodyRedeemV1MyInvitationsRedeemPost }) async
+    //Future<bool> redeemV1MyInvitationsRedeemPost(BodyRedeemV1MyInvitationsRedeemPost bodyRedeemV1MyInvitationsRedeemPost) async
     test('test redeemV1MyInvitationsRedeemPost', () async {
       // TODO
     });

@@ -36,7 +36,7 @@ final BodyRequestSourceType bodyRequestSourceType = ; // BodyRequestSourceType |
 try {
     final response = api.requestSourceType(bodyRequestSourceType);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling IntegrationsSourcesApi->requestSourceType: $e\n');
 }
 ```
@@ -84,7 +84,7 @@ final int sourceId = 56; // int |
 try {
     final response = api.sourcesCheckConnection(wsId, sourceId);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling IntegrationsSourcesApi->sourcesCheckConnection: $e\n');
 }
 ```
@@ -133,7 +133,7 @@ final int wsId = 56; // int |
 try {
     final response = api.sourcesDelete(sourceId, wsId);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling IntegrationsSourcesApi->sourcesDelete: $e\n');
 }
 ```
@@ -182,7 +182,7 @@ final SourceUpsert sourceUpsert = ; // SourceUpsert |
 try {
     final response = api.sourcesUpsert(wsId, sourceUpsert);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling IntegrationsSourcesApi->sourcesUpsert: $e\n');
 }
 ```

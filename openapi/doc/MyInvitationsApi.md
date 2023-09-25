@@ -33,7 +33,7 @@ final BodyRedeemV1MyInvitationsRedeemPost bodyRedeemV1MyInvitationsRedeemPost = 
 try {
     final response = api.redeemV1MyInvitationsRedeemPost(bodyRedeemV1MyInvitationsRedeemPost);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling MyInvitationsApi->redeemV1MyInvitationsRedeemPost: $e\n');
 }
 ```
@@ -42,7 +42,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **bodyRedeemV1MyInvitationsRedeemPost** | [**BodyRedeemV1MyInvitationsRedeemPost**](BodyRedeemV1MyInvitationsRedeemPost.md)|  | [optional] 
+ **bodyRedeemV1MyInvitationsRedeemPost** | [**BodyRedeemV1MyInvitationsRedeemPost**](BodyRedeemV1MyInvitationsRedeemPost.md)|  | 
 
 ### Return type
 

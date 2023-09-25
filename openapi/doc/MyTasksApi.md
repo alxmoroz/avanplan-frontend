@@ -35,7 +35,7 @@ final bool closed = true; // bool |
 try {
     final response = api.myTasksV1MyTasksGet(wsId, parentId, closed);
     print(response);
-} catch on DioError (e) {
+} catch on DioException (e) {
     print('Exception when calling MyTasksApi->myTasksV1MyTasksGet: $e\n');
 }
 ```

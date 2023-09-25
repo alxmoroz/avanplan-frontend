@@ -9,8 +9,8 @@ import 'package:openapi/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **amount** | **int** |  | 
-**psystemCode** | **String** |  | [optional] [default to 'APPLE_IAP']
 **operationId** | **String** |  | 
+**psystemCode** | **String** |  | [optional] [default to 'APPLE_IAP']
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

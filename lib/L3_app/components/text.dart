@@ -189,7 +189,7 @@ class D4 extends _BaseDText {
 }
 
 class D3 extends _BaseDText {
-  const D3(String text, {super.color}) : super(text, sizeScale: 2.5);
+  const D3(String text, {super.color}) : super(text, sizeScale: 2.6);
 }
 
 class D2 extends _BaseDText {

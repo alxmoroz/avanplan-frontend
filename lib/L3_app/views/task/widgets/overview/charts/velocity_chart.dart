@@ -27,7 +27,7 @@ class VelocityChart extends StatelessWidget {
 
   double get _gaugeWidth => P3;
   double get _barWidth => _gaugeWidth / 2;
-  double get _radius => P2 * 6.5;
+  double get _radius => P * 12.5;
   double get _velocity => task.projectVelocity ?? 0;
   double get _delta => (task.requiredVelocity ?? _velocity) - _velocity;
   double get _firstValue => _delta >= 0 ? _velocity : _velocity + _delta;

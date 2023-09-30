@@ -15,7 +15,7 @@ class TaskVolumeChart extends StatelessWidget {
   const TaskVolumeChart(this.task);
   final Task task;
 
-  double get _radius => P * 13;
+  double get _radius => P * 12.5;
   double get _maxValue => 1;
   double get _gaugeWidth => P3;
   double get _barWidth => _gaugeWidth;

@@ -124,6 +124,7 @@ class OverviewPane extends StatelessWidget {
 
                 if (_task.canShowVelocityVolumeCharts || _task.canShowTimeChart)
                   MTCardButton(
+                    padding: const EdgeInsets.symmetric(vertical: P3),
                     margin: const EdgeInsets.only(top: P3),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -131,11 +132,10 @@ class OverviewPane extends StatelessWidget {
                         /// объем и скорость
                         if (_task.canShowVelocityVolumeCharts) ...[
                           const SizedBox(height: P3),
-                          Row(children: [
-                            Expanded(child: TaskVolumeChart(_task)),
-                            const SizedBox(width: P3),
-                            Expanded(child: VelocityChart(_task)),
-                          ]),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [TaskVolumeChart(_task), VelocityChart(_task)],
+                          ),
                         ],
 
                         /// срок

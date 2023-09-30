@@ -14,6 +14,7 @@ String newSubtaskTitle(Task? parent) =>
       TType.ROOT: loc.project_new_title,
       TType.PROJECT: parent?.hfsGoals == true ? loc.goal_new_title : loc.task_new_title,
       TType.GOAL: loc.task_new_title,
+      TType.BACKLOG: loc.task_new_title,
     }[parent?.type ?? TType.ROOT] ??
     loc.subtask_new_title;
 
@@ -23,7 +24,9 @@ extension TaskTypePresenter on Task {
         TType.ROOT: loc.workspace_title,
         TType.PROJECT: loc.project_title,
         TType.GOAL: loc.goal_title,
+        TType.GROUP: loc.task_title,
         TType.TASK: loc.task_title,
+        TType.BACKLOG: loc.backlog,
       }[type] ??
       loc.subtask_title;
 
@@ -34,6 +37,7 @@ extension TaskTypePresenter on Task {
         TType.ROOT: loc.project_list_title,
         TType.PROJECT: hfsGoals ? loc.goal_list_title : loc.task_list_title,
         TType.GOAL: loc.task_list_title,
+        TType.BACKLOG: loc.task_list_title,
       }[type] ??
       loc.subtask_list_title;
 
@@ -43,6 +47,7 @@ extension TaskTypePresenter on Task {
         TType.PROJECT: loc.project_delete_dialog_title,
         TType.GOAL: loc.goal_delete_dialog_title,
         TType.TASK: loc.task_delete_dialog_title,
+        TType.BACKLOG: loc.task_delete_dialog_title,
       }[type] ??
       loc.subtask_delete_dialog_title;
 
@@ -51,7 +56,7 @@ extension TaskTypePresenter on Task {
         TType.ROOT: loc.project_count_dative(count),
         TType.PROJECT: hfsGoals ? loc.goal_count_dative(count) : loc.task_count_dative(count),
         TType.GOAL: loc.task_count_dative(count),
-        TType.TASK: loc.subtask_count_dative(count),
+        TType.BACKLOG: loc.task_count_dative(count),
       }[type] ??
       loc.subtask_count_dative(count);
 
@@ -60,7 +65,7 @@ extension TaskTypePresenter on Task {
         TType.ROOT: loc.project_count(count),
         TType.PROJECT: hfsGoals ? loc.goal_count(count) : loc.task_count(count),
         TType.GOAL: loc.task_count(count),
-        TType.TASK: loc.subtask_count(count),
+        TType.BACKLOG: loc.task_count(count),
       }[type] ??
       loc.subtask_count(count);
 

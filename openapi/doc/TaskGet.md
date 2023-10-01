@@ -22,7 +22,6 @@ Name | Type | Description | Notes
 **parentId** | **int** |  | [optional] 
 **assigneeId** | **int** |  | [optional] 
 **authorId** | **int** |  | [optional] 
-**priorityId** | **int** |  | [optional] 
 **statusId** | **int** |  | [optional] 
 **taskSourceId** | **int** |  | [optional] 
 **state** | **String** |  | [optional] 

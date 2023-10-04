@@ -76,8 +76,8 @@ Class | Method | HTTP request | Description
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**sourcesCheckConnection**](doc/IntegrationsSourcesApi.md#sourcescheckconnection) | **GET** /v1/integrations/sources/check_connection | Check Connection
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**sourcesDelete**](doc/IntegrationsSourcesApi.md#sourcesdelete) | **DELETE** /v1/integrations/sources/{source_id} | Delete
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**sourcesUpsert**](doc/IntegrationsSourcesApi.md#sourcesupsert) | **POST** /v1/integrations/sources | Upsert
-[*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**importTaskSourcesV1IntegrationsTasksImportPost**](doc/IntegrationsTasksApi.md#importtasksourcesv1integrationstasksimportpost) | **POST** /v1/integrations/tasks/import | Import Task Sources
-[*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**rootTasksV1IntegrationsTasksGet**](doc/IntegrationsTasksApi.md#roottasksv1integrationstasksget) | **GET** /v1/integrations/tasks | Root Tasks
+[*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**getProjectsListV1IntegrationsTasksGet**](doc/IntegrationsTasksApi.md#getprojectslistv1integrationstasksget) | **GET** /v1/integrations/tasks | Get Projects List
+[*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**importProjectsV1IntegrationsTasksImportPost**](doc/IntegrationsTasksApi.md#importprojectsv1integrationstasksimportpost) | **POST** /v1/integrations/tasks/import | Import Projects
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**unlinkV1IntegrationsTasksUnlinkPost**](doc/IntegrationsTasksApi.md#unlinkv1integrationstasksunlinkpost) | **POST** /v1/integrations/tasks/unlink | Unlink
 [*MyAccountApi*](doc/MyAccountApi.md) | [**accountV1MyAccountGet**](doc/MyAccountApi.md#accountv1myaccountget) | **GET** /v1/my/account | Account
 [*MyAccountApi*](doc/MyAccountApi.md) | [**deleteAccountV1MyAccountDelete**](doc/MyAccountApi.md#deleteaccountv1myaccountdelete) | **DELETE** /v1/my/account | Delete Account

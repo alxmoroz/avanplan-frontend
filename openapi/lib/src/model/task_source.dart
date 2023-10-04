@@ -28,7 +28,7 @@ abstract class TaskSource implements Built<TaskSource, TaskSourceBuilder> {
   String get rootCode;
 
   @BuiltValueField(wireName: r'keep_connection')
-  bool get keepConnection;
+  bool? get keepConnection;
 
   @BuiltValueField(wireName: r'updated_on')
   DateTime? get updatedOn;
@@ -51,6 +51,7 @@ abstract class TaskSource implements Built<TaskSource, TaskSourceBuilder> {
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(TaskSourceBuilder b) => b
+      ..keepConnection = false
       ..skipUpsert = false;
 
   @BuiltValueSerializer(custom: true)
@@ -79,11 +80,13 @@ class _$TaskSourceSerializer implements PrimitiveSerializer<TaskSource> {
       object.rootCode,
       specifiedType: const FullType(String),
     );
-    yield r'keep_connection';
-    yield serializers.serialize(
-      object.keepConnection,
-      specifiedType: const FullType(bool),
-    );
+    if (object.keepConnection != null) {
+      yield r'keep_connection';
+      yield serializers.serialize(
+        object.keepConnection,
+        specifiedType: const FullType(bool),
+      );
+    }
     if (object.updatedOn != null) {
       yield r'updated_on';
       yield serializers.serialize(

@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **id** | **int** |  | 
 **code** | **String** |  | 
 **rootCode** | **String** |  | 
-**keepConnection** | **bool** |  | 
+**keepConnection** | **bool** |  | [optional] [default to false]
 **updatedOn** | [**DateTime**](DateTime.md) |  | 
 **url** | **String** |  | 
 **sourceId** | **int** |  | 

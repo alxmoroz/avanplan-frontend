@@ -21,6 +21,7 @@ part 'task_remote.g.dart';
 /// * [closedDate] 
 /// * [estimate] 
 /// * [taskSource] 
+/// * [taskQueueId] 
 @BuiltValue()
 abstract class TaskRemote implements Built<TaskRemote, TaskRemoteBuilder> {
   @BuiltValueField(wireName: r'title')
@@ -49,6 +50,9 @@ abstract class TaskRemote implements Built<TaskRemote, TaskRemoteBuilder> {
 
   @BuiltValueField(wireName: r'task_source')
   TaskSource? get taskSource;
+
+  @BuiltValueField(wireName: r'task_queue_id')
+  String? get taskQueueId;
 
   TaskRemote._();
 
@@ -138,6 +142,13 @@ class _$TaskRemoteSerializer implements PrimitiveSerializer<TaskRemote> {
         specifiedType: const FullType(TaskSource),
       );
     }
+    if (object.taskQueueId != null) {
+      yield r'task_queue_id';
+      yield serializers.serialize(
+        object.taskQueueId,
+        specifiedType: const FullType(String),
+      );
+    }
   }
 
   @override
@@ -223,6 +234,13 @@ class _$TaskRemoteSerializer implements PrimitiveSerializer<TaskRemote> {
             specifiedType: const FullType(TaskSource),
           ) as TaskSource;
           result.taskSource.replace(valueDes);
+          break;
+        case r'task_queue_id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.taskQueueId = valueDes;
           break;
         default:
           unhandled.add(key);

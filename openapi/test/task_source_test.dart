@@ -17,7 +17,7 @@ void main() {
       // TODO
     });
 
-    // bool keepConnection
+    // bool keepConnection (default value: false)
     test('to test the property `keepConnection`', () async {
       // TODO
     });

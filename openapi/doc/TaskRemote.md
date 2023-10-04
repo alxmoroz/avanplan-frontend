@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **closedDate** | [**DateTime**](DateTime.md) |  | [optional] 
 **estimate** | **num** |  | [optional] 
 **taskSource** | [**TaskSource**](TaskSource.md) |  | [optional] 
+**taskQueueId** | **String** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

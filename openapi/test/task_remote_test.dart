@@ -51,5 +51,10 @@ void main() {
     test('to test the property `taskSource`', () async {
       // TODO
     });
+
+    // String taskQueueId
+    test('to test the property `taskQueueId`', () async {
+      // TODO
+    });
   });
 }

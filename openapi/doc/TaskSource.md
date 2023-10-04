@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **code** | **String** |  | 
 **rootCode** | **String** |  | 
-**keepConnection** | **bool** |  | 
+**keepConnection** | **bool** |  | [optional] [default to false]
 **updatedOn** | [**DateTime**](DateTime.md) |  | [optional] 
 **url** | **String** |  | [optional] 
 **parentCode** | **String** |  | [optional] 

@@ -1,4 +1,4 @@
-# openapi.model.BodyStartImportProjectsV1IntegrationsTasksStartImportPost
+# openapi.model.BodyStartImport
 
 ## Load the model package
 ```dart

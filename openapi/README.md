@@ -77,7 +77,7 @@ Class | Method | HTTP request | Description
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**sourcesDelete**](doc/IntegrationsSourcesApi.md#sourcesdelete) | **DELETE** /v1/integrations/sources/{source_id} | Delete
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**sourcesUpsert**](doc/IntegrationsSourcesApi.md#sourcesupsert) | **POST** /v1/integrations/sources | Upsert
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**getProjectsListV1IntegrationsTasksGet**](doc/IntegrationsTasksApi.md#getprojectslistv1integrationstasksget) | **GET** /v1/integrations/tasks | Get Projects List
-[*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**startImportProjectsV1IntegrationsTasksStartImportPost**](doc/IntegrationsTasksApi.md#startimportprojectsv1integrationstasksstartimportpost) | **POST** /v1/integrations/tasks/start_import | Start Import Projects
+[*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**startImport**](doc/IntegrationsTasksApi.md#startimport) | **POST** /v1/integrations/tasks/start_import | Start Import
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**unlinkV1IntegrationsTasksUnlinkPost**](doc/IntegrationsTasksApi.md#unlinkv1integrationstasksunlinkpost) | **POST** /v1/integrations/tasks/unlink | Unlink
 [*MyAccountApi*](doc/MyAccountApi.md) | [**accountV1MyAccountGet**](doc/MyAccountApi.md#accountv1myaccountget) | **GET** /v1/my/account | Account
 [*MyAccountApi*](doc/MyAccountApi.md) | [**deleteAccountV1MyAccountDelete**](doc/MyAccountApi.md#deleteaccountv1myaccountdelete) | **DELETE** /v1/my/account | Delete Account
@@ -125,7 +125,7 @@ Class | Method | HTTP request | Description
  - [BodyRegistrationToken](doc/BodyRegistrationToken.md)
  - [BodyRequestRegistration](doc/BodyRequestRegistration.md)
  - [BodyRequestSourceType](doc/BodyRequestSourceType.md)
- - [BodyStartImportProjectsV1IntegrationsTasksStartImportPost](doc/BodyStartImportProjectsV1IntegrationsTasksStartImportPost.md)
+ - [BodyStartImport](doc/BodyStartImport.md)
  - [BodyUpdateAccountV1MyAccountPost](doc/BodyUpdateAccountV1MyAccountPost.md)
  - [BodyUpdatePushTokenV1MyPushTokensPost](doc/BodyUpdatePushTokenV1MyPushTokensPost.md)
  - [ContractGet](doc/ContractGet.md)

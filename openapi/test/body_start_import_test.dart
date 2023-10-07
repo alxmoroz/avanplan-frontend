@@ -1,13 +1,12 @@
 import 'package:test/test.dart';
 import 'package:openapi/openapi.dart';
 
-// tests for BodyStartImportProjectsV1IntegrationsTasksStartImportPost
+// tests for BodyStartImport
 void main() {
-  final instance =
-      BodyStartImportProjectsV1IntegrationsTasksStartImportPostBuilder();
+  final instance = BodyStartImportBuilder();
   // TODO add properties to the builder and call build()
 
-  group(BodyStartImportProjectsV1IntegrationsTasksStartImportPost, () {
+  group(BodyStartImport, () {
     // BuiltList<TaskRemote> projects
     test('to test the property `projects`', () async {
       // TODO

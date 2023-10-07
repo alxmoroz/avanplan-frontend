@@ -9,7 +9,7 @@ import 'package:dio/dio.dart';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/api_util.dart';
-import 'package:openapi/src/model/body_start_import_projects_v1_integrations_tasks_start_import_post.dart';
+import 'package:openapi/src/model/body_start_import.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/task_remote.dart';
 
@@ -114,12 +114,12 @@ class IntegrationsTasksApi {
     );
   }
 
-  /// Start Import Projects
+  /// Start Import
   /// 
   ///
   /// Parameters:
   /// * [wsId] 
-  /// * [bodyStartImportProjectsV1IntegrationsTasksStartImportPost] 
+  /// * [bodyStartImport] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -129,9 +129,9 @@ class IntegrationsTasksApi {
   ///
   /// Returns a [Future] containing a [Response] with a [bool] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<bool>> startImportProjectsV1IntegrationsTasksStartImportPost({ 
+  Future<Response<bool>> startImport({ 
     required int wsId,
-    required BodyStartImportProjectsV1IntegrationsTasksStartImportPost bodyStartImportProjectsV1IntegrationsTasksStartImportPost,
+    required BodyStartImport bodyStartImport,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -170,8 +170,8 @@ class IntegrationsTasksApi {
     dynamic _bodyData;
 
     try {
-      const _type = FullType(BodyStartImportProjectsV1IntegrationsTasksStartImportPost);
-      _bodyData = _serializers.serialize(bodyStartImportProjectsV1IntegrationsTasksStartImportPost, specifiedType: _type);
+      const _type = FullType(BodyStartImport);
+      _bodyData = _serializers.serialize(bodyStartImport, specifiedType: _type);
 
     } catch(error, stackTrace) {
       throw DioException(

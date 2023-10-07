@@ -13,11 +13,10 @@ void main() {
       // TODO
     });
 
-    // Start Import Projects
+    // Start Import
     //
-    //Future<bool> startImportProjectsV1IntegrationsTasksStartImportPost(int wsId, BodyStartImportProjectsV1IntegrationsTasksStartImportPost bodyStartImportProjectsV1IntegrationsTasksStartImportPost) async
-    test('test startImportProjectsV1IntegrationsTasksStartImportPost',
-        () async {
+    //Future<bool> startImport(int wsId, BodyStartImport bodyStartImport) async
+    test('test startImport', () async {
       // TODO
     });
 

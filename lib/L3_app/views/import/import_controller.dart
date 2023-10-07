@@ -101,7 +101,7 @@ abstract class _ImportControllerBase with Store {
       }
       if (connected) {
         loader.setSourceListing(loaderDescription);
-        projects = (await importUC.getProjectsList(ws, selectedSource!)).sorted((p1, p2) => compareNatural(p1.title, p2.title));
+        projects = (await importUC.getProjectsList(wsId, selectedSourceId!)).sorted((p1, p2) => compareNatural(p1.title, p2.title));
       } else {
         errorCode = 'error_import_connection';
       }
@@ -120,7 +120,7 @@ abstract class _ImportControllerBase with Store {
 
   Future startImport() async {
     if (selectableCount >= 0) {
-      await importUC.startImport(ws, selectedSource!, selectedProjects);
+      await importUC.startImport(ws.id!, selectedSourceId!, selectedProjects);
       Navigator.of(rootKey.currentContext!).pop();
       // await mainController.fetchWorkspaces();
       // await mainController.fetchTasks();

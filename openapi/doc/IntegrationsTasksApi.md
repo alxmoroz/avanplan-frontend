@@ -10,7 +10,7 @@ All URIs are relative to */api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**getProjectsListV1IntegrationsTasksGet**](IntegrationsTasksApi.md#getprojectslistv1integrationstasksget) | **GET** /v1/integrations/tasks | Get Projects List
-[**startImportProjectsV1IntegrationsTasksStartImportPost**](IntegrationsTasksApi.md#startimportprojectsv1integrationstasksstartimportpost) | **POST** /v1/integrations/tasks/start_import | Start Import Projects
+[**startImport**](IntegrationsTasksApi.md#startimport) | **POST** /v1/integrations/tasks/start_import | Start Import
 [**unlinkV1IntegrationsTasksUnlinkPost**](IntegrationsTasksApi.md#unlinkv1integrationstasksunlinkpost) | **POST** /v1/integrations/tasks/unlink | Unlink
 
 
@@ -63,10 +63,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **startImportProjectsV1IntegrationsTasksStartImportPost**
-> bool startImportProjectsV1IntegrationsTasksStartImportPost(wsId, bodyStartImportProjectsV1IntegrationsTasksStartImportPost)
+# **startImport**
+> bool startImport(wsId, bodyStartImport)
 
-Start Import Projects
+Start Import
 
 ### Example
 ```dart
@@ -80,13 +80,13 @@ import 'package:openapi/api.dart';
 
 final api = Openapi().getIntegrationsTasksApi();
 final int wsId = 56; // int | 
-final BodyStartImportProjectsV1IntegrationsTasksStartImportPost bodyStartImportProjectsV1IntegrationsTasksStartImportPost = ; // BodyStartImportProjectsV1IntegrationsTasksStartImportPost | 
+final BodyStartImport bodyStartImport = ; // BodyStartImport | 
 
 try {
-    final response = api.startImportProjectsV1IntegrationsTasksStartImportPost(wsId, bodyStartImportProjectsV1IntegrationsTasksStartImportPost);
+    final response = api.startImport(wsId, bodyStartImport);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling IntegrationsTasksApi->startImportProjectsV1IntegrationsTasksStartImportPost: $e\n');
+    print('Exception when calling IntegrationsTasksApi->startImport: $e\n');
 }
 ```
 
@@ -95,7 +95,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **wsId** | **int**|  | 
- **bodyStartImportProjectsV1IntegrationsTasksStartImportPost** | [**BodyStartImportProjectsV1IntegrationsTasksStartImportPost**](BodyStartImportProjectsV1IntegrationsTasksStartImportPost.md)|  | 
+ **bodyStartImport** | [**BodyStartImport**](BodyStartImport.md)|  | 
 
 ### Return type
 

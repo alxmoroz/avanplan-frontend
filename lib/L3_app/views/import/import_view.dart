@@ -45,7 +45,7 @@ class ImportView extends StatelessWidget {
   bool get _hasError => controller.errorCode != null;
   bool get _validated => controller.validated;
   bool get _selectedAll => controller.selectedAll;
-  bool get _sourceSelected => controller.selectedSource != null;
+  bool get _selectedSource => controller.selectedSource != null;
   bool get _hasSources => controller.ws.sources.isNotEmpty;
   bool get _showSelectAll => controller.projects.length > 2;
 
@@ -79,7 +79,7 @@ class ImportView extends StatelessWidget {
               MTPlusButton(() async => await startAddSource(controller.ws), type: ButtonType.secondary),
             ],
           ),
-          if (_sourceSelected) ...[
+          if (_selectedSource) ...[
             const SizedBox(height: P2),
             if (_hasProjects) ...[
               if (_showSelectAll)

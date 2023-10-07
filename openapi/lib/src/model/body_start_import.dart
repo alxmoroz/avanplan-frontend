@@ -8,38 +8,38 @@ import 'package:openapi/src/model/task_remote.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'body_start_import_projects_v1_integrations_tasks_start_import_post.g.dart';
+part 'body_start_import.g.dart';
 
-/// BodyStartImportProjectsV1IntegrationsTasksStartImportPost
+/// BodyStartImport
 ///
 /// Properties:
 /// * [projects] 
 @BuiltValue()
-abstract class BodyStartImportProjectsV1IntegrationsTasksStartImportPost implements Built<BodyStartImportProjectsV1IntegrationsTasksStartImportPost, BodyStartImportProjectsV1IntegrationsTasksStartImportPostBuilder> {
+abstract class BodyStartImport implements Built<BodyStartImport, BodyStartImportBuilder> {
   @BuiltValueField(wireName: r'projects')
   BuiltList<TaskRemote> get projects;
 
-  BodyStartImportProjectsV1IntegrationsTasksStartImportPost._();
+  BodyStartImport._();
 
-  factory BodyStartImportProjectsV1IntegrationsTasksStartImportPost([void updates(BodyStartImportProjectsV1IntegrationsTasksStartImportPostBuilder b)]) = _$BodyStartImportProjectsV1IntegrationsTasksStartImportPost;
+  factory BodyStartImport([void updates(BodyStartImportBuilder b)]) = _$BodyStartImport;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(BodyStartImportProjectsV1IntegrationsTasksStartImportPostBuilder b) => b;
+  static void _defaults(BodyStartImportBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<BodyStartImportProjectsV1IntegrationsTasksStartImportPost> get serializer => _$BodyStartImportProjectsV1IntegrationsTasksStartImportPostSerializer();
+  static Serializer<BodyStartImport> get serializer => _$BodyStartImportSerializer();
 }
 
-class _$BodyStartImportProjectsV1IntegrationsTasksStartImportPostSerializer implements PrimitiveSerializer<BodyStartImportProjectsV1IntegrationsTasksStartImportPost> {
+class _$BodyStartImportSerializer implements PrimitiveSerializer<BodyStartImport> {
   @override
-  final Iterable<Type> types = const [BodyStartImportProjectsV1IntegrationsTasksStartImportPost, _$BodyStartImportProjectsV1IntegrationsTasksStartImportPost];
+  final Iterable<Type> types = const [BodyStartImport, _$BodyStartImport];
 
   @override
-  final String wireName = r'BodyStartImportProjectsV1IntegrationsTasksStartImportPost';
+  final String wireName = r'BodyStartImport';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    BodyStartImportProjectsV1IntegrationsTasksStartImportPost object, {
+    BodyStartImport object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'projects';
@@ -52,7 +52,7 @@ class _$BodyStartImportProjectsV1IntegrationsTasksStartImportPostSerializer impl
   @override
   Object serialize(
     Serializers serializers,
-    BodyStartImportProjectsV1IntegrationsTasksStartImportPost object, {
+    BodyStartImport object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -63,7 +63,7 @@ class _$BodyStartImportProjectsV1IntegrationsTasksStartImportPostSerializer impl
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required BodyStartImportProjectsV1IntegrationsTasksStartImportPostBuilder result,
+    required BodyStartImportBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -86,12 +86,12 @@ class _$BodyStartImportProjectsV1IntegrationsTasksStartImportPostSerializer impl
   }
 
   @override
-  BodyStartImportProjectsV1IntegrationsTasksStartImportPost deserialize(
+  BodyStartImport deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = BodyStartImportProjectsV1IntegrationsTasksStartImportPostBuilder();
+    final result = BodyStartImportBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

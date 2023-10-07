@@ -11,6 +11,7 @@ abstract class AbstractMyRepo {
   Future deleteAccount();
   Future<Iterable<Workspace>> getWorkspaces();
   Future<Iterable<Task>> getTasks(Workspace ws, {Task? parent, bool? closed});
+  Future<Iterable<Task>> getProjects(Workspace ws, {bool? closed, bool? imported});
   Future<Workspace?> createWorkspace({WorkspaceUpsert? ws});
   Future<Workspace?> updateWorkspace(WorkspaceUpsert ws);
   Future<Iterable<MTNotification>> getNotifications();

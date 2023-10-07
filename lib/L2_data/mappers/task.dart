@@ -42,7 +42,7 @@ extension TaskMapper on api.TaskGet {
       taskSource: ts,
       parentId: parentId,
       ws: ws,
-      state: stateFromStr(state ?? ''),
+      state: tStateFromStr(state ?? ''),
       velocity: velocity?.toDouble() ?? 0,
       requiredVelocity: requiredVelocity?.toDouble(),
       progress: progress?.toDouble() ?? 0,
@@ -57,7 +57,8 @@ extension TaskMapper on api.TaskGet {
 extension TaskRemoteMapper on api.TaskRemote {
   TaskRemote get taskRemote => TaskRemote(
         title: title,
+        type: type ?? 'PROJECT',
         description: description ?? '',
-        taskSource: taskSource.taskSourceImport,
+        taskSource: taskSource.taskSourceRemote,
       );
 }

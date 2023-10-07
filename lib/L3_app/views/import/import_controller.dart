@@ -1,5 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'dart:async';
+
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
@@ -56,15 +58,19 @@ abstract class _ImportControllerBase with Store {
   int get selectableCount => ws.availableProjectsCount - selectedProjects.length;
 
   @computed
-  bool get validated => selectedProjects.isNotEmpty;
+  bool get validated => selectedProjects.isNotEmpty && !_sendingRequest;
 
   @observable
   String? errorCode;
+
+  @observable
+  bool _sendingRequest = false;
 
   @action
   void clearData() {
     errorCode = null;
     projects = [];
+    _sendingRequest = false;
   }
 
   @computed
@@ -120,10 +126,11 @@ abstract class _ImportControllerBase with Store {
 
   Future startImport() async {
     if (selectableCount >= 0) {
-      await importUC.startImport(ws.id!, selectedSourceId!, selectedProjects);
+      _sendingRequest = true;
+      if (await importUC.startImport(ws.id!, selectedSourceId!, selectedProjects)) {
+        await mainController.updateImportingProjects();
+      }
       Navigator.of(rootKey.currentContext!).pop();
-      // await mainController.fetchWorkspaces();
-      // await mainController.fetchTasks();
     } else {
       await ws.changeTariff(
         reason: loc.tariff_change_limit_projects_reason_title,

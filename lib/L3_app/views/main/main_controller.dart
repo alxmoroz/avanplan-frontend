@@ -1,11 +1,14 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'dart:async';
+
 import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/task_members.dart';
+import '../../../L1_domain/entities_extensions/task_source.dart';
 import '../../../L1_domain/entities_extensions/task_state.dart';
 import '../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../L1_domain/entities_extensions/task_tree.dart';
@@ -47,7 +50,7 @@ abstract class _MainControllerBase with Store {
   /// проекты
 
   @computed
-  Iterable<Task> get projects => allTasks.where((r) => r.isProject || r.parentId == null);
+  Iterable<Task> get projects => allTasks.where((r) => r.isProject);
   @computed
   bool get hasLinkedProjects => projects.where((p) => p.linked).isNotEmpty;
   @computed
@@ -117,8 +120,10 @@ abstract class _MainControllerBase with Store {
     final index = allTasks.indexWhere((t) => t.ws.id == et.ws.id && t.id == et.id);
     if (index > -1) {
       allTasks[index] = et;
-      allTasks.sort(sortByDateAsc);
+    } else {
+      allTasks.addAll([et]);
     }
+    allTasks.sort(sortByDateAsc);
   }
 
   @action
@@ -149,6 +154,18 @@ abstract class _MainControllerBase with Store {
       _allTasks.addAll(await myUC.getTasks(ws));
     }
     allTasks = ObservableList.of(_allTasks.sorted(sortByDateAsc));
+  }
+
+  @action
+  Future updateImportingProjects() async {
+    final importingProjects = <Task>[];
+    for (Workspace ws in workspaces) {
+      importingProjects.addAll((await myUC.getProjects(ws, closed: false, imported: true)).where((p) => p.taskSource!.isRunning));
+    }
+    importingProjects.forEach((p) => setTask(p));
+    if (importingProjects.isNotEmpty) {
+      Timer(const Duration(seconds: 5), () async => await updateImportingProjects());
+    }
   }
 
   @action

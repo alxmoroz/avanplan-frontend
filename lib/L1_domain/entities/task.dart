@@ -105,12 +105,14 @@ class TaskRemote {
     required this.title,
     required this.description,
     required this.taskSource,
+    required this.type,
     this.selected = false,
   });
 
   final String title;
+  final String type;
   final String description;
-  TaskSourceImport? taskSource;
+  TaskSourceRemote? taskSource;
   bool selected;
 }
 

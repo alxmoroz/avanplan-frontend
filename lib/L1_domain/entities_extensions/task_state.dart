@@ -6,7 +6,7 @@ import '../entities/task.dart';
 import '../utils/dates.dart';
 import 'task_stats.dart';
 
-TaskState stateFromStr(String strState) => TaskState.values.firstWhereOrNull((s) => s.name == strState) ?? TaskState.NO_INFO;
+TaskState tStateFromStr(String strState) => TaskState.values.firstWhereOrNull((s) => s.name == strState) ?? TaskState.NO_INFO;
 
 extension TaskStateExtension on Task {
   TaskState get leafState {

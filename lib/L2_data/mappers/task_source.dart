@@ -3,24 +3,29 @@
 import 'package:openapi/openapi.dart' as api;
 
 import '../../L1_domain/entities/task_source.dart';
+import '../../L1_domain/entities_extensions/task_source.dart';
 
 extension TaskSourceMapper on api.TaskSourceGet {
   TaskSource get taskSource => TaskSource(
         id: id,
+        sourceId: sourceId,
         code: code,
         rootCode: rootCode,
-        keepConnection: keepConnection ?? false,
-        sourceId: sourceId,
         urlString: url,
         updatedOn: updatedOn,
+        keepConnection: keepConnection ?? false,
+        state: tsStateFromStr(state),
+        stateDetails: stateDetails,
       );
 }
 
 extension TaskSourceImportMapper on api.TaskSource {
-  TaskSourceImport get taskSourceImport => TaskSourceImport(
+  TaskSourceRemote get taskSourceRemote => TaskSourceRemote(
+        sourceId: sourceId,
         code: code,
         rootCode: rootCode,
-        keepConnection: keepConnection ?? false,
+        urlString: url ?? '',
         updatedOn: updatedOn,
+        keepConnection: keepConnection ?? false,
       );
 }

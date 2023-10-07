@@ -12,6 +12,11 @@ class MyUC {
   final AbstractMyRepo repo;
 
   Future<Iterable<Workspace>> getWorkspaces() async => await repo.getWorkspaces();
+  Future<Iterable<Task>> getProjects(Workspace ws, {bool? closed, bool? imported}) async => await repo.getProjects(
+        ws,
+        closed: closed,
+        imported: imported,
+      );
   Future<Iterable<Task>> getTasks(Workspace ws, {Task? parent, bool? closed}) async => await repo.getTasks(ws, parent: parent, closed: closed);
 
   Future<Workspace?> createWorkspace({WorkspaceUpsert? ws}) async => await repo.createWorkspace(ws: ws);

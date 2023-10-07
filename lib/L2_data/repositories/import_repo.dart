@@ -25,8 +25,10 @@ class ImportRepo extends AbstractImportRepo {
             ..projects = ListBuilder(
               projects.map<o_api.TaskRemote>((p) => (o_api.TaskRemoteBuilder()
                     ..title = p.title
+                    ..type = p.type
                     ..taskSource = (o_api.TaskSourceBuilder()
                       ..sourceId = sourceId
+                      ..url = p.taskSource?.urlString
                       ..code = p.taskSource?.code
                       ..rootCode = p.taskSource?.rootCode
                       ..keepConnection = p.taskSource?.keepConnection

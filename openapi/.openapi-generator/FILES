@@ -15,6 +15,7 @@ doc/BodyRegisterV1MyActivitiesRegisterPost.md
 doc/BodyRegistrationToken.md
 doc/BodyRequestRegistration.md
 doc/BodyRequestSourceType.md
+doc/BodyStartImportProjectsV1IntegrationsTasksStartImportPost.md
 doc/BodyUpdateAccountV1MyAccountPost.md
 doc/BodyUpdatePushTokenV1MyPushTokensPost.md
 doc/ContractGet.md
@@ -35,6 +36,7 @@ doc/MyAccountApi.md
 doc/MyActivitiesApi.md
 doc/MyInvitationsApi.md
 doc/MyNotificationsApi.md
+doc/MyProjectsApi.md
 doc/MyPushTokensApi.md
 doc/MyTasksApi.md
 doc/MyUser.md
@@ -86,6 +88,7 @@ lib/src/api/my_account_api.dart
 lib/src/api/my_activities_api.dart
 lib/src/api/my_invitations_api.dart
 lib/src/api/my_notifications_api.dart
+lib/src/api/my_projects_api.dart
 lib/src/api/my_push_tokens_api.dart
 lib/src/api/my_tasks_api.dart
 lib/src/api/my_workspaces_api.dart
@@ -116,6 +119,7 @@ lib/src/model/body_register_v1_my_activities_register_post.dart
 lib/src/model/body_registration_token.dart
 lib/src/model/body_request_registration.dart
 lib/src/model/body_request_source_type.dart
+lib/src/model/body_start_import_projects_v1_integrations_tasks_start_import_post.dart
 lib/src/model/body_update_account_v1_my_account_post.dart
 lib/src/model/body_update_push_token_v1_my_push_tokens_post.dart
 lib/src/model/contract_get.dart
@@ -173,6 +177,7 @@ test/body_register_v1_my_activities_register_post_test.dart
 test/body_registration_token_test.dart
 test/body_request_registration_test.dart
 test/body_request_source_type_test.dart
+test/body_start_import_projects_v1_integrations_tasks_start_import_post_test.dart
 test/body_update_account_v1_my_account_post_test.dart
 test/body_update_push_token_v1_my_push_tokens_post_test.dart
 test/contract_get_test.dart
@@ -193,6 +198,7 @@ test/my_account_api_test.dart
 test/my_activities_api_test.dart
 test/my_invitations_api_test.dart
 test/my_notifications_api_test.dart
+test/my_projects_api_test.dart
 test/my_push_tokens_api_test.dart
 test/my_tasks_api_test.dart
 test/my_user_test.dart

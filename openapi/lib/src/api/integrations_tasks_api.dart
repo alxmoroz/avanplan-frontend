@@ -9,6 +9,7 @@ import 'package:dio/dio.dart';
 
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/api_util.dart';
+import 'package:openapi/src/model/body_start_import_projects_v1_integrations_tasks_start_import_post.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/task_remote.dart';
 
@@ -113,13 +114,12 @@ class IntegrationsTasksApi {
     );
   }
 
-  /// Import Projects
+  /// Start Import Projects
   /// 
   ///
   /// Parameters:
   /// * [wsId] 
-  /// * [sourceId] 
-  /// * [taskRemote] 
+  /// * [bodyStartImportProjectsV1IntegrationsTasksStartImportPost] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -127,12 +127,11 @@ class IntegrationsTasksApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [BuiltList<TaskRemote>] as data
+  /// Returns a [Future] containing a [Response] with a [bool] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<TaskRemote>>> importProjectsV1IntegrationsTasksImportPost({ 
+  Future<Response<bool>> startImportProjectsV1IntegrationsTasksStartImportPost({ 
     required int wsId,
-    required int sourceId,
-    required BuiltList<TaskRemote> taskRemote,
+    required BodyStartImportProjectsV1IntegrationsTasksStartImportPost bodyStartImportProjectsV1IntegrationsTasksStartImportPost,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -140,7 +139,7 @@ class IntegrationsTasksApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/integrations/tasks/import';
+    final _path = r'/v1/integrations/tasks/start_import';
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -166,14 +165,13 @@ class IntegrationsTasksApi {
 
     final _queryParameters = <String, dynamic>{
       r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
-      r'source_id': encodeQueryParameter(_serializers, sourceId, const FullType(int)),
     };
 
     dynamic _bodyData;
 
     try {
-      const _type = FullType(BuiltList, [FullType(TaskRemote)]);
-      _bodyData = _serializers.serialize(taskRemote, specifiedType: _type);
+      const _type = FullType(BodyStartImportProjectsV1IntegrationsTasksStartImportPost);
+      _bodyData = _serializers.serialize(bodyStartImportProjectsV1IntegrationsTasksStartImportPost, specifiedType: _type);
 
     } catch(error, stackTrace) {
       throw DioException(
@@ -198,14 +196,11 @@ class IntegrationsTasksApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltList<TaskRemote>? _responseData;
+    bool? _responseData;
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null ? null : _serializers.deserialize(
-        rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(TaskRemote)]),
-      ) as BuiltList<TaskRemote>;
+      _responseData = rawResponse == null ? null : rawResponse as bool;
 
     } catch (error, stackTrace) {
       throw DioException(
@@ -217,7 +212,7 @@ class IntegrationsTasksApi {
       );
     }
 
-    return Response<BuiltList<TaskRemote>>(
+    return Response<bool>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

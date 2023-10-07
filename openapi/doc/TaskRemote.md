@@ -8,7 +8,7 @@ import 'package:openapi/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**title** | **String** |  | [optional] 
+**title** | **String** |  | 
 **description** | **String** |  | [optional] 
 **closed** | **bool** |  | [optional] [default to false]
 **type** | **String** |  | [optional] [default to 'TASK']
@@ -16,8 +16,7 @@ Name | Type | Description | Notes
 **dueDate** | [**DateTime**](DateTime.md) |  | [optional] 
 **closedDate** | [**DateTime**](DateTime.md) |  | [optional] 
 **estimate** | **num** |  | [optional] 
-**taskSource** | [**TaskSource**](TaskSource.md) |  | [optional] 
-**taskQueueId** | **String** |  | [optional] 
+**taskSource** | [**TaskSource**](TaskSource.md) |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

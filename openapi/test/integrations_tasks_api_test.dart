@@ -13,10 +13,11 @@ void main() {
       // TODO
     });
 
-    // Import Projects
+    // Start Import Projects
     //
-    //Future<BuiltList<TaskRemote>> importProjectsV1IntegrationsTasksImportPost(int wsId, int sourceId, BuiltList<TaskRemote> taskRemote) async
-    test('test importProjectsV1IntegrationsTasksImportPost', () async {
+    //Future<bool> startImportProjectsV1IntegrationsTasksStartImportPost(int wsId, BodyStartImportProjectsV1IntegrationsTasksStartImportPost bodyStartImportProjectsV1IntegrationsTasksStartImportPost) async
+    test('test startImportProjectsV1IntegrationsTasksStartImportPost',
+        () async {
       // TODO
     });
 

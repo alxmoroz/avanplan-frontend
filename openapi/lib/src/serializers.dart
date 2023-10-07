@@ -26,6 +26,7 @@ import 'package:openapi/src/model/body_register_v1_my_activities_register_post.d
 import 'package:openapi/src/model/body_registration_token.dart';
 import 'package:openapi/src/model/body_request_registration.dart';
 import 'package:openapi/src/model/body_request_source_type.dart';
+import 'package:openapi/src/model/body_start_import_projects_v1_integrations_tasks_start_import_post.dart';
 import 'package:openapi/src/model/body_update_account_v1_my_account_post.dart';
 import 'package:openapi/src/model/body_update_push_token_v1_my_push_tokens_post.dart';
 import 'package:openapi/src/model/contract_get.dart';
@@ -83,6 +84,7 @@ part 'serializers.g.dart';
   BodyRegistrationToken,
   BodyRequestRegistration,
   BodyRequestSourceType,
+  BodyStartImportProjectsV1IntegrationsTasksStartImportPost,
   BodyUpdateAccountV1MyAccountPost,
   BodyUpdatePushTokenV1MyPushTokensPost,
   ContractGet,

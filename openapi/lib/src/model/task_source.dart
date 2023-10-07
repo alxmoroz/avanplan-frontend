@@ -11,30 +11,42 @@ part 'task_source.g.dart';
 /// TaskSource
 ///
 /// Properties:
+/// * [sourceId] 
 /// * [code] 
 /// * [rootCode] 
-/// * [keepConnection] 
-/// * [updatedOn] 
 /// * [url] 
+/// * [state] 
+/// * [stateDetails] 
+/// * [updatedOn] 
+/// * [keepConnection] 
 /// * [parentCode] 
 /// * [versionCode] 
 /// * [skipUpsert] 
 @BuiltValue()
 abstract class TaskSource implements Built<TaskSource, TaskSourceBuilder> {
+  @BuiltValueField(wireName: r'source_id')
+  int get sourceId;
+
   @BuiltValueField(wireName: r'code')
   String get code;
 
   @BuiltValueField(wireName: r'root_code')
   String get rootCode;
 
-  @BuiltValueField(wireName: r'keep_connection')
-  bool? get keepConnection;
+  @BuiltValueField(wireName: r'url')
+  String? get url;
+
+  @BuiltValueField(wireName: r'state')
+  String? get state;
+
+  @BuiltValueField(wireName: r'state_details')
+  String? get stateDetails;
 
   @BuiltValueField(wireName: r'updated_on')
   DateTime? get updatedOn;
 
-  @BuiltValueField(wireName: r'url')
-  String? get url;
+  @BuiltValueField(wireName: r'keep_connection')
+  bool? get keepConnection;
 
   @BuiltValueField(wireName: r'parent_code')
   String? get parentCode;
@@ -70,6 +82,11 @@ class _$TaskSourceSerializer implements PrimitiveSerializer<TaskSource> {
     TaskSource object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
+    yield r'source_id';
+    yield serializers.serialize(
+      object.sourceId,
+      specifiedType: const FullType(int),
+    );
     yield r'code';
     yield serializers.serialize(
       object.code,
@@ -80,11 +97,25 @@ class _$TaskSourceSerializer implements PrimitiveSerializer<TaskSource> {
       object.rootCode,
       specifiedType: const FullType(String),
     );
-    if (object.keepConnection != null) {
-      yield r'keep_connection';
+    if (object.url != null) {
+      yield r'url';
       yield serializers.serialize(
-        object.keepConnection,
-        specifiedType: const FullType(bool),
+        object.url,
+        specifiedType: const FullType(String),
+      );
+    }
+    if (object.state != null) {
+      yield r'state';
+      yield serializers.serialize(
+        object.state,
+        specifiedType: const FullType(String),
+      );
+    }
+    if (object.stateDetails != null) {
+      yield r'state_details';
+      yield serializers.serialize(
+        object.stateDetails,
+        specifiedType: const FullType(String),
       );
     }
     if (object.updatedOn != null) {
@@ -94,11 +125,11 @@ class _$TaskSourceSerializer implements PrimitiveSerializer<TaskSource> {
         specifiedType: const FullType(DateTime),
       );
     }
-    if (object.url != null) {
-      yield r'url';
+    if (object.keepConnection != null) {
+      yield r'keep_connection';
       yield serializers.serialize(
-        object.url,
-        specifiedType: const FullType(String),
+        object.keepConnection,
+        specifiedType: const FullType(bool),
       );
     }
     if (object.parentCode != null) {
@@ -145,6 +176,13 @@ class _$TaskSourceSerializer implements PrimitiveSerializer<TaskSource> {
       final key = serializedList[i] as String;
       final value = serializedList[i + 1];
       switch (key) {
+        case r'source_id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.sourceId = valueDes;
+          break;
         case r'code':
           final valueDes = serializers.deserialize(
             value,
@@ -159,12 +197,26 @@ class _$TaskSourceSerializer implements PrimitiveSerializer<TaskSource> {
           ) as String;
           result.rootCode = valueDes;
           break;
-        case r'keep_connection':
+        case r'url':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(bool),
-          ) as bool;
-          result.keepConnection = valueDes;
+            specifiedType: const FullType(String),
+          ) as String;
+          result.url = valueDes;
+          break;
+        case r'state':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.state = valueDes;
+          break;
+        case r'state_details':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.stateDetails = valueDes;
           break;
         case r'updated_on':
           final valueDes = serializers.deserialize(
@@ -173,12 +225,12 @@ class _$TaskSourceSerializer implements PrimitiveSerializer<TaskSource> {
           ) as DateTime;
           result.updatedOn = valueDes;
           break;
-        case r'url':
+        case r'keep_connection':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.url = valueDes;
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.keepConnection = valueDes;
           break;
         case r'parent_code':
           final valueDes = serializers.deserialize(

@@ -12,16 +12,21 @@ part 'task_source_get.g.dart';
 ///
 /// Properties:
 /// * [id] 
+/// * [sourceId] 
 /// * [code] 
 /// * [rootCode] 
-/// * [keepConnection] 
-/// * [updatedOn] 
 /// * [url] 
-/// * [sourceId] 
+/// * [state] 
+/// * [stateDetails] 
+/// * [updatedOn] 
+/// * [keepConnection] 
 @BuiltValue()
 abstract class TaskSourceGet implements Built<TaskSourceGet, TaskSourceGetBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
+
+  @BuiltValueField(wireName: r'source_id')
+  int get sourceId;
 
   @BuiltValueField(wireName: r'code')
   String get code;
@@ -29,17 +34,20 @@ abstract class TaskSourceGet implements Built<TaskSourceGet, TaskSourceGetBuilde
   @BuiltValueField(wireName: r'root_code')
   String get rootCode;
 
-  @BuiltValueField(wireName: r'keep_connection')
-  bool? get keepConnection;
+  @BuiltValueField(wireName: r'url')
+  String get url;
+
+  @BuiltValueField(wireName: r'state')
+  String? get state;
+
+  @BuiltValueField(wireName: r'state_details')
+  String? get stateDetails;
 
   @BuiltValueField(wireName: r'updated_on')
   DateTime get updatedOn;
 
-  @BuiltValueField(wireName: r'url')
-  String get url;
-
-  @BuiltValueField(wireName: r'source_id')
-  int get sourceId;
+  @BuiltValueField(wireName: r'keep_connection')
+  bool? get keepConnection;
 
   TaskSourceGet._();
 
@@ -70,6 +78,11 @@ class _$TaskSourceGetSerializer implements PrimitiveSerializer<TaskSourceGet> {
       object.id,
       specifiedType: const FullType(int),
     );
+    yield r'source_id';
+    yield serializers.serialize(
+      object.sourceId,
+      specifiedType: const FullType(int),
+    );
     yield r'code';
     yield serializers.serialize(
       object.code,
@@ -80,11 +93,23 @@ class _$TaskSourceGetSerializer implements PrimitiveSerializer<TaskSourceGet> {
       object.rootCode,
       specifiedType: const FullType(String),
     );
-    if (object.keepConnection != null) {
-      yield r'keep_connection';
+    yield r'url';
+    yield serializers.serialize(
+      object.url,
+      specifiedType: const FullType(String),
+    );
+    if (object.state != null) {
+      yield r'state';
       yield serializers.serialize(
-        object.keepConnection,
-        specifiedType: const FullType(bool),
+        object.state,
+        specifiedType: const FullType(String),
+      );
+    }
+    if (object.stateDetails != null) {
+      yield r'state_details';
+      yield serializers.serialize(
+        object.stateDetails,
+        specifiedType: const FullType(String),
       );
     }
     yield r'updated_on';
@@ -92,16 +117,13 @@ class _$TaskSourceGetSerializer implements PrimitiveSerializer<TaskSourceGet> {
       object.updatedOn,
       specifiedType: const FullType(DateTime),
     );
-    yield r'url';
-    yield serializers.serialize(
-      object.url,
-      specifiedType: const FullType(String),
-    );
-    yield r'source_id';
-    yield serializers.serialize(
-      object.sourceId,
-      specifiedType: const FullType(int),
-    );
+    if (object.keepConnection != null) {
+      yield r'keep_connection';
+      yield serializers.serialize(
+        object.keepConnection,
+        specifiedType: const FullType(bool),
+      );
+    }
   }
 
   @override
@@ -132,6 +154,13 @@ class _$TaskSourceGetSerializer implements PrimitiveSerializer<TaskSourceGet> {
           ) as int;
           result.id = valueDes;
           break;
+        case r'source_id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.sourceId = valueDes;
+          break;
         case r'code':
           final valueDes = serializers.deserialize(
             value,
@@ -146,12 +175,26 @@ class _$TaskSourceGetSerializer implements PrimitiveSerializer<TaskSourceGet> {
           ) as String;
           result.rootCode = valueDes;
           break;
-        case r'keep_connection':
+        case r'url':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(bool),
-          ) as bool;
-          result.keepConnection = valueDes;
+            specifiedType: const FullType(String),
+          ) as String;
+          result.url = valueDes;
+          break;
+        case r'state':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.state = valueDes;
+          break;
+        case r'state_details':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.stateDetails = valueDes;
           break;
         case r'updated_on':
           final valueDes = serializers.deserialize(
@@ -160,19 +203,12 @@ class _$TaskSourceGetSerializer implements PrimitiveSerializer<TaskSourceGet> {
           ) as DateTime;
           result.updatedOn = valueDes;
           break;
-        case r'url':
+        case r'keep_connection':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.url = valueDes;
-          break;
-        case r'source_id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.sourceId = valueDes;
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.keepConnection = valueDes;
           break;
         default:
           unhandled.add(key);

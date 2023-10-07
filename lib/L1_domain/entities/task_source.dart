@@ -8,9 +8,9 @@ class TaskSource extends RPersistable {
     required this.code,
     required this.rootCode,
     required this.sourceId,
-    required this.keepConnection,
     required this.urlString,
     required this.updatedOn,
+    this.keepConnection = false,
   });
 
   final String code;

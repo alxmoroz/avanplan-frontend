@@ -8,7 +8,7 @@ import '../../L1_domain/utils/dates.dart';
 extension NotificationMapper on api.Notification {
   MTNotification get notification => MTNotification(
         id: id,
-        title: title ?? '',
+        title: title,
         description: description ?? '',
         scheduledDate: scheduledDate?.toLocal() ?? now,
         isRead: isRead,

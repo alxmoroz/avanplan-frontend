@@ -33,7 +33,7 @@ abstract class TaskUpsert implements Built<TaskUpsert, TaskUpsertBuilder> {
   int? get id;
 
   @BuiltValueField(wireName: r'title')
-  String? get title;
+  String get title;
 
   @BuiltValueField(wireName: r'description')
   String? get description;
@@ -109,13 +109,11 @@ class _$TaskUpsertSerializer implements PrimitiveSerializer<TaskUpsert> {
         specifiedType: const FullType(int),
       );
     }
-    if (object.title != null) {
-      yield r'title';
-      yield serializers.serialize(
-        object.title,
-        specifiedType: const FullType(String),
-      );
-    }
+    yield r'title';
+    yield serializers.serialize(
+      object.title,
+      specifiedType: const FullType(String),
+    );
     if (object.description != null) {
       yield r'description';
       yield serializers.serialize(

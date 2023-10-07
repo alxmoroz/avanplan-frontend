@@ -21,11 +21,10 @@ part 'task_remote.g.dart';
 /// * [closedDate] 
 /// * [estimate] 
 /// * [taskSource] 
-/// * [taskQueueId] 
 @BuiltValue()
 abstract class TaskRemote implements Built<TaskRemote, TaskRemoteBuilder> {
   @BuiltValueField(wireName: r'title')
-  String? get title;
+  String get title;
 
   @BuiltValueField(wireName: r'description')
   String? get description;
@@ -49,10 +48,7 @@ abstract class TaskRemote implements Built<TaskRemote, TaskRemoteBuilder> {
   num? get estimate;
 
   @BuiltValueField(wireName: r'task_source')
-  TaskSource? get taskSource;
-
-  @BuiltValueField(wireName: r'task_queue_id')
-  String? get taskQueueId;
+  TaskSource get taskSource;
 
   TaskRemote._();
 
@@ -79,13 +75,11 @@ class _$TaskRemoteSerializer implements PrimitiveSerializer<TaskRemote> {
     TaskRemote object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.title != null) {
-      yield r'title';
-      yield serializers.serialize(
-        object.title,
-        specifiedType: const FullType(String),
-      );
-    }
+    yield r'title';
+    yield serializers.serialize(
+      object.title,
+      specifiedType: const FullType(String),
+    );
     if (object.description != null) {
       yield r'description';
       yield serializers.serialize(
@@ -135,20 +129,11 @@ class _$TaskRemoteSerializer implements PrimitiveSerializer<TaskRemote> {
         specifiedType: const FullType(num),
       );
     }
-    if (object.taskSource != null) {
-      yield r'task_source';
-      yield serializers.serialize(
-        object.taskSource,
-        specifiedType: const FullType(TaskSource),
-      );
-    }
-    if (object.taskQueueId != null) {
-      yield r'task_queue_id';
-      yield serializers.serialize(
-        object.taskQueueId,
-        specifiedType: const FullType(String),
-      );
-    }
+    yield r'task_source';
+    yield serializers.serialize(
+      object.taskSource,
+      specifiedType: const FullType(TaskSource),
+    );
   }
 
   @override
@@ -234,13 +219,6 @@ class _$TaskRemoteSerializer implements PrimitiveSerializer<TaskRemote> {
             specifiedType: const FullType(TaskSource),
           ) as TaskSource;
           result.taskSource.replace(valueDes);
-          break;
-        case r'task_queue_id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.taskQueueId = valueDes;
           break;
         default:
           unhandled.add(key);

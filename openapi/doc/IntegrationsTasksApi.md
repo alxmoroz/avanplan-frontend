@@ -10,7 +10,7 @@ All URIs are relative to */api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**getProjectsListV1IntegrationsTasksGet**](IntegrationsTasksApi.md#getprojectslistv1integrationstasksget) | **GET** /v1/integrations/tasks | Get Projects List
-[**importProjectsV1IntegrationsTasksImportPost**](IntegrationsTasksApi.md#importprojectsv1integrationstasksimportpost) | **POST** /v1/integrations/tasks/import | Import Projects
+[**startImportProjectsV1IntegrationsTasksStartImportPost**](IntegrationsTasksApi.md#startimportprojectsv1integrationstasksstartimportpost) | **POST** /v1/integrations/tasks/start_import | Start Import Projects
 [**unlinkV1IntegrationsTasksUnlinkPost**](IntegrationsTasksApi.md#unlinkv1integrationstasksunlinkpost) | **POST** /v1/integrations/tasks/unlink | Unlink
 
 
@@ -63,10 +63,10 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **importProjectsV1IntegrationsTasksImportPost**
-> BuiltList<TaskRemote> importProjectsV1IntegrationsTasksImportPost(wsId, sourceId, taskRemote)
+# **startImportProjectsV1IntegrationsTasksStartImportPost**
+> bool startImportProjectsV1IntegrationsTasksStartImportPost(wsId, bodyStartImportProjectsV1IntegrationsTasksStartImportPost)
 
-Import Projects
+Start Import Projects
 
 ### Example
 ```dart
@@ -80,14 +80,13 @@ import 'package:openapi/api.dart';
 
 final api = Openapi().getIntegrationsTasksApi();
 final int wsId = 56; // int | 
-final int sourceId = 56; // int | 
-final BuiltList<TaskRemote> taskRemote = ; // BuiltList<TaskRemote> | 
+final BodyStartImportProjectsV1IntegrationsTasksStartImportPost bodyStartImportProjectsV1IntegrationsTasksStartImportPost = ; // BodyStartImportProjectsV1IntegrationsTasksStartImportPost | 
 
 try {
-    final response = api.importProjectsV1IntegrationsTasksImportPost(wsId, sourceId, taskRemote);
+    final response = api.startImportProjectsV1IntegrationsTasksStartImportPost(wsId, bodyStartImportProjectsV1IntegrationsTasksStartImportPost);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling IntegrationsTasksApi->importProjectsV1IntegrationsTasksImportPost: $e\n');
+    print('Exception when calling IntegrationsTasksApi->startImportProjectsV1IntegrationsTasksStartImportPost: $e\n');
 }
 ```
 
@@ -96,12 +95,11 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **wsId** | **int**|  | 
- **sourceId** | **int**|  | 
- **taskRemote** | [**BuiltList&lt;TaskRemote&gt;**](TaskRemote.md)|  | 
+ **bodyStartImportProjectsV1IntegrationsTasksStartImportPost** | [**BodyStartImportProjectsV1IntegrationsTasksStartImportPost**](BodyStartImportProjectsV1IntegrationsTasksStartImportPost.md)|  | 
 
 ### Return type
 
-[**BuiltList&lt;TaskRemote&gt;**](TaskRemote.md)
+**bool**
 
 ### Authorization
 

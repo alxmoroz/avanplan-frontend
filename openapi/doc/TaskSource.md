@@ -8,11 +8,14 @@ import 'package:openapi/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**sourceId** | **int** |  | 
 **code** | **String** |  | 
 **rootCode** | **String** |  | 
-**keepConnection** | **bool** |  | [optional] [default to false]
-**updatedOn** | [**DateTime**](DateTime.md) |  | [optional] 
 **url** | **String** |  | [optional] 
+**state** | **String** |  | [optional] 
+**stateDetails** | **String** |  | [optional] 
+**updatedOn** | [**DateTime**](DateTime.md) |  | [optional] 
+**keepConnection** | **bool** |  | [optional] [default to false]
 **parentCode** | **String** |  | [optional] 
 **versionCode** | **String** |  | [optional] 
 **skipUpsert** | **bool** |  | [optional] [default to false]

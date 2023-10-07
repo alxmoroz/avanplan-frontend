@@ -101,7 +101,7 @@ abstract class _ImportControllerBase with Store {
       }
       if (connected) {
         loader.setSourceListing(loaderDescription);
-        projects = (await importUC.getRootTasks(ws, selectedSource!)).sorted((p1, p2) => compareNatural(p1.title, p2.title));
+        projects = (await importUC.getProjectsList(ws, selectedSource!)).sorted((p1, p2) => compareNatural(p1.title, p2.title));
       } else {
         errorCode = 'error_import_connection';
       }
@@ -120,14 +120,10 @@ abstract class _ImportControllerBase with Store {
 
   Future startImport() async {
     if (selectableCount >= 0) {
-      loader.start();
-      loader.setImporting('$selectedSource');
-      final taskSources = selectedProjects.map((t) => t.taskSource!);
-      await importUC.importTaskSources(ws, selectedSource!, taskSources);
+      await importUC.startImport(ws, selectedSource!, selectedProjects);
       Navigator.of(rootKey.currentContext!).pop();
-      await mainController.fetchWorkspaces();
-      await mainController.fetchTasks();
-      await loader.stop();
+      // await mainController.fetchWorkspaces();
+      // await mainController.fetchTasks();
     } else {
       await ws.changeTariff(
         reason: loc.tariff_change_limit_projects_reason_title,

@@ -2,11 +2,10 @@
 
 import '../entities/source.dart';
 import '../entities/task.dart';
-import '../entities/task_source.dart';
 import '../entities/workspace.dart';
 
 abstract class AbstractImportRepo {
-  Future<List<TaskRemote>> getRootTasks(Workspace ws, Source source);
-  Future<bool> importTaskSources(Workspace ws, Source source, Iterable<TaskSourceImport> tss);
+  Future<Iterable<TaskRemote>> getProjectsList(Workspace ws, Source source);
+  Future<bool> startImport(Workspace ws, Source source, Iterable<TaskRemote> projects);
   Future<bool> unlinkProject(Task project);
 }

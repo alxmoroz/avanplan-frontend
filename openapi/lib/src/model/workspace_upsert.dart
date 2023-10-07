@@ -21,7 +21,7 @@ abstract class WorkspaceUpsert implements Built<WorkspaceUpsert, WorkspaceUpsert
   int? get id;
 
   @BuiltValueField(wireName: r'title')
-  String? get title;
+  String get title;
 
   @BuiltValueField(wireName: r'description')
   String? get description;
@@ -59,13 +59,11 @@ class _$WorkspaceUpsertSerializer implements PrimitiveSerializer<WorkspaceUpsert
         specifiedType: const FullType(int),
       );
     }
-    if (object.title != null) {
-      yield r'title';
-      yield serializers.serialize(
-        object.title,
-        specifiedType: const FullType(String),
-      );
-    }
+    yield r'title';
+    yield serializers.serialize(
+      object.title,
+      specifiedType: const FullType(String),
+    );
     if (object.description != null) {
       yield r'description';
       yield serializers.serialize(

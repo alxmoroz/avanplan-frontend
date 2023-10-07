@@ -12,6 +12,11 @@ void main() {
       // TODO
     });
 
+    // int sourceId
+    test('to test the property `sourceId`', () async {
+      // TODO
+    });
+
     // String code
     test('to test the property `code`', () async {
       // TODO
@@ -22,8 +27,18 @@ void main() {
       // TODO
     });
 
-    // bool keepConnection (default value: false)
-    test('to test the property `keepConnection`', () async {
+    // String url
+    test('to test the property `url`', () async {
+      // TODO
+    });
+
+    // String state
+    test('to test the property `state`', () async {
+      // TODO
+    });
+
+    // String stateDetails
+    test('to test the property `stateDetails`', () async {
       // TODO
     });
 
@@ -32,13 +47,8 @@ void main() {
       // TODO
     });
 
-    // String url
-    test('to test the property `url`', () async {
-      // TODO
-    });
-
-    // int sourceId
-    test('to test the property `sourceId`', () async {
+    // bool keepConnection (default value: false)
+    test('to test the property `keepConnection`', () async {
       // TODO
     });
   });

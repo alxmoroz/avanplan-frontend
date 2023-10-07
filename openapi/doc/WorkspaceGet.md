@@ -9,7 +9,7 @@ import 'package:openapi/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  | 
-**title** | **String** |  | [optional] 
+**title** | **String** |  | 
 **description** | **String** |  | [optional] 
 **code** | **String** |  | 
 **users** | [**BuiltList&lt;User&gt;**](User.md) |  | [optional] 

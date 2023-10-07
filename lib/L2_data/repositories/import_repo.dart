@@ -5,7 +5,6 @@ import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/source.dart';
 import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/entities/task_source.dart';
 import '../../L1_domain/entities/workspace.dart';
 import '../../L1_domain/repositories/abs_import_repo.dart';
 import '../mappers/task.dart';
@@ -15,33 +14,37 @@ class ImportRepo extends AbstractImportRepo {
   o_api.IntegrationsTasksApi get api => openAPI.getIntegrationsTasksApi();
 
   @override
-  Future<List<TaskRemote>> getRootTasks(Workspace ws, Source source) async {
-    final response = await api.rootTasksV1IntegrationsTasksGet(sourceId: source.id!, wsId: ws.id!);
-    return response.data?.map((t) => t.taskImport).toList() ?? [];
+  Future<Iterable<TaskRemote>> getProjectsList(Workspace ws, Source source) async {
+    final response = await api.getProjectsListV1IntegrationsTasksGet(sourceId: source.id!, wsId: ws.id!);
+    return response.data?.map((t) => t.taskRemote) ?? [];
   }
 
   @override
-  Future<bool> importTaskSources(Workspace ws, Source source, Iterable<TaskSourceImport> tss) async {
-    final tSchema = tss.map((ts) => (o_api.TaskSourceBuilder()
-          ..code = ts.code
-          ..rootCode = ts.rootCode
-          ..keepConnection = ts.keepConnection
-          ..updatedOn = ts.updatedOn)
-        .build());
-    final resp = await api.importTaskSourcesV1IntegrationsTasksImportPost(
-      sourceId: source.id!,
-      taskSource: BuiltList.from(tSchema),
+  Future<bool> startImport(Workspace ws, Source source, Iterable<TaskRemote> projects) async {
+    final response = await api.startImportProjectsV1IntegrationsTasksStartImportPost(
       wsId: ws.id!,
+      bodyStartImportProjectsV1IntegrationsTasksStartImportPost: (o_api.BodyStartImportProjectsV1IntegrationsTasksStartImportPostBuilder()
+            ..projects = ListBuilder(
+              projects.map<o_api.TaskRemote>((p) => (o_api.TaskRemoteBuilder()
+                    ..title = p.title
+                    ..taskSource = (o_api.TaskSourceBuilder()
+                      ..code = p.taskSource?.code
+                      ..rootCode = p.taskSource?.rootCode
+                      ..keepConnection = p.taskSource?.keepConnection
+                      ..updatedOn = p.taskSource?.updatedOn))
+                  .build()),
+            ))
+          .build(),
     );
-    return resp.data == true;
+    return response.data == true;
   }
 
   @override
   Future<bool> unlinkProject(Task project) async {
-    final resp = await api.unlinkV1IntegrationsTasksUnlinkPost(
+    final response = await api.unlinkV1IntegrationsTasksUnlinkPost(
       wsId: project.ws.id!,
       taskId: project.id!,
     );
-    return resp.data == true;
+    return response.data == true;
   }
 }

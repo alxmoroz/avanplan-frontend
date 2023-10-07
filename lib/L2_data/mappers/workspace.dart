@@ -17,7 +17,7 @@ extension WorkspaceMapper on api.WorkspaceGet {
     final ws = Workspace(
       id: id,
       code: code,
-      title: title?.trim() ?? '',
+      title: title.trim(),
       description: description?.trim() ?? '',
       users: users?.map((u) => u.user(id)) ?? [],
       roles: roles?.map((r) => r.role) ?? [],

@@ -9,7 +9,7 @@ import 'package:openapi/api.dart';
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **int** |  | 
-**title** | **String** |  | [optional] 
+**title** | **String** |  | 
 **description** | **String** |  | [optional] 
 **scheduledDate** | [**DateTime**](DateTime.md) |  | [optional] 
 **url** | **String** |  | [optional] 

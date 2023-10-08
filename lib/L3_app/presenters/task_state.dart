@@ -97,8 +97,6 @@ String groupStateTitle(TaskState groupState) {
       return loc.state_eta_title;
     case TaskState.CLOSABLE:
       return loc.state_closable_title;
-    case TaskState.CLOSED:
-      return loc.state_closed;
     case TaskState.FUTURE_START:
       return loc.state_future_title;
     case TaskState.NO_INFO:
@@ -116,6 +114,10 @@ String groupStateTitle(TaskState groupState) {
       return loc.my_tasks_no_due_title;
     case TaskState.BACKLOG:
       return loc.backlog;
+    case TaskState.IMPORTING:
+      return loc.state_importing_title;
+    case TaskState.CLOSED:
+      return loc.state_closed;
   }
 }
 
@@ -192,10 +194,10 @@ extension TaskStatePresenter on Task {
             : project?.state == TaskState.LOW_START
                 ? _lowStartDetails
                 : loc.state_no_info_title;
-      case TaskState.CLOSED:
-        return loc.state_closed;
       case TaskState.BACKLOG:
         return loc.backlog;
+      case TaskState.CLOSED:
+        return loc.state_closed;
       default:
         return '???';
     }
@@ -206,11 +208,13 @@ extension TaskStatePresenter on Task {
 
   TaskState get overallState => isTask
       ? leafState
-      : attentionalSubtasks.isNotEmpty && !hasDueDate
-          ? subtasksState
-          : isBacklog
-              ? TaskState.BACKLOG
-              : state;
+      : isImportingProject
+          ? TaskState.IMPORTING
+          : attentionalSubtasks.isNotEmpty && !hasDueDate
+              ? subtasksState
+              : isBacklog
+                  ? TaskState.BACKLOG
+                  : state;
 
   String get overallStateTitle => isTask || (attentionalSubtasks.isEmpty || hasDueDate) ? stateTitle : _subtasksStateTitle;
 }

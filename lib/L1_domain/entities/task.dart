@@ -34,6 +34,7 @@ enum TaskState {
   FUTURE_DUE,
   NO_DUE,
   BACKLOG,
+  IMPORTING,
   CLOSED,
 }
 

@@ -250,6 +250,7 @@
   "state_eta_title": "There is predicted completion date",
   "state_future_start_duration": "We will start in {duration}",
   "state_future_title": "Starting soon",
+  "state_importing_title": "Importing",
   "state_low_start_duration": "It's been less than {duration} since project launch",
   "state_low_start_before_calc_duration": "Predicted completion date and velocity will be shown in {duration}",
   "state_no_info_title": "No predicted completion date",

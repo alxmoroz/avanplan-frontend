@@ -2,6 +2,8 @@
 
 import '../entities/task.dart';
 import '../utils/dates.dart';
+import 'task_source.dart';
+import 'task_tree.dart';
 
 extension TaskStatsExtension on Task {
   DateTime get calculatedStartDate => startDate ?? createdOn!;
@@ -26,12 +28,16 @@ extension TaskStatsExtension on Task {
   bool get isAhead => state == TaskState.AHEAD;
 
   bool get hasEstimate => openedVolume != null || estimate != null;
-  bool get linked => taskSource?.keepConnection == true;
-  bool get wasImported => taskSource?.urlString.isNotEmpty == true;
+  bool get didImported => taskSource != null;
+  bool get isLinked => didImported && taskSource!.keepConnection;
+  bool get isLocal => !isLinked;
+  bool get isLinkedProject => isProject && isLinked;
 
   bool get hasStatus => statusId != null;
   bool get hasAssignee => assigneeId != null;
 
   bool get hasDescription => description.isNotEmpty;
   bool get hasAuthor => authorId != null;
+
+  bool get isImportingProject => isProject && taskSource?.isRunning == true;
 }

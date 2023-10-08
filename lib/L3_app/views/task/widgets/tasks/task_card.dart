@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../L1_domain/entities/task.dart';
+import '../../../../../../L1_domain/entities_extensions/task_source.dart';
 import '../../../../../../L1_domain/entities_extensions/task_state.dart';
 import '../../../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../../../L1_domain/entities_extensions/task_status.dart';
@@ -25,7 +26,6 @@ import '../../../../presenters/task_state.dart';
 import '../../../../presenters/task_tree.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../../presenters/workspace.dart';
-import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_feature_sets.dart';
 import '../../controllers/task_controller.dart';
 import '../header/state_title.dart';
@@ -65,10 +65,10 @@ class TaskCard extends StatelessWidget {
         ],
       );
 
-  Widget get _error => Row(children: [
+  Widget _error(String errText) => Row(children: [
         const ErrorIcon(),
         const SizedBox(width: P_2),
-        SmallText(task.error!.title, color: _textColor, height: 1, maxLines: 1),
+        SmallText(errText, color: _textColor, height: 1, maxLines: 1),
       ]);
 
   bool get _showDate => task.hasDueDate && !task.closed && task.isTask;
@@ -113,10 +113,14 @@ class TaskCard extends StatelessWidget {
         children: [
           if (showParent && task.parent != null) _parentTitle,
           _title,
-          // ошибка
+          // ошибки
           if (task.error != null)
-            _error
+            _error(task.error!.title)
+          else if (task.didImported && task.taskSource!.hasError)
+            _error(task.taskSource!.stateDetails ?? 'Unknown Import Error')
           // проекты, цели или группы задач - интегральная оценка, метка связанного проекта и комментариев
+          else if (task.isImportingProject)
+            Container()
           else if (task.isOpenedGroup) ...[
             const SizedBox(height: P_2),
             Row(children: [

@@ -60,7 +60,8 @@ class TasksPane extends StatelessWidget {
           if (_task.canCreate) ...[
             const SizedBox(width: P),
             TaskCreateButton(_task.ws, parentTaskController: controller, compact: true),
-          ]
+          ] else
+            const SizedBox(width: P3),
         ])
       : null;
 

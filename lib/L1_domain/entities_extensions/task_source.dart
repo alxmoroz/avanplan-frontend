@@ -9,4 +9,5 @@ TaskSourceState? tsStateFromStr(String? strState) => TaskSourceState.values.firs
 extension TaskSourceExtension on TaskSource {
   bool get isRunning => [null, TaskSourceState.IMPORTING].contains(state);
   bool get hasError => [TaskSourceState.ERROR].contains(state);
+  bool get isOk => [TaskSourceState.OK].contains(state);
 }

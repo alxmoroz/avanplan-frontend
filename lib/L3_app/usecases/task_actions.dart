@@ -39,12 +39,10 @@ extension TaskActionsUC on Task {
   bool get _hpProjectInfoUpdate => me?.hp('PROJECT_INFO_UPDATE') == true || ws.hpProjectContentUpdate;
 
   /// доступные действия
-  bool get _isLocal => !linked;
-  bool get isLinkedProject => isProject && !_isLocal;
 
-  bool get canCreate => _isLocal && !closed && _hpCreate;
-  bool get canEdit => _isLocal && ((isProject && ws.hpProjectUpdate == true) || _hpUpdate);
-  bool get canDelete => (isProject && ws.hpProjectDelete == true) || (_isLocal && _hpDelete);
+  bool get canCreate => isLocal && !closed && _hpCreate;
+  bool get canEdit => isLocal && ((isProject && ws.hpProjectUpdate == true) || _hpUpdate);
+  bool get canDelete => (isProject && ws.hpProjectDelete == true) || (isLocal && _hpDelete);
   bool get canReopen => closed && canEdit && (isProject || parent?.closed == false);
   bool get canClose => canEdit && !closed;
   bool get canUnlink => isLinkedProject && ws.hpProjectUpdate == true;
@@ -76,7 +74,7 @@ extension TaskActionsUC on Task {
         if (canClose) TaskActionType.close,
         if (canReopen) TaskActionType.reopen,
         if (canLocalExport) TaskActionType.localExport,
-        if (wasImported && !linked) TaskActionType.go2source,
+        if (didImported && !isLinked) TaskActionType.go2source,
         if (canUnlink) TaskActionType.unlink,
         if (canDelete) TaskActionType.delete,
       ];

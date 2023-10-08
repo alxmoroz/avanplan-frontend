@@ -21,6 +21,7 @@ import '../../extra/services.dart';
 import '../../presenters/number.dart';
 import '../../presenters/task_filter.dart';
 import '../../presenters/task_state.dart';
+import '../../presenters/task_tree.dart';
 import '../../usecases/ws_actions.dart';
 import '../../usecases/ws_tariff.dart';
 
@@ -52,13 +53,13 @@ abstract class _MainControllerBase with Store {
   @computed
   Iterable<Task> get projects => allTasks.where((r) => r.isProject);
   @computed
-  bool get hasLinkedProjects => projects.where((p) => p.linked).isNotEmpty;
+  bool get hasLinkedProjects => projects.where((p) => p.isLinked).isNotEmpty;
   @computed
   List<MapEntry<TaskState, List<Task>>> get projectsGroups => groups(projects);
   @computed
   List<Task> get attentionalProjects => attentionalTasks(projectsGroups);
   @computed
-  TaskState get projectsState => attentionalState(projectsGroups);
+  TaskState get overallProjectsState => attentionalState(projectsGroups);
   @computed
   bool get hasOpenedProjects => projects.where((p) => !p.closed).isNotEmpty;
 
@@ -82,8 +83,6 @@ abstract class _MainControllerBase with Store {
   int get _todayCount => _myOverdueTasks.length + _myTodayTasks.length;
   @computed
   int get myUpcomingTasksCount {
-    // print(_openedLeafs);
-    //
     return _todayCount > 0
         ? _todayCount
         : _myThisWeekTasks.isNotEmpty
@@ -121,13 +120,16 @@ abstract class _MainControllerBase with Store {
     if (index > -1) {
       allTasks[index] = et;
     } else {
-      allTasks.addAll([et]);
+      allTasks.add(et);
     }
     allTasks.sort(sortByDateAsc);
   }
 
   @action
-  void removeTask(Task task) => allTasks.remove(task);
+  void removeTask(Task task) {
+    task.subtasks.forEach((t) => removeTask(t));
+    allTasks.remove(task);
+  }
 
   @action
   void removeClosed(Task parent) => allTasks.removeWhere((t) => t.closed && t.parentId == parent.id);
@@ -158,12 +160,28 @@ abstract class _MainControllerBase with Store {
 
   @action
   Future updateImportingProjects() async {
-    final importingProjects = <Task>[];
+    final importedProjects = <Task>[];
     for (Workspace ws in workspaces) {
-      importingProjects.addAll((await myUC.getProjects(ws, closed: false, imported: true)).where((p) => p.taskSource!.isRunning));
+      importedProjects.addAll(await myUC.getProjects(ws, closed: false, imported: true));
     }
-    importingProjects.forEach((p) => setTask(p));
-    if (importingProjects.isNotEmpty) {
+
+    for (Task p in importedProjects) {
+      final existingTask = task(p.ws.id!, p.id);
+      final existingTS = existingTask?.taskSource;
+      final newTS = p.taskSource!;
+      if (existingTS?.state != newTS.state) {
+        // замена подзадач
+        if (newTS.isOk) {
+          if (existingTask != null) {
+            removeTask(existingTask);
+          }
+          addTasks(await myUC.getTasks(p.ws, parent: p, closed: false));
+        }
+      }
+      setTask(p);
+    }
+
+    if (importedProjects.where((p) => p.isImportingProject).isNotEmpty) {
       Timer(const Duration(seconds: 5), () async => await updateImportingProjects());
     }
   }
@@ -194,6 +212,7 @@ abstract class _MainControllerBase with Store {
 
     await fetchWorkspaces();
     await fetchTasks();
+    await updateImportingProjects();
 
     _updatedDate = DateTime.now();
     await loader.stop();

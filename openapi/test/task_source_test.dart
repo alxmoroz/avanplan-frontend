@@ -22,7 +22,7 @@ void main() {
       // TODO
     });
 
-    // String url
+    // String url (default value: '')
     test('to test the property `url`', () async {
       // TODO
     });
@@ -57,8 +57,8 @@ void main() {
       // TODO
     });
 
-    // bool skipUpsert (default value: false)
-    test('to test the property `skipUpsert`', () async {
+    // bool skipUpdate (default value: false)
+    test('to test the property `skipUpdate`', () async {
       // TODO
     });
   });

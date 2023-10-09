@@ -11,14 +11,14 @@ Name | Type | Description | Notes
 **sourceId** | **int** |  | 
 **code** | **String** |  | 
 **rootCode** | **String** |  | 
-**url** | **String** |  | [optional] 
+**url** | **String** |  | [optional] [default to '']
 **state** | **String** |  | [optional] 
 **stateDetails** | **String** |  | [optional] 
 **updatedOn** | [**DateTime**](DateTime.md) |  | [optional] 
 **keepConnection** | **bool** |  | [optional] [default to false]
 **parentCode** | **String** |  | [optional] 
 **versionCode** | **String** |  | [optional] 
-**skipUpsert** | **bool** |  | [optional] [default to false]
+**skipUpdate** | **bool** |  | [optional] [default to false]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

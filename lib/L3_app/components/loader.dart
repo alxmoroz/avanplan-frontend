@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 
+import 'circular_progress.dart';
 import 'colors.dart';
 import 'colors_base.dart';
 
@@ -25,7 +26,7 @@ class MTLoader extends StatelessWidget {
               borderRadius: BorderRadius.circular(radius ?? 0),
             ),
           ),
-          CircularProgressIndicator(color: mainColor.resolve(context)),
+          const MTCircularProgress(color: mainColor, unbound: true),
         ],
       ),
     );

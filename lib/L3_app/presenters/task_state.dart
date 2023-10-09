@@ -1,12 +1,13 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities_extensions/task_state.dart';
 import '../../L1_domain/entities_extensions/task_stats.dart';
 import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../components/circle.dart';
+import '../components/circular_progress.dart';
 import '../components/colors.dart';
 import '../components/colors_base.dart';
 import '../components/constants.dart';
@@ -29,6 +30,8 @@ Color stateColor(TaskState state) {
     case TaskState.AHEAD:
     case TaskState.THIS_WEEK:
       return greenColor;
+    case TaskState.IMPORTING:
+      return mainColor;
     default:
       return f2Color;
   }
@@ -64,24 +67,27 @@ LinearGradient stateGradient(BuildContext context, TaskState state) {
   );
 }
 
-Widget stateIconGroup(BuildContext context, TaskState state) => SizedBox(
-      height: P4,
-      width: P2,
-      child: Stack(
-        children: [
-          MTCircle(size: P2, color: stateColor(state)),
-          Positioned(
-            left: P,
-            top: P,
-            child: Container(
-              decoration: BoxDecoration(gradient: stateGradient(context, state)),
-              width: P,
-              height: P3,
-            ),
+Widget stateIconGroup(BuildContext context, TaskState state) {
+  final importing = state == TaskState.IMPORTING;
+  return SizedBox(
+    height: P4,
+    width: P2,
+    child: Stack(
+      children: [
+        Positioned(
+          left: P,
+          top: importing ? P2 : P,
+          child: Container(
+            decoration: BoxDecoration(gradient: stateGradient(context, state)),
+            width: P,
+            height: importing ? P2 : P3,
           ),
-        ],
-      ),
-    );
+        ),
+        importing ? MTCircularProgress(color: stateColor(state), strokeWidth: 3, size: P2) : MTCircle(size: P2, color: stateColor(state)),
+      ],
+    ),
+  );
+}
 
 String groupStateTitle(TaskState groupState) {
   switch (groupState) {

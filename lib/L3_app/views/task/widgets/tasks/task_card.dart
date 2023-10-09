@@ -49,7 +49,7 @@ class TaskCard extends StatelessWidget {
   final bool dragging;
   final bool isMine;
 
-  Color? get _textColor => task.closed ? f2Color : null;
+  Color? get _textColor => task.closed || task.isImportingProject ? f2Color : null;
 
   Widget get _parentTitle => SmallText(
         '${task.project?.wsCode}${task.parent!.title}',
@@ -61,7 +61,7 @@ class TaskCard extends StatelessWidget {
         children: [
           if (task.wsCode.isNotEmpty) BaseText.f2(task.wsCode),
           Expanded(child: BaseText(task.title, maxLines: 2, color: _textColor)),
-          if (!board) const ChevronIcon(),
+          if (!board && !task.isImportingProject) const ChevronIcon(),
         ],
       );
 
@@ -166,7 +166,8 @@ class TaskCard extends StatelessWidget {
               middle: _taskContent,
               dividerLeftIndent: showStateMark ? P6 : 0,
               bottomDivider: bottomDivider,
-              onTap: _tap,
+              // color: task.isImportingProject ? b1Color : null,
+              onTap: task.isImportingProject ? null : _tap,
             ),
             if (task.loading == true) const MTLoader(),
             if (showStateMark)

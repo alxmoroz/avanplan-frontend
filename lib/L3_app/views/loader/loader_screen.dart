@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../components/adaptive.dart';
+import '../../components/circular_progress.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/images.dart';
@@ -42,16 +43,7 @@ class LoaderScreen extends StatelessWidget {
                   if (loader.descriptionText != null) _description,
                   if (loader.actionWidget == null) ...[
                     const SizedBox(height: P6),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: P10,
-                          width: P10,
-                          child: CircularProgressIndicator(color: mainColor.resolve(context)),
-                        ),
-                      ],
-                    ),
+                    const Center(child: MTCircularProgress(color: mainColor, size: P10)),
                   ],
                 ],
               ),

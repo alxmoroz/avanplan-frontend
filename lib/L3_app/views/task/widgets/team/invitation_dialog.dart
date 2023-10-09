@@ -6,6 +6,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L2_data/services/platform.dart';
 import '../../../../components/button.dart';
+import '../../../../components/circular_progress.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
@@ -79,7 +80,7 @@ class InvitationDialog extends StatelessWidget {
                       );
                     }),
               ] else
-                Center(child: CircularProgressIndicator(color: mainColor.resolve(context))),
+                const Center(child: MTCircularProgress(color: mainColor, unbound: true)),
             ],
           )),
     );

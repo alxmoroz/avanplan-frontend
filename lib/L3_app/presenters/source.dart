@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 import '../../L1_domain/entities/source.dart';
 import '../../L1_domain/entities/source_type.dart';
-import '../../main.dart';
 import '../components/circle.dart';
+import '../components/circular_progress.dart';
 import '../components/colors.dart';
 import '../components/colors_base.dart';
 import '../components/constants.dart';
@@ -42,10 +42,10 @@ extension SourcePresenter on Source {
       // subtitle: SmallText(''),
       padding: padding,
       trailing: checking
-          ? SizedBox(
-              height: _connectionIndicatorSize,
-              width: _connectionIndicatorSize,
-              child: CircularProgressIndicator(color: f2Color.resolve(rootKey.currentContext!)),
+          ? MTCircularProgress(
+              size: _connectionIndicatorSize,
+              color: f2Color,
+              strokeWidth: 3,
             )
           : MTCircle(
               color: connected

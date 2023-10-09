@@ -30,7 +30,7 @@ class TasksListView extends StatelessWidget {
       final groupBorder = !_showGroupTitles && groupIndex < groups.length - 1;
       return Column(
         children: [
-          if (_showGroupTitles)
+          if (_showGroupTitles || state == TaskState.IMPORTING)
             GroupStateTitle(
               state,
               place: StateTitlePlace.groupHeader,

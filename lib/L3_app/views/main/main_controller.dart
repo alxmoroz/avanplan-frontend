@@ -6,6 +6,7 @@ import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities/task_source.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../L1_domain/entities_extensions/task_source.dart';
@@ -62,6 +63,8 @@ abstract class _MainControllerBase with Store {
   TaskState get overallProjectsState => attentionalState(projectsGroups);
   @computed
   bool get hasOpenedProjects => projects.where((p) => !p.closed).isNotEmpty;
+  @computed
+  Iterable<TaskSource> get importingTSs => projects.where((p) => p.isImportingProject).map((p) => p.taskSource!);
 
   /// задачи
 

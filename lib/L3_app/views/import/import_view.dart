@@ -84,7 +84,7 @@ class ImportView extends StatelessWidget {
             if (_hasProjects) ...[
               if (_showSelectAll)
                 MTCheckBoxTile(
-                  title: '${loc.select_all_action_title} (${controller.projects.length})',
+                  title: '${loc.select_all_action_title} (${controller.selectableProjects.length})',
                   titleColor: mainColor,
                   color: b2Color,
                   value: _selectedAll,
@@ -98,11 +98,13 @@ class ImportView extends StatelessWidget {
   Widget _projectItemBuilder(BuildContext context, int index) {
     final project = controller.projects[index];
     final value = project.selected;
+    final importing = controller.isImporting(project);
     return MTCheckBoxTile(
       title: project.title,
+      description: importing ? loc.state_importing_label : null,
       value: value,
       bottomDivider: index < controller.projects.length - 1,
-      onChanged: (bool? value) => controller.selectProject(project, value),
+      onChanged: importing ? null : (bool? value) => controller.selectProject(project, value),
     );
   }
 

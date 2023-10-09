@@ -127,8 +127,7 @@ abstract class _MainControllerBase with Store {
 
   @action
   void removeTask(Task task) {
-    final subtasks = task.subtasks;
-    subtasks.forEach((t) => removeTask(t));
+    task.subtasks.toList().forEach((t) => removeTask(t));
     allTasks.remove(task);
   }
 

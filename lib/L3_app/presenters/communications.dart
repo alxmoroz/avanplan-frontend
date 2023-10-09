@@ -2,11 +2,11 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../L2_data/repositories/communications_repo.dart';
 import '../../L3_app/extra/services.dart';
 import '../components/button.dart';
 import '../components/constants.dart';
 import '../components/icons.dart';
+import '../usecases/communications.dart';
 
 String get appTitle => '${loc.app_title} ${localSettingsController.settings.version}';
 
@@ -24,7 +24,7 @@ class ReportErrorButton extends StatelessWidget {
       titleColor: titleColor,
       color: color,
       margin: const EdgeInsets.only(top: P3),
-      onTap: () => sendMail(loc.contact_us_mail_subject, appTitle, accountController.user?.id, errorText),
+      onTap: () => mailUs(text: errorText),
     );
   }
 }

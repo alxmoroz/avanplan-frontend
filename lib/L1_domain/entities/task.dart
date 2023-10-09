@@ -41,8 +41,8 @@ enum TaskState {
 class Task extends Titleable {
   Task({
     super.id,
+    required super.title,
     super.description,
-    super.title,
     required this.startDate,
     required this.closed,
     required this.parentId,

@@ -20,6 +20,7 @@ import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import '../../presenters/source.dart';
 import '../../presenters/workspace.dart';
+import '../../usecases/communications.dart';
 import '../../usecases/source.dart';
 import 'source_edit_controller.dart';
 import 'source_type_selector.dart';
@@ -37,12 +38,17 @@ Future<Source?> addSource(Workspace ws, {required SourceType sType}) async {
     s = await editSource(ws, sType: sType);
   } else {
     sourceUC.requestSourceType(sType);
-    await showMTAlertDialog(
-      loc.source_type_unavailable_title('$sType'),
-      description: loc.source_type_unavailable_hint,
-      simple: true,
-      actions: [MTADialogAction(title: loc.ok, type: MTActionType.isDefault, result: true)],
-    );
+
+    if (sType.custom) {
+      await mailUs(subject: loc.import_custom_request_mail_subject, text: loc.import_custom_request_mail_body_text);
+    } else {
+      await showMTAlertDialog(
+        loc.source_type_unavailable_title('$sType'),
+        description: loc.source_type_unavailable_hint,
+        simple: true,
+        actions: [MTADialogAction(title: loc.ok, type: MTActionType.isDefault, result: true)],
+      );
+    }
   }
   return s;
 }

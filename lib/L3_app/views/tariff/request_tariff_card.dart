@@ -2,14 +2,13 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../L2_data/repositories/communications_repo.dart';
 import '../../components/button.dart';
 import '../../components/card.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/text.dart';
 import '../../extra/services.dart';
-import '../../presenters/communications.dart';
+import '../../usecases/communications.dart';
 
 class RequestTariffCard extends StatelessWidget {
   @override
@@ -35,7 +34,7 @@ class RequestTariffCard extends StatelessWidget {
           MTButton.secondary(
             titleText: loc.tariff_price_request_action_title,
             margin: const EdgeInsets.symmetric(horizontal: P3),
-            onTap: () => sendMail(loc.tariff_price_request_mail_subject, appTitle, accountController.user?.id),
+            onTap: () => mailUs(subject: loc.tariff_price_request_mail_subject),
           ),
           const SizedBox(height: P4),
         ],

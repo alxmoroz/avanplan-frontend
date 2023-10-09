@@ -7,6 +7,7 @@ class SourceType extends Titleable {
     super.id,
     required super.title,
     required this.code,
+    super.description,
     this.active = true,
   });
 
@@ -15,4 +16,5 @@ class SourceType extends Titleable {
 
   bool get isJira => code == 'jira';
   bool get isTrello => code == 'trello';
+  bool get custom => code == 'custom';
 }

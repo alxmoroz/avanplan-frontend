@@ -16,7 +16,7 @@ import '../../components/page.dart';
 import '../../components/shadowed.dart';
 import '../../components/text.dart';
 import '../../extra/services.dart';
-import '../../presenters/communications.dart';
+import '../../usecases/communications.dart';
 import '../notification/notification_list_view.dart';
 import '../workspace/workspace_list_tile.dart';
 import 'account_list_tile.dart';
@@ -66,7 +66,7 @@ class SettingsView extends StatelessWidget {
             titleText: loc.contact_us_title,
             trailing: const LinkOutIcon(),
             bottomDivider: !isIOS,
-            onTap: () => sendMail(loc.contact_us_mail_subject, appTitle, accountController.user?.id),
+            onTap: mailUs,
           ),
           if (!isIOS)
             MTListTile(

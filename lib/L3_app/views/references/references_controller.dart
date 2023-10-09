@@ -28,6 +28,7 @@ abstract class _ReferencesControllerBase with Store {
       for (final st in ['Trello', 'Jira', 'GitLab', 'Redmine']) SourceType(title: st, code: st.toLowerCase()),
       for (final st in ['Notion', 'GitHub']) SourceType(title: st, code: st.toLowerCase(), active: false),
       SourceType(title: 'Яндекс.Трекер', code: 'yandex_tracker', active: false),
+      SourceType(title: loc.source_type_custom_title, description: loc.source_type_custom_description, code: 'custom', active: false),
     ];
 
     featureSets = await featureSetUC.getAll();

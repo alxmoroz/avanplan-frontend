@@ -141,6 +141,8 @@
   "import_list_empty_title": "Нет доступных для импорта проектов\nПопробуйте выбрать другой источник",
   "import_menu_action_title": "Импорт из",
   "import_projects_select_available_count_hint": "Выберите до {count}",
+  "import_custom_request_mail_body_text": "Добрый день!\r\nНужна помощь с импортом проектов в Аванплан",
+  "import_custom_request_mail_subject": "Запрос на импорт проектов в Аванплан",
   "import_source_select_hint": "Выберите источник импорта",
   "import_title": "Импорт проектов",
 
@@ -279,6 +281,8 @@
   "source_type_unavailable_title": "{type} не доступен для добавления",
   "source_type_unavailable_hint": "Мы сразу же сообщим вам, как только появится такая возможность",
   "source_type_placeholder": "Тип источника",
+  "source_type_custom_description": "Поможем импортировать всё что угодно",
+  "source_type_custom_title": "Особый способ импорта",
   "source_url_placeholder": "Адрес сервера (URL)",
 
   "subtask_count": "{count, plural, zero{Нет подзадач} one{{count} подзадача} few{{count} подзадачи} other{{count} подзадач}}",

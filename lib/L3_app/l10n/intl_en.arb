@@ -141,6 +141,8 @@
   "import_list_empty_title": "There are no projects available to import\nTry choosing a different source",
   "import_menu_action_title": "Import from",
   "import_projects_select_available_count_hint": "Select up to {count}",
+  "import_custom_request_mail_body_text": "Hello!\r\nI need help with import my projects into Avanplan.",
+  "import_custom_request_mail_subject": "Request for Custom Import Projects into Avanplan",
   "import_source_select_hint": "Select source",
   "import_title": "Import",
 
@@ -279,6 +281,8 @@
   "source_type_unavailable_title": "{type} is not available for adding",
   "source_type_unavailable_hint": "We will notify you as soon as it becomes available",
   "source_type_placeholder": "Import sources type",
+  "source_type_custom_description": "We will help import anything",
+  "source_type_custom_title": "Custom Import",
   "source_url_placeholder": "URL",
 
   "subtask_count": "{count, plural, zero{No subtasks} one{{count} subtask} other{{count} subtasks}}",

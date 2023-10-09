@@ -27,6 +27,7 @@ class SourceTypeSelector extends StatelessWidget {
             return MTListTile(
               leading: st.icon(size: P5),
               middle: BaseText(st.title),
+              subtitle: st.description.isNotEmpty ? SmallText(st.description) : null,
               trailing: const ChevronIcon(),
               bottomDivider: index < refsController.sourceTypes.length - 1,
               onTap: () => onTap(st),

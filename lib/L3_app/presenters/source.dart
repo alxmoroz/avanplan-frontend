@@ -9,12 +9,13 @@ import '../components/circular_progress.dart';
 import '../components/colors.dart';
 import '../components/colors_base.dart';
 import '../components/constants.dart';
+import '../components/icons.dart';
 import '../components/list_tile.dart';
 import '../components/text.dart';
 import '../extra/services.dart';
 
 extension SourceTypePresenter on SourceType {
-  Widget icon({double? size}) => Image.asset('assets/icons/${code}_icon.png', height: size ?? P4);
+  Widget icon({double? size}) => custom ? MailIcon(size: size ?? P4) : Image.asset('assets/icons/${code}_icon.png', height: size ?? P4);
   Widget iconTitle({double? size}) => Row(children: [icon(size: size), const SizedBox(width: P), BaseText('$this')]);
 }
 
@@ -39,7 +40,6 @@ extension SourcePresenter on Source {
     return MTListTile(
       leading: type.icon(size: iconSize),
       middle: BaseText('$this', color: textColor),
-      // subtitle: SmallText(''),
       padding: padding,
       trailing: checking
           ? MTCircularProgress(

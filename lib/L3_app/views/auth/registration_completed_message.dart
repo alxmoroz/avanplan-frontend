@@ -2,13 +2,12 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../L2_data/repositories/communications_repo.dart';
 import '../../components/button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/text.dart';
 import '../../extra/services.dart';
-import '../../presenters/communications.dart';
+import '../../usecases/communications.dart';
 import 'registration_controller.dart';
 
 class RegistrationCompletedMessage extends StatelessWidget {
@@ -34,7 +33,7 @@ class RegistrationCompletedMessage extends StatelessWidget {
         SmallText(loc.auth_register_troubleshooting_hint, align: TextAlign.center),
         MTButton(
           middle: SmallText(loc.contact_us_title.toLowerCase(), color: mainColor),
-          onTap: () => sendMail(loc.contact_us_mail_subject, appTitle, accountController.user?.id),
+          onTap: mailUs,
         ),
         MTButton.main(
           margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),

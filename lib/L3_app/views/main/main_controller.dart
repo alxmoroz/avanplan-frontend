@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 
+import '../../../L1_domain/entities/errors.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/task_source.dart';
 import '../../../L1_domain/entities/workspace.dart';
@@ -169,6 +170,12 @@ abstract class _MainControllerBase with Store {
     }
 
     for (Task p in importedProjects) {
+      if (p.taskSource!.hasError) {
+        p.error = MTError(
+          loc.error_import_title,
+          description: p.taskSource!.stateDetails,
+        );
+      }
       final existingTask = task(p.ws.id!, p.id);
       final existingTS = existingTask?.taskSource;
       final newTS = p.taskSource!;
@@ -181,6 +188,7 @@ abstract class _MainControllerBase with Store {
           addTasks(await myUC.getTasks(p.ws, parent: p, closed: false));
         }
       }
+      // TODO: лишний раз сетится тут, если не было загрузок или изменений статусов
       setTask(p);
     }
 

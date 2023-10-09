@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../L1_domain/entities/task.dart';
-import '../../../../../../L1_domain/entities_extensions/task_source.dart';
 import '../../../../../../L1_domain/entities_extensions/task_state.dart';
 import '../../../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../../../L1_domain/entities_extensions/task_status.dart';
@@ -116,8 +115,6 @@ class TaskCard extends StatelessWidget {
           // ошибки
           if (task.error != null)
             _error(task.error!.title)
-          else if (task.didImported && task.taskSource!.hasError)
-            _error(task.taskSource!.stateDetails ?? 'Unknown Import Error')
           // проекты, цели или группы задач - интегральная оценка, метка связанного проекта и комментариев
           else if (task.isImportingProject)
             Container()

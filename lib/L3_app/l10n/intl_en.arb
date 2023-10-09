@@ -88,7 +88,7 @@
   "error_auth_title": "Authorisation Error",
   "error_fetch_products_title": "Error getting information about purchases",
   "error_import_connection": "Connection Error\nThe import source is not available",
-  "error_import_menu_action_title": "Import Error",
+  "error_import_title": "Import Error",
   "error_network_description": "Please check your internet connection and try again",
   "error_network_title": "Network Error\nNo connection to server",
   "error_permission_description": "Please contact the project or workspace administrator",

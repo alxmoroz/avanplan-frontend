@@ -191,7 +191,7 @@ abstract class _LoaderControllerBase with Store {
         imageName: ImageName.import.name,
       );
   void _setImportError(String? descriptionText, String? errorDetail) => set(
-        titleText: loc.error_import_menu_action_title,
+        titleText: loc.error_import_title,
         descriptionText: descriptionText,
         imageName: ImageName.import.name,
         action: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [

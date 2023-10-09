@@ -74,7 +74,7 @@ extension TaskActionsUC on Task {
         if (canClose) TaskActionType.close,
         if (canReopen) TaskActionType.reopen,
         if (canLocalExport) TaskActionType.localExport,
-        if (didImported && !isLinked) TaskActionType.go2source,
+        if (didImported) TaskActionType.go2source,
         if (canUnlink) TaskActionType.unlink,
         if (canDelete) TaskActionType.delete,
       ];

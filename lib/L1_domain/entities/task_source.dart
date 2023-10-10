@@ -3,6 +3,7 @@
 import 'base_entity.dart';
 
 enum TaskSourceState {
+  UNKNOWN,
   IMPORTING,
   OK,
   ERROR,

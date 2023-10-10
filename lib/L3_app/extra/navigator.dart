@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
 import '../../L1_domain/entities/user.dart';
-import '../../L1_domain/entities/workspace.dart';
 import '../../main.dart';
 import '../components/colors.dart';
 import '../extra/services.dart';
@@ -49,9 +48,9 @@ CupertinoPageRoute? cupertinoPageRoute(RouteSettings rs) {
   } else if (rs.name == AccountView.routeName) {
     p = AccountView();
   } else if (rs.name == UserListView.routeName) {
-    p = UserListView(rs.arguments as Workspace);
+    p = UserListView(rs.arguments as int);
   } else if (rs.name == ActiveContractView.routeName) {
-    p = ActiveContractView(rs.arguments as Workspace);
+    p = ActiveContractView(rs.arguments as int);
   } else if (rs.name == WorkspaceView.routeName) {
     p = WorkspaceView(rs.arguments as int);
   } else if (rs.name == SourceListView.routeName) {
@@ -98,9 +97,9 @@ class MTRouteObserver extends NavigatorObserver {
         } else if (name == AccountView.routeName) {
           title = AccountView.title;
         } else if (name == UserListView.routeName) {
-          title = UserListView.title(rs.arguments as Workspace);
+          title = UserListView.title(rs.arguments as int);
         } else if (name == ActiveContractView.routeName) {
-          title = ActiveContractView.title(rs.arguments as Workspace);
+          title = ActiveContractView.title(rs.arguments as int);
         } else if (name == WorkspaceView.routeName) {
           title = WorkspaceView.title(rs.arguments as int);
         } else if (name == SourceListView.routeName) {

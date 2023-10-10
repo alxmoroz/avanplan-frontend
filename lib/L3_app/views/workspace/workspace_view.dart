@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../main.dart';
@@ -75,14 +76,14 @@ class WorkspaceView extends StatelessWidget {
         subtitle: SmallText('${loc.contract_effective_date_title} ${ws.invoice.contract.createdOn.strMedium}'),
         trailing: const ChevronIcon(),
         bottomDivider: false,
-        onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(ActiveContractView.routeName, arguments: ws),
+        onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(ActiveContractView.routeName, arguments: ws.id),
       );
 
   Widget get _users => MTListTile(
       leading: const PeopleIcon(size: P6),
       titleText: '${loc.user_list_title} (${ws.users.length})',
       trailing: const ChevronIcon(),
-      onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(UserListView.routeName, arguments: ws));
+      onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(UserListView.routeName, arguments: ws.id));
 
   Widget get _sources => MTListTile(
       leading: const ImportIcon(),
@@ -96,28 +97,30 @@ class WorkspaceView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MTPage(
-      appBar: MTAppBar(context,
-          title: loc.workspace_title,
-          trailing: ws.hpInfoUpdate
-              ? MTButton.icon(
-                  const EditIcon(),
-                  onTap: () => editWSDialog(ws),
-                  margin: const EdgeInsets.only(right: P2),
-                )
-              : null),
-      body: SafeArea(
-        top: false,
-        bottom: false,
-        child: ListView(
-          children: [
-            _header,
-            _balance,
-            _tariff,
-            const SizedBox(height: P3),
-            _users,
-            if (ws.hpSourceCreate) _sources,
-          ],
+    return Observer(
+      builder: (_) => MTPage(
+        appBar: MTAppBar(context,
+            title: loc.workspace_title,
+            trailing: ws.hpInfoUpdate
+                ? MTButton.icon(
+                    const EditIcon(),
+                    onTap: () => editWSDialog(ws),
+                    margin: const EdgeInsets.only(right: P2),
+                  )
+                : null),
+        body: SafeArea(
+          top: false,
+          bottom: false,
+          child: ListView(
+            children: [
+              _header,
+              _balance,
+              _tariff,
+              const SizedBox(height: P3),
+              _users,
+              if (ws.hpSourceCreate) _sources,
+            ],
+          ),
         ),
       ),
     );

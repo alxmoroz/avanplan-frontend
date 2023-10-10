@@ -23,6 +23,7 @@ extension WSTariffUC on Workspace {
         if (signedContractInvoice != null) {
           // TODO: тут может менять не только тариф у РП, но и баланс. Нужно вытаскивать с бэка изменённое РП и дергать обсервер
           invoice = signedContractInvoice;
+          mainController.touchWorkspaces();
         }
         await loader.stop();
       }

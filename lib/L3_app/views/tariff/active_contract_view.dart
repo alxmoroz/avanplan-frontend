@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
 import '../../../L1_domain/entities/workspace.dart';
@@ -15,35 +16,38 @@ import 'tariff_limits.dart';
 import 'tariff_options.dart';
 
 class ActiveContractView extends StatelessWidget {
-  const ActiveContractView(this._ws);
-  final Workspace _ws;
+  const ActiveContractView(this._wsId);
+  final int _wsId;
 
   static String get routeName => '/active_contract';
-  static String title(Workspace ws) => '$ws - ${loc.tariff_current_title}';
+  static String title(int _wsId) => '${mainController.wsForId(_wsId)} - ${loc.tariff_current_title}';
 
-  Tariff get tariff => _ws.invoice.tariff;
+  Workspace get ws => mainController.wsForId(_wsId);
+  Tariff get tariff => ws.invoice.tariff;
 
   @override
   Widget build(BuildContext context) {
-    return MTPage(
-      appBar: MTAppBar(context, middle: _ws.subPageTitle(loc.tariff_current_title)),
-      body: SafeArea(
-        top: false,
-        bottom: false,
-        child: TariffLimits(tariff),
+    return Observer(
+      builder: (_) => MTPage(
+        appBar: MTAppBar(context, middle: ws.subPageTitle(loc.tariff_current_title)),
+        body: SafeArea(
+          top: false,
+          bottom: false,
+          child: TariffLimits(tariff),
+        ),
+        bottomBar: ws.hpTariffUpdate
+            ? Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TariffOptions(tariff),
+                  MTButton.main(
+                    titleText: loc.tariff_change_action_title,
+                    onTap: () => ws.changeTariff(),
+                  )
+                ],
+              )
+            : null,
       ),
-      bottomBar: _ws.hpTariffUpdate
-          ? Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TariffOptions(tariff),
-                MTButton.main(
-                  titleText: loc.tariff_change_action_title,
-                  onTap: () => _ws.changeTariff(),
-                )
-              ],
-            )
-          : null,
     );
   }
 }

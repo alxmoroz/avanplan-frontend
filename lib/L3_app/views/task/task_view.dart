@@ -140,7 +140,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
           if (task.error != null)
             MTErrorSheet(task.error!, onClose: () {
               task.error = null;
-              mainController.refresh();
+              tasksMainController.refreshTasks();
             }),
         ],
       ),

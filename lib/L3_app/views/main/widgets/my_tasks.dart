@@ -20,7 +20,7 @@ class MyTasks extends StatelessWidget {
   const MyTasks({this.compact = true});
   final bool compact;
 
-  int get _myTasksCount => mainController.myUpcomingTasksCount;
+  int get _myTasksCount => tasksMainController.myUpcomingTasksCount;
 
   Future _goToTasks() async => await Navigator.of(rootKey.currentContext!).pushNamed(MyTasksView.routeName);
 
@@ -35,7 +35,7 @@ class MyTasks extends StatelessWidget {
             BaseText(loc.my_tasks_title, align: TextAlign.center, color: f2Color),
             const SizedBox(height: P3),
             compact ? Expanded(child: _mainInfo(context)) : _mainInfo(context),
-            H2(_myTasksCount > 0 ? mainController.myUpcomingTasksTitle : loc.task_list_empty_title, align: TextAlign.center),
+            H2(_myTasksCount > 0 ? tasksMainController.myUpcomingTasksTitle : loc.task_list_empty_title, align: TextAlign.center),
             const SizedBox(height: P3),
           ],
         ),
@@ -55,7 +55,7 @@ class MyTasks extends StatelessWidget {
                     ? Expanded(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: P),
-                          child: MTShadowed(child: TasksGroup(mainController.myTasksGroups.first.value, isMine: true)),
+                          child: MTShadowed(child: TasksGroup(tasksMainController.myTasksGroups.first.value, isMine: true)),
                         ),
                       )
                     : H3(loc.my_tasks_empty_hint, align: TextAlign.center),

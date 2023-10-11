@@ -45,12 +45,12 @@ class ImportController extends _ImportControllerBase with _$ImportController {
 
 abstract class _ImportControllerBase with Store {
   late final int wsId;
-  Workspace get ws => mainController.wsForId(wsId);
+  Workspace get ws => wsMainController.wsForId(wsId);
   int get availableCount => ws.availableProjectsCount;
 
   bool isImporting(TaskRemote rp) {
     final rts = rp.taskSource!;
-    return mainController.importingTSs.where((ts) => ts.code == rts.code && ts.sourceId == rts.sourceId).isNotEmpty;
+    return tasksMainController.importingTSs.where((ts) => ts.code == rts.code && ts.sourceId == rts.sourceId).isNotEmpty;
   }
 
   @observable
@@ -119,7 +119,7 @@ abstract class _ImportControllerBase with Store {
       } else {
         errorCode = 'error_import_connection';
       }
-      mainController.touchWorkspaces();
+      wsMainController.touchWorkspaces();
       await loader.stop();
     }
   }
@@ -136,7 +136,7 @@ abstract class _ImportControllerBase with Store {
     if (selectableCount >= 0) {
       _sendingRequest = true;
       if (await importUC.startImport(ws.id!, selectedSourceId!, selectedProjects)) {
-        await mainController.updateImportingProjects();
+        await tasksMainController.updateImportingProjects();
       }
       Navigator.of(rootKey.currentContext!).pop();
     } else {

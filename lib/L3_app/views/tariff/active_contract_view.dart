@@ -20,9 +20,9 @@ class ActiveContractView extends StatelessWidget {
   final int _wsId;
 
   static String get routeName => '/active_contract';
-  static String title(int _wsId) => '${mainController.wsForId(_wsId)} - ${loc.tariff_current_title}';
+  static String title(int _wsId) => '${wsMainController.wsForId(_wsId)} - ${loc.tariff_current_title}';
 
-  Workspace get ws => mainController.wsForId(_wsId);
+  Workspace get ws => wsMainController.wsForId(_wsId);
   Tariff get tariff => ws.invoice.tariff;
 
   @override

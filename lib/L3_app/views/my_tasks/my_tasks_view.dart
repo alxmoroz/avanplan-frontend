@@ -22,7 +22,7 @@ class MyTasksView extends StatelessWidget {
           top: false,
           bottom: false,
           child: TasksListView(
-            mainController.myTasksGroups,
+            tasksMainController.myTasksGroups,
             filters: const {TasksFilter.my},
           ),
         ),

@@ -19,13 +19,13 @@ abstract class _IAPControllerBase with Store {
   List<IAPProduct> products = [];
 
   @action
-  Future fetchProducts() async {
+  Future getProducts() async {
     loader.start();
     loader.set(imageName: ImageName.purchase.name, titleText: loc.loader_refreshing_title);
     products = (await iapUC.products(
       (errorText) => loader.set(
         imageName: ImageName.purchase.name,
-        titleText: loc.error_fetch_products_title,
+        titleText: loc.error_get_products_title,
         descriptionText: errorText,
         actionText: loc.ok,
       ),
@@ -55,7 +55,7 @@ abstract class _IAPControllerBase with Store {
           } else {
             waitingPayment = purchasedAmount == null;
             if (purchasedAmount != null) {
-              mainController.wsForId(wsId).balance += purchasedAmount;
+              wsMainController.wsForId(wsId).balance += purchasedAmount;
             }
             loader.stop();
           }

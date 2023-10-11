@@ -22,7 +22,7 @@ class MyProjectsView extends StatelessWidget {
         body: SafeArea(
           top: false,
           bottom: false,
-          child: TasksListView(mainController.projectsGroups),
+          child: TasksListView(tasksMainController.projectsGroups),
         ),
         bottomBar: const Row(children: [
           Spacer(),

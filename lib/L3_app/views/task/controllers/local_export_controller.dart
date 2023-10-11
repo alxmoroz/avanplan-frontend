@@ -31,7 +31,7 @@ class LocalExportController {
       if (!(await _taskController.saveField(TaskFCode.parent))) {
         task.parentId = sourceGoalId;
       } else {
-        mainController.refresh();
+        tasksMainController.refreshTasks();
       }
     }
   }

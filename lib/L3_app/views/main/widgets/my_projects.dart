@@ -19,19 +19,23 @@ class MyProjects extends StatelessWidget {
 
   Future _goToProjects() async => await Navigator.of(rootKey.currentContext!).pushNamed(MyProjectsView.routeName);
 
-  Widget get _contents => MTCardButton(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            BaseText.f2(loc.project_list_title, align: TextAlign.center),
-            const SizedBox(height: P3),
-            compact ? Expanded(child: imageForState(mainController.overallProjectsState)) : imageForState(mainController.overallProjectsState),
-            H2(groupStateTitle(mainController.overallProjectsState), align: TextAlign.center),
-            const SizedBox(height: P3),
-          ],
-        ),
-        onTap: _goToProjects,
-      );
+  Widget get _contents {
+    final overallState = tasksMainController.overallProjectsState;
+    final image = imageForState(overallState);
+    return MTCardButton(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          BaseText.f2(loc.project_list_title, align: TextAlign.center),
+          const SizedBox(height: P3),
+          compact ? Expanded(child: image) : image,
+          H2(groupStateTitle(overallState), align: TextAlign.center),
+          const SizedBox(height: P3),
+        ],
+      ),
+      onTap: _goToProjects,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +50,7 @@ class MyProjects extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: P),
                     child: MTShadowed(
-                      child: TasksGroup(mainController.attentionalProjects),
+                      child: TasksGroup(tasksMainController.attentionalProjects),
                     ),
                   ),
                 ),

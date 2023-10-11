@@ -29,7 +29,7 @@ class TariffSelectView extends StatelessWidget {
   final String description;
   final int wsId;
 
-  Workspace get ws => mainController.wsForId(wsId);
+  Workspace get ws => wsMainController.wsForId(wsId);
   int get currentIndex => tariffs.indexWhere((t) => t.id == ws.invoice.tariff.id);
   int get selectedIndex => currentIndex < tariffs.length ? currentIndex + 1 : currentIndex;
 

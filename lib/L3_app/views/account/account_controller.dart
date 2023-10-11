@@ -21,7 +21,7 @@ abstract class _AccountControllerBase extends EditController with Store {
   Map<String, Iterable<UActivity>> get _activitiesMap => groupBy<UActivity, String>(user?.activities ?? [], (a) => a.code);
 
   @action
-  Future fetchData() async => user = await myUC.getAccount();
+  Future getData() async => user = await myUC.getAccount();
 
   @action
   Future _registerActivity(String code, {int? wsId}) async {

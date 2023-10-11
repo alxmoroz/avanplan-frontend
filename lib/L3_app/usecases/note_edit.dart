@@ -11,7 +11,7 @@ import '../extra/services.dart';
 extension NoteEditUC on Note {
   Future<Note?> _edit(Task task, Future<Note?> function()) async {
     loading = true;
-    mainController.refresh();
+    tasksMainController.refreshTasks();
     Note? en;
     try {
       en = await function();
@@ -19,7 +19,7 @@ extension NoteEditUC on Note {
       task.error = MTError(loader.titleText ?? '', description: loader.descriptionText, detail: e.detail);
     }
     loading = false;
-    mainController.refresh();
+    tasksMainController.refreshTasks();
 
     return en;
   }

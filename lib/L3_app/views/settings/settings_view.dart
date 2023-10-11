@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import '../../../L1_domain/entities/workspace.dart';
 import '../../../L2_data/repositories/communications_repo.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../../main.dart';
@@ -25,6 +26,8 @@ import 'app_version.dart';
 class SettingsView extends StatelessWidget {
   static String get routeName => '/settings';
   static String get title => '';
+
+  List<Workspace> get _wss => wsMainController.workspaces;
 
   Widget get _notifications => MTListTile(
         leading: BellIcon(hasUnread: notificationController.hasUnread),
@@ -48,10 +51,10 @@ class SettingsView extends StatelessWidget {
           ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: mainController.workspaces.length,
+            itemCount: _wss.length,
             itemBuilder: (_, index) {
-              final ws = mainController.workspaces[index];
-              return WorkspaceListTile(ws, bottomBorder: index < mainController.workspaces.length - 1);
+              final ws = _wss[index];
+              return WorkspaceListTile(ws, bottomBorder: index < _wss.length - 1);
             },
           ),
         ],
@@ -99,7 +102,7 @@ class SettingsView extends StatelessWidget {
                   AccountListTile(),
                   const SizedBox(height: P3),
                   _notifications,
-                  if (mainController.workspaces.isNotEmpty) _workspaces,
+                  if (_wss.isNotEmpty) _workspaces,
                   _about,
                   const SizedBox(height: P3),
                   MTListTile(

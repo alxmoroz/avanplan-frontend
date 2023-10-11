@@ -42,7 +42,9 @@ import '../views/account/account_controller.dart';
 import '../views/auth/auth_controller.dart';
 import '../views/iap/iap_controller.dart';
 import '../views/loader/loader_controller.dart';
-import '../views/main/main_controller.dart';
+import '../views/main/controllers/main_controller.dart';
+import '../views/main/controllers/tasks_main_controller.dart';
+import '../views/main/controllers/ws_main_controller.dart';
 import '../views/notification/notification_controller.dart';
 import '../views/references/references_controller.dart';
 import '../views/settings/local_settings_controller.dart';
@@ -56,6 +58,8 @@ GetIt getIt = GetIt.instance;
 LocalSettingsController get localSettingsController => GetIt.I<LocalSettingsController>();
 ServiceSettingsController get serviceSettingsController => GetIt.I<ServiceSettingsController>();
 MainController get mainController => GetIt.I<MainController>();
+WSMainController get wsMainController => GetIt.I<WSMainController>();
+TasksMainController get tasksMainController => GetIt.I<TasksMainController>();
 LoaderController get loader => GetIt.I<LoaderController>();
 ReferencesController get refsController => GetIt.I<ReferencesController>();
 AccountController get accountController => GetIt.I<AccountController>();
@@ -123,6 +127,8 @@ void setup() {
 
   getIt.registerSingleton<ReferencesController>(ReferencesController());
   getIt.registerSingleton<MainController>(MainController());
+  getIt.registerSingleton<WSMainController>(WSMainController());
+  getIt.registerSingleton<TasksMainController>(TasksMainController());
   getIt.registerSingleton<LoaderController>(LoaderController());
   getIt.registerSingleton<AccountController>(AccountController());
   getIt.registerSingleton<NotificationController>(NotificationController());

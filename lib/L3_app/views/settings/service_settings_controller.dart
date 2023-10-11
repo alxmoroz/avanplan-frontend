@@ -9,7 +9,7 @@ part 'service_settings_controller.g.dart';
 
 class ServiceSettingsController extends _ServiceSettingsControllerBase with _$ServiceSettingsController {
   Future<ServiceSettingsController> init() async {
-    await fetchSettings();
+    await getSettings();
     return this;
   }
 }
@@ -22,5 +22,5 @@ abstract class _ServiceSettingsControllerBase with Store {
   Duration get lowStartThreshold => Duration(days: settings?.lowStartThresholdDays ?? 0);
 
   @action
-  Future fetchSettings() async => settings = await serviceSettingsUC.getSettings();
+  Future getSettings() async => settings = await serviceSettingsUC.getSettings();
 }

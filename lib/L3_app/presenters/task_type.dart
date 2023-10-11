@@ -77,5 +77,5 @@ extension TaskTypePresenter on Task {
         ],
       );
 
-  String get wsCode => isProject && mainController.workspaces.length > 1 ? '[${ws.code}] ' : '';
+  String get wsCode => isProject && wsMainController.multiWS ? '[${ws.code}] ' : '';
 }

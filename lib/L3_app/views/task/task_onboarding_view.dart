@@ -57,7 +57,7 @@ class GoalOnboardingViewState extends TaskViewState<TaskOnboardingView> {
           if (task.error != null)
             MTErrorSheet(task.error!, onClose: () {
               task.error = null;
-              mainController.refresh();
+              tasksMainController.refreshTasks();
             }),
         ],
       ),

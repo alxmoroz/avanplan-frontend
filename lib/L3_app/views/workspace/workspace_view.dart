@@ -33,9 +33,9 @@ class WorkspaceView extends StatelessWidget {
   final int _wsId;
 
   static String get routeName => '/workspace';
-  static String title(int wsId) => '${loc.workspace_title}: ${mainController.wsForId(wsId)}';
+  static String title(int wsId) => '${loc.workspace_title}: ${wsMainController.wsForId(wsId)}';
 
-  Workspace get ws => mainController.wsForId(_wsId);
+  Workspace get ws => wsMainController.wsForId(_wsId);
 
   Widget get _header => Padding(
         padding: const EdgeInsets.symmetric(horizontal: P3),

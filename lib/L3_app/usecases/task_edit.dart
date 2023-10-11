@@ -12,7 +12,7 @@ import '../extra/services.dart';
 extension TaskEditUC on Task {
   Future<Task?> edit(Future<Task?> function()) async {
     loading = true;
-    mainController.refresh();
+    tasksMainController.refreshTasks();
     Task? et;
     try {
       et = await function();
@@ -20,7 +20,7 @@ extension TaskEditUC on Task {
       error = MTError(loader.titleText ?? '', description: loader.descriptionText, detail: e.detail);
     }
     loading = false;
-    mainController.refresh();
+    tasksMainController.refreshTasks();
 
     return et;
   }
@@ -40,9 +40,9 @@ extension TaskEditUC on Task {
       et.notes = notes;
     }
     if (isNew) {
-      mainController.addTasks([et]);
+      tasksMainController.addTasks([et]);
     } else {
-      mainController.setTask(et);
+      tasksMainController.setTask(et);
     }
     return et;
   }
@@ -52,7 +52,7 @@ extension TaskEditUC on Task {
         final et = changes?.updated;
         if (et != null) {
           for (Task at in changes?.affected ?? []) {
-            mainController.task(at.ws.id!, at.id)?._update(at);
+            tasksMainController.task(at.ws.id!, at.id)?._update(at);
           }
           return _update(et);
         }
@@ -63,9 +63,9 @@ extension TaskEditUC on Task {
         Navigator.of(rootKey.currentContext!).pop();
         final changes = await taskUC.delete(this);
         if (changes?.updated != null) {
-          mainController.removeTask(this);
+          tasksMainController.removeTask(this);
           for (Task at in changes?.affected ?? []) {
-            mainController.task(at.ws.id!, at.id)?._update(at);
+            tasksMainController.task(at.ws.id!, at.id)?._update(at);
           }
         }
         return null;

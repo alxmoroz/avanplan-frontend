@@ -24,9 +24,9 @@ class SourceListView extends StatelessWidget {
   final int _wsId;
 
   static String get routeName => '/sources';
-  static String title(int wsId) => '${mainController.wsForId(wsId)} - ${loc.source_list_title}';
+  static String title(int wsId) => '${wsMainController.wsForId(wsId)} - ${loc.source_list_title}';
 
-  Workspace get _ws => mainController.wsForId(_wsId);
+  Workspace get _ws => wsMainController.wsForId(_wsId);
 
   Widget _sourceBuilder(BuildContext _, int index) {
     final s = _ws.sortedSources[index];

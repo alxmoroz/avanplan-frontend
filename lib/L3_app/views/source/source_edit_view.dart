@@ -60,7 +60,7 @@ Future<Source?> editSource(Workspace ws, {Source? src, SourceType? sType}) async
     if (!s.removed) {
       await s.checkConnection();
     }
-    mainController.touchWorkspaces();
+    wsMainController.touchWorkspaces();
   }
   return s;
 }
@@ -136,7 +136,7 @@ class _SourceEditViewState extends State<SourceEditView> {
                 if (_isNew) BaseText.medium(loc.source_title_new, padding: const EdgeInsets.only(right: P2)),
                 controller.selectedType!.iconTitle(size: P4),
               ]),
-              if (mainController.workspaces.length > 1) controller.ws.subtitleRow
+              if (wsMainController.multiWS) controller.ws.subtitleRow
             ],
           ),
           trailing: controller.canEdit
@@ -147,7 +147,7 @@ class _SourceEditViewState extends State<SourceEditView> {
                 )
               : null,
         ),
-        topBarHeight: P8 + (mainController.workspaces.length > 1 ? P4 : 0),
+        topBarHeight: P8 + (wsMainController.multiWS ? P4 : 0),
         body: _form,
       ),
     );

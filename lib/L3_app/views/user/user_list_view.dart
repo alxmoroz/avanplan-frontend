@@ -16,9 +16,9 @@ class UserListView extends StatelessWidget {
   final int _wsId;
 
   static String get routeName => '/users';
-  static String title(int _wsId) => '${mainController.wsForId(_wsId)} - ${loc.user_list_title}';
+  static String title(int _wsId) => '${wsMainController.wsForId(_wsId)} - ${loc.user_list_title}';
 
-  Workspace get ws => mainController.wsForId(_wsId);
+  Workspace get ws => wsMainController.wsForId(_wsId);
 
   Widget _userBuilder(BuildContext context, int index) => UserTile(
         ws.sortedUsers[index],

@@ -25,13 +25,13 @@ extension FeatureSetsUC on Task {
 
   Future setupFeatureSets(Iterable<int> fsIds) async {
     loading = true;
-    mainController.refresh();
+    tasksMainController.refreshTasks();
     try {
       projectFeatureSets = await featureSetUC.setup(this, fsIds);
     } on DioException catch (e) {
       error = MTError(loader.titleText ?? '', description: loader.descriptionText, detail: e.detail);
     }
     loading = false;
-    mainController.refresh();
+    tasksMainController.refreshTasks();
   }
 }

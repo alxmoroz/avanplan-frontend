@@ -10,10 +10,12 @@ abstract class AbstractMyRepo {
   Future<User?> registerActivity(String code, {int? wsId});
   Future deleteAccount();
   Future<Iterable<Workspace>> getWorkspaces();
-  Future<Iterable<Task>> getTasks(Workspace ws, {Task? parent, bool? closed});
-  Future<Iterable<Task>> getProjects(Workspace ws, {bool? closed, bool? imported});
   Future<Workspace?> createWorkspace({WorkspaceUpsert? ws});
   Future<Workspace?> updateWorkspace(WorkspaceUpsert ws);
+
+  Future<Iterable<Task>> getProjects(Workspace ws, {bool? closed, bool? imported});
+  Future<Iterable<Task>> getTasks(Workspace ws, {Task? parent, bool? closed});
+
   Future<Iterable<MTNotification>> getNotifications();
   Future markReadNotifications(Iterable<int> notificationsIds);
   Future updatePushToken(String token, bool hasPermission);

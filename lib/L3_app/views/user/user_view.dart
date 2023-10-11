@@ -26,7 +26,7 @@ class UserView extends StatelessWidget {
       builder: (_) => MTPage(
         appBar: MTAppBar(
           context,
-          middle: mainController.wsForId(_user.wsId).subPageTitle(loc.user_title),
+          middle: wsMainController.wsForId(_user.wsId).subPageTitle(loc.user_title),
         ),
         body: SafeArea(
           top: false,

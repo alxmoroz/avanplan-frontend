@@ -175,7 +175,7 @@ class ImportView extends StatelessWidget {
             ],
           ),
         ),
-        topBarHeight: P8 + (_hasSources ? P * (14.5 + (_showSelectAll ? 8 : 0)) : 0) + (mainController.workspaces.length > 1 ? P4 : 0),
+        topBarHeight: P8 + (_hasSources ? P * (14.5 + (_showSelectAll ? 8 : 0)) : 0) + (wsMainController.multiWS ? P4 : 0),
         body: _body(context),
         bottomBar: _bottomBar,
         bottomBarHeight: _hasProjects ? P * 20.5 : null,

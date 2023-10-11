@@ -17,7 +17,7 @@ import '../../presenters/number.dart';
 import '../../presenters/workspace.dart';
 
 Future purchaseDialog(int wsId) async {
-  await iapController.fetchProducts();
+  await iapController.getProducts();
   return await showMTDialog<void>(StoreView(wsId));
 }
 
@@ -25,7 +25,7 @@ class StoreView extends StatelessWidget {
   const StoreView(this.wsId);
 
   final int wsId;
-  Workspace get ws => mainController.wsForId(wsId);
+  Workspace get ws => wsMainController.wsForId(wsId);
 
   Future _pay(IAPProduct p) async {
     Navigator.of(rootKey.currentContext!).pop();

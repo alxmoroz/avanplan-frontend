@@ -44,7 +44,7 @@ abstract class _MemberViewControllerBase with Store {
         member = members.firstWhere((m) => m.id == memberId);
       }
 
-      mainController.refresh();
+      tasksMainController.refreshTasks();
     }
   }
 }

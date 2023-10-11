@@ -15,7 +15,7 @@ part 'project_create_wizard_controller.g.dart';
 
 class ProjectCreateWizardController extends _ProjectCreateWizardControllerBase with _$ProjectCreateWizardController {}
 
-List<Workspace> get _wss => mainController.workspaces;
+List<Workspace> get _wss => wsMainController.workspaces;
 
 abstract class _ProjectCreateWizardControllerBase with Store {
   @observable
@@ -23,10 +23,10 @@ abstract class _ProjectCreateWizardControllerBase with Store {
   @action
   void selectWS(int? _wsId) => selectedWSId = _wsId;
 
-  bool get noMyWss => mainController.myWSs.isEmpty;
+  bool get noMyWss => wsMainController.myWSs.isEmpty;
 
   @computed
-  Workspace? get ws => selectedWSId != null ? mainController.wsForId(selectedWSId!) : null;
+  Workspace? get ws => selectedWSId != null ? wsMainController.wsForId(selectedWSId!) : null;
   @computed
   bool get mustSelectWS => selectedWSId == null && (_wss.isNotEmpty && _wss.length > 1) || noMyWss;
 
@@ -42,7 +42,8 @@ abstract class _ProjectCreateWizardControllerBase with Store {
     loader.start();
     loader.setSaving();
     final newWS = await myUC.createWorkspace();
-    await mainController.fetchWorkspaces();
+    //TODO: сделать по аналогии с добавлением задачи. Не надо перегружать все РП
+    await wsMainController.getWorkspaces();
     if (newWS != null) {
       selectWS(newWS.id);
     }

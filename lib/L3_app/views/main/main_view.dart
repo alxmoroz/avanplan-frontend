@@ -47,7 +47,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
     super.dispose();
   }
 
-  Widget? get _bottomBar => !mainController.hasOpenedProjects
+  Widget? get _bottomBar => !tasksMainController.hasOpenedProjects
       ? MTButton.main(
           titleText: loc.state_no_projects_action_title,
           onTap: projectCreateWizard,
@@ -80,7 +80,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
         body: SafeArea(
           top: dashboardBigScreen(context),
           bottom: false,
-          child: mainController.hasOpenedProjects ? MainDashboard() : NoProjects(),
+          child: tasksMainController.hasOpenedProjects ? MainDashboard() : NoProjects(),
         ),
         bottomBar: _bottomBar,
       ),

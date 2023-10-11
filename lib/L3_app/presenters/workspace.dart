@@ -28,7 +28,7 @@ extension WSPresenter on Workspace {
         mainAxisSize: MainAxisSize.min,
         children: [
           BaseText.medium(pageTitle),
-          if (mainController.workspaces.length > 1) subtitleRow,
+          if (wsMainController.multiWS) subtitleRow,
         ],
       );
 

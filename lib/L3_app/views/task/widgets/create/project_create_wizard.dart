@@ -31,7 +31,7 @@ class ProjectCreateWizard extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           const SizedBox(height: P2),
-          if (mainController.workspaces.length > 1) ...[
+          if (wsMainController.multiWS) ...[
             Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.center,

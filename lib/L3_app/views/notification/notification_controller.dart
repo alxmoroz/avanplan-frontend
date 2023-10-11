@@ -34,7 +34,7 @@ abstract class _NotificationControllerBase with Store {
   MTNotification? get selectedNotification => notifications.firstWhereOrNull((m) => m.id == selectedNotificationId);
 
   @action
-  Future fetchData() async {
+  Future getData() async {
     notifications = (await myUC.getNotifications()).sorted((n1, n2) => n2.scheduledDate.compareTo(n1.scheduledDate));
   }
 
@@ -50,7 +50,7 @@ abstract class _NotificationControllerBase with Store {
       await myUC.markReadNotifications([n.id!]);
       // TODO: ещё один запрос ведь не обязателен тут! можно дернуть notifications = [...notifications]
       // TODO: либо получить новый набор уведомлений с запроса выше
-      await fetchData();
+      await getData();
     }
   }
 

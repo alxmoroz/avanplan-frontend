@@ -64,7 +64,7 @@ class StatusController {
         _task.statusId = oldStId;
         _task.closed = oldClosed;
         _task.closedDate = oldClosedDate;
-        mainController.refresh();
+        tasksMainController.refreshTasks();
       } else {
         //TODO: может неожиданно для пользователя вываливаться в случае редактирования статуса закрытой задачи
         if (sameTask && _task.closed) {

@@ -7,7 +7,7 @@ import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../extra/services.dart';
 
 extension TaskTreePresenter on Task {
-  Task? get parent => mainController.allTasks.firstWhereOrNull((t) => t.id == parentId);
+  Task? get parent => tasksMainController.allTasks.firstWhereOrNull((t) => t.id == parentId);
 
   // TODO: что за ситуация такая, когда нет проекта?
   Task? get project {
@@ -20,7 +20,7 @@ extension TaskTreePresenter on Task {
   }
 
   // TODO: попробовать вынести в computed в один из контроллеров
-  Iterable<Task> get subtasks => mainController.allTasks.where((t) => t.parentId == id);
+  Iterable<Task> get subtasks => tasksMainController.allTasks.where((t) => t.parentId == id);
 
   Iterable<Task> get openedSubtasks => subtasks.where((t) => !t.closed);
   Iterable<Task> get closedSubtasks => subtasks.where((t) => t.closed);

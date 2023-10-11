@@ -11,7 +11,6 @@ import '../../L1_domain/repositories/abs_my_repo.dart';
 import '../mappers/notification.dart';
 import '../mappers/task.dart';
 import '../mappers/user.dart';
-import '../mappers/workspace.dart';
 import '../services/api.dart';
 import '../services/platform.dart';
 
@@ -19,7 +18,6 @@ class MyRepo extends AbstractMyRepo {
   o_api.MyAccountApi get _accountApi => openAPI.getMyAccountApi();
   o_api.MyInvitationsApi get _invitationsApi => openAPI.getMyInvitationsApi();
   o_api.MyActivitiesApi get _activitiesApi => openAPI.getMyActivitiesApi();
-  o_api.MyWorkspacesApi get _wsApi => openAPI.getMyWorkspacesApi();
   o_api.MyNotificationsApi get _notificationsApi => openAPI.getMyNotificationsApi();
   o_api.MyPushTokensApi get _pushTokensApi => openAPI.getMyPushTokensApi();
   o_api.MyTasksApi get _tasksApi => openAPI.getMyTasksApi();
@@ -35,12 +33,6 @@ class MyRepo extends AbstractMyRepo {
   Future deleteAccount() async => await _accountApi.deleteAccountV1MyAccountDelete();
 
   @override
-  Future<Iterable<Workspace>> getWorkspaces() async {
-    final response = await _wsApi.workspacesV1MyWorkspacesGet();
-    return response.data?.map((ws) => ws.workspace) ?? [];
-  }
-
-  @override
   Future<Iterable<Task>> getTasks(Workspace ws, {Task? parent, bool? closed}) async {
     final response = await _tasksApi.myTasksV1MyTasksGet(wsId: ws.id!, parentId: parent?.id, closed: closed);
     return response.data?.map((t) => t.task(ws)) ?? [];
@@ -50,33 +42,6 @@ class MyRepo extends AbstractMyRepo {
   Future<Iterable<Task>> getProjects(Workspace ws, {bool? closed, bool? imported}) async {
     final response = await _projectsApi.myProjectsV1MyProjectsGet(wsId: ws.id!, closed: closed, imported: imported);
     return response.data?.map((t) => t.task(ws)) ?? [];
-  }
-
-  @override
-  Future<Workspace?> createWorkspace({WorkspaceUpsert? ws}) async {
-    o_api.WorkspaceUpsert? wsData;
-    if (ws != null) {
-      wsData = (o_api.WorkspaceUpsertBuilder()
-            ..code = ws.code
-            ..title = ws.title
-            ..description = ws.description)
-          .build();
-    }
-    final response = await _wsApi.createWorkspaceV1MyWorkspacesCreatePost(workspaceUpsert: wsData);
-    return response.data?.workspace;
-  }
-
-  @override
-  Future<Workspace?> updateWorkspace(WorkspaceUpsert ws) async {
-    final response = await _wsApi.updateWorkspaceV1MyWorkspacesUpdatePost(
-        wsId: ws.id!,
-        workspaceUpsert: (o_api.WorkspaceUpsertBuilder()
-              ..id = ws.id
-              ..code = ws.code
-              ..title = ws.title
-              ..description = ws.description)
-            .build());
-    return response.data?.workspace;
   }
 
   @override

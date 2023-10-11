@@ -35,7 +35,7 @@ abstract class _WorkspaceEditControllerBase extends EditController with Store {
   Future save() async {
     loader.start();
     loader.setSaving();
-    final editedWS = await myUC.updateWorkspace(WorkspaceUpsert(
+    final editedWS = await workspaceUC.updateWorkspace(WorkspaceUpsert(
       id: ws.id,
       code: fData(WSFCode.code.index).text,
       title: fData(WSFCode.title.index).text,

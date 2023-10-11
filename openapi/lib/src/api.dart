@@ -21,7 +21,6 @@ import 'package:openapi/src/api/my_notifications_api.dart';
 import 'package:openapi/src/api/my_projects_api.dart';
 import 'package:openapi/src/api/my_push_tokens_api.dart';
 import 'package:openapi/src/api/my_tasks_api.dart';
-import 'package:openapi/src/api/my_workspaces_api.dart';
 import 'package:openapi/src/api/payments_api.dart';
 import 'package:openapi/src/api/project_feature_sets_api.dart';
 import 'package:openapi/src/api/settings_api.dart';
@@ -30,6 +29,7 @@ import 'package:openapi/src/api/tasks_api.dart';
 import 'package:openapi/src/api/tasks_invitations_api.dart';
 import 'package:openapi/src/api/tasks_notes_api.dart';
 import 'package:openapi/src/api/tasks_roles_api.dart';
+import 'package:openapi/src/api/workspaces_api.dart';
 
 class Openapi {
   static const String basePath = r'/api';
@@ -157,12 +157,6 @@ class Openapi {
     return MyTasksApi(dio, serializers);
   }
 
-  /// Get MyWorkspacesApi instance, base route and serializer can be overridden by a given but be careful,
-  /// by doing that all interceptors will not be executed
-  MyWorkspacesApi getMyWorkspacesApi() {
-    return MyWorkspacesApi(dio, serializers);
-  }
-
   /// Get PaymentsApi instance, base route and serializer can be overridden by a given but be careful,
   /// by doing that all interceptors will not be executed
   PaymentsApi getPaymentsApi() {
@@ -209,5 +203,11 @@ class Openapi {
   /// by doing that all interceptors will not be executed
   TasksRolesApi getTasksRolesApi() {
     return TasksRolesApi(dio, serializers);
+  }
+
+  /// Get WorkspacesApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  WorkspacesApi getWorkspacesApi() {
+    return WorkspacesApi(dio, serializers);
   }
 }

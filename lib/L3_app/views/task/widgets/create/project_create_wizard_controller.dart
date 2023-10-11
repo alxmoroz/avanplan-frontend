@@ -41,9 +41,7 @@ abstract class _ProjectCreateWizardControllerBase with Store {
   Future createMyWS() async {
     loader.start();
     loader.setSaving();
-    final newWS = await myUC.createWorkspace();
-    //TODO: сделать по аналогии с добавлением задачи. Не надо перегружать все РП
-    await wsMainController.getWorkspaces();
+    final newWS = await wsMainController.createMyWS();
     if (newWS != null) {
       selectWS(newWS.id);
     }

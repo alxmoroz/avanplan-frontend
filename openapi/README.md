@@ -89,9 +89,6 @@ Class | Method | HTTP request | Description
 [*MyProjectsApi*](doc/MyProjectsApi.md) | [**myProjectsV1MyProjectsGet**](doc/MyProjectsApi.md#myprojectsv1myprojectsget) | **GET** /v1/my/projects | My Projects
 [*MyPushTokensApi*](doc/MyPushTokensApi.md) | [**updatePushTokenV1MyPushTokensPost**](doc/MyPushTokensApi.md#updatepushtokenv1mypushtokenspost) | **POST** /v1/my/push_tokens | Update Push Token
 [*MyTasksApi*](doc/MyTasksApi.md) | [**myTasksV1MyTasksGet**](doc/MyTasksApi.md#mytasksv1mytasksget) | **GET** /v1/my/tasks | My Tasks
-[*MyWorkspacesApi*](doc/MyWorkspacesApi.md) | [**createWorkspaceV1MyWorkspacesCreatePost**](doc/MyWorkspacesApi.md#createworkspacev1myworkspacescreatepost) | **POST** /v1/my/workspaces/create | Create Workspace
-[*MyWorkspacesApi*](doc/MyWorkspacesApi.md) | [**updateWorkspaceV1MyWorkspacesUpdatePost**](doc/MyWorkspacesApi.md#updateworkspacev1myworkspacesupdatepost) | **POST** /v1/my/workspaces/update | Update Workspace
-[*MyWorkspacesApi*](doc/MyWorkspacesApi.md) | [**workspacesV1MyWorkspacesGet**](doc/MyWorkspacesApi.md#workspacesv1myworkspacesget) | **GET** /v1/my/workspaces | Workspaces
 [*PaymentsApi*](doc/PaymentsApi.md) | [**iapNotificationV1PaymentsIapNotificationPost**](doc/PaymentsApi.md#iapnotificationv1paymentsiapnotificationpost) | **POST** /v1/payments/iap/notification | Iap Notification
 [*ProjectFeatureSetsApi*](doc/ProjectFeatureSetsApi.md) | [**setupFeatureSetsV1TasksFeatureSetsPost**](doc/ProjectFeatureSetsApi.md#setupfeaturesetsv1tasksfeaturesetspost) | **POST** /v1/tasks/feature_sets | Setup Feature Sets
 [*SettingsApi*](doc/SettingsApi.md) | [**settingsV1SettingsGet**](doc/SettingsApi.md#settingsv1settingsget) | **GET** /v1/settings | Settings
@@ -109,6 +106,10 @@ Class | Method | HTTP request | Description
 [*TasksNotesApi*](doc/TasksNotesApi.md) | [**deleteV1TasksNotesNoteIdDelete**](doc/TasksNotesApi.md#deletev1tasksnotesnoteiddelete) | **DELETE** /v1/tasks/notes/{note_id} | Delete
 [*TasksNotesApi*](doc/TasksNotesApi.md) | [**upsertV1TasksNotesPost**](doc/TasksNotesApi.md#upsertv1tasksnotespost) | **POST** /v1/tasks/notes | Upsert
 [*TasksRolesApi*](doc/TasksRolesApi.md) | [**assignV1TasksRolesPost**](doc/TasksRolesApi.md#assignv1tasksrolespost) | **POST** /v1/tasks/roles | Assign
+[*WorkspacesApi*](doc/WorkspacesApi.md) | [**createWorkspaceV1WorkspacesPost**](doc/WorkspacesApi.md#createworkspacev1workspacespost) | **POST** /v1/workspaces | Create Workspace
+[*WorkspacesApi*](doc/WorkspacesApi.md) | [**getMyWorkspacesV1WorkspacesGet**](doc/WorkspacesApi.md#getmyworkspacesv1workspacesget) | **GET** /v1/workspaces | Get My Workspaces
+[*WorkspacesApi*](doc/WorkspacesApi.md) | [**getWorkspaceV1WorkspacesWsIdGet**](doc/WorkspacesApi.md#getworkspacev1workspaceswsidget) | **GET** /v1/workspaces/{ws_id} | Get Workspace
+[*WorkspacesApi*](doc/WorkspacesApi.md) | [**updateWorkspaceV1WorkspacesWsIdPost**](doc/WorkspacesApi.md#updateworkspacev1workspaceswsidpost) | **POST** /v1/workspaces/{ws_id} | Update Workspace
 
 
 ## Documentation For Models

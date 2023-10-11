@@ -37,7 +37,14 @@ abstract class _WSMainControllerBase with Store {
       loader.setLoading();
     }
 
-    workspaces = (await myUC.getWorkspaces()).sorted((w1, w2) => compareNatural(w1.title, w2.title));
+    workspaces = (await workspaceUC.getWorkspaces()).sorted((w1, w2) => compareNatural(w1.title, w2.title));
+  }
+
+  Future<Workspace?> createMyWS() async {
+    final newWS = await workspaceUC.createWorkspace();
+    //TODO: сделать по аналогии с добавлением задачи. Не надо перегружать все РП
+    await wsMainController.getWorkspaces();
+    return newWS;
   }
 
   @action

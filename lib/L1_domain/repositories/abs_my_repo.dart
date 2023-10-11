@@ -9,9 +9,6 @@ abstract class AbstractMyRepo {
   Future<User?> getAccount();
   Future<User?> registerActivity(String code, {int? wsId});
   Future deleteAccount();
-  Future<Iterable<Workspace>> getWorkspaces();
-  Future<Workspace?> createWorkspace({WorkspaceUpsert? ws});
-  Future<Workspace?> updateWorkspace(WorkspaceUpsert ws);
 
   Future<Iterable<Task>> getProjects(Workspace ws, {bool? closed, bool? imported});
   Future<Iterable<Task>> getTasks(Workspace ws, {Task? parent, bool? closed});

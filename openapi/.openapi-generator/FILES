@@ -40,7 +40,6 @@ doc/MyProjectsApi.md
 doc/MyPushTokensApi.md
 doc/MyTasksApi.md
 doc/MyUser.md
-doc/MyWorkspacesApi.md
 doc/NoteGet.md
 doc/NoteUpsert.md
 doc/Notification.md
@@ -77,6 +76,7 @@ doc/ValidationError.md
 doc/ValidationErrorLocInner.md
 doc/WorkspaceGet.md
 doc/WorkspaceUpsert.md
+doc/WorkspacesApi.md
 lib/openapi.dart
 lib/src/api.dart
 lib/src/api/auth_api.dart
@@ -91,7 +91,6 @@ lib/src/api/my_notifications_api.dart
 lib/src/api/my_projects_api.dart
 lib/src/api/my_push_tokens_api.dart
 lib/src/api/my_tasks_api.dart
-lib/src/api/my_workspaces_api.dart
 lib/src/api/payments_api.dart
 lib/src/api/project_feature_sets_api.dart
 lib/src/api/settings_api.dart
@@ -100,6 +99,7 @@ lib/src/api/tasks_api.dart
 lib/src/api/tasks_invitations_api.dart
 lib/src/api/tasks_notes_api.dart
 lib/src/api/tasks_roles_api.dart
+lib/src/api/workspaces_api.dart
 lib/src/api_util.dart
 lib/src/auth/api_key_auth.dart
 lib/src/auth/auth.dart
@@ -202,7 +202,6 @@ test/my_projects_api_test.dart
 test/my_push_tokens_api_test.dart
 test/my_tasks_api_test.dart
 test/my_user_test.dart
-test/my_workspaces_api_test.dart
 test/note_get_test.dart
 test/note_upsert_test.dart
 test/notification_test.dart
@@ -239,3 +238,4 @@ test/validation_error_loc_inner_test.dart
 test/validation_error_test.dart
 test/workspace_get_test.dart
 test/workspace_upsert_test.dart
+test/workspaces_api_test.dart

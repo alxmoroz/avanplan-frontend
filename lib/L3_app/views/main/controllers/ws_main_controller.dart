@@ -15,7 +15,7 @@ class WSMainController extends _WSMainControllerBase with _$WSMainController {}
 
 abstract class _WSMainControllerBase with Store {
   @observable
-  List<Workspace> workspaces = [];
+  ObservableList<Workspace> workspaces = ObservableList();
 
   @computed
   Iterable<Workspace> get myWSs => workspaces.where((ws) => ws.isMine);
@@ -26,34 +26,42 @@ abstract class _WSMainControllerBase with Store {
   Workspace wsForId(int wsId) => workspaces.firstWhere((ws) => ws.id == wsId);
 
   @action
-  // TODO: нужен способ дергать обсервер без этих хаков
-  void touchWorkspaces() => workspaces = [...workspaces];
+  Future getData() async {
+    workspaces = ObservableList.of((await workspaceUC.getAll()).sorted((w1, w2) => compareNatural(w1.title, w2.title)));
+  }
 
   @action
-  Future getWorkspaces() async {
-    if (iapController.waitingPayment) {
-      loader.set(imageName: 'purchase', titleText: loc.loader_purchasing_title);
-    } else {
-      loader.setLoading();
-    }
+  // TODO: нужен способ дергать обсервер без этих хаков
+  void refreshWorkspaces() => workspaces = ObservableList.of(workspaces);
 
-    workspaces = (await workspaceUC.getWorkspaces()).sorted((w1, w2) => compareNatural(w1.title, w2.title));
+  @action
+  void setWS(Workspace ews) {
+    final index = workspaces.indexWhere((ws) => ws.id == ews.id);
+    if (index > -1) {
+      workspaces[index] = ews;
+    } else {
+      workspaces.add(ews);
+    }
+    workspaces.sort((w1, w2) => compareNatural(w1.title, w2.title));
+  }
+
+  Future reloadWS(int wsId) async {
+    final ws = await workspaceUC.getOne(wsId);
+    if (ws != null) {
+      setWS(ws);
+    }
   }
 
   Future<Workspace?> createMyWS() async {
-    final newWS = await workspaceUC.createWorkspace();
-    //TODO: сделать по аналогии с добавлением задачи. Не надо перегружать все РП
-    await wsMainController.getWorkspaces();
+    final newWS = await workspaceUC.create();
+    if (newWS != null) {
+      setWS(newWS);
+    }
     return newWS;
   }
 
   @action
-  Future getData() async {
-    await getWorkspaces();
-  }
-
-  @action
   void clearData() {
-    workspaces = [];
+    workspaces.clear();
   }
 }

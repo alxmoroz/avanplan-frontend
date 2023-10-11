@@ -110,6 +110,7 @@ abstract class _MainControllerBase with Store {
       await _update();
     } else if (iapController.waitingPayment) {
       loader.start();
+      loader.set(imageName: 'purchase', titleText: loc.loader_purchasing_title);
       await wsMainController.getData();
       iapController.resetWaiting();
       await loader.stop();

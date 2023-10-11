@@ -8,7 +8,7 @@ import '../../L3_app/presenters/task_tree.dart';
 import '../mappers/task.dart';
 import '../services/api.dart';
 
-class TaskRepo extends AbstractApiRepo<Task, TasksChanges> {
+class TaskRepo extends AbstractApiRepo<TasksChanges, Task> {
   o_api.TasksApi get api => openAPI.getTasksApi();
 
   @override

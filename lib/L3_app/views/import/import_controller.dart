@@ -119,7 +119,7 @@ abstract class _ImportControllerBase with Store {
       } else {
         errorCode = 'error_import_connection';
       }
-      wsMainController.touchWorkspaces();
+      wsMainController.refreshWorkspaces();
       await loader.stop();
     }
   }

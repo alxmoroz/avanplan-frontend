@@ -9,7 +9,7 @@ extension SourceUC on Source {
     state = SrcState.checking;
     connected = await sourceUC.checkConnection(this);
     state = connected ? SrcState.connected : SrcState.error;
-    wsMainController.touchWorkspaces();
+    wsMainController.refreshWorkspaces();
     return connected;
   }
 }

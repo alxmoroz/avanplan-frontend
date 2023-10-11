@@ -8,7 +8,7 @@ import '../repositories/abs_api_repo.dart';
 class TaskUC {
   TaskUC(this.repo);
 
-  final AbstractApiRepo<Task, TasksChanges> repo;
+  final AbstractApiRepo<TasksChanges, Task> repo;
 
   Future<TasksChanges?> save(Task t) async => await repo.save(t);
   Future<TasksChanges?> delete(Task t) async => await repo.delete(t);

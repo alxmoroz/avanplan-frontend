@@ -128,8 +128,9 @@ abstract class _TasksMainControllerBase with Store {
     allTasks = ObservableList.of(_allTasks.sorted(sortByDateAsc));
   }
 
-  @action
   Future updateImportingProjects() async {
+    await wsMainController.getData();
+
     final importedProjects = <Task>[];
     for (Workspace ws in wsMainController.workspaces) {
       importedProjects.addAll(await myUC.getProjects(ws, closed: false, imported: true));
@@ -142,12 +143,14 @@ abstract class _TasksMainControllerBase with Store {
           description: p.taskSource!.stateDetails,
         );
       }
-      final existingTask = task(p.ws.id!, p.id);
+      final wsId = p.ws.id!;
+      final existingTask = task(wsId, p.id);
       final existingTS = existingTask?.taskSource;
       final newTS = p.taskSource!;
       if (existingTS?.state != newTS.state) {
-        // замена подзадач
+        // проект загрузился ок
         if (newTS.isOk) {
+          // замена подзадач
           if (existingTask != null) {
             existingTask.subtasks.toList().forEach((t) => removeTask(t));
           }
@@ -166,7 +169,6 @@ abstract class _TasksMainControllerBase with Store {
   @action
   void refreshTasks() => allTasks = ObservableList.of(allTasks);
 
-  @action
   Future getData() async {
     await _getAllTasks();
     await updateImportingProjects();

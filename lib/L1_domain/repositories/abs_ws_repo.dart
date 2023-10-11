@@ -1,10 +1,9 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import '../entities/workspace.dart';
+import 'abs_api_repo.dart';
 
-abstract class AbstractWSRepo {
-  Future<Iterable<Workspace>> getWorkspaces();
-  Future<Workspace?> getWorkspace(int wsId);
-  Future<Workspace?> createWorkspace({WorkspaceUpsert? ws});
-  Future<Workspace?> updateWorkspace(WorkspaceUpsert ws);
+abstract class AbstractWSRepo extends AbstractApiRepo<Workspace, WorkspaceUpsert> {
+  Future<Workspace?> getOne(int wsId);
+  Future<Workspace?> create({WorkspaceUpsert? ws});
 }

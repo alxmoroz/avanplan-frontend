@@ -21,9 +21,7 @@ extension WSTariffUC on Workspace {
         loader.setSaving();
         final signedContractInvoice = await contractUC.sign(tariff.id!, id!);
         if (signedContractInvoice != null) {
-          // TODO: тут может менять не только тариф у РП, но и баланс. Нужно вытаскивать с бэка изменённое РП и дергать обсервер
-          invoice = signedContractInvoice;
-          wsMainController.touchWorkspaces();
+          await wsMainController.reloadWS(id!);
         }
         await loader.stop();
       }

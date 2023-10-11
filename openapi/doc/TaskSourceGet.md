@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **code** | **String** |  | 
 **rootCode** | **String** |  | 
 **url** | **String** |  | 
-**state** | **String** |  | [optional] 
+**state** | **String** |  | [optional] [default to 'UNKNOWN']
 **stateDetails** | **String** |  | [optional] 
 **updatedOn** | [**DateTime**](DateTime.md) |  | 
 **keepConnection** | **bool** |  | [optional] [default to false]

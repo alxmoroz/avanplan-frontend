@@ -32,7 +32,7 @@ void main() {
       // TODO
     });
 
-    // String state
+    // String state (default value: 'UNKNOWN')
     test('to test the property `state`', () async {
       // TODO
     });

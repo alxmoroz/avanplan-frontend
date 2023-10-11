@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **code** | **String** |  | 
 **rootCode** | **String** |  | 
 **url** | **String** |  | [optional] [default to '']
-**state** | **String** |  | [optional] 
+**state** | **String** |  | [optional] [default to 'UNKNOWN']
 **stateDetails** | **String** |  | [optional] 
 **updatedOn** | [**DateTime**](DateTime.md) |  | [optional] 
 **keepConnection** | **bool** |  | [optional] [default to false]

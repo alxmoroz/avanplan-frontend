@@ -55,6 +55,7 @@ abstract class TaskSourceGet implements Built<TaskSourceGet, TaskSourceGetBuilde
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(TaskSourceGetBuilder b) => b
+      ..state = 'UNKNOWN'
       ..keepConnection = false;
 
   @BuiltValueSerializer(custom: true)

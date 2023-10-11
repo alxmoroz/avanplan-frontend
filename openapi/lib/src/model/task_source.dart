@@ -64,6 +64,7 @@ abstract class TaskSource implements Built<TaskSource, TaskSourceBuilder> {
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(TaskSourceBuilder b) => b
       ..url = ''
+      ..state = 'UNKNOWN'
       ..keepConnection = false
       ..skipUpdate = false;
 

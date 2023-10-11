@@ -141,7 +141,10 @@ class OverviewPane extends StatelessWidget {
                         /// срок
                         if (_task.canShowTimeChart) ...[
                           SizedBox(height: _task.hasDueDate ? 0 : P4),
-                          TimingChart(_task),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: P3),
+                            child: TimingChart(_task),
+                          )
                         ],
                       ],
                     ),

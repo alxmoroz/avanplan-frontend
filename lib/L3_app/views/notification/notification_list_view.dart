@@ -77,7 +77,7 @@ class NotificationListView extends StatelessWidget {
             child: _controller.notifications.isEmpty
                 ? Center(child: H3(loc.notification_list_empty_title, align: TextAlign.center, color: f2Color))
                 : MTShadowed(
-                    bottomShadow: _controller.pushDenied,
+                    bottomShadow: !_controller.pushAuthorized,
                     child: MTAdaptive(
                       child: ListView.builder(
                         itemBuilder: (_, int index) => _itemBuilder(context, index),
@@ -86,7 +86,7 @@ class NotificationListView extends StatelessWidget {
                     ),
                   ),
           ),
-          bottomBar: !_controller.pushDenied
+          bottomBar: !_controller.pushAuthorized
               ? MTButton(
                   leading: const PrivacyIcon(),
                   middle: SmallText(

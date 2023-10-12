@@ -19,6 +19,7 @@ part 'user.g.dart';
 /// * [id] 
 /// * [roleCodes] 
 /// * [permissionCodes] 
+/// * [wsIds] 
 @BuiltValue()
 abstract class User implements Built<User, UserBuilder> {
   @BuiltValueField(wireName: r'email')
@@ -41,6 +42,9 @@ abstract class User implements Built<User, UserBuilder> {
 
   @BuiltValueField(wireName: r'permission_codes')
   BuiltList<String>? get permissionCodes;
+
+  @BuiltValueField(wireName: r'ws_ids')
+  BuiltList<int>? get wsIds;
 
   User._();
 
@@ -109,6 +113,13 @@ class _$UserSerializer implements PrimitiveSerializer<User> {
       yield serializers.serialize(
         object.permissionCodes,
         specifiedType: const FullType(BuiltList, [FullType(String)]),
+      );
+    }
+    if (object.wsIds != null) {
+      yield r'ws_ids';
+      yield serializers.serialize(
+        object.wsIds,
+        specifiedType: const FullType(BuiltList, [FullType(int)]),
       );
     }
   }
@@ -182,6 +193,13 @@ class _$UserSerializer implements PrimitiveSerializer<User> {
             specifiedType: const FullType(BuiltList, [FullType(String)]),
           ) as BuiltList<String>;
           result.permissionCodes.replace(valueDes);
+          break;
+        case r'ws_ids':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [FullType(int)]),
+          ) as BuiltList<int>;
+          result.wsIds.replace(valueDes);
           break;
         default:
           unhandled.add(key);

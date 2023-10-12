@@ -42,6 +42,11 @@ void main() {
       // TODO
     });
 
+    // BuiltList<int> wsIds
+    test('to test the property `wsIds`', () async {
+      // TODO
+    });
+
     // BuiltList<UActivityGet> activities
     test('to test the property `activities`', () async {
       // TODO

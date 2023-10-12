@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **id** | **int** |  | 
 **roleCodes** | **BuiltList&lt;String&gt;** |  | [optional] 
 **permissionCodes** | **BuiltList&lt;String&gt;** |  | [optional] 
+**wsIds** | **BuiltList&lt;int&gt;** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

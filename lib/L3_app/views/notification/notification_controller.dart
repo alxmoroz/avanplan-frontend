@@ -55,7 +55,7 @@ abstract class _NotificationControllerBase with Store {
   }
 
   @observable
-  bool pushDenied = true;
+  bool pushAuthorized = false;
 
   @action
   Future initPush() async {
@@ -63,8 +63,8 @@ abstract class _NotificationControllerBase with Store {
     final token = connector.token.value;
     final hasToken = token?.isNotEmpty == true;
     final authStatus = await connector.getAuthorizationStatus();
-    final pushAuthorized = hasToken && authStatus == ApnsAuthorizationStatus.authorized;
-    pushDenied = authStatus == ApnsAuthorizationStatus.denied;
+    pushAuthorized = hasToken && authStatus == ApnsAuthorizationStatus.authorized;
+    // pushDenied = authStatus == ApnsAuthorizationStatus.denied;
 
     if (hasToken) {
       await myUC.updatePushToken(token!, pushAuthorized);

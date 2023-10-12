@@ -20,6 +20,7 @@ part 'my_user.g.dart';
 /// * [id] 
 /// * [roleCodes] 
 /// * [permissionCodes] 
+/// * [wsIds] 
 /// * [activities] 
 @BuiltValue()
 abstract class MyUser implements Built<MyUser, MyUserBuilder> {
@@ -43,6 +44,9 @@ abstract class MyUser implements Built<MyUser, MyUserBuilder> {
 
   @BuiltValueField(wireName: r'permission_codes')
   BuiltList<String>? get permissionCodes;
+
+  @BuiltValueField(wireName: r'ws_ids')
+  BuiltList<int>? get wsIds;
 
   @BuiltValueField(wireName: r'activities')
   BuiltList<UActivityGet> get activities;
@@ -114,6 +118,13 @@ class _$MyUserSerializer implements PrimitiveSerializer<MyUser> {
       yield serializers.serialize(
         object.permissionCodes,
         specifiedType: const FullType(BuiltList, [FullType(String)]),
+      );
+    }
+    if (object.wsIds != null) {
+      yield r'ws_ids';
+      yield serializers.serialize(
+        object.wsIds,
+        specifiedType: const FullType(BuiltList, [FullType(int)]),
       );
     }
     yield r'activities';
@@ -192,6 +203,13 @@ class _$MyUserSerializer implements PrimitiveSerializer<MyUser> {
             specifiedType: const FullType(BuiltList, [FullType(String)]),
           ) as BuiltList<String>;
           result.permissionCodes.replace(valueDes);
+          break;
+        case r'ws_ids':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [FullType(int)]),
+          ) as BuiltList<int>;
+          result.wsIds.replace(valueDes);
           break;
         case r'activities':
           final valueDes = serializers.deserialize(

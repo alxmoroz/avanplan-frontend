@@ -41,5 +41,10 @@ void main() {
     test('to test the property `permissionCodes`', () async {
       // TODO
     });
+
+    // BuiltList<int> wsIds
+    test('to test the property `wsIds`', () async {
+      // TODO
+    });
   });
 }

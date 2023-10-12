@@ -80,10 +80,11 @@ class WorkspaceView extends StatelessWidget {
       );
 
   Widget get _users => MTListTile(
-      leading: const PeopleIcon(size: P6),
-      titleText: '${loc.user_list_title} (${ws.users.length})',
-      trailing: const ChevronIcon(),
-      onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(UserListView.routeName, arguments: ws.id));
+        leading: const PeopleIcon(size: P6),
+        titleText: '${loc.user_list_title} (${ws.users.length})',
+        trailing: const ChevronIcon(),
+        onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(UserListView.routeName, arguments: ws.id),
+      );
 
   Widget get _sources => MTListTile(
       leading: const ImportIcon(),

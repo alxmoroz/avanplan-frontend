@@ -24,18 +24,6 @@ abstract class _MainControllerBase with Store {
   @action
   void _setUpdateDate(DateTime? dt) => _updatedDate = dt;
 
-  void clearData() {
-    wsMainController.clearData();
-    tasksMainController.clearData();
-
-    _setUpdateDate(null);
-
-    refsController.clearData();
-    accountController.clearData();
-    notificationController.clearData();
-    localSettingsController.clearData();
-  }
-
   Future _update() async {
     loader.start();
     loader.setLoading();
@@ -164,5 +152,17 @@ abstract class _MainControllerBase with Store {
   Future manualUpdate() async {
     await _update();
     await _explainUpdateDetails();
+  }
+
+  void clearData() {
+    wsMainController.clearData();
+    tasksMainController.clearData();
+
+    _setUpdateDate(null);
+
+    refsController.clearData();
+    accountController.clearData();
+    notificationController.clearData();
+    localSettingsController.clearData();
   }
 }

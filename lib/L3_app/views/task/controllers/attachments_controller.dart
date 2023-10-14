@@ -1,10 +1,14 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:collection/collection.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../L1_domain/entities/attachment.dart';
 import '../../../../L1_domain/entities/task.dart';
+import '../../../../L2_data/services/api.dart';
+import '../../../../main.dart';
 import '../../../extra/services.dart';
 import 'task_controller.dart';
 
@@ -42,4 +46,13 @@ abstract class _AttachmentsControllerBase with Store {
   //   await attachment.delete(task);
   //   _setAttachments(task.attachments);
   // }
+
+  Future download(Attachment attachment) async {
+    final urlString = Uri.encodeFull('${openAPI.dio.options.baseUrl}/v1/tasks/attachments/download/${attachment.wsId}/${attachment.name}');
+    if (await canLaunchUrlString(urlString)) {
+      await launchUrlString(urlString);
+    }
+
+    Navigator.of(rootKey.currentContext!).pop();
+  }
 }

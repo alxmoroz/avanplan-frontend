@@ -37,16 +37,6 @@ void main() {
       // TODO
     });
 
-    // String sourceCode
-    test('to test the property `sourceCode`', () async {
-      // TODO
-    });
-
-    // int taskId
-    test('to test the property `taskId`', () async {
-      // TODO
-    });
-
     // String name
     test('to test the property `name`', () async {
       // TODO

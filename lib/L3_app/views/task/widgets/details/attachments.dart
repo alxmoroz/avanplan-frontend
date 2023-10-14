@@ -34,6 +34,7 @@ class AttachmentsDialog extends StatelessWidget {
                 subtitle: SmallText(a.bytes.humanBytesStr),
                 bottomDivider: index < _controller.sortedAttachments.length - 1,
                 trailing: const DownloadIcon(),
+                onTap: () => _controller.download(a),
               );
             },
           ),

@@ -17,8 +17,6 @@ part 'attachment_get.g.dart';
 /// * [type] 
 /// * [bytes] 
 /// * [updatedOn] 
-/// * [sourceCode] 
-/// * [taskId] 
 /// * [name] 
 @BuiltValue()
 abstract class AttachmentGet implements Built<AttachmentGet, AttachmentGetBuilder> {
@@ -39,12 +37,6 @@ abstract class AttachmentGet implements Built<AttachmentGet, AttachmentGetBuilde
 
   @BuiltValueField(wireName: r'updated_on')
   DateTime get updatedOn;
-
-  @BuiltValueField(wireName: r'source_code')
-  String? get sourceCode;
-
-  @BuiltValueField(wireName: r'task_id')
-  int get taskId;
 
   @BuiltValueField(wireName: r'name')
   String get name;
@@ -107,18 +99,6 @@ class _$AttachmentGetSerializer implements PrimitiveSerializer<AttachmentGet> {
     yield serializers.serialize(
       object.updatedOn,
       specifiedType: const FullType(DateTime),
-    );
-    if (object.sourceCode != null) {
-      yield r'source_code';
-      yield serializers.serialize(
-        object.sourceCode,
-        specifiedType: const FullType(String),
-      );
-    }
-    yield r'task_id';
-    yield serializers.serialize(
-      object.taskId,
-      specifiedType: const FullType(int),
     );
     yield r'name';
     yield serializers.serialize(
@@ -189,20 +169,6 @@ class _$AttachmentGetSerializer implements PrimitiveSerializer<AttachmentGet> {
             specifiedType: const FullType(DateTime),
           ) as DateTime;
           result.updatedOn = valueDes;
-          break;
-        case r'source_code':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.sourceCode = valueDes;
-          break;
-        case r'task_id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.taskId = valueDes;
           break;
         case r'name':
           final valueDes = serializers.deserialize(

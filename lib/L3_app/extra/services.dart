@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:openapi/openapi.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+import '../../L1_domain/usecases/attachment_uc.dart';
 import '../../L1_domain/usecases/auth_uc.dart';
 import '../../L1_domain/usecases/contract_uc.dart';
 import '../../L1_domain/usecases/feature_set_uc.dart';
@@ -20,6 +21,7 @@ import '../../L1_domain/usecases/tariff_uc.dart';
 import '../../L1_domain/usecases/task_member_role_uc.dart';
 import '../../L1_domain/usecases/task_uc.dart';
 import '../../L1_domain/usecases/ws_uc.dart';
+import '../../L2_data/repositories/attachment_repo.dart';
 import '../../L2_data/repositories/auth_apple_repo.dart';
 import '../../L2_data/repositories/auth_avanplan_repo.dart';
 import '../../L2_data/repositories/auth_google_repo.dart';
@@ -84,6 +86,7 @@ InAppPurchaseUC get iapUC => GetIt.I<InAppPurchaseUC>();
 TariffUC get tariffUC => GetIt.I<TariffUC>();
 ContractUC get contractUC => GetIt.I<ContractUC>();
 NoteUC get noteUC => GetIt.I<NoteUC>();
+AttachmentUC get attachmentUC => GetIt.I<AttachmentUC>();
 FeatureSetUC get featureSetUC => GetIt.I<FeatureSetUC>();
 
 void setup() {
@@ -123,6 +126,7 @@ void setup() {
   getIt.registerSingleton<TariffUC>(TariffUC(TariffRepo()));
   getIt.registerSingleton<ContractUC>(ContractUC(ContractRepo()));
   getIt.registerSingleton<NoteUC>(NoteUC(NoteRepo()));
+  getIt.registerSingleton<AttachmentUC>(AttachmentUC(AttachmentRepo()));
   getIt.registerSingleton<FeatureSetUC>(FeatureSetUC(FeatureSetRepo()));
 
   // global state controllers

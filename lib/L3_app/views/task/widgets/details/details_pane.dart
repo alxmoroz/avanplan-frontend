@@ -21,7 +21,6 @@ import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/feature_set.dart';
 import '../../../../presenters/person.dart';
-import '../../../../presenters/task_attachments.dart';
 import '../../../../presenters/task_source.dart';
 import '../../../../presenters/workspace.dart';
 import '../../../../usecases/task_actions.dart';
@@ -30,6 +29,7 @@ import '../../controllers/onboarding_controller.dart';
 import '../../controllers/task_controller.dart';
 import '../feature_sets/feature_sets.dart';
 import '../onboarding/next_button.dart';
+import 'attachments.dart';
 import 'notes.dart';
 
 class DetailsPane extends StatelessWidget {
@@ -138,10 +138,11 @@ class DetailsPane extends StatelessWidget {
                   controller.fData(TaskFCode.attachment.index),
                   leading: const AttachmentIcon(),
                   value: Row(children: [
-                    Expanded(child: BaseText(_task.attachmentsStr, maxLines: 1)),
-                    if (_task.attachmentsCountMoreStr.isNotEmpty) BaseText.f2(_task.attachmentsCountMoreStr)
+                    Expanded(child: BaseText(controller.attachmentsController.attachmentsStr, maxLines: 1)),
+                    if (controller.attachmentsController.attachmentsCountMoreStr.isNotEmpty)
+                      BaseText.f2(controller.attachmentsController.attachmentsCountMoreStr)
                   ]),
-                  // onSelect: ,
+                  onSelect: () => showAttachmentsDialog(controller.attachmentsController),
                 ),
               ],
 

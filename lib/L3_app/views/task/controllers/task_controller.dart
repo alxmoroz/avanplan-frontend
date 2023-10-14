@@ -16,6 +16,7 @@ import '../../../views/_base/edit_controller.dart';
 import '../task_onboarding_view.dart';
 import '../task_view.dart';
 import 'assignee_controller.dart';
+import 'attachments_controller.dart';
 import 'dates_controller.dart';
 import 'estimate_controller.dart';
 import 'local_export_controller.dart';
@@ -64,6 +65,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     datesController = DatesController(this);
     estimateController = EstimateController(this);
     notesController = NotesController(this);
+    attachmentsController = AttachmentsController(this);
     transferController = LocalExportController(this);
     subtasksController = SubtasksController(this);
 
@@ -91,6 +93,7 @@ abstract class _TaskControllerBase extends EditController with Store {
   late final DatesController datesController;
   late final EstimateController estimateController;
   late final NotesController notesController;
+  late final AttachmentsController attachmentsController;
   late final LocalExportController transferController;
   late final SubtasksController subtasksController;
 

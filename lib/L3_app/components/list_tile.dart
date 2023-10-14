@@ -78,7 +78,7 @@ class MTListTile extends StatelessWidget with FocusManaging {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          if (middle != null || titleText != null) middle ?? (titleText != null ? BaseText(titleText!) : Container()),
+                          if (middle != null || titleText != null) middle ?? (titleText != null ? BaseText(titleText!, maxLines: 1) : Container()),
                           if (subtitle != null) subtitle!,
                         ],
                       ),

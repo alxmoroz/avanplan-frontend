@@ -79,6 +79,13 @@
 
   "copied_notification_title": "Скопировано",
 
+  "count_gigabytes_short": "{count} Гб",
+  "count_kilobytes_short": "{count} Кб",
+  "count_megabytes_short": "{count} Мб",
+  "count_millions_short": "{count} млн.",
+  "count_thousands_short": "{count} тыс.",
+  "count_terabytes_short": "{count} Тб",
+
   "days_count": "{count, plural, one{{count} день} few{{count} дня} other{{count} дней}}",
   "delete_action_title": "Удалить",
   "delete_dialog_description": "Это действие нельзя будет отменить!",
@@ -178,8 +185,6 @@
   "member_source_invitation_title": "Пригласить",
   "member_source_workspace_title": "Выбрать",
   "member_title": "Участник",
-
-  "millions_count_short": "{count} млн.",
 
   "months_count": "{count, plural, one{{count} месяц} few{{count} месяца} other{{count} месяцев}}",
   "more_count": "и ещё {count}",
@@ -379,8 +384,6 @@
   "team_empty_title": "Команда ждёт приглашения",
   "team_onboarding_title": "Пригласите участников",
   "team_title": "Команда",
-
-  "thousands_count_short": "{count} тыс.",
 
   "title": "Название",
 

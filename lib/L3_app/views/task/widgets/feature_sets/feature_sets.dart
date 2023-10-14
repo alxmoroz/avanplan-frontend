@@ -118,7 +118,7 @@ class FeatureSetsOnboardingView extends StatelessWidget {
 }
 
 class FeatureSetsDialog extends StatelessWidget {
-  const FeatureSetsDialog(FeatureSetsController controller) : _controller = controller;
+  const FeatureSetsDialog(this._controller);
   final FeatureSetsController _controller;
 
   @override

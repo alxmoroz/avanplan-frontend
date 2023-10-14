@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../presenters/mime_type.dart';
 import 'circle.dart';
 import 'colors.dart';
 import 'colors_base.dart';
@@ -172,6 +173,18 @@ class DoneIcon extends MTIcon {
       );
 }
 
+class DownloadIcon extends MTIcon {
+  const DownloadIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.arrow_down_to_line,
+        // CupertinoIcons.arrow_down_circle,
+        // Icons.file_download,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P5,
+      );
+}
+
 class DropdownIcon extends MTIcon {
   const DropdownIcon({super.color, super.size});
   @override
@@ -312,6 +325,16 @@ class LocalImportIcon extends MTIcon {
       );
 }
 
+class MailIcon extends MTIcon {
+  const MailIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.envelope,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P6,
+      );
+}
+
 class MenuIcon extends MTIcon {
   const MenuIcon({super.color, super.size});
   @override
@@ -322,11 +345,13 @@ class MenuIcon extends MTIcon {
       );
 }
 
-class MailIcon extends MTIcon {
-  const MailIcon({super.color, super.size});
+class MimeTypeIcon extends MTIcon {
+  const MimeTypeIcon({super.color, super.size, this.mimeType = ''});
+  final String mimeType;
+
   @override
   Widget build(BuildContext context) => Icon(
-        CupertinoIcons.envelope,
+        mimeType.iconData,
         color: (color ?? mainColor).resolve(context),
         size: size ?? P6,
       );

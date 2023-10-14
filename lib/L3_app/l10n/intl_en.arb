@@ -79,6 +79,13 @@
 
   "copied_notification_title": "Copied to clipboard",
 
+  "count_gigabytes_short": "{count} Gb",
+  "count_kilobytes_short": "{count} Kb",
+  "count_megabytes_short": "{count} Mb",
+  "count_millions_short": "{count, plural, one{{count} million} other{{count} millions}}",
+  "count_terabytes_short": "{count} Tb",
+  "count_thousands_short": "{count, plural, one{{count} thousand} other{{count} thousands}}",
+
   "days_count": "{count, plural, one{{count} day} other{{count} days}}",
   "delete_action_title": "Delete",
   "delete_dialog_description": "This action cannot be undone!",
@@ -178,8 +185,6 @@
   "member_source_invitation_title": "Invite",
   "member_source_workspace_title": "Select",
   "member_title": "Member",
-
-  "millions_count_short": "{count, plural, one{{count} million} other{{count} millions}}",
 
   "months_count": "{count, plural, one{{count} month} other{{count} months}}",
   "more_count": "and {count} more",
@@ -379,8 +384,6 @@
   "team_empty_title": "The team is waiting for an invitation",
   "team_onboarding_title": "Invite members",
   "team_title": "Team",
-
-  "thousands_count_short": "{count, plural, one{{count} thousand} other{{count} thousands}}",
 
   "title": "Title",
 

@@ -21,6 +21,7 @@ import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/feature_set.dart';
 import '../../../../presenters/person.dart';
+import '../../../../presenters/task_attachments.dart';
 import '../../../../presenters/task_source.dart';
 import '../../../../presenters/workspace.dart';
 import '../../../../usecases/task_actions.dart';
@@ -130,14 +131,27 @@ class DetailsPane extends StatelessWidget {
                 ),
               ],
 
+              /// Вложения
+              if (!_onboarding && _task.attachments.isNotEmpty) ...[
+                const SizedBox(height: P3),
+                MTField(
+                  controller.fData(TaskFCode.attachment.index),
+                  leading: const AttachmentIcon(),
+                  value: Row(children: [
+                    Expanded(child: BaseText(_task.attachmentsStr, maxLines: 1)),
+                    if (_task.attachmentsCountMoreStr.isNotEmpty) BaseText.f2(_task.attachmentsCountMoreStr)
+                  ]),
+                  // onSelect: ,
+                ),
+              ],
+
               /// Author
               if (!_onboarding && _task.hfsTeam && _task.hasAuthor) ...[
                 const SizedBox(height: P3),
                 MTField(
                   controller.fData(TaskFCode.author.index),
                   leading: _task.author!.icon(P3, borderColor: f3Color),
-                  value: BaseText('${_task.author}', color: f2Color),
-                  onSelect: null,
+                  value: BaseText.f2('${_task.author}'),
                 ),
               ],
 
@@ -160,9 +174,8 @@ class DetailsPane extends StatelessWidget {
                 const SizedBox(height: P3),
                 MTField(
                   controller.fData(TaskFCode.note.index),
-                  value: BaseText(
+                  value: BaseText.f2(
                     controller.fData(TaskFCode.note.index).placeholder,
-                    color: f2Color,
                     padding: const EdgeInsets.symmetric(vertical: P),
                   ),
                   leading: const NoteAddIcon(),

@@ -29,15 +29,14 @@ extension TaskStatsExtension on Task {
 
   bool get hasEstimate => openedVolume != null || estimate != null;
   bool get didImported => taskSource != null;
+  bool get isImportingProject => isProject && taskSource?.isRunning == true;
   bool get isLinked => didImported && taskSource!.keepConnection;
   bool get isLocal => !isLinked;
   bool get isLinkedProject => isProject && isLinked;
 
+  bool get hasDescription => description.isNotEmpty;
   bool get hasStatus => statusId != null;
   bool get hasAssignee => assigneeId != null;
 
-  bool get hasDescription => description.isNotEmpty;
   bool get hasAuthor => authorId != null;
-
-  bool get isImportingProject => isProject && taskSource?.isRunning == true;
 }

@@ -12,6 +12,8 @@
 
   "are_closed_suffix": "закрыты",
 
+  "attachments_label": "Вложения",
+
   "auth_email_placeholder": "Почта",
   "auth_name_placeholder": "Имя, фамилия",
   "auth_password_placeholder": "Пароль",
@@ -180,6 +182,7 @@
   "millions_count_short": "{count} млн.",
 
   "months_count": "{count, plural, one{{count} месяц} few{{count} месяца} other{{count} месяцев}}",
+  "more_count": "и ещё {count}",
 
   "my_tasks_all_title": "Назначены мне",
   "my_tasks_empty_hint": "Назначьте себе задачи из проектов или добавьте новые",
@@ -320,6 +323,7 @@
   "task_assignee_nobody": "Никому",
   "task_assignee_label": "Назначено",
   "task_assignee_placeholder": "Назначить ответственного",
+  "task_attachment_placeholder": "Добавить вложение",
   "task_author_title": "Владелец",
 
   "task_count": "{count, plural, zero{Нет задач} one{{count} задача} few{{count} задачи} other{{count} задач}}",

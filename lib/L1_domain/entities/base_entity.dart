@@ -1,7 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'errors.dart';
-import 'workspace.dart';
 
 abstract class LocalPersistable {
   LocalPersistable({required this.id});
@@ -22,9 +21,9 @@ abstract class RPersistable {
 }
 
 abstract class WSBounded extends RPersistable {
-  WSBounded({super.id, required this.ws});
+  WSBounded({super.id, required this.wsId});
 
-  final Workspace ws;
+  final int wsId;
 }
 
 abstract class Codable extends RPersistable {

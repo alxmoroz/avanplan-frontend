@@ -7,7 +7,6 @@ import '../../../../main.dart';
 import '../../../components/adaptive.dart';
 import '../../../components/button.dart';
 import '../../../components/colors.dart';
-import '../../../components/colors_base.dart';
 import '../../../components/constants.dart';
 import '../../../components/images.dart';
 import '../../../components/shadowed.dart';
@@ -32,7 +31,7 @@ class MyTasks extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            BaseText(loc.my_tasks_title, align: TextAlign.center, color: f2Color),
+            BaseText.f2(loc.my_tasks_title, align: TextAlign.center),
             const SizedBox(height: P3),
             compact ? Expanded(child: _mainInfo(context)) : _mainInfo(context),
             H2(_myTasksCount > 0 ? tasksMainController.myUpcomingTasksTitle : loc.task_list_empty_title, align: TextAlign.center),

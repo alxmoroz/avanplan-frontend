@@ -59,7 +59,7 @@ class WorkspaceView extends StatelessWidget {
           margin: const EdgeInsets.symmetric(vertical: P3),
           child: Column(
             children: [
-              BaseText(loc.balance_amount_title, color: f2Color),
+              BaseText.f2(loc.balance_amount_title),
               const SizedBox(height: P2),
               MTCurrency(ws.balance, color: ws.balance < 0 ? warningColor : mainColor),
               const SizedBox(height: P2),

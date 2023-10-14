@@ -5,6 +5,7 @@ analysis_options.yaml
 doc/AccountGet.md
 doc/AccountOperationGet.md
 doc/AppSettingsGet.md
+doc/AttachmentGet.md
 doc/AuthApi.md
 doc/AuthToken.md
 doc/BodyAuthAppleToken.md
@@ -110,6 +111,7 @@ lib/src/date_serializer.dart
 lib/src/model/account_get.dart
 lib/src/model/account_operation_get.dart
 lib/src/model/app_settings_get.dart
+lib/src/model/attachment_get.dart
 lib/src/model/auth_token.dart
 lib/src/model/body_auth_apple_token.dart
 lib/src/model/body_auth_google_token.dart
@@ -167,6 +169,7 @@ pubspec.yaml
 test/account_get_test.dart
 test/account_operation_get_test.dart
 test/app_settings_get_test.dart
+test/attachment_get_test.dart
 test/auth_api_test.dart
 test/auth_token_test.dart
 test/body_auth_apple_token_test.dart

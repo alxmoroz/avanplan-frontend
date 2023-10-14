@@ -87,6 +87,14 @@ class TaskCard extends StatelessWidget {
   bool get _showAssignee => task.hfsTeam && task.hasAssignee && !isMine;
   Widget get _assignee => task.assignee!.icon(P * (board ? 2 : 2.7));
 
+  bool get _showAttachmentsMark => !task.closed && task.attachments.isNotEmpty;
+  Widget get _attachmentsMark => Row(
+        children: [
+          SmallText('${task.attachments.length} ', color: f2Color, height: 1),
+          const AttachmentIcon(size: P3, color: f2Color),
+        ],
+      );
+
   bool get _showNotesMark => !task.closed && task.notes.isNotEmpty;
   Widget get _notesMark => Row(
         children: [
@@ -115,15 +123,17 @@ class TaskCard extends StatelessWidget {
           // ошибки
           if (task.error != null)
             _error(task.error!.title)
-          // проекты, цели или группы задач - интегральная оценка, метка связанного проекта и комментариев
+          // импортирующийся проект
           else if (task.isImportingProject)
             Container()
+          // проекты, цели или группы задач - интегральная оценка, метка связанного проекта и комментариев
           else if (task.isOpenedGroup) ...[
             const SizedBox(height: P_2),
             Row(children: [
               Expanded(child: TaskStateTitle(task, place: StateTitlePlace.card)),
-              if (_showNotesMark) ...[_notesMark],
-              if (task.isLinkedProject) ...[if (_showNotesMark) _divider, const LinkIcon(color: f2Color)]
+              if (_showAttachmentsMark) ...[_attachmentsMark],
+              if (_showNotesMark) ...[if (_showAttachmentsMark) _divider, _notesMark],
+              if (task.isLinkedProject) ...[if (_showAttachmentsMark || _showNotesMark) _divider, const LinkIcon(color: f2Color)]
             ]),
             // листья - срок, метка комментов, оценка, статус, назначено
           ] else if (!task.isBacklog) ...[
@@ -133,9 +143,10 @@ class TaskCard extends StatelessWidget {
                 children: [
                   if (_showDate) _date,
                   const Spacer(),
-                  if (_showNotesMark) ...[_notesMark],
-                  if (_showEstimate) ...[if (_showNotesMark) _divider, _estimate],
-                  if (_showStatus) ...[if (_showNotesMark || _showEstimate) _divider, _status],
+                  if (_showAttachmentsMark) ...[_attachmentsMark],
+                  if (_showNotesMark) ...[if (_showAttachmentsMark) _divider, _notesMark],
+                  if (_showEstimate) ...[if (_showAttachmentsMark || _showNotesMark) _divider, _estimate],
+                  if (_showStatus) ...[if (_showAttachmentsMark || _showNotesMark || _showEstimate) _divider, _status],
                   if (_showAssignee) ...[const SizedBox(width: P), _assignee],
                 ],
               ),

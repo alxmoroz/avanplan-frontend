@@ -142,6 +142,11 @@ void main() {
       // TODO
     });
 
+    // BuiltList<AttachmentGet> attachments
+    test('to test the property `attachments`', () async {
+      // TODO
+    });
+
     // BuiltList<ProjectStatusGet> projectStatuses
     test('to test the property `projectStatuses`', () async {
       // TODO

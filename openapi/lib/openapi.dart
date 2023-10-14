@@ -34,6 +34,7 @@ export 'package:openapi/src/api/workspaces_api.dart';
 export 'package:openapi/src/model/account_get.dart';
 export 'package:openapi/src/model/account_operation_get.dart';
 export 'package:openapi/src/model/app_settings_get.dart';
+export 'package:openapi/src/model/attachment_get.dart';
 export 'package:openapi/src/model/auth_token.dart';
 export 'package:openapi/src/model/body_auth_apple_token.dart';
 export 'package:openapi/src/model/body_auth_google_token.dart';

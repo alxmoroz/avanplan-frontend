@@ -39,6 +39,9 @@ extension TaskEditUC on Task {
     if (et.notes.isEmpty) {
       et.notes = notes;
     }
+    if (et.attachments.isEmpty) {
+      et.attachments = attachments;
+    }
     if (isNew) {
       tasksMainController.addTasks([et]);
     } else {

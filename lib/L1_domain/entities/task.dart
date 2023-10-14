@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'attachment.dart';
 import 'base_entity.dart';
 import 'feature_set.dart';
 import 'member.dart';
@@ -47,6 +48,7 @@ class Task extends Titleable {
     required this.closed,
     required this.parentId,
     required this.notes,
+    required this.attachments,
     required this.members,
     required this.projectStatuses,
     required this.projectFeatureSets,
@@ -75,6 +77,7 @@ class Task extends Titleable {
   bool closed;
   int? parentId;
   List<Note> notes;
+  Iterable<Attachment> attachments;
   Iterable<Member> members;
   Iterable<ProjectStatus> projectStatuses;
   Iterable<ProjectFeatureSet> projectFeatureSets;

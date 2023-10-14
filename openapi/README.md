@@ -117,6 +117,7 @@ Class | Method | HTTP request | Description
  - [AccountGet](doc/AccountGet.md)
  - [AccountOperationGet](doc/AccountOperationGet.md)
  - [AppSettingsGet](doc/AppSettingsGet.md)
+ - [AttachmentGet](doc/AttachmentGet.md)
  - [AuthToken](doc/AuthToken.md)
  - [BodyAuthAppleToken](doc/BodyAuthAppleToken.md)
  - [BodyAuthGoogleToken](doc/BodyAuthGoogleToken.md)

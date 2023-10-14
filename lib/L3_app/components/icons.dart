@@ -17,6 +17,16 @@ abstract class MTIcon extends StatelessWidget {
   final bool? solid;
 }
 
+class AttachmentIcon extends MTIcon {
+  const AttachmentIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.paperclip,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P6,
+      );
+}
+
 class BellIcon extends MTIcon {
   const BellIcon({super.color, super.size, this.hasUnread = false});
 

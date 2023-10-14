@@ -35,6 +35,7 @@ Name | Type | Description | Notes
 **taskSource** | [**TaskSourceGet**](TaskSourceGet.md) |  | [optional] 
 **members** | [**BuiltList&lt;MemberGet&gt;**](MemberGet.md) |  | [optional] 
 **notes** | [**BuiltList&lt;NoteGet&gt;**](NoteGet.md) |  | [optional] 
+**attachments** | [**BuiltList&lt;AttachmentGet&gt;**](AttachmentGet.md) |  | [optional] 
 **projectStatuses** | [**BuiltList&lt;ProjectStatusGet&gt;**](ProjectStatusGet.md) |  | [optional] 
 **projectFeatureSets** | [**BuiltList&lt;ProjectFeatureSetGet&gt;**](ProjectFeatureSetGet.md) |  | [optional] 
 

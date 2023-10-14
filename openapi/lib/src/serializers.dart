@@ -17,6 +17,7 @@ import 'package:openapi/src/model/date.dart';
 import 'package:openapi/src/model/account_get.dart';
 import 'package:openapi/src/model/account_operation_get.dart';
 import 'package:openapi/src/model/app_settings_get.dart';
+import 'package:openapi/src/model/attachment_get.dart';
 import 'package:openapi/src/model/auth_token.dart';
 import 'package:openapi/src/model/body_auth_apple_token.dart';
 import 'package:openapi/src/model/body_auth_google_token.dart';
@@ -75,6 +76,7 @@ part 'serializers.g.dart';
   AccountGet,
   AccountOperationGet,
   AppSettingsGet,
+  AttachmentGet,
   AuthToken,
   BodyAuthAppleToken,
   BodyAuthGoogleToken,

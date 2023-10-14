@@ -6,6 +6,7 @@ import 'package:openapi/openapi.dart' as api;
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities/workspace.dart';
 import '../../L1_domain/entities_extensions/task_state.dart';
+import 'attachment.dart';
 import 'feature_set.dart';
 import 'member.dart';
 import 'note.dart';
@@ -33,7 +34,8 @@ extension TaskMapper on api.TaskGet {
       closed: closed ?? false,
       statusId: statusId,
       estimate: estimate,
-      notes: notes?.map((n) => n.note(ws)).toList() ?? [],
+      notes: notes?.map((n) => n.note(ws.id!)).toList() ?? [],
+      attachments: attachments?.map((a) => a.attachment(ws.id!)) ?? [],
       authorId: authorId,
       assigneeId: assigneeId,
       members: members?.map((m) => m.member(id)) ?? [],

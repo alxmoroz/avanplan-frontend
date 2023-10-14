@@ -31,6 +31,7 @@ extension WSTasksUC on Workspace {
             parentId: _parent?.id,
             members: [],
             notes: [],
+            attachments: [],
             projectStatuses: [],
             projectFeatureSets: [],
             ws: this,

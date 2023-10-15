@@ -52,7 +52,8 @@ abstract class _AttachmentsControllerBase with Store {
     if (await canLaunchUrlString(urlString)) {
       await launchUrlString(urlString);
     }
-
-    Navigator.of(rootKey.currentContext!).pop();
+    if (sortedAttachments.length < 2) {
+      Navigator.of(rootKey.currentContext!).pop();
+    }
   }
 }

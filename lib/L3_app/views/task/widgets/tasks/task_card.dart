@@ -137,7 +137,7 @@ class TaskCard extends StatelessWidget {
             ]),
             // листья - срок, метка комментов, оценка, статус, назначено
           ] else if (!task.isBacklog) ...[
-            if (_showDate || _showNotesMark || _showStatus || _showAssignee || _showEstimate) ...[
+            if (_showDate || _showAttachmentsMark || _showNotesMark || _showStatus || _showAssignee || _showEstimate) ...[
               const SizedBox(height: P_2),
               Row(
                 children: [

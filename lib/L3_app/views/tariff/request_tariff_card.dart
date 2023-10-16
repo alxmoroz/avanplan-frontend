@@ -1,11 +1,14 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../components/button.dart';
 import '../../components/card.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
+import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../extra/services.dart';
 import '../../usecases/communications.dart';
@@ -16,27 +19,26 @@ class RequestTariffCard extends StatelessWidget {
     return MTCard(
       child: Column(
         children: [
-          Expanded(
-            child: ListView(
-              children: [
-                H3(loc.tariff_type_request_title, align: TextAlign.center, padding: const EdgeInsets.all(P3)),
-                const Row(mainAxisAlignment: MainAxisAlignment.center, children: [StarIcon(), StarIcon(), StarIcon()]),
-                const SizedBox(height: P),
-                BaseText(loc.tariff_limit_special_conditions_title, align: TextAlign.center, padding: const EdgeInsets.all(P3)),
-              ],
+          H2(loc.tariff_type_request_title, align: TextAlign.center, padding: const EdgeInsets.all(P3)),
+          for (var n in [1, 2, 3, 4])
+            MTListTile(
+              leading: const StarIcon(),
+              middle: BaseText(Intl.message('tariff_limit_special_conditions_title$n'), height: 1.2),
+              bottomDivider: false,
             ),
-          ),
-          BaseText.f2(
+          const Spacer(),
+          SmallText(
             loc.tariff_price_request_action_hint,
             align: TextAlign.center,
+            height: 1,
             padding: const EdgeInsets.all(P2),
           ),
-          MTButton.secondary(
+          MTButton.main(
             titleText: loc.tariff_price_request_action_title,
             margin: const EdgeInsets.symmetric(horizontal: P3),
             onTap: () => mailUs(subject: loc.tariff_price_request_mail_subject),
           ),
-          const SizedBox(height: P4),
+          const SizedBox(height: P3),
         ],
       ),
       margin: const EdgeInsets.symmetric(horizontal: P2).copyWith(bottom: P2),

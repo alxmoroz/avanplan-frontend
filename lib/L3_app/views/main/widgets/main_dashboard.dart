@@ -44,9 +44,9 @@ class MainDashboard extends StatelessWidget {
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                MTAdaptive.S(child: MyTasks(compact: false)),
+                MTAdaptive.s(child: MyTasks(compact: false)),
                 SizedBox(width: _spacing),
-                MTAdaptive.S(child: MyProjects(compact: false)),
+                MTAdaptive.s(child: MyProjects(compact: false)),
               ],
             ),
           )

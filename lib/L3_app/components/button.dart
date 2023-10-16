@@ -184,7 +184,7 @@ class MTButton extends StatelessWidget with FocusManaging {
         ],
       ),
     );
-    return type == ButtonType.icon || !constrained ? btn : MTAdaptive.XS(child: btn);
+    return type == ButtonType.icon || !constrained ? btn : MTAdaptive.xs(child: btn);
   }
 }
 

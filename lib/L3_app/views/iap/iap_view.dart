@@ -39,8 +39,8 @@ class StoreView extends StatelessWidget {
       middle: Row(
         // crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          D4('+ ${p.value.currency}${hasPrice ? '' : '₽'}', color: mainColor),
-          if (hasPrice) D5(' ${loc.for_} ${p.price}', color: f2Color),
+          D3('+ ${p.value.currency}${hasPrice ? '' : '₽'}', color: mainColor),
+          if (hasPrice) D4(' ${loc.for_} ${p.price}', color: f2Color),
         ],
       ),
       margin: EdgeInsets.only(top: index == 0 ? P : P3),

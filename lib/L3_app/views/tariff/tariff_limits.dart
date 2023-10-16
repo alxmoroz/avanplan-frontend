@@ -3,14 +3,13 @@
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
-import '../../components/colors_base.dart';
+import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons_workspace.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../extra/services.dart';
 import '../../presenters/number.dart';
-import '../../presenters/tariff.dart';
 
 class _TariffLimitTile extends StatelessWidget {
   const _TariffLimitTile({
@@ -21,7 +20,7 @@ class _TariffLimitTile extends StatelessWidget {
   final Tariff tariff;
   final String code;
 
-  static const iconSize = P5;
+  static const iconSize = P6;
 
   @override
   Widget build(BuildContext context) {
@@ -30,29 +29,26 @@ class _TariffLimitTile extends StatelessWidget {
     final String hvStr = value.humanValueStr;
     final plural = num.tryParse(hvStr) == null ? 10 : value;
 
-    final prefix = loc.tariff_limit_up_to_prefix;
     String suffix = '';
+    const iconColor = mainColor;
 
     Widget icon = const SizedBox(width: iconSize);
     if (code == 'USERS_COUNT') {
-      icon = const PeopleIcon(size: iconSize, color: f2Color);
-      suffix = loc.user_plural_genitive(plural);
+      icon = const PeopleIcon(size: iconSize, color: iconColor);
+      suffix = loc.member_plural(plural);
     } else if (code == 'PROJECTS_COUNT') {
-      icon = const ProjectsIcon(size: iconSize, color: f2Color);
-      suffix = loc.project_plural_genitive(plural);
+      icon = const ProjectsIcon(size: iconSize, color: iconColor);
+      suffix = loc.project_plural(plural);
     } else if (code == 'TASKS_COUNT') {
-      icon = const TasksIcon(size: iconSize, color: f2Color);
-      suffix = loc.task_plural_genitive(plural);
+      icon = const TasksIcon(size: iconSize, color: iconColor);
+      suffix = loc.task_plural(plural);
     }
 
     return MTListTile(
       leading: icon,
       middle: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          BaseText.f2(prefix),
-          const SizedBox(width: P),
-          H3(hvStr),
+          BaseText.medium(hvStr),
           const SizedBox(width: P),
           BaseText(suffix),
         ],
@@ -68,11 +64,10 @@ class TariffLimits extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        H3(tariff.title, align: TextAlign.center, padding: const EdgeInsets.all(P3)),
-        for (var code in tariff.limitsMap.keys) _TariffLimitTile(tariff: tariff, code: code),
-      ],
+    return ListView.builder(
+      shrinkWrap: true,
+      itemBuilder: (_, index) => _TariffLimitTile(tariff: tariff, code: tariff.limitsMap.keys.elementAt(index)),
+      itemCount: tariff.limitsMap.keys.length,
     );
   }
 }

@@ -69,7 +69,7 @@ class InvitationDialog extends StatelessWidget {
                 ListView.builder(
                     shrinkWrap: true,
                     itemCount: _controller.roles.length,
-                    itemBuilder: (_, int index) {
+                    itemBuilder: (_, index) {
                       final r = _controller.roles.elementAt(index);
                       return MTListTile(
                         middle: BaseText.medium(r.title),

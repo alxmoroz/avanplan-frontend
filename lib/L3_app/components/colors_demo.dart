@@ -16,9 +16,9 @@ class ColorsDemo extends StatelessWidget {
   Widget get _fp1 => SmallText(_printColor(f1Color));
   Widget get _fp2 => SmallText(_printColor(f2Color));
   Widget get _fp3 => SmallText(_printColor(f3Color));
-  Widget get _f1 => const D3(' F1', color: f1Color);
-  Widget get _f2 => const D3(' F2', color: f2Color);
-  Widget get _f3 => const D3(' F3  ', color: f3Color);
+  Widget get _f1 => const H2(' F1', color: f1Color);
+  Widget get _f2 => const H2(' F2', color: f2Color);
+  Widget get _f3 => const H2(' F3  ', color: f3Color);
   Widget get _b1 => SmallText(_printColor(b1Color));
   Widget get _b2 => SmallText(_printColor(b2Color));
   Widget get _b3 => SmallText(_printColor(b3Color));

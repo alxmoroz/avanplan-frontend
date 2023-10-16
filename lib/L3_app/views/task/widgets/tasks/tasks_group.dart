@@ -27,7 +27,7 @@ class TasksGroup extends StatelessWidget {
       padding: EdgeInsets.zero,
       physics: standalone ? null : const NeverScrollableScrollPhysics(),
       itemCount: tasks.length,
-      itemBuilder: (BuildContext _, int index) {
+      itemBuilder: (_, index) {
         final t = tasks[index];
         return TaskCard(
           t,

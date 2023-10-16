@@ -11,7 +11,8 @@ import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
 import '../../controllers/onboarding_controller.dart';
 
-AppBar onboardingHeader(BuildContext context, OnboardingController _controller) {
+AppBar onboardingHeader(
+    BuildContext context, OnboardingController _controller) {
   Widget stepMark(int index) {
     final isCurrent = _controller.stepIndex == index;
     final r1 = isCurrent ? P2 : P;
@@ -23,7 +24,9 @@ AppBar onboardingHeader(BuildContext context, OnboardingController _controller) 
         backgroundColor: (isCurrent ? mainColor : f3Color).resolve(context),
         child: CircleAvatar(
           radius: r2,
-          child: isCurrent ? D6('${_controller.stepIndex + 1}', color: mainColor) : null,
+          child: isCurrent
+              ? D5('${_controller.stepIndex + 1}', color: mainColor)
+              : null,
           backgroundColor: b2Color.resolve(context),
         ),
       ),
@@ -42,7 +45,8 @@ AppBar onboardingHeader(BuildContext context, OnboardingController _controller) 
         ? Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              for (var index = 0; index < _controller.stepsCount; index++) stepMark(index),
+              for (var index = 0; index < _controller.stepsCount; index++)
+                stepMark(index),
             ],
           )
         : null,
@@ -52,7 +56,8 @@ AppBar onboardingHeader(BuildContext context, OnboardingController _controller) 
               _controller.stepTitle,
               padding: const EdgeInsets.only(bottom: P2),
             ),
-            preferredSize: Size.fromHeight(const BaseText.medium('').style(context).fontSize ?? 0 + P2),
+            preferredSize: Size.fromHeight(
+                const BaseText.medium('').style(context).fontSize ?? 0 + P2),
           )
         : null,
     trailing: _controller.stepIndex < _controller.stepsCount - 1

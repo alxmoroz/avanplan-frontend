@@ -70,6 +70,6 @@ class TaskCreateButton extends StatelessWidget {
       ),
     );
 
-    return _compact ? badge : MTAdaptive.XS(child: badge);
+    return _compact ? badge : MTAdaptive.xs(child: badge);
   }
 }

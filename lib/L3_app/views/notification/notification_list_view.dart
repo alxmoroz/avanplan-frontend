@@ -80,7 +80,7 @@ class NotificationListView extends StatelessWidget {
                     bottomShadow: !_controller.pushAuthorized,
                     child: MTAdaptive(
                       child: ListView.builder(
-                        itemBuilder: (_, int index) => _itemBuilder(context, index),
+                        itemBuilder: (_, index) => _itemBuilder(context, index),
                         itemCount: _controller.notifications.length + 1,
                       ),
                     ),

@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../L2_data/services/platform.dart';
+import 'adaptive.dart';
 import 'colors_base.dart';
 
 class BaseText extends StatelessWidget {
@@ -71,7 +71,7 @@ class BaseText extends StatelessWidget {
     return cupertinoTS.copyWith(
       color: CupertinoDynamicColor.maybeResolve(color ?? f1Color, context),
       fontWeight: weight ?? FontWeight.w400,
-      fontSize: (cupertinoTS.fontSize ?? (isTablet ? 24 : 16)) * (sizeScale ?? 1),
+      fontSize: (isBigScreen(context) ? 20 : 18) * (sizeScale ?? 1),
       inherit: true,
       height: height ?? cupertinoTS.height,
     );
@@ -103,7 +103,7 @@ class SmallText extends BaseText {
   }) : super(
           text,
           color: color ?? f2Color,
-          sizeScale: 0.9,
+          sizeScale: 0.85,
           maxLines: maxLines ?? 9,
           height: height,
         );
@@ -118,7 +118,7 @@ class H3 extends BaseText {
     super.padding,
   }) : super(
           text,
-          sizeScale: 1.25,
+          sizeScale: 1.22,
           maxLines: maxLines ?? 5,
           height: 1.2,
         );
@@ -134,7 +134,7 @@ class H2 extends BaseText {
   }) : super(
           text,
           color: color,
-          sizeScale: 1.55,
+          sizeScale: 1.44,
           maxLines: maxLines ?? 3,
           height: 1.1,
         );
@@ -151,7 +151,7 @@ class H1 extends BaseText {
           text,
           color: color,
           weight: FontWeight.w300,
-          sizeScale: 1.8,
+          sizeScale: 1.75,
           maxLines: maxLines ?? 2,
           height: 1.1,
         );
@@ -176,28 +176,24 @@ abstract class _BaseDText extends BaseText {
   TextStyle style(BuildContext context) => super.style(context).copyWith(fontFamily: 'Montserrat');
 }
 
-class D6 extends _BaseDText {
-  const D6(String text, {super.color}) : super.bold(text, sizeScale: 0.9);
-}
-
 class D5 extends _BaseDText {
-  const D5(String text, {super.color}) : super(text, sizeScale: 1.15);
+  const D5(String text, {super.color}) : super.bold(text, sizeScale: 0.9);
 }
 
 class D4 extends _BaseDText {
-  const D4(String text, {super.color}) : super(text, sizeScale: 1.55);
+  const D4(String text, {super.color}) : super(text, sizeScale: 1.15);
 }
 
 class D3 extends _BaseDText {
-  const D3(String text, {super.color}) : super(text, sizeScale: 2.6);
+  const D3(String text, {super.color}) : super(text, sizeScale: 1.55);
 }
 
 class D2 extends _BaseDText {
-  const D2(String text, {super.color}) : super(text, sizeScale: 3.2);
+  const D2(String text, {super.color}) : super(text, sizeScale: 2.6);
 }
 
 class D1 extends _BaseDText {
-  const D1(String text, {super.color}) : super(text, sizeScale: 9);
+  const D1(String text, {super.color}) : super(text, sizeScale: 7);
 }
 
 /// Декоративный стиль
@@ -205,16 +201,15 @@ abstract class _BaseDecorText extends BaseText {
   const _BaseDecorText(
     super.text, {
     super.color,
-    super.sizeScale,
     super.padding,
     FontWeight? weight,
   }) : super(align: TextAlign.center, weight: weight ?? FontWeight.w600, height: 1);
 
   @override
-  TextStyle style(BuildContext context) => super.style(context).copyWith(fontFamily: 'Comfortaa');
+  TextStyle style(BuildContext context) => super.style(context).copyWith(fontFamily: 'Comfortaa', fontSize: 27);
 }
 
 // название приложения
 class DecorAppTitle extends _BaseDecorText {
-  const DecorAppTitle(String text, {super.color, super.padding}) : super(text, sizeScale: 1.64);
+  const DecorAppTitle(String text, {super.color, super.padding}) : super(text);
 }

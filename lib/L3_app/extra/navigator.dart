@@ -13,7 +13,6 @@ import '../views/my_tasks/my_tasks_view.dart';
 import '../views/notification/notification_list_view.dart';
 import '../views/settings/settings_view.dart';
 import '../views/source/source_list_view.dart';
-import '../views/tariff/active_contract_view.dart';
 import '../views/task/controllers/task_controller.dart';
 import '../views/task/task_onboarding_view.dart';
 import '../views/task/task_view.dart';
@@ -49,8 +48,6 @@ CupertinoPageRoute? cupertinoPageRoute(RouteSettings rs) {
     p = AccountView();
   } else if (rs.name == UserListView.routeName) {
     p = UserListView(rs.arguments as int);
-  } else if (rs.name == ActiveContractView.routeName) {
-    p = ActiveContractView(rs.arguments as int);
   } else if (rs.name == WorkspaceView.routeName) {
     p = WorkspaceView(rs.arguments as int);
   } else if (rs.name == SourceListView.routeName) {
@@ -98,8 +95,6 @@ class MTRouteObserver extends NavigatorObserver {
           title = AccountView.title;
         } else if (name == UserListView.routeName) {
           title = UserListView.title(rs.arguments as int);
-        } else if (name == ActiveContractView.routeName) {
-          title = ActiveContractView.title(rs.arguments as int);
         } else if (name == WorkspaceView.routeName) {
           title = WorkspaceView.title(rs.arguments as int);
         } else if (name == SourceListView.routeName) {

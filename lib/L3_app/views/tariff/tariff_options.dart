@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
-import '../../components/colors_base.dart';
+import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/currency.dart';
 import '../../components/list_tile.dart';
@@ -23,8 +23,8 @@ class _TariffOptionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTListTile(
-      middle: value != null ? MTCurrency(value!, color: f1Color) : null,
-      subtitle: description != null ? BaseText.f2(description!, align: TextAlign.center) : null,
+      middle: value != null ? MTCurrency(value!, color: mainColor) : null,
+      subtitle: description != null ? SmallText(description!, align: TextAlign.center, padding: const EdgeInsets.symmetric(vertical: P)) : null,
       padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(bottom: P),
       color: Colors.transparent,
       bottomDivider: false,

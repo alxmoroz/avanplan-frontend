@@ -182,6 +182,7 @@
   "loader_source_listing": "Получаем список проектов...",
   "loader_unlinking_title": "Рвём связи...",
 
+  "member_plural": "{count, plural, one{участник} few{участника} other{участников}}",
   "member_source_invitation_title": "Пригласить",
   "member_source_workspace_title": "Выбрать",
   "member_title": "Участник",
@@ -220,6 +221,7 @@
   "project_delete_dialog_title": "Удалить проект?",
   "project_list_title": "Проекты",
   "project_new_title": "Новый проект",
+  "project_plural": "{count, plural, one{проект} few{проекта} other{проектов}}",
   "project_plural_genitive": "{count, plural, one{проекта} other{проектов}}",
   "project_title": "Проект",
   "projects_add_hint_title": "Загрузите проекты из источника импорта или создайте свои",
@@ -307,14 +309,16 @@
   "tariff_change_limit_users_reason_title": "Повысьте тариф, чтобы пригласить больше пользователей",
 
   "tariff_current_title": "Текущий тариф",
-  "tariff_limit_special_conditions_title": "Разработаем и настроим уникальное решение, которое идеально соответствует потребностям вашего бизнеса",
-  "tariff_limit_up_to_prefix": "до",
+  "tariff_limit_special_conditions_title1": "Уникальное решение",
+  "tariff_limit_special_conditions_title2": "Новые функции",
+  "tariff_limit_special_conditions_title3": "Без ограничений",
+  "tariff_limit_special_conditions_title4": "На ваши сервера",
   "tariff_list_title": "Тарифы",
-  "tariff_option_users_count_title": "за пользователя в месяц",
+  "tariff_option_users_count_title": "в месяц за 1 участника",
   "tariff_price_free_title": "Бесплатно навсегда",
-  "tariff_price_request_action_hint": "Свяжитесь с нами и узнайте стоимость",
-  "tariff_price_request_action_title": "Отправить заявку",
-  "tariff_price_request_mail_subject": "Аванплан - Заявка на специальные условия",
+  "tariff_price_request_action_hint": "под потребности вашего бизнеса",
+  "tariff_price_request_action_title": "Отправить запрос",
+  "tariff_price_request_mail_subject": "Аванплан - Заявка на особые условия",
   "tariff_select_action_title": "Выбрать",
 
   "tariff_title": "Тариф",
@@ -323,7 +327,7 @@
   "tariff_type_economy_title": "Эконом",
   "tariff_type_free_title": "Бесплатный",
   "tariff_type_premium_title": "Премиум",
-  "tariff_type_request_title": "Специальные\nусловия",
+  "tariff_type_request_title": "Особые условия",
 
   "task_assignee_nobody": "Никому",
   "task_assignee_label": "Назначено",
@@ -394,7 +398,6 @@
   "update_web_app_recommendation_title": "Обновите страницу в браузере или переустановите веб-приложение",
 
   "user_list_title": "Пользователи",
-  "user_plural_genitive": "{count, plural, one{пользователя} other{пользователей}}",
   "user_title": "Пользователь",
 
   "validation_empty_text": "Нужно заполнить",

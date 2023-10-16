@@ -5,18 +5,12 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import '../../main.dart';
+import 'adaptive.dart';
 import 'colors.dart';
 import 'colors_base.dart';
 import 'constants.dart';
 import 'material_wrapper.dart';
 import 'toolbar.dart';
-
-bool _bigScreen(BuildContext context) {
-  final mq = MediaQuery.of(context);
-  final mqH = mq.size.height;
-  final mqW = mq.size.width;
-  return mqH > SCR_S_HEIGHT && mqW > SCR_M_WIDTH;
-}
 
 Future<T?> showMTDialog<T>(Widget child) async {
   final ctx = rootKey.currentContext!;
@@ -32,7 +26,7 @@ Future<T?> showMTDialog<T>(Widget child) async {
 
   final barrierColor = f1Color.withAlpha(220).resolve(ctx);
 
-  return _bigScreen(ctx)
+  return isBigScreen(ctx)
       ? await showDialog(
           context: ctx,
           barrierColor: barrierColor,
@@ -82,7 +76,7 @@ class MTDialog extends StatelessWidget {
     final double bbHeight = bottomBar != null ? (bottomBarHeight ?? P8 + MIN_BTN_HEIGHT) : max(P6, mq.padding.bottom);
     final double tbHeight = topBar != null ? (topBarHeight ?? P8) : 0;
     const radius = Radius.circular(DEF_BORDER_RADIUS);
-    final big = _bigScreen(context);
+    final big = isBigScreen(context);
     return GestureDetector(
       onTap: FocusScope.of(context).unfocus,
       child: Padding(

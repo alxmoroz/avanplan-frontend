@@ -22,9 +22,9 @@ import '../../presenters/date.dart';
 import '../../presenters/tariff.dart';
 import '../../usecases/ws_actions.dart';
 import '../../usecases/ws_sources.dart';
+import '../../usecases/ws_tariff.dart';
 import '../iap/iap_view.dart';
 import '../source/source_list_view.dart';
-import '../tariff/active_contract_view.dart';
 import '../user/user_list_view.dart';
 import 'workspace_edit_view.dart';
 
@@ -54,7 +54,7 @@ class WorkspaceView extends StatelessWidget {
         ),
       );
 
-  Widget get _balance => MTAdaptive.XS(
+  Widget get _balance => MTAdaptive.xs(
         child: MTCardButton(
           margin: const EdgeInsets.symmetric(vertical: P3),
           child: Column(
@@ -76,7 +76,7 @@ class WorkspaceView extends StatelessWidget {
         subtitle: SmallText('${loc.contract_effective_date_title} ${ws.invoice.contract.createdOn.strMedium}'),
         trailing: const ChevronIcon(),
         bottomDivider: false,
-        onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(ActiveContractView.routeName, arguments: ws.id),
+        onTap: () async => await ws.changeTariff(),
       );
 
   Widget get _users => MTListTile(

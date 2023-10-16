@@ -182,6 +182,7 @@
   "loader_source_listing": "Getting a list of projects...",
   "loader_unlinking_title": "Breaking the chains...",
 
+  "member_plural": "{count, plural, one{member} other{members}}",
   "member_source_invitation_title": "Invite",
   "member_source_workspace_title": "Select",
   "member_title": "Member",
@@ -220,6 +221,7 @@
   "project_delete_dialog_title": "Delete project?",
   "project_list_title": "Projects",
   "project_new_title": "New Project",
+  "project_plural": "{count, plural, one{project} other{projects}}",
   "project_plural_genitive": "{count, plural, one{project} other{projects}}",
   "project_title": "Project",
   "projects_add_hint_title": "Import projects from source or create your own",
@@ -302,19 +304,21 @@
   "subtask_title": "Subtask",
 
   "tariff_change_action_title": "Change tariff",
-  "tariff_change_limit_projects_reason_title": "Raise your tariff to add projects",
-  "tariff_change_limit_tasks_reason_title": "Raise your tariff to add tasks",
-  "tariff_change_limit_users_reason_title": "Raise your tariff to add more users",
+  "tariff_change_limit_projects_reason_title": "Raise tariff to add projects",
+  "tariff_change_limit_tasks_reason_title": "Raise tariff to add tasks",
+  "tariff_change_limit_users_reason_title": "Raise tariff to add more users",
 
   "tariff_current_title": "Current Tariff",
   "tariff_list_title": "Tariffs",
-  "tariff_limit_special_conditions_title": "We will develop and configure a unique solution that perfectly matches the needs of your business",
-  "tariff_limit_up_to_prefix": "up to",
-  "tariff_option_users_count_title": "per user per month",
+  "tariff_limit_special_conditions_title1": "Unique solution",
+  "tariff_limit_special_conditions_title2": "New features",
+  "tariff_limit_special_conditions_title3": "No limits",
+  "tariff_limit_special_conditions_title4": "On premise server",
+  "tariff_option_users_count_title": "per month per member",
   "tariff_price_free_title": "Free forever",
-  "tariff_price_request_action_hint": "Contact us and find out the price",
+  "tariff_price_request_action_hint": "to suit your business needs",
   "tariff_price_request_action_title": "Request an offer",
-  "tariff_price_request_mail_subject": "Avanplan - Request a commercial offer for special conditions",
+  "tariff_price_request_mail_subject": "Avanplan - Request an offer for special conditions",
   "tariff_select_action_title": "Select",
 
   "tariff_title": "Tariff",
@@ -394,7 +398,6 @@
   "update_web_app_recommendation_title": "Refresh the page in your browser or reinstall the web application",
 
   "user_list_title": "Users",
-  "user_plural_genitive": "{count, plural, one{user} other{users}}",
   "user_title": "User",
 
   "validation_empty_text": "Should not be empty",

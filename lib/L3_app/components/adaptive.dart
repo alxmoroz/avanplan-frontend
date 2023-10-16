@@ -11,9 +11,9 @@ enum _AdaptiveSize { XS, S, M, L }
 class MTAdaptive extends StatelessWidget {
   const MTAdaptive({required this.child, this.padding, this.force = false}) : size = _AdaptiveSize.M;
 
-  const MTAdaptive.XS({required this.child, this.padding, this.force = true}) : size = _AdaptiveSize.XS;
-  const MTAdaptive.S({required this.child, this.padding, this.force = false}) : size = _AdaptiveSize.S;
-  const MTAdaptive.L({required this.child, this.padding, this.force = false}) : size = _AdaptiveSize.L;
+  const MTAdaptive.xs({required this.child, this.padding, this.force = true}) : size = _AdaptiveSize.XS;
+  const MTAdaptive.s({required this.child, this.padding, this.force = false}) : size = _AdaptiveSize.S;
+  const MTAdaptive.l({required this.child, this.padding, this.force = false}) : size = _AdaptiveSize.L;
 
   final Widget? child;
   final bool force;
@@ -59,3 +59,10 @@ class MTAdaptive extends StatelessWidget {
 double dashboardImageHeight(BuildContext context) => min(200, MediaQuery.of(context).size.height / 2.5);
 
 double bottomPadding(BuildContext context) => max(MediaQuery.paddingOf(context).bottom, P6);
+
+bool isBigScreen(BuildContext context) {
+  final mq = MediaQuery.of(context);
+  final mqH = mq.size.height;
+  final mqW = mq.size.width;
+  return mqH > SCR_S_HEIGHT && mqW > SCR_M_WIDTH;
+}

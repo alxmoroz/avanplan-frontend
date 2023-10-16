@@ -65,7 +65,7 @@ flutter:
       fonts:
         - asset: assets/fonts/Comfortaa-SB.ttf
           weight: 600
-    - family: Roboto
+    - family: RobotoAvanplan
       fonts:
         - asset: assets/fonts/Roboto-L.ttf
           weight: 300

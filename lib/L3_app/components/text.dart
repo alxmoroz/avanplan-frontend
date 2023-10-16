@@ -71,7 +71,7 @@ class BaseText extends StatelessWidget {
     return cupertinoTS.copyWith(
       color: CupertinoDynamicColor.maybeResolve(color ?? f1Color, context),
       fontWeight: weight ?? FontWeight.w400,
-      fontSize: (isBigScreen(context) ? 20 : 18) * (sizeScale ?? 1),
+      fontSize: (isBigScreen(context) ? 19 : 18) * (sizeScale ?? 1),
       inherit: true,
       height: height ?? cupertinoTS.height,
     );

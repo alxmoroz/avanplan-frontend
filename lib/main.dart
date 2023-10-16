@@ -41,7 +41,7 @@ class App extends StatelessWidget {
     final cupertinoTextTheme = CupertinoTheme.of(context).textTheme;
 
     // const fontFamily = '--apple-system';
-    const fontFamily = 'Roboto';
+    const fontFamily = 'RobotoAvanplan';
 
     const Iterable<LocalizationsDelegate<dynamic>> localizationsDelegates = [
       S.delegate,

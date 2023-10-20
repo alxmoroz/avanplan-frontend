@@ -6,57 +6,70 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../components/adaptive.dart';
 import '../../../components/constants.dart';
+import '../../../extra/services.dart';
 import 'my_projects.dart';
 import 'my_tasks.dart';
 
-const double _BIG_WIDTH = (SCR_S_WIDTH + P4) * 2 + P4;
-const double _BIG_HEIGHT = SCR_S_HEIGHT;
-const _MIN_HEIGHT = 240.0;
-
-bool dashboardBigScreen(BuildContext context) {
-  final _size = MediaQuery.sizeOf(context);
-  return _size.width > _BIG_WIDTH && _size.height > _BIG_HEIGHT;
-}
-
 class MainDashboard extends StatelessWidget {
+  static const _spacing_s = P4;
+  static const _spacing_xs = P2;
+
+  static const _BIG_WIDTH_S = (SCR_S_WIDTH + _spacing_s) * 2 + _spacing_s;
+  static const _BIG_WIDTH_XS = (SCR_XS_WIDTH + _spacing_xs) * 2 + _spacing_xs;
+  static const _BIG_HEIGHT = SCR_S_HEIGHT;
+  static const _MIN_HEIGHT = 240.0;
+
+  bool get _hasTasks => tasksMainController.myTasks.isNotEmpty;
+
   @override
   Widget build(BuildContext context) {
-    final _mq = MediaQuery.of(context);
-    final _topInnerPadding = (_mq.size.height > _BIG_HEIGHT ? P4 : P);
-    final _bottomPadding = max(_mq.padding.bottom, P4);
-    const _spacing = P4;
+    final padding = MediaQuery.paddingOf(context);
+    final size = MediaQuery.sizeOf(context);
+    final topInnerPadding = (size.height > _BIG_HEIGHT ? P4 : P);
+    final bottomPadding = max(padding.bottom, P4);
+
+    final isBigS = size.width > _BIG_WIDTH_S;
+    final isBig = size.width > _BIG_WIDTH_XS && size.height > _BIG_HEIGHT;
+    final spacing = isBigS ? _spacing_s : _spacing_xs;
 
     double _mainAxisExtent() {
-      final _mq = MediaQuery.of(context);
-      final _isPortrait = _mq.orientation == Orientation.portrait;
+      final _isPortrait = MediaQuery.orientationOf(context) == Orientation.portrait;
       return min(
-        SCR_XS_WIDTH,
+        SCR_XXS_WIDTH,
         max(
           _MIN_HEIGHT,
-          (_mq.size.height - _mq.padding.top - _bottomPadding - _topInnerPadding - _spacing) / (_isPortrait ? 2 : 1),
+          (size.height - padding.top - bottomPadding - topInnerPadding - spacing) / (_isPortrait ? 2 : 1),
         ),
       );
     }
 
-    return dashboardBigScreen(context)
+    return isBig || !_hasTasks
         ? Padding(
-            padding: const EdgeInsets.symmetric(horizontal: P4).copyWith(top: _topInnerPadding),
-            child: const Row(
+            padding: const EdgeInsets.symmetric(horizontal: P4).copyWith(top: topInnerPadding),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                MTAdaptive.s(child: MyTasks(compact: false)),
-                SizedBox(width: _spacing),
-                MTAdaptive.s(child: MyProjects(compact: false)),
+                if (_hasTasks) ...[
+                  MTAdaptive(
+                    child: const MyTasks(compact: false),
+                    size: isBigS ? AdaptiveSize.S : AdaptiveSize.XS,
+                  ),
+                  SizedBox(width: spacing),
+                ],
+                MTAdaptive(
+                  child: const MyProjects(compact: false),
+                  size: isBigS ? AdaptiveSize.S : AdaptiveSize.XS,
+                ),
               ],
             ),
           )
         : GridView(
-            padding: _mq.padding.add(EdgeInsets.symmetric(vertical: _topInnerPadding, horizontal: P4).copyWith(bottom: _bottomPadding)),
+            padding: padding.add(EdgeInsets.symmetric(vertical: topInnerPadding, horizontal: P4).copyWith(bottom: bottomPadding)),
             gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
               maxCrossAxisExtent: SCR_S_WIDTH,
-              crossAxisSpacing: _spacing,
+              crossAxisSpacing: spacing,
               mainAxisExtent: _mainAxisExtent(),
-              mainAxisSpacing: _spacing,
+              mainAxisSpacing: spacing,
             ),
             children: const [MyTasks(), MyProjects()],
           );

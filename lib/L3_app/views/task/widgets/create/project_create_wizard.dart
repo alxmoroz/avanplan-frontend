@@ -46,7 +46,7 @@ class ProjectCreateWizard extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             children: [
-              MTAdaptive.xs(
+              MTAdaptive.xxs(
                 child: MTLimitBadge(
                   showBadge: !ws.plProjects,
                   child: MTButton.main(

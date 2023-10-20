@@ -21,7 +21,8 @@ const double DEF_BTN_BORDER_RADIUS = P6;
 const double DEF_BORDER_WIDTH = P_3;
 const double MIN_BTN_HEIGHT = P8;
 
-const double SCR_XS_WIDTH = 360;
+const double SCR_XXS_WIDTH = 290;
+const double SCR_XS_WIDTH = 380;
 const double SCR_XS_HEIGHT = 480;
 
 const double SCR_S_WIDTH = 480;

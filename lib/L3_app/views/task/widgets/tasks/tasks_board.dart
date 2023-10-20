@@ -86,7 +86,7 @@ class TasksBoard extends StatelessWidget {
         onItemReorder: controller.moveTask,
         onListReorder: (int oldListIndex, int newListIndex) {},
         axis: Axis.horizontal,
-        listWidth: SCR_XS_WIDTH,
+        listWidth: SCR_XXS_WIDTH,
         listPadding: EdgeInsets.only(top: P2, bottom: mq.padding.bottom + P2, left: P3),
         itemGhost: const SizedBox(height: MIN_BTN_HEIGHT),
         lastListTargetSize: 0,

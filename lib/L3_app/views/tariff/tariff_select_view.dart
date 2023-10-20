@@ -94,7 +94,7 @@ class TariffSelectView extends StatelessWidget {
         //TODO: сделать так же для доски задач (ширина) и для шторки (высота)!
         builder: (_, size) {
           final controller = PageController(
-            viewportFraction: min(SCR_XS_WIDTH / size.maxWidth, 0.8),
+            viewportFraction: min(SCR_XXS_WIDTH / size.maxWidth, 0.8),
             initialPage: selectedIndex,
           );
           return Stack(

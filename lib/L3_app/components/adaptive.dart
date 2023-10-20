@@ -6,33 +6,37 @@ import 'package:flutter/cupertino.dart';
 
 import 'constants.dart';
 
-enum _AdaptiveSize { XS, S, M, L }
+enum AdaptiveSize { XXS, XS, S, M, L }
 
 class MTAdaptive extends StatelessWidget {
-  const MTAdaptive({required this.child, this.padding, this.force = false}) : size = _AdaptiveSize.M;
+  const MTAdaptive({required this.child, this.padding, this.force = false, this.size = AdaptiveSize.M});
 
-  const MTAdaptive.xs({required this.child, this.padding, this.force = true}) : size = _AdaptiveSize.XS;
-  const MTAdaptive.s({required this.child, this.padding, this.force = false}) : size = _AdaptiveSize.S;
-  const MTAdaptive.l({required this.child, this.padding, this.force = false}) : size = _AdaptiveSize.L;
+  const MTAdaptive.xxs({required this.child, this.padding, this.force = true}) : size = AdaptiveSize.XXS;
+  const MTAdaptive.xs({required this.child, this.padding, this.force = true}) : size = AdaptiveSize.XS;
+  const MTAdaptive.s({required this.child, this.padding, this.force = false}) : size = AdaptiveSize.S;
+  const MTAdaptive.l({required this.child, this.padding, this.force = false}) : size = AdaptiveSize.L;
 
   final Widget? child;
   final bool force;
-  final _AdaptiveSize size;
+  final AdaptiveSize size;
   final EdgeInsets? padding;
 
   Widget _constrained(BuildContext context) {
-    double W = SCR_XS_WIDTH * 0.8;
+    double W = SCR_XXS_WIDTH;
 
     switch (size) {
-      case _AdaptiveSize.XS:
+      case AdaptiveSize.XXS:
         break;
-      case _AdaptiveSize.S:
+      case AdaptiveSize.XS:
+        W = SCR_XS_WIDTH;
+        break;
+      case AdaptiveSize.S:
         W = SCR_S_WIDTH;
         break;
-      case _AdaptiveSize.M:
+      case AdaptiveSize.M:
         W = SCR_M_WIDTH;
         break;
-      case _AdaptiveSize.L:
+      case AdaptiveSize.L:
         W = SCR_L_WIDTH;
         break;
     }
@@ -56,7 +60,7 @@ class MTAdaptive extends StatelessWidget {
   }
 }
 
-double dashboardImageHeight(BuildContext context) => min(200, MediaQuery.of(context).size.height / 2.5);
+double dashboardImageHeight(BuildContext context) => min(170, MediaQuery.of(context).size.height / 2.5);
 
 double bottomPadding(BuildContext context) => max(MediaQuery.paddingOf(context).bottom, P6);
 

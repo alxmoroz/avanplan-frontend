@@ -22,7 +22,7 @@ class InvitationButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final _type = type ?? ButtonType.main;
 
-    return MTAdaptive.xs(
+    return MTAdaptive.xxs(
       child: MTLimitBadge(
         showBadge: !task.ws.plUsers,
         child: MTButton(

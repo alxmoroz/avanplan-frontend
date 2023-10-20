@@ -54,7 +54,7 @@ class WorkspaceView extends StatelessWidget {
         ),
       );
 
-  Widget get _balance => MTAdaptive.xs(
+  Widget get _balance => MTAdaptive.xxs(
         child: MTCardButton(
           margin: const EdgeInsets.symmetric(vertical: P3),
           child: Column(

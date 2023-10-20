@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../main.dart';
+import '../../../components/adaptive.dart';
 import '../../../components/button.dart';
 import '../../../components/constants.dart';
 import '../../../components/shadowed.dart';
@@ -19,18 +20,16 @@ class MyProjects extends StatelessWidget {
 
   Future _goToProjects() async => await Navigator.of(rootKey.currentContext!).pushNamed(MyProjectsView.routeName);
 
-  Widget get _contents {
+  Widget _contents(BuildContext context) {
     final overallState = tasksMainController.overallProjectsState;
-    final image = imageForState(overallState);
+    final image = imageForState(overallState, size: dashboardImageHeight(context));
     return MTCardButton(
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           BaseText.f2(loc.project_list_title, align: TextAlign.center),
-          const SizedBox(height: P3),
           compact ? Expanded(child: image) : image,
           H2(groupStateTitle(overallState), align: TextAlign.center),
-          const SizedBox(height: P3),
+          const SizedBox(height: P),
         ],
       ),
       onTap: _goToProjects,
@@ -41,17 +40,15 @@ class MyProjects extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => compact
-          ? _contents
-          : Column(
+          ? _contents(context)
+          : ListView(
               children: [
-                _contents,
-                const SizedBox(height: P3),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: P),
-                    child: MTShadowed(
-                      child: TasksGroup(tasksMainController.dashboardProjects),
-                    ),
+                _contents(context),
+                const SizedBox(height: P_2),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: P + P_2),
+                  child: MTShadowed(
+                    child: TasksGroup(tasksMainController.dashboardProjects),
                   ),
                 ),
               ],

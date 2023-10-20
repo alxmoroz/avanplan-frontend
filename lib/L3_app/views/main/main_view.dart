@@ -78,7 +78,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
           ),
         ),
         body: SafeArea(
-          top: dashboardBigScreen(context),
+          top: false,
           bottom: false,
           child: tasksMainController.hasOpenedProjects ? MainDashboard() : NoProjects(),
         ),

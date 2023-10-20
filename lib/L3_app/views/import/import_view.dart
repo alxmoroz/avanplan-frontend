@@ -143,7 +143,7 @@ class ImportView extends StatelessWidget {
             align: TextAlign.center,
           ),
           const SizedBox(height: P2),
-          MTAdaptive.xs(
+          MTAdaptive.xxs(
             child: MTLimitBadge(
               child: MTButton.main(
                 constrained: false,

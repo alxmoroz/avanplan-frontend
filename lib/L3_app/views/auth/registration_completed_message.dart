@@ -5,42 +5,52 @@ import 'package:flutter/cupertino.dart';
 import '../../components/button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
+import '../../components/images.dart';
 import '../../components/text.dart';
 import '../../extra/services.dart';
 import '../../usecases/communications.dart';
 import 'registration_controller.dart';
 
 class RegistrationCompletedMessage extends StatelessWidget {
-  const RegistrationCompletedMessage({
-    required this.controller,
-  });
+  const RegistrationCompletedMessage(this._controller);
 
-  final RegistrationController controller;
+  final RegistrationController _controller;
+
+  String get _email => _controller.fData(RegistrationFCode.email.index).text;
 
   @override
   Widget build(BuildContext context) {
     return ListView(
       shrinkWrap: true,
       children: [
-        H2(loc.auth_register_completed_title, align: TextAlign.center),
-        const SizedBox(height: P2),
-        H3(
-          loc.auth_register_completed_description(controller.fData(RegistrationFCode.email.index).text),
-          maxLines: 7,
+        MTImage(ImageName.notifications.name),
+        H2(
+          loc.register_completed_hint,
           align: TextAlign.center,
+          padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P3),
         ),
-        const SizedBox(height: P2),
-        SmallText(loc.auth_register_troubleshooting_hint, align: TextAlign.center),
+        BaseText(
+          loc.register_completed_description,
+          align: TextAlign.center,
+          padding: const EdgeInsets.symmetric(horizontal: P2),
+        ),
+        BaseText.f2(
+          _email,
+          align: TextAlign.center,
+          maxLines: 1,
+          padding: const EdgeInsets.symmetric(horizontal: P),
+        ),
+        MTButton.main(
+          margin: const EdgeInsets.symmetric(vertical: P3),
+          titleText: loc.ok,
+          onTap: () => Navigator.of(context).pop(),
+        ),
+        const SizedBox(height: P6),
+        SmallText(loc.register_troubleshooting_hint, align: TextAlign.center),
         MTButton(
           middle: SmallText(loc.contact_us_title.toLowerCase(), color: mainColor),
           onTap: mailUs,
         ),
-        MTButton.main(
-          margin: const EdgeInsets.symmetric(horizontal: P).copyWith(top: P2),
-          titleText: loc.ok,
-          onTap: () => Navigator.of(context).pop(),
-        ),
-        const SizedBox(height: P),
       ],
     );
   }

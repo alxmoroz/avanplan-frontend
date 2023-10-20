@@ -86,7 +86,7 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
                     // TextDemo(),
                     MTImage(ImageName.hello.name),
                     H3(
-                      authController.registerMode ? loc.auth_register_with_title : loc.auth_sign_in_with_title,
+                      authController.registerMode ? loc.register_with_title : loc.auth_sign_in_with_title,
                       align: TextAlign.center,
                       padding: const EdgeInsets.only(top: P3),
                     ),
@@ -122,7 +122,7 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
                         BaseText(authController.registerMode ? loc.auth_sign_in_mode_hint_title : ''),
                         const SizedBox(width: P),
                         MTButton(
-                          titleText: authController.registerMode ? loc.auth_sign_in_mode_title : loc.auth_register_mode_title,
+                          titleText: authController.registerMode ? loc.auth_sign_in_mode_title : loc.register_mode_title,
                           onTap: authController.toggleRegisterMode,
                         ),
                       ],

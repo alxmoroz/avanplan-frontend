@@ -4,14 +4,11 @@ import 'dart:async';
 
 import 'package:mobx/mobx.dart';
 
-import '../../../../L1_domain/entities_extensions/ws_accounts.dart';
 import '../../../../L1_domain/utils/dates.dart';
 import '../../../../L2_data/services/platform.dart';
 import '../../../components/alert_dialog.dart';
 import '../../../components/images.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/number.dart';
-import '../../../usecases/ws_tariff.dart';
 
 part 'main_controller.g.dart';
 
@@ -51,33 +48,33 @@ abstract class _MainControllerBase with Store {
     }
   }
 
-  Future _showWelcomeGiftInfo() async {
-    if (wsMainController.myWSs.isNotEmpty) {
-      // TODO: берем первый попавшийся. Нужно изменить триггер для показа инфы о приветственном балансе
-      final myWS = wsMainController.myWSs.first;
-      final wga = myWS.welcomeGiftAmount;
-      final wsId = myWS.id;
-      if (wga > 0 && !accountController.welcomeGiftInfoViewed(wsId!)) {
-        final wantChangeTariff = await showMTAlertDialog(
-          loc.onboarding_welcome_gift_dialog_title,
-          description: loc.onboarding_welcome_gift_dialog_description(wga.currency),
-          actions: [
-            MTADialogAction(title: loc.tariff_change_action_title, type: MTActionType.isDefault, result: true),
-            MTADialogAction(title: loc.later, result: false),
-          ],
-        );
-        await accountController.setWelcomeGiftInfoViewed(wsId);
+  // Future _showWelcomeGiftInfo() async {
+  //   if (wsMainController.myWSs.isNotEmpty) {
+  //     // TODO: берем первый попавшийся. Нужно изменить триггер для показа инфы о приветственном балансе
+  //     final myWS = wsMainController.myWSs.first;
+  //     final wga = myWS.welcomeGiftAmount;
+  //     final wsId = myWS.id;
+  //     if (wga > 0 && !accountController.welcomeGiftInfoViewed(wsId!)) {
+  //       final wantChangeTariff = await showMTAlertDialog(
+  //         loc.onboarding_welcome_gift_dialog_title,
+  //         description: loc.onboarding_welcome_gift_dialog_description(wga.currency),
+  //         actions: [
+  //           MTADialogAction(title: loc.tariff_change_action_title, type: MTActionType.isDefault, result: true),
+  //           MTADialogAction(title: loc.later, result: false),
+  //         ],
+  //       );
+  //       await accountController.setWelcomeGiftInfoViewed(wsId);
+  //
+  //       if (wantChangeTariff == true) {
+  //         await myWS.changeTariff();
+  //       }
+  //     }
+  //   }
+  // }
 
-        if (wantChangeTariff == true) {
-          await myWS.changeTariff();
-        }
-      }
-    }
-  }
-
-  Future _showOnboarding() async {
-    await _showWelcomeGiftInfo();
-  }
+  // Future _showOnboarding() async {
+  // await _showWelcomeGiftInfo();
+  // }
 
   Future<bool> _tryRedeemInvitation() async {
     bool invited = false;
@@ -132,7 +129,7 @@ abstract class _MainControllerBase with Store {
   Future _authorizedStartupActions() async {
     await _tryUpdate();
     await _checkAppUpgrade();
-    await _showOnboarding();
+    // await _showOnboarding();
     if (isIOS) {
       await notificationController.initPush();
     }

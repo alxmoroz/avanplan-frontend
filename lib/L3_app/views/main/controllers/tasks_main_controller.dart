@@ -39,7 +39,7 @@ abstract class _TasksMainControllerBase with Store {
   @computed
   List<MapEntry<TaskState, List<Task>>> get projectsGroups => groups(projects);
   @computed
-  List<Task> get attentionalProjects => attentionalTasks(projectsGroups);
+  List<Task> get dashboardProjects => projectsGroups.isNotEmpty ? projectsGroups.first.value : [];
   @computed
   TaskState get overallProjectsState => attentionalState(projectsGroups);
   @computed

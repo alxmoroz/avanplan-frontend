@@ -50,7 +50,7 @@ class MyProjects extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: P),
                     child: MTShadowed(
-                      child: TasksGroup(tasksMainController.attentionalProjects),
+                      child: TasksGroup(tasksMainController.dashboardProjects),
                     ),
                   ),
                 ),

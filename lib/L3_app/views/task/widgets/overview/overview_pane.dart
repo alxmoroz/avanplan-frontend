@@ -20,8 +20,6 @@ import '../../../../presenters/task_stats.dart';
 import '../../../../presenters/task_view.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
-import '../../widgets/transfer/local_import_dialog.dart';
-import '../create/task_create_button.dart';
 import '../header/state_title.dart';
 import '../tasks/tasks_group.dart';
 import 'charts/chart_details.dart';
@@ -35,42 +33,7 @@ class OverviewPane extends StatelessWidget {
 
   Task get _task => controller.task;
 
-  bool get _showBottomBar => _task.shouldAddSubtask || _task.canReopen || _task.canCloseGroup;
-
-  Widget? get bottomBar => _showBottomBar
-      ? _task.shouldAddSubtask
-          ? Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (_task.canLocalImport)
-                  MTButton.secondary(
-                    leading: const LocalImportIcon(),
-                    titleText: loc.task_transfer_import_action_title,
-                    margin: const EdgeInsets.only(bottom: P3),
-                    onTap: () => localImportDialog(controller),
-                  ),
-                TaskCreateButton(_task.ws, parentTaskController: controller),
-              ],
-            )
-          : Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                if (_task.canCloseGroup)
-                  BaseText.medium(
-                    loc.state_closable_hint,
-                    align: TextAlign.center,
-                    color: f2Color,
-                    padding: const EdgeInsets.only(bottom: P_2),
-                  ),
-                MTButton.main(
-                  titleText: _task.canCloseGroup ? loc.close_action_title : loc.task_reopen_action_title,
-                  leading: DoneIcon(_task.canCloseGroup, color: mainBtnTitleColor),
-                  onTap: () => controller.statusController.setStatus(_task, close: !_task.closed),
-                ),
-              ],
-            )
-      : null;
+  Widget? get bottomBar => null;
 
   Widget _checkRecommendsItem(bool checked, String text) => MTListTile(
         leading: DoneIcon(checked, color: checked ? greenColor : f2Color, size: P6, solid: checked),
@@ -150,6 +113,16 @@ class OverviewPane extends StatelessWidget {
                     ),
                     onTap: () => showChartsDetailsDialog(_task),
                   ),
+
+                /// рекомендации
+                if (_task.canReopen || _task.canCloseGroup) ...[
+                  const SizedBox(height: P3),
+                  MTButton.main(
+                    titleText: _task.canCloseGroup ? loc.close_action_title : loc.task_reopen_action_title,
+                    leading: DoneIcon(_task.canCloseGroup, color: mainBtnTitleColor),
+                    onTap: () => controller.statusController.setStatus(_task, close: !_task.closed),
+                  ),
+                ],
               ],
             ),
           ),

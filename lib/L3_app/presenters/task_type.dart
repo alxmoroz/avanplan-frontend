@@ -73,7 +73,7 @@ extension TaskTypePresenter on Task {
         mainAxisSize: MainAxisSize.min,
         children: [
           BaseText.medium(pageTitle),
-          BaseText('$this', maxLines: 1, padding: const EdgeInsets.symmetric(horizontal: P2), height: 1),
+          BaseText('$this', maxLines: 1, padding: const EdgeInsets.symmetric(horizontal: P2)),
         ],
       );
 

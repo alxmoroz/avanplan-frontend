@@ -66,16 +66,22 @@ class _MemberEditViewState extends State<MemberEditView> {
         ),
         topBarHeight: P * 14,
         body: MTShadowed(
-          bottomShadow: true,
-          child: ListView.builder(
+          child: ListView(
             shrinkWrap: true,
-            itemBuilder: _roleItem,
-            itemCount: controller.roles.length,
+            children: [
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: _roleItem,
+                itemCount: controller.roles.length,
+              ),
+              MTButton.main(
+                titleText: loc.save_action_title,
+                margin: const EdgeInsets.only(top: P3),
+                onTap: controller.assignRoles,
+              )
+            ],
           ),
-        ),
-        bottomBar: MTButton.main(
-          titleText: loc.save_action_title,
-          onTap: controller.assignRoles,
         ),
       ),
     );

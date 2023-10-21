@@ -16,11 +16,13 @@ import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
 import '../../../../components/icons.dart';
+import '../../../../components/list_tile.dart';
 import '../../../../components/shadowed.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/feature_set.dart';
 import '../../../../presenters/person.dart';
+import '../../../../presenters/source.dart';
 import '../../../../presenters/task_source.dart';
 import '../../../../presenters/workspace.dart';
 import '../../../../usecases/task_actions.dart';
@@ -40,12 +42,7 @@ class DetailsPane extends StatelessWidget {
   Task get _task => controller.task;
   bool get _onboarding => onbController?.onboarding == true;
 
-  Widget? get bottomBar => _task.isLinked
-      ? MTButton(
-          middle: _task.go2SourceTitle,
-          onTap: () => launchUrlString(_task.taskSource!.urlString),
-        )
-      : null;
+  Widget? get bottomBar => null;
 
   @override
   Widget build(BuildContext context) {
@@ -164,6 +161,18 @@ class DetailsPane extends StatelessWidget {
                   leading: SettingsIcon(color: _task.canEditFeatureSets ? null : f3Color),
                   value: BaseText(_task.localizedFeatureSets, maxLines: 1),
                   onSelect: _task.canEditFeatureSets ? () => showFeatureSetsDialog(controller) : null,
+                ),
+              ],
+
+              /// Связь с источником импорта
+              if (_task.didImported) ...[
+                const SizedBox(height: P3),
+                MTListTile(
+                  leading: _task.source?.type.icon(size: P6),
+                  titleText: loc.task_go2source_title,
+                  trailing: const LinkOutIcon(),
+                  bottomDivider: false,
+                  onTap: () => launchUrlString(_task.taskSource!.urlString),
                 ),
               ],
 

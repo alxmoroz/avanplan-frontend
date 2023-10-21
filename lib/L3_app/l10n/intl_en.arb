@@ -281,6 +281,7 @@
   "state_risk_title": "There is аn risk of overdue",
 
   "source_api_key_placeholder": "API key / Token",
+  "source_create_action_title": "Add source",
   "source_delete_dialog_title": "Delete import source connection?",
   "source_delete_dialog_description": "Imported tasks of this source will lose their connection with it",
   "source_get_token_action": "Get token",
@@ -289,7 +290,7 @@
   "source_list_empty_hint": "Keep track of all projects and tasks in a single space",
   "source_list_empty_title": "Sources are waiting to be connected",
   "source_list_title": "Remote import sources",
-  "source_title_new": "New import source",
+  "source_title_new": "New source",
   "source_type_unavailable_title": "{type} is not available for adding",
   "source_type_unavailable_hint": "We will notify you as soon as it becomes available",
   "source_type_placeholder": "Import sources type",
@@ -353,6 +354,7 @@
   "task_go2source_title": "Go to Source",
 
   "task_list_empty_hint": "Add tasks to get started",
+  "task_list_empty_local_import_hint": "Add tasks or transfer from another goal",
   "task_list_empty_title": "Taking a break from tasks",
   "task_list_title": "Tasks",
 

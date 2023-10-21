@@ -7,9 +7,7 @@ import '../../../L1_domain/entities/workspace.dart';
 import '../../components/adaptive.dart';
 import '../../components/appbar.dart';
 import '../../components/button.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
-import '../../components/icons.dart';
 import '../../components/page.dart';
 import '../../components/shadowed.dart';
 import '../../extra/services.dart';
@@ -46,7 +44,7 @@ class SourceListView extends StatelessWidget {
           top: false,
           bottom: false,
           child: _ws.sources.isEmpty
-              ? Center(child: NoSources())
+              ? Center(child: NoSources(_ws))
               : MTShadowed(
                   child: MTAdaptive(
                     child: ListView.builder(
@@ -56,19 +54,10 @@ class SourceListView extends StatelessWidget {
                   ),
                 ),
         ),
-        bottomBar: _ws.hpSourceCreate
+        bottomBar: _ws.sources.isNotEmpty && _ws.hpSourceCreate
             ? Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  if (_ws.sources.isNotEmpty) const Spacer(),
-                  _ws.sources.isEmpty
-                      ? MTButton.main(
-                          leading: const PlusIcon(color: mainBtnTitleColor),
-                          titleText: loc.source_title_new,
-                          onTap: () => startAddSource(_ws),
-                        )
-                      : MTPlusButton(() => startAddSource(_ws))
-                ],
+                children: [const Spacer(), MTPlusButton(() => startAddSource(_ws))],
               )
             : null,
       ),

@@ -7,7 +7,6 @@ import '../../../../components/adaptive.dart';
 import '../../../../components/shadowed.dart';
 import '../../controllers/task_controller.dart';
 import '../header/state_title.dart';
-import 'no_tasks.dart';
 import 'tasks_group.dart';
 
 class TasksListView extends StatelessWidget {
@@ -46,12 +45,10 @@ class TasksListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTShadowed(
       child: MTAdaptive(
-        child: groups.isNotEmpty || _hasExtra
-            ? ListView.builder(
-                itemBuilder: (_, index) => _groupedItemBuilder(index),
-                itemCount: groups.length + (_hasExtra ? 1 : 0),
-              )
-            : Center(child: NoTasks()),
+        child: ListView.builder(
+          itemBuilder: (_, index) => _groupedItemBuilder(index),
+          itemCount: groups.length + (_hasExtra ? 1 : 0),
+        ),
       ),
     );
   }

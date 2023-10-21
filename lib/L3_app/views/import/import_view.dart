@@ -14,7 +14,6 @@ import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/dropdown.dart';
-import '../../components/icons.dart';
 import '../../components/limit_badge.dart';
 import '../../components/shadowed.dart';
 import '../../components/text.dart';
@@ -128,7 +127,7 @@ class ImportView extends StatelessWidget {
               ),
               bottomShadow: true,
             )
-          : NoSources();
+          : NoSources(controller.ws);
 
   String get _importBtnCountHint => controller.selectedProjects.isNotEmpty ? ' (${controller.selectedProjects.length})' : '';
   String get _importActionHint =>
@@ -154,13 +153,7 @@ class ImportView extends StatelessWidget {
             ),
           ),
         ])
-      : !_hasSources
-          ? MTButton.main(
-              leading: const PlusIcon(color: mainBtnTitleColor),
-              titleText: loc.source_title_new,
-              onTap: () async => await startAddSource(controller.ws),
-            )
-          : null;
+      : null;
 
   @override
   Widget build(BuildContext context) {

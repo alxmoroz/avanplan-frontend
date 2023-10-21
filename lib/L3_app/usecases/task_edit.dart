@@ -1,12 +1,10 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 
 import '../../L1_domain/entities/errors.dart';
 import '../../L1_domain/entities/task.dart';
 import '../../L2_data/services/api.dart';
-import '../../main.dart';
 import '../extra/services.dart';
 
 extension TaskEditUC on Task {
@@ -63,7 +61,6 @@ extension TaskEditUC on Task {
       });
 
   Future delete() async => await edit(() async {
-        Navigator.of(rootKey.currentContext!).pop();
         final changes = await taskUC.delete(this);
         if (changes?.updated != null) {
           tasksMainController.removeTask(this);

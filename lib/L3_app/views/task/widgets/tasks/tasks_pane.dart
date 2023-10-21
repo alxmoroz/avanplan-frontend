@@ -16,6 +16,7 @@ import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
 import '../../widgets/transfer/local_import_dialog.dart';
 import '../create/task_create_button.dart';
+import 'no_tasks.dart';
 import 'tasks_board.dart';
 import 'tasks_list_view.dart';
 
@@ -37,7 +38,7 @@ class TasksPane extends StatelessWidget {
         child: icon,
       );
 
-  Widget? get bottomBar => (_task.canCreate || _task.totalVolume > 0)
+  Widget? get bottomBar => _task.subtaskGroups.isNotEmpty && (_task.canCreate || _task.totalVolume > 0)
       ? Row(children: [
           if (_task.canShowBoard)
             MTButton.secondary(
@@ -68,15 +69,17 @@ class TasksPane extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => _task.canShowBoard && controller.showBoard
-          ? TasksBoard(
-              controller.statusController,
-              extra: controller.subtasksController.loadClosedButton,
-            )
-          : TasksListView(
-              _task.subtaskGroups,
-              extra: controller.subtasksController.loadClosedButton,
-            ),
+      builder: (_) => _task.subtaskGroups.isEmpty
+          ? NoTasks(controller)
+          : _task.canShowBoard && controller.showBoard
+              ? TasksBoard(
+                  controller.statusController,
+                  extra: controller.subtasksController.loadClosedButton,
+                )
+              : TasksListView(
+                  _task.subtaskGroups,
+                  extra: controller.subtasksController.loadClosedButton,
+                ),
     );
   }
 }

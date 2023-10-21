@@ -2,8 +2,11 @@
 
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
+
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/entities_extensions/task_tree.dart';
+import '../../../../main.dart';
 import '../../../components/alert_dialog.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_type.dart';
@@ -21,7 +24,11 @@ class DeleteController {
       simple: true,
     );
     if (confirm == true) {
+      Navigator.of(rootKey.currentContext!).pop();
       await task.delete();
+      if (tasksMainController.allTasks.isEmpty) {
+        Navigator.of(rootKey.currentContext!).popUntil((r) => r.navigator?.canPop() == false);
+      }
     }
   }
 }

@@ -16,16 +16,20 @@ import '../../usecases/communications.dart';
 class RequestTariffCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final smallHeight = MediaQuery.sizeOf(context).height < SCR_XS_HEIGHT;
     return MTCard(
       child: Column(
         children: [
           H2(loc.tariff_type_request_title, align: TextAlign.center, padding: const EdgeInsets.all(P3)),
-          for (var n in [1, 2, 3, 4])
-            MTListTile(
-              leading: const StarIcon(),
-              middle: BaseText(Intl.message('tariff_limit_special_conditions_title$n'), height: 1.2),
-              bottomDivider: false,
-            ),
+          if (smallHeight)
+            const Spacer()
+          else
+            for (var n in [1, 2, 3, 4])
+              MTListTile(
+                leading: const StarIcon(),
+                middle: BaseText(Intl.message('tariff_limit_special_conditions_title$n'), height: 1.2),
+                bottomDivider: false,
+              ),
           const Spacer(),
           SmallText(
             loc.tariff_price_request_action_hint,

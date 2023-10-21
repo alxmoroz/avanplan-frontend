@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import '../../../../L1_domain/entities/task.dart';
+import '../../../components/constants.dart';
 import '../../../components/dialog.dart';
 import '../../../presenters/task_tree.dart';
 import '../../../presenters/task_type.dart';
@@ -45,7 +46,7 @@ class TitleController {
   Future editDescription() async {
     final tc = _taskController.teController(TaskFCode.description.index);
     if (tc != null) {
-      await showMTDialog<void>(TaskDescriptionDialog(tc));
+      await showMTDialog<void>(TaskDescriptionDialog(tc), maxWidth: SCR_M_WIDTH);
       final newValue = tc.text;
       if (task.description != newValue) {
         final oldValue = task.description;

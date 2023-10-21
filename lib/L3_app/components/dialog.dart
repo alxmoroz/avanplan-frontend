@@ -12,21 +12,21 @@ import 'constants.dart';
 import 'material_wrapper.dart';
 import 'toolbar.dart';
 
-Future<T?> showMTDialog<T>(Widget child) async {
+Future<T?> showMTDialog<T>(Widget child, {double? maxWidth}) async {
   final ctx = rootKey.currentContext!;
-  final mq = MediaQuery.of(ctx);
-  final mqH = mq.size.height;
-  final mqW = mq.size.width;
+  final size = MediaQuery.sizeOf(ctx);
+  final padding = MediaQuery.paddingOf(ctx);
+
+  final isBig = isBigScreen(ctx);
 
   final constrains = BoxConstraints(
-    // minHeight: mqH / 4,
-    maxWidth: mqW > SCR_L_WIDTH ? SCR_L_WIDTH : SCR_M_WIDTH,
-    maxHeight: mqH > SCR_XS_HEIGHT ? mqH - mq.padding.top - P2 : double.infinity,
+    maxWidth: isBig ? min(size.width - P6, maxWidth ?? SCR_S_WIDTH) : double.infinity,
+    maxHeight: isBig ? size.height - padding.top - padding.bottom - P6 : double.infinity,
   );
 
   final barrierColor = f1Color.withAlpha(220).resolve(ctx);
 
-  return isBigScreen(ctx)
+  return isBig
       ? await showDialog(
           context: ctx,
           barrierColor: barrierColor,
@@ -42,6 +42,7 @@ Future<T?> showMTDialog<T>(Widget child) async {
           context: ctx,
           barrierColor: barrierColor,
           isScrollControlled: true,
+          useSafeArea: true,
           constraints: constrains,
           builder: (_) => child,
         );
@@ -72,8 +73,9 @@ class MTDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bPadding = bottomPadding(context);
     final mq = MediaQuery.of(context);
-    final double bbHeight = bottomBar != null ? (bottomBarHeight ?? P8 + MIN_BTN_HEIGHT) : max(P6, mq.padding.bottom);
+    final double bbHeight = bottomBar != null ? (bottomBarHeight ?? bPadding + P2 + MIN_BTN_HEIGHT) : bPadding;
     final double tbHeight = topBar != null ? (topBarHeight ?? P8) : 0;
     const radius = Radius.circular(DEF_BORDER_RADIUS);
     final big = isBigScreen(context);

@@ -60,13 +60,11 @@ class MTAdaptive extends StatelessWidget {
   }
 }
 
-double dashboardImageHeight(BuildContext context) => min(170, MediaQuery.of(context).size.height / 2.5);
+double dashboardImageHeight(BuildContext context) => min(170, MediaQuery.sizeOf(context).height / 2.5);
 
-double bottomPadding(BuildContext context) => max(MediaQuery.paddingOf(context).bottom, P6);
+double bottomPadding(BuildContext context) => max(MediaQuery.paddingOf(context).bottom, P4);
 
 bool isBigScreen(BuildContext context) {
-  final mq = MediaQuery.of(context);
-  final mqH = mq.size.height;
-  final mqW = mq.size.width;
-  return mqH > SCR_S_HEIGHT && mqW > SCR_M_WIDTH;
+  final size = MediaQuery.sizeOf(context);
+  return size.height > SCR_S_HEIGHT && size.width > SCR_M_WIDTH;
 }

@@ -1,7 +1,5 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/tariff.dart';
@@ -91,10 +89,9 @@ class TariffSelectView extends StatelessWidget {
     return ConstrainedBox(
       constraints: const BoxConstraints(maxHeight: P * 80),
       child: LayoutBuilder(
-        //TODO: сделать так же для доски задач (ширина) и для шторки (высота)!
         builder: (_, size) {
           final controller = PageController(
-            viewportFraction: min(SCR_XXS_WIDTH / size.maxWidth, 0.8),
+            viewportFraction: (SCR_XXS_WIDTH + P4) / size.maxWidth,
             initialPage: selectedIndex,
           );
           return Stack(

@@ -4,6 +4,7 @@ import 'package:collection/collection.dart';
 
 import '../../L1_domain/entities/tariff.dart';
 import '../../L1_domain/entities/workspace.dart';
+import '../components/constants.dart';
 import '../components/dialog.dart';
 import '../extra/services.dart';
 import '../views/tariff/tariff_select_view.dart';
@@ -15,7 +16,7 @@ extension WSTariffUC on Workspace {
     final tariffs = (await tariffUC.getAll(this)).sorted((t1, t2) => compareNatural('$t1', '$t2')).sorted((t1, t2) => t1.tier.compareTo(t2.tier));
     await loader.stop();
     if (tariffs.isNotEmpty) {
-      final tariff = await showMTDialog<Tariff?>(TariffSelectView(tariffs, id!, description: reason));
+      final tariff = await showMTDialog<Tariff?>(TariffSelectView(tariffs, id!, description: reason), maxWidth: SCR_L_WIDTH);
       if (tariff != null) {
         loader.start();
         loader.setSaving();

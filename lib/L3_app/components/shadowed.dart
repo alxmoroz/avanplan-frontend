@@ -13,7 +13,7 @@ class MTShadowed extends StatelessWidget {
     this.topShadow = true,
     this.bottomShadow = false,
     this.topPaddingIndent = P3,
-    this.bottomPaddingIndent = P5,
+    this.bottomPaddingIndent = P3,
   });
 
   final Widget child;
@@ -32,7 +32,7 @@ class MTShadowed extends StatelessWidget {
       right: 0,
       top: top ? padding.top : null,
       bottom: top ? null : padding.bottom,
-      height: P * 1,
+      height: P,
       child: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(

@@ -8,6 +8,7 @@ import 'package:mobx/mobx.dart';
 import '../../../../L1_domain/entities/note.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/utils/dates.dart';
+import '../../../components/constants.dart';
 import '../../../components/dialog.dart';
 import '../../../usecases/note_edit.dart';
 import '../../../usecases/task_actions.dart';
@@ -46,7 +47,7 @@ abstract class _NotesControllerBase with Store {
 
     final tc = taskController.teController(fIndex)!;
     tc.text = note.text;
-    await showMTDialog<void>(NoteDialog(note, tc));
+    await showMTDialog<void>(NoteDialog(note, tc), maxWidth: SCR_M_WIDTH);
 
     // добавление или редактирование
     final newValue = tc.text;

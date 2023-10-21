@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 
+import '../../L2_data/services/platform.dart';
 import 'adaptive.dart';
 import 'colors_base.dart';
 
@@ -71,7 +72,7 @@ class BaseText extends StatelessWidget {
     return cupertinoTS.copyWith(
       color: CupertinoDynamicColor.maybeResolve(color ?? f1Color, context),
       fontWeight: weight ?? FontWeight.w400,
-      fontSize: (isBigScreen(context) ? 19 : 18) * (sizeScale ?? 1),
+      fontSize: (isWeb && isBigScreen(context) ? 19 : 17) * (sizeScale ?? 1),
       inherit: true,
       height: height ?? cupertinoTS.height,
     );

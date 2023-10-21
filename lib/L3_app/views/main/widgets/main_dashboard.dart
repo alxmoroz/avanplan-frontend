@@ -3,6 +3,7 @@
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../components/adaptive.dart';
 import '../../../components/constants.dart';
@@ -25,12 +26,13 @@ class MainDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     final padding = MediaQuery.paddingOf(context);
     final size = MediaQuery.sizeOf(context);
-    final topInnerPadding = (size.height > _BIG_HEIGHT ? P4 : P);
-    final bottomPadding = max(padding.bottom, P4);
 
     final isBigS = size.width > _BIG_WIDTH_S;
     final isBig = size.width > _BIG_WIDTH_XS && size.height > _BIG_HEIGHT;
     final spacing = isBigS ? _spacing_s : _spacing_xs;
+
+    final topInnerPadding = spacing;
+    final bottomPadding = max(padding.bottom, spacing);
 
     double _mainAxisExtent() {
       final _isPortrait = MediaQuery.orientationOf(context) == Orientation.portrait;
@@ -43,35 +45,37 @@ class MainDashboard extends StatelessWidget {
       );
     }
 
-    return isBig || !_hasTasks
-        ? Padding(
-            padding: const EdgeInsets.symmetric(horizontal: P4).copyWith(top: topInnerPadding),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                if (_hasTasks) ...[
+    return Observer(
+      builder: (_) => isBig || !_hasTasks
+          ? Padding(
+              padding: EdgeInsets.symmetric(horizontal: spacing).copyWith(top: topInnerPadding),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  if (_hasTasks) ...[
+                    MTAdaptive(
+                      child: const MyTasks(compact: false),
+                      size: isBigS ? AdaptiveSize.S : AdaptiveSize.XS,
+                    ),
+                    SizedBox(width: spacing),
+                  ],
                   MTAdaptive(
-                    child: const MyTasks(compact: false),
+                    child: const MyProjects(compact: false),
                     size: isBigS ? AdaptiveSize.S : AdaptiveSize.XS,
                   ),
-                  SizedBox(width: spacing),
                 ],
-                MTAdaptive(
-                  child: const MyProjects(compact: false),
-                  size: isBigS ? AdaptiveSize.S : AdaptiveSize.XS,
-                ),
-              ],
+              ),
+            )
+          : GridView(
+              padding: padding.add(EdgeInsets.symmetric(vertical: topInnerPadding, horizontal: P4).copyWith(bottom: bottomPadding)),
+              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: SCR_S_WIDTH,
+                crossAxisSpacing: spacing,
+                mainAxisExtent: _mainAxisExtent(),
+                mainAxisSpacing: spacing,
+              ),
+              children: const [MyTasks(), MyProjects()],
             ),
-          )
-        : GridView(
-            padding: padding.add(EdgeInsets.symmetric(vertical: topInnerPadding, horizontal: P4).copyWith(bottom: bottomPadding)),
-            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: SCR_S_WIDTH,
-              crossAxisSpacing: spacing,
-              mainAxisExtent: _mainAxisExtent(),
-              mainAxisSpacing: spacing,
-            ),
-            children: const [MyTasks(), MyProjects()],
-          );
+    );
   }
 }

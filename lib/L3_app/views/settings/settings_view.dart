@@ -111,13 +111,14 @@ class SettingsView extends StatelessWidget {
                     bottomDivider: false,
                     onTap: authController.signOut,
                   ),
+
+                  /// версия
+                  const SizedBox(height: P3),
+                  const AppVersion(),
                 ],
               ),
             ),
           ),
-
-          /// версия
-          bottomBar: const AppVersion(),
         ),
       );
 }

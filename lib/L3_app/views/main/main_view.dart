@@ -13,7 +13,6 @@ import '../../components/page.dart';
 import '../../extra/services.dart';
 import '../../presenters/person.dart';
 import '../settings/settings_view.dart';
-import '../task/widgets/create/project_create_wizard.dart';
 import 'widgets/app_title.dart';
 import 'widgets/main_dashboard.dart';
 import 'widgets/no_projects.dart';
@@ -47,13 +46,6 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
     super.dispose();
   }
 
-  Widget? get _bottomBar => !tasksMainController.hasOpenedProjects
-      ? MTButton.main(
-          titleText: loc.state_no_projects_action_title,
-          onTap: projectCreateWizard,
-        )
-      : null;
-
   static const _iconSize = P7;
 
   @override
@@ -82,7 +74,6 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
           bottom: false,
           child: tasksMainController.hasOpenedProjects ? MainDashboard() : NoProjects(),
         ),
-        bottomBar: _bottomBar,
       ),
     );
   }

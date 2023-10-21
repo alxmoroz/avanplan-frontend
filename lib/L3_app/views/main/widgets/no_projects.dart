@@ -9,6 +9,7 @@ import '../../../components/images.dart';
 import '../../../components/text.dart';
 import '../../../extra/services.dart';
 import '../../../views/my_projects/my_projects_view.dart';
+import '../../task/widgets/create/project_create_wizard.dart';
 
 class NoProjects extends StatelessWidget {
   @override
@@ -29,14 +30,18 @@ class NoProjects extends StatelessWidget {
             )
           else
             H2(loc.state_no_projects_hint, align: TextAlign.center),
-          const SizedBox(height: P4),
+          const SizedBox(height: P3),
           BaseText(
             loc.projects_add_hint_title,
             align: TextAlign.center,
-            padding: const EdgeInsets.symmetric(horizontal: P3),
+            padding: const EdgeInsets.symmetric(horizontal: P6),
             maxLines: 5,
           ),
-          const SizedBox(height: P2),
+          const SizedBox(height: P3),
+          MTButton.main(
+            titleText: loc.state_no_projects_action_title,
+            onTap: projectCreateWizard,
+          ),
         ],
       ),
     );

@@ -22,6 +22,7 @@ extension WSActionsUC on Workspace {
 
   bool get hpTariffUpdate => me.hp('TARIFF_UPDATE');
 
+  bool get hpMemberRead => me.hp('MEMBER_READ');
   bool get hpOwnerUpdate => me.hp('OWNER_UPDATE');
   bool get isMine => hpOwnerUpdate;
 

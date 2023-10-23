@@ -118,7 +118,7 @@ class WorkspaceView extends StatelessWidget {
               _balance,
               _tariff,
               const SizedBox(height: P3),
-              _users,
+              if (ws.hpMemberRead) _users,
               if (ws.hpSourceCreate) _sources,
             ],
           ),

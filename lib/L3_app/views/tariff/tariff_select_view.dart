@@ -8,6 +8,7 @@ import '../../../L2_data/services/platform.dart';
 import '../../components/button.dart';
 import '../../components/card.dart';
 import '../../components/colors.dart';
+import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/icons.dart';
@@ -16,6 +17,7 @@ import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import '../../presenters/number.dart';
 import '../../presenters/tariff.dart';
+import '../../usecases/ws_actions.dart';
 import '../iap/iap_view.dart';
 import 'request_tariff_card.dart';
 import 'tariff_limits.dart';
@@ -66,9 +68,11 @@ class TariffSelectView extends StatelessWidget {
             if (smallHeight) const Spacer() else Expanded(child: TariffLimits(tariff)),
             TariffOptions(tariff),
             currentIndex != index
-                ? balanceLack <= 0
-                    ? _selectButton(context, tariff)
-                    : _paymentButton(context, balanceLack)
+                ? ws.hpTariffUpdate
+                    ? balanceLack <= 0
+                        ? _selectButton(context, tariff)
+                        : _paymentButton(context, balanceLack)
+                    : const MTButton.main(middle: PrivacyIcon(color: f2Color), margin: EdgeInsets.symmetric(horizontal: P3))
                 : MTButton.main(
                     titleText: loc.tariff_current_title,
                     margin: const EdgeInsets.symmetric(horizontal: P3),
@@ -99,7 +103,7 @@ class TariffSelectView extends StatelessWidget {
             children: [
               PageView.builder(
                 controller: controller,
-                itemCount: tariffs.length + 1,
+                itemCount: tariffs.length + (ws.hpTariffUpdate ? 1 : 0),
                 itemBuilder: _tariffCard,
               ),
               if (isWeb)

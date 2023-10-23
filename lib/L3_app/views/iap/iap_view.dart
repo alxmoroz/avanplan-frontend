@@ -52,6 +52,7 @@ class StoreView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTDialog(
       topBar: MTTopBar(middle: ws.subPageTitle(loc.balance_replenish_store_title)),
+      topBarHeight: wsMainController.multiWS ? P12 : null,
       body: ListView.builder(
         shrinkWrap: true,
         itemBuilder: _payButton,

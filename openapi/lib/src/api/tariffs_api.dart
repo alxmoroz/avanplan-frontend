@@ -56,9 +56,6 @@ class TariffsApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },{
-            'type': 'oauth2',
-            'name': 'OAuth2PasswordBearer',
           },
         ],
         ...?extra,

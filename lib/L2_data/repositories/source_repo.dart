@@ -37,8 +37,12 @@ class SourceRepo extends AbstractSourceRepo {
 
   @override
   Future<bool> checkConnection(Source s) async {
-    final response = await api.sourcesCheckConnection(sourceId: s.id!, wsId: s.ws.id!);
-    return response.data == true;
+    try {
+      final response = await api.sourcesCheckConnection(sourceId: s.id!, wsId: s.ws.id!);
+      return response.data == true;
+    } catch (e) {
+      return false;
+    }
   }
 
   @override

@@ -46,7 +46,7 @@ class NoTasks extends StatelessWidget {
               ),
             if (_parent.canCreate) ...[
               const SizedBox(height: P3),
-              TaskCreateButton(_parent.ws, parentTaskController: _controller, compact: false),
+              TaskCreateButton(_controller, compact: false),
             ],
           ],
           // newSubtaskTitle

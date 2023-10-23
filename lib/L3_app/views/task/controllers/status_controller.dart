@@ -75,10 +75,14 @@ class StatusController {
   }
 
   Future selectStatus() async {
-    final selectedStatusId = await showMTSelectDialog<Status>(task.statuses, task.statusId, loc.task_status_placeholder);
+    final selectedStatus = await showMTSelectDialog<Status>(
+      task.statuses,
+      task.statusId,
+      loc.task_status_placeholder,
+    );
 
-    if (selectedStatusId != null) {
-      await setStatus(task, statusId: selectedStatusId);
+    if (selectedStatus != null) {
+      await setStatus(task, statusId: selectedStatus.id);
     }
   }
 

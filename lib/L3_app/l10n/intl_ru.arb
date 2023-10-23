@@ -7,6 +7,8 @@
   "account_delete_dialog_description": "Также будут удалены ваши рабочие пространства вместе с задачами, если в них нет других пользователей\nЭто действие необратимо",
   "account_title": "Учётная запись",
 
+  "action_add_title": "Добавить",
+
   "app_settings_action_title": "Настройки",
   "app_title": "Аванплан",
 
@@ -134,6 +136,7 @@
   "goal_list_title": "Цели",
   "goal_new_title": "Новая цель",
   "goal_onboarding_title": "Поставьте цель",
+  "goal_plural_accusative": "{count, plural, one{цель} few{цели} other{целей}}",
   "goal_title": "Цель",
 
   "hours_count": "{count, plural, one{{count} час} few{{count} часа} other{{count} часов}}",
@@ -211,14 +214,14 @@
   "project_count": "{count, plural, zero{Нет проектов} one{{count} проект} few{{count} проекта} other{{count} проектов}}",
   "project_count_dative": "{count, plural, one{{count} проекту} other{{count} проектам}}",
   "project_delete_dialog_title": "Удалить проект?",
+  "project_list_empty_title": "Отдыхаем от проектов",
+  "project_list_empty_hint": "Загрузите проекты из источника импорта или создайте новый",
   "project_list_title": "Проекты",
   "project_new_title": "Новый проект",
   "project_plural": "{count, plural, one{проект} few{проекта} other{проектов}}",
+  "project_plural_accusative": "{count, plural, one{проект} few{проекта} other{проектов}}",
   "project_plural_genitive": "{count, plural, one{проекта} other{проектов}}",
   "project_title": "Проект",
-  "projects_add_hint_title": "Загрузите проекты из источника импорта или создайте свои",
-  "projects_add_select_st_title": "Выберите тип источника импорта",
-  "projects_add_select_ws_title": "Выберите рабочее пространство",
 
   "recommendation_add_tasks_title": "Добавить",
   "recommendation_close_tasks_title": "Закрыть задачу в проекте",
@@ -269,8 +272,6 @@
   "state_low_start_duration": "Прошло менее {duration} со старта проекта",
   "state_low_start_before_calc_duration": "Прогноз и скорость покажем через {duration}",
   "state_no_info_title": "Нет прогноза",
-  "state_no_projects_action_title": "Начать работу",
-  "state_no_projects_hint": "Начнём работу!",
   "state_no_progress_details": "Нет прогресса",
   "state_on_time_title": "Успеваем в срок",
   "state_ok_title": "Всё по плану",
@@ -296,6 +297,7 @@
   "source_type_placeholder": "Тип источника",
   "source_type_custom_description": "Поможем импортировать всё что угодно",
   "source_type_custom_title": "Особый способ импорта",
+  "source_type_selector_title": "Выберите тип источника импорта",
   "source_url_placeholder": "Адрес сервера (URL)",
 
   "subtask_count": "{count, plural, zero{Нет подзадач} one{{count} подзадача} few{{count} подзадачи} other{{count} подзадач}}",
@@ -304,6 +306,8 @@
   "subtask_delete_dialog_title": "Удалить подзадачу?",
   "subtask_list_title": "Подзадачи",
   "subtask_new_title": "Новая подзадача",
+  "subtask_plural": "{count, plural, one{подзадача} few{подзадачи} other{подзадач}}",
+  "subtask_plural_accusative": "{count, plural, one{подзадачу} few{подзадачи} other{подзадач}}",
   "subtask_title": "Подзадача",
 
   "tariff_change_action_title": "Сменить тариф",
@@ -365,6 +369,7 @@
   "task_onboarding_title": "Добавьте задачи",
 
   "task_plural": "{count, plural, one{задача} few{задачи} other{задач}}",
+  "task_plural_accusative": "{count, plural, one{задачу} few{задачи} other{задач}}",
   "task_plural_genitive": "{count, plural, one{задачи} other{задач}}",
 
   "task_reopen_action_title": "Переоткрыть",
@@ -409,6 +414,7 @@
   "weeks_count_accusative": "{count, plural, one{{count} неделю} few{{count} недели} other{{count} недель}}",
   "workspace_delete_dialog_title": "Удалить рабочее пространство?",
   "workspace_my_title": "Моё рабочее пространство",
+  "workspace_selector_title": "Выберите рабочее пространство",
   "workspace_title": "Рабочее пространство",
   "workspaces_title": "Рабочие пространства",
 

@@ -17,6 +17,7 @@ import '../../usecases/source.dart';
 import '../../usecases/ws_actions.dart';
 import '../../usecases/ws_tariff.dart';
 import '../source/source_edit_view.dart';
+import '../source/source_type_selector.dart';
 
 part 'import_controller.g.dart';
 
@@ -28,7 +29,10 @@ class ImportController extends _ImportControllerBase with _$ImportController {
     Source? preselectedSource = sType != null ? ws.sourceForType(sType) : selectedSource;
     // переходим к созданию источника, если нет источников, либо источник выбранного типа отсутствует
     if (ws.sources.isEmpty || (sType != null && preselectedSource == null)) {
-      preselectedSource = await addSource(ws, sType: sType!);
+      sType ??= await selectSourceType();
+      if (sType != null) {
+        preselectedSource = await addSource(ws, sType: sType);
+      }
       // выходим из сценария, если отказались создавать или не получилось
       // if (preselectedSource == null) {
       //   return;
@@ -129,8 +133,6 @@ abstract class _ImportControllerBase with Store {
 
   @computed
   bool get canEdit => selectedSource != null;
-
-  /// действия,  роутер
 
   Future startImport() async {
     if (selectableCount >= 0) {

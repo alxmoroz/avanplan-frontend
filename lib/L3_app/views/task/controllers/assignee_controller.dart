@@ -27,16 +27,16 @@ class AssigneeController {
   }
 
   Future assign() async {
-    final selectedId = await showMTSelectDialog<Member>(
+    final selectedMember = await showMTSelectDialog<Member>(
       task.activeMembers,
       task.assigneeId,
       loc.task_assignee_placeholder,
       valueBuilder: (_, member) => member.iconName(radius: P3),
       onReset: task.canAssign ? _reset : null,
     );
-    if (selectedId != null) {
+    if (selectedMember != null) {
       final oldValue = task.assigneeId;
-      task.assigneeId = selectedId;
+      task.assigneeId = selectedMember.id;
       if (!(await _taskController.saveField(TaskFCode.assignee))) {
         task.assigneeId = oldValue;
       }

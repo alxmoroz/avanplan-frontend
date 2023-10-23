@@ -9,7 +9,6 @@ import '../../../L1_domain/entities/source_type.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/ws_sources.dart';
 import '../../../L2_data/repositories/communications_repo.dart';
-import '../../../main.dart';
 import '../../components/alert_dialog.dart';
 import '../../components/button.dart';
 import '../../components/constants.dart';
@@ -26,7 +25,7 @@ import 'source_edit_controller.dart';
 import 'source_type_selector.dart';
 
 Future startAddSource(Workspace ws) async {
-  final st = await showMTDialog<SourceType?>(SourceTypeSelector((st) => Navigator.of(rootKey.currentContext!).pop(st)));
+  final st = await selectSourceType();
   if (st != null) {
     await addSource(ws, sType: st);
   }

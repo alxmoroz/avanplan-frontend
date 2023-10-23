@@ -21,11 +21,11 @@ import '../../../../extra/services.dart';
 import '../../../../presenters/task_transfer.dart';
 import '../../controllers/local_import_controller.dart';
 import '../../controllers/task_controller.dart';
-import 'select_task_dialog.dart';
+import 'task_selector.dart';
 
 Future localImportDialog(TaskController taskController) async {
   final destinationGoal = taskController.task;
-  final sourceGoalId = await selectTaskDialog(destinationGoal.goalsForLocalImport.sorted(sortByDateAsc), loc.task_transfer_source_hint);
+  final sourceGoalId = await selectTask(destinationGoal.goalsForLocalImport.sorted(sortByDateAsc), loc.task_transfer_source_hint);
 
   if (sourceGoalId != null) {
     final sourceGoal = destinationGoal.goalsForLocalImport.firstWhere((g) => g.id == sourceGoalId);

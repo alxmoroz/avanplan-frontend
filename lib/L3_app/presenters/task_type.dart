@@ -9,6 +9,18 @@ import '../components/text.dart';
 import '../extra/services.dart';
 import '../usecases/task_feature_sets.dart';
 
+String addSubtaskActionTitle(Task? parent) {
+  final taskTitle = loc.task_plural_accusative(1);
+  final objTitle = {
+        TType.ROOT: loc.project_plural(1),
+        TType.PROJECT: parent?.hfsGoals == true ? loc.goal_plural_accusative(1) : taskTitle,
+        TType.GOAL: taskTitle,
+        TType.BACKLOG: taskTitle,
+      }[parent?.type ?? TType.ROOT] ??
+      loc.subtask_plural(1);
+  return '${loc.action_add_title} $objTitle';
+}
+
 String newSubtaskTitle(Task? parent) =>
     {
       TType.ROOT: loc.project_new_title,

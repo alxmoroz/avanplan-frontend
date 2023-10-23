@@ -2,16 +2,21 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../components/button.dart';
-import '../../../components/colors.dart';
-import '../../../components/constants.dart';
-import '../../../components/images.dart';
-import '../../../components/text.dart';
-import '../../../extra/services.dart';
-import '../../../views/my_projects/my_projects_view.dart';
-import '../../task/widgets/create/project_create_wizard.dart';
+import '../../../../components/button.dart';
+import '../../../../components/colors.dart';
+import '../../../../components/constants.dart';
+import '../../../../components/images.dart';
+import '../../../../components/text.dart';
+import '../../../../extra/services.dart';
+import '../../../my_projects/my_projects_view.dart';
+import '../../controllers/create_controller.dart';
+import '../create/project_create_button.dart';
+import '../create/project_import_button.dart';
 
 class NoProjects extends StatelessWidget {
+  const NoProjects(this._controller);
+  final CreateController _controller;
+
   @override
   Widget build(BuildContext context) {
     final allClosed = tasksMainController.projects.isNotEmpty;
@@ -19,8 +24,7 @@ class NoProjects extends StatelessWidget {
       child: ListView(
         shrinkWrap: true,
         children: [
-          const SizedBox(height: P),
-          MTImage((allClosed ? ImageName.ok : ImageName.start).name),
+          MTImage((allClosed ? ImageName.ok : ImageName.empty_tasks).name),
           const SizedBox(height: P3),
           if (allClosed)
             MTButton(
@@ -29,19 +33,18 @@ class NoProjects extends StatelessWidget {
               onTap: () async => await Navigator.of(context).pushNamed(MyProjectsView.routeName),
             )
           else
-            H2(loc.state_no_projects_hint, align: TextAlign.center),
+            H2(loc.project_list_empty_title, align: TextAlign.center),
           const SizedBox(height: P3),
           BaseText(
-            loc.projects_add_hint_title,
+            loc.project_list_empty_hint,
             align: TextAlign.center,
             padding: const EdgeInsets.symmetric(horizontal: P6),
             maxLines: 5,
           ),
           const SizedBox(height: P3),
-          MTButton.main(
-            titleText: loc.state_no_projects_action_title,
-            onTap: projectCreateWizard,
-          ),
+          ProjectImportButton(_controller),
+          const SizedBox(height: P3),
+          ProjectCreateButton(_controller),
         ],
       ),
     );

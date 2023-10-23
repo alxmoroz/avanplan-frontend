@@ -32,7 +32,7 @@ class EstimateController {
 
   Future select() async {
     final currentId = task.ws.estimateValueForValue(task.estimate)?.id;
-    final selectedEstimateId = await showMTSelectDialog<EstimateValue>(
+    final selectedEstimateValue = await showMTSelectDialog<EstimateValue>(
       task.ws.sortedEstimateValues,
       currentId,
       loc.task_estimate_placeholder,
@@ -51,9 +51,9 @@ class EstimateController {
       onReset: _reset,
     );
 
-    if (selectedEstimateId != null) {
+    if (selectedEstimateValue != null) {
       final oldValue = task.estimate;
-      task.estimate = task.ws.estimateValueForId(selectedEstimateId)?.value;
+      task.estimate = selectedEstimateValue.value;
       if (!(await _taskController.saveField(TaskFCode.estimate))) {
         task.estimate = oldValue;
       }

@@ -8,7 +8,7 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/usecases/task_comparators.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_transfer.dart';
-import '../widgets/transfer/select_task_dialog.dart';
+import '../widgets/transfer/task_selector.dart';
 import 'task_controller.dart';
 
 class LocalExportController {
@@ -21,13 +21,13 @@ class LocalExportController {
 
   Future localExport() async {
     final sourceGoalId = task.parentId;
-    final destinationGoalId = await selectTaskDialog(
+    final destinationGoal = await selectTask(
       task.goalsForLocalExport.sorted(sortByDateAsc),
       loc.task_transfer_destination_hint,
     );
 
-    if (destinationGoalId != null) {
-      task.parentId = destinationGoalId;
+    if (destinationGoal != null) {
+      task.parentId = destinationGoal.id;
       if (!(await _taskController.saveField(TaskFCode.parent))) {
         task.parentId = sourceGoalId;
       } else {

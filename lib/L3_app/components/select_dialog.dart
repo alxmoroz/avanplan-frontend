@@ -13,29 +13,43 @@ import 'list_tile.dart';
 import 'text.dart';
 import 'toolbar.dart';
 
-Future<int?> showMTSelectDialog<T extends RPersistable>(
+Future<T?> showMTSelectDialog<T extends RPersistable>(
   List<T> items,
   int? selectedId,
   String? titleText, {
+  Widget? Function(BuildContext, T)? leadingBuilder,
   Widget Function(BuildContext, T)? valueBuilder,
+  Widget? Function(BuildContext, T)? subtitleBuilder,
   final VoidCallback? onReset,
 }) async =>
-    await showMTDialog<int?>(
+    await showMTDialog<T?>(
       _MTSelectDialog<T>(
         items,
         selectedId,
         titleText,
+        leadingBuilder: leadingBuilder,
         valueBuilder: valueBuilder,
+        subtitleBuilder: subtitleBuilder,
         onReset: onReset,
       ),
     );
 
 class _MTSelectDialog<T extends RPersistable> extends StatelessWidget {
-  const _MTSelectDialog(this.items, this.selectedId, this.titleText, {this.valueBuilder, this.onReset});
+  const _MTSelectDialog(
+    this.items,
+    this.selectedId,
+    this.titleText, {
+    this.leadingBuilder,
+    this.valueBuilder,
+    this.subtitleBuilder,
+    this.onReset,
+  });
   final List<T> items;
   final int? selectedId;
   final String? titleText;
-  final Widget Function(BuildContext, T)? valueBuilder;
+  final Widget? Function(BuildContext, T)? leadingBuilder;
+  final Widget? Function(BuildContext, T)? valueBuilder;
+  final Widget? Function(BuildContext, T)? subtitleBuilder;
   final VoidCallback? onReset;
 
   int get selectedIndex => items.indexWhere((i) => i.id == selectedId);
@@ -44,10 +58,12 @@ class _MTSelectDialog<T extends RPersistable> extends StatelessWidget {
   Widget itemBuilder(BuildContext context, int index) {
     final item = items[index];
     return MTListTile(
-      middle: valueBuilder != null ? valueBuilder!(context, item) : BaseText('$item'),
+      leading: leadingBuilder != null ? leadingBuilder!(context, item) : null,
+      middle: valueBuilder != null ? valueBuilder!(context, item) : BaseText('$item', maxLines: 2),
+      subtitle: subtitleBuilder != null ? subtitleBuilder!(context, item) : null,
       trailing: selectedIndex == index ? const MTCircle(size: P2, color: mainColor) : null,
       bottomDivider: index < itemCount - 1,
-      onTap: () => Navigator.of(context).pop(item.id),
+      onTap: () => Navigator.of(context).pop(item),
     );
   }
 

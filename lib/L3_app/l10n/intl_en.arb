@@ -7,6 +7,8 @@
   "account_delete_dialog_title": "Delete your account?",
   "account_title": "Account",
 
+  "action_add_title": "Add",
+
   "app_settings_action_title": "Open settings",
   "app_title": "Avanplan",
 
@@ -134,6 +136,7 @@
   "goal_list_title": "Goals",
   "goal_new_title": "New Goal",
   "goal_onboarding_title": "Set a goal",
+  "goal_plural_accusative": "{count, plural, one{goal} other{goals}}",
   "goal_title": "Goal",
 
   "hours_count": "{count, plural, one{{count} hour} other{{count} hours}}",
@@ -211,14 +214,14 @@
   "project_count": "{count, plural, zero{No projects} one{{count} project} other{{count} projects}}",
   "project_count_dative": "{count, plural, one{{count} project} other{{count} projects}}",
   "project_delete_dialog_title": "Delete project?",
+  "project_list_empty_title": "Taking a break from projects",
+  "project_list_empty_hint": "Import projects from source or create new one",
   "project_list_title": "Projects",
   "project_new_title": "New Project",
   "project_plural": "{count, plural, one{project} other{projects}}",
+  "project_plural_accusative": "{count, plural, one{project} other{projects}}",
   "project_plural_genitive": "{count, plural, one{project} other{projects}}",
   "project_title": "Project",
-  "projects_add_hint_title": "Import projects from source or create your own",
-  "projects_add_select_st_title": "Select the import source type",
-  "projects_add_select_ws_title": "Choose a workspace",
 
   "recommendation_add_tasks_title": "Add",
   "recommendation_close_tasks_title": "Complete task in project",
@@ -269,8 +272,6 @@
   "state_low_start_duration": "It's been less than {duration} since project launch",
   "state_low_start_before_calc_duration": "Predicted completion date and velocity will be shown in {duration}",
   "state_no_info_title": "No predicted completion date",
-  "state_no_projects_action_title": "Start",
-  "state_no_projects_hint": "Let's get started!",
   "state_no_progress_details": "No progress",
   "state_ok_title": "All according to plan",
   "state_on_time_title": "We're on time",
@@ -296,6 +297,7 @@
   "source_type_placeholder": "Import sources type",
   "source_type_custom_description": "We will help import anything",
   "source_type_custom_title": "Custom Import",
+  "source_type_selector_title": "Select the import source type",
   "source_url_placeholder": "URL",
 
   "subtask_count": "{count, plural, zero{No subtasks} one{{count} subtask} other{{count} subtasks}}",
@@ -304,6 +306,8 @@
   "subtask_delete_dialog_title": "Delete subtask?",
   "subtask_list_title": "Subtasks",
   "subtask_new_title": "New Subtask",
+  "subtask_plural": "{count, plural, one{subtask} other{subtasks}}",
+  "subtask_plural_accusative": "{count, plural, one{subtask} other{subtasks}}",
   "subtask_title": "Subtask",
 
   "tariff_change_action_title": "Change tariff",
@@ -365,6 +369,7 @@
   "task_onboarding_title": "Add tasks",
 
   "task_plural": "{count, plural, one{task} other{tasks}}",
+  "task_plural_accusative": "{count, plural, one{task} other{tasks}}",
   "task_plural_genitive": "{count, plural, one{task} other{tasks}}",
 
   "task_reopen_action_title": "Reopen",
@@ -409,6 +414,7 @@
   "weeks_count_accusative": "{count, plural, one{{count} week} other{{count} weeks}}",
   "workspace_delete_dialog_title": "Delete workspace?",
   "workspace_my_title": "My Workspace",
+  "workspace_selector_title": "Choose a workspace",
   "workspace_title": "Workspace",
   "workspaces_title": "Workspaces",
 

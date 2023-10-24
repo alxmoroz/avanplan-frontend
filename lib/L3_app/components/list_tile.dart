@@ -20,6 +20,7 @@ class MTListTile extends StatelessWidget with FocusManaging {
     this.onTap,
     this.color,
     this.padding,
+    this.margin,
     this.dividerLeftIndent,
     this.topDivider = false,
     this.bottomDivider = true,
@@ -34,6 +35,7 @@ class MTListTile extends StatelessWidget with FocusManaging {
   final Function()? onTap;
   final Color? color;
   final EdgeInsets? padding;
+  final EdgeInsets? margin;
   final double? dividerLeftIndent;
   final bool topDivider;
   final bool bottomDivider;
@@ -56,41 +58,44 @@ class MTListTile extends StatelessWidget with FocusManaging {
 
     final _onPressed = onTap != null ? () => actionWithUF(context, uf, onTap!) : null;
 
-    return material(
-      InkWell(
-          onTap: _onPressed,
-          hoverColor: _hoverColor,
-          highlightColor: _splashColor,
-          splashColor: _splashColor,
-          canRequestFocus: false,
-          focusColor: Colors.transparent,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (topDivider) _divider,
-              Padding(
-                padding: padding ?? _defaultPadding,
-                child: Row(
-                  crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
-                  children: [
-                    if (leading != null) ...[leading!, const SizedBox(width: P2)],
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          if (middle != null || titleText != null) middle ?? (titleText != null ? BaseText(titleText!, maxLines: 1) : Container()),
-                          if (subtitle != null) subtitle!,
-                        ],
+    return Padding(
+      padding: margin ?? EdgeInsets.zero,
+      child: material(
+        InkWell(
+            onTap: _onPressed,
+            hoverColor: _hoverColor,
+            highlightColor: _splashColor,
+            splashColor: _splashColor,
+            canRequestFocus: false,
+            focusColor: Colors.transparent,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (topDivider) _divider,
+                Padding(
+                  padding: padding ?? _defaultPadding,
+                  child: Row(
+                    crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
+                    children: [
+                      if (leading != null) ...[leading!, const SizedBox(width: P2)],
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            if (middle != null || titleText != null) middle ?? (titleText != null ? BaseText(titleText!, maxLines: 1) : Container()),
+                            if (subtitle != null) subtitle!,
+                          ],
+                        ),
                       ),
-                    ),
-                    if (trailing != null) trailing!,
-                  ],
+                      if (trailing != null) trailing!,
+                    ],
+                  ),
                 ),
-              ),
-              if (bottomDivider) _divider,
-            ],
-          )),
-      color: (color ?? b3Color).resolve(context),
+                if (bottomDivider) _divider,
+              ],
+            )),
+        color: (color ?? b3Color).resolve(context),
+      ),
     );
   }
 }

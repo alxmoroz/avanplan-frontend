@@ -17,6 +17,7 @@ class MTField extends StatelessWidget {
     this.value,
     this.bottomDivider = false,
     this.dividerStartIndent,
+    this.margin,
     this.padding,
     this.color,
   });
@@ -28,6 +29,7 @@ class MTField extends StatelessWidget {
 
   final bool bottomDivider;
   final double? dividerStartIndent;
+  final EdgeInsets? margin;
   final EdgeInsets? padding;
   final Color? color;
 
@@ -46,6 +48,7 @@ class MTField extends StatelessWidget {
           dividerLeftIndent: dividerStartIndent,
           onTap: onSelect,
           crossAxisAlignment: CrossAxisAlignment.start,
+          margin: margin,
           padding: padding,
           color: color,
         ),

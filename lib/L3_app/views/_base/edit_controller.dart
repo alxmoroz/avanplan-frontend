@@ -41,16 +41,18 @@ abstract class _EditControllerBase with Store {
   bool get allowDisposeFromView => _allowDisposeFromView ?? true;
 
   @action
-  void _updateData(MTFieldData fd, TextEditingController te) {
-    if (fd.text != te.text) {
-      _fdMap[fd.code] = fd.copyWith(text: te.text);
+  void _updateData(int code, TextEditingController te) {
+    final fd = fData(code);
+    final skip = !fd.edited && (fd.text.isEmpty && te.text.isEmpty);
+    if (!skip) {
+      _fdMap[code] = fd.copyWith(text: te.text);
     }
   }
 
   TextEditingController _makeTEController(int code) {
     final _fd = fData(code);
     final teController = TextEditingController(text: '$_fd');
-    teController.addListener(() => _updateData(_fd, teController));
+    teController.addListener(() => _updateData(code, teController));
     return teController;
   }
 
@@ -69,5 +71,5 @@ abstract class _EditControllerBase with Store {
   MTFieldData fData(int code) => _fdMap[code]!;
 
   @action
-  void updateField(int code, {bool? loading}) => _fdMap[code] = fData(code).copyWith(loading: loading);
+  void updateField(int code, {String? text, bool? loading}) => _fdMap[code] = fData(code).copyWith(text: text, loading: loading);
 }

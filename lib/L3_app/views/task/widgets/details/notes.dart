@@ -63,7 +63,7 @@ class Notes extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: P3),
+        padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P3),
         child: ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),

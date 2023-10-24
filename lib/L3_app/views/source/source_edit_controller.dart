@@ -119,6 +119,8 @@ abstract class _SourceEditControllerBase extends EditController with Store {
       controller: teController(code.index),
       label: fd.label,
       error: fd.errorText,
+      suggestions: code == SourceFCode.description,
+      autocorrect: code == SourceFCode.description,
       obscureText: code == SourceFCode.password,
       maxLines: 1,
       capitalization: TextCapitalization.none,

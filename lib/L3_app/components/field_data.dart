@@ -13,6 +13,7 @@ class MTFieldData {
     this.validate = false,
     this.noText = false,
     this.loading = false,
+    this.edited = false,
   });
 
   final int code;
@@ -25,7 +26,7 @@ class MTFieldData {
 
   final bool loading;
   final String text;
-  bool edited = false;
+  final bool edited;
 
   MTFieldData copyWith({String? text, bool? loading}) => MTFieldData(
         code,
@@ -37,7 +38,8 @@ class MTFieldData {
         validator: validator,
         validate: validate,
         noText: noText,
-      )..edited = true;
+        edited: true,
+      );
 
   @override
   String toString() => text;

@@ -34,6 +34,8 @@ abstract class _SignInEmailControllerBase extends EditController with Store {
       controller: teController(code.index),
       label: fd.label,
       error: fd.errorText,
+      suggestions: false,
+      autocorrect: false,
       keyboardType: isEmail ? TextInputType.emailAddress : null,
       obscureText: isPassword && _showPassword == false,
       suffixIcon: isPassword ? MTButton.icon(EyeIcon(open: !_showPassword, color: mainColor), onTap: _toggleShowPassword, uf: false) : null,

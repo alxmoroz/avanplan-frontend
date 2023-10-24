@@ -36,6 +36,8 @@ abstract class _RegistrationControllerBase extends EditController with Store {
       controller: teController(code.index),
       label: fd.label,
       error: fd.errorText,
+      suggestions: false,
+      autocorrect: false,
       obscureText: isPassword && _showPassword == false,
       keyboardType: isEmail ? TextInputType.emailAddress : null,
       suffixIcon: isPassword ? MTButton.icon(EyeIcon(open: !_showPassword, color: mainColor), onTap: _toggleShowPassword, uf: false) : null,

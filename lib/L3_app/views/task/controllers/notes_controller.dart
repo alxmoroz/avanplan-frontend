@@ -47,25 +47,32 @@ abstract class _NotesControllerBase with Store {
 
     final tc = taskController.teController(fIndex)!;
     tc.text = note.text;
-    await showMTDialog<void>(NoteDialog(note, tc), maxWidth: SCR_M_WIDTH);
+    if (await showMTDialog<bool?>(NoteDialog(taskController), maxWidth: SCR_M_WIDTH) == true) {
+      // добавление или редактирование
+      final newValue = tc.text;
+      final oldValue = note.text;
+      if (newValue.trim().isNotEmpty && (note.text != newValue || note.isNew)) {
+        taskController.updateField(fIndex, loading: true, text: '');
+        note.text = newValue;
 
-    // добавление или редактирование
-    final newValue = tc.text;
-    final oldValue = note.text;
-    if (note.text != newValue) {
-      taskController.updateField(fIndex, loading: true);
-      note.text = newValue;
+        if (await note.save(task) == null) {
+          note.text = oldValue;
+        }
 
-      if (await note.save(task) == null) {
-        note.text = oldValue;
+        _setNotes(task.notes);
+        taskController.updateField(fIndex, loading: false);
       }
-
-      _setNotes(task.notes);
-      taskController.updateField(fIndex, loading: false);
     }
   }
 
-  Future create() async => await edit(Note(text: '', authorId: task.me?.id, taskId: task.id, wsId: task.ws.id!));
+  Future create() async => await edit(
+        Note(
+          text: taskController.fData(TaskFCode.note.index).text,
+          authorId: task.me?.id,
+          taskId: task.id,
+          wsId: task.ws.id!,
+        ),
+      );
 
   Future delete(Note note) async {
     await note.delete(task);

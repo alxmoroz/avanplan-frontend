@@ -18,22 +18,21 @@ InputDecoration tfDecoration(
   EdgeInsets? padding,
   bool readOnly = false,
 }) {
-  final _rWarningColor = warningColor.resolve(context);
-  final _rBorderColor = f3Color.resolve(context);
-
-  final OutlineInputBorder _warningBorder = OutlineInputBorder(borderSide: BorderSide(color: _rWarningColor));
-  final OutlineInputBorder _border = OutlineInputBorder(borderSide: BorderSide(color: _rBorderColor));
-  final OutlineInputBorder _focusedBorder = OutlineInputBorder(borderSide: BorderSide(width: 2, color: mainColor.resolve(context)));
+  final _bRadius = BorderRadius.circular(DEF_BORDER_RADIUS);
+  final OutlineInputBorder _warningBorder = OutlineInputBorder(borderSide: BorderSide(color: warningColor.resolve(context)), borderRadius: _bRadius);
+  final OutlineInputBorder _border = OutlineInputBorder(borderSide: BorderSide(color: f3Color.resolve(context)), borderRadius: _bRadius);
+  final OutlineInputBorder _focusedBorder =
+      OutlineInputBorder(borderSide: BorderSide(width: 2, color: mainColor.resolve(context)), borderRadius: _bRadius);
 
   return InputDecoration(
     labelText: label,
     labelStyle: const BaseText.f3('').style(context),
     helperText: helper,
     helperStyle: const SmallText('').style(context),
-    helperMaxLines: 15,
+    helperMaxLines: 7,
     errorText: error,
     errorStyle: const SmallText('', color: warningColor).style(context),
-    errorMaxLines: 15,
+    errorMaxLines: 7,
     contentPadding: padding,
     floatingLabelBehavior: FloatingLabelBehavior.auto,
     isDense: true,
@@ -65,8 +64,8 @@ class MTTextField extends StatelessWidget {
     this.padding,
     this.obscureText = false,
     this.capitalization,
-    this.autocorrect = false,
-    this.suggestions = false,
+    this.autocorrect = true,
+    this.suggestions = true,
     this.readOnly = false,
     this.prefixIcon,
     this.suffixIcon,
@@ -139,6 +138,7 @@ class MTTextField extends StatelessWidget {
               ),
           cursorColor: mainColor.resolve(context),
           autofocus: autofocus,
+          minLines: 1,
           maxLines: maxLines,
           controller: controller,
           keyboardType: keyboardType,

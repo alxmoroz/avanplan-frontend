@@ -52,7 +52,7 @@ class DetailsPane extends StatelessWidget {
         child: MTAdaptive(
           child: ListView(
             children: [
-              if (_task.hasStatus) ...[
+              if (_task.hasStatus)
                 MTField(
                   controller.fData(TaskFCode.status.index),
                   color: b2Color,
@@ -82,11 +82,11 @@ class DetailsPane extends StatelessWidget {
                     ],
                   ),
                 ),
-              ],
+
               if (!_onboarding && _task.hfsTeam && (_task.hasAssignee || _task.canAssign)) ...[
-                SizedBox(height: _task.hasStatus ? P : P3),
                 MTField(
                   controller.fData(TaskFCode.assignee.index),
+                  margin: EdgeInsets.only(top: _task.hasStatus ? P : P3),
                   leading: _task.hasAssignee
                       ? _task.assignee!.icon(P3, borderColor: mainColor)
                       : PersonIcon(
@@ -96,10 +96,10 @@ class DetailsPane extends StatelessWidget {
                   onSelect: _task.canAssign ? controller.assigneeController.assign : null,
                 ),
               ],
-              if (_task.hasDescription || _task.canEdit) ...[
-                SizedBox(height: _onboarding ? P : P3),
+              if (_task.hasDescription || _task.canEdit)
                 MTField(
                   controller.fData(TaskFCode.description.index),
+                  margin: EdgeInsets.only(top: _onboarding ? P : P3),
                   leading: DescriptionIcon(color: _task.canEdit ? mainColor : f2Color),
                   value: _task.hasDescription
                       ? SelectableLinkify(
@@ -112,27 +112,26 @@ class DetailsPane extends StatelessWidget {
                       : null,
                   onSelect: _task.canEdit ? controller.titleController.editDescription : null,
                 ),
-              ],
+
               const SizedBox(height: P3),
               controller.datesController.dateField(context, TaskFCode.startDate),
               if (_task.hasDueDate || _task.canEdit) controller.datesController.dateField(context, TaskFCode.dueDate),
 
               /// Оценки
-              if (!_onboarding && _task.hfsEstimates && (_task.hasEstimate || _task.canEstimate)) ...[
-                const SizedBox(height: P3),
+              if (!_onboarding && _task.hfsEstimates && (_task.hasEstimate || _task.canEstimate))
                 MTField(
                   controller.fData(TaskFCode.estimate.index),
+                  margin: const EdgeInsets.only(top: P3),
                   leading: EstimateIcon(color: _task.canEstimate ? mainColor : f3Color),
                   value: _task.hasEstimate ? BaseText('${(_task.openedVolume ?? _task.estimate)?.round()} ${_task.ws.estimateUnitCode}') : null,
                   onSelect: _task.canEstimate ? controller.estimateController.select : null,
                 ),
-              ],
 
               /// Вложения
-              if (!_onboarding && _task.attachments.isNotEmpty) ...[
-                const SizedBox(height: P3),
+              if (!_onboarding && _task.attachments.isNotEmpty)
                 MTField(
                   controller.fData(TaskFCode.attachment.index),
+                  margin: const EdgeInsets.only(top: P3),
                   leading: const AttachmentIcon(),
                   value: Row(children: [
                     Expanded(child: BaseText(controller.attachmentsController.attachmentsStr, maxLines: 1)),
@@ -141,49 +140,45 @@ class DetailsPane extends StatelessWidget {
                   ]),
                   onSelect: () => showAttachmentsDialog(controller.attachmentsController),
                 ),
-              ],
 
               /// Author
-              if (!_onboarding && _task.hfsTeam && _task.hasAuthor) ...[
-                const SizedBox(height: P3),
+              if (!_onboarding && _task.hfsTeam && _task.hasAuthor)
                 MTField(
                   controller.fData(TaskFCode.author.index),
+                  margin: const EdgeInsets.only(top: P3),
                   leading: _task.author!.icon(P3, borderColor: f3Color),
                   value: BaseText.f2('${_task.author}'),
                 ),
-              ],
 
               /// FeatureSets
-              if (!_onboarding && _task.canViewFeatureSets) ...[
-                const SizedBox(height: P3),
+              if (!_onboarding && _task.canViewFeatureSets)
                 MTField(
                   controller.fData(TaskFCode.features.index),
+                  margin: const EdgeInsets.only(top: P3),
                   leading: SettingsIcon(color: _task.canEditFeatureSets ? null : f3Color),
                   value: BaseText(_task.localizedFeatureSets, maxLines: 1),
                   onSelect: _task.canEditFeatureSets ? () => showFeatureSetsDialog(controller) : null,
                 ),
-              ],
 
               /// Связь с источником импорта
-              if (_task.didImported) ...[
-                const SizedBox(height: P3),
+              if (_task.didImported)
                 MTListTile(
+                  margin: const EdgeInsets.only(top: P3),
                   leading: _task.source?.type.icon(size: P6),
                   titleText: loc.task_go2source_title,
                   trailing: const LinkOutIcon(),
                   bottomDivider: false,
                   onTap: () => launchUrlString(_task.taskSource!.urlString),
                 ),
-              ],
 
               /// Onboarding
               if (_onboarding) OnboardingNextButton(onbController!, disabled: _task.loading),
 
               /// Notes
-              if (!_onboarding && _task.canComment) ...[
-                const SizedBox(height: P3),
+              if (!_onboarding && _task.canComment)
                 MTField(
                   controller.fData(TaskFCode.note.index),
+                  margin: const EdgeInsets.only(top: P3),
                   value: BaseText.f2(
                     controller.fData(TaskFCode.note.index).placeholder,
                     padding: const EdgeInsets.symmetric(vertical: P),
@@ -191,12 +186,8 @@ class DetailsPane extends StatelessWidget {
                   leading: const NoteAddIcon(),
                   onSelect: controller.notesController.create,
                 ),
-              ],
 
-              if (!_onboarding && controller.notesController.sortedNotesDates.isNotEmpty) ...[
-                const SizedBox(height: P3),
-                Notes(controller.notesController),
-              ],
+              if (!_onboarding && controller.notesController.sortedNotesDates.isNotEmpty) Notes(controller.notesController),
             ],
           ),
         ),

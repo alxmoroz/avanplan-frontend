@@ -18,7 +18,6 @@ extension WSTasksUC on Workspace {
     final _newGoal = _parent != null && _parent.isProject && _parent.hfsGoals;
 
     if (!plCreate(_parent)) {
-      // TODO: как будет происходить предложение смены тарифа во время онбординга?
       await changeTariff(
         reason: _newProject ? loc.tariff_change_limit_projects_reason_title : loc.tariff_change_limit_tasks_reason_title,
       );

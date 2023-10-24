@@ -7,7 +7,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/source.dart';
-import '../../../L1_domain/entities/source_type.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../L1_domain/entities_extensions/ws_sources.dart';
@@ -22,27 +21,20 @@ import '../source/source_type_selector.dart';
 part 'import_controller.g.dart';
 
 class ImportController extends _ImportControllerBase with _$ImportController {
-  Future<ImportController> init(int _wsId, SourceType? sType) async {
-    wsId = _wsId;
-    selectedSourceId = ws.sources.length == 1 ? ws.sources.first.id : null;
-    // проверяем наличие источника импорта выбранного типа
-    Source? preselectedSource = sType != null ? ws.sourceForType(sType) : selectedSource;
-    // переходим к созданию источника, если нет источников, либо источник выбранного типа отсутствует
-    if (ws.sources.isEmpty || (sType != null && preselectedSource == null)) {
-      sType ??= await selectSourceType();
+  Future<ImportController> init(Workspace _ws) async {
+    wsId = _ws.id!;
+    selectedSourceId = ws.sources.isNotEmpty ? ws.sources.first.id : null;
+
+    // переходим к созданию источника, если нет источников
+    if (ws.sources.isEmpty) {
+      final sType = await selectSourceType();
       if (sType != null) {
-        preselectedSource = await addSource(ws, sType: sType);
+        selectedSourceId = (await addSource(ws, sType: sType))?.id;
       }
-      // выходим из сценария, если отказались создавать или не получилось
-      // if (preselectedSource == null) {
-      //   return;
-      // }
     }
 
     // выбираем источник импорта заранее из созданного только что или существующий выбранного типа
-    if (preselectedSource != null) {
-      await selectSourceId(preselectedSource.id);
-    }
+    await selectSource(selectedSourceId);
     return this;
   }
 }
@@ -105,11 +97,14 @@ abstract class _ImportControllerBase with Store {
   @observable
   int? selectedSourceId;
 
+  @computed
+  Source? get selectedSource => ws.sourceForId(selectedSourceId);
+
   @action
-  Future selectSourceId(int? id) async {
-    selectedSourceId = id;
-    clearData();
-    if (selectedSource != null) {
+  Future selectSource(int? id) async {
+    if (id != null) {
+      clearData();
+      selectedSourceId = id;
       final loaderDescription = '$selectedSource';
       loader.start();
       bool connected = selectedSource?.state == SrcState.connected;
@@ -127,12 +122,6 @@ abstract class _ImportControllerBase with Store {
       await loader.stop();
     }
   }
-
-  @computed
-  Source? get selectedSource => ws.sourceForId(selectedSourceId);
-
-  @computed
-  bool get canEdit => selectedSource != null;
 
   Future startImport() async {
     if (selectableCount >= 0) {

@@ -4,12 +4,10 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities/workspace.dart';
-import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
-import '../../../../components/limit_badge.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../../usecases/ws_actions.dart';
 import '../../../../usecases/ws_tasks.dart';
@@ -40,18 +38,15 @@ class TaskCreateButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final badge = MTLimitBadge(
+    return MTBadgeButton(
       margin: EdgeInsets.only(right: _compact ? P3 : 0),
       showBadge: !_ws.plCreate(_parent),
-      child: MTButton.main(
-        leading: _compact ? null : _plusIcon,
-        titleText: _compact ? null : addSubtaskActionTitle(_parent),
-        middle: _compact ? _plusIcon : null,
-        constrained: false,
-        onTap: () => _tap(context),
-      ),
+      type: ButtonType.main,
+      leading: _compact ? null : _plusIcon,
+      titleText: _compact ? null : addSubtaskActionTitle(_parent),
+      middle: _compact ? _plusIcon : null,
+      constrained: !_compact,
+      onTap: () => _tap(context),
     );
-
-    return _compact ? badge : MTAdaptive.xxs(child: badge);
   }
 }

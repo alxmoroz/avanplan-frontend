@@ -9,13 +9,13 @@ import '../../../../components/images.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
 import '../../../my_projects/my_projects_view.dart';
-import '../../controllers/create_controller.dart';
+import '../../controllers/project_create_controller.dart';
 import '../create/project_create_button.dart';
 import '../create/project_import_button.dart';
 
 class NoProjects extends StatelessWidget {
   const NoProjects(this._controller);
-  final CreateController _controller;
+  final ProjectCreateController _controller;
 
   @override
   Widget build(BuildContext context) {

@@ -22,6 +22,7 @@ extension WSTariffUC on Workspace {
         loader.setSaving();
         final signedContractInvoice = await contractUC.sign(tariff.id!, id!);
         if (signedContractInvoice != null) {
+          invoice = signedContractInvoice;
           await wsMainController.reloadWS(id!);
         }
         await loader.stop();

@@ -5,8 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 
 import '../../../L1_domain/entities/source.dart';
-import '../../../L1_domain/entities/source_type.dart';
-import '../../components/adaptive.dart';
+import '../../../L1_domain/entities/workspace.dart';
 import '../../components/button.dart';
 import '../../components/checkbox.dart';
 import '../../components/colors.dart';
@@ -14,7 +13,6 @@ import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/dropdown.dart';
-import '../../components/limit_badge.dart';
 import '../../components/shadowed.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
@@ -27,14 +25,14 @@ import '../source/no_sources.dart';
 import '../source/source_edit_view.dart';
 import 'import_controller.dart';
 
-// старт сценария по импорту задач
-Future importTasks(int wsId, {SourceType? sType}) async {
-  final controller = await ImportController().init(wsId, sType);
-  controller.ws.checkSources();
-  await showImportDialog(controller);
-}
+Future _showImportDialog(ImportController controller) async => await showMTDialog<void>(ImportView(controller));
 
-Future showImportDialog(ImportController controller) async => await showMTDialog<void>(ImportView(controller));
+// старт сценария по импорту задач
+Future importTasks(Workspace ws) async {
+  final controller = await ImportController().init(ws);
+  controller.ws.checkSources();
+  await _showImportDialog(controller);
+}
 
 class ImportView extends StatelessWidget {
   const ImportView(this.controller);
@@ -44,12 +42,12 @@ class ImportView extends StatelessWidget {
   bool get _hasError => controller.errorCode != null;
   bool get _validated => controller.validated;
   bool get _selectedAll => controller.selectedAll;
-  bool get _selectedSource => controller.selectedSource != null;
+  bool get _sourceSelected => controller.selectedSourceId != null;
   bool get _hasSources => controller.ws.sources.isNotEmpty;
   bool get _showSelectAll => controller.projects.length > 2;
 
   Widget get _sourceDropdown => MTDropdown<Source>(
-        onChanged: controller.selectSourceId,
+        onChanged: controller.selectSource,
         value: controller.selectedSourceId,
         ddItems: [
           for (final s in controller.ws.sortedSources)
@@ -78,7 +76,7 @@ class ImportView extends StatelessWidget {
               MTPlusButton(() async => await startAddSource(controller.ws), type: ButtonType.secondary),
             ],
           ),
-          if (_selectedSource) ...[
+          if (_sourceSelected) ...[
             const SizedBox(height: P2),
             if (_hasProjects) ...[
               if (_showSelectAll)
@@ -141,16 +139,12 @@ class ImportView extends StatelessWidget {
             color: _validated ? f2Color : warningColor,
             align: TextAlign.center,
           ),
-          const SizedBox(height: P2),
-          MTAdaptive.xxs(
-            child: MTLimitBadge(
-              child: MTButton.main(
-                constrained: false,
-                titleText: '${loc.import_action_title}$_importBtnCountHint',
-                onTap: _validated ? controller.startImport : null,
-              ),
-              showBadge: controller.selectableCount < 0,
-            ),
+          const SizedBox(height: P),
+          MTBadgeButton(
+            type: ButtonType.main,
+            titleText: '${loc.import_action_title}$_importBtnCountHint',
+            onTap: _validated ? controller.startImport : null,
+            showBadge: controller.selectableCount < 0,
           ),
         ])
       : null;
@@ -171,7 +165,7 @@ class ImportView extends StatelessWidget {
         topBarHeight: P8 + (_hasSources ? P * (14.5 + (_showSelectAll ? 8 : 0)) : 0) + (wsMainController.multiWS ? P4 : 0),
         body: _body(context),
         bottomBar: _bottomBar,
-        bottomBarHeight: _hasProjects ? P * 20.5 : null,
+        bottomBarHeight: _hasProjects ? P * 19 : null,
       ),
     );
   }

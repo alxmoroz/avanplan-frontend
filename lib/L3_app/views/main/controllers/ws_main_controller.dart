@@ -23,6 +23,9 @@ abstract class _WSMainControllerBase with Store {
   @computed
   bool get multiWS => workspaces.length > 1;
 
+  @computed
+  bool get canSelectWS => multiWS || myWSs.isEmpty;
+
   Workspace wsForId(int wsId) => workspaces.firstWhere((ws) => ws.id == wsId);
 
   @action
@@ -45,11 +48,12 @@ abstract class _WSMainControllerBase with Store {
     workspaces.sort((w1, w2) => compareNatural(w1.title, w2.title));
   }
 
-  Future reloadWS(int wsId) async {
+  Future<Workspace?> reloadWS(int wsId) async {
     final ws = await workspaceUC.getOne(wsId);
     if (ws != null) {
       setWS(ws);
     }
+    return ws;
   }
 
   Future<Workspace?> createMyWS() async {

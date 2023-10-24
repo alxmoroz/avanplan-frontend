@@ -8,6 +8,7 @@ import 'colors.dart';
 import 'colors_base.dart';
 import 'constants.dart';
 import 'icons.dart';
+import 'icons_workspace.dart';
 import 'loader.dart';
 import 'text.dart';
 
@@ -117,12 +118,12 @@ class MTButton extends StatelessWidget with FocusManaging {
   final bool uf;
 
   bool get _enabled => loading != true && (onTap != null || onLongPress != null);
-  bool get _isCard => type == ButtonType.card;
-  Color get _titleColor => _enabled || _isCard ? (titleColor ?? (type == ButtonType.main ? mainBtnTitleColor : mainColor)) : f2Color;
+  bool get _custom => [ButtonType.card].contains(type);
+  Color get _titleColor => _enabled || _custom ? (titleColor ?? (type == ButtonType.main ? mainBtnTitleColor : mainColor)) : f2Color;
   double get _radius => type == ButtonType.card ? DEF_BORDER_RADIUS : DEF_BTN_BORDER_RADIUS;
 
   ButtonStyle _style(BuildContext context) {
-    final _btnColor = (_enabled || _isCard ? (color ?? (type == ButtonType.main ? mainColor : b3Color)) : b1Color).resolve(context);
+    final _btnColor = (_enabled || _custom ? (color ?? (type == ButtonType.main ? mainColor : b3Color)) : b1Color).resolve(context);
 
     return ElevatedButton.styleFrom(
       padding: padding ?? EdgeInsets.zero,
@@ -234,6 +235,76 @@ class MTCardButton extends StatelessWidget {
       constrained: false,
       margin: margin ?? EdgeInsets.zero,
       padding: padding ?? const EdgeInsets.all(P3),
+      loading: loading,
+      onTap: onTap,
+      onLongPress: onLongPress,
+    );
+  }
+}
+
+class MTBadgeButton extends StatelessWidget {
+  const MTBadgeButton({
+    required this.showBadge,
+    required this.type,
+    this.leading,
+    this.middle,
+    this.trailing,
+    this.titleText,
+    this.margin,
+    this.onTap,
+    this.onLongPress,
+    this.radius,
+    this.padding,
+    this.loading,
+    this.constrained = true,
+  });
+
+  final bool showBadge;
+  final ButtonType type;
+  final String? titleText;
+  final Widget? leading;
+  final Widget? middle;
+  final Widget? trailing;
+
+  final EdgeInsets? margin;
+  final EdgeInsets? padding;
+  final VoidCallback? onTap;
+  final VoidCallback? onLongPress;
+  final double? radius;
+  final bool? loading;
+  final bool constrained;
+
+  static const _iconSize = P4;
+  static const _badgeSize = _iconSize + P;
+
+  Widget _badge(BuildContext context) => Container(
+        margin: const EdgeInsets.only(left: _iconSize / 2, right: P),
+        padding: const EdgeInsets.only(top: P_3),
+        height: _badgeSize,
+        width: _badgeSize,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(_badgeSize / 2),
+          color: warningColor.resolve(context),
+        ),
+        child: const RoubleIcon(size: _iconSize, color: f1Color),
+      );
+
+  @override
+  Widget build(BuildContext context) {
+    return MTButton(
+      type: type,
+      margin: margin,
+      padding: showBadge ? const EdgeInsets.only(right: _iconSize / 2) : null,
+      leading: leading != null || showBadge
+          ? Row(children: [
+              if (showBadge) _badge(context),
+              if (leading != null) leading!,
+            ])
+          : null,
+      titleText: titleText,
+      middle: middle,
+      trailing: trailing,
+      constrained: constrained,
       loading: loading,
       onTap: onTap,
       onLongPress: onLongPress,

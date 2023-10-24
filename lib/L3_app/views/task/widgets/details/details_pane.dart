@@ -107,7 +107,7 @@ class DetailsPane extends StatelessWidget {
                           style: const BaseText('').style(context),
                           linkStyle: const BaseText('', color: mainColor).style(context),
                           onOpen: (link) async => await launchUrlString(link.url),
-                          // onTap: _task.canUpdate ? controller.editDescription : null,
+                          maxLines: 10,
                         )
                       : null,
                   onSelect: _task.canEdit ? controller.titleController.editDescription : null,

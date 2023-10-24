@@ -17,14 +17,12 @@ class TaskDescriptionDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTDialog(
       topBar: MTTopBar(titleText: loc.description),
-      body: ListView(
-        shrinkWrap: true,
-        children: [
-          MTTextField(
-            controller: teController,
-            margin: const EdgeInsets.symmetric(horizontal: P2),
-          ),
-        ],
+      body: Builder(
+        builder: (ctx) => MTTextField(
+          controller: teController,
+          margin: MediaQuery.paddingOf(ctx).copyWith(left: P2, right: P2),
+          maxLines: 10,
+        ),
       ),
     );
   }

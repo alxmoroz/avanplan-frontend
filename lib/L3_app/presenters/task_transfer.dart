@@ -7,5 +7,5 @@ import 'task_tree.dart';
 extension TaskTransferPresenter on Task {
   // TODO: запрос на бэк
   Iterable<Task> get goalsForLocalExport => isTask ? project!.openedSubtasks.where((g) => g.id != parentId) : [];
-  Iterable<Task> get goalsForLocalImport => isGoal ? project!.openedSubtasks.where((g) => g.id != id && g.hasOpenedSubtasks) : [];
+  Iterable<Task> get goalsForLocalImport => (isGoal || isBacklog) ? project!.openedSubtasks.where((g) => g.id != id && g.hasOpenedSubtasks) : [];
 }

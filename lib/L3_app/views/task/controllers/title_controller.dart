@@ -38,7 +38,7 @@ class TitleController {
     if (_titleEditTimer != null) {
       _titleEditTimer!.cancel();
     }
-    _titleEditTimer = Timer(const Duration(milliseconds: 800), () async => await _setTitle(str));
+    _titleEditTimer = Timer(const Duration(milliseconds: 1000), () async => await _setTitle(str));
   }
 
   /// описание

@@ -1,5 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
@@ -70,6 +72,23 @@ abstract class _EditControllerBase with Store {
 
   MTFieldData fData(int code) => _fdMap[code]!;
 
+  final Map<int, Timer> _loadingTimers = {};
+
   @action
-  void updateField(int code, {String? text, bool? loading}) => _fdMap[code] = fData(code).copyWith(text: text, loading: loading);
+  void _setLoading(int code, bool loading) {
+    _fdMap[code] = fData(code).copyWith(loading: loading);
+  }
+
+  @action
+  void updateField(int code, {String? text, bool? loading}) {
+    final fd = fData(code);
+    _fdMap[code] = fd.copyWith(text: text);
+
+    if (loading != null) {
+      if (_loadingTimers[code] != null) {
+        _loadingTimers[code]!.cancel();
+      }
+      _loadingTimers[code] = Timer(Duration(milliseconds: loading ? 750 : 0), () => _setLoading(code, loading));
+    }
+  }
 }

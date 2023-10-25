@@ -52,6 +52,7 @@ class DetailsPane extends StatelessWidget {
         child: MTAdaptive(
           child: ListView(
             children: [
+              /// Статус
               if (_task.hasStatus)
                 MTField(
                   controller.fData(TaskFCode.status.index),
@@ -83,6 +84,7 @@ class DetailsPane extends StatelessWidget {
                   ),
                 ),
 
+              /// Назначенный
               if (!_onboarding && _task.hfsTeam && (_task.hasAssignee || _task.canAssign)) ...[
                 MTField(
                   controller.fData(TaskFCode.assignee.index),
@@ -96,6 +98,8 @@ class DetailsPane extends StatelessWidget {
                   onSelect: _task.canAssign ? controller.assigneeController.assign : null,
                 ),
               ],
+
+              /// Описание
               if (_task.hasDescription || _task.canEdit)
                 MTField(
                   controller.fData(TaskFCode.description.index),
@@ -107,12 +111,14 @@ class DetailsPane extends StatelessWidget {
                           style: const BaseText('').style(context),
                           linkStyle: const BaseText('', color: mainColor).style(context),
                           onOpen: (link) async => await launchUrlString(link.url),
+                          minLines: 1,
                           maxLines: 10,
                         )
                       : null,
                   onSelect: _task.canEdit ? controller.titleController.editDescription : null,
                 ),
 
+              /// Даты
               const SizedBox(height: P3),
               controller.datesController.dateField(context, TaskFCode.startDate),
               if (_task.hasDueDate || _task.canEdit) controller.datesController.dateField(context, TaskFCode.dueDate),

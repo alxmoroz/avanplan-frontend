@@ -11049,8 +11049,8 @@ s.toString
 s=A.a6a(s)
 s=new A.aN(s,new A.aJe(a),s.$ti.h("aN<q.E>"))}else s=A.a([],t.UB)
 return s},
-LK(a){var s
-if(a.id==="GOAL"){s=A.dw(a)
+LK(a){var s=a.id
+if(s==="GOAL"||s==="BACKLOG"){s=A.dw(a)
 s.toString
 s=A.a6a(s)
 s=new A.aN(s,new A.aJf(a),s.$ti.h("aN<q.E>"))}else s=A.a([],t.UB)

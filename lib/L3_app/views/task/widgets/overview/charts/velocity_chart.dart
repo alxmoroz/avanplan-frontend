@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../../L1_domain/entities/task.dart';
+import '../../../../../components/adaptive.dart';
 import '../../../../../components/colors.dart';
 import '../../../../../components/colors_base.dart';
 import '../../../../../components/constants.dart';
@@ -27,7 +28,6 @@ class VelocityChart extends StatelessWidget {
 
   double get _gaugeWidth => P3;
   double get _barWidth => _gaugeWidth / 2;
-  double get _radius => P * 12.5;
   double get _velocity => task.projectVelocity ?? 0;
   double get _delta => (task.requiredVelocity ?? _velocity) - _velocity;
   double get _firstValue => _delta >= 0 ? _velocity : _velocity + _delta;
@@ -66,11 +66,12 @@ class VelocityChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final R = P * (isBigScreen(context) ? 14 : 12.5);
     return Stack(
       alignment: Alignment.center,
       children: [
         MTPieChart(
-          radius: _radius,
+          radius: R,
           startAngle: _startAngle,
           sweepAngle: _sweepAngle,
           totalValue: _maxValue,
@@ -86,13 +87,13 @@ class VelocityChart extends StatelessWidget {
           D2('$_displayText', color: _pointerColor),
           SmallText(
             loc.chart_velocity_unit_mo(task.hfsEstimates ? task.ws.estimateUnitCode : loc.task_plural(_hVelocity)),
-            padding: EdgeInsets.only(top: _radius / 2 + P3),
+            padding: EdgeInsets.only(top: R / 2 + P3),
             color: f2Color,
             height: 1,
           ),
           Container(
-            width: _radius * 2 - P10 - P,
-            height: _radius * 2 - P6,
+            width: R * 2 - P10 - P,
+            height: R * 2 - P6,
             alignment: Alignment.bottomCenter,
             child: Row(children: [
               if (_maxValue > 0) const BaseText.medium('0', color: f2Color),

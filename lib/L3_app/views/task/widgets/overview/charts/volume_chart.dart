@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../../L1_domain/entities/task.dart';
+import '../../../../../components/adaptive.dart';
 import '../../../../../components/colors.dart';
 import '../../../../../components/colors_base.dart';
 import '../../../../../components/constants.dart';
@@ -15,7 +16,6 @@ class TaskVolumeChart extends StatelessWidget {
   const TaskVolumeChart(this.task);
   final Task task;
 
-  double get _radius => P * 12.5;
   double get _maxValue => 1;
   double get _gaugeWidth => P3;
   double get _barWidth => _gaugeWidth;
@@ -31,12 +31,13 @@ class TaskVolumeChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final R = P * (isBigScreen(context) ? 14 : 12.5);
     return Stack(
       alignment: Alignment.center,
       children: [
-        MTPieChart(radius: _radius, data: [MTPieChartData(1)]),
+        MTPieChart(radius: R, data: [MTPieChartData(1)]),
         MTPieChart(
-          radius: _radius,
+          radius: R,
           totalValue: 1,
           data: [
             _gaugeBar,
@@ -44,7 +45,7 @@ class TaskVolumeChart extends StatelessWidget {
           ],
         ),
         D2(_chartText, color: _pointerColor),
-        SmallText(loc.chart_volume_unit, padding: EdgeInsets.only(top: _radius / 2 + P3), color: f2Color),
+        SmallText(loc.chart_volume_unit, padding: EdgeInsets.only(top: R / 2 + P3), color: f2Color),
       ],
     );
   }

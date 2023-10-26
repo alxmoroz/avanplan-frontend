@@ -45,10 +45,12 @@ class TariffSelectView extends StatelessWidget {
         loc.error_tariff_insufficient_funds_for_change('${balanceLack.currency} ₽'),
         color: warningColor,
         align: TextAlign.center,
+        padding: const EdgeInsets.symmetric(horizontal: P3),
+        height: 1.2,
       ),
       MTButton.main(
         titleText: loc.balance_replenish_action_title,
-        margin: const EdgeInsets.only(top: P),
+        margin: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P),
         onTap: () => purchaseDialog(wsId),
       ),
     ]);

@@ -25,7 +25,7 @@ class _TariffOptionTile extends StatelessWidget {
     return MTListTile(
       middle: value != null ? MTCurrency(value!, color: mainColor) : null,
       subtitle: description != null ? SmallText(description!, align: TextAlign.center, padding: const EdgeInsets.symmetric(vertical: P)) : null,
-      padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(bottom: P),
+      padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P2),
       color: Colors.transparent,
       bottomDivider: false,
     );

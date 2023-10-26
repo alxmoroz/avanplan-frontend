@@ -99,7 +99,7 @@
   "error_purchase_title": "Ошибка обработки покупки",
   "error_redeem_invitation_description": "Закончилось количество активаций или истёк срок действия приглашения.\n\nОбратитесь к администратору рабочего пространства / проекта.",
   "error_redeem_invitation_title": "Ошибка при обработке приглашения",
-  "error_tariff_insufficient_funds_for_change": "Для смены тарифа на балансе должно быть минимум {value}",
+  "error_tariff_insufficient_funds_for_change": "Для смены тарифа нужно пополнить баланс на {value}",
   "error_tariff_limit_description": "Обратитесь к администратору рабочего пространства",
   "error_tariff_limit_title": "Выполнение операции ограничено в выбранном тарифе",
   "error_title": "Ошибка",

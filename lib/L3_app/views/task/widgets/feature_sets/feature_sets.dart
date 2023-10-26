@@ -15,11 +15,11 @@ import '../../../../components/shadowed.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_type.dart';
+import '../../../quiz/header.dart';
+import '../../../quiz/next_button.dart';
+import '../../controllers/create_project_quiz_controller.dart';
 import '../../controllers/feature_sets_controller.dart';
-import '../../controllers/onboarding_controller.dart';
 import '../../controllers/task_controller.dart';
-import '../onboarding/header.dart';
-import '../onboarding/next_button.dart';
 
 class _FSBody extends StatelessWidget {
   const _FSBody(this._controller, {this.shrinkWrap = true});
@@ -81,34 +81,34 @@ class _FSBody extends StatelessWidget {
   }
 }
 
-class FSOnboardingArgs {
-  FSOnboardingArgs(this._controller, this._onbController);
+class FSQuizArgs {
+  FSQuizArgs(this._controller, this._qController);
   final FeatureSetsController _controller;
-  final OnboardingController _onbController;
+  final CreateProjectQuizController _qController;
 }
 
-class FeatureSetsOnboardingView extends StatelessWidget {
-  const FeatureSetsOnboardingView(this._args);
-  final FSOnboardingArgs _args;
+class FeatureSetsQuizView extends StatelessWidget {
+  const FeatureSetsQuizView(this._args);
+  final FSQuizArgs _args;
 
-  static String get routeName => '/feature_sets';
-  static String title(FSOnboardingArgs _args) => '${_args._controller.project.viewTitle} - ${loc.feature_sets_title}';
+  static String get routeName => '/create_project_quiz/feature_sets';
+  static String title(FSQuizArgs _args) => '${_args._controller.project.viewTitle} - ${loc.feature_sets_title}';
 
   FeatureSetsController get _controller => _args._controller;
-  OnboardingController get _onbController => _args._onbController;
+  CreateProjectQuizController get _qController => _args._qController;
 
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        appBar: onboardingHeader(context, _onbController),
+        appBar: quizHeader(context, _qController),
         body: SafeArea(
           top: false,
           bottom: false,
           child: MTAdaptive(child: _FSBody(_controller, shrinkWrap: false)),
         ),
-        bottomBar: OnboardingNextButton(
-          _onbController,
+        bottomBar: QuizNextButton(
+          _qController,
           loading: _controller.project.loading,
           margin: EdgeInsets.zero,
         ),

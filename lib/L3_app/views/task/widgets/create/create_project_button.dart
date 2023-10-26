@@ -8,15 +8,15 @@ import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../presenters/task_type.dart';
-import '../../controllers/project_create_controller.dart';
+import '../../controllers/create_project_controller.dart';
 
-class ProjectCreateButton extends StatelessWidget {
-  const ProjectCreateButton(
+class CreateProjectButton extends StatelessWidget {
+  const CreateProjectButton(
     this._controller, {
     bool compact = false,
   }) : _compact = compact;
 
-  final ProjectCreateController _controller;
+  final CreateProjectController _controller;
   final bool _compact;
 
   Widget get _plusIcon => const PlusIcon(color: mainBtnTitleColor);

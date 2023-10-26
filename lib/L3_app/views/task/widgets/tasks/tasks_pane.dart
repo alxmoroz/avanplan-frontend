@@ -15,7 +15,7 @@ import '../../../../presenters/task_filter.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
 import '../../widgets/transfer/local_import_dialog.dart';
-import '../create/task_create_button.dart';
+import '../create/create_task_button.dart';
 import '../empty_state/no_tasks.dart';
 import 'tasks_board.dart';
 import 'tasks_list_view.dart';
@@ -60,7 +60,7 @@ class TasksPane extends StatelessWidget {
             ),
           if (_task.canCreate) ...[
             const SizedBox(width: P),
-            TaskCreateButton(controller, compact: true),
+            CreateTaskButton(controller, compact: true),
           ] else
             const SizedBox(width: P3),
         ])

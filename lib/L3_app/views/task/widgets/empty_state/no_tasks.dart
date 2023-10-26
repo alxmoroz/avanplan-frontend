@@ -11,7 +11,7 @@ import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
-import '../create/task_create_button.dart';
+import '../create/create_task_button.dart';
 import '../transfer/local_import_dialog.dart';
 
 class NoTasks extends StatelessWidget {
@@ -46,7 +46,7 @@ class NoTasks extends StatelessWidget {
               ),
             if (_parent.canCreate) ...[
               const SizedBox(height: P3),
-              TaskCreateButton(_controller, compact: false),
+              CreateTaskButton(_controller, compact: false),
             ],
           ],
           // newSubtaskTitle

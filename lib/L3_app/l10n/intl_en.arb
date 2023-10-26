@@ -123,19 +123,19 @@
   "feature_sets_always_on_label": "Always On",
   "feature_sets_available_label": "Available on your tariff plan",
   "feature_sets_label": "Active Modules",
-  "feature_sets_onboarding_title": "Select project modules",
+  "feature_sets_quiz_title": "Select project modules",
   "feature_sets_title": "Project Modules",
 
   "for_": "for",
   "for_dative": "for",
 
+  "goal_create_quiz_title": "Set a goal",
   "goal_count": "{count, plural, zero{No goals} one{{count} goal} other{{count} goals}}",
   "goal_count_dative": "{count, plural, one{{count} goal} other{{count} goals}}",
   "goal_delete_dialog_title": "Delete goal?",
   "goal_for_orphaned_tasks": "Tasks without goals",
   "goal_list_title": "Goals",
   "goal_new_title": "New Goal",
-  "goal_onboarding_title": "Set a goal",
   "goal_plural_accusative": "{count, plural, one{goal} other{goals}}",
   "goal_title": "Goal",
 
@@ -366,8 +366,6 @@
   "task_note_placeholder": "Leave a comment",
   "task_note_title": "Comment",
 
-  "task_onboarding_title": "Add tasks",
-
   "task_plural": "{count, plural, one{task} other{tasks}}",
   "task_plural_accusative": "{count, plural, one{task} other{tasks}}",
   "task_plural_genitive": "{count, plural, one{task} other{tasks}}",
@@ -395,7 +393,7 @@
 
   "team_empty_hint": "Invite members to collaborate effectively",
   "team_empty_title": "The team is waiting for an invitation",
-  "team_onboarding_title": "Invite members",
+  "team_quiz_title": "Invite members",
   "team_title": "Team",
 
   "title": "Title",

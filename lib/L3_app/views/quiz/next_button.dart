@@ -3,13 +3,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../components/button.dart';
-import '../../../../components/constants.dart';
-import '../../controllers/onboarding_controller.dart';
+import '../../components/button.dart';
+import '../../components/constants.dart';
+import '../_base/quiz_controller.dart';
 
-class OnboardingNextButton extends StatelessWidget {
-  const OnboardingNextButton(this._controller, {this.margin, this.loading, this.disabled});
-  final OnboardingController _controller;
+class QuizNextButton extends StatelessWidget {
+  const QuizNextButton(this._controller, {this.margin, this.loading, this.disabled});
+  final QuizController _controller;
   final EdgeInsets? margin;
   final bool? loading;
   final bool? disabled;

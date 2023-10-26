@@ -6,9 +6,9 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../components/appbar.dart';
 import '../../components/page.dart';
 import '../../extra/services.dart';
-import '../task/controllers/project_create_controller.dart';
-import '../task/widgets/create/project_create_button.dart';
-import '../task/widgets/create/project_import_button.dart';
+import '../task/controllers/create_project_controller.dart';
+import '../task/widgets/create/create_project_button.dart';
+import '../task/widgets/create/import_project_button.dart';
 import '../task/widgets/tasks/tasks_list_view.dart';
 
 class MyProjectsView extends StatelessWidget {
@@ -27,8 +27,8 @@ class MyProjectsView extends StatelessWidget {
         ),
         bottomBar: Row(children: [
           const Spacer(),
-          ProjectImportButton(ProjectCreateController(), compact: true, secondary: true),
-          ProjectCreateButton(ProjectCreateController(), compact: true),
+          ImportProjectButton(CreateProjectController(), compact: true, secondary: true),
+          CreateProjectButton(CreateProjectController(), compact: true),
         ]),
       ),
     );

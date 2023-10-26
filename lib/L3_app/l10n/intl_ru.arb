@@ -123,19 +123,19 @@
   "feature_sets_always_on_label": "Подключены всегда",
   "feature_sets_available_label": "Доступны на вашем тарифе",
   "feature_sets_label": "Подключенные модули",
-  "feature_sets_onboarding_title": "Выберите модули проекта",
+  "feature_sets_quiz_title": "Выберите модули проекта",
   "feature_sets_title": "Модули проекта",
 
   "for_": "за",
   "for_dative": "по",
 
+  "goal_create_quiz_title": "Поставьте цель",
   "goal_count": "{count, plural, zero{Нет целей} one{{count} цель} few{{count} цели} other{{count} целей}}",
   "goal_count_dative": "{count, plural, one{{count} цели} other{{count} целям}}",
   "goal_delete_dialog_title": "Удалить цель?",
   "goal_for_orphaned_tasks": "Задачи без целей",
   "goal_list_title": "Цели",
   "goal_new_title": "Новая цель",
-  "goal_onboarding_title": "Поставьте цель",
   "goal_plural_accusative": "{count, plural, one{цель} few{цели} other{целей}}",
   "goal_title": "Цель",
 
@@ -366,8 +366,6 @@
   "task_note_placeholder": "Оставить комментарий",
   "task_note_title": "Комментарий",
 
-  "task_onboarding_title": "Добавьте задачи",
-
   "task_plural": "{count, plural, one{задача} few{задачи} other{задач}}",
   "task_plural_accusative": "{count, plural, one{задачу} few{задачи} other{задач}}",
   "task_plural_genitive": "{count, plural, one{задачи} other{задач}}",
@@ -395,7 +393,7 @@
 
   "team_empty_hint": "Пригласите участников для эффективной совместной работы",
   "team_empty_title": "Команда ждёт приглашения",
-  "team_onboarding_title": "Пригласите участников",
+  "team_quiz_title": "Пригласите участников",
   "team_title": "Команда",
 
   "title": "Название",

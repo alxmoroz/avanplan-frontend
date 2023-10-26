@@ -8,10 +8,10 @@ import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../extra/services.dart';
-import '../../controllers/project_create_controller.dart';
+import '../../controllers/create_project_controller.dart';
 
-class ProjectImportButton extends StatelessWidget {
-  const ProjectImportButton(
+class ImportProjectButton extends StatelessWidget {
+  const ImportProjectButton(
     this._controller, {
     bool compact = false,
     bool secondary = false,
@@ -20,7 +20,7 @@ class ProjectImportButton extends StatelessWidget {
 
   final bool _compact;
   final bool _secondary;
-  final ProjectCreateController _controller;
+  final CreateProjectController _controller;
 
   Widget get _icon => ImportIcon(color: _secondary ? mainColor : mainBtnTitleColor, size: P4);
 

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities/workspace.dart';
+import '../../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
@@ -11,10 +12,12 @@ import '../../../../components/icons.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../../usecases/ws_actions.dart';
 import '../../../../usecases/ws_tasks.dart';
+import '../../controllers/create_project_quiz_controller.dart';
 import '../../controllers/task_controller.dart';
+import 'create_task_quiz_view.dart';
 
-class TaskCreateButton extends StatelessWidget {
-  const TaskCreateButton(
+class CreateTaskButton extends StatelessWidget {
+  const CreateTaskButton(
     TaskController parentTaskController, {
     bool compact = false,
   })  : _parentTaskController = parentTaskController,
@@ -31,8 +34,12 @@ class TaskCreateButton extends StatelessWidget {
     final newTask = await _ws.createTask(_parent);
     if (newTask != null) {
       final tc = TaskController(newTask);
-      await tc.showTask();
-      _parentTaskController.selectTab(TaskTabKey.subtasks);
+      if (newTask.isGoal) {
+        await tc.showCreateTaskQuiz(CreateTaskQuizView.routeNameGoal, context, CreateProjectQuizController(tc));
+      } else {
+        await tc.showTask();
+        _parentTaskController.selectTab(TaskTabKey.subtasks);
+      }
     }
   }
 

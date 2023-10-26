@@ -10,25 +10,25 @@ import '../../../../components/page.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../../usecases/task_actions.dart';
-import '../../controllers/onboarding_controller.dart';
+import '../../../quiz/header.dart';
+import '../../../quiz/next_button.dart';
+import '../../controllers/create_project_quiz_controller.dart';
 import '../../controllers/task_controller.dart';
-import '../onboarding/header.dart';
-import '../onboarding/next_button.dart';
 import 'invitation_button.dart';
 import 'team_pane.dart';
 
-class TIOnboardingArgs {
-  TIOnboardingArgs(this._taskController, this._onbController);
+class TIQuizArgs {
+  TIQuizArgs(this._taskController, this._qController);
   final TaskController _taskController;
-  final OnboardingController _onbController;
+  final CreateProjectQuizController _qController;
 }
 
-class TeamInvitationOnboardingView extends StatelessWidget {
-  const TeamInvitationOnboardingView(this._args);
-  final TIOnboardingArgs _args;
+class TeamInvitationQuizView extends StatelessWidget {
+  const TeamInvitationQuizView(this._args);
+  final TIQuizArgs _args;
 
-  static String get routeName => '/team_invitation';
-  static String title(TIOnboardingArgs _args) => '${_args._taskController.task.viewTitle} - ${loc.team_title}';
+  static String get routeName => '/create_project_quiz/team_invitation';
+  static String title(TIQuizArgs _args) => '${_args._taskController.task.viewTitle} - ${loc.team_title}';
 
   TaskController get _taskController => _args._taskController;
   Task get _task => _taskController.task;
@@ -38,7 +38,7 @@ class TeamInvitationOnboardingView extends StatelessWidget {
     final teamPane = TeamPane(_taskController);
     return Observer(
       builder: (_) => MTPage(
-        appBar: onboardingHeader(context, _args._onbController),
+        appBar: quizHeader(context, _args._qController),
         body: SafeArea(
           top: false,
           bottom: false,
@@ -49,7 +49,7 @@ class TeamInvitationOnboardingView extends StatelessWidget {
             InvitationButton(_task, type: ButtonType.secondary),
             const SizedBox(height: P3),
           ],
-          OnboardingNextButton(_args._onbController, margin: EdgeInsets.zero),
+          QuizNextButton(_args._qController, margin: EdgeInsets.zero),
         ]),
       ),
     );

@@ -13,15 +13,15 @@ import '../../../extra/services.dart';
 import '../../../presenters/task_view.dart';
 import '../../../usecases/task_edit.dart';
 import '../../../views/_base/edit_controller.dart';
-import '../task_onboarding_view.dart';
 import '../task_view.dart';
+import '../widgets/create/create_task_quiz_view.dart';
 import 'assignee_controller.dart';
 import 'attachments_controller.dart';
+import 'create_project_quiz_controller.dart';
 import 'dates_controller.dart';
 import 'estimate_controller.dart';
 import 'local_export_controller.dart';
 import 'notes_controller.dart';
-import 'onboarding_controller.dart';
 import 'status_controller.dart';
 import 'subtasks_controller.dart';
 import 'title_controller.dart';
@@ -72,10 +72,10 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     setAllowDisposeFromView(allowDisposeFromView);
   }
 
-  Future showOnboardingTask(String path, BuildContext context, OnboardingController onbController) async {
+  Future showCreateTaskQuiz(String path, BuildContext context, CreateProjectQuizController qController) async {
     await Navigator.of(context).pushNamed(
       path,
-      arguments: TaskOnboardingArgs(this, onbController),
+      arguments: CreateTaskQuizArgs(this, qController),
     );
   }
 

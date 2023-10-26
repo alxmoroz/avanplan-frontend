@@ -9,13 +9,13 @@ import '../../../../components/images.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
 import '../../../my_projects/my_projects_view.dart';
-import '../../controllers/project_create_controller.dart';
-import '../create/project_create_button.dart';
-import '../create/project_import_button.dart';
+import '../../controllers/create_project_controller.dart';
+import '../create/create_project_button.dart';
+import '../create/import_project_button.dart';
 
 class NoProjects extends StatelessWidget {
   const NoProjects(this._controller);
-  final ProjectCreateController _controller;
+  final CreateProjectController _controller;
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +42,9 @@ class NoProjects extends StatelessWidget {
             maxLines: 5,
           ),
           const SizedBox(height: P3),
-          ProjectImportButton(_controller),
+          ImportProjectButton(_controller),
           const SizedBox(height: P3),
-          ProjectCreateButton(_controller),
+          CreateProjectButton(_controller),
         ],
       ),
     );

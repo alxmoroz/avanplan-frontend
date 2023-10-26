@@ -27,20 +27,20 @@ import '../../../../presenters/task_source.dart';
 import '../../../../presenters/workspace.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_feature_sets.dart';
-import '../../controllers/onboarding_controller.dart';
+import '../../../quiz/next_button.dart';
+import '../../controllers/create_project_quiz_controller.dart';
 import '../../controllers/task_controller.dart';
 import '../feature_sets/feature_sets.dart';
-import '../onboarding/next_button.dart';
 import 'attachments.dart';
 import 'notes.dart';
 
 class DetailsPane extends StatelessWidget {
-  const DetailsPane(this.controller, {this.onbController});
+  const DetailsPane(this.controller, {this.qController});
   final TaskController controller;
-  final OnboardingController? onbController;
+  final CreateProjectQuizController? qController;
 
   Task get _task => controller.task;
-  bool get _onboarding => onbController?.onboarding == true;
+  bool get _quizzing => qController?.active == true;
 
   Widget? get bottomBar => null;
 
@@ -85,7 +85,7 @@ class DetailsPane extends StatelessWidget {
                 ),
 
               /// Назначенный
-              if (!_onboarding && _task.hfsTeam && (_task.hasAssignee || _task.canAssign)) ...[
+              if (!_quizzing && _task.hfsTeam && (_task.hasAssignee || _task.canAssign)) ...[
                 MTField(
                   controller.fData(TaskFCode.assignee.index),
                   margin: EdgeInsets.only(top: _task.hasStatus ? P : P3),
@@ -103,7 +103,7 @@ class DetailsPane extends StatelessWidget {
               if (_task.hasDescription || _task.canEdit)
                 MTField(
                   controller.fData(TaskFCode.description.index),
-                  margin: EdgeInsets.only(top: _onboarding ? P : P3),
+                  margin: EdgeInsets.only(top: _quizzing ? P : P3),
                   leading: DescriptionIcon(color: _task.canEdit ? mainColor : f2Color),
                   value: _task.hasDescription
                       ? SelectableLinkify(
@@ -124,7 +124,7 @@ class DetailsPane extends StatelessWidget {
               if (_task.hasDueDate || _task.canEdit) controller.datesController.dateField(context, TaskFCode.dueDate),
 
               /// Оценки
-              if (!_onboarding && _task.hfsEstimates && (_task.hasEstimate || _task.canEstimate))
+              if (!_quizzing && _task.hfsEstimates && (_task.hasEstimate || _task.canEstimate))
                 MTField(
                   controller.fData(TaskFCode.estimate.index),
                   margin: const EdgeInsets.only(top: P3),
@@ -134,7 +134,7 @@ class DetailsPane extends StatelessWidget {
                 ),
 
               /// Вложения
-              if (!_onboarding && _task.attachments.isNotEmpty)
+              if (!_quizzing && _task.attachments.isNotEmpty)
                 MTField(
                   controller.fData(TaskFCode.attachment.index),
                   margin: const EdgeInsets.only(top: P3),
@@ -148,7 +148,7 @@ class DetailsPane extends StatelessWidget {
                 ),
 
               /// Author
-              if (!_onboarding && _task.hfsTeam && _task.hasAuthor)
+              if (!_quizzing && _task.hfsTeam && _task.hasAuthor)
                 MTField(
                   controller.fData(TaskFCode.author.index),
                   margin: const EdgeInsets.only(top: P3),
@@ -157,7 +157,7 @@ class DetailsPane extends StatelessWidget {
                 ),
 
               /// FeatureSets
-              if (!_onboarding && _task.canViewFeatureSets)
+              if (!_quizzing && _task.canViewFeatureSets)
                 MTField(
                   controller.fData(TaskFCode.features.index),
                   margin: const EdgeInsets.only(top: P3),
@@ -177,11 +177,11 @@ class DetailsPane extends StatelessWidget {
                   onTap: () => launchUrlString(_task.taskSource!.urlString),
                 ),
 
-              /// Onboarding
-              if (_onboarding) OnboardingNextButton(onbController!, disabled: _task.loading),
+              /// Quiz
+              if (_quizzing) QuizNextButton(qController!, disabled: _task.loading),
 
               /// Notes
-              if (!_onboarding && _task.canComment)
+              if (!_quizzing && _task.canComment)
                 MTField(
                   controller.fData(TaskFCode.note.index),
                   margin: const EdgeInsets.only(top: P3),
@@ -193,7 +193,7 @@ class DetailsPane extends StatelessWidget {
                   onSelect: controller.notesController.create,
                 ),
 
-              if (!_onboarding && controller.notesController.sortedNotesDates.isNotEmpty) Notes(controller.notesController),
+              if (!_quizzing && controller.notesController.sortedNotesDates.isNotEmpty) Notes(controller.notesController),
             ],
           ),
         ),

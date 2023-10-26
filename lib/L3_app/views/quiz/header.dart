@@ -2,17 +2,16 @@
 
 import 'package:flutter/material.dart';
 
-import '../../../../components/appbar.dart';
-import '../../../../components/button.dart';
-import '../../../../components/colors.dart';
-import '../../../../components/colors_base.dart';
-import '../../../../components/constants.dart';
-import '../../../../components/text.dart';
-import '../../../../extra/services.dart';
-import '../../controllers/onboarding_controller.dart';
+import '../../components/appbar.dart';
+import '../../components/button.dart';
+import '../../components/colors.dart';
+import '../../components/colors_base.dart';
+import '../../components/constants.dart';
+import '../../components/text.dart';
+import '../../extra/services.dart';
+import '../_base/quiz_controller.dart';
 
-AppBar onboardingHeader(
-    BuildContext context, OnboardingController _controller) {
+AppBar quizHeader(BuildContext context, QuizController _controller) {
   Widget stepMark(int index) {
     final isCurrent = _controller.stepIndex == index;
     final r1 = isCurrent ? P2 : P;
@@ -24,9 +23,7 @@ AppBar onboardingHeader(
         backgroundColor: (isCurrent ? mainColor : f3Color).resolve(context),
         child: CircleAvatar(
           radius: r2,
-          child: isCurrent
-              ? D5('${_controller.stepIndex + 1}', color: mainColor)
-              : null,
+          child: isCurrent ? D5('${_controller.stepIndex + 1}', color: mainColor) : null,
           backgroundColor: b2Color.resolve(context),
         ),
       ),
@@ -41,23 +38,21 @@ AppBar onboardingHeader(
       padding: const EdgeInsets.only(left: P2),
       onTap: () => _controller.back(context),
     ),
-    middle: _controller.onboarding
+    middle: _controller.active
         ? Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              for (var index = 0; index < _controller.stepsCount; index++)
-                stepMark(index),
+              for (var index = 0; index < _controller.stepsCount; index++) stepMark(index),
             ],
           )
         : null,
-    bottom: _controller.onboarding
+    bottom: _controller.active
         ? PreferredSize(
             child: BaseText.medium(
               _controller.stepTitle,
               padding: const EdgeInsets.only(bottom: P2),
             ),
-            preferredSize: Size.fromHeight(
-                const BaseText.medium('').style(context).fontSize ?? 0 + P2),
+            preferredSize: Size.fromHeight(const BaseText.medium('').style(context).fontSize ?? 0 + P2),
           )
         : null,
     trailing: _controller.stepIndex < _controller.stepsCount - 1

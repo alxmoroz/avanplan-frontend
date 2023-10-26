@@ -1,26 +1,26 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'package:avanplan/L3_app/usecases/ws_tariff.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/workspace.dart';
 import '../../../extra/services.dart';
 import '../../../usecases/ws_actions.dart';
+import '../../../usecases/ws_tariff.dart';
 import '../../../usecases/ws_tasks.dart';
 import '../../import/import_view.dart';
-import '../task_onboarding_view.dart';
+import '../widgets/create/create_task_quiz_view.dart';
 import '../widgets/create/ws_selector.dart';
-import 'onboarding_controller.dart';
+import 'create_project_quiz_controller.dart';
 import 'task_controller.dart';
 
-part 'project_create_controller.g.dart';
+part 'create_project_controller.g.dart';
 
-class ProjectCreateController extends _ProjectCreateControllerBase with _$ProjectCreateController {}
+class CreateProjectController extends _CreateProjectControllerBase with _$CreateProjectController {}
 
 List<Workspace> get _wss => wsMainController.workspaces;
 
-abstract class _ProjectCreateControllerBase with Store {
+abstract class _CreateProjectControllerBase with Store {
   @observable
   int? _selectedWSId = _wss.length == 1 ? _wss.first.id : null;
   @action
@@ -66,7 +66,7 @@ abstract class _ProjectCreateControllerBase with Store {
       final newP = await _ws!.createTask(null);
       if (newP != null) {
         final tc = TaskController(newP);
-        await tc.showOnboardingTask(TaskOnboardingView.routeNameProject, context, OnboardingController(tc));
+        await tc.showCreateTaskQuiz(CreateTaskQuizView.routeNameProject, context, CreateProjectQuizController(tc));
       }
     }
     await _dispose();

@@ -14,8 +14,8 @@ import '../views/notification/notification_list_view.dart';
 import '../views/settings/settings_view.dart';
 import '../views/source/source_list_view.dart';
 import '../views/task/controllers/task_controller.dart';
-import '../views/task/task_onboarding_view.dart';
 import '../views/task/task_view.dart';
+import '../views/task/widgets/create/create_task_quiz_view.dart';
 import '../views/task/widgets/feature_sets/feature_sets.dart';
 import '../views/task/widgets/team/member_view.dart';
 import '../views/task/widgets/team/team_invitation_view.dart';
@@ -56,21 +56,21 @@ CupertinoPageRoute? cupertinoPageRoute(RouteSettings rs) {
     final tc = rs.arguments as TaskController;
     p = TaskView(tc);
     rs = RouteSettings(name: '${rs.name}_${tc.task.id}', arguments: rs.arguments);
-  } else if ([TaskOnboardingView.routeNameProject, TaskOnboardingView.routeNameGoal].contains(rs.name)) {
-    final args = rs.arguments as TaskOnboardingArgs;
-    p = TaskOnboardingView(args);
+  } else if ([CreateTaskQuizView.routeNameProject, CreateTaskQuizView.routeNameGoal].contains(rs.name)) {
+    final args = rs.arguments as CreateTaskQuizArgs;
+    p = CreateTaskQuizView(args);
   } else if (rs.name == MemberView.routeName) {
     final args = rs.arguments as MemberViewArgs;
     p = MemberView(args);
   } else if (rs.name == UserView.routeName) {
     final user = rs.arguments as User;
     p = UserView(user);
-  } else if (rs.name == FeatureSetsOnboardingView.routeName) {
-    final args = rs.arguments as FSOnboardingArgs;
-    p = FeatureSetsOnboardingView(args);
-  } else if (rs.name == TeamInvitationOnboardingView.routeName) {
-    final args = rs.arguments as TIOnboardingArgs;
-    p = TeamInvitationOnboardingView(args);
+  } else if (rs.name == FeatureSetsQuizView.routeName) {
+    final args = rs.arguments as FSQuizArgs;
+    p = FeatureSetsQuizView(args);
+  } else if (rs.name == TeamInvitationQuizView.routeName) {
+    final args = rs.arguments as TIQuizArgs;
+    p = TeamInvitationQuizView(args);
   }
 
   return p != null ? CupertinoPageRoute<dynamic>(builder: (_) => p!, settings: rs) : null;
@@ -101,18 +101,18 @@ class MTRouteObserver extends NavigatorObserver {
           title = SourceListView.title(rs.arguments as int);
         } else if (name.startsWith(TaskView.routeName)) {
           title = TaskView.title(rs.arguments as TaskController);
-        } else if ([TaskOnboardingView.routeNameProject, TaskOnboardingView.routeNameGoal].contains(name)) {
-          title = TaskOnboardingView.title(rs.arguments as TaskOnboardingArgs);
+        } else if ([CreateTaskQuizView.routeNameProject, CreateTaskQuizView.routeNameGoal].contains(name)) {
+          title = CreateTaskQuizView.title(rs.arguments as CreateTaskQuizArgs);
         } else if (name == MemberView.routeName) {
           final args = rs.arguments as MemberViewArgs;
           title = MemberView.title(args);
         } else if (name == UserView.routeName) {
           final user = rs.arguments as User;
           title = UserView.title(user);
-        } else if (name == FeatureSetsOnboardingView.routeName) {
-          title = FeatureSetsOnboardingView.title(rs.arguments as FSOnboardingArgs);
-        } else if (name == TeamInvitationOnboardingView.routeName) {
-          title = TeamInvitationOnboardingView.title(rs.arguments as TIOnboardingArgs);
+        } else if (name == FeatureSetsQuizView.routeName) {
+          title = FeatureSetsQuizView.title(rs.arguments as FSQuizArgs);
+        } else if (name == TeamInvitationQuizView.routeName) {
+          title = TeamInvitationQuizView.title(rs.arguments as TIQuizArgs);
         }
 
         setPageTitle(title);

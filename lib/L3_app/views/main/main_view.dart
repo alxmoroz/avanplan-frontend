@@ -13,7 +13,7 @@ import '../../components/page.dart';
 import '../../extra/services.dart';
 import '../../presenters/person.dart';
 import '../settings/settings_view.dart';
-import '../task/controllers/project_create_controller.dart';
+import '../task/controllers/create_project_controller.dart';
 import '../task/widgets/empty_state/no_projects.dart';
 import 'widgets/app_title.dart';
 import 'widgets/main_dashboard.dart';
@@ -73,7 +73,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
         body: SafeArea(
           top: false,
           bottom: false,
-          child: tasksMainController.hasOpenedProjects ? MainDashboard() : NoProjects(ProjectCreateController()),
+          child: tasksMainController.hasOpenedProjects ? MainDashboard() : NoProjects(CreateProjectController()),
         ),
       ),
     );

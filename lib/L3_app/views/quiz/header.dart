@@ -9,7 +9,7 @@ import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/text.dart';
 import '../../extra/services.dart';
-import '../_base/quiz_controller.dart';
+import 'quiz_controller.dart';
 
 AppBar quizHeader(BuildContext context, QuizController _controller) {
   Widget stepMark(int index) {
@@ -30,37 +30,36 @@ AppBar quizHeader(BuildContext context, QuizController _controller) {
     );
   }
 
-  return MTAppBar(
-    context,
-    leadingWidth: P10,
-    leading: MTButton(
-      titleText: loc.back_action_title,
-      padding: const EdgeInsets.only(left: P2),
-      onTap: () => _controller.back(context),
-    ),
-    middle: _controller.active
-        ? Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              for (var index = 0; index < _controller.stepsCount; index++) stepMark(index),
-            ],
-          )
-        : null,
-    bottom: _controller.active
-        ? PreferredSize(
-            child: BaseText.medium(
-              _controller.stepTitle,
-              padding: const EdgeInsets.only(bottom: P2),
-            ),
-            preferredSize: Size.fromHeight(const BaseText.medium('').style(context).fontSize ?? 0 + P2),
-          )
-        : null,
-    trailing: _controller.stepIndex < _controller.stepsCount - 1
-        ? MTButton(
-            titleText: loc.skip_action_title,
-            padding: const EdgeInsets.only(right: P2),
-            onTap: () => _controller.finish(context),
-          )
-        : null,
-  );
+  return _controller.active
+      ? MTAppBar(
+          context,
+          leadingWidth: P10,
+          leading: MTButton(
+            titleText: loc.back_action_title,
+            padding: const EdgeInsets.only(left: P2),
+            onTap: () => _controller.back(context),
+          ),
+          middle: _controller.stepsCount > 1
+              ? Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    for (var index = 0; index < _controller.stepsCount; index++) stepMark(index),
+                  ],
+                )
+              : BaseText.medium(_controller.stepTitle, maxLines: 1, height: 1),
+          bottom: _controller.stepsCount > 1 && _controller.stepTitle.trim().isNotEmpty
+              ? PreferredSize(
+                  child: BaseText.medium(_controller.stepTitle, padding: const EdgeInsets.only(bottom: P), maxLines: 1, height: 1),
+                  preferredSize: Size.fromHeight(const BaseText.medium('', height: 1).style(context).fontSize ?? P2 + P),
+                )
+              : null,
+          trailing: _controller.stepIndex < _controller.stepsCount - 1
+              ? MTButton(
+                  titleText: loc.skip_action_title,
+                  padding: const EdgeInsets.only(right: P2),
+                  onTap: () => _controller.finish(context),
+                )
+              : null,
+        )
+      : MTAppBar(context);
 }

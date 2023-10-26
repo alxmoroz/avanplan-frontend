@@ -12,7 +12,7 @@ import '../../../../presenters/task_type.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../quiz/header.dart';
 import '../../../quiz/next_button.dart';
-import '../../controllers/create_project_quiz_controller.dart';
+import '../../../quiz/quiz_controller.dart';
 import '../../controllers/task_controller.dart';
 import 'invitation_button.dart';
 import 'team_pane.dart';
@@ -20,7 +20,7 @@ import 'team_pane.dart';
 class TIQuizArgs {
   TIQuizArgs(this._taskController, this._qController);
   final TaskController _taskController;
-  final CreateProjectQuizController _qController;
+  final QuizController _qController;
 }
 
 class TeamInvitationQuizView extends StatelessWidget {

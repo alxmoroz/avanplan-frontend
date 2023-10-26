@@ -8,7 +8,7 @@ import '../../../../components/page.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../quiz/header.dart';
-import '../../controllers/create_project_quiz_controller.dart';
+import '../../../quiz/quiz_controller.dart';
 import '../../controllers/task_controller.dart';
 import '../../task_view.dart';
 import '../details/details_pane.dart';
@@ -17,7 +17,7 @@ import '../header/task_header.dart';
 class CreateTaskQuizArgs {
   CreateTaskQuizArgs(this._controller, this._qController);
   final TaskController _controller;
-  final CreateProjectQuizController _qController;
+  final QuizController _qController;
 }
 
 class CreateTaskQuizView extends TaskView {
@@ -33,7 +33,7 @@ class CreateTaskQuizView extends TaskView {
 }
 
 class CreateTaskQuizViewState extends TaskViewState<CreateTaskQuizView> {
-  CreateProjectQuizController get qController => widget._args._qController;
+  QuizController get qController => widget._args._qController;
 
   @override
   Widget build(BuildContext context) {

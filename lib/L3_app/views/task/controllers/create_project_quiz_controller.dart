@@ -5,10 +5,9 @@ import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/feature_set.dart';
 import '../../../../L1_domain/entities/task.dart';
-import '../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../extra/services.dart';
 import '../../../usecases/ws_tasks.dart';
-import '../../_base/quiz_controller.dart';
+import '../../quiz/quiz_controller.dart';
 import '../task_view.dart';
 import '../widgets/create/create_task_quiz_view.dart';
 import '../widgets/feature_sets/feature_sets.dart';
@@ -21,14 +20,12 @@ part 'create_project_quiz_controller.g.dart';
 enum _StepCode { projectSetup, featureSets, team, goals }
 
 class CreateProjectQuizController extends _CreateProjectQuizControllerBase with _$CreateProjectQuizController {
-  CreateProjectQuizController(this._taskController) {
-    active = project.isProject && project.isNew;
-  }
+  CreateProjectQuizController(this._taskController);
   final TaskController _taskController;
 
   TaskController? _goalController;
 
-  Task get project => _taskController.task;
+  Task get _project => _taskController.task;
 
   @override
   Future afterBack(BuildContext context) async {
@@ -53,7 +50,7 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
       await Navigator.of(context).pushNamed(TeamInvitationQuizView.routeName, arguments: TIQuizArgs(_taskController, this));
     } else if (step.code == _StepCode.goals.name) {
       if (_goalController == null) {
-        final goal = await project.ws.createTask(project);
+        final goal = await _project.ws.createTask(_project);
         if (goal != null) {
           _goalController = TaskController(goal, allowDisposeFromView: false);
         }
@@ -65,7 +62,7 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
   @override
   Future afterFinish(BuildContext context) async {
     Navigator.of(context).popUntil((r) => r.settings.name == CreateTaskQuizView.routeNameProject || r.navigator?.canPop() != true);
-    Navigator.of(context).pushReplacementNamed(TaskView.routeName, arguments: TaskController(project));
+    Navigator.of(context).pushReplacementNamed(TaskView.routeName, arguments: TaskController(_project));
 
     _goalController?.dispose();
   }

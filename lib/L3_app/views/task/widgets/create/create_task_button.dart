@@ -12,7 +12,7 @@ import '../../../../components/icons.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../../usecases/ws_actions.dart';
 import '../../../../usecases/ws_tasks.dart';
-import '../../controllers/create_project_quiz_controller.dart';
+import '../../controllers/create_goal_quiz_controller.dart';
 import '../../controllers/task_controller.dart';
 import 'create_task_quiz_view.dart';
 
@@ -35,11 +35,11 @@ class CreateTaskButton extends StatelessWidget {
     if (newTask != null) {
       final tc = TaskController(newTask);
       if (newTask.isGoal) {
-        await tc.showCreateTaskQuiz(CreateTaskQuizView.routeNameGoal, context, CreateProjectQuizController(tc));
+        await tc.showCreateTaskQuiz(CreateTaskQuizView.routeNameGoal, context, CreateGoalQuizController(tc));
       } else {
         await tc.showTask();
-        _parentTaskController.selectTab(TaskTabKey.subtasks);
       }
+      _parentTaskController.selectTab(TaskTabKey.subtasks);
     }
   }
 

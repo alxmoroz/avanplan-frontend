@@ -17,7 +17,7 @@ import '../../../../extra/services.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../quiz/header.dart';
 import '../../../quiz/next_button.dart';
-import '../../controllers/create_project_quiz_controller.dart';
+import '../../../quiz/quiz_controller.dart';
 import '../../controllers/feature_sets_controller.dart';
 import '../../controllers/task_controller.dart';
 
@@ -84,7 +84,7 @@ class _FSBody extends StatelessWidget {
 class FSQuizArgs {
   FSQuizArgs(this._controller, this._qController);
   final FeatureSetsController _controller;
-  final CreateProjectQuizController _qController;
+  final QuizController _qController;
 }
 
 class FeatureSetsQuizView extends StatelessWidget {
@@ -95,7 +95,7 @@ class FeatureSetsQuizView extends StatelessWidget {
   static String title(FSQuizArgs _args) => '${_args._controller.project.viewTitle} - ${loc.feature_sets_title}';
 
   FeatureSetsController get _controller => _args._controller;
-  CreateProjectQuizController get _qController => _args._qController;
+  QuizController get _qController => _args._qController;
 
   @override
   Widget build(BuildContext context) {

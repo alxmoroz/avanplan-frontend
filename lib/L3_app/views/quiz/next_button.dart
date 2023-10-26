@@ -5,7 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../components/button.dart';
 import '../../components/constants.dart';
-import '../_base/quiz_controller.dart';
+import 'quiz_controller.dart';
 
 class QuizNextButton extends StatelessWidget {
   const QuizNextButton(this._controller, {this.margin, this.loading, this.disabled});

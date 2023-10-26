@@ -28,7 +28,7 @@ import '../../../../presenters/workspace.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_feature_sets.dart';
 import '../../../quiz/next_button.dart';
-import '../../controllers/create_project_quiz_controller.dart';
+import '../../../quiz/quiz_controller.dart';
 import '../../controllers/task_controller.dart';
 import '../feature_sets/feature_sets.dart';
 import 'attachments.dart';
@@ -37,7 +37,7 @@ import 'notes.dart';
 class DetailsPane extends StatelessWidget {
   const DetailsPane(this.controller, {this.qController});
   final TaskController controller;
-  final CreateProjectQuizController? qController;
+  final QuizController? qController;
 
   Task get _task => controller.task;
   bool get _quizzing => qController?.active == true;

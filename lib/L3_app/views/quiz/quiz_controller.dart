@@ -54,7 +54,7 @@ abstract class _QuizControllerBase with Store {
   int get stepsCount => steps.length;
 
   @observable
-  bool active = false;
+  bool active = true;
 
   @observable
   int stepIndex = 0;

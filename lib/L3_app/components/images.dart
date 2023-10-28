@@ -17,6 +17,8 @@ enum ImageName {
   fs_task_board,
   fs_task_list,
   fs_team,
+  goal,
+  goal_done,
   hello,
   import,
   loading,
@@ -30,7 +32,6 @@ enum ImageName {
   risk,
   save,
   server_error,
-  start,
   sync,
   transfer,
 }

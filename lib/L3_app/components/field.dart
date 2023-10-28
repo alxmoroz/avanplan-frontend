@@ -20,6 +20,8 @@ class MTField extends StatelessWidget {
     this.margin,
     this.padding,
     this.color,
+    this.minHeight,
+    this.crossAxisAlignment,
   });
 
   final MTFieldData fd;
@@ -32,6 +34,8 @@ class MTField extends StatelessWidget {
   final EdgeInsets? margin;
   final EdgeInsets? padding;
   final Color? color;
+  final double? minHeight;
+  final CrossAxisAlignment? crossAxisAlignment;
 
   bool get _hasValue => value != null;
 
@@ -42,15 +46,16 @@ class MTField extends StatelessWidget {
       children: [
         MTListTile(
           leading: leading != null ? SizedBox(width: P6, child: Center(child: leading)) : null,
-          middle: _hasValue && fd.label.isNotEmpty ? SmallText(fd.label, color: f3Color, height: 1) : null,
-          subtitle: _hasValue ? value : BaseText.f3(fd.placeholder, padding: const EdgeInsets.symmetric(vertical: P)),
+          middle: _hasValue && fd.label.isNotEmpty ? SmallText(fd.label, color: f3Color, maxLines: 1) : null,
+          subtitle: _hasValue ? value : BaseText.f3(fd.placeholder, maxLines: 1),
           bottomDivider: bottomDivider,
           dividerLeftIndent: dividerStartIndent,
           onTap: onSelect,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: crossAxisAlignment ?? (_hasValue ? CrossAxisAlignment.start : null),
           margin: margin,
           padding: padding,
           color: color,
+          minHeight: minHeight,
         ),
         if (fd.loading) const MTLoader(),
       ],

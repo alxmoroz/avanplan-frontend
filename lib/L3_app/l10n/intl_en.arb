@@ -134,6 +134,8 @@
   "goal_count_dative": "{count, plural, one{{count} goal} other{{count} goals}}",
   "goal_delete_dialog_title": "Delete goal?",
   "goal_for_orphaned_tasks": "Tasks without goals",
+  "goal_list_empty_hint": "Time to relax or set new goals",
+  "goal_list_empty_title": "Taking a break from goals",
   "goal_list_title": "Goals",
   "goal_new_title": "New Goal",
   "goal_plural_accusative": "{count, plural, one{goal} other{goals}}",
@@ -223,8 +225,14 @@
   "project_plural_genitive": "{count, plural, one{project} other{projects}}",
   "project_title": "Project",
 
-  "recommendation_add_tasks_title": "Add",
-  "recommendation_close_tasks_title": "Complete task in project",
+  "recommendation_add_goals_hint": "Set the first goal of the project",
+  "recommendation_add_goals_title": "Let's add goals to the project",
+  "recommendation_add_tasks_hint": "Determine the steps to achieve this goal",
+  "recommendation_add_tasks_title": "Let's add tasks",
+  "recommendation_close_tasks_hint": "Close the task and find out the project completion estimation",
+  "recommendation_close_tasks_title": "Let's take the first step",
+  "recommendation_goto_goals": "Go to goals",
+  "recommendation_goto_tasks": "Go to tasks",
 
   "register_completed_description": "This is needed to confirm your email",
   "register_completed_hint": "Follow the link from the letter",
@@ -359,6 +367,7 @@
 
   "task_list_empty_hint": "Add tasks to get started",
   "task_list_empty_local_import_hint": "Add tasks or transfer from another goal",
+  "task_list_empty_overview_title": "Let's start achieving the goal",
   "task_list_empty_title": "Taking a break from tasks",
   "task_list_title": "Tasks",
 

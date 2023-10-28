@@ -132,21 +132,26 @@ class ImportView extends StatelessWidget {
       '${loc.import_projects_select_available_count_hint(controller.ws.availableProjectsCount)} ${loc.project_plural_genitive(controller.ws.availableProjectsCount)}';
 
   Widget? get _bottomBar => _hasProjects
-      ? Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          SmallText(
-            _importActionHint,
-            height: 1,
-            color: _validated ? f2Color : warningColor,
-            align: TextAlign.center,
-          ),
-          const SizedBox(height: P),
-          MTBadgeButton(
-            type: ButtonType.main,
-            titleText: '${loc.import_action_title}$_importBtnCountHint',
-            onTap: _validated ? controller.startImport : null,
-            showBadge: controller.selectableCount < 0,
-          ),
-        ])
+      ? Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SmallText(
+              _importActionHint,
+              maxLines: 1,
+              color: _validated ? f2Color : warningColor,
+              align: TextAlign.center,
+            ),
+            const SizedBox(height: P),
+            MTBadgeButton(
+              constrained: false,
+              padding: const EdgeInsets.symmetric(horizontal: P3),
+              type: ButtonType.main,
+              titleText: '${loc.import_action_title}$_importBtnCountHint',
+              onTap: _validated ? controller.startImport : null,
+              showBadge: controller.selectableCount < 0,
+            ),
+          ],
+        )
       : null;
 
   @override
@@ -162,7 +167,7 @@ class ImportView extends StatelessWidget {
             ],
           ),
         ),
-        topBarHeight: P8 + (_hasSources ? P * (14.5 + (_showSelectAll ? 8 : 0)) : 0) + (wsMainController.multiWS ? P4 : 0),
+        topBarHeight: P8 + (_hasSources ? P * (14 + (_showSelectAll ? 8 : 0)) : 0),
         body: _body(context),
         bottomBar: _bottomBar,
         bottomBarHeight: _hasProjects ? P * 19 : null,

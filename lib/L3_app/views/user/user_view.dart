@@ -27,6 +27,7 @@ class UserView extends StatelessWidget {
         appBar: MTAppBar(
           context,
           middle: wsMainController.wsForId(_user.wsId).subPageTitle(loc.user_title),
+          trailing: const SizedBox(width: P8),
         ),
         body: SafeArea(
           top: false,

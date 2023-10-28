@@ -46,11 +46,11 @@ AppBar quizHeader(BuildContext context, QuizController _controller) {
                     for (var index = 0; index < _controller.stepsCount; index++) stepMark(index),
                   ],
                 )
-              : BaseText.medium(_controller.stepTitle, maxLines: 1, height: 1),
+              : BaseText.medium(_controller.stepTitle, maxLines: 1),
           bottom: _controller.stepsCount > 1 && _controller.stepTitle.trim().isNotEmpty
               ? PreferredSize(
-                  child: BaseText.medium(_controller.stepTitle, padding: const EdgeInsets.only(bottom: P), maxLines: 1, height: 1),
-                  preferredSize: Size.fromHeight(const BaseText.medium('', height: 1).style(context).fontSize ?? P2 + P),
+                  child: BaseText.medium(_controller.stepTitle, padding: const EdgeInsets.only(bottom: P), maxLines: 1),
+                  preferredSize: Size.fromHeight(const BaseText.medium('', maxLines: 1).style(context).fontSize ?? P2 + P),
                 )
               : null,
           trailing: _controller.stepIndex < _controller.stepsCount - 1

@@ -20,6 +20,7 @@ import '../../components/text.dart';
 import '../../extra/services.dart';
 import '../../presenters/date.dart';
 import '../../presenters/tariff.dart';
+import '../../presenters/workspace.dart';
 import '../../usecases/ws_actions.dart';
 import '../../usecases/ws_sources.dart';
 import '../../usecases/ws_tariff.dart';
@@ -45,8 +46,8 @@ class WorkspaceView extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (ws.code.isNotEmpty) Flexible(child: H3('[${ws.code}] ', color: f3Color), flex: 1),
-                Flexible(child: H2(ws.title, maxLines: 1), flex: 6),
+                if (ws.codeStr.isNotEmpty) Flexible(child: H3(ws.codeStr, color: f3Color), flex: 3),
+                Expanded(child: H2(ws.title, maxLines: 1), flex: 15),
               ],
             ),
             if (ws.description.isNotEmpty) BaseText(ws.description),
@@ -72,8 +73,10 @@ class WorkspaceView extends StatelessWidget {
 
   Widget get _tariff => MTListTile(
         leading: const TariffIcon(),
-        middle: Row(children: [BaseText(loc.tariff_title), const SizedBox(width: P), BaseText.medium(ws.invoice.tariff.title)]),
-        subtitle: SmallText('${loc.contract_effective_date_title} ${ws.invoice.contract.createdOn.strMedium}'),
+        titleText: loc.tariff_title,
+        subtitle: SmallText(
+            '${ws.invoice.tariff.title} (${loc.contract_effective_date_title.toLowerCase()} ${ws.invoice.contract.createdOn.strMedium})',
+            maxLines: 1),
         trailing: const ChevronIcon(),
         bottomDivider: false,
         onTap: () async => await ws.changeTariff(),
@@ -81,14 +84,15 @@ class WorkspaceView extends StatelessWidget {
 
   Widget get _users => MTListTile(
         leading: const PeopleIcon(size: P6),
-        titleText: '${loc.user_list_title} (${ws.users.length})',
+        titleText: loc.user_list_title,
+        subtitle: SmallText('${ws.users.length} / ${ws.maxUsers}'),
         trailing: const ChevronIcon(),
         onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(UserListView.routeName, arguments: ws.id),
       );
 
   Widget get _sources => MTListTile(
       leading: const ImportIcon(),
-      titleText: loc.source_list_title,
+      titleText: '${loc.source_list_title} ${ws.sources.isNotEmpty ? '(${ws.sources.length})' : ''}',
       trailing: const ChevronIcon(),
       bottomDivider: false,
       onTap: () async {

@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/appbar.dart';
+import '../../components/constants.dart';
 import '../../components/page.dart';
 import '../../components/shadowed.dart';
 import '../../extra/services.dart';
@@ -29,7 +30,11 @@ class UserListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        appBar: MTAppBar(context, middle: ws.subPageTitle(loc.user_list_title)),
+        appBar: MTAppBar(
+          context,
+          middle: ws.subPageTitle(loc.user_list_title),
+          trailing: const SizedBox(width: P8),
+        ),
         body: SafeArea(
           top: false,
           bottom: false,

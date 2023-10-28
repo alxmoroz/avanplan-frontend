@@ -24,13 +24,12 @@ extension WSPresenter on Workspace {
         ],
       );
 
-  Widget subPageTitle(String pageTitle) => Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          BaseText.medium(pageTitle),
-          if (wsMainController.multiWS) subtitleRow,
-        ],
+  Widget subPageTitle(String pageTitle) => Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [if (codeStr.isNotEmpty) BaseText.f3(codeStr, maxLines: 1), BaseText.medium(pageTitle, maxLines: 1)],
       );
 
   String get estimateUnitCode => '${settings?.estimateUnit ?? ''}';
+
+  String get codeStr => wsMainController.multiWS ? '[$code] ' : '';
 }

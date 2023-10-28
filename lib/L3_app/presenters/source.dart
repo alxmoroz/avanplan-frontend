@@ -39,7 +39,7 @@ extension SourcePresenter on Source {
 
     return MTListTile(
       leading: type.icon(size: iconSize),
-      middle: BaseText('$this', color: textColor),
+      middle: BaseText('$this', color: textColor, maxLines: 1),
       padding: padding,
       trailing: checking
           ? MTCircularProgress(
@@ -55,6 +55,7 @@ extension SourcePresenter on Source {
                       : f2Color,
               size: _connectionIndicatorSize),
       bottomDivider: bottomBorder,
+      minHeight: standAlone ? null : 0,
       onTap: onTap,
       color: standAlone ? null : Colors.transparent,
     );

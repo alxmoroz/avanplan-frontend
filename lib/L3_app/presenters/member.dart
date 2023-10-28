@@ -17,7 +17,9 @@ extension MemberPresenter on Member {
           icon(radius, borderColor: borderColor),
           const SizedBox(width: P),
         ],
-        BaseText('$this', color: textColor),
+        Expanded(
+          child: BaseText('$this', color: textColor, maxLines: 1),
+        ),
       ],
     );
   }

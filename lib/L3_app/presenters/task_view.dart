@@ -14,9 +14,9 @@ extension TaskViewPresenter on Task {
   Color get bgColor => b2Color;
 
   bool get canShowTimeChart => hfsAnalytics && isOpenedGroup && (hasDueDate || hasEtaDate);
-  bool get canShowVelocityVolumeCharts => hfsAnalytics && !canShowRecommendsEta && isOpenedGroup;
+  bool get canShowVelocityVolumeCharts => hfsAnalytics && !needUserActionState && isOpenedGroup;
   bool get canShowChartDetails => canShowVelocityVolumeCharts || canShowTimeChart;
 
-  bool get hasOverviewPane => canShowChartDetails;
+  bool get hasOverviewPane => hfsAnalytics && isOpenedGroup;
   bool get hasTeamPane => canViewMembers && (members.isNotEmpty || canEditMembers);
 }

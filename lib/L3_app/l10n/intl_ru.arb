@@ -134,6 +134,8 @@
   "goal_count_dative": "{count, plural, one{{count} цели} other{{count} целям}}",
   "goal_delete_dialog_title": "Удалить цель?",
   "goal_for_orphaned_tasks": "Задачи без целей",
+  "goal_list_empty_hint": "Время отдохнуть или поставить новые цели",
+  "goal_list_empty_title": "Отдыхаем от целей",
   "goal_list_title": "Цели",
   "goal_new_title": "Новая цель",
   "goal_plural_accusative": "{count, plural, one{цель} few{цели} other{целей}}",
@@ -223,8 +225,14 @@
   "project_plural_genitive": "{count, plural, one{проекта} other{проектов}}",
   "project_title": "Проект",
 
-  "recommendation_add_tasks_title": "Добавить",
-  "recommendation_close_tasks_title": "Закрыть задачу в проекте",
+  "recommendation_add_goals_hint": "Поставьте первую цель",
+  "recommendation_add_goals_title": "Добавим цели в проект",
+  "recommendation_add_tasks_hint": "Определите шаги для достижения цели",
+  "recommendation_add_tasks_title": "Добавим задачи",
+  "recommendation_close_tasks_hint": "Закройте задачу и узнайте прогноз завершения проекта",
+  "recommendation_close_tasks_title": "Сделаем первый шаг",
+  "recommendation_goto_goals": "Перейти к целям",
+  "recommendation_goto_tasks": "Перейти к задачам",
 
   "register_completed_description": "Это нужно для подтверждения вашей почты",
   "register_completed_hint": "Перейдите по ссылке из письма",
@@ -359,6 +367,7 @@
 
   "task_list_empty_hint": "Добавьте задачи, чтобы начать работу",
   "task_list_empty_local_import_hint": "Добавьте задачи или перенесите из другой цели",
+  "task_list_empty_overview_title": "Приступим к достижению цели",
   "task_list_empty_title": "Отдыхаем от задач",
   "task_list_title": "Задачи",
 

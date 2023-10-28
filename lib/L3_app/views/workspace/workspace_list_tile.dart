@@ -6,10 +6,11 @@ import '../../../L1_domain/entities/workspace.dart';
 import '../../../main.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
+import '../../components/icons_workspace.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../extra/services.dart';
-import '../../presenters/tariff.dart';
+import '../../usecases/ws_actions.dart';
 import 'workspace_view.dart';
 
 class WorkspaceListTile extends StatelessWidget {
@@ -27,17 +28,12 @@ class WorkspaceListTile extends StatelessWidget {
       middle: Row(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          if (ws.code.isNotEmpty) BaseText.f2('[${ws.code}] '),
-          Expanded(child: BaseText(ws.title)),
+          if (ws.isMine) ...[const WSIcon(), const SizedBox(width: P_2)],
+          if (ws.code.isNotEmpty && wsMainController.multiWS) BaseText.f2('${ws.code} ', maxLines: 1),
+          Expanded(child: BaseText(ws.title, maxLines: 1)),
         ],
       ),
-      subtitle: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          if (ws.description.isNotEmpty) SmallText(ws.description, padding: const EdgeInsets.only(bottom: P), maxLines: 2),
-          SmallText('${loc.tariff_title}: ${ws.invoice.tariff.title}'),
-        ],
-      ),
+      subtitle: ws.description.isNotEmpty && wsMainController.multiWS ? SmallText(ws.description, maxLines: 2) : null,
       trailing: const ChevronIcon(),
       bottomDivider: bottomBorder,
       onTap: _showWorkspace,

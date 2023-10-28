@@ -38,7 +38,7 @@ class TasksPane extends StatelessWidget {
         child: icon,
       );
 
-  Widget? get bottomBar => _task.subtaskGroups.isNotEmpty && (_task.canCreate || _task.totalVolume > 0)
+  Widget? get bottomBar => _task.subtaskGroups.isNotEmpty || _task.totalVolume > 0 && (_task.canCreate || _task.totalVolume > 0)
       ? Row(children: [
           if (_task.canShowBoard)
             MTButton.secondary(
@@ -69,7 +69,7 @@ class TasksPane extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => _task.subtaskGroups.isEmpty
+      builder: (_) => _task.subtaskGroups.isEmpty && _task.totalVolume == 0
           ? NoTasks(controller)
           : _task.canShowBoard && controller.showBoard
               ? TasksBoard(

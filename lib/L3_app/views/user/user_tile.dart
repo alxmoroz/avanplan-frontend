@@ -20,8 +20,8 @@ class UserTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTListTile(
       leading: user.icon(P4, borderColor: mainColor),
-      middle: BaseText('$user'),
-      subtitle: SmallText(user.rolesStr),
+      middle: BaseText('$user', maxLines: 1),
+      subtitle: SmallText(user.rolesStr, maxLines: 1),
       trailing: const ChevronIcon(),
       bottomDivider: bottomBorder,
       onTap: () async => await Navigator.of(context).pushNamed(

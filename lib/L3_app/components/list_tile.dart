@@ -26,6 +26,7 @@ class MTListTile extends StatelessWidget with FocusManaging {
     this.bottomDivider = true,
     this.crossAxisAlignment,
     this.uf = true,
+    this.minHeight,
   });
   final Widget? leading;
   final Widget? middle;
@@ -41,6 +42,7 @@ class MTListTile extends StatelessWidget with FocusManaging {
   final bool bottomDivider;
   final CrossAxisAlignment? crossAxisAlignment;
   final bool uf;
+  final double? minHeight;
 
   static const _defaultIndent = P3;
 
@@ -57,7 +59,7 @@ class MTListTile extends StatelessWidget with FocusManaging {
     final _splashColor = mainColor.withAlpha(10).resolve(context);
 
     final _onPressed = onTap != null ? () => actionWithUF(context, uf, onTap!) : null;
-
+    final _hasMiddle = middle != null || titleText != null;
     return Padding(
       padding: margin ?? EdgeInsets.zero,
       child: material(
@@ -77,13 +79,17 @@ class MTListTile extends StatelessWidget with FocusManaging {
                   child: Row(
                     crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
                     children: [
+                      SizedBox(height: minHeight ?? P6),
                       if (leading != null) ...[leading!, const SizedBox(width: P2)],
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            if (middle != null || titleText != null) middle ?? (titleText != null ? BaseText(titleText!, maxLines: 1) : Container()),
-                            if (subtitle != null) subtitle!,
+                            if (_hasMiddle) middle ?? BaseText(titleText!, maxLines: 1),
+                            if (subtitle != null) ...[
+                              if (_hasMiddle) const SizedBox(height: P),
+                              subtitle!,
+                            ],
                           ],
                         ),
                       ),

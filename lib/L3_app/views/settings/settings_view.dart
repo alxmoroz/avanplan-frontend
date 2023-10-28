@@ -9,7 +9,6 @@ import '../../../L2_data/repositories/communications_repo.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../../main.dart';
 import '../../components/appbar.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/list_tile.dart';
@@ -104,13 +103,6 @@ class SettingsView extends StatelessWidget {
                   _notifications,
                   if (_wss.isNotEmpty) _workspaces,
                   _about,
-                  const SizedBox(height: P3),
-                  MTListTile(
-                    leading: const ExitIcon(color: warningColor),
-                    middle: BaseText(loc.auth_sign_out_btn_title, color: warningColor),
-                    bottomDivider: false,
-                    onTap: authController.signOut,
-                  ),
 
                   /// версия
                   const SizedBox(height: P3),

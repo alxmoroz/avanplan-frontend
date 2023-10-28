@@ -46,7 +46,7 @@ class TariffSelectView extends StatelessWidget {
         color: warningColor,
         align: TextAlign.center,
         padding: const EdgeInsets.symmetric(horizontal: P3),
-        height: 1.2,
+        maxLines: 2,
       ),
       MTButton.main(
         titleText: loc.balance_replenish_action_title,
@@ -69,6 +69,7 @@ class TariffSelectView extends StatelessWidget {
             H2(tariff.title, align: TextAlign.center, padding: const EdgeInsets.all(P3)),
             if (smallHeight) const Spacer() else Expanded(child: TariffLimits(tariff)),
             TariffOptions(tariff),
+            const SizedBox(height: P),
             currentIndex != index
                 ? ws.hpTariffUpdate
                     ? balanceLack <= 0

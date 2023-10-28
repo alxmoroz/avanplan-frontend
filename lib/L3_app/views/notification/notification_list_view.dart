@@ -31,14 +31,8 @@ class NotificationListView extends StatelessWidget {
       final date = n.scheduledDate.strShortWTime;
       final title = n.title;
       return MTListTile(
-        middle: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            SmallText(date),
-            n.isRead ? BaseText(title) : BaseText.medium(title),
-          ],
-        ),
-        // subtitle: description.isNotEmpty && !m.isRead ? LightText(description, maxLines: 2) : null,
+        middle: SmallText(date, maxLines: 1),
+        subtitle: BaseText(title, weight: n.isRead ? null : FontWeight.w500, maxLines: 2),
         trailing: const ChevronIcon(),
         bottomDivider: index < _controller.notifications.length - 1,
         onTap: () => _controller.showNotification(context, n: n),
@@ -92,7 +86,7 @@ class NotificationListView extends StatelessWidget {
                   middle: SmallText(
                     loc.notification_push_ios_denied_btn_title,
                     align: TextAlign.center,
-                    height: 1,
+                    maxLines: 1,
                   ),
                   trailing: const LinkOutIcon(),
                   onTap: _showGotoSystemSettingsDialog,

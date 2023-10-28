@@ -151,7 +151,7 @@ class MTButton extends StatelessWidget with FocusManaging {
       mainAxisSize: MainAxisSize.min,
       children: [
         if (leading != null) ...[leading!, const SizedBox(width: P)],
-        middle ?? (titleText != null ? BaseText.medium(titleText!, color: _titleColor) : Container()),
+        middle ?? (titleText != null ? BaseText.medium(titleText!, color: _titleColor, maxLines: 2) : Container()),
         if (trailing != null) ...[const SizedBox(width: P), trailing!],
       ],
     );
@@ -291,10 +291,11 @@ class MTBadgeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final p = (padding ?? EdgeInsets.zero).copyWith(right: showBadge ? _iconSize / 2 : padding?.right, left: showBadge ? 0 : padding?.left);
     return MTButton(
       type: type,
       margin: margin,
-      padding: showBadge ? const EdgeInsets.only(right: _iconSize / 2) : null,
+      padding: p, //padding.add(showBadge ? const EdgeInsets.only(right: _iconSize / 2) : null),
       leading: leading != null || showBadge
           ? Row(children: [
               if (showBadge) _badge(context),

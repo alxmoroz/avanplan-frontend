@@ -9,7 +9,6 @@ import '../../../../components/button.dart';
 import '../../../../components/checkbox.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
-import '../../../../components/shadowed.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
@@ -59,29 +58,28 @@ class _MemberEditViewState extends State<MemberEditView> {
           middle: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              BaseText.medium('$member'),
+              BaseText.medium('$member', maxLines: 1),
+              const SizedBox(height: P),
               task.subPageTitle(loc.role_list_title),
             ],
           ),
         ),
         topBarHeight: P * 14,
-        body: MTShadowed(
-          child: ListView(
-            shrinkWrap: true,
-            children: [
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: _roleItem,
-                itemCount: controller.roles.length,
-              ),
-              MTButton.main(
-                titleText: loc.save_action_title,
-                margin: const EdgeInsets.only(top: P3),
-                onTap: controller.assignRoles,
-              )
-            ],
-          ),
+        body: ListView(
+          shrinkWrap: true,
+          children: [
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: _roleItem,
+              itemCount: controller.roles.length,
+            ),
+            MTButton.main(
+              titleText: loc.save_action_title,
+              margin: const EdgeInsets.only(top: P3),
+              onTap: controller.assignRoles,
+            )
+          ],
         ),
       ),
     );

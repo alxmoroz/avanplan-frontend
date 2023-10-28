@@ -48,9 +48,9 @@ class _TariffLimitTile extends StatelessWidget {
       leading: icon,
       middle: Row(
         children: [
-          BaseText.medium(hvStr),
+          BaseText.medium(hvStr, maxLines: 1),
           const SizedBox(width: P),
-          BaseText(suffix),
+          BaseText(suffix, maxLines: 1),
         ],
       ),
       bottomDivider: false,

@@ -39,7 +39,11 @@ class SourceListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        appBar: MTAppBar(context, middle: _ws.subPageTitle(loc.source_list_title)),
+        appBar: MTAppBar(
+          context,
+          middle: _ws.subPageTitle(loc.source_list_title),
+          trailing: const SizedBox(width: P8),
+        ),
         body: SafeArea(
           top: false,
           bottom: false,

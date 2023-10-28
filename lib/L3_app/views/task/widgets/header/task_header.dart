@@ -43,9 +43,11 @@ class TaskHeader extends StatelessWidget {
               if (_task.parent != null)
                 MTField(
                   controller.fData(TaskFCode.parent.index),
-                  value: BaseText(_task.parent!.title),
-                  padding: const EdgeInsets.symmetric(vertical: P, horizontal: P3),
+                  value: BaseText(_task.parent!.title, maxLines: 2),
+                  padding: const EdgeInsets.symmetric(horizontal: P3),
                   color: b2Color,
+                  minHeight: P5,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                 ),
               MTField(
                 controller.fData(TaskFCode.title.index),

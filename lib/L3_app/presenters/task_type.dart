@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities_extensions/task_tree.dart';
@@ -8,6 +9,7 @@ import '../components/constants.dart';
 import '../components/text.dart';
 import '../extra/services.dart';
 import '../usecases/task_feature_sets.dart';
+import 'workspace.dart';
 
 String addSubtaskActionTitle(Task? parent) {
   final taskTitle = loc.task_plural_accusative(1);
@@ -17,7 +19,7 @@ String addSubtaskActionTitle(Task? parent) {
         TType.GOAL: taskTitle,
         TType.BACKLOG: taskTitle,
       }[parent?.type ?? TType.ROOT] ??
-      loc.subtask_plural(1);
+      loc.subtask_plural_accusative(1);
   return '${loc.action_add_title} $objTitle';
 }
 
@@ -84,10 +86,10 @@ extension TaskTypePresenter on Task {
   Widget subPageTitle(String pageTitle) => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          BaseText.medium(pageTitle),
-          BaseText('$this', maxLines: 1, padding: const EdgeInsets.symmetric(horizontal: P2)),
+          BaseText.medium(pageTitle, align: TextAlign.center, maxLines: 1, padding: const EdgeInsets.symmetric(horizontal: P6)),
+          BaseText('$this', align: TextAlign.center, maxLines: 1, padding: const EdgeInsets.all(P_2)),
         ],
       );
 
-  String get wsCode => isProject && wsMainController.multiWS ? '[${ws.code}] ' : '';
+  String get wsCode => isProject ? ws.codeStr : '';
 }

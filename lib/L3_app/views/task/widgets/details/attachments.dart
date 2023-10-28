@@ -31,7 +31,7 @@ class AttachmentsDialog extends StatelessWidget {
               return MTListTile(
                 leading: MimeTypeIcon(mimeType: a.type),
                 titleText: a.title,
-                subtitle: SmallText(a.bytes.humanBytesStr),
+                subtitle: SmallText(a.bytes.humanBytesStr, maxLines: 1),
                 bottomDivider: index < _controller.sortedAttachments.length - 1,
                 trailing: const DownloadIcon(),
                 onTap: () => _controller.download(a),

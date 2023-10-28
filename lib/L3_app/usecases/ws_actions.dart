@@ -35,6 +35,9 @@ extension WSActionsUC on Workspace {
   int get availableProjectsCount => maxProjects - _projectsCount;
   bool get plProjects => availableProjectsCount > 0;
 
+  int get maxUsers => invoice.tariff.limitValue(TLCode.USERS_COUNT).toInt();
+  // int get availableUsersCount => maxUsers - users.length;
+
   // TODO: при добавлении и удалении задач нужно уточнять tasksCount, а лучше делать запросы на бэк дополнительные всё же и обновлять инфу о WS
   bool get _plTasks => _pl(TLCode.TASKS_COUNT, tasksCount + 1);
 

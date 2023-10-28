@@ -14,7 +14,6 @@ import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import '../../presenters/number.dart';
-import '../../presenters/workspace.dart';
 
 Future purchaseDialog(int wsId) async {
   await iapController.getProducts();
@@ -37,7 +36,6 @@ class StoreView extends StatelessWidget {
     final hasPrice = p.price.isNotEmpty;
     return MTButton.secondary(
       middle: Row(
-        // crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           D3('+ ${p.value.currency}${hasPrice ? '' : '₽'}', color: mainColor),
           if (hasPrice) D4(' ${loc.for_} ${p.price}', color: f2Color),
@@ -51,8 +49,7 @@ class StoreView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTTopBar(middle: ws.subPageTitle(loc.balance_replenish_store_title)),
-      topBarHeight: wsMainController.multiWS ? P12 : null,
+      topBar: MTTopBar(titleText: loc.balance_replenish_store_title),
       body: ListView.builder(
         shrinkWrap: true,
         itemBuilder: _payButton,

@@ -121,8 +121,8 @@ class DatesController {
       leading: isStart ? CalendarIcon(color: task.canEdit ? mainColor : f2Color) : Container(),
       value: !isEmpty
           ? Row(children: [
-              BaseText(date.strMedium, padding: const EdgeInsets.only(right: P)),
-              BaseText.f2(DateFormat.EEEE().format(date)),
+              BaseText(date.strMedium, padding: const EdgeInsets.only(right: P), maxLines: 1),
+              BaseText.f2(DateFormat.EEEE().format(date), maxLines: 1),
             ])
           : null,
       onSelect: task.canEdit ? () => selectDate(context, code) : null,

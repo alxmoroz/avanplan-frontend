@@ -33,6 +33,7 @@ abstract class _WorkspaceEditControllerBase extends EditController with Store {
   /// действия
 
   Future save() async {
+    // TODO: обработка ошибок редактирования РП. Как в задаче. Локальный лоадер на шапке
     loader.start();
     loader.setSaving();
     final editedWS = await workspaceUC.save(WorkspaceUpsert(
@@ -43,12 +44,8 @@ abstract class _WorkspaceEditControllerBase extends EditController with Store {
     ));
 
     if (editedWS != null) {
-      ws.code = editedWS.code;
-      ws.title = editedWS.title;
-      ws.description = editedWS.description;
-      ws.balance = editedWS.balance;
-
-      Navigator.of(rootKey.currentContext!).pop(editedWS);
+      wsMainController.setWS(editedWS);
+      Navigator.of(rootKey.currentContext!).pop();
       await loader.stop(300);
     }
   }

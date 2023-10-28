@@ -89,7 +89,7 @@ class VelocityChart extends StatelessWidget {
             loc.chart_velocity_unit_mo(task.hfsEstimates ? task.ws.estimateUnitCode : loc.task_plural(_hVelocity)),
             padding: EdgeInsets.only(top: R / 2 + P3),
             color: f2Color,
-            height: 1,
+            maxLines: 1,
           ),
           Container(
             width: R * 2 - P10 - P,

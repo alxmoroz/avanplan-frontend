@@ -9,6 +9,7 @@ import '../../components/button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
+import '../../components/list_tile.dart';
 import '../../components/page.dart';
 import '../../components/text.dart';
 import '../../extra/services.dart';
@@ -40,6 +41,12 @@ class AccountView extends StatelessWidget {
                     const SizedBox(height: P3),
                     H3('$_user', align: TextAlign.center),
                     BaseText(_user!.email, align: TextAlign.center),
+                    const SizedBox(height: P3),
+                    MTListTile(
+                      middle: BaseText(loc.auth_sign_out_btn_title, color: dangerColor, align: TextAlign.center, maxLines: 1),
+                      bottomDivider: false,
+                      onTap: authController.signOut,
+                    ),
                   ],
                 )
               : Container(),

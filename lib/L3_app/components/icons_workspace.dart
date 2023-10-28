@@ -80,3 +80,13 @@ class TariffIcon extends MTIcon {
         size: size ?? P6,
       );
 }
+
+class WSIcon extends MTIcon {
+  const WSIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.home,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P3,
+      );
+}

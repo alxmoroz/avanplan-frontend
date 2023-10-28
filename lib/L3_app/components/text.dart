@@ -38,16 +38,6 @@ class BaseText extends StatelessWidget {
     this.height,
   }) : color = f3Color;
 
-  const BaseText.light(
-    this.text, {
-    this.sizeScale,
-    this.maxLines,
-    this.align,
-    this.padding,
-    this.height,
-    this.color,
-  }) : weight = FontWeight.w300;
-
   const BaseText.medium(
     this.text, {
     this.sizeScale,
@@ -69,12 +59,17 @@ class BaseText extends StatelessWidget {
 
   TextStyle style(BuildContext context) {
     final cupertinoTS = CupertinoTheme.of(context).textTheme.textStyle;
+    // если указан явно межстрочный интервал, то оставляем его.
+    // Если указано количество строк, то для однострочников - 1, для двух - 1.1, для трех - 1.2, для остального всего - 1.3
+    final double h = height ?? {1: 1.0, 2: 1.15, 3: 1.25}[maxLines] ?? 1.3;
+    final double fs = (isWeb && isBigScreen(context) ? 18 : 17) * (sizeScale ?? 1);
+
     return cupertinoTS.copyWith(
       color: CupertinoDynamicColor.maybeResolve(color ?? f1Color, context),
       fontWeight: weight ?? FontWeight.w400,
-      fontSize: (isWeb && isBigScreen(context) ? 19 : 17) * (sizeScale ?? 1),
+      fontSize: fs,
+      height: h,
       inherit: true,
-      height: height ?? cupertinoTS.height,
     );
   }
 
@@ -165,13 +160,13 @@ abstract class _BaseDText extends BaseText {
     super.color,
     super.sizeScale,
     FontWeight? weight,
-  }) : super(align: TextAlign.center, weight: weight ?? FontWeight.w500, height: 1);
+  }) : super(align: TextAlign.center, weight: weight ?? FontWeight.w500, maxLines: 1);
 
   const _BaseDText.bold(
     super.text, {
     super.color,
     super.sizeScale,
-  }) : super(align: TextAlign.center, weight: FontWeight.w700, height: 1);
+  }) : super(align: TextAlign.center, weight: FontWeight.w700, maxLines: 1);
 
   @override
   TextStyle style(BuildContext context) => super.style(context).copyWith(fontFamily: 'Montserrat');
@@ -197,14 +192,14 @@ class D1 extends _BaseDText {
   const D1(String text, {super.color}) : super(text, sizeScale: 7);
 }
 
-/// Декоративный стиль
+/// Декоративный стиль (для названия приложения)
 abstract class _BaseDecorText extends BaseText {
   const _BaseDecorText(
     super.text, {
     super.color,
     super.padding,
     FontWeight? weight,
-  }) : super(align: TextAlign.center, weight: weight ?? FontWeight.w600, height: 1);
+  }) : super(align: TextAlign.center, weight: weight ?? FontWeight.w600, maxLines: 1);
 
   @override
   TextStyle style(BuildContext context) => super.style(context).copyWith(fontFamily: 'Comfortaa', fontSize: 27);

@@ -42,7 +42,9 @@ class InvitationDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTDialog(
-          topBar: MTTopBar(middle: _controller.task.subPageTitle('${loc.invitation_share_subject_prefix}${loc.app_title}')),
+          topBar: MTTopBar(
+            middle: _controller.task.subPageTitle('${loc.invitation_share_subject_prefix}${loc.app_title}'),
+          ),
           body: ListView(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -64,7 +66,8 @@ class InvitationDialog extends StatelessWidget {
                 BaseText.medium(
                   loc.role_select_action_title,
                   align: TextAlign.center,
-                  padding: const EdgeInsets.only(top: P3, bottom: P),
+                  maxLines: 1,
+                  padding: const EdgeInsets.only(top: P2, bottom: P),
                 ),
                 ListView.builder(
                     shrinkWrap: true,
@@ -72,8 +75,8 @@ class InvitationDialog extends StatelessWidget {
                     itemBuilder: (_, index) {
                       final r = _controller.roles.elementAt(index);
                       return MTListTile(
-                        middle: BaseText.medium(r.title),
-                        subtitle: SmallText(r.description),
+                        middle: BaseText.medium(r.title, maxLines: 1),
+                        subtitle: SmallText(r.description, maxLines: 1),
                         trailing: const MemberAddIcon(),
                         bottomDivider: index < _controller.roles.length - 1,
                         onTap: () => _controller.inviteRole(r, context),

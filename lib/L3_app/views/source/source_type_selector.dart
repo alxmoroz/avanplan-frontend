@@ -12,5 +12,5 @@ Future<SourceType?> selectSourceType({int? selectedId}) async => await showMTSel
       selectedId,
       loc.source_type_selector_title,
       leadingBuilder: (_, st) => st.icon(size: P5),
-      subtitleBuilder: (_, st) => st.description.isNotEmpty ? SmallText(st.description) : null,
+      subtitleBuilder: (_, st) => st.description.isNotEmpty ? SmallText(st.description, maxLines: 1) : null,
     );

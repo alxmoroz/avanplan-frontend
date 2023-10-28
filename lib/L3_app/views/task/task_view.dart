@@ -123,7 +123,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
         alignment: Alignment.bottomCenter,
         children: [
           MTPage(
-            appBar: taskNavBar(context, controller),
+            appBar: taskAppBar(context, controller),
             body: SafeArea(
               bottom: false,
               child: Column(

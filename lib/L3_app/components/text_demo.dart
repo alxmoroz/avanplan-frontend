@@ -36,7 +36,6 @@ class TextDemo extends StatelessWidget {
         _t(const H3('H3'), context),
         _t(const BaseText.medium('BaseText Medium'), context),
         _t(const BaseText('BaseText Regular'), context),
-        _t(const BaseText.light('BaseText Light'), context),
         _t(const SmallText('SmallText'), context),
       ],
     );

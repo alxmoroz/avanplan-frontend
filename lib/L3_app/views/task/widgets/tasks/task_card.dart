@@ -50,15 +50,11 @@ class TaskCard extends StatelessWidget {
 
   Color? get _textColor => task.closed || task.isImportingProject ? f2Color : null;
 
-  Widget get _parentTitle => SmallText(
-        '${task.project?.wsCode}${task.parent!.title}',
-        height: 1,
-        maxLines: 1,
-      );
+  Widget get _parentTitle => SmallText('${task.project?.wsCode}${task.parent!.title}', maxLines: 1);
 
   Widget get _title => Row(
         children: [
-          if (task.wsCode.isNotEmpty) BaseText.f2(task.wsCode),
+          if (task.wsCode.isNotEmpty) BaseText.f3(task.wsCode),
           Expanded(child: BaseText(task.title, maxLines: 2, color: _textColor)),
           if (!board && !task.isImportingProject) const ChevronIcon(),
         ],
@@ -67,7 +63,7 @@ class TaskCard extends StatelessWidget {
   Widget _error(String errText) => Row(children: [
         const ErrorIcon(),
         const SizedBox(width: P_2),
-        SmallText(errText, color: _textColor, height: 1, maxLines: 1),
+        SmallText(errText, color: _textColor, maxLines: 1),
       ]);
 
   bool get _showDate => task.hasDueDate && !task.closed && task.isTask;
@@ -77,12 +73,12 @@ class TaskCard extends StatelessWidget {
         children: [
           CalendarIcon(color: _dateColor, size: P3),
           const SizedBox(width: P_2),
-          SmallText(task.dueDate!.strMedium, color: _dateColor, height: 1),
+          SmallText(task.dueDate!.strMedium, color: _dateColor, maxLines: 1),
         ],
       );
 
   bool get _showStatus => task.hasStatus && !board && !task.closed;
-  Widget get _status => SmallText('${task.status}', color: _textColor, height: 1);
+  Widget get _status => SmallText('${task.status}', color: _textColor, maxLines: 1);
 
   bool get _showAssignee => task.hfsTeam && task.hasAssignee && !isMine;
   Widget get _assignee => task.assignee!.icon(P * (board ? 2 : 2.7));
@@ -90,7 +86,7 @@ class TaskCard extends StatelessWidget {
   bool get _showAttachmentsMark => !task.closed && task.attachments.isNotEmpty;
   Widget get _attachmentsMark => Row(
         children: [
-          SmallText('${task.attachments.length} ', color: f2Color, height: 1),
+          SmallText('${task.attachments.length} ', color: f2Color, maxLines: 1),
           const AttachmentIcon(size: P3, color: f2Color),
         ],
       );
@@ -98,7 +94,7 @@ class TaskCard extends StatelessWidget {
   bool get _showNotesMark => !task.closed && task.notes.isNotEmpty;
   Widget get _notesMark => Row(
         children: [
-          SmallText('${task.notes.length} ', color: f2Color, height: 1),
+          SmallText('${task.notes.length} ', color: f2Color, maxLines: 1),
           NoteMarkIcon(
             mine: task.notes.any((n) => n.isMine(task)),
             theirs: task.notes.any((n) => !n.isMine(task)),
@@ -107,7 +103,7 @@ class TaskCard extends StatelessWidget {
       );
 
   bool get _showEstimate => task.hfsEstimates && task.hasEstimate && !task.closed;
-  Widget get _estimate => SmallText('${(task.openedVolume ?? task.estimate)?.round()} ${task.ws.estimateUnitCode}', color: _textColor, height: 1);
+  Widget get _estimate => SmallText('${(task.openedVolume ?? task.estimate)?.round()} ${task.ws.estimateUnitCode}', color: _textColor, maxLines: 1);
 
   Widget get _divider => const Padding(
         padding: EdgeInsets.symmetric(horizontal: P),

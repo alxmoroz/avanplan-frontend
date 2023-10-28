@@ -4,11 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/workspace.dart';
-import '../../../../components/colors.dart';
+import '../../../../components/button.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/icons.dart';
+import '../../../../components/icons_workspace.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
@@ -32,22 +33,25 @@ class WSSelector extends StatelessWidget {
           itemCount: _wss.length + (_canCreate ? 1 : 0),
           itemBuilder: (_, index) {
             if (index == _wss.length) {
-              return MTListTile(
+              return MTButton.secondary(
                 leading: const PlusIcon(),
-                middle: BaseText.medium(loc.workspace_my_title, color: mainColor),
-                bottomDivider: false,
+                margin: const EdgeInsets.only(bottom: P3),
+                titleText: loc.workspace_my_title,
                 onTap: () => Navigator.of(context).pop(-1),
-                padding: const EdgeInsets.all(P).copyWith(right: P3),
               );
             } else {
               final ws = _wss[index];
               final canSelect = ws.hpProjectCreate;
               return MTListTile(
-                middle: BaseText.medium(ws.title, color: canSelect ? null : f2Color),
-                trailing: canSelect ? const ChevronIcon() : const PrivacyIcon(),
+                leading: ws.isMine
+                    ? const WSIcon(size: P5)
+                    : canSelect
+                        ? null
+                        : const PrivacyIcon(color: f3Color, size: P5),
+                middle: BaseText(ws.title, color: canSelect ? null : f2Color),
+                trailing: canSelect ? const ChevronIcon() : null,
                 bottomDivider: index < _wss.length - 1,
                 onTap: canSelect ? () => Navigator.of(context).pop(ws.id) : null,
-                padding: const EdgeInsets.all(P2).copyWith(right: canSelect ? P3 : P2),
               );
             }
           },

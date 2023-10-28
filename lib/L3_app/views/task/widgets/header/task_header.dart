@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../../L2_data/services/platform.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
@@ -38,8 +39,8 @@ class TaskHeader extends StatelessWidget {
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              if (isWeb) const SizedBox(height: P),
               if (_task.parent != null)
                 MTField(
                   controller.fData(TaskFCode.parent.index),
@@ -65,7 +66,7 @@ class TaskHeader extends StatelessWidget {
                   style: const H1('').style(context),
                   onChanged: controller.titleController.editTitle,
                 ),
-                padding: const EdgeInsets.symmetric(vertical: 0, horizontal: P3),
+                padding: EdgeInsets.symmetric(horizontal: P3, vertical: isWeb ? P : 0),
                 color: b2Color,
               ),
               const SizedBox(height: P),

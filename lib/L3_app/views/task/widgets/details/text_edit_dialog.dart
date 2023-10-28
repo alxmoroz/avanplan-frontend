@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../../../L2_data/services/platform.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
@@ -37,7 +38,7 @@ class TextEditDialog extends StatelessWidget {
                 child: MTTextField(
                   controller: _tc,
                   margin: EdgeInsets.zero,
-                  padding: const EdgeInsets.all(P2),
+                  padding: EdgeInsets.symmetric(horizontal: P2, vertical: P2 * (isWeb ? 1.35 : 1)),
                   maxLines: 10,
                 ),
               ),

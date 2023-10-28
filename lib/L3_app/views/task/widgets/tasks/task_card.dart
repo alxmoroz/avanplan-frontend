@@ -54,7 +54,6 @@ class TaskCard extends StatelessWidget {
 
   Widget get _title => Row(
         children: [
-          if (task.wsCode.isNotEmpty) BaseText.f3(task.wsCode),
           Expanded(child: BaseText(task.title, maxLines: 2, color: _textColor)),
           if (!board && !task.isImportingProject) const ChevronIcon(),
         ],
@@ -129,7 +128,8 @@ class TaskCard extends StatelessWidget {
               Expanded(child: TaskStateTitle(task, place: StateTitlePlace.card)),
               if (_showAttachmentsMark) ...[_attachmentsMark],
               if (_showNotesMark) ...[if (_showAttachmentsMark) _divider, _notesMark],
-              if (task.isLinkedProject) ...[if (_showAttachmentsMark || _showNotesMark) _divider, const LinkIcon(color: f2Color)]
+              if (task.isLinkedProject) ...[if (_showAttachmentsMark || _showNotesMark) _divider, const LinkIcon(color: f2Color)],
+              if (task.wsCode.isNotEmpty) SmallText(task.wsCode, color: f3Color, maxLines: 1),
             ]),
             // листья - срок, метка комментов, оценка, статус, назначено
           ] else if (!task.isBacklog) ...[

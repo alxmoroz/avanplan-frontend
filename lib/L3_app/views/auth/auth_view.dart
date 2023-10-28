@@ -95,7 +95,7 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
                         _authBtn(
                           googleIcon,
                           loc.auth_sign_in_google_title,
-                          MIN_BTN_HEIGHT,
+                          MIN_BTN_HEIGHT - 2,
                           authController.signInGoogle,
                         ),
                         // для Андроида не показываем SignInWithApple
@@ -103,7 +103,7 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
                           _authBtn(
                             appleIcon,
                             loc.auth_sign_in_apple_title,
-                            MIN_BTN_HEIGHT,
+                            MIN_BTN_HEIGHT - 2,
                             authController.signInApple,
                           ),
                       ],

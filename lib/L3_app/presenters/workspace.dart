@@ -31,5 +31,5 @@ extension WSPresenter on Workspace {
 
   String get estimateUnitCode => '${settings?.estimateUnit ?? ''}';
 
-  String get codeStr => wsMainController.multiWS ? '[$code] ' : '';
+  String get codeStr => wsMainController.multiWS ? '$code ' : '';
 }

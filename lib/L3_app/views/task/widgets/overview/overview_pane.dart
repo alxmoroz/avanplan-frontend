@@ -19,6 +19,7 @@ import '../../../../presenters/task_stats.dart';
 import '../../../../presenters/task_tree.dart';
 import '../../../../presenters/task_view.dart';
 import '../../../../usecases/task_actions.dart';
+import '../../../../usecases/task_feature_sets.dart';
 import '../../controllers/task_controller.dart';
 import '../empty_state/no_tasks.dart';
 import '../header/state_title.dart';
@@ -50,7 +51,7 @@ class OverviewPane extends StatelessWidget {
                 BaseText(loc.recommendation_close_tasks_hint, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P3)),
                 const SizedBox(height: P3),
                 MTButton.main(
-                  titleText: _task.isProject ? loc.recommendation_goto_goals : loc.recommendation_goto_tasks,
+                  titleText: _task.isProject && _task.hfsGoals ? loc.recommendation_goto_goals : loc.recommendation_goto_tasks,
                   onTap: () => controller.selectTab(TaskTabKey.subtasks),
                 ),
               ],

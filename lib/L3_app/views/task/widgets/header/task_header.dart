@@ -40,12 +40,11 @@ class TaskHeader extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (isWeb) const SizedBox(height: P),
               if (_task.parent != null)
                 MTField(
                   controller.fData(TaskFCode.parent.index),
                   value: BaseText(_task.parent!.title, maxLines: 2),
-                  padding: const EdgeInsets.symmetric(horizontal: P3),
+                  padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: isWeb ? P : P_2),
                   color: b2Color,
                   minHeight: P5,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -57,6 +56,7 @@ class TaskHeader extends StatelessWidget {
                   readOnly: !_task.canEdit,
                   autofocus: _task.isNew,
                   margin: EdgeInsets.zero,
+                  maxLines: 5,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     contentPadding: EdgeInsets.zero,
@@ -66,7 +66,7 @@ class TaskHeader extends StatelessWidget {
                   style: const H1('').style(context),
                   onChanged: controller.titleController.editTitle,
                 ),
-                padding: EdgeInsets.symmetric(horizontal: P3, vertical: isWeb ? P : 0),
+                padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: isWeb ? P2 : P_2),
                 color: b2Color,
               ),
               const SizedBox(height: P),

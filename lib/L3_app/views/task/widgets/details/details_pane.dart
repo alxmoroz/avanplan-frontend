@@ -94,7 +94,7 @@ class DetailsPane extends StatelessWidget {
                       : PersonIcon(
                           color: _task.canAssign ? mainColor : f2Color,
                         ),
-                  value: _task.hasAssignee ? BaseText('${_task.assignee}', color: _task.canAssign ? null : f2Color) : null,
+                  value: _task.hasAssignee ? BaseText('${_task.assignee}', color: _task.canAssign ? null : f2Color, maxLines: 1) : null,
                   onSelect: _task.canAssign ? controller.assigneeController.assign : null,
                 ),
               ],
@@ -129,7 +129,9 @@ class DetailsPane extends StatelessWidget {
                   controller.fData(TaskFCode.estimate.index),
                   margin: const EdgeInsets.only(top: P3),
                   leading: EstimateIcon(color: _task.canEstimate ? mainColor : f3Color),
-                  value: _task.hasEstimate ? BaseText('${(_task.openedVolume ?? _task.estimate)?.round()} ${_task.ws.estimateUnitCode}') : null,
+                  value: _task.hasEstimate
+                      ? BaseText('${(_task.openedVolume ?? _task.estimate)?.round()} ${_task.ws.estimateUnitCode}', maxLines: 1)
+                      : null,
                   onSelect: _task.canEstimate ? controller.estimateController.select : null,
                 ),
 
@@ -142,7 +144,7 @@ class DetailsPane extends StatelessWidget {
                   value: Row(children: [
                     Expanded(child: BaseText(controller.attachmentsController.attachmentsStr, maxLines: 1)),
                     if (controller.attachmentsController.attachmentsCountMoreStr.isNotEmpty)
-                      BaseText.f2(controller.attachmentsController.attachmentsCountMoreStr)
+                      BaseText.f2(controller.attachmentsController.attachmentsCountMoreStr, maxLines: 1)
                   ]),
                   onSelect: () => showAttachmentsDialog(controller.attachmentsController),
                 ),
@@ -153,7 +155,7 @@ class DetailsPane extends StatelessWidget {
                   controller.fData(TaskFCode.author.index),
                   margin: const EdgeInsets.only(top: P3),
                   leading: _task.author!.icon(P3, borderColor: f3Color),
-                  value: BaseText.f2('${_task.author}'),
+                  value: BaseText.f2('${_task.author}', maxLines: 1),
                 ),
 
               /// FeatureSets
@@ -185,10 +187,8 @@ class DetailsPane extends StatelessWidget {
                 MTField(
                   controller.fData(TaskFCode.note.index),
                   margin: const EdgeInsets.only(top: P3),
-                  value: BaseText.f2(
-                    controller.fData(TaskFCode.note.index).placeholder,
-                    padding: const EdgeInsets.symmetric(vertical: P),
-                  ),
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  value: BaseText.f2(controller.fData(TaskFCode.note.index).placeholder, maxLines: 1),
                   leading: const NoteAddIcon(),
                   onSelect: controller.notesController.create,
                 ),

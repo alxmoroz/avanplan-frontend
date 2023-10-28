@@ -47,6 +47,7 @@ class MTButton extends StatelessWidget with FocusManaging {
     this.loading,
     this.type = ButtonType.text,
     this.uf = true,
+    this.minSize,
   });
 
   const MTButton.main({
@@ -64,6 +65,7 @@ class MTButton extends StatelessWidget with FocusManaging {
     this.elevation,
     this.loading,
     this.uf = true,
+    this.minSize,
   }) : type = ButtonType.main;
 
   const MTButton.secondary({
@@ -81,6 +83,7 @@ class MTButton extends StatelessWidget with FocusManaging {
     this.elevation,
     this.loading,
     this.uf = true,
+    this.minSize,
   }) : type = ButtonType.secondary;
 
   const MTButton.icon(
@@ -93,6 +96,7 @@ class MTButton extends StatelessWidget with FocusManaging {
     this.onTap,
     this.onLongPress,
     this.uf = true,
+    this.minSize,
   })  : type = ButtonType.icon,
         middle = icon,
         titleText = null,
@@ -116,6 +120,7 @@ class MTButton extends StatelessWidget with FocusManaging {
   final double? elevation;
   final bool? loading;
   final bool uf;
+  final Size? minSize;
 
   bool get _enabled => loading != true && (onTap != null || onLongPress != null);
   bool get _custom => [ButtonType.card].contains(type);
@@ -131,7 +136,7 @@ class MTButton extends StatelessWidget with FocusManaging {
       backgroundColor: _btnColor,
       disabledForegroundColor: _btnColor,
       disabledBackgroundColor: _btnColor,
-      minimumSize: const Size(MIN_BTN_HEIGHT, MIN_BTN_HEIGHT),
+      minimumSize: minSize ?? const Size(MIN_BTN_HEIGHT, MIN_BTN_HEIGHT),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(_radius)),
       side: type == ButtonType.secondary ? BorderSide(color: _titleColor.resolve(context), width: 1) : BorderSide.none,
       splashFactory: NoSplash.splashFactory,

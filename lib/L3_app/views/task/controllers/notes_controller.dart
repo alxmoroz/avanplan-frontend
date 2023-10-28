@@ -10,9 +10,10 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../../L1_domain/utils/dates.dart';
 import '../../../components/constants.dart';
 import '../../../components/dialog.dart';
+import '../../../extra/services.dart';
 import '../../../usecases/note_edit.dart';
 import '../../../usecases/task_actions.dart';
-import '../widgets/details/note_dialog.dart';
+import '../widgets/details/text_edit_dialog.dart';
 import 'task_controller.dart';
 
 part 'notes_controller.g.dart';
@@ -44,10 +45,9 @@ abstract class _NotesControllerBase with Store {
 
   Future edit(Note note) async {
     final fIndex = TaskFCode.note.index;
-
     final tc = taskController.teController(fIndex)!;
     tc.text = note.text;
-    if (await showMTDialog<bool?>(NoteDialog(taskController), maxWidth: SCR_M_WIDTH) == true) {
+    if (await showMTDialog<bool?>(TextEditDialog(taskController, TaskFCode.note, loc.task_note_title), maxWidth: SCR_M_WIDTH) == true) {
       // добавление или редактирование
       final newValue = tc.text;
       final oldValue = note.text;

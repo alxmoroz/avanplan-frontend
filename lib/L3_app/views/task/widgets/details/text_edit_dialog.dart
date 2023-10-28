@@ -1,6 +1,6 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../components/button.dart';
@@ -11,20 +11,21 @@ import '../../../../components/field_data.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/text_field.dart';
 import '../../../../components/toolbar.dart';
-import '../../../../extra/services.dart';
 import '../../controllers/task_controller.dart';
 
-class NoteDialog extends StatelessWidget {
-  const NoteDialog(this._controller);
+class TextEditDialog extends StatelessWidget {
+  const TextEditDialog(this._controller, this._fCode, this._title);
   final TaskController _controller;
+  final TaskFCode _fCode;
+  final String _title;
 
-  MTFieldData get _fd => _controller.fData(TaskFCode.note.index);
-  TextEditingController get _tc => _controller.teController(TaskFCode.note.index)!;
+  MTFieldData get _fd => _controller.fData(_fCode.index);
+  TextEditingController get _tc => _controller.teController(_fCode.index)!;
 
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTTopBar(titleText: loc.task_note_title),
+      topBar: MTTopBar(titleText: _title),
       body: Observer(
         builder: (ctx) => Padding(
           padding: MediaQuery.paddingOf(ctx),
@@ -36,13 +37,16 @@ class NoteDialog extends StatelessWidget {
                 child: MTTextField(
                   controller: _tc,
                   margin: EdgeInsets.zero,
+                  padding: const EdgeInsets.all(P2),
                   maxLines: 10,
                 ),
               ),
               MTButton.main(
+                elevation: 0,
                 constrained: false,
+                minSize: const Size(P6, P6),
                 middle: const SubmitIcon(color: mainBtnTitleColor),
-                margin: const EdgeInsets.only(left: P, right: P2, bottom: P),
+                margin: const EdgeInsets.only(left: P2, right: P2, bottom: P),
                 onTap: _fd.text.trim().isNotEmpty ? () => Navigator.of(context).pop(true) : null,
               ),
             ],

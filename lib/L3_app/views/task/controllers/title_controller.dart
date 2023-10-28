@@ -5,9 +5,10 @@ import 'dart:async';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../components/constants.dart';
 import '../../../components/dialog.dart';
+import '../../../extra/services.dart';
 import '../../../presenters/task_tree.dart';
 import '../../../presenters/task_type.dart';
-import '../widgets/header/task_description_dialog.dart';
+import '../widgets/details/text_edit_dialog.dart';
 import 'task_controller.dart';
 
 class TitleController {
@@ -44,16 +45,21 @@ class TitleController {
   /// описание
 
   Future editDescription() async {
-    final tc = _taskController.teController(TaskFCode.description.index);
-    if (tc != null) {
-      await showMTDialog<void>(TaskDescriptionDialog(tc), maxWidth: SCR_M_WIDTH);
+    final fIndex = TaskFCode.description.index;
+    final tc = _taskController.teController(fIndex)!;
+    final fdText = _taskController.fData(fIndex).text;
+    tc.text = fdText.isNotEmpty ? fdText : task.description;
+    if (await showMTDialog<bool?>(TextEditDialog(_taskController, TaskFCode.description, loc.description), maxWidth: SCR_M_WIDTH) == true) {
       final newValue = tc.text;
-      if (task.description != newValue) {
-        final oldValue = task.description;
+      final oldValue = task.description;
+
+      if (newValue.trim().isNotEmpty && (task.description != newValue || task.isNew)) {
+        _taskController.updateField(fIndex, loading: true, text: '');
         task.description = newValue;
         if (!(await _taskController.saveField(TaskFCode.description))) {
           task.description = oldValue;
         }
+        _taskController.updateField(fIndex, loading: false);
       }
     }
   }

@@ -37,7 +37,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
   TaskController get controller => widget._controller;
   Task get task => controller.task;
 
-  late final OverviewPane overviewPane;
+  late OverviewPane overviewPane;
   late final TasksPane tasksPane;
   late final DetailsPane detailsPane;
   late final TeamPane teamPane;

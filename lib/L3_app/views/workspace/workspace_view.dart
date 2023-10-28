@@ -46,11 +46,11 @@ class WorkspaceView extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (ws.codeStr.isNotEmpty) Flexible(child: H3(ws.codeStr, color: f3Color), flex: 3),
-                Expanded(child: H2(ws.title, maxLines: 1), flex: 15),
+                if (ws.codeStr.isNotEmpty) H3(ws.codeStr, color: f3Color),
+                Flexible(child: H2(ws.title, maxLines: 1)),
               ],
             ),
-            if (ws.description.isNotEmpty) BaseText(ws.description),
+            if (ws.description.isNotEmpty) BaseText.f2(ws.description, maxLines: 3, padding: const EdgeInsets.only(top: P)),
           ],
         ),
       );

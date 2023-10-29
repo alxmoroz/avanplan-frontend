@@ -25,11 +25,9 @@ import 'task_selector.dart';
 
 Future localImportDialog(TaskController taskController) async {
   final destinationGoal = taskController.task;
-  final sourceGoalId = await selectTask(destinationGoal.goalsForLocalImport.sorted(sortByDateAsc), loc.task_transfer_source_hint);
+  final sourceGoal = await selectTask(destinationGoal.goalsForLocalImport.sorted(sortByDateAsc), loc.task_transfer_source_hint);
 
-  if (sourceGoalId != null) {
-    final sourceGoal = destinationGoal.goalsForLocalImport.firstWhere((g) => g.id == sourceGoalId);
-
+  if (sourceGoal != null) {
     await showMTDialog<void>(
       LocalImportDialog(
         LocalImportController(sourceGoal, taskController),

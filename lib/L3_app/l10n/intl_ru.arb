@@ -388,14 +388,12 @@
 
   "task_title": "Задача",
 
-  "task_transfer_destination_label": "Куда:",
   "task_transfer_destination_hint": "Выберите, куда перенести",
   "task_transfer_export_action_title": "Перенести",
   "task_transfer_import_action_title": "Перенести задачи",
   "task_transfer_import_confirm_action_title": "Перенести",
-  "task_transfer_source_label": "Откуда:",
   "task_transfer_source_hint": "Выберите, откуда перенести",
-  "task_transfer_title": "Перенос задач",
+  "task_transfer_title": "Перенос задач в ",
 
   "task_unlink_action_title": "Удалить связь",
   "task_unlink_dialog_description": "Вы не сможете загружать обновления. Изменения не попадут в источник",

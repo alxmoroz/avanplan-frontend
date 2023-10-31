@@ -388,14 +388,12 @@
 
   "task_title": "Task",
 
-  "task_transfer_destination_label": "To:",
   "task_transfer_destination_hint": "Select where to transfer",
   "task_transfer_import_action_title": "Transfer tasks",
   "task_transfer_export_action_title": "Transfer",
   "task_transfer_import_confirm_action_title": "Transfer",
-  "task_transfer_source_label": "From:",
   "task_transfer_source_hint": "Select where to transfer from",
-  "task_transfer_title": "Transfer tasks",
+  "task_transfer_title": "Transfer tasks to ",
 
   "task_unlink_action_title": "Delete link",
   "task_unlink_dialog_description": "You will not be able to download updates. Changes will not be upload to the source",

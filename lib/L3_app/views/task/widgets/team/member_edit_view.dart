@@ -61,6 +61,7 @@ class _MemberEditViewState extends State<MemberEditView> {
               BaseText.medium('$member', maxLines: 1),
               const SizedBox(height: P),
               task.subPageTitle(loc.role_list_title),
+              const SizedBox(height: P),
             ],
           ),
         ),

@@ -13,7 +13,6 @@ import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/icons.dart';
-import '../../../../components/list_tile.dart';
 import '../../../../components/shadowed.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
@@ -56,12 +55,15 @@ class LocalImportDialog extends StatelessWidget {
     );
   }
 
-  Widget _addressLine(String label, String title) => MTListTile(
-        leading: BaseText.f2(label),
-        middle: BaseText(title, maxLines: 1),
-        color: b2Color,
-        bottomDivider: false,
-        padding: const EdgeInsets.symmetric(horizontal: P3),
+  Widget _addressLine(String label, String title) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: P),
+        child: Row(
+          children: [
+            BaseText.f2(label, maxLines: 1),
+            const SizedBox(width: P),
+            BaseText(title, maxLines: 1),
+          ],
+        ),
       );
 
   @override
@@ -71,7 +73,7 @@ class LocalImportDialog extends StatelessWidget {
             middle: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                BaseText.medium(loc.task_transfer_title),
+                BaseText.medium(loc.task_transfer_title, maxLines: 1),
                 const SizedBox(height: P),
                 _addressLine(loc.task_transfer_source_label, '$_srcGoal'),
                 _addressLine(loc.task_transfer_destination_label, '$_dstGoal'),
@@ -84,12 +86,13 @@ class LocalImportDialog extends StatelessWidget {
                     onChanged: controller.toggleSelectedAll,
                   )
                 else
-                  const SizedBox(height: P2),
+                  const SizedBox(height: P),
               ],
             ),
           ),
-          topBarHeight: P * 17 + (P2 * (_showSelectAll ? 3 : 0)),
+          topBarHeight: P * 14.5 + (_showSelectAll ? P8 : 0),
           body: MTShadowed(
+            topPaddingIndent: 0,
             bottomShadow: true,
             child: ListView.builder(
               shrinkWrap: true,

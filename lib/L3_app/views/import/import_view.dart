@@ -118,6 +118,7 @@ class ImportView extends StatelessWidget {
         )
       : _hasSources
           ? MTShadowed(
+              topPaddingIndent: P,
               child: ListView.builder(
                 shrinkWrap: true,
                 itemBuilder: _projectItemBuilder,
@@ -167,7 +168,7 @@ class ImportView extends StatelessWidget {
             ],
           ),
         ),
-        topBarHeight: P8 + (_hasSources ? P * (14 + (_showSelectAll ? 8 : 0)) : 0),
+        topBarHeight: P8 + (_hasSources ? P * 13 + (_showSelectAll ? P8 : 0) : 0),
         body: _body(context),
         bottomBar: _bottomBar,
         bottomBarHeight: _hasProjects ? P * 19 : null,

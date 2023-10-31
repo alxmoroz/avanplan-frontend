@@ -3,18 +3,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../../L1_domain/entities/workspace.dart';
-import '../../../../components/button.dart';
-import '../../../../components/colors_base.dart';
-import '../../../../components/constants.dart';
-import '../../../../components/dialog.dart';
-import '../../../../components/icons.dart';
-import '../../../../components/icons_workspace.dart';
-import '../../../../components/list_tile.dart';
-import '../../../../components/text.dart';
-import '../../../../components/toolbar.dart';
-import '../../../../extra/services.dart';
-import '../../../../usecases/ws_actions.dart';
+import '../../../L1_domain/entities/workspace.dart';
+import '../../components/button.dart';
+import '../../components/constants.dart';
+import '../../components/dialog.dart';
+import '../../components/icons.dart';
+import '../../components/toolbar.dart';
+import '../../extra/services.dart';
+import '../../usecases/ws_actions.dart';
+import 'workspace_list_tile.dart';
 
 Future<int?> selectWS({bool canCreate = false}) async => await showMTDialog<int?>(WSSelector(canCreate));
 
@@ -42,16 +39,10 @@ class WSSelector extends StatelessWidget {
             } else {
               final ws = _wss[index];
               final canSelect = ws.hpProjectCreate;
-              return MTListTile(
-                leading: ws.isMine
-                    ? const WSIconHome(size: P5)
-                    : canSelect
-                        ? null
-                        : const PrivacyIcon(color: f3Color, size: P5),
-                middle: BaseText(ws.title, color: canSelect ? null : f2Color),
-                trailing: canSelect ? const ChevronIcon() : null,
-                bottomDivider: index < _wss.length - 1,
+              return WorkspaceListTile(
+                ws,
                 onTap: canSelect ? () => Navigator.of(context).pop(ws.id) : null,
+                bottomDivider: index < _wss.length - 1,
               );
             }
           },

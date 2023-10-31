@@ -15,18 +15,9 @@ extension WSPresenter on Workspace {
   List<User> get sortedUsers => users.sorted((u1, u2) => compareNatural('$u1', '$u2'));
   List<EstimateValue> get sortedEstimateValues => estimateValues.sortedBy<num>((e) => e.value);
 
-  Widget get subtitleRow => Row(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          BaseText.f3('$code '),
-          BaseText.f2('$this'),
-        ],
-      );
-
   Widget subPageTitle(String pageTitle) => Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [if (codeStr.isNotEmpty) BaseText.f3(codeStr, maxLines: 1), BaseText.medium(pageTitle, maxLines: 1)],
+        children: [if (codeStr.isNotEmpty) BaseText.f3('$codeStr ', maxLines: 1), BaseText.medium(pageTitle, maxLines: 1)],
       );
 
   String get estimateUnitCode => '${settings?.estimateUnit ?? ''}';

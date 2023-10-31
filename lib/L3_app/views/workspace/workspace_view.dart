@@ -45,9 +45,10 @@ class WorkspaceView extends StatelessWidget {
             const SizedBox(height: P),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Flexible(child: H2(_ws.title, maxLines: 1)),
-                if (_ws.codeStr.isNotEmpty) H2(' ${_ws.codeStr}', color: f3Color, maxLines: 1),
+                if (_ws.codeStr.isNotEmpty) H3(' ${_ws.codeStr}', color: f3Color, maxLines: 1),
               ],
             ),
             if (_ws.description.isNotEmpty)

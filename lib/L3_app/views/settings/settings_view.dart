@@ -19,6 +19,7 @@ import '../../extra/services.dart';
 import '../../usecases/communications.dart';
 import '../notification/notification_list_view.dart';
 import '../workspace/workspace_list_tile.dart';
+import '../workspace/workspace_view.dart';
 import 'account_list_tile.dart';
 import 'app_version.dart';
 
@@ -53,7 +54,11 @@ class SettingsView extends StatelessWidget {
             itemCount: _wss.length,
             itemBuilder: (_, index) {
               final ws = _wss[index];
-              return WorkspaceListTile(ws, bottomBorder: index < _wss.length - 1);
+              return WorkspaceListTile(
+                ws,
+                bottomDivider: index < _wss.length - 1,
+                onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(WorkspaceView.routeName, arguments: ws.id),
+              );
             },
           ),
         ],

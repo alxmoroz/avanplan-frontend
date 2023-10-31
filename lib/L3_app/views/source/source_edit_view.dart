@@ -128,16 +128,11 @@ class _SourceEditViewState extends State<SourceEditView> {
     return Observer(
       builder: (_) => MTDialog(
         topBar: MTTopBar(
-          middle: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(mainAxisSize: MainAxisSize.min, children: [
-                if (_isNew) BaseText.medium(loc.source_title_new, padding: const EdgeInsets.only(right: P2)),
-                controller.selectedType!.iconTitle(size: P4),
-              ]),
-              if (wsMainController.multiWS) controller.ws.subtitleRow
-            ],
-          ),
+          middle: Row(mainAxisSize: MainAxisSize.min, children: [
+            if (wsMainController.multiWS) BaseText.f3('${controller.ws.codeStr} ', maxLines: 1),
+            if (_isNew) BaseText('${loc.source_title_new} ', maxLines: 1),
+            controller.selectedType!.iconTitle(size: P4),
+          ]),
           trailing: controller.canEdit
               ? MTButton.icon(
                   const DeleteIcon(),
@@ -146,7 +141,6 @@ class _SourceEditViewState extends State<SourceEditView> {
                 )
               : null,
         ),
-        topBarHeight: P8 + (wsMainController.multiWS ? P4 : 0),
         body: _form,
       ),
     );

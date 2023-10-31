@@ -21,10 +21,12 @@ class CreateTaskButton extends StatelessWidget {
     TaskController parentTaskController, {
     bool compact = false,
     bool uf = true,
+    EdgeInsets? margin,
     ButtonType? type,
     Function()? onTap,
   })  : _parentTaskController = parentTaskController,
         _compact = compact,
+        _margin = margin,
         _uf = uf,
         _onTap = onTap,
         _type = type;
@@ -32,6 +34,7 @@ class CreateTaskButton extends StatelessWidget {
   final TaskController _parentTaskController;
   final bool _compact;
   final bool _uf;
+  final EdgeInsets? _margin;
   final ButtonType? _type;
   final Function()? _onTap;
 
@@ -56,7 +59,7 @@ class CreateTaskButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTBadgeButton(
-      margin: EdgeInsets.only(right: _compact ? P3 : 0),
+      margin: _margin ?? EdgeInsets.only(right: _compact ? P3 : 0),
       showBadge: !_ws.plCreate(_parent),
       type: _type ?? ButtonType.main,
       leading: _compact ? null : _plusIcon,

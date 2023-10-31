@@ -168,7 +168,7 @@ class TaskCard extends StatelessWidget {
             MTListTile(
               leading: showStateMark ? const SizedBox(width: P) : null,
               middle: _taskContent,
-              dividerLeftIndent: showStateMark ? P6 : 0,
+              dividerIndent: showStateMark ? P6 : 0,
               bottomDivider: bottomDivider,
               // color: task.isImportingProject ? b1Color : null,
               onTap: task.isImportingProject ? null : _tap,

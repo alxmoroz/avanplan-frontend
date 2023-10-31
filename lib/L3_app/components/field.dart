@@ -16,7 +16,7 @@ class MTField extends StatelessWidget {
     this.leading,
     this.value,
     this.bottomDivider = false,
-    this.dividerStartIndent,
+    this.dividerIndent,
     this.margin,
     this.padding,
     this.color,
@@ -30,7 +30,7 @@ class MTField extends StatelessWidget {
   final VoidCallback? onSelect;
 
   final bool bottomDivider;
-  final double? dividerStartIndent;
+  final double? dividerIndent;
   final EdgeInsets? margin;
   final EdgeInsets? padding;
   final Color? color;
@@ -49,7 +49,7 @@ class MTField extends StatelessWidget {
           middle: _hasValue && fd.label.isNotEmpty ? SmallText(fd.label, color: f3Color, maxLines: 1) : null,
           subtitle: _hasValue ? value : BaseText.f3(fd.placeholder, maxLines: 1),
           bottomDivider: bottomDivider,
-          dividerLeftIndent: dividerStartIndent,
+          dividerIndent: dividerIndent,
           onTap: onSelect,
           crossAxisAlignment: crossAxisAlignment ?? (_hasValue ? CrossAxisAlignment.start : null),
           margin: margin,

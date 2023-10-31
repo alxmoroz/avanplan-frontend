@@ -44,7 +44,7 @@ class WSSelector extends StatelessWidget {
               final canSelect = ws.hpProjectCreate;
               return MTListTile(
                 leading: ws.isMine
-                    ? const WSIcon(size: P5)
+                    ? const WSIconHome(size: P5)
                     : canSelect
                         ? null
                         : const PrivacyIcon(color: f3Color, size: P5),

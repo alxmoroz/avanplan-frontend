@@ -19,7 +19,7 @@ extension WSPresenter on Workspace {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          BaseText.f3('[$code] '),
+          BaseText.f3('$code '),
           BaseText.f2('$this'),
         ],
       );
@@ -31,5 +31,5 @@ extension WSPresenter on Workspace {
 
   String get estimateUnitCode => '${settings?.estimateUnit ?? ''}';
 
-  String get codeStr => wsMainController.multiWS ? '$code ' : '';
+  String get codeStr => wsMainController.multiWS ? code : '';
 }

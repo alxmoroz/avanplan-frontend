@@ -46,11 +46,17 @@ class WorkspaceView extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (_ws.codeStr.isNotEmpty) H3(_ws.codeStr, color: f3Color),
                 Flexible(child: H2(_ws.title, maxLines: 1)),
+                if (_ws.codeStr.isNotEmpty) H2(' ${_ws.codeStr}', color: f3Color, maxLines: 1),
               ],
             ),
-            if (_ws.description.isNotEmpty) BaseText.f2(_ws.description, maxLines: 3, padding: const EdgeInsets.only(top: P)),
+            if (_ws.description.isNotEmpty)
+              BaseText.f2(
+                _ws.description,
+                maxLines: 3,
+                padding: const EdgeInsets.only(top: P),
+                align: TextAlign.center,
+              ),
           ],
         ),
       );

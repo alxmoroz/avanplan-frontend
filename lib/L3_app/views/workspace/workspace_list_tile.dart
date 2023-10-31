@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
 import '../../../main.dart';
+import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/icons_workspace.dart';
@@ -25,16 +26,14 @@ class WorkspaceListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTListTile(
-      middle: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          if (ws.isMine) ...[const WSIcon(), const SizedBox(width: P_2)],
-          if (ws.code.isNotEmpty && wsMainController.multiWS) BaseText.f2('${ws.code} ', maxLines: 1),
-          Expanded(child: BaseText(ws.title, maxLines: 1)),
-        ],
-      ),
-      subtitle: ws.description.isNotEmpty && wsMainController.multiWS ? SmallText(ws.description, maxLines: 2) : null,
-      trailing: const ChevronIcon(),
+      dividerIndent: P * 11,
+      leading: ws.isMine ? const WSIconHome() : const WSIconPublic(),
+      middle: Row(children: [
+        Expanded(child: BaseText(ws.title, maxLines: 1)),
+        if (ws.code.isNotEmpty && wsMainController.multiWS) SmallText(ws.code, maxLines: 1, color: f3Color),
+        const ChevronIcon(),
+      ]),
+      subtitle: ws.description.isNotEmpty ? SmallText(ws.description, maxLines: 2) : null,
       bottomDivider: bottomBorder,
       onTap: _showWorkspace,
     );

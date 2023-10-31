@@ -19,7 +19,7 @@ class ReportErrorButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTButton.secondary(
-      leading: MailIcon(color: titleColor),
+      leading: MailIcon(color: titleColor, size: P4),
       titleText: loc.report_bug_action_title,
       titleColor: titleColor,
       color: color,

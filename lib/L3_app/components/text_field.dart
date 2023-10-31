@@ -71,6 +71,7 @@ class MTTextField extends StatelessWidget {
     this.suffixIcon,
     this.onTap,
     this.onChanged,
+    this.onSubmitted,
     this.style,
     this.decoration,
   });
@@ -94,6 +95,7 @@ class MTTextField extends StatelessWidget {
         suggestions = false,
         keyboardType = null,
         onChanged = null,
+        onSubmitted = null,
         style = null,
         readOnly = true;
 
@@ -117,6 +119,7 @@ class MTTextField extends StatelessWidget {
   final TextStyle? style;
   final VoidCallback? onTap;
   final Function(String)? onChanged;
+  final Function(String)? onSubmitted;
 
   @override
   Widget build(BuildContext context) {
@@ -155,6 +158,7 @@ class MTTextField extends StatelessWidget {
             readOnly: readOnly,
             onTap: onTap,
             onChanged: onChanged,
+            onSubmitted: onSubmitted,
           ),
         ),
       ),

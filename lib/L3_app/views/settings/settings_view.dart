@@ -46,7 +46,7 @@ class SettingsView extends StatelessWidget {
   Widget get _workspaces => Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          MTListSection(loc.workspaces_title),
+          MTListSection(titleText: loc.workspaces_title),
           ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
@@ -62,7 +62,7 @@ class SettingsView extends StatelessWidget {
   Widget get _about => Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          MTListSection(loc.about_service_title),
+          MTListSection(titleText: loc.about_service_title),
           MTListTile(
             leading: const MailIcon(),
             titleText: loc.contact_us_title,

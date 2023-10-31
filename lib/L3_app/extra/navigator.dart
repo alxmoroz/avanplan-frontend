@@ -15,6 +15,7 @@ import '../views/settings/settings_view.dart';
 import '../views/source/source_list_view.dart';
 import '../views/task/controllers/task_controller.dart';
 import '../views/task/task_view.dart';
+import '../views/task/widgets/create/create_multitask_quiz_view.dart';
 import '../views/task/widgets/create/create_task_quiz_view.dart';
 import '../views/task/widgets/feature_sets/feature_sets.dart';
 import '../views/task/widgets/team/member_view.dart';
@@ -59,6 +60,9 @@ CupertinoPageRoute? cupertinoPageRoute(RouteSettings rs) {
   } else if ([CreateTaskQuizView.routeNameProject, CreateTaskQuizView.routeNameGoal].contains(rs.name)) {
     final args = rs.arguments as CreateTaskQuizArgs;
     p = CreateTaskQuizView(args);
+  } else if (rs.name == CreateMultiTaskQuizView.routeName) {
+    final args = rs.arguments as CreateMultiTaskQuizArgs;
+    p = CreateMultiTaskQuizView(args);
   } else if (rs.name == MemberView.routeName) {
     final args = rs.arguments as MemberViewArgs;
     p = MemberView(args);
@@ -103,9 +107,10 @@ class MTRouteObserver extends NavigatorObserver {
           title = TaskView.title(rs.arguments as TaskController);
         } else if ([CreateTaskQuizView.routeNameProject, CreateTaskQuizView.routeNameGoal].contains(name)) {
           title = CreateTaskQuizView.title(rs.arguments as CreateTaskQuizArgs);
+        } else if (name == CreateMultiTaskQuizView.routeName) {
+          title = CreateMultiTaskQuizView.title(rs.arguments as CreateMultiTaskQuizArgs);
         } else if (name == MemberView.routeName) {
-          final args = rs.arguments as MemberViewArgs;
-          title = MemberView.title(args);
+          title = MemberView.title(rs.arguments as MemberViewArgs);
         } else if (name == UserView.routeName) {
           final user = rs.arguments as User;
           title = UserView.title(user);

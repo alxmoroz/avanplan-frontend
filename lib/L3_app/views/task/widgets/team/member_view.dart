@@ -63,7 +63,7 @@ class _MemberViewState extends State<MemberView> {
                 H3('$member', align: TextAlign.center),
                 BaseText(member.email, align: TextAlign.center),
                 if (member.roles.isNotEmpty) ...[
-                  MTListSection(loc.role_list_title),
+                  MTListSection(titleText: loc.role_list_title),
                   MTListTile(
                     middle: BaseText(member.rolesStr),
                     trailing: task.canEditMembers ? const EditIcon() : null,

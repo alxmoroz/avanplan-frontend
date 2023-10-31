@@ -40,7 +40,7 @@ class UserView extends StatelessWidget {
               H2('$_user', align: TextAlign.center),
               BaseText(_user.email, align: TextAlign.center),
               if (_user.roles.isNotEmpty) ...[
-                MTListSection(loc.role_list_title),
+                MTListSection(titleText: loc.role_list_title),
                 MTListTile(
                   titleText: _user.rolesStr,
                   // trailing: ws.canEditUsers ? MTButton.icon(const EditIcon(), () => controller.editUser(context)) : null,

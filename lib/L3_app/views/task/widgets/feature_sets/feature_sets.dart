@@ -48,7 +48,7 @@ class _FSBody extends StatelessWidget {
         child: ListView(
           shrinkWrap: shrinkWrap,
           children: [
-            MTListSection(loc.feature_sets_always_on_label),
+            MTListSection(titleText: loc.feature_sets_always_on_label),
             MTCheckBoxTile(
               leading: MTImage(ImageName.fs_task_list.name, width: P8, height: P7),
               title: loc.feature_set_tasklist_title,
@@ -56,7 +56,7 @@ class _FSBody extends StatelessWidget {
               value: true,
               bottomDivider: false,
             ),
-            MTListSection(loc.feature_sets_available_label),
+            MTListSection(titleText: loc.feature_sets_available_label),
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),

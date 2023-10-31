@@ -36,7 +36,7 @@ class WorkspaceView extends StatelessWidget {
   static String get routeName => '/workspace';
   static String title(int wsId) => '${loc.workspace_title}: ${wsMainController.wsForId(wsId)}';
 
-  Workspace get ws => wsMainController.wsForId(_wsId);
+  Workspace get _ws => wsMainController.wsForId(_wsId);
 
   Widget get _header => Padding(
         padding: const EdgeInsets.symmetric(horizontal: P3),
@@ -46,11 +46,11 @@ class WorkspaceView extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (ws.codeStr.isNotEmpty) H3(ws.codeStr, color: f3Color),
-                Flexible(child: H2(ws.title, maxLines: 1)),
+                if (_ws.codeStr.isNotEmpty) H3(_ws.codeStr, color: f3Color),
+                Flexible(child: H2(_ws.title, maxLines: 1)),
               ],
             ),
-            if (ws.description.isNotEmpty) BaseText.f2(ws.description, maxLines: 3, padding: const EdgeInsets.only(top: P)),
+            if (_ws.description.isNotEmpty) BaseText.f2(_ws.description, maxLines: 3, padding: const EdgeInsets.only(top: P)),
           ],
         ),
       );
@@ -62,12 +62,12 @@ class WorkspaceView extends StatelessWidget {
             children: [
               BaseText.f2(loc.balance_amount_title),
               const SizedBox(height: P2),
-              MTCurrency(ws.balance, color: ws.balance < 0 ? warningColor : mainColor),
+              MTCurrency(_ws.balance, color: _ws.balance < 0 ? warningColor : mainColor),
               const SizedBox(height: P2),
-              if (ws.hpTariffUpdate) BaseText.medium(loc.balance_replenish_action_title, color: mainColor),
+              if (_ws.hpTariffUpdate) BaseText.medium(loc.balance_replenish_action_title, color: mainColor),
             ],
           ),
-          onTap: ws.hpTariffUpdate ? () => purchaseDialog(_wsId) : null,
+          onTap: _ws.hpTariffUpdate ? () => purchaseDialog(_wsId) : null,
         ),
       );
 
@@ -75,29 +75,30 @@ class WorkspaceView extends StatelessWidget {
         leading: const TariffIcon(),
         titleText: loc.tariff_title,
         subtitle: SmallText(
-            '${ws.invoice.tariff.title} (${loc.contract_effective_date_title.toLowerCase()} ${ws.invoice.contract.createdOn.strMedium})',
-            maxLines: 1),
+          '${_ws.invoice.tariff.title} (${loc.contract_effective_date_title.toLowerCase()} ${_ws.invoice.contract.createdOn.strMedium})',
+          maxLines: 1,
+        ),
         trailing: const ChevronIcon(),
         bottomDivider: false,
-        onTap: () async => await ws.changeTariff(),
+        onTap: () async => await _ws.changeTariff(),
       );
 
   Widget get _users => MTListTile(
         leading: const PeopleIcon(size: P6),
         titleText: loc.user_list_title,
-        subtitle: SmallText('${ws.users.length} / ${ws.maxUsers}'),
+        subtitle: SmallText('${_ws.users.length} / ${_ws.maxUsers}', maxLines: 1),
         trailing: const ChevronIcon(),
-        onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(UserListView.routeName, arguments: ws.id),
+        onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(UserListView.routeName, arguments: _ws.id),
       );
 
   Widget get _sources => MTListTile(
       leading: const ImportIcon(),
-      titleText: '${loc.source_list_title} ${ws.sources.isNotEmpty ? '(${ws.sources.length})' : ''}',
+      titleText: '${loc.source_list_title} ${_ws.sources.isNotEmpty ? '(${_ws.sources.length})' : ''}',
       trailing: const ChevronIcon(),
       bottomDivider: false,
       onTap: () async {
-        ws.checkSources();
-        await Navigator.of(rootKey.currentContext!).pushNamed(SourceListView.routeName, arguments: ws.id);
+        _ws.checkSources();
+        await Navigator.of(rootKey.currentContext!).pushNamed(SourceListView.routeName, arguments: _ws.id);
       });
 
   @override
@@ -106,10 +107,10 @@ class WorkspaceView extends StatelessWidget {
       builder: (_) => MTPage(
         appBar: MTAppBar(context,
             title: loc.workspace_title,
-            trailing: ws.hpInfoUpdate
+            trailing: _ws.hpInfoUpdate
                 ? MTButton.icon(
                     const EditIcon(),
-                    onTap: () => editWSDialog(ws),
+                    onTap: () => editWSDialog(_ws),
                     margin: const EdgeInsets.only(right: P2),
                   )
                 : null),
@@ -122,8 +123,8 @@ class WorkspaceView extends StatelessWidget {
               _balance,
               _tariff,
               const SizedBox(height: P3),
-              if (ws.hpMemberRead) _users,
-              if (ws.hpSourceCreate) _sources,
+              if (_ws.hpMemberRead) _users,
+              if (_ws.hpSourceCreate) _sources,
             ],
           ),
         ),

@@ -20,15 +20,25 @@ class CreateTaskButton extends StatelessWidget {
   const CreateTaskButton(
     TaskController parentTaskController, {
     bool compact = false,
+    bool uf = true,
+    ButtonType? type,
+    Function()? onTap,
   })  : _parentTaskController = parentTaskController,
-        _compact = compact;
+        _compact = compact,
+        _uf = uf,
+        _onTap = onTap,
+        _type = type;
 
   final TaskController _parentTaskController;
   final bool _compact;
+  final bool _uf;
+  final ButtonType? _type;
+  final Function()? _onTap;
+
   Workspace get _ws => _parent.ws;
   Task get _parent => _parentTaskController.task;
 
-  Widget get _plusIcon => const PlusIcon(color: mainBtnTitleColor);
+  Widget get _plusIcon => PlusIcon(color: _type == ButtonType.secondary ? mainColor : mainBtnTitleColor);
 
   Future _tap(BuildContext context) async {
     final newTask = await _ws.createTask(_parent);
@@ -48,12 +58,13 @@ class CreateTaskButton extends StatelessWidget {
     return MTBadgeButton(
       margin: EdgeInsets.only(right: _compact ? P3 : 0),
       showBadge: !_ws.plCreate(_parent),
-      type: ButtonType.main,
+      type: _type ?? ButtonType.main,
       leading: _compact ? null : _plusIcon,
       titleText: _compact ? null : addSubtaskActionTitle(_parent),
       middle: _compact ? _plusIcon : null,
       constrained: !_compact,
-      onTap: () => _tap(context),
+      uf: _uf,
+      onTap: _onTap != null ? _onTap : () => _tap(context),
     );
   }
 }

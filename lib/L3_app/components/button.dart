@@ -142,7 +142,7 @@ class MTButton extends StatelessWidget with FocusManaging {
       splashFactory: NoSplash.splashFactory,
       visualDensity: VisualDensity.standard,
       shadowColor: btnShadowColor.resolve(context),
-      elevation: buttonElevation,
+      elevation: elevation ?? buttonElevation,
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
     );
   }
@@ -262,9 +262,11 @@ class MTBadgeButton extends StatelessWidget {
     this.padding,
     this.loading,
     this.constrained = true,
+    this.uf = true,
   });
 
   final bool showBadge;
+  final bool uf;
   final ButtonType type;
   final String? titleText;
   final Widget? leading;
@@ -314,6 +316,7 @@ class MTBadgeButton extends StatelessWidget {
       loading: loading,
       onTap: onTap,
       onLongPress: onLongPress,
+      uf: uf,
     );
   }
 }

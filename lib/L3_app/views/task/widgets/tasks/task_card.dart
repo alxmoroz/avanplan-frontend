@@ -50,7 +50,12 @@ class TaskCard extends StatelessWidget {
 
   Color? get _textColor => task.closed || task.isImportingProject ? f2Color : null;
 
-  Widget get _parentTitle => SmallText('${task.project?.wsCode}${task.parent!.title}', maxLines: 1);
+  Widget get _parentTitle => Row(
+        children: [
+          Expanded(child: SmallText(task.parent!.title, maxLines: 1)),
+          if (task.project?.wsCode != null) SmallText(task.project!.wsCode, maxLines: 1, color: f3Color),
+        ],
+      );
 
   Widget get _title => Row(
         children: [
@@ -68,7 +73,6 @@ class TaskCard extends StatelessWidget {
   bool get _showDate => task.hasDueDate && !task.closed && task.isTask;
   Color get _dateColor => task.dueDate!.isBefore(tomorrow) ? stateColor(task.leafState) : _textColor ?? f2Color;
   Widget get _date => Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           CalendarIcon(color: _dateColor, size: P3),
           const SizedBox(width: P_2),
@@ -113,7 +117,10 @@ class TaskCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (showParent && task.parent != null) _parentTitle,
+          if (showParent && task.parent != null) ...[
+            _parentTitle,
+            const SizedBox(height: P_2),
+          ],
           _title,
           // ошибки
           if (task.error != null)

@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'adaptive.dart';
 import 'colors.dart';
@@ -14,6 +15,8 @@ import 'text.dart';
 
 enum ButtonType { text, main, secondary, icon, card }
 
+enum FeedbackType { light, medium, heavy, vibrate, selection }
+
 mixin FocusManaging {
   void unfocus(BuildContext context) {
     final fs = FocusScope.of(context);
@@ -22,7 +25,28 @@ mixin FocusManaging {
     }
   }
 
-  Future actionWithUF(BuildContext context, bool uf, Function callback) async {
+  Future tapAction(BuildContext context, bool uf, Function callback, {FeedbackType? fbType}) async {
+    if (fbType != null) {
+      switch (fbType) {
+        case FeedbackType.light:
+          await HapticFeedback.lightImpact();
+          break;
+        case FeedbackType.medium:
+          await SystemSound.play(SystemSoundType.click);
+          await HapticFeedback.mediumImpact();
+          break;
+        case FeedbackType.heavy:
+          await HapticFeedback.heavyImpact();
+          break;
+        case FeedbackType.vibrate:
+          await HapticFeedback.vibrate();
+          break;
+        case FeedbackType.selection:
+          await HapticFeedback.selectionClick();
+          break;
+      }
+    }
+
     if (uf) {
       unfocus(context);
     }
@@ -148,8 +172,8 @@ class MTButton extends StatelessWidget with FocusManaging {
   }
 
   Widget _button(BuildContext context) {
-    final _onPressed = _enabled && onTap != null ? () => actionWithUF(context, uf, onTap!) : null;
-    final _onLongPress = _enabled && onLongPress != null ? () => actionWithUF(context, uf, onLongPress!) : null;
+    final _onPressed = _enabled && onTap != null ? () => tapAction(context, uf, onTap!, fbType: FeedbackType.light) : null;
+    final _onLongPress = _enabled && onLongPress != null ? () => tapAction(context, uf, onLongPress!, fbType: FeedbackType.medium) : null;
 
     final _child = Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -225,8 +249,8 @@ class MTCardButton extends StatelessWidget {
   final Widget child;
   final EdgeInsets? margin;
   final EdgeInsets? padding;
-  final VoidCallback? onTap;
-  final VoidCallback? onLongPress;
+  final Function()? onTap;
+  final Function()? onLongPress;
   final double? elevation;
   final double? radius;
   final bool? loading;

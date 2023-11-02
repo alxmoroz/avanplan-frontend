@@ -49,7 +49,7 @@ class MTImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _h = height ?? dashboardImageHeight(context);
+    final _h = height ?? defaultImageHeight(context);
     final _w = width ?? _h;
 
     return Image.asset(

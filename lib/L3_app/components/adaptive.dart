@@ -41,7 +41,7 @@ class MTAdaptive extends StatelessWidget {
         break;
     }
 
-    final mqW = MediaQuery.of(context).size.width;
+    final mqW = MediaQuery.sizeOf(context).width;
     return Container(
       alignment: Alignment.topCenter,
       child: SizedBox(
@@ -60,7 +60,7 @@ class MTAdaptive extends StatelessWidget {
   }
 }
 
-double dashboardImageHeight(BuildContext context) => min(170, MediaQuery.sizeOf(context).height / 2.5);
+double defaultImageHeight(BuildContext context) => min(200, max(120, MediaQuery.sizeOf(context).height / 3.5));
 
 double bottomPadding(BuildContext context) => max(MediaQuery.paddingOf(context).bottom, P4);
 

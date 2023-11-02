@@ -58,7 +58,7 @@ class MTListTile extends StatelessWidget with FocusManaging {
     final _hoverColor = mainColor.withAlpha(10).resolve(context);
     final _splashColor = mainColor.withAlpha(10).resolve(context);
 
-    final _onPressed = onTap != null ? () => actionWithUF(context, uf, onTap!) : null;
+    final _onPressed = onTap != null ? () => tapAction(context, uf, onTap!) : null;
     final _hasMiddle = middle != null || titleText != null;
     return Padding(
       padding: margin ?? EdgeInsets.zero,

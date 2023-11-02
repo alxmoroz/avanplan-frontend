@@ -2,8 +2,10 @@
 
 import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../../../L1_domain/entities/status.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_status.dart';
 import '../../../../../L2_data/services/platform.dart';
@@ -30,6 +32,25 @@ class _ItemTarget extends StatelessWidget {
       ),
     );
   }
+}
+
+class MTBoardColumn extends DragAndDropList {
+  MTBoardColumn(
+    this.status, {
+    required super.children,
+    super.header,
+    super.footer,
+    super.leftSide,
+    super.rightSide,
+    super.contentsWhenEmpty,
+    super.lastTarget,
+    super.decoration,
+    super.horizontalAlignment,
+    super.verticalAlignment,
+    super.canDrag,
+  });
+
+  final Status status;
 }
 
 class TasksBoard extends StatelessWidget {
@@ -60,7 +81,8 @@ class TasksBoard extends StatelessWidget {
   DragAndDropList _columnBuilder(BuildContext context, int index) {
     final status = _task.statuses[index];
     final tasks = _task.subtasksForStatus(status.id!);
-    return DragAndDropList(
+    return MTBoardColumn(
+      status,
       header: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -82,8 +104,13 @@ class TasksBoard extends StatelessWidget {
     final mq = MediaQuery.of(context);
     return Observer(
       builder: (_) => DragAndDropLists(
-        children: [for (var i = 0; i < _task.statuses.length; i++) _columnBuilder(context, i)],
+        children: [
+          for (var i = 0; i < _task.statuses.length; i++) _columnBuilder(context, i),
+        ],
         onItemReorder: controller.moveTask,
+        onItemDraggingChanged: (_, dragging) => dragging ? HapticFeedback.mediumImpact() : null,
+        itemTargetOnWillAccept: controller.canMoveTaskTarget,
+        itemOnWillAccept: controller.canMoveTask,
         onListReorder: (int oldListIndex, int newListIndex) {},
         axis: Axis.horizontal,
         listWidth: SCR_XXS_WIDTH,
@@ -96,6 +123,7 @@ class TasksBoard extends StatelessWidget {
         ),
         lastItemTargetHeight: P2,
         listDragOnLongPress: !isWeb,
+        itemDragOnLongPress: !isWeb,
       ),
     );
   }

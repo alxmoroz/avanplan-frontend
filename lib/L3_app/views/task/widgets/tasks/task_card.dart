@@ -168,7 +168,7 @@ class TaskCard extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: P2, vertical: P),
           loading: task.loading,
           child: _taskContent,
-          onTap: _tap,
+          onTap: dragging ? null : _tap,
         )
       : Stack(
           children: [
@@ -178,7 +178,7 @@ class TaskCard extends StatelessWidget {
               dividerIndent: showStateMark ? P6 : 0,
               bottomDivider: bottomDivider,
               // color: task.isImportingProject ? b1Color : null,
-              onTap: task.isImportingProject ? null : _tap,
+              onTap: task.isImportingProject || dragging ? null : _tap,
             ),
             if (task.loading == true) const MTLoader(),
             if (showStateMark)

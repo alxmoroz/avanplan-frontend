@@ -34,6 +34,7 @@ class MTAppBar extends AppBar {
             ),
           ),
           bottom: bottom,
+          centerTitle: true,
           title: middle != null
               ? middle
               : title != null

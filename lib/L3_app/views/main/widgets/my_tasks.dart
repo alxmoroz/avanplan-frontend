@@ -21,7 +21,7 @@ class MyTasks extends StatelessWidget {
   Future _goToTasks() async => await Navigator.of(rootKey.currentContext!).pushNamed(MyTasksView.routeName);
 
   Widget _mainInfo(BuildContext context) => SizedBox(
-        height: dashboardImageHeight(context),
+        height: defaultImageHeight(context),
         child: Center(
           child: D1(
             '${tasksMainController.myUpcomingTasksCount}',

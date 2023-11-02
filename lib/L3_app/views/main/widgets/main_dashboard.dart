@@ -34,40 +34,37 @@ class MainDashboard extends StatelessWidget {
     final topInnerPadding = spacing;
     final bottomPadding = max(padding.bottom, spacing);
 
-    double _mainAxisExtent() {
-      final _isPortrait = MediaQuery.orientationOf(context) == Orientation.portrait;
-      return min(
-        SCR_XXS_WIDTH,
-        max(
-          _MIN_HEIGHT,
-          (size.height - padding.top - bottomPadding - topInnerPadding - spacing) / (_isPortrait ? 2 : 1),
-        ),
-      );
-    }
+    final _isPortrait = MediaQuery.orientationOf(context) == Orientation.portrait;
+
+    double _mainAxisExtent() => min(
+          SCR_XXS_WIDTH,
+          max(
+            _MIN_HEIGHT,
+            (size.height - padding.top - bottomPadding - topInnerPadding - spacing) / (_isPortrait ? 2 : 1),
+          ),
+        );
 
     return Observer(
       builder: (_) => isBig || !_hasTasks
           ? Padding(
-              padding: EdgeInsets.symmetric(horizontal: spacing).copyWith(top: topInnerPadding),
+              padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: topInnerPadding),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   if (_hasTasks) ...[
-                    MTAdaptive(
-                      child: const MyTasks(compact: false),
-                      size: isBigS ? AdaptiveSize.S : AdaptiveSize.XS,
+                    const Flexible(
+                      child: MTAdaptive(child: MyTasks(compact: false)),
                     ),
                     SizedBox(width: spacing),
                   ],
-                  MTAdaptive(
-                    child: const MyProjects(compact: false),
-                    size: isBigS ? AdaptiveSize.S : AdaptiveSize.XS,
+                  const Flexible(
+                    child: MTAdaptive(child: MyProjects(compact: false)),
                   ),
                 ],
               ),
             )
           : GridView(
-              padding: padding.add(EdgeInsets.symmetric(vertical: topInnerPadding, horizontal: P4).copyWith(bottom: bottomPadding)),
+              padding: padding.add(EdgeInsets.symmetric(vertical: topInnerPadding, horizontal: P3).copyWith(bottom: bottomPadding)),
               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: SCR_S_WIDTH,
                 crossAxisSpacing: spacing,

@@ -2,7 +2,10 @@
 
 import 'dart:async';
 
+import 'package:drag_and_drop_lists/drag_and_drop_item.dart';
+import 'package:drag_and_drop_lists/drag_and_drop_item_target.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../../L1_domain/entities/status.dart';
 import '../../../../L1_domain/entities/task.dart';
@@ -15,6 +18,7 @@ import '../../../presenters/task_filter.dart';
 import '../../../presenters/task_tree.dart';
 import '../../../usecases/task_actions.dart';
 import '../../../usecases/task_edit.dart';
+import '../widgets/tasks/task_card.dart';
 import 'task_controller.dart';
 
 class StatusController {
@@ -94,5 +98,24 @@ class StatusController {
       final t = task.subtasksForStatus(oldStatusId)[oldTaskIndex];
       await setStatus(t, statusId: newStatusId);
     }
+  }
+
+  bool canMoveTaskTarget(DragAndDropItem? incoming, DragAndDropItemTarget target) {
+    // final incomingTask = (incoming?.child as TaskCard).task;
+    // final targetColumn = target.parent as MTBoardColumn;
+    // return incomingTask.status != targetColumn.status;
+    HapticFeedback.selectionClick();
+    return true;
+  }
+
+  bool canMoveTask(DragAndDropItem? incoming, DragAndDropItem target) {
+    final incomingTask = (incoming?.child as TaskCard).task;
+    final targetTask = (target.child as TaskCard).task;
+    // return incomingTask.status != targetTask.status;
+    if (incomingTask != targetTask) {
+      HapticFeedback.selectionClick();
+    }
+
+    return true;
   }
 }

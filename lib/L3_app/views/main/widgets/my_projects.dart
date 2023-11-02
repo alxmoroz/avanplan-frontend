@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../main.dart';
-import '../../../components/adaptive.dart';
 import '../../../components/button.dart';
 import '../../../components/constants.dart';
 import '../../../components/shadowed.dart';
@@ -22,7 +21,7 @@ class MyProjects extends StatelessWidget {
 
   Widget _contents(BuildContext context) {
     final overallState = tasksMainController.overallProjectsState;
-    final image = imageForState(overallState, size: dashboardImageHeight(context));
+    final image = imageForState(overallState, size: compact ? MediaQuery.sizeOf(context).width : null);
     return MTCardButton(
       child: Column(
         children: [

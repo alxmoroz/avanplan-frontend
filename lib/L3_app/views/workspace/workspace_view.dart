@@ -28,6 +28,7 @@ import '../iap/iap_view.dart';
 import '../source/source_list_view.dart';
 import '../user/user_list_view.dart';
 import 'workspace_edit_view.dart';
+import 'workspace_statuses_view.dart';
 
 class WorkspaceView extends StatelessWidget {
   const WorkspaceView(this._wsId);
@@ -95,6 +96,7 @@ class WorkspaceView extends StatelessWidget {
         titleText: loc.user_list_title,
         subtitle: SmallText('${_ws.users.length} / ${_ws.maxUsers}', maxLines: 1),
         trailing: const ChevronIcon(),
+        dividerIndent: P * 11,
         onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(UserListView.routeName, arguments: _ws.id),
       );
 
@@ -102,11 +104,19 @@ class WorkspaceView extends StatelessWidget {
       leading: const ImportIcon(),
       titleText: '${loc.source_list_title} ${_ws.sources.isNotEmpty ? '(${_ws.sources.length})' : ''}',
       trailing: const ChevronIcon(),
-      bottomDivider: false,
+      dividerIndent: P * 11,
       onTap: () async {
         _ws.checkSources();
         await Navigator.of(rootKey.currentContext!).pushNamed(SourceListView.routeName, arguments: _ws.id);
       });
+
+  Widget get _statuses => MTListTile(
+        leading: const StatusIcon(),
+        titleText: '${loc.task_status_list_title} ${_ws.statuses.isNotEmpty ? '(${_ws.statuses.length})' : ''}',
+        trailing: const ChevronIcon(),
+        bottomDivider: false,
+        onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(WorkspaceStatusesView.routeName, arguments: _ws.id),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -132,6 +142,7 @@ class WorkspaceView extends StatelessWidget {
               const SizedBox(height: P3),
               if (_ws.hpMemberRead) _users,
               if (_ws.hpSourceCreate) _sources,
+              if (_ws.hpStatusUpdate) _statuses,
             ],
           ),
         ),

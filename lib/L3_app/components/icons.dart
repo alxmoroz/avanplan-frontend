@@ -465,16 +465,6 @@ class ShareIcon extends MTIcon {
       );
 }
 
-class SubmitIcon extends MTIcon {
-  const SubmitIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.arrow_up,
-        color: (color ?? mainColor).resolve(context),
-        size: size ?? P4,
-      );
-}
-
 class StarIcon extends MTIcon {
   const StarIcon({super.color, super.size});
   @override
@@ -482,6 +472,26 @@ class StarIcon extends MTIcon {
         CupertinoIcons.star,
         color: (color ?? mainColor).resolve(context),
         size: size ?? P6,
+      );
+}
+
+class StatusIcon extends MTIcon {
+  const StatusIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.rectangle_split_3x1,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P6,
+      );
+}
+
+class SubmitIcon extends MTIcon {
+  const SubmitIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.arrow_up,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P4,
       );
 }
 

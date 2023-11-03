@@ -384,6 +384,8 @@
 
   "task_start_date_label": "Начало",
   "task_start_date_placeholder": "Дата начала",
+  "task_status_create_action_title": "Добавить статус",
+  "task_status_list_title": "Статусы задач",
   "task_status_placeholder": "Выберите статус",
 
   "task_title": "Задача",

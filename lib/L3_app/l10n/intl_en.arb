@@ -384,6 +384,8 @@
 
   "task_start_date_label": "Start",
   "task_start_date_placeholder": "Start Date",
+  "task_status_create_action_title": "Add status",
+  "task_status_list_title": "Task Statuses",
   "task_status_placeholder": "Select status",
 
   "task_title": "Task",

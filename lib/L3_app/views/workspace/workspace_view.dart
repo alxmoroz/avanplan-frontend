@@ -74,7 +74,7 @@ class WorkspaceView extends StatelessWidget {
               if (_ws.hpTariffUpdate) BaseText.medium(loc.balance_replenish_action_title, color: mainColor),
             ],
           ),
-          onTap: _ws.hpTariffUpdate ? () => purchaseDialog(_wsId) : null,
+          onTap: _ws.hpTariffUpdate ? () => replenishBalanceDialog(_wsId) : null,
         ),
       );
 

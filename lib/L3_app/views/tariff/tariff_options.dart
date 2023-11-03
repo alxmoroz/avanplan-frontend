@@ -23,6 +23,7 @@ class _TariffOptionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTListTile(
+      minHeight: 0,
       middle: value != null ? MTCurrency(value!, color: mainColor) : null,
       subtitle: description != null
           ? SmallText(

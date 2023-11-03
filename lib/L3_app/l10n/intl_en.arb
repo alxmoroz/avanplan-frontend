@@ -99,7 +99,7 @@
   "error_purchase_title": "Purchase processing error",
   "error_redeem_invitation_description": "The number of invitations has run out or the invitation has expired.\n\nContact your workspace/project administrator.",
   "error_redeem_invitation_title": "Error while processing invitation",
-  "error_tariff_insufficient_funds_for_change": "You need to pay {value} to change the tariff",
+  "error_tariff_insufficient_funds_for_change": "You need to top up your balance with {value} to pay your current tariff bill and switch to a new one",
   "error_tariff_limit_description": "Please contact the workspace administrator",
   "error_tariff_limit_title": "The operation is limited in the selected tariff",
   "error_title": "Error",

@@ -15,20 +15,22 @@ import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import '../../presenters/number.dart';
 
-Future purchaseDialog(int wsId) async {
+Future replenishBalanceDialog(int wsId, {String reason = ''}) async {
   await iapController.getProducts();
-  return await showMTDialog<void>(StoreView(wsId));
+  return await showMTDialog<void>(_StoreView(wsId, reason));
 }
 
-class StoreView extends StatelessWidget {
-  const StoreView(this.wsId);
+class _StoreView extends StatelessWidget {
+  const _StoreView(this._wsId, this._reason);
 
-  final int wsId;
-  Workspace get ws => wsMainController.wsForId(wsId);
+  final int _wsId;
+  final String _reason;
+
+  Workspace get ws => wsMainController.wsForId(_wsId);
 
   Future _pay(IAPProduct p) async {
     Navigator.of(rootKey.currentContext!).pop();
-    await iapController.pay(wsId, p);
+    await iapController.pay(_wsId, p);
   }
 
   Widget _payButton(BuildContext _, int index) {
@@ -41,7 +43,7 @@ class StoreView extends StatelessWidget {
           if (hasPrice) D4(' ${loc.for_} ${p.price}', color: f2Color),
         ],
       ),
-      margin: EdgeInsets.only(top: index == 0 ? P : P3),
+      margin: const EdgeInsets.only(top: P3),
       onTap: () => _pay(p),
     );
   }
@@ -49,12 +51,18 @@ class StoreView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTTopBar(titleText: loc.balance_replenish_store_title),
-      body: ListView.builder(
-        shrinkWrap: true,
-        itemBuilder: _payButton,
-        itemCount: iapController.products.length,
-      ),
-    );
+        topBar: MTTopBar(titleText: loc.balance_replenish_store_title),
+        body: ListView(
+          shrinkWrap: true,
+          children: [
+            if (_reason.isNotEmpty) BaseText(_reason, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P3)),
+            ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemBuilder: _payButton,
+              itemCount: iapController.products.length,
+            ),
+          ],
+        ));
   }
 }

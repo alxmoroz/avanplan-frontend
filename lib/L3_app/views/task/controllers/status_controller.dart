@@ -82,7 +82,7 @@ class StatusController {
     final selectedStatus = await showMTSelectDialog<Status>(
       task.statuses,
       task.statusId,
-      loc.task_status_placeholder,
+      loc.task_status_select_placeholder,
     );
 
     if (selectedStatus != null) {

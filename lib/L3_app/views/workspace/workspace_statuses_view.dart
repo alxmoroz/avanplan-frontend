@@ -21,7 +21,7 @@ class WorkspaceStatusesView extends StatelessWidget {
   final int _wsId;
 
   static String get routeName => '/workspace/statuses';
-  static String title(int wsId) => '${wsMainController.wsForId(wsId)} - ${loc.task_status_list_title}';
+  static String title(int wsId) => '${wsMainController.wsForId(wsId)} - ${loc.status_list_title}';
 
   Workspace get _ws => wsMainController.wsForId(_wsId);
 
@@ -45,7 +45,7 @@ class WorkspaceStatusesView extends StatelessWidget {
       builder: (_) => MTPage(
         appBar: MTAppBar(
           context,
-          middle: _ws.subPageTitle(loc.task_status_list_title),
+          middle: _ws.subPageTitle(loc.status_list_title),
           trailing: const SizedBox(width: P8),
         ),
         body: SafeArea(
@@ -64,7 +64,7 @@ class WorkspaceStatusesView extends StatelessWidget {
         ),
         bottomBar: MTButton.secondary(
           leading: const PlusIcon(),
-          titleText: loc.task_status_create_action_title,
+          titleText: loc.status_create_action_title,
         ),
       ),
     );

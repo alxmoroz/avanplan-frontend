@@ -112,7 +112,7 @@ class WorkspaceView extends StatelessWidget {
 
   Widget get _statuses => MTListTile(
         leading: const StatusIcon(),
-        titleText: '${loc.task_status_list_title} ${_ws.statuses.isNotEmpty ? '(${_ws.statuses.length})' : ''}',
+        titleText: '${loc.status_list_title} ${_ws.statuses.isNotEmpty ? '(${_ws.statuses.length})' : ''}',
         trailing: const ChevronIcon(),
         bottomDivider: false,
         onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(WorkspaceStatusesView.routeName, arguments: _ws.id),

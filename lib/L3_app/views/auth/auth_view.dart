@@ -127,9 +127,10 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
                         ),
                       ],
                     ),
+                    const SizedBox(height: P6),
                     if (!isIOS) ...[
                       const LegalLinks(),
-                      const SizedBox(height: P2),
+                      const SizedBox(height: P3),
                     ],
                     const AppVersion(),
                   ],

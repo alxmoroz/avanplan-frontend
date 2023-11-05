@@ -7,7 +7,7 @@ import '../../L1_domain/entities/feature_set.dart';
 import '../../L1_domain/entities/task.dart';
 import '../../L2_data/services/api.dart';
 import '../extra/services.dart';
-import '../presenters/task_tree.dart';
+import 'task_tree.dart';
 
 extension FeatureSetsUC on Task {
   Set<FeatureSet> get featureSets =>

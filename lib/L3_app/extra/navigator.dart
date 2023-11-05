@@ -13,6 +13,7 @@ import '../views/my_tasks/my_tasks_view.dart';
 import '../views/notification/notification_list_view.dart';
 import '../views/settings/settings_view.dart';
 import '../views/source/source_list_view.dart';
+import '../views/status/status_list_view.dart';
 import '../views/task/controllers/task_controller.dart';
 import '../views/task/task_view.dart';
 import '../views/task/widgets/create/create_multitask_quiz_view.dart';
@@ -22,7 +23,6 @@ import '../views/task/widgets/team/member_view.dart';
 import '../views/task/widgets/team/team_invitation_view.dart';
 import '../views/user/user_list_view.dart';
 import '../views/user/user_view.dart';
-import '../views/workspace/workspace_statuses_view.dart';
 import '../views/workspace/workspace_view.dart';
 
 void setPageTitle(String title) {

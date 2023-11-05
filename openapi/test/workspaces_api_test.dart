@@ -6,9 +6,16 @@ void main() {
   final instance = Openapi().getWorkspacesApi();
 
   group(WorkspacesApi, () {
+    // Available Tariffs
+    //
+    //Future<BuiltList<TariffGet>> availableTariffsV1WorkspacesWsIdTariffsGet(int wsId) async
+    test('test availableTariffsV1WorkspacesWsIdTariffsGet', () async {
+      // TODO
+    });
+
     // Create Workspace
     //
-    //Future<WorkspaceGet> createWorkspaceV1WorkspacesPost({ WorkspaceUpsert workspaceUpsert }) async
+    //Future<WorkspaceGet> createWorkspaceV1WorkspacesPost() async
     test('test createWorkspaceV1WorkspacesPost', () async {
       // TODO
     });
@@ -24,6 +31,27 @@ void main() {
     //
     //Future<WorkspaceGet> getWorkspaceV1WorkspacesWsIdGet(int wsId) async
     test('test getWorkspaceV1WorkspacesWsIdGet', () async {
+      // TODO
+    });
+
+    // Delete
+    //
+    //Future<bool> statusesDelete(int statusId, int wsId) async
+    test('test statusesDelete', () async {
+      // TODO
+    });
+
+    // Upsert
+    //
+    //Future<StatusGet> statusesUpsert(int wsId, StatusUpsert statusUpsert) async
+    test('test statusesUpsert', () async {
+      // TODO
+    });
+
+    // Statuses
+    //
+    //Future<BuiltList<StatusGet>> statusesV1WorkspacesWsIdStatusesGet(int wsId) async
+    test('test statusesV1WorkspacesWsIdStatusesGet', () async {
       // TODO
     });
 

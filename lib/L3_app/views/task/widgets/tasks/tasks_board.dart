@@ -7,16 +7,15 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/status.dart';
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../../L1_domain/entities_extensions/task_status.dart';
 import '../../../../../L2_data/services/platform.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/text.dart';
-import '../../../../presenters/task_filter.dart';
-import '../../../../presenters/task_tree.dart';
 import '../../../../usecases/task_actions.dart';
+import '../../../../usecases/task_status.dart';
+import '../../../../usecases/task_tree.dart';
 import '../../controllers/status_controller.dart';
 import 'task_card.dart';
 
@@ -79,7 +78,7 @@ class TasksBoard extends StatelessWidget {
       );
 
   DragAndDropList _columnBuilder(BuildContext context, int index) {
-    final status = _task.statuses[index];
+    final status = _task.statuses.elementAt(index);
     final tasks = _task.subtasksForStatus(status.id!);
     return MTBoardColumn(
       status,

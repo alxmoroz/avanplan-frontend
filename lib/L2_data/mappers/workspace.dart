@@ -8,7 +8,6 @@ import 'estimate_value.dart';
 import 'invoice.dart';
 import 'role.dart';
 import 'source.dart';
-import 'status.dart';
 import 'user.dart';
 import 'w_settings.dart';
 
@@ -25,12 +24,11 @@ extension WorkspaceMapper on api.WorkspaceGet {
       invoice: invoice!.invoice,
       settings: settings?.settings,
       estimateValues: estimateValues?.map((ev) => ev.estimateValue(id)).toList() ?? [],
-      statuses: statuses?.map((st) => st.status).toList() ?? [],
       mainAccount: mainAccount!.account,
       tasksCount: tasksCount ?? 0,
       sources: [],
     );
-    ws.sources = sources?.map((s) => s.source(ws)).toList() ?? [];
+    ws.sources = sources?.map((s) => s.source(id)).toList() ?? [];
     return ws;
   }
 }

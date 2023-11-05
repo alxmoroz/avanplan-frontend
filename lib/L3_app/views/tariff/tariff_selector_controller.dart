@@ -36,7 +36,7 @@ abstract class _TariffSelectorControllerBase with Store {
   @action
   Future getData() async {
     loading = true;
-    tariffs = (await tariffUC.getAll(ws)).sorted((t1, t2) => compareNatural('$t1', '$t2')).sorted((t1, t2) => t1.tier.compareTo(t2.tier));
+    tariffs = (await tariffUC.getAll(_wsId)).sorted((t1, t2) => compareNatural('$t1', '$t2')).sorted((t1, t2) => t1.tier.compareTo(t2.tier));
     pageIndex = suggestedTariffIndex;
     loading = false;
   }

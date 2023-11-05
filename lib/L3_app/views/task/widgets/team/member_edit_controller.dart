@@ -8,6 +8,7 @@ import '../../../../../L1_domain/entities/role.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../main.dart';
 import '../../../../extra/services.dart';
+import '../../../../usecases/task_tree.dart';
 
 part 'member_edit_controller.g.dart';
 

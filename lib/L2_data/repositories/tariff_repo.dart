@@ -3,17 +3,16 @@
 import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/tariff.dart';
-import '../../L1_domain/entities/workspace.dart';
-import '../../L1_domain/repositories/abs_tariff_repo.dart';
+import '../../L1_domain/repositories/abs_api_repo.dart';
 import '../mappers/tariff.dart';
 import '../services/api.dart';
 
-class TariffRepo extends AbstractTariffRepo {
+class TariffRepo extends AbstractApiRepo<Tariff, Tariff> {
   o_api.TariffsApi get api => openAPI.getTariffsApi();
 
   @override
-  Future<Iterable<Tariff>> getAll(Workspace ws) async {
-    final response = await api.tariffsV1RefsTariffsGet(wsId: ws.id!);
+  Future<Iterable<Tariff>> getAllWithWS(int wsId) async {
+    final response = await api.availableTariffsV1WorkspacesWsIdTariffsGet(wsId: wsId);
     return response.data?.map((t) => t.tariff) ?? [];
   }
 }

@@ -112,7 +112,7 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
                       MailIcon(color: _titleColor, size: P4),
                       loc.auth_sign_in_email_title,
                       P4,
-                      authController.registerMode ? registrationDialog : showSignInEmailDialog,
+                      authController.registerMode ? registrationDialog : signInEmailDialog,
                       titleLeftPadding: P2,
                     ),
                     const SizedBox(height: P3),
@@ -126,23 +126,18 @@ class _AuthViewState extends State<AuthView> with WidgetsBindingObserver {
                           onTap: authController.toggleRegisterMode,
                         ),
                       ],
-                    )
+                    ),
+                    if (!isIOS) ...[
+                      const LegalLinks(),
+                      const SizedBox(height: P2),
+                    ],
+                    const AppVersion(),
                   ],
                 ),
               ),
             ),
           ),
         ),
-      ),
-      bottomBar: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (!isIOS) ...[
-            const LegalLinks(),
-            const SizedBox(height: P2),
-          ],
-          const AppVersion(),
-        ],
       ),
     );
   }

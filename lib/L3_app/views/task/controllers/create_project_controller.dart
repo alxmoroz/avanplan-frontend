@@ -8,7 +8,7 @@ import '../../../extra/services.dart';
 import '../../../usecases/ws_actions.dart';
 import '../../../usecases/ws_tariff.dart';
 import '../../../usecases/ws_tasks.dart';
-import '../../import/import_view.dart';
+import '../../import/import_dialog.dart';
 import '../../workspace/workspace_selector.dart';
 import '../widgets/create/create_task_quiz_view.dart';
 import 'create_project_quiz_controller.dart';

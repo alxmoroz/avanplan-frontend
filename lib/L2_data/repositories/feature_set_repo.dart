@@ -25,7 +25,7 @@ class FeatureSetRepo extends AbstractFeatureSetRepo {
     final response = await pfsApi.setupFeatureSetsV1TasksFeatureSetsPost(
       projectId: projectId,
       permissionTaskId: projectId,
-      wsId: project.ws.id!,
+      wsId: project.wsId,
       requestBody: BuiltList.from(fsIds),
     );
     return response.data?.map((pfs) => pfs.projectFeatureSet) ?? [];

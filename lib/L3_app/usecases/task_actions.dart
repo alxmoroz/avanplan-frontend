@@ -7,12 +7,12 @@ import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities/user.dart';
 import '../../L1_domain/entities_extensions/task_members.dart';
 import '../../L1_domain/entities_extensions/task_stats.dart';
-import '../../L1_domain/entities_extensions/task_status.dart';
 import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../extra/services.dart';
-import '../presenters/task_transfer.dart';
-import '../presenters/task_tree.dart';
 import 'task_feature_sets.dart';
+import 'task_status.dart';
+import 'task_transfer.dart';
+import 'task_tree.dart';
 import 'ws_actions.dart';
 
 enum TaskActionType {

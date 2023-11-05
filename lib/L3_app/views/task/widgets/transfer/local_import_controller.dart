@@ -8,9 +8,9 @@ import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/usecases/task_comparators.dart';
 import '../../../../../main.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/task_transfer.dart';
-import '../../../../presenters/task_tree.dart';
 import '../../../../usecases/task_edit.dart';
+import '../../../../usecases/task_transfer.dart';
+import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
 import 'task_selector.dart';
 

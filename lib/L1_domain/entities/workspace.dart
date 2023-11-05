@@ -6,7 +6,6 @@ import 'estimate_value.dart';
 import 'invoice.dart';
 import 'role.dart';
 import 'source.dart';
-import 'status.dart';
 import 'user.dart';
 import 'ws_settings.dart';
 
@@ -33,7 +32,6 @@ class Workspace extends WorkspaceUpsert {
     required this.settings,
     required this.estimateValues,
     required this.sources,
-    required this.statuses,
     required this.mainAccount,
     required this.tasksCount,
   });
@@ -49,6 +47,5 @@ class Workspace extends WorkspaceUpsert {
 
   // редактируемые поля
   List<EstimateValue> estimateValues = [];
-  List<Status> statuses = [];
   List<Source> sources = [];
 }

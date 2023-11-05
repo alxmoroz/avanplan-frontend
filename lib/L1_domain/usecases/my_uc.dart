@@ -3,7 +3,6 @@
 import '../entities/notification.dart';
 import '../entities/task.dart';
 import '../entities/user.dart';
-import '../entities/workspace.dart';
 import '../repositories/abs_my_repo.dart';
 
 class MyUC {
@@ -11,12 +10,16 @@ class MyUC {
 
   final AbstractMyRepo repo;
 
-  Future<Iterable<Task>> getProjects(Workspace ws, {bool? closed, bool? imported}) async => await repo.getProjects(
-        ws,
-        closed: closed,
+  Future<Iterable<Task>> getProjects(int wsId, {bool? imported, bool? closed}) async => await repo.getProjects(
+        wsId,
         imported: imported,
+        closed: closed,
       );
-  Future<Iterable<Task>> getTasks(Workspace ws, {Task? parent, bool? closed}) async => await repo.getTasks(ws, parent: parent, closed: closed);
+  Future<Iterable<Task>> getTasks(int wsId, {Task? parent, bool? closed}) async => await repo.getTasks(
+        wsId,
+        parent: parent,
+        closed: closed,
+      );
 
   Future<Iterable<MTNotification>> getNotifications() async => await repo.getNotifications();
   Future markReadNotifications(Iterable<int> notificationsIds) async => await repo.markReadNotifications(notificationsIds);

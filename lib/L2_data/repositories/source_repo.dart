@@ -13,7 +13,7 @@ class SourceRepo extends AbstractSourceRepo {
 
   @override
   Future<Source?> save(Source data) async {
-    final builder = SourceUpsertBuilder()
+    final b = SourceUpsertBuilder()
       ..id = data.id
       ..type = data.typeCode
       ..url = data.url
@@ -22,23 +22,23 @@ class SourceRepo extends AbstractSourceRepo {
       ..password = data.password
       ..description = data.description;
 
-    final response = await api.sourcesUpsert(sourceUpsert: builder.build(), wsId: data.ws.id!);
-    return response.data?.source(data.ws);
+    final response = await api.sourcesUpsert(
+      wsId: data.wsId,
+      sourceUpsert: b.build(),
+    );
+    return response.data?.source(data.wsId);
   }
 
   @override
   Future<Source?> delete(Source data) async {
-    final response = await api.sourcesDelete(sourceId: data.id!, wsId: data.ws.id!);
-    if (response.data == true) {
-      return data;
-    }
-    return null;
+    final response = await api.sourcesDelete(sourceId: data.id!, wsId: data.wsId);
+    return response.data == true ? data : null;
   }
 
   @override
   Future<bool> checkConnection(Source s) async {
     try {
-      final response = await api.sourcesCheckConnection(sourceId: s.id!, wsId: s.ws.id!);
+      final response = await api.sourcesCheckConnection(sourceId: s.id!, wsId: s.wsId);
       return response.data == true;
     } catch (e) {
       return false;

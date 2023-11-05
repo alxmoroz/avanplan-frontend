@@ -4,7 +4,7 @@ import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/repositories/abs_api_repo.dart';
-import '../../L3_app/presenters/task_tree.dart';
+import '../../L3_app/usecases/task_tree.dart';
 import '../mappers/task.dart';
 import '../services/api.dart';
 
@@ -32,14 +32,14 @@ class TaskRepo extends AbstractApiRepo<TasksChanges, Task> {
 
     final changes = (await api.taskUpsertV1TasksPost(
       taskUpsert: qBuilder.build(),
-      wsId: data.ws.id!,
+      wsId: data.wsId,
       permissionTaskId: data.project?.id,
     ))
         .data;
 
     return TasksChanges(
-      changes?.updatedTask.task(data.ws),
-      changes?.affectedTasks.map((t) => t.task(data.ws)) ?? [],
+      changes?.updatedTask.task(data.wsId),
+      changes?.affectedTasks.map((t) => t.task(data.wsId)) ?? [],
     );
   }
 
@@ -47,13 +47,13 @@ class TaskRepo extends AbstractApiRepo<TasksChanges, Task> {
   Future<TasksChanges> delete(Task data) async {
     final changes = (await api.deleteV1TasksTaskIdDelete(
       taskId: data.id!,
-      wsId: data.ws.id!,
+      wsId: data.wsId,
       permissionTaskId: data.project?.id,
     ))
         .data;
     return TasksChanges(
-      changes?.updatedTask.task(data.ws),
-      changes?.affectedTasks.map((t) => t.task(data.ws)) ?? [],
+      changes?.updatedTask.task(data.wsId),
+      changes?.affectedTasks.map((t) => t.task(data.wsId)) ?? [],
     );
   }
 }

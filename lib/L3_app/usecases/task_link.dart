@@ -9,8 +9,8 @@ import '../components/alert_dialog.dart';
 import '../components/icons.dart';
 import '../extra/services.dart';
 import '../presenters/task_source.dart';
-import '../presenters/task_tree.dart';
 import 'task_edit.dart';
+import 'task_tree.dart';
 
 extension TaskLinkUC on Task {
   Future go2source() async => await launchUrlString(taskSource!.urlString);

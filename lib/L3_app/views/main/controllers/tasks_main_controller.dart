@@ -16,9 +16,8 @@ import '../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../L1_domain/usecases/task_comparators.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/task_filter.dart';
 import '../../../presenters/task_state.dart';
-import '../../../presenters/task_tree.dart';
+import '../../../usecases/task_tree.dart';
 
 part 'tasks_main_controller.g.dart';
 
@@ -120,10 +119,9 @@ abstract class _TasksMainControllerBase with Store {
 
   @action
   Future _getAllTasks() async {
-    loader.setLoading();
     final _allTasks = <Task>[];
     for (Workspace ws in wsMainController.workspaces) {
-      _allTasks.addAll(await myUC.getTasks(ws));
+      _allTasks.addAll(await myUC.getTasks(ws.id!));
     }
     allTasks = ObservableList.of(_allTasks.sorted(sortByDateAsc));
   }
@@ -133,7 +131,7 @@ abstract class _TasksMainControllerBase with Store {
 
     final importedProjects = <Task>[];
     for (Workspace ws in wsMainController.workspaces) {
-      importedProjects.addAll(await myUC.getProjects(ws, closed: false, imported: true));
+      importedProjects.addAll(await myUC.getProjects(ws.id!, closed: false, imported: true));
     }
 
     for (Task p in importedProjects) {
@@ -154,7 +152,7 @@ abstract class _TasksMainControllerBase with Store {
           if (existingTask != null) {
             existingTask.subtasks.toList().forEach((t) => removeTask(t));
           }
-          addTasks(await myUC.getTasks(p.ws, parent: p, closed: false));
+          addTasks(await myUC.getTasks(p.wsId, parent: p, closed: false));
         }
       }
       // TODO: лишний раз сетится тут, если не было загрузок или изменений статусов

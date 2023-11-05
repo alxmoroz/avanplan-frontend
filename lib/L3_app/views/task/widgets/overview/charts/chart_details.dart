@@ -13,15 +13,15 @@ import '../../../../../components/toolbar.dart';
 import '../../../../../extra/services.dart';
 import '../../../../../presenters/duration.dart';
 import '../../../../../presenters/task_state.dart';
-import '../../../../../presenters/task_tree.dart';
 import '../../../../../presenters/task_view.dart';
 import '../../../../../presenters/workspace.dart';
 import '../../../../../usecases/task_feature_sets.dart';
+import '../../../../../usecases/task_tree.dart';
 import 'timing_chart.dart';
 import 'velocity_chart.dart';
 import 'volume_chart.dart';
 
-Future showChartsDetailsDialog(Task task) async => await showMTDialog<void>(TaskChartDetails(task));
+Future chartsDetailsDialog(Task task) async => await showMTDialog<void>(TaskChartDetails(task));
 
 class TaskChartDetails extends StatelessWidget {
   const TaskChartDetails(this.task);

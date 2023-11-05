@@ -3,10 +3,17 @@
 import 'package:collection/collection.dart';
 
 import '../../L1_domain/entities/task.dart';
+import '../../L1_domain/entities/workspace.dart';
 import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../extra/services.dart';
+import '../presenters/task_state.dart';
 
-extension TaskTreePresenter on Task {
+List<MapEntry<TaskState, List<Task>>> groups(Iterable<Task> tasks) {
+  final gt = groupBy<Task, TaskState>(tasks, (t) => t.overallState);
+  return gt.entries.sortedBy<num>((g) => g.key.index);
+}
+
+extension TaskTreeUC on Task {
   Task? get parent => tasksMainController.allTasks.firstWhereOrNull((t) => t.id == parentId);
 
   // TODO: что за ситуация такая, когда нет проекта?
@@ -26,4 +33,9 @@ extension TaskTreePresenter on Task {
   Iterable<Task> get closedSubtasks => subtasks.where((t) => t.closed);
 
   bool get hasOpenedSubtasks => openedSubtasks.isNotEmpty;
+
+  List<Task> subtasksForStatus(int statusId) => subtasks.where((t) => t.statusId == statusId).toList();
+  List<MapEntry<TaskState, List<Task>>> get subtaskGroups => groups(subtasks);
+
+  Workspace get ws => wsMainController.wsForId(wsId);
 }

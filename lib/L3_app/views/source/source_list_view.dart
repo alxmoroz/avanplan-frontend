@@ -15,13 +15,13 @@ import '../../presenters/source.dart';
 import '../../presenters/workspace.dart';
 import '../../usecases/ws_actions.dart';
 import 'no_sources.dart';
-import 'source_edit_view.dart';
+import 'source_edit_dialog.dart';
 
 class SourceListView extends StatelessWidget {
   const SourceListView(this._wsId);
   final int _wsId;
 
-  static String get routeName => '/sources';
+  static String get routeName => '/workspace/sources';
   static String title(int wsId) => '${wsMainController.wsForId(wsId)} - ${loc.source_list_title}';
 
   Workspace get _ws => wsMainController.wsForId(_wsId);

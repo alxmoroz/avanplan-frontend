@@ -6,8 +6,8 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../components/constants.dart';
 import '../../../components/dialog.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/task_tree.dart';
 import '../../../presenters/task_type.dart';
+import '../../../usecases/task_tree.dart';
 import '../widgets/details/text_edit_dialog.dart';
 import 'task_controller.dart';
 

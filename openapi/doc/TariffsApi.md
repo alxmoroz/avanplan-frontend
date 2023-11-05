@@ -9,13 +9,13 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**tariffsV1RefsTariffsGet**](TariffsApi.md#tariffsv1refstariffsget) | **GET** /v1/refs/tariffs | Tariffs
+[**availableTariffsV1WorkspacesWsIdTariffsGet**](TariffsApi.md#availabletariffsv1workspaceswsidtariffsget) | **GET** /v1/workspaces/{ws_id}/tariffs | Available Tariffs
 
 
-# **tariffsV1RefsTariffsGet**
-> BuiltList<TariffGet> tariffsV1RefsTariffsGet(wsId)
+# **availableTariffsV1WorkspacesWsIdTariffsGet**
+> BuiltList<TariffGet> availableTariffsV1WorkspacesWsIdTariffsGet(wsId)
 
-Tariffs
+Available Tariffs
 
 ### Example
 ```dart
@@ -29,10 +29,10 @@ final api = Openapi().getTariffsApi();
 final int wsId = 56; // int | 
 
 try {
-    final response = api.tariffsV1RefsTariffsGet(wsId);
+    final response = api.availableTariffsV1WorkspacesWsIdTariffsGet(wsId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling TariffsApi->tariffsV1RefsTariffsGet: $e\n');
+    print('Exception when calling TariffsApi->availableTariffsV1WorkspacesWsIdTariffsGet: $e\n');
 }
 ```
 

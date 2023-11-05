@@ -70,7 +70,7 @@ abstract class _NotesControllerBase with Store {
           text: taskController.fData(TaskFCode.note.index).text,
           authorId: task.me?.id,
           taskId: task.id,
-          wsId: task.ws.id!,
+          wsId: task.wsId,
         ),
       );
 

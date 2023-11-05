@@ -15,18 +15,18 @@ import '../../../../extra/services.dart';
 import '../../../../presenters/task_type.dart';
 import 'member_edit_controller.dart';
 
-Future<Iterable<Member>?> memberEditDialog(Task task, Member member) async => await showMTDialog<Iterable<Member>?>(MemberEditView(task, member));
+Future<Iterable<Member>?> memberEditDialog(Task task, Member member) async => await showMTDialog<Iterable<Member>?>(MemberEditDialog(task, member));
 
-class MemberEditView extends StatefulWidget {
-  const MemberEditView(this.task, this.member);
+class MemberEditDialog extends StatefulWidget {
+  const MemberEditDialog(this.task, this.member);
   final Task task;
   final Member member;
 
   @override
-  _MemberEditViewState createState() => _MemberEditViewState();
+  _MemberEditDialogState createState() => _MemberEditDialogState();
 }
 
-class _MemberEditViewState extends State<MemberEditView> {
+class _MemberEditDialogState extends State<MemberEditDialog> {
   Task get task => widget.task;
   Member get member => widget.member;
 

@@ -53,7 +53,7 @@ extension TaskEditUC on Task {
         final et = changes?.updated;
         if (et != null) {
           for (Task at in changes?.affected ?? []) {
-            tasksMainController.task(at.ws.id!, at.id)?._update(at);
+            tasksMainController.task(at.wsId, at.id)?._update(at);
           }
           return _update(et);
         }
@@ -65,7 +65,7 @@ extension TaskEditUC on Task {
         if (changes?.updated != null) {
           tasksMainController.removeTask(this);
           for (Task at in changes?.affected ?? []) {
-            tasksMainController.task(at.ws.id!, at.id)?._update(at);
+            tasksMainController.task(at.wsId, at.id)?._update(at);
           }
         }
         return null;

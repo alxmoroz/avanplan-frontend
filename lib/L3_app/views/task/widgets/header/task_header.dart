@@ -12,9 +12,9 @@ import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
 import '../../../../components/text.dart';
 import '../../../../components/text_field.dart';
-import '../../../../presenters/task_tree.dart';
 import '../../../../presenters/task_view.dart';
 import '../../../../usecases/task_actions.dart';
+import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
 
 class TaskHeader extends StatelessWidget {

@@ -43,7 +43,7 @@ class ImportRepo extends AbstractImportRepo {
   @override
   Future<bool> unlinkProject(Task project) async {
     final response = await api.unlinkV1IntegrationsTasksUnlinkPost(
-      wsId: project.ws.id!,
+      wsId: project.wsId,
       taskId: project.id!,
     );
     return response.data == true;

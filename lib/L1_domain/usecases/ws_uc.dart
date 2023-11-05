@@ -10,6 +10,6 @@ class WorkspaceUC {
 
   Future<Iterable<Workspace>> getAll() async => await repo.getAll();
   Future<Workspace?> getOne(int wsId) async => await repo.getOne(wsId);
-  Future<Workspace?> create({WorkspaceUpsert? ws}) async => await repo.create(ws: ws);
+  Future<Workspace?> create() async => await repo.create();
   Future<Workspace?> save(WorkspaceUpsert data) async => await repo.save(data);
 }

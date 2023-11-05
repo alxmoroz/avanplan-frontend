@@ -9,8 +9,8 @@ import '../../../../L1_domain/entities_extensions/ws_sources.dart';
 import '../../../../main.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/source.dart';
-import '../../../presenters/task_tree.dart';
 import '../../../usecases/task_feature_sets.dart';
+import '../../../usecases/task_tree.dart';
 import 'task_controller.dart';
 
 part 'feature_sets_controller.g.dart';

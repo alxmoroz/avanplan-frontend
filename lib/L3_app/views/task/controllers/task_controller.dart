@@ -85,7 +85,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
 }
 
 abstract class _TaskControllerBase extends EditController with Store {
-  Task get task => tasksMainController.task(_task!.ws.id!, _task!.id) ?? _task!;
+  Task get task => tasksMainController.task(_task!.wsId, _task!.id) ?? _task!;
 
   late final TitleController titleController;
   late final AssigneeController assigneeController;

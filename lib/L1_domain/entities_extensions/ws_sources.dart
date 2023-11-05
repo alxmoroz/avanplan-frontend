@@ -6,6 +6,8 @@ import '../entities/source.dart';
 import '../entities/source_type.dart';
 import '../entities/workspace.dart';
 
+// TODO: сделать так же как со статусами
+
 extension WSSources on Workspace {
   Source? sourceForId(int? id) => sources.firstWhereOrNull((s) => s.id == id);
   Source? sourceForType(SourceType? type) => sources.firstWhereOrNull((s) => s.typeCode == type?.code);

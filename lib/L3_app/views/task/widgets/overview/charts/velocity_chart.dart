@@ -14,9 +14,10 @@ import '../../../../../components/text.dart';
 import '../../../../../extra/services.dart';
 import '../../../../../presenters/duration.dart';
 import '../../../../../presenters/task_state.dart';
-import '../../../../../presenters/task_stats.dart';
 import '../../../../../presenters/workspace.dart';
 import '../../../../../usecases/task_feature_sets.dart';
+import '../../../../../usecases/task_stats.dart';
+import '../../../../../usecases/task_tree.dart';
 
 class VelocityChart extends StatelessWidget {
   const VelocityChart(this.task);

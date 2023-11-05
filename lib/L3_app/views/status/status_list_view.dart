@@ -15,6 +15,8 @@ import '../../components/page.dart';
 import '../../components/shadowed.dart';
 import '../../extra/services.dart';
 import '../../presenters/workspace.dart';
+import '../../usecases/ws_statuses.dart';
+import 'status_edit_dialog.dart';
 
 class WorkspaceStatusesView extends StatelessWidget {
   const WorkspaceStatusesView(this._wsId);
@@ -36,6 +38,7 @@ class WorkspaceStatusesView extends StatelessWidget {
         ],
       ),
       bottomDivider: index < _ws.statuses.length - 1,
+      onTap: () async => await statusEditDialog(status),
     );
   }
 

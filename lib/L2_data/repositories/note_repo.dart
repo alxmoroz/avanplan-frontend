@@ -42,9 +42,6 @@ class NoteRepo extends AbstractApiRepo<Note, Note> {
       noteId: data.id!,
       wsId: data.wsId,
     );
-    if (response.data == true) {
-      return data;
-    }
-    return null;
+    return response.data == true ? data : null;
   }
 }

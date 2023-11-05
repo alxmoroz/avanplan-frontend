@@ -15,11 +15,11 @@ import '../../../../components/images.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_state.dart';
-import '../../../../presenters/task_stats.dart';
-import '../../../../presenters/task_tree.dart';
 import '../../../../presenters/task_view.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_feature_sets.dart';
+import '../../../../usecases/task_stats.dart';
+import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
 import '../empty_state/no_tasks.dart';
 import '../header/state_title.dart';
@@ -107,7 +107,7 @@ class OverviewPane extends StatelessWidget {
                               ],
                             ],
                           ),
-                          onTap: () => showChartsDetailsDialog(_task),
+                          onTap: () => chartsDetailsDialog(_task),
                         ),
 
                       /// рекомендации

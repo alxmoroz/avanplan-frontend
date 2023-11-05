@@ -7,18 +7,9 @@ class Status extends Codable {
     required super.id,
     required super.code,
     required this.closed,
+    required this.wsId,
   });
 
   bool closed;
-}
-
-class ProjectStatus extends RPersistable {
-  ProjectStatus({
-    required super.id,
-    required this.statusId,
-    required this.position,
-  });
-
-  final int position;
-  final int statusId;
+  final int wsId;
 }

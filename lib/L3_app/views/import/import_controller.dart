@@ -15,7 +15,7 @@ import '../../extra/services.dart';
 import '../../usecases/source.dart';
 import '../../usecases/ws_actions.dart';
 import '../../usecases/ws_tariff.dart';
-import '../source/source_edit_view.dart';
+import '../source/source_edit_dialog.dart';
 import '../source/source_type_selector.dart';
 
 part 'import_controller.g.dart';

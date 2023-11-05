@@ -4,17 +4,16 @@ import 'package:intl/intl.dart';
 import 'package:openapi/openapi.dart' as api;
 
 import '../../L1_domain/entities/task.dart';
-import '../../L1_domain/entities/workspace.dart';
 import '../../L1_domain/entities_extensions/task_state.dart';
 import 'attachment.dart';
 import 'feature_set.dart';
 import 'member.dart';
 import 'note.dart';
-import 'status.dart';
+import 'project_status.dart';
 import 'task_source.dart';
 
 extension TaskMapper on api.TaskGet {
-  Task task(Workspace ws) {
+  Task task(int wsId) {
     final ts = taskSource?.taskSource;
     String _title = title.trim();
     if (type != null && type?.toLowerCase() == 'backlog') {
@@ -34,8 +33,8 @@ extension TaskMapper on api.TaskGet {
       closed: closed ?? false,
       statusId: statusId,
       estimate: estimate,
-      notes: notes?.map((n) => n.note(ws.id!)).toList() ?? [],
-      attachments: attachments?.map((a) => a.attachment(ws.id!)) ?? [],
+      notes: notes?.map((n) => n.note(wsId)).toList() ?? [],
+      attachments: attachments?.map((a) => a.attachment(wsId)) ?? [],
       authorId: authorId,
       assigneeId: assigneeId,
       members: members?.map((m) => m.member(id)) ?? [],
@@ -43,7 +42,7 @@ extension TaskMapper on api.TaskGet {
       projectFeatureSets: projectFeatureSets?.map((pfs) => pfs.projectFeatureSet) ?? [],
       taskSource: ts,
       parentId: parentId,
-      ws: ws,
+      wsId: wsId,
       state: tStateFromStr(state ?? ''),
       velocity: velocity?.toDouble() ?? 0,
       requiredVelocity: requiredVelocity?.toDouble(),

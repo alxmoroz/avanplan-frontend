@@ -29,7 +29,7 @@ abstract class WSBounded extends RPersistable {
 abstract class Codable extends RPersistable {
   Codable({super.id, required this.code});
 
-  final String code;
+  String code;
 
   @override
   String toString() => code;

@@ -64,19 +64,19 @@ Future<Source?> editSource(Workspace ws, {Source? src, SourceType? sType}) async
   return s;
 }
 
-Future<Source?> editSourceDialog(Workspace ws, Source? src, SourceType? sType) async => await showMTDialog<Source?>(SourceEditView(ws, src, sType));
+Future<Source?> editSourceDialog(Workspace ws, Source? src, SourceType? sType) async => await showMTDialog<Source?>(SourceEditDialog(ws, src, sType));
 
-class SourceEditView extends StatefulWidget {
-  const SourceEditView(this.ws, this.src, this.sType);
+class SourceEditDialog extends StatefulWidget {
+  const SourceEditDialog(this.ws, this.src, this.sType);
   final Workspace ws;
   final Source? src;
   final SourceType? sType;
 
   @override
-  _SourceEditViewState createState() => _SourceEditViewState();
+  _SourceEditDialogState createState() => _SourceEditDialogState();
 }
 
-class _SourceEditViewState extends State<SourceEditView> {
+class _SourceEditDialogState extends State<SourceEditDialog> {
   late final SourceEditController controller;
 
   bool get _isNew => controller.source == null;
@@ -96,33 +96,6 @@ class _SourceEditViewState extends State<SourceEditView> {
     super.dispose();
   }
 
-  Widget get _form => ListView(
-        shrinkWrap: true,
-        children: [
-          if (controller.showUrl) controller.tf(SourceFCode.url, first: true),
-          if (controller.showUsername) controller.tf(SourceFCode.username, first: !controller.showUrl),
-          if (controller.showUrl || controller.showUsername) const SizedBox(height: P3),
-          controller.selectedType?.isTrello == true
-              ? MTButton.secondary(
-                  titleText: loc.source_get_token_action,
-                  trailing: const LinkOutIcon(),
-                  onTap: controller.getTrelloToken,
-                )
-              : MTButton.secondary(
-                  titleText: loc.source_get_token_help_action,
-                  trailing: const LinkOutIcon(),
-                  onTap: () => launchUrlString(_sourceEditHelperAddress),
-                ),
-          controller.tf(SourceFCode.apiKey),
-          controller.tf(SourceFCode.description),
-          const SizedBox(height: P3),
-          MTButton.main(
-            titleText: loc.save_action_title,
-            onTap: _canSave ? controller.save : null,
-          ),
-        ],
-      );
-
   @override
   Widget build(BuildContext context) {
     return Observer(
@@ -141,7 +114,32 @@ class _SourceEditViewState extends State<SourceEditView> {
                 )
               : null,
         ),
-        body: _form,
+        body: ListView(
+          shrinkWrap: true,
+          children: [
+            if (controller.showUrl) controller.tf(SourceFCode.url, first: true),
+            if (controller.showUsername) controller.tf(SourceFCode.username, first: !controller.showUrl),
+            if (controller.showUrl || controller.showUsername) const SizedBox(height: P3),
+            controller.selectedType?.isTrello == true
+                ? MTButton.secondary(
+                    titleText: loc.source_get_token_action,
+                    trailing: const LinkOutIcon(),
+                    onTap: controller.getTrelloToken,
+                  )
+                : MTButton.secondary(
+                    titleText: loc.source_get_token_help_action,
+                    trailing: const LinkOutIcon(),
+                    onTap: () => launchUrlString(_sourceEditHelperAddress),
+                  ),
+            controller.tf(SourceFCode.apiKey),
+            controller.tf(SourceFCode.description),
+            const SizedBox(height: P3),
+            MTButton.main(
+              titleText: loc.save_action_title,
+              onTap: _canSave ? controller.save : null,
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -14,9 +14,8 @@ import '../components/constants.dart';
 import '../components/images.dart';
 import '../extra/services.dart';
 import '../presenters/duration.dart';
-import '../presenters/task_filter.dart';
-import '../presenters/task_tree.dart';
 import '../presenters/task_type.dart';
+import '../usecases/task_tree.dart';
 
 Color stateColor(TaskState state) {
   switch (state) {

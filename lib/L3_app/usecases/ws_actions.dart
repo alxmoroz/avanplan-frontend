@@ -31,7 +31,7 @@ extension WSActionsUC on Workspace {
 
   bool get plUsers => _pl(TLCode.USERS_COUNT, users.length + 1);
 
-  int get _projectsCount => tasksMainController.projects.where((t) => t.ws.id == id).length;
+  int get _projectsCount => tasksMainController.projects.where((t) => t.wsId == id).length;
   int get maxProjects => invoice.tariff.limitValue(TLCode.PROJECTS_COUNT).toInt();
   int get availableProjectsCount => maxProjects - _projectsCount;
   bool get plProjects => availableProjectsCount > 0;

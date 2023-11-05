@@ -7,7 +7,7 @@ import 'package:collection/collection.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/usecases/task_comparators.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/task_transfer.dart';
+import '../../../../usecases/task_transfer.dart';
 import '../../controllers/task_controller.dart';
 import 'task_selector.dart';
 

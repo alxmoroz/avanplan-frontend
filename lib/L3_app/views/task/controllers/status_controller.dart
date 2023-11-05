@@ -9,15 +9,14 @@ import 'package:flutter/services.dart';
 
 import '../../../../L1_domain/entities/status.dart';
 import '../../../../L1_domain/entities/task.dart';
-import '../../../../L1_domain/entities_extensions/task_status.dart';
 import '../../../../main.dart';
 import '../../../components/alert_dialog.dart';
 import '../../../components/select_dialog.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/task_filter.dart';
-import '../../../presenters/task_tree.dart';
 import '../../../usecases/task_actions.dart';
 import '../../../usecases/task_edit.dart';
+import '../../../usecases/task_status.dart';
+import '../../../usecases/task_tree.dart';
 import '../widgets/tasks/task_card.dart';
 import 'task_controller.dart';
 
@@ -80,7 +79,7 @@ class StatusController {
 
   Future selectStatus() async {
     final selectedStatus = await showMTSelectDialog<Status>(
-      task.statuses,
+      task.statuses.toList(),
       task.statusId,
       loc.task_status_select_placeholder,
     );
@@ -92,8 +91,8 @@ class StatusController {
 
   Future moveTask(int oldTaskIndex, int oldStatusIndex, int newTaskIndex, int newStatusIndex) async {
     if (oldStatusIndex != newStatusIndex) {
-      final oldStatusId = task.statuses[oldStatusIndex].id!;
-      final newStatusId = task.statuses[newStatusIndex].id!;
+      final oldStatusId = task.statuses.elementAt(oldStatusIndex).id!;
+      final newStatusId = task.statuses.elementAt(newStatusIndex).id!;
 
       final t = task.subtasksForStatus(oldStatusId)[oldTaskIndex];
       await setStatus(t, statusId: newStatusId);

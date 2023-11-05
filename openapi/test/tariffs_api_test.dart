@@ -6,10 +6,10 @@ void main() {
   final instance = Openapi().getTariffsApi();
 
   group(TariffsApi, () {
-    // Tariffs
+    // Available Tariffs
     //
-    //Future<BuiltList<TariffGet>> tariffsV1RefsTariffsGet(int wsId) async
-    test('test tariffsV1RefsTariffsGet', () async {
+    //Future<BuiltList<TariffGet>> availableTariffsV1WorkspacesWsIdTariffsGet(int wsId) async
+    test('test availableTariffsV1WorkspacesWsIdTariffsGet', () async {
       // TODO
     });
   });

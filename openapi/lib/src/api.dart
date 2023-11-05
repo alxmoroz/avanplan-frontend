@@ -24,6 +24,7 @@ import 'package:openapi/src/api/my_tasks_api.dart';
 import 'package:openapi/src/api/payments_api.dart';
 import 'package:openapi/src/api/project_feature_sets_api.dart';
 import 'package:openapi/src/api/settings_api.dart';
+import 'package:openapi/src/api/statuses_api.dart';
 import 'package:openapi/src/api/tariffs_api.dart';
 import 'package:openapi/src/api/tasks_api.dart';
 import 'package:openapi/src/api/tasks_invitations_api.dart';
@@ -173,6 +174,12 @@ class Openapi {
   /// by doing that all interceptors will not be executed
   SettingsApi getSettingsApi() {
     return SettingsApi(dio, serializers);
+  }
+
+  /// Get StatusesApi instance, base route and serializer can be overridden by a given but be careful,
+  /// by doing that all interceptors will not be executed
+  StatusesApi getStatusesApi() {
+    return StatusesApi(dio, serializers);
   }
 
   /// Get TariffsApi instance, base route and serializer can be overridden by a given but be careful,

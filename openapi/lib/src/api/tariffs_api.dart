@@ -20,7 +20,7 @@ class TariffsApi {
 
   const TariffsApi(this._dio, this._serializers);
 
-  /// Tariffs
+  /// Available Tariffs
   /// 
   ///
   /// Parameters:
@@ -34,7 +34,7 @@ class TariffsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<TariffGet>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<TariffGet>>> tariffsV1RefsTariffsGet({ 
+  Future<Response<BuiltList<TariffGet>>> availableTariffsV1WorkspacesWsIdTariffsGet({ 
     required int wsId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -43,7 +43,7 @@ class TariffsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/refs/tariffs';
+    final _path = r'/v1/workspaces/{ws_id}/tariffs'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
@@ -63,14 +63,9 @@ class TariffsApi {
       validateStatus: validateStatus,
     );
 
-    final _queryParameters = <String, dynamic>{
-      r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
-    };
-
     final _response = await _dio.request<Object>(
       _path,
       options: _options,
-      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,

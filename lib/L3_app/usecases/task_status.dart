@@ -2,20 +2,26 @@
 
 import 'package:collection/collection.dart';
 
-import '../../L3_app/presenters/task_tree.dart';
-import '../entities/status.dart';
-import '../entities/task.dart';
-import '../utils/dates.dart';
+import '../../L1_domain/entities/status.dart';
+import '../../L1_domain/entities/task.dart';
+import '../../L1_domain/utils/dates.dart';
+import '../usecases/ws_statuses.dart';
+import 'task_tree.dart';
 
 extension TaskStatus on Task {
-  List<Status> get statuses {
+  Iterable<Status> get statuses {
     List<Status> res = [];
 
     final pStatuses = project?.projectStatuses ?? [];
     if (pStatuses.isNotEmpty) {
-      res = pStatuses.map((ps) => ws.statuses.firstWhere((s) => s.id == ps.statusId)).toList();
+      pStatuses.forEach((ps) {
+        final s = ws.status(ps.statusId);
+        if (s != null) {
+          res.add(s);
+        }
+      });
     } else {
-      res = ws.statuses;
+      res = ws.statuses.toList();
     }
 
     return res;

@@ -73,13 +73,13 @@ abstract class _SourceEditControllerBase extends EditController with Store {
     loader.start();
     loader.setSaving();
     final editedSource = await sourceUC.save(Source(
-      id: source?.id,
+      id: source!.id,
       url: fData(SourceFCode.url.index).text,
       apiKey: fData(SourceFCode.apiKey.index).text,
       username: fData(SourceFCode.username.index).text,
       // password: tfAnnoForCode(SourceFCode.password.index).text,
       description: fData(SourceFCode.description.index).text,
-      typeCode: selectedType!.code, ws: ws,
+      typeCode: selectedType!.code, wsId: source!.wsId,
     ));
 
     if (editedSource != null) {

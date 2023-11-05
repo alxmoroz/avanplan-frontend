@@ -30,6 +30,7 @@ abstract class _MainControllerBase with Store {
     await notificationController.getData();
 
     await wsMainController.getData();
+    await statusesController.getData();
     await tasksMainController.getData();
 
     _setUpdateDate(now);
@@ -154,6 +155,7 @@ abstract class _MainControllerBase with Store {
   void clearData() {
     wsMainController.clearData();
     tasksMainController.clearData();
+    statusesController.clearData();
 
     _setUpdateDate(null);
 

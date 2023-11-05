@@ -23,12 +23,13 @@ import '../../presenters/tariff.dart';
 import '../../presenters/workspace.dart';
 import '../../usecases/ws_actions.dart';
 import '../../usecases/ws_sources.dart';
+import '../../usecases/ws_statuses.dart';
 import '../../usecases/ws_tariff.dart';
 import '../iap/iap_view.dart';
 import '../source/source_list_view.dart';
+import '../status/status_list_view.dart';
 import '../user/user_list_view.dart';
 import 'workspace_edit_view.dart';
-import 'workspace_statuses_view.dart';
 
 class WorkspaceView extends StatelessWidget {
   const WorkspaceView(this._wsId);

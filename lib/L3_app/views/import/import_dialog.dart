@@ -22,20 +22,20 @@ import '../../presenters/workspace.dart';
 import '../../usecases/ws_actions.dart';
 import '../../usecases/ws_sources.dart';
 import '../source/no_sources.dart';
-import '../source/source_edit_view.dart';
+import '../source/source_edit_dialog.dart';
 import 'import_controller.dart';
 
-Future _showImportDialog(ImportController controller) async => await showMTDialog<void>(ImportView(controller));
+Future _importDialog(ImportController controller) async => await showMTDialog<void>(ImportDialog(controller));
 
 // старт сценария по импорту задач
 Future importTasks(Workspace ws) async {
   final controller = await ImportController().init(ws);
   controller.ws.checkSources();
-  await _showImportDialog(controller);
+  await _importDialog(controller);
 }
 
-class ImportView extends StatelessWidget {
-  const ImportView(this.controller);
+class ImportDialog extends StatelessWidget {
+  const ImportDialog(this.controller);
   final ImportController controller;
 
   bool get _hasProjects => controller.projects.isNotEmpty;

@@ -10,14 +10,14 @@ import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import 'sign_in_email_controller.dart';
 
-Future showSignInEmailDialog() async => await showMTDialog<void>(SignInEmailForm());
+Future signInEmailDialog() async => await showMTDialog<void>(SignInEmailDialog());
 
-class SignInEmailForm extends StatefulWidget {
+class SignInEmailDialog extends StatefulWidget {
   @override
-  _SignInEmailFormState createState() => _SignInEmailFormState();
+  _SignInEmailDialogState createState() => _SignInEmailDialogState();
 }
 
-class _SignInEmailFormState extends State<SignInEmailForm> {
+class _SignInEmailDialogState extends State<SignInEmailDialog> {
   late final SignInEmailController controller;
 
   @override

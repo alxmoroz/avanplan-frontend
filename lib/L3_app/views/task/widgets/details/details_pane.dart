@@ -8,7 +8,6 @@ import 'package:url_launcher/url_launcher_string.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../../L1_domain/entities_extensions/task_stats.dart';
-import '../../../../../L1_domain/entities_extensions/task_status.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
@@ -23,10 +22,12 @@ import '../../../../extra/services.dart';
 import '../../../../presenters/feature_set.dart';
 import '../../../../presenters/person.dart';
 import '../../../../presenters/source.dart';
-import '../../../../presenters/task_source.dart';
 import '../../../../presenters/workspace.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_feature_sets.dart';
+import '../../../../usecases/task_source.dart';
+import '../../../../usecases/task_status.dart';
+import '../../../../usecases/task_tree.dart';
 import '../../../quiz/next_button.dart';
 import '../../../quiz/quiz_controller.dart';
 import '../../controllers/task_controller.dart';
@@ -142,7 +143,7 @@ class DetailsPane extends StatelessWidget {
                   margin: const EdgeInsets.only(top: P3),
                   leading: const AttachmentIcon(),
                   value: Row(children: [
-                    Expanded(child: BaseText(controller.attachmentsController.attachmentsStr, maxLines: 1)),
+                    Flexible(child: BaseText(controller.attachmentsController.attachmentsStr, maxLines: 1)),
                     if (controller.attachmentsController.attachmentsCountMoreStr.isNotEmpty)
                       BaseText.f2(controller.attachmentsController.attachmentsCountMoreStr, maxLines: 1)
                   ]),

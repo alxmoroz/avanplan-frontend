@@ -9,7 +9,7 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../components/button.dart';
 import '../../../components/constants.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/task_tree.dart';
+import '../../../usecases/task_tree.dart';
 import 'task_controller.dart';
 
 part 'subtasks_controller.g.dart';
@@ -31,7 +31,7 @@ abstract class _SubtasksControllerBase with Store {
   @action
   Future _loadClosed() async {
     _loading = true;
-    final tasks = await myUC.getTasks(task.ws, parent: task, closed: true);
+    final tasks = await myUC.getTasks(task.wsId, parent: task, closed: true);
     tasksMainController.removeClosed(task);
     if (tasks.isNotEmpty) {
       tasksMainController.addTasks(tasks);

@@ -5,9 +5,8 @@ import 'base_entity.dart';
 import 'feature_set.dart';
 import 'member.dart';
 import 'note.dart';
-import 'status.dart';
+import 'project_status.dart';
 import 'task_source.dart';
-import 'workspace.dart';
 
 class TType {
   static const ROOT = 'ROOT';
@@ -52,7 +51,7 @@ class Task extends Titleable {
     required this.members,
     required this.projectStatuses,
     required this.projectFeatureSets,
-    required this.ws,
+    required this.wsId,
     this.taskSource,
     this.createdOn,
     this.updatedOn,
@@ -81,7 +80,7 @@ class Task extends Titleable {
   Iterable<Member> members;
   Iterable<ProjectStatus> projectStatuses;
   Iterable<ProjectFeatureSet> projectFeatureSets;
-  final Workspace ws;
+  final int wsId;
   final TaskSource? taskSource;
   final DateTime? createdOn;
   final DateTime? updatedOn;

@@ -10,6 +10,7 @@ import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../presenters/task_type.dart';
+import '../../../../usecases/task_tree.dart';
 import '../../../../usecases/ws_actions.dart';
 import '../../../../usecases/ws_tasks.dart';
 import '../../controllers/create_goal_quiz_controller.dart';

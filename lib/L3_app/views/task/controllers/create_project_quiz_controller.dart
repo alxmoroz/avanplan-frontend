@@ -6,7 +6,7 @@ import 'package:mobx/mobx.dart';
 import '../../../../L1_domain/entities/feature_set.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/task_tree.dart';
+import '../../../usecases/task_tree.dart';
 import '../../../usecases/ws_tasks.dart';
 import '../../quiz/quiz_controller.dart';
 import '../task_view.dart';

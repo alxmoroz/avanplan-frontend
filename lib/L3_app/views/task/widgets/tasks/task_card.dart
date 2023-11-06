@@ -15,7 +15,6 @@ import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
-import '../../../../components/loader.dart';
 import '../../../../components/text.dart';
 import '../../../../presenters/date.dart';
 import '../../../../presenters/note.dart';
@@ -177,10 +176,9 @@ class TaskCard extends StatelessWidget {
               middle: _taskContent,
               dividerIndent: showStateMark ? P6 : 0,
               bottomDivider: bottomDivider,
-              // color: task.isImportingProject ? b1Color : null,
+              loading: task.loading,
               onTap: task.isImportingProject || dragging ? null : _tap,
             ),
-            if (task.loading == true) const MTLoader(),
             if (showStateMark)
               Positioned(
                 left: P3,

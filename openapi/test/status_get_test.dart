@@ -21,5 +21,10 @@ void main() {
     test('to test the property `closed`', () async {
       // TODO
     });
+
+    // bool allProjects
+    test('to test the property `allProjects`', () async {
+      // TODO
+    });
   });
 }

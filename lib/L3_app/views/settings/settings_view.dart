@@ -8,6 +8,7 @@ import '../../../L1_domain/entities/workspace.dart';
 import '../../../L2_data/repositories/communications_repo.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../../main.dart';
+import '../../components/adaptive.dart';
 import '../../components/appbar.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
@@ -101,18 +102,21 @@ class SettingsView extends StatelessWidget {
             top: false,
             bottom: false,
             child: MTShadowed(
-              child: ListView(
-                children: [
-                  AccountListTile(),
-                  const SizedBox(height: P3),
-                  _notifications,
-                  if (_wss.isNotEmpty) _workspaces,
-                  _about,
+              topPaddingIndent: P,
+              child: MTAdaptive(
+                child: ListView(
+                  children: [
+                    AccountListTile(),
+                    const SizedBox(height: P3),
+                    _notifications,
+                    if (_wss.isNotEmpty) _workspaces,
+                    _about,
 
-                  /// версия
-                  const SizedBox(height: P3),
-                  const AppVersion(),
-                ],
+                    /// версия
+                    const SizedBox(height: P3),
+                    const AppVersion(),
+                  ],
+                ),
               ),
             ),
           ),

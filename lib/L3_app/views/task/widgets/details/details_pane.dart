@@ -8,6 +8,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../../L1_domain/entities_extensions/task_stats.dart';
+import '../../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
@@ -42,6 +43,8 @@ class DetailsPane extends StatelessWidget {
 
   Task get _task => controller.task;
   bool get _quizzing => qController?.active == true;
+  bool get _showStatusRow => _task.hasStatus || (_task.isTask && _task.canClose);
+  bool get _showAssignee => !_quizzing && _task.hfsTeam && (_task.hasAssignee || _task.canAssign);
 
   Widget? get bottomBar => null;
 
@@ -54,10 +57,9 @@ class DetailsPane extends StatelessWidget {
           child: ListView(
             children: [
               /// Статус
-              if (_task.hasStatus)
+              if (_showStatusRow)
                 MTField(
                   controller.fData(TaskFCode.status.index),
-                  color: b2Color,
                   value: Row(
                     children: [
                       if (_task.hasStatus || _task.canSetStatus)
@@ -65,7 +67,7 @@ class DetailsPane extends StatelessWidget {
                           titleText: '${_task.status}',
                           constrained: false,
                           padding: const EdgeInsets.symmetric(horizontal: P4),
-                          margin: const EdgeInsets.only(right: P3),
+                          margin: const EdgeInsets.only(right: P2),
                           trailing: _task.canSetStatus
                               ? const Padding(
                                   padding: EdgeInsets.only(left: P_2, top: P_2),
@@ -83,13 +85,15 @@ class DetailsPane extends StatelessWidget {
                         )
                     ],
                   ),
+                  color: b2Color,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                 ),
 
               /// Назначенный
-              if (!_quizzing && _task.hfsTeam && (_task.hasAssignee || _task.canAssign)) ...[
+              if (_showAssignee) ...[
                 MTField(
                   controller.fData(TaskFCode.assignee.index),
-                  margin: EdgeInsets.only(top: _task.hasStatus ? P : P3),
+                  margin: EdgeInsets.only(top: _showStatusRow ? P : P3),
                   leading: _task.hasAssignee
                       ? _task.assignee!.icon(P3, borderColor: mainColor)
                       : PersonIcon(
@@ -104,7 +108,7 @@ class DetailsPane extends StatelessWidget {
               if (_task.hasDescription || _task.canEdit)
                 MTField(
                   controller.fData(TaskFCode.description.index),
-                  margin: EdgeInsets.only(top: _quizzing ? P : P3),
+                  margin: EdgeInsets.only(top: _quizzing || (_showStatusRow && !_showAssignee) ? P : P3),
                   leading: DescriptionIcon(color: _task.canEdit ? mainColor : f2Color),
                   value: _task.hasDescription
                       ? SelectableLinkify(

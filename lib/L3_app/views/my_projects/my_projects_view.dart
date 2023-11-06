@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../components/adaptive.dart';
 import '../../components/appbar.dart';
 import '../../components/page.dart';
 import '../../extra/services.dart';
@@ -25,11 +26,14 @@ class MyProjectsView extends StatelessWidget {
           bottom: false,
           child: TasksListView(tasksMainController.projectsGroups),
         ),
-        bottomBar: Row(children: [
-          const Spacer(),
-          ImportProjectButton(CreateProjectController(), compact: true, secondary: true),
-          CreateProjectButton(CreateProjectController(), compact: true),
-        ]),
+        bottomBar: MTAdaptive(
+          force: true,
+          child: Row(children: [
+            const Spacer(),
+            ImportProjectButton(CreateProjectController(), compact: true, secondary: true),
+            CreateProjectButton(CreateProjectController(), compact: true),
+          ]),
+        ),
       ),
     );
   }

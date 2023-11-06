@@ -6,5 +6,6 @@ import '../extra/services.dart';
 
 extension WSStatusesUC on Workspace {
   Iterable<Status> get statuses => statusesController.statuses(id!);
+  Iterable<Status> get defaultStatuses => statuses.where((st) => st.allProjects);
   Status? status(int statusId) => statusesController.status(id!, statusId);
 }

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/adaptive.dart';
+import '../../../../components/constants.dart';
 import '../../../../components/shadowed.dart';
 import '../../controllers/task_controller.dart';
 import '../header/state_title.dart';
@@ -44,6 +45,7 @@ class TasksListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTShadowed(
+      topPaddingIndent: P,
       child: MTAdaptive(
         child: ListView.builder(
           itemBuilder: (_, index) => _groupedItemBuilder(index),

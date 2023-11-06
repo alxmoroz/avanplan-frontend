@@ -21,7 +21,7 @@ extension TaskStatus on Task {
         }
       });
     } else {
-      res = ws.statuses.toList();
+      res = ws.defaultStatuses.toList();
     }
 
     return res;

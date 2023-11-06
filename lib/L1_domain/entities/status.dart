@@ -7,9 +7,11 @@ class Status extends Codable {
     required super.id,
     required super.code,
     required this.closed,
+    required this.allProjects,
     required this.wsId,
   });
 
   bool closed;
+  bool allProjects;
   final int wsId;
 }

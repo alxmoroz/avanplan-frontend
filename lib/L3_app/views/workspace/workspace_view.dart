@@ -16,6 +16,7 @@ import '../../components/icons.dart';
 import '../../components/icons_workspace.dart';
 import '../../components/list_tile.dart';
 import '../../components/page.dart';
+import '../../components/shadowed.dart';
 import '../../components/text.dart';
 import '../../extra/services.dart';
 import '../../presenters/date.dart';
@@ -44,7 +45,6 @@ class WorkspaceView extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: P3),
         child: Column(
           children: [
-            const SizedBox(height: P),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -135,16 +135,21 @@ class WorkspaceView extends StatelessWidget {
         body: SafeArea(
           top: false,
           bottom: false,
-          child: ListView(
-            children: [
-              _header,
-              _balance,
-              _tariff,
-              const SizedBox(height: P3),
-              if (_ws.hpMemberRead) _users,
-              if (_ws.hpSourceCreate) _sources,
-              if (_ws.hpStatusUpdate) _statuses,
-            ],
+          child: MTShadowed(
+            topPaddingIndent: P,
+            child: MTAdaptive(
+              child: ListView(
+                children: [
+                  _header,
+                  _balance,
+                  _tariff,
+                  const SizedBox(height: P3),
+                  if (_ws.hpMemberRead) _users,
+                  if (_ws.hpSourceCreate) _sources,
+                  if (_ws.hpStatusUpdate) _statuses,
+                ],
+              ),
+            ),
           ),
         ),
       ),

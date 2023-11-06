@@ -50,6 +50,7 @@ class SourceListView extends StatelessWidget {
           child: _ws.sources.isEmpty
               ? Center(child: NoSources(_ws))
               : MTShadowed(
+                  topPaddingIndent: P,
                   child: MTAdaptive(
                     child: ListView.builder(
                       itemBuilder: _sourceBuilder,
@@ -59,9 +60,12 @@ class SourceListView extends StatelessWidget {
                 ),
         ),
         bottomBar: _ws.sources.isNotEmpty && _ws.hpSourceCreate
-            ? Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [const Spacer(), MTPlusButton(() => startAddSource(_ws))],
+            ? MTAdaptive(
+                force: true,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [const Spacer(), MTPlusButton(() => startAddSource(_ws))],
+                ),
               )
             : null,
       ),

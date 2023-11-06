@@ -40,17 +40,6 @@ class ProjectsIcon extends MTIcon {
       );
 }
 
-class TasksIcon extends MTIcon {
-  const TasksIcon({super.color, super.size});
-
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.text_badge_checkmark,
-        color: (color ?? f2Color).resolve(context),
-        size: size ?? P6,
-      );
-}
-
 class RoubleIcon extends MTIcon {
   const RoubleIcon({super.color, super.size});
   @override

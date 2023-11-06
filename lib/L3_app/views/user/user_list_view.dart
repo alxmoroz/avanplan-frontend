@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
+import '../../components/adaptive.dart';
 import '../../components/appbar.dart';
 import '../../components/constants.dart';
 import '../../components/page.dart';
@@ -39,9 +40,12 @@ class UserListView extends StatelessWidget {
           top: false,
           bottom: false,
           child: MTShadowed(
-            child: ListView.builder(
-              itemBuilder: _userBuilder,
-              itemCount: ws.users.length,
+            topPaddingIndent: P,
+            child: MTAdaptive(
+              child: ListView.builder(
+                itemBuilder: _userBuilder,
+                itemCount: ws.users.length,
+              ),
             ),
           ),
         ),

@@ -21,7 +21,8 @@ class StatusRepo extends AbstractApiRepo<Status, Status> {
     final b = o_api.StatusUpsertBuilder()
       ..id = data.id
       ..code = data.code
-      ..closed = data.closed;
+      ..closed = data.closed
+      ..allProjects = data.allProjects;
     final response = await _api.statusesUpsert(
       wsId: data.wsId,
       statusUpsert: b.build(),

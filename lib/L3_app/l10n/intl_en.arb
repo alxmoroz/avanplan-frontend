@@ -84,6 +84,7 @@
   "delete_action_title": "Delete",
   "delete_dialog_description": "This action cannot be undone!",
   "description": "Description",
+  "details": "Details",
 
   "edit_action_title": "Edit",
   "error_auth_description": "Please check the information provided and try again",
@@ -308,9 +309,10 @@
   "state_risk_duration": "Overdue may be {duration}",
   "state_risk_title": "There is аn risk of overdue",
 
+  "status_all_projects_label": "Present in all projects",
   "status_code_placeholder": "New Status",
   "status_create_action_title": "Add status",
-  "status_error_validate_dub": "This status already exists",
+  "status_error_validate_dup": "This status already exists",
   "status_list_title": "Task Statuses",
   "status_title": "Status",
   "status_used_in_projects_label": "Used in projects",

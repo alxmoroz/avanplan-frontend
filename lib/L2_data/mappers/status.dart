@@ -9,6 +9,7 @@ extension StatusMapper on StatusGet {
         id: id,
         code: code,
         closed: closed,
+        allProjects: allProjects ?? false,
         wsId: wsId,
       );
 }

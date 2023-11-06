@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../L1_domain/entities/status.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/adaptive.dart';
 import '../../components/appbar.dart';
@@ -13,6 +14,7 @@ import '../../components/icons.dart';
 import '../../components/list_tile.dart';
 import '../../components/page.dart';
 import '../../components/shadowed.dart';
+import '../../components/text.dart';
 import '../../extra/services.dart';
 import '../../presenters/workspace.dart';
 import '../../usecases/ws_statuses.dart';
@@ -31,12 +33,14 @@ class WorkspaceStatusesView extends StatelessWidget {
     final status = _ws.statuses.elementAt(index);
     return MTListTile(
       titleText: '$status',
+      subtitle: status.allProjects ? SmallText(loc.status_all_projects_label, maxLines: 1) : null,
       trailing: Row(
         children: [
           if (status.closed) ...[const DoneIcon(true, color: f2Color), const SizedBox(width: P)],
           const ChevronIcon(),
         ],
       ),
+      loading: status.loading,
       bottomDivider: index < _ws.statuses.length - 1,
       onTap: () async => await statusEditDialog(status),
     );
@@ -56,9 +60,9 @@ class WorkspaceStatusesView extends StatelessWidget {
           bottom: false,
           child: MTShadowed(
             topPaddingIndent: P,
+            bottomShadow: true,
             child: MTAdaptive(
               child: ListView.builder(
-                shrinkWrap: true,
                 itemBuilder: itemBuilder,
                 itemCount: _ws.statuses.length,
               ),
@@ -68,6 +72,13 @@ class WorkspaceStatusesView extends StatelessWidget {
         bottomBar: MTButton.secondary(
           leading: const PlusIcon(),
           titleText: loc.status_create_action_title,
+          onTap: () async => await statusEditDialog(Status(
+            id: null,
+            code: loc.status_code_placeholder,
+            closed: false,
+            allProjects: false,
+            wsId: _wsId,
+          )),
         ),
       ),
     );

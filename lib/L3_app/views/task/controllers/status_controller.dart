@@ -11,7 +11,11 @@ import '../../../../L1_domain/entities/status.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../main.dart';
 import '../../../components/alert_dialog.dart';
+import '../../../components/colors_base.dart';
+import '../../../components/constants.dart';
+import '../../../components/icons.dart';
 import '../../../components/select_dialog.dart';
+import '../../../components/text.dart';
 import '../../../extra/services.dart';
 import '../../../usecases/task_actions.dart';
 import '../../../usecases/task_edit.dart';
@@ -82,6 +86,20 @@ class StatusController {
       task.statuses.toList(),
       task.statusId,
       loc.task_status_select_placeholder,
+      valueBuilder: (_, status) {
+        final selected = task.statusId == status.id;
+        final closed = status.closed;
+        final text = '$status';
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (selected && !closed) const SizedBox(width: P2),
+            if (closed) ...[const DoneIcon(true, color: f2Color), const SizedBox(width: P)],
+            selected ? H3(text, maxLines: 1) : BaseText(text, maxLines: 1),
+            if (closed) SizedBox(width: P3 - (selected ? P2 : 0)),
+          ],
+        );
+      },
     );
 
     if (selectedStatus != null) {

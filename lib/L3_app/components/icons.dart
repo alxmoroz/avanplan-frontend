@@ -383,6 +383,17 @@ class NoteMarkIcon extends MTIcon {
       );
 }
 
+class OverviewIcon extends MTIcon {
+  const OverviewIcon({super.color, super.size});
+
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.chart_pie,
+        color: (color ?? f2Color).resolve(context),
+        size: size ?? P4,
+      );
+}
+
 class PersonCircleIcon extends MTIcon {
   const PersonCircleIcon({super.color, super.size});
 
@@ -491,6 +502,17 @@ class SubmitIcon extends MTIcon {
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.arrow_up,
         color: (color ?? mainColor).resolve(context),
+        size: size ?? P4,
+      );
+}
+
+class TasksIcon extends MTIcon {
+  const TasksIcon({super.color, super.size});
+
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.text_badge_checkmark,
+        color: (color ?? f2Color).resolve(context),
         size: size ?? P4,
       );
 }

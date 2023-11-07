@@ -80,11 +80,11 @@ class TasksPane extends StatelessWidget {
           : _task.canShowBoard && controller.showBoard
               ? TasksBoard(
                   controller.statusController,
-                  extra: controller.subtasksController.loadClosedButton,
+                  extra: controller.subtasksController.loadClosedButton(board: true),
                 )
               : TasksListView(
                   _task.subtaskGroups,
-                  extra: controller.subtasksController.loadClosedButton,
+                  extra: controller.subtasksController.loadClosedButton(),
                 ),
     );
   }

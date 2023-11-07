@@ -86,7 +86,7 @@ class TasksBoard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (status.closed) const DoneIcon(true, color: f2Color),
-          BaseText('$status', padding: const EdgeInsets.all(P)),
+          Flexible(child: BaseText('$status', padding: const EdgeInsets.all(P), maxLines: 2, align: TextAlign.center)),
         ],
       ),
       children: [for (final t in tasks) _taskBuilder(t)],

@@ -12,15 +12,7 @@ class SourceUC {
   Future<bool> checkConnection(Source source) async => await repo.checkConnection(source);
   Future<bool> requestSourceType(SourceType st) async => await repo.requestSourceType(st);
 
-  Future<Source?> save(Source source) async {
-    Source? s;
-    final username = source.username?.trim() ?? '';
-    final apiKey = source.apiKey?.trim() ?? '';
-    if (source.url.trim().isNotEmpty && (username.isNotEmpty || apiKey.isNotEmpty)) {
-      s = await repo.save(source);
-    }
-    return s;
-  }
+  Future<Source?> save(Source source) async => await repo.save(source);
 
   Future<Source?> delete(Source s) async {
     if (s.id != null) {

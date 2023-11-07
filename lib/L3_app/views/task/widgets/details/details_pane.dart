@@ -149,7 +149,11 @@ class DetailsPane extends StatelessWidget {
                   value: Row(children: [
                     Flexible(child: BaseText(controller.attachmentsController.attachmentsStr, maxLines: 1)),
                     if (controller.attachmentsController.attachmentsCountMoreStr.isNotEmpty)
-                      BaseText.f2(controller.attachmentsController.attachmentsCountMoreStr, maxLines: 1)
+                      BaseText.f2(
+                        controller.attachmentsController.attachmentsCountMoreStr,
+                        maxLines: 1,
+                        padding: const EdgeInsets.only(left: P),
+                      )
                   ]),
                   onSelect: () => showAttachmentsDialog(controller.attachmentsController),
                 ),

@@ -15,6 +15,7 @@ import '../components/images.dart';
 import '../extra/services.dart';
 import '../presenters/duration.dart';
 import '../presenters/task_type.dart';
+import '../usecases/task_feature_sets.dart';
 import '../usecases/task_tree.dart';
 
 Color stateColor(TaskState state) {
@@ -211,14 +212,14 @@ extension TaskStatePresenter on Task {
   bool get needUserActionState => project!.state == TaskState.NO_PROGRESS || state == TaskState.NO_SUBTASKS;
   Duration? get projectStartEtaCalcPeriod => project!.calculatedStartDate.add(serviceSettingsController.lowStartThreshold).difference(DateTime.now());
 
-  TaskState get overallState => isTask
-      ? leafState
-      : isImportingProject
-          ? TaskState.IMPORTING
-          : attentionalSubtasks.isNotEmpty && !hasDueDate
-              ? subtasksState
-              : isBacklog
-                  ? TaskState.BACKLOG
+  TaskState get overallState => isImportingProject
+      ? TaskState.IMPORTING
+      : attentionalSubtasks.isNotEmpty && !hasDueDate
+          ? subtasksState
+          : isBacklog
+              ? TaskState.BACKLOG
+              : isTask || !hfsAnalytics
+                  ? leafState
                   : state;
 
   String get overallStateTitle => isTask || (attentionalSubtasks.isEmpty || hasDueDate) ? stateTitle : _subtasksStateTitle;

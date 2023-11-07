@@ -119,19 +119,20 @@ class _SourceEditDialogState extends State<SourceEditDialog> {
           children: [
             if (controller.showUrl) controller.tf(SourceFCode.url, first: true),
             if (controller.showUsername) controller.tf(SourceFCode.username, first: !controller.showUrl),
-            if (controller.showUrl || controller.showUsername) const SizedBox(height: P3),
-            controller.selectedType?.isTrello == true
-                ? MTButton.secondary(
-                    titleText: loc.source_get_token_action,
-                    trailing: const LinkOutIcon(),
-                    onTap: controller.getTrelloToken,
-                  )
-                : MTButton.secondary(
-                    titleText: loc.source_get_token_help_action,
-                    trailing: const LinkOutIcon(),
-                    onTap: () => launchUrlString(_sourceEditHelperAddress),
-                  ),
-            controller.tf(SourceFCode.apiKey),
+            // if (controller.showUrl || controller.showUsername) const SizedBox(height: P3),
+            if (controller.selectedType?.isTrelloJson == false)
+              controller.selectedType?.isTrello == true
+                  ? MTButton.secondary(
+                      titleText: loc.source_get_token_action,
+                      trailing: const LinkOutIcon(),
+                      onTap: controller.getTrelloToken,
+                    )
+                  : MTButton.secondary(
+                      titleText: loc.source_get_token_help_action,
+                      trailing: const LinkOutIcon(),
+                      onTap: () => launchUrlString(_sourceEditHelperAddress),
+                    ),
+            if (controller.selectedType?.isTrelloJson == false) controller.tf(SourceFCode.apiKey),
             controller.tf(SourceFCode.description),
             const SizedBox(height: P3),
             MTButton.main(

@@ -30,11 +30,13 @@ class SourceEditController extends _SourceEditControllerBase with _$SourceEditCo
     selectType(source?.type ?? sType);
 
     final isTrello = selectedType?.isTrello == true;
+    final isTrelloJson = selectedType?.isTrelloJson == true;
 
     initState(fds: [
-      MTFieldData(SourceFCode.url.index, label: loc.source_url_placeholder, text: source?.url ?? (isTrello ? 'https://api.trello.com' : '')),
+      MTFieldData(SourceFCode.url.index,
+          label: loc.source_url_placeholder, text: source?.url ?? (isTrello ? 'https://api.trello.com' : ''), validate: isTrelloJson),
       MTFieldData(SourceFCode.username.index, label: loc.auth_user_placeholder, text: source?.username ?? '', validate: showUsername),
-      MTFieldData(SourceFCode.apiKey.index, label: loc.source_api_key_placeholder, text: source?.apiKey ?? '', validate: true),
+      MTFieldData(SourceFCode.apiKey.index, label: loc.source_api_key_placeholder, text: source?.apiKey ?? '', validate: !isTrelloJson),
       // MTFieldData(SourceFCode.password.index, label: loc.auth_password_placeholder),
       MTFieldData(SourceFCode.description.index, label: loc.description, text: source?.description ?? (isTrello ? 'Trello' : '')),
     ]);
@@ -72,20 +74,23 @@ abstract class _SourceEditControllerBase extends EditController with Store {
   Future save() async {
     loader.start();
     loader.setSaving();
-    final editedSource = await sourceUC.save(Source(
-      id: source!.id,
-      url: fData(SourceFCode.url.index).text,
-      apiKey: fData(SourceFCode.apiKey.index).text,
-      username: fData(SourceFCode.username.index).text,
-      // password: tfAnnoForCode(SourceFCode.password.index).text,
-      description: fData(SourceFCode.description.index).text,
-      typeCode: selectedType!.code, wsId: source!.wsId,
-    ));
+    final editedSource = await sourceUC.save(
+      Source(
+        id: source?.id,
+        url: fData(SourceFCode.url.index).text,
+        apiKey: fData(SourceFCode.apiKey.index).text,
+        username: fData(SourceFCode.username.index).text,
+        // password: tfAnnoForCode(SourceFCode.password.index).text,
+        description: fData(SourceFCode.description.index).text,
+        typeCode: selectedType!.code,
+        wsId: ws.id!,
+      ),
+    );
 
     if (editedSource != null) {
       Navigator.of(rootKey.currentContext!).pop(editedSource);
-      await loader.stop(300);
     }
+    await loader.stop(300);
   }
 
   Future delete(BuildContext context) async {

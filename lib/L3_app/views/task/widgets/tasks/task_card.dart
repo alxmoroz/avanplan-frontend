@@ -128,7 +128,7 @@ class TaskCard extends StatelessWidget {
           else if (task.isImportingProject)
             Container()
           // проекты, цели или группы задач - интегральная оценка, метка связанного проекта и комментариев
-          else if (task.isOpenedGroup) ...[
+          else if (task.isOpenedGroup && task.hfsAnalytics) ...[
             const SizedBox(height: P_2),
             Row(children: [
               Expanded(child: TaskStateTitle(task, place: StateTitlePlace.card)),

@@ -39,10 +39,12 @@ abstract class _SubtasksControllerBase with Store {
     _loading = false;
   }
 
-  Widget? get loadClosedButton => (task.closedSubtasksCount ?? 0) > task.closedSubtasks.length
+  Widget? loadClosedButton({bool board = false}) => (task.closedSubtasksCount ?? 0) > task.closedSubtasks.length
       ? MTButton.secondary(
+          constrained: !board,
+          padding: EdgeInsets.symmetric(horizontal: board ? P3 : 0),
           titleText: loc.show_closed_action_title,
-          margin: const EdgeInsets.symmetric(vertical: P3),
+          margin: EdgeInsets.only(top: board ? P : P3, bottom: board ? P2 : 0),
           loading: _loading,
           onTap: _loadClosed,
         )

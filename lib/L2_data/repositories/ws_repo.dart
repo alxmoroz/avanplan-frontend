@@ -12,25 +12,25 @@ class WSRepo extends AbstractWSRepo {
 
   @override
   Future<Iterable<Workspace>> getAll() async {
-    final response = await _api.getMyWorkspacesV1WorkspacesGet();
+    final response = await _api.getMyWorkspaces();
     return response.data?.map((ws) => ws.workspace) ?? [];
   }
 
   @override
   Future<Workspace?> getOne(int id) async {
-    final response = await _api.getWorkspaceV1WorkspacesWsIdGet(wsId: id);
+    final response = await _api.getWorkspace(wsId: id);
     return response.data?.workspace;
   }
 
   @override
   Future<Workspace?> create() async {
-    final response = await _api.createWorkspaceV1WorkspacesPost();
+    final response = await _api.createWorkspace();
     return response.data?.workspace;
   }
 
   @override
   Future<Workspace?> save(WorkspaceUpsert data) async {
-    final response = await _api.updateWorkspaceV1WorkspacesWsIdPost(
+    final response = await _api.updateWorkspace(
         wsId: data.id!,
         workspaceUpsert: (o_api.WorkspaceUpsertBuilder()
               ..id = data.id

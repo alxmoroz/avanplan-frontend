@@ -9,12 +9,12 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**deleteV1TasksNotesNoteIdDelete**](TasksNotesApi.md#deletev1tasksnotesnoteiddelete) | **DELETE** /v1/tasks/notes/{note_id} | Delete
-[**upsertV1TasksNotesPost**](TasksNotesApi.md#upsertv1tasksnotespost) | **POST** /v1/tasks/notes | Upsert
+[**deleteNote**](TasksNotesApi.md#deletenote) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id} | Delete
+[**upsertNote**](TasksNotesApi.md#upsertnote) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes | Upsert
 
 
-# **deleteV1TasksNotesNoteIdDelete**
-> bool deleteV1TasksNotesNoteIdDelete(noteId, wsId, permissionTaskId)
+# **deleteNote**
+> bool deleteNote(noteId, wsId, taskId, permissionTaskId)
 
 Delete
 
@@ -31,13 +31,14 @@ import 'package:openapi/api.dart';
 final api = Openapi().getTasksNotesApi();
 final int noteId = 56; // int | 
 final int wsId = 56; // int | 
+final int taskId = 56; // int | 
 final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.deleteV1TasksNotesNoteIdDelete(noteId, wsId, permissionTaskId);
+    final response = api.deleteNote(noteId, wsId, taskId, permissionTaskId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling TasksNotesApi->deleteV1TasksNotesNoteIdDelete: $e\n');
+    print('Exception when calling TasksNotesApi->deleteNote: $e\n');
 }
 ```
 
@@ -47,6 +48,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **noteId** | **int**|  | 
  **wsId** | **int**|  | 
+ **taskId** | **int**|  | 
  **permissionTaskId** | **int**|  | [optional] 
 
 ### Return type
@@ -64,8 +66,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **upsertV1TasksNotesPost**
-> NoteGet upsertV1TasksNotesPost(wsId, noteUpsert, permissionTaskId)
+# **upsertNote**
+> NoteGet upsertNote(wsId, taskId, noteUpsert, permissionTaskId)
 
 Upsert
 
@@ -81,14 +83,15 @@ import 'package:openapi/api.dart';
 
 final api = Openapi().getTasksNotesApi();
 final int wsId = 56; // int | 
+final int taskId = 56; // int | 
 final NoteUpsert noteUpsert = ; // NoteUpsert | 
 final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.upsertV1TasksNotesPost(wsId, noteUpsert, permissionTaskId);
+    final response = api.upsertNote(wsId, taskId, noteUpsert, permissionTaskId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling TasksNotesApi->upsertV1TasksNotesPost: $e\n');
+    print('Exception when calling TasksNotesApi->upsertNote: $e\n');
 }
 ```
 
@@ -97,6 +100,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **wsId** | **int**|  | 
+ **taskId** | **int**|  | 
  **noteUpsert** | [**NoteUpsert**](NoteUpsert.md)|  | 
  **permissionTaskId** | **int**|  | [optional] 
 

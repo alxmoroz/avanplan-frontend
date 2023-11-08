@@ -12,19 +12,27 @@ class InvitationRepo extends AbstractInvitationRepo {
 
   @override
   Future<Invitation?> create(Invitation invitation, int wsId) async {
-    final invitationData = (o_api.InvitationBuilder()
+    final data = (o_api.InvitationBuilder()
           ..roleId = invitation.roleId
           ..taskId = invitation.taskId
           ..activationsCount = invitation.activationsCount
           ..expiresOn = invitation.expiresOn.toUtc())
         .build();
-    final response = await api.createV1TasksInvitationsPost(wsId: wsId, invitation: invitationData);
+    final response = await api.createInvitation(
+      wsId: wsId,
+      taskId: invitation.taskId,
+      invitation: data,
+    );
     return response.data?.invitation;
   }
 
   @override
   Future<Invitation?> getInvitation(int wsId, int taskId, int roleId) async {
-    final response = await api.invitationsV1TasksInvitationsGet(wsId: wsId, roleId: roleId, taskId: taskId);
+    final response = await api.getInvitations(
+      wsId: wsId,
+      roleId: roleId,
+      taskId: taskId,
+    );
     return response.data?.map((inv) => inv.invitation).firstOrNull;
   }
 }

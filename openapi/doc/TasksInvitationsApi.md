@@ -9,12 +9,12 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createV1TasksInvitationsPost**](TasksInvitationsApi.md#createv1tasksinvitationspost) | **POST** /v1/tasks/invitations | Create
-[**invitationsV1TasksInvitationsGet**](TasksInvitationsApi.md#invitationsv1tasksinvitationsget) | **GET** /v1/tasks/invitations | Invitations
+[**createInvitation**](TasksInvitationsApi.md#createinvitation) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Create
+[**getInvitations**](TasksInvitationsApi.md#getinvitations) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Invitations
 
 
-# **createV1TasksInvitationsPost**
-> InvitationGet createV1TasksInvitationsPost(wsId, invitation)
+# **createInvitation**
+> InvitationGet createInvitation(wsId, taskId, invitation, permissionTaskId)
 
 Create
 
@@ -30,13 +30,15 @@ import 'package:openapi/api.dart';
 
 final api = Openapi().getTasksInvitationsApi();
 final int wsId = 56; // int | 
+final int taskId = 56; // int | 
 final Invitation invitation = ; // Invitation | 
+final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.createV1TasksInvitationsPost(wsId, invitation);
+    final response = api.createInvitation(wsId, taskId, invitation, permissionTaskId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling TasksInvitationsApi->createV1TasksInvitationsPost: $e\n');
+    print('Exception when calling TasksInvitationsApi->createInvitation: $e\n');
 }
 ```
 
@@ -45,7 +47,9 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **wsId** | **int**|  | 
+ **taskId** | **int**|  | 
  **invitation** | [**Invitation**](Invitation.md)|  | 
+ **permissionTaskId** | **int**|  | [optional] 
 
 ### Return type
 
@@ -62,8 +66,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **invitationsV1TasksInvitationsGet**
-> BuiltList<InvitationGet> invitationsV1TasksInvitationsGet(taskId, roleId, wsId, permissionTaskId)
+# **getInvitations**
+> BuiltList<InvitationGet> getInvitations(taskId, wsId, roleId, permissionTaskId)
 
 Invitations
 
@@ -79,15 +83,15 @@ import 'package:openapi/api.dart';
 
 final api = Openapi().getTasksInvitationsApi();
 final int taskId = 56; // int | 
-final int roleId = 56; // int | 
 final int wsId = 56; // int | 
+final int roleId = 56; // int | 
 final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.invitationsV1TasksInvitationsGet(taskId, roleId, wsId, permissionTaskId);
+    final response = api.getInvitations(taskId, wsId, roleId, permissionTaskId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling TasksInvitationsApi->invitationsV1TasksInvitationsGet: $e\n');
+    print('Exception when calling TasksInvitationsApi->getInvitations: $e\n');
 }
 ```
 
@@ -96,8 +100,8 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **taskId** | **int**|  | 
- **roleId** | **int**|  | 
  **wsId** | **int**|  | 
+ **roleId** | **int**|  | 
  **permissionTaskId** | **int**|  | [optional] 
 
 ### Return type

@@ -9,11 +9,11 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**assignV1TasksRolesPost**](TasksRolesApi.md#assignv1tasksrolespost) | **POST** /v1/tasks/roles | Assign
+[**assignRole**](TasksRolesApi.md#assignrole) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/roles | Assign
 
 
-# **assignV1TasksRolesPost**
-> BuiltList<MemberGet> assignV1TasksRolesPost(taskId, memberId, wsId, requestBody, permissionTaskId)
+# **assignRole**
+> BuiltList<MemberGet> assignRole(taskId, wsId, memberId, requestBody, permissionTaskId)
 
 Assign
 
@@ -29,16 +29,16 @@ import 'package:openapi/api.dart';
 
 final api = Openapi().getTasksRolesApi();
 final int taskId = 56; // int | 
-final int memberId = 56; // int | 
 final int wsId = 56; // int | 
+final int memberId = 56; // int | 
 final BuiltList<int> requestBody = ; // BuiltList<int> | 
 final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.assignV1TasksRolesPost(taskId, memberId, wsId, requestBody, permissionTaskId);
+    final response = api.assignRole(taskId, wsId, memberId, requestBody, permissionTaskId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling TasksRolesApi->assignV1TasksRolesPost: $e\n');
+    print('Exception when calling TasksRolesApi->assignRole: $e\n');
 }
 ```
 
@@ -47,8 +47,8 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **taskId** | **int**|  | 
- **memberId** | **int**|  | 
  **wsId** | **int**|  | 
+ **memberId** | **int**|  | 
  **requestBody** | [**BuiltList&lt;int&gt;**](int.md)|  | 
  **permissionTaskId** | **int**|  | [optional] 
 

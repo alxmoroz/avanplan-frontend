@@ -4,7 +4,6 @@ import 'package:openapi/openapi.dart' as o_api;
 
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/repositories/abs_api_repo.dart';
-import '../../L3_app/usecases/task_tree.dart';
 import '../mappers/task.dart';
 import '../services/api.dart';
 
@@ -30,10 +29,10 @@ class TaskRepo extends AbstractApiRepo<TasksChanges, Task> {
       ..dueDate = data.dueDate?.toUtc()
       ..type = data.type;
 
-    final changes = (await api.taskUpsertV1TasksPost(
+    final changes = (await api.upsertTask(
       taskUpsert: qBuilder.build(),
       wsId: data.wsId,
-      permissionTaskId: data.project?.id,
+      taskId: data.id,
     ))
         .data;
 
@@ -45,10 +44,9 @@ class TaskRepo extends AbstractApiRepo<TasksChanges, Task> {
 
   @override
   Future<TasksChanges> delete(Task data) async {
-    final changes = (await api.deleteV1TasksTaskIdDelete(
+    final changes = (await api.deleteTask(
       taskId: data.id!,
       wsId: data.wsId,
-      permissionTaskId: data.project?.id,
     ))
         .data;
     return TasksChanges(

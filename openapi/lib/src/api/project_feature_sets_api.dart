@@ -24,7 +24,7 @@ class ProjectFeatureSetsApi {
   /// 
   ///
   /// Parameters:
-  /// * [projectId] 
+  /// * [taskId] 
   /// * [wsId] 
   /// * [requestBody] 
   /// * [permissionTaskId] 
@@ -37,8 +37,8 @@ class ProjectFeatureSetsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<ProjectFeatureSetGet>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<ProjectFeatureSetGet>>> setupFeatureSetsV1TasksFeatureSetsPost({ 
-    required int projectId,
+  Future<Response<BuiltList<ProjectFeatureSetGet>>> setupFeatureSets({ 
+    required int taskId,
     required int wsId,
     required BuiltList<int> requestBody,
     int? permissionTaskId,
@@ -49,7 +49,7 @@ class ProjectFeatureSetsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/tasks/feature_sets';
+    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets'.replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString()).replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -74,8 +74,6 @@ class ProjectFeatureSetsApi {
     );
 
     final _queryParameters = <String, dynamic>{
-      r'project_id': encodeQueryParameter(_serializers, projectId, const FullType(int)),
-      r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
       if (permissionTaskId != null) r'permission_task_id': encodeQueryParameter(_serializers, permissionTaskId, const FullType(int)),
     };
 

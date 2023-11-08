@@ -8,57 +8,57 @@ void main() {
   group(TasksApi, () {
     // Assign
     //
-    //Future<BuiltList<MemberGet>> assignV1TasksRolesPost(int taskId, int memberId, int wsId, BuiltList<int> requestBody, { int permissionTaskId }) async
-    test('test assignV1TasksRolesPost', () async {
+    //Future<BuiltList<MemberGet>> assignRole(int taskId, int wsId, int memberId, BuiltList<int> requestBody, { int permissionTaskId }) async
+    test('test assignRole', () async {
       // TODO
     });
 
     // Create
     //
-    //Future<InvitationGet> createV1TasksInvitationsPost(int wsId, Invitation invitation) async
-    test('test createV1TasksInvitationsPost', () async {
+    //Future<InvitationGet> createInvitation(int wsId, int taskId, Invitation invitation, { int permissionTaskId }) async
+    test('test createInvitation', () async {
       // TODO
     });
 
     // Delete
     //
-    //Future<bool> deleteV1TasksNotesNoteIdDelete(int noteId, int wsId, { int permissionTaskId }) async
-    test('test deleteV1TasksNotesNoteIdDelete', () async {
+    //Future<bool> deleteNote(int noteId, int wsId, int taskId, { int permissionTaskId }) async
+    test('test deleteNote', () async {
       // TODO
     });
 
     // Delete
     //
-    //Future<TasksChanges> deleteV1TasksTaskIdDelete(int taskId, int wsId, { int permissionTaskId }) async
-    test('test deleteV1TasksTaskIdDelete', () async {
+    //Future<TasksChanges> deleteTask(int taskId, int wsId, { int permissionTaskId }) async
+    test('test deleteTask', () async {
       // TODO
     });
 
     // Invitations
     //
-    //Future<BuiltList<InvitationGet>> invitationsV1TasksInvitationsGet(int taskId, int roleId, int wsId, { int permissionTaskId }) async
-    test('test invitationsV1TasksInvitationsGet', () async {
+    //Future<BuiltList<InvitationGet>> getInvitations(int taskId, int wsId, int roleId, { int permissionTaskId }) async
+    test('test getInvitations', () async {
       // TODO
     });
 
     // Setup Feature Sets
     //
-    //Future<BuiltList<ProjectFeatureSetGet>> setupFeatureSetsV1TasksFeatureSetsPost(int projectId, int wsId, BuiltList<int> requestBody, { int permissionTaskId }) async
-    test('test setupFeatureSetsV1TasksFeatureSetsPost', () async {
-      // TODO
-    });
-
-    // Task Upsert
-    //
-    //Future<TasksChanges> taskUpsertV1TasksPost(int wsId, TaskUpsert taskUpsert, { int permissionTaskId }) async
-    test('test taskUpsertV1TasksPost', () async {
+    //Future<BuiltList<ProjectFeatureSetGet>> setupFeatureSets(int taskId, int wsId, BuiltList<int> requestBody, { int permissionTaskId }) async
+    test('test setupFeatureSets', () async {
       // TODO
     });
 
     // Upsert
     //
-    //Future<NoteGet> upsertV1TasksNotesPost(int wsId, NoteUpsert noteUpsert, { int permissionTaskId }) async
-    test('test upsertV1TasksNotesPost', () async {
+    //Future<NoteGet> upsertNote(int wsId, int taskId, NoteUpsert noteUpsert, { int permissionTaskId }) async
+    test('test upsertNote', () async {
+      // TODO
+    });
+
+    // Task Upsert
+    //
+    //Future<TasksChanges> upsertTask(int wsId, TaskUpsert taskUpsert, { int permissionTaskId, int taskId }) async
+    test('test upsertTask', () async {
       // TODO
     });
   });

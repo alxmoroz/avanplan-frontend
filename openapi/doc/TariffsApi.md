@@ -9,11 +9,11 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**availableTariffsV1WorkspacesWsIdTariffsGet**](TariffsApi.md#availabletariffsv1workspaceswsidtariffsget) | **GET** /v1/workspaces/{ws_id}/tariffs | Available Tariffs
+[**getAvailableTariffs**](TariffsApi.md#getavailabletariffs) | **GET** /v1/workspaces/{ws_id}/tariffs | Available Tariffs
 
 
-# **availableTariffsV1WorkspacesWsIdTariffsGet**
-> BuiltList<TariffGet> availableTariffsV1WorkspacesWsIdTariffsGet(wsId)
+# **getAvailableTariffs**
+> BuiltList<TariffGet> getAvailableTariffs(wsId)
 
 Available Tariffs
 
@@ -29,10 +29,10 @@ final api = Openapi().getTariffsApi();
 final int wsId = 56; // int | 
 
 try {
-    final response = api.availableTariffsV1WorkspacesWsIdTariffsGet(wsId);
+    final response = api.getAvailableTariffs(wsId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling TariffsApi->availableTariffsV1WorkspacesWsIdTariffsGet: $e\n');
+    print('Exception when calling TariffsApi->getAvailableTariffs: $e\n');
 }
 ```
 

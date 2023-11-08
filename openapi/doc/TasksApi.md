@@ -9,18 +9,18 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**assignV1TasksRolesPost**](TasksApi.md#assignv1tasksrolespost) | **POST** /v1/tasks/roles | Assign
-[**createV1TasksInvitationsPost**](TasksApi.md#createv1tasksinvitationspost) | **POST** /v1/tasks/invitations | Create
-[**deleteV1TasksNotesNoteIdDelete**](TasksApi.md#deletev1tasksnotesnoteiddelete) | **DELETE** /v1/tasks/notes/{note_id} | Delete
-[**deleteV1TasksTaskIdDelete**](TasksApi.md#deletev1taskstaskiddelete) | **DELETE** /v1/tasks/{task_id} | Delete
-[**invitationsV1TasksInvitationsGet**](TasksApi.md#invitationsv1tasksinvitationsget) | **GET** /v1/tasks/invitations | Invitations
-[**setupFeatureSetsV1TasksFeatureSetsPost**](TasksApi.md#setupfeaturesetsv1tasksfeaturesetspost) | **POST** /v1/tasks/feature_sets | Setup Feature Sets
-[**taskUpsertV1TasksPost**](TasksApi.md#taskupsertv1taskspost) | **POST** /v1/tasks | Task Upsert
-[**upsertV1TasksNotesPost**](TasksApi.md#upsertv1tasksnotespost) | **POST** /v1/tasks/notes | Upsert
+[**assignRole**](TasksApi.md#assignrole) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/roles | Assign
+[**createInvitation**](TasksApi.md#createinvitation) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Create
+[**deleteNote**](TasksApi.md#deletenote) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id} | Delete
+[**deleteTask**](TasksApi.md#deletetask) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id} | Delete
+[**getInvitations**](TasksApi.md#getinvitations) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Invitations
+[**setupFeatureSets**](TasksApi.md#setupfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Feature Sets
+[**upsertNote**](TasksApi.md#upsertnote) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes | Upsert
+[**upsertTask**](TasksApi.md#upserttask) | **POST** /v1/workspaces/{ws_id}/tasks | Task Upsert
 
 
-# **assignV1TasksRolesPost**
-> BuiltList<MemberGet> assignV1TasksRolesPost(taskId, memberId, wsId, requestBody, permissionTaskId)
+# **assignRole**
+> BuiltList<MemberGet> assignRole(taskId, wsId, memberId, requestBody, permissionTaskId)
 
 Assign
 
@@ -36,16 +36,16 @@ import 'package:openapi/api.dart';
 
 final api = Openapi().getTasksApi();
 final int taskId = 56; // int | 
-final int memberId = 56; // int | 
 final int wsId = 56; // int | 
+final int memberId = 56; // int | 
 final BuiltList<int> requestBody = ; // BuiltList<int> | 
 final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.assignV1TasksRolesPost(taskId, memberId, wsId, requestBody, permissionTaskId);
+    final response = api.assignRole(taskId, wsId, memberId, requestBody, permissionTaskId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling TasksApi->assignV1TasksRolesPost: $e\n');
+    print('Exception when calling TasksApi->assignRole: $e\n');
 }
 ```
 
@@ -54,8 +54,8 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **taskId** | **int**|  | 
- **memberId** | **int**|  | 
  **wsId** | **int**|  | 
+ **memberId** | **int**|  | 
  **requestBody** | [**BuiltList&lt;int&gt;**](int.md)|  | 
  **permissionTaskId** | **int**|  | [optional] 
 
@@ -74,8 +74,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **createV1TasksInvitationsPost**
-> InvitationGet createV1TasksInvitationsPost(wsId, invitation)
+# **createInvitation**
+> InvitationGet createInvitation(wsId, taskId, invitation, permissionTaskId)
 
 Create
 
@@ -91,13 +91,15 @@ import 'package:openapi/api.dart';
 
 final api = Openapi().getTasksApi();
 final int wsId = 56; // int | 
+final int taskId = 56; // int | 
 final Invitation invitation = ; // Invitation | 
+final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.createV1TasksInvitationsPost(wsId, invitation);
+    final response = api.createInvitation(wsId, taskId, invitation, permissionTaskId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling TasksApi->createV1TasksInvitationsPost: $e\n');
+    print('Exception when calling TasksApi->createInvitation: $e\n');
 }
 ```
 
@@ -106,7 +108,9 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **wsId** | **int**|  | 
+ **taskId** | **int**|  | 
  **invitation** | [**Invitation**](Invitation.md)|  | 
+ **permissionTaskId** | **int**|  | [optional] 
 
 ### Return type
 
@@ -123,8 +127,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **deleteV1TasksNotesNoteIdDelete**
-> bool deleteV1TasksNotesNoteIdDelete(noteId, wsId, permissionTaskId)
+# **deleteNote**
+> bool deleteNote(noteId, wsId, taskId, permissionTaskId)
 
 Delete
 
@@ -141,13 +145,14 @@ import 'package:openapi/api.dart';
 final api = Openapi().getTasksApi();
 final int noteId = 56; // int | 
 final int wsId = 56; // int | 
+final int taskId = 56; // int | 
 final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.deleteV1TasksNotesNoteIdDelete(noteId, wsId, permissionTaskId);
+    final response = api.deleteNote(noteId, wsId, taskId, permissionTaskId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling TasksApi->deleteV1TasksNotesNoteIdDelete: $e\n');
+    print('Exception when calling TasksApi->deleteNote: $e\n');
 }
 ```
 
@@ -157,6 +162,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **noteId** | **int**|  | 
  **wsId** | **int**|  | 
+ **taskId** | **int**|  | 
  **permissionTaskId** | **int**|  | [optional] 
 
 ### Return type
@@ -174,8 +180,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **deleteV1TasksTaskIdDelete**
-> TasksChanges deleteV1TasksTaskIdDelete(taskId, wsId, permissionTaskId)
+# **deleteTask**
+> TasksChanges deleteTask(taskId, wsId, permissionTaskId)
 
 Delete
 
@@ -195,10 +201,10 @@ final int wsId = 56; // int |
 final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.deleteV1TasksTaskIdDelete(taskId, wsId, permissionTaskId);
+    final response = api.deleteTask(taskId, wsId, permissionTaskId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling TasksApi->deleteV1TasksTaskIdDelete: $e\n');
+    print('Exception when calling TasksApi->deleteTask: $e\n');
 }
 ```
 
@@ -225,8 +231,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **invitationsV1TasksInvitationsGet**
-> BuiltList<InvitationGet> invitationsV1TasksInvitationsGet(taskId, roleId, wsId, permissionTaskId)
+# **getInvitations**
+> BuiltList<InvitationGet> getInvitations(taskId, wsId, roleId, permissionTaskId)
 
 Invitations
 
@@ -242,15 +248,15 @@ import 'package:openapi/api.dart';
 
 final api = Openapi().getTasksApi();
 final int taskId = 56; // int | 
-final int roleId = 56; // int | 
 final int wsId = 56; // int | 
+final int roleId = 56; // int | 
 final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.invitationsV1TasksInvitationsGet(taskId, roleId, wsId, permissionTaskId);
+    final response = api.getInvitations(taskId, wsId, roleId, permissionTaskId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling TasksApi->invitationsV1TasksInvitationsGet: $e\n');
+    print('Exception when calling TasksApi->getInvitations: $e\n');
 }
 ```
 
@@ -259,8 +265,8 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **taskId** | **int**|  | 
- **roleId** | **int**|  | 
  **wsId** | **int**|  | 
+ **roleId** | **int**|  | 
  **permissionTaskId** | **int**|  | [optional] 
 
 ### Return type
@@ -278,8 +284,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **setupFeatureSetsV1TasksFeatureSetsPost**
-> BuiltList<ProjectFeatureSetGet> setupFeatureSetsV1TasksFeatureSetsPost(projectId, wsId, requestBody, permissionTaskId)
+# **setupFeatureSets**
+> BuiltList<ProjectFeatureSetGet> setupFeatureSets(taskId, wsId, requestBody, permissionTaskId)
 
 Setup Feature Sets
 
@@ -294,16 +300,16 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
 
 final api = Openapi().getTasksApi();
-final int projectId = 56; // int | 
+final int taskId = 56; // int | 
 final int wsId = 56; // int | 
 final BuiltList<int> requestBody = ; // BuiltList<int> | 
 final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.setupFeatureSetsV1TasksFeatureSetsPost(projectId, wsId, requestBody, permissionTaskId);
+    final response = api.setupFeatureSets(taskId, wsId, requestBody, permissionTaskId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling TasksApi->setupFeatureSetsV1TasksFeatureSetsPost: $e\n');
+    print('Exception when calling TasksApi->setupFeatureSets: $e\n');
 }
 ```
 
@@ -311,7 +317,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectId** | **int**|  | 
+ **taskId** | **int**|  | 
  **wsId** | **int**|  | 
  **requestBody** | [**BuiltList&lt;int&gt;**](int.md)|  | 
  **permissionTaskId** | **int**|  | [optional] 
@@ -331,8 +337,61 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **taskUpsertV1TasksPost**
-> TasksChanges taskUpsertV1TasksPost(wsId, taskUpsert, permissionTaskId)
+# **upsertNote**
+> NoteGet upsertNote(wsId, taskId, noteUpsert, permissionTaskId)
+
+Upsert
+
+### Example
+```dart
+import 'package:openapi/api.dart';
+// TODO Configure API key authorization: APIKeyHeader
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
+// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
+// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
+//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
+
+final api = Openapi().getTasksApi();
+final int wsId = 56; // int | 
+final int taskId = 56; // int | 
+final NoteUpsert noteUpsert = ; // NoteUpsert | 
+final int permissionTaskId = 56; // int | 
+
+try {
+    final response = api.upsertNote(wsId, taskId, noteUpsert, permissionTaskId);
+    print(response);
+} catch on DioException (e) {
+    print('Exception when calling TasksApi->upsertNote: $e\n');
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **wsId** | **int**|  | 
+ **taskId** | **int**|  | 
+ **noteUpsert** | [**NoteUpsert**](NoteUpsert.md)|  | 
+ **permissionTaskId** | **int**|  | [optional] 
+
+### Return type
+
+[**NoteGet**](NoteGet.md)
+
+### Authorization
+
+[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **upsertTask**
+> TasksChanges upsertTask(wsId, taskUpsert, permissionTaskId, taskId)
 
 Task Upsert
 
@@ -350,12 +409,13 @@ final api = Openapi().getTasksApi();
 final int wsId = 56; // int | 
 final TaskUpsert taskUpsert = ; // TaskUpsert | 
 final int permissionTaskId = 56; // int | 
+final int taskId = 56; // int | 
 
 try {
-    final response = api.taskUpsertV1TasksPost(wsId, taskUpsert, permissionTaskId);
+    final response = api.upsertTask(wsId, taskUpsert, permissionTaskId, taskId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling TasksApi->taskUpsertV1TasksPost: $e\n');
+    print('Exception when calling TasksApi->upsertTask: $e\n');
 }
 ```
 
@@ -366,61 +426,11 @@ Name | Type | Description  | Notes
  **wsId** | **int**|  | 
  **taskUpsert** | [**TaskUpsert**](TaskUpsert.md)|  | 
  **permissionTaskId** | **int**|  | [optional] 
+ **taskId** | **int**|  | [optional] 
 
 ### Return type
 
 [**TasksChanges**](TasksChanges.md)
-
-### Authorization
-
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **upsertV1TasksNotesPost**
-> NoteGet upsertV1TasksNotesPost(wsId, noteUpsert, permissionTaskId)
-
-Upsert
-
-### Example
-```dart
-import 'package:openapi/api.dart';
-// TODO Configure API key authorization: APIKeyHeader
-//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
-// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
-//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
-
-final api = Openapi().getTasksApi();
-final int wsId = 56; // int | 
-final NoteUpsert noteUpsert = ; // NoteUpsert | 
-final int permissionTaskId = 56; // int | 
-
-try {
-    final response = api.upsertV1TasksNotesPost(wsId, noteUpsert, permissionTaskId);
-    print(response);
-} catch on DioException (e) {
-    print('Exception when calling TasksApi->upsertV1TasksNotesPost: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **wsId** | **int**|  | 
- **noteUpsert** | [**NoteUpsert**](NoteUpsert.md)|  | 
- **permissionTaskId** | **int**|  | [optional] 
-
-### Return type
-
-[**NoteGet**](NoteGet.md)
 
 ### Authorization
 

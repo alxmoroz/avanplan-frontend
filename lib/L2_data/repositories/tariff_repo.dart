@@ -12,7 +12,7 @@ class TariffRepo extends AbstractApiRepo<Tariff, Tariff> {
 
   @override
   Future<Iterable<Tariff>> getAllWithWS(int wsId) async {
-    final response = await api.availableTariffsV1WorkspacesWsIdTariffsGet(wsId: wsId);
+    final response = await api.getAvailableTariffs(wsId: wsId);
     return response.data?.map((t) => t.tariff) ?? [];
   }
 }

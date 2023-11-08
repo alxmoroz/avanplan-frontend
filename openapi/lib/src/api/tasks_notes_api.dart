@@ -26,6 +26,7 @@ class TasksNotesApi {
   /// Parameters:
   /// * [noteId] 
   /// * [wsId] 
+  /// * [taskId] 
   /// * [permissionTaskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
@@ -36,9 +37,10 @@ class TasksNotesApi {
   ///
   /// Returns a [Future] containing a [Response] with a [bool] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<bool>> deleteV1TasksNotesNoteIdDelete({ 
+  Future<Response<bool>> deleteNote({ 
     required int noteId,
     required int wsId,
+    required int taskId,
     int? permissionTaskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -47,7 +49,7 @@ class TasksNotesApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/tasks/notes/{note_id}'.replaceAll('{' r'note_id' '}', encodeQueryParameter(_serializers, noteId, const FullType(int)).toString());
+    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id}'.replaceAll('{' r'note_id' '}', encodeQueryParameter(_serializers, noteId, const FullType(int)).toString()).replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString()).replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString());
     final _options = Options(
       method: r'DELETE',
       headers: <String, dynamic>{
@@ -71,7 +73,6 @@ class TasksNotesApi {
     );
 
     final _queryParameters = <String, dynamic>{
-      r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
       if (permissionTaskId != null) r'permission_task_id': encodeQueryParameter(_serializers, permissionTaskId, const FullType(int)),
     };
 
@@ -117,6 +118,7 @@ class TasksNotesApi {
   ///
   /// Parameters:
   /// * [wsId] 
+  /// * [taskId] 
   /// * [noteUpsert] 
   /// * [permissionTaskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
@@ -128,8 +130,9 @@ class TasksNotesApi {
   ///
   /// Returns a [Future] containing a [Response] with a [NoteGet] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<NoteGet>> upsertV1TasksNotesPost({ 
+  Future<Response<NoteGet>> upsertNote({ 
     required int wsId,
+    required int taskId,
     required NoteUpsert noteUpsert,
     int? permissionTaskId,
     CancelToken? cancelToken,
@@ -139,7 +142,7 @@ class TasksNotesApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/tasks/notes';
+    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/notes'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString()).replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString());
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -164,7 +167,6 @@ class TasksNotesApi {
     );
 
     final _queryParameters = <String, dynamic>{
-      r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
       if (permissionTaskId != null) r'permission_task_id': encodeQueryParameter(_serializers, permissionTaskId, const FullType(int)),
     };
 

@@ -9,11 +9,11 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**setupFeatureSetsV1TasksFeatureSetsPost**](ProjectFeatureSetsApi.md#setupfeaturesetsv1tasksfeaturesetspost) | **POST** /v1/tasks/feature_sets | Setup Feature Sets
+[**setupFeatureSets**](ProjectFeatureSetsApi.md#setupfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Feature Sets
 
 
-# **setupFeatureSetsV1TasksFeatureSetsPost**
-> BuiltList<ProjectFeatureSetGet> setupFeatureSetsV1TasksFeatureSetsPost(projectId, wsId, requestBody, permissionTaskId)
+# **setupFeatureSets**
+> BuiltList<ProjectFeatureSetGet> setupFeatureSets(taskId, wsId, requestBody, permissionTaskId)
 
 Setup Feature Sets
 
@@ -28,16 +28,16 @@ import 'package:openapi/api.dart';
 //defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
 
 final api = Openapi().getProjectFeatureSetsApi();
-final int projectId = 56; // int | 
+final int taskId = 56; // int | 
 final int wsId = 56; // int | 
 final BuiltList<int> requestBody = ; // BuiltList<int> | 
 final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.setupFeatureSetsV1TasksFeatureSetsPost(projectId, wsId, requestBody, permissionTaskId);
+    final response = api.setupFeatureSets(taskId, wsId, requestBody, permissionTaskId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling ProjectFeatureSetsApi->setupFeatureSetsV1TasksFeatureSetsPost: $e\n');
+    print('Exception when calling ProjectFeatureSetsApi->setupFeatureSets: $e\n');
 }
 ```
 
@@ -45,7 +45,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **projectId** | **int**|  | 
+ **taskId** | **int**|  | 
  **wsId** | **int**|  | 
  **requestBody** | [**BuiltList&lt;int&gt;**](int.md)|  | 
  **permissionTaskId** | **int**|  | [optional] 

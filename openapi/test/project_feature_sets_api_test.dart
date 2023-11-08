@@ -8,8 +8,8 @@ void main() {
   group(ProjectFeatureSetsApi, () {
     // Setup Feature Sets
     //
-    //Future<BuiltList<ProjectFeatureSetGet>> setupFeatureSetsV1TasksFeatureSetsPost(int projectId, int wsId, BuiltList<int> requestBody, { int permissionTaskId }) async
-    test('test setupFeatureSetsV1TasksFeatureSetsPost', () async {
+    //Future<BuiltList<ProjectFeatureSetGet>> setupFeatureSets(int taskId, int wsId, BuiltList<int> requestBody, { int permissionTaskId }) async
+    test('test setupFeatureSets', () async {
       // TODO
     });
   });

@@ -34,7 +34,7 @@ class TariffsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<TariffGet>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<TariffGet>>> availableTariffsV1WorkspacesWsIdTariffsGet({ 
+  Future<Response<BuiltList<TariffGet>>> getAvailableTariffs({ 
     required int wsId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,

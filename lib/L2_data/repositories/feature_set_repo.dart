@@ -22,9 +22,8 @@ class FeatureSetRepo extends AbstractFeatureSetRepo {
   @override
   Future<Iterable<ProjectFeatureSet>> setup(Task project, Iterable<int> fsIds) async {
     final projectId = project.id!;
-    final response = await pfsApi.setupFeatureSetsV1TasksFeatureSetsPost(
-      projectId: projectId,
-      permissionTaskId: projectId,
+    final response = await pfsApi.setupFeatureSets(
+      taskId: projectId,
       wsId: project.wsId,
       requestBody: BuiltList.from(fsIds),
     );

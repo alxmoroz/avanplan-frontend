@@ -23,7 +23,7 @@ class StatusRepo extends AbstractApiRepo<Status, Status> {
       ..code = data.code
       ..closed = data.closed
       ..allProjects = data.allProjects;
-    final response = await _api.statusesUpsert(
+    final response = await _api.upsertStatus(
       wsId: data.wsId,
       statusUpsert: b.build(),
     );
@@ -32,7 +32,7 @@ class StatusRepo extends AbstractApiRepo<Status, Status> {
 
   @override
   Future<Status?> delete(Status data) async {
-    final response = await _api.statusesDelete(statusId: data.id!, wsId: data.wsId);
+    final response = await _api.deleteStatus(statusId: data.id!, wsId: data.wsId);
     return response.data == true ? data : null;
   }
 }

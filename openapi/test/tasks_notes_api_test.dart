@@ -8,15 +8,15 @@ void main() {
   group(TasksNotesApi, () {
     // Delete
     //
-    //Future<bool> deleteV1TasksNotesNoteIdDelete(int noteId, int wsId, { int permissionTaskId }) async
-    test('test deleteV1TasksNotesNoteIdDelete', () async {
+    //Future<bool> deleteNote(int noteId, int wsId, int taskId, { int permissionTaskId }) async
+    test('test deleteNote', () async {
       // TODO
     });
 
     // Upsert
     //
-    //Future<NoteGet> upsertV1TasksNotesPost(int wsId, NoteUpsert noteUpsert, { int permissionTaskId }) async
-    test('test upsertV1TasksNotesPost', () async {
+    //Future<NoteGet> upsertNote(int wsId, int taskId, NoteUpsert noteUpsert, { int permissionTaskId }) async
+    test('test upsertNote', () async {
       // TODO
     });
   });

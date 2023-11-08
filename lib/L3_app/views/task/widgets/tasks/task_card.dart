@@ -49,12 +49,7 @@ class TaskCard extends StatelessWidget {
 
   Color? get _textColor => task.closed || task.isImportingProject ? f2Color : null;
 
-  Widget get _parentTitle => Row(
-        children: [
-          Expanded(child: SmallText(task.parent!.title, maxLines: 1)),
-          if (task.project?.wsCode != null) SmallText(task.project!.wsCode, maxLines: 1, color: f3Color),
-        ],
-      );
+  Widget get _parentTitle => SmallText(task.parent!.title, maxLines: 1);
 
   Widget get _title => Row(
         children: [

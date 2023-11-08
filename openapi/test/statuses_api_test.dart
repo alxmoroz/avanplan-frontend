@@ -8,15 +8,8 @@ void main() {
   group(StatusesApi, () {
     // Delete
     //
-    //Future<bool> statusesDelete(int statusId, int wsId) async
-    test('test statusesDelete', () async {
-      // TODO
-    });
-
-    // Upsert
-    //
-    //Future<StatusGet> statusesUpsert(int wsId, StatusUpsert statusUpsert) async
-    test('test statusesUpsert', () async {
+    //Future<bool> deleteStatus(int statusId, int wsId) async
+    test('test deleteStatus', () async {
       // TODO
     });
 
@@ -24,6 +17,13 @@ void main() {
     //
     //Future<BuiltList<StatusGet>> statusesV1WorkspacesWsIdStatusesGet(int wsId) async
     test('test statusesV1WorkspacesWsIdStatusesGet', () async {
+      // TODO
+    });
+
+    // Upsert
+    //
+    //Future<StatusGet> upsertStatus(int wsId, StatusUpsert statusUpsert) async
+    test('test upsertStatus', () async {
       // TODO
     });
   });

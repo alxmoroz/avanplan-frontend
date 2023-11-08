@@ -8,8 +8,8 @@ void main() {
   group(TariffsApi, () {
     // Available Tariffs
     //
-    //Future<BuiltList<TariffGet>> availableTariffsV1WorkspacesWsIdTariffsGet(int wsId) async
-    test('test availableTariffsV1WorkspacesWsIdTariffsGet', () async {
+    //Future<BuiltList<TariffGet>> getAvailableTariffs(int wsId) async
+    test('test getAvailableTariffs', () async {
       // TODO
     });
   });

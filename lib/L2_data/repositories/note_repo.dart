@@ -20,8 +20,9 @@ class NoteRepo extends AbstractApiRepo<Note, Note> {
       ..text = data.text
       ..type = data.type;
 
-    final response = await api.upsertV1TasksNotesPost(
+    final response = await api.upsertNote(
       noteUpsert: b.build(),
+      taskId: data.taskId!,
       wsId: data.wsId,
     );
 
@@ -38,8 +39,9 @@ class NoteRepo extends AbstractApiRepo<Note, Note> {
 
   @override
   Future<Note?> delete(Note data) async {
-    final response = await api.deleteV1TasksNotesNoteIdDelete(
+    final response = await api.deleteNote(
       noteId: data.id!,
+      taskId: data.taskId!,
       wsId: data.wsId,
     );
     return response.data == true ? data : null;

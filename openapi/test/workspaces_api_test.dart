@@ -6,45 +6,80 @@ void main() {
   final instance = Openapi().getWorkspacesApi();
 
   group(WorkspacesApi, () {
-    // Available Tariffs
+    // Assign
     //
-    //Future<BuiltList<TariffGet>> availableTariffsV1WorkspacesWsIdTariffsGet(int wsId) async
-    test('test availableTariffsV1WorkspacesWsIdTariffsGet', () async {
+    //Future<BuiltList<MemberGet>> assignRole(int taskId, int wsId, int memberId, BuiltList<int> requestBody, { int permissionTaskId }) async
+    test('test assignRole', () async {
+      // TODO
+    });
+
+    // Create
+    //
+    //Future<InvitationGet> createInvitation(int wsId, int taskId, Invitation invitation, { int permissionTaskId }) async
+    test('test createInvitation', () async {
       // TODO
     });
 
     // Create Workspace
     //
-    //Future<WorkspaceGet> createWorkspaceV1WorkspacesPost() async
-    test('test createWorkspaceV1WorkspacesPost', () async {
-      // TODO
-    });
-
-    // Get My Workspaces
-    //
-    //Future<BuiltList<WorkspaceGet>> getMyWorkspacesV1WorkspacesGet() async
-    test('test getMyWorkspacesV1WorkspacesGet', () async {
-      // TODO
-    });
-
-    // Get Workspace
-    //
-    //Future<WorkspaceGet> getWorkspaceV1WorkspacesWsIdGet(int wsId) async
-    test('test getWorkspaceV1WorkspacesWsIdGet', () async {
+    //Future<WorkspaceGet> createWorkspace() async
+    test('test createWorkspace', () async {
       // TODO
     });
 
     // Delete
     //
-    //Future<bool> statusesDelete(int statusId, int wsId) async
-    test('test statusesDelete', () async {
+    //Future<bool> deleteNote(int noteId, int wsId, int taskId, { int permissionTaskId }) async
+    test('test deleteNote', () async {
       // TODO
     });
 
-    // Upsert
+    // Delete
     //
-    //Future<StatusGet> statusesUpsert(int wsId, StatusUpsert statusUpsert) async
-    test('test statusesUpsert', () async {
+    //Future<bool> deleteStatus(int statusId, int wsId) async
+    test('test deleteStatus', () async {
+      // TODO
+    });
+
+    // Delete
+    //
+    //Future<TasksChanges> deleteTask(int taskId, int wsId, { int permissionTaskId }) async
+    test('test deleteTask', () async {
+      // TODO
+    });
+
+    // Available Tariffs
+    //
+    //Future<BuiltList<TariffGet>> getAvailableTariffs(int wsId) async
+    test('test getAvailableTariffs', () async {
+      // TODO
+    });
+
+    // Invitations
+    //
+    //Future<BuiltList<InvitationGet>> getInvitations(int taskId, int wsId, int roleId, { int permissionTaskId }) async
+    test('test getInvitations', () async {
+      // TODO
+    });
+
+    // Get My Workspaces
+    //
+    //Future<BuiltList<WorkspaceGet>> getMyWorkspaces() async
+    test('test getMyWorkspaces', () async {
+      // TODO
+    });
+
+    // Get Workspace
+    //
+    //Future<WorkspaceGet> getWorkspace(int wsId) async
+    test('test getWorkspace', () async {
+      // TODO
+    });
+
+    // Setup Feature Sets
+    //
+    //Future<BuiltList<ProjectFeatureSetGet>> setupFeatureSets(int taskId, int wsId, BuiltList<int> requestBody, { int permissionTaskId }) async
+    test('test setupFeatureSets', () async {
       // TODO
     });
 
@@ -57,8 +92,29 @@ void main() {
 
     // Update Workspace
     //
-    //Future<WorkspaceGet> updateWorkspaceV1WorkspacesWsIdPost(int wsId, WorkspaceUpsert workspaceUpsert) async
-    test('test updateWorkspaceV1WorkspacesWsIdPost', () async {
+    //Future<WorkspaceGet> updateWorkspace(int wsId, WorkspaceUpsert workspaceUpsert) async
+    test('test updateWorkspace', () async {
+      // TODO
+    });
+
+    // Upsert
+    //
+    //Future<NoteGet> upsertNote(int wsId, int taskId, NoteUpsert noteUpsert, { int permissionTaskId }) async
+    test('test upsertNote', () async {
+      // TODO
+    });
+
+    // Upsert
+    //
+    //Future<StatusGet> upsertStatus(int wsId, StatusUpsert statusUpsert) async
+    test('test upsertStatus', () async {
+      // TODO
+    });
+
+    // Task Upsert
+    //
+    //Future<TasksChanges> upsertTask(int wsId, TaskUpsert taskUpsert, { int permissionTaskId, int taskId }) async
+    test('test upsertTask', () async {
       // TODO
     });
   });

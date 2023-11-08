@@ -25,8 +25,8 @@ class TasksRolesApi {
   ///
   /// Parameters:
   /// * [taskId] 
-  /// * [memberId] 
   /// * [wsId] 
+  /// * [memberId] 
   /// * [requestBody] 
   /// * [permissionTaskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
@@ -38,10 +38,10 @@ class TasksRolesApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<MemberGet>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<MemberGet>>> assignV1TasksRolesPost({ 
+  Future<Response<BuiltList<MemberGet>>> assignRole({ 
     required int taskId,
-    required int memberId,
     required int wsId,
+    required int memberId,
     required BuiltList<int> requestBody,
     int? permissionTaskId,
     CancelToken? cancelToken,
@@ -51,7 +51,7 @@ class TasksRolesApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/tasks/roles';
+    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/roles'.replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString()).replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -76,9 +76,7 @@ class TasksRolesApi {
     );
 
     final _queryParameters = <String, dynamic>{
-      r'task_id': encodeQueryParameter(_serializers, taskId, const FullType(int)),
       r'member_id': encodeQueryParameter(_serializers, memberId, const FullType(int)),
-      r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
       if (permissionTaskId != null) r'permission_task_id': encodeQueryParameter(_serializers, permissionTaskId, const FullType(int)),
     };
 

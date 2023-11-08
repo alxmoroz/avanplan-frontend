@@ -26,7 +26,9 @@ class TasksInvitationsApi {
   ///
   /// Parameters:
   /// * [wsId] 
+  /// * [taskId] 
   /// * [invitation] 
+  /// * [permissionTaskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -36,9 +38,11 @@ class TasksInvitationsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [InvitationGet] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<InvitationGet>> createV1TasksInvitationsPost({ 
+  Future<Response<InvitationGet>> createInvitation({ 
     required int wsId,
+    required int taskId,
     required Invitation invitation,
+    int? permissionTaskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -46,7 +50,7 @@ class TasksInvitationsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/tasks/invitations';
+    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/invitations'.replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString()).replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString());
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -71,7 +75,7 @@ class TasksInvitationsApi {
     );
 
     final _queryParameters = <String, dynamic>{
-      r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
+      if (permissionTaskId != null) r'permission_task_id': encodeQueryParameter(_serializers, permissionTaskId, const FullType(int)),
     };
 
     dynamic _bodyData;
@@ -139,8 +143,8 @@ class TasksInvitationsApi {
   ///
   /// Parameters:
   /// * [taskId] 
-  /// * [roleId] 
   /// * [wsId] 
+  /// * [roleId] 
   /// * [permissionTaskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
@@ -151,10 +155,10 @@ class TasksInvitationsApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<InvitationGet>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<InvitationGet>>> invitationsV1TasksInvitationsGet({ 
+  Future<Response<BuiltList<InvitationGet>>> getInvitations({ 
     required int taskId,
-    required int roleId,
     required int wsId,
+    required int roleId,
     int? permissionTaskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -163,7 +167,7 @@ class TasksInvitationsApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/tasks/invitations';
+    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/invitations'.replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString()).replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
     final _options = Options(
       method: r'GET',
       headers: <String, dynamic>{
@@ -187,10 +191,8 @@ class TasksInvitationsApi {
     );
 
     final _queryParameters = <String, dynamic>{
-      r'task_id': encodeQueryParameter(_serializers, taskId, const FullType(int)),
       r'role_id': encodeQueryParameter(_serializers, roleId, const FullType(int)),
       if (permissionTaskId != null) r'permission_task_id': encodeQueryParameter(_serializers, permissionTaskId, const FullType(int)),
-      r'ws_id': encodeQueryParameter(_serializers, wsId, const FullType(int)),
     };
 
     final _response = await _dio.request<Object>(

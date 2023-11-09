@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/project_status.dart';
-import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
@@ -18,38 +17,39 @@ import '../../../../components/text.dart';
 import '../../../../components/text_field.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
+import '../../controllers/project_statuses_controller.dart';
 import 'project_status_edit_controller.dart';
 
-Future<ProjectStatus?> projectStatusEditDialog(ProjectStatus status, Task project) async =>
-    await showMTDialog<ProjectStatus?>(ProjectStatusEditDialog(status, project));
+Future<ProjectStatus?> showProjectStatusEditDialog(ProjectStatus status, ProjectStatusesController statusesController) async =>
+    await showMTDialog<ProjectStatus?>(ProjectStatusEditDialog(status, statusesController));
 
 class ProjectStatusEditDialog extends StatefulWidget {
-  const ProjectStatusEditDialog(this._status, this._project);
+  const ProjectStatusEditDialog(this._status, this._statusesController);
   final ProjectStatus _status;
-  final Task _project;
+  final ProjectStatusesController _statusesController;
 
   @override
   _ProjectStatusEditDialogState createState() => _ProjectStatusEditDialogState();
 }
 
 class _ProjectStatusEditDialogState extends State<ProjectStatusEditDialog> {
-  late final ProjectStatusEditController controller;
+  late final ProjectStatusEditController _controller;
 
-  ProjectStatus get _status => controller.status;
+  ProjectStatus get _status => _controller.status;
 
   @override
   void initState() {
-    controller = ProjectStatusEditController(widget._status, widget._project);
+    _controller = ProjectStatusEditController(widget._status, widget._statusesController);
     super.initState();
   }
 
   @override
   void dispose() {
-    controller.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
-  bool get _used => controller.usedInTasks;
+  bool get _used => _controller.usedInTasks;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,7 @@ class _ProjectStatusEditDialogState extends State<ProjectStatusEditDialog> {
           trailing: !_used
               ? MTButton.icon(
                   const DeleteIcon(),
-                  onTap: () => controller.delete(context),
+                  onTap: () => _controller.delete(context),
                   padding: const EdgeInsets.all(P2),
                 )
               : null,
@@ -69,30 +69,30 @@ class _ProjectStatusEditDialogState extends State<ProjectStatusEditDialog> {
           shrinkWrap: true,
           children: [
             MTField(
-              controller.fData(StatusFCode.title.index),
+              _controller.fData(StatusFCode.title.index),
               value: MTTextField(
-                controller: controller.teController(StatusFCode.title.index),
+                controller: _controller.teController(StatusFCode.title.index),
                 autofocus: true,
                 margin: EdgeInsets.zero,
                 maxLines: 2,
                 decoration: InputDecoration(
-                  errorText: controller.codeError,
+                  errorText: _controller.codeError,
                   errorStyle: const SmallText('', color: dangerColor, maxLines: 1).style(context),
                   errorMaxLines: 1,
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.zero,
-                  hintText: controller.codePlaceholder,
+                  hintText: _controller.codePlaceholder,
                   hintStyle: const H1('', color: f3Color, maxLines: 2).style(context),
                 ),
                 style: const H1('', maxLines: 2).style(context),
-                onChanged: controller.editTitle,
+                onChanged: _controller.editTitle,
               ),
               padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(bottom: P),
               color: b2Color,
             ),
             const SizedBox(height: P),
             MTField(
-              controller.fData(StatusFCode.closed.index),
+              _controller.fData(StatusFCode.closed.index),
               value: MTListTile(
                 leading: DoneIcon(true, color: _used ? f3Color : f2Color, size: P6),
                 middle: BaseText.medium(loc.state_closed, maxLines: 1, color: _used ? f3Color : null),
@@ -101,7 +101,7 @@ class _ProjectStatusEditDialogState extends State<ProjectStatusEditDialog> {
                   activeColor: mainColor,
                   thumbColor: b3Color,
                   trackColor: b2Color,
-                  onChanged: _used ? null : (_) => controller.toggleClosed(),
+                  onChanged: _used ? null : (_) => _controller.toggleClosed(),
                 ),
                 padding: EdgeInsets.zero,
                 bottomDivider: false,
@@ -112,10 +112,10 @@ class _ProjectStatusEditDialogState extends State<ProjectStatusEditDialog> {
             ),
             if (_used)
               BaseText.f2(
-                loc.status_used_in_tasks_label(controller.tasksWithStatusCount),
+                loc.status_used_in_tasks_label(_controller.tasksWithStatusCount),
                 align: TextAlign.center,
                 maxLines: 1,
-                padding: EdgeInsets.symmetric(horizontal: P3, vertical: P),
+                padding: const EdgeInsets.symmetric(horizontal: P3, vertical: P),
               ),
           ],
         ),

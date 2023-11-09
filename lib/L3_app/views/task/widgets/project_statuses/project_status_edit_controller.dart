@@ -12,16 +12,18 @@ import '../../../../extra/services.dart';
 import '../../../../usecases/status_edit.dart';
 import '../../../../usecases/task_status.dart';
 import '../../../_base/edit_controller.dart';
+import '../../controllers/project_statuses_controller.dart';
 
 part 'project_status_edit_controller.g.dart';
 
 enum StatusFCode { title, description, closed }
 
 class ProjectStatusEditController extends _ProjectStatusEditControllerBase with _$ProjectStatusEditController {
-  ProjectStatusEditController(ProjectStatus stIn, Task project) {
-    _project = project;
+  ProjectStatusEditController(ProjectStatus stIn, ProjectStatusesController statusesController) {
+    _statusesController = statusesController;
     initState(fds: [
       MTFieldData(StatusFCode.title.index, text: stIn.isNew ? '' : stIn.title),
+      MTFieldData(StatusFCode.description.index, text: stIn.isNew ? '' : stIn.description),
       MTFieldData(StatusFCode.closed.index),
     ]);
 
@@ -30,7 +32,9 @@ class ProjectStatusEditController extends _ProjectStatusEditControllerBase with 
 }
 
 abstract class _ProjectStatusEditControllerBase extends EditController with Store {
-  late final Task _project;
+  late final ProjectStatusesController _statusesController;
+
+  Task get _project => _statusesController.project;
 
   @observable
   ProjectStatus? _status;
@@ -47,14 +51,18 @@ abstract class _ProjectStatusEditControllerBase extends EditController with Stor
   }
 
   @action
-  Future<bool> saveField(StatusFCode code) async {
-    updateField(code.index, loading: true);
+  Future<bool> saveField(StatusFCode fCode) async {
+    updateField(fCode.index, loading: true);
+
     final es = await status.save(_project);
     final saved = es != null;
     if (saved) {
       _status = es;
     }
-    updateField(code.index, loading: false);
+    updateField(fCode.index, loading: false);
+
+    _statusesController.refresh();
+
     return saved;
   }
 
@@ -117,6 +125,6 @@ abstract class _ProjectStatusEditControllerBase extends EditController with Stor
 
   Future delete(BuildContext context) async {
     Navigator.of(context).pop();
-    await status.delete(_project);
+    _statusesController.delete(status);
   }
 }

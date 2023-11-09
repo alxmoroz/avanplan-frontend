@@ -3,8 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../../L1_domain/entities/project_status.dart';
-import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
@@ -15,20 +13,16 @@ import '../../../../components/shadowed.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
-import '../../../../usecases/task_status.dart';
-import '../../controllers/task_controller.dart';
-import 'project_status_edit_dialog.dart';
+import '../../controllers/project_statuses_controller.dart';
 
-Future showProjectStatusesDialog(TaskController controller) async => await showMTDialog<void>(ProjectStatusesDialog(controller));
+Future showProjectStatusesDialog(ProjectStatusesController controller) async => await showMTDialog<void>(ProjectStatusesDialog(controller));
 
 class ProjectStatusesDialog extends StatelessWidget {
   const ProjectStatusesDialog(this._controller);
-  final TaskController _controller;
-
-  Task get _project => _controller.task;
+  final ProjectStatusesController _controller;
 
   Widget itemBuilder(BuildContext context, int index) {
-    final status = _project.statuses.elementAt(index);
+    final status = _controller.sortedStatuses.elementAt(index);
     return MTListTile(
       titleText: '$status',
       subtitle: status.description.isNotEmpty ? SmallText(status.description, maxLines: 2) : null,
@@ -39,8 +33,8 @@ class ProjectStatusesDialog extends StatelessWidget {
         ],
       ),
       loading: status.loading,
-      bottomDivider: index < _project.statuses.length - 1,
-      onTap: () async => await projectStatusEditDialog(status, _project),
+      bottomDivider: index < _controller.sortedStatuses.length - 1,
+      onTap: () => _controller.edit(status),
     );
   }
 
@@ -55,21 +49,13 @@ class ProjectStatusesDialog extends StatelessWidget {
           child: ListView.builder(
             shrinkWrap: true,
             itemBuilder: itemBuilder,
-            itemCount: _project.statuses.length,
+            itemCount: _controller.sortedStatuses.length,
           ),
         ),
         bottomBar: MTButton.secondary(
           leading: const PlusIcon(),
           titleText: loc.status_create_action_title,
-          onTap: () async => await projectStatusEditDialog(
-            ProjectStatus(
-              id: null,
-              title: loc.status_code_placeholder,
-              closed: false,
-              position: _project.statuses.length,
-            ),
-            _project,
-          ),
+          onTap: _controller.create,
         ),
       ),
     );

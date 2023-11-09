@@ -29,6 +29,13 @@ void main() {
 
     // Delete
     //
+    //Future<bool> deleteStatus(int statusId, int wsId, int taskId, { int permissionTaskId }) async
+    test('test deleteStatus', () async {
+      // TODO
+    });
+
+    // Delete
+    //
     //Future<TasksChanges> deleteTask(int taskId, int wsId, { int permissionTaskId }) async
     test('test deleteTask', () async {
       // TODO
@@ -52,6 +59,13 @@ void main() {
     //
     //Future<NoteGet> upsertNote(int wsId, int taskId, NoteUpsert noteUpsert, { int permissionTaskId }) async
     test('test upsertNote', () async {
+      // TODO
+    });
+
+    // Upsert
+    //
+    //Future<ProjectStatusGet> upsertStatus(int wsId, int taskId, ProjectStatusUpsert projectStatusUpsert, { int permissionTaskId }) async
+    test('test upsertStatus', () async {
       // TODO
     });
 

@@ -48,6 +48,7 @@ import 'package:openapi/src/model/permission_get.dart';
 import 'package:openapi/src/model/permission_role_get.dart';
 import 'package:openapi/src/model/project_feature_set_get.dart';
 import 'package:openapi/src/model/project_status_get.dart';
+import 'package:openapi/src/model/project_status_upsert.dart';
 import 'package:openapi/src/model/registration.dart';
 import 'package:openapi/src/model/role_get.dart';
 import 'package:openapi/src/model/settings_get.dart';
@@ -107,6 +108,7 @@ part 'serializers.g.dart';
   PermissionRoleGet,
   ProjectFeatureSetGet,
   ProjectStatusGet,
+  ProjectStatusUpsert,
   Registration,
   RoleGet,
   SettingsGet,

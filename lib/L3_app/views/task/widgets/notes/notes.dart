@@ -26,10 +26,10 @@ import '../../../../usecases/task_actions.dart';
 import '../../controllers/notes_controller.dart';
 
 class Notes extends StatelessWidget {
-  const Notes(this.controller);
-  final NotesController controller;
+  const Notes(this._controller);
+  final NotesController _controller;
 
-  Task get _task => controller.task;
+  Task get _task => _controller.task;
   bool get _canEditTask => _task.canComment;
 
   Future _noteMenu(BuildContext context, Note note) async => await showMTDialog<void>(
@@ -43,7 +43,7 @@ class Notes extends StatelessWidget {
                 middle: BaseText(loc.edit_action_title, color: mainColor, maxLines: 1),
                 onTap: () async {
                   Navigator.of(context).pop();
-                  await controller.edit(note);
+                  await _controller.edit(note);
                 },
               ),
               MTListTile(
@@ -51,7 +51,7 @@ class Notes extends StatelessWidget {
                 middle: BaseText(loc.delete_action_title, color: dangerColor, maxLines: 1),
                 onTap: () async {
                   Navigator.of(context).pop();
-                  await controller.delete(note);
+                  await _controller.delete(note);
                 },
               ),
             ],
@@ -67,10 +67,10 @@ class Notes extends StatelessWidget {
         child: ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          itemCount: controller.sortedNotesDates.length,
+          itemCount: _controller.sortedNotesDates.length,
           itemBuilder: (_, index) {
-            final gDate = controller.sortedNotesDates[index];
-            final ng = controller.notesGroups[gDate]!;
+            final gDate = _controller.sortedNotesDates[index];
+            final ng = _controller.notesGroups[gDate]!;
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [

@@ -1,4 +1,4 @@
-# openapi.model.ProjectStatusGet
+# openapi.model.ProjectStatusUpsert
 
 ## Load the model package
 ```dart
@@ -8,7 +8,7 @@ import 'package:openapi/api.dart';
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**id** | **int** |  | 
+**id** | **int** |  | [optional] 
 **title** | **String** |  | [optional] 
 **description** | **String** |  | [optional] 
 **position** | **int** |  | 

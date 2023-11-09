@@ -1,6 +1,5 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'package:avanplan/L3_app/presenters/task_status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -186,8 +185,8 @@ class DetailsPane extends StatelessWidget {
                   controller.fData(TaskFCode.statuses.index),
                   margin: const EdgeInsets.only(top: P3),
                   leading: const StatusIcon(),
-                  value: _task.projectStatuses.isNotEmpty ? BaseText(_task.projectStatusesStr, maxLines: 1) : null,
-                  onSelect: () => showProjectStatusesDialog(controller),
+                  value: _task.projectStatuses.isNotEmpty ? BaseText(controller.projectStatusesController.statusesStr, maxLines: 1) : null,
+                  onSelect: () => showProjectStatusesDialog(controller.projectStatusesController),
                 ),
 
               /// Связь с источником импорта

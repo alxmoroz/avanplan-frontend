@@ -7,10 +7,14 @@ class ProjectStatus extends Titleable {
     super.id,
     required super.title,
     super.description,
+    required this.wsId,
+    required this.projectId,
     required this.position,
     required this.closed,
   });
 
   int position;
   bool closed;
+  final int projectId;
+  final int wsId;
 }

@@ -91,15 +91,19 @@ Class | Method | HTTP request | Description
 [*MyTasksApi*](doc/MyTasksApi.md) | [**myTasksV1MyTasksGet**](doc/MyTasksApi.md#mytasksv1mytasksget) | **GET** /v1/my/tasks | My Tasks
 [*PaymentsApi*](doc/PaymentsApi.md) | [**iapNotificationV1PaymentsIapNotificationPost**](doc/PaymentsApi.md#iapnotificationv1paymentsiapnotificationpost) | **POST** /v1/payments/iap/notification | Iap Notification
 [*ProjectFeatureSetsApi*](doc/ProjectFeatureSetsApi.md) | [**setupFeatureSets**](doc/ProjectFeatureSetsApi.md#setupfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Feature Sets
+[*ProjectStatusesApi*](doc/ProjectStatusesApi.md) | [**deleteStatus**](doc/ProjectStatusesApi.md#deletestatus) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses/{status_id} | Delete
+[*ProjectStatusesApi*](doc/ProjectStatusesApi.md) | [**upsertStatus**](doc/ProjectStatusesApi.md#upsertstatus) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Upsert
 [*SettingsApi*](doc/SettingsApi.md) | [**settingsV1SettingsGet**](doc/SettingsApi.md#settingsv1settingsget) | **GET** /v1/settings | Settings
 [*TariffsApi*](doc/TariffsApi.md) | [**getAvailableTariffs**](doc/TariffsApi.md#getavailabletariffs) | **GET** /v1/workspaces/{ws_id}/tariffs | Available Tariffs
 [*TasksApi*](doc/TasksApi.md) | [**assignRole**](doc/TasksApi.md#assignrole) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/roles | Assign
 [*TasksApi*](doc/TasksApi.md) | [**createInvitation**](doc/TasksApi.md#createinvitation) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Create
 [*TasksApi*](doc/TasksApi.md) | [**deleteNote**](doc/TasksApi.md#deletenote) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id} | Delete
+[*TasksApi*](doc/TasksApi.md) | [**deleteStatus**](doc/TasksApi.md#deletestatus) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses/{status_id} | Delete
 [*TasksApi*](doc/TasksApi.md) | [**deleteTask**](doc/TasksApi.md#deletetask) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id} | Delete
 [*TasksApi*](doc/TasksApi.md) | [**getInvitations**](doc/TasksApi.md#getinvitations) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Invitations
 [*TasksApi*](doc/TasksApi.md) | [**setupFeatureSets**](doc/TasksApi.md#setupfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Feature Sets
 [*TasksApi*](doc/TasksApi.md) | [**upsertNote**](doc/TasksApi.md#upsertnote) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes | Upsert
+[*TasksApi*](doc/TasksApi.md) | [**upsertStatus**](doc/TasksApi.md#upsertstatus) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Upsert
 [*TasksApi*](doc/TasksApi.md) | [**upsertTask**](doc/TasksApi.md#upserttask) | **POST** /v1/workspaces/{ws_id}/tasks | Task Upsert
 [*TasksInvitationsApi*](doc/TasksInvitationsApi.md) | [**createInvitation**](doc/TasksInvitationsApi.md#createinvitation) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Create
 [*TasksInvitationsApi*](doc/TasksInvitationsApi.md) | [**getInvitations**](doc/TasksInvitationsApi.md#getinvitations) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Invitations
@@ -110,6 +114,7 @@ Class | Method | HTTP request | Description
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**createInvitation**](doc/WorkspacesApi.md#createinvitation) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Create
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**createWorkspace**](doc/WorkspacesApi.md#createworkspace) | **POST** /v1/workspaces | Create Workspace
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**deleteNote**](doc/WorkspacesApi.md#deletenote) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id} | Delete
+[*WorkspacesApi*](doc/WorkspacesApi.md) | [**deleteStatus**](doc/WorkspacesApi.md#deletestatus) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses/{status_id} | Delete
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**deleteTask**](doc/WorkspacesApi.md#deletetask) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id} | Delete
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**getAvailableTariffs**](doc/WorkspacesApi.md#getavailabletariffs) | **GET** /v1/workspaces/{ws_id}/tariffs | Available Tariffs
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**getInvitations**](doc/WorkspacesApi.md#getinvitations) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Invitations
@@ -118,6 +123,7 @@ Class | Method | HTTP request | Description
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**setupFeatureSets**](doc/WorkspacesApi.md#setupfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Feature Sets
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**updateWorkspace**](doc/WorkspacesApi.md#updateworkspace) | **POST** /v1/workspaces/{ws_id} | Update Workspace
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**upsertNote**](doc/WorkspacesApi.md#upsertnote) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes | Upsert
+[*WorkspacesApi*](doc/WorkspacesApi.md) | [**upsertStatus**](doc/WorkspacesApi.md#upsertstatus) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Upsert
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**upsertTask**](doc/WorkspacesApi.md#upserttask) | **POST** /v1/workspaces/{ws_id}/tasks | Task Upsert
 
 
@@ -157,6 +163,7 @@ Class | Method | HTTP request | Description
  - [PermissionRoleGet](doc/PermissionRoleGet.md)
  - [ProjectFeatureSetGet](doc/ProjectFeatureSetGet.md)
  - [ProjectStatusGet](doc/ProjectStatusGet.md)
+ - [ProjectStatusUpsert](doc/ProjectStatusUpsert.md)
  - [Registration](doc/Registration.md)
  - [RoleGet](doc/RoleGet.md)
  - [SettingsGet](doc/SettingsGet.md)

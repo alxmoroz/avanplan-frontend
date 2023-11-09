@@ -35,6 +35,7 @@ abstract class _NotesControllerBase with Store {
 
   @action
   void _setNotes(Iterable<Note> notes) => _notes = ObservableList.of(notes);
+  void refresh() => _setNotes(task.notes);
 
   @computed
   List<Note> get _sortedNotes => _notes.sorted((n1, n2) => n2.createdOn!.compareTo(n1.createdOn!));
@@ -59,7 +60,7 @@ abstract class _NotesControllerBase with Store {
           note.text = oldValue;
         }
 
-        _setNotes(task.notes);
+        refresh();
         taskController.updateField(fIndex, loading: false);
       }
     }
@@ -69,13 +70,13 @@ abstract class _NotesControllerBase with Store {
         Note(
           text: taskController.fData(TaskFCode.note.index).text,
           authorId: task.me?.id,
-          taskId: task.id,
+          taskId: task.id!,
           wsId: task.wsId,
         ),
       );
 
   Future delete(Note note) async {
     await note.delete(task);
-    _setNotes(task.notes);
+    refresh();
   }
 }

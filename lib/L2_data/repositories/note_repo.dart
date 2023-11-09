@@ -22,7 +22,7 @@ class NoteRepo extends AbstractApiRepo<Note, Note> {
 
     final response = await api.upsertNote(
       noteUpsert: b.build(),
-      taskId: data.taskId!,
+      taskId: data.taskId,
       wsId: data.wsId,
     );
 
@@ -41,7 +41,7 @@ class NoteRepo extends AbstractApiRepo<Note, Note> {
   Future<Note?> delete(Note data) async {
     final response = await api.deleteNote(
       noteId: data.id!,
-      taskId: data.taskId!,
+      taskId: data.taskId,
       wsId: data.wsId,
     );
     return response.data == true ? data : null;

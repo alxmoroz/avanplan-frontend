@@ -17,7 +17,7 @@ class Note extends WSBounded {
 
   String text;
   final int? authorId;
-  final int? taskId;
+  final int taskId;
   final Note? parent;
   String? type;
   final DateTime? createdOn;

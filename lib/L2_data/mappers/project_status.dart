@@ -5,8 +5,10 @@ import 'package:openapi/openapi.dart';
 import '../../L1_domain/entities/project_status.dart';
 
 extension ProjectStatusMapper on ProjectStatusGet {
-  ProjectStatus get projectStatus => ProjectStatus(
+  ProjectStatus projectStatus(int wsId) => ProjectStatus(
         id: id,
+        wsId: wsId,
+        projectId: projectId,
         title: title ?? '?',
         description: description ?? '',
         position: position,

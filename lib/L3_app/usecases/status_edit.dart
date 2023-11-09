@@ -41,8 +41,7 @@ extension StatusEditUC on ProjectStatus {
       });
 
   Future delete(Task project) async => await edit(() async {
-        final es = await projectStatusUC.delete(this);
-        if (es != null) {
+        if (await projectStatusUC.delete(this) != null) {
           project.projectStatuses.remove(this);
         }
         return null;

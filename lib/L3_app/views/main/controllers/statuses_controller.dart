@@ -4,59 +4,55 @@ import 'dart:async';
 
 import 'package:mobx/mobx.dart';
 
-import '../../../../L1_domain/entities/status.dart';
-import '../../../../L1_domain/entities/workspace.dart';
-import '../../../extra/services.dart';
+import '../../../../L1_domain/entities/project_status.dart';
 
 part 'statuses_controller.g.dart';
 
 class StatusesController extends _StatusesControllerBase with _$StatusesController {}
 
+//TODO: переделать, как с заметками
+
 abstract class _StatusesControllerBase with Store {
   @observable
-  ObservableList<Status> _allStatuses = ObservableList();
-
-  Iterable<Status> statuses(int wsId) => _allStatuses.where((st) => st.wsId == wsId);
+  ObservableList<ProjectStatus> statuses = ObservableList();
 
   @computed
-  Map<int, Map<int, Status>> get _stMap => {
-        for (var ws in wsMainController.workspaces) ws.id!: {for (var t in statuses(ws.id!)) t.id!: t}
-      };
+  Map<int, ProjectStatus> get _stMap => {for (var st in statuses) st.id!: st};
 
-  Status? status(int wsId, int? id) => _stMap[wsId]![id];
+  ProjectStatus? status(int? id) => _stMap[id];
+
+  void _sort() => statuses.sort((st1, st2) => st1.position.compareTo(st2.position));
 
   @action
-  void addStatuses(Iterable<Status> sts) {
-    _allStatuses.addAll(sts);
-    // statuses.sortBy<num>((st) => st.id!);
+  void addStatuses(Iterable<ProjectStatus> sts) {
+    statuses.addAll(sts);
+    _sort();
   }
 
   @action
-  void setStatus(Status est) {
-    final index = _allStatuses.indexWhere((t) => t.wsId == est.wsId && t.id == est.id);
+  void setStatus(ProjectStatus est) {
+    final index = statuses.indexWhere((st) => st.id == est.id);
     if (index > -1) {
-      _allStatuses[index] = est;
+      statuses[index] = est;
     } else {
-      _allStatuses.add(est);
+      statuses.add(est);
     }
-    // statuses.sortBy<num>((st) => st.id!);
+    _sort();
   }
 
   @action
-  void removeStatus(Status st) => _allStatuses.remove(st);
+  void removeStatus(ProjectStatus st) => statuses.remove(st);
 
   @action
-  void refresh() => _allStatuses = ObservableList.of(_allStatuses);
+  void refresh() => statuses = ObservableList.of(statuses);
 
   @action
   Future getData() async {
-    final _statuses = <Status>[];
-    for (Workspace ws in wsMainController.workspaces) {
-      _statuses.addAll(await statusUC.getAll(ws.id!));
-    }
-    _allStatuses = ObservableList.of(_statuses);
+    final _statuses = <ProjectStatus>[];
+    print('STATUSES GETDATA');
+    statuses = ObservableList.of(_statuses);
   }
 
   @action
-  void clearData() => _allStatuses.clear();
+  void clearData() => statuses.clear();
 }

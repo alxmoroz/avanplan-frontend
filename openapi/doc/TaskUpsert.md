@@ -23,6 +23,7 @@ Name | Type | Description | Notes
 **assigneeId** | **int** |  | [optional] 
 **authorId** | **int** |  | [optional] 
 **statusId** | **int** |  | [optional] 
+**projectStatusId** | **int** |  | [optional] 
 **taskSourceId** | **int** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -19,8 +19,6 @@ extension WSActionsUC on Workspace {
   bool get hpProjectContentUpdate => me.hp('PROJECT_CONTENT_UPDATE');
 
   bool get hpSourceCreate => me.hp('SOURCE_CREATE');
-  bool get hpStatusUpdate => me.hp('STATUS_UPDATE');
-
   bool get hpTariffUpdate => me.hp('TARIFF_UPDATE');
 
   bool get hpMemberRead => me.hp('MEMBER_READ');

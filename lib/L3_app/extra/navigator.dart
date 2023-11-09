@@ -13,7 +13,6 @@ import '../views/my_tasks/my_tasks_view.dart';
 import '../views/notification/notification_list_view.dart';
 import '../views/settings/settings_view.dart';
 import '../views/source/source_list_view.dart';
-import '../views/status/status_list_view.dart';
 import '../views/task/controllers/task_controller.dart';
 import '../views/task/task_view.dart';
 import '../views/task/widgets/create/create_multitask_quiz_view.dart';
@@ -76,9 +75,6 @@ CupertinoPageRoute? cupertinoPageRoute(RouteSettings rs) {
   } else if (rs.name == TeamInvitationQuizView.routeName) {
     final args = rs.arguments as TIQuizArgs;
     p = TeamInvitationQuizView(args);
-  } else if (rs.name == WorkspaceStatusesView.routeName) {
-    final wsId = rs.arguments as int;
-    p = WorkspaceStatusesView(wsId);
   }
 
   return p != null ? CupertinoPageRoute<dynamic>(builder: (_) => p!, settings: rs) : null;
@@ -122,8 +118,6 @@ class MTRouteObserver extends NavigatorObserver {
           title = FeatureSetsQuizView.title(rs.arguments as FSQuizArgs);
         } else if (name == TeamInvitationQuizView.routeName) {
           title = TeamInvitationQuizView.title(rs.arguments as TIQuizArgs);
-        } else if (name == WorkspaceStatusesView.routeName) {
-          title = WorkspaceStatusesView.title(rs.arguments as int);
         }
 
         setPageTitle(title);

@@ -7,7 +7,7 @@ import 'package:drag_and_drop_lists/drag_and_drop_item_target.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../../../L1_domain/entities/status.dart';
+import '../../../../L1_domain/entities/project_status.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../../main.dart';
 import '../../../components/alert_dialog.dart';
@@ -82,7 +82,7 @@ class StatusController {
   }
 
   Future selectStatus() async {
-    final selectedStatus = await showMTSelectDialog<Status>(
+    final selectedStatus = await showMTSelectDialog<ProjectStatus>(
       task.statuses.toList(),
       task.statusId,
       loc.task_status_select_placeholder,

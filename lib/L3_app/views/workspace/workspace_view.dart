@@ -24,11 +24,9 @@ import '../../presenters/tariff.dart';
 import '../../presenters/workspace.dart';
 import '../../usecases/ws_actions.dart';
 import '../../usecases/ws_sources.dart';
-import '../../usecases/ws_statuses.dart';
 import '../../usecases/ws_tariff.dart';
 import '../iap/iap_view.dart';
 import '../source/source_list_view.dart';
-import '../status/status_list_view.dart';
 import '../user/user_list_view.dart';
 import 'workspace_edit_view.dart';
 
@@ -111,14 +109,6 @@ class WorkspaceView extends StatelessWidget {
         await Navigator.of(rootKey.currentContext!).pushNamed(SourceListView.routeName, arguments: _ws.id);
       });
 
-  Widget get _statuses => MTListTile(
-        leading: const StatusIcon(),
-        titleText: '${loc.status_list_title} ${_ws.statuses.isNotEmpty ? '(${_ws.statuses.length})' : ''}',
-        trailing: const ChevronIcon(),
-        bottomDivider: false,
-        onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(WorkspaceStatusesView.routeName, arguments: _ws.id),
-      );
-
   @override
   Widget build(BuildContext context) {
     return Observer(
@@ -146,7 +136,6 @@ class WorkspaceView extends StatelessWidget {
                   const SizedBox(height: P3),
                   if (_ws.hpMemberRead) _users,
                   if (_ws.hpSourceCreate) _sources,
-                  if (_ws.hpStatusUpdate) _statuses,
                 ],
               ),
             ),

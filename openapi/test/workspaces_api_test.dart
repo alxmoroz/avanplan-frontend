@@ -36,13 +36,6 @@ void main() {
 
     // Delete
     //
-    //Future<bool> deleteStatus(int statusId, int wsId) async
-    test('test deleteStatus', () async {
-      // TODO
-    });
-
-    // Delete
-    //
     //Future<TasksChanges> deleteTask(int taskId, int wsId, { int permissionTaskId }) async
     test('test deleteTask', () async {
       // TODO
@@ -83,13 +76,6 @@ void main() {
       // TODO
     });
 
-    // Statuses
-    //
-    //Future<BuiltList<StatusGet>> statusesV1WorkspacesWsIdStatusesGet(int wsId) async
-    test('test statusesV1WorkspacesWsIdStatusesGet', () async {
-      // TODO
-    });
-
     // Update Workspace
     //
     //Future<WorkspaceGet> updateWorkspace(int wsId, WorkspaceUpsert workspaceUpsert) async
@@ -101,13 +87,6 @@ void main() {
     //
     //Future<NoteGet> upsertNote(int wsId, int taskId, NoteUpsert noteUpsert, { int permissionTaskId }) async
     test('test upsertNote', () async {
-      // TODO
-    });
-
-    // Upsert
-    //
-    //Future<StatusGet> upsertStatus(int wsId, StatusUpsert statusUpsert) async
-    test('test upsertStatus', () async {
       // TODO
     });
 

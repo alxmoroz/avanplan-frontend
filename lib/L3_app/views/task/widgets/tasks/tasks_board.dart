@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../../L1_domain/entities/status.dart';
+import '../../../../../L1_domain/entities/project_status.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L2_data/services/platform.dart';
 import '../../../../components/colors.dart';
@@ -49,7 +49,7 @@ class MTBoardColumn extends DragAndDropList {
     super.canDrag,
   });
 
-  final Status status;
+  final ProjectStatus status;
 }
 
 class TasksBoard extends StatelessWidget {

@@ -82,6 +82,11 @@ void main() {
       // TODO
     });
 
+    // int projectStatusId
+    test('to test the property `projectStatusId`', () async {
+      // TODO
+    });
+
     // int taskSourceId
     test('to test the property `taskSourceId`', () async {
       // TODO

@@ -1,5 +1,6 @@
 // Copyright (c) 2023. Alexandr Moroz
 
+import 'package:avanplan/L3_app/presenters/task_status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -32,9 +33,10 @@ import '../../../../usecases/task_tree.dart';
 import '../../../quiz/next_button.dart';
 import '../../../quiz/quiz_controller.dart';
 import '../../controllers/task_controller.dart';
+import '../attachments/attachments.dart';
 import '../feature_sets/feature_sets.dart';
-import 'attachments.dart';
-import 'notes.dart';
+import '../notes/notes.dart';
+import '../project_statuses/project_statuses_dialog.dart';
 
 class DetailsPane extends StatelessWidget {
   const DetailsPane(this.controller, {this.qController});
@@ -175,6 +177,15 @@ class DetailsPane extends StatelessWidget {
                   leading: SettingsIcon(color: _task.canEditFeatureSets ? null : f3Color),
                   value: BaseText(_task.localizedFeatureSets, maxLines: 1),
                   onSelect: _task.canEditFeatureSets ? () => showFeatureSetsDialog(controller) : null,
+                ),
+
+              if (!_quizzing && _task.canEditStatuses)
+                MTField(
+                  controller.fData(TaskFCode.statuses.index),
+                  margin: const EdgeInsets.only(top: P3),
+                  leading: const StatusIcon(),
+                  value: BaseText(_task.projectStatusesStr, maxLines: 1),
+                  onSelect: () => showProjectStatusesDialog(controller),
                 ),
 
               /// Связь с источником импорта

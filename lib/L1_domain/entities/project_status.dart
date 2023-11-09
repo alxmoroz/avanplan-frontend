@@ -2,13 +2,15 @@
 
 import 'base_entity.dart';
 
-class ProjectStatus extends RPersistable {
+class ProjectStatus extends Titleable {
   ProjectStatus({
     required super.id,
-    required this.statusId,
+    required super.title,
+    super.description,
     required this.position,
+    required this.closed,
   });
 
-  final int position;
-  final int statusId;
+  int position;
+  bool closed;
 }

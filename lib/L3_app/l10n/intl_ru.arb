@@ -309,13 +309,13 @@
   "state_risk_duration": "Можем опоздать на {duration}",
   "state_risk_title": "Можем опоздать",
 
-  "status_all_projects_label": "Для всех проектов",
+  "status_active_list_label": "Используемые статусы",
   "status_code_placeholder": "Новый статус",
   "status_create_action_title": "Добавить статус",
   "status_error_validate_dup": "Такой статус уже есть",
   "status_list_title": "Статусы задач",
   "status_title": "Статус",
-  "status_used_in_projects_label": "Используется в проектах",
+  "status_used_in_tasks_label": "Используется в задачах",
 
   "subtask_count": "{count, plural, zero{Нет подзадач} one{{count} подзадача} few{{count} подзадачи} other{{count} подзадач}}",
   "subtask_count_dative": "{count, plural, one{{count} подзадаче} other{{count} подзадачам}}",

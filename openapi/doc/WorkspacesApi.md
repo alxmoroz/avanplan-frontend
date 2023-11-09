@@ -13,17 +13,14 @@ Method | HTTP request | Description
 [**createInvitation**](WorkspacesApi.md#createinvitation) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Create
 [**createWorkspace**](WorkspacesApi.md#createworkspace) | **POST** /v1/workspaces | Create Workspace
 [**deleteNote**](WorkspacesApi.md#deletenote) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id} | Delete
-[**deleteStatus**](WorkspacesApi.md#deletestatus) | **DELETE** /v1/workspaces/{ws_id}/statuses/{status_id} | Delete
 [**deleteTask**](WorkspacesApi.md#deletetask) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id} | Delete
 [**getAvailableTariffs**](WorkspacesApi.md#getavailabletariffs) | **GET** /v1/workspaces/{ws_id}/tariffs | Available Tariffs
 [**getInvitations**](WorkspacesApi.md#getinvitations) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Invitations
 [**getMyWorkspaces**](WorkspacesApi.md#getmyworkspaces) | **GET** /v1/workspaces | Get My Workspaces
 [**getWorkspace**](WorkspacesApi.md#getworkspace) | **GET** /v1/workspaces/{ws_id} | Get Workspace
 [**setupFeatureSets**](WorkspacesApi.md#setupfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Feature Sets
-[**statusesV1WorkspacesWsIdStatusesGet**](WorkspacesApi.md#statusesv1workspaceswsidstatusesget) | **GET** /v1/workspaces/{ws_id}/statuses | Statuses
 [**updateWorkspace**](WorkspacesApi.md#updateworkspace) | **POST** /v1/workspaces/{ws_id} | Update Workspace
 [**upsertNote**](WorkspacesApi.md#upsertnote) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes | Upsert
-[**upsertStatus**](WorkspacesApi.md#upsertstatus) | **POST** /v1/workspaces/{ws_id}/statuses | Upsert
 [**upsertTask**](WorkspacesApi.md#upserttask) | **POST** /v1/workspaces/{ws_id}/tasks | Task Upsert
 
 
@@ -215,55 +212,6 @@ Name | Type | Description  | Notes
  **wsId** | **int**|  | 
  **taskId** | **int**|  | 
  **permissionTaskId** | **int**|  | [optional] 
-
-### Return type
-
-**bool**
-
-### Authorization
-
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **deleteStatus**
-> bool deleteStatus(statusId, wsId)
-
-Delete
-
-### Example
-```dart
-import 'package:openapi/api.dart';
-// TODO Configure API key authorization: APIKeyHeader
-//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
-// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
-//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
-
-final api = Openapi().getWorkspacesApi();
-final int statusId = 56; // int | 
-final int wsId = 56; // int | 
-
-try {
-    final response = api.deleteStatus(statusId, wsId);
-    print(response);
-} catch on DioException (e) {
-    print('Exception when calling WorkspacesApi->deleteStatus: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **statusId** | **int**|  | 
- **wsId** | **int**|  | 
 
 ### Return type
 
@@ -572,51 +520,6 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **statusesV1WorkspacesWsIdStatusesGet**
-> BuiltList<StatusGet> statusesV1WorkspacesWsIdStatusesGet(wsId)
-
-Statuses
-
-### Example
-```dart
-import 'package:openapi/api.dart';
-// TODO Configure API key authorization: APIKeyHeader
-//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
-
-final api = Openapi().getWorkspacesApi();
-final int wsId = 56; // int | 
-
-try {
-    final response = api.statusesV1WorkspacesWsIdStatusesGet(wsId);
-    print(response);
-} catch on DioException (e) {
-    print('Exception when calling WorkspacesApi->statusesV1WorkspacesWsIdStatusesGet: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **wsId** | **int**|  | 
-
-### Return type
-
-[**BuiltList&lt;StatusGet&gt;**](StatusGet.md)
-
-### Authorization
-
-[APIKeyHeader](../README.md#APIKeyHeader)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **updateWorkspace**
 > WorkspaceGet updateWorkspace(wsId, workspaceUpsert)
 
@@ -707,55 +610,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**NoteGet**](NoteGet.md)
-
-### Authorization
-
-[APIKeyHeader](../README.md#APIKeyHeader), [OAuth2PasswordBearer](../README.md#OAuth2PasswordBearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **upsertStatus**
-> StatusGet upsertStatus(wsId, statusUpsert)
-
-Upsert
-
-### Example
-```dart
-import 'package:openapi/api.dart';
-// TODO Configure API key authorization: APIKeyHeader
-//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKey = 'YOUR_API_KEY';
-// uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-//defaultApiClient.getAuthentication<ApiKeyAuth>('APIKeyHeader').apiKeyPrefix = 'Bearer';
-// TODO Configure OAuth2 access token for authorization: OAuth2PasswordBearer
-//defaultApiClient.getAuthentication<OAuth>('OAuth2PasswordBearer').accessToken = 'YOUR_ACCESS_TOKEN';
-
-final api = Openapi().getWorkspacesApi();
-final int wsId = 56; // int | 
-final StatusUpsert statusUpsert = ; // StatusUpsert | 
-
-try {
-    final response = api.upsertStatus(wsId, statusUpsert);
-    print(response);
-} catch on DioException (e) {
-    print('Exception when calling WorkspacesApi->upsertStatus: $e\n');
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **wsId** | **int**|  | 
- **statusUpsert** | [**StatusUpsert**](StatusUpsert.md)|  | 
-
-### Return type
-
-[**StatusGet**](StatusGet.md)
 
 ### Authorization
 

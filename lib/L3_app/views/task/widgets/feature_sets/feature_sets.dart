@@ -21,6 +21,8 @@ import '../../../quiz/quiz_controller.dart';
 import '../../controllers/feature_sets_controller.dart';
 import '../../controllers/task_controller.dart';
 
+Future showFeatureSetsDialog(TaskController controller) async => await showMTDialog<void>(FeatureSetsDialog(FeatureSetsController(controller)));
+
 class _FSBody extends StatelessWidget {
   const _FSBody(this._controller, {this.shrinkWrap = true});
   final FeatureSetsController _controller;
@@ -132,8 +134,4 @@ class FeatureSetsDialog extends StatelessWidget {
       ),
     );
   }
-}
-
-Future showFeatureSetsDialog(TaskController controller) async {
-  await showMTDialog<void>(FeatureSetsDialog(FeatureSetsController(controller)));
 }

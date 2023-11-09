@@ -76,9 +76,10 @@ class Task extends Titleable {
   bool closed;
   int? parentId;
   List<Note> notes;
+  List<ProjectStatus> projectStatuses;
+
   Iterable<Attachment> attachments;
   Iterable<Member> members;
-  Iterable<ProjectStatus> projectStatuses;
   Iterable<ProjectFeatureSet> projectFeatureSets;
   final int wsId;
   final TaskSource? taskSource;

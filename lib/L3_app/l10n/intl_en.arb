@@ -309,13 +309,12 @@
   "state_risk_duration": "Overdue may be {duration}",
   "state_risk_title": "There is аn risk of overdue",
 
-  "status_all_projects_label": "Present in all projects",
   "status_code_placeholder": "New Status",
   "status_create_action_title": "Add status",
   "status_error_validate_dup": "This status already exists",
   "status_list_title": "Task Statuses",
   "status_title": "Status",
-  "status_used_in_projects_label": "Used in projects",
+  "status_used_in_tasks_label": "Used in tasks",
 
   "subtask_count": "{count, plural, zero{No subtasks} one{{count} subtask} other{{count} subtasks}}",
   "subtask_count_dative": "{count, plural, one{{count} subtask} other{{count} subtasks}}",

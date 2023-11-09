@@ -92,9 +92,6 @@ Class | Method | HTTP request | Description
 [*PaymentsApi*](doc/PaymentsApi.md) | [**iapNotificationV1PaymentsIapNotificationPost**](doc/PaymentsApi.md#iapnotificationv1paymentsiapnotificationpost) | **POST** /v1/payments/iap/notification | Iap Notification
 [*ProjectFeatureSetsApi*](doc/ProjectFeatureSetsApi.md) | [**setupFeatureSets**](doc/ProjectFeatureSetsApi.md#setupfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Feature Sets
 [*SettingsApi*](doc/SettingsApi.md) | [**settingsV1SettingsGet**](doc/SettingsApi.md#settingsv1settingsget) | **GET** /v1/settings | Settings
-[*StatusesApi*](doc/StatusesApi.md) | [**deleteStatus**](doc/StatusesApi.md#deletestatus) | **DELETE** /v1/workspaces/{ws_id}/statuses/{status_id} | Delete
-[*StatusesApi*](doc/StatusesApi.md) | [**statusesV1WorkspacesWsIdStatusesGet**](doc/StatusesApi.md#statusesv1workspaceswsidstatusesget) | **GET** /v1/workspaces/{ws_id}/statuses | Statuses
-[*StatusesApi*](doc/StatusesApi.md) | [**upsertStatus**](doc/StatusesApi.md#upsertstatus) | **POST** /v1/workspaces/{ws_id}/statuses | Upsert
 [*TariffsApi*](doc/TariffsApi.md) | [**getAvailableTariffs**](doc/TariffsApi.md#getavailabletariffs) | **GET** /v1/workspaces/{ws_id}/tariffs | Available Tariffs
 [*TasksApi*](doc/TasksApi.md) | [**assignRole**](doc/TasksApi.md#assignrole) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/roles | Assign
 [*TasksApi*](doc/TasksApi.md) | [**createInvitation**](doc/TasksApi.md#createinvitation) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Create
@@ -113,17 +110,14 @@ Class | Method | HTTP request | Description
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**createInvitation**](doc/WorkspacesApi.md#createinvitation) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Create
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**createWorkspace**](doc/WorkspacesApi.md#createworkspace) | **POST** /v1/workspaces | Create Workspace
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**deleteNote**](doc/WorkspacesApi.md#deletenote) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id} | Delete
-[*WorkspacesApi*](doc/WorkspacesApi.md) | [**deleteStatus**](doc/WorkspacesApi.md#deletestatus) | **DELETE** /v1/workspaces/{ws_id}/statuses/{status_id} | Delete
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**deleteTask**](doc/WorkspacesApi.md#deletetask) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id} | Delete
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**getAvailableTariffs**](doc/WorkspacesApi.md#getavailabletariffs) | **GET** /v1/workspaces/{ws_id}/tariffs | Available Tariffs
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**getInvitations**](doc/WorkspacesApi.md#getinvitations) | **GET** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Invitations
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**getMyWorkspaces**](doc/WorkspacesApi.md#getmyworkspaces) | **GET** /v1/workspaces | Get My Workspaces
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**getWorkspace**](doc/WorkspacesApi.md#getworkspace) | **GET** /v1/workspaces/{ws_id} | Get Workspace
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**setupFeatureSets**](doc/WorkspacesApi.md#setupfeaturesets) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/feature_sets | Setup Feature Sets
-[*WorkspacesApi*](doc/WorkspacesApi.md) | [**statusesV1WorkspacesWsIdStatusesGet**](doc/WorkspacesApi.md#statusesv1workspaceswsidstatusesget) | **GET** /v1/workspaces/{ws_id}/statuses | Statuses
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**updateWorkspace**](doc/WorkspacesApi.md#updateworkspace) | **POST** /v1/workspaces/{ws_id} | Update Workspace
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**upsertNote**](doc/WorkspacesApi.md#upsertnote) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes | Upsert
-[*WorkspacesApi*](doc/WorkspacesApi.md) | [**upsertStatus**](doc/WorkspacesApi.md#upsertstatus) | **POST** /v1/workspaces/{ws_id}/statuses | Upsert
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**upsertTask**](doc/WorkspacesApi.md#upserttask) | **POST** /v1/workspaces/{ws_id}/tasks | Task Upsert
 
 
@@ -168,8 +162,6 @@ Class | Method | HTTP request | Description
  - [SettingsGet](doc/SettingsGet.md)
  - [SourceGet](doc/SourceGet.md)
  - [SourceUpsert](doc/SourceUpsert.md)
- - [StatusGet](doc/StatusGet.md)
- - [StatusUpsert](doc/StatusUpsert.md)
  - [TariffGet](doc/TariffGet.md)
  - [TariffLimitGet](doc/TariffLimitGet.md)
  - [TariffOptionGet](doc/TariffOptionGet.md)

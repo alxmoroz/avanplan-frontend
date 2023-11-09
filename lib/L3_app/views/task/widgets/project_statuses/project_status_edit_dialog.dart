@@ -4,41 +4,43 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../L1_domain/entities/status.dart';
-import '../../components/button.dart';
-import '../../components/colors.dart';
-import '../../components/colors_base.dart';
-import '../../components/constants.dart';
-import '../../components/dialog.dart';
-import '../../components/field.dart';
-import '../../components/field_data.dart';
-import '../../components/icons.dart';
-import '../../components/icons_workspace.dart';
-import '../../components/list_tile.dart';
-import '../../components/text.dart';
-import '../../components/text_field.dart';
-import '../../components/toolbar.dart';
-import '../../extra/services.dart';
-import 'status_edit_controller.dart';
+import '../../../../../L1_domain/entities/project_status.dart';
+import '../../../../../L1_domain/entities/task.dart';
+import '../../../../components/button.dart';
+import '../../../../components/colors.dart';
+import '../../../../components/colors_base.dart';
+import '../../../../components/constants.dart';
+import '../../../../components/dialog.dart';
+import '../../../../components/field.dart';
+import '../../../../components/field_data.dart';
+import '../../../../components/icons.dart';
+import '../../../../components/list_tile.dart';
+import '../../../../components/text.dart';
+import '../../../../components/text_field.dart';
+import '../../../../components/toolbar.dart';
+import '../../../../extra/services.dart';
+import 'project_status_edit_controller.dart';
 
-Future<Status?> statusEditDialog(Status status) async => await showMTDialog<Status?>(StatusEditDialog(status));
+Future<ProjectStatus?> projectStatusEditDialog(ProjectStatus status, Task project) async =>
+    await showMTDialog<ProjectStatus?>(ProjectStatusEditDialog(status, project));
 
-class StatusEditDialog extends StatefulWidget {
-  const StatusEditDialog(this.status);
-  final Status status;
+class ProjectStatusEditDialog extends StatefulWidget {
+  const ProjectStatusEditDialog(this._status, this._project);
+  final ProjectStatus _status;
+  final Task _project;
 
   @override
-  _StatusEditDialogState createState() => _StatusEditDialogState();
+  _ProjectStatusEditDialogState createState() => _ProjectStatusEditDialogState();
 }
 
-class _StatusEditDialogState extends State<StatusEditDialog> {
-  late final StatusEditController controller;
+class _ProjectStatusEditDialogState extends State<ProjectStatusEditDialog> {
+  late final ProjectStatusEditController controller;
 
-  Status get _status => controller.status;
+  ProjectStatus get _status => controller.status;
 
   @override
   void initState() {
-    controller = StatusEditController(widget.status);
+    controller = ProjectStatusEditController(widget._status, widget._project);
     super.initState();
   }
 
@@ -48,7 +50,7 @@ class _StatusEditDialogState extends State<StatusEditDialog> {
     super.dispose();
   }
 
-  bool get _used => controller.usedInProjects;
+  bool get _used => controller.usedInTasks;
 
   @override
   Widget build(BuildContext context) {
@@ -68,9 +70,9 @@ class _StatusEditDialogState extends State<StatusEditDialog> {
           shrinkWrap: true,
           children: [
             MTField(
-              controller.fData(StatusFCode.code.index),
+              controller.fData(StatusFCode.title.index),
               value: MTTextField(
-                controller: controller.teController(StatusFCode.code.index),
+                controller: controller.teController(StatusFCode.title.index),
                 autofocus: true,
                 margin: EdgeInsets.zero,
                 maxLines: 2,
@@ -84,7 +86,7 @@ class _StatusEditDialogState extends State<StatusEditDialog> {
                   hintStyle: const H1('', color: f3Color, maxLines: 2).style(context),
                 ),
                 style: const H1('', maxLines: 2).style(context),
-                onChanged: controller.editCode,
+                onChanged: controller.editTitle,
               ),
               padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(bottom: P),
               color: b2Color,
@@ -109,29 +111,12 @@ class _StatusEditDialogState extends State<StatusEditDialog> {
               crossAxisAlignment: CrossAxisAlignment.center,
               bottomDivider: true,
             ),
-            MTField(
-              controller.fData(StatusFCode.allProjects.index),
-              value: MTListTile(
-                leading: const WSIconPublic(color: f2Color),
-                middle: BaseText.medium(loc.status_all_projects_label, maxLines: 1),
-                trailing: CupertinoSwitch(
-                  value: _status.allProjects,
-                  activeColor: mainColor,
-                  thumbColor: b3Color,
-                  trackColor: b2Color,
-                  onChanged: (_) => controller.toggleAllProjects(),
-                ),
-                padding: EdgeInsets.zero,
-                bottomDivider: false,
-              ),
-              crossAxisAlignment: CrossAxisAlignment.center,
-            ),
             if (_used)
               MTField(
-                MTFieldData(-1, label: loc.status_used_in_projects_label),
+                MTFieldData(-1, label: loc.status_used_in_tasks_label),
                 value: Row(children: [
-                  Flexible(child: BaseText(controller.projectsWithStatusStr, maxLines: 2)),
-                  if (controller.projectsWithStatusCountMoreStr.isNotEmpty) BaseText.f2(controller.projectsWithStatusCountMoreStr, maxLines: 1),
+                  Flexible(child: BaseText(controller.tasksWithStatusStr, maxLines: 2)),
+                  if (controller.tasksWithStatusCountMoreStr.isNotEmpty) BaseText.f2(controller.tasksWithStatusCountMoreStr, maxLines: 1),
                 ]),
                 margin: const EdgeInsets.only(top: P3),
               ),

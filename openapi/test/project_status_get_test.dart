@@ -12,6 +12,16 @@ void main() {
       // TODO
     });
 
+    // String title
+    test('to test the property `title`', () async {
+      // TODO
+    });
+
+    // String description
+    test('to test the property `description`', () async {
+      // TODO
+    });
+
     // int position
     test('to test the property `position`', () async {
       // TODO
@@ -19,6 +29,11 @@ void main() {
 
     // int statusId
     test('to test the property `statusId`', () async {
+      // TODO
+    });
+
+    // bool closed
+    test('to test the property `closed`', () async {
       // TODO
     });
   });

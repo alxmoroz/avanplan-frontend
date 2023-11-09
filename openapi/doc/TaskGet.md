@@ -23,6 +23,7 @@ Name | Type | Description | Notes
 **assigneeId** | **int** |  | [optional] 
 **authorId** | **int** |  | [optional] 
 **statusId** | **int** |  | [optional] 
+**projectStatusId** | **int** |  | [optional] 
 **taskSourceId** | **int** |  | [optional] 
 **state** | **String** |  | [optional] 
 **velocity** | **num** |  | [optional] 

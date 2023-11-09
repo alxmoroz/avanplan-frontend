@@ -53,8 +53,6 @@ import 'package:openapi/src/model/role_get.dart';
 import 'package:openapi/src/model/settings_get.dart';
 import 'package:openapi/src/model/source_get.dart';
 import 'package:openapi/src/model/source_upsert.dart';
-import 'package:openapi/src/model/status_get.dart';
-import 'package:openapi/src/model/status_upsert.dart';
 import 'package:openapi/src/model/tariff_get.dart';
 import 'package:openapi/src/model/tariff_limit_get.dart';
 import 'package:openapi/src/model/tariff_option_get.dart';
@@ -113,8 +111,6 @@ part 'serializers.g.dart';
   SettingsGet,
   SourceGet,
   SourceUpsert,
-  StatusGet,
-  StatusUpsert,
   TariffGet,
   TariffLimitGet,
   TariffOptionGet,
@@ -139,10 +135,6 @@ Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(ProjectFeatureSetGet)]),
         () => ListBuilder<ProjectFeatureSetGet>(),
-      )
-      ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(StatusGet)]),
-        () => ListBuilder<StatusGet>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(int)]),

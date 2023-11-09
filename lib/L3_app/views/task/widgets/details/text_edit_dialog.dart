@@ -39,7 +39,7 @@ class TextEditDialog extends StatelessWidget {
                   controller: _tc,
                   margin: EdgeInsets.zero,
                   padding: EdgeInsets.symmetric(horizontal: P2, vertical: P2 * (isWeb ? 1.35 : 1)),
-                  maxLines: 10,
+                  maxLines: 20,
                 ),
               ),
               MTButton.main(

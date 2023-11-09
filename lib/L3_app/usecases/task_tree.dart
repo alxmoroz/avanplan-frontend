@@ -34,7 +34,7 @@ extension TaskTreeUC on Task {
 
   bool get hasOpenedSubtasks => openedSubtasks.isNotEmpty;
 
-  List<Task> subtasksForStatus(int statusId) => subtasks.where((t) => t.statusId == statusId).toList();
+  List<Task> subtasksForStatus(int statusId) => subtasks.where((t) => t.projectStatusId == statusId).toList();
   List<MapEntry<TaskState, List<Task>>> get subtaskGroups => groups(subtasks);
 
   Workspace get ws => wsMainController.wsForId(wsId);

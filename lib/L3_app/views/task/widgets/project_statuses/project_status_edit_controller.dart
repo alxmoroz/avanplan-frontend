@@ -102,7 +102,7 @@ abstract class _ProjectStatusEditControllerBase extends EditController with Stor
   }
 
   @computed
-  Iterable<Task> get _tasksWithStatus => tasksMainController.allTasks.where((t) => t.statusId == status.id);
+  Iterable<Task> get _tasksWithStatus => tasksMainController.allTasks.where((t) => t.projectStatusId == status.id);
 
   @computed
   bool get usedInTasks => _tasksWithStatus.isNotEmpty;

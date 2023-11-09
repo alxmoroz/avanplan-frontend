@@ -18,7 +18,7 @@ extension TaskStatus on Task {
 
   ProjectStatus? statusForId(int? id) => statuses.firstWhereOrNull((s) => s.id == id);
 
-  ProjectStatus? get status => statusForId(statusId);
+  ProjectStatus? get status => statusForId(projectStatusId);
 
   void setClosed(bool? close) {
     if (close != null) {

@@ -18,7 +18,7 @@ class TaskRepo extends AbstractApiRepo<TasksChanges, Task> {
       ..taskSourceId = data.taskSource?.id
       ..assigneeId = data.assigneeId
       ..authorId = data.authorId
-      ..statusId = data.statusId
+      ..projectStatusId = data.projectStatusId
       ..estimate = data.estimate
       ..parentId = data.parentId
       ..title = data.title

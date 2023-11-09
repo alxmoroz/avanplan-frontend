@@ -35,7 +35,7 @@ extension TaskStatsExtension on Task {
   bool get isLinkedProject => isProject && isLinked;
 
   bool get hasDescription => description.isNotEmpty;
-  bool get hasStatus => statusId != null;
+  bool get hasStatus => projectStatusId != null;
   bool get hasAssignee => assigneeId != null;
 
   bool get hasAuthor => authorId != null;

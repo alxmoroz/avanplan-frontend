@@ -25,7 +25,7 @@ extension WSTasksUC on Workspace {
     return plCreate(_parent)
         ? Task(
             title: newSubtaskTitle(_parent),
-            statusId: (_newProject || _newGoal) ? null : _parent.statuses.firstOrNull?.id,
+            projectStatusId: (_newProject || _newGoal) ? null : _parent.statuses.firstOrNull?.id,
             closed: false,
             parentId: _parent?.id,
             members: [],

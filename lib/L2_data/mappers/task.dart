@@ -31,7 +31,7 @@ extension TaskMapper on api.TaskGet {
       closedDate: closedDate?.toLocal(),
       dueDate: dueDate?.toLocal(),
       closed: closed ?? false,
-      statusId: statusId,
+      projectStatusId: projectStatusId,
       estimate: estimate,
       notes: notes?.map((n) => n.note(wsId)).toList() ?? [],
       attachments: attachments?.map((a) => a.attachment(wsId)) ?? [],

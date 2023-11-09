@@ -57,7 +57,7 @@ class Task extends Titleable {
     this.updatedOn,
     this.dueDate,
     this.closedDate,
-    this.statusId,
+    this.projectStatusId,
     this.authorId,
     this.assigneeId,
     this.type = 'TASK',
@@ -87,7 +87,7 @@ class Task extends Titleable {
   final DateTime? updatedOn;
   DateTime? dueDate;
   DateTime? closedDate;
-  int? statusId;
+  int? projectStatusId;
   int? authorId;
   int? assigneeId;
   final String type;

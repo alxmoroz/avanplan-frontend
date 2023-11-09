@@ -39,16 +39,16 @@ class StatusController {
         ],
       );
 
-  Future setStatus(Task _task, {int? statusId, bool? close}) async {
-    if (statusId != null || close != null) {
-      statusId ??= _task.canSetStatus ? (close == true ? _task.firstClosedStatusId : _task.firstOpenedStatusId) : null;
-      close ??= _task.statusForId(statusId)?.closed;
+  Future setStatus(Task _task, {int? stId, bool? close}) async {
+    if (stId != null || close != null) {
+      stId ??= _task.canSetStatus ? (close == true ? _task.firstClosedStatusId : _task.firstOpenedStatusId) : null;
+      close ??= _task.statusForId(stId)?.closed;
 
       if (close == true && _task.hasOpenedSubtasks) {
         if (await _closeDialog() == true) {
           // TODO: перенести на бэк (есть задача такая)
           for (var t in _task.subtasks.where((t) => t.closed != close)) {
-            t.statusId = _task.statusId;
+            t.projectStatusId = _task.projectStatusId;
             t.setClosed(close);
             await taskUC.save(t);
           }
@@ -57,18 +57,18 @@ class StatusController {
         }
       }
 
-      final oldStId = _task.statusId;
+      final oldStId = _task.projectStatusId;
       final oldClosed = _task.closed;
       final oldClosedDate = _task.closedDate;
 
-      _task.statusId = statusId;
+      _task.projectStatusId = stId;
       _task.setClosed(close);
 
       final sameTask = _task == task;
       final saved = sameTask ? await _taskController.saveField(TaskFCode.status) : (await _task.save() != null);
 
       if (!saved) {
-        _task.statusId = oldStId;
+        _task.projectStatusId = oldStId;
         _task.closed = oldClosed;
         _task.closedDate = oldClosedDate;
         tasksMainController.refreshTasks();
@@ -84,10 +84,10 @@ class StatusController {
   Future selectStatus() async {
     final selectedStatus = await showMTSelectDialog<ProjectStatus>(
       task.statuses.toList(),
-      task.statusId,
+      task.projectStatusId,
       loc.task_status_select_placeholder,
       valueBuilder: (_, status) {
-        final selected = task.statusId == status.id;
+        final selected = task.projectStatusId == status.id;
         final closed = status.closed;
         final text = '$status';
         return Row(
@@ -103,7 +103,7 @@ class StatusController {
     );
 
     if (selectedStatus != null) {
-      await setStatus(task, statusId: selectedStatus.id);
+      await setStatus(task, stId: selectedStatus.id);
     }
   }
 
@@ -113,7 +113,7 @@ class StatusController {
       final newStatusId = task.statuses.elementAt(newStatusIndex).id!;
 
       final t = task.subtasksForStatus(oldStatusId)[oldTaskIndex];
-      await setStatus(t, statusId: newStatusId);
+      await setStatus(t, stId: newStatusId);
     }
   }
 

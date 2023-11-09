@@ -15,7 +15,7 @@ import '../../../_base/edit_controller.dart';
 
 part 'project_status_edit_controller.g.dart';
 
-enum StatusFCode { title, closed }
+enum StatusFCode { title, description, closed }
 
 class ProjectStatusEditController extends _ProjectStatusEditControllerBase with _$ProjectStatusEditController {
   ProjectStatusEditController(ProjectStatus stIn, Task project) {
@@ -102,16 +102,10 @@ abstract class _ProjectStatusEditControllerBase extends EditController with Stor
   }
 
   @computed
-  Iterable<Task> get _tasksWithStatus => tasksMainController.allTasks.where((t) => t.projectStatusId == status.id);
+  int get tasksWithStatusCount => tasksMainController.allTasks.where((t) => t.projectStatusId == status.id).length;
 
   @computed
-  bool get usedInTasks => _tasksWithStatus.isNotEmpty;
-
-  @computed
-  String get tasksWithStatusStr => _tasksWithStatus.take(3).map((p) => '$p').join(', ');
-
-  @computed
-  String get tasksWithStatusCountMoreStr => _tasksWithStatus.length > 3 ? loc.more_count(_tasksWithStatus.length - 3) : '';
+  bool get usedInTasks => tasksWithStatusCount > 0;
 
   Future toggleClosed() async {
     final oldValue = status.closed;

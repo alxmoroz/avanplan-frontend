@@ -5,8 +5,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/project_status.dart';
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../components/adaptive.dart';
-import '../../../../components/appbar.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
@@ -15,8 +13,8 @@ import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/shadowed.dart';
 import '../../../../components/text.dart';
+import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
-import '../../../../presenters/task_type.dart';
 import '../../../../usecases/task_status.dart';
 import '../../controllers/task_controller.dart';
 import 'project_status_edit_dialog.dart';
@@ -50,23 +48,14 @@ class ProjectStatusesDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTDialog(
-        topBar: MTAppBar(
-          context,
-          middle: _project.subPageTitle(loc.status_list_title),
-          trailing: const SizedBox(width: P8),
-        ),
-        body: SafeArea(
-          top: false,
-          bottom: false,
-          child: MTShadowed(
-            topPaddingIndent: P,
-            bottomShadow: true,
-            child: MTAdaptive(
-              child: ListView.builder(
-                itemBuilder: itemBuilder,
-                itemCount: _project.statuses.length,
-              ),
-            ),
+        topBar: MTTopBar(titleText: loc.status_list_title),
+        body: MTShadowed(
+          topPaddingIndent: P,
+          bottomShadow: true,
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemBuilder: itemBuilder,
+            itemCount: _project.statuses.length,
           ),
         ),
         bottomBar: MTButton.secondary(

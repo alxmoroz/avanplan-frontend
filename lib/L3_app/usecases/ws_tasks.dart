@@ -8,6 +8,7 @@ import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../extra/services.dart';
 import '../presenters/task_type.dart';
 import '../usecases/task_status.dart';
+import '../usecases/ws_statuses.dart';
 import 'task_feature_sets.dart';
 import 'ws_actions.dart';
 import 'ws_tariff.dart';
@@ -31,7 +32,7 @@ extension WSTasksUC on Workspace {
             members: [],
             notes: [],
             attachments: [],
-            projectStatuses: [],
+            projectStatuses: defaultStatuses.toList(),
             projectFeatureSets: [],
             wsId: id!,
             startDate: DateTime.now(),

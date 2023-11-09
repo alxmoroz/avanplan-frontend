@@ -55,6 +55,7 @@ class DetailsPane extends StatelessWidget {
     return Observer(
       builder: (_) => MTShadowed(
         topPaddingIndent: 0,
+        bottomPaddingIndent: P3,
         child: MTAdaptive(
           child: ListView(
             children: [
@@ -179,12 +180,13 @@ class DetailsPane extends StatelessWidget {
                   onSelect: _task.canEditFeatureSets ? () => showFeatureSetsDialog(controller) : null,
                 ),
 
+              /// Набор статусов
               if (!_quizzing && _task.canEditStatuses)
                 MTField(
                   controller.fData(TaskFCode.statuses.index),
                   margin: const EdgeInsets.only(top: P3),
                   leading: const StatusIcon(),
-                  value: BaseText(_task.projectStatusesStr, maxLines: 1),
+                  value: _task.projectStatuses.isNotEmpty ? BaseText(_task.projectStatusesStr, maxLines: 1) : null,
                   onSelect: () => showProjectStatusesDialog(controller),
                 ),
 

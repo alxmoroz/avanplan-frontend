@@ -12,7 +12,6 @@ import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/field.dart';
-import '../../../../components/field_data.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
@@ -112,13 +111,11 @@ class _ProjectStatusEditDialogState extends State<ProjectStatusEditDialog> {
               bottomDivider: true,
             ),
             if (_used)
-              MTField(
-                MTFieldData(-1, label: loc.status_used_in_tasks_label),
-                value: Row(children: [
-                  Flexible(child: BaseText(controller.tasksWithStatusStr, maxLines: 2)),
-                  if (controller.tasksWithStatusCountMoreStr.isNotEmpty) BaseText.f2(controller.tasksWithStatusCountMoreStr, maxLines: 1),
-                ]),
-                margin: const EdgeInsets.only(top: P3),
+              BaseText.f2(
+                loc.status_used_in_tasks_label(controller.tasksWithStatusCount),
+                align: TextAlign.center,
+                maxLines: 1,
+                padding: EdgeInsets.symmetric(horizontal: P3, vertical: P),
               ),
           ],
         ),

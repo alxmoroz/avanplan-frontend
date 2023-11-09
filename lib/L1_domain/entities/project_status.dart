@@ -4,7 +4,7 @@ import 'base_entity.dart';
 
 class ProjectStatus extends Titleable {
   ProjectStatus({
-    required super.id,
+    super.id,
     required super.title,
     super.description,
     required this.position,

@@ -11,6 +11,7 @@ import '../../../../components/field_data.dart';
 import '../../../../extra/services.dart';
 import '../../../../usecases/status_edit.dart';
 import '../../../../usecases/task_status.dart';
+import '../../../../usecases/task_tree.dart';
 import '../../../_base/edit_controller.dart';
 import '../../controllers/project_statuses_controller.dart';
 
@@ -70,14 +71,14 @@ abstract class _ProjectStatusEditControllerBase extends EditController with Stor
   String? codeError;
 
   @computed
-  Iterable<String> get _existingTitles => _project.statuses.where((s) => s.id != status.id).map((s) => s.title.trim().toLowerCase());
+  Iterable<String> get _siblingsTitles => _statusesController.siblingsTitles(status.id!);
 
   String _processedInput(String str) => str.trim().isEmpty ? codePlaceholder : str;
 
   @action
   bool _checkDup(String str) {
     codeError = null;
-    if (_existingTitles.contains(str.trim().toLowerCase())) {
+    if (_siblingsTitles.contains(str.trim().toLowerCase())) {
       codeError = loc.status_error_validate_dup;
     }
     return codeError == null;
@@ -110,7 +111,7 @@ abstract class _ProjectStatusEditControllerBase extends EditController with Stor
   }
 
   @computed
-  int get tasksWithStatusCount => tasksMainController.allTasks.where((t) => t.projectStatusId == status.id).length;
+  int get tasksWithStatusCount => tasksMainController.allTasks.where((t) => t.project!.id == _project.id && t.projectStatusId == status.id).length;
 
   @computed
   bool get usedInTasks => tasksWithStatusCount > 0;

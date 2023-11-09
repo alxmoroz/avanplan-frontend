@@ -162,6 +162,7 @@ Class | Method | HTTP request | Description
  - [SettingsGet](doc/SettingsGet.md)
  - [SourceGet](doc/SourceGet.md)
  - [SourceUpsert](doc/SourceUpsert.md)
+ - [StatusGet](doc/StatusGet.md)
  - [TariffGet](doc/TariffGet.md)
  - [TariffLimitGet](doc/TariffLimitGet.md)
  - [TariffOptionGet](doc/TariffOptionGet.md)

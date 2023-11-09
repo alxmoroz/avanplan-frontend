@@ -56,6 +56,7 @@ doc/SettingsApi.md
 doc/SettingsGet.md
 doc/SourceGet.md
 doc/SourceUpsert.md
+doc/StatusGet.md
 doc/TariffGet.md
 doc/TariffLimitGet.md
 doc/TariffOptionGet.md
@@ -147,6 +148,7 @@ lib/src/model/role_get.dart
 lib/src/model/settings_get.dart
 lib/src/model/source_get.dart
 lib/src/model/source_upsert.dart
+lib/src/model/status_get.dart
 lib/src/model/tariff_get.dart
 lib/src/model/tariff_limit_get.dart
 lib/src/model/tariff_option_get.dart
@@ -218,6 +220,7 @@ test/settings_api_test.dart
 test/settings_get_test.dart
 test/source_get_test.dart
 test/source_upsert_test.dart
+test/status_get_test.dart
 test/tariff_get_test.dart
 test/tariff_limit_get_test.dart
 test/tariff_option_get_test.dart

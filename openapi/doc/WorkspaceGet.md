@@ -20,6 +20,7 @@ Name | Type | Description | Notes
 **settings** | [**SettingsGet**](SettingsGet.md) |  | [optional] 
 **estimateValues** | [**BuiltList&lt;EstimateValueGet&gt;**](EstimateValueGet.md) |  | [optional] 
 **sources** | [**BuiltList&lt;SourceGet&gt;**](SourceGet.md) |  | [optional] 
+**statuses** | [**BuiltList&lt;StatusGet&gt;**](StatusGet.md) |  | [optional] 
 **tasksCount** | **int** |  | [optional] [default to 0]
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

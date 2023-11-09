@@ -27,7 +27,7 @@ void main() {
       // TODO
     });
 
-    // int statusId
+    // int statusId (default value: -1)
     test('to test the property `statusId`', () async {
       // TODO
     });

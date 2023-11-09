@@ -6,59 +6,50 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'project_status_get.g.dart';
+part 'status_get.g.dart';
 
-/// ProjectStatusGet
+/// StatusGet
 ///
 /// Properties:
 /// * [id] 
-/// * [title] 
-/// * [description] 
-/// * [position] 
-/// * [statusId] 
+/// * [code] 
 /// * [closed] 
+/// * [allProjects] 
 @BuiltValue()
-abstract class ProjectStatusGet implements Built<ProjectStatusGet, ProjectStatusGetBuilder> {
+abstract class StatusGet implements Built<StatusGet, StatusGetBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
 
-  @BuiltValueField(wireName: r'title')
-  String? get title;
-
-  @BuiltValueField(wireName: r'description')
-  String? get description;
-
-  @BuiltValueField(wireName: r'position')
-  int get position;
-
-  @BuiltValueField(wireName: r'status_id')
-  int? get statusId;
+  @BuiltValueField(wireName: r'code')
+  String get code;
 
   @BuiltValueField(wireName: r'closed')
-  bool? get closed;
+  bool get closed;
 
-  ProjectStatusGet._();
+  @BuiltValueField(wireName: r'all_projects')
+  bool? get allProjects;
 
-  factory ProjectStatusGet([void updates(ProjectStatusGetBuilder b)]) = _$ProjectStatusGet;
+  StatusGet._();
+
+  factory StatusGet([void updates(StatusGetBuilder b)]) = _$StatusGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(ProjectStatusGetBuilder b) => b
-      ..statusId = -1;
+  static void _defaults(StatusGetBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<ProjectStatusGet> get serializer => _$ProjectStatusGetSerializer();
+  static Serializer<StatusGet> get serializer => _$StatusGetSerializer();
 }
 
-class _$ProjectStatusGetSerializer implements PrimitiveSerializer<ProjectStatusGet> {
+class _$StatusGetSerializer implements PrimitiveSerializer<StatusGet> {
   @override
-  final Iterable<Type> types = const [ProjectStatusGet, _$ProjectStatusGet];
+  final Iterable<Type> types = const [StatusGet, _$StatusGet];
 
   @override
-  final String wireName = r'ProjectStatusGet';
+  final String wireName = r'StatusGet';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    ProjectStatusGet object, {
+    StatusGet object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'id';
@@ -66,36 +57,20 @@ class _$ProjectStatusGetSerializer implements PrimitiveSerializer<ProjectStatusG
       object.id,
       specifiedType: const FullType(int),
     );
-    if (object.title != null) {
-      yield r'title';
-      yield serializers.serialize(
-        object.title,
-        specifiedType: const FullType(String),
-      );
-    }
-    if (object.description != null) {
-      yield r'description';
-      yield serializers.serialize(
-        object.description,
-        specifiedType: const FullType(String),
-      );
-    }
-    yield r'position';
+    yield r'code';
     yield serializers.serialize(
-      object.position,
-      specifiedType: const FullType(int),
+      object.code,
+      specifiedType: const FullType(String),
     );
-    if (object.statusId != null) {
-      yield r'status_id';
+    yield r'closed';
+    yield serializers.serialize(
+      object.closed,
+      specifiedType: const FullType(bool),
+    );
+    if (object.allProjects != null) {
+      yield r'all_projects';
       yield serializers.serialize(
-        object.statusId,
-        specifiedType: const FullType(int),
-      );
-    }
-    if (object.closed != null) {
-      yield r'closed';
-      yield serializers.serialize(
-        object.closed,
+        object.allProjects,
         specifiedType: const FullType(bool),
       );
     }
@@ -104,7 +79,7 @@ class _$ProjectStatusGetSerializer implements PrimitiveSerializer<ProjectStatusG
   @override
   Object serialize(
     Serializers serializers,
-    ProjectStatusGet object, {
+    StatusGet object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -115,7 +90,7 @@ class _$ProjectStatusGetSerializer implements PrimitiveSerializer<ProjectStatusG
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required ProjectStatusGetBuilder result,
+    required StatusGetBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -129,33 +104,12 @@ class _$ProjectStatusGetSerializer implements PrimitiveSerializer<ProjectStatusG
           ) as int;
           result.id = valueDes;
           break;
-        case r'title':
+        case r'code':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
-          result.title = valueDes;
-          break;
-        case r'description':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.description = valueDes;
-          break;
-        case r'position':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.position = valueDes;
-          break;
-        case r'status_id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.statusId = valueDes;
+          result.code = valueDes;
           break;
         case r'closed':
           final valueDes = serializers.deserialize(
@@ -163,6 +117,13 @@ class _$ProjectStatusGetSerializer implements PrimitiveSerializer<ProjectStatusG
             specifiedType: const FullType(bool),
           ) as bool;
           result.closed = valueDes;
+          break;
+        case r'all_projects':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.allProjects = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -173,12 +134,12 @@ class _$ProjectStatusGetSerializer implements PrimitiveSerializer<ProjectStatusG
   }
 
   @override
-  ProjectStatusGet deserialize(
+  StatusGet deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = ProjectStatusGetBuilder();
+    final result = StatusGetBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

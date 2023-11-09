@@ -11,6 +11,7 @@ import 'package:openapi/src/model/estimate_value_get.dart';
 import 'package:openapi/src/model/invoice_get.dart';
 import 'package:openapi/src/model/user.dart';
 import 'package:openapi/src/model/role_get.dart';
+import 'package:openapi/src/model/status_get.dart';
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
@@ -31,6 +32,7 @@ part 'workspace_get.g.dart';
 /// * [settings] 
 /// * [estimateValues] 
 /// * [sources] 
+/// * [statuses] 
 /// * [tasksCount] 
 @BuiltValue()
 abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> {
@@ -69,6 +71,9 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
 
   @BuiltValueField(wireName: r'sources')
   BuiltList<SourceGet>? get sources;
+
+  @BuiltValueField(wireName: r'statuses')
+  BuiltList<StatusGet>? get statuses;
 
   @BuiltValueField(wireName: r'tasks_count')
   int? get tasksCount;
@@ -173,6 +178,13 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
       yield serializers.serialize(
         object.sources,
         specifiedType: const FullType(BuiltList, [FullType(SourceGet)]),
+      );
+    }
+    if (object.statuses != null) {
+      yield r'statuses';
+      yield serializers.serialize(
+        object.statuses,
+        specifiedType: const FullType(BuiltList, [FullType(StatusGet)]),
       );
     }
     if (object.tasksCount != null) {
@@ -288,6 +300,13 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
             specifiedType: const FullType(BuiltList, [FullType(SourceGet)]),
           ) as BuiltList<SourceGet>;
           result.sources.replace(valueDes);
+          break;
+        case r'statuses':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(BuiltList, [FullType(StatusGet)]),
+          ) as BuiltList<StatusGet>;
+          result.statuses.replace(valueDes);
           break;
         case r'tasks_count':
           final valueDes = serializers.deserialize(

@@ -20,8 +20,11 @@ import '../../../../extra/services.dart';
 import '../../controllers/project_statuses_controller.dart';
 import 'project_status_edit_controller.dart';
 
-Future<ProjectStatus?> showProjectStatusEditDialog(ProjectStatus status, ProjectStatusesController statusesController) async =>
-    await showMTDialog<ProjectStatus?>(ProjectStatusEditDialog(status, statusesController));
+Future showProjectStatusEditDialog(
+  ProjectStatus status,
+  ProjectStatusesController statusesController,
+) async =>
+    await showMTDialog<void>(ProjectStatusEditDialog(status, statusesController));
 
 class ProjectStatusEditDialog extends StatefulWidget {
   const ProjectStatusEditDialog(this._status, this._statusesController);

@@ -35,7 +35,7 @@ import '../../controllers/task_controller.dart';
 import '../attachments/attachments.dart';
 import '../feature_sets/feature_sets.dart';
 import '../notes/notes.dart';
-import '../project_statuses/project_statuses_dialog.dart';
+import '../project_statuses/project_statuses.dart';
 
 class DetailsPane extends StatelessWidget {
   const DetailsPane(this.controller, {this.qController});
@@ -64,7 +64,7 @@ class DetailsPane extends StatelessWidget {
                   controller.fData(TaskFCode.status.index),
                   value: Row(
                     children: [
-                      if (_task.hasStatus || _task.canSetStatus)
+                      if (_task.canShowStatus)
                         MTButton.main(
                           titleText: '${_task.status}',
                           constrained: false,
@@ -180,7 +180,7 @@ class DetailsPane extends StatelessWidget {
                 ),
 
               /// Набор статусов
-              if (!_quizzing && _task.canEditStatuses)
+              if (!_quizzing && _task.canEditProjectStatuses)
                 MTField(
                   controller.fData(TaskFCode.statuses.index),
                   margin: const EdgeInsets.only(top: P3),

@@ -318,6 +318,7 @@
   "status_error_validate_dup": "This status already exists",
   "status_list_title": "Task Statuses",
   "status_title": "Status",
+  "status_quiz_title": "Select the task statuses to use",
   "status_used_in_tasks_label": "{count, plural, one{Used in {count} task} other{Used in {count} tasks}}",
 
   "subtask_count": "{count, plural, zero{No subtasks} one{{count} subtask} other{{count} subtasks}}",

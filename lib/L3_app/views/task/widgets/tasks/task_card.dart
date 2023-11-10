@@ -22,6 +22,7 @@ import '../../../../presenters/person.dart';
 import '../../../../presenters/task_state.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../../presenters/workspace.dart';
+import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_feature_sets.dart';
 import '../../../../usecases/task_status.dart';
 import '../../../../usecases/task_tree.dart';
@@ -74,7 +75,7 @@ class TaskCard extends StatelessWidget {
         ],
       );
 
-  bool get _showStatus => task.hasStatus && !board && !task.closed;
+  bool get _showStatus => task.canShowStatus && !board && !task.closed;
   Widget get _status => SmallText('${task.status}', color: _textColor, maxLines: 1);
 
   bool get _showAssignee => task.hfsTeam && task.hasAssignee && !isMine;

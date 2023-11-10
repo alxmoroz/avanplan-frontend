@@ -18,8 +18,9 @@ import '../views/task/task_view.dart';
 import '../views/task/widgets/create/create_multitask_quiz_view.dart';
 import '../views/task/widgets/create/create_task_quiz_view.dart';
 import '../views/task/widgets/feature_sets/feature_sets.dart';
+import '../views/task/widgets/project_statuses/project_statuses.dart';
 import '../views/task/widgets/team/member_view.dart';
-import '../views/task/widgets/team/team_invitation_view.dart';
+import '../views/task/widgets/team/team_invitation_quiz_view.dart';
 import '../views/user/user_list_view.dart';
 import '../views/user/user_view.dart';
 import '../views/workspace/workspace_view.dart';
@@ -58,23 +59,19 @@ CupertinoPageRoute? cupertinoPageRoute(RouteSettings rs) {
     p = TaskView(tc);
     rs = RouteSettings(name: '${rs.name}_${tc.task.id}', arguments: rs.arguments);
   } else if ([CreateTaskQuizView.routeNameProject, CreateTaskQuizView.routeNameGoal].contains(rs.name)) {
-    final args = rs.arguments as CreateTaskQuizArgs;
-    p = CreateTaskQuizView(args);
+    p = CreateTaskQuizView(rs.arguments as CreateTaskQuizArgs);
   } else if (rs.name == CreateMultiTaskQuizView.routeName) {
-    final args = rs.arguments as CreateMultiTaskQuizArgs;
-    p = CreateMultiTaskQuizView(args);
+    p = CreateMultiTaskQuizView(rs.arguments as CreateMultiTaskQuizArgs);
   } else if (rs.name == MemberView.routeName) {
-    final args = rs.arguments as MemberViewArgs;
-    p = MemberView(args);
+    p = MemberView(rs.arguments as MemberViewArgs);
   } else if (rs.name == UserView.routeName) {
-    final user = rs.arguments as User;
-    p = UserView(user);
+    p = UserView(rs.arguments as User);
   } else if (rs.name == FeatureSetsQuizView.routeName) {
-    final args = rs.arguments as FSQuizArgs;
-    p = FeatureSetsQuizView(args);
+    p = FeatureSetsQuizView(rs.arguments as FSQuizArgs);
+  } else if (rs.name == ProjectStatusesQuizView.routeName) {
+    p = ProjectStatusesQuizView(rs.arguments as PSQuizArgs);
   } else if (rs.name == TeamInvitationQuizView.routeName) {
-    final args = rs.arguments as TIQuizArgs;
-    p = TeamInvitationQuizView(args);
+    p = TeamInvitationQuizView(rs.arguments as TIQuizArgs);
   }
 
   return p != null ? CupertinoPageRoute<dynamic>(builder: (_) => p!, settings: rs) : null;
@@ -116,6 +113,8 @@ class MTRouteObserver extends NavigatorObserver {
           title = UserView.title(user);
         } else if (name == FeatureSetsQuizView.routeName) {
           title = FeatureSetsQuizView.title(rs.arguments as FSQuizArgs);
+        } else if (name == ProjectStatusesQuizView.routeName) {
+          title = ProjectStatusesQuizView.title(rs.arguments as PSQuizArgs);
         } else if (name == TeamInvitationQuizView.routeName) {
           title = TeamInvitationQuizView.title(rs.arguments as TIQuizArgs);
         }

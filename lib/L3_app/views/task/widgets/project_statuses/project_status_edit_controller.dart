@@ -9,7 +9,6 @@ import '../../../../../L1_domain/entities/project_status.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/field_data.dart';
 import '../../../../extra/services.dart';
-import '../../../../usecases/status_edit.dart';
 import '../../../../usecases/task_status.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../../_base/edit_controller.dart';
@@ -55,14 +54,12 @@ abstract class _ProjectStatusEditControllerBase extends EditController with Stor
   Future<bool> saveField(StatusFCode fCode) async {
     updateField(fCode.index, loading: true);
 
-    final es = await status.save(_project);
+    final es = await _statusesController.saveStatus(status);
     final saved = es != null;
     if (saved) {
       _status = es;
     }
     updateField(fCode.index, loading: false);
-
-    _statusesController.refresh();
 
     return saved;
   }
@@ -71,7 +68,7 @@ abstract class _ProjectStatusEditControllerBase extends EditController with Stor
   String? codeError;
 
   @computed
-  Iterable<String> get _siblingsTitles => _statusesController.siblingsTitles(status.id!);
+  Iterable<String> get _siblingsTitles => _statusesController.siblingsTitles(status.id);
 
   String _processedInput(String str) => str.trim().isEmpty ? codePlaceholder : str;
 
@@ -111,7 +108,8 @@ abstract class _ProjectStatusEditControllerBase extends EditController with Stor
   }
 
   @computed
-  int get tasksWithStatusCount => tasksMainController.allTasks.where((t) => t.project!.id == _project.id && t.projectStatusId == status.id).length;
+  int get tasksWithStatusCount =>
+      tasksMainController.allTasks.where((t) => t.project!.id == _project.id && status.id != null && t.projectStatusId == status.id).length;
 
   @computed
   bool get usedInTasks => tasksWithStatusCount > 0;
@@ -126,6 +124,6 @@ abstract class _ProjectStatusEditControllerBase extends EditController with Stor
 
   Future delete(BuildContext context) async {
     Navigator.of(context).pop();
-    _statusesController.delete(status);
+    _statusesController.deleteStatus(status);
   }
 }

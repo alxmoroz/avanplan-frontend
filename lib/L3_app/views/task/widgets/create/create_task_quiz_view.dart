@@ -23,9 +23,13 @@ class CreateTaskQuizArgs {
 
 class _CreateQuizRouter extends MTRouter {
   CreateTaskQuizArgs? get _args => rs!.arguments as CreateTaskQuizArgs?;
-  // TODO: костыль
+
   @override
   Widget? get page => _args != null ? CreateTaskQuizView(_args!) : null;
+
+  // TODO: если будет инфа об айдишнике проекта, то можем показывать сам проект
+  @override
+  RouteSettings? get settings => _args != null ? rs : const RouteSettings(name: '/projects');
 
   @override
   String get title => (rs!.arguments as CreateTaskQuizArgs?)?._controller.task.viewTitle ?? '';

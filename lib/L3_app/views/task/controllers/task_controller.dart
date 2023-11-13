@@ -81,7 +81,8 @@ class TaskController extends _TaskControllerBase with _$TaskController {
   }
 
   Future showTask() async {
-    await Navigator.of(rootKey.currentContext!).pushNamed(TaskView.routeName, arguments: this);
+    //TODO: нужно ли в этом месте создавать контроллер, может, тут достаточно отправить айдишники?
+    await TaskViewRouter().navigate(rootKey.currentContext!, args: this);
   }
 }
 

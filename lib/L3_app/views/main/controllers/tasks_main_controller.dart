@@ -89,7 +89,7 @@ abstract class _TasksMainControllerBase with Store {
 
   /// задачи из списка
 
-  Task? task(int wsId, int? id) => _tasksMap[wsId]![id];
+  Task? task(int wsId, int? id) => _tasksMap[wsId]?[id];
 
   @action
   void addTasks(Iterable<Task> tasks) {

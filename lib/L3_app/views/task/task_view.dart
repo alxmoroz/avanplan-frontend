@@ -12,6 +12,7 @@ import '../../components/icons.dart';
 import '../../components/icons_workspace.dart';
 import '../../components/page.dart';
 import '../../components/text.dart';
+import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_type.dart';
 import 'controllers/task_controller.dart';
@@ -22,12 +23,41 @@ import 'widgets/overview/overview_pane.dart';
 import 'widgets/tasks/tasks_pane.dart';
 import 'widgets/team/team_pane.dart';
 
+class TaskViewRouter extends MTRouter {
+  static const _prefix = '/projects/tasks';
+
+  @override
+  RegExp get pathRe => RegExp('^$_prefix/(\\d+)/(\\d+)\$');
+  int get _wsId => int.parse(pathRe.firstMatch(rs!.uri.path)?.group(1) ?? '-1');
+  int get _taskId => int.parse(pathRe.firstMatch(rs!.uri.path)?.group(2) ?? '-1');
+
+  TaskController get _controller => rs!.arguments as TaskController? ?? TaskController(tasksMainController.task(_wsId, _taskId)!);
+  // TODO: костыль
+  @override
+  Widget get page => Observer(builder: (_) => loader.loading ? Container() : TaskView(_controller));
+
+  @override
+  String get title => (rs!.arguments as TaskController?)?.task.viewTitle ?? '';
+
+  String _navPath(Task _task) => '$_prefix/${_task.wsId}/${_task.id}';
+  @override
+  Future navigate(BuildContext context, {Object? args}) async => await Navigator.of(context).pushNamed(
+        _navPath((args as TaskController).task),
+        arguments: args,
+      );
+
+  Future navigateReplace(BuildContext context, {Object? args}) async => await Navigator.of(context).pushReplacementNamed(
+        _navPath((args as TaskController).task),
+        arguments: args,
+      );
+}
+
 class TaskView extends StatefulWidget {
+  // TODO: отвязаться от создания контроллера заранее. Создавать контроллер (инициализировать FData) нужно после загрузки данных,
+  //  либо делать реиницилаизацию после загрузки данных.
+  //  Кроме того, нужно отправлять сюда только айдишники
   const TaskView(this._controller);
   final TaskController _controller;
-
-  static String get routeName => '/task';
-  static String title(TaskController _controller) => '${_controller.task.viewTitle}';
 
   @override
   State<TaskView> createState() => TaskViewState();
@@ -44,6 +74,8 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   @override
   void initState() {
+    setWebpageTitle(task.viewTitle);
+
     overviewPane = OverviewPane(controller);
     tasksPane = TasksPane(controller);
     detailsPane = DetailsPane(controller);
@@ -117,9 +149,9 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   @override
   Widget build(BuildContext context) {
-    final smallHeight = MediaQuery.sizeOf(context).height < SCR_XS_HEIGHT;
-    return Observer(
-      builder: (_) => Stack(
+    return Observer(builder: (_) {
+      final smallHeight = MediaQuery.sizeOf(context).height < SCR_XS_HEIGHT;
+      return Stack(
         alignment: Alignment.bottomCenter,
         children: [
           MTPage(
@@ -143,7 +175,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
               tasksMainController.refreshTasks();
             }),
         ],
-      ),
-    );
+      );
+    });
   }
 }

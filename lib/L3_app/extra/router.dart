@@ -19,6 +19,7 @@ import '../views/my_tasks/my_tasks_view.dart';
 import '../views/notification/notification_list_view.dart';
 import '../views/settings/settings_view.dart';
 import '../views/source/source_list_view.dart';
+import '../views/task/task_view.dart';
 import '../views/user/user_list_view.dart';
 import '../views/workspace/workspace_view.dart';
 
@@ -53,8 +54,8 @@ abstract class MTRouter {
     MyTasksViewViewRouter(),
     // Main - Projects
     MyProjectsViewRouter(),
-    // Main - Projects - Task
-    // TaskViewRouter(),
+    // Main - Projects - Tasks
+    TaskViewRouter(),
 
     // Settings
     SettingsViewRouter(),
@@ -109,17 +110,19 @@ abstract class MTRouter {
   //   }
 }
 
+Future setWebpageTitle(String title) async {
+  SystemChrome.setApplicationSwitcherDescription(ApplicationSwitcherDescription(
+    label: '${loc.app_title}${title.isNotEmpty ? ' | $title' : ''}',
+    primaryColor: mainColor.resolve(rootKey.currentContext!).value,
+  ));
+}
+
 void _setTitle(RouteSettings? rs) {
   if (rs == null) {
     return;
   }
 
-  final title = MTRouter.router(rs)?.title ?? '';
-
-  SystemChrome.setApplicationSwitcherDescription(ApplicationSwitcherDescription(
-    label: '${loc.app_title}${title.isNotEmpty ? ' | $title' : ''}',
-    primaryColor: mainColor.resolve(rootKey.currentContext!).value,
-  ));
+  setWebpageTitle(MTRouter.router(rs)?.title ?? '');
 }
 
 class MTRouteObserver extends NavigatorObserver {

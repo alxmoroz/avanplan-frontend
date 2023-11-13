@@ -37,7 +37,9 @@ class CreateGoalQuizController extends _CreateGoalQuizControllerBase with _$Crea
   @override
   Future afterFinish(BuildContext context) async {
     Navigator.of(context).popUntil((r) => r.settings.name == CreateTaskQuizView.routeNameGoal || r.navigator?.canPop() != true);
-    Navigator.of(context).pushReplacementNamed(TaskView.routeName, arguments: TaskController(_goal));
+    //TODO: нужно ли в этом месте создавать контроллер, может, тут достаточно отправить айдишники?
+    //TODO: проверить необходимость await. Раньше не было тут. Если не надо, то оставить коммент почему не надо
+    await TaskViewRouter().navigateReplace(context, args: TaskController(_goal));
   }
 }
 

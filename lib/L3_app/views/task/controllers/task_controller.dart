@@ -13,9 +13,7 @@ import '../../../extra/services.dart';
 import '../../../presenters/task_view.dart';
 import '../../../usecases/task_edit.dart';
 import '../../../views/_base/edit_controller.dart';
-import '../../quiz/quiz_controller.dart';
 import '../task_view.dart';
-import '../widgets/create/create_task_quiz_view.dart';
 import '../widgets/transfer/local_export_controller.dart';
 import 'assignee_controller.dart';
 import 'attachments_controller.dart';
@@ -71,13 +69,6 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     subtasksController = SubtasksController(this);
 
     setAllowDisposeFromView(allowDisposeFromView);
-  }
-
-  Future showCreateTaskQuiz(String path, BuildContext context, QuizController qController) async {
-    await Navigator.of(context).pushNamed(
-      path,
-      arguments: CreateTaskQuizArgs(this, qController),
-    );
   }
 
   Future showTask() async {

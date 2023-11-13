@@ -49,7 +49,7 @@ class CreateTaskButton extends StatelessWidget {
     if (newTask != null) {
       final tc = TaskController(newTask);
       if (newTask.isGoal) {
-        await tc.showCreateTaskQuiz(CreateTaskQuizView.routeNameGoal, context, CreateGoalQuizController(tc));
+        await CreateGoalQuizViewRouter().navigate(context, args: CreateTaskQuizArgs(tc, CreateGoalQuizController(tc)));
       } else {
         await tc.showTask();
       }

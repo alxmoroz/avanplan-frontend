@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../components/error_sheet.dart';
 import '../../../../components/page.dart';
+import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../quiz/header.dart';
@@ -20,13 +21,29 @@ class CreateTaskQuizArgs {
   final QuizController _qController;
 }
 
+class _CreateQuizRouter extends MTRouter {
+  CreateTaskQuizArgs? get _args => rs!.arguments as CreateTaskQuizArgs?;
+  // TODO: костыль
+  @override
+  Widget? get page => _args != null ? CreateTaskQuizView(_args!) : null;
+
+  @override
+  String get title => (rs!.arguments as CreateTaskQuizArgs?)?._controller.task.viewTitle ?? '';
+}
+
+class CreateProjectQuizViewRouter extends _CreateQuizRouter {
+  @override
+  String get path => '/projects/create';
+}
+
+class CreateGoalQuizViewRouter extends _CreateQuizRouter {
+  @override
+  String get path => '/projects/create_goal';
+}
+
 class CreateTaskQuizView extends TaskView {
   CreateTaskQuizView(this._args) : super(_args._controller);
   final CreateTaskQuizArgs _args;
-
-  static String get routeNameGoal => '/create_goal_quiz';
-  static String get routeNameProject => '/create_project_quiz';
-  static String title(CreateTaskQuizArgs _args) => '${_args._controller.task.viewTitle}';
 
   @override
   State<CreateTaskQuizView> createState() => CreateTaskQuizViewState();

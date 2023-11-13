@@ -63,7 +63,9 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
           _goalController = TaskController(goal, allowDisposeFromView: false);
         }
       }
-      await _goalController?.showCreateTaskQuiz(CreateTaskQuizView.routeNameGoal, context, this);
+      if (_goalController != null) {
+        await CreateGoalQuizViewRouter().navigate(context, args: CreateTaskQuizArgs(_goalController!, this));
+      }
     } else if (step.code == _StepCode.tasks.name) {
       await Navigator.of(context).pushNamed(
         CreateMultiTaskQuizView.routeName,
@@ -74,7 +76,11 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
 
   @override
   Future afterFinish(BuildContext context) async {
-    Navigator.of(context).popUntil((r) => r.settings.name == CreateTaskQuizView.routeNameProject || r.navigator?.canPop() != true);
+    if (_goalController != null) {
+      await CreateGoalQuizViewRouter().navigate(context, args: CreateTaskQuizArgs(_goalController!, this));
+    }
+
+    Navigator.of(context).popUntil((r) => r.settings.name == CreateProjectQuizViewRouter().path || r.navigator?.canPop() != true);
 
     //TODO: нужно ли в этом месте создавать контроллер, может, тут достаточно отправить айдишники?
     //TODO: проверить необходимость await. Раньше не было тут. Если не надо, то оставить коммент почему не надо

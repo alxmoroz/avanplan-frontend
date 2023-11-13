@@ -20,6 +20,7 @@ import '../views/notification/notification_list_view.dart';
 import '../views/settings/settings_view.dart';
 import '../views/source/source_list_view.dart';
 import '../views/task/task_view.dart';
+import '../views/task/widgets/create/create_task_quiz_view.dart';
 import '../views/task/widgets/team/member_view.dart';
 import '../views/user/user_list_view.dart';
 import '../views/workspace/workspace_view.dart';
@@ -56,6 +57,11 @@ abstract class MTRouter {
     MyTasksViewViewRouter(),
     // Projects
     MyProjectsViewRouter(),
+    // Projects - Create
+    CreateProjectQuizViewRouter(),
+    // Projects - Create Goal
+    CreateGoalQuizViewRouter(),
+
     // Projects - Tasks
     TaskViewRouter(),
     // Projects - Tasks - Members
@@ -101,8 +107,6 @@ abstract class MTRouter {
     return null;
   }
 
-  //   } else if ([CreateTaskQuizView.routeNameProject, CreateTaskQuizView.routeNameGoal].contains(path) && hasArgs) {
-  //     p = CreateTaskQuizView(rs.arguments as CreateTaskQuizArgs);
   //   } else if (path == CreateMultiTaskQuizView.routeName && hasArgs) {
   //     p = CreateMultiTaskQuizView(rs.arguments as CreateMultiTaskQuizArgs);
   //   } else if (path == FeatureSetsQuizView.routeName && hasArgs) {

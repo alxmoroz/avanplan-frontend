@@ -27,8 +27,9 @@ class MyProjectsViewRouter extends MTRouter {
 class MyProjectsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) => MTPage(
+    return Observer(builder: (_) {
+      // WidgetsBinding.instance.addPostFrameCallback((_) => setWebpageTitle(loc.project_list_title));
+      return MTPage(
         appBar: MTAppBar(context, title: loc.project_list_title),
         body: SafeArea(
           top: false,
@@ -43,7 +44,7 @@ class MyProjectsView extends StatelessWidget {
             CreateProjectButton(CreateProjectController(), compact: true),
           ]),
         ),
-      ),
-    );
+      );
+    });
   }
 }

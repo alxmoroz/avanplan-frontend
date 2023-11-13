@@ -101,31 +101,34 @@ class SettingsView extends StatelessWidget {
       );
 
   @override
-  Widget build(BuildContext context) => Observer(
-        builder: (_) => MTPage(
-          appBar: MTAppBar(context),
-          body: SafeArea(
-            top: false,
-            bottom: false,
-            child: MTShadowed(
-              topPaddingIndent: P,
-              child: MTAdaptive(
-                child: ListView(
-                  children: [
-                    AccountListTile(),
-                    const SizedBox(height: P3),
-                    _notifications,
-                    if (_wss.isNotEmpty) _workspaces,
-                    _about,
+  Widget build(BuildContext context) {
+    return Observer(builder: (_) {
+      // WidgetsBinding.instance.addPostFrameCallback((_) => setWebpageTitle(''));
+      return MTPage(
+        appBar: MTAppBar(context),
+        body: SafeArea(
+          top: false,
+          bottom: false,
+          child: MTShadowed(
+            topPaddingIndent: P,
+            child: MTAdaptive(
+              child: ListView(
+                children: [
+                  AccountListTile(),
+                  const SizedBox(height: P3),
+                  _notifications,
+                  if (_wss.isNotEmpty) _workspaces,
+                  _about,
 
-                    /// версия
-                    const SizedBox(height: P3),
-                    const AppVersion(),
-                  ],
-                ),
+                  /// версия
+                  const SizedBox(height: P3),
+                  const AppVersion(),
+                ],
               ),
             ),
           ),
         ),
       );
+    });
+  }
 }

@@ -51,6 +51,7 @@ abstract class MTRouter {
     RegistrationTokenRouter(),
     // Main
     MainViewRouter(),
+    // Main - MyTasks
     MyTasksViewViewRouter(),
     // Main - Projects
     MyProjectsViewRouter(),

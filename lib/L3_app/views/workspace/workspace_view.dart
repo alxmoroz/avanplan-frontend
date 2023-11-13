@@ -40,7 +40,7 @@ class WorkspaceViewRouter extends MTRouter {
   RegExp get pathRe => RegExp('^$_prefix/\\d+\$');
 
   @override
-  Widget get page => Observer(builder: (_) => loader.loading ? Container() : WorkspaceView(_wsId));
+  Widget get page => WorkspaceView(_wsId);
 
   @override
   String get title => '${loc.workspace_title_short} ${wsMainController.ws(_wsId).code}';
@@ -127,10 +127,9 @@ class WorkspaceView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) async => await setWebpageTitle('${loc.workspace_title_short} ${_ws.code}'));
-
-    return Observer(
-      builder: (_) => MTPage(
+    return Observer(builder: (_) {
+      // WidgetsBinding.instance.addPostFrameCallback((_) => setWebpageTitle('${loc.workspace_title_short} ${_ws.code}'));
+      return MTPage(
         appBar: MTAppBar(context,
             title: loc.workspace_title,
             trailing: _ws.hpInfoUpdate
@@ -159,7 +158,7 @@ class WorkspaceView extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

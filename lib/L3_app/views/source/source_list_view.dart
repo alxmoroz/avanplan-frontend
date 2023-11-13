@@ -52,8 +52,9 @@ class SourceListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) => MTPage(
+    return Observer(builder: (_) {
+      // WidgetsBinding.instance.addPostFrameCallback((_) => setWebpageTitle('${_ws.code} | ${loc.source_list_title}'));
+      return MTPage(
         appBar: MTAppBar(
           context,
           middle: _ws.subPageTitle(loc.source_list_title),
@@ -83,7 +84,7 @@ class SourceListView extends StatelessWidget {
                 ),
               )
             : null,
-      ),
-    );
+      );
+    });
   }
 }

@@ -30,7 +30,10 @@ class MainView extends StatefulWidget {
 }
 
 class _MainViewState extends State<MainView> with WidgetsBindingObserver {
-  void _startupActions() => WidgetsBinding.instance.addPostFrameCallback((_) async => await mainController.startupActions());
+  void _startupActions() => WidgetsBinding.instance.addPostFrameCallback((_) async {
+        // await setWebpageTitle('');
+        await mainController.startupActions();
+      });
 
   @override
   void initState() {

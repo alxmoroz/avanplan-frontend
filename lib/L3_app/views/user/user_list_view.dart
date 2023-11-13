@@ -45,8 +45,9 @@ class UserListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) => MTPage(
+    return Observer(builder: (_) {
+      // WidgetsBinding.instance.addPostFrameCallback((_) => setWebpageTitle('${_ws.code} | ${loc.user_list_title}'));
+      return MTPage(
         appBar: MTAppBar(
           context,
           middle: _ws.subPageTitle(loc.user_list_title),
@@ -65,7 +66,7 @@ class UserListView extends StatelessWidget {
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

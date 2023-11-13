@@ -71,36 +71,39 @@ class NotificationListView extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => Observer(
-        builder: (_) => MTPage(
-          appBar: MTAppBar(context, title: loc.notification_list_title),
-          body: SafeArea(
-            top: false,
-            bottom: false,
-            child: _controller.notifications.isEmpty
-                ? Center(child: H3(loc.notification_list_empty_title, align: TextAlign.center, color: f2Color))
-                : MTShadowed(
-                    bottomShadow: !_controller.pushAuthorized,
-                    child: MTAdaptive(
-                      child: ListView.builder(
-                        itemBuilder: (_, index) => _itemBuilder(context, index),
-                        itemCount: _controller.notifications.length + 1,
-                      ),
+  Widget build(BuildContext context) {
+    return Observer(builder: (_) {
+      // WidgetsBinding.instance.addPostFrameCallback((_) => setWebpageTitle(loc.notification_list_title));
+      return MTPage(
+        appBar: MTAppBar(context, title: loc.notification_list_title),
+        body: SafeArea(
+          top: false,
+          bottom: false,
+          child: _controller.notifications.isEmpty
+              ? Center(child: H3(loc.notification_list_empty_title, align: TextAlign.center, color: f2Color))
+              : MTShadowed(
+                  bottomShadow: !_controller.pushAuthorized,
+                  child: MTAdaptive(
+                    child: ListView.builder(
+                      itemBuilder: (_, index) => _itemBuilder(context, index),
+                      itemCount: _controller.notifications.length + 1,
                     ),
                   ),
-          ),
-          bottomBar: !_controller.pushAuthorized
-              ? MTButton(
-                  leading: const PrivacyIcon(),
-                  middle: SmallText(
-                    loc.notification_push_ios_denied_btn_title,
-                    align: TextAlign.center,
-                    maxLines: 1,
-                  ),
-                  trailing: const LinkOutIcon(),
-                  onTap: _showGotoSystemSettingsDialog,
-                )
-              : null,
+                ),
         ),
+        bottomBar: !_controller.pushAuthorized
+            ? MTButton(
+                leading: const PrivacyIcon(),
+                middle: SmallText(
+                  loc.notification_push_ios_denied_btn_title,
+                  align: TextAlign.center,
+                  maxLines: 1,
+                ),
+                trailing: const LinkOutIcon(),
+                onTap: _showGotoSystemSettingsDialog,
+              )
+            : null,
       );
+    });
+  }
 }

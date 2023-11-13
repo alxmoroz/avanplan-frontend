@@ -64,7 +64,7 @@ class SettingsView extends StatelessWidget {
               return WorkspaceListTile(
                 ws,
                 bottomDivider: index < _wss.length - 1,
-                onTap: () async => await WorkspaceViewRouter(ws.id!).navigate(rootKey.currentContext!),
+                onTap: () async => await WorkspaceViewRouter().navigate(rootKey.currentContext!, args: ws.id!),
               );
             },
           ),

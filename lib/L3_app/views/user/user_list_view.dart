@@ -15,15 +15,12 @@ import '../../presenters/workspace.dart';
 import 'user_tile.dart';
 
 class UserListViewRouter extends MTRouter {
-  UserListViewRouter([this._wsId]);
-  final int? _wsId;
-
   static const _wsPrefix = '/settings/workspaces';
   static const _suffix = 'users';
 
   @override
   RegExp get pathRe => RegExp('^$_wsPrefix/(\\d+)/$_suffix\$');
-  int get _id => _wsId ?? int.parse(pathRe.firstMatch(uri!.path)?.group(1) ?? '-1');
+  int get _id => int.parse(pathRe.firstMatch(rs!.uri.path)?.group(1) ?? '-1');
 
   @override
   Widget get page => UserListView(_id);
@@ -32,7 +29,7 @@ class UserListViewRouter extends MTRouter {
   String get title => '${wsMainController.ws(_id).code} | ${loc.user_list_title}';
 
   @override
-  Future navigate(BuildContext context) async => await Navigator.of(context).pushNamed('$_wsPrefix/$_id/$_suffix');
+  Future navigate(BuildContext context, {Object? args}) async => await Navigator.of(context).pushNamed('$_wsPrefix/${args as int}/$_suffix');
 }
 
 class UserListView extends StatelessWidget {

@@ -29,8 +29,6 @@ import 'title_controller.dart';
 
 part 'task_controller.g.dart';
 
-// TODO: уменьшить размер файла, разнести по отдельным контроллерам
-
 enum TaskTabKey { overview, subtasks, details, team }
 
 enum TaskFCode { parent, title, status, assignee, description, startDate, dueDate, estimate, author, features, statuses, note, attachment }

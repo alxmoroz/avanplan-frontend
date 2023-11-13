@@ -13,8 +13,8 @@ class InvitationTokenRouter extends MTRouter {
   String get path => '/invite';
 
   @override
-  RouteSettings? settings(RouteSettings rs) {
-    registrationTokenController.parseLink(rs.uri);
+  RouteSettings? get settings {
+    registrationTokenController.parseLink(rs!.uri);
     return const RouteSettings(name: '/');
   }
 }

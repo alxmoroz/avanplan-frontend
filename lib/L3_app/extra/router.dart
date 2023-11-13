@@ -27,16 +27,23 @@ extension RouteSettingsExt on RouteSettings {
 }
 
 abstract class MTRouter {
-  Uri? uri;
+  // для title и settings
+  RouteSettings? rs;
+  String get title => '';
+  RouteSettings? get settings => null;
 
   String get path => '/';
   RegExp get pathRe => RegExp('^$path\$');
-  bool hasMatch(Uri uri) => pathRe.hasMatch(uri.path);
+  bool hasMatch(RouteSettings _rs) {
+    final match = pathRe.hasMatch(_rs.uri.path);
+    if (match) {
+      rs = _rs;
+    }
+    return match;
+  }
 
   Widget? get page => null;
-  String get title => '';
-  RouteSettings? settings(RouteSettings rs) => null;
-  Future navigate(BuildContext context) async => await Navigator.of(context).pushNamed(path);
+  Future navigate(BuildContext context, {Object? args}) async => await Navigator.of(context).pushNamed(path, arguments: args);
 
   static final routers = <MTRouter>[
     InvitationTokenRouter(),
@@ -61,12 +68,13 @@ abstract class MTRouter {
     UserListViewRouter(),
   ];
 
+  static MTRouter? router(RouteSettings rs) => routers.firstWhereOrNull((r) => r.hasMatch(rs));
+
   static CupertinoPageRoute? generateRoute(RouteSettings rs) {
-    final uri = rs.uri;
-    final router = routers.firstWhereOrNull((r) => r.hasMatch(uri))?..uri = uri;
-    if (router != null) {
-      final page = router.page;
-      final settings = router.settings(rs);
+    final r = router(rs);
+    if (r != null) {
+      final page = r.page;
+      final settings = r.settings;
       if (page != null) {
         return CupertinoPageRoute<dynamic>(
           builder: (_) => Observer(
@@ -85,8 +93,6 @@ abstract class MTRouter {
     }
     return null;
   }
-
-  static String? generateTitle(Uri uri) => (routers.firstWhereOrNull((r) => r.hasMatch(uri))?..uri = uri)?.title;
 
   //   } else if ([CreateTaskQuizView.routeNameProject, CreateTaskQuizView.routeNameGoal].contains(path) && hasArgs) {
   //     p = CreateTaskQuizView(rs.arguments as CreateTaskQuizArgs);
@@ -108,7 +114,7 @@ void _setTitle(RouteSettings? rs) {
     return;
   }
 
-  final title = MTRouter.generateTitle(rs.uri) ?? '';
+  final title = MTRouter.router(rs)?.title ?? '';
 
   SystemChrome.setApplicationSwitcherDescription(ApplicationSwitcherDescription(
     label: '${loc.app_title}${title.isNotEmpty ? ' | $title' : ''}',

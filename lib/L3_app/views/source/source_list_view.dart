@@ -19,15 +19,12 @@ import 'no_sources.dart';
 import 'source_edit_dialog.dart';
 
 class SourceListViewRouter extends MTRouter {
-  SourceListViewRouter([this._wsId]);
-  final int? _wsId;
-
   static const _wsPrefix = '/settings/workspaces';
   static const _suffix = 'sources';
 
   @override
   RegExp get pathRe => RegExp('^$_wsPrefix/(\\d+)/$_suffix\$');
-  int get _id => _wsId ?? int.parse(pathRe.firstMatch(uri!.path)?.group(1) ?? '-1');
+  int get _id => int.parse(pathRe.firstMatch(rs!.uri.path)?.group(1) ?? '-1');
 
   @override
   Widget get page => SourceListView(_id);
@@ -36,7 +33,7 @@ class SourceListViewRouter extends MTRouter {
   String get title => '${wsMainController.ws(_id).code} | ${loc.source_list_title}';
 
   @override
-  Future navigate(BuildContext context) async => await Navigator.of(context).pushNamed('$_wsPrefix/$_id/$_suffix');
+  Future navigate(BuildContext context, {Object? args}) async => await Navigator.of(context).pushNamed('$_wsPrefix/${args as int}/$_suffix');
 }
 
 class SourceListView extends StatelessWidget {

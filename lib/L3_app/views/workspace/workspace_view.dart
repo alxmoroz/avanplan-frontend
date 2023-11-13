@@ -32,9 +32,7 @@ import '../user/user_list_view.dart';
 import 'workspace_edit_view.dart';
 
 class WorkspaceViewRouter extends MTRouter {
-  WorkspaceViewRouter([this._wsIdIn]);
-  final int? _wsIdIn;
-  int get _wsId => int.parse(uri?.pathSegments.last ?? '-1');
+  int get _wsId => int.parse(rs!.uri.pathSegments.lastOrNull ?? '-1');
 
   static const _prefix = '/settings/workspaces';
 
@@ -48,7 +46,7 @@ class WorkspaceViewRouter extends MTRouter {
   String get title => '${loc.workspace_title_short} ${wsMainController.ws(_wsId).code}';
 
   @override
-  Future navigate(BuildContext context) async => await Navigator.of(context).pushNamed('$_prefix/$_wsIdIn');
+  Future navigate(BuildContext context, {Object? args}) async => await Navigator.of(context).pushNamed('$_prefix/${args as int}');
 }
 
 class WorkspaceView extends StatelessWidget {
@@ -114,7 +112,7 @@ class WorkspaceView extends StatelessWidget {
         subtitle: SmallText('${_ws.users.length} / ${_ws.maxUsers}', maxLines: 1),
         trailing: const ChevronIcon(),
         dividerIndent: P * 11,
-        onTap: () async => await UserListViewRouter(_ws.id!).navigate(rootKey.currentContext!),
+        onTap: () async => await UserListViewRouter().navigate(rootKey.currentContext!, args: _ws.id!),
       );
 
   Widget get _sources => MTListTile(
@@ -124,7 +122,7 @@ class WorkspaceView extends StatelessWidget {
       dividerIndent: P * 11,
       onTap: () async {
         _ws.checkSources();
-        await SourceListViewRouter(_ws.id!).navigate(rootKey.currentContext!);
+        await SourceListViewRouter().navigate(rootKey.currentContext!, args: _ws.id!);
       });
 
   @override

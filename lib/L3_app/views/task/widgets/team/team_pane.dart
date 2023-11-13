@@ -39,10 +39,7 @@ class TeamPane extends StatelessWidget {
       subtitle: member.isActive ? SmallText(member.rolesStr, maxLines: 1) : null,
       trailing: const ChevronIcon(),
       bottomDivider: index < _sortedMembers.length - 1,
-      onTap: () async => await Navigator.of(context).pushNamed(
-        MemberView.routeName,
-        arguments: MemberViewArgs(member, task),
-      ),
+      onTap: () async => await MemberViewRouter().navigate(context, args: MemberViewArgs(member, task)),
     );
   }
 

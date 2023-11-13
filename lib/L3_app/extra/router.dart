@@ -20,6 +20,7 @@ import '../views/notification/notification_list_view.dart';
 import '../views/settings/settings_view.dart';
 import '../views/source/source_list_view.dart';
 import '../views/task/task_view.dart';
+import '../views/task/widgets/team/member_view.dart';
 import '../views/user/user_list_view.dart';
 import '../views/workspace/workspace_view.dart';
 
@@ -49,18 +50,22 @@ abstract class MTRouter {
   static final routers = <MTRouter>[
     InvitationTokenRouter(),
     RegistrationTokenRouter(),
-    // Main
+    //
     MainViewRouter(),
-    // Main - MyTasks
+    // My Tasks
     MyTasksViewViewRouter(),
-    // Main - Projects
+    // Projects
     MyProjectsViewRouter(),
-    // Main - Projects - Tasks
+    // Projects - Tasks
     TaskViewRouter(),
+    // Projects - Tasks - Members
+    MemberViewRouter(),
 
     // Settings
     SettingsViewRouter(),
+    // Settings - My Account
     AccountViewRouter(),
+    // Settings - My Notifications
     NotificationListViewRouter(),
     // Settings - Workspaces
     WorkspaceViewRouter(),
@@ -100,8 +105,6 @@ abstract class MTRouter {
   //     p = CreateTaskQuizView(rs.arguments as CreateTaskQuizArgs);
   //   } else if (path == CreateMultiTaskQuizView.routeName && hasArgs) {
   //     p = CreateMultiTaskQuizView(rs.arguments as CreateMultiTaskQuizArgs);
-  //   } else if (path == MemberView.routeName && hasArgs) {
-  //     p = MemberView(rs.arguments as MemberViewArgs);
   //   } else if (path == FeatureSetsQuizView.routeName && hasArgs) {
   //     p = FeatureSetsQuizView(rs.arguments as FSQuizArgs);
   //   } else if (path == ProjectStatusesQuizView.routeName && hasArgs) {

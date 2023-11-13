@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/member.dart';
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/appbar.dart';
 import '../../../../components/constants.dart';
@@ -12,6 +13,7 @@ import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/page.dart';
 import '../../../../components/text.dart';
+import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/person.dart';
 import '../../../../presenters/task_type.dart';
@@ -24,12 +26,43 @@ class MemberViewArgs {
   final Task task;
 }
 
+class MemberViewRouter extends MTRouter {
+  static const _prefix = '/projects/tasks';
+  static const _suffix = 'members';
+
+  @override
+  RegExp get pathRe => RegExp('^$_prefix/(\\d+)/(\\d+)/$_suffix/(\\d+)\$');
+  RegExpMatch? get _firstMatch => pathRe.firstMatch(rs!.uri.path);
+  int get _wsId => int.parse(_firstMatch?.group(1) ?? '-1');
+  int get _taskId => int.parse(_firstMatch?.group(2) ?? '-1');
+  int get _memberId => int.parse(_firstMatch?.group(3) ?? '-1');
+
+  Task? get _project => tasksMainController.task(_wsId, _taskId);
+  Member? get _member => _project?.memberForId(_memberId);
+
+  MemberViewArgs get _mArgs => rs!.arguments as MemberViewArgs? ?? MemberViewArgs(_member!, _project!);
+  // TODO: костыль
+  @override
+  Widget get page => Observer(builder: (_) => loader.loading ? Container() : MemberView(_mArgs));
+
+  @override
+  String get title {
+    final mArgs = rs!.arguments as MemberViewArgs?;
+    return '${mArgs?.task.viewTitle} | ${mArgs?.member}';
+  }
+
+  String _navPath(Task _task, int mId) => '$_prefix/${_task.wsId}/${_task.id}/$_suffix/$mId';
+
+  @override
+  Future navigate(BuildContext context, {Object? args}) async => await Navigator.of(context).pushNamed(
+        _navPath((args as MemberViewArgs).task, args.member.id!),
+        arguments: args,
+      );
+}
+
 class MemberView extends StatefulWidget {
   const MemberView(this._args);
   final MemberViewArgs _args;
-
-  static String get routeName => '/member';
-  static String title(MemberViewArgs _args) => '${_args.task} - ${_args.member}';
 
   @override
   State<MemberView> createState() => _MemberViewState();

@@ -2,18 +2,10 @@
   "@@locale": "ru",
 
   "about_service_title": "О сервисе",
-
-  "account_delete_dialog_title": "Удалить учётную запись?",
-  "account_delete_dialog_description": "Также будут удалены ваши рабочие пространства вместе с задачами, если в них нет других пользователей\nЭто действие необратимо",
-  "account_title": "Учётная запись",
-
   "action_add_title": "Добавить",
-
   "app_settings_action_title": "Настройки",
   "app_title": "Аванплан",
-
   "are_closed_suffix": "закрыты",
-
   "attachments_label": "Вложения",
 
   "auth_email_placeholder": "Почта",
@@ -187,6 +179,10 @@
 
   "months_count": "{count, plural, one{{count} месяц} few{{count} месяца} other{{count} месяцев}}",
   "more_count": "и ещё {count}",
+
+  "my_account_delete_dialog_title": "Удалить вашу учётную запись?",
+  "my_account_delete_dialog_description": "Также будут удалены ваши рабочие пространства вместе с задачами, если в них нет других пользователей\nЭто действие необратимо",
+  "my_account_title": "Моя учётная запись",
 
   "my_tasks_all_title": "Назначены мне",
   "my_tasks_empty_hint": "Назначьте себе задачи из проектов или добавьте новые",
@@ -436,6 +432,7 @@
   "workspace_my_title": "Моё рабочее пространство",
   "workspace_selector_title": "Выберите рабочее пространство",
   "workspace_title": "Рабочее пространство",
+  "workspace_title_short": "РП",
   "workspaces_title": "Рабочие пространства",
 
   "years_count": "{count, plural, one{{count} год} few{{count} года} other{{count} лет}}",

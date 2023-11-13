@@ -119,7 +119,7 @@ class _SourceEditDialogState extends State<SourceEditDialog> {
           children: [
             if (controller.showUrl) controller.tf(SourceFCode.url, first: true),
             if (controller.showUsername) controller.tf(SourceFCode.username, first: !controller.showUrl),
-            // if (controller.showUrl || controller.showUsername) const SizedBox(height: P3),
+            if (controller.showUrl || controller.showUsername) const SizedBox(height: P3),
             if (controller.selectedType?.isTrelloJson == false)
               controller.selectedType?.isTrello == true
                   ? MTButton.secondary(

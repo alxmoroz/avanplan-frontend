@@ -14,13 +14,22 @@ import '../../components/list_tile.dart';
 import '../../components/page.dart';
 import '../../components/shadowed.dart';
 import '../../components/text.dart';
+import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/person.dart';
 
-class AccountView extends StatelessWidget {
-  static String get routeName => '/account';
-  static String get title => loc.account_title;
+class AccountViewRouter extends MTRouter {
+  @override
+  String get path => '/settings/my_account';
 
+  @override
+  Widget get page => AccountView();
+
+  @override
+  String get title => loc.my_account_title;
+}
+
+class AccountView extends StatelessWidget {
   User? get _user => accountController.user;
 
   @override
@@ -29,7 +38,7 @@ class AccountView extends StatelessWidget {
       builder: (_) => MTPage(
         appBar: MTAppBar(
           context,
-          title: title,
+          title: loc.my_account_title,
           trailing: MTButton.icon(const DeleteIcon(), onTap: accountController.delete, padding: const EdgeInsets.symmetric(horizontal: P2)),
         ),
         body: SafeArea(

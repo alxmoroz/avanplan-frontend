@@ -18,7 +18,7 @@ class MyTasks extends StatelessWidget {
   const MyTasks({this.compact = true});
   final bool compact;
 
-  Future _goToTasks() async => await Navigator.of(rootKey.currentContext!).pushNamed(MyTasksView.routeName);
+  Future _goToTasks() async => await MyTasksViewViewRouter().navigate(rootKey.currentContext!);
 
   Widget _mainInfo(BuildContext context) => SizedBox(
         height: defaultImageHeight(context),

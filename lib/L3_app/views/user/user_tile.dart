@@ -9,7 +9,7 @@ import '../../components/icons.dart';
 import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../presenters/person.dart';
-import 'user_view.dart';
+import 'user_dialog.dart';
 
 class UserTile extends StatelessWidget {
   const UserTile(this.user, {required this.bottomBorder});
@@ -24,10 +24,7 @@ class UserTile extends StatelessWidget {
       subtitle: SmallText(user.rolesStr, maxLines: 1),
       trailing: const ChevronIcon(),
       bottomDivider: bottomBorder,
-      onTap: () async => await Navigator.of(context).pushNamed(
-        UserView.routeName,
-        arguments: user,
-      ),
+      onTap: () async => await showUserDialog(user),
     );
   }
 }

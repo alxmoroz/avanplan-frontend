@@ -26,7 +26,7 @@ class _StoreView extends StatelessWidget {
   final int _wsId;
   final String _reason;
 
-  Workspace get ws => wsMainController.wsForId(_wsId);
+  Workspace get ws => wsMainController.ws(_wsId);
 
   Future _pay(IAPProduct p) async {
     Navigator.of(rootKey.currentContext!).pop();

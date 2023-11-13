@@ -18,6 +18,7 @@ import '../../components/list_tile.dart';
 import '../../components/page.dart';
 import '../../components/shadowed.dart';
 import '../../components/text.dart';
+import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/date.dart';
 import '../../presenters/tariff.dart';
@@ -30,14 +31,31 @@ import '../source/source_list_view.dart';
 import '../user/user_list_view.dart';
 import 'workspace_edit_view.dart';
 
+class WorkspaceViewRouter extends MTRouter {
+  WorkspaceViewRouter([this._wsIdIn]);
+  final int? _wsIdIn;
+  int get _wsId => int.parse(uri?.pathSegments.last ?? '-1');
+
+  static const _prefix = '/settings/workspaces';
+
+  @override
+  RegExp get pathRe => RegExp('^$_prefix/\\d+\$');
+
+  @override
+  Widget get page => WorkspaceView(_wsId);
+
+  @override
+  String get title => '${loc.workspace_title_short} ${wsMainController.ws(_wsId).code}';
+
+  @override
+  Future navigate(BuildContext context) async => await Navigator.of(context).pushNamed('$_prefix/$_wsIdIn');
+}
+
 class WorkspaceView extends StatelessWidget {
   const WorkspaceView(this._wsId);
   final int _wsId;
 
-  static String get routeName => '/workspace';
-  static String title(int wsId) => '${loc.workspace_title}: ${wsMainController.wsForId(wsId)}';
-
-  Workspace get _ws => wsMainController.wsForId(_wsId);
+  Workspace get _ws => wsMainController.ws(_wsId);
 
   Widget get _header => Padding(
         padding: const EdgeInsets.symmetric(horizontal: P3),
@@ -96,7 +114,7 @@ class WorkspaceView extends StatelessWidget {
         subtitle: SmallText('${_ws.users.length} / ${_ws.maxUsers}', maxLines: 1),
         trailing: const ChevronIcon(),
         dividerIndent: P * 11,
-        onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(UserListView.routeName, arguments: _ws.id),
+        onTap: () async => await UserListViewRouter(_ws.id!).navigate(rootKey.currentContext!),
       );
 
   Widget get _sources => MTListTile(
@@ -106,7 +124,7 @@ class WorkspaceView extends StatelessWidget {
       dividerIndent: P * 11,
       onTap: () async {
         _ws.checkSources();
-        await Navigator.of(rootKey.currentContext!).pushNamed(SourceListView.routeName, arguments: _ws.id);
+        await SourceListViewRouter(_ws.id!).navigate(rootKey.currentContext!);
       });
 
   @override

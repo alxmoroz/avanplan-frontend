@@ -13,4 +13,6 @@ class Invoice extends RPersistable {
 
   final Tariff tariff;
   final Contract contract;
+
+  static Invoice get dummy => Invoice(id: -1, tariff: Tariff.dummy, contract: Contract.dummy);
 }

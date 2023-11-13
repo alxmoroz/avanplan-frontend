@@ -37,5 +37,5 @@ extension TaskTreeUC on Task {
   List<Task> subtasksForStatus(int statusId) => subtasks.where((t) => t.projectStatusId == statusId).toList();
   List<MapEntry<TaskState, List<Task>>> get subtaskGroups => groups(subtasks);
 
-  Workspace get ws => wsMainController.wsForId(wsId);
+  Workspace get ws => wsMainController.ws(wsId);
 }

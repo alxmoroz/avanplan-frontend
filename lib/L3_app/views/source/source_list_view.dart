@@ -10,6 +10,7 @@ import '../../components/button.dart';
 import '../../components/constants.dart';
 import '../../components/page.dart';
 import '../../components/shadowed.dart';
+import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/source.dart';
 import '../../presenters/workspace.dart';
@@ -17,14 +18,31 @@ import '../../usecases/ws_actions.dart';
 import 'no_sources.dart';
 import 'source_edit_dialog.dart';
 
+class SourceListViewRouter extends MTRouter {
+  SourceListViewRouter([this._wsId]);
+  final int? _wsId;
+
+  static const _wsPrefix = '/settings/workspaces';
+  static const _suffix = 'sources';
+
+  @override
+  RegExp get pathRe => RegExp('^$_wsPrefix/(\\d+)/$_suffix\$');
+  int get _id => _wsId ?? int.parse(pathRe.firstMatch(uri!.path)?.group(1) ?? '-1');
+
+  @override
+  Widget get page => SourceListView(_id);
+
+  @override
+  String get title => '${wsMainController.ws(_id).code} | ${loc.source_list_title}';
+
+  @override
+  Future navigate(BuildContext context) async => await Navigator.of(context).pushNamed('$_wsPrefix/$_id/$_suffix');
+}
+
 class SourceListView extends StatelessWidget {
   const SourceListView(this._wsId);
   final int _wsId;
-
-  static String get routeName => '/workspace/sources';
-  static String title(int wsId) => '${wsMainController.wsForId(wsId)} - ${loc.source_list_title}';
-
-  Workspace get _ws => wsMainController.wsForId(_wsId);
+  Workspace get _ws => wsMainController.ws(_wsId);
 
   Widget _sourceBuilder(BuildContext _, int index) {
     final s = _ws.sortedSources[index];

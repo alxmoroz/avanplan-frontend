@@ -2,18 +2,10 @@
   "@@locale": "en",
 
   "about_service_title": "About service",
-
-  "account_delete_dialog_description": "Your workspaces will also be deleted along with tasks if there are no other users in them.\nThis action is irreversible",
-  "account_delete_dialog_title": "Delete your account?",
-  "account_title": "Account",
-
   "action_add_title": "Add",
-
   "app_settings_action_title": "Open settings",
   "app_title": "Avanplan",
-
   "are_closed_suffix": "are closed",
-
   "attachments_label": "Attachments",
 
   "auth_email_placeholder": "Email",
@@ -187,6 +179,10 @@
 
   "months_count": "{count, plural, one{{count} month} other{{count} months}}",
   "more_count": "and {count} more",
+
+  "my_account_delete_dialog_description": "Your workspaces will also be deleted along with tasks if there are no other users in them.\nThis action is irreversible",
+  "my_account_delete_dialog_title": "Delete your account?",
+  "my_account_title": "Account",
 
   "my_tasks_all_title": "Assigned to me",
   "my_tasks_empty_hint": "Assign yourself tasks from projects or add new ones",
@@ -436,6 +432,7 @@
   "workspace_selector_title": "Choose a workspace",
   "workspace_title": "Workspace",
   "workspaces_title": "Workspaces",
+  "workspace_title_short": "WS",
 
   "years_count": "{count, plural, one{{count} year} other{{count} years}}",
   "yes": "Yes",

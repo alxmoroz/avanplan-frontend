@@ -15,14 +15,23 @@ import '../../components/list_tile.dart';
 import '../../components/page.dart';
 import '../../components/shadowed.dart';
 import '../../components/text.dart';
+import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/date.dart';
 import 'notification_controller.dart';
 
-class NotificationListView extends StatelessWidget {
-  static String get routeName => '/notifications';
-  static String get title => loc.notification_list_title;
+class NotificationListViewRouter extends MTRouter {
+  @override
+  String get path => '/settings/my_notifications';
 
+  @override
+  String get title => loc.notification_list_title;
+
+  @override
+  Widget get page => NotificationListView();
+}
+
+class NotificationListView extends StatelessWidget {
   NotificationController get _controller => notificationController;
 
   Widget _itemBuilder(BuildContext context, int index) {
@@ -64,7 +73,7 @@ class NotificationListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Observer(
         builder: (_) => MTPage(
-          appBar: MTAppBar(context, title: title),
+          appBar: MTAppBar(context, title: loc.notification_list_title),
           body: SafeArea(
             top: false,
             bottom: false,

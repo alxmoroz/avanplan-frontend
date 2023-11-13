@@ -27,4 +27,6 @@ class Tariff extends Codable {
   num optionValue(String code) => optionsMap[code] ?? 0;
 
   bool passLimit(String code, int value) => value <= limitValue(code);
+
+  static Tariff get dummy => Tariff(id: -1, code: '', tier: 0, estimateChargePerBillingPeriod: 0, limitsMap: {}, optionsMap: {});
 }

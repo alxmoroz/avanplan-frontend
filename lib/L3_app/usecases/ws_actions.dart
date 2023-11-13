@@ -1,5 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:collection/collection.dart';
+
 import '../../L1_domain/entities/tariff.dart';
 import '../../L1_domain/entities/task.dart';
 import '../../L1_domain/entities/user.dart';
@@ -7,7 +9,7 @@ import '../../L1_domain/entities/workspace.dart';
 import '../extra/services.dart';
 
 extension WSActionsUC on Workspace {
-  User get me => users.firstWhere((u) => u.id == accountController.user?.id);
+  User get me => users.firstWhereOrNull((u) => u.id == accountController.user?.id) ?? User.dummy;
 
   // bool get hpInfoRead => me.hp('INFO_READ');
   bool get hpInfoUpdate => me.hp('INFO_UPDATE');

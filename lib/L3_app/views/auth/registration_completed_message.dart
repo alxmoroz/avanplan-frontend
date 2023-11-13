@@ -9,12 +9,12 @@ import '../../components/images.dart';
 import '../../components/text.dart';
 import '../../extra/services.dart';
 import '../../usecases/communications.dart';
-import 'registration_controller.dart';
+import 'registration_request_controller.dart';
 
 class RegistrationCompletedMessage extends StatelessWidget {
   const RegistrationCompletedMessage(this._controller);
 
-  final RegistrationController _controller;
+  final RegistrationRequestController _controller;
 
   String get _email => _controller.fData(RegistrationFCode.email.index).text;
 

@@ -72,6 +72,20 @@ class Task extends Titleable {
     this.closedSubtasksCount,
   });
 
+  static Task get dummy => Task(
+        id: -1,
+        wsId: -1,
+        title: '',
+        startDate: null,
+        closed: false,
+        parentId: null,
+        notes: [],
+        attachments: [],
+        members: [],
+        projectStatuses: [],
+        projectFeatureSets: [],
+      );
+
   DateTime? startDate;
   bool closed;
   int? parentId;

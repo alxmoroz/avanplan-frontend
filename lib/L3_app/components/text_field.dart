@@ -26,7 +26,7 @@ InputDecoration tfDecoration(
 
   return InputDecoration(
     labelText: label,
-    labelStyle: const BaseText.f3('').style(context),
+    labelStyle: const BaseText.f2('').style(context),
     helperText: helper,
     helperStyle: const SmallText('').style(context),
     helperMaxLines: 3,

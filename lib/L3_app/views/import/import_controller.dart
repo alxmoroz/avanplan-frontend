@@ -41,7 +41,7 @@ class ImportController extends _ImportControllerBase with _$ImportController {
 
 abstract class _ImportControllerBase with Store {
   late final int wsId;
-  Workspace get ws => wsMainController.wsForId(wsId);
+  Workspace get ws => wsMainController.ws(wsId);
   int get availableCount => ws.availableProjectsCount;
 
   bool isImporting(TaskRemote rp) {

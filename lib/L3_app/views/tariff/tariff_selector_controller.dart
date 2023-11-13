@@ -22,7 +22,7 @@ class TariffSelectorController extends _TariffSelectorControllerBase with _$Tari
 
 abstract class _TariffSelectorControllerBase with Store {
   late final int _wsId;
-  Workspace get ws => wsMainController.wsForId(_wsId);
+  Workspace get ws => wsMainController.ws(_wsId);
 
   @observable
   String reason = '';

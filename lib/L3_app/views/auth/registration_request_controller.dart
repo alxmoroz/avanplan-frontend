@@ -13,12 +13,12 @@ import '../../components/text_field.dart';
 import '../../extra/services.dart';
 import '../_base/edit_controller.dart';
 
-part 'registration_controller.g.dart';
+part 'registration_request_controller.g.dart';
 
 enum RegistrationFCode { name, email, password }
 
-class RegistrationController extends _RegistrationControllerBase with _$RegistrationController {
-  RegistrationController() {
+class RegistrationRequestController extends _RegistrationControllerBase with _$RegistrationRequestController {
+  RegistrationRequestController() {
     initState(fds: [
       MTFieldData(RegistrationFCode.name.index, label: loc.auth_name_placeholder, validate: true),
       MTFieldData(RegistrationFCode.email.index, label: loc.auth_email_placeholder, validate: true),
@@ -63,7 +63,7 @@ abstract class _RegistrationControllerBase extends EditController with Store {
     final regRequest = RegistrationRequest(
       fData(RegistrationFCode.name.index).text,
       fData(RegistrationFCode.email.index).text,
-      invitationToken: deepLinkController.invitationToken,
+      invitationToken: invitationTokenController.token,
     );
     requestCompleted = await authUC.requestRegistration(regRequest, fData(RegistrationFCode.password.index).text);
     await loader.stop();

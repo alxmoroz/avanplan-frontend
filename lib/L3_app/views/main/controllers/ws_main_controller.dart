@@ -26,7 +26,7 @@ abstract class _WSMainControllerBase with Store {
   @computed
   bool get canSelectWS => multiWS || myWSs.isEmpty;
 
-  Workspace wsForId(int wsId) => workspaces.firstWhere((ws) => ws.id == wsId);
+  Workspace ws(int wsId) => workspaces.firstWhereOrNull((ws) => ws.id == wsId) ?? Workspace.dummy;
 
   @action
   Future getData() async => workspaces = ObservableList.of((await workspaceUC.getAll()).sorted((w1, w2) => compareNatural(w1.title, w2.title)));

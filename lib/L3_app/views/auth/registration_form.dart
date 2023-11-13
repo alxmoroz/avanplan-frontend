@@ -9,7 +9,7 @@ import '../../components/dialog.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import 'registration_completed_message.dart';
-import 'registration_controller.dart';
+import 'registration_request_controller.dart';
 
 Future registrationDialog() async => await showMTDialog<void>(RegistrationForm());
 
@@ -19,11 +19,11 @@ class RegistrationForm extends StatefulWidget {
 }
 
 class _RegistrationFormState extends State<RegistrationForm> {
-  late final RegistrationController controller;
+  late final RegistrationRequestController controller;
 
   @override
   void initState() {
-    controller = RegistrationController();
+    controller = RegistrationRequestController();
     super.initState();
   }
 

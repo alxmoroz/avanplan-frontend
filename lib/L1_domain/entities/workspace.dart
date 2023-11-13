@@ -46,6 +46,22 @@ class Workspace extends WorkspaceUpsert {
   final Account mainAccount;
 
   // редактируемые поля
-  List<EstimateValue> estimateValues = [];
-  List<Source> sources = [];
+  List<EstimateValue> estimateValues;
+  List<Source> sources;
+
+  static Workspace get dummy => Workspace(
+        id: -1,
+        title: '',
+        description: '',
+        code: '',
+        users: [],
+        roles: [],
+        invoice: Invoice.dummy,
+        balance: 0,
+        settings: null,
+        estimateValues: [],
+        sources: [],
+        mainAccount: Account.dummy,
+        tasksCount: 0,
+      );
 }

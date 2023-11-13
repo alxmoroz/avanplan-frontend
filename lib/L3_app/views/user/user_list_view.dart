@@ -9,22 +9,41 @@ import '../../components/appbar.dart';
 import '../../components/constants.dart';
 import '../../components/page.dart';
 import '../../components/shadowed.dart';
+import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/workspace.dart';
 import 'user_tile.dart';
+
+class UserListViewRouter extends MTRouter {
+  UserListViewRouter([this._wsId]);
+  final int? _wsId;
+
+  static const _wsPrefix = '/settings/workspaces';
+  static const _suffix = 'users';
+
+  @override
+  RegExp get pathRe => RegExp('^$_wsPrefix/(\\d+)/$_suffix\$');
+  int get _id => _wsId ?? int.parse(pathRe.firstMatch(uri!.path)?.group(1) ?? '-1');
+
+  @override
+  Widget get page => UserListView(_id);
+
+  @override
+  String get title => '${wsMainController.ws(_id).code} | ${loc.user_list_title}';
+
+  @override
+  Future navigate(BuildContext context) async => await Navigator.of(context).pushNamed('$_wsPrefix/$_id/$_suffix');
+}
 
 class UserListView extends StatelessWidget {
   const UserListView(this._wsId);
   final int _wsId;
 
-  static String get routeName => '/users';
-  static String title(int _wsId) => '${wsMainController.wsForId(_wsId)} - ${loc.user_list_title}';
-
-  Workspace get ws => wsMainController.wsForId(_wsId);
+  Workspace get _ws => wsMainController.ws(_wsId);
 
   Widget _userBuilder(BuildContext context, int index) => UserTile(
-        ws.sortedUsers[index],
-        bottomBorder: index < ws.sortedUsers.length - 1,
+        _ws.sortedUsers[index],
+        bottomBorder: index < _ws.sortedUsers.length - 1,
       );
 
   @override
@@ -33,7 +52,7 @@ class UserListView extends StatelessWidget {
       builder: (_) => MTPage(
         appBar: MTAppBar(
           context,
-          middle: ws.subPageTitle(loc.user_list_title),
+          middle: _ws.subPageTitle(loc.user_list_title),
           trailing: const SizedBox(width: P8),
         ),
         body: SafeArea(
@@ -44,7 +63,7 @@ class UserListView extends StatelessWidget {
             child: MTAdaptive(
               child: ListView.builder(
                 itemBuilder: _userBuilder,
-                itemCount: ws.users.length,
+                itemCount: _ws.users.length,
               ),
             ),
           ),

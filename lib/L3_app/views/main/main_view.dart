@@ -10,6 +10,7 @@ import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/page.dart';
+import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/person.dart';
 import '../settings/settings_view.dart';
@@ -17,6 +18,11 @@ import '../task/controllers/create_project_controller.dart';
 import '../task/widgets/empty_state/no_projects.dart';
 import 'widgets/app_title.dart';
 import 'widgets/main_dashboard.dart';
+
+class MainViewRouter extends MTRouter {
+  @override
+  Widget get page => MainView();
+}
 
 class MainView extends StatefulWidget {
   @override
@@ -59,7 +65,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
           leading: accountController.user != null
               ? MTButton.icon(
                   accountController.user!.icon(_iconSize / 2, borderColor: mainColor),
-                  onTap: () async => await Navigator.of(context).pushNamed(SettingsView.routeName),
+                  onTap: () async => await SettingsViewRouter().navigate(context),
                   padding: const EdgeInsets.only(left: P3),
                 )
               : null,

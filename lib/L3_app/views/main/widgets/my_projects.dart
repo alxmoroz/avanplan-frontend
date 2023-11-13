@@ -17,7 +17,7 @@ class MyProjects extends StatelessWidget {
   const MyProjects({this.compact = true});
   final bool compact;
 
-  Future _goToProjects() async => await Navigator.of(rootKey.currentContext!).pushNamed(MyProjectsView.routeName);
+  Future _goToProjects() async => await MyProjectsViewRouter().navigate(rootKey.currentContext!);
 
   Widget _contents(BuildContext context) {
     final overallState = tasksMainController.overallProjectsState;

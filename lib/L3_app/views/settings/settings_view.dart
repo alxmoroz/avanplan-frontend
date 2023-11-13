@@ -16,6 +16,7 @@ import '../../components/list_tile.dart';
 import '../../components/page.dart';
 import '../../components/shadowed.dart';
 import '../../components/text.dart';
+import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../usecases/communications.dart';
 import '../notification/notification_list_view.dart';
@@ -24,10 +25,15 @@ import '../workspace/workspace_view.dart';
 import 'account_list_tile.dart';
 import 'app_version.dart';
 
-class SettingsView extends StatelessWidget {
-  static String get routeName => '/settings';
-  static String get title => '';
+class SettingsViewRouter extends MTRouter {
+  @override
+  String get path => '/settings';
 
+  @override
+  Widget get page => SettingsView();
+}
+
+class SettingsView extends StatelessWidget {
   List<Workspace> get _wss => wsMainController.workspaces;
 
   Widget get _notifications => MTListTile(
@@ -42,7 +48,7 @@ class SettingsView extends StatelessWidget {
           const ChevronIcon(),
         ]),
         bottomDivider: false,
-        onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(NotificationListView.routeName),
+        onTap: () async => await NotificationListViewRouter().navigate(rootKey.currentContext!),
       );
 
   Widget get _workspaces => Column(
@@ -58,7 +64,7 @@ class SettingsView extends StatelessWidget {
               return WorkspaceListTile(
                 ws,
                 bottomDivider: index < _wss.length - 1,
-                onTap: () async => await Navigator.of(rootKey.currentContext!).pushNamed(WorkspaceView.routeName, arguments: ws.id),
+                onTap: () async => await WorkspaceViewRouter(ws.id!).navigate(rootKey.currentContext!),
               );
             },
           ),

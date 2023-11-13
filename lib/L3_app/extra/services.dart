@@ -46,6 +46,8 @@ import '../../L2_data/services/db.dart';
 import '../l10n/generated/l10n.dart';
 import '../views/account/account_controller.dart';
 import '../views/auth/auth_controller.dart';
+import '../views/auth/invitation_token_controller.dart';
+import '../views/auth/registration_token_controller.dart';
 import '../views/iap/iap_controller.dart';
 import '../views/loader/loader_controller.dart';
 import '../views/main/controllers/main_controller.dart';
@@ -55,7 +57,6 @@ import '../views/notification/notification_controller.dart';
 import '../views/references/references_controller.dart';
 import '../views/settings/local_settings_controller.dart';
 import '../views/settings/service_settings_controller.dart';
-import 'deep_link/deep_link_controller.dart';
 
 S get loc => S.current;
 
@@ -71,7 +72,8 @@ ReferencesController get refsController => GetIt.I<ReferencesController>();
 AccountController get accountController => GetIt.I<AccountController>();
 AuthController get authController => GetIt.I<AuthController>();
 NotificationController get notificationController => GetIt.I<NotificationController>();
-DeepLinkController get deepLinkController => GetIt.I<DeepLinkController>();
+RegistrationTokenController get registrationTokenController => GetIt.I<RegistrationTokenController>();
+InvitationTokenController get invitationTokenController => GetIt.I<InvitationTokenController>();
 IAPController get iapController => GetIt.I<IAPController>();
 
 LocalSettingsUC get localSettingsUC => GetIt.I<LocalSettingsUC>();
@@ -144,6 +146,7 @@ void setup() {
   getIt.registerSingleton<LoaderController>(LoaderController());
   getIt.registerSingleton<AccountController>(AccountController());
   getIt.registerSingleton<NotificationController>(NotificationController());
-  getIt.registerSingleton<DeepLinkController>(DeepLinkController());
+  getIt.registerSingleton<InvitationTokenController>(InvitationTokenController());
+  getIt.registerSingleton<RegistrationTokenController>(RegistrationTokenController());
   getIt.registerSingleton<IAPController>(IAPController());
 }

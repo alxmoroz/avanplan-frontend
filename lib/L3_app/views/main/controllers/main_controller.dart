@@ -78,11 +78,11 @@ abstract class _MainControllerBase with Store {
 
   Future<bool> _tryRedeemInvitation() async {
     bool invited = false;
-    if (deepLinkController.hasInvitation) {
+    if (invitationTokenController.hasToken) {
       loader.start();
       loader.set(titleText: loc.loader_invitation_redeem_title, imageName: ImageName.privacy.name);
-      invited = await myUC.redeemInvitation(deepLinkController.invitationToken);
-      deepLinkController.clearInvitation();
+      invited = await myUC.redeemInvitation(invitationTokenController.token);
+      invitationTokenController.clear();
       await loader.stop();
     }
     return invited;

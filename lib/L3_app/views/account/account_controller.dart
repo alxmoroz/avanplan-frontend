@@ -47,8 +47,8 @@ abstract class _AccountControllerBase extends EditController with Store {
 
   Future delete() async {
     final confirm = await showMTAlertDialog(
-      loc.account_delete_dialog_title,
-      description: loc.account_delete_dialog_description,
+      loc.my_account_delete_dialog_title,
+      description: loc.my_account_delete_dialog_description,
       actions: [
         MTADialogAction(title: loc.yes, type: MTActionType.isDanger, result: true),
         MTADialogAction(title: loc.no, type: MTActionType.isDefault, result: false),

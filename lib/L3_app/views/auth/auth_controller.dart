@@ -36,11 +36,11 @@ abstract class _AuthControllerBase with Store {
 
   @action
   Future _signInWithRegistration() async {
-    if (deepLinkController.hasRegistration) {
+    if (registrationTokenController.hasToken) {
       await signOut();
       _startLdrAuth();
-      authorized = await authUC.signInWithRegistration(deepLinkController.registrationToken!);
-      deepLinkController.clearRegistration();
+      authorized = await authUC.signInWithRegistration(registrationTokenController.token!);
+      registrationTokenController.clear();
       await loader.stop(300);
     }
   }

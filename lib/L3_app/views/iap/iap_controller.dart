@@ -55,7 +55,7 @@ abstract class _IAPControllerBase with Store {
           } else {
             waitingPayment = purchasedAmount == null;
             if (purchasedAmount != null) {
-              wsMainController.wsForId(wsId).balance += purchasedAmount;
+              wsMainController.ws(wsId).balance += purchasedAmount;
             }
             loader.stop();
           }

@@ -64,7 +64,10 @@ class BaseText extends StatelessWidget {
     final double h = height ?? {1: 1.0, 2: 1.15, 3: 1.25}[maxLines] ?? 1.3;
     final double fs = (isWeb && isBigScreen(context) ? 18 : 17) * (sizeScale ?? 1);
 
+    // print(cupertinoTS.fontFamily);
+
     return cupertinoTS.copyWith(
+      fontFamily: 'RobotoAvanplan',
       color: CupertinoDynamicColor.maybeResolve(color ?? f1Color, context),
       fontWeight: weight ?? FontWeight.w400,
       fontSize: fs,

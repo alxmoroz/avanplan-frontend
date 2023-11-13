@@ -16,4 +16,6 @@ class User extends Person {
 
   final int wsId;
   final Iterable<UActivity> activities;
+
+  static User get dummy => User(id: null, email: '', fullName: '', roles: [], permissions: [], wsId: -1, activities: []);
 }

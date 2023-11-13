@@ -29,7 +29,7 @@ abstract class _CreateProjectControllerBase with Store {
   bool get _noMyWss => wsMainController.myWSs.isEmpty;
 
   @computed
-  Workspace? get _ws => _selectedWSId != null ? wsMainController.wsForId(_selectedWSId!) : null;
+  Workspace? get _ws => _selectedWSId != null ? wsMainController.ws(_selectedWSId!) : null;
 
   @computed
   bool get _mustSelectWS => _selectedWSId == null && wsMainController.canSelectWS;

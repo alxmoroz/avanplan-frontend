@@ -1,0 +1,39 @@
+// Copyright (c) 2023. Alexandr Moroz
+
+import 'package:flutter/material.dart';
+
+import '../../../L1_domain/entities/user.dart';
+import '../../components/constants.dart';
+import '../../components/dialog.dart';
+import '../../components/list_tile.dart';
+import '../../components/text.dart';
+import '../../components/toolbar.dart';
+import '../../extra/services.dart';
+import '../../presenters/person.dart';
+
+Future showUserDialog(User user) async => await showMTDialog<void>(UserDialog(user));
+
+class UserDialog extends StatelessWidget {
+  const UserDialog(this._user);
+  final User _user;
+
+  @override
+  Widget build(BuildContext context) {
+    return MTDialog(
+      topBar: MTTopBar(titleText: loc.user_title),
+      body: ListView(
+        shrinkWrap: true,
+        children: [
+          _user.icon(P10),
+          const SizedBox(height: P3),
+          H2('$_user', align: TextAlign.center),
+          BaseText(_user.email, align: TextAlign.center),
+          if (_user.roles.isNotEmpty) ...[
+            MTListSection(titleText: loc.role_list_title),
+            MTListTile(titleText: _user.rolesStr, bottomDivider: false),
+          ]
+        ],
+      ),
+    );
+  }
+}

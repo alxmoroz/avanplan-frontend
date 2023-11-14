@@ -26,7 +26,7 @@ class MemberViewArgs {
   final Task task;
 }
 
-class MemberViewRouter extends MTRouter {
+class MemberRouter extends MTRouter {
   static const _prefix = '/projects';
   static const _suffix = 'members';
 

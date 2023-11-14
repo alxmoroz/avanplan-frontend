@@ -33,7 +33,7 @@ class NoProjects extends StatelessWidget {
               MTButton(
                 leading: H2(loc.project_list_title, color: mainColor, maxLines: 1),
                 middle: H2(loc.are_closed_suffix, maxLines: 1),
-                onTap: () async => await MyProjectsViewRouter().navigate(context),
+                onTap: () async => await MyProjectsRouter().navigate(context),
               )
             else
               H2(loc.project_list_empty_title, align: TextAlign.center),

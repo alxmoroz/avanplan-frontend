@@ -25,7 +25,7 @@ class AccountListTile extends StatelessWidget {
       subtitle: _mail != _name ? BaseText.f2(_mail, maxLines: 1) : null,
       trailing: const ChevronIcon(),
       bottomDivider: false,
-      onTap: () async => AccountViewRouter().navigate(context),
+      onTap: () async => AccountRouter().navigate(context),
     );
   }
 }

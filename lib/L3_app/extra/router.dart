@@ -55,42 +55,44 @@ abstract class MTRouter {
   static final routers = <MTRouter>[
     InvitationTokenRouter(),
     RegistrationTokenRouter(),
-    //
-    MainViewRouter(),
-    // My Tasks
-    MyTasksViewViewRouter(),
-    // Projects
-    MyProjectsViewRouter(),
-    // Projects - Create
-    CreateProjectQuizViewRouter(),
-    // Projects - Create - FeatureSets
-    FeatureSetsQuizViewRouter(),
-    // Projects - Create - Statuses
-    ProjectStatusesQuizViewRouter(),
-    // Projects - Create - Team
-    TeamInvitationQuizViewRouter(),
-    // Projects - Create - Goal
-    CreateGoalQuizViewRouter(),
-    // Projects - Create - Tasks
-    CreateMultiTaskQuizViewRouter(),
 
-    // Projects - Tasks
-    TaskViewRouter(),
-    // Projects - Tasks - Members
-    MemberViewRouter(),
+    //
+    MainRouter(),
+    // My Tasks
+    MyTasksRouter(),
+    // Projects
+    MyProjectsRouter(),
+
+    // Projects - Create
+    CreateProjectQuizRouter(),
+    // Projects - Create - FeatureSets
+    FeatureSetsQuizRouter(),
+    // Projects - Create - Statuses
+    ProjectStatusesQuizRouter(),
+    // Projects - Create - Team
+    TeamInvitationQuizRouter(),
+    // Projects - Create - Goal
+    CreateGoalQuizRouter(),
+    // Projects - Create - Tasks
+    CreateMultiTaskQuizRouter(),
+
+    // Projects - Members
+    MemberRouter(),
+    // Projects - Tasks / Goals
+    TaskRouter(),
 
     // Settings
-    SettingsViewRouter(),
+    SettingsRouter(),
     // Settings - My Account
-    AccountViewRouter(),
+    AccountRouter(),
     // Settings - My Notifications
-    NotificationListViewRouter(),
+    NotificationsRouter(),
     // Settings - Workspaces
-    WorkspaceViewRouter(),
+    WorkspaceRouter(),
     // Settings - Workspaces - Sources
-    SourceListViewRouter(),
+    SourcesRouter(),
     // Settings - Workspaces - Users
-    UserListViewRouter(),
+    UsersRouter(),
   ];
 
   static MTRouter? router(RouteSettings rs) => routers.firstWhereOrNull((r) => r.hasMatch(rs));

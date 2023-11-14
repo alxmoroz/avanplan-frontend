@@ -90,7 +90,7 @@ class FSQuizArgs {
   final QuizController _qController;
 }
 
-class FeatureSetsQuizViewRouter extends MTRouter {
+class FeatureSetsQuizRouter extends MTRouter {
   @override
   String get path => '/projects/create/feature_sets';
 

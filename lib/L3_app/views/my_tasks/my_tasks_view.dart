@@ -10,7 +10,7 @@ import '../../extra/services.dart';
 import '../task/controllers/task_controller.dart';
 import '../task/widgets/tasks/tasks_list_view.dart';
 
-class MyTasksViewViewRouter extends MTRouter {
+class MyTasksRouter extends MTRouter {
   @override
   String get path => '/my_tasks';
 

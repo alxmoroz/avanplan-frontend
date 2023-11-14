@@ -46,14 +46,14 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
   Future afterNext(BuildContext context) async {
     if (step.code == _StepCode.featureSets.name) {
       _fsController ??= FeatureSetsController(_taskController);
-      await FeatureSetsQuizViewRouter().navigate(context, args: FSQuizArgs(_fsController!, this));
+      await FeatureSetsQuizRouter().navigate(context, args: FSQuizArgs(_fsController!, this));
     } else if (step.code == _StepCode.statuses.name) {
       if (_taskController.projectStatusesController.sortedStatuses.isEmpty) {
         _taskController.projectStatusesController.createDefaults();
       }
-      await ProjectStatusesQuizViewRouter().navigate(context, args: PSQuizArgs(_taskController.projectStatusesController, this));
+      await ProjectStatusesQuizRouter().navigate(context, args: PSQuizArgs(_taskController.projectStatusesController, this));
     } else if (step.code == _StepCode.team.name) {
-      await TeamInvitationQuizViewRouter().navigate(context, args: TIQuizArgs(_taskController, this));
+      await TeamInvitationQuizRouter().navigate(context, args: TIQuizArgs(_taskController, this));
     } else if (step.code == _StepCode.goals.name) {
       if (_goalController == null) {
         final newGoal = await _project.ws.createTask(_project);
@@ -62,10 +62,10 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
         }
       }
       if (_goalController != null) {
-        await CreateGoalQuizViewRouter().navigate(context, args: CreateTaskQuizArgs(_goalController!, this));
+        await CreateGoalQuizRouter().navigate(context, args: CreateTaskQuizArgs(_goalController!, this));
       }
     } else if (step.code == _StepCode.tasks.name) {
-      await CreateMultiTaskQuizViewRouter().navigate(context, args: CreateMultiTaskQuizArgs(_goalController ?? _taskController, this));
+      await CreateMultiTaskQuizRouter().navigate(context, args: CreateMultiTaskQuizArgs(_goalController ?? _taskController, this));
     }
   }
 
@@ -74,10 +74,10 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
     Navigator.of(context).popUntil((r) => r.navigator?.canPop() != true);
     _goalController?.dispose();
 
-    MyProjectsViewRouter().navigate(context);
+    MyProjectsRouter().navigate(context);
     //TODO: нужно ли в этом месте создавать контроллер, может, тут достаточно отправить айдишники?
     //TODO: проверить необходимость await. Раньше не было тут. Если не надо, то оставить коммент почему не надо
-    TaskViewRouter().navigate(context, args: TaskController(_project));
+    TaskRouter().navigate(context, args: TaskController(_project));
   }
 }
 

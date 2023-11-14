@@ -24,7 +24,7 @@ import 'widgets/overview/overview_pane.dart';
 import 'widgets/tasks/tasks_pane.dart';
 import 'widgets/team/team_pane.dart';
 
-class TaskViewRouter extends MTRouter {
+class TaskRouter extends MTRouter {
   static const _prefix = '/projects.*?';
 
   @override
@@ -35,7 +35,7 @@ class TaskViewRouter extends MTRouter {
   TaskController get _controller => rs!.arguments as TaskController? ?? TaskController(tasksMainController.task(_wsId, _taskId)!);
   // TODO: костыль
   @override
-  Widget get page => Observer(builder: (_) => loader.loading ? Container() : TaskView(_controller));
+  Widget get page => rs!.arguments == null ? Observer(builder: (_) => loader.loading ? Container() : TaskView(_controller)) : TaskView(_controller);
 
   @override
   String get title => (rs!.arguments as TaskController?)?.task.viewTitle ?? '';

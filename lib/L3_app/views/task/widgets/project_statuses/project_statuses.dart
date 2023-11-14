@@ -83,7 +83,7 @@ class PSQuizArgs {
   final QuizController _qController;
 }
 
-class ProjectStatusesQuizViewRouter extends MTRouter {
+class ProjectStatusesQuizRouter extends MTRouter {
   @override
   String get path => '/projects/create/statuses';
 

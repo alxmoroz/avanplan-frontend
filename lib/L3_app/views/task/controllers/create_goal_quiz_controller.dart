@@ -27,18 +27,18 @@ class CreateGoalQuizController extends _CreateGoalQuizControllerBase with _$Crea
   @override
   Future afterNext(BuildContext context) async {
     if (step.code == _StepCode.tasks.name) {
-      await CreateMultiTaskQuizViewRouter().navigate(context, args: CreateMultiTaskQuizArgs(_goalController, this));
+      await CreateMultiTaskQuizRouter().navigate(context, args: CreateMultiTaskQuizArgs(_goalController, this));
     }
   }
 
   @override
   Future afterFinish(BuildContext context) async {
     Navigator.of(context).popUntil((r) => r.navigator?.canPop() != true);
-    MyProjectsViewRouter().navigate(context);
-    TaskViewRouter().navigate(context, args: TaskController(_goal.project!));
+    MyProjectsRouter().navigate(context);
+    TaskRouter().navigate(context, args: TaskController(_goal.project!));
     //TODO: нужно ли в этом месте создавать контроллер, может, тут достаточно отправить айдишники?
     //TODO: проверить необходимость await. Раньше не было тут. Если не надо, то оставить коммент почему не надо
-    TaskViewRouter().navigate(context, args: TaskController(_goal));
+    TaskRouter().navigate(context, args: TaskController(_goal));
   }
 }
 

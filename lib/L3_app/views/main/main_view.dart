@@ -19,7 +19,7 @@ import '../task/widgets/empty_state/no_projects.dart';
 import 'widgets/app_title.dart';
 import 'widgets/main_dashboard.dart';
 
-class MainViewRouter extends MTRouter {
+class MainRouter extends MTRouter {
   @override
   Widget get page => MainView();
 }
@@ -68,7 +68,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
           leading: accountController.user != null
               ? MTButton.icon(
                   accountController.user!.icon(_iconSize / 2, borderColor: mainColor),
-                  onTap: () async => await SettingsViewRouter().navigate(context),
+                  onTap: () async => await SettingsRouter().navigate(context),
                   padding: const EdgeInsets.only(left: P3),
                 )
               : null,

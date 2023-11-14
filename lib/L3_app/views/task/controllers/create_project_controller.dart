@@ -67,7 +67,7 @@ abstract class _CreateProjectControllerBase with Store {
       if (newP != null) {
         //TODO: нужно ли в этом месте создавать контроллеры, может, тут достаточно отправить айдишники или задачу?
         final tc = TaskController(newP, isNew: true);
-        await CreateProjectQuizViewRouter().navigate(context, args: CreateTaskQuizArgs(tc, CreateProjectQuizController(tc)));
+        await CreateProjectQuizRouter().navigate(context, args: CreateTaskQuizArgs(tc, CreateProjectQuizController(tc)));
       }
     }
     await _dispose();

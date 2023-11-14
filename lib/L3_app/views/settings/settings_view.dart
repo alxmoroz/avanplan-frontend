@@ -25,7 +25,7 @@ import '../workspace/workspace_view.dart';
 import 'account_list_tile.dart';
 import 'app_version.dart';
 
-class SettingsViewRouter extends MTRouter {
+class SettingsRouter extends MTRouter {
   @override
   String get path => '/settings';
 
@@ -48,7 +48,7 @@ class SettingsView extends StatelessWidget {
           const ChevronIcon(),
         ]),
         bottomDivider: false,
-        onTap: () async => await NotificationListViewRouter().navigate(rootKey.currentContext!),
+        onTap: () async => await NotificationsRouter().navigate(rootKey.currentContext!),
       );
 
   Widget get _workspaces => Column(
@@ -64,7 +64,7 @@ class SettingsView extends StatelessWidget {
               return WorkspaceListTile(
                 ws,
                 bottomDivider: index < _wss.length - 1,
-                onTap: () async => await WorkspaceViewRouter().navigate(rootKey.currentContext!, args: ws.id!),
+                onTap: () async => await WorkspaceRouter().navigate(rootKey.currentContext!, args: ws.id!),
               );
             },
           ),

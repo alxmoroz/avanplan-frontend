@@ -14,7 +14,7 @@ import '../../extra/services.dart';
 import '../../presenters/workspace.dart';
 import 'user_tile.dart';
 
-class UserListViewRouter extends MTRouter {
+class UsersRouter extends MTRouter {
   static const _wsPrefix = '/settings/workspaces';
   static const _suffix = 'users';
 

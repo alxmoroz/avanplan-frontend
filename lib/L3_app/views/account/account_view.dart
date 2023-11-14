@@ -18,7 +18,7 @@ import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/person.dart';
 
-class AccountViewRouter extends MTRouter {
+class AccountRouter extends MTRouter {
   @override
   String get path => '/settings/my_account';
 

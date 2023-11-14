@@ -31,7 +31,7 @@ class CreateMultiTaskQuizArgs {
   final QuizController _qController;
 }
 
-class CreateMultiTaskQuizViewRouter extends MTRouter {
+class CreateMultiTaskQuizRouter extends MTRouter {
   @override
   String get path => '/projects/create/tasks';
 

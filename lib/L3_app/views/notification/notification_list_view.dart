@@ -20,7 +20,7 @@ import '../../extra/services.dart';
 import '../../presenters/date.dart';
 import 'notification_controller.dart';
 
-class NotificationListViewRouter extends MTRouter {
+class NotificationsRouter extends MTRouter {
   @override
   String get path => '/settings/my_notifications';
 

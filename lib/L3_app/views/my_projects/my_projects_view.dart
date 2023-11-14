@@ -13,7 +13,7 @@ import '../task/widgets/create/create_project_button.dart';
 import '../task/widgets/create/import_project_button.dart';
 import '../task/widgets/tasks/tasks_list_view.dart';
 
-class MyProjectsViewRouter extends MTRouter {
+class MyProjectsRouter extends MTRouter {
   @override
   String get path => '/projects';
 

@@ -24,7 +24,7 @@ class TIQuizArgs {
   final QuizController _qController;
 }
 
-class TeamInvitationQuizViewRouter extends MTRouter {
+class TeamInvitationQuizRouter extends MTRouter {
   @override
   String get path => '/projects/create/team';
 

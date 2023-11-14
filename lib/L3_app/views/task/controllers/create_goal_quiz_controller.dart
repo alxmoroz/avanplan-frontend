@@ -38,7 +38,7 @@ class CreateGoalQuizController extends _CreateGoalQuizControllerBase with _$Crea
     TaskViewRouter().navigate(context, args: TaskController(_goal.project!));
     //TODO: нужно ли в этом месте создавать контроллер, может, тут достаточно отправить айдишники?
     //TODO: проверить необходимость await. Раньше не было тут. Если не надо, то оставить коммент почему не надо
-    await TaskViewRouter().navigate(context, args: TaskController(_goal));
+    TaskViewRouter().navigate(context, args: TaskController(_goal));
   }
 }
 

@@ -34,7 +34,7 @@ abstract class _CreateMultiTaskControllerBase with Store {
   Future addTask() async {
     final newTask = await parent.ws.createTask(parent);
     if (newTask != null) {
-      _taskControllers.add(TaskController(newTask));
+      _taskControllers.add(TaskController(newTask, isNew: true));
     }
   }
 }

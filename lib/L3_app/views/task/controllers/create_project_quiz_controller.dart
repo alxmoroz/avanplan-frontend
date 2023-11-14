@@ -56,9 +56,9 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
       await TeamInvitationQuizViewRouter().navigate(context, args: TIQuizArgs(_taskController, this));
     } else if (step.code == _StepCode.goals.name) {
       if (_goalController == null) {
-        final goal = await _project.ws.createTask(_project);
-        if (goal != null) {
-          _goalController = TaskController(goal, allowDisposeFromView: false);
+        final newGoal = await _project.ws.createTask(_project);
+        if (newGoal != null) {
+          _goalController = TaskController(newGoal, isNew: true, allowDisposeFromView: false);
         }
       }
       if (_goalController != null) {
@@ -72,12 +72,12 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
   @override
   Future afterFinish(BuildContext context) async {
     Navigator.of(context).popUntil((r) => r.navigator?.canPop() != true);
+    _goalController?.dispose();
+
     MyProjectsViewRouter().navigate(context);
     //TODO: нужно ли в этом месте создавать контроллер, может, тут достаточно отправить айдишники?
     //TODO: проверить необходимость await. Раньше не было тут. Если не надо, то оставить коммент почему не надо
-    await TaskViewRouter().navigate(context, args: TaskController(_project));
-
-    _goalController?.dispose();
+    TaskViewRouter().navigate(context, args: TaskController(_project));
   }
 }
 

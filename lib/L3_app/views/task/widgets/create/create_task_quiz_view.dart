@@ -42,7 +42,7 @@ class CreateProjectQuizViewRouter extends _CreateQuizRouter {
 
 class CreateGoalQuizViewRouter extends _CreateQuizRouter {
   @override
-  String get path => '/projects/create_goal';
+  String get path => '/projects/create/goal';
 }
 
 class CreateTaskQuizView extends TaskView {

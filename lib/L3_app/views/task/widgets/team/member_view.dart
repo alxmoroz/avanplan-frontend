@@ -27,7 +27,7 @@ class MemberViewArgs {
 }
 
 class MemberViewRouter extends MTRouter {
-  static const _prefix = '/projects/tasks';
+  static const _prefix = '/projects';
   static const _suffix = 'members';
 
   @override

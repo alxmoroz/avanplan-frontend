@@ -1,5 +1,6 @@
 // Copyright (c) 2023. Alexandr Moroz
 
+import 'package:avanplan/L3_app/views/my_projects/my_projects_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
@@ -45,7 +46,7 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
   Future afterNext(BuildContext context) async {
     if (step.code == _StepCode.featureSets.name) {
       _fsController ??= FeatureSetsController(_taskController);
-      await Navigator.of(context).pushNamed(FeatureSetsQuizView.routeName, arguments: FSQuizArgs(_fsController!, this));
+      await FeatureSetsQuizViewRouter().navigate(context, args: FSQuizArgs(_fsController!, this));
     } else if (step.code == _StepCode.statuses.name) {
       if (_taskController.projectStatusesController.sortedStatuses.isEmpty) {
         _taskController.projectStatusesController.createDefaults();
@@ -67,24 +68,17 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
         await CreateGoalQuizViewRouter().navigate(context, args: CreateTaskQuizArgs(_goalController!, this));
       }
     } else if (step.code == _StepCode.tasks.name) {
-      await Navigator.of(context).pushNamed(
-        CreateMultiTaskQuizView.routeName,
-        arguments: CreateMultiTaskQuizArgs(_goalController ?? _taskController, this),
-      );
+      await CreateMultiTaskQuizViewRouter().navigate(context, args: CreateMultiTaskQuizArgs(_goalController ?? _taskController, this));
     }
   }
 
   @override
   Future afterFinish(BuildContext context) async {
-    if (_goalController != null) {
-      await CreateGoalQuizViewRouter().navigate(context, args: CreateTaskQuizArgs(_goalController!, this));
-    }
-
-    Navigator.of(context).popUntil((r) => r.settings.name == CreateProjectQuizViewRouter().path || r.navigator?.canPop() != true);
-
+    Navigator.of(context).popUntil((r) => r.navigator?.canPop() != true);
+    MyProjectsViewRouter().navigate(context);
     //TODO: нужно ли в этом месте создавать контроллер, может, тут достаточно отправить айдишники?
     //TODO: проверить необходимость await. Раньше не было тут. Если не надо, то оставить коммент почему не надо
-    await TaskViewRouter().navigateReplace(context, args: TaskController(_project));
+    await TaskViewRouter().navigate(context, args: TaskController(_project));
 
     _goalController?.dispose();
   }

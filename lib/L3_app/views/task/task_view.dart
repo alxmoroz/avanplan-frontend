@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../components/adaptive.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
@@ -24,7 +25,7 @@ import 'widgets/tasks/tasks_pane.dart';
 import 'widgets/team/team_pane.dart';
 
 class TaskViewRouter extends MTRouter {
-  static const _prefix = '/projects/tasks';
+  static const _prefix = '/projects.*?';
 
   @override
   RegExp get pathRe => RegExp('^$_prefix/(\\d+)/(\\d+)\$');
@@ -38,15 +39,17 @@ class TaskViewRouter extends MTRouter {
 
   @override
   String get title => (rs!.arguments as TaskController?)?.task.viewTitle ?? '';
+  String _navPrefix(Task task) => task.isProject
+      ? '/projects'
+      : task.isGoal
+          ? '/projects/goals'
+          : task.isBacklog
+              ? '/projects/backlogs'
+              : '/projects/tasks';
 
-  String _navPath(Task _task) => '$_prefix/${_task.wsId}/${_task.id}';
+  String _navPath(Task _task) => '${_navPrefix(_task)}/${_task.wsId}/${_task.id}';
   @override
   Future navigate(BuildContext context, {Object? args}) async => await Navigator.of(context).pushNamed(
-        _navPath((args as TaskController).task),
-        arguments: args,
-      );
-
-  Future navigateReplace(BuildContext context, {Object? args}) async => await Navigator.of(context).pushReplacementNamed(
         _navPath((args as TaskController).task),
         arguments: args,
       );

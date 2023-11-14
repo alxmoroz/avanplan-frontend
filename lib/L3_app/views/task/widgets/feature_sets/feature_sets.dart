@@ -13,6 +13,7 @@ import '../../../../components/list_tile.dart';
 import '../../../../components/page.dart';
 import '../../../../components/shadowed.dart';
 import '../../../../components/toolbar.dart';
+import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../quiz/header.dart';
@@ -89,12 +90,26 @@ class FSQuizArgs {
   final QuizController _qController;
 }
 
+class FeatureSetsQuizViewRouter extends MTRouter {
+  @override
+  String get path => '/projects/create/feature_sets';
+
+  FSQuizArgs? get _args => rs!.arguments as FSQuizArgs?;
+
+  @override
+  Widget? get page => _args != null ? FeatureSetsQuizView(_args!) : null;
+
+  // TODO: если будет инфа об айдишнике проекта, то можем показывать сам проект
+  @override
+  RouteSettings? get settings => _args != null ? rs : const RouteSettings(name: '/projects');
+
+  @override
+  String get title => '${(rs!.arguments as FSQuizArgs?)?._controller.project.viewTitle ?? ''} | ${loc.feature_sets_title}';
+}
+
 class FeatureSetsQuizView extends StatelessWidget {
   const FeatureSetsQuizView(this._args);
   final FSQuizArgs _args;
-
-  static String get routeName => '/create_project_quiz/feature_sets';
-  static String title(FSQuizArgs _args) => '${_args._controller.project.viewTitle} - ${loc.feature_sets_title}';
 
   FeatureSetsController get _controller => _args._controller;
   QuizController get _qController => _args._qController;

@@ -6,10 +6,10 @@ import 'package:mobx/mobx.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../extra/services.dart';
 import '../../../usecases/task_tree.dart';
+import '../../my_projects/my_projects_view.dart';
 import '../../quiz/quiz_controller.dart';
 import '../task_view.dart';
 import '../widgets/create/create_multitask_quiz_view.dart';
-import '../widgets/create/create_task_quiz_view.dart';
 import 'task_controller.dart';
 
 part 'create_goal_quiz_controller.g.dart';
@@ -27,19 +27,18 @@ class CreateGoalQuizController extends _CreateGoalQuizControllerBase with _$Crea
   @override
   Future afterNext(BuildContext context) async {
     if (step.code == _StepCode.tasks.name) {
-      await Navigator.of(context).pushNamed(
-        CreateMultiTaskQuizView.routeName,
-        arguments: CreateMultiTaskQuizArgs(_goalController, this),
-      );
+      await CreateMultiTaskQuizViewRouter().navigate(context, args: CreateMultiTaskQuizArgs(_goalController, this));
     }
   }
 
   @override
   Future afterFinish(BuildContext context) async {
-    Navigator.of(context).popUntil((r) => r.settings.name == CreateGoalQuizViewRouter().path || r.navigator?.canPop() != true);
+    Navigator.of(context).popUntil((r) => r.navigator?.canPop() != true);
+    MyProjectsViewRouter().navigate(context);
+    TaskViewRouter().navigate(context, args: TaskController(_goal.project!));
     //TODO: нужно ли в этом месте создавать контроллер, может, тут достаточно отправить айдишники?
     //TODO: проверить необходимость await. Раньше не было тут. Если не надо, то оставить коммент почему не надо
-    await TaskViewRouter().navigateReplace(context, args: TaskController(_goal));
+    await TaskViewRouter().navigate(context, args: TaskController(_goal));
   }
 }
 

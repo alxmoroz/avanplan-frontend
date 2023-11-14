@@ -20,7 +20,9 @@ import '../views/notification/notification_list_view.dart';
 import '../views/settings/settings_view.dart';
 import '../views/source/source_list_view.dart';
 import '../views/task/task_view.dart';
+import '../views/task/widgets/create/create_multitask_quiz_view.dart';
 import '../views/task/widgets/create/create_task_quiz_view.dart';
+import '../views/task/widgets/feature_sets/feature_sets.dart';
 import '../views/task/widgets/team/member_view.dart';
 import '../views/user/user_list_view.dart';
 import '../views/workspace/workspace_view.dart';
@@ -59,8 +61,12 @@ abstract class MTRouter {
     MyProjectsViewRouter(),
     // Projects - Create
     CreateProjectQuizViewRouter(),
-    // Projects - Create Goal
+    // Projects - Create - FeatureSets
+    FeatureSetsQuizViewRouter(),
+    // Projects - Create - Goal
     CreateGoalQuizViewRouter(),
+    // Projects - Create - Tasks
+    CreateMultiTaskQuizViewRouter(),
 
     // Projects - Tasks
     TaskViewRouter(),
@@ -107,10 +113,6 @@ abstract class MTRouter {
     return null;
   }
 
-  //   } else if (path == CreateMultiTaskQuizView.routeName && hasArgs) {
-  //     p = CreateMultiTaskQuizView(rs.arguments as CreateMultiTaskQuizArgs);
-  //   } else if (path == FeatureSetsQuizView.routeName && hasArgs) {
-  //     p = FeatureSetsQuizView(rs.arguments as FSQuizArgs);
   //   } else if (path == ProjectStatusesQuizView.routeName && hasArgs) {
   //     p = ProjectStatusesQuizView(rs.arguments as PSQuizArgs);
   //   } else if (path == TeamInvitationQuizView.routeName && hasArgs) {

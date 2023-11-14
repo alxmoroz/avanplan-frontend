@@ -14,6 +14,7 @@ import '../../../../components/page.dart';
 import '../../../../components/shadowed.dart';
 import '../../../../components/text.dart';
 import '../../../../components/text_field.dart';
+import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../quiz/header.dart';
@@ -30,12 +31,26 @@ class CreateMultiTaskQuizArgs {
   final QuizController _qController;
 }
 
+class CreateMultiTaskQuizViewRouter extends MTRouter {
+  @override
+  String get path => '/projects/create/tasks';
+
+  CreateMultiTaskQuizArgs? get _args => rs!.arguments as CreateMultiTaskQuizArgs?;
+
+  @override
+  Widget? get page => _args != null ? CreateMultiTaskQuizView(_args!) : null;
+
+  // TODO: если будет инфа об айдишнике проекта, то можем показывать сам проект
+  @override
+  RouteSettings? get settings => _args != null ? rs : const RouteSettings(name: '/projects');
+
+  @override
+  String get title => (rs!.arguments as CreateMultiTaskQuizArgs?)?._controller.task.viewTitle ?? '';
+}
+
 class CreateMultiTaskQuizView extends TaskView {
   CreateMultiTaskQuizView(this._args) : super(_args._controller);
   final CreateMultiTaskQuizArgs _args;
-
-  static String get routeName => '/create_multitask_quiz';
-  static String title(CreateMultiTaskQuizArgs _args) => '${_args._controller.task.viewTitle}';
 
   @override
   State<CreateMultiTaskQuizView> createState() => _CreateMultiTaskQuizViewState();

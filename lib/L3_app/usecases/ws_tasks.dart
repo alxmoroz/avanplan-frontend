@@ -7,6 +7,7 @@ import '../../L1_domain/entities/workspace.dart';
 import '../../L1_domain/entities_extensions/task_tree.dart';
 import '../extra/services.dart';
 import '../presenters/task_type.dart';
+import '../usecases/task_edit.dart';
 import '../usecases/task_status.dart';
 import 'task_feature_sets.dart';
 import 'ws_actions.dart';
@@ -22,26 +23,36 @@ extension WSTasksUC on Workspace {
         reason: _newProject ? loc.tariff_change_limit_projects_reason_title : loc.tariff_change_limit_tasks_reason_title,
       );
     }
-    return plCreate(_parent)
-        ? Task(
-            title: newSubtaskTitle(_parent),
-            projectStatusId: (_newProject || _newGoal) ? null : _parent.statuses.firstOrNull?.id,
-            closed: false,
-            parentId: _parent?.id,
-            members: [],
-            notes: [],
-            attachments: [],
-            projectStatuses: [],
-            projectFeatureSets: [],
-            wsId: id!,
-            startDate: DateTime.now(),
-            createdOn: DateTime.now(),
-            type: _newProject
-                ? TType.PROJECT
-                : _newGoal
-                    ? TType.GOAL
-                    : TType.TASK,
-          )
-        : null;
+
+    Task? newTask;
+
+    if (plCreate(_parent)) {
+      final taskData = Task(
+        title: newSubtaskTitle(_parent),
+        projectStatusId: (_newProject || _newGoal) ? null : _parent.statuses.firstOrNull?.id,
+        closed: false,
+        parentId: _parent?.id,
+        members: [],
+        notes: [],
+        attachments: [],
+        projectStatuses: [],
+        projectFeatureSets: [],
+        wsId: id!,
+        startDate: DateTime.now(),
+        createdOn: DateTime.now(),
+        type: _newProject
+            ? TType.PROJECT
+            : _newGoal
+                ? TType.GOAL
+                : TType.TASK,
+      );
+
+      // TODO: возможно, будет лучше в квизе это как-то обыграть...
+      loader.setSaving();
+      loader.start();
+      newTask = await taskData.save();
+      loader.stop();
+    }
+    return newTask;
   }
 }

@@ -34,18 +34,21 @@ enum TaskFCode { parent, title, status, assignee, description, startDate, dueDat
 enum TasksFilter { my }
 
 class TaskController extends _TaskControllerBase with _$TaskController {
-  TaskController(Task taskIn, {bool? allowDisposeFromView}) {
+  TaskController(Task taskIn, {bool isNew = false, bool? allowDisposeFromView}) {
+    _task = taskIn;
+    creating = isNew;
+
     initState(fds: [
       MTFieldData(TaskFCode.parent.index),
       MTFieldData(TaskFCode.status.index),
-      MTFieldData(TaskFCode.title.index, text: taskIn.isNew ? '' : taskIn.title),
+      MTFieldData(TaskFCode.title.index, text: creating == true ? '' : _task.title),
       MTFieldData(TaskFCode.assignee.index, label: loc.task_assignee_label, placeholder: loc.task_assignee_placeholder),
-      MTFieldData(TaskFCode.description.index, text: taskIn.description, label: loc.description, placeholder: loc.description),
+      MTFieldData(TaskFCode.description.index, text: _task.description, label: loc.description, placeholder: loc.description),
       MTFieldData(TaskFCode.startDate.index, label: loc.task_start_date_label, placeholder: loc.task_start_date_placeholder),
       MTFieldData(TaskFCode.dueDate.index, label: loc.task_due_date_label, placeholder: loc.task_due_date_placeholder),
       MTFieldData(
         TaskFCode.estimate.index,
-        label: taskIn.openedVolume != null ? loc.task_estimate_group_label : loc.task_estimate_label,
+        label: _task.openedVolume != null ? loc.task_estimate_group_label : loc.task_estimate_label,
         placeholder: loc.task_estimate_placeholder,
       ),
       MTFieldData(TaskFCode.author.index, label: loc.task_author_title, placeholder: loc.task_author_title),
@@ -54,8 +57,6 @@ class TaskController extends _TaskControllerBase with _$TaskController {
       MTFieldData(TaskFCode.note.index, placeholder: loc.task_note_placeholder),
       MTFieldData(TaskFCode.attachment.index, label: loc.attachments_label),
     ]);
-
-    _init(taskIn);
 
     titleController = TitleController(this);
     assigneeController = AssigneeController(this);
@@ -78,8 +79,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
 }
 
 abstract class _TaskControllerBase extends EditController with Store {
-  Task get task => tasksMainController.task(_task!.wsId, _task!.id) ?? _task!;
-
+  late final Task _task;
   late final TitleController titleController;
   late final AssigneeController assigneeController;
   late final StatusController statusController;
@@ -91,25 +91,15 @@ abstract class _TaskControllerBase extends EditController with Store {
   late final LocalExportController transferController;
   late final SubtasksController subtasksController;
 
+  Task get task => tasksMainController.task(_task.wsId, _task.id)!;
+
   @observable
-  Task? _task;
+  bool creating = false;
 
-  @action
-  Future _init(Task _taskIn) async {
-    _task = _taskIn;
-    if (_task?.isNew == true) {
-      await saveField(TaskFCode.title);
-    }
-  }
-
-  @action
   Future<bool> saveField(TaskFCode code) async {
     updateField(code.index, loading: true);
     final et = await task.save();
     final saved = et != null;
-    if (saved) {
-      _task = et;
-    }
     updateField(code.index, loading: false);
     return saved;
   }

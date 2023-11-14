@@ -91,7 +91,7 @@ class _CreateMultiTaskQuizViewState extends State<CreateMultiTaskQuizView> {
         tController.fData(TaskFCode.title.index),
         value: MTTextField(
           controller: tController.teController(TaskFCode.title.index),
-          autofocus: tController.task.isNew,
+          autofocus: tController.creating,
           margin: EdgeInsets.zero,
           maxLines: 1,
           decoration: InputDecoration(

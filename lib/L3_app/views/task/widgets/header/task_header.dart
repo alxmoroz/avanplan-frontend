@@ -53,7 +53,7 @@ class TaskHeader extends StatelessWidget {
                 value: MTTextField(
                   controller: controller.teController(TaskFCode.title.index),
                   readOnly: !_task.canEdit,
-                  autofocus: _task.isNew,
+                  autofocus: controller.creating,
                   margin: EdgeInsets.zero,
                   maxLines: 5,
                   decoration: InputDecoration(

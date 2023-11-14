@@ -51,12 +51,9 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
       if (_taskController.projectStatusesController.sortedStatuses.isEmpty) {
         _taskController.projectStatusesController.createDefaults();
       }
-      await Navigator.of(context).pushNamed(
-        ProjectStatusesQuizView.routeName,
-        arguments: PSQuizArgs(_taskController.projectStatusesController, this),
-      );
+      await ProjectStatusesQuizViewRouter().navigate(context, args: PSQuizArgs(_taskController.projectStatusesController, this));
     } else if (step.code == _StepCode.team.name) {
-      await Navigator.of(context).pushNamed(TeamInvitationQuizView.routeName, arguments: TIQuizArgs(_taskController, this));
+      await TeamInvitationQuizViewRouter().navigate(context, args: TIQuizArgs(_taskController, this));
     } else if (step.code == _StepCode.goals.name) {
       if (_goalController == null) {
         final goal = await _project.ws.createTask(_project);

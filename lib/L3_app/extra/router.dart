@@ -23,7 +23,9 @@ import '../views/task/task_view.dart';
 import '../views/task/widgets/create/create_multitask_quiz_view.dart';
 import '../views/task/widgets/create/create_task_quiz_view.dart';
 import '../views/task/widgets/feature_sets/feature_sets.dart';
+import '../views/task/widgets/project_statuses/project_statuses.dart';
 import '../views/task/widgets/team/member_view.dart';
+import '../views/task/widgets/team/team_invitation_quiz_view.dart';
 import '../views/user/user_list_view.dart';
 import '../views/workspace/workspace_view.dart';
 
@@ -63,6 +65,10 @@ abstract class MTRouter {
     CreateProjectQuizViewRouter(),
     // Projects - Create - FeatureSets
     FeatureSetsQuizViewRouter(),
+    // Projects - Create - Statuses
+    ProjectStatusesQuizViewRouter(),
+    // Projects - Create - Team
+    TeamInvitationQuizViewRouter(),
     // Projects - Create - Goal
     CreateGoalQuizViewRouter(),
     // Projects - Create - Tasks
@@ -112,12 +118,6 @@ abstract class MTRouter {
     }
     return null;
   }
-
-  //   } else if (path == ProjectStatusesQuizView.routeName && hasArgs) {
-  //     p = ProjectStatusesQuizView(rs.arguments as PSQuizArgs);
-  //   } else if (path == TeamInvitationQuizView.routeName && hasArgs) {
-  //     p = TeamInvitationQuizView(rs.arguments as TIQuizArgs);
-  //   }
 }
 
 Future setWebpageTitle(String title) async {

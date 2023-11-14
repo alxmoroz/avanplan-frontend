@@ -7,6 +7,7 @@ import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/button.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/page.dart';
+import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../../usecases/task_actions.dart';
@@ -23,12 +24,26 @@ class TIQuizArgs {
   final QuizController _qController;
 }
 
+class TeamInvitationQuizViewRouter extends MTRouter {
+  @override
+  String get path => '/projects/create/team';
+
+  TIQuizArgs? get _args => rs!.arguments as TIQuizArgs?;
+
+  @override
+  Widget? get page => _args != null ? TeamInvitationQuizView(_args!) : null;
+
+  // TODO: если будет инфа об айдишнике проекта, то можем показывать сам проект
+  @override
+  RouteSettings? get settings => _args != null ? rs : const RouteSettings(name: '/projects');
+
+  @override
+  String get title => '${(rs!.arguments as TIQuizArgs?)?._taskController.task.viewTitle ?? ''} | ${loc.team_title}';
+}
+
 class TeamInvitationQuizView extends StatelessWidget {
   const TeamInvitationQuizView(this._args);
   final TIQuizArgs _args;
-
-  static String get routeName => '/create_project_quiz/team_invitation';
-  static String title(TIQuizArgs _args) => '${_args._taskController.task.viewTitle} - ${loc.team_title}';
 
   TaskController get _taskController => _args._taskController;
   Task get _task => _taskController.task;

@@ -14,6 +14,7 @@ import '../../../../components/page.dart';
 import '../../../../components/shadowed.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
+import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../quiz/header.dart';
@@ -82,12 +83,26 @@ class PSQuizArgs {
   final QuizController _qController;
 }
 
+class ProjectStatusesQuizViewRouter extends MTRouter {
+  @override
+  String get path => '/projects/create/statuses';
+
+  PSQuizArgs? get _args => rs!.arguments as PSQuizArgs?;
+
+  @override
+  Widget? get page => _args != null ? ProjectStatusesQuizView(_args!) : null;
+
+  // TODO: если будет инфа об айдишнике проекта, то можем показывать сам проект
+  @override
+  RouteSettings? get settings => _args != null ? rs : const RouteSettings(name: '/projects');
+
+  @override
+  String get title => '${(rs!.arguments as PSQuizArgs?)?._controller.project.viewTitle ?? ''} | ${loc.status_list_title}';
+}
+
 class ProjectStatusesQuizView extends StatelessWidget {
   const ProjectStatusesQuizView(this._args);
   final PSQuizArgs _args;
-
-  static String get routeName => '/create_project_quiz/statuses';
-  static String title(PSQuizArgs _args) => '${_args._controller.project.viewTitle} - ${loc.status_list_title}';
 
   ProjectStatusesController get _controller => _args._controller;
   QuizController get _qController => _args._qController;

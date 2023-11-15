@@ -15,6 +15,7 @@ import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
+import '../../../../components/field_data.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/shadowed.dart';
@@ -44,8 +45,10 @@ class DetailsPane extends StatelessWidget {
 
   Task get _task => controller.task;
   bool get _quizzing => qController?.active == true;
-  bool get _showStatusRow => _task.hasStatus || (_task.isTask && _task.canClose);
+  bool get _showStatusRow => _task.hasStatus || (_task.isTask && _task.canClose) || _statusFD.loading;
   bool get _showAssignee => !_quizzing && _task.hfsTeam && (_task.hasAssignee || _task.canAssign);
+
+  MTFieldData get _statusFD => controller.fData(TaskFCode.status.index);
 
   Widget? get bottomBar => null;
 
@@ -61,7 +64,7 @@ class DetailsPane extends StatelessWidget {
               /// Статус
               if (_showStatusRow)
                 MTField(
-                  controller.fData(TaskFCode.status.index),
+                  _statusFD,
                   value: Row(
                     children: [
                       if (_task.canShowStatus)

@@ -19,27 +19,36 @@ class AssigneeController {
   Task get task => _taskController.task;
 
   Future _reset() async {
-    final oldValue = task.assigneeId;
+    final oldAssigneeId = task.assigneeId;
     task.assigneeId = null;
+    await _assign(oldAssigneeId);
+  }
+
+  Future _assign(int? oldAssigneeId) async {
     if (!(await _taskController.saveField(TaskFCode.assignee))) {
-      task.assigneeId = oldValue;
+      task.assigneeId = oldAssigneeId;
     }
   }
 
-  Future assign() async {
-    final selectedMember = await showMTSelectDialog<Member>(
+  Timer? _assigneeEditTimer;
+
+  Future startAssign() async {
+    final assignee = await showMTSelectDialog<Member>(
       task.activeMembers,
       task.assigneeId,
       loc.task_assignee_placeholder,
       valueBuilder: (_, member) => member.iconName(radius: P3),
       onReset: task.canAssign ? _reset : null,
     );
-    if (selectedMember != null) {
-      final oldValue = task.assigneeId;
-      task.assigneeId = selectedMember.id;
-      if (!(await _taskController.saveField(TaskFCode.assignee))) {
-        task.assigneeId = oldValue;
+
+    final oldAssigneeId = task.assigneeId;
+    if (assignee != null && assignee.id != oldAssigneeId) {
+      if (_assigneeEditTimer != null) {
+        _assigneeEditTimer!.cancel();
       }
+      task.assigneeId = assignee.id;
+      tasksMainController.refreshTasks();
+      _assigneeEditTimer = Timer(const Duration(seconds: 7), () async => await _assign(oldAssigneeId));
     }
   }
 }

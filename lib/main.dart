@@ -48,6 +48,7 @@ class App extends StatelessWidget {
     final themeData = ThemeData(
       colorScheme: ColorScheme.fromSeed(
         seedColor: mainColor.resolve(context),
+        primary: mainColor.resolve(context),
         brightness: View.of(context).platformDispatcher.platformBrightness,
         background: b2Color.resolve(context),
         surfaceTint: b2Color.resolve(context),

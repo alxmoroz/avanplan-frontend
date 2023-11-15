@@ -105,7 +105,7 @@ class DetailsPane extends StatelessWidget {
                           color: _task.canAssign ? mainColor : f2Color,
                         ),
                   value: _task.hasAssignee ? BaseText('${_task.assignee}', color: _task.canAssign ? null : f2Color, maxLines: 1) : null,
-                  onSelect: _task.canAssign ? controller.assigneeController.assign : null,
+                  onSelect: _task.canAssign ? controller.assigneeController.startAssign : null,
                 ),
               ],
 

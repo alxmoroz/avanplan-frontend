@@ -4,6 +4,7 @@ import 'package:app_settings/app_settings.dart' as sys_settings;
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../L1_domain/utils/dates.dart';
 import '../../components/adaptive.dart';
 import '../../components/alert_dialog.dart';
 import '../../components/appbar.dart';
@@ -37,10 +38,11 @@ class NotificationListView extends StatelessWidget {
   Widget _itemBuilder(BuildContext context, int index) {
     if (index < _controller.notifications.length) {
       final n = _controller.notifications[index];
-      final date = n.scheduledDate.strShortWTime;
+      final date = n.scheduledDate.date.strMedium;
+      final time = n.scheduledDate.strTime;
       final title = n.title;
       return MTListTile(
-        middle: SmallText(date, maxLines: 1),
+        middle: SmallText('$date $time', maxLines: 1),
         subtitle: BaseText(title, weight: n.isRead ? null : FontWeight.w500, maxLines: 2),
         trailing: const ChevronIcon(),
         bottomDivider: index < _controller.notifications.length - 1,

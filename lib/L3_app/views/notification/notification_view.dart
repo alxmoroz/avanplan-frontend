@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../L1_domain/entities/notification.dart';
+import '../../../L1_domain/utils/dates.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/text.dart';
@@ -21,9 +22,9 @@ class NotificationView extends StatelessWidget {
         child: ListView(
           shrinkWrap: true,
           children: [
-            H3(nf.title, maxLines: 5),
-            const SizedBox(height: P2),
             BaseText(nf.description, maxLines: 100),
+            const SizedBox(height: P),
+            SmallText('${nf.scheduledDate.date.strMedium} ${nf.scheduledDate.strTime}', maxLines: 1, align: TextAlign.right),
             const SizedBox(height: P3),
           ],
         ));
@@ -32,7 +33,7 @@ class NotificationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTTopBar(titleText: '${loc.notification_title}  ${nf.scheduledDate.strShortWTime}'),
+      topBar: MTTopBar(titleText: nf.title),
       body: _body,
     );
   }

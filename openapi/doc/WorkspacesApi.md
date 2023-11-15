@@ -23,7 +23,7 @@ Method | HTTP request | Description
 [**updateWorkspace**](WorkspacesApi.md#updateworkspace) | **POST** /v1/workspaces/{ws_id} | Update Workspace
 [**upsertNote**](WorkspacesApi.md#upsertnote) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes | Upsert
 [**upsertStatus**](WorkspacesApi.md#upsertstatus) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/statuses | Upsert
-[**upsertTask**](WorkspacesApi.md#upserttask) | **POST** /v1/workspaces/{ws_id}/tasks | Task Upsert
+[**upsertTask**](WorkspacesApi.md#upserttask) | **POST** /v1/workspaces/{ws_id}/tasks | Upsert Task
 
 
 # **assignRole**
@@ -733,7 +733,7 @@ Name | Type | Description  | Notes
 # **upsertTask**
 > TasksChanges upsertTask(wsId, taskUpsert, permissionTaskId, taskId)
 
-Task Upsert
+Upsert Task
 
 ### Example
 ```dart

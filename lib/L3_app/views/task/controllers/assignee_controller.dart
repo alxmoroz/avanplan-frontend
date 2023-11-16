@@ -19,6 +19,7 @@ class AssigneeController {
   Task get task => _taskController.task;
 
   Future _reset() async {
+    _assigneeEditTimer?.cancel();
     final oldAssigneeId = task.assigneeId;
     task.assigneeId = null;
     await _assign(oldAssigneeId);
@@ -43,9 +44,7 @@ class AssigneeController {
 
     final oldAssigneeId = task.assigneeId;
     if (assignee != null && assignee.id != oldAssigneeId) {
-      if (_assigneeEditTimer != null) {
-        _assigneeEditTimer!.cancel();
-      }
+      _assigneeEditTimer?.cancel();
       task.assigneeId = assignee.id;
       tasksMainController.refreshTasks();
       _assigneeEditTimer = Timer(const Duration(seconds: 7), () async => await _assign(oldAssigneeId));

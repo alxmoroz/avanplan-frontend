@@ -27,7 +27,6 @@ Future main() async {
   }
 
   usePathUrlStrategy();
-  // setUrlStrategy(PathUrlStrategy());
 
   runApp(App());
 }

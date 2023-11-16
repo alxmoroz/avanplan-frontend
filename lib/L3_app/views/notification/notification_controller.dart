@@ -7,6 +7,7 @@ import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/notification.dart';
 import '../../../L2_data/services/push_service.dart';
+import '../../../main.dart';
 import '../../extra/services.dart';
 import 'notification_view.dart';
 
@@ -57,9 +58,40 @@ abstract class _NotificationControllerBase with Store {
   @observable
   bool pushAuthorized = false;
 
+  Uri? _uri(ApnsRemoteMessage msg) {
+    final Map? data = msg.payload['data'];
+    final String uriStr = data?['uri'] ?? '';
+    return uriStr.isNotEmpty ? Uri.parse(uriStr) : null;
+  }
+
+  Future _tryNavigate(ApnsRemoteMessage msg) async {
+    final uri = _uri(msg);
+    if (uri != null) {
+      Navigator.of(rootKey.currentContext!).popUntil((r) => r.navigator?.canPop() != true);
+      String rName = '';
+      for (var ps in uri.pathSegments) {
+        rName += '/$ps';
+        // print(routeName);
+        try {
+          Navigator.of(rootKey.currentContext!).pushNamed(rName);
+        } catch (_) {}
+      }
+    }
+  }
+
   @action
   Future initPush() async {
-    final connector = await getApnsTokenConnector();
+    final connector = await getApnsTokenConnector(
+      onLaunch: _tryNavigate,
+      onMessage: (msg) async {
+        // print('onMessage $msg');
+      },
+      onResume: _tryNavigate,
+      onBackgroundMessage: (msg) async {
+        // print('onBackgroundMessage $msg');
+      },
+    );
+
     final token = connector.token.value;
     final hasToken = token?.isNotEmpty == true;
     final authStatus = await connector.getAuthorizationStatus();

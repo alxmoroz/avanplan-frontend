@@ -8,12 +8,14 @@ Future<ApnsPushConnectorOnly> getApnsTokenConnector({
   ApnsMessageHandler? onLaunch,
   ApnsMessageHandler? onResume,
   ApnsMessageHandler? onMessage,
+  ApnsMessageHandler? onBackgroundMessage,
 }) async {
   final connector = ApnsPushConnectorOnly();
   connector.configureApns(
     onLaunch: onLaunch,
     onResume: onResume,
     onMessage: onMessage,
+    onBackgroundMessage: onBackgroundMessage,
   );
 
   await connector.requestNotificationPermissions();

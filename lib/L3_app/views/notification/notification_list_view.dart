@@ -41,12 +41,19 @@ class NotificationListView extends StatelessWidget {
       final date = n.scheduledDate.date.strMedium;
       final time = n.scheduledDate.strTime;
       final title = n.title;
+      final showDetails = n.description.length > 240 || n.url?.isNotEmpty == true;
       return MTListTile(
         middle: SmallText('$date $time', maxLines: 1),
-        subtitle: BaseText(title, weight: n.isRead ? null : FontWeight.w500, maxLines: 2),
-        trailing: const ChevronIcon(),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            BaseText(title, weight: n.isRead ? null : FontWeight.w500, maxLines: 1),
+            if (n.description.isNotEmpty) SmallText(n.description, maxLines: 5, padding: const EdgeInsets.only(top: P)),
+          ],
+        ),
+        trailing: showDetails ? const ChevronIcon() : null,
         bottomDivider: index < _controller.notifications.length - 1,
-        onTap: () => _controller.showNotification(context, n: n),
+        onTap: showDetails ? () => _controller.showNotification(context, n: n) : null,
       );
     } else {
       return SmallText(

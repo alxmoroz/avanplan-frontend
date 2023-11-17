@@ -35,9 +35,7 @@ abstract class _NotificationControllerBase with Store {
   MTNotification? get selectedNotification => notifications.firstWhereOrNull((m) => m.id == selectedNotificationId);
 
   @action
-  Future getData() async {
-    notifications = (await myUC.getNotifications()).sorted((n1, n2) => n2.scheduledDate.compareTo(n1.scheduledDate));
-  }
+  Future getData() async => notifications = (await myUC.getNotifications()).sorted((n1, n2) => n2.scheduledDate.compareTo(n1.scheduledDate));
 
   @action
   void clearData() => notifications = [];

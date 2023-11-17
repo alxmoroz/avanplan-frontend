@@ -36,11 +36,12 @@ abstract class _LocalImportControllerBase with Store {
   @action
   void _setSrc(Task src) {
     sourceGoal = src;
+    srcTasks = sourceGoal?.openedSubtasks.sorted(sortByDateAsc) ?? [];
     checks = [for (var _ in srcTasks) false];
   }
 
-  @computed
-  List<Task> get srcTasks => sourceGoal?.openedSubtasks.sorted(sortByDateAsc) ?? [];
+  @observable
+  List<Task> srcTasks = [];
 
   @observable
   List<bool> checks = [];
@@ -74,11 +75,11 @@ abstract class _LocalImportControllerBase with Store {
       if (checks[index]) {
         final t = srcTasks[index];
         t.parentId = dstParentId;
-        final et = await t.save();
-        if (et != null && _taskController.tabKey != TaskTabKey.subtasks) {
-          _taskController.selectTab(TaskTabKey.subtasks);
-        }
+        t.save();
       }
+    }
+    if (_taskController.tabKey != TaskTabKey.subtasks) {
+      _taskController.selectTab(TaskTabKey.subtasks);
     }
   }
 }

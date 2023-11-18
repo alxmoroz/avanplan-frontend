@@ -1,12 +1,11 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:collection/collection.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_apns_only/flutter_apns_only.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/notification.dart';
-import '../../../L2_data/services/push_service.dart';
 import '../../../main.dart';
 import '../../extra/services.dart';
 import 'notification_view.dart';
@@ -56,13 +55,13 @@ abstract class _NotificationControllerBase with Store {
   @observable
   bool pushAuthorized = false;
 
-  Uri? _uri(ApnsRemoteMessage msg) {
-    final Map? data = msg.payload['data'];
-    final String uriStr = data?['uri'] ?? '';
+  Uri? _uri(RemoteMessage msg) {
+    final data = msg.data;
+    final String uriStr = data['uri'] ?? '';
     return uriStr.isNotEmpty ? Uri.parse(uriStr) : null;
   }
 
-  Future _tryNavigate(ApnsRemoteMessage msg) async {
+  Future _tryNavigate(RemoteMessage msg) async {
     final uri = _uri(msg);
     if (uri != null) {
       Navigator.of(rootKey.currentContext!).popUntil((r) => r.navigator?.canPop() != true);
@@ -79,25 +78,26 @@ abstract class _NotificationControllerBase with Store {
 
   @action
   Future initPush() async {
-    final connector = await getApnsTokenConnector(
-      onLaunch: _tryNavigate,
-      onMessage: (msg) async {
-        // print('onMessage $msg');
-      },
-      onResume: _tryNavigate,
-      onBackgroundMessage: (msg) async {
-        // print('onBackgroundMessage $msg');
-      },
-    );
+    // Запрос разрешения на отправку уведомлений
+    final authStatus = (await FirebaseMessaging.instance.requestPermission()).authorizationStatus;
 
-    final token = connector.token.value;
+    // Получение токена
+    final token = await FirebaseMessaging.instance.getToken();
     final hasToken = token?.isNotEmpty == true;
-    final authStatus = await connector.getAuthorizationStatus();
-    pushAuthorized = hasToken && authStatus == ApnsAuthorizationStatus.authorized;
-    // pushDenied = authStatus == ApnsAuthorizationStatus.denied;
+    pushAuthorized = hasToken && authStatus == AuthorizationStatus.authorized;
 
+    // Обновление токена на бэке
     if (hasToken) {
       await myUC.updatePushToken(token!, pushAuthorized);
     }
+
+    // Обработка входящих push-уведомлений
+    // onLaunch
+    final msg = await FirebaseMessaging.instance.getInitialMessage();
+    if (msg != null) {
+      _tryNavigate(msg);
+    }
+    // onResume
+    FirebaseMessaging.onMessageOpenedApp.listen(_tryNavigate);
   }
 }

@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,6 +20,7 @@ import 'L3_app/l10n/generated/l10n.dart';
 Future main() async {
   setup();
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
 
   // certs
   if (!kIsWeb) {

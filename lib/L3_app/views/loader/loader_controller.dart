@@ -103,7 +103,15 @@ abstract class _LoaderControllerBase with Store {
           }
         } else {
           if (e.error is SocketException) {
-            _setNetworkError('${e.error}');
+            try {
+              _setNetworkError('${e.error}');
+            } finally {
+              set(
+                titleText: 'SocketException',
+                descriptionText: '$e',
+                action: Container(),
+              );
+            }
           }
         }
         if (!loading) {

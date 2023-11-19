@@ -105,7 +105,8 @@ abstract class _LoaderControllerBase with Store {
           if (e.error is SocketException) {
             try {
               _setNetworkError('${e.error}');
-            } finally {
+            } catch (_) {
+              print('SocketException $e');
               set(
                 titleText: 'SocketException',
                 descriptionText: '$e',

@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 
+import 'L2_data/services/firebase_options.dart';
 import 'L3_app/components/circular_progress.dart';
 import 'L3_app/components/colors.dart';
 import 'L3_app/components/colors_base.dart';
@@ -20,7 +21,11 @@ import 'L3_app/l10n/generated/l10n.dart';
 Future main() async {
   setup();
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  try {
+    await Firebase.initializeApp(options: firebasePlatformOptions);
+  } catch (e) {
+    print('Firebase.initializeApp ERROR: $e');
+  }
 
   // certs
   if (!kIsWeb) {

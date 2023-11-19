@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/notification.dart';
+import '../../../L2_data/services/platform.dart';
 import '../../../main.dart';
 import '../../extra/services.dart';
 import 'notification_view.dart';
@@ -82,7 +83,9 @@ abstract class _NotificationControllerBase with Store {
     final authStatus = (await FirebaseMessaging.instance.requestPermission()).authorizationStatus;
 
     // Получение токена
-    final token = await FirebaseMessaging.instance.getToken();
+    final token = await FirebaseMessaging.instance.getToken(
+      vapidKey: isWeb ? 'BCOA2mDb6-CkpUHqBhSYe5Ave8GES9JBE--Ux2LpgiQ5GyZBSaLZpHjqSH9-LDnC-K7QUtoyXM_BnaetF6pw5Xc' : null,
+    );
     final hasToken = token?.isNotEmpty == true;
     pushAuthorized = hasToken && authStatus == AuthorizationStatus.authorized;
 

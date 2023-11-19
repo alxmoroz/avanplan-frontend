@@ -5,7 +5,6 @@ import 'dart:async';
 import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/utils/dates.dart';
-import '../../../../L2_data/services/platform.dart';
 import '../../../components/alert_dialog.dart';
 import '../../../components/images.dart';
 import '../../../extra/services.dart';
@@ -130,9 +129,7 @@ abstract class _MainControllerBase with Store {
     await _tryUpdate();
     await _checkAppUpgrade();
     // await _showOnboarding();
-    if (isIOS) {
-      await notificationController.initPush();
-    }
+    await notificationController.initPush();
   }
 
   // TODO: пригодится блокировка от возможного повторного запуска в том же потоке

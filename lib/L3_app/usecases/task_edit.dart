@@ -40,6 +40,9 @@ extension TaskEditUC on Task {
     if (et.attachments.isEmpty) {
       et.attachments = attachments;
     }
+
+    et.taskSource ??= taskSource;
+
     if (isNew) {
       tasksMainController.addTasks([et]);
     } else {

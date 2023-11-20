@@ -72,27 +72,11 @@ class Task extends Titleable {
     this.closedSubtasksCount,
   });
 
-  DateTime? startDate;
-  bool closed;
-  int? parentId;
-  List<Note> notes;
-  List<ProjectStatus> projectStatuses;
-
-  Iterable<Attachment> attachments;
-  Iterable<Member> members;
-  Iterable<ProjectFeatureSet> projectFeatureSets;
   final int wsId;
-  final TaskSource? taskSource;
   final DateTime? createdOn;
   final DateTime? updatedOn;
-  DateTime? dueDate;
-  DateTime? closedDate;
-  int? projectStatusId;
-  int? authorId;
-  int? assigneeId;
-  final String type;
 
-  num? estimate;
+  final String type;
   final TaskState state;
   final double velocity;
   final double? requiredVelocity;
@@ -102,6 +86,24 @@ class Task extends Titleable {
   final num? openedVolume;
   final num? closedVolume;
   final int? closedSubtasksCount;
+
+  DateTime? startDate;
+  bool closed;
+  int? parentId;
+  List<Note> notes;
+  List<ProjectStatus> projectStatuses;
+
+  Iterable<Attachment> attachments;
+  Iterable<Member> members;
+  Iterable<ProjectFeatureSet> projectFeatureSets;
+  TaskSource? taskSource;
+
+  DateTime? dueDate;
+  DateTime? closedDate;
+  int? projectStatusId;
+  int? authorId;
+  int? assigneeId;
+  num? estimate;
 }
 
 class TaskRemote {

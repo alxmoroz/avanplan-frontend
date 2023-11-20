@@ -45,7 +45,7 @@ class DetailsPane extends StatelessWidget {
 
   Task get _task => controller.task;
   bool get _quizzing => qController?.active == true;
-  bool get _showStatusRow => _task.hasStatus || (_task.isTask && _task.canClose) || _statusFD.loading;
+  bool get _showStatusRow => _task.hasStatus || (_task.isTask);
   bool get _showAssignee => !_quizzing && _task.hfsTeam && (_task.hasAssignee || _task.canAssign);
 
   MTFieldData get _statusFD => controller.fData(TaskFCode.status.index);
@@ -65,11 +65,13 @@ class DetailsPane extends StatelessWidget {
               if (_showStatusRow)
                 MTField(
                   _statusFD,
+                  minHeight: MIN_BTN_HEIGHT,
                   value: Row(
                     children: [
                       if (_task.canShowStatus)
                         MTButton.main(
                           titleText: '${_task.status}',
+                          color: _task.closed ? greenColor : null,
                           constrained: false,
                           padding: const EdgeInsets.symmetric(horizontal: P4),
                           margin: const EdgeInsets.only(right: P2),
@@ -88,6 +90,14 @@ class DetailsPane extends StatelessWidget {
                           leading: const DoneIcon(true, color: greenColor),
                           onTap: () => controller.statusController.setStatus(_task, close: true),
                         )
+                      else if (_task.closed)
+                        MTButton(
+                          titleText: loc.state_closed,
+                          type: ButtonType.card,
+                          color: greenColor.withAlpha(26),
+                          titleColor: greenColor,
+                          padding: const EdgeInsets.symmetric(horizontal: P3),
+                        ),
                     ],
                   ),
                   color: b2Color,

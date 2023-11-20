@@ -8,14 +8,14 @@ void main() {
   group(ProjectStatusesApi, () {
     // Delete
     //
-    //Future<bool> deleteStatus(int statusId, int wsId, int taskId, { int permissionTaskId }) async
+    //Future<bool> deleteStatus(int statusId, int wsId, int taskId) async
     test('test deleteStatus', () async {
       // TODO
     });
 
     // Upsert
     //
-    //Future<ProjectStatusGet> upsertStatus(int wsId, int taskId, ProjectStatusUpsert projectStatusUpsert, { int permissionTaskId }) async
+    //Future<ProjectStatusGet> upsertStatus(int wsId, int taskId, ProjectStatusUpsert projectStatusUpsert) async
     test('test upsertStatus', () async {
       // TODO
     });

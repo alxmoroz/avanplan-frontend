@@ -72,7 +72,6 @@ export 'package:openapi/src/model/role_get.dart';
 export 'package:openapi/src/model/settings_get.dart';
 export 'package:openapi/src/model/source_get.dart';
 export 'package:openapi/src/model/source_upsert.dart';
-export 'package:openapi/src/model/status_get.dart';
 export 'package:openapi/src/model/tariff_get.dart';
 export 'package:openapi/src/model/tariff_limit_get.dart';
 export 'package:openapi/src/model/tariff_option_get.dart';

@@ -9,9 +9,9 @@ extension ProjectStatusMapper on ProjectStatusGet {
         id: id,
         wsId: wsId,
         projectId: projectId,
-        title: title ?? '?',
+        title: title,
         description: description ?? '',
         position: position,
-        closed: closed ?? false,
+        closed: closed,
       );
 }

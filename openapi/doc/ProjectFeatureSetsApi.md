@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 
 # **setupFeatureSets**
-> BuiltList<ProjectFeatureSetGet> setupFeatureSets(taskId, wsId, requestBody, permissionTaskId)
+> BuiltList<ProjectFeatureSetGet> setupFeatureSets(taskId, wsId, requestBody)
 
 Setup Feature Sets
 
@@ -31,10 +31,9 @@ final api = Openapi().getProjectFeatureSetsApi();
 final int taskId = 56; // int | 
 final int wsId = 56; // int | 
 final BuiltList<int> requestBody = ; // BuiltList<int> | 
-final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.setupFeatureSets(taskId, wsId, requestBody, permissionTaskId);
+    final response = api.setupFeatureSets(taskId, wsId, requestBody);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling ProjectFeatureSetsApi->setupFeatureSets: $e\n');
@@ -48,7 +47,6 @@ Name | Type | Description  | Notes
  **taskId** | **int**|  | 
  **wsId** | **int**|  | 
  **requestBody** | [**BuiltList&lt;int&gt;**](int.md)|  | 
- **permissionTaskId** | **int**|  | [optional] 
 
 ### Return type
 

@@ -27,7 +27,6 @@ class TasksNotesApi {
   /// * [noteId] 
   /// * [wsId] 
   /// * [taskId] 
-  /// * [permissionTaskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -41,7 +40,6 @@ class TasksNotesApi {
     required int noteId,
     required int wsId,
     required int taskId,
-    int? permissionTaskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -72,14 +70,9 @@ class TasksNotesApi {
       validateStatus: validateStatus,
     );
 
-    final _queryParameters = <String, dynamic>{
-      if (permissionTaskId != null) r'permission_task_id': encodeQueryParameter(_serializers, permissionTaskId, const FullType(int)),
-    };
-
     final _response = await _dio.request<Object>(
       _path,
       options: _options,
-      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
@@ -120,7 +113,6 @@ class TasksNotesApi {
   /// * [wsId] 
   /// * [taskId] 
   /// * [noteUpsert] 
-  /// * [permissionTaskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -134,7 +126,6 @@ class TasksNotesApi {
     required int wsId,
     required int taskId,
     required NoteUpsert noteUpsert,
-    int? permissionTaskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -166,10 +157,6 @@ class TasksNotesApi {
       validateStatus: validateStatus,
     );
 
-    final _queryParameters = <String, dynamic>{
-      if (permissionTaskId != null) r'permission_task_id': encodeQueryParameter(_serializers, permissionTaskId, const FullType(int)),
-    };
-
     dynamic _bodyData;
 
     try {
@@ -181,7 +168,6 @@ class TasksNotesApi {
          requestOptions: _options.compose(
           _dio.options,
           _path,
-          queryParameters: _queryParameters,
         ),
         type: DioExceptionType.unknown,
         error: error,
@@ -193,7 +179,6 @@ class TasksNotesApi {
       _path,
       data: _bodyData,
       options: _options,
-      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,

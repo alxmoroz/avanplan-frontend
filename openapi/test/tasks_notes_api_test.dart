@@ -8,14 +8,14 @@ void main() {
   group(TasksNotesApi, () {
     // Delete
     //
-    //Future<bool> deleteNote(int noteId, int wsId, int taskId, { int permissionTaskId }) async
+    //Future<bool> deleteNote(int noteId, int wsId, int taskId) async
     test('test deleteNote', () async {
       // TODO
     });
 
     // Upsert
     //
-    //Future<NoteGet> upsertNote(int wsId, int taskId, NoteUpsert noteUpsert, { int permissionTaskId }) async
+    //Future<NoteGet> upsertNote(int wsId, int taskId, NoteUpsert noteUpsert) async
     test('test upsertNote', () async {
       // TODO
     });

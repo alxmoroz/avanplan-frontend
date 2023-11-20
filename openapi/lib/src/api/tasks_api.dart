@@ -37,7 +37,6 @@ class TasksApi {
   /// * [wsId] 
   /// * [memberId] 
   /// * [requestBody] 
-  /// * [permissionTaskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -52,7 +51,6 @@ class TasksApi {
     required int wsId,
     required int memberId,
     required BuiltList<int> requestBody,
-    int? permissionTaskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -86,7 +84,6 @@ class TasksApi {
 
     final _queryParameters = <String, dynamic>{
       r'member_id': encodeQueryParameter(_serializers, memberId, const FullType(int)),
-      if (permissionTaskId != null) r'permission_task_id': encodeQueryParameter(_serializers, permissionTaskId, const FullType(int)),
     };
 
     dynamic _bodyData;
@@ -156,7 +153,6 @@ class TasksApi {
   /// * [wsId] 
   /// * [taskId] 
   /// * [invitation] 
-  /// * [permissionTaskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -170,7 +166,6 @@ class TasksApi {
     required int wsId,
     required int taskId,
     required Invitation invitation,
-    int? permissionTaskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -202,10 +197,6 @@ class TasksApi {
       validateStatus: validateStatus,
     );
 
-    final _queryParameters = <String, dynamic>{
-      if (permissionTaskId != null) r'permission_task_id': encodeQueryParameter(_serializers, permissionTaskId, const FullType(int)),
-    };
-
     dynamic _bodyData;
 
     try {
@@ -217,7 +208,6 @@ class TasksApi {
          requestOptions: _options.compose(
           _dio.options,
           _path,
-          queryParameters: _queryParameters,
         ),
         type: DioExceptionType.unknown,
         error: error,
@@ -229,7 +219,6 @@ class TasksApi {
       _path,
       data: _bodyData,
       options: _options,
-      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
@@ -273,7 +262,6 @@ class TasksApi {
   /// * [noteId] 
   /// * [wsId] 
   /// * [taskId] 
-  /// * [permissionTaskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -287,7 +275,6 @@ class TasksApi {
     required int noteId,
     required int wsId,
     required int taskId,
-    int? permissionTaskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -318,14 +305,9 @@ class TasksApi {
       validateStatus: validateStatus,
     );
 
-    final _queryParameters = <String, dynamic>{
-      if (permissionTaskId != null) r'permission_task_id': encodeQueryParameter(_serializers, permissionTaskId, const FullType(int)),
-    };
-
     final _response = await _dio.request<Object>(
       _path,
       options: _options,
-      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
@@ -366,7 +348,6 @@ class TasksApi {
   /// * [statusId] 
   /// * [wsId] 
   /// * [taskId] 
-  /// * [permissionTaskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -380,7 +361,6 @@ class TasksApi {
     required int statusId,
     required int wsId,
     required int taskId,
-    int? permissionTaskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -411,14 +391,9 @@ class TasksApi {
       validateStatus: validateStatus,
     );
 
-    final _queryParameters = <String, dynamic>{
-      if (permissionTaskId != null) r'permission_task_id': encodeQueryParameter(_serializers, permissionTaskId, const FullType(int)),
-    };
-
     final _response = await _dio.request<Object>(
       _path,
       options: _options,
-      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
@@ -458,7 +433,6 @@ class TasksApi {
   /// Parameters:
   /// * [taskId] 
   /// * [wsId] 
-  /// * [permissionTaskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -471,7 +445,6 @@ class TasksApi {
   Future<Response<TasksChanges>> deleteTask({ 
     required int taskId,
     required int wsId,
-    int? permissionTaskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -502,14 +475,9 @@ class TasksApi {
       validateStatus: validateStatus,
     );
 
-    final _queryParameters = <String, dynamic>{
-      if (permissionTaskId != null) r'permission_task_id': encodeQueryParameter(_serializers, permissionTaskId, const FullType(int)),
-    };
-
     final _response = await _dio.request<Object>(
       _path,
       options: _options,
-      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
@@ -553,7 +521,6 @@ class TasksApi {
   /// * [taskId] 
   /// * [wsId] 
   /// * [roleId] 
-  /// * [permissionTaskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -567,7 +534,6 @@ class TasksApi {
     required int taskId,
     required int wsId,
     required int roleId,
-    int? permissionTaskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -600,7 +566,6 @@ class TasksApi {
 
     final _queryParameters = <String, dynamic>{
       r'role_id': encodeQueryParameter(_serializers, roleId, const FullType(int)),
-      if (permissionTaskId != null) r'permission_task_id': encodeQueryParameter(_serializers, permissionTaskId, const FullType(int)),
     };
 
     final _response = await _dio.request<Object>(
@@ -650,7 +615,6 @@ class TasksApi {
   /// * [taskId] 
   /// * [wsId] 
   /// * [requestBody] 
-  /// * [permissionTaskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -664,7 +628,6 @@ class TasksApi {
     required int taskId,
     required int wsId,
     required BuiltList<int> requestBody,
-    int? permissionTaskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -696,10 +659,6 @@ class TasksApi {
       validateStatus: validateStatus,
     );
 
-    final _queryParameters = <String, dynamic>{
-      if (permissionTaskId != null) r'permission_task_id': encodeQueryParameter(_serializers, permissionTaskId, const FullType(int)),
-    };
-
     dynamic _bodyData;
 
     try {
@@ -711,7 +670,6 @@ class TasksApi {
          requestOptions: _options.compose(
           _dio.options,
           _path,
-          queryParameters: _queryParameters,
         ),
         type: DioExceptionType.unknown,
         error: error,
@@ -723,7 +681,6 @@ class TasksApi {
       _path,
       data: _bodyData,
       options: _options,
-      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
@@ -767,7 +724,6 @@ class TasksApi {
   /// * [wsId] 
   /// * [taskId] 
   /// * [noteUpsert] 
-  /// * [permissionTaskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -781,7 +737,6 @@ class TasksApi {
     required int wsId,
     required int taskId,
     required NoteUpsert noteUpsert,
-    int? permissionTaskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -813,10 +768,6 @@ class TasksApi {
       validateStatus: validateStatus,
     );
 
-    final _queryParameters = <String, dynamic>{
-      if (permissionTaskId != null) r'permission_task_id': encodeQueryParameter(_serializers, permissionTaskId, const FullType(int)),
-    };
-
     dynamic _bodyData;
 
     try {
@@ -828,7 +779,6 @@ class TasksApi {
          requestOptions: _options.compose(
           _dio.options,
           _path,
-          queryParameters: _queryParameters,
         ),
         type: DioExceptionType.unknown,
         error: error,
@@ -840,7 +790,6 @@ class TasksApi {
       _path,
       data: _bodyData,
       options: _options,
-      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
@@ -884,7 +833,6 @@ class TasksApi {
   /// * [wsId] 
   /// * [taskId] 
   /// * [projectStatusUpsert] 
-  /// * [permissionTaskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -898,7 +846,6 @@ class TasksApi {
     required int wsId,
     required int taskId,
     required ProjectStatusUpsert projectStatusUpsert,
-    int? permissionTaskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -930,10 +877,6 @@ class TasksApi {
       validateStatus: validateStatus,
     );
 
-    final _queryParameters = <String, dynamic>{
-      if (permissionTaskId != null) r'permission_task_id': encodeQueryParameter(_serializers, permissionTaskId, const FullType(int)),
-    };
-
     dynamic _bodyData;
 
     try {
@@ -945,7 +888,6 @@ class TasksApi {
          requestOptions: _options.compose(
           _dio.options,
           _path,
-          queryParameters: _queryParameters,
         ),
         type: DioExceptionType.unknown,
         error: error,
@@ -957,7 +899,6 @@ class TasksApi {
       _path,
       data: _bodyData,
       options: _options,
-      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
@@ -1000,7 +941,6 @@ class TasksApi {
   /// Parameters:
   /// * [wsId] 
   /// * [taskUpsert] 
-  /// * [permissionTaskId] 
   /// * [taskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
@@ -1014,7 +954,6 @@ class TasksApi {
   Future<Response<TasksChanges>> upsertTask({ 
     required int wsId,
     required TaskUpsert taskUpsert,
-    int? permissionTaskId,
     int? taskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -1048,7 +987,6 @@ class TasksApi {
     );
 
     final _queryParameters = <String, dynamic>{
-      if (permissionTaskId != null) r'permission_task_id': encodeQueryParameter(_serializers, permissionTaskId, const FullType(int)),
       if (taskId != null) r'task_id': encodeQueryParameter(_serializers, taskId, const FullType(int)),
     };
 

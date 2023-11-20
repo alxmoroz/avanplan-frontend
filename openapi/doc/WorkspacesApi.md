@@ -27,7 +27,7 @@ Method | HTTP request | Description
 
 
 # **assignRole**
-> BuiltList<MemberGet> assignRole(taskId, wsId, memberId, requestBody, permissionTaskId)
+> BuiltList<MemberGet> assignRole(taskId, wsId, memberId, requestBody)
 
 Assign
 
@@ -46,10 +46,9 @@ final int taskId = 56; // int |
 final int wsId = 56; // int | 
 final int memberId = 56; // int | 
 final BuiltList<int> requestBody = ; // BuiltList<int> | 
-final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.assignRole(taskId, wsId, memberId, requestBody, permissionTaskId);
+    final response = api.assignRole(taskId, wsId, memberId, requestBody);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling WorkspacesApi->assignRole: $e\n');
@@ -64,7 +63,6 @@ Name | Type | Description  | Notes
  **wsId** | **int**|  | 
  **memberId** | **int**|  | 
  **requestBody** | [**BuiltList&lt;int&gt;**](int.md)|  | 
- **permissionTaskId** | **int**|  | [optional] 
 
 ### Return type
 
@@ -82,7 +80,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **createInvitation**
-> InvitationGet createInvitation(wsId, taskId, invitation, permissionTaskId)
+> InvitationGet createInvitation(wsId, taskId, invitation)
 
 Create
 
@@ -100,10 +98,9 @@ final api = Openapi().getWorkspacesApi();
 final int wsId = 56; // int | 
 final int taskId = 56; // int | 
 final Invitation invitation = ; // Invitation | 
-final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.createInvitation(wsId, taskId, invitation, permissionTaskId);
+    final response = api.createInvitation(wsId, taskId, invitation);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling WorkspacesApi->createInvitation: $e\n');
@@ -117,7 +114,6 @@ Name | Type | Description  | Notes
  **wsId** | **int**|  | 
  **taskId** | **int**|  | 
  **invitation** | [**Invitation**](Invitation.md)|  | 
- **permissionTaskId** | **int**|  | [optional] 
 
 ### Return type
 
@@ -178,7 +174,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **deleteNote**
-> bool deleteNote(noteId, wsId, taskId, permissionTaskId)
+> bool deleteNote(noteId, wsId, taskId)
 
 Delete
 
@@ -196,10 +192,9 @@ final api = Openapi().getWorkspacesApi();
 final int noteId = 56; // int | 
 final int wsId = 56; // int | 
 final int taskId = 56; // int | 
-final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.deleteNote(noteId, wsId, taskId, permissionTaskId);
+    final response = api.deleteNote(noteId, wsId, taskId);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling WorkspacesApi->deleteNote: $e\n');
@@ -213,7 +208,6 @@ Name | Type | Description  | Notes
  **noteId** | **int**|  | 
  **wsId** | **int**|  | 
  **taskId** | **int**|  | 
- **permissionTaskId** | **int**|  | [optional] 
 
 ### Return type
 
@@ -231,7 +225,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **deleteStatus**
-> bool deleteStatus(statusId, wsId, taskId, permissionTaskId)
+> bool deleteStatus(statusId, wsId, taskId)
 
 Delete
 
@@ -249,10 +243,9 @@ final api = Openapi().getWorkspacesApi();
 final int statusId = 56; // int | 
 final int wsId = 56; // int | 
 final int taskId = 56; // int | 
-final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.deleteStatus(statusId, wsId, taskId, permissionTaskId);
+    final response = api.deleteStatus(statusId, wsId, taskId);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling WorkspacesApi->deleteStatus: $e\n');
@@ -266,7 +259,6 @@ Name | Type | Description  | Notes
  **statusId** | **int**|  | 
  **wsId** | **int**|  | 
  **taskId** | **int**|  | 
- **permissionTaskId** | **int**|  | [optional] 
 
 ### Return type
 
@@ -284,7 +276,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **deleteTask**
-> TasksChanges deleteTask(taskId, wsId, permissionTaskId)
+> TasksChanges deleteTask(taskId, wsId)
 
 Delete
 
@@ -301,10 +293,9 @@ import 'package:openapi/api.dart';
 final api = Openapi().getWorkspacesApi();
 final int taskId = 56; // int | 
 final int wsId = 56; // int | 
-final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.deleteTask(taskId, wsId, permissionTaskId);
+    final response = api.deleteTask(taskId, wsId);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling WorkspacesApi->deleteTask: $e\n');
@@ -317,7 +308,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **taskId** | **int**|  | 
  **wsId** | **int**|  | 
- **permissionTaskId** | **int**|  | [optional] 
 
 ### Return type
 
@@ -380,7 +370,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **getInvitations**
-> BuiltList<InvitationGet> getInvitations(taskId, wsId, roleId, permissionTaskId)
+> BuiltList<InvitationGet> getInvitations(taskId, wsId, roleId)
 
 Invitations
 
@@ -398,10 +388,9 @@ final api = Openapi().getWorkspacesApi();
 final int taskId = 56; // int | 
 final int wsId = 56; // int | 
 final int roleId = 56; // int | 
-final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.getInvitations(taskId, wsId, roleId, permissionTaskId);
+    final response = api.getInvitations(taskId, wsId, roleId);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling WorkspacesApi->getInvitations: $e\n');
@@ -415,7 +404,6 @@ Name | Type | Description  | Notes
  **taskId** | **int**|  | 
  **wsId** | **int**|  | 
  **roleId** | **int**|  | 
- **permissionTaskId** | **int**|  | [optional] 
 
 ### Return type
 
@@ -523,7 +511,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **setupFeatureSets**
-> BuiltList<ProjectFeatureSetGet> setupFeatureSets(taskId, wsId, requestBody, permissionTaskId)
+> BuiltList<ProjectFeatureSetGet> setupFeatureSets(taskId, wsId, requestBody)
 
 Setup Feature Sets
 
@@ -541,10 +529,9 @@ final api = Openapi().getWorkspacesApi();
 final int taskId = 56; // int | 
 final int wsId = 56; // int | 
 final BuiltList<int> requestBody = ; // BuiltList<int> | 
-final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.setupFeatureSets(taskId, wsId, requestBody, permissionTaskId);
+    final response = api.setupFeatureSets(taskId, wsId, requestBody);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling WorkspacesApi->setupFeatureSets: $e\n');
@@ -558,7 +545,6 @@ Name | Type | Description  | Notes
  **taskId** | **int**|  | 
  **wsId** | **int**|  | 
  **requestBody** | [**BuiltList&lt;int&gt;**](int.md)|  | 
- **permissionTaskId** | **int**|  | [optional] 
 
 ### Return type
 
@@ -625,7 +611,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **upsertNote**
-> NoteGet upsertNote(wsId, taskId, noteUpsert, permissionTaskId)
+> NoteGet upsertNote(wsId, taskId, noteUpsert)
 
 Upsert
 
@@ -643,10 +629,9 @@ final api = Openapi().getWorkspacesApi();
 final int wsId = 56; // int | 
 final int taskId = 56; // int | 
 final NoteUpsert noteUpsert = ; // NoteUpsert | 
-final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.upsertNote(wsId, taskId, noteUpsert, permissionTaskId);
+    final response = api.upsertNote(wsId, taskId, noteUpsert);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling WorkspacesApi->upsertNote: $e\n');
@@ -660,7 +645,6 @@ Name | Type | Description  | Notes
  **wsId** | **int**|  | 
  **taskId** | **int**|  | 
  **noteUpsert** | [**NoteUpsert**](NoteUpsert.md)|  | 
- **permissionTaskId** | **int**|  | [optional] 
 
 ### Return type
 
@@ -678,7 +662,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **upsertStatus**
-> ProjectStatusGet upsertStatus(wsId, taskId, projectStatusUpsert, permissionTaskId)
+> ProjectStatusGet upsertStatus(wsId, taskId, projectStatusUpsert)
 
 Upsert
 
@@ -696,10 +680,9 @@ final api = Openapi().getWorkspacesApi();
 final int wsId = 56; // int | 
 final int taskId = 56; // int | 
 final ProjectStatusUpsert projectStatusUpsert = ; // ProjectStatusUpsert | 
-final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.upsertStatus(wsId, taskId, projectStatusUpsert, permissionTaskId);
+    final response = api.upsertStatus(wsId, taskId, projectStatusUpsert);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling WorkspacesApi->upsertStatus: $e\n');
@@ -713,7 +696,6 @@ Name | Type | Description  | Notes
  **wsId** | **int**|  | 
  **taskId** | **int**|  | 
  **projectStatusUpsert** | [**ProjectStatusUpsert**](ProjectStatusUpsert.md)|  | 
- **permissionTaskId** | **int**|  | [optional] 
 
 ### Return type
 
@@ -731,7 +713,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **upsertTask**
-> TasksChanges upsertTask(wsId, taskUpsert, permissionTaskId, taskId)
+> TasksChanges upsertTask(wsId, taskUpsert, taskId)
 
 Upsert Task
 
@@ -748,11 +730,10 @@ import 'package:openapi/api.dart';
 final api = Openapi().getWorkspacesApi();
 final int wsId = 56; // int | 
 final TaskUpsert taskUpsert = ; // TaskUpsert | 
-final int permissionTaskId = 56; // int | 
 final int taskId = 56; // int | 
 
 try {
-    final response = api.upsertTask(wsId, taskUpsert, permissionTaskId, taskId);
+    final response = api.upsertTask(wsId, taskUpsert, taskId);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling WorkspacesApi->upsertTask: $e\n');
@@ -765,7 +746,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **wsId** | **int**|  | 
  **taskUpsert** | [**TaskUpsert**](TaskUpsert.md)|  | 
- **permissionTaskId** | **int**|  | [optional] 
  **taskId** | **int**|  | [optional] 
 
 ### Return type

@@ -8,7 +8,7 @@ void main() {
   group(TasksRolesApi, () {
     // Assign
     //
-    //Future<BuiltList<MemberGet>> assignRole(int taskId, int wsId, int memberId, BuiltList<int> requestBody, { int permissionTaskId }) async
+    //Future<BuiltList<MemberGet>> assignRole(int taskId, int wsId, int memberId, BuiltList<int> requestBody) async
     test('test assignRole', () async {
       // TODO
     });

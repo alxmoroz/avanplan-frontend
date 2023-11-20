@@ -27,11 +27,6 @@ void main() {
       // TODO
     });
 
-    // int statusId (default value: -1)
-    test('to test the property `statusId`', () async {
-      // TODO
-    });
-
     // bool closed
     test('to test the property `closed`', () async {
       // TODO

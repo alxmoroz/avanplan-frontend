@@ -27,7 +27,6 @@ class ProjectStatusesApi {
   /// * [statusId] 
   /// * [wsId] 
   /// * [taskId] 
-  /// * [permissionTaskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -41,7 +40,6 @@ class ProjectStatusesApi {
     required int statusId,
     required int wsId,
     required int taskId,
-    int? permissionTaskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -72,14 +70,9 @@ class ProjectStatusesApi {
       validateStatus: validateStatus,
     );
 
-    final _queryParameters = <String, dynamic>{
-      if (permissionTaskId != null) r'permission_task_id': encodeQueryParameter(_serializers, permissionTaskId, const FullType(int)),
-    };
-
     final _response = await _dio.request<Object>(
       _path,
       options: _options,
-      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
@@ -120,7 +113,6 @@ class ProjectStatusesApi {
   /// * [wsId] 
   /// * [taskId] 
   /// * [projectStatusUpsert] 
-  /// * [permissionTaskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -134,7 +126,6 @@ class ProjectStatusesApi {
     required int wsId,
     required int taskId,
     required ProjectStatusUpsert projectStatusUpsert,
-    int? permissionTaskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -166,10 +157,6 @@ class ProjectStatusesApi {
       validateStatus: validateStatus,
     );
 
-    final _queryParameters = <String, dynamic>{
-      if (permissionTaskId != null) r'permission_task_id': encodeQueryParameter(_serializers, permissionTaskId, const FullType(int)),
-    };
-
     dynamic _bodyData;
 
     try {
@@ -181,7 +168,6 @@ class ProjectStatusesApi {
          requestOptions: _options.compose(
           _dio.options,
           _path,
-          queryParameters: _queryParameters,
         ),
         type: DioExceptionType.unknown,
         error: error,
@@ -193,7 +179,6 @@ class ProjectStatusesApi {
       _path,
       data: _bodyData,
       options: _options,
-      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,

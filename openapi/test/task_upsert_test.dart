@@ -77,11 +77,6 @@ void main() {
       // TODO
     });
 
-    // int statusId
-    test('to test the property `statusId`', () async {
-      // TODO
-    });
-
     // int projectStatusId
     test('to test the property `projectStatusId`', () async {
       // TODO

@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 
 # **assignRole**
-> BuiltList<MemberGet> assignRole(taskId, wsId, memberId, requestBody, permissionTaskId)
+> BuiltList<MemberGet> assignRole(taskId, wsId, memberId, requestBody)
 
 Assign
 
@@ -32,10 +32,9 @@ final int taskId = 56; // int |
 final int wsId = 56; // int | 
 final int memberId = 56; // int | 
 final BuiltList<int> requestBody = ; // BuiltList<int> | 
-final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.assignRole(taskId, wsId, memberId, requestBody, permissionTaskId);
+    final response = api.assignRole(taskId, wsId, memberId, requestBody);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling TasksRolesApi->assignRole: $e\n');
@@ -50,7 +49,6 @@ Name | Type | Description  | Notes
  **wsId** | **int**|  | 
  **memberId** | **int**|  | 
  **requestBody** | [**BuiltList&lt;int&gt;**](int.md)|  | 
- **permissionTaskId** | **int**|  | [optional] 
 
 ### Return type
 

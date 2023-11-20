@@ -8,14 +8,14 @@ void main() {
   group(WorkspacesApi, () {
     // Assign
     //
-    //Future<BuiltList<MemberGet>> assignRole(int taskId, int wsId, int memberId, BuiltList<int> requestBody, { int permissionTaskId }) async
+    //Future<BuiltList<MemberGet>> assignRole(int taskId, int wsId, int memberId, BuiltList<int> requestBody) async
     test('test assignRole', () async {
       // TODO
     });
 
     // Create
     //
-    //Future<InvitationGet> createInvitation(int wsId, int taskId, Invitation invitation, { int permissionTaskId }) async
+    //Future<InvitationGet> createInvitation(int wsId, int taskId, Invitation invitation) async
     test('test createInvitation', () async {
       // TODO
     });
@@ -29,21 +29,21 @@ void main() {
 
     // Delete
     //
-    //Future<bool> deleteNote(int noteId, int wsId, int taskId, { int permissionTaskId }) async
+    //Future<bool> deleteNote(int noteId, int wsId, int taskId) async
     test('test deleteNote', () async {
       // TODO
     });
 
     // Delete
     //
-    //Future<bool> deleteStatus(int statusId, int wsId, int taskId, { int permissionTaskId }) async
+    //Future<bool> deleteStatus(int statusId, int wsId, int taskId) async
     test('test deleteStatus', () async {
       // TODO
     });
 
     // Delete
     //
-    //Future<TasksChanges> deleteTask(int taskId, int wsId, { int permissionTaskId }) async
+    //Future<TasksChanges> deleteTask(int taskId, int wsId) async
     test('test deleteTask', () async {
       // TODO
     });
@@ -57,7 +57,7 @@ void main() {
 
     // Invitations
     //
-    //Future<BuiltList<InvitationGet>> getInvitations(int taskId, int wsId, int roleId, { int permissionTaskId }) async
+    //Future<BuiltList<InvitationGet>> getInvitations(int taskId, int wsId, int roleId) async
     test('test getInvitations', () async {
       // TODO
     });
@@ -78,7 +78,7 @@ void main() {
 
     // Setup Feature Sets
     //
-    //Future<BuiltList<ProjectFeatureSetGet>> setupFeatureSets(int taskId, int wsId, BuiltList<int> requestBody, { int permissionTaskId }) async
+    //Future<BuiltList<ProjectFeatureSetGet>> setupFeatureSets(int taskId, int wsId, BuiltList<int> requestBody) async
     test('test setupFeatureSets', () async {
       // TODO
     });
@@ -92,21 +92,21 @@ void main() {
 
     // Upsert
     //
-    //Future<NoteGet> upsertNote(int wsId, int taskId, NoteUpsert noteUpsert, { int permissionTaskId }) async
+    //Future<NoteGet> upsertNote(int wsId, int taskId, NoteUpsert noteUpsert) async
     test('test upsertNote', () async {
       // TODO
     });
 
     // Upsert
     //
-    //Future<ProjectStatusGet> upsertStatus(int wsId, int taskId, ProjectStatusUpsert projectStatusUpsert, { int permissionTaskId }) async
+    //Future<ProjectStatusGet> upsertStatus(int wsId, int taskId, ProjectStatusUpsert projectStatusUpsert) async
     test('test upsertStatus', () async {
       // TODO
     });
 
     // Upsert Task
     //
-    //Future<TasksChanges> upsertTask(int wsId, TaskUpsert taskUpsert, { int permissionTaskId, int taskId }) async
+    //Future<TasksChanges> upsertTask(int wsId, TaskUpsert taskUpsert, { int taskId }) async
     test('test upsertTask', () async {
       // TODO
     });

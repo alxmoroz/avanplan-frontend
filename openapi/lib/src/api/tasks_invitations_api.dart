@@ -28,7 +28,6 @@ class TasksInvitationsApi {
   /// * [wsId] 
   /// * [taskId] 
   /// * [invitation] 
-  /// * [permissionTaskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -42,7 +41,6 @@ class TasksInvitationsApi {
     required int wsId,
     required int taskId,
     required Invitation invitation,
-    int? permissionTaskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -74,10 +72,6 @@ class TasksInvitationsApi {
       validateStatus: validateStatus,
     );
 
-    final _queryParameters = <String, dynamic>{
-      if (permissionTaskId != null) r'permission_task_id': encodeQueryParameter(_serializers, permissionTaskId, const FullType(int)),
-    };
-
     dynamic _bodyData;
 
     try {
@@ -89,7 +83,6 @@ class TasksInvitationsApi {
          requestOptions: _options.compose(
           _dio.options,
           _path,
-          queryParameters: _queryParameters,
         ),
         type: DioExceptionType.unknown,
         error: error,
@@ -101,7 +94,6 @@ class TasksInvitationsApi {
       _path,
       data: _bodyData,
       options: _options,
-      queryParameters: _queryParameters,
       cancelToken: cancelToken,
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
@@ -145,7 +137,6 @@ class TasksInvitationsApi {
   /// * [taskId] 
   /// * [wsId] 
   /// * [roleId] 
-  /// * [permissionTaskId] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -159,7 +150,6 @@ class TasksInvitationsApi {
     required int taskId,
     required int wsId,
     required int roleId,
-    int? permissionTaskId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
     Map<String, dynamic>? extra,
@@ -192,7 +182,6 @@ class TasksInvitationsApi {
 
     final _queryParameters = <String, dynamic>{
       r'role_id': encodeQueryParameter(_serializers, roleId, const FullType(int)),
-      if (permissionTaskId != null) r'permission_task_id': encodeQueryParameter(_serializers, permissionTaskId, const FullType(int)),
     };
 
     final _response = await _dio.request<Object>(

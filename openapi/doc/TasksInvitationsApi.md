@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 
 # **createInvitation**
-> InvitationGet createInvitation(wsId, taskId, invitation, permissionTaskId)
+> InvitationGet createInvitation(wsId, taskId, invitation)
 
 Create
 
@@ -32,10 +32,9 @@ final api = Openapi().getTasksInvitationsApi();
 final int wsId = 56; // int | 
 final int taskId = 56; // int | 
 final Invitation invitation = ; // Invitation | 
-final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.createInvitation(wsId, taskId, invitation, permissionTaskId);
+    final response = api.createInvitation(wsId, taskId, invitation);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling TasksInvitationsApi->createInvitation: $e\n');
@@ -49,7 +48,6 @@ Name | Type | Description  | Notes
  **wsId** | **int**|  | 
  **taskId** | **int**|  | 
  **invitation** | [**Invitation**](Invitation.md)|  | 
- **permissionTaskId** | **int**|  | [optional] 
 
 ### Return type
 
@@ -67,7 +65,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **getInvitations**
-> BuiltList<InvitationGet> getInvitations(taskId, wsId, roleId, permissionTaskId)
+> BuiltList<InvitationGet> getInvitations(taskId, wsId, roleId)
 
 Invitations
 
@@ -85,10 +83,9 @@ final api = Openapi().getTasksInvitationsApi();
 final int taskId = 56; // int | 
 final int wsId = 56; // int | 
 final int roleId = 56; // int | 
-final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.getInvitations(taskId, wsId, roleId, permissionTaskId);
+    final response = api.getInvitations(taskId, wsId, roleId);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling TasksInvitationsApi->getInvitations: $e\n');
@@ -102,7 +99,6 @@ Name | Type | Description  | Notes
  **taskId** | **int**|  | 
  **wsId** | **int**|  | 
  **roleId** | **int**|  | 
- **permissionTaskId** | **int**|  | [optional] 
 
 ### Return type
 

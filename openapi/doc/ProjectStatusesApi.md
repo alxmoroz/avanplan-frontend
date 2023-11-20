@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 
 # **deleteStatus**
-> bool deleteStatus(statusId, wsId, taskId, permissionTaskId)
+> bool deleteStatus(statusId, wsId, taskId)
 
 Delete
 
@@ -32,10 +32,9 @@ final api = Openapi().getProjectStatusesApi();
 final int statusId = 56; // int | 
 final int wsId = 56; // int | 
 final int taskId = 56; // int | 
-final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.deleteStatus(statusId, wsId, taskId, permissionTaskId);
+    final response = api.deleteStatus(statusId, wsId, taskId);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling ProjectStatusesApi->deleteStatus: $e\n');
@@ -49,7 +48,6 @@ Name | Type | Description  | Notes
  **statusId** | **int**|  | 
  **wsId** | **int**|  | 
  **taskId** | **int**|  | 
- **permissionTaskId** | **int**|  | [optional] 
 
 ### Return type
 
@@ -67,7 +65,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **upsertStatus**
-> ProjectStatusGet upsertStatus(wsId, taskId, projectStatusUpsert, permissionTaskId)
+> ProjectStatusGet upsertStatus(wsId, taskId, projectStatusUpsert)
 
 Upsert
 
@@ -85,10 +83,9 @@ final api = Openapi().getProjectStatusesApi();
 final int wsId = 56; // int | 
 final int taskId = 56; // int | 
 final ProjectStatusUpsert projectStatusUpsert = ; // ProjectStatusUpsert | 
-final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.upsertStatus(wsId, taskId, projectStatusUpsert, permissionTaskId);
+    final response = api.upsertStatus(wsId, taskId, projectStatusUpsert);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling ProjectStatusesApi->upsertStatus: $e\n');
@@ -102,7 +99,6 @@ Name | Type | Description  | Notes
  **wsId** | **int**|  | 
  **taskId** | **int**|  | 
  **projectStatusUpsert** | [**ProjectStatusUpsert**](ProjectStatusUpsert.md)|  | 
- **permissionTaskId** | **int**|  | [optional] 
 
 ### Return type
 

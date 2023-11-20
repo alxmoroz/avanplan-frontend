@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 
 # **deleteNote**
-> bool deleteNote(noteId, wsId, taskId, permissionTaskId)
+> bool deleteNote(noteId, wsId, taskId)
 
 Delete
 
@@ -32,10 +32,9 @@ final api = Openapi().getTasksNotesApi();
 final int noteId = 56; // int | 
 final int wsId = 56; // int | 
 final int taskId = 56; // int | 
-final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.deleteNote(noteId, wsId, taskId, permissionTaskId);
+    final response = api.deleteNote(noteId, wsId, taskId);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling TasksNotesApi->deleteNote: $e\n');
@@ -49,7 +48,6 @@ Name | Type | Description  | Notes
  **noteId** | **int**|  | 
  **wsId** | **int**|  | 
  **taskId** | **int**|  | 
- **permissionTaskId** | **int**|  | [optional] 
 
 ### Return type
 
@@ -67,7 +65,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **upsertNote**
-> NoteGet upsertNote(wsId, taskId, noteUpsert, permissionTaskId)
+> NoteGet upsertNote(wsId, taskId, noteUpsert)
 
 Upsert
 
@@ -85,10 +83,9 @@ final api = Openapi().getTasksNotesApi();
 final int wsId = 56; // int | 
 final int taskId = 56; // int | 
 final NoteUpsert noteUpsert = ; // NoteUpsert | 
-final int permissionTaskId = 56; // int | 
 
 try {
-    final response = api.upsertNote(wsId, taskId, noteUpsert, permissionTaskId);
+    final response = api.upsertNote(wsId, taskId, noteUpsert);
     print(response);
 } catch on DioException (e) {
     print('Exception when calling TasksNotesApi->upsertNote: $e\n');
@@ -102,7 +99,6 @@ Name | Type | Description  | Notes
  **wsId** | **int**|  | 
  **taskId** | **int**|  | 
  **noteUpsert** | [**NoteUpsert**](NoteUpsert.md)|  | 
- **permissionTaskId** | **int**|  | [optional] 
 
 ### Return type
 

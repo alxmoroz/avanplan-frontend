@@ -15,7 +15,6 @@ part 'project_status_upsert.g.dart';
 /// * [title] 
 /// * [description] 
 /// * [position] 
-/// * [statusId] 
 /// * [closed] 
 /// * [projectId] 
 @BuiltValue()
@@ -24,7 +23,7 @@ abstract class ProjectStatusUpsert implements Built<ProjectStatusUpsert, Project
   int? get id;
 
   @BuiltValueField(wireName: r'title')
-  String? get title;
+  String get title;
 
   @BuiltValueField(wireName: r'description')
   String? get description;
@@ -32,11 +31,8 @@ abstract class ProjectStatusUpsert implements Built<ProjectStatusUpsert, Project
   @BuiltValueField(wireName: r'position')
   int get position;
 
-  @BuiltValueField(wireName: r'status_id')
-  int? get statusId;
-
   @BuiltValueField(wireName: r'closed')
-  bool? get closed;
+  bool get closed;
 
   @BuiltValueField(wireName: r'project_id')
   int get projectId;
@@ -46,8 +42,7 @@ abstract class ProjectStatusUpsert implements Built<ProjectStatusUpsert, Project
   factory ProjectStatusUpsert([void updates(ProjectStatusUpsertBuilder b)]) = _$ProjectStatusUpsert;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(ProjectStatusUpsertBuilder b) => b
-      ..statusId = -1;
+  static void _defaults(ProjectStatusUpsertBuilder b) => b;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<ProjectStatusUpsert> get serializer => _$ProjectStatusUpsertSerializer();
@@ -72,13 +67,11 @@ class _$ProjectStatusUpsertSerializer implements PrimitiveSerializer<ProjectStat
         specifiedType: const FullType(int),
       );
     }
-    if (object.title != null) {
-      yield r'title';
-      yield serializers.serialize(
-        object.title,
-        specifiedType: const FullType(String),
-      );
-    }
+    yield r'title';
+    yield serializers.serialize(
+      object.title,
+      specifiedType: const FullType(String),
+    );
     if (object.description != null) {
       yield r'description';
       yield serializers.serialize(
@@ -91,20 +84,11 @@ class _$ProjectStatusUpsertSerializer implements PrimitiveSerializer<ProjectStat
       object.position,
       specifiedType: const FullType(int),
     );
-    if (object.statusId != null) {
-      yield r'status_id';
-      yield serializers.serialize(
-        object.statusId,
-        specifiedType: const FullType(int),
-      );
-    }
-    if (object.closed != null) {
-      yield r'closed';
-      yield serializers.serialize(
-        object.closed,
-        specifiedType: const FullType(bool),
-      );
-    }
+    yield r'closed';
+    yield serializers.serialize(
+      object.closed,
+      specifiedType: const FullType(bool),
+    );
     yield r'project_id';
     yield serializers.serialize(
       object.projectId,
@@ -160,13 +144,6 @@ class _$ProjectStatusUpsertSerializer implements PrimitiveSerializer<ProjectStat
             specifiedType: const FullType(int),
           ) as int;
           result.position = valueDes;
-          break;
-        case r'status_id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.statusId = valueDes;
           break;
         case r'closed':
           final valueDes = serializers.deserialize(

@@ -83,9 +83,15 @@ abstract class _NotificationControllerBase with Store {
     final authStatus = (await FirebaseMessaging.instance.requestPermission()).authorizationStatus;
 
     // Получение токена
-    final token = await FirebaseMessaging.instance.getToken(
-      vapidKey: isWeb ? 'BCOA2mDb6-CkpUHqBhSYe5Ave8GES9JBE--Ux2LpgiQ5GyZBSaLZpHjqSH9-LDnC-K7QUtoyXM_BnaetF6pw5Xc' : null,
-    );
+    String? token;
+    if (isWeb) {
+      // TODO: на сафари вообще виснет приложение пока что
+      // token = await FirebaseMessaging.instance.getToken(
+      //   vapidKey: isWeb ? 'BCOA2mDb6-CkpUHqBhSYe5Ave8GES9JBE--Ux2LpgiQ5GyZBSaLZpHjqSH9-LDnC-K7QUtoyXM_BnaetF6pw5Xc' : null,
+      // );
+    } else {
+      token = await FirebaseMessaging.instance.getToken();
+    }
     final hasToken = token?.isNotEmpty == true;
     pushAuthorized = hasToken && authStatus == AuthorizationStatus.authorized;
 

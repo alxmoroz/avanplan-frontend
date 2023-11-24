@@ -14,6 +14,7 @@ part 'notification.g.dart';
 /// * [id] 
 /// * [title] 
 /// * [description] 
+/// * [html] 
 /// * [scheduledDate] 
 /// * [url] 
 /// * [messageId] 
@@ -29,6 +30,9 @@ abstract class Notification implements Built<Notification, NotificationBuilder> 
 
   @BuiltValueField(wireName: r'description')
   String? get description;
+
+  @BuiltValueField(wireName: r'html')
+  String? get html;
 
   @BuiltValueField(wireName: r'scheduled_date')
   DateTime? get scheduledDate;
@@ -82,6 +86,13 @@ class _$NotificationSerializer implements PrimitiveSerializer<Notification> {
       yield r'description';
       yield serializers.serialize(
         object.description,
+        specifiedType: const FullType(String),
+      );
+    }
+    if (object.html != null) {
+      yield r'html';
+      yield serializers.serialize(
+        object.html,
         specifiedType: const FullType(String),
       );
     }
@@ -157,6 +168,13 @@ class _$NotificationSerializer implements PrimitiveSerializer<Notification> {
             specifiedType: const FullType(String),
           ) as String;
           result.description = valueDes;
+          break;
+        case r'html':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.html = valueDes;
           break;
         case r'scheduled_date':
           final valueDes = serializers.deserialize(

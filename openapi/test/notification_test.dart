@@ -22,6 +22,11 @@ void main() {
       // TODO
     });
 
+    // String html
+    test('to test the property `html`', () async {
+      // TODO
+    });
+
     // DateTime scheduledDate
     test('to test the property `scheduledDate`', () async {
       // TODO

@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **id** | **int** |  | 
 **title** | **String** |  | 
 **description** | **String** |  | [optional] 
+**html** | **String** |  | [optional] 
 **scheduledDate** | [**DateTime**](DateTime.md) |  | [optional] 
 **url** | **String** |  | [optional] 
 **messageId** | **int** |  | 

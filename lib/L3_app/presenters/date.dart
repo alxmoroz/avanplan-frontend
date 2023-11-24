@@ -8,11 +8,11 @@ import '../extra/services.dart';
 extension DateFormatterPresenter on DateTime {
   String get strTime => DateFormat.Hm().format(this);
   String get strShort => thisYear ? DateFormat.Md().format(this) : DateFormat.yMd().format(this);
-  String get strMedium => this == yesterday
+  String get strMedium => date == yesterday
       ? loc.yesterday_date_title
-      : this == today
+      : date == today
           ? loc.today_date_title
-          : this == tomorrow
+          : date == tomorrow
               ? loc.tomorrow_date_title
               : thisYear
                   ? DateFormat.MMMMd().format(this)

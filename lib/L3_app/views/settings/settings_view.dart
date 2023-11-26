@@ -40,9 +40,9 @@ class SettingsView extends StatelessWidget {
         leading: BellIcon(hasUnread: notificationController.hasUnread),
         titleText: loc.notification_list_title,
         trailing: Row(children: [
-          if (notificationController.hasUnread)
+          if (notificationController.notifications.isNotEmpty)
             BaseText(
-              '${notificationController.unreadCount}',
+              '${notificationController.notifications.length}',
               padding: const EdgeInsets.only(right: P),
             ),
           const ChevronIcon(),

@@ -36,5 +36,15 @@ void main() {
     test('to test the property `isRead`', () async {
       // TODO
     });
+
+    // int messageId
+    test('to test the property `messageId`', () async {
+      // TODO
+    });
+
+    // String channel
+    test('to test the property `channel`', () async {
+      // TODO
+    });
   });
 }

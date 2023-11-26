@@ -4,6 +4,7 @@ import 'package:app_settings/app_settings.dart' as sys_settings;
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../L1_domain/entities_extensions/notification.dart';
 import '../../../L1_domain/utils/dates.dart';
 import '../../components/adaptive.dart';
 import '../../components/alert_dialog.dart';
@@ -41,19 +42,18 @@ class NotificationListView extends StatelessWidget {
       final date = n.scheduledDate.date.strMedium;
       final time = n.scheduledDate.strTime;
       final title = n.title;
-      final showDetails = n.description.length > 240 || n.url?.isNotEmpty == true;
       return MTListTile(
         middle: SmallText('$date $time', maxLines: 1),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            BaseText(title, weight: n.isRead ? null : FontWeight.w500, maxLines: 1),
+            BaseText(title, weight: !n.hasDetails || n.isRead ? null : FontWeight.w500, maxLines: 1),
             if (n.description.isNotEmpty) SmallText(n.description, maxLines: 5, padding: const EdgeInsets.only(top: P)),
           ],
         ),
-        trailing: showDetails ? const ChevronIcon() : null,
+        trailing: n.hasDetails ? const ChevronIcon() : null,
         bottomDivider: index < _controller.notifications.length - 1,
-        onTap: showDetails ? () => _controller.showNotification(context, n: n) : null,
+        onTap: n.hasDetails ? () => _controller.showNotification(context, n: n) : null,
       );
     } else {
       return SmallText(

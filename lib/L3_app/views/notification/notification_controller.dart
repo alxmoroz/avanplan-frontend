@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/notification.dart';
+import '../../../L1_domain/entities_extensions/notification.dart';
 import '../../../L2_data/services/platform.dart';
 import '../../../main.dart';
 import '../../extra/services.dart';
@@ -23,7 +24,7 @@ abstract class _NotificationControllerBase with Store {
   int? selectedNotificationId;
 
   @computed
-  int get unreadCount => notifications.where((n) => !n.isRead).length;
+  int get unreadCount => notifications.where((n) => n.hasDetails && !n.isRead).length;
 
   @computed
   bool get hasUnread => unreadCount > 0;

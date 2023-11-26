@@ -16,7 +16,7 @@ class MTDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Divider(
-      color: (color ?? b2Color).resolve(context),
+      color: (color ?? b1Color).resolve(context),
       indent: indent ?? 0,
       endIndent: endIndent ?? 0,
       height: height ?? 1,

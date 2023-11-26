@@ -8,17 +8,17 @@ import 'package:flutter/cupertino.dart';
 const _bDC = 18;
 
 /// светлая тема
-const _b3r = 254;
-const _b3g = 253;
-const _b3b = 252;
+const _b3r = 255;
+const _b3g = 254;
+const _b3b = 253;
 
-const _b2r = _b3r - _bDC;
-const _b2g = _b3g - _bDC;
-const _b2b = _b3b - _bDC;
+const _b2r = 242;
+const _b2g = 244;
+const _b2b = 248;
 
-const _b1r = _b2r - _bDC;
-const _b1g = _b2g - _bDC;
-const _b1b = _b2b - _bDC;
+const _b1r = 230;
+const _b1g = 232;
+const _b1b = 238;
 
 /// темная тема
 const _b1dr = 26;
@@ -53,11 +53,11 @@ const b1Color = CupertinoDynamicColor.withBrightness(
 
 /// Цвета текста и элементов
 
-// контраст между соседними цветами текста и элементов
+// контраст между соседними цветами текста или элементами
 const _fDC = 58;
 
 // контраст между фоном и незаметным цветом
-const _delta_fg_bg = 34;
+const _delta_fg_bg = 32;
 
 /// светлая тема
 const _f3r = _b1r - _delta_fg_bg;

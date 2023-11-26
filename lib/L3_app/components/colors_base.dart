@@ -4,34 +4,31 @@ import 'package:flutter/cupertino.dart';
 
 /// Цвета фона
 
-// контраст между цветами фона
-const _bDC = 18;
-
 /// светлая тема
 const _b3r = 255;
 const _b3g = 254;
 const _b3b = 253;
 
-const _b2r = 242;
-const _b2g = 244;
-const _b2b = 248;
+const _b2r = 244;
+const _b2g = 245;
+const _b2b = 247;
 
-const _b1r = 230;
-const _b1g = 232;
-const _b1b = 238;
+const _b1r = 228;
+const _b1g = 230;
+const _b1b = 234;
 
 /// темная тема
-const _b1dr = 26;
-const _b1dg = 26;
-const _b1db = 26 + 8;
+const _b3dr = 58;
+const _b3dg = 60;
+const _b3db = 66;
 
-const _b2dr = _b1dr + _bDC;
-const _b2dg = _b1dg + _bDC;
-const _b2db = _b1db + _bDC;
+const _b2dr = 46;
+const _b2dg = 48;
+const _b2db = 54;
 
-const _b3dr = _b2dr + _bDC;
-const _b3dg = _b2dg + _bDC;
-const _b3db = _b2db + _bDC;
+const _b1dr = 34;
+const _b1dg = 36;
+const _b1db = 42;
 
 /// самый яркий фон (выпирающий цвет)
 const b3Color = CupertinoDynamicColor.withBrightness(

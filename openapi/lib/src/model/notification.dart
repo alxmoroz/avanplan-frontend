@@ -14,11 +14,8 @@ part 'notification.g.dart';
 /// * [id] 
 /// * [title] 
 /// * [description] 
-/// * [html] 
 /// * [scheduledDate] 
 /// * [url] 
-/// * [messageId] 
-/// * [channel] 
 /// * [isRead] 
 @BuiltValue()
 abstract class Notification implements Built<Notification, NotificationBuilder> {
@@ -31,20 +28,11 @@ abstract class Notification implements Built<Notification, NotificationBuilder> 
   @BuiltValueField(wireName: r'description')
   String? get description;
 
-  @BuiltValueField(wireName: r'html')
-  String? get html;
-
   @BuiltValueField(wireName: r'scheduled_date')
   DateTime? get scheduledDate;
 
   @BuiltValueField(wireName: r'url')
   String? get url;
-
-  @BuiltValueField(wireName: r'message_id')
-  int get messageId;
-
-  @BuiltValueField(wireName: r'channel')
-  String get channel;
 
   @BuiltValueField(wireName: r'is_read')
   bool get isRead;
@@ -89,13 +77,6 @@ class _$NotificationSerializer implements PrimitiveSerializer<Notification> {
         specifiedType: const FullType(String),
       );
     }
-    if (object.html != null) {
-      yield r'html';
-      yield serializers.serialize(
-        object.html,
-        specifiedType: const FullType(String),
-      );
-    }
     if (object.scheduledDate != null) {
       yield r'scheduled_date';
       yield serializers.serialize(
@@ -110,16 +91,6 @@ class _$NotificationSerializer implements PrimitiveSerializer<Notification> {
         specifiedType: const FullType(String),
       );
     }
-    yield r'message_id';
-    yield serializers.serialize(
-      object.messageId,
-      specifiedType: const FullType(int),
-    );
-    yield r'channel';
-    yield serializers.serialize(
-      object.channel,
-      specifiedType: const FullType(String),
-    );
     yield r'is_read';
     yield serializers.serialize(
       object.isRead,
@@ -169,13 +140,6 @@ class _$NotificationSerializer implements PrimitiveSerializer<Notification> {
           ) as String;
           result.description = valueDes;
           break;
-        case r'html':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.html = valueDes;
-          break;
         case r'scheduled_date':
           final valueDes = serializers.deserialize(
             value,
@@ -189,20 +153,6 @@ class _$NotificationSerializer implements PrimitiveSerializer<Notification> {
             specifiedType: const FullType(String),
           ) as String;
           result.url = valueDes;
-          break;
-        case r'message_id':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(int),
-          ) as int;
-          result.messageId = valueDes;
-          break;
-        case r'channel':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.channel = valueDes;
           break;
         case r'is_read':
           final valueDes = serializers.deserialize(

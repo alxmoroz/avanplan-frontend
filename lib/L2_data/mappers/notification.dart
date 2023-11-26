@@ -13,6 +13,5 @@ extension NotificationMapper on api.Notification {
         scheduledDate: scheduledDate?.toLocal() ?? now,
         isRead: isRead,
         url: url,
-        messageId: messageId,
       );
 }

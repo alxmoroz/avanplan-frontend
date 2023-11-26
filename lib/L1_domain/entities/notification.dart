@@ -10,11 +10,9 @@ class MTNotification extends Titleable {
     required this.scheduledDate,
     required this.isRead,
     required this.url,
-    required this.messageId,
   });
 
   DateTime scheduledDate;
   bool isRead;
   String? url;
-  int messageId;
 }

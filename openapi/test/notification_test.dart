@@ -22,11 +22,6 @@ void main() {
       // TODO
     });
 
-    // String html
-    test('to test the property `html`', () async {
-      // TODO
-    });
-
     // DateTime scheduledDate
     test('to test the property `scheduledDate`', () async {
       // TODO
@@ -34,16 +29,6 @@ void main() {
 
     // String url
     test('to test the property `url`', () async {
-      // TODO
-    });
-
-    // int messageId
-    test('to test the property `messageId`', () async {
-      // TODO
-    });
-
-    // String channel
-    test('to test the property `channel`', () async {
       // TODO
     });
 

@@ -2,6 +2,7 @@
 
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -33,6 +34,49 @@ extension RouteSettingsExt on RouteSettings {
   Uri get uri => Uri.parse(name ?? '/');
 }
 
+final _routers = <MTRouter>[
+  InvitationTokenRouter(),
+  RegistrationTokenRouter(),
+
+  //
+  MainRouter(),
+  // My Tasks
+  MyTasksRouter(),
+  // Projects
+  MyProjectsRouter(),
+
+  // Projects - Create
+  CreateProjectQuizRouter(),
+  // Projects - Create - FeatureSets
+  FeatureSetsQuizRouter(),
+  // Projects - Create - Statuses
+  ProjectStatusesQuizRouter(),
+  // Projects - Create - Team
+  TeamInvitationQuizRouter(),
+  // Projects - Create - Goal
+  CreateGoalQuizRouter(),
+  // Projects - Create - Tasks
+  CreateMultiTaskQuizRouter(),
+
+  // Projects - Members
+  MemberRouter(),
+  // Projects - Tasks / Goals
+  TaskRouter(),
+
+  // Settings
+  SettingsRouter(),
+  // Settings - My Account
+  AccountRouter(),
+  // Settings - My Notifications
+  NotificationsRouter(),
+  // Settings - Workspaces
+  WorkspaceRouter(),
+  // Settings - Workspaces - Sources
+  SourcesRouter(),
+  // Settings - Workspaces - Users
+  UsersRouter(),
+];
+
 abstract class MTRouter {
   // для title и settings
   RouteSettings? rs;
@@ -52,50 +96,7 @@ abstract class MTRouter {
   Widget? get page => null;
   Future navigate(BuildContext context, {Object? args}) async => await Navigator.of(context).pushNamed(path, arguments: args);
 
-  static final routers = <MTRouter>[
-    InvitationTokenRouter(),
-    RegistrationTokenRouter(),
-
-    //
-    MainRouter(),
-    // My Tasks
-    MyTasksRouter(),
-    // Projects
-    MyProjectsRouter(),
-
-    // Projects - Create
-    CreateProjectQuizRouter(),
-    // Projects - Create - FeatureSets
-    FeatureSetsQuizRouter(),
-    // Projects - Create - Statuses
-    ProjectStatusesQuizRouter(),
-    // Projects - Create - Team
-    TeamInvitationQuizRouter(),
-    // Projects - Create - Goal
-    CreateGoalQuizRouter(),
-    // Projects - Create - Tasks
-    CreateMultiTaskQuizRouter(),
-
-    // Projects - Members
-    MemberRouter(),
-    // Projects - Tasks / Goals
-    TaskRouter(),
-
-    // Settings
-    SettingsRouter(),
-    // Settings - My Account
-    AccountRouter(),
-    // Settings - My Notifications
-    NotificationsRouter(),
-    // Settings - Workspaces
-    WorkspaceRouter(),
-    // Settings - Workspaces - Sources
-    SourcesRouter(),
-    // Settings - Workspaces - Users
-    UsersRouter(),
-  ];
-
-  static MTRouter? router(RouteSettings rs) => routers.firstWhereOrNull((r) => r.hasMatch(rs));
+  static MTRouter? router(RouteSettings rs) => _routers.firstWhereOrNull((r) => r.hasMatch(rs));
 
   static CupertinoPageRoute? generateRoute(RouteSettings rs) {
     final r = router(rs);
@@ -130,11 +131,10 @@ Future setWebpageTitle(String title) async {
 }
 
 void _setTitle(RouteSettings? rs) {
-  if (rs == null) {
-    return;
+  // Только для веба
+  if (kIsWeb && rs != null) {
+    setWebpageTitle(MTRouter.router(rs)?.title ?? '');
   }
-
-  setWebpageTitle(MTRouter.router(rs)?.title ?? '');
 }
 
 class MTRouteObserver extends NavigatorObserver {

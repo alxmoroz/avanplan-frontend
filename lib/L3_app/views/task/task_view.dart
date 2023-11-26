@@ -1,6 +1,7 @@
 // Copyright (c) 2022. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
@@ -86,7 +87,9 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   @override
   void initState() {
-    setWebpageTitle(task.viewTitle);
+    if (kIsWeb) {
+      setWebpageTitle(task.viewTitle);
+    }
 
     overviewPane = OverviewPane(controller);
     tasksPane = TasksPane(controller);

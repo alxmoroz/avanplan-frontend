@@ -47,7 +47,7 @@ class AssigneeController {
       _assigneeEditTimer?.cancel();
       task.assigneeId = assignee.id;
       tasksMainController.refreshTasks();
-      _assigneeEditTimer = Timer(const Duration(seconds: 7), () async => await _assign(oldAssigneeId));
+      _assigneeEditTimer = Timer(const Duration(seconds: 0), () async => await _assign(oldAssigneeId));
     }
   }
 }

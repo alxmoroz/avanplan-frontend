@@ -18,6 +18,7 @@ import '../../extra/services.dart';
 import '../../presenters/task_type.dart';
 import 'controllers/task_controller.dart';
 import 'widgets/details/details_pane.dart';
+import 'widgets/empty_state/not_found.dart';
 import 'widgets/header/task_header.dart';
 import 'widgets/header/task_navbar.dart';
 import 'widgets/overview/overview_pane.dart';
@@ -31,11 +32,19 @@ class TaskRouter extends MTRouter {
   RegExp get pathRe => RegExp('^$_prefix/(\\d+)/(\\d+)\$');
   int get _wsId => int.parse(pathRe.firstMatch(rs!.uri.path)?.group(1) ?? '-1');
   int get _taskId => int.parse(pathRe.firstMatch(rs!.uri.path)?.group(2) ?? '-1');
+  Task? get _task => tasksMainController.task(_wsId, _taskId);
 
-  TaskController get _controller => rs!.arguments as TaskController? ?? TaskController(tasksMainController.task(_wsId, _taskId)!);
   // TODO: костыль
   @override
-  Widget get page => rs!.arguments == null ? Observer(builder: (_) => loader.loading ? Container() : TaskView(_controller)) : TaskView(_controller);
+  Widget? get page => rs!.arguments != null
+      ? TaskView(rs!.arguments as TaskController)
+      : Observer(
+          builder: (ctx) => loader.loading
+              ? Container()
+              : _task != null
+                  ? TaskView(TaskController(_task!))
+                  : NotFoundPage(),
+        );
 
   @override
   String get title => (rs!.arguments as TaskController?)?.task.viewTitle ?? '';

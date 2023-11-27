@@ -55,7 +55,7 @@ class SourceListView extends StatelessWidget {
     return Observer(builder: (_) {
       // WidgetsBinding.instance.addPostFrameCallback((_) => setWebpageTitle('${_ws.code} | ${loc.source_list_title}'));
       return MTPage(
-        appBar: MTAppBar(
+        appBar: cupertinoNavBar(
           context,
           middle: _ws.subPageTitle(loc.source_list_title),
           trailing: const SizedBox(width: P8),

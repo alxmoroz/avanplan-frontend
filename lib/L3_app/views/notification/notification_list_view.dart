@@ -84,7 +84,7 @@ class NotificationListView extends StatelessWidget {
     return Observer(builder: (_) {
       // WidgetsBinding.instance.addPostFrameCallback((_) => setWebpageTitle(loc.notification_list_title));
       return MTPage(
-        appBar: MTAppBar(context, title: loc.notification_list_title),
+        appBar: cupertinoNavBar(context, title: loc.notification_list_title),
         body: SafeArea(
           top: false,
           bottom: false,

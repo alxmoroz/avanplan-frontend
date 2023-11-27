@@ -27,24 +27,22 @@ class MyProjectsRouter extends MTRouter {
 class MyProjectsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Observer(builder: (_) {
-      // WidgetsBinding.instance.addPostFrameCallback((_) => setWebpageTitle(loc.project_list_title));
-      return MTPage(
-        appBar: MTAppBar(context, title: loc.project_list_title),
-        body: SafeArea(
-          top: false,
-          bottom: false,
-          child: TasksListView(tasksMainController.projectsGroups),
-        ),
-        bottomBar: MTAdaptive(
-          force: true,
-          child: Row(children: [
-            const Spacer(),
-            ImportProjectButton(CreateProjectController(), compact: true, secondary: true),
-            CreateProjectButton(CreateProjectController(), compact: true),
-          ]),
-        ),
-      );
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) => setWebpageTitle(loc.project_list_title));
+    return MTPage(
+      appBar: cupertinoNavBar(context, title: loc.project_list_title),
+      body: SafeArea(
+        top: false,
+        bottom: false,
+        child: Observer(builder: (_) => TasksListView(tasksMainController.projectsGroups)),
+      ),
+      bottomBar: MTAdaptive(
+        force: true,
+        child: Row(children: [
+          const Spacer(),
+          ImportProjectButton(CreateProjectController(), compact: true, secondary: true),
+          CreateProjectButton(CreateProjectController(), compact: true),
+        ]),
+      ),
+    );
   }
 }

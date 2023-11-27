@@ -130,7 +130,7 @@ class WorkspaceView extends StatelessWidget {
     return Observer(builder: (_) {
       // WidgetsBinding.instance.addPostFrameCallback((_) => setWebpageTitle('${loc.workspace_title_short} ${_ws.code}'));
       return MTPage(
-        appBar: MTAppBar(context,
+        appBar: cupertinoNavBar(context,
             title: loc.workspace_title,
             trailing: _ws.hpInfoUpdate
                 ? MTButton.icon(

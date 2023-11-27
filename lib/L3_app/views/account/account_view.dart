@@ -36,7 +36,7 @@ class AccountView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        appBar: MTAppBar(
+        appBar: cupertinoNavBar(
           context,
           title: loc.my_account_title,
           trailing: MTButton.icon(const DeleteIcon(), onTap: accountController.delete, padding: const EdgeInsets.symmetric(horizontal: P2)),

@@ -62,9 +62,9 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        appBar: MTAppBar(
+        appBar: cupertinoNavBar(
           context,
-          leadingWidth: _iconSize + P3,
+          // leadingWidth: _iconSize + P3,
           leading: accountController.user != null
               ? MTButton.icon(
                   accountController.user!.icon(_iconSize / 2, borderColor: mainColor),

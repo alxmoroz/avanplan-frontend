@@ -48,7 +48,7 @@ class UserListView extends StatelessWidget {
     return Observer(builder: (_) {
       // WidgetsBinding.instance.addPostFrameCallback((_) => setWebpageTitle('${_ws.code} | ${loc.user_list_title}'));
       return MTPage(
-        appBar: MTAppBar(
+        appBar: cupertinoNavBar(
           context,
           middle: _ws.subPageTitle(loc.user_list_title),
           trailing: const SizedBox(width: P8),

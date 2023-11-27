@@ -71,42 +71,43 @@ class MTListTile extends StatelessWidget with FocusManaging {
           padding: margin ?? EdgeInsets.zero,
           child: material(
             InkWell(
-                onTap: _onPressed,
-                hoverColor: _hoverColor,
-                highlightColor: _splashColor,
-                splashColor: _splashColor,
-                canRequestFocus: false,
-                focusColor: Colors.transparent,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    if (topDivider) _divider,
-                    Padding(
-                      padding: padding ?? _defaultPadding,
-                      child: Row(
-                        crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(height: minHeight ?? P6),
-                          if (leading != null) ...[leading!, const SizedBox(width: P2)],
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                if (_hasMiddle) middle ?? BaseText(titleText!, maxLines: 1),
-                                if (subtitle != null) ...[
-                                  if (_hasMiddle) const SizedBox(height: P),
-                                  subtitle!,
-                                ],
+              onTap: _onPressed,
+              hoverColor: _hoverColor,
+              highlightColor: _splashColor,
+              splashColor: _splashColor,
+              canRequestFocus: false,
+              focusColor: Colors.transparent,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (topDivider) _divider,
+                  Padding(
+                    padding: padding ?? _defaultPadding,
+                    child: Row(
+                      crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(height: minHeight ?? P6),
+                        if (leading != null) ...[leading!, const SizedBox(width: P2)],
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              if (_hasMiddle) middle ?? BaseText(titleText!, maxLines: 1),
+                              if (subtitle != null) ...[
+                                if (_hasMiddle) const SizedBox(height: P),
+                                subtitle!,
                               ],
-                            ),
+                            ],
                           ),
-                          if (trailing != null) trailing!,
-                        ],
-                      ),
+                        ),
+                        if (trailing != null) trailing!,
+                      ],
                     ),
-                    if (bottomDivider) _divider,
-                  ],
-                )),
+                  ),
+                  if (bottomDivider) _divider,
+                ],
+              ),
+            ),
             color: (color ?? b3Color).resolve(context),
           ),
         ),

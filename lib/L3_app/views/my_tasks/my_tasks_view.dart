@@ -27,7 +27,7 @@ class MyTasksView extends StatelessWidget {
     return Observer(builder: (_) {
       // WidgetsBinding.instance.addPostFrameCallback((_) => setWebpageTitle(loc.my_tasks_title));
       return MTPage(
-        appBar: MTAppBar(context, title: loc.my_tasks_title),
+        appBar: cupertinoNavBar(context, title: loc.my_tasks_title),
         body: SafeArea(
           top: false,
           bottom: false,

@@ -28,6 +28,7 @@ CupertinoNavigationBar cupertinoNavBar(
               : null,
       trailing: trailing != null ? trailing : null,
       backgroundColor: bgColor ?? navbarDefaultBgColor,
+      border: null,
     );
 
 class MTAppBar extends AppBar {

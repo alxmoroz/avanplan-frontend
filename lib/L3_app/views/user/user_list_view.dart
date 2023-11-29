@@ -5,10 +5,10 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/adaptive.dart';
-import '../../components/appbar.dart';
 import '../../components/constants.dart';
 import '../../components/page.dart';
 import '../../components/shadowed.dart';
+import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/workspace.dart';

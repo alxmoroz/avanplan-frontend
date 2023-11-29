@@ -14,6 +14,7 @@ import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/shadowed.dart';
 import '../../../../components/text.dart';
+import '../../../../components/toolbar.dart';
 import '../../../../presenters/person.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
@@ -29,7 +30,7 @@ class TeamPane extends StatelessWidget {
 
   List<Member> get _sortedMembers => task.sortedMembers;
 
-  Widget? get bottomBar => task.canInviteMembers ? InvitationButton(task) : null;
+  Widget? bottomBar(BuildContext context) => task.canInviteMembers ? cupertinoNavBar(context, isBottom: true, middle: InvitationButton(task)) : null;
 
   Widget _memberBuilder(BuildContext context, int index) {
     final member = _sortedMembers[index];

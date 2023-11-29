@@ -22,7 +22,8 @@ class MTErrorSheet extends StatelessWidget {
     return MTAdaptive(
       force: true,
       child: MTDialog(
-        topBar: MTTopBar(
+        topBar: MTToolBar(
+          color: warningDarkColor,
           middle: BaseText.medium(
             error.title,
             maxLines: 2,
@@ -30,7 +31,6 @@ class MTErrorSheet extends StatelessWidget {
           ),
           onClose: onClose,
         ),
-        topBarColor: warningDarkColor,
         bgColor: warningLightColor,
         body: ListView(
           shrinkWrap: true,

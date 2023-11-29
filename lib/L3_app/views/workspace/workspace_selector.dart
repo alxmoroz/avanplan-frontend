@@ -24,7 +24,7 @@ class WorkspaceSelector extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTDialog(
-        topBar: MTTopBar(titleText: loc.workspace_selector_title),
+        topBar: MTToolBar(titleText: loc.workspace_selector_title),
         body: ListView.builder(
           shrinkWrap: true,
           itemCount: _wss.length + (_canCreate ? 1 : 0),

@@ -34,7 +34,7 @@ class Notes extends StatelessWidget {
 
   Future _noteMenu(BuildContext context, Note note) async => await showMTDialog<void>(
         MTDialog(
-          topBar: MTTopBar(titleText: loc.task_note_title),
+          topBar: MTToolBar(titleText: loc.task_note_title),
           body: ListView(
             shrinkWrap: true,
             children: [

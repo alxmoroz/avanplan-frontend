@@ -20,7 +20,7 @@ class UserDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTTopBar(titleText: loc.user_title),
+      topBar: MTToolBar(titleText: loc.user_title),
       body: ListView(
         shrinkWrap: true,
         children: [

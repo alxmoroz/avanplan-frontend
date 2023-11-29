@@ -4,12 +4,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../components/appbar.dart';
 import '../../components/button.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/page.dart';
+import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/person.dart';
@@ -61,30 +61,32 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => MTPage(
-        appBar: cupertinoNavBar(
-          context,
-          // leadingWidth: _iconSize + P3,
-          leading: accountController.user != null
-              ? MTButton.icon(
-                  accountController.user!.icon(_iconSize / 2, borderColor: mainColor),
-                  onTap: () async => await SettingsRouter().navigate(context),
-                  padding: const EdgeInsets.only(left: P3),
-                )
-              : null,
-          middle: AppTitle(),
-          trailing: MTButton.icon(
-            const RefreshIcon(size: _iconSize),
-            onTap: mainController.manualUpdate,
-            padding: const EdgeInsets.symmetric(horizontal: P3),
-          ),
-        ),
-        body: SafeArea(
-          top: false,
-          bottom: false,
-          child: tasksMainController.hasOpenedProjects ? MainDashboard() : NoProjects(CreateProjectController()),
-        ),
-      ),
+      builder: (_) => loader.loading
+          ? Container()
+          : MTPage(
+              appBar: cupertinoNavBar(
+                context,
+                height: P10,
+                leading: accountController.user != null
+                    ? MTButton.icon(
+                        accountController.user!.icon(_iconSize / 2, borderColor: mainColor),
+                        onTap: () async => await SettingsRouter().navigate(context),
+                        padding: const EdgeInsets.only(left: P3),
+                      )
+                    : null,
+                middle: AppTitle(),
+                trailing: MTButton.icon(
+                  const RefreshIcon(size: _iconSize),
+                  onTap: mainController.manualUpdate,
+                  padding: const EdgeInsets.symmetric(horizontal: P3),
+                ),
+              ),
+              body: SafeArea(
+                top: false,
+                bottom: false,
+                child: tasksMainController.hasOpenedProjects ? MainDashboard() : NoProjects(CreateProjectController()),
+              ),
+            ),
     );
   }
 }

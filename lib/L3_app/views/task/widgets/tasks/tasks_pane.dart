@@ -12,6 +12,7 @@ import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
+import '../../../../components/toolbar.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
@@ -39,35 +40,39 @@ class TasksPane extends StatelessWidget {
         child: icon,
       );
 
-  Widget? get bottomBar => _task.subtaskGroups.isNotEmpty || _task.totalVolume > 0 && (_task.canCreate || _task.totalVolume > 0)
+  Widget? bottomBar(BuildContext context) => _task.subtaskGroups.isNotEmpty || _task.totalVolume > 0 && (_task.canCreate || _task.totalVolume > 0)
       ? MTAdaptive(
           force: true,
-          child: Row(
-            children: [
-              if (_task.canShowBoard)
-                MTButton.secondary(
-                  color: b1Color,
-                  middle: Row(children: [
-                    _switchPart(ListIcon(active: !controller.showBoard), !controller.showBoard),
-                    _switchPart(BoardIcon(active: controller.showBoard), controller.showBoard),
-                  ]),
-                  onTap: controller.toggleMode,
-                  margin: const EdgeInsets.only(left: P3),
-                  constrained: false,
-                ),
-              const Spacer(),
-              if (_task.canLocalImport)
-                MTButton.secondary(
-                  middle: const LocalImportIcon(),
-                  constrained: false,
-                  onTap: () => localImportDialog(controller),
-                ),
-              if (_task.canCreate) ...[
-                const SizedBox(width: P),
-                CreateTaskButton(controller, compact: true),
-              ] else
-                const SizedBox(width: P3),
-            ],
+          child: cupertinoNavBar(
+            context,
+            isBottom: true,
+            leading: _task.canShowBoard
+                ? MTButton.secondary(
+                    color: b1Color,
+                    middle: Row(children: [
+                      _switchPart(ListIcon(active: !controller.showBoard), !controller.showBoard),
+                      _switchPart(BoardIcon(active: controller.showBoard), controller.showBoard),
+                    ]),
+                    onTap: controller.toggleMode,
+                    margin: const EdgeInsets.only(left: P3),
+                    constrained: false,
+                  )
+                : null,
+            trailing: Row(
+              children: [
+                if (_task.canLocalImport)
+                  MTButton.secondary(
+                    middle: const LocalImportIcon(),
+                    constrained: false,
+                    onTap: () => localImportDialog(controller),
+                  ),
+                if (_task.canCreate) ...[
+                  const SizedBox(width: P2),
+                  CreateTaskButton(controller, compact: true),
+                ] else
+                  const SizedBox(width: P3),
+              ],
+            ),
           ),
         )
       : null;

@@ -26,7 +26,7 @@ class TextEditDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTTopBar(titleText: _title),
+      topBar: MTToolBar(titleText: _title),
       body: Observer(
         builder: (ctx) => Padding(
           padding: MediaQuery.paddingOf(ctx),

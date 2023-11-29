@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../components/adaptive.dart';
-import '../../components/appbar.dart';
 import '../../components/page.dart';
+import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../task/controllers/create_project_controller.dart';
@@ -37,11 +37,14 @@ class MyProjectsView extends StatelessWidget {
       ),
       bottomBar: MTAdaptive(
         force: true,
-        child: Row(children: [
-          const Spacer(),
-          ImportProjectButton(CreateProjectController(), compact: true, secondary: true),
-          CreateProjectButton(CreateProjectController(), compact: true),
-        ]),
+        child: cupertinoNavBar(
+          context,
+          isBottom: true,
+          trailing: Row(children: [
+            ImportProjectButton(CreateProjectController(), compact: true, secondary: true),
+            CreateProjectButton(CreateProjectController(), compact: true),
+          ]),
+        ),
       ),
     );
   }

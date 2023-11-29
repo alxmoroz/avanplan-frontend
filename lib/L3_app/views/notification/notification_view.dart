@@ -28,7 +28,7 @@ class NotificationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTTopBar(titleText: nf.title),
+      topBar: MTToolBar(titleText: nf.title),
       body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: P3),
           child: ListView(

@@ -20,7 +20,7 @@ class AttachmentsDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTTopBar(titleText: loc.attachments_label),
+      topBar: MTToolBar(titleText: loc.attachments_label),
       body: Observer(
         builder: (_) => MTShadowed(
           child: ListView.builder(

@@ -2,9 +2,6 @@
 
 import 'package:flutter/material.dart';
 
-import 'colors.dart';
-import 'toolbar.dart';
-
 class MTPage extends StatelessWidget {
   const MTPage({
     required this.body,
@@ -26,7 +23,7 @@ class MTPage extends StatelessWidget {
           body: body,
           extendBody: true,
           extendBodyBehindAppBar: true,
-          bottomNavigationBar: bottomBar != null ? MTToolbar(child: bottomBar!, color: navbarDefaultBgColor) : null,
+          bottomNavigationBar: bottomBar,
         ),
       );
 }

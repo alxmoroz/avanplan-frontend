@@ -6,9 +6,9 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities_extensions/notification.dart';
 import '../../../L1_domain/utils/dates.dart';
+import '../../../L2_data/services/platform.dart';
 import '../../components/adaptive.dart';
 import '../../components/alert_dialog.dart';
-import '../../components/appbar.dart';
 import '../../components/button.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
@@ -17,6 +17,7 @@ import '../../components/list_tile.dart';
 import '../../components/page.dart';
 import '../../components/shadowed.dart';
 import '../../components/text.dart';
+import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/date.dart';
@@ -100,16 +101,20 @@ class NotificationListView extends StatelessWidget {
                   ),
                 ),
         ),
-        bottomBar: !_controller.pushAuthorized
-            ? MTButton(
-                leading: const PrivacyIcon(),
-                middle: SmallText(
-                  loc.notification_push_ios_denied_btn_title,
-                  align: TextAlign.center,
-                  maxLines: 1,
+        bottomBar: !isWeb && !_controller.pushAuthorized
+            ? cupertinoNavBar(
+                context,
+                isBottom: true,
+                middle: MTButton(
+                  leading: const PrivacyIcon(),
+                  middle: SmallText(
+                    loc.notification_push_ios_denied_btn_title,
+                    align: TextAlign.center,
+                    maxLines: 2,
+                  ),
+                  trailing: const LinkOutIcon(),
+                  onTap: _showGotoSystemSettingsDialog,
                 ),
-                trailing: const LinkOutIcon(),
-                onTap: _showGotoSystemSettingsDialog,
               )
             : null,
       );

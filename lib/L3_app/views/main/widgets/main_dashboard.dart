@@ -8,8 +8,8 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../components/adaptive.dart';
 import '../../../components/constants.dart';
 import '../../../extra/services.dart';
-import 'my_projects.dart';
 import 'my_tasks.dart';
+import 'projects.dart';
 
 class MainDashboard extends StatelessWidget {
   static const _spacing_s = P4;
@@ -58,7 +58,7 @@ class MainDashboard extends StatelessWidget {
                     SizedBox(width: spacing),
                   ],
                   const Flexible(
-                    child: MTAdaptive(child: MyProjects(compact: false)),
+                    child: MTAdaptive(child: Projects(compact: false)),
                   ),
                 ],
               ),
@@ -71,7 +71,7 @@ class MainDashboard extends StatelessWidget {
                 mainAxisExtent: _mainAxisExtent(),
                 mainAxisSpacing: spacing,
               ),
-              children: const [MyTasks(), MyProjects()],
+              children: const [MyTasks(), Projects()],
             ),
     );
   }

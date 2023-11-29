@@ -13,8 +13,8 @@ import '../../../presenters/task_state.dart';
 import '../../my_projects/my_projects_view.dart';
 import '../../task/widgets/tasks/tasks_group.dart';
 
-class MyProjects extends StatelessWidget {
-  const MyProjects({this.compact = true});
+class Projects extends StatelessWidget {
+  const Projects({this.compact = true});
   final bool compact;
 
   Future _goToProjects() async => await MyProjectsRouter().navigate(rootKey.currentContext!);

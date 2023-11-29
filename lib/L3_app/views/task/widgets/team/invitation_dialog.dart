@@ -42,7 +42,7 @@ class InvitationDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTDialog(
-          topBar: MTTopBar(
+          topBar: MTToolBar(
             middle: _controller.task.subPageTitle('${loc.invitation_share_subject_prefix}${loc.app_title}'),
           ),
           body: ListView(
@@ -53,7 +53,7 @@ class InvitationDialog extends StatelessWidget {
                 BaseText.medium(
                   _controller.role!.title,
                   align: TextAlign.center,
-                  padding: const EdgeInsets.only(top: P3, bottom: P),
+                  padding: const EdgeInsets.only(top: P2, bottom: P),
                 ),
               if (_controller.hasUrl && isWeb) ...[
                 MTTextField.noText(
@@ -67,7 +67,7 @@ class InvitationDialog extends StatelessWidget {
                   loc.role_select_action_title,
                   align: TextAlign.center,
                   maxLines: 1,
-                  padding: const EdgeInsets.only(top: P2, bottom: P),
+                  padding: const EdgeInsets.only(top: P, bottom: P),
                 ),
                 ListView.builder(
                     shrinkWrap: true,

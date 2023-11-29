@@ -2,16 +2,16 @@
 
 import 'package:flutter/material.dart';
 
-import '../../components/appbar.dart';
 import '../../components/button.dart';
 import '../../components/colors.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/text.dart';
+import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import 'quiz_controller.dart';
 
-AppBar quizHeader(BuildContext context, QuizController _controller) {
+PreferredSize quizHeader(BuildContext context, QuizController _controller) {
   Widget stepMark(int index) {
     final isCurrent = _controller.stepIndex == index;
     final r1 = isCurrent ? P2 : P;
@@ -31,9 +31,8 @@ AppBar quizHeader(BuildContext context, QuizController _controller) {
   }
 
   return _controller.active
-      ? MTAppBar(
+      ? cupertinoNavBar(
           context,
-          leadingWidth: P12,
           leading: MTButton(
             titleText: loc.back_action_title,
             padding: const EdgeInsets.only(left: P2),
@@ -46,13 +45,15 @@ AppBar quizHeader(BuildContext context, QuizController _controller) {
                     for (var index = 0; index < _controller.stepsCount; index++) stepMark(index),
                   ],
                 )
-              : BaseText.medium(_controller.stepTitle, maxLines: 1),
-          bottom: _controller.stepsCount > 1 && _controller.stepTitle.trim().isNotEmpty
-              ? PreferredSize(
-                  child: BaseText.medium(_controller.stepTitle, padding: const EdgeInsets.only(bottom: P), maxLines: 1),
-                  preferredSize: Size.fromHeight(const BaseText.medium('', maxLines: 1).style(context).fontSize ?? P2 + P),
+              : null,
+          bottom: _controller.stepTitle.trim().isNotEmpty
+              ? BaseText.medium(
+                  _controller.stepTitle,
+                  maxLines: 1,
+                  padding: const EdgeInsets.only(top: P, bottom: P),
                 )
               : null,
+          height: P10,
           trailing: _controller.stepIndex < _controller.stepsCount - 1
               ? MTButton(
                   titleText: loc.skip_action_title,
@@ -61,5 +62,5 @@ AppBar quizHeader(BuildContext context, QuizController _controller) {
                 )
               : null,
         )
-      : MTAppBar(context);
+      : cupertinoNavBar(context);
 }

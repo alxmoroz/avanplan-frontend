@@ -53,7 +53,6 @@ class MTDialog extends StatelessWidget {
     required this.body,
     this.topBar,
     this.topBarHeight,
-    this.topBarColor,
     this.bottomBar,
     this.bottomBarHeight,
     this.bottomBarColor,
@@ -64,7 +63,6 @@ class MTDialog extends StatelessWidget {
 
   final Widget? topBar;
   final double? topBarHeight;
-  final Color? topBarColor;
 
   final Widget? bottomBar;
   final double? bottomBarHeight;
@@ -110,14 +108,14 @@ class MTDialog extends StatelessWidget {
                   top: 0,
                   left: 0,
                   right: 0,
-                  child: MTToolbar.top(child: topBar!, color: topBarColor ?? b2Color),
+                  child: topBar!,
                 ),
               if (bottomBar != null)
                 Positioned(
                   left: 0,
                   right: 0,
                   bottom: 0,
-                  child: MTToolbar(child: bottomBar!, color: bottomBarColor ?? (isBigScreen(context) ? b2Color : navbarDefaultBgColor)),
+                  child: MTBottomToolbar(child: bottomBar!, color: bottomBarColor ?? (isBigScreen(context) ? b2Color : navbarDefaultBgColor)),
                 ),
             ],
           ),

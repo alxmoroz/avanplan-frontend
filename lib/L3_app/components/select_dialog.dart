@@ -69,7 +69,7 @@ class _MTSelectDialog<T extends RPersistable> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MTDialog(
-        topBar: MTTopBar(
+        topBar: MTToolBar(
           titleText: titleText,
           trailing: onReset != null && selectedId != null
               ? MTButton.icon(

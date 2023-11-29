@@ -159,7 +159,7 @@ class ImportDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTDialog(
-        topBar: MTTopBar(
+        topBar: MTToolBar(
           middle: Column(
             mainAxisSize: MainAxisSize.min,
             children: [

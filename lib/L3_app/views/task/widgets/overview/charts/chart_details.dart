@@ -40,7 +40,7 @@ class TaskChartDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTTopBar(titleText: loc.chart_details_title),
+      topBar: MTToolBar(titleText: loc.chart_details_title),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: P3),
         color: b3Color.resolve(context),

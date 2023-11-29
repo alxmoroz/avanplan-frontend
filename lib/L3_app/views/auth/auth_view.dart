@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L2_data/services/platform.dart';
-import '../../components/appbar.dart';
 import '../../components/button.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
@@ -12,6 +11,7 @@ import '../../components/icons.dart';
 import '../../components/images.dart';
 import '../../components/page.dart';
 import '../../components/text.dart';
+import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import '../main/widgets/app_title.dart';
 import '../settings/app_version.dart';

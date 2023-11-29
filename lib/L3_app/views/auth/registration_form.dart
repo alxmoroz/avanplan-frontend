@@ -36,7 +36,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
   @override
   Widget build(BuildContext context) => Observer(
         builder: (_) => MTDialog(
-          topBar: MTTopBar(titleText: controller.requestCompleted ? loc.register_completed_title : loc.register_title),
+          topBar: MTToolBar(titleText: controller.requestCompleted ? loc.register_completed_title : loc.register_title),
           body: controller.requestCompleted
               ? RegistrationCompletedMessage(controller)
               : ListView(

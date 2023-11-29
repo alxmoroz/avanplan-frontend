@@ -49,17 +49,22 @@ class LocalImportDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Observer(
         builder: (_) => MTDialog(
-          topBar: MTTopBar(
+          topBar: MTToolBar(
             middle: Column(
-              mainAxisSize: MainAxisSize.min,
               children: [
+                const SizedBox(height: P2),
                 BaseText.medium(loc.task_transfer_title, maxLines: 1),
                 BaseText(
                   '$_dstGoal',
                   maxLines: 1,
-                  padding: const EdgeInsets.symmetric(horizontal: P2).copyWith(top: P),
+                  padding: const EdgeInsets.symmetric(horizontal: P2).copyWith(top: P, bottom: P),
                 ),
-                const SizedBox(height: P),
+              ],
+            ),
+            // titleText: loc.task_transfer_title,
+            bottom: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
                 MTButton.secondary(
                   constrained: false,
                   padding: const EdgeInsets.symmetric(horizontal: P3),

@@ -130,7 +130,7 @@ class TariffSelector extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTDialog(
-        topBar: MTTopBar(
+        topBar: MTToolBar(
           middle: BaseText.medium(
             _controller.reason.isNotEmpty ? _controller.reason : loc.tariff_list_title,
             align: TextAlign.center,

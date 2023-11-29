@@ -51,7 +51,7 @@ class _StoreView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-        topBar: MTTopBar(titleText: loc.balance_replenish_store_title),
+        topBar: MTToolBar(titleText: loc.balance_replenish_store_title),
         body: ListView(
           shrinkWrap: true,
           children: [

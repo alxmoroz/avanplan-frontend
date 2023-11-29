@@ -111,13 +111,17 @@ class ProjectStatusesQuizView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-          appBar: quizHeader(context, _qController),
-          body: SafeArea(
-            top: false,
-            bottom: false,
-            child: MTAdaptive(child: _PSBody(_controller, shrinkWrap: false)),
-          ),
-          bottomBar: Column(
+        appBar: quizHeader(context, _qController),
+        body: SafeArea(
+          top: false,
+          bottom: false,
+          child: MTAdaptive(child: _PSBody(_controller, shrinkWrap: false)),
+        ),
+        bottomBar: cupertinoNavBar(
+          context,
+          isBottom: true,
+          height: P8 + P8 + P3,
+          middle: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               _CreateStatusButton(_controller),
@@ -128,7 +132,9 @@ class ProjectStatusesQuizView extends StatelessWidget {
                 margin: EdgeInsets.zero,
               ),
             ],
-          )),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -140,7 +146,7 @@ class ProjectStatusesDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTTopBar(titleText: loc.status_list_title),
+      topBar: MTToolBar(titleText: loc.status_list_title),
       body: _PSBody(_controller),
       bottomBar: _CreateStatusButton(_controller),
     );

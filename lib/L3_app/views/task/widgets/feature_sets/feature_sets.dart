@@ -124,10 +124,14 @@ class FeatureSetsQuizView extends StatelessWidget {
           bottom: false,
           child: MTAdaptive(child: _FSBody(_controller, shrinkWrap: false)),
         ),
-        bottomBar: QuizNextButton(
-          _qController,
-          loading: _controller.project.loading,
-          margin: EdgeInsets.zero,
+        bottomBar: cupertinoNavBar(
+          context,
+          isBottom: true,
+          middle: QuizNextButton(
+            _qController,
+            loading: _controller.project.loading,
+            margin: EdgeInsets.zero,
+          ),
         ),
       ),
     );
@@ -141,7 +145,7 @@ class FeatureSetsDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTTopBar(titleText: loc.feature_sets_title),
+      topBar: MTToolBar(titleText: loc.feature_sets_title),
       body: _FSBody(_controller),
       bottomBar: MTButton.main(
         titleText: loc.save_action_title,

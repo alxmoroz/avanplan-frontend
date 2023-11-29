@@ -14,6 +14,7 @@ import '../../../../components/page.dart';
 import '../../../../components/shadowed.dart';
 import '../../../../components/text.dart';
 import '../../../../components/text_field.dart';
+import '../../../../components/toolbar.dart';
 import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_type.dart';
@@ -77,9 +78,9 @@ class _CreateMultiTaskQuizViewState extends State<CreateMultiTaskQuizView> {
       );
 
   Future kbSubmit(String _) async {
-    if (MediaQuery.viewInsetsOf(context).bottom == 0) {
-      await controller.addTask();
-    }
+    // if (MediaQuery.viewInsetsOf(context).bottom == 0) {
+    await controller.addTask();
+    // }
   }
 
   Widget itemBuilder(BuildContext context, int index) {
@@ -90,6 +91,7 @@ class _CreateMultiTaskQuizViewState extends State<CreateMultiTaskQuizView> {
       return MTField(
         tController.fData(TaskFCode.title.index),
         value: MTTextField(
+          keyboardType: TextInputType.multiline,
           controller: tController.teController(TaskFCode.title.index),
           autofocus: tController.creating,
           margin: EdgeInsets.zero,
@@ -117,40 +119,37 @@ class _CreateMultiTaskQuizViewState extends State<CreateMultiTaskQuizView> {
         alignment: Alignment.bottomCenter,
         children: [
           MTPage(
-              appBar: quizHeader(context, qController),
-              body: SafeArea(
-                top: false,
-                bottom: false,
-                child: MTAdaptive(
-                  child: controller.sortedControllers.isNotEmpty
-                      ? MTShadowed(
-                          bottomShadow: true,
-                          child: ListView.builder(
-                            itemBuilder: itemBuilder,
-                            itemCount: controller.sortedControllers.length + 1,
-                          ),
-                        )
-                      : Center(
-                          child: ListView(
-                            shrinkWrap: true,
-                            children: [
-                              MTImage(ImageName.empty_tasks.name),
-                              H2(loc.task_list_empty_hint, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P6)),
-                              addButton,
-                            ],
-                          ),
+            appBar: quizHeader(context, qController),
+            body: SafeArea(
+              top: false,
+              bottom: false,
+              child: MTAdaptive(
+                child: controller.sortedControllers.isNotEmpty
+                    ? MTShadowed(
+                        bottomShadow: true,
+                        child: ListView.builder(
+                          itemBuilder: itemBuilder,
+                          itemCount: controller.sortedControllers.length + 1,
                         ),
-                ),
+                      )
+                    : Center(
+                        child: ListView(
+                          shrinkWrap: true,
+                          children: [
+                            MTImage(ImageName.empty_tasks.name),
+                            H2(loc.task_list_empty_hint, align: TextAlign.center, padding: const EdgeInsets.symmetric(horizontal: P6)),
+                            addButton,
+                          ],
+                        ),
+                      ),
               ),
-              bottomBar: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  QuizNextButton(
-                    qController,
-                    margin: EdgeInsets.zero,
-                  ),
-                ],
-              )),
+            ),
+            bottomBar: cupertinoNavBar(
+              context,
+              isBottom: true,
+              middle: QuizNextButton(qController, margin: EdgeInsets.zero),
+            ),
+          ),
           // if (parent.error != null)
           //   MTErrorSheet(parent.error!, onClose: () {
           //     parent.error = null;

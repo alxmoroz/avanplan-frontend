@@ -54,7 +54,7 @@ class _MemberEditDialogState extends State<MemberEditDialog> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTDialog(
-        topBar: MTTopBar(
+        topBar: MTToolBar(
           middle: Column(
             mainAxisSize: MainAxisSize.min,
             children: [

@@ -58,7 +58,7 @@ class _ProjectStatusEditDialogState extends State<ProjectStatusEditDialog> {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTDialog(
-        topBar: MTTopBar(
+        topBar: MTToolBar(
           titleText: loc.status_title,
           trailing: !_used
               ? MTButton.icon(

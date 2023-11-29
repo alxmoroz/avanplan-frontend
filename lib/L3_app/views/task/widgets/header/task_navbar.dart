@@ -2,9 +2,9 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../../components/appbar.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
+import '../../../../components/toolbar.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../../presenters/task_view.dart';
 import '../../../../presenters/workspace.dart';
@@ -13,7 +13,7 @@ import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
 import 'task_popup_menu.dart';
 
-CupertinoNavigationBar taskAppBar(BuildContext context, TaskController controller) {
+PreferredSize taskAppBar(BuildContext context, TaskController controller) {
   final task = controller.task;
 
   return cupertinoNavBar(

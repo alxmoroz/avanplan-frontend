@@ -3,12 +3,12 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../components/adaptive.dart';
-import '../../../../components/appbar.dart';
 import '../../../../components/button.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/images.dart';
 import '../../../../components/page.dart';
 import '../../../../components/text.dart';
+import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 
 class NotFoundPage extends StatelessWidget {

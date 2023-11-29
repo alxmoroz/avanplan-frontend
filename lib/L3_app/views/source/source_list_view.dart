@@ -5,11 +5,11 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/adaptive.dart';
-import '../../components/appbar.dart';
 import '../../components/button.dart';
 import '../../components/constants.dart';
 import '../../components/page.dart';
 import '../../components/shadowed.dart';
+import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/source.dart';
@@ -78,9 +78,10 @@ class SourceListView extends StatelessWidget {
         bottomBar: _ws.sources.isNotEmpty && _ws.hpSourceCreate
             ? MTAdaptive(
                 force: true,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [const Spacer(), MTPlusButton(() => startAddSource(_ws))],
+                child: cupertinoNavBar(
+                  context,
+                  isBottom: true,
+                  trailing: MTPlusButton(() => startAddSource(_ws)),
                 ),
               )
             : null,

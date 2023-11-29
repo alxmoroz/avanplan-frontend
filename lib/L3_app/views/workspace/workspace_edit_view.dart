@@ -53,7 +53,7 @@ class _WSEditViewState extends State<WSEditView> {
   @override
   Widget build(BuildContext context) {
     return MTDialog(
-      topBar: MTTopBar(titleText: loc.workspace_title),
+      topBar: MTToolBar(titleText: loc.workspace_title),
       body: _form,
     );
   }

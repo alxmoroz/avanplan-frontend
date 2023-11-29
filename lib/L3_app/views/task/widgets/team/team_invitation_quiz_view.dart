@@ -7,6 +7,7 @@ import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/button.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/page.dart';
+import '../../../../components/toolbar.dart';
 import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_type.dart';
@@ -59,13 +60,18 @@ class TeamInvitationQuizView extends StatelessWidget {
           bottom: false,
           child: teamPane,
         ),
-        bottomBar: Column(mainAxisSize: MainAxisSize.min, children: [
-          if (_task.canInviteMembers) ...[
-            InvitationButton(_task, type: ButtonType.secondary),
-            const SizedBox(height: P3),
-          ],
-          QuizNextButton(_args._qController, margin: EdgeInsets.zero),
-        ]),
+        bottomBar: cupertinoNavBar(
+          context,
+          isBottom: true,
+          height: P8 + P8 + P3,
+          middle: Column(mainAxisSize: MainAxisSize.min, children: [
+            if (_task.canInviteMembers) ...[
+              InvitationButton(_task, type: ButtonType.secondary),
+              const SizedBox(height: P3),
+            ],
+            QuizNextButton(_args._qController, margin: EdgeInsets.zero),
+          ]),
+        ),
       ),
     );
   }

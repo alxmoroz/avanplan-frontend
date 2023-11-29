@@ -85,7 +85,7 @@ class NotificationListView extends StatelessWidget {
     return Observer(builder: (_) {
       // WidgetsBinding.instance.addPostFrameCallback((_) => setWebpageTitle(loc.notification_list_title));
       return MTPage(
-        appBar: cupertinoNavBar(context, title: loc.notification_list_title),
+        appBar: MTAppBar(title: loc.notification_list_title),
         body: SafeArea(
           top: false,
           bottom: false,
@@ -102,8 +102,7 @@ class NotificationListView extends StatelessWidget {
                 ),
         ),
         bottomBar: !isWeb && !_controller.pushAuthorized
-            ? cupertinoNavBar(
-                context,
+            ? MTAppBar(
                 isBottom: true,
                 middle: MTButton(
                   leading: const PrivacyIcon(),

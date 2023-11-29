@@ -15,7 +15,7 @@ class NotFoundPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTPage(
-      appBar: cupertinoNavBar(context),
+      appBar: const MTAppBar(),
       body: SafeArea(
         child: MTAdaptive(
           padding: const EdgeInsets.symmetric(horizontal: P3),

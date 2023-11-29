@@ -63,7 +63,7 @@ class CreateTaskQuizViewState extends TaskViewState<CreateTaskQuizView> {
         alignment: Alignment.bottomCenter,
         children: [
           MTPage(
-            appBar: quizHeader(context, qController),
+            appBar: QuizHeader(qController),
             body: SafeArea(
               bottom: false,
               child: Column(

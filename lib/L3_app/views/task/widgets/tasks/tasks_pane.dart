@@ -40,11 +40,10 @@ class TasksPane extends StatelessWidget {
         child: icon,
       );
 
-  Widget? bottomBar(BuildContext context) => _task.subtaskGroups.isNotEmpty || _task.totalVolume > 0 && (_task.canCreate || _task.totalVolume > 0)
+  Widget? get bottomBar => _task.subtaskGroups.isNotEmpty || _task.totalVolume > 0 && (_task.canCreate || _task.totalVolume > 0)
       ? MTAdaptive(
           force: true,
-          child: cupertinoNavBar(
-            context,
+          child: MTAppBar(
             isBottom: true,
             leading: _task.canShowBoard
                 ? MTButton.secondary(

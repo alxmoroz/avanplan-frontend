@@ -119,7 +119,7 @@ class _CreateMultiTaskQuizViewState extends State<CreateMultiTaskQuizView> {
         alignment: Alignment.bottomCenter,
         children: [
           MTPage(
-            appBar: quizHeader(context, qController),
+            appBar: QuizHeader(qController),
             body: SafeArea(
               top: false,
               bottom: false,
@@ -144,8 +144,7 @@ class _CreateMultiTaskQuizViewState extends State<CreateMultiTaskQuizView> {
                       ),
               ),
             ),
-            bottomBar: cupertinoNavBar(
-              context,
+            bottomBar: MTAppBar(
               isBottom: true,
               middle: QuizNextButton(qController, margin: EdgeInsets.zero),
             ),

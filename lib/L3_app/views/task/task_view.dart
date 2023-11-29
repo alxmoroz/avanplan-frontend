@@ -14,14 +14,19 @@ import '../../components/icons.dart';
 import '../../components/icons_workspace.dart';
 import '../../components/page.dart';
 import '../../components/text.dart';
+import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_type.dart';
+import '../../presenters/task_view.dart';
+import '../../presenters/workspace.dart';
+import '../../usecases/task_actions.dart';
+import '../../usecases/task_tree.dart';
 import 'controllers/task_controller.dart';
 import 'widgets/details/details_pane.dart';
 import 'widgets/empty_state/not_found.dart';
 import 'widgets/header/task_header.dart';
-import 'widgets/header/task_navbar.dart';
+import 'widgets/header/task_popup_menu.dart';
 import 'widgets/overview/overview_pane.dart';
 import 'widgets/tasks/tasks_pane.dart';
 import 'widgets/team/team_pane.dart';
@@ -157,8 +162,8 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   Widget? get _selectedBottomBar => {
         TaskTabKey.overview: overviewPane.bottomBar,
-        TaskTabKey.subtasks: tasksPane.bottomBar(context),
-        TaskTabKey.team: teamPane.bottomBar(context),
+        TaskTabKey.subtasks: tasksPane.bottomBar,
+        TaskTabKey.team: teamPane.bottomBar,
         TaskTabKey.details: detailsPane.bottomBar,
       }[controller.tabKey];
 
@@ -170,7 +175,12 @@ class TaskViewState<T extends TaskView> extends State<T> {
         alignment: Alignment.bottomCenter,
         children: [
           MTPage(
-            appBar: taskAppBar(context, controller),
+            appBar: MTAppBar(
+              bgColor: task.bgColor,
+              middle: task.ws.subPageTitle(task.viewTitle),
+              trailing:
+                  task.loading != true && task.actionTypes.isNotEmpty ? TaskPopupMenu(controller, icon: const MenuIcon()) : const SizedBox(width: P8),
+            ),
             body: SafeArea(
               bottom: false,
               child: Column(

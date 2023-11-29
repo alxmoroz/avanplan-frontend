@@ -64,8 +64,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
       builder: (_) => loader.loading
           ? Container()
           : MTPage(
-              appBar: cupertinoNavBar(
-                context,
+              appBar: MTAppBar(
                 height: P10,
                 leading: accountController.user != null
                     ? MTButton.icon(

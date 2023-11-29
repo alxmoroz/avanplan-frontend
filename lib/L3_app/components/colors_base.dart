@@ -18,17 +18,17 @@ const _b1g = 230;
 const _b1b = 234;
 
 /// темная тема
-const _b3dr = 58;
-const _b3dg = 60;
-const _b3db = 66;
+const _b3dr = 50;
+const _b3dg = 52;
+const _b3db = 60;
 
-const _b2dr = 46;
-const _b2dg = 48;
-const _b2db = 54;
+const _b2dr = 36;
+const _b2dg = 38;
+const _b2db = 46;
 
-const _b1dr = 34;
-const _b1dg = 36;
-const _b1db = 42;
+const _b1dr = 30;
+const _b1dg = 32;
+const _b1db = 40;
 
 /// самый яркий фон (выпирающий цвет)
 const b3Color = CupertinoDynamicColor.withBrightness(

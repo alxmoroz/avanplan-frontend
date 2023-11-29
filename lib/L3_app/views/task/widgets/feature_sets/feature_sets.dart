@@ -118,14 +118,13 @@ class FeatureSetsQuizView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        appBar: quizHeader(context, _qController),
+        appBar: QuizHeader(_qController),
         body: SafeArea(
           top: false,
           bottom: false,
           child: MTAdaptive(child: _FSBody(_controller, shrinkWrap: false)),
         ),
-        bottomBar: cupertinoNavBar(
-          context,
+        bottomBar: MTAppBar(
           isBottom: true,
           middle: QuizNextButton(
             _qController,

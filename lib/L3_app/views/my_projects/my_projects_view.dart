@@ -29,7 +29,7 @@ class MyProjectsView extends StatelessWidget {
   Widget build(BuildContext context) {
     // WidgetsBinding.instance.addPostFrameCallback((_) => setWebpageTitle(loc.project_list_title));
     return MTPage(
-      appBar: cupertinoNavBar(context, title: loc.project_list_title),
+      appBar: MTAppBar(title: loc.project_list_title),
       body: SafeArea(
         top: false,
         bottom: false,
@@ -37,8 +37,7 @@ class MyProjectsView extends StatelessWidget {
       ),
       bottomBar: MTAdaptive(
         force: true,
-        child: cupertinoNavBar(
-          context,
+        child: MTAppBar(
           isBottom: true,
           trailing: Row(children: [
             ImportProjectButton(CreateProjectController(), compact: true, secondary: true),

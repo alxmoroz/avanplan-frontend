@@ -86,39 +86,57 @@ class MTBottomToolbar extends StatelessWidget {
 
 Widget _backButton(BuildContext context) => CupertinoNavigationBarBackButton(onPressed: () => Navigator.of(context).pop());
 
-PreferredSize cupertinoNavBar(
-  BuildContext context, {
-  Widget? leading,
-  Widget? middle,
-  String? title,
-  Widget? trailing,
-  Color? bgColor,
-  double? height,
-  double? paddingBottom,
-  double? paddingTop,
-  Widget? bottom,
-  bool? transitionBetweenRoutes,
-  bool isBottom = false,
-  bool showCloseButton = false,
-}) {
-  final innerHeight = height ?? P8;
-  final mqPadding = MediaQuery.paddingOf(context);
+class MTAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const MTAppBar({
+    this.leading,
+    this.middle,
+    this.title,
+    this.trailing,
+    this.bgColor,
+    this.height,
+    this.paddingBottom,
+    this.paddingTop,
+    this.bottom,
+    this.transitionBetweenRoutes,
+    this.isBottom = false,
+    this.showCloseButton = false,
+  });
 
-  paddingTop ??= (isBottom ? P2 : 0);
-  final topHeight = paddingTop + (isBottom ? 0 : mqPadding.top);
+  final Widget? leading;
+  final Widget? middle;
+  final String? title;
+  final Widget? trailing;
+  final Color? bgColor;
+  final double? height;
+  final double? paddingBottom;
+  final double? paddingTop;
+  final Widget? bottom;
+  final bool? transitionBetweenRoutes;
+  final bool isBottom;
+  final bool showCloseButton;
 
-  paddingBottom = (paddingBottom ?? 0) + (isBottom ? bottomPadding(context) : 0);
-  final bottomHeight = paddingBottom;
+  double get _innerHeight => height ?? P8;
 
-  return PreferredSize(
-    preferredSize: Size.fromHeight(innerHeight),
-    child: Container(
-      height: topHeight + innerHeight + bottomHeight,
+  @override
+  Size get preferredSize => Size.fromHeight(_innerHeight);
+
+  @override
+  Widget build(BuildContext context) {
+    final mqPadding = MediaQuery.paddingOf(context);
+
+    final pTop = paddingTop ?? (isBottom ? P2 : 0);
+    final topHeight = pTop + (isBottom ? 0 : mqPadding.top);
+
+    final pBottom = (paddingBottom ?? 0) + (isBottom ? bottomPadding(context) : 0);
+    final bottomHeight = pBottom;
+
+    return Container(
+      height: topHeight + _innerHeight + bottomHeight,
       child: CupertinoNavigationBar(
         transitionBetweenRoutes: !isBottom || transitionBetweenRoutes == true,
         automaticallyImplyLeading: false,
         automaticallyImplyMiddle: false,
-        padding: EdgeInsetsDirectional.only(top: paddingTop, bottom: paddingBottom),
+        padding: EdgeInsetsDirectional.only(top: pTop, bottom: pBottom),
         middle: MTToolBar(
           showCloseButton: showCloseButton,
           leading: leading ?? (!isBottom && !showCloseButton && Navigator.of(context).canPop() ? _backButton(context) : null),
@@ -131,6 +149,6 @@ PreferredSize cupertinoNavBar(
         backgroundColor: bgColor ?? navbarDefaultBgColor,
         border: null,
       ),
-    ),
-  );
+    );
+  }
 }

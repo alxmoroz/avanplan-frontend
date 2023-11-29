@@ -105,7 +105,7 @@ class SettingsView extends StatelessWidget {
     return Observer(builder: (_) {
       // WidgetsBinding.instance.addPostFrameCallback((_) => setWebpageTitle(''));
       return MTPage(
-        appBar: cupertinoNavBar(context),
+        appBar: const MTAppBar(),
         body: SafeArea(
           top: false,
           bottom: false,

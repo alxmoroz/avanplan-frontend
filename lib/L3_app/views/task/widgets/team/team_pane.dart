@@ -30,7 +30,7 @@ class TeamPane extends StatelessWidget {
 
   List<Member> get _sortedMembers => task.sortedMembers;
 
-  Widget? bottomBar(BuildContext context) => task.canInviteMembers ? cupertinoNavBar(context, isBottom: true, middle: InvitationButton(task)) : null;
+  Widget? get bottomBar => task.canInviteMembers ? MTAppBar(isBottom: true, middle: InvitationButton(task)) : null;
 
   Widget _memberBuilder(BuildContext context, int index) {
     final member = _sortedMembers[index];

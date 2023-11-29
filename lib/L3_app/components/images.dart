@@ -43,7 +43,7 @@ class MTImage extends StatelessWidget {
   final double? width;
 
   String _assetPath(String name, BuildContext context) {
-    final _dark = View.of(context).platformDispatcher.platformBrightness == Brightness.dark;
+    final _dark = MediaQuery.platformBrightnessOf(context) == Brightness.dark;
     return 'assets/images/$name${_dark ? '_dark' : ''}.png';
   }
 

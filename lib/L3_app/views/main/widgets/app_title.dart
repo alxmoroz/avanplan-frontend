@@ -14,7 +14,7 @@ class AppTitle extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         MTImage(ImageName.app_icon.name, height: 30, width: 30),
-        DecorAppTitle(loc.app_title.substring(1), color: f2Color, padding: const EdgeInsets.only(top: 12, left: 2)),
+        DecorAppTitle(loc.app_title.substring(1), color: f2Color, padding: const EdgeInsets.only(top: 15, left: 2)),
       ],
     );
   }

@@ -54,14 +54,13 @@ class TeamInvitationQuizView extends StatelessWidget {
     final teamPane = TeamPane(_taskController);
     return Observer(
       builder: (_) => MTPage(
-        appBar: quizHeader(context, _args._qController),
+        appBar: QuizHeader(_args._qController),
         body: SafeArea(
           top: false,
           bottom: false,
           child: teamPane,
         ),
-        bottomBar: cupertinoNavBar(
-          context,
+        bottomBar: MTAppBar(
           isBottom: true,
           height: P8 + P8 + P3,
           middle: Column(mainAxisSize: MainAxisSize.min, children: [

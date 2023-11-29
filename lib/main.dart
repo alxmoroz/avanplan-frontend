@@ -55,7 +55,7 @@ class App extends StatelessWidget {
       colorScheme: ColorScheme.fromSeed(
         seedColor: mainColor.resolve(context),
         primary: mainColor.resolve(context),
-        brightness: View.of(context).platformDispatcher.platformBrightness,
+        brightness: MediaQuery.platformBrightnessOf(context),
         background: b2Color.resolve(context),
         surfaceTint: b2Color.resolve(context),
         surface: b3Color.resolve(context),

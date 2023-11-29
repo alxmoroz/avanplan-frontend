@@ -111,14 +111,13 @@ class ProjectStatusesQuizView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTPage(
-        appBar: quizHeader(context, _qController),
+        appBar: QuizHeader(_qController),
         body: SafeArea(
           top: false,
           bottom: false,
           child: MTAdaptive(child: _PSBody(_controller, shrinkWrap: false)),
         ),
-        bottomBar: cupertinoNavBar(
-          context,
+        bottomBar: MTAppBar(
           isBottom: true,
           height: P8 + P8 + P3,
           middle: Column(

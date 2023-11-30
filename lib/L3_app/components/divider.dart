@@ -15,10 +15,9 @@ class MTDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Divider(
+    return Container(
       color: (color ?? b1Color).resolve(context),
-      indent: indent ?? 0,
-      endIndent: endIndent ?? 0,
+      margin: EdgeInsets.only(left: indent ?? 0, right: endIndent ?? 0),
       height: height ?? 1,
     );
   }

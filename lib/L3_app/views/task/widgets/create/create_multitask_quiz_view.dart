@@ -1,11 +1,13 @@
 // Copyright (c) 2023. Alexandr Moroz
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
-import '../../../../../L2_data/services/platform.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
+import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
@@ -69,45 +71,89 @@ class _CreateMultiTaskQuizViewState extends State<CreateMultiTaskQuizView> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
   Widget get addButton => CreateTaskButton(
         parentTaskController,
         type: ButtonType.secondary,
         margin: const EdgeInsets.only(top: P3),
         uf: false,
-        onTap: () async => await controller.addTask(),
+        onTap: controller.addTask,
       );
 
-  Future kbSubmit(String _) async {
-    // if (MediaQuery.viewInsetsOf(context).bottom == 0) {
-    await controller.addTask();
-    // }
-  }
-
   Widget itemBuilder(BuildContext context, int index) {
-    if (index == controller.sortedControllers.length) {
+    if (index == controller.taskControllers.length) {
       return addButton;
     } else {
-      final tController = controller.sortedControllers.elementAt(index);
+      final tController = controller.taskControllers.elementAt(index);
+      final fData = tController.fData(TaskFCode.title.index);
+      final teController = tController.teController(TaskFCode.title.index);
+
+      final fNode = tController.focusNode(TaskFCode.title.index);
+      fNode?.addListener(() => controller.refresh());
+
+      final roText = teController?.text.isNotEmpty == true ? teController!.text : tController.titleController.titlePlaceholder;
       return MTField(
-        tController.fData(TaskFCode.title.index),
-        value: MTTextField(
-          keyboardType: TextInputType.multiline,
-          controller: tController.teController(TaskFCode.title.index),
-          autofocus: tController.creating,
-          margin: EdgeInsets.zero,
-          maxLines: 1,
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            contentPadding: EdgeInsets.zero,
-            hintText: tController.titleController.titlePlaceholder,
-            hintStyle: const BaseText('', color: f3Color).style(context),
+        fData,
+        loading: tController.task.loading == true,
+        minHeight: P8,
+        value: Slidable(
+          key: ObjectKey(tController),
+          endActionPane: ActionPane(
+            motion: const ScrollMotion(),
+            dismissible: DismissiblePane(
+              onDismissed: () {},
+              confirmDismiss: () async => await controller.deleteTask(tController),
+            ),
+            children: [
+              SlidableAction(
+                onPressed: (_) async => await controller.deleteTask(tController),
+                backgroundColor: dangerColor.resolve(context),
+                foregroundColor: b3Color.resolve(context),
+                icon: CupertinoIcons.delete,
+                label: loc.delete_action_title,
+              ),
+            ],
           ),
-          style: const BaseText('').style(context),
-          onChanged: tController.titleController.editTitle,
-          onSubmitted: kbSubmit,
+          child: Stack(
+            children: [
+              MTTextField(
+                keyboardType: TextInputType.multiline,
+                controller: teController,
+                autofocus: index == controller.taskControllers.length - 1,
+                margin: const EdgeInsets.symmetric(horizontal: P3),
+                maxLines: 1,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.zero,
+                  hintText: tController.titleController.titlePlaceholder,
+                  hintStyle: const BaseText('', color: f3Color).style(context),
+                ),
+                style: const BaseText('').style(context),
+                onChanged: (str) => controller.editTitle(tController, str),
+                onSubmitted: (_) => controller.addTask(),
+                focusNode: fNode,
+              ),
+              if (fNode?.hasFocus == false)
+                Container(
+                  color: b3Color.resolve(context),
+                  padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: 1),
+                  height: P8,
+                  alignment: Alignment.centerLeft,
+                  child: BaseText(roText, maxLines: 1),
+                ),
+            ],
+          ),
         ),
-        padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: isWeb ? P : P_3),
-        bottomDivider: index < controller.sortedControllers.length - 1,
+        padding: EdgeInsets.zero,
+        dividerIndent: P3,
+        dividerEndIndent: P3,
+        bottomDivider: index < controller.taskControllers.length - 1,
+        onSelect: () => controller.setFocus(true, tController),
       );
     }
   }
@@ -124,12 +170,12 @@ class _CreateMultiTaskQuizViewState extends State<CreateMultiTaskQuizView> {
               top: false,
               bottom: false,
               child: MTAdaptive(
-                child: controller.sortedControllers.isNotEmpty
+                child: controller.taskControllers.isNotEmpty
                     ? MTShadowed(
                         bottomShadow: true,
                         child: ListView.builder(
                           itemBuilder: itemBuilder,
-                          itemCount: controller.sortedControllers.length + 1,
+                          itemCount: controller.taskControllers.length + 1,
                         ),
                       )
                     : Center(
@@ -149,11 +195,6 @@ class _CreateMultiTaskQuizViewState extends State<CreateMultiTaskQuizView> {
               middle: QuizNextButton(qController, margin: EdgeInsets.zero),
             ),
           ),
-          // if (parent.error != null)
-          //   MTErrorSheet(parent.error!, onClose: () {
-          //     parent.error = null;
-          //     tasksMainController.refreshTasks();
-          //   }),
         ],
       ),
     );

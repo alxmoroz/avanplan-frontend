@@ -21,6 +21,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_mobx: any
+  flutter_slidable: any
   get_it: any
   google_sign_in: ^5.4.4
   hive: any

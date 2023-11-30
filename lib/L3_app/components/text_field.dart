@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'colors.dart';
 import 'colors_base.dart';
 import 'constants.dart';
-import 'material_wrapper.dart';
 import 'text.dart';
 
 InputDecoration tfDecoration(
@@ -74,6 +73,7 @@ class MTTextField extends StatelessWidget {
     this.onSubmitted,
     this.style,
     this.decoration,
+    this.focusNode,
   });
 
   const MTTextField.noText({
@@ -88,6 +88,7 @@ class MTTextField extends StatelessWidget {
     this.onTap,
     this.decoration,
     this.maxLines = 1,
+    this.focusNode,
   })  : autofocus = false,
         obscureText = false,
         capitalization = null,
@@ -120,46 +121,46 @@ class MTTextField extends StatelessWidget {
   final VoidCallback? onTap;
   final Function(String)? onChanged;
   final Function(String)? onSubmitted;
+  final FocusNode? focusNode;
 
   @override
   Widget build(BuildContext context) {
-    return material(
-      Padding(
-        padding: margin ?? tfPadding,
-        child: MediaQuery.removePadding(
-          context: context,
-          removeTop: true,
-          removeBottom: true,
-          removeRight: true,
-          removeLeft: true,
-          child: TextField(
-            style: style ?? const BaseText('').style(context),
-            decoration: decoration ??
-                tfDecoration(
-                  context,
-                  label: label,
-                  helper: helper,
-                  error: error,
-                  prefixIcon: prefixIcon,
-                  suffixIcon: suffixIcon,
-                  readOnly: readOnly,
-                  padding: padding,
-                ),
-            cursorColor: mainColor.resolve(context),
-            autofocus: autofocus,
-            minLines: 1,
-            maxLines: maxLines,
-            controller: controller,
-            keyboardType: keyboardType,
-            textCapitalization: capitalization ?? TextCapitalization.sentences,
-            obscureText: obscureText,
-            autocorrect: autocorrect,
-            enableSuggestions: suggestions,
-            readOnly: readOnly,
-            onTap: onTap,
-            onChanged: onChanged,
-            onSubmitted: onSubmitted,
-          ),
+    return Padding(
+      padding: margin ?? tfPadding,
+      child: MediaQuery.removePadding(
+        context: context,
+        removeTop: true,
+        removeBottom: true,
+        removeRight: true,
+        removeLeft: true,
+        child: TextField(
+          style: style ?? const BaseText('').style(context),
+          decoration: decoration ??
+              tfDecoration(
+                context,
+                label: label,
+                helper: helper,
+                error: error,
+                prefixIcon: prefixIcon,
+                suffixIcon: suffixIcon,
+                readOnly: readOnly,
+                padding: padding,
+              ),
+          cursorColor: mainColor.resolve(context),
+          autofocus: autofocus,
+          minLines: 1,
+          maxLines: maxLines,
+          controller: controller,
+          keyboardType: keyboardType,
+          textCapitalization: capitalization ?? TextCapitalization.sentences,
+          obscureText: obscureText,
+          autocorrect: autocorrect,
+          enableSuggestions: suggestions,
+          readOnly: readOnly,
+          onTap: onTap,
+          onChanged: onChanged,
+          onSubmitted: onSubmitted,
+          focusNode: focusNode,
         ),
       ),
     );

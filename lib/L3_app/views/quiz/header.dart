@@ -1,6 +1,7 @@
 // Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../components/button.dart';
 import '../../components/colors.dart';
@@ -38,37 +39,39 @@ class QuizHeader extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _controller.active
-        ? MTAppBar(
-            leading: MTButton(
-              titleText: loc.back_action_title,
-              padding: const EdgeInsets.only(left: P2),
-              onTap: () => _controller.back(context),
-            ),
-            middle: _controller.stepsCount > 1
-                ? Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      for (var index = 0; index < _controller.stepsCount; index++) _stepMark(context, index),
-                    ],
-                  )
-                : null,
-            bottom: _controller.stepTitle.trim().isNotEmpty
-                ? BaseText.medium(
-                    _controller.stepTitle,
-                    maxLines: 1,
-                    padding: const EdgeInsets.only(top: P, bottom: P),
-                  )
-                : null,
-            height: preferredSize.height,
-            trailing: _controller.stepIndex < _controller.stepsCount - 1
-                ? MTButton(
-                    titleText: loc.skip_action_title,
-                    padding: const EdgeInsets.only(right: P2),
-                    onTap: () => _controller.finish(context),
-                  )
-                : null,
-          )
-        : MTAppBar(height: preferredSize.height);
+    return Observer(
+      builder: (_) => _controller.active
+          ? MTAppBar(
+              leading: MTButton(
+                titleText: loc.back_action_title,
+                padding: const EdgeInsets.only(left: P2),
+                onTap: () => _controller.back(context),
+              ),
+              middle: _controller.stepsCount > 1
+                  ? Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        for (var index = 0; index < _controller.stepsCount; index++) _stepMark(context, index),
+                      ],
+                    )
+                  : null,
+              bottom: _controller.stepTitle.trim().isNotEmpty
+                  ? BaseText.medium(
+                      _controller.stepTitle,
+                      maxLines: 1,
+                      padding: const EdgeInsets.only(top: P, bottom: P),
+                    )
+                  : null,
+              height: preferredSize.height,
+              trailing: _controller.stepIndex < _controller.stepsCount - 1
+                  ? MTButton(
+                      titleText: loc.skip_action_title,
+                      padding: const EdgeInsets.only(right: P2),
+                      onTap: () => _controller.finish(context),
+                    )
+                  : null,
+            )
+          : MTAppBar(height: preferredSize.height),
+    );
   }
 }

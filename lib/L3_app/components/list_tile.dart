@@ -23,6 +23,7 @@ class MTListTile extends StatelessWidget with FocusManaging {
     this.padding,
     this.margin,
     this.dividerIndent,
+    this.dividerEndIndent,
     this.topDivider = false,
     this.bottomDivider = true,
     this.crossAxisAlignment,
@@ -40,6 +41,7 @@ class MTListTile extends StatelessWidget with FocusManaging {
   final EdgeInsets? padding;
   final EdgeInsets? margin;
   final double? dividerIndent;
+  final double? dividerEndIndent;
   final bool topDivider;
   final bool bottomDivider;
   final CrossAxisAlignment? crossAxisAlignment;
@@ -51,7 +53,7 @@ class MTListTile extends StatelessWidget with FocusManaging {
 
   Widget get _divider => MTDivider(
         indent: dividerIndent ?? padding?.left ?? _defaultIndent,
-        endIndent: padding?.right ?? _defaultIndent,
+        endIndent: dividerEndIndent ?? padding?.right ?? _defaultIndent,
       );
 
   EdgeInsets get _defaultPadding => const EdgeInsets.symmetric(horizontal: _defaultIndent, vertical: P2);

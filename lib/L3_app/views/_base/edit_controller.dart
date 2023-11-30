@@ -13,26 +13,34 @@ abstract class EditController = _EditControllerBase with _$EditController;
 
 abstract class _EditControllerBase with Store {
   @observable
-  ObservableMap<int, TextEditingController> _teControllers = ObservableMap();
-  @observable
   ObservableMap<int, MTFieldData> _fdMap = ObservableMap();
 
+  @observable
+  Map<int, TextEditingController> _teControllers = {};
   TextEditingController? teController(int code) => _teControllers[code];
+
+  @observable
+  Map<int, FocusNode> _focusNodes = {};
+  FocusNode? focusNode(int code) => _focusNodes[code];
 
   @mustCallSuper
   @action
   void initState({List<MTFieldData>? fds}) {
     _fdMap = ObservableMap.of({for (var fd in fds ?? <MTFieldData>[]) fd.code: fd});
-    _teControllers = ObservableMap.of({for (var fd in _fdMap.values) fd.code: _makeTEController(fd.code)});
+    _teControllers = {for (var fd in _fdMap.values) fd.code: _makeTEController(fd.code)};
+    _focusNodes = {for (var fd in _fdMap.values) fd.code: FocusNode()};
   }
 
   @mustCallSuper
   @action
   void dispose() {
-    for (var c in _teControllers.values) {
-      c.dispose();
-    }
+    _teControllers.forEach((_, tec) => tec.dispose());
     _teControllers.clear();
+
+    _focusNodes.forEach((_, node) => node.dispose());
+    _focusNodes.clear();
+
+    _fdMap.clear();
   }
 
   @observable

@@ -50,6 +50,8 @@
   "chart_volume_total_label": "Total",
   "chart_volume_unit": "completed",
 
+  "checklist": "Checklist",
+
   "clear_action_title": "Clear",
   "close_action_title": "Close",
   "close_dialog_recursive_description": "All subtasks will be marked completed",

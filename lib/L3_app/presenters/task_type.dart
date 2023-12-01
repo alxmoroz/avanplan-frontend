@@ -53,6 +53,7 @@ extension TaskTypePresenter on Task {
         TType.PROJECT: hfsGoals ? loc.goal_list_title : loc.task_list_title,
         TType.GOAL: loc.task_list_title,
         TType.BACKLOG: loc.task_list_title,
+        TType.TASK: loc.checklist,
       }[type] ??
       loc.subtask_list_title;
 
@@ -75,7 +76,7 @@ extension TaskTypePresenter on Task {
       }[type] ??
       loc.subtask_count_dative(count);
 
-  String subtasksCount(int count) =>
+  String subtasksCountStr(int count) =>
       {
         TType.ROOT: loc.project_count(count),
         TType.PROJECT: hfsGoals ? loc.goal_count(count) : loc.task_count(count),

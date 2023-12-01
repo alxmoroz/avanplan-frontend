@@ -143,6 +143,17 @@ class DetailsPane extends StatelessWidget {
               controller.datesController.dateField(context, TaskFCode.startDate),
               if (_task.hasDueDate || _task.canEdit) controller.datesController.dateField(context, TaskFCode.dueDate),
 
+              /// Кнопка для добавления Чек-листа
+              if (_task.canAddChecklist)
+                MTField(
+                  controller.fData(TaskFCode.type.index),
+                  margin: const EdgeInsets.only(top: P3),
+                  leading: const DoneIcon(true, size: P6),
+                  value: BaseText.medium('${loc.action_add_title} ${loc.checklist.toLowerCase()}', color: mainColor, maxLines: 1),
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  onSelect: () async => await controller.subtasksController.addTask(),
+                ),
+
               /// Оценки
               if (!_quizzing && _task.hfsEstimates && (_task.hasEstimate || _task.canEstimate))
                 MTField(
@@ -174,7 +185,7 @@ class DetailsPane extends StatelessWidget {
                 ),
 
               /// Author
-              if (!_quizzing && _task.hfsTeam && _task.hasAuthor)
+              if (!_quizzing && _task.hfsTeam && _task.author != null)
                 MTField(
                   controller.fData(TaskFCode.author.index),
                   margin: const EdgeInsets.only(top: P3),

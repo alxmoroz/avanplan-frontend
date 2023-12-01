@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:avanplan/L1_domain/entities_extensions/task_tree.dart';
 import 'package:drag_and_drop_lists/drag_and_drop_item.dart';
 import 'package:drag_and_drop_lists/drag_and_drop_item_target.dart';
 import 'package:flutter/material.dart';
@@ -74,7 +75,7 @@ class StatusController {
         tasksMainController.refreshTasks();
       } else {
         //TODO: может неожиданно для пользователя вываливаться в случае редактирования статуса закрытой задачи
-        if (sameTask && _task.closed) {
+        if (sameTask && _task.closed && !_task.isCheckItem) {
           Navigator.of(rootKey.currentContext!).pop();
         }
       }

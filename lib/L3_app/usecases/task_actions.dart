@@ -60,6 +60,7 @@ extension TaskActionsUC on Task {
   bool get canViewFeatureSets => isProject && _hpProjectInfoRead;
   bool get canEditFeatureSets => isProject && _hpProjectInfoUpdate;
   bool get canEditProjectStatuses => hfsTaskboard && isProject && _hpProjectInfoUpdate;
+  bool get canAddChecklist => isTask && subtasks.isEmpty && canEdit;
 
   bool get canShowBoard =>
       hfsTaskboard && totalVolume > 0 && subtasks.isNotEmpty && subtasks.every((st) => st.hasStatus) && ((!isProject && !isBacklog) || !hfsGoals);

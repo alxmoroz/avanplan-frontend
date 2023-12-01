@@ -107,6 +107,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
   @override
   void dispose() {
     if (controller.allowDisposeFromView) {
+      controller.subtasksController.dispose();
       controller.dispose();
     }
     super.dispose();

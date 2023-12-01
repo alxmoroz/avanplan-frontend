@@ -12,6 +12,7 @@ import '../../../components/field_data.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_view.dart';
 import '../../../usecases/task_edit.dart';
+import '../../../usecases/task_tree.dart';
 import '../../../views/_base/edit_controller.dart';
 import '../task_view.dart';
 import '../widgets/transfer/local_export_controller.dart';
@@ -29,9 +30,9 @@ part 'task_controller.g.dart';
 
 enum TaskTabKey { overview, subtasks, details, team }
 
-enum TaskFCode { parent, title, status, assignee, description, startDate, dueDate, estimate, author, features, statuses, note, attachment }
+enum TaskFCode { parent, title, status, assignee, description, startDate, dueDate, type, estimate, author, features, statuses, note, attachment }
 
-enum TasksFilter { my }
+enum TasksFilter { my, projects }
 
 class TaskController extends _TaskControllerBase with _$TaskController {
   TaskController(Task taskIn, {bool isNew = false, bool? allowDisposeFromView}) {
@@ -46,6 +47,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
       MTFieldData(TaskFCode.description.index, text: _task.description, label: loc.description, placeholder: loc.description),
       MTFieldData(TaskFCode.startDate.index, label: loc.task_start_date_label, placeholder: loc.task_start_date_placeholder),
       MTFieldData(TaskFCode.dueDate.index, label: loc.task_due_date_label, placeholder: loc.task_due_date_placeholder),
+      MTFieldData(TaskFCode.type.index),
       MTFieldData(
         TaskFCode.estimate.index,
         label: _task.openedVolume != null ? loc.task_estimate_group_label : loc.task_estimate_label,
@@ -110,7 +112,7 @@ abstract class _TaskControllerBase extends EditController with Store {
   Iterable<TaskTabKey> get tabKeys {
     return [
       if (task.hasOverviewPane) TaskTabKey.overview,
-      if (!task.isTask) TaskTabKey.subtasks,
+      if (!task.isTask || task.isCheckList) TaskTabKey.subtasks,
       if (task.hasTeamPane) TaskTabKey.team,
       TaskTabKey.details,
     ];

@@ -50,6 +50,8 @@
   "chart_volume_total_label": "Всего",
   "chart_volume_unit": "выполнено",
 
+  "checklist": "Чек-лист",
+
   "clear_action_title": "Сбросить",
   "close_action_title": "Завершить",
   "close_dialog_recursive_description": "Все открытые подзадачи будут отмечены выполненными",

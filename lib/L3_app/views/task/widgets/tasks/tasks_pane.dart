@@ -1,5 +1,7 @@
 // Copyright (c) 2023. Alexandr Moroz
 
+import 'package:avanplan/L1_domain/entities_extensions/task_tree.dart';
+import 'package:avanplan/L3_app/views/task/widgets/tasks/task_checklist.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
@@ -40,7 +42,7 @@ class TasksPane extends StatelessWidget {
         child: icon,
       );
 
-  Widget? get bottomBar => _task.subtaskGroups.isNotEmpty || _task.totalVolume > 0 && (_task.canCreate || _task.totalVolume > 0)
+  Widget? get bottomBar => _task.canShowBoard || _task.canLocalImport || (_task.canCreate && !_task.isGroup)
       ? MTAdaptive(
           force: true,
           child: MTAppBar(
@@ -86,10 +88,12 @@ class TasksPane extends StatelessWidget {
                   controller.statusController,
                   extra: controller.subtasksController.loadClosedButton(board: true),
                 )
-              : TasksListView(
-                  _task.subtaskGroups,
-                  extra: controller.subtasksController.loadClosedButton(),
-                ),
+              : _task.isCheckList
+                  ? TaskChecklist(controller)
+                  : TasksListView(
+                      _task.subtaskGroups,
+                      extra: controller.subtasksController.loadClosedButton(),
+                    ),
     );
   }
 }

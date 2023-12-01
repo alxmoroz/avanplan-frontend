@@ -5,8 +5,9 @@ import '../entities/task.dart';
 extension TaskTreeExt on Task {
   bool get isProject => type == TType.PROJECT || parentId == null;
   bool get isGoal => type == TType.GOAL;
-  bool get isTaskGroup => type == TType.GROUP;
+  bool get isGroup => type == TType.GROUP;
   bool get isBacklog => type == TType.BACKLOG;
   bool get isTask => type == TType.TASK;
-  bool get isOpenedGroup => !isTask && !isBacklog && !closed;
+  bool get isCheckItem => type == TType.CHECKLIST_ITEM;
+  bool get isOpenedGroup => (isProject || isGoal || isGroup) && !closed;
 }

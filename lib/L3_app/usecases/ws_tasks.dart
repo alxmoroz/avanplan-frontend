@@ -17,6 +17,7 @@ extension WSTasksUC on Workspace {
   Future<Task?> createTask(Task? _parent) async {
     final _newProject = _parent == null;
     final _newGoal = _parent != null && _parent.isProject && _parent.hfsGoals;
+    final _newCheckItem = _parent != null && _parent.isTask;
 
     if (!plCreate(_parent)) {
       await changeTariff(
@@ -44,7 +45,9 @@ extension WSTasksUC on Workspace {
             ? TType.PROJECT
             : _newGoal
                 ? TType.GOAL
-                : TType.TASK,
+                : _newCheckItem
+                    ? TType.CHECKLIST_ITEM
+                    : TType.TASK,
       );
 
       // TODO: возможно, будет лучше в квизе это как-то обыграть...

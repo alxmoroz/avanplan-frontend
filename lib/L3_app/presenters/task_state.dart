@@ -145,7 +145,7 @@ extension TaskStatePresenter on Task {
   String _subjects(int count, {bool dative = true}) {
     String res = '';
     if (count > 0) {
-      res = dative ? ' ${loc.for_dative} ${dativeSubtasksCount(count)}' : ' ${subtasksCount(count)}';
+      res = dative ? ' ${loc.for_dative} ${dativeSubtasksCount(count)}' : ' ${subtasksCountStr(count)}';
     }
     return res;
   }

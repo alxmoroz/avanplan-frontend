@@ -15,6 +15,7 @@ class TType {
   static const GROUP = 'GROUP';
   static const BACKLOG = 'BACKLOG';
   static const TASK = 'TASK';
+  static const CHECKLIST_ITEM = 'CHECKLIST_ITEM';
 }
 
 enum TaskState {

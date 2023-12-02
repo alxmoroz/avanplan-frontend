@@ -95,6 +95,6 @@ flutter_intl:
 # после запуска команды вручную заменить все измененные изображения, т.к. очень плохо ресайзит, размер больших больше, а мелкие - лесенкой все
 flutter_native_splash:
   color: "#F4F5F7"
-  color_dark: "#2E3036"
+  color_dark: "#24262E"
   image: scripts/launch_image.png
   image_dark: scripts/launch_image_dark.png

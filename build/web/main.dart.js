@@ -68107,8 +68107,10 @@ r=this.b
 i.push(s.abz(r,B.iE))
 if(g.gK().k4!=null||A.e_(g.gK()))i.push(s.abz(r,B.pz))
 s=g.gK()
-if(s.at==="TASK"){r=A.dp(s)
-s=!r.gai(r).A()&&A.e_(s)}else s=!1
+if(!s.fr)if(s.at==="TASK")if(A.e_(s)){s=A.dp(s)
+s=!s.gai(s).A()}else s=!1
+else s=!1
+else s=!1
 if(s){$.x.toString
 s=t.f
 r=A.v("Add",m,"action_add_title",A.a([],s),m)

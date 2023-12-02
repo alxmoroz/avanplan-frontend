@@ -50,21 +50,16 @@ class LocalImportDialog extends StatelessWidget {
   Widget build(BuildContext context) => Observer(
         builder: (_) => MTDialog(
           topBar: MTToolBar(
-            middle: Column(
-              children: [
-                const SizedBox(height: P2),
-                BaseText.medium(loc.task_transfer_title, maxLines: 1),
-                BaseText(
-                  '$_dstGoal',
-                  maxLines: 1,
-                  padding: const EdgeInsets.symmetric(horizontal: P2).copyWith(top: P, bottom: P),
-                ),
-              ],
-            ),
-            // titleText: loc.task_transfer_title,
+            titleText: loc.task_transfer_title,
             bottom: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                BaseText(
+                  '$_dstGoal',
+                  maxLines: 1,
+                  align: TextAlign.center,
+                  padding: const EdgeInsets.symmetric(horizontal: P2).copyWith(bottom: P),
+                ),
                 MTButton.secondary(
                   constrained: false,
                   padding: const EdgeInsets.symmetric(horizontal: P3),
@@ -90,6 +85,7 @@ class LocalImportDialog extends StatelessWidget {
                     titleColor: mainColor,
                     color: b2Color,
                     value: controller.selectedAll,
+                    bottomDivider: false,
                     onChanged: controller.toggleAll,
                   )
                 else
@@ -97,7 +93,7 @@ class LocalImportDialog extends StatelessWidget {
               ],
             ),
           ),
-          topBarHeight: P * 18.5 + (_showSelectAll ? P8 : 0),
+          topBarHeight: P * 20.5 + (_showSelectAll ? P8 : 0),
           body: MTShadowed(
             topPaddingIndent: 0,
             bottomShadow: controller.sourceSelected,

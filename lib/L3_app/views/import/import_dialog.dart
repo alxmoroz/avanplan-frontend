@@ -69,7 +69,7 @@ class ImportDialog extends StatelessWidget {
   Widget get _header => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const SizedBox(height: P4),
+          const SizedBox(height: P),
           Row(
             children: [
               Expanded(child: _sourceDropdown),
@@ -86,6 +86,7 @@ class ImportDialog extends StatelessWidget {
                   color: b2Color,
                   value: _selectedAll,
                   onChanged: controller.toggleSelectedAll,
+                  bottomDivider: false,
                 ),
             ]
           ]
@@ -160,13 +161,8 @@ class ImportDialog extends StatelessWidget {
     return Observer(
       builder: (_) => MTDialog(
         topBar: MTToolBar(
-          middle: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              controller.ws.subPageTitle(loc.import_title),
-              if (_hasSources) _header,
-            ],
-          ),
+          middle: controller.ws.subPageTitle(loc.import_title),
+          bottom: _hasSources ? _header : null,
         ),
         topBarHeight: P8 + (_hasSources ? P * 13 + (_showSelectAll ? P8 : 0) : 0),
         body: _body(context),

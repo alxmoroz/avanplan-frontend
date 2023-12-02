@@ -46,6 +46,7 @@ class TasksListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MTShadowed(
       topPaddingIndent: P,
+      bottomShadow: true,
       child: MTAdaptive(
         child: ListView.builder(
           itemBuilder: (_, index) => _groupedItemBuilder(index),

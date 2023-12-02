@@ -5,7 +5,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_stats.dart';
-import '../../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../../main.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
@@ -42,7 +41,7 @@ class TasksPane extends StatelessWidget {
         child: icon,
       );
 
-  Widget? get bottomBar => _task.canShowBoard || _task.canLocalImport || (_task.canCreate && !_task.isGroup)
+  Widget? get bottomBar => _task.canShowBoard || _task.canLocalImport || (_task.canCreate && !_task.isCheckList)
       ? MTAdaptive(
           force: true,
           child: MTAppBar(

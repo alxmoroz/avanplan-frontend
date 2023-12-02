@@ -1,6 +1,5 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'package:avanplan/L3_app/views/my_projects/my_projects_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
@@ -9,6 +8,7 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../extra/services.dart';
 import '../../../usecases/task_tree.dart';
 import '../../../usecases/ws_tasks.dart';
+import '../../projects/projects_view.dart';
 import '../../quiz/quiz_controller.dart';
 import '../task_view.dart';
 import '../widgets/create/create_multitask_quiz_view.dart';
@@ -74,7 +74,7 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
     Navigator.of(context).popUntil((r) => r.navigator?.canPop() != true);
     _goalController?.dispose();
 
-    MyProjectsRouter().navigate(context);
+    ProjectsRouter().navigate(context);
     //TODO: нужно ли в этом месте создавать контроллер, может, тут достаточно отправить айдишники?
     //TODO: проверить необходимость await. Раньше не было тут. Если не надо, то оставить коммент почему не надо
     TaskRouter().navigate(context, args: TaskController(_project));

@@ -10,14 +10,14 @@ import '../../../components/shadowed.dart';
 import '../../../components/text.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_state.dart';
-import '../../my_projects/my_projects_view.dart';
+import '../../projects/projects_view.dart';
 import '../../task/widgets/tasks/tasks_group.dart';
 
 class Projects extends StatelessWidget {
   const Projects({this.compact = true});
   final bool compact;
 
-  Future _goToProjects() async => await MyProjectsRouter().navigate(rootKey.currentContext!);
+  Future _goToProjects() async => await ProjectsRouter().navigate(rootKey.currentContext!);
 
   Widget _contents(BuildContext context) {
     final overallState = tasksMainController.overallProjectsState;

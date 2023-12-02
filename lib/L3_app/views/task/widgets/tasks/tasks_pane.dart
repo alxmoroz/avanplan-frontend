@@ -1,12 +1,11 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'package:avanplan/L1_domain/entities_extensions/task_tree.dart';
-import 'package:avanplan/L3_app/views/task/widgets/tasks/task_checklist.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_stats.dart';
+import '../../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../../main.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
@@ -21,6 +20,7 @@ import '../../controllers/task_controller.dart';
 import '../../widgets/transfer/local_import_dialog.dart';
 import '../create/create_task_button.dart';
 import '../empty_state/no_tasks.dart';
+import 'task_checklist.dart';
 import 'tasks_board.dart';
 import 'tasks_list_view.dart';
 

@@ -13,7 +13,7 @@ import '../task/widgets/create/create_project_button.dart';
 import '../task/widgets/create/import_project_button.dart';
 import '../task/widgets/tasks/tasks_list_view.dart';
 
-class MyProjectsRouter extends MTRouter {
+class ProjectsRouter extends MTRouter {
   @override
   String get path => '/projects';
 
@@ -21,10 +21,10 @@ class MyProjectsRouter extends MTRouter {
   String get title => loc.project_list_title;
 
   @override
-  Widget get page => MyProjectsView();
+  Widget get page => ProjectsView();
 }
 
-class MyProjectsView extends StatelessWidget {
+class ProjectsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // WidgetsBinding.instance.addPostFrameCallback((_) => setWebpageTitle(loc.project_list_title));

@@ -6,7 +6,7 @@ import 'package:mobx/mobx.dart';
 import '../../../../L1_domain/entities/task.dart';
 import '../../../extra/services.dart';
 import '../../../usecases/task_tree.dart';
-import '../../my_projects/my_projects_view.dart';
+import '../../projects/projects_view.dart';
 import '../../quiz/quiz_controller.dart';
 import '../task_view.dart';
 import '../widgets/create/create_multitask_quiz_view.dart';
@@ -34,7 +34,7 @@ class CreateGoalQuizController extends _CreateGoalQuizControllerBase with _$Crea
   @override
   Future afterFinish(BuildContext context) async {
     Navigator.of(context).popUntil((r) => r.navigator?.canPop() != true);
-    MyProjectsRouter().navigate(context);
+    ProjectsRouter().navigate(context);
     TaskRouter().navigate(context, args: TaskController(_goal.project!));
     //TODO: нужно ли в этом месте создавать контроллер, может, тут достаточно отправить айдишники?
     //TODO: проверить необходимость await. Раньше не было тут. Если не надо, то оставить коммент почему не надо

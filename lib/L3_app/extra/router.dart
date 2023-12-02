@@ -15,9 +15,9 @@ import '../views/auth/invitation_token_controller.dart';
 import '../views/auth/registration_token_controller.dart';
 import '../views/loader/loader_screen.dart';
 import '../views/main/main_view.dart';
-import '../views/my_projects/my_projects_view.dart';
 import '../views/my_tasks/my_tasks_view.dart';
 import '../views/notification/notification_list_view.dart';
+import '../views/projects/projects_view.dart';
 import '../views/settings/settings_view.dart';
 import '../views/source/source_list_view.dart';
 import '../views/task/task_view.dart';
@@ -43,7 +43,7 @@ final _routers = <MTRouter>[
   // My Tasks
   MyTasksRouter(),
   // Projects
-  MyProjectsRouter(),
+  ProjectsRouter(),
 
   // Projects - Create
   CreateProjectQuizRouter(),

@@ -9,7 +9,7 @@ import '../../../../components/constants.dart';
 import '../../../../components/images.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
-import '../../../my_projects/my_projects_view.dart';
+import '../../../projects/projects_view.dart';
 import '../../controllers/create_project_controller.dart';
 import '../create/create_project_button.dart';
 import '../create/import_project_button.dart';
@@ -33,7 +33,7 @@ class NoProjects extends StatelessWidget {
               MTButton(
                 leading: H2(loc.project_list_title, color: mainColor, maxLines: 1),
                 middle: H2(loc.are_closed_suffix, maxLines: 1),
-                onTap: () async => await MyProjectsRouter().navigate(context),
+                onTap: () async => await ProjectsRouter().navigate(context),
               )
             else
               H2(loc.project_list_empty_title, align: TextAlign.center),

@@ -1,6 +1,6 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
+import 'package:avanplan/main.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/workspace.dart';
@@ -60,14 +60,15 @@ abstract class _CreateProjectControllerBase with Store {
     }
   }
 
-  Future createProject(BuildContext context) async {
+  Future createProject() async {
     await _selectWS();
     if (_ws != null) {
       final newP = await _ws!.createTask(null);
       if (newP != null) {
         //TODO: нужно ли в этом месте создавать контроллеры, может, тут достаточно отправить айдишники или задачу?
         final tc = TaskController(newP, isNew: true);
-        await CreateProjectQuizRouter().navigate(context, args: CreateTaskQuizArgs(tc, CreateProjectQuizController(tc)));
+        // rootKey тут, потому что если добавлять с главной, то кнопка добавления пропадает оттуда
+        await CreateProjectQuizRouter().navigate(rootKey.currentContext!, args: CreateTaskQuizArgs(tc, CreateProjectQuizController(tc)));
       }
     }
     await _dispose();

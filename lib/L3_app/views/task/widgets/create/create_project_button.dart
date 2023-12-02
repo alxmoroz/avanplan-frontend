@@ -32,7 +32,7 @@ class CreateProjectButton extends StatelessWidget {
         titleText: _compact ? null : addSubtaskActionTitle(null),
         middle: _compact ? _plusIcon : null,
         constrained: !_compact,
-        onTap: () => _controller.createProject(context),
+        onTap: () => _controller.createProject(),
       ),
     );
   }

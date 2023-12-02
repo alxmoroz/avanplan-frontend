@@ -19,6 +19,7 @@ class MTListTile extends StatelessWidget with FocusManaging {
     this.titleText,
     this.trailing,
     this.onTap,
+    this.onHover,
     this.color,
     this.padding,
     this.margin,
@@ -37,6 +38,8 @@ class MTListTile extends StatelessWidget with FocusManaging {
   final String? titleText;
   final Widget? trailing;
   final Function()? onTap;
+  final Function(bool)? onHover;
+
   final Color? color;
   final EdgeInsets? padding;
   final EdgeInsets? margin;
@@ -74,6 +77,7 @@ class MTListTile extends StatelessWidget with FocusManaging {
           child: material(
             InkWell(
               onTap: _onPressed,
+              onHover: onHover,
               hoverColor: _hoverColor,
               highlightColor: _splashColor,
               splashColor: _splashColor,

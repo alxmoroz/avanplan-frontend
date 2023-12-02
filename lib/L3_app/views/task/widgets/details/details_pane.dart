@@ -115,7 +115,7 @@ class DetailsPane extends StatelessWidget {
                           color: _task.canAssign ? mainColor : f2Color,
                         ),
                   value: _task.hasAssignee ? BaseText('${_task.assignee}', color: _task.canAssign ? null : f2Color, maxLines: 1) : null,
-                  onSelect: _task.canAssign ? controller.assigneeController.startAssign : null,
+                  onTap: _task.canAssign ? controller.assigneeController.startAssign : null,
                 ),
               ],
 
@@ -135,7 +135,7 @@ class DetailsPane extends StatelessWidget {
                           maxLines: 20,
                         )
                       : null,
-                  onSelect: _task.canEdit ? controller.titleController.editDescription : null,
+                  onTap: _task.canEdit ? controller.titleController.editDescription : null,
                 ),
 
               /// Даты
@@ -150,7 +150,7 @@ class DetailsPane extends StatelessWidget {
                   margin: const EdgeInsets.only(top: P3),
                   leading: const TasksIcon(size: P6, color: mainColor),
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  onSelect: () async => await controller.subtasksController.addTask(),
+                  onTap: () async => await controller.subtasksController.addTask(),
                 ),
 
               /// Оценки
@@ -162,7 +162,7 @@ class DetailsPane extends StatelessWidget {
                   value: _task.hasEstimate
                       ? BaseText('${(_task.openedVolume ?? _task.estimate)?.round()} ${_task.ws.estimateUnitCode}', maxLines: 1)
                       : null,
-                  onSelect: _task.canEstimate ? controller.estimateController.select : null,
+                  onTap: _task.canEstimate ? controller.estimateController.select : null,
                 ),
 
               /// Вложения
@@ -180,7 +180,7 @@ class DetailsPane extends StatelessWidget {
                         padding: const EdgeInsets.only(left: P),
                       )
                   ]),
-                  onSelect: () => showAttachmentsDialog(controller.attachmentsController),
+                  onTap: () => showAttachmentsDialog(controller.attachmentsController),
                 ),
 
               /// Author
@@ -199,7 +199,7 @@ class DetailsPane extends StatelessWidget {
                   margin: const EdgeInsets.only(top: P3),
                   leading: SettingsIcon(color: _task.canEditFeatureSets ? null : f3Color),
                   value: BaseText(_task.localizedFeatureSets, maxLines: 1),
-                  onSelect: _task.canEditFeatureSets ? () => showFeatureSetsDialog(controller) : null,
+                  onTap: _task.canEditFeatureSets ? () => showFeatureSetsDialog(controller) : null,
                 ),
 
               /// Набор статусов
@@ -209,7 +209,7 @@ class DetailsPane extends StatelessWidget {
                   margin: const EdgeInsets.only(top: P3),
                   leading: const StatusIcon(),
                   value: _task.projectStatuses.isNotEmpty ? BaseText(controller.projectStatusesController.statusesStr, maxLines: 1) : null,
-                  onSelect: () => showProjectStatusesDialog(controller.projectStatusesController),
+                  onTap: () => showProjectStatusesDialog(controller.projectStatusesController),
                 ),
 
               /// Связь с источником импорта
@@ -234,7 +234,7 @@ class DetailsPane extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   // value: BaseText.f2(controller.fData(TaskFCode.note.index).placeholder, maxLines: 1),
                   leading: const NoteAddIcon(),
-                  onSelect: controller.notesController.create,
+                  onTap: controller.notesController.create,
                 ),
 
               if (!_quizzing && controller.notesController.sortedNotesDates.isNotEmpty) Notes(controller.notesController),

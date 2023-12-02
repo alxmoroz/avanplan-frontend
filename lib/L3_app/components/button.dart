@@ -59,6 +59,7 @@ class MTButton extends StatelessWidget with FocusManaging {
     this.titleText,
     this.onTap,
     this.onLongPress,
+    this.onHover,
     this.leading,
     this.middle,
     this.trailing,
@@ -78,6 +79,7 @@ class MTButton extends StatelessWidget with FocusManaging {
     this.titleText,
     this.onTap,
     this.onLongPress,
+    this.onHover,
     this.leading,
     this.middle,
     this.trailing,
@@ -96,6 +98,7 @@ class MTButton extends StatelessWidget with FocusManaging {
     this.titleText,
     this.onTap,
     this.onLongPress,
+    this.onHover,
     this.leading,
     this.middle,
     this.trailing,
@@ -119,6 +122,7 @@ class MTButton extends StatelessWidget with FocusManaging {
     this.loading,
     this.onTap,
     this.onLongPress,
+    this.onHover,
     this.uf = true,
     this.minSize,
   })  : type = ButtonType.icon,
@@ -131,8 +135,9 @@ class MTButton extends StatelessWidget with FocusManaging {
 
   final ButtonType type;
   final String? titleText;
-  final Function? onTap;
-  final Function? onLongPress;
+  final Function()? onTap;
+  final Function()? onLongPress;
+  final Function(bool)? onHover;
   final Widget? leading;
   final Widget? middle;
   final Widget? trailing;
@@ -192,12 +197,23 @@ class MTButton extends StatelessWidget with FocusManaging {
         return OutlinedButton(
           onPressed: _onPressed,
           onLongPress: _onLongPress,
+          onHover: onHover,
           child: _child,
           style: _style(context),
           clipBehavior: Clip.hardEdge,
         );
       default:
-        return CupertinoButton(onPressed: _onPressed, child: _child, minSize: 0, padding: padding ?? EdgeInsets.zero, color: color);
+        return InkWell(
+          onHover: onHover,
+          onTap: onHover != null ? () {} : null,
+          hoverColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          splashColor: Colors.transparent,
+          canRequestFocus: false,
+          focusColor: Colors.transparent,
+          onLongPress: _onLongPress,
+          child: CupertinoButton(onPressed: _onPressed, child: _child, minSize: 0, padding: padding ?? EdgeInsets.zero, color: color),
+        );
     }
   }
 

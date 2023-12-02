@@ -11,9 +11,9 @@ import 'text.dart';
 class MTField extends StatelessWidget {
   const MTField(
     this.fd, {
-    this.onSelect,
     this.leading,
     this.value,
+    this.trailing,
     this.bottomDivider = false,
     this.dividerIndent,
     this.dividerEndIndent,
@@ -23,12 +23,16 @@ class MTField extends StatelessWidget {
     this.minHeight,
     this.crossAxisAlignment,
     this.loading = false,
+    this.onTap,
+    this.onHover,
   });
 
   final MTFieldData fd;
   final Widget? leading;
   final Widget? value;
-  final VoidCallback? onSelect;
+  final Widget? trailing;
+  final Function()? onTap;
+  final Function(bool)? onHover;
 
   final bool bottomDivider;
   final double? dividerIndent;
@@ -48,16 +52,18 @@ class MTField extends StatelessWidget {
       leading: leading != null ? SizedBox(width: P6, child: Center(child: leading)) : null,
       middle: _hasValue && fd.label.isNotEmpty ? SmallText(fd.label, color: f3Color, maxLines: 1) : null,
       subtitle: _hasValue ? value : BaseText.f3(fd.placeholder, maxLines: 1),
+      trailing: trailing != null ? SizedBox(width: P6, child: Center(child: trailing)) : null,
       bottomDivider: bottomDivider,
       dividerIndent: dividerIndent,
       dividerEndIndent: dividerEndIndent,
-      onTap: onSelect,
       crossAxisAlignment: crossAxisAlignment ?? (_hasValue ? CrossAxisAlignment.start : null),
       margin: margin,
       padding: padding,
       color: color,
       minHeight: minHeight,
       loading: fd.loading || loading,
+      onTap: onTap,
+      onHover: onHover,
     );
   }
 }

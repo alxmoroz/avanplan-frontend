@@ -62,9 +62,9 @@ class TaskChecklistItem extends StatelessWidget {
           children: [
             if (isCheckItem)
               MTButton.icon(
-                DoneIcon(task.closed, size: P6, color: task.closed ? f3Color : greenColor, solid: task.closed),
+                DoneIcon(task.closed, size: P6, color: task.closed ? greenLightColor : null, solid: task.closed),
                 padding: const EdgeInsets.only(left: P3, right: P3),
-                onTap: () => taskController.statusController.setStatus(task, close: true),
+                onTap: (_controller.parent.closed && task.closed) ? null : () => taskController.statusController.setStatus(task, close: !task.closed),
               ),
             Expanded(
               child: Stack(

@@ -14,6 +14,11 @@ const greenColor = CupertinoDynamicColor.withBrightness(
   darkColor: Color.fromARGB(255, 44, 197, 189),
 );
 
+const greenLightColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(42, 31, 188, 180),
+  darkColor: Color.fromARGB(42, 44, 197, 189),
+);
+
 const dangerColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(255, 255, 140, 80),
   darkColor: Color.fromARGB(255, 255, 142, 90),

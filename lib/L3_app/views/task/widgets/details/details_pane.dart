@@ -94,7 +94,7 @@ class DetailsPane extends StatelessWidget {
                         MTButton(
                           titleText: loc.state_closed,
                           type: ButtonType.card,
-                          color: greenColor.withAlpha(26),
+                          color: greenLightColor,
                           titleColor: greenColor,
                           padding: const EdgeInsets.symmetric(horizontal: P3),
                         ),
@@ -146,10 +146,9 @@ class DetailsPane extends StatelessWidget {
               /// Кнопка для добавления Чек-листа
               if (_task.canAddChecklist)
                 MTField(
-                  controller.fData(TaskFCode.type.index),
+                  MTFieldData(-1, placeholder: '${loc.action_add_title} ${loc.checklist.toLowerCase()}'),
                   margin: const EdgeInsets.only(top: P3),
-                  leading: const DoneIcon(true, size: P6),
-                  value: BaseText.medium('${loc.action_add_title} ${loc.checklist.toLowerCase()}', color: mainColor, maxLines: 1),
+                  leading: const TasksIcon(size: P6, color: mainColor),
                   crossAxisAlignment: CrossAxisAlignment.center,
                   onSelect: () async => await controller.subtasksController.addTask(),
                 ),
@@ -233,7 +232,7 @@ class DetailsPane extends StatelessWidget {
                   controller.fData(TaskFCode.note.index),
                   margin: const EdgeInsets.only(top: P3),
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  value: BaseText.f2(controller.fData(TaskFCode.note.index).placeholder, maxLines: 1),
+                  // value: BaseText.f2(controller.fData(TaskFCode.note.index).placeholder, maxLines: 1),
                   leading: const NoteAddIcon(),
                   onSelect: controller.notesController.create,
                 ),

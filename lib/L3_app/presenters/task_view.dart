@@ -18,5 +18,5 @@ extension TaskViewPresenter on Task {
   bool get canShowChartDetails => canShowVelocityVolumeCharts || canShowTimeChart;
 
   bool get hasOverviewPane => hfsAnalytics && isOpenedGroup;
-  bool get hasTeamPane => canViewMembers && (members.isNotEmpty || canEditMembers);
+  bool get hasTeamPane => canShowMembers && (members.isNotEmpty || canEditMembers);
 }

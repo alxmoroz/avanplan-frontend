@@ -154,7 +154,7 @@ class DetailsPane extends StatelessWidget {
                 ),
 
               /// Оценки
-              if (!_quizzing && _task.hfsEstimates && (_task.hasEstimate || _task.canEstimate))
+              if (!_quizzing && _task.canShowEstimate)
                 MTField(
                   controller.fData(TaskFCode.estimate.index),
                   margin: const EdgeInsets.only(top: P3),
@@ -193,7 +193,7 @@ class DetailsPane extends StatelessWidget {
                 ),
 
               /// FeatureSets
-              if (!_quizzing && _task.canViewFeatureSets)
+              if (!_quizzing && _task.canShowFeatureSets)
                 MTField(
                   controller.fData(TaskFCode.features.index),
                   margin: const EdgeInsets.only(top: P3),

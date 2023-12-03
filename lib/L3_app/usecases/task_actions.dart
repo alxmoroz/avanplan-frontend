@@ -40,30 +40,29 @@ extension TaskActionsUC on Task {
 
   /// доступные действия
 
-  bool get canCreate => isLocal && !closed && _hpCreate;
+  bool get canCreate => !closed && isLocal && _hpCreate;
   bool get canEdit => isLocal && ((isProject && ws.hpProjectUpdate == true) || _hpUpdate);
   bool get canDelete => (isProject && ws.hpProjectDelete == true) || (isLocal && _hpDelete);
   bool get canReopen => closed && canEdit && (isProject || parent?.closed == false);
-  bool get canClose => canEdit && !closed;
+  bool get canClose => !closed && canEdit;
   bool get canUnlink => isLinkedProject && ws.hpProjectUpdate == true;
-  bool get canViewMembers => isProject && hfsTeam && _hpMemberRead;
+  bool get canShowMembers => isProject && hfsTeam && _hpMemberRead;
   bool get canEditMembers => isProject && hfsTeam && _hpMemberUpdate;
   bool get canInviteMembers => canEditMembers && ws.roles.isNotEmpty;
-  bool get canSetStatus => hfsTaskboard && statuses.isNotEmpty && canEdit && isTask;
+  bool get canSetStatus => isTask && hfsTaskboard && statuses.isNotEmpty && canEdit;
   bool get canShowStatus => hfsTaskboard && hasStatus;
   bool get canCloseGroup => canClose && state == TaskState.CLOSABLE;
-  bool get canEstimate => canEdit && hfsEstimates && ws.estimateValues.isNotEmpty && isTask;
+  bool get canShowEstimate => !closed && hfsEstimates;
+  bool get canEstimate => isTask && canShowEstimate && canEdit && ws.estimateValues.isNotEmpty;
   bool get canAssign => canEdit && hfsTeam && activeMembers.isNotEmpty;
   bool get canLocalExport => canEdit && hfsGoals && goalsForLocalExport.isNotEmpty;
   bool get canLocalImport => canEdit && hfsGoals && goalsForLocalImport.isNotEmpty;
   bool get canComment => !isProject && canEdit;
-  bool get canViewFeatureSets => isProject && _hpProjectInfoRead;
+  bool get canShowFeatureSets => isProject && _hpProjectInfoRead;
   bool get canEditFeatureSets => isProject && _hpProjectInfoUpdate;
-  bool get canEditProjectStatuses => hfsTaskboard && isProject && _hpProjectInfoUpdate;
+  bool get canEditProjectStatuses => isProject && hfsTaskboard && _hpProjectInfoUpdate;
   bool get canAddChecklist => !closed && isTask && canEdit && subtasks.isEmpty;
-
-  bool get canShowBoard =>
-      hfsTaskboard && totalVolume > 0 && subtasks.isNotEmpty && subtasks.every((st) => st.hasStatus) && ((!isProject && !isBacklog) || !hfsGoals);
+  bool get canShowBoard => (isGoal || (isProject && !hfsGoals)) && hfsTaskboard && subtasks.every((st) => st.hasStatus);
 
   /// рекомендации, быстрые кнопки
   bool get shouldAddSubtask =>

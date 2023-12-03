@@ -39,7 +39,6 @@ extension TaskTypePresenter on Task {
         TType.ROOT: loc.workspace_title,
         TType.PROJECT: loc.project_title,
         TType.GOAL: loc.goal_title,
-        TType.GROUP: loc.task_title,
         TType.TASK: loc.task_title,
         TType.BACKLOG: loc.backlog,
       }[type] ??

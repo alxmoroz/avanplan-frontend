@@ -80,7 +80,7 @@ class TasksPane extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => _task.subtaskGroups.isEmpty && _task.totalVolume == 0
+      builder: (_) => _task.subtasks.isEmpty && _task.totalVolume == 0
           ? NoTasks(controller)
           : _task.canShowBoard && controller.showBoard
               ? TasksBoard(

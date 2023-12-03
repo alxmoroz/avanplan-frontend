@@ -70,16 +70,16 @@ abstract class _LocalImportControllerBase with Store {
 
   Future moveTasks() async {
     Navigator.of(rootKey.currentContext!).pop();
+    if (_taskController.tabKey != TaskTabKey.subtasks) {
+      _taskController.selectTab(TaskTabKey.subtasks);
+    }
     final dstParentId = destinationGoal.id;
     for (int index = 0; index < checks.length; index++) {
       if (checks[index]) {
         final t = srcTasks[index];
         t.parentId = dstParentId;
-        t.save();
+        await t.save();
       }
-    }
-    if (_taskController.tabKey != TaskTabKey.subtasks) {
-      _taskController.selectTab(TaskTabKey.subtasks);
     }
   }
 }

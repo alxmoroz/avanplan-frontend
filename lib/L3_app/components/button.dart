@@ -11,6 +11,7 @@ import 'constants.dart';
 import 'icons.dart';
 import 'icons_workspace.dart';
 import 'loader.dart';
+import 'material_wrapper.dart';
 import 'text.dart';
 
 enum ButtonType { text, main, secondary, icon, card }
@@ -203,16 +204,18 @@ class MTButton extends StatelessWidget with FocusManaging {
           clipBehavior: Clip.hardEdge,
         );
       default:
-        return InkWell(
-          onHover: onHover,
-          onTap: onHover != null ? () {} : null,
-          hoverColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-          splashColor: Colors.transparent,
-          canRequestFocus: false,
-          focusColor: Colors.transparent,
-          onLongPress: _onLongPress,
-          child: CupertinoButton(onPressed: _onPressed, child: _child, minSize: 0, padding: padding ?? EdgeInsets.zero, color: color),
+        return material(
+          InkWell(
+            onHover: onHover,
+            onTap: onHover != null ? () {} : null,
+            hoverColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
+            canRequestFocus: false,
+            focusColor: Colors.transparent,
+            onLongPress: _onLongPress,
+            child: CupertinoButton(onPressed: _onPressed, child: _child, minSize: 0, padding: padding ?? EdgeInsets.zero, color: color),
+          ),
         );
     }
   }

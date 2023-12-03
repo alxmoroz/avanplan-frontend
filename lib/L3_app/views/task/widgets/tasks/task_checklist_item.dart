@@ -44,6 +44,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
     final fNode = tc.focusNode(TaskFCode.title.index);
     fNode?.addListener(() => setState(() {}));
     final hasFocus = fNode?.hasFocus == true;
+    final tfMaxLines = hasFocus ? 1 : 2;
 
     final tfPadding = EdgeInsets.only(left: task.isCheckItem ? 0 : P3, right: _fieldHover ? 0 : P3);
     return Row(
@@ -66,14 +67,14 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
                 controller: teController,
                 autofocus: _index == _controller.taskControllers.length - 1,
                 margin: tfPadding,
-                maxLines: 1,
+                maxLines: tfMaxLines,
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.zero,
                   hintText: tc.titleController.titlePlaceholder,
                   hintStyle: const BaseText('', maxLines: 1, color: f3Color).style(context),
                 ),
-                style: BaseText('', maxLines: 1, color: task.closed && !hasFocus ? f3Color : null).style(context),
+                style: BaseText('', maxLines: tfMaxLines, color: task.closed && !hasFocus ? f3Color : null).style(context),
                 onChanged: (str) => _controller.editTitle(tc, str),
                 onSubmitted: (_) => _controller.addTask(),
                 focusNode: fNode,

@@ -195,6 +195,16 @@ class DropdownIcon extends MTIcon {
       );
 }
 
+class DuplicateIcon extends MTIcon {
+  const DuplicateIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.plus_square_on_square,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P4,
+      );
+}
+
 class EditIcon extends MTIcon {
   const EditIcon({super.color, super.size});
   @override

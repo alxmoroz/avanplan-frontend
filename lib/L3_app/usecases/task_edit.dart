@@ -63,6 +63,17 @@ extension TaskEditUC on Task {
         return null;
       });
 
+  Future<Task?> copy() async => await edit(() async {
+        final changes = await taskUC.copy(this);
+        final newTask = changes?.updated;
+        if (newTask != null) {
+          changes?.affected.forEach((at) => tasksMainController.setTask(at));
+          tasksMainController.setTask(newTask);
+          return newTask;
+        }
+        return null;
+      });
+
   Future delete() async => await edit(() async {
         final changes = await taskUC.delete(this);
         if (changes?.updated != null) {

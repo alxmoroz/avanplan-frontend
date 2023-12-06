@@ -67,7 +67,7 @@ class TaskController extends _TaskControllerBase with _$TaskController {
     notesController = NotesController(this);
     projectStatusesController = ProjectStatusesController(this);
     attachmentsController = AttachmentsController(this);
-    transferController = LocalExportController(this);
+    localExportController = LocalExportController(this);
     subtasksController = SubtasksController(this);
 
     setAllowDisposeFromView(allowDisposeFromView);
@@ -89,7 +89,7 @@ abstract class _TaskControllerBase extends EditController with Store {
   late final NotesController notesController;
   late final ProjectStatusesController projectStatusesController;
   late final AttachmentsController attachmentsController;
-  late final LocalExportController transferController;
+  late final LocalExportController localExportController;
   late final SubtasksController subtasksController;
 
   Task get task => tasksMainController.task(_task.wsId, _task.id)!;

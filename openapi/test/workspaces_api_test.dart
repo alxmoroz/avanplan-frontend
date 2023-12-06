@@ -13,6 +13,13 @@ void main() {
       // TODO
     });
 
+    // Copy Task
+    //
+    //Future<TasksChanges> copyTask(int wsId, int taskId) async
+    test('test copyTask', () async {
+      // TODO
+    });
+
     // Create
     //
     //Future<InvitationGet> createInvitation(int wsId, int taskId, Invitation invitation) async
@@ -43,7 +50,7 @@ void main() {
 
     // Delete
     //
-    //Future<TasksChanges> deleteTask(int taskId, int wsId) async
+    //Future<TasksChanges> deleteTask(int wsId, int taskId) async
     test('test deleteTask', () async {
       // TODO
     });

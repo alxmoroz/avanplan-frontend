@@ -15,6 +15,7 @@ import '../../../../presenters/task_source.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_link.dart';
 import '../../controllers/delete_controller.dart';
+import '../../controllers/duplicate_controller.dart';
 import '../../controllers/task_controller.dart';
 
 class TaskPopupMenu extends StatelessWidget with FocusManaging {
@@ -39,6 +40,8 @@ class TaskPopupMenu extends StatelessWidget with FocusManaging {
         return _tile(at, leading: const DoneIcon(false), title: loc.task_reopen_action_title);
       case TaskActionType.localExport:
         return _tile(at, leading: const LocalExportIcon(), title: loc.task_transfer_export_action_title);
+      case TaskActionType.duplicate:
+        return _tile(at, leading: const DuplicateIcon(), title: loc.task_duplicate_action_title);
       case TaskActionType.go2source:
         return _task.go2SourceTitle;
       case TaskActionType.unlink:
@@ -64,7 +67,10 @@ class TaskPopupMenu extends StatelessWidget with FocusManaging {
         await controller.statusController.setStatus(_task, close: false);
         break;
       case TaskActionType.localExport:
-        await controller.transferController.localExport();
+        await controller.localExportController.localExport();
+        break;
+      case TaskActionType.duplicate:
+        await DuplicateController().duplicate(_task);
         break;
       case TaskActionType.go2source:
         await _task.go2source();

@@ -43,6 +43,20 @@ class TaskRepo extends AbstractApiRepo<TasksChanges, Task> {
   }
 
   @override
+  Future<TasksChanges> copy(Task data) async {
+    final changes = (await api.copyTask(
+      wsId: data.wsId,
+      taskId: data.id!,
+    ))
+        .data;
+
+    return TasksChanges(
+      changes?.updatedTask.task(data.wsId),
+      changes?.affectedTasks.map((t) => t.task(data.wsId)) ?? [],
+    );
+  }
+
+  @override
   Future<TasksChanges> delete(Task data) async {
     final changes = (await api.deleteTask(
       taskId: data.id!,

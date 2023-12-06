@@ -11,5 +11,6 @@ class TaskUC {
   final AbstractApiRepo<TasksChanges, Task> repo;
 
   Future<TasksChanges?> save(Task t) async => await repo.save(t);
+  Future<TasksChanges?> copy(Task t) async => await repo.copy(t);
   Future<TasksChanges?> delete(Task t) async => await repo.delete(t);
 }

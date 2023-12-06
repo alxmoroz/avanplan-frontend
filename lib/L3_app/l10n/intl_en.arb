@@ -157,8 +157,6 @@
   "invitation_share_label": "Invitation Link",
   "invitation_share_text": "1. Install app:\n{installUrl}\n\n2. Join the project:\n{invitationUrl}",
 
-  "later": "Maybe later",
-
   "legal_privacy_policy_title": "Privacy Policy",
   "legal_rules_title": "License Agreement",
 
@@ -370,6 +368,8 @@
   "task_delete_dialog_description": "All subtasks will be deleted",
   "task_due_date_label": "Deadline",
   "task_due_date_placeholder": "Deadline Date",
+
+  "task_duplicate_action_title": "Duplicate",
 
   "task_estimate_group_label": "Overall Estimation for Subtasks",
   "task_estimate_label": "Estimation",

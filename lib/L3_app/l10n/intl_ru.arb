@@ -157,8 +157,6 @@
   "invitation_share_label": "Ссылка-приглашение",
   "invitation_share_text": "1. Установите приложение:\n{installUrl}\n\n2. Присоединяйтесь к проекту:\n{invitationUrl}",
 
-  "later": "Позже",
-
   "legal_privacy_policy_title": "Политика конфиденциальности",
   "legal_rules_title": "Пользовательское соглашение",
 
@@ -309,7 +307,6 @@
   "state_risk_duration": "Можем опоздать на {duration}",
   "state_risk_title": "Можем опоздать",
 
-  "status_active_list_label": "Используемые статусы",
   "status_code_placeholder": "Новый статус",
   "status_create_action_title": "Добавить статус",
   "status_default_done_title": "Выполнено",
@@ -371,6 +368,8 @@
   "task_delete_dialog_description": "Все подзадачи также будут удалены",
   "task_due_date_label": "Срок",
   "task_due_date_placeholder": "Срок завершения",
+
+  "task_duplicate_action_title": "Дублировать",
 
   "task_estimate_group_label": "Общая оценка по подзадачам",
   "task_estimate_label": "Оценка",

@@ -12,6 +12,7 @@ abstract class RPersistable {
   RPersistable({this.id});
 
   int? id;
+  // TODO: убрать этот механизм (см. как в задачах сделано)
   bool removed = false;
 
   MTError? error;

@@ -17,14 +17,14 @@ part 'subtasks_controller.g.dart';
 class SubtasksController extends _SubtasksControllerBase with _$SubtasksController {
   SubtasksController(TaskController _parentTaskController) {
     parentTaskController = _parentTaskController;
-    _setControllers(_parentTaskController.task.subtasks);
+    _setControllers(_parentTaskController.task!.subtasks);
   }
 }
 
 abstract class _SubtasksControllerBase with Store {
   late final TaskController parentTaskController;
 
-  Task get parent => parentTaskController.task;
+  Task get parent => parentTaskController.task!;
 
   @observable
   ObservableList<TaskController> taskControllers = ObservableList();
@@ -60,7 +60,7 @@ abstract class _SubtasksControllerBase with Store {
   @action
   Future<bool> deleteTask(TaskController tc) async {
     refresh();
-    await tc.task.delete();
+    await tc.task!.delete();
     tc.dispose();
     taskControllers.remove(tc);
     return false;

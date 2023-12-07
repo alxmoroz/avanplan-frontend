@@ -32,7 +32,7 @@ class _CreateQuizRouter extends MTRouter {
   RouteSettings? get settings => _args != null ? rs : const RouteSettings(name: '/projects');
 
   @override
-  String get title => (rs!.arguments as CreateTaskQuizArgs?)?._controller.task.viewTitle ?? '';
+  String get title => (rs!.arguments as CreateTaskQuizArgs?)?._controller.task?.viewTitle ?? '';
 }
 
 class CreateProjectQuizRouter extends _CreateQuizRouter {
@@ -59,29 +59,31 @@ class CreateTaskQuizViewState extends TaskViewState<CreateTaskQuizView> {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          MTPage(
-            appBar: QuizHeader(qController),
-            body: SafeArea(
-              bottom: false,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  TaskHeader(controller),
-                  Expanded(child: DetailsPane(controller, qController: qController)),
-                ],
-              ),
-            ),
-          ),
-          if (task.error != null)
-            MTErrorSheet(task.error!, onClose: () {
-              task.error = null;
-              tasksMainController.refreshTasks();
-            }),
-        ],
-      ),
+      builder: (_) => task != null
+          ? Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                MTPage(
+                  appBar: QuizHeader(qController),
+                  body: SafeArea(
+                    bottom: false,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        TaskHeader(controller),
+                        Expanded(child: DetailsPane(controller, qController: qController)),
+                      ],
+                    ),
+                  ),
+                ),
+                if (task!.error != null)
+                  MTErrorSheet(task!.error!, onClose: () {
+                    task!.error = null;
+                    tasksMainController.refreshTasks();
+                  }),
+              ],
+            )
+          : Container(),
     );
   }
 }

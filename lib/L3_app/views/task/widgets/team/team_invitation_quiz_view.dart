@@ -39,7 +39,7 @@ class TeamInvitationQuizRouter extends MTRouter {
   RouteSettings? get settings => _args != null ? rs : const RouteSettings(name: '/projects');
 
   @override
-  String get title => '${(rs!.arguments as TIQuizArgs?)?._taskController.task.viewTitle ?? ''} | ${loc.team_title}';
+  String get title => '${(rs!.arguments as TIQuizArgs?)?._taskController.task?.viewTitle ?? ''} | ${loc.team_title}';
 }
 
 class TeamInvitationQuizView extends StatelessWidget {
@@ -47,31 +47,32 @@ class TeamInvitationQuizView extends StatelessWidget {
   final TIQuizArgs _args;
 
   TaskController get _taskController => _args._taskController;
-  Task get _task => _taskController.task;
+  Task? get _task => _taskController.task;
 
   @override
   Widget build(BuildContext context) {
-    final teamPane = TeamPane(_taskController);
     return Observer(
-      builder: (_) => MTPage(
-        appBar: QuizHeader(_args._qController),
-        body: SafeArea(
-          top: false,
-          bottom: false,
-          child: teamPane,
-        ),
-        bottomBar: MTAppBar(
-          isBottom: true,
-          height: P8 + P8 + P3,
-          middle: Column(mainAxisSize: MainAxisSize.min, children: [
-            if (_task.canInviteMembers) ...[
-              InvitationButton(_task, type: ButtonType.secondary),
-              const SizedBox(height: P3),
-            ],
-            QuizNextButton(_args._qController, margin: EdgeInsets.zero),
-          ]),
-        ),
-      ),
+      builder: (_) => _task != null
+          ? MTPage(
+              appBar: QuizHeader(_args._qController),
+              body: SafeArea(
+                top: false,
+                bottom: false,
+                child: TeamPane(_taskController),
+              ),
+              bottomBar: MTAppBar(
+                isBottom: true,
+                height: P8 + P8 + P3,
+                middle: Column(mainAxisSize: MainAxisSize.min, children: [
+                  if (_task!.canInviteMembers) ...[
+                    InvitationButton(_task!, type: ButtonType.secondary),
+                    const SizedBox(height: P3),
+                  ],
+                  QuizNextButton(_args._qController, margin: EdgeInsets.zero),
+                ]),
+              ),
+            )
+          : Container(),
     );
   }
 }

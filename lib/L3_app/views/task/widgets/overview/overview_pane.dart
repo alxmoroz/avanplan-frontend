@@ -33,7 +33,7 @@ class OverviewPane extends StatelessWidget {
   const OverviewPane(this.controller);
   final TaskController controller;
 
-  Task get _task => controller.task;
+  Task get _task => controller.task!;
 
   Widget? get bottomBar => null;
 

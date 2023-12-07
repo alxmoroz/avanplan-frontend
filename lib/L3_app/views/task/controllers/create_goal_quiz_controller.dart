@@ -45,7 +45,7 @@ class CreateGoalQuizController extends _CreateGoalQuizControllerBase with _$Crea
 abstract class _CreateGoalQuizControllerBase extends QuizController with Store {
   late final TaskController _goalController;
 
-  Task get _goal => _goalController.task;
+  Task get _goal => _goalController.task!;
 
   @override
   Iterable<QuizStep> get steps => [

@@ -53,7 +53,7 @@ class TaskRouter extends MTRouter {
         );
 
   @override
-  String get title => (rs!.arguments as TaskController?)?.task.viewTitle ?? '';
+  String get title => (rs!.arguments as TaskController?)?.task?.viewTitle ?? '';
   String _navPrefix(Task task) => task.isProject
       ? '/projects'
       : task.isGoal
@@ -65,7 +65,7 @@ class TaskRouter extends MTRouter {
   String _navPath(Task _task) => '${_navPrefix(_task)}/${_task.wsId}/${_task.id}';
   @override
   Future navigate(BuildContext context, {Object? args}) async => await Navigator.of(context).pushNamed(
-        _navPath((args as TaskController).task),
+        _navPath((args as TaskController).task!),
         arguments: args,
       );
 }
@@ -83,7 +83,7 @@ class TaskView extends StatefulWidget {
 
 class TaskViewState<T extends TaskView> extends State<T> {
   TaskController get controller => widget._controller;
-  Task get task => controller.task;
+  Task? get task => controller.task;
 
   late OverviewPane overviewPane;
   late final TasksPane tasksPane;
@@ -93,7 +93,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
   @override
   void initState() {
     if (kIsWeb) {
-      setWebpageTitle(task.viewTitle);
+      setWebpageTitle(task?.viewTitle ?? '');
     }
 
     overviewPane = OverviewPane(controller);
@@ -126,7 +126,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
           res[TaskTabKey.overview] = _tab(tk, const OverviewIcon(), BaseText(loc.overview));
           break;
         case TaskTabKey.subtasks:
-          res[TaskTabKey.subtasks] = _tab(tk, const TasksIcon(), BaseText('${task.listTitle}'));
+          res[TaskTabKey.subtasks] = _tab(tk, const TasksIcon(), BaseText('${task?.listTitle ?? ''}'));
           break;
         case TaskTabKey.details:
           res[TaskTabKey.details] = _tab(tk, const RulesIcon(size: P4, color: f2Color), BaseText(loc.details));
@@ -172,36 +172,39 @@ class TaskViewState<T extends TaskView> extends State<T> {
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
       final smallHeight = MediaQuery.sizeOf(context).height < SCR_XS_HEIGHT;
-      return Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          MTPage(
-            appBar: MTAppBar(
-              bgColor: task.bgColor,
-              middle: task.ws.subPageTitle(task.viewTitle),
-              trailing:
-                  task.loading != true && task.actionTypes.isNotEmpty ? TaskPopupMenu(controller, icon: const MenuIcon()) : const SizedBox(width: P8),
-            ),
-            body: SafeArea(
-              bottom: false,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  if (!smallHeight) TaskHeader(controller),
-                  if (controller.tabKeys.length > 1) _tabPaneSelector,
-                  Expanded(child: _selectedPane),
-                ],
-              ),
-            ),
-            bottomBar: !smallHeight && _selectedBottomBar != null ? _selectedBottomBar : null,
-          ),
-          if (task.error != null)
-            MTErrorSheet(task.error!, onClose: () {
-              task.error = null;
-              tasksMainController.refreshTasks();
-            }),
-        ],
-      );
+      return task != null
+          ? Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                MTPage(
+                  appBar: MTAppBar(
+                    bgColor: task!.bgColor,
+                    middle: task!.ws.subPageTitle(task!.viewTitle),
+                    trailing: task!.loading != true && task!.actionTypes.isNotEmpty
+                        ? TaskPopupMenu(controller, icon: const MenuIcon())
+                        : const SizedBox(width: P8),
+                  ),
+                  body: SafeArea(
+                    bottom: false,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        if (!smallHeight) TaskHeader(controller),
+                        if (controller.tabKeys.length > 1) _tabPaneSelector,
+                        Expanded(child: _selectedPane),
+                      ],
+                    ),
+                  ),
+                  bottomBar: !smallHeight && _selectedBottomBar != null ? _selectedBottomBar : null,
+                ),
+                if (task!.error != null)
+                  MTErrorSheet(task!.error!, onClose: () {
+                    task!.error = null;
+                    tasksMainController.refreshTasks();
+                  }),
+              ],
+            )
+          : Container();
     });
   }
 }

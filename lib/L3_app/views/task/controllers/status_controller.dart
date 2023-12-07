@@ -29,7 +29,7 @@ class StatusController {
   StatusController(this._taskController);
   final TaskController _taskController;
 
-  Task get task => _taskController.task;
+  Task get task => _taskController.task!;
 
   Future<bool?> _closeDialog() async => await showMTAlertDialog(
         loc.close_dialog_recursive_title,

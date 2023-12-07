@@ -21,7 +21,7 @@ class TaskHeader extends StatelessWidget {
   const TaskHeader(this.controller);
   final TaskController controller;
 
-  Task get _task => controller.task;
+  Task get _task => controller.task!;
 
   @override
   Widget build(BuildContext context) {

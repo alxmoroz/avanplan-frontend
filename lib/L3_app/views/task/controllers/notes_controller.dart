@@ -21,14 +21,14 @@ part 'notes_controller.g.dart';
 class NotesController extends _NotesControllerBase with _$NotesController {
   NotesController(TaskController _taskController) {
     taskController = _taskController;
-    _setNotes(_taskController.task.notes);
+    _setNotes(_taskController.task!.notes);
   }
 }
 
 abstract class _NotesControllerBase with Store {
   late final TaskController taskController;
 
-  Task get task => taskController.task;
+  Task get task => taskController.task!;
 
   @observable
   ObservableList<Note> _notes = ObservableList();

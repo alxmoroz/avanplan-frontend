@@ -92,14 +92,14 @@ abstract class _TaskControllerBase extends EditController with Store {
   late final LocalExportController localExportController;
   late final SubtasksController subtasksController;
 
-  Task get task => tasksMainController.task(_task.wsId, _task.id)!;
+  Task? get task => tasksMainController.task(_task.wsId, _task.id);
 
   @observable
   bool creating = false;
 
   Future<bool> saveField(TaskFCode code) async {
     updateField(code.index, loading: true);
-    final et = await task.save();
+    final et = await task?.save();
     final saved = et != null;
     updateField(code.index, loading: false);
     return saved;
@@ -109,12 +109,14 @@ abstract class _TaskControllerBase extends EditController with Store {
 
   @computed
   Iterable<TaskTabKey> get tabKeys {
-    return [
-      if (task.hasOverviewPane) TaskTabKey.overview,
-      if (!task.isTask || task.isCheckList) TaskTabKey.subtasks,
-      if (task.hasTeamPane) TaskTabKey.team,
-      TaskTabKey.details,
-    ];
+    return task != null
+        ? [
+            if (task!.hasOverviewPane) TaskTabKey.overview,
+            if (!task!.isTask || task!.isCheckList) TaskTabKey.subtasks,
+            if (task!.hasTeamPane) TaskTabKey.team,
+            TaskTabKey.details,
+          ]
+        : [];
   }
 
   @observable

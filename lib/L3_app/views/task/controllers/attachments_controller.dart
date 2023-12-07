@@ -17,14 +17,14 @@ part 'attachments_controller.g.dart';
 class AttachmentsController extends _AttachmentsControllerBase with _$AttachmentsController {
   AttachmentsController(TaskController _taskController) {
     taskController = _taskController;
-    _setAttachments(_taskController.task.attachments);
+    _setAttachments(_taskController.task!.attachments);
   }
 }
 
 abstract class _AttachmentsControllerBase with Store {
   late final TaskController taskController;
 
-  Task get task => taskController.task;
+  Task get task => taskController.task!;
 
   @observable
   ObservableList<Attachment> _attachments = ObservableList();

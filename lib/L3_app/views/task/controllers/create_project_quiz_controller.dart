@@ -83,7 +83,7 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
 
 abstract class _CreateProjectQuizControllerBase extends QuizController with Store {
   late final TaskController _taskController;
-  Task get _project => _taskController.task;
+  Task get _project => _taskController.task!;
 
   TaskController? _goalController;
   @observable

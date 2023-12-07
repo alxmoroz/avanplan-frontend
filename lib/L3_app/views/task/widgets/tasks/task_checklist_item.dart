@@ -39,7 +39,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
 
   Widget _fieldValue(BuildContext context, TaskController tc) {
     final teController = tc.teController(TaskFCode.title.index);
-    final task = tc.task;
+    final task = tc.task!;
     final roText = teController?.text.isNotEmpty == true ? teController!.text : tc.titleController.titlePlaceholder;
     final fNode = tc.focusNode(TaskFCode.title.index);
     fNode?.addListener(() => setState(() {}));
@@ -108,7 +108,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
 
     return MTField(
       fData,
-      loading: tc.task.loading == true,
+      loading: tc.task!.loading == true,
       minHeight: P8,
       crossAxisAlignment: CrossAxisAlignment.center,
       value: kIsWeb
@@ -134,7 +134,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
               child: _fieldValue(context, tc),
             ),
       padding: EdgeInsets.zero,
-      dividerIndent: P3 + (tc.task.isCheckItem ? P8 + P : 0),
+      dividerIndent: P3 + (tc.task!.isCheckItem ? P8 + P : 0),
       dividerEndIndent: P3,
       bottomDivider: _index < _controller.taskControllers.length - 1,
       onHover: kIsWeb ? (hover) => setState(() => _fieldHover = hover) : null,

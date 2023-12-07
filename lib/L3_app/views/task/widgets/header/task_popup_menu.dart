@@ -24,7 +24,7 @@ class TaskPopupMenu extends StatelessWidget with FocusManaging {
   final Widget? icon;
   final Widget? child;
 
-  Task get _task => controller.task;
+  Task get _task => controller.task!;
 
   Widget _tile(TaskActionType at, {Widget? leading, String? title, Widget? trailing, Color? color}) => Row(children: [
         if (leading != null) ...[leading, const SizedBox(width: P)],

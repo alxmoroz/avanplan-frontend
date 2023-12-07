@@ -25,7 +25,7 @@ class FeatureSetsController extends _FeatureSetsControllerBase with _$FeatureSet
 abstract class _FeatureSetsControllerBase with Store {
   late final TaskController taskController;
 
-  Task get project => taskController.task;
+  Task get project => taskController.task!;
 
   @observable
   List<bool> checks = [];

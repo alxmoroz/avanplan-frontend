@@ -25,7 +25,7 @@ class DatesController {
   DatesController(this._taskController);
   final TaskController _taskController;
 
-  Task get task => _taskController.task;
+  Task get task => _taskController.task!;
 
   Future _setStartDate(DateTime? _date) async {
     final oldValue = task.startDate;

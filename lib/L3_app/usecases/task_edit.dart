@@ -55,9 +55,7 @@ extension TaskEditUC on Task {
         final changes = await taskUC.save(this);
         final et = changes?.updated;
         if (et != null) {
-          for (Task at in changes?.affected ?? []) {
-            tasksMainController.task(at.wsId, at.id)?._update(at);
-          }
+          changes?.affected.forEach((at) => tasksMainController.task(at.wsId, at.id)?._update(at));
           return _update(et);
         }
         return null;
@@ -67,7 +65,7 @@ extension TaskEditUC on Task {
         final changes = await taskUC.copy(this);
         final newTask = changes?.updated;
         if (newTask != null) {
-          changes?.affected.forEach((at) => tasksMainController.setTask(at));
+          changes?.affected.forEach((at) => tasksMainController.task(at.wsId, at.id)?._update(at));
           tasksMainController.setTask(newTask);
           return newTask;
         }

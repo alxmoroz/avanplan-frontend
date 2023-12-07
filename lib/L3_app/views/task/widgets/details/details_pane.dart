@@ -43,7 +43,7 @@ class DetailsPane extends StatelessWidget {
   final TaskController controller;
   final QuizController? qController;
 
-  Task get _task => controller.task;
+  Task get _task => controller.task!;
   bool get _quizzing => qController?.active == true;
   bool get _showStatusRow => _task.hasStatus || (_task.isTask);
   bool get _showAssignee => !_quizzing && _task.hfsTeam && (_task.hasAssignee || _task.canAssign);

@@ -15,7 +15,7 @@ class LocalExportController {
   LocalExportController(this._taskController);
   final TaskController _taskController;
 
-  Task get task => _taskController.task;
+  Task get task => _taskController.task!;
 
   /// перенос в другую цель
 

@@ -26,7 +26,7 @@ class TeamPane extends StatelessWidget {
   const TeamPane(this._controller);
   final TaskController _controller;
 
-  Task get task => _controller.task;
+  Task get task => _controller.task!;
 
   List<Member> get _sortedMembers => task.sortedMembers;
 

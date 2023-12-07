@@ -27,7 +27,7 @@ class TasksPane extends StatelessWidget {
   const TasksPane(this.controller);
   final TaskController controller;
 
-  Task get _task => controller.task;
+  Task get _task => controller.task!;
 
   Widget _switchPart(Widget icon, bool active) => Container(
         decoration: active

@@ -55,7 +55,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
                 size: P6,
                 color: task.closed ? (_doneBtnHover ? mainColor : greenLightColor) : (_doneBtnHover ? greenColor : null),
                 solid: task.closed),
-            padding: const EdgeInsets.symmetric(horizontal: P3, vertical: P),
+            padding: const EdgeInsets.symmetric(horizontal: P3, vertical: P2),
             onHover: (hover) => setState(() => _doneBtnHover = hover),
             onTap: (_controller.parent.closed && task.closed) ? null : () => tc.statusController.setStatus(task, close: !task.closed),
           ),
@@ -65,7 +65,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
               MTTextField(
                 keyboardType: TextInputType.multiline,
                 controller: teController,
-                autofocus: _index == _controller.taskControllers.length - 1,
+                autofocus: false, //_index == _controller.taskControllers.length - 1,
                 margin: tfPadding,
                 maxLines: tfMaxLines,
                 decoration: InputDecoration(
@@ -83,7 +83,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
                 Container(
                   color: b3Color.resolve(context),
                   padding: tfPadding,
-                  height: P8,
+                  height: P10,
                   alignment: Alignment.centerLeft,
                   child: BaseText(roText, maxLines: 2, color: task.closed ? f3Color : null),
                 ),
@@ -93,7 +93,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
         if (_fieldHover)
           MTButton.icon(
             DeleteIcon(color: _delBtnHover ? null : f2Color),
-            padding: const EdgeInsets.only(left: P3, right: P3, top: P2, bottom: P2),
+            padding: const EdgeInsets.only(left: P3, right: P3, top: P3, bottom: P3),
             onHover: (hover) => setState(() => _delBtnHover = hover),
             onTap: () async => await _delete(tc),
           ),
@@ -109,7 +109,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
     return MTField(
       fData,
       loading: tc.task!.loading == true,
-      minHeight: P8,
+      minHeight: P10,
       crossAxisAlignment: CrossAxisAlignment.center,
       value: kIsWeb
           ? _fieldValue(context, tc)

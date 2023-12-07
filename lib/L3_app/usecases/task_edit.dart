@@ -61,8 +61,8 @@ extension TaskEditUC on Task {
         return null;
       });
 
-  Future<Task?> copy() async => await edit(() async {
-        final changes = await taskUC.copy(this);
+  Future<Task?> duplicate() async => await edit(() async {
+        final changes = await taskUC.duplicate(this);
         final newTask = changes?.updated;
         if (newTask != null) {
           for (Task at in changes?.affected ?? []) {

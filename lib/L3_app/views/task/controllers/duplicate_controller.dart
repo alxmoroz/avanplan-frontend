@@ -15,7 +15,7 @@ class DuplicateController {
   Future duplicate(Task task) async {
     loader.setSaving();
     Navigator.of(rootKey.currentContext!).pop();
-    final newTask = await task.copy();
+    final newTask = await task.duplicate();
     if (newTask != null) {
       TaskRouter().navigate(rootKey.currentContext!, args: TaskController(newTask));
     }

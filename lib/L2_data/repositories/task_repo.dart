@@ -43,8 +43,8 @@ class TaskRepo extends AbstractApiRepo<TasksChanges, Task> {
   }
 
   @override
-  Future<TasksChanges> copy(Task data) async {
-    final changes = (await api.copyTask(
+  Future<TasksChanges> duplicate(Task data) async {
+    final changes = (await api.duplicateTask(
       wsId: data.wsId,
       taskId: data.id!,
     ))

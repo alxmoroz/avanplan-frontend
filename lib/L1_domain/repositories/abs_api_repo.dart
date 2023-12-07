@@ -8,6 +8,6 @@ abstract class AbstractApiRepo<Get, Update> {
   Future<Get?> getOneWithWS(int wsId, int id) => throw UnimplementedError();
 
   Future<Get?> save(Update data) => throw UnimplementedError();
-  Future<Get?> copy(Update data) => throw UnimplementedError();
+  Future<Get?> duplicate(Update data) => throw UnimplementedError();
   Future<Get?> delete(Update data) => throw UnimplementedError();
 }

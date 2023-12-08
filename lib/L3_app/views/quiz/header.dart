@@ -10,11 +10,11 @@ import '../../components/constants.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
-import 'quiz_controller.dart';
+import 'abstract_quiz_controller.dart';
 
 class QuizHeader extends StatelessWidget implements PreferredSizeWidget {
   const QuizHeader(this._controller);
-  final QuizController _controller;
+  final AbstractQuizController _controller;
 
   Widget _stepMark(BuildContext context, int index) {
     final isCurrent = _controller.stepIndex == index;

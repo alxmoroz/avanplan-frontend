@@ -16,9 +16,9 @@ import '../../../../components/toolbar.dart';
 import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_type.dart';
+import '../../../quiz/abstract_quiz_controller.dart';
 import '../../../quiz/header.dart';
 import '../../../quiz/next_button.dart';
-import '../../../quiz/quiz_controller.dart';
 import '../../controllers/feature_sets_controller.dart';
 import '../../controllers/task_controller.dart';
 
@@ -87,7 +87,7 @@ class _FSBody extends StatelessWidget {
 class FSQuizArgs {
   FSQuizArgs(this._controller, this._qController);
   final FeatureSetsController _controller;
-  final QuizController _qController;
+  final AbstractQuizController _qController;
 }
 
 class FeatureSetsQuizRouter extends MTRouter {
@@ -112,7 +112,7 @@ class FeatureSetsQuizView extends StatelessWidget {
   final FSQuizArgs _args;
 
   FeatureSetsController get _controller => _args._controller;
-  QuizController get _qController => _args._qController;
+  AbstractQuizController get _qController => _args._qController;
 
   @override
   Widget build(BuildContext context) {

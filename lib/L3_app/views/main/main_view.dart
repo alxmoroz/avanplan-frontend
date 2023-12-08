@@ -13,11 +13,11 @@ import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/person.dart';
+import '../projects/create_project_controller.dart';
 import '../settings/settings_view.dart';
-import '../task/controllers/create_project_controller.dart';
-import '../task/widgets/empty_state/no_projects.dart';
 import 'widgets/app_title.dart';
 import 'widgets/main_dashboard.dart';
+import 'widgets/no_projects.dart';
 
 class MainRouter extends MTRouter {
   @override

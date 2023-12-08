@@ -5,7 +5,7 @@ import 'package:mobx/mobx.dart';
 
 import '../../extra/services.dart';
 
-part 'quiz_controller.g.dart';
+part 'abstract_quiz_controller.g.dart';
 
 class QuizStep {
   QuizStep(this.code, this.title, this.nextButtonTitle);
@@ -14,7 +14,7 @@ class QuizStep {
   final String nextButtonTitle;
 }
 
-abstract class QuizController extends _QuizControllerBase with _$QuizController {
+abstract class AbstractQuizController extends _QuizControllerBase with _$AbstractQuizController {
   Future afterBack(BuildContext context) async {}
   Future afterNext(BuildContext context) async {}
   Future beforeNext(BuildContext context) async {}

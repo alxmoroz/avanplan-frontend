@@ -2,13 +2,13 @@
 
 import 'package:flutter/cupertino.dart';
 
-import '../../../../components/constants.dart';
-import '../../../../components/dialog.dart';
-import '../../../../components/icons.dart';
-import '../../../../components/list_tile.dart';
-import '../../../../components/text.dart';
-import '../../../../components/toolbar.dart';
-import '../../../../extra/services.dart';
+import '../../components/constants.dart';
+import '../../components/dialog.dart';
+import '../../components/icons.dart';
+import '../../components/list_tile.dart';
+import '../../components/text.dart';
+import '../../components/toolbar.dart';
+import '../../extra/services.dart';
 
 Future<CreationMethod?> selectCreationMethod() async => await showMTDialog<CreationMethod?>(CreationMethodSelector());
 

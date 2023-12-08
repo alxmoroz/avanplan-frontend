@@ -3,15 +3,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../components/button.dart';
-import '../../../../components/colors.dart';
-import '../../../../components/constants.dart';
-import '../../../../components/images.dart';
-import '../../../../components/text.dart';
-import '../../../../extra/services.dart';
-import '../../../projects/projects_view.dart';
-import '../../controllers/create_project_controller.dart';
-import '../create/create_project_button.dart';
+import '../../../components/button.dart';
+import '../../../components/colors.dart';
+import '../../../components/constants.dart';
+import '../../../components/images.dart';
+import '../../../components/text.dart';
+import '../../../extra/services.dart';
+import '../../projects/create_project_button.dart';
+import '../../projects/create_project_controller.dart';
+import '../../projects/projects_view.dart';
 
 class NoProjects extends StatelessWidget {
   const NoProjects(this._controller);

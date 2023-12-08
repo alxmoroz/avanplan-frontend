@@ -3,21 +3,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../../L1_domain/entities/feature_set.dart';
-import '../../../../L1_domain/entities/task.dart';
-import '../../../extra/services.dart';
-import '../../../usecases/task_tree.dart';
-import '../../../usecases/ws_tasks.dart';
-import '../../projects/projects_view.dart';
-import '../../quiz/quiz_controller.dart';
-import '../task_view.dart';
-import '../widgets/create/create_multitask_quiz_view.dart';
-import '../widgets/create/create_task_quiz_view.dart';
-import '../widgets/feature_sets/feature_sets.dart';
-import '../widgets/project_statuses/project_statuses.dart';
-import '../widgets/team/team_invitation_quiz_view.dart';
-import 'feature_sets_controller.dart';
-import 'task_controller.dart';
+import '../../../L1_domain/entities/feature_set.dart';
+import '../../../L1_domain/entities/task.dart';
+import '../../extra/services.dart';
+import '../../usecases/task_tree.dart';
+import '../../usecases/ws_tasks.dart';
+import '../quiz/abstract_quiz_controller.dart';
+import '../task/controllers/feature_sets_controller.dart';
+import '../task/controllers/task_controller.dart';
+import '../task/task_view.dart';
+import '../task/widgets/create/create_multitask_quiz_view.dart';
+import '../task/widgets/create/create_task_quiz_view.dart';
+import '../task/widgets/feature_sets/feature_sets.dart';
+import '../task/widgets/project_statuses/project_statuses.dart';
+import '../task/widgets/team/team_invitation_quiz_view.dart';
+import 'projects_view.dart';
 
 part 'create_project_quiz_controller.g.dart';
 
@@ -81,7 +81,7 @@ class CreateProjectQuizController extends _CreateProjectQuizControllerBase with 
   }
 }
 
-abstract class _CreateProjectQuizControllerBase extends QuizController with Store {
+abstract class _CreateProjectQuizControllerBase extends AbstractQuizController with Store {
   late final TaskController _taskController;
   Task get _project => _taskController.task!;
 

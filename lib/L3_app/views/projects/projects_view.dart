@@ -8,9 +8,9 @@ import '../../components/page.dart';
 import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
-import '../task/controllers/create_project_controller.dart';
-import '../task/widgets/create/create_project_button.dart';
 import '../task/widgets/tasks/tasks_list_view.dart';
+import 'create_project_button.dart';
+import 'create_project_controller.dart';
 
 class ProjectsRouter extends MTRouter {
   @override

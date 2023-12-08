@@ -8,8 +8,8 @@ import '../../../../components/page.dart';
 import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_type.dart';
+import '../../../quiz/abstract_quiz_controller.dart';
 import '../../../quiz/header.dart';
-import '../../../quiz/quiz_controller.dart';
 import '../../controllers/task_controller.dart';
 import '../../task_view.dart';
 import '../details/details_pane.dart';
@@ -18,7 +18,7 @@ import '../header/task_header.dart';
 class CreateTaskQuizArgs {
   CreateTaskQuizArgs(this._controller, this._qController);
   final TaskController _controller;
-  final QuizController _qController;
+  final AbstractQuizController _qController;
 }
 
 class _CreateQuizRouter extends MTRouter {
@@ -54,7 +54,7 @@ class CreateTaskQuizView extends TaskView {
 }
 
 class CreateTaskQuizViewState extends TaskViewState<CreateTaskQuizView> {
-  QuizController get qController => widget._args._qController;
+  AbstractQuizController get qController => widget._args._qController;
 
   @override
   Widget build(BuildContext context) {

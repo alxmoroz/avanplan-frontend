@@ -1,14 +1,14 @@
-// Copyright (c) 2022. Alexandr Moroz
+// Copyright (c) 2023. Alexandr Moroz
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../components/button.dart';
-import '../../../../components/colors.dart';
-import '../../../../components/constants.dart';
-import '../../../../components/icons.dart';
-import '../../../../presenters/task_type.dart';
-import '../../controllers/create_project_controller.dart';
+import '../../components/button.dart';
+import '../../components/colors.dart';
+import '../../components/constants.dart';
+import '../../components/icons.dart';
+import '../../presenters/task_type.dart';
+import 'create_project_controller.dart';
 
 class CreateProjectButton extends StatelessWidget {
   const CreateProjectButton(

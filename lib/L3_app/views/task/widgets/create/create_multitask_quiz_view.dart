@@ -15,9 +15,9 @@ import '../../../../components/toolbar.dart';
 import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_type.dart';
+import '../../../quiz/abstract_quiz_controller.dart';
 import '../../../quiz/header.dart';
 import '../../../quiz/next_button.dart';
-import '../../../quiz/quiz_controller.dart';
 import '../../controllers/subtasks_controller.dart';
 import '../../controllers/task_controller.dart';
 import '../../task_view.dart';
@@ -27,7 +27,7 @@ import '../tasks/task_checklist_item.dart';
 class CreateMultiTaskQuizArgs {
   CreateMultiTaskQuizArgs(this._controller, this._qController);
   final TaskController _controller;
-  final QuizController _qController;
+  final AbstractQuizController _qController;
 }
 
 class CreateMultiTaskQuizRouter extends MTRouter {
@@ -56,7 +56,7 @@ class CreateMultiTaskQuizView extends TaskView {
 }
 
 class _CreateMultiTaskQuizViewState extends State<CreateMultiTaskQuizView> {
-  QuizController get qController => widget._args._qController;
+  AbstractQuizController get qController => widget._args._qController;
   TaskController get parentTaskController => widget._args._controller;
   SubtasksController get controller => parentTaskController.subtasksController;
 

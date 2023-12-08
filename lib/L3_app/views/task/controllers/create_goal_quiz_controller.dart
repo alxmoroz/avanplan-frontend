@@ -7,7 +7,7 @@ import '../../../../L1_domain/entities/task.dart';
 import '../../../extra/services.dart';
 import '../../../usecases/task_tree.dart';
 import '../../projects/projects_view.dart';
-import '../../quiz/quiz_controller.dart';
+import '../../quiz/abstract_quiz_controller.dart';
 import '../task_view.dart';
 import '../widgets/create/create_multitask_quiz_view.dart';
 import 'task_controller.dart';
@@ -42,7 +42,7 @@ class CreateGoalQuizController extends _CreateGoalQuizControllerBase with _$Crea
   }
 }
 
-abstract class _CreateGoalQuizControllerBase extends QuizController with Store {
+abstract class _CreateGoalQuizControllerBase extends AbstractQuizController with Store {
   late final TaskController _goalController;
 
   Task get _goal => _goalController.task!;

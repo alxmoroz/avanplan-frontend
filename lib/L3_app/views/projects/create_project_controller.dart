@@ -3,17 +3,17 @@
 import 'package:avanplan/main.dart';
 import 'package:mobx/mobx.dart';
 
-import '../../../../L1_domain/entities/workspace.dart';
-import '../../../extra/services.dart';
-import '../../../usecases/ws_actions.dart';
-import '../../../usecases/ws_tariff.dart';
-import '../../../usecases/ws_tasks.dart';
-import '../../import/import_dialog.dart';
-import '../../workspace/workspace_selector.dart';
-import '../widgets/create/create_task_quiz_view.dart';
-import '../widgets/create/creation_method_selector.dart';
+import '../../../L1_domain/entities/workspace.dart';
+import '../../extra/services.dart';
+import '../../usecases/ws_actions.dart';
+import '../../usecases/ws_tariff.dart';
+import '../../usecases/ws_tasks.dart';
+import '../import/import_dialog.dart';
+import '../task/controllers/task_controller.dart';
+import '../task/widgets/create/create_task_quiz_view.dart';
+import '../workspace/workspace_selector.dart';
 import 'create_project_quiz_controller.dart';
-import 'task_controller.dart';
+import 'creation_method_selector.dart';
 
 part 'create_project_controller.g.dart';
 

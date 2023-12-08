@@ -17,9 +17,9 @@ import '../../../../components/toolbar.dart';
 import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_type.dart';
+import '../../../quiz/abstract_quiz_controller.dart';
 import '../../../quiz/header.dart';
 import '../../../quiz/next_button.dart';
-import '../../../quiz/quiz_controller.dart';
 import '../../controllers/project_statuses_controller.dart';
 
 Future showProjectStatusesDialog(ProjectStatusesController controller) async {
@@ -80,7 +80,7 @@ class _CreateStatusButton extends StatelessWidget {
 class PSQuizArgs {
   PSQuizArgs(this._controller, this._qController);
   final ProjectStatusesController _controller;
-  final QuizController _qController;
+  final AbstractQuizController _qController;
 }
 
 class ProjectStatusesQuizRouter extends MTRouter {
@@ -105,7 +105,7 @@ class ProjectStatusesQuizView extends StatelessWidget {
   final PSQuizArgs _args;
 
   ProjectStatusesController get _controller => _args._controller;
-  QuizController get _qController => _args._qController;
+  AbstractQuizController get _qController => _args._qController;
 
   @override
   Widget build(BuildContext context) {

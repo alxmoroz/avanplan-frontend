@@ -12,9 +12,9 @@ import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../../usecases/task_actions.dart';
+import '../../../quiz/abstract_quiz_controller.dart';
 import '../../../quiz/header.dart';
 import '../../../quiz/next_button.dart';
-import '../../../quiz/quiz_controller.dart';
 import '../../controllers/task_controller.dart';
 import 'invitation_button.dart';
 import 'team_pane.dart';
@@ -22,7 +22,7 @@ import 'team_pane.dart';
 class TIQuizArgs {
   TIQuizArgs(this._taskController, this._qController);
   final TaskController _taskController;
-  final QuizController _qController;
+  final AbstractQuizController _qController;
 }
 
 class TeamInvitationQuizRouter extends MTRouter {

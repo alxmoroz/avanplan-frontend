@@ -12,7 +12,6 @@ import '../../../../extra/services.dart';
 import '../../../projects/projects_view.dart';
 import '../../controllers/create_project_controller.dart';
 import '../create/create_project_button.dart';
-import '../create/import_project_button.dart';
 
 class NoProjects extends StatelessWidget {
   const NoProjects(this._controller);
@@ -44,8 +43,6 @@ class NoProjects extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: P6),
               maxLines: 5,
             ),
-            const SizedBox(height: P3),
-            ImportProjectButton(_controller),
             const SizedBox(height: P3),
             CreateProjectButton(_controller),
           ],

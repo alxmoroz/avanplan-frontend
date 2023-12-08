@@ -26,13 +26,13 @@ class CreateProjectButton extends StatelessWidget {
     return Observer(
       builder: (_) => MTBadgeButton(
         margin: EdgeInsets.only(right: _compact ? P3 : 0),
-        showBadge: _controller.showPayBadge,
+        showBadge: _controller.mustPay,
         type: ButtonType.main,
         leading: _compact ? null : _plusIcon,
         titleText: _compact ? null : addSubtaskActionTitle(null),
         middle: _compact ? _plusIcon : null,
         constrained: !_compact,
-        onTap: () => _controller.createProject(),
+        onTap: () => _controller.startCreate(),
       ),
     );
   }

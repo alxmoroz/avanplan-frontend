@@ -27,8 +27,8 @@ class WorkspaceListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTListTile(
-      dividerIndent: P * 11,
       leading: ws.isMine ? const WSIconHome() : WSIconPublic(color: _disabled ? f2Color : null),
+      dividerIndent: P * 11,
       middle: Row(children: [
         Expanded(child: BaseText(ws.title, maxLines: 1)),
         if (ws.code.isNotEmpty && wsMainController.multiWS) SmallText(ws.code, maxLines: 1, color: f3Color),

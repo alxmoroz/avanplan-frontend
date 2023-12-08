@@ -10,7 +10,6 @@ import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../task/controllers/create_project_controller.dart';
 import '../task/widgets/create/create_project_button.dart';
-import '../task/widgets/create/import_project_button.dart';
 import '../task/widgets/tasks/tasks_list_view.dart';
 
 class ProjectsRouter extends MTRouter {
@@ -39,10 +38,7 @@ class ProjectsView extends StatelessWidget {
         force: true,
         child: MTAppBar(
           isBottom: true,
-          trailing: Row(children: [
-            ImportProjectButton(CreateProjectController(), compact: true, secondary: true),
-            CreateProjectButton(CreateProjectController(), compact: true),
-          ]),
+          trailing: CreateProjectButton(CreateProjectController(), compact: true),
         ),
       ),
     );

@@ -527,5 +527,16 @@ class TasksIcon extends MTIcon {
       );
 }
 
+class TemplateIcon extends MTIcon {
+  const TemplateIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        // CupertinoIcons.lightbulb,
+        CupertinoIcons.collections,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P6,
+      );
+}
+
 Widget get appleIcon => Image.asset('assets/icons/apple_icon.png', width: MIN_BTN_HEIGHT - 2, height: MIN_BTN_HEIGHT - 2);
 Widget get googleIcon => Image.asset('assets/icons/google_icon.png', width: MIN_BTN_HEIGHT - 2, height: MIN_BTN_HEIGHT - 2);

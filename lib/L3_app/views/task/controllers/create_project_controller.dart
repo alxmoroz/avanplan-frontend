@@ -11,6 +11,7 @@ import '../../../usecases/ws_tasks.dart';
 import '../../import/import_dialog.dart';
 import '../../workspace/workspace_selector.dart';
 import '../widgets/create/create_task_quiz_view.dart';
+import '../widgets/create/creation_method_selector.dart';
 import 'create_project_quiz_controller.dart';
 import 'task_controller.dart';
 
@@ -35,7 +36,10 @@ abstract class _CreateProjectControllerBase with Store {
   bool get _mustSelectWS => _selectedWSId == null && wsMainController.canSelectWS;
 
   @computed
-  bool get showPayBadge => !wsMainController.canSelectWS && _ws != null && !_ws!.plCreate(null);
+  bool get mustPay => !wsMainController.canSelectWS && _ws != null && !_ws!.plCreate(null);
+
+  @computed
+  bool get _plCreate => _ws!.plCreate(null);
 
   Future _selectWS() async {
     if (_mustSelectWS) {
@@ -60,30 +64,59 @@ abstract class _CreateProjectControllerBase with Store {
     }
   }
 
-  Future createProject() async {
-    await _selectWS();
-    if (_ws != null) {
-      final newP = await _ws!.createTask(null);
-      if (newP != null) {
-        //TODO: нужно ли в этом месте создавать контроллеры, может, тут достаточно отправить айдишники или задачу?
-        final tc = TaskController(newP, isNew: true);
-        // rootKey тут, потому что если добавлять с главной, то кнопка добавления пропадает оттуда
-        await CreateProjectQuizRouter().navigate(rootKey.currentContext!, args: CreateTaskQuizArgs(tc, CreateProjectQuizController(tc)));
-      }
-    }
-    await _dispose();
+  Future _changeTariff() async {
+    await _ws!.changeTariff(reason: loc.tariff_change_limit_projects_reason_title);
   }
 
-  Future startImport() async {
-    await _selectWS();
-    if (_ws != null) {
-      if (!_ws!.plCreate(null)) {
-        await _ws!.changeTariff(reason: loc.tariff_change_limit_projects_reason_title);
-      }
-      if (_ws!.plCreate(null)) {
-        await importTasks(_ws!);
+  Future _create() async {
+    final newP = await _ws!.createTask(null);
+    if (newP != null) {
+      //TODO: нужно ли в этом месте создавать контроллеры, может, тут достаточно отправить айдишники или задачу?
+      final tc = TaskController(newP, isNew: true);
+      // rootKey тут, потому что если добавлять с главной, то кнопка добавления пропадает оттуда
+      await CreateProjectQuizRouter().navigate(rootKey.currentContext!, args: CreateTaskQuizArgs(tc, CreateProjectQuizController(tc)));
+    }
+  }
+
+  Future _importFromTemplate() async {
+    print('_importFromTemplate');
+  }
+
+  Future _startImport() async {
+    await importTasks(_ws!);
+  }
+
+  Future startCreate() async {
+    if (mustPay) {
+      await _changeTariff();
+    }
+    if (mustPay) {
+      return;
+    }
+
+    final methodCode = await selectCreationMethod();
+    if (methodCode != null) {
+      await _selectWS();
+
+      if (_ws != null) {
+        if (!_plCreate) {
+          await _changeTariff();
+        }
+        if (_plCreate) {
+          switch (methodCode) {
+            case CreationMethod.create:
+              await _create();
+              break;
+            case CreationMethod.template:
+              await _importFromTemplate();
+              break;
+            case CreationMethod.import:
+              await _startImport();
+              break;
+          }
+        }
+        await _dispose();
       }
     }
-    await _dispose();
   }
 }

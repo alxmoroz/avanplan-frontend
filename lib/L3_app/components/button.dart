@@ -9,9 +9,9 @@ import 'colors.dart';
 import 'colors_base.dart';
 import 'constants.dart';
 import 'icons.dart';
-import 'icons_workspace.dart';
 import 'loader.dart';
 import 'material_wrapper.dart';
+import 'pay_badge.dart';
 import 'text.dart';
 
 enum ButtonType { text, main, secondary, icon, card }
@@ -325,19 +325,6 @@ class MTBadgeButton extends StatelessWidget {
   final bool constrained;
 
   static const _iconSize = P4;
-  static const _badgeSize = _iconSize + P;
-
-  Widget _badge(BuildContext context) => Container(
-        margin: const EdgeInsets.only(left: _iconSize / 2, right: P),
-        padding: const EdgeInsets.only(top: P_3),
-        height: _badgeSize,
-        width: _badgeSize,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(_badgeSize / 2),
-          color: warningColor.resolve(context),
-        ),
-        child: const RoubleIcon(size: _iconSize, color: f1Color),
-      );
 
   @override
   Widget build(BuildContext context) {
@@ -345,10 +332,10 @@ class MTBadgeButton extends StatelessWidget {
     return MTButton(
       type: type,
       margin: margin,
-      padding: p, //padding.add(showBadge ? const EdgeInsets.only(right: _iconSize / 2) : null),
+      padding: p,
       leading: leading != null || showBadge
           ? Row(children: [
-              if (showBadge) _badge(context),
+              if (showBadge) const MTPayBadge(iconSize: _iconSize),
               if (leading != null) leading!,
             ])
           : null,

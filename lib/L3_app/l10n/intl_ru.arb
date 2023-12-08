@@ -74,6 +74,11 @@
   "count_thousands_short": "{count} тыс.",
   "count_terabytes_short": "{count} Тб",
 
+  "create_from_scratch_action_description": "Добавить пустой проект",
+  "create_from_scratch_action_title": "Создать с нуля",
+  "create_from_template_action_description": "Выбрать готовый из библиотеки",
+  "create_from_template_action_title": "Создать по шаблону",
+
   "days_count": "{count, plural, one{{count} день} few{{count} дня} other{{count} дней}}",
   "delete_action_title": "Удалить",
   "delete_dialog_description": "Это действие нельзя будет отменить!",
@@ -140,7 +145,8 @@
 
   "hours_count": "{count, plural, one{{count} час} few{{count} часа} other{{count} часов}}",
 
-  "import_action_title": "Импортировать проекты",
+  "import_action_description": "Загрузить проекты из источника импорта",
+  "import_action_title": "Импортировать",
   "import_list_empty_title": "Нет доступных для импорта проектов\nПопробуйте выбрать другой источник",
   "import_menu_action_title": "Импорт из",
   "import_projects_select_available_count_hint": "Выберите до {count}",
@@ -214,9 +220,10 @@
 
   "project_count": "{count, plural, zero{Нет проектов} one{{count} проект} few{{count} проекта} other{{count} проектов}}",
   "project_count_dative": "{count, plural, one{{count} проекту} other{{count} проектам}}",
+  "project_creation_method_selector_title": "Выберите способ создания проекта",
   "project_delete_dialog_title": "Удалить проект?",
   "project_list_empty_title": "Отдыхаем от проектов",
-  "project_list_empty_hint": "Загрузите проекты из источника импорта или создайте новый",
+  "project_list_empty_hint": "Не останавливайтесь. Продолжите работу с новым проектом",
   "project_list_title": "Проекты",
   "project_new_title": "Новый проект",
   "project_plural": "{count, plural, one{проект} few{проекта} other{проектов}}",

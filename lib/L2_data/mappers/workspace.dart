@@ -3,7 +3,6 @@
 import 'package:openapi/openapi.dart' as api;
 
 import '../../L1_domain/entities/workspace.dart';
-import 'account.dart';
 import 'estimate_value.dart';
 import 'invoice.dart';
 import 'role.dart';
@@ -24,7 +23,6 @@ extension WorkspaceMapper on api.WorkspaceGet {
       invoice: invoice!.invoice,
       settings: settings?.settings,
       estimateValues: estimateValues?.map((ev) => ev.estimateValue(id)).toList() ?? [],
-      mainAccount: mainAccount!.account,
       tasksCount: tasksCount ?? 0,
       sources: [],
     );

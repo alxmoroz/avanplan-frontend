@@ -1,6 +1,5 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'account.dart';
 import 'base_entity.dart';
 import 'estimate_value.dart';
 import 'invoice.dart';
@@ -32,7 +31,6 @@ class Workspace extends WorkspaceUpsert {
     required this.settings,
     required this.estimateValues,
     required this.sources,
-    required this.mainAccount,
     required this.tasksCount,
   });
 
@@ -43,7 +41,6 @@ class Workspace extends WorkspaceUpsert {
   int tasksCount;
 
   final WSettings? settings;
-  final Account mainAccount;
 
   // редактируемые поля
   List<EstimateValue> estimateValues;
@@ -61,7 +58,6 @@ class Workspace extends WorkspaceUpsert {
         settings: null,
         estimateValues: [],
         sources: [],
-        mainAccount: Account.dummy,
         tasksCount: 0,
       );
 }

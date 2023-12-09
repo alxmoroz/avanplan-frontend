@@ -30,6 +30,7 @@ export 'package:openapi/src/api/tasks_api.dart';
 export 'package:openapi/src/api/tasks_invitations_api.dart';
 export 'package:openapi/src/api/tasks_notes_api.dart';
 export 'package:openapi/src/api/tasks_roles_api.dart';
+export 'package:openapi/src/api/transfer_api.dart';
 export 'package:openapi/src/api/workspaces_api.dart';
 
 export 'package:openapi/src/model/account_get.dart';
@@ -75,6 +76,7 @@ export 'package:openapi/src/model/source_upsert.dart';
 export 'package:openapi/src/model/tariff_get.dart';
 export 'package:openapi/src/model/tariff_limit_get.dart';
 export 'package:openapi/src/model/tariff_option_get.dart';
+export 'package:openapi/src/model/task_base_get.dart';
 export 'package:openapi/src/model/task_get.dart';
 export 'package:openapi/src/model/task_remote.dart';
 export 'package:openapi/src/model/task_source.dart';

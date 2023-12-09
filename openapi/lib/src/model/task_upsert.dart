@@ -14,8 +14,10 @@ part 'task_upsert.g.dart';
 /// * [id] 
 /// * [title] 
 /// * [description] 
-/// * [closed] 
 /// * [type] 
+/// * [category] 
+/// * [icon] 
+/// * [closed] 
 /// * [startDate] 
 /// * [dueDate] 
 /// * [closedDate] 
@@ -38,11 +40,17 @@ abstract class TaskUpsert implements Built<TaskUpsert, TaskUpsertBuilder> {
   @BuiltValueField(wireName: r'description')
   String? get description;
 
-  @BuiltValueField(wireName: r'closed')
-  bool? get closed;
-
   @BuiltValueField(wireName: r'type')
   String? get type;
+
+  @BuiltValueField(wireName: r'category')
+  String? get category;
+
+  @BuiltValueField(wireName: r'icon')
+  String? get icon;
+
+  @BuiltValueField(wireName: r'closed')
+  bool? get closed;
 
   @BuiltValueField(wireName: r'start_date')
   DateTime? get startDate;
@@ -83,8 +91,8 @@ abstract class TaskUpsert implements Built<TaskUpsert, TaskUpsertBuilder> {
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(TaskUpsertBuilder b) => b
-      ..closed = false
-      ..type = 'TASK';
+      ..type = 'TASK'
+      ..closed = false;
 
   @BuiltValueSerializer(custom: true)
   static Serializer<TaskUpsert> get serializer => _$TaskUpsertSerializer();
@@ -121,18 +129,32 @@ class _$TaskUpsertSerializer implements PrimitiveSerializer<TaskUpsert> {
         specifiedType: const FullType(String),
       );
     }
-    if (object.closed != null) {
-      yield r'closed';
-      yield serializers.serialize(
-        object.closed,
-        specifiedType: const FullType(bool),
-      );
-    }
     if (object.type != null) {
       yield r'type';
       yield serializers.serialize(
         object.type,
         specifiedType: const FullType(String),
+      );
+    }
+    if (object.category != null) {
+      yield r'category';
+      yield serializers.serialize(
+        object.category,
+        specifiedType: const FullType(String),
+      );
+    }
+    if (object.icon != null) {
+      yield r'icon';
+      yield serializers.serialize(
+        object.icon,
+        specifiedType: const FullType(String),
+      );
+    }
+    if (object.closed != null) {
+      yield r'closed';
+      yield serializers.serialize(
+        object.closed,
+        specifiedType: const FullType(bool),
       );
     }
     if (object.startDate != null) {
@@ -256,19 +278,33 @@ class _$TaskUpsertSerializer implements PrimitiveSerializer<TaskUpsert> {
           ) as String;
           result.description = valueDes;
           break;
-        case r'closed':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool;
-          result.closed = valueDes;
-          break;
         case r'type':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
           result.type = valueDes;
+          break;
+        case r'category':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.category = valueDes;
+          break;
+        case r'icon':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.icon = valueDes;
+          break;
+        case r'closed':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(bool),
+          ) as bool;
+          result.closed = valueDes;
           break;
         case r'start_date':
           final valueDes = serializers.deserialize(

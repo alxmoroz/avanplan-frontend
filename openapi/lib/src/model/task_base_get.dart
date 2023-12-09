@@ -6,20 +6,21 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'workspace_upsert.g.dart';
+part 'task_base_get.g.dart';
 
-/// WorkspaceUpsert
+/// TaskBaseGet
 ///
 /// Properties:
 /// * [id] 
 /// * [title] 
 /// * [description] 
-/// * [code] 
 /// * [type] 
+/// * [category] 
+/// * [icon] 
 @BuiltValue()
-abstract class WorkspaceUpsert implements Built<WorkspaceUpsert, WorkspaceUpsertBuilder> {
+abstract class TaskBaseGet implements Built<TaskBaseGet, TaskBaseGetBuilder> {
   @BuiltValueField(wireName: r'id')
-  int? get id;
+  int get id;
 
   @BuiltValueField(wireName: r'title')
   String get title;
@@ -27,43 +28,44 @@ abstract class WorkspaceUpsert implements Built<WorkspaceUpsert, WorkspaceUpsert
   @BuiltValueField(wireName: r'description')
   String? get description;
 
-  @BuiltValueField(wireName: r'code')
-  String get code;
-
   @BuiltValueField(wireName: r'type')
   String? get type;
 
-  WorkspaceUpsert._();
+  @BuiltValueField(wireName: r'category')
+  String? get category;
 
-  factory WorkspaceUpsert([void updates(WorkspaceUpsertBuilder b)]) = _$WorkspaceUpsert;
+  @BuiltValueField(wireName: r'icon')
+  String? get icon;
+
+  TaskBaseGet._();
+
+  factory TaskBaseGet([void updates(TaskBaseGetBuilder b)]) = _$TaskBaseGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(WorkspaceUpsertBuilder b) => b
-      ..type = 'USER';
+  static void _defaults(TaskBaseGetBuilder b) => b
+      ..type = 'TASK';
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<WorkspaceUpsert> get serializer => _$WorkspaceUpsertSerializer();
+  static Serializer<TaskBaseGet> get serializer => _$TaskBaseGetSerializer();
 }
 
-class _$WorkspaceUpsertSerializer implements PrimitiveSerializer<WorkspaceUpsert> {
+class _$TaskBaseGetSerializer implements PrimitiveSerializer<TaskBaseGet> {
   @override
-  final Iterable<Type> types = const [WorkspaceUpsert, _$WorkspaceUpsert];
+  final Iterable<Type> types = const [TaskBaseGet, _$TaskBaseGet];
 
   @override
-  final String wireName = r'WorkspaceUpsert';
+  final String wireName = r'TaskBaseGet';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    WorkspaceUpsert object, {
+    TaskBaseGet object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
-    if (object.id != null) {
-      yield r'id';
-      yield serializers.serialize(
-        object.id,
-        specifiedType: const FullType(int),
-      );
-    }
+    yield r'id';
+    yield serializers.serialize(
+      object.id,
+      specifiedType: const FullType(int),
+    );
     yield r'title';
     yield serializers.serialize(
       object.title,
@@ -76,15 +78,24 @@ class _$WorkspaceUpsertSerializer implements PrimitiveSerializer<WorkspaceUpsert
         specifiedType: const FullType(String),
       );
     }
-    yield r'code';
-    yield serializers.serialize(
-      object.code,
-      specifiedType: const FullType(String),
-    );
     if (object.type != null) {
       yield r'type';
       yield serializers.serialize(
         object.type,
+        specifiedType: const FullType(String),
+      );
+    }
+    if (object.category != null) {
+      yield r'category';
+      yield serializers.serialize(
+        object.category,
+        specifiedType: const FullType(String),
+      );
+    }
+    if (object.icon != null) {
+      yield r'icon';
+      yield serializers.serialize(
+        object.icon,
         specifiedType: const FullType(String),
       );
     }
@@ -93,7 +104,7 @@ class _$WorkspaceUpsertSerializer implements PrimitiveSerializer<WorkspaceUpsert
   @override
   Object serialize(
     Serializers serializers,
-    WorkspaceUpsert object, {
+    TaskBaseGet object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -104,7 +115,7 @@ class _$WorkspaceUpsertSerializer implements PrimitiveSerializer<WorkspaceUpsert
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required WorkspaceUpsertBuilder result,
+    required TaskBaseGetBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -132,19 +143,26 @@ class _$WorkspaceUpsertSerializer implements PrimitiveSerializer<WorkspaceUpsert
           ) as String;
           result.description = valueDes;
           break;
-        case r'code':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(String),
-          ) as String;
-          result.code = valueDes;
-          break;
         case r'type':
           final valueDes = serializers.deserialize(
             value,
             specifiedType: const FullType(String),
           ) as String;
           result.type = valueDes;
+          break;
+        case r'category':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.category = valueDes;
+          break;
+        case r'icon':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.icon = valueDes;
           break;
         default:
           unhandled.add(key);
@@ -155,12 +173,12 @@ class _$WorkspaceUpsertSerializer implements PrimitiveSerializer<WorkspaceUpsert
   }
 
   @override
-  WorkspaceUpsert deserialize(
+  TaskBaseGet deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = WorkspaceUpsertBuilder();
+    final result = TaskBaseGetBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

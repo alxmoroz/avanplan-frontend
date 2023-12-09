@@ -38,7 +38,20 @@ enum TaskState {
   CLOSED,
 }
 
-class Task extends Titleable {
+class TaskBase extends Titleable {
+  TaskBase({
+    super.id,
+    required super.title,
+    super.description,
+    this.category,
+    this.icon,
+  });
+
+  final String? category;
+  final String? icon;
+}
+
+class Task extends TaskBase {
   Task({
     super.id,
     required super.title,
@@ -106,18 +119,14 @@ class Task extends Titleable {
   num? estimate;
 }
 
-class TaskRemote {
+class TaskRemote extends TaskBase {
   TaskRemote({
-    required this.title,
-    required this.description,
+    required super.title,
+    super.description,
     required this.taskSource,
-    required this.type,
     this.selected = false,
   });
 
-  final String title;
-  final String type;
-  final String description;
   TaskSourceRemote? taskSource;
   bool selected;
 }

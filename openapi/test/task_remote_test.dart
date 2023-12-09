@@ -17,33 +17,18 @@ void main() {
       // TODO
     });
 
-    // bool closed (default value: false)
-    test('to test the property `closed`', () async {
-      // TODO
-    });
-
     // String type (default value: 'TASK')
     test('to test the property `type`', () async {
       // TODO
     });
 
-    // DateTime startDate
-    test('to test the property `startDate`', () async {
+    // String category
+    test('to test the property `category`', () async {
       // TODO
     });
 
-    // DateTime dueDate
-    test('to test the property `dueDate`', () async {
-      // TODO
-    });
-
-    // DateTime closedDate
-    test('to test the property `closedDate`', () async {
-      // TODO
-    });
-
-    // num estimate
-    test('to test the property `estimate`', () async {
+    // String icon
+    test('to test the property `icon`', () async {
       // TODO
     });
 

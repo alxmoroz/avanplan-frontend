@@ -11,6 +11,7 @@ import '../../usecases/ws_tasks.dart';
 import '../import/import_dialog.dart';
 import '../task/controllers/task_controller.dart';
 import '../task/widgets/create/create_task_quiz_view.dart';
+import '../template/template_selector.dart';
 import '../workspace/workspace_selector.dart';
 import 'create_project_quiz_controller.dart';
 import 'creation_method_selector.dart';
@@ -78,14 +79,6 @@ abstract class _CreateProjectControllerBase with Store {
     }
   }
 
-  Future _importFromTemplate() async {
-    print('_importFromTemplate');
-  }
-
-  Future _startImport() async {
-    await importTasks(_ws!);
-  }
-
   Future startCreate() async {
     if (mustPay) {
       await _changeTariff();
@@ -108,10 +101,10 @@ abstract class _CreateProjectControllerBase with Store {
               await _create();
               break;
             case CreationMethod.template:
-              await _importFromTemplate();
+              await importTemplate(_ws!.id!);
               break;
             case CreationMethod.import:
-              await _startImport();
+              await importTasks(_ws!);
               break;
           }
         }

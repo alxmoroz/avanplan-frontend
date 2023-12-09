@@ -23,6 +23,7 @@ part 'workspace_get.g.dart';
 /// * [title] 
 /// * [description] 
 /// * [code] 
+/// * [type] 
 /// * [users] 
 /// * [roles] 
 /// * [invoice] 
@@ -45,6 +46,9 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
 
   @BuiltValueField(wireName: r'code')
   String get code;
+
+  @BuiltValueField(wireName: r'type')
+  String? get type;
 
   @BuiltValueField(wireName: r'users')
   BuiltList<User>? get users;
@@ -79,6 +83,7 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(WorkspaceGetBuilder b) => b
+      ..type = 'USER'
       ..tasksCount = 0;
 
   @BuiltValueSerializer(custom: true)
@@ -119,6 +124,13 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
       object.code,
       specifiedType: const FullType(String),
     );
+    if (object.type != null) {
+      yield r'type';
+      yield serializers.serialize(
+        object.type,
+        specifiedType: const FullType(String),
+      );
+    }
     if (object.users != null) {
       yield r'users';
       yield serializers.serialize(
@@ -232,6 +244,13 @@ class _$WorkspaceGetSerializer implements PrimitiveSerializer<WorkspaceGet> {
             specifiedType: const FullType(String),
           ) as String;
           result.code = valueDes;
+          break;
+        case r'type':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(String),
+          ) as String;
+          result.type = valueDes;
           break;
         case r'users':
           final valueDes = serializers.deserialize(

@@ -14,12 +14,9 @@ part 'task_remote.g.dart';
 /// Properties:
 /// * [title] 
 /// * [description] 
-/// * [closed] 
 /// * [type] 
-/// * [startDate] 
-/// * [dueDate] 
-/// * [closedDate] 
-/// * [estimate] 
+/// * [category] 
+/// * [icon] 
 /// * [taskSource] 
 @BuiltValue()
 abstract class TaskRemote implements Built<TaskRemote, TaskRemoteBuilder> {
@@ -29,23 +26,14 @@ abstract class TaskRemote implements Built<TaskRemote, TaskRemoteBuilder> {
   @BuiltValueField(wireName: r'description')
   String? get description;
 
-  @BuiltValueField(wireName: r'closed')
-  bool? get closed;
-
   @BuiltValueField(wireName: r'type')
   String? get type;
 
-  @BuiltValueField(wireName: r'start_date')
-  DateTime? get startDate;
+  @BuiltValueField(wireName: r'category')
+  String? get category;
 
-  @BuiltValueField(wireName: r'due_date')
-  DateTime? get dueDate;
-
-  @BuiltValueField(wireName: r'closed_date')
-  DateTime? get closedDate;
-
-  @BuiltValueField(wireName: r'estimate')
-  num? get estimate;
+  @BuiltValueField(wireName: r'icon')
+  String? get icon;
 
   @BuiltValueField(wireName: r'task_source')
   TaskSource get taskSource;
@@ -56,7 +44,6 @@ abstract class TaskRemote implements Built<TaskRemote, TaskRemoteBuilder> {
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(TaskRemoteBuilder b) => b
-      ..closed = false
       ..type = 'TASK';
 
   @BuiltValueSerializer(custom: true)
@@ -87,13 +74,6 @@ class _$TaskRemoteSerializer implements PrimitiveSerializer<TaskRemote> {
         specifiedType: const FullType(String),
       );
     }
-    if (object.closed != null) {
-      yield r'closed';
-      yield serializers.serialize(
-        object.closed,
-        specifiedType: const FullType(bool),
-      );
-    }
     if (object.type != null) {
       yield r'type';
       yield serializers.serialize(
@@ -101,32 +81,18 @@ class _$TaskRemoteSerializer implements PrimitiveSerializer<TaskRemote> {
         specifiedType: const FullType(String),
       );
     }
-    if (object.startDate != null) {
-      yield r'start_date';
+    if (object.category != null) {
+      yield r'category';
       yield serializers.serialize(
-        object.startDate,
-        specifiedType: const FullType(DateTime),
+        object.category,
+        specifiedType: const FullType(String),
       );
     }
-    if (object.dueDate != null) {
-      yield r'due_date';
+    if (object.icon != null) {
+      yield r'icon';
       yield serializers.serialize(
-        object.dueDate,
-        specifiedType: const FullType(DateTime),
-      );
-    }
-    if (object.closedDate != null) {
-      yield r'closed_date';
-      yield serializers.serialize(
-        object.closedDate,
-        specifiedType: const FullType(DateTime),
-      );
-    }
-    if (object.estimate != null) {
-      yield r'estimate';
-      yield serializers.serialize(
-        object.estimate,
-        specifiedType: const FullType(num),
+        object.icon,
+        specifiedType: const FullType(String),
       );
     }
     yield r'task_source';
@@ -171,13 +137,6 @@ class _$TaskRemoteSerializer implements PrimitiveSerializer<TaskRemote> {
           ) as String;
           result.description = valueDes;
           break;
-        case r'closed':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(bool),
-          ) as bool;
-          result.closed = valueDes;
-          break;
         case r'type':
           final valueDes = serializers.deserialize(
             value,
@@ -185,33 +144,19 @@ class _$TaskRemoteSerializer implements PrimitiveSerializer<TaskRemote> {
           ) as String;
           result.type = valueDes;
           break;
-        case r'start_date':
+        case r'category':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
-          result.startDate = valueDes;
+            specifiedType: const FullType(String),
+          ) as String;
+          result.category = valueDes;
           break;
-        case r'due_date':
+        case r'icon':
           final valueDes = serializers.deserialize(
             value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
-          result.dueDate = valueDes;
-          break;
-        case r'closed_date':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(DateTime),
-          ) as DateTime;
-          result.closedDate = valueDes;
-          break;
-        case r'estimate':
-          final valueDes = serializers.deserialize(
-            value,
-            specifiedType: const FullType(num),
-          ) as num;
-          result.estimate = valueDes;
+            specifiedType: const FullType(String),
+          ) as String;
+          result.icon = valueDes;
           break;
         case r'task_source':
           final valueDes = serializers.deserialize(

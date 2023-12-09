@@ -15,7 +15,7 @@ import '../../../usecases/task_edit.dart';
 import '../../../usecases/task_tree.dart';
 import '../../../views/_base/edit_controller.dart';
 import '../task_view.dart';
-import '../widgets/transfer/local_export_controller.dart';
+import '../widgets/local_transfer/local_export_controller.dart';
 import 'assignee_controller.dart';
 import 'attachments_controller.dart';
 import 'dates_controller.dart';

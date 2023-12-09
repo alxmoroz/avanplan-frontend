@@ -21,7 +21,7 @@ class IntegrationsTasksApi {
 
   const IntegrationsTasksApi(this._dio, this._serializers);
 
-  /// Get Projects List
+  /// Projects List
   /// 
   ///
   /// Parameters:
@@ -36,7 +36,7 @@ class IntegrationsTasksApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<TaskRemote>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<TaskRemote>>> getProjectsListV1IntegrationsTasksGet({ 
+  Future<Response<BuiltList<TaskRemote>>> projectsListV1IntegrationsTasksGet({ 
     required int wsId,
     required int sourceId,
     CancelToken? cancelToken,

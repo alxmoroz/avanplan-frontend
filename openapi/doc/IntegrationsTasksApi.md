@@ -9,15 +9,15 @@ All URIs are relative to */api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getProjectsListV1IntegrationsTasksGet**](IntegrationsTasksApi.md#getprojectslistv1integrationstasksget) | **GET** /v1/integrations/tasks | Get Projects List
+[**projectsListV1IntegrationsTasksGet**](IntegrationsTasksApi.md#projectslistv1integrationstasksget) | **GET** /v1/integrations/tasks | Projects List
 [**startImport**](IntegrationsTasksApi.md#startimport) | **POST** /v1/integrations/tasks/start_import | Start Import
 [**unlinkV1IntegrationsTasksUnlinkPost**](IntegrationsTasksApi.md#unlinkv1integrationstasksunlinkpost) | **POST** /v1/integrations/tasks/unlink | Unlink
 
 
-# **getProjectsListV1IntegrationsTasksGet**
-> BuiltList<TaskRemote> getProjectsListV1IntegrationsTasksGet(wsId, sourceId)
+# **projectsListV1IntegrationsTasksGet**
+> BuiltList<TaskRemote> projectsListV1IntegrationsTasksGet(wsId, sourceId)
 
-Get Projects List
+Projects List
 
 ### Example
 ```dart
@@ -34,10 +34,10 @@ final int wsId = 56; // int |
 final int sourceId = 56; // int | 
 
 try {
-    final response = api.getProjectsListV1IntegrationsTasksGet(wsId, sourceId);
+    final response = api.projectsListV1IntegrationsTasksGet(wsId, sourceId);
     print(response);
 } catch on DioException (e) {
-    print('Exception when calling IntegrationsTasksApi->getProjectsListV1IntegrationsTasksGet: $e\n');
+    print('Exception when calling IntegrationsTasksApi->projectsListV1IntegrationsTasksGet: $e\n');
 }
 ```
 

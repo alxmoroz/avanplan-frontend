@@ -6,10 +6,10 @@ void main() {
   final instance = Openapi().getIntegrationsTasksApi();
 
   group(IntegrationsTasksApi, () {
-    // Get Projects List
+    // Projects List
     //
-    //Future<BuiltList<TaskRemote>> getProjectsListV1IntegrationsTasksGet(int wsId, int sourceId) async
-    test('test getProjectsListV1IntegrationsTasksGet', () async {
+    //Future<BuiltList<TaskRemote>> projectsListV1IntegrationsTasksGet(int wsId, int sourceId) async
+    test('test projectsListV1IntegrationsTasksGet', () async {
       // TODO
     });
 

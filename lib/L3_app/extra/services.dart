@@ -1,5 +1,6 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'package:avanplan/L2_data/repositories/project_transfer_repo.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:get_it/get_it.dart';
 import 'package:openapi/openapi.dart';
@@ -16,6 +17,7 @@ import '../../L1_domain/usecases/local_settings_uc.dart';
 import '../../L1_domain/usecases/my_uc.dart';
 import '../../L1_domain/usecases/note_uc.dart';
 import '../../L1_domain/usecases/project_status_uc.dart';
+import '../../L1_domain/usecases/project_transfer_uc.dart';
 import '../../L1_domain/usecases/service_settings_uc.dart';
 import '../../L1_domain/usecases/source_uc.dart';
 import '../../L1_domain/usecases/tariff_uc.dart';
@@ -93,6 +95,7 @@ ContractUC get contractUC => GetIt.I<ContractUC>();
 NoteUC get noteUC => GetIt.I<NoteUC>();
 AttachmentUC get attachmentUC => GetIt.I<AttachmentUC>();
 FeatureSetUC get featureSetUC => GetIt.I<FeatureSetUC>();
+ProjectTransferUC get projectTransferUC => GetIt.I<ProjectTransferUC>();
 
 void setup() {
   // device
@@ -134,6 +137,7 @@ void setup() {
   getIt.registerSingleton<NoteUC>(NoteUC(NoteRepo()));
   getIt.registerSingleton<AttachmentUC>(AttachmentUC(AttachmentRepo()));
   getIt.registerSingleton<FeatureSetUC>(FeatureSetUC(FeatureSetRepo()));
+  getIt.registerSingleton<ProjectTransferUC>(ProjectTransferUC(ProjectTransferRepo()));
 
   // global state controllers
   getIt.registerSingletonAsync<ServiceSettingsController>(() async => ServiceSettingsController().init(), dependsOn: [Openapi]);

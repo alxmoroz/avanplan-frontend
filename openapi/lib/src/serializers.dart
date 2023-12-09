@@ -57,6 +57,7 @@ import 'package:openapi/src/model/source_upsert.dart';
 import 'package:openapi/src/model/tariff_get.dart';
 import 'package:openapi/src/model/tariff_limit_get.dart';
 import 'package:openapi/src/model/tariff_option_get.dart';
+import 'package:openapi/src/model/task_base_get.dart';
 import 'package:openapi/src/model/task_get.dart';
 import 'package:openapi/src/model/task_remote.dart';
 import 'package:openapi/src/model/task_source.dart';
@@ -116,6 +117,7 @@ part 'serializers.g.dart';
   TariffGet,
   TariffLimitGet,
   TariffOptionGet,
+  TaskBaseGet,
   TaskGet,
   TaskRemote,
   TaskSource,
@@ -133,6 +135,10 @@ Serializers serializers = (_$serializers.toBuilder()
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(TaskRemote)]),
         () => ListBuilder<TaskRemote>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(TaskBaseGet)]),
+        () => ListBuilder<TaskBaseGet>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(ProjectFeatureSetGet)]),

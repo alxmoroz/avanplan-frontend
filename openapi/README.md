@@ -76,7 +76,7 @@ Class | Method | HTTP request | Description
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**sourcesCheckConnection**](doc/IntegrationsSourcesApi.md#sourcescheckconnection) | **GET** /v1/integrations/sources/check_connection | Check Connection
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**sourcesDelete**](doc/IntegrationsSourcesApi.md#sourcesdelete) | **DELETE** /v1/integrations/sources/{source_id} | Delete
 [*IntegrationsSourcesApi*](doc/IntegrationsSourcesApi.md) | [**sourcesUpsert**](doc/IntegrationsSourcesApi.md#sourcesupsert) | **POST** /v1/integrations/sources | Upsert
-[*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**getProjectsListV1IntegrationsTasksGet**](doc/IntegrationsTasksApi.md#getprojectslistv1integrationstasksget) | **GET** /v1/integrations/tasks | Get Projects List
+[*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**projectsListV1IntegrationsTasksGet**](doc/IntegrationsTasksApi.md#projectslistv1integrationstasksget) | **GET** /v1/integrations/tasks | Projects List
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**startImport**](doc/IntegrationsTasksApi.md#startimport) | **POST** /v1/integrations/tasks/start_import | Start Import
 [*IntegrationsTasksApi*](doc/IntegrationsTasksApi.md) | [**unlinkV1IntegrationsTasksUnlinkPost**](doc/IntegrationsTasksApi.md#unlinkv1integrationstasksunlinkpost) | **POST** /v1/integrations/tasks/unlink | Unlink
 [*MyAccountApi*](doc/MyAccountApi.md) | [**accountV1MyAccountGet**](doc/MyAccountApi.md#accountv1myaccountget) | **GET** /v1/my/account | Account
@@ -111,6 +111,7 @@ Class | Method | HTTP request | Description
 [*TasksNotesApi*](doc/TasksNotesApi.md) | [**deleteNote**](doc/TasksNotesApi.md#deletenote) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id} | Delete
 [*TasksNotesApi*](doc/TasksNotesApi.md) | [**upsertNote**](doc/TasksNotesApi.md#upsertnote) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes | Upsert
 [*TasksRolesApi*](doc/TasksRolesApi.md) | [**assignRole**](doc/TasksRolesApi.md#assignrole) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/roles | Assign
+[*TransferApi*](doc/TransferApi.md) | [**projectTemplatesV1TransferProjectTemplatesGet**](doc/TransferApi.md#projecttemplatesv1transferprojecttemplatesget) | **GET** /v1/transfer/project_templates | Project Templates
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**assignRole**](doc/WorkspacesApi.md#assignrole) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/roles | Assign
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**createInvitation**](doc/WorkspacesApi.md#createinvitation) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Create
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**createWorkspace**](doc/WorkspacesApi.md#createworkspace) | **POST** /v1/workspaces | Create Workspace
@@ -174,6 +175,7 @@ Class | Method | HTTP request | Description
  - [TariffGet](doc/TariffGet.md)
  - [TariffLimitGet](doc/TariffLimitGet.md)
  - [TariffOptionGet](doc/TariffOptionGet.md)
+ - [TaskBaseGet](doc/TaskBaseGet.md)
  - [TaskGet](doc/TaskGet.md)
  - [TaskRemote](doc/TaskRemote.md)
  - [TaskSource](doc/TaskSource.md)

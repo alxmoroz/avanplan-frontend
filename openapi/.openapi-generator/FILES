@@ -62,6 +62,7 @@ doc/TariffGet.md
 doc/TariffLimitGet.md
 doc/TariffOptionGet.md
 doc/TariffsApi.md
+doc/TaskBaseGet.md
 doc/TaskGet.md
 doc/TaskRemote.md
 doc/TaskSource.md
@@ -72,6 +73,7 @@ doc/TasksChanges.md
 doc/TasksInvitationsApi.md
 doc/TasksNotesApi.md
 doc/TasksRolesApi.md
+doc/TransferApi.md
 doc/UActivityGet.md
 doc/User.md
 doc/ValidationError.md
@@ -102,6 +104,7 @@ lib/src/api/tasks_api.dart
 lib/src/api/tasks_invitations_api.dart
 lib/src/api/tasks_notes_api.dart
 lib/src/api/tasks_roles_api.dart
+lib/src/api/transfer_api.dart
 lib/src/api/workspaces_api.dart
 lib/src/api_util.dart
 lib/src/auth/api_key_auth.dart
@@ -154,6 +157,7 @@ lib/src/model/source_upsert.dart
 lib/src/model/tariff_get.dart
 lib/src/model/tariff_limit_get.dart
 lib/src/model/tariff_option_get.dart
+lib/src/model/task_base_get.dart
 lib/src/model/task_get.dart
 lib/src/model/task_remote.dart
 lib/src/model/task_source.dart
@@ -228,6 +232,7 @@ test/tariff_get_test.dart
 test/tariff_limit_get_test.dart
 test/tariff_option_get_test.dart
 test/tariffs_api_test.dart
+test/task_base_get_test.dart
 test/task_get_test.dart
 test/task_remote_test.dart
 test/task_source_get_test.dart
@@ -238,6 +243,7 @@ test/tasks_changes_test.dart
 test/tasks_invitations_api_test.dart
 test/tasks_notes_api_test.dart
 test/tasks_roles_api_test.dart
+test/transfer_api_test.dart
 test/u_activity_get_test.dart
 test/user_test.dart
 test/validation_error_loc_inner_test.dart

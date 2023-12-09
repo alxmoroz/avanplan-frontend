@@ -55,10 +55,19 @@ extension TaskMapper on api.TaskGet {
   }
 }
 
-extension TaskRemoteMapper on api.TaskRemote {
-  TaskRemote get taskRemote => TaskRemote(
+extension TaskBaseMapper on api.TaskBaseGet {
+  TaskBase get taskBase => TaskBase(
+        id: id,
         title: title,
-        type: type ?? 'PROJECT',
+        description: description ?? '',
+        category: category,
+        icon: icon,
+      );
+}
+
+extension TaskRemoteMapper on api.TaskRemote {
+  TaskRemote get taskImport => TaskRemote(
+        title: title,
         description: description ?? '',
         taskSource: taskSource.taskSourceRemote,
       );

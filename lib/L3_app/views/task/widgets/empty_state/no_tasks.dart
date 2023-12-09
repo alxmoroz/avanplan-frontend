@@ -15,7 +15,7 @@ import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_feature_sets.dart';
 import '../../controllers/task_controller.dart';
 import '../create/create_task_button.dart';
-import '../transfer/local_import_dialog.dart';
+import '../local_transfer/local_import_dialog.dart';
 
 class NoTasks extends StatelessWidget {
   const NoTasks(this._controller, {this.overview = false});

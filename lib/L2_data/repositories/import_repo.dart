@@ -13,19 +13,18 @@ class ImportRepo extends AbstractImportRepo {
 
   @override
   Future<Iterable<TaskRemote>> getProjectsList(int wsId, int sourceId) async {
-    final response = await api.getProjectsListV1IntegrationsTasksGet(wsId: wsId, sourceId: sourceId);
-    return response.data?.map((t) => t.taskRemote) ?? [];
+    final response = await api.projectsListV1IntegrationsTasksGet(wsId: wsId, sourceId: sourceId);
+    return response.data?.map((t) => t.taskImport) ?? [];
   }
 
   @override
-  Future<bool> startImport(int wsId, int sourceId, Iterable<TaskRemote> projects) async {
+  Future<bool> import(int wsId, int sourceId, Iterable<TaskRemote> projects) async {
     final response = await api.startImport(
       wsId: wsId,
       bodyStartImport: (o_api.BodyStartImportBuilder()
             ..projects = ListBuilder(
               projects.map<o_api.TaskRemote>((p) => (o_api.TaskRemoteBuilder()
                     ..title = p.title
-                    ..type = p.type
                     ..taskSource = (o_api.TaskSourceBuilder()
                       ..sourceId = sourceId
                       ..url = p.taskSource?.urlString

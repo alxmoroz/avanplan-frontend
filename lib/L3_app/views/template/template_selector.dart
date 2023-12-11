@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 
+import '../../../L1_domain/entities/task.dart';
 import '../../components/circular_progress.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
@@ -15,14 +16,21 @@ import '../../components/toolbar.dart';
 import '../../extra/services.dart';
 import 'template_controller.dart';
 
-Future<int?> _selectTemplate(TemplateController _controller) async => showMTDialog(TemplateSelector(_controller));
+Future<Project?> _selectTemplate(TemplateController _controller) async => showMTDialog<Project?>(TemplateSelector(_controller));
 
 Future importTemplate(int wsId) async {
   final itc = TemplateController(wsId);
   itc.getData();
-  final tId = await _selectTemplate(itc);
-  if (tId != null) {
-    print('importTemplate $tId');
+  final template = await _selectTemplate(itc);
+  if (template != null) {
+    tasksMainController.refreshTasks();
+    final changes = await projectTransferUC.transfer(template.wsId, template.id!, wsId);
+    final p = changes?.updated;
+    if (p != null) {
+      changes?.affected.forEach((t) => tasksMainController.setTask(t));
+      tasksMainController.setTask(p);
+    }
+    tasksMainController.refreshTasks();
   }
 }
 
@@ -49,7 +57,7 @@ class TemplateSelector extends StatelessWidget {
                 titleText: template.title,
                 subtitle: template.description.isNotEmpty ? SmallText(template.description, maxLines: 2) : null,
                 bottomDivider: tIndex < templates.length - 1,
-                onTap: () => Navigator.of(context).pop(template.id),
+                onTap: () => Navigator.of(context).pop(template),
               );
             })
       ],

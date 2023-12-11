@@ -38,20 +38,22 @@ enum TaskState {
   CLOSED,
 }
 
-class TaskBase extends Titleable {
-  TaskBase({
+class Project extends Titleable {
+  Project({
     super.id,
     required super.title,
+    required this.wsId,
     super.description,
     this.category,
     this.icon,
   });
 
+  final int wsId;
   final String? category;
   final String? icon;
 }
 
-class Task extends TaskBase {
+class Task extends Project {
   Task({
     super.id,
     required super.title,
@@ -64,7 +66,7 @@ class Task extends TaskBase {
     required this.members,
     required this.projectStatuses,
     required this.projectFeatureSets,
-    required this.wsId,
+    required super.wsId,
     this.taskSource,
     this.createdOn,
     this.updatedOn,
@@ -85,7 +87,6 @@ class Task extends TaskBase {
     this.closedSubtasksCount,
   });
 
-  final int wsId;
   final DateTime? createdOn;
   final DateTime? updatedOn;
 
@@ -119,9 +120,10 @@ class Task extends TaskBase {
   num? estimate;
 }
 
-class TaskRemote extends TaskBase {
-  TaskRemote({
+class ProjectRemote extends Project {
+  ProjectRemote({
     required super.title,
+    required super.wsId,
     super.description,
     required this.taskSource,
     this.selected = false,

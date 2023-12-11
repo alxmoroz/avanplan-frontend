@@ -6,9 +6,9 @@
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 
-part 'task_base_get.g.dart';
+part 'project_get.g.dart';
 
-/// TaskBaseGet
+/// ProjectGet
 ///
 /// Properties:
 /// * [id] 
@@ -17,8 +17,9 @@ part 'task_base_get.g.dart';
 /// * [type] 
 /// * [category] 
 /// * [icon] 
+/// * [wsId] 
 @BuiltValue()
-abstract class TaskBaseGet implements Built<TaskBaseGet, TaskBaseGetBuilder> {
+abstract class ProjectGet implements Built<ProjectGet, ProjectGetBuilder> {
   @BuiltValueField(wireName: r'id')
   int get id;
 
@@ -37,28 +38,31 @@ abstract class TaskBaseGet implements Built<TaskBaseGet, TaskBaseGetBuilder> {
   @BuiltValueField(wireName: r'icon')
   String? get icon;
 
-  TaskBaseGet._();
+  @BuiltValueField(wireName: r'ws_id')
+  int get wsId;
 
-  factory TaskBaseGet([void updates(TaskBaseGetBuilder b)]) = _$TaskBaseGet;
+  ProjectGet._();
+
+  factory ProjectGet([void updates(ProjectGetBuilder b)]) = _$ProjectGet;
 
   @BuiltValueHook(initializeBuilder: true)
-  static void _defaults(TaskBaseGetBuilder b) => b
+  static void _defaults(ProjectGetBuilder b) => b
       ..type = 'TASK';
 
   @BuiltValueSerializer(custom: true)
-  static Serializer<TaskBaseGet> get serializer => _$TaskBaseGetSerializer();
+  static Serializer<ProjectGet> get serializer => _$ProjectGetSerializer();
 }
 
-class _$TaskBaseGetSerializer implements PrimitiveSerializer<TaskBaseGet> {
+class _$ProjectGetSerializer implements PrimitiveSerializer<ProjectGet> {
   @override
-  final Iterable<Type> types = const [TaskBaseGet, _$TaskBaseGet];
+  final Iterable<Type> types = const [ProjectGet, _$ProjectGet];
 
   @override
-  final String wireName = r'TaskBaseGet';
+  final String wireName = r'ProjectGet';
 
   Iterable<Object?> _serializeProperties(
     Serializers serializers,
-    TaskBaseGet object, {
+    ProjectGet object, {
     FullType specifiedType = FullType.unspecified,
   }) sync* {
     yield r'id';
@@ -99,12 +103,17 @@ class _$TaskBaseGetSerializer implements PrimitiveSerializer<TaskBaseGet> {
         specifiedType: const FullType(String),
       );
     }
+    yield r'ws_id';
+    yield serializers.serialize(
+      object.wsId,
+      specifiedType: const FullType(int),
+    );
   }
 
   @override
   Object serialize(
     Serializers serializers,
-    TaskBaseGet object, {
+    ProjectGet object, {
     FullType specifiedType = FullType.unspecified,
   }) {
     return _serializeProperties(serializers, object, specifiedType: specifiedType).toList();
@@ -115,7 +124,7 @@ class _$TaskBaseGetSerializer implements PrimitiveSerializer<TaskBaseGet> {
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
     required List<Object?> serializedList,
-    required TaskBaseGetBuilder result,
+    required ProjectGetBuilder result,
     required List<Object?> unhandled,
   }) {
     for (var i = 0; i < serializedList.length; i += 2) {
@@ -164,6 +173,13 @@ class _$TaskBaseGetSerializer implements PrimitiveSerializer<TaskBaseGet> {
           ) as String;
           result.icon = valueDes;
           break;
+        case r'ws_id':
+          final valueDes = serializers.deserialize(
+            value,
+            specifiedType: const FullType(int),
+          ) as int;
+          result.wsId = valueDes;
+          break;
         default:
           unhandled.add(key);
           unhandled.add(value);
@@ -173,12 +189,12 @@ class _$TaskBaseGetSerializer implements PrimitiveSerializer<TaskBaseGet> {
   }
 
   @override
-  TaskBaseGet deserialize(
+  ProjectGet deserialize(
     Serializers serializers,
     Object serialized, {
     FullType specifiedType = FullType.unspecified,
   }) {
-    final result = TaskBaseGetBuilder();
+    final result = ProjectGetBuilder();
     final serializedList = (serialized as Iterable<Object?>).toList();
     final unhandled = <Object?>[];
     _deserializeProperties(

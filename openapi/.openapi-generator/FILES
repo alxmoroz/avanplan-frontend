@@ -49,6 +49,7 @@ doc/PermissionGet.md
 doc/PermissionRoleGet.md
 doc/ProjectFeatureSetGet.md
 doc/ProjectFeatureSetsApi.md
+doc/ProjectGet.md
 doc/ProjectStatusGet.md
 doc/ProjectStatusUpsert.md
 doc/ProjectStatusesApi.md
@@ -62,7 +63,6 @@ doc/TariffGet.md
 doc/TariffLimitGet.md
 doc/TariffOptionGet.md
 doc/TariffsApi.md
-doc/TaskBaseGet.md
 doc/TaskGet.md
 doc/TaskRemote.md
 doc/TaskSource.md
@@ -147,6 +147,7 @@ lib/src/model/notification.dart
 lib/src/model/permission_get.dart
 lib/src/model/permission_role_get.dart
 lib/src/model/project_feature_set_get.dart
+lib/src/model/project_get.dart
 lib/src/model/project_status_get.dart
 lib/src/model/project_status_upsert.dart
 lib/src/model/registration.dart
@@ -157,7 +158,6 @@ lib/src/model/source_upsert.dart
 lib/src/model/tariff_get.dart
 lib/src/model/tariff_limit_get.dart
 lib/src/model/tariff_option_get.dart
-lib/src/model/task_base_get.dart
 lib/src/model/task_get.dart
 lib/src/model/task_remote.dart
 lib/src/model/task_source.dart
@@ -219,6 +219,7 @@ test/permission_get_test.dart
 test/permission_role_get_test.dart
 test/project_feature_set_get_test.dart
 test/project_feature_sets_api_test.dart
+test/project_get_test.dart
 test/project_status_get_test.dart
 test/project_status_upsert_test.dart
 test/project_statuses_api_test.dart
@@ -232,7 +233,6 @@ test/tariff_get_test.dart
 test/tariff_limit_get_test.dart
 test/tariff_option_get_test.dart
 test/tariffs_api_test.dart
-test/task_base_get_test.dart
 test/task_get_test.dart
 test/task_remote_test.dart
 test/task_source_get_test.dart

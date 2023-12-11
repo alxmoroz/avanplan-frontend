@@ -44,19 +44,19 @@ abstract class _ImportControllerBase with Store {
   Workspace get ws => wsMainController.ws(wsId);
   int get availableCount => ws.availableProjectsCount;
 
-  bool isImporting(TaskRemote rp) {
+  bool isImporting(ProjectRemote rp) {
     final rts = rp.taskSource!;
     return tasksMainController.importingTSs.where((ts) => ts.code == rts.code && ts.sourceId == rts.sourceId).isNotEmpty;
   }
 
   @observable
-  List<TaskRemote> projects = [];
+  List<ProjectRemote> projects = [];
 
   @computed
-  Iterable<TaskRemote> get selectableProjects => projects.where((p) => !isImporting(p));
+  Iterable<ProjectRemote> get selectableProjects => projects.where((p) => !isImporting(p));
 
   @computed
-  Iterable<TaskRemote> get selectedProjects => projects.where((p) => p.selected);
+  Iterable<ProjectRemote> get selectedProjects => projects.where((p) => p.selected);
 
   @computed
   int get selectableCount => ws.availableProjectsCount - selectedProjects.length;
@@ -87,7 +87,7 @@ abstract class _ImportControllerBase with Store {
   }
 
   @action
-  void selectProject(TaskRemote task, bool? selected) {
+  void selectProject(ProjectRemote task, bool? selected) {
     task.selected = selected == true;
     projects = [...projects];
   }

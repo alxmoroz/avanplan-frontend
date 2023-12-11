@@ -8,6 +8,6 @@ class ProjectTransferUC {
 
   final AbstractProjectTransferRepo repo;
 
-  Future<Iterable<TaskBase>> getProjectTemplates(int wsId) async => await repo.getProjectTemplates(wsId);
-  Future<TasksChanges?> transfer(int srcWsId, int dstWsId, int projectId) async => await repo.transfer(srcWsId, dstWsId, projectId);
+  Future<Iterable<Project>> getProjectTemplates(int wsId) async => await repo.getProjectTemplates(wsId);
+  Future<TasksChanges?> transfer(int srcWsId, int srcProjectId, int dstWsId) async => await repo.transfer(srcWsId, srcProjectId, dstWsId);
 }

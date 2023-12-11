@@ -10,7 +10,7 @@ import 'package:dio/dio.dart';
 import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/api_util.dart';
 import 'package:openapi/src/model/http_validation_error.dart';
-import 'package:openapi/src/model/task_base_get.dart';
+import 'package:openapi/src/model/project_get.dart';
 import 'package:openapi/src/model/tasks_changes.dart';
 
 class TransferApi {
@@ -33,9 +33,9 @@ class TransferApi {
   /// * [onSendProgress] - A [ProgressCallback] that can be used to get the send progress
   /// * [onReceiveProgress] - A [ProgressCallback] that can be used to get the receive progress
   ///
-  /// Returns a [Future] containing a [Response] with a [BuiltList<TaskBaseGet>] as data
+  /// Returns a [Future] containing a [Response] with a [BuiltList<ProjectGet>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<TaskBaseGet>>> projectTemplates({ 
+  Future<Response<BuiltList<ProjectGet>>> projectTemplates({ 
     required int wsId,
     CancelToken? cancelToken,
     Map<String, dynamic>? headers,
@@ -80,14 +80,14 @@ class TransferApi {
       onReceiveProgress: onReceiveProgress,
     );
 
-    BuiltList<TaskBaseGet>? _responseData;
+    BuiltList<ProjectGet>? _responseData;
 
     try {
       final rawResponse = _response.data;
       _responseData = rawResponse == null ? null : _serializers.deserialize(
         rawResponse,
-        specifiedType: const FullType(BuiltList, [FullType(TaskBaseGet)]),
-      ) as BuiltList<TaskBaseGet>;
+        specifiedType: const FullType(BuiltList, [FullType(ProjectGet)]),
+      ) as BuiltList<ProjectGet>;
 
     } catch (error, stackTrace) {
       throw DioException(
@@ -99,7 +99,7 @@ class TransferApi {
       );
     }
 
-    return Response<BuiltList<TaskBaseGet>>(
+    return Response<BuiltList<ProjectGet>>(
       data: _responseData,
       headers: _response.headers,
       isRedirect: _response.isRedirect,

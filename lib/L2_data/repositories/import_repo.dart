@@ -12,13 +12,13 @@ class ImportRepo extends AbstractImportRepo {
   o_api.IntegrationsTasksApi get api => openAPI.getIntegrationsTasksApi();
 
   @override
-  Future<Iterable<TaskRemote>> getProjectsList(int wsId, int sourceId) async {
+  Future<Iterable<ProjectRemote>> getProjectsList(int wsId, int sourceId) async {
     final response = await api.projectsListV1IntegrationsTasksGet(wsId: wsId, sourceId: sourceId);
     return response.data?.map((t) => t.taskImport) ?? [];
   }
 
   @override
-  Future<bool> import(int wsId, int sourceId, Iterable<TaskRemote> projects) async {
+  Future<bool> import(int wsId, int sourceId, Iterable<ProjectRemote> projects) async {
     final response = await api.startImport(
       wsId: wsId,
       bodyStartImport: (o_api.BodyStartImportBuilder()

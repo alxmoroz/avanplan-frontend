@@ -11,14 +11,22 @@ class ProjectTransferRepo extends AbstractProjectTransferRepo {
   o_api.TransferApi get api => openAPI.getTransferApi();
 
   @override
-  Future<Iterable<TaskBase>> getProjectTemplates(int wsId) async {
-    final response = await api.projectTemplatesV1TransferProjectTemplatesGet(wsId: wsId);
-    return response.data?.map((t) => t.taskBase) ?? [];
+  Future<Iterable<Project>> getProjectTemplates(int wsId) async {
+    final response = await api.projectTemplates(wsId: wsId);
+    return response.data?.map((t) => t.project) ?? [];
   }
 
   @override
-  Future<TasksChanges?> transfer(int srcWsId, int dstWsId, int projectId) {
-    // TODO: implement transfer
-    throw UnimplementedError();
+  Future<TasksChanges?> transfer(int srcWsId, int srcProjectId, int dstWsId) async {
+    final changes = (await api.transferProject(
+      srcWsId: srcWsId,
+      srcProjectId: srcProjectId,
+      wsId: dstWsId,
+    ))
+        .data;
+    return TasksChanges(
+      changes?.updatedTask.task(dstWsId),
+      changes?.affectedTasks.map((t) => t.task(dstWsId)) ?? [],
+    );
   }
 }

@@ -8,7 +8,7 @@ void main() {
   group(TransferApi, () {
     // Project Templates
     //
-    //Future<BuiltList<TaskBaseGet>> projectTemplates(int wsId) async
+    //Future<BuiltList<ProjectGet>> projectTemplates(int wsId) async
     test('test projectTemplates', () async {
       // TODO
     });

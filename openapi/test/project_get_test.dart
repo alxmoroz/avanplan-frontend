@@ -1,12 +1,12 @@
 import 'package:test/test.dart';
 import 'package:openapi/openapi.dart';
 
-// tests for TaskBaseGet
+// tests for ProjectGet
 void main() {
-  final instance = TaskBaseGetBuilder();
+  final instance = ProjectGetBuilder();
   // TODO add properties to the builder and call build()
 
-  group(TaskBaseGet, () {
+  group(ProjectGet, () {
     // int id
     test('to test the property `id`', () async {
       // TODO
@@ -34,6 +34,11 @@ void main() {
 
     // String icon
     test('to test the property `icon`', () async {
+      // TODO
+    });
+
+    // int wsId
+    test('to test the property `wsId`', () async {
       // TODO
     });
   });

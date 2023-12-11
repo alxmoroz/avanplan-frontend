@@ -1,4 +1,4 @@
-# openapi.model.TaskBaseGet
+# openapi.model.ProjectGet
 
 ## Load the model package
 ```dart
@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **type** | **String** |  | [optional] [default to 'TASK']
 **category** | **String** |  | [optional] 
 **icon** | **String** |  | [optional] 
+**wsId** | **int** |  | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

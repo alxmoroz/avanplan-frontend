@@ -47,6 +47,7 @@ import 'package:openapi/src/model/notification.dart';
 import 'package:openapi/src/model/permission_get.dart';
 import 'package:openapi/src/model/permission_role_get.dart';
 import 'package:openapi/src/model/project_feature_set_get.dart';
+import 'package:openapi/src/model/project_get.dart';
 import 'package:openapi/src/model/project_status_get.dart';
 import 'package:openapi/src/model/project_status_upsert.dart';
 import 'package:openapi/src/model/registration.dart';
@@ -57,7 +58,6 @@ import 'package:openapi/src/model/source_upsert.dart';
 import 'package:openapi/src/model/tariff_get.dart';
 import 'package:openapi/src/model/tariff_limit_get.dart';
 import 'package:openapi/src/model/tariff_option_get.dart';
-import 'package:openapi/src/model/task_base_get.dart';
 import 'package:openapi/src/model/task_get.dart';
 import 'package:openapi/src/model/task_remote.dart';
 import 'package:openapi/src/model/task_source.dart';
@@ -107,6 +107,7 @@ part 'serializers.g.dart';
   PermissionGet,
   PermissionRoleGet,
   ProjectFeatureSetGet,
+  ProjectGet,
   ProjectStatusGet,
   ProjectStatusUpsert,
   Registration,
@@ -117,7 +118,6 @@ part 'serializers.g.dart';
   TariffGet,
   TariffLimitGet,
   TariffOptionGet,
-  TaskBaseGet,
   TaskGet,
   TaskRemote,
   TaskSource,
@@ -137,12 +137,12 @@ Serializers serializers = (_$serializers.toBuilder()
         () => ListBuilder<TaskRemote>(),
       )
       ..addBuilderFactory(
-        const FullType(BuiltList, [FullType(TaskBaseGet)]),
-        () => ListBuilder<TaskBaseGet>(),
-      )
-      ..addBuilderFactory(
         const FullType(BuiltList, [FullType(ProjectFeatureSetGet)]),
         () => ListBuilder<ProjectFeatureSetGet>(),
+      )
+      ..addBuilderFactory(
+        const FullType(BuiltList, [FullType(ProjectGet)]),
+        () => ListBuilder<ProjectGet>(),
       )
       ..addBuilderFactory(
         const FullType(BuiltList, [FullType(int)]),

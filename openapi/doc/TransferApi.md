@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 
 # **projectTemplates**
-> BuiltList<TaskBaseGet> projectTemplates(wsId)
+> BuiltList<ProjectGet> projectTemplates(wsId)
 
 Project Templates
 
@@ -47,7 +47,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BuiltList&lt;TaskBaseGet&gt;**](TaskBaseGet.md)
+[**BuiltList&lt;ProjectGet&gt;**](ProjectGet.md)
 
 ### Authorization
 

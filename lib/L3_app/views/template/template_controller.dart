@@ -20,7 +20,7 @@ abstract class _TemplateControllerBase with Store {
   late final int _wsId;
 
   @observable
-  Iterable<TaskBase> _templates = [];
+  Iterable<Project> _templates = [];
 
   @observable
   bool loading = true;
@@ -33,8 +33,8 @@ abstract class _TemplateControllerBase with Store {
   }
 
   @computed
-  List<MapEntry<String, List<TaskBase>>> get templatesGroups {
-    final gt = groupBy<TaskBase, String>(_templates, (t) => t.category ?? 'tmpl_category_universal');
+  List<MapEntry<String, List<Project>>> get templatesGroups {
+    final gt = groupBy<Project, String>(_templates, (t) => t.category ?? 'tmpl_category_universal');
     return gt.entries.sortedBy<String>((g) => g.key);
   }
 }

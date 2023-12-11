@@ -427,6 +427,7 @@
   "title": "Название",
 
   "template_selector_title": "Выберите шаблон проекта",
+  "tmpl_category_personal": "Личные дела и планы",
   "tmpl_category_universal": "Универсальные",
 
   "today_date_title": "сегодня",

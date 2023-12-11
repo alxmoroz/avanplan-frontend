@@ -427,6 +427,7 @@
   "title": "Title",
 
   "template_selector_title": "Select a project template",
+  "tmpl_category_personal": "Personal Activities and Plans",
   "tmpl_category_universal": "Universal",
 
   "today_date_title": "today",

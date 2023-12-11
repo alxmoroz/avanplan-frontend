@@ -58,9 +58,10 @@ class TemplateSelector extends StatelessWidget {
             itemBuilder: (_, tIndex) {
               final template = templates[tIndex];
               return MTListTile(
-                leading: MTImage(template.icon ?? 'tmpl_task_list', height: P8),
-                titleText: template.title,
+                leading: MTImage(template.icon ?? 'tmpl_task_list', height: P8, width: P8),
+                middle: BaseText.medium(template.title, maxLines: 2),
                 subtitle: template.description.isNotEmpty ? SmallText(template.description, maxLines: 2) : null,
+                dividerIndent: P8 + P5,
                 bottomDivider: tIndex < templates.length - 1,
                 onTap: () => Navigator.of(context).pop(template),
               );
@@ -75,7 +76,7 @@ class TemplateSelector extends StatelessWidget {
       topBar: MTToolBar(titleText: loc.template_selector_title),
       body: Observer(
         builder: (_) => _controller.loading
-            ? const SizedBox(height: P * 20, child: Center(child: MTCircularProgress(color: mainColor)))
+            ? const SizedBox(height: P * 30, child: Center(child: MTCircularProgress(color: mainColor)))
             : ListView.builder(
                 shrinkWrap: true,
                 itemCount: _controller.templatesGroups.length,

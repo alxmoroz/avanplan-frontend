@@ -83,7 +83,7 @@ abstract class WorkspaceGet implements Built<WorkspaceGet, WorkspaceGetBuilder> 
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(WorkspaceGetBuilder b) => b
-      ..type = 'USER'
+      ..type = 'PRIVATE'
       ..tasksCount = 0;
 
   @BuiltValueSerializer(custom: true)

@@ -39,7 +39,7 @@ abstract class WorkspaceUpsert implements Built<WorkspaceUpsert, WorkspaceUpsert
 
   @BuiltValueHook(initializeBuilder: true)
   static void _defaults(WorkspaceUpsertBuilder b) => b
-      ..type = 'USER';
+      ..type = 'PRIVATE';
 
   @BuiltValueSerializer(custom: true)
   static Serializer<WorkspaceUpsert> get serializer => _$WorkspaceUpsertSerializer();

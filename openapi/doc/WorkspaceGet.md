@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **title** | **String** |  | 
 **description** | **String** |  | [optional] 
 **code** | **String** |  | 
-**type** | **String** |  | [optional] [default to 'USER']
+**type** | **String** |  | [optional] [default to 'PRIVATE']
 **users** | [**BuiltList&lt;User&gt;**](User.md) |  | [optional] 
 **roles** | [**BuiltList&lt;RoleGet&gt;**](RoleGet.md) |  | [optional] 
 **invoice** | [**InvoiceGet**](InvoiceGet.md) |  | [optional] 

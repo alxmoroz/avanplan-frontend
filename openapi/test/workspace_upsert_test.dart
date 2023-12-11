@@ -27,7 +27,7 @@ void main() {
       // TODO
     });
 
-    // String type (default value: 'USER')
+    // String type (default value: 'PRIVATE')
     test('to test the property `type`', () async {
       // TODO
     });

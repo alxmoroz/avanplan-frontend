@@ -52,7 +52,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
         if (task.isCheckItem)
           MTButton.icon(
             DoneIcon(task.closed,
-                size: P6,
+                size: P5,
                 color: task.closed ? (_doneBtnHover ? mainColor : greenLightColor) : (_doneBtnHover ? greenColor : null),
                 solid: task.closed),
             padding: const EdgeInsets.symmetric(horizontal: P3, vertical: P2),

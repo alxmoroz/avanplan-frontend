@@ -108,8 +108,11 @@ abstract class _ProjectStatusEditControllerBase extends EditController with Stor
   }
 
   @computed
-  int get tasksWithStatusCount =>
-      tasksMainController.allTasks.where((t) => t.project!.id == _project.id && status.id != null && t.projectStatusId == status.id).length;
+  int get tasksWithStatusCount => tasksMainController.allTasks
+      .where(
+        (t) => t.project!.id == _project.id && status.id != null && t.projectStatusId == status.id && t.wsId == status.wsId,
+      )
+      .length;
 
   @computed
   bool get usedInTasks => tasksWithStatusCount > 0;

@@ -426,6 +426,9 @@
 
   "title": "Название",
 
+  "template_selector_title": "Выберите шаблон проекта",
+  "tmpl_category_universal": "Универсальные",
+
   "today_date_title": "сегодня",
   "tomorrow_date_title": "завтра",
 

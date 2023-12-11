@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
@@ -17,18 +18,23 @@ class TemplateController extends _TemplateControllerBase with _$TemplateControll
 
 abstract class _TemplateControllerBase with Store {
   late final int _wsId;
-  // Workspace get ws => wsMainController.ws(_wsId);
 
   @observable
-  Iterable<TaskBase> templates = [];
+  Iterable<TaskBase> _templates = [];
+
+  @observable
+  bool loading = true;
 
   @action
-  Future getData() async => templates = await projectTransferUC.getProjectTemplates(_wsId);
+  Future getData() async {
+    loading = true;
+    _templates = await projectTransferUC.getProjectTemplates(_wsId);
+    loading = false;
+  }
 
-  Future importTemplate() async {
-    // if (await importUC.startImport(ws.id!, selectedSourceId!, selectedProjects)) {
-    // await tasksMainController.updateImportingProjects();
-    // }
-    // Navigator.of(rootKey.currentContext!).pop();
+  @computed
+  List<MapEntry<String, List<TaskBase>>> get templatesGroups {
+    final gt = groupBy<TaskBase, String>(_templates, (t) => t.category ?? 'tmpl_category_universal');
+    return gt.entries.sortedBy<String>((g) => g.key);
   }
 }

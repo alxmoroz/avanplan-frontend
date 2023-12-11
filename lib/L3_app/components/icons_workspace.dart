@@ -36,7 +36,7 @@ class ProjectsIcon extends MTIcon {
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.briefcase,
         color: (color ?? f2Color).resolve(context),
-        size: size ?? P6,
+        size: size ?? P5,
       );
 }
 
@@ -66,7 +66,7 @@ class TariffIcon extends MTIcon {
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.creditcard,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? P6,
+        size: size ?? P5,
       );
 }
 
@@ -76,7 +76,7 @@ class WSIconHome extends MTIcon {
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.house_alt,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? P6,
+        size: size ?? P5,
       );
 }
 
@@ -86,6 +86,6 @@ class WSIconPublic extends MTIcon {
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.building_2_fill,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? P6,
+        size: size ?? P5,
       );
 }

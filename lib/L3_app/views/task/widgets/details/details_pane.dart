@@ -148,7 +148,7 @@ class DetailsPane extends StatelessWidget {
                 MTField(
                   MTFieldData(-1, placeholder: '${loc.action_add_title} ${loc.checklist.toLowerCase()}'),
                   margin: const EdgeInsets.only(top: P3),
-                  leading: const TasksIcon(size: P6, color: mainColor),
+                  leading: const TasksIcon(size: P5, color: mainColor),
                   crossAxisAlignment: CrossAxisAlignment.center,
                   onTap: () async => await controller.subtasksController.addTask(),
                 ),
@@ -216,7 +216,7 @@ class DetailsPane extends StatelessWidget {
               if (_task.didImported)
                 MTListTile(
                   margin: const EdgeInsets.only(top: P3),
-                  leading: _task.source?.type.icon(size: P6),
+                  leading: _task.source?.type.icon(size: P5),
                   titleText: loc.task_go2source_title,
                   trailing: const LinkOutIcon(),
                   bottomDivider: false,

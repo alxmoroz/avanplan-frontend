@@ -14,7 +14,7 @@ List<MapEntry<TaskState, List<Task>>> groups(Iterable<Task> tasks) {
 }
 
 extension TaskTreeUC on Task {
-  Task? get parent => tasksMainController.allTasks.firstWhereOrNull((t) => t.id == parentId);
+  Task? get parent => tasksMainController.allTasks.firstWhereOrNull((t) => t.id == parentId && t.wsId == wsId);
 
   // TODO: что за ситуация такая, когда нет проекта?
   Task? get project {
@@ -27,7 +27,7 @@ extension TaskTreeUC on Task {
   }
 
   // TODO: попробовать вынести в computed в один из контроллеров
-  Iterable<Task> get subtasks => tasksMainController.allTasks.where((t) => t.parentId == id);
+  Iterable<Task> get subtasks => tasksMainController.allTasks.where((t) => t.parentId == id && t.wsId == wsId);
 
   bool get isCheckList => isTask && subtasks.isNotEmpty;
 

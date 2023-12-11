@@ -42,7 +42,7 @@ abstract class _InvitationControllerBase with Store {
     role = _role;
     invitation = null;
     invitation = await invitationUC.getInvitation(
-          task.ws.id!,
+          task.wsId,
           task.id!,
           role!.id!,
         ) ??
@@ -53,7 +53,7 @@ abstract class _InvitationControllerBase with Store {
               5,
               nextWeek,
             ),
-            task.ws.id!);
+            task.wsId);
 
     if (hasUrl) {
       if (isWeb) {

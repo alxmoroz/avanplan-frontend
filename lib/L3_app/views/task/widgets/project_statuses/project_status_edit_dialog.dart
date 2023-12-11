@@ -97,7 +97,7 @@ class _ProjectStatusEditDialogState extends State<ProjectStatusEditDialog> {
             MTField(
               _controller.fData(StatusFCode.closed.index),
               value: MTListTile(
-                leading: DoneIcon(true, color: _used ? f3Color : f2Color, size: P6),
+                leading: DoneIcon(true, color: _used ? f3Color : f2Color, size: P5),
                 middle: BaseText.medium(loc.state_closed, maxLines: 1, color: _used ? f3Color : null),
                 trailing: CupertinoSwitch(
                   value: _status.closed,

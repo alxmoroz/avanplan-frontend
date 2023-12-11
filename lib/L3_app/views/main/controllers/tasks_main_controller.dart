@@ -85,7 +85,7 @@ abstract class _TasksMainControllerBase with Store {
         for (var ws in wsMainController.workspaces) ws.id!: {for (var t in _wsTasks(ws.id!)) t.id!: t}
       };
 
-  Iterable<Task> _wsTasks(int wsId) => allTasks.where((t) => t.ws.id == wsId);
+  Iterable<Task> _wsTasks(int wsId) => allTasks.where((t) => t.wsId == wsId);
 
   /// задачи из списка
 
@@ -99,7 +99,7 @@ abstract class _TasksMainControllerBase with Store {
 
   @action
   void setTask(Task et) {
-    final index = allTasks.indexWhere((t) => t.ws.id == et.ws.id && t.id == et.id);
+    final index = allTasks.indexWhere((t) => t.wsId == et.wsId && t.id == et.id);
     if (index > -1) {
       allTasks[index] = et;
     } else {
@@ -115,7 +115,7 @@ abstract class _TasksMainControllerBase with Store {
   }
 
   @action
-  void removeClosed(Task parent) => allTasks.removeWhere((t) => t.closed && t.parentId == parent.id);
+  void removeClosed(Task parent) => allTasks.removeWhere((t) => t.closed && t.parentId == parent.id && t.wsId == parent.wsId);
 
   @action
   Future _getAllTasks() async {
@@ -141,8 +141,7 @@ abstract class _TasksMainControllerBase with Store {
           description: p.taskSource!.stateDetails,
         );
       }
-      final wsId = p.ws.id!;
-      final existingTask = task(wsId, p.id);
+      final existingTask = task(p.wsId, p.id);
       final existingTS = existingTask?.taskSource;
       final newTS = p.taskSource!;
       if (existingTS?.state != newTS.state) {

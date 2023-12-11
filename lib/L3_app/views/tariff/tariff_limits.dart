@@ -21,7 +21,7 @@ class _TariffLimitTile extends StatelessWidget {
   final Tariff tariff;
   final String code;
 
-  static const iconSize = P6;
+  static const iconSize = P5;
 
   @override
   Widget build(BuildContext context) {

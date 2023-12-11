@@ -73,6 +73,7 @@ class _FSBody extends StatelessWidget {
                   description: fs.description,
                   value: _controller.checks[index],
                   bottomDivider: index < _controller.checks.length - 1,
+                  dividerIndent: P * 13,
                   onChanged: onChanged,
                 );
               },

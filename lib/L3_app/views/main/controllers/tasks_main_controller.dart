@@ -159,7 +159,7 @@ abstract class _TasksMainControllerBase with Store {
     }
 
     if (importedProjects.where((p) => p.isImportingProject).isNotEmpty) {
-      Timer(const Duration(seconds: 5), () async => await updateImportingProjects());
+      Timer(const Duration(seconds: 10), () async => await updateImportingProjects());
     }
   }
 

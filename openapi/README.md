@@ -111,7 +111,8 @@ Class | Method | HTTP request | Description
 [*TasksNotesApi*](doc/TasksNotesApi.md) | [**deleteNote**](doc/TasksNotesApi.md#deletenote) | **DELETE** /v1/workspaces/{ws_id}/tasks/{task_id}/notes/{note_id} | Delete
 [*TasksNotesApi*](doc/TasksNotesApi.md) | [**upsertNote**](doc/TasksNotesApi.md#upsertnote) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/notes | Upsert
 [*TasksRolesApi*](doc/TasksRolesApi.md) | [**assignRole**](doc/TasksRolesApi.md#assignrole) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/roles | Assign
-[*TransferApi*](doc/TransferApi.md) | [**projectTemplatesV1TransferProjectTemplatesGet**](doc/TransferApi.md#projecttemplatesv1transferprojecttemplatesget) | **GET** /v1/transfer/project_templates | Project Templates
+[*TransferApi*](doc/TransferApi.md) | [**projectTemplates**](doc/TransferApi.md#projecttemplates) | **GET** /v1/transfer/project_templates | Project Templates
+[*TransferApi*](doc/TransferApi.md) | [**transferProject**](doc/TransferApi.md#transferproject) | **POST** /v1/transfer | Transfer Project
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**assignRole**](doc/WorkspacesApi.md#assignrole) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/roles | Assign
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**createInvitation**](doc/WorkspacesApi.md#createinvitation) | **POST** /v1/workspaces/{ws_id}/tasks/{task_id}/invitations | Create
 [*WorkspacesApi*](doc/WorkspacesApi.md) | [**createWorkspace**](doc/WorkspacesApi.md#createworkspace) | **POST** /v1/workspaces | Create Workspace

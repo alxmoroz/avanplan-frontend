@@ -30,13 +30,13 @@ class CreationMethodSelector extends StatelessWidget {
             subtitle: SmallText(loc.create_from_scratch_action_description),
             onTap: () => Navigator.of(context).pop(CreationMethod.create),
           ),
-          // MTListTile(
-          //   leading: const TemplateIcon(),
-          //   titleText: loc.create_from_template_action_title,
-          //   dividerIndent: _dividerIndent,
-          //   subtitle: SmallText(loc.create_from_template_action_description),
-          //   onTap: () => Navigator.of(context).pop(CreationMethod.template),
-          // ),
+          MTListTile(
+            leading: const TemplateIcon(),
+            titleText: loc.create_from_template_action_title,
+            dividerIndent: _dividerIndent,
+            subtitle: SmallText(loc.create_from_template_action_description),
+            onTap: () => Navigator.of(context).pop(CreationMethod.template),
+          ),
           MTListTile(
             leading: const ImportIcon(),
             titleText: loc.import_action_title,

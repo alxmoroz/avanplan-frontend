@@ -8,8 +8,15 @@ void main() {
   group(TransferApi, () {
     // Project Templates
     //
-    //Future<BuiltList<TaskBaseGet>> projectTemplatesV1TransferProjectTemplatesGet(int wsId) async
-    test('test projectTemplatesV1TransferProjectTemplatesGet', () async {
+    //Future<BuiltList<TaskBaseGet>> projectTemplates(int wsId) async
+    test('test projectTemplates', () async {
+      // TODO
+    });
+
+    // Transfer Project
+    //
+    //Future<TasksChanges> transferProject(int srcWsId, int srcProjectId, int wsId) async
+    test('test transferProject', () async {
       // TODO
     });
   });

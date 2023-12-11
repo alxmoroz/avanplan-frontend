@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:intl/intl.dart';
 
 import '../../../L1_domain/entities/task.dart';
+import '../../../main.dart';
 import '../../components/circular_progress.dart';
 import '../../components/colors.dart';
 import '../../components/constants.dart';
@@ -14,6 +15,8 @@ import '../../components/list_tile.dart';
 import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/services.dart';
+import '../task/controllers/task_controller.dart';
+import '../task/task_view.dart';
 import 'template_controller.dart';
 
 Future<Project?> _selectTemplate(TemplateController _controller) async => showMTDialog<Project?>(TemplateSelector(_controller));
@@ -23,14 +26,15 @@ Future importTemplate(int wsId) async {
   itc.getData();
   final template = await _selectTemplate(itc);
   if (template != null) {
-    tasksMainController.refreshTasks();
+    loader.setLoading();
     final changes = await projectTransferUC.transfer(template.wsId, template.id!, wsId);
     final p = changes?.updated;
     if (p != null) {
       changes?.affected.forEach((t) => tasksMainController.setTask(t));
       tasksMainController.setTask(p);
+      TaskRouter().navigate(rootKey.currentContext!, args: TaskController(p));
     }
-    tasksMainController.refreshTasks();
+    loader.stop();
   }
 }
 

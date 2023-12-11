@@ -14,8 +14,8 @@ extension WSTariffUC on Workspace {
     tsController.getData();
     final tariff = await showMTDialog<Tariff?>(TariffSelector(tsController), maxWidth: SCR_XL_WIDTH);
     if (tariff != null) {
-      loader.start();
       loader.setSaving();
+      loader.start();
       final signedContractInvoice = await contractUC.sign(tariff.id!, id!);
       if (signedContractInvoice != null) {
         invoice = signedContractInvoice;

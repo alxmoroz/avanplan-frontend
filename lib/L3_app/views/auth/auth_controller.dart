@@ -100,7 +100,7 @@ abstract class _AuthControllerBase with Store {
   }
 
   void _startLdrAuth() {
-    loader.start();
     loader.set(imageName: ImageName.privacy.name, titleText: loc.loader_auth_title);
+    loader.start();
   }
 }

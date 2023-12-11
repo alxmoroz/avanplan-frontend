@@ -35,8 +35,8 @@ abstract class _MemberEditControllerBase with Store {
   }
 
   Future assignRoles() async {
-    loader.start();
     loader.setSaving();
+    loader.start();
     final rolesIds = roles.where((r) => r.selected).map((r) => r.id!);
     final members = await taskMemberRoleUC.assignRoles(task, member.id!, rolesIds);
     Navigator.of(rootKey.currentContext!).pop(members);

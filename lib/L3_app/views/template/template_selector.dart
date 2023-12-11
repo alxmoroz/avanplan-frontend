@@ -26,7 +26,8 @@ Future importTemplate(int wsId) async {
   itc.getData();
   final template = await _selectTemplate(itc);
   if (template != null) {
-    loader.setLoading();
+    loader.setSaving();
+    loader.start();
     final changes = await projectTransferUC.transfer(template.wsId, template.id!, wsId);
     final p = changes?.updated;
     if (p != null) {

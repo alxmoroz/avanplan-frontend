@@ -47,8 +47,8 @@ abstract class _CreateProjectControllerBase with Store {
       int? _wsId = await selectWS(canCreate: _noMyWss);
       if (_wsId != null) {
         if (_wsId == -1) {
-          loader.start();
           loader.setSaving();
+          loader.start();
           _wsId = (await wsMainController.createMyWS())?.id;
           await loader.stop();
         }

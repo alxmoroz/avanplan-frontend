@@ -72,8 +72,8 @@ abstract class _SourceEditControllerBase extends EditController with Store {
   /// действия
 
   Future save() async {
-    loader.start();
     loader.setSaving();
+    loader.start();
     final editedSource = await sourceUC.save(
       Source(
         id: source?.id,
@@ -105,8 +105,8 @@ abstract class _SourceEditControllerBase extends EditController with Store {
         simple: true,
       );
       if (confirm == true) {
-        loader.start();
         loader.setDeleting();
+        loader.start();
         Navigator.of(context).pop(await sourceUC.delete(source!));
 
         // отвязываем задачи

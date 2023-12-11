@@ -21,8 +21,8 @@ abstract class _MainControllerBase with Store {
   void _setUpdateDate(DateTime? dt) => _updatedDate = dt;
 
   Future _update() async {
-    loader.start();
     loader.setLoading();
+    loader.start();
 
     await accountController.getData();
     await refsController.getData();
@@ -78,8 +78,8 @@ abstract class _MainControllerBase with Store {
   Future<bool> _tryRedeemInvitation() async {
     bool invited = false;
     if (invitationTokenController.hasToken) {
-      loader.start();
       loader.set(titleText: loc.loader_invitation_redeem_title, imageName: ImageName.privacy.name);
+      loader.start();
       invited = await myUC.redeemInvitation(invitationTokenController.token);
       invitationTokenController.clear();
       await loader.stop();
@@ -93,8 +93,8 @@ abstract class _MainControllerBase with Store {
     if (invited || timeToUpdate) {
       await _update();
     } else if (iapController.waitingPayment) {
-      loader.start();
       loader.set(imageName: 'purchase', titleText: loc.loader_purchasing_title);
+      loader.start();
       await wsMainController.getData();
       iapController.resetWaiting();
       await loader.stop();

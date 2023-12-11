@@ -34,8 +34,8 @@ abstract class _WorkspaceEditControllerBase extends EditController with Store {
 
   Future save() async {
     // TODO: обработка ошибок редактирования РП. Как в задаче. Локальный лоадер на шапке
-    loader.start();
     loader.setSaving();
+    loader.start();
     final editedWS = await workspaceUC.save(WorkspaceUpsert(
       id: ws.id,
       code: fData(WSFCode.code.index).text,

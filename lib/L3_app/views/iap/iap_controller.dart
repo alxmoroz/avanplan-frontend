@@ -20,8 +20,8 @@ abstract class _IAPControllerBase with Store {
 
   @action
   Future getProducts() async {
-    loader.start();
     loader.set(imageName: ImageName.purchase.name, titleText: loc.loader_refreshing_title);
+    loader.start();
     products = (await iapUC.products(
       (errorText) => loader.set(
         imageName: ImageName.purchase.name,
@@ -38,8 +38,8 @@ abstract class _IAPControllerBase with Store {
   Future pay(int wsId, IAPProduct product) async {
     final userId = accountController.user?.id;
     if (userId != null) {
-      loader.start();
       loader.set(imageName: ImageName.purchase.name, titleText: loc.loader_purchasing_title);
+      loader.start();
       await iapUC.pay(
         product: product,
         wsId: wsId,

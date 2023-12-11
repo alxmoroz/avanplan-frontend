@@ -25,8 +25,8 @@ abstract class _AccountControllerBase extends EditController with Store {
 
   @action
   Future _registerActivity(String code, {int? wsId}) async {
-    loader.start();
     loader.setLoading();
+    loader.start();
     user = await myUC.registerActivity(code, wsId: wsId);
     await loader.stop();
   }
@@ -56,8 +56,8 @@ abstract class _AccountControllerBase extends EditController with Store {
       simple: true,
     );
     if (confirm == true) {
-      loader.start();
       loader.setDeleting();
+      loader.start();
 
       await myUC.deleteAccount();
       await authController.signOut();

@@ -58,8 +58,8 @@ abstract class _RegistrationControllerBase extends EditController with Store {
 
   @action
   Future createRequest(BuildContext context) async {
-    loader.start();
     loader.setSaving();
+    loader.start();
     final regRequest = RegistrationRequest(
       fData(RegistrationFCode.name.index).text,
       fData(RegistrationFCode.email.index).text,

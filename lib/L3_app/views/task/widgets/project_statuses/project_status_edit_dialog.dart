@@ -109,9 +109,6 @@ class _ProjectStatusEditDialogState extends State<ProjectStatusEditDialog> {
                 padding: EdgeInsets.zero,
                 bottomDivider: false,
               ),
-              dividerIndent: P * 11,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              bottomDivider: true,
             ),
             if (_used)
               BaseText.f2(

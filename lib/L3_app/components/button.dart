@@ -214,7 +214,14 @@ class MTButton extends StatelessWidget with FocusManaging {
             canRequestFocus: false,
             focusColor: Colors.transparent,
             onLongPress: _onLongPress,
-            child: CupertinoButton(onPressed: _onPressed, child: _child, minSize: 0, padding: padding ?? EdgeInsets.zero, color: color),
+            child: CupertinoButton(
+              onPressed: _onPressed,
+              child: _child,
+              minSize: 0,
+              padding: padding ?? EdgeInsets.zero,
+              color: color,
+              borderRadius: const BorderRadius.all(Radius.zero),
+            ),
           ),
         );
     }

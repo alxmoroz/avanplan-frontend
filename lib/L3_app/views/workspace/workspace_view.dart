@@ -107,11 +107,11 @@ class WorkspaceView extends StatelessWidget {
       );
 
   Widget get _users => MTListTile(
-        leading: const PeopleIcon(size: P6),
+        leading: const PeopleIcon(size: P5),
         titleText: loc.user_list_title,
         subtitle: SmallText('${_ws.users.length} / ${_ws.maxUsers}', maxLines: 1),
         trailing: const ChevronIcon(),
-        dividerIndent: P * 11,
+        dividerIndent: P10,
         onTap: () async => await UsersRouter().navigate(rootKey.currentContext!, args: _ws.id!),
       );
 
@@ -119,7 +119,7 @@ class WorkspaceView extends StatelessWidget {
       leading: const ImportIcon(),
       titleText: '${loc.source_list_title} ${_ws.sources.isNotEmpty ? '(${_ws.sources.length})' : ''}',
       trailing: const ChevronIcon(),
-      dividerIndent: P * 11,
+      bottomDivider: false,
       onTap: () async {
         _ws.checkSources();
         await SourcesRouter().navigate(rootKey.currentContext!, args: _ws.id!);

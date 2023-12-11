@@ -55,7 +55,8 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
                 size: P5,
                 color: task.closed ? (_doneBtnHover ? mainColor : greenLightColor) : (_doneBtnHover ? greenColor : null),
                 solid: task.closed),
-            padding: const EdgeInsets.symmetric(horizontal: P3, vertical: P2),
+            padding: const EdgeInsets.only(left: P3, right: 0, top: P2 + P_2, bottom: P2 + P_2),
+            margin: const EdgeInsets.only(right: P2),
             onHover: (hover) => setState(() => _doneBtnHover = hover),
             onTap: (_controller.parent.closed && task.closed) ? null : () => tc.statusController.setStatus(task, close: !task.closed),
           ),
@@ -93,7 +94,8 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
         if (_fieldHover)
           MTButton.icon(
             DeleteIcon(color: _delBtnHover ? null : f2Color),
-            padding: const EdgeInsets.only(left: P3, right: P3, top: P3, bottom: P3),
+            padding: const EdgeInsets.only(left: 0, right: P3, top: P3, bottom: P3),
+            margin: const EdgeInsets.only(left: P2),
             onHover: (hover) => setState(() => _delBtnHover = hover),
             onTap: () async => await _delete(tc),
           ),
@@ -134,7 +136,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
               child: _fieldValue(context, tc),
             ),
       padding: EdgeInsets.zero,
-      dividerIndent: P3 + (tc.task!.isCheckItem ? P8 + P : 0),
+      dividerIndent: tc.task!.isCheckItem ? P10 : P3,
       dividerEndIndent: P3,
       bottomDivider: _index < _controller.taskControllers.length - 1,
       onHover: kIsWeb ? (hover) => setState(() => _fieldHover = hover) : null,

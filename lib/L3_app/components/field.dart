@@ -49,10 +49,10 @@ class MTField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTListTile(
-      leading: leading != null ? SizedBox(width: P6, child: Center(child: leading)) : null,
+      leading: leading != null ? SizedBox(width: P5, child: Center(child: leading)) : null,
       middle: _hasValue && fd.label.isNotEmpty ? SmallText(fd.label, color: f3Color, maxLines: 1) : null,
       subtitle: _hasValue ? value : BaseText.f3(fd.placeholder, maxLines: 1),
-      trailing: trailing != null ? SizedBox(width: P6, child: Center(child: trailing)) : null,
+      trailing: trailing != null ? SizedBox(width: P5, child: Center(child: trailing)) : null,
       bottomDivider: bottomDivider,
       dividerIndent: dividerIndent,
       dividerEndIndent: dividerEndIndent,

@@ -29,6 +29,7 @@ class _FSBody extends StatelessWidget {
   final FeatureSetsController _controller;
   final bool shrinkWrap;
 
+  static const _iconSize = P8;
   Widget _icon(int index) => MTImage(
         [
           ImageName.fs_analytics,
@@ -38,8 +39,8 @@ class _FSBody extends StatelessWidget {
           ImageName.fs_estimates,
         ][index]
             .name,
-        width: P8,
-        height: P7,
+        width: _iconSize,
+        height: _iconSize,
       );
 
   @override
@@ -73,7 +74,7 @@ class _FSBody extends StatelessWidget {
                   description: fs.description,
                   value: _controller.checks[index],
                   bottomDivider: index < _controller.checks.length - 1,
-                  dividerIndent: P * 13,
+                  dividerIndent: _iconSize + P5,
                   onChanged: onChanged,
                 );
               },

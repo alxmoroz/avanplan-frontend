@@ -127,7 +127,7 @@ class DatesController {
           : null,
       onTap: task.canEdit ? () => selectDate(context, code) : null,
       bottomDivider: isStart && (task.hasDueDate || task.canEdit),
-      dividerIndent: isStart ? P * 11 : null,
+      dividerIndent: isStart ? P10 : null,
     );
   }
 }

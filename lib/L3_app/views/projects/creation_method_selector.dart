@@ -15,7 +15,7 @@ Future<CreationMethod?> selectCreationMethod() async => await showMTDialog<Creat
 enum CreationMethod { create, template, import }
 
 class CreationMethodSelector extends StatelessWidget {
-  static const _dividerIndent = P * 11;
+  static const _dividerIndent = P10;
   @override
   Widget build(BuildContext context) {
     return MTDialog(

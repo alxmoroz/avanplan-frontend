@@ -119,7 +119,8 @@ class ImportDialog extends StatelessWidget {
         )
       : _hasSources
           ? MTShadowed(
-              topPaddingIndent: P,
+              shadowColor: b1Color,
+              topPaddingIndent: 0,
               child: ListView.builder(
                 shrinkWrap: true,
                 itemBuilder: _projectItemBuilder,
@@ -164,10 +165,10 @@ class ImportDialog extends StatelessWidget {
           middle: controller.ws.subPageTitle(loc.import_title),
           bottom: _hasSources ? _header : null,
         ),
-        topBarHeight: P8 + (_hasSources ? P * 13 + (_showSelectAll ? P8 : 0) : 0),
+        topBarHeight: P8 + (_hasSources ? P * 15 + (_showSelectAll ? P8 : 0) : 0),
         body: _body(context),
         bottomBar: _bottomBar,
-        bottomBarHeight: _hasProjects ? P * 19 : null,
+        bottomBarHeight: _hasProjects ? P * 13 : null,
       ),
     );
   }

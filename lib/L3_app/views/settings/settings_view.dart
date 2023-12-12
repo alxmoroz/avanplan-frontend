@@ -110,7 +110,6 @@ class SettingsView extends StatelessWidget {
           top: false,
           bottom: false,
           child: MTShadowed(
-            topPaddingIndent: P,
             child: MTAdaptive(
               child: ListView(
                 children: [

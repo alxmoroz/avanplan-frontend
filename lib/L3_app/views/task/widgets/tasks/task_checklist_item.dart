@@ -35,6 +35,8 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
   bool _doneBtnHover = false;
   bool _delBtnHover = false;
 
+  double get _minHeight => kIsWeb ? P10 : P8;
+
   Future<bool> _delete(TaskController tc) async => await _controller.deleteTask(tc);
 
   Widget _fieldValue(BuildContext context, TaskController tc) {
@@ -47,15 +49,17 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
     final tfMaxLines = hasFocus ? 1 : 2;
 
     final tfPadding = EdgeInsets.only(left: task.isCheckItem ? 0 : P3, right: _fieldHover ? 0 : P3);
+    const doneIconSize = P5;
+    const deleteIconSize = P4;
     return Row(
       children: [
         if (task.isCheckItem)
           MTButton.icon(
             DoneIcon(task.closed,
-                size: P5,
+                size: doneIconSize,
                 color: task.closed ? (_doneBtnHover ? mainColor : greenLightColor) : (_doneBtnHover ? greenColor : null),
                 solid: task.closed),
-            padding: const EdgeInsets.only(left: P3, right: 0, top: P2 + P_2, bottom: P2 + P_2),
+            padding: EdgeInsets.symmetric(vertical: (_minHeight - doneIconSize) / 2).copyWith(left: P3, right: 0),
             margin: const EdgeInsets.only(right: P2),
             onHover: (hover) => setState(() => _doneBtnHover = hover),
             onTap: (_controller.parent.closed && task.closed) ? null : () => tc.statusController.setStatus(task, close: !task.closed),
@@ -66,7 +70,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
               MTTextField(
                 keyboardType: TextInputType.multiline,
                 controller: teController,
-                autofocus: false, //_index == _controller.taskControllers.length - 1,
+                autofocus: false,
                 margin: tfPadding,
                 maxLines: tfMaxLines,
                 decoration: InputDecoration(
@@ -84,7 +88,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
                 Container(
                   color: b3Color.resolve(context),
                   padding: tfPadding,
-                  height: P10,
+                  height: _minHeight,
                   alignment: Alignment.centerLeft,
                   child: BaseText(roText, maxLines: 2, color: task.closed ? f3Color : null),
                 ),
@@ -93,8 +97,8 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
         ),
         if (_fieldHover)
           MTButton.icon(
-            DeleteIcon(color: _delBtnHover ? null : f2Color),
-            padding: const EdgeInsets.only(left: 0, right: P3, top: P3, bottom: P3),
+            DeleteIcon(color: _delBtnHover ? null : f2Color, size: deleteIconSize),
+            padding: EdgeInsets.symmetric(vertical: (_minHeight - deleteIconSize) / 2).copyWith(left: 0, right: P3),
             margin: const EdgeInsets.only(left: P2),
             onHover: (hover) => setState(() => _delBtnHover = hover),
             onTap: () async => await _delete(tc),
@@ -111,7 +115,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
     return MTField(
       fData,
       loading: tc.task!.loading == true,
-      minHeight: P10,
+      minHeight: _minHeight,
       crossAxisAlignment: CrossAxisAlignment.center,
       value: kIsWeb
           ? _fieldValue(context, tc)
@@ -137,7 +141,6 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
             ),
       padding: EdgeInsets.zero,
       dividerIndent: tc.task!.isCheckItem ? P10 : P3,
-      dividerEndIndent: P3,
       bottomDivider: _index < _controller.taskControllers.length - 1,
       onHover: kIsWeb ? (hover) => setState(() => _fieldHover = hover) : null,
       onTap: kIsWeb ? (_fieldHover ? null : () {}) : () => _controller.setFocus(true, tc),

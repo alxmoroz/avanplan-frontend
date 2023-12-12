@@ -19,7 +19,6 @@ class MTDropdown<T extends RPersistable> extends StatelessWidget {
     this.ddItems,
     this.items,
     this.margin,
-    this.dense = true,
   }) : assert((ddItems == null && items != null) || (ddItems != null && items == null));
 
   final Function(int?)? onChanged;
@@ -28,7 +27,6 @@ class MTDropdown<T extends RPersistable> extends StatelessWidget {
   final List<DropdownMenuItem<int>>? ddItems;
   final String label;
   final String? helper;
-  final bool dense;
   final EdgeInsets? margin;
 
   List<DropdownMenuItem<int>> get _ddItems =>
@@ -43,12 +41,14 @@ class MTDropdown<T extends RPersistable> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: margin ?? EdgeInsets.zero,
+    return Container(
+      margin: margin ?? EdgeInsets.zero,
+      height: P10,
+      alignment: Alignment.centerLeft,
       child: DropdownButtonFormField<int>(
         dropdownColor: b3Color.resolve(context),
         focusColor: b3Color.resolve(context),
-        isDense: dense,
+        isDense: true,
         decoration: tfDecoration(context, label: label, helper: helper, readOnly: true),
         icon: const DropdownIcon(),
         items: _ddItems,

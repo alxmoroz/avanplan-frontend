@@ -54,6 +54,7 @@ extension SourcePresenter on Source {
                       ? warningColor
                       : f2Color,
               size: _connectionIndicatorSize),
+      dividerIndent: (iconSize ?? P5) + P5,
       bottomDivider: bottomBorder,
       minHeight: standAlone ? null : 0,
       onTap: onTap,

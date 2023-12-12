@@ -56,7 +56,6 @@ class UserListView extends StatelessWidget {
           top: false,
           bottom: false,
           child: MTShadowed(
-            topPaddingIndent: P,
             child: MTAdaptive(
               child: ListView.builder(
                 itemBuilder: _userBuilder,

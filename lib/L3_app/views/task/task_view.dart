@@ -195,7 +195,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                       ],
                     ),
                   ),
-                  bottomBar: !smallHeight && _selectedBottomBar != null ? _selectedBottomBar : null,
+                  bottomBar: _selectedBottomBar,
                 ),
                 if (task!.error != null)
                   MTErrorSheet(task!.error!, onClose: () {

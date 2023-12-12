@@ -73,7 +73,7 @@ class MTDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final bPadding = bottomPadding(context);
     final mq = MediaQuery.of(context);
-    final double bbHeight = bottomBar != null ? (bottomBarHeight ?? bPadding + P2 + MIN_BTN_HEIGHT) : bPadding;
+    final double bbHeight = bPadding + (bottomBar != null ? (bottomBarHeight ?? P2 + MIN_BTN_HEIGHT) : 0);
     final double tbHeight = topBar != null ? (topBarHeight ?? P8) : 0;
     const radius = Radius.circular(DEF_BORDER_RADIUS);
     final big = isBigScreen(context);

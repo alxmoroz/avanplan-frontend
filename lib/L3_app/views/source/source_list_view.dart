@@ -44,7 +44,7 @@ class SourceListView extends StatelessWidget {
   Widget _sourceBuilder(BuildContext _, int index) {
     final s = _ws.sortedSources[index];
     return s.listTile(
-      iconSize: P7,
+      iconSize: P6,
       bottomBorder: index < _ws.sortedSources.length - 1,
       onTap: () => editSource(_ws, src: s),
     );
@@ -65,7 +65,6 @@ class SourceListView extends StatelessWidget {
           child: _ws.sources.isEmpty
               ? Center(child: NoSources(_ws))
               : MTShadowed(
-                  topPaddingIndent: P,
                   child: MTAdaptive(
                     child: ListView.builder(
                       itemBuilder: _sourceBuilder,

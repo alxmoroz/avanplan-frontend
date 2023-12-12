@@ -38,7 +38,6 @@ class TaskChecklist extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => MTShadowed(
-        topPaddingIndent: P,
         child: MTAdaptive(
           child: ListView.builder(
             itemBuilder: _itemBuilder,

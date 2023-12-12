@@ -28,6 +28,7 @@ class TasksPane extends StatelessWidget {
   final TaskController controller;
 
   Task get _task => controller.task!;
+  bool get _noTasks => _task.subtasks.isEmpty && _task.totalVolume == 0;
 
   Widget _switchPart(Widget icon, bool active) => Container(
         decoration: active
@@ -41,7 +42,7 @@ class TasksPane extends StatelessWidget {
         child: icon,
       );
 
-  Widget? get bottomBar => _task.canShowBoard || _task.canLocalImport || (_task.canCreate && !_task.isCheckList)
+  Widget? get bottomBar => !_noTasks && (_task.canShowBoard || _task.canLocalImport || (_task.canCreate && !_task.isCheckList))
       ? MTAdaptive(
           force: true,
           child: MTAppBar(
@@ -80,7 +81,7 @@ class TasksPane extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => _task.subtasks.isEmpty && _task.totalVolume == 0
+      builder: (_) => _noTasks
           ? NoTasks(controller)
           : _task.canShowBoard && controller.showBoard
               ? TasksBoard(

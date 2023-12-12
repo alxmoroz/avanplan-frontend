@@ -13,7 +13,7 @@ class MTShadowed extends StatelessWidget {
     this.topShadow = true,
     this.bottomShadow = false,
     this.topPaddingIndent = P3,
-    this.bottomPaddingIndent = P3,
+    this.bottomPaddingIndent = P4,
   });
 
   final Widget child;
@@ -26,13 +26,13 @@ class MTShadowed extends StatelessWidget {
   Widget _shadow(BuildContext context, bool top) {
     final padding = MediaQuery.paddingOf(context);
     final startColor = (shadowColor ?? b2Color).resolve(context);
-    final endColor = startColor.withAlpha(0);
+    final endColor = startColor.withAlpha(0).resolve(context);
     return Positioned(
       left: 0,
       right: 0,
       top: top ? padding.top : null,
       bottom: top ? null : padding.bottom,
-      height: P,
+      height: 8,
       child: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(

@@ -103,7 +103,7 @@ abstract class _ProjectStatusEditControllerBase extends EditController with Stor
     }
     str = _processedInput(str);
     if (_checkDup(str)) {
-      _titleEditTimer = Timer(const Duration(milliseconds: 750), () async => await _setTitle(str));
+      _titleEditTimer = Timer(const Duration(milliseconds: 1000), () async => await _setTitle(str));
     }
   }
 

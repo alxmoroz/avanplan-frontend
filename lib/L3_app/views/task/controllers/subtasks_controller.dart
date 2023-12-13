@@ -33,9 +33,6 @@ abstract class _SubtasksControllerBase with Store {
   void _setControllers(Iterable<Task> tasks) => taskControllers = ObservableList.of(tasks.map((t) => TaskController(t)));
 
   @action
-  void refresh() => taskControllers = ObservableList.of(taskControllers);
-
-  @action
   Future addTask() async {
     final newTask = await parent.ws.createTask(parent);
     if (newTask != null) {
@@ -59,7 +56,6 @@ abstract class _SubtasksControllerBase with Store {
 
   @action
   Future<bool> deleteTask(TaskController tc) async {
-    refresh();
     await tc.task!.delete();
     tc.dispose();
     taskControllers.remove(tc);
@@ -67,7 +63,7 @@ abstract class _SubtasksControllerBase with Store {
   }
 
   Future editTitle(TaskController tc, String str) async {
-    await tc.titleController.editTitle(str, doneCb: refresh);
+    await tc.titleController.editTitle(str);
   }
 
   void dispose() => taskControllers.forEach((tc) => tc.dispose());

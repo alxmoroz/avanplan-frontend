@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
+import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
@@ -30,6 +31,8 @@ class TaskChecklistItem extends StatefulWidget {
 class _TaskChecklistItemState extends State<TaskChecklistItem> {
   SubtasksController get _controller => widget._controller;
   int get _index => widget._index;
+  TaskController get tc => _controller.taskControllers.elementAt(_index);
+  Task get task => tc.task!;
 
   bool _fieldHover = false;
   bool _doneBtnHover = false;
@@ -37,11 +40,20 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
 
   double get _minHeight => kIsWeb ? P10 : P8;
 
-  Future<bool> _delete(TaskController tc) async => await _controller.deleteTask(tc);
+  bool _taskEditing = false;
 
-  Widget _fieldValue(BuildContext context, TaskController tc) {
+  Future<bool> _delete() async {
+    setState(() => _taskEditing = true);
+    return await _controller.deleteTask(tc);
+  }
+
+  Future _toggleDone() async {
+    setState(() => _taskEditing = true);
+    await tc.statusController.setStatus(task, close: !task.closed);
+  }
+
+  Widget _fieldValue(BuildContext context) {
     final teController = tc.teController(TaskFCode.title.index);
-    final task = tc.task!;
     final roText = teController?.text.isNotEmpty == true ? teController!.text : tc.titleController.titlePlaceholder;
     final fNode = tc.focusNode(TaskFCode.title.index);
     fNode?.addListener(() => setState(() {}));
@@ -62,7 +74,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
             padding: EdgeInsets.symmetric(vertical: (_minHeight - doneIconSize) / 2).copyWith(left: P3, right: 0),
             margin: const EdgeInsets.only(right: P2),
             onHover: (hover) => setState(() => _doneBtnHover = hover),
-            onTap: (_controller.parent.closed && task.closed) ? null : () => tc.statusController.setStatus(task, close: !task.closed),
+            onTap: (_controller.parent.closed && task.closed) ? null : _toggleDone,
           ),
         Expanded(
           child: Stack(
@@ -101,7 +113,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
             padding: EdgeInsets.symmetric(vertical: (_minHeight - deleteIconSize) / 2).copyWith(left: 0, right: P3),
             margin: const EdgeInsets.only(left: P2),
             onHover: (hover) => setState(() => _delBtnHover = hover),
-            onTap: () async => await _delete(tc),
+            onTap: _delete,
           ),
       ],
     );
@@ -109,27 +121,25 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
 
   @override
   Widget build(BuildContext context) {
-    final tc = _controller.taskControllers.elementAt(_index);
     final fData = tc.fData(TaskFCode.title.index);
-
     return MTField(
       fData,
-      loading: tc.task!.loading == true,
+      loading: _taskEditing && task.loading == true,
       minHeight: _minHeight,
       crossAxisAlignment: CrossAxisAlignment.center,
       value: kIsWeb
-          ? _fieldValue(context, tc)
+          ? _fieldValue(context)
           : Slidable(
               key: ObjectKey(tc),
               endActionPane: ActionPane(
                 motion: const ScrollMotion(),
                 dismissible: DismissiblePane(
                   onDismissed: () {},
-                  confirmDismiss: () async => await _delete(tc),
+                  confirmDismiss: _delete,
                 ),
                 children: [
                   SlidableAction(
-                    onPressed: (_) async => await _delete(tc),
+                    onPressed: (_) async => await _delete(),
                     backgroundColor: dangerColor.resolve(context),
                     foregroundColor: b3Color.resolve(context),
                     icon: CupertinoIcons.delete,
@@ -137,7 +147,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
                   ),
                 ],
               ),
-              child: _fieldValue(context, tc),
+              child: _fieldValue(context),
             ),
       padding: EdgeInsets.zero,
       dividerIndent: tc.task!.isCheckItem ? P10 : P3,

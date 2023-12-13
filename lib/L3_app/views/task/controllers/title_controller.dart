@@ -2,8 +2,6 @@
 
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
-
 import '../../../../L1_domain/entities/task.dart';
 import '../../../components/constants.dart';
 import '../../../components/dialog.dart';
@@ -22,7 +20,7 @@ class TitleController {
   /// название
   String get titlePlaceholder => newSubtaskTitle(task.parent);
 
-  Future _setTitle(String str, {VoidCallback? doneCb}) async {
+  Future _setTitle(String str) async {
     str = str.trim();
     if (task.title != str) {
       if (str.isEmpty) {
@@ -34,18 +32,15 @@ class TitleController {
         task.title = oldValue;
       }
     }
-    if (doneCb != null) {
-      doneCb();
-    }
   }
 
   Timer? _titleEditTimer;
 
-  Future editTitle(String str, {VoidCallback? doneCb}) async {
+  Future editTitle(String str) async {
     if (_titleEditTimer != null) {
       _titleEditTimer!.cancel();
     }
-    _titleEditTimer = Timer(const Duration(milliseconds: 1000), () async => await _setTitle(str, doneCb: doneCb));
+    _titleEditTimer = Timer(const Duration(milliseconds: 1000), () async => await _setTitle(str));
   }
 
   /// описание

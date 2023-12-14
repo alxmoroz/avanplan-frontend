@@ -26,8 +26,8 @@ class MTPage extends StatelessWidget {
             color: b2Color.resolve(context),
             image: DecorationImage(
               image: mtAssetImage(context, 'background'),
-              repeat: ImageRepeat.repeatY,
-              fit: BoxFit.fitWidth,
+              // filterQuality: FilterQuality.high,
+              fit: BoxFit.fill,
             ),
           ),
           child: Scaffold(

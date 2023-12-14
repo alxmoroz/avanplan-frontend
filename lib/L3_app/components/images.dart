@@ -54,14 +54,22 @@ class MTImage extends StatelessWidget {
     final h = height ?? defaultImageHeight(context);
     final w = width ?? h;
 
-    return Image.asset(
-      _assetPath(name, context),
-      width: width,
-      height: height,
-      errorBuilder: (_, __, ___) => Image.asset(
-        _assetPath('no_info', context),
-        width: w,
-        height: h,
+    print('$w, $h, $name');
+
+    return Container(
+      width: w,
+      height: h,
+      child: Image.asset(
+        _assetPath(name, context),
+        // width: width,
+        // height: height,
+        // scale: 1.0,
+        // fit: BoxFit.fitHeight,
+        errorBuilder: (_, __, ___) => Image.asset(
+          _assetPath('no_info', context),
+          width: w,
+          height: h,
+        ),
       ),
     );
   }

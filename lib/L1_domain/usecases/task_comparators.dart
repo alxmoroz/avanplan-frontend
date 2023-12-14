@@ -7,7 +7,7 @@ import '../entities_extensions/task_stats.dart';
 
 int sortByDateAsc(Task t1, Task t2) {
   int res = 0;
-  if (t1.hasDueDate || t2.hasDueDate) {
+  if ((t1.hasDueDate && !t1.closed) || (t2.hasDueDate && !t2.closed)) {
     if (!t1.hasDueDate) {
       res = 1;
     } else if (!t2.hasDueDate) {

@@ -34,6 +34,9 @@ abstract class _EditControllerBase with Store {
   @mustCallSuper
   @action
   void dispose() {
+    _loadingTimers.forEach((_, lt) => lt.cancel());
+    _loadingTimers.clear();
+
     _teControllers.forEach((_, tec) => tec.dispose());
     _teControllers.clear();
 
@@ -60,8 +63,8 @@ abstract class _EditControllerBase with Store {
   }
 
   TextEditingController _makeTEController(int code) {
-    final _fd = fData(code);
-    final teController = TextEditingController(text: '$_fd');
+    final fd = fData(code);
+    final teController = TextEditingController(text: '$fd');
     teController.addListener(() => _updateData(code, teController));
     return teController;
   }
@@ -84,19 +87,23 @@ abstract class _EditControllerBase with Store {
 
   @action
   void _setLoading(int code, bool loading) {
-    _fdMap[code] = fData(code).copyWith(loading: loading);
+    if (_fdMap.isNotEmpty) {
+      _fdMap[code] = _fdMap[code]!.copyWith(loading: loading);
+    }
   }
 
   @action
   void updateField(int code, {String? text, bool? loading}) {
-    final fd = fData(code);
-    _fdMap[code] = fd.copyWith(text: text);
+    final fd = _fdMap[code];
+    if (fd != null) {
+      _fdMap[code] = fd.copyWith(text: text);
 
-    if (loading != null) {
-      if (_loadingTimers[code] != null) {
-        _loadingTimers[code]!.cancel();
+      if (loading != null) {
+        if (_loadingTimers[code] != null) {
+          _loadingTimers[code]!.cancel();
+        }
+        _loadingTimers[code] = Timer(Duration(milliseconds: loading ? 750 : 0), () => _setLoading(code, loading));
       }
-      _loadingTimers[code] = Timer(Duration(milliseconds: loading ? 750 : 0), () => _setLoading(code, loading));
     }
   }
 }

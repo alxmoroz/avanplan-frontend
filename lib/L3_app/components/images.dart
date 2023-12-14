@@ -36,30 +36,32 @@ enum ImageName {
   transfer,
 }
 
+String _assetPath(String name, BuildContext context) {
+  final _dark = MediaQuery.platformBrightnessOf(context) == Brightness.dark;
+  return 'assets/images/$name${_dark ? '_dark' : ''}.png';
+}
+
+AssetImage mtAssetImage(BuildContext context, String name) => AssetImage(_assetPath(name, context));
+
 class MTImage extends StatelessWidget {
   const MTImage(this.name, {this.height, this.width});
   final String name;
   final double? height;
   final double? width;
 
-  String _assetPath(String name, BuildContext context) {
-    final _dark = MediaQuery.platformBrightnessOf(context) == Brightness.dark;
-    return 'assets/images/$name${_dark ? '_dark' : ''}.png';
-  }
-
   @override
   Widget build(BuildContext context) {
-    final _h = height ?? defaultImageHeight(context);
-    final _w = width ?? _h;
+    final h = height ?? defaultImageHeight(context);
+    final w = width ?? h;
 
     return Image.asset(
       _assetPath(name, context),
-      width: _w,
-      height: _h,
+      width: width,
+      height: height,
       errorBuilder: (_, __, ___) => Image.asset(
         _assetPath('no_info', context),
-        width: _w,
-        height: _h,
+        width: w,
+        height: h,
       ),
     );
   }

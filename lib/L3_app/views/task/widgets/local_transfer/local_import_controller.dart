@@ -37,14 +37,14 @@ abstract class _LocalImportControllerBase with Store {
   void _setSrc(Task src) {
     sourceGoal = src;
     srcTasks = sourceGoal?.openedSubtasks.sorted(sortByDateAsc) ?? [];
-    checks = [for (var _ in srcTasks) false];
+    checks = ObservableList.of([for (var _ in srcTasks) false]);
   }
 
   @observable
   List<Task> srcTasks = [];
 
   @observable
-  List<bool> checks = [];
+  ObservableList<bool> checks = ObservableList();
 
   @computed
   bool get validated => checks.contains(true);
@@ -53,13 +53,10 @@ abstract class _LocalImportControllerBase with Store {
   bool get selectedAll => !checks.contains(false);
 
   @action
-  void toggleAll(bool? value) => checks = [for (var _ in srcTasks) value == true];
+  void toggleAll(bool? value) => checks = ObservableList.of([for (var _ in srcTasks) value == true]);
 
   @action
-  void checkTask(int index, bool? selected) {
-    checks[index] = selected == true;
-    checks = [...checks];
-  }
+  void checkTask(int index, bool? selected) => checks[index] = selected == true;
 
   Future selectSourceGoal() async {
     final srcGoal = await selectTask(destinationGoal.goalsForLocalImport.sorted(sortByDateAsc), loc.task_transfer_source_hint);

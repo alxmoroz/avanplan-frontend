@@ -96,6 +96,7 @@ class LocalImportDialog extends StatelessWidget {
           topBarHeight: P * 20.5 + (_showSelectAll ? P8 : 0),
           body: MTShadowed(
             topPaddingIndent: 0,
+            shadowColor: b1Color,
             bottomShadow: controller.sourceSelected,
             child: ListView.builder(
               shrinkWrap: true,

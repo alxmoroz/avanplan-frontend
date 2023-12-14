@@ -6,6 +6,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
 import '../../../../components/checkbox.dart';
+import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/images.dart';
@@ -48,6 +49,7 @@ class _FSBody extends StatelessWidget {
     return Observer(
       builder: (_) => MTShadowed(
         topPaddingIndent: 0,
+        shadowColor: b1Color,
         bottomShadow: true,
         child: ListView(
           shrinkWrap: shrinkWrap,

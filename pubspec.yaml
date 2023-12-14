@@ -11,7 +11,7 @@ publish_to: none
 dependencies:
   app_settings: any
   cupertino_icons: any
-  device_info_plus: ^9.0.2
+  device_info_plus: any
   drag_and_drop_lists: any
   firebase_messaging: ^14.7.4
   flutter:
@@ -25,13 +25,13 @@ dependencies:
   get_it: any
   google_sign_in: ^5.4.4
   hive: any
-  in_app_purchase: ^3.1.5
-  mobx: any
+  in_app_purchase: any
+  mobx: ">=2.0.0 <2.2.3"
   openapi:
     path: ./openapi
   package_info_plus: any
   path_provider: any
-  share_plus: ^7.0.2
+  share_plus: any
   sign_in_with_apple: any
   url_launcher: any
 

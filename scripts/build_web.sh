@@ -17,5 +17,5 @@ bash ./scripts/build_runner_build.sh
 #bash ./scripts/build_ios.sh
 
 echo "BUILDING FOR WEB..."
-flutter build web
+flutter build web --web-renderer canvaskit --release
 echo "BUILDING FOR WEB COMPLETE"

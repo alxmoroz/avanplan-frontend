@@ -100,7 +100,7 @@ class DetailsPane extends StatelessWidget {
                         ),
                     ],
                   ),
-                  color: b2Color,
+                  color: Colors.transparent,
                   crossAxisAlignment: CrossAxisAlignment.center,
                 ),
 

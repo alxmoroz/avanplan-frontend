@@ -52,14 +52,10 @@ class MainDashboard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   if (_hasTasks) ...[
-                    const Flexible(
-                      child: MTAdaptive(child: MyTasks(compact: false)),
-                    ),
+                    const Flexible(child: MTAdaptive(child: MyTasks(compact: false))),
                     SizedBox(width: spacing),
                   ],
-                  const Flexible(
-                    child: MTAdaptive(child: Projects(compact: false)),
-                  ),
+                  const Flexible(child: MTAdaptive(child: Projects(compact: false))),
                 ],
               ),
             )

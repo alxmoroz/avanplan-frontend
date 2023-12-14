@@ -70,6 +70,7 @@ class App extends StatelessWidget {
       future: getIt.allReady(),
       builder: (_, snapshot) => snapshot.hasData
           ? MaterialApp(
+              color: b2Color.resolve(context),
               debugShowCheckedModeBanner: _DEBUG_BANNER,
               theme: themeData,
               localizationsDelegates: localizationsDelegates,

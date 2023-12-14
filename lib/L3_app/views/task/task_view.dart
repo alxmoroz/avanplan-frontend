@@ -18,7 +18,6 @@ import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_type.dart';
-import '../../presenters/task_view.dart';
 import '../../presenters/workspace.dart';
 import '../../usecases/task_actions.dart';
 import '../../usecases/task_tree.dart';
@@ -178,7 +177,6 @@ class TaskViewState<T extends TaskView> extends State<T> {
               children: [
                 MTPage(
                   appBar: MTAppBar(
-                    bgColor: task!.bgColor,
                     middle: task!.ws.subPageTitle(task!.viewTitle),
                     trailing: task!.loading != true && task!.actionTypes.isNotEmpty
                         ? TaskPopupMenu(controller, icon: const MenuIcon())

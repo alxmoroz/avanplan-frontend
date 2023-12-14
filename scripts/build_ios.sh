@@ -4,7 +4,7 @@
 
 echo "BUILDING FOR iOS..."
 
-flutter build ios
+flutter build ios --release
 
 # iOS - без подписи. Шаг выше всё равно нужен для обновления инфы о версии
 #appName="Avanplan"

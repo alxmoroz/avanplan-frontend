@@ -43,7 +43,6 @@ class Projects extends StatelessWidget {
           : ListView(
               children: [
                 _contents(context),
-                const SizedBox(height: P_2),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: P + P_2),
                   child: MTShadowed(

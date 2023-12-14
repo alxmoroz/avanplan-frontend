@@ -13,6 +13,10 @@ const _b2r = 244;
 const _b2g = 245;
 const _b2b = 247;
 
+const _b2rTint = 218;
+const _b2gTint = 219;
+const _b2bTint = 253;
+
 const _b1r = 228;
 const _b1g = 230;
 const _b1b = 234;
@@ -20,15 +24,19 @@ const _b1b = 234;
 /// темная тема
 const _b3dr = 50;
 const _b3dg = 52;
-const _b3db = 60;
+const _b3db = 66;
 
-const _b2dr = 36;
-const _b2dg = 38;
-const _b2db = 46;
+const _b2dr = 44;
+const _b2dg = 46;
+const _b2db = 60;
 
-const _b1dr = 30;
-const _b1dg = 32;
-const _b1db = 40;
+const _b2drTint = 28;
+const _b2dgTint = 30;
+const _b2dbTint = 44;
+
+const _b1dr = 38;
+const _b1dg = 40;
+const _b1db = 48;
 
 /// самый яркий фон (выпирающий цвет)
 const b3Color = CupertinoDynamicColor.withBrightness(
@@ -40,6 +48,11 @@ const b3Color = CupertinoDynamicColor.withBrightness(
 const b2Color = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(255, _b2r, _b2g, _b2b),
   darkColor: Color.fromARGB(255, _b2dr, _b2dg, _b2db),
+);
+
+const b2TintColor = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, _b2rTint, _b2gTint, _b2bTint),
+  darkColor: Color.fromARGB(255, _b2drTint, _b2dgTint, _b2dbTint),
 );
 
 /// второстепенный фон (нижний уровень)

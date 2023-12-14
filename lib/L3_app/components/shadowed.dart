@@ -25,7 +25,7 @@ class MTShadowed extends StatelessWidget {
 
   Widget _shadow(BuildContext context, bool top) {
     final padding = MediaQuery.paddingOf(context);
-    final startColor = (shadowColor ?? b2Color).resolve(context);
+    final startColor = (shadowColor ?? b2TintColor).resolve(context);
     final endColor = startColor.withAlpha(0).resolve(context);
     return Positioned(
       left: 0,

@@ -2,6 +2,9 @@
 
 import 'package:flutter/material.dart';
 
+import 'colors.dart';
+import 'colors_base.dart';
+
 class MTPage extends StatelessWidget {
   const MTPage({
     required this.body,
@@ -17,13 +20,27 @@ class MTPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => GestureDetector(
         onTap: FocusScope.of(context).unfocus,
-        child: Scaffold(
-          key: key,
-          appBar: appBar,
-          body: body,
-          extendBody: true,
-          extendBodyBehindAppBar: true,
-          bottomNavigationBar: bottomBar,
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              // stops: const [0.2, 0.8],
+              colors: [
+                b2Color.resolve(context),
+                b2TintColor.resolve(context),
+              ],
+            ),
+          ),
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            key: key,
+            appBar: appBar,
+            body: body,
+            extendBody: true,
+            extendBodyBehindAppBar: true,
+            bottomNavigationBar: bottomBar,
+          ),
         ),
       );
 }

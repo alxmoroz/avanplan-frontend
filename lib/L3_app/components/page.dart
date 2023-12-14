@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 
+import 'colors.dart';
+import 'colors_base.dart';
 import 'images.dart';
 
 class MTPage extends StatelessWidget {
@@ -21,6 +23,7 @@ class MTPage extends StatelessWidget {
         onTap: FocusScope.of(context).unfocus,
         child: Container(
           decoration: BoxDecoration(
+            color: b2Color.resolve(context),
             image: DecorationImage(
               image: mtAssetImage(context, 'background'),
               repeat: ImageRepeat.repeatY,

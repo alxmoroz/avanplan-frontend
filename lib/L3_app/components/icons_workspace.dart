@@ -34,7 +34,7 @@ class ProjectsIcon extends MTIcon {
 
   @override
   Widget build(BuildContext context) => Icon(
-        CupertinoIcons.briefcase,
+        CupertinoIcons.folder,
         color: (color ?? f2Color).resolve(context),
         size: size ?? P5,
       );

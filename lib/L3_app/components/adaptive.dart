@@ -68,3 +68,9 @@ bool isBigScreen(BuildContext context) {
   final size = MediaQuery.sizeOf(context);
   return size.height > SCR_S_HEIGHT && size.width > SCR_M_WIDTH;
 }
+
+// отображаем боковое меню для больших экранов или в пейзажном режиме для маленькой высоты экрана
+bool showSideMenu(BuildContext context) {
+  final size = MediaQuery.sizeOf(context);
+  return isBigScreen(context) || size.height < SCR_XS_HEIGHT;
+}

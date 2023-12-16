@@ -4,16 +4,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../components/adaptive.dart';
 import '../../components/button.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
 import '../../components/page.dart';
 import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
-import '../../presenters/person.dart';
 import '../projects/create_project_controller.dart';
+import '../settings/account_btn.dart';
 import '../settings/settings_view.dart';
 import 'widgets/app_title.dart';
 import 'widgets/main_dashboard.dart';
@@ -56,30 +56,24 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
     super.dispose();
   }
 
-  static const _iconSize = P7;
-
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => loader.loading
           ? Container()
           : MTPage(
-              appBar: MTAppBar(
-                height: P10,
-                leading: accountController.user != null
-                    ? MTButton.icon(
-                        accountController.user!.icon(_iconSize / 2, borderColor: mainColor),
-                        onTap: () async => await SettingsRouter().navigate(context),
-                        padding: const EdgeInsets.only(left: P3),
-                      )
-                    : null,
-                middle: AppTitle(),
-                trailing: MTButton.icon(
-                  const RefreshIcon(size: _iconSize),
-                  onTap: mainController.manualUpdate,
-                  padding: const EdgeInsets.symmetric(horizontal: P3),
-                ),
-              ),
+              bottomBar: showSideMenu(context)
+                  ? null
+                  : MTAppBar(
+                      height: P10,
+                      leading: accountController.user != null ? AccountButton(() async => await SettingsRouter().navigate(context)) : null,
+                      middle: AppTitle(),
+                      trailing: MTButton.icon(
+                        const RefreshIcon(size: P7),
+                        onTap: mainController.manualUpdate,
+                        padding: const EdgeInsets.symmetric(horizontal: P3),
+                      ),
+                    ),
               body: SafeArea(
                 top: false,
                 bottom: false,

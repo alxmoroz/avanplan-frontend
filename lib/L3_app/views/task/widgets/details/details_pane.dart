@@ -148,7 +148,7 @@ class DetailsPane extends StatelessWidget {
                 MTField(
                   MTFieldData(-1, placeholder: '${loc.action_add_title} ${loc.checklist.toLowerCase()}'),
                   margin: const EdgeInsets.only(top: P3),
-                  leading: const TasksIcon(size: P5, color: mainColor),
+                  leading: const PlusCircleIcon(size: P5, color: mainColor),
                   crossAxisAlignment: CrossAxisAlignment.center,
                   onTap: () async => await controller.subtasksController.addTask(),
                 ),

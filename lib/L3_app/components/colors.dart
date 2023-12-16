@@ -42,12 +42,6 @@ const warningLightColor = CupertinoDynamicColor.withBrightness(
 // цвет текста на основной кнопке
 const mainBtnTitleColor = b2Color;
 
-// цвет тени на кнопке
-const btnShadowColor = CupertinoDynamicColor.withBrightness(
-  color: Color.fromARGB(255, 255, 255, 255),
-  darkColor: Color.fromARGB(255, 0, 0, 0),
-);
-
 // цвет для "прозрачного" апп-бара
 const transparentAppbarBgColor = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(0, 255, 255, 255),

@@ -15,7 +15,6 @@ class MTBackgroundWrapper extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          stops: const [0.25, 1],
           colors: [
             b2Color.resolve(context),
             b1Color.resolve(context),

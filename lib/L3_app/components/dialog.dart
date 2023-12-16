@@ -20,7 +20,7 @@ Future<T?> showMTDialog<T>(Widget child, {double? maxWidth}) async {
   final isBig = isBigScreen(ctx);
 
   final constrains = BoxConstraints(
-    maxWidth: isBig ? min(size.width - P6, maxWidth ?? SCR_S_WIDTH) : double.infinity,
+    maxWidth: isBig ? min(size.width - P6 - (showSideMenu(ctx) ? P12 + P : 0), maxWidth ?? SCR_S_WIDTH) : double.infinity,
     maxHeight: isBig ? size.height - padding.top - padding.bottom - P6 : double.infinity,
   );
 

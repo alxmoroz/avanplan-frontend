@@ -167,7 +167,7 @@ class DoneIcon extends MTIcon {
 
   @override
   Widget build(BuildContext context) => Icon(
-        done ? (solid == true ? CupertinoIcons.check_mark_circled_solid : CupertinoIcons.check_mark_circled) : CupertinoIcons.circle,
+        done ? (solid == true ? CupertinoIcons.checkmark_circle_fill : CupertinoIcons.checkmark_circle) : CupertinoIcons.circle,
         color: (color ?? mainColor).resolve(context),
         size: size ?? P4,
       );
@@ -436,6 +436,16 @@ class PlusIcon extends MTIcon {
       );
 }
 
+class PlusCircleIcon extends MTIcon {
+  const PlusCircleIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.plus_circle,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P4,
+      );
+}
+
 class PrivacyIcon extends MTIcon {
   const PrivacyIcon({super.color, super.size});
   @override
@@ -521,7 +531,7 @@ class TasksIcon extends MTIcon {
 
   @override
   Widget build(BuildContext context) => Icon(
-        CupertinoIcons.text_badge_checkmark,
+        CupertinoIcons.checkmark_circle,
         color: (color ?? f2Color).resolve(context),
         size: size ?? P4,
       );

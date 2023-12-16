@@ -24,6 +24,7 @@ class UserTile extends StatelessWidget {
       subtitle: SmallText(user.rolesStr, maxLines: 1),
       trailing: const ChevronIcon(),
       bottomDivider: bottomBorder,
+      dividerIndent: P8 + P5,
       onTap: () async => await showUserDialog(user),
     );
   }

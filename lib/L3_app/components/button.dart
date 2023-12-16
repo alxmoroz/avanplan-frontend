@@ -171,7 +171,7 @@ class MTButton extends StatelessWidget with FocusManaging {
       side: type == ButtonType.secondary ? BorderSide(color: _titleColor.resolve(context), width: 1) : BorderSide.none,
       splashFactory: NoSplash.splashFactory,
       visualDensity: VisualDensity.standard,
-      shadowColor: btnShadowColor.resolve(context),
+      shadowColor: b0Color.resolve(context),
       elevation: elevation ?? buttonElevation,
       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
     );

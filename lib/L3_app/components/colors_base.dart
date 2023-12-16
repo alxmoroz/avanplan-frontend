@@ -17,6 +17,10 @@ const _b1R = 192;
 const _b1G = 200;
 const _b1B = 240;
 
+const _b0R = 150;
+const _b0G = 160;
+const _b0B = 180;
+
 /// темная тема
 const _b3R_d = 48;
 const _b3G_d = 52;
@@ -29,6 +33,10 @@ const _b2B_d = 64;
 const _b1R_d = 9;
 const _b1G_d = 14;
 const _b1B_d = 42;
+
+const _b0R_d = 3;
+const _b0G_d = 8;
+const _b0B_d = 22;
 
 /// самый яркий фон (выпирающий цвет)
 const b3Color = CupertinoDynamicColor.withBrightness(
@@ -46,6 +54,12 @@ const b2Color = CupertinoDynamicColor.withBrightness(
 const b1Color = CupertinoDynamicColor.withBrightness(
   color: Color.fromARGB(255, _b1R, _b1G, _b1B),
   darkColor: Color.fromARGB(255, _b1R_d, _b1G_d, _b1B_d),
+);
+
+/// тень фона
+const b0Color = CupertinoDynamicColor.withBrightness(
+  color: Color.fromARGB(255, _b0R, _b0G, _b0B),
+  darkColor: Color.fromARGB(255, _b0R_d, _b0G_d, _b0B_d),
 );
 
 /// Цвета текста и элементов

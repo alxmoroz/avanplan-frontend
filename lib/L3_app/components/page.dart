@@ -2,9 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import 'colors.dart';
-import 'colors_base.dart';
-import 'images.dart';
+import 'background.dart';
 
 class MTPage extends StatelessWidget {
   const MTPage({
@@ -21,16 +19,8 @@ class MTPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => GestureDetector(
         onTap: FocusScope.of(context).unfocus,
-        child: Container(
-          decoration: BoxDecoration(
-            color: b2Color.resolve(context),
-            image: DecorationImage(
-              image: mtAssetImage(context, 'background'),
-              // filterQuality: FilterQuality.high,
-              fit: BoxFit.fill,
-            ),
-          ),
-          child: Scaffold(
+        child: MTBackgroundWrapper(
+          Scaffold(
             backgroundColor: Colors.transparent,
             key: key,
             appBar: appBar,

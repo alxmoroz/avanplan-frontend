@@ -41,8 +41,6 @@ String _assetPath(String name, BuildContext context) {
   return 'assets/images/$name${_dark ? '_dark' : ''}.png';
 }
 
-AssetImage mtAssetImage(BuildContext context, String name) => AssetImage(_assetPath(name, context));
-
 class MTImage extends StatelessWidget {
   const MTImage(this.name, {this.height, this.width});
   final String name;
@@ -59,8 +57,7 @@ class MTImage extends StatelessWidget {
       height: h,
       child: Image.asset(
         _assetPath(name, context),
-        // width: width,
-        // height: height,
+        // filterQuality: FilterQuality.high,
         errorBuilder: (_, __, ___) => Image.asset(
           _assetPath('no_info', context),
           width: w,

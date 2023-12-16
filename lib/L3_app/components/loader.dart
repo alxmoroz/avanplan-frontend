@@ -22,7 +22,7 @@ class MTLoader extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: b2Color.resolve(context).withAlpha(170),
+              color: b2Color.resolve(context).withAlpha(210),
               borderRadius: BorderRadius.circular(radius ?? 0),
             ),
           ),

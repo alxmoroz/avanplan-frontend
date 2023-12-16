@@ -10,6 +10,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 
 import 'L2_data/services/firebase_options.dart';
+import 'L3_app/components/background.dart';
 import 'L3_app/components/circular_progress.dart';
 import 'L3_app/components/colors.dart';
 import 'L3_app/components/colors_base.dart';
@@ -70,7 +71,6 @@ class App extends StatelessWidget {
       future: getIt.allReady(),
       builder: (_, snapshot) => snapshot.hasData
           ? MaterialApp(
-              color: b2Color.resolve(context),
               debugShowCheckedModeBanner: _DEBUG_BANNER,
               theme: themeData,
               localizationsDelegates: localizationsDelegates,
@@ -79,9 +79,8 @@ class App extends StatelessWidget {
               onGenerateRoute: MTRouter.generateRoute,
               navigatorObservers: [MTRouteObserver()],
             )
-          : Container(
-              color: b2Color.resolve(context),
-              child: const Center(child: MTCircularProgress(color: mainColor, size: P10)),
+          : const MTBackgroundWrapper(
+              Center(child: MTCircularProgress(color: mainColor, size: P10)),
             ),
     );
   }

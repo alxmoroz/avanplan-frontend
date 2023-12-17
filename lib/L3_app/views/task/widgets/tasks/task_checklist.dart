@@ -3,10 +3,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
 import '../../../../components/constants.dart';
-import '../../../../components/shadowed.dart';
 import '../../controllers/subtasks_controller.dart';
 import '../../controllers/task_controller.dart';
 import '../create/create_task_button.dart';
@@ -37,13 +35,9 @@ class TaskChecklist extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => MTShadowed(
-        child: MTAdaptive(
-          child: ListView.builder(
-            itemBuilder: _itemBuilder,
-            itemCount: _controller.taskControllers.length + 1,
-          ),
-        ),
+      builder: (_) => ListView.builder(
+        itemBuilder: _itemBuilder,
+        itemCount: _controller.taskControllers.length + 1,
       ),
     );
   }

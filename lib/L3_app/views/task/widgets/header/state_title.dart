@@ -7,7 +7,7 @@ import '../../../../components/constants.dart';
 import '../../../../components/text.dart';
 import '../../../../presenters/task_state.dart';
 
-enum StateTitlePlace { taskOverview, groupHeader, card }
+enum StateTitlePlace { groupHeader, card }
 
 class _StateTitle extends StatelessWidget {
   const _StateTitle(this.state, this.text, {this.place});
@@ -28,9 +28,7 @@ class _StateTitle extends StatelessWidget {
               ),
             ],
           )
-        : place == StateTitlePlace.taskOverview
-            ? H3(text, align: TextAlign.center)
-            : SmallText(text);
+        : SmallText(text);
   }
 }
 

@@ -146,7 +146,10 @@ class ProjectStatusesDialog extends StatelessWidget {
     return MTDialog(
       topBar: MTToolBar(titleText: loc.status_list_title),
       body: _PSBody(_controller),
-      bottomBar: _CreateStatusButton(_controller),
+      bottomBar: MTAppBar(
+        isBottom: true,
+        middle: _CreateStatusButton(_controller),
+      ),
     );
   }
 }

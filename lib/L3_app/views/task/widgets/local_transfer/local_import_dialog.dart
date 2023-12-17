@@ -105,10 +105,14 @@ class LocalImportDialog extends StatelessWidget {
             ),
           ),
           bottomBar: controller.sourceSelected
-              ? MTButton.main(
-                  leading: LocalImportIcon(color: controller.validated ? mainBtnTitleColor : f2Color),
-                  titleText: loc.task_transfer_import_confirm_action_title,
-                  onTap: controller.validated ? controller.moveTasks : null,
+              ? MTAppBar(
+                  isBottom: true,
+                  bgColor: b2Color,
+                  middle: MTButton.main(
+                    leading: LocalImportIcon(color: controller.validated ? mainBtnTitleColor : f2Color),
+                    titleText: loc.task_transfer_import_confirm_action_title,
+                    onTap: controller.validated ? controller.moveTasks : null,
+                  ),
                 )
               : null,
         ),

@@ -7,7 +7,6 @@ import '../../../../../L1_domain/entities/workspace.dart';
 import '../../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
-import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../../usecases/task_tree.dart';
@@ -53,14 +52,13 @@ class CreateTaskButton extends StatelessWidget {
       } else {
         await tc.showTask();
       }
-      _parentTaskController.selectTab(TaskTabKey.subtasks);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return MTBadgeButton(
-      margin: _margin ?? EdgeInsets.only(right: _compact ? P3 : 0),
+      margin: _margin,
       showBadge: !_ws.plCreate(_parent),
       type: _type ?? ButtonType.main,
       leading: _compact ? null : _plusIcon,

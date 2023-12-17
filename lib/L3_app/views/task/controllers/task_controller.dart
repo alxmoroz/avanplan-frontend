@@ -2,7 +2,6 @@
 
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/task.dart';
@@ -10,9 +9,7 @@ import '../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../main.dart';
 import '../../../components/field_data.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/task_view.dart';
 import '../../../usecases/task_edit.dart';
-import '../../../usecases/task_tree.dart';
 import '../../../views/_base/edit_controller.dart';
 import '../task_view.dart';
 import '../widgets/local_transfer/local_export_controller.dart';
@@ -27,8 +24,6 @@ import 'subtasks_controller.dart';
 import 'title_controller.dart';
 
 part 'task_controller.g.dart';
-
-enum TaskTabKey { overview, subtasks, details, team }
 
 enum TaskFCode { parent, title, status, assignee, description, startDate, dueDate, estimate, author, features, statuses, note, attachment }
 
@@ -104,31 +99,6 @@ abstract class _TaskControllerBase extends EditController with Store {
     updateField(code.index, loading: false);
     return saved;
   }
-
-  /// вкладки
-
-  @computed
-  Iterable<TaskTabKey> get tabKeys {
-    return task != null
-        ? [
-            if (task!.hasOverviewPane) TaskTabKey.overview,
-            if (!task!.isTask || task!.isCheckList) TaskTabKey.subtasks,
-            if (task!.hasTeamPane) TaskTabKey.team,
-            TaskTabKey.details,
-          ]
-        : [];
-  }
-
-  @observable
-  TaskTabKey? _tabKey;
-  @action
-  void selectTab(TaskTabKey? tk) {
-    _tabKey = tk;
-    FocusScope.of(rootKey.currentContext!).unfocus();
-  }
-
-  @computed
-  TaskTabKey get tabKey => (tabKeys.contains(_tabKey) ? _tabKey : null) ?? (tabKeys.isNotEmpty ? tabKeys.first : TaskTabKey.subtasks);
 
   /// режим Доска / Список
 

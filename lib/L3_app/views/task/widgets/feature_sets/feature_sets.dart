@@ -150,9 +150,12 @@ class FeatureSetsDialog extends StatelessWidget {
     return MTDialog(
       topBar: MTToolBar(titleText: loc.feature_sets_title),
       body: _FSBody(_controller),
-      bottomBar: MTButton.main(
-        titleText: loc.save_action_title,
-        onTap: _controller.save,
+      bottomBar: MTAppBar(
+        isBottom: true,
+        middle: MTButton.main(
+          titleText: loc.save_action_title,
+          onTap: _controller.save,
+        ),
       ),
     );
   }

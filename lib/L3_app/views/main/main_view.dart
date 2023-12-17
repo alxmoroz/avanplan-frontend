@@ -1,13 +1,14 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../components/adaptive.dart';
 import '../../components/button.dart';
+import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
+import '../../components/list_tile.dart';
 import '../../components/page.dart';
 import '../../components/toolbar.dart';
 import '../../extra/router.dart';
@@ -15,7 +16,6 @@ import '../../extra/services.dart';
 import '../projects/create_project_controller.dart';
 import '../settings/account_btn.dart';
 import '../settings/settings_view.dart';
-import 'widgets/app_title.dart';
 import 'widgets/main_dashboard.dart';
 import 'widgets/no_projects.dart';
 
@@ -64,14 +64,14 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
           : MTPage(
               bottomBar: showSideMenu(context)
                   ? null
-                  : MTAppBar(
-                      height: P10,
-                      leading: accountController.user != null ? AccountButton(() async => await SettingsRouter().navigate(context)) : null,
-                      middle: AppTitle(),
-                      trailing: MTButton.icon(
-                        const RefreshIcon(size: P7),
-                        onTap: mainController.manualUpdate,
-                        padding: const EdgeInsets.symmetric(horizontal: P3),
+                  : MTBottomToolbar(
+                      color: navbarDefaultBgColor,
+                      child: MTListTile(
+                        color: Colors.transparent,
+                        leading: accountController.user != null ? AccountButton(() async => await SettingsRouter().navigate(context)) : null,
+                        trailing: MTButton.icon(const RefreshIcon(size: P7), onTap: mainController.manualUpdate),
+                        padding: const EdgeInsets.all(P3).copyWith(bottom: 0),
+                        bottomDivider: false,
                       ),
                     ),
               body: SafeArea(

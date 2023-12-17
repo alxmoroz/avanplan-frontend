@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../main.dart';
+import '../components/adaptive.dart';
 import '../components/colors.dart';
 import '../extra/services.dart';
 import '../views/account/account_view.dart';
@@ -98,23 +99,33 @@ abstract class MTRouter {
 
   static MTRouter? router(RouteSettings rs) => _routers.firstWhereOrNull((r) => r.hasMatch(rs));
 
-  static CupertinoPageRoute? generateRoute(RouteSettings rs) {
+  static Widget _pageWidget(Widget child) {
+    return Observer(
+      builder: (_) => Stack(
+        children: [
+          authController.authorized ? child : AuthView(),
+          if (loader.loading) LoaderScreen(),
+        ],
+      ),
+    );
+  }
+
+  static PageRoute? generateRoute(RouteSettings rs) {
     final r = router(rs);
     if (r != null) {
       final page = r.page;
       final settings = r.settings;
       if (page != null) {
-        return CupertinoPageRoute<dynamic>(
-          builder: (_) => Observer(
-            builder: (_) => Stack(
-              children: [
-                authController.authorized ? page : AuthView(),
-                if (loader.loading) LoaderScreen(),
-              ],
-            ),
-          ),
-          settings: settings ?? rs,
-        );
+        return showSideMenu(rootKey.currentContext!)
+            ? PageRouteBuilder(
+                pageBuilder: (_, __, ___) => _pageWidget(page),
+                transitionDuration: Duration.zero,
+                settings: settings ?? rs,
+              )
+            : CupertinoPageRoute<dynamic>(
+                builder: (_) => _pageWidget(page),
+                settings: settings ?? rs,
+              );
       } else if (settings != null) {
         return generateRoute(settings);
       }

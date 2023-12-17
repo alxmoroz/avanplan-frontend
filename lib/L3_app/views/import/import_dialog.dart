@@ -135,25 +135,30 @@ class ImportDialog extends StatelessWidget {
       '${loc.import_projects_select_available_count_hint(controller.ws.availableProjectsCount)} ${loc.project_plural_genitive(controller.ws.availableProjectsCount)}';
 
   Widget? get _bottomBar => _hasProjects
-      ? Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SmallText(
-              _importActionHint,
-              maxLines: 1,
-              color: _validated ? f2Color : warningColor,
-              align: TextAlign.center,
-            ),
-            const SizedBox(height: P),
-            MTBadgeButton(
-              constrained: false,
-              padding: const EdgeInsets.symmetric(horizontal: P3),
-              type: ButtonType.main,
-              titleText: '${loc.import_action_title}$_importBtnCountHint',
-              onTap: _validated ? controller.startImport : null,
-              showBadge: controller.selectableCount < 0,
-            ),
-          ],
+      ? MTAppBar(
+          isBottom: true,
+          bgColor: b2Color,
+          height: P10 + P + 2,
+          middle: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SmallText(
+                _importActionHint,
+                maxLines: 1,
+                color: _validated ? f2Color : warningColor,
+                align: TextAlign.center,
+              ),
+              const SizedBox(height: P),
+              MTBadgeButton(
+                constrained: false,
+                padding: const EdgeInsets.symmetric(horizontal: P3),
+                type: ButtonType.main,
+                titleText: '${loc.import_action_title}$_importBtnCountHint',
+                onTap: _validated ? controller.startImport : null,
+                showBadge: controller.selectableCount < 0,
+              ),
+            ],
+          ),
         )
       : null;
 

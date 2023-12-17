@@ -95,26 +95,23 @@ class MTListTile extends StatelessWidget with FocusManaging {
                       crossAxisAlignment: crossAxisAlignment ?? CrossAxisAlignment.center,
                       children: [
                         SizedBox(height: minHeight ?? P6),
-                        if (_hasLeading) leading!,
-                        if (_hasMiddle || _hasSubtitle) ...[
-                          if (_hasLeading) const SizedBox(width: P2),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                if (_hasMiddle) middle ?? BaseText(titleText!, maxLines: 1),
-                                if (_hasSubtitle) ...[
-                                  if (_hasMiddle) const SizedBox(height: P),
-                                  subtitle!,
-                                ],
+                        if (_hasLeading) ...[
+                          leading!,
+                          const SizedBox(width: P2),
+                        ],
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              if (_hasMiddle) middle ?? BaseText(titleText!, maxLines: 1),
+                              if (_hasSubtitle) ...[
+                                if (_hasMiddle) const SizedBox(height: P),
+                                subtitle!,
                               ],
-                            ),
+                            ],
                           ),
-                        ],
-                        if (trailing != null) ...[
-                          const Spacer(),
-                          trailing!,
-                        ],
+                        ),
+                        if (trailing != null) trailing!,
                       ],
                     ),
                   ),

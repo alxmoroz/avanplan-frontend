@@ -83,7 +83,7 @@ class Notes extends StatelessWidget {
                   itemBuilder: (_, index) {
                     final n = ng[index];
                     final author = _task.memberForId(n.authorId);
-                    final authorIcon = author != null ? author.icon(P3) : const PersonCircleIcon(size: P6);
+                    final authorIcon = author != null ? author.icon(P3) : const PersonIcon(size: P6, color: f3Color);
                     final authorName = author != null ? '$author' : 'Deleted member';
                     final mine = n.isMine(_task);
                     return Row(

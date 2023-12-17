@@ -83,7 +83,6 @@
   "delete_action_title": "Удалить",
   "delete_dialog_description": "Это действие нельзя будет отменить!",
   "description": "Описание",
-  "details": "Детали",
 
   "error_404_task_description": "Возможно, она была закрыта или удалена другим пользователем\nПопробуйте поискать её среди выполненных",
   "error_404_task_title": "Не получается показать задачу / цель / проект",
@@ -216,7 +215,6 @@
   "onboarding_welcome_gift_dialog_description": "Начислены приветственные {count} рублей!\n\nИх можно (и нужно) потратить на функции платных тарифов. Сменить тариф можно в настройках рабочего пространства\n\nСпасибо, что выбрали Аванплан!",
 
   "ok": "Понятно",
-  "overview": "Обзор",
 
   "project_count": "{count, plural, zero{Нет проектов} one{{count} проект} few{{count} проекта} other{{count} проектов}}",
   "project_count_dative": "{count, plural, one{{count} проекту} other{{count} проектам}}",

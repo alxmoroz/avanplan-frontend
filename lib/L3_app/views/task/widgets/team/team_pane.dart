@@ -35,7 +35,7 @@ class TeamPane extends StatelessWidget {
   Widget _memberBuilder(BuildContext context, int index) {
     final member = _sortedMembers[index];
     return MTListTile(
-      leading: member.isActive ? member.icon(P4, borderColor: mainColor) : const PersonCircleIcon(),
+      leading: member.isActive ? member.icon(P4, borderColor: mainColor) : const PersonIcon(size: P8, color: f3Color),
       middle: BaseText('$member', color: member.isActive ? null : f2Color, maxLines: 1),
       subtitle: member.isActive ? SmallText(member.rolesStr, maxLines: 1) : null,
       trailing: const ChevronIcon(),

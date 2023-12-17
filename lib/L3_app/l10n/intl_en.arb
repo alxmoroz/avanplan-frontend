@@ -83,7 +83,6 @@
   "delete_action_title": "Delete",
   "delete_dialog_description": "This action cannot be undone!",
   "description": "Description",
-  "details": "Details",
 
   "error_404_task_description": "It may have been closed or deleted by another user\nTry searching for it among the completed ones.",
   "error_404_task_title": "We can't seem to show the task/goal/project",
@@ -216,7 +215,6 @@
   "onboarding_welcome_gift_dialog_description": "Welcoming {count} rubles have been accrued!\n\nThey can (and should) be spent on features of paid plans. You can change the tariff in the workspace settings\n\nThank you for choosing Avanplan!",
 
   "ok": "Ok",
-  "overview": "Overview",
 
   "project_count": "{count, plural, zero{No projects} one{{count} project} other{{count} projects}}",
   "project_count_dative": "{count, plural, one{{count} project} other{{count} projects}}",

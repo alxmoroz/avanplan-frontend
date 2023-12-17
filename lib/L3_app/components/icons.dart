@@ -24,7 +24,7 @@ class AttachmentIcon extends MTIcon {
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.paperclip,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? P5,
+        size: size ?? P6,
       );
 }
 
@@ -35,7 +35,7 @@ class BellIcon extends MTIcon {
 
   @override
   Widget build(BuildContext context) {
-    final _size = size ?? P5;
+    final _size = size ?? P6;
     final _color = color ?? mainColor;
     return Stack(
       alignment: Alignment.topRight,
@@ -68,7 +68,7 @@ class CalendarIcon extends MTIcon {
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.calendar,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? P5,
+        size: size ?? P6,
       );
 }
 
@@ -117,7 +117,7 @@ class ChevronCircleIcon extends MTIcon {
   Widget build(BuildContext context) => Icon(
         left ? CupertinoIcons.chevron_left_circle : CupertinoIcons.chevron_right_circle,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? P5,
+        size: size ?? P6,
       );
 }
 
@@ -157,7 +157,7 @@ class DescriptionIcon extends MTIcon {
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.text_justifyleft,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? P5,
+        size: size ?? P6,
       );
 }
 
@@ -233,7 +233,7 @@ class EstimateIcon extends MTIcon {
         child: Icon(
           CupertinoIcons.rectangle_on_rectangle_angled,
           color: (color ?? mainColor).resolve(context),
-          size: size ?? P5,
+          size: size ?? P6,
         ),
       );
 }
@@ -341,7 +341,7 @@ class MailIcon extends MTIcon {
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.envelope,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? P5,
+        size: size ?? P6,
       );
 }
 
@@ -367,16 +367,6 @@ class MimeTypeIcon extends MTIcon {
       );
 }
 
-class NoteAddIcon extends MTIcon {
-  const NoteAddIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.bubble_left_bubble_right,
-        color: (color ?? mainColor).resolve(context),
-        size: size ?? P5,
-      );
-}
-
 class NoteMarkIcon extends MTIcon {
   const NoteMarkIcon({this.mine = true, this.theirs = true, super.color, super.size});
   final bool mine;
@@ -393,36 +383,14 @@ class NoteMarkIcon extends MTIcon {
       );
 }
 
-class OverviewIcon extends MTIcon {
-  const OverviewIcon({super.color, super.size});
-
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.chart_pie,
-        color: (color ?? f2Color).resolve(context),
-        size: size ?? P4,
-      );
-}
-
-class PersonCircleIcon extends MTIcon {
-  const PersonCircleIcon({super.color, super.size});
-
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.person_crop_circle,
-        color: (color ?? f3Color).resolve(context),
-        size: size ?? P8,
-      );
-}
-
 class PersonIcon extends MTIcon {
   const PersonIcon({super.color, super.size});
 
   @override
   Widget build(BuildContext context) => Icon(
-        CupertinoIcons.person,
+        CupertinoIcons.person_circle,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? P5,
+        size: size ?? P6,
       );
 }
 
@@ -442,7 +410,7 @@ class PlusCircleIcon extends MTIcon {
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.plus_circle,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? P4,
+        size: size ?? P6,
       );
 }
 
@@ -452,7 +420,7 @@ class PrivacyIcon extends MTIcon {
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.lock_shield,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? P5,
+        size: size ?? P6,
       );
 }
 
@@ -462,7 +430,7 @@ class RefreshIcon extends MTIcon {
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.refresh_thick,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? P5,
+        size: size ?? P6,
       );
 }
 
@@ -472,7 +440,7 @@ class RulesIcon extends MTIcon {
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.doc_plaintext,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? P5,
+        size: size ?? P6,
       );
 }
 
@@ -482,7 +450,7 @@ class SettingsIcon extends MTIcon {
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.slider_horizontal_3,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? P5,
+        size: size ?? P6,
       );
 }
 
@@ -544,7 +512,7 @@ class TemplateIcon extends MTIcon {
         // CupertinoIcons.lightbulb,
         CupertinoIcons.collections,
         color: (color ?? mainColor).resolve(context),
-        size: size ?? P5,
+        size: size ?? P6,
       );
 }
 

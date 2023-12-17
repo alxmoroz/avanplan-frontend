@@ -57,13 +57,13 @@ extension TaskActionsUC on Task {
   bool get canEstimate => isTask && canShowEstimate && canEdit && ws.estimateValues.isNotEmpty;
   bool get canAssign => canEdit && hfsTeam && activeMembers.isNotEmpty;
   bool get canLocalExport => canEdit && hfsGoals && goalsForLocalExport.isNotEmpty;
-  bool get canLocalImport => canEdit && hfsGoals && goalsForLocalImport.isNotEmpty;
-  bool get canComment => !isProject && canEdit;
+  bool get canLocalImport => !isTask && canEdit && hfsGoals && goalsForLocalImport.isNotEmpty;
+  bool get canComment => isTask && canEdit;
   bool get canShowFeatureSets => isProject && _hpProjectInfoRead;
   bool get canEditFeatureSets => isProject && _hpProjectInfoUpdate;
   bool get canEditProjectStatuses => isProject && hfsTaskboard && _hpProjectInfoUpdate;
   bool get canAddChecklist => !closed && isTask && canEdit && subtasks.isEmpty;
-  bool get canShowBoard => (isGoal || (isProject && !hfsGoals)) && hfsTaskboard && subtasks.every((st) => st.hasStatus);
+  bool get canShowBoard => (isGoal || (isProject && !hfsGoals)) && hfsTaskboard;
 
   /// рекомендации, быстрые кнопки
   bool get shouldAddSubtask =>

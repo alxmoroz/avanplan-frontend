@@ -1,7 +1,5 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -53,33 +51,6 @@ class MTToolBar extends StatelessWidget {
           if (bottom != null) bottom!,
         ],
       ),
-    );
-  }
-}
-
-class MTBottomToolbar extends StatelessWidget {
-  const MTBottomToolbar({required this.child, required this.color});
-
-  final Widget child;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    final inner = Padding(
-      padding: EdgeInsets.only(top: P2, bottom: bottomPadding(context)),
-      child: child,
-    );
-
-    return Container(
-      color: color.resolve(context),
-      child: color.opacity == 1
-          ? inner
-          : ClipRect(
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                child: inner,
-              ),
-            ),
     );
   }
 }

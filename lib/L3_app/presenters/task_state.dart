@@ -209,7 +209,6 @@ extension TaskStatePresenter on Task {
     }
   }
 
-  bool get needUserActionState => project!.state == TaskState.NO_PROGRESS || state == TaskState.NO_SUBTASKS;
   Duration? get projectStartEtaCalcPeriod => project!.calculatedStartDate.add(serviceSettingsController.lowStartThreshold).difference(DateTime.now());
 
   TaskState get overallState => isImportingProject

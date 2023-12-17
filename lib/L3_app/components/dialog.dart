@@ -10,7 +10,6 @@ import 'colors.dart';
 import 'colors_base.dart';
 import 'constants.dart';
 import 'material_wrapper.dart';
-import 'toolbar.dart';
 
 Future<T?> showMTDialog<T>(Widget child, {double? maxWidth}) async {
   final ctx = rootKey.currentContext!;
@@ -115,7 +114,7 @@ class MTDialog extends StatelessWidget {
                   left: 0,
                   right: 0,
                   bottom: 0,
-                  child: MTBottomToolbar(child: bottomBar!, color: bottomBarColor ?? (isBigScreen(context) ? b2Color : navbarDefaultBgColor)),
+                  child: bottomBar!,
                 ),
             ],
           ),

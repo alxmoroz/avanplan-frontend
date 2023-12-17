@@ -5,10 +5,8 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../components/adaptive.dart';
 import '../../components/button.dart';
-import '../../components/colors.dart';
 import '../../components/constants.dart';
 import '../../components/icons.dart';
-import '../../components/list_tile.dart';
 import '../../components/page.dart';
 import '../../components/toolbar.dart';
 import '../../extra/router.dart';
@@ -62,23 +60,18 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
       builder: (_) => loader.loading
           ? Container()
           : MTPage(
-              bottomBar: showSideMenu(context)
-                  ? null
-                  : MTBottomToolbar(
-                      color: navbarDefaultBgColor,
-                      child: MTListTile(
-                        color: Colors.transparent,
-                        leading: accountController.user != null ? AccountButton(() async => await SettingsRouter().navigate(context)) : null,
-                        trailing: MTButton.icon(const RefreshIcon(size: P7), onTap: mainController.manualUpdate),
-                        padding: const EdgeInsets.all(P3).copyWith(bottom: 0),
-                        bottomDivider: false,
-                      ),
-                    ),
               body: SafeArea(
                 top: false,
                 bottom: false,
                 child: tasksMainController.hasOpenedProjects ? MainDashboard() : NoProjects(CreateProjectController()),
               ),
+              bottomBar: showSideMenu(context)
+                  ? null
+                  : MTAppBar(
+                      isBottom: true,
+                      leading: accountController.user != null ? AccountButton(() async => await SettingsRouter().navigate(context)) : null,
+                      trailing: MTButton.icon(const RefreshIcon(size: P7), onTap: mainController.manualUpdate),
+                    ),
             ),
     );
   }

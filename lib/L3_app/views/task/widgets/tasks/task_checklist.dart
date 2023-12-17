@@ -3,11 +3,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../../../components/button.dart';
-import '../../../../components/constants.dart';
+import '../../../../components/field.dart';
+import '../../../../components/field_data.dart';
+import '../../../../components/icons.dart';
+import '../../../../components/text.dart';
+import '../../../../presenters/task_type.dart';
 import '../../controllers/subtasks_controller.dart';
 import '../../controllers/task_controller.dart';
-import '../create/create_task_button.dart';
 import 'task_checklist_item.dart';
 
 class TaskChecklist extends StatelessWidget {
@@ -16,11 +18,11 @@ class TaskChecklist extends StatelessWidget {
 
   SubtasksController get _controller => _taskController.subtasksController;
 
-  Widget get _addButton => CreateTaskButton(
-        _taskController,
-        type: ButtonType.secondary,
-        margin: const EdgeInsets.only(top: P3),
-        uf: false,
+  Widget get _addButton => MTField(
+        MTFieldData(-1),
+        leading: const PlusCircleIcon(),
+        value: BaseText.f2(addSubtaskActionTitle(_taskController.task)),
+        crossAxisAlignment: CrossAxisAlignment.center,
         onTap: _controller.addTask,
       );
 
@@ -36,6 +38,8 @@ class TaskChecklist extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => ListView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
         itemBuilder: _itemBuilder,
         itemCount: _controller.taskControllers.length + 1,
       ),

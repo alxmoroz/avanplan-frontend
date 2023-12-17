@@ -38,7 +38,7 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
   bool _doneBtnHover = false;
   bool _delBtnHover = false;
 
-  double get _minHeight => kIsWeb ? P10 : P8;
+  double get _minHeight => P10;
 
   bool _taskEditing = false;
 
@@ -61,18 +61,20 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
     final tfMaxLines = hasFocus ? 1 : 2;
 
     final tfPadding = EdgeInsets.only(left: task.isCheckItem ? 0 : P3, right: _fieldHover ? 0 : P3);
-    const doneIconSize = P5;
+    const doneIconSize = P6;
     const deleteIconSize = P4;
     return Row(
       children: [
         if (task.isCheckItem)
           MTButton.icon(
-            DoneIcon(task.closed,
-                size: doneIconSize,
-                color: task.closed ? (_doneBtnHover ? mainColor : greenLightColor) : (_doneBtnHover ? greenColor : null),
-                solid: task.closed),
-            padding: EdgeInsets.symmetric(vertical: (_minHeight - doneIconSize) / 2).copyWith(left: P3, right: 0),
-            margin: const EdgeInsets.only(right: P2),
+            DoneIcon(
+              task.closed,
+              size: doneIconSize,
+              color: task.closed ? (_doneBtnHover ? mainColor : greenLightColor) : (_doneBtnHover ? greenColor : null),
+              solid: task.closed,
+            ),
+            padding: EdgeInsets.symmetric(vertical: (_minHeight - doneIconSize) / 2).copyWith(left: P3 + P_2, right: 0),
+            margin: const EdgeInsets.only(right: P3),
             onHover: (hover) => setState(() => _doneBtnHover = hover),
             onTap: (_controller.parent.closed && task.closed) ? null : _toggleDone,
           ),
@@ -150,8 +152,9 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
               child: _fieldValue(context),
             ),
       padding: EdgeInsets.zero,
-      dividerIndent: tc.task!.isCheckItem ? P10 : P3,
-      bottomDivider: _index < _controller.taskControllers.length - 1,
+      dividerIndent: tc.task!.isCheckItem ? P12 : P3,
+      dividerEndIndent: P3,
+      bottomDivider: tc.task!.isCheckItem || _index < _controller.taskControllers.length - 1,
       onHover: kIsWeb ? (hover) => setState(() => _fieldHover = hover) : null,
       onTap: kIsWeb ? (_fieldHover ? null : () {}) : () => _controller.setFocus(true, tc),
     );

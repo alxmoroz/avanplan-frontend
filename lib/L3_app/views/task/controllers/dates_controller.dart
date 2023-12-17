@@ -125,9 +125,9 @@ class DatesController {
               BaseText.f2(DateFormat.EEEE().format(date), maxLines: 1),
             ])
           : null,
-      onTap: task.canEdit ? () => selectDate(context, code) : null,
       bottomDivider: isStart && (task.hasDueDate || task.canEdit),
       dividerIndent: isStart ? P7 + P5 : null,
+      onTap: task.canEdit ? () => selectDate(context, code) : null,
     );
   }
 }

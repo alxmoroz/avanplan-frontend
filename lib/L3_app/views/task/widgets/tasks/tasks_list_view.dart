@@ -3,8 +3,6 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../components/adaptive.dart';
-import '../../../../components/shadowed.dart';
 import '../../controllers/task_controller.dart';
 import '../header/state_title.dart';
 import 'tasks_group.dart';
@@ -43,14 +41,11 @@ class TasksListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MTShadowed(
-      bottomShadow: true,
-      child: MTAdaptive(
-        child: ListView.builder(
-          itemBuilder: (_, index) => _groupedItemBuilder(index),
-          itemCount: groups.length + (_hasExtra ? 1 : 0),
-        ),
-      ),
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (_, index) => _groupedItemBuilder(index),
+      itemCount: groups.length + (_hasExtra ? 1 : 0),
     );
   }
 }

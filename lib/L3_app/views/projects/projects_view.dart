@@ -3,7 +3,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../../components/adaptive.dart';
 import '../../components/page.dart';
 import '../../components/toolbar.dart';
 import '../../extra/router.dart';
@@ -34,12 +33,9 @@ class ProjectsView extends StatelessWidget {
         bottom: false,
         child: Observer(builder: (_) => TasksListView(tasksMainController.projectsGroups)),
       ),
-      bottomBar: MTAdaptive(
-        force: true,
-        child: MTAppBar(
-          isBottom: true,
-          trailing: CreateProjectButton(CreateProjectController(), compact: true),
-        ),
+      bottomBar: MTAppBar(
+        isBottom: true,
+        trailing: CreateProjectButton(CreateProjectController(), compact: true),
       ),
     );
   }

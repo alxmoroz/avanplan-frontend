@@ -7,28 +7,23 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../components/adaptive.dart';
-import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/error_sheet.dart';
 import '../../components/icons.dart';
-import '../../components/icons_workspace.dart';
 import '../../components/page.dart';
-import '../../components/text.dart';
+import '../../components/shadowed.dart';
 import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_type.dart';
-import '../../presenters/workspace.dart';
 import '../../usecases/task_actions.dart';
-import '../../usecases/task_tree.dart';
 import 'controllers/task_controller.dart';
 import 'widgets/details/details_pane.dart';
 import 'widgets/empty_state/not_found.dart';
 import 'widgets/header/task_header.dart';
 import 'widgets/header/task_popup_menu.dart';
-import 'widgets/overview/overview_pane.dart';
 import 'widgets/tasks/tasks_pane.dart';
-import 'widgets/team/team_pane.dart';
+import 'widgets/toolbar/task_toolbar.dart';
 
 class TaskRouter extends MTRouter {
   static const _prefix = '/projects.*?';
@@ -84,21 +79,11 @@ class TaskViewState<T extends TaskView> extends State<T> {
   TaskController get controller => widget._controller;
   Task? get task => controller.task;
 
-  late OverviewPane overviewPane;
-  late final TasksPane tasksPane;
-  late final DetailsPane detailsPane;
-  late final TeamPane teamPane;
-
   @override
   void initState() {
     if (kIsWeb) {
       setWebpageTitle(task?.viewTitle ?? '');
     }
-
-    overviewPane = OverviewPane(controller);
-    tasksPane = TasksPane(controller);
-    detailsPane = DetailsPane(controller);
-    teamPane = TeamPane(controller);
 
     super.initState();
   }
@@ -112,88 +97,35 @@ class TaskViewState<T extends TaskView> extends State<T> {
     super.dispose();
   }
 
-  Widget _tab(TaskTabKey tk, Widget icon, Widget title) => GestureDetector(
-        onTap: () => controller.selectTab(tk),
-        child: controller.tabKey == tk ? title : icon,
-      );
-
-  Map<TaskTabKey, Widget> get _tabs {
-    final res = <TaskTabKey, Widget>{};
-    controller.tabKeys.forEach((tk) {
-      switch (tk) {
-        case TaskTabKey.overview:
-          res[TaskTabKey.overview] = _tab(tk, const OverviewIcon(), BaseText(loc.overview));
-          break;
-        case TaskTabKey.subtasks:
-          res[TaskTabKey.subtasks] = _tab(tk, const TasksIcon(), BaseText('${task?.listTitle ?? ''}'));
-          break;
-        case TaskTabKey.details:
-          res[TaskTabKey.details] = _tab(tk, const RulesIcon(size: P4, color: f2Color), BaseText(loc.details));
-          break;
-        case TaskTabKey.team:
-          res[TaskTabKey.team] = _tab(tk, const PeopleIcon(color: f2Color), BaseText(loc.team_title));
-          break;
-      }
-    });
-
-    return res;
-  }
-
-  Widget get _tabPaneSelector => MTAdaptive(
-        force: true,
-        padding: const EdgeInsets.symmetric(horizontal: P3),
-        child: CupertinoSlidingSegmentedControl<TaskTabKey>(
-          children: _tabs,
-          groupValue: controller.tabKey,
-          onValueChanged: controller.selectTab,
-          backgroundColor: b1Color,
-          thumbColor: b3Color,
-        ),
-      );
-
-  Widget get _selectedPane =>
-      {
-        TaskTabKey.overview: overviewPane,
-        TaskTabKey.subtasks: tasksPane,
-        TaskTabKey.team: teamPane,
-        TaskTabKey.details: detailsPane,
-      }[controller.tabKey] ??
-      detailsPane;
-
-  Widget? get _selectedBottomBar => {
-        TaskTabKey.overview: overviewPane.bottomBar,
-        TaskTabKey.subtasks: tasksPane.bottomBar,
-        TaskTabKey.team: teamPane.bottomBar,
-        TaskTabKey.details: detailsPane.bottomBar,
-      }[controller.tabKey];
-
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
-      final smallHeight = MediaQuery.sizeOf(context).height < SCR_XS_HEIGHT;
       return task != null
           ? Stack(
               alignment: Alignment.bottomCenter,
               children: [
                 MTPage(
                   appBar: MTAppBar(
-                    middle: task!.ws.subPageTitle(task!.viewTitle),
                     trailing: task!.loading != true && task!.actionTypes.isNotEmpty
                         ? TaskPopupMenu(controller, icon: const MenuIcon())
                         : const SizedBox(width: P8),
                   ),
                   body: SafeArea(
+                    top: false,
                     bottom: false,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        if (!smallHeight) TaskHeader(controller),
-                        if (controller.tabKeys.length > 1) _tabPaneSelector,
-                        Expanded(child: _selectedPane),
-                      ],
+                    child: MTShadowed(
+                      bottomShadow: true,
+                      child: MTAdaptive(
+                        child: ListView(
+                          children: [
+                            TaskHeader(controller),
+                            task!.isTask ? DetailsPane(controller) : TasksPane(controller),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
-                  bottomBar: _selectedBottomBar,
+                  bottomBar: task!.canComment || task!.canShowBoard || task!.canLocalImport || task!.canCreate ? TaskToolbar(controller) : null,
                 ),
                 if (task!.error != null)
                   MTErrorSheet(task!.error!, onClose: () {

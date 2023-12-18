@@ -86,7 +86,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
   late final ScrollController _scrollController;
   bool _hasScrolled = false;
   double get _headerHeight => P12 + (_hasParent ? P4 : 0);
-  bool get _showBottomBar => task!.canComment || (task!.canShowBoard || task!.canLocalImport || (task!.hasSubtasks && task!.canCreate));
+  bool get _showBottomBar => task!.canComment || (task!.hasSubtasks && (task!.canShowBoard || task!.canLocalImport || task!.canCreate));
 
   @override
   void initState() {
@@ -156,19 +156,21 @@ class TaskViewState<T extends TaskView> extends State<T> {
                                         height: expandedHeight - _headerHeight,
                                         child: NoTasks(controller),
                                       )
-                                    : task!.canShowBoard && controller.showBoard
-                                        ? SizedBox(
-                                            height: expandedHeight - P4,
-                                            child: TasksBoard(
-                                              controller.statusController,
-                                              extra: controller.subtasksController.loadClosedButton(board: true),
-                                            ),
-                                          )
-                                        : TasksListView(
-                                            task!.subtaskGroups,
-                                            scrollable: false,
-                                            extra: controller.subtasksController.loadClosedButton(),
-                                          ),
+                                    : Observer(
+                                        builder: (_) => task!.canShowBoard && controller.showBoard
+                                            ? SizedBox(
+                                                height: expandedHeight - P4,
+                                                child: TasksBoard(
+                                                  controller.statusController,
+                                                  extra: controller.subtasksController.loadClosedButton(board: true),
+                                                ),
+                                              )
+                                            : TasksListView(
+                                                task!.subtaskGroups,
+                                                scrollable: false,
+                                                extra: controller.subtasksController.loadClosedButton(),
+                                              ),
+                                      ),
                           ],
                         ),
                       );

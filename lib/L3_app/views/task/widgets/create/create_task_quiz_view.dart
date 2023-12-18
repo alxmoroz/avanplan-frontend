@@ -67,11 +67,10 @@ class CreateTaskQuizViewState extends TaskViewState<CreateTaskQuizView> {
                   appBar: QuizHeader(qController),
                   body: SafeArea(
                     bottom: false,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                    child: ListView(
                       children: [
                         TaskHeader(controller),
-                        Expanded(child: TaskDetails(controller, qController: qController)),
+                        TaskDetails(controller, qController: qController),
                       ],
                     ),
                   ),

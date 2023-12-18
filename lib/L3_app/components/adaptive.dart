@@ -43,7 +43,7 @@ class MTAdaptive extends StatelessWidget {
 
     final mqW = MediaQuery.sizeOf(context).width;
     return Container(
-      alignment: Alignment.topLeft,
+      alignment: Alignment.topCenter,
       child: SizedBox(
         width: min(W, mqW),
         child: Padding(

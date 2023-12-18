@@ -11,7 +11,6 @@ import '../../../../components/dialog.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/page.dart';
-import '../../../../components/shadowed.dart';
 import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/router.dart';
@@ -52,13 +51,10 @@ class _PSBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => MTShadowed(
-        bottomShadow: true,
-        child: ListView.builder(
-          shrinkWrap: shrinkWrap,
-          itemBuilder: itemBuilder,
-          itemCount: _controller.sortedStatuses.length,
-        ),
+      builder: (_) => ListView.builder(
+        shrinkWrap: shrinkWrap,
+        itemBuilder: itemBuilder,
+        itemCount: _controller.sortedStatuses.length,
       ),
     );
   }
@@ -118,6 +114,7 @@ class ProjectStatusesQuizView extends StatelessWidget {
         ),
         bottomBar: MTAppBar(
           isBottom: true,
+          bgColor: b2Color,
           height: P8 + P8 + P3,
           middle: Column(
             mainAxisSize: MainAxisSize.min,
@@ -148,6 +145,7 @@ class ProjectStatusesDialog extends StatelessWidget {
       body: _PSBody(_controller),
       bottomBar: MTAppBar(
         isBottom: true,
+        bgColor: b2Color,
         middle: _CreateStatusButton(_controller),
       ),
     );

@@ -84,7 +84,7 @@ class SettingsView extends StatelessWidget {
           ),
           if (!isIOS)
             MTListTile(
-              leading: const RulesIcon(),
+              leading: const DocumentIcon(),
               titleText: loc.legal_rules_title,
               trailing: const LinkOutIcon(),
               onTap: () => launchUrlString(legalRulesPath),

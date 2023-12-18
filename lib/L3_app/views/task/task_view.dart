@@ -6,6 +6,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities_extensions/task_tree.dart';
+import '../../components/adaptive.dart';
 import '../../components/constants.dart';
 import '../../components/error_sheet.dart';
 import '../../components/icons.dart';
@@ -150,7 +151,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                           children: [
                             TaskHeader(controller),
                             task!.isTask
-                                ? TaskDetails(controller)
+                                ? MTAdaptive(child: TaskDetails(controller))
                                 : !task!.hasSubtasks
                                     ? SizedBox(
                                         height: expandedHeight - _headerHeight,

@@ -87,8 +87,8 @@ extension TaskTypePresenter on Task {
   Widget subPageTitle(String pageTitle) => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          BaseText.medium(pageTitle, align: TextAlign.center, maxLines: 1, padding: const EdgeInsets.symmetric(horizontal: P6)),
-          BaseText('$this', align: TextAlign.center, maxLines: 1, padding: const EdgeInsets.all(P_2)),
+          SmallText('$this', align: TextAlign.center, maxLines: 1, padding: const EdgeInsets.symmetric(horizontal: P2).copyWith(top: P)),
+          H3(pageTitle, align: TextAlign.center, maxLines: 1, padding: const EdgeInsets.symmetric(horizontal: P3)),
         ],
       );
 

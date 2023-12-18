@@ -6,6 +6,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
+import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/images.dart';
 import '../../../../components/page.dart';
@@ -110,6 +111,7 @@ class _CreateMultiTaskQuizViewState extends State<CreateMultiTaskQuizView> {
             ),
             bottomBar: MTAppBar(
               isBottom: true,
+              bgColor: b2Color,
               middle: QuizNextButton(qController, margin: EdgeInsets.zero),
             ),
           ),

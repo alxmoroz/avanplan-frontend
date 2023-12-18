@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../../../components/adaptive.dart';
 import '../../../../components/error_sheet.dart';
 import '../../../../components/page.dart';
 import '../../../../extra/router.dart';
@@ -70,7 +71,7 @@ class CreateTaskQuizViewState extends TaskViewState<CreateTaskQuizView> {
                     child: ListView(
                       children: [
                         TaskHeader(controller),
-                        TaskDetails(controller, qController: qController),
+                        MTAdaptive(child: TaskDetails(controller, qController: qController)),
                       ],
                     ),
                   ),

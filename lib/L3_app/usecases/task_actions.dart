@@ -16,6 +16,7 @@ import 'task_tree.dart';
 import 'ws_actions.dart';
 
 enum TaskActionType {
+  details,
   close,
   reopen,
   localExport,
@@ -47,6 +48,7 @@ extension TaskActionsUC on Task {
   bool get canReopen => closed && canEdit && (isProject || parent?.closed == false);
   bool get canClose => !closed && canEdit;
   bool get canUnlink => isLinkedProject && ws.hpProjectUpdate == true;
+  bool get canShowDetails => isProject || isGoal;
   bool get canShowMembers => isProject && hfsTeam && _hpMemberRead;
   bool get canEditMembers => isProject && hfsTeam && _hpMemberUpdate;
   bool get canInviteMembers => canEditMembers && ws.roles.isNotEmpty;
@@ -65,17 +67,8 @@ extension TaskActionsUC on Task {
   bool get canAddChecklist => !closed && isTask && canEdit && subtasks.isEmpty;
   bool get canShowBoard => (isGoal || (isProject && !hfsGoals)) && hfsTaskboard && hasSubtasks;
 
-  /// рекомендации, быстрые кнопки
-  bool get shouldAddSubtask =>
-      [
-        TType.PROJECT,
-        TType.GOAL,
-      ].contains(type) &&
-      canCreate &&
-      !hasOpenedSubtasks &&
-      !canCloseGroup;
-
   Iterable<TaskActionType> get actionTypes => [
+        if (canShowDetails) TaskActionType.details,
         if (canClose) TaskActionType.close,
         if (canReopen) TaskActionType.reopen,
         if (canLocalExport) TaskActionType.localExport,

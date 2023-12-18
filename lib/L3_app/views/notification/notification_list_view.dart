@@ -104,6 +104,7 @@ class NotificationListView extends StatelessWidget {
         bottomBar: !isWeb && !_controller.pushAuthorized
             ? MTAppBar(
                 isBottom: true,
+                bgColor: b2Color,
                 middle: MTButton(
                   leading: const PrivacyIcon(),
                   middle: SmallText(

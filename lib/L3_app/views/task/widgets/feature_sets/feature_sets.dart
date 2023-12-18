@@ -12,7 +12,6 @@ import '../../../../components/dialog.dart';
 import '../../../../components/images.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/page.dart';
-import '../../../../components/shadowed.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
@@ -47,42 +46,38 @@ class _FSBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => MTShadowed(
-        topPaddingIndent: 0,
-        shadowColor: b1Color,
-        bottomShadow: true,
-        child: ListView(
-          shrinkWrap: shrinkWrap,
-          children: [
-            MTListSection(titleText: loc.feature_sets_always_on_label),
-            MTCheckBoxTile(
-              leading: MTImage(ImageName.fs_task_list.name, width: P8, height: P7),
-              title: loc.feature_set_tasklist_title,
-              description: loc.feature_set_tasklist_description,
-              value: true,
-              bottomDivider: false,
-            ),
-            MTListSection(titleText: loc.feature_sets_available_label),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: _controller.checks.length,
-              itemBuilder: (_, index) {
-                final fs = refsController.featureSets.elementAt(index);
-                final onChanged = _controller.onChanged(index);
-                return MTCheckBoxTile(
-                  leading: _icon(index),
-                  title: fs.title,
-                  description: fs.description,
-                  value: _controller.checks[index],
-                  bottomDivider: index < _controller.checks.length - 1,
-                  dividerIndent: _iconSize + P5,
-                  onChanged: onChanged,
-                );
-              },
-            ),
-          ],
-        ),
+      builder: (_) => ListView(
+        shrinkWrap: shrinkWrap,
+        children: [
+          MTListSection(titleText: loc.feature_sets_always_on_label),
+          MTCheckBoxTile(
+            leading: MTImage(ImageName.fs_task_list.name, width: P8, height: P7),
+            title: loc.feature_set_tasklist_title,
+            description: loc.feature_set_tasklist_description,
+            value: true,
+            bottomDivider: false,
+          ),
+          MTListSection(titleText: loc.feature_sets_available_label),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: _controller.checks.length,
+            itemBuilder: (_, index) {
+              final fs = refsController.featureSets.elementAt(index);
+              final onChanged = _controller.onChanged(index);
+              return MTCheckBoxTile(
+                leading: _icon(index),
+                title: fs.title,
+                description: fs.description,
+                value: _controller.checks[index],
+                bottomDivider: index < _controller.checks.length - 1,
+                dividerIndent: _iconSize + P5,
+                onChanged: onChanged,
+              );
+            },
+          ),
+          const SizedBox(height: P3),
+        ],
       ),
     );
   }
@@ -130,6 +125,7 @@ class FeatureSetsQuizView extends StatelessWidget {
         ),
         bottomBar: MTAppBar(
           isBottom: true,
+          bgColor: b2Color,
           middle: QuizNextButton(
             _qController,
             loading: _controller.project.loading,
@@ -152,6 +148,7 @@ class FeatureSetsDialog extends StatelessWidget {
       body: _FSBody(_controller),
       bottomBar: MTAppBar(
         isBottom: true,
+        bgColor: b2Color,
         middle: MTButton.main(
           titleText: loc.save_action_title,
           onTap: _controller.save,

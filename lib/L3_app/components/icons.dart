@@ -161,6 +161,16 @@ class DescriptionIcon extends MTIcon {
       );
 }
 
+class DocumentIcon extends MTIcon {
+  const DocumentIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.doc_plaintext,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P6,
+      );
+}
+
 class DoneIcon extends MTIcon {
   const DoneIcon(this.done, {super.color, super.size, super.solid});
   final bool done;
@@ -429,16 +439,6 @@ class RefreshIcon extends MTIcon {
   @override
   Widget build(BuildContext context) => Icon(
         CupertinoIcons.refresh_thick,
-        color: (color ?? mainColor).resolve(context),
-        size: size ?? P6,
-      );
-}
-
-class RulesIcon extends MTIcon {
-  const RulesIcon({super.color, super.size});
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.doc_plaintext,
         color: (color ?? mainColor).resolve(context),
         size: size ?? P6,
       );

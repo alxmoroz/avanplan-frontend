@@ -17,11 +17,11 @@ import '../../presenters/number.dart';
 
 Future replenishBalanceDialog(int wsId, {String reason = ''}) async {
   await iapController.getProducts();
-  return await showMTDialog<void>(_StoreView(wsId, reason));
+  return await showMTDialog<void>(_StoreDialog(wsId, reason));
 }
 
-class _StoreView extends StatelessWidget {
-  const _StoreView(this._wsId, this._reason);
+class _StoreDialog extends StatelessWidget {
+  const _StoreDialog(this._wsId, this._reason);
 
   final int _wsId;
   final String _reason;

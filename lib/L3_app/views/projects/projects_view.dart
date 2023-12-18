@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import '../../components/colors_base.dart';
 import '../../components/page.dart';
 import '../../components/toolbar.dart';
 import '../../extra/router.dart';
@@ -34,6 +35,7 @@ class ProjectsView extends StatelessWidget {
       ),
       bottomBar: MTAppBar(
         isBottom: true,
+        bgColor: b2Color,
         trailing: CreateProjectButton(CreateProjectController(), compact: true),
       ),
     );

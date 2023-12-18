@@ -17,6 +17,7 @@ import '../../../../usecases/task_link.dart';
 import '../../controllers/delete_controller.dart';
 import '../../controllers/duplicate_controller.dart';
 import '../../controllers/task_controller.dart';
+import '../details/details_dialog.dart';
 
 class TaskPopupMenu extends StatelessWidget with FocusManaging {
   const TaskPopupMenu(this.controller, {this.icon, this.child});
@@ -34,6 +35,8 @@ class TaskPopupMenu extends StatelessWidget with FocusManaging {
 
   Widget _atWidget(TaskActionType at) {
     switch (at) {
+      case TaskActionType.details:
+        return _tile(at, leading: const DocumentIcon(size: P4), title: loc.details);
       case TaskActionType.close:
         return _tile(at, leading: const DoneIcon(true, color: greenColor), title: loc.close_action_title, color: greenColor);
       case TaskActionType.reopen:
@@ -60,6 +63,9 @@ class TaskPopupMenu extends StatelessWidget with FocusManaging {
 
   Future _taskAction(TaskActionType? actionType) async {
     switch (actionType) {
+      case TaskActionType.details:
+        await showDetailsDialog(controller);
+        break;
       case TaskActionType.close:
         await controller.statusController.setStatus(_task, close: true);
         break;

@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../components/button.dart';
+import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/page.dart';
 import '../../../../components/toolbar.dart';
@@ -62,6 +63,7 @@ class TeamInvitationQuizView extends StatelessWidget {
               ),
               bottomBar: MTAppBar(
                 isBottom: true,
+                bgColor: b2Color,
                 height: P8 + P8 + P3,
                 middle: Column(mainAxisSize: MainAxisSize.min, children: [
                   if (_task!.canInviteMembers) ...[

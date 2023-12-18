@@ -6,6 +6,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../L1_domain/entities/workspace.dart';
 import '../../components/adaptive.dart';
 import '../../components/button.dart';
+import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/page.dart';
 import '../../components/shadowed.dart';
@@ -76,6 +77,7 @@ class SourceListView extends StatelessWidget {
         bottomBar: _ws.sources.isNotEmpty && _ws.hpSourceCreate
             ? MTAppBar(
                 isBottom: true,
+                bgColor: b2Color,
                 trailing: MTPlusButton(() => startAddSource(_ws)),
               )
             : null,

@@ -9,25 +9,29 @@ class MTPage extends StatelessWidget {
     required this.body,
     this.appBar,
     this.bottomBar,
-    super.key,
+    this.scrollController,
   });
 
   final PreferredSizeWidget? appBar;
   final Widget body;
   final Widget? bottomBar;
+  final ScrollController? scrollController;
 
   @override
   Widget build(BuildContext context) => GestureDetector(
         onTap: FocusScope.of(context).unfocus,
         child: MTBackgroundWrapper(
-          Scaffold(
-            backgroundColor: Colors.transparent,
-            key: key,
-            appBar: appBar,
-            body: body,
-            extendBody: true,
-            extendBodyBehindAppBar: true,
-            bottomNavigationBar: bottomBar,
+          PrimaryScrollController(
+            controller: scrollController ?? ScrollController(),
+            child: Scaffold(
+              backgroundColor: Colors.transparent,
+              key: key,
+              appBar: appBar,
+              body: body,
+              extendBody: true,
+              extendBodyBehindAppBar: true,
+              bottomNavigationBar: bottomBar,
+            ),
           ),
         ),
       );

@@ -29,6 +29,7 @@ class TasksPane extends StatelessWidget {
                 )
               : TasksListView(
                   _task.subtaskGroups,
+                  scrollable: false,
                   extra: controller.subtasksController.loadClosedButton(),
                 ),
     );

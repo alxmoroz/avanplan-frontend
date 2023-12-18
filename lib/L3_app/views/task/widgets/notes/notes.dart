@@ -26,7 +26,8 @@ import '../../../../usecases/task_actions.dart';
 import '../../controllers/notes_controller.dart';
 
 class Notes extends StatelessWidget {
-  const Notes(this._controller);
+  Notes(this._controller) : super(key: _controller.notesWidgetGlobalKey);
+
   final NotesController _controller;
 
   Task get _task => _controller.task;

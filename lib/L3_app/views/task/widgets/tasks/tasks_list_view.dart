@@ -3,15 +3,17 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../components/constants.dart';
 import '../../controllers/task_controller.dart';
 import '../header/state_title.dart';
 import 'tasks_group.dart';
 
 class TasksListView extends StatelessWidget {
-  const TasksListView(this.groups, {this.filters, this.extra});
+  const TasksListView(this.groups, {this.filters, this.extra, this.scrollable = true});
   final List<MapEntry<TaskState, List<Task>>> groups;
   final Set<TasksFilter>? filters;
   final Widget? extra;
+  final bool scrollable;
 
   bool get _isMyTasks => filters?.contains(TasksFilter.my) ?? false;
   bool get _showGroupTitles => groups.length > 1;
@@ -24,16 +26,15 @@ class TasksListView extends StatelessWidget {
       final group = groups[groupIndex];
       final tasks = group.value;
       final state = group.key;
-      final groupBorder = !_showGroupTitles && groupIndex < groups.length - 1;
       return Column(
         children: [
+          if (groupIndex != 0 || scrollable) const SizedBox(height: P3),
           if (_showGroupTitles || state == TaskState.IMPORTING)
             GroupStateTitle(
               state,
               place: StateTitlePlace.groupHeader,
-              topPadding: groupIndex == 0 ? 0 : null,
             ),
-          TasksGroup(tasks, isMine: _isMyTasks, bottomDivider: groupBorder, standalone: false),
+          TasksGroup(tasks, isMine: _isMyTasks, standalone: false),
         ],
       );
     }
@@ -42,8 +43,8 @@ class TasksListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: !scrollable,
+      physics: scrollable ? null : const NeverScrollableScrollPhysics(),
       itemBuilder: (_, index) => _groupedItemBuilder(index),
       itemCount: groups.length + (_hasExtra ? 1 : 0),
     );

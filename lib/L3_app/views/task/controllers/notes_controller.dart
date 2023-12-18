@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../../../L1_domain/entities/note.dart';
@@ -29,13 +30,17 @@ abstract class _NotesControllerBase with Store {
   late final TaskController taskController;
 
   Task get task => taskController.task!;
+  final _fIndex = TaskFCode.note.index;
+  TextEditingController get _te => taskController.teController(_fIndex)!;
+
+  final notesWidgetGlobalKey = GlobalKey();
 
   @observable
   ObservableList<Note> _notes = ObservableList();
 
   @action
   void _setNotes(Iterable<Note> notes) => _notes = ObservableList.of(notes);
-  void refresh() => _setNotes(task.notes);
+  void _refresh() => _setNotes(task.notes);
 
   @computed
   List<Note> get _sortedNotes => _notes.sorted((n1, n2) => n2.createdOn!.compareTo(n1.createdOn!));
@@ -44,39 +49,46 @@ abstract class _NotesControllerBase with Store {
   @computed
   List<DateTime> get sortedNotesDates => notesGroups.keys.sorted((d1, d2) => d2.compareTo(d1));
 
-  Future edit(Note note) async {
-    final fIndex = TaskFCode.note.index;
-    final tc = taskController.teController(fIndex)!;
-    tc.text = note.text;
-    if (await showMTDialog<bool?>(TextEditDialog(taskController, TaskFCode.note, loc.task_note_title), maxWidth: SCR_M_WIDTH) == true) {
-      // добавление или редактирование
-      final newValue = tc.text;
-      final oldValue = note.text;
-      if (newValue.trim().isNotEmpty && (note.text != newValue || note.isNew)) {
-        taskController.updateField(fIndex, loading: true, text: '');
-        note.text = newValue;
+  Future _save(Note note) async {
+    final newValue = _te.text;
+    final oldValue = note.text;
+    if (newValue.trim().isNotEmpty && (note.text != newValue || note.isNew)) {
+      taskController.updateField(_fIndex, loading: true, text: '');
+      note.text = newValue;
 
-        if (await note.save(task) == null) {
-          note.text = oldValue;
-        }
-
-        refresh();
-        taskController.updateField(fIndex, loading: false);
+      if (await note.save(task) == null) {
+        note.text = oldValue;
       }
+
+      _refresh();
+      taskController.updateField(_fIndex, loading: false);
     }
   }
 
-  Future create() async => await edit(
-        Note(
-          text: taskController.fData(TaskFCode.note.index).text,
-          authorId: task.me?.id,
-          taskId: task.id!,
-          wsId: task.wsId,
-        ),
-      );
+  Future edit(Note note) async {
+    _te.text = note.text;
+    if (await showMTDialog<bool?>(TextEditDialog(taskController, TaskFCode.note, loc.task_note_title), maxWidth: SCR_M_WIDTH) == true) {
+      // добавление или редактирование
+      await _save(note);
+    }
+    _te.text = '';
+  }
+
+  Future create() async {
+    await _save(
+      Note(
+        text: _te.text,
+        authorId: task.me?.id,
+        taskId: task.id!,
+        wsId: task.wsId,
+      ),
+    );
+    _te.text = '';
+    Scrollable.ensureVisible(notesWidgetGlobalKey.currentContext!);
+  }
 
   Future delete(Note note) async {
     await note.delete(task);
-    refresh();
+    _refresh();
   }
 }

@@ -25,7 +25,6 @@ class ProjectsRouter extends MTRouter {
 class ProjectsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // WidgetsBinding.instance.addPostFrameCallback((_) => setWebpageTitle(loc.project_list_title));
     return MTPage(
       appBar: MTAppBar(title: loc.project_list_title),
       body: SafeArea(

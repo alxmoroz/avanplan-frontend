@@ -12,11 +12,13 @@ import '../../components/error_sheet.dart';
 import '../../components/icons.dart';
 import '../../components/page.dart';
 import '../../components/shadowed.dart';
+import '../../components/text.dart';
 import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_type.dart';
 import '../../usecases/task_actions.dart';
+import '../../usecases/task_tree.dart';
 import 'controllers/task_controller.dart';
 import 'widgets/details/details_pane.dart';
 import 'widgets/empty_state/not_found.dart';
@@ -79,8 +81,22 @@ class TaskViewState<T extends TaskView> extends State<T> {
   TaskController get controller => widget._controller;
   Task? get task => controller.task;
 
+  bool get _hasParent => task?.parent != null;
+
+  late final ScrollController _scrollController;
+
+  bool _hasScrolled = false;
+
   @override
   void initState() {
+    _scrollController = ScrollController();
+    final offset = P6 + (_hasParent ? P4 : 0);
+    _scrollController.addListener(() {
+      if ((!_hasScrolled && _scrollController.offset > offset) || (_hasScrolled && _scrollController.offset < offset)) {
+        setState(() => _hasScrolled = !_hasScrolled);
+      }
+    });
+
     if (kIsWeb) {
       setWebpageTitle(task?.viewTitle ?? '');
     }
@@ -94,6 +110,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
       controller.subtasksController.dispose();
       controller.dispose();
     }
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -105,7 +122,17 @@ class TaskViewState<T extends TaskView> extends State<T> {
               alignment: Alignment.bottomCenter,
               children: [
                 MTPage(
+                  scrollController: _scrollController,
                   appBar: MTAppBar(
+                    middle: _hasScrolled
+                        ? Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              if (_hasParent) SmallText(task!.parent!.title, maxLines: 1),
+                              H3(task!.title, maxLines: 1),
+                            ],
+                          )
+                        : null,
                     trailing: task!.loading != true && task!.actionTypes.isNotEmpty
                         ? TaskPopupMenu(controller, icon: const MenuIcon())
                         : const SizedBox(width: P8),

@@ -14,6 +14,7 @@ import '../../../../components/field_data.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/text_field.dart';
 import '../../../../components/toolbar.dart';
+import '../../../../extra/services.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
 import '../create/create_task_button.dart';
@@ -54,6 +55,7 @@ class TaskToolbar extends StatelessWidget {
                   Expanded(
                     child: MTTextField(
                       controller: _tcNote,
+                      hint: loc.task_note_placeholder,
                       margin: EdgeInsets.zero,
                       padding: EdgeInsets.symmetric(horizontal: P2, vertical: P2 * (kIsWeb ? 1.35 : 1)),
                       maxLines: 1,
@@ -65,7 +67,7 @@ class TaskToolbar extends StatelessWidget {
                     minSize: const Size(P6, P6),
                     middle: const SubmitIcon(color: mainBtnTitleColor),
                     margin: const EdgeInsets.only(left: P2, right: P2, bottom: P),
-                    onTap: _fdNote.text.trim().isNotEmpty ? () => Navigator.of(context).pop(true) : null,
+                    onTap: _fdNote.text.trim().isNotEmpty ? () => _controller.notesController.create() : null,
                   ),
                 ],
               )

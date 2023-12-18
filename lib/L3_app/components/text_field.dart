@@ -10,6 +10,7 @@ import 'text.dart';
 InputDecoration tfDecoration(
   BuildContext context, {
   String? label,
+  String? hint,
   String? helper,
   String? error,
   Widget? prefixIcon,
@@ -26,6 +27,8 @@ InputDecoration tfDecoration(
   return InputDecoration(
     labelText: label,
     labelStyle: const BaseText.f2('').style(context),
+    hintText: hint,
+    hintStyle: const BaseText.f3('').style(context),
     helperText: helper,
     helperStyle: const SmallText('').style(context),
     helperMaxLines: 3,
@@ -54,6 +57,7 @@ class MTTextField extends StatelessWidget {
   const MTTextField({
     this.controller,
     this.label,
+    this.hint,
     this.helper,
     this.error,
     this.keyboardType,
@@ -79,6 +83,7 @@ class MTTextField extends StatelessWidget {
   const MTTextField.noText({
     this.controller,
     this.label,
+    this.hint,
     this.helper,
     this.error,
     this.margin,
@@ -102,6 +107,7 @@ class MTTextField extends StatelessWidget {
 
   final TextEditingController? controller;
   final String? label;
+  final String? hint;
   final String? helper;
   final String? error;
   final TextInputType? keyboardType;
@@ -139,6 +145,7 @@ class MTTextField extends StatelessWidget {
               tfDecoration(
                 context,
                 label: label,
+                hint: hint,
                 helper: helper,
                 error: error,
                 prefixIcon: prefixIcon,

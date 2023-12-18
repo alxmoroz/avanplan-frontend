@@ -9,7 +9,6 @@ import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../components/adaptive.dart';
-import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
@@ -26,7 +25,6 @@ import '../../../../presenters/workspace.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_feature_sets.dart';
 import '../../../../usecases/task_source.dart';
-import '../../../../usecases/task_status.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../../quiz/abstract_quiz_controller.dart';
 import '../../../quiz/next_button.dart';
@@ -36,18 +34,17 @@ import '../feature_sets/feature_sets.dart';
 import '../notes/notes.dart';
 import '../project_statuses/project_statuses.dart';
 import '../tasks/task_checklist.dart';
+import 'task_status_field.dart';
 
 class TaskDetails extends StatelessWidget {
-  const TaskDetails(this.controller, {this.qController});
-  final TaskController controller;
-  final AbstractQuizController? qController;
+  const TaskDetails(this._controller, {AbstractQuizController? qController}) : _qController = qController;
+  final TaskController _controller;
+  final AbstractQuizController? _qController;
 
-  Task get _task => controller.task!;
-  bool get _quizzing => qController?.active == true;
+  Task get _task => _controller.task!;
+  bool get _quizzing => _qController?.active == true;
   bool get _showStatusRow => !_quizzing && (_task.canShowStatus || _task.canClose || _task.closed);
   bool get _showAssignee => !_quizzing && _task.hfsTeam && (_task.hasAssignee || _task.canAssign);
-
-  MTFieldData get _statusFD => controller.fData(TaskFCode.status.index);
 
   @override
   Widget build(BuildContext context) {
@@ -58,48 +55,12 @@ class TaskDetails extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           children: [
             /// Статус
-            if (_showStatusRow)
-              MTListTile(
-                bottomDivider: false,
-                color: Colors.transparent,
-                leading: _task.canShowStatus
-                    ? MTButton.main(
-                        titleText: '${_task.status}',
-                        color: _task.closed ? greenColor : null,
-                        constrained: false,
-                        padding: const EdgeInsets.symmetric(horizontal: P3),
-                        trailing: _task.canSetStatus
-                            ? const Padding(
-                                padding: EdgeInsets.only(left: P_2, top: P_2),
-                                child: CaretIcon(size: Size(P2 * 0.8, P2 * 0.75), color: mainBtnTitleColor),
-                              )
-                            : null,
-                        loading: _statusFD.loading,
-                        onTap: _task.canSetStatus ? controller.statusController.selectStatus : null,
-                      )
-                    : _task.canClose
-                        ? MTButton.main(
-                            titleText: loc.close_action_title,
-                            leading: const DoneIcon(true, color: mainBtnTitleColor),
-                            constrained: false,
-                            color: greenColor,
-                            padding: const EdgeInsets.symmetric(horizontal: P3),
-                            onTap: () => controller.statusController.setStatus(_task, close: true),
-                            loading: _statusFD.loading,
-                          )
-                        : MTButton(
-                            titleText: loc.state_closed,
-                            type: ButtonType.card,
-                            color: greenLightColor,
-                            titleColor: greenColor,
-                            padding: const EdgeInsets.symmetric(horizontal: P3),
-                          ),
-              ),
+            if (_showStatusRow) TaskStatusField(_controller),
 
             /// Назначенный
-            if (_showAssignee) ...[
+            if (_showAssignee)
               MTField(
-                controller.fData(TaskFCode.assignee.index),
+                _controller.fData(TaskFCode.assignee.index),
                 margin: EdgeInsets.only(top: _showStatusRow ? P : P3),
                 leading: _task.hasAssignee
                     ? _task.assignee!.icon(P3, borderColor: mainColor)
@@ -107,14 +68,13 @@ class TaskDetails extends StatelessWidget {
                         color: _task.canAssign ? mainColor : f2Color,
                       ),
                 value: _task.hasAssignee ? BaseText('${_task.assignee}', color: _task.canAssign ? null : f2Color, maxLines: 1) : null,
-                onTap: _task.canAssign ? controller.assigneeController.startAssign : null,
+                onTap: _task.canAssign ? _controller.assigneeController.startAssign : null,
               ),
-            ],
 
             /// Описание
             if (_task.hasDescription || _task.canEdit)
               MTField(
-                controller.fData(TaskFCode.description.index),
+                _controller.fData(TaskFCode.description.index),
                 margin: EdgeInsets.only(top: _quizzing || (_showStatusRow && !_showAssignee) ? P : P3),
                 leading: DescriptionIcon(color: _task.canEdit ? mainColor : f2Color),
                 value: _task.hasDescription
@@ -127,7 +87,7 @@ class TaskDetails extends StatelessWidget {
                         maxLines: 20,
                       )
                     : null,
-                onTap: _task.canEdit ? controller.titleController.editDescription : null,
+                onTap: _task.canEdit ? _controller.titleController.editDescription : null,
               ),
 
             /// Кнопка для добавления чек-листа
@@ -137,69 +97,69 @@ class TaskDetails extends StatelessWidget {
                 margin: const EdgeInsets.only(top: P3),
                 leading: const PlusCircleIcon(color: mainColor),
                 crossAxisAlignment: CrossAxisAlignment.center,
-                onTap: () async => await controller.subtasksController.addTask(),
+                onTap: () async => await _controller.subtasksController.addTask(),
               ),
 
             /// Чек-лист
             if (_task.isCheckList) ...[
               const SizedBox(height: P3),
-              TaskChecklist(controller),
+              TaskChecklist(_controller),
             ],
 
             /// Даты
             const SizedBox(height: P3),
             // Row(children: [],),
-            controller.datesController.dateField(context, TaskFCode.startDate),
-            if (_task.hasDueDate || _task.canEdit) controller.datesController.dateField(context, TaskFCode.dueDate),
+            _controller.datesController.dateField(context, TaskFCode.startDate),
+            if (_task.hasDueDate || _task.canEdit) _controller.datesController.dateField(context, TaskFCode.dueDate),
 
             /// Оценки
             if (!_quizzing && _task.canShowEstimate)
               MTField(
-                controller.fData(TaskFCode.estimate.index),
+                _controller.fData(TaskFCode.estimate.index),
                 margin: const EdgeInsets.only(top: P3),
                 leading: EstimateIcon(color: _task.canEstimate ? mainColor : f3Color),
                 value: _task.hasEstimate
                     ? BaseText('${(_task.openedVolume ?? _task.estimate)?.round()} ${_task.ws.estimateUnitCode}', maxLines: 1)
                     : null,
-                onTap: _task.canEstimate ? controller.estimateController.select : null,
+                onTap: _task.canEstimate ? _controller.estimateController.select : null,
               ),
 
             /// Вложения
             if (!_quizzing && _task.attachments.isNotEmpty)
               MTField(
-                controller.fData(TaskFCode.attachment.index),
+                _controller.fData(TaskFCode.attachment.index),
                 margin: const EdgeInsets.only(top: P3),
                 leading: const AttachmentIcon(),
                 value: Row(children: [
-                  Flexible(child: BaseText(controller.attachmentsController.attachmentsStr, maxLines: 1)),
-                  if (controller.attachmentsController.attachmentsCountMoreStr.isNotEmpty)
+                  Flexible(child: BaseText(_controller.attachmentsController.attachmentsStr, maxLines: 1)),
+                  if (_controller.attachmentsController.attachmentsCountMoreStr.isNotEmpty)
                     BaseText.f2(
-                      controller.attachmentsController.attachmentsCountMoreStr,
+                      _controller.attachmentsController.attachmentsCountMoreStr,
                       maxLines: 1,
                       padding: const EdgeInsets.only(left: P),
                     )
                 ]),
-                onTap: () => showAttachmentsDialog(controller.attachmentsController),
+                onTap: () => showAttachmentsDialog(_controller.attachmentsController),
               ),
 
             /// FeatureSets
             if (!_quizzing && _task.canShowFeatureSets)
               MTField(
-                controller.fData(TaskFCode.features.index),
+                _controller.fData(TaskFCode.features.index),
                 margin: const EdgeInsets.only(top: P3),
                 leading: SettingsIcon(color: _task.canEditFeatureSets ? null : f3Color),
                 value: BaseText(_task.localizedFeatureSets, maxLines: 1),
-                onTap: _task.canEditFeatureSets ? () => showFeatureSetsDialog(controller) : null,
+                onTap: _task.canEditFeatureSets ? () => showFeatureSetsDialog(_controller) : null,
               ),
 
             /// Набор статусов
             if (!_quizzing && _task.canEditProjectStatuses)
               MTField(
-                controller.fData(TaskFCode.statuses.index),
+                _controller.fData(TaskFCode.statuses.index),
                 margin: const EdgeInsets.only(top: P3),
                 leading: const StatusIcon(),
-                value: _task.projectStatuses.isNotEmpty ? BaseText(controller.projectStatusesController.statusesStr, maxLines: 1) : null,
-                onTap: () => showProjectStatusesDialog(controller.projectStatusesController),
+                value: _task.projectStatuses.isNotEmpty ? BaseText(_controller.projectStatusesController.statusesStr, maxLines: 1) : null,
+                onTap: () => showProjectStatusesDialog(_controller.projectStatusesController),
               ),
 
             /// Связь с источником импорта
@@ -214,9 +174,9 @@ class TaskDetails extends StatelessWidget {
               ),
 
             /// Quiz
-            if (_quizzing) QuizNextButton(qController!, disabled: _task.loading),
+            if (_quizzing) QuizNextButton(_qController!, disabled: _task.loading),
 
-            if (!_quizzing && controller.notesController.sortedNotesDates.isNotEmpty) Notes(controller.notesController),
+            if (!_quizzing && _controller.notesController.sortedNotesDates.isNotEmpty) Notes(_controller.notesController),
           ],
         ),
       ),

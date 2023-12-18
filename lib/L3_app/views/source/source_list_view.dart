@@ -74,12 +74,9 @@ class SourceListView extends StatelessWidget {
                 ),
         ),
         bottomBar: _ws.sources.isNotEmpty && _ws.hpSourceCreate
-            ? MTAdaptive(
-                force: true,
-                child: MTAppBar(
-                  isBottom: true,
-                  trailing: MTPlusButton(() => startAddSource(_ws)),
-                ),
+            ? MTAppBar(
+                isBottom: true,
+                trailing: MTPlusButton(() => startAddSource(_ws)),
               )
             : null,
       );

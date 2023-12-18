@@ -254,7 +254,7 @@ class MTPlusButton extends StatelessWidget {
     return MTButton(
       type: type,
       middle: PlusIcon(color: type == ButtonType.main ? mainBtnTitleColor : mainColor),
-      margin: const EdgeInsets.only(right: P3),
+      margin: const EdgeInsets.only(right: P2),
       onTap: onTap,
     );
   }

@@ -91,14 +91,14 @@ class _MTAlertDialog extends StatelessWidget {
       Navigator.of(context).pop(a.result);
     }
 
-    Widget richButton(MTADialogAction a) => Column(
+    Widget _button(MTADialogAction a) => Column(
           children: [
-            const MTDivider(height: P2),
+            const MTDivider(verticalIndent: P),
             CupertinoButton(
               minSize: 0,
-              padding: EdgeInsets.zero,
-              onPressed: () => action(a),
+              padding: const EdgeInsets.symmetric(vertical: P, horizontal: P2),
               child: _actionRow(a),
+              onPressed: () => action(a),
             )
           ],
         );
@@ -106,10 +106,11 @@ class _MTAlertDialog extends StatelessWidget {
     return CupertinoAlertDialog(
       title: H3(title, padding: const EdgeInsets.only(bottom: P), maxLines: 5),
       content: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           if (description.isNotEmpty) BaseText(description, maxLines: 12),
           if (!simple)
-            for (final a in actions) richButton(a),
+            for (final a in actions) _button(a),
         ],
       ),
       actions: !simple ? [] : [for (final a in actions) CupertinoDialogAction(child: _actionText(a), onPressed: () => action(a))],

@@ -8,7 +8,7 @@ import '../../../components/dialog.dart';
 import '../../../extra/services.dart';
 import '../../../presenters/task_type.dart';
 import '../../../usecases/task_tree.dart';
-import '../widgets/details/text_edit_dialog.dart';
+import '../widgets/text_fields/text_edit_dialog.dart';
 import 'task_controller.dart';
 
 class TitleController {

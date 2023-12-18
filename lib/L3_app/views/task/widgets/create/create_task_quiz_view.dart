@@ -12,7 +12,7 @@ import '../../../quiz/abstract_quiz_controller.dart';
 import '../../../quiz/header.dart';
 import '../../controllers/task_controller.dart';
 import '../../task_view.dart';
-import '../details/details_pane.dart';
+import '../details/task_details.dart';
 import '../header/task_header.dart';
 
 class CreateTaskQuizArgs {
@@ -71,7 +71,7 @@ class CreateTaskQuizViewState extends TaskViewState<CreateTaskQuizView> {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         TaskHeader(controller),
-                        Expanded(child: DetailsPane(controller, qController: qController)),
+                        Expanded(child: TaskDetails(controller, qController: qController)),
                       ],
                     ),
                   ),

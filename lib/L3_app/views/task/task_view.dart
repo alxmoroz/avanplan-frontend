@@ -6,7 +6,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities_extensions/task_tree.dart';
-import '../../components/adaptive.dart';
 import '../../components/constants.dart';
 import '../../components/error_sheet.dart';
 import '../../components/icons.dart';
@@ -20,11 +19,13 @@ import '../../presenters/task_type.dart';
 import '../../usecases/task_actions.dart';
 import '../../usecases/task_tree.dart';
 import 'controllers/task_controller.dart';
-import 'widgets/details/details_pane.dart';
+import 'widgets/details/task_details.dart';
+import 'widgets/empty_state/no_tasks.dart';
 import 'widgets/empty_state/not_found.dart';
 import 'widgets/header/task_header.dart';
 import 'widgets/header/task_popup_menu.dart';
-import 'widgets/tasks/tasks_pane.dart';
+import 'widgets/tasks/tasks_board.dart';
+import 'widgets/tasks/tasks_list_view.dart';
 import 'widgets/toolbar/task_toolbar.dart';
 
 class TaskRouter extends MTRouter {
@@ -80,17 +81,17 @@ class TaskView extends StatefulWidget {
 class TaskViewState<T extends TaskView> extends State<T> {
   TaskController get controller => widget._controller;
   Task? get task => controller.task;
-
   bool get _hasParent => task?.parent != null;
 
   late final ScrollController _scrollController;
-
   bool _hasScrolled = false;
+  double get _headerHeight => P12 + (_hasParent ? P4 : 0);
+  bool get _showBottomBar => task!.canComment || (task!.canShowBoard || task!.canLocalImport || (task!.hasSubtasks && task!.canCreate));
 
   @override
   void initState() {
     _scrollController = ScrollController();
-    final offset = P6 + (_hasParent ? P4 : 0);
+    final offset = _headerHeight / 2;
     _scrollController.addListener(() {
       if ((!_hasScrolled && _scrollController.offset > offset) || (_hasScrolled && _scrollController.offset < offset)) {
         setState(() => _hasScrolled = !_hasScrolled);
@@ -140,19 +141,40 @@ class TaskViewState<T extends TaskView> extends State<T> {
                   body: SafeArea(
                     top: false,
                     bottom: false,
-                    child: MTShadowed(
-                      bottomShadow: true,
-                      child: MTAdaptive(
+                    // TODO: для большого экрана не нужна тень снизу
+                    child: LayoutBuilder(builder: (ctx, size) {
+                      final expandedHeight = size.maxHeight - MediaQuery.paddingOf(ctx).vertical;
+                      return MTShadowed(
+                        bottomShadow: _showBottomBar,
                         child: ListView(
                           children: [
                             TaskHeader(controller),
-                            task!.isTask ? DetailsPane(controller) : TasksPane(controller),
+                            task!.isTask
+                                ? TaskDetails(controller)
+                                : !task!.hasSubtasks
+                                    ? SizedBox(
+                                        height: expandedHeight - _headerHeight,
+                                        child: NoTasks(controller),
+                                      )
+                                    : task!.canShowBoard && controller.showBoard
+                                        ? SizedBox(
+                                            height: expandedHeight - P4,
+                                            child: TasksBoard(
+                                              controller.statusController,
+                                              extra: controller.subtasksController.loadClosedButton(board: true),
+                                            ),
+                                          )
+                                        : TasksListView(
+                                            task!.subtaskGroups,
+                                            scrollable: false,
+                                            extra: controller.subtasksController.loadClosedButton(),
+                                          ),
                           ],
                         ),
-                      ),
-                    ),
+                      );
+                    }),
                   ),
-                  bottomBar: task!.canComment || task!.canShowBoard || task!.canLocalImport || task!.canCreate ? TaskToolbar(controller) : null,
+                  bottomBar: _showBottomBar ? TaskToolbar(controller) : null,
                 ),
                 if (task!.error != null)
                   MTErrorSheet(task!.error!, onClose: () {

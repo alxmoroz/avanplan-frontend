@@ -14,7 +14,7 @@ import '../../../components/dialog.dart';
 import '../../../extra/services.dart';
 import '../../../usecases/note_edit.dart';
 import '../../../usecases/task_actions.dart';
-import '../widgets/details/text_edit_dialog.dart';
+import '../widgets/text_fields/text_edit_dialog.dart';
 import 'task_controller.dart';
 
 part 'notes_controller.g.dart';

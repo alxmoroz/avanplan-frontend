@@ -24,19 +24,18 @@ class MyTasksRouter extends MTRouter {
 class MyTasksView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Observer(builder: (_) {
-      // WidgetsBinding.instance.addPostFrameCallback((_) => setWebpageTitle(loc.my_tasks_title));
-      return MTPage(
-        appBar: MTAppBar(title: loc.my_tasks_title),
-        body: SafeArea(
-          top: false,
-          bottom: false,
-          child: TasksListView(
+    return MTPage(
+      appBar: MTAppBar(title: loc.my_tasks_title),
+      body: SafeArea(
+        top: false,
+        bottom: false,
+        child: Observer(
+          builder: (_) => TasksListView(
             tasksMainController.myTasksGroups,
             filters: const {TasksFilter.my},
           ),
         ),
-      );
-    });
+      ),
+    );
   }
 }

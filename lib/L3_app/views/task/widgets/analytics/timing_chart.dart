@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_stats.dart';
-import '../../../../components/card.dart';
-import '../../../../components/circle.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
@@ -23,77 +21,53 @@ class _DateBarData {
 }
 
 class TimingChart extends StatelessWidget {
-  const TimingChart(this.task);
-  @protected
-  final Task task;
+  const TimingChart(this._task, {this.showDueLabel = true});
+  final Task _task;
+  final bool showDueLabel;
 
-  static double get _barHeight => P4;
-  double get _suffixWidth => _barHeight / 2;
-  double get _borderWidth => 0.0;
+  static const _barHeight = P6;
+  static const _borderWidth = P;
+  static const _borderR = _barHeight / 2;
+  static const _markSize = Size(P2, P2);
+  static const _barColor = mainColor;
 
-  Color get _pointerColor => task.hasRisk
+  Color get _etaMarkColor => _task.hasRisk
       ? warningColor
-      : task.hasOverdue
+      : _task.hasOverdue
           ? dangerColor
-          : task.isOk
+          : _task.isOk
               ? greenColor
               : mainColor;
-
-  Color get _barColor => _pointerColor.withAlpha(120);
-
-  Color get _planMarkColor => task.hasOverdue ? dangerColor : f2Color;
-
-  Color get _etaMarkColor => task.hasRisk
-      ? warningColor
-      : task.isOk
-          ? greenColor
-          : f1Color;
-
-  Size get _markSize => const Size(P2 * 0.7, P2);
 
   Iterable<_DateBarData> get _dateBarData {
     final _now = DateTime.now();
     final res = <_DateBarData>[
       /// старт
-      _DateBarData(date: task.calculatedStartDate),
+      _DateBarData(date: _task.calculatedStartDate),
 
-      /// план
-      if (task.hasDueDate)
+      /// сегодня
+      if (!_task.isFuture) _DateBarData(date: _now, color: _etaMarkColor),
+
+      /// срок
+      if (_task.hasDueDate)
         _DateBarData(
-          date: task.dueDate!,
-          mark: MTProgressMark(
-            child: CaretIcon(color: _planMarkColor, size: _markSize),
-            size: Size(_markSize.width, -_markSize.height),
-            color: _planMarkColor,
-          ),
+          date: _task.dueDate!,
+          color: _task.dueDate!.isBefore(_now) ? _barColor : null,
+          mark: showDueLabel
+              ? MTProgressMark(
+                  const CaretIcon(size: _markSize),
+                  size: Size(_markSize.width, -_markSize.height),
+                )
+              : null,
         ),
 
       /// прогноз
-      if (task.hasEtaDate)
+      if (_task.hasEtaDate)
         _DateBarData(
-          date: task.etaDate!,
+          date: _task.etaDate!,
           mark: MTProgressMark(
-            child: CaretIcon(color: _etaMarkColor, size: _markSize, up: true),
+            CaretIcon(color: _etaMarkColor, size: _markSize, up: true),
             size: Size(_markSize.width, _barHeight),
-            color: _etaMarkColor,
-          ),
-        ),
-
-      /// сегодня
-      if (!task.isFuture)
-        _DateBarData(
-          date: _now,
-          color: _barColor,
-          mark: MTProgressMark(
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                MTCircle(size: _barHeight, color: b2Color, border: Border.all(color: _barColor)),
-                MTCircle(size: _barHeight * 0.7, color: _pointerColor)
-              ],
-            ),
-            size: Size(_barHeight, 0),
-            color: _barColor,
           ),
         ),
     ];
@@ -107,15 +81,32 @@ class TimingChart extends StatelessWidget {
     final _maxDate = _sortedDates.first;
     final _minDate = _sortedDates.last;
     final _maxDateDays = _maxDate.difference(_minDate).inDays;
-    return _maxDateDays > 0 ? (dt.difference(_minDate).inDays / _maxDateDays) : 1;
+    final _passDays = dt.difference(_minDate).inDays;
+
+    return _maxDateDays > 0 ? ((_passDays > 0 ? _passDays : 1) / _maxDateDays) : 1;
   }
 
-  Widget _progressBar(BuildContext context, double prefixWidth) {
-    return SizedBox(
+  Widget _bg(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(_borderR),
+        gradient: LinearGradient(
+          colors: [b1Color.resolve(context), b2Color.resolve(context)],
+          stops: const [0, 0.42],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+      ),
       height: _barHeight,
+    );
+  }
+
+  Widget _progress(BuildContext context) {
+    return SizedBox(
+      height: _barHeight - _borderWidth * 2,
       child: Row(
         children: [
-          SizedBox(width: prefixWidth),
+          const SizedBox(width: _borderR / 2),
           Expanded(
             child: Stack(
               children: [
@@ -123,87 +114,56 @@ class TimingChart extends StatelessWidget {
                   final ratio = _dateRatio(dbd.date);
                   return ratio > 0
                       ? MTProgress(
-                          value: ratio,
+                          ratio,
                           color: dbd.color,
                           mark: dbd.mark,
-                          border: Border(right: BorderSide(color: (dbd.mark?.color ?? f2Color).resolve(context))),
+                          borderWidth: _borderWidth,
                         )
                       : const SizedBox();
                 })
               ],
             ),
           ),
-          SizedBox(width: _suffixWidth),
+          const SizedBox(width: _borderR / 2),
         ],
       ),
     );
   }
 
   Widget _timeChart(BuildContext context) {
-    final prefixWidth = _barHeight * 0.7 + P4;
-
     return SizedBox(
-      height: _barHeight + _borderWidth * 2,
+      height: _barHeight,
       child: Stack(
-        alignment: Alignment.center,
+        alignment: Alignment.centerLeft,
         children: [
-          MTCard(
-            elevation: 0,
-            color: b2Color,
-            child: Row(
-              children: [
-                Container(
-                  alignment: Alignment.center,
-                  color: task.isFuture ? null : _barColor.resolve(context),
-                  width: prefixWidth,
-                  padding: const EdgeInsets.symmetric(horizontal: P2),
-                  child: CalendarIcon(size: _barHeight * 0.8, color: f1Color),
-                ),
-                const Spacer(),
-                Container(
-                  alignment: Alignment.centerLeft,
-                  height: _barHeight,
-                  width: _suffixWidth,
-                  child: Image.asset('assets/icons/checkers.png'),
-                ),
-              ],
-            ),
-          ),
-          _progressBar(context, prefixWidth),
+          _bg(context),
+          _progress(context),
         ],
       ),
     );
   }
 
-  Widget _alignedDateLabel(BuildContext context, {required DateTime date, required String label, Color? color}) {
-    return Align(
-        alignment: Alignment.lerp(
-          Alignment.topLeft,
-          Alignment.topRight,
-          _dateRatio(date),
-        ) as Alignment,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            BaseText(label, color: color),
-            const SizedBox(width: P),
-            H3('${date.strShort}', color: color),
-          ],
-        ));
+  Widget _dateLabel(BuildContext context, {required DateTime date, required String label, Color? color}) {
+    return Row(
+      children: [
+        D5(label.toLowerCase(), color: color),
+        const Spacer(),
+        D4('${date.strMedium}', color: color),
+      ],
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(children: [
-      if (task.hasDueDate) ...[
-        _alignedDateLabel(context, date: task.dueDate!, label: loc.task_due_date_label, color: _planMarkColor),
-        SizedBox(height: _markSize.height * 0.9),
+      if (_task.hasDueDate && showDueLabel) ...[
+        _dateLabel(context, date: _task.dueDate!, label: loc.task_due_date_label, color: f2Color),
+        SizedBox(height: _markSize.height + P_2),
       ],
       _timeChart(context),
-      if (task.hasEtaDate) ...[
-        SizedBox(height: _markSize.height * 0.9),
-        _alignedDateLabel(context, date: task.etaDate!, label: loc.task_eta_date_label, color: _etaMarkColor),
+      if (_task.hasEtaDate) ...[
+        SizedBox(height: _markSize.height + P_2),
+        _dateLabel(context, date: _task.etaDate!, label: loc.task_eta_date_label, color: _etaMarkColor),
       ]
     ]);
   }

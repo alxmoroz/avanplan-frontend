@@ -5,7 +5,6 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../components/adaptive.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
@@ -14,21 +13,19 @@ import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/duration.dart';
 import '../../../../presenters/task_state.dart';
-import '../../../../presenters/workspace.dart';
-import '../../../../usecases/task_feature_sets.dart';
 import '../../../../usecases/task_stats.dart';
-import '../../../../usecases/task_tree.dart';
 
 class VelocityChart extends StatelessWidget {
   const VelocityChart(this.task);
   final Task task;
+  static const _R = P12;
 
   static const _bottomGaugeAngle = 90.0;
   static const _startAngle = 90 + _bottomGaugeAngle / 2;
   static const _sweepAngle = 360 - _bottomGaugeAngle;
+  static const _gaugeWidth = P2;
+  static const _barWidth = _gaugeWidth;
 
-  double get _gaugeWidth => P3;
-  double get _barWidth => _gaugeWidth / 2;
   double get _velocity => task.projectVelocity ?? 0;
   double get _delta => (task.requiredVelocity ?? _velocity) - _velocity;
   double get _firstValue => _delta >= 0 ? _velocity : _velocity + _delta;
@@ -67,12 +64,11 @@ class VelocityChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final R = P * (isBigScreen(context) ? 14 : 12.5);
     return Stack(
       alignment: Alignment.center,
       children: [
         MTPieChart(
-          radius: R,
+          radius: _R,
           startAngle: _startAngle,
           sweepAngle: _sweepAngle,
           totalValue: _maxValue,
@@ -86,27 +82,17 @@ class VelocityChart extends StatelessWidget {
         ),
         if (!task.projectLowStart) ...[
           D2('$_displayText', color: _pointerColor),
-          SmallText(
-            loc.chart_velocity_unit_mo(task.hfsEstimates ? task.ws.estimateUnitCode : loc.task_plural(_hVelocity)),
-            padding: EdgeInsets.only(top: R / 2 + P3),
+          D5(
+            loc.chart_velocity_title.toLowerCase(),
+            padding: const EdgeInsets.only(top: _R / 2 + P4),
             color: f2Color,
-            maxLines: 1,
-          ),
-          Container(
-            width: R * 2 - P10 - P,
-            height: R * 2 - P6,
-            alignment: Alignment.bottomCenter,
-            child: Row(children: [
-              if (_maxValue > 0) const BaseText.medium('0', color: f2Color),
-              const Spacer(),
-              if (_maxValue > 0) BaseText.medium('${(_maxValue * daysPerMonth).round()}', color: f2Color),
-            ]),
           ),
         ] else
           H3(
             loc.state_low_start_before_calc_duration(task.projectStartEtaCalcPeriod!.localizedString),
             align: TextAlign.center,
-            maxLines: 5,
+            color: f2Color,
+            maxLines: 2,
           )
       ],
     );

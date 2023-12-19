@@ -3,6 +3,7 @@
 
   "about_service_title": "About service",
   "action_add_title": "Add",
+  "analytics_title": "Analytics",
   "app_settings_action_title": "Open settings",
   "app_title": "Avanplan",
   "are_closed_suffix": "are closed",
@@ -30,15 +31,12 @@
 
   "cancel": "Cancel",
 
-  "chart_details_action_title": "Details",
-  "chart_details_title": "Project Metrics",
   "chart_delta_ahead_label": "Ahead",
   "chart_delta_lag_label": "Lag",
 
   "chart_timing_elapsed_label": "Since start",
-  "chart_timing_eta_label": "Estimate time to complete",
+  "chart_timing_eta_title": "Estimate time to complete",
   "chart_timing_left_label": "Time left",
-  "chart_timing_title": "Timing",
 
   "chart_velocity_project_label": "Current",
   "chart_velocity_target_label": "Expected",
@@ -47,8 +45,7 @@
 
   "chart_volume_plan_label": "Expected closed",
   "chart_volume_title": "Scope of work",
-  "chart_volume_total_label": "Total",
-  "chart_volume_unit": "completed",
+  "chart_volume_label": "completed",
 
   "checklist": "Checklist",
 

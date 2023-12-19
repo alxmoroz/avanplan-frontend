@@ -1,60 +1,55 @@
 // Copyright (c) 2022. Alexandr Moroz
 
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 
 import 'colors.dart';
 
 class MTProgressMark {
-  const MTProgressMark({
+  const MTProgressMark(
+    this.child, {
     this.size,
     this.color,
-    required this.child,
   });
-  final Color? color;
-
-  @protected
-  final Size? size;
-
-  @protected
   final Widget child;
+  final Color? color;
+  final Size? size;
 }
 
 class MTProgress extends StatelessWidget {
-  const MTProgress({
-    required this.value,
+  const MTProgress(
+    this.value, {
     this.color,
-    this.height,
     this.mark,
-    this.border,
+    this.borderWidth,
   });
 
   final double value;
   final Color? color;
-  final double? height;
   final MTProgressMark? mark;
-  final Border? border;
+  final double? borderWidth;
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, size) {
-      final rWidth = value * size.maxWidth;
+      final w = max(value * size.maxWidth, size.maxHeight);
       return Stack(clipBehavior: Clip.none, children: [
         Positioned(
-          top: height != null ? null : 0,
+          top: 0,
           bottom: 0,
-          height: height != null ? height : null,
-          width: rWidth,
+          width: w,
           child: Container(
             decoration: BoxDecoration(
-              color: color?.maybeResolve(context),
-              border: border ?? const Border(),
+              color: color?.resolve(context),
+              borderRadius: BorderRadius.circular(size.maxHeight / 2),
             ),
           ),
         ),
         if (mark != null)
           Positioned(
-            left: rWidth - (mark!.size?.width ?? 0) / 2 - (border?.right.width ?? 0) / 2,
-            top: mark!.size?.height,
+            left: w - (mark!.size?.width ?? 0) / 2,
+            top: (mark!.size?.height ?? 0) - (borderWidth ?? 0),
             child: mark!.child,
           ),
       ]);

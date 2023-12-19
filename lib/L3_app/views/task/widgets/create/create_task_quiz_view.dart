@@ -10,7 +10,7 @@ import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../quiz/abstract_quiz_controller.dart';
-import '../../../quiz/header.dart';
+import '../../../quiz/quiz_header.dart';
 import '../../controllers/task_controller.dart';
 import '../../task_view.dart';
 import '../details/task_details.dart';

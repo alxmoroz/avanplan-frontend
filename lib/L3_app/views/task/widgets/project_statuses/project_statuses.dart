@@ -17,8 +17,8 @@ import '../../../../extra/router.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_type.dart';
 import '../../../quiz/abstract_quiz_controller.dart';
-import '../../../quiz/header.dart';
-import '../../../quiz/next_button.dart';
+import '../../../quiz/quiz_header.dart';
+import '../../../quiz/quiz_next_button.dart';
 import '../../controllers/project_statuses_controller.dart';
 
 Future showProjectStatusesDialog(ProjectStatusesController controller) async {

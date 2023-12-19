@@ -26,7 +26,7 @@ import '../../../../usecases/task_feature_sets.dart';
 import '../../../../usecases/task_source.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../../quiz/abstract_quiz_controller.dart';
-import '../../../quiz/next_button.dart';
+import '../../../quiz/quiz_next_button.dart';
 import '../../controllers/task_controller.dart';
 import '../attachments/attachments.dart';
 import '../feature_sets/feature_sets.dart';

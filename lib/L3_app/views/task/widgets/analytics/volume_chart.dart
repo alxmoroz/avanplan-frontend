@@ -3,7 +3,6 @@
 import 'package:flutter/cupertino.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../components/adaptive.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
@@ -16,13 +15,13 @@ class TaskVolumeChart extends StatelessWidget {
   const TaskVolumeChart(this.task);
   final Task task;
 
-  double get _maxValue => 1;
-  double get _gaugeWidth => P3;
-  double get _barWidth => _gaugeWidth;
+  static const _R = P12;
 
-  Color get _pointerColor => mainColor;
+  static const _maxValue = 1.0;
+  static const _gaugeWidth = P2;
+  static const _barWidth = _gaugeWidth;
 
-  Color get _barColor => _pointerColor.withAlpha(120);
+  Color get _barColor => mainColor.withAlpha(120);
 
   MTPieChartData get _gaugeBar => MTPieChartData(_maxValue, strokeWidth: _gaugeWidth);
   MTPieChartData get _mainBar => MTPieChartData(task.progress, start: 0, color: _barColor, strokeWidth: _barWidth);
@@ -31,21 +30,17 @@ class TaskVolumeChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final R = P * (isBigScreen(context) ? 14 : 12.5);
     return Stack(
       alignment: Alignment.center,
       children: [
-        MTPieChart(radius: R, data: [MTPieChartData(1)]),
+        MTPieChart(radius: _R, data: [MTPieChartData(1)]),
         MTPieChart(
-          radius: R,
+          radius: _R,
           totalValue: 1,
-          data: [
-            _gaugeBar,
-            _mainBar,
-          ],
+          data: [_gaugeBar, _mainBar],
         ),
-        D2(_chartText, color: _pointerColor),
-        SmallText(loc.chart_volume_unit, padding: EdgeInsets.only(top: R / 2 + P3), color: f2Color),
+        D2(_chartText, color: mainColor),
+        D5(loc.chart_volume_title.toLowerCase(), padding: const EdgeInsets.only(top: _R / 2 + P4), color: f2Color),
       ],
     );
   }

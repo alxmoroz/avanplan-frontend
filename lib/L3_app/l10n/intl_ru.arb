@@ -3,6 +3,7 @@
 
   "about_service_title": "О сервисе",
   "action_add_title": "Добавить",
+  "analytics_title": "Аналитика",
   "app_settings_action_title": "Настройки",
   "app_title": "Аванплан",
   "are_closed_suffix": "закрыты",
@@ -30,15 +31,12 @@
 
   "cancel": "Отмена",
 
-  "chart_details_action_title": "Подробнее",
-  "chart_details_title": "Метрики",
   "chart_delta_ahead_label": "Опережение",
   "chart_delta_lag_label": "Отставание",
 
   "chart_timing_elapsed_label": "Прошло",
-  "chart_timing_eta_label": "Прогноз завершения",
+  "chart_timing_eta_title": "Прогноз завершения",
   "chart_timing_left_label": "До срока осталось",
-  "chart_timing_title": "Время",
 
   "chart_velocity_project_label": "Текущая",
   "chart_velocity_target_label": "Ожидаемая",
@@ -47,8 +45,7 @@
 
   "chart_volume_plan_label": "Должно быть выполнено",
   "chart_volume_title": "Объём",
-  "chart_volume_total_label": "Всего",
-  "chart_volume_unit": "выполнено",
+  "chart_volume_label": "выполнено",
 
   "checklist": "Чек-лист",
 

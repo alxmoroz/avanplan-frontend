@@ -5,20 +5,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../components/adaptive.dart';
+import '../../../../components/button.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/field.dart';
 import '../../../../components/text.dart';
 import '../../../../components/text_field.dart';
+import '../../../../presenters/task_state.dart';
 import '../../../../usecases/task_actions.dart';
+import '../../../../usecases/task_feature_sets.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
+import '../analytics/analytics_dialog.dart';
+import '../analytics/timing_chart.dart';
 
 class TaskHeader extends StatelessWidget {
-  const TaskHeader(this.controller);
-  final TaskController controller;
+  const TaskHeader(this._controller);
+  final TaskController _controller;
 
-  Task get _task => controller.task!;
+  Task get _task => _controller.task!;
 
   @override
   Widget build(BuildContext context) {
@@ -26,36 +32,62 @@ class TaskHeader extends StatelessWidget {
       builder: (_) => Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          /// Название родителя
           if (_task.parent != null)
             MTField(
-              controller.fData(TaskFCode.parent.index),
+              _controller.fData(TaskFCode.parent.index),
               value: BaseText(_task.parent!.title, maxLines: 1),
               padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: kIsWeb ? P : 0),
               color: Colors.transparent,
               minHeight: P4,
               crossAxisAlignment: CrossAxisAlignment.center,
             ),
+
+          /// Название
           MTField(
-            controller.fData(TaskFCode.title.index),
+            _controller.fData(TaskFCode.title.index),
             value: MTTextField(
-              controller: controller.teController(TaskFCode.title.index),
+              controller: _controller.teController(TaskFCode.title.index),
               readOnly: !_task.canEdit,
-              autofocus: controller.creating,
+              autofocus: _controller.creating,
               margin: EdgeInsets.zero,
               maxLines: 5,
               decoration: InputDecoration(
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.zero,
-                hintText: controller.titleController.titlePlaceholder,
+                hintText: _controller.titleController.titlePlaceholder,
                 hintStyle: const H1('', color: f3Color).style(context),
               ),
               style: const H1('').style(context),
-              onChanged: controller.titleController.editTitle,
+              onChanged: _controller.titleController.editTitle,
             ),
             padding: const EdgeInsets.symmetric(horizontal: P3).copyWith(top: kIsWeb ? P : 0),
             color: Colors.transparent,
           ),
-          const SizedBox(height: P),
+
+          /// Дашборд (аналитика, команда)
+          if (_task.hfsAnalytics)
+            Row(
+              children: [
+                const SizedBox(width: P3),
+
+                /// Аналитика
+                if (_task.hfsAnalytics)
+                  MTAdaptive.xxs(
+                    child: MTCardButton(
+                      padding: const EdgeInsets.all(P2),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          BaseText.f2(_task.overallStateTitle, maxLines: 1, padding: const EdgeInsets.only(bottom: P2)),
+                          TimingChart(_task, showDueLabel: false),
+                        ],
+                      ),
+                      onTap: () => showAnalyticsDialog(_task),
+                    ),
+                  ),
+              ],
+            )
         ],
       ),
     );

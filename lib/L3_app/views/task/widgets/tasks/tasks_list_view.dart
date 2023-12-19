@@ -29,7 +29,8 @@ class TasksListView extends StatelessWidget {
       final state = group.key;
       return Column(
         children: [
-          if (groupIndex != 0 || scrollable) const SizedBox(height: P3),
+          // if (groupIndex != 0 || scrollable)
+          const SizedBox(height: P3),
           if (_showGroupTitles || state == TaskState.IMPORTING)
             GroupStateTitle(
               state,

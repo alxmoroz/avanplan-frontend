@@ -17,7 +17,7 @@ const double P_2 = P / 2; // 3
 const double P_3 = P / 3; // 2
 
 const double DEF_BORDER_RADIUS = P2;
-const double DEF_BTN_BORDER_RADIUS = P6;
+const double DEF_BTN_BORDER_RADIUS = MIN_BTN_HEIGHT / 2;
 const double DEF_BORDER_WIDTH = P_3;
 const double MIN_BTN_HEIGHT = P8;
 

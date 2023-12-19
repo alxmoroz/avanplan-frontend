@@ -158,6 +158,7 @@ abstract class _BaseDText extends BaseText {
     super.text, {
     super.color,
     super.sizeScale,
+    super.padding,
     FontWeight? weight,
   }) : super(align: TextAlign.center, weight: weight ?? FontWeight.w500, maxLines: 1);
 
@@ -165,6 +166,7 @@ abstract class _BaseDText extends BaseText {
     super.text, {
     super.color,
     super.sizeScale,
+    super.padding,
   }) : super(align: TextAlign.center, weight: FontWeight.w700, maxLines: 1);
 
   @override
@@ -172,23 +174,27 @@ abstract class _BaseDText extends BaseText {
 }
 
 class D5 extends _BaseDText {
-  const D5(String text, {super.color}) : super.bold(text, sizeScale: 0.9);
+  const D5(String text, {super.color, super.padding}) : super(text, sizeScale: 0.9);
+}
+
+class D5Bold extends _BaseDText {
+  const D5Bold(String text, {super.color, super.padding}) : super.bold(text, sizeScale: 0.9);
 }
 
 class D4 extends _BaseDText {
-  const D4(String text, {super.color}) : super(text, sizeScale: 1.15);
+  const D4(String text, {super.color, super.padding}) : super(text, sizeScale: 1.15);
 }
 
 class D3 extends _BaseDText {
-  const D3(String text, {super.color}) : super(text, sizeScale: 1.55);
+  const D3(String text, {super.color, super.padding}) : super(text, sizeScale: 1.55);
 }
 
 class D2 extends _BaseDText {
-  const D2(String text, {super.color}) : super(text, sizeScale: 2.6);
+  const D2(String text, {super.color, super.padding}) : super(text, sizeScale: 2.6);
 }
 
 class D1 extends _BaseDText {
-  const D1(String text, {super.color}) : super(text, sizeScale: 7);
+  const D1(String text, {super.color, super.padding}) : super(text, sizeScale: 7);
 }
 
 /// Декоративный стиль (для названия приложения)

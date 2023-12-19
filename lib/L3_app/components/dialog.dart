@@ -30,6 +30,7 @@ Future<T?> showMTDialog<T>(Widget child, {double? maxWidth}) async {
           context: ctx,
           barrierColor: barrierColor,
           useRootNavigator: false,
+          // TODO: проверить Container с constraints вместо UnconstrainedBox
           builder: (_) => UnconstrainedBox(
             child: ConstrainedBox(
               child: material(child),

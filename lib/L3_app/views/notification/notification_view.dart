@@ -40,7 +40,7 @@ class NotificationView extends StatelessWidget {
               if (nf.url?.isNotEmpty == true)
                 MTButton.secondary(
                   margin: const EdgeInsets.only(top: P3),
-                  titleText: loc.chart_details_action_title,
+                  titleText: loc.details,
                   trailing: const ChevronIcon(),
                   onTap: () => _tryGo(context),
                 ),

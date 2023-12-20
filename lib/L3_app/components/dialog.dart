@@ -11,23 +11,24 @@ import 'colors_base.dart';
 import 'constants.dart';
 import 'material_wrapper.dart';
 
-Future<T?> showMTDialog<T>(Widget child, {double? maxWidth}) async {
-  final ctx = rootKey.currentContext!;
-  final size = MediaQuery.sizeOf(ctx);
-  final padding = MediaQuery.paddingOf(ctx);
+BuildContext get _globalCtx => rootKey.currentContext!;
 
-  final isBig = isBigScreen(ctx);
+Future<T?> showMTDialog<T>(Widget child, {double? maxWidth}) async {
+  final size = MediaQuery.sizeOf(_globalCtx);
+  final padding = MediaQuery.paddingOf(_globalCtx);
+
+  final isBig = isBigScreen(_globalCtx);
 
   final constrains = BoxConstraints(
-    maxWidth: isBig ? min(size.width - P6 - (showSideMenu(ctx) ? P12 + P : 0), maxWidth ?? SCR_S_WIDTH) : double.infinity,
+    maxWidth: isBig ? min(size.width - P6 - (showSideMenu(_globalCtx) ? P12 + P : 0), maxWidth ?? SCR_S_WIDTH) : double.infinity,
     maxHeight: isBig ? size.height - padding.top - padding.bottom - P6 : double.infinity,
   );
 
-  final barrierColor = f1Color.withAlpha(220).resolve(ctx);
+  final barrierColor = b0Color.resolve(_globalCtx).withAlpha(220);
 
   return isBig
       ? await showDialog(
-          context: ctx,
+          context: _globalCtx,
           barrierColor: barrierColor,
           useRootNavigator: false,
           // TODO: проверить Container с constraints вместо UnconstrainedBox
@@ -39,7 +40,7 @@ Future<T?> showMTDialog<T>(Widget child, {double? maxWidth}) async {
           ),
         )
       : await showModalBottomSheet<T?>(
-          context: ctx,
+          context: _globalCtx,
           barrierColor: barrierColor,
           isScrollControlled: true,
           useSafeArea: true,

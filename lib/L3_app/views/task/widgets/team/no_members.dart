@@ -12,7 +12,6 @@ class NoMembers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MTAdaptive.s(
-      padding: const EdgeInsets.symmetric(horizontal: P3),
       force: true,
       child: ListView(
         shrinkWrap: true,

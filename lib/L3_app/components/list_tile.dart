@@ -70,12 +70,19 @@ class MTListTile extends StatelessWidget with FocusManaging {
     final _hasLeading = leading != null;
     final _hasMiddle = middle != null || titleText != null;
     final _hasSubtitle = subtitle != null;
+    final bgColor = (color ?? b3Color).resolve(context);
     return Stack(
       alignment: Alignment.center,
       fit: StackFit.passthrough,
       children: [
-        Padding(
-          padding: margin ?? EdgeInsets.zero,
+        Container(
+          margin: margin ?? EdgeInsets.zero,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [bgColor, bgColor.withAlpha(0)],
+              stops: const [0.5, 1],
+            ),
+          ),
           child: material(
             InkWell(
               onTap: _onPressed,
@@ -119,7 +126,6 @@ class MTListTile extends StatelessWidget with FocusManaging {
                 ],
               ),
             ),
-            color: (color ?? b3Color).resolve(context),
           ),
         ),
         if (loading == true) const MTLoader(),

@@ -18,7 +18,6 @@ class NotFoundPage extends StatelessWidget {
       appBar: const MTAppBar(),
       body: SafeArea(
         child: MTAdaptive(
-          padding: const EdgeInsets.symmetric(horizontal: P3),
           child: Center(
             child: ListView(
               shrinkWrap: true,

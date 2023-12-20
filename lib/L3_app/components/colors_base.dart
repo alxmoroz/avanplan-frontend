@@ -13,30 +13,30 @@ const _b2R = 240;
 const _b2G = 242;
 const _b2B = 250;
 
-const _b1R = 192;
-const _b1G = 200;
-const _b1B = 240;
+const _b1R = 202;
+const _b1G = 210;
+const _b1B = 244;
 
-const _b0R = 150;
-const _b0G = 160;
-const _b0B = 180;
+const _b0R = 110;
+const _b0G = 120;
+const _b0B = 150;
 
 /// темная тема
 const _b3R_d = 48;
 const _b3G_d = 52;
 const _b3B_d = 74;
 
-const _b2R_d = 34;
-const _b2G_d = 38;
-const _b2B_d = 64;
+const _b2R_d = 36;
+const _b2G_d = 42;
+const _b2B_d = 66;
 
-const _b1R_d = 9;
-const _b1G_d = 14;
-const _b1B_d = 42;
+const _b1R_d = 18;
+const _b1G_d = 22;
+const _b1B_d = 48;
 
-const _b0R_d = 3;
-const _b0G_d = 8;
-const _b0B_d = 22;
+const _b0R_d = 6;
+const _b0G_d = 12;
+const _b0B_d = 32;
 
 /// самый яркий фон (выпирающий цвет)
 const b3Color = CupertinoDynamicColor.withBrightness(

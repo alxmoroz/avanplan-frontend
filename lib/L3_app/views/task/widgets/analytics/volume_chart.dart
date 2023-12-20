@@ -12,34 +12,33 @@ import '../../../../extra/services.dart';
 import '../../../../presenters/number.dart';
 
 class TaskVolumeChart extends StatelessWidget {
-  const TaskVolumeChart(this.task);
-  final Task task;
+  const TaskVolumeChart(this._task);
+  final Task _task;
 
   static const _R = P12;
 
   static const _maxValue = 1.0;
-  static const _gaugeWidth = P2;
-  static const _barWidth = _gaugeWidth;
+  static const _bgWidth = P3;
+  static const _borderWidth = P_2;
+  static const _barWidth = _bgWidth - _borderWidth * 2;
 
-  Color get _barColor => mainColor.withAlpha(120);
+  MTPieChartData get _bgBar => MTPieChartData(_maxValue, strokeWidth: _bgWidth);
+  MTPieChartData get _mainBar => MTPieChartData(_task.progress, start: 0, color: mainColor, strokeWidth: _barWidth);
 
-  MTPieChartData get _gaugeBar => MTPieChartData(_maxValue, strokeWidth: _gaugeWidth);
-  MTPieChartData get _mainBar => MTPieChartData(task.progress, start: 0, color: _barColor, strokeWidth: _barWidth);
-
-  String get _chartText => '${task.progress.percents}';
+  String get _chartText => '${_task.progress.percents}';
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.center,
       children: [
-        MTPieChart(radius: _R, data: [MTPieChartData(1)]),
+        MTPieChart(radius: _R, data: [_bgBar]),
         MTPieChart(
-          radius: _R,
+          radius: _R - _borderWidth,
           totalValue: 1,
-          data: [_gaugeBar, _mainBar],
+          data: [_mainBar],
         ),
-        D2(_chartText, color: mainColor),
+        D2(_chartText),
         D5(loc.chart_volume_title.toLowerCase(), padding: const EdgeInsets.only(top: _R / 2 + P4), color: f2Color),
       ],
     );

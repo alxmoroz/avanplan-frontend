@@ -9,12 +9,20 @@ import 'colors_base.dart';
 import 'constants.dart';
 
 class MTPieChartData {
-  MTPieChartData(this.value, {this.start, this.color, this.radius, this.strokeWidth});
+  MTPieChartData(
+    this.value, {
+    this.start,
+    this.color,
+    this.radius,
+    this.strokeWidth,
+    this.strokeCap,
+  });
   final double value;
   final double? start;
   final Color? color;
   final double? radius;
   final double? strokeWidth;
+  final StrokeCap? strokeCap;
 }
 
 class _PieChartPainter extends CustomPainter {
@@ -50,6 +58,7 @@ class _PieChartPainter extends CustomPainter {
       final _paint = Paint()
         ..color = (arcData.color ?? b2Color).resolve(context)
         ..strokeWidth = _strokeWidth
+        ..strokeCap = arcData.strokeCap ?? StrokeCap.round
         ..style = PaintingStyle.stroke;
 
       canvas.drawArc(
@@ -76,6 +85,7 @@ class MTPieChart extends StatelessWidget {
     this.sweepAngle = 360,
     this.strokeWidth,
     this.totalValue,
+    this.strokeCap,
   });
   final List<MTPieChartData> data;
   final double radius;
@@ -83,6 +93,7 @@ class MTPieChart extends StatelessWidget {
   final double sweepAngle;
   final double? totalValue;
   final double? strokeWidth;
+  final StrokeCap? strokeCap;
 
   @override
   Widget build(BuildContext context) {

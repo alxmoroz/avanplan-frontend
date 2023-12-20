@@ -4,13 +4,16 @@
 
 import 'dart:async';
 
-import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:dio/dio.dart';
+
+import 'package:built_collection/built_collection.dart';
 import 'package:openapi/src/api_util.dart';
+import 'package:openapi/src/model/http_validation_error.dart';
 import 'package:openapi/src/model/member_get.dart';
 
 class TasksRolesApi {
+
   final Dio _dio;
 
   final Serializers _serializers;
@@ -18,13 +21,13 @@ class TasksRolesApi {
   const TasksRolesApi(this._dio, this._serializers);
 
   /// Assign
-  ///
+  /// 
   ///
   /// Parameters:
-  /// * [taskId]
-  /// * [wsId]
-  /// * [memberId]
-  /// * [requestBody]
+  /// * [taskId] 
+  /// * [wsId] 
+  /// * [memberId] 
+  /// * [requestBody] 
   /// * [cancelToken] - A [CancelToken] that can be used to cancel the operation
   /// * [headers] - Can be used to add additional headers to the request
   /// * [extras] - Can be used to add flags to the request
@@ -34,7 +37,7 @@ class TasksRolesApi {
   ///
   /// Returns a [Future] containing a [Response] with a [BuiltList<MemberGet>] as data
   /// Throws [DioException] if API call or serialization fails
-  Future<Response<BuiltList<MemberGet>>> assignRole({
+  Future<Response<BuiltList<MemberGet>>> assignRole({ 
     required int taskId,
     required int wsId,
     required int memberId,
@@ -46,9 +49,7 @@ class TasksRolesApi {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/roles'
-        .replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString())
-        .replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
+    final _path = r'/v1/workspaces/{ws_id}/tasks/{task_id}/roles'.replaceAll('{' r'task_id' '}', encodeQueryParameter(_serializers, taskId, const FullType(int)).toString()).replaceAll('{' r'ws_id' '}', encodeQueryParameter(_serializers, wsId, const FullType(int)).toString());
     final _options = Options(
       method: r'POST',
       headers: <String, dynamic>{
@@ -61,8 +62,7 @@ class TasksRolesApi {
             'name': 'APIKeyHeader',
             'keyName': 'Avanplan',
             'where': 'header',
-          },
-          {
+          },{
             'type': 'oauth2',
             'name': 'OAuth2PasswordBearer',
           },
@@ -82,9 +82,10 @@ class TasksRolesApi {
     try {
       const _type = FullType(BuiltList, [FullType(int)]);
       _bodyData = _serializers.serialize(requestBody, specifiedType: _type);
-    } catch (error, stackTrace) {
+
+    } catch(error, stackTrace) {
       throw DioException(
-        requestOptions: _options.compose(
+         requestOptions: _options.compose(
           _dio.options,
           _path,
           queryParameters: _queryParameters,
@@ -109,12 +110,11 @@ class TasksRolesApi {
 
     try {
       final rawResponse = _response.data;
-      _responseData = rawResponse == null
-          ? null
-          : _serializers.deserialize(
-              rawResponse,
-              specifiedType: const FullType(BuiltList, [FullType(MemberGet)]),
-            ) as BuiltList<MemberGet>;
+      _responseData = rawResponse == null ? null : _serializers.deserialize(
+        rawResponse,
+        specifiedType: const FullType(BuiltList, [FullType(MemberGet)]),
+      ) as BuiltList<MemberGet>;
+
     } catch (error, stackTrace) {
       throw DioException(
         requestOptions: _response.requestOptions,
@@ -136,4 +136,5 @@ class TasksRolesApi {
       extra: _response.extra,
     );
   }
+
 }

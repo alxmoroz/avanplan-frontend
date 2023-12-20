@@ -17,6 +17,7 @@ import '../../components/toolbar.dart';
 import '../../extra/router.dart';
 import '../../extra/services.dart';
 import '../../presenters/task_type.dart';
+import '../../presenters/task_view.dart';
 import '../../usecases/task_actions.dart';
 import '../../usecases/task_tree.dart';
 import 'controllers/task_controller.dart';
@@ -147,6 +148,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                       final expandedHeight = size.maxHeight - MediaQuery.paddingOf(ctx).vertical;
                       return MTShadowed(
                         bottomShadow: _showBottomBar,
+                        bottomPaddingIndent: P4,
                         child: ListView(
                           children: [
                             TaskHeader(controller),
@@ -154,13 +156,15 @@ class TaskViewState<T extends TaskView> extends State<T> {
                                 ? MTAdaptive(child: TaskDetails(controller))
                                 : !task!.hasSubtasks
                                     ? SizedBox(
-                                        height: expandedHeight - _headerHeight,
+                                        // TODO: хардкод ((
+                                        height: expandedHeight - _headerHeight - (task!.hasAnalytics || task!.hasTeam ? 150 : 0),
                                         child: NoTasks(controller),
                                       )
                                     : Observer(
                                         builder: (_) => task!.canShowBoard && controller.showBoard
-                                            ? SizedBox(
+                                            ? Container(
                                                 height: expandedHeight - P4,
+                                                padding: const EdgeInsets.only(top: P3),
                                                 child: TasksBoard(
                                                   controller.statusController,
                                                   extra: controller.subtasksController.loadClosedButton(board: true),

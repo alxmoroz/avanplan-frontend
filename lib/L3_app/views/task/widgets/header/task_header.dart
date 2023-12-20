@@ -13,8 +13,8 @@ import '../../../../components/field.dart';
 import '../../../../components/text.dart';
 import '../../../../components/text_field.dart';
 import '../../../../presenters/task_state.dart';
+import '../../../../presenters/task_view.dart';
 import '../../../../usecases/task_actions.dart';
-import '../../../../usecases/task_feature_sets.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/task_controller.dart';
 import '../analytics/analytics_dialog.dart';
@@ -66,28 +66,33 @@ class TaskHeader extends StatelessWidget {
           ),
 
           /// Дашборд (аналитика, команда)
-          if (_task.hfsAnalytics)
-            Row(
-              children: [
-                const SizedBox(width: P3),
+          if (_task.hasAnalytics || _task.hasTeam)
+            Container(
+              constraints: const BoxConstraints(maxHeight: 150),
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  const SizedBox(width: P3),
 
-                /// Аналитика
-                if (_task.hfsAnalytics)
-                  MTAdaptive.xxs(
-                    child: MTCardButton(
-                      padding: const EdgeInsets.all(P2),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          BaseText.f2(_task.overallStateTitle, maxLines: 1, padding: const EdgeInsets.only(bottom: P2)),
-                          TimingChart(_task, showDueLabel: false),
-                        ],
+                  /// Аналитика
+                  if (_task.hasAnalytics)
+                    MTAdaptive.xxs(
+                      child: MTCardButton(
+                        padding: const EdgeInsets.all(P2),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            BaseText.f2(_task.overallStateTitle, align: TextAlign.center, maxLines: 2, padding: const EdgeInsets.only(bottom: P2)),
+                            TimingChart(_task, showDueLabel: false),
+                          ],
+                        ),
+                        onTap: () => showAnalyticsDialog(_task),
                       ),
-                      onTap: () => showAnalyticsDialog(_task),
                     ),
-                  ),
-              ],
-            )
+                  const SizedBox(width: P3),
+                ],
+              ),
+            ),
         ],
       ),
     );

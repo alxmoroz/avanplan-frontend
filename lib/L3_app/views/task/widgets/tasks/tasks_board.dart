@@ -1,6 +1,5 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'package:drag_and_drop_lists/drag_and_drop_lists.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -17,6 +16,7 @@ import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_status.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../controllers/status_controller.dart';
+import '../board/drag_and_drop_lists.dart';
 import 'task_card.dart';
 
 class _ItemTarget extends StatelessWidget {
@@ -27,25 +27,20 @@ class _ItemTarget extends StatelessWidget {
       margin: const EdgeInsets.all(P2).copyWith(top: 0),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(DEF_BORDER_RADIUS)),
-        border: Border.all(width: 1, color: b2Color.resolve(context)),
+        border: Border.all(width: 1, color: b1Color.resolve(context)),
       ),
     );
   }
 }
 
-class MTBoardColumn extends DragAndDropList {
-  MTBoardColumn(
+class _Column extends DragAndDropList {
+  _Column(
     this.status, {
     required super.children,
     super.header,
     super.footer,
-    super.leftSide,
-    super.rightSide,
     super.contentsWhenEmpty,
     super.lastTarget,
-    super.decoration,
-    super.horizontalAlignment,
-    super.verticalAlignment,
     super.canDrag,
   });
 
@@ -80,13 +75,13 @@ class TasksBoard extends StatelessWidget {
   DragAndDropList _columnBuilder(BuildContext context, int index) {
     final status = _task.statuses.elementAt(index);
     final tasks = _task.subtasksForStatus(status.id!);
-    return MTBoardColumn(
+    return _Column(
       status,
       header: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (status.closed) const DoneIcon(true, color: f2Color),
-          Flexible(child: BaseText('$status', padding: const EdgeInsets.all(P), maxLines: 2, align: TextAlign.center)),
+          Flexible(child: H3('$status', padding: const EdgeInsets.all(P), maxLines: 2, align: TextAlign.center)),
         ],
       ),
       children: [for (final t in tasks) _taskBuilder(t)],
@@ -94,13 +89,11 @@ class TasksBoard extends StatelessWidget {
       contentsWhenEmpty: Container(),
       lastTarget: tasks.isEmpty ? _ItemTarget() : null,
       footer: status.closed && extra != null ? Center(child: extra) : null,
-      // decoration: BoxDecoration(border: Border.all(color: fgL3Color.resolve(context))),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final mq = MediaQuery.of(context);
     return Observer(
       builder: (_) => DragAndDropLists(
         children: [
@@ -111,15 +104,11 @@ class TasksBoard extends StatelessWidget {
         itemTargetOnWillAccept: controller.canMoveTaskTarget,
         itemOnWillAccept: controller.canMoveTask,
         onListReorder: (int oldListIndex, int newListIndex) {},
-        axis: Axis.horizontal,
-        listWidth: SCR_XXS_WIDTH,
-        listPadding: EdgeInsets.only(top: P2, bottom: mq.padding.bottom + P2, left: P3),
+        listWidth: SCR_XS_WIDTH - P6,
+        listDivider: const SizedBox(width: P3),
+        listDividerOnLastChild: false,
         itemGhost: const SizedBox(height: MIN_BTN_HEIGHT),
         lastListTargetSize: 0,
-        listDecoration: BoxDecoration(
-          color: b1Color.resolve(context),
-          borderRadius: const BorderRadius.all(Radius.circular(DEF_BORDER_RADIUS)),
-        ),
         lastItemTargetHeight: P2,
         listDragOnLongPress: !isWeb,
         itemDragOnLongPress: !isWeb,

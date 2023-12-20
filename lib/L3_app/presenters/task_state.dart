@@ -15,7 +15,6 @@ import '../components/images.dart';
 import '../extra/services.dart';
 import '../presenters/duration.dart';
 import '../presenters/task_type.dart';
-import '../usecases/task_feature_sets.dart';
 import '../usecases/task_tree.dart';
 
 Color stateColor(TaskState state) {
@@ -217,7 +216,7 @@ extension TaskStatePresenter on Task {
           ? subtasksState
           : isBacklog
               ? TaskState.BACKLOG
-              : isTask || !hfsAnalytics
+              : isTask
                   ? leafState
                   : state;
 

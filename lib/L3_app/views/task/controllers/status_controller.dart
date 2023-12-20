@@ -2,8 +2,6 @@
 
 import 'dart:async';
 
-import 'package:drag_and_drop_lists/drag_and_drop_item.dart';
-import 'package:drag_and_drop_lists/drag_and_drop_item_target.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -22,6 +20,8 @@ import '../../../usecases/task_actions.dart';
 import '../../../usecases/task_edit.dart';
 import '../../../usecases/task_status.dart';
 import '../../../usecases/task_tree.dart';
+import '../widgets/board/drag_and_drop_item.dart';
+import '../widgets/board/drag_and_drop_item_target.dart';
 import '../widgets/tasks/task_card.dart';
 import 'task_controller.dart';
 

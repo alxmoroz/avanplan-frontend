@@ -46,7 +46,7 @@ class TimingChart extends StatelessWidget {
       _DateBarData(date: _task.calculatedStartDate),
 
       /// сегодня
-      if (!_task.isFuture) _DateBarData(date: _now, color: _etaMarkColor),
+      if (!_task.isFuture) _DateBarData(date: _now, color: _task.hasOverdue ? _etaMarkColor : _barColor),
 
       /// срок
       if (_task.hasDueDate)

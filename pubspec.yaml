@@ -12,7 +12,6 @@ dependencies:
   app_settings: any
   cupertino_icons: any
   device_info_plus: any
-  drag_and_drop_lists: any
   firebase_messaging: ^14.7.4
   flutter:
     sdk: flutter

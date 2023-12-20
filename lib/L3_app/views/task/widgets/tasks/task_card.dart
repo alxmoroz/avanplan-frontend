@@ -21,6 +21,7 @@ import '../../../../presenters/note.dart';
 import '../../../../presenters/person.dart';
 import '../../../../presenters/task_state.dart';
 import '../../../../presenters/task_type.dart';
+import '../../../../presenters/task_view.dart';
 import '../../../../presenters/workspace.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_feature_sets.dart';
@@ -132,7 +133,7 @@ class TaskCard extends StatelessWidget {
           else if (task.isImportingProject)
             Container()
           // проекты, цели или группы задач - интегральная оценка, метка связанного проекта, вложений и комментариев
-          else if (task.isOpenedGroup && task.hfsAnalytics) ...[
+          else if (task.hasAnalytics) ...[
             const SizedBox(height: P_2),
             Row(children: [
               Expanded(child: TaskStateTitle(task, place: StateTitlePlace.card)),

@@ -66,7 +66,7 @@ class AnalyticsDialog extends StatelessWidget {
             // _details(loc.state_opened, '${(task.openedVolume ?? 0).round()}', divider: false),
 
             /// скорость
-            const SizedBox(height: P3),
+            const SizedBox(height: P6),
             _chartCard(VelocityChart(_task)),
             if (_task.state != TaskState.LOW_START) ...[
               const SizedBox(height: P3),
@@ -87,9 +87,9 @@ class AnalyticsDialog extends StatelessWidget {
 
           /// срок, время
           if (_task.canShowTimeChart) ...[
-            const SizedBox(height: P3),
+            const SizedBox(height: P6),
             _chartCard(TimingChart(_task)),
-            const SizedBox(height: P2),
+            const SizedBox(height: P3),
             if (!_task.isFuture)
               _details(
                 loc.chart_timing_elapsed_label,

@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
@@ -23,32 +24,34 @@ class NoteToolbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MTAppBar(
-      isBottom: true,
-      bgColor: b2Color,
-      middle: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          const SizedBox(width: P2),
-          Expanded(
-            child: MTTextField(
-              autofocus: false,
-              controller: _tcNote,
-              hint: loc.task_note_placeholder,
-              margin: EdgeInsets.zero,
-              padding: EdgeInsets.symmetric(horizontal: P2, vertical: P2 * (kIsWeb ? 1.35 : 1)),
-              maxLines: 1,
+    return Observer(
+      builder: (_) => MTAppBar(
+        isBottom: true,
+        bgColor: b2Color,
+        middle: Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            const SizedBox(width: P2),
+            Expanded(
+              child: MTTextField(
+                autofocus: false,
+                controller: _tcNote,
+                hint: loc.task_note_placeholder,
+                margin: EdgeInsets.zero,
+                padding: EdgeInsets.symmetric(horizontal: P2, vertical: P2 * (kIsWeb ? 1.35 : 1)),
+                maxLines: 1,
+              ),
             ),
-          ),
-          MTButton.main(
-            elevation: 0,
-            constrained: false,
-            minSize: const Size(P6, P6),
-            middle: const SubmitIcon(color: mainBtnTitleColor),
-            margin: const EdgeInsets.only(left: P2, right: P2, bottom: P),
-            onTap: _fdNote.text.trim().isNotEmpty ? () => _controller.notesController.create() : null,
-          ),
-        ],
+            MTButton.main(
+              elevation: 0,
+              constrained: false,
+              minSize: const Size(P6, P6),
+              middle: const SubmitIcon(color: mainBtnTitleColor),
+              margin: const EdgeInsets.only(left: P2, right: P2, bottom: P),
+              onTap: _fdNote.text.trim().isNotEmpty ? () => _controller.notesController.create() : null,
+            ),
+          ],
+        ),
       ),
     );
   }

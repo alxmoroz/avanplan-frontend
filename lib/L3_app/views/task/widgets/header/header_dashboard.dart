@@ -1,15 +1,19 @@
 // Copyright (c) 2023. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../components/adaptive.dart';
+import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../components/button.dart';
+import '../../../../components/circle.dart';
+import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
+import '../../../../presenters/person.dart';
 import '../../../../presenters/task_state.dart';
 import '../../../../presenters/task_view.dart';
 import '../../controllers/task_controller.dart';
@@ -23,23 +27,18 @@ class TaskHeaderDashboard extends StatelessWidget {
 
   Task get _task => _controller.task!;
 
-  static const _dashboardHeight = 135.0;
+  static const _dashboardHeight = 112.0;
 
-  Widget _card({Widget? header, Widget? footer, Function()? onTap}) => MTAdaptive.xxs(
-        child: Container(
-          height: _dashboardHeight,
-          child: MTCardButton(
-            padding: const EdgeInsets.all(P2),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                if (header != null) header,
-                if (footer != null) footer,
-              ],
-            ),
-            onTap: onTap,
-          ),
+  Widget _card(String title, {Widget? body, Function()? onTap}) => MTButton(
+        padding: const EdgeInsets.all(P2),
+        type: ButtonType.card,
+        middle: Column(
+          children: [
+            BaseText.f2(title, align: TextAlign.center, maxLines: 1, padding: const EdgeInsets.only(bottom: P2)),
+            if (body != null) body,
+          ],
         ),
+        onTap: onTap,
       );
 
   @override
@@ -50,28 +49,58 @@ class TaskHeaderDashboard extends StatelessWidget {
         child: ListView(
           clipBehavior: Clip.none,
           scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
           children: [
             const SizedBox(width: P3),
 
             /// Аналитика
             if (_task.hasAnalytics)
               _card(
-                header: BaseText.f2(
-                  _task.overallStateTitle,
-                  align: TextAlign.center,
-                  maxLines: 2,
-                  height: 1,
-                  padding: const EdgeInsets.only(bottom: P),
-                ),
-                footer: _task.canShowTimeChart ? TimingChart(_task, showDueLabel: false) : null,
+                _task.overallStateTitle,
+                body: _task.canShowTimeChart ? Container(width: 236, child: TimingChart(_task, showDueLabel: false)) : null,
                 onTap: () => showAnalyticsDialog(_task),
               ),
 
             /// Команда
             if (_task.hasTeam) ...[
-              if (_task.hasAnalytics) const SizedBox(width: P3),
+              if (_task.hasAnalytics) const SizedBox(width: P2),
               _card(
-                header: BaseText.f2(loc.team_title, align: TextAlign.center, maxLines: 1, padding: const EdgeInsets.only(bottom: P)),
+                loc.team_title,
+                body: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      height: P8,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (_, index) {
+                          return Padding(
+                            padding: EdgeInsets.only(left: index > 0 ? P2 : P),
+                            child: _task.sortedMembers[index].icon(P4, borderColor: mainColor),
+                          );
+                        },
+                        itemCount: min(3, _task.members.length),
+                      ),
+                    ),
+                    if (_task.members.length > 3) ...[
+                      const SizedBox(width: P3),
+                      Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          MTCircle(
+                            size: P8,
+                            color: Colors.transparent,
+                            border: Border.all(width: 2, color: mainColor.resolve(context)),
+                          ),
+                          D4('+${_task.members.length - 3}', color: mainColor),
+                        ],
+                      ),
+                    ],
+                    const SizedBox(width: P),
+                  ],
+                ),
                 onTap: () => showTeamDialog(_controller),
               ),
             ],

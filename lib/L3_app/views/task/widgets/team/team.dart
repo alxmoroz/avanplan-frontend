@@ -29,6 +29,7 @@ class Team extends StatelessWidget {
   Widget _memberBuilder(BuildContext context, int index) {
     final member = _sortedMembers[index];
     return MTListTile(
+      margin: EdgeInsets.only(top: index == 0 ? P3 : 0),
       leading: member.isActive ? member.icon(P4, borderColor: mainColor) : const PersonIcon(size: P8, color: f3Color),
       middle: BaseText('$member', color: member.isActive ? null : f2Color, maxLines: 1),
       subtitle: member.isActive ? SmallText(member.rolesStr, maxLines: 1) : null,

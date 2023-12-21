@@ -25,7 +25,7 @@ class TimingChart extends StatelessWidget {
   final Task _task;
   final bool showDueLabel;
 
-  static const _barHeight = P6;
+  static const _barHeight = P4;
   static const _borderWidth = P;
   static const _borderR = _barHeight / 2;
   static const _markSize = Size(P2, P2);

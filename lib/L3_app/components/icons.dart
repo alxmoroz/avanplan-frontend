@@ -355,6 +355,17 @@ class MailIcon extends MTIcon {
       );
 }
 
+class MemberAddIcon extends MTIcon {
+  const MemberAddIcon({super.color, super.size});
+
+  @override
+  Widget build(BuildContext context) => Icon(
+        CupertinoIcons.person_crop_circle_badge_plus,
+        color: (color ?? mainColor).resolve(context),
+        size: size ?? P4,
+      );
+}
+
 class MenuIcon extends MTIcon {
   const MenuIcon({super.color, super.size});
   @override

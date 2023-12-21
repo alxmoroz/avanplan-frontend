@@ -12,7 +12,6 @@ import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/dialog.dart';
 import '../../../../components/icons.dart';
-import '../../../../components/icons_workspace.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../components/text_field.dart';
@@ -63,7 +62,7 @@ class InvitationDialog extends StatelessWidget {
                   suffixIcon: _copyButton(context),
                 )
               ] else if (!_controller.roleSelected) ...[
-                BaseText.medium(
+                BaseText(
                   loc.role_select_action_title,
                   align: TextAlign.center,
                   maxLines: 1,

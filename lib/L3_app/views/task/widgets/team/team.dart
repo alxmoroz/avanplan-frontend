@@ -13,7 +13,9 @@ import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../presenters/person.dart';
+import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
+import 'invitation_button.dart';
 import 'member_dialog.dart';
 import 'no_members.dart';
 
@@ -24,8 +26,6 @@ class Team extends StatelessWidget {
   Task get _task => _controller.task!;
   List<Member> get _sortedMembers => _task.sortedMembers;
 
-  // Widget? get bottomBar => _task.canInviteMembers ? MTAppBar(isBottom: true, bgColor: b2Color, middle: InvitationButton(_task)) : null;
-
   Widget _memberBuilder(BuildContext context, int index) {
     final member = _sortedMembers[index];
     return MTListTile(
@@ -34,7 +34,8 @@ class Team extends StatelessWidget {
       middle: BaseText('$member', color: member.isActive ? null : f2Color, maxLines: 1),
       subtitle: member.isActive ? SmallText(member.rolesStr, maxLines: 1) : null,
       trailing: const ChevronIcon(),
-      bottomDivider: index < _sortedMembers.length - 1,
+      dividerIndent: P8 + P5,
+      bottomDivider: index < _sortedMembers.length - 1 || _task.canInviteMembers,
       onTap: () async => await showMemberDialog(_controller, member.id!),
     );
   }
@@ -43,12 +44,18 @@ class Team extends StatelessWidget {
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) => _sortedMembers.isNotEmpty
-          ? ListView.builder(
+          ? ListView(
               shrinkWrap: true,
-              itemBuilder: _memberBuilder,
-              itemCount: _sortedMembers.length,
+              children: [
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemBuilder: _memberBuilder,
+                  itemCount: _sortedMembers.length,
+                ),
+                if (_task.canInviteMembers) InvitationButton(_task, inList: true),
+              ],
             )
-          : Center(child: NoMembers()),
+          : Center(child: NoMembers(_task)),
     );
   }
 }

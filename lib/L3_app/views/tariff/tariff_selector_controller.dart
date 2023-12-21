@@ -14,9 +14,9 @@ import '../iap/iap_view.dart';
 part 'tariff_selector_controller.g.dart';
 
 class TariffSelectorController extends _TariffSelectorControllerBase with _$TariffSelectorController {
-  TariffSelectorController(int wsId, String reason) {
+  TariffSelectorController(int wsId, String _reason) {
     _wsId = wsId;
-    reason = reason;
+    reason = _reason;
   }
 }
 

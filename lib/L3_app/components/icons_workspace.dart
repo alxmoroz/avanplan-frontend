@@ -7,17 +7,6 @@ import 'colors_base.dart';
 import 'constants.dart';
 import 'icons.dart';
 
-class MemberAddIcon extends MTIcon {
-  const MemberAddIcon({super.color, super.size});
-
-  @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.person_add,
-        color: (color ?? mainColor).resolve(context),
-        size: size ?? P4,
-      );
-}
-
 class PeopleIcon extends MTIcon {
   const PeopleIcon({super.color, super.size});
 

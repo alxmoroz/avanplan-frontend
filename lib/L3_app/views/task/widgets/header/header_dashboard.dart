@@ -11,14 +11,19 @@ import '../../../../components/button.dart';
 import '../../../../components/circle.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/constants.dart';
+import '../../../../components/icons.dart';
+import '../../../../components/icons_workspace.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/person.dart';
 import '../../../../presenters/task_state.dart';
 import '../../../../presenters/task_view.dart';
+import '../../../../usecases/task_tree.dart';
+import '../../../../usecases/ws_actions.dart';
 import '../../controllers/task_controller.dart';
 import '../analytics/analytics_dialog.dart';
 import '../analytics/timing_chart.dart';
+import '../team/invitation_button.dart';
 import '../team/team_dialog.dart';
 
 class TaskHeaderDashboard extends StatelessWidget {
@@ -49,7 +54,7 @@ class TaskHeaderDashboard extends StatelessWidget {
         child: ListView(
           clipBehavior: Clip.none,
           scrollDirection: Axis.horizontal,
-          shrinkWrap: true,
+          // shrinkWrap: true,
           children: [
             const SizedBox(width: P3),
 
@@ -66,42 +71,54 @@ class TaskHeaderDashboard extends StatelessWidget {
               if (_task.hasAnalytics) const SizedBox(width: P2),
               _card(
                 loc.team_title,
-                body: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      height: P8,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (_, index) {
-                          return Padding(
-                            padding: EdgeInsets.only(left: index > 0 ? P2 : P),
-                            child: _task.sortedMembers[index].icon(P4, borderColor: mainColor),
-                          );
-                        },
-                        itemCount: min(3, _task.members.length),
-                      ),
-                    ),
-                    if (_task.members.length > 3) ...[
-                      const SizedBox(width: P3),
-                      Stack(
-                        alignment: Alignment.center,
+                body: _task.members.isNotEmpty
+                    ? Row(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          MTCircle(
-                            size: P8,
-                            color: Colors.transparent,
-                            border: Border.all(width: 2, color: mainColor.resolve(context)),
+                          Container(
+                            height: P8,
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (_, index) {
+                                return Padding(
+                                  padding: EdgeInsets.only(left: index > 0 ? P2 : P),
+                                  child: _task.sortedMembers[index].icon(P4, borderColor: mainColor),
+                                );
+                              },
+                              itemCount: min(3, _task.members.length),
+                            ),
                           ),
-                          D4('+${_task.members.length - 3}', color: mainColor),
+                          if (_task.members.length > 3) ...[
+                            const SizedBox(width: P3),
+                            Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                MTCircle(
+                                  size: P8,
+                                  color: Colors.transparent,
+                                  border: Border.all(width: 2, color: mainColor.resolve(context)),
+                                ),
+                                D4('+${_task.members.length - 3}', color: mainColor),
+                              ],
+                            ),
+                          ],
+                          const SizedBox(width: P),
+                        ],
+                      )
+                    : Stack(
+                        alignment: Alignment.topCenter,
+                        children: [
+                          const MemberAddIcon(size: P8),
+                          if (!_task.ws.plUsers)
+                            Container(
+                              padding: const EdgeInsets.only(right: P * 5 - 2, top: 2),
+                              child: const RoubleCircleIcon(size: P4),
+                            ),
                         ],
                       ),
-                    ],
-                    const SizedBox(width: P),
-                  ],
-                ),
-                onTap: () => showTeamDialog(_controller),
+                onTap: _task.members.isEmpty ? () => InvitationButton.onTap(_task) : () => showTeamDialog(_controller),
               ),
             ],
 

@@ -5162,7 +5162,6 @@ path_provider_foundation
 path_provider_linux
 path_provider_platform_interface
 path_provider_windows
-pigeon
 platform
 plugin_platform_interface
 url_launcher

@@ -6,31 +6,25 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../../L1_domain/entities/member.dart';
 import '../../../../../L1_domain/entities/task.dart';
 import '../../../../../L1_domain/entities_extensions/task_members.dart';
-import '../../../../components/adaptive.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
 import '../../../../components/list_tile.dart';
-import '../../../../components/shadowed.dart';
 import '../../../../components/text.dart';
-import '../../../../components/toolbar.dart';
 import '../../../../presenters/person.dart';
-import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
-import 'invitation_button.dart';
-import 'member_view.dart';
+import 'member_dialog.dart';
 import 'no_members.dart';
 
-class TeamPane extends StatelessWidget {
-  const TeamPane(this._controller);
+class Team extends StatelessWidget {
+  const Team(this._controller);
   final TaskController _controller;
 
-  Task get task => _controller.task!;
+  Task get _task => _controller.task!;
+  List<Member> get _sortedMembers => _task.sortedMembers;
 
-  List<Member> get _sortedMembers => task.sortedMembers;
-
-  Widget? get bottomBar => task.canInviteMembers ? MTAppBar(isBottom: true, bgColor: b2Color, middle: InvitationButton(task)) : null;
+  // Widget? get bottomBar => _task.canInviteMembers ? MTAppBar(isBottom: true, bgColor: b2Color, middle: InvitationButton(_task)) : null;
 
   Widget _memberBuilder(BuildContext context, int index) {
     final member = _sortedMembers[index];
@@ -40,23 +34,20 @@ class TeamPane extends StatelessWidget {
       subtitle: member.isActive ? SmallText(member.rolesStr, maxLines: 1) : null,
       trailing: const ChevronIcon(),
       bottomDivider: index < _sortedMembers.length - 1,
-      onTap: () async => await MemberRouter().navigate(context, args: MemberViewArgs(member, task)),
+      onTap: () async => await showMemberDialog(_controller, member.id!),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => MTShadowed(
-        child: MTAdaptive(
-          child: _sortedMembers.isNotEmpty
-              ? ListView.builder(
-                  itemBuilder: _memberBuilder,
-                  itemCount: _sortedMembers.length,
-                )
-              : Center(child: NoMembers()),
-        ),
-      ),
+      builder: (_) => _sortedMembers.isNotEmpty
+          ? ListView.builder(
+              shrinkWrap: true,
+              itemBuilder: _memberBuilder,
+              itemCount: _sortedMembers.length,
+            )
+          : Center(child: NoMembers()),
     );
   }
 }

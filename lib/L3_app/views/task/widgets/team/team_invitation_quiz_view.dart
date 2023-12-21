@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../components/adaptive.dart';
 import '../../../../components/button.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
@@ -18,7 +19,7 @@ import '../../../quiz/quiz_header.dart';
 import '../../../quiz/quiz_next_button.dart';
 import '../../controllers/task_controller.dart';
 import 'invitation_button.dart';
-import 'team_pane.dart';
+import 'team.dart';
 
 class TIQuizArgs {
   TIQuizArgs(this._taskController, this._qController);
@@ -59,7 +60,7 @@ class TeamInvitationQuizView extends StatelessWidget {
               body: SafeArea(
                 top: false,
                 bottom: false,
-                child: TeamPane(_taskController),
+                child: MTAdaptive(child: Team(_taskController)),
               ),
               bottomBar: MTAppBar(
                 isBottom: true,

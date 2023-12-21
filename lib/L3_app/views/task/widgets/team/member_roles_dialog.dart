@@ -5,6 +5,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/member.dart';
 import '../../../../../L1_domain/entities/task.dart';
+import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../components/button.dart';
 import '../../../../components/checkbox.dart';
 import '../../../../components/constants.dart';
@@ -13,40 +14,26 @@ import '../../../../components/text.dart';
 import '../../../../components/toolbar.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/task_type.dart';
-import 'member_edit_controller.dart';
+import 'member_roles_controller.dart';
 
-Future<Iterable<Member>?> memberEditDialog(Task task, Member member) async => await showMTDialog<Iterable<Member>?>(MemberEditDialog(task, member));
+Future showMemberRolesDialog(MemberRolesController controller) async => await showMTDialog<void>(MemberRolesDialog(controller));
 
-class MemberEditDialog extends StatefulWidget {
-  const MemberEditDialog(this.task, this.member);
-  final Task task;
-  final Member member;
+class MemberRolesDialog extends StatelessWidget {
+  const MemberRolesDialog(this._controller);
+  final MemberRolesController _controller;
 
-  @override
-  _MemberEditDialogState createState() => _MemberEditDialogState();
-}
-
-class _MemberEditDialogState extends State<MemberEditDialog> {
-  Task get task => widget.task;
-  Member get member => widget.member;
-
-  late final MemberEditController controller;
-
-  @override
-  void initState() {
-    controller = MemberEditController(task, member);
-    super.initState();
-  }
+  Task get _task => _controller.task;
+  Member? get _member => _task.memberForId(_controller.memberId);
 
   Widget _roleItem(BuildContext context, int index) {
-    final role = controller.roles[index];
+    final role = _controller.roles[index];
     final value = role.selected;
     return MTCheckBoxTile(
       title: role.title,
       description: role.description,
       value: value,
-      bottomDivider: index < controller.roles.length - 1,
-      onChanged: (bool? value) => controller.selectRole(role, value),
+      bottomDivider: index < _controller.roles.length - 1,
+      onChanged: (bool? value) => _controller.selectRole(role, value),
     );
   }
 
@@ -58,14 +45,13 @@ class _MemberEditDialogState extends State<MemberEditDialog> {
           middle: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              BaseText.medium('$member', maxLines: 1),
-              const SizedBox(height: P),
-              task.subPageTitle(loc.role_list_title),
+              _task.subPageTitle(loc.role_list_title),
+              BaseText.f2('$_member', maxLines: 1),
               const SizedBox(height: P),
             ],
           ),
         ),
-        topBarHeight: P * 14,
+        topBarHeight: P * 12,
         body: ListView(
           shrinkWrap: true,
           children: [
@@ -73,12 +59,12 @@ class _MemberEditDialogState extends State<MemberEditDialog> {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: _roleItem,
-              itemCount: controller.roles.length,
+              itemCount: _controller.roles.length,
             ),
             MTButton.main(
               titleText: loc.save_action_title,
               margin: const EdgeInsets.only(top: P3),
-              onTap: controller.assignRoles,
+              onTap: _controller.assignRoles,
             )
           ],
         ),

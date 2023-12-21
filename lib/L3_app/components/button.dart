@@ -264,22 +264,23 @@ class MTCardButton extends StatelessWidget {
   const MTCardButton({
     required this.child,
     this.margin,
-    this.onTap,
-    this.onLongPress,
+    this.padding,
     this.elevation,
     this.radius,
-    this.padding,
     this.loading,
+    this.onTap,
+    this.onLongPress,
   });
 
   final Widget child;
   final EdgeInsets? margin;
   final EdgeInsets? padding;
-  final Function()? onTap;
-  final Function()? onLongPress;
   final double? elevation;
   final double? radius;
   final bool? loading;
+
+  final Function()? onTap;
+  final Function()? onLongPress;
 
   @override
   Widget build(BuildContext context) {

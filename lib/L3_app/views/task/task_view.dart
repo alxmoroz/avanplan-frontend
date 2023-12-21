@@ -170,10 +170,13 @@ class TaskViewState<T extends TaskView> extends State<T> {
                                                   extra: controller.subtasksController.loadClosedButton(board: true),
                                                 ),
                                               )
-                                            : TasksListView(
-                                                task!.subtaskGroups,
-                                                scrollable: false,
-                                                extra: controller.subtasksController.loadClosedButton(),
+                                            : Container(
+                                                padding: const EdgeInsets.only(top: P3),
+                                                child: TasksListView(
+                                                  task!.subtaskGroups,
+                                                  scrollable: false,
+                                                  extra: controller.subtasksController.loadClosedButton(),
+                                                ),
                                               ),
                                       ),
                           ],

@@ -8,6 +8,7 @@ import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../components/adaptive.dart';
 import '../../components/constants.dart';
+import '../../components/dialog.dart';
 import '../../components/error_sheet.dart';
 import '../../components/icons.dart';
 import '../../components/page.dart';
@@ -34,6 +35,9 @@ class TaskRouter extends MTRouter {
   static const _prefix = '/projects.*?';
 
   @override
+  bool get isDialog => _task?.isTask == true;
+
+  @override
   RegExp get pathRe => RegExp('^$_prefix/(\\d+)/(\\d+)\$');
   int get _wsId => int.parse(pathRe.firstMatch(rs!.uri.path)?.group(1) ?? '-1');
   int get _taskId => int.parse(pathRe.firstMatch(rs!.uri.path)?.group(2) ?? '-1');
@@ -41,7 +45,7 @@ class TaskRouter extends MTRouter {
 
   // TODO: костыль
   @override
-  Widget? get page => rs!.arguments != null
+  Widget get page => rs?.arguments != null
       ? TaskView(rs!.arguments as TaskController)
       : Observer(
           builder: (ctx) => loader.loading
@@ -117,6 +121,75 @@ class TaskViewState<T extends TaskView> extends State<T> {
     super.dispose();
   }
 
+  Widget get _taskBody => LayoutBuilder(builder: (ctx, size) {
+        final expandedHeight = size.maxHeight - MediaQuery.paddingOf(ctx).vertical;
+        // TODO: для большого экрана не нужна тень снизу
+        return MTShadowed(
+          bottomShadow: _showBottomBar,
+          bottomPaddingIndent: P4,
+          child: ListView(
+            shrinkWrap: showSideMenu(context),
+            children: [
+              TaskHeader(controller),
+              task!.isTask
+                  ? MTAdaptive(child: TaskDetails(controller))
+                  : !task!.hasSubtasks
+                      ? SizedBox(
+                          // TODO: хардкод ((
+                          height: expandedHeight - _headerHeight - (task!.hasAnalytics || task!.hasTeam ? 150 : 0),
+                          child: NoTasks(controller),
+                        )
+                      : Observer(
+                          builder: (_) => task!.canShowBoard && controller.showBoard
+                              ? Container(
+                                  height: expandedHeight - P4,
+                                  padding: const EdgeInsets.only(top: P3),
+                                  child: TasksBoard(
+                                    controller.statusController,
+                                    extra: controller.subtasksController.loadClosedButton(board: true),
+                                  ),
+                                )
+                              : Container(
+                                  padding: const EdgeInsets.only(top: P3),
+                                  child: TasksListView(
+                                    task!.subtaskGroups,
+                                    scrollable: false,
+                                    extra: controller.subtasksController.loadClosedButton(),
+                                  ),
+                                ),
+                        ),
+            ],
+          ),
+        );
+      });
+
+  Widget? get _title => _hasScrolled
+      ? Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (_hasParent) SmallText(task!.parent!.title, maxLines: 1),
+            H3(task!.title, maxLines: 1),
+          ],
+        )
+      : null;
+
+  Widget get _page => showSideMenu(context) && task!.isTask
+      ? MTDialog(body: _taskBody)
+      : MTPage(
+          scrollController: _scrollController,
+          appBar: MTAppBar(
+            middle: _title,
+            trailing:
+                task!.loading != true && task!.actionTypes.isNotEmpty ? TaskPopupMenu(controller, icon: const MenuIcon()) : const SizedBox(width: P8),
+          ),
+          body: SafeArea(
+            top: false,
+            bottom: false,
+            child: _taskBody,
+          ),
+          bottomBar: _showBottomBar ? TaskToolbar(controller) : null,
+        );
+
   @override
   Widget build(BuildContext context) {
     return Observer(builder: (_) {
@@ -124,68 +197,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
           ? Stack(
               alignment: Alignment.bottomCenter,
               children: [
-                MTPage(
-                  scrollController: _scrollController,
-                  appBar: MTAppBar(
-                    middle: _hasScrolled
-                        ? Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              if (_hasParent) SmallText(task!.parent!.title, maxLines: 1),
-                              H3(task!.title, maxLines: 1),
-                            ],
-                          )
-                        : null,
-                    trailing: task!.loading != true && task!.actionTypes.isNotEmpty
-                        ? TaskPopupMenu(controller, icon: const MenuIcon())
-                        : const SizedBox(width: P8),
-                  ),
-                  body: SafeArea(
-                    top: false,
-                    bottom: false,
-                    // TODO: для большого экрана не нужна тень снизу
-                    child: LayoutBuilder(builder: (ctx, size) {
-                      final expandedHeight = size.maxHeight - MediaQuery.paddingOf(ctx).vertical;
-                      return MTShadowed(
-                        bottomShadow: _showBottomBar,
-                        bottomPaddingIndent: P4,
-                        child: ListView(
-                          children: [
-                            TaskHeader(controller),
-                            task!.isTask
-                                ? MTAdaptive(child: TaskDetails(controller))
-                                : !task!.hasSubtasks
-                                    ? SizedBox(
-                                        // TODO: хардкод ((
-                                        height: expandedHeight - _headerHeight - (task!.hasAnalytics || task!.hasTeam ? 150 : 0),
-                                        child: NoTasks(controller),
-                                      )
-                                    : Observer(
-                                        builder: (_) => task!.canShowBoard && controller.showBoard
-                                            ? Container(
-                                                height: expandedHeight - P4,
-                                                padding: const EdgeInsets.only(top: P3),
-                                                child: TasksBoard(
-                                                  controller.statusController,
-                                                  extra: controller.subtasksController.loadClosedButton(board: true),
-                                                ),
-                                              )
-                                            : Container(
-                                                padding: const EdgeInsets.only(top: P3),
-                                                child: TasksListView(
-                                                  task!.subtaskGroups,
-                                                  scrollable: false,
-                                                  extra: controller.subtasksController.loadClosedButton(),
-                                                ),
-                                              ),
-                                      ),
-                          ],
-                        ),
-                      );
-                    }),
-                  ),
-                  bottomBar: _showBottomBar ? TaskToolbar(controller) : null,
-                ),
+                _page,
                 if (task!.error != null)
                   MTErrorSheet(task!.error!, onClose: () {
                     task!.error = null;

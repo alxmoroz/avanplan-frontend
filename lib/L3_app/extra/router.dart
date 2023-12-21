@@ -9,6 +9,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../main.dart';
 import '../components/adaptive.dart';
 import '../components/colors.dart';
+import '../components/dialog.dart';
 import '../extra/services.dart';
 import '../views/account/account_view.dart';
 import '../views/auth/auth_view.dart';
@@ -80,6 +81,7 @@ abstract class MTRouter {
   RouteSettings? rs;
   String get title => '';
   RouteSettings? get settings => null;
+  bool get isDialog => false;
 
   String get path => '/';
   RegExp get pathRe => RegExp('^$path\$');
@@ -96,11 +98,12 @@ abstract class MTRouter {
 
   static MTRouter? router(RouteSettings rs) => _routers.firstWhereOrNull((r) => r.hasMatch(rs));
 
-  static Widget _pageWidget(Widget child) {
+  static Widget _pageWidget(Widget child, bool isDialog) {
     return Observer(
       builder: (_) => Stack(
+        alignment: Alignment.center,
         children: [
-          authController.authorized ? child : AuthView(),
+          authController.authorized ? (isDialog ? MTAdaptiveDialog(child) : child) : AuthView(),
           if (loader.loading) LoaderScreen(),
         ],
       ),
@@ -112,15 +115,22 @@ abstract class MTRouter {
     if (r != null) {
       final page = r.page;
       final settings = r.settings;
+      final isDialog = r.isDialog;
       if (page != null) {
         return showSideMenu(rootKey.currentContext!)
             ? PageRouteBuilder(
-                pageBuilder: (_, __, ___) => _pageWidget(page),
-                transitionDuration: Duration.zero,
+                pageBuilder: (_, __, ___) => _pageWidget(page, isDialog),
+                reverseTransitionDuration: const Duration(milliseconds: 150),
                 settings: settings ?? rs,
+                fullscreenDialog: isDialog,
+                barrierDismissible: isDialog,
+                opaque: false,
+                barrierColor: barrierColor,
               )
             : CupertinoPageRoute<dynamic>(
-                builder: (_) => _pageWidget(page),
+                builder: (_) => _pageWidget(page, isDialog),
+                fullscreenDialog: isDialog,
+                barrierDismissible: isDialog,
                 settings: settings ?? rs,
               );
       } else if (settings != null) {

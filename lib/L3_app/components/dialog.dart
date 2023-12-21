@@ -12,40 +12,53 @@ import 'constants.dart';
 import 'material_wrapper.dart';
 
 BuildContext get _globalCtx => rootKey.currentContext!;
+Color get barrierColor => b0Color.resolve(_globalCtx).withAlpha(220);
+
+final _isBig = isBigScreen(_globalCtx);
+Size get _size => MediaQuery.sizeOf(_globalCtx);
+EdgeInsets get _padding => MediaQuery.paddingOf(_globalCtx);
+
+BoxConstraints _constrains(double? maxWidth) => BoxConstraints(
+      maxWidth: _isBig ? min(_size.width - P6 - (showSideMenu(_globalCtx) ? P12 + P : 0), maxWidth ?? SCR_S_WIDTH) : double.infinity,
+      maxHeight: _isBig ? _size.height - _padding.top - _padding.bottom - P6 : double.infinity,
+    );
+
+class MTAdaptiveDialog extends StatelessWidget {
+  const MTAdaptiveDialog(this._child, {this.maxWidth});
+  final Widget _child;
+  final double? maxWidth;
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: _isBig
+          ? UnconstrainedBox(
+              // TODO: проверить Container с constraints вместо UnconstrainedBox
+              child: ConstrainedBox(
+                constraints: _constrains(maxWidth),
+                child: material(_child),
+              ),
+            )
+          : _child,
+    );
+  }
+}
 
 Future<T?> showMTDialog<T>(Widget child, {double? maxWidth}) async {
-  final size = MediaQuery.sizeOf(_globalCtx);
-  final padding = MediaQuery.paddingOf(_globalCtx);
-
-  final isBig = isBigScreen(_globalCtx);
-
-  final constrains = BoxConstraints(
-    maxWidth: isBig ? min(size.width - P6 - (showSideMenu(_globalCtx) ? P12 + P : 0), maxWidth ?? SCR_S_WIDTH) : double.infinity,
-    maxHeight: isBig ? size.height - padding.top - padding.bottom - P6 : double.infinity,
-  );
-
-  final barrierColor = b0Color.resolve(_globalCtx).withAlpha(220);
-
-  return isBig
-      ? await showDialog(
+  return _isBig
+      ? await showDialog<T?>(
           context: _globalCtx,
           barrierColor: barrierColor,
           useRootNavigator: false,
-          // TODO: проверить Container с constraints вместо UnconstrainedBox
-          builder: (_) => UnconstrainedBox(
-            child: ConstrainedBox(
-              child: material(child),
-              constraints: constrains,
-            ),
-          ),
+          useSafeArea: false,
+          builder: (_) => MTAdaptiveDialog(child, maxWidth: maxWidth),
         )
       : await showModalBottomSheet<T?>(
           context: _globalCtx,
           barrierColor: barrierColor,
           isScrollControlled: true,
-          useSafeArea: true,
-          constraints: constrains,
-          builder: (_) => child,
+          useSafeArea: false,
+          constraints: _constrains(maxWidth),
+          builder: (_) => MTAdaptiveDialog(child),
         );
 }
 

@@ -146,7 +146,7 @@ class H1 extends BaseText {
           text,
           color: color,
           weight: FontWeight.w300,
-          sizeScale: 1.75,
+          sizeScale: 1.8,
           maxLines: maxLines ?? 2,
           height: 1.1,
         );

@@ -46,9 +46,8 @@ class MTAdaptive extends StatelessWidget {
     }
 
     final mqW = MediaQuery.sizeOf(context).width;
-    final big = isBigScreen(context);
     return Container(
-      alignment: big ? Alignment.topLeft : Alignment.topCenter,
+      alignment: isBigScreen(context) ? Alignment.topLeft : Alignment.topCenter,
       child: SizedBox(
         width: min(W, mqW),
         child: child,
@@ -68,6 +67,5 @@ double bottomPadding(BuildContext context) => max(MediaQuery.paddingOf(context).
 
 // отображаем боковое меню для больших экранов или в пейзажном режиме для маленькой высоты экрана
 bool showSideMenu(BuildContext context) {
-  final size = MediaQuery.sizeOf(context);
-  return isBigScreen(context) || size.height < SCR_XS_HEIGHT;
+  return isBigScreen(context) || MediaQuery.sizeOf(context).height < SCR_XS_HEIGHT;
 }

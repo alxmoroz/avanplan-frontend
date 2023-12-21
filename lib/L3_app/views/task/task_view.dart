@@ -1,12 +1,13 @@
 // Copyright (c) 2022. Alexandr Moroz
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
 import '../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../components/adaptive.dart';
+import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
 import '../../components/error_sheet.dart';
@@ -29,6 +30,7 @@ import 'widgets/header/task_header.dart';
 import 'widgets/header/task_popup_menu.dart';
 import 'widgets/tasks/tasks_board.dart';
 import 'widgets/tasks/tasks_list_view.dart';
+import 'widgets/toolbar/note_toolbar.dart';
 import 'widgets/toolbar/task_toolbar.dart';
 
 class TaskRouter extends MTRouter {
@@ -91,8 +93,12 @@ class TaskViewState<T extends TaskView> extends State<T> {
 
   late final ScrollController _scrollController;
   bool _hasScrolled = false;
+
+  bool get _isTaskDialog => isBigScreen(context) && task!.isTask;
+  bool get _isBig => showSideMenu(context) && !_isTaskDialog;
   double get _headerHeight => P12 + (_hasParent ? P4 : 0);
-  bool get _showBottomBar => task!.canComment || (task!.hasSubtasks && (task!.canShowBoard || task!.canLocalImport || task!.canCreate));
+  bool get _showToolBar => task!.hasSubtasks && (task!.canShowBoard || task!.canLocalImport || task!.canCreate);
+  bool get _showNoteToolbar => task!.canComment;
 
   @override
   void initState() {
@@ -121,14 +127,19 @@ class TaskViewState<T extends TaskView> extends State<T> {
     super.dispose();
   }
 
-  Widget get _taskBody => LayoutBuilder(builder: (ctx, size) {
+  double get _bottomPaddingIndent => P4;
+
+  Widget get _body => LayoutBuilder(builder: (ctx, size) {
         final expandedHeight = size.maxHeight - MediaQuery.paddingOf(ctx).vertical;
         // TODO: для большого экрана не нужна тень снизу
         return MTShadowed(
-          bottomShadow: _showBottomBar,
-          bottomPaddingIndent: P4,
+          topShadow: _hasScrolled,
+          topPaddingIndent: _isTaskDialog ? 0 : P,
+          // TODO: попробовать определять, что контент под тул-баром
+          bottomShadow: _showNoteToolbar || (_showToolBar && !_isBig),
+          bottomPaddingIndent: _bottomPaddingIndent,
           child: ListView(
-            shrinkWrap: showSideMenu(context),
+            // shrinkWrap: false, //showSideMenu(context),
             children: [
               TaskHeader(controller),
               task!.isTask
@@ -142,7 +153,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
                       : Observer(
                           builder: (_) => task!.canShowBoard && controller.showBoard
                               ? Container(
-                                  height: expandedHeight - P4,
+                                  height: expandedHeight - _bottomPaddingIndent,
                                   padding: const EdgeInsets.only(top: P3),
                                   child: TasksBoard(
                                     controller.statusController,
@@ -163,31 +174,47 @@ class TaskViewState<T extends TaskView> extends State<T> {
         );
       });
 
+  Widget get _parentTitle => _isBig
+      ? BaseText.f2(task!.parent!.title, maxLines: 1, padding: const EdgeInsets.symmetric(horizontal: P2))
+      : SmallText(task!.parent!.title, maxLines: 1);
   Widget? get _title => _hasScrolled
       ? Column(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: _isBig ? CrossAxisAlignment.stretch : CrossAxisAlignment.center,
           children: [
-            if (_hasParent) SmallText(task!.parent!.title, maxLines: 1),
-            H3(task!.title, maxLines: 1),
+            if (_hasParent) _parentTitle,
+            _isBig ? H1(task!.title, maxLines: 1, padding: EdgeInsets.symmetric(horizontal: P2)) : H3(task!.title, maxLines: 1),
           ],
         )
       : null;
 
-  Widget get _page => showSideMenu(context) && task!.isTask
-      ? MTDialog(body: _taskBody)
+  Widget get _page => _isTaskDialog
+      ? MTDialog(
+          scrollController: _scrollController,
+          topBar: MTToolBar(middle: _title),
+          body: _body,
+          bottomBar: task!.canComment ? NoteToolbar(controller) : null,
+        )
       : MTPage(
           scrollController: _scrollController,
           appBar: MTAppBar(
+            height: _isBig ? P10 : null,
+            bgColor: _isBig && _hasScrolled ? b2Color : null,
+            leading: showSideMenu(context) ? Container() : null,
             middle: _title,
-            trailing:
-                task!.loading != true && task!.actionTypes.isNotEmpty ? TaskPopupMenu(controller, icon: const MenuIcon()) : const SizedBox(width: P8),
+            trailing: !_isBig && task!.loading != true && task!.actionTypes.isNotEmpty
+                ? TaskPopupMenu(
+                    controller,
+                    icon: const MenuIcon(),
+                  )
+                : const SizedBox(width: P8),
           ),
-          body: SafeArea(
-            top: false,
-            bottom: false,
-            child: _taskBody,
-          ),
-          bottomBar: _showBottomBar ? TaskToolbar(controller) : null,
+          body: SafeArea(top: false, bottom: false, child: _body),
+          bottomBar: task!.canComment
+              ? NoteToolbar(controller)
+              : _showToolBar
+                  ? TaskToolbar(controller)
+                  : null,
         );
 
   @override

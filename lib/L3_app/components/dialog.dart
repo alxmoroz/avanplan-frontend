@@ -14,7 +14,7 @@ import 'material_wrapper.dart';
 BuildContext get _globalCtx => rootKey.currentContext!;
 Color get barrierColor => b0Color.resolve(_globalCtx).withAlpha(220);
 
-final _isBig = isBigScreen(_globalCtx);
+bool get _isBig => isBigScreen(_globalCtx);
 Size get _size => MediaQuery.sizeOf(_globalCtx);
 EdgeInsets get _padding => MediaQuery.paddingOf(_globalCtx);
 
@@ -71,6 +71,7 @@ class MTDialog extends StatelessWidget {
     this.bottomBarHeight,
     this.bottomBarColor,
     this.bgColor,
+    this.scrollController,
   });
 
   final Widget body;
@@ -82,6 +83,7 @@ class MTDialog extends StatelessWidget {
   final double? bottomBarHeight;
   final Color? bottomBarColor;
   final Color? bgColor;
+  final ScrollController? scrollController;
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +117,7 @@ class MTDialog extends StatelessWidget {
                     bottom: bbHeight,
                   ),
                 ),
-                child: body,
+                child: PrimaryScrollController(controller: scrollController ?? ScrollController(), child: body),
               ),
               if (topBar != null)
                 Positioned(

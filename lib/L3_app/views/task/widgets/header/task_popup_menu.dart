@@ -7,17 +7,10 @@ import '../../../../components/button.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
-import '../../../../components/icons.dart';
 import '../../../../components/material_wrapper.dart';
-import '../../../../components/text.dart';
-import '../../../../extra/services.dart';
-import '../../../../presenters/task_source.dart';
 import '../../../../usecases/task_actions.dart';
-import '../../../../usecases/task_link.dart';
-import '../../controllers/delete_controller.dart';
-import '../../controllers/duplicate_controller.dart';
 import '../../controllers/task_controller.dart';
-import '../details/details_dialog.dart';
+import '../toolbar/action_item.dart';
 
 class TaskPopupMenu extends StatelessWidget with FocusManaging {
   const TaskPopupMenu(this.controller, {this.icon, this.child});
@@ -27,78 +20,14 @@ class TaskPopupMenu extends StatelessWidget with FocusManaging {
 
   Task get _task => controller.task!;
 
-  Widget _tile(TaskActionType at, {Widget? leading, String? title, Widget? trailing, Color? color}) => Row(children: [
-        if (leading != null) ...[leading, const SizedBox(width: P)],
-        title != null ? BaseText(title, color: color ?? mainColor) : const SizedBox(),
-        if (trailing != null) ...[const SizedBox(width: P_2), trailing],
-      ]);
-
-  Widget _atWidget(TaskActionType at) {
-    switch (at) {
-      case TaskActionType.details:
-        return _tile(at, leading: const DocumentIcon(size: P4), title: loc.details);
-      case TaskActionType.close:
-        return _tile(at, leading: const DoneIcon(true, color: greenColor), title: loc.close_action_title, color: greenColor);
-      case TaskActionType.reopen:
-        return _tile(at, leading: const DoneIcon(false), title: loc.task_reopen_action_title);
-      case TaskActionType.localExport:
-        return _tile(at, leading: const LocalExportIcon(), title: loc.task_transfer_export_action_title);
-      case TaskActionType.duplicate:
-        return _tile(at, leading: const DuplicateIcon(), title: loc.task_duplicate_action_title);
-      case TaskActionType.go2source:
-        return _task.go2SourceTitle;
-      case TaskActionType.unlink:
-        return _tile(
-          at,
-          leading: const LinkBreakIcon(),
-          title: loc.task_unlink_action_title,
-          color: warningColor,
-        );
-      case TaskActionType.delete:
-        return _tile(at, leading: const DeleteIcon(), title: loc.delete_action_title, color: dangerColor);
-      default:
-        return BaseText('$at');
-    }
-  }
-
-  Future _taskAction(TaskActionType? actionType) async {
-    switch (actionType) {
-      case TaskActionType.details:
-        await showDetailsDialog(controller);
-        break;
-      case TaskActionType.close:
-        await controller.statusController.setStatus(_task, close: true);
-        break;
-      case TaskActionType.reopen:
-        await controller.statusController.setStatus(_task, close: false);
-        break;
-      case TaskActionType.localExport:
-        await controller.localExportController.localExport();
-        break;
-      case TaskActionType.duplicate:
-        await DuplicateController().duplicate(_task);
-        break;
-      case TaskActionType.go2source:
-        await _task.go2source();
-        break;
-      case TaskActionType.unlink:
-        await _task.unlink();
-        break;
-      case TaskActionType.delete:
-        await DeleteController().delete(_task);
-        break;
-      default:
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return material(
       PopupMenuButton<TaskActionType>(
         icon: Padding(padding: const EdgeInsets.symmetric(horizontal: P2), child: icon),
-        itemBuilder: (_) => [for (final at in _task.actionTypes) PopupMenuItem<TaskActionType>(value: at, child: _atWidget(at))],
+        itemBuilder: (_) => [for (final at in _task.actionTypes) PopupMenuItem<TaskActionType>(value: at, child: TaskActionItem(at))],
         onOpened: () => unfocus(context),
-        onSelected: _taskAction,
+        onSelected: controller.taskAction,
         padding: EdgeInsets.zero,
         surfaceTintColor: b3Color.resolve(context),
         color: b3Color.resolve(context),

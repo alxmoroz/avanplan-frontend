@@ -9,13 +9,18 @@ import '../../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../../../main.dart';
 import '../../../components/field_data.dart';
 import '../../../extra/services.dart';
+import '../../../usecases/task_actions.dart';
 import '../../../usecases/task_edit.dart';
+import '../../../usecases/task_link.dart';
 import '../../../views/_base/edit_controller.dart';
 import '../task_view.dart';
+import '../widgets/details/details_dialog.dart';
 import '../widgets/local_transfer/local_export_controller.dart';
 import 'assignee_controller.dart';
 import 'attachments_controller.dart';
 import 'dates_controller.dart';
+import 'delete_controller.dart';
+import 'duplicate_controller.dart';
 import 'estimate_controller.dart';
 import 'notes_controller.dart';
 import 'project_statuses_controller.dart';
@@ -71,6 +76,36 @@ class TaskController extends _TaskControllerBase with _$TaskController {
   Future showTask() async {
     //TODO: нужно ли в этом месте создавать контроллер, может, тут достаточно отправить айдишники?
     await TaskRouter().navigate(rootKey.currentContext!, args: this);
+  }
+
+  Future taskAction(TaskActionType? actionType) async {
+    switch (actionType) {
+      case TaskActionType.details:
+        await showDetailsDialog(this);
+        break;
+      case TaskActionType.close:
+        await statusController.setStatus(_task, close: true);
+        break;
+      case TaskActionType.reopen:
+        await statusController.setStatus(_task, close: false);
+        break;
+      case TaskActionType.localExport:
+        await localExportController.localExport();
+        break;
+      case TaskActionType.duplicate:
+        await DuplicateController().duplicate(_task);
+        break;
+      // case TaskActionType.go2source:
+      //   await _task.go2source();
+      //   break;
+      case TaskActionType.unlink:
+        await _task.unlink();
+        break;
+      case TaskActionType.delete:
+        await DeleteController().delete(_task);
+        break;
+      default:
+    }
   }
 }
 

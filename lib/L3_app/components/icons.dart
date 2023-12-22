@@ -18,6 +18,26 @@ abstract class MTIcon extends StatelessWidget {
   final bool? solid;
 }
 
+class _Circled extends MTIcon {
+  const _Circled(this.child, {required super.color, required super.size, super.solid});
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        MTCircle(
+          color: solid == true ? color!.resolve(context) : Colors.transparent,
+          size: size,
+          border: Border.all(color: color!.resolve(context), width: 2),
+        ),
+        child,
+      ],
+    );
+  }
+}
+
 class AttachmentIcon extends MTIcon {
   const AttachmentIcon({super.color, super.size});
   @override
@@ -144,11 +164,19 @@ class CopyIcon extends MTIcon {
 class DeleteIcon extends MTIcon {
   const DeleteIcon({super.color, super.size});
   @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.delete,
-        color: (color ?? dangerColor).resolve(context),
-        size: size ?? P4,
-      );
+  Widget build(BuildContext context) {
+    final _color = (color ?? dangerColor).resolve(context);
+    final _size = size ?? P4;
+    return _Circled(
+      Icon(
+        CupertinoIcons.trash,
+        color: _color,
+        size: _size - _size / 3 - 3,
+      ),
+      color: _color,
+      size: _size,
+    );
+  }
 }
 
 class DescriptionIcon extends MTIcon {
@@ -176,11 +204,22 @@ class DoneIcon extends MTIcon {
   final bool done;
 
   @override
-  Widget build(BuildContext context) => Icon(
-        done ? (solid == true ? CupertinoIcons.checkmark_circle_fill : CupertinoIcons.checkmark_circle) : CupertinoIcons.circle,
-        color: (color ?? mainColor).resolve(context),
-        size: size ?? P4,
-      );
+  Widget build(BuildContext context) {
+    final _color = (color ?? mainColor).resolve(context);
+    final _size = size ?? P4;
+    return _Circled(
+      done
+          ? Icon(
+              CupertinoIcons.checkmark,
+              color: _color,
+              size: _size - _size / 3 - 3,
+            )
+          : Container(),
+      color: _color,
+      size: _size,
+      solid: solid,
+    );
+  }
 }
 
 class DownloadIcon extends MTIcon {
@@ -208,11 +247,19 @@ class DropdownIcon extends MTIcon {
 class DuplicateIcon extends MTIcon {
   const DuplicateIcon({super.color, super.size});
   @override
-  Widget build(BuildContext context) => Icon(
+  Widget build(BuildContext context) {
+    final _color = (color ?? mainColor).resolve(context);
+    final _size = size ?? P4;
+    return _Circled(
+      Icon(
         CupertinoIcons.plus_square_on_square,
-        color: (color ?? mainColor).resolve(context),
-        size: size ?? P4,
-      );
+        color: _color,
+        size: _size - _size / 3 - 3,
+      ),
+      color: _color,
+      size: _size,
+    );
+  }
 }
 
 class EditIcon extends MTIcon {
@@ -328,21 +375,37 @@ class ListIcon extends MTIcon {
 class LocalExportIcon extends MTIcon {
   const LocalExportIcon({super.color, super.size});
   @override
-  Widget build(BuildContext context) => Icon(
+  Widget build(BuildContext context) {
+    final _color = (color ?? mainColor).resolve(context);
+    final _size = size ?? P4;
+    return _Circled(
+      Icon(
         CupertinoIcons.arrow_up,
-        color: (color ?? mainColor).resolve(context),
-        size: size ?? P4,
-      );
+        color: _color,
+        size: _size - _size / 3 - 3,
+      ),
+      color: _color,
+      size: _size,
+    );
+  }
 }
 
 class LocalImportIcon extends MTIcon {
   const LocalImportIcon({super.color, super.size});
   @override
-  Widget build(BuildContext context) => Icon(
+  Widget build(BuildContext context) {
+    final _color = (color ?? mainColor).resolve(context);
+    final _size = size ?? P4;
+    return _Circled(
+      Icon(
         CupertinoIcons.arrow_down,
-        color: (color ?? mainColor).resolve(context),
-        size: size ?? P4,
-      );
+        color: _color,
+        size: _size - _size / 3 - 3,
+      ),
+      color: _color,
+      size: _size,
+    );
+  }
 }
 
 class MailIcon extends MTIcon {

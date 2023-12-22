@@ -21,7 +21,7 @@ enum TaskActionType {
   reopen,
   localExport,
   duplicate,
-  go2source,
+  // go2source,
   unlink,
   delete,
 }
@@ -85,7 +85,7 @@ extension TaskActionsUC on Task {
         if (canReopen) TaskActionType.reopen,
         if (canLocalExport) TaskActionType.localExport,
         if (canCreate) TaskActionType.duplicate,
-        if (didImported) TaskActionType.go2source,
+        // if (didImported) TaskActionType.go2source,
         if (canUnlink) TaskActionType.unlink,
         if (canDelete) TaskActionType.delete,
       ];

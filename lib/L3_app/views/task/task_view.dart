@@ -5,13 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
-import '../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../components/adaptive.dart';
-import '../../components/colors.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
-import '../../components/dialog.dart';
 import '../../components/error_sheet.dart';
 import '../../components/icons.dart';
 import '../../components/page.dart';
@@ -25,9 +22,7 @@ import '../../presenters/task_view.dart';
 import '../../usecases/task_actions.dart';
 import '../../usecases/task_tree.dart';
 import 'controllers/task_controller.dart';
-import 'widgets/details/assignee_field.dart';
-import 'widgets/details/due_date_field.dart';
-import 'widgets/details/start_date_field.dart';
+import 'task_dialog.dart';
 import 'widgets/details/task_details.dart';
 import 'widgets/empty_state/no_tasks.dart';
 import 'widgets/empty_state/not_found.dart';
@@ -194,23 +189,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
       : null;
 
   Widget get _page => _isTaskDialog
-      ? MTDialog(
-          scrollController: _scrollController,
-          topBar: MTToolBar(middle: _title),
-          body: _body,
-          rightBar: Container(
-            color: b3Color.resolve(context),
-            child: ListView(
-              children: [
-                if (task!.canShowAssignee) TaskAssigneeField(controller),
-                TaskStartDateField(controller),
-                if (task!.hasDueDate || task!.canEdit) TaskDueDateField(controller),
-              ],
-            ),
-          ),
-          rightBarWidth: 250,
-          bottomBar: _showNoteToolbar ? NoteToolbar(controller) : null,
-        )
+      ? TaskDialog(controller, _scrollController, _title, _body)
       : MTPage(
           scrollController: _scrollController,
           appBar: MTAppBar(

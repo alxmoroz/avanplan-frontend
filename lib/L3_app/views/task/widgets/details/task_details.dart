@@ -20,7 +20,6 @@ import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/feature_set.dart';
 import '../../../../presenters/source.dart';
-import '../../../../presenters/workspace.dart';
 import '../../../../usecases/task_actions.dart';
 import '../../../../usecases/task_source.dart';
 import '../../../../usecases/task_tree.dart';
@@ -34,6 +33,7 @@ import '../project_statuses/project_statuses.dart';
 import '../tasks/task_checklist.dart';
 import 'assignee_field.dart';
 import 'due_date_field.dart';
+import 'estimate_field.dart';
 import 'start_date_field.dart';
 import 'task_status_field.dart';
 
@@ -49,6 +49,7 @@ class TaskDetails extends StatelessWidget {
   bool get _quizzing => qController?.active == true;
   bool get _showStatusRow => !standalone && !_quizzing && (_task.canShowStatus || _task.canClose || _task.closed);
   bool get _showAssignee => !_isTaskDialog && !_quizzing && _task.canShowAssignee;
+  bool get _showEstimate => !_isTaskDialog && !_quizzing && _task.canShowEstimate;
 
   @override
   Widget build(BuildContext context) {
@@ -106,15 +107,10 @@ class TaskDetails extends StatelessWidget {
           ],
 
           /// Оценки
-          if (!_quizzing && _task.canShowEstimate)
-            MTField(
-              _controller.fData(TaskFCode.estimate.index),
-              margin: const EdgeInsets.only(top: P3),
-              leading: EstimateIcon(color: _task.canEstimate ? mainColor : f3Color),
-              value:
-                  _task.hasEstimate ? BaseText('${(_task.openedVolume ?? _task.estimate)?.round()} ${_task.ws.estimateUnitCode}', maxLines: 1) : null,
-              onTap: _task.canEstimate ? _controller.estimateController.select : null,
-            ),
+          if (_showEstimate) ...[
+            const SizedBox(height: P3),
+            TaskEstimateField(_controller),
+          ],
 
           /// Вложения
           if (!_quizzing && _task.attachments.isNotEmpty)

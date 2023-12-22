@@ -390,8 +390,8 @@ class LocalExportIcon extends MTIcon {
   }
 }
 
-class LocalImportIcon extends MTIcon {
-  const LocalImportIcon({super.color, super.size});
+class LocalImportCircledIcon extends MTIcon {
+  const LocalImportCircledIcon({super.color, super.size});
   @override
   Widget build(BuildContext context) {
     final _color = (color ?? mainColor).resolve(context);
@@ -402,6 +402,20 @@ class LocalImportIcon extends MTIcon {
         color: _color,
         size: _size - _size / 3 - 3,
       ),
+      color: _color,
+      size: _size,
+    );
+  }
+}
+
+class LocalImportIcon extends MTIcon {
+  const LocalImportIcon({super.color, super.size});
+  @override
+  Widget build(BuildContext context) {
+    final _color = (color ?? mainColor).resolve(context);
+    final _size = size ?? P4;
+    return Icon(
+      CupertinoIcons.arrow_down,
       color: _color,
       size: _size,
     );

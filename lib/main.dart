@@ -20,7 +20,7 @@ import 'L3_app/components/constants.dart';
 import 'L3_app/extra/router.dart';
 import 'L3_app/extra/services.dart';
 import 'L3_app/l10n/generated/l10n.dart';
-import 'L3_app/views/main/widgets/main_side_menu.dart';
+import 'L3_app/views/main/widgets/main_menu.dart';
 
 Future main() async {
   setup();
@@ -77,7 +77,7 @@ class App extends StatelessWidget {
               builder: (_) => Directionality(
                 textDirection: TextDirection.ltr,
                 child: Row(children: [
-                  if (authController.authorized && accountController.user != null && showSideMenu) MTMainSideMenu(),
+                  if (authController.authorized && accountController.user != null && showSideMenu) MainMenu(),
                   Expanded(
                     child: MaterialApp(
                       debugShowCheckedModeBanner: _DEBUG_BANNER,

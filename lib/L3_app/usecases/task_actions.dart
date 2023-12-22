@@ -8,6 +8,7 @@ import '../../L1_domain/entities/user.dart';
 import '../../L1_domain/entities_extensions/task_members.dart';
 import '../../L1_domain/entities_extensions/task_stats.dart';
 import '../../L1_domain/entities_extensions/task_tree.dart';
+import '../components/adaptive.dart';
 import '../extra/services.dart';
 import 'task_feature_sets.dart';
 import 'task_status.dart';
@@ -49,7 +50,7 @@ extension TaskActionsUC on Task {
   bool get canClose => !closed && canEdit;
   bool get canUnlink => isLinkedProject && ws.hpProjectUpdate == true;
 
-  bool get canShowDetails => isProject || isGoal;
+  bool get canShowDetails => !isBigScreen && isGroup;
 
   bool get canShowMembers => isProject && hfsTeam && _hpMemberRead;
   bool get canEditMembers => isProject && hfsTeam && _hpMemberUpdate;

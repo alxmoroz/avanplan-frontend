@@ -24,6 +24,7 @@ import '../../usecases/task_tree.dart';
 import 'controllers/task_controller.dart';
 import 'task_dialog.dart';
 import 'widgets/details/task_details.dart';
+import 'widgets/details/task_dialog_details.dart';
 import 'widgets/empty_state/no_tasks.dart';
 import 'widgets/empty_state/not_found.dart';
 import 'widgets/header/task_header.dart';
@@ -31,7 +32,8 @@ import 'widgets/header/task_popup_menu.dart';
 import 'widgets/tasks/tasks_board.dart';
 import 'widgets/tasks/tasks_list_view.dart';
 import 'widgets/toolbar/note_toolbar.dart';
-import 'widgets/toolbar/task_toolbar.dart';
+import 'widgets/toolbar/task_bottom_toolbar.dart';
+import 'widgets/toolbar/task_right_toolbar.dart';
 
 class TaskRouter extends MTRouter {
   static const _prefix = '/projects.*?';
@@ -97,7 +99,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
   bool get _isTaskDialog => isBigScreen && task!.isTask;
   bool get _isBigGroup => isBigScreen && !task!.isTask;
   double get _headerHeight => P12 + (_hasParent ? P4 : 0);
-  bool get _showToolBar => task!.hasSubtasks && (task!.canShowBoard || task!.canLocalImport || task!.canCreate);
+  bool get _hasQuickActions => task!.hasSubtasks && (task!.canShowBoard || task!.canLocalImport || task!.canCreate);
   bool get _showNoteToolbar => task!.canComment;
 
   @override
@@ -136,14 +138,14 @@ class TaskViewState<T extends TaskView> extends State<T> {
           topShadow: _hasScrolled,
           topPaddingIndent: _isTaskDialog ? 0 : P,
           // TODO: попробовать определять, что контент под тул-баром
-          bottomShadow: _showNoteToolbar || (_showToolBar && !_isBigGroup),
+          bottomShadow: _showNoteToolbar || (_hasQuickActions && !_isBigGroup),
           bottomPaddingIndent: _bottomPaddingIndent,
           child: ListView(
             // shrinkWrap: false, //showSideMenu(context),
             children: [
               TaskHeader(controller),
               task!.isTask
-                  ? MTAdaptive(child: TaskDetails(controller))
+                  ? MTAdaptive(child: _isTaskDialog ? TaskDialogDetails(controller) : TaskDetails(controller))
                   : !task!.hasSubtasks
                       ? SizedBox(
                           // TODO: хардкод ((
@@ -207,9 +209,10 @@ class TaskViewState<T extends TaskView> extends State<T> {
           body: SafeArea(top: false, bottom: false, child: _body),
           bottomBar: _showNoteToolbar
               ? NoteToolbar(controller)
-              : _showToolBar
-                  ? TaskToolbar(controller)
+              : _hasQuickActions && !_isBigGroup
+                  ? TaskBottomToolbar(controller)
                   : null,
+          rightBar: _isBigGroup ? TaskRightToolbar(controller) : null,
         );
 
   @override

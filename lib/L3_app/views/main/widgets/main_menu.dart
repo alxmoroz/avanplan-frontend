@@ -19,7 +19,7 @@ import '../../projects/projects_view.dart';
 import '../../settings/account_btn.dart';
 import '../../settings/settings_view.dart';
 
-class MTMainSideMenu extends StatelessWidget {
+class MainMenu extends StatelessWidget {
   BuildContext get _navContext => rootKey.currentContext!;
   void _popTop() => Navigator.of(_navContext).popUntil((r) => r.navigator?.canPop() != true);
 

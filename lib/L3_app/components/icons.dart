@@ -212,7 +212,7 @@ class DoneIcon extends MTIcon {
           ? Icon(
               CupertinoIcons.checkmark,
               color: _color,
-              size: _size - _size / 3 - 3,
+              size: _size - _size / 3,
             )
           : Container(),
       color: _color,
@@ -594,11 +594,7 @@ class TasksIcon extends MTIcon {
   const TasksIcon({super.color, super.size});
 
   @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.checkmark_circle,
-        color: (color ?? f2Color).resolve(context),
-        size: size ?? P4,
-      );
+  Widget build(BuildContext context) => DoneIcon(true, color: color, size: size);
 }
 
 class TemplateIcon extends MTIcon {

@@ -13,7 +13,7 @@ import '../../../quiz/abstract_quiz_controller.dart';
 import '../../../quiz/quiz_header.dart';
 import '../../controllers/task_controller.dart';
 import '../../task_view.dart';
-import '../details/task_details.dart';
+import '../details/task_quiz_details.dart';
 import '../header/task_header.dart';
 
 class CreateTaskQuizArgs {
@@ -71,7 +71,7 @@ class CreateTaskQuizViewState extends TaskViewState<CreateTaskQuizView> {
                     child: ListView(
                       children: [
                         TaskHeader(controller),
-                        MTAdaptive(child: TaskDetails(controller, qController: qController)),
+                        MTAdaptive(child: TaskQuizDetails(controller, qController)),
                       ],
                     ),
                   ),

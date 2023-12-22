@@ -1,3 +1,5 @@
+// Copyright (c) 2023. Alexandr Moroz
+
 import 'package:flutter/material.dart';
 
 import '../../../../../L1_domain/entities/task.dart';

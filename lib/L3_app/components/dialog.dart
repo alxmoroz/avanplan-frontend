@@ -65,7 +65,6 @@ class MTDialog extends StatelessWidget {
     this.bottomBarHeight,
     this.bottomBarColor,
     this.rightBar,
-    this.rightBarWidth,
     this.bgColor,
     this.scrollController,
   });
@@ -79,7 +78,6 @@ class MTDialog extends StatelessWidget {
   final double? bottomBarHeight;
 
   final Widget? rightBar;
-  final double? rightBarWidth;
 
   final Color? bottomBarColor;
   final Color? bgColor;
@@ -139,11 +137,7 @@ class MTDialog extends StatelessWidget {
                   ],
                 ),
               ),
-              if (rightBar != null)
-                Container(
-                  width: rightBarWidth!,
-                  child: rightBar,
-                ),
+              if (rightBar != null) rightBar!,
             ],
           ),
         ),

@@ -12,9 +12,8 @@ import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
 
 class TaskDueDateField extends StatelessWidget {
-  const TaskDueDateField(this._controller, {this.bottomDivider = false});
+  const TaskDueDateField(this._controller);
   final TaskController _controller;
-  final bool bottomDivider;
 
   Task get _task => _controller.task!;
 
@@ -33,8 +32,6 @@ class TaskDueDateField extends StatelessWidget {
               ],
             )
           : null,
-      bottomDivider: bottomDivider,
-      dividerIndent: P7 + P5,
       onTap: _task.canEdit ? () => _controller.datesController.selectDate(context, TaskFCode.dueDate) : null,
     );
   }

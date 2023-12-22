@@ -48,8 +48,8 @@ class TaskStatusField extends StatelessWidget {
                   constrained: false,
                   color: greenColor,
                   padding: const EdgeInsets.symmetric(horizontal: P3),
-                  onTap: () => _controller.statusController.setStatus(_task, close: true),
                   loading: _statusFD.loading,
+                  onTap: () => _controller.statusController.setStatus(_task, close: true),
                 )
               : MTButton(
                   titleText: loc.state_closed,

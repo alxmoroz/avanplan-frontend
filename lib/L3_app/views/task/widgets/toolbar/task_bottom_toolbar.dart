@@ -4,9 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../../main.dart';
 import '../../../../components/button.dart';
-import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
 import '../../../../components/icons.dart';
@@ -15,24 +13,13 @@ import '../../../../usecases/task_actions.dart';
 import '../../controllers/task_controller.dart';
 import '../create/create_task_button.dart';
 import '../local_transfer/local_import_dialog.dart';
+import 'toggle_view_button.dart';
 
-class TaskToolbar extends StatelessWidget {
-  const TaskToolbar(this._controller);
+class TaskBottomToolbar extends StatelessWidget {
+  const TaskBottomToolbar(this._controller);
   final TaskController _controller;
 
   Task get _task => _controller.task!;
-
-  Widget _switchPart(Widget icon, bool active) => Container(
-        decoration: active
-            ? BoxDecoration(
-                shape: BoxShape.circle,
-                color: b3Color.resolve(rootKey.currentContext!),
-              )
-            : null,
-        width: P8,
-        height: MIN_BTN_HEIGHT,
-        child: icon,
-      );
 
   @override
   Widget build(BuildContext context) {
@@ -43,16 +30,7 @@ class TaskToolbar extends StatelessWidget {
         middle: Row(
           children: [
             const SizedBox(width: P2),
-            if (_task.canShowBoard)
-              MTButton.secondary(
-                color: b1Color,
-                middle: Row(children: [
-                  _switchPart(ListIcon(active: !_controller.showBoard), !_controller.showBoard),
-                  _switchPart(BoardIcon(active: _controller.showBoard), _controller.showBoard),
-                ]),
-                onTap: _controller.toggleMode,
-                constrained: false,
-              ),
+            if (_task.canShowBoard) TaskViewToggleButton(_controller),
             const Spacer(),
             if (_task.canLocalImport)
               MTButton.secondary(

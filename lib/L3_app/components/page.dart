@@ -6,33 +6,42 @@ import 'background.dart';
 
 class MTPage extends StatelessWidget {
   const MTPage({
+    this.scrollController,
     required this.body,
     this.appBar,
     this.bottomBar,
-    this.scrollController,
+    this.rightBar,
   });
 
+  final ScrollController? scrollController;
   final PreferredSizeWidget? appBar;
   final Widget body;
   final Widget? bottomBar;
-  final ScrollController? scrollController;
+  final Widget? rightBar;
 
   @override
   Widget build(BuildContext context) => GestureDetector(
         onTap: FocusScope.of(context).unfocus,
-        child: MTBackgroundWrapper(
-          Scaffold(
-            backgroundColor: Colors.transparent,
-            key: key,
-            appBar: appBar,
-            body: PrimaryScrollController(
-              controller: scrollController ?? ScrollController(),
-              child: body,
+        child: Row(
+          children: [
+            Expanded(
+              child: MTBackgroundWrapper(
+                Scaffold(
+                  backgroundColor: Colors.transparent,
+                  key: key,
+                  appBar: appBar,
+                  body: PrimaryScrollController(
+                    controller: scrollController ?? ScrollController(),
+                    child: body,
+                  ),
+                  extendBody: true,
+                  extendBodyBehindAppBar: true,
+                  bottomNavigationBar: bottomBar,
+                ),
+              ),
             ),
-            extendBody: true,
-            extendBodyBehindAppBar: true,
-            bottomNavigationBar: bottomBar,
-          ),
+            if (rightBar != null) rightBar!
+          ],
         ),
       );
 }

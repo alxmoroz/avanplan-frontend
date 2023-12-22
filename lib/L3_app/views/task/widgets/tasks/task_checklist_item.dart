@@ -81,30 +81,38 @@ class _TaskChecklistItemState extends State<TaskChecklistItem> {
         Expanded(
           child: Stack(
             children: [
-              MTTextField(
-                keyboardType: TextInputType.multiline,
-                controller: teController,
-                autofocus: false,
-                margin: tfPadding,
-                maxLines: tfMaxLines,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.zero,
-                  hintText: tc.titleController.titlePlaceholder,
-                  hintStyle: const BaseText('', maxLines: 1, color: f3Color).style(context),
+              Opacity(
+                opacity: kIsWeb || hasFocus ? 1 : 0,
+                child: MTTextField(
+                  keyboardType: TextInputType.multiline,
+                  controller: teController,
+                  autofocus: false,
+                  margin: tfPadding,
+                  maxLines: tfMaxLines,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.zero,
+                    hintText: tc.titleController.titlePlaceholder,
+                    hintStyle: const BaseText('', maxLines: 1, color: f3Color).style(context),
+                  ),
+                  style: BaseText('', maxLines: tfMaxLines, color: task.closed && !hasFocus ? f3Color : null).style(context),
+                  onChanged: (str) => _controller.editTitle(tc, str),
+                  onSubmitted: (_) => _controller.addTask(),
+                  focusNode: fNode,
                 ),
-                style: BaseText('', maxLines: tfMaxLines, color: task.closed && !hasFocus ? f3Color : null).style(context),
-                onChanged: (str) => _controller.editTitle(tc, str),
-                onSubmitted: (_) => _controller.addTask(),
-                focusNode: fNode,
               ),
               if (!kIsWeb && !hasFocus)
                 Container(
-                  color: b3Color.resolve(context),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [b3Color.resolve(context), b3Color.resolve(context).withAlpha(0)],
+                      stops: const [0.5, 1],
+                    ),
+                  ),
                   padding: tfPadding,
                   height: _minHeight,
                   alignment: Alignment.centerLeft,
-                  child: BaseText(roText, maxLines: 2, color: task.closed ? f3Color : null),
+                  child: BaseText(roText, maxLines: tfMaxLines, color: task.closed ? f3Color : null),
                 ),
             ],
           ),

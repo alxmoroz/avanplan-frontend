@@ -45,12 +45,12 @@ class TaskDialog extends StatelessWidget {
             const Spacer(),
             for (final at in _task.actionTypes)
               MTListTile(
-                padding: const EdgeInsets.symmetric(horizontal: P3, vertical: P2),
+                padding: const EdgeInsets.symmetric(horizontal: P4, vertical: P2),
                 middle: TaskActionItem(at),
                 bottomDivider: false,
                 onTap: () => _controller.taskAction(at),
               ),
-            const SizedBox(height: P2),
+            const SizedBox(height: P3),
           ],
         ),
       ),

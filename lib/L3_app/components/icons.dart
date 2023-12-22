@@ -491,11 +491,19 @@ class PlusIcon extends MTIcon {
 class PlusCircleIcon extends MTIcon {
   const PlusCircleIcon({super.color, super.size});
   @override
-  Widget build(BuildContext context) => Icon(
-        CupertinoIcons.plus_circle,
-        color: (color ?? mainColor).resolve(context),
-        size: size ?? P6,
-      );
+  Widget build(BuildContext context) {
+    final _color = (color ?? mainColor).resolve(context);
+    final _size = size ?? P6;
+    return _Circled(
+      Icon(
+        CupertinoIcons.plus,
+        color: _color,
+        size: _size - _size / 4,
+      ),
+      color: _color,
+      size: _size,
+    );
+  }
 }
 
 class PrivacyIcon extends MTIcon {

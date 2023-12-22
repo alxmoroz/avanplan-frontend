@@ -4,23 +4,17 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import '../../main.dart';
 import 'adaptive.dart';
 import 'colors.dart';
 import 'colors_base.dart';
 import 'constants.dart';
 import 'material_wrapper.dart';
 
-BuildContext get _globalCtx => rootKey.currentContext!;
-Color get barrierColor => b0Color.resolve(_globalCtx).withAlpha(220);
-
-bool get _isBig => isBigScreen(_globalCtx);
-Size get _size => MediaQuery.sizeOf(_globalCtx);
-EdgeInsets get _padding => MediaQuery.paddingOf(_globalCtx);
+Color get barrierColor => b0Color.resolve(globalContext).withAlpha(220);
 
 BoxConstraints _constrains(double? maxWidth) => BoxConstraints(
-      maxWidth: _isBig ? min(_size.width - P6 - (showSideMenu(_globalCtx) ? P12 + P : 0), maxWidth ?? SCR_S_WIDTH) : double.infinity,
-      maxHeight: _isBig ? _size.height - _padding.top - _padding.bottom - P6 : double.infinity,
+      maxWidth: isBigScreen ? min(screenSize.width - P6, maxWidth ?? SCR_S_WIDTH) : double.infinity,
+      maxHeight: isBigScreen ? screenSize.height - screenPadding.vertical - P6 : double.infinity,
     );
 
 class MTAdaptiveDialog extends StatelessWidget {
@@ -30,7 +24,7 @@ class MTAdaptiveDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: _isBig
+      child: isBigScreen
           ? UnconstrainedBox(
               // TODO: проверить Container с constraints вместо UnconstrainedBox
               child: ConstrainedBox(
@@ -44,16 +38,16 @@ class MTAdaptiveDialog extends StatelessWidget {
 }
 
 Future<T?> showMTDialog<T>(Widget child, {double? maxWidth}) async {
-  return _isBig
+  return isBigScreen
       ? await showDialog<T?>(
-          context: _globalCtx,
+          context: globalContext,
           barrierColor: barrierColor,
           useRootNavigator: false,
           useSafeArea: false,
           builder: (_) => MTAdaptiveDialog(child, maxWidth: maxWidth),
         )
       : await showModalBottomSheet<T?>(
-          context: _globalCtx,
+          context: globalContext,
           barrierColor: barrierColor,
           isScrollControlled: true,
           useSafeArea: false,
@@ -70,6 +64,8 @@ class MTDialog extends StatelessWidget {
     this.bottomBar,
     this.bottomBarHeight,
     this.bottomBarColor,
+    this.rightBar,
+    this.rightBarWidth,
     this.bgColor,
     this.scrollController,
   });
@@ -81,6 +77,10 @@ class MTDialog extends StatelessWidget {
 
   final Widget? bottomBar;
   final double? bottomBarHeight;
+
+  final Widget? rightBar;
+  final double? rightBarWidth;
+
   final Color? bottomBarColor;
   final Color? bgColor;
   final ScrollController? scrollController;
@@ -92,7 +92,7 @@ class MTDialog extends StatelessWidget {
     final double bbHeight = bPadding + (bottomBar != null ? (bottomBarHeight ?? P2 + MIN_BTN_HEIGHT) : 0);
     final double tbHeight = topBar != null ? (topBarHeight ?? P8) : 0;
     const radius = Radius.circular(DEF_BORDER_RADIUS);
-    final big = isBigScreen(context);
+    final big = isBigScreen;
     return GestureDetector(
       onTap: FocusScope.of(context).unfocus,
       child: Padding(
@@ -108,30 +108,41 @@ class MTDialog extends StatelessWidget {
               bottomRight: big ? radius : Radius.zero,
             ),
           ),
-          child: Stack(
+          child: Row(
             children: [
-              MediaQuery(
-                data: mq.copyWith(
-                  padding: mq.padding.copyWith(
-                    top: tbHeight,
-                    bottom: bbHeight,
-                  ),
+              Expanded(
+                child: Stack(
+                  children: [
+                    MediaQuery(
+                      data: mq.copyWith(
+                        padding: mq.padding.copyWith(
+                          top: tbHeight,
+                          bottom: bbHeight,
+                        ),
+                      ),
+                      child: PrimaryScrollController(controller: scrollController ?? ScrollController(), child: body),
+                    ),
+                    if (topBar != null)
+                      Positioned(
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        child: topBar!,
+                      ),
+                    if (bottomBar != null)
+                      Positioned(
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        child: bottomBar!,
+                      ),
+                  ],
                 ),
-                child: PrimaryScrollController(controller: scrollController ?? ScrollController(), child: body),
               ),
-              if (topBar != null)
-                Positioned(
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  child: topBar!,
-                ),
-              if (bottomBar != null)
-                Positioned(
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  child: bottomBar!,
+              if (rightBar != null)
+                Container(
+                  width: rightBarWidth!,
+                  child: rightBar,
                 ),
             ],
           ),

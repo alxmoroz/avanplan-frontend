@@ -48,22 +48,34 @@ extension TaskActionsUC on Task {
   bool get canReopen => closed && canEdit && (isProject || parent?.closed == false);
   bool get canClose => !closed && canEdit;
   bool get canUnlink => isLinkedProject && ws.hpProjectUpdate == true;
+
   bool get canShowDetails => isProject || isGoal;
+
   bool get canShowMembers => isProject && hfsTeam && _hpMemberRead;
   bool get canEditMembers => isProject && hfsTeam && _hpMemberUpdate;
   bool get canInviteMembers => canEditMembers && ws.roles.isNotEmpty;
-  bool get canSetStatus => isTask && hfsTaskboard && statuses.isNotEmpty && canEdit;
+
   bool get canShowStatus => hfsTaskboard && hasStatus;
-  bool get canCloseGroup => canClose && state == TaskState.CLOSABLE;
+  bool get canSetStatus => isTask && hfsTaskboard && statuses.isNotEmpty && canEdit;
+
+  bool get canAssign => canEdit && hfsTeam && activeMembers.isNotEmpty;
+  bool get canShowAssignee => hfsTeam && (hasAssignee || canAssign);
+
   bool get canShowEstimate => !closed && hfsEstimates;
   bool get canEstimate => isTask && canShowEstimate && canEdit && ws.estimateValues.isNotEmpty;
-  bool get canAssign => canEdit && hfsTeam && activeMembers.isNotEmpty;
+
+  bool get canCloseGroup => canClose && state == TaskState.CLOSABLE;
+
   bool get canLocalExport => canEdit && hfsGoals && goalsForLocalExport.isNotEmpty;
   bool get canLocalImport => !isTask && canEdit && hfsGoals && goalsForLocalImport.isNotEmpty;
+
   bool get canComment => isTask && canEdit;
+
   bool get canShowFeatureSets => isProject && _hpProjectInfoRead;
   bool get canEditFeatureSets => isProject && _hpProjectInfoUpdate;
+
   bool get canEditProjectStatuses => isProject && hfsTaskboard && _hpProjectInfoUpdate;
+
   bool get canAddChecklist => !closed && isTask && canEdit && subtasks.isEmpty;
   bool get canShowBoard => (isGoal || (isProject && !hfsGoals)) && hfsTaskboard && hasSubtasks;
 

@@ -16,8 +16,8 @@ import '../../controllers/task_controller.dart';
 
 class TaskStatusField extends StatelessWidget {
   const TaskStatusField(this._controller);
-
   final TaskController _controller;
+
   Task get _task => _controller.task!;
   MTFieldData get _statusFD => _controller.fData(TaskFCode.status.index);
 

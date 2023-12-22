@@ -9,6 +9,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../main.dart';
 import '../components/adaptive.dart';
 import '../components/colors.dart';
+import '../components/constants.dart';
 import '../components/dialog.dart';
 import '../extra/services.dart';
 import '../views/account/account_view.dart';
@@ -103,7 +104,7 @@ abstract class MTRouter {
       builder: (_) => Stack(
         alignment: Alignment.center,
         children: [
-          authController.authorized ? (isDialog ? MTAdaptiveDialog(child) : child) : AuthView(),
+          authController.authorized ? (isDialog ? MTAdaptiveDialog(child, maxWidth: SCR_M_WIDTH) : child) : AuthView(),
           if (loader.loading) LoaderScreen(),
         ],
       ),
@@ -117,7 +118,7 @@ abstract class MTRouter {
       final settings = r.settings;
       final isDialog = r.isDialog;
       if (page != null) {
-        return showSideMenu(rootKey.currentContext!)
+        return showSideMenu
             ? PageRouteBuilder(
                 pageBuilder: (_, __, ___) => _pageWidget(page, isDialog),
                 reverseTransitionDuration: const Duration(milliseconds: 150),

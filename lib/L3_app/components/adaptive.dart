@@ -4,12 +4,18 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 
+import '../../main.dart';
 import 'constants.dart';
 
-bool isBigScreen(BuildContext context) {
-  final size = MediaQuery.sizeOf(context);
+BuildContext get globalContext => rootKey.currentContext!;
+
+bool get isBigScreen {
+  final size = MediaQuery.sizeOf(globalContext);
   return size.height > SCR_S_HEIGHT && size.width > SCR_M_WIDTH;
 }
+
+Size get screenSize => MediaQuery.sizeOf(globalContext);
+EdgeInsets get screenPadding => MediaQuery.paddingOf(globalContext);
 
 enum AdaptiveSize { XXS, XS, S, M, L }
 
@@ -47,7 +53,7 @@ class MTAdaptive extends StatelessWidget {
 
     final mqW = MediaQuery.sizeOf(context).width;
     return Container(
-      alignment: isBigScreen(context) ? Alignment.topLeft : Alignment.topCenter,
+      alignment: isBigScreen ? Alignment.topLeft : Alignment.topCenter,
       child: SizedBox(
         width: min(W, mqW),
         child: child,
@@ -66,6 +72,6 @@ double defaultImageHeight(BuildContext context) => min(200, max(120, MediaQuery.
 double bottomPadding(BuildContext context) => max(MediaQuery.paddingOf(context).bottom, P4);
 
 // отображаем боковое меню для больших экранов или в пейзажном режиме для маленькой высоты экрана
-bool showSideMenu(BuildContext context) {
-  return isBigScreen(context) || MediaQuery.sizeOf(context).height < SCR_XS_HEIGHT;
+bool get showSideMenu {
+  return isBigScreen || screenSize.height < SCR_XS_HEIGHT;
 }

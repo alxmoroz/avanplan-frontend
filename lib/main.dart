@@ -77,7 +77,7 @@ class App extends StatelessWidget {
               builder: (_) => Directionality(
                 textDirection: TextDirection.ltr,
                 child: Row(children: [
-                  if (authController.authorized && accountController.user != null && showSideMenu(context)) MTMainSideMenu(),
+                  if (authController.authorized && accountController.user != null && showSideMenu) MTMainSideMenu(),
                   Expanded(
                     child: MaterialApp(
                       debugShowCheckedModeBanner: _DEBUG_BANNER,

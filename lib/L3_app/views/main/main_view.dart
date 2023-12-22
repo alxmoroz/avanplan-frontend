@@ -65,7 +65,7 @@ class _MainViewState extends State<MainView> with WidgetsBindingObserver {
                 bottom: false,
                 child: tasksMainController.hasOpenedProjects ? MainDashboard() : NoProjects(CreateProjectController()),
               ),
-              bottomBar: showSideMenu(context)
+              bottomBar: showSideMenu
                   ? null
                   : MTAppBar(
                       isBottom: true,

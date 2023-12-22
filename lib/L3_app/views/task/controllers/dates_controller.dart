@@ -3,22 +3,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../../../../L1_domain/entities/task.dart';
-import '../../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../../L1_domain/utils/dates.dart';
 import '../../../components/button.dart';
 import '../../../components/colors.dart';
-import '../../../components/colors_base.dart';
-import '../../../components/constants.dart';
-import '../../../components/field.dart';
-import '../../../components/icons.dart';
 import '../../../components/text.dart';
 import '../../../extra/services.dart';
-import '../../../presenters/date.dart';
 import '../../../presenters/duration.dart';
-import '../../../usecases/task_actions.dart';
 import 'task_controller.dart';
 
 class DatesController {
@@ -109,25 +101,5 @@ class DatesController {
         _setDueDate(date);
       }
     }
-  }
-
-  Widget dateField(BuildContext context, TaskFCode code) {
-    final isStart = code == TaskFCode.startDate;
-    final date = isStart ? task.startDate : task.dueDate;
-    final isEmpty = date == null;
-    final fd = _taskController.fData(code.index);
-    return MTField(
-      fd,
-      leading: isStart ? CalendarIcon(color: task.canEdit ? mainColor : f2Color) : Container(),
-      value: !isEmpty
-          ? Row(children: [
-              BaseText(date.strMedium, padding: const EdgeInsets.only(right: P), maxLines: 1),
-              BaseText.f2(DateFormat.EEEE().format(date), maxLines: 1),
-            ])
-          : null,
-      bottomDivider: isStart && (task.hasDueDate || task.canEdit),
-      dividerIndent: isStart ? P7 + P5 : null,
-      onTap: task.canEdit ? () => selectDate(context, code) : null,
-    );
   }
 }

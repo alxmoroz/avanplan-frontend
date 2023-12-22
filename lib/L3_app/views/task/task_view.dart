@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../L1_domain/entities/task.dart';
+import '../../../L1_domain/entities_extensions/task_stats.dart';
 import '../../../L1_domain/entities_extensions/task_tree.dart';
 import '../../components/adaptive.dart';
+import '../../components/colors.dart';
 import '../../components/colors_base.dart';
 import '../../components/constants.dart';
 import '../../components/dialog.dart';
@@ -23,6 +25,9 @@ import '../../presenters/task_view.dart';
 import '../../usecases/task_actions.dart';
 import '../../usecases/task_tree.dart';
 import 'controllers/task_controller.dart';
+import 'widgets/details/assignee_field.dart';
+import 'widgets/details/due_date_field.dart';
+import 'widgets/details/start_date_field.dart';
 import 'widgets/details/task_details.dart';
 import 'widgets/empty_state/no_tasks.dart';
 import 'widgets/empty_state/not_found.dart';
@@ -94,8 +99,8 @@ class TaskViewState<T extends TaskView> extends State<T> {
   late final ScrollController _scrollController;
   bool _hasScrolled = false;
 
-  bool get _isTaskDialog => isBigScreen(context) && task!.isTask;
-  bool get _isBig => showSideMenu(context) && !_isTaskDialog;
+  bool get _isTaskDialog => isBigScreen && task!.isTask;
+  bool get _isBigGroup => isBigScreen && !task!.isTask;
   double get _headerHeight => P12 + (_hasParent ? P4 : 0);
   bool get _showToolBar => task!.hasSubtasks && (task!.canShowBoard || task!.canLocalImport || task!.canCreate);
   bool get _showNoteToolbar => task!.canComment;
@@ -136,7 +141,7 @@ class TaskViewState<T extends TaskView> extends State<T> {
           topShadow: _hasScrolled,
           topPaddingIndent: _isTaskDialog ? 0 : P,
           // TODO: попробовать определять, что контент под тул-баром
-          bottomShadow: _showNoteToolbar || (_showToolBar && !_isBig),
+          bottomShadow: _showNoteToolbar || (_showToolBar && !_isBigGroup),
           bottomPaddingIndent: _bottomPaddingIndent,
           child: ListView(
             // shrinkWrap: false, //showSideMenu(context),
@@ -174,16 +179,16 @@ class TaskViewState<T extends TaskView> extends State<T> {
         );
       });
 
-  Widget get _parentTitle => _isBig
+  Widget get _parentTitle => _isBigGroup
       ? BaseText.f2(task!.parent!.title, maxLines: 1, padding: const EdgeInsets.symmetric(horizontal: P2))
       : SmallText(task!.parent!.title, maxLines: 1);
   Widget? get _title => _hasScrolled
       ? Column(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: _isBig ? CrossAxisAlignment.stretch : CrossAxisAlignment.center,
+          crossAxisAlignment: _isBigGroup ? CrossAxisAlignment.stretch : CrossAxisAlignment.center,
           children: [
             if (_hasParent) _parentTitle,
-            _isBig ? H1(task!.title, maxLines: 1, padding: EdgeInsets.symmetric(horizontal: P2)) : H3(task!.title, maxLines: 1),
+            _isBigGroup ? H1(task!.title, maxLines: 1, padding: const EdgeInsets.symmetric(horizontal: P2)) : H3(task!.title, maxLines: 1),
           ],
         )
       : null;
@@ -193,24 +198,35 @@ class TaskViewState<T extends TaskView> extends State<T> {
           scrollController: _scrollController,
           topBar: MTToolBar(middle: _title),
           body: _body,
-          bottomBar: task!.canComment ? NoteToolbar(controller) : null,
+          rightBar: Container(
+            color: b3Color.resolve(context),
+            child: ListView(
+              children: [
+                if (task!.canShowAssignee) TaskAssigneeField(controller),
+                TaskStartDateField(controller),
+                if (task!.hasDueDate || task!.canEdit) TaskDueDateField(controller),
+              ],
+            ),
+          ),
+          rightBarWidth: 250,
+          bottomBar: _showNoteToolbar ? NoteToolbar(controller) : null,
         )
       : MTPage(
           scrollController: _scrollController,
           appBar: MTAppBar(
-            height: _isBig ? P10 : null,
-            bgColor: _isBig && _hasScrolled ? b2Color : null,
-            leading: showSideMenu(context) ? Container() : null,
+            height: _isBigGroup ? P10 : null,
+            bgColor: _isBigGroup && _hasScrolled ? b2Color : null,
+            leading: showSideMenu ? Container() : null,
             middle: _title,
-            trailing: !_isBig && task!.loading != true && task!.actionTypes.isNotEmpty
+            trailing: !_isBigGroup && task!.loading != true && task!.actionTypes.isNotEmpty
                 ? TaskPopupMenu(
                     controller,
                     icon: const MenuIcon(),
                   )
-                : const SizedBox(width: P8),
+                : null,
           ),
           body: SafeArea(top: false, bottom: false, child: _body),
-          bottomBar: task!.canComment
+          bottomBar: _showNoteToolbar
               ? NoteToolbar(controller)
               : _showToolBar
                   ? TaskToolbar(controller)

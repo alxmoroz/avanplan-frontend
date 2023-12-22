@@ -6,8 +6,9 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../../../L1_domain/entities/task.dart';
-import '../../../../../L1_domain/entities_extensions/task_members.dart';
 import '../../../../../L1_domain/entities_extensions/task_stats.dart';
+import '../../../../../L1_domain/entities_extensions/task_tree.dart';
+import '../../../../components/adaptive.dart';
 import '../../../../components/colors.dart';
 import '../../../../components/colors_base.dart';
 import '../../../../components/constants.dart';
@@ -18,11 +19,9 @@ import '../../../../components/list_tile.dart';
 import '../../../../components/text.dart';
 import '../../../../extra/services.dart';
 import '../../../../presenters/feature_set.dart';
-import '../../../../presenters/person.dart';
 import '../../../../presenters/source.dart';
 import '../../../../presenters/workspace.dart';
 import '../../../../usecases/task_actions.dart';
-import '../../../../usecases/task_feature_sets.dart';
 import '../../../../usecases/task_source.dart';
 import '../../../../usecases/task_tree.dart';
 import '../../../quiz/abstract_quiz_controller.dart';
@@ -33,6 +32,9 @@ import '../feature_sets/feature_sets.dart';
 import '../notes/notes.dart';
 import '../project_statuses/project_statuses.dart';
 import '../tasks/task_checklist.dart';
+import 'assignee_field.dart';
+import 'due_date_field.dart';
+import 'start_date_field.dart';
 import 'task_status_field.dart';
 
 class TaskDetails extends StatelessWidget {
@@ -41,10 +43,12 @@ class TaskDetails extends StatelessWidget {
   final AbstractQuizController? qController;
   final bool standalone;
 
+  bool get _isTaskDialog => isBigScreen && _task.isTask;
+
   Task get _task => _controller.task!;
   bool get _quizzing => qController?.active == true;
   bool get _showStatusRow => !standalone && !_quizzing && (_task.canShowStatus || _task.canClose || _task.closed);
-  bool get _showAssignee => !_quizzing && _task.hfsTeam && (_task.hasAssignee || _task.canAssign);
+  bool get _showAssignee => !_isTaskDialog && !_quizzing && _task.canShowAssignee;
 
   @override
   Widget build(BuildContext context) {
@@ -57,18 +61,7 @@ class TaskDetails extends StatelessWidget {
           if (_showStatusRow) TaskStatusField(_controller),
 
           /// Назначенный
-          if (_showAssignee)
-            MTField(
-              _controller.fData(TaskFCode.assignee.index),
-              margin: EdgeInsets.only(top: _showStatusRow ? P : P3),
-              leading: _task.hasAssignee
-                  ? _task.assignee!.icon(P3, borderColor: mainColor)
-                  : PersonIcon(
-                      color: _task.canAssign ? mainColor : f2Color,
-                    ),
-              value: _task.hasAssignee ? BaseText('${_task.assignee}', color: _task.canAssign ? null : f2Color, maxLines: 1) : null,
-              onTap: _task.canAssign ? _controller.assigneeController.startAssign : null,
-            ),
+          if (_showAssignee) TaskAssigneeField(_controller),
 
           /// Описание
           if (_task.hasDescription || _task.canEdit)
@@ -106,10 +99,11 @@ class TaskDetails extends StatelessWidget {
           ],
 
           /// Даты
-          const SizedBox(height: P3),
-          // Row(children: [],),
-          _controller.datesController.dateField(context, TaskFCode.startDate),
-          if (_task.hasDueDate || _task.canEdit) _controller.datesController.dateField(context, TaskFCode.dueDate),
+          if (!_isTaskDialog) ...[
+            const SizedBox(height: P3),
+            TaskStartDateField(_controller),
+            if (_task.hasDueDate || _task.canEdit) TaskDueDateField(_controller),
+          ],
 
           /// Оценки
           if (!_quizzing && _task.canShowEstimate)
